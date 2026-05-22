@@ -261,32 +261,53 @@ def _detect_windows_console_lang() -> str | None:
         # https://learn.microsoft.com/en-us/windows/win32/intl/code-page-identifiers
         # Map Windows code pages to supported language codes
         # https://learn.microsoft.com/en-us/windows/win32/intl/code-page-identifiers
+        # Map Windows code pages to supported language codes.
+        # If a code page is shared by multiple languages (e.g., 1252, 1250, 1256, 1251),
+        # we skip cp_map and fall back to GetUserDefaultUILanguage() to resolve the exact language.
         cp_map = {
-            932: "ja",  # Japanese
+            932: "ja",     # Japanese
             936: "zh_CN",  # Simplified Chinese
-            949: "ko",  # Korean
+            949: "ko",     # Korean
             950: "zh_TW",  # Traditional Chinese
-            1251: "ru",  # Cyrillic (Russian)
-            874: "th",  # Thai
-            # Western European (1252/850) can be any of en, de, fr, es, it, pt.
-            # Without further API calls, we default to "en" for these code pages.
-            1252: "en",
-            850: "en",
-            437: "en",
+            874: "th",     # Thai
+            1258: "vi",    # Vietnamese
         }
         if cp in cp_map:
             return cp_map[cp]
 
-        # For Western European or others, try User Default UI Language as a fallback
+        # For shared code pages (Western European, Central European, Cyrillic, Arabic, etc.),
+        # try User Default UI Language as a fallback to get the exact language.
         # https://learn.microsoft.com/en-us/windows/win32/api/winnls/nf-winnls-getuserdefaultuilanguage
         lang_id = ctypes.windll.kernel32.GetUserDefaultUILanguage() & 0x3FF
         lang_map = {
-            0x07: "de",  # German
-            0x0C: "fr",  # French
-            0x0A: "es",  # Spanish
-            0x10: "it",  # Italian
-            0x01: "ar",  # Arabic
-            0x16: "pt",  # Portuguese (pt_BR)
+            0x09: "en",     # English
+            0x11: "ja",     # Japanese
+            0x12: "ko",     # Korean
+            0x04: "zh_CN",  # Chinese (Simplified) - Note: zh_TW is 0x04 with sublang, & 0x3FF yields 0x04. We normalize later.
+            0x07: "de",     # German
+            0x0C: "fr",     # French
+            0x0A: "es",     # Spanish
+            0x10: "it",     # Italian
+            0x16: "pt",     # Portuguese (pt_BR / pt)
+            0x13: "nl",     # Dutch
+            0x1D: "sv",     # Swedish
+            0x14: "nb",     # Norwegian (Bokmål)
+            0x0B: "fi",     # Finnish
+            0x01: "ar",     # Arabic
+            0x29: "fa",     # Persian
+            0x15: "pl",     # Polish
+            0x05: "cs",     # Czech
+            0x19: "ru",     # Russian
+            0x22: "uk",     # Ukrainian
+            0x1F: "tr",     # Turkish
+            0x2A: "vi",     # Vietnamese
+            0x1E: "th",     # Thai
+            0x21: "id",     # Indonesian
+            0x45: "bn",     # Bengali
+            0x39: "hi",     # Hindi
+            0x4E: "mr",     # Marathi
+            0x50: "mn",     # Mongolian
+            0x41: "sw",     # Swahili
         }
         if lang_id in lang_map:
             return lang_map[lang_id]
