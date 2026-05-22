@@ -1429,6 +1429,24 @@ msgstr "List long-term memory notes"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Delete a long-term memory note by index (see :mem-list)"
 
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Show the learned user profile (environment, preferences, constraints)"
+
+msgid "Clear the learned user profile data"
+msgstr "Clear the learned user profile data"
+
+msgid "No user profile data found."
+msgstr "No user profile data found."
+
+msgid "User Profile:"
+msgstr "User Profile:"
+
+msgid "User profile cleared successfully."
+msgstr "User profile cleared successfully."
+
+msgid "No user profile file found to clear."
+msgstr "No user profile file found to clear."
+
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 

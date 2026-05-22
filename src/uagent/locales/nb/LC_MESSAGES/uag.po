@@ -1472,6 +1472,7 @@ msgstr "Valgfri kjøring"
 msgid "Optional image / embedding / audio settings"
 msgstr "Valgfrie bilde-/embeddinginnstillinger"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Valgfrie innstillinger for spesialiserte underagenter"
 
@@ -1889,6 +1890,24 @@ msgstr "Vis langtidsminnenotater"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Slett et langtidsminnenotat etter indeks (se :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Vis den lærte brukerprofilen (miljø, preferanser, begrensninger)"
+
+msgid "Clear the learned user profile data"
+msgstr "Slett lærte brukerprofildata"
+
+msgid "No user profile data found."
+msgstr "Ingen brukerprofildata funnet."
+
+msgid "User Profile:"
+msgstr "Brukerprofil:"
+
+msgid "User profile cleared successfully."
+msgstr "Brukerprofilen ble slettet."
+
+msgid "No user profile file found to clear."
+msgstr "Fant ingen brukerprofilfil å slette."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

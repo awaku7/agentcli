@@ -1475,6 +1475,7 @@ msgstr "Valfri körning"
 msgid "Optional image / embedding / audio settings"
 msgstr "Valfria bild-/embeddinginställningar"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Valfria inställningar för specialiserade underagenter"
 
@@ -1893,6 +1894,24 @@ msgstr "Lista anteckningar i långtidsminnet"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Ta bort en anteckning i långtidsminnet efter index (se :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Visa den inlärda användarprofilen (miljö, preferenser, begränsningar)"
+
+msgid "Clear the learned user profile data"
+msgstr "Rensa inlärda användarprofildata"
+
+msgid "No user profile data found."
+msgstr "Inga användarprofildata hittades."
+
+msgid "User Profile:"
+msgstr "Användarprofil:"
+
+msgid "User profile cleared successfully."
+msgstr "Användarprofilen har rensats."
+
+msgid "No user profile file found to clear."
+msgstr "Hittade ingen användarprofilfil att rensa."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

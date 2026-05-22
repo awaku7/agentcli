@@ -1451,6 +1451,7 @@ msgstr "Нэмэлт ажиллах хугацаа"
 msgid "Optional image / embedding / audio settings"
 msgstr "Нэмэлт зураг / оруулах / аудио тохиргоо"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Мэргэшсэн дэд агентуудын нэмэлт тохиргоо"
 
@@ -1851,6 +1852,24 @@ msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "Урт хугацааны санах ойн тэмдэглэлийг индексээр нь устгах (:mem-list-ийг үзнэ"
 " үү)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Суралцсан хэрэглэгчийн профайлыг харуулах (орчин, давуу эрх, хязгаарлалт)"
+
+msgid "Clear the learned user profile data"
+msgstr "Суралцсан хэрэглэгчийн профайлын өгөгдлийг устгах"
+
+msgid "No user profile data found."
+msgstr "Хэрэглэгчийн профайлын өгөгдөл олдсонгүй."
+
+msgid "User Profile:"
+msgstr "Хэрэглэгчийн профайл:"
+
+msgid "User profile cleared successfully."
+msgstr "Хэрэглэгчийн профайлыг амжилттай устгалаа."
+
+msgid "No user profile file found to clear."
+msgstr "Устгах хэрэглэгчийн профайл файл олдсонгүй."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

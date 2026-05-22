@@ -1476,6 +1476,7 @@ msgstr "Необязательная среда выполнения"
 msgid "Optional image / embedding / audio settings"
 msgstr "Дополнительные настройки изображения / эмбеддинга"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Дополнительные настройки специализированных субагентов"
 
@@ -1895,6 +1896,24 @@ msgstr "Записи долговременной памяти:"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Удалить заметку долговременной памяти по индексу (см. :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Показать изученный профиль пользователя (окружение, предпочтения, ограничения)"
+
+msgid "Clear the learned user profile data"
+msgstr "Очистить данные изученного профиля пользователя"
+
+msgid "No user profile data found."
+msgstr "Данные профиля пользователя не найдены."
+
+msgid "User Profile:"
+msgstr "Профиль пользователя:"
+
+msgid "User profile cleared successfully."
+msgstr "Профиль пользователя успешно очищен."
+
+msgid "No user profile file found to clear."
+msgstr "Файл профиля пользователя для очистки не найден."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

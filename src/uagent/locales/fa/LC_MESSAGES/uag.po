@@ -1431,6 +1431,7 @@ msgstr "زمان اجرا اختیاری"
 msgid "Optional image / embedding / audio settings"
 msgstr "تنظیمات تصویر / تعبیه / صدا اختیاری"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "تنظیمات اختیاری زیرعامل‌های تخصصی"
 
@@ -1827,6 +1828,24 @@ msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "یک یادداشت حافظه بلند مدت را بر اساس فهرست حذف کنید (به :mem-list مراجعه "
 "کنید)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "نمایش پروفایل کاربر یادگرفته شده (محیط، ترجیحات، محدودیت‌ها)"
+
+msgid "Clear the learned user profile data"
+msgstr "پاک کردن داده‌های پروفایل کاربر یادگرفته شده"
+
+msgid "No user profile data found."
+msgstr "هیچ داده‌ای برای پروفایل کاربر یافت نشد."
+
+msgid "User Profile:"
+msgstr "پروفایل کاربر:"
+
+msgid "User profile cleared successfully."
+msgstr "پروفایل کاربر با موفقیت پاک شد."
+
+msgid "No user profile file found to clear."
+msgstr "هیچ فایل پروفایل کاربری برای پاک کردن یافت نشد."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

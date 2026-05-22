@@ -1470,6 +1470,7 @@ msgstr "การตั้งค่ารันไทม์เสริม\n"
 msgid "Optional image / embedding / audio settings"
 msgstr "การตั้งค่าเพิ่มเติมสำหรับรูปภาพ / embedding / เสียง"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "การตั้งค่าเสริมสำหรับซับเอเจนต์เฉพาะทาง"
 
@@ -1886,6 +1887,24 @@ msgstr "แสดงบันทึกหน่วยความจำระย
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "ลบบันทึกหน่วยความจำระยะยาวตามดัชนี (ดู :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "แสดงโปรไฟล์ผู้ใช้ที่เรียนรู้ (สภาพแวดล้อม, ความชอบ, ข้อจำกัด)"
+
+msgid "Clear the learned user profile data"
+msgstr "ล้างข้อมูลโปรไฟล์ผู้ใช้ที่เรียนรู้"
+
+msgid "No user profile data found."
+msgstr "ไม่พบข้อมูลโปรไฟล์ผู้ใช้"
+
+msgid "User Profile:"
+msgstr "โปรไฟล์ผู้ใช้:"
+
+msgid "User profile cleared successfully."
+msgstr "ล้างโปรไฟล์ผู้ใช้สำเร็จแล้ว"
+
+msgid "No user profile file found to clear."
+msgstr "ไม่พบไฟล์โปรไฟล์ผู้ใช้ที่จะล้าง"
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

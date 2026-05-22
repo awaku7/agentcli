@@ -1785,6 +1785,30 @@ msgstr ""
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 
+#: src/uagent/util_tools.py:1887
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr ""
+
+#: src/uagent/util_tools.py:1888
+msgid "Clear the learned user profile data"
+msgstr ""
+
+#: src/uagent/util_tools.py:1769
+msgid "No user profile data found."
+msgstr ""
+
+#: src/uagent/util_tools.py:1771
+msgid "User Profile:"
+msgstr ""
+
+#: src/uagent/util_tools.py:1783
+msgid "User profile cleared successfully."
+msgstr ""
+
+#: src/uagent/util_tools.py:1787
+msgid "No user profile file found to clear."
+msgstr ""
+
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr ""

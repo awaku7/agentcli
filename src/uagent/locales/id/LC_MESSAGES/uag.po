@@ -1475,6 +1475,7 @@ msgstr "Runtime opsional"
 msgid "Optional image / embedding / audio settings"
 msgstr "Pengaturan opsional untuk gambar / embedding"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Pengaturan opsional sub-agen khusus"
 
@@ -1891,6 +1892,24 @@ msgstr "Entri memori jangka panjang:"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "Hapus catatan memori jangka panjang berdasarkan indeks (lihat :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Tampilkan profil pengguna yang dipelajari (lingkungan, preferensi, batasan)"
+
+msgid "Clear the learned user profile data"
+msgstr "Hapus data profil pengguna yang dipelajari"
+
+msgid "No user profile data found."
+msgstr "Data profil pengguna tidak ditemukan."
+
+msgid "User Profile:"
+msgstr "Profil Pengguna:"
+
+msgid "User profile cleared successfully."
+msgstr "Profil pengguna berhasil dihapus."
+
+msgid "No user profile file found to clear."
+msgstr "Tidak ada file profil pengguna yang ditemukan untuk dihapus."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

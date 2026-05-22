@@ -1486,6 +1486,7 @@ msgstr "Muda wa utekelezaji wa hiari"
 msgid "Optional image / embedding / audio settings"
 msgstr "Mipangilio ya hiari ya picha / embedding"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Mipangilio ya hiari ya mawakala wadogo maalum"
 
@@ -1903,6 +1904,24 @@ msgstr "Orodhesha madokezo ya kumbukumbu ya muda mrefu"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Futa dokezo la kumbukumbu ya muda mrefu kwa index (angalia :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Onyesha wasifu wa mtumiaji aliyejifunza (mazingira, mapendeleo, vikwazo)"
+
+msgid "Clear the learned user profile data"
+msgstr "Futa data ya wasifu wa mtumiaji aliyejifunza"
+
+msgid "No user profile data found."
+msgstr "Data ya wasifu wa mtumiaji haijapatikana."
+
+msgid "User Profile:"
+msgstr "Wasifu wa Mtumiaji:"
+
+msgid "User profile cleared successfully."
+msgstr "Wasifu wa mtumiaji umefutwa kwa mafanikio."
+
+msgid "No user profile file found to clear."
+msgstr "Hakuna faili ya wasifu wa mtumiaji iliyopatikana ili kufutwa."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

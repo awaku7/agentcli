@@ -1487,6 +1487,7 @@ msgstr "Entorno opcional"
 msgid "Optional image / embedding / audio settings"
 msgstr "Opciones opcionales de imagen / embeddings"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Configuración opcional de subagentes especializados"
 
@@ -1915,6 +1916,24 @@ msgstr "Enumerar notas de memoria a largo plazo"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Eliminar una nota de memoria a largo plazo por índice (ver :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Mostrar el perfil de usuario aprendido (entorno, preferencias, restricciones)"
+
+msgid "Clear the learned user profile data"
+msgstr "Borrar los datos del perfil de usuario aprendido"
+
+msgid "No user profile data found."
+msgstr "No se encontraron datos de perfil de usuario."
+
+msgid "User Profile:"
+msgstr "Perfil de usuario:"
+
+msgid "User profile cleared successfully."
+msgstr "Perfil de usuario borrado con éxito."
+
+msgid "No user profile file found to clear."
+msgstr "No se encontró ningún archivo de perfil de usuario para borrar."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

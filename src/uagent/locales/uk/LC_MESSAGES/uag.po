@@ -1486,6 +1486,7 @@ msgstr "Додатковий час виконання"
 msgid "Optional image / embedding / audio settings"
 msgstr "Додаткові налаштування зображень / вбудовування"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Додаткові налаштування спеціалізованих субагентів"
 
@@ -1906,6 +1907,24 @@ msgstr "Показати нотатки довготривалої пам'яті
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Видалити запис довготривалої пам'яті за індексом (див. :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Показати вивчений профіль користувача (оточення, уподобання, обмеження)"
+
+msgid "Clear the learned user profile data"
+msgstr "Очистити дані вивченого профілю користувача"
+
+msgid "No user profile data found."
+msgstr "Дані профілю користувача не знайдено."
+
+msgid "User Profile:"
+msgstr "Профіль користувача:"
+
+msgid "User profile cleared successfully."
+msgstr "Профіль користувача успішно очищено."
+
+msgid "No user profile file found to clear."
+msgstr "Файл профілю користувача для очищення не знайдено."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

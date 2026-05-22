@@ -1472,6 +1472,7 @@ msgstr "İsteğe bağlı çalışma zamanı"
 msgid "Optional image / embedding / audio settings"
 msgstr "İsteğe bağlı resim / yerleştirme / ses ayarları"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Özel alt temsilci isteğe bağlı ayarları"
 
@@ -1890,6 +1891,24 @@ msgstr "Uzun süreli hafıza notlarını listeleyin"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Uzun süreli hafıza notunu dizine göre silin (bkz. :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Öğrenilen kullanıcı profilini göster (ortam, tercihler, kısıtlamalar)"
+
+msgid "Clear the learned user profile data"
+msgstr "Öğrenilen kullanıcı profili verilerini temizle"
+
+msgid "No user profile data found."
+msgstr "Kullanıcı profili verisi bulunamadı."
+
+msgid "User Profile:"
+msgstr "Kullanıcı Profili:"
+
+msgid "User profile cleared successfully."
+msgstr "Kullanıcı profili başarıyla temizlendi."
+
+msgid "No user profile file found to clear."
+msgstr "Temizlenecek kullanıcı profili dosyası bulunamadı."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

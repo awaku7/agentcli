@@ -1455,6 +1455,7 @@ msgstr "وقت التشغيل الاختياري"
 msgid "Optional image / embedding / audio settings"
 msgstr "إعدادات الصورة/التضمين الاختيارية"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "إعدادات الوكلاء الفرعيين المتخصصين الاختيارية"
 
@@ -1869,6 +1870,24 @@ msgstr "قائمة ملاحظات الذاكرة طويلة المدى"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "حذف ملاحظة الذاكرة طويلة المدى حسب الفهرس (راجع :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "إظهار ملف تعريف المستخدم المتعلم (البيئة، التفضيلات، القيود)"
+
+msgid "Clear the learned user profile data"
+msgstr "مسح بيانات ملف تعريف المستخدم المتعلم"
+
+msgid "No user profile data found."
+msgstr "لم يتم العثور على بيانات ملف تعريف المستخدم."
+
+msgid "User Profile:"
+msgstr "ملف تعريف المستخدم:"
+
+msgid "User profile cleared successfully."
+msgstr "تم مسح ملف تعريف المستخدم بنجاح."
+
+msgid "No user profile file found to clear."
+msgstr "لم يتم العثور على ملف تعريف مستخدم لمسحه."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

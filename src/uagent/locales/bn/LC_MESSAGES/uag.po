@@ -1488,6 +1488,7 @@ msgstr "ঐচ্ছিক রানটাইম"
 msgid "Optional image / embedding / audio settings"
 msgstr "ঐচ্ছিক ছবি / এমবেডিং / অডিও সেটিংস"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "ঐচ্ছিক বিশেষায়িত উপ-এজেন্ট সেটিংস"
 
@@ -1892,6 +1893,24 @@ msgstr "দীর্ঘমেয়াদী মেমরি নোট তাল
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "সূচক দ্বারা একটি দীর্ঘমেয়াদী মেমরি নোট মুছুন (দেখুন :মেম-তালিকা)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "শিক্ষিত ব্যবহারকারী প্রোফাইল দেখান (পরিবেশ, পছন্দ, সীমাবদ্ধতা)"
+
+msgid "Clear the learned user profile data"
+msgstr "শিক্ষিত ব্যবহারকারী প্রোফাইল ডেটা সাফ করুন"
+
+msgid "No user profile data found."
+msgstr "কোনো ব্যবহারকারী প্রোফাইল ডেটা পাওয়া যায়নি।"
+
+msgid "User Profile:"
+msgstr "ব্যবহারকারী প্রোফাইল:"
+
+msgid "User profile cleared successfully."
+msgstr "ব্যবহারকারী প্রোফাইল সফলভাবে সাফ করা হয়েছে।"
+
+msgid "No user profile file found to clear."
+msgstr "সাফ করার জন্য কোনো ব্যবহারকারী প্রোফাইল ফাইল পাওয়া যায়নি।"
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

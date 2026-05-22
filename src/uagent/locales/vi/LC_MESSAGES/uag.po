@@ -1471,6 +1471,7 @@ msgstr "可选运行时"
 msgid "Optional image / embedding / audio settings"
 msgstr "可选图像 / embedding đặt"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Cài đặt tùy chọn cho phụ tá chuyên biệt"
 
@@ -1879,6 +1880,24 @@ msgstr "Danh sách ghi nhớ dài hạn:"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Xóa một ghi chú ghi nhớ dài hạn theo chỉ mục (xem :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Hiển thị hồ sơ người dùng đã học (môi trường, sở thích, ràng buộc)"
+
+msgid "Clear the learned user profile data"
+msgstr "Xóa dữ liệu hồ sơ người dùng đã học"
+
+msgid "No user profile data found."
+msgstr "Không tìm thấy dữ liệu hồ sơ người dùng."
+
+msgid "User Profile:"
+msgstr "Hồ sơ người dùng:"
+
+msgid "User profile cleared successfully."
+msgstr "Hồ sơ người dùng đã được xóa thành công."
+
+msgid "No user profile file found to clear."
+msgstr "Không tìm thấy tệp hồ sơ người dùng để xóa."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

@@ -1472,6 +1472,7 @@ msgstr "Valinnainen ajonaikainen asetus"
 msgid "Optional image / embedding / audio settings"
 msgstr "Valinnaiset kuva- / upotusasetukset"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Valinnaiset asetukset erikoistuneille alitoteuttajille"
 
@@ -1893,6 +1894,24 @@ msgstr "Listaa pitkän aikavälin muistiinpanot"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Pitkäaikaisen muistin poistaminen indeksin mukaan (katso :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Näytä opittu käyttäjäprofiili (ympäristö, mieltymykset, rajoitukset)"
+
+msgid "Clear the learned user profile data"
+msgstr "Tyhjennä opitut käyttäjäprofiilitiedot"
+
+msgid "No user profile data found."
+msgstr "Käyttäjäprofiilitietoja ei löytynyt."
+
+msgid "User Profile:"
+msgstr "Käyttäjäprofiili:"
+
+msgid "User profile cleared successfully."
+msgstr "Käyttäjäprofiili tyhjennetty onnistuneesti."
+
+msgid "No user profile file found to clear."
+msgstr "Tyhjennettävää käyttäjäprofiilitiedostoa ei löytynyt."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

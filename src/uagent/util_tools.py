@@ -1764,6 +1764,32 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
     return True
 
 
+def _handle_cmd_profile_show(*, tr: Any) -> bool:
+    from .profile_manager import load_profile
+    profile = load_profile()
+    if not profile.get("environment") and not profile.get("preferences") and not profile.get("constraints"):
+        print(tr("No user profile data found."))
+        return True
+
+    print(tr("User Profile:"))
+    print(json.dumps(profile, ensure_ascii=False, indent=2))
+    return True
+
+
+def _handle_cmd_profile_clear(*, tr: Any) -> bool:
+    from .profile_manager import get_profile_file_path
+    path = get_profile_file_path()
+    if os.path.exists(path):
+        try:
+            os.remove(path)
+            print(tr("User profile cleared successfully."))
+        except Exception as e:
+            print(f"[profile-clear error] {type(e).__name__}: {e}")
+    else:
+        print(tr("No user profile file found to clear."))
+    return True
+
+
 def _handle_cmd_shared_mem_del(arg: str, *, tr: Any) -> bool:
     if not arg:
         print(":shared-mem-del <index>")
@@ -1859,6 +1885,8 @@ def format_help(*, core: Any) -> str:
         "  :mem-list             " + tr("List long-term memory notes"),
         "  :mem-del <index>      "
         + tr("Delete a long-term memory note by index (see :mem-list)"),
+        "  :profile              " + tr("Show the learned user profile (environment, preferences, constraints)"),
+        "  :profile-clear        " + tr("Clear the learned user profile data"),
         "  :cp <src> <dst>       "
         + tr("Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"),
         "  :mv <src> <dst>       "
@@ -2056,6 +2084,12 @@ def handle_command(
 
     if cmd == "mem-del":
         return _handle_cmd_mem_del(arg, tr=tr)
+
+    if cmd in ("profile", "profile-show"):
+        return _handle_cmd_profile_show(tr=tr)
+
+    if cmd == "profile-clear":
+        return _handle_cmd_profile_clear(tr=tr)
 
     if cmd == "cp":
         return _handle_cmd_cp(arg, tr=tr)

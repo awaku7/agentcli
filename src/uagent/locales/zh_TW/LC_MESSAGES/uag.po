@@ -1426,6 +1426,7 @@ msgstr "可選執行階段設定"
 msgid "Optional image / embedding / audio settings"
 msgstr "選用的圖片 / 嵌入 / 音訊設定"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "專業子代理選設"
 
@@ -1821,6 +1822,24 @@ msgstr "長期記憶條目："
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "依索引刪除長期記憶筆記（請參見 :mem-list）"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "顯示已學習的用户画像（環境、偏好、約束）"
+
+msgid "Clear the learned user profile data"
+msgstr "清除已學習的用户画像數據"
+
+msgid "No user profile data found."
+msgstr "未找到用户画像數據。"
+
+msgid "User Profile:"
+msgstr "用户画像:"
+
+msgid "User profile cleared successfully."
+msgstr "用户画像已成功清除。"
+
+msgid "No user profile file found to clear."
+msgstr "未找到可清除的用户画像文件。"
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

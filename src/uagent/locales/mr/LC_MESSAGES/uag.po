@@ -1437,6 +1437,7 @@ msgstr "पर्यायी रनटाइम"
 msgid "Optional image / embedding / audio settings"
 msgstr "पर्यायी प्रतिमा / एम्बेडिंग / ऑडिओ सेटिंग्ज"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "पर्यायी विशिष्ट उप-एजेंट सेटिंग्ज"
 
@@ -1830,6 +1831,24 @@ msgstr "दीर्घकालीन मेमरी नोट्स सूच
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "निर्देशांकानुसार दीर्घकालीन मेमरी नोट हटवा (पहा :mem-सूची)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "शिकलेले वापरकर्ता प्रोफाइल दर्शवा (पर्यावरण, प्राधान्ये, मर्यादा)"
+
+msgid "Clear the learned user profile data"
+msgstr "शिकलेला वापरकर्ता प्रोफाइल डेटा साफ करा"
+
+msgid "No user profile data found."
+msgstr "वापरकर्ता प्रोफाइल डेटा आढळला नाही."
+
+msgid "User Profile:"
+msgstr "वापरकर्ता प्रोफाइल:"
+
+msgid "User profile cleared successfully."
+msgstr "वापरकर्ता प्रोफाइल यशस्वीरित्या साफ केले."
+
+msgid "No user profile file found to clear."
+msgstr "साफ करण्यासाठी वापरकर्ता प्रोफाइल फाइल आढळली नाही."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

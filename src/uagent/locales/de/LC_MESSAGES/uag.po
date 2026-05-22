@@ -1489,6 +1489,7 @@ msgstr "Optionale Laufzeit"
 msgid "Optional image / embedding / audio settings"
 msgstr "Optionale Bild-/Einbettungs-Einstellungen"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Optionale Einstellungen für spezialisierte Sub-Agenten"
 
@@ -1915,6 +1916,24 @@ msgstr "Listen Sie Notizen zum Langzeitgedächtnis auf"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Eine Langzeitgedächtnisnotiz nach Index löschen (siehe :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Gelerntes Benutzerprofil anzeigen (Umgebung, Präferenzen, Einschränkungen)"
+
+msgid "Clear the learned user profile data"
+msgstr "Gelernte Benutzerprofildaten löschen"
+
+msgid "No user profile data found."
+msgstr "Keine Benutzerprofildaten gefunden."
+
+msgid "User Profile:"
+msgstr "Benutzerprofil:"
+
+msgid "User profile cleared successfully."
+msgstr "Benutzerprofil erfolgreich gelöscht."
+
+msgid "No user profile file found to clear."
+msgstr "Keine Benutzerprofildatei zum Löschen gefunden."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

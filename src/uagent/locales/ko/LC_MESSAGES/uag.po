@@ -1433,6 +1433,7 @@ msgstr "선택적 런타임"
 msgid "Optional image / embedding / audio settings"
 msgstr "선택적 이미지 / 임베딩 설정"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "전문 서브에이전트 추가 설정"
 
@@ -1829,6 +1830,24 @@ msgstr "장기 메모리 항목 보기"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "장기 메모리 항목을 인덱스로 삭제 (:mem-list 참조)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "학습된 사용자 프로필(환경, 선호도, 제약 조건) 표시"
+
+msgid "Clear the learned user profile data"
+msgstr "학습된 사용자 프로필 데이터 지우기"
+
+msgid "No user profile data found."
+msgstr "사용자 프로필 데이터를 찾을 수 없습니다."
+
+msgid "User Profile:"
+msgstr "사용자 프로필:"
+
+msgid "User profile cleared successfully."
+msgstr "사용자 프로필이 성공적으로 지워졌습니다."
+
+msgid "No user profile file found to clear."
+msgstr "지울 사용자 프로필 파일을 찾을 수 없습니다."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

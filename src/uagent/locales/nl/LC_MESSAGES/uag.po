@@ -1477,6 +1477,7 @@ msgstr "Optionele looptijd"
 msgid "Optional image / embedding / audio settings"
 msgstr "Optionele instellingen voor afbeelding / insluiten"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Optionele instellingen voor gespecialiseerde sub-agenten"
 
@@ -1892,6 +1893,24 @@ msgstr "Langetermijngeheugen-notities weergeven"
 #: src/uagent/util_tools.py:1906
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Een langetermijngeheugen-notitie verwijderen op index (zie :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Toon het geleerde gebruikersprofiel (omgeving, voorkeuren, beperkingen)"
+
+msgid "Clear the learned user profile data"
+msgstr "Wis de geleerde gebruikersprofielgegevens"
+
+msgid "No user profile data found."
+msgstr "Geen gebruikersprofielgegevens gevonden."
+
+msgid "User Profile:"
+msgstr "Gebruikersprofiel:"
+
+msgid "User profile cleared successfully."
+msgstr "Gebruikersprofiel succesvol gewist."
+
+msgid "No user profile file found to clear."
+msgstr "Geen gebruikersprofielbestand gevonden om te wissen."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"

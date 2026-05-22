@@ -1489,6 +1489,7 @@ msgstr "Runtime opzionale"
 msgid "Optional image / embedding / audio settings"
 msgstr "Impostazioni opzionali per immagini / embedding"
 
+#: src/uagent/setup_cli.py:1122
 msgid "Optional specialized sub-agent settings"
 msgstr "Impostazioni opzionali dei sotto-agenti specializzati"
 
@@ -1909,6 +1910,24 @@ msgstr "Elenca le note di memoria a lungo termine"
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "Elimina una nota di memoria a lungo termine per indice (vedi :mem-list)"
+
+msgid "Show the learned user profile (environment, preferences, constraints)"
+msgstr "Mostra il profilo utente appreso (ambiente, preferenze, vincoli)"
+
+msgid "Clear the learned user profile data"
+msgstr "Cancella i dati del profilo utente appreso"
+
+msgid "No user profile data found."
+msgstr "Nessun dato del profilo utente trovato."
+
+msgid "User Profile:"
+msgstr "Profilo utente:"
+
+msgid "User profile cleared successfully."
+msgstr "Profilo utente cancellato con successo."
+
+msgid "No user profile file found to clear."
+msgstr "Nessun file di profilo utente trovato da cancellare."
 
 #: src/uagent/util_tools.py:1908
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
