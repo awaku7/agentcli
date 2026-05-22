@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.39] - 2026-05-22
+
+### Added
+- **Locale MO Rebuild**:
+  - Rebuilt all compiled `.mo` translation files after locale updates.
+  - Refreshed multilingual message catalogs across the repository.
+
 ## [0.4.38] - 2026-05-22
 
 ### Added
