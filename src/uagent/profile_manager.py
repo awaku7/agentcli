@@ -7,7 +7,7 @@ import os
 import threading
 from typing import Any
 
-from ..env_utils import env_get
+from .env_utils import env_get
 
 
 # Environment variable to control the profiling feature
