@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from typing import Any, Callable
 
 PROFILE_MAX_ITEMS = 5
@@ -12,9 +11,21 @@ def _clip(text: Any) -> str:
 
 
 def _format_profile(profile: dict[str, Any]) -> str:
-    env = profile.get("environment") if isinstance(profile.get("environment"), dict) else {}
-    prefs = profile.get("preferences") if isinstance(profile.get("preferences"), list) else []
-    consts = profile.get("constraints") if isinstance(profile.get("constraints"), list) else []
+    env = (
+        profile.get("environment")
+        if isinstance(profile.get("environment"), dict)
+        else {}
+    )
+    prefs = (
+        profile.get("preferences")
+        if isinstance(profile.get("preferences"), list)
+        else []
+    )
+    consts = (
+        profile.get("constraints")
+        if isinstance(profile.get("constraints"), list)
+        else []
+    )
 
     parts = ["[USER PROFILE]"]
     if env:
@@ -52,7 +63,11 @@ def append_long_memory_system_messages(
 
         if is_profiling_enabled():
             profile = load_profile()
-            if profile.get("environment") or profile.get("preferences") or profile.get("constraints"):
+            if (
+                profile.get("environment")
+                or profile.get("preferences")
+                or profile.get("constraints")
+            ):
                 profile_msg = {"role": "system", "content": _format_profile(profile)}
                 messages.append(profile_msg)
                 core.log_message(profile_msg)

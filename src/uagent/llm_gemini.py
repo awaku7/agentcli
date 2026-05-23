@@ -296,13 +296,17 @@ def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
 
     def _normalize_mime(m: str, path: str | None = None) -> str:
         mm = (m or "").strip().lower()
-        if mm.startswith("image/"):
+        if mm.startswith("image/") or mm.startswith("audio/"):
             return mm
         if mm == "image":
             mm = ""
+        if mm == "audio":
+            mm = ""
         if path:
             guessed, _ = mimetypes.guess_type(path)
-            if isinstance(guessed, str) and guessed.startswith("image/"):
+            if isinstance(guessed, str) and (
+                guessed.startswith("image/") or guessed.startswith("audio/")
+            ):
                 return guessed
             suffix = Path(path).suffix.lower()
             if suffix in (".jpg", ".jpeg"):
@@ -313,6 +317,16 @@ def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
                 return "image/webp"
             if suffix == ".gif":
                 return "image/gif"
+            if suffix == ".mp3":
+                return "audio/mp3"
+            if suffix == ".wav":
+                return "audio/wav"
+            if suffix in (".ogg", ".oga"):
+                return "audio/ogg"
+            if suffix in (".m4a", ".aac"):
+                return "audio/aac"
+            if suffix == ".flac":
+                return "audio/flac"
         return "image/png"
 
     data_url = att.get("data_url") or att.get("dataUrl") or att.get("data")
@@ -338,7 +352,11 @@ def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
         return None
     path = path.strip()
 
-    if not mime.startswith("image/") and mime not in ("image", ""):
+    if (
+        not mime.startswith("image/")
+        and not mime.startswith("audio/")
+        and mime not in ("image", "audio", "")
+    ):
         return None
 
     try:
@@ -585,13 +603,21 @@ def gemini_chat_with_tools(
             return None
 
     def _append(role: str, part: gemini_types.Part) -> None:
-        if contents and getattr(contents[-1], "role", None) == role:
+        # google-genai SDK expects "model" for assistant and "tool" for tool responses.
+        # Map internal role names to Gemini API expected roles.
+        gemini_role = role
+        if role == "assistant":
+            gemini_role = "model"
+        elif role == "tool":
+            gemini_role = "tool"
+
+        if contents and getattr(contents[-1], "role", None) == gemini_role:
             try:
                 contents[-1].parts.append(part)
                 return
             except Exception:
                 pass
-        contents.append(gemini_types.Content(role=role, parts=[part]))
+        contents.append(gemini_types.Content(role=gemini_role, parts=[part]))
 
     def _emit_stream_delta(delta_text: str) -> None:
         if not delta_text:
@@ -716,8 +742,9 @@ def gemini_chat_with_tools(
                     name=tool_name,
                     response=resp_obj,
                 )
-                # Gemini tool results are safer to send as a user turn with function_response.
-                _append("user", part)
+                # Gemini tool results must be sent with role="tool" in google-genai SDK.
+                # Sending them as "user" causes Gemini to fail to recognize the response and repeat the same tool call.
+                _append("tool", part)
             except Exception:
                 if content:
                     _append(
@@ -726,7 +753,7 @@ def gemini_chat_with_tools(
             continue
 
         if content:
-            _append("user", gemini_types.Part(text=f"{role}:\n{content}"))
+            _append("model", gemini_types.Part(text=f"{role}:\n{content}"))
 
     # Apply reasoning/verbosity controls from env.
     reasoning_mode = _normalize_reasoning_env(env_get("UAGENT_REASONING"))

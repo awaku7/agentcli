@@ -259,9 +259,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 endpoint = f"{location}-texttospeech.googleapis.com"
                 c_opts = client_options.ClientOptions(api_endpoint=endpoint)
 
-            transport = TextToSpeechRestTransport(
-                credentials=credentials
-            )
+            transport = TextToSpeechRestTransport(credentials=credentials)
             client = texttospeech.TextToSpeechClient(
                 transport=transport, client_options=c_opts
             )

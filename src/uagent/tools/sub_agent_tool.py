@@ -13,6 +13,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 
 from .context import get_callbacks
+from ..env_utils import env_get
 from ..util_providers import make_client
 from .i18n_helper import make_tool_translator
 
@@ -20,14 +21,17 @@ _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
 
+
 class PermissionLevel(str, Enum):
     NONE = "none"
     READ_ONLY = "read_only"
     PROPOSE_ONLY = "propose_only"
 
+
 @dataclass
 class ContextPack:
     """サブエージェントに渡す厳選された文脈情報"""
+
     current_goal: str
     current_state: str
     constraints: List[str] = field(default_factory=list)
@@ -36,6 +40,7 @@ class ContextPack:
 
     def to_json(self) -> str:
         return json.dumps(dataclasses.asdict(self), ensure_ascii=False, indent=2)
+
 
 @dataclass
 class SubAgentTask:
@@ -47,6 +52,7 @@ class SubAgentTask:
     context_pack: ContextPack
     scope_files: List[str] = field(default_factory=list)
 
+
 # サブエージェントの仕様定義
 @dataclass
 class AgentSpec:
@@ -56,6 +62,7 @@ class AgentSpec:
     permission_level: PermissionLevel = PermissionLevel.NONE
     allowed_tools: List[str] = field(default_factory=list)
 
+
 # 同じ指示の繰り返しを検知するガード
 class DuplicateCallGuard:
     def __init__(self, max_repeats: int = 1) -> None:
@@ -63,12 +70,16 @@ class DuplicateCallGuard:
         self.counts: Dict[str, int] = {}
 
     def fingerprint(self, agent_name: str, task: SubAgentTask) -> str:
-        normalized = json.dumps({
-            "agent_name": agent_name,
-            "parent_goal": task.parent_goal,
-            "task": task.task,
-            "scope_files": sorted(task.scope_files),
-        }, ensure_ascii=False, sort_keys=True)
+        normalized = json.dumps(
+            {
+                "agent_name": agent_name,
+                "parent_goal": task.parent_goal,
+                "task": task.task,
+                "scope_files": sorted(task.scope_files),
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
         return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
 
     def check_and_record(self, agent_name: str, task: SubAgentTask) -> bool:
@@ -76,6 +87,7 @@ class DuplicateCallGuard:
         current = self.counts.get(fp, 0) + 1
         self.counts[fp] = current
         return current <= self.max_repeats
+
 
 TOOL_SPEC: Dict[str, Any] = {
     "load_order": 50,
@@ -87,63 +99,64 @@ TOOL_SPEC: Dict[str, Any] = {
             default=(
                 "Execute a specialized, safe sub-agent (planner, reviewer, or summarizer) "
                 "under the control of the parent orchestrator to process specific tasks and return structured findings."
-            )
+            ),
         ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(
                 "Run a specialized sub-agent (planner, reviewer, or summarizer) to solve a task. "
                 "This sub-agent does not make destructive modifications. It returns structured insights as JSON."
-            )
+            ),
         ),
         "x_search_terms": _(
             "x_search_terms",
-            default=[
-                "sub-agent",
-                "planner",
-                "reviewer",
-                "summarizer",
-                "orchestrate"
-            ]
+            default=["sub-agent", "planner", "reviewer", "summarizer", "orchestrate"],
         ),
         "x_search_terms_en": [
             "sub-agent",
             "planner",
             "reviewer",
             "summarizer",
-            "orchestrate"
+            "orchestrate",
         ],
         "parameters": {
             "type": "object",
             "properties": {
                 "agent_name": {
                     "type": "string",
-                    "enum": ["planner", "reviewer", "summarizer", "patch_designer", "error_analyst"],
+                    "enum": [
+                        "planner",
+                        "reviewer",
+                        "summarizer",
+                        "patch_designer",
+                        "error_analyst",
+                    ],
                     "description": _(
                         "param.agent_name.description",
-                        default="The name of the specialized sub-agent to run."
-                    )
+                        default="The name of the specialized sub-agent to run.",
+                    ),
                 },
                 "task": {
                     "type": "string",
                     "description": _(
                         "param.task.description",
-                        default="Specific instruction/task for the sub-agent to process."
-                    )
+                        default="Specific instruction/task for the sub-agent to process.",
+                    ),
                 },
                 "current_file": {
                     "type": "string",
                     "description": _(
                         "param.current_file.description",
-                        default="(Optional) Limit the sub-agent's reasoning scope to this specific file."
-                    )
-                }
+                        default="(Optional) Limit the sub-agent's reasoning scope to this specific file.",
+                    ),
+                },
             },
             "required": ["agent_name", "task"],
-            "additionalProperties": False
-        }
-    }
+            "additionalProperties": False,
+        },
+    },
 }
+
 
 class SubAgentRunner:
     def __init__(self) -> None:
@@ -170,7 +183,7 @@ class SubAgentRunner:
                     "  ],\n"
                     '  "proposed_actions": ["ステップ1", "ステップ2"]\n'
                     "}"
-                )
+                ),
             ),
             "reviewer": AgentSpec(
                 name="reviewer",
@@ -194,7 +207,7 @@ class SubAgentRunner:
                     "  ],\n"
                     '  "proposed_actions": ["修正手順やアドバイス"]\n'
                     "}"
-                )
+                ),
             ),
             "summarizer": AgentSpec(
                 name="summarizer",
@@ -217,7 +230,7 @@ class SubAgentRunner:
                     "  ],\n"
                     '  "proposed_actions": ["推奨する要約ポイント"]\n'
                     "}"
-                )
+                ),
             ),
             "patch_designer": AgentSpec(
                 name="patch_designer",
@@ -240,7 +253,7 @@ class SubAgentRunner:
                     "  ],\n"
                     '  "proposed_actions": ["修正パッチを適用するファイルパスとその変更詳細指示"]\n'
                     "}"
-                )
+                ),
             ),
             "error_analyst": AgentSpec(
                 name="error_analyst",
@@ -264,8 +277,8 @@ class SubAgentRunner:
                     "  ],\n"
                     '  "proposed_actions": ["エラーを解決するために必要なステップ一覧"]\n'
                     "}"
-                )
-            )
+                ),
+            ),
         }
 
     def _call_llm_single_round(
@@ -274,18 +287,19 @@ class SubAgentRunner:
         client: Any,
         model_name: str,
         system_prompt: str,
-        user_prompt: str
+        user_prompt: str,
     ) -> str:
         """各種プロバイダに対応した安全でシンプルな1往復のLLM生成処理"""
         if provider in ("gemini", "vertexai"):
             from google.genai import types as gemini_types
+
             response = client.models.generate_content(
                 model=model_name,
                 contents=user_prompt,
                 config=gemini_types.GenerateContentConfig(
                     system_instruction=system_prompt,
                     temperature=0.2,
-                )
+                ),
             )
             return response.text or ""
 
@@ -294,9 +308,7 @@ class SubAgentRunner:
                 model=model_name,
                 max_tokens=4000,
                 system=system_prompt,
-                messages=[
-                    {"role": "user", "content": user_prompt}
-                ],
+                messages=[{"role": "user", "content": user_prompt}],
                 temperature=0.2,
             )
             return response.content[0].text or ""
@@ -307,20 +319,29 @@ class SubAgentRunner:
                 model=model_name,
                 messages=[
                     {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
+                    {"role": "user", "content": user_prompt},
                 ],
                 temperature=0.2,
             )
             return response.choices[0].message.content or ""
 
-    def run(self, agent_name: str, task_text: str, current_file: Optional[str] = None) -> str:
+    def run(
+        self, agent_name: str, task_text: str, current_file: Optional[str] = None
+    ) -> str:
         spec = self.specs.get(agent_name)
         if not spec:
-            return json.dumps({"status": "error", "message": f"Agent {agent_name} not found."})
+            return json.dumps(
+                {"status": "error", "message": f"Agent {agent_name} not found."}
+            )
 
         # ガードレール: ファイルピン留めの検証
         if current_file and not os.path.exists(current_file):
-            return json.dumps({"status": "error", "message": f"Access Denied: File '{current_file}' not found."})
+            return json.dumps(
+                {
+                    "status": "error",
+                    "message": f"Access Denied: File '{current_file}' not found.",
+                }
+            )
 
         # ContextPack の構築
         pack = ContextPack(
@@ -328,26 +349,29 @@ class SubAgentRunner:
             current_state="PROCESSING",
             constraints=[
                 "副作用のある直接操作は禁止",
-                "JSONフォーマットでの確実な返却"
-            ]
+                "JSONフォーマットでの確実な返却",
+            ],
         )
 
         task = SubAgentTask(
-            run_id="run_" + hashlib.md5(task_text.encode('utf-8')).hexdigest()[:10],
+            run_id="run_" + hashlib.md5(task_text.encode("utf-8")).hexdigest()[:10],
             task_id="task_01",
             agent_name=agent_name,
             parent_goal="サブエージェント連携の実行",
             task=task_text,
             context_pack=pack,
-            scope_files=[current_file] if current_file else []
+            scope_files=[current_file] if current_file else [],
         )
 
         # 重複チェック
         if not self.duplicate_guard.check_and_record(agent_name, task):
-            return json.dumps({
-                "status": "blocked",
-                "message": f"Duplicate call blocked for agent: {agent_name} with same arguments."
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "status": "blocked",
+                    "message": f"Duplicate call blocked for agent: {agent_name} with same arguments.",
+                },
+                ensure_ascii=False,
+            )
 
         # コールバック経由で環境変数等の情報を安全に取得
         cb = get_callbacks()
@@ -357,19 +381,23 @@ class SubAgentRunner:
         # Fallback: UAGENT_SUB_AGENT_PROVIDER / _DEPNAME / _API_KEY
         # Default: Main agent configuration (via make_client)
         agent_upper = agent_name.upper()
-        
+
         sub_provider = (
-            env_get(f"UAGENT_SUB_AGENT_{agent_upper}_PROVIDER")
-            or env_get("UAGENT_SUB_AGENT_PROVIDER")
-            or ""
-        ).strip().lower()
-        
+            (
+                env_get(f"UAGENT_SUB_AGENT_{agent_upper}_PROVIDER")
+                or env_get("UAGENT_SUB_AGENT_PROVIDER")
+                or ""
+            )
+            .strip()
+            .lower()
+        )
+
         sub_depname = (
             env_get(f"UAGENT_SUB_AGENT_{agent_upper}_DEPNAME")
             or env_get("UAGENT_SUB_AGENT_DEPNAME")
             or ""
         ).strip()
-        
+
         sub_api_key = (
             env_get(f"UAGENT_SUB_AGENT_{agent_upper}_API_KEY")
             or env_get("UAGENT_SUB_AGENT_API_KEY")
@@ -382,22 +410,22 @@ class SubAgentRunner:
                 # Temporarily override environment variables to let make_client build the custom client
                 orig_provider = os.environ.get("UAGENT_PROVIDER")
                 os.environ["UAGENT_PROVIDER"] = sub_provider
-                
+
                 # Setup provider-specific overrides
                 orig_depname = None
                 orig_api_key = None
-                
+
                 p_upper = sub_provider.upper()
                 dep_key = f"UAGENT_{p_upper}_DEPNAME"
                 key_key = f"UAGENT_{p_upper}_API_KEY"
-                
+
                 if sub_depname:
                     orig_depname = os.environ.get(dep_key)
                     os.environ[dep_key] = sub_depname
                 if sub_api_key:
                     orig_api_key = os.environ.get(key_key)
                     os.environ[key_key] = sub_api_key
-                
+
                 try:
                     provider, client, model_name = make_client(cb)
                 finally:
@@ -406,7 +434,7 @@ class SubAgentRunner:
                         os.environ["UAGENT_PROVIDER"] = orig_provider
                     else:
                         os.environ.pop("UAGENT_PROVIDER", None)
-                        
+
                     if sub_depname:
                         if orig_depname is not None:
                             os.environ[dep_key] = orig_depname
@@ -423,16 +451,16 @@ class SubAgentRunner:
                 p_upper = provider.upper()
                 dep_key = f"UAGENT_{p_upper}_DEPNAME"
                 key_key = f"UAGENT_{p_upper}_API_KEY"
-                
+
                 if sub_depname or sub_api_key:
                     orig_depname = os.environ.get(dep_key)
                     orig_api_key = os.environ.get(key_key)
-                    
+
                     if sub_depname:
                         os.environ[dep_key] = sub_depname
                     if sub_api_key:
                         os.environ[key_key] = sub_api_key
-                        
+
                     try:
                         # Re-create client with overridden model/key
                         provider, client, model_name = make_client(cb)
@@ -446,10 +474,13 @@ class SubAgentRunner:
                         else:
                             os.environ.pop(key_key, None)
         except Exception as e:
-            return json.dumps({
-                "status": "error",
-                "message": f"Failed to initialize LLM client: {str(e)}"
-            }, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "status": "error",
+                    "message": f"Failed to initialize LLM client: {str(e)}",
+                },
+                ensure_ascii=False,
+            )
 
         # ターゲットファイルの追加コンテキスト読込（reviewer用など）
         relevant_snippets = []
@@ -457,7 +488,9 @@ class SubAgentRunner:
             try:
                 with open(current_file, "r", encoding="utf-8", errors="ignore") as f:
                     content = f.read(10000)  # 最大10KB読み込み
-                    relevant_snippets.append(f"--- FILE: {current_file} ---\n{content}\n--- END ---")
+                    relevant_snippets.append(
+                        f"--- FILE: {current_file} ---\n{content}\n--- END ---"
+                    )
             except Exception as e:
                 relevant_snippets.append(f"Failed to read pinned file: {str(e)}")
 
@@ -475,7 +508,7 @@ class SubAgentRunner:
                 client=client,
                 model_name=model_name,
                 system_prompt=spec.system_prompt,
-                user_prompt=user_prompt
+                user_prompt=user_prompt,
             )
 
             # JSONクリーンアップ（```json ... ``` のブロックがあれば中身だけを取り出す）
@@ -494,28 +527,34 @@ class SubAgentRunner:
                 return json.dumps(parsed_json, ensure_ascii=False, indent=2)
             except json.JSONDecodeError:
                 # パース失敗時はフォールバックJSONを返す
-                return json.dumps({
-                    "status": "completed",
-                    "summary": "サブエージェント応答のパースに失敗しましたが、テキスト出力を回収しました。",
-                    "findings": [
-                        {
-                            "severity": "high",
-                            "title": "JSONパースエラー",
-                            "detail": "LLMの応答が有効なJSONフォーマットではありませんでした。",
-                            "recommendation": "テキスト出力を直接確認してください。"
-                        }
-                    ],
-                    "proposed_actions": [],
-                    "raw_text": raw_response
-                }, ensure_ascii=False, indent=2)
+                return json.dumps(
+                    {
+                        "status": "completed",
+                        "summary": "サブエージェント応答のパースに失敗しましたが、テキスト出力を回収しました。",
+                        "findings": [
+                            {
+                                "severity": "high",
+                                "title": "JSONパースエラー",
+                                "detail": "LLMの応答が有効なJSONフォーマットではありませんでした。",
+                                "recommendation": "テキスト出力を直接確認してください。",
+                            }
+                        ],
+                        "proposed_actions": [],
+                        "raw_text": raw_response,
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
 
         except Exception as e:
-            return json.dumps({
-                "status": "error",
-                "message": f"LLM execution error: {str(e)}"
-            }, ensure_ascii=False)
+            return json.dumps(
+                {"status": "error", "message": f"LLM execution error: {str(e)}"},
+                ensure_ascii=False,
+            )
+
 
 _runner = SubAgentRunner()
+
 
 def run_tool(args: Dict[str, Any]) -> str:
     cb = get_callbacks()

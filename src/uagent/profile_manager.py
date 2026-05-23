@@ -20,7 +20,9 @@ def _get_profile_int_env(name: str, default: int) -> int:
 
 PROFILE_MAX_ITEMS = _get_profile_int_env("UAGENT_PROFILE_MAX_ITEMS", 5)
 PROFILE_MAX_TEXT_CHARS = _get_profile_int_env("UAGENT_PROFILE_MAX_TEXT_CHARS", 80)
-PROFILE_SUMMARY_TRIGGER_CHARS = _get_profile_int_env("UAGENT_PROFILE_SUMMARY_TRIGGER_CHARS", 80)
+PROFILE_SUMMARY_TRIGGER_CHARS = _get_profile_int_env(
+    "UAGENT_PROFILE_SUMMARY_TRIGGER_CHARS", 80
+)
 PROFILE_ENV_KEYS = ("os", "shell", "editor")
 
 
@@ -84,7 +86,10 @@ def save_profile(profile: dict[str, Any]) -> None:
             os.makedirs(dirpath, exist_ok=True)
         compact_profile = _normalize_profile_snapshot(profile)
         with open(profile_file, "w", encoding="utf-8") as f:
-            f.write(json.dumps(compact_profile, ensure_ascii=False, separators=(",", ":")) + "\n")
+            f.write(
+                json.dumps(compact_profile, ensure_ascii=False, separators=(",", ":"))
+                + "\n"
+            )
     except Exception:
         pass
 
@@ -96,15 +101,37 @@ def _is_similar_phrase(a: str, b: str) -> bool:
     if a_lower == b_lower:
         return True
     # If one contains the other and they are about secrets/passwords/tokens, treat as similar
-    secrets_keywords = ("secret", "password", "token", "api_key", "credential", "鍵", "パスワード", "トークン", "秘密情報")
-    if any(k in a_lower for k in secrets_keywords) and any(k in b_lower for k in secrets_keywords):
+    secrets_keywords = (
+        "secret",
+        "password",
+        "token",
+        "api_key",
+        "credential",
+        "鍵",
+        "パスワード",
+        "トークン",
+        "秘密情報",
+    )
+    if any(k in a_lower for k in secrets_keywords) and any(
+        k in b_lower for k in secrets_keywords
+    ):
         # e.g. "Do not store secrets (passwords, tokens, API keys) in long-term memory"
         # and "Do not store secrets (passwords, tokens, API keys) in long-term or shared memory"
         # If they share a significant common substring or both mention "do not store" and "secret"
-        if ("do not store" in a_lower or "must not store" in a_lower or "保存しない" in a_lower or "記録しない" in a_lower) and \
-           ("do not store" in b_lower or "must not store" in b_lower or "保存しない" in b_lower or "記録しない" in b_lower):
+        if (
+            "do not store" in a_lower
+            or "must not store" in a_lower
+            or "保存しない" in a_lower
+            or "記録しない" in a_lower
+        ) and (
+            "do not store" in b_lower
+            or "must not store" in b_lower
+            or "保存しない" in b_lower
+            or "記録しない" in b_lower
+        ):
             return True
     return False
+
 
 def _compact_profile_text(value: Any) -> str:
     return " ".join(str(value).split()).strip()
@@ -264,7 +291,11 @@ def smart_merge_profiles(
             if not text:
                 continue
             text = _summarize_profile_text(
-                text, provider=provider, client=client, model_name=model_name, kind="item"
+                text,
+                provider=provider,
+                client=client,
+                model_name=model_name,
+                kind="item",
             )
             if not text:
                 continue
@@ -335,7 +366,7 @@ def _profile_worker(messages: list[dict[str, Any]], core: Any) -> None:
     """Background worker to analyze log, extract profile, and merge."""
     try:
         # 1) Initialize LLM Client
-        from .. import util_providers
+        from . import util_providers
 
         provider, client, model_name = util_providers.make_client(core)
         if not client:
@@ -412,7 +443,13 @@ def _profile_worker(messages: list[dict[str, Any]], core: Any) -> None:
 
         # 4) Smart Merge and Save
         old_profile = load_profile()
-        merged_profile = smart_merge_profiles(old_profile, new_profile, provider=provider, client=client, model_name=model_name)
+        merged_profile = smart_merge_profiles(
+            old_profile,
+            new_profile,
+            provider=provider,
+            client=client,
+            model_name=model_name,
+        )
         save_profile(merged_profile)
 
     except Exception:
@@ -424,16 +461,24 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
     """Synchronously analyze past logs, extract profile, merge, and save."""
     # 1) Gather messages from past logs
     from uagent.utils.paths import get_log_dir
+
     log_dir = get_log_dir()
     if not os.path.exists(log_dir):
         return None
 
-    log_files = sorted([f for f in os.listdir(log_dir) if f.startswith("scheck_log_") and f.endswith(".jsonl")])
+    log_files = sorted(
+        [
+            f
+            for f in os.listdir(log_dir)
+            if f.startswith("scheck_log_") and f.endswith(".jsonl")
+        ]
+    )
     if not log_files:
         return None
 
     # 2) Initialize LLM Client
     from . import util_providers
+
     provider, client, model_name = util_providers.make_client(core)
     if not client:
         raise RuntimeError("Failed to initialize LLM client.")
@@ -460,7 +505,9 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
         "}"
     )
 
-    def process_chunk(messages_chunk: list[dict[str, Any]], step_info: str) -> dict[str, Any] | None:
+    def process_chunk(
+        messages_chunk: list[dict[str, Any]], step_info: str
+    ) -> dict[str, Any] | None:
         if not messages_chunk:
             return None
         sanitized_log = _sanitize_log_for_profiling(messages_chunk)
@@ -470,6 +517,7 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
         try:
             if provider in ("gemini", "vertexai"):
                 from google.genai import types as gemini_types
+
                 response = client.models.generate_content(
                     model=model_name,
                     contents=user_prompt,
@@ -537,12 +585,20 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
         if len(message_buffer) >= chunk_size_limit or idx == total_files - 1:
             progress = int((idx + 1) / total_files * 100)
             step_info = f"File {idx+1}/{total_files} ({progress}%)"
-            print(f"Processing chunk up to {step_info} (messages: {len(message_buffer)})...")
-            
+            print(
+                f"Processing chunk up to {step_info} (messages: {len(message_buffer)})..."
+            )
+
             extracted_prof = process_chunk(message_buffer, step_info)
             if extracted_prof:
-                current_profile = smart_merge_profiles(current_profile, extracted_prof, provider=provider, client=client, model_name=model_name)
-            
+                current_profile = smart_merge_profiles(
+                    current_profile,
+                    extracted_prof,
+                    provider=provider,
+                    client=client,
+                    model_name=model_name,
+                )
+
             # Clear buffer
             message_buffer = []
 

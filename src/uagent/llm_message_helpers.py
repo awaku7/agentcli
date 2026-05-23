@@ -174,65 +174,70 @@ def _build_call_messages(
         )
 
         call_messages: list[dict[str, Any]] = []
-        expecting_tool = False
-        saw_tool_in_block = False
-        last_kept_role = None
+        pending_tool_ids: set[str] = set()
+        pending_tool_block_start: int | None = None
+
+        def _drop_pending_tool_block() -> None:
+            nonlocal pending_tool_block_start
+            if pending_tool_block_start is not None:
+                del call_messages[pending_tool_block_start:]
+            pending_tool_ids.clear()
+            pending_tool_block_start = None
 
         for m in src_messages:
             if not isinstance(m, dict):
                 continue
 
-            role = m.get("role")
-            tool_calls = m.get("tool_calls") or []
-            has_tool_calls = isinstance(tool_calls, list) and bool(tool_calls)
+            while True:
+                role = m.get("role")
+                tool_calls = m.get("tool_calls") or []
+                has_tool_calls = isinstance(tool_calls, list) and bool(tool_calls)
 
-            if role == "assistant" and has_tool_calls:
-                # Gemini requires function_call turns to come directly after user/function response.
-                if last_kept_role not in ("user", "tool"):
-                    break
-                if expecting_tool and not saw_tool_in_block:
-                    break
-                if expecting_tool and saw_tool_in_block:
-                    expecting_tool = False
-                    saw_tool_in_block = False
+                # If a tool-call block is interrupted by any non-tool message, drop the
+                # incomplete block and keep later history instead of truncating the tail.
+                if pending_tool_block_start is not None and role != "tool":
+                    _drop_pending_tool_block()
+                    continue
 
-                # Preserve the original assistant turn as-is.
-                # Gemini-native dumps are consumed later by llm_gemini.py.
+                if role == "assistant" and has_tool_calls:
+                    tool_ids: set[str] = set()
+                    for tc in tool_calls:
+                        if not isinstance(tc, dict):
+                            continue
+                        tcid = tc.get("id")
+                        if isinstance(tcid, str) and tcid:
+                            tool_ids.add(tcid)
+
+                    # Keep the assistant turn even when tool IDs are missing, but do not
+                    # enter pending-tool mode because we cannot reliably match tool results.
+                    call_messages.append(m)
+                    if tool_ids:
+                        pending_tool_ids = tool_ids
+                        pending_tool_block_start = len(call_messages) - 1
+                    break
+
+                if role == "tool":
+                    tcid = m.get("tool_call_id")
+                    if pending_tool_block_start is None:
+                        # Orphan tool result: ignore it and continue with later history.
+                        break
+
+                    if not (isinstance(tcid, str) and tcid in pending_tool_ids):
+                        # Mismatched tool result: ignore it. The pending block will be
+                        # dropped later if it is interrupted by a non-tool message.
+                        break
+
+                    call_messages.append(m)
+                    pending_tool_ids.discard(tcid)
+                    if not pending_tool_ids:
+                        pending_tool_block_start = None
+                    break
+
                 call_messages.append(m)
-                expecting_tool = True
-                saw_tool_in_block = False
-                last_kept_role = "assistant"
-                continue
-
-            if role == "tool":
-                if not expecting_tool:
-                    break
-                call_messages.append(m)
-                saw_tool_in_block = True
-                last_kept_role = "tool"
-                continue
-
-            if expecting_tool and not saw_tool_in_block:
                 break
 
-            if expecting_tool and saw_tool_in_block:
-                expecting_tool = False
-                saw_tool_in_block = False
-
-            call_messages.append(m)
-            last_kept_role = role
-
-        if expecting_tool and not saw_tool_in_block:
-            while call_messages:
-                last = call_messages[-1]
-                if (
-                    isinstance(last, dict)
-                    and last.get("role") == "assistant"
-                    and (last.get("tool_calls") or [])
-                ):
-                    call_messages.pop()
-                    break
-                call_messages.pop()
+        if pending_tool_block_start is not None:
+            del call_messages[pending_tool_block_start:]
 
         return call_messages
 

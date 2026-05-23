@@ -1004,15 +1004,17 @@ def compress_history_with_llm(
     """
     別の LLM コンテキストを立ち上げて、古い user/assistant/tool を
     20件前後のチャンクごとに段階要約し、1つの system メッセージに圧縮する。
+    コンテキスト長エラーが出た場合は、チャンクを半分にして再試行する。
     """
-    # Trigger background profiling before compressing history
     try:
         from .profile_manager import run_profiling_async
         import sys as _sys
+
         _core_mod = _sys.modules[__name__]
         run_profiling_async(messages, _core_mod)
     except Exception:
         pass
+
     try:
         from .gemini_cache_mgr import GeminiCacheManager
 
@@ -1037,34 +1039,11 @@ def compress_history_with_llm(
 
     chunk_size_raw = (env_get("UAGENT_SHRINK_CHUNK_SIZE", "") or "").strip()
     try:
-        chunk_size = int(chunk_size_raw) if chunk_size_raw != "" else 20
+        initial_chunk_size = int(chunk_size_raw) if chunk_size_raw else 20
     except Exception:
-        chunk_size = 20
-    if chunk_size <= 0:
-        chunk_size = 20
-
-    def _estimate_tokens(text: str) -> int:
-        return max(1, (len(text) + 3) // 4)
-
-    def _message_to_text(m: dict[str, Any]) -> tuple[str | None, str]:
-        role = str(m.get("role") or "")
-        content = m.get("content") or ""
-        if isinstance(content, (dict, list)):
-            content = json.dumps(content, ensure_ascii=False)
-        content = str(content).strip()
-        if not content:
-            return None, role
-
-        if role == "user":
-            return f"User: {content}", role
-        if role == "assistant":
-            return f"Assistant: {content}", role
-        if role == "tool":
-            tname = m.get("name") or "(unknown_tool)"
-            return f"Tool: {tname} {content}", role
-        return None, role
-
-    chunks = [old_part[i : i + chunk_size] for i in range(0, len(old_part), chunk_size)]
+        initial_chunk_size = 20
+    if initial_chunk_size <= 0:
+        initial_chunk_size = 20
 
     use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in ("1", "true")
     max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
@@ -1095,7 +1074,35 @@ def compress_history_with_llm(
         except Exception:
             return s
 
-    def _summarize_with_llm(summary_messages: list[dict[str, Any]]) -> str | None:
+    def _message_to_text(m: dict[str, Any]) -> tuple[str | None, str]:
+        role = str(m.get("role") or "")
+        content = m.get("content") or ""
+        if isinstance(content, (dict, list)):
+            content = json.dumps(content, ensure_ascii=False)
+        content = str(content).strip()
+        if not content:
+            return None, role
+
+        if role == "user":
+            return f"User: {content}", role
+        if role == "assistant":
+            return f"Assistant: {content}", role
+        if role == "tool":
+            tname = m.get("name") or "(unknown_tool)"
+            return f"Tool: {tname} {content}", role
+        return None, role
+
+    def _is_context_length_exceeded(err: Exception) -> bool:
+        s = f"{type(err).__name__}: {err}".lower()
+        return (
+            "context_length_exceeded" in s
+            or "exceeds the context window" in s
+            or "input exceeds the context window" in s
+        )
+
+    def _summarize_with_llm(
+        summary_messages: list[dict[str, Any]],
+    ) -> tuple[str | None, Exception | None]:
         nonlocal client
         summary_content = ""
         attempt_429 = 0
@@ -1160,8 +1167,11 @@ def compress_history_with_llm(
                     raise AttributeError(
                         f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."
                     )
-                return summary_content
+                return summary_content, None
             except Exception as e:
+                if _is_context_length_exceeded(e):
+                    return None, e
+
                 attempt_429, new_client, action = _rate_limit_retry_step(
                     exception=e,
                     provider="summarize",
@@ -1188,7 +1198,7 @@ def compress_history_with_llm(
                         file=sys.stderr,
                     )
                     print(repr(e), file=sys.stderr)
-                    return None
+                    return None, e
 
                 print(
                     "[WARN] "
@@ -1196,95 +1206,136 @@ def compress_history_with_llm(
                     % {"err": e},
                     file=sys.stderr,
                 )
-                return None
+                return None, e
 
-    rolling_summary = ""
-    for chunk_idx, chunk in enumerate(chunks, start=1):
-        lines: list[str] = []
-        chunk_chars = 0
-        chunk_tokens = 0
+    def _compress_once(
+        current_chunk_size: int,
+    ) -> tuple[list[dict[str, Any]] | None, Exception | None]:
+        if current_chunk_size <= 0:
+            current_chunk_size = 1
 
-        for msg_idx, m in enumerate(chunk, start=1):
-            rendered, role = _message_to_text(m)
-            if rendered is None:
-                continue
-
-            msg_tokens = _estimate_tokens(rendered)
-            lines.append(rendered)
-            chunk_chars += len(rendered)
-            chunk_tokens += msg_tokens
-
-        if not lines:
-            continue
-
-        chunk_text = "\n\n".join(lines)
-
-        if not rolling_summary:
-            summary_system_prompt = (
-                _t("- Summarize the conversation chunk in English.\n")
-                + _t(
-                    "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
-                )
-                + _t("- Output should be directly usable as a system message.")
-            )
-            summary_user_content = (
-                _t("Conversation chunk:\n")
-                + f"{chunk_text}\n\n"
-                + _t("Write a concise summary of this chunk.")
-            )
-        else:
-            summary_system_prompt = (
-                _t("- You are updating an existing conversation summary.\n")
-                + _t("- Preserve important facts from the previous summary.\n")
-                + _t(
-                    "- Merge in the new chunk without losing constraints, decisions, or pending items.\n"
-                )
-                + _t("- Keep the result concise and suitable for a system message.")
-            )
-            summary_user_content = (
-                _t("Previous summary:\n")
-                + f"{rolling_summary}\n\n"
-                + _t("New chunk:\n")
-                + f"{chunk_text}\n\n"
-                + _t("Update the summary while keeping the prior context intact.")
-            )
-
-        summary_messages = [
-            {"role": "system", "content": summary_system_prompt},
-            {"role": "user", "content": summary_user_content},
+        chunks = [
+            old_part[i : i + current_chunk_size]
+            for i in range(0, len(old_part), current_chunk_size)
         ]
 
-        summary_content = _summarize_with_llm(summary_messages)
-        if summary_content is None:
-            return list(messages)
+        rolling_summary = ""
+        for chunk in chunks:
+            lines: list[str] = []
+            for m in chunk:
+                rendered, _role = _message_to_text(m)
+                if rendered is None:
+                    continue
+                lines.append(rendered)
 
-        rolling_summary = summary_content.strip()
+            if not lines:
+                continue
 
-    if not rolling_summary:
+            chunk_text = "\n\n".join(lines)
+
+            if not rolling_summary:
+                summary_system_prompt = (
+                    _t("- Summarize the conversation chunk in English.\n")
+                    + _t(
+                        "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+                    )
+                    + _t("- Output should be directly usable as a system message.")
+                )
+                summary_user_content = (
+                    _t("Conversation chunk:\n")
+                    + f"{chunk_text}\n\n"
+                    + _t("Write a concise summary of this chunk.")
+                )
+            else:
+                summary_system_prompt = (
+                    _t("- You are updating an existing conversation summary.\n")
+                    + _t("- Preserve important facts from the previous summary.\n")
+                    + _t(
+                        "- Merge in the new chunk without losing constraints, decisions, or pending items.\n"
+                    )
+                    + _t("- Keep the result concise and suitable for a system message.")
+                )
+                summary_user_content = (
+                    _t("Previous summary:\n")
+                    + f"{rolling_summary}\n\n"
+                    + _t("New chunk:\n")
+                    + f"{chunk_text}\n\n"
+                    + _t("Update the summary while keeping the prior context intact.")
+                )
+
+            summary_messages = [
+                {"role": "system", "content": summary_system_prompt},
+                {"role": "user", "content": summary_user_content},
+            ]
+
+            summary_content, error = _summarize_with_llm(summary_messages)
+            if error is not None:
+                return None, error
+            if summary_content is None:
+                return None, RuntimeError("history compression returned no summary")
+
+            rolling_summary = summary_content.strip()
+
+        if not rolling_summary:
+            return list(messages), None
+
+        summary_msg = {
+            "role": "system",
+            "content": _t("Summary of the conversation so far:\n") + rolling_summary,
+        }
+
+        new_messages = system_msgs + [summary_msg] + tail_part
+
+        print(
+            _t(
+                "[INFO] shrink_llm: {old_n} -> {new_n} messages "
+                "(compressed {old_part_n} older messages into 1 summary; kept {tail_n} tail)"
+            ).format(
+                old_n=len(messages),
+                new_n=len(new_messages),
+                old_part_n=len(old_part),
+                tail_n=len(tail_part),
+            ),
+            file=sys.stderr,
+        )
+
+        log_message(summary_msg)
+        return new_messages, None
+
+    current_chunk_size = initial_chunk_size
+    while True:
+        compressed_messages, error = _compress_once(current_chunk_size)
+        if error is None:
+            return (
+                compressed_messages
+                if compressed_messages is not None
+                else list(messages)
+            )
+
+        if _is_context_length_exceeded(error):
+            if current_chunk_size <= 1:
+                print(
+                    "[WARN] history compression hit context length even at chunk_size=1; falling back to shrink_messages().",
+                    file=sys.stderr,
+                )
+                return shrink_messages(messages, keep_last=keep_last)
+
+            next_chunk_size = max(1, current_chunk_size // 2)
+            if next_chunk_size == current_chunk_size:
+                print(
+                    "[WARN] history compression could not reduce chunk_size further; falling back to shrink_messages().",
+                    file=sys.stderr,
+                )
+                return shrink_messages(messages, keep_last=keep_last)
+
+            print(
+                f"[WARN] history compression context length exceeded; retrying with chunk_size={next_chunk_size}",
+                file=sys.stderr,
+            )
+            current_chunk_size = next_chunk_size
+            continue
+
         return list(messages)
-
-    summary_msg = {
-        "role": "system",
-        "content": _t("Summary of the conversation so far:\n") + rolling_summary,
-    }
-
-    new_messages = system_msgs + [summary_msg] + tail_part
-
-    print(
-        _t(
-            "[INFO] shrink_llm: {old_n} -> {new_n} messages "
-            "(compressed {old_part_n} older messages into 1 summary; kept {tail_n} tail)"
-        ).format(
-            old_n=len(messages),
-            new_n=len(new_messages),
-            old_part_n=len(old_part),
-            tail_n=len(tail_part),
-        ),
-        file=sys.stderr,
-    )
-
-    log_message(summary_msg)
-    return new_messages
 
 
 def print_help() -> None:

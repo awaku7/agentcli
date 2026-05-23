@@ -1783,7 +1783,11 @@ def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
     else:
         profile = load_profile()
 
-    if not profile.get("environment") and not profile.get("preferences") and not profile.get("constraints"):
+    if (
+        not profile.get("environment")
+        and not profile.get("preferences")
+        and not profile.get("constraints")
+    ):
         print(tr("No user profile data found."))
         return True
 
@@ -1794,6 +1798,7 @@ def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
 
 def _handle_cmd_profile_clear(*, tr: Any) -> bool:
     from .profile_manager import get_profile_file_path
+
     path = get_profile_file_path()
     if os.path.exists(path):
         try:
@@ -1901,7 +1906,8 @@ def format_help(*, core: Any) -> str:
         "  :mem-list             " + tr("List long-term memory notes"),
         "  :mem-del <index>      "
         + tr("Delete a long-term memory note by index (see :mem-list)"),
-        "  :profile [fromlog]    " + tr("Show the learned user profile, or generate it from past logs"),
+        "  :profile [fromlog]    "
+        + tr("Show the learned user profile, or generate it from past logs"),
         "  :profile-fromlog      " + tr("Generate user profile from past logs"),
         "  :profile-clear        " + tr("Clear the learned user profile data"),
         "  :cp <src> <dst>       "
