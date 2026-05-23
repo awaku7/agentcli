@@ -260,7 +260,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 c_opts = client_options.ClientOptions(api_endpoint=endpoint)
 
             transport = TextToSpeechRestTransport(
-                client_options=c_opts, credentials=credentials
+                credentials=credentials
             )
             client = texttospeech.TextToSpeechClient(
                 transport=transport, client_options=c_opts
