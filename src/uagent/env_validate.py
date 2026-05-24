@@ -181,6 +181,8 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
             "openrouter",
             "ollama",
             "nvidia",
+            "gemini",
+            "vertexai",
         )
         if embedding_provider not in embedding_allowed:
             warnings.append(
@@ -260,6 +262,28 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
                 reason=_(
                     "NVIDIA embedding API key / model name.",
                     default="NVIDIA embedding API key / model name.",
+                ),
+            )
+        elif embedding_provider == "gemini":
+            missing += _require(
+                [
+                    "UAGENT_GEMINI_EMBEDDING_API_KEY",
+                    "UAGENT_GEMINI_EMBEDDING_DEPNAME",
+                ],
+                reason=_(
+                    "Gemini embedding API key / model name.",
+                    default="Gemini embedding API key / model name.",
+                ),
+            )
+        elif embedding_provider == "vertexai":
+            missing += _require(
+                [
+                    "UAGENT_VERTEXAI_EMBEDDING_API_KEY",
+                    "UAGENT_VERTEXAI_EMBEDDING_DEPNAME",
+                ],
+                reason=_(
+                    "Vertex AI embedding API key / model name.",
+                    default="Vertex AI embedding API key / model name.",
                 ),
             )
 

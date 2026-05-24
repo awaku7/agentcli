@@ -31,7 +31,16 @@ _ENABLE_SEMANTIC_SEARCH = str(
     env_get("UAGENT_ENABLE_SEMANTIC_SEARCH") or ""
 ).strip().lower() in {"1", "true", "yes", "on"}
 
-_ALLOWED_PROVIDERS = {"openai", "azure", "bedrock", "openrouter", "ollama", "nvidia"}
+_ALLOWED_PROVIDERS = {
+    "openai",
+    "azure",
+    "bedrock",
+    "openrouter",
+    "ollama",
+    "nvidia",
+    "gemini",
+    "vertexai",
+}
 _DEFAULT_BASE_URLS = {
     "openai": "https://api.openai.com/v1",
     "azure": "https://api.openai.com/v1",
@@ -85,8 +94,23 @@ def _resolve_embedding_config() -> dict[str, Any]:
         )
         return cfg
 
+    if provider in {"gemini", "vertexai"}:
+        api_key = _embedding_env(provider, "api_key")
+        depname = _embedding_env(provider, "depname")
+        if not (api_key and depname):
+            return {}
+        cfg.update(
+            {
+                "api_key": api_key,
+                "depname": depname,
+            }
+        )
+        return cfg
+
     base_url = _embedding_env(
-        provider, "base_url", default=_DEFAULT_BASE_URLS[provider]
+        provider,
+        "base_url",
+        default=_DEFAULT_BASE_URLS.get(provider, "https://api.openai.com/v1"),
     )
     api_key = _embedding_env(provider, "api_key")
     depname = _embedding_env(provider, "depname")
@@ -121,9 +145,14 @@ def _is_embedding_api_reachable() -> bool:
     if not cfg:
         return False
 
+    provider = cfg.get("provider")
+    if provider in {"gemini", "vertexai"}:
+        # gemini / vertexai の場合は API キーとモデル名があれば疎通可能とみなす
+        return bool(cfg.get("api_key") and cfg.get("depname"))
+
     base_url = str(cfg.get("base_url") or "").rstrip("/")
     candidates = [base_url, base_url + "/"]
-    if cfg.get("provider") == "azure":
+    if provider == "azure":
         api_version = str(cfg.get("api_version") or "")
         depname = str(cfg.get("depname") or "")
         if api_version and depname:
@@ -203,6 +232,43 @@ def _get_embedding(text: str) -> list[float]:
     cfg = _resolve_embedding_config()
     if not cfg:
         raise RuntimeError("Embedding config is not set")
+
+    provider = cfg.get("provider")
+    if provider in {"gemini", "vertexai"}:
+        try:
+            from google import genai
+        except ImportError:
+            raise RuntimeError(
+                "google-genai package is required for gemini/vertexai embeddings"
+            )
+
+        api_key = cfg.get("api_key")
+        depname = cfg.get("depname")
+        if not (api_key and depname):
+            raise RuntimeError(
+                "Gemini/VertexAI embedding API key or model name is missing"
+            )
+
+        # google-genai SDK を使用して埋め込みを生成
+        if provider == "vertexai":
+            # Vertex AI の場合は http_options または環境変数経由で初期化されることが多いが、
+            # google-genai SDK では vertexai=True を指定して初期化します
+            client = genai.Client(api_key=api_key, vertexai=True)
+        else:
+            client = genai.Client(api_key=api_key)
+
+        response = client.models.embed_content(
+            model=depname,
+            contents=text,
+        )
+        if response and response.embeddings:
+            # 1つのテキストに対する埋め込みなので、最初の要素の values を取得
+            emb = response.embeddings[0].values
+            if isinstance(emb, list):
+                return [float(v) for v in emb]
+        raise RuntimeError(
+            "Gemini/VertexAI embedding response did not contain a vector"
+        )
 
     payload = dict(cfg.get("payload_base") or {})
     payload["input"] = text

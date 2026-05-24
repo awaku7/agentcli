@@ -608,6 +608,24 @@ def _ask_provider_embedding_values(
             ("base_url", False, _("NVIDIA base URL (optional)")),
             ("depname", True, _("NVIDIA embedding model/deployment name")),
         ]
+    elif provider == "gemini":
+        specs = [
+            ("api_key", True, _("Gemini embedding API key")),
+            (
+                "depname",
+                True,
+                _("Gemini embedding model name (e.g. text-embedding-004)"),
+            ),
+        ]
+    elif provider == "vertexai":
+        specs = [
+            ("api_key", True, _("Vertex AI embedding API key")),
+            (
+                "depname",
+                True,
+                _("Vertex AI embedding model name (e.g. text-embedding-004)"),
+            ),
+        ]
     else:
         return "ok", vals
 
@@ -800,6 +818,8 @@ def _ask_optional_extras(
             "openrouter (OpenRouter)",
             "ollama (Ollama)",
             "nvidia (NVIDIA)",
+            "gemini (Google Gemini)",
+            "vertexai (Google Vertex AI)",
         ]
         emb_choice = _menu_choice(
             _("Select embedding provider"),
@@ -809,9 +829,16 @@ def _ask_optional_extras(
         )
         if emb_choice in {"__quit__", "__back__"}:
             return emb_choice
-        emb_provider = ["openai", "azure", "bedrock", "openrouter", "ollama", "nvidia"][
-            int(emb_choice) - 1
-        ]
+        emb_provider = [
+            "openai",
+            "azure",
+            "bedrock",
+            "openrouter",
+            "ollama",
+            "nvidia",
+            "gemini",
+            "vertexai",
+        ][int(emb_choice) - 1]
         st.embedding_values = {"UAGENT_EMBEDDING_PROVIDER": emb_provider}
         status, vals = _ask_provider_embedding_values(
             emb_provider,
