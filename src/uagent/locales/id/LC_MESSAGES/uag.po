@@ -1,23 +1,24 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-22 20:43+0900\n"
+"Project-Id-Version: uag\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-26 22:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
 
-#: src/uagent/checks.py:17 src/uagent/checks.py:27
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:17
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:27
 #, python-format
 msgid "Please install Git. See: %(url)s"
 msgstr "Harap instal Git. Lihat: %(url)s"
 
-#: src/uagent/checks.py:20
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:20
 msgid ""
 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
 "yum install git (CentOS/RHEL)"
@@ -25,7 +26,7 @@ msgstr ""
 "Silakan instal Git. Contoh: sudo apt install git (Ubuntu/Debian) atau sudo "
 "yum install git (CentOS/RHEL)"
 
-#: src/uagent/checks.py:23
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:23
 msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
@@ -33,15 +34,82 @@ msgstr ""
 "Silakan instal Git. Jika menggunakan Homebrew: brew install git, atau instal"
 " Xcode Command Line Tools: xcode-select --install"
 
-#: src/uagent/checks.py:30
+#: C:\KAIHATSU\agentcli\src\uagent\checks.py:30
 msgid "[ERROR] Git is not installed."
 msgstr "[KESALAHAN] Git belum terpasang."
 
-#: src/uagent/cli.py:407
+#: C:\KAIHATSU\agentcli\src\uagent\cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "[docs] nama diperlukan"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:91
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:1040
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Gagal menetapkan workdir: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:120
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Gagal meluncurkan uag_setup: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:161
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "penyedia = %(provider)s; model = %(model)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:173
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:295
+msgid "OpenRouter fallback models enabled."
+msgstr "Model fallback OpenRouter diaktifkan."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:177
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "direktori kerja saat ini = %(cwd)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:184
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:306
+msgid "Loaded long-term memory."
+msgstr "Memori jangka panjang dimuat."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:197
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:319
+msgid "Loaded shared long-term memory."
+msgstr "Memori jangka panjang bersama dimuat."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:204
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:724
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[PERINGATAN] Terjadi pengecualian saat memuat memori jangka panjang bersama:"
+" %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:238
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[PERINGATAN] Gagal membaca file startup: %(path)s (%(err)s)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:252
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "Berkas startup disediakan: %(path)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli_startup.py:275
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive ditentukan; keluar tanpa menunggu stdin."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:397
 msgid "getch() fallback to input()"
 msgstr "getch() menjadi cadangan untuk input()"
 
-#: src/uagent/cli.py:646 src/uagent/cli.py:716
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Ctrl+C diterima. Memulai proses shutdown..."
+
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:636
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:706
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -50,26 +118,34 @@ msgstr ""
 "(Mode input multiline: masukkan isi dalam beberapa baris; untuk mengulang, "
 "ketik \"\"\"retry; akhiri dengan baris yang hanya berisi %(sentinel)s)"
 
-#: src/uagent/cli.py:676 src/uagent/setup_cli.py:1156
-#: src/uagent/setup_cli.py:1175 src/uagent/setup_cli.py:1198
-#: src/uagent/setup_cli.py:1214 src/uagent/setup_cli.py:1233
-#: src/uagent/setup_cli.py:1252 src/uagent/setup_cli.py:1266
-#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1287
-#: src/uagent/setup_cli.py:1300 src/uagent/setup_cli.py:1312
-#: src/uagent/setup_cli.py:1323 src/uagent/setup_cli.py:1409
-#: src/uagent/setup_cli.py:1435
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:666
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1183
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1202
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1225
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1241
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1260
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1279
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1293
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1306
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1314
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1327
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1339
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1350
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1436
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1462
 msgid "Cancelled."
 msgstr "Dibatalkan."
 
-#: src/uagent/cli.py:682 src/uagent/cli.py:732
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:672
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:722
 msgid "Discarded previous input. Please start over."
 msgstr "Input sebelumnya dibuang. Silakan mulai lagi."
 
-#: src/uagent/cli.py:693
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:683
 msgid "Received multiline reply."
 msgstr "Balasan multiline diterima."
 
-#: src/uagent/cli.py:851
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:841
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -79,12 +155,12 @@ msgstr ""
 "Apakah Anda ingin mengirim gambar ini ke LLM (API eksternal) untuk analisis?\n"
 "\n"
 
-#: src/uagent/cli.py:857
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:847
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Balas y untuk mengirim, atau n (atau c/cancel) untuk melewati pengiriman."
 
-#: src/uagent/cli.py:875
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:865
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -92,190 +168,104 @@ msgstr ""
 "Konfirmasi pengiriman gambar gagal; gambar tidak akan dikirim: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:903 src/uagent/scheckgui.py:430
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:893
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:431
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Gagal melampirkan gambar: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:940
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:930
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Jenis event tidak dikenal=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:958
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:948
 msgid "Exited uag."
 msgstr "uag keluar."
 
-#: src/uagent/cli_docs.py:33
-msgid "[docs] name is required"
-msgstr "[docs] nama diperlukan"
-
-#: src/uagent/cli_startup.py:91 src/uagent/web.py:1032
-#, python-format
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Gagal menetapkan workdir: %(err)s"
-
-#: src/uagent/cli_startup.py:120
-#, python-format
-msgid "[FATAL] Failed to launch uag_setup: %(err)s"
-msgstr "[FATAL] Gagal meluncurkan uag_setup: %(err)s"
-
-#: src/uagent/cli_startup.py:161
-#, python-format
-msgid "provider = %(provider)s; model = %(model)s"
-msgstr "penyedia = %(provider)s; model = %(model)s"
-
-#: src/uagent/cli_startup.py:173 src/uagent/scheckgui.py:295
-msgid "OpenRouter fallback models enabled."
-msgstr "Model fallback OpenRouter diaktifkan."
-
-#: src/uagent/cli_startup.py:177
-#, python-format
-msgid "current workdir = %(cwd)s"
-msgstr "direktori kerja saat ini = %(cwd)s"
-
-#: src/uagent/cli_startup.py:184 src/uagent/scheckgui.py:306
-msgid "Loaded long-term memory."
-msgstr "Memori jangka panjang dimuat."
-
-#: src/uagent/cli_startup.py:197 src/uagent/scheckgui.py:319
-msgid "Loaded shared long-term memory."
-msgstr "Memori jangka panjang bersama dimuat."
-
-#: src/uagent/cli_startup.py:204 src/uagent/web.py:716
-#, python-format
-msgid ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"[PERINGATAN] Terjadi pengecualian saat memuat memori jangka panjang bersama:"
-" %(err)s"
-
-#: src/uagent/cli_startup.py:238
-#, python-format
-msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-msgstr "[PERINGATAN] Gagal membaca file startup: %(path)s (%(err)s)"
-
-#: src/uagent/cli_startup.py:252
-#, python-format
-msgid "Startup file provided: %(path)s"
-msgstr "Berkas startup disediakan: %(path)s"
-
-#: src/uagent/cli_startup.py:275
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "--non-interactive ditentukan; keluar tanpa menunggu stdin."
-
-#: src/uagent/core.py:286 src/uagent/core.py:307
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:286
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:307
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "Variabel lingkungan %(name)s belum disetel."
 
-#: src/uagent/core.py:607
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:607
 msgid "No log files found."
 msgstr "Tidak ditemukan file log."
 
-#: src/uagent/core.py:625
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:625
 msgid "(unknown time)"
 msgstr "(waktu tidak diketahui)"
 
-#: src/uagent/core.py:628
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:628
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "log: menampilkan %(shown)d/%(total)d (dir=%(dir)s)"
 
-#: src/uagent/core.py:631
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:631
 msgid "Log files:"
 msgstr "File log:"
 
-#: src/uagent/core.py:756 src/uagent/core.py:759
+msgid "(mtime unknown)"
+msgstr "(waktu modifikasi tidak diketahui)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:756
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:759
 msgid "(no user message)"
 msgstr "(tanpa pesan pengguna)"
 
-#: src/uagent/core.py:1185
-#, python-format
-msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
-"Batas percobaan ulang 429 (%(max_retries)s) tercapai saat kompresi riwayat."
-
-#: src/uagent/core.py:1195
-#, python-format
-msgid "Error while calling LLM for history compression: %(err)r"
-msgstr "Terjadi kesalahan saat memanggil LLM untuk kompresi riwayat: %(err)r"
-
-#: src/uagent/core.py:1224
-msgid "- Summarize the conversation chunk in English.\n"
-msgstr "- Ringkas potongan percakapan ini dalam bahasa Inggris.\n"
-
-#: src/uagent/core.py:1226
 msgid ""
-"- Keep the summary concise but include key decisions, constraints, and "
-"pending items.\n"
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
 msgstr ""
-"- Buat ringkasan tetap singkat, tetapi sertakan keputusan penting, batasan, "
-"dan item yang masih tertunda.\n"
+"[%(idx)d] %(mtime_text)s | %(turns)d pesan | pertama: %(first_user)s | "
+"terakhir: %(last_user)s"
 
-#: src/uagent/core.py:1228
-msgid "- Output should be directly usable as a system message."
-msgstr "- Keluaran harus langsung dapat digunakan sebagai pesan sistem."
-
-#: src/uagent/core.py:1231
-msgid "Conversation chunk:\n"
-msgstr "Potongan percakapan:\n"
-
-#: src/uagent/core.py:1233
-msgid "Write a concise summary of this chunk."
-msgstr "Tulis ringkasan singkat untuk potongan ini."
-
-#: src/uagent/core.py:1237
-msgid "- You are updating an existing conversation summary.\n"
-msgstr "- Anda sedang memperbarui ringkasan percakapan yang sudah ada.\n"
-
-#: src/uagent/core.py:1238
-msgid "- Preserve important facts from the previous summary.\n"
-msgstr "- Pertahankan fakta penting dari ringkasan sebelumnya.\n"
-
-#: src/uagent/core.py:1240
 msgid ""
-"- Merge in the new chunk without losing constraints, decisions, or pending "
-"items.\n"
+"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
 msgstr ""
-"- Gabungkan potongan baru tanpa kehilangan batasan, keputusan, atau item "
-"yang tertunda.\n"
+"[WARN] Pesan alat yatim dibuang: tool_call_id=%(tool_call_id)r name=%(name)r"
 
-#: src/uagent/core.py:1242
-msgid "- Keep the result concise and suitable for a system message."
-msgstr "- Jaga hasil tetap singkat dan sesuai untuk pesan sistem."
-
-#: src/uagent/core.py:1245
-msgid "Previous summary:\n"
-msgstr "Ringkasan sebelumnya:\n"
-
-#: src/uagent/core.py:1247
-msgid "New chunk:\n"
-msgstr "Potongan baru:\n"
-
-#: src/uagent/core.py:1249
-msgid "Update the summary while keeping the prior context intact."
-msgstr "Perbarui ringkasan sambil mempertahankan konteks sebelumnya."
-
-#: src/uagent/core.py:1268
-msgid "Summary of the conversation so far:\n"
-msgstr "Ringkasan percakapan sejauh ini:\n"
-
-#: src/uagent/core.py:1275
-#, python-brace-format
 msgid ""
-"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
-"older messages into 1 summary; kept {tail_n} tail)"
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr ""
-"[INFO] shrink_llm: {old_n} -> {new_n} pesan (mengompresi {old_part_n} pesan "
-"lama menjadi 1 ringkasan; menyimpan {tail_n} pesan terakhir)"
+"[INFO] Ada %(count)d pesan untuk dikompresi, jadi tidak ada yang diubah."
 
-#: src/uagent/core.py:1304
+msgid ""
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+msgstr ""
+"[INFO] Riwayat percakapan di memori dikompresi: %(old_n)d -> %(new_n)d pesan"
+" (keep_last=%(keep_last)d)"
+
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[WARN] Kompresi riwayat mencapai batas konteks bahkan pada chunk_size=1; "
+"kembali ke shrink_messages()."
+
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr ""
+"[WARN] Kompresi riwayat tidak bisa mengecilkan chunk_size lebih lanjut; "
+"kembali ke shrink_messages()."
+
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"[WARN] Batas panjang konteks kompresi riwayat terlampaui; mencoba lagi "
+"dengan chunk_size=%(chunk_size)d"
+
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1373
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (bantuan tidak tersedia: %(err)s)"
 
-#: src/uagent/core.py:1316
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1385
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -291,7 +281,7 @@ msgstr ""
 "- Jangan membuat ringkasan. Tetap ringkas.\n"
 "- Saat membuat berkas, keluarkan isi akhir secara lengkap (jangan keluarkan diff atau ringkasan sebagian).\n"
 
-#: src/uagent/core.py:1324
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1393
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -305,7 +295,7 @@ msgstr ""
 "- Tinjau alat yang tersedia dan pilih yang paling sesuai.\n"
 "- Saat menjalankan alat, delegasikan keputusan sesedikit mungkin kepada pengguna.\n"
 
-#: src/uagent/core.py:1331
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1400
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -329,7 +319,7 @@ msgstr ""
 "- Jika pengetahuan tingkat ahli diperlukan, gunakan templat prompt (Agent Skills) dan ikuti petunjuknya.\n"
 "- Jika input pengguna hanya berupa persetujuan singkat dan tidak menambahkan informasi baru, jangan ulangi penjelasan yang sama kecuali itu merupakan jawaban langsung atas pertanyaan jelas yang langsung sebelumnya. Jika perlu, tanyakan singkat: \"Bagian mana yang harus saya lanjutkan?\"\n"
 
-#: src/uagent/core.py:1343
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1412
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -345,7 +335,7 @@ msgstr ""
 "- Hanya ketika pengguna secara eksplisit menjawab \"y\" atau \"yes\" (atau persetujuan eksplisit yang setara), jalankan delete_file lagi dengan parameter yang sama, dry_run=false, dan confirmed=true.\n"
 "- Jika tidak ada kandidat, jangan bertanya; cukup laporkan bahwa tidak ada yang akan dihapus.\n"
 
-#: src/uagent/core.py:1351
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1420
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -359,7 +349,7 @@ msgstr ""
 "- Tanpa basa-basi. Tanpa emoji. Tanpa ringkasan percakapan. Tetap singkat.\n"
 "- Saat membuat file, keluarkan isi final lengkap (bukan diff atau ringkasan sebagian).\n"
 
-#: src/uagent/core.py:1358
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1427
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -373,7 +363,7 @@ msgstr ""
 "- Jadilah kreatif, tetapi jangan keluarkan informasi yang tidak pasti.\n"
 "- Alihkan keputusan ke pengguna sesedikit mungkin.\n"
 
-#: src/uagent/core.py:1365
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1434
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -395,7 +385,7 @@ msgstr ""
 "- Jika pengetahuan tingkat ahli diperlukan, gunakan templat prompt Agent Skills.\n"
 "- Jika input pengguna hanya berupa persetujuan singkat dan tidak menambahkan informasi baru, jangan ulangi penjelasan yang sama kecuali itu merupakan jawaban langsung atas pertanyaan jelas yang langsung sebelumnya. Jika perlu, tanyakan singkat: \"Bagian mana yang harus saya lanjutkan?\"\n"
 
-#: src/uagent/core.py:1378
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1447
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -405,7 +395,7 @@ msgstr ""
 " caret (^) sebagai kelanjutan baris, dan buat setiap baris pendek agar tidak"
 " ada jeda baris saat salin-tempel.\n"
 
-#: src/uagent/core.py:1445
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1514
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -413,62 +403,62 @@ msgstr ""
 "Alat berikut saat ini dimuat dalam sesi ini. Pilih alat yang paling sesuai "
 "untuk tugas ini."
 
-#: src/uagent/docs_util.py:27
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:27
 msgid "Project README"
 msgstr "README Proyek"
 
-#: src/uagent/docs_util.py:32
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:32
 msgid "Quickstart (Windows wheel install)"
 msgstr "Panduan cepat (instalasi wheel Windows)"
 
-#: src/uagent/docs_util.py:37
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:37
 msgid "Web Inspector (playwright_inspector) guide"
 msgstr "Panduan Web Inspector (playwright_inspector)"
 
-#: src/uagent/docs_util.py:42
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:42
 msgid "Developer information"
 msgstr "Informasi pengembang"
 
-#: src/uagent/docs_util.py:149
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:149
 #, python-format
 msgid "unknown doc name: %(name)r"
 msgstr "nama dokumen tidak dikenal: %(name)r"
 
-#: src/uagent/docs_util.py:172
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:172
 #, python-format
 msgid "doc file not found: %(filename)s"
 msgstr "file dokumen tidak ditemukan: %(filename)s"
 
-#: src/uagent/docs_util.py:203
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:203
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
 msgstr "gagal menemukan lokasi dokumen: %(filename)s: %(err)s"
 
-#: src/uagent/docs_util.py:227
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:227
 msgid "[docs] Available documents:"
 msgstr "[docs] Dokumen tersedia:"
 
-#: src/uagent/docs_util.py:231
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:231
 msgid "Usage:"
 msgstr "Penggunaan:"
 
-#: src/uagent/docs_util.py:232
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:232
 msgid "list"
 msgstr "daftar"
 
-#: src/uagent/docs_util.py:233
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:233
 msgid "show"
 msgstr "tampilkan"
 
-#: src/uagent/docs_util.py:234
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:234
 msgid "show path"
 msgstr "tampilkan path"
 
-#: src/uagent/docs_util.py:235
+#: C:\KAIHATSU\agentcli\src\uagent\docs_util.py:235
 msgid "open with OS"
 msgstr "buka dengan OS"
 
-#: src/uagent/env_validate.py:42
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:42
 msgid ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
@@ -476,7 +466,7 @@ msgstr ""
 "Diperlukan untuk memilih penyedia LLM "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
 
-#: src/uagent/env_validate.py:63
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:63
 #, python-format
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
@@ -485,55 +475,55 @@ msgstr ""
 "Penyedia tidak dikenal: %(provider)r. Yang diizinkan: %(allowed)s (startup "
 "kemungkinan gagal)."
 
-#: src/uagent/env_validate.py:74
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:74
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
 msgstr ""
 "Endpoint/URL dasar Azure OpenAI (mis. https://<resource>.openai.azure.com/)."
 
-#: src/uagent/env_validate.py:80
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:80
 msgid "Azure OpenAI API key."
 msgstr "Kunci API Azure OpenAI."
 
-#: src/uagent/env_validate.py:85
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:85
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
 msgstr "Versi API Azure OpenAI (mis. 2024-xx-xx)."
 
-#: src/uagent/env_validate.py:92
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:92
 msgid "OpenAI API key."
 msgstr "Kunci API OpenAI."
 
-#: src/uagent/env_validate.py:98
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:98
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
 msgstr "Endpoint/URL dasar proxy Bedrock (kompatibel dengan OpenAI)."
 
-#: src/uagent/env_validate.py:105
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:105
 msgid "Bedrock proxy API key (OpenAI-compatible)."
 msgstr "Kunci API proxy Bedrock (kompatibel dengan OpenAI)."
 
-#: src/uagent/env_validate.py:112
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:112
 msgid "OpenRouter API key."
 msgstr "Kunci API OpenRouter."
 
-#: src/uagent/env_validate.py:117
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:117
 msgid "Grok (xAI) API key."
 msgstr "Kunci API Grok (xAI)."
 
-#: src/uagent/env_validate.py:122
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:122
 msgid "Gemini API key."
 msgstr "Kunci API Gemini."
 
-#: src/uagent/env_validate.py:129
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:129
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr ""
 "Paket Python 'google-genai' belum terpasang. Penyedia gemini membutuhkannya."
 
-#: src/uagent/env_validate.py:140
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:140
 msgid "Vertex AI API key / model name."
 msgstr "Kunci API Vertex AI / nama model."
 
-#: src/uagent/env_validate.py:149
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:149
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
@@ -541,21 +531,21 @@ msgstr ""
 "Paket Python 'google-genai' belum terpasang. Penyedia vertexai "
 "membutuhkannya."
 
-#: src/uagent/env_validate.py:157
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:157
 msgid "Anthropic (Claude) API key."
 msgstr "Kunci API Anthropic (Claude)."
 
-#: src/uagent/env_validate.py:165
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:165
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr ""
 "Paket Python 'anthropic' belum terpasang. Penyedia claude membutuhkannya."
 
-#: src/uagent/env_validate.py:172
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:172
 msgid "NVIDIA API key."
 msgstr "Kunci API NVIDIA."
 
-#: src/uagent/env_validate.py:188
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:190
 #, python-format
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
@@ -564,54 +554,62 @@ msgstr ""
 "Penyedia embedding tidak dikenal: %(provider)r. Yang diizinkan: %(allowed)s "
 "(startup kemungkinan gagal)."
 
-#: src/uagent/env_validate.py:205
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:207
 msgid "Azure embedding endpoint / API key / API version / deployment name."
 msgstr "Endpoint embedding Azure / kunci API / versi API / nama deployment."
 
-#: src/uagent/env_validate.py:216
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:218
 msgid "OpenAI embedding API key / model name."
 msgstr "Kunci API embedding OpenAI / nama model."
 
-#: src/uagent/env_validate.py:228
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:230
 msgid "Bedrock embedding endpoint / API key / deployment name."
 msgstr "Endpoint embedding Bedrock / kunci API / nama deployment."
 
-#: src/uagent/env_validate.py:239
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:241
 msgid "OpenRouter embedding API key / model name."
 msgstr "Kunci API embedding OpenRouter / nama model."
 
-#: src/uagent/env_validate.py:250
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:252
 msgid "Ollama embedding base URL / model name."
 msgstr "URL dasar embedding Ollama / nama model."
 
-#: src/uagent/env_validate.py:261
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:263
 msgid "NVIDIA embedding API key / model name."
 msgstr "Kunci API embedding NVIDIA / nama model."
 
-#: src/uagent/env_validate.py:278
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:274
+msgid "Gemini embedding API key / model name."
+msgstr "Kunci API / nama model embedding Gemini."
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:285
+msgid "Vertex AI embedding API key / model name."
+msgstr "Kunci API / nama model embedding Vertex AI."
+
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:302
 #, python-brace-format
 msgid "[FATAL] Environment validation failed ({context})."
 msgstr "[FATAL] Validasi lingkungan gagal ({context})."
 
-#: src/uagent/env_validate.py:286
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:310
 msgid "Missing required environment variables:"
 msgstr "Variabel lingkungan yang diperlukan tidak ada:"
 
-#: src/uagent/env_validate.py:293
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:317
 msgid "Warnings:"
 msgstr "Peringatan:"
 
-#: src/uagent/env_validate.py:297
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:321
 msgid "How to fix:"
 msgstr "Cara memperbaiki:"
 
-#: src/uagent/env_validate.py:300
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:324
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr ""
 "- Tetapkan variabel di atas di lingkungan Anda sebelum memulai program."
 
-#: src/uagent/env_validate.py:306
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:330
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
@@ -619,7 +617,7 @@ msgstr ""
 "- Anda dapat menetapkannya melalui pengaturan lingkungan OS, file .env, "
 "skrip startup shell Anda,"
 
-#: src/uagent/env_validate.py:312
+#: C:\KAIHATSU\agentcli\src\uagent\env_validate.py:336
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -627,15 +625,47 @@ msgstr ""
 "  atau konfigurasi process manager / layanan Anda (rahasia CI, systemd, "
 "Docker, dll.)."
 
-#: src/uagent/gemini_cache_mgr.py:131
+#: C:\KAIHATSU\agentcli\src\uagent\gemini_cache_mgr.py:131
 msgid "invalid cache meta"
 msgstr "metadata cache tidak valid"
 
-#: src/uagent/llm_claude.py:142 src/uagent/util_providers.py:491
+msgid "(prompt unavailable)"
+msgstr "(prompt tidak tersedia)"
+
+msgid "screenshot: %(title)s"
+msgstr "tangkapan layar: %(title)s"
+
+msgid "screenshot"
+msgstr "tangkapan layar"
+
+msgid "Image-session context:"
+msgstr "Konteks sesi gambar:"
+
+msgid "This conversation already generated images."
+msgstr "Percakapan ini sudah menghasilkan gambar."
+
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"Gunakan prompt sebelumnya dan jalur file yang tersimpan di bawah ini sebagai"
+" konteks untuk pengeditan lanjutan, variasi, atau kelanjutan."
+
+msgid "Turn %(idx)d:"
+msgstr "Putaran %(idx)d:"
+
+msgid "- prompt: %(prompt)s"
+msgstr "- instruksi: %(prompt)s"
+
+msgid "- file: %(path)s"
+msgstr "- berkas: %(path)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\llm_claude.py:143
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:491
 msgid "anthropic package is not installed."
 msgstr "Paket anthropic belum terpasang."
 
-#: src/uagent/llm_errors.py:398
+#: C:\KAIHATSU\agentcli\src\uagent\llm_errors.py:398
 #, python-format
 msgid ""
 "[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
@@ -646,7 +676,7 @@ msgstr ""
 "percobaan=%(attempt)s/%(max_retries)s tunggu=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_flow_helpers.py:129
+#: C:\KAIHATSU\agentcli\src\uagent\llm_flow_helpers.py:205
 msgid ""
 "The previous assistant reply was empty. Please answer based on the most "
 "recent tool result."
@@ -654,7 +684,7 @@ msgstr ""
 "Balasan asisten sebelumnya kosong. Harap jawab berdasarkan hasil alat paling"
 " baru."
 
-#: src/uagent/llm_flow_helpers.py:142
+#: C:\KAIHATSU\agentcli\src\uagent\llm_flow_helpers.py:218
 #, python-format
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
@@ -665,11 +695,11 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "Ini dapat terjadi pada penyedia lokal yang kompatibel dengan OpenAI setelah panggilan alat. Anda dapat mencoba menetapkan UAGENT_EMPTY_NO_TOOL_MAX ke nilai yang lebih tinggi, atau beralih penyedia."
 
-#: src/uagent/llm_flow_helpers.py:189
+#: C:\KAIHATSU\agentcli\src\uagent\llm_flow_helpers.py:265
 msgid "arguments must be a JSON object."
 msgstr "argumen harus berupa objek JSON."
 
-#: src/uagent/llm_flow_helpers.py:196
+#: C:\KAIHATSU\agentcli\src\uagent\llm_flow_helpers.py:272
 #, python-format
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
@@ -680,7 +710,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-#: src/uagent/llm_flow_helpers.py:222
+#: C:\KAIHATSU\agentcli\src\uagent\llm_flow_helpers.py:298
 msgid ""
 "[INFO] Reusing the previous result because this tool call matches an earlier"
 " one.\n"
@@ -688,7 +718,7 @@ msgstr ""
 "[INFO] Menggunakan kembali hasil sebelumnya karena panggilan alat ini cocok "
 "dengan panggilan sebelumnya.\n"
 
-#: src/uagent/llm_flow_helpers.py:237
+#: C:\KAIHATSU\agentcli\src\uagent\llm_flow_helpers.py:313
 #, python-format
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
@@ -699,50 +729,74 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-#: src/uagent/llm_openai_responses.py:68
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr ""
+"google-genai tidak dapat diimpor (diperlukan pip install google-genai)."
+
+#: C:\KAIHATSU\agentcli\src\uagent\llm_image_helpers.py:8
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr "Jelaskan tangkapan layar ini dan ringkas UI yang terlihat."
+
+#: C:\KAIHATSU\agentcli\src\uagent\llm_image_helpers.py:12
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr "Baca semua teks yang terlihat di tangkapan layar ini dan ringkas."
+
+#: C:\KAIHATSU\agentcli\src\uagent\llm_image_helpers.py:16
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr ""
+"Periksa tangkapan layar ini untuk error, peringatan, dan status UI penting."
+
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] Gagal auto shrink_llm: %(err)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:69
 msgid "[WARN] assistant history contained image content; converted to text."
 msgstr "[WARN] riwayat asisten berisi konten gambar; dikonversi menjadi teks."
 
-#: src/uagent/llm_openai_responses.py:91
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:92
 msgid "[WARN] invalid image content (missing url)."
 msgstr "[WARN] konten gambar tidak valid (URL hilang)."
 
-#: src/uagent/llm_openai_responses.py:99
-#: src/uagent/llm_openai_responses.py:108
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:100
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:109
 #, python-format
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] item konten tidak didukung: %(item)r"
 
-#: src/uagent/llm_openai_responses.py:517
+msgid "Sources:"
+msgstr "Sumber:"
+
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:507
 msgid "search"
 msgstr "cari"
 
-#: src/uagent/llm_openai_responses.py:519
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:509
 msgid "open page"
 msgstr "buka halaman"
 
-#: src/uagent/llm_openai_responses.py:521
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:511
 msgid "find in page"
 msgstr "cari di halaman"
 
-#: src/uagent/llm_openai_responses.py:522
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:512
 msgid "web search"
 msgstr "pencarian web"
 
-#: src/uagent/llm_openai_responses.py:536
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:526
 msgid "Web search: searching"
 msgstr "Pencarian web: mencari"
 
-#: src/uagent/llm_openai_responses.py:538
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:528
 msgid "Web search: completed"
 msgstr "Pencarian web: selesai"
 
-#: src/uagent/llm_openai_responses.py:540
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:530
 #, python-brace-format
 msgid "Web search: {action}"
 msgstr "Pencarian web: {action}"
 
-#: src/uagent/llm_openai_responses.py:597
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:587
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
@@ -759,7 +813,7 @@ msgstr ""
 "        - Jika Anda tidak memiliki parameter wajib, tanyakan kepada pengguna melalui human_ask alih-alih menebak.\n"
 "        "
 
-#: src/uagent/llm_openai_responses.py:604
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:594
 msgid ""
 "[Web search rules]\n"
 "        - Use web search only when fresh or external information is necessary.\n"
@@ -773,47 +827,36 @@ msgstr ""
 "        - Jika jawaban sudah cukup, lebih baik menjawab tanpa pencarian web.\n"
 "        "
 
-#: src/uagent/llm_round_helpers.py:133
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:133
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[Kesalahan terjemahan] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:192 src/uagent/llm_round_helpers.py:302
-#: src/uagent/llm_round_helpers.py:663
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:192
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:302
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:635
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "Batas percobaan 429 (%(max_retries)s) tercapai."
 
-#: src/uagent/llm_round_helpers.py:216
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:216
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Kesalahan Gemini] Terjadi kesalahan saat membuat respons."
 
-#: src/uagent/llm_round_helpers.py:308
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:308
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Kesalahan Claude] Terjadi kesalahan saat membuat respons."
 
-#: src/uagent/llm_round_helpers.py:627
-msgid "Input exceeds the context window."
-msgstr "Input melebihi jendela konteks."
+msgid "[Network Error]"
+msgstr "[Kesalahan Jaringan]"
 
-#: src/uagent/llm_round_helpers.py:633
-msgid "400 BadRequest"
-msgstr "400 Permintaan Buruk"
-
-#: src/uagent/llm_round_helpers.py:637
-msgid "Connection error"
-msgstr "Kesalahan koneksi"
-
-#: src/uagent/llm_round_helpers.py:669
-msgid "Unexpected exception."
-msgstr "Pengecualian tak terduga."
-
-#: src/uagent/llm_round_helpers.py:747
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:719
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Kesalahan saat mengurai respons: %(err)s"
 
-#: src/uagent/profile_manager.py:208 src/uagent/profile_manager.py:309
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:380
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:495
 #, python-brace-format
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
@@ -842,55 +885,64 @@ msgstr ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 
-#: src/uagent/runtime_banner.py:231
+msgid "Failed to initialize LLM client."
+msgstr "Gagal menginisialisasi klien LLM."
+
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr "Ditemukan %(total_files)d file log. Memulai profiling bertahap..."
+
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:231
 msgid "embedding"
 msgstr "penyematan"
 
-#: src/uagent/runtime_banner.py:232
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:232
 msgid "audio speech"
 msgstr "sintesis suara"
 
-#: src/uagent/runtime_banner.py:233
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:233
 msgid "audio transcribe"
 msgstr "transkripsi audio"
 
-#: src/uagent/runtime_banner.py:234
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:234
 msgid "image generation"
 msgstr "pembuatan gambar"
 
-#: src/uagent/runtime_banner.py:235
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:235
 msgid "image analysis"
 msgstr "analisis gambar"
 
-#: src/uagent/runtime_banner.py:254
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:254
 #, python-format
 msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
 msgstr "[INFO] workdir = %(workdir)s (sumber: %(source)s)"
 
-#: src/uagent/runtime_banner.py:262 src/uagent/runtime_banner.py:276
-#: src/uagent/runtime_banner.py:281 src/uagent/runtime_banner.py:293
-#: src/uagent/runtime_banner.py:305 src/uagent/runtime_banner.py:314
-#: src/uagent/runtime_banner.py:323
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:262
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:276
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:281
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:293
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:305
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:314
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:323
 #, python-format
 msgid "[INFO] base_url = %(base_url)s"
 msgstr "[INFO] URL dasar = %(base_url)s"
 
-#: src/uagent/runtime_banner.py:270
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:270
 #, python-format
 msgid "[INFO] api_version = %(api_version)s"
 msgstr "[INFO] versi API = %(api_version)s"
 
-#: src/uagent/runtime_banner.py:332
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:332
 #, python-format
 msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
 msgstr "[INFO] vertexai = project=%(project)s, lokasi=%(location)s"
 
-#: src/uagent/runtime_banner.py:341
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:341
 #, python-format
 msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
 msgstr "[INFO] %(label)s = %(provider)s; model: %(model)s"
 
-#: src/uagent/runtime_banner.py:368
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:368
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
@@ -899,37 +951,37 @@ msgstr ""
 "UAGENT_RESPONSES=1 disetel, tetapi penyedia '%(provider)s' tidak mendukung "
 "Responses API. Beralih ke ChatCompletions."
 
-#: src/uagent/runtime_banner.py:375
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:375
 #, python-format
 msgid "LLM API mode = %(mode)s"
 msgstr "Mode API LLM = %(mode)s"
 
-#: src/uagent/runtime_banner.py:378
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:378
 msgid "Responses (UAGENT_RESPONSES is enabled)"
 msgstr "Respons (UAGENT_RESPONSES diaktifkan)"
 
-#: src/uagent/runtime_banner.py:382
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:382
 msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
 msgstr "API asli Gemini/Vertex AI/Claude (UAGENT_RESPONSES diabaikan)"
 
-#: src/uagent/runtime_banner.py:385
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:385
 msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "ChatCompletions (UAGENT_RESPONSES dinonaktifkan)"
 
-#: src/uagent/runtime_banner.py:393
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:393
 #, python-format
 msgid "LLM streaming = %(state)s"
 msgstr "Streaming LLM = %(state)s"
 
-#: src/uagent/runtime_banner.py:394
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:394
 msgid "enabled"
 msgstr "diaktifkan"
 
-#: src/uagent/runtime_banner.py:394
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_banner.py:394
 msgid "disabled"
 msgstr "dinonaktifkan"
 
-#: src/uagent/runtime_env.py:186
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Update it? [y/N] "
@@ -937,7 +989,7 @@ msgstr ""
 "[INFO] Isi .env.sec tidak cocok dengan variabel lingkungan UAGENT_* saat "
 "ini. Perbarui? [y/N] "
 
-#: src/uagent/runtime_env.py:202
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:202
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Use `uag_envsec` to update it."
@@ -945,17 +997,17 @@ msgstr ""
 "[INFO] Isi .env.sec tidak cocok dengan variabel lingkungan UAGENT_* saat "
 "ini. Gunakan `uag_envsec` untuk memperbaruinya."
 
-#: src/uagent/runtime_env.py:214
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:214
 #, python-format
 msgid "Updated .env.sec: %(path)s"
 msgstr "Diperbarui .env.sec: %(path)s"
 
-#: src/uagent/runtime_env.py:218
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:218
 #, python-format
 msgid "[WARN] Failed to update .env.sec: %(err)s"
 msgstr "[PERINGATAN] Gagal memperbarui .env.sec: %(err)s"
 
-#: src/uagent/runtime_env.py:228
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:228
 msgid ""
 "[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
 "environment variables? [y/N] "
@@ -963,7 +1015,7 @@ msgstr ""
 "[INFO] .env.sec tidak ada. Buat dari variabel lingkungan UAGENT_* saat ini? "
 "[y/N] "
 
-#: src/uagent/runtime_env.py:244
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:244
 msgid ""
 "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
 "startup UAGENT_* environment variables."
@@ -971,726 +1023,803 @@ msgstr ""
 "[INFO] .env.sec tidak ada. Gunakan `uag_envsec` untuk membuatnya dari "
 "variabel lingkungan UAGENT_* saat ini."
 
-#: src/uagent/runtime_env.py:254
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:254
 #, python-format
 msgid "Created .env.sec: %(path)s"
 msgstr "Dibuat .env.sec: %(path)s"
 
-#: src/uagent/runtime_env.py:258
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:258
 #, python-format
 msgid "[WARN] Failed to create .env.sec: %(err)s"
 msgstr "[PERINGATAN] Gagal membuat .env.sec: %(err)s"
 
-#: src/uagent/runtime_env.py:289
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_env.py:289
 #, python-format
 msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
 msgstr "[WARN] Gagal memeriksa sinkronisasi .env.sec: %(err)s"
 
-#: src/uagent/runtime_init.py:83
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_init.py:83
 #, python-format
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[PERINGATAN] Gagal mendekripsi .env.sec: %(err)s"
 
-#: src/uagent/runtime_workdir.py:49
+#: C:\KAIHATSU\agentcli\src\uagent\runtime_workdir.py:49
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Path workdir yang ditentukan adalah file: %(path)s"
 
-#: src/uagent/scheckgui.py:131
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:131
 msgid "Drop files/images here"
 msgstr "Seret dan jatuhkan file/gambar di sini"
 
-#: src/uagent/scheckgui.py:169
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:169
 msgid "Download"
 msgstr "Unduh"
 
-#: src/uagent/scheckgui.py:328
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:328
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "Terjadi pengecualian saat memuat memori jangka panjang bersama: %(err)s"
 
-#: src/uagent/scheckgui.py:775 src/uagent/scheckgui.py:905
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[File Terlampir] %(name)s (%(path)s)"
+
+msgid "[Attached Image] %(path)s"
+msgstr "[Gambar Terlampir] %(path)s"
+
+msgid "[Image Path] %(path)s"
+msgstr "[Jalur Gambar] %(path)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:778
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:908
 msgid "Welcome / Quick Guide"
 msgstr "Selamat datang / Panduan singkat"
 
-#: src/uagent/scheckgui.py:783
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:786
 msgid "uag GUI (Extreme Stability)"
 msgstr "GUI uag (Stabilitas Ekstrem)"
 
-#: src/uagent/scheckgui.py:838
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:841
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Anda dapat melampirkannya dengan drag-and-drop"
 
-#: src/uagent/scheckgui.py:859
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:862
 msgid "Attach..."
 msgstr "Lampirkan..."
 
-#: src/uagent/scheckgui.py:864
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:867
 msgid "Send"
 msgstr "Kirim"
 
-#: src/uagent/scheckgui.py:904
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:907
 msgid "Help"
 msgstr "Bantuan"
 
-#: src/uagent/scheckgui.py:919
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:922
 msgid "Mode"
 msgstr "Modus"
 
-#: src/uagent/scheckgui.py:921
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:924
 msgid "Reasoning: off"
 msgstr "Penalaran: mati"
 
-#: src/uagent/scheckgui.py:924
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:927
 msgid "Reasoning: auto"
 msgstr "Penalaran: otomatis"
 
-#: src/uagent/scheckgui.py:926
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:929
 msgid "Reasoning: minimal"
 msgstr "Penalaran: minimal"
 
-#: src/uagent/scheckgui.py:928
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:931
 msgid "Reasoning: low"
 msgstr "Penalaran: rendah"
 
-#: src/uagent/scheckgui.py:930
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:933
 msgid "Reasoning: medium"
 msgstr "Penalaran: sedang"
 
-#: src/uagent/scheckgui.py:932
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:935
 msgid "Reasoning: high"
 msgstr "Penalaran: tinggi"
 
-#: src/uagent/scheckgui.py:935
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:938
 msgid "Reasoning: xhigh"
 msgstr "Penalaran: sangat tinggi"
 
-#: src/uagent/scheckgui.py:940
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:943
 msgid "Verbosity: off"
 msgstr "Tingkat detail: mati"
 
-#: src/uagent/scheckgui.py:942
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:945
 msgid "Verbosity: low"
 msgstr "Tingkat detail: rendah"
 
-#: src/uagent/scheckgui.py:944
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:947
 msgid "Verbosity: medium"
 msgstr "Tingkat detail: sedang"
 
-#: src/uagent/scheckgui.py:946
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:949
 msgid "Verbosity: high"
 msgstr "Tingkat detail: tinggi"
 
-#: src/uagent/scheckgui.py:976
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:979
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] penalaran=%(mode)s"
 
-#: src/uagent/scheckgui.py:986
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; "
+"auto/minimal/xhigh)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:989
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[mode] verbositas=%(mode)s"
 
-#: src/uagent/scheckgui.py:988
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:991
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 ":v [0|1|2|3]  (0=off, 1=rendah, 2=sedang, 3=tinggi; tanpa "
 "argumen=pertahankan)"
 
-#: src/uagent/scheckgui.py:1117
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1120
 msgid "Enter password..."
 msgstr "Masukkan kata sandi..."
 
-#: src/uagent/scheckgui.py:1124
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1127
 msgid "Enter a message..."
 msgstr "Masukkan pesan..."
 
-#: src/uagent/scheckgui.py:1141
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1144
 msgid "Attach files"
 msgstr "Lampirkan berkas"
 
-#: src/uagent/scheckgui.py:1143
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1146
 msgid "All Files (*)"
 msgstr "Semua Berkas (*)"
 
-#: src/uagent/scheckgui.py:1544 src/uagent/scheckgui.py:1584
-#: src/uagent/scheckgui.py:1619
+msgid "cannot read image"
+msgstr "tidak dapat membaca gambar"
+
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1547
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1587
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1622
 msgid "Downloaded to"
 msgstr "Diunduh ke"
 
-#: src/uagent/scheckgui.py:1638
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1641
 msgid "Playing"
 msgstr "Sedang diputar"
 
-#: src/uagent/scheckgui.py:1648
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1651
 msgid "Stopped"
 msgstr "Berhenti"
 
-#: src/uagent/scheckgui.py:1697
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1700
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[BALASAN] > %(text)s"
 
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
-#: src/uagent/setup_cli.py:572
+msgid "[USER] %(text)s"
+msgstr "[PENGGUNA] %(text)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:77
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:482
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:572
 msgid "OpenAI API key"
 msgstr "Kunci API OpenAI"
 
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
-#: src/uagent/setup_cli.py:573
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:78
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:483
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:573
 msgid "OpenAI base URL (optional)"
 msgstr "URL dasar OpenAI (opsional)"
 
-#: src/uagent/setup_cli.py:79
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:79
 msgid "OpenAI model/deployment name (optional)"
 msgstr "Nama model/deployment OpenAI (opsional)"
 
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
-#: src/uagent/setup_cli.py:560
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:85
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:474
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:560
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr "URL dasar Azure (mis. https://<resource>.openai.azure.com/)"
 
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
-#: src/uagent/setup_cli.py:562
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:87
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:476
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:562
 msgid "Azure API key"
 msgstr "Kunci API Azure"
 
-#: src/uagent/setup_cli.py:91
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:91
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr "Versi API Azure (opsional, mis. 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:93
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:478
 msgid "Azure deployment name"
 msgstr "Nama deployment Azure"
 
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
-#: src/uagent/setup_cli.py:581
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:99
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:491
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:581
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr "URL dasar gateway Bedrock (mis. https://<gateway>/v1)"
 
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
-#: src/uagent/setup_cli.py:583
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:101
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:493
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:583
 msgid "Bedrock API key"
 msgstr "Kunci API Bedrock"
 
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:105
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:497
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr "Nama model/deployment Bedrock (mis. openai.gpt-oss-120b)"
 
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
-#: src/uagent/setup_cli.py:592
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:109
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:502
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:592
 msgid "OpenRouter API key"
 msgstr "Kunci API OpenRouter"
 
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
-#: src/uagent/setup_cli.py:593
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:110
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:503
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:593
 msgid "OpenRouter base URL (optional)"
 msgstr "URL dasar OpenRouter (opsional)"
 
-#: src/uagent/setup_cli.py:114
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:114
 msgid "OpenRouter model/deployment name (optional)"
 msgstr "Nama model/deployment OpenRouter (opsional)"
 
-#: src/uagent/setup_cli.py:119
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:119
 msgid "OpenRouter fallback models (optional, comma-separated)"
 msgstr "Model cadangan OpenRouter (opsional, dipisahkan koma)"
 
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:123
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:508
 msgid "Gemini API key"
 msgstr "Kunci API Gemini"
 
-#: src/uagent/setup_cli.py:124
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:124
 msgid "Gemini model name (optional)"
 msgstr "Nama model Gemini (opsional)"
 
-#: src/uagent/setup_cli.py:127
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:127
 msgid "Vertex AI API key"
 msgstr "Kunci API Vertex AI"
 
-#: src/uagent/setup_cli.py:128
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:128
 msgid "Vertex AI project ID (optional)"
 msgstr "ID proyek Vertex AI (opsional)"
 
-#: src/uagent/setup_cli.py:129
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:129
 msgid "Vertex AI location/region (optional)"
 msgstr "Lokasi/wilayah Vertex AI (opsional)"
 
-#: src/uagent/setup_cli.py:133
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:133
 msgid "Google credentials for Vertex AI (optional)"
 msgstr "Kredensial Google untuk Vertex AI (opsional)"
 
-#: src/uagent/setup_cli.py:138
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:138
 msgid "Google location/region for Vertex AI (optional)"
 msgstr "Lokasi/wilayah Google untuk Vertex AI (opsional)"
 
-#: src/uagent/setup_cli.py:140
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:140
 msgid "Vertex AI model/deployment name"
 msgstr "Nama model/deployment Vertex AI"
 
-#: src/uagent/setup_cli.py:143
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:143
 msgid "Grok API key"
 msgstr "Kunci API Grok"
 
-#: src/uagent/setup_cli.py:144
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:144
 msgid "Grok base URL (optional)"
 msgstr "URL dasar Grok (opsional)"
 
-#: src/uagent/setup_cli.py:145
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:145
 msgid "Grok model/deployment name (optional)"
 msgstr "Nama model/deployment Grok (opsional)"
 
-#: src/uagent/setup_cli.py:148
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:148
 msgid "Claude API key"
 msgstr "Kunci API Claude"
 
-#: src/uagent/setup_cli.py:149
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:149
 msgid "Claude model/deployment name (optional)"
 msgstr "Nama model/deployment Claude (opsional)"
 
-#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
-#: src/uagent/setup_cli.py:607
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:152
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:513
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:607
 msgid "NVIDIA API key"
 msgstr "Kunci API NVIDIA"
 
-#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
-#: src/uagent/setup_cli.py:608
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:153
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:514
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:608
 msgid "NVIDIA base URL (optional)"
 msgstr "URL dasar NVIDIA (opsional)"
 
-#: src/uagent/setup_cli.py:154
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:154
 msgid "NVIDIA model/deployment name (optional)"
 msgstr "Nama model/deployment NVIDIA (opsional)"
 
-#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:160
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:601
 msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
 msgstr "URL dasar Ollama (mis. http://localhost:11434/v1)"
 
-#: src/uagent/setup_cli.py:165
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:165
 msgid "Ollama API key (optional, default: dummy)"
 msgstr "Kunci API Ollama (opsional, default: dummy)"
 
-#: src/uagent/setup_cli.py:167
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:167
 msgid "Ollama model/deployment name (optional)"
 msgstr "Nama model/deployment Ollama (opsional)"
 
-#: src/uagent/setup_cli.py:171
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:171
 msgid "Ollama request timeout in seconds (default: 60)"
 msgstr "Batas waktu permintaan Ollama dalam detik (default: 60)"
 
-#: src/uagent/setup_cli.py:173
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:173
 msgid "Ollama temperature (default: 0.7)"
 msgstr "Temperatur Ollama (default: 0.7)"
 
-#: src/uagent/setup_cli.py:174
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:174
 msgid "Ollama top_p (default: 0.9)"
 msgstr "top_p Ollama (default: 0.9)"
 
-#: src/uagent/setup_cli.py:175
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:175
 msgid "Ollama top_k (default: 40)"
 msgstr "top_k Ollama (default: 40)"
 
-#: src/uagent/setup_cli.py:179
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:179
 msgid "Ollama repeat_penalty (default: 1.1)"
 msgstr "repeat_penalty Ollama (default: 1.1)"
 
-#: src/uagent/setup_cli.py:181
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:181
 msgid "Ollama keep_alive (default: 5m)"
 msgstr "keep_alive Ollama (default: 5m)"
 
-#: src/uagent/setup_cli.py:182
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:182
 msgid "Ollama num_ctx (default: 8192)"
 msgstr "num_ctx Ollama (default: 8192)"
 
-#: src/uagent/setup_cli.py:183
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:183
 msgid "Ollama num_predict (default: 1024)"
 msgstr "num_predict Ollama (default: 1024)"
 
-#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:345
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:434
 msgid "Enter number:"
 msgstr "Masukkan angka:"
 
-#: src/uagent/setup_cli.py:358
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:358
 msgid "Invalid input. Please enter a valid number."
 msgstr "Input tidak valid. Silakan masukkan angka yang benar."
 
-#: src/uagent/setup_cli.py:371
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:371
 #, python-format
 msgid " [default: %(default)s]"
 msgstr " [bawaan: %(default)s]"
 
-#: src/uagent/setup_cli.py:387
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:387
 msgid "This field is required. Please enter a value."
 msgstr "Bidang ini wajib diisi. Silakan masukkan nilai."
 
-#: src/uagent/setup_cli.py:399
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:399
 msgid "Select UAGENT_LANG"
 msgstr "Pilih UAGENT_LANG"
 
-#: src/uagent/setup_cli.py:410
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:410
 msgid "UAGENT_LANG (custom)"
 msgstr "UAGENT_LANG (kustom)"
 
-#: src/uagent/setup_cli.py:423
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:423
 msgid "Select output files to generate in the current directory"
 msgstr "Pilih file keluaran yang akan dibuat di direktori saat ini"
 
-#: src/uagent/setup_cli.py:424
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:424
 msgid "  1. .env only"
 msgstr "  1. hanya .env"
 
-#: src/uagent/setup_cli.py:425
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:425
 msgid "  2. .env + env.sh"
 msgstr "  2. .env dan env.sh"
 
-#: src/uagent/setup_cli.py:426
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:426
 msgid "  3. .env + env.ps1"
 msgstr "  3. .env dan env.ps1"
 
-#: src/uagent/setup_cli.py:427
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:427
 msgid "  4. .env + env.bat"
 msgstr "  4. .env dan env.bat"
 
-#: src/uagent/setup_cli.py:428
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + semua (sh/ps1/bat)"
 
-#: src/uagent/setup_cli.py:430
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:430
 msgid "  b. back"
 msgstr "  b. kembali"
 
-#: src/uagent/setup_cli.py:431
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:431
 msgid "  q. quit"
 msgstr "  q. keluar"
 
-#: src/uagent/setup_cli.py:449
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:449
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr "Input tidak valid. Masukkan 1-5, atau b/q."
 
-#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:477
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:566
 msgid "Azure API version (e.g. 2024-05-01-preview)"
 msgstr "Versi API Azure (mis. 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:484
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:484
 msgid "OpenAI model/deployment name"
 msgstr "Nama model/deployment OpenAI"
 
-#: src/uagent/setup_cli.py:504
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:504
 msgid "OpenRouter model/deployment name"
 msgstr "Nama model/deployment OpenRouter"
 
-#: src/uagent/setup_cli.py:509
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:509
 msgid "Gemini model name"
 msgstr "Nama model Gemini"
 
-#: src/uagent/setup_cli.py:515
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:515
 msgid "NVIDIA model/deployment name"
 msgstr "Nama model/deployment NVIDIA"
 
-#: src/uagent/setup_cli.py:534
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:534
 msgid "Enable image generation debug output? (0/1)"
 msgstr "Pilih penyedia pembuatan gambar"
 
-#: src/uagent/setup_cli.py:568
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:568
 msgid "Azure embedding deployment name"
 msgstr "Nama deployment Azure untuk embedding"
 
-#: src/uagent/setup_cli.py:574
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:574
 msgid "OpenAI embedding model/deployment name"
 msgstr "Nama model/deployment OpenAI untuk embedding"
 
-#: src/uagent/setup_cli.py:587
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:587
 msgid "Bedrock embedding model/deployment name"
 msgstr "Nama model/deployment Bedrock untuk embedding"
 
-#: src/uagent/setup_cli.py:594
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:594
 msgid "OpenRouter embedding model/deployment name"
 msgstr "Nama model/deployment OpenRouter untuk embedding"
 
-#: src/uagent/setup_cli.py:603
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:603
 msgid "Ollama embedding model name"
 msgstr "Nama model Ollama untuk embedding"
 
-#: src/uagent/setup_cli.py:609
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:609
 msgid "NVIDIA embedding model/deployment name"
 msgstr "Nama model/deployment NVIDIA untuk embedding"
 
-#: src/uagent/setup_cli.py:657
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:613
+msgid "Gemini embedding API key"
+msgstr "Kunci API embedding Gemini"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:617
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr "Nama model embedding Gemini (misalnya text-embedding-004)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:622
+msgid "Vertex AI embedding API key"
+msgstr "Kunci API embedding Vertex AI"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:626
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr "Nama model embedding Vertex AI (misalnya text-embedding-004)"
+
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:675
 msgid "Azure speech deployment name"
 msgstr "Nama deployment Azure Speech"
 
-#: src/uagent/setup_cli.py:658
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:676
 msgid "Azure transcription deployment name"
 msgstr "Nama deployment transkripsi Azure"
 
-#: src/uagent/setup_cli.py:659
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:677
 msgid "OpenAI speech model/deployment name"
 msgstr "Nama model/deployment OpenAI Speech"
 
-#: src/uagent/setup_cli.py:660
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:678
 msgid "OpenAI transcription model/deployment name"
 msgstr "Nama model/deployment transkripsi OpenAI"
 
-#: src/uagent/setup_cli.py:661
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:679
 msgid "Gemini speech model name (optional)"
 msgstr "Nama model sintesis suara Gemini (opsional)"
 
-#: src/uagent/setup_cli.py:662
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:680
 msgid "Gemini transcription model name (optional)"
 msgstr "Nama model transkripsi Gemini (opsional)"
 
-#: src/uagent/setup_cli.py:663
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:681
 msgid "Vertex AI speech model name (optional)"
 msgstr "Nama model sintesis suara Vertex AI (opsional)"
 
-#: src/uagent/setup_cli.py:664
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:682
 msgid "Vertex AI transcription model name (optional)"
 msgstr "Nama model transkripsi Vertex AI (opsional)"
 
-#: src/uagent/setup_cli.py:687
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:705
 msgid "Configure optional image / embedding / audio settings?"
 msgstr ""
 "Apakah ingin mengonfigurasi pengaturan opsional untuk gambar / embedding?"
 
-#: src/uagent/setup_cli.py:688 src/uagent/setup_cli.py:703
-#: src/uagent/setup_cli.py:735 src/uagent/setup_cli.py:766
-#: src/uagent/setup_cli.py:782 src/uagent/setup_cli.py:828
-#: src/uagent/setup_cli.py:887 src/uagent/setup_cli.py:1132
-#: src/uagent/setup_cli.py:1193 src/uagent/setup_cli.py:1247
-#: src/uagent/setup_cli.py:1274 src/uagent/setup_cli.py:1295
-#: src/uagent/setup_cli.py:1432
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:706
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:721
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:753
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:784
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:800
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:855
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:914
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1159
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1220
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1274
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1301
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1322
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1459
 msgid "No"
 msgstr "Tidak"
 
-#: src/uagent/setup_cli.py:688 src/uagent/setup_cli.py:703
-#: src/uagent/setup_cli.py:735 src/uagent/setup_cli.py:766
-#: src/uagent/setup_cli.py:782 src/uagent/setup_cli.py:828
-#: src/uagent/setup_cli.py:887 src/uagent/setup_cli.py:1132
-#: src/uagent/setup_cli.py:1193 src/uagent/setup_cli.py:1247
-#: src/uagent/setup_cli.py:1274 src/uagent/setup_cli.py:1295
-#: src/uagent/setup_cli.py:1432
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:706
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:721
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:753
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:784
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:800
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:855
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:914
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1159
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1220
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1274
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1301
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1322
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1459
 msgid "Yes"
 msgstr "Ya"
 
-#: src/uagent/setup_cli.py:702
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:720
 msgid "Configure image analysis settings?"
 msgstr "Apakah ingin mengonfigurasi pengaturan analisis gambar?"
 
-#: src/uagent/setup_cli.py:713
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:731
 msgid "Select image analysis provider"
 msgstr "Pilih penyedia analisis gambar"
 
-#: src/uagent/setup_cli.py:734
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:752
 msgid "Configure image generation settings?"
 msgstr "Apakah ingin mengonfigurasi pengaturan pembuatan gambar?"
 
-#: src/uagent/setup_cli.py:745
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:763
 msgid "Select image generation provider"
 msgstr "Pilih penyedia pembuatan gambar"
 
-#: src/uagent/setup_cli.py:765
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:783
 msgid "Open generated images automatically?"
 msgstr "Buka gambar yang dihasilkan secara otomatis?"
 
-#: src/uagent/setup_cli.py:781
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:799
 msgid "Configure embedding / semantic search settings?"
 msgstr ""
 "Apakah ingin mengonfigurasi pengaturan embedding / pencarian semantik?"
 
-#: src/uagent/setup_cli.py:805
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:825
 msgid "Select embedding provider"
 msgstr "Pilih penyedia embedding"
 
-#: src/uagent/setup_cli.py:827
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:854
 msgid "Configure audio speech / transcription settings?"
 msgstr "Konfigurasikan pengaturan ucapan / transkripsi audio?"
 
-#: src/uagent/setup_cli.py:846
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:873
 msgid "Select audio speech provider"
 msgstr "Pilih penyedia sintesis suara"
 
-#: src/uagent/setup_cli.py:866
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:893
 msgid "Select audio transcribe provider"
 msgstr "Pilih penyedia transkripsi audio"
 
-#: src/uagent/setup_cli.py:886
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:913
 msgid "Open generated audio automatically?"
 msgstr "Buka audio yang dihasilkan secara otomatis?"
 
-#: src/uagent/setup_cli.py:953
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:980
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "Opsional: Responses API (Azure/OpenAI/Bedrock)"
 
-#: src/uagent/setup_cli.py:966
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:993
 msgid "Optional runtime"
 msgstr "Runtime opsional"
 
-#: src/uagent/setup_cli.py:980
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1007
 msgid "Optional image / embedding / audio settings"
 msgstr "Pengaturan opsional untuk gambar / embedding"
 
-#: src/uagent/setup_cli.py:1122
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1149
 msgid "Optional specialized sub-agent settings"
 msgstr "Pengaturan opsional sub-agen khusus"
 
-#: src/uagent/setup_cli.py:1131
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1158
 msgid "Encrypt the generated .env file?"
 msgstr "Apakah file .env yang dihasilkan ingin dienkripsi?"
 
-#: src/uagent/setup_cli.py:1137
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1164
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "File terenkripsi akan ditulis sebagai %(path)s"
 
-#: src/uagent/setup_cli.py:1153
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1180
 msgid "Select provider"
 msgstr "Pilih penyedia"
 
-#: src/uagent/setup_cli.py:1192
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1219
 msgid "Enable Responses API options?"
 msgstr "Aktifkan opsi Responses API?"
 
-#: src/uagent/setup_cli.py:1208
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1235
 msgid "Select reasoning"
 msgstr "Pilih penalaran"
 
-#: src/uagent/setup_cli.py:1227
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1254
 msgid "Select verbosity"
 msgstr "Pilih tingkat detail"
 
-#: src/uagent/setup_cli.py:1246
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1273
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "Atur UAGENT_WORKDIR opsional?"
 
-#: src/uagent/setup_cli.py:1273
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1300
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "Atur UAGENT_LANG opsional?"
 
-#: src/uagent/setup_cli.py:1294
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1321
 msgid "Enable streaming?"
 msgstr "Aktifkan streaming?"
 
-#: src/uagent/setup_cli.py:1335
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1362
 msgid "Summary"
 msgstr "Ringkasan"
 
-#: src/uagent/setup_cli.py:1336
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1363
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "  Penyedia: %(provider)s"
 
-#: src/uagent/setup_cli.py:1343
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1370
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "  Responses diaktifkan: %(state)s"
 
-#: src/uagent/setup_cli.py:1344 src/uagent/setup_cli.py:1351
-#: src/uagent/setup_cli.py:1355 src/uagent/setup_cli.py:1361
-#: src/uagent/setup_cli.py:1367 src/uagent/setup_cli.py:1372
-#: src/uagent/setup_cli.py:1380 src/uagent/setup_cli.py:1391
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1371
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1378
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1382
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1388
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1394
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1399
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1407
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1418
 msgid "yes"
 msgstr "ya"
 
-#: src/uagent/setup_cli.py:1344 src/uagent/setup_cli.py:1351
-#: src/uagent/setup_cli.py:1355 src/uagent/setup_cli.py:1361
-#: src/uagent/setup_cli.py:1367 src/uagent/setup_cli.py:1372
-#: src/uagent/setup_cli.py:1380 src/uagent/setup_cli.py:1391
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1371
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1378
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1382
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1388
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1394
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1399
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1407
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1418
 msgid "no"
 msgstr "tidak"
 
-#: src/uagent/setup_cli.py:1350
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1377
 #, python-format
 msgid "  Streaming enabled: %(state)s"
 msgstr "  Streaming diaktifkan: %(state)s"
 
-#: src/uagent/setup_cli.py:1366
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1393
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "  Ekstra opsional diaktifkan: %(state)s"
 
-#: src/uagent/setup_cli.py:1371
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1398
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "  Analisis gambar diaktifkan: %(state)s"
 
-#: src/uagent/setup_cli.py:1379
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1406
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "  Pembuatan gambar diaktifkan: %(state)s"
 
-#: src/uagent/setup_cli.py:1390
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1417
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "  Embedding diaktifkan: %(state)s"
 
-#: src/uagent/setup_cli.py:1400
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1427
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "  Keluaran: %(outputs)s"
 
-#: src/uagent/setup_cli.py:1403
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1430
 msgid "Generate files with this configuration?"
 msgstr "Buat file dengan konfigurasi ini?"
 
-#: src/uagent/setup_cli.py:1404
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1431
 msgid "Yes, generate"
 msgstr "Ya, buat"
 
-#: src/uagent/setup_cli.py:1404
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1431
 msgid "Back"
 msgstr "Kembali"
 
-#: src/uagent/setup_cli.py:1428
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1455
 msgid "The following files already exist and will be overwritten:"
 msgstr "File berikut sudah ada dan akan ditimpa:"
 
-#: src/uagent/setup_cli.py:1432
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1459
 msgid "Proceed?"
 msgstr "Lanjutkan?"
 
-#: src/uagent/setup_cli.py:1456
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1483
 msgid "Plain .env file removed after encryption."
 msgstr "File .env biasa dihapus setelah enkripsi."
 
-#: src/uagent/setup_cli.py:1459
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1486
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "Peringatan: gagal menghapus file .env biasa: %(error)s"
 
-#: src/uagent/setup_cli.py:1478
+#: C:\KAIHATSU\agentcli\src\uagent\setup_cli.py:1505
 #, python-format
 msgid "generated: %(path)s"
 msgstr "dihasilkan: %(path)s"
 
-#: src/uagent/uagent_llm.py:131
+#: C:\KAIHATSU\agentcli\src\uagent\uagent_llm.py:131
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[PERINGATAN] Putaran alat melebihi %(max)d; dihentikan."
 
-#: src/uagent/util_providers.py:147
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:147
 msgid "Environment variable UAGENT_PROVIDER is not set."
 msgstr "Variabel lingkungan UAGENT_PROVIDER belum disetel."
 
-#: src/uagent/util_providers.py:163
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:163
 #, python-format
 msgid "Unknown provider: %(provider)s"
 msgstr "Penyedia tidak dikenal: %(provider)s"
 
-#: src/uagent/util_providers.py:425 src/uagent/util_providers.py:451
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:425
+#: C:\KAIHATSU\agentcli\src\uagent\util_providers.py:451
 msgid "google-genai package is not installed."
 msgstr "Paket google-genai belum terpasang."
 
-#: src/uagent/util_tools.py:180
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:180
 #, python-format
 msgid "image file not found: %(path)s"
 msgstr "file gambar tidak ditemukan: %(path)s"
 
-#: src/uagent/util_tools.py:185
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:185
 #, python-format
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "file gambar terlalu besar: %(size)d byte (batas=%(max)d)"
 
-#: src/uagent/util_tools.py:209
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:209
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1698,7 +1827,7 @@ msgstr ""
 "Tentukan direktori kerja. Jika tidak disetel, gunakan env var UAGENT_WORKDIR"
 " atau direktori saat ini."
 
-#: src/uagent/util_tools.py:216
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:216
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
@@ -1706,34 +1835,34 @@ msgstr ""
 "Mode non-interaktif. Jangan mulai loop stdin; keluar setelah memproses file "
 "startup (jika ada)."
 
-#: src/uagent/util_tools.py:354
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:354
 msgid "invalid reasoning"
 msgstr "reasoning tidak valid"
 
-#: src/uagent/util_tools.py:372
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:372
 msgid "invalid verbosity"
 msgstr "tingkat verbositas tidak valid"
 
-#: src/uagent/util_tools.py:546
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:546
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr ""
 "[logs] Argumen tidak valid: %(arg)r (gunakan all / --all / -a / angka)"
 
-#: src/uagent/util_tools.py:585
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:585
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "gagal mengurai argumen: %(err)s"
 
-#: src/uagent/util_tools.py:588
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:588
 msgid "missing arguments"
 msgstr "argumen hilang"
 
-#: src/uagent/util_tools.py:604
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:604
 msgid "src and dst are required"
 msgstr "src dan dst wajib diisi"
 
-#: src/uagent/util_tools.py:972
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:972
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -1745,11 +1874,11 @@ msgstr ""
 "Jika skill berisi tugas, lanjutkan sampai selesai.\n"
 "Gunakan tool sesuai kebutuhan.\n"
 
-#: src/uagent/util_tools.py:979
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:979
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Saat selesai, selalu panggil `finish_skill` jika tersedia.\n"
 
-#: src/uagent/util_tools.py:1118
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1118
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1759,7 +1888,7 @@ msgstr ""
 "Tip: :skills clear  (hapus skill yang diterapkan)\n"
 "Masukkan nomor:"
 
-#: src/uagent/util_tools.py:1154
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1154
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -1776,7 +1905,7 @@ msgstr ""
 "\n"
 "Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
 
-#: src/uagent/util_tools.py:1216
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1216
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -1785,7 +1914,7 @@ msgstr ""
 "[clean] Argumen tidak valid: %(arg)r (gunakan number=threshold; default "
 "%(default)d)"
 
-#: src/uagent/util_tools.py:1265
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1265
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1802,12 +1931,12 @@ msgstr ""
 "\n"
 "Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
 
-#: src/uagent/util_tools.py:1333
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1333
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr " - (%(count)d pesan) %(path)s"
 
-#: src/uagent/util_tools.py:1377
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1377
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -1824,7 +1953,7 @@ msgstr ""
 "\n"
 "Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
 
-#: src/uagent/util_tools.py:1508
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1508
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1839,24 +1968,24 @@ msgstr ""
 "\n"
 "Masukkan y untuk melanjutkan, atau c untuk membatalkan."
 
-#: src/uagent/util_tools.py:1563
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1563
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "Indeks yang ditentukan %(idx)d di luar jangkauan."
 
-#: src/uagent/util_tools.py:1572
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1572
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "Berkas log tidak ditemukan: %(path)s"
 
-#: src/uagent/util_tools.py:1655
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1655
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[Kesalahan shrink] Gagal mengurai sebagai int: %(arg)r -> simpan terakhir "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1683
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1683
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1864,7 +1993,8 @@ msgstr ""
 "[Kesalahan shrink_llm] Gagal mengurai sebagai int: %(arg)r -> simpan "
 "terakhir %(keep)d"
 
-#: src/uagent/util_tools.py:1742 src/uagent/util_tools.py:1816
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1742
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1822
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1872,75 +2002,75 @@ msgstr ""
 "Memori jangka panjang bersama tidak diaktifkan (UAGENT_SHARED_MEMORY_FILE "
 "belum disetel)."
 
-#: src/uagent/util_tools.py:1772
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1773
 msgid "Analyzing past logs to generate user profile..."
 msgstr "Menganalisis log sebelumnya untuk membuat profil pengguna..."
 
-#: src/uagent/util_tools.py:1776
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1777
 msgid "No past logs found or failed to generate profile."
 msgstr "Tidak ditemukan log sebelumnya atau profil gagal dibuat."
 
-#: src/uagent/util_tools.py:1778
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1779
 #, fuzzy
 msgid "User profile generated successfully from past logs!"
 msgstr "Profil pengguna berhasil dihapus."
 
-#: src/uagent/util_tools.py:1786
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1791
 msgid "No user profile data found."
 msgstr "Data profil pengguna tidak ditemukan."
 
-#: src/uagent/util_tools.py:1789
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1794
 msgid "User Profile:"
 msgstr "Profil Pengguna:"
 
-#: src/uagent/util_tools.py:1800
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1806
 msgid "User profile cleared successfully."
 msgstr "Profil pengguna berhasil dihapus."
 
-#: src/uagent/util_tools.py:1804
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1810
 msgid "No user profile file found to clear."
 msgstr "Tidak ada file profil pengguna yang ditemukan untuk dihapus."
 
-#: src/uagent/util_tools.py:1868
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1874
 msgid "Show this help"
 msgstr "Tampilkan bantuan ini"
 
-#: src/uagent/util_tools.py:1869
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1875
 msgid "Restart input from the beginning"
 msgstr "Mulai ulang input dari awal"
 
-#: src/uagent/util_tools.py:1870
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1876
 msgid "Show log file list"
 msgstr "Tampilkan daftar file log"
 
-#: src/uagent/util_tools.py:1873
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1879
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
 msgstr ""
 "Ubah workdir tanpa konfirmasi (mis. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
 
-#: src/uagent/util_tools.py:1876
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1882
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "Daftar entri direktori (mis. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:1877
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1883
 msgid "List loaded tools"
 msgstr "Tampilkan alat yang dimuat"
 
-#: src/uagent/util_tools.py:1880
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1886
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "Kelola variabel lingkungan UAGENT_* dan simpan .env.sec"
 
-#: src/uagent/util_tools.py:1882
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1888
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "Kelola/terapkan skill (mis. :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:1884
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1890
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Muat log sebelumnya (menimpa riwayat percakapan saat ini)"
 
-#: src/uagent/util_tools.py:1886
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1892
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1950,7 +2080,7 @@ msgstr ""
 "konfirmasi; memilih 'y' akan menambahkan log yang dimuat ke awal file log "
 "sesi saat ini (menimpa, tanpa cadangan)."
 
-#: src/uagent/util_tools.py:1890
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1896
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -1958,13 +2088,13 @@ msgstr ""
 "Hapus log percakapan (scheck_log_*.jsonl) saat jumlah pesan "
 "user/assistant/tool (tanpa system) <= N (default=10)"
 
-#: src/uagent/util_tools.py:1894
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1900
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Perkecil riwayat percakapan (simpan N pesan non-system terakhir; default=40)"
 
-#: src/uagent/util_tools.py:1898
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1904
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -1972,74 +2102,74 @@ msgstr ""
 "Perkecil riwayat lewat ringkasan LLM (ringkas riwayat lama menjadi 1 pesan "
 "system; simpan N pesan mentah terakhir; default=20)"
 
-#: src/uagent/util_tools.py:1900
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1906
 msgid "List long-term memory notes"
 msgstr "Entri memori jangka panjang:"
 
-#: src/uagent/util_tools.py:1902
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1908
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "Hapus catatan memori jangka panjang berdasarkan indeks (lihat :mem-list)"
 
-#: src/uagent/util_tools.py:1903
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1910
 #, fuzzy
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr ""
 "Tampilkan profil pengguna yang dipelajari (lingkungan, preferensi, batasan)"
 
-#: src/uagent/util_tools.py:1904
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1911
 #, fuzzy
 msgid "Generate user profile from past logs"
 msgstr "Data profil pengguna tidak ditemukan."
 
-#: src/uagent/util_tools.py:1905
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1912
 msgid "Clear the learned user profile data"
 msgstr "Hapus data profil pengguna yang dipelajari"
 
-#: src/uagent/util_tools.py:1907
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1914
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Salin file atau direktori (mendukung -f/--overwrite dan -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1909
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1916
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr ""
 "Pindahkan file atau direktori (mendukung -f/--overwrite dan -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1911
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1918
 msgid "Show the first n lines of a file (default=20)"
 msgstr "Tampilkan n baris pertama dari file (default=20)"
 
-#: src/uagent/util_tools.py:1912
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1919
 msgid "Show the last n lines of a file (default=20)"
 msgstr "Tampilkan n baris terakhir dari file (default=20)"
 
-#: src/uagent/util_tools.py:1914
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1921
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Hapus file/direktori dengan pratinjau + konfirmasi"
 
-#: src/uagent/util_tools.py:1916
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1923
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "Setel mode penalaran (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; "
 "auto/minimal/xhigh)"
 
-#: src/uagent/util_tools.py:1918
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1925
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "Setel mode verbositas (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; tanpa "
 "argumen=pertahankan)"
 
-#: src/uagent/util_tools.py:1919
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1926
 msgid "Exit"
 msgstr "Keluar."
 
-#: src/uagent/util_tools.py:1922
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1929
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 "  - Masukkan baris yang hanya berisi 'f' untuk masuk mode input multibaris."
 
-#: src/uagent/util_tools.py:1924
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:1931
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
@@ -2047,16 +2177,16 @@ msgstr ""
 "  - Untuk mengakhiri mode input multibaris, masukkan baris yang tepat "
 "%(sentinel)s."
 
-#: src/uagent/util_tools.py:2129
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:2136
 msgid "Exiting."
 msgstr "Keluar."
 
-#: src/uagent/util_tools.py:2132
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:2139
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Perintah tidak dikenal: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2283
+#: C:\KAIHATSU\agentcli\src\uagent\util_tools.py:2290
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2064,7 +2194,7 @@ msgstr ""
 "Butir-butir di bawah ini adalah cuplikan dari memori jangka panjang pengguna (memo persisten). Gunakan sebagai informasi latar belakang tentang pengguna. Namun, selalu utamakan informasi baru yang diberikan dalam percakapan; jika bertentangan dengan informasi lama, gunakan informasi terbaru.\n"
 "\n"
 
-#: src/uagent/web.py:534
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:534
 msgid ""
 "[WARN] Another task is already running in this room. Please retry after it "
 "completes."
@@ -2072,7 +2202,8 @@ msgstr ""
 "[WARN] Sudah ada tugas lain yang berjalan di ruangan ini. Coba lagi setelah "
 "tugas tersebut selesai."
 
-#: src/uagent/web.py:626 src/uagent/web.py:746
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:626
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:754
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2080,15 +2211,24 @@ msgstr ""
 "[FATAL] Variabel lingkungan UAGENT_PROVIDER belum disetel.\n"
 "Harap periksa variabel lingkungan saat memulai server web."
 
-#: src/uagent/web.py:696
+msgid "[Attached Image] %(name)s"
+msgstr "[Gambar Terlampir] %(name)s"
+
+msgid "[Attached File] %(name)s"
+msgstr "[File Terlampir] %(name)s"
+
+msgid "[File Path] %(path)s"
+msgstr "[Jalur File] %(path)s"
+
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:704
 msgid "[INFO] Loaded long-term memory."
 msgstr "[INFO] Memori jangka panjang dimuat."
 
-#: src/uagent/web.py:708
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:716
 msgid "[INFO] Loaded shared long-term memory."
 msgstr "[INFO] Memori jangka panjang bersama dimuat."
 
-#: src/uagent/web.py:743
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:751
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2097,7 +2237,16 @@ msgstr ""
 "[FATAL] Kesalahan worker web.\n"
 "%(err)s"
 
-#: src/uagent/welcome.py:29
+msgid "missing path"
+msgstr "jalur tidak ada"
+
+msgid "path outside workdir"
+msgstr "jalur berada di luar workdir"
+
+msgid "Starting server on"
+msgstr "Memulai server di"
+
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:29
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found."
@@ -2105,7 +2254,7 @@ msgstr ""
 "[Server MCP]\n"
 "- File konfigurasi tidak ditemukan."
 
-#: src/uagent/welcome.py:36
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered."
@@ -2113,11 +2262,11 @@ msgstr ""
 "[Server MCP]\n"
 "- Tidak ada server yang terdaftar."
 
-#: src/uagent/welcome.py:38
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:38
 msgid "[MCP Servers]"
 msgstr "[Server MCP]"
 
-#: src/uagent/welcome.py:45
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:45
 #, python-format
 msgid ""
 "[MCP Servers]\n"
@@ -2126,15 +2275,15 @@ msgstr ""
 "[Server MCP]\n"
 "- Gagal mendapatkan info: %(err)s"
 
-#: src/uagent/welcome.py:64
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Panduan Singkat]"
 
-#: src/uagent/welcome.py:65
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr "- Chat: ketik pesan dan kirim (GUI: Ctrl+Enter juga tersedia)."
 
-#: src/uagent/welcome.py:67
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:67
 msgid ""
 "- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
 " \"\"\"end)."
@@ -2142,7 +2291,7 @@ msgstr ""
 "- Multiline: masukkan baris yang hanya berisi 'f' untuk masuk mode multiline"
 " (akhiri dengan \"\"\"end)."
 
-#: src/uagent/welcome.py:70
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:70
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.). Note: commands start with ':' (colon) instead of '/' "
@@ -2152,11 +2301,11 @@ msgstr ""
 "kompresi riwayat, dll.). Catatan: perintah dimulai dengan ':' (titik dua) "
 "bukan '/' (garis miring)."
 
-#: src/uagent/welcome.py:72
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:72
 msgid "- Exit: ':exit' or ':quit' ends the session."
 msgstr "- Keluar: ':exit' atau ':quit' mengakhiri sesi."
 
-#: src/uagent/welcome.py:74
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:74
 msgid ""
 "- Images: GUI supports drag & drop; in CUI you can input a file path for "
 "image analysis."
@@ -2164,7 +2313,7 @@ msgstr ""
 "- Gambar: GUI mendukung seret dan lepas; di CUI Anda dapat memasukkan path "
 "file untuk analisis gambar."
 
-#: src/uagent/welcome.py:77
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:77
 #, python-format
 msgid ""
 "- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
@@ -2173,15 +2322,15 @@ msgstr ""
 "- Docs: `%(docs_cmd)s` menampilkan dokumen bawaan; `%(webinspect_cmd)s` "
 "menampilkan bantuan Web Inspector (`--path/--open` juga tersedia)."
 
-#: src/uagent/welcome.py:81
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:81
 msgid "[Examples]"
 msgstr "[Contoh]"
 
-#: src/uagent/welcome.py:82
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:82
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr "- \"Analisis kode sumber di folder ini dan buat README.md.\""
 
-#: src/uagent/welcome.py:84
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:84
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
@@ -2189,42 +2338,45 @@ msgstr ""
 "- \"Ambil tangkapan layar desktop saat ini dan jelaskan isi jendela yang "
 "terlihat.\""
 
-#: src/uagent/welcome.py:86
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:86
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr "- \"Buat laporan ringkasan bulanan dari file Excel ini.\""
 
-#: src/uagent/welcome.py:87
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:87
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"Baca PDF ini dan daftar tiga poin utama.\""
 
-#: src/uagent/welcome.py:88
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:88
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Cari berita terbaru dan rangkum topik tertentu.\""
 
-#: src/uagent/a2a/engine.py:125
+msgid "-- More -- (Enter: next) "
+msgstr "-- Lainnya -- (Enter: berikutnya) "
+
+#: C:\KAIHATSU\agentcli\src\uagent\a2a\engine.py:125
 msgid "No assistant message produced."
 msgstr "Tidak ada pesan asisten yang dihasilkan."
 
-#: src/uagent/a2a/engine.py:137
+#: C:\KAIHATSU\agentcli\src\uagent\a2a\engine.py:137
 msgid "Generated image(s)."
 msgstr "Gambar berhasil dibuat."
 
-#: src/uagent/a2a/engine.py:150
+#: C:\KAIHATSU\agentcli\src\uagent\a2a\engine.py:150
 #, python-format
 msgid "ECHO: %(text)s"
 msgstr "KELUARAN: %(text)s"
 
-#: src/uagent/a2a/engine.py:165
+#: C:\KAIHATSU\agentcli\src\uagent\a2a\engine.py:165
 #, python-format
 msgid "uagent initialization failed: %(err)s"
 msgstr "inisialisasi uagent gagal: %(err)s"
 
-#: src/uagent/a2a/engine.py:177
+#: C:\KAIHATSU\agentcli\src\uagent\a2a\engine.py:177
 #, python-format
 msgid "uagent execution failed: %(etype)s: %(err)s"
 msgstr "eksekusi uagent gagal: %(etype)s: %(err)s"
 
-#: src/uagent/a2a/engine.py:188
+#: C:\KAIHATSU\agentcli\src\uagent\a2a\engine.py:188
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Mesin UAGENT_A2A_ENGINE tidak dikenal: %(mode)s"

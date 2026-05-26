@@ -481,11 +481,11 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
 
     provider, client, model_name = util_providers.make_client(core)
     if not client:
-        raise RuntimeError("Failed to initialize LLM client.")
+        raise RuntimeError(_("Failed to initialize LLM client."))
 
     # 3) Process logs in chunks chronologically (oldest to newest)
     total_files = len(log_files)
-    print(f"Found {total_files} log files. Starting incremental profiling...")
+    print(_("Found %(total_files)d log files. Starting incremental profiling...") % {"total_files": total_files})
 
     current_profile = {"environment": {}, "preferences": [], "constraints": []}
     message_buffer = []

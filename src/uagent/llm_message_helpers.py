@@ -151,7 +151,7 @@ def _maybe_auto_shrink_messages(
 
     except Exception as e:
         print(
-            "[WARN] Auto shrink_llm failed: %(err)s"
+            _("[WARN] Auto shrink_llm failed: %(err)s")
             % {"err": f"{type(e).__name__}: {e}"}
         )
 

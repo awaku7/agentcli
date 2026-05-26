@@ -441,7 +441,7 @@ def _append_web_sources_suffix(text: str, citations: list[dict[str, Any]]) -> st
     if not citations:
         return text
     seen = set()
-    lines = ["", "", "Sources:"]
+    lines = ["", "", _("Sources:")]
     for citation in citations:
         url = _as_str(citation.get("url")).strip()
         title = _as_str(citation.get("title")).strip()
@@ -482,17 +482,6 @@ def _debug_emit(core: Any, stage: str, **payload: Any) -> None:
         if value is None:
             continue
         data[key] = value
-    try:
-        print(
-            json.dumps(data, ensure_ascii=False, default=str),
-            file=sys.stderr,
-            flush=True,
-        )
-    except Exception:
-        try:
-            print(f"[DEBUG] {data}", file=sys.stderr, flush=True)
-        except Exception:
-            pass
     _web_emit(core, data)
 
 

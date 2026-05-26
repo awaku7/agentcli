@@ -2,11 +2,12 @@ from __future__ import annotations
 
 # tools/screenshot_tool.py
 from .i18n_helper import make_tool_translator
+from .response_util import make_response
 
 _ = make_tool_translator(__file__)
 
-import os
 import datetime
+import os
 import time
 from typing import Any
 
@@ -91,21 +92,27 @@ TOOL_SPEC: dict[str, Any] = {
 
 def run_tool(args: dict[str, Any]) -> str:
     if pyautogui is None:
-        return _(
-            "err.pyautogui_missing",
-            default="[screenshot error] pyautogui module is not installed.",
+        return make_response(
+            False,
+            _(
+                "err.pyautogui_missing",
+                default="[screenshot error] pyautogui module is not installed.",
+            ),
         )
 
-    window_title = args.get("window_title")
+    window_title = str(args.get("window_title") or "").strip()
     if window_title and pygetwindow is None:
-        return _(
-            "err.pygetwindow_missing",
-            default="[screenshot error] pygetwindow module is not installed (required for window targeting).",
+        return make_response(
+            False,
+            _(
+                "err.pygetwindow_missing",
+                default="[screenshot error] pygetwindow module is not installed (required for window targeting).",
+            ),
         )
 
-    file_path = args.get("file_path", "").strip()
+    file_path = str(args.get("file_path") or "").strip()
     delay = args.get("delay", 1)
-    close_window = args.get("close_window", False)
+    close_window = bool(args.get("close_window", False))
 
     if not file_path:
         ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -119,10 +126,13 @@ def run_tool(args: dict[str, Any]) -> str:
         if window_title:
             windows = pygetwindow.getWindowsWithTitle(window_title)
             if not windows:
-                return _(
-                    "err.window_not_found",
-                    default="[screenshot error] No window found matching title: '{title}'",
-                ).format(title=window_title)
+                return make_response(
+                    False,
+                    _(
+                        "err.window_not_found",
+                        default="[screenshot error] No window found matching title: '{title}'",
+                    ).format(title=window_title),
+                )
 
             target_win = windows[0]
 
@@ -166,10 +176,45 @@ def run_tool(args: dict[str, Any]) -> str:
                     default="[screenshot] Successfully saved to {path} but failed to close window: {err}",
                 ).format(path=file_path, err=e)
 
-        return msg
+        data: dict[str, Any] = {
+            "saved_path": file_path,
+            "saved_files": [file_path],
+            "attachments": [
+                {
+                    "type": "image",
+                    "mime": "image/png",
+                    "name": os.path.basename(file_path),
+                    "path": file_path,
+                    "saved_path": file_path,
+                }
+            ],
+            "next_action": {
+                "type": "user_message",
+                "content": _(
+                    "next_action.analyze_screenshot",
+                    default="Please analyze this screenshot.",
+                ),
+            },
+        }
+        if window_title:
+            data["window_title"] = window_title
+        if region is not None:
+            data["region"] = {
+                "left": region[0],
+                "top": region[1],
+                "width": region[2],
+                "height": region[3],
+            }
+        data["delay"] = delay
+        data["close_window"] = close_window
+
+        return make_response(True, msg, data=data)
 
     except Exception as e:
-        return _(
-            "err.capture_fail",
-            default="[screenshot error] Failed to capture screenshot: {err}",
-        ).format(err=e)
+        return make_response(
+            False,
+            _(
+                "err.capture_fail",
+                default="[screenshot error] Failed to capture screenshot: {err}",
+            ).format(err=e),
+        )

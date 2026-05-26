@@ -51,6 +51,82 @@ def _emit_final_answer_if_any(
         try_open_images_from_text_fn(assistant_text)
 
 
+def _parse_tool_result_json(tool_result: str) -> dict[str, Any] | None:
+    def _load_json(text: str) -> dict[str, Any] | None:
+        try:
+            parsed = json.loads(text)
+        except Exception:
+            return None
+        return parsed if isinstance(parsed, dict) else None
+
+    parsed = _load_json(tool_result)
+    if parsed is not None:
+        return parsed
+
+    if isinstance(tool_result, str):
+        head, sep, tail = tool_result.partition("\n")
+        if sep and head.lstrip().startswith("[INFO]"):
+            parsed = _load_json(tail)
+            if parsed is not None:
+                return parsed
+
+    return None
+
+
+def _build_auto_user_message_from_next_action(
+    *,
+    parsed_tool_result: dict[str, Any] | None,
+    tool_msg: dict[str, Any],
+) -> dict[str, Any] | None:
+    if not isinstance(parsed_tool_result, dict):
+        return None
+
+    data = parsed_tool_result.get("data")
+    if isinstance(data, dict):
+        next_action = data.get("next_action")
+    else:
+        next_action = parsed_tool_result.get("next_action")
+
+    if isinstance(next_action, str):
+        next_action = {
+            "type": "user_message",
+            "content": next_action,
+        }
+
+    if not isinstance(next_action, dict):
+        return None
+
+    action_type = str(next_action.get("type") or "").strip().lower()
+    if action_type != "user_message":
+        return None
+
+    content = (
+        next_action.get("content")
+        or next_action.get("text")
+        or next_action.get("prompt")
+        or next_action.get("message")
+        or ""
+    )
+    content = str(content).strip()
+    if not content:
+        return None
+
+    auto_user_msg: dict[str, Any] = {
+        "role": "user",
+        "content": content,
+    }
+
+    attachments = next_action.get("attachments")
+    if isinstance(attachments, list) and attachments:
+        auto_user_msg["attachments"] = attachments
+    else:
+        tool_attachments = tool_msg.get("attachments")
+        if isinstance(tool_attachments, list) and tool_attachments:
+            auto_user_msg["attachments"] = tool_attachments
+
+    return auto_user_msg
+
+
 def _handle_openai_empty_no_tool(
     *,
     assistant_text: str,
@@ -272,8 +348,18 @@ def _execute_tool_calls(
                 if parsed_tool_result.get("saved_path"):
                     tool_msg["saved_path"] = parsed_tool_result.get("saved_path")
 
-        messages.append(tool_msg)
+        auto_user_msg = _build_auto_user_message_from_next_action(
+            parsed_tool_result=parsed_tool_result
+            if isinstance(parsed_tool_result, dict)
+            else None,
+            tool_msg=tool_msg,
+        )
 
+        messages.append(tool_msg)
         core.log_message(tool_msg)
+
+        if auto_user_msg is not None:
+            messages.append(auto_user_msg)
+            core.log_message(auto_user_msg)
 
     return executed_new_tool

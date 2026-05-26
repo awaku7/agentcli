@@ -635,7 +635,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
             mtime = os.path.getmtime(path)
             mtime_text = _fmt_ts(mtime)
         except Exception:
-            mtime_text = "(mtime unknown)"
+            mtime_text = _("(mtime unknown)")
         # 先頭側は最初の user を取るために最大 200 行読む
         head_lines: list[str] = []
         try:
@@ -760,7 +760,16 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
         )
 
         print(
-            f"[{idx}] {mtime_text} | {turns} msgs | first: {first_user_text} | last: {last_user_text}"
+            _(
+                "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: %(last_user)s"
+            )
+            % {
+                "idx": idx,
+                "mtime_text": mtime_text,
+                "turns": turns,
+                "first_user": first_user_text,
+                "last_user": last_user_text,
+            }
         )
 
     return files
@@ -883,7 +892,10 @@ def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str
                 ):
                     try:
                         print(
-                            f"[WARN] Dropping orphan tool message: tool_call_id={tcid!r} name={m.get('name')!r}",
+                            _(
+                                "[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r name=%(name)r"
+                            )
+                            % {"tool_call_id": tcid, "name": m.get("name")},
                             file=sys.stderr,
                         )
                     except Exception:
@@ -979,15 +991,20 @@ def shrink_messages(
 
     if len(others) <= keep_last:
         print(
-            f"[INFO] There were {len(others)} messages to compress, so nothing was changed.",
+            _("[INFO] There were %(count)d messages to compress, so nothing was changed.")
+            % {"count": len(others)},
             file=sys.stderr,
         )
         return list(messages)
 
     trimmed_others = others[-keep_last:]
     print(
-        f"[INFO] Compressed in-memory conversation history: "
-        f"{len(others)} -> {len(trimmed_others)} messages (keep_last={keep_last})",
+        _("[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d messages (keep_last=%(keep_last)d)")
+        % {
+            "old_n": len(others),
+            "new_n": len(trimmed_others),
+            "keep_last": keep_last,
+        },
         file=sys.stderr,
     )
 
@@ -1315,7 +1332,7 @@ def compress_history_with_llm(
         if _is_context_length_exceeded(error):
             if current_chunk_size <= 1:
                 print(
-                    "[WARN] history compression hit context length even at chunk_size=1; falling back to shrink_messages().",
+                    _("[WARN] history compression hit context length even at chunk_size=1; falling back to shrink_messages()."),
                     file=sys.stderr,
                 )
                 return shrink_messages(messages, keep_last=keep_last)
@@ -1323,13 +1340,14 @@ def compress_history_with_llm(
             next_chunk_size = max(1, current_chunk_size // 2)
             if next_chunk_size == current_chunk_size:
                 print(
-                    "[WARN] history compression could not reduce chunk_size further; falling back to shrink_messages().",
+                    _("[WARN] history compression could not reduce chunk_size further; falling back to shrink_messages()."),
                     file=sys.stderr,
                 )
                 return shrink_messages(messages, keep_last=keep_last)
 
             print(
-                f"[WARN] history compression context length exceeded; retrying with chunk_size={next_chunk_size}",
+                _("[WARN] history compression context length exceeded; retrying with chunk_size=%(chunk_size)d")
+                % {"chunk_size": next_chunk_size},
                 file=sys.stderr,
             )
             current_chunk_size = next_chunk_size

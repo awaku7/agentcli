@@ -660,12 +660,20 @@ def run_agent_worker(
             is_image = mime.startswith("image/") or mime == "image"
             label = os.path.basename(name) or os.path.basename(path) or path
             if is_image:
-                attachment_lines.append(f"[Attached Image] {label}")
-                attachment_lines.append(f"[Image Path] {path}")
+                attachment_lines.append(
+                    _("[Attached Image] %(name)s") % {"name": label}
+                )
+                attachment_lines.append(
+                    _("[Image Path] %(path)s") % {"path": path}
+                )
                 item["type"] = "image"
             else:
-                attachment_lines.append(f"[Attached File] {label}")
-                attachment_lines.append(f"[File Path] {path}")
+                attachment_lines.append(
+                    _("[Attached File] %(name)s") % {"name": label}
+                )
+                attachment_lines.append(
+                    _("[File Path] %(path)s") % {"path": path}
+                )
                 item["type"] = "file"
             item["saved_path"] = path
             if mime:
@@ -877,14 +885,14 @@ async def get_local_file(path: str):
         cwd = os.path.abspath(os.getcwd())
         raw = str(path or "").strip()
         if not raw:
-            raise ValueError("missing path")
+            raise ValueError(_("missing path"))
         full = os.path.abspath(raw)
         if not os.path.isabs(raw):
             full = os.path.abspath(os.path.join(cwd, raw))
         full_norm = os.path.normpath(full)
         cwd_norm = os.path.normpath(cwd)
         if not (full_norm == cwd_norm or full_norm.startswith(cwd_norm + os.sep)):
-            raise ValueError("path outside workdir")
+            raise ValueError(_("path outside workdir"))
         if not os.path.isfile(full_norm):
             raise FileNotFoundError(full_norm)
         return FileResponse(full_norm)
@@ -1033,8 +1041,7 @@ def main():
         sys.exit(1)
 
     init_web()
-    sys.__stdout__.write("Starting server on http://localhost:8000\
-")
+    sys.__stdout__.write(_("Starting server on") + " http://localhost:8000\n")
     sys.__stdout__.flush()
     uvicorn.run(app, host="0.0.0.0", port=8000)
 

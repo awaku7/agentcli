@@ -1,16 +1,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-05-22 20:43+0900\n"
+"Project-Id-Version: uag\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-26 22:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
 
 msgid "Please install Git. See: %(url)s"
 msgstr "Please install Git. See: %(url)s"
@@ -32,8 +32,49 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git is not installed."
 
+msgid "[docs] name is required"
+msgstr "[docs] name is required"
+
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Failed to set workdir: %(err)s"
+
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Failed to launch uag_setup: %(err)s"
+
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "provider = %(provider)s; model = %(model)s"
+
+msgid "OpenRouter fallback models enabled."
+msgstr "OpenRouter fallback models enabled."
+
+msgid "current workdir = %(cwd)s"
+msgstr "current workdir = %(cwd)s"
+
+msgid "Loaded long-term memory."
+msgstr "Loaded long-term memory."
+
+msgid "Loaded shared long-term memory."
+msgstr "Loaded shared long-term memory."
+
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+
+msgid "Startup file provided: %(path)s"
+msgstr "Startup file provided: %(path)s"
+
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive was specified; exiting without waiting for stdin."
+
 msgid "getch() fallback to input()"
 msgstr "getch() fallback to input()"
+
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Received Ctrl+C. Starting shutdown..."
 
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -77,44 +118,6 @@ msgstr "Unknown event kind=%(kind)r: %(ev)r"
 msgid "Exited uag."
 msgstr "Exited uag."
 
-msgid "[docs] name is required"
-msgstr "[docs] name is required"
-
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Failed to set workdir: %(err)s"
-
-msgid "[FATAL] Failed to launch uag_setup: %(err)s"
-msgstr "[FATAL] Failed to launch uag_setup: %(err)s"
-
-msgid "provider = %(provider)s; model = %(model)s"
-msgstr "provider = %(provider)s; model = %(model)s"
-
-msgid "OpenRouter fallback models enabled."
-msgstr "OpenRouter fallback models enabled."
-
-msgid "current workdir = %(cwd)s"
-msgstr "current workdir = %(cwd)s"
-
-msgid "Loaded long-term memory."
-msgstr "Loaded long-term memory."
-
-msgid "Loaded shared long-term memory."
-msgstr "Loaded shared long-term memory."
-
-msgid ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-
-msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-msgstr "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-
-msgid "Startup file provided: %(path)s"
-msgstr "Startup file provided: %(path)s"
-
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "--non-interactive was specified; exiting without waiting for stdin."
-
 msgid "Environment variable %(name)s is not set."
 msgstr "Environment variable %(name)s is not set."
 
@@ -130,68 +133,58 @@ msgstr "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgid "Log files:"
 msgstr "Log files:"
 
+msgid "(mtime unknown)"
+msgstr "(mtime unknown)"
+
 msgid "(no user message)"
 msgstr "(no user message)"
 
-msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "429 retry limit (%(max_retries)s) reached while history compression."
-
-msgid "Error while calling LLM for history compression: %(err)r"
-msgstr "Error while calling LLM for history compression: %(err)r"
-
-msgid "- Summarize the conversation chunk in English.\n"
-msgstr "- Summarize the conversation chunk in English.\n"
+msgid ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
 
 msgid ""
-"- Keep the summary concise but include key decisions, constraints, and "
-"pending items.\n"
+"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
 msgstr ""
-"- Keep the summary concise but include key decisions, constraints, and "
-"pending items.\n"
-
-msgid "- Output should be directly usable as a system message."
-msgstr "- Output should be directly usable as a system message."
-
-msgid "Conversation chunk:\n"
-msgstr "Conversation chunk:\n"
-
-msgid "Write a concise summary of this chunk."
-msgstr "Write a concise summary of this chunk."
-
-msgid "- You are updating an existing conversation summary.\n"
-msgstr "- You are updating an existing conversation summary.\n"
-
-msgid "- Preserve important facts from the previous summary.\n"
-msgstr "- Preserve important facts from the previous summary.\n"
+"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
 
 msgid ""
-"- Merge in the new chunk without losing constraints, decisions, or pending "
-"items.\n"
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr ""
-"- Merge in the new chunk without losing constraints, decisions, or pending "
-"items.\n"
-
-msgid "- Keep the result concise and suitable for a system message."
-msgstr "- Keep the result concise and suitable for a system message."
-
-msgid "Previous summary:\n"
-msgstr "Previous summary:\n"
-
-msgid "New chunk:\n"
-msgstr "New chunk:\n"
-
-msgid "Update the summary while keeping the prior context intact."
-msgstr "Update the summary while keeping the prior context intact."
-
-msgid "Summary of the conversation so far:\n"
-msgstr "Summary of the conversation so far:\n"
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
 
 msgid ""
-"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
-"older messages into 1 summary; kept {tail_n} tail)"
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
 msgstr ""
-"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
-"older messages into 1 summary; kept {tail_n} tail)"
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
 
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (help unavailable: %(err)s)"
@@ -458,6 +451,12 @@ msgstr "Ollama embedding base URL / model name."
 msgid "NVIDIA embedding API key / model name."
 msgstr "NVIDIA embedding API key / model name."
 
+msgid "Gemini embedding API key / model name."
+msgstr "Gemini embedding API key / model name."
+
+msgid "Vertex AI embedding API key / model name."
+msgstr "Vertex AI embedding API key / model name."
+
 msgid "[FATAL] Environment validation failed ({context})."
 msgstr "[FATAL] Environment validation failed ({context})."
 
@@ -491,6 +490,37 @@ msgstr ""
 
 msgid "invalid cache meta"
 msgstr "invalid cache meta"
+
+msgid "(prompt unavailable)"
+msgstr "(prompt unavailable)"
+
+msgid "screenshot: %(title)s"
+msgstr "screenshot: %(title)s"
+
+msgid "screenshot"
+msgstr "screenshot"
+
+msgid "Image-session context:"
+msgstr "Image-session context:"
+
+msgid "This conversation already generated images."
+msgstr "This conversation already generated images."
+
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+
+msgid "Turn %(idx)d:"
+msgstr "Turn %(idx)d:"
+
+msgid "- prompt: %(prompt)s"
+msgstr "- prompt: %(prompt)s"
+
+msgid "- file: %(path)s"
+msgstr "- file: %(path)s"
 
 msgid "anthropic package is not installed."
 msgstr "anthropic package is not installed."
@@ -548,6 +578,23 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr ""
+"google-genai could not be imported (pip install google-genai is required)."
+
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr "Describe this screenshot and summarize the visible UI."
+
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr "Read all visible text in this screenshot and summarize it."
+
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr "Inspect this screenshot for errors, warnings, and important UI state."
+
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] Auto shrink_llm failed: %(err)s"
+
 msgid "[WARN] assistant history contained image content; converted to text."
 msgstr "[WARN] assistant history contained image content; converted to text."
 
@@ -556,6 +603,9 @@ msgstr "[WARN] invalid image content (missing url)."
 
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] unsupported content item: %(item)r"
+
+msgid "Sources:"
+msgstr "Sources:"
 
 msgid "search"
 msgstr "search"
@@ -618,17 +668,8 @@ msgstr "[Gemini Error] An error occurred while generating a response."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude Error] An error occurred while generating a response."
 
-msgid "Input exceeds the context window."
-msgstr "Input exceeds the context window."
-
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
-msgid "Connection error"
-msgstr "Connection error"
-
-msgid "Unexpected exception."
-msgstr "Unexpected exception."
+msgid "[Network Error]"
+msgstr "[Network Error]"
 
 msgid "Error while parsing response: %(err)s"
 msgstr "Error while parsing response: %(err)s"
@@ -659,6 +700,12 @@ msgstr ""
 "  \"preferences\": [\"string\"],\n"
 "  \"constraints\": [\"string\"]\n"
 "}"
+
+msgid "Failed to initialize LLM client."
+msgstr "Failed to initialize LLM client."
+
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr "Found %(total_files)d log files. Starting incremental profiling..."
 
 msgid "embedding"
 msgstr "embedding"
@@ -776,6 +823,15 @@ msgstr "Download"
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Exception occurred while loading shared long-term memory: %(err)s"
 
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[Attached File] %(name)s (%(path)s)"
+
+msgid "[Attached Image] %(path)s"
+msgstr "[Attached Image] %(path)s"
+
+msgid "[Image Path] %(path)s"
+msgstr "[Image Path] %(path)s"
+
 msgid "Welcome / Quick Guide"
 msgstr "Welcome / Quick Guide"
 
@@ -833,6 +889,13 @@ msgstr "Verbosity: high"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] reasoning=%(mode)s"
 
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[mode] verbosity=%(mode)s"
 
@@ -851,6 +914,9 @@ msgstr "Attach files"
 msgid "All Files (*)"
 msgstr "All Files (*)"
 
+msgid "cannot read image"
+msgstr "cannot read image"
+
 msgid "Downloaded to"
 msgstr "Downloaded to"
 
@@ -862,6 +928,9 @@ msgstr "Stopped"
 
 msgid "[REPLY] > %(text)s"
 msgstr "[REPLY] > %(text)s"
+
+msgid "[USER] %(text)s"
+msgstr "[USER] %(text)s"
 
 msgid "OpenAI API key"
 msgstr "OpenAI API key"
@@ -1066,6 +1135,18 @@ msgstr "Ollama embedding model name"
 
 msgid "NVIDIA embedding model/deployment name"
 msgstr "NVIDIA embedding model/deployment name"
+
+msgid "Gemini embedding API key"
+msgstr "Gemini embedding API key"
+
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr "Gemini embedding model name (e.g. text-embedding-004)"
+
+msgid "Vertex AI embedding API key"
+msgstr "Vertex AI embedding API key"
+
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr "Vertex AI embedding model name (e.g. text-embedding-004)"
 
 msgid "Azure speech deployment name"
 msgstr "Azure speech deployment name"
@@ -1547,6 +1628,15 @@ msgstr ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
 
+msgid "[Attached Image] %(name)s"
+msgstr "[Attached Image] %(name)s"
+
+msgid "[Attached File] %(name)s"
+msgstr "[Attached File] %(name)s"
+
+msgid "[File Path] %(path)s"
+msgstr "[File Path] %(path)s"
+
 msgid "[INFO] Loaded long-term memory."
 msgstr "[INFO] Loaded long-term memory."
 
@@ -1559,6 +1649,15 @@ msgid ""
 msgstr ""
 "[FATAL] Web worker error.\n"
 "%(err)s"
+
+msgid "missing path"
+msgstr "missing path"
+
+msgid "path outside workdir"
+msgstr "path outside workdir"
+
+msgid "Starting server on"
+msgstr "Starting server on"
 
 msgid ""
 "[MCP Servers]\n"
@@ -1644,6 +1743,9 @@ msgstr "- \"Read this PDF and list three key points.\""
 
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Search the latest news and summarize a specific topic.\""
+
+msgid "-- More -- (Enter: next) "
+msgstr "-- More -- (Enter: next) "
 
 msgid "No assistant message produced."
 msgstr "No assistant message produced."

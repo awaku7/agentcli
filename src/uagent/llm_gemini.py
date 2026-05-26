@@ -539,7 +539,7 @@ def gemini_chat_with_tools(
 
     if genai is None or gemini_types is None:
         raise RuntimeError(
-            "google-genai could not be imported (pip install google-genai is required)."
+            _("google-genai could not be imported (pip install google-genai is required).")
         )
 
     tool_specs = tools.get_tool_specs() or []

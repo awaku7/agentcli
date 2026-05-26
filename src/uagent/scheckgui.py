@@ -378,7 +378,8 @@ class ScheckWorker(QtCore.QObject):
 
                         if files:
                             file_lines = [
-                                f"[Attached File] {os.path.basename(p)} ({p})"
+                                _("[Attached File] %(name)s (%(path)s)")
+                                % {"name": os.path.basename(p), "path": p}
                                 for p in files
                             ]
                             if file_lines:
@@ -455,17 +456,19 @@ class ScheckWorker(QtCore.QObject):
                             continue
 
                         # Fallback: analyze_image tool -> text injection
-                        # Fallback: analyze_image tool -> text injection
                         for p in ev.get("images", []):
                             if os.path.isfile(p):
                                 core.set_status(True, "analyze_image")
                                 res = self.tools.run_tool(
                                     "analyze_image", {"image_path": p}
                                 )
-                                text += f"\
-[Attached Image] {p}\
-[Image Path] {p}\
-{res}"
+                                text += (
+                                    _("[Attached Image] %(path)s") % {"path": p}
+                                    + "\n"
+                                    + _("[Image Path] %(path)s") % {"path": p}
+                                    + "\n"
+                                    + str(res)
+                                )
                         if text.strip():
                             m = {"role": "user", "content": text.strip()}
                             self.messages.append(m)
@@ -976,7 +979,7 @@ class MainWindow(QtWidgets.QMainWindow):
             print(_("[mode] reasoning=%(mode)s") % {"mode": new_mode})
         except Exception:
             print(
-                ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+                _(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)")
             )
         self._update_mode_label()
 
@@ -1391,7 +1394,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 if not reader.canRead():
                     try:
                         print(
-                            "[GUI][add_thumb] cannot read image "
+                            "[GUI][add_thumb] " + _("cannot read image") + " "
                             + json.dumps(
                                 {
                                     "path": path,
@@ -1702,7 +1705,7 @@ class MainWindow(QtWidgets.QMainWindow):
             q.put(text + ("\n" + s + "\n" if s not in text else ""))
         else:
             try:
-                print("[USER] %(text)s" % {"text": text.strip()})
+                print(_("[USER] %(text)s") % {"text": text.strip()})
             except Exception:
                 pass
 

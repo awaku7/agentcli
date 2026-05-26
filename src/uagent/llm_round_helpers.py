@@ -574,34 +574,6 @@ def _call_openai_azure_round(
                     chat_kwargs, provider=provider, depname=depname
                 )
 
-                if env_get("UAGENT_DEBUG_TOOLS") == "1":
-                    try:
-                        import json as _json
-
-                        _tools = chat_kwargs.get("tools") or []
-                        print("[debug] tools_count=", len(_tools))
-                        for _i in (0, 32):
-                            if 0 <= _i < len(_tools):
-                                _ti = _tools[_i]
-                                print(
-                                    f"[debug] chat_kwargs.tools[{_i}].keys=",
-                                    (
-                                        sorted(_ti.keys())
-                                        if isinstance(_ti, dict)
-                                        else None
-                                    ),
-                                )
-                                print(
-                                    f"[debug] chat_kwargs.tools[{_i}]=",
-                                    (
-                                        _json.dumps(_ti, ensure_ascii=False)
-                                        if _ti is not None
-                                        else None
-                                    ),
-                                )
-                    except Exception as _e:
-                        print("[debug] tools dump failed:", repr(_e))
-
                 resp = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**chat_kwargs)
                 )
@@ -639,7 +611,7 @@ def _call_openai_azure_round(
                 print(repr(e))
                 return False, client, "", []
             if isinstance(e, URLError):
-                print("[Network Error]")
+                print(_("[Network Error]"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", []

@@ -180,7 +180,7 @@ def _internal_pager(text: str) -> None:
             break
 
         try:
-            input("-- More -- (Enter: next) ")
+            input(_("-- More -- (Enter: next) "))
             # Move cursor up 1 line and clear the prompt line
             sys.stdout.write("\033[A\033[K")
             sys.stdout.flush()

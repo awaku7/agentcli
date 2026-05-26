@@ -10,7 +10,10 @@ from __future__ import annotations
 import json
 from typing import Any, Optional
 
+from .i18n import _
+
 _GENERATE_IMAGE_TOOL_NAME = "generate_image"
+_SCREENSHOT_TOOL_NAME = "screenshot"
 
 
 def supports_multi_turn_image(depname: str) -> bool:
@@ -86,14 +89,29 @@ def _extract_image_turns(messages: list[dict[str, Any]]) -> list[dict[str, Any]]
             for tc in tool_calls:
                 if not isinstance(tc, dict):
                     continue
-                if _tool_call_name(tc) != _GENERATE_IMAGE_TOOL_NAME:
+                tool_name = _tool_call_name(tc)
+                if tool_name not in (
+                    _GENERATE_IMAGE_TOOL_NAME,
+                    _SCREENSHOT_TOOL_NAME,
+                ):
                     continue
                 args = _tool_call_args(tc)
-                prompt = str(args.get("prompt") or "").strip()
-                pending_prompt = prompt or "(prompt unavailable)"
+                if tool_name == _GENERATE_IMAGE_TOOL_NAME:
+                    prompt = str(args.get("prompt") or "").strip()
+                    pending_prompt = prompt or _("(prompt unavailable)")
+                else:
+                    window_title = str(args.get("window_title") or "").strip()
+                    pending_prompt = (
+                        _("screenshot: %(title)s") % {"title": window_title}
+                        if window_title
+                        else _("screenshot")
+                    )
                 break
 
-        elif role == "tool" and msg.get("name") == _GENERATE_IMAGE_TOOL_NAME:
+        elif role == "tool" and msg.get("name") in (
+            _GENERATE_IMAGE_TOOL_NAME,
+            _SCREENSHOT_TOOL_NAME,
+        ):
             paths = _extract_image_paths_from_attachments(msg.get("attachments"))
             if pending_prompt or paths:
                 turns.append(
@@ -115,7 +133,7 @@ def build_image_session_message(
 ) -> dict[str, Any] | None:
     """Create a small system message that summarizes prior image turns.
 
-    This is only used when the active model name contains gpt-5.5.
+    This is only used when the active model name contains gpt-5.
     """
 
     if not supports_multi_turn_image(depname):
@@ -127,17 +145,19 @@ def build_image_session_message(
 
     recent = turns[-max_turns:]
     lines: list[str] = [
-        "Image-session context:",
-        "This conversation already generated images.",
-        "Use the prior prompts and saved file paths below as context for follow-up edits, variants, or continuations.",
+        _("Image-session context:"),
+        _("This conversation already generated images."),
+        _(
+            "Use the prior prompts and saved file paths below as context for follow-up edits, variants, or continuations."
+        ),
     ]
 
     for idx, turn in enumerate(recent, start=1):
-        lines.append(f"Turn {idx}:")
-        lines.append(f"- prompt: {turn['prompt']}")
+        lines.append(_("Turn %(idx)d:") % {"idx": idx})
+        lines.append(_("- prompt: %(prompt)s") % {"prompt": turn['prompt']})
         paths = turn.get("paths") or []
         for p in paths[:5]:
-            lines.append(f"- file: {p}")
+            lines.append(_("- file: %(path)s") % {"path": p})
 
     return {
         "role": "system",
