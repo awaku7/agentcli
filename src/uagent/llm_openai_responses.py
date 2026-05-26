@@ -10,6 +10,7 @@ from typing import Any, Optional
 
 from . import tools
 from .util_tools import image_file_to_data_url
+from .llm_image_helpers import build_image_default_prompt
 
 # -----------------------------------------------------------------------------
 # Responses API helpers
@@ -649,6 +650,16 @@ def build_responses_request(
                         item = _attachment_to_openai_content_item(sf)
                         if item is not None:
                             attachment_items.append(item)
+
+            content_text = _as_str(m_clean.get("content", ""))
+            if attachment_items and not content_text.strip():
+                attachment_items.insert(
+                    0,
+                    {
+                        "type": "input_text",
+                        "text": build_image_default_prompt("describe"),
+                    },
+                )
 
         # Responses API input must not contain project-specific attachment metadata.
         # Keep it in internal history, but drop it from the payload we send.

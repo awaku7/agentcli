@@ -705,11 +705,16 @@ def gemini_chat_with_tools(
 
         if role == "user":
             user_parts: list[Any] = []
+            attachments = m.get("attachments")
+            has_attachments = isinstance(attachments, list) and bool(attachments)
+
+            if not content and has_attachments:
+                content = build_image_default_prompt("describe")
+
             if content:
                 user_parts.append(gemini_types.Part(text=content))
 
-            attachments = m.get("attachments")
-            if isinstance(attachments, list) and attachments:
+            if has_attachments:
                 for att in attachments:
                     part = _attachment_to_gemini_part(att)
                     if part is not None:

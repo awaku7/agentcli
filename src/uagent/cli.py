@@ -29,22 +29,12 @@ except ImportError:
         pass  # type: ignore
 
 
-# OpenAI / Azure OpenAI
-try:
-    from openai import OpenAI
-except ImportError:
-    # 古い openai パッケージ向けフォールバック（OpenAI クラスが無い場合）
-
-    OpenAI = None  # type: ignore[assignment]
-
-# Google Gemini (google-genai)
-try:
-    from google import genai
-    from google.genai import types as gemini_types, errors as gemini_errors
-except Exception:  # google-genai 未インストール時など
-    genai = None  # type: ignore[assignment]
-    gemini_types = None  # type: ignore[assignment]
-    gemini_errors = None  # type: ignore[assignment]
+# OpenAI / Azure OpenAI / Google Gemini (google-genai)
+# These are imported lazily inside the functions that actually need them to speed up CLI startup.
+OpenAI = None
+genai = None
+gemini_types = None
+gemini_errors = None
 
 try:
     import readline
