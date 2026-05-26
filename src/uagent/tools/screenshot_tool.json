@@ -20,7 +20,8 @@
       "desktop screenshot",
       "png capture"
     ],
-    "tool.system_prompt": "This tool is used for the following purpose: capture a screenshot of the desktop or a specified window."
+    "tool.system_prompt": "This tool is used for the following purpose: capture a screenshot of the desktop or a specified window.",
+    "next_action.analyze_screenshot": "Please analyze this screenshot."
   },
   "ja": {
     "err.capture_fail": "[screenshot error] スクリーンショットの撮影に失敗しました: {err}",
@@ -41,7 +42,8 @@
       "画面キャプチャ",
       "ウィンドウ撮影"
     ],
-    "tool.system_prompt": "このツールは次の目的で使われます: デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。"
+    "tool.system_prompt": "このツールは次の目的で使われます: デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。",
+    "next_action.analyze_screenshot": "このスクリーンショットを解析してください。"
   },
   "es": {
     "err.capture_fail": "[error de captura] No se pudo tomar la captura de pantalla: {err}",
@@ -61,7 +63,8 @@
       "captura de pantalla",
       "captura ventana"
     ],
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: capturar una imagen de la pantalla o de una ventana especificada."
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: capturar una imagen de la pantalla o de una ventana especificada.",
+    "next_action.analyze_screenshot": "Por favor, analiza esta captura de pantalla."
   },
   "fr": {
     "err.capture_fail": "[erreur de capture d'écran] Échec de la capture d'écran : {err}",
@@ -81,7 +84,8 @@
       "capture d'écran",
       "capture fenêtre"
     ],
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : capturer une image du bureau ou d'une fenêtre spécifiée."
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : capturer une image du bureau ou d'une fenêtre spécifiée.",
+    "next_action.analyze_screenshot": "Veuillez analyser cette capture d'écran."
   },
   "ko": {
     "err.capture_fail": "[screenshot error] 스크린샷을 찍지 못했습니다: {err}",
@@ -102,7 +106,8 @@
       "화면 캡처",
       "창 캡처"
     ],
-    "tool.system_prompt": "이 도구는 데스크톱 또는 지정된 창의 스크린샷을 캡처하는 데 사용됩니다."
+    "tool.system_prompt": "이 도구는 데스크톱 또는 지정된 창의 스크린샷을 캡처하는 데 사용됩니다.",
+    "next_action.analyze_screenshot": "이 스크린샷을 분석해 주세요."
   },
   "de": {
     "err.capture_fail": "[screenshot-Fehler] Screenshot konnte nicht erstellt werden: {err}",
@@ -122,7 +127,8 @@
       "bildschirmfoto",
       "fenster screenshot"
     ],
-    "tool.system_prompt": "Dieses Tool wird für folgenden Zweck verwendet: einen Screenshot des Desktops oder eines angegebenen Fensters erfassen."
+    "tool.system_prompt": "Dieses Tool wird für folgenden Zweck verwendet: einen Screenshot des Desktops oder eines angegebenen Fensters erfassen.",
+    "next_action.analyze_screenshot": "Bitte analysiere diesen Screenshot."
   },
   "it": {
     "err.capture_fail": "[errore screenshot] Impossibile acquisire lo screenshot: {err}",
@@ -142,7 +148,8 @@
       "cattura schermo",
       "finestra screenshot"
     ],
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: acquisire uno screenshot del desktop o di una finestra specificata."
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: acquisire uno screenshot del desktop o di una finestra specificata.",
+    "next_action.analyze_screenshot": "Analizza questo screenshot."
   },
   "ru": {
     "err.capture_fail": "[ошибка screenshot] Не удалось сделать снимок экрана: {err}",
@@ -163,7 +170,8 @@
       "снимок экрана",
       "окно"
     ],
-    "tool.system_prompt": "Этот инструмент используется для следующей цели: создавать снимок рабочего стола или указанного окна."
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: создавать снимок рабочего стола или указанного окна.",
+    "next_action.analyze_screenshot": "Пожалуйста, проанализируйте этот снимок экрана."
   },
   "pt_BR": {
     "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
@@ -183,7 +191,8 @@
       "captura de tela",
       "janela screenshot"
     ],
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: capturar uma imagem da área de trabalho ou de uma janela especificada."
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: capturar uma imagem da área de trabalho ou de uma janela especificada.",
+    "next_action.analyze_screenshot": "Por favor, analise esta captura de tela."
   },
   "pt": {
     "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
@@ -203,7 +212,8 @@
       "captura de tela",
       "janela screenshot"
     ],
-    "tool.system_prompt": "Use esta ferramenta para capturar uma imagem da área de trabalho ou de uma janela específica."
+    "tool.system_prompt": "Use esta ferramenta para capturar uma imagem da área de trabalho ou de uma janela específica.",
+    "next_action.analyze_screenshot": "Por favor, analise esta captura de ecrã."
   },
   "id": {
     "err.capture_fail": "[screenshot error] Gagal mengambil screenshot: {err}",
@@ -223,7 +233,8 @@
       "tangkapan layar",
       "jendela screenshot"
     ],
-    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: ambil screenshot desktop atau window tertentu."
+    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: ambil screenshot desktop atau window tertentu.",
+    "next_action.analyze_screenshot": "Silakan analisis tangkapan layar ini."
   },
   "vi": {
     "err.capture_fail": "[lỗi ảnh chụp màn hình] Không thể chụp ảnh màn hình: {err}",
@@ -243,7 +254,8 @@
       "ảnh chụp màn hình",
       "cửa sổ screenshot"
     ],
-    "tool.system_prompt": "Hãy dùng công cụ này để chụp ảnh màn hình của màn hình nền hoặc một cửa sổ được chỉ định."
+    "tool.system_prompt": "Hãy dùng công cụ này để chụp ảnh màn hình của màn hình nền hoặc một cửa sổ được chỉ định.",
+    "next_action.analyze_screenshot": "Vui lòng phân tích ảnh chụp màn hình này."
   },
   "pl": {
     "err.capture_fail": "[błąd zrzutu ekranu] Nie udało się wykonać zrzutu ekranu: {err}",
@@ -263,7 +275,8 @@
       "zrzut ekranu",
       "zrzut okna"
     ],
-    "tool.system_prompt": "Użyj tego narzędzia do wykonania zrzutu ekranu pulpitu lub wskazanego okna."
+    "tool.system_prompt": "Użyj tego narzędzia do wykonania zrzutu ekranu pulpitu lub wskazanego okna.",
+    "next_action.analyze_screenshot": "Proszę przeanalizować ten zrzut ekranu."
   },
   "hi": {
     "err.capture_fail": "[स्क्रीनशॉट त्रुटि] स्क्रीनशॉट लेने में विफल: {err}",
@@ -284,7 +297,8 @@
       "स्क्रीन कैप्चर",
       "विंडो कैप्चर"
     ],
-    "tool.system_prompt": "इस टूल का उपयोग डेस्कटॉप या किसी निर्दिष्ट विंडो का स्क्रीनशॉट कैप्चर करने के लिए करें।"
+    "tool.system_prompt": "इस टूल का उपयोग डेस्कटॉप या किसी निर्दिष्ट विंडो का स्क्रीनशॉट कैप्चर करने के लिए करें।",
+    "next_action.analyze_screenshot": "कृपया इस स्क्रीनशॉट का विश्लेषण करें।"
   },
   "ar": {
     "err.capture_fail": "[خطأ في لقطة الشاشة] فشل التقاط لقطة الشاشة: {err}",
@@ -305,7 +319,8 @@
       "التقاط الشاشة",
       "نافذة"
     ],
-    "tool.system_prompt": "تُستخدم هذه الأداة لالتقاط لقطة شاشة لسطح المكتب أو لنافذة محددة."
+    "tool.system_prompt": "تُستخدم هذه الأداة لالتقاط لقطة شاشة لسطح المكتب أو لنافذة محددة.",
+    "next_action.analyze_screenshot": "يرجى تحليل لقطة الشاشة هذه."
   },
   "sv": {
     "err.capture_fail": "[screenshot-fel] Det gick inte att ta skärmdumpen: {err}",
@@ -325,7 +340,8 @@
       "skärmdump",
       "fönster"
     ],
-    "tool.system_prompt": "Det här verktyget används för att ta en skärmdump av skrivbordet eller ett angivet fönster."
+    "tool.system_prompt": "Det här verktyget används för att ta en skärmdump av skrivbordet eller ett angivet fönster.",
+    "next_action.analyze_screenshot": "Analysera gärna den här skärmdumpen."
   },
   "sw": {
     "err.capture_fail": "[screenshot error] Imeshindwa kupiga picha ya skrini: {err}",
@@ -345,7 +361,8 @@
       "picha ya skrini",
       "dirisha"
     ],
-    "tool.system_prompt": "Zana hii hutumiwa kwa lengo lifuatalo: piga picha ya skrini ya desktop au dirisha lililotajwa."
+    "tool.system_prompt": "Zana hii hutumiwa kwa lengo lifuatalo: piga picha ya skrini ya desktop au dirisha lililotajwa.",
+    "next_action.analyze_screenshot": "Tafadhali chambua picha hii ya skrini."
   },
   "nb": {
     "err.capture_fail": "[screenshot-feil] Klarte ikke å ta skjermbildet: {err}",
@@ -365,7 +382,8 @@
       "skjermbilde",
       "vindu"
     ],
-    "tool.system_prompt": "Dette verktøyet brukes til å ta et skjermbilde av skrivebordet eller et angitt vindu."
+    "tool.system_prompt": "Dette verktøyet brukes til å ta et skjermbilde av skrivebordet eller et angitt vindu.",
+    "next_action.analyze_screenshot": "Vennligst analyser dette skjermbildet."
   },
   "nl": {
     "err.capture_fail": "[screenshot fout] Screenshot maken mislukt: {err}",
@@ -385,7 +403,8 @@
       "schermafbeelding",
       "venster"
     ],
-    "tool.system_prompt": "Leg een screenshot vast van het bureaublad of een opgegeven venster."
+    "tool.system_prompt": "Leg een screenshot vast van het bureaublad of een opgegeven venster.",
+    "next_action.analyze_screenshot": "Analyseer deze schermafbeelding, alstublieft."
   },
   "fi": {
     "err.capture_fail": "[screenshot-virhe] Kuvakaappauksen ottaminen epäonnistui: {err}",
@@ -405,7 +424,8 @@
       "kuvakaappaus",
       "ikkuna"
     ],
-    "tool.system_prompt": "Ota kuvakaappaus työpöydästä tai annetusta ikkunasta."
+    "tool.system_prompt": "Ota kuvakaappaus työpöydästä tai annetusta ikkunasta.",
+    "next_action.analyze_screenshot": "Analysoi tämä kuvakaappaus."
   },
   "cs": {
     "err.capture_fail": "[screenshot chyba] Nepodařilo se pořídit snímek obrazovky: {err}",
@@ -425,7 +445,8 @@
       "snímek obrazovky",
       "okno"
     ],
-    "tool.system_prompt": "Tento nástroj slouží k následujícímu účelu: pořídit snímek plochy nebo zadaného okna."
+    "tool.system_prompt": "Tento nástroj slouží k následujícímu účelu: pořídit snímek plochy nebo zadaného okna.",
+    "next_action.analyze_screenshot": "Prosím analyzujte tento snímek obrazovky."
   },
   "uk": {
     "err.capture_fail": "[помилка screenshot] Не вдалося зробити знімок екрана: {err}",
@@ -445,7 +466,8 @@
       "знімок екрана",
       "вікно"
     ],
-    "tool.system_prompt": "Цей інструмент використовується для такої мети: зробити знімок робочого столу або вказаного вікна."
+    "tool.system_prompt": "Цей інструмент використовується для такої мети: зробити знімок робочого столу або вказаного вікна.",
+    "next_action.analyze_screenshot": "Будь ласка, проаналізуйте цей знімок екрана."
   },
   "tr": {
     "err.capture_fail": "[ekran görüntüsü hatası] Ekran görüntüsü alınamadı: {err}",
@@ -465,7 +487,8 @@
       "ekran görüntüsü",
       "pencere"
     ],
-    "tool.system_prompt": "Bu araç şu amaç için kullanılır: masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalamak."
+    "tool.system_prompt": "Bu araç şu amaç için kullanılır: masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalamak.",
+    "next_action.analyze_screenshot": "Lütfen bu ekran görüntüsünü analiz edin."
   },
   "th": {
     "err.capture_fail": "[ข้อผิดพลาดภาพหน้าจอ] ไม่สามารถจับภาพหน้าจอได้: {err}",
@@ -485,7 +508,8 @@
       "ภาพหน้าจอ",
       "หน้าต่าง"
     ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อจับภาพหน้าจอของเดสก์ท็อปหรือหน้าต่างที่ระบุ"
+    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อจับภาพหน้าจอของเดสก์ท็อปหรือหน้าต่างที่ระบุ",
+    "next_action.analyze_screenshot": "กรุณาวิเคราะห์ภาพหน้าจอนี้"
   },
   "zh_CN": {
     "err.capture_fail": "[截图错误] 截图失败：{err}",
@@ -506,7 +530,8 @@
       "屏幕截图",
       "窗口截图"
     ],
-    "tool.system_prompt": "该工具用于以下目的：捕获桌面或指定窗口的屏幕截图。"
+    "tool.system_prompt": "该工具用于以下目的：捕获桌面或指定窗口的屏幕截图。",
+    "next_action.analyze_screenshot": "请分析这张截图。"
   },
   "zh_TW": {
     "err.capture_fail": "[截圖錯誤] 截圖失敗：{err}",
@@ -527,7 +552,8 @@
       "螢幕截圖",
       "視窗截圖"
     ],
-    "tool.system_prompt": "此工具用於以下目的：擷取桌面或指定視窗的螢幕截圖。"
+    "tool.system_prompt": "此工具用於以下目的：擷取桌面或指定視窗的螢幕截圖。",
+    "next_action.analyze_screenshot": "請分析這張螢幕截圖。"
   },
   "bn": {
     "err.capture_fail": "[screenshot error] স্ক্রিনশট নিতে ব্যর্থ: {err}",
@@ -548,7 +574,8 @@
       "স্ক্রিন ক্যাপচার",
       "উইন্ডো ক্যাপচার"
     ],
-    "tool.system_prompt": "এই টুলটি ব্যবহৃত হয় ডেস্কটপ বা নির্দিষ্ট কোনো উইন্ডোর স্ক্রিনশট নিতে।"
+    "tool.system_prompt": "এই টুলটি ব্যবহৃত হয় ডেস্কটপ বা নির্দিষ্ট কোনো উইন্ডোর স্ক্রিনশট নিতে।",
+    "next_action.analyze_screenshot": "অনুগ্রহ করে এই স্ক্রিনশটটি বিশ্লেষণ করুন।"
   },
   "fa": {
     "err.capture_fail": "[خطای اسکرین‌شات] گرفتن اسکرین‌شات ناموفق بود: {err}",
@@ -569,7 +596,8 @@
       "گرفتن تصویر صفحه",
       "پنجره"
     ],
-    "tool.system_prompt": "این ابزار برای این منظور استفاده می‌شود: گرفتن اسکرین‌شات از دسکتاپ یا یک پنجرهٔ مشخص."
+    "tool.system_prompt": "این ابزار برای این منظور استفاده می‌شود: گرفتن اسکرین‌شات از دسکتاپ یا یک پنجرهٔ مشخص.",
+    "next_action.analyze_screenshot": "لطفاً این اسکرین‌شات را تحلیل کنید."
   },
   "mn": {
     "err.capture_fail": "[screenshot error] Дэлгэцийн зургийг авч чадсангүй: {err}",
@@ -589,7 +617,8 @@
       "дэлгэцийн зураг",
       "цонх"
     ],
-    "tool.system_prompt": "Энэ хэрэгслийг ширээний дэлгэц эсвэл заасан цонхны дэлгэцийн зургийг авахад ашиглана."
+    "tool.system_prompt": "Энэ хэрэгслийг ширээний дэлгэц эсвэл заасан цонхны дэлгэцийн зургийг авахад ашиглана.",
+    "next_action.analyze_screenshot": "Энэ дэлгэцийн зургийг шинжилнэ үү."
   },
   "mr": {
     "err.capture_fail": "[स्क्रीनशॉट त्रुटी] स्क्रीनशॉट घेता आला नाही: {err}",
@@ -610,6 +639,7 @@
       "स्क्रीन कॅप्चर",
       "विंडो कॅप्चर"
     ],
-    "tool.system_prompt": "हे साधन डेस्कटॉप किंवा निर्दिष्ट विंडोचा स्क्रीनशॉट घेण्यासाठी वापरले जाते."
+    "tool.system_prompt": "हे साधन डेस्कटॉप किंवा निर्दिष्ट विंडोचा स्क्रीनशॉट घेण्यासाठी वापरले जाते.",
+    "next_action.analyze_screenshot": "कृपया या स्क्रीनशॉटचे विश्लेषण करा।"
   }
 }
