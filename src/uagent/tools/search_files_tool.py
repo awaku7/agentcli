@@ -149,7 +149,8 @@ IGNORE_DIRS = {
     "coverage",
 }
 
-# File extensions to exclude (typically binary or large assets)
+# File extensions to exclude only for content-search safety/performance.
+# Filename-only searches should still be able to list image files.
 IGNORE_EXTS = {
     ".pyc",
     ".pyd",
@@ -161,12 +162,8 @@ IGNORE_EXTS = {
     ".tar",
     ".gz",
     ".7z",
-    ".png",
-    ".jpg",
-    ".jpeg",
-    ".gif",
-    ".ico",
 }
+
 
 _TEXT_ENCODING_CANDIDATES = ("utf-8-sig", "utf-8", "cp932", "shift_jis", "euc_jp")
 
