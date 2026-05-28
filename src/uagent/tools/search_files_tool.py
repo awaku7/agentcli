@@ -454,7 +454,10 @@ def run_tool(args: dict[str, Any]) -> str:
             dirnames[:] = [d for d in dirnames if d not in IGNORE_DIRS]
 
             for fname in filenames:
-                if os.path.splitext(fname)[1].lower() in IGNORE_EXTS:
+                if (
+                    regex is not None
+                    and os.path.splitext(fname)[1].lower() in IGNORE_EXTS
+                ):
                     continue
 
                 full_path = os.path.join(dirpath, fname)
