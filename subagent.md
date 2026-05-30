@@ -8,47 +8,46 @@
 - 実装時は、この文書に書かれた JSON 形式と処理順を優先する。
 - 曖昧な点があっても、まず後方互換を保つ。
 
-## 最低限守ること
-1. 返り値は原則 JSON にする。
-2. 失敗時も JSON で返す。
-3. 参照した根拠を残す。
-4. 役割ごとにテンプレートを分ける。
-5. 破壊的変更は避ける。
+## 設計原則
+1. 既存の `agent_name` は壊さない。
+2. 新しい引数はすべて optional にする。
+3. JSON 出力を要求する場合でも、従来の text 出力は残す。
+4. 参照した根拠を残す。
+5. 役割ごとにテンプレートを分ける。
+6. 破壊的変更は避ける。
 
 ## 推奨する機能構成
 
 ### 1. 構造化出力
-返り値を固定する。推奨フィールドは次の通り。
+`run_sub_agent` ではなく `run` の引数で制御する。
+
+推奨引数:
+- `response_mode`: `"json"` または `"text"`
+- `response_schema`: JSON Schema 形式の辞書
+- `required_fields`: 必須キー一覧
+- `strict_output`: 必須キーや型の不一致をエラー扱いにする
+- `evidence_required`: 根拠項目を要求する
+- `evidence_min_items`: 最低件数
+
+JSON モード時の返り値は、次のようなオブジェクトを基本にする。
 
 ```json
 {
-  "ok": true,
-  "role": "investigate",
-  "summary": "...",
-  "findings": [
-    {
-      "file": "path/to/file.py",
-      "line": 123,
-      "note": "..."
-    }
-  ],
-  "risks": ["..."],
-  "next_actions": ["..."],
-  "commands": ["..."],
-  "files_changed": ["..."]
+  "status": "completed",
+  "role": "planner",
+  "summary": "短い要約",
+  "assumptions": ["前提1", "前提2"],
+  "risks": ["注意点1"],
+  "next_actions": ["次の作業1", "次の作業2"]
 }
 ```
 
-失敗時の例。
+失敗時は次の形を返す。
 
 ```json
 {
-  "ok": false,
-  "role": "review",
-  "error": "...",
-  "stage": "...",
-  "details": "...",
-  "next_actions": ["..."]
+  "status": "error",
+  "message": "失敗理由"
 }
 ```
 
@@ -56,26 +55,48 @@
 用途ごとにプリセットを持つ。
 
 候補:
-- `investigate`
-- `implement`
-- `test`
-- `review`
-- `cleanup`
+- `planner`
+- `reviewer`
+- `summarizer`
+- `patch_designer`
+- `error_analyst`
 
-各テンプレートに入れる項目:
-- 目的
-- やってよいこと
-- やってはいけないこと
-- 完了条件
-- 出力形式
+役割ごとの期待値:
+- `planner`: 手順、依存関係、リスクを整理する
+- `reviewer`: 欠陥、抜け、危険な変更を指摘する
+- `summarizer`: 長文を短くまとめる
+- `patch_designer`: 最小変更の差分案を出す
+- `error_analyst`: 原因、再現条件、対処案をまとめる
 
 ### 3. 根拠付き結果
 以下を必須にすると、他の LLM が次の作業に進みやすい。
+
 - 参照ファイル名
 - 行番号
 - 実行コマンド
 - テスト結果
 - 変更理由
+
+`evidence_required=true` のときは `evidence` 配列を返す。
+
+例:
+
+```json
+{
+  "status": "completed",
+  "role": "error_analyst",
+  "summary": "JSON 解析失敗が原因",
+  "root_cause": "出力が JSON 形式ではない",
+  "evidence": [
+    "raw_output に先頭テキストが含まれていた",
+    "json.loads で例外が発生した"
+  ],
+  "proposed_actions": [
+    "system prompt に JSON のみ出力する制約を追加する",
+    "strict_output=true のときは mismatch をエラーにする"
+  ]
+}
+```
 
 ## 実装時の判断基準
 - 既存の動作と衝突するなら、まず後方互換を優先する。
@@ -111,3 +132,7 @@
 1. 構造化出力
 2. 根拠付き結果
 3. 役割テンプレート
+
+## 補足
+- `response_mode`, `response_schema`, `required_fields`, `strict_output`, `evidence_required`, `evidence_min_items` を `run` 引数で扱う。
+- JSON モード時は構造化出力と根拠を優先する。

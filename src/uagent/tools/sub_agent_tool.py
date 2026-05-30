@@ -168,6 +168,51 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="(Optional) Limit the sub-agent's reasoning scope to this specific file.",
                     ),
                 },
+                "response_mode": {
+                    "type": "string",
+                    "enum": ["json", "text"],
+                    "description": _(
+                        "param.response_mode.description",
+                        default="Output mode for the sub-agent.",
+                    ),
+                },
+                "response_schema": {
+                    "type": "object",
+                    "description": _(
+                        "param.response_schema.description",
+                        default="Optional JSON Schema object for the expected response.",
+                    ),
+                },
+                "required_fields": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": _(
+                        "param.required_fields.description",
+                        default="List of required fields in the JSON response.",
+                    ),
+                },
+                "strict_output": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.strict_output.description",
+                        default="Treat missing required fields or schema mismatch as errors.",
+                    ),
+                },
+                "evidence_required": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.evidence_required.description",
+                        default="Require evidence items in the response.",
+                    ),
+                },
+                "evidence_min_items": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": _(
+                        "param.evidence_min_items.description",
+                        default="Minimum number of evidence items required.",
+                    ),
+                },
             },
             "required": ["agent_name", "task"],
             "additionalProperties": False,
@@ -185,119 +230,101 @@ class SubAgentRunner:
                 description="計画作成エージェント",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたは計画設計の専門サブエージェントです。目標を達成するためのステップ、リスク、制約を整理してください。\n"
-                    "実際のファイル書き換えやコマンド実行はせず、成果となる計画JSON（構造化データ）のみを出力してください。\n"
-                    "必ず以下のJSONフォーマットで回答してください。余計な前置きや説明は含めず、純粋なJSONのみを出力してください。\n"
-                    "{\n"
-                    '  "status": "completed",\n'
-                    '  "summary": "計画の概要",\n'
-                    '  "findings": [\n'
-                    "    {\n"
-                    '      "severity": "low/medium/high",\n'
-                    '      "title": "リスクや注意点",\n'
-                    '      "detail": "詳細な説明",\n'
-                    '      "recommendation": "推奨される対処"\n'
-                    "    }\n"
-                    "  ],\n"
-                    '  "proposed_actions": ["ステップ1", "ステップ2"]\n'
-                    "}"
+                    "あなたは計画作成に特化したサブエージェントです。"
+                    "入力を分析し、実行可能な計画を日本語で簡潔に出力してください。"
+                    "出力は必ずJSONで、status, role, summary, assumptions, risks, next_actions を含めてください。"
+                    "事実と推測を分け、曖昧な点があれば assumptions に明記してください。"
                 ),
             ),
             "reviewer": AgentSpec(
                 name="reviewer",
-                description="監査レビューエージェント",
-                permission_level=PermissionLevel.READ_ONLY,
-                allowed_tools=["read_file"],
+                description="レビューエージェント",
+                permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたはコード、設計、修正提案を検証するレビュー専門サブエージェントです。\n"
-                    "不具合、仕様不一致、セキュリティ、無限ループリスクを特定し、指摘として構造化して出力してください。\n"
-                    "必ず以下のJSONフォーマットで回答してください。余計な前置きや説明は含めず、純粋なJSONのみを出力してください。\n"
-                    "{\n"
-                    '  "status": "completed",\n'
-                    '  "summary": "レビューの概要",\n'
-                    '  "findings": [\n'
-                    "    {\n"
-                    '      "severity": "low/medium/high",\n'
-                    '      "title": "バグや問題点",\n'
-                    '      "detail": "問題の詳細",\n'
-                    '      "recommendation": "推奨される修正案"\n'
-                    "    }\n"
-                    "  ],\n"
-                    '  "proposed_actions": ["修正手順やアドバイス"]\n'
-                    "}"
+                    "あなたはレビューに特化したサブエージェントです。"
+                    "入力の妥当性、欠落、リスク、改善点を検査し、JSONで返してください。"
+                    "出力は status, role, summary, findings, risks, recommended_actions を含めてください。"
                 ),
             ),
             "summarizer": AgentSpec(
                 name="summarizer",
-                description="情報圧縮エージェント",
+                description="要約エージェント",
                 permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたは情報要約の専門サブエージェントです。長い履歴やログから、\n"
-                    "次のLLM処理に必要不可欠なコアデータ、決定事項、直近のエラーのみをコンパクトに抽出してください。\n"
-                    "必ず以下のJSONフォーマットで回答してください。余計な前置きや説明は含めず、純粋なJSONのみを出力してください。\n"
-                    "{\n"
-                    '  "status": "completed",\n'
-                    '  "summary": "要約の概要",\n'
-                    '  "findings": [\n'
-                    "    {\n"
-                    '      "severity": "info/low",\n'
-                    '      "title": "重要トピック",\n'
-                    '      "detail": "トピックの詳細",\n'
-                    '      "recommendation": "特記事項や次のアクション"\n'
-                    "    }\n"
-                    "  ],\n"
-                    '  "proposed_actions": ["推奨する要約ポイント"]\n'
-                    "}"
+                    "あなたは要約に特化したサブエージェントです。"
+                    "入力を短く正確に要約し、JSONで返してください。"
+                    "出力は status, role, summary, key_points, open_questions を含めてください。"
                 ),
             ),
             "patch_designer": AgentSpec(
                 name="patch_designer",
-                description="修正パッチ設計エージェント",
-                permission_level=PermissionLevel.PROPOSE_ONLY,
+                description="パッチ設計エージェント",
+                permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたは修正パッチ設計の専門サブエージェントです。プログラムコード、エラーログ、不具合、またはレビュー指摘を基に、安全かつ具体的な修正差分（パッチ案）を設計してください。\n"
-                    "実際のファイル書き換えやコマンド実行はせず、成果となる計画・修正パッチJSON（構造化データ）のみを出力してください。\n"
-                    "必ず以下のJSONフォーマットで回答してください。余計な前置きや説明は含めず、純粋なJSONのみを出力してください。\n"
-                    "{\n"
-                    '  "status": "completed",\n'
-                    '  "summary": "パッチ設計の概要（どのような修正を行うか）",\n'
-                    '  "findings": [\n'
-                    "    {\n"
-                    '      "severity": "low/medium/high",\n'
-                    '      "title": "修正対象ファイルと箇所",\n'
-                    '      "detail": "修正方針や具体的な置換元・置換先コード、もしくは差分（diff形式など）の説明",\n'
-                    '      "recommendation": "適用時の注意点や、適用後に実行すべきテスト/検証コマンド"\n'
-                    "    }\n"
-                    "  ],\n"
-                    '  "proposed_actions": ["修正パッチを適用するファイルパスとその変更詳細指示"]\n'
-                    "}"
+                    "あなたは変更差分の設計に特化したサブエージェントです。"
+                    "安全で最小限の変更案をJSONで返してください。"
+                    "出力は status, role, summary, files, changes, risks, validation_steps を含めてください。"
                 ),
             ),
             "error_analyst": AgentSpec(
                 name="error_analyst",
-                description="エラー解析・デバッグエージェント",
-                permission_level=PermissionLevel.READ_ONLY,
-                allowed_tools=["read_file"],
+                description="エラー分析エージェント",
+                permission_level=PermissionLevel.NONE,
                 system_prompt=(
-                    "あなたはエラー解析・デバッグの専門サブエージェントです。プログラムコード、テストエラー、コンパイルエラー、またはシステムログを基に、エラーの根本原因（Root Cause）を特定してください。\n"
-                    "実際のファイル書き換えやコマンド実行はせず、成果となるエラー解析JSON（構造化データ）のみを出力してください。\n"
-                    "必ず以下のJSONフォーマットで回答してください。余計な前置きや説明は含めず、純粋なJSONのみを出力してください。\n"
-                    "{\n"
-                    '  "status": "completed",\n'
-                    '  "summary": "エラー解析の概要（何が原因でエラーが発生したか）",\n'
-                    '  "findings": [\n'
-                    "    {\n"
-                    '      "severity": "low/medium/high",\n'
-                    '      "title": "エラーの根本原因とエラー箇所",\n'
-                    '      "detail": "問題の詳細（例外クラス、エラーメッセージ、原因コードの説明など）",\n'
-                    '      "recommendation": "具体的な修正アクション（修正コード案や対策）"\n'
-                    "    }\n"
-                    "  ],\n"
-                    '  "proposed_actions": ["エラーを解決するために必要なステップ一覧"]\n'
-                    "}"
+                    "あなたはエラー分析に特化したサブエージェントです。"
+                    "原因の切り分け、再現条件、対処案をJSONで返してください。"
+                    "出力は status, role, summary, root_cause, evidence, proposed_actions を含めてください。"
                 ),
             ),
         }
+
+    def _build_structured_prompt(
+        self,
+        base_prompt: str,
+        response_mode: Optional[str],
+        response_schema: Optional[Dict[str, Any]],
+        required_fields: Optional[List[str]],
+        strict_output: bool,
+        evidence_required: bool,
+        evidence_min_items: int,
+    ) -> str:
+        parts = [base_prompt]
+        if response_mode:
+            parts.append("\n\nresponse_mode: " + response_mode)
+        if response_schema:
+            parts.append(
+                "\n\nresponse_schema:\n" + json.dumps(response_schema, ensure_ascii=False, indent=2)
+            )
+        if required_fields:
+            parts.append("\n\nrequired_fields: " + ", ".join(required_fields))
+        if strict_output:
+            parts.append("\n\nstrict_output: true")
+        if evidence_required:
+            parts.append(
+                f"\n\nevidence_required: true (min_items={evidence_min_items})"
+            )
+        return "".join(parts)
+
+    def _validate_structured_output(
+        self,
+        result_obj: Dict[str, Any],
+        required_fields: Optional[List[str]],
+        strict_output: bool,
+        evidence_required: bool,
+        evidence_min_items: int,
+    ) -> Optional[str]:
+        if required_fields:
+            missing = [f for f in required_fields if f not in result_obj]
+            if missing and strict_output:
+                return f"Missing required fields: {', '.join(missing)}"
+        if evidence_required:
+            evidence = result_obj.get("evidence")
+            if not isinstance(evidence, list) or len(evidence) < evidence_min_items:
+                return f"Evidence must contain at least {evidence_min_items} items."
+        return None
+
+    def _wrap_error(self, message: str) -> str:
+        return json.dumps({"status": "error", "message": message}, ensure_ascii=False)
 
     def _call_llm_single_round(
         self,
@@ -332,7 +359,6 @@ class SubAgentRunner:
             return response.content[0].text or ""
 
         else:
-            # OpenAI, Azure, Grok, Bedrock, Ollama, OpenRouter, Nvidia, etc.
             response = client.chat.completions.create(
                 model=model_name,
                 messages=[
@@ -344,24 +370,33 @@ class SubAgentRunner:
             return response.choices[0].message.content or ""
 
     def run(
-        self, agent_name: str, task_text: str, current_file: Optional[str] = None
+        self,
+        agent_name: str,
+        task_text: str,
+        current_file: Optional[str] = None,
+        response_mode: Optional[str] = None,
+        response_schema: Optional[Dict[str, Any]] = None,
+        required_fields: Optional[List[str]] = None,
+        strict_output: bool = False,
+        evidence_required: bool = False,
+        evidence_min_items: int = 0,
     ) -> str:
         spec = self.specs.get(agent_name)
         if not spec:
             return json.dumps(
-                {"status": "error", "message": f"Agent {agent_name} not found."}
+                {"status": "error", "message": f"Agent {agent_name} not found."},
+                ensure_ascii=False,
             )
 
-        # ガードレール: ファイルピン留めの検証
         if current_file and not os.path.exists(current_file):
             return json.dumps(
                 {
                     "status": "error",
                     "message": f"Access Denied: File '{current_file}' not found.",
-                }
+                },
+                ensure_ascii=False,
             )
 
-        # ContextPack の構築
         pack = ContextPack(
             current_goal=task_text,
             current_state="PROCESSING",
@@ -381,7 +416,6 @@ class SubAgentRunner:
             scope_files=[current_file] if current_file else [],
         )
 
-        # 重複チェック
         if not self.duplicate_guard.check_and_record(agent_name, task):
             return json.dumps(
                 {
@@ -391,15 +425,8 @@ class SubAgentRunner:
                 ensure_ascii=False,
             )
 
-        # コールバック経由で環境変数等の情報を安全に取得
         cb = get_callbacks()
-
-        # Resolve sub-agent specific overrides from environment variables
-        # Format: UAGENT_SUB_AGENT_<AGENT_NAME>_PROVIDER / _DEPNAME / _API_KEY
-        # Fallback: UAGENT_SUB_AGENT_PROVIDER / _DEPNAME / _API_KEY
-        # Default: Main agent configuration (via make_client)
         agent_upper = agent_name.upper()
-
         sub_provider = (
             (
                 env_get(f"UAGENT_SUB_AGENT_{agent_upper}_PROVIDER")
@@ -409,50 +436,39 @@ class SubAgentRunner:
             .strip()
             .lower()
         )
-
         sub_depname = (
             env_get(f"UAGENT_SUB_AGENT_{agent_upper}_DEPNAME")
             or env_get("UAGENT_SUB_AGENT_DEPNAME")
             or ""
         ).strip()
-
         sub_api_key = (
             env_get(f"UAGENT_SUB_AGENT_{agent_upper}_API_KEY")
             or env_get("UAGENT_SUB_AGENT_API_KEY")
             or ""
         ).strip()
 
-        # util_providers から安全にクライアントを取得
         try:
             if sub_provider:
-                # Temporarily override environment variables to let make_client build the custom client
                 orig_provider = os.environ.get("UAGENT_PROVIDER")
                 os.environ["UAGENT_PROVIDER"] = sub_provider
-
-                # Setup provider-specific overrides
                 orig_depname = None
                 orig_api_key = None
-
                 p_upper = sub_provider.upper()
                 dep_key = f"UAGENT_{p_upper}_DEPNAME"
                 key_key = f"UAGENT_{p_upper}_API_KEY"
-
                 if sub_depname:
                     orig_depname = os.environ.get(dep_key)
                     os.environ[dep_key] = sub_depname
                 if sub_api_key:
                     orig_api_key = os.environ.get(key_key)
                     os.environ[key_key] = sub_api_key
-
                 try:
                     provider, client, model_name = make_client(cb)
                 finally:
-                    # Restore original environment variables
                     if orig_provider is not None:
                         os.environ["UAGENT_PROVIDER"] = orig_provider
                     else:
                         os.environ.pop("UAGENT_PROVIDER", None)
-
                     if sub_depname:
                         if orig_depname is not None:
                             os.environ[dep_key] = orig_depname
@@ -464,112 +480,54 @@ class SubAgentRunner:
                         else:
                             os.environ.pop(key_key, None)
             else:
-                # No provider override, but check if there's a model/key override for the default provider
                 provider, client, model_name = make_client(cb)
-                p_upper = provider.upper()
-                dep_key = f"UAGENT_{p_upper}_DEPNAME"
-                key_key = f"UAGENT_{p_upper}_API_KEY"
-
-                if sub_depname or sub_api_key:
-                    orig_depname = os.environ.get(dep_key)
-                    orig_api_key = os.environ.get(key_key)
-
-                    if sub_depname:
-                        os.environ[dep_key] = sub_depname
-                    if sub_api_key:
-                        os.environ[key_key] = sub_api_key
-
-                    try:
-                        # Re-create client with overridden model/key
-                        provider, client, model_name = make_client(cb)
-                    finally:
-                        if orig_depname is not None:
-                            os.environ[dep_key] = orig_depname
-                        else:
-                            os.environ.pop(dep_key, None)
-                        if orig_api_key is not None:
-                            os.environ[key_key] = orig_api_key
-                        else:
-                            os.environ.pop(key_key, None)
-        except Exception as e:
+        except Exception as exc:
             return json.dumps(
-                {
-                    "status": "error",
-                    "message": f"Failed to initialize LLM client: {str(e)}",
-                },
+                {"status": "error", "message": f"Failed to create client: {exc}"},
                 ensure_ascii=False,
             )
 
-        # ターゲットファイルの追加コンテキスト読込（reviewer用など）
-        relevant_snippets = []
-        if current_file and spec.permission_level == PermissionLevel.READ_ONLY:
-            try:
-                with open(current_file, "r", encoding="utf-8", errors="ignore") as f:
-                    content = f.read(10000)  # 最大10KB読み込み
-                    relevant_snippets.append(
-                        f"--- FILE: {current_file} ---\n{content}\n--- END ---"
-                    )
-            except Exception as e:
-                relevant_snippets.append(f"Failed to read pinned file: {str(e)}")
+        if response_mode is None:
+            response_mode = "json" if spec.name != "summarizer" else "text"
 
-        pack.relevant_snippets = relevant_snippets
+        if response_mode == "json":
+            system_prompt = self._build_structured_prompt(
+                spec.system_prompt,
+                response_mode=response_mode,
+                response_schema=response_schema,
+                required_fields=required_fields,
+                strict_output=strict_output,
+                evidence_required=evidence_required,
+                evidence_min_items=evidence_min_items,
+            )
+        else:
+            system_prompt = spec.system_prompt
 
-        user_prompt = (
-            f"以下はあなたに依頼する業務の詳細情報です。\n\n"
-            f"【タスク】\n{task_text}\n\n"
-            f"【文脈パック】\n{pack.to_json()}"
+        raw_output = self._call_llm_single_round(
+            provider=provider,
+            client=client,
+            model_name=model_name,
+            system_prompt=system_prompt,
+            user_prompt=task_text,
         )
 
-        try:
-            raw_response = self._call_llm_single_round(
-                provider=provider,
-                client=client,
-                model_name=model_name,
-                system_prompt=spec.system_prompt,
-                user_prompt=user_prompt,
-            )
-
-            # JSONクリーンアップ（```json ... ``` のブロックがあれば中身だけを取り出す）
-            cleaned = raw_response.strip()
-            if cleaned.startswith("```"):
-                lines = cleaned.splitlines()
-                if lines[0].startswith("```"):
-                    lines = lines[1:]
-                if lines and lines[-1].startswith("```"):
-                    lines = lines[:-1]
-                cleaned = "\n".join(lines).strip()
-
-            # JSONパース確認
+        if response_mode == "json":
             try:
-                parsed_json = json.loads(cleaned)
-                return json.dumps(parsed_json, ensure_ascii=False, indent=2)
-            except json.JSONDecodeError:
-                # パース失敗時はフォールバックJSONを返す
-                return json.dumps(
-                    {
-                        "status": "completed",
-                        "summary": "サブエージェント応答のパースに失敗しましたが、テキスト出力を回収しました。",
-                        "findings": [
-                            {
-                                "severity": "high",
-                                "title": "JSONパースエラー",
-                                "detail": "LLMの応答が有効なJSONフォーマットではありませんでした。",
-                                "recommendation": "テキスト出力を直接確認してください。",
-                            }
-                        ],
-                        "proposed_actions": [],
-                        "raw_text": raw_response,
-                    },
-                    ensure_ascii=False,
-                    indent=2,
-                )
-
-        except Exception as e:
-            return json.dumps(
-                {"status": "error", "message": f"LLM execution error: {str(e)}"},
-                ensure_ascii=False,
+                result_obj = json.loads(raw_output)
+            except Exception as exc:
+                return self._wrap_error(f"Invalid JSON output: {exc}")
+            validation_error = self._validate_structured_output(
+                result_obj=result_obj,
+                required_fields=required_fields,
+                strict_output=strict_output,
+                evidence_required=evidence_required,
+                evidence_min_items=evidence_min_items,
             )
+            if validation_error:
+                return self._wrap_error(validation_error)
+            return json.dumps(result_obj, ensure_ascii=False)
 
+        return raw_output
 
 _runner = SubAgentRunner()
 
@@ -579,12 +537,28 @@ def run_tool(args: Dict[str, Any]) -> str:
     agent_name = args["agent_name"]
     task = args["task"]
     current_file = args.get("current_file")
+    response_mode = args.get("response_mode")
+    response_schema = args.get("response_schema")
+    required_fields = args.get("required_fields")
+    strict_output = args.get("strict_output", False)
+    evidence_required = args.get("evidence_required", False)
+    evidence_min_items = args.get("evidence_min_items", 0)
 
     if cb and hasattr(cb, "set_status") and cb.set_status:
         cb.set_status(True, f"Sub-Agent ({agent_name})")
 
     try:
-        return _runner.run(agent_name, task, current_file)
+        return _runner.run(
+            agent_name,
+            task,
+            current_file,
+            response_mode=response_mode,
+            response_schema=response_schema,
+            required_fields=required_fields,
+            strict_output=strict_output,
+            evidence_required=evidence_required,
+            evidence_min_items=evidence_min_items,
+        )
     finally:
         if cb and hasattr(cb, "set_status") and cb.set_status:
             cb.set_status(False, "")
