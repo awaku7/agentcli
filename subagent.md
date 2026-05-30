@@ -106,6 +106,15 @@ JSON モード時の返り値は、次のようなオブジェクトを基本に
 }
 ```
 
+### 4. ログ保存
+`run_sub_agent` を使ったときは、親セッションログとは別にサブエージェント専用ログを残す。
+
+- 1 回の実行ごとに `run_id` / `task_id` / `agent_name` / `timestamp` / `provider` / `model_name` / `current_file` / `scope_files` / `response_mode` を記録する。
+- 可能なら `system_prompt` / `user_prompt` / `raw_output` / `parsed_result` / `status` / `error` も残す。
+- 保存先は状態ディレクトリ配下の専用ログ領域に揃え、実装側で追いやすい名前にする。
+- 保存失敗は本体処理を止めず、警告として扱う。
+- 秘密情報は必ずマスクしてから保存する。
+
 ## 実装時の判断基準
 - 既存の動作と衝突するなら、まず後方互換を優先する。
 - 新しいフィールドを追加する場合は、既存の利用者が壊れない形にする。
