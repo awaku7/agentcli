@@ -18,10 +18,10 @@ def _get_profile_int_env(name: str, default: int) -> int:
         return default
 
 
-PROFILE_MAX_ITEMS = _get_profile_int_env("UAGENT_PROFILE_MAX_ITEMS", 5)
-PROFILE_MAX_TEXT_CHARS = _get_profile_int_env("UAGENT_PROFILE_MAX_TEXT_CHARS", 80)
+PROFILE_MAX_ITEMS = _get_profile_int_env("UAGENT_PROFILE_MAX_ITEMS", 10)
+PROFILE_MAX_TEXT_CHARS = _get_profile_int_env("UAGENT_PROFILE_MAX_TEXT_CHARS", 160)
 PROFILE_SUMMARY_TRIGGER_CHARS = _get_profile_int_env(
-    "UAGENT_PROFILE_SUMMARY_TRIGGER_CHARS", 80
+    "UAGENT_PROFILE_SUMMARY_TRIGGER_CHARS", 160
 )
 PROFILE_ENV_KEYS = ("os", "shell", "editor")
 

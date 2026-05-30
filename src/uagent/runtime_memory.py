@@ -1,52 +1,64 @@
+"""Runtime helpers for injecting learned profile and long-term memory into prompts."""
+
 from __future__ import annotations
 
 from typing import Any, Callable
 
-PROFILE_MAX_ITEMS = 5
-PROFILE_MAX_TEXT_CHARS = 80
+from .profile_manager import PROFILE_MAX_ITEMS, PROFILE_MAX_TEXT_CHARS
 
 
 def _clip(text: Any) -> str:
     return " ".join(str(text).split()).strip()[:PROFILE_MAX_TEXT_CHARS]
 
 
-def _format_profile(profile: dict[str, Any]) -> str:
-    env = (
-        profile.get("environment")
-        if isinstance(profile.get("environment"), dict)
-        else {}
-    )
-    prefs = (
-        profile.get("preferences")
-        if isinstance(profile.get("preferences"), list)
-        else []
-    )
-    consts = (
-        profile.get("constraints")
-        if isinstance(profile.get("constraints"), list)
-        else []
-    )
+def _profile_key(text: Any) -> str:
+    return " ".join(str(text).split()).strip().casefold()
 
-    parts = ["[USER PROFILE]"]
-    if env:
-        env_items = []
-        for k in ("os", "shell", "editor"):
-            v2 = _clip(env.get(k))
-            if v2:
-                env_items.append(f"{k}={v2}")
-        if env_items:
-            parts.append("Environment: " + "; ".join(env_items))
-    if prefs:
-        pref_items = [_clip(x) for x in prefs[-PROFILE_MAX_ITEMS:]]
-        pref_items = [x for x in pref_items if x]
-        if pref_items:
-            parts.append("Preferences: " + "; ".join(pref_items))
-    if consts:
-        const_items = [_clip(x) for x in consts[-PROFILE_MAX_ITEMS:]]
-        const_items = [x for x in const_items if x]
-        if const_items:
-            parts.append("Constraints: " + "; ".join(const_items))
-    return "\n".join(parts)
+
+def _format_profile(profile: dict[str, Any]) -> str:
+    """Render the learned profile in a compact, deduplicated, LLM-friendly form."""
+    env_source = profile.get("environment")
+    env = env_source if isinstance(env_source, dict) else {}
+    prefs_source = profile.get("preferences")
+    prefs = prefs_source if isinstance(prefs_source, list) else []
+    consts_source = profile.get("constraints")
+    consts = consts_source if isinstance(consts_source, list) else []
+
+    blocks = ["[USER PROFILE]"]
+    seen: set[str] = set()
+
+    env_lines: list[str] = []
+    for key in ("os", "shell", "editor"):
+        value = _clip(env.get(key))
+        if not value:
+            continue
+        value_key = _profile_key(value)
+        if not value_key or value_key in seen:
+            continue
+        seen.add(value_key)
+        seen.add(_profile_key(f"{key}: {value}"))
+        env_lines.append(f"  - {key}: {value}")
+    if env_lines:
+        blocks.append("Environment:\n" + "\n".join(env_lines))
+
+    def _append_section(title: str, values: list[Any]) -> None:
+        lines: list[str] = []
+        for raw_value in values[-PROFILE_MAX_ITEMS:]:
+            text = _clip(raw_value)
+            if not text:
+                continue
+            key = _profile_key(text)
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            lines.append(f"  - {text}")
+        if lines:
+            blocks.append(f"{title}:\n" + "\n".join(lines))
+
+    # Constraints first so guardrails are seen before softer preferences.
+    _append_section("Constraints", consts)
+    _append_section("Preferences", prefs)
+    return "\n\n".join(blocks)
 
 
 def append_long_memory_system_messages(
@@ -57,7 +69,10 @@ def append_long_memory_system_messages(
     personal_long_memory_mod: Any,
     shared_memory_mod: Any,
 ) -> dict[str, bool]:
-    # Inject user profile if profiling is enabled and profile exists
+    """Append personal/shared long-term memory system messages if available."""
+    flags: dict[str, bool] = {"shared_enabled": False}
+
+    # Inject user profile if profiling is enabled and profile exists.
     try:
         from .profile_manager import is_profiling_enabled, load_profile
 
@@ -73,8 +88,6 @@ def append_long_memory_system_messages(
                 core.log_message(profile_msg)
     except Exception:
         pass
-    """Append personal/shared long-term memory system messages if available."""
-    flags: dict[str, bool] = {"shared_enabled": False}
 
     try:
         personal_records = personal_long_memory_mod.load_long_memory_records()
