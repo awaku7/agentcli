@@ -254,8 +254,6 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # Compatibility: these flags are not controllable via extract() in current exstruct.
     # We accept them but do not enforce them.
-    _ = bool(args.get("include_shapes", False))
-    _ = args.get("include_cell_links")
 
     pretty = bool(args.get("pretty", False))
     fmt = str(args.get("format") or "json").lower()

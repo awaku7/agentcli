@@ -8,6 +8,7 @@ import dataclasses
 import hashlib
 import json
 import os
+from pathlib import Path
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional
@@ -293,7 +294,8 @@ class SubAgentRunner:
             parts.append("\n\nresponse_mode: " + response_mode)
         if response_schema:
             parts.append(
-                "\n\nresponse_schema:\n" + json.dumps(response_schema, ensure_ascii=False, indent=2)
+                "\n\nresponse_schema:\n"
+                + json.dumps(response_schema, ensure_ascii=False, indent=2)
             )
         if required_fields:
             parts.append("\n\nrequired_fields: " + ", ".join(required_fields))
@@ -326,7 +328,42 @@ class SubAgentRunner:
     def _wrap_error(self, message: str) -> str:
         return json.dumps({"status": "error", "message": message}, ensure_ascii=False)
 
+    def _load_current_file_snippets(
+        self,
+        current_file: Optional[str],
+        *,
+        max_chars: int = 20000,
+    ) -> List[str]:
+        if not current_file:
+            return []
+        try:
+            text = Path(current_file).read_text(encoding="utf-8", errors="replace")
+        except Exception as exc:
+            return [
+                f"current_file: {current_file}",
+                f"[failed to read file: {exc}]",
+            ]
+        if len(text) > max_chars:
+            text = text[:max_chars] + "\n...[truncated]"
+        return [
+            f"current_file: {current_file}\n{text}",
+        ]
+
+    def _build_user_prompt(
+        self,
+        task_text: str,
+        context_pack: ContextPack,
+        scope_files: List[str],
+    ) -> str:
+        parts = [task_text.strip(), "[context_pack]\n" + context_pack.to_json()]
+        if scope_files:
+            parts.append(
+                "[scope_files]\n" + "\n".join(f"- {path}" for path in scope_files)
+            )
+        return "\n\n".join(part for part in parts if part)
+
     def _call_llm_single_round(
+
         self,
         provider: str,
         client: Any,
@@ -388,7 +425,7 @@ class SubAgentRunner:
                 ensure_ascii=False,
             )
 
-        if current_file and not os.path.exists(current_file):
+        if current_file and not os.path.isfile(current_file):
             return json.dumps(
                 {
                     "status": "error",
@@ -404,6 +441,7 @@ class SubAgentRunner:
                 "副作用のある直接操作は禁止",
                 "JSONフォーマットでの確実な返却",
             ],
+            relevant_snippets=self._load_current_file_snippets(current_file),
         )
 
         task = SubAgentTask(
@@ -491,6 +529,7 @@ class SubAgentRunner:
             response_mode = "json" if spec.name != "summarizer" else "text"
 
         if response_mode == "json":
+
             system_prompt = self._build_structured_prompt(
                 spec.system_prompt,
                 response_mode=response_mode,
@@ -503,12 +542,14 @@ class SubAgentRunner:
         else:
             system_prompt = spec.system_prompt
 
+        user_prompt = self._build_user_prompt(task_text, pack, task.scope_files)
+
         raw_output = self._call_llm_single_round(
             provider=provider,
             client=client,
             model_name=model_name,
             system_prompt=system_prompt,
-            user_prompt=task_text,
+            user_prompt=user_prompt,
         )
 
         if response_mode == "json":
@@ -528,6 +569,7 @@ class SubAgentRunner:
             return json.dumps(result_obj, ensure_ascii=False)
 
         return raw_output
+
 
 _runner = SubAgentRunner()
 

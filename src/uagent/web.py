@@ -663,17 +663,11 @@ def run_agent_worker(
                 attachment_lines.append(
                     _("[Attached Image] %(name)s") % {"name": label}
                 )
-                attachment_lines.append(
-                    _("[Image Path] %(path)s") % {"path": path}
-                )
+                attachment_lines.append(_("[Image Path] %(path)s") % {"path": path})
                 item["type"] = "image"
             else:
-                attachment_lines.append(
-                    _("[Attached File] %(name)s") % {"name": label}
-                )
-                attachment_lines.append(
-                    _("[File Path] %(path)s") % {"path": path}
-                )
+                attachment_lines.append(_("[Attached File] %(name)s") % {"name": label})
+                attachment_lines.append(_("[File Path] %(path)s") % {"path": path})
                 item["type"] = "file"
             item["saved_path"] = path
             if mime:

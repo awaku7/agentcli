@@ -4,6 +4,8 @@ import json
 from typing import Any
 
 from .env_utils import env_get
+from .llm_image_helpers import build_image_default_prompt
+from .i18n import _
 
 from . import tools
 
@@ -303,7 +305,7 @@ def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
         if mm == "audio":
             mm = ""
         if path:
-            guessed, _ = mimetypes.guess_type(path)
+            guessed, mime_subtype = mimetypes.guess_type(path)
             if isinstance(guessed, str) and (
                 guessed.startswith("image/") or guessed.startswith("audio/")
             ):
@@ -539,7 +541,9 @@ def gemini_chat_with_tools(
 
     if genai is None or gemini_types is None:
         raise RuntimeError(
-            _("google-genai could not be imported (pip install google-genai is required).")
+            _(
+                "google-genai could not be imported (pip install google-genai is required)."
+            )
         )
 
     tool_specs = tools.get_tool_specs() or []
@@ -1067,7 +1071,7 @@ def gemini_chat_with_tools(
         return assistant_content, tool_calls_list, gemini_content_dump
 
     response = client.models.generate_content(**gen_kwargs)
-    assistant_content, tool_calls_list, gemini_content_dump, _ = (
+    assistant_content, tool_calls_list, gemini_content_dump, response_meta = (
         _collect_from_response_obj(
             response,
             stream_mode=False,

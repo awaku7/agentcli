@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from .i18n import _
 
-
 _IMAGE_DEFAULT_PROMPTS = {
     "describe": _(
         "Describe this screenshot and summarize the visible UI.",

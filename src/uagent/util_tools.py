@@ -186,7 +186,7 @@ def image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
             % {"size": size, "max": max_bytes}
         )
 
-    mt, _ = mimetypes.guess_type(str(p))
+    mt, mime_subtype = mimetypes.guess_type(str(p))
     mime_type = mt or "application/octet-stream"
 
     data = p.read_bytes()

@@ -166,7 +166,7 @@ def read_doc_text(name: str) -> str:
         pass
 
     # Fallback to filesystem
-    p, _ = _package_doc_path(fn)
+    p, package_doc_meta = _package_doc_path(fn)
     if p is None:
         raise FileNotFoundError(
             _("doc file not found: %(filename)s") % {"filename": fn}

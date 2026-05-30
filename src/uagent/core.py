@@ -991,7 +991,9 @@ def shrink_messages(
 
     if len(others) <= keep_last:
         print(
-            _("[INFO] There were %(count)d messages to compress, so nothing was changed.")
+            _(
+                "[INFO] There were %(count)d messages to compress, so nothing was changed."
+            )
             % {"count": len(others)},
             file=sys.stderr,
         )
@@ -999,7 +1001,9 @@ def shrink_messages(
 
     trimmed_others = others[-keep_last:]
     print(
-        _("[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d messages (keep_last=%(keep_last)d)")
+        _(
+            "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d messages (keep_last=%(keep_last)d)"
+        )
         % {
             "old_n": len(others),
             "new_n": len(trimmed_others),
@@ -1332,7 +1336,9 @@ def compress_history_with_llm(
         if _is_context_length_exceeded(error):
             if current_chunk_size <= 1:
                 print(
-                    _("[WARN] history compression hit context length even at chunk_size=1; falling back to shrink_messages()."),
+                    _(
+                        "[WARN] history compression hit context length even at chunk_size=1; falling back to shrink_messages()."
+                    ),
                     file=sys.stderr,
                 )
                 return shrink_messages(messages, keep_last=keep_last)
@@ -1340,13 +1346,17 @@ def compress_history_with_llm(
             next_chunk_size = max(1, current_chunk_size // 2)
             if next_chunk_size == current_chunk_size:
                 print(
-                    _("[WARN] history compression could not reduce chunk_size further; falling back to shrink_messages()."),
+                    _(
+                        "[WARN] history compression could not reduce chunk_size further; falling back to shrink_messages()."
+                    ),
                     file=sys.stderr,
                 )
                 return shrink_messages(messages, keep_last=keep_last)
 
             print(
-                _("[WARN] history compression context length exceeded; retrying with chunk_size=%(chunk_size)d")
+                _(
+                    "[WARN] history compression context length exceeded; retrying with chunk_size=%(chunk_size)d"
+                )
                 % {"chunk_size": next_chunk_size},
                 file=sys.stderr,
             )

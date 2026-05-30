@@ -979,7 +979,9 @@ class MainWindow(QtWidgets.QMainWindow):
             print(_("[mode] reasoning=%(mode)s") % {"mode": new_mode})
         except Exception:
             print(
-                _(":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)")
+                _(
+                    ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+                )
             )
         self._update_mode_label()
 
@@ -1394,7 +1396,9 @@ class MainWindow(QtWidgets.QMainWindow):
                 if not reader.canRead():
                     try:
                         print(
-                            "[GUI][add_thumb] " + _("cannot read image") + " "
+                            "[GUI][add_thumb] "
+                            + _("cannot read image")
+                            + " "
                             + json.dumps(
                                 {
                                     "path": path,

@@ -349,9 +349,9 @@ def _execute_tool_calls(
                     tool_msg["saved_path"] = parsed_tool_result.get("saved_path")
 
         auto_user_msg = _build_auto_user_message_from_next_action(
-            parsed_tool_result=parsed_tool_result
-            if isinstance(parsed_tool_result, dict)
-            else None,
+            parsed_tool_result=(
+                parsed_tool_result if isinstance(parsed_tool_result, dict) else None
+            ),
             tool_msg=tool_msg,
         )
 

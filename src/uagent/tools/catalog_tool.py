@@ -9,7 +9,9 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-_ENABLE_GPT54_TOOL_SEARCH = str(env_get("UAGENT_ENABLE_GPT54_TOOL_SEARCH") or "").strip().lower() in {
+_ENABLE_GPT54_TOOL_SEARCH = str(
+    env_get("UAGENT_ENABLE_GPT54_TOOL_SEARCH") or ""
+).strip().lower() in {
     "1",
     "true",
     "yes",

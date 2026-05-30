@@ -154,7 +154,7 @@ def build_image_session_message(
 
     for idx, turn in enumerate(recent, start=1):
         lines.append(_("Turn %(idx)d:") % {"idx": idx})
-        lines.append(_("- prompt: %(prompt)s") % {"prompt": turn['prompt']})
+        lines.append(_("- prompt: %(prompt)s") % {"prompt": turn["prompt"]})
         paths = turn.get("paths") or []
         for p in paths[:5]:
             lines.append(_("- file: %(path)s") % {"path": p})

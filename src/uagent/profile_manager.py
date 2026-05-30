@@ -485,7 +485,10 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
 
     # 3) Process logs in chunks chronologically (oldest to newest)
     total_files = len(log_files)
-    print(_("Found %(total_files)d log files. Starting incremental profiling...") % {"total_files": total_files})
+    print(
+        _("Found %(total_files)d log files. Starting incremental profiling...")
+        % {"total_files": total_files}
+    )
 
     current_profile = {"environment": {}, "preferences": [], "constraints": []}
     message_buffer = []

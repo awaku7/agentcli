@@ -18,6 +18,14 @@
 
 ## 推奨する機能構成
 
+### 0. 文脈注入
+`run` が受ける文脈は、まずここで揃える。
+
+- `current_file` があるときは、存在確認だけで終わらせず、内容を読み込んで `relevant_snippets` に入れる。
+- `ContextPack` は JSON 化して、system prompt か user prompt に必ず含める。
+- `current_state` は少なくとも `PROCESSING` / `BLOCKED` / `DONE` / `ERROR` を使う。
+- `recent_errors` は JSON 失敗や権限制御失敗の再試行時に更新する。
+
 ### 1. 構造化出力
 `run_sub_agent` ではなく `run` の引数で制御する。
 

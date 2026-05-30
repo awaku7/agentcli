@@ -27,7 +27,6 @@ def apply_openrouter_responses_compat(
     if provider != "openrouter":
         return
 
-    _ = depname  # reserved for future model-specific quirks
 
     debug_env = (env_get("UAGENT_OPENROUTER_RESPONSES_DEBUG", "") or "").strip().lower()
     debug_enabled = debug_env in ("1", "true", "yes", "on")

@@ -16,7 +16,6 @@ def apply_ollama_responses_compat(
     if provider != "ollama":
         return
 
-    _ = depname  # reserved for future model-specific quirks
 
     try:
         extra_body = resp_kwargs.get("extra_body")
