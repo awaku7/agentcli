@@ -107,8 +107,8 @@
     "param.agent_name.description": "The name of the specialized sub-agent to run.",
     "param.current_file.description": "(Optional) Limit the sub-agent's reasoning scope to this specific file.",
     "param.task.description": "Specific instruction/task for the sub-agent to process.",
-    "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, or summarizer) under the control of the parent orchestrator to process specific tasks and return structured findings.",
-    "tool.system_prompt": "Run a specialized sub-agent (planner, reviewer, or summarizer) to solve a task. This sub-agent does not make destructive modifications. It returns structured insights as JSON.",
+    "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, or error_analyst) under the control of the parent orchestrator to process specific tasks and return structured findings.",
+    "tool.system_prompt": "Run a specialized sub-agent (planner, reviewer, summarizer, patch_designer, or error_analyst) to solve a task. This sub-agent does not make destructive modifications. It returns structured insights as JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -123,7 +123,7 @@
       "error analysis",
       "debugging"
     ]
-  },
+},
   "es": {
     "param.agent_name.description": "El nombre del subagente especializado a ejecutar.",
     "param.current_file.description": "(Opcional) Limitar el alcance del razonamiento del subagente a este archivo específico.",

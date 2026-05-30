@@ -97,26 +97,44 @@ TOOL_SPEC: Dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Execute a specialized, safe sub-agent (planner, reviewer, or summarizer) "
+                "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, or error_analyst) "
                 "under the control of the parent orchestrator to process specific tasks and return structured findings."
             ),
         ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(
-                "Run a specialized sub-agent (planner, reviewer, or summarizer) to solve a task. "
+                "Run a specialized sub-agent (planner, reviewer, summarizer, patch_designer, or error_analyst) to solve a task. "
                 "This sub-agent does not make destructive modifications. It returns structured insights as JSON."
             ),
         ),
         "x_search_terms": _(
             "x_search_terms",
-            default=["sub-agent", "planner", "reviewer", "summarizer", "orchestrate"],
+            default=[
+                "sub-agent",
+                "planner",
+                "reviewer",
+                "summarizer",
+                "patch_designer",
+                "error_analyst",
+                "orchestrate",
+                "patch",
+                "error analysis",
+                "debugging",
+            ],
         ),
         "x_search_terms_en": [
             "sub-agent",
             "planner",
             "reviewer",
             "summarizer",
+            "patch_designer",
+            "patch",
+            "code patch",
+            "error_analyst",
+            "debug",
+            "error analysis",
+            "debugging",
             "orchestrate",
         ],
         "parameters": {
