@@ -1,0 +1,483 @@
+{
+  "en": {
+    "tool.description": "List entries in a directory and return structured JSON. Parameters: 'path' or 'root_path' (directory to list), 'show_hidden' (include hidden entries), 'max_results' (entries per page), and 'page' (page number).",
+    "tool.system_prompt": "List directory entries and return a paginated listing. Use page and max_results for pagination. If show_hidden is false, omit hidden entries (dotfiles and dot-directories).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "directory listing",
+      "folder listing",
+      "list files",
+      "list folders"
+    ],
+    "param.path.description": "Directory to list (default: current directory). Alias of root_path.",
+    "param.root_path.description": "Alias of path for backward compatibility.",
+    "param.show_hidden.description": "Include hidden entries in the listing.",
+    "param.max_results.description": "Maximum number of entries to return per page (default: 50).",
+    "param.page.description": "Page number to retrieve (default: 1)."
+  },
+  "ja": {
+    "tool.description": "ディレクトリ内の項目を一覧表示し、構造化 JSON を返します。パラメータ: 'path' または 'root_path'（一覧対象のディレクトリ）、'show_hidden'（非表示項目を含める）、'max_results'（1ページあたりの件数）、'page'（ページ番号）です。",
+    "tool.system_prompt": "ディレクトリ内の項目を一覧表示し、ページングされた結果を返してください。page と max_results でページングします。show_hidden が false の場合は非表示項目（ドットファイル、ドットディレクトリ）を除外してください。",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "ディレクトリ一覧",
+      "フォルダ一覧",
+      "一覧表示"
+    ],
+    "param.path.description": "一覧表示するディレクトリ（既定: 現在のディレクトリ）。root_path の別名です。",
+    "param.root_path.description": "互換性のための path の別名です。",
+    "param.show_hidden.description": "非表示項目も一覧に含めます。",
+    "param.max_results.description": "1 ページあたりに返す最大項目数（既定: 50）。",
+    "param.page.description": "取得するページ番号（既定: 1）。"
+  },
+  "es": {
+    "tool.description": "Enumere los elementos de un directorio y devuelva JSON estructurado. Parámetros: 'path' o 'root_path' (directorio a listar), 'show_hidden' (incluir elementos ocultos), 'max_results' (elementos por página) y 'page' (número de página).",
+    "tool.system_prompt": "Enumere los elementos del directorio y devuelva una lista paginada. Use page y max_results para la paginación. Si show_hidden es false, omita los elementos ocultos (archivos y carpetas ocultos).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "listar directorio",
+      "lista de carpetas",
+      "listar archivos"
+    ],
+    "param.path.description": "Directorio a listar (valor predeterminado: directorio actual). Alias de root_path.",
+    "param.root_path.description": "Alias de path para compatibilidad.",
+    "param.show_hidden.description": "Incluir elementos ocultos en la lista.",
+    "param.max_results.description": "Número máximo de elementos a devolver por página (valor predeterminado: 50).",
+    "param.page.description": "Número de página a recuperar (valor predeterminado: 1)."
+  },
+  "fr": {
+    "tool.description": "Répertoriez les éléments d’un répertoire et renvoyez un JSON structuré. Paramètres : 'path' ou 'root_path' (répertoire à lister), 'show_hidden' (inclure les éléments masqués), 'max_results' (éléments par page) et 'page' (numéro de page).",
+    "tool.system_prompt": "Répertoriez les éléments du répertoire et renvoyez une liste paginée. Utilisez page et max_results pour la pagination. Si show_hidden est false, omettez les éléments masqués (fichiers et dossiers cachés).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "liste de répertoire",
+      "liste de dossiers",
+      "lister fichiers"
+    ],
+    "param.path.description": "Répertoire à lister (par défaut : répertoire courant). Alias de root_path.",
+    "param.root_path.description": "Alias de path pour compatibilité.",
+    "param.show_hidden.description": "Inclure les éléments masqués dans la liste.",
+    "param.max_results.description": "Nombre maximal d’éléments à renvoyer par page (par défaut : 50).",
+    "param.page.description": "Numéro de page à récupérer (par défaut : 1)."
+  },
+  "ko": {
+    "tool.description": "디렉터리의 항목을 나열하고 구조화된 JSON을 반환합니다. 매개변수: 'path' 또는 'root_path'(나열할 디렉터리), 'show_hidden'(숨김 항목 포함), 'max_results'(페이지당 항목 수), 'page'(페이지 번호).",
+    "tool.system_prompt": "디렉터리 항목을 나열하고 페이지가 적용된 결과를 반환하세요. page와 max_results를 사용해 페이지네이션을 처리하세요. show_hidden이 false이면 숨김 항목(점으로 시작하는 파일/폴더)을 제외하세요.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "디렉터리 목록",
+      "폴더 목록",
+      "파일 목록"
+    ],
+    "param.path.description": "나열할 디렉터리(기본값: 현재 디렉터리). root_path의 별칭입니다.",
+    "param.root_path.description": "호환성을 위한 path의 별칭입니다.",
+    "param.show_hidden.description": "숨김 항목도 목록에 포함합니다.",
+    "param.max_results.description": "페이지당 반환할 최대 항목 수(기본값: 50).",
+    "param.page.description": "가져올 페이지 번호(기본값: 1)."
+  },
+  "de": {
+    "tool.description": "Listen Sie die Einträge eines Verzeichnisses auf und geben Sie strukturiertes JSON zurück. Parameter: 'path' oder 'root_path' (aufzulistendes Verzeichnis), 'show_hidden' (versteckte Einträge einschließen), 'max_results' (Einträge pro Seite) und 'page' (Seitennummer).",
+    "tool.system_prompt": "Listen Sie die Verzeichniseinträge auf und geben Sie eine paginierte Liste zurück. Verwenden Sie page und max_results für die Paginierung. Wenn show_hidden false ist, lassen Sie versteckte Einträge (Punktdateien und Punktverzeichnisse) weg.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "verzeichnisliste",
+      "ordnerliste",
+      "dateien auflisten"
+    ],
+    "param.path.description": "Aufzulistendes Verzeichnis (Standard: aktuelles Verzeichnis). Alias von root_path.",
+    "param.root_path.description": "Alias von path für Kompatibilität.",
+    "param.show_hidden.description": "Versteckte Einträge in die Liste aufnehmen.",
+    "param.max_results.description": "Maximale Anzahl der Einträge pro Seite (Standard: 50).",
+    "param.page.description": "Abzurufende Seitennummer (Standard: 1)."
+  },
+  "it": {
+    "tool.description": "Elenca gli elementi di una directory e restituisce JSON strutturato. Parametri: 'path' o 'root_path' (directory da elencare), 'show_hidden' (includi elementi nascosti), 'max_results' (elementi per pagina) e 'page' (numero di pagina).",
+    "tool.system_prompt": "Elenca gli elementi della directory e restituisci un elenco paginato. Usa page e max_results per la paginazione. Se show_hidden è false, escludi gli elementi nascosti (file e cartelle nascosti).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "elenco directory",
+      "elenco cartelle",
+      "elenca file"
+    ],
+    "param.path.description": "Directory da elencare (predefinita: directory corrente). Alias di root_path.",
+    "param.root_path.description": "Alias di path per compatibilità.",
+    "param.show_hidden.description": "Includi gli elementi nascosti nell’elenco.",
+    "param.max_results.description": "Numero massimo di elementi da restituire per pagina (predefinito: 50).",
+    "param.page.description": "Numero di pagina da recuperare (predefinito: 1)."
+  },
+  "ru": {
+    "tool.description": "Перечислите элементы каталога и верните структурированный JSON. Параметры: 'path' или 'root_path' (каталог для вывода), 'show_hidden' (включать скрытые элементы), 'max_results' (элементов на странице) и 'page' (номер страницы).",
+    "tool.system_prompt": "Перечислите элементы каталога и верните постраничный список. Используйте page и max_results для пагинации. Если show_hidden false, не включайте скрытые элементы (файлы и папки, начинающиеся с точки).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "список каталога",
+      "список папок",
+      "список файлов"
+    ],
+    "param.path.description": "Каталог для вывода (по умолчанию: текущий каталог). Псевдоним root_path.",
+    "param.root_path.description": "Псевдоним path для совместимости.",
+    "param.show_hidden.description": "Включать скрытые элементы в список.",
+    "param.max_results.description": "Максимальное число элементов на странице (по умолчанию: 50).",
+    "param.page.description": "Номер страницы для получения (по умолчанию: 1)."
+  },
+  "pt_BR": {
+    "tool.description": "Liste os itens de um diretório e retorne JSON estruturado. Parâmetros: 'path' ou 'root_path' (diretório a listar), 'show_hidden' (incluir itens ocultos), 'max_results' (itens por página) e 'page' (número da página).",
+    "tool.system_prompt": "Liste os itens do diretório e retorne uma lista paginada. Use page e max_results para paginação. Se show_hidden for false, omita os itens ocultos (arquivos e pastas ocultos).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "listar diretório",
+      "lista de pastas",
+      "listar arquivos"
+    ],
+    "param.path.description": "Diretório a listar (padrão: diretório atual). Alias de root_path.",
+    "param.root_path.description": "Alias de path para compatibilidade.",
+    "param.show_hidden.description": "Incluir itens ocultos na lista.",
+    "param.max_results.description": "Número máximo de itens a retornar por página (padrão: 50).",
+    "param.page.description": "Número da página a recuperar (padrão: 1)."
+  },
+  "pt": {
+    "tool.description": "Liste os itens de um diretório e devolva JSON estruturado. Parâmetros: 'path' ou 'root_path' (diretório a listar), 'show_hidden' (incluir itens ocultos), 'max_results' (itens por página) e 'page' (número da página).",
+    "tool.system_prompt": "Liste os itens do diretório e devolva uma lista paginada. Use page e max_results para paginação. Se show_hidden for false, omita os itens ocultos (ficheiros e pastas ocultos).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "listar diretório",
+      "lista de pastas",
+      "listar ficheiros"
+    ],
+    "param.path.description": "Diretório a listar (predefinição: diretório atual). Alias de root_path.",
+    "param.root_path.description": "Alias de path para compatibilidade.",
+    "param.show_hidden.description": "Incluir itens ocultos na lista.",
+    "param.max_results.description": "Número máximo de itens a devolver por página (predefinição: 50).",
+    "param.page.description": "Número da página a obter (predefinição: 1)."
+  },
+  "id": {
+    "tool.description": "Daftarkan item dalam sebuah direktori dan kembalikan JSON terstruktur. Parameter: 'path' atau 'root_path' (direktori yang akan ditampilkan), 'show_hidden' (sertakan item tersembunyi), 'max_results' (item per halaman), dan 'page' (nomor halaman).",
+    "tool.system_prompt": "Daftarkan item direktori dan kembalikan daftar yang dipaginasi. Gunakan page dan max_results untuk paginasi. Jika show_hidden false, jangan tampilkan item tersembunyi (berkas dan folder yang diawali titik).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "daftar direktori",
+      "daftar folder",
+      "daftar file"
+    ],
+    "param.path.description": "Direktori yang akan ditampilkan (default: direktori saat ini). Alias dari root_path.",
+    "param.root_path.description": "Alias dari path untuk kompatibilitas.",
+    "param.show_hidden.description": "Sertakan item tersembunyi dalam daftar.",
+    "param.max_results.description": "Jumlah maksimum item yang dikembalikan per halaman (default: 50).",
+    "param.page.description": "Nomor halaman yang diambil (default: 1)."
+  },
+  "vi": {
+    "tool.description": "Liệt kê các mục trong một thư mục và trả về JSON có cấu trúc. Tham số: 'path' hoặc 'root_path' (thư mục cần liệt kê), 'show_hidden' (bao gồm mục ẩn), 'max_results' (mục mỗi trang) và 'page' (số trang).",
+    "tool.system_prompt": "Liệt kê các mục trong thư mục và trả về danh sách có phân trang. Dùng page và max_results cho phân trang. Nếu show_hidden là false, hãy bỏ qua các mục ẩn (tệp và thư mục bắt đầu bằng dấu chấm).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "danh sách thư mục",
+      "danh sách folder",
+      "danh sách file"
+    ],
+    "param.path.description": "Thư mục cần liệt kê (mặc định: thư mục hiện tại). Bí danh của root_path.",
+    "param.root_path.description": "Bí danh của path để tương thích.",
+    "param.show_hidden.description": "Bao gồm cả các mục ẩn trong danh sách.",
+    "param.max_results.description": "Số lượng mục tối đa trả về mỗi trang (mặc định: 50).",
+    "param.page.description": "Số trang cần lấy (mặc định: 1)."
+  },
+  "pl": {
+    "tool.description": "Wylistuj elementy katalogu i zwróć ustrukturyzowany JSON. Parametry: 'path' lub 'root_path' (katalog do wyświetlenia), 'show_hidden' (uwzględnij ukryte elementy), 'max_results' (elementy na stronę) oraz 'page' (numer strony).",
+    "tool.system_prompt": "Wylistuj elementy katalogu i zwróć wynik stronicowany. Użyj page i max_results do paginacji. Jeśli show_hidden ma wartość false, pomiń ukryte elementy (pliki i foldery zaczynające się od kropki).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "lista katalogu",
+      "lista folderów",
+      "lista plików"
+    ],
+    "param.path.description": "Katalog do wyświetlenia (domyślnie: bieżący katalog). Alias root_path.",
+    "param.root_path.description": "Alias path dla zgodności.",
+    "param.show_hidden.description": "Uwzględnij ukryte elementy na liście.",
+    "param.max_results.description": "Maksymalna liczba elementów zwracanych na stronę (domyślnie: 50).",
+    "param.page.description": "Numer strony do pobrania (domyślnie: 1)."
+  },
+  "hi": {
+    "tool.description": "किसी निर्देशिका के आइटम सूचीबद्ध करें और संरचित JSON लौटाएँ। पैरामीटर: 'path' या 'root_path' (सूचीबद्ध करने की निर्देशिका), 'show_hidden' (छिपे हुए आइटम शामिल करें), 'max_results' (प्रति पृष्ठ आइटम), और 'page' (पृष्ठ संख्या)।",
+    "tool.system_prompt": "निर्देशिका के आइटम सूचीबद्ध करें और पृष्ठांकित परिणाम लौटाएँ। pagination के लिए page और max_results का उपयोग करें। यदि show_hidden false है, तो छिपे हुए आइटम (डॉट से शुरू होने वाली फ़ाइलें/फ़ोल्डर) शामिल न करें।",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "निर्देशिका सूची",
+      "फ़ोल्डर सूची",
+      "फ़ाइल सूची"
+    ],
+    "param.path.description": "सूचीबद्ध करने की निर्देशिका (डिफ़ॉल्ट: वर्तमान निर्देशिका)। root_path का उपनाम।",
+    "param.root_path.description": "संगतता के लिए path का उपनाम।",
+    "param.show_hidden.description": "छिपे हुए आइटम सूची में शामिल करें।",
+    "param.max_results.description": "प्रति पृष्ठ लौटाए जाने वाले अधिकतम आइटम (डिफ़ॉल्ट: 50).",
+    "param.page.description": "प्राप्त करने के लिए पृष्ठ संख्या (डिफ़ॉल्ट: 1)."
+  },
+  "ar": {
+    "tool.description": "اعرض عناصر دليل وأعد JSON منظمًا. المعلمات: 'path' أو 'root_path' (الدليل المراد عرضه)، و'show_hidden' (تضمين العناصر المخفية)، و'max_results' (العناصر في كل صفحة)، و'page' (رقم الصفحة).",
+    "tool.system_prompt": "اعرض عناصر الدليل وأعد قائمة مع ترقيم الصفحات. استخدم page و max_results للتقسيم إلى صفحات. إذا كانت show_hidden false، فتجاهل العناصر المخفية (الملفات والمجلدات التي تبدأ بنقطة).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "قائمة الدليل",
+      "قائمة المجلدات",
+      "قائمة الملفات"
+    ],
+    "param.path.description": "الدليل المراد عرضه (الافتراضي: الدليل الحالي). بديل لـ root_path.",
+    "param.root_path.description": "بديل لـ path للتوافق.",
+    "param.show_hidden.description": "تضمين العناصر المخفية في القائمة.",
+    "param.max_results.description": "الحد الأقصى للعناصر المعروضة في كل صفحة (الافتراضي: 50).",
+    "param.page.description": "رقم الصفحة المراد جلبها (الافتراضي: 1)."
+  },
+  "sv": {
+    "tool.description": "Lista poster i en katalog och returnera strukturerad JSON. Parametrar: 'path' eller 'root_path' (katalog som ska listas), 'show_hidden' (inkludera dolda poster), 'max_results' (poster per sida) och 'page' (sidnummer).",
+    "tool.system_prompt": "Lista poster i katalogen och returnera en paginerad lista. Använd page och max_results för paginering. Om show_hidden är false, utelämna dolda poster (filer och mappar som börjar med punkt).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "kataloglista",
+      "mapplista",
+      "fillista"
+    ],
+    "param.path.description": "Katalog som ska listas (standard: aktuell katalog). Alias för root_path.",
+    "param.root_path.description": "Alias för path av kompatibilitetsskäl.",
+    "param.show_hidden.description": "Inkludera dolda poster i listan.",
+    "param.max_results.description": "Maximalt antal poster per sida (standard: 50).",
+    "param.page.description": "Sidnummer att hämta (standard: 1)."
+  },
+  "sw": {
+    "tool.description": "Orodhesha vipengee vya saraka na urudishe JSON yenye muundo. Vigezo: 'path' au 'root_path' (saraka ya kuorodheshwa), 'show_hidden' (jumuisha vipengee vilivyofichwa), 'max_results' (vipengee kwa kila ukurasa), na 'page' (namba ya ukurasa).",
+    "tool.system_prompt": "Orodhesha vipengee vya saraka na urudishe orodha yenye kurasa. Tumia page na max_results kwa upangaji wa kurasa. Ikiwa show_hidden ni false, usijumuishe vipengee vilivyofichwa (faili na folda zinazoanza na nukta).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "orodha ya saraka",
+      "orodha ya folda",
+      "orodha ya faili"
+    ],
+    "param.path.description": "Saraka ya kuorodheshwa (chaguo-msingi: saraka ya sasa). Jina lingine la root_path.",
+    "param.root_path.description": "Jina lingine la path kwa uoanifu.",
+    "param.show_hidden.description": "Jumuisha vipengee vilivyofichwa kwenye orodha.",
+    "param.max_results.description": "Idadi ya juu ya vipengee vya kurudishwa kwa kila ukurasa (chaguo-msingi: 50).",
+    "param.page.description": "Namba ya ukurasa wa kuchukua (chaguo-msingi: 1)."
+  },
+  "nb": {
+    "tool.description": "List opp elementer i en katalog og returner strukturert JSON. Parametere: 'path' eller 'root_path' (katalogen som skal listes), 'show_hidden' (inkluder skjulte elementer), 'max_results' (elementer per side) og 'page' (sidenummer).",
+    "tool.system_prompt": "List opp elementene i katalogen og returner en paginert liste. Bruk page og max_results for paginering. Hvis show_hidden er false, skal skjulte elementer (filer og mapper som starter med punktum) utelates.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "katalogliste",
+      "mappeliste",
+      "filliste"
+    ],
+    "param.path.description": "Katalogen som skal listes (standard: gjeldende katalog). Alias for root_path.",
+    "param.root_path.description": "Alias for path av kompatibilitetshensyn.",
+    "param.show_hidden.description": "Ta med skjulte elementer i listen.",
+    "param.max_results.description": "Maks antall elementer per side (standard: 50).",
+    "param.page.description": "Sidenummeret som skal hentes (standard: 1)."
+  },
+  "nl": {
+    "tool.description": "Geef de items in een map weer en retourneer gestructureerde JSON. Parameters: 'path' of 'root_path' (map om weer te geven), 'show_hidden' (verborgen items opnemen), 'max_results' (items per pagina) en 'page' (paginanummer).",
+    "tool.system_prompt": "Geef de mapitems weer en retourneer een gepagineerde lijst. Gebruik page en max_results voor paginering. Als show_hidden false is, laat verborgen items (bestanden en mappen die met een punt beginnen) weg.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "maplijst",
+      "mappenlijst",
+      "bestanden weergeven"
+    ],
+    "param.path.description": "Map om weer te geven (standaard: huidige map). Alias van root_path.",
+    "param.root_path.description": "Alias van path voor compatibiliteit.",
+    "param.show_hidden.description": "Verborgen items opnemen in de lijst.",
+    "param.max_results.description": "Maximaal aantal items per pagina (standaard: 50).",
+    "param.page.description": "Paginanummer om op te halen (standaard: 1)."
+  },
+  "fi": {
+    "tool.description": "Listaa hakemiston kohteet ja palauta jäsennelty JSON. Parametrit: 'path' tai 'root_path' (hakemisto, joka listataan), 'show_hidden' (sisällytä piilotetut kohteet), 'max_results' (kohteet per sivu) ja 'page' (sivunumero).",
+    "tool.system_prompt": "Listaa hakemiston kohteet ja palauta sivutettu lista. Käytä page- ja max_results-parametreja sivutukseen. Jos show_hidden on false, jätä piilotetut kohteet (pisteellä alkavat tiedostot ja kansiot) pois.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "hakemistolista",
+      "kansiolista",
+      "tiedostolista"
+    ],
+    "param.path.description": "Listattava hakemisto (oletus: nykyinen hakemisto). root_pathin alias.",
+    "param.root_path.description": "pathin alias yhteensopivuutta varten.",
+    "param.show_hidden.description": "Sisällytä piilotetut kohteet listaan.",
+    "param.max_results.description": "Sivua kohti palautettavien kohteiden enimmäismäärä (oletus: 50).",
+    "param.page.description": "Haettava sivunumero (oletus: 1)."
+  },
+  "cs": {
+    "tool.description": "Vypíše položky v adresáři a vrátí strukturovaný JSON. Parametry: 'path' nebo 'root_path' (adresář k vypsání), 'show_hidden' (zahrnout skryté položky), 'max_results' (položek na stránku) a 'page' (číslo stránky).",
+    "tool.system_prompt": "Vypište položky adresáře a vraťte stránkovaný seznam. Pro stránkování použijte page a max_results. Pokud je show_hidden false, skryté položky (soubory a složky začínající tečkou) vynechejte.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "seznam adresáře",
+      "seznam složek",
+      "seznam souborů"
+    ],
+    "param.path.description": "Adresář k vypsání (výchozí: aktuální adresář). Alias root_path.",
+    "param.root_path.description": "Alias path pro kompatibilitu.",
+    "param.show_hidden.description": "Zahrnout do seznamu skryté položky.",
+    "param.max_results.description": "Maximální počet položek na stránku (výchozí: 50).",
+    "param.page.description": "Číslo stránky k načtení (výchozí: 1)."
+  },
+  "uk": {
+    "tool.description": "Перелічіть елементи каталогу та поверніть структурований JSON. Параметри: 'path' або 'root_path' (каталог для виведення), 'show_hidden' (включати приховані елементи), 'max_results' (елементів на сторінку) і 'page' (номер сторінки).",
+    "tool.system_prompt": "Перелічіть елементи каталогу та поверніть список із пагінацією. Використовуйте page і max_results для пагінації. Якщо show_hidden false, не включайте приховані елементи (файли й папки, що починаються з крапки).",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "список каталогу",
+      "список папок",
+      "список файлів"
+    ],
+    "param.path.description": "Каталог для виведення (за замовчуванням: поточний каталог). Псевдонім root_path.",
+    "param.root_path.description": "Псевдонім path для сумісності.",
+    "param.show_hidden.description": "Включати приховані елементи до списку.",
+    "param.max_results.description": "Максимальна кількість елементів на сторінку (за замовчуванням: 50).",
+    "param.page.description": "Номер сторінки для отримання (за замовчуванням: 1)."
+  },
+  "tr": {
+    "tool.description": "Bir dizindeki öğeleri listeleyin ve yapılandırılmış JSON döndürün. Parametreler: 'path' veya 'root_path' (listelenecek dizin), 'show_hidden' (gizli öğeleri dahil et), 'max_results' (sayfa başına öğe sayısı) ve 'page' (sayfa numarası).",
+    "tool.system_prompt": "Dizin öğelerini listeleyin ve sayfalı bir sonuç döndürün. Sayfalama için page ve max_results kullanın. show_hidden false ise gizli öğeleri (nokta ile başlayan dosya ve klasörleri) hariç tutun.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "dizin listesi",
+      "klasör listesi",
+      "dosya listesi"
+    ],
+    "param.path.description": "Listelenecek dizin (varsayılan: geçerli dizin). root_path için takma ad.",
+    "param.root_path.description": "Uyumluluk için path takma adı.",
+    "param.show_hidden.description": "Gizli öğeleri listeye dahil et.",
+    "param.max_results.description": "Sayfa başına döndürülecek maksimum öğe sayısı (varsayılan: 50).",
+    "param.page.description": "Alınacak sayfa numarası (varsayılan: 1)."
+  },
+  "th": {
+    "tool.description": "แสดงรายการรายการในไดเรกทอรีและส่งคืน JSON ที่มีโครงสร้าง พารามิเตอร์: 'path' หรือ 'root_path' (ไดเรกทอรีที่จะใช้แสดงรายการ), 'show_hidden' (รวมรายการที่ซ่อนอยู่), 'max_results' (จำนวนรายการต่อหน้า) และ 'page' (หมายเลขหน้า).",
+    "tool.system_prompt": "แสดงรายการในไดเรกทอรีและส่งคืนผลลัพธ์แบบแบ่งหน้า ใช้ page และ max_results สำหรับการแบ่งหน้า หาก show_hidden เป็น false ให้ไม่แสดงรายการที่ซ่อนอยู่ (ไฟล์และโฟลเดอร์ที่ขึ้นต้นด้วยจุด)",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "รายการไดเรกทอรี",
+      "รายการโฟลเดอร์",
+      "รายการไฟล์"
+    ],
+    "param.path.description": "ไดเรกทอรีที่จะใช้แสดงรายการ (ค่าเริ่มต้น: ไดเรกทอรีปัจจุบัน) ชื่อแทนของ root_path.",
+    "param.root_path.description": "ชื่อแทนของ path เพื่อความเข้ากันได้.",
+    "param.show_hidden.description": "รวมรายการที่ซ่อนอยู่ในรายการ.",
+    "param.max_results.description": "จำนวนรายการสูงสุดต่อหน้าที่ส่งกลับ (ค่าเริ่มต้น: 50).",
+    "param.page.description": "หมายเลขหน้าที่ต้องการดึง (ค่าเริ่มต้น: 1)."
+  },
+  "zh_CN": {
+    "tool.description": "列出目录中的条目并返回结构化 JSON。参数：'path' 或 'root_path'（要列出的目录）、'show_hidden'（包含隐藏条目）、'max_results'（每页条目数）和 'page'（页码）。",
+    "tool.system_prompt": "列出目录条目并返回分页结果。使用 page 和 max_results 进行分页。如果 show_hidden 为 false，则省略隐藏条目（以点开头的文件和文件夹）。",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "目录列表",
+      "文件夹列表",
+      "文件列表"
+    ],
+    "param.path.description": "要列出的目录（默认：当前目录）。root_path 的别名。",
+    "param.root_path.description": "为了兼容性的 path 别名。",
+    "param.show_hidden.description": "在列表中包含隐藏条目。",
+    "param.max_results.description": "每页返回的最大条目数（默认：50）。",
+    "param.page.description": "要获取的页码（默认：1）。"
+  },
+  "zh_TW": {
+    "tool.description": "列出目錄中的項目並傳回結構化 JSON。參數：'path' 或 'root_path'（要列出的目錄）、'show_hidden'（包含隱藏項目）、'max_results'（每頁項目數）與 'page'（頁碼）。",
+    "tool.system_prompt": "列出目錄項目並傳回分頁結果。使用 page 與 max_results 進行分頁。如果 show_hidden 為 false，請略過隱藏項目（以點開頭的檔案與資料夾）。",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "目錄列表",
+      "資料夾列表",
+      "檔案列表"
+    ],
+    "param.path.description": "要列出的目錄（預設：目前目錄）。root_path 的別名。",
+    "param.root_path.description": "為了相容性的 path 別名。",
+    "param.show_hidden.description": "在列表中包含隱藏項目。",
+    "param.max_results.description": "每頁要傳回的最大項目數（預設：50）。",
+    "param.page.description": "要取得的頁碼（預設：1）。"
+  },
+  "bn": {
+    "tool.description": "একটি ডিরেক্টরির আইটেম তালিকাভুক্ত করুন এবং কাঠামোবদ্ধ JSON ফেরত দিন। প্যারামিটার: 'path' বা 'root_path' (যে ডিরেক্টরি তালিকাভুক্ত হবে), 'show_hidden' (লুকানো আইটেম অন্তর্ভুক্ত করুন), 'max_results' (প্রতি পৃষ্ঠায় আইটেম), এবং 'page' (পৃষ্ঠা নম্বর)।",
+    "tool.system_prompt": "ডিরেক্টরির আইটেম তালিকাভুক্ত করুন এবং পৃষ্ঠাভিত্তিক ফলাফল ফেরত দিন। pagination-এর জন্য page ও max_results ব্যবহার করুন। show_hidden false হলে লুকানো আইটেম (ডট দিয়ে শুরু হওয়া ফাইল ও ফোল্ডার) বাদ দিন।",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "ডিরেক্টরি তালিকা",
+      "ফোল্ডার তালিকা",
+      "ফাইল তালিকা"
+    ],
+    "param.path.description": "যে ডিরেক্টরি তালিকাভুক্ত হবে (ডিফল্ট: বর্তমান ডিরেক্টরি)। root_path-এর উপনাম।",
+    "param.root_path.description": "সামঞ্জস্যের জন্য path-এর উপনাম।",
+    "param.show_hidden.description": "লুকানো আইটেমগুলো তালিকায় অন্তর্ভুক্ত করুন।",
+    "param.max_results.description": "প্রতি পৃষ্ঠায় ফেরত দেওয়া সর্বোচ্চ আইটেম সংখ্যা (ডিফল্ট: 50).",
+    "param.page.description": "যে পৃষ্ঠাটি নিতে হবে (ডিফল্ট: 1)."
+  },
+  "fa": {
+    "tool.description": "آیتم‌های یک پوشه را فهرست کنید و JSON ساخت‌یافته برگردانید. پارامترها: 'path' یا 'root_path' (پوشه‌ای که باید فهرست شود)، 'show_hidden' (نمایش آیتم‌های مخفی)، 'max_results' (آیتم در هر صفحه) و 'page' (شماره صفحه).",
+    "tool.system_prompt": "آیتم‌های پوشه را فهرست کنید و نتیجه را به‌صورت صفحه‌بندی‌شده برگردانید. برای صفحه‌بندی از page و max_results استفاده کنید. اگر show_hidden false باشد، آیتم‌های مخفی (فایل‌ها و پوشه‌های شروع‌شونده با نقطه) را نمایش ندهید.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "فهرست پوشه",
+      "فهرست فایل",
+      "فهرست دایرکتوری"
+    ],
+    "param.path.description": "پوشه‌ای که باید فهرست شود (پیش‌فرض: پوشهٔ فعلی). نام مستعار root_path.",
+    "param.root_path.description": "نام مستعار path برای سازگاری.",
+    "param.show_hidden.description": "آیتم‌های مخفی را هم در فهرست شامل کنید.",
+    "param.max_results.description": "حداکثر تعداد آیتم در هر صفحه (پیش‌فرض: 50).",
+    "param.page.description": "شماره صفحه‌ای که باید دریافت شود (پیش‌فرض: 1)."
+  },
+  "mn": {
+    "tool.description": "Лавлахын зүйлсийг жагсааж, бүтэцлэгдсэн JSON буцаана. Параметрүүд: 'path' эсвэл 'root_path' (жагсаах лавлах), 'show_hidden' (нуусан зүйлсийг оруулах), 'max_results' (хуудас бүрийн зүйлс), 'page' (хуудасны дугаар).",
+    "tool.system_prompt": "Лавлахын зүйлсийг жагсааж, хуудасласан үр дүн буцаана. Pagination-д page болон max_results ашиглана уу. show_hidden false бол нуусан зүйлсийг (цэгээр эхэлсэн файл/хавтас) оруулахгүй.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "лавлах жагсаалт",
+      "хавтас жагсаалт",
+      "файл жагсаалт"
+    ],
+    "param.path.description": "Жагсаах лавлах (анхдагч: одоогийн лавлах). root_path-ийн нэршил.",
+    "param.root_path.description": "Тохирох байдлын үүднээс path-ийн нэршил.",
+    "param.show_hidden.description": "Нуусан зүйлсийг жагсаалтад оруулна.",
+    "param.max_results.description": "Хуудас бүрт буцаах хамгийн их зүйлсийн тоо (анхдагч: 50).",
+    "param.page.description": "Авах хуудасны дугаар (анхдагч: 1)."
+  },
+  "mr": {
+    "tool.description": "एखाद्या डिरेक्टरीतील घटक सूचीबद्ध करा आणि संरचित JSON परत करा. पॅरामीटर्स: 'path' किंवा 'root_path' (सूचीबद्ध करायची डिरेक्टरी), 'show_hidden' (लपलेले घटक समाविष्ट करा), 'max_results' (प्रति पृष्ठ घटक), आणि 'page' (पृष्ठ क्रमांक).",
+    "tool.system_prompt": "डिरेक्टरीतील घटक सूचीबद्ध करा आणि पृष्ठांकित परिणाम परत करा. pagination साठी page आणि max_results वापरा. show_hidden false असल्यास लपलेले घटक (डॉटने सुरू होणाऱ्या फाइल्स/फोल्डर्स) समाविष्ट करू नका.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "डिरेक्टरी यादी",
+      "फोल्डर यादी",
+      "फाइल यादी"
+    ],
+    "param.path.description": "सूचीबद्ध करायची डिरेक्टरी (डीफॉल्ट: सध्याची डिरेक्टरी). root_path चे उपनाव.",
+    "param.root_path.description": "सुसंगततेसाठी path चे उपनाव.",
+    "param.show_hidden.description": "लपलेले घटक यादीत समाविष्ट करा.",
+    "param.max_results.description": "प्रति पृष्ठ परत द्यायची कमाल घटकसंख्या (डीफॉल्ट: 50).",
+    "param.page.description": "घ्यायचा पृष्ठ क्रमांक (डीफॉल्ट: 1)."
+  }
+}

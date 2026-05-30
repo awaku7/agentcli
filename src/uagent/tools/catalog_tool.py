@@ -3,59 +3,70 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from ..env_utils import env_get
 from . import get_tool_catalog
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-TOOL_SPEC: dict[str, Any] = {
-    "type": "function",
-    "function": {
-        "name": "tool_catalog",
-        "description": _(
-            "tool.description",
-            default=(
-                "Return a lightweight catalog of available tools so the model can discover relevant tools before requesting full tool definitions."
+_ENABLE_GPT54_TOOL_SEARCH = str(env_get("UAGENT_ENABLE_GPT54_TOOL_SEARCH") or "").strip().lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
+
+if not _ENABLE_GPT54_TOOL_SEARCH:
+    TOOL_SPEC = None  # type: ignore[assignment]
+else:
+    TOOL_SPEC: dict[str, Any] = {
+        "type": "function",
+        "function": {
+            "name": "tool_catalog",
+            "description": _(
+                "tool.description",
+                default=(
+                    "Return a JSON catalog of available tools with ok, query, count, and tools fields so the model can discover relevant tools before requesting full tool definitions."
+                ),
             ),
-        ),
-        "x_search_terms": _(
-            "x_search_terms",
-            default=[
+            "x_search_terms": _(
+                "x_search_terms",
+                default=[
+                    "catalog",
+                    "tool catalog",
+                    "discover tools",
+                    "tool discovery",
+                ],
+            ),
+            "x_search_terms_en": [
                 "catalog",
                 "tool catalog",
                 "discover tools",
                 "tool discovery",
             ],
-        ),
-        "x_search_terms_en": [
-            "catalog",
-            "tool catalog",
-            "discover tools",
-            "tool discovery",
-        ],
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "query": {
-                    "type": "string",
-                    "description": _(
-                        "param.query.description",
-                        default="Natural-language query describing the needed capability.",
-                    ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": _(
+                            "param.query.description",
+                            default="Natural-language query describing the needed capability.",
+                        ),
+                    },
+                    "max_results": {
+                        "type": "integer",
+                        "description": _(
+                            "param.max_results.description",
+                            default="Maximum number of catalog entries to return.",
+                        ),
+                        "default": 12,
+                    },
                 },
-                "max_results": {
-                    "type": "integer",
-                    "description": _(
-                        "param.max_results.description",
-                        default="Maximum number of catalog entries to return.",
-                    ),
-                    "default": 12,
-                },
+                "required": ["query"],
             },
-            "required": ["query"],
         },
-    },
-}
+    }
 
 
 def run_tool(args: dict[str, Any]) -> str:

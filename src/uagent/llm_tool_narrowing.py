@@ -25,6 +25,7 @@ def _is_gpt54_tool_search_target(
     if enabled not in ("1", "true", "yes", "on"):
         return False
 
+    # Do not load tool_catalog unless the gate is explicitly enabled.
     if not use_responses_api:
         return False
 
