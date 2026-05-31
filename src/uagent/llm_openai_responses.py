@@ -1040,6 +1040,25 @@ def parse_responses_stream(
                 except Exception:
                     _print_delta(delta_text)
 
+            # 1.5) Reasoning text deltas (o1/o3-mini reasoning_content)
+            if ev_type == "response.reasoning_text.delta":
+                reasoning_delta = getattr(ev, "delta", None)
+                if isinstance(reasoning_delta, str) and reasoning_delta:
+                    try:
+                        if core is not None and bool(getattr(core, "_is_web", False)):
+                            lm = getattr(core, "log_message", None)
+                            if callable(lm):
+                                lm(
+                                    {
+                                        "type": "assistant_stream_delta",
+                                        "delta": f"\033[90m{reasoning_delta}\033[0m",
+                                    }
+                                )
+                        else:
+                            _print_delta(f"\033[90m{reasoning_delta}\033[0m")
+                    except Exception:
+                        _print_delta(f"\033[90m{reasoning_delta}\033[0m")
+
             if ev_type == "response.output_text.done":
                 t = getattr(ev, "text", None)
                 if isinstance(t, str) and t:

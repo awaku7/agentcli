@@ -33,6 +33,12 @@ try:
 except ImportError:
     Anthropic = None
 
+# OpenRouter (official SDK)
+try:
+    from openrouter import OpenRouter as _OpenRouterSDK
+except Exception:
+    _OpenRouterSDK = None
+
 
 _HTTPX_CLIENTS: list[Any] = []
 _HTTPX_CLIENTS_REGISTERED = False
@@ -138,6 +144,96 @@ def make_httpx_client(
 
     _register_httpx_client(c)
     return c
+
+
+class _OpenRouterChatCompletionsFacade:
+    def __init__(self, chat: Any):
+        self._chat = chat
+
+    def create(self, **kwargs: Any) -> Any:
+        return self._chat.send(**_normalize_openrouter_send_kwargs(kwargs))
+
+
+class _OpenRouterChatFacade:
+    def __init__(self, chat: Any):
+        self._chat = chat
+        self.completions = _OpenRouterChatCompletionsFacade(chat)
+
+    def send(self, **kwargs: Any) -> Any:
+        return self._chat.send(**_normalize_openrouter_send_kwargs(kwargs))
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._chat, name)
+
+
+class _OpenRouterResponsesFacade:
+    def __init__(self, responses: Any):
+        self._responses = responses
+
+    def create(self, **kwargs: Any) -> Any:
+        return self._responses.send(**_normalize_openrouter_send_kwargs(kwargs))
+
+    def send(self, **kwargs: Any) -> Any:
+        return self._responses.send(**_normalize_openrouter_send_kwargs(kwargs))
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._responses, name)
+
+
+class _OpenRouterBetaFacade:
+    def __init__(self, responses: Any):
+        self.responses = responses
+
+
+class _OpenRouterCompatClient:
+    def __init__(self, client: Any):
+        self._client = client
+        self.chat = _OpenRouterChatFacade(client.chat)
+        self.responses = _OpenRouterResponsesFacade(client.beta.responses)
+        self.beta = _OpenRouterBetaFacade(self.responses)
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._client, name)
+
+
+def _normalize_openrouter_send_kwargs(kwargs: dict[str, Any]) -> dict[str, Any]:
+    out = dict(kwargs)
+    extra_body = out.pop("extra_body", None)
+    if not isinstance(extra_body, dict):
+        return out
+
+    reasoning = extra_body.get("reasoning")
+    if isinstance(reasoning, dict):
+        current_reasoning = out.get("reasoning")
+        if not isinstance(current_reasoning, dict):
+            current_reasoning = {}
+
+        if reasoning.get("enabled") is False:
+            out.pop("reasoning", None)
+        else:
+            merged_reasoning = dict(current_reasoning)
+            for key in ("effort", "summary", "enabled", "max_tokens"):
+                value = reasoning.get(key)
+                if value is not None:
+                    merged_reasoning[key] = value
+
+            enabled = merged_reasoning.pop("enabled", None)
+            if enabled is False:
+                out.pop("reasoning", None)
+            elif merged_reasoning:
+                out["reasoning"] = merged_reasoning
+
+    provider = extra_body.get("provider")
+    if isinstance(provider, dict):
+        current_provider = out.get("provider")
+        if isinstance(current_provider, dict):
+            merged_provider = dict(current_provider)
+            merged_provider.update({k: v for k, v in provider.items() if v is not None})
+            out["provider"] = merged_provider
+        elif current_provider is None:
+            out["provider"] = {k: v for k, v in provider.items() if v is not None}
+
+    return out
 
 
 def detect_provider() -> str:
@@ -376,14 +472,37 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         base_url = core.get_env_url(
             "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
         )
-        # OpenRouter (OpenAI compatible)
-        # Recommended headers (fixed values by project policy)
+
+        http_client = make_httpx_client()
+
+        if _OpenRouterSDK is not None:
+            try:
+                raw_client = _OpenRouterSDK(
+                    api_key=api_key,
+                    http_referer="https://localhost/agent",
+                    x_open_router_title="scheck-openrouter",
+                    server_url=base_url,
+                    client=http_client,
+                )
+            except TypeError:
+                try:
+                    raw_client = _OpenRouterSDK(
+                        api_key=api_key,
+                        http_referer="https://localhost/agent",
+                        x_open_router_title="scheck-openrouter",
+                        server_url=base_url,
+                    )
+                except TypeError:
+                    raw_client = _OpenRouterSDK(api_key=api_key)
+
+            client = _OpenRouterCompatClient(raw_client)
+            return provider, client, model_name
+
+        # Fallback for environments without the official OpenRouter SDK.
         default_headers = {
             "HTTP-Referer": "https://localhost/agent",
             "X-Title": "scheck-openrouter",
         }
-
-        http_client = make_httpx_client()
 
         try:
             client = OpenAI(

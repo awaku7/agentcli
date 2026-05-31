@@ -449,10 +449,14 @@ def _build_thinking_config(
     - off/unset: for 2.5 => thinking_budget=0 (disable). for others => return None.
     - auto: choose MINIMAL/LOW/MEDIUM/HIGH
     - xhigh: round to HIGH
-    - include_thoughts: always False (we don't want chain-of-thought in outputs)
+    - include_thoughts: True by default (can be opted out via UAGENT_GEMINI_INCLUDE_THOUGHTS=0/false)
     """
     rm = (reasoning_mode or "").strip().lower()
     use_budget = _model_uses_thinking_budget(model_name)
+
+    # Opt-out logic for include_thoughts (defaults to True)
+    inc_thoughts_env = (env_get("UAGENT_GEMINI_INCLUDE_THOUGHTS") or "").strip().lower()
+    include_thoughts = inc_thoughts_env not in ("0", "false", "no", "off")
 
     if not rm or rm == "off":
         # Gemini 2.5: explicitly disable thinking with thinking_budget=0.
@@ -482,7 +486,7 @@ def _build_thinking_config(
             return None
         return gemini_types.ThinkingConfig(
             thinking_budget=budget,
-            include_thoughts=False,
+            include_thoughts=include_thoughts,
         )
 
     if rm not in _GEMINI_THINKING_LEVELS:
@@ -491,7 +495,7 @@ def _build_thinking_config(
     # Gemini 3+: thinking_level
     return gemini_types.ThinkingConfig(
         thinking_level=rm,
-        include_thoughts=False,
+        include_thoughts=include_thoughts,
     )
 
 
@@ -982,20 +986,33 @@ def gemini_chat_with_tools(
                             }
                         )
 
+                is_thought = getattr(part, "thought", False)
+
                 if not stream_mode:
                     t = getattr(part, "text", None)
                     if isinstance(t, str) and t:
-                        chunk_texts.append(t)
+                        if is_thought:
+                            # Non-streaming mode: print thought in gray but do not append to final answer
+                            try:
+                                print(f"\033[90m{t}\033[0m", end="", flush=True)
+                            except Exception:
+                                pass
+                        else:
+                            chunk_texts.append(t)
                 else:
                     t = getattr(part, "text", None)
                     if isinstance(t, str) and t:
-                        delta_text = t
-                        if text_so_far and t.startswith(text_so_far):
-                            delta_text = t[len(text_so_far) :]
-                        if delta_text:
-                            chunk_texts.append(delta_text)
-                            _emit_stream_delta(delta_text)
-                            text_so_far += delta_text
+                        if is_thought:
+                            # Streaming mode: print thought in gray but do not append to final answer
+                            _emit_stream_delta(f"\033[90m{t}\033[0m")
+                        else:
+                            delta_text = t
+                            if text_so_far and t.startswith(text_so_far):
+                                delta_text = t[len(text_so_far) :]
+                            if delta_text:
+                                chunk_texts.append(delta_text)
+                                _emit_stream_delta(delta_text)
+                                text_so_far += delta_text
 
         return "".join(chunk_texts), chunk_tool_calls, gemini_content_dump, text_so_far
 
