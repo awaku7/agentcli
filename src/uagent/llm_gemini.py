@@ -676,6 +676,7 @@ def gemini_chat_with_tools(
                     fc_name = fnc.get("name")
                     if not isinstance(fc_name, str) or not fc_name:
                         continue
+                    fc_id = tc.get("id")
                     args_str = fnc.get("arguments") or "{}"
                     try:
                         parsed = (
@@ -687,25 +688,29 @@ def gemini_chat_with_tools(
                     except Exception:
                         args_obj = {}
 
+                    fc_dict = {"name": fc_name, "args": args_obj}
+                    if isinstance(fc_id, str) and fc_id:
+                        fc_dict["id"] = fc_id
+
                     if first_fc:
                         try:
                             part_fc = gemini_types.Part(
-                                function_call={"name": fc_name, "args": args_obj},
+                                function_call=fc_dict,
                                 thought_signature="skip_thought_signature_validator",
                             )
                         except Exception:
                             part_fc = gemini_types.Part(
-                                function_call={"name": fc_name, "args": args_obj}
+                                function_call=fc_dict
                             )
                         first_fc = False
                     else:
                         try:
-                            part_fc = gemini_types.Part.from_function_call(
-                                name=fc_name, args=args_obj
+                            part_fc = gemini_types.Part(
+                                function_call=fc_dict
                             )
                         except Exception:
                             part_fc = gemini_types.Part(
-                                function_call={"name": fc_name, "args": args_obj}
+                                function_call=fc_dict
                             )
 
                     _append("model", part_fc)
@@ -737,6 +742,7 @@ def gemini_chat_with_tools(
             tool_name = m.get("name") or "tool"
             if not isinstance(tool_name, str) or not tool_name:
                 tool_name = "tool"
+            tool_call_id = m.get("tool_call_id")
 
             resp_obj: dict[str, Any]
             if content:
@@ -751,9 +757,12 @@ def gemini_chat_with_tools(
                 resp_obj = {"content": ""}
 
             try:
-                part = gemini_types.Part.from_function_response(
-                    name=tool_name,
-                    response=resp_obj,
+                fr_dict = {"name": tool_name, "response": resp_obj}
+                if isinstance(tool_call_id, str) and tool_call_id:
+                    fr_dict["id"] = tool_call_id
+
+                part = gemini_types.Part(
+                    function_response=fr_dict
                 )
                 # Gemini tool results must be sent with role="tool" in google-genai SDK.
                 # Sending them as "user" causes Gemini to fail to recognize the response and repeat the same tool call.
