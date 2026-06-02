@@ -699,19 +699,13 @@ def gemini_chat_with_tools(
                                 thought_signature="skip_thought_signature_validator",
                             )
                         except Exception:
-                            part_fc = gemini_types.Part(
-                                function_call=fc_dict
-                            )
+                            part_fc = gemini_types.Part(function_call=fc_dict)
                         first_fc = False
                     else:
                         try:
-                            part_fc = gemini_types.Part(
-                                function_call=fc_dict
-                            )
+                            part_fc = gemini_types.Part(function_call=fc_dict)
                         except Exception:
-                            part_fc = gemini_types.Part(
-                                function_call=fc_dict
-                            )
+                            part_fc = gemini_types.Part(function_call=fc_dict)
 
                     _append("model", part_fc)
             continue
@@ -761,9 +755,7 @@ def gemini_chat_with_tools(
                 if isinstance(tool_call_id, str) and tool_call_id:
                     fr_dict["id"] = tool_call_id
 
-                part = gemini_types.Part(
-                    function_response=fr_dict
-                )
+                part = gemini_types.Part(function_response=fr_dict)
                 # Gemini tool results must be sent with role="tool" in google-genai SDK.
                 # Sending them as "user" causes Gemini to fail to recognize the response and repeat the same tool call.
                 _append("tool", part)

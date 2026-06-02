@@ -363,7 +363,6 @@ class SubAgentRunner:
         return "\n\n".join(part for part in parts if part)
 
     def _call_llm_single_round(
-
         self,
         provider: str,
         client: Any,

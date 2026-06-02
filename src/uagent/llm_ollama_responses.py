@@ -16,7 +16,6 @@ def apply_ollama_responses_compat(
     if provider != "ollama":
         return
 
-
     try:
         extra_body = resp_kwargs.get("extra_body")
         if not isinstance(extra_body, dict):
