@@ -15,6 +15,7 @@ holidays>=0.93
 psutil>=7.2.2
 
 # Documents & Data
+qrcode>=8.2
 pdfplumber>=0.11.9
 python-pptx>=1.0.2
 Pillow>=11.0.0

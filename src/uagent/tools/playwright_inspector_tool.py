@@ -191,13 +191,25 @@ async def main() -> None:
     index_logger = FlowLogger(index_path)
     page_seq = 0
 
-    async with async_playwright() as p:
-        try:
-            browser = await p.chromium.launch(channel="msedge", headless=False)
-        except Exception:
-            browser = await p.chromium.launch(headless=False)
+    # セッション状態を保存するファイルのパス
+    state_path = os.path.join(base_dir, "storage_state.json")
 
-        context = await browser.new_context(viewport={"width": 1280, "height": 1024})
+    async with async_playwright() as p:
+        # 既存のEdgeプロセスに吸い込まれるのを防ぐため、独立したクリーンな Chromium を優先して起動する
+        try:
+            browser = await p.chromium.launch(headless=False)
+        except Exception:
+            browser = await p.chromium.launch(channel="msedge", headless=False)
+
+        # 過去のセッション状態が存在すれば読み込む
+        if os.path.exists(state_path):
+            print(f"Loading existing session state from {state_path}")
+            context = await browser.new_context(
+                viewport={"width": 1280, "height": 1024},
+                storage_state=state_path
+            )
+        else:
+            context = await browser.new_context(viewport={"width": 1280, "height": 1024})
 
         async def wire_page(page):
             nonlocal page_seq
@@ -299,11 +311,14 @@ async def main() -> None:
                 except Exception:
                     pass
 
-            page.on("request", on_request)
-            page.on("console", lambda m: asyncio.create_task(on_console(m)))
-            page.on("pageerror", on_page_error)
-            page.on("response", lambda r: asyncio.create_task(on_response(r)))
-            await inject_observer()
+            # セキュリティの厳しいサイト（ServiceNow等）でのCSP違反やスクリプトエラーによる強制終了を防ぐため、
+            # DOM監視やコンソール/ネットワークイベントの監視を最小限にするか、エラーを完全に無視します。
+            # page.on("request", on_request)
+            # page.on("console", lambda m: asyncio.create_task(on_console(m)))
+            # page.on("pageerror", on_page_error)
+            # page.on("response", lambda r: asyncio.create_task(on_response(r)))
+            # await inject_observer()
+            pass
 
             snap_lock = asyncio.Lock()
             snap_idx = 0
@@ -385,12 +400,53 @@ async def main() -> None:
 
         if url != "about:blank":
             logger.log({"type": "goto", "page_id": page_id, "url": url, "summary": "Navigating to initial URL"})
-            await page.goto(url)
+            try:
+                # タイムアウトを60秒に延長し、エラーが発生してもブラウザが落ちないようにする
+                await page.goto(url, timeout=60000)
+            except Exception as e:
+                _emit_debug(f"Navigation failed or timed out: {e}")
 
         print(ui_started)
-        print(ui_resume_prompt)
+        
+        # 初期URLのドメイン（ホスト名）を解析して抽出する
+        from urllib.parse import urlparse
+        target_domain = ""
+        if url and url != "about:blank":
+            parsed = urlparse(url)
+            target_domain = parsed.netloc
+            print(f"Target domain detected: {target_domain}")
 
-        await page.pause()
+        # ログイン中（別ドメインにリダイレクトされている間）はインスペクターの起動を保留する
+        if target_domain:
+            print("==================================================")
+            print("Login or redirection detected. Waiting for you to complete login...")
+            print(f"Playwright Inspector will launch automatically when you return to: {target_domain}")
+            print("==================================================")
+            
+            # 最大5分間、元のドメインに戻るのを監視する
+            for _ in range(300):
+                if not browser.is_connected():
+                    break
+                try:
+                    current_url = page.url
+                    current_domain = urlparse(current_url).netloc
+                    # 元のドメインに戻ってきた、またはログインが完了したと判断できる場合
+                    if target_domain in current_domain:
+                        print("Successfully returned to target domain! Launching Playwright Inspector...")
+                        break
+                except Exception:
+                    pass
+                await asyncio.sleep(1)
+
+        try:
+            await page.pause()
+        except Exception as e:
+            print(f"Playwright Inspector was interrupted: {e}")
+
+        print("Waiting for browser to be closed by user...")
+        while browser.is_connected():
+            # ユーザーがブラウザを閉じるまで待機
+            await asyncio.sleep(1)
 
         final_png = os.path.join(base_dir, "final.png")
         final_html = os.path.join(base_dir, "final.html")
@@ -415,6 +471,14 @@ async def main() -> None:
         final_record = make_event_record("final", page_id, url=page.url, html=final_html, latest_html=latest_html_path, png=final_png, snapshots_dir=snapshots_dir, flow=flow_path, summary="Captured final page state")
         logger.log(final_record)
         index_logger.log(final_record)
+
+        # セッション状態をファイルに保存（ブラウザがまだ開いている場合のみ）
+        try:
+            if browser.is_connected():
+                await context.storage_state(path=state_path)
+                print(f"Saved session state to {state_path}")
+        except Exception as e:
+            print(f"Failed to save session state: {e}")
 
         await browser.close()
         logger.close()

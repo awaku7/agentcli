@@ -1,0 +1,52 @@
+{
+  "en": {
+    "tool.description": "Generate a QR code image (PNG) from text or URL. Supports customization of error correction level, box size, border, and colors.",
+    "tool.system_prompt": "Generate a QR code image from text or URL. Save it as a PNG file inside the workdir. If the file already exists, overwrite=false will raise an error. If overwrite=true, a backup is created before writing.",
+    "x_search_terms": [
+      "qr",
+      "qrcode",
+      "generate qr",
+      "make qr",
+      "qr code"
+    ],
+    "param.text.description": "The text or URL to encode into the QR code.",
+    "param.filename.description": "The output filename (e.g., 'qrcode.png'). Must end with .png.",
+    "param.error_correction.description": "Error correction level: 'L' (7%), 'M' (15%), 'Q' (25%), 'H' (30%). Default: 'M'.",
+    "param.box_size.description": "Size of each box (pixel width/height). Default: 10.",
+    "param.border.description": "Border width (number of boxes). Default: 4.",
+    "param.fill_color.description": "Color of the QR code modules (e.g., 'black', '#000000'). Default: 'black'.",
+    "param.back_color.description": "Background color (e.g., 'white', '#FFFFFF'). Default: 'white'.",
+    "param.overwrite.description": "Whether to overwrite if the file already exists (default: false).",
+    "error.text_required": "text is required",
+    "error.filename_required": "filename is required",
+    "error.must_be_png": "filename must end with .png",
+    "error.file_exists": "File already exists: %(path)s",
+    "status.created": "Created QR code: %(path)s",
+    "status.overwritten": "Overwrote QR code: %(path)s"
+  },
+  "ja": {
+    "tool.description": "テキストやURLからQRコード画像（PNG）を生成します。誤り訂正レベル、ボックスサイズ、ボーダー、色のカスタマイズに対応しています。",
+    "tool.system_prompt": "テキストやURLからQRコード画像を生成します。ワークディレクトリ内にPNGファイルとして保存します。ファイルが既に存在する場合、overwrite=falseではエラーが発生します。overwrite=trueの場合、書き込み前にバックアップが作成されます。",
+    "x_search_terms": [
+      "qr",
+      "qrcode",
+      "qrコード",
+      "qrコード生成",
+      "qr作成"
+    ],
+    "param.text.description": "QRコードにエンコードするテキストまたはURL。",
+    "param.filename.description": "出力ファイル名（例: 'qrcode.png'）。.pngで終わる必要があります。",
+    "param.error_correction.description": "誤り訂正レベル: 'L' (7%), 'M' (15%), 'Q' (25%), 'H' (30%)。デフォルト: 'M'。",
+    "param.box_size.description": "各ボックスのサイズ（ピクセル単位の幅/高さ）。デフォルト: 10。",
+    "param.border.description": "ボーダーの幅（ボックス数）。デフォルト: 4。",
+    "param.fill_color.description": "QRコードのモジュールの色（例: 'black', '#000000'）。デフォルト: 'black'。",
+    "param.back_color.description": "背景色（例: 'white', '#FFFFFF'）。デフォルト: 'white'。",
+    "param.overwrite.description": "ファイルが既に存在する場合に上書きするかどうか（デフォルト: false）。",
+    "error.text_required": "テキストは必須です",
+    "error.filename_required": "ファイル名は必須です",
+    "error.must_be_png": "ファイル名は.pngで終わる必要があります",
+    "error.file_exists": "ファイルが既に存在します: %(path)s",
+    "status.created": "QRコードを作成しました: %(path)s",
+    "status.overwritten": "QRコードを上書きしました: %(path)s"
+  }
+}
