@@ -2,7 +2,7 @@
 import os
 import sys
 
-# src ディレクトリをパスに追加してパッケージとして認識可能にする
+# Add src directory to path to make it recognizable as a package
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
 try:
