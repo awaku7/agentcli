@@ -61,7 +61,7 @@ from .util_tools import (
     handle_command,
 )
 
-# scheck_core をインポート
+# Import scheck_core
 core = importlib.import_module(".core", package="uagent")
 
 
@@ -95,7 +95,7 @@ UAGENT_NON_INTERACTIVE = bool(_startup_args.get("non_interactive"))
 # NOTE(Mode A): workdir initialization (mkdir/chdir + startup info) is performed inside main()
 # under startup stdout/stderr capture, so importing this module does not change CWD.
 
-# 初期ファイル引数は unknown の最初の要素があればそれを使う（従来の sys.argv[1] 相当）
+# Use the first element of unknown as the initial file argument if present (equivalent to the traditional sys.argv[1])
 INITIAL_FILE_ARG = _startup_unknown[0] if _startup_unknown else None
 
 
@@ -348,8 +348,8 @@ def _getpass_fallback(prompt: str) -> str:
     if os.name == "nt":
         import msvcrt
 
-        # ステータス表示(stderr)との同期を確保するため、プロンプトも stderr を優先する。
-        # これにより、stdout のバッファリングや順序不整合による表示漏れを防ぐ。
+        # To ensure synchronization with the status display (stderr), the prompt also prioritizes stderr.
+        # This prevents missing displays due to stdout buffering or order inconsistency.
         out = None
         try:
             if sys.stderr.isatty():
@@ -368,13 +368,13 @@ def _getpass_fallback(prompt: str) -> str:
             else:
                 print(prompt, end="", flush=True)
 
-            # 先行入力をフラッシュすると、プロンプトが出る直前の入力が消えてしまうため
-            # キー入力を受け付けないように感じる原因になる。ここではフラッシュしない。
+            # Flushing look-ahead input would erase input entered just before the prompt appears,
+            # making it feel like key inputs are not accepted. Do not flush here.
             pass
 
             pw = []
             while True:
-                # getwch() を使用して Unicode 文字を直接取得する (エコーなし)
+                # Use getwch() to retrieve Unicode characters directly (no echo)
                 char = msvcrt.getwch()
                 if char in ("\r", "\n"):
                     if out:
@@ -387,12 +387,12 @@ def _getpass_fallback(prompt: str) -> str:
                     if pw:
                         pw.pop()
                 elif char == "\x00" or char == "\xe0":
-                    # 特殊キー（矢印キー等）の先行バイトを読み飛ばす
+                    # Skip the leading byte of special keys (arrow keys, etc.)
                     msvcrt.getwch()
                 else:
                     pw.append(char)
         except Exception:
-            # 最終的なフォールバック
+            # Final fallback
             if out:
                 out.write("\n[WARN] " + _("getch() fallback to input()") + "\n")
                 out.flush()
@@ -405,22 +405,22 @@ def _getpass_fallback(prompt: str) -> str:
 
 def stdin_loop() -> None:
     """
-    標準入力を読み取り、core.event_queue にイベントを積む
+    Read standard input and push events to core.event_queue.
     """
     user_multiline_active = False
     user_lines: list[str] = []
 
     while True:
         try:
-            # まず回答待ち状態かどうかを確認
+            # First, check if we are waiting for a reply
             with core.human_ask_lock:
                 is_reply = core.human_ask_active
                 is_password = is_reply and core.human_ask_is_password
 
-            # 回答待ちでない場合のみ、BUSYチェックを行う
-            # ただし BUSY 中でも既に表示済みプロンプトに対するユーザー入力は受け付ける。
-            # ここで待機してしまうと、LLM/ツール実行中に表示済みだったプロンプトへ入力された
-            # 1 行が読み取られないまま残り、次の入力イベントが必要になることがある。
+            # Perform BUSY check only when not waiting for a reply.
+            # However, even during BUSY, user input for an already displayed prompt is accepted.
+            # If we wait here, a line entered into an already displayed prompt during LLM/tool execution
+            # may remain unread, requiring another input event.
             # Prompt is resolved *only when we are ready to actually read input*.
             # If we compute it while BUSY and then loop/sleep, it can become stale
             # (e.g. show a normal prompt while a human_ask is actually active).
@@ -443,17 +443,17 @@ def stdin_loop() -> None:
                 if is_reply:
                     _flush_stdin_input_buffer()
 
-                # NOTE: LLM/Tools 応答開始と stdin_loop が競合すると、BUSY中にも関わらず
-                # プロンプトだけが表示されることがある。
-                # ただし、ここで BUSY を理由に readline() 自体を止めると、既に表示済み
-                # プロンプトに対して入力された 1 行が読み取られないまま残り、次の入力が
-                # 必要になることがあるため、描画直前ではブロックしない。
+                # NOTE: If LLM/Tools response start conflicts with stdin_loop, only the prompt
+                # might be displayed even though it is BUSY.
+                # However, if we stop readline() itself here because of BUSY, a line entered
+                # into an already displayed prompt may remain unread, requiring another input,
+                # so we do not block immediately before drawing.
 
-                # Windows(pyreadline)等で色コードを含むとプロンプトが二重表示される場合があるため、
-                # 色付けを行わずシンプルなプロンプトを使用する。
-                # NOTE: input(prompt) のプロンプト描画が環境によって欠落することがあるため、
-                # 常に「自前で描画 → input()」に統一する。
-                # ステータスの色表示は core 側が stderr に出すため、この変更で色は失われない。
+                # Since prompts containing color codes may be displayed twice in Windows (pyreadline) etc.,
+                # use a simple prompt without coloring.
+                # NOTE: Since prompt drawing by input(prompt) may be missing depending on the environment,
+                # always unify to "draw manually -> input()".
+                # Since the status color display is output to stderr by the core side, colors are not lost by this change.
                 try:
                     sys.stderr.flush()
                 except Exception:
@@ -463,10 +463,10 @@ def stdin_loop() -> None:
                 except Exception:
                     pass
 
-                # NOTE: 画面下部でプロンプトが見えなくなる/他出力に押し流される事があるため、
-                # プロンプトは stderr(tty) を優先して描画する。
-                # さらに core.print_status_line() 等の出力と競合すると押し流されるため、
-                # core.print_lock で直列化する。
+                # NOTE: Since the prompt may become invisible at the bottom of the screen or washed away by other outputs,
+                # prioritize drawing the prompt on stderr (tty).
+                # Furthermore, since it may be washed away if it conflicts with outputs like core.print_status_line(),
+                # serialize with core.print_lock.
                 out = None
                 try:
                     if getattr(sys.stderr, "isatty", lambda: False)():
@@ -485,7 +485,7 @@ def stdin_loop() -> None:
                 except Exception:
                     pass
 
-                # 応答直後の出力競合を避けるため、短い安定化待ち
+                # Short stabilization wait to avoid output conflicts immediately after response
                 time.sleep(0.1)
 
                 try:
@@ -509,7 +509,7 @@ def stdin_loop() -> None:
                         else:
                             print(prompt, end="", flush=True)
                 except Exception:
-                    # 最終フォールバック
+                    # Final fallback
                     try:
                         print(prompt, end="", flush=True)
                     except Exception:
@@ -588,24 +588,24 @@ def stdin_loop() -> None:
         except EOFError:
             break
         except KeyboardInterrupt:
-            # 入力待ち中の Ctrl+C は、現在のアクティブな状態（human_askなど）を考慮してリセット
+            # Reset Ctrl+C during input wait, taking into account the currently active state (such as human_ask)
             with core.human_ask_lock:
                 if core.human_ask_active:
                     print(
                         "\n[INFO] "
                         + "Input cancelled (will be sent as a reply to human_ask)."
                     )
-                    # 空文字または cancel を投げてツール側を復帰させる
+                    # Send an empty string or cancel to resume the tool side
                     if core.human_ask_queue:
                         core.human_ask_queue.put("cancel")
                     continue
 
-            # Ctrl+C で即座に終了シーケンスに入るように変更
+            # Changed to immediately enter the shutdown sequence on Ctrl+C
             print("\n[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
             core.event_queue.put({"kind": "command", "text": ":exit"})
             break
         except Exception as e:
-            # スレッドの突然死を防ぐための広域キャッチ
+            # Broad catch to prevent sudden thread death
             print(
                 "\n[ERROR] " + "Unexpected error in stdin_loop: %(err)s" % {"err": e},
                 file=sys.stderr,
@@ -615,7 +615,7 @@ def stdin_loop() -> None:
 
         line = line.rstrip("\n")
 
-        # human_ask への応答処理
+        # Response processing for human_ask
         handled_human_ask = False
         with core.human_ask_lock:
             if core.human_ask_active and core.human_ask_queue is not None:
@@ -626,7 +626,7 @@ def stdin_loop() -> None:
         if handled_human_ask:
             should_wait_completion = False
             if not is_ha_multiline:
-                # パスワード入力時は 'f' を複数行モードへの切り替えコマンドとして扱わない
+                # Do not treat 'f' as a command to switch to multiline mode when entering a password
                 if line == "f" and not is_ha_password:
                     with core.human_ask_lock:
                         core.human_ask_multiline_active = True
@@ -643,9 +643,9 @@ def stdin_loop() -> None:
                         if core.human_ask_queue:
                             core.human_ask_queue.put(line)
 
-                    # human_ask_tool 側が finally で human_ask_active を False に戻す前に
-                    # 次の input() に入ると、余計に [REPLY] > が表示されることがある。
-                    # 短時間だけ完了を待ってからプロンプトへ戻す。
+                    # If we enter the next input() before human_ask_tool sets human_ask_active back to False in finally,
+                    # an extra [REPLY] > might be displayed.
+                    # Wait for a short time for completion before returning to the prompt.
                     for _i in range(50):  # up to ~0.5s
                         with core.human_ask_lock:
                             if not core.human_ask_active:
@@ -655,7 +655,7 @@ def stdin_loop() -> None:
                     # and confuse the user when multiple human_ask calls happen back-to-back.
                     should_wait_completion = True
             else:
-                # 複数行モード中でも c / cancel 単独行なら中断として扱う
+                # Treat a single line of c / cancel as an interruption even in multiline mode
                 if line.strip().lower() in ("c", "cancel"):
                     core.set_status(True, "replying_cancel")
                     with core.human_ask_lock:
@@ -686,8 +686,8 @@ def stdin_loop() -> None:
                     with core.human_ask_lock:
                         core.human_ask_lines.append(line)
 
-            # 完了待機を行わず、メインループに戻る（status_busy が True の間は次回の入力を抑制するため）
-            # ここで待機すると、複数の human_ask が連続した際にデッドロックする可能性があるため削除
+            # Return to the main loop without waiting for completion (to suppress next input while status_busy is True).
+            # Removed because waiting here could cause a deadlock when multiple human_asks are consecutive.
             if should_wait_completion:
                 pass
             continue
@@ -934,7 +934,7 @@ def main() -> None:
             stop_background_scheduler()
         except Exception:
             pass
-        # プログラム終了時にキャッシュをクリア
+        # Clear cache on program exit
         if provider in ("gemini", "vertexai") and client:
             try:
                 from .gemini_cache_mgr import GeminiCacheManager
