@@ -244,8 +244,8 @@ def claude_chat_with_tools(
     if isinstance(output_config, dict) and output_config:
         out_cfg = output_config
 
-    # Resolve temperature (default 0.2 for deterministic tool use and stable reasoning)
-    claude_temp = 0.2
+    # Resolve temperature (only set if explicitly configured via UAGENT_CLAUDE_TEMPERATURE)
+    claude_temp = None
     temp_env = (env_get("UAGENT_CLAUDE_TEMPERATURE") or "").strip()
     if temp_env:
         try:
@@ -258,9 +258,9 @@ def claude_chat_with_tools(
         "max_tokens": 4096,
         "messages": anthropic_messages,
     }
-    # If output_config (thinking/effort) is used, temperature must be omitted or set to 1.0.
-    # We omit it to be safe.
-    if out_cfg is None:
+    # If output_config (thinking/effort) is used, temperature must be omitted.
+    # Otherwise, only set temperature if explicitly configured.
+    if claude_temp is not None and out_cfg is None:
         req_kwargs["temperature"] = claude_temp
 
     if system_blocks:
