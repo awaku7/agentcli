@@ -158,18 +158,18 @@ last_reasoning_label = ""
 
 def print_status_line() -> None:
     """
-    現在の busy / label 状態を 1 行で描画する。
+    Draw the current busy / label status in a single line.
 
-    方針:
-    - デフォルトは ANSI 色を有効（可能な環境では色付きで表示）
-    - 色を無効化したい場合は NO_COLOR または UAGENT_NO_COLOR を設定する
-    - GUI モード、または stderr が TTY でない場合は色なし
-    - Windows で TERM 未設定でも色を出す（TERM に依存しない）
-    - Windows の一部コンソールでプロンプトが崩れることがあるため、\r\x1b[2K は使わない
+    Policy:
+    - Enable ANSI colors by default (colored display in supported environments).
+    - Set NO_COLOR or UAGENT_NO_COLOR to disable colors.
+    - No color in GUI mode or when stderr is not a TTY.
+    - Output colors on Windows even if TERM is not set (independent of TERM).
+    - Do not use \r\x1b[2K as it may break the prompt on some Windows consoles.
     """
     global status_busy, status_label
 
-    # human_ask がアクティブな間は、プロンプト表示を乱さないようステータス表示を抑制する
+    # Suppress status display while human_ask is active to avoid disrupting the prompt display
     with human_ask_lock:
         if human_ask_active:
             return
@@ -193,7 +193,7 @@ def print_status_line() -> None:
             sys.stderr.flush()
         return
 
-    # 色分け（BUSY=黄色, IDLE=緑）
+    # Color coding (BUSY=yellow, IDLE=green)
     color = "\x1b[33m" if busy else "\x1b[32m"
 
     # NOTE: Keep output simple: one colored line.
@@ -204,7 +204,7 @@ def print_status_line() -> None:
 
 def set_status(busy: bool, label: str = "") -> None:
     """
-    Busy/Idle 状態を更新し、変化があったときには状態行を描画する。
+    Update the Busy/Idle state and draw the status line if there are changes.
     """
     global status_busy, status_label, last_reasoning_label
 
@@ -245,9 +245,9 @@ def set_status(busy: bool, label: str = "") -> None:
 
 def get_prompt() -> str:
     """
-    現在のステータスに応じて、標準入力用のプロンプト文字列を返す。
-    - アイドル時:  [IDLE] >
-    - BUSY時:     [BUSY:LLM] > のような表示
+    Return the prompt string for standard input based on the current status.
+    - Idle:  [IDLE] >
+    - Busy:  [BUSY:LLM] > or similar
     """
     with status_lock:
         busy = status_busy
@@ -265,8 +265,8 @@ def get_prompt() -> str:
         else:
             return "[BUSY] > "
     else:
-        # アイドル時は現在の workdir をプロンプトに表示する
-        # 例: /path/to/project>
+        # Display the current workdir in the prompt when idle
+        # Example: /path/to/project>
         try:
             cwd = os.getcwd()
         except Exception:
@@ -321,11 +321,11 @@ def truncate_output(label: str, text: str, limit: int = MAX_TOOL_OUTPUT_CHARS) -
 
 
 def _mask_message(obj: Any) -> Any:
-    """ログ出力用に機密情報を再帰的にマスクする。"""
+    """Recursively mask sensitive information for logging."""
     if isinstance(obj, dict):
         new_dict = {}
         for k, v in obj.items():
-            # human_ask の返り値（JSON文字列）をデコードしてチェック
+            # Decode and check the return value of human_ask (JSON string)
             if (
                 k == "content"
                 and isinstance(v, str)
@@ -350,11 +350,11 @@ def _mask_message(obj: Any) -> Any:
 
 def log_message(message: dict[str, Any]) -> None:
     """
-    ChatCompletion に渡している形式の message(dict) を JSONL で追記保存。
-    保存前に機密情報（human_ask のパスワード等）をマスクする。
+    Append and save the message (dict) in the format passed to ChatCompletion as JSONL.
+    Mask sensitive information (such as human_ask passwords) before saving.
     """
     try:
-        # 破壊的な変更を避けるため、マスクしたコピーを作成して書き込む
+        # Create and write a masked copy to avoid destructive changes
         masked_msg = _mask_message(message)
 
         dirpath = os.path.dirname(LOG_FILE)
@@ -363,7 +363,7 @@ def log_message(message: dict[str, Any]) -> None:
         with open(LOG_FILE, "a", encoding="utf-8") as f:
             f.write(json.dumps(masked_msg, ensure_ascii=False) + "\n")
     except Exception:
-        # ログで失敗しても黙って無視
+        # Silently ignore if logging fails
         pass
 
 
@@ -413,7 +413,7 @@ def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> str:
 
 
 # ==============================
-# ログファイル検出／トピック推定／トピック推定
+# Log file detection / Topic estimation
 # ==============================
 
 
@@ -429,12 +429,12 @@ def find_log_files(exclude_current: bool = False) -> list[str]:
 
 def guess_topics_from_content(content: str) -> set[str]:
     """
-    ログ内容から大ざっぱにトピック候補を推定する。
+    Roughly estimate topic candidates from the log content.
     """
     topics: set[str] = set()
     lower = content.lower()
 
-    # カテゴリ定義
+    # Category definitions
     mapping = {
         "System Development/Design": [
             "design",
@@ -588,18 +588,18 @@ def guess_topics_from_content(content: str) -> set[str]:
 
 
 def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
-    """ログ一覧を表示する。
+    """Display a list of logs.
 
-    目的:
-    - :load で使うための index は維持する。
-    - 一覧を見ただけで各ログを区別できるようにする。
+    Purpose:
+    - Maintain the index for use with :load.
+    - Make each log distinguishable at a glance.
 
-    表示内容:
+    Display contents:
     - index
-    - 最終更新日時 (mtime)
-    - やりとり件数
-    - 先頭の user 発話（短縮）
-    - 話題（推定）は上位数件のみ短縮
+    - Last modified time (mtime)
+    - Number of interactions
+    - First user utterance (shortened)
+    - Topics (estimated) shortened to top few items
     """
 
     files = find_log_files(exclude_current=True)
@@ -636,7 +636,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
             mtime_text = _fmt_ts(mtime)
         except Exception:
             mtime_text = _("(mtime unknown)")
-        # 先頭側は最初の user を取るために最大 200 行読む
+        # Read up to 200 lines from the beginning to get the first user message
         head_lines: list[str] = []
         try:
             with open(path, encoding="utf-8") as f:
@@ -649,8 +649,8 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
         except Exception:
             head_lines = []
 
-        # 末尾側は「本当の last user」を取るために、末尾から最大 N バイトだけ読む
-        # （巨大ログでも遅くしないための上限。ユーザー指定: 16MB）
+        # Read up to N bytes from the end to get the "actual last user" message
+        # (Upper limit to prevent slowdowns even with huge logs. User specified: 16MB)
         tail_max_bytes = 16 * 1024 * 1024
         tail_text = ""
         try:
@@ -660,7 +660,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
                 bf.seek(start)
                 data = bf.read()
 
-            # 行途中から始まる可能性があるので、先頭の不完全な1行は捨てる
+            # Discard the first incomplete line as it may start in the middle of a line
             try:
                 tail_text = data.decode("utf-8", errors="replace")
             except Exception:
@@ -679,8 +679,8 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
                 ln = (ln or "").strip()
                 if ln:
                     tail_lines.append(ln)
-        # 正確な件数（user/assistant）は全行を走査してカウントする
-        # + フォールバック用に「ログ全体での first/last user content」も拾う
+        # Scan all lines to count the exact number of user/assistant messages
+        # + Also pick up "first/last user content in the entire log" for fallback
         total_user_count = 0
         total_assistant_count = 0
         first_user_any = ""
@@ -706,13 +706,13 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
                     elif role == "assistant":
                         total_assistant_count += 1
         except Exception:
-            # 読めない場合は 0 扱い（表示が落ちるよりマシ）
+            # Treat as 0 if unreadable (better than crashing the display)
             total_user_count = 0
             total_assistant_count = 0
             first_user_any = ""
             last_user_any = ""
 
-        # first user は先頭側（軽量）から取得
+        # Get the first user message from the beginning (lightweight)
         first_user: str = ""
         for line in head_lines:
             try:
@@ -728,7 +728,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
                 first_user = content
                 break
 
-        # last user は末尾側から取得（本当の最後）
+        # Get the last user message from the end (the actual last one)
         last_user: str = ""
         for line in reversed(tail_lines):
             try:
@@ -744,7 +744,7 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
                 last_user = content
                 break
 
-        # フォールバック: 先頭/末尾が取れない（no user message）場合は、全行走査で拾った値を使う
+        # Fallback: If first/last user cannot be retrieved (no user message), use the values picked up during the full scan
         if not first_user and first_user_any:
             first_user = first_user_any
         if not last_user and last_user_any:
@@ -776,16 +776,16 @@ def list_logs(*, limit: int = 10, show_all: bool = False) -> list[str]:
 
 
 # ==============================
-# ログから会話を復元
+# Restore conversation from log
 # ==============================
 
 
 def normalize_message_from_log(obj: dict[str, Any]) -> Optional[dict[str, Any]]:
     """
-    過去ログ1行分の dict から、現在の ChatCompletion API に渡せる
-    最小限の message dict に正規化する。
-    - 不要なキーは削除
-    - 壊れた形式は None を返してスキップ
+    Normalize a single line dict from past logs into a minimal message dict
+    that can be passed to the current ChatCompletion API.
+    - Remove unnecessary keys.
+    - Skip broken formats by returning None.
     """
     role = obj.get("role")
     if role not in ("system", "user", "assistant", "tool"):
@@ -804,7 +804,7 @@ def normalize_message_from_log(obj: dict[str, Any]) -> Optional[dict[str, Any]]:
                 msg[key] = obj.get(key)
         return msg
 
-    # system / user / assistant 共通
+    # Common for system / user / assistant
     msg["content"] = obj.get("content") or ""
 
     # OpenRouter (and compatible stacks) may include assistant.reasoning_details.
@@ -815,12 +815,12 @@ def normalize_message_from_log(obj: dict[str, Any]) -> Optional[dict[str, Any]]:
         except Exception:
             pass
 
-    # 画像添付など、将来の構造化フィールドも残す
+    # Keep future structured fields such as image attachments
     for key in ("attachments", "saved_path", "saved_files"):
         if key in obj:
             msg[key] = obj.get(key)
 
-    # 過去ログに tool_calls が入っていた場合は、現在の形式に揃えて残す
+    # If tool_calls was present in past logs, keep it aligned with the current format
     tcs = obj.get("tool_calls")
     if isinstance(tcs, list):
         new_tcs: list[dict[str, Any]] = []
@@ -857,7 +857,7 @@ def normalize_message_from_log(obj: dict[str, Any]) -> Optional[dict[str, Any]]:
 
 def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
-    messages の中から「対応する assistant.tool_calls を持たない孤立した tool メッセージ」を削除する。
+    Remove "isolated tool messages that do not have a corresponding assistant.tool_calls" from messages.
     """
     cleaned: list[dict[str, Any]] = []
     seen_tool_call_ids: set[str] = set()
@@ -866,7 +866,7 @@ def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str
         role = m.get("role")
 
         if role == "assistant" and "tool_calls" in m:
-            # この assistant の tool_calls の id を記録しておく
+            # Record the tool_call IDs of this assistant
             tcs = m.get("tool_calls") or []
             for tc in tcs:
                 if not isinstance(tc, dict):
@@ -881,7 +881,7 @@ def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str
             if isinstance(tcid, str) and tcid in seen_tool_call_ids:
                 cleaned.append(m)
             else:
-                # 親のない tool → API ではエラーになるので捨てる
+                # Orphan tool -> Discard as it causes an error in the API
                 # NOTE: Do not emit blank lines (they look like extra newlines after tool output).
                 # If you want diagnostics, enable: UAGENT_DEBUG_ORPHAN_TOOL=1
                 if (env_get("UAGENT_DEBUG_ORPHAN_TOOL", "0") or "").strip().lower() in (
@@ -902,7 +902,7 @@ def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str
                         pass
 
         else:
-            # system / user / 通常 assistant はそのまま
+            # system / user / normal assistant are kept as is
             cleaned.append(m)
 
     return cleaned
@@ -913,12 +913,11 @@ def load_conversation_from_log(
     system_prompt: Optional[str] = None,
 ) -> list[dict[str, Any]]:
     """
-    ログファイル（JSONL）から会話履歴を読み込み、
-    ・メッセージを正規化
-    ・通常の system は捨てるが、skill 注入の system は維持する
-    ・先頭に指定された system_prompt を入れ直す
-      （指定がない場合は現在の SYSTEM_PROMPT を使う）
-    という形で messages を再構成する。
+    Read conversation history from log file (JSONL) and reconstruct messages:
+    - Normalize messages.
+    - Discard normal system messages but maintain skill-injected system messages.
+    - Re-insert the specified system_prompt at the beginning
+      (use the current SYSTEM_PROMPT if not specified).
     """
     raw_messages: list[dict[str, Any]] = []
 
@@ -930,20 +929,20 @@ def load_conversation_from_log(
             try:
                 obj = json.loads(line)
             except Exception:
-                # 壊れた行はスキップ
+                # Skip broken lines
                 continue
             if not isinstance(obj, dict) or "role" not in obj:
                 continue
             raw_messages.append(obj)
 
-    # まずは正規化
+    # First, normalize
     messages: list[dict[str, Any]] = []
     for obj in raw_messages:
         nm = normalize_message_from_log(obj)
         if nm is not None:
             messages.append(nm)
 
-    # skill 注入の system は残し、それ以外の system は捨てる
+    # Keep skill-injected system messages and discard other system messages
     skill_prefix = "[SKILL] "
     skill_messages = [
         m
@@ -954,15 +953,15 @@ def load_conversation_from_log(
     ]
     messages = [m for m in messages if m.get("role") != "system"]
 
-    # 引数が None のときは現在の SYSTEM_PROMPT を使う
+    # Use the current SYSTEM_PROMPT if the argument is None
     if system_prompt is None:
         system_prompt = SYSTEM_PROMPT
 
-    # 先頭に指定された system_prompt を入れ直す
+    # Re-insert the specified system_prompt at the beginning
     system_msg = {"role": "system", "content": system_prompt}
     messages.insert(0, system_msg)
 
-    # skill の system メッセージは system_prompt の直後に戻す
+    # Put the skill system messages back immediately after system_prompt
     if skill_messages:
         messages[1:1] = skill_messages
 
@@ -973,11 +972,11 @@ def shrink_messages(
     messages: list[dict[str, Any]], keep_last: int = 40
 ) -> list[dict[str, Any]]:
     """
-    メモリ上の messages を簡易圧縮する:
-    - 先頭の system メッセージ群はそのまま残す
-    - それ以外（user/assistant/tool）は末尾の keep_last 件だけ残し、それ以前は捨てる
+    Simply compress messages in memory:
+    - Keep the leading system messages as they are.
+    - Keep only the last keep_last messages for others (user/assistant/tool) and discard the rest.
     """
-    # system は先頭にある想定（SYSTEM_PROMPT と長期記憶メモなど）
+    # system is assumed to be at the beginning (SYSTEM_PROMPT, long-term memory notes, etc.)
     system_msgs: list[dict[str, Any]] = []
     others: list[dict[str, Any]] = []
 
@@ -1023,9 +1022,9 @@ def compress_history_with_llm(
     keep_last: int = 20,
 ) -> list[dict[str, Any]]:
     """
-    別の LLM コンテキストを立ち上げて、古い user/assistant/tool を
-    20件前後のチャンクごとに段階要約し、1つの system メッセージに圧縮する。
-    コンテキスト長エラーが出た場合は、チャンクを半分にして再試行する。
+    Launch another LLM context to summarize old user/assistant/tool messages
+    step-by-step in chunks of around 20 messages, compressing them into a single system message.
+    If a context length error occurs, retry by halving the chunk size.
     """
     try:
         from .profile_manager import run_profiling_async
