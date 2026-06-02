@@ -257,8 +257,12 @@ def claude_chat_with_tools(
         "model": model_name,
         "max_tokens": 4096,
         "messages": anthropic_messages,
-        "temperature": claude_temp,
     }
+    # If output_config (thinking/effort) is used, temperature must be omitted or set to 1.0.
+    # We omit it to be safe.
+    if out_cfg is None:
+        req_kwargs["temperature"] = claude_temp
+
     if system_blocks:
         req_kwargs["system"] = system_blocks
     if anthropic_tools:
@@ -280,11 +284,41 @@ def claude_chat_with_tools(
     try:
         response = client.messages.create(**req_kwargs)
     except Exception as e:
-        # Some Claude deployments reject output_config (or effort) even when the SDK supports it.
-        # Best-effort fallback: retry once without output_config.
         msg = str(e)
         ml = msg.lower()
-        if out_cfg is not None and ("output_config" in ml or "output config" in ml):
+
+        # Case 1: Temperature is rejected/deprecated
+        if "temperature" in ml and "temperature" in req_kwargs:
+            try:
+                try:
+                    if callable(on_output_config_fallback):
+                        on_output_config_fallback(
+                            "[Claude] temperature rejected; retrying without temperature"
+                        )
+                    else:
+                        print(
+                            "[Claude] temperature rejected; retrying without temperature"
+                        )
+                except Exception:
+                    pass
+                req_kwargs.pop("temperature", None)
+                response = client.messages.create(**req_kwargs)
+            except Exception as retry_exc:
+                retry_msg = str(retry_exc)
+                retry_ml = retry_msg.lower()
+                if out_cfg is not None and (
+                    "output_config" in retry_ml or "output config" in retry_ml
+                ):
+                    try:
+                        req_kwargs.pop("output_config", None)
+                        response = client.messages.create(**req_kwargs)
+                    except Exception:
+                        raise e from retry_exc
+                else:
+                    raise e from retry_exc
+
+        # Case 2: output_config is rejected
+        elif out_cfg is not None and ("output_config" in ml or "output config" in ml):
             try:
                 try:
                     if callable(on_output_config_fallback):
@@ -298,7 +332,18 @@ def claude_chat_with_tools(
                 except Exception:
                     pass
                 req_kwargs.pop("output_config", None)
-                response = client.messages.create(**req_kwargs)
+                # If we removed output_config, we can restore temperature if it wasn't rejected
+                req_kwargs["temperature"] = claude_temp
+                try:
+                    response = client.messages.create(**req_kwargs)
+                except Exception as retry_exc:
+                    retry_msg = str(retry_exc)
+                    retry_ml = retry_msg.lower()
+                    if "temperature" in retry_ml:
+                        req_kwargs.pop("temperature", None)
+                        response = client.messages.create(**req_kwargs)
+                    else:
+                        raise e from retry_exc
             except Exception as retry_exc:
                 raise e from retry_exc
         else:
