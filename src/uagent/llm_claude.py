@@ -164,7 +164,37 @@ def claude_chat_with_tools(
 
         if role == "user":
             new_role = "user"
-            new_content_blocks.append({"type": "text", "text": content})
+            if isinstance(content, str):
+                new_content_blocks.append({"type": "text", "text": content})
+            elif isinstance(content, list):
+                for item in content:
+                    if not isinstance(item, dict):
+                        continue
+                    item_type = item.get("type")
+                    if item_type == "text":
+                        new_content_blocks.append({"type": "text", "text": item.get("text", "")})
+                    elif item_type == "image_url":
+                        img_url_obj = item.get("image_url") or {}
+                        url = img_url_obj.get("url") or ""
+                        if url.startswith("data:"):
+                            try:
+                                header, data = url.split(",", 1)
+                                mime_type = header.split(";")[0].split(":")[1]
+                                new_content_blocks.append({
+                                    "type": "image",
+                                    "source": {
+                                        "type": "base64",
+                                        "media_type": mime_type,
+                                        "data": data,
+                                    }
+                                })
+                            except Exception:
+                                pass
+                        else:
+                            new_content_blocks.append({
+                                "type": "text",
+                                "text": f"[Image URL: {url}]"
+                            })
 
         elif role == "assistant":
             new_role = "assistant"
@@ -253,9 +283,27 @@ def claude_chat_with_tools(
         except ValueError:
             pass
 
+    # Resolve max_tokens (dynamic based on environment variable or model/thinking)
+    max_tokens = 4096
+    max_tokens_env = (env_get("UAGENT_MAX_TOKENS") or "").strip()
+    if max_tokens_env:
+        try:
+            max_tokens = int(max_tokens_env)
+        except ValueError:
+            pass
+    else:
+        # If model is Claude 3.7+ or Claude 4+ or output_config (thinking) is enabled, default to 8192
+        # Matches "3-7", "3.7", "3-8", "3.8", "3-9", "3.9", "claude-4", etc.
+        is_modern_claude = bool(
+            re.search(r"3[\.-][7-9]", model_name) or
+            re.search(r"claude-[4-9]", model_name)
+        )
+        if is_modern_claude or out_cfg is not None:
+            max_tokens = 8192
+
     req_kwargs: dict[str, Any] = {
         "model": model_name,
-        "max_tokens": 4096,
+        "max_tokens": max_tokens,
         "messages": anthropic_messages,
     }
     # If output_config (thinking/effort) is used, temperature must be omitted.
@@ -351,10 +399,15 @@ def claude_chat_with_tools(
 
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
+    thinking_text = ""
 
     for block in response.content:
         if block.type == "text":
             assistant_text += block.text
+        elif block.type == "thinking":
+            thinking_text += block.thinking
+            # 思考プロセスをコンソールに表示する
+            print(f"\n[Claude Thinking]\n{block.thinking}\n")
         elif block.type == "tool_use":
             tool_calls_list.append(
                 {
@@ -366,5 +419,10 @@ def claude_chat_with_tools(
                     },
                 }
             )
+
+    # 思考プロセスが検出された場合、assistant_text の先頭に埋め込むことで
+    # 上位モジュールや会話履歴に思考プロセスを正しく伝播させる
+    if thinking_text:
+        assistant_text = f"<thinking>\n{thinking_text}\n</thinking>\n" + assistant_text
 
     return assistant_text, tool_calls_list
