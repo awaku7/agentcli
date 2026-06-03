@@ -7,7 +7,9 @@ import pytest
 from uagent.tools import list_dir_tool
 
 
-def test_list_dir_tool_uses_cwd(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_list_dir_tool_uses_cwd(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     (tmp_path / "alpha").mkdir()
     (tmp_path / "beta.txt").write_text("hello", encoding="utf-8")
     monkeypatch.chdir(tmp_path)
