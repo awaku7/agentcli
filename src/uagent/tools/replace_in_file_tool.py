@@ -1178,7 +1178,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 else:
                     replaced_text = orig_norm[: h.start] + r2 + orig_norm[h.end :]
                 replaced_count = 1
-            for h in hits[:50]:
+            limit = MAX_MATCH_HITS_DETAIL
+            truncated = len(hits) > limit
+            for h in hits[:limit]:
                 lno, col = _map_idx_to_line_col(orig_norm, h.start)
                 bef, mat, aft = _extract_same_line_context(orig_norm, h.start, h.end)
                 match_hits.append(
@@ -1190,6 +1192,12 @@ def run_tool(args: dict[str, Any]) -> str:
                         "after": aft[:200],
                     }
                 )
+            if truncated:
+                if diagnostics is None:
+                    diagnostics = {}
+                diagnostics["match_hits_truncated"] = True
+                diagnostics["match_hits_limit"] = limit
+                diagnostics["match_hits_omitted"] = len(hits) - limit
 
         elif action in {"insert_before", "insert_after"} and hits:
             h = hits[0]
@@ -1330,9 +1338,21 @@ def run_tool(args: dict[str, Any]) -> str:
                 targets = [root]
             else:
                 globber = root.rglob if bool(args.get("recursive", True)) else root.glob
-                targets = [
-                    p for p in globber(args.get("name_pattern", "*")) if p.is_file()
-                ]
+                name_pattern = args.get("name_pattern", "*")
+                exclude_dirs = {
+                    ".git", "node_modules", "__pycache__", ".venv", "venv",
+                    ".uag", ".pytest_cache", ".mypy_cache", ".idea", ".vscode"
+                }
+                targets = []
+                for p in globber(name_pattern):
+                    if p.is_file():
+                        try:
+                            rel_parts = p.relative_to(root).parts
+                        except ValueError:
+                            rel_parts = p.parts
+                        if any(part in exclude_dirs for part in rel_parts[:-1]):
+                            continue
+                        targets.append(p)
             results = []
             for fp in targets:
                 try:
