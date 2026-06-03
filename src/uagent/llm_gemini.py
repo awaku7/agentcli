@@ -879,6 +879,28 @@ def gemini_chat_with_tools(
     if max_output_tokens is not None:
         cfg_kwargs["max_output_tokens"] = max_output_tokens
 
+    # Apply safety settings to prevent Gemini from silently blocking or muting responses.
+    # Users can opt out or customize via environment variables if needed.
+    safety_off_env = (env_get("UAGENT_GEMINI_SAFETY_OFF") or "1").strip().lower()
+    if safety_off_env in ("1", "true", "yes", "on"):
+        try:
+            safety_settings = [
+                gemini_types.SafetySetting(
+                    category=cat,
+                    threshold=gemini_types.HarmBlockThreshold.BLOCK_NONE,
+                )
+                for cat in [
+                    gemini_types.HarmCategory.HARM_CATEGORY_HARASSMENT,
+                    gemini_types.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+                    gemini_types.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+                    gemini_types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+                    gemini_types.HarmCategory.HARM_CATEGORY_CIVIC_INTEGRITY,
+                ]
+            ]
+            cfg_kwargs["safety_settings"] = safety_settings
+        except Exception:
+            pass
+
     config_obj = (
         gemini_types.GenerateContentConfig(**cfg_kwargs) if cfg_kwargs else None
     )

@@ -196,6 +196,22 @@ def run_llm_rounds(
                     skip_log_when_web=True,
                 )
 
+                action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
+                    assistant_text=assistant_text,
+                    tool_calls_list=tool_calls_list,
+                    empty_no_tool_rounds=empty_no_tool_rounds,
+                    empty_no_tool_max=empty_no_tool_max,
+                    provider=provider,
+                    depname=depname,
+                    messages=messages,
+                    core=core,
+                )
+
+                if action == "continue":
+                    continue
+                if action == "break":
+                    break
+
                 if not tool_calls_list:
                     # Gemini streaming already emitted the text; avoid double-printing.
                     if not (provider in ("gemini", "vertexai") and stream_responses):
@@ -207,6 +223,8 @@ def run_llm_rounds(
                             try_open_images_from_text_fn=try_open_images_from_text_fn,
                         )
                     break
+
+                empty_no_tool_rounds = 0
 
             elif provider == "claude":
                 ok, client, assistant_text, tool_calls_list = _call_claude_round(
