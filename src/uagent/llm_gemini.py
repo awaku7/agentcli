@@ -550,44 +550,61 @@ def gemini_chat_with_tools(
             )
         )
 
-    tool_specs = tools.get_tool_specs() or []
-    if not isinstance(tool_specs, list):
-        tool_specs = []
+    # OpenAIの環境変数命名規則（UAGENT_OPENAI_WEB_SEARCH）に合わせ、
+    # Gemini用の組み込みWeb検索有効化環境変数を UAGENT_GEMINI_WEB_SEARCH とします。
+    use_google_search_env = (env_get("UAGENT_GEMINI_WEB_SEARCH") or "").strip().lower()
+    if use_google_search_env == "":
+        use_google_search = True
+    else:
+        use_google_search = use_google_search_env in ("1", "true", "yes", "on")
 
-    func_decls: list[gemini_types.FunctionDeclaration] = []
+    tools_list: list[Any] = []
 
-    for spec in tool_specs:
-        if not isinstance(spec, dict):
-            continue
-        fn = spec.get("function", {})
-        if not isinstance(fn, dict):
-            continue
-
-        name = fn.get("name")
-        if not isinstance(name, str) or not name:
-            continue
-
-        desc = fn.get("description", "")
-        if not isinstance(desc, str):
-            desc = str(desc)
-
-        raw_params = fn.get("parameters", {})
-        if not isinstance(raw_params, dict):
-            raw_params = {"type": "object", "properties": {}}
-
-        params = _sanitize_gemini_parameters(raw_params)
-
-        func_decls.append(
-            gemini_types.FunctionDeclaration(
-                name=name,
-                description=desc,
-                parameters=params,
+    if use_google_search:
+        try:
+            tools_list.append(
+                gemini_types.Tool(google_search=gemini_types.GoogleSearch())
             )
-        )
+        except Exception:
+            tools_list.append({"google_search": {}})
+    else:
+        tool_specs = tools.get_tool_specs() or []
+        if not isinstance(tool_specs, list):
+            tool_specs = []
 
-    tools_list: list[gemini_types.Tool] = []
-    if func_decls:
-        tools_list.append(gemini_types.Tool(function_declarations=func_decls))
+        func_decls: list[gemini_types.FunctionDeclaration] = []
+
+        for spec in tool_specs:
+            if not isinstance(spec, dict):
+                continue
+            fn = spec.get("function", {})
+            if not isinstance(fn, dict):
+                continue
+
+            name = fn.get("name")
+            if not isinstance(name, str) or not name:
+                continue
+
+            desc = fn.get("description", "")
+            if not isinstance(desc, str):
+                desc = str(desc)
+
+            raw_params = fn.get("parameters", {})
+            if not isinstance(raw_params, dict):
+                raw_params = {"type": "object", "properties": {}}
+
+            params = _sanitize_gemini_parameters(raw_params)
+
+            func_decls.append(
+                gemini_types.FunctionDeclaration(
+                    name=name,
+                    description=desc,
+                    parameters=params,
+                )
+            )
+
+        if func_decls:
+            tools_list.append(gemini_types.Tool(function_declarations=func_decls))
 
     system_instruction_parts: list[str] = []
     contents: list[gemini_types.Content] = []
