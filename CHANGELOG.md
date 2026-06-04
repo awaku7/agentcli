@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **Gemini Built-in Google Search Support**:
+  - Added support for Gemini's built-in Google Search (Google Search Grounding) in Gemini API and Vertex AI.
+  - Controlled via the `UAGENT_GEMINI_WEB_SEARCH` environment variable, enabled (ON) by default. When active, local web search tools are automatically disabled.
+- **Dynamic Skill Help Enhancements**:
+  - Added dynamic skill command help functionality.
+  - Localized the skill installation tool (`skills_install_tool`).
+  - Added `.uag` skill root to the skill discovery path.
+
+### Changed & Optimized
+- **`replace_in_file` Tool Optimization**:
+  - Enhanced diagnostics for match limit (`match_hits`) and added directory exclusion in recursive scans, significantly improving performance.
+- **Claude Integration Enhancements**:
+  - Enhanced dynamic `max_tokens` configuration, thinking block parsing, and multimodal image support.
+  - Avoid setting a default temperature for Claude unless explicitly configured via `UAGENT_CLAUDE_TEMPERATURE`.
+  - Omitted `temperature` when `output_config` is used and added fallback handling for deprecated parameters in the Claude API.
+- **Gemini Stability Improvements**:
+  - Applied empty response nudge handling and optimized safety settings to prevent silent blocking.
+  - Formatted `test_list_dir_tool`, removed `test_libcst_transform_smoke`, and fixed translation issues in `sub_agent_tool`.
+
 ## [0.4.39] - 2026-05-22
 
 ### Added
