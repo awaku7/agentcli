@@ -95,9 +95,11 @@ def get_default_skill_roots(cwd: Optional[str] = None) -> list[str]:
 
     # Always search:
     # - UAGENT_SKILLS_DIRS (if set)
+    # - ~/.uag/skills (centralized user skills)
     # - ~/skills
     # - ./skills (relative to cwd)
     roots = parts + [
+        os.path.join(os.path.expanduser("~"), ".uag", "skills"),
         os.path.join(os.path.expanduser("~"), "skills"),
         os.path.join(base, "skills"),
     ]

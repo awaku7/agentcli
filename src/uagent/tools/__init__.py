@@ -51,6 +51,10 @@ _RUNNERS: dict[str, Callable[[dict[str, Any]], str]] = {}
 # key: tool_name, value: status_label (e.g. "tool:cmd_exec")
 _BUSY_LABEL_TOOLS: dict[str, str] = {}
 
+# Dynamic commands registered by tool modules
+# Structure: { "command_name": { "subcommand_name": { "handler": handler_func, "help_text": help_text_str } } }
+_DYNAMIC_COMMANDS: dict[str, dict[str, dict[str, Any]]] = {}
+
 # ------------------------------
 # Tool trace (stdout only)
 # ------------------------------
@@ -247,6 +251,22 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     if busy_flag:
         status_label = getattr(mod, "STATUS_LABEL", f"tool:{tool_name}")
         _BUSY_LABEL_TOOLS[tool_name] = status_label
+
+    # Dynamic command registration
+    cmd_spec = getattr(mod, "CMD_SPEC", None)
+    if isinstance(cmd_spec, dict):
+        cmd_name = cmd_spec.get("command")
+        subcmd_name = cmd_spec.get("subcommand", "")
+        handler = cmd_spec.get("handler")
+        help_text = cmd_spec.get("help_text", "")
+        if cmd_name and callable(handler):
+            if cmd_name not in _DYNAMIC_COMMANDS:
+                _DYNAMIC_COMMANDS[cmd_name] = {}
+            _DYNAMIC_COMMANDS[cmd_name][subcmd_name] = {
+                "handler": handler,
+                "help_text": help_text
+            }
+
     return True
 
 
@@ -344,6 +364,43 @@ def _load_plugins() -> None:
             ),
             file=sys.stderr,
         )
+
+
+def handle_dynamic_command(cmd: str, arg: str, **kwargs: Any) -> Any:
+    """Execute a dynamic command registered by a tool module.
+
+    Returns:
+        The result of the handler (CommandResult or bool), or None if no matching handler is found.
+    """
+    if cmd not in _DYNAMIC_COMMANDS:
+        return None
+
+    parts = arg.strip().split(maxsplit=1)
+    subcmd = parts[0].lower() if parts else ""
+    subarg = parts[1].strip() if len(parts) > 1 else ""
+
+    # 1. Try to match subcommand
+    if subcmd in _DYNAMIC_COMMANDS[cmd]:
+        handler_info = _DYNAMIC_COMMANDS[cmd][subcmd]
+        return handler_info["handler"](subarg, **kwargs)
+
+    # 2. Try to match default handler (empty subcommand)
+    if "" in _DYNAMIC_COMMANDS[cmd]:
+        handler_info = _DYNAMIC_COMMANDS[cmd][""]
+        return handler_info["handler"](arg, **kwargs)
+
+    return None
+
+
+def get_dynamic_commands_help() -> list[str]:
+    """Return help lines for all registered dynamic commands."""
+    help_lines: list[str] = []
+    for cmd in sorted(_DYNAMIC_COMMANDS.keys()):
+        for subcmd in sorted(_DYNAMIC_COMMANDS[cmd].keys()):
+            help_text = _DYNAMIC_COMMANDS[cmd][subcmd].get("help_text")
+            if help_text:
+                help_lines.append(help_text)
+    return help_lines
 
 
 def get_tool_specs() -> list[dict[str, Any]]:

@@ -1,0 +1,231 @@
+{
+  "en": {
+    "param.name.description": "The folder name of the skill to uninstall.",
+    "tool.description": "Uninstall an Agent Skill from ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "uninstall skill",
+      "remove skill",
+      "delete skill"
+    ],
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
+  "ja": {
+    "param.name.description": "アンインストールするスキルのフォルダ名。",
+    "tool.description": "Agent Skillを ~/.uag/skills からアンインストール（削除）します。",
+    "x_search_terms": [
+      "skills_uninstall",
+      "スキル削除",
+      "スキルアンインストール",
+      "アンインストール"
+    ],
+    "tool.system_prompt": "このツールは次の目的で使用します（ツールの説明を参照）。"
+  },
+  "es": {
+    "param.name.description": "El nombre de la carpeta de la habilidad que se va a desinstalar.",
+    "tool.description": "Desinstale una habilidad de agente de ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "desinstalar skill",
+      "eliminar skill",
+      "borrar skill"
+    ],
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito (ver la descripción de la herramienta)."
+  },
+  "fr": {
+    "param.name.description": "Le nom du dossier de la compétence à désinstaller.",
+    "tool.description": "Désinstallez une compétence d'agent de ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "désinstaller compétence",
+      "supprimer compétence",
+      "effacer compétence"
+    ],
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l’outil)."
+  },
+  "ko": {
+    "param.name.description": "제거할 스킬의 폴더 이름입니다.",
+    "tool.description": "~/.uag/skills에서 에이전트 스킬을 제거합니다.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "스킬 제거",
+      "스킬 삭제",
+      "언인스톨"
+    ],
+    "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조)."
+  },
+  "de": {
+    "param.name.description": "Der Ordnername des zu deinstallierenden Skills.",
+    "tool.description": "Deinstallieren Sie einen Agent-Skill aus ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "skill deinstallieren",
+      "skill entfernen",
+      "skill löschen"
+    ],
+    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+  },
+  "it": {
+    "param.name.description": "Il nome della cartella dello skill da disinstallare.",
+    "tool.description": "Disinstalla uno skill dell'agente da ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "disinstalla skill",
+      "rimuovi skill",
+      "elimina skill"
+    ],
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+  },
+  "ru": {
+    "param.name.description": "Имя папки навыка, который необходимо удалить.",
+    "tool.description": "Удалите навык агента из ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "удалить навык",
+      "стереть навык"
+    ],
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+  },
+  "pt_BR": {
+    "param.name.description": "O nome da pasta da skill a ser desinstalada.",
+    "tool.description": "Desinstale uma skill do agente de ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "desinstalar skill",
+      "remover skill",
+      "excluir skill"
+    ],
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+  },
+  "pt": {
+    "param.name.description": "O nome da pasta da skill a ser desinstalada.",
+    "tool.description": "Desinstale uma skill do agente de ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "desinstalar skill",
+      "remover skill",
+      "excluir skill"
+    ],
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+  },
+  "id": {
+    "param.name.description": "Nama folder skill yang akan diuninstal.",
+    "tool.description": "Uninstal Agent Skill dari ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "uninstal skill",
+      "hapus skill"
+    ],
+    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+  },
+  "vi": {
+    "param.name.description": "Tên thư mục của kỹ năng cần gỡ cài đặt.",
+    "tool.description": "Gỡ cài đặt Kỹ năng đặc vụ khỏi ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "gỡ cài đặt kỹ năng",
+      "xóa kỹ năng"
+    ],
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+  },
+  "pl": {
+    "param.name.description": "Nazwa folderu umiejętności do odinstalowania.",
+    "tool.description": "Odinstaluj umiejętność agenta z ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "odinstaluj umiejętność",
+      "usuń umiejętność"
+    ],
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+  },
+  "hi": {
+    "param.name.description": "अनइंस्टॉल किए जाने वाले कौशल का फ़ोल्डर नाम।",
+    "tool.description": "~/.uag/skills से एजेंट कौशल अनइंस्टॉल करें।",
+    "x_search_terms": [
+      "skills_uninstall",
+      "कौशल अनइंस्टॉल करें",
+      "कौशल हटाएं"
+    ],
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता: (उपकरण विवरण देखें)।"
+  },
+  "ar": {
+    "param.name.description": "اسم مجلد المهارة المراد إلغاء تثبيتها.",
+    "tool.description": "إلغاء تثبيت مهارة الوكيل من ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "إلغاء تثبيت مهارة",
+      "إزالة مهارة"
+    ],
+    "tool.system_prompt": "تُستخدم هذه الأداة للغرض التالي: (راجع وصف الأداة)."
+  },
+  "sv": {
+    "param.name.description": "Mappnamnet för den skill som ska avinstalleras.",
+    "tool.description": "Avinstallera en Agent Skill från ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "avinstallera skill",
+      "ta bort skill"
+    ],
+    "tool.system_prompt": "Det här verktyget används för följande syfte (se verktygsbeskrivningen)."
+  },
+  "sw": {
+    "param.name.description": "Jina la folda ya skill ya kuondoa.",
+    "tool.description": "Ondoa Skill ya Wakala kutoka ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "ondoa skill",
+      "futa skill"
+    ],
+    "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
+  },
+  "nb": {
+    "param.name.description": "Mappenavnet for den skillen som skal avinstalleres.",
+    "tool.description": "Avinstaller en Agent Skill fra ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "avinstaller skill",
+      "fjern skill"
+    ],
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål (se verktøybeskrivelsen)."
+  },
+  "nl": {
+    "param.name.description": "De mapnaam van de te deïnstalleren skill.",
+    "tool.description": "Deïnstalleer een Agent Skill uit ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "skill deïnstalleren",
+      "skill verwijderen"
+    ],
+    "tool.system_prompt": "Dit hulpprogramma wordt gebruikt voor het volgende doel: (zie de toolbeschrijving)."
+  },
+  "fi": {
+    "param.name.description": "Poistettavan skillin kansion nimi.",
+    "tool.description": "Poista Agent Skill hakemistosta ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "poista skilli",
+      "poista taito"
+    ],
+    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
+  },
+  "cs": {
+    "param.name.description": "Název složky skillu, který se má odinstalovat.",
+    "tool.description": "Odinstalujte Agent Skill z ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "odinstalovat skill",
+      "odebrat skill"
+    ],
+    "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
+  },
+  "uk": {
+    "param.name.description": "Ім'я папки навички, яку необхідно видалити.",
+    "tool.description": "Видаліть навичку агента з ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "видалити навичку",
+      "стерти навичку"
+    ],
+    "tool.system_prompt": "Цей інструмент використовується для наступної мети: (див. опис інструменту)."
+  }
+}

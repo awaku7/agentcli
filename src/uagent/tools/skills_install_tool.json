@@ -1,0 +1,290 @@
+{
+  "en": {
+    "param.source.description": "The source URL or path (Git URL, HTTP ZIP URL, local directory, or local ZIP).",
+    "param.name.description": "Optional destination folder name. If not specified, it will be inferred from the source.",
+    "param.overwrite.description": "Whether to overwrite or update the destination if it already exists. Defaults to true.",
+    "tool.description": "Install or update an Agent Skill from a Git repository, remote ZIP, local directory, or local ZIP file into ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "install skill",
+      "add skill",
+      "download skill",
+      "git clone skill"
+    ],
+    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+  },
+  "ja": {
+    "param.source.description": "インストール元のURLまたはパス（Git URL、HTTP ZIP URL、ローカルディレクトリ、またはローカルZIP）。",
+    "param.name.description": "オプションの保存先フォルダ名。指定しない場合は、インストール元から自動的に推測されます。",
+    "param.overwrite.description": "保存先が既に存在する場合に上書きまたは更新するかどうか。デフォルトはtrue。",
+    "tool.description": "Gitリポジトリ、リモートZIP、ローカルディレクトリ、またはローカルZIPファイルから、Agent Skillを ~/.uag/skills にインストールまたはアップデートします。",
+    "x_search_terms": [
+      "skills_install",
+      "スキルインストール",
+      "スキル追加",
+      "スキルダウンロード",
+      "git clone"
+    ],
+    "tool.system_prompt": "このツールは次の目的で使用します（ツールの説明を参照）。"
+  },
+  "es": {
+    "param.source.description": "La URL o ruta de origen (URL de Git, URL de ZIP HTTP, directorio local o ZIP local).",
+    "param.name.description": "Nombre opcional de la carpeta de destino. Si no se especifica, se inferirá del origen.",
+    "param.overwrite.description": "Si se debe sobrescribir o actualizar el destino si ya existe. Por defecto es verdadero.",
+    "tool.description": "Instale o actualice una habilidad de agente desde un repositorio de Git, un ZIP remoto, un directorio local o un archivo ZIP local en ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "instalar skill",
+      "añadir skill",
+      "descargar skill"
+    ],
+    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito (ver la descripción de la herramienta)."
+  },
+  "fr": {
+    "param.source.description": "L'URL ou le chemin source (URL Git, URL ZIP HTTP, répertoire local ou ZIP local).",
+    "param.name.description": "Nom facultatif du dossier de destination. S'il n'est pas spécifié, il sera déduit de la source.",
+    "param.overwrite.description": "S'il faut écraser ou mettre à jour la destination si elle existe déjà. Par défaut, vrai.",
+    "tool.description": "Installez ou mettez à jour une compétence d'agent à partir d'un référentiel Git, d'un ZIP distant, d'un répertoire local ou d'un fichier ZIP local dans ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "installer compétence",
+      "ajouter compétence",
+      "télécharger compétence"
+    ],
+    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l’outil)."
+  },
+  "ko": {
+    "param.source.description": "소스 URL 또는 경로(Git URL, HTTP ZIP URL, 로컬 디렉터리 또는 로컬 ZIP).",
+    "param.name.description": "선택적 대상 폴더 이름입니다. 지정하지 않으면 소스에서 유추됩니다.",
+    "param.overwrite.description": "대상이 이미 존재하는 경우 덮어쓰거나 업데이트할지 여부입니다. 기본값은 true입니다.",
+    "tool.description": "Git 리포지토리, 원격 ZIP, 로컬 디렉터리 또는 로컬 ZIP 파일에서 ~/.uag/skills로 에이전트 스킬을 설치하거나 업데이트합니다.",
+    "x_search_terms": [
+      "skills_install",
+      "스킬 설치",
+      "스킬 추가",
+      "스킬 다운로드"
+    ],
+    "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조)."
+  },
+  "de": {
+    "param.source.description": "Die Quell-URL oder der Quellpfad (Git-URL, HTTP-ZIP-URL, lokales Verzeichnis oder lokales ZIP).",
+    "param.name.description": "Optionaler Name des Zielordners. Wenn nicht angegeben, wird er aus der Quelle abgeleitet.",
+    "param.overwrite.description": "Ob das Ziel überschrieben oder aktualisiert werden soll, wenn es bereits existiert. Standardmäßig true.",
+    "tool.description": "Installieren oder aktualisieren Sie einen Agent-Skill aus einem Git-Repository, einer Remote-ZIP-Datei, einem lokalen Verzeichnis oder einer lokalen ZIP-Datei in ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "skill installieren",
+      "skill hinzufügen",
+      "skill herunterladen"
+    ],
+    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+  },
+  "it": {
+    "param.source.description": "L'URL o il percorso di origine (URL Git, URL ZIP HTTP, directory locale o ZIP locale).",
+    "param.name.description": "Nome opzionale della cartella di destinazione. Se non specificato, verrà dedotto dall'origine.",
+    "param.overwrite.description": "Se sovrascrivere o aggiornare la destinazione se esiste già. Impostazione predefinita: true.",
+    "tool.description": "Installa o aggiorna uno skill dell'agente da un repository Git, ZIP remoto, directory locale o file ZIP locale in ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "installa skill",
+      "aggiungi skill",
+      "scarica skill"
+    ],
+    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+  },
+  "ru": {
+    "param.source.description": "Исходный URL-адрес или путь (Git URL, HTTP ZIP URL, локальный каталог или локальный ZIP).",
+    "param.name.description": "Необязательное имя целевой папки. Если не указано, оно будет определено на основе источника.",
+    "param.overwrite.description": "Следует ли перезаписывать или обновлять целевую папку, если она уже существует. По умолчанию: true.",
+    "tool.description": "Установите или обновите навык агента из репозитория Git, удаленного ZIP-архива, локального каталога или локального ZIP-файла в ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "установить навык",
+      "добавить навык",
+      "скачать навык"
+    ],
+    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+  },
+  "pt_BR": {
+    "param.source.description": "A URL ou caminho de origem (URL Git, URL ZIP HTTP, diretório local ou ZIP local).",
+    "param.name.description": "Nome opcional da pasta de destino. Se não for especificado, será inferido a partir da origem.",
+    "param.overwrite.description": "Se deve sobrescrever ou atualizar o destino se ele já existir. O padrão é true.",
+    "tool.description": "Instale ou atualize uma skill do agente a partir de um repositório Git, ZIP remoto, diretório local ou arquivo ZIP local em ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "instalar skill",
+      "adicionar skill",
+      "baixar skill"
+    ],
+    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+  },
+  "pt": {
+    "param.source.description": "A URL ou caminho de origem (URL Git, URL ZIP HTTP, diretório local ou ZIP local).",
+    "param.name.description": "Nome opcional da pasta de destino. Se não for especificado, será inferido a partir da origem.",
+    "param.overwrite.description": "Se deve sobrescrever ou atualizar o destino se ele já existir. O padrão é true.",
+    "tool.description": "Instale ou atualize uma skill do agente a partir de um repositório Git, ZIP remoto, diretório local ou arquivo ZIP local em ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "instalar skill",
+      "adicionar skill",
+      "baixar skill"
+    ],
+    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+  },
+  "id": {
+    "param.source.description": "URL atau jalur sumber (Git URL, HTTP ZIP URL, direktori lokal, atau ZIP lokal).",
+    "param.name.description": "Nama folder tujuan opsional. Jika tidak ditentukan, akan disimpulkan dari sumber.",
+    "param.overwrite.description": "Apakah akan menimpa atau memperbarui tujuan jika sudah ada. Default: true.",
+    "tool.description": "Instal atau perbarui Agent Skill dari repositoy Git, ZIP jarak jauh, direktori lokal, atau file ZIP lokal ke ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "instal skill",
+      "tambah skill",
+      "unduh skill"
+    ],
+    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+  },
+  "vi": {
+    "param.source.description": "URL hoặc đường dẫn nguồn (URL Git, URL ZIP HTTP, thư mục cục bộ hoặc ZIP cục bộ).",
+    "param.name.description": "Tên thư mục đích tùy chọn. Nếu không được chỉ định, nó sẽ được suy ra từ nguồn.",
+    "param.overwrite.description": "Có ghi đè hoặc cập nhật đích nếu nó đã tồn tại hay không. Mặc định là true.",
+    "tool.description": "Cài đặt hoặc cập nhật Kỹ năng đặc vụ từ kho lưu trữ Git, ZIP từ xa, thư mục cục bộ hoặc tệp ZIP cục bộ vào ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "cài đặt kỹ năng",
+      "thêm kỹ năng",
+      "tải kỹ năng"
+    ],
+    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+  },
+  "pl": {
+    "param.source.description": "Adres URL lub ścieżka źródłowa (adres URL Git, adres URL ZIP HTTP, katalog lokalny lub lokalny plik ZIP).",
+    "param.name.description": "Opcjonalna nazwa folderu docelowego. Jeśli nie zostanie określona, zostanie wywnioskowana ze źródła.",
+    "param.overwrite.description": "Czy nadpisać lub zaktualizować miejsce docelowe, jeśli już istnieje. Domyślnie true.",
+    "tool.description": "Zainstaluj lub zaktualizuj umiejętność agenta z repozytorium Git, zdalnego pliku ZIP, katalogu lokalnego lub lokalnego pliku ZIP w ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "zainstaluj umiejętność",
+      "dodaj umiejętność",
+      "pobierz umiejętność"
+    ],
+    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+  },
+  "hi": {
+    "param.source.description": "स्रोत URL या पथ (Git URL, HTTP ZIP URL, स्थानीय निर्देशिका, या स्थानीय ZIP)।",
+    "param.name.description": "वैकल्पिक गंतव्य फ़ोल्डर नाम। यदि निर्दिष्ट नहीं है, तो यह स्रोत से अनुमानित किया जाएगा।",
+    "param.overwrite.description": "यदि गंतव्य पहले से मौजूद है तो क्या उसे अधिलेखित या अद्यतन किया जाए। डिफ़ॉल्ट सत्य है।",
+    "tool.description": "Git रिपॉजिटरी, रिमोट ZIP, स्थानीय निर्देशिका, या स्थानीय ZIP फ़ाइल से ~/.uag/skills में एजेंट कौशल स्थापित या अद्यतन करें।",
+    "x_search_terms": [
+      "skills_install",
+      "कौशल स्थापित करें",
+      "कौशल जोड़ें",
+      "कौशल डाउनलोड करें"
+    ],
+    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता: (उपकरण विवरण देखें)।"
+  },
+  "ar": {
+    "param.source.description": "عنوان URL أو مسار المصدر (عنوان URL لـ Git، أو عنوان URL لـ ZIP عبر HTTP، أو دليل محلي، أو ملف ZIP محلي).",
+    "param.name.description": "اسم مجلد الوجهة الاختياري. إذا لم يتم تحديده، فسيتم استنتاجه من المصدر.",
+    "param.overwrite.description": "ما إذا كان سيتم الكتابة فوق الوجهة أو تحديثها إذا كانت موجودة بالفعل. الافتراضي هو صحيح.",
+    "tool.description": "تثبيت أو تحديث مهارة الوكيل من مستودع Git، أو ملف ZIP عن بعد، أو دليل محلي، أو ملف ZIP محلي في ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "تثبيت مهارة",
+      "إضافة مهارة",
+      "تنزيل مهارة"
+    ],
+    "tool.system_prompt": "تُستخدم هذه الأداة للغرض التالي: (راجع وصف الأداة)."
+  },
+  "sv": {
+    "param.source.description": "Käll-URL eller sökväg (Git-URL, HTTP-ZIP-URL, lokal katalog eller lokal ZIP).",
+    "param.name.description": "Valfritt namn på målmappen. Om det inte anges kommer det att härledas från källan.",
+    "param.overwrite.description": "Om målet ska skrivas över eller uppdateras om det redan finns. Standard är true.",
+    "tool.description": "Installera eller uppdatera en Agent Skill från ett Git-arkiv, fjärr-ZIP, lokal katalog eller lokal ZIP-fil till ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "installera skill",
+      "lägg till skill",
+      "ladda ner skill"
+    ],
+    "tool.system_prompt": "Det här verktyget används för följande syfte (se verktygsbeskrivningen)."
+  },
+  "sw": {
+    "param.source.description": "URL ya chanzo au njia (Git URL, HTTP ZIP URL, saraka ya ndani, au ZIP ya ndani).",
+    "param.name.description": "Jina la hiari la folda ya marudio. Isipobainishwa, itachukuliwa kutoka kwa chanzo.",
+    "param.overwrite.description": "Je, uandike upya au usasishe marudio ikiwa tayari yapo. Chaguomsingi ni true.",
+    "tool.description": "Sakinisha au usasishe Skill ya Wakala kutoka kwa hazina ya Git, ZIP ya mbali, saraka ya ndani, au faili ya ZIP ya ndani hadi ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "sakinisha skill",
+      "ongeza skill",
+      "pakua skill"
+    ],
+    "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
+  },
+  "nb": {
+    "param.source.description": "Kilde-URL eller søkebane (Git-URL, HTTP-ZIP-URL, lokal katalog eller lokal ZIP).",
+    "param.name.description": "Valgfritt navn på målmappen. Hvis det ikke angis, vil det utledes fra kilden.",
+    "param.overwrite.description": "Om målet skal overskrives eller oppdateres hvis det allerede eksisterer. Standard er true.",
+    "tool.description": "Installer eller oppdater en Agent Skill fra et Git-arkiv, fjern-ZIP, lokal katalog eller lokal ZIP-fil til ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "installer skill",
+      "legg til skill",
+      "last ned skill"
+    ],
+    "tool.system_prompt": "Dette verktøyet brukes til følgende formål (se verktøybeskrivelsen)."
+  },
+  "nl": {
+    "param.source.description": "De bron-URL of het pad (Git-URL, HTTP-ZIP-URL, lokale map of lokale ZIP).",
+    "param.name.description": "Optionele naam voor de bestemmingsmap. Indien niet opgegeven, wordt deze afgeleid van de bron.",
+    "param.overwrite.description": "Of de bestemming moet worden overschreven of bijgewerkt als deze al bestaat. Standaard true.",
+    "tool.description": "Installeer of update een Agent Skill vanuit een Git-repository, externe ZIP, lokale map of lokaal ZIP-bestand in ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "skill installeren",
+      "skill toevoegen",
+      "skill downloaden"
+    ],
+    "tool.system_prompt": "Dit hulpprogramma wordt gebruikt voor het volgende doel: (zie de toolbeschrijving)."
+  },
+  "fi": {
+    "param.source.description": "Lähde-URL tai -polku (Git-URL, HTTP-ZIP-URL, paikallinen hakemisto tai paikallinen ZIP).",
+    "param.name.description": "Valinnainen kohdekansion nimi. Jos sitä ei määritetä, se päätellään lähteestä.",
+    "param.overwrite.description": "Korvataanko vai päivitetäänkö kohde, jos se on jo olemassa. Oletus on true.",
+    "tool.description": "Asenna tai päivitä Agent Skill Git-arkistosta, etä-ZIP-tiedostosta, paikallisesta hakemistosta tai paikallisesta ZIP-tiedostosta hakemistoon ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "asenna skilli",
+      "lisää skilli",
+      "lataa skilli"
+    ],
+    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
+  },
+  "cs": {
+    "param.source.description": "Zdrojová URL nebo cesta (Git URL, HTTP ZIP URL, lokální adresář nebo lokální ZIP).",
+    "param.name.description": "Volitelný název cílové složky. Pokud není zadán, bude odvozen ze zdroje.",
+    "param.overwrite.description": "Zda přepsat nebo aktualizovat cíl, pokud již existuje. Výchozí: true.",
+    "tool.description": "Nainstalujte nebo aktualizujte Agent Skill z Git repozitáře, vzdáleného ZIPu, lokálního adresáře nebo lokálního ZIP souboru do ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "nainstalovat skill",
+      "přidat skill",
+      "stáhnout skill"
+    ],
+    "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
+  },
+  "uk": {
+    "param.source.description": "Джерело URL або шлях (Git URL, HTTP ZIP URL, локальний каталог або локальний ZIP).",
+    "param.name.description": "Необов'язкове ім'я цільової папки. Якщо не вказано, воно буде визначено на основі джерела.",
+    "param.overwrite.description": "Чи перезаписувати або оновлювати цільову папку, якщо вона вже існує. Типово: true.",
+    "tool.description": "Встановіть або оновіть навичку агента з репозиторію Git, віддаленого ZIP-архіву, локального каталогу або локального ZIP-файлу в ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_install",
+      "встановити навичку",
+      "додати навичку",
+      "завантажити навичку"
+    ],
+    "tool.system_prompt": "Цей інструмент використовується для наступної мети: (див. опис інструменту)."
+  }
+}

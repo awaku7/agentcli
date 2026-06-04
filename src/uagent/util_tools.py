@@ -1024,6 +1024,19 @@ def _handle_cmd_skills(
     core: Any,
     tr: Any,
 ) -> CommandResult:
+    # Try dynamic subcommands (e.g., install, uninstall)
+    res = tools.handle_dynamic_command(
+        "skills",
+        arg,
+        messages_ref=messages_ref,
+        client=client,
+        depname=depname,
+        core=core,
+        tr=tr,
+    )
+    if res is not None:
+        return res
+
     a = (arg or "").strip()
     if a.lower() in ("clear", "off", "unset", "reset"):
         removed = _clear_skill_messages(messages_ref)
@@ -1886,6 +1899,9 @@ def format_help(*, core: Any) -> str:
         "  :env set/unset/save   " + tr("Manage UAGENT_* env vars and save .env.sec"),
         "  :skills [cmd]         "
         + tr("Manage/apply skills (e.g. :skills / :skills active / :skills clear)"),
+        *([
+            f"  {line}" for line in tools.get_dynamic_commands_help()
+        ] if getattr(tools, 'get_dynamic_commands_help', None) else []),
         "  :load <idx|path>      "
         + tr("Load a past log (overwrites current conversation history)"),
         tr(
@@ -2131,6 +2147,19 @@ def handle_command(
 
     if cmd == "rm":
         return _handle_cmd_rm(arg, tr=tr)
+
+    # Try dynamic commands registered by tool modules
+    res = tools.handle_dynamic_command(
+        cmd,
+        arg,
+        messages_ref=messages_ref,
+        client=client,
+        depname=depname,
+        core=core,
+        tr=tr,
+    )
+    if res is not None:
+        return res
 
     if cmd in ("exit", "quit"):
         print(tr("Exiting."))
