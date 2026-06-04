@@ -98,10 +98,12 @@ def get_default_skill_roots(cwd: Optional[str] = None) -> list[str]:
     # - ~/.uag/skills (centralized user skills)
     # - ~/skills
     # - ./skills (relative to cwd)
+    # - ./.uag/skills (relative to cwd; repo-local override)
     roots = parts + [
         os.path.join(os.path.expanduser("~"), ".uag", "skills"),
         os.path.join(os.path.expanduser("~"), "skills"),
         os.path.join(base, "skills"),
+        os.path.join(base, ".uag", "skills"),
     ]
 
     # De-duplicate while preserving order.
