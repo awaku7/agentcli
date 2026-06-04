@@ -1,4 +1,3 @@
-# tools/skills_install_tool.py
 """skills_install_tool implementation for installing Agent Skills."""
 
 from __future__ import annotations
@@ -14,6 +13,7 @@ import zipfile
 from typing import Any
 
 from .i18n_helper import make_tool_translator
+from .agent_skills_shared import load_skill_frontmatter_only
 
 _ = make_tool_translator(__file__)
 
@@ -25,7 +25,11 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "skills_install",
         "description": _(
             "tool.description",
-            default="Install or update an Agent Skill from a Git repository, remote ZIP, local directory, or local ZIP file into ~/.uag/skills.",
+            default=(
+                "Install or update an Agent Skill from a Git repository, remote ZIP, local directory, "
+                "or local ZIP file into ~/.uag/skills. Supports marketplace-style repositories; use "
+                "skill@source to install one skill, or all@source to install the whole package."
+            ),
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -35,6 +39,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "add skill",
                 "download skill",
                 "git clone skill",
+                "marketplace skill",
+                "all@source",
             ],
         ),
         "x_search_terms_en": [
@@ -43,6 +49,8 @@ TOOL_SPEC: dict[str, Any] = {
             "add skill",
             "download skill",
             "git clone skill",
+            "marketplace skill",
+            "all@source",
         ],
         "parameters": {
             "type": "object",
@@ -51,14 +59,21 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.source.description",
-                        default="The source URL or path (Git URL, HTTP ZIP URL, local directory, or local ZIP).",
+                        default=(
+                            "The source URL or path (Git URL, HTTP ZIP URL, local directory, or local ZIP). "
+                            "You can also prefix a selector as skill@source to install one skill, or "
+                            "all@source to install the whole package."
+                        ),
                     ),
                 },
                 "name": {
                     "type": "string",
                     "description": _(
                         "param.name.description",
-                        default="Optional destination folder name. If not specified, it will be inferred from the source.",
+                        default=(
+                            "Optional destination folder name. If not specified, it will be inferred from the source. "
+                            "When selecting a specific skill, it defaults to the selected skill name."
+                        ),
                     ),
                 },
                 "overwrite": {
@@ -78,24 +93,64 @@ TOOL_SPEC: dict[str, Any] = {
 
 def _infer_name_from_source(source: str) -> str:
     """Infer a safe folder name from the source string."""
-    # Remove trailing slashes
     s = source.rstrip("/\\")
-    # Get the last component
     base = os.path.basename(s)
     if not base:
-        # Fallback if empty
         return "downloaded-skill"
 
-    # Remove .git or .zip suffix
     if base.lower().endswith(".git"):
         base = base[:-4]
     elif base.lower().endswith(".zip"):
         base = base[:-4]
 
-    # Sanitize name: allow only a-z, 0-9, hyphen, underscore
     sanitized = re.sub(r"[^a-zA-Z0-9-_]", "-", base)
     sanitized = sanitized.strip("-").lower()
     return sanitized or "downloaded-skill"
+
+
+def _normalize_source(source: str) -> str:
+    """Normalize shorthand sources such as owner/repo to a GitHub URL."""
+    s = source.strip()
+    if not s:
+        return s
+
+    if _is_git_url(s) or _is_remote_zip(s) or os.path.exists(s):
+        return s
+
+    if re.fullmatch(r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+(?:\.git)?", s):
+        return f"https://github.com/{s}"
+
+    return s
+
+
+def _split_selector_source(source: str) -> tuple[str | None, str]:
+    """Split `selector@source` syntax.
+
+    We intentionally avoid treating git@host:path as selector syntax.
+    """
+    s = source.strip()
+    if not s:
+        return None, s
+
+    if s.startswith("git@"):
+        return None, s
+
+    if s.startswith(("http://", "https://", "git://", "file://")):
+        return None, s
+
+    if "@" not in s:
+        return None, s
+
+    selector, base = s.split("@", 1)
+    selector = selector.strip()
+    base = base.strip()
+    if not selector or not base:
+        return None, s
+
+    if any(ch in selector for ch in "/\\:"):
+        return None, s
+
+    return selector, base
 
 
 def _is_git_url(source: str) -> bool:
@@ -119,13 +174,17 @@ def _is_remote_zip(source: str) -> bool:
     return False
 
 
-def _safe_extract_zip(zip_path: str, dest_dir: str, max_size_bytes: int = 50_000_000, max_files: int = 1000) -> None:
+def _safe_extract_zip(
+    zip_path: str,
+    dest_dir: str,
+    max_size_bytes: int = 50_000_000,
+    max_files: int = 1000,
+) -> None:
     """Extract a ZIP file safely with size and file count limits (Zip Bomb protection)."""
     total_size = 0
     file_count = 0
 
     with zipfile.ZipFile(zip_path, "r") as z:
-        # First pass: validate sizes and counts
         for info in z.infolist():
             file_count += 1
             if file_count > max_files:
@@ -142,8 +201,6 @@ def _safe_extract_zip(zip_path: str, dest_dir: str, max_size_bytes: int = 50_000
                     )
                 )
 
-            # Directory traversal check
-            # Ensure no absolute paths or parent directory references
             norm_path = os.path.normpath(info.filename)
             if norm_path.startswith("/") or norm_path.startswith("\\") or ".." in norm_path.split(os.sep):
                 raise ValueError(
@@ -152,25 +209,207 @@ def _safe_extract_zip(zip_path: str, dest_dir: str, max_size_bytes: int = 50_000
                     )
                 )
 
-        # Second pass: extract
         os.makedirs(dest_dir, exist_ok=True)
         z.extractall(dest_dir)
 
 
+def _copy_source_tree(source: str, dest_dir: str) -> None:
+    """Copy/clone/extract source contents into dest_dir."""
+    if _is_git_url(source):
+        try:
+            subprocess.run(["git", "--version"], capture_output=True, check=True)
+        except (subprocess.SubprocessError, FileNotFoundError):
+            raise RuntimeError(
+                _(
+                    "err.git_not_found",
+                    default="Git command not found. Please install Git or use a ZIP URL instead.",
+                )
+            )
+
+        if os.path.exists(dest_dir):
+            if os.path.exists(os.path.join(dest_dir, ".git")):
+                res = subprocess.run(
+                    ["git", "pull"],
+                    cwd=dest_dir,
+                    capture_output=True,
+                    text=True,
+                )
+                if res.returncode != 0:
+                    raise RuntimeError(
+                        _(
+                            "err.git_pull_failed",
+                            default="Failed to update Git repository: {error}",
+                        ).format(error=res.stderr.strip())
+                    )
+                return
+            shutil.rmtree(dest_dir)
+
+        res = subprocess.run(
+            ["git", "clone", source, dest_dir],
+            capture_output=True,
+            text=True,
+        )
+        if res.returncode != 0:
+            raise RuntimeError(
+                _(
+                    "err.git_clone_failed",
+                    default="Failed to clone Git repository: {error}",
+                ).format(error=res.stderr.strip())
+            )
+        return
+
+    if _is_remote_zip(source):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            zip_temp_path = os.path.join(tmpdir, "downloaded.zip")
+            try:
+                urllib.request.urlretrieve(source, zip_temp_path)
+            except Exception as e:
+                raise RuntimeError(
+                    _(
+                        "err.download_failed",
+                        default="Failed to download ZIP from {url}: {error}",
+                    ).format(url=source, error=str(e))
+                ) from e
+
+            extract_tmp = os.path.join(tmpdir, "extracted")
+            _safe_extract_zip(zip_temp_path, extract_tmp)
+
+            items = os.listdir(extract_tmp)
+            src_to_copy = extract_tmp
+            if len(items) == 1 and os.path.isdir(os.path.join(extract_tmp, items[0])):
+                src_to_copy = os.path.join(extract_tmp, items[0])
+
+            if os.path.exists(dest_dir):
+                shutil.rmtree(dest_dir)
+            shutil.copytree(src_to_copy, dest_dir)
+        return
+
+    if os.path.isfile(source) and source.lower().endswith(".zip"):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            extract_tmp = os.path.join(tmpdir, "extracted")
+            _safe_extract_zip(source, extract_tmp)
+
+            items = os.listdir(extract_tmp)
+            src_to_copy = extract_tmp
+            if len(items) == 1 and os.path.isdir(os.path.join(extract_tmp, items[0])):
+                src_to_copy = os.path.join(extract_tmp, items[0])
+
+            if os.path.exists(dest_dir):
+                shutil.rmtree(dest_dir)
+            shutil.copytree(src_to_copy, dest_dir)
+        return
+
+    if os.path.isdir(source):
+        if os.path.exists(dest_dir):
+            shutil.rmtree(dest_dir)
+        shutil.copytree(source, dest_dir)
+        return
+
+    raise RuntimeError(
+        _(
+            "err.unsupported_source",
+            default="Unsupported source format or path not found: {source}",
+        ).format(source=source)
+    )
+
+
+def _iter_candidate_skill_dirs(root_dir: str, recursive: bool = True) -> list[str]:
+    out: list[str] = []
+    root_dir = os.path.abspath(root_dir)
+
+    if not os.path.isdir(root_dir):
+        return out
+
+    if recursive:
+        for dirpath, dirnames, filenames in os.walk(root_dir):
+            base = os.path.basename(dirpath)
+            if base in (".git", "node_modules", "__pycache__", ".venv", "venv"):
+                dirnames[:] = []
+                continue
+
+            if "SKILL.md" in filenames:
+                out.append(dirpath)
+    else:
+        for entry in os.scandir(root_dir):
+            if not entry.is_dir():
+                continue
+            if os.path.isfile(os.path.join(entry.path, "SKILL.md")):
+                out.append(entry.path)
+
+    return out
+
+
+def _skill_display_name(skill_dir: str) -> str:
+    try:
+        fm = load_skill_frontmatter_only(skill_dir)
+        name = fm.get("name")
+        if isinstance(name, str) and name.strip():
+            return name.strip()
+    except Exception:
+        pass
+    return os.path.basename(os.path.normpath(skill_dir)) or skill_dir
+
+
+def _find_skill_dir(root_dir: str, selector: str) -> str | None:
+    selector_norm = selector.strip().lower()
+    if not selector_norm:
+        return None
+
+    candidates = _iter_candidate_skill_dirs(root_dir, recursive=True)
+    if not candidates:
+        return None
+
+    exact_name_matches: list[str] = []
+    exact_basename_matches: list[str] = []
+
+    for skill_dir in candidates:
+        basename = os.path.basename(os.path.normpath(skill_dir)).lower()
+        if basename == selector_norm:
+            exact_basename_matches.append(skill_dir)
+
+        try:
+            fm = load_skill_frontmatter_only(skill_dir)
+            fm_name = fm.get("name")
+            if isinstance(fm_name, str) and fm_name.strip().lower() == selector_norm:
+                exact_name_matches.append(skill_dir)
+        except Exception:
+            continue
+
+    if exact_name_matches:
+        return exact_name_matches[0]
+    if exact_basename_matches:
+        return exact_basename_matches[0]
+    return None
+
+
+def _copy_skill_dir_contents(src_skill_dir: str, dest_dir: str) -> None:
+    if os.path.exists(dest_dir):
+        shutil.rmtree(dest_dir)
+    shutil.copytree(src_skill_dir, dest_dir)
+
+
+def _is_all_selector(selector: str) -> bool:
+    return selector.strip().lower() in {"all", "*"}
+
+
 def run_tool(args: dict[str, Any]) -> str:
     """Execute the skills_install tool."""
-    source = (args.get("source") or "").strip()
+    raw_source = (args.get("source") or "").strip()
     name = (args.get("name") or "").strip()
     overwrite = args.get("overwrite", True)
 
-    if not source:
+    if not raw_source:
         return json.dumps({"ok": False, "message": _("err.source_required", default="Source is required.")})
 
-    # Resolve destination folder name
+    selector, source = _split_selector_source(raw_source)
+    source = _normalize_source(source)
+
+    if selector and not name and not _is_all_selector(selector):
+        name = selector
+
     if not name:
         name = _infer_name_from_source(source)
 
-    # Directory traversal check on name
     if "/" in name or "\\" in name or ".." in name or name in (".", ""):
         return json.dumps(
             {
@@ -179,172 +418,107 @@ def run_tool(args: dict[str, Any]) -> str:
             }
         )
 
-    # Centralized skills directory
     skills_root = os.path.join(os.path.expanduser("~"), ".uag", "skills")
     dest_dir = os.path.join(skills_root, name)
 
-    # Handle existing destination
-    if os.path.exists(dest_dir):
-        if not overwrite:
-            return json.dumps(
-                {
-                    "ok": False,
-                    "message": _(
-                        "err.already_exists",
-                        default="Destination directory already exists: {path}. Use overwrite=true to update.",
-                    ).format(path=dest_dir),
-                }
-            )
+    if os.path.exists(dest_dir) and not overwrite:
+        return json.dumps(
+            {
+                "ok": False,
+                "message": _(
+                    "err.already_exists",
+                    default="Destination directory already exists: {path}. Use overwrite=true to update.",
+                ).format(path=dest_dir),
+            }
+        )
 
     try:
         os.makedirs(skills_root, exist_ok=True)
 
-        # 1. Git Repository
-        if _is_git_url(source):
-            # Check if git is available
-            try:
-                subprocess.run(["git", "--version"], capture_output=True, check=True)
-            except (subprocess.SubprocessError, FileNotFoundError):
+        # Specific skill from a marketplace/package: skill@source
+        if selector and not _is_all_selector(selector):
+            with tempfile.TemporaryDirectory() as tmpdir:
+                workspace = os.path.join(tmpdir, "workspace")
+                _copy_source_tree(source, workspace)
+
+                skill_dir = _find_skill_dir(workspace, selector)
+                if not skill_dir:
+                    candidates = _iter_candidate_skill_dirs(workspace, recursive=True)
+                    available = ", ".join(_skill_display_name(d) for d in candidates[:20])
+                    if len(candidates) > 20:
+                        available += ", ..."
+                    return json.dumps(
+                        {
+                            "ok": False,
+                            "message": _(
+                                "err.marketplace_skill_not_found",
+                                default=(
+                                    "Could not find skill '{selector}' in {source}. Available skills: {available}"
+                                ),
+                            ).format(selector=selector, source=source, available=available or "(none)"),
+                        }
+                    )
+
+                if not args.get("name"):
+                    name = os.path.basename(os.path.normpath(skill_dir)) or selector
+                    dest_dir = os.path.join(skills_root, name)
+
+                if os.path.exists(dest_dir):
+                    if not overwrite:
+                        return json.dumps(
+                            {
+                                "ok": False,
+                                "message": _(
+                                    "err.already_exists",
+                                    default="Destination directory already exists: {path}. Use overwrite=true to update.",
+                                ).format(path=dest_dir),
+                            }
+                        )
+                    shutil.rmtree(dest_dir)
+
+                _copy_skill_dir_contents(skill_dir, dest_dir)
                 return json.dumps(
                     {
-                        "ok": False,
+                        "ok": True,
+                        "path": dest_dir,
+                        "skill": os.path.basename(os.path.normpath(skill_dir)),
                         "message": _(
-                            "err.git_not_found",
-                            default="Git command not found. Please install Git or use a ZIP URL instead.",
-                        ),
+                            "success.installed_selected",
+                            default="Successfully installed skill '{name}' from {source} to {path}",
+                        ).format(name=name, source=source, path=dest_dir),
                     }
                 )
 
-            if os.path.exists(dest_dir):
-                # Try to pull/update
-                # Check if it's a git repo
-                if os.path.exists(os.path.join(dest_dir, ".git")):
-                    res = subprocess.run(
-                        ["git", "pull"],
-                        cwd=dest_dir,
-                        capture_output=True,
-                        text=True,
-                    )
-                    if res.returncode != 0:
-                        return json.dumps(
-                            {
-                                "ok": False,
-                                "message": _(
-                                    "err.git_pull_failed",
-                                    default="Failed to update Git repository: {error}",
-                                ).format(error=res.stderr.strip()),
-                            }
-                        )
-                else:
-                    # Not a git repo, remove and clone
-                    shutil.rmtree(dest_dir)
-                    res = subprocess.run(
-                        ["git", "clone", source, dest_dir],
-                        capture_output=True,
-                        text=True,
-                    )
-                    if res.returncode != 0:
-                        return json.dumps(
-                            {
-                                "ok": False,
-                                "message": _(
-                                    "err.git_clone_failed",
-                                    default="Failed to clone Git repository: {error}",
-                                ).format(error=res.stderr.strip()),
-                            }
-                        )
-            else:
-                res = subprocess.run(
-                    ["git", "clone", source, dest_dir],
-                    capture_output=True,
-                    text=True,
-                )
-                if res.returncode != 0:
-                    return json.dumps(
-                        {
-                            "ok": False,
-                            "message": _(
-                                "err.git_clone_failed",
-                                default="Failed to clone Git repository: {error}",
-                            ).format(error=res.stderr.strip()),
-                        }
-                    )
+        # Whole package / marketplace / single skill tree install
+        _copy_source_tree(source, dest_dir)
 
-        # 2. Remote ZIP Archive
-        elif _is_remote_zip(source):
-            with tempfile.TemporaryDirectory() as tmpdir:
-                zip_temp_path = os.path.join(tmpdir, "downloaded.zip")
-                # Download
-                try:
-                    urllib.request.urlretrieve(source, zip_temp_path)
-                except Exception as e:
-                    return json.dumps(
-                        {
-                            "ok": False,
-                            "message": _(
-                                "err.download_failed",
-                                default="Failed to download ZIP from {url}: {error}",
-                            ).format(url=source, error=str(e)),
-                        }
-                    )
-
-                # Extract to a temp folder first to handle nested root folder (like GitHub archives)
-                extract_tmp = os.path.join(tmpdir, "extracted")
-                _safe_extract_zip(zip_temp_path, extract_tmp)
-
-                # If there is a single top-level directory in the ZIP, use its contents instead
-                items = os.listdir(extract_tmp)
-                src_to_copy = extract_tmp
-                if len(items) == 1 and os.path.isdir(os.path.join(extract_tmp, items[0])):
-                    src_to_copy = os.path.join(extract_tmp, items[0])
-
-                if os.path.exists(dest_dir):
-                    shutil.rmtree(dest_dir)
-                shutil.copytree(src_to_copy, dest_dir)
-
-        # 3. Local ZIP Archive
-        elif os.path.isfile(source) and source.lower().endswith(".zip"):
-            with tempfile.TemporaryDirectory() as tmpdir:
-                extract_tmp = os.path.join(tmpdir, "extracted")
-                _safe_extract_zip(source, extract_tmp)
-
-                items = os.listdir(extract_tmp)
-                src_to_copy = extract_tmp
-                if len(items) == 1 and os.path.isdir(os.path.join(extract_tmp, items[0])):
-                    src_to_copy = os.path.join(extract_tmp, items[0])
-
-                if os.path.exists(dest_dir):
-                    shutil.rmtree(dest_dir)
-                shutil.copytree(src_to_copy, dest_dir)
-
-        # 4. Local Directory
-        elif os.path.isdir(source):
-            if os.path.exists(dest_dir):
-                shutil.rmtree(dest_dir)
-            shutil.copytree(source, dest_dir)
-
-        else:
-            return json.dumps(
-                {
-                    "ok": False,
-                    "message": _(
-                        "err.unsupported_source",
-                        default="Unsupported source format or path not found: {source}",
-                    ).format(source=source),
-                }
-            )
-
-        # Verify that SKILL.md exists in the installed directory
-        skill_md = os.path.join(dest_dir, "SKILL.md")
-        if not os.path.isfile(skill_md):
+        root_skill_md = os.path.join(dest_dir, "SKILL.md")
+        if os.path.isfile(root_skill_md):
             return json.dumps(
                 {
                     "ok": True,
                     "path": dest_dir,
                     "message": _(
-                        "warn.missing_skill_md",
-                        default="Skill installed at {path}, but SKILL.md was not found in the root.",
-                    ).format(path=dest_dir),
+                        "success.installed",
+                        default="Successfully installed skill '{name}' to {path}",
+                    ).format(name=name, path=dest_dir),
+                }
+            )
+
+        nested_skill_dirs = _iter_candidate_skill_dirs(dest_dir, recursive=True)
+        if nested_skill_dirs:
+            return json.dumps(
+                {
+                    "ok": True,
+                    "path": dest_dir,
+                    "skill_count": len(nested_skill_dirs),
+                    "message": _(
+                        "success.installed_marketplace",
+                        default=(
+                            "Successfully installed marketplace/package '{name}' to {path} "
+                            "({count} skill definitions found)."
+                        ),
+                    ).format(name=name, path=dest_dir, count=len(nested_skill_dirs)),
                 }
             )
 
@@ -353,9 +527,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 "ok": True,
                 "path": dest_dir,
                 "message": _(
-                    "success.installed",
-                    default="Successfully installed skill '{name}' to {path}",
-                ).format(name=name, path=dest_dir),
+                    "warn.missing_skill_md",
+                    default="Skill installed at {path}, but SKILL.md was not found in the root.",
+                ).format(path=dest_dir),
             }
         )
 
@@ -369,7 +543,10 @@ def run_tool(args: dict[str, Any]) -> str:
 
 
 def handle_cmd_install(arg: str, **kwargs: Any) -> Any:
-    """CLI command handler for :skills install <source> [name]."""
+    """CLI command handler for :skills install <source> [name].
+
+    Marketplace selectors are supported via `skill@source` and `all@source`.
+    """
     from ..util_tools import CommandResult
 
     parts = arg.strip().split(maxsplit=1)
@@ -384,9 +561,9 @@ def handle_cmd_install(arg: str, **kwargs: Any) -> Any:
     res = json.loads(res_json)
 
     if res.get("ok"):
-        print(f"[skills] {res.get('message')}")
+        print(f"{_('prefix.skills', default='[skills]')} {res.get('message')}")
     else:
-        print(f"[skills error] {res.get('message')}")
+        print(f"{_('prefix.skills_error', default='[skills error]')} {res.get('message')}")
 
     return CommandResult()
 
@@ -395,4 +572,8 @@ CMD_SPEC = {
     "command": "skills",
     "subcommand": "install",
     "handler": handle_cmd_install,
+    "help_text": _(
+        "help_text.install",
+        default="  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    ),
 }
