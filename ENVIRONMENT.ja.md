@@ -59,6 +59,17 @@ ______________________________________________________________________
 - `UAGENT_REASONING`: 推論モデル（o1等）の推論の試行レベル (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`)。
 - `UAGENT_STREAMING_DEBUG`: `1` に設定すると、ストリーミング中の各イベント（JSON）を `outputs/streaming_debug/` に保存します。
 
+### 5. 組み込み Web 検索機能 (Built-in Web Search)
+
+プロバイダが提供する組み込みの Web 検索（グラウンディング）機能の制御設定です。
+
+- **`UAGENT_GEMINI_WEB_SEARCH`**: Gemini / Vertex AI の組み込み Google 検索（Google Search Grounding）を制御します。
+  - `1`, `true`, `yes`, `on` または **未設定（デフォルト）** の場合に有効化され、ローカルの Web 検索ツールは自動的に無効化されます。
+  - `0`, `false`, `no`, `off` を指定すると無効化され、従来のローカル Web 検索ツールが有効になります。
+- **`UAGENT_OPENAI_WEB_SEARCH`**: OpenAI Responses API の組み込み Web 検索を制御します。
+  - `1`, `true`, `yes`, `on` に設定すると有効化されます（デフォルトは無効）。
+  - 関連オプションとして `UAGENT_OPENAI_WEB_SEARCH_TYPE` (検索タイプ), `UAGENT_OPENAI_WEB_SEARCH_CONTEXT_SIZE` (コンテキストサイズ) などが指定可能です。
+
 ### 5. 画像の生成と解析
 
 - `UAGENT_IMG_GENERATE_PROVIDER`: 画像生成に使用するプロバイダ (既定: `UAGENT_PROVIDER`)。

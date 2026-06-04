@@ -66,6 +66,17 @@ Used by Gemini / Vertex AI features that need Google Cloud access.
 - `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
 
+### 5. Built-in Web Search
+
+Configuration settings for built-in web search (grounding) features provided directly by LLM backends.
+
+- **`UAGENT_GEMINI_WEB_SEARCH`**: Controls Gemini / Vertex AI's built-in Google Search (Google Search Grounding).
+  - Set to `1`, `true`, `yes`, `on`, or **leave unset (default)** to enable. When active, local web search tools are automatically disabled.
+  - Set to `0`, `false`, `no`, `off` to disable and fall back to local web search tools.
+- **`UAGENT_OPENAI_WEB_SEARCH`**: Controls OpenAI Responses API's built-in web search.
+  - Set to `1`, `true`, `yes`, `on` to enable (disabled by default).
+  - Additional controls include `UAGENT_OPENAI_WEB_SEARCH_TYPE` (search type), `UAGENT_OPENAI_WEB_SEARCH_CONTEXT_SIZE` (context size), etc.
+
 ### 5. Image Generation and Analysis
 
 - `UAGENT_IMG_GENERATE_PROVIDER`: Provider for image generation (Default: `UAGENT_PROVIDER`).
