@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.40] - 2026-06-06
+
 ### Added
 - **Gemini Built-in Google Search Support**:
   - Added support for Gemini's built-in Google Search (Google Search Grounding) in Gemini API and Vertex AI.
