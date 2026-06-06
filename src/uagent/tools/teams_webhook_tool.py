@@ -113,6 +113,8 @@ def _post_message(
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "tool_level": 1,
+    "tool_genre": "comm",
     "type": "function",
     "function": {
         "name": "teams_webhook_post",

@@ -2098,6 +2098,23 @@ def handle_command(
         return _handle_cmd_logs(arg, core=core, tr=tr)
 
     if cmd == "tools":
+        if arg and arg.strip():
+            # Try dynamic subcommands (e.g., on comm, off comm)
+            res = tools.handle_dynamic_command(
+                "tools",
+                arg,
+                messages_ref=messages_ref,
+                client=client,
+                depname=depname,
+                core=core,
+                tr=tr,
+            )
+            if res is not None:
+                if isinstance(res, str):
+                    print(res)
+                if type(res).__name__ == "CommandResult":
+                    return res
+                return CommandResult()
         return _handle_cmd_tools(tr=tr)
 
     if cmd == "env":

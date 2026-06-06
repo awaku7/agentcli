@@ -215,7 +215,7 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
         return False
 
     # Optional tool level in TOOL_SPEC (default: 0)
-    # - tool_level == -1: disabled (do not register/load)
+    # - tool_level == -1: disabled (do not register/load as LLM tool, but allow dynamic commands)
     # - tool_level == 0 or missing: enabled
     # - tool_level == 1: conditional loading (currently treated as disabled)
     try:
@@ -223,52 +223,56 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     except Exception:
         tool_level = 0
 
+    is_llm_tool = True
     if tool_level == -1:
-        return False
+        is_llm_tool = False
 
     if tool_level == 1:
         # Reserved for future: load only when necessary.
         # For now, do not register the tool.
-        return False
+        is_llm_tool = False
 
     func_info = spec.get("function", {})
     tool_name = func_info.get("name")
-    if not tool_name:
-        return False
 
-    # If an existing tool with the same name exists, remove it first.
-    for i, existing in enumerate(TOOL_SPECS):
-        if existing.get("function", {}).get("name") == tool_name:
-            TOOL_SPECS.pop(i)
-            break
+    if is_llm_tool and tool_name:
+        # If an existing tool with the same name exists, remove it first.
+        for i, existing in enumerate(TOOL_SPECS):
+            if existing.get("function", {}).get("name") == tool_name:
+                TOOL_SPECS.pop(i)
+                break
 
-    TOOL_SPECS.append(spec)
-    _RUNNERS[tool_name] = runner
-    _sort_registered_tools()
+        TOOL_SPECS.append(spec)
+        _RUNNERS[tool_name] = runner
+        _sort_registered_tools()
 
-    # Busy label setting
-    busy_flag = getattr(mod, "BUSY_LABEL", False)
-    if busy_flag:
-        status_label = getattr(mod, "STATUS_LABEL", f"tool:{tool_name}")
-        _BUSY_LABEL_TOOLS[tool_name] = status_label
+        # Busy label setting
+        busy_flag = getattr(mod, "BUSY_LABEL", False)
+        if busy_flag:
+            status_label = getattr(mod, "STATUS_LABEL", f"tool:{tool_name}")
+            _BUSY_LABEL_TOOLS[tool_name] = status_label
 
-    # Dynamic command registration
-    cmd_spec = getattr(mod, "CMD_SPEC", None)
-    if isinstance(cmd_spec, dict):
-        cmd_name = cmd_spec.get("command")
-        subcmd_name = cmd_spec.get("subcommand", "")
-        handler = cmd_spec.get("handler")
-        help_text = cmd_spec.get("help_text", "")
-        if cmd_name and callable(handler):
-            if cmd_name not in _DYNAMIC_COMMANDS:
-                _DYNAMIC_COMMANDS[cmd_name] = {}
-            _DYNAMIC_COMMANDS[cmd_name][subcmd_name] = {
-                "handler": handler,
-                "help_text": help_text
-            }
+    # Dynamic command registration (always allowed even if tool_level == -1)
+    cmd_specs = getattr(mod, "CMD_SPECS", None)
+    if not isinstance(cmd_specs, list):
+        cmd_spec = getattr(mod, "CMD_SPEC", None)
+        cmd_specs = [cmd_spec] if isinstance(cmd_spec, dict) else []
+
+    for cmd_spec in cmd_specs:
+        if isinstance(cmd_spec, dict):
+            cmd_name = cmd_spec.get("command")
+            subcmd_name = cmd_spec.get("subcommand", "")
+            handler = cmd_spec.get("handler")
+            help_text = cmd_spec.get("help_text", "")
+            if cmd_name and callable(handler):
+                if cmd_name not in _DYNAMIC_COMMANDS:
+                    _DYNAMIC_COMMANDS[cmd_name] = {}
+                _DYNAMIC_COMMANDS[cmd_name][subcmd_name] = {
+                    "handler": handler,
+                    "help_text": help_text
+                }
 
     return True
-
 
 def _load_plugins() -> None:
     """Discover and load tool plugin modules under tools/."""

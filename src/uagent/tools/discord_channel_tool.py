@@ -168,6 +168,8 @@ def _fetch_recent_messages(
 
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 10000,
+    "tool_level": 1,
+    "tool_genre": "comm",
     "type": "function",
     "function": {
         "name": "discord_channel_chat",
