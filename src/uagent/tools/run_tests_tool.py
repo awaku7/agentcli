@@ -34,6 +34,7 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "run_tests",
+        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default="Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",

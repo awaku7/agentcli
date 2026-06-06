@@ -37,8 +37,14 @@ def handle_cmd_tools_on(arg: str, **kwargs: Any) -> Any:
             return _set_office_tools_enabled(True)
         except ImportError:
             pass
-            
-    print("Usage: :tools on [comm|office]")
+    elif a == "devel":
+        try:
+            from .devel_control_tool import _set_devel_tools_enabled
+            return _set_devel_tools_enabled(True)
+        except ImportError:
+            pass
+
+    print("Usage: :tools on [comm|office|devel]")
     from ..util_tools import CommandResult
     return CommandResult()
 
@@ -57,8 +63,14 @@ def handle_cmd_tools_off(arg: str, **kwargs: Any) -> Any:
             return _set_office_tools_enabled(False)
         except ImportError:
             pass
-            
-    print("Usage: :tools off [comm|office]")
+    elif a == "devel":
+        try:
+            from .devel_control_tool import _set_devel_tools_enabled
+            return _set_devel_tools_enabled(False)
+        except ImportError:
+            pass
+
+    print("Usage: :tools off [comm|office|devel]")
     from ..util_tools import CommandResult
     return CommandResult()
 
@@ -75,13 +87,13 @@ CMD_SPECS = [
         "command": "tools",
         "subcommand": "on",
         "handler": handle_cmd_tools_on,
-        "help_text": _("cmd.help.tools_on", default="  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)"),
+        "help_text": _("cmd.help.tools_on", default="  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   Enable development tools (lint, py_compile, tests)"),
     },
     {
         "command": "tools",
         "subcommand": "off",
         "handler": handle_cmd_tools_off,
-        "help_text": _("cmd.help.tools_off", default="  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)"),
+        "help_text": _("cmd.help.tools_off", default="  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  Disable development tools (lint, py_compile, tests)"),
     }
 ]
 

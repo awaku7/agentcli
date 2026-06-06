@@ -1,170 +1,170 @@
 {
   "en": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   Enable development tools (lint, py_compile, tests)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  Disable development tools (lint, py_compile, tests)",
     "tool.description": "Dummy tool for tools control command registration."
   },
   "ja": {
     "cmd.help.tools": "  :tools                            ロードされているツールの一覧を表示",
-    "cmd.help.tools_on": "  :tools on comm                    通信系ツール (Teams, Discord) を有効化\n  :tools on office                  Office系ツール (Excel, Word等) を有効化",
-    "cmd.help.tools_off": "  :tools off comm                   通信系ツール (Teams, Discord) を無効化\n  :tools off office                 Office系ツール (Excel, Word等) を無効化",
+    "cmd.help.tools_on": "  :tools on comm                    通信系ツール (Teams, Discord) を有効化\n  :tools on office                  Office系ツール (Excel, Word等) を有効化\n  :tools on devel                   開発系ツール (lint, py_compile, tests) を有効化",
+    "cmd.help.tools_off": "  :tools off comm                   通信系ツール (Teams, Discord) を無効化\n  :tools off office                 Office系ツール (Excel, Word等) を無効化\n  :tools off devel                  開発系ツール (lint, py_compile, tests) を無効化",
     "tool.description": "ツール制御コマンド登録用のダミーツール。"
   },
   "de": {
     "cmd.help.tools": "  :tools                            Geladene Tools auflisten",
-    "cmd.help.tools_on": "  :tools on comm                    Kommunikationstools aktivieren (Teams, Discord)\n  :tools on office                  Bürotools aktivieren (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Kommunikationstools deaktivieren (Teams, Discord)\n  :tools off office                 Bürotools deaktivieren (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   Entwicklungstools (lint, py_compile, Tests) aktivieren",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  Entwicklungstools (lint, py_compile, Tests) deaktivieren",
     "tool.description": "Dummy-Tool für die Registrierung von Tool-Steuerungsbefehlen."
   },
   "es": {
     "cmd.help.tools": "  :tools                            Listar herramientas cargadas",
-    "cmd.help.tools_on": "  :tools on comm                    Habilitar herramientas de comunicación (Teams, Discord)\n  :tools on office                  Habilitar herramientas de oficina (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Deshabilitar herramientas de comunicación (Teams, Discord)\n  :tools off office                 Deshabilitar herramientas de oficina (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   Habilitar herramientas de desarrollo (lint, py_compile, pruebas)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  Deshabilitar herramientas de desarrollo (lint, py_compile, pruebas)",
     "tool.description": "Herramienta ficticia para el registro de comandos de control de herramientas."
   },
   "fr": {
     "cmd.help.tools": "  :tools                            Lister les outils chargés",
-    "cmd.help.tools_on": "  :tools on comm                    Activer les outils de communication (Teams, Discord)\n  :tools on office                  Activer les outils de bureau (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Désactiver les outils de communication (Teams, Discord)\n  :tools off office                 Désactiver les outils de bureau (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   Activer les outils de développement (lint, py_compile, tests)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  Désactiver les outils de développement (lint, py_compile, tests)",
     "tool.description": "Outil factice pour l'enregistrement des commandes de contrôle des outils."
   },
   "ko": {
     "cmd.help.tools": "  :tools                            로드된 도구 목록 표시",
-    "cmd.help.tools_on": "  :tools on comm                    커뮤니케이션 도구 활성화 (Teams, Discord)\n  :tools on office                  오피스 도구 활성화 (Excel, Word 등)",
-    "cmd.help.tools_off": "  :tools off comm                   커뮤니케이션 도구 비활성화 (Teams, Discord)\n  :tools off office                 오피스 도구 비활성화 (Excel, Word 등)",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   개발 도구 (lint, py_compile, 테스트) 활성화",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  개발 도구 (lint, py_compile, 테스트) 비활성화",
     "tool.description": "도구 제어 명령 등록을 위한 더미 도구."
   },
   "zh_CN": {
     "cmd.help.tools": "  :tools                            列出已加载的工具",
-    "cmd.help.tools_on": "  :tools on comm                    启用通信工具 (Teams, Discord)\n  :tools on office                  启用办公工具 (Excel, Word 等)",
-    "cmd.help.tools_off": "  :tools off comm                   禁用通信工具 (Teams, Discord)\n  :tools off office                 禁用办公工具 (Excel, Word 等)",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   启用开发工具 (lint, py_compile, 测试)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  禁用开发工具 (lint, py_compile, 测试)",
     "tool.description": "用于工具控制命令注册的虚拟工具。"
   },
   "zh_TW": {
     "cmd.help.tools": "  :tools                            列出已載入的工具",
-    "cmd.help.tools_on": "  :tools on comm                    啟用通訊工具 (Teams, Discord)\n  :tools on office                  啟用辦公工具 (Excel, Word 等)",
-    "cmd.help.tools_off": "  :tools off comm                   禁用通訊工具 (Teams, Discord)\n  :tools off office                 禁用辦公工具 (Excel, Word 等)",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   啟用開發工具 (lint, py_compile, 測試)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  禁用開發工具 (lint, py_compile, 測試)",
     "tool.description": "用於工具控制命令註冊的虛擬工具。"
   },
   "ar": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    تفعيل أدوات التواصل (Teams, Discord)\n  :tools on office                  تفعيل أدوات المكتب (Excel، Word، إلخ)\n  :tools on devel                   تفعيل أدوات التطوير (lint، py_compile، الاختبارات)",
+    "cmd.help.tools_off": "  :tools off comm                   تعطيل أدوات التواصل (Teams, Discord)\n  :tools off office                 تعطيل أدوات المكتب (Excel، Word، إلخ)\n  :tools off devel                  تعطيل أدوات التطوير (lint، py_compile، الاختبارات)",
     "tool.description": "أداة وهمية لتسجيل أوامر التحكم في الأدوات."
   },
   "bn": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    যোগাযোগের সরঞ্জাম (Teams, Discord) সক্রিয় করুন\n  :tools on office                  অফিসের সরঞ্জাম (Excel, Word, ইত্যাদি) সক্রিয় করুন\n  :tools on devel                   ডেভেলপমেন্ট টুলস (lint, py_compile, টেস্ট) সক্রিয় করুন",
+    "cmd.help.tools_off": "  :tools off comm                   যোগাযোগের সরঞ্জাম (Teams, Discord) নিষ্ক্রিয় করুন\n  :tools off office                 অফিসের সরঞ্জাম (Excel, Word, ইত্যাদি) নিষ্ক্রিয় করুন\n  :tools off devel                  ডেভেলপমেন্ট টুলস (lint, py_compile, টেস্ট) নিষ্ক্রিয় করুন",
     "tool.description": "টুল नियंत्रण कमांड पंजीकरण के लिए डमी टूल।"
   },
   "cs": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Povolit komunikační nástroje (Teams, Discord)\n  :tools on office                  Povolit kancelářské nástroje (Excel, Word atd.)\n  :tools on devel                   Povolit vývojové nástroje (lint, py_compile, testy)",
+    "cmd.help.tools_off": "  :tools off comm                   Zakázat komunikační nástroje (Teams, Discord)\n  :tools off office                 Zakázat kancelářské nástroje (Excel, Word atd.)\n  :tools off devel                  Zakázat vývojové nástroje (lint, py_compile, testy)",
     "tool.description": "Fiktivní nástroj pro registraci příkazů pro ovládání nástrojů."
   },
   "fa": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    فعال‌سازی ابزارهای ارتباطی (Teams, Discord)\n  :tools on office                  فعال‌سازی ابزارهای اداری (Excel، Word، و غیره)\n  :tools on devel                   فعال‌سازی ابزارهای توسعه (lint، py_compile، آزمون‌ها)",
+    "cmd.help.tools_off": "  :tools off comm                   غیرفعال‌سازی ابزارهای ارتباطی (Teams, Discord)\n  :tools off office                 غیرفعال‌سازی ابزارهای اداری (Excel، Word، و غیره)\n  :tools off devel                  غیرفعال‌سازی ابزارهای توسعه (lint، py_compile، آزمون‌ها)",
     "tool.description": "ابزار ساختگی برای ثبت دستورات کنترل ابزار."
   },
   "fi": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Ota viestintätyökalut (Teams, Discord) käyttöön\n  :tools on office                  Ota toimistotyökalut (Excel, Word jne.) käyttöön\n  :tools on devel                   Ota kehitystyökalut (lint, py_compile, testit) käyttöön",
+    "cmd.help.tools_off": "  :tools off comm                   Poista viestintätyökalut (Teams, Discord) käytöstä\n  :tools off office                 Poista toimistotyökalut (Excel, Word jne.) käytöstä\n  :tools off devel                  Poista kehitystyökalut (lint, py_compile, testit) käytöstä",
     "tool.description": "Vale-työkalu työkalujen ohjauskomentojen rekisteröintiä varten."
   },
   "hi": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    संचार उपकरण (Teams, Discord) सक्षम करें\n  :tools on office                  ऑफिस उपकरण (Excel, Word, आदि) सक्षम करें\n  :tools on devel                   डेवलपमेंट टूल्स (lint, py_compile, tests) सक्षम करें",
+    "cmd.help.tools_off": "  :tools off comm                   संचार उपकरण (Teams, Discord) अक्षम करें\n  :tools off office                 ऑफिस उपकरण (Excel, Word, आदि) अक्षम करें\n  :tools off devel                  डेवलपमेंट टूल्स (lint, py_compile, tests) अक्षम करें",
     "tool.description": "टूल नियंत्रण कमांड पंजीकरण के लिए डमी टूल।"
   },
   "id": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Aktifkan alat komunikasi (Teams, Discord)\n  :tools on office                  Aktifkan alat kantor (Excel, Word, dll.)\n  :tools on devel                   Aktifkan alat pengembangan (lint, py_compile, pengujian)",
+    "cmd.help.tools_off": "  :tools off comm                   Nonaktifkan alat komunikasi (Teams, Discord)\n  :tools off office                 Nonaktifkan alat kantor (Excel, Word, dll.)\n  :tools off devel                  Nonaktifkan alat pengembangan (lint, py_compile, pengujian)",
     "tool.description": "Alat tiruan untuk pendaftaran perintah kontrol alat."
   },
   "it": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Abilita gli strumenti di comunicazione (Teams, Discord)\n  :tools on office                  Abilita gli strumenti per l'ufficio (Excel, Word, ecc.)\n  :tools on devel                   Abilita gli strumenti di sviluppo (lint, py_compile, test)",
+    "cmd.help.tools_off": "  :tools off comm                   Disabilita gli strumenti di comunicazione (Teams, Discord)\n  :tools off office                 Disabilita gli strumenti per l'ufficio (Excel, Word, ecc.)\n  :tools off devel                  Disabilita gli strumenti di sviluppo (lint, py_compile, test)",
     "tool.description": "Strumento fittizio per la registrazione dei comandi di controllo degli strumenti."
   },
   "nb": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Aktiver kommunikasjonsverktøy (Teams, Discord)\n  :tools on office                  Aktiver kontorverktøy (Excel, Word, osv.)\n  :tools on devel                   Aktiver utviklingsverktøy (lint, py_compile, tester)",
+    "cmd.help.tools_off": "  :tools off comm                   Deaktiver kommunikasjonsverktøy (Teams, Discord)\n  :tools off office                 Deaktiver kontorverktøy (Excel, Word, osv.)\n  :tools off devel                  Deaktiver utviklingsverktøy (lint, py_compile, tester)",
     "tool.description": "Dummy-verktøy for registrering av verktøykontrollkommandoer."
   },
   "nl": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Communicatietools inschakelen (Teams, Discord)\n  :tools on office                  Kantoortools inschakelen (Excel, Word, enz.)\n  :tools on devel                   Ontwikkelhulpmiddelen inschakelen (lint, py_compile, tests)",
+    "cmd.help.tools_off": "  :tools off comm                   Communicatietools uitschakelen (Teams, Discord)\n  :tools off office                 Kantoortools uitschakelen (Excel, Word, enz.)\n  :tools off devel                  Ontwikkelhulpmiddelen uitschakelen (lint, py_compile, tests)",
     "tool.description": "Dummy-tool voor registratie van toolbeheercommando's."
   },
   "pl": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Włącz narzędzia komunikacyjne (Teams, Discord)\n  :tools on office                  Włącz narzędzia biurowe (Excel, Word itp.)\n  :tools on devel                   Włącz narzędzia deweloperskie (lint, py_compile, testy)",
+    "cmd.help.tools_off": "  :tools off comm                   Wyłącz narzędzia komunikacyjne (Teams, Discord)\n  :tools off office                 Wyłącz narzędzia biurowe (Excel, Word itp.)\n  :tools off devel                  Wyłącz narzędzia deweloperskie (lint, py_compile, testy)",
     "tool.description": "Atrapa narzędzia do rejestracji poleceń sterowania narzędziami."
   },
   "pt": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Ativar ferramentas de comunicação (Teams, Discord)\n  :tools on office                  Ativar ferramentas de escritório (Excel, Word, etc.)\n  :tools on devel                   Ativar ferramentas de desenvolvimento (lint, py_compile, testes)",
+    "cmd.help.tools_off": "  :tools off comm                   Desativar ferramentas de comunicação (Teams, Discord)\n  :tools off office                 Desativar ferramentas de escritório (Excel, Word, etc.)\n  :tools off devel                  Desativar ferramentas de desenvolvimento (lint, py_compile, testes)",
     "tool.description": "Ferramenta fictícia para registro de comandos de controle de ferramentas."
   },
   "pt_BR": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Ativar ferramentas de comunicação (Teams, Discord)\n  :tools on office                  Ativar ferramentas de escritório (Excel, Word, etc.)\n  :tools on devel                   Ativar ferramentas de desenvolvimento (lint, py_compile, testes)",
+    "cmd.help.tools_off": "  :tools off comm                   Desativar ferramentas de comunicação (Teams, Discord)\n  :tools off office                 Desativar ferramentas de escritório (Excel, Word, etc.)\n  :tools off devel                  Desativar ferramentas de desenvolvimento (lint, py_compile, testes)",
     "tool.description": "Ferramenta fictícia para registro de comandos de controle de ferramentas."
   },
   "ru": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Включить инструменты связи (Teams, Discord)\n  :tools on office                  Включить офисные инструменты (Excel, Word и т. д.)\n  :tools on devel                   Включить инструменты разработки (lint, py_compile, тесты)",
+    "cmd.help.tools_off": "  :tools off comm                   Выключить инструменты связи (Teams, Discord)\n  :tools off office                 Выключить офисные инструменты (Excel, Word и т. д.)\n  :tools off devel                  Выключить инструменты разработки (lint, py_compile, тесты)",
     "tool.description": "Фиктивный инструмент для регистрации команд управления инструментами."
   },
   "sv": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Aktivera kommunikationsverktyg (Teams, Discord)\n  :tools on office                  Aktivera kontorsverktyg (Excel, Word, osv.)\n  :tools on devel                   Aktivera utvecklingsverktyg (lint, py_compile, tester)",
+    "cmd.help.tools_off": "  :tools off comm                   Avaktivera kommunikationsverktyg (Teams, Discord)\n  :tools off office                 Avaktivera kontorsverktyg (Excel, Word, osv.)\n  :tools off devel                  Avaktivera utvecklingsverktyg (lint, py_compile, tester)",
     "tool.description": "Dummyverktyg för registrering av verktygsstyrningskommandon."
   },
   "th": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    เปิดใช้งานเครื่องมือสื่อสาร (Teams, Discord)\n  :tools on office                  เปิดใช้งานเครื่องมือสำนักงาน (Excel, Word, ฯลฯ)\n  :tools on devel                   เปิดใช้งานเครื่องมือพัฒนา (lint, py_compile, การทดสอบ)",
+    "cmd.help.tools_off": "  :tools off comm                   ปิดใช้งานเครื่องมือสื่อสาร (Teams, Discord)\n  :tools off office                 ปิดใช้งานเครื่องมือสำนักงาน (Excel, Word, ฯลฯ)\n  :tools off devel                  ปิดใช้งานเครื่องมือพัฒนา (lint, py_compile, การทดสอบ)",
     "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนคำสั่งควบคุมเครื่องมือ"
   },
   "uk": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Увімкнути інструменти зв’язку (Teams, Discord)\n  :tools on office                  Увімкнути офісні інструменти (Excel, Word тощо)\n  :tools on devel                   Увімкнути інструменти розробки (lint, py_compile, тести)",
+    "cmd.help.tools_off": "  :tools off comm                   Вимкнути інструменти зв’язку (Teams, Discord)\n  :tools off office                 Вимкнути офісні інструменти (Excel, Word тощо)\n  :tools off devel                  Вимкнути інструменти розробки (lint, py_compile, тести)",
     "tool.description": "Фіктивний інструмент для реєстрації команд керування інструментами."
   },
   "vi": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Bật công cụ giao tiếp (Teams, Discord)\n  :tools on office                  Bật công cụ văn phòng (Excel, Word, v.v.)\n  :tools on devel                   Bật công cụ phát triển (lint, py_compile, kiểm thử)",
+    "cmd.help.tools_off": "  :tools off comm                   Tắt công cụ giao tiếp (Teams, Discord)\n  :tools off office                 Tắt công cụ văn phòng (Excel, Word, v.v.)\n  :tools off devel                  Tắt công cụ phát triển (lint, py_compile, kiểm thử)",
     "tool.description": "Công cụ giả lập để đăng ký lệnh điều khiển công cụ."
   },
   "mn": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    Харилцааны хэрэгслүүд (Teams, Discord) идэвхжүүлэх\n  :tools on office                  Оффисын хэрэгслүүд (Excel, Word гэх мэт) идэвхжүүлэх\n  :tools on devel                   Хөгжүүлэлтийн хэрэгслүүд (lint, py_compile, тестүүд) идэвхжүүлэх",
+    "cmd.help.tools_off": "  :tools off comm                   Харилцааны хэрэгслүүд (Teams, Discord) идэвхгүйжүүлэх\n  :tools off office                 Оффисын хэрэгслүүд (Excel, Word гэх мэт) идэвхгүйжүүлэх\n  :tools off devel                  Хөгжүүлэлтийн хэрэгслүүд (lint, py_compile, тестүүд) идэвхгүйжүүлэх",
     "tool.description": "Хэрэгслийн удирдлагын тушаалыг бүртгэх хуурамч хэрэгсэл."
   },
   "mr": {
     "cmd.help.tools": "  :tools                            List loaded tools",
-    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
-    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_on": "  :tools on comm                    संवाद साधने (Teams, Discord) सक्षम करा\n  :tools on office                  कार्यालयीन साधने (Excel, Word, इ.) सक्षम करा\n  :tools on devel                   विकास साधने (lint, py_compile, चाचण्या) सक्षम करा",
+    "cmd.help.tools_off": "  :tools off comm                   संवाद साधने (Teams, Discord) अक्षम करा\n  :tools off office                 कार्यालयीन साधने (Excel, Word, इ.) अक्षम करा\n  :tools off devel                  विकास साधने (lint, py_compile, चाचण्या) अक्षम करा",
     "tool.description": "साधन नियंत्रण कमांड नोंदणीसाठी डमी साधन."
   }
 }

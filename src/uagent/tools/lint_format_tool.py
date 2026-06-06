@@ -37,6 +37,7 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "lint_format",
+        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default="Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
