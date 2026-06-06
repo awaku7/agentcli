@@ -101,7 +101,7 @@ def handle_cmd_tools_on(arg: str, **kwargs: Any) -> Any:
     if a == "comm":
         return _set_comm_tools_enabled(True)
     print("Usage: :tools on comm")
-    from .util_tools import CommandResult
+    from ..util_tools import CommandResult
     return CommandResult()
 
 
@@ -110,7 +110,7 @@ def handle_cmd_tools_off(arg: str, **kwargs: Any) -> Any:
     if a == "comm":
         return _set_comm_tools_enabled(False)
     print("Usage: :tools off comm")
-    from .util_tools import CommandResult
+    from ..util_tools import CommandResult
     return CommandResult()
 
 
