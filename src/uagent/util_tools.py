@@ -1893,7 +1893,6 @@ def format_help(*, core: Any) -> str:
         ),
         "  :ls [path]            "
         + tr("List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"),
-        "  :tools                " + tr("List loaded tools"),
         "  :env show [KEY]       "
         + "Show UAGENT_* env vars; KEY names are masked; :env show UAGENT_*",
         "  :env set/unset/save   " + tr("Manage UAGENT_* env vars and save .env.sec"),

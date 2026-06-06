@@ -1,0 +1,170 @@
+{
+  "en": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Dummy tool for tools control command registration."
+  },
+  "ja": {
+    "cmd.help.tools": "  :tools                            ロードされているツールの一覧を表示",
+    "cmd.help.tools_on": "  :tools on comm                    通信系ツール (Teams, Discord) を有効化\n  :tools on office                  Office系ツール (Excel, Word等) を有効化",
+    "cmd.help.tools_off": "  :tools off comm                   通信系ツール (Teams, Discord) を無効化\n  :tools off office                 Office系ツール (Excel, Word等) を無効化",
+    "tool.description": "ツール制御コマンド登録用のダミーツール。"
+  },
+  "de": {
+    "cmd.help.tools": "  :tools                            Geladene Tools auflisten",
+    "cmd.help.tools_on": "  :tools on comm                    Kommunikationstools aktivieren (Teams, Discord)\n  :tools on office                  Bürotools aktivieren (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Kommunikationstools deaktivieren (Teams, Discord)\n  :tools off office                 Bürotools deaktivieren (Excel, Word, etc.)",
+    "tool.description": "Dummy-Tool für die Registrierung von Tool-Steuerungsbefehlen."
+  },
+  "es": {
+    "cmd.help.tools": "  :tools                            Listar herramientas cargadas",
+    "cmd.help.tools_on": "  :tools on comm                    Habilitar herramientas de comunicación (Teams, Discord)\n  :tools on office                  Habilitar herramientas de oficina (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Deshabilitar herramientas de comunicación (Teams, Discord)\n  :tools off office                 Deshabilitar herramientas de oficina (Excel, Word, etc.)",
+    "tool.description": "Herramienta ficticia para el registro de comandos de control de herramientas."
+  },
+  "fr": {
+    "cmd.help.tools": "  :tools                            Lister les outils chargés",
+    "cmd.help.tools_on": "  :tools on comm                    Activer les outils de communication (Teams, Discord)\n  :tools on office                  Activer les outils de bureau (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Désactiver les outils de communication (Teams, Discord)\n  :tools off office                 Désactiver les outils de bureau (Excel, Word, etc.)",
+    "tool.description": "Outil factice pour l'enregistrement des commandes de contrôle des outils."
+  },
+  "ko": {
+    "cmd.help.tools": "  :tools                            로드된 도구 목록 표시",
+    "cmd.help.tools_on": "  :tools on comm                    커뮤니케이션 도구 활성화 (Teams, Discord)\n  :tools on office                  오피스 도구 활성화 (Excel, Word 등)",
+    "cmd.help.tools_off": "  :tools off comm                   커뮤니케이션 도구 비활성화 (Teams, Discord)\n  :tools off office                 오피스 도구 비활성화 (Excel, Word 등)",
+    "tool.description": "도구 제어 명령 등록을 위한 더미 도구."
+  },
+  "zh_CN": {
+    "cmd.help.tools": "  :tools                            列出已加载的工具",
+    "cmd.help.tools_on": "  :tools on comm                    启用通信工具 (Teams, Discord)\n  :tools on office                  启用办公工具 (Excel, Word 等)",
+    "cmd.help.tools_off": "  :tools off comm                   禁用通信工具 (Teams, Discord)\n  :tools off office                 禁用办公工具 (Excel, Word 等)",
+    "tool.description": "用于工具控制命令注册的虚拟工具。"
+  },
+  "zh_TW": {
+    "cmd.help.tools": "  :tools                            列出已載入的工具",
+    "cmd.help.tools_on": "  :tools on comm                    啟用通訊工具 (Teams, Discord)\n  :tools on office                  啟用辦公工具 (Excel, Word 等)",
+    "cmd.help.tools_off": "  :tools off comm                   禁用通訊工具 (Teams, Discord)\n  :tools off office                 禁用辦公工具 (Excel, Word 等)",
+    "tool.description": "用於工具控制命令註冊的虛擬工具。"
+  },
+  "ar": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "أداة وهمية لتسجيل أوامر التحكم في الأدوات."
+  },
+  "bn": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "টুল नियंत्रण कमांड पंजीकरण के लिए डमी टूल।"
+  },
+  "cs": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Fiktivní nástroj pro registraci příkazů pro ovládání nástrojů."
+  },
+  "fa": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "ابزار ساختگی برای ثبت دستورات کنترل ابزار."
+  },
+  "fi": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Vale-työkalu työkalujen ohjauskomentojen rekisteröintiä varten."
+  },
+  "hi": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "टूल नियंत्रण कमांड पंजीकरण के लिए डमी टूल।"
+  },
+  "id": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Alat tiruan untuk pendaftaran perintah kontrol alat."
+  },
+  "it": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Strumento fittizio per la registrazione dei comandi di controllo degli strumenti."
+  },
+  "nb": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Dummy-verktøy for registrering av verktøykontrollkommandoer."
+  },
+  "nl": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Dummy-tool voor registratie van toolbeheercommando's."
+  },
+  "pl": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Atrapa narzędzia do rejestracji poleceń sterowania narzędziami."
+  },
+  "pt": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Ferramenta fictícia para registro de comandos de controle de ferramentas."
+  },
+  "pt_BR": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Ferramenta fictícia para registro de comandos de controle de ferramentas."
+  },
+  "ru": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Фиктивный инструмент для регистрации команд управления инструментами."
+  },
+  "sv": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Dummyverktyg för registrering av verktygsstyrningskommandon."
+  },
+  "th": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนคำสั่งควบคุมเครื่องมือ"
+  },
+  "uk": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Фіктивний інструмент для реєстрації команд керування інструментами."
+  },
+  "vi": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Công cụ giả lập để đăng ký lệnh điều khiển công cụ."
+  },
+  "mn": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "Хэрэгслийн удирдлагын тушаалыг бүртгэх хуурамч хэрэгсэл."
+  },
+  "mr": {
+    "cmd.help.tools": "  :tools                            List loaded tools",
+    "cmd.help.tools_on": "  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)",
+    "cmd.help.tools_off": "  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)",
+    "tool.description": "साधन नियंत्रण कमांड नोंदणीसाठी डमी साधन."
+  }
+}

@@ -1,0 +1,198 @@
+{
+  "en": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Dummy tool for office control registration."
+  },
+  "ja": {
+    "msg.office.enabled": "[tools] Office系ツール (office) を有効化しました: {names}",
+    "msg.office.disabled": "[tools] Office系ツール (office) を無効化しました: {names}",
+    "msg.office.none_enabled": "[tools] 有効化されたOffice系ツールはありません。",
+    "msg.office.none_disabled": "[tools] 無効化されたOffice系ツールはありません。",
+    "tool.description": "Office系ツール制御用のダミーツール。"
+  },
+  "de": {
+    "msg.office.enabled": "[tools] Bürotools (office) aktiviert: {names}",
+    "msg.office.disabled": "[tools] Bürotools (office) deaktiviert: {names}",
+    "msg.office.none_enabled": "[tools] Keine Bürotools wurden aktiviert.",
+    "msg.office.none_disabled": "[tools] Keine Bürotools wurden deaktiviert.",
+    "tool.description": "Dummy-Tool für die Registrierung der Office-Steuerung."
+  },
+  "es": {
+    "msg.office.enabled": "[tools] Herramientas de oficina (office) habilitadas: {names}",
+    "msg.office.disabled": "[tools] Herramientas de oficina (office) deshabilitadas: {names}",
+    "msg.office.none_enabled": "[tools] No se habilitaron herramientas de oficina.",
+    "msg.office.none_disabled": "[tools] No se deshabilitaron herramientas de oficina.",
+    "tool.description": "Herramientas ficticias para el registro de control de oficina."
+  },
+  "fr": {
+    "msg.office.enabled": "[tools] Outils de bureau (office) activés: {names}",
+    "msg.office.disabled": "[tools] Outils de bureau (office) désactivés: {names}",
+    "msg.office.none_enabled": "[tools] Aucun outil de bureau n'a été activé.",
+    "msg.office.none_disabled": "[tools] Aucun outil de bureau n'a été désactivé.",
+    "tool.description": "Outil factice pour l'enregistrement du contrôle du bureau."
+  },
+  "ko": {
+    "msg.office.enabled": "[tools] 오피스 도구 (office) 활성화됨: {names}",
+    "msg.office.disabled": "[tools] 오피스 도구 (office) 비활성화됨: {names}",
+    "msg.office.none_enabled": "[tools] 활성화된 오피스 도구가 없습니다.",
+    "msg.office.none_disabled": "[tools] 비활성화된 오피스 도구가 없습니다.",
+    "tool.description": "오피스 제어 등록을 위한 더미 도구."
+  },
+  "zh_CN": {
+    "msg.office.enabled": "[tools] 已启用办公工具 (office): {names}",
+    "msg.office.disabled": "[tools] 已禁用办公工具 (office): {names}",
+    "msg.office.none_enabled": "[tools] 未启用任何办公工具。",
+    "msg.office.none_disabled": "[tools] 未禁用任何办公工具。",
+    "tool.description": "用于办公控制注册的虚拟工具。"
+  },
+  "zh_TW": {
+    "msg.office.enabled": "[tools] 已啟用辦公工具 (office): {names}",
+    "msg.office.disabled": "[tools] 已禁用辦公工具 (office): {names}",
+    "msg.office.none_enabled": "[tools] 未啟用任何辦公工具。",
+    "msg.office.none_disabled": "[tools] 未禁用任何辦公工具。",
+    "tool.description": "用於辦公控制註冊的虛擬工具。"
+  },
+  "ar": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "أداة وهمية لتسجيل التحكم في المكتب."
+  },
+  "bn": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "অফিস नियंत्रण নিবন্ধনের लिए डमी टूल।"
+  },
+  "cs": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Fiktivní nástroj pro registraci ovládání kanceláře."
+  },
+  "fa": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "ابزار ساختگی برای ثبت کنترل دفتر."
+  },
+  "fi": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Vale-työkalu toimiston ohjauksen rekisteröintiä varten."
+  },
+  "hi": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "कार्यालय नियंत्रण पंजीकरण के लिए डमी टूल।"
+  },
+  "id": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Alat tiruan untuk pendaftaran kontrol kantor."
+  },
+  "it": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Strumento fittizio per la registrazione del controllo dell'ufficio."
+  },
+  "nb": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Dummy-verktøy for registrering av kontorkontroll."
+  },
+  "nl": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Dummy-tool voor registratie van kantoorbeheer."
+  },
+  "pl": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Atrapa narzędzia do rejestracji kontroli biura."
+  },
+  "pt": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Ferramenta fictícia para registro de controle de escritório."
+  },
+  "pt_BR": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Ferramenta fictícia para registro de controle de escritório."
+  },
+  "ru": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Фиктивный инструмент для регистрации управления офисом."
+  },
+  "sv": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Dummyverktyg för registrering av kontorsstyrning."
+  },
+  "th": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนควบคุมสำนักงาน"
+  },
+  "uk": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Фіктивний інструмент для реєстрації керування офісом."
+  },
+  "vi": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Công cụ giả lập để đăng ký điều khiển văn phòng."
+  },
+  "mn": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "Оффисын удирдлагыг бүртгэх хуурамч хэрэгсэл."
+  },
+  "mr": {
+    "msg.office.enabled": "[tools] Enabled Office tools (office): {names}",
+    "msg.office.disabled": "[tools] Disabled Office tools (office): {names}",
+    "msg.office.none_enabled": "[tools] No Office tools were enabled.",
+    "msg.office.none_disabled": "[tools] No Office tools were disabled.",
+    "tool.description": "कार्यालय नियंत्रण नोंदणीसाठी डमी साधन."
+  }
+}

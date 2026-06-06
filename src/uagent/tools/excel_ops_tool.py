@@ -18,6 +18,8 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = True
 
 TOOL_SPEC: dict[str, Any] = {
+    "tool_level": 1,
+    "tool_genre": "office",
     "type": "function",
     "function": {
         "name": "excel_ops",

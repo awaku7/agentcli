@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-# tools/comm_control_tool.py
+# tools/office_control_tool.py
 import json
 import os
 import sys
@@ -11,20 +11,20 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 BUSY_LABEL = False
-STATUS_LABEL = "tool:comm_control"
+STATUS_LABEL = "tool:office_control"
 
-def _set_comm_tools_enabled(enabled: bool) -> str:
-    """Enable or disable tools with tool_genre='comm'."""
+def _set_office_tools_enabled(enabled: bool) -> str:
+    """Enable or disable tools with tool_genre='office'."""
     from . import TOOL_SPECS, _RUNNERS, _register_tool_module, _sort_registered_tools
     from importlib import import_module
 
     pkg_dir = os.path.dirname(__file__)
-    comm_modules = ["teams_webhook_tool", "discord_channel_tool"]
+    office_modules = ["excel_ops_tool", "exstruct_tool", "recalc_excel_tool", "document_extract_tool", "read_pptx_pdf_tool"]
     changed_names = []
 
     if enabled:
-        # Load and register comm tools
-        for mname in comm_modules:
+        # Load and register office tools
+        for mname in office_modules:
             mod_name = f"uagent.tools.{mname}"
             try:
                 if mod_name in sys.modules:
@@ -43,24 +43,24 @@ def _set_comm_tools_enabled(enabled: bool) -> str:
                     if tname:
                         changed_names.append(tname)
             except Exception as e:
-                print(f"[comm_control error] Failed to load {mod_name}: {e}", file=sys.stderr)
+                print(f"[office_control error] Failed to load {mod_name}: {e}", file=sys.stderr)
 
         if changed_names:
-            msg = _("msg.comm.enabled", default="[tools] Enabled communication tools (comm): {names}", names=", ".join(changed_names))
+            msg = _("msg.office.enabled", default="[tools] Enabled Office tools (office): {names}", names=", ".join(changed_names))
             print(msg)
             return msg
         else:
-            msg = _("msg.comm.none_enabled", default="[tools] No communication tools were enabled.")
+            msg = _("msg.office.none_enabled", default="[tools] No Office tools were enabled.")
             print(msg)
             return msg
     else:
-        # Unregister comm tools
+        # Unregister office tools
         removed_names = []
         to_remove = []
         for spec in TOOL_SPECS:
             if not isinstance(spec, dict):
                 continue
-            if spec.get("tool_genre") == "comm":
+            if spec.get("tool_genre") == "office":
                 func_info = spec.get("function", {})
                 tname = func_info.get("name")
                 if tname:
@@ -77,11 +77,11 @@ def _set_comm_tools_enabled(enabled: bool) -> str:
         _sort_registered_tools()
 
         if removed_names:
-            msg = _("msg.comm.disabled", default="[tools] Disabled communication tools (comm): {names}", names=", ".join(removed_names))
+            msg = _("msg.office.disabled", default="[tools] Disabled Office tools (office): {names}", names=", ".join(removed_names))
             print(msg)
             return msg
         else:
-            msg = _("msg.comm.none_disabled", default="[tools] No communication tools were disabled.")
+            msg = _("msg.office.none_disabled", default="[tools] No Office tools were disabled.")
             print(msg)
             return msg
 
@@ -90,10 +90,10 @@ TOOL_SPEC: dict[str, Any] = {
     "tool_level": -1,  # Do not load as an LLM tool
     "type": "function",
     "function": {
-        "name": "comm_control_dummy",
+        "name": "office_control_dummy",
         "description": _(
             "tool.description",
-            default="Dummy tool for comm control registration.",
+            default="Dummy tool for office control registration.",
         ),
         "parameters": {
             "type": "object",

@@ -36,6 +36,8 @@ except Exception:  # pragma: no cover
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "tool_level": 1,
+    "tool_genre": "office",
     "type": "function",
     "function": {
         "name": "document_extract",

@@ -83,6 +83,8 @@ def _resolve_input_file(
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "tool_level": 1,
+    "tool_genre": "office",
     "type": "function",
     "function": {
         "name": "exstruct",
