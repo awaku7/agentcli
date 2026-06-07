@@ -805,11 +805,11 @@ msgstr ""
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
+msgstr "[Gemini त्रुटी: सुरक्षा फिल्टर किंवा समाप्तीच्या कारणामुळे प्रतिसाद अवरोधित केला आहे]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
-msgstr ""
+msgstr "[Gemini त्रुटी: %(err)s]"
 
 #: src/uagent\llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."

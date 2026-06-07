@@ -804,11 +804,11 @@ msgstr "google-genai içe aktarılamadı (pip install google-genai gereklidir)."
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
+msgstr "[Gemini Hatası: Yanıt, güvenlik filtresi veya sonlanma nedeni nedeniyle engellendi]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
-msgstr ""
+msgstr "[Gemini Hatası: %(err)s]"
 
 #: src/uagent\llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."

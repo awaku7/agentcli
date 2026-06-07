@@ -804,11 +804,11 @@ msgstr "Không thể nhập google-genai (cần cài bằng pip install google-g
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
+msgstr "[Lỗi Gemini: Phản hồi bị chặn bởi bộ lọc an toàn hoặc lý do kết thúc]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
-msgstr ""
+msgstr "[Lỗi Gemini: %(err)s]"
 
 #: src/uagent\llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."

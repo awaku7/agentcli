@@ -844,11 +844,11 @@ msgstr "google-genai ইম্পোর্ট করা যায়নি (pip 
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
+msgstr "[Gemini ত্রুটি: নিরাপত্তা ফিল্টার বা সমাপ্তির কারণে প্রতিক্রিয়া অবরুদ্ধ করা হয়েছে]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
-msgstr ""
+msgstr "[Gemini ত্রুটি: %(err)s]"
 
 #: src/uagent\llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."

@@ -792,11 +792,11 @@ msgstr "تعذّر استيراد google-genai (يلزم تثبيت google-genai
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
+msgstr "[خطأ Gemini: تم حظر الرد بواسطة فلتر الأمان أو سبب الإنهاء]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
-msgstr ""
+msgstr "[خطأ Gemini: %(err)s]"
 
 #: src/uagent\llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
