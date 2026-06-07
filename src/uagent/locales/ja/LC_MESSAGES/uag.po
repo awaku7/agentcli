@@ -771,11 +771,11 @@ msgstr "google-genai をインポートできませんでした (pip install goo
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
+msgstr "[Gemini エラー: セーフティフィルターまたは終了理由により応答がブロックされました]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
-msgstr ""
+msgstr "[Gemini エラー: %(err)s]"
 
 #: src/uagent\llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
