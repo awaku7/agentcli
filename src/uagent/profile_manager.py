@@ -18,7 +18,7 @@ def _get_profile_int_env(name: str, default: int) -> int:
         return default
 
 
-PROFILE_MAX_ITEMS = _get_profile_int_env("UAGENT_PROFILE_MAX_ITEMS", 10)
+PROFILE_MAX_ITEMS = _get_profile_int_env("UAGENT_PROFILE_MAX_ITEMS", 20)
 PROFILE_MAX_TEXT_CHARS = _get_profile_int_env("UAGENT_PROFILE_MAX_TEXT_CHARS", 160)
 PROFILE_SUMMARY_TRIGGER_CHARS = _get_profile_int_env(
     "UAGENT_PROFILE_SUMMARY_TRIGGER_CHARS", 160
@@ -255,6 +255,99 @@ def _normalize_profile_snapshot(
     return normalized
 
 
+def _deduplicate_profile_with_llm(profile: dict[str, Any],
+    *,
+    provider: str | None = None,
+    client: Any = None,
+    model_name: str = "",
+) -> dict[str, Any]:
+    """Use LLM to deduplicate and clean up preferences and constraints lists."""
+    if not provider or client is None or not model_name:
+        return profile
+
+    preferences = profile.get("preferences") or []
+    constraints = profile.get("constraints") or []
+    if not preferences and not constraints:
+        return profile
+
+    prompt = (
+        "You are a user profiling assistant. Clean up and deduplicate the following user profile lists.\n"
+        "Merge highly similar, redundant, or overlapping items into single concise phrases.\n"
+        "Keep the meaning, remove examples and filler, and return ONLY a valid JSON object matching this schema:\n"
+        "{\n"
+        '  "preferences": ["string"],\n'
+        '  "constraints": ["string"]\n'
+        "}\n\n"
+        f"CURRENT PROFILE:\n"
+        f"Preferences:\n{json.dumps(preferences, ensure_ascii=False, indent=2)}\n\n"
+        f"Constraints:\n{json.dumps(constraints, ensure_ascii=False, indent=2)}"
+    )
+
+    try:
+        if provider in ("gemini", "vertexai"):
+            from google.genai import types as gemini_types
+
+            response = client.models.generate_content(
+                model=model_name,
+                contents=prompt,
+                config=gemini_types.GenerateContentConfig(
+                    system_instruction="Return only the cleaned JSON object.",
+                    temperature=0.0,
+                ),
+            )
+            raw = response.text or ""
+        elif provider == "claude":
+            response = client.messages.create(
+                model=model_name,
+                max_tokens=1000,
+                system="Return only the cleaned JSON object.",
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.0,
+            )
+            raw = response.content[0].text or ""
+        else:
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=[
+                    {"role": "system", "content": "Return only the cleaned JSON object."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.0,
+                max_tokens=1000,
+            )
+            raw = response.choices[0].message.content or ""
+
+        cleaned = raw.strip()
+        if cleaned.startswith("```"):
+            lines = cleaned.splitlines()
+            if lines[0].startswith("```"):
+                lines = lines[1:]
+            if lines and lines[-1].startswith("```"):
+                lines = lines[:-1]
+            cleaned = "\n".join(lines).strip()
+
+        data = json.loads(cleaned)
+        if isinstance(data, dict):
+            new_profile = dict(profile)
+            if "preferences" in data and isinstance(data["preferences"], list):
+                new_profile["preferences"] = [
+                    _compact_profile_text(x)[:PROFILE_MAX_TEXT_CHARS]
+                    for x in data["preferences"]
+                    if _compact_profile_text(x)
+                ]
+            if "constraints" in data and isinstance(data["constraints"], list):
+                new_profile["constraints"] = [
+                    _compact_profile_text(x)[:PROFILE_MAX_TEXT_CHARS]
+                    for x in data["constraints"]
+                    if _compact_profile_text(x)
+                ]
+            return new_profile
+    except Exception:
+        pass
+
+    return profile
+
+
 def smart_merge_profiles(
     old_profile: dict[str, Any],
     new_profile: dict[str, Any],
@@ -309,6 +402,15 @@ def smart_merge_profiles(
 
     merged["preferences"] = merged["preferences"][-PROFILE_MAX_ITEMS:]
     merged["constraints"] = merged["constraints"][-PROFILE_MAX_ITEMS:]
+
+    # LLMによる重複排除と整理
+    merged = _deduplicate_profile_with_llm(
+        merged,
+        provider=provider,
+        client=client,
+        model_name=model_name,
+    )
+
     return merged
 
 
