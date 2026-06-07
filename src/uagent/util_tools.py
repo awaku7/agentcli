@@ -56,6 +56,7 @@ def init_tools_callbacks(core: Any) -> None:
         rewrite_current_log_from_messages=getattr(
             core, "rewrite_current_log_from_messages", None
         ),
+        log_message=getattr(core, "log_message", None),
         get_env=getattr(core, "get_env", None),
         get_env_url=getattr(core, "get_env_url", None),
         truncate_output=(

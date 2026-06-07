@@ -21,6 +21,7 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "binary_edit",
+        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default=(

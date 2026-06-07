@@ -24,6 +24,7 @@ class ToolCallbacks:
     exception: Optional[Callable[[str], None]] = None
     finish_skill: Optional[Callable[[str], str]] = None
     rewrite_current_log_from_messages: Optional[Callable[[Any], str]] = None
+    log_message: Optional[Callable[[dict[str, Any]], None]] = None
 
     # Environment variable access
     get_env: Optional[Callable[[str], str]] = None

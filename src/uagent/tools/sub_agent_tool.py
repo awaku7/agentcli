@@ -561,6 +561,16 @@ class SubAgentRunner:
 
         user_prompt = self._build_user_prompt(task_text, pack, task.scope_files)
 
+        # UIにサブエージェントの開始を通知
+        if cb and getattr(cb, "log_message", None):
+            try:
+                cb.log_message({
+                    "role": "assistant",
+                    "content": f"[Sub-Agent: {agent_name}] 処理を開始します...\nタスク: {task_text}"
+                })
+            except Exception:
+                pass
+
         raw_output = self._call_llm_single_round(
             provider=provider,
             client=client,
@@ -568,6 +578,16 @@ class SubAgentRunner:
             system_prompt=system_prompt,
             user_prompt=user_prompt,
         )
+
+        # UIにサブエージェントの完了を通知
+        if cb and getattr(cb, "log_message", None):
+            try:
+                cb.log_message({
+                    "role": "assistant",
+                    "content": f"[Sub-Agent: {agent_name}] 処理が完了しました。\n結果:\n{raw_output}"
+                })
+            except Exception:
+                pass
 
         if response_mode == "json":
             try:

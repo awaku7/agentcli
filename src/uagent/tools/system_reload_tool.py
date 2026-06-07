@@ -13,6 +13,7 @@ TOOL_SPEC = {
     "type": "function",
     "function": {
         "name": "system_reload",
+        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default=(

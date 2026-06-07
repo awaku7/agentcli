@@ -29,6 +29,7 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "playwright_inspector",
+        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default=(

@@ -37,6 +37,7 @@ TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "function": {
         "name": "git_ops",
+        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default=(
