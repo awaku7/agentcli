@@ -139,7 +139,7 @@ msgstr "[docs] 名稱為必填項目"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] 無法套用啟動工具選擇：%(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -250,58 +250,58 @@ msgstr ""
 "[INFO] 已壓縮記憶體中的對話歷史：%(old_n)d -> %(new_n)d 則訊息（keep_last=%(keep_last)d）"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "在壓縮歷史紀錄時達到 429 重試限制 (%(max_retries)s)。"
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "呼叫 LLM 進行歷史紀錄壓縮時出錯：%(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- 用英文總結對話片段。\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "保持總結簡明扼要，但要包含關鍵決策、限制條件和待辦事項。\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- 輸出應能直接用作系統訊息。"
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "對話片段：\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "寫一份該片段的簡要總結。"
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- 您正在更新現有的對話總結。\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- 保留上一次總結中的重要事實。\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "合併新片段，且不丟失限制條件、決策或待辦事項。\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- 保持結果簡明扼要，並適用於系統訊息。"
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "上一次總結：\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "新片段：\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "更新總結，同時保持先前的上下文完整。"
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "目前為止的對話總結：\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} 條訊息（將 {old_part_n} 條較舊的訊息壓縮為 1 個總結；保留了最後 {tail_n} 條訊息）"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -885,20 +885,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude 錯誤] 產生回覆時發生錯誤。"
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "輸入超出上下文視窗。"
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "連線錯誤"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[網路錯誤]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "非預期異常。"
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2217,7 +2217,7 @@ msgstr "正在啟動伺服器："
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "外部 URL："
 
 #: src/uagent\welcome.py:29
 msgid ""

@@ -144,7 +144,7 @@ msgstr "[docs] je vyžadováno jméno"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] Nepodařilo se použít výběr spouštěcího nástroje: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -259,58 +259,58 @@ msgstr ""
 "%(new_n)d zpráv (keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "Během komprese historie byl dosažen limit 429 opakování (%(max_retries)s)."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "Chyba při volání LLM pro kompresi historie: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- Shrňte část konverzace v angličtině.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "Shrnutí udržujte stručné, ale zahrňte klíčová rozhodnutí, omezení a nevyřízené položky.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- Výstup by měl být přímo použitelný jako systémová zpráva."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "Část konverzace:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "Napište stručné shrnutí této části."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- Aktualizujete stávající shrnutí konverzace.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- Zachovejte důležitá fakta z předchozího shrnutí.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "Sloučte novou část bez ztráty omezení, rozhodnutí nebo nevyřízených položek.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- Výsledek udržujte stručný a vhodný pro systémovou zprávu."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "Předchozí shrnutí:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "Nová část:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "Aktualizujte shrnutí a zároveň zachovejte předchozí kontext."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "Shrnutí dosavadní konverzace:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} zpráv (zkomprimováno {old_part_n} starších zpráv do 1 shrnutí; ponecháno {tail_n} koncových)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -932,20 +932,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude Error] Při generování odpovědi došlo k chybě."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "Vstup překračuje kontextové okno."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "Chyba připojení"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Chyba sítě]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "Neočekávaná výjimka."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2316,7 +2316,7 @@ msgstr "Spouští se server na"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "Externí URL:"
 
 #: src/uagent\welcome.py:29
 msgid ""

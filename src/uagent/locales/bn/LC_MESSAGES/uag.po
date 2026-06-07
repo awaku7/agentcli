@@ -150,7 +150,7 @@ msgstr "[ডক্স] নাম প্রয়োজন"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] স্টার্টআপ টুল নির্বাচন প্রয়োগ করতে ব্যর্থ হয়েছে: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -271,58 +271,58 @@ msgstr ""
 "%(new_n)dটি বার্তা (keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "ইতিহাস সংকোচনের সময় 429 পুনঃপ্রচেষ্টার সীমা (%(max_retries)s) পৌঁছেছে।"
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "ইতিহাস সংকোচনের জন্য LLM কল করার সময় ত্রুটি: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- কথোপকথনের অংশটি ইংরেজিতে সংক্ষেপ করুন।\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "সারাংশটি সংক্ষিপ্ত রাখুন তবে মূল সিদ্ধান্ত, সীমাবদ্ধতা এবং মুলতুবি থাকা বিষয়গুলি অন্তর্ভুক্ত করুন।\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- আউটপুট সরাসরি একটি সিস্টেম বার্তা হিসাবে ব্যবহারযোগ্য হওয়া উচিত।"
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "কথোপকথনের অংশ:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "এই অংশের একটি সংক্ষিপ্ত সারসংক্ষেপ লিখুন।"
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- আপনি একটি বিদ্যমান কথোপকথনের সারাংশ আপডেট করছেন।\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- পূর্ববর্তী সারাংশ থেকে গুরুত্বপূর্ণ তথ্য সংরক্ষণ করুন।\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "সীমাবদ্ধতা, সিদ্ধান্ত বা মুলতুবি থাকা বিষয়গুলি না হারিয়ে নতুন অংশটি মার্জ করুন।\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- ফলাফলটি সংক্ষিপ্ত এবং একটি সিস্টেম বার্তার জন্য উপযুক্ত রাখুন।"
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "পূর্ববর্তী সারাংশ:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "নতুন অংশ:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "পূর্ববর্তী প্রসঙ্গ অক্ষুণ্ণ রেখে সংক্ষিপ্তসারটি আপডেট করুন।"
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "এখনও পর্যন্ত কথোপকথনের সারাংশ:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} বার্তা ({old_part_n} টি পুরানো বার্তা 1টি সারাংশে সংকুচিত করা হয়েছে; {tail_n} টি শেষ বার্তা রাখা হয়েছে)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -964,20 +964,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[ক্লদ ত্রুটি] একটি প্রতিক্রিয়া তৈরি করার সময় একটি ত্রুটি ঘটেছে৷"
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "ইনপুটটি কনটেক্সট উইন্ডো অতিক্রম করেছে।"
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "সংযোগ ত্রুটি"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[নেটওয়ার্ক ত্রুটি]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "অপ্রত্যাশিত ব্যতিক্রম।"
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2358,7 +2358,7 @@ msgstr "সার্ভার শুরু হচ্ছে"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "বাহ্যিক URL:"
 
 #: src/uagent\welcome.py:29
 msgid ""

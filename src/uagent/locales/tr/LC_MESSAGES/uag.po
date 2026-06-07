@@ -143,7 +143,7 @@ msgstr "[dokümanlar] adı gerekli"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] Başlangıç aracı seçimi uygulanamadı: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -260,58 +260,58 @@ msgstr ""
 " (keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "Geçmiş sıkıştırma işlemi sırasında 429 yeniden deneme sınırına (%(max_retries)s) ulaşıldı."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "Geçmiş sıkıştırması için LLM çağrılırken hata oluştu: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- Konuşma bölümünü İngilizce olarak özetleyin.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "Özeti kısa tutun ancak önemli kararları, kısıtlamaları ve bekleyen maddeleri ekleyin.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- Çıktı doğrudan bir sistem mesajı olarak kullanılabilir olmalıdır."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "Konuşma bölümü:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "Bu bölümün kısa bir özetini yazın."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- Mevcut bir konuşma özetini güncelliyorsunuz.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- Önceki özetteki önemli gerçekleri koruyun.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "Kısıtlamaları, kararları veya bekleyen maddeleri kaybetmeden yeni bölümü birleştirin.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- Sonucu kısa tutun ve bir sistem mesajı için uygun hale getirin."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "Önceki özet:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "Yeni bölüm:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "Önceki bağlamı bozmadan özeti güncelleyin."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "Şimdiye kadarki konuşmanın özeti:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} mesaj ({old_part_n} eski mesaj 1 özette sıkıştırıldı; sondaki {tail_n} mesaj korundu)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -926,20 +926,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude Hatası] Yanıt oluşturulurken bir hata oluştu."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "Girdi, bağlam penceresini (context window) aşıyor."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "Bağlantı hatası"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Ağ Hatası]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "Beklenmeyen istisna."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2303,7 +2303,7 @@ msgstr "Sunucu başlatılıyor:"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "Harici URL:"
 
 #: src/uagent\welcome.py:29
 msgid ""

@@ -144,7 +144,7 @@ msgstr "[docs] nama diperlukan"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] Gagal menerapkan pemilihan alat startup: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -260,58 +260,58 @@ msgstr ""
 " (keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "Batas percobaan ulang 429 (%(max_retries)s) tercapai saat kompresi riwayat."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "Kesalahan saat memanggil LLM untuk kompresi riwayat: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- Ringkas bagian percakapan dalam bahasa Inggris.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "Jaga agar ringkasan tetap singkat tetapi sertakan keputusan penting, batasan, dan hal-hal yang tertunda.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- Output harus dapat digunakan secara langsung sebagai pesan sistem."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "Bagian percakapan:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "Tulis ringkasan singkat dari bagian ini."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- Anda sedang memperbarui ringkasan percakapan yang sudah ada.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- Pertahankan fakta penting dari ringkasan sebelumnya.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "Gabungkan bagian baru tanpa kehilangan batasan, keputusan, atau hal-hal yang tertunda.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- Jaga agar hasilnya tetap singkat dan cocok untuk pesan sistem."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "Ringkasan sebelumnya:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "Bagian baru:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "Perbarui ringkasan dengan tetap menjaga konteks sebelumnya utuh."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "Ringkasan percakapan sejauh ini:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} pesan (mengompresi {old_part_n} pesan lama menjadi 1 ringkasan; mempertahankan {tail_n} pesan terakhir)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -927,20 +927,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Kesalahan Claude] Terjadi kesalahan saat membuat respons."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "Input melebihi jendela konteks."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "Kesalahan koneksi"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Kesalahan Jaringan]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "Pengecualian tidak terduga."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2305,7 +2305,7 @@ msgstr "Memulai server di"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "URL Eksternal:"
 
 #: src/uagent\welcome.py:29
 msgid ""

@@ -143,7 +143,7 @@ msgstr "[दस्तऐवज] नाव आवश्यक आहे"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] स्टार्टअप साधन निवड लागू करण्यात अपयशी: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -259,58 +259,58 @@ msgstr ""
 "(keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "इतिहास संकुचित करताना 429 पुन्हा प्रयत्न करण्याची मर्यादा (%(max_retries)s) गाठली गेली."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "इतिहास संकुचित करण्यासाठी LLM ला कॉल करताना त्रुटी: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- संभाषणाचा भाग इंग्रजीत सारांशित करा.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "सारांश संक्षिप्त ठेवा परंतु त्यात महत्त्वाचे निर्णय, मर्यादा आणि प्रलंबित बाबींचा समावेश करा.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- आउटपुट थेट सिस्टम संदेश म्हणून वापरण्यायोग्य असावे."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "संभाषणाचा भाग:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "या भागाचा संक्षिप्त सारांश लिहा."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- तुम्ही अस्तित्वात असलेला संभाषण सारांश अद्यतनित करत आहात.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- मागील सारांशातील महत्त्वाच्या गोष्टी जतन करा.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "मर्यादा, निर्णय किंवा प्रलंबित बाबी न गमावता नवीन भाग एकत्र करा.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- निकाल संक्षिप्त आणि सिस्टम संदेशासाठी योग्य ठेवा."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "मागील सारांश:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "नवीन भाग:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "मागील संदर्भ अबाधित ठेवून सारांश अद्यतनित करा."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "आतापर्यंतच्या संभाषणाचा सारांश:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} संदेश ({old_part_n} जुने संदेश 1 सारांशामध्ये संकुचित केले; {tail_n} शेवटचे संदेश ठेवले)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -924,20 +924,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[क्लॉड एरर] प्रतिसाद निर्माण करताना त्रुटी आली."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "इनपुट संदर्भ विंडोच्या मर्यादेपेक्षा जास्त आहे."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "कनेक्शन त्रुटी"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[नेटवर्क त्रुटी]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "अनपेक्षित अपवाद."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2299,7 +2299,7 @@ msgstr "सर्व्हर सुरू करत आहोत:"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "बाह्य URL:"
 
 #: src/uagent\welcome.py:29
 msgid ""

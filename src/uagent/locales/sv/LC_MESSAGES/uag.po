@@ -145,7 +145,7 @@ msgstr "[docs] namn krävs"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] Misslyckades med att tillämpa val av startverktyg: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -261,58 +261,58 @@ msgstr ""
 " meddelanden (keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "Gränsen för 429-försök (%(max_retries)s) har uppnåtts under historikkomprimering."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "Fel vid anrop av LLM för historikkomprimering: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- Sammanfatta konversationsdelen på engelska.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "Håll sammanfattningen kortfattad men inkludera viktiga beslut, begränsningar och utestående punkter.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- Utdata ska kunna användas direkt som ett systemmeddelande."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "Konversationsdel:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "Skriv en kortfattad sammanfattning av denna del."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- Du uppdaterar en befintlig sammanfattning av konversationen.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- Bevara viktiga fakta från den tidigare sammanfattningen.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "Slå ihop den nya delen utan att förlora begränsningar, beslut eller utestående punkter.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- Håll resultatet kortfattat och lämpligt för ett systemmeddelande."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "Tidigare sammanfattning:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "Ny del:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "Uppdatera sammanfattningen med bibehållet tidigare sammanhang."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "Sammanfattning av konversationen hittills:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} meddelanden (komprimerade {old_part_n} äldre meddelanden till 1 sammanfattning; behöll {tail_n} i slutet)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -929,20 +929,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude-fel] Ett fel uppstod när ett svar genererades."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "Inmatningen överskrider kontextfönstret."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "Anslutningsfel"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Nätverksfel]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "Oväntat undantag."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2301,7 +2301,7 @@ msgstr "Startar server på"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "Extern URL:"
 
 #: src/uagent\welcome.py:29
 msgid ""

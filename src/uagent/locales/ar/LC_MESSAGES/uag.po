@@ -140,7 +140,7 @@ msgstr "[docs] الاسم مطلوب"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] فشل تطبيق تحديد أداة بدء التشغيل: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -254,58 +254,58 @@ msgstr ""
 "(keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "تم الوصول إلى حد إعادة المحاولة 429 (%(max_retries)s) أثناء ضغط السجل."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "خطأ أثناء استدعاء LLM لضغط السجل: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- لخص جزء المحادثة باللغة الإنجليزية.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "حافظ على إيجاز الملخص ولكن تضمين القرارات الرئيسية والقيود والبنود المعلقة.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- يجب أن يكون الناتج صالحًا للاستخدام مباشرةً كرسالة نظام."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "جزء المحادثة:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "اكتب ملخصًا موجزًا لهذا الجزء."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- أنت تقوم بتحديث ملخص محادثة حالي.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- حافظ على الحقائق المهمة من الملخص السابق.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "ادمج الجزء الجديد دون فقدان القيود أو القرارات أو البنود المعلقة.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- حافظ على النتيجة موجزة ومناسبة لرسالة نظام."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "الملخص السابق:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "الجزء الجديد:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "قم بتحديث الملخص مع الحفاظ على السياق السابق سليمًا."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "ملخص المحادثة حتى الآن:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} رسائل (تم ضغط {old_part_n} من الرسائل القديمة في ملخص واحد؛ تم الاحتفاظ بـ {tail_n} من الرسائل الأخيرة)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -913,20 +913,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[خطأ كلود] حدث خطأ أثناء إنشاء الرد."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "المدخلات تتجاوز نافذة السياق."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "خطأ في الاتصال"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[خطأ الشبكة]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "استثناء غير متوقع."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2284,7 +2284,7 @@ msgstr "بدء الخادم على"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "رابط خارجي:"
 
 #: src/uagent\welcome.py:29
 msgid ""

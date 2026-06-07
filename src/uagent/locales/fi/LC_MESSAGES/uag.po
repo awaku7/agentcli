@@ -143,7 +143,7 @@ msgstr "[docs] nimi on pakollinen"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] Käynnistystyökalun valinnan käyttöönotto epäonnistui: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -260,58 +260,58 @@ msgstr ""
 "%(new_n)d viestiä (keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "Uudelleenyritysraja 429 (%(max_retries)s) saavutettiin historian pakkaamisen aikana."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "Virhe kutsuttaessa LLM:ää historian pakkaamista varten: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- Tiivistä keskusteluosio englanniksi.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "Pidä tiivistelmä ytimekkäänä, mutta sisällytä siihen tärkeimmät päätökset, rajoitukset ja avoimet asiat.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- Tuloksen on oltava suoraan käytettävissä järjestelmäviestinä."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "Keskusteluosio:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "Kirjoita ytimekäs tiivistelmä tästä osasta."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- Päivität olemassa olevaa keskustelun tiivistelmää.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- Säilytä tärkeät tosiasiat edellisestä tiivistelmästä.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "Yhdistä uusi osa menettämättä rajoituksia, päätöksiä tai avoimia asioita.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- Pidä tulos ytimekkäänä ja järjestelmäviestiin sopivana."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "Edellinen tiivistelmä:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "Uusi osio:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "Päivitä tiivistelmä säilyttäen aiempi asiayhteys muuttumattomana."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "Tähänastisen keskustelun tiivistelmä:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} viestiä (tiivistetty {old_part_n} vanhempaa viestiä 1 tiivistelmäksi; säilytetty {tail_n} loppuosaa)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -930,20 +930,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude-virhe] Vastauksen luonti epäonnistui."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "Syöte ylittää konteksti-ikkunan."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "Yhteysvirhe"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Verkkovirhe]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "Odottamaton poikkeus."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2308,7 +2308,7 @@ msgstr "Käynnistetään palvelin osoitteessa"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "Ulkoinen URL-osoite:"
 
 #: src/uagent\welcome.py:29
 msgid ""

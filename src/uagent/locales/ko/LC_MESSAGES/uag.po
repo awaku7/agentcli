@@ -141,7 +141,7 @@ msgstr "[docs] name이 필요합니다"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] 시작 도구 선택을 적용하지 못했습니다: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -253,58 +253,58 @@ msgstr ""
 "(keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "대화 기록 압축 중 429 재시도 제한(%(max_retries)s)에 도달했습니다."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "대화 기록 압축을 위한 LLM 호출 중 오류 발생: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- 대화 청크를 영어로 요약하세요.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "요약은 간결하게 유지하되 주요 결정, 제약 조건 및 보류 항목을 포함하세요.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- 출력은 시스템 메시지로 직접 사용할 수 있어야 합니다."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "대화 청크:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "이 청크의 간결한 요약을 작성하세요."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- 기존 대화 요약을 업데이트하고 있습니다.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- 이전 요약의 중요한 사실을 보존하세요.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "제약 조건, 결정 또는 보류 항목을 누락하지 않고 새 조각을 병합하세요.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- 결과를 간결하게 유지하고 시스템 메시지에 적합하도록 하세요."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "이전 요약:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "새 청크:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "이전 컨텍스트를 그대로 유지하면서 요약을 업데이트하세요."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "지금까지의 대화 요약:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n}개 메시지 (이전 메시지 {old_part_n}개를 1개 요약으로 압축, 마지막 {tail_n}개 유지)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -890,20 +890,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude 오류] 응답 생성 중 오류가 발생했습니다."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "입력이 컨텍스트 창을 초과합니다."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "연결 오류"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[네트워크 오류]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "예기치 않은 예외가 발생했습니다."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2227,7 +2227,7 @@ msgstr "서버를 시작하는 중"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "외부 URL:"
 
 #: src/uagent\welcome.py:29
 msgid ""

@@ -145,7 +145,7 @@ msgstr "[docs] требуется имя"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] Не удалось применить выбор инструмента запуска: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -261,58 +261,58 @@ msgstr ""
 "(keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "Превышен лимит попыток 429 (%(max_retries)s) при сжатии истории."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "Ошибка при вызове LLM для сжатия истории: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- Сделайте краткое изложение фрагмента диалога на английском языке.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "Сделайте резюме кратким, но включите ключевые решения, ограничения и нерешенные вопросы.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- Результат должен быть непосредственно пригоден для использования в качестве системного сообщения."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "Фрагмент диалога:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "Напишите краткое резюме этого фрагмента."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- Вы обновляете существующее резюме диалога.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- Сохраните важные факты из предыдущего резюме.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "Объедините новый фрагмент, не теряя ограничений, решений или нерешенных вопросов.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- Результат должен быть кратким и подходящим для системного сообщения."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "Предыдущее резюме:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "Новый фрагмент:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "Обновите резюме, сохранив прежний контекст."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "Резюме диалога на данный момент:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} сообщений (сжато {old_part_n} старых сообщений в 1 резюме; сохранено {tail_n} последних)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -935,20 +935,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Ошибка Claude] При генерации ответа произошла ошибка."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "Входные данные превышают размер контекстного окна."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "Ошибка подключения"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Ошибка сети]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "Непредвиденное исключение."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2317,7 +2317,7 @@ msgstr "Запуск сервера на"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "Внешний URL:"
 
 #: src/uagent\welcome.py:29
 msgid ""

@@ -141,7 +141,7 @@ msgstr "[docs] cần có tên"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] Không thể áp dụng lựa chọn công cụ khởi động: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -255,58 +255,58 @@ msgstr ""
 "nhắn (keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "Đã đạt giới hạn thử lại 429 (%(max_retries)s) trong khi nén lịch sử."
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "Lỗi khi gọi LLM để nén lịch sử: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- Tóm tắt phần hội thoại bằng tiếng Anh.\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "Giữ cho bản tóm tắt ngắn gọn nhưng bao gồm các quyết định chính, các ràng buộc và các mục còn tồn đọng.\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- Đầu ra phải có thể sử dụng trực tiếp làm tin nhắn hệ thống."
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "Phần hội thoại:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "Viết một bản tóm tắt ngắn gọn cho phân đoạn này."
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- Bạn đang cập nhật một bản tóm tắt hội thoại hiện có.\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- Giữ lại các sự kiện quan trọng từ bản tóm tắt trước đó.\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "Hợp nhất phần mới mà không làm mất các ràng buộc, quyết định hoặc các mục còn tồn đọng.\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- Giữ kết quả ngắn gọn và phù hợp để làm tin nhắn hệ thống."
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "Bản tóm tắt trước đó:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "Phần mới:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "Cập nhật bản tóm tắt trong khi vẫn giữ nguyên ngữ cảnh trước đó."
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "Tóm tắt cuộc hội thoại cho đến nay:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
+msgstr "[INFO] shrink_llm: {old_n} -> {new_n} tin nhắn (đã nén {old_part_n} tin nhắn cũ hơn thành 1 bản tóm tắt; giữ lại {tail_n} tin nhắn cuối)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -929,20 +929,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Lỗi Claude] Đã xảy ra lỗi khi tạo phản hồi."
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "Đầu vào vượt quá cửa sổ ngữ cảnh."
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "Lỗi kết nối"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Lỗi mạng]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "Ngoại lệ không mong muốn."
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2294,7 +2294,7 @@ msgstr "Đang khởi động máy chủ trên"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "URL bên ngoài:"
 
 #: src/uagent\welcome.py:29
 msgid ""
