@@ -180,7 +180,7 @@
     "tool.system_prompt": "यह उपकरण अंतिम उपाय है.\n1. पहले जांचें कि क्या इसके बजाय handle_mcp / mcp_tools_list का उपयोग किया जा सकता है।\n2. इस उपकरण का उपयोग केवल तभी करें जब कोई अन्य उपयुक्त उपकरण उपलब्ध न हो।\n3. Python चलाने के लिए इस उपकरण का उपयोग न करें; इसके बजाय python_exec का उपयोग करें।\n\nसुरक्षा नोट:\n- download-exec (IWR/IRM/curl/wget) और Base64 (-Enc) जैसे खतरनाक पैटर्न ब्लॉक किए जा सकते हैं या पुष्टि की आवश्यकता हो सकती है।"
   },
   "ar": {
-    "err.timeout": "[مهلة pwsh_exec] لم تنته خلال {ثانية} ثانية",
+    "err.timeout": "[مهلة pwsh_exec] لم تنته خلال {seconds} ثانية",
     "param.command.description": "تم تمرير سلسلة أوامر PowerShell إلى -Command.",
     "param.shell.description": "ملف PowerShell التنفيذي المستخدم: 'pwsh' (PowerShell 7+) أو 'powershell' (Windows PowerShell). إذا تم حذفه، فسيتم اختياره تلقائيًا.",
     "tool.description": "كحل أخير، قم بتنفيذ PowerShell. استخدم فقط في حالة عدم توفر أي أداة أخرى مناسبة (على سبيل المثال، MCP).",

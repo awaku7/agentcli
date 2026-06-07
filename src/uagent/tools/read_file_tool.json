@@ -83,7 +83,8 @@
       "líneas máximas",
       "leer contenido"
     ],
-    "tool.system_prompt": "Lee contenidos de archivos. Para archivos grandes, se recomienda lectura parcial. Los saltos de línea se normalizan."
+    "tool.system_prompt": "Lee contenidos de archivos. Para archivos grandes, se recomienda lectura parcial. Los saltos de línea se normalizan.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "fr": {
     "err.dual_lines": "[erreur read_file] head_lines et tail_lines ne peuvent pas être spécifiés simultanément.",
@@ -111,7 +112,8 @@
       "lignes max",
       "lire contenu"
     ],
-    "tool.system_prompt": "Lit le contenu du fichier. Pour les gros fichiers, privilégiez la lecture partielle. Normalisation automatique des sauts de ligne."
+    "tool.system_prompt": "Lit le contenu du fichier. Pour les gros fichiers, privilégiez la lecture partielle. Normalisation automatique des sauts de ligne.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "ko": {
     "err.dual_lines": "[read_file 에러] head_lines와 tail_lines는 동시에 지정할 수 없습니다.",
@@ -139,7 +141,8 @@
       "최대 줄 수",
       "내용 읽기"
     ],
-    "tool.system_prompt": "파일 내용을 읽습니다. 대용량 파일은 부분 읽기를 권장하며, 줄바꿈은 자동으로 정규화됩니다."
+    "tool.system_prompt": "파일 내용을 읽습니다. 대용량 파일은 부분 읽기를 권장하며, 줄바꿈은 자동으로 정규화됩니다.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "de": {
     "err.dual_lines": "[read_file Fehler] head_lines und tail_lines können nicht gleichzeitig angegeben werden.",
@@ -167,7 +170,8 @@
       "max zeilen",
       "inhalt lesen"
     ],
-    "tool.system_prompt": "Liest Dateiinhalt. Für große Dateien wird teilweises Lesen empfohlen. Zeilenumbrüche werden automatisch normalisiert."
+    "tool.system_prompt": "Liest Dateiinhalt. Für große Dateien wird teilweises Lesen empfohlen. Zeilenumbrüche werden automatisch normalisiert.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "it": {
     "err.dual_lines": "[errore read_file] head_lines e tail_lines non possono essere specificati contemporaneamente.",
@@ -195,7 +199,8 @@
       "righe max",
       "leggi contenuto"
     ],
-    "tool.system_prompt": "Legge il contenuto del file. Per file grandi, si consiglia la lettura parziale. Normalizzazione automatica dei ritorni a capo."
+    "tool.system_prompt": "Legge il contenuto del file. Per file grandi, si consiglia la lettura parziale. Normalizzazione automatica dei ritorni a capo.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "ru": {
     "err.dual_lines": "[ошибка read_file] head_lines и tail_lines нельзя указывать одновременно.",
@@ -223,7 +228,8 @@
       "макс строк",
       "чтение содержимого"
     ],
-    "tool.system_prompt": "Читает файл. Для больших файлов используйте частичное чтение. Переносы строк нормализуются автоматически."
+    "tool.system_prompt": "Читает файл. Для больших файлов используйте частичное чтение. Переносы строк нормализуются автоматически.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "pt_BR": {
     "err.dual_lines": "[erro read_file] head_lines e tail_lines não podem ser especificados ao mesmo tempo.",
@@ -251,7 +257,8 @@
       "linhas máximas",
       "ler conteúdo"
     ],
-    "tool.system_prompt": "Lê o conteúdo do arquivo. Para arquivos grandes, use leitura parcial. Quebras de linha são normalizadas."
+    "tool.system_prompt": "Lê o conteúdo do arquivo. Para arquivos grandes, use leitura parcial. Quebras de linha são normalizadas.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "pt": {
     "err.dual_lines": "[erro read_file] head_lines e tail_lines não podem ser especificados ao mesmo tempo",
@@ -279,7 +286,8 @@
       "linhas máximas",
       "ler conteúdo"
     ],
-    "tool.system_prompt": "Leia o conteúdo do arquivo.\n- Para arquivos grandes, recomenda-se a leitura parcial usando start_line/max_lines.\n- As novas linhas são normalizadas automaticamente."
+    "tool.system_prompt": "Leia o conteúdo do arquivo.\n- Para arquivos grandes, recomenda-se a leitura parcial usando start_line/max_lines.\n- As novas linhas são normalizadas automaticamente.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "id": {
     "err.dual_lines": "[read_file error] head_lines dan tail_lines tidak dapat ditentukan bersamaan.",
@@ -307,7 +315,8 @@
       "baris maksimum",
       "baca isi"
     ],
-    "tool.system_prompt": "Baca isi file.\n- Untuk file besar, disarankan pembacaan sebagian menggunakan start_line/max_lines.\n- Baris baru dinormalisasi secara otomatis."
+    "tool.system_prompt": "Baca isi file.\n- Untuk file besar, disarankan pembacaan sebagian menggunakan start_line/max_lines.\n- Baris baru dinormalisasi secara otomatis.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "vi": {
     "err.dual_lines": "[lỗi read_file] head_lines và tail_lines không thể được chỉ định cùng một lúc",
@@ -335,7 +344,8 @@
       "số dòng tối đa",
       "đọc nội dung"
     ],
-    "tool.system_prompt": "Đọc nội dung tập tin.\n- Đối với các tệp lớn, nên đọc một phần bằng start_line/max_lines.\n- Dòng mới được chuẩn hóa tự động."
+    "tool.system_prompt": "Đọc nội dung tập tin.\n- Đối với các tệp lớn, nên đọc một phần bằng start_line/max_lines.\n- Dòng mới được chuẩn hóa tự động.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "pl": {
     "err.dual_lines": "[błąd read_file] head_lines i tail_lines nie mogą być określone jednocześnie.",
@@ -363,7 +373,8 @@
       "maks wierszy",
       "czytaj zawartość"
     ],
-    "tool.system_prompt": "Czyta zawartość pliku.\n- W przypadku dużych plików zaleca się częściowy odczyt z użyciem start_line/max_lines.\n- Nowe linie są automatycznie normalizowane."
+    "tool.system_prompt": "Czyta zawartość pliku.\n- W przypadku dużych plików zaleca się częściowy odczyt z użyciem start_line/max_lines.\n- Nowe linie są automatycznie normalizowane.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "hi": {
     "err.dual_lines": "[read_file error] हेड_लाइन्स और टेल_लाइन्स को एक ही समय में निर्दिष्ट नहीं किया जा सकता है",
@@ -391,7 +402,8 @@
       "अधिकतम पंक्तियाँ",
       "सामग्री पढ़ें"
     ],
-    "tool.system_prompt": "फ़ाइल सामग्री पढ़ें.\n- बड़ी फ़ाइलों के लिए, स्टार्ट_लाइन/मैक्स_लाइन्स का उपयोग करके आंशिक रूप से पढ़ने की अनुशंसा की जाती है।\n- नई लाइनें स्वचालित रूप से सामान्य हो जाती हैं।"
+    "tool.system_prompt": "फ़ाइल सामग्री पढ़ें.\n- बड़ी फ़ाइलों के लिए, स्टार्ट_लाइन/मैक्स_लाइन्स का उपयोग करके आंशिक रूप से पढ़ने की अनुशंसा की जाती है।\n- नई लाइनें स्वचालित रूप से सामान्य हो जाती हैं।",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "ar": {
     "err.dual_lines": "[read_file خطأ] لا يمكن تحديد head_lines وtail_lines في الوقت نفسه.",
@@ -419,7 +431,8 @@
       "الحد الأقصى للأسطر",
       "قراءة المحتوى"
     ],
-    "tool.system_prompt": "اقرأ محتويات الملف.\n- بالنسبة للملفات الكبيرة، يوصى بالقراءة الجزئية باستخدام start_line/max_lines.\n- تتم تسوية فواصل الأسطر تلقائيًا."
+    "tool.system_prompt": "اقرأ محتويات الملف.\n- بالنسبة للملفات الكبيرة، يوصى بالقراءة الجزئية باستخدام start_line/max_lines.\n- تتم تسوية فواصل الأسطر تلقائيًا.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "sv": {
     "err.dual_lines": "[read_file-fel] head_lines och tail_lines kan inte anges samtidigt.",
@@ -447,7 +460,8 @@
       "max rader",
       "läs innehåll"
     ],
-    "tool.system_prompt": "Läs filinnehållet.\n- För stora filer rekommenderas partiell läsning med start_line/max_lines.\n- Radbrytningar normaliseras automatiskt."
+    "tool.system_prompt": "Läs filinnehållet.\n- För stora filer rekommenderas partiell läsning med start_line/max_lines.\n- Radbrytningar normaliseras automatiskt.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "sw": {
     "err.dual_lines": "[hitilafu read_file] head_lines na tail_lines haviwezi kutolewa kwa wakati mmoja.",
@@ -475,7 +489,8 @@
       "mistari ya juu",
       "soma yaliyomo"
     ],
-    "tool.system_prompt": "Soma maudhui ya faili.\n- Kwa faili kubwa, inashauriwa kusoma kwa sehemu kwa kutumia start_line/max_lines.\n- Mivunjo ya mistari husawazishwa kiotomatiki."
+    "tool.system_prompt": "Soma maudhui ya faili.\n- Kwa faili kubwa, inashauriwa kusoma kwa sehemu kwa kutumia start_line/max_lines.\n- Mivunjo ya mistari husawazishwa kiotomatiki.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "nb": {
     "err.dual_lines": "[read_file-feil] head_lines og tail_lines kan ikke angis samtidig.",
@@ -503,7 +518,8 @@
       "maks linjer",
       "les innhold"
     ],
-    "tool.system_prompt": "Les filinnholdet.\n- For store filer anbefales delvis lesing med start_line/max_lines.\n- Linjeskift normaliseres automatisk."
+    "tool.system_prompt": "Les filinnholdet.\n- For store filer anbefales delvis lesing med start_line/max_lines.\n- Linjeskift normaliseres automatisk.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "nl": {
     "err.dual_lines": "[read_file fout] head_lines en tail_lines kunnen niet tegelijk worden opgegeven",
@@ -531,7 +547,8 @@
       "max regels",
       "lees inhoud"
     ],
-    "tool.system_prompt": "Bestandsinhoud lezen.\n- Voor grote bestanden wordt gedeeltelijk lezen met start_line/max_lines aanbevolen.\n- Nieuwe regels worden automatisch genormaliseerd."
+    "tool.system_prompt": "Bestandsinhoud lezen.\n- Voor grote bestanden wordt gedeeltelijk lezen met start_line/max_lines aanbevolen.\n- Nieuwe regels worden automatisch genormaliseerd.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "fi": {
     "err.dual_lines": "[read_file-virhe] head_lines ja tail_lines eivät voi olla käytössä yhtä aikaa",
@@ -559,7 +576,8 @@
       "enimmäisrivimäärä",
       "lue sisältö"
     ],
-    "tool.system_prompt": "Lue tiedoston sisältö.\n- Suurille tiedostoille suositellaan osittaista lukemista start_line/max_lines-parametreilla.\n- Rivinvaihdot normalisoidaan automaattisesti."
+    "tool.system_prompt": "Lue tiedoston sisältö.\n- Suurille tiedostoille suositellaan osittaista lukemista start_line/max_lines-parametreilla.\n- Rivinvaihdot normalisoidaan automaattisesti.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "cs": {
     "err.dual_lines": "[read_file chyba] head_lines a tail_lines nelze zadat současně.",
@@ -587,7 +605,8 @@
       "max řádků",
       "číst obsah"
     ],
-    "tool.system_prompt": "Čte obsah souboru.\n- U velkých souborů se doporučuje částečné čtení pomocí start_line/max_lines.\n- Konce řádků se automaticky normalizují."
+    "tool.system_prompt": "Čte obsah souboru.\n- U velkých souborů se doporučuje částečné čtení pomocí start_line/max_lines.\n- Konce řádků se automaticky normalizují.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "uk": {
     "err.dual_lines": "[read_file помилка] head_lines і tail_lines не можна вказувати одночасно.",
@@ -615,7 +634,8 @@
       "макс рядків",
       "читати вміст"
     ],
-    "tool.system_prompt": "Читає вміст файла.\n- Для великих файлів рекомендовано часткове читання через start_line/max_lines.\n- Перенесення рядків автоматично нормалізуються."
+    "tool.system_prompt": "Читає вміст файла.\n- Для великих файлів рекомендовано часткове читання через start_line/max_lines.\n- Перенесення рядків автоматично нормалізуються.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "tr": {
     "err.dual_lines": "[dosya okuma hatası] başlık satırları ve kuyruk_satırları aynı anda belirtilemez",
@@ -643,7 +663,8 @@
       "maksimum satır",
       "içeriği oku"
     ],
-    "tool.system_prompt": "Dosya içeriğini okuyun.\n- Büyük dosyalar için start_line/max_lines kullanılarak kısmi okuma yapılması önerilir.\n- Yeni satırlar otomatik olarak normalleştirilir."
+    "tool.system_prompt": "Dosya içeriğini okuyun.\n- Büyük dosyalar için start_line/max_lines kullanılarak kısmi okuma yapılması önerilir.\n- Yeni satırlar otomatik olarak normalleştirilir.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "th": {
     "err.dual_lines": "[ข้อผิดพลาด read_file] ไม่สามารถระบุ head_lines และ tail_lines พร้อมกันได้",
@@ -671,7 +692,8 @@
       "จำนวนบรรทัดสูงสุด",
       "อ่านเนื้อหา"
     ],
-    "tool.system_prompt": "อ่านเนื้อหาไฟล์ แนะนำให้อ่านบางส่วนสำหรับไฟล์ขนาดใหญ่ ปรับมาตรฐานการขึ้นบรรทัดให้อัตโนมัติ"
+    "tool.system_prompt": "อ่านเนื้อหาไฟล์ แนะนำให้อ่านบางส่วนสำหรับไฟล์ขนาดใหญ่ ปรับมาตรฐานการขึ้นบรรทัดให้อัตโนมัติ",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "zh_CN": {
     "err.dual_lines": "[read_file 错误] head_lines 和 tail_lines 不能同时指定。",
@@ -699,7 +721,8 @@
       "最大行数",
       "读取内容"
     ],
-    "tool.system_prompt": "读取文件内容。大文件建议部分读取。换行符将自动标准化。"
+    "tool.system_prompt": "读取文件内容。大文件建议部分读取。换行符将自动标准化。",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "zh_TW": {
     "err.dual_lines": "[read_file 錯誤] head_lines 和 tail_lines 不能同時指定。",
@@ -727,7 +750,8 @@
       "最大行數",
       "讀取內容"
     ],
-    "tool.system_prompt": "讀取檔案內容。大檔案建議部分讀取。換行符將自動標準化。"
+    "tool.system_prompt": "讀取檔案內容。大檔案建議部分讀取。換行符將自動標準化。",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "bn": {
     "err.dual_lines": "[read_file ত্রুটি] head_lines এবং tail_lines একসাথে নির্দিষ্ট করা যাবে না",
@@ -755,7 +779,8 @@
       "সর্বোচ্চ লাইন",
       "বিষয়বস্তু পড়ুন"
     ],
-    "tool.system_prompt": "ফাইলের বিষয়বস্তু পড়ুন।\n- বড় ফাইল হলে start_line/max_lines ব্যবহার করে আংশিক পড়া সুপারিশ করা হয়।\n- নতুন লাইন স্বয়ংক্রিয়ভাবে স্বাভাবিকায়িত হয়।"
+    "tool.system_prompt": "ফাইলের বিষয়বস্তু পড়ুন।\n- বড় ফাইল হলে start_line/max_lines ব্যবহার করে আংশিক পড়া সুপারিশ করা হয়।\n- নতুন লাইন স্বয়ংক্রিয়ভাবে স্বাভাবিকায়িত হয়।",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "fa": {
     "err.dual_lines": "[خطای read_file] head_lines و tail_lines را نمی‌توان هم‌زمان مشخص کرد",
@@ -783,7 +808,8 @@
       "حداکثر سطرها",
       "خواندن محتوا"
     ],
-    "tool.system_prompt": "محتوای فایل را بخوانید.\n- برای فایل‌های بزرگ، خواندن بخشی با start_line/max_lines توصیه می‌شود.\n- خط‌های جدید به‌طور خودکار نرمال‌سازی می‌شوند."
+    "tool.system_prompt": "محتوای فایل را بخوانید.\n- برای فایل‌های بزرگ، خواندن بخشی با start_line/max_lines توصیه می‌شود.\n- خط‌های جدید به‌طور خودکار نرمال‌سازی می‌شوند.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "mn": {
     "err.dual_lines": "[read_file алдаа] head_lines ба tail_lines-ийг зэрэг зааж болохгүй",
@@ -811,7 +837,8 @@
       "дээд мөр",
       "агуулга унших"
     ],
-    "tool.system_prompt": "Файлын агуулгыг уншина.\n- Том файл бол start_line/max_lines ашиглан хэсэгчлэн уншихыг зөвлөж байна.\n- Шинэ мөрүүдийг автоматаар хэвийн болгоно."
+    "tool.system_prompt": "Файлын агуулгыг уншина.\n- Том файл бол start_line/max_lines ашиглан хэсэгчлэн уншихыг зөвлөж байна.\n- Шинэ мөрүүдийг автоматаар хэвийн болгоно.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "mr": {
     "err.dual_lines": "[read_file त्रुटी] head_lines आणि tail_lines एकाच वेळी देता येत नाहीत",
@@ -839,6 +866,7 @@
       "कमाल ओळी",
       "सामग्री वाचा"
     ],
-    "tool.system_prompt": "फाइलची सामग्री वाचा.\n- मोठ्या फाइल्ससाठी start_line/max_lines वापरून आंशिक वाचन सुचवले जाते.\n- नवीन ओळी आपोआप सामान्यीकृत केल्या जातात."
+    "tool.system_prompt": "फाइलची सामग्री वाचा.\n- मोठ्या फाइल्ससाठी start_line/max_lines वापरून आंशिक वाचन सुचवले जाते.\n- नवीन ओळी आपोआप सामान्यीकृत केल्या जातात.",
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   }
 }

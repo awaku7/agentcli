@@ -168,8 +168,8 @@
     "ui.confirm.title": "=== Human confirmation request ==="
   },
   "ar": {
-    "confirm.risky_command": "تم اكتشاف محتوى أمر يحتمل أن يكون خطيرًا.\nأمر: {أمر}\nاكتب y للمتابعة، أو c للإلغاء.",
-    "confirm.shell_metachar": "تم اكتشاف مشغلي الصدفة (الأنابيب/إعادة التوجيه/التسلسل).\nأمر: {أمر}\nاكتب y للمتابعة، أو c للإلغاء.",
+    "confirm.risky_command": "تم اكتشاف محتوى أمر يحتمل أن يكون خطيرًا.\nأمر: {command}\nاكتب y للمتابعة، أو c للإلغاء.",
+    "confirm.shell_metachar": "تم اكتشاف مشغلي الصدفة (الأنابيب/إعادة التوجيه/التسلسل).\nأمر: {command}\nاكتب y للمتابعة، أو c للإلغاء.",
     "err.blocked_cancelled": "تم إلغاء المستخدم",
     "err.blocked_rejected": "تم رفض المستخدم",
     "err.callbacks_unavailable": "عمليات الاسترجاعات human_ask غير متوفرة",

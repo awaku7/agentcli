@@ -51,7 +51,6 @@
       "テスト"
     ],
     "tool.system_prompt": "このツールは、ツール説明に記載された目的のために使用します。",
-    "param.pattern.description": "検索パターン。改行には \\n を使います。",
     "summary.no_change": "変更はありませんでした（0 件の一致）"
   },
   "es": {
@@ -77,7 +76,6 @@
       "test runner"
     ],
     "tool.system_prompt": "Use esta herramienta para el propósito descrito en la descripción de la herramienta.",
-    "param.pattern.description": "Patrón de búsqueda. Use \\n para un salto de línea.",
     "summary.no_change": "Se realizaron correctamente 0 cambios (0 coincidencias)"
   },
   "fr": {
@@ -103,7 +101,6 @@
       "test runner"
     ],
     "tool.system_prompt": "Utilisez cet outil pour l'objectif décrit dans la description de l'outil.",
-    "param.pattern.description": "Motif de recherche. Utilisez \\n pour un saut de ligne.",
     "summary.no_change": "Aucune modification effectuée avec succès (0 correspondances)"
   },
   "ko": {
@@ -129,7 +126,6 @@
       "테스트"
     ],
     "tool.system_prompt": "이 도구는 도구 설명에 적힌 목적에 사용합니다.",
-    "param.pattern.description": "검색 패턴입니다. 줄바꿈에는 \\n 을 사용하세요.",
     "summary.no_change": "성공적으로 변경 사항이 없었습니다(일치 0개)"
   },
   "de": {
@@ -178,7 +174,6 @@
       "test runner"
     ],
     "tool.system_prompt": "Utilizza questo strumento per lo scopo descritto nella descrizione dello strumento.",
-    "param.pattern.description": "Pattern di ricerca. Usa \\n per un a capo.",
     "summary.no_change": "Nessuna modifica apportata con successo (0 corrispondenze)"
   },
   "ru": {
@@ -203,7 +198,6 @@
       "test runner"
     ],
     "tool.system_prompt": "Используйте этот инструмент для цели, описанной в описании инструмента.",
-    "param.pattern.description": "Шаблон поиска. Используйте \\n для новой строки.",
     "summary.no_change": "Успешно без изменений (0 совпадений)"
   },
   "pt_BR": {
@@ -229,7 +223,6 @@
       "test runner"
     ],
     "tool.system_prompt": "Use esta ferramenta para o propósito descrito na descrição da ferramenta.",
-    "param.pattern.description": "Padrão de pesquisa. Use \\n para uma quebra de linha.",
     "summary.no_change": "Nenhuma alteração foi feita com sucesso (0 correspondências)"
   },
   "pt": {
@@ -255,7 +248,6 @@
       "test runner"
     ],
     "tool.system_prompt": "Use esta ferramenta para a finalidade descrita na descrição da ferramenta.",
-    "param.pattern.description": "Padrão de pesquisa. Use \\n para uma nova linha.",
     "summary.no_change": "Concluído com sucesso sem alterações (0 correspondências)"
   },
   "id": {
@@ -280,7 +272,6 @@
       "test runner"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk tujuan yang dijelaskan pada deskripsi alat.",
-    "param.pattern.description": "Pola pencarian. Gunakan \\n untuk baris baru.",
     "summary.no_change": "Berhasil tanpa perubahan (0 kecocokan)"
   },
   "vi": {
@@ -305,7 +296,6 @@
       "test runner"
     ],
     "tool.system_prompt": "Hãy dùng công cụ này cho mục đích được mô tả trong phần mô tả công cụ.",
-    "param.pattern.description": "Mẫu tìm kiếm. Dùng \\n cho một dòng mới.",
     "summary.no_change": "Đã hoàn tất thành công mà không có thay đổi nào (0 kết quả khớp)"
   },
   "pl": {
@@ -330,7 +320,6 @@
       "test runner"
     ],
     "tool.system_prompt": "Użyj tego narzędzia zgodnie z opisem narzędzia.",
-    "param.pattern.description": "Wzorzec wyszukiwania. Użyj \\n dla nowej linii.",
     "summary.no_change": "Pomyślnie nie wprowadzono żadnych zmian (0 dopasowań)"
   },
   "hi": {
@@ -355,7 +344,6 @@
       "test runner"
     ],
     "tool.system_prompt": "इस टूल का उपयोग टूल विवरण में बताए गए उद्देश्य के लिए करें।",
-    "param.pattern.description": "खोज पैटर्न। नई पंक्ति के लिए \\n का उपयोग करें।",
     "summary.no_change": "सफलतापूर्वक कोई परिवर्तन नहीं किया गया (0 मिलान)"
   },
   "ar": {
@@ -380,7 +368,6 @@
       "test runner"
     ],
     "tool.system_prompt": "استخدم هذه الأداة للغرض الموصوف في وصف الأداة.",
-    "param.pattern.description": "نمط البحث. استخدم \\n لسطر جديد.",
     "summary.no_change": "تم بنجاح دون إجراء أي تغييرات (0 تطابق)"
   },
   "sv": {
@@ -429,8 +416,7 @@
       "test runner"
     ],
     "tool.system_prompt": "Tumia zana hii kwa madhumuni yaliyofafanuliwa katika maelezo ya zana.",
-    "summary.no_change": "Hakuna mabadiliko yaliyofanywa kwa mafanikio (mfanano 0)",
-    "param.pattern.description": "Mfano wa utafutaji. Tumia \\n kwa mstari mpya."
+    "summary.no_change": "Hakuna mabadiliko yaliyofanywa kwa mafanikio (mfanano 0)"
   },
   "nb": {
     "doc.module": "run_tests_tool\n\nEt wrapperverktøy for å kjøre tester.\n\nFormål:\n- I stedet for å kalle cmd_exec/pwsh_exec direkte, standardiser testkjøringen og returner strukturerte resultater.\n- Auto-detektér pytest / unittest / npm når framework=auto.\n\nSikkerhetspolicy:\n- Testkjøring er som regel ikke en farlig operasjon, så human_ask brukes ikke.\n- extra_args som inneholder metategn for kommandoinjeksjon (&&, |, > osv.) avvises likevel.\n\nImplementasjon:\n- Bruker internt cmd_exec_json_tool og håndterer returncode/stdout/stderr.\n- For stdout/stderr brukes callbacks.truncate_output hvis den finnes.\n- For cwd brukes cmd_exec_jsons cwd-argument (ikke cd &&).\n\nYtterligere funksjoner:\n- pythonpath: konfigurer ekstra PYTHONPATH for å kjøre tester.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -598,7 +584,6 @@
       "test runner"
     ],
     "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อวัตถุประสงค์ที่อธิบายไว้ในคำอธิบายเครื่องมือ",
-    "param.pattern.description": "รูปแบบการค้นหา ใช้ \\n สำหรับขึ้นบรรทัดใหม่",
     "summary.no_change": "สำเร็จโดยไม่มีการเปลี่ยนแปลง (ตรงกัน 0 รายการ)"
   },
   "zh_CN": {
@@ -623,7 +608,6 @@
       "测试运行器"
     ],
     "tool.system_prompt": "请将此工具用于工具说明中描述的用途。",
-    "param.pattern.description": "搜索模式。使用 \\n 表示换行。",
     "summary.no_change": "成功地未作任何更改（0 个匹配）"
   },
   "zh_TW": {
@@ -648,7 +632,6 @@
       "測試執行器"
     ],
     "tool.system_prompt": "請將此工具用於工具說明中描述的用途。",
-    "param.pattern.description": "搜尋模式。使用 \\n 表示換行。",
     "summary.no_change": "成功地未進行任何變更（0 個符合）"
   },
   "bn": {

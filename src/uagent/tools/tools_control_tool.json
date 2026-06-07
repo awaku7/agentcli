@@ -166,5 +166,17 @@
     "cmd.help.tools_on": "  :tools on comm                    संवाद साधने (Teams, Discord) सक्षम करा\n  :tools on office                  कार्यालयीन साधने (Excel, Word, इ.) सक्षम करा\n  :tools on devel                   विकास साधने (lint, py_compile, चाचण्या) सक्षम करा",
     "cmd.help.tools_off": "  :tools off comm                   संवाद साधने (Teams, Discord) अक्षम करा\n  :tools off office                 कार्यालयीन साधने (Excel, Word, इ.) अक्षम करा\n  :tools off devel                  विकास साधने (lint, py_compile, चाचण्या) अक्षम करा",
     "tool.description": "साधन नियंत्रण कमांड नोंदणीसाठी डमी साधन."
+  },
+  "sw": {
+    "cmd.help.tools": "  :tools                            Orodhesha zana zilizopakiwa",
+    "cmd.help.tools_on": "  :tools on comm                    Washa zana za mawasiliano (Teams, Discord)\n  :tools on office                  Washa zana za ofisi (Excel, Word, n.k.)\n  :tools on devel                   Washa zana za maendeleo (lint, py_compile, majaribio)",
+    "cmd.help.tools_off": "  :tools off comm                   Zima zana za mawasiliano (Teams, Discord)\n  :tools off office                 Zima zana za ofisi (Excel, Word, n.k.)\n  :tools off devel                  Zima zana za maendeleo (lint, py_compile, majaribio)",
+    "tool.description": "Zana bandia kwa ajili ya kusajili amri za kudhibiti zana."
+  },
+  "tr": {
+    "cmd.help.tools": "  :tools                            Yüklü araçları listele",
+    "cmd.help.tools_on": "  :tools on comm                    İletişim araçlarını etkinleştir (Teams, Discord)\n  :tools on office                  Ofis araçlarını etkinleştir (Excel, Word, vb.)\n  :tools on devel                   Geliştirme araçlarını etkinleştir (lint, py_compile, testler)",
+    "cmd.help.tools_off": "  :tools off comm                   İletişim araçlarını devre dışı bırak (Teams, Discord)\n  :tools off office                 Ofis araçlarını devre dışı bırak (Excel, Word, vb.)\n  :tools off devel                  Geliştirme araçlarını devre dışı bırak (lint, py_compile, testler)",
+    "tool.description": "Araç denetim komutlarını kaydetmek için sahte araç."
   }
 }

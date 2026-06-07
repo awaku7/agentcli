@@ -103,6 +103,7 @@ msgstr "已指定 --non-interactive；不等待 stdin 直接退出。"
 msgid "getch() fallback to input()"
 msgstr "getch() 回退到 input()"
 
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:604
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "已收到 Ctrl+C。正在开始关闭..."
 
@@ -199,6 +200,7 @@ msgstr "日志：显示 %(shown)d/%(total)d（目录=%(dir)s）"
 msgid "Log files:"
 msgstr "日志文件："
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:638
 msgid "(mtime unknown)"
 msgstr "(修改时间未知)"
 
@@ -207,6 +209,7 @@ msgstr "(修改时间未知)"
 msgid "(no user message)"
 msgstr "(没有用户消息)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:764
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s"
@@ -214,31 +217,37 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d 条消息 | 首条: %(first_user)s | 最后: "
 "%(last_user)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:896
 msgid ""
 "[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
 msgstr "[WARN] 正在丢弃孤立的工具消息: tool_call_id=%(tool_call_id)r name=%(name)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:994
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr "[INFO] 有 %(count)d 条消息需要压缩，因此没有做任何更改。"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1002
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
 "messages (keep_last=%(keep_last)d)"
 msgstr ""
 "[INFO] 已压缩内存中的对话历史：%(old_n)d -> %(new_n)d 条消息（keep_last=%(keep_last)d）"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1335
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
 msgstr "[WARN] 历史压缩即使在 chunk_size=1 时也达到了上下文长度限制；将回退到 shrink_messages()。"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1343
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
 msgstr "[WARN] 历史压缩无法继续减小 chunk_size；将回退到 shrink_messages()。"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1349
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
 "chunk_size=%(chunk_size)d"
@@ -594,32 +603,41 @@ msgstr "  或通过进程管理器 / 服务配置（CI secrets、systemd、Docke
 msgid "invalid cache meta"
 msgstr "缓存元数据无效"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:101
 msgid "(prompt unavailable)"
 msgstr "（提示不可用）"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:105
 msgid "screenshot: %(title)s"
 msgstr "截图：%(title)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:107
 msgid "screenshot"
 msgstr "截图"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:148
 msgid "Image-session context:"
 msgstr "图像会话上下文："
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:149
 msgid "This conversation already generated images."
 msgstr "这段对话已经生成过图像。"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:151
 msgid ""
 "Use the prior prompts and saved file paths below as context for follow-up "
 "edits, variants, or continuations."
 msgstr "请将下面的先前提示词和已保存文件路径作为后续编辑、变体或续写的上下文。"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:156
 msgid "Turn %(idx)d:"
 msgstr "轮次 %(idx)d："
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:157
 msgid "- prompt: %(prompt)s"
 msgstr "- 提示词：%(prompt)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:160
 msgid "- file: %(path)s"
 msgstr "- 文件：%(path)s"
 
@@ -688,6 +706,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_gemini.py:542
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "无法导入 google-genai（需要执行 pip install google-genai）。"
@@ -704,6 +723,7 @@ msgstr "请读取这张截图中所有可见文本并进行总结。"
 msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr "请检查这张截图中的错误、警告和重要的界面状态。"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_message_helpers.py:154
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] 自动 shrink_llm 失败：%(err)s"
 
@@ -721,6 +741,7 @@ msgstr "[WARN] 无效的图像内容（缺少 url）。"
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] 不支持的内容项：%(item)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:444
 msgid "Sources:"
 msgstr "来源："
 
@@ -804,6 +825,7 @@ msgstr "[Gemini 错误] 生成回复时发生错误。"
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude 错误] 生成回复时发生错误。"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[网络错误]"
 
@@ -842,9 +864,11 @@ msgstr ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:484
 msgid "Failed to initialize LLM client."
 msgstr "无法初始化 LLM 客户端。"
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:488
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "找到 %(total_files)d 个日志文件。正在开始增量分析..."
 
@@ -1010,12 +1034,16 @@ msgstr "下载"
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "载入共享长期记忆时发生异常：%(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:381
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[附加文件] %(name)s (%(path)s)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:466
 msgid "[Attached Image] %(path)s"
 msgstr "[附加图片] %(path)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:468
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:667
 msgid "[Image Path] %(path)s"
 msgstr "[图片路径] %(path)s"
 
@@ -1097,6 +1125,7 @@ msgstr "详细程度：高"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] 推理=%(mode)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:982
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1128,6 +1157,7 @@ msgstr "附加文件"
 msgid "All Files (*)"
 msgstr "所有文件 (*)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1397
 msgid "cannot read image"
 msgstr "无法读取图片"
 
@@ -1150,6 +1180,7 @@ msgstr "已停止"
 msgid "[REPLY] > %(text)s"
 msgstr "[回复] > %(text)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1708
 msgid "[USER] %(text)s"
 msgstr "[用户] %(text)s"
 
@@ -2123,12 +2154,15 @@ msgstr ""
 "[FATAL] 未设置环境变量 UAGENT_PROVIDER。\n"
 "请在启动 Web 服务器时检查环境变量。"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:664
 msgid "[Attached Image] %(name)s"
 msgstr "[附加图片] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:672
 msgid "[Attached File] %(name)s"
 msgstr "[附加文件] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:675
 msgid "[File Path] %(path)s"
 msgstr "[文件路径] %(path)s"
 
@@ -2149,12 +2183,15 @@ msgstr ""
 "[FATAL] Web worker 错误。\n"
 "%(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:888
 msgid "missing path"
 msgstr "缺少路径"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:895
 msgid "path outside workdir"
 msgstr "路径位于工作目录之外"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:1044
 msgid "Starting server on"
 msgstr "正在启动服务器："
 
@@ -2253,6 +2290,7 @@ msgstr "- \"阅读此 PDF 并列出三个要点。\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"搜索最新新闻并总结一个特定主题。\""
 
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:183
 msgid "-- More -- (Enter: next) "
 msgstr "-- 更多 --（Enter：下一页）"
 
@@ -2283,3 +2321,19 @@ msgstr "uagent 执行失败：%(etype)s: %(err)s"
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "未知的 UAGENT_A2A_ENGINE：%(mode)s"
+
+msgid ""
+"Choose the startup tool groups to enable.\n"
+"1: comm  - Communication tools (Teams/Discord, etc.)\n"
+"2: office - Office tools (Excel/Word, etc.)\n"
+"4: devel  - Development tools (lint / py_compile / test, etc.)\n"
+"Enter the total value (e.g. 3 = comm + office, 7 = all)."
+msgstr ""
+"请选择在启动时要启用的工具组。\n"
+"1: comm  - 通信工具（Teams/Discord 等）\n"
+"2: office - Office 工具（Excel/Word 等）\n"
+"4: devel  - 开发工具（lint / py_compile / test 等）\n"
+"请输入总值（例如 3 = comm + office，7 = 全部）。"
+
+msgid "[WARN] Please enter an integer from 0 to 7."
+msgstr "[WARN] 请输入 0 到 7 之间的整数。"

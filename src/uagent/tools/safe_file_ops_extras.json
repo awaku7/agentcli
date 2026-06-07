@@ -70,7 +70,7 @@
     "err.path_empty": "path is empty"
   },
   "ar": {
-    "err.file_not_found": "لم يتم العثور على الملف: {اسم الملف}",
+    "err.file_not_found": "لم يتم العثور على الملف: {filename}",
     "err.outside_workdir": "المسار خارج دليل العمل: root={root} path={path}",
     "err.path_empty": "المسار فارغ"
   },

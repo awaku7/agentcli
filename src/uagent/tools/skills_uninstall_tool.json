@@ -170,13 +170,14 @@
   },
   "sw": {
     "param.name.description": "Jina la folda ya skill ya kuondoa.",
-    "tool.description": "Ondoa Skill ya Wakala kutoka ~/.uag/skills.",
+    "tool.description": "Ondoa Agent Skill kutoka ~/.uag/skills.",
     "x_search_terms": [
       "skills_uninstall",
       "ondoa skill",
-      "futa skill"
+      "futa skill",
+      "ondoa ujuzi"
     ],
-    "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
+    "tool.system_prompt": "Zana hii hutumiwa kwa madhumuni yafuatayo (angalia maelezo ya zana)."
   },
   "nb": {
     "param.name.description": "Mappenavnet for den skillen som skal avinstalleres.",
@@ -227,5 +228,93 @@
       "стерти навичку"
     ],
     "tool.system_prompt": "Цей інструмент використовується для наступної мети: (див. опис інструменту)."
+  },
+  "zh_CN": {
+    "param.name.description": "要卸载的技能文件夹名称。",
+    "tool.description": "从 ~/.uag/skills 卸载 Agent Skill。",
+    "x_search_terms": [
+      "skills_uninstall",
+      "卸载技能",
+      "删除技能",
+      "移除技能"
+    ],
+    "tool.system_prompt": "此工具用于以下目的（请参见工具说明）。"
+  },
+  "zh_TW": {
+    "param.name.description": "要解除安裝的技能資料夾名稱。",
+    "tool.description": "從 ~/.uag/skills 解除安裝 Agent Skill。",
+    "x_search_terms": [
+      "skills_uninstall",
+      "解除安裝技能",
+      "刪除技能",
+      "移除技能"
+    ],
+    "tool.system_prompt": "此工具用於以下目的（請參見工具說明）。"
+  },
+  "bn": {
+    "param.name.description": "যে স্কিলটি আনইনস্টল করতে চান তার ফোল্ডারের নাম।",
+    "tool.description": "~/.uag/skills থেকে Agent Skill আনইনস্টল করুন।",
+    "x_search_terms": [
+      "skills_uninstall",
+      "স্কিল আনইনস্টল",
+      "স্কিল মুছুন",
+      "স্কিল সরান"
+    ],
+    "tool.system_prompt": "এই টুলটি নিম্নলিখিত উদ্দেশ্যে ব্যবহৃত হয় (টুলের বিবরণ দেখুন)।"
+  },
+  "fa": {
+    "param.name.description": "نام پوشهٔ اسکیلی که باید حذف شود.",
+    "tool.description": "یک Agent Skill را از ~/.uag/skills حذف کنید.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "حذف اسکیل",
+      "حذف مهارت",
+      "remove skill"
+    ],
+    "tool.system_prompt": "از این ابزار برای هدف زیر استفاده می‌شود (به توضیح ابزار مراجعه کنید)."
+  },
+  "mn": {
+    "param.name.description": "Устгах skill-ийн хавтасны нэр.",
+    "tool.description": "~/.uag/skills-аас Agent Skill-ийг устгана.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "skill устгах",
+      "skill арилгах",
+      "устгах"
+    ],
+    "tool.system_prompt": "Энэ хэрэгслийг дараах зорилгоор ашиглана (хэрэгслийн тайлбарыг үзнэ үү)."
+  },
+  "mr": {
+    "param.name.description": "अनइंस्टॉल करायच्या skill च्या फोल्डरचे नाव.",
+    "tool.description": "~/.uag/skills मधून Agent Skill अनइंस्टॉल करा.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "skill अनइंस्टॉल",
+      "skill काढा",
+      "skill हटवा"
+    ],
+    "tool.system_prompt": "हे साधन पुढील उद्देशासाठी वापरले जाते (साधनाचे वर्णन पहा)."
+  },
+  "tr": {
+    "param.name.description": "Kaldırılacak skill klasörünün adı.",
+    "tool.description": "Bir Agent Skill’i ~/.uag/skills içinden kaldırın.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "skill kaldır",
+      "skill sil",
+      "skill kaldırma"
+    ],
+    "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır (araç açıklamasına bakın)."
+  },
+  "th": {
+    "param.name.description": "ชื่อโฟลเดอร์ของสกิลที่จะถอนการติดตั้ง",
+    "tool.description": "ถอนการติดตั้ง Agent Skill ออกจาก ~/.uag/skills",
+    "x_search_terms": [
+      "skills_uninstall",
+      "ถอนการติดตั้งสกิล",
+      "ลบสกิล",
+      "เอาสกิลออก"
+    ],
+    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อวัตถุประสงค์ต่อไปนี้ (ดูคำอธิบายเครื่องมือ)"
   }
 }

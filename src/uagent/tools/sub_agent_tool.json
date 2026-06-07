@@ -23,7 +23,13 @@
       "error",
       "تحليل الخطأ",
       "تصحيح"
-    ]
+    ],
+    "param.evidence_min_items.description": "الحد الأدنى لعدد عناصر الأدلة المطلوبة.",
+    "param.evidence_required.description": "طلب عناصر الأدلة في الاستجابة.",
+    "param.required_fields.description": "قائمة الحقول المطلوبة في استجابة JSON.",
+    "param.response_mode.description": "وضع الإخراج للوكيل الفرعي.",
+    "param.response_schema.description": "كائن JSON Schema اختياري للاستجابة المتوقعة.",
+    "param.strict_output.description": "معاملة الحقول المطلوبة المفقودة أو عدم تطابق المخطط كأخطاء."
   },
   "bn": {
     "param.agent_name.description": "চালানোর জন্য বিশেষায়িত সাব-এজেন্টের নাম।",
@@ -49,7 +55,13 @@
       "error",
       "ত্রুটি বিশ্লেষণ",
       "ডিবাগ"
-    ]
+    ],
+    "param.evidence_min_items.description": "প্রয়োজনীয় প্রমাণের উপাদানের ন্যূনতম সংখ্যা।",
+    "param.evidence_required.description": "প্রতিক্রিয়ায় প্রমাণের উপাদান প্রয়োজন।",
+    "param.required_fields.description": "JSON প্রতিক্রিয়ায় প্রয়োজনীয় ক্ষেত্রগুলির তালিকা।",
+    "param.response_mode.description": "সাব-এজেন্টের জন্য আউটপুট মোড।",
+    "param.response_schema.description": "প্রত্যাশিত প্রতিক্রিয়ার জন্য ঐচ্ছিক JSON Schema অবজেক্ট।",
+    "param.strict_output.description": "অনুপস্থিত প্রয়োজনীয় ক্ষেত্র বা স্কিমার অমিলকে ত্রুটি হিসাবে বিবেচনা করুন।"
   },
   "cs": {
     "param.agent_name.description": "Název specializovaného sub-agenta, který se má spustit.",
@@ -75,7 +87,13 @@
       "error",
       "chyba",
       "ladění"
-    ]
+    ],
+    "param.evidence_min_items.description": "Minimální požadovaný počet položek důkazů.",
+    "param.evidence_required.description": "Vyžadovat položky důkazů v odpovědi.",
+    "param.required_fields.description": "Seznam požadovaných polí v odpovědi JSON.",
+    "param.response_mode.description": "Výstupní režim pro podřízeného agenta.",
+    "param.response_schema.description": "Volitelný objekt JSON Schema pro očekávanou odpověď.",
+    "param.strict_output.description": "Považovat chybějící požadovaná pole nebo nesoulad schématu za chyby."
   },
   "de": {
     "param.agent_name.description": "Der Name des spezialisierten Sub-Agents, der ausgeführt werden soll.",
@@ -101,7 +119,13 @@
       "error",
       "Fehleranalyse",
       "Fehlerbehebung"
-    ]
+    ],
+    "param.evidence_min_items.description": "Mindestanzahl der erforderlichen Belege.",
+    "param.evidence_required.description": "Belege in der Antwort anfordern.",
+    "param.required_fields.description": "Liste der erforderlichen Felder in der JSON-Antwort.",
+    "param.response_mode.description": "Ausgabemodus für den Sub-Agenten.",
+    "param.response_schema.description": "Optionales JSON-Schema-Objekt für die erwartete Antwort.",
+    "param.strict_output.description": "Fehlende erforderliche Felder oder Schema-Abweichungen als Fehler behandeln."
   },
   "en": {
     "param.agent_name.description": "The name of the specialized sub-agent to run.",
@@ -113,8 +137,8 @@
     "param.response_schema.description": "Optional JSON Schema object for the expected response.",
     "param.strict_output.description": "Treat missing required fields or schema mismatch as errors.",
     "param.task.description": "Specific instruction/task for the sub-agent to process.",
-    "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, or error_analyst) under the control of the parent orchestrator to process specific tasks and return structured findings.",
-    "tool.system_prompt": "Run a specialized sub-agent (planner, reviewer, summarizer, patch_designer, or error_analyst) to solve a task. This sub-agent does not make destructive modifications. It returns structured insights as JSON.",
+    "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent orchestrator to process specific tasks and return structured findings.",
+    "tool.system_prompt": "Run a specialized sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) to solve a task. This sub-agent does not make destructive modifications. It returns structured insights as JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -127,9 +151,12 @@
       "error_analyst",
       "debug",
       "error analysis",
-      "debugging"
+      "debugging",
+      "translator",
+      "translation",
+      "localization"
     ]
-},
+  },
   "es": {
     "param.agent_name.description": "El nombre del subagente especializado a ejecutar.",
     "param.current_file.description": "(Opcional) Limitar el alcance del razonamiento del subagente a este archivo específico.",
@@ -154,7 +181,13 @@
       "error",
       "análisis de errores",
       "depuración"
-    ]
+    ],
+    "param.evidence_min_items.description": "Número mínimo de elementos de evidencia requeridos.",
+    "param.evidence_required.description": "Requerir elementos de evidencia en la respuesta.",
+    "param.required_fields.description": "Lista de campos requeridos en la respuesta JSON.",
+    "param.response_mode.description": "Modo de salida para el subagente.",
+    "param.response_schema.description": "Objeto JSON Schema opcional para la respuesta esperada.",
+    "param.strict_output.description": "Tratar los campos requeridos faltantes o la discrepancia de esquema como errores."
   },
   "fa": {
     "param.agent_name.description": "نام عامل فرعی تخصصی برای اجرا.",
@@ -180,7 +213,13 @@
       "error",
       "تحلیل خطا",
       "دیباگ"
-    ]
+    ],
+    "param.evidence_min_items.description": "حداقل تعداد موارد شواهد مورد نیاز.",
+    "param.evidence_required.description": "الزام وجود موارد شواهد در پاسخ.",
+    "param.required_fields.description": "لیست فیلدهای الزامی در پاسخ JSON.",
+    "param.response_mode.description": "حالت خروجی برای زیر-عامل.",
+    "param.response_schema.description": "شیء اختیاری JSON Schema برای پاسخ مورد انتظار.",
+    "param.strict_output.description": "در نظر گرفتن فیلدهای الزامی مفقود یا عدم تطابق طرحواره به عنوان خطا."
   },
   "fi": {
     "param.agent_name.description": "Ajettavan erikoistuneen alitoimijan (sub-agent) nimi.",
@@ -206,7 +245,13 @@
       "error",
       "virheanalyysi",
       "vianmääritys"
-    ]
+    ],
+    "param.evidence_min_items.description": "Todisteiden vähimmäismäärä.",
+    "param.evidence_required.description": "Vaadi todisteet vastauksessa.",
+    "param.required_fields.description": "Luettelo pakollisista kentistä JSON-vastauksessa.",
+    "param.response_mode.description": "Alijäsenen tulostustila.",
+    "param.response_schema.description": "Valinnainen JSON-skeemaobjekti odotetulle vastaukselle.",
+    "param.strict_output.description": "Käsittele puuttuvia pakollisia kenttiä tai skeeman epätäsmäisyyksiä virheinä."
   },
   "fr": {
     "param.agent_name.description": "Le nom du sous-agent spécialisé à exécuter.",
@@ -232,7 +277,13 @@
       "error",
       "analyse d'erreurs",
       "débogage"
-    ]
+    ],
+    "param.evidence_min_items.description": "Nombre minimal d'éléments de preuve requis.",
+    "param.evidence_required.description": "Exiger des éléments de preuve dans la réponse.",
+    "param.required_fields.description": "Liste des champs requis dans la réponse JSON.",
+    "param.response_mode.description": "Mode de sortie pour le sous-agent.",
+    "param.response_schema.description": "Objet JSON Schema facultatif pour la réponse attendue.",
+    "param.strict_output.description": "Traiter les champs requis manquants ou les non-correspondances de schéma comme des erreurs."
   },
   "hi": {
     "param.agent_name.description": "चलाने के लिए विशेष उप-एजेंट (sub-agent) का नाम।",
@@ -258,7 +309,13 @@
       "error",
       "त्रुटि विश्लेषण",
       "डीबग"
-    ]
+    ],
+    "param.evidence_min_items.description": "आवश्यक साक्ष्य वस्तुओं की न्यूनतम संख्या।",
+    "param.evidence_required.description": "प्रतिक्रिया में साक्ष्य वस्तुओं की आवश्यकता है।",
+    "param.required_fields.description": "JSON प्रतिक्रिया में आवश्यक फ़ील्ड की सूची।",
+    "param.response_mode.description": "उप-एजेंट के लिए आउटपुट मोड।",
+    "param.response_schema.description": "अपेक्षित प्रतिक्रिया के लिए वैकल्पिक JSON Schema ऑब्जेक्ट।",
+    "param.strict_output.description": "लापता आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप में मानें।"
   },
   "id": {
     "param.agent_name.description": "Nama sub-agen khusus yang akan dijalankan.",
@@ -284,7 +341,13 @@
       "error",
       "analisis kesalahan",
       "debugging"
-    ]
+    ],
+    "param.evidence_min_items.description": "Jumlah minimum item bukti yang diperlukan.",
+    "param.evidence_required.description": "Wajibkan item bukti dalam respons.",
+    "param.required_fields.description": "Daftar bidang yang diperlukan dalam respons JSON.",
+    "param.response_mode.description": "Mode output untuk sub-agen.",
+    "param.response_schema.description": "Objek JSON Schema opsional untuk respons yang diharapkan.",
+    "param.strict_output.description": "Perlakukan bidang wajib yang hilang atau ketidakcocokan skema sebagai kesalahan."
   },
   "it": {
     "param.agent_name.description": "Il nome del sotto-agente specializzato da eseguire.",
@@ -310,7 +373,13 @@
       "error",
       "analisi degli errori",
       "debugging"
-    ]
+    ],
+    "param.evidence_min_items.description": "Numero minimo di elementi di prova richiesti.",
+    "param.evidence_required.description": "Richiedi elementi di prova nella risposta.",
+    "param.required_fields.description": "Elenco dei campi richiesti nella resposta JSON.",
+    "param.response_mode.description": "Modalità di output per il sotto-agente.",
+    "param.response_schema.description": "Oggetto JSON Schema opzionale per la risposta attesa.",
+    "param.strict_output.description": "Tratta i campi richiesti mancanti o la mancata corrispondenza dello schema come errori."
   },
   "ja": {
     "param.agent_name.description": "実行する専門サブエージェントの名前。",
@@ -372,7 +441,13 @@
       "디버깅",
       "에러 분석",
       "오류 해결"
-    ]
+    ],
+    "param.evidence_min_items.description": "필요한 최소 증거 항목 수.",
+    "param.evidence_required.description": "응답에 증거 항목 필수 포함.",
+    "param.required_fields.description": "JSON 응답의 필수 필드 목록.",
+    "param.response_mode.description": "하위 에이전트의 출력 모드.",
+    "param.response_schema.description": "예상 응답에 대한 선택적 JSON Schema 객체.",
+    "param.strict_output.description": "필수 필드 누락 또는 스키마 불일치를 오류로 처리."
   },
   "mn": {
     "param.agent_name.description": "Ажиллуулах тусгай дэд агентийн нэр.",
@@ -398,7 +473,13 @@
       "error",
       "алдаа шинжилгээ",
       "дебаг"
-    ]
+    ],
+    "param.evidence_min_items.description": "Шаардлагатай нотлох баримтын хамгийн бага тоо.",
+    "param.evidence_required.description": "Хариунд нотлох баримтын зүйлсийг шаардах.",
+    "param.required_fields.description": "JSON хариу дахь шаардлагатай талбаруудын жагсаалт.",
+    "param.response_mode.description": "Дэд агентын гаралтын горим.",
+    "param.response_schema.description": "Хүлээгдэж буй хариунд зориулсан нэмэлт JSON Schema объект.",
+    "param.strict_output.description": "Шаардлагатай талбар дутуу эсвэл схемийн зөрүүг алдаа гэж үзэх."
   },
   "mr": {
     "param.agent_name.description": "चालवण्यासाठी विशेष उप-एजंटचे (sub-agent) नाव.",
@@ -424,7 +505,13 @@
       "error",
       "त्रुटी विश्लेषण",
       "डीबग"
-    ]
+    ],
+    "param.evidence_min_items.description": "आवश्यक पुराव्यांच्या घटकांची किमान संख्या.",
+    "param.evidence_required.description": "प्रतिसादामध्ये पुराव्याचे घटक आवश्यक करा.",
+    "param.required_fields.description": "JSON प्रतिसादामधील आवश्यक फील्डची सूची.",
+    "param.response_mode.description": "सब-एजंटसाठी आउटपुट मोड.",
+    "param.response_schema.description": "अपेक्षित प्रतिसादासाठी पर्यायी JSON Schema ऑब्जेक्ट.",
+    "param.strict_output.description": "गहाळ आवश्यक फील्ड किंवा स्कीमा विसंगती त्रुटी म्हणून समजा."
   },
   "nb": {
     "param.agent_name.description": "Navnet på den spesialiserte underagenten som skal kjøres.",
@@ -450,7 +537,13 @@
       "error",
       "feilanalyse",
       "feilsøking"
-    ]
+    ],
+    "param.evidence_min_items.description": "Minimum antall påkrevde beviselementer.",
+    "param.evidence_required.description": "Krev beviselementer i svaret.",
+    "param.required_fields.description": "Liste over påkrevde felt i JSON-svaret.",
+    "param.response_mode.description": "Utdatamodus for underagenten.",
+    "param.response_schema.description": "Valgfritt JSON-skjemaobjekt for det forventede svaret.",
+    "param.strict_output.description": "Behandle manglende påkrevde felt eller avvik i skjemaet som feil."
   },
   "nl": {
     "param.agent_name.description": "De naam van de gespecialiseerde sub-agent die moet worden uitgevoerd.",
@@ -476,7 +569,13 @@
       "error",
       "foutanalyse",
       "foutopsporing"
-    ]
+    ],
+    "param.evidence_min_items.description": "Minimaal aantal vereiste bewijsstukken.",
+    "param.evidence_required.description": "Vereis bewijsstukken in het antwoord.",
+    "param.required_fields.description": "Lijst met vereiste velden in het JSON-antwoord.",
+    "param.response_mode.description": "Uitvoermodus voor de subagent.",
+    "param.response_schema.description": "Optioneel JSON-schema-object voor het verwachte antwoord.",
+    "param.strict_output.description": "Ontbrekende vereiste velden of schema-afwijkingen als fouten behandelen."
   },
   "pl": {
     "param.agent_name.description": "Nazwa wyspecjalizowanego podagenta do uruchomienia.",
@@ -502,7 +601,13 @@
       "error",
       "analiza błędów",
       "debugowanie"
-    ]
+    ],
+    "param.evidence_min_items.description": "Minimalna wymagana liczba elementów dowodowych.",
+    "param.evidence_required.description": "Wymagaj elementów dowodowych w odpowiedzi.",
+    "param.required_fields.description": "Lista wymaganych pól w odpowiedzi JSON.",
+    "param.response_mode.description": "Tryb wyjściowy dla podagenta.",
+    "param.response_schema.description": "Opcjonalny obiekt JSON Schema dla oczekiwanej odpowiedzi.",
+    "param.strict_output.description": "Traktuj brakujące wymagane pola lub niezgodność schematu jako błędy."
   },
   "pt": {
     "param.agent_name.description": "O nome do subagente especializado a ser executado.",
@@ -528,7 +633,13 @@
       "error",
       "análise de erros",
       "depuração"
-    ]
+    ],
+    "param.evidence_min_items.description": "Número mínimo de itens de prova necessários.",
+    "param.evidence_required.description": "Exigir itens de prova na resposta.",
+    "param.required_fields.description": "Lista de campos obrigatórios na resposta JSON.",
+    "param.response_mode.description": "Modo de saída para o subagente.",
+    "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
+    "param.strict_output.description": "Tratar campos obrigatórios em falta ou incompatibilidade de esquema como erros."
   },
   "pt_BR": {
     "param.agent_name.description": "O nome do subagente especializado a ser executado.",
@@ -554,7 +665,13 @@
       "error",
       "análise de erros",
       "depuração"
-    ]
+    ],
+    "param.evidence_min_items.description": "Número mínimo de itens de evidência necessários.",
+    "param.evidence_required.description": "Exigir itens de evidência na resposta.",
+    "param.required_fields.description": "Lista de campos obrigatórios na resposta JSON.",
+    "param.response_mode.description": "Modo de saída para o subagente.",
+    "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
+    "param.strict_output.description": "Tratar campos obrigatórios ausentes ou incompatibilidade de esquema como erros."
   },
   "ru": {
     "param.agent_name.description": "Имя специализированного суб-агента для запуска.",
@@ -581,7 +698,13 @@
       "анализ ошибок",
       "отладка",
       "дебаг"
-    ]
+    ],
+    "param.evidence_min_items.description": "Минимальное количество требуемых элементов подтверждения.",
+    "param.evidence_required.description": "Требовать элементы подтверждения в ответе.",
+    "param.required_fields.description": "Список обязательных полей в ответе JSON.",
+    "param.response_mode.description": "Режим вывода для субагента.",
+    "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
+    "param.strict_output.description": "Считать отсутствие обязательных полей или несоответствие схемы ошибками."
   },
   "sv": {
     "param.agent_name.description": "Namnet på den specialiserade underagenten som ska köras.",
@@ -607,7 +730,13 @@
       "error",
       "felanalys",
       "felsökning"
-    ]
+    ],
+    "param.evidence_min_items.description": "Minsta antal bevisobjekt som krävs.",
+    "param.evidence_required.description": "Kräv bevisobjekt i svaret.",
+    "param.required_fields.description": "Lista över obligatoriska fält i JSON-svaret.",
+    "param.response_mode.description": "Utdataläge för underagenten.",
+    "param.response_schema.description": "Valfritt JSON-schemaobjekt för det förväntade svaret.",
+    "param.strict_output.description": "Behandla saknade obligatoriska fält eller schemaavvikelelser som fel."
   },
   "sw": {
     "param.agent_name.description": "Jina la ejenti msaidizi maalum wa kumendesha.",
@@ -633,7 +762,13 @@
       "error",
       "uchambuzi wa makosa",
       "utatuzi"
-    ]
+    ],
+    "param.evidence_min_items.description": "Idadi ya chini kabisa ya vipengele vya ushahidi vinavyohitajika.",
+    "param.evidence_required.description": "Hitaji vipengele vya ushahidi katika jibu.",
+    "param.required_fields.description": "Orodha ya sehemu zinazohitajika katika jibu la JSON.",
+    "param.response_mode.description": "Hali ya kutoa matokeo kwa ajili ya wakala mdogo.",
+    "param.response_schema.description": "Kitu cha hiari cha JSON Schema kwa ajili ya jibu linalotarajiwa.",
+    "param.strict_output.description": "Chukulia sehemu zinazohitajika zilizokosekana au kutolingana kwa muundo kama makosa."
   },
   "th": {
     "param.agent_name.description": "ชื่อของซับเอเจนต์ (sub-agent) เฉพาะทางที่จะรัน",
@@ -659,7 +794,13 @@
       "error",
       "การวิเคราะห์ข้อผิดพลาด",
       "ดีบัก"
-    ]
+    ],
+    "param.evidence_min_items.description": "จำนวนขั้นต่ำของรายการหลักฐานที่ต้องการ",
+    "param.evidence_required.description": "กำหนดให้มีรายการหลักฐานในการตอบกลับ",
+    "param.required_fields.description": "รายการฟิลด์ที่จำเป็นในการตอบกลับแบบ JSON",
+    "param.response_mode.description": "โหมดเอาต์พุตสำหรับซับเอเจนต์",
+    "param.response_schema.description": "อ็อบเจกต์ JSON Schema ทางเลือกสำหรับการตอบกลับที่คาดหวัง",
+    "param.strict_output.description": "จัดการกรณีที่ฟิลด์ที่จำเป็นขาดหายไปหรือสกีมาไม่ตรงกันเป็นข้อผิดพลาด"
   },
   "tr": {
     "param.agent_name.description": "Çalıştırılacak özel alt temsilcinin (sub-agent) adı.",
@@ -685,7 +826,13 @@
       "error",
       "hata analizi",
       "hata ayıklama"
-    ]
+    ],
+    "param.evidence_min_items.description": "Gerekli minimum kanıt öğesi sayısı.",
+    "param.evidence_required.description": "Yanıtta kanıt öğelerini zorunlu kıl.",
+    "param.required_fields.description": "JSON yanıtındaki zorunlu alanların listesi.",
+    "param.response_mode.description": "Alt aracı için çıktı modu.",
+    "param.response_schema.description": "Beklenen yanıt için isteğe bağlı JSON Şeması nesnesi.",
+    "param.strict_output.description": "Eksik zorunlu alanları veya şema uyumsuzluğunu hata olarak değerlendir."
   },
   "uk": {
     "param.agent_name.description": "Ім'я спеціалізованого суб-агента для запуску.",
@@ -711,7 +858,13 @@
       "error",
       "аналіз помилок",
       "налагодження"
-    ]
+    ],
+    "param.evidence_min_items.description": "Мінімальна кількість необхідних елементів підтвердження.",
+    "param.evidence_required.description": "Вимагати елементи підтвердження у відповіді.",
+    "param.required_fields.description": "Список обов'язкових полей у відповіді JSON.",
+    "param.response_mode.description": "Режим виведення для субагента.",
+    "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
+    "param.strict_output.description": "Вважати відсутність обов'язкових полів або невідповідність схеми помилками."
   },
   "vi": {
     "param.agent_name.description": "Tên của sub-agent chuyên biệt cần chạy.",
@@ -737,7 +890,13 @@
       "error",
       "phân tích lỗi",
       "gỡ lỗi"
-    ]
+    ],
+    "param.evidence_min_items.description": "Số lượng mục bằng chứng tối thiểu được yêu cầu.",
+    "param.evidence_required.description": "Yêu cầu các mục bằng chứng trong phản hồi.",
+    "param.required_fields.description": "Danh sách các trường bắt buộc trong phản hồi JSON.",
+    "param.response_mode.description": "Chế độ đầu ra cho tác nhân phụ.",
+    "param.response_schema.description": "Đối tượng JSON Schema tùy chọn cho phản hồi mong đợi.",
+    "param.strict_output.description": "Coi các trường bắt buộc bị thiếu hoặc không khớp lược đồ là lỗi."
   },
   "zh_CN": {
     "param.agent_name.description": "要运行的专业子智能体（sub-agent）的名称。",
@@ -764,7 +923,13 @@
       "错误分析",
       "调试",
       "找错"
-    ]
+    ],
+    "param.evidence_min_items.description": "所需证据项的最小数量。",
+    "param.evidence_required.description": "要求在响应中包含证据项。",
+    "param.required_fields.description": "JSON 响应中必填字段的列表。",
+    "param.response_mode.description": "子代理的输出模式。",
+    "param.response_schema.description": "预期响应的可选 JSON Schema 对象。",
+    "param.strict_output.description": "将缺失必填字段或架构不匹配视为错误。"
   },
   "zh_TW": {
     "param.agent_name.description": "要執行的專業子代理（sub-agent）名稱。",
@@ -791,6 +956,12 @@
       "錯誤分析",
       "調試",
       "除錯"
-    ]
+    ],
+    "param.evidence_min_items.description": "所需證據項目的最少數量。",
+    "param.evidence_required.description": "要求在回應中包含證據項目。",
+    "param.required_fields.description": "JSON 回應中必填欄位的清單。",
+    "param.response_mode.description": "子代理的輸出模式。",
+    "param.response_schema.description": "預期回應的可選 JSON Schema 物件。",
+    "param.strict_output.description": "將遺失必填欄位或結構描述不符視為錯誤。"
   }
 }

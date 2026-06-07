@@ -45,10 +45,10 @@ def _set_devel_tools_enabled(enabled: bool) -> str:
 
         if changed_names:
             msg = _("msg.devel.enabled", default="[tools] Enabled development tools (devel): {names}", names=", ".join(changed_names))
-            print(msg)
+            
             return msg
         msg = _("msg.devel.none_enabled", default="[tools] No development tools were enabled.")
-        print(msg)
+        
         return msg
 
     removed_names = []
@@ -74,10 +74,10 @@ def _set_devel_tools_enabled(enabled: bool) -> str:
 
     if removed_names:
         msg = _("msg.devel.disabled", default="[tools] Disabled development tools (devel): {names}", names=", ".join(removed_names))
-        print(msg)
+        
         return msg
     msg = _("msg.devel.none_disabled", default="[tools] No development tools were disabled.")
-    print(msg)
+    
     return msg
 
 

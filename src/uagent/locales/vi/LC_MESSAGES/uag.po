@@ -103,6 +103,7 @@ msgstr "Đã chỉ định --non-interactive; thoát mà không chờ stdin."
 msgid "getch() fallback to input()"
 msgstr "getch() chuyển sang input() làm phương án dự phòng"
 
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:604
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Đã nhận Ctrl+C. Đang bắt đầu tắt..."
 
@@ -201,6 +202,7 @@ msgstr "日志: hiển thị %(shown)d/%(total)d(thư mục=%(dir)s)"
 msgid "Log files:"
 msgstr "日志tệp: "
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:638
 msgid "(mtime unknown)"
 msgstr "(không rõ thời gian sửa đổi)"
 
@@ -209,6 +211,7 @@ msgstr "(không rõ thời gian sửa đổi)"
 msgid "(no user message)"
 msgstr "(không có tin nhắn của người dùng)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:764
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s"
@@ -216,6 +219,7 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d tin nhắn | đầu: %(first_user)s | cuối: "
 "%(last_user)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:896
 msgid ""
 "[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
@@ -223,10 +227,12 @@ msgstr ""
 "[WARN] Đang loại bỏ thông báo công cụ mồ côi: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:994
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr "[INFO] Có %(count)d tin nhắn cần nén, nên không có gì thay đổi."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1002
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
 "messages (keep_last=%(keep_last)d)"
@@ -234,6 +240,7 @@ msgstr ""
 "[INFO] Đã nén lịch sử hội thoại trong bộ nhớ: %(old_n)d -> %(new_n)d tin "
 "nhắn (keep_last=%(keep_last)d)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1335
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -241,6 +248,7 @@ msgstr ""
 "[WARN] Nén lịch sử đã chạm giới hạn ngữ cảnh ngay cả khi chunk_size=1; quay "
 "về shrink_messages()."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1343
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -248,6 +256,7 @@ msgstr ""
 "[WARN] Không thể giảm chunk_size thêm nữa khi nén lịch sử; quay về "
 "shrink_messages()."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1349
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
 "chunk_size=%(chunk_size)d"
@@ -628,21 +637,27 @@ msgstr ""
 msgid "invalid cache meta"
 msgstr "缓存元数据không hợp lệ"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:101
 msgid "(prompt unavailable)"
 msgstr "(không có prompt)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:105
 msgid "screenshot: %(title)s"
 msgstr "ảnh chụp màn hình: %(title)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:107
 msgid "screenshot"
 msgstr "ảnh chụp màn hình"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:148
 msgid "Image-session context:"
 msgstr "Ngữ cảnh phiên hình ảnh:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:149
 msgid "This conversation already generated images."
 msgstr "Cuộc hội thoại này đã tạo ảnh rồi."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:151
 msgid ""
 "Use the prior prompts and saved file paths below as context for follow-up "
 "edits, variants, or continuations."
@@ -650,12 +665,15 @@ msgstr ""
 "Hãy dùng các prompt trước đó và đường dẫn tệp đã lưu bên dưới làm ngữ cảnh "
 "cho chỉnh sửa tiếp, biến thể hoặc tiếp tục."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:156
 msgid "Turn %(idx)d:"
 msgstr "Lượt %(idx)d:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:157
 msgid "- prompt: %(prompt)s"
 msgstr "- lời nhắc: %(prompt)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:160
 msgid "- file: %(path)s"
 msgstr "- tệp: %(path)s"
 
@@ -728,6 +746,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_gemini.py:542
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "Không thể nhập google-genai (cần cài bằng pip install google-genai)."
@@ -748,6 +767,7 @@ msgstr ""
 "Hãy kiểm tra ảnh chụp màn hình này để tìm lỗi, cảnh báo và trạng thái UI "
 "quan trọng."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_message_helpers.py:154
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] shrink_llm tự động thất bại: %(err)s"
 
@@ -766,6 +786,7 @@ msgstr "[WARN] nội dung hình ảnh không hợp lệ (thiếu url)."
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] mục nội dung không được hỗ trợ: %(item)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:444
 msgid "Sources:"
 msgstr "Nguồn:"
 
@@ -849,6 +870,7 @@ msgstr "[Lỗi Gemini] Đã xảy ra lỗi khi tạo phản hồi."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Lỗi Claude] Đã xảy ra lỗi khi tạo phản hồi."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Lỗi mạng]"
 
@@ -887,9 +909,11 @@ msgstr ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:484
 msgid "Failed to initialize LLM client."
 msgstr "Không thể khởi tạo khách hàng LLM."
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:488
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "Đã tìm thấy %(total_files)d tệp nhật ký. Đang bắt đầu lập hồ sơ tăng dần..."
@@ -1064,12 +1088,16 @@ msgstr "Tải xuống"
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Đã xảy ra ngoại lệ khi tải bộ nhớ dài hạn dùng chung: %(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:381
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Tệp đính kèm] %(name)s (%(path)s)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:466
 msgid "[Attached Image] %(path)s"
 msgstr "[Ảnh đính kèm] %(path)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:468
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:667
 msgid "[Image Path] %(path)s"
 msgstr "[Đường dẫn ảnh] %(path)s"
 
@@ -1151,6 +1179,7 @@ msgstr "mức độ chi tiết: 高"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] suy luận=%(mode)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:982
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1185,6 +1214,7 @@ msgstr "Đính kèm tệp"
 msgid "All Files (*)"
 msgstr "Tất cả tệp (*)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1397
 msgid "cannot read image"
 msgstr "không thể đọc ảnh"
 
@@ -1207,6 +1237,7 @@ msgstr "Đã dừng\n"
 msgid "[REPLY] > %(text)s"
 msgstr "[TRẢ LỜI] > %(text)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1708
 msgid "[USER] %(text)s"
 msgstr "[NGƯỜI DÙNG] %(text)s"
 
@@ -2200,12 +2231,15 @@ msgstr ""
 "[FATAL] Biến môi trường UAGENT_PROVIDER chưa được đặt.\n"
 "Vui lòng kiểm tra các biến môi trường khi khởi động máy chủ web."
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:664
 msgid "[Attached Image] %(name)s"
 msgstr "[Ảnh đính kèm] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:672
 msgid "[Attached File] %(name)s"
 msgstr "[Tệp đính kèm] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:675
 msgid "[File Path] %(path)s"
 msgstr "[Đường dẫn tệp] %(path)s"
 
@@ -2226,12 +2260,15 @@ msgstr ""
 "[FATAL] Lỗi worker web.\n"
 "%(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:888
 msgid "missing path"
 msgstr "thiếu đường dẫn"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:895
 msgid "path outside workdir"
 msgstr "đường dẫn nằm ngoài thư mục làm việc"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:1044
 msgid "Starting server on"
 msgstr "Đang khởi động máy chủ trên"
 
@@ -2329,6 +2366,7 @@ msgstr "- \"阅读此 PDF 并列出三个要点.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"搜索最新新闻并总结一个特定主题.\""
 
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:183
 msgid "-- More -- (Enter: next) "
 msgstr "-- Thêm nữa -- (Enter: tiếp) "
 
@@ -2359,3 +2397,19 @@ msgstr "thực thi uagent thất bại: %(etype)s: %(err)s"
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "未知的 UAGENT_A2A_ENGINE: %(mode)s"
+
+msgid ""
+"Choose the startup tool groups to enable.\n"
+"1: comm  - Communication tools (Teams/Discord, etc.)\n"
+"2: office - Office tools (Excel/Word, etc.)\n"
+"4: devel  - Development tools (lint / py_compile / test, etc.)\n"
+"Enter the total value (e.g. 3 = comm + office, 7 = all)."
+msgstr ""
+"Chọn các nhóm công cụ sẽ bật khi khởi động.\n"
+"1: comm  - Công cụ liên lạc (Teams/Discord, v.v.)\n"
+"2: office - Công cụ văn phòng (Excel/Word, v.v.)\n"
+"4: devel  - Công cụ phát triển (lint / py_compile / test, v.v.)\n"
+"Nhập tổng giá trị (ví dụ: 3 = comm + office, 7 = tất cả)."
+
+msgid "[WARN] Please enter an integer from 0 to 7."
+msgstr "[WARN] Vui lòng nhập số nguyên từ 0 đến 7."

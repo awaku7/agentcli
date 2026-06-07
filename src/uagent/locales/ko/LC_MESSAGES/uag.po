@@ -103,6 +103,7 @@ msgstr "--non-interactive가 지정되었습니다. stdin을 기다리지 않고
 msgid "getch() fallback to input()"
 msgstr "getch()가 input()으로 대체됩니다"
 
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:604
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C를 받았습니다. 종료를 시작합니다..."
 
@@ -201,6 +202,7 @@ msgstr "로그: %(shown)d/%(total)d 표시(디렉터리=%(dir)s)"
 msgid "Log files:"
 msgstr "로그 파일:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:638
 msgid "(mtime unknown)"
 msgstr "(수정 시간 알 수 없음)"
 
@@ -209,6 +211,7 @@ msgstr "(수정 시간 알 수 없음)"
 msgid "(no user message)"
 msgstr "(사용자 메시지 없음)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:764
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s"
@@ -216,15 +219,18 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d개의 메시지 | 처음: %(first_user)s | 마지막: "
 "%(last_user)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:896
 msgid ""
 "[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
 msgstr "[WARN] 고아 도구 메시지를 버립니다: tool_call_id=%(tool_call_id)r name=%(name)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:994
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr "[INFO] 압축할 메시지가 %(count)d개 있어 변경된 내용이 없습니다."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1002
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
 "messages (keep_last=%(keep_last)d)"
@@ -232,17 +238,20 @@ msgstr ""
 "[INFO] 메모리의 대화 기록을 압축했습니다: %(old_n)d -> %(new_n)d개의 메시지 "
 "(keep_last=%(keep_last)d)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1335
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
 msgstr ""
 "[WARN] 기록 압축이 chunk_size=1에서도 컨텍스트 길이에 도달했습니다. shrink_messages()로 되돌립니다."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1343
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
 msgstr "[WARN] 기록 압축에서 chunk_size를 더 줄일 수 없습니다. shrink_messages()로 되돌립니다."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1349
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
 "chunk_size=%(chunk_size)d"
@@ -600,32 +609,41 @@ msgstr "  또는 프로세스 관리자/서비스 설정(CI 비밀 변수, syste
 msgid "invalid cache meta"
 msgstr "캐시 메타데이터가 잘못되었습니다"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:101
 msgid "(prompt unavailable)"
 msgstr "(프롬프트를 사용할 수 없음)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:105
 msgid "screenshot: %(title)s"
 msgstr "스크린샷: %(title)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:107
 msgid "screenshot"
 msgstr "스크린샷"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:148
 msgid "Image-session context:"
 msgstr "이미지 세션 컨텍스트:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:149
 msgid "This conversation already generated images."
 msgstr "이 대화에서는 이미 이미지가 생성되었습니다."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:151
 msgid ""
 "Use the prior prompts and saved file paths below as context for follow-up "
 "edits, variants, or continuations."
 msgstr "후속 편집, 변형 또는 이어서 진행할 때 아래의 이전 프롬프트와 저장된 파일 경로를 컨텍스트로 사용하세요."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:156
 msgid "Turn %(idx)d:"
 msgstr "%(idx)d번째 턴:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:157
 msgid "- prompt: %(prompt)s"
 msgstr "- 프롬프트: %(prompt)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:160
 msgid "- file: %(path)s"
 msgstr "- 파일: %(path)s"
 
@@ -694,6 +712,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_gemini.py:542
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "google-genai를 가져올 수 없습니다(pip install google-genai가 필요합니다)."
@@ -710,6 +729,7 @@ msgstr "이 스크린샷에 보이는 모든 텍스트를 읽고 요약하세요
 msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr "이 스크린샷에서 오류, 경고, 중요한 UI 상태를 확인하세요."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_message_helpers.py:154
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] 자동 shrink_llm에 실패했습니다: %(err)s"
 
@@ -727,6 +747,7 @@ msgstr "[WARN] 잘못된 이미지 콘텐츠입니다(URL이 없습니다)."
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] 지원되지 않는 콘텐츠 항목입니다: %(item)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:444
 msgid "Sources:"
 msgstr "출처:"
 
@@ -810,6 +831,7 @@ msgstr "[Gemini 오류] 응답 생성 중 오류가 발생했습니다."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude 오류] 응답 생성 중 오류가 발생했습니다."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[네트워크 오류]"
 
@@ -848,9 +870,11 @@ msgstr ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:484
 msgid "Failed to initialize LLM client."
 msgstr "LLM 클라이언트를 초기화하지 못했습니다."
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:488
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "로그 파일 %(total_files)d개를 찾았습니다. 점진적 프로파일링을 시작합니다..."
 
@@ -1020,12 +1044,16 @@ msgstr "다운로드"
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "공유 장기 메모리를 불러오는 중 예외가 발생했습니다: %(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:381
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[첨부된 파일] %(name)s (%(path)s)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:466
 msgid "[Attached Image] %(path)s"
 msgstr "[첨부된 이미지] %(path)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:468
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:667
 msgid "[Image Path] %(path)s"
 msgstr "[이미지 경로] %(path)s"
 
@@ -1107,6 +1135,7 @@ msgstr "상세도: 높음"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] 추론=%(mode)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:982
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1138,6 +1167,7 @@ msgstr "파일 첨부"
 msgid "All Files (*)"
 msgstr "모든 파일 (*)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1397
 msgid "cannot read image"
 msgstr "이미지를 읽을 수 없습니다"
 
@@ -1160,6 +1190,7 @@ msgstr "중지됨"
 msgid "[REPLY] > %(text)s"
 msgstr "[답장] > %(text)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1708
 msgid "[USER] %(text)s"
 msgstr "[사용자] %(text)s"
 
@@ -2133,12 +2164,15 @@ msgstr ""
 "[FATAL] 환경 변수 UAGENT_PROVIDER가 설정되어 있지 않습니다.\n"
 "웹 서버 시작 시 환경 변수를 확인하세요."
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:664
 msgid "[Attached Image] %(name)s"
 msgstr "[첨부된 이미지] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:672
 msgid "[Attached File] %(name)s"
 msgstr "[첨부된 파일] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:675
 msgid "[File Path] %(path)s"
 msgstr "[파일 경로] %(path)s"
 
@@ -2159,12 +2193,15 @@ msgstr ""
 "[FATAL] 웹 워커 오류.\n"
 "%(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:888
 msgid "missing path"
 msgstr "경로가 없습니다"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:895
 msgid "path outside workdir"
 msgstr "작업 디렉터리 밖의 경로"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:1044
 msgid "Starting server on"
 msgstr "서버를 시작하는 중"
 
@@ -2265,6 +2302,7 @@ msgstr "- \"이 PDF를 읽고 핵심 포인트 3개를 나열하세요.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"최신 뉴스를 검색하여 특정 주제를 요약하세요.\""
 
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:183
 msgid "-- More -- (Enter: next) "
 msgstr "-- 더 보기 -- (Enter: 다음) "
 
@@ -2295,3 +2333,19 @@ msgstr "uagent 실행에 실패했습니다: %(etype)s: %(err)s"
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "알 수 없는 UAGENT_A2A_ENGINE: %(mode)s"
+
+msgid ""
+"Choose the startup tool groups to enable.\n"
+"1: comm  - Communication tools (Teams/Discord, etc.)\n"
+"2: office - Office tools (Excel/Word, etc.)\n"
+"4: devel  - Development tools (lint / py_compile / test, etc.)\n"
+"Enter the total value (e.g. 3 = comm + office, 7 = all)."
+msgstr ""
+"시작할 때 활성화할 도구 그룹을 선택하세요.\n"
+"1: comm  - 통신 도구 (Teams/Discord 등)\n"
+"2: office - Office 도구 (Excel/Word 등)\n"
+"4: devel  - 개발 도구 (lint / py_compile / test 등)\n"
+"총값을 입력하세요 (예: 3 = comm + office, 7 = 전체)."
+
+msgid "[WARN] Please enter an integer from 0 to 7."
+msgstr "[WARN] 0에서 7 사이의 정수를 입력하세요."

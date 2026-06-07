@@ -137,7 +137,10 @@ def _internal_pager(text: str) -> None:
                 sys.stderr.flush()
             except Exception:
                 pass
-        print(text)
+        try:
+            print(text)
+        except UnicodeEncodeError:
+            print(text.encode("cp932", errors="replace").decode("cp932"))
         return
 
     # Allow users to disable paging explicitly.
@@ -148,7 +151,10 @@ def _internal_pager(text: str) -> None:
                 sys.stderr.flush()
             except Exception:
                 pass
-        print(text)
+        try:
+            print(text)
+        except UnicodeEncodeError:
+            print(text.encode("cp932", errors="replace").decode("cp932"))
         return
 
     # Determine page height (reserve 1 line for prompt).
@@ -172,7 +178,11 @@ def _internal_pager(text: str) -> None:
     i = 0
     while i < len(lines):
         chunk = lines[i : i + page_lines]
-        sys.stdout.write("".join(chunk))
+        chunk_str = "".join(chunk)
+        try:
+            sys.stdout.write(chunk_str)
+        except UnicodeEncodeError:
+            sys.stdout.write(chunk_str.encode("cp932", errors="replace").decode("cp932"))
         sys.stdout.flush()
         i += page_lines
 

@@ -13,6 +13,7 @@ import shutil
 from .context import get_callbacks
 
 BUSY_LABEL = True
+LOAD_DISABLED_REASON = "This tool is available on Windows only."
 STATUS_LABEL = "tool:pwsh_exec"
 
 
@@ -77,6 +78,7 @@ else:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_level": 0 if os.name == "nt" else -1,
     "function": {
         "name": "pwsh_exec",
         "description": _(

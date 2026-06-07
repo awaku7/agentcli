@@ -194,5 +194,19 @@
     "msg.devel.none_enabled": "[tools] कोणतीही विकास साधने सक्षम केली नाहीत.",
     "msg.devel.none_disabled": "[tools] कोणतीही विकास साधने अक्षम केली नाहीत.",
     "tool.description": "Dummy tool for development tool control registration."
+  },
+  "sw": {
+    "msg.devel.enabled": "[tools] Zana za maendeleo (devel) zimewezeshwa: {names}",
+    "msg.devel.disabled": "[tools] Zana za maendeleo (devel) zimezimwa: {names}",
+    "msg.devel.none_enabled": "[tools] Hakuna zana za maendeleo zilizowezeshwa.",
+    "msg.devel.none_disabled": "[tools] Hakuna zana za maendeleo zilizozimwa.",
+    "tool.description": "Zana bandia kwa ajili ya kusajili udhibiti wa zana za maendeleo."
+  },
+  "tr": {
+    "msg.devel.enabled": "[tools] Geliştirme araçları (devel) etkinleştirildi: {names}",
+    "msg.devel.disabled": "[tools] Geliştirme araçları (devel) devre dışı bırakıldı: {names}",
+    "msg.devel.none_enabled": "[tools] Hiç geliştirme aracı etkinleştirilmedi.",
+    "msg.devel.none_disabled": "[tools] Hiç geliştirme aracı devre dışı bırakılmadı.",
+    "tool.description": "Geliştirme aracı denetimi kaydı için sahte araç."
   }
 }

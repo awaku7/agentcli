@@ -47,13 +47,7 @@
       "grep 検索",
       "行抽出"
     ],
-    "tool.system_prompt": "1つ以上のパス配下のファイル内容を検索します。pattern は必須です。glob で対象ファイルを絞り込み、Python の正規表現またはリテラル文字列で検索し、必要に応じて前後の文脈行を含め、バイナリらしきファイルは除外し、ファイル名のみ返すモードをサポートし、読み込み時はテキストエンコーディングを自動判定します。JSON のみ返してください。",
-    "param.binary_skip.description": "バイナリらしきファイルをスキップするかどうか。",
-    "param.exclude_dirs.description": "再帰走査から除外するディレクトリ名です。",
-    "param.exclude_globs.description": "除外するファイル名 glob パターンです。",
-    "param.literal.description": "true の場合、pattern を正規表現ではなく文字列として扱います。",
-    "param.max_hits_per_file.description": "1ファイルあたり返す一致件数の最大数（既定: 100）。",
-    "param.root_path.description": "検索を開始するルートディレクトリです。"
+    "tool.system_prompt": "1つ以上のパス配下のファイル内容を検索します。pattern は必須です。glob で対象ファイルを絞り込み、Python の正規表現またはリテラル文字列で検索し、必要に応じて前後の文脈行を含め、バイナリらしきファイルは除外し、ファイル名のみ返すモードをサポートし、読み込み時はテキストエンコーディングを自動判定します。JSON のみ返してください。"
   },
   "es": {
     "err.exception": "Se produjo una excepción durante las operaciones de grep.",
@@ -75,7 +69,8 @@
       "buscar patrón",
       "líneas"
     ],
-    "tool.system_prompt": "Busque el contenido de archivos bajo una o varias rutas. El patrón es obligatorio. Filtre archivos por glob, busque usando una expresión regular de Python o texto literal, incluya opcionalmente líneas de contexto, omita archivos parecidos a binarios, admita el modo de solo nombres de archivo y detecte automáticamente la codificación del texto al leer. Devuelva solo JSON."
+    "tool.system_prompt": "Busque el contenido de archivos bajo una o varias rutas. El patrón es obligatorio. Filtre archivos por glob, busque usando una expresión regular de Python o texto literal, incluya opcionalmente líneas de contexto, omita archivos parecidos a binarios, admita el modo de solo nombres de archivo y detecte automáticamente la codificación del texto al leer. Devuelva solo JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "fr": {
     "err.exception": "Une exception s'est produite lors des opérations grep.",
@@ -97,7 +92,8 @@
       "chercher motif",
       "lignes"
     ],
-    "tool.system_prompt": "Recherchez le contenu des fichiers sous un ou plusieurs chemins. Le motif est obligatoire. Filtrez les fichiers par glob, recherchez avec une expression régulière Python ou du texte littéral, incluez éventuellement des lignes de contexte, ignorez les fichiers ressemblant à des binaires, prenez en charge le mode noms de fichiers uniquement et détectez automatiquement l’encodage du texte à la lecture. Retournez uniquement du JSON."
+    "tool.system_prompt": "Recherchez le contenu des fichiers sous un ou plusieurs chemins. Le motif est obligatoire. Filtrez les fichiers par glob, recherchez avec une expression régulière Python ou du texte littéral, incluez éventuellement des lignes de contexte, ignorez les fichiers ressemblant à des binaires, prenez en charge le mode noms de fichiers uniquement et détectez automatiquement l’encodage du texte à la lecture. Retournez uniquement du JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "ko": {
     "err.exception": "grep 작업 중 예외가 발생했습니다.",
@@ -119,7 +115,8 @@
       "패턴 검색",
       "행 추출"
     ],
-    "tool.system_prompt": "하나 이상의 경로 아래 파일 내용을 검색합니다. pattern은 필수입니다. glob으로 파일을 걸러내고, Python 정규식 또는 리터럴 텍스트로 검색하며, 필요하면 문맥 줄을 포함하고, 이진 파일과 비슷한 파일은 건너뛰고, 파일 이름만 반환하는 모드를 지원하며, 읽을 때 텍스트 인코딩을 자동 감지합니다. JSON만 반환하세요."
+    "tool.system_prompt": "하나 이상의 경로 아래 파일 내용을 검색합니다. pattern은 필수입니다. glob으로 파일을 걸러내고, Python 정규식 또는 리터럴 텍스트로 검색하며, 필요하면 문맥 줄을 포함하고, 이진 파일과 비슷한 파일은 건너뛰고, 파일 이름만 반환하는 모드를 지원하며, 읽을 때 텍스트 인코딩을 자동 감지합니다. JSON만 반환하세요.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "de": {
     "err.exception": "Beim Grep-Vorgang ist eine Ausnahme aufgetreten.",
@@ -141,7 +138,8 @@
       "muster suchen",
       "zeilen"
     ],
-    "tool.system_prompt": "Durchsuchen Sie den Inhalt von Dateien unter einem oder mehreren Pfaden. Das Muster ist erforderlich. Filtern Sie Dateien per Glob, suchen Sie mit einem Python-Regulären Ausdruck oder Literaltext, fügen Sie optional Kontextzeilen hinzu, überspringen Sie binärähnliche Dateien, unterstützen Sie den Nur-Dateinamen-Modus und erkennen Sie Textkodierungen beim Lesen automatisch. Geben Sie nur JSON zurück."
+    "tool.system_prompt": "Durchsuchen Sie den Inhalt von Dateien unter einem oder mehreren Pfaden. Das Muster ist erforderlich. Filtern Sie Dateien per Glob, suchen Sie mit einem Python-Regulären Ausdruck oder Literaltext, fügen Sie optional Kontextzeilen hinzu, überspringen Sie binärähnliche Dateien, unterstützen Sie den Nur-Dateinamen-Modus und erkennen Sie Textkodierungen beim Lesen automatisch. Geben Sie nur JSON zurück.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "it": {
     "err.exception": "Si è verificata un'eccezione durante le operazioni grep.",
@@ -163,7 +161,8 @@
       "cerca pattern",
       "righe"
     ],
-    "tool.system_prompt": "Cerca il contenuto dei file sotto uno o più percorsi. Il pattern è obbligatorio. Filtra i file con glob, cerca usando un’espressione regolare Python o testo letterale, includi facoltativamente le righe di contesto, ignora i file simili a binari, supporta la modalità solo nomi file e rileva automaticamente la codifica del testo durante la lettura. Restituisci solo JSON."
+    "tool.system_prompt": "Cerca il contenuto dei file sotto uno o più percorsi. Il pattern è obbligatorio. Filtra i file con glob, cerca usando un’espressione regolare Python o testo letterale, includi facoltativamente le righe di contesto, ignora i file simili a binari, supporta la modalità solo nomi file e rileva automaticamente la codifica del testo durante la lettura. Restituisci solo JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "ru": {
     "err.exception": "Во время операций grep произошло исключение.",
@@ -185,7 +184,8 @@
       "поиск шаблона",
       "строки"
     ],
-    "tool.system_prompt": "Ищите содержимое файлов по одному или нескольким путям. Шаблон обязателен. Фильтруйте файлы по glob, выполняйте поиск с помощью регулярного выражения Python или литерального текста, при необходимости включайте строки контекста, пропускайте файлы, похожие на бинарные, поддерживайте режим только с именами файлов и автоматически определяйте кодировку текста при чтении. Возвращайте только JSON."
+    "tool.system_prompt": "Ищите содержимое файлов по одному или нескольким путям. Шаблон обязателен. Фильтруйте файлы по glob, выполняйте поиск с помощью регулярного выражения Python или литерального текста, при необходимости включайте строки контекста, пропускайте файлы, похожие на бинарные, поддерживайте режим только с именами файлов и автоматически определяйте кодировку текста при чтении. Возвращайте только JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "pt_BR": {
     "err.exception": "Ocorreu uma exceção durante as operações de grep.",
@@ -207,7 +207,8 @@
       "buscar padrão",
       "linhas"
     ],
-    "tool.system_prompt": "Pesquise o conteúdo dos arquivos em um ou mais caminhos. O padrão é obrigatório. Filtre arquivos por glob, pesquise usando uma expressão regular do Python ou texto literal, inclua opcionalmente linhas de contexto, ignore arquivos semelhantes a binários, ofereça modo apenas com nomes de arquivos e detecte automaticamente a codificação do texto ao ler. Retorne apenas JSON."
+    "tool.system_prompt": "Pesquise o conteúdo dos arquivos em um ou mais caminhos. O padrão é obrigatório. Filtre arquivos por glob, pesquise usando uma expressão regular do Python ou texto literal, inclua opcionalmente linhas de contexto, ignore arquivos semelhantes a binários, ofereça modo apenas com nomes de arquivos e detecte automaticamente a codificação do texto ao ler. Retorne apenas JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "pt": {
     "err.exception": "Ocorreu uma exceção durante operações grep.",
@@ -229,7 +230,8 @@
       "buscar padrão",
       "linhas"
     ],
-    "tool.system_prompt": "Pesquise o conteúdo do arquivo em um ou mais caminhos. O padrão é obrigatório. Filtre arquivos por glob, pesquise usando uma expressão regular Python ou texto literal, inclua opcionalmente linhas de contexto, pule arquivos do tipo binário, suporte ao modo somente nomes de arquivos e detecte automaticamente codificações de texto durante a leitura. Retorne apenas JSON."
+    "tool.system_prompt": "Pesquise o conteúdo do arquivo em um ou mais caminhos. O padrão é obrigatório. Filtre arquivos por glob, pesquise usando uma expressão regular Python ou texto literal, inclua opcionalmente linhas de contexto, pule arquivos do tipo binário, suporte ao modo somente nomes de arquivos e detecte automaticamente codificações de texto durante a leitura. Retorne apenas JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "id": {
     "err.exception": "Terjadi pengecualian saat operasi grep.",
@@ -251,7 +253,8 @@
       "cari pola",
       "baris"
     ],
-    "tool.system_prompt": "Cari isi file di satu atau beberapa jalur. Pattern wajib diisi. Saring file dengan glob, cari menggunakan ekspresi reguler Python atau teks literal, opsional sertakan baris konteks, lewati file yang mirip biner, dukung mode hanya nama file, dan deteksi encoding teks secara otomatis saat membaca. Kembalikan JSON saja."
+    "tool.system_prompt": "Cari isi file di satu atau beberapa jalur. Pattern wajib diisi. Saring file dengan glob, cari menggunakan ekspresi reguler Python atau teks literal, opsional sertakan baris konteks, lewati file yang mirip biner, dukung mode hanya nama file, dan deteksi encoding teks secara otomatis saat membaca. Kembalikan JSON saja.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "vi": {
     "err.exception": "Ngoại lệ xảy ra trong quá trình hoạt động grep.",
@@ -273,7 +276,8 @@
       "tìm mẫu",
       "dòng"
     ],
-    "tool.system_prompt": "Tìm nội dung tệp trong một hoặc nhiều đường dẫn. Pattern là bắt buộc. Lọc tệp bằng glob, tìm bằng biểu thức chính quy Python hoặc văn bản nguyên văn, tùy chọn kèm các dòng ngữ cảnh, bỏ qua các tệp giống nhị phân, hỗ trợ chế độ chỉ trả về tên tệp, và tự động phát hiện mã hóa văn bản khi đọc. Chỉ trả về JSON."
+    "tool.system_prompt": "Tìm nội dung tệp trong một hoặc nhiều đường dẫn. Pattern là bắt buộc. Lọc tệp bằng glob, tìm bằng biểu thức chính quy Python hoặc văn bản nguyên văn, tùy chọn kèm các dòng ngữ cảnh, bỏ qua các tệp giống nhị phân, hỗ trợ chế độ chỉ trả về tên tệp, và tự động phát hiện mã hóa văn bản khi đọc. Chỉ trả về JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "pl": {
     "err.exception": "Wystąpił wyjątek podczas operacji grep.",
@@ -295,7 +299,8 @@
       "szukaj wzorca",
       "wiersze"
     ],
-    "tool.system_prompt": "Przeszukuj zawartość plików w jednej lub wielu ścieżkach. Wzorzec jest wymagany. Filtruj pliki za pomocą glob, wyszukuj przy użyciu wyrażenia regularnego Pythona lub tekstu dosłownego, opcjonalnie dołączaj linie kontekstu, pomijaj pliki podobne do binarnych, obsługuj tryb tylko nazw plików i automatycznie wykrywaj kodowanie tekstu podczas odczytu. Zwracaj tylko JSON."
+    "tool.system_prompt": "Przeszukuj zawartość plików w jednej lub wielu ścieżkach. Wzorzec jest wymagany. Filtruj pliki za pomocą glob, wyszukuj przy użyciu wyrażenia regularnego Pythona lub tekstu dosłownego, opcjonalnie dołączaj linie kontekstu, pomijaj pliki podobne do binarnych, obsługuj tryb tylko nazw plików i automatycznie wykrywaj kodowanie tekstu podczas odczytu. Zwracaj tylko JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "hi": {
     "err.exception": "ग्रेप परिचालन के दौरान अपवाद उत्पन्न हुआ.",
@@ -317,7 +322,8 @@
       "पैटर्न खोज",
       "पंक्तियाँ"
     ],
-    "tool.system_prompt": "एक या अधिक पथों के अंतर्गत फ़ाइल सामग्री खोजें। पैटर्न आवश्यक है. ग्लोब द्वारा फ़ाइलों को फ़िल्टर करें, पायथन रेगुलर एक्सप्रेशन या शाब्दिक पाठ का उपयोग करके खोजें, वैकल्पिक रूप से संदर्भ पंक्तियाँ शामिल करें, बाइनरी-जैसी फ़ाइलें छोड़ें, केवल फ़ाइल नाम मोड का समर्थन करें, और पढ़ते समय टेक्स्ट एन्कोडिंग का स्वतः पता लगाएं। केवल JSON लौटाएँ."
+    "tool.system_prompt": "एक या अधिक पथों के अंतर्गत फ़ाइल सामग्री खोजें। पैटर्न आवश्यक है. ग्लोब द्वारा फ़ाइलों को फ़िल्टर करें, पायथन रेगुलर एक्सप्रेशन या शाब्दिक पाठ का उपयोग करके खोजें, वैकल्पिक रूप से संदर्भ पंक्तियाँ शामिल करें, बाइनरी-जैसी फ़ाइलें छोड़ें, केवल फ़ाइल नाम मोड का समर्थन करें, और पढ़ते समय टेक्स्ट एन्कोडिंग का स्वतः पता लगाएं। केवल JSON लौटाएँ.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "ar": {
     "err.exception": "حدث استثناء أثناء عمليات grep.",
@@ -339,7 +345,8 @@
       "بحث نمط",
       "أسطر"
     ],
-    "tool.system_prompt": "ابحث في محتويات الملف ضمن مسار واحد أو أكثر. النمط مطلوب. قم بتصفية الملفات عن طريق الكرة الأرضية، وابحث باستخدام تعبير Python العادي أو النص الحرفي، وقم بتضمين خطوط السياق بشكل اختياري، وتخطي الملفات الثنائية، ودعم وضع أسماء الملفات فقط، والكشف التلقائي عن ترميزات النص عند القراءة. إرجاع JSON فقط."
+    "tool.system_prompt": "ابحث في محتويات الملف ضمن مسار واحد أو أكثر. النمط مطلوب. قم بتصفية الملفات عن طريق الكرة الأرضية، وابحث باستخدام تعبير Python العادي أو النص الحرفي، وقم بتضمين خطوط السياق بشكل اختياري، وتخطي الملفات الثنائية، ودعم وضع أسماء الملفات فقط، والكشف التلقائي عن ترميزات النص عند القراءة. إرجاع JSON فقط.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "sv": {
     "err.exception": "Ett undantag inträffade under grep-operationen.",
@@ -361,7 +368,8 @@
       "sök mönster",
       "rader"
     ],
-    "tool.system_prompt": "Sök igenom filinnehåll under en eller flera sökvägar. Mönstret krävs. Filtrera filer med glob, sök med ett Python-regex eller literal text, inkludera valfritt kontext­rader, hoppa över binärliknande filer, stöd läge endast filnamn och identifiera textkodningar automatiskt vid läsning. Returnera endast JSON."
+    "tool.system_prompt": "Sök igenom filinnehåll under en eller flera sökvägar. Mönstret krävs. Filtrera filer med glob, sök med ett Python-regex eller literal text, inkludera valfritt kontext­rader, hoppa över binärliknande filer, stöd läge endast filnamn och identifiera textkodningar automatiskt vid läsning. Returnera endast JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "sw": {
     "err.exception": "Hitilafu imetokea wakati wa operesheni za grep.",
@@ -383,7 +391,8 @@
       "tafuta muundo",
       "mistari"
     ],
-    "tool.system_prompt": "Tafuta maudhui ya faili chini ya njia moja au zaidi. pattern ni lazima. Chuja faili kwa glob, tafuta kwa kutumia regex ya Python au maandishi halisi, ongeza mistari ya muktadha kwa hiari, ruka faili zinazofanana na binary, toa hali ya majina ya faili pekee, na tambua usimbaji wa maandishi kiotomatiki wakati wa kusoma. Rudisha JSON pekee."
+    "tool.system_prompt": "Tafuta maudhui ya faili chini ya njia moja au zaidi. pattern ni lazima. Chuja faili kwa glob, tafuta kwa kutumia regex ya Python au maandishi halisi, ongeza mistari ya muktadha kwa hiari, ruka faili zinazofanana na binary, toa hali ya majina ya faili pekee, na tambua usimbaji wa maandishi kiotomatiki wakati wa kusoma. Rudisha JSON pekee.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "nb": {
     "err.exception": "Det oppsto et unntak under grep-operasjonen.",
@@ -405,7 +414,8 @@
       "søk mønster",
       "linjer"
     ],
-    "tool.system_prompt": "Søk gjennom filinnhold under én eller flere stier. Mønsteret er obligatorisk. Filtrer filer med glob, søk med et Python-regex eller literal tekst, inkluder eventuelt kontekstlinjer, hopp over filer som ser ut som binære filer, støtt bare-filnavn-modus og oppdag tekstkoding automatisk ved lesing. Returner kun JSON."
+    "tool.system_prompt": "Søk gjennom filinnhold under én eller flere stier. Mønsteret er obligatorisk. Filtrer filer med glob, søk med et Python-regex eller literal tekst, inkluder eventuelt kontekstlinjer, hopp over filer som ser ut som binære filer, støtt bare-filnavn-modus og oppdag tekstkoding automatisk ved lesing. Returner kun JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "nl": {
     "err.exception": "Er is een uitzondering opgetreden tijdens grep-bewerkingen.",
@@ -427,7 +437,8 @@
       "zoek patroon",
       "regels"
     ],
-    "tool.system_prompt": "Zoek naar bestandsinhoud onder een of meer paden. Het patroon is verplicht. Filter bestanden op glob, zoek met een Python-regex of letterlijke tekst, voeg desgewenst contextregels toe, sla binaire-achtige bestanden over, ondersteun een modus met alleen bestandsnamen en detecteer automatisch tekstcoderingen bij het lezen. Geef alleen JSON terug."
+    "tool.system_prompt": "Zoek naar bestandsinhoud onder een of meer paden. Het patroon is verplicht. Filter bestanden op glob, zoek met een Python-regex of letterlijke tekst, voeg desgewenst contextregels toe, sla binaire-achtige bestanden over, ondersteun een modus met alleen bestandsnamen en detecteer automatisch tekstcoderingen bij het lezen. Geef alleen JSON terug.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "fi": {
     "err.exception": "Poikkeus grep-toiminnoissa.",
@@ -449,7 +460,8 @@
       "etsi malli",
       "rivit"
     ],
-    "tool.system_prompt": "Etsi tiedostosisältöä yhdestä tai useammasta polusta. Kaava on pakollinen. Suodata tiedostot globin avulla, hae Pythonin säännöllisellä lausekkeella tai kirjaimellisella tekstillä, lisää tarvittaessa kontekstit riveineen, ohita binäärin kaltaiset tiedostot, tue vain tiedostonimet -tilaa ja tunnista tekstikoodaus automaattisesti luettaessa. Palauta vain JSON."
+    "tool.system_prompt": "Etsi tiedostosisältöä yhdestä tai useammasta polusta. Kaava on pakollinen. Suodata tiedostot globin avulla, hae Pythonin säännöllisellä lausekkeella tai kirjaimellisella tekstillä, lisää tarvittaessa kontekstit riveineen, ohita binäärin kaltaiset tiedostot, tue vain tiedostonimet -tilaa ja tunnista tekstikoodaus automaattisesti luettaessa. Palauta vain JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "cs": {
     "err.exception": "Při operaci grep došlo k výjimce.",
@@ -471,7 +483,8 @@
       "hledat vzor",
       "řádky"
     ],
-    "tool.system_prompt": "Prohledávejte obsah souborů v jednom nebo více cestách. Vzor je povinný. Filtrování souborů provádějte pomocí globu, vyhledávejte pomocí regulárního výrazu v Pythonu nebo doslovného textu, volitelně zahrnujte okolní řádky, přeskočte soubory připomínající binární, podporujte režim pouze názvů souborů a při čtení automaticky detekujte textové kódování. Vracejte pouze JSON."
+    "tool.system_prompt": "Prohledávejte obsah souborů v jednom nebo více cestách. Vzor je povinný. Filtrování souborů provádějte pomocí globu, vyhledávejte pomocí regulárního výrazu v Pythonu nebo doslovného textu, volitelně zahrnujte okolní řádky, přeskočte soubory připomínající binární, podporujte režim pouze názvů souborů a při čtení automaticky detekujte textové kódování. Vracejte pouze JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "uk": {
     "err.exception": "Під час операції grep сталася виняткова ситуація.",
@@ -493,7 +506,8 @@
       "пошук шаблону",
       "рядки"
     ],
-    "tool.system_prompt": "Шукайте вміст файлів в одному або кількох шляхах. Шаблон є обовʼязковим. Фільтруйте файли за glob, шукайте за допомогою регулярного виразу Python або буквального тексту, за потреби включайте рядки контексту, пропускайте файли, схожі на бінарні, підтримуйте режим лише назв файлів і автоматично визначайте кодування тексту під час читання. Повертайте лише JSON."
+    "tool.system_prompt": "Шукайте вміст файлів в одному або кількох шляхах. Шаблон є обовʼязковим. Фільтруйте файли за glob, шукайте за допомогою регулярного виразу Python або буквального тексту, за потреби включайте рядки контексту, пропускайте файли, схожі на бінарні, підтримуйте режим лише назв файлів і автоматично визначайте кодування тексту під час читання. Повертайте лише JSON.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "tr": {
     "err.exception": "Grep işlemleri sırasında özel durum oluştu.",
@@ -515,7 +529,8 @@
       "desen ara",
       "satırlar"
     ],
-    "tool.system_prompt": "Dosya içeriğini bir veya daha fazla yol altında arayın. Desen gereklidir. Dosyaları glob'a göre filtreleyin, bir Python normal ifadesi veya değişmez metin kullanarak arama yapın, isteğe bağlı olarak bağlam satırları ekleyin, ikili benzeri dosyaları atlayın, yalnızca dosya adları modunu destekleyin ve okurken metin kodlamalarını otomatik olarak algılayın. Yalnızca JSON değerini döndür."
+    "tool.system_prompt": "Dosya içeriğini bir veya daha fazla yol altında arayın. Desen gereklidir. Dosyaları glob'a göre filtreleyin, bir Python normal ifadesi veya değişmez metin kullanarak arama yapın, isteğe bağlı olarak bağlam satırları ekleyin, ikili benzeri dosyaları atlayın, yalnızca dosya adları modunu destekleyin ve okurken metin kodlamalarını otomatik olarak algılayın. Yalnızca JSON değerini döndür.",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "th": {
     "err.exception": "เกิดข้อยกเว้นระหว่างการดำเนินการ grep",
@@ -537,7 +552,8 @@
       "ค้นหารูปแบบ",
       "บรรทัด"
     ],
-    "tool.system_prompt": "ค้นหาเนื้อหาไฟล์ภายใต้หนึ่งหรือหลายพาธ โดย pattern เป็นข้อบังคับ กรองไฟล์ด้วย glob ค้นหาโดยใช้ regex ของ Python หรือข้อความตัวอักษรจริง ใส่บรรทัดบริบทได้ตามต้องการ ข้ามไฟล์ที่ดูคล้ายไบนารี รองรับโหมดแสดงเฉพาะชื่อไฟล์ และตรวจจับการเข้ารหัสข้อความโดยอัตโนมัติเมื่ออ่าน ส่งคืนเฉพาะ JSON"
+    "tool.system_prompt": "ค้นหาเนื้อหาไฟล์ภายใต้หนึ่งหรือหลายพาธ โดย pattern เป็นข้อบังคับ กรองไฟล์ด้วย glob ค้นหาโดยใช้ regex ของ Python หรือข้อความตัวอักษรจริง ใส่บรรทัดบริบทได้ตามต้องการ ข้ามไฟล์ที่ดูคล้ายไบนารี รองรับโหมดแสดงเฉพาะชื่อไฟล์ และตรวจจับการเข้ารหัสข้อความโดยอัตโนมัติเมื่ออ่าน ส่งคืนเฉพาะ JSON",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "zh_CN": {
     "err.exception": "grep 操作期间发生异常。",
@@ -559,7 +575,8 @@
       "搜索模式",
       "行"
     ],
-    "tool.system_prompt": "在一个或多个路径下搜索文件内容。pattern 是必填项。按 glob 过滤文件，使用 Python 正则表达式或字面文本进行搜索，可选包含上下文行，跳过类似二进制的文件，支持仅返回文件名模式，并在读取时自动检测文本编码。仅返回 JSON。"
+    "tool.system_prompt": "在一个或多个路径下搜索文件内容。pattern 是必填项。按 glob 过滤文件，使用 Python 正则表达式或字面文本进行搜索，可选包含上下文行，跳过类似二进制的文件，支持仅返回文件名模式，并在读取时自动检测文本编码。仅返回 JSON。",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "zh_TW": {
     "err.exception": "grep 操作期間發生例外。",
@@ -581,7 +598,8 @@
       "搜尋模式",
       "行"
     ],
-    "tool.system_prompt": "在一個或多個路徑下搜尋檔案內容。pattern 是必填項。以 glob 篩選檔案，使用 Python 正規表示式或字面文字搜尋，可選擇包含上下文行，略過類似二進位的檔案，支援僅回傳檔名模式，並在讀取時自動偵測文字編碼。僅回傳 JSON。"
+    "tool.system_prompt": "在一個或多個路徑下搜尋檔案內容。pattern 是必填項。以 glob 篩選檔案，使用 Python 正規表示式或字面文字搜尋，可選擇包含上下文行，略過類似二進位的檔案，支援僅回傳檔名模式，並在讀取時自動偵測文字編碼。僅回傳 JSON。",
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "bn": {
     "err.exception": "grep অপারেশনের সময় ব্যতিক্রম ঘটেছে।",
@@ -604,12 +622,7 @@
       "লাইন"
     ],
     "tool.system_prompt": "এক বা একাধিক path-এর নিচে থাকা ফাইলের বিষয়বস্তু খুঁজুন। pattern আবশ্যক। glob দিয়ে ফাইল ফিল্টার করুন, Python regular expression বা literal text দিয়ে খুঁজুন, প্রয়োজনে context line যোগ করুন, binary-সদৃশ ফাইল এড়িয়ে যান, filenames-only মোড সমর্থন করুন, এবং পড়ার সময় text encoding স্বয়ংক্রিয়ভাবে শনাক্ত করুন। শুধু JSON ফেরত দিন।",
-    "param.binary_skip.description": "binary-সদৃশ ফাইল এড়িয়ে যাবে কি না।",
-    "param.exclude_dirs.description": "recursive scan থেকে বাদ দেওয়া directory নাম।",
-    "param.exclude_globs.description": "বাদ দেওয়ার file-name glob pattern।",
-    "param.literal.description": "true হলে pattern-কে regex নয়, সাধারণ string হিসেবে ধরা হবে।",
-    "param.max_hits_per_file.description": "প্রতি ফাইলে ফেরত দেওয়া মিলের সর্বোচ্চ সংখ্যা (ডিফল্ট: 100)।",
-    "param.root_path.description": "যে root directory থেকে অনুসন্ধান শুরু হবে।"
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "fa": {
     "err.exception": "در عملیات grep استثنا رخ داد.",
@@ -632,12 +645,7 @@
       "خطوط"
     ],
     "tool.system_prompt": "محتوای فایل‌ها را در یک یا چند مسیر جستجو کنید. pattern الزامی است. فایل‌ها را با glob فیلتر کنید، با عبارت منظم پایتون یا متن literal جستجو کنید، در صورت نیاز خطوط زمینه را هم بیاورید، فایل‌های شبیه باینری را نادیده بگیرید، حالت فقط-نام‌فایل را پشتیبانی کنید و هنگام خواندن، کدگذاری متن را به‌طور خودکار تشخیص دهید. فقط JSON برگردانید.",
-    "param.binary_skip.description": "اینکه فایل‌های شبیه باینری نادیده گرفته شوند یا نه.",
-    "param.exclude_dirs.description": "نام پوشه‌هایی که از اسکن بازگشتی کنار گذاشته می‌شوند.",
-    "param.exclude_globs.description": "الگوهای glob برای نام فایل‌هایی که باید کنار گذاشته شوند.",
-    "param.literal.description": "اگر true باشد، pattern به‌جای regex به‌صورت رشتهٔ معمولی تفسیر می‌شود.",
-    "param.max_hits_per_file.description": "حداکثر تعداد تطابق در هر فایل (پیش‌فرض: 100).",
-    "param.root_path.description": "دایرکتوری ریشه‌ای که جستجو از آن آغاز می‌شود."
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "mn": {
     "err.exception": "grep үйлдлийн үед алдаа гарлаа.",
@@ -660,12 +668,7 @@
       "мөр"
     ],
     "tool.system_prompt": "Нэг эсвэл хэд хэдэн замын доорх файлын агуулгыг хайна уу. pattern заавал хэрэгтэй. Файлуудыг glob-оор шүүнэ, Python regular expression эсвэл literal text ашиглан хайна, шаардлагатай бол context мөр нэмж болно, binary-тэй төстэй файлуудыг алгасна, filenames-only горимыг дэмжинэ, унших үед text encoding-ийг автоматаар танина. Зөвхөн JSON буцаана уу.",
-    "param.binary_skip.description": "Binary-тэй төстэй файлуудыг алгасах эсэх.",
-    "param.exclude_dirs.description": "Рекурсив хайлтаас хасах директорын нэрс.",
-    "param.exclude_globs.description": "Хасах file-name glob pattern-ууд.",
-    "param.literal.description": "true бол pattern-ийг regex биш энгийн string гэж үзнэ.",
-    "param.max_hits_per_file.description": "Файл бүрт буцаах тохирлын дээд тоо (өгөгдмөл: 100).",
-    "param.root_path.description": "Хайлтыг эхлүүлэх root directory."
+    "param.page.description": "Page number to retrieve (default: 1)."
   },
   "mr": {
     "err.exception": "grep क्रियांमध्ये अपवाद आला.",
@@ -688,11 +691,6 @@
       "ओळी"
     ],
     "tool.system_prompt": "एक किंवा अधिक मार्गांखालील फाइल सामग्री शोधा. pattern आवश्यक आहे. glob ने फाइल फिल्टर करा, Python regular expression किंवा literal text वापरून शोधा, आवश्यक असल्यास context ओळी समाविष्ट करा, binary-सदृश फाइल्स वगळा, filenames-only मोडला पाठिंबा द्या, आणि वाचताना text encoding आपोआप ओळखा. फक्त JSON परत करा.",
-    "param.binary_skip.description": "binary-सदृश फाइल्स वगळायच्या का.",
-    "param.exclude_dirs.description": "recursive scan मधून वगळायच्या directory नावे.",
-    "param.exclude_globs.description": "वगळायच्या file-name glob pattern.",
-    "param.literal.description": "true असल्यास pattern ला regex न मानता साधा string समजा.",
-    "param.max_hits_per_file.description": "प्रत्येक फाइलमधील जास्तीत जास्त जुळण्या (डीफॉल्ट: 100).",
-    "param.root_path.description": "ज्या root directory पासून शोध सुरू करायचा."
+    "param.page.description": "Page number to retrieve (default: 1)."
   }
 }

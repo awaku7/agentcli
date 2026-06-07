@@ -61,7 +61,26 @@
       "preprocesar imagen",
       "preprocesado ocr",
       "limpieza de imagen"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "fr": {
     "x_search_terms": [
@@ -69,7 +88,26 @@
       "prétraitement image",
       "prétraitement ocr",
       "nettoyage image"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "ko": {
     "x_search_terms": [
@@ -77,7 +115,26 @@
       "이미지 전처리",
       "ocr 전처리",
       "이미지 정리"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "de": {
     "x_search_terms": [
@@ -85,7 +142,26 @@
       "bild vorverarbeitung",
       "ocr vorverarbeitung",
       "bild bereinigen"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "it": {
     "x_search_terms": [
@@ -93,7 +169,26 @@
       "pretrattamento immagine",
       "pretrattamento ocr",
       "pulizia immagine"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "ru": {
     "x_search_terms": [
@@ -101,7 +196,26 @@
       "предобработка изображения",
       "ocr предобработка",
       "очистка изображения"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -109,7 +223,26 @@
       "pré-processar imagem",
       "pré-processamento ocr",
       "limpeza de imagem"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "pt": {
     "x_search_terms": [
@@ -117,7 +250,26 @@
       "pré-processar imagem",
       "pré-processamento ocr",
       "limpeza de imagem"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "id": {
     "x_search_terms": [
@@ -125,7 +277,26 @@
       "pra-pemrosesan gambar",
       "ocr preprocess",
       "pembersihan gambar"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "vi": {
     "x_search_terms": [
@@ -133,7 +304,26 @@
       "tiền xử lý ảnh",
       "ocr tiền xử lý",
       "làm sạch ảnh"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "pl": {
     "x_search_terms": [
@@ -141,7 +331,26 @@
       "wstępne przetwarzanie obrazu",
       "ocr preprocess",
       "czyszczenie obrazu"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "hi": {
     "x_search_terms": [
@@ -149,7 +358,26 @@
       "छवि पूर्वप्रसंस्करण",
       "ocr पूर्वप्रसंस्करण",
       "छवि सफाई"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "ar": {
     "x_search_terms": [
@@ -157,7 +385,26 @@
       "معالجة مسبقة للصورة",
       "ocr preprocess",
       "تنظيف الصورة"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "sv": {
     "x_search_terms": [
@@ -165,7 +412,26 @@
       "bildförbehandling",
       "ocr-förbehandling",
       "bildrensning"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "sw": {
     "x_search_terms": [
@@ -173,7 +439,26 @@
       "uandaaji awali wa picha",
       "ocr preprocess",
       "usafishaji wa picha"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "nb": {
     "x_search_terms": [
@@ -181,7 +466,26 @@
       "bildeforbehandling",
       "ocr-forbehandling",
       "bildrens"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "nl": {
     "x_search_terms": [
@@ -189,7 +493,26 @@
       "beeldvoorbewerking",
       "ocr-voorbewerking",
       "beeldopruiming"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "fi": {
     "x_search_terms": [
@@ -197,7 +520,26 @@
       "kuvan esikäsittely",
       "ocr-esikäsittely",
       "kuvan puhdistus"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "cs": {
     "x_search_terms": [
@@ -205,7 +547,26 @@
       "předzpracování obrázku",
       "ocr předzpracování",
       "čištění obrázku"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "uk": {
     "x_search_terms": [
@@ -213,7 +574,26 @@
       "попередня обробка зображення",
       "ocr попередня обробка",
       "очищення зображення"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "tr": {
     "x_search_terms": [
@@ -221,7 +601,26 @@
       "görüntü ön işleme",
       "ocr ön işleme",
       "görüntü temizleme"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "th": {
     "x_search_terms": [
@@ -229,7 +628,26 @@
       "เตรียมภาพก่อนประมวลผล",
       "ocr เตรียมภาพ",
       "ล้างภาพ"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "zh_CN": {
     "x_search_terms": [
@@ -237,7 +655,26 @@
       "图像预处理",
       "ocr 预处理",
       "图像清理"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "zh_TW": {
     "x_search_terms": [
@@ -245,7 +682,26 @@
       "影像前處理",
       "ocr 前處理",
       "影像清理"
-    ]
+    ],
+    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
+    "param.image_path.description": "Path to the source image to preprocess.",
+    "ok.generated": "[OK] generated: {path}",
+    "tool.system_prompt": "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path.",
+    "err.image_path_empty": "[preprocess_image] image_path is required",
+    "param.denoise.description": "Apply denoising / smoothing.",
+    "tool.description": "Apply image preprocessing before sending an image to an LLM or OCR backend. Useful for screenshots, scanned documents, charts, tables, diagrams, and line art.",
+    "param.binarize.description": "Apply binarization / thresholding.",
+    "param.grayscale.description": "Convert the image to grayscale.",
+    "param.mode.description": "Preprocessing mode: ocr, document, diagram, photo, or custom.",
+    "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
+    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
+    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
+    "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
+    "param.file_prefix.description": "Prefix for the saved filename (optional).",
+    "err.image_not_found": "[preprocess_image] image file not found: {path}",
+    "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
+    "param.edge_enhance.description": "Enhance edges / outlines.",
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
   },
   "bn": {
     "tool.description": "LLM বা OCR ব্যাকএন্ডে ছবি পাঠানোর আগে ছবি প্রি-প্রসেস করুন। স্ক্রিনশট, স্ক্যান করা নথি, চার্ট, টেবিল, ডায়াগ্রাম এবং লাইন আর্টের জন্য উপযোগী।",

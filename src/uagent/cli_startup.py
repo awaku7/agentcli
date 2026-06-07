@@ -16,6 +16,85 @@ class CliStartupState:
     should_exit: bool = False
 
 
+def _prompt_startup_tool_genre_mask() -> int:
+    prompt = """起動時に有効化するツール群を選んでください。
+1: comm  - 通信系（Teams/Discord など）
+2: office - Office系（Excel/Word など）
+4: devel  - 開発系（lint / py_compile / test など）
+合計値を入力してください（例: 3 = comm + office, 7 = 全部）。"""
+    out = getattr(sys, "__stdout__", None) or sys.stdout
+    while True:
+        try:
+            out.write(prompt + "\n")
+            out.flush()
+        except Exception:
+            pass
+        try:
+            raw = input().strip()
+        except EOFError as e:
+            try:
+                sys.__stderr__.write(f"[DEBUG] EOFError in input(): {e}\n")
+                sys.__stderr__.flush()
+            except Exception:
+                pass
+            return 0
+        except Exception as e:
+            try:
+                sys.__stderr__.write(
+                    f"[DEBUG] Exception in input(): {type(e).__name__}: {e}\n"
+                )
+                sys.__stderr__.flush()
+            except Exception:
+                pass
+            return 0
+        if not raw:
+            return 0
+        try:
+            value = int(raw, 10)
+        except Exception:
+            try:
+                out.write("[WARN] 0〜7 の整数を入力してください。\n")
+                out.flush()
+            except Exception:
+                pass
+            continue
+        if 0 <= value <= 7:
+            return value
+        try:
+            out.write("[WARN] 0〜7 の整数を入力してください。\n")
+            out.flush()
+        except Exception:
+            pass
+
+
+def _apply_startup_tool_genre_mask(mask: int) -> None:
+    if mask <= 0:
+        return
+
+    from .i18n import _
+    from .tools.comm_control_tool import _set_comm_tools_enabled
+    from .tools.devel_control_tool import _set_devel_tools_enabled
+    from .tools.office_control_tool import _set_office_tools_enabled
+
+    enabled_specs = (
+        (1, _set_comm_tools_enabled),
+        (2, _set_office_tools_enabled),
+        (4, _set_devel_tools_enabled),
+    )
+    for bit, setter in enabled_specs:
+        if not (mask & bit):
+            continue
+        try:
+            msg = setter(True)
+            if msg:
+                print(msg)
+        except Exception as e:
+            print(
+                _("[WARN] Failed to apply startup tool selection: %(err)s", err=e),
+                file=sys.stderr,
+            )
+
+
 def run_cli_startup(
     *,
     core,
@@ -26,7 +105,6 @@ def run_cli_startup(
 ) -> CliStartupState:
     import io
     import os
-    from contextlib import redirect_stderr, redirect_stdout
 
     from .i18n import _, detect_lang, set_thread_lang
 
@@ -70,8 +148,9 @@ def run_cli_startup(
 
     set_thread_lang(detect_lang())
 
+    # Do not redirect stdout/stderr during startup to allow interactive prompt to work
     try:
-        with redirect_stdout(startup_capture_out), redirect_stderr(startup_capture_err):
+        if True:
             try:
                 maybe_print_readme_on_first_run(open_with_os=True)
                 maybe_print_quickstart_on_first_run(open_with_os=True)
@@ -177,6 +256,13 @@ def run_cli_startup(
                 print("[INFO] " + _("current workdir = %(cwd)s") % {"cwd": cwd})
             except Exception:
                 pass
+
+            # No redirect is active, so we don't need to flush StringIO anymore
+            pass
+
+            if not non_interactive:
+                tool_genre_mask = _prompt_startup_tool_genre_mask()
+                _apply_startup_tool_genre_mask(tool_genre_mask)
 
             core.set_status(False, "")
 

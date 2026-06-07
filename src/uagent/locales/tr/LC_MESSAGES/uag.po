@@ -104,6 +104,7 @@ msgstr "--etkileşimli olmadığı belirtildi; stdin'i beklemeden çıkılıyor.
 msgid "getch() fallback to input()"
 msgstr "getch() için yedek olarak input() kullanılıyor"
 
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:604
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C alındı. Kapatma başlatılıyor..."
 
@@ -204,6 +205,7 @@ msgstr "günlükler: %(shown)d/%(total)d gösteriliyor (dir=%(dir)s)"
 msgid "Log files:"
 msgstr "Günlük dosyaları:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:638
 msgid "(mtime unknown)"
 msgstr "(değiştirilme zamanı bilinmiyor)"
 
@@ -212,6 +214,7 @@ msgstr "(değiştirilme zamanı bilinmiyor)"
 msgid "(no user message)"
 msgstr "(kullanıcı mesajı yok)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:764
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s"
@@ -219,6 +222,7 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d ileti | ilk: %(first_user)s | son: "
 "%(last_user)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:896
 msgid ""
 "[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
@@ -226,12 +230,14 @@ msgstr ""
 "[WARN] Sahipsiz araç iletisi atılıyor: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:994
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr ""
 "[INFO] Sıkıştırılacak %(count)d ileti vardı, bu yüzden hiçbir şey "
 "değiştirilmedi."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1002
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
 "messages (keep_last=%(keep_last)d)"
@@ -239,6 +245,7 @@ msgstr ""
 "[INFO] Bellekteki konuşma geçmişi sıkıştırıldı: %(old_n)d -> %(new_n)d ileti"
 " (keep_last=%(keep_last)d)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1335
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -246,6 +253,7 @@ msgstr ""
 "[WARN] Geçmiş sıkıştırma, chunk_size=1 iken bile bağlam sınırına ulaştı; "
 "shrink_messages() yöntemine dönülüyor."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1343
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -253,6 +261,7 @@ msgstr ""
 "[WARN] Geçmiş sıkıştırma chunk_size değerini daha fazla azaltamadı; "
 "shrink_messages() yöntemine dönülüyor."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1349
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
 "chunk_size=%(chunk_size)d"
@@ -629,21 +638,27 @@ msgstr ""
 msgid "invalid cache meta"
 msgstr "geçersiz önbellek metası"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:101
 msgid "(prompt unavailable)"
 msgstr "(istem kullanılamıyor)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:105
 msgid "screenshot: %(title)s"
 msgstr "ekran görüntüsü: %(title)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:107
 msgid "screenshot"
 msgstr "ekran görüntüsü"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:148
 msgid "Image-session context:"
 msgstr "Görüntü oturumu bağlamı:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:149
 msgid "This conversation already generated images."
 msgstr "Bu konuşmada zaten görseller oluşturuldu."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:151
 msgid ""
 "Use the prior prompts and saved file paths below as context for follow-up "
 "edits, variants, or continuations."
@@ -651,12 +666,15 @@ msgstr ""
 "Aşağıdaki önceki istemleri ve kaydedilmiş dosya yollarını, takip "
 "düzenlemeleri, varyantlar veya devamlar için bağlam olarak kullanın."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:156
 msgid "Turn %(idx)d:"
 msgstr "Tur %(idx)d:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:157
 msgid "- prompt: %(prompt)s"
 msgstr "- istem: %(prompt)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:160
 msgid "- file: %(path)s"
 msgstr "- dosya: %(path)s"
 
@@ -728,6 +746,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_gemini.py:542
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "google-genai içe aktarılamadı (pip install google-genai gereklidir)."
@@ -746,6 +765,7 @@ msgstr ""
 "Bu ekran görüntüsünü hatalar, uyarılar ve önemli arayüz durumu açısından "
 "inceleyin."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_message_helpers.py:154
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Otomatik shrink_llm başarısız oldu: %(err)s"
 
@@ -764,6 +784,7 @@ msgstr "[WARN] geçersiz görüntü içeriği (url eksik)."
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] desteklenmeyen içerik öğesi: %(item)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:444
 msgid "Sources:"
 msgstr "Kaynaklar:"
 
@@ -846,6 +867,7 @@ msgstr "[İkizler Hatası] Yanıt oluşturulurken bir hata oluştu."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude Hatası] Yanıt oluşturulurken bir hata oluştu."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Ağ Hatası]"
 
@@ -884,9 +906,11 @@ msgstr ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:484
 msgid "Failed to initialize LLM client."
 msgstr "LLM istemcisi başlatılamadı."
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:488
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "%(total_files)d günlük dosyası bulundu. Artımlı profilleme başlatılıyor..."
@@ -1061,12 +1085,16 @@ msgstr "İndirmek"
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Paylaşılan uzun süreli bellek yüklenirken özel durum oluştu: %(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:381
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Ekli dosya] %(name)s (%(path)s)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:466
 msgid "[Attached Image] %(path)s"
 msgstr "[Ekli görsel] %(path)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:468
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:667
 msgid "[Image Path] %(path)s"
 msgstr "[Görsel yolu] %(path)s"
 
@@ -1148,6 +1176,7 @@ msgstr "Ayrıntı düzeyi: yüksek"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mod] akıl yürütme=%(mode)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:982
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1180,6 +1209,7 @@ msgstr "Dosya ekle"
 msgid "All Files (*)"
 msgstr "Tüm Dosyalar (*)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1397
 msgid "cannot read image"
 msgstr "görsel okunamıyor"
 
@@ -1202,6 +1232,7 @@ msgstr "Durduruldu"
 msgid "[REPLY] > %(text)s"
 msgstr "[YANIT] > %(text)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1708
 msgid "[USER] %(text)s"
 msgstr "[KULLANICI] %(text)s"
 
@@ -2209,12 +2240,15 @@ msgstr ""
 "[FATAL] UAGENT_PROVIDER ortam değişkeni ayarlı değil.\n"
 "Lütfen web sunucusunu başlatırken ortam değişkenlerini kontrol edin."
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:664
 msgid "[Attached Image] %(name)s"
 msgstr "[Ekli görsel] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:672
 msgid "[Attached File] %(name)s"
 msgstr "[Ekli dosya] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:675
 msgid "[File Path] %(path)s"
 msgstr "[Dosya yolu] %(path)s"
 
@@ -2235,12 +2269,15 @@ msgstr ""
 "[FATAL] Web işçi hatası.\n"
 "%(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:888
 msgid "missing path"
 msgstr "yol eksik"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:895
 msgid "path outside workdir"
 msgstr "yol çalışma dizininin dışında"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:1044
 msgid "Starting server on"
 msgstr "Sunucu başlatılıyor:"
 
@@ -2349,6 +2386,7 @@ msgstr "- \"Bu PDF'yi okuyun ve üç önemli noktayı listeleyin.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"En son haberleri arayın ve belirli bir konuyu özetleyin.\""
 
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:183
 msgid "-- More -- (Enter: next) "
 msgstr "-- Daha fazla -- (Enter: sonraki) "
 
@@ -2379,3 +2417,19 @@ msgstr "uagent çalıştırılması başarısız oldu: %(etype)s: %(err)s"
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Bilinmeyen UAGENT_A2A_ENGINE: %(mode)s"
+
+msgid ""
+"Choose the startup tool groups to enable.\n"
+"1: comm  - Communication tools (Teams/Discord, etc.)\n"
+"2: office - Office tools (Excel/Word, etc.)\n"
+"4: devel  - Development tools (lint / py_compile / test, etc.)\n"
+"Enter the total value (e.g. 3 = comm + office, 7 = all)."
+msgstr ""
+"Başlangıçta etkinleştirilecek araç gruplarını seçin.\n"
+"1: comm  - İletişim araçları (Teams/Discord vb.)\n"
+"2: office - Ofis araçları (Excel/Word vb.)\n"
+"4: devel  - Geliştirme araçları (lint / py_compile / test vb.)\n"
+"Toplam değeri girin (örn. 3 = comm + office, 7 = tümü)."
+
+msgid "[WARN] Please enter an integer from 0 to 7."
+msgstr "[WARN] Lütfen 0 ile 7 arasında bir tam sayı girin."

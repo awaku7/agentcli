@@ -432,7 +432,7 @@
     "err.path_traversal": "تم اكتشاف اجتياز المسار: يفلت المسار الذي تم حله من Skill_dir",
     "err.relpath_points_to_root": "يجب أن يشير المسار النسبي إلى ملف، وليس إلى جذر المهارة",
     "err.relpath_required": "يجب أن يكونأقارب_المسار عبارة عن سلسلة غير فارغة",
-    "err.skill_md_not_found": "لم يتم العثور على {اسم الملف}: {المسار}"
+    "err.skill_md_not_found": "لم يتم العثور على {filename}: {path}"
   },
   "sv": {
     "err.abs_path_not_allowed": "absoluta sökvägar är inte tillåtna",

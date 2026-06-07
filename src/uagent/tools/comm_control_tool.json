@@ -194,5 +194,19 @@
     "msg.comm.none_enabled": "[tools] No communication tools were enabled.",
     "msg.comm.none_disabled": "[tools] No communication tools were disabled.",
     "tool.description": "संवाद नियंत्रण नोंदणीसाठी डमी साधन."
+  },
+  "sw": {
+    "msg.comm.enabled": "[tools] Zana za mawasiliano (comm) zimewezeshwa: {names}",
+    "msg.comm.disabled": "[tools] Zana za mawasiliano (comm) zimezimwa: {names}",
+    "msg.comm.none_enabled": "[tools] Hakuna zana za mawasiliano zilizowezeshwa.",
+    "msg.comm.none_disabled": "[tools] Hakuna zana za mawasiliano zilizozimwa.",
+    "tool.description": "Zana bandia kwa ajili ya kusajili udhibiti wa mawasiliano."
+  },
+  "tr": {
+    "msg.comm.enabled": "[tools] İletişim araçları (comm) etkinleştirildi: {names}",
+    "msg.comm.disabled": "[tools] İletişim araçları (comm) devre dışı bırakıldı: {names}",
+    "msg.comm.none_enabled": "[tools] Hiç iletişim aracı etkinleştirilmedi.",
+    "msg.comm.none_disabled": "[tools] Hiç iletişim aracı devre dışı bırakılmadı.",
+    "tool.description": "İletişim denetimi kaydı için sahte araç."
   }
 }

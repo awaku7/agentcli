@@ -98,14 +98,14 @@ TOOL_SPEC: Dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, or error_analyst) "
+                "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) "
                 "under the control of the parent orchestrator to process specific tasks and return structured findings."
             ),
         ),
         "system_prompt": _(
             "tool.system_prompt",
             default=(
-                "Run a specialized sub-agent (planner, reviewer, summarizer, patch_designer, or error_analyst) to solve a task. "
+                "Run a specialized sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) to solve a task. "
                 "This sub-agent does not make destructive modifications. It returns structured insights as JSON."
             ),
         ),
@@ -118,10 +118,13 @@ TOOL_SPEC: Dict[str, Any] = {
                 "summarizer",
                 "patch_designer",
                 "error_analyst",
+                "translator",
                 "orchestrate",
                 "patch",
                 "error analysis",
                 "debugging",
+                "translation",
+                "localization",
             ],
         ),
         "x_search_terms_en": [
@@ -136,6 +139,9 @@ TOOL_SPEC: Dict[str, Any] = {
             "debug",
             "error analysis",
             "debugging",
+            "translator",
+            "translation",
+            "localization",
             "orchestrate",
         ],
         "parameters": {
@@ -149,6 +155,7 @@ TOOL_SPEC: Dict[str, Any] = {
                         "summarizer",
                         "patch_designer",
                         "error_analyst",
+                        "translator",
                     ],
                     "description": _(
                         "param.agent_name.description",
@@ -275,6 +282,17 @@ class SubAgentRunner:
                     "あなたはエラー分析に特化したサブエージェントです。"
                     "原因の切り分け、再現条件、対処案をJSONで返してください。"
                     "出力は status, role, summary, root_cause, evidence, proposed_actions を含めてください。"
+                ),
+            ),
+            "translator": AgentSpec(
+                name="translator",
+                description="翻訳・ローカライズエージェント",
+                permission_level=PermissionLevel.NONE,
+                system_prompt=(
+                    "You are a specialized sub-agent for translation and localization. "
+                    "Accurately translate the provided text, document, or PO (gettext) file into the specified target language. "
+                    "You must strictly preserve technical terms, context, placeholders (e.g., {path}, %(err)s, %s, etc.), newline characters, and formatting. "
+                    "The output must be a JSON object containing: status, role, summary, translated_text, and notes."
                 ),
             ),
         }

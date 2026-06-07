@@ -194,5 +194,19 @@
     "msg.office.none_enabled": "[tools] No Office tools were enabled.",
     "msg.office.none_disabled": "[tools] No Office tools were disabled.",
     "tool.description": "कार्यालय नियंत्रण नोंदणीसाठी डमी साधन."
+  },
+  "sw": {
+    "msg.office.enabled": "[tools] Zana za ofisi (office) zimewezeshwa: {names}",
+    "msg.office.disabled": "[tools] Zana za ofisi (office) zimezimwa: {names}",
+    "msg.office.none_enabled": "[tools] Hakuna zana za ofisi zilizowezeshwa.",
+    "msg.office.none_disabled": "[tools] Hakuna zana za ofisi zilizozimwa.",
+    "tool.description": "Zana bandia kwa ajili ya kusajili udhibiti wa ofisi."
+  },
+  "tr": {
+    "msg.office.enabled": "[tools] Ofis araçları (office) etkinleştirildi: {names}",
+    "msg.office.disabled": "[tools] Ofis araçları (office) devre dışı bırakıldı: {names}",
+    "msg.office.none_enabled": "[tools] Hiç ofis aracı etkinleştirilmedi.",
+    "msg.office.none_disabled": "[tools] Hiç ofis aracı devre dışı bırakılmadı.",
+    "tool.description": "Ofis denetimi kaydı için sahte araç."
   }
 }

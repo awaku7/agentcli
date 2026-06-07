@@ -77,7 +77,41 @@ Notes:
 - Extended fields are allowed for local behavior (e.g. `function.system_prompt`, `function.x_scheck`).
   - However, `function.system_prompt` is **removed** before sending to the LLM.
 
-### 3.1 Suppressing tool trace
+### 3.1 Tool Level (`tool_level`)
+
+You can specify `tool_level` in `TOOL_SPEC` to control tool loading:
+- `tool_level == -1`: Disabled (will not be registered/loaded as an LLM tool, but dynamic commands are allowed).
+- `tool_level == 0` (or missing): Enabled.
+- `tool_level == 1`: Conditional loading (currently treated as disabled by default, but can be enabled dynamically).
+
+For example, platform-specific tools like `cmd_exec` or `pwsh_exec` use:
+```python
+"tool_level": 0 if os.name == "nt" else -1,
+```
+You can also define `LOAD_DISABLED_REASON` at the module level to explain why the tool is disabled:
+```python
+LOAD_DISABLED_REASON = "This tool is available on Windows only."
+```
+
+### 3.2 Tool Genre (`tool_genre`)
+
+You can categorize tools by specifying `tool_genre` in `TOOL_SPEC`. The supported genres are:
+- `"comm"`: Communication tools (e.g., Teams, Discord)
+- `"office"`: Office tools (e.g., Excel, Word, Document extraction)
+- `"devel"`: Development tools (e.g., lint, py_compile, run_tests)
+
+Example:
+```python
+TOOL_SPEC: Dict[str, Any] = {
+    "tool_level": 1, # Loaded conditionally via genre control
+    "tool_genre": "office",
+    "type": "function",
+    "function": { ... }
+}
+```
+During interactive CLI startup, users are prompted to select which tool genres to enable. The selected genres are then activated dynamically.
+
+### 3.3 Suppressing tool trace
 
 Tools print a one-line trace by default. To suppress:
 

@@ -135,14 +135,20 @@ A tool may suppress the trace using the extended flag:
 
 `human_ask` uses this to avoid logging the raw user reply.
 
-### 3.6 Agent Skills lifecycle
+### 3.6 Tool levels and genres
+
+- **Tool Level (`tool_level`)**: Specified in `TOOL_SPEC` to control tool loading. `-1` is disabled, `0` is enabled, and `1` is conditional loading (disabled by default).
+- **Tool Genre (`tool_genre`)**: Categorizes tools into `"comm"` (communication), `"office"` (Office suite), or `"devel"` (development).
+- **Startup Selection**: During interactive CLI startup, users are prompted to select which tool genres to enable using a bitmask (1: comm, 2: office, 4: devel).
+
+### 3.7 Agent Skills lifecycle
 
 - `:skills` injects the selected skill as a dedicated `[SKILL] ...` system message.
 - Skill messages are persisted to the session log and restored on reload.
 - `:skills status` shows active skill messages; `:skills clear` removes them.
 - Keep skill instructions separate from the base `SYSTEM_PROMPT`.
 
-### 3.7 Batch state helper
+### 3.8 Batch state helper
 
 - `src/uagent/tools/batch_state_tool.py` provides persisted state for multi-file tasks.
 - Default storage: `~/.uag/batches/`

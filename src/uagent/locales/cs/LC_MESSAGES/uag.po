@@ -104,6 +104,7 @@ msgstr "-- bylo zadáno neinteraktivní; odchod bez čekání na stdin."
 msgid "getch() fallback to input()"
 msgstr "getch() jako náhrada za input()"
 
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:604
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Bylo přijato Ctrl+C. Spouští se ukončení..."
 
@@ -205,6 +206,7 @@ msgstr "protokoly: zobrazují se %(shown)d/%(total)d (dir=%(dir)s)"
 msgid "Log files:"
 msgstr "Soubory protokolu:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:638
 msgid "(mtime unknown)"
 msgstr "(čas změny neznámý)"
 
@@ -213,6 +215,7 @@ msgstr "(čas změny neznámý)"
 msgid "(no user message)"
 msgstr "(bez zprávy uživatele)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:764
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s"
@@ -220,6 +223,7 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d zpráv | první: %(first_user)s | "
 "poslední: %(last_user)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:896
 msgid ""
 "[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
@@ -227,10 +231,12 @@ msgstr ""
 "[WARN] Zahazuji osiřelou zprávu nástroje: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:994
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr "[INFO] Ke kompresi bylo %(count)d zpráv, takže se nic nezměnilo."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1002
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
 "messages (keep_last=%(keep_last)d)"
@@ -238,6 +244,7 @@ msgstr ""
 "[INFO] Historie konverzace v paměti byla zkomprimována: %(old_n)d -> "
 "%(new_n)d zpráv (keep_last=%(keep_last)d)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1335
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -245,6 +252,7 @@ msgstr ""
 "[WARN] Komprese historie narazila na limit kontextu i při chunk_size=1; "
 "přechází se na shrink_messages()."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1343
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -252,6 +260,7 @@ msgstr ""
 "[WARN] Kompresi historie nelze dále zmenšit chunk_size; přechází se na "
 "shrink_messages()."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1349
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
 "chunk_size=%(chunk_size)d"
@@ -631,21 +640,27 @@ msgstr ""
 msgid "invalid cache meta"
 msgstr "neplatná meta mezipaměti"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:101
 msgid "(prompt unavailable)"
 msgstr "(výzva není k dispozici)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:105
 msgid "screenshot: %(title)s"
 msgstr "snímek obrazovky: %(title)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:107
 msgid "screenshot"
 msgstr "snímek obrazovky"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:148
 msgid "Image-session context:"
 msgstr "Kontext obrazové relace:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:149
 msgid "This conversation already generated images."
 msgstr "Tato konverzace již vygenerovala obrázky."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:151
 msgid ""
 "Use the prior prompts and saved file paths below as context for follow-up "
 "edits, variants, or continuations."
@@ -653,12 +668,15 @@ msgstr ""
 "Použijte níže uvedené předchozí výzvy a uložené cesty k souborům jako "
 "kontext pro následné úpravy, varianty nebo pokračování."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:156
 msgid "Turn %(idx)d:"
 msgstr "Tah %(idx)d:"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:157
 msgid "- prompt: %(prompt)s"
 msgstr "- výzva: %(prompt)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:160
 msgid "- file: %(path)s"
 msgstr "- soubor: %(path)s"
 
@@ -731,6 +749,7 @@ msgstr ""
 "Výpis zásobníku:\n"
 "%(tb)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_gemini.py:542
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr ""
@@ -752,6 +771,7 @@ msgstr ""
 "Zkontrolujte tento snímek obrazovky na chyby, varování a důležitý stav "
 "rozhraní."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_message_helpers.py:154
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Automatické shrink_llm selhalo: %(err)s"
 
@@ -770,6 +790,7 @@ msgstr "[WARN] neplatný obrazový obsah (chybí URL)."
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] nepodporovaná položka obsahu: %(item)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:444
 msgid "Sources:"
 msgstr "Zdroje:"
 
@@ -852,6 +873,7 @@ msgstr "[Gemini Error] Při generování odpovědi došlo k chybě."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude Error] Při generování odpovědi došlo k chybě."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Chyba sítě]"
 
@@ -890,9 +912,11 @@ msgstr ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:484
 msgid "Failed to initialize LLM client."
 msgstr "Nepodařilo se inicializovat klienta LLM."
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:488
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "Nalezeno %(total_files)d souborů logu. Spouští se postupné profilování..."
@@ -1067,12 +1091,16 @@ msgstr "Stáhnout"
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Při načítání sdílené dlouhodobé paměti došlo k výjimce: %(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:381
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Přiložený soubor] %(name)s (%(path)s)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:466
 msgid "[Attached Image] %(path)s"
 msgstr "[Přiložený obrázek] %(path)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:468
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:667
 msgid "[Image Path] %(path)s"
 msgstr "[Cesta k obrázku] %(path)s"
 
@@ -1154,6 +1182,7 @@ msgstr "Výřečnost: vysoká"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[režim] uvažování=%(mode)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:982
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1188,6 +1217,7 @@ msgstr "Připojit soubory"
 msgid "All Files (*)"
 msgstr "Všechny soubory (*)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1397
 msgid "cannot read image"
 msgstr "obrázek nelze přečíst"
 
@@ -1210,6 +1240,7 @@ msgstr "Zastaveno"
 msgid "[REPLY] > %(text)s"
 msgstr "[ODPOVĚĎ] > %(text)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1708
 msgid "[USER] %(text)s"
 msgstr "[UŽIVATEL] %(text)s"
 
@@ -2222,12 +2253,15 @@ msgstr ""
 "[FATAL] Proměnná prostředí UAGENT_PROVIDER není nastavena.\n"
 "Při spouštění webového serveru zkontrolujte proměnné prostředí."
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:664
 msgid "[Attached Image] %(name)s"
 msgstr "[Přiložený obrázek] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:672
 msgid "[Attached File] %(name)s"
 msgstr "[Přiložený soubor] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:675
 msgid "[File Path] %(path)s"
 msgstr "[Cesta k souboru] %(path)s"
 
@@ -2248,12 +2282,15 @@ msgstr ""
 "[FATAL] Chyba web workeru.\n"
 "%(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:888
 msgid "missing path"
 msgstr "chybějící cesta"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:895
 msgid "path outside workdir"
 msgstr "cesta mimo pracovní adresář"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:1044
 msgid "Starting server on"
 msgstr "Spouští se server na"
 
@@ -2362,6 +2399,7 @@ msgstr "- \"Přečtěte si toto PDF a uveďte tři klíčové body.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Vyhledejte nejnovější zprávy a shrňte konkrétní téma.\""
 
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:183
 msgid "-- More -- (Enter: next) "
 msgstr "-- Další -- (Enter: další) "
 
@@ -2392,3 +2430,19 @@ msgstr "spuštění uagent selhalo: %(etype)s: %(err)s"
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Neznámý UAGENT_A2A_ENGINE: %(mode)s"
+
+msgid ""
+"Choose the startup tool groups to enable.\n"
+"1: comm  - Communication tools (Teams/Discord, etc.)\n"
+"2: office - Office tools (Excel/Word, etc.)\n"
+"4: devel  - Development tools (lint / py_compile / test, etc.)\n"
+"Enter the total value (e.g. 3 = comm + office, 7 = all)."
+msgstr ""
+"Vyberte skupiny nástrojů, které se mají při spuštění povolit.\n"
+"1: comm  - Komunikační nástroje (Teams/Discord apod.)\n"
+"2: office - Kancelářské nástroje (Excel/Word apod.)\n"
+"4: devel  - Vývojové nástroje (lint / py_compile / test apod.)\n"
+"Zadejte součet hodnot (např. 3 = comm + office, 7 = vše)."
+
+msgid "[WARN] Please enter an integer from 0 to 7."
+msgstr "[WARN] Zadejte celé číslo od 0 do 7."

@@ -107,6 +107,7 @@ msgstr "--non-interactive a été spécifié ; sortie sans attendre stdin."
 msgid "getch() fallback to input()"
 msgstr "getch() bascule sur input() si nécessaire"
 
+#: C:\KAIHATSU\agentcli\src\uagent\cli.py:604
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C reçu. Arrêt en cours..."
 
@@ -209,6 +210,7 @@ msgstr "journaux : affichage de %(shown)d/%(total)d (dossier=%(dir)s)"
 msgid "Log files:"
 msgstr "Fichiers journaux :"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:638
 msgid "(mtime unknown)"
 msgstr "(heure de modification inconnue)"
 
@@ -217,6 +219,7 @@ msgstr "(heure de modification inconnue)"
 msgid "(no user message)"
 msgstr "(aucun message utilisateur)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:764
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s"
@@ -224,6 +227,7 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d messages | premier : %(first_user)s | "
 "dernier : %(last_user)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:896
 msgid ""
 "[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
@@ -231,12 +235,14 @@ msgstr ""
 "[WARN] Suppression du message d’outil orphelin : "
 "tool_call_id=%(tool_call_id)r name=%(name)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:994
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr ""
 "[INFO] Il y avait %(count)d messages à compresser, donc rien n’a été "
 "modifié."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1002
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
 "messages (keep_last=%(keep_last)d)"
@@ -244,6 +250,7 @@ msgstr ""
 "[INFO] Historique de conversation en mémoire compressé : %(old_n)d -> "
 "%(new_n)d messages (keep_last=%(keep_last)d)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1335
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -251,6 +258,7 @@ msgstr ""
 "[WARN] La compression de l’historique a atteint la limite de contexte même "
 "avec chunk_size=1 ; retour à shrink_messages()."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1343
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -258,6 +266,7 @@ msgstr ""
 "[WARN] Impossible de réduire davantage chunk_size ; retour à "
 "shrink_messages()."
 
+#: C:\KAIHATSU\agentcli\src\uagent\core.py:1349
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
 "chunk_size=%(chunk_size)d"
@@ -642,21 +651,27 @@ msgstr ""
 msgid "invalid cache meta"
 msgstr "métadonnées de cache invalides"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:101
 msgid "(prompt unavailable)"
 msgstr "(invite indisponible)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:105
 msgid "screenshot: %(title)s"
 msgstr "capture d’écran : %(title)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:107
 msgid "screenshot"
 msgstr "capture d’écran"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:148
 msgid "Image-session context:"
 msgstr "Contexte de la session d’images :"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:149
 msgid "This conversation already generated images."
 msgstr "Cette conversation a déjà généré des images."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:151
 msgid ""
 "Use the prior prompts and saved file paths below as context for follow-up "
 "edits, variants, or continuations."
@@ -665,12 +680,15 @@ msgstr ""
 "dessous comme contexte pour les modifications suivantes, les variantes ou la"
 " poursuite."
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:156
 msgid "Turn %(idx)d:"
 msgstr "Tour %(idx)d :"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:157
 msgid "- prompt: %(prompt)s"
 msgstr "- prompt : %(prompt)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\image_session.py:160
 msgid "- file: %(path)s"
 msgstr "- fichier : %(path)s"
 
@@ -743,6 +761,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_gemini.py:542
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr ""
@@ -762,6 +781,7 @@ msgstr ""
 "Inspectez cette capture d’écran à la recherche d’erreurs, d’avertissements "
 "et d’un état important de l’interface."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_message_helpers.py:154
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Échec de shrink_llm automatique : %(err)s"
 
@@ -781,6 +801,7 @@ msgstr "[WARN] contenu d'image invalide (URL manquante)."
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] élément de contenu non pris en charge : %(item)r"
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_openai_responses.py:444
 msgid "Sources:"
 msgstr "Sources :"
 
@@ -866,6 +887,7 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr ""
 "[Erreur Claude] Une erreur est survenue lors de la génération d’une réponse."
 
+#: C:\KAIHATSU\agentcli\src\uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[Erreur réseau]"
 
@@ -904,9 +926,11 @@ msgstr ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:484
 msgid "Failed to initialize LLM client."
 msgstr "Échec de l’initialisation du client LLM."
 
+#: C:\KAIHATSU\agentcli\src\uagent\profile_manager.py:488
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "%(total_files)d fichiers journaux trouvés. Démarrage du profilage "
@@ -1086,12 +1110,16 @@ msgstr ""
 "Une exception s'est produite lors du chargement de la mémoire à long terme "
 "partagée : %(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:381
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Fichier joint] %(name)s (%(path)s)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:466
 msgid "[Attached Image] %(path)s"
 msgstr "[Image jointe] %(path)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:468
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:667
 msgid "[Image Path] %(path)s"
 msgstr "[Chemin de l’image] %(path)s"
 
@@ -1173,6 +1201,7 @@ msgstr "Verbosité : élevée"
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] raisonnement=%(mode)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:982
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1207,6 +1236,7 @@ msgstr "Joindre des fichiers"
 msgid "All Files (*)"
 msgstr "Tous les fichiers (*)"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1397
 msgid "cannot read image"
 msgstr "impossible de lire l’image"
 
@@ -1229,6 +1259,7 @@ msgstr "Arrêté"
 msgid "[REPLY] > %(text)s"
 msgstr "[RÉPONSE] > %(text)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\scheckgui.py:1708
 msgid "[USER] %(text)s"
 msgstr "[UTILISATEUR] %(text)s"
 
@@ -2246,12 +2277,15 @@ msgstr ""
 "[FATAL] La variable d'environnement UAGENT_PROVIDER n'est pas définie.\n"
 "Veuillez vérifier les variables d'environnement au démarrage du serveur web."
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:664
 msgid "[Attached Image] %(name)s"
 msgstr "[Image jointe] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:672
 msgid "[Attached File] %(name)s"
 msgstr "[Fichier joint] %(name)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:675
 msgid "[File Path] %(path)s"
 msgstr "[Chemin du fichier] %(path)s"
 
@@ -2272,12 +2306,15 @@ msgstr ""
 "[FATAL] Erreur du worker Web.\n"
 "%(err)s"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:888
 msgid "missing path"
 msgstr "chemin manquant"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:895
 msgid "path outside workdir"
 msgstr "chemin en dehors du répertoire de travail"
 
+#: C:\KAIHATSU\agentcli\src\uagent\web.py:1044
 msgid "Starting server on"
 msgstr "Démarrage du serveur sur"
 
@@ -2387,6 +2424,7 @@ msgstr "- \"Lire ce PDF et lister trois points clés.\""
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Rechercher les dernières actualités et résumer un sujet précis.\""
 
+#: C:\KAIHATSU\agentcli\src\uagent\welcome.py:183
 msgid "-- More -- (Enter: next) "
 msgstr "-- Plus -- (Entrée : suivant) "
 
@@ -2417,3 +2455,19 @@ msgstr "l’exécution de uagent a échoué : %(etype)s: %(err)s"
 #, python-format
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "UAGENT_A2A_ENGINE inconnu : %(mode)s"
+
+msgid ""
+"Choose the startup tool groups to enable.\n"
+"1: comm  - Communication tools (Teams/Discord, etc.)\n"
+"2: office - Office tools (Excel/Word, etc.)\n"
+"4: devel  - Development tools (lint / py_compile / test, etc.)\n"
+"Enter the total value (e.g. 3 = comm + office, 7 = all)."
+msgstr ""
+"Choisissez les groupes d’outils à activer au démarrage.\n"
+"1: comm  - Outils de communication (Teams/Discord, etc.)\n"
+"2: office - Outils bureautiques (Excel/Word, etc.)\n"
+"4: devel  - Outils de développement (lint / py_compile / test, etc.)\n"
+"Entrez la valeur totale (par ex. 3 = comm + office, 7 = tout)."
+
+msgid "[WARN] Please enter an integer from 0 to 7."
+msgstr "[WARN] Veuillez saisir un entier compris entre 0 et 7."

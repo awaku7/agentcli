@@ -47,11 +47,11 @@ def _set_office_tools_enabled(enabled: bool) -> str:
 
         if changed_names:
             msg = _("msg.office.enabled", default="[tools] Enabled Office tools (office): {names}", names=", ".join(changed_names))
-            print(msg)
+            
             return msg
         else:
             msg = _("msg.office.none_enabled", default="[tools] No Office tools were enabled.")
-            print(msg)
+            
             return msg
     else:
         # Unregister office tools
@@ -78,11 +78,11 @@ def _set_office_tools_enabled(enabled: bool) -> str:
 
         if removed_names:
             msg = _("msg.office.disabled", default="[tools] Disabled Office tools (office): {names}", names=", ".join(removed_names))
-            print(msg)
+            
             return msg
         else:
             msg = _("msg.office.none_disabled", default="[tools] No Office tools were disabled.")
-            print(msg)
+            
             return msg
 
 # Dummy TOOL_SPEC so this module gets loaded as a plugin

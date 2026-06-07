@@ -46,7 +46,8 @@
     ],
     "tool.system_prompt": "IMPORTANTE: esta herramienta lee PDF/PPTX/JSON y devuelve texto por página. Entrada: path, page_index, max_chars. Salida: texto de la página (todas las páginas o la página especificada).",
     "param.password.description": "Contraseña opcional para archivos PDF/PPTX cifrados. Si se omite y la entrada está cifrada, se le pedirá la contraseña una vez.",
-    "prompt.password": "Introduzca la contraseña de este archivo:\n{path}"
+    "prompt.password": "Introduzca la contraseña de este archivo:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "fr": {
     "param.max_chars.description": "Nombre maximum de caractères à renvoyer. En cas d'omission, la sortie est tronquée à 8 000 caractères.",
@@ -61,7 +62,8 @@
     ],
     "tool.system_prompt": "IMPORTANT : cet outil lit les fichiers PDF/PPTX/JSON et renvoie le texte au niveau de la page. Entrée : chemin, page_index, max_chars. Sortie : texte de la page (toutes les pages ou la page spécifiée).",
     "param.password.description": "Mot de passe facultatif pour les fichiers PDF/PPTX chiffrés. S'il est omis et que l'entrée est chiffrée, il vous sera demandé une seule fois.",
-    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}"
+    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "ko": {
     "param.max_chars.description": "반환할 최대 문자 수입니다. 생략하면 8000자로 잘립니다.",
@@ -76,7 +78,8 @@
     ],
     "tool.system_prompt": "중요: 이 도구는 PDF/PPTX/JSON을 읽고 페이지 단위 텍스트를 반환합니다. 입력: path, page_index, max_chars. 출력: 페이지 텍스트(모든 페이지 또는 지정된 페이지).",
     "param.password.description": "암호화된 PDF/PPTX 파일의 선택적 비밀번호입니다. 생략되었고 입력 파일이 암호화되어 있으면 한 번 비밀번호 입력을 요청합니다.",
-    "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
+    "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "de": {
     "param.max_chars.description": "Maximale Anzahl der zurückzugebenden Zeichen. Wenn weggelassen, wird auf 8000 Zeichen gekürzt.",
@@ -91,7 +94,8 @@
     ],
     "tool.system_prompt": "WICHTIG: Dieses Tool liest PDF/PPTX/JSON und gibt Text auf Seitenebene zurück. Eingabe: Pfad, page_index, max_chars. Ausgabe: Seitentext (alle Seiten oder die angegebene Seite).",
     "param.password.description": "Optionales Kennwort für verschlüsselte PDF/PPTX-Dateien. Wenn es weggelassen wird und die Eingabe verschlüsselt ist, werden Sie einmal zur Eingabe aufgefordert.",
-    "prompt.password": "Bitte geben Sie das Kennwort für diese Datei ein:\n{path}"
+    "prompt.password": "Bitte geben Sie das Kennwort für diese Datei ein:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "it": {
     "param.max_chars.description": "Numero massimo di caratteri da restituire. Se omesso, tronca a 8000 caratteri.",
@@ -106,7 +110,8 @@
     ],
     "tool.system_prompt": "IMPORTANTE: questo strumento legge PDF/PPTX/JSON e restituisce testo a livello di pagina. Input: percorso, page_index, max_chars. Output: testo della pagina (tutte le pagine o la pagina specificata).",
     "param.password.description": "Password facoltativa per file PDF/PPTX crittografati. Se omessa e l'input è crittografato, verrà richiesto di inserirla una sola volta.",
-    "prompt.password": "Inserisci la password di questo file:\n{path}"
+    "prompt.password": "Inserisci la password di questo file:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "ru": {
     "param.max_chars.description": "Максимальное количество возвращаемых символов. Если не указано, результат обрезается до 8000 символов.",
@@ -121,7 +126,8 @@
     ],
     "tool.system_prompt": "ВАЖНО: этот инструмент читает PDF/PPTX/JSON и возвращает текст на уровне страницы. Ввод: path, page_index, max_chars. Вывод: текст страницы (все страницы или указанная страница).",
     "param.password.description": "Необязательный пароль для зашифрованных файлов PDF/PPTX. Если он не указан и входные данные зашифрованы, пароль будет запрошен один раз.",
-    "prompt.password": "Введите пароль для этого файла:\n{path}"
+    "prompt.password": "Введите пароль для этого файла:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "pt_BR": {
     "param.max_chars.description": "Número máximo de caracteres a serem retornados. Se omitido, trunca em 8.000 caracteres.",
@@ -136,7 +142,8 @@
     ],
     "tool.system_prompt": "IMPORTANTE: esta ferramenta lê PDF/PPTX/JSON e retorna texto por página. Entrada: caminho, page_index, max_chars. Saída: texto da página (todas as páginas ou a página especificada).",
     "param.password.description": "Senha opcional para arquivos PDF/PPTX criptografados. Se omitida e a entrada estiver criptografada, será solicitada uma única vez.",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+    "prompt.password": "Digite a senha deste arquivo:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "pt": {
     "param.max_chars.description": "Número máximo de caracteres a serem retornados. Se omitido, truncará em 8.000 caracteres.",
@@ -151,7 +158,8 @@
     ],
     "tool.system_prompt": "IMPORTANTE: Esta ferramenta lê PDF/PPTX/JSON e retorna texto em nível de página. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
     "param.password.description": "Senha opcional para arquivos PDF/PPTX criptografados. Se omitido e a entrada for criptografada, uma senha será solicitada uma vez.",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+    "prompt.password": "Digite a senha deste arquivo:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "id": {
     "param.max_chars.description": "Jumlah maksimum karakter yang dikembalikan. Jika tidak ditentukan, dipotong pada 8000 karakter.",
@@ -166,7 +174,8 @@
     ],
     "tool.system_prompt": "PENTING: Alat ini membaca PDF/PPTX/JSON dan mengembalikan teks tingkat halaman. Input: path, page_index, max_chars. Output: teks halaman (semua halaman atau halaman yang ditentukan).",
     "param.password.description": "Kata sandi opsional untuk file PDF/PPTX terenkripsi. Jika tidak diisi dan input terenkripsi, Anda akan diminta kata sandi satu kali.",
-    "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
+    "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "vi": {
     "param.max_chars.description": "Số ký tự tối đa cần trả về. Nếu bỏ qua, sẽ cắt ngắn ở 8000 ký tự.",
@@ -181,7 +190,8 @@
     ],
     "tool.system_prompt": "QUAN TRỌNG: Công cụ này đọc PDF/PPTX/JSON và trả về văn bản cấp trang. Đầu vào: đường dẫn, page_index, max_chars. Đầu ra: văn bản trang (tất cả các trang hoặc trang được chỉ định).",
     "param.password.description": "Mật khẩu tùy chọn cho tệp PDF/PPTX đã mã hóa. Nếu bỏ qua và dữ liệu đầu vào đã được mã hóa, bạn sẽ được yêu cầu nhập mật khẩu một lần.",
-    "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
+    "prompt.password": "Nhập mật khẩu của tệp này:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "pl": {
     "param.max_chars.description": "Maksymalna liczba znaków do zwrócenia. W przypadku pominięcia obcinany jest po 8000 znaków.",
@@ -196,7 +206,8 @@
     ],
     "tool.system_prompt": "WAŻNE: To narzędzie odczytuje pliki PDF/PPTX/JSON i zwraca tekst na poziomie strony. Dane wejściowe: ścieżka, indeks_strony, max_chars. Dane wyjściowe: tekst strony (wszystkie strony lub określona strona).",
     "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików PDF/PPTX. Jeśli zostanie pominięte, a dane wejściowe są zaszyfrowane, hasło zostanie poproszone tylko raz.",
-    "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
+    "prompt.password": "Wprowadź hasło do tego pliku:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "hi": {
     "param.max_chars.description": "लौटने के लिए वर्णों की अधिकतम संख्या. यदि छोड़ दिया जाए, तो 8000 अक्षर कम हो जाते हैं।",
@@ -211,7 +222,8 @@
     ],
     "tool.system_prompt": "महत्वपूर्ण: यह टूल PDF/PPTX/JSON पढ़ता है और पेज-स्तरीय टेक्स्ट लौटाता है। इनपुट: path, page_index, max_chars। आउटपुट: पेज टेक्स्ट (सभी पेज या निर्दिष्ट पेज)।",
     "param.password.description": "एन्क्रिप्टेड पीडीएफ/पीपीटीएक्स फाइलों के लिए वैकल्पिक पासवर्ड। यदि छोड़ दिया गया है और इनपुट एन्क्रिप्ट किया गया है, तो आपको एक बार पासवर्ड के लिए संकेत दिया जाएगा।",
-    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
+    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "ar": {
     "param.max_chars.description": "الحد الأقصى لعدد الأحرف المراد إرجاعها. إذا تم حذفه، فسيتم اقتطاعه عند 8000 حرف.",
@@ -226,7 +238,8 @@
     ],
     "tool.system_prompt": "هام: تقوم هذه الأداة بقراءة PDF/PPTX/JSON وإرجاع النص على مستوى الصفحة. الإدخال: path و page_index و max_chars. الإخراج: نص الصفحة (جميع الصفحات أو الصفحة المحددة).",
     "param.password.description": "كلمة مرور اختيارية لملفات PDF/PPTX المشفرة. إذا تم حذفه وتم تشفير الإدخال، فستتم مطالبتك مرة واحدة بكلمة المرور.",
-    "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
+    "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "sv": {
     "param.max_chars.description": "Maximalt antal tecken som ska returneras. Om det utelämnas trunkeras resultatet vid 8000 tecken.",
@@ -241,7 +254,8 @@
     ],
     "tool.system_prompt": "VIKTIGT: Det här verktyget läser PDF/PPTX/JSON och returnerar text på sidnivå. Indata: path, page_index, max_chars. Utdata: sidtext (alla sidor eller angiven sida).",
     "param.password.description": "Valfritt lösenord för krypterade PDF/PPTX-filer. Om det utelämnas och indata är krypterad kommer du att ombes ange ett lösenord en gång.",
-    "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+    "prompt.password": "Ange lösenordet för den här filen:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "sw": {
     "param.max_chars.description": "Idadi ya juu ya herufi za kurejesha. Ikiwa haijatajwa, hupunguzwa hadi herufi 8000.",
@@ -256,7 +270,8 @@
     ],
     "tool.system_prompt": "MUHIMU: Zana hii husoma PDF/PPTX/JSON na kurudisha maandishi ya kila ukurasa. Ingizo: path, page_index, max_chars. Tokeo: maandishi ya ukurasa (kurasa zote au ukurasa uliochaguliwa).",
     "param.password.description": "Nenosiri la hiari kwa faili za PDF/PPTX zilizosimbwa. Likiachwa na ingizo likiwa limesimbwa, utaulizwa nenosiri mara moja.",
-    "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
+    "prompt.password": "Ingiza nenosiri la faili hii:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "nb": {
     "param.max_chars.description": "Maksimalt antall tegn som skal returneres. Hvis det utelates, trunkeres resultatet til 8000 tegn.",
@@ -271,7 +286,8 @@
     ],
     "tool.system_prompt": "VIKTIG: Dette verktøyet leser PDF/PPTX/JSON og returnerer tekst på sidenivå. Input: path, page_index, max_chars. Output: sidetekst (alle sider eller angitt side).",
     "param.password.description": "Valgfritt passord for krypterte PDF/PPTX-filer. Hvis det utelates og inndata er kryptert, blir du bedt om et passord én gang.",
-    "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "nl": {
     "param.max_chars.description": "Maximaal aantal tekens om terug te geven. Indien weggelaten, wordt afgekapt op 8000 tekens.",
@@ -286,7 +302,8 @@
     ],
     "tool.system_prompt": "BELANGRIJK: deze tool leest PDF/PPTX/JSON en geeft tekst op paginaniveau terug. Invoer: path, page_index, max_chars. Uitvoer: tekst van de pagina (alle pagina’s of de opgegeven pagina).",
     "param.password.description": "Optioneel wachtwoord voor versleutelde PDF/PPTX-bestanden. Als dit wordt weggelaten en de invoer versleuteld is, wordt u één keer om een wachtwoord gevraagd.",
-    "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}"
+    "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "fi": {
     "param.max_chars.description": "Palautettavien merkkien enimmäismäärä. Jos jätetään pois, tulos katkaistaan 8000 merkkiin.",
@@ -301,7 +318,8 @@
     ],
     "tool.system_prompt": "TÄRKEÄÄ: tämä työkalu lukee PDF/PPTX/JSON-tiedostoja ja palauttaa tekstin sivukohtaisesti. Syöte: path, page_index, max_chars. Tuloste: sivun teksti (kaikki sivut tai annettu sivu).",
     "param.password.description": "Valinnainen salasana salatuille PDF/PPTX-tiedostoille. Jos se jätetään pois ja syöte on salattu, sinulta kysytään salasana kerran.",
-    "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
+    "prompt.password": "Anna tämän tiedoston salasana:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "cs": {
     "param.max_chars.description": "Maximální počet znaků k vrácení. Pokud není zadáno, výsledek se zkrátí na 8000 znaků.",
@@ -316,7 +334,8 @@
     ],
     "tool.system_prompt": "DŮLEŽITÉ: Tento nástroj čte PDF/PPTX/JSON a vrací text po stránkách. Vstup: path, page_index, max_chars. Výstup: text stránky (všechny stránky nebo zadaná stránka).",
     "param.password.description": "Volitelné heslo pro šifrované soubory PDF/PPTX. Pokud není zadáno a vstup je šifrovaný, budete jednou vyzváni k zadání hesla.",
-    "prompt.password": "Zadejte heslo k tomuto souboru:\n{path}"
+    "prompt.password": "Zadejte heslo k tomuto souboru:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "uk": {
     "param.max_chars.description": "Максимальна кількість символів для повернення. Якщо не вказано, результат обрізається до 8000 символів.",
@@ -331,7 +350,8 @@
     ],
     "tool.system_prompt": "ВАЖЛИВО: цей інструмент читає PDF/PPTX/JSON і повертає текст на рівні сторінки. Вхід: path, page_index, max_chars. Вихід: текст сторінки (усі сторінки або вказана сторінка).",
     "param.password.description": "Необов’язковий пароль для зашифрованих файлів PDF/PPTX. Якщо його не вказано і вхідні дані зашифровані, пароль буде запитано один раз.",
-    "prompt.password": "Введіть пароль для цього файла:\n{path}"
+    "prompt.password": "Введіть пароль для цього файла:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "tr": {
     "param.max_chars.description": "Döndürülecek maksimum karakter sayısı. Atlanırsa, 8000 karakter uzunluğunda kesilir.",
@@ -346,7 +366,8 @@
     ],
     "tool.system_prompt": "IMPORTANT: Bu araç PDF/PPTX/JSON okur ve sayfa düzeyinde metin döndürür. Giriş: yol, sayfa_dizini, maksimum_karakterler. Çıktı: sayfa metni (tüm sayfalar veya belirtilen sayfa).",
     "param.password.description": "Şifrelenmiş PDF/PPTX dosyaları için isteğe bağlı şifre. Atlanırsa ve giriş şifrelenirse, bir kez parola girmeniz istenecektir.",
-    "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
+    "prompt.password": "Bu dosyanın şifresini girin:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "th": {
     "param.max_chars.description": "จำนวนอักขระสูงสุดที่จะส่งคืน หากละเว้นจะตัดทอนที่ 8000 อักขระ",
@@ -361,7 +382,8 @@
     ],
     "tool.system_prompt": "สำคัญ: เครื่องมือนี้อ่าน PDF/PPTX/JSON และส่งคืนข้อความระดับหน้า อินพุต: path, page_index, max_chars เอาต์พุต: ข้อความของหน้า (ทุกหน้าหรือหน้าที่ระบุ)",
     "param.password.description": "รหัสผ่านสำหรับไฟล์ PDF/PPTX ที่เข้ารหัส (ไม่บังคับ) หากไม่ระบุและข้อมูลนำเข้าถูกเข้ารหัส ระบบจะขอรหัสผ่านหนึ่งครั้ง",
-    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
+    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "zh_CN": {
     "param.max_chars.description": "返回的最大字符数。省略时截断为 8000 个字符。",
@@ -376,7 +398,8 @@
     ],
     "tool.system_prompt": "重要：此工具读取 PDF/PPTX/JSON，并返回页级文本。输入：path、page_index、max_chars。输出：页面文本（全部页面或指定页面）。",
     "param.password.description": "加密 PDF/PPTX 文件的可选密码。如果省略且输入内容已加密，系统会提示您输入一次密码。",
-    "prompt.password": "请输入此文件的密码：\n{path}"
+    "prompt.password": "请输入此文件的密码：\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "zh_TW": {
     "param.max_chars.description": "傳回的最大字元數。省略時會在 8000 個字元處截斷。",
@@ -391,7 +414,8 @@
     ],
     "tool.system_prompt": "重要：此工具讀取 PDF/PPTX/JSON，並回傳頁面層級文字。輸入：path、page_index、max_chars。輸出：頁面文字（全部頁面或指定頁面）。",
     "param.password.description": "加密 PDF/PPTX 檔案的可選密碼。若省略且輸入內容已加密，系統會提示您輸入一次密碼。",
-    "prompt.password": "請輸入此文件的密碼：\n{path}"
+    "prompt.password": "請輸入此文件的密碼：\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "bn": {
     "param.max_chars.description": "ফেরত দেওয়া যাবে সর্বোচ্চ কত অক্ষর। উল্লেখ না করলে 8000 অক্ষরে কেটে দেওয়া হবে।",
@@ -406,7 +430,8 @@
     ],
     "tool.system_prompt": "গুরুত্বপূর্ণ: এই টুল PDF/PPTX/JSON পড়ে এবং পৃষ্ঠা-স্তরের লেখা ফেরত দেয়। ইনপুট: path, page_index, max_chars। আউটপুট: পৃষ্ঠার লেখা (সব পৃষ্ঠা বা নির্দিষ্ট পৃষ্ঠা)।",
     "param.password.description": "এনক্রিপ্টেড PDF/PPTX ফাইলের ঐচ্ছিক পাসওয়ার্ড। উল্লেখ না করলে এবং ইনপুট এনক্রিপ্টেড হলে, একবার পাসওয়ার্ড চাইবে।",
-    "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
+    "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "fa": {
     "param.max_chars.description": "حداکثر تعداد نویسه‌های بازگشتی. اگر مشخص نشود، خروجی در 8000 نویسه کوتاه می‌شود.",
@@ -421,7 +446,8 @@
     ],
     "tool.system_prompt": "مهم: این ابزار PDF/PPTX/JSON را می‌خواند و متنِ سطحِ صفحه را برمی‌گرداند. ورودی: path، page_index، max_chars. خروجی: متن صفحه (همهٔ صفحه‌ها یا صفحهٔ مشخص‌شده).",
     "param.password.description": "گذرواژهٔ اختیاری برای فایل‌های PDF/PPTX رمزگذاری‌شده. اگر مشخص نشود و ورودی رمزگذاری‌شده باشد، یک‌بار برای گذرواژه از شما پرسیده می‌شود.",
-    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
+    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "mn": {
     "param.max_chars.description": "Буцаах тэмдэгтийн дээд тоо. Заагаагүй бол 8000 тэмдэгтээр таслана.",
@@ -436,7 +462,8 @@
     ],
     "tool.system_prompt": "ЧУХАЛ: Энэ хэрэгсэл нь PDF/PPTX/JSON уншаад хуудасны түвшний текст буцаана. Оролт: path, page_index, max_chars. Гаралт: хуудасны текст (бүх хуудас эсвэл заасан хуудас).",
     "param.password.description": "Шифрлэгдсэн PDF/PPTX файлын сонголттой нууц үг. Заагаагүй бөгөөд оролт шифрлэгдсэн бол нэг удаа нууц үг асууна.",
-    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
+    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "mr": {
     "param.max_chars.description": "परत देण्यासाठी जास्तीत जास्त अक्षरे. दिले नाही तर 8000 अक्षरांवर कापले जाईल.",
@@ -451,6 +478,7 @@
     ],
     "tool.system_prompt": "महत्त्वाचे: हे tool PDF/PPTX/JSON वाचते आणि पृष्ठ-स्तरीय मजकूर परत करते. इनपुट: path, page_index, max_chars. आउटपुट: पानाचा मजकूर (सर्व पानांचा किंवा निर्दिष्ट पानाचा).",
     "param.password.description": "एन्क्रिप्टेड PDF/PPTX फाइलसाठी ऐच्छिक password. दिला नाही आणि input एन्क्रिप्टेड असेल तर, एकदाच password विचारला जाईल.",
-    "prompt.password": "या फाइलचा password टाका:\n{path}"
+    "prompt.password": "या फाइलचा password टाका:\n{path}",
+    "param.page.description": "Page number to read (1-based). Alias of page_index."
   }
 }

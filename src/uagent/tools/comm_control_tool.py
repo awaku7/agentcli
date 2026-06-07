@@ -47,11 +47,11 @@ def _set_comm_tools_enabled(enabled: bool) -> str:
 
         if changed_names:
             msg = _("msg.comm.enabled", default="[tools] Enabled communication tools (comm): {names}", names=", ".join(changed_names))
-            print(msg)
+            
             return msg
         else:
             msg = _("msg.comm.none_enabled", default="[tools] No communication tools were enabled.")
-            print(msg)
+            
             return msg
     else:
         # Unregister comm tools
@@ -78,11 +78,11 @@ def _set_comm_tools_enabled(enabled: bool) -> str:
 
         if removed_names:
             msg = _("msg.comm.disabled", default="[tools] Disabled communication tools (comm): {names}", names=", ".join(removed_names))
-            print(msg)
+            
             return msg
         else:
             msg = _("msg.comm.none_disabled", default="[tools] No communication tools were disabled.")
-            print(msg)
+            
             return msg
 
 # Dummy TOOL_SPEC so this module gets loaded as a plugin

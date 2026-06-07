@@ -64,9 +64,6 @@
     "err.no_saved": "[generate_image] 画像データが空です",
     "ok.generated_one": "[OK] 生成しました: {path}",
     "ok.generated_many": "[OK] 生成しました:\n{paths}",
-    "param.background.description": "画像の背景です（任意、例: auto/transparent）。",
-    "param.moderation.description": "画像モデレーションモードです（任意）。",
-    "param.quality.description": "画像品質です（任意、例: auto/high/medium/low）。",
     "log.opened_default_app": "[INFO] 画像ファイルを既定アプリで開きました。",
     "next_action.review_generated_image": "生成した画像を確認してください。"
   },
@@ -893,9 +890,6 @@
     "ok.generated_one": "[OK] তৈরি হয়েছে: {path}",
     "ok.generated_many": "[OK] তৈরি হয়েছে:\n{paths}",
     "log.opened_default_app": "[INFO] ছবির ফাইল ডিফল্ট অ্যাপে খোলা হয়েছে।",
-    "param.background.description": "ছবির ব্যাকগ্রাউন্ড (ঐচ্ছিক, যেমন: auto/transparent)।",
-    "param.moderation.description": "ছবি moderation মোড (ঐচ্ছিক)।",
-    "param.quality.description": "ছবির quality (ঐচ্ছিক, যেমন: auto/high/medium/low)।",
     "next_action.review_generated_image": "অনুগ্রহ করে তৈরি করা ছবিটি পর্যালোচনা করুন।"
   },
   "fa": {
@@ -929,9 +923,6 @@
     "ok.generated_one": "[OK] تولید شد: {path}",
     "ok.generated_many": "[OK] تولید شدند:\n{paths}",
     "log.opened_default_app": "[INFO] فایل تصویر با برنامهٔ پیش‌فرض باز شد.",
-    "param.background.description": "پس‌زمینهٔ تصویر (اختیاری، مثلاً: auto/transparent).",
-    "param.moderation.description": "حالت moderation تصویر (اختیاری).",
-    "param.quality.description": "کیفیت تصویر (اختیاری، مثلاً: auto/high/medium/low).",
     "next_action.review_generated_image": "لطفاً تصویرِ تولیدشده را بررسی کنید."
   },
   "mn": {
@@ -965,9 +956,6 @@
     "ok.generated_one": "[OK] үүсгэгдлээ: {path}",
     "ok.generated_many": "[OK] үүсгэгдлээ:\n{paths}",
     "log.opened_default_app": "[INFO] Зургийн файлыг үндсэн апп-аар нээлээ.",
-    "param.background.description": "Зургийн background (сонголттой, жишээ: auto/transparent).",
-    "param.moderation.description": "Зургийн moderation горим (сонголттой).",
-    "param.quality.description": "Зургийн quality (сонголттой, жишээ: auto/high/medium/low).",
     "next_action.review_generated_image": "Үүсгэсэн зургийг шалгана уу."
   },
   "mr": {
@@ -1001,9 +989,6 @@
     "ok.generated_one": "[OK] तयार केले: {path}",
     "ok.generated_many": "[OK] तयार केले:\n{paths}",
     "log.opened_default_app": "[INFO] प्रतिमा फाइल डीफॉल्ट अॅपमध्ये उघडली.",
-    "param.background.description": "प्रतिमेची पार्श्वभूमी (ऐच्छिक, उदा. auto/transparent).",
-    "param.moderation.description": "प्रतिमा moderation मोड (ऐच्छिक).",
-    "param.quality.description": "प्रतिमेची quality (ऐच्छिक, उदा. auto/high/medium/low).",
     "next_action.review_generated_image": "कृपया तयार केलेली प्रतिमा तपासा।"
   }
 }
