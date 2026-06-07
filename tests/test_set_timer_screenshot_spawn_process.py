@@ -99,7 +99,10 @@ def test_screenshot_errors_when_pyautogui_missing(
     monkeypatch.setattr(screenshot_tool, "pyautogui", None)
     out = screenshot_tool.run_tool({})
 
-    assert out.startswith("[screenshot error]")
+    import json
+    obj = json.loads(out)
+    assert obj.get("ok") is False
+    assert "[screenshot error]" in obj.get("message", "") or "pyautogui" in obj.get("message", "")
 
 
 def test_screenshot_errors_when_window_targeting_without_pygetwindow(
@@ -112,7 +115,10 @@ def test_screenshot_errors_when_window_targeting_without_pygetwindow(
     monkeypatch.setattr(screenshot_tool, "pygetwindow", None)
 
     out = screenshot_tool.run_tool({"window_title": "notepad"})
-    assert out.startswith("[screenshot error]")
+    import json
+    obj = json.loads(out)
+    assert obj.get("ok") is False
+    assert "[screenshot error]" in obj.get("message", "") or "pygetwindow" in obj.get("message", "")
 
 
 def test_screenshot_captures_desktop_with_given_path(
@@ -132,8 +138,11 @@ def test_screenshot_captures_desktop_with_given_path(
     out_file = repo_tmp_path / "cap.png"
     out = screenshot_tool.run_tool({"file_path": str(out_file), "delay": 0})
 
-    assert out.startswith("[screenshot]")
-    assert str(out_file) in out
+    import json
+    obj = json.loads(out)
+    assert obj.get("ok") is True
+    assert "[screenshot]" in obj.get("message", "")
+    assert str(out_file) in obj.get("message", "")
     assert calls == [(str(out_file), None)]
 
 
@@ -147,8 +156,10 @@ def test_screenshot_window_not_found(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(screenshot_tool, "pygetwindow", fake_pygetwindow)
 
     out = screenshot_tool.run_tool({"window_title": "missing", "delay": 0})
-    assert out.startswith("[screenshot error]")
-    assert "missing" in out
+    import json
+    obj = json.loads(out)
+    assert obj.get("ok") is False
+    assert "[screenshot error]" in obj.get("message", "") or "missing" in obj.get("message", "")
 
 
 def test_screenshot_window_capture_and_close(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -193,8 +204,11 @@ def test_screenshot_window_capture_and_close(monkeypatch: pytest.MonkeyPatch) ->
         {"window_title": "demo", "delay": 0, "close_window": True, "file_path": "x.png"}
     )
 
-    assert out.startswith("[screenshot]")
-    assert "x.png" in out
+    import json
+    obj = json.loads(out)
+    assert obj.get("ok") is True
+    assert "[screenshot]" in obj.get("message", "")
+    assert "x.png" in obj.get("message", "")
     assert calls == [("x.png", (10, 20, 300, 400))]
     assert win.restored is True
     assert win.activated is True

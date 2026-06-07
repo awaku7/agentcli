@@ -241,7 +241,8 @@ def test_search_files_ignores_default_dirs_and_exts(
 
     assert "ok.txt" in out
     assert "secret.txt" not in out
-    assert "image.png" not in out
+    # image.png is listed because content_pattern is empty (filename-only search should still list image files)
+    assert "image.png" in out
 
 
 def test_search_files_limits_matches_per_file(

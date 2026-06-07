@@ -389,7 +389,8 @@
                 } else if (data.type === 'log') {
                     // Server-side logs are noisy; render only when WEB_VERBOSE is on.
                     if (WEB_VERBOSE) {
-                        addMessage({ role: 'tool', content: data.content_html || data.content });
+                        const rawContent = data.content_html || data.content;
+                        addMessage({ role: 'tool', content: rawContent, is_raw_html: !!data.content_html });
                     }
                 } else if (data.type === 'assistant_stream_start') {
                     startAssistantStream(data.id);
@@ -546,6 +547,14 @@
 
         function addMessage(msg) {
             if (!msg) return;
+            if (msg.is_raw_html) {
+                const div = document.createElement('div');
+                div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msg.role)}`;
+                div.innerHTML = msg.content;
+                chatBox.appendChild(div);
+                chatBox.scrollTop = chatBox.scrollHeight;
+                return;
+            }
             const normalized = normalizeMessageForDisplay(msg);
             const msgForRender = normalized.msg;
             const body = normalized.body;
@@ -554,7 +563,7 @@
             if (msgForRender.name) content += `<span class="text-xs font-mono">[${escapeHtml(String(msgForRender.name))}]</span> `;
 
             if (body) {
-                content += `<pre class="mt-1">${linkifyHtml(escapeHtml(body))}</pre>`;
+                content += `<pre class="mt-1">${linkifyHtml(ansiToHtml(body))}</pre>`;
             }
 
             if (WEB_VERBOSE && Array.isArray(msgForRender.tool_calls) && msgForRender.tool_calls.length) {
@@ -642,7 +651,7 @@
             if (!streamAssistant.active || streamAssistant.id !== id || !streamAssistant.pre) return;
             const s = String(delta || '');
             streamAssistant.text = String(streamAssistant.text || '') + s;
-            streamAssistant.pre.textContent += s;
+            streamAssistant.pre.innerHTML = linkifyHtml(ansiToHtml(streamAssistant.text));
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
@@ -761,6 +770,62 @@
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
+        }
+        function ansiToHtml(text) {
+            if (!text) return '';
+            const ansiRegex = /\x1b\[([0-9;]*)m/g;
+            let match;
+            let lastIndex = 0;
+            let result = '';
+            let openSpans = 0;
+
+            while ((match = ansiRegex.exec(text)) !== null) {
+                result += escapeHtml(text.slice(lastIndex, match.index));
+                const codes = match[1].split(';');
+                
+                if (codes.includes('0') || match[1] === '') {
+                    while (openSpans > 0) {
+                        result += '</span>';
+                        openSpans--;
+                    }
+                } else {
+                    let styles = [];
+                    codes.forEach(code => {
+                        if (code === '90') {
+                            styles.push('color: #8e9196');
+                        } else if (code === '31') {
+                            styles.push('color: #ef4444');
+                        } else if (code === '32') {
+                            styles.push('color: #10b981');
+                        } else if (code === '33') {
+                            styles.push('color: #f59e0b');
+                        } else if (code === '34') {
+                            styles.push('color: #3b82f6');
+                        } else if (code === '35') {
+                            styles.push('color: #8b5cf6');
+                        } else if (code === '36') {
+                            styles.push('color: #06b6d4');
+                        } else if (code === '1') {
+                            styles.push('font-weight: bold');
+                        } else if (code === '3') {
+                            styles.push('font-style: italic');
+                        } else if (code === '4') {
+                            styles.push('text-decoration: underline');
+                        }
+                    });
+                    if (styles.length > 0) {
+                        result += `<span style="${styles.join('; ')}">`;
+                        openSpans++;
+                    }
+                }
+                lastIndex = ansiRegex.lastIndex;
+            }
+            result += escapeHtml(text.slice(lastIndex));
+            while (openSpans > 0) {
+                result += '</span>';
+                openSpans--;
+            }
+            return result;
         }
         function linkifyHtml(escapedHtml) {
             // escapedHtml is already HTML-escaped; safe to inject as innerHTML

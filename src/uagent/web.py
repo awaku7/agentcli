@@ -1035,9 +1035,24 @@ def main():
         sys.exit(1)
 
     init_web()
-    sys.__stdout__.write(_("Starting server on") + " http://localhost:8000\n")
+    import socket
+    def get_local_ip() -> str:
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(("8.8.8.8", 80))
+            ip = s.getsockname()[0]
+            s.close()
+            return ip
+        except Exception:
+            return "127.0.0.1"
+
+    local_ip = get_local_ip()
+    port = 8000
+    sys.__stdout__.write(_("Starting server on") + f" http://localhost:{port}\n")
+    if local_ip and local_ip != "127.0.0.1":
+        sys.__stdout__.write(_("External URL:") + f" http://{local_ip}:{port}\n")
     sys.__stdout__.flush()
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 
 if __name__ == "__main__":
