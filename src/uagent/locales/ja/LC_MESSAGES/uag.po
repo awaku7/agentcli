@@ -141,7 +141,7 @@ msgstr "[docs] name が必要です"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr ""
+msgstr "[WARN] 起動時のツール選択の適用に失敗しました: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -254,58 +254,60 @@ msgstr ""
 "(keep_last=%(keep_last)d)"
 
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
+msgstr "履歴の圧縮中に429再試行制限（%(max_retries)s）に達しました。"
 
 msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
+msgstr "履歴圧縮のためのLLM呼び出し中にエラーが発生しました: %(err)r"
 
 msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
+msgstr "- 会話のチャンクを英語で要約してください。\n"
 
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
-msgstr ""
+msgstr "- 要約は簡潔にまとめ、重要な決定事項、制約事項、および保留中の項目を含めてください。\n"
 
 msgid "- Output should be directly usable as a system message."
-msgstr ""
+msgstr "- 出力はシステムメッセージとして直接使用できるものである必要があります。"
 
 msgid "Conversation chunk:\n"
-msgstr ""
+msgstr "会話のチャンク:\n"
 
 msgid "Write a concise summary of this chunk."
-msgstr ""
+msgstr "このチャンクの簡潔な要約を作成してください。"
 
 msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
+msgstr "- 既存の会話の要約を更新しています。\n"
 
 msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
+msgstr "- 以前の要約から重要な事実を維持してください。\n"
 
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
-msgstr ""
+msgstr "- 制約事項、決定事項、または保留中の項目を失うことなく、新しいチャンクをマージしてください。\n"
 
 msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
+msgstr "- 結果は簡潔にし、システムメッセージに適したものにしてください。"
 
 msgid "Previous summary:\n"
-msgstr ""
+msgstr "以前の要約:\n"
 
 msgid "New chunk:\n"
-msgstr ""
+msgstr "新しいチャンク:\n"
 
 msgid "Update the summary while keeping the prior context intact."
-msgstr ""
+msgstr "以前のコンテキストを維持したまま、要約を更新してください。"
 
 msgid "Summary of the conversation so far:\n"
-msgstr ""
+msgstr "これまでの会話の要約:\n"
 
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr ""
+"[INFO] shrink_llm: {old_n} -> {new_n} 件のメッセージ（{old_part_n} "
+"件の古いメッセージを1つの要約に圧縮しました。末尾の {tail_n} 件を保持）"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -891,20 +893,20 @@ msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude エラー] 応答生成中にエラーが発生しました。"
 
 msgid "Input exceeds the context window."
-msgstr ""
+msgstr "入力がコンテキストウィンドウを超えています。"
 
 msgid "400 BadRequest"
-msgstr ""
+msgstr "400 BadRequest"
 
 msgid "Connection error"
-msgstr ""
+msgstr "接続エラー"
 
 #: src/uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[ネットワークエラー]"
 
 msgid "Unexpected exception."
-msgstr ""
+msgstr "予期しない例外が発生しました。"
 
 #: src/uagent\llm_round_helpers.py:719
 #, python-format
@@ -2225,7 +2227,7 @@ msgstr "サーバーを起動しています:"
 
 #: src/uagent\web.py:1053
 msgid "External URL:"
-msgstr ""
+msgstr "外部URL:"
 
 #: src/uagent\welcome.py:29
 msgid ""
