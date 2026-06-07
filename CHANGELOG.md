@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.41] - 2026-06-07
+
+### Added
+- **Developer Tool Genre Expansion**:
+  - Added `tool_genre="devel"` to `system_reload`, `git_ops`, `playwright_inspector`, and `binary_edit` tools.
+- **Web UI Enhancements**:
+  - Display external URL on startup and fixed related tests.
+
+### Fixed & Improved
+- **Internationalization (i18n)**:
+  - Removed `_t()` from 400 BadRequest and updated all locales to achieve 0 `same_as_en` entries.
+  - Completed translations for all 28 languages to achieve 0 empty entries.
+  - Added Japanese translations for 22 newly extracted strings.
+  - Rebuilt POT and PO/MO files based on `babel.cfg` scope.
+- **Gemini Stability & i18n**:
+  - Added i18n support and 28 language translations for Gemini stream interruption error messages.
+  - Supported `UAGENT_GEMINI_MAX_OUTPUT_TOKENS` and displayed error on stream interruption.
+
 ## [0.4.40] - 2026-06-06
 
 ### Added

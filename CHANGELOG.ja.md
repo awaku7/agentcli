@@ -7,7 +7,24 @@
 
 ## [未リリース]
 
+## [0.4.41] - 2026-06-07
+
 ### 新規追加
+- **開発者向けツールジャンルの拡充**:
+  - `system_reload`、`git_ops`、`playwright_inspector`、および `binary_edit` ツールに `tool_genre="devel"` を追加。
+- **Web UI の強化**:
+  - 起動時に外部 URL を表示する機能を追加し、関連するテストを修正。
+
+### 修正・改善
+- **国際化 (i18n)**:
+  - 400 BadRequest から `_t()` を削除し、すべてのロケールを更新して `same_as_en` エントリを 0 件に。
+  - 全28言語の翻訳を完了し、未翻訳（empty）エントリを 0 件に。
+  - 新たに抽出された22個の文字列に対する日本語翻訳を追加。
+  - `babel.cfg` の対象範囲に基づき、POT および PO/MO ファイルを再構築。
+- **Gemini の安定性向上と i18n**:
+  - Gemini のストリーム中断エラーメッセージに対する i18n サポートおよび28言語の翻訳を追加。
+  - `UAGENT_GEMINI_MAX_OUTPUT_TOKENS` をサポートし、ストリーム中断時にエラーを表示するように修正。
+
 - **Gemini 組み込み Google 検索サポート**:
   - Gemini API および Vertex AI において、組み込みの Google 検索（Google Search Grounding）を直接利用できる機能を追加。
   - 環境変数 `UAGENT_GEMINI_WEB_SEARCH` を用いて制御可能とし、デフォルトで有効（ON）に設定。有効時はローカルの Web 検索ツールを自動的に無効化。
