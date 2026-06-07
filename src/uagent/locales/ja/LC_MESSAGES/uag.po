@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -253,55 +253,71 @@ msgstr ""
 "[INFO] メモリ上の会話履歴を圧縮しました: %(old_n)d -> %(new_n)d 件のメッセージ "
 "(keep_last=%(keep_last)d)"
 
+#: src/uagent\core.py:1215
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr "履歴の圧縮中に429再試行制限（%(max_retries)s）に達しました。"
 
+#: src/uagent\core.py:1225
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "履歴圧縮のためのLLM呼び出し中にエラーが発生しました: %(err)r"
 
+#: src/uagent\core.py:1258
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- 会話のチャンクを英語で要約してください。\n"
 
+#: src/uagent\core.py:1260
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
 msgstr "- 要約は簡潔にまとめ、重要な決定事項、制約事項、および保留中の項目を含めてください。\n"
 
+#: src/uagent\core.py:1262
 msgid "- Output should be directly usable as a system message."
 msgstr "- 出力はシステムメッセージとして直接使用できるものである必要があります。"
 
+#: src/uagent\core.py:1265
 msgid "Conversation chunk:\n"
 msgstr "会話のチャンク:\n"
 
+#: src/uagent\core.py:1267
 msgid "Write a concise summary of this chunk."
 msgstr "このチャンクの簡潔な要約を作成してください。"
 
+#: src/uagent\core.py:1271
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- 既存の会話の要約を更新しています。\n"
 
+#: src/uagent\core.py:1272
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- 以前の要約から重要な事実を維持してください。\n"
 
+#: src/uagent\core.py:1274
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "- 制約事項、決定事項、または保留中の項目を失うことなく、新しいチャンクをマージしてください。\n"
 
+#: src/uagent\core.py:1276
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- 結果は簡潔にし、システムメッセージに適したものにしてください。"
 
+#: src/uagent\core.py:1279
 msgid "Previous summary:\n"
 msgstr "以前の要約:\n"
 
+#: src/uagent\core.py:1281
 msgid "New chunk:\n"
 msgstr "新しいチャンク:\n"
 
+#: src/uagent\core.py:1283
 msgid "Update the summary while keeping the prior context intact."
 msgstr "以前のコンテキストを維持したまま、要約を更新してください。"
 
+#: src/uagent\core.py:1304
 msgid "Summary of the conversation so far:\n"
 msgstr "これまでの会話の要約:\n"
 
+#: src/uagent\core.py:1311
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -892,12 +908,11 @@ msgstr "[Gemini エラー] 応答生成中にエラーが発生しました。"
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude エラー] 応答生成中にエラーが発生しました。"
 
+#: src/uagent\llm_round_helpers.py:599
 msgid "Input exceeds the context window."
 msgstr "入力がコンテキストウィンドウを超えています。"
 
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
+#: src/uagent\llm_round_helpers.py:609
 msgid "Connection error"
 msgstr "接続エラー"
 
@@ -905,6 +920,7 @@ msgstr "接続エラー"
 msgid "[Network Error]"
 msgstr "[ネットワークエラー]"
 
+#: src/uagent\llm_round_helpers.py:641
 msgid "Unexpected exception."
 msgstr "予期しない例外が発生しました。"
 

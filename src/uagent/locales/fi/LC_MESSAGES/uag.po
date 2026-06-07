@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -259,59 +259,82 @@ msgstr ""
 "[INFO] Muistiin tallennettu keskusteluhistoria pakattiin: %(old_n)d -> "
 "%(new_n)d viestiä (keep_last=%(keep_last)d)"
 
+#: src/uagent\core.py:1215
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "Uudelleenyritysraja 429 (%(max_retries)s) saavutettiin historian pakkaamisen aikana."
+msgstr ""
+"Uudelleenyritysraja 429 (%(max_retries)s) saavutettiin historian pakkaamisen"
+" aikana."
 
+#: src/uagent\core.py:1225
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Virhe kutsuttaessa LLM:ää historian pakkaamista varten: %(err)r"
 
+#: src/uagent\core.py:1258
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Tiivistä keskusteluosio englanniksi.\n"
 
+#: src/uagent\core.py:1260
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
 msgstr "Pidä tiivistelmä ytimekkäänä, mutta sisällytä siihen tärkeimmät päätökset, rajoitukset ja avoimet asiat.\n"
+"Pidä tiivistelmä ytimekkäänä, mutta sisällytä siihen tärkeimmät päätökset, "
+"rajoitukset ja avoimet asiat.\n"
 
+#: src/uagent\core.py:1262
 msgid "- Output should be directly usable as a system message."
 msgstr "- Tuloksen on oltava suoraan käytettävissä järjestelmäviestinä."
 
+#: src/uagent\core.py:1265
 msgid "Conversation chunk:\n"
 msgstr "Keskusteluosio:\n"
 
+#: src/uagent\core.py:1267
 msgid "Write a concise summary of this chunk."
 msgstr "Kirjoita ytimekäs tiivistelmä tästä osasta."
 
+#: src/uagent\core.py:1271
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Päivität olemassa olevaa keskustelun tiivistelmää.\n"
 
+#: src/uagent\core.py:1272
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Säilytä tärkeät tosiasiat edellisestä tiivistelmästä.\n"
 
+#: src/uagent\core.py:1274
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "Yhdistä uusi osa menettämättä rajoituksia, päätöksiä tai avoimia asioita.\n"
+"Yhdistä uusi osa menettämättä rajoituksia, päätöksiä tai avoimia asioita.\n"
 
+#: src/uagent\core.py:1276
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- Pidä tulos ytimekkäänä ja järjestelmäviestiin sopivana."
 
+#: src/uagent\core.py:1279
 msgid "Previous summary:\n"
 msgstr "Edellinen tiivistelmä:\n"
 
+#: src/uagent\core.py:1281
 msgid "New chunk:\n"
 msgstr "Uusi osio:\n"
 
+#: src/uagent\core.py:1283
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Päivitä tiivistelmä säilyttäen aiempi asiayhteys muuttumattomana."
 
+#: src/uagent\core.py:1304
 msgid "Summary of the conversation so far:\n"
 msgstr "Tähänastisen keskustelun tiivistelmä:\n"
 
+#: src/uagent\core.py:1311
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr "[INFO] shrink_llm: {old_n} -> {new_n} viestiä (tiivistetty {old_part_n} vanhempaa viestiä 1 tiivistelmäksi; säilytetty {tail_n} loppuosaa)"
+"[INFO] shrink_llm: {old_n} -> {new_n} viestiä (tiivistetty {old_part_n} "
+"vanhempaa viestiä 1 tiivistelmäksi; säilytetty {tail_n} loppuosaa)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -929,12 +952,11 @@ msgstr "[Gemini-virhe] Vastauksen luonti epäonnistui."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude-virhe] Vastauksen luonti epäonnistui."
 
+#: src/uagent\llm_round_helpers.py:599
 msgid "Input exceeds the context window."
 msgstr "Syöte ylittää konteksti-ikkunan."
 
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
+#: src/uagent\llm_round_helpers.py:609
 msgid "Connection error"
 msgstr "Yhteysvirhe"
 
@@ -942,6 +964,7 @@ msgstr "Yhteysvirhe"
 msgid "[Network Error]"
 msgstr "[Verkkovirhe]"
 
+#: src/uagent\llm_round_helpers.py:641
 msgid "Unexpected exception."
 msgstr "Odottamaton poikkeus."
 

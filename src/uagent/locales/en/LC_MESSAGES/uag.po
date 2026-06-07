@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -745,9 +745,6 @@ msgstr "[Claude Error] An error occurred while generating a response."
 
 msgid "Input exceeds the context window."
 msgstr "Input exceeds the context window."
-
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
 
 msgid "Connection error"
 msgstr "Connection error"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,8 @@ msgstr "[docs] se requiere el nombre"
 
 #: src/uagent\cli_startup.py:93
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr "[WARN] No se pudo aplicar la selección de la herramienta de inicio: %(err)s"
+msgstr ""
+"[WARN] No se pudo aplicar la selección de la herramienta de inicio: %(err)s"
 
 #: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
 #, python-format
@@ -261,59 +262,85 @@ msgstr ""
 "[INFO] Historial de conversación en memoria comprimido: %(old_n)d -> "
 "%(new_n)d mensajes (keep_last=%(keep_last)d)"
 
+#: src/uagent\core.py:1215
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "Se alcanzó el límite de 429 reintentos (%(max_retries)s) durante la compresión del historial."
+msgstr ""
+"Se alcanzó el límite de 429 reintentos (%(max_retries)s) durante la "
+"compresión del historial."
 
+#: src/uagent\core.py:1225
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Error al llamar al LLM para la compresión del historial: %(err)r"
 
+#: src/uagent\core.py:1258
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Resuma el fragmento de la conversación en inglés.\n"
 
+#: src/uagent\core.py:1260
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
 msgstr "Mantenga el resumen conciso pero incluya decisiones clave, restricciones y temas pendientes.\n"
+"Mantenga el resumen conciso pero incluya decisiones clave, restricciones y "
+"temas pendientes.\n"
 
+#: src/uagent\core.py:1262
 msgid "- Output should be directly usable as a system message."
-msgstr "- El resultado debe ser directamente utilizable como un mensaje del sistema."
+msgstr ""
+"- El resultado debe ser directamente utilizable como un mensaje del sistema."
 
+#: src/uagent\core.py:1265
 msgid "Conversation chunk:\n"
 msgstr "Fragmento de conversación:\n"
 
+#: src/uagent\core.py:1267
 msgid "Write a concise summary of this chunk."
 msgstr "Escriba un resumen conciso de este fragmento."
 
+#: src/uagent\core.py:1271
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Está actualizando un resumen de conversación existente.\n"
 
+#: src/uagent\core.py:1272
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Preserve los hechos importantes del resumen anterior.\n"
 
+#: src/uagent\core.py:1274
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "Combine el nuevo fragmento sin perder restricciones, decisiones o temas pendientes.\n"
+"Combine el nuevo fragmento sin perder restricciones, decisiones o temas "
+"pendientes.\n"
 
+#: src/uagent\core.py:1276
 msgid "- Keep the result concise and suitable for a system message."
-msgstr "- Mantenga el resultado conciso y adecuado para un mensaje del sistema."
+msgstr ""
+"- Mantenga el resultado conciso y adecuado para un mensaje del sistema."
 
+#: src/uagent\core.py:1279
 msgid "Previous summary:\n"
 msgstr "Resumen anterior:\n"
 
+#: src/uagent\core.py:1281
 msgid "New chunk:\n"
 msgstr "Nuevo fragmento:\n"
 
+#: src/uagent\core.py:1283
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Actualice el resumen manteniendo intacto el contexto anterior."
 
+#: src/uagent\core.py:1304
 msgid "Summary of the conversation so far:\n"
 msgstr "Resumen de la conversación hasta ahora:\n"
 
+#: src/uagent\core.py:1311
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr "[INFO] shrink_llm: {old_n} -> {new_n} mensajes (se comprimieron {old_part_n} mensajes antiguos en 1 resumen; se mantuvieron {tail_n} finales)"
+"[INFO] shrink_llm: {old_n} -> {new_n} mensajes (se comprimieron {old_part_n}"
+" mensajes antiguos en 1 resumen; se mantuvieron {tail_n} finales)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -816,7 +843,9 @@ msgstr ""
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr "[Error de Gemini: Respuesta bloqueada por el filtro de seguridad o el motivo de finalización]"
+msgstr ""
+"[Error de Gemini: Respuesta bloqueada por el filtro de seguridad o el motivo"
+" de finalización]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
@@ -939,12 +968,11 @@ msgstr "[Error de Gemini] Se produjo un error al generar una respuesta."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Error de Claude] Se produjo un error al generar una respuesta."
 
+#: src/uagent\llm_round_helpers.py:599
 msgid "Input exceeds the context window."
 msgstr "La entrada excede la ventana de contexto."
 
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
+#: src/uagent\llm_round_helpers.py:609
 msgid "Connection error"
 msgstr "Error de conexión"
 
@@ -952,6 +980,7 @@ msgstr "Error de conexión"
 msgid "[Network Error]"
 msgstr "[Error de red]"
 
+#: src/uagent\llm_round_helpers.py:641
 msgid "Unexpected exception."
 msgstr "Excepción inesperada."
 

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -262,59 +262,83 @@ msgstr ""
 "[INFO] Gespreksgeschiedenis in het geheugen gecomprimeerd: %(old_n)d -> "
 "%(new_n)d berichten (keep_last=%(keep_last)d)"
 
+#: src/uagent\core.py:1215
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "429 limiet voor opnieuw proberen (%(max_retries)s) bereikt tijdens geschiedeniscompressie."
+msgstr ""
+"429 limiet voor opnieuw proberen (%(max_retries)s) bereikt tijdens "
+"geschiedeniscompressie."
 
+#: src/uagent\core.py:1225
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Fout bij het aanroepen van LLM voor geschiedeniscompressie: %(err)r"
 
+#: src/uagent\core.py:1258
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Vat het gespreksonderdeel in het Engels samen.\n"
 
+#: src/uagent\core.py:1260
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
 msgstr "Houd de samenvatting beknopt, maar neem belangrijke beslissingen, beperkingen en openstaande punten op.\n"
+"Houd de samenvatting beknopt, maar neem belangrijke beslissingen, "
+"beperkingen en openstaande punten op.\n"
 
+#: src/uagent\core.py:1262
 msgid "- Output should be directly usable as a system message."
 msgstr "- De uitvoer moet direct bruikbaar zijn als een systeembericht."
 
+#: src/uagent\core.py:1265
 msgid "Conversation chunk:\n"
 msgstr "Gespreksonderdeel:\n"
 
+#: src/uagent\core.py:1267
 msgid "Write a concise summary of this chunk."
 msgstr "Schrijf een beknopte samenvatting van dit onderdeel."
 
+#: src/uagent\core.py:1271
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Je bent een bestaande gesprekssamenvatting aan het bijwerken.\n"
 
+#: src/uagent\core.py:1272
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Behoud belangrijke feiten uit de vorige samenvatting.\n"
 
+#: src/uagent\core.py:1274
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "Voeg het nieuwe onderdeel samen zonder beperkingen, beslissingen of openstaande punten te verliezen.\n"
+"Voeg het nieuwe onderdeel samen zonder beperkingen, beslissingen of "
+"openstaande punten te verliezen.\n"
 
+#: src/uagent\core.py:1276
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- Houd het resultaat beknopt en geschikt voor een systeembericht."
 
+#: src/uagent\core.py:1279
 msgid "Previous summary:\n"
 msgstr "Vorige samenvatting:\n"
 
+#: src/uagent\core.py:1281
 msgid "New chunk:\n"
 msgstr "Nieuw onderdeel:\n"
 
+#: src/uagent\core.py:1283
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Werk de samenvatting bij met behoud van de eerdere context."
 
+#: src/uagent\core.py:1304
 msgid "Summary of the conversation so far:\n"
 msgstr "Samenvatting van het gesprek tot nu toe:\n"
 
+#: src/uagent\core.py:1311
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr "[INFO] shrink_llm: {old_n} -> {new_n} berichten ({old_part_n} oudere berichten gecomprimeerd in 1 samenvatting; {tail_n} aan het einde behouden)"
+"[INFO] shrink_llm: {old_n} -> {new_n} berichten ({old_part_n} oudere "
+"berichten gecomprimeerd in 1 samenvatting; {tail_n} aan het einde behouden)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -809,7 +833,9 @@ msgstr ""
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr "[Gemini-fout: Antwoord geblokkeerd door veiligheidsfilter of beëindigingsreden]"
+msgstr ""
+"[Gemini-fout: Antwoord geblokkeerd door veiligheidsfilter of "
+"beëindigingsreden]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
@@ -934,12 +960,11 @@ msgstr ""
 "[Claude Error] Er is een fout opgetreden tijdens het genereren van een "
 "antwoord."
 
+#: src/uagent\llm_round_helpers.py:599
 msgid "Input exceeds the context window."
 msgstr "Invoer overschrijdt het contextvenster."
 
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
+#: src/uagent\llm_round_helpers.py:609
 msgid "Connection error"
 msgstr "Verbindingsfout"
 
@@ -947,6 +972,7 @@ msgstr "Verbindingsfout"
 msgid "[Network Error]"
 msgstr "[Netwerkfout]"
 
+#: src/uagent\llm_round_helpers.py:641
 msgid "Unexpected exception."
 msgstr "Onverwachte uitzondering."
 

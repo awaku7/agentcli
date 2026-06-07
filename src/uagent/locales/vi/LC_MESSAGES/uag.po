@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -254,59 +254,81 @@ msgstr ""
 "[INFO] Đã nén lịch sử hội thoại trong bộ nhớ: %(old_n)d -> %(new_n)d tin "
 "nhắn (keep_last=%(keep_last)d)"
 
+#: src/uagent\core.py:1215
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr "Đã đạt giới hạn thử lại 429 (%(max_retries)s) trong khi nén lịch sử."
 
+#: src/uagent\core.py:1225
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Lỗi khi gọi LLM để nén lịch sử: %(err)r"
 
+#: src/uagent\core.py:1258
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Tóm tắt phần hội thoại bằng tiếng Anh.\n"
 
+#: src/uagent\core.py:1260
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
 msgstr "Giữ cho bản tóm tắt ngắn gọn nhưng bao gồm các quyết định chính, các ràng buộc và các mục còn tồn đọng.\n"
+"Giữ cho bản tóm tắt ngắn gọn nhưng bao gồm các quyết định chính, các ràng "
+"buộc và các mục còn tồn đọng.\n"
 
+#: src/uagent\core.py:1262
 msgid "- Output should be directly usable as a system message."
 msgstr "- Đầu ra phải có thể sử dụng trực tiếp làm tin nhắn hệ thống."
 
+#: src/uagent\core.py:1265
 msgid "Conversation chunk:\n"
 msgstr "Phần hội thoại:\n"
 
+#: src/uagent\core.py:1267
 msgid "Write a concise summary of this chunk."
 msgstr "Viết một bản tóm tắt ngắn gọn cho phân đoạn này."
 
+#: src/uagent\core.py:1271
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Bạn đang cập nhật một bản tóm tắt hội thoại hiện có.\n"
 
+#: src/uagent\core.py:1272
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Giữ lại các sự kiện quan trọng từ bản tóm tắt trước đó.\n"
 
+#: src/uagent\core.py:1274
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "Hợp nhất phần mới mà không làm mất các ràng buộc, quyết định hoặc các mục còn tồn đọng.\n"
+"Hợp nhất phần mới mà không làm mất các ràng buộc, quyết định hoặc các mục "
+"còn tồn đọng.\n"
 
+#: src/uagent\core.py:1276
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- Giữ kết quả ngắn gọn và phù hợp để làm tin nhắn hệ thống."
 
+#: src/uagent\core.py:1279
 msgid "Previous summary:\n"
 msgstr "Bản tóm tắt trước đó:\n"
 
+#: src/uagent\core.py:1281
 msgid "New chunk:\n"
 msgstr "Phần mới:\n"
 
+#: src/uagent\core.py:1283
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Cập nhật bản tóm tắt trong khi vẫn giữ nguyên ngữ cảnh trước đó."
 
+#: src/uagent\core.py:1304
 msgid "Summary of the conversation so far:\n"
 msgstr "Tóm tắt cuộc hội thoại cho đến nay:\n"
 
+#: src/uagent\core.py:1311
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr "[INFO] shrink_llm: {old_n} -> {new_n} tin nhắn (đã nén {old_part_n} tin nhắn cũ hơn thành 1 bản tóm tắt; giữ lại {tail_n} tin nhắn cuối)"
+"[INFO] shrink_llm: {old_n} -> {new_n} tin nhắn (đã nén {old_part_n} tin nhắn"
+" cũ hơn thành 1 bản tóm tắt; giữ lại {tail_n} tin nhắn cuối)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -928,12 +950,11 @@ msgstr "[Lỗi Gemini] Đã xảy ra lỗi khi tạo phản hồi."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Lỗi Claude] Đã xảy ra lỗi khi tạo phản hồi."
 
+#: src/uagent\llm_round_helpers.py:599
 msgid "Input exceeds the context window."
 msgstr "Đầu vào vượt quá cửa sổ ngữ cảnh."
 
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
+#: src/uagent\llm_round_helpers.py:609
 msgid "Connection error"
 msgstr "Lỗi kết nối"
 
@@ -941,6 +962,7 @@ msgstr "Lỗi kết nối"
 msgid "[Network Error]"
 msgstr "[Lỗi mạng]"
 
+#: src/uagent\llm_round_helpers.py:641
 msgid "Unexpected exception."
 msgstr "Ngoại lệ không mong muốn."
 

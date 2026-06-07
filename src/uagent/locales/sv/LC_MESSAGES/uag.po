@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -260,59 +260,83 @@ msgstr ""
 "[INFO] Komprimerade konversationshistoriken i minnet: %(old_n)d -> %(new_n)d"
 " meddelanden (keep_last=%(keep_last)d)"
 
+#: src/uagent\core.py:1215
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "Gränsen för 429-försök (%(max_retries)s) har uppnåtts under historikkomprimering."
+msgstr ""
+"Gränsen för 429-försök (%(max_retries)s) har uppnåtts under "
+"historikkomprimering."
 
+#: src/uagent\core.py:1225
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Fel vid anrop av LLM för historikkomprimering: %(err)r"
 
+#: src/uagent\core.py:1258
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Sammanfatta konversationsdelen på engelska.\n"
 
+#: src/uagent\core.py:1260
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
 msgstr "Håll sammanfattningen kortfattad men inkludera viktiga beslut, begränsningar och utestående punkter.\n"
+"Håll sammanfattningen kortfattad men inkludera viktiga beslut, begränsningar"
+" och utestående punkter.\n"
 
+#: src/uagent\core.py:1262
 msgid "- Output should be directly usable as a system message."
 msgstr "- Utdata ska kunna användas direkt som ett systemmeddelande."
 
+#: src/uagent\core.py:1265
 msgid "Conversation chunk:\n"
 msgstr "Konversationsdel:\n"
 
+#: src/uagent\core.py:1267
 msgid "Write a concise summary of this chunk."
 msgstr "Skriv en kortfattad sammanfattning av denna del."
 
+#: src/uagent\core.py:1271
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Du uppdaterar en befintlig sammanfattning av konversationen.\n"
 
+#: src/uagent\core.py:1272
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Bevara viktiga fakta från den tidigare sammanfattningen.\n"
 
+#: src/uagent\core.py:1274
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "Slå ihop den nya delen utan att förlora begränsningar, beslut eller utestående punkter.\n"
+"Slå ihop den nya delen utan att förlora begränsningar, beslut eller "
+"utestående punkter.\n"
 
+#: src/uagent\core.py:1276
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- Håll resultatet kortfattat och lämpligt för ett systemmeddelande."
 
+#: src/uagent\core.py:1279
 msgid "Previous summary:\n"
 msgstr "Tidigare sammanfattning:\n"
 
+#: src/uagent\core.py:1281
 msgid "New chunk:\n"
 msgstr "Ny del:\n"
 
+#: src/uagent\core.py:1283
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Uppdatera sammanfattningen med bibehållet tidigare sammanhang."
 
+#: src/uagent\core.py:1304
 msgid "Summary of the conversation so far:\n"
 msgstr "Sammanfattning av konversationen hittills:\n"
 
+#: src/uagent\core.py:1311
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr "[INFO] shrink_llm: {old_n} -> {new_n} meddelanden (komprimerade {old_part_n} äldre meddelanden till 1 sammanfattning; behöll {tail_n} i slutet)"
+"[INFO] shrink_llm: {old_n} -> {new_n} meddelanden (komprimerade {old_part_n}"
+" äldre meddelanden till 1 sammanfattning; behöll {tail_n} i slutet)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -808,7 +832,9 @@ msgstr "google-genai kunde inte importeras (pip install google-genai krävs)."
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr "[Gemini-fel: Svaret blockerades av säkerhetsfiltret eller avslutningsorsaken]"
+msgstr ""
+"[Gemini-fel: Svaret blockerades av säkerhetsfiltret eller "
+"avslutningsorsaken]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
@@ -928,12 +954,11 @@ msgstr "[Gemini-fel] Ett fel uppstod när ett svar genererades."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude-fel] Ett fel uppstod när ett svar genererades."
 
+#: src/uagent\llm_round_helpers.py:599
 msgid "Input exceeds the context window."
 msgstr "Inmatningen överskrider kontextfönstret."
 
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
+#: src/uagent\llm_round_helpers.py:609
 msgid "Connection error"
 msgstr "Anslutningsfel"
 
@@ -941,6 +966,7 @@ msgstr "Anslutningsfel"
 msgid "[Network Error]"
 msgstr "[Nätverksfel]"
 
+#: src/uagent\llm_round_helpers.py:641
 msgid "Unexpected exception."
 msgstr "Oväntat undantag."
 

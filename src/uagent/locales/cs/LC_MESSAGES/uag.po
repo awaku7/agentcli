@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -258,59 +258,82 @@ msgstr ""
 "[INFO] Historie konverzace v paměti byla zkomprimována: %(old_n)d -> "
 "%(new_n)d zpráv (keep_last=%(keep_last)d)"
 
+#: src/uagent\core.py:1215
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "Během komprese historie byl dosažen limit 429 opakování (%(max_retries)s)."
+msgstr ""
+"Během komprese historie byl dosažen limit 429 opakování (%(max_retries)s)."
 
+#: src/uagent\core.py:1225
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Chyba při volání LLM pro kompresi historie: %(err)r"
 
+#: src/uagent\core.py:1258
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Shrňte část konverzace v angličtině.\n"
 
+#: src/uagent\core.py:1260
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
 msgstr "Shrnutí udržujte stručné, ale zahrňte klíčová rozhodnutí, omezení a nevyřízené položky.\n"
+"Shrnutí udržujte stručné, ale zahrňte klíčová rozhodnutí, omezení a "
+"nevyřízené položky.\n"
 
+#: src/uagent\core.py:1262
 msgid "- Output should be directly usable as a system message."
 msgstr "- Výstup by měl být přímo použitelný jako systémová zpráva."
 
+#: src/uagent\core.py:1265
 msgid "Conversation chunk:\n"
 msgstr "Část konverzace:\n"
 
+#: src/uagent\core.py:1267
 msgid "Write a concise summary of this chunk."
 msgstr "Napište stručné shrnutí této části."
 
+#: src/uagent\core.py:1271
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Aktualizujete stávající shrnutí konverzace.\n"
 
+#: src/uagent\core.py:1272
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Zachovejte důležitá fakta z předchozího shrnutí.\n"
 
+#: src/uagent\core.py:1274
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "Sloučte novou část bez ztráty omezení, rozhodnutí nebo nevyřízených položek.\n"
+"Sloučte novou část bez ztráty omezení, rozhodnutí nebo nevyřízených "
+"položek.\n"
 
+#: src/uagent\core.py:1276
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- Výsledek udržujte stručný a vhodný pro systémovou zprávu."
 
+#: src/uagent\core.py:1279
 msgid "Previous summary:\n"
 msgstr "Předchozí shrnutí:\n"
 
+#: src/uagent\core.py:1281
 msgid "New chunk:\n"
 msgstr "Nová část:\n"
 
+#: src/uagent\core.py:1283
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Aktualizujte shrnutí a zároveň zachovejte předchozí kontext."
 
+#: src/uagent\core.py:1304
 msgid "Summary of the conversation so far:\n"
 msgstr "Shrnutí dosavadní konverzace:\n"
 
+#: src/uagent\core.py:1311
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr "[INFO] shrink_llm: {old_n} -> {new_n} zpráv (zkomprimováno {old_part_n} starších zpráv do 1 shrnutí; ponecháno {tail_n} koncových)"
+"[INFO] shrink_llm: {old_n} -> {new_n} zpráv (zkomprimováno {old_part_n} "
+"starších zpráv do 1 shrnutí; ponecháno {tail_n} koncových)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -809,7 +832,9 @@ msgstr ""
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr "[Chyba Gemini: Odpověď byla zablokována bezpečnostním filtrem nebo z důvodu ukončení]"
+msgstr ""
+"[Chyba Gemini: Odpověď byla zablokována bezpečnostním filtrem nebo z důvodu "
+"ukončení]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
@@ -931,12 +956,11 @@ msgstr "[Gemini Error] Při generování odpovědi došlo k chybě."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude Error] Při generování odpovědi došlo k chybě."
 
+#: src/uagent\llm_round_helpers.py:599
 msgid "Input exceeds the context window."
 msgstr "Vstup překračuje kontextové okno."
 
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
+#: src/uagent\llm_round_helpers.py:609
 msgid "Connection error"
 msgstr "Chyba připojení"
 
@@ -944,6 +968,7 @@ msgstr "Chyba připojení"
 msgid "[Network Error]"
 msgstr "[Chyba sítě]"
 
+#: src/uagent\llm_round_helpers.py:641
 msgid "Unexpected exception."
 msgstr "Neočekávaná výjimka."
 

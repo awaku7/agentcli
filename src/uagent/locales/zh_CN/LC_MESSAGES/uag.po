@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -249,59 +249,77 @@ msgid ""
 msgstr ""
 "[INFO] 已压缩内存中的对话历史：%(old_n)d -> %(new_n)d 条消息（keep_last=%(keep_last)d）"
 
+#: src/uagent\core.py:1215
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr "在压缩历史记录时达到 429 重试限制 (%(max_retries)s)。"
 
+#: src/uagent\core.py:1225
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "调用 LLM 进行历史记录压缩时出错：%(err)r"
 
+#: src/uagent\core.py:1258
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- 用英文总结对话片段。\n"
 
+#: src/uagent\core.py:1260
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
 msgstr "保持总结简明扼要，但要包含关键决策、限制条件和待办事项。\n"
 
+#: src/uagent\core.py:1262
 msgid "- Output should be directly usable as a system message."
 msgstr "- 输出应能直接用作系统消息。"
 
+#: src/uagent\core.py:1265
 msgid "Conversation chunk:\n"
 msgstr "对话片段：\n"
 
+#: src/uagent\core.py:1267
 msgid "Write a concise summary of this chunk."
 msgstr "写一份该片段的简要总结。"
 
+#: src/uagent\core.py:1271
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- 您正在更新现有的对话总结。\n"
 
+#: src/uagent\core.py:1272
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- 保留上一次总结中的重要事实。\n"
 
+#: src/uagent\core.py:1274
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "合并新片段，且不丢失限制条件、决策或待办事项。\n"
 
+#: src/uagent\core.py:1276
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- 保持结果简明扼要，并适用于系统消息。"
 
+#: src/uagent\core.py:1279
 msgid "Previous summary:\n"
 msgstr "上一次总结：\n"
 
+#: src/uagent\core.py:1281
 msgid "New chunk:\n"
 msgstr "新片段：\n"
 
+#: src/uagent\core.py:1283
 msgid "Update the summary while keeping the prior context intact."
 msgstr "更新总结，同时保持先前的上下文完整。"
 
+#: src/uagent\core.py:1304
 msgid "Summary of the conversation so far:\n"
 msgstr "目前为止的对话总结：\n"
 
+#: src/uagent\core.py:1311
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr "[INFO] shrink_llm: {old_n} -> {new_n} 条消息（将 {old_part_n} 条较旧的消息压缩为 1 个总结；保留了最后 {tail_n} 条消息）"
+"[INFO] shrink_llm: {old_n} -> {new_n} 条消息（将 {old_part_n} 条较旧的消息压缩为 1 "
+"个总结；保留了最后 {tail_n} 条消息）"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -883,12 +901,11 @@ msgstr "[Gemini 错误] 生成回复时发生错误。"
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude 错误] 生成回复时发生错误。"
 
+#: src/uagent\llm_round_helpers.py:599
 msgid "Input exceeds the context window."
 msgstr "输入超出上下文窗口。"
 
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
+#: src/uagent\llm_round_helpers.py:609
 msgid "Connection error"
 msgstr "连接错误"
 
@@ -896,6 +913,7 @@ msgstr "连接错误"
 msgid "[Network Error]"
 msgstr "[网络错误]"
 
+#: src/uagent\llm_round_helpers.py:641
 msgid "Unexpected exception."
 msgstr "非预期异常。"
 

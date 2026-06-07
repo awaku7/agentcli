@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 19:04+0900\n"
+"POT-Creation-Date: 2026-06-07 21:23+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -259,59 +259,83 @@ msgstr ""
 "[INFO] Bellekteki konuşma geçmişi sıkıştırıldı: %(old_n)d -> %(new_n)d ileti"
 " (keep_last=%(keep_last)d)"
 
+#: src/uagent\core.py:1215
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "Geçmiş sıkıştırma işlemi sırasında 429 yeniden deneme sınırına (%(max_retries)s) ulaşıldı."
+msgstr ""
+"Geçmiş sıkıştırma işlemi sırasında 429 yeniden deneme sınırına "
+"(%(max_retries)s) ulaşıldı."
 
+#: src/uagent\core.py:1225
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "Geçmiş sıkıştırması için LLM çağrılırken hata oluştu: %(err)r"
 
+#: src/uagent\core.py:1258
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- Konuşma bölümünü İngilizce olarak özetleyin.\n"
 
+#: src/uagent\core.py:1260
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
 msgstr "Özeti kısa tutun ancak önemli kararları, kısıtlamaları ve bekleyen maddeleri ekleyin.\n"
+"Özeti kısa tutun ancak önemli kararları, kısıtlamaları ve bekleyen maddeleri"
+" ekleyin.\n"
 
+#: src/uagent\core.py:1262
 msgid "- Output should be directly usable as a system message."
 msgstr "- Çıktı doğrudan bir sistem mesajı olarak kullanılabilir olmalıdır."
 
+#: src/uagent\core.py:1265
 msgid "Conversation chunk:\n"
 msgstr "Konuşma bölümü:\n"
 
+#: src/uagent\core.py:1267
 msgid "Write a concise summary of this chunk."
 msgstr "Bu bölümün kısa bir özetini yazın."
 
+#: src/uagent\core.py:1271
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- Mevcut bir konuşma özetini güncelliyorsunuz.\n"
 
+#: src/uagent\core.py:1272
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- Önceki özetteki önemli gerçekleri koruyun.\n"
 
+#: src/uagent\core.py:1274
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
 msgstr "Kısıtlamaları, kararları veya bekleyen maddeleri kaybetmeden yeni bölümü birleştirin.\n"
+"Kısıtlamaları, kararları veya bekleyen maddeleri kaybetmeden yeni bölümü "
+"birleştirin.\n"
 
+#: src/uagent\core.py:1276
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- Sonucu kısa tutun ve bir sistem mesajı için uygun hale getirin."
 
+#: src/uagent\core.py:1279
 msgid "Previous summary:\n"
 msgstr "Önceki özet:\n"
 
+#: src/uagent\core.py:1281
 msgid "New chunk:\n"
 msgstr "Yeni bölüm:\n"
 
+#: src/uagent\core.py:1283
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Önceki bağlamı bozmadan özeti güncelleyin."
 
+#: src/uagent\core.py:1304
 msgid "Summary of the conversation so far:\n"
 msgstr "Şimdiye kadarki konuşmanın özeti:\n"
 
+#: src/uagent\core.py:1311
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
 msgstr "[INFO] shrink_llm: {old_n} -> {new_n} mesaj ({old_part_n} eski mesaj 1 özette sıkıştırıldı; sondaki {tail_n} mesaj korundu)"
+"[INFO] shrink_llm: {old_n} -> {new_n} mesaj ({old_part_n} eski mesaj 1 "
+"özette sıkıştırıldı; sondaki {tail_n} mesaj korundu)"
 
 #: src/uagent\core.py:1339
 msgid ""
@@ -804,7 +828,9 @@ msgstr "google-genai içe aktarılamadı (pip install google-genai gereklidir)."
 
 #: src/uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr "[Gemini Hatası: Yanıt, güvenlik filtresi veya sonlanma nedeni nedeniyle engellendi]"
+msgstr ""
+"[Gemini Hatası: Yanıt, güvenlik filtresi veya sonlanma nedeni nedeniyle "
+"engellendi]"
 
 #: src/uagent\llm_gemini.py:1117
 msgid "[Gemini Error: %(err)s]"
@@ -925,12 +951,11 @@ msgstr "[İkizler Hatası] Yanıt oluşturulurken bir hata oluştu."
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude Hatası] Yanıt oluşturulurken bir hata oluştu."
 
+#: src/uagent\llm_round_helpers.py:599
 msgid "Input exceeds the context window."
 msgstr "Girdi, bağlam penceresini (context window) aşıyor."
 
-msgid "400 BadRequest"
-msgstr "400 BadRequest"
-
+#: src/uagent\llm_round_helpers.py:609
 msgid "Connection error"
 msgstr "Bağlantı hatası"
 
@@ -938,6 +963,7 @@ msgstr "Bağlantı hatası"
 msgid "[Network Error]"
 msgstr "[Ağ Hatası]"
 
+#: src/uagent\llm_round_helpers.py:641
 msgid "Unexpected exception."
 msgstr "Beklenmeyen istisna."
 

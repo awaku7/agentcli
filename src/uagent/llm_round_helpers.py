@@ -602,7 +602,7 @@ def _call_openai_azure_round(
                 return False, client, "", []
 
             if BadRequestError is not None and isinstance(e, BadRequestError):
-                print("[Azure/OpenAI Error] " + _t("400 BadRequest"))
+                print("[Azure/OpenAI Error] 400 BadRequest")
                 print(f"Error code: 400 - {e}")
                 return False, client, "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
