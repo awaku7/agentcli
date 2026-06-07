@@ -500,11 +500,18 @@ def _build_thinking_config(
 
 
 def _verbosity_to_max_output_tokens(verbosity_mode: str) -> int | None:
+    # Allow user override via environment variable
+    env_val = (env_get("UAGENT_GEMINI_MAX_OUTPUT_TOKENS") or "").strip()
+    if env_val:
+        try:
+            return int(env_val)
+        except ValueError:
+            pass
+
     vm = (verbosity_mode or "").strip().lower()
-    # Geminiは無制限だと途中停止やUI側の打ち切りに見えやすいので、
-    # offでも最小限の上限を入れる。
+    # If verbosity is off or unspecified, use the maximum physical limit (65536)
     if not vm or vm == "off":
-        return 8192
+        return 65536
 
     # Conservative defaults; users can still override output style in prompts.
     if vm == "low":
@@ -514,7 +521,7 @@ def _verbosity_to_max_output_tokens(verbosity_mode: str) -> int | None:
     if vm == "high":
         return 3200
 
-    return 8192
+    return 65536
 
 
 def _verbosity_to_instruction(verbosity_mode: str) -> str | None:
@@ -1100,17 +1107,17 @@ def gemini_chat_with_tools(
                     gemini_content_dump = chunk_dump
         except Exception as e:
             err_str = str(e).lower()
+            warning_msg = f"\n\n[Gemini Error: {e}]"
             if (
                 "finish_reason" in err_str
                 or "safety" in err_str
                 or "blocked" in err_str
             ):
-                if not assistant_text_parts:
-                    assistant_text_parts.append(
-                        "(Gemini safety filter blocked the response)"
-                    )
-            else:
-                raise e
+                warning_msg = "\n\n[Gemini Error: Response blocked by safety filter or finish reason]"
+            
+            # Append the warning message so the user knows why it stopped
+            assistant_text_parts.append(warning_msg)
+            _emit_stream_delta(warning_msg)
 
         try:
             if core is not None and bool(getattr(core, "_is_web", False)):
