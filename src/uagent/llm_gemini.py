@@ -1107,13 +1107,14 @@ def gemini_chat_with_tools(
                     gemini_content_dump = chunk_dump
         except Exception as e:
             err_str = str(e).lower()
-            warning_msg = f"\n\n[Gemini Error: {e}]"
             if (
                 "finish_reason" in err_str
                 or "safety" in err_str
                 or "blocked" in err_str
             ):
-                warning_msg = "\n\n[Gemini Error: Response blocked by safety filter or finish reason]"
+                warning_msg = "\n\n" + _("[Gemini Error: Response blocked by safety filter or finish reason]", default="[Gemini Error: Response blocked by safety filter or finish reason]")
+            else:
+                warning_msg = "\n\n" + _("[Gemini Error: %(err)s]", default="[Gemini Error: %(err)s]") % {"err": str(e)}
             
             # Append the warning message so the user knows why it stopped
             assistant_text_parts.append(warning_msg)
