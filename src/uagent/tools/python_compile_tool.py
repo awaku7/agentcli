@@ -16,10 +16,10 @@ STATUS_LABEL = "tool:python_compile"
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "tool_genre": "devel",
     "type": "function",
     "function": {
         "name": "python_compile",
-        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default=(

@@ -18,10 +18,10 @@ Mode = Literal["write", "replace", "splice", "apply_patch"]
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "tool_genre": "devel",
     "type": "function",
     "function": {
         "name": "binary_edit",
-        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default=(

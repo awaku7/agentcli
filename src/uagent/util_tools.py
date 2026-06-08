@@ -2099,7 +2099,7 @@ def handle_command(
 
     if cmd == "tools":
         if arg and arg.strip():
-            # Try dynamic subcommands (e.g., on comm, off comm)
+            # Try dynamic subcommands (e.g., on comm, off comm, list)
             res = tools.handle_dynamic_command(
                 "tools",
                 arg,
@@ -2115,7 +2115,8 @@ def handle_command(
                 if type(res).__name__ == "CommandResult":
                     return res
                 return CommandResult()
-        return _handle_cmd_tools(tr=tr)
+        print("Usage: :tools [list|on|off] [args...]")
+        return CommandResult()
 
     if cmd == "env":
         return _handle_cmd_env(arg, tr=tr)

@@ -34,10 +34,10 @@ STATUS_LABEL = "tool:lint_format"
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "tool_genre": "devel",
     "type": "function",
     "function": {
         "name": "lint_format",
-        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default="Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",

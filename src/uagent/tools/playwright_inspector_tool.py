@@ -26,10 +26,10 @@ def _emit_debug(message: str) -> None:
 
 
 TOOL_SPEC: dict[str, Any] = {
+    "tool_genre": "devel",
     "type": "function",
     "function": {
         "name": "playwright_inspector",
-        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default=(

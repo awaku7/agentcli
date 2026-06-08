@@ -75,13 +75,47 @@ def handle_cmd_tools_off(arg: str, **kwargs: Any) -> Any:
     return CommandResult()
 
 
+def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
+    q = (arg or "").strip().lower()
+    from . import get_tool_specs
+    try:
+        tool_specs = get_tool_specs() or []
+        if not tool_specs:
+            print(_("msg.tools.no_tools", default="[tools] No tools loaded."))
+            from ..util_tools import CommandResult
+            return CommandResult()
+
+        matched = []
+        for spec in tool_specs:
+            fn = (spec or {}).get("function") or {}
+            name = fn.get("name") or "(unknown)"
+            desc = (fn.get("description") or "").strip()
+            
+            # If query is provided, filter by name or description
+            if q and (q not in name.lower() and q not in desc.lower()):
+                continue
+            matched.append((name, desc))
+
+        for name, desc in matched:
+            if desc:
+                print("- %(name)s: %(desc)s" % {"name": name, "desc": desc})
+            else:
+                print("- %(name)s" % {"name": name})
+        print(_("msg.tools.loaded_count", default="[tools] Loaded {n} tools", n=len(matched)))
+    except Exception as e:
+        print(f"[tools error] {type(e).__name__}: {e}")
+
+    from ..util_tools import CommandResult
+    return CommandResult()
+
+
 # Register dynamic subcommands under ":tools"
 CMD_SPECS = [
     {
         "command": "tools",
-        "subcommand": "",
-        "handler": lambda arg, **kwargs: None,
-        "help_text": _("cmd.help.tools", default="  :tools                            List loaded tools"),
+        "subcommand": "list",
+        "handler": handle_cmd_tools_list,
+        "help_text": _("cmd.help.tools_list", default="  :tools list [query]               List loaded tools, optionally filtered by name/description"),
     },
     {
         "command": "tools",

@@ -138,7 +138,7 @@ A tool may suppress the trace using the extended flag:
 ### 3.6 Tool levels and genres
 
 - **Tool Level (`tool_level`)**: Specified in `TOOL_SPEC` to control tool loading. `-1` is disabled, `0` is enabled, and `1` is conditional loading (disabled by default).
-- **Tool Genre (`tool_genre`)**: Categorizes tools into `"comm"` (communication), `"office"` (Office suite), or `"devel"` (development).
+- **Tool Genre (`tool_genre`)**: Categorizes tools into `"comm"` (communication), `"office"` (Office suite), or `"devel"` (development). This must be specified at the top-level of `TOOL_SPEC`.
 - **Startup Selection**: During interactive CLI startup, users are prompted to select which tool genres to enable using a bitmask (1: comm, 2: office, 4: devel).
 
 ### 3.7 Agent Skills lifecycle

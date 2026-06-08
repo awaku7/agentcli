@@ -34,10 +34,10 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:git_ops"
 
 TOOL_SPEC: dict[str, Any] = {
+    "tool_genre": "devel",
     "type": "function",
     "function": {
         "name": "git_ops",
-        "tool_genre": "devel",
         "description": _(
             "tool.description",
             default=(
