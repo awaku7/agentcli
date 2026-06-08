@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.42] - 2026-06-08
+
+### Added
+- **Generative UI (Artifacts) Support**:
+  - Implemented real-time HTML/CSS/JS code block extraction and rendering in a dedicated preview panel.
+  - Added interactive "Open in Preview" button for assistant-generated HTML content.
+  - Added automatic code block folding (`<details>`) in chat UI to keep the conversation clean.
+
+### Fixed & Improved
+- **Web UI Enhancements**:
+  - Improved text contrast for chat bubbles in dark mode.
+  - Fixed text wrapping and formatting for ASCII art and terminal outputs in chat bubbles.
+
 ## [0.4.41] - 2026-06-07
 
 ### Added
