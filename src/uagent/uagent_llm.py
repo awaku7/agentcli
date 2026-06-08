@@ -177,8 +177,6 @@ try_open_images_from_text_fn: Any,
                     retry_base=retry_base,
                     retry_cap=retry_cap,
                     stream_responses=stream_responses,
-                    messages=messages,
-                    cache_mgr=cache_mgr,
                 )
                 if not ok:
                     return
