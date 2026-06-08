@@ -8,10 +8,10 @@
     <style>
         .chat-container { flex-grow: 1; min-height: 0; }
         pre { white-space: pre-wrap; word-wrap: break-word; }
-        .role-user { background-color: #f3f4f6; align-self: flex-end; }
-        .role-assistant { background-color: #dcf8c6; align-self: flex-start; }
+        .role-user { background-color: #f3f4f6 !important; color: #111827 !important; align-self: flex-end; }
+        .role-assistant { background-color: #dcf8c6 !important; color: #111827 !important; align-self: flex-start; }
         .role-system { display: none; } /* システムメッセージは非表示 */
-        .role-tool { background-color: #fff9c4; font-size: 0.85rem; border-left: 4px solid #fbc02d; margin: 5px 0; }
+        .role-tool { background-color: #fff9c4 !important; color: #111827 !important; font-size: 0.85rem; border-left: 4px solid #fbc02d; margin: 5px 0; }
         .status-busy { color: #f59e0b; font-weight: bold; }
         .status-idle { color: #10b981; font-weight: bold; }
         .blink { animation: blink 1s steps(2, start) infinite; }
@@ -21,7 +21,7 @@
 <body class="bg-gray-100 font-sans">
     <div class="w-full h-screen p-4 flex gap-4 overflow-hidden">
         <!-- Left Pane (Chat Area) -->
-        <div class="flex-grow flex flex-col h-full max-w-5xl mx-auto">
+        <div id="chat-pane" class="flex-grow flex flex-col h-full max-w-5xl mx-auto">
         <!-- Header -->
         <div class="flex justify-between items-center mb-4 bg-white p-4 rounded shadow">
             <h1 id="app-title" class="text-xl font-bold text-gray-800">UAGENT WEB</h1>
@@ -128,8 +128,10 @@
             const panel = document.getElementById('preview-panel');
             const iframe = document.getElementById('preview-iframe');
             const codePre = document.getElementById('preview-code');
+            const chatPane = document.getElementById('chat-pane');
 
             if (panel) panel.classList.remove('hidden');
+            if (chatPane) chatPane.classList.remove('max-w-5xl', 'mx-auto');
             
             if (currentPreviewMode === 'preview') {
                 if (iframe) {
@@ -184,6 +186,8 @@
         function closePreviewPanel() {
             const panel = document.getElementById('preview-panel');
             if (panel) panel.classList.add('hidden');
+            const chatPane = document.getElementById('chat-pane');
+            if (chatPane) chatPane.classList.add('max-w-5xl', 'mx-auto');
         }
 
         function extractHtmlFromText(text) {
@@ -677,8 +681,14 @@
             if (msgForRender.name) content += `<span class="text-xs font-mono">[${escapeHtml(String(msgForRender.name))}]</span> `;
 
             if (body) {
-                content += `<pre class="mt-1">${linkifyHtml(ansiToHtml(body))}</pre>`;
-                if (String(msgForRender.role).toLowerCase() === 'assistant') {
+                const isAssistant = String(msgForRender.role).toLowerCase() === 'assistant';
+                const formattedBody = formatMessageBody(body, msgForRender.role);
+                if (isAssistant) {
+                    content += `<div class="mt-1 text-sm leading-relaxed whitespace-pre-wrap font-mono">${formattedBody}</div>`;
+                } else {
+                    content += `<pre class="mt-1 whitespace-pre-wrap font-mono">${formattedBody}</pre>`;
+                }
+                if (isAssistant) {
                     const extractedHtml = extractHtmlFromText(body);
                     if (extractedHtml) {
                         content += `<div class="mt-2"><button onclick="renderArtifact(decodeURIComponent('${encodeURIComponent(extractedHtml)}'))" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded shadow-sm flex items-center gap-1">✨ Open in Preview</button></div>`;
@@ -773,7 +783,24 @@
             if (!streamAssistant.active || streamAssistant.id !== id || !streamAssistant.pre) return;
             const s = String(delta || '');
             streamAssistant.text = String(streamAssistant.text || '') + s;
-            streamAssistant.pre.innerHTML = linkifyHtml(ansiToHtml(streamAssistant.text));
+            
+            // Use formatMessageBody to support real-time folding of code blocks
+            const formatted = formatMessageBody(streamAssistant.text, 'assistant');
+            
+            // If it contains details/summary (folded code block), we render it as HTML, otherwise as pre
+            if (formatted.includes('<details')) {
+                // Replace the pre element with a div to allow HTML rendering of details
+                if (streamAssistant.pre.tagName === 'PRE') {
+                    const newDiv = document.createElement('div');
+                    newDiv.className = 'mt-1 text-sm leading-relaxed';
+                    streamAssistant.div.replaceChild(newDiv, streamAssistant.pre);
+                    streamAssistant.pre = newDiv;
+                }
+                streamAssistant.pre.innerHTML = formatted;
+            } else {
+                streamAssistant.pre.innerHTML = formatted;
+            }
+            
             chatBox.scrollTop = chatBox.scrollHeight;
 
             // Real-time preview update during streaming
@@ -786,13 +813,33 @@
         function endAssistantStream(id) {
             if (!streamAssistant.active || streamAssistant.id !== id) return;
             lastAssistantStreamText = String(streamAssistant.text || '');
+            
+            // Finalize the stream content with full formatting
+            if (streamAssistant.div && streamAssistant.pre) {
+                const formatted = formatMessageBody(streamAssistant.text, 'assistant');
+                const extractedHtml = extractHtmlFromText(streamAssistant.text);
+                
+                let content = `<strong>ASSISTANT:</strong> `;
+                if (formatted.includes('<details')) {
+                    content += `<div class="mt-1 text-sm leading-relaxed whitespace-pre-wrap font-mono">${formatted}</div>`;
+                } else {
+                    content += `<pre class="mt-1 whitespace-pre-wrap font-mono">${formatted}</pre>`;
+                }
+                
+                if (extractedHtml) {
+                    content += `<div class="mt-2"><button onclick="renderArtifact(decodeURIComponent('${encodeURIComponent(extractedHtml)}'))" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded shadow-sm flex items-center gap-1">✨ Open in Preview</button></div>`;
+                }
+                
+                streamAssistant.div.innerHTML = content;
+            }
+            
             streamAssistant.active = false;
             streamAssistant.id = null;
             streamAssistant.text = '';
         }
 
         function getRoleClass(role) {
-            switch(role) {
+            switch(String(role || '').toLowerCase()) {
                 case 'user': return 'role-user shadow-sm';
                 case 'assistant': return 'role-assistant shadow-sm';
                 case 'tool': return 'role-tool';
@@ -953,6 +1000,47 @@
                 result += '</span>';
                 openSpans--;
             }
+            return result;
+        }
+
+        function formatMessageBody(body, role) {
+            if (!body) return '';
+            
+            const isAssistant = String(role).toLowerCase() === 'assistant';
+            if (!isAssistant || !body.includes('```')) {
+                return linkifyHtml(ansiToHtml(body));
+            }
+
+            // Split the body by markdown code blocks to process them safely
+            const parts = body.split(/(```(?:html|xml|xhtml|css|javascript|js|json|python|py|sh|bash)?[\s\S]*?```)/gi);
+            let result = '';
+
+            for (let part of parts) {
+                if (part.startsWith('```') && part.endsWith('```')) {
+                    const match = part.match(/```(?:html|xml|xhtml|css|javascript|js|json|python|py|sh|bash)?\s*([\s\S]*?)```/i);
+                    if (match) {
+                        const code = match[1];
+                        const langMatch = part.match(/```(\w+)/);
+                        const lang = langMatch ? langMatch[1] : 'code';
+                        
+                        // Escape the code content inside the details block so it doesn't render as HTML
+                        const escapedCode = escapeHtml(code.trim());
+                        
+                        result += `<details class="my-2 border border-gray-300 rounded bg-gray-50 overflow-hidden">
+                            <summary class="bg-gray-200 px-3 py-1.5 text-xs font-bold text-gray-700 cursor-pointer hover:bg-gray-300 select-none flex justify-between items-center">
+                                <span>📄 Source Code (${lang.toUpperCase()})</span>
+                                <span class="text-[10px] text-gray-500">クリックで展開</span>
+                            </summary>
+                            <pre class="p-3 text-xs font-mono overflow-auto max-h-[250px] bg-gray-900 text-gray-100 whitespace-pre">${escapedCode}</pre>
+                        </details>`;
+                    } else {
+                        result += linkifyHtml(ansiToHtml(part));
+                    }
+                } else {
+                    result += linkifyHtml(ansiToHtml(part));
+                }
+            }
+
             return result;
         }
         function linkifyHtml(escapedHtml) {
