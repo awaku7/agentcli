@@ -723,6 +723,23 @@ def run_agent_worker(
         room.history.append(user_msg)
         room.image_session = build_image_session_message(room.history, depname)
 
+        # Inject Generative UI instructions into the system prompt for Web mode
+        generative_ui_prompt = _("""
+
+## Generative UI (Artifacts) Instructions
+When the user asks for a UI, dashboard, interactive tool, or visualization:
+1. Write a complete, self-contained HTML page inside a single ```html code block.
+2. Use Tailwind CSS (via CDN: <script src="https://cdn.tailwindcss.com"></script>) for styling and Lucide Icons or FontAwesome for icons.
+3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).
+4. Do not split the code into multiple blocks; keep it in one unified ```html block.
+""")
+        if room.history and room.history[0].get("role") == "system":
+            sys_content = room.history[0].get("content") or ""
+            if "Generative UI (Artifacts) Instructions" not in sys_content:
+                room.history[0]["content"] = sys_content + generative_ui_prompt
+        else:
+            room.history.insert(0, {"role": "system", "content": generative_ui_prompt.strip()})
+
         llm_util.run_llm_rounds(
             provider_name,
             client,

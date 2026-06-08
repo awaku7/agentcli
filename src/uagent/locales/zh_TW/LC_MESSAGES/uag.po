@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-08 18:40+0900\n"
+"POT-Creation-Date: 2026-06-08 19:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,7 +128,7 @@ msgstr ""
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] 無法套用啟動工具選擇：%(err)s"
 
-#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
+#: src/uagent/cli_startup.py:173 src/uagent/web.py:1051
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[致命錯誤] 無法設定工作目錄：%(err)s"
@@ -2206,7 +2206,7 @@ msgid ""
 "completes."
 msgstr "[WARN] 此房間中已有其他任務正在執行。請在完成後再試一次。"
 
-#: src/uagent/web.py:626 src/uagent/web.py:748
+#: src/uagent/web.py:626 src/uagent/web.py:765
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2237,7 +2237,26 @@ msgstr "[INFO] 已載入長期記憶。"
 msgid "[INFO] Loaded shared long-term memory."
 msgstr "[INFO] 已載入共享長期記憶。"
 
-#: src/uagent/web.py:745
+msgid ""
+"\n"
+"\n"
+"## Generative UI (Artifacts) Instructions\n"
+"When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+msgstr ""
+"\n"
+"\n"
+"## Generative UI (Artifacts) 指示\n"
+"當使用者請求 UI、儀表板、互動式工具或視覺化時：\n"
+"1. 在單個 ```html 程式碼區塊中編編寫一個完整的、自包含的 HTML 頁面。\n"
+"2. 使用 Tailwind CSS（透過 CDN：<script src=\"https://cdn.tailwindcss.com\"></script>）進行樣式設計，並使用 Lucide Icons 或 FontAwesome 作為圖標。\n"
+"3. 包含互動式 JavaScript（例如用於圖表的 Chart.js，或簡單的狀態管理）。\n"
+"4. 不要將程式碼拆分為多個區塊；請保持在一個統一的 ```html 區塊中。\n"
+
+#: src/uagent/web.py:762
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2246,19 +2265,19 @@ msgstr ""
 "[FATAL] Web worker 錯誤。\n"
 "%(err)s"
 
-#: src/uagent/web.py:882
+#: src/uagent/web.py:899
 msgid "missing path"
 msgstr "缺少路徑"
 
-#: src/uagent/web.py:889
+#: src/uagent/web.py:906
 msgid "path outside workdir"
 msgstr "路徑位於工作目錄之外"
 
-#: src/uagent/web.py:1051
+#: src/uagent/web.py:1068
 msgid "Starting server on"
 msgstr "正在啟動伺服器："
 
-#: src/uagent/web.py:1053
+#: src/uagent/web.py:1070
 msgid "External URL:"
 msgstr "外部 URL："
 

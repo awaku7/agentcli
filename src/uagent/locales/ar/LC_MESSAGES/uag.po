@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-08 18:40+0900\n"
+"POT-Creation-Date: 2026-06-08 19:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,7 +129,7 @@ msgstr ""
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] فشل تطبيق تحديد أداة بدء التشغيل: %(err)s"
 
-#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
+#: src/uagent/cli_startup.py:173 src/uagent/web.py:1051
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[فادح] فشل في تعيين دليل العمل: %(err)s"
@@ -2276,7 +2276,7 @@ msgstr ""
 "[تحذير] توجد مهمة أخرى قيد التشغيل بالفعل في هذه الغرفة. يرجى إعادة المحاولة"
 " بعد اكتمالها."
 
-#: src/uagent/web.py:626 src/uagent/web.py:748
+#: src/uagent/web.py:626 src/uagent/web.py:765
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2307,7 +2307,26 @@ msgstr "[معلومات] تم تحميل الذاكرة طويلة المدى."
 msgid "[INFO] Loaded shared long-term memory."
 msgstr "[معلومات] تم تحميل الذاكرة المشتركة طويلة المدى."
 
-#: src/uagent/web.py:745
+msgid ""
+"\n"
+"\n"
+"## Generative UI (Artifacts) Instructions\n"
+"When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+msgstr ""
+"\n"
+"\n"
+"## Generative UI (Artifacts) Instructions\n"
+"When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+
+#: src/uagent/web.py:762
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2316,19 +2335,19 @@ msgstr ""
 "[فادح] خطأ عامل الويب.\n"
 "%(err)s"
 
-#: src/uagent/web.py:882
+#: src/uagent/web.py:899
 msgid "missing path"
 msgstr "المسار مفقود"
 
-#: src/uagent/web.py:889
+#: src/uagent/web.py:906
 msgid "path outside workdir"
 msgstr "المسار خارج دليل العمل"
 
-#: src/uagent/web.py:1051
+#: src/uagent/web.py:1068
 msgid "Starting server on"
 msgstr "بدء الخادم على"
 
-#: src/uagent/web.py:1053
+#: src/uagent/web.py:1070
 msgid "External URL:"
 msgstr "رابط خارجي:"
 

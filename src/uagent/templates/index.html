@@ -6,7 +6,7 @@
     <title>UAGENT WEB</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .chat-container { height: calc(100vh - 160px); }
+        .chat-container { flex-grow: 1; height: 10px; } /* flex-grow will handle the height dynamically */
         pre { white-space: pre-wrap; word-wrap: break-word; }
         .role-user { background-color: #f3f4f6; align-self: flex-end; }
         .role-assistant { background-color: #dcf8c6; align-self: flex-start; }
@@ -19,7 +19,9 @@
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
-    <div class="max-w-5xl mx-auto p-4 flex flex-col h-screen">
+    <div class="w-full h-screen p-4 flex gap-4 overflow-hidden">
+        <!-- Left Pane (Chat Area) -->
+        <div class="flex-grow flex flex-col h-full max-w-5xl mx-auto">
         <!-- Header -->
         <div class="flex justify-between items-center mb-4 bg-white p-4 rounded shadow">
             <h1 id="app-title" class="text-xl font-bold text-gray-800">UAGENT WEB</h1>
@@ -88,12 +90,123 @@
             <textarea id="user-input" rows="2" class="flex-grow p-2 border rounded shadow focus:ring-2 focus:ring-blue-500" placeholder="メッセージを入力... (Ctrl+Enterで送信)"></textarea>
             <button id="send-btn" class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 font-bold">送信</button>
         </div>
-    </div>
+        </div> <!-- End of Left Pane -->
+
+        <!-- Right Pane (Preview Area / Artifacts) -->
+        <div id="preview-panel" class="hidden w-[45%] bg-white rounded shadow flex flex-col h-full border border-gray-200 overflow-hidden">
+            <!-- Preview Header -->
+            <div class="flex justify-between items-center p-3 border-b bg-gray-50">
+                <span class="font-bold text-gray-700 text-sm">Artifact Preview</span>
+                <div class="flex gap-2">
+                    <button onclick="togglePreviewMode('preview')" id="btn-mode-preview" class="px-2 py-1 text-xs bg-blue-600 text-white rounded font-bold">Preview</button>
+                    <button onclick="togglePreviewMode('code')" id="btn-mode-code" class="px-2 py-1 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Code</button>
+                    <button onclick="closePreviewPanel()" class="text-gray-500 hover:text-gray-700 text-xl font-bold px-2 leading-none">×</button>
+                </div>
+            </div>
+            <!-- Preview Content -->
+            <div class="flex-grow relative bg-gray-50">
+                <!-- iframe (Preview) -->
+                <iframe id="preview-iframe" sandbox="allow-scripts" class="w-full h-full border-none bg-white"></iframe>
+                <!-- pre (Code) -->
+                <pre id="preview-code" class="hidden w-full h-full p-4 overflow-auto bg-gray-900 text-gray-100 text-xs font-mono"></pre>
+            </div>
+        </div>
+    </div> <!-- End of Split-View Container -->
 
     <script>
         let ws;
         let WEB_VERBOSE = false;
         let currentHumanAskIsPassword = false;
+
+        // --- Generative UI (Artifacts) State & Functions ---
+        let currentArtifactHtml = '';
+        let currentPreviewMode = 'preview'; // 'preview' or 'code'
+
+        function renderArtifact(html) {
+            currentArtifactHtml = html;
+            const panel = document.getElementById('preview-panel');
+            const iframe = document.getElementById('preview-iframe');
+            const codePre = document.getElementById('preview-code');
+
+            if (panel) panel.classList.remove('hidden');
+            
+            if (currentPreviewMode === 'preview') {
+                if (iframe) {
+                    // Inject Tailwind CSS CDN automatically if not present to ensure beautiful rendering
+                    let finalHtml = html;
+                    if (!html.includes('tailwindcss') && !html.includes('cdn.tailwindcss.com')) {
+                        if (html.includes('</head>')) {
+                            finalHtml = html.replace('</head>', '<script src="https://cdn.tailwindcss.com"></script></head>');
+                        } else if (html.includes('<head>')) {
+                            finalHtml = html.replace('<head>', '<head><script src="https://cdn.tailwindcss.com"></script>');
+                        } else {
+                            finalHtml = '<script src="https://cdn.tailwindcss.com"></script>' + html;
+                        }
+                    }
+                    iframe.srcdoc = finalHtml;
+                }
+            } else {
+                if (codePre) codePre.textContent = html;
+            }
+        }
+
+        function togglePreviewMode(mode) {
+            currentPreviewMode = mode;
+            const btnPreview = document.getElementById('btn-mode-preview');
+            const btnCode = document.getElementById('btn-mode-code');
+            const iframe = document.getElementById('preview-iframe');
+            const codePre = document.getElementById('preview-code');
+
+            if (mode === 'preview') {
+                if (btnPreview) {
+                    btnPreview.className = 'px-2 py-1 text-xs bg-blue-600 text-white rounded font-bold';
+                }
+                if (btnCode) {
+                    btnCode.className = 'px-2 py-1 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300';
+                }
+                if (iframe) iframe.classList.remove('hidden');
+                if (codePre) codePre.classList.add('hidden');
+                renderArtifact(currentArtifactHtml);
+            } else {
+                if (btnPreview) {
+                    btnPreview.className = 'px-2 py-1 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300';
+                }
+                if (btnCode) {
+                    btnCode.className = 'px-2 py-1 text-xs bg-blue-600 text-white rounded font-bold';
+                }
+                if (iframe) iframe.classList.add('hidden');
+                if (codePre) codePre.classList.remove('hidden');
+                if (codePre) codePre.textContent = currentArtifactHtml;
+            }
+        }
+
+        function closePreviewPanel() {
+            const panel = document.getElementById('preview-panel');
+            if (panel) panel.classList.add('hidden');
+        }
+
+        function extractHtmlFromText(text) {
+            if (!text) return '';
+            // Match ```html ... ``` or ```xml ... ``` or standard <html>...</html>
+            const codeBlockRegex = /```(?:html|xml|xhtml)?\s*([\s\S]*?)```/gi;
+            let match;
+            let lastHtml = '';
+            while ((match = codeBlockRegex.exec(text)) !== null) {
+                const code = match[1].trim();
+                if (code.includes('<html') || code.includes('<!DOCTYPE') || code.includes('<div') || code.includes('<button') || code.includes('<script') || code.includes('<style')) {
+                    lastHtml = code;
+                }
+            }
+            if (!lastHtml) {
+                // Fallback: check if the text itself contains <html>...</html>
+                const htmlTagRegex = /<html[\s\S]*?<\/html>/gi;
+                const tagMatch = htmlTagRegex.exec(text);
+                if (tagMatch) {
+                    lastHtml = tagMatch[0];
+                }
+            }
+            return lastHtml;
+        }
 
         // --- i18n (single HTML) ---
         const I18N = {
@@ -564,6 +677,14 @@
 
             if (body) {
                 content += `<pre class="mt-1">${linkifyHtml(ansiToHtml(body))}</pre>`;
+                if (String(msgForRender.role).toLowerCase() === 'assistant') {
+                    const extractedHtml = extractHtmlFromText(body);
+                    if (extractedHtml) {
+                        content += `<div class="mt-2"><button onclick="renderArtifact(decodeURIComponent('${encodeURIComponent(extractedHtml)}'))" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded shadow-sm flex items-center gap-1">✨ Open in Preview</button></div>`;
+                        // Automatically render the latest artifact
+                        setTimeout(() => renderArtifact(extractedHtml), 100);
+                    }
+                }
             }
 
             if (WEB_VERBOSE && Array.isArray(msgForRender.tool_calls) && msgForRender.tool_calls.length) {
@@ -653,6 +774,12 @@
             streamAssistant.text = String(streamAssistant.text || '') + s;
             streamAssistant.pre.innerHTML = linkifyHtml(ansiToHtml(streamAssistant.text));
             chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Real-time preview update during streaming
+            const extractedHtml = extractHtmlFromText(streamAssistant.text);
+            if (extractedHtml) {
+                renderArtifact(extractedHtml);
+            }
         }
 
         function endAssistantStream(id) {

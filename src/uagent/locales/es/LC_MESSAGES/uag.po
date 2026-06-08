@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-08 18:40+0900\n"
+"POT-Creation-Date: 2026-06-08 19:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,7 +134,7 @@ msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr ""
 "[WARN] No se pudo aplicar la selección de la herramienta de inicio: %(err)s"
 
-#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
+#: src/uagent/cli_startup.py:173 src/uagent/web.py:1051
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] No se pudo establecer el directorio de trabajo: %(err)s"
@@ -2334,7 +2334,7 @@ msgstr ""
 "[WARN] Ya hay otra tarea en ejecución en esta sala. Vuelve a intentarlo "
 "cuando termine."
 
-#: src/uagent/web.py:626 src/uagent/web.py:748
+#: src/uagent/web.py:626 src/uagent/web.py:765
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2365,7 +2365,26 @@ msgstr "[INFO] Memoria a largo plazo cargada."
 msgid "[INFO] Loaded shared long-term memory."
 msgstr "[INFO] Memoria compartida a largo plazo cargada."
 
-#: src/uagent/web.py:745
+msgid ""
+"\n"
+"\n"
+"## Generative UI (Artifacts) Instructions\n"
+"When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+msgstr ""
+"\n"
+"\n"
+"## Instrucciones de Generative UI (Artifacts)\n"
+"Cuando el usuario solicite una interfaz de usuario, un panel de control, una herramienta interactiva o una visualización:\n"
+"1. Escriba una página HTML completa y autónoma dentro de un único bloque de código ```html.\n"
+"2. Utilice Tailwind CSS (a través de CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) para el diseño y Lucide Icons o FontAwesome para los iconos.\n"
+"3. Incluya JavaScript interactivo (por ejemplo, Chart.js para gráficos o una gestión de estado sencilla).\n"
+"4. No divida el código en varios bloques; manténgalo en un único bloque ```html unificado.\n"
+
+#: src/uagent/web.py:762
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2374,19 +2393,19 @@ msgstr ""
 "[FATAL] Error del trabajador web.\n"
 "%(err)s"
 
-#: src/uagent/web.py:882
+#: src/uagent/web.py:899
 msgid "missing path"
 msgstr "falta la ruta"
 
-#: src/uagent/web.py:889
+#: src/uagent/web.py:906
 msgid "path outside workdir"
 msgstr "la ruta está fuera del directorio de trabajo"
 
-#: src/uagent/web.py:1051
+#: src/uagent/web.py:1068
 msgid "Starting server on"
 msgstr "Iniciando el servidor en"
 
-#: src/uagent/web.py:1053
+#: src/uagent/web.py:1070
 msgid "External URL:"
 msgstr "URL externa:"
 
