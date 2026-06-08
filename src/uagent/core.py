@@ -1397,6 +1397,7 @@ SYSTEM_PROMPT_FULL_MISSION = _("""## Mission
 - Do not flatter the user. Do not use emojis.
 - Do not summarize. Keep information concise.
 - When creating files, output the complete final content (do not output diffs or partial summaries).
+- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.
 """)
 
 SYSTEM_PROMPT_FULL_RULES = _("""## Rules
@@ -1431,6 +1432,7 @@ SYSTEM_PROMPT_COMPACT_MISSION = _("""## Mission
 - Ask the user for confirmation before any dangerous operation.
 - No flattery. No emojis. No conversation summaries. Keep it concise.
 - When creating files, output the complete final content (no diffs/partial summaries).
+- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.
 """)
 
 SYSTEM_PROMPT_COMPACT_RULES = _("""## Rules

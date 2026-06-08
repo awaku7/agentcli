@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: uag\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-07 21:23+0900\n"
+"POT-Creation-Date: 2026-06-08 11:03+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,40 +12,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/uagent/a2a\engine.py:125
-msgid "No assistant message produced."
-msgstr "没有生成助手消息。"
-
-#: src/uagent/a2a\engine.py:137
-msgid "Generated image(s)."
-msgstr "已生成图像。"
-
-#: src/uagent/a2a\engine.py:150
-#, python-format
-msgid "ECHO: %(text)s"
-msgstr "输出: %(text)s"
-
-#: src/uagent/a2a\engine.py:165
-#, python-format
-msgid "uagent initialization failed: %(err)s"
-msgstr "uagent 初始化失败：%(err)s"
-
-#: src/uagent/a2a\engine.py:177
-#, python-format
-msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr "uagent 执行失败：%(etype)s: %(err)s"
-
-#: src/uagent/a2a\engine.py:188
-#, python-format
-msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
-msgstr "未知的 UAGENT_A2A_ENGINE：%(mode)s"
-
-#: src/uagent\checks.py:17 src/uagent\checks.py:27
+#: src\uagent\checks.py:17 src\uagent\checks.py:27
 #, python-format
 msgid "Please install Git. See: %(url)s"
 msgstr "请安装 Git。请参见：%(url)s"
 
-#: src/uagent\checks.py:20
+#: src\uagent\checks.py:20
 msgid ""
 "Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
 "yum install git (CentOS/RHEL)"
@@ -53,53 +25,55 @@ msgstr ""
 "请安装 Git。示例：sudo apt install git（Ubuntu/Debian）或 sudo yum install "
 "git（CentOS/RHEL）"
 
-#: src/uagent\checks.py:23
+#: src\uagent\checks.py:23
 msgid ""
 "Please install Git. If using Homebrew: brew install git, or install Xcode "
 "Command Line Tools: xcode-select --install"
 msgstr ""
-"请安装 Git。如果使用 Homebrew：brew install git，或安装 Xcode Command Line Tools：xcode-"
-"select --install"
+"请安装 Git。如果使用 Homebrew：brew install git，或安装 Xcode Command Line "
+"Tools：xcode-select --install"
 
-#: src/uagent\checks.py:30
+#: src\uagent\checks.py:30
 msgid "[ERROR] Git is not installed."
 msgstr "[错误] 未安装 Git。"
 
-#: src/uagent\cli.py:397
+#: src\uagent\cli.py:397
 msgid "getch() fallback to input()"
 msgstr "getch() 回退到 input()"
 
-#: src/uagent\cli.py:604
+#: src\uagent\cli.py:604
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "已收到 Ctrl+C。正在开始关闭..."
 
-#: src/uagent\cli.py:636 src/uagent\cli.py:706
+#: src\uagent\cli.py:636 src\uagent\cli.py:706
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
 "\"\"\"retry; finish with a line containing %(sentinel)s)"
-msgstr "(多行输入模式：请用多行输入正文；要重新开始，请输入 \"\"\"retry；以包含 %(sentinel)s 的一行结束)"
+msgstr ""
+"(多行输入模式：请用多行输入正文；要重新开始，请输入 \"\"\"retry；以包含 "
+"%(sentinel)s 的一行结束)"
 
-#: src/uagent\cli.py:666 src/uagent\setup_cli.py:1183
-#: src/uagent\setup_cli.py:1202 src/uagent\setup_cli.py:1225
-#: src/uagent\setup_cli.py:1241 src/uagent\setup_cli.py:1260
-#: src/uagent\setup_cli.py:1279 src/uagent\setup_cli.py:1293
-#: src/uagent\setup_cli.py:1306 src/uagent\setup_cli.py:1314
-#: src/uagent\setup_cli.py:1327 src/uagent\setup_cli.py:1339
-#: src/uagent\setup_cli.py:1350 src/uagent\setup_cli.py:1436
-#: src/uagent\setup_cli.py:1462
+#: src\uagent\cli.py:666 src\uagent\setup_cli.py:1183
+#: src\uagent\setup_cli.py:1202 src\uagent\setup_cli.py:1225
+#: src\uagent\setup_cli.py:1241 src\uagent\setup_cli.py:1260
+#: src\uagent\setup_cli.py:1279 src\uagent\setup_cli.py:1293
+#: src\uagent\setup_cli.py:1306 src\uagent\setup_cli.py:1314
+#: src\uagent\setup_cli.py:1327 src\uagent\setup_cli.py:1339
+#: src\uagent\setup_cli.py:1350 src\uagent\setup_cli.py:1436
+#: src\uagent\setup_cli.py:1462
 msgid "Cancelled."
 msgstr "已取消。"
 
-#: src/uagent\cli.py:672 src/uagent\cli.py:722
+#: src\uagent\cli.py:672 src\uagent\cli.py:722
 msgid "Discarded previous input. Please start over."
 msgstr "已丢弃上一次输入。请重新开始。"
 
-#: src/uagent\cli.py:683
+#: src\uagent\cli.py:683
 msgid "Received multiline reply."
 msgstr "已收到多行回复。"
 
-#: src/uagent\cli.py:841
+#: src\uagent\cli.py:841
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -109,121 +83,138 @@ msgstr ""
 "是否将这些图像发送给 LLM（外部 API）进行分析？\n"
 "\n"
 
-#: src/uagent\cli.py:847
+#: src\uagent\cli.py:847
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "回复 y 发送，或 n（或 c/cancel）跳过发送。"
 
-#: src/uagent\cli.py:865
+#: src\uagent\cli.py:865
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "图像发送确认失败；不会发送图像：%(etype)s: %(err)s"
 
-#: src/uagent\cli.py:893 src/uagent\scheckgui.py:431
+#: src\uagent\cli.py:893 src\uagent\scheckgui.py:432
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "无法附加图像：%(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent\cli.py:930
+#: src\uagent\cli.py:930
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "未知事件类型 kind=%(kind)r：%(ev)r"
 
-#: src/uagent\cli.py:948
+#: src\uagent\cli.py:948
 msgid "Exited uag."
 msgstr "已退出 uag。"
 
-#: src/uagent\cli_docs.py:33
+#: src\uagent\cli_docs.py:33
 msgid "[docs] name is required"
 msgstr "[docs] 需要名称"
 
-#: src/uagent\cli_startup.py:93
+#: src\uagent\cli_startup.py:22
+msgid ""
+"Select tool genres to enable at startup.\n"
+"1: comm  - Communication (Teams, Discord, etc.)\n"
+"2: office - Office suite (Excel, Word, etc.)\n"
+"4: devel  - Development (lint, py_compile, test, etc.)\n"
+"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to "
+"skip):"
+msgstr ""
+"选择启动时启用的工具类型。\n"
+"1: comm  - 通信 (Teams, Discord 等)\n"
+"2: office - 办公套件 (Excel, Word 等)\n"
+"4: devel  - 开发 (lint, py_compile, test 等)\n"
+"输入数值之和 (例如，3 = comm + office，7 = 全部，或按 Enter 跳过):"
+
+#: src\uagent\cli_startup.py:96
+#, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] 无法应用启动工具选择：%(err)s"
 
-#: src/uagent\cli_startup.py:170 src/uagent\web.py:1034
+#: src\uagent\cli_startup.py:173 src\uagent\web.py:1034
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] 无法设置工作目录：%(err)s"
 
-#: src/uagent\cli_startup.py:199
+#: src\uagent\cli_startup.py:202
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] 无法启动 uag_setup：%(err)s"
 
-#: src/uagent\cli_startup.py:240
+#: src\uagent\cli_startup.py:243
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "提供方 = %(provider)s；模型 = %(model)s"
 
-#: src/uagent\cli_startup.py:252 src/uagent\scheckgui.py:295
+#: src\uagent\cli_startup.py:255 src\uagent\scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "已启用 OpenRouter 回退模型。"
 
-#: src/uagent\cli_startup.py:256
+#: src\uagent\cli_startup.py:259
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "当前工作目录 = %(cwd)s"
 
-#: src/uagent\cli_startup.py:270 src/uagent\scheckgui.py:306
+#: src\uagent\cli_startup.py:273 src\uagent\scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "已加载长期记忆。"
 
-#: src/uagent\cli_startup.py:283 src/uagent\scheckgui.py:319
+#: src\uagent\cli_startup.py:286 src\uagent\scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "已加载共享长期记忆。"
 
-#: src/uagent\cli_startup.py:290 src/uagent\web.py:718
+#: src\uagent\cli_startup.py:293 src\uagent\web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[WARN] 加载共享长期记忆时发生异常：%(err)s"
 
-#: src/uagent\cli_startup.py:324
+#: src\uagent\cli_startup.py:327
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[WARN] 读取启动文件失败：%(path)s（%(err)s）"
 
-#: src/uagent\cli_startup.py:338
+#: src\uagent\cli_startup.py:341
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "已提供启动文件：%(path)s"
 
-#: src/uagent\cli_startup.py:361
+#: src\uagent\cli_startup.py:364
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "已指定 --non-interactive；不等待 stdin 直接退出。"
 
-#: src/uagent\core.py:286 src/uagent\core.py:307
+#: src\uagent\core.py:286 src\uagent\core.py:307
 #, python-format
 msgid "Environment variable %(name)s is not set."
 msgstr "环境变量 %(name)s 未设置。"
 
-#: src/uagent\core.py:607
+#: src\uagent\core.py:607
 msgid "No log files found."
 msgstr "未找到日志文件。"
 
-#: src/uagent\core.py:625
+#: src\uagent\core.py:625
 msgid "(unknown time)"
 msgstr "(未知时间)"
 
-#: src/uagent\core.py:628
+#: src\uagent\core.py:628
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
 msgstr "日志：显示 %(shown)d/%(total)d（目录=%(dir)s）"
 
-#: src/uagent\core.py:631
+#: src\uagent\core.py:631
 msgid "Log files:"
 msgstr "日志文件："
 
-#: src/uagent\core.py:638
+#: src\uagent\core.py:638
 msgid "(mtime unknown)"
 msgstr "(修改时间未知)"
 
-#: src/uagent\core.py:756 src/uagent\core.py:759
+#: src\uagent\core.py:756 src\uagent\core.py:759
 msgid "(no user message)"
 msgstr "(没有用户消息)"
 
-#: src/uagent\core.py:764
+#: src\uagent\core.py:764
+#, python-format
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s"
@@ -231,142 +222,88 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d 条消息 | 首条: %(first_user)s | 最后: "
 "%(last_user)s"
 
-#: src/uagent\core.py:896
+#: src\uagent\core.py:896
+#, python-format
 msgid ""
 "[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
 "name=%(name)r"
-msgstr "[WARN] 正在丢弃孤立的工具消息: tool_call_id=%(tool_call_id)r name=%(name)r"
+msgstr ""
+"[WARN] 正在丢弃孤立的工具消息: tool_call_id=%(tool_call_id)r name=%(name)r"
 
-#: src/uagent\core.py:994
+#: src\uagent\core.py:994
+#, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr "[INFO] 有 %(count)d 条消息需要压缩，因此没有做任何更改。"
 
-#: src/uagent\core.py:1004
+#: src\uagent\core.py:1004
+#, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
 "messages (keep_last=%(keep_last)d)"
 msgstr ""
-"[INFO] 已压缩内存中的对话历史：%(old_n)d -> %(new_n)d 条消息（keep_last=%(keep_last)d）"
+"[INFO] 已压缩内存中的对话历史：%(old_n)d -> %(new_n)d 条消息"
+"（keep_last=%(keep_last)d）"
 
-#: src/uagent\core.py:1215
-msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr "在压缩历史记录时达到 429 重试限制 (%(max_retries)s)。"
-
-#: src/uagent\core.py:1225
-msgid "Error while calling LLM for history compression: %(err)r"
-msgstr "调用 LLM 进行历史记录压缩时出错：%(err)r"
-
-#: src/uagent\core.py:1258
-msgid "- Summarize the conversation chunk in English.\n"
-msgstr "- 用英文总结对话片段。\n"
-
-#: src/uagent\core.py:1260
-msgid ""
-"- Keep the summary concise but include key decisions, constraints, and "
-"pending items.\n"
-msgstr "保持总结简明扼要，但要包含关键决策、限制条件和待办事项。\n"
-
-#: src/uagent\core.py:1262
-msgid "- Output should be directly usable as a system message."
-msgstr "- 输出应能直接用作系统消息。"
-
-#: src/uagent\core.py:1265
-msgid "Conversation chunk:\n"
-msgstr "对话片段：\n"
-
-#: src/uagent\core.py:1267
-msgid "Write a concise summary of this chunk."
-msgstr "写一份该片段的简要总结。"
-
-#: src/uagent\core.py:1271
-msgid "- You are updating an existing conversation summary.\n"
-msgstr "- 您正在更新现有的对话总结。\n"
-
-#: src/uagent\core.py:1272
-msgid "- Preserve important facts from the previous summary.\n"
-msgstr "- 保留上一次总结中的重要事实。\n"
-
-#: src/uagent\core.py:1274
-msgid ""
-"- Merge in the new chunk without losing constraints, decisions, or pending "
-"items.\n"
-msgstr "合并新片段，且不丢失限制条件、决策或待办事项。\n"
-
-#: src/uagent\core.py:1276
-msgid "- Keep the result concise and suitable for a system message."
-msgstr "- 保持结果简明扼要，并适用于系统消息。"
-
-#: src/uagent\core.py:1279
-msgid "Previous summary:\n"
-msgstr "上一次总结：\n"
-
-#: src/uagent\core.py:1281
-msgid "New chunk:\n"
-msgstr "新片段：\n"
-
-#: src/uagent\core.py:1283
-msgid "Update the summary while keeping the prior context intact."
-msgstr "更新总结，同时保持先前的上下文完整。"
-
-#: src/uagent\core.py:1304
-msgid "Summary of the conversation so far:\n"
-msgstr "目前为止的对话总结：\n"
-
-#: src/uagent\core.py:1311
-msgid ""
-"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
-"older messages into 1 summary; kept {tail_n} tail)"
-msgstr "[INFO] shrink_llm: {old_n} -> {new_n} 条消息（将 {old_part_n} 条较旧的消息压缩为 1 个总结；保留了最后 {tail_n} 条消息）"
-"[INFO] shrink_llm: {old_n} -> {new_n} 条消息（将 {old_part_n} 条较旧的消息压缩为 1 "
-"个总结；保留了最后 {tail_n} 条消息）"
-
-#: src/uagent\core.py:1339
+#: src\uagent\core.py:1339
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
-msgstr "[WARN] 历史压缩即使在 chunk_size=1 时也达到了上下文长度限制；将回退到 shrink_messages()。"
+msgstr ""
+"[WARN] 历史压缩即使在 chunk_size=1 时也达到了上下文长度限制；将回退到 "
+"shrink_messages()。"
 
-#: src/uagent\core.py:1349
+#: src\uagent\core.py:1349
 msgid ""
-"[WARN] history compression could not reduce chunk_size further; falling back"
-" to shrink_messages()."
+"[WARN] history compression could not reduce chunk_size further; falling back "
+"to shrink_messages()."
 msgstr "[WARN] 历史压缩无法继续减小 chunk_size；将回退到 shrink_messages()。"
 
-#: src/uagent\core.py:1357
+#: src\uagent\core.py:1357
+#, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
 "chunk_size=%(chunk_size)d"
-msgstr "[WARN] 历史压缩超过上下文长度限制；正在使用 chunk_size=%(chunk_size)d 重试"
+msgstr ""
+"[WARN] 历史压缩超过上下文长度限制；正在使用 chunk_size=%(chunk_size)d 重试"
 
-#: src/uagent\core.py:1382
+#: src\uagent\core.py:1382
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (帮助不可用：%(err)s)"
 
-#: src/uagent\core.py:1394
+#: src\uagent\core.py:1394
+#, fuzzy
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a "
+"local environment, and you can actually execute commands and operate on "
+"files on the user's machine.\n"
 "- Ask the user for confirmation before performing any dangerous operation.\n"
 "- Do not flatter the user. Do not use emojis.\n"
 "- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- When creating files, output the complete final content (do not output "
+"diffs or partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing "
+"brackets (like `py]}`) in your final response. Keep your output clean and "
+"well-formatted.\n"
 msgstr ""
 "## 使命\n"
-"- 你是在本地环境中运行的“通用工具执行代理”，能够在用户机器上实际执行命令并操作文件。\n"
+"- 你是在本地环境中运行的“通用工具执行代理”，能够在用户机器上实际执行命令并操"
+"作文件。\n"
 "- 在执行任何危险操作前，先征求用户确认。\n"
 "- 不要奉承用户。不要使用表情符号。\n"
 "- 不要总结。保持信息简洁。\n"
 "- 创建文件时，请输出完整的最终内容（不要输出 diff 或部分摘要）。\n"
 
-#: src/uagent\core.py:1402
+#: src\uagent\core.py:1403
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
+"- When executing tools, delegate as little decision-making as possible to "
+"the user.\n"
 msgstr ""
 "## 规则\n"
 "- 始终使用提供的工具，并验证最新信息。\n"
@@ -374,18 +311,28 @@ msgstr ""
 "- 请参考可用工具，并选择最合适的那个。\n"
 "- 执行工具时，尽量不要把决策交给用户。\n"
 
-#: src/uagent\core.py:1409
+#: src\uagent\core.py:1410
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
-"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+"- For tool-specific purpose/arguments/constraints/operational details, "
+"prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the "
+"human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to "
+"reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory "
+"(add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
+"not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate "
+"syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) "
+"and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new "
+"information, do not repeat the same explanation unless it is a direct answer "
+"to the immediately preceding clear question. If needed, ask briefly: \"Which "
+"point should I continue with?\"\n"
 msgstr ""
 "## 说明\n"
 "- 所有用户消息都通过本脚本的标准输入传入。\n"
@@ -393,46 +340,64 @@ msgstr ""
 "- 如果需要用户提供更多信息或确认，请使用 human_ask 工具。\n"
 "- 处理相对日期表达时，请调用 get_current_time 以参考当前时间。\n"
 "- 不要将密钥（密码/令牌）存入长期记忆（add_long_memory 等）。\n"
-"- 带有 .org / .org1 / .org2 等后缀的文件是备份副本，不能当作主要可编辑文件。\n"
+"- 带有 .org / .org1 / .org2 等后缀的文件是备份副本，不能当作主要可编辑文"
+"件。\n"
 "- 如果创建 Python 文件，请运行 `python -m py_compile` 验证语法。\n"
 "- 如果需要专家级知识，请使用提示模板（Agent Skills）并遵循其指示。\n"
-"- 如果用户输入只是简短确认且没有新增信息，除非它是对紧接着的明确问题的直接回答，否则不要重复同样的解释。必要时，请简短询问：\"我应该从哪一点继续？\"\n"
+"- 如果用户输入只是简短确认且没有新增信息，除非它是对紧接着的明确问题的直接回"
+"答，否则不要重复同样的解释。必要时，请简短询问：\"我应该从哪一点继续？\"\n"
 
-#: src/uagent\core.py:1421
+#: src\uagent\core.py:1422
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation "
+"before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion "
+"candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly "
+"once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent "
+"explicit approval), run delete_file again with the same parameters, "
+"dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be "
+"deleted.\n"
 msgstr ""
 "## 危险操作策略（delete_file）\n"
 "- 使用 delete_file 工具进行删除时，不要在预览前请求确认。\n"
 "- 始终先以 dry_run=true 运行 delete_file，以获取删除候选列表。\n"
 "- 将候选项展示给用户，并且只通过 human_ask 请求一次确认。\n"
-"- 只有当用户明确回复“y”或“yes”（或同等明确同意）时，才使用相同参数再次运行 delete_file，并将 dry_run=false、confirmed=true。\n"
+"- 只有当用户明确回复“y”或“yes”（或同等明确同意）时，才使用相同参数再次运行 "
+"delete_file，并将 dry_run=false、confirmed=true。\n"
 "- 如果候选项为 0，则不要询问；只需报告不会删除任何内容。\n"
 
-#: src/uagent\core.py:1429
+#: src\uagent\core.py:1430
+#, fuzzy
 msgid ""
 "## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a "
+"local environment; you can execute commands and operate on the user's "
+"machine.\n"
 "- Ask the user for confirmation before any dangerous operation.\n"
 "- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- When creating files, output the complete final content (no diffs/partial "
+"summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing "
+"brackets (like `py]}`) in your final response. Keep your output clean and "
+"well-formatted.\n"
 msgstr ""
 "## 任务\n"
-"- 你是一个在本地环境中运行的“通用工具执行代理”；你可以执行命令并操作用户的机器。\n"
+"- 你是一个在本地环境中运行的“通用工具执行代理”；你可以执行命令并操作用户的机"
+"器。\n"
 "- 在进行任何危险操作之前，先向用户确认。\n"
 "- 不要奉承。不要使用表情符号。不要总结对话。保持简洁。\n"
 "- 创建文件时，输出完整的最终内容（不要输出 diff 或部分摘要）。\n"
 
-#: src/uagent\core.py:1436
+#: src\uagent\core.py:1438
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the "
+"most appropriate and safest tool.\n"
 "- Be creative, but do not output uncertain information.\n"
 "- Delegate as little decision-making as possible to the user.\n"
 msgstr ""
@@ -442,280 +407,313 @@ msgstr ""
 "- 可以有创意，但不要输出不确定的信息。\n"
 "- 尽量少把决策交给用户。\n"
 
-#: src/uagent\core.py:1443
+#: src\uagent\core.py:1445
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- If required info/parameters are missing, ask via human_ask (do not "
+"guess).\n"
 "- Relative dates: call get_current_time.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
+"not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
-"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+"- If the user's input is only a short affirmation and adds no new "
+"information, do not repeat the same explanation unless it is a direct answer "
+"to the immediately preceding clear question. If needed, ask briefly: \"Which "
+"point should I continue with?\"\n"
 msgstr ""
 "## 说明\n"
 "- 所有用户消息都通过本脚本的标准输入传入。\n"
 "- 如果缺少必要的信息/参数，请通过 human_ask 提问（不要猜测）。\n"
 "- 处理相对日期时，请调用 get_current_time。\n"
 "- 不要将密钥（密码/令牌）存入长期记忆。\n"
-"- 带有 .org / .org1 / .org2 等后缀的文件是备份副本，不能当作主要可编辑文件。\n"
+"- 带有 .org / .org1 / .org2 等后缀的文件是备份副本，不能当作主要可编辑文"
+"件。\n"
 "- 如果创建 Python 文件，请运行 `python -m py_compile`。\n"
 "- 如果需要专家级知识，请使用 Agent Skills 提示模板。\n"
-"- 如果用户输入只是简短确认且没有新增信息，除非它是对紧接着的明确问题的直接回答，否则不要重复同样的解释。必要时，请简短询问：\"我应该从哪一点继续？\"\n"
+"- 如果用户输入只是简短确认且没有新增信息，除非它是对紧接着的明确问题的直接回"
+"答，否则不要重复同样的解释。必要时，请简短询问：\"我应该从哪一点继续？\"\n"
 
-#: src/uagent\core.py:1456
+#: src\uagent\core.py:1458
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
 "line breaks.\n"
 msgstr ""
-"- 如果用户使用 Windows cmd.exe，请优先使用 caret (^) 进行多行命令续行，并保持每行较短，以避免复制/粘贴时出现换行问题。\n"
+"- 如果用户使用 Windows cmd.exe，请优先使用 caret (^) 进行多行命令续行，并保持"
+"每行较短，以避免复制/粘贴时出现换行问题。\n"
 
-#: src/uagent\core.py:1523
+#: src\uagent\core.py:1525
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
 msgstr "当前会话中已加载以下工具。请选择最适合该任务的工具。"
 
-#: src/uagent\docs_util.py:27
+#: src\uagent\docs_util.py:27
 msgid "Project README"
 msgstr "项目 README"
 
-#: src/uagent\docs_util.py:32
+#: src\uagent\docs_util.py:32
 msgid "Quickstart (Windows wheel install)"
 msgstr "快速入门（Windows wheel 安装）"
 
-#: src/uagent\docs_util.py:37
+#: src\uagent\docs_util.py:37
 msgid "Web Inspector (playwright_inspector) guide"
 msgstr "Web Inspector（playwright_inspector）指南"
 
-#: src/uagent\docs_util.py:42
+#: src\uagent\docs_util.py:42
 msgid "Developer information"
 msgstr "开发者信息"
 
-#: src/uagent\docs_util.py:149
+#: src\uagent\docs_util.py:149
 #, python-format
 msgid "unknown doc name: %(name)r"
 msgstr "未知文档名：%(name)r"
 
-#: src/uagent\docs_util.py:172
+#: src\uagent\docs_util.py:172
 #, python-format
 msgid "doc file not found: %(filename)s"
 msgstr "未找到文档文件：%(filename)s"
 
-#: src/uagent\docs_util.py:203
+#: src\uagent\docs_util.py:203
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
 msgstr "文档路径解析失败：%(filename)s：%(err)s"
 
-#: src/uagent\docs_util.py:227
+#: src\uagent\docs_util.py:227
 msgid "[docs] Available documents:"
 msgstr "[docs] 可用文档："
 
-#: src/uagent\docs_util.py:231
+#: src\uagent\docs_util.py:231
 msgid "Usage:"
 msgstr "用法："
 
-#: src/uagent\env_validate.py:42
-msgid ""
-"Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
-msgstr ""
-"选择 LLM 提供方所必需（azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia）。"
+#: src\uagent\docs_util.py:232
+msgid "list"
+msgstr "列表"
 
-#: src/uagent\env_validate.py:63
+#: src\uagent\docs_util.py:233
+msgid "show"
+msgstr "显示"
+
+#: src\uagent\docs_util.py:234
+msgid "show path"
+msgstr "显示路径"
+
+#: src\uagent\docs_util.py:235
+msgid "open with OS"
+msgstr "使用系统打开"
+
+#: src\uagent\env_validate.py:42
+msgid ""
+"Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/"
+"grok/claude/nvidia)."
+msgstr ""
+"选择 LLM 提供方所必需（azure/openai/bedrock/openrouter/gemini/grok/claude/"
+"nvidia）。"
+
+#: src\uagent\env_validate.py:63
 #, python-format
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr "未知提供者：%(provider)r。允许值：%(allowed)s（启动很可能会失败）。"
 
-#: src/uagent\env_validate.py:74
+#: src\uagent\env_validate.py:74
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
-msgstr "Azure OpenAI 终结点/基础 URL（例如：https://<resource>.openai.azure.com/）。"
+msgstr ""
+"Azure OpenAI 终结点/基础 URL（例如：https://<resource>.openai.azure.com/）。"
 
-#: src/uagent\env_validate.py:80
+#: src\uagent\env_validate.py:80
 msgid "Azure OpenAI API key."
 msgstr "Azure OpenAI API 密钥。"
 
-#: src/uagent\env_validate.py:85
+#: src\uagent\env_validate.py:85
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
 msgstr "Azure OpenAI API 版本（例如：2024-xx-xx）。"
 
-#: src/uagent\env_validate.py:92
+#: src\uagent\env_validate.py:92
 msgid "OpenAI API key."
 msgstr "OpenAI API 密钥。"
 
-#: src/uagent\env_validate.py:98
+#: src\uagent\env_validate.py:98
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
 msgstr "Bedrock 代理终结点/基础 URL（兼容 OpenAI）。"
 
-#: src/uagent\env_validate.py:105
+#: src\uagent\env_validate.py:105
 msgid "Bedrock proxy API key (OpenAI-compatible)."
 msgstr "Bedrock 代理 API 密钥（兼容 OpenAI）。"
 
-#: src/uagent\env_validate.py:112
+#: src\uagent\env_validate.py:112
 msgid "OpenRouter API key."
 msgstr "OpenRouter API 密钥。"
 
-#: src/uagent\env_validate.py:117
+#: src\uagent\env_validate.py:117
 msgid "Grok (xAI) API key."
 msgstr "Grok（xAI）API 密钥。"
 
-#: src/uagent\env_validate.py:122
+#: src\uagent\env_validate.py:122
 msgid "Gemini API key."
 msgstr "Gemini API 密钥。"
 
-#: src/uagent\env_validate.py:129
+#: src\uagent\env_validate.py:129
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr "未安装 Python 包 'google-genai'。provider=gemini 需要它。"
 
-#: src/uagent\env_validate.py:140
+#: src\uagent\env_validate.py:140
 msgid "Vertex AI API key / model name."
 msgstr "Vertex AI API 密钥 / 模型名称。"
 
-#: src/uagent\env_validate.py:149
+#: src\uagent\env_validate.py:149
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
 msgstr "未安装 Python 包 'google-genai'。Provider=vertexai 需要它。"
 
-#: src/uagent\env_validate.py:157
+#: src\uagent\env_validate.py:157
 msgid "Anthropic (Claude) API key."
 msgstr "Anthropic（Claude）API 密钥。"
 
-#: src/uagent\env_validate.py:165
+#: src\uagent\env_validate.py:165
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr "未安装 Python 包 'anthropic'。provider=claude 需要它。"
 
-#: src/uagent\env_validate.py:172
+#: src\uagent\env_validate.py:172
 msgid "NVIDIA API key."
 msgstr "NVIDIA API 密钥。"
 
-#: src/uagent\env_validate.py:190
+#: src\uagent\env_validate.py:190
 #, python-format
 msgid ""
-"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
-" likely fail)."
-msgstr "未知 embedding 提供者：%(provider)r。允许值：%(allowed)s（启动很可能会失败）。"
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will "
+"likely fail)."
+msgstr ""
+"未知 embedding 提供者：%(provider)r。允许值：%(allowed)s（启动很可能会失"
+"败）。"
 
-#: src/uagent\env_validate.py:207
+#: src\uagent\env_validate.py:207
 msgid "Azure embedding endpoint / API key / API version / deployment name."
 msgstr "Azure embedding 终结点 / API 密钥 / API 版本 / 部署名称。"
 
-#: src/uagent\env_validate.py:218
+#: src\uagent\env_validate.py:218
 msgid "OpenAI embedding API key / model name."
 msgstr "OpenAI embedding API 密钥 / 模型名称。"
 
-#: src/uagent\env_validate.py:230
+#: src\uagent\env_validate.py:230
 msgid "Bedrock embedding endpoint / API key / deployment name."
 msgstr "Bedrock embedding 终结点 / API 密钥 / 部署名称。"
 
-#: src/uagent\env_validate.py:241
+#: src\uagent\env_validate.py:241
 msgid "OpenRouter embedding API key / model name."
 msgstr "OpenRouter embedding API 密钥 / 模型名称。"
 
-#: src/uagent\env_validate.py:252
+#: src\uagent\env_validate.py:252
 msgid "Ollama embedding base URL / model name."
 msgstr "Ollama embedding 基础 URL / 模型名称。"
 
-#: src/uagent\env_validate.py:263
+#: src\uagent\env_validate.py:263
 msgid "NVIDIA embedding API key / model name."
 msgstr "NVIDIA embedding API 密钥 / 模型名称。"
 
-#: src/uagent\env_validate.py:274
+#: src\uagent\env_validate.py:274
 msgid "Gemini embedding API key / model name."
 msgstr "Gemini embedding 的 API 密钥 / 模型名称。"
 
-#: src/uagent\env_validate.py:285
+#: src\uagent\env_validate.py:285
 msgid "Vertex AI embedding API key / model name."
 msgstr "Vertex AI embedding 的 API 密钥 / 模型名称。"
 
-#: src/uagent\env_validate.py:302
+#: src\uagent\env_validate.py:302
 #, python-brace-format
 msgid "[FATAL] Environment validation failed ({context})."
 msgstr "[FATAL] 环境验证失败（{context}）。"
 
-#: src/uagent\env_validate.py:310
+#: src\uagent\env_validate.py:310
 msgid "Missing required environment variables:"
 msgstr "缺少必需的环境变量："
 
-#: src/uagent\env_validate.py:317
+#: src\uagent\env_validate.py:317
 msgid "Warnings:"
 msgstr "警告："
 
-#: src/uagent\env_validate.py:321
+#: src\uagent\env_validate.py:321
 msgid "How to fix:"
 msgstr "修复方法："
 
-#: src/uagent\env_validate.py:324
+#: src\uagent\env_validate.py:324
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr "- 在启动程序之前，请先在你的环境中设置上述变量。"
 
-#: src/uagent\env_validate.py:330
+#: src\uagent\env_validate.py:330
 msgid ""
-"- You can set them via your OS environment settings, a .env file, your shell"
-" startup scripts,"
+"- You can set them via your OS environment settings, a .env file, your shell "
+"startup scripts,"
 msgstr "- 你可以通过操作系统环境设置、.env 文件、shell 启动脚本，"
 
-#: src/uagent\env_validate.py:336
+#: src\uagent\env_validate.py:336
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
-msgstr "  或通过进程管理器 / 服务配置（CI secrets、systemd、Docker 等）来设置。"
+msgstr ""
+"  或通过进程管理器 / 服务配置（CI secrets、systemd、Docker 等）来设置。"
 
-#: src/uagent\gemini_cache_mgr.py:131
+#: src\uagent\gemini_cache_mgr.py:131
 msgid "invalid cache meta"
 msgstr "缓存元数据无效"
 
-#: src/uagent\image_session.py:101
+#: src\uagent\image_session.py:101
 msgid "(prompt unavailable)"
 msgstr "（提示不可用）"
 
-#: src/uagent\image_session.py:105
+#: src\uagent\image_session.py:105
+#, python-format
 msgid "screenshot: %(title)s"
 msgstr "截图：%(title)s"
 
-#: src/uagent\image_session.py:107
+#: src\uagent\image_session.py:107
 msgid "screenshot"
 msgstr "截图"
 
-#: src/uagent\image_session.py:148
+#: src\uagent\image_session.py:148
 msgid "Image-session context:"
 msgstr "图像会话上下文："
 
-#: src/uagent\image_session.py:149
+#: src\uagent\image_session.py:149
 msgid "This conversation already generated images."
 msgstr "这段对话已经生成过图像。"
 
-#: src/uagent\image_session.py:151
+#: src\uagent\image_session.py:151
 msgid ""
 "Use the prior prompts and saved file paths below as context for follow-up "
 "edits, variants, or continuations."
 msgstr "请将下面的先前提示词和已保存文件路径作为后续编辑、变体或续写的上下文。"
 
-#: src/uagent\image_session.py:156
+#: src\uagent\image_session.py:156
+#, python-format
 msgid "Turn %(idx)d:"
 msgstr "轮次 %(idx)d："
 
-#: src/uagent\image_session.py:157
+#: src\uagent\image_session.py:157
+#, python-format
 msgid "- prompt: %(prompt)s"
 msgstr "- 提示词：%(prompt)s"
 
-#: src/uagent\image_session.py:160
+#: src\uagent\image_session.py:160
+#, python-format
 msgid "- file: %(path)s"
 msgstr "- 文件：%(path)s"
 
-#: src/uagent\llm_claude.py:143 src/uagent\util_providers.py:610
+#: src\uagent\llm_claude.py:143 src\uagent\util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "未安装 anthropic 包。"
 
-#: src/uagent\llm_errors.py:398
+#: src\uagent\llm_errors.py:398
 #, python-format
 msgid ""
 "[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
@@ -726,28 +724,33 @@ msgstr ""
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent\llm_flow_helpers.py:205
+#: src\uagent\llm_flow_helpers.py:205
 msgid ""
 "The previous assistant reply was empty. Please answer based on the most "
 "recent tool result."
 msgstr "上一条助手回复为空。请根据最近的工具结果作答。"
 
-#: src/uagent\llm_flow_helpers.py:218
+#: src\uagent\llm_flow_helpers.py:218
 #, python-format
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
-"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+"provider=%(provider)s depname=%(depname)s "
+"empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You "
+"can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching "
+"provider."
 msgstr ""
 "[WARN] LLM 返回了一个没有工具调用的空助手消息。\n"
-"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"这可能发生在与 OpenAI 兼容的本地提供方在工具调用之后。您可以尝试把 UAGENT_EMPTY_NO_TOOL_MAX 设为更大的值，或切换提供方。"
+"provider=%(provider)s depname=%(depname)s "
+"empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"这可能发生在与 OpenAI 兼容的本地提供方在工具调用之后。您可以尝试把 "
+"UAGENT_EMPTY_NO_TOOL_MAX 设为更大的值，或切换提供方。"
 
-#: src/uagent\llm_flow_helpers.py:265
+#: src\uagent\llm_flow_helpers.py:265
 msgid "arguments must be a JSON object."
 msgstr "参数必须是 JSON 对象。"
 
-#: src/uagent\llm_flow_helpers.py:272
+#: src\uagent\llm_flow_helpers.py:272
 #, python-format
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
@@ -758,13 +761,13 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-#: src/uagent\llm_flow_helpers.py:298
+#: src\uagent\llm_flow_helpers.py:298
 msgid ""
-"[INFO] Reusing the previous result because this tool call matches an earlier"
-" one.\n"
+"[INFO] Reusing the previous result because this tool call matches an earlier "
+"one.\n"
 msgstr "[INFO] 由于这次工具调用与之前一次相同，因此复用上一次的结果。\n"
 
-#: src/uagent\llm_flow_helpers.py:313
+#: src\uagent\llm_flow_helpers.py:313
 #, python-format
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
@@ -775,105 +778,114 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-#: src/uagent\llm_gemini.py:556
+#: src\uagent\llm_gemini.py:556
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "无法导入 google-genai（需要执行 pip install google-genai）。"
 
-#: src/uagent\llm_gemini.py:1115
+#: src\uagent\llm_gemini.py:1115
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr "[Gemini 错误：响应被安全过滤器或结束原因拦截]"
 
-#: src/uagent\llm_gemini.py:1117
+#: src\uagent\llm_gemini.py:1117
+#, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Gemini 错误：%(err)s]"
 
-#: src/uagent\llm_image_helpers.py:7
+#: src\uagent\llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "请描述这张截图并总结可见的界面。"
 
-#: src/uagent\llm_image_helpers.py:11
+#: src\uagent\llm_image_helpers.py:11
 msgid "Read all visible text in this screenshot and summarize it."
 msgstr "请读取这张截图中所有可见文本并进行总结。"
 
-#: src/uagent\llm_image_helpers.py:15
+#: src\uagent\llm_image_helpers.py:15
 msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr "请检查这张截图中的错误、警告和重要的界面状态。"
 
-#: src/uagent\llm_message_helpers.py:155
+#: src\uagent\llm_message_helpers.py:155
+#, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] 自动 shrink_llm 失败：%(err)s"
 
-#: src/uagent\llm_openai_responses.py:69
+#: src\uagent\llm_openai_responses.py:69
 msgid "[WARN] assistant history contained image content; converted to text."
 msgstr "[WARN] 助手历史记录中包含图像内容；已转换为文本。"
 
-#: src/uagent\llm_openai_responses.py:92
+#: src\uagent\llm_openai_responses.py:92
 msgid "[WARN] invalid image content (missing url)."
 msgstr "[WARN] 无效的图像内容（缺少 url）。"
 
-#: src/uagent\llm_openai_responses.py:100
-#: src/uagent\llm_openai_responses.py:109
+#: src\uagent\llm_openai_responses.py:100
+#: src\uagent\llm_openai_responses.py:109
 #, python-format
 msgid "[WARN] unsupported content item: %(item)r"
 msgstr "[WARN] 不支持的内容项：%(item)r"
 
-#: src/uagent\llm_openai_responses.py:444
+#: src\uagent\llm_openai_responses.py:444
 msgid "Sources:"
 msgstr "来源："
 
-#: src/uagent\llm_openai_responses.py:507
+#: src\uagent\llm_openai_responses.py:507
 msgid "search"
 msgstr "搜索"
 
-#: src/uagent\llm_openai_responses.py:509
+#: src\uagent\llm_openai_responses.py:509
 msgid "open page"
 msgstr "打开页面"
 
-#: src/uagent\llm_openai_responses.py:511
+#: src\uagent\llm_openai_responses.py:511
 msgid "find in page"
 msgstr "在页面中查找"
 
-#: src/uagent\llm_openai_responses.py:512
+#: src\uagent\llm_openai_responses.py:512
 msgid "web search"
 msgstr "网页搜索"
 
-#: src/uagent\llm_openai_responses.py:526
+#: src\uagent\llm_openai_responses.py:526
 msgid "Web search: searching"
 msgstr "网页搜索：搜索中"
 
-#: src/uagent\llm_openai_responses.py:528
+#: src\uagent\llm_openai_responses.py:528
 msgid "Web search: completed"
 msgstr "网页搜索：已完成"
 
-#: src/uagent\llm_openai_responses.py:530
+#: src\uagent\llm_openai_responses.py:530
 #, python-brace-format
 msgid "Web search: {action}"
 msgstr "网页搜索：{action}"
 
-#: src/uagent\llm_openai_responses.py:587
+#: src\uagent\llm_openai_responses.py:587
 #, python-brace-format
 msgid ""
 "[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        - When calling a tool/function, you MUST provide "
+"function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by "
+"the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no "
+"required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using "
+"human_ask instead of guessing.\n"
 "        "
 msgstr ""
 "[工具调用规则]\n"
-"        - 调用工具/函数时，必须将 function_call.arguments 作为 JSON 对象传入。\n"
+"        - 调用工具/函数时，必须将 function_call.arguments 作为 JSON 对象传"
+"入。\n"
 "        - JSON 对象必须包含工具模式中定义的所有必填参数。\n"
 "        - 除非工具没有必填参数，否则不要使用空对象 {} 调用工具。\n"
 "        - 如果缺少必填参数，请使用 human_ask 向用户询问，不要猜测。\n"
 "        "
 
-#: src/uagent\llm_openai_responses.py:594
+#: src\uagent\llm_openai_responses.py:594
 msgid ""
 "[Web search rules]\n"
-"        - Use web search only when fresh or external information is necessary.\n"
+"        - Use web search only when fresh or external information is "
+"necessary.\n"
 "        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        - Prefer answering without web search when the answer is already "
+"sufficient.\n"
 "        "
 msgstr ""
 "[网页搜索规则]\n"
@@ -882,50 +894,38 @@ msgstr ""
 "        - 如果答案已经足够，优先不使用网页搜索直接回答。\n"
 "        "
 
-#: src/uagent\llm_round_helpers.py:133
+#: src\uagent\llm_round_helpers.py:133
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[翻译错误] %(diag)s"
 
-#: src/uagent\llm_round_helpers.py:192 src/uagent\llm_round_helpers.py:302
-#: src/uagent\llm_round_helpers.py:635
+#: src\uagent\llm_round_helpers.py:192 src\uagent\llm_round_helpers.py:302
+#: src\uagent\llm_round_helpers.py:635
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "429 重试上限（%(max_retries)s）已达到。"
 
-#: src/uagent\llm_round_helpers.py:216
+#: src\uagent\llm_round_helpers.py:216
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[Gemini 错误] 生成回复时发生错误。"
 
-#: src/uagent\llm_round_helpers.py:308
+#: src\uagent\llm_round_helpers.py:308
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[Claude 错误] 生成回复时发生错误。"
 
-#: src/uagent\llm_round_helpers.py:599
-msgid "Input exceeds the context window."
-msgstr "输入超出上下文窗口。"
-
-#: src/uagent\llm_round_helpers.py:609
-msgid "Connection error"
-msgstr "连接错误"
-
-#: src/uagent\llm_round_helpers.py:614
+#: src\uagent\llm_round_helpers.py:614
 msgid "[Network Error]"
 msgstr "[网络错误]"
 
-#: src/uagent\llm_round_helpers.py:641
-msgid "Unexpected exception."
-msgstr "非预期异常。"
-
-#: src/uagent\llm_round_helpers.py:719
+#: src\uagent\llm_round_helpers.py:719
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "解析回复时出错：%(err)s"
 
-#: src/uagent\profile_manager.py:380 src/uagent\profile_manager.py:498
-#, python-brace-format
+#: src\uagent\profile_manager.py:482 src\uagent\profile_manager.py:600
 msgid ""
-"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
+"You are a user profiling agent. Analyze the conversation log and extract the "
+"user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
 "2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
 "3. Constraints (security rules, offline requirements, etc.)\n"
@@ -933,7 +933,8 @@ msgid ""
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": "
+"\"string\"},\n"
 "  \"preferences\": [\"string\"],\n"
 "  \"constraints\": [\"string\"]\n"
 "}"
@@ -946,952 +947,967 @@ msgstr ""
 "不要包含临时问题、闲聊或敏感凭据。\n"
 "你必须且只能用一个与此模式匹配的有效 JSON 对象作答：\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": "
+"\"string\"},\n"
 "  \"preferences\": [\"string\"],\n"
 "  \"constraints\": [\"string\"]\n"
 "}"
 
-#: src/uagent\profile_manager.py:484
+#: src\uagent\profile_manager.py:586
 msgid "Failed to initialize LLM client."
 msgstr "无法初始化 LLM 客户端。"
 
-#: src/uagent\profile_manager.py:489
+#: src\uagent\profile_manager.py:591
+#, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "找到 %(total_files)d 个日志文件。正在开始增量分析..."
 
-#: src/uagent\runtime_banner.py:231
+#: src\uagent\runtime_banner.py:231
 msgid "embedding"
 msgstr "嵌入"
 
-#: src/uagent\runtime_banner.py:232
+#: src\uagent\runtime_banner.py:232
 msgid "audio speech"
 msgstr "语音合成"
 
-#: src/uagent\runtime_banner.py:233
+#: src\uagent\runtime_banner.py:233
 msgid "audio transcribe"
 msgstr "音频转写"
 
-#: src/uagent\runtime_banner.py:234
+#: src\uagent\runtime_banner.py:234
 msgid "image generation"
 msgstr "图像生成"
 
-#: src/uagent\runtime_banner.py:235
+#: src\uagent\runtime_banner.py:235
 msgid "image analysis"
 msgstr "图像分析"
 
-#: src/uagent\runtime_banner.py:254
+#: src\uagent\runtime_banner.py:254
 #, python-format
 msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
 msgstr "[INFO] 工作目录 = %(workdir)s（来源：%(source)s）"
 
-#: src/uagent\runtime_banner.py:262 src/uagent\runtime_banner.py:276
-#: src/uagent\runtime_banner.py:281 src/uagent\runtime_banner.py:293
-#: src/uagent\runtime_banner.py:305 src/uagent\runtime_banner.py:314
-#: src/uagent\runtime_banner.py:323
+#: src\uagent\runtime_banner.py:262 src\uagent\runtime_banner.py:276
+#: src\uagent\runtime_banner.py:281 src\uagent\runtime_banner.py:293
+#: src\uagent\runtime_banner.py:305 src\uagent\runtime_banner.py:314
+#: src\uagent\runtime_banner.py:323
 #, python-format
 msgid "[INFO] base_url = %(base_url)s"
 msgstr "[INFO] 基础 URL = %(base_url)s"
 
-#: src/uagent\runtime_banner.py:270
+#: src\uagent\runtime_banner.py:270
 #, python-format
 msgid "[INFO] api_version = %(api_version)s"
 msgstr "[INFO] API 版本 = %(api_version)s"
 
-#: src/uagent\runtime_banner.py:332
+#: src\uagent\runtime_banner.py:332
 #, python-format
 msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
 msgstr "[INFO] vertexai = 项目=%(project)s，位置=%(location)s"
 
-#: src/uagent\runtime_banner.py:341
+#: src\uagent\runtime_banner.py:341
 #, python-format
 msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
 msgstr "[INFO] %(label)s = %(provider)s；模型 = %(model)s"
 
-#: src/uagent\runtime_banner.py:368
+#: src\uagent\runtime_banner.py:368
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
 msgstr ""
-"已设置 UAGENT_RESPONSES=1，但提供方“%(provider)s”不支持 Responses API。将回退到 "
-"ChatCompletions。"
+"已设置 UAGENT_RESPONSES=1，但提供方“%(provider)s”不支持 Responses API。将回退"
+"到 ChatCompletions。"
 
-#: src/uagent\runtime_banner.py:375
+#: src\uagent\runtime_banner.py:375
 #, python-format
 msgid "LLM API mode = %(mode)s"
 msgstr "LLM API 模式 = %(mode)s"
 
-#: src/uagent\runtime_banner.py:378
+#: src\uagent\runtime_banner.py:378
 msgid "Responses (UAGENT_RESPONSES is enabled)"
 msgstr "Responses（UAGENT_RESPONSES 已启用）"
 
-#: src/uagent\runtime_banner.py:382
+#: src\uagent\runtime_banner.py:382
 msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
 msgstr "原生 Gemini/Vertex AI/Claude API（忽略 UAGENT_RESPONSES）"
 
-#: src/uagent\runtime_banner.py:385
+#: src\uagent\runtime_banner.py:385
 msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "ChatCompletions（UAGENT_RESPONSES 已禁用）"
 
-#: src/uagent\runtime_banner.py:393
+#: src\uagent\runtime_banner.py:393
 #, python-format
 msgid "LLM streaming = %(state)s"
 msgstr "LLM 流式 = %(state)s"
 
-#: src/uagent\runtime_banner.py:394
+#: src\uagent\runtime_banner.py:394
 msgid "enabled"
 msgstr "已启用"
 
-#: src/uagent\runtime_banner.py:394
+#: src\uagent\runtime_banner.py:394
 msgid "disabled"
 msgstr "已禁用"
 
-#: src/uagent\runtime_env.py:186
+#: src\uagent\runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Update it? [y/N] "
-msgstr "[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。是否更新？[y/N] "
+msgstr ""
+"[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。是否更新？[y/N] "
 
-#: src/uagent\runtime_env.py:202
+#: src\uagent\runtime_env.py:202
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Use `uag_envsec` to update it."
-msgstr "[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。请使用 `uag_envsec` 进行更新。"
+msgstr ""
+"[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。请使用 "
+"`uag_envsec` 进行更新。"
 
-#: src/uagent\runtime_env.py:214
+#: src\uagent\runtime_env.py:214
 #, python-format
 msgid "Updated .env.sec: %(path)s"
 msgstr "已更新 .env.sec：%(path)s"
 
-#: src/uagent\runtime_env.py:218
+#: src\uagent\runtime_env.py:218
 #, python-format
 msgid "[WARN] Failed to update .env.sec: %(err)s"
 msgstr "[WARN] 更新 .env.sec 失败：%(err)s"
 
-#: src/uagent\runtime_env.py:228
+#: src\uagent\runtime_env.py:228
 msgid ""
 "[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
 "environment variables? [y/N] "
-msgstr "[INFO] .env.sec 缺失。是否根据当前启动时的 UAGENT_* 环境变量创建？[y/N] "
+msgstr ""
+"[INFO] .env.sec 缺失。是否根据当前启动时的 UAGENT_* 环境变量创建？[y/N] "
 
-#: src/uagent\runtime_env.py:244
+#: src\uagent\runtime_env.py:244
 msgid ""
 "[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
 "startup UAGENT_* environment variables."
-msgstr "[INFO] .env.sec 缺失。请使用 `uag_envsec` 根据当前启动时的 UAGENT_* 环境变量创建。"
+msgstr ""
+"[INFO] .env.sec 缺失。请使用 `uag_envsec` 根据当前启动时的 UAGENT_* 环境变量"
+"创建。"
 
-#: src/uagent\runtime_env.py:254
+#: src\uagent\runtime_env.py:254
 #, python-format
 msgid "Created .env.sec: %(path)s"
 msgstr "已创建 .env.sec：%(path)s"
 
-#: src/uagent\runtime_env.py:258
+#: src\uagent\runtime_env.py:258
 #, python-format
 msgid "[WARN] Failed to create .env.sec: %(err)s"
 msgstr "[WARN] 创建 .env.sec 失败：%(err)s"
 
-#: src/uagent\runtime_env.py:289
+#: src\uagent\runtime_env.py:289
 #, python-format
 msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
 msgstr "[WARN] 检查 .env.sec 同步失败：%(err)s"
 
-#: src/uagent\runtime_init.py:83
+#: src\uagent\runtime_init.py:83
 #, python-format
 msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
 msgstr "[WARN] 解密 .env.sec 失败：%(err)s"
 
-#: src/uagent\runtime_workdir.py:49
+#: src\uagent\runtime_workdir.py:49
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定的工作目录路径是文件：%(path)s"
 
-#: src/uagent\scheckgui.py:131
+#: src\uagent\scheckgui.py:131
 msgid "Drop files/images here"
 msgstr "将文件/图片拖放到此处"
 
-#: src/uagent\scheckgui.py:169
+#: src\uagent\scheckgui.py:169
 msgid "Download"
 msgstr "下载"
 
-#: src/uagent\scheckgui.py:328
+#: src\uagent\scheckgui.py:329
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "载入共享长期记忆时发生异常：%(err)s"
 
-#: src/uagent\scheckgui.py:381
+#: src\uagent\scheckgui.py:382
+#, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[附加文件] %(name)s (%(path)s)"
 
-#: src/uagent\scheckgui.py:466
+#: src\uagent\scheckgui.py:467
+#, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[附加图片] %(path)s"
 
-#: src/uagent\scheckgui.py:468 src/uagent\web.py:666
+#: src\uagent\scheckgui.py:469 src\uagent\web.py:666
+#, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[图片路径] %(path)s"
 
-#: src/uagent\scheckgui.py:778 src/uagent\scheckgui.py:908
+#: src\uagent\scheckgui.py:779 src\uagent\scheckgui.py:909
 msgid "Welcome / Quick Guide"
 msgstr "欢迎 / 快速指南"
 
-#: src/uagent\scheckgui.py:786
+#: src\uagent\scheckgui.py:787
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI（极致稳定）"
 
-#: src/uagent\scheckgui.py:841
+#: src\uagent\scheckgui.py:842
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ 可通过拖放附加"
 
-#: src/uagent\scheckgui.py:862
+#: src\uagent\scheckgui.py:863
 msgid "Attach..."
 msgstr "附加..."
 
-#: src/uagent\scheckgui.py:867
+#: src\uagent\scheckgui.py:868
 msgid "Send"
 msgstr "发送"
 
-#: src/uagent\scheckgui.py:907
+#: src\uagent\scheckgui.py:908
 msgid "Help"
 msgstr "帮助"
 
-#: src/uagent\scheckgui.py:922
+#: src\uagent\scheckgui.py:923
 msgid "Mode"
 msgstr "模式"
 
-#: src/uagent\scheckgui.py:924
+#: src\uagent\scheckgui.py:925
 msgid "Reasoning: off"
 msgstr "推理：关闭"
 
-#: src/uagent\scheckgui.py:927
+#: src\uagent\scheckgui.py:928
 msgid "Reasoning: auto"
 msgstr "推理：自动"
 
-#: src/uagent\scheckgui.py:929
+#: src\uagent\scheckgui.py:930
 msgid "Reasoning: minimal"
 msgstr "推理：最小"
 
-#: src/uagent\scheckgui.py:931
+#: src\uagent\scheckgui.py:932
 msgid "Reasoning: low"
 msgstr "推理：低"
 
-#: src/uagent\scheckgui.py:933
+#: src\uagent\scheckgui.py:934
 msgid "Reasoning: medium"
 msgstr "推理：中"
 
-#: src/uagent\scheckgui.py:935
+#: src\uagent\scheckgui.py:936
 msgid "Reasoning: high"
 msgstr "推理：高"
 
-#: src/uagent\scheckgui.py:938
+#: src\uagent\scheckgui.py:939
 msgid "Reasoning: xhigh"
 msgstr "推理：超高"
 
-#: src/uagent\scheckgui.py:943
+#: src\uagent\scheckgui.py:944
 msgid "Verbosity: off"
 msgstr "详细程度：关闭"
 
-#: src/uagent\scheckgui.py:945
+#: src\uagent\scheckgui.py:946
 msgid "Verbosity: low"
 msgstr "详细程度：低"
 
-#: src/uagent\scheckgui.py:947
+#: src\uagent\scheckgui.py:948
 msgid "Verbosity: medium"
 msgstr "详细程度：中"
 
-#: src/uagent\scheckgui.py:949
+#: src\uagent\scheckgui.py:950
 msgid "Verbosity: high"
 msgstr "详细程度：高"
 
-#: src/uagent\scheckgui.py:979
+#: src\uagent\scheckgui.py:980
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] 推理=%(mode)s"
 
-#: src/uagent\scheckgui.py:983
+#: src\uagent\scheckgui.py:984
 msgid ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
-"auto/minimal/xhigh)"
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/"
+"minimal/xhigh)"
 msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  （0=关闭，1=低，2=中，3=高；auto/minimal/xhigh）"
+":r [0|1|2|3|auto|minimal|xhigh]  （0=关闭，1=低，2=中，3=高；auto/minimal/"
+"xhigh）"
 
-#: src/uagent\scheckgui.py:991
+#: src\uagent\scheckgui.py:992
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[模式] 详细级别=%(mode)s"
 
-#: src/uagent\scheckgui.py:993
+#: src\uagent\scheckgui.py:994
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3]  （0=关闭，1=低，2=中，3=高；无参数=保持）"
 
-#: src/uagent\scheckgui.py:1122
+#: src\uagent\scheckgui.py:1123
 msgid "Enter password..."
 msgstr "请输入密码..."
 
-#: src/uagent\scheckgui.py:1129
+#: src\uagent\scheckgui.py:1130
 msgid "Enter a message..."
 msgstr "请输入消息..."
 
-#: src/uagent\scheckgui.py:1146
+#: src\uagent\scheckgui.py:1147
 msgid "Attach files"
 msgstr "附加文件"
 
-#: src/uagent\scheckgui.py:1148
+#: src\uagent\scheckgui.py:1149
 msgid "All Files (*)"
 msgstr "所有文件 (*)"
 
-#: src/uagent\scheckgui.py:1400
+#: src\uagent\scheckgui.py:1401
 msgid "cannot read image"
 msgstr "无法读取图片"
 
-#: src/uagent\scheckgui.py:1551 src/uagent\scheckgui.py:1591
-#: src/uagent\scheckgui.py:1626
+#: src\uagent\scheckgui.py:1552 src\uagent\scheckgui.py:1592
+#: src\uagent\scheckgui.py:1627
 msgid "Downloaded to"
 msgstr "已下载到"
 
-#: src/uagent\scheckgui.py:1645
+#: src\uagent\scheckgui.py:1646
 msgid "Playing"
 msgstr "正在播放"
 
-#: src/uagent\scheckgui.py:1655
+#: src\uagent\scheckgui.py:1656
 msgid "Stopped"
 msgstr "已停止"
 
-#: src/uagent\scheckgui.py:1704
+#: src\uagent\scheckgui.py:1705
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[回复] > %(text)s"
 
-#: src/uagent\scheckgui.py:1712
+#: src\uagent\scheckgui.py:1713
+#, python-format
 msgid "[USER] %(text)s"
 msgstr "[用户] %(text)s"
 
-#: src/uagent\setup_cli.py:77 src/uagent\setup_cli.py:482
-#: src/uagent\setup_cli.py:572
+#: src\uagent\setup_cli.py:77 src\uagent\setup_cli.py:482
+#: src\uagent\setup_cli.py:572
 msgid "OpenAI API key"
 msgstr "OpenAI API 密钥"
 
-#: src/uagent\setup_cli.py:78 src/uagent\setup_cli.py:483
-#: src/uagent\setup_cli.py:573
+#: src\uagent\setup_cli.py:78 src\uagent\setup_cli.py:483
+#: src\uagent\setup_cli.py:573
 msgid "OpenAI base URL (optional)"
 msgstr "OpenAI 基础 URL（可选）"
 
-#: src/uagent\setup_cli.py:79
+#: src\uagent\setup_cli.py:79
 msgid "OpenAI model/deployment name (optional)"
 msgstr "OpenAI 模型/部署名称（可选）"
 
-#: src/uagent\setup_cli.py:85 src/uagent\setup_cli.py:474
-#: src/uagent\setup_cli.py:560
+#: src\uagent\setup_cli.py:85 src\uagent\setup_cli.py:474
+#: src\uagent\setup_cli.py:560
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr "Azure 基础 URL（例如 https://<resource>.openai.azure.com/）"
 
-#: src/uagent\setup_cli.py:87 src/uagent\setup_cli.py:476
-#: src/uagent\setup_cli.py:562
+#: src\uagent\setup_cli.py:87 src\uagent\setup_cli.py:476
+#: src\uagent\setup_cli.py:562
 msgid "Azure API key"
 msgstr "Azure API 密钥"
 
-#: src/uagent\setup_cli.py:91
+#: src\uagent\setup_cli.py:91
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr "Azure API 版本（可选，例如 2024-05-01-preview）"
 
-#: src/uagent\setup_cli.py:93 src/uagent\setup_cli.py:478
+#: src\uagent\setup_cli.py:93 src\uagent\setup_cli.py:478
 msgid "Azure deployment name"
 msgstr "Azure 部署名称"
 
-#: src/uagent\setup_cli.py:99 src/uagent\setup_cli.py:491
-#: src/uagent\setup_cli.py:581
+#: src\uagent\setup_cli.py:99 src\uagent\setup_cli.py:491
+#: src\uagent\setup_cli.py:581
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr "Bedrock 网关基础 URL（例如 https://<gateway>/v1）"
 
-#: src/uagent\setup_cli.py:101 src/uagent\setup_cli.py:493
-#: src/uagent\setup_cli.py:583
+#: src\uagent\setup_cli.py:101 src\uagent\setup_cli.py:493
+#: src\uagent\setup_cli.py:583
 msgid "Bedrock API key"
 msgstr "Bedrock API 密钥"
 
-#: src/uagent\setup_cli.py:105 src/uagent\setup_cli.py:497
+#: src\uagent\setup_cli.py:105 src\uagent\setup_cli.py:497
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr "Bedrock 模型/部署名称（例如 openai.gpt-oss-120b）"
 
-#: src/uagent\setup_cli.py:109 src/uagent\setup_cli.py:502
-#: src/uagent\setup_cli.py:592
+#: src\uagent\setup_cli.py:109 src\uagent\setup_cli.py:502
+#: src\uagent\setup_cli.py:592
 msgid "OpenRouter API key"
 msgstr "OpenRouter API 密钥"
 
-#: src/uagent\setup_cli.py:110 src/uagent\setup_cli.py:503
-#: src/uagent\setup_cli.py:593
+#: src\uagent\setup_cli.py:110 src\uagent\setup_cli.py:503
+#: src\uagent\setup_cli.py:593
 msgid "OpenRouter base URL (optional)"
 msgstr "OpenRouter 基础 URL（可选）"
 
-#: src/uagent\setup_cli.py:114
+#: src\uagent\setup_cli.py:114
 msgid "OpenRouter model/deployment name (optional)"
 msgstr "OpenRouter 模型/部署名称（可选）"
 
-#: src/uagent\setup_cli.py:119
+#: src\uagent\setup_cli.py:119
 msgid "OpenRouter fallback models (optional, comma-separated)"
 msgstr "OpenRouter 回退模型（可选，逗号分隔）"
 
-#: src/uagent\setup_cli.py:123 src/uagent\setup_cli.py:508
+#: src\uagent\setup_cli.py:123 src\uagent\setup_cli.py:508
 msgid "Gemini API key"
 msgstr "Gemini API 密钥"
 
-#: src/uagent\setup_cli.py:124
+#: src\uagent\setup_cli.py:124
 msgid "Gemini model name (optional)"
 msgstr "Gemini 模型名称（可选）"
 
-#: src/uagent\setup_cli.py:127
+#: src\uagent\setup_cli.py:127
 msgid "Vertex AI API key"
 msgstr "Vertex AI API 密钥"
 
-#: src/uagent\setup_cli.py:128
+#: src\uagent\setup_cli.py:128
 msgid "Vertex AI project ID (optional)"
 msgstr "Vertex AI 项目 ID（可选）"
 
-#: src/uagent\setup_cli.py:129
+#: src\uagent\setup_cli.py:129
 msgid "Vertex AI location/region (optional)"
 msgstr "Vertex AI 位置/区域（可选）"
 
-#: src/uagent\setup_cli.py:133
+#: src\uagent\setup_cli.py:133
 msgid "Google credentials for Vertex AI (optional)"
 msgstr "Vertex AI 的 Google 凭据（可选）"
 
-#: src/uagent\setup_cli.py:138
+#: src\uagent\setup_cli.py:138
 msgid "Google location/region for Vertex AI (optional)"
 msgstr "Vertex AI 的 Google 位置/区域（可选）"
 
-#: src/uagent\setup_cli.py:140
+#: src\uagent\setup_cli.py:140
 msgid "Vertex AI model/deployment name"
 msgstr "Vertex AI 模型/部署名称"
 
-#: src/uagent\setup_cli.py:143
+#: src\uagent\setup_cli.py:143
 msgid "Grok API key"
 msgstr "Grok API 密钥"
 
-#: src/uagent\setup_cli.py:144
+#: src\uagent\setup_cli.py:144
 msgid "Grok base URL (optional)"
 msgstr "Grok 基础 URL（可选）"
 
-#: src/uagent\setup_cli.py:145
+#: src\uagent\setup_cli.py:145
 msgid "Grok model/deployment name (optional)"
 msgstr "Grok 模型/部署名称（可选）"
 
-#: src/uagent\setup_cli.py:148
+#: src\uagent\setup_cli.py:148
 msgid "Claude API key"
 msgstr "Claude API 密钥"
 
-#: src/uagent\setup_cli.py:149
+#: src\uagent\setup_cli.py:149
 msgid "Claude model/deployment name (optional)"
 msgstr "Claude 模型/部署名称（可选）"
 
-#: src/uagent\setup_cli.py:152 src/uagent\setup_cli.py:513
-#: src/uagent\setup_cli.py:607
+#: src\uagent\setup_cli.py:152 src\uagent\setup_cli.py:513
+#: src\uagent\setup_cli.py:607
 msgid "NVIDIA API key"
 msgstr "NVIDIA API 密钥"
 
-#: src/uagent\setup_cli.py:153 src/uagent\setup_cli.py:514
-#: src/uagent\setup_cli.py:608
+#: src\uagent\setup_cli.py:153 src\uagent\setup_cli.py:514
+#: src\uagent\setup_cli.py:608
 msgid "NVIDIA base URL (optional)"
 msgstr "NVIDIA 基础 URL（可选）"
 
-#: src/uagent\setup_cli.py:154
+#: src\uagent\setup_cli.py:154
 msgid "NVIDIA model/deployment name (optional)"
 msgstr "NVIDIA 模型/部署名称（可选）"
 
-#: src/uagent\setup_cli.py:160 src/uagent\setup_cli.py:601
+#: src\uagent\setup_cli.py:160 src\uagent\setup_cli.py:601
 msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
 msgstr "Ollama 基础 URL（例如 http://localhost:11434/v1）"
 
-#: src/uagent\setup_cli.py:165
+#: src\uagent\setup_cli.py:165
 msgid "Ollama API key (optional, default: dummy)"
 msgstr "Ollama API 密钥（可选，默认：dummy）"
 
-#: src/uagent\setup_cli.py:167
+#: src\uagent\setup_cli.py:167
 msgid "Ollama model/deployment name (optional)"
 msgstr "Ollama 模型/部署名称（可选）"
 
-#: src/uagent\setup_cli.py:171
+#: src\uagent\setup_cli.py:171
 msgid "Ollama request timeout in seconds (default: 60)"
 msgstr "Ollama 请求超时（秒，默认值：60）"
 
-#: src/uagent\setup_cli.py:173
+#: src\uagent\setup_cli.py:173
 msgid "Ollama temperature (default: 0.7)"
 msgstr "Ollama 温度（默认值：0.7）"
 
-#: src/uagent\setup_cli.py:174
+#: src\uagent\setup_cli.py:174
 msgid "Ollama top_p (default: 0.9)"
 msgstr "Ollama top_p（默认值：0.9）"
 
-#: src/uagent\setup_cli.py:175
+#: src\uagent\setup_cli.py:175
 msgid "Ollama top_k (default: 40)"
 msgstr "Ollama top_k（默认值：40）"
 
-#: src/uagent\setup_cli.py:179
+#: src\uagent\setup_cli.py:179
 msgid "Ollama repeat_penalty (default: 1.1)"
 msgstr "Ollama 重复惩罚（默认值：1.1）"
 
-#: src/uagent\setup_cli.py:181
+#: src\uagent\setup_cli.py:181
 msgid "Ollama keep_alive (default: 5m)"
 msgstr "Ollama 保持存活时间（默认值：5m）"
 
-#: src/uagent\setup_cli.py:182
+#: src\uagent\setup_cli.py:182
 msgid "Ollama num_ctx (default: 8192)"
 msgstr "Ollama 上下文长度（默认值：8192）"
 
-#: src/uagent\setup_cli.py:183
+#: src\uagent\setup_cli.py:183
 msgid "Ollama num_predict (default: 1024)"
 msgstr "Ollama 预测长度（默认值：1024）"
 
-#: src/uagent\setup_cli.py:345 src/uagent\setup_cli.py:434
+#: src\uagent\setup_cli.py:345 src\uagent\setup_cli.py:434
 msgid "Enter number:"
 msgstr "输入编号："
 
-#: src/uagent\setup_cli.py:358
+#: src\uagent\setup_cli.py:358
 msgid "Invalid input. Please enter a valid number."
 msgstr "输入无效。请输入有效数字。"
 
-#: src/uagent\setup_cli.py:371
+#: src\uagent\setup_cli.py:371
 #, python-format
 msgid " [default: %(default)s]"
 msgstr " [默认值：%(default)s]"
 
-#: src/uagent\setup_cli.py:387
+#: src\uagent\setup_cli.py:387
 msgid "This field is required. Please enter a value."
 msgstr "此字段为必填项。请输入一个值。"
 
-#: src/uagent\setup_cli.py:399
+#: src\uagent\setup_cli.py:399
 msgid "Select UAGENT_LANG"
 msgstr "选择 UAGENT_LANG"
 
-#: src/uagent\setup_cli.py:410
+#: src\uagent\setup_cli.py:410
 msgid "UAGENT_LANG (custom)"
 msgstr "UAGENT_LANG（自定义）"
 
-#: src/uagent\setup_cli.py:423
+#: src\uagent\setup_cli.py:423
 msgid "Select output files to generate in the current directory"
 msgstr "选择要在当前目录生成的输出文件"
 
-#: src/uagent\setup_cli.py:424
+#: src\uagent\setup_cli.py:424
 msgid "  1. .env only"
 msgstr "  1. 仅 .env"
 
-#: src/uagent\setup_cli.py:425
+#: src\uagent\setup_cli.py:425
 msgid "  2. .env + env.sh"
 msgstr "  2. .env + env.sh (Unix/Linux)"
 
-#: src/uagent\setup_cli.py:426
+#: src\uagent\setup_cli.py:426
 msgid "  3. .env + env.ps1"
 msgstr "  3. .env + env.ps1 (PowerShell)"
 
-#: src/uagent\setup_cli.py:427
+#: src\uagent\setup_cli.py:427
 msgid "  4. .env + env.bat"
 msgstr "  4. .env + env.bat (Windows)"
 
-#: src/uagent\setup_cli.py:428
+#: src\uagent\setup_cli.py:428
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + 全部（sh/ps1/bat）"
 
-#: src/uagent\setup_cli.py:430
+#: src\uagent\setup_cli.py:430
 msgid "  b. back"
 msgstr "  b. 返回"
 
-#: src/uagent\setup_cli.py:431
+#: src\uagent\setup_cli.py:431
 msgid "  q. quit"
 msgstr "  q. 退出"
 
-#: src/uagent\setup_cli.py:449
+#: src\uagent\setup_cli.py:449
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr "输入无效。请输入 1-5，或 b/q。"
 
-#: src/uagent\setup_cli.py:477 src/uagent\setup_cli.py:566
+#: src\uagent\setup_cli.py:477 src\uagent\setup_cli.py:566
 msgid "Azure API version (e.g. 2024-05-01-preview)"
 msgstr "Azure API 版本（例如 2024-05-01-preview）"
 
-#: src/uagent\setup_cli.py:484
+#: src\uagent\setup_cli.py:484
 msgid "OpenAI model/deployment name"
 msgstr "OpenAI 模型/部署名称"
 
-#: src/uagent\setup_cli.py:504
+#: src\uagent\setup_cli.py:504
 msgid "OpenRouter model/deployment name"
 msgstr "OpenRouter 模型/部署名称"
 
-#: src/uagent\setup_cli.py:509
+#: src\uagent\setup_cli.py:509
 msgid "Gemini model name"
 msgstr "Gemini 模型名称"
 
-#: src/uagent\setup_cli.py:515
+#: src\uagent\setup_cli.py:515
 msgid "NVIDIA model/deployment name"
 msgstr "NVIDIA 模型/部署名称"
 
-#: src/uagent\setup_cli.py:534
+#: src\uagent\setup_cli.py:534
 msgid "Enable image generation debug output? (0/1)"
 msgstr "启用图像生成调试输出吗？(0/1)"
 
-#: src/uagent\setup_cli.py:568
+#: src\uagent\setup_cli.py:568
 msgid "Azure embedding deployment name"
 msgstr "Azure 嵌入部署名称"
 
-#: src/uagent\setup_cli.py:574
+#: src\uagent\setup_cli.py:574
 msgid "OpenAI embedding model/deployment name"
 msgstr "OpenAI 嵌入模型/部署名称"
 
-#: src/uagent\setup_cli.py:587
+#: src\uagent\setup_cli.py:587
 msgid "Bedrock embedding model/deployment name"
 msgstr "Bedrock 嵌入模型/部署名称"
 
-#: src/uagent\setup_cli.py:594
+#: src\uagent\setup_cli.py:594
 msgid "OpenRouter embedding model/deployment name"
 msgstr "OpenRouter 嵌入模型/部署名称"
 
-#: src/uagent\setup_cli.py:603
+#: src\uagent\setup_cli.py:603
 msgid "Ollama embedding model name"
 msgstr "Ollama 嵌入模型名称"
 
-#: src/uagent\setup_cli.py:609
+#: src\uagent\setup_cli.py:609
 msgid "NVIDIA embedding model/deployment name"
 msgstr "NVIDIA 嵌入模型/部署名称"
 
-#: src/uagent\setup_cli.py:613
+#: src\uagent\setup_cli.py:613
 msgid "Gemini embedding API key"
 msgstr "Gemini embedding 的 API 密钥"
 
-#: src/uagent\setup_cli.py:617
+#: src\uagent\setup_cli.py:617
 msgid "Gemini embedding model name (e.g. text-embedding-004)"
 msgstr "Gemini embedding 模型名称（例如 text-embedding-004）"
 
-#: src/uagent\setup_cli.py:622
+#: src\uagent\setup_cli.py:622
 msgid "Vertex AI embedding API key"
 msgstr "Vertex AI embedding 的 API 密钥"
 
-#: src/uagent\setup_cli.py:626
+#: src\uagent\setup_cli.py:626
 msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
 msgstr "Vertex AI embedding 模型名称（例如 text-embedding-004）"
 
-#: src/uagent\setup_cli.py:675
+#: src\uagent\setup_cli.py:675
 msgid "Azure speech deployment name"
 msgstr "Azure 语音部署名称"
 
-#: src/uagent\setup_cli.py:676
+#: src\uagent\setup_cli.py:676
 msgid "Azure transcription deployment name"
 msgstr "Azure 转录部署名称"
 
-#: src/uagent\setup_cli.py:677
+#: src\uagent\setup_cli.py:677
 msgid "OpenAI speech model/deployment name"
 msgstr "OpenAI 语音模型/部署名称"
 
-#: src/uagent\setup_cli.py:678
+#: src\uagent\setup_cli.py:678
 msgid "OpenAI transcription model/deployment name"
 msgstr "OpenAI 转录模型/部署名称"
 
-#: src/uagent\setup_cli.py:679
+#: src\uagent\setup_cli.py:679
 msgid "Gemini speech model name (optional)"
 msgstr "Gemini 语音模型名称（可选）"
 
-#: src/uagent\setup_cli.py:680
+#: src\uagent\setup_cli.py:680
 msgid "Gemini transcription model name (optional)"
 msgstr "Gemini 转写模型名称（可选）"
 
-#: src/uagent\setup_cli.py:681
+#: src\uagent\setup_cli.py:681
 msgid "Vertex AI speech model name (optional)"
 msgstr "Vertex AI 语音模型名称（可选）"
 
-#: src/uagent\setup_cli.py:682
+#: src\uagent\setup_cli.py:682
 msgid "Vertex AI transcription model name (optional)"
 msgstr "Vertex AI 转写模型名称（可选）"
 
-#: src/uagent\setup_cli.py:705
+#: src\uagent\setup_cli.py:705
 msgid "Configure optional image / embedding / audio settings?"
 msgstr "配置可选的图像 / 嵌入 / 音频设置吗？"
 
-#: src/uagent\setup_cli.py:706 src/uagent\setup_cli.py:721
-#: src/uagent\setup_cli.py:753 src/uagent\setup_cli.py:784
-#: src/uagent\setup_cli.py:800 src/uagent\setup_cli.py:855
-#: src/uagent\setup_cli.py:914 src/uagent\setup_cli.py:1159
-#: src/uagent\setup_cli.py:1220 src/uagent\setup_cli.py:1274
-#: src/uagent\setup_cli.py:1301 src/uagent\setup_cli.py:1322
-#: src/uagent\setup_cli.py:1459
+#: src\uagent\setup_cli.py:706 src\uagent\setup_cli.py:721
+#: src\uagent\setup_cli.py:753 src\uagent\setup_cli.py:784
+#: src\uagent\setup_cli.py:800 src\uagent\setup_cli.py:855
+#: src\uagent\setup_cli.py:914 src\uagent\setup_cli.py:1159
+#: src\uagent\setup_cli.py:1220 src\uagent\setup_cli.py:1274
+#: src\uagent\setup_cli.py:1301 src\uagent\setup_cli.py:1322
+#: src\uagent\setup_cli.py:1459
 msgid "No"
 msgstr "否"
 
-#: src/uagent\setup_cli.py:706 src/uagent\setup_cli.py:721
-#: src/uagent\setup_cli.py:753 src/uagent\setup_cli.py:784
-#: src/uagent\setup_cli.py:800 src/uagent\setup_cli.py:855
-#: src/uagent\setup_cli.py:914 src/uagent\setup_cli.py:1159
-#: src/uagent\setup_cli.py:1220 src/uagent\setup_cli.py:1274
-#: src/uagent\setup_cli.py:1301 src/uagent\setup_cli.py:1322
-#: src/uagent\setup_cli.py:1459
+#: src\uagent\setup_cli.py:706 src\uagent\setup_cli.py:721
+#: src\uagent\setup_cli.py:753 src\uagent\setup_cli.py:784
+#: src\uagent\setup_cli.py:800 src\uagent\setup_cli.py:855
+#: src\uagent\setup_cli.py:914 src\uagent\setup_cli.py:1159
+#: src\uagent\setup_cli.py:1220 src\uagent\setup_cli.py:1274
+#: src\uagent\setup_cli.py:1301 src\uagent\setup_cli.py:1322
+#: src\uagent\setup_cli.py:1459
 msgid "Yes"
 msgstr "是"
 
-#: src/uagent\setup_cli.py:720
+#: src\uagent\setup_cli.py:720
 msgid "Configure image analysis settings?"
 msgstr "配置图像分析设置？"
 
-#: src/uagent\setup_cli.py:731
+#: src\uagent\setup_cli.py:731
 msgid "Select image analysis provider"
 msgstr "选择图像分析提供方"
 
-#: src/uagent\setup_cli.py:752
+#: src\uagent\setup_cli.py:752
 msgid "Configure image generation settings?"
 msgstr "配置图像生成设置？"
 
-#: src/uagent\setup_cli.py:763
+#: src\uagent\setup_cli.py:763
 msgid "Select image generation provider"
 msgstr "选择图像生成提供方"
 
-#: src/uagent\setup_cli.py:783
+#: src\uagent\setup_cli.py:783
 msgid "Open generated images automatically?"
 msgstr "自动打开生成的图像？"
 
-#: src/uagent\setup_cli.py:799
+#: src\uagent\setup_cli.py:799
 msgid "Configure embedding / semantic search settings?"
 msgstr "配置 embedding / 语义搜索设置？"
 
-#: src/uagent\setup_cli.py:825
+#: src\uagent\setup_cli.py:825
 msgid "Select embedding provider"
 msgstr "选择嵌入提供方"
 
-#: src/uagent\setup_cli.py:854
+#: src\uagent\setup_cli.py:854
 msgid "Configure audio speech / transcription settings?"
 msgstr "配置语音/转写音频设置？"
 
-#: src/uagent\setup_cli.py:873
+#: src\uagent\setup_cli.py:873
 msgid "Select audio speech provider"
 msgstr "选择语音合成提供方"
 
-#: src/uagent\setup_cli.py:893
+#: src\uagent\setup_cli.py:893
 msgid "Select audio transcribe provider"
 msgstr "选择音频转写提供方"
 
-#: src/uagent\setup_cli.py:913
+#: src\uagent\setup_cli.py:913
 msgid "Open generated audio automatically?"
 msgstr "自动打开生成的音频？"
 
-#: src/uagent\setup_cli.py:980
+#: src\uagent\setup_cli.py:980
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "可选：Responses API（Azure/OpenAI/Bedrock）"
 
-#: src/uagent\setup_cli.py:993
+#: src\uagent\setup_cli.py:993
 msgid "Optional runtime"
 msgstr "可选运行时"
 
-#: src/uagent\setup_cli.py:1007
+#: src\uagent\setup_cli.py:1007
 msgid "Optional image / embedding / audio settings"
 msgstr "可选图像 / embedding 设置"
 
-#: src/uagent\setup_cli.py:1149
+#: src\uagent\setup_cli.py:1149
 msgid "Optional specialized sub-agent settings"
 msgstr "专业子代理可选设置"
 
-#: src/uagent\setup_cli.py:1158
+#: src\uagent\setup_cli.py:1158
 msgid "Encrypt the generated .env file?"
 msgstr "加密生成的 .env 文件？"
 
-#: src/uagent\setup_cli.py:1164
+#: src\uagent\setup_cli.py:1164
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "加密后的文件将写入 %(path)s"
 
-#: src/uagent\setup_cli.py:1180
+#: src\uagent\setup_cli.py:1180
 msgid "Select provider"
 msgstr "选择提供方"
 
-#: src/uagent\setup_cli.py:1219
+#: src\uagent\setup_cli.py:1219
 msgid "Enable Responses API options?"
 msgstr "启用 Responses API 选项？"
 
-#: src/uagent\setup_cli.py:1235
+#: src\uagent\setup_cli.py:1235
 msgid "Select reasoning"
 msgstr "选择推理"
 
-#: src/uagent\setup_cli.py:1254
+#: src\uagent\setup_cli.py:1254
 msgid "Select verbosity"
 msgstr "选择详细程度"
 
-#: src/uagent\setup_cli.py:1273
+#: src\uagent\setup_cli.py:1273
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "设置可选运行时 UAGENT_WORKDIR？"
 
-#: src/uagent\setup_cli.py:1300
+#: src\uagent\setup_cli.py:1300
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "设置可选运行时 UAGENT_LANG？"
 
-#: src/uagent\setup_cli.py:1321
+#: src\uagent\setup_cli.py:1321
 msgid "Enable streaming?"
 msgstr "启用流式传输吗？"
 
-#: src/uagent\setup_cli.py:1362
+#: src\uagent\setup_cli.py:1362
 msgid "Summary"
 msgstr "摘要"
 
-#: src/uagent\setup_cli.py:1363
+#: src\uagent\setup_cli.py:1363
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "  提供方：%(provider)s"
 
-#: src/uagent\setup_cli.py:1370
+#: src\uagent\setup_cli.py:1370
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "  已启用 Responses：%(state)s"
 
-#: src/uagent\setup_cli.py:1371 src/uagent\setup_cli.py:1378
-#: src/uagent\setup_cli.py:1382 src/uagent\setup_cli.py:1388
-#: src/uagent\setup_cli.py:1394 src/uagent\setup_cli.py:1399
-#: src/uagent\setup_cli.py:1407 src/uagent\setup_cli.py:1418
+#: src\uagent\setup_cli.py:1371 src\uagent\setup_cli.py:1378
+#: src\uagent\setup_cli.py:1382 src\uagent\setup_cli.py:1388
+#: src\uagent\setup_cli.py:1394 src\uagent\setup_cli.py:1399
+#: src\uagent\setup_cli.py:1407 src\uagent\setup_cli.py:1418
 msgid "yes"
 msgstr "是"
 
-#: src/uagent\setup_cli.py:1371 src/uagent\setup_cli.py:1378
-#: src/uagent\setup_cli.py:1382 src/uagent\setup_cli.py:1388
-#: src/uagent\setup_cli.py:1394 src/uagent\setup_cli.py:1399
-#: src/uagent\setup_cli.py:1407 src/uagent\setup_cli.py:1418
+#: src\uagent\setup_cli.py:1371 src\uagent\setup_cli.py:1378
+#: src\uagent\setup_cli.py:1382 src\uagent\setup_cli.py:1388
+#: src\uagent\setup_cli.py:1394 src\uagent\setup_cli.py:1399
+#: src\uagent\setup_cli.py:1407 src\uagent\setup_cli.py:1418
 msgid "no"
 msgstr "否"
 
-#: src/uagent\setup_cli.py:1377
+#: src\uagent\setup_cli.py:1377
 #, python-format
 msgid "  Streaming enabled: %(state)s"
 msgstr "  已启用流式传输：%(state)s"
 
-#: src/uagent\setup_cli.py:1393
+#: src\uagent\setup_cli.py:1393
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "  已启用可选附加功能：%(state)s"
 
-#: src/uagent\setup_cli.py:1398
+#: src\uagent\setup_cli.py:1398
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "  已启用图像分析：%(state)s"
 
-#: src/uagent\setup_cli.py:1406
+#: src\uagent\setup_cli.py:1406
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "  已启用图像生成：%(state)s"
 
-#: src/uagent\setup_cli.py:1417
+#: src\uagent\setup_cli.py:1417
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "  已启用 embedding：%(state)s"
 
-#: src/uagent\setup_cli.py:1427
+#: src\uagent\setup_cli.py:1427
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "  输出：%(outputs)s"
 
-#: src/uagent\setup_cli.py:1430
+#: src\uagent\setup_cli.py:1430
 msgid "Generate files with this configuration?"
 msgstr "使用此配置生成文件？"
 
-#: src/uagent\setup_cli.py:1431
+#: src\uagent\setup_cli.py:1431
 msgid "Yes, generate"
 msgstr "是，生成"
 
-#: src/uagent\setup_cli.py:1431
+#: src\uagent\setup_cli.py:1431
 msgid "Back"
 msgstr "返回"
 
-#: src/uagent\setup_cli.py:1455
+#: src\uagent\setup_cli.py:1455
 msgid "The following files already exist and will be overwritten:"
 msgstr "以下文件已存在，将被覆盖："
 
-#: src/uagent\setup_cli.py:1459
+#: src\uagent\setup_cli.py:1459
 msgid "Proceed?"
 msgstr "继续？"
 
-#: src/uagent\setup_cli.py:1483
+#: src\uagent\setup_cli.py:1483
 msgid "Plain .env file removed after encryption."
 msgstr "加密后已删除明文 .env 文件。"
 
-#: src/uagent\setup_cli.py:1486
+#: src\uagent\setup_cli.py:1486
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "警告：无法删除明文 .env：%(error)s"
 
-#: src/uagent\setup_cli.py:1505
+#: src\uagent\setup_cli.py:1505
 #, python-format
 msgid "generated: %(path)s"
 msgstr "已生成：%(path)s"
 
-#: src/uagent\uagent_llm.py:131
+#: src\uagent\uagent_llm.py:131
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[警告] 工具轮次已超过 %(max)d；正在中止。"
 
-#: src/uagent\util_providers.py:243
+#: src\uagent\util_providers.py:243
 msgid "Environment variable UAGENT_PROVIDER is not set."
 msgstr "环境变量 UAGENT_PROVIDER 未设置。"
 
-#: src/uagent\util_providers.py:259
+#: src\uagent\util_providers.py:259
 #, python-format
 msgid "Unknown provider: %(provider)s"
 msgstr "未知提供方：%(provider)s"
 
-#: src/uagent\util_providers.py:544 src/uagent\util_providers.py:570
+#: src\uagent\util_providers.py:544 src\uagent\util_providers.py:570
 msgid "google-genai package is not installed."
 msgstr "未安装 google-genai 包。"
 
-#: src/uagent\util_tools.py:180
+#: src\uagent\util_tools.py:181
 #, python-format
 msgid "image file not found: %(path)s"
 msgstr "未找到图像文件：%(path)s"
 
-#: src/uagent\util_tools.py:185
+#: src\uagent\util_tools.py:186
 #, python-format
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "图像文件过大：%(size)d 字节（限制=%(max)d）"
 
-#: src/uagent\util_tools.py:209
+#: src\uagent\util_tools.py:210
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
 msgstr "指定工作目录。未设置时，使用 UAGENT_WORKDIR 环境变量或当前目录。"
 
-#: src/uagent\util_tools.py:216
+#: src\uagent\util_tools.py:217
 msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the"
-" startup file (if any)."
+"Non-interactive mode. Do not start the stdin loop; exit after processing the "
+"startup file (if any)."
 msgstr "非交互模式。不要启动 stdin 循环；处理启动文件（如果有）后退出。"
 
-#: src/uagent\util_tools.py:354
+#: src\uagent\util_tools.py:355
 msgid "invalid reasoning"
 msgstr "无效的 reasoning"
 
-#: src/uagent\util_tools.py:372
+#: src\uagent\util_tools.py:373
 msgid "invalid verbosity"
 msgstr "无效的详细级别"
 
-#: src/uagent\util_tools.py:546
+#: src\uagent\util_tools.py:547
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr "[logs] 参数无效：%(arg)r（请指定 all / --all / -a / 数字）"
 
-#: src/uagent\util_tools.py:585
+#: src\uagent\util_tools.py:586
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "解析参数失败：%(err)s"
 
-#: src/uagent\util_tools.py:588
+#: src\uagent\util_tools.py:589
 msgid "missing arguments"
 msgstr "缺少参数"
 
-#: src/uagent\util_tools.py:604
+#: src\uagent\util_tools.py:605
 msgid "src and dst are required"
 msgstr "需要 src 和 dst"
 
-#: src/uagent\util_tools.py:972
+#: src\uagent\util_tools.py:973
 msgid ""
 "[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"This skill is intended to be run. Read the skill body carefully and follow "
+"the instructions.\n"
 "If the skill contains tasks, continue until they are complete.\n"
 "Use tools as needed.\n"
 msgstr ""
 "[技能执行]\n"
-"此 skill  предназнач intended to be run. Read the skill body carefully and follow the instructions.\n"
+"此 skill  предназнач intended to be run. Read the skill body carefully and "
+"follow the instructions.\n"
 "如果 skill 包含任务，请继续直到完成。\n"
 "按需使用工具。\n"
 
-#: src/uagent\util_tools.py:979
+#: src\uagent\util_tools.py:980
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "完成后，如果可用，请始终调用 `finish_skill`。\n"
 
-#: src/uagent\util_tools.py:1131
+#: src\uagent\util_tools.py:1132
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1901,10 +1917,11 @@ msgstr ""
 "提示：:skills clear（移除已应用的 skill）\n"
 "请输入编号："
 
-#: src/uagent\util_tools.py:1167
+#: src\uagent\util_tools.py:1168
 #, python-format
 msgid ""
-"Run this skill as a system-level instruction and keep it active in this session?\n"
+"Run this skill as a system-level instruction and keep it active in this "
+"session?\n"
 "\n"
 "Name: %(name)s\n"
 "Path: %(path)s\n"
@@ -1918,14 +1935,15 @@ msgstr ""
 "\n"
 "继续吗？输入 y 运行，或输入 c 取消。"
 
-#: src/uagent\util_tools.py:1229
+#: src\uagent\util_tools.py:1230
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
-msgstr "[clean] 参数无效：%(arg)r（指定 number=threshold；默认值为 %(default)d）"
+msgstr ""
+"[clean] 参数无效：%(arg)r（指定 number=threshold；默认值为 %(default)d）"
 
-#: src/uagent\util_tools.py:1278
+#: src\uagent\util_tools.py:1279
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1942,15 +1960,16 @@ msgstr ""
 "\n"
 "继续吗？输入 y 执行，输入 c 取消。"
 
-#: src/uagent\util_tools.py:1346
+#: src\uagent\util_tools.py:1347
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr " - （%(count)d 条消息）%(path)s"
 
-#: src/uagent\util_tools.py:1390
+#: src\uagent\util_tools.py:1391
 #, python-format
 msgid ""
-"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"will overwrite the current session log file and prepend the loaded log (no "
+"backup).\n"
 "\n"
 "Current log: %(cur_log)s\n"
 "Source log: %(src_log)s\n"
@@ -1964,7 +1983,7 @@ msgstr ""
 "\n"
 "继续吗？输入 y 执行，输入 c 取消。"
 
-#: src/uagent\util_tools.py:1521
+#: src\uagent\util_tools.py:1522
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1979,212 +1998,224 @@ msgstr ""
 "\n"
 "输入 y 继续，或输入 c 取消。"
 
-#: src/uagent\util_tools.py:1576
+#: src\uagent\util_tools.py:1577
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "指定的索引 %(idx)d 超出范围。"
 
-#: src/uagent\util_tools.py:1585
+#: src\uagent\util_tools.py:1586
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "未找到日志文件：%(path)s"
 
-#: src/uagent\util_tools.py:1668
+#: src\uagent\util_tools.py:1669
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink 错误] 无法解析为整数：%(arg)r -> 保留最后 %(keep)d 条"
 
-#: src/uagent\util_tools.py:1696
+#: src\uagent\util_tools.py:1697
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[shrink_llm 错误] 无法将其解析为整数：%(arg)r -> 保留最后 %(keep)d 个"
 
-#: src/uagent\util_tools.py:1755 src/uagent\util_tools.py:1835
+#: src\uagent\util_tools.py:1756 src\uagent\util_tools.py:1836
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr "未启用共享长期记忆（未设置 UAGENT_SHARED_MEMORY_FILE）。"
 
-#: src/uagent\util_tools.py:1786
+#: src\uagent\util_tools.py:1787
 msgid "Analyzing past logs to generate user profile..."
 msgstr "正在分析之前的日志以生成用户画像……"
 
-#: src/uagent\util_tools.py:1790
+#: src\uagent\util_tools.py:1791
 msgid "No past logs found or failed to generate profile."
 msgstr "未找到之前的日志或无法生成画像。"
 
-#: src/uagent\util_tools.py:1792
+#: src\uagent\util_tools.py:1793
 #, fuzzy
 msgid "User profile generated successfully from past logs!"
 msgstr "用户画像已成功清除。"
 
-#: src/uagent\util_tools.py:1804
+#: src\uagent\util_tools.py:1805
 msgid "No user profile data found."
 msgstr "未找到用户画像数据。"
 
-#: src/uagent\util_tools.py:1807
+#: src\uagent\util_tools.py:1808
 msgid "User Profile:"
 msgstr "用户画像:"
 
-#: src/uagent\util_tools.py:1819
+#: src\uagent\util_tools.py:1820
 msgid "User profile cleared successfully."
 msgstr "用户画像已成功清除。"
 
-#: src/uagent\util_tools.py:1823
+#: src\uagent\util_tools.py:1824
 msgid "No user profile file found to clear."
 msgstr "未找到可清除的用户画像文件。"
 
-#: src/uagent\util_tools.py:1887
+#: src\uagent\util_tools.py:1888
 msgid "Show this help"
 msgstr "显示此帮助"
 
-#: src/uagent\util_tools.py:1888
+#: src\uagent\util_tools.py:1889
 msgid "Restart input from the beginning"
 msgstr "从头重新输入"
 
-#: src/uagent\util_tools.py:1889
+#: src\uagent\util_tools.py:1890
 msgid "Show log file list"
 msgstr "显示日志文件列表"
 
-#: src/uagent\util_tools.py:1892
+#: src\uagent\util_tools.py:1893
 msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
-":cd /)"
-msgstr "无需确认即可更改工作目录（例如：:cd .. / :cd ~ / :cd C:\\path / :cd /）"
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:"
+"\\path / :cd /)"
+msgstr ""
+"无需确认即可更改工作目录（例如：:cd .. / :cd ~ / :cd C:\\path / :cd /）"
 
-#: src/uagent\util_tools.py:1895
+#: src\uagent\util_tools.py:1896
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "列出目录条目（例如：:ls / :ls .. / :ls ~ / :ls C:\\path）"
 
-#: src/uagent\util_tools.py:1898
+#: src\uagent\util_tools.py:1899
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "管理 UAGENT_* 环境变量并保存 .env.sec"
 
-#: src/uagent\util_tools.py:1900
+#: src\uagent\util_tools.py:1901
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "管理/应用技能（例如：:skills / :skills active / :skills clear）"
 
-#: src/uagent\util_tools.py:1905
+#: src\uagent\util_tools.py:1906
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "加载历史日志（会覆盖当前会话历史）"
 
-#: src/uagent\util_tools.py:1907
+#: src\uagent\util_tools.py:1908
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
 "log file (overwrite, no backup)."
 msgstr ""
-"                       注意：运行后会要求确认；选择 'y' 会把加载的日志追加到当前会话日志文件开头（覆盖写入，不备份）。"
+"                       注意：运行后会要求确认；选择 'y' 会把加载的日志追加到"
+"当前会话日志文件开头（覆盖写入，不备份）。"
 
-#: src/uagent\util_tools.py:1911
+#: src\uagent\util_tools.py:1912
 msgid ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of "
-"user/assistant/tool messages (excluding system) is <= N (default=10)"
+"Delete conversation logs (scheck_log_*.jsonl) where the count of user/"
+"assistant/tool messages (excluding system) is <= N (default=10)"
 msgstr ""
-"删除对话日志（scheck_log_*.jsonl），其中 user/assistant/tool 消息数（不含 system）<= N（默认=10）"
+"删除对话日志（scheck_log_*.jsonl），其中 user/assistant/tool 消息数（不含 "
+"system）<= N（默认=10）"
 
-#: src/uagent\util_tools.py:1915
+#: src\uagent\util_tools.py:1916
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr "收缩会话历史（保留最近 N 条非 system 消息；默认=40）"
 
-#: src/uagent\util_tools.py:1919
+#: src\uagent\util_tools.py:1920
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
-msgstr "通过 LLM 摘要收缩历史（将较早历史总结为 1 条 system 消息；保留最近 N 条原文；默认=20）"
+msgstr ""
+"通过 LLM 摘要收缩历史（将较早历史总结为 1 条 system 消息；保留最近 N 条原文；"
+"默认=20）"
 
-#: src/uagent\util_tools.py:1921
+#: src\uagent\util_tools.py:1922
 msgid "List long-term memory notes"
 msgstr "长期记忆条目："
 
-#: src/uagent\util_tools.py:1923
+#: src\uagent\util_tools.py:1924
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ":mem-del <index>      按索引删除长期记忆笔记（参见 :mem-list）"
 
-#: src/uagent\util_tools.py:1925
+#: src\uagent\util_tools.py:1926
 #, fuzzy
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr "显示已学习的用户画像（环境、偏好、约束）"
 
-#: src/uagent\util_tools.py:1926
+#: src\uagent\util_tools.py:1927
 #, fuzzy
 msgid "Generate user profile from past logs"
 msgstr "未找到用户画像数据。"
 
-#: src/uagent\util_tools.py:1927
+#: src\uagent\util_tools.py:1928
 msgid "Clear the learned user profile data"
 msgstr "清除已学习的用户画像数据"
 
-#: src/uagent\util_tools.py:1929
+#: src\uagent\util_tools.py:1930
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "复制文件或目录（支持 -f/--overwrite 和 -p/--mkdirs）"
 
-#: src/uagent\util_tools.py:1931
+#: src\uagent\util_tools.py:1932
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "移动文件或目录（支持 -f/--overwrite 和 -p/--mkdirs）"
 
-#: src/uagent\util_tools.py:1933
+#: src\uagent\util_tools.py:1934
 msgid "Show the first n lines of a file (default=20)"
 msgstr "显示文件前 n 行（默认=20）"
 
-#: src/uagent\util_tools.py:1934
+#: src\uagent\util_tools.py:1935
 msgid "Show the last n lines of a file (default=20)"
 msgstr "显示文件后 n 行（默认=20）"
 
-#: src/uagent\util_tools.py:1936
+#: src\uagent\util_tools.py:1937
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr ":rm <path|glob>       通过预览和确认删除文件/目录"
 
-#: src/uagent\util_tools.py:1938
-msgid ""
-"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+#: src\uagent\util_tools.py:1939
+msgid "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  设置推理模式（0=关闭，1=低，2=中，3=高；auto/minimal/xhigh）"
+":r [0|1|2|3|auto|minimal|xhigh]  设置推理模式（0=关闭，1=低，2=中，3=高；"
+"auto/minimal/xhigh）"
 
-#: src/uagent\util_tools.py:1940
+#: src\uagent\util_tools.py:1941
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3]          设置详细程度（0=关闭，1=低，2=中，3=高；无参数=保持）"
+msgstr ""
+":v [0|1|2|3]          设置详细程度（0=关闭，1=低，2=中，3=高；无参数=保持）"
 
-#: src/uagent\util_tools.py:1941
+#: src\uagent\util_tools.py:1942
 msgid "Exit"
 msgstr "正在退出。"
 
-#: src/uagent\util_tools.py:1944
+#: src\uagent\util_tools.py:1945
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "  - 输入仅包含 'f' 的一行即可进入多行输入模式。"
 
-#: src/uagent\util_tools.py:1946
+#: src\uagent\util_tools.py:1947
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
 msgstr "  - 要结束多行输入模式，请输入完全等于 %(sentinel)s 的一行。"
 
-#: src/uagent\util_tools.py:2181
+#: src\uagent\util_tools.py:2183
 msgid "Exiting."
 msgstr "正在退出。"
 
-#: src/uagent\util_tools.py:2184
+#: src\uagent\util_tools.py:2186
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "未知命令：:%(cmd)s"
 
-#: src/uagent\util_tools.py:2335
+#: src\uagent\util_tools.py:2337
 msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"The bullet points listed below are excerpts from this user's long-term "
+"memory (persistent memos). Use them as background information about the "
+"user. However, always prioritize newly provided information in the "
+"conversation, and if it contradicts older information, adopt the latest "
+"information.\n"
 "\n"
 msgstr ""
-"下面列出的要点摘自该用户的长期记忆（持久备忘录）。请将其作为关于该用户的背景信息。不过，始终优先使用对话中最新提供的信息；如果它与旧信息冲突，请采用最新信息。\n"
+"下面列出的要点摘自该用户的长期记忆（持久备忘录）。请将其作为关于该用户的背景"
+"信息。不过，始终优先使用对话中最新提供的信息；如果它与旧信息冲突，请采用最新"
+"信息。\n"
 "\n"
 
-#: src/uagent\web.py:534
+#: src\uagent\web.py:534
 msgid ""
 "[WARN] Another task is already running in this room. Please retry after it "
 "completes."
 msgstr "[WARN] 此房间中已有其他任务在运行。请在完成后重试。"
 
-#: src/uagent\web.py:626 src/uagent\web.py:748
+#: src\uagent\web.py:626 src\uagent\web.py:748
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2192,27 +2223,30 @@ msgstr ""
 "[FATAL] 未设置环境变量 UAGENT_PROVIDER。\n"
 "请在启动 Web 服务器时检查环境变量。"
 
-#: src/uagent\web.py:664
+#: src\uagent\web.py:664
+#, python-format
 msgid "[Attached Image] %(name)s"
 msgstr "[附加图片] %(name)s"
 
-#: src/uagent\web.py:669
+#: src\uagent\web.py:669
+#, python-format
 msgid "[Attached File] %(name)s"
 msgstr "[附加文件] %(name)s"
 
-#: src/uagent\web.py:670
+#: src\uagent\web.py:670
+#, python-format
 msgid "[File Path] %(path)s"
 msgstr "[文件路径] %(path)s"
 
-#: src/uagent\web.py:698
+#: src\uagent\web.py:698
 msgid "[INFO] Loaded long-term memory."
 msgstr "[INFO] 已加载长期记忆。"
 
-#: src/uagent\web.py:710
+#: src\uagent\web.py:710
 msgid "[INFO] Loaded shared long-term memory."
 msgstr "[INFO] 已加载共享长期记忆。"
 
-#: src/uagent\web.py:745
+#: src\uagent\web.py:745
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2221,23 +2255,23 @@ msgstr ""
 "[FATAL] Web worker 错误。\n"
 "%(err)s"
 
-#: src/uagent\web.py:882
+#: src\uagent\web.py:882
 msgid "missing path"
 msgstr "缺少路径"
 
-#: src/uagent\web.py:889
+#: src\uagent\web.py:889
 msgid "path outside workdir"
 msgstr "路径位于工作目录之外"
 
-#: src/uagent\web.py:1051
+#: src\uagent\web.py:1051
 msgid "Starting server on"
 msgstr "正在启动服务器："
 
-#: src/uagent\web.py:1053
+#: src\uagent\web.py:1053
 msgid "External URL:"
 msgstr "外部 URL："
 
-#: src/uagent\welcome.py:29
+#: src\uagent\welcome.py:29
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found."
@@ -2245,7 +2279,7 @@ msgstr ""
 "[MCP 服务器]\n"
 "- 未找到配置文件。"
 
-#: src/uagent\welcome.py:36
+#: src\uagent\welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered."
@@ -2253,11 +2287,11 @@ msgstr ""
 "[MCP 服务器]\n"
 "- 没有已注册的服务器。"
 
-#: src/uagent\welcome.py:38
+#: src\uagent\welcome.py:38
 msgid "[MCP Servers]"
 msgstr "[MCP 服务器]"
 
-#: src/uagent\welcome.py:45
+#: src\uagent\welcome.py:45
 #, python-format
 msgid ""
 "[MCP Servers]\n"
@@ -2266,72 +2300,132 @@ msgstr ""
 "[MCP 服务器]\n"
 "- 获取信息失败：%(err)s"
 
-#: src/uagent\welcome.py:64
+#: src\uagent\welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[快速指南]"
 
-#: src/uagent\welcome.py:65
+#: src\uagent\welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr "- 聊天：输入消息并发送（GUI 中也可使用 Ctrl+Enter）。"
 
-#: src/uagent\welcome.py:67
+#: src\uagent\welcome.py:67
 msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with "
+"\"\"\"end)."
 msgstr "- 多行：输入仅包含 'f' 的一行可进入多行模式（以 \"\"\"end 结束）。"
 
-#: src/uagent\welcome.py:70
+#: src\uagent\welcome.py:70
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.). Note: commands start with ':' (colon) instead of '/' "
 "(slash)."
-msgstr "- 命令：输入 ':help' 查看系统命令（日志管理、历史压缩等）。注意：命令以 ':'（冒号）开头，而不是 '/'（斜杠）。"
+msgstr ""
+"- 命令：输入 ':help' 查看系统命令（日志管理、历史压缩等）。注意：命令以 "
+"':'（冒号）开头，而不是 '/'（斜杠）。"
 
-#: src/uagent\welcome.py:72
+#: src\uagent\welcome.py:72
 msgid "- Exit: ':exit' or ':quit' ends the session."
 msgstr "- 退出：使用 ':exit' 或 ':quit' 结束会话。"
 
-#: src/uagent\welcome.py:74
+#: src\uagent\welcome.py:74
 msgid ""
 "- Images: GUI supports drag & drop; in CUI you can input a file path for "
 "image analysis."
 msgstr "- 图像：GUI 支持拖放；在 CUI 中可输入文件路径进行图像分析。"
 
-#: src/uagent\welcome.py:77
+#: src\uagent\welcome.py:77
 #, python-format
 msgid ""
 "- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
 "Inspector help (`--path/--open` also available)."
 msgstr ""
-"- Docs: `%(docs_cmd)s` 显示随附文档；`%(webinspect_cmd)s` 显示 Web Inspector 帮助（也可使用 "
-"`--path/--open`）。"
+"- Docs: `%(docs_cmd)s` 显示随附文档；`%(webinspect_cmd)s` 显示 Web Inspector "
+"帮助（也可使用 `--path/--open`）。"
 
-#: src/uagent\welcome.py:81
+#: src\uagent\welcome.py:81
 msgid "[Examples]"
 msgstr "[示例]"
 
-#: src/uagent\welcome.py:82
+#: src\uagent\welcome.py:82
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr "- \"分析此文件夹中的源代码并创建 README.md。\""
 
-#: src/uagent\welcome.py:84
+#: src\uagent\welcome.py:84
 msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window"
-" contents.\""
+"- \"Take a screenshot of the current desktop and describe the visible window "
+"contents.\""
 msgstr "- \"截取当前桌面的屏幕截图并描述可见窗口内容。\""
 
-#: src/uagent\welcome.py:86
+#: src\uagent\welcome.py:86
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr "- \"根据此 Excel 文件创建每月摘要报告。\""
 
-#: src/uagent\welcome.py:87
+#: src\uagent\welcome.py:87
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"阅读此 PDF 并列出三个要点。\""
 
-#: src/uagent\welcome.py:88
+#: src\uagent\welcome.py:88
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"搜索最新新闻并总结一个特定主题。\""
 
-#: src/uagent\welcome.py:193
+#: src\uagent\welcome.py:193
 msgid "-- More -- (Enter: next) "
 msgstr "-- 更多 --（Enter：下一页）"
+
+#: src\uagent\a2a\engine.py:125
+msgid "No assistant message produced."
+msgstr "没有生成助手消息。"
+
+#: src\uagent\a2a\engine.py:137
+msgid "Generated image(s)."
+msgstr "已生成图像。"
+
+#: src\uagent\a2a\engine.py:150
+#, python-format
+msgid "ECHO: %(text)s"
+msgstr "输出: %(text)s"
+
+#: src\uagent\a2a\engine.py:165
+#, python-format
+msgid "uagent initialization failed: %(err)s"
+msgstr "uagent 初始化失败：%(err)s"
+
+#: src\uagent\a2a\engine.py:177
+#, python-format
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "uagent 执行失败：%(etype)s: %(err)s"
+
+#: src\uagent\a2a\engine.py:188
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "未知的 UAGENT_A2A_ENGINE：%(mode)s"
+
+#: src\uagent\tools\tools_control_tool.py:84
+msgid "msg.tools.no_tools"
+msgstr "[tools] 未加载任何工具。"
+
+#: src\uagent\tools\tools_control_tool.py:104
+msgid "msg.tools.loaded_count"
+msgstr "[tools] 已加载 {n} 个工具"
+
+#: src\uagent\tools\tools_control_tool.py:118
+msgid "cmd.help.tools_list"
+msgstr "  :tools list [query]               列出已加载的工具，可选择按名称/描述进行过滤"
+
+#: src\uagent\tools\tools_control_tool.py:124
+msgid "cmd.help.tools_on"
+msgstr ""
+"  :tools on comm                    启用通信工具 (Teams, Discord)
+  :tools on office                  启用办公工具 (Excel, Word 等)
+  :tools on devel                   启用开发工具 (lint, py_compile, tests)"
+
+#: src\uagent\tools\tools_control_tool.py:130
+msgid "cmd.help.tools_off"
+msgstr ""
+"  :tools off comm                   禁用通信工具 (Teams, Discord)
+  :tools off office                 禁用办公工具 (Excel, Word 等)
+  :tools off devel                  禁用开发工具 (lint, py_compile, tests)"
+
+#: src\uagent\tools\tools_control_tool.py:141
+msgid "tool.description"
+msgstr "用于工具控制命令注册的虚拟工具。"

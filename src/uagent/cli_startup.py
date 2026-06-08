@@ -17,11 +17,14 @@ class CliStartupState:
 
 
 def _prompt_startup_tool_genre_mask() -> int:
-    prompt = """起動時に有効化するツール群を選んでください。
-1: comm  - 通信系（Teams/Discord など）
-2: office - Office系（Excel/Word など）
-4: devel  - 開発系（lint / py_compile / test など）
-合計値を入力してください（例: 3 = comm + office, 7 = 全部）。"""
+    from .i18n import _
+    prompt = _(
+        "Select tool genres to enable at startup.\n"
+        "1: comm  - Communication (Teams, Discord, etc.)\n"
+        "2: office - Office suite (Excel, Word, etc.)\n"
+        "4: devel  - Development (lint, py_compile, test, etc.)\n"
+        "Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to skip):"
+    )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
         try:
