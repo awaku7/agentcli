@@ -18,7 +18,15 @@ def _set_devel_tools_enabled(enabled: bool) -> str:
     from . import TOOL_SPECS, _RUNNERS, _register_tool_module, _sort_registered_tools
     from importlib import import_module
 
-    devel_modules = ["lint_format_tool", "python_compile_tool", "run_tests_tool"]
+    devel_modules = [
+        "binary_edit_tool",
+        "git_ops_tool",
+        "lint_format_tool",
+        "playwright_inspector_tool",
+        "python_compile_tool",
+        "run_tests_tool",
+        "system_reload_tool",
+    ]
     changed_names = []
 
     if enabled:
