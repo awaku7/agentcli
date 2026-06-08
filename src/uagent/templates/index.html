@@ -6,7 +6,7 @@
     <title>UAGENT WEB</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .chat-container { flex-grow: 1; height: 10px; } /* flex-grow will handle the height dynamically */
+        .chat-container { flex-grow: 1; min-height: 0; }
         pre { white-space: pre-wrap; word-wrap: break-word; }
         .role-user { background-color: #f3f4f6; align-self: flex-end; }
         .role-assistant { background-color: #dcf8c6; align-self: flex-start; }
@@ -114,6 +114,7 @@
     </div> <!-- End of Split-View Container -->
 
     <script>
+        {% raw %}
         let ws;
         let WEB_VERBOSE = false;
         let currentHumanAskIsPassword = false;
@@ -135,12 +136,12 @@
                     // Inject Tailwind CSS CDN automatically if not present to ensure beautiful rendering
                     let finalHtml = html;
                     if (!html.includes('tailwindcss') && !html.includes('cdn.tailwindcss.com')) {
-                        if (html.includes('</head>')) {
-                            finalHtml = html.replace('</head>', '<script src="https://cdn.tailwindcss.com"></script></head>');
-                        } else if (html.includes('<head>')) {
-                            finalHtml = html.replace('<head>', '<head><script src="https://cdn.tailwindcss.com"></script>');
+                        if (html.includes('</' + 'head>')) {
+                            finalHtml = html.replace('</' + 'head>', '<' + 'script src="https://cdn.tailwindcss.com"></' + 'script></' + 'head>');
+                        } else if (html.includes('<' + 'head>')) {
+                            finalHtml = html.replace('<' + 'head>', '<' + 'head><' + 'script src="https://cdn.tailwindcss.com"></' + 'script>');
                         } else {
-                            finalHtml = '<script src="https://cdn.tailwindcss.com"></script>' + html;
+                            finalHtml = '<' + 'script src="https://cdn.tailwindcss.com"></' + 'script>' + html;
                         }
                     }
                     iframe.srcdoc = finalHtml;
@@ -193,7 +194,7 @@
             let lastHtml = '';
             while ((match = codeBlockRegex.exec(text)) !== null) {
                 const code = match[1].trim();
-                if (code.includes('<html') || code.includes('<!DOCTYPE') || code.includes('<div') || code.includes('<button') || code.includes('<script') || code.includes('<style')) {
+                if (code.includes('<' + 'html') || code.includes('<!' + 'DOCTYPE') || code.includes('<' + 'div') || code.includes('<' + 'button') || code.includes('<' + 'script') || code.includes('<' + 'style')) {
                     lastHtml = code;
                 }
             }
@@ -1029,6 +1030,7 @@
 
         applyI18n(UI_LANG);
         connect();
+        {% endraw %}
     </script>
 </body>
 </html>
