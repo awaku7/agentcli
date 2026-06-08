@@ -23,7 +23,7 @@ def _prompt_startup_tool_genre_mask() -> int:
         "1: comm  - Communication (Teams, Discord, etc.)\n"
         "2: office - Office suite (Excel, Word, etc.)\n"
         "4: devel  - Development (lint, py_compile, test, etc.)\n"
-        "Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to skip):"
+        "Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
     )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
@@ -40,7 +40,7 @@ def _prompt_startup_tool_genre_mask() -> int:
                 sys.__stderr__.flush()
             except Exception:
                 pass
-            return 0
+            return 7
         except Exception as e:
             try:
                 sys.__stderr__.write(
@@ -49,9 +49,9 @@ def _prompt_startup_tool_genre_mask() -> int:
                 sys.__stderr__.flush()
             except Exception:
                 pass
-            return 0
+            return 7
         if not raw:
-            return 0
+            return 7
         try:
             value = int(raw, 10)
         except Exception:
