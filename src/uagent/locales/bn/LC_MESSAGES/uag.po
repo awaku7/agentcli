@@ -1,2574 +1,2525 @@
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: uag\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 11:03+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-
-#: src\uagent\checks.py:17 src\uagent\checks.py:27
-#, python-format
-msgid "Please install Git. See: %(url)s"
-msgstr "অনুগ্রহ করে Git ইনস্টল করুন। দেখুন: %(url)s"
-
-#: src\uagent\checks.py:20
-msgid ""
-"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
-"yum install git (CentOS/RHEL)"
-msgstr ""
-"অনুগ্রহ করে গিট ইনস্টল করুন। উদাহরণ: sudo apt install git (Ubuntu/Debian) অথবা "
-"sudo yum install git (CentOS/RHEL)অনুগ্রহ করে গিট ইন্সটল করুন। উদাহরণ: sudo apt "
-"install git (Ubuntu/Debian) বা sudo yum install git (CentOS/RHEL)"
-
-#: src\uagent\checks.py:23
-msgid ""
-"Please install Git. If using Homebrew: brew install git, or install Xcode "
-"Command Line Tools: xcode-select --install"
-msgstr ""
-"অনুগ্রহ করে গিট ইনস্টল করুন। Homebrew ব্যবহার করলে: brew install git, অথবা Xcode "
-"Command Line Tools ইনস্টল করুন: xcode-select --installঅনুগ্রহ করে গিট ইন্সটল করুন। "
-"হোমব্রু ব্যবহার করলে: brew install git, অথবা Xcode কমান্ড লাইন টুল ইনস্টল করুন: "
-"xcode-select --install"
-
-#: src\uagent\checks.py:30
-msgid "[ERROR] Git is not installed."
-msgstr "[ত্রুটি] Git ইনস্টল করা নেই।"
-
-#: src\uagent\cli.py:397
-msgid "getch() fallback to input()"
-msgstr "getch() ব্যর্থ হলে input() ব্যবহার করা হবে"
-
-#: src\uagent\cli.py:604
-msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "Ctrl+C গ্রহণ করা হয়েছে। বন্ধ করা হচ্ছে..."
-
-#: src\uagent\cli.py:636 src\uagent\cli.py:706
-#, python-format
-msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-msgstr ""
-"(বহু-লাইন ইনপুট মোড: বডি একাধিক লাইনে লিখুন; পুনরায় শুরু করতে \"\"\"retry টাইপ "
-"করুন; %(sentinel)s থাকা একটি লাইন দিয়ে শেষ করুন)(মাল্টিলাইন ইনপুট মোড: একাধিক "
-"লাইনে বডি প্রবেশ করান; রিস্টার্ট করতে, টাইপ করুন \"\"\"পুনরায় চেষ্টা করুন; "
-"%(sentinel)s সমন্বিত একটি লাইন দিয়ে শেষ করুন)"
-
-#: src\uagent\cli.py:666 src\uagent\setup_cli.py:1183
-#: src\uagent\setup_cli.py:1202 src\uagent\setup_cli.py:1225
-#: src\uagent\setup_cli.py:1241 src\uagent\setup_cli.py:1260
-#: src\uagent\setup_cli.py:1279 src\uagent\setup_cli.py:1293
-#: src\uagent\setup_cli.py:1306 src\uagent\setup_cli.py:1314
-#: src\uagent\setup_cli.py:1327 src\uagent\setup_cli.py:1339
-#: src\uagent\setup_cli.py:1350 src\uagent\setup_cli.py:1436
-#: src\uagent\setup_cli.py:1462
-msgid "Cancelled."
-msgstr "বাতিল করা হয়েছে।"
-
-#: src\uagent\cli.py:672 src\uagent\cli.py:722
-msgid "Discarded previous input. Please start over."
-msgstr "পূর্ববর্তী ইনপুট বাতিল করা হয়েছে। আবার শুরু করুন।"
-
-#: src\uagent\cli.py:683
-msgid "Received multiline reply."
-msgstr "বহু-লাইন উত্তর পাওয়া গেছে।"
-
-#: src\uagent\cli.py:841
-msgid ""
-"Image file paths were found in your input.\n"
-"Do you want to send these images to the LLM (external API) for analysis?\n"
-"\n"
-msgstr ""
-"ইমেজ ফাইল পাথ আপনার ইনপুট পাওয়া গেছে.\n"
-"আপনি বিশ্লেষণের জন্য LLM (বাহ্যিক API) এই ছবি পাঠাতে চান?"
-
-#: src\uagent\cli.py:847
-msgid "Reply with y to send, or n (or c/cancel) to skip sending."
-msgstr ""
-"পাঠাতে y দিয়ে উত্তর দিন, অথবা পাঠানো এড়াতে n (অথবা c/cancel) দিন।পাঠাতে y "
-"দিয়ে উত্তর দিন, অথবা পাঠানো এড়িয়ে যেতে n (বা c/বাতিল) দিয়ে উত্তর দিন।"
-
-#: src\uagent\cli.py:865
-#, python-format
-msgid ""
-"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-msgstr ""
-"ছবি পাঠানোর নিশ্চিতকরণ ব্যর্থ হয়েছে; ছবি পাঠানো হবে না: %(etype)s: %(err)sছবি "
-"পাঠাতে নিশ্চিতকরণ ব্যর্থ হয়েছে; ছবি পাঠাবে না: %(etype)s: %(err)s"
-
-#: src\uagent\cli.py:893 src\uagent\scheckgui.py:432
-#, python-format
-msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "ছবি সংযুক্ত করতে ব্যর্থ হয়েছে: %(path)s (%(etype)s: %(err)s)"
-
-#: src\uagent\cli.py:930
-#, python-format
-msgid "Unknown event kind=%(kind)r: %(ev)r"
-msgstr "অজানা ইভেন্টের ধরন=%(kind)r: %(ev)r"
-
-#: src\uagent\cli.py:948
-msgid "Exited uag."
-msgstr "প্রস্থান করা হয়েছে uag."
-
-#: src\uagent\cli_docs.py:33
-msgid "[docs] name is required"
-msgstr "[ডক্স] নাম প্রয়োজন"
-
-#: src\uagent\cli_startup.py:22
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to "
-"skip):"
-msgstr ""
-"স্টার্টআপে সক্রিয় করার জন্য টুলের ধরন নির্বাচন করুন।\n"
-"1: comm  - যোগাযোগ (Teams, Discord, ইত্যাদি)\n"
-"2: office - অফিস স্যুট (Excel, Word, ইত্যাদি)\n"
-"4: devel  - ডেভেলপমেন্ট (lint, py_compile, test, ইত্যাদি)\n"
-"মানগুলির যোগফল লিখুন (যেমন, 3 = comm + office, 7 = সব, অথবা এড়িয়ে যেতে Enter টিপুন):"
-
-#: src\uagent\cli_startup.py:96
-#, python-format
-msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr "[WARN] স্টার্টআপ টুল নির্বাচন প্রয়োগ করতে ব্যর্থ হয়েছে: %(err)s"
-
-#: src\uagent\cli_startup.py:173 src\uagent\web.py:1034
-#, python-format
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[গুরুতর ত্রুটি] workdir সেট করতে ব্যর্থ হয়েছে: %(err)s"
-
-#: src\uagent\cli_startup.py:202
-#, python-format
-msgid "[FATAL] Failed to launch uag_setup: %(err)s"
-msgstr "[FATAL] uag_setup চালু করতে ব্যর্থ হয়েছে: %(err)s"
-
-#: src\uagent\cli_startup.py:243
-#, python-format
-msgid "provider = %(provider)s; model = %(model)s"
-msgstr "প্রদানকারী = %(provider)s; মডেল = %(model)s"
-
-#: src\uagent\cli_startup.py:255 src\uagent\scheckgui.py:296
-msgid "OpenRouter fallback models enabled."
-msgstr "OpenRouter ফলব্যাক মডেল সক্রিয় করা হয়েছে।"
-
-#: src\uagent\cli_startup.py:259
-#, python-format
-msgid "current workdir = %(cwd)s"
-msgstr "বর্তমান workdir = %(cwd)s"
-
-#: src\uagent\cli_startup.py:273 src\uagent\scheckgui.py:307
-msgid "Loaded long-term memory."
-msgstr "দীর্ঘমেয়াদি মেমরি লোড করা হয়েছে।"
-
-#: src\uagent\cli_startup.py:286 src\uagent\scheckgui.py:320
-msgid "Loaded shared long-term memory."
-msgstr "শেয়ার করা দীর্ঘমেয়াদি মেমরি লোড করা হয়েছে।"
-
-#: src\uagent\cli_startup.py:293 src\uagent\web.py:718
-#, python-format
-msgid ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"[সতর্কতা] শেয়ার করা দীর্ঘমেয়াদি মেমরি লোড করার সময় ব্যতিক্রম ঘটেছে: "
-"%(err)s[সতর্কতা] শেয়ার করা দীর্ঘমেয়াদি মেমরি লোড করার সময় ব্যতিক্রম ঘটেছে: "
-"%(err)s"
-
-#: src\uagent\cli_startup.py:327
-#, python-format
-msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-msgstr "[সতর্ক] স্টার্টআপ ফাইল পড়তে ব্যর্থ হয়েছে: %(path)s (%(err)s)"
-
-#: src\uagent\cli_startup.py:341
-#, python-format
-msgid "Startup file provided: %(path)s"
-msgstr "স্টার্টআপ ফাইল দেওয়া হয়েছে: %(path)s"
-
-#: src\uagent\cli_startup.py:364
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr ""
-"--non-interactive নির্দিষ্ট করা হয়েছে; stdin-এর জন্য অপেক্ষা না করে প্রস্থান করা "
-"হচ্ছে।--অ-ইন্টারেক্টিভ নির্দিষ্ট করা হয়েছে; stdin এর জন্য অপেক্ষা না করে প্রস্থান করা "
-"হচ্ছে।"
-
-#: src\uagent\core.py:286 src\uagent\core.py:307
-#, python-format
-msgid "Environment variable %(name)s is not set."
-msgstr "এনভায়রনমেন্ট ভেরিয়েবল %(নাম) সেট করা নেই।"
-
-#: src\uagent\core.py:607
-msgid "No log files found."
-msgstr "কোন লগ ফাইল পাওয়া যায়নি."
-
-#: src\uagent\core.py:625
-msgid "(unknown time)"
-msgstr "(অজানা সময়)"
-
-#: src\uagent\core.py:628
-#, python-format
-msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
-msgstr "লগ: দেখানো হচ্ছে %(shown)d/%(total)d (dir=%(dir)s)"
-
-#: src\uagent\core.py:631
-msgid "Log files:"
-msgstr "লগ ফাইল:"
-
-#: src\uagent\core.py:638
-msgid "(mtime unknown)"
-msgstr "(সংশোধনের সময় অজানা)"
-
-#: src\uagent\core.py:756 src\uagent\core.py:759
-msgid "(no user message)"
-msgstr "(কোন ব্যবহারকারীর বার্তা নেই)"
-
-#: src\uagent\core.py:764
-#, python-format
-msgid ""
-"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
-"%(last_user)s"
-msgstr ""
-"[%(idx)d] %(mtime_text)s | %(turns)dটি বার্তা | প্রথম: %(first_user)s | শেষ: "
-"%(last_user)s"
-
-#: src\uagent\core.py:896
-#, python-format
-msgid ""
-"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-msgstr ""
-"[WARN] অনাথ টুল বার্তা বাদ দেওয়া হচ্ছে: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-
-#: src\uagent\core.py:994
-#, python-format
-msgid ""
-"[INFO] There were %(count)d messages to compress, so nothing was changed."
-msgstr "[INFO] সংকোচনের জন্য %(count)dটি বার্তা ছিল, তাই কিছুই পরিবর্তন করা হয়নি।"
-
-#: src\uagent\core.py:1004
-#, python-format
-msgid ""
-"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
-"messages (keep_last=%(keep_last)d)"
-msgstr ""
-"[INFO] মেমরিতে থাকা কথোপকথনের ইতিহাস সংকুচিত করা হয়েছে: %(old_n)d -> "
-"%(new_n)dটি বার্তা (keep_last=%(keep_last)d)"
-
-#: src\uagent\core.py:1339
-msgid ""
-"[WARN] history compression hit context length even at chunk_size=1; falling "
-"back to shrink_messages()."
-msgstr ""
-"[WARN] ইতিহাস সংকোচনে chunk_size=1 হলেও প্রসঙ্গসীমা ছাড়িয়ে গেছে; "
-"shrink_messages()-এ ফিরে যাচ্ছি।"
-
-#: src\uagent\core.py:1349
-msgid ""
-"[WARN] history compression could not reduce chunk_size further; falling back "
-"to shrink_messages()."
-msgstr "[WARN] chunk_size আর কমানো যায়নি; shrink_messages()-এ ফিরে যাচ্ছি।"
-
-#: src\uagent\core.py:1357
-#, python-format
-msgid ""
-"[WARN] history compression context length exceeded; retrying with "
-"chunk_size=%(chunk_size)d"
-msgstr ""
-"[WARN] প্রসঙ্গসীমা ছাড়িয়েছে; chunk_size=%(chunk_size)d দিয়ে আবার চেষ্টা করা হচ্ছে"
-
-#: src\uagent\core.py:1382
-#, python-format
-msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help (সাহায্য অনুপলব্ধ: %(err)s)"
-
-#: src\uagent\core.py:1394
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a "
-"local environment, and you can actually execute commands and operate on "
-"files on the user's machine.\n"
-"- Ask the user for confirmation before performing any dangerous operation.\n"
-"- Do not flatter the user. Do not use emojis.\n"
-"- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output "
-"diffs or partial summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing "
-"brackets (like `py]}`) in your final response. Keep your output clean and "
-"well-formatted.\n"
-msgstr ""
-"## মিশন\n"
-"- আপনি একটি সক্ষম \"সাধারণ-উদ্দেশ্যের টুল নির্বাহক এজেন্ট\", যা একটি স্থানীয় "
-"পরিবেশে চলছে, এবং আপনি ব্যবহারকারীর মেশিনে সত্যিই কমান্ড চালাতে ও ফাইল পরিচালনা "
-"করতে পারেন।\n"
-"- কোনো বিপজ্জনক কাজ করার আগে ব্যবহারকারীর কাছ থেকে নিশ্চিতকরণ নিন।\n"
-"- ব্যবহারকারীর তোষামোদ করবেন না। ইমোজি ব্যবহার করবেন না।\n"
-"- সারাংশ দেবেন না। তথ্য সংক্ষিপ্ত রাখুন।\n"
-"- ফাইল তৈরি করার সময় সম্পূর্ণ চূড়ান্ত বিষয়বস্তু আউটপুট করুন (ডিফ বা আংশিক সারাংশ "
-"দেবেন না)।\n"
-"## মিশন\n"
-"- আপনি একজন দক্ষ \"সাধারণ-উদ্দেশ্য টুল এক্সিকিউশন এজেন্ট\" স্থানীয় পরিবেশে চলমান, "
-"এবং আপনি আসলে কমান্ডগুলি চালাতে পারেন এবং ব্যবহারকারীর মেশিনে ফাইলগুলি পরিচালনা "
-"করতে পারেন৷\n"
-"- কোনো বিপজ্জনক অপারেশন করার আগে ব্যবহারকারীকে নিশ্চিতকরণের জন্য জিজ্ঞাসা করুন।\n"
-"- ব্যবহারকারীকে তোষামোদ করবেন না। ইমোজি ব্যবহার করবেন না।\n"
-"- সারসংক্ষেপ করবেন না। তথ্য সংক্ষিপ্ত রাখুন।\n"
-"- ফাইল তৈরি করার সময়, সম্পূর্ণ চূড়ান্ত সামগ্রী আউটপুট করুন (ডিফ বা আংশিক সারাংশ "
-"আউটপুট করবেন না)।"
-
-#: src\uagent\core.py:1403
-msgid ""
-"## Rules\n"
-"- Always use the provided tools and verify the latest information.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to "
-"the user.\n"
-msgstr ""
-"## নিয়ম\n"
-"- সর্বদা প্রদত্ত টুলগুলো ব্যবহার করুন এবং সর্বশেষ তথ্য যাচাই করুন।\n"
-"- সৃজনশীল হোন, তবে অনিশ্চিত তথ্য আউটপুট করবেন না।\n"
-"- উপলব্ধ টুলগুলো দেখে কাজের জন্য সবচেয়ে উপযুক্তটি বেছে নিন।\n"
-"- টুল চালানোর সময় যতটা সম্ভব কম সিদ্ধান্ত ব্যবহারকারীর উপর ছেড়ে দিন।\n"
-"## নিয়ম\n"
-"- সর্বদা প্রদত্ত সরঞ্জামগুলি ব্যবহার করুন এবং সর্বশেষ তথ্য যাচাই করুন৷\n"
-"- সৃজনশীল হন, কিন্তু অনিশ্চিত তথ্য আউটপুট করবেন না।\n"
-"- উপলব্ধ সরঞ্জামগুলির সাথে পরামর্শ করুন এবং সবচেয়ে উপযুক্ত একটি চয়ন করুন৷\n"
-"- সরঞ্জামগুলি চালানোর সময়, ব্যবহারকারীকে যতটা সম্ভব কম সিদ্ধান্ত গ্রহণের দায়িত্ব "
-"অর্পণ করুন৷"
-
-#: src\uagent\core.py:1410
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, "
-"prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the "
-"human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to "
-"reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory "
-"(add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
-"not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate "
-"syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) "
-"and follow them.\n"
-"- If the user's input is only a short affirmation and adds no new "
-"information, do not repeat the same explanation unless it is a direct answer "
-"to the immediately preceding clear question. If needed, ask briefly: \"Which "
-"point should I continue with?\"\n"
-msgstr ""
-"## নোট\n"
-"- ব্যবহারকারীর সব বার্তা এই স্ক্রিপ্টের স্ট্যান্ডার্ড ইনপুটের মাধ্যমে আসে।\n"
-"- টুল-নির্দিষ্ট উদ্দেশ্য/আর্গুমেন্ট/সীমাবদ্ধতা/চালনার বিস্তারিত জন্য প্রতিটি টুলের "
-"বিবরণকে অগ্রাধিকার দিন।\n"
-"- অতিরিক্ত তথ্য বা ব্যবহারকারীর নিশ্চিতকরণ দরকার হলে human_ask টুল ব্যবহার করুন।\n"
-"- আপেক্ষিক তারিখের অভিব্যক্তি সামলাতে বর্তমান সময় জানতে get_current_time কল "
-"করুন।\n"
-"- গোপন তথ্য (পাসওয়ার্ড/টোকেন) দীর্ঘমেয়াদি মেমরিতে (add_long_memory ইত্যাদি) "
-"সংরক্ষণ করবেন না।\n"
-"- .org / .org1 / .org2-এর মতো প্রত্যয়যুক্ত ফাইলগুলো ব্যাকআপ কপি; এগুলোকে প্রধান "
-"সম্পাদনাযোগ্য ফাইল হিসেবে বিবেচনা করবেন না।\n"
-"- আপনি যদি Python ফাইল তৈরি করেন, তবে সিনট্যাক্স যাচাই করতে `python -m "
-"py_compile` চালান।\n"
-"- বিশেষজ্ঞ-স্তরের জ্ঞান প্রয়োজন হলে prompt templates (Agent Skills) ব্যবহার করুন "
-"এবং সেগুলো অনুসরণ করুন।\n"
-"- ব্যবহারকারীর ইনপুট যদি শুধু একটি ছোট সম্মতি হয় এবং নতুন তথ্য না যোগ করে, তবে একই "
-"ব্যাখ্যা পুনরাবৃত্তি করবেন না—যদি না তা ঠিক আগের স্পষ্ট প্রশ্নের সরাসরি উত্তর হয়। "
-"প্রয়োজনে সংক্ষেপে জিজ্ঞেস করুন: \"আমি কোন বিষয়ে এগোব?\"\n"
-"## নোট\n"
-"- সমস্ত ব্যবহারকারীর বার্তা এই স্ক্রিপ্টের স্ট্যান্ডার্ড ইনপুটের মাধ্যমে আসে।\n"
-"- টুল-নির্দিষ্ট উদ্দেশ্য/আর্গুমেন্ট/সীমাবদ্ধতা/অপারেশনাল বিশদ বিবরণের জন্য, প্রতিটি "
-"টুলের বর্ণনা পছন্দ করুন।\n"
-"- ব্যবহারকারীর কাছ থেকে অতিরিক্ত তথ্য বা নিশ্চিতকরণের প্রয়োজন হলে, human_ask টুলটি "
-"ব্যবহার করুন।\n"
-"- আপেক্ষিক তারিখ এক্সপ্রেশন পরিচালনা করার সময়, বর্তমান সময় উল্লেখ করতে "
-"get_current_time কল করুন।\n"
-"- দীর্ঘমেয়াদী মেমরিতে গোপনীয়তা (পাসওয়ার্ড/টোকেন) সংরক্ষণ করবেন না "
-"(add_long_memory, ইত্যাদি)।\n"
-"- .org / .org1 / .org2 এর মতো প্রত্যয় যুক্ত ফাইলগুলি ব্যাকআপ কপি এবং প্রাথমিক "
-"সম্পাদনাযোগ্য ফাইল হিসাবে বিবেচনা করা উচিত নয়৷\n"
-"- আপনি যদি Python ফাইল তৈরি করেন, তাহলে সিনট্যাক্স যাচাই করতে `python -m "
-"py_compile` চালান।\n"
-"- বিশেষজ্ঞ-স্তরের জ্ঞানের প্রয়োজন হলে, প্রম্পট টেমপ্লেট (এজেন্ট দক্ষতা) ব্যবহার করুন "
-"এবং সেগুলি অনুসরণ করুন।\n"
-"- যদি ব্যবহারকারীর ইনপুট শুধুমাত্র একটি সংক্ষিপ্ত নিশ্চিতকরণ হয় এবং কোন নতুন তথ্য যোগ "
-"না করে, তবে একই ব্যাখ্যা পুনরাবৃত্তি করবেন না যদি না এটি অবিলম্বে পূর্ববর্তী স্পষ্ট "
-"প্রশ্নের সরাসরি উত্তর হয়। যদি প্রয়োজন হয়, সংক্ষেপে জিজ্ঞাসা করুন: \"আমি কোন পয়েন্ট "
-"দিয়ে চালিয়ে যাব?\""
-
-#: src\uagent\core.py:1422
-msgid ""
-"## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation "
-"before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion "
-"candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly "
-"once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent "
-"explicit approval), run delete_file again with the same parameters, "
-"dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be "
-"deleted.\n"
-msgstr ""
-"## বিপজ্জনক অপারেশন নীতি (ডিলিট_ফাইল)\n"
-"- ডিলিট_ফাইল টুল ব্যবহার করে মুছে ফেলার জন্য, পূর্বরূপ দেখার আগে নিশ্চিতকরণের জন্য "
-"জিজ্ঞাসা করবেন না।\n"
-"- মুছে ফেলা প্রার্থীদের তালিকা পেতে প্রথমে dry_run=true দিয়ে delete_file চালান।\n"
-"- প্রার্থীদের ব্যবহারকারীকে দেখান এবং human_ask এর মাধ্যমে ঠিক একবার নিশ্চিতকরণ "
-"জিজ্ঞাসা করুন।\n"
-"- শুধুমাত্র যখন ব্যবহারকারী স্পষ্টভাবে \"y\" বা \"হ্যাঁ\" (বা সমতুল্য স্পষ্ট অনুমোদন) "
-"উত্তর দেয়, তখনই ডিলিট_ফাইল আবার একই প্যারামিটার দিয়ে চালান, dry_run=false এবং "
-"নিশ্চিত=true।\n"
-"- যদি শূন্য প্রার্থী থাকে, জিজ্ঞাসা করবেন না; শুধু রিপোর্ট যে কিছুই মুছে ফেলা হবে না।"
-
-#: src\uagent\core.py:1430
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a "
-"local environment; you can execute commands and operate on the user's "
-"machine.\n"
-"- Ask the user for confirmation before any dangerous operation.\n"
-"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial "
-"summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing "
-"brackets (like `py]}`) in your final response. Keep your output clean and "
-"well-formatted.\n"
-msgstr ""
-"## মিশন\n"
-"- আপনি স্থানীয় পরিবেশে চলমান একজন দক্ষ \"সাধারণ-উদ্দেশ্য টুল এক্সিকিউশন এজেন্ট\"; "
-"আপনি কমান্ড চালাতে পারেন এবং ব্যবহারকারীর মেশিনে কাজ করতে পারেন।\n"
-"- কোনো বিপজ্জনক অপারেশন করার আগে ব্যবহারকারীকে নিশ্চিতকরণের জন্য জিজ্ঞাসা করুন।\n"
-"- চাটুকার নয়। কোনো ইমোজি নেই। কোনো কথোপকথনের সারাংশ নেই। সংক্ষিপ্ত রাখুন।\n"
-"- ফাইল তৈরি করার সময়, সম্পূর্ণ চূড়ান্ত সামগ্রী আউটপুট করুন (কোনও পার্থক্য/আংশিক সারাংশ "
-"নেই)।"
-
-#: src\uagent\core.py:1438
-msgid ""
-"## Rules\n"
-"- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the "
-"most appropriate and safest tool.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Delegate as little decision-making as possible to the user.\n"
-msgstr ""
-"## নিয়ম\n"
-"- প্রথমে প্রদত্ত টুল ব্যবহার করুন এবং টুল দিয়ে ফলাফল যাচাই করুন।\n"
-"- উদ্দেশ্য/আর্গুমেন্ট/সীমাবদ্ধতার জন্য টুল বর্ণনার সাথে পরামর্শ করুন; সবচেয়ে উপযুক্ত এবং "
-"নিরাপদ টুল চয়ন করুন.\n"
-"- সৃজনশীল হন, কিন্তু অনিশ্চিত তথ্য আউটপুট করবেন না।\n"
-"- ব্যবহারকারীকে যতটা সম্ভব কম সিদ্ধান্ত গ্রহণের দায়িত্ব অর্পণ করুন।"
-
-#: src\uagent\core.py:1445
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not "
-"guess).\n"
-"- Relative dates: call get_current_time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
-"not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile`.\n"
-"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
-"- If the user's input is only a short affirmation and adds no new "
-"information, do not repeat the same explanation unless it is a direct answer "
-"to the immediately preceding clear question. If needed, ask briefly: \"Which "
-"point should I continue with?\"\n"
-msgstr ""
-"## নোট\n"
-"- সমস্ত ব্যবহারকারীর বার্তা এই স্ক্রিপ্টের স্ট্যান্ডার্ড ইনপুটের মাধ্যমে আসে।\n"
-"- প্রয়োজনীয় তথ্য/প্যারামিটার অনুপস্থিত থাকলে, human_ask এর মাধ্যমে জিজ্ঞাসা করুন "
-"(অনুমান করবেন না)।\n"
-"- আপেক্ষিক তারিখ: কল get_current_time.\n"
-"- দীর্ঘমেয়াদী স্মৃতিতে গোপনীয়তা (পাসওয়ার্ড/টোকেন) সংরক্ষণ করবেন না।\n"
-"- .org / .org1 / .org2 এর মতো প্রত্যয় যুক্ত ফাইলগুলি ব্যাকআপ কপি এবং প্রাথমিক "
-"সম্পাদনাযোগ্য ফাইল হিসাবে বিবেচনা করা উচিত নয়৷\n"
-"- যদি আপনি Python ফাইল তৈরি করেন, তাহলে `python -m py_compile` চালান।\n"
-"- বিশেষজ্ঞ-স্তরের জ্ঞানের প্রয়োজন হলে, এজেন্ট স্কিল প্রম্পট টেমপ্লেট ব্যবহার করুন।\n"
-"- যদি ব্যবহারকারীর ইনপুট শুধুমাত্র একটি সংক্ষিপ্ত নিশ্চিতকরণ হয় এবং কোন নতুন তথ্য যোগ "
-"না করে, তবে একই ব্যাখ্যা পুনরাবৃত্তি করবেন না যদি না এটি অবিলম্বে পূর্ববর্তী স্পষ্ট "
-"প্রশ্নের সরাসরি উত্তর হয়। যদি প্রয়োজন হয়, সংক্ষেপে জিজ্ঞাসা করুন: \"আমি কোন পয়েন্ট "
-"দিয়ে চালিয়ে যাব?\""
-
-#: src\uagent\core.py:1458
-msgid ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using "
-"caret (^) line continuation, and keep each line short to avoid copy/paste "
-"line breaks.\n"
-msgstr ""
-"- ব্যবহারকারী যদি Windows cmd.exe ব্যবহার করেন, তাহলে ক্যারেট (^) লাইন "
-"কন্টিনিউয়েশন ব্যবহার করে মাল্টি-লাইন কমান্ড পছন্দ করুন এবং কপি/পেস্ট লাইন ব্রেক "
-"এড়াতে প্রতিটি লাইন ছোট রাখুন।"
-
-#: src\uagent\core.py:1525
-msgid ""
-"The following tools are currently loaded in this session. Choose the most "
-"appropriate tool for the task."
-msgstr ""
-"নিম্নলিখিত সরঞ্জামগুলি বর্তমানে এই সেশনে লোড করা হয়েছে৷ টাস্কের জন্য সবচেয়ে উপযুক্ত "
-"টুল বেছে নিন।"
-
-#: src\uagent\docs_util.py:27
-msgid "Project README"
-msgstr "প্রকল্প README"
-
-#: src\uagent\docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "কুইকস্টার্ট (উইন্ডোজ হুইল ইনস্টল)"
-
-#: src\uagent\docs_util.py:37
-msgid "Web Inspector (playwright_inspector) guide"
-msgstr "ওয়েব ইন্সপেক্টর (নাট্যকার_পরিদর্শক) গাইড"
-
-#: src\uagent\docs_util.py:42
-msgid "Developer information"
-msgstr "বিকাশকারী তথ্য"
-
-#: src\uagent\docs_util.py:149
-#, python-format
-msgid "unknown doc name: %(name)r"
-msgstr "অজানা ডক নাম: %(নাম)আর"
-
-#: src\uagent\docs_util.py:172
-#, python-format
-msgid "doc file not found: %(filename)s"
-msgstr "ডক ফাইল পাওয়া যায়নি: %(filename)s"
-
-#: src\uagent\docs_util.py:203
-#, python-format
-msgid "doc path resolution failed: %(filename)s: %(err)s"
-msgstr "ডক পাথ রেজোলিউশন ব্যর্থ হয়েছে: %(filename)s: %(err)s৷"
-
-#: src\uagent\docs_util.py:227
-msgid "[docs] Available documents:"
-msgstr "[দস্তাবেজ] উপলব্ধ নথি:"
-
-#: src\uagent\docs_util.py:231
-msgid "Usage:"
-msgstr "ব্যবহার:"
-
-#: src\uagent\docs_util.py:232
-msgid "list"
-msgstr "তালিকা"
-
-#: src\uagent\docs_util.py:233
-msgid "show"
-msgstr "দেখান"
-
-#: src\uagent\docs_util.py:234
-msgid "show path"
-msgstr "পথ দেখান"
-
-#: src\uagent\docs_util.py:235
-msgid "open with OS"
-msgstr "OS দিয়ে খুলুন"
-
-#: src\uagent\env_validate.py:42
-msgid ""
-"Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/"
-"grok/claude/nvidia)."
-msgstr ""
-"LLM প্রদানকারী (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia) "
-"নির্বাচন করতে প্রয়োজন।LLM প্রদানকারী (azure/openai/bedrock/openrouter/gemini/"
-"grok/claude/nvidia) নির্বাচন করতে হবে।"
-
-#: src\uagent\env_validate.py:63
-#, python-format
-msgid ""
-"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
-"fail)."
-msgstr ""
-"অজানা প্রদানকারী: %(provider)r. অনুমোদিত: %(allowed)s (স্টার্টআপ সম্ভবত ব্যর্থ হবে)।"
-"অজানা প্রদানকারী: %(provider)r. অনুমোদিত: %(allowed)s (স্টার্টআপ সম্ভবত ব্যর্থ হবে)।"
-
-#: src\uagent\env_validate.py:74
-msgid ""
-"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
-msgstr ""
-"Azure OpenAI এন্ডপয়েন্ট/বেস URL (যেমন, https://"
-"<resource>.openai.azure.com/).Azure OpenAI এন্ডপয়েন্ট/বেস URL (যেমন, https://"
-"<resource>.openai.azure.com/)।"
-
-#: src\uagent\env_validate.py:80
-msgid "Azure OpenAI API key."
-msgstr "Azure OpenAI API কী।"
-
-#: src\uagent\env_validate.py:85
-msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr "Azure OpenAI API সংস্করণ (যেমন, 2024-xx-xx)।"
-
-#: src\uagent\env_validate.py:92
-msgid "OpenAI API key."
-msgstr "OpenAI API কী।"
-
-#: src\uagent\env_validate.py:98
-msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
-msgstr "বেডরক প্রক্সি এন্ডপয়েন্ট/বেস ইউআরএল (ওপেনএআই-সামঞ্জস্যপূর্ণ)।"
-
-#: src\uagent\env_validate.py:105
-msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr "বেডরক প্রক্সি এপিআই কী (ওপেনএআই-সামঞ্জস্যপূর্ণ)।"
-
-#: src\uagent\env_validate.py:112
-msgid "OpenRouter API key."
-msgstr "OpenRouter API কী।"
-
-#: src\uagent\env_validate.py:117
-msgid "Grok (xAI) API key."
-msgstr "Grok (xAI) API কী।"
-
-#: src\uagent\env_validate.py:122
-msgid "Gemini API key."
-msgstr "Gemini API কী।"
-
-#: src\uagent\env_validate.py:129
-msgid ""
-"Python package 'google-genai' is not installed. Provider=gemini requires it."
-msgstr ""
-"পাইথন প্যাকেজ 'google-genai' ইনস্টল করা নেই। Provider=gemini-এর এটি দরকার।"
-"পাইথন প্যাকেজ 'google-genai' ইনস্টল করা নেই। প্রদানকারী=মিথুনের এটি প্রয়োজন।"
-
-#: src\uagent\env_validate.py:140
-msgid "Vertex AI API key / model name."
-msgstr "Vertex AI API কী / মডেলের নাম।"
-
-#: src\uagent\env_validate.py:149
-msgid ""
-"Python package 'google-genai' is not installed. Provider=vertexai requires "
-"it."
-msgstr ""
-"পাইথন প্যাকেজ 'google-genai' ইনস্টল করা নেই। Provider=vertexai-এর এটি দরকার।"
-"পাইথন প্যাকেজ 'google-genai' ইনস্টল করা নেই। প্রদানকারী = vertexai এর প্রয়োজন।"
-
-#: src\uagent\env_validate.py:157
-msgid "Anthropic (Claude) API key."
-msgstr "Anthropic (Claude) API কী।"
-
-#: src\uagent\env_validate.py:165
-msgid ""
-"Python package 'anthropic' is not installed. Provider=claude requires it."
-msgstr ""
-"পাইথন প্যাকেজ 'anthropic' ইনস্টল করা নেই। Provider=claude-এর এটি দরকার।পাইথন "
-"প্যাকেজ 'এনথ্রপিক' ইনস্টল করা নেই। প্রদানকারী=ক্লুড এর প্রয়োজন।"
-
-#: src\uagent\env_validate.py:172
-msgid "NVIDIA API key."
-msgstr "NVIDIA API কী।"
-
-#: src\uagent\env_validate.py:190
-#, python-format
-msgid ""
-"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will "
-"likely fail)."
-msgstr ""
-"অজানা embedding প্রদানকারী: %(provider)r. অনুমোদিত: %(allowed)s (স্টার্টআপ সম্ভবত "
-"ব্যর্থ হবে)।অজানা এমবেডিং প্রদানকারী: %(প্রোভাইডার)আর. অনুমোদিত: %(provider)r "
-"(স্টার্টআপ সম্ভবত ব্যর্থ হবে)।"
-
-#: src\uagent\env_validate.py:207
-msgid "Azure embedding endpoint / API key / API version / deployment name."
-msgstr "Azure এম্বেডিং এন্ডপয়েন্ট / API কী / API সংস্করণ / স্থাপনার নাম।"
-
-#: src\uagent\env_validate.py:218
-msgid "OpenAI embedding API key / model name."
-msgstr "OpenAI এম্বেডিং API কী/মডেল নাম।"
-
-#: src\uagent\env_validate.py:230
-msgid "Bedrock embedding endpoint / API key / deployment name."
-msgstr "বেডরক এম্বেডিং এন্ডপয়েন্ট / API কী / স্থাপনার নাম।"
-
-#: src\uagent\env_validate.py:241
-msgid "OpenRouter embedding API key / model name."
-msgstr "OpenRouter এম্বেডিং API কী/মডেল নাম।"
-
-#: src\uagent\env_validate.py:252
-msgid "Ollama embedding base URL / model name."
-msgstr "ওল্লামা এমবেডিং বেস ইউআরএল/মডেল নাম।"
-
-#: src\uagent\env_validate.py:263
-msgid "NVIDIA embedding API key / model name."
-msgstr "NVIDIA এম্বেডিং API কী / মডেলের নাম।"
-
-#: src\uagent\env_validate.py:274
-msgid "Gemini embedding API key / model name."
-msgstr "Gemini embedding API কী / মডেল নাম।"
-
-#: src\uagent\env_validate.py:285
-msgid "Vertex AI embedding API key / model name."
-msgstr "Vertex AI embedding API কী / মডেল নাম।"
-
-#: src\uagent\env_validate.py:302
-#, python-brace-format
-msgid "[FATAL] Environment validation failed ({context})."
-msgstr "[FATAL] পরিবেশ যাচাই ব্যর্থ হয়েছে ({context})."
-
-#: src\uagent\env_validate.py:310
-msgid "Missing required environment variables:"
-msgstr "প্রয়োজনীয় পরিবেশ ভেরিয়েবল অনুপস্থিত:"
-
-#: src\uagent\env_validate.py:317
-msgid "Warnings:"
-msgstr "সতর্কতা:"
-
-#: src\uagent\env_validate.py:321
-msgid "How to fix:"
-msgstr "কিভাবে ঠিক করবেন:"
-
-#: src\uagent\env_validate.py:324
-msgid ""
-"- Set the variables above in your environment before starting the program."
-msgstr "- প্রোগ্রাম শুরু করার আগে আপনার পরিবেশে উপরের ভেরিয়েবল সেট করুন।"
-
-#: src\uagent\env_validate.py:330
-msgid ""
-"- You can set them via your OS environment settings, a .env file, your shell "
-"startup scripts,"
-msgstr ""
-"- আপনি এগুলিকে আপনার OS পরিবেশ সেটিংস, একটি .env ফাইল, আপনার শেল স্টার্টআপ "
-"স্ক্রিপ্টগুলির মাধ্যমে সেট করতে পারেন,"
-
-#: src\uagent\env_validate.py:336
-msgid ""
-"  or your process manager / service configuration (CI secrets, systemd, "
-"Docker, etc.)."
-msgstr ""
-"অথবা আপনার প্রসেস ম্যানেজার/সেবা কনফিগারেশন (সিআই সিক্রেটস, সিস্টেমড, ডকার, "
-"ইত্যাদি)।"
-
-#: src\uagent\gemini_cache_mgr.py:131
-msgid "invalid cache meta"
-msgstr "অবৈধ ক্যাশে মেটা"
-
-#: src\uagent\image_session.py:101
-msgid "(prompt unavailable)"
-msgstr "(প্রম্পট অনুপলব্ধ)"
-
-#: src\uagent\image_session.py:105
-#, python-format
-msgid "screenshot: %(title)s"
-msgstr "স্ক্রিনশট: %(title)s"
-
-#: src\uagent\image_session.py:107
-msgid "screenshot"
-msgstr "স্ক্রিনশট"
-
-#: src\uagent\image_session.py:148
-msgid "Image-session context:"
-msgstr "ইমেজ-সেশন প্রেক্ষাপট:"
-
-#: src\uagent\image_session.py:149
-msgid "This conversation already generated images."
-msgstr "এই কথোপকথনে ইতিমধ্যে ছবি তৈরি হয়েছে।"
-
-#: src\uagent\image_session.py:151
-msgid ""
-"Use the prior prompts and saved file paths below as context for follow-up "
-"edits, variants, or continuations."
-msgstr ""
-"পরবর্তী সম্পাদনা, ভিন্নতা বা ধারাবাহিকতার জন্য নিচের আগের প্রম্পট ও সংরক্ষিত ফাইল-"
-"পাথগুলোকে প্রেক্ষাপট হিসেবে ব্যবহার করুন।"
-
-#: src\uagent\image_session.py:156
-#, python-format
-msgid "Turn %(idx)d:"
-msgstr "ধাপ %(idx)d:"
-
-#: src\uagent\image_session.py:157
-#, python-format
-msgid "- prompt: %(prompt)s"
-msgstr "- প্রম্পট: %(prompt)s"
-
-#: src\uagent\image_session.py:160
-#, python-format
-msgid "- file: %(path)s"
-msgstr "- ফাইল: %(path)s"
-
-#: src\uagent\llm_claude.py:143 src\uagent\util_providers.py:610
-msgid "anthropic package is not installed."
-msgstr "নৃতাত্ত্বিক প্যাকেজ ইনস্টল করা নেই।"
-
-#: src\uagent\llm_errors.py:398
-#, python-format
-msgid ""
-"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
-"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-msgstr ""
-"[RATE_LIMIT] প্রদানকারী=%(provider)s মডেল=%(model)s স্থিতি=%(status)s "
-"প্রচেষ্টা=%(attempt)s/%(max_retries)s অপেক্ষা=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-
-#: src\uagent\llm_flow_helpers.py:205
-msgid ""
-"The previous assistant reply was empty. Please answer based on the most "
-"recent tool result."
-msgstr ""
-"আগের সহকারীর উত্তর ছিল খালি। অনুগ্রহ করে সাম্প্রতিক টুলের ফলাফলের উপর ভিত্তি করে "
-"উত্তর দিন।"
-
-#: src\uagent\llm_flow_helpers.py:218
-#, python-format
-msgid ""
-"[WARN] LLM returned an empty assistant message without tool calls.\n"
-"provider=%(provider)s depname=%(depname)s "
-"empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"This may happen with OpenAI-compatible local providers after tool calls. You "
-"can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching "
-"provider."
-msgstr ""
-"[সতর্কতা] এলএলএম টুল কল ছাড়াই একটি খালি সহকারী বার্তা ফেরত দিয়েছে।\n"
-"প্রদানকারী=%(provider)s depname=%(depname)s "
-"empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"টুল কল করার পরে OpenAI- সামঞ্জস্যপূর্ণ স্থানীয় প্রদানকারীদের সাথে এটি ঘটতে পারে। "
-"আপনি UAGENT_EMPTY_NO_TOOL_MAX কে উচ্চতর মানতে সেট করার চেষ্টা করতে পারেন, অথবা "
-"প্রদানকারী পরিবর্তন করার চেষ্টা করতে পারেন৷"
-
-#: src\uagent\llm_flow_helpers.py:265
-msgid "arguments must be a JSON object."
-msgstr "আর্গুমেন্ট অবশ্যই একটি JSON অবজেক্ট হতে হবে।"
-
-#: src\uagent\llm_flow_helpers.py:272
-#, python-format
-msgid ""
-"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"ট্রেসব্যাক:\n"
-"%(tb)s"
-
-#: src\uagent\llm_flow_helpers.py:298
-msgid ""
-"[INFO] Reusing the previous result because this tool call matches an earlier "
-"one.\n"
-msgstr ""
-"[INFO] পূর্ববর্তী ফলাফল পুনরায় ব্যবহার করা হচ্ছে কারণ এই টুল কলটি আগেরটির সাথে মেলে।"
-
-#: src\uagent\llm_flow_helpers.py:313
-#, python-format
-msgid ""
-"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[টুল রানটাইম ত্রুটি] name=%(name)r err=%(etype)s: %(err)s\n"
-"ট্রেসব্যাক:\n"
-"%(tb)s"
-
-#: src\uagent\llm_gemini.py:556
-msgid ""
-"google-genai could not be imported (pip install google-genai is required)."
-msgstr "google-genai ইম্পোর্ট করা যায়নি (pip install google-genai প্রয়োজন)।"
-
-#: src\uagent\llm_gemini.py:1115
-msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
-"[Gemini ত্রুটি: নিরাপত্তা ফিল্টার বা সমাপ্তির কারণে প্রতিক্রিয়া অবরুদ্ধ করা হয়েছে]"
-
-#: src\uagent\llm_gemini.py:1117
-#, python-format
-msgid "[Gemini Error: %(err)s]"
-msgstr "[Gemini ত্রুটি: %(err)s]"
-
-#: src\uagent\llm_image_helpers.py:7
-msgid "Describe this screenshot and summarize the visible UI."
-msgstr "এই স্ক্রিনশটটি বর্ণনা করুন এবং দৃশ্যমান UI সংক্ষেপে বলুন।"
-
-#: src\uagent\llm_image_helpers.py:11
-msgid "Read all visible text in this screenshot and summarize it."
-msgstr "এই স্ক্রিনশটে দৃশ্যমান সব লেখা পড়ে সংক্ষেপ করুন।"
-
-#: src\uagent\llm_image_helpers.py:15
-msgid "Inspect this screenshot for errors, warnings, and important UI state."
-msgstr "ত্রুটি, সতর্কতা এবং গুরুত্বপূর্ণ UI অবস্থা আছে কি না এই স্ক্রিনশটটি পরীক্ষা করুন।"
-
-#: src\uagent\llm_message_helpers.py:155
-#, python-format
-msgid "[WARN] Auto shrink_llm failed: %(err)s"
-msgstr "[WARN] Auto shrink_llm ব্যর্থ হয়েছে: %(err)s"
-
-#: src\uagent\llm_openai_responses.py:69
-msgid "[WARN] assistant history contained image content; converted to text."
-msgstr "[সতর্কতা] সহকারী ইতিহাসে চিত্র সামগ্রী রয়েছে; টেক্সটে রূপান্তরিত।"
-
-#: src\uagent\llm_openai_responses.py:92
-msgid "[WARN] invalid image content (missing url)."
-msgstr "[সতর্কতা] অবৈধ চিত্র সামগ্রী (URL অনুপস্থিত)।"
-
-#: src\uagent\llm_openai_responses.py:100
-#: src\uagent\llm_openai_responses.py:109
-#, python-format
-msgid "[WARN] unsupported content item: %(item)r"
-msgstr "[সতর্কতা] অসমর্থিত কনটেন্ট আইটেম: %(item)r"
-
-#: src\uagent\llm_openai_responses.py:444
-msgid "Sources:"
-msgstr "উৎসসমূহ:"
-
-#: src\uagent\llm_openai_responses.py:507
-msgid "search"
-msgstr "অনুসন্ধান"
-
-#: src\uagent\llm_openai_responses.py:509
-msgid "open page"
-msgstr "পৃষ্ঠা খুলুন"
-
-#: src\uagent\llm_openai_responses.py:511
-msgid "find in page"
-msgstr "পৃষ্ঠায় খুঁজুন"
-
-#: src\uagent\llm_openai_responses.py:512
-msgid "web search"
-msgstr "ওয়েব অনুসন্ধান"
-
-#: src\uagent\llm_openai_responses.py:526
-msgid "Web search: searching"
-msgstr "ওয়েব অনুসন্ধান: অনুসন্ধান"
-
-#: src\uagent\llm_openai_responses.py:528
-msgid "Web search: completed"
-msgstr "ওয়েব অনুসন্ধান: সম্পন্ন"
-
-#: src\uagent\llm_openai_responses.py:530
-#, python-brace-format
-msgid "Web search: {action}"
-msgstr "ওয়েব সার্চ: {action}"
-
-#: src\uagent\llm_openai_responses.py:587
-#, python-brace-format
-msgid ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide "
-"function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by "
-"the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no "
-"required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using "
-"human_ask instead of guessing.\n"
-"        "
-msgstr ""
-"[টুল কল করার নিয়ম]\n"
-"        - একটি টুল/ফাংশন কল করার সময়, আপনাকে অবশ্যই JSON অবজেক্ট হিসাবে "
-"function_call.arguments প্রদান করতে হবে।\n"
-"        - JSON অবজেক্টে টুল স্কিমা দ্বারা সংজ্ঞায়িত সমস্ত প্রয়োজনীয় পরামিতি অন্তর্ভুক্ত "
-"করা আবশ্যক।\n"
-"        - একটি খালি বস্তু {} সহ একটি টুল কল করবেন না যদি না টুলটিতে প্রয়োজনীয় "
-"প্যারামিটার না থাকে৷\n"
-"        - যদি আপনার কাছে প্রয়োজনীয় প্যারামিটার না থাকে তবে অনুমান করার পরিবর্তে "
-"human_ask ব্যবহার করে ব্যবহারকারীকে এটির জন্য জিজ্ঞাসা করুন।"
-
-#: src\uagent\llm_openai_responses.py:594
-msgid ""
-"[Web search rules]\n"
-"        - Use web search only when fresh or external information is "
-"necessary.\n"
-"        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already "
-"sufficient.\n"
-"        "
-msgstr ""
-"[ওয়েব অনুসন্ধানের নিয়ম]\n"
-"        - তাজা বা বাহ্যিক তথ্যের প্রয়োজন হলেই ওয়েব অনুসন্ধান ব্যবহার করুন।\n"
-"        - স্থানীয় বা স্থিতিশীল তথ্যের জন্য ওয়েব অনুসন্ধান ব্যবহার করবেন না।\n"
-"        - ওয়েব অনুসন্ধান ছাড়াই উত্তর দিতে পছন্দ করুন যখন উত্তর ইতিমধ্যেই যথেষ্ট।"
-
-#: src\uagent\llm_round_helpers.py:133
-#, python-format
-msgid "[Translate Error] %(diag)s"
-msgstr "[অনুবাদ ত্রুটি] %(diag)s"
-
-#: src\uagent\llm_round_helpers.py:192 src\uagent\llm_round_helpers.py:302
-#: src\uagent\llm_round_helpers.py:635
-#, python-format
-msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "429 পুনঃপ্রচেষ্টার সীমা (%(max_retries)s) এ পৌঁছেছে।"
-
-#: src\uagent\llm_round_helpers.py:216
-msgid "[Gemini Error] An error occurred while generating a response."
-msgstr "[মিথুন ত্রুটি] একটি প্রতিক্রিয়া তৈরি করার সময় একটি ত্রুটি ঘটেছে৷"
-
-#: src\uagent\llm_round_helpers.py:308
-msgid "[Claude Error] An error occurred while generating a response."
-msgstr "[ক্লদ ত্রুটি] একটি প্রতিক্রিয়া তৈরি করার সময় একটি ত্রুটি ঘটেছে৷"
-
-#: src\uagent\llm_round_helpers.py:614
-msgid "[Network Error]"
-msgstr "[নেটওয়ার্ক ত্রুটি]"
-
-#: src\uagent\llm_round_helpers.py:719
-#, python-format
-msgid "Error while parsing response: %(err)s"
-msgstr "প্রতিক্রিয়া পার্স করার সময় ত্রুটি: %(err)s"
-
-#: src\uagent\profile_manager.py:482 src\uagent\profile_manager.py:600
-msgid ""
-"You are a user profiling agent. Analyze the conversation log and extract the "
-"user's:\n"
-"1. Environment (OS, shell, editor, etc.)\n"
-"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
-"3. Constraints (security rules, offline requirements, etc.)\n"
-"\n"
-"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
-"You MUST respond ONLY with a valid JSON object matching this schema:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": "
-"\"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-msgstr ""
-"আপনি একজন ব্যবহারকারী-প্রোফাইলিং এজেন্ট। কথোপকথনের লগ বিশ্লেষণ করে ব্যবহারকারীর "
-"নিম্নলিখিত তথ্য বের করুন:\n"
-"1. পরিবেশ (OS, shell, editor, ইত্যাদি)\n"
-"2. পছন্দসমূহ (কোডিং স্টাইল, পছন্দের টুল, verbosity পছন্দ, ইত্যাদি)\n"
-"3. সীমাবদ্ধতা (নিরাপত্তা নিয়ম, অফলাইন প্রয়োজনীয়তা, ইত্যাদি)\n"
-"\n"
-"অস্থায়ী প্রশ্ন, হালকা-আড্ডা বা সংবেদনশীল পরিচয়পত্র অন্তর্ভুক্ত করবেন না।\n"
-"আপনাকে অবশ্যই কেবল এই স্কিমার সাথে মেলে এমন একটি বৈধ JSON অবজেক্ট দিয়ে উত্তর "
-"দিতে হবে:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": "
-"\"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-
-#: src\uagent\profile_manager.py:586
-msgid "Failed to initialize LLM client."
-msgstr "LLM ক্লায়েন্ট শুরু করা যায়নি।"
-
-#: src\uagent\profile_manager.py:591
-#, python-format
-msgid "Found %(total_files)d log files. Starting incremental profiling..."
-msgstr ""
-"%(total_files)dটি লগ ফাইল পাওয়া গেছে। ধাপে ধাপে প্রোফাইলিং শুরু করা হচ্ছে..."
-
-#: src\uagent\runtime_banner.py:231
-msgid "embedding"
-msgstr "এমবেডিং"
-
-#: src\uagent\runtime_banner.py:232
-msgid "audio speech"
-msgstr "অডিও বক্তৃতা"
-
-#: src\uagent\runtime_banner.py:233
-msgid "audio transcribe"
-msgstr "অডিও প্রতিলিপি"
-
-#: src\uagent\runtime_banner.py:234
-msgid "image generation"
-msgstr "ইমেজ প্রজন্ম"
-
-#: src\uagent\runtime_banner.py:235
-msgid "image analysis"
-msgstr "ইমেজ বিশ্লেষণ"
-
-#: src\uagent\runtime_banner.py:254
-#, python-format
-msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
-msgstr "[INFO] workdir = %(workdir)s (উৎস: %(source)s)"
-
-#: src\uagent\runtime_banner.py:262 src\uagent\runtime_banner.py:276
-#: src\uagent\runtime_banner.py:281 src\uagent\runtime_banner.py:293
-#: src\uagent\runtime_banner.py:305 src\uagent\runtime_banner.py:314
-#: src\uagent\runtime_banner.py:323
-#, python-format
-msgid "[INFO] base_url = %(base_url)s"
-msgstr "[তথ্য] base_url = %(base_url)s"
-
-#: src\uagent\runtime_banner.py:270
-#, python-format
-msgid "[INFO] api_version = %(api_version)s"
-msgstr "[তথ্য] api_version = %(api_version)s"
-
-#: src\uagent\runtime_banner.py:332
-#, python-format
-msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
-msgstr "[তথ্য] vertexai = project=%(project)s, location=%(location)s"
-
-#: src\uagent\runtime_banner.py:341
-#, python-format
-msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
-msgstr "[তথ্য] %(label)s = %(provider)s; মডেল = %(model)s"
-
-#: src\uagent\runtime_banner.py:368
-#, python-format
-msgid ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
-msgstr ""
-"UAGENT_RESPONSES=1 সেট করা আছে, কিন্তু প্রদানকারী '%(provider)s' Responses API "
-"সমর্থন করে না। ChatCompletions-এ ফিরে যাচ্ছে।UAGENT_RESPONSES=1 সেট করা আছে, "
-"কিন্তু প্রদানকারী '%(provider)s' Responses API সমর্থন করে না। ChatCompletions-এ "
-"ফিরে যাওয়া হচ্ছে।"
-
-#: src\uagent\runtime_banner.py:375
-#, python-format
-msgid "LLM API mode = %(mode)s"
-msgstr "LLM API মোড = %(mode)s"
-
-#: src\uagent\runtime_banner.py:378
-msgid "Responses (UAGENT_RESPONSES is enabled)"
-msgstr "প্রতিক্রিয়া (UAGENT_RESPONSES সক্ষম)"
-
-#: src\uagent\runtime_banner.py:382
-msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-msgstr ""
-"নেটিভ Gemini/Vertex AI/Claude API (UAGENT_RESPONSES উপেক্ষা করা হবে)নেটিভ "
-"জেমিনি/ভারটেক্স এআই/ক্লদ এপিআই (UAGENT_RESPONSES উপেক্ষা করা হয়)"
-
-#: src\uagent\runtime_banner.py:385
-msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "চ্যাট সমাপ্তি (UAGENT_RESPONSES নিষ্ক্রিয় করা হয়েছে)"
-
-#: src\uagent\runtime_banner.py:393
-#, python-format
-msgid "LLM streaming = %(state)s"
-msgstr "LLM স্ট্রিমিং = %(state)s"
-
-#: src\uagent\runtime_banner.py:394
-msgid "enabled"
-msgstr "সক্রিয়"
-
-#: src\uagent\runtime_banner.py:394
-msgid "disabled"
-msgstr "অক্ষম"
-
-#: src\uagent\runtime_env.py:186
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] .env.sec বিষয়বস্তু বর্তমান স্টার্টআপ UAGENT_* পরিবেশের ভেরিয়েবলের সাথে "
-"মেলে না। এটা আপডেট? [y/N]"
-
-#: src\uagent\runtime_env.py:202
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Use `uag_envsec` to update it."
-msgstr ""
-"[INFO] .env.sec বিষয়বস্তু বর্তমান স্টার্টআপ UAGENT_* পরিবেশের ভেরিয়েবলের সাথে "
-"মেলে না। এটি আপডেট করতে `uag_envsec` ব্যবহার করুন।"
-
-#: src\uagent\runtime_env.py:214
-#, python-format
-msgid "Updated .env.sec: %(path)s"
-msgstr "আপডেট করা হয়েছে .env.sec: %(path)s"
-
-#: src\uagent\runtime_env.py:218
-#, python-format
-msgid "[WARN] Failed to update .env.sec: %(err)s"
-msgstr "[সতর্কতা] .env.sec: %(err)s আপডেট করতে ব্যর্থ হয়েছে৷"
-
-#: src\uagent\runtime_env.py:228
-msgid ""
-"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
-"environment variables? [y/N] "
-msgstr ""
-"[INFO] .env.sec অনুপস্থিত। বর্তমান startup UAGENT_* environment variables থেকে "
-"এটি তৈরি করবেন? [y/N] [INFO] .env.sec অনুপস্থিত। বর্তমান স্টার্টআপ UAGENT_* "
-"পরিবেশ ভেরিয়েবল থেকে এটি তৈরি করবেন? [y/N]"
-
-#: src\uagent\runtime_env.py:244
-msgid ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
-"startup UAGENT_* environment variables."
-msgstr ""
-"[INFO] .env.sec অনুপস্থিত। বর্তমান স্টার্টআপ UAGENT_* পরিবেশ ভেরিয়েবল থেকে এটি "
-"তৈরি করতে `uag_envsec` ব্যবহার করুন।"
-
-#: src\uagent\runtime_env.py:254
-#, python-format
-msgid "Created .env.sec: %(path)s"
-msgstr ".env.sec তৈরি করা হয়েছে: %(path)s"
-
-#: src\uagent\runtime_env.py:258
-#, python-format
-msgid "[WARN] Failed to create .env.sec: %(err)s"
-msgstr "[সতর্কতা] .env.sec: %(err)s তৈরি করতে ব্যর্থ হয়েছে৷"
-
-#: src\uagent\runtime_env.py:289
-#, python-format
-msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
-msgstr ""
-"[সতর্কতা] .env.sec সিঙ্ক্রোনাইজেশন পরীক্ষা করতে ব্যর্থ হয়েছে: "
-"%(err)s[সতর্কতা] .env.sec সিঙ্ক্রোনাইজেশন পরীক্ষা করতে ব্যর্থ হয়েছে: %(err)s"
-
-#: src\uagent\runtime_init.py:83
-#, python-format
-msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
-msgstr "[সতর্কতা] .env.sec ডিক্রিপ্ট করতে ব্যর্থ হয়েছে: %(err)s"
-
-#: src\uagent\runtime_workdir.py:49
-#, python-format
-msgid "Specified workdir path is a file: %(path)s"
-msgstr "নির্দিষ্ট ওয়ার্কডির পাথ হল একটি ফাইল: %(path)s"
-
-#: src\uagent\scheckgui.py:131
-msgid "Drop files/images here"
-msgstr "এখানে ফাইল/ছবি ড্রপ করুন"
-
-#: src\uagent\scheckgui.py:169
-msgid "Download"
-msgstr "ডাউনলোড করুন"
-
-#: src\uagent\scheckgui.py:329
-#, python-format
-msgid "Exception occurred while loading shared long-term memory: %(err)s"
-msgstr "ভাগ করা দীর্ঘমেয়াদী মেমরি লোড করার সময় ব্যতিক্রম ঘটেছে: %(err)s৷"
-
-#: src\uagent\scheckgui.py:382
-#, python-format
-msgid "[Attached File] %(name)s (%(path)s)"
-msgstr "[সংযুক্ত ফাইল] %(name)s (%(path)s)"
-
-#: src\uagent\scheckgui.py:467
-#, python-format
-msgid "[Attached Image] %(path)s"
-msgstr "[সংযুক্ত ছবি] %(path)s"
-
-#: src\uagent\scheckgui.py:469 src\uagent\web.py:666
-#, python-format
-msgid "[Image Path] %(path)s"
-msgstr "[ছবির পাথ] %(path)s"
-
-#: src\uagent\scheckgui.py:779 src\uagent\scheckgui.py:909
-msgid "Welcome / Quick Guide"
-msgstr "স্বাগতম / দ্রুত গাইড"
-
-#: src\uagent\scheckgui.py:787
-msgid "uag GUI (Extreme Stability)"
-msgstr "uag GUI (চরম স্থিতিশীলতা)"
-
-#: src\uagent\scheckgui.py:842
-msgid "↑ You can attach files by drag & drop"
-msgstr "↑ আপনি টেনে এনে ড্রপ করে ফাইল সংযুক্ত করতে পারেন"
-
-#: src\uagent\scheckgui.py:863
-msgid "Attach..."
-msgstr "সংযুক্ত করুন..."
-
-#: src\uagent\scheckgui.py:868
-msgid "Send"
-msgstr "পাঠান"
-
-#: src\uagent\scheckgui.py:908
-msgid "Help"
-msgstr "সাহায্য"
-
-#: src\uagent\scheckgui.py:923
-msgid "Mode"
-msgstr "মোড"
-
-#: src\uagent\scheckgui.py:925
-msgid "Reasoning: off"
-msgstr "যুক্তি: বন্ধ"
-
-#: src\uagent\scheckgui.py:928
-msgid "Reasoning: auto"
-msgstr "যুক্তি: স্বয়ংক্রিয়"
-
-#: src\uagent\scheckgui.py:930
-msgid "Reasoning: minimal"
-msgstr "যুক্তি: সর্বনিম্ন"
-
-#: src\uagent\scheckgui.py:932
-msgid "Reasoning: low"
-msgstr "যুক্তি: কম"
-
-#: src\uagent\scheckgui.py:934
-msgid "Reasoning: medium"
-msgstr "যুক্তি: মাঝারি"
-
-#: src\uagent\scheckgui.py:936
-msgid "Reasoning: high"
-msgstr "যুক্তি: উচ্চ"
-
-#: src\uagent\scheckgui.py:939
-msgid "Reasoning: xhigh"
-msgstr "যুক্তি: xhigh"
-
-#: src\uagent\scheckgui.py:944
-msgid "Verbosity: off"
-msgstr "শব্দচয়ন: বন্ধ"
-
-#: src\uagent\scheckgui.py:946
-msgid "Verbosity: low"
-msgstr "শব্দশক্তি: কম"
-
-#: src\uagent\scheckgui.py:948
-msgid "Verbosity: medium"
-msgstr "শব্দচয়ন: মাঝারি"
-
-#: src\uagent\scheckgui.py:950
-msgid "Verbosity: high"
-msgstr "শব্দশক্তি: উচ্চ"
-
-#: src\uagent\scheckgui.py:980
-#, python-format
-msgid "[mode] reasoning=%(mode)s"
-msgstr "[মোড] যুক্তি =%(মোড)গুলি"
-
-#: src\uagent\scheckgui.py:984
-msgid ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/"
-"minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=বন্ধ, 1=নিম্ন, 2=মধ্যম, 3=উচ্চ; auto/minimal/"
-"xhigh)"
-
-#: src\uagent\scheckgui.py:992
-#, python-format
-msgid "[mode] verbosity=%(mode)s"
-msgstr "[মোড] ভার্বোসিটি=%(মোড)সে"
-
-#: src\uagent\scheckgui.py:994
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3] (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; কোন আর্গ=কিপ)"
-
-#: src\uagent\scheckgui.py:1123
-msgid "Enter password..."
-msgstr "পাসওয়ার্ড লিখুন..."
-
-#: src\uagent\scheckgui.py:1130
-msgid "Enter a message..."
-msgstr "একটি বার্তা লিখুন..."
-
-#: src\uagent\scheckgui.py:1147
-msgid "Attach files"
-msgstr "ফাইল সংযুক্ত করুন"
-
-#: src\uagent\scheckgui.py:1149
-msgid "All Files (*)"
-msgstr "সমস্ত ফাইল (*)"
-
-#: src\uagent\scheckgui.py:1401
-msgid "cannot read image"
-msgstr "ছবি পড়া যায়নি"
-
-#: src\uagent\scheckgui.py:1552 src\uagent\scheckgui.py:1592
-#: src\uagent\scheckgui.py:1627
-msgid "Downloaded to"
-msgstr "এ ডাউনলোড করা হয়েছে"
-
-#: src\uagent\scheckgui.py:1646
-msgid "Playing"
-msgstr "বাজানো"
-
-#: src\uagent\scheckgui.py:1656
-msgid "Stopped"
-msgstr "থেমে গেল"
-
-#: src\uagent\scheckgui.py:1705
-#, python-format
-msgid "[REPLY] > %(text)s"
-msgstr "[উত্তর] > %(টেক্সট) সে"
-
-#: src\uagent\scheckgui.py:1713
-#, python-format
-msgid "[USER] %(text)s"
-msgstr "[ব্যবহারকারী] %(text)s"
-
-#: src\uagent\setup_cli.py:77 src\uagent\setup_cli.py:482
-#: src\uagent\setup_cli.py:572
-msgid "OpenAI API key"
-msgstr "OpenAI API কী"
-
-#: src\uagent\setup_cli.py:78 src\uagent\setup_cli.py:483
-#: src\uagent\setup_cli.py:573
-msgid "OpenAI base URL (optional)"
-msgstr "OpenAI বেস URL (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:79
-msgid "OpenAI model/deployment name (optional)"
-msgstr "OpenAI মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:85 src\uagent\setup_cli.py:474
-#: src\uagent\setup_cli.py:560
-msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
-msgstr "Azure বেস URL (যেমন https://<resource>.openai.azure.com/)"
-
-#: src\uagent\setup_cli.py:87 src\uagent\setup_cli.py:476
-#: src\uagent\setup_cli.py:562
-msgid "Azure API key"
-msgstr "Azure API কী"
-
-#: src\uagent\setup_cli.py:91
-msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
-msgstr "Azure API সংস্করণ (ঐচ্ছিক, যেমন 2024-05-01-প্রিভিউ)"
-
-#: src\uagent\setup_cli.py:93 src\uagent\setup_cli.py:478
-msgid "Azure deployment name"
-msgstr "Azure স্থাপনার নাম"
-
-#: src\uagent\setup_cli.py:99 src\uagent\setup_cli.py:491
-#: src\uagent\setup_cli.py:581
-msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
-msgstr "বেডরক গেটওয়ে বেস ইউআরএল (যেমন https://<gateway>/v1)"
-
-#: src\uagent\setup_cli.py:101 src\uagent\setup_cli.py:493
-#: src\uagent\setup_cli.py:583
-msgid "Bedrock API key"
-msgstr "বেডরক API কী"
-
-#: src\uagent\setup_cli.py:105 src\uagent\setup_cli.py:497
-msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
-msgstr "বেডরক মডেল/ডিপ্লয়মেন্ট নাম (যেমন openai.gpt-oss-120b)"
-
-#: src\uagent\setup_cli.py:109 src\uagent\setup_cli.py:502
-#: src\uagent\setup_cli.py:592
-msgid "OpenRouter API key"
-msgstr "OpenRouter API কী"
-
-#: src\uagent\setup_cli.py:110 src\uagent\setup_cli.py:503
-#: src\uagent\setup_cli.py:593
-msgid "OpenRouter base URL (optional)"
-msgstr "OpenRouter বেস URL (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:114
-msgid "OpenRouter model/deployment name (optional)"
-msgstr "OpenRouter মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:119
-msgid "OpenRouter fallback models (optional, comma-separated)"
-msgstr "OpenRouter ফলব্যাক মডেল (ঐচ্ছিক, কমা দ্বারা পৃথক করা)"
-
-#: src\uagent\setup_cli.py:123 src\uagent\setup_cli.py:508
-msgid "Gemini API key"
-msgstr "Gemini API কী"
-
-#: src\uagent\setup_cli.py:124
-msgid "Gemini model name (optional)"
-msgstr "মিথুন মডেলের নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:127
-msgid "Vertex AI API key"
-msgstr "Vertex AI API কী"
-
-#: src\uagent\setup_cli.py:128
-msgid "Vertex AI project ID (optional)"
-msgstr "ভার্টেক্স এআই প্রজেক্ট আইডি (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:129
-msgid "Vertex AI location/region (optional)"
-msgstr "ভার্টেক্স এআই অবস্থান/অঞ্চল (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:133
-msgid "Google credentials for Vertex AI (optional)"
-msgstr "Vertex AI এর জন্য Google শংসাপত্র (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:138
-msgid "Google location/region for Vertex AI (optional)"
-msgstr "Vertex AI এর জন্য Google অবস্থান/অঞ্চল (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:140
-msgid "Vertex AI model/deployment name"
-msgstr "ভার্টেক্স এআই মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:143
-msgid "Grok API key"
-msgstr "Grok API কী"
-
-#: src\uagent\setup_cli.py:144
-msgid "Grok base URL (optional)"
-msgstr "Grok বেস URL (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:145
-msgid "Grok model/deployment name (optional)"
-msgstr "Grok মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:148
-msgid "Claude API key"
-msgstr "Claude API কী"
-
-#: src\uagent\setup_cli.py:149
-msgid "Claude model/deployment name (optional)"
-msgstr "ক্লড মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:152 src\uagent\setup_cli.py:513
-#: src\uagent\setup_cli.py:607
-msgid "NVIDIA API key"
-msgstr "NVIDIA API কী"
-
-#: src\uagent\setup_cli.py:153 src\uagent\setup_cli.py:514
-#: src\uagent\setup_cli.py:608
-msgid "NVIDIA base URL (optional)"
-msgstr "NVIDIA বেস URL (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:154
-msgid "NVIDIA model/deployment name (optional)"
-msgstr "NVIDIA মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:160 src\uagent\setup_cli.py:601
-msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
-msgstr "ওল্লামা বেস ইউআরএল (যেমন http://localhost:11434/v1)"
-
-#: src\uagent\setup_cli.py:165
-msgid "Ollama API key (optional, default: dummy)"
-msgstr "ওল্লামা API কী (ঐচ্ছিক, ডিফল্ট: ডামি)"
-
-#: src\uagent\setup_cli.py:167
-msgid "Ollama model/deployment name (optional)"
-msgstr "ওল্লামা মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:171
-msgid "Ollama request timeout in seconds (default: 60)"
-msgstr "ওল্লামা অনুরোধের সময় শেষ সেকেন্ডে (ডিফল্ট: 60)"
-
-#: src\uagent\setup_cli.py:173
-msgid "Ollama temperature (default: 0.7)"
-msgstr "ওল্লামা তাপমাত্রা (ডিফল্ট: 0.7)"
-
-#: src\uagent\setup_cli.py:174
-msgid "Ollama top_p (default: 0.9)"
-msgstr "Ollama top_p (ডিফল্ট: 0.9)"
-
-#: src\uagent\setup_cli.py:175
-msgid "Ollama top_k (default: 40)"
-msgstr "ওল্লামা শীর্ষ_কে (ডিফল্ট: 40)"
-
-#: src\uagent\setup_cli.py:179
-msgid "Ollama repeat_penalty (default: 1.1)"
-msgstr "ওল্লামা রিপিট_পেনাল্টি (ডিফল্ট: 1.1)"
-
-#: src\uagent\setup_cli.py:181
-msgid "Ollama keep_alive (default: 5m)"
-msgstr "ওল্লামা কিপ_লাইভ (ডিফল্ট: 5মি)"
-
-#: src\uagent\setup_cli.py:182
-msgid "Ollama num_ctx (default: 8192)"
-msgstr "Ollama num_ctx (ডিফল্ট: 8192)"
-
-#: src\uagent\setup_cli.py:183
-msgid "Ollama num_predict (default: 1024)"
-msgstr "ওল্লামা সংখ্যা_প্রেডিক্ট (ডিফল্ট: 1024)"
-
-#: src\uagent\setup_cli.py:345 src\uagent\setup_cli.py:434
-msgid "Enter number:"
-msgstr "নম্বর লিখুন:"
-
-#: src\uagent\setup_cli.py:358
-msgid "Invalid input. Please enter a valid number."
-msgstr "অবৈধ ইনপুট একটি বৈধ নম্বর লিখুন."
-
-#: src\uagent\setup_cli.py:371
-#, python-format
-msgid " [default: %(default)s]"
-msgstr "[ডিফল্ট: %(default)s]"
-
-#: src\uagent\setup_cli.py:387
-msgid "This field is required. Please enter a value."
-msgstr "এই ক্ষেত্র প্রয়োজন. অনুগ্রহ করে একটি মান লিখুন।"
-
-#: src\uagent\setup_cli.py:399
-msgid "Select UAGENT_LANG"
-msgstr "UAGENT_LANG নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:410
-msgid "UAGENT_LANG (custom)"
-msgstr "UAGENT_LANG (কাস্টম)"
-
-#: src\uagent\setup_cli.py:423
-msgid "Select output files to generate in the current directory"
-msgstr "বর্তমান ডিরেক্টরিতে তৈরি করতে আউটপুট ফাইল নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:424
-msgid "  1. .env only"
-msgstr "1. শুধুমাত্র env"
-
-#: src\uagent\setup_cli.py:425
-msgid "  2. .env + env.sh"
-msgstr "2. env + env.sh"
-
-#: src\uagent\setup_cli.py:426
-msgid "  3. .env + env.ps1"
-msgstr "3. .env + env.ps1"
-
-#: src\uagent\setup_cli.py:427
-msgid "  4. .env + env.bat"
-msgstr "4. env + env.bat"
-
-#: src\uagent\setup_cli.py:428
-msgid "  5. .env + all (sh/ps1/bat)"
-msgstr "5. .env + সব (sh/ps1/bat)"
-
-#: src\uagent\setup_cli.py:430
-msgid "  b. back"
-msgstr "খ. ফিরে"
-
-#: src\uagent\setup_cli.py:431
-msgid "  q. quit"
-msgstr "q প্রস্থান"
-
-#: src\uagent\setup_cli.py:449
-msgid "Invalid input. Please enter 1-5, or b/q."
-msgstr "অবৈধ ইনপুট অনুগ্রহ করে 1-5 লিখুন, অথবা b/q."
-
-#: src\uagent\setup_cli.py:477 src\uagent\setup_cli.py:566
-msgid "Azure API version (e.g. 2024-05-01-preview)"
-msgstr "Azure API সংস্করণ (যেমন 2024-05-01-প্রিভিউ)"
-
-#: src\uagent\setup_cli.py:484
-msgid "OpenAI model/deployment name"
-msgstr "OpenAI মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:504
-msgid "OpenRouter model/deployment name"
-msgstr "OpenRouter মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:509
-msgid "Gemini model name"
-msgstr "মিথুন মডেলের নাম"
-
-#: src\uagent\setup_cli.py:515
-msgid "NVIDIA model/deployment name"
-msgstr "NVIDIA মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:534
-msgid "Enable image generation debug output? (0/1)"
-msgstr "ইমেজ জেনারেশন ডিবাগ আউটপুট সক্ষম করবেন? (0/1)"
-
-#: src\uagent\setup_cli.py:568
-msgid "Azure embedding deployment name"
-msgstr "Azure এম্বেডিং স্থাপনার নাম"
-
-#: src\uagent\setup_cli.py:574
-msgid "OpenAI embedding model/deployment name"
-msgstr "OpenAI এম্বেডিং মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:587
-msgid "Bedrock embedding model/deployment name"
-msgstr "বেডরক এমবেডিং মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:594
-msgid "OpenRouter embedding model/deployment name"
-msgstr "OpenRouter এম্বেডিং মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:603
-msgid "Ollama embedding model name"
-msgstr "ওল্লামা এমবেডিং মডেলের নাম"
-
-#: src\uagent\setup_cli.py:609
-msgid "NVIDIA embedding model/deployment name"
-msgstr "NVIDIA এম্বেডিং মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:613
-msgid "Gemini embedding API key"
-msgstr "Gemini embedding API কী"
-
-#: src\uagent\setup_cli.py:617
-msgid "Gemini embedding model name (e.g. text-embedding-004)"
-msgstr "Gemini embedding মডেলের নাম (যেমন: text-embedding-004)"
-
-#: src\uagent\setup_cli.py:622
-msgid "Vertex AI embedding API key"
-msgstr "Vertex AI embedding API কী"
-
-#: src\uagent\setup_cli.py:626
-msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
-msgstr "Vertex AI embedding মডেলের নাম (যেমন: text-embedding-004)"
-
-#: src\uagent\setup_cli.py:675
-msgid "Azure speech deployment name"
-msgstr "আজুর স্পিচ স্থাপনার নাম"
-
-#: src\uagent\setup_cli.py:676
-msgid "Azure transcription deployment name"
-msgstr "Azure ট্রান্সক্রিপশন স্থাপনার নাম"
-
-#: src\uagent\setup_cli.py:677
-msgid "OpenAI speech model/deployment name"
-msgstr "OpenAI স্পিচ মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:678
-msgid "OpenAI transcription model/deployment name"
-msgstr "OpenAI ট্রান্সক্রিপশন মডেল/ডিপ্লয়মেন্ট নাম"
-
-#: src\uagent\setup_cli.py:679
-msgid "Gemini speech model name (optional)"
-msgstr "মিথুন স্পিচ মডেল নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:680
-msgid "Gemini transcription model name (optional)"
-msgstr "মিথুন প্রতিলিপি মডেল নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:681
-msgid "Vertex AI speech model name (optional)"
-msgstr "ভার্টেক্স এআই স্পিচ মডেলের নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:682
-msgid "Vertex AI transcription model name (optional)"
-msgstr "Vertex AI ট্রান্সক্রিপশন মডেল নাম (ঐচ্ছিক)"
-
-#: src\uagent\setup_cli.py:705
-msgid "Configure optional image / embedding / audio settings?"
-msgstr "ঐচ্ছিক ইমেজ / এমবেডিং / অডিও সেটিংস কনফিগার করবেন?"
-
-#: src\uagent\setup_cli.py:706 src\uagent\setup_cli.py:721
-#: src\uagent\setup_cli.py:753 src\uagent\setup_cli.py:784
-#: src\uagent\setup_cli.py:800 src\uagent\setup_cli.py:855
-#: src\uagent\setup_cli.py:914 src\uagent\setup_cli.py:1159
-#: src\uagent\setup_cli.py:1220 src\uagent\setup_cli.py:1274
-#: src\uagent\setup_cli.py:1301 src\uagent\setup_cli.py:1322
-#: src\uagent\setup_cli.py:1459
-msgid "No"
-msgstr "না"
-
-#: src\uagent\setup_cli.py:706 src\uagent\setup_cli.py:721
-#: src\uagent\setup_cli.py:753 src\uagent\setup_cli.py:784
-#: src\uagent\setup_cli.py:800 src\uagent\setup_cli.py:855
-#: src\uagent\setup_cli.py:914 src\uagent\setup_cli.py:1159
-#: src\uagent\setup_cli.py:1220 src\uagent\setup_cli.py:1274
-#: src\uagent\setup_cli.py:1301 src\uagent\setup_cli.py:1322
-#: src\uagent\setup_cli.py:1459
-msgid "Yes"
-msgstr "হ্যাঁ"
-
-#: src\uagent\setup_cli.py:720
-msgid "Configure image analysis settings?"
-msgstr "ইমেজ বিশ্লেষণ সেটিংস কনফিগার?"
-
-#: src\uagent\setup_cli.py:731
-msgid "Select image analysis provider"
-msgstr "ইমেজ বিশ্লেষণ প্রদানকারী নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:752
-msgid "Configure image generation settings?"
-msgstr "ইমেজ জেনারেশন সেটিংস কনফিগার করবেন?"
-
-#: src\uagent\setup_cli.py:763
-msgid "Select image generation provider"
-msgstr "ইমেজ জেনারেশন প্রদানকারী নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:783
-msgid "Open generated images automatically?"
-msgstr "স্বয়ংক্রিয়ভাবে উত্পন্ন ইমেজ খুলুন?"
-
-#: src\uagent\setup_cli.py:799
-msgid "Configure embedding / semantic search settings?"
-msgstr "এম্বেডিং / শব্দার্থিক অনুসন্ধান সেটিংস কনফিগার করবেন?"
-
-#: src\uagent\setup_cli.py:825
-msgid "Select embedding provider"
-msgstr "এমবেডিং প্রদানকারী নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:854
-msgid "Configure audio speech / transcription settings?"
-msgstr "অডিও স্পিচ / ট্রান্সক্রিপশন সেটিংস কনফিগার করবেন?"
-
-#: src\uagent\setup_cli.py:873
-msgid "Select audio speech provider"
-msgstr "অডিও স্পিচ প্রদানকারী নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:893
-msgid "Select audio transcribe provider"
-msgstr "অডিও ট্রান্সক্রাইব প্রদানকারী নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:913
-msgid "Open generated audio automatically?"
-msgstr "স্বয়ংক্রিয়ভাবে জেনারেটেড অডিও খুলবেন?"
-
-#: src\uagent\setup_cli.py:980
-msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
-msgstr "ঐচ্ছিক: প্রতিক্রিয়া API (Azure/OpenAI/Bedrock)"
-
-#: src\uagent\setup_cli.py:993
-msgid "Optional runtime"
-msgstr "ঐচ্ছিক রানটাইম"
-
-#: src\uagent\setup_cli.py:1007
-msgid "Optional image / embedding / audio settings"
-msgstr "ঐচ্ছিক ছবি / এমবেডিং / অডিও সেটিংস"
-
-#: src\uagent\setup_cli.py:1149
-msgid "Optional specialized sub-agent settings"
-msgstr "ঐচ্ছিক বিশেষায়িত উপ-এজেন্ট সেটিংস"
-
-#: src\uagent\setup_cli.py:1158
-msgid "Encrypt the generated .env file?"
-msgstr "জেনারেট করা .env ফাইলটি এনক্রিপ্ট করবেন?"
-
-#: src\uagent\setup_cli.py:1164
-#, python-format
-msgid "Encrypted file will be written as %(path)s"
-msgstr "এনক্রিপ্ট করা ফাইলটি %(path)s হিসাবে লেখা হবে"
-
-#: src\uagent\setup_cli.py:1180
-msgid "Select provider"
-msgstr "প্রদানকারী নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:1219
-msgid "Enable Responses API options?"
-msgstr "প্রতিক্রিয়া API বিকল্পগুলি সক্ষম করবেন?"
-
-#: src\uagent\setup_cli.py:1235
-msgid "Select reasoning"
-msgstr "যুক্তি নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:1254
-msgid "Select verbosity"
-msgstr "verbosity নির্বাচন করুন"
-
-#: src\uagent\setup_cli.py:1273
-msgid "Set optional runtime UAGENT_WORKDIR?"
-msgstr "ঐচ্ছিক রানটাইম UAGENT_WORKDIR সেট করবেন?"
-
-#: src\uagent\setup_cli.py:1300
-msgid "Set optional runtime UAGENT_LANG?"
-msgstr "ঐচ্ছিক রানটাইম UAGENT_LANG সেট করবেন?"
-
-#: src\uagent\setup_cli.py:1321
-msgid "Enable streaming?"
-msgstr "স্ট্রিমিং সক্ষম করবেন?"
-
-#: src\uagent\setup_cli.py:1362
-msgid "Summary"
-msgstr "সারাংশ"
-
-#: src\uagent\setup_cli.py:1363
-#, python-format
-msgid "  Provider: %(provider)s"
-msgstr "প্রদানকারী: %(প্রোভাইডার)"
-
-#: src\uagent\setup_cli.py:1370
-#, python-format
-msgid "  Responses enabled: %(state)s"
-msgstr "প্রতিক্রিয়া সক্রিয় করা হয়েছে: %(state)s"
-
-#: src\uagent\setup_cli.py:1371 src\uagent\setup_cli.py:1378
-#: src\uagent\setup_cli.py:1382 src\uagent\setup_cli.py:1388
-#: src\uagent\setup_cli.py:1394 src\uagent\setup_cli.py:1399
-#: src\uagent\setup_cli.py:1407 src\uagent\setup_cli.py:1418
-msgid "yes"
-msgstr "হ্যাঁ"
-
-#: src\uagent\setup_cli.py:1371 src\uagent\setup_cli.py:1378
-#: src\uagent\setup_cli.py:1382 src\uagent\setup_cli.py:1388
-#: src\uagent\setup_cli.py:1394 src\uagent\setup_cli.py:1399
-#: src\uagent\setup_cli.py:1407 src\uagent\setup_cli.py:1418
-msgid "no"
-msgstr "না"
-
-#: src\uagent\setup_cli.py:1377
-#, python-format
-msgid "  Streaming enabled: %(state)s"
-msgstr "স্ট্রিমিং সক্ষম: %(state)s"
-
-#: src\uagent\setup_cli.py:1393
-#, python-format
-msgid "  Optional extras enabled: %(state)s"
-msgstr "ঐচ্ছিক অতিরিক্ত সক্রিয়: %(state)s"
-
-#: src\uagent\setup_cli.py:1398
-#, python-format
-msgid "  Image analysis enabled: %(state)s"
-msgstr "ছবি বিশ্লেষণ সক্রিয় করা হয়েছে: %(state)s"
-
-#: src\uagent\setup_cli.py:1406
-#, python-format
-msgid "  Image generation enabled: %(state)s"
-msgstr "ইমেজ জেনারেশন সক্ষম হয়েছে: %(state)s"
-
-#: src\uagent\setup_cli.py:1417
-#, python-format
-msgid "  Embedding enabled: %(state)s"
-msgstr "এমবেডিং সক্ষম হয়েছে: %(state)s"
-
-#: src\uagent\setup_cli.py:1427
-#, python-format
-msgid "  Outputs: %(outputs)s"
-msgstr "আউটপুট: %(আউটপুট)"
-
-#: src\uagent\setup_cli.py:1430
-msgid "Generate files with this configuration?"
-msgstr "এই কনফিগারেশন দিয়ে ফাইল তৈরি করবেন?"
-
-#: src\uagent\setup_cli.py:1431
-msgid "Yes, generate"
-msgstr "হ্যাঁ, তৈরি করুন"
-
-#: src\uagent\setup_cli.py:1431
-msgid "Back"
-msgstr "ফিরে"
-
-#: src\uagent\setup_cli.py:1455
-msgid "The following files already exist and will be overwritten:"
-msgstr "নিম্নলিখিত ফাইলগুলি ইতিমধ্যেই বিদ্যমান এবং ওভাররাইট করা হবে:"
-
-#: src\uagent\setup_cli.py:1459
-msgid "Proceed?"
-msgstr "এগিয়ে যান?"
-
-#: src\uagent\setup_cli.py:1483
-msgid "Plain .env file removed after encryption."
-msgstr "এনক্রিপশনের পরে সরানো হয়েছে প্লেইন .env ফাইল।"
-
-#: src\uagent\setup_cli.py:1486
-#, python-format
-msgid "Warning: Failed to remove plain .env: %(error)s"
-msgstr "সতর্কতা: প্লেইন .env: %(ত্রুটি)গুলি সরাতে ব্যর্থ হয়েছে৷"
-
-#: src\uagent\setup_cli.py:1505
-#, python-format
-msgid "generated: %(path)s"
-msgstr "উৎপন্ন: %(path)s"
-
-#: src\uagent\uagent_llm.py:131
-#, python-format
-msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
-msgstr "[সতর্কতা] টুল রাউন্ড %(max)d অতিক্রম করেছে; গর্ভপাত"
-
-#: src\uagent\util_providers.py:243
-msgid "Environment variable UAGENT_PROVIDER is not set."
-msgstr "পরিবেশ পরিবর্তনশীল UAGENT_PROVIDER সেট করা নেই।"
-
-#: src\uagent\util_providers.py:259
-#, python-format
-msgid "Unknown provider: %(provider)s"
-msgstr "অজানা প্রদানকারী: %(প্রদানকারী)"
-
-#: src\uagent\util_providers.py:544 src\uagent\util_providers.py:570
-msgid "google-genai package is not installed."
-msgstr "google-genai প্যাকেজ ইনস্টল করা নেই।"
-
-#: src\uagent\util_tools.py:181
-#, python-format
-msgid "image file not found: %(path)s"
-msgstr "ইমেজ ফাইল পাওয়া যায়নি: %(path)s"
-
-#: src\uagent\util_tools.py:186
-#, python-format
-msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr "ছবি ফাইল খুব বড়: %(size)d বাইট (সীমা=%(max)d)"
-
-#: src\uagent\util_tools.py:210
-msgid ""
-"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
-"current directory."
-msgstr ""
-"কাজের ডিরেক্টরি উল্লেখ করুন। সেট না থাকলে, UAGENT_WORKDIR env var বা বর্তমান "
-"ডিরেক্টরি ব্যবহার করে।"
-
-#: src\uagent\util_tools.py:217
-msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the "
-"startup file (if any)."
-msgstr ""
-"অ-ইন্টারেক্টিভ মোড। stdin লুপ শুরু করবেন না; স্টার্টআপ ফাইল প্রক্রিয়া করার পরে প্রস্থান "
-"করুন (যদি থাকে)।"
-
-#: src\uagent\util_tools.py:355
-msgid "invalid reasoning"
-msgstr "অবৈধ যুক্তি"
-
-#: src\uagent\util_tools.py:373
-msgid "invalid verbosity"
-msgstr "অবৈধ শব্দচয়ন"
-
-#: src\uagent\util_tools.py:547
-#, python-format
-msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-msgstr "[লগ] অবৈধ যুক্তি: %(arg)r (সমস্ত / --all / -a / সংখ্যা উল্লেখ করুন)"
-
-#: src\uagent\util_tools.py:586
-#, python-format
-msgid "failed to parse arguments: %(err)s"
-msgstr "আর্গুমেন্ট পার্স করতে ব্যর্থ হয়েছে: %(err)s"
-
-#: src\uagent\util_tools.py:589
-msgid "missing arguments"
-msgstr "অনুপস্থিত আর্গুমেন্ট"
-
-#: src\uagent\util_tools.py:605
-msgid "src and dst are required"
-msgstr "src এবং dst প্রয়োজন"
-
-#: src\uagent\util_tools.py:973
-msgid ""
-"[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow "
-"the instructions.\n"
-"If the skill contains tasks, continue until they are complete.\n"
-"Use tools as needed.\n"
-msgstr ""
-"[দক্ষতা সম্পাদন]\n"
-"এই দক্ষতা চালানোর উদ্দেশ্যে করা হয়. দক্ষতার অংশটি সাবধানে পড়ুন এবং নির্দেশাবলী "
-"অনুসরণ করুন।\n"
-"যদি দক্ষতার মধ্যে কাজ থাকে, সেগুলি সম্পূর্ণ না হওয়া পর্যন্ত চালিয়ে যান।\n"
-"প্রয়োজন অনুযায়ী সরঞ্জাম ব্যবহার করুন।"
-
-#: src\uagent\util_tools.py:980
-msgid "When finished, always call `finish_skill` if available.\n"
-msgstr "সমাপ্ত হলে, উপলব্ধ থাকলে সর্বদা `finish_skill` কল করুন।"
-
-#: src\uagent\util_tools.py:1132
-msgid ""
-"Select a skill number to run. Enter c to cancel.\n"
-"Tip: :skills clear  (remove applied skills)\n"
-"Enter number:"
-msgstr ""
-"চালানোর জন্য একটি দক্ষতা নম্বর নির্বাচন করুন। বাতিল করতে c লিখুন।\n"
-"টিপ: :দক্ষতা পরিষ্কার (প্রয়োগিত দক্ষতা সরান)\n"
-"নম্বর লিখুন:"
-
-#: src\uagent\util_tools.py:1168
-#, python-format
-msgid ""
-"Run this skill as a system-level instruction and keep it active in this "
-"session?\n"
-"\n"
-"Name: %(name)s\n"
-"Path: %(path)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"একটি সিস্টেম-স্তরের নির্দেশ হিসাবে এই দক্ষতা চালান এবং এই সেশনে এটি সক্রিয় রাখা?\n"
-"\n"
-"নাম: %(নাম)\n"
-"পথ: %(name)s\n"
-"\n"
-"এগিয়ে যান? চালাতে y, বা বাতিল করতে c লিখুন।"
-
-#: src\uagent\util_tools.py:1230
-#, python-format
-msgid ""
-"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
-"%(default)d)"
-msgstr ""
-"[পরিষ্কার] অবৈধ আর্গুমেন্ট: %(arg)r (number=threshold দিন; ডিফল্ট %(default)d)"
-
-#: src\uagent\util_tools.py:1279
-#, python-format
-msgid ""
-"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
-"Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
-"Targets: %(n)d\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"ডিস্ক থেকে কথোপকথনের লগ ফাইল (scheck_log__*.jsonl) মুছে ফেলবে।\n"
-"লগ dir: %(dir)s\n"
-"নিয়ম: সিস্টেম ব্যতীত মোট ব্যবহারকারী/সহকারী/টুল বার্তা <= %(threshold)d\n"
-"লক্ষ্য: %(n)d\n"
-"\n"
-"এগিয়ে যান? চালাতে y, বা বাতিল করতে c লিখুন।"
-
-#: src\uagent\util_tools.py:1347
-#, python-format
-msgid " - (%(count)d msgs) %(path)s"
-msgstr "- (%(count)dটি বার্তা) %(পথ)গুলি৷"
-
-#: src\uagent\util_tools.py:1391
-#, python-format
-msgid ""
-"will overwrite the current session log file and prepend the loaded log (no "
-"backup).\n"
-"\n"
-"Current log: %(cur_log)s\n"
-"Source log: %(src_log)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"বর্তমান সেশন লগ ফাইলটি ওভাররাইট করবে এবং লোড করা লগটি প্রিপেন্ড করবে (কোন "
-"ব্যাকআপ নেই)।\n"
-"\n"
-"বর্তমান লগ: %(cur_log)s\n"
-"উৎস লগ: %(src_log)s\n"
-"\n"
-"এগিয়ে যান? চালাতে y, বা বাতিল করতে c লিখুন।"
-
-#: src\uagent\util_tools.py:1522
-#, python-brace-format
-msgid ""
-"Delete {count} path(s)?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Enter y to proceed, or c to cancel."
-msgstr ""
-"{count} পথ(গুলি) মুছবেন?\n"
-"\n"
-"{পথ}\n"
-"\n"
-"এগিয়ে যেতে y লিখুন, বা বাতিল করতে c লিখুন।"
-
-#: src\uagent\util_tools.py:1577
-#, python-format
-msgid "Specified index %(idx)d is out of range."
-msgstr "নির্দিষ্ট সূচক %(idx)d পরিসীমার বাইরে।"
-
-#: src\uagent\util_tools.py:1586
-#, python-format
-msgid "Log file not found: %(path)s"
-msgstr "লগ ফাইল পাওয়া যায়নি: %(path)s"
-
-#: src\uagent\util_tools.py:1669
-#, python-format
-msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr ""
-"[shrink error] int হিসেবে পার্স করতে ব্যর্থ: %(arg)r -> শেষ %(keep)dটি রাখা "
-"হবে[সঙ্কুচিত ত্রুটি] int হিসাবে পার্স করতে ব্যর্থ হয়েছে: %(arg)r -> শেষ %(keep)d "
-"রাখুন"
-
-#: src\uagent\util_tools.py:1697
-#, python-format
-msgid ""
-"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr ""
-"[shrink_llm error] int হিসেবে পার্স করতে ব্যর্থ: %(arg)r -> শেষ %(keep)dটি রাখা "
-"হবে[shrink_llm ত্রুটি] int হিসাবে পার্স করতে ব্যর্থ হয়েছে: %(arg)r -> শেষ "
-"%(keep)d রাখুন"
-
-#: src\uagent\util_tools.py:1756 src\uagent\util_tools.py:1836
-msgid ""
-"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
-"set)."
-msgstr ""
-"শেয়ার করা দীর্ঘমেয়াদি মেমরি সক্রিয় নয় (UAGENT_SHARED_MEMORY_FILE সেট করা নেই)।"
-"ভাগ করা দীর্ঘমেয়াদী মেমরি সক্ষম করা নেই (UAGENT_SHARED_MEMORY_FILE সেট করা "
-"নেই)৷"
-
-#: src\uagent\util_tools.py:1787
-msgid "Analyzing past logs to generate user profile..."
-msgstr "পূর্বের লগ বিশ্লেষণ করে ব্যবহারকারীর প্রোফাইল তৈরি করা হচ্ছে..."
-
-#: src\uagent\util_tools.py:1791
-msgid "No past logs found or failed to generate profile."
-msgstr "কোনও পূর্বের লগ পাওয়া যায়নি বা প্রোফাইল তৈরি করা যায়নি।"
-
-#: src\uagent\util_tools.py:1793
-#, fuzzy
-msgid "User profile generated successfully from past logs!"
-msgstr "ব্যবহারকারী প্রোফাইল সফলভাবে সাফ করা হয়েছে।"
-
-#: src\uagent\util_tools.py:1805
-msgid "No user profile data found."
-msgstr "কোনো ব্যবহারকারী প্রোফাইল ডেটা পাওয়া যায়নি।"
-
-#: src\uagent\util_tools.py:1808
-msgid "User Profile:"
-msgstr "ব্যবহারকারী প্রোফাইল:"
-
-#: src\uagent\util_tools.py:1820
-msgid "User profile cleared successfully."
-msgstr "ব্যবহারকারী প্রোফাইল সফলভাবে সাফ করা হয়েছে।"
-
-#: src\uagent\util_tools.py:1824
-msgid "No user profile file found to clear."
-msgstr "সাফ করার জন্য কোনো ব্যবহারকারী প্রোফাইল ফাইল পাওয়া যায়নি।"
-
-#: src\uagent\util_tools.py:1888
-msgid "Show this help"
-msgstr "এই সাহায্য দেখান"
-
-#: src\uagent\util_tools.py:1889
-msgid "Restart input from the beginning"
-msgstr "শুরু থেকে ইনপুট পুনরায় আরম্ভ করুন"
-
-#: src\uagent\util_tools.py:1890
-msgid "Show log file list"
-msgstr "লগ ফাইলের তালিকা দেখান"
-
-#: src\uagent\util_tools.py:1893
-msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:"
-"\\path / :cd /)"
-msgstr ""
-"নিশ্চিতকরণ ছাড়া ওয়ার্কডির পরিবর্তন করুন (যেমন :cd .. / :cd ~ / :cd C:"
-"\\path / :cd /)"
-
-#: src\uagent\util_tools.py:1896
-msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
-msgstr ""
-"ডিরেক্টরির এন্ট্রিগুলো তালিকাভুক্ত করুন (যেমন :ls / :ls .. / :ls ~ / :ls C:"
-"\\path)ডিরেক্টরি এন্ট্রি তালিকাভুক্ত করুন (যেমন :ls / :ls .. / :ls ~ / :ls C:"
-"\\path)"
-
-#: src\uagent\util_tools.py:1899
-msgid "Manage UAGENT_* env vars and save .env.sec"
-msgstr "UAGENT_* পরিবেশ ভেরিয়েবল পরিচালনা করুন এবং .env.sec সংরক্ষণ করুন"
-
-#: src\uagent\util_tools.py:1901
-msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
-msgstr ""
-"দক্ষতা পরিচালনা/প্রয়োগ করুন (যেমন :skills / :skills active / :skills "
-"clear)দক্ষতা পরিচালনা/প্রয়োগ করুন (যেমন: দক্ষতা / : দক্ষতা সক্রিয় / : দক্ষতা "
-"পরিষ্কার)"
-
-#: src\uagent\util_tools.py:1906
-msgid "Load a past log (overwrites current conversation history)"
-msgstr "একটি অতীত লগ লোড করুন (বর্তমান কথোপকথনের ইতিহাস ওভাররাইট করে)"
-
-#: src\uagent\util_tools.py:1908
-msgid ""
-"                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current session "
-"log file (overwrite, no backup)."
-msgstr ""
-"দ্রষ্টব্য: চালানোর পরে, আপনাকে নিশ্চিতকরণের জন্য জিজ্ঞাসা করা হবে; 'y' নির্বাচন করা "
-"বর্তমান সেশনের লগ ফাইলে লোড করা লগকে পূর্বে প্রিপেন্ড করে (ওভাররাইট, কোনো ব্যাকআপ "
-"নেই)।"
-
-#: src\uagent\util_tools.py:1912
-msgid ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of user/"
-"assistant/tool messages (excluding system) is <= N (default=10)"
-msgstr ""
-"কথোপকথনের লগগুলি মুছুন (scheck_log_*.jsonl) যেখানে ব্যবহারকারী/সহকারী/টুল "
-"বার্তাগুলির গণনা (সিস্টেম ব্যতীত) <= N (ডিফল্ট=10)"
-
-#: src\uagent\util_tools.py:1916
-msgid ""
-"Shrink conversation history (keep last N non-system messages; default=40)"
-msgstr ""
-"কথোপকথনের ইতিহাস সংকুচিত করুন (শেষ Nটি non-system বার্তা রাখুন; "
-"ডিফল্ট=40)কথোপকথনের ইতিহাস সঙ্কুচিত করুন (শেষ N নন-সিস্টেম বার্তা রাখুন; ডিফল্ট=40)"
-
-#: src\uagent\util_tools.py:1920
-msgid ""
-"Shrink history via LLM summarization (summarize older history into 1 system "
-"message; keep last N raw; default=20)"
-msgstr ""
-"LLM সারসংক্ষেপের মাধ্যমে ইতিহাস সঙ্কুচিত করুন (পুরনো ইতিহাস 1টি সিস্টেম বার্তায় "
-"সংক্ষিপ্ত করুন; শেষ N কাঁচা রাখুন; ডিফল্ট=20)"
-
-#: src\uagent\util_tools.py:1922
-msgid "List long-term memory notes"
-msgstr "দীর্ঘমেয়াদী মেমরি নোট তালিকা"
-
-#: src\uagent\util_tools.py:1924
-msgid "Delete a long-term memory note by index (see :mem-list)"
-msgstr "সূচক দ্বারা একটি দীর্ঘমেয়াদী মেমরি নোট মুছুন (দেখুন :মেম-তালিকা)"
-
-#: src\uagent\util_tools.py:1926
-#, fuzzy
-msgid "Show the learned user profile, or generate it from past logs"
-msgstr "শিক্ষিত ব্যবহারকারী প্রোফাইল দেখান (পরিবেশ, পছন্দ, সীমাবদ্ধতা)"
-
-#: src\uagent\util_tools.py:1927
-#, fuzzy
-msgid "Generate user profile from past logs"
-msgstr "কোনো ব্যবহারকারী প্রোফাইল ডেটা পাওয়া যায়নি।"
-
-#: src\uagent\util_tools.py:1928
-msgid "Clear the learned user profile data"
-msgstr "শিক্ষিত ব্যবহারকারী প্রোফাইল ডেটা সাফ করুন"
-
-#: src\uagent\util_tools.py:1930
-msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr ""
-"ফাইল বা ডিরেক্টরি কপি করুন (-f/--overwrite এবং -p/--mkdirs সমর্থন করে)ফাইল বা "
-"ডিরেক্টরি অনুলিপি করুন (-f/--ওভাররাইট এবং -p/--mkdirs সমর্থন করে)"
-
-#: src\uagent\util_tools.py:1932
-msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "ফাইল বা ডিরেক্টরি সরান (-f/--ওভাররাইট এবং -p/--mkdirs সমর্থন করে)"
-
-#: src\uagent\util_tools.py:1934
-msgid "Show the first n lines of a file (default=20)"
-msgstr "একটি ফাইলের প্রথম n লাইন দেখান (ডিফল্ট=20)"
-
-#: src\uagent\util_tools.py:1935
-msgid "Show the last n lines of a file (default=20)"
-msgstr "একটি ফাইলের শেষ n লাইন দেখান (ডিফল্ট=20)"
-
-#: src\uagent\util_tools.py:1937
-msgid "Delete file(s)/directory(ies) with preview + confirm"
-msgstr "প্রিভিউ + কনফার্ম সহ ফাইল(গুলি)/ডিরেক্টরি(ies) মুছুন"
-
-#: src\uagent\util_tools.py:1939
-msgid "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-msgstr ""
-"যুক্তি মোড সেট করুন (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; auto/minimal/xhigh)যুক্তি "
-"মোড সেট করুন (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; স্বয়ংক্রিয়/সর্বনিম্ন/xhigh)"
-
-#: src\uagent\util_tools.py:1941
-msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-"ভার্বোসিটি মোড সেট করুন (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; কোনো আর্গ না থাকলে "
-"বর্তমান রাখুন)ভার্বোসিটি মোড সেট করুন (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; কোন "
-"আর্গ=কিপ)"
-
-#: src\uagent\util_tools.py:1942
-msgid "Exit"
-msgstr "প্রস্থান করুন"
-
-#: src\uagent\util_tools.py:1945
-msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-msgstr "- মাল্টিলাইন ইনপুট মোডে প্রবেশ করতে একটি লাইন লিখুন যা শুধু 'f'।"
-
-#: src\uagent\util_tools.py:1947
-#, python-format
-msgid ""
-"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-msgstr "- মাল্টিলাইন ইনপুট মোড শেষ করতে, একটি লাইন লিখুন যা ঠিক %(সেন্টিনেল)।"
-
-#: src\uagent\util_tools.py:2183
-msgid "Exiting."
-msgstr "প্রস্থান করছে।"
-
-#: src\uagent\util_tools.py:2186
-#, python-format
-msgid "Unknown command: :%(cmd)s"
-msgstr "অজানা কমান্ড: :%(cmd)s"
-
-#: src\uagent\util_tools.py:2337
-msgid ""
-"The bullet points listed below are excerpts from this user's long-term "
-"memory (persistent memos). Use them as background information about the "
-"user. However, always prioritize newly provided information in the "
-"conversation, and if it contradicts older information, adopt the latest "
-"information.\n"
-"\n"
-msgstr ""
-"নীচে তালিকাভুক্ত বুলেট পয়েন্টগুলি এই ব্যবহারকারীর দীর্ঘমেয়াদী মেমরির (অস্থির মেমো) "
-"থেকে উদ্ধৃতাংশ। ব্যবহারকারী সম্পর্কে পটভূমি তথ্য হিসাবে তাদের ব্যবহার করুন. যাইহোক, "
-"কথোপকথনে সর্বদা নতুন প্রদত্ত তথ্যকে অগ্রাধিকার দিন এবং যদি এটি পুরানো তথ্যের "
-"বিরোধিতা করে তবে সর্বশেষ তথ্য গ্রহণ করুন।"
-
-#: src\uagent\web.py:534
-msgid ""
-"[WARN] Another task is already running in this room. Please retry after it "
-"completes."
-msgstr ""
-"[সতর্কতা] এই রুমে ইতিমধ্যেই আরেকটি কাজ চলছে৷ এটি সম্পূর্ণ হওয়ার পরে অনুগ্রহ করে "
-"পুনরায় চেষ্টা করুন।"
-
-#: src\uagent\web.py:626 src\uagent\web.py:748
-msgid ""
-"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
-"Please check environment variables when starting the web server."
-msgstr ""
-"[FATAL] পরিবেশ পরিবর্তনশীল UAGENT_PROVIDER সেট করা নেই।\n"
-"ওয়েব সার্ভার শুরু করার সময় পরিবেশ ভেরিয়েবল পরীক্ষা করুন."
-
-#: src\uagent\web.py:664
-#, python-format
-msgid "[Attached Image] %(name)s"
-msgstr "[সংযুক্ত ছবি] %(name)s"
-
-#: src\uagent\web.py:669
-#, python-format
-msgid "[Attached File] %(name)s"
-msgstr "[সংযুক্ত ফাইল] %(name)s"
-
-#: src\uagent\web.py:670
-#, python-format
-msgid "[File Path] %(path)s"
-msgstr "[ফাইলের পাথ] %(path)s"
-
-#: src\uagent\web.py:698
-msgid "[INFO] Loaded long-term memory."
-msgstr "[INFO] দীর্ঘমেয়াদী মেমরি লোড করা হয়েছে."
-
-#: src\uagent\web.py:710
-msgid "[INFO] Loaded shared long-term memory."
-msgstr "[INFO] শেয়ার করা দীর্ঘমেয়াদী মেমরি লোড হয়েছে।"
-
-#: src\uagent\web.py:745
-#, python-format
-msgid ""
-"[FATAL] Web worker error.\n"
-"%(err)s"
-msgstr ""
-"[মারাত্মক] ওয়েব কর্মী ত্রুটি।\n"
-"%(ত্রুটি)"
-
-#: src\uagent\web.py:882
-msgid "missing path"
-msgstr "পাথ অনুপস্থিত"
-
-#: src\uagent\web.py:889
-msgid "path outside workdir"
-msgstr "পাথ কাজের ডিরেক্টরির বাইরে"
-
-#: src\uagent\web.py:1051
-msgid "Starting server on"
-msgstr "সার্ভার শুরু হচ্ছে"
-
-#: src\uagent\web.py:1053
-msgid "External URL:"
-msgstr "বাহ্যিক URL:"
-
-#: src\uagent\welcome.py:29
-msgid ""
-"[MCP Servers]\n"
-"- Config file not found."
-msgstr ""
-"[MCP সার্ভার]\n"
-"- কনফিগার ফাইল পাওয়া যায়নি।"
-
-#: src\uagent\welcome.py:36
-msgid ""
-"[MCP Servers]\n"
-"- No servers registered."
-msgstr ""
-"[MCP সার্ভার]\n"
-"- কোন সার্ভার নিবন্ধিত নেই।"
-
-#: src\uagent\welcome.py:38
-msgid "[MCP Servers]"
-msgstr "[MCP সার্ভার]"
-
-#: src\uagent\welcome.py:45
-#, python-format
-msgid ""
-"[MCP Servers]\n"
-"- Failed to get info: %(err)s"
-msgstr ""
-"[MCP সার্ভার]\n"
-"- তথ্য পেতে ব্যর্থ হয়েছে: %(err)s"
-
-#: src\uagent\welcome.py:64
-msgid "[Quick Guide]"
-msgstr "[দ্রুত নির্দেশিকা]"
-
-#: src\uagent\welcome.py:65
-msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
-"- চ্যাট: একটি বার্তা টাইপ করে পাঠান (GUI: Ctrl+Enter-ও ব্যবহার করা যায়)।- চ্যাট: "
-"একটি বার্তা টাইপ করুন এবং পাঠান (GUI: Ctrl+Enter এছাড়াও উপলব্ধ)।"
-
-#: src\uagent\welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with "
-"\"\"\"end)."
-msgstr ""
-"- মাল্টিলাইন: মাল্টিলাইন মোডে প্রবেশ করার জন্য একটি লাইন লিখুন যা শুধু 'f' হয় "
-"(\"\"\"শেষ দিয়ে শেষ করুন)।"
-
-#: src\uagent\welcome.py:70
-msgid ""
-"- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
-"(slash)."
-msgstr ""
-"- কমান্ড: সিস্টেম কমান্ড দেখতে ':help' টাইপ করুন (লগ পরিচালনা, ইতিহাস সংকোচন "
-"ইত্যাদি)। দ্রষ্টব্য: কমান্ডগুলি '/' (স্ল্যাশ) এর পরিবর্তে ':' (কোলন) দিয়ে শুরু হয়।"
-
-#: src\uagent\welcome.py:72
-msgid "- Exit: ':exit' or ':quit' ends the session."
-msgstr "- প্রস্থান করুন: ': exit' বা ': quit' সেশন শেষ করে।"
-
-#: src\uagent\welcome.py:74
-msgid ""
-"- Images: GUI supports drag & drop; in CUI you can input a file path for "
-"image analysis."
-msgstr ""
-"- ইমেজ: GUI টেনে আনে এবং ড্রপ সমর্থন করে; CUI-তে আপনি চিত্র বিশ্লেষণের জন্য একটি "
-"ফাইল পাথ ইনপুট করতে পারেন।"
-
-#: src\uagent\welcome.py:77
-#, python-format
-msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
-"Inspector help (`--path/--open` also available)."
-msgstr ""
-"- ডক্স: `%(docs_cmd)s` বান্ডেল করা ডক্স দেখায়; `%(webinspect_cmd)s` Web "
-"Inspector-এর সাহায্য দেখায় (`--path/--open`ও উপলব্ধ)।- ডক্স: `%(docs_cmd)s` "
-"বান্ডিল ডক্স দেখায়; `%(webinspect_cmd)s` ওয়েব ইন্সপেক্টর সহায়তা দেখায় (`--পাথ/--"
-"ওপেন`ও উপলব্ধ)।"
-
-#: src\uagent\welcome.py:81
-msgid "[Examples]"
-msgstr "[উদাহরণ]"
-
-#: src\uagent\welcome.py:82
-msgid "- \"Analyze the source code in this folder and create a README.md.\""
-msgstr "- \"এই ফোল্ডারে সোর্স কোড বিশ্লেষণ করুন এবং একটি README.md তৈরি করুন।\""
-
-#: src\uagent\welcome.py:84
-msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window "
-"contents.\""
-msgstr ""
-"- \"বর্তমান ডেস্কটপের একটি স্ক্রিনশট নিন এবং দৃশ্যমান উইন্ডোর বিষয়বস্তু বর্ণনা করুন।\""
-
-#: src\uagent\welcome.py:86
-msgid "- \"Create a monthly summary report from this Excel file.\""
-msgstr "- \"এই এক্সেল ফাইল থেকে একটি মাসিক সারসংক্ষেপ প্রতিবেদন তৈরি করুন।\""
-
-#: src\uagent\welcome.py:87
-msgid "- \"Read this PDF and list three key points.\""
-msgstr "- \"এই পিডিএফটি পড়ুন এবং তিনটি মূল পয়েন্ট তালিকাভুক্ত করুন।\""
-
-#: src\uagent\welcome.py:88
-msgid "- \"Search the latest news and summarize a specific topic.\""
-msgstr "- \"সর্বশেষ খবর অনুসন্ধান করুন এবং একটি নির্দিষ্ট বিষয়ের সারসংক্ষেপ করুন।\""
-
-#: src\uagent\welcome.py:193
-msgid "-- More -- (Enter: next) "
-msgstr "-- আরও -- (Enter: পরবর্তী) "
-
-#: src\uagent\a2a\engine.py:125
-msgid "No assistant message produced."
-msgstr "কোন সহকারী বার্তা উত্পাদিত."
-
-#: src\uagent\a2a\engine.py:137
-msgid "Generated image(s)."
-msgstr "তৈরি করা ছবি(গুলি)।"
-
-#: src\uagent\a2a\engine.py:150
-#, python-format
-msgid "ECHO: %(text)s"
-msgstr "ইকো: %(টেক্সট) সে"
-
-#: src\uagent\a2a\engine.py:165
-#, python-format
-msgid "uagent initialization failed: %(err)s"
-msgstr "uagent আরম্ভ ব্যর্থ হয়েছে: %(err)s"
-
-#: src\uagent\a2a\engine.py:177
-#, python-format
-msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr "uagent এক্সিকিউশন ব্যর্থ হয়েছে: %(etype)s: %(err)s"
-
-#: src\uagent\a2a\engine.py:188
-#, python-format
-msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
-msgstr "অজানা UAGENT_A2A_ENGINE: %(mode)s৷"
-
-#: src\uagent\tools\tools_control_tool.py:84
-msgid "msg.tools.no_tools"
-msgstr "[tools] কোনোツール লোড করা হয়নি।"
-
-#: src\uagent\tools\tools_control_tool.py:104
-msgid "msg.tools.loaded_count"
-msgstr "[tools] {n}টি টুল লোড করা হয়েছে"
-
-#: src\uagent\tools\tools_control_tool.py:118
-msgid "cmd.help.tools_list"
-msgstr "  :tools list [query]               লোড করা টুলগুলির তালিকা দেখান, ঐচ্ছিকভাবে নাম/বর্ণনা দ্বারা ফিল্টার করা"
-
-#: src\uagent\tools\tools_control_tool.py:124
-msgid "cmd.help.tools_on"
-msgstr ""
-"  :tools on comm                    যোগাযোগের সরঞ্জামগুলি সক্ষম করুন (Teams, Discord)
-  :tools on office                  অফিস সরঞ্জামগুলি সক্ষম করুন (Excel, Word, ইত্যাদি)
-  :tools on devel                   ডেভেলপমেন্ট সরঞ্জামগুলি সক্ষম করুন (lint, py_compile, tests)"
-
-#: src\uagent\tools\tools_control_tool.py:130
-msgid "cmd.help.tools_off"
-msgstr ""
-"  :tools off comm                   যোগাযোগের সরঞ্জামগুলি নিষ্ক্রিয় করুন (Teams, Discord)
-  :tools off office                 অফিস সরঞ্জামগুলি নিষ্ক্রিয় করুন (Excel, Word, ইত্যাদি)
-  :tools off devel                  ডেভেলপমেন্ট সরঞ্জামগুলি নিষ্ক্রিয় করুন (lint, py_compile, tests)"
-
-#: src\uagent\tools\tools_control_tool.py:141
-msgid "tool.description"
-msgstr "টুল নিয়ন্ত্রণ কমান্ড নিবন্ধনের জন্য ডামি টুল।"
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-08 18:12+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:17 src/uagent/checks.py:27
+#, python-format
+msgid "Please install Git. See: %(url)s"
+msgstr "অনুগ্রহ করে Git ইনস্টল করুন। দেখুন: %(url)s"
+
+#: src/uagent/checks.py:20
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"অনুগ্রহ করে গিট ইনস্টল করুন। উদাহরণ: sudo apt install git (Ubuntu/Debian) "
+"অথবা sudo yum install git (CentOS/RHEL)অনুগ্রহ করে গিট ইন্সটল করুন। উদাহরণ: "
+"sudo apt install git (Ubuntu/Debian) বা sudo yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:23
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"অনুগ্রহ করে গিট ইনস্টল করুন। Homebrew ব্যবহার করলে: brew install git, অথবা "
+"Xcode Command Line Tools ইনস্টল করুন: xcode-select --installঅনুগ্রহ করে গিট "
+"ইন্সটল করুন। হোমব্রু ব্যবহার করলে: brew install git, অথবা Xcode কমান্ড লাইন "
+"টুল ইনস্টল করুন: xcode-select --install"
+
+#: src/uagent/checks.py:30
+msgid "[ERROR] Git is not installed."
+msgstr "[ত্রুটি] Git ইনস্টল করা নেই।"
+
+#: src/uagent/cli.py:397
+msgid "getch() fallback to input()"
+msgstr "getch() ব্যর্থ হলে input() ব্যবহার করা হবে"
+
+#: src/uagent/cli.py:604
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Ctrl+C গ্রহণ করা হয়েছে। বন্ধ করা হচ্ছে..."
+
+#: src/uagent/cli.py:636 src/uagent/cli.py:706
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(বহু-লাইন ইনপুট মোড: বডি একাধিক লাইনে লিখুন; পুনরায় শুরু করতে \"\"\"retry "
+"টাইপ করুন; %(sentinel)s থাকা একটি লাইন দিয়ে শেষ করুন)(মাল্টিলাইন ইনপুট মোড:"
+" একাধিক লাইনে বডি প্রবেশ করান; রিস্টার্ট করতে, টাইপ করুন \"\"\"পুনরায় "
+"চেষ্টা করুন; %(sentinel)s সমন্বিত একটি লাইন দিয়ে শেষ করুন)"
+
+#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
+#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
+#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
+#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
+#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
+#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
+#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
+#: src/uagent/setup_cli.py:1462
+msgid "Cancelled."
+msgstr "বাতিল করা হয়েছে।"
+
+#: src/uagent/cli.py:672 src/uagent/cli.py:722
+msgid "Discarded previous input. Please start over."
+msgstr "পূর্ববর্তী ইনপুট বাতিল করা হয়েছে। আবার শুরু করুন।"
+
+#: src/uagent/cli.py:683
+msgid "Received multiline reply."
+msgstr "বহু-লাইন উত্তর পাওয়া গেছে।"
+
+#: src/uagent/cli.py:841
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"ইমেজ ফাইল পাথ আপনার ইনপুট পাওয়া গেছে.\n"
+"আপনি বিশ্লেষণের জন্য LLM (বাহ্যিক API) এই ছবি পাঠাতে চান?"
+
+#: src/uagent/cli.py:847
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr ""
+"পাঠাতে y দিয়ে উত্তর দিন, অথবা পাঠানো এড়াতে n (অথবা c/cancel) দিন।পাঠাতে y "
+"দিয়ে উত্তর দিন, অথবা পাঠানো এড়িয়ে যেতে n (বা c/বাতিল) দিয়ে উত্তর দিন।"
+
+#: src/uagent/cli.py:865
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"ছবি পাঠানোর নিশ্চিতকরণ ব্যর্থ হয়েছে; ছবি পাঠানো হবে না: %(etype)s: "
+"%(err)sছবি পাঠাতে নিশ্চিতকরণ ব্যর্থ হয়েছে; ছবি পাঠাবে না: %(etype)s: "
+"%(err)s"
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "ছবি সংযুক্ত করতে ব্যর্থ হয়েছে: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:930
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "অজানা ইভেন্টের ধরন=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:948
+msgid "Exited uag."
+msgstr "প্রস্থান করা হয়েছে uag."
+
+#: src/uagent/cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "[ডক্স] নাম প্রয়োজন"
+
+msgid ""
+"Select tool genres to enable at startup.\n"
+"1: comm  - Communication (Teams, Discord, etc.)\n"
+"2: office - Office suite (Excel, Word, etc.)\n"
+"4: devel  - Development (lint, py_compile, test, etc.)\n"
+"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
+msgstr ""
+"শুরুতে সক্ষম করার জন্য টুলের ধরণ নির্বাচন করুন।\n"
+"1: comm  - যোগাযোগ (Teams, Discord, ইত্যাদি)\n"
+"2: office - অফিস স্যুট (Excel, Word, ইত্যাদি)\n"
+"4: devel  - বিকাশ (lint, py_compile, test, ইত্যাদি)\n"
+"মানগুলির যোগফল লিখুন (যেমন, 3 = comm + office, 7 = সব, অথবা সব সক্ষম করতে Enter চাপুন):"
+
+#: src/uagent/cli_startup.py:96
+#, python-format
+msgid "[WARN] Failed to apply startup tool selection: %(err)s"
+msgstr "[WARN] স্টার্টআপ টুল নির্বাচন প্রয়োগ করতে ব্যর্থ হয়েছে: %(err)s"
+
+#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[গুরুতর ত্রুটি] workdir সেট করতে ব্যর্থ হয়েছে: %(err)s"
+
+#: src/uagent/cli_startup.py:202
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] uag_setup চালু করতে ব্যর্থ হয়েছে: %(err)s"
+
+#: src/uagent/cli_startup.py:243
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "প্রদানকারী = %(provider)s; মডেল = %(model)s"
+
+#: src/uagent/cli_startup.py:255 src/uagent/scheckgui.py:296
+msgid "OpenRouter fallback models enabled."
+msgstr "OpenRouter ফলব্যাক মডেল সক্রিয় করা হয়েছে।"
+
+#: src/uagent/cli_startup.py:259
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "বর্তমান workdir = %(cwd)s"
+
+#: src/uagent/cli_startup.py:273 src/uagent/scheckgui.py:307
+msgid "Loaded long-term memory."
+msgstr "দীর্ঘমেয়াদি মেমরি লোড করা হয়েছে।"
+
+#: src/uagent/cli_startup.py:286 src/uagent/scheckgui.py:320
+msgid "Loaded shared long-term memory."
+msgstr "শেয়ার করা দীর্ঘমেয়াদি মেমরি লোড করা হয়েছে।"
+
+#: src/uagent/cli_startup.py:293 src/uagent/web.py:718
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[সতর্কতা] শেয়ার করা দীর্ঘমেয়াদি মেমরি লোড করার সময় ব্যতিক্রম ঘটেছে: "
+"%(err)s[সতর্কতা] শেয়ার করা দীর্ঘমেয়াদি মেমরি লোড করার সময় ব্যতিক্রম "
+"ঘটেছে: %(err)s"
+
+#: src/uagent/cli_startup.py:327
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[সতর্ক] স্টার্টআপ ফাইল পড়তে ব্যর্থ হয়েছে: %(path)s (%(err)s)"
+
+#: src/uagent/cli_startup.py:341
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "স্টার্টআপ ফাইল দেওয়া হয়েছে: %(path)s"
+
+#: src/uagent/cli_startup.py:364
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr ""
+"--non-interactive নির্দিষ্ট করা হয়েছে; stdin-এর জন্য অপেক্ষা না করে "
+"প্রস্থান করা হচ্ছে।--অ-ইন্টারেক্টিভ নির্দিষ্ট করা হয়েছে; stdin এর জন্য "
+"অপেক্ষা না করে প্রস্থান করা হচ্ছে।"
+
+#: src/uagent/core.py:286 src/uagent/core.py:307
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "এনভায়রনমেন্ট ভেরিয়েবল %(নাম) সেট করা নেই।"
+
+#: src/uagent/core.py:607
+msgid "No log files found."
+msgstr "কোন লগ ফাইল পাওয়া যায়নি."
+
+#: src/uagent/core.py:625
+msgid "(unknown time)"
+msgstr "(অজানা সময়)"
+
+#: src/uagent/core.py:628
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "লগ: দেখানো হচ্ছে %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:631
+msgid "Log files:"
+msgstr "লগ ফাইল:"
+
+#: src/uagent/core.py:638
+msgid "(mtime unknown)"
+msgstr "(সংশোধনের সময় অজানা)"
+
+#: src/uagent/core.py:756 src/uagent/core.py:759
+msgid "(no user message)"
+msgstr "(কোন ব্যবহারকারীর বার্তা নেই)"
+
+#: src/uagent/core.py:764
+#, python-format
+msgid ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | %(turns)dটি বার্তা | প্রথম: %(first_user)s | শেষ:"
+" %(last_user)s"
+
+#: src/uagent/core.py:896
+#, python-format
+msgid ""
+"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
+msgstr ""
+"[WARN] অনাথ টুল বার্তা বাদ দেওয়া হচ্ছে: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
+
+#: src/uagent/core.py:994
+#, python-format
+msgid ""
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
+msgstr ""
+"[INFO] সংকোচনের জন্য %(count)dটি বার্তা ছিল, তাই কিছুই পরিবর্তন করা হয়নি।"
+
+#: src/uagent/core.py:1004
+#, python-format
+msgid ""
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+msgstr ""
+"[INFO] মেমরিতে থাকা কথোপকথনের ইতিহাস সংকুচিত করা হয়েছে: %(old_n)d -> "
+"%(new_n)dটি বার্তা (keep_last=%(keep_last)d)"
+
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr ""
+
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr ""
+
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr ""
+
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr ""
+
+msgid "- Output should be directly usable as a system message."
+msgstr ""
+
+msgid "Conversation chunk:\n"
+msgstr ""
+
+msgid "Write a concise summary of this chunk."
+msgstr ""
+
+msgid "- You are updating an existing conversation summary.\n"
+msgstr ""
+
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr ""
+
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr ""
+
+msgid "- Keep the result concise and suitable for a system message."
+msgstr ""
+
+msgid "Previous summary:\n"
+msgstr ""
+
+msgid "New chunk:\n"
+msgstr ""
+
+msgid "Update the summary while keeping the prior context intact."
+msgstr ""
+
+msgid "Summary of the conversation so far:\n"
+msgstr ""
+
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+
+#: src/uagent/core.py:1339
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[WARN] ইতিহাস সংকোচনে chunk_size=1 হলেও প্রসঙ্গসীমা ছাড়িয়ে গেছে; "
+"shrink_messages()-এ ফিরে যাচ্ছি।"
+
+#: src/uagent/core.py:1349
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr "[WARN] chunk_size আর কমানো যায়নি; shrink_messages()-এ ফিরে যাচ্ছি।"
+
+#: src/uagent/core.py:1357
+#, python-format
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"[WARN] প্রসঙ্গসীমা ছাড়িয়েছে; chunk_size=%(chunk_size)d দিয়ে আবার চেষ্টা "
+"করা হচ্ছে"
+
+#: src/uagent/core.py:1382
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help (সাহায্য অনুপলব্ধ: %(err)s)"
+
+#: src/uagent/core.py:1394
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## মিশন\n"
+"- আপনি একটি সক্ষম \"সাধারণ-উদ্দেশ্যের টুল নির্বাহক এজেন্ট\", যা একটি স্থানীয় পরিবেশে চলছে, এবং আপনি ব্যবহারকারীর মেশিনে সত্যিই কমান্ড চালাতে ও ফাইল পরিচালনা করতে পারেন।\n"
+"- কোনো বিপজ্জনক কাজ করার আগে ব্যবহারকারীর কাছ থেকে নিশ্চিতকরণ নিন।\n"
+"- ব্যবহারকারীর তোষামোদ করবেন না। ইমোজি ব্যবহার করবেন না।\n"
+"- সারাংশ দেবেন না। তথ্য সংক্ষিপ্ত রাখুন।\n"
+"- ফাইল তৈরি করার সময় সম্পূর্ণ চূড়ান্ত বিষয়বস্তু আউটপুট করুন (ডিফ বা আংশিক সারাংশ দেবেন না)।\n"
+"## মিশন\n"
+"- আপনি একজন দক্ষ \"সাধারণ-উদ্দেশ্য টুল এক্সিকিউশন এজেন্ট\" স্থানীয় পরিবেশে চলমান, এবং আপনি আসলে কমান্ডগুলি চালাতে পারেন এবং ব্যবহারকারীর মেশিনে ফাইলগুলি পরিচালনা করতে পারেন৷\n"
+"- কোনো বিপজ্জনক অপারেশন করার আগে ব্যবহারকারীকে নিশ্চিতকরণের জন্য জিজ্ঞাসা করুন।\n"
+"- ব্যবহারকারীকে তোষামোদ করবেন না। ইমোজি ব্যবহার করবেন না।\n"
+"- সারসংক্ষেপ করবেন না। তথ্য সংক্ষিপ্ত রাখুন।\n"
+"- ফাইল তৈরি করার সময়, সম্পূর্ণ চূড়ান্ত সামগ্রী আউটপুট করুন (ডিফ বা আংশিক সারাংশ আউটপুট করবেন না)।"
+
+#: src/uagent/core.py:1403
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## নিয়ম\n"
+"- সর্বদা প্রদত্ত টুলগুলো ব্যবহার করুন এবং সর্বশেষ তথ্য যাচাই করুন।\n"
+"- সৃজনশীল হোন, তবে অনিশ্চিত তথ্য আউটপুট করবেন না।\n"
+"- উপলব্ধ টুলগুলো দেখে কাজের জন্য সবচেয়ে উপযুক্তটি বেছে নিন।\n"
+"- টুল চালানোর সময় যতটা সম্ভব কম সিদ্ধান্ত ব্যবহারকারীর উপর ছেড়ে দিন।\n"
+"## নিয়ম\n"
+"- সর্বদা প্রদত্ত সরঞ্জামগুলি ব্যবহার করুন এবং সর্বশেষ তথ্য যাচাই করুন৷\n"
+"- সৃজনশীল হন, কিন্তু অনিশ্চিত তথ্য আউটপুট করবেন না।\n"
+"- উপলব্ধ সরঞ্জামগুলির সাথে পরামর্শ করুন এবং সবচেয়ে উপযুক্ত একটি চয়ন করুন৷\n"
+"- সরঞ্জামগুলি চালানোর সময়, ব্যবহারকারীকে যতটা সম্ভব কম সিদ্ধান্ত গ্রহণের দায়িত্ব অর্পণ করুন৷"
+
+#: src/uagent/core.py:1410
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## নোট\n"
+"- ব্যবহারকারীর সব বার্তা এই স্ক্রিপ্টের স্ট্যান্ডার্ড ইনপুটের মাধ্যমে আসে।\n"
+"- টুল-নির্দিষ্ট উদ্দেশ্য/আর্গুমেন্ট/সীমাবদ্ধতা/চালনার বিস্তারিত জন্য প্রতিটি টুলের বিবরণকে অগ্রাধিকার দিন।\n"
+"- অতিরিক্ত তথ্য বা ব্যবহারকারীর নিশ্চিতকরণ দরকার হলে human_ask টুল ব্যবহার করুন।\n"
+"- আপেক্ষিক তারিখের অভিব্যক্তি সামলাতে বর্তমান সময় জানতে get_current_time কল করুন।\n"
+"- গোপন তথ্য (পাসওয়ার্ড/টোকেন) দীর্ঘমেয়াদি মেমরিতে (add_long_memory ইত্যাদি) সংরক্ষণ করবেন না।\n"
+"- .org / .org1 / .org2-এর মতো প্রত্যয়যুক্ত ফাইলগুলো ব্যাকআপ কপি; এগুলোকে প্রধান সম্পাদনাযোগ্য ফাইল হিসেবে বিবেচনা করবেন না।\n"
+"- আপনি যদি Python ফাইল তৈরি করেন, তবে সিনট্যাক্স যাচাই করতে `python -m py_compile` চালান।\n"
+"- বিশেষজ্ঞ-স্তরের জ্ঞান প্রয়োজন হলে prompt templates (Agent Skills) ব্যবহার করুন এবং সেগুলো অনুসরণ করুন।\n"
+"- ব্যবহারকারীর ইনপুট যদি শুধু একটি ছোট সম্মতি হয় এবং নতুন তথ্য না যোগ করে, তবে একই ব্যাখ্যা পুনরাবৃত্তি করবেন না—যদি না তা ঠিক আগের স্পষ্ট প্রশ্নের সরাসরি উত্তর হয়। প্রয়োজনে সংক্ষেপে জিজ্ঞেস করুন: \"আমি কোন বিষয়ে এগোব?\"\n"
+"## নোট\n"
+"- সমস্ত ব্যবহারকারীর বার্তা এই স্ক্রিপ্টের স্ট্যান্ডার্ড ইনপুটের মাধ্যমে আসে।\n"
+"- টুল-নির্দিষ্ট উদ্দেশ্য/আর্গুমেন্ট/সীমাবদ্ধতা/অপারেশনাল বিশদ বিবরণের জন্য, প্রতিটি টুলের বর্ণনা পছন্দ করুন।\n"
+"- ব্যবহারকারীর কাছ থেকে অতিরিক্ত তথ্য বা নিশ্চিতকরণের প্রয়োজন হলে, human_ask টুলটি ব্যবহার করুন।\n"
+"- আপেক্ষিক তারিখ এক্সপ্রেশন পরিচালনা করার সময়, বর্তমান সময় উল্লেখ করতে get_current_time কল করুন।\n"
+"- দীর্ঘমেয়াদী মেমরিতে গোপনীয়তা (পাসওয়ার্ড/টোকেন) সংরক্ষণ করবেন না (add_long_memory, ইত্যাদি)।\n"
+"- .org / .org1 / .org2 এর মতো প্রত্যয় যুক্ত ফাইলগুলি ব্যাকআপ কপি এবং প্রাথমিক সম্পাদনাযোগ্য ফাইল হিসাবে বিবেচনা করা উচিত নয়৷\n"
+"- আপনি যদি Python ফাইল তৈরি করেন, তাহলে সিনট্যাক্স যাচাই করতে `python -m py_compile` চালান।\n"
+"- বিশেষজ্ঞ-স্তরের জ্ঞানের প্রয়োজন হলে, প্রম্পট টেমপ্লেট (এজেন্ট দক্ষতা) ব্যবহার করুন এবং সেগুলি অনুসরণ করুন।\n"
+"- যদি ব্যবহারকারীর ইনপুট শুধুমাত্র একটি সংক্ষিপ্ত নিশ্চিতকরণ হয় এবং কোন নতুন তথ্য যোগ না করে, তবে একই ব্যাখ্যা পুনরাবৃত্তি করবেন না যদি না এটি অবিলম্বে পূর্ববর্তী স্পষ্ট প্রশ্নের সরাসরি উত্তর হয়। যদি প্রয়োজন হয়, সংক্ষেপে জিজ্ঞাসা করুন: \"আমি কোন পয়েন্ট দিয়ে চালিয়ে যাব?\""
+
+#: src/uagent/core.py:1422
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr ""
+"## বিপজ্জনক অপারেশন নীতি (ডিলিট_ফাইল)\n"
+"- ডিলিট_ফাইল টুল ব্যবহার করে মুছে ফেলার জন্য, পূর্বরূপ দেখার আগে নিশ্চিতকরণের জন্য জিজ্ঞাসা করবেন না।\n"
+"- মুছে ফেলা প্রার্থীদের তালিকা পেতে প্রথমে dry_run=true দিয়ে delete_file চালান।\n"
+"- প্রার্থীদের ব্যবহারকারীকে দেখান এবং human_ask এর মাধ্যমে ঠিক একবার নিশ্চিতকরণ জিজ্ঞাসা করুন।\n"
+"- শুধুমাত্র যখন ব্যবহারকারী স্পষ্টভাবে \"y\" বা \"হ্যাঁ\" (বা সমতুল্য স্পষ্ট অনুমোদন) উত্তর দেয়, তখনই ডিলিট_ফাইল আবার একই প্যারামিটার দিয়ে চালান, dry_run=false এবং নিশ্চিত=true।\n"
+"- যদি শূন্য প্রার্থী থাকে, জিজ্ঞাসা করবেন না; শুধু রিপোর্ট যে কিছুই মুছে ফেলা হবে না।"
+
+#: src/uagent/core.py:1430
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## মিশন\n"
+"- আপনি স্থানীয় পরিবেশে চলমান একজন দক্ষ \"সাধারণ-উদ্দেশ্য টুল এক্সিকিউশন এজেন্ট\"; আপনি কমান্ড চালাতে পারেন এবং ব্যবহারকারীর মেশিনে কাজ করতে পারেন।\n"
+"- কোনো বিপজ্জনক অপারেশন করার আগে ব্যবহারকারীকে নিশ্চিতকরণের জন্য জিজ্ঞাসা করুন।\n"
+"- চাটুকার নয়। কোনো ইমোজি নেই। কোনো কথোপকথনের সারাংশ নেই। সংক্ষিপ্ত রাখুন।\n"
+"- ফাইল তৈরি করার সময়, সম্পূর্ণ চূড়ান্ত সামগ্রী আউটপুট করুন (কোনও পার্থক্য/আংশিক সারাংশ নেই)।"
+
+#: src/uagent/core.py:1438
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## নিয়ম\n"
+"- প্রথমে প্রদত্ত টুল ব্যবহার করুন এবং টুল দিয়ে ফলাফল যাচাই করুন।\n"
+"- উদ্দেশ্য/আর্গুমেন্ট/সীমাবদ্ধতার জন্য টুল বর্ণনার সাথে পরামর্শ করুন; সবচেয়ে উপযুক্ত এবং নিরাপদ টুল চয়ন করুন.\n"
+"- সৃজনশীল হন, কিন্তু অনিশ্চিত তথ্য আউটপুট করবেন না।\n"
+"- ব্যবহারকারীকে যতটা সম্ভব কম সিদ্ধান্ত গ্রহণের দায়িত্ব অর্পণ করুন।"
+
+#: src/uagent/core.py:1445
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## নোট\n"
+"- সমস্ত ব্যবহারকারীর বার্তা এই স্ক্রিপ্টের স্ট্যান্ডার্ড ইনপুটের মাধ্যমে আসে।\n"
+"- প্রয়োজনীয় তথ্য/প্যারামিটার অনুপস্থিত থাকলে, human_ask এর মাধ্যমে জিজ্ঞাসা করুন (অনুমান করবেন না)।\n"
+"- আপেক্ষিক তারিখ: কল get_current_time.\n"
+"- দীর্ঘমেয়াদী স্মৃতিতে গোপনীয়তা (পাসওয়ার্ড/টোকেন) সংরক্ষণ করবেন না।\n"
+"- .org / .org1 / .org2 এর মতো প্রত্যয় যুক্ত ফাইলগুলি ব্যাকআপ কপি এবং প্রাথমিক সম্পাদনাযোগ্য ফাইল হিসাবে বিবেচনা করা উচিত নয়৷\n"
+"- যদি আপনি Python ফাইল তৈরি করেন, তাহলে `python -m py_compile` চালান।\n"
+"- বিশেষজ্ঞ-স্তরের জ্ঞানের প্রয়োজন হলে, এজেন্ট স্কিল প্রম্পট টেমপ্লেট ব্যবহার করুন।\n"
+"- যদি ব্যবহারকারীর ইনপুট শুধুমাত্র একটি সংক্ষিপ্ত নিশ্চিতকরণ হয় এবং কোন নতুন তথ্য যোগ না করে, তবে একই ব্যাখ্যা পুনরাবৃত্তি করবেন না যদি না এটি অবিলম্বে পূর্ববর্তী স্পষ্ট প্রশ্নের সরাসরি উত্তর হয়। যদি প্রয়োজন হয়, সংক্ষেপে জিজ্ঞাসা করুন: \"আমি কোন পয়েন্ট দিয়ে চালিয়ে যাব?\""
+
+#: src/uagent/core.py:1458
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr ""
+"- ব্যবহারকারী যদি Windows cmd.exe ব্যবহার করেন, তাহলে ক্যারেট (^) লাইন "
+"কন্টিনিউয়েশন ব্যবহার করে মাল্টি-লাইন কমান্ড পছন্দ করুন এবং কপি/পেস্ট লাইন "
+"ব্রেক এড়াতে প্রতিটি লাইন ছোট রাখুন।"
+
+#: src/uagent/core.py:1525
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr ""
+"নিম্নলিখিত সরঞ্জামগুলি বর্তমানে এই সেশনে লোড করা হয়েছে৷ টাস্কের জন্য "
+"সবচেয়ে উপযুক্ত টুল বেছে নিন।"
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "প্রকল্প README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "কুইকস্টার্ট (উইন্ডোজ হুইল ইনস্টল)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "ওয়েব ইন্সপেক্টর (নাট্যকার_পরিদর্শক) গাইড"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "বিকাশকারী তথ্য"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "অজানা ডক নাম: %(নাম)আর"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "ডক ফাইল পাওয়া যায়নি: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "ডক পাথ রেজোলিউশন ব্যর্থ হয়েছে: %(filename)s: %(err)s৷"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[দস্তাবেজ] উপলব্ধ নথি:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "ব্যবহার:"
+
+#: src/uagent/docs_util.py:232
+msgid "list"
+msgstr "তালিকা"
+
+#: src/uagent/docs_util.py:233
+msgid "show"
+msgstr "দেখান"
+
+#: src/uagent/docs_util.py:234
+msgid "show path"
+msgstr "পথ দেখান"
+
+#: src/uagent/docs_util.py:235
+msgid "open with OS"
+msgstr "OS দিয়ে খুলুন"
+
+#: src/uagent/env_validate.py:42
+msgid ""
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+msgstr ""
+"LLM প্রদানকারী (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia) "
+"নির্বাচন করতে প্রয়োজন।LLM প্রদানকারী "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia) নির্বাচন করতে "
+"হবে।"
+
+#: src/uagent/env_validate.py:63
+#, python-format
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+"অজানা প্রদানকারী: %(provider)r. অনুমোদিত: %(allowed)s (স্টার্টআপ সম্ভবত "
+"ব্যর্থ হবে)।অজানা প্রদানকারী: %(provider)r. অনুমোদিত: %(allowed)s (স্টার্টআপ"
+" সম্ভবত ব্যর্থ হবে)।"
+
+#: src/uagent/env_validate.py:74
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+"Azure OpenAI এন্ডপয়েন্ট/বেস URL (যেমন, "
+"https://<resource>.openai.azure.com/).Azure OpenAI এন্ডপয়েন্ট/বেস URL "
+"(যেমন, https://<resource>.openai.azure.com/)।"
+
+#: src/uagent/env_validate.py:80
+msgid "Azure OpenAI API key."
+msgstr "Azure OpenAI API কী।"
+
+#: src/uagent/env_validate.py:85
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr "Azure OpenAI API সংস্করণ (যেমন, 2024-xx-xx)।"
+
+#: src/uagent/env_validate.py:92
+msgid "OpenAI API key."
+msgstr "OpenAI API কী।"
+
+#: src/uagent/env_validate.py:98
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr "বেডরক প্রক্সি এন্ডপয়েন্ট/বেস ইউআরএল (ওপেনএআই-সামঞ্জস্যপূর্ণ)।"
+
+#: src/uagent/env_validate.py:105
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr "বেডরক প্রক্সি এপিআই কী (ওপেনএআই-সামঞ্জস্যপূর্ণ)।"
+
+#: src/uagent/env_validate.py:112
+msgid "OpenRouter API key."
+msgstr "OpenRouter API কী।"
+
+#: src/uagent/env_validate.py:117
+msgid "Grok (xAI) API key."
+msgstr "Grok (xAI) API কী।"
+
+#: src/uagent/env_validate.py:122
+msgid "Gemini API key."
+msgstr "Gemini API কী।"
+
+#: src/uagent/env_validate.py:129
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+"পাইথন প্যাকেজ 'google-genai' ইনস্টল করা নেই। Provider=gemini-এর এটি "
+"দরকার।পাইথন প্যাকেজ 'google-genai' ইনস্টল করা নেই। প্রদানকারী=মিথুনের এটি "
+"প্রয়োজন।"
+
+#: src/uagent/env_validate.py:140
+msgid "Vertex AI API key / model name."
+msgstr "Vertex AI API কী / মডেলের নাম।"
+
+#: src/uagent/env_validate.py:149
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+"পাইথন প্যাকেজ 'google-genai' ইনস্টল করা নেই। Provider=vertexai-এর এটি "
+"দরকার।পাইথন প্যাকেজ 'google-genai' ইনস্টল করা নেই। প্রদানকারী = vertexai এর "
+"প্রয়োজন।"
+
+#: src/uagent/env_validate.py:157
+msgid "Anthropic (Claude) API key."
+msgstr "Anthropic (Claude) API কী।"
+
+#: src/uagent/env_validate.py:165
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+"পাইথন প্যাকেজ 'anthropic' ইনস্টল করা নেই। Provider=claude-এর এটি দরকার।পাইথন"
+" প্যাকেজ 'এনথ্রপিক' ইনস্টল করা নেই। প্রদানকারী=ক্লুড এর প্রয়োজন।"
+
+#: src/uagent/env_validate.py:172
+msgid "NVIDIA API key."
+msgstr "NVIDIA API কী।"
+
+#: src/uagent/env_validate.py:190
+#, python-format
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+"অজানা embedding প্রদানকারী: %(provider)r. অনুমোদিত: %(allowed)s (স্টার্টআপ "
+"সম্ভবত ব্যর্থ হবে)।অজানা এমবেডিং প্রদানকারী: %(প্রোভাইডার)আর. অনুমোদিত: "
+"%(provider)r (স্টার্টআপ সম্ভবত ব্যর্থ হবে)।"
+
+#: src/uagent/env_validate.py:207
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr "Azure এম্বেডিং এন্ডপয়েন্ট / API কী / API সংস্করণ / স্থাপনার নাম।"
+
+#: src/uagent/env_validate.py:218
+msgid "OpenAI embedding API key / model name."
+msgstr "OpenAI এম্বেডিং API কী/মডেল নাম।"
+
+#: src/uagent/env_validate.py:230
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr "বেডরক এম্বেডিং এন্ডপয়েন্ট / API কী / স্থাপনার নাম।"
+
+#: src/uagent/env_validate.py:241
+msgid "OpenRouter embedding API key / model name."
+msgstr "OpenRouter এম্বেডিং API কী/মডেল নাম।"
+
+#: src/uagent/env_validate.py:252
+msgid "Ollama embedding base URL / model name."
+msgstr "ওল্লামা এমবেডিং বেস ইউআরএল/মডেল নাম।"
+
+#: src/uagent/env_validate.py:263
+msgid "NVIDIA embedding API key / model name."
+msgstr "NVIDIA এম্বেডিং API কী / মডেলের নাম।"
+
+#: src/uagent/env_validate.py:274
+msgid "Gemini embedding API key / model name."
+msgstr "Gemini embedding API কী / মডেল নাম।"
+
+#: src/uagent/env_validate.py:285
+msgid "Vertex AI embedding API key / model name."
+msgstr "Vertex AI embedding API কী / মডেল নাম।"
+
+#: src/uagent/env_validate.py:302
+#, python-brace-format
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] পরিবেশ যাচাই ব্যর্থ হয়েছে ({context})."
+
+#: src/uagent/env_validate.py:310
+msgid "Missing required environment variables:"
+msgstr "প্রয়োজনীয় পরিবেশ ভেরিয়েবল অনুপস্থিত:"
+
+#: src/uagent/env_validate.py:317
+msgid "Warnings:"
+msgstr "সতর্কতা:"
+
+#: src/uagent/env_validate.py:321
+msgid "How to fix:"
+msgstr "কিভাবে ঠিক করবেন:"
+
+#: src/uagent/env_validate.py:324
+msgid ""
+"- Set the variables above in your environment before starting the program."
+msgstr "- প্রোগ্রাম শুরু করার আগে আপনার পরিবেশে উপরের ভেরিয়েবল সেট করুন।"
+
+#: src/uagent/env_validate.py:330
+msgid ""
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
+msgstr ""
+"- আপনি এগুলিকে আপনার OS পরিবেশ সেটিংস, একটি .env ফাইল, আপনার শেল স্টার্টআপ "
+"স্ক্রিপ্টগুলির মাধ্যমে সেট করতে পারেন,"
+
+#: src/uagent/env_validate.py:336
+msgid ""
+"  or your process manager / service configuration (CI secrets, systemd, "
+"Docker, etc.)."
+msgstr ""
+"অথবা আপনার প্রসেস ম্যানেজার/সেবা কনফিগারেশন (সিআই সিক্রেটস, সিস্টেমড, ডকার, "
+"ইত্যাদি)।"
+
+#: src/uagent/gemini_cache_mgr.py:131
+msgid "invalid cache meta"
+msgstr "অবৈধ ক্যাশে মেটা"
+
+#: src/uagent/image_session.py:101
+msgid "(prompt unavailable)"
+msgstr "(প্রম্পট অনুপলব্ধ)"
+
+#: src/uagent/image_session.py:105
+#, python-format
+msgid "screenshot: %(title)s"
+msgstr "স্ক্রিনশট: %(title)s"
+
+#: src/uagent/image_session.py:107
+msgid "screenshot"
+msgstr "স্ক্রিনশট"
+
+#: src/uagent/image_session.py:148
+msgid "Image-session context:"
+msgstr "ইমেজ-সেশন প্রেক্ষাপট:"
+
+#: src/uagent/image_session.py:149
+msgid "This conversation already generated images."
+msgstr "এই কথোপকথনে ইতিমধ্যে ছবি তৈরি হয়েছে।"
+
+#: src/uagent/image_session.py:151
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"পরবর্তী সম্পাদনা, ভিন্নতা বা ধারাবাহিকতার জন্য নিচের আগের প্রম্পট ও সংরক্ষিত"
+" ফাইল-পাথগুলোকে প্রেক্ষাপট হিসেবে ব্যবহার করুন।"
+
+#: src/uagent/image_session.py:156
+#, python-format
+msgid "Turn %(idx)d:"
+msgstr "ধাপ %(idx)d:"
+
+#: src/uagent/image_session.py:157
+#, python-format
+msgid "- prompt: %(prompt)s"
+msgstr "- প্রম্পট: %(prompt)s"
+
+#: src/uagent/image_session.py:160
+#, python-format
+msgid "- file: %(path)s"
+msgstr "- ফাইল: %(path)s"
+
+#: src/uagent/llm_claude.py:143 src/uagent/util_providers.py:610
+msgid "anthropic package is not installed."
+msgstr "নৃতাত্ত্বিক প্যাকেজ ইনস্টল করা নেই।"
+
+#: src/uagent/llm_errors.py:398
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr ""
+"[RATE_LIMIT] প্রদানকারী=%(provider)s মডেল=%(model)s স্থিতি=%(status)s "
+"প্রচেষ্টা=%(attempt)s/%(max_retries)s অপেক্ষা=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+
+#: src/uagent/llm_flow_helpers.py:205
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+"আগের সহকারীর উত্তর ছিল খালি। অনুগ্রহ করে সাম্প্রতিক টুলের ফলাফলের উপর ভিত্তি"
+" করে উত্তর দিন।"
+
+#: src/uagent/llm_flow_helpers.py:218
+#, python-format
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+msgstr ""
+"[সতর্কতা] এলএলএম টুল কল ছাড়াই একটি খালি সহকারী বার্তা ফেরত দিয়েছে।\n"
+"প্রদানকারী=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"টুল কল করার পরে OpenAI- সামঞ্জস্যপূর্ণ স্থানীয় প্রদানকারীদের সাথে এটি ঘটতে পারে। আপনি UAGENT_EMPTY_NO_TOOL_MAX কে উচ্চতর মানতে সেট করার চেষ্টা করতে পারেন, অথবা প্রদানকারী পরিবর্তন করার চেষ্টা করতে পারেন৷"
+
+#: src/uagent/llm_flow_helpers.py:265
+msgid "arguments must be a JSON object."
+msgstr "আর্গুমেন্ট অবশ্যই একটি JSON অবজেক্ট হতে হবে।"
+
+#: src/uagent/llm_flow_helpers.py:272
+#, python-format
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"ট্রেসব্যাক:\n"
+"%(tb)s"
+
+#: src/uagent/llm_flow_helpers.py:298
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr ""
+"[INFO] পূর্ববর্তী ফলাফল পুনরায় ব্যবহার করা হচ্ছে কারণ এই টুল কলটি আগেরটির "
+"সাথে মেলে।"
+
+#: src/uagent/llm_flow_helpers.py:313
+#, python-format
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[টুল রানটাইম ত্রুটি] name=%(name)r err=%(etype)s: %(err)s\n"
+"ট্রেসব্যাক:\n"
+"%(tb)s"
+
+#: src/uagent/llm_gemini.py:556
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr "google-genai ইম্পোর্ট করা যায়নি (pip install google-genai প্রয়োজন)।"
+
+#: src/uagent/llm_gemini.py:1115
+msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
+msgstr ""
+"[Gemini ত্রুটি: নিরাপত্তা ফিল্টার বা সমাপ্তির কারণে প্রতিক্রিয়া অবরুদ্ধ করা"
+" হয়েছে]"
+
+#: src/uagent/llm_gemini.py:1117
+#, python-format
+msgid "[Gemini Error: %(err)s]"
+msgstr "[Gemini ত্রুটি: %(err)s]"
+
+#: src/uagent/llm_image_helpers.py:7
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr "এই স্ক্রিনশটটি বর্ণনা করুন এবং দৃশ্যমান UI সংক্ষেপে বলুন।"
+
+#: src/uagent/llm_image_helpers.py:11
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr "এই স্ক্রিনশটে দৃশ্যমান সব লেখা পড়ে সংক্ষেপ করুন।"
+
+#: src/uagent/llm_image_helpers.py:15
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr ""
+"ত্রুটি, সতর্কতা এবং গুরুত্বপূর্ণ UI অবস্থা আছে কি না এই স্ক্রিনশটটি পরীক্ষা "
+"করুন।"
+
+#: src/uagent/llm_message_helpers.py:155
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] Auto shrink_llm ব্যর্থ হয়েছে: %(err)s"
+
+#: src/uagent/llm_openai_responses.py:69
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr "[সতর্কতা] সহকারী ইতিহাসে চিত্র সামগ্রী রয়েছে; টেক্সটে রূপান্তরিত।"
+
+#: src/uagent/llm_openai_responses.py:92
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[সতর্কতা] অবৈধ চিত্র সামগ্রী (URL অনুপস্থিত)।"
+
+#: src/uagent/llm_openai_responses.py:100
+#: src/uagent/llm_openai_responses.py:109
+#, python-format
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[সতর্কতা] অসমর্থিত কনটেন্ট আইটেম: %(item)r"
+
+#: src/uagent/llm_openai_responses.py:444
+msgid "Sources:"
+msgstr "উৎসসমূহ:"
+
+#: src/uagent/llm_openai_responses.py:507
+msgid "search"
+msgstr "অনুসন্ধান"
+
+#: src/uagent/llm_openai_responses.py:509
+msgid "open page"
+msgstr "পৃষ্ঠা খুলুন"
+
+#: src/uagent/llm_openai_responses.py:511
+msgid "find in page"
+msgstr "পৃষ্ঠায় খুঁজুন"
+
+#: src/uagent/llm_openai_responses.py:512
+msgid "web search"
+msgstr "ওয়েব অনুসন্ধান"
+
+#: src/uagent/llm_openai_responses.py:526
+msgid "Web search: searching"
+msgstr "ওয়েব অনুসন্ধান: অনুসন্ধান"
+
+#: src/uagent/llm_openai_responses.py:528
+msgid "Web search: completed"
+msgstr "ওয়েব অনুসন্ধান: সম্পন্ন"
+
+#: src/uagent/llm_openai_responses.py:530
+#, python-brace-format
+msgid "Web search: {action}"
+msgstr "ওয়েব সার্চ: {action}"
+
+#: src/uagent/llm_openai_responses.py:587
+#, python-brace-format
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[টুল কল করার নিয়ম]\n"
+"        - একটি টুল/ফাংশন কল করার সময়, আপনাকে অবশ্যই JSON অবজেক্ট হিসাবে function_call.arguments প্রদান করতে হবে।\n"
+"        - JSON অবজেক্টে টুল স্কিমা দ্বারা সংজ্ঞায়িত সমস্ত প্রয়োজনীয় পরামিতি অন্তর্ভুক্ত করা আবশ্যক।\n"
+"        - একটি খালি বস্তু {} সহ একটি টুল কল করবেন না যদি না টুলটিতে প্রয়োজনীয় প্যারামিটার না থাকে৷\n"
+"        - যদি আপনার কাছে প্রয়োজনীয় প্যারামিটার না থাকে তবে অনুমান করার পরিবর্তে human_ask ব্যবহার করে ব্যবহারকারীকে এটির জন্য জিজ্ঞাসা করুন।"
+
+#: src/uagent/llm_openai_responses.py:594
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[ওয়েব অনুসন্ধানের নিয়ম]\n"
+"        - তাজা বা বাহ্যিক তথ্যের প্রয়োজন হলেই ওয়েব অনুসন্ধান ব্যবহার করুন।\n"
+"        - স্থানীয় বা স্থিতিশীল তথ্যের জন্য ওয়েব অনুসন্ধান ব্যবহার করবেন না।\n"
+"        - ওয়েব অনুসন্ধান ছাড়াই উত্তর দিতে পছন্দ করুন যখন উত্তর ইতিমধ্যেই যথেষ্ট।"
+
+#: src/uagent/llm_round_helpers.py:133
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[অনুবাদ ত্রুটি] %(diag)s"
+
+#: src/uagent/llm_round_helpers.py:192 src/uagent/llm_round_helpers.py:302
+#: src/uagent/llm_round_helpers.py:636
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "429 পুনঃপ্রচেষ্টার সীমা (%(max_retries)s) এ পৌঁছেছে।"
+
+#: src/uagent/llm_round_helpers.py:216
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[মিথুন ত্রুটি] একটি প্রতিক্রিয়া তৈরি করার সময় একটি ত্রুটি ঘটেছে৷"
+
+#: src/uagent/llm_round_helpers.py:308
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[ক্লদ ত্রুটি] একটি প্রতিক্রিয়া তৈরি করার সময় একটি ত্রুটি ঘটেছে৷"
+
+msgid "Input exceeds the context window."
+msgstr ""
+
+msgid "Connection error"
+msgstr ""
+
+#: src/uagent/llm_round_helpers.py:615
+msgid "[Network Error]"
+msgstr "[নেটওয়ার্ক ত্রুটি]"
+
+msgid "Unexpected exception."
+msgstr ""
+
+#: src/uagent/llm_round_helpers.py:720
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "প্রতিক্রিয়া পার্স করার সময় ত্রুটি: %(err)s"
+
+#: src/uagent/profile_manager.py:482 src/uagent/profile_manager.py:600
+msgid ""
+"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
+"1. Environment (OS, shell, editor, etc.)\n"
+"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
+"3. Constraints (security rules, offline requirements, etc.)\n"
+"\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+msgstr ""
+"আপনি একজন ব্যবহারকারী-প্রোফাইলিং এজেন্ট। কথোপকথনের লগ বিশ্লেষণ করে ব্যবহারকারীর নিম্নলিখিত তথ্য বের করুন:\n"
+"1. পরিবেশ (OS, shell, editor, ইত্যাদি)\n"
+"2. পছন্দসমূহ (কোডিং স্টাইল, পছন্দের টুল, verbosity পছন্দ, ইত্যাদি)\n"
+"3. সীমাবদ্ধতা (নিরাপত্তা নিয়ম, অফলাইন প্রয়োজনীয়তা, ইত্যাদি)\n"
+"\n"
+"অস্থায়ী প্রশ্ন, হালকা-আড্ডা বা সংবেদনশীল পরিচয়পত্র অন্তর্ভুক্ত করবেন না।\n"
+"আপনাকে অবশ্যই কেবল এই স্কিমার সাথে মেলে এমন একটি বৈধ JSON অবজেক্ট দিয়ে উত্তর দিতে হবে:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+
+#: src/uagent/profile_manager.py:586
+msgid "Failed to initialize LLM client."
+msgstr "LLM ক্লায়েন্ট শুরু করা যায়নি।"
+
+#: src/uagent/profile_manager.py:591
+#, python-format
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr ""
+"%(total_files)dটি লগ ফাইল পাওয়া গেছে। ধাপে ধাপে প্রোফাইলিং শুরু করা "
+"হচ্ছে..."
+
+#: src/uagent/runtime_banner.py:231
+msgid "embedding"
+msgstr "এমবেডিং"
+
+#: src/uagent/runtime_banner.py:232
+msgid "audio speech"
+msgstr "অডিও বক্তৃতা"
+
+#: src/uagent/runtime_banner.py:233
+msgid "audio transcribe"
+msgstr "অডিও প্রতিলিপি"
+
+#: src/uagent/runtime_banner.py:234
+msgid "image generation"
+msgstr "ইমেজ প্রজন্ম"
+
+#: src/uagent/runtime_banner.py:235
+msgid "image analysis"
+msgstr "ইমেজ বিশ্লেষণ"
+
+#: src/uagent/runtime_banner.py:254
+#, python-format
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] workdir = %(workdir)s (উৎস: %(source)s)"
+
+#: src/uagent/runtime_banner.py:262 src/uagent/runtime_banner.py:276
+#: src/uagent/runtime_banner.py:281 src/uagent/runtime_banner.py:293
+#: src/uagent/runtime_banner.py:305 src/uagent/runtime_banner.py:314
+#: src/uagent/runtime_banner.py:323
+#, python-format
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[তথ্য] base_url = %(base_url)s"
+
+#: src/uagent/runtime_banner.py:270
+#, python-format
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[তথ্য] api_version = %(api_version)s"
+
+#: src/uagent/runtime_banner.py:332
+#, python-format
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[তথ্য] vertexai = project=%(project)s, location=%(location)s"
+
+#: src/uagent/runtime_banner.py:341
+#, python-format
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[তথ্য] %(label)s = %(provider)s; মডেল = %(model)s"
+
+#: src/uagent/runtime_banner.py:368
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 সেট করা আছে, কিন্তু প্রদানকারী '%(provider)s' Responses "
+"API সমর্থন করে না। ChatCompletions-এ ফিরে যাচ্ছে।UAGENT_RESPONSES=1 সেট করা "
+"আছে, কিন্তু প্রদানকারী '%(provider)s' Responses API সমর্থন করে না। "
+"ChatCompletions-এ ফিরে যাওয়া হচ্ছে।"
+
+#: src/uagent/runtime_banner.py:375
+#, python-format
+msgid "LLM API mode = %(mode)s"
+msgstr "LLM API মোড = %(mode)s"
+
+#: src/uagent/runtime_banner.py:378
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "প্রতিক্রিয়া (UAGENT_RESPONSES সক্ষম)"
+
+#: src/uagent/runtime_banner.py:382
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr ""
+"নেটিভ Gemini/Vertex AI/Claude API (UAGENT_RESPONSES উপেক্ষা করা হবে)নেটিভ "
+"জেমিনি/ভারটেক্স এআই/ক্লদ এপিআই (UAGENT_RESPONSES উপেক্ষা করা হয়)"
+
+#: src/uagent/runtime_banner.py:385
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "চ্যাট সমাপ্তি (UAGENT_RESPONSES নিষ্ক্রিয় করা হয়েছে)"
+
+#: src/uagent/runtime_banner.py:393
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "LLM স্ট্রিমিং = %(state)s"
+
+#: src/uagent/runtime_banner.py:394
+msgid "enabled"
+msgstr "সক্রিয়"
+
+#: src/uagent/runtime_banner.py:394
+msgid "disabled"
+msgstr "অক্ষম"
+
+#: src/uagent/runtime_env.py:186
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] .env.sec বিষয়বস্তু বর্তমান স্টার্টআপ UAGENT_* পরিবেশের ভেরিয়েবলের "
+"সাথে মেলে না। এটা আপডেট? [y/N]"
+
+#: src/uagent/runtime_env.py:202
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] .env.sec বিষয়বস্তু বর্তমান স্টার্টআপ UAGENT_* পরিবেশের ভেরিয়েবলের "
+"সাথে মেলে না। এটি আপডেট করতে `uag_envsec` ব্যবহার করুন।"
+
+#: src/uagent/runtime_env.py:214
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "আপডেট করা হয়েছে .env.sec: %(path)s"
+
+#: src/uagent/runtime_env.py:218
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[সতর্কতা] .env.sec: %(err)s আপডেট করতে ব্যর্থ হয়েছে৷"
+
+#: src/uagent/runtime_env.py:228
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec অনুপস্থিত। বর্তমান startup UAGENT_* environment variables "
+"থেকে এটি তৈরি করবেন? [y/N] [INFO] .env.sec অনুপস্থিত। বর্তমান স্টার্টআপ "
+"UAGENT_* পরিবেশ ভেরিয়েবল থেকে এটি তৈরি করবেন? [y/N]"
+
+#: src/uagent/runtime_env.py:244
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec অনুপস্থিত। বর্তমান স্টার্টআপ UAGENT_* পরিবেশ ভেরিয়েবল থেকে "
+"এটি তৈরি করতে `uag_envsec` ব্যবহার করুন।"
+
+#: src/uagent/runtime_env.py:254
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr ".env.sec তৈরি করা হয়েছে: %(path)s"
+
+#: src/uagent/runtime_env.py:258
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[সতর্কতা] .env.sec: %(err)s তৈরি করতে ব্যর্থ হয়েছে৷"
+
+#: src/uagent/runtime_env.py:289
+#, python-format
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr ""
+"[সতর্কতা] .env.sec সিঙ্ক্রোনাইজেশন পরীক্ষা করতে ব্যর্থ হয়েছে: "
+"%(err)s[সতর্কতা] .env.sec সিঙ্ক্রোনাইজেশন পরীক্ষা করতে ব্যর্থ হয়েছে: "
+"%(err)s"
+
+#: src/uagent/runtime_init.py:83
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[সতর্কতা] .env.sec ডিক্রিপ্ট করতে ব্যর্থ হয়েছে: %(err)s"
+
+#: src/uagent/runtime_workdir.py:49
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "নির্দিষ্ট ওয়ার্কডির পাথ হল একটি ফাইল: %(path)s"
+
+#: src/uagent/scheckgui.py:131
+msgid "Drop files/images here"
+msgstr "এখানে ফাইল/ছবি ড্রপ করুন"
+
+#: src/uagent/scheckgui.py:169
+msgid "Download"
+msgstr "ডাউনলোড করুন"
+
+#: src/uagent/scheckgui.py:329
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "ভাগ করা দীর্ঘমেয়াদী মেমরি লোড করার সময় ব্যতিক্রম ঘটেছে: %(err)s৷"
+
+#: src/uagent/scheckgui.py:382
+#, python-format
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[সংযুক্ত ফাইল] %(name)s (%(path)s)"
+
+#: src/uagent/scheckgui.py:467
+#, python-format
+msgid "[Attached Image] %(path)s"
+msgstr "[সংযুক্ত ছবি] %(path)s"
+
+#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
+#, python-format
+msgid "[Image Path] %(path)s"
+msgstr "[ছবির পাথ] %(path)s"
+
+#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
+msgid "Welcome / Quick Guide"
+msgstr "স্বাগতম / দ্রুত গাইড"
+
+#: src/uagent/scheckgui.py:787
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (চরম স্থিতিশীলতা)"
+
+#: src/uagent/scheckgui.py:842
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ আপনি টেনে এনে ড্রপ করে ফাইল সংযুক্ত করতে পারেন"
+
+#: src/uagent/scheckgui.py:863
+msgid "Attach..."
+msgstr "সংযুক্ত করুন..."
+
+#: src/uagent/scheckgui.py:868
+msgid "Send"
+msgstr "পাঠান"
+
+#: src/uagent/scheckgui.py:908
+msgid "Help"
+msgstr "সাহায্য"
+
+#: src/uagent/scheckgui.py:923
+msgid "Mode"
+msgstr "মোড"
+
+#: src/uagent/scheckgui.py:925
+msgid "Reasoning: off"
+msgstr "যুক্তি: বন্ধ"
+
+#: src/uagent/scheckgui.py:928
+msgid "Reasoning: auto"
+msgstr "যুক্তি: স্বয়ংক্রিয়"
+
+#: src/uagent/scheckgui.py:930
+msgid "Reasoning: minimal"
+msgstr "যুক্তি: সর্বনিম্ন"
+
+#: src/uagent/scheckgui.py:932
+msgid "Reasoning: low"
+msgstr "যুক্তি: কম"
+
+#: src/uagent/scheckgui.py:934
+msgid "Reasoning: medium"
+msgstr "যুক্তি: মাঝারি"
+
+#: src/uagent/scheckgui.py:936
+msgid "Reasoning: high"
+msgstr "যুক্তি: উচ্চ"
+
+#: src/uagent/scheckgui.py:939
+msgid "Reasoning: xhigh"
+msgstr "যুক্তি: xhigh"
+
+#: src/uagent/scheckgui.py:944
+msgid "Verbosity: off"
+msgstr "শব্দচয়ন: বন্ধ"
+
+#: src/uagent/scheckgui.py:946
+msgid "Verbosity: low"
+msgstr "শব্দশক্তি: কম"
+
+#: src/uagent/scheckgui.py:948
+msgid "Verbosity: medium"
+msgstr "শব্দচয়ন: মাঝারি"
+
+#: src/uagent/scheckgui.py:950
+msgid "Verbosity: high"
+msgstr "শব্দশক্তি: উচ্চ"
+
+#: src/uagent/scheckgui.py:980
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[মোড] যুক্তি =%(মোড)গুলি"
+
+#: src/uagent/scheckgui.py:984
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=বন্ধ, 1=নিম্ন, 2=মধ্যম, 3=উচ্চ; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/scheckgui.py:992
+#, python-format
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[মোড] ভার্বোসিটি=%(মোড)সে"
+
+#: src/uagent/scheckgui.py:994
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3] (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; কোন আর্গ=কিপ)"
+
+#: src/uagent/scheckgui.py:1123
+msgid "Enter password..."
+msgstr "পাসওয়ার্ড লিখুন..."
+
+#: src/uagent/scheckgui.py:1130
+msgid "Enter a message..."
+msgstr "একটি বার্তা লিখুন..."
+
+#: src/uagent/scheckgui.py:1147
+msgid "Attach files"
+msgstr "ফাইল সংযুক্ত করুন"
+
+#: src/uagent/scheckgui.py:1149
+msgid "All Files (*)"
+msgstr "সমস্ত ফাইল (*)"
+
+#: src/uagent/scheckgui.py:1401
+msgid "cannot read image"
+msgstr "ছবি পড়া যায়নি"
+
+#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
+#: src/uagent/scheckgui.py:1627
+msgid "Downloaded to"
+msgstr "এ ডাউনলোড করা হয়েছে"
+
+#: src/uagent/scheckgui.py:1646
+msgid "Playing"
+msgstr "বাজানো"
+
+#: src/uagent/scheckgui.py:1656
+msgid "Stopped"
+msgstr "থেমে গেল"
+
+#: src/uagent/scheckgui.py:1705
+#, python-format
+msgid "[REPLY] > %(text)s"
+msgstr "[উত্তর] > %(টেক্সট) সে"
+
+#: src/uagent/scheckgui.py:1713
+#, python-format
+msgid "[USER] %(text)s"
+msgstr "[ব্যবহারকারী] %(text)s"
+
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
+#: src/uagent/setup_cli.py:572
+msgid "OpenAI API key"
+msgstr "OpenAI API কী"
+
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
+#: src/uagent/setup_cli.py:573
+msgid "OpenAI base URL (optional)"
+msgstr "OpenAI বেস URL (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:79
+msgid "OpenAI model/deployment name (optional)"
+msgstr "OpenAI মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:560
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr "Azure বেস URL (যেমন https://<resource>.openai.azure.com/)"
+
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
+#: src/uagent/setup_cli.py:562
+msgid "Azure API key"
+msgstr "Azure API কী"
+
+#: src/uagent/setup_cli.py:91
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "Azure API সংস্করণ (ঐচ্ছিক, যেমন 2024-05-01-প্রিভিউ)"
+
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
+msgid "Azure deployment name"
+msgstr "Azure স্থাপনার নাম"
+
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:581
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "বেডরক গেটওয়ে বেস ইউআরএল (যেমন https://<gateway>/v1)"
+
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
+#: src/uagent/setup_cli.py:583
+msgid "Bedrock API key"
+msgstr "বেডরক API কী"
+
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "বেডরক মডেল/ডিপ্লয়মেন্ট নাম (যেমন openai.gpt-oss-120b)"
+
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
+#: src/uagent/setup_cli.py:592
+msgid "OpenRouter API key"
+msgstr "OpenRouter API কী"
+
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
+#: src/uagent/setup_cli.py:593
+msgid "OpenRouter base URL (optional)"
+msgstr "OpenRouter বেস URL (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:114
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "OpenRouter মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:119
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "OpenRouter ফলব্যাক মডেল (ঐচ্ছিক, কমা দ্বারা পৃথক করা)"
+
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
+msgid "Gemini API key"
+msgstr "Gemini API কী"
+
+#: src/uagent/setup_cli.py:124
+msgid "Gemini model name (optional)"
+msgstr "মিথুন মডেলের নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:127
+msgid "Vertex AI API key"
+msgstr "Vertex AI API কী"
+
+#: src/uagent/setup_cli.py:128
+msgid "Vertex AI project ID (optional)"
+msgstr "ভার্টেক্স এআই প্রজেক্ট আইডি (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:129
+msgid "Vertex AI location/region (optional)"
+msgstr "ভার্টেক্স এআই অবস্থান/অঞ্চল (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:133
+msgid "Google credentials for Vertex AI (optional)"
+msgstr "Vertex AI এর জন্য Google শংসাপত্র (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:138
+msgid "Google location/region for Vertex AI (optional)"
+msgstr "Vertex AI এর জন্য Google অবস্থান/অঞ্চল (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:140
+msgid "Vertex AI model/deployment name"
+msgstr "ভার্টেক্স এআই মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:143
+msgid "Grok API key"
+msgstr "Grok API কী"
+
+#: src/uagent/setup_cli.py:144
+msgid "Grok base URL (optional)"
+msgstr "Grok বেস URL (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:145
+msgid "Grok model/deployment name (optional)"
+msgstr "Grok মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:148
+msgid "Claude API key"
+msgstr "Claude API কী"
+
+#: src/uagent/setup_cli.py:149
+msgid "Claude model/deployment name (optional)"
+msgstr "ক্লড মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
+#: src/uagent/setup_cli.py:607
+msgid "NVIDIA API key"
+msgstr "NVIDIA API কী"
+
+#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
+#: src/uagent/setup_cli.py:608
+msgid "NVIDIA base URL (optional)"
+msgstr "NVIDIA বেস URL (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:154
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "NVIDIA মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "ওল্লামা বেস ইউআরএল (যেমন http://localhost:11434/v1)"
+
+#: src/uagent/setup_cli.py:165
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "ওল্লামা API কী (ঐচ্ছিক, ডিফল্ট: ডামি)"
+
+#: src/uagent/setup_cli.py:167
+msgid "Ollama model/deployment name (optional)"
+msgstr "ওল্লামা মডেল/ডিপ্লয়মেন্ট নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:171
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "ওল্লামা অনুরোধের সময় শেষ সেকেন্ডে (ডিফল্ট: 60)"
+
+#: src/uagent/setup_cli.py:173
+msgid "Ollama temperature (default: 0.7)"
+msgstr "ওল্লামা তাপমাত্রা (ডিফল্ট: 0.7)"
+
+#: src/uagent/setup_cli.py:174
+msgid "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p (ডিফল্ট: 0.9)"
+
+#: src/uagent/setup_cli.py:175
+msgid "Ollama top_k (default: 40)"
+msgstr "ওল্লামা শীর্ষ_কে (ডিফল্ট: 40)"
+
+#: src/uagent/setup_cli.py:179
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "ওল্লামা রিপিট_পেনাল্টি (ডিফল্ট: 1.1)"
+
+#: src/uagent/setup_cli.py:181
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "ওল্লামা কিপ_লাইভ (ডিফল্ট: 5মি)"
+
+#: src/uagent/setup_cli.py:182
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx (ডিফল্ট: 8192)"
+
+#: src/uagent/setup_cli.py:183
+msgid "Ollama num_predict (default: 1024)"
+msgstr "ওল্লামা সংখ্যা_প্রেডিক্ট (ডিফল্ট: 1024)"
+
+#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
+msgid "Enter number:"
+msgstr "নম্বর লিখুন:"
+
+#: src/uagent/setup_cli.py:358
+msgid "Invalid input. Please enter a valid number."
+msgstr "অবৈধ ইনপুট একটি বৈধ নম্বর লিখুন."
+
+#: src/uagent/setup_cli.py:371
+#, python-format
+msgid " [default: %(default)s]"
+msgstr "[ডিফল্ট: %(default)s]"
+
+#: src/uagent/setup_cli.py:387
+msgid "This field is required. Please enter a value."
+msgstr "এই ক্ষেত্র প্রয়োজন. অনুগ্রহ করে একটি মান লিখুন।"
+
+#: src/uagent/setup_cli.py:399
+msgid "Select UAGENT_LANG"
+msgstr "UAGENT_LANG নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:410
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG (কাস্টম)"
+
+#: src/uagent/setup_cli.py:423
+msgid "Select output files to generate in the current directory"
+msgstr "বর্তমান ডিরেক্টরিতে তৈরি করতে আউটপুট ফাইল নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:424
+msgid "  1. .env only"
+msgstr "1. শুধুমাত্র env"
+
+#: src/uagent/setup_cli.py:425
+msgid "  2. .env + env.sh"
+msgstr "2. env + env.sh"
+
+#: src/uagent/setup_cli.py:426
+msgid "  3. .env + env.ps1"
+msgstr "3. .env + env.ps1"
+
+#: src/uagent/setup_cli.py:427
+msgid "  4. .env + env.bat"
+msgstr "4. env + env.bat"
+
+#: src/uagent/setup_cli.py:428
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "5. .env + সব (sh/ps1/bat)"
+
+#: src/uagent/setup_cli.py:430
+msgid "  b. back"
+msgstr "খ. ফিরে"
+
+#: src/uagent/setup_cli.py:431
+msgid "  q. quit"
+msgstr "q প্রস্থান"
+
+#: src/uagent/setup_cli.py:449
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "অবৈধ ইনপুট অনুগ্রহ করে 1-5 লিখুন, অথবা b/q."
+
+#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Azure API সংস্করণ (যেমন 2024-05-01-প্রিভিউ)"
+
+#: src/uagent/setup_cli.py:484
+msgid "OpenAI model/deployment name"
+msgstr "OpenAI মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:504
+msgid "OpenRouter model/deployment name"
+msgstr "OpenRouter মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:509
+msgid "Gemini model name"
+msgstr "মিথুন মডেলের নাম"
+
+#: src/uagent/setup_cli.py:515
+msgid "NVIDIA model/deployment name"
+msgstr "NVIDIA মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:534
+msgid "Enable image generation debug output? (0/1)"
+msgstr "ইমেজ জেনারেশন ডিবাগ আউটপুট সক্ষম করবেন? (0/1)"
+
+#: src/uagent/setup_cli.py:568
+msgid "Azure embedding deployment name"
+msgstr "Azure এম্বেডিং স্থাপনার নাম"
+
+#: src/uagent/setup_cli.py:574
+msgid "OpenAI embedding model/deployment name"
+msgstr "OpenAI এম্বেডিং মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:587
+msgid "Bedrock embedding model/deployment name"
+msgstr "বেডরক এমবেডিং মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:594
+msgid "OpenRouter embedding model/deployment name"
+msgstr "OpenRouter এম্বেডিং মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:603
+msgid "Ollama embedding model name"
+msgstr "ওল্লামা এমবেডিং মডেলের নাম"
+
+#: src/uagent/setup_cli.py:609
+msgid "NVIDIA embedding model/deployment name"
+msgstr "NVIDIA এম্বেডিং মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:613
+msgid "Gemini embedding API key"
+msgstr "Gemini embedding API কী"
+
+#: src/uagent/setup_cli.py:617
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr "Gemini embedding মডেলের নাম (যেমন: text-embedding-004)"
+
+#: src/uagent/setup_cli.py:622
+msgid "Vertex AI embedding API key"
+msgstr "Vertex AI embedding API কী"
+
+#: src/uagent/setup_cli.py:626
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr "Vertex AI embedding মডেলের নাম (যেমন: text-embedding-004)"
+
+#: src/uagent/setup_cli.py:675
+msgid "Azure speech deployment name"
+msgstr "আজুর স্পিচ স্থাপনার নাম"
+
+#: src/uagent/setup_cli.py:676
+msgid "Azure transcription deployment name"
+msgstr "Azure ট্রান্সক্রিপশন স্থাপনার নাম"
+
+#: src/uagent/setup_cli.py:677
+msgid "OpenAI speech model/deployment name"
+msgstr "OpenAI স্পিচ মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:678
+msgid "OpenAI transcription model/deployment name"
+msgstr "OpenAI ট্রান্সক্রিপশন মডেল/ডিপ্লয়মেন্ট নাম"
+
+#: src/uagent/setup_cli.py:679
+msgid "Gemini speech model name (optional)"
+msgstr "মিথুন স্পিচ মডেল নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:680
+msgid "Gemini transcription model name (optional)"
+msgstr "মিথুন প্রতিলিপি মডেল নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:681
+msgid "Vertex AI speech model name (optional)"
+msgstr "ভার্টেক্স এআই স্পিচ মডেলের নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:682
+msgid "Vertex AI transcription model name (optional)"
+msgstr "Vertex AI ট্রান্সক্রিপশন মডেল নাম (ঐচ্ছিক)"
+
+#: src/uagent/setup_cli.py:705
+msgid "Configure optional image / embedding / audio settings?"
+msgstr "ঐচ্ছিক ইমেজ / এমবেডিং / অডিও সেটিংস কনফিগার করবেন?"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "No"
+msgstr "না"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "Yes"
+msgstr "হ্যাঁ"
+
+#: src/uagent/setup_cli.py:720
+msgid "Configure image analysis settings?"
+msgstr "ইমেজ বিশ্লেষণ সেটিংস কনফিগার?"
+
+#: src/uagent/setup_cli.py:731
+msgid "Select image analysis provider"
+msgstr "ইমেজ বিশ্লেষণ প্রদানকারী নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:752
+msgid "Configure image generation settings?"
+msgstr "ইমেজ জেনারেশন সেটিংস কনফিগার করবেন?"
+
+#: src/uagent/setup_cli.py:763
+msgid "Select image generation provider"
+msgstr "ইমেজ জেনারেশন প্রদানকারী নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:783
+msgid "Open generated images automatically?"
+msgstr "স্বয়ংক্রিয়ভাবে উত্পন্ন ইমেজ খুলুন?"
+
+#: src/uagent/setup_cli.py:799
+msgid "Configure embedding / semantic search settings?"
+msgstr "এম্বেডিং / শব্দার্থিক অনুসন্ধান সেটিংস কনফিগার করবেন?"
+
+#: src/uagent/setup_cli.py:825
+msgid "Select embedding provider"
+msgstr "এমবেডিং প্রদানকারী নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:854
+msgid "Configure audio speech / transcription settings?"
+msgstr "অডিও স্পিচ / ট্রান্সক্রিপশন সেটিংস কনফিগার করবেন?"
+
+#: src/uagent/setup_cli.py:873
+msgid "Select audio speech provider"
+msgstr "অডিও স্পিচ প্রদানকারী নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:893
+msgid "Select audio transcribe provider"
+msgstr "অডিও ট্রান্সক্রাইব প্রদানকারী নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:913
+msgid "Open generated audio automatically?"
+msgstr "স্বয়ংক্রিয়ভাবে জেনারেটেড অডিও খুলবেন?"
+
+#: src/uagent/setup_cli.py:980
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "ঐচ্ছিক: প্রতিক্রিয়া API (Azure/OpenAI/Bedrock)"
+
+#: src/uagent/setup_cli.py:993
+msgid "Optional runtime"
+msgstr "ঐচ্ছিক রানটাইম"
+
+#: src/uagent/setup_cli.py:1007
+msgid "Optional image / embedding / audio settings"
+msgstr "ঐচ্ছিক ছবি / এমবেডিং / অডিও সেটিংস"
+
+#: src/uagent/setup_cli.py:1149
+msgid "Optional specialized sub-agent settings"
+msgstr "ঐচ্ছিক বিশেষায়িত উপ-এজেন্ট সেটিংস"
+
+#: src/uagent/setup_cli.py:1158
+msgid "Encrypt the generated .env file?"
+msgstr "জেনারেট করা .env ফাইলটি এনক্রিপ্ট করবেন?"
+
+#: src/uagent/setup_cli.py:1164
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "এনক্রিপ্ট করা ফাইলটি %(path)s হিসাবে লেখা হবে"
+
+#: src/uagent/setup_cli.py:1180
+msgid "Select provider"
+msgstr "প্রদানকারী নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:1219
+msgid "Enable Responses API options?"
+msgstr "প্রতিক্রিয়া API বিকল্পগুলি সক্ষম করবেন?"
+
+#: src/uagent/setup_cli.py:1235
+msgid "Select reasoning"
+msgstr "যুক্তি নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:1254
+msgid "Select verbosity"
+msgstr "verbosity নির্বাচন করুন"
+
+#: src/uagent/setup_cli.py:1273
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "ঐচ্ছিক রানটাইম UAGENT_WORKDIR সেট করবেন?"
+
+#: src/uagent/setup_cli.py:1300
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "ঐচ্ছিক রানটাইম UAGENT_LANG সেট করবেন?"
+
+#: src/uagent/setup_cli.py:1321
+msgid "Enable streaming?"
+msgstr "স্ট্রিমিং সক্ষম করবেন?"
+
+#: src/uagent/setup_cli.py:1362
+msgid "Summary"
+msgstr "সারাংশ"
+
+#: src/uagent/setup_cli.py:1363
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr "প্রদানকারী: %(প্রোভাইডার)"
+
+#: src/uagent/setup_cli.py:1370
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr "প্রতিক্রিয়া সক্রিয় করা হয়েছে: %(state)s"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "yes"
+msgstr "হ্যাঁ"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "no"
+msgstr "না"
+
+#: src/uagent/setup_cli.py:1377
+#, python-format
+msgid "  Streaming enabled: %(state)s"
+msgstr "স্ট্রিমিং সক্ষম: %(state)s"
+
+#: src/uagent/setup_cli.py:1393
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr "ঐচ্ছিক অতিরিক্ত সক্রিয়: %(state)s"
+
+#: src/uagent/setup_cli.py:1398
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr "ছবি বিশ্লেষণ সক্রিয় করা হয়েছে: %(state)s"
+
+#: src/uagent/setup_cli.py:1406
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr "ইমেজ জেনারেশন সক্ষম হয়েছে: %(state)s"
+
+#: src/uagent/setup_cli.py:1417
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr "এমবেডিং সক্ষম হয়েছে: %(state)s"
+
+#: src/uagent/setup_cli.py:1427
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr "আউটপুট: %(আউটপুট)"
+
+#: src/uagent/setup_cli.py:1430
+msgid "Generate files with this configuration?"
+msgstr "এই কনফিগারেশন দিয়ে ফাইল তৈরি করবেন?"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Yes, generate"
+msgstr "হ্যাঁ, তৈরি করুন"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Back"
+msgstr "ফিরে"
+
+#: src/uagent/setup_cli.py:1455
+msgid "The following files already exist and will be overwritten:"
+msgstr "নিম্নলিখিত ফাইলগুলি ইতিমধ্যেই বিদ্যমান এবং ওভাররাইট করা হবে:"
+
+#: src/uagent/setup_cli.py:1459
+msgid "Proceed?"
+msgstr "এগিয়ে যান?"
+
+#: src/uagent/setup_cli.py:1483
+msgid "Plain .env file removed after encryption."
+msgstr "এনক্রিপশনের পরে সরানো হয়েছে প্লেইন .env ফাইল।"
+
+#: src/uagent/setup_cli.py:1486
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "সতর্কতা: প্লেইন .env: %(ত্রুটি)গুলি সরাতে ব্যর্থ হয়েছে৷"
+
+#: src/uagent/setup_cli.py:1505
+#, python-format
+msgid "generated: %(path)s"
+msgstr "উৎপন্ন: %(path)s"
+
+#: src/uagent/uagent_llm.py:129
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[সতর্কতা] টুল রাউন্ড %(max)d অতিক্রম করেছে; গর্ভপাত"
+
+#: src/uagent/util_providers.py:243
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "পরিবেশ পরিবর্তনশীল UAGENT_PROVIDER সেট করা নেই।"
+
+#: src/uagent/util_providers.py:259
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "অজানা প্রদানকারী: %(প্রদানকারী)"
+
+#: src/uagent/util_providers.py:544 src/uagent/util_providers.py:570
+msgid "google-genai package is not installed."
+msgstr "google-genai প্যাকেজ ইনস্টল করা নেই।"
+
+#: src/uagent/util_tools.py:181
+#, python-format
+msgid "image file not found: %(path)s"
+msgstr "ইমেজ ফাইল পাওয়া যায়নি: %(path)s"
+
+#: src/uagent/util_tools.py:186
+#, python-format
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "ছবি ফাইল খুব বড়: %(size)d বাইট (সীমা=%(max)d)"
+
+#: src/uagent/util_tools.py:210
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"কাজের ডিরেক্টরি উল্লেখ করুন। সেট না থাকলে, UAGENT_WORKDIR env var বা বর্তমান"
+" ডিরেক্টরি ব্যবহার করে।"
+
+#: src/uagent/util_tools.py:217
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+"অ-ইন্টারেক্টিভ মোড। stdin লুপ শুরু করবেন না; স্টার্টআপ ফাইল প্রক্রিয়া করার "
+"পরে প্রস্থান করুন (যদি থাকে)।"
+
+#: src/uagent/util_tools.py:355
+msgid "invalid reasoning"
+msgstr "অবৈধ যুক্তি"
+
+#: src/uagent/util_tools.py:373
+msgid "invalid verbosity"
+msgstr "অবৈধ শব্দচয়ন"
+
+#: src/uagent/util_tools.py:547
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr "[লগ] অবৈধ যুক্তি: %(arg)r (সমস্ত / --all / -a / সংখ্যা উল্লেখ করুন)"
+
+#: src/uagent/util_tools.py:586
+#, python-format
+msgid "failed to parse arguments: %(err)s"
+msgstr "আর্গুমেন্ট পার্স করতে ব্যর্থ হয়েছে: %(err)s"
+
+#: src/uagent/util_tools.py:589
+msgid "missing arguments"
+msgstr "অনুপস্থিত আর্গুমেন্ট"
+
+#: src/uagent/util_tools.py:605
+msgid "src and dst are required"
+msgstr "src এবং dst প্রয়োজন"
+
+#: src/uagent/util_tools.py:973
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[দক্ষতা সম্পাদন]\n"
+"এই দক্ষতা চালানোর উদ্দেশ্যে করা হয়. দক্ষতার অংশটি সাবধানে পড়ুন এবং নির্দেশাবলী অনুসরণ করুন।\n"
+"যদি দক্ষতার মধ্যে কাজ থাকে, সেগুলি সম্পূর্ণ না হওয়া পর্যন্ত চালিয়ে যান।\n"
+"প্রয়োজন অনুযায়ী সরঞ্জাম ব্যবহার করুন।"
+
+#: src/uagent/util_tools.py:980
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr "সমাপ্ত হলে, উপলব্ধ থাকলে সর্বদা `finish_skill` কল করুন।"
+
+#: src/uagent/util_tools.py:1132
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
+msgstr ""
+"চালানোর জন্য একটি দক্ষতা নম্বর নির্বাচন করুন। বাতিল করতে c লিখুন।\n"
+"টিপ: :দক্ষতা পরিষ্কার (প্রয়োগিত দক্ষতা সরান)\n"
+"নম্বর লিখুন:"
+
+#: src/uagent/util_tools.py:1168
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"একটি সিস্টেম-স্তরের নির্দেশ হিসাবে এই দক্ষতা চালান এবং এই সেশনে এটি সক্রিয় রাখা?\n"
+"\n"
+"নাম: %(নাম)\n"
+"পথ: %(name)s\n"
+"\n"
+"এগিয়ে যান? চালাতে y, বা বাতিল করতে c লিখুন।"
+
+#: src/uagent/util_tools.py:1230
+#, python-format
+msgid ""
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[পরিষ্কার] অবৈধ আর্গুমেন্ট: %(arg)r (number=threshold দিন; ডিফল্ট "
+"%(default)d)"
+
+#: src/uagent/util_tools.py:1279
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"ডিস্ক থেকে কথোপকথনের লগ ফাইল (scheck_log__*.jsonl) মুছে ফেলবে।\n"
+"লগ dir: %(dir)s\n"
+"নিয়ম: সিস্টেম ব্যতীত মোট ব্যবহারকারী/সহকারী/টুল বার্তা <= %(threshold)d\n"
+"লক্ষ্য: %(n)d\n"
+"\n"
+"এগিয়ে যান? চালাতে y, বা বাতিল করতে c লিখুন।"
+
+#: src/uagent/util_tools.py:1347
+#, python-format
+msgid " - (%(count)d msgs) %(path)s"
+msgstr "- (%(count)dটি বার্তা) %(পথ)গুলি৷"
+
+#: src/uagent/util_tools.py:1391
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"বর্তমান সেশন লগ ফাইলটি ওভাররাইট করবে এবং লোড করা লগটি প্রিপেন্ড করবে (কোন ব্যাকআপ নেই)।\n"
+"\n"
+"বর্তমান লগ: %(cur_log)s\n"
+"উৎস লগ: %(src_log)s\n"
+"\n"
+"এগিয়ে যান? চালাতে y, বা বাতিল করতে c লিখুন।"
+
+#: src/uagent/util_tools.py:1522
+#, python-brace-format
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"{count} পথ(গুলি) মুছবেন?\n"
+"\n"
+"{পথ}\n"
+"\n"
+"এগিয়ে যেতে y লিখুন, বা বাতিল করতে c লিখুন।"
+
+#: src/uagent/util_tools.py:1577
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "নির্দিষ্ট সূচক %(idx)d পরিসীমার বাইরে।"
+
+#: src/uagent/util_tools.py:1586
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "লগ ফাইল পাওয়া যায়নি: %(path)s"
+
+#: src/uagent/util_tools.py:1669
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[shrink error] int হিসেবে পার্স করতে ব্যর্থ: %(arg)r -> শেষ %(keep)dটি রাখা "
+"হবে[সঙ্কুচিত ত্রুটি] int হিসাবে পার্স করতে ব্যর্থ হয়েছে: %(arg)r -> শেষ "
+"%(keep)d রাখুন"
+
+#: src/uagent/util_tools.py:1697
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[shrink_llm error] int হিসেবে পার্স করতে ব্যর্থ: %(arg)r -> শেষ %(keep)dটি "
+"রাখা হবে[shrink_llm ত্রুটি] int হিসাবে পার্স করতে ব্যর্থ হয়েছে: %(arg)r -> "
+"শেষ %(keep)d রাখুন"
+
+#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+"শেয়ার করা দীর্ঘমেয়াদি মেমরি সক্রিয় নয় (UAGENT_SHARED_MEMORY_FILE সেট করা"
+" নেই)।ভাগ করা দীর্ঘমেয়াদী মেমরি সক্ষম করা নেই (UAGENT_SHARED_MEMORY_FILE "
+"সেট করা নেই)৷"
+
+#: src/uagent/util_tools.py:1787
+msgid "Analyzing past logs to generate user profile..."
+msgstr "পূর্বের লগ বিশ্লেষণ করে ব্যবহারকারীর প্রোফাইল তৈরি করা হচ্ছে..."
+
+#: src/uagent/util_tools.py:1791
+msgid "No past logs found or failed to generate profile."
+msgstr "কোনও পূর্বের লগ পাওয়া যায়নি বা প্রোফাইল তৈরি করা যায়নি।"
+
+#: src/uagent/util_tools.py:1793
+#, fuzzy
+msgid "User profile generated successfully from past logs!"
+msgstr "ব্যবহারকারী প্রোফাইল সফলভাবে সাফ করা হয়েছে।"
+
+#: src/uagent/util_tools.py:1805
+msgid "No user profile data found."
+msgstr "কোনো ব্যবহারকারী প্রোফাইল ডেটা পাওয়া যায়নি।"
+
+#: src/uagent/util_tools.py:1808
+msgid "User Profile:"
+msgstr "ব্যবহারকারী প্রোফাইল:"
+
+#: src/uagent/util_tools.py:1820
+msgid "User profile cleared successfully."
+msgstr "ব্যবহারকারী প্রোফাইল সফলভাবে সাফ করা হয়েছে।"
+
+#: src/uagent/util_tools.py:1824
+msgid "No user profile file found to clear."
+msgstr "সাফ করার জন্য কোনো ব্যবহারকারী প্রোফাইল ফাইল পাওয়া যায়নি।"
+
+#: src/uagent/util_tools.py:1888
+msgid "Show this help"
+msgstr "এই সাহায্য দেখান"
+
+#: src/uagent/util_tools.py:1889
+msgid "Restart input from the beginning"
+msgstr "শুরু থেকে ইনপুট পুনরায় আরম্ভ করুন"
+
+#: src/uagent/util_tools.py:1890
+msgid "Show log file list"
+msgstr "লগ ফাইলের তালিকা দেখান"
+
+#: src/uagent/util_tools.py:1893
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"নিশ্চিতকরণ ছাড়া ওয়ার্কডির পরিবর্তন করুন (যেমন :cd .. / :cd ~ / :cd "
+"C:\\path / :cd /)"
+
+#: src/uagent/util_tools.py:1896
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr ""
+"ডিরেক্টরির এন্ট্রিগুলো তালিকাভুক্ত করুন (যেমন :ls / :ls .. / :ls ~ / :ls "
+"C:\\path)ডিরেক্টরি এন্ট্রি তালিকাভুক্ত করুন (যেমন :ls / :ls .. / :ls ~ / :ls"
+" C:\\path)"
+
+#: src/uagent/util_tools.py:1899
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "UAGENT_* পরিবেশ ভেরিয়েবল পরিচালনা করুন এবং .env.sec সংরক্ষণ করুন"
+
+#: src/uagent/util_tools.py:1901
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr ""
+"দক্ষতা পরিচালনা/প্রয়োগ করুন (যেমন :skills / :skills active / :skills "
+"clear)দক্ষতা পরিচালনা/প্রয়োগ করুন (যেমন: দক্ষতা / : দক্ষতা সক্রিয় / : "
+"দক্ষতা পরিষ্কার)"
+
+#: src/uagent/util_tools.py:1906
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "একটি অতীত লগ লোড করুন (বর্তমান কথোপকথনের ইতিহাস ওভাররাইট করে)"
+
+#: src/uagent/util_tools.py:1908
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"দ্রষ্টব্য: চালানোর পরে, আপনাকে নিশ্চিতকরণের জন্য জিজ্ঞাসা করা হবে; 'y' "
+"নির্বাচন করা বর্তমান সেশনের লগ ফাইলে লোড করা লগকে পূর্বে প্রিপেন্ড করে "
+"(ওভাররাইট, কোনো ব্যাকআপ নেই)।"
+
+#: src/uagent/util_tools.py:1912
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"কথোপকথনের লগগুলি মুছুন (scheck_log_*.jsonl) যেখানে ব্যবহারকারী/সহকারী/টুল "
+"বার্তাগুলির গণনা (সিস্টেম ব্যতীত) <= N (ডিফল্ট=10)"
+
+#: src/uagent/util_tools.py:1916
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"কথোপকথনের ইতিহাস সংকুচিত করুন (শেষ Nটি non-system বার্তা রাখুন; "
+"ডিফল্ট=40)কথোপকথনের ইতিহাস সঙ্কুচিত করুন (শেষ N নন-সিস্টেম বার্তা রাখুন; "
+"ডিফল্ট=40)"
+
+#: src/uagent/util_tools.py:1920
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"LLM সারসংক্ষেপের মাধ্যমে ইতিহাস সঙ্কুচিত করুন (পুরনো ইতিহাস 1টি সিস্টেম "
+"বার্তায় সংক্ষিপ্ত করুন; শেষ N কাঁচা রাখুন; ডিফল্ট=20)"
+
+#: src/uagent/util_tools.py:1922
+msgid "List long-term memory notes"
+msgstr "দীর্ঘমেয়াদী মেমরি নোট তালিকা"
+
+#: src/uagent/util_tools.py:1924
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "সূচক দ্বারা একটি দীর্ঘমেয়াদী মেমরি নোট মুছুন (দেখুন :মেম-তালিকা)"
+
+#: src/uagent/util_tools.py:1926
+#, fuzzy
+msgid "Show the learned user profile, or generate it from past logs"
+msgstr "শিক্ষিত ব্যবহারকারী প্রোফাইল দেখান (পরিবেশ, পছন্দ, সীমাবদ্ধতা)"
+
+#: src/uagent/util_tools.py:1927
+#, fuzzy
+msgid "Generate user profile from past logs"
+msgstr "কোনো ব্যবহারকারী প্রোফাইল ডেটা পাওয়া যায়নি।"
+
+#: src/uagent/util_tools.py:1928
+msgid "Clear the learned user profile data"
+msgstr "শিক্ষিত ব্যবহারকারী প্রোফাইল ডেটা সাফ করুন"
+
+#: src/uagent/util_tools.py:1930
+msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr ""
+"ফাইল বা ডিরেক্টরি কপি করুন (-f/--overwrite এবং -p/--mkdirs সমর্থন করে)ফাইল "
+"বা ডিরেক্টরি অনুলিপি করুন (-f/--ওভাররাইট এবং -p/--mkdirs সমর্থন করে)"
+
+#: src/uagent/util_tools.py:1932
+msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "ফাইল বা ডিরেক্টরি সরান (-f/--ওভাররাইট এবং -p/--mkdirs সমর্থন করে)"
+
+#: src/uagent/util_tools.py:1934
+msgid "Show the first n lines of a file (default=20)"
+msgstr "একটি ফাইলের প্রথম n লাইন দেখান (ডিফল্ট=20)"
+
+#: src/uagent/util_tools.py:1935
+msgid "Show the last n lines of a file (default=20)"
+msgstr "একটি ফাইলের শেষ n লাইন দেখান (ডিফল্ট=20)"
+
+#: src/uagent/util_tools.py:1937
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "প্রিভিউ + কনফার্ম সহ ফাইল(গুলি)/ডিরেক্টরি(ies) মুছুন"
+
+#: src/uagent/util_tools.py:1939
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"যুক্তি মোড সেট করুন (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; "
+"auto/minimal/xhigh)যুক্তি মোড সেট করুন (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; "
+"স্বয়ংক্রিয়/সর্বনিম্ন/xhigh)"
+
+#: src/uagent/util_tools.py:1941
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"ভার্বোসিটি মোড সেট করুন (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, 3=উচ্চ; কোনো আর্গ না "
+"থাকলে বর্তমান রাখুন)ভার্বোসিটি মোড সেট করুন (0=বন্ধ, 1=নিম্ন, 2=মাঝারি, "
+"3=উচ্চ; কোন আর্গ=কিপ)"
+
+#: src/uagent/util_tools.py:1942
+msgid "Exit"
+msgstr "প্রস্থান করুন"
+
+#: src/uagent/util_tools.py:1945
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "- মাল্টিলাইন ইনপুট মোডে প্রবেশ করতে একটি লাইন লিখুন যা শুধু 'f'।"
+
+#: src/uagent/util_tools.py:1947
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr "- মাল্টিলাইন ইনপুট মোড শেষ করতে, একটি লাইন লিখুন যা ঠিক %(সেন্টিনেল)।"
+
+#: src/uagent/util_tools.py:2183
+msgid "Exiting."
+msgstr "প্রস্থান করছে।"
+
+#: src/uagent/util_tools.py:2186
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "অজানা কমান্ড: :%(cmd)s"
+
+#: src/uagent/util_tools.py:2337
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"নীচে তালিকাভুক্ত বুলেট পয়েন্টগুলি এই ব্যবহারকারীর দীর্ঘমেয়াদী মেমরির "
+"(অস্থির মেমো) থেকে উদ্ধৃতাংশ। ব্যবহারকারী সম্পর্কে পটভূমি তথ্য হিসাবে তাদের "
+"ব্যবহার করুন. যাইহোক, কথোপকথনে সর্বদা নতুন প্রদত্ত তথ্যকে অগ্রাধিকার দিন এবং"
+" যদি এটি পুরানো তথ্যের বিরোধিতা করে তবে সর্বশেষ তথ্য গ্রহণ করুন।"
+
+#: src/uagent/web.py:534
+msgid ""
+"[WARN] Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"[সতর্কতা] এই রুমে ইতিমধ্যেই আরেকটি কাজ চলছে৷ এটি সম্পূর্ণ হওয়ার পরে অনুগ্রহ"
+" করে পুনরায় চেষ্টা করুন।"
+
+#: src/uagent/web.py:626 src/uagent/web.py:748
+msgid ""
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"[FATAL] পরিবেশ পরিবর্তনশীল UAGENT_PROVIDER সেট করা নেই।\n"
+"ওয়েব সার্ভার শুরু করার সময় পরিবেশ ভেরিয়েবল পরীক্ষা করুন."
+
+#: src/uagent/web.py:664
+#, python-format
+msgid "[Attached Image] %(name)s"
+msgstr "[সংযুক্ত ছবি] %(name)s"
+
+#: src/uagent/web.py:669
+#, python-format
+msgid "[Attached File] %(name)s"
+msgstr "[সংযুক্ত ফাইল] %(name)s"
+
+#: src/uagent/web.py:670
+#, python-format
+msgid "[File Path] %(path)s"
+msgstr "[ফাইলের পাথ] %(path)s"
+
+#: src/uagent/web.py:698
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] দীর্ঘমেয়াদী মেমরি লোড করা হয়েছে."
+
+#: src/uagent/web.py:710
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] শেয়ার করা দীর্ঘমেয়াদী মেমরি লোড হয়েছে।"
+
+#: src/uagent/web.py:745
+#, python-format
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[মারাত্মক] ওয়েব কর্মী ত্রুটি।\n"
+"%(ত্রুটি)"
+
+#: src/uagent/web.py:882
+msgid "missing path"
+msgstr "পাথ অনুপস্থিত"
+
+#: src/uagent/web.py:889
+msgid "path outside workdir"
+msgstr "পাথ কাজের ডিরেক্টরির বাইরে"
+
+#: src/uagent/web.py:1051
+msgid "Starting server on"
+msgstr "সার্ভার শুরু হচ্ছে"
+
+#: src/uagent/web.py:1053
+msgid "External URL:"
+msgstr "বাহ্যিক URL:"
+
+#: src/uagent/welcome.py:29
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[MCP সার্ভার]\n"
+"- কনফিগার ফাইল পাওয়া যায়নি।"
+
+#: src/uagent/welcome.py:36
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[MCP সার্ভার]\n"
+"- কোন সার্ভার নিবন্ধিত নেই।"
+
+#: src/uagent/welcome.py:38
+msgid "[MCP Servers]"
+msgstr "[MCP সার্ভার]"
+
+#: src/uagent/welcome.py:45
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[MCP সার্ভার]\n"
+"- তথ্য পেতে ব্যর্থ হয়েছে: %(err)s"
+
+#: src/uagent/welcome.py:64
+msgid "[Quick Guide]"
+msgstr "[দ্রুত নির্দেশিকা]"
+
+#: src/uagent/welcome.py:65
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr ""
+"- চ্যাট: একটি বার্তা টাইপ করে পাঠান (GUI: Ctrl+Enter-ও ব্যবহার করা যায়)।- "
+"চ্যাট: একটি বার্তা টাইপ করুন এবং পাঠান (GUI: Ctrl+Enter এছাড়াও উপলব্ধ)।"
+
+#: src/uagent/welcome.py:67
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr ""
+"- মাল্টিলাইন: মাল্টিলাইন মোডে প্রবেশ করার জন্য একটি লাইন লিখুন যা শুধু 'f' "
+"হয় (\"\"\"শেষ দিয়ে শেষ করুন)।"
+
+#: src/uagent/welcome.py:70
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr ""
+"- কমান্ড: সিস্টেম কমান্ড দেখতে ':help' টাইপ করুন (লগ পরিচালনা, ইতিহাস সংকোচন"
+" ইত্যাদি)। দ্রষ্টব্য: কমান্ডগুলি '/' (স্ল্যাশ) এর পরিবর্তে ':' (কোলন) দিয়ে "
+"শুরু হয়।"
+
+#: src/uagent/welcome.py:72
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- প্রস্থান করুন: ': exit' বা ': quit' সেশন শেষ করে।"
+
+#: src/uagent/welcome.py:74
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- ইমেজ: GUI টেনে আনে এবং ড্রপ সমর্থন করে; CUI-তে আপনি চিত্র বিশ্লেষণের জন্য "
+"একটি ফাইল পাথ ইনপুট করতে পারেন।"
+
+#: src/uagent/welcome.py:77
+#, python-format
+msgid ""
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- ডক্স: `%(docs_cmd)s` বান্ডেল করা ডক্স দেখায়; `%(webinspect_cmd)s` Web "
+"Inspector-এর সাহায্য দেখায় (`--path/--open`ও উপলব্ধ)।- ডক্স: `%(docs_cmd)s`"
+" বান্ডিল ডক্স দেখায়; `%(webinspect_cmd)s` ওয়েব ইন্সপেক্টর সহায়তা দেখায় "
+"(`--পাথ/--ওপেন`ও উপলব্ধ)।"
+
+#: src/uagent/welcome.py:81
+msgid "[Examples]"
+msgstr "[উদাহরণ]"
+
+#: src/uagent/welcome.py:82
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"এই ফোল্ডারে সোর্স কোড বিশ্লেষণ করুন এবং একটি README.md তৈরি করুন।\""
+
+#: src/uagent/welcome.py:84
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr ""
+"- \"বর্তমান ডেস্কটপের একটি স্ক্রিনশট নিন এবং দৃশ্যমান উইন্ডোর বিষয়বস্তু "
+"বর্ণনা করুন।\""
+
+#: src/uagent/welcome.py:86
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"এই এক্সেল ফাইল থেকে একটি মাসিক সারসংক্ষেপ প্রতিবেদন তৈরি করুন।\""
+
+#: src/uagent/welcome.py:87
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"এই পিডিএফটি পড়ুন এবং তিনটি মূল পয়েন্ট তালিকাভুক্ত করুন।\""
+
+#: src/uagent/welcome.py:88
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr ""
+"- \"সর্বশেষ খবর অনুসন্ধান করুন এবং একটি নির্দিষ্ট বিষয়ের সারসংক্ষেপ করুন।\""
+
+#: src/uagent/welcome.py:193
+msgid "-- More -- (Enter: next) "
+msgstr "-- আরও -- (Enter: পরবর্তী) "
+
+#: src/uagent/a2a/engine.py:125
+msgid "No assistant message produced."
+msgstr "কোন সহকারী বার্তা উত্পাদিত."
+
+#: src/uagent/a2a/engine.py:137
+msgid "Generated image(s)."
+msgstr "তৈরি করা ছবি(গুলি)।"
+
+#: src/uagent/a2a/engine.py:150
+#, python-format
+msgid "ECHO: %(text)s"
+msgstr "ইকো: %(টেক্সট) সে"
+
+#: src/uagent/a2a/engine.py:165
+#, python-format
+msgid "uagent initialization failed: %(err)s"
+msgstr "uagent আরম্ভ ব্যর্থ হয়েছে: %(err)s"
+
+#: src/uagent/a2a/engine.py:177
+#, python-format
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "uagent এক্সিকিউশন ব্যর্থ হয়েছে: %(etype)s: %(err)s"
+
+#: src/uagent/a2a/engine.py:188
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "অজানা UAGENT_A2A_ENGINE: %(mode)s৷"

@@ -1,2537 +1,2467 @@
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: uag\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-08 11:03+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-
-#: src\uagent\checks.py:17 src\uagent\checks.py:27
-#, python-format
-msgid "Please install Git. See: %(url)s"
-msgstr "Harap instal Git. Lihat: %(url)s"
-
-#: src\uagent\checks.py:20
-msgid ""
-"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
-"yum install git (CentOS/RHEL)"
-msgstr ""
-"Silakan instal Git. Contoh: sudo apt install git (Ubuntu/Debian) atau sudo "
-"yum install git (CentOS/RHEL)"
-
-#: src\uagent\checks.py:23
-msgid ""
-"Please install Git. If using Homebrew: brew install git, or install Xcode "
-"Command Line Tools: xcode-select --install"
-msgstr ""
-"Silakan instal Git. Jika menggunakan Homebrew: brew install git, atau instal "
-"Xcode Command Line Tools: xcode-select --install"
-
-#: src\uagent\checks.py:30
-msgid "[ERROR] Git is not installed."
-msgstr "[KESALAHAN] Git belum terpasang."
-
-#: src\uagent\cli.py:397
-msgid "getch() fallback to input()"
-msgstr "getch() menjadi cadangan untuk input()"
-
-#: src\uagent\cli.py:604
-msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "Ctrl+C diterima. Memulai proses shutdown..."
-
-#: src\uagent\cli.py:636 src\uagent\cli.py:706
-#, python-format
-msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-msgstr ""
-"(Mode input multiline: masukkan isi dalam beberapa baris; untuk mengulang, "
-"ketik \"\"\"retry; akhiri dengan baris yang hanya berisi %(sentinel)s)"
-
-#: src\uagent\cli.py:666 src\uagent\setup_cli.py:1183
-#: src\uagent\setup_cli.py:1202 src\uagent\setup_cli.py:1225
-#: src\uagent\setup_cli.py:1241 src\uagent\setup_cli.py:1260
-#: src\uagent\setup_cli.py:1279 src\uagent\setup_cli.py:1293
-#: src\uagent\setup_cli.py:1306 src\uagent\setup_cli.py:1314
-#: src\uagent\setup_cli.py:1327 src\uagent\setup_cli.py:1339
-#: src\uagent\setup_cli.py:1350 src\uagent\setup_cli.py:1436
-#: src\uagent\setup_cli.py:1462
-msgid "Cancelled."
-msgstr "Dibatalkan."
-
-#: src\uagent\cli.py:672 src\uagent\cli.py:722
-msgid "Discarded previous input. Please start over."
-msgstr "Input sebelumnya dibuang. Silakan mulai lagi."
-
-#: src\uagent\cli.py:683
-msgid "Received multiline reply."
-msgstr "Balasan multiline diterima."
-
-#: src\uagent\cli.py:841
-msgid ""
-"Image file paths were found in your input.\n"
-"Do you want to send these images to the LLM (external API) for analysis?\n"
-"\n"
-msgstr ""
-"Jalur file gambar ditemukan di input Anda.\n"
-"Apakah Anda ingin mengirim gambar ini ke LLM (API eksternal) untuk "
-"analisis?\n"
-"\n"
-
-#: src\uagent\cli.py:847
-msgid "Reply with y to send, or n (or c/cancel) to skip sending."
-msgstr ""
-"Balas y untuk mengirim, atau n (atau c/cancel) untuk melewati pengiriman."
-
-#: src\uagent\cli.py:865
-#, python-format
-msgid ""
-"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-msgstr ""
-"Konfirmasi pengiriman gambar gagal; gambar tidak akan dikirim: %(etype)s: "
-"%(err)s"
-
-#: src\uagent\cli.py:893 src\uagent\scheckgui.py:432
-#, python-format
-msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "Gagal melampirkan gambar: %(path)s (%(etype)s: %(err)s)"
-
-#: src\uagent\cli.py:930
-#, python-format
-msgid "Unknown event kind=%(kind)r: %(ev)r"
-msgstr "Jenis event tidak dikenal=%(kind)r: %(ev)r"
-
-#: src\uagent\cli.py:948
-msgid "Exited uag."
-msgstr "uag keluar."
-
-#: src\uagent\cli_docs.py:33
-msgid "[docs] name is required"
-msgstr "[docs] nama diperlukan"
-
-#: src\uagent\cli_startup.py:22
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to "
-"skip):"
-msgstr ""
-"Pilih genre alat yang akan diaktifkan saat startup.\n"
-"1: comm  - Komunikasi (Teams, Discord, dll.)\n"
-"2: office - Suite perkantoran (Excel, Word, dll.)\n"
-"4: devel  - Pengembangan (lint, py_compile, test, dll.)\n"
-"Masukkan jumlah nilai (misalnya, 3 = comm + office, 7 = semua, atau tekan Enter untuk melewati):"
-
-#: src\uagent\cli_startup.py:96
-#, python-format
-msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr "[WARN] Gagal menerapkan pemilihan alat startup: %(err)s"
-
-#: src\uagent\cli_startup.py:173 src\uagent\web.py:1034
-#, python-format
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Gagal menetapkan workdir: %(err)s"
-
-#: src\uagent\cli_startup.py:202
-#, python-format
-msgid "[FATAL] Failed to launch uag_setup: %(err)s"
-msgstr "[FATAL] Gagal meluncurkan uag_setup: %(err)s"
-
-#: src\uagent\cli_startup.py:243
-#, python-format
-msgid "provider = %(provider)s; model = %(model)s"
-msgstr "penyedia = %(provider)s; model = %(model)s"
-
-#: src\uagent\cli_startup.py:255 src\uagent\scheckgui.py:296
-msgid "OpenRouter fallback models enabled."
-msgstr "Model fallback OpenRouter diaktifkan."
-
-#: src\uagent\cli_startup.py:259
-#, python-format
-msgid "current workdir = %(cwd)s"
-msgstr "direktori kerja saat ini = %(cwd)s"
-
-#: src\uagent\cli_startup.py:273 src\uagent\scheckgui.py:307
-msgid "Loaded long-term memory."
-msgstr "Memori jangka panjang dimuat."
-
-#: src\uagent\cli_startup.py:286 src\uagent\scheckgui.py:320
-msgid "Loaded shared long-term memory."
-msgstr "Memori jangka panjang bersama dimuat."
-
-#: src\uagent\cli_startup.py:293 src\uagent\web.py:718
-#, python-format
-msgid ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"[PERINGATAN] Terjadi pengecualian saat memuat memori jangka panjang bersama: "
-"%(err)s"
-
-#: src\uagent\cli_startup.py:327
-#, python-format
-msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-msgstr "[PERINGATAN] Gagal membaca file startup: %(path)s (%(err)s)"
-
-#: src\uagent\cli_startup.py:341
-#, python-format
-msgid "Startup file provided: %(path)s"
-msgstr "Berkas startup disediakan: %(path)s"
-
-#: src\uagent\cli_startup.py:364
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "--non-interactive ditentukan; keluar tanpa menunggu stdin."
-
-#: src\uagent\core.py:286 src\uagent\core.py:307
-#, python-format
-msgid "Environment variable %(name)s is not set."
-msgstr "Variabel lingkungan %(name)s belum disetel."
-
-#: src\uagent\core.py:607
-msgid "No log files found."
-msgstr "Tidak ditemukan file log."
-
-#: src\uagent\core.py:625
-msgid "(unknown time)"
-msgstr "(waktu tidak diketahui)"
-
-#: src\uagent\core.py:628
-#, python-format
-msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
-msgstr "log: menampilkan %(shown)d/%(total)d (dir=%(dir)s)"
-
-#: src\uagent\core.py:631
-msgid "Log files:"
-msgstr "File log:"
-
-#: src\uagent\core.py:638
-msgid "(mtime unknown)"
-msgstr "(waktu modifikasi tidak diketahui)"
-
-#: src\uagent\core.py:756 src\uagent\core.py:759
-msgid "(no user message)"
-msgstr "(tanpa pesan pengguna)"
-
-#: src\uagent\core.py:764
-#, python-format
-msgid ""
-"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
-"%(last_user)s"
-msgstr ""
-"[%(idx)d] %(mtime_text)s | %(turns)d pesan | pertama: %(first_user)s | "
-"terakhir: %(last_user)s"
-
-#: src\uagent\core.py:896
-#, python-format
-msgid ""
-"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-msgstr ""
-"[WARN] Pesan alat yatim dibuang: tool_call_id=%(tool_call_id)r name=%(name)r"
-
-#: src\uagent\core.py:994
-#, python-format
-msgid ""
-"[INFO] There were %(count)d messages to compress, so nothing was changed."
-msgstr ""
-"[INFO] Ada %(count)d pesan untuk dikompresi, jadi tidak ada yang diubah."
-
-#: src\uagent\core.py:1004
-#, python-format
-msgid ""
-"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
-"messages (keep_last=%(keep_last)d)"
-msgstr ""
-"[INFO] Riwayat percakapan di memori dikompresi: %(old_n)d -> %(new_n)d pesan "
-"(keep_last=%(keep_last)d)"
-
-#: src\uagent\core.py:1339
-msgid ""
-"[WARN] history compression hit context length even at chunk_size=1; falling "
-"back to shrink_messages()."
-msgstr ""
-"[WARN] Kompresi riwayat mencapai batas konteks bahkan pada chunk_size=1; "
-"kembali ke shrink_messages()."
-
-#: src\uagent\core.py:1349
-msgid ""
-"[WARN] history compression could not reduce chunk_size further; falling back "
-"to shrink_messages()."
-msgstr ""
-"[WARN] Kompresi riwayat tidak bisa mengecilkan chunk_size lebih lanjut; "
-"kembali ke shrink_messages()."
-
-#: src\uagent\core.py:1357
-#, python-format
-msgid ""
-"[WARN] history compression context length exceeded; retrying with "
-"chunk_size=%(chunk_size)d"
-msgstr ""
-"[WARN] Batas panjang konteks kompresi riwayat terlampaui; mencoba lagi "
-"dengan chunk_size=%(chunk_size)d"
-
-#: src\uagent\core.py:1382
-#, python-format
-msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help  (bantuan tidak tersedia: %(err)s)"
-
-#: src\uagent\core.py:1394
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a "
-"local environment, and you can actually execute commands and operate on "
-"files on the user's machine.\n"
-"- Ask the user for confirmation before performing any dangerous operation.\n"
-"- Do not flatter the user. Do not use emojis.\n"
-"- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output "
-"diffs or partial summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing "
-"brackets (like `py]}`) in your final response. Keep your output clean and "
-"well-formatted.\n"
-msgstr ""
-"## Misi\n"
-"- Anda adalah agen eksekusi alat serbaguna yang andal, yang berjalan di "
-"lingkungan lokal, dan benar-benar dapat menjalankan perintah serta "
-"mengoperasikan berkas di mesin pengguna.\n"
-"- Minta konfirmasi pengguna sebelum melakukan operasi berbahaya apa pun.\n"
-"- Jangan menyanjung pengguna. Jangan gunakan emoji.\n"
-"- Jangan membuat ringkasan. Tetap ringkas.\n"
-"- Saat membuat berkas, keluarkan isi akhir secara lengkap (jangan keluarkan "
-"diff atau ringkasan sebagian).\n"
-
-#: src\uagent\core.py:1403
-msgid ""
-"## Rules\n"
-"- Always use the provided tools and verify the latest information.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to "
-"the user.\n"
-msgstr ""
-"## Aturan\n"
-"- Selalu gunakan alat yang disediakan dan verifikasi informasi terbaru.\n"
-"- Bersikap kreatif, tetapi jangan menampilkan informasi yang tidak pasti.\n"
-"- Tinjau alat yang tersedia dan pilih yang paling sesuai.\n"
-"- Saat menjalankan alat, delegasikan keputusan sesedikit mungkin kepada "
-"pengguna.\n"
-
-#: src\uagent\core.py:1410
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, "
-"prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the "
-"human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to "
-"reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory "
-"(add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
-"not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate "
-"syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) "
-"and follow them.\n"
-"- If the user's input is only a short affirmation and adds no new "
-"information, do not repeat the same explanation unless it is a direct answer "
-"to the immediately preceding clear question. If needed, ask briefly: \"Which "
-"point should I continue with?\"\n"
-msgstr ""
-"## Catatan\n"
-"- Semua pesan pengguna masuk melalui input standar skrip ini.\n"
-"- Untuk tujuan/argumen/batasan/rincian operasional yang khusus bagi alat "
-"tertentu, utamakan deskripsi masing-masing alat.\n"
-"- Jika Anda memerlukan informasi tambahan atau konfirmasi dari pengguna, "
-"gunakan alat human_ask.\n"
-"- Saat menangani ekspresi tanggal relatif, panggil get_current_time untuk "
-"merujuk ke waktu saat ini.\n"
-"- Jangan menyimpan rahasia (kata sandi/token) di memori jangka panjang "
-"(add_long_memory, dll.).\n"
-"- File dengan akhiran seperti .org / .org1 / .org2 adalah salinan cadangan "
-"dan tidak boleh diperlakukan sebagai file utama yang dapat diedit.\n"
-"- Jika Anda membuat file Python, jalankan `python -m py_compile` untuk "
-"memvalidasi sintaks.\n"
-"- Jika pengetahuan tingkat ahli diperlukan, gunakan templat prompt (Agent "
-"Skills) dan ikuti petunjuknya.\n"
-"- Jika input pengguna hanya berupa persetujuan singkat dan tidak menambahkan "
-"informasi baru, jangan ulangi penjelasan yang sama kecuali itu merupakan "
-"jawaban langsung atas pertanyaan jelas yang langsung sebelumnya. Jika perlu, "
-"tanyakan singkat: \"Bagian mana yang harus saya lanjutkan?\"\n"
-
-#: src\uagent\core.py:1422
-msgid ""
-"## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation "
-"before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion "
-"candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly "
-"once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent "
-"explicit approval), run delete_file again with the same parameters, "
-"dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be "
-"deleted.\n"
-msgstr ""
-"## Kebijakan operasi berbahaya (delete_file)\n"
-"- Untuk penghapusan menggunakan alat delete_file, JANGAN meminta konfirmasi "
-"sebelum pratinjau.\n"
-"- Selalu jalankan delete_file dengan dry_run=true terlebih dahulu untuk "
-"mendapatkan daftar kandidat penghapusan.\n"
-"- Tampilkan kandidat tersebut kepada pengguna dan minta konfirmasi melalui "
-"human_ask tepat satu kali.\n"
-"- Hanya ketika pengguna secara eksplisit menjawab \"y\" atau \"yes\" (atau "
-"persetujuan eksplisit yang setara), jalankan delete_file lagi dengan "
-"parameter yang sama, dry_run=false, dan confirmed=true.\n"
-"- Jika tidak ada kandidat, jangan bertanya; cukup laporkan bahwa tidak ada "
-"yang akan dihapus.\n"
-
-#: src\uagent\core.py:1430
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a "
-"local environment; you can execute commands and operate on the user's "
-"machine.\n"
-"- Ask the user for confirmation before any dangerous operation.\n"
-"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial "
-"summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing "
-"brackets (like `py]}`) in your final response. Keep your output clean and "
-"well-formatted.\n"
-msgstr ""
-"## Misi\n"
-"- Anda adalah agen pelaksana alat serbaguna yang andal dan berjalan di "
-"lingkungan lokal; Anda dapat menjalankan perintah dan mengoperasikan mesin "
-"pengguna.\n"
-"- Minta konfirmasi pengguna sebelum melakukan operasi berbahaya apa pun.\n"
-"- Tanpa basa-basi. Tanpa emoji. Tanpa ringkasan percakapan. Tetap singkat.\n"
-"- Saat membuat file, keluarkan isi final lengkap (bukan diff atau ringkasan "
-"sebagian).\n"
-
-#: src\uagent\core.py:1438
-msgid ""
-"## Rules\n"
-"- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the "
-"most appropriate and safest tool.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Delegate as little decision-making as possible to the user.\n"
-msgstr ""
-"## Aturan\n"
-"- Gunakan alat yang tersedia terlebih dahulu dan verifikasi hasilnya dengan "
-"alat.\n"
-"- Periksa deskripsi alat untuk tujuan, argumen, dan batasannya; pilih alat "
-"yang paling tepat dan paling aman.\n"
-"- Jadilah kreatif, tetapi jangan keluarkan informasi yang tidak pasti.\n"
-"- Alihkan keputusan ke pengguna sesedikit mungkin.\n"
-
-#: src\uagent\core.py:1445
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not "
-"guess).\n"
-"- Relative dates: call get_current_time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must "
-"not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile`.\n"
-"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
-"- If the user's input is only a short affirmation and adds no new "
-"information, do not repeat the same explanation unless it is a direct answer "
-"to the immediately preceding clear question. If needed, ask briefly: \"Which "
-"point should I continue with?\"\n"
-msgstr ""
-"## Catatan\n"
-"- Semua pesan pengguna masuk melalui input standar skrip ini.\n"
-"- Jika info/parameter yang diperlukan tidak ada, tanyakan melalui alat "
-"human_ask (jangan menebak).\n"
-"- Untuk tanggal relatif, panggil get_current_time.\n"
-"- Jangan menyimpan rahasia (kata sandi/token) di memori jangka panjang.\n"
-"- File dengan akhiran seperti .org / .org1 / .org2 adalah salinan cadangan "
-"dan tidak boleh diperlakukan sebagai file utama yang dapat diedit.\n"
-"- Jika Anda membuat file Python, jalankan `python -m py_compile`.\n"
-"- Jika pengetahuan tingkat ahli diperlukan, gunakan templat prompt Agent "
-"Skills.\n"
-"- Jika input pengguna hanya berupa persetujuan singkat dan tidak menambahkan "
-"informasi baru, jangan ulangi penjelasan yang sama kecuali itu merupakan "
-"jawaban langsung atas pertanyaan jelas yang langsung sebelumnya. Jika perlu, "
-"tanyakan singkat: \"Bagian mana yang harus saya lanjutkan?\"\n"
-
-#: src\uagent\core.py:1458
-msgid ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using "
-"caret (^) line continuation, and keep each line short to avoid copy/paste "
-"line breaks.\n"
-msgstr ""
-"- Jika pengguna memakai Windows cmd.exe, gunakan perintah multi-baris dengan "
-"caret (^) sebagai kelanjutan baris, dan buat setiap baris pendek agar tidak "
-"ada jeda baris saat salin-tempel.\n"
-
-#: src\uagent\core.py:1525
-msgid ""
-"The following tools are currently loaded in this session. Choose the most "
-"appropriate tool for the task."
-msgstr ""
-"Alat berikut saat ini dimuat dalam sesi ini. Pilih alat yang paling sesuai "
-"untuk tugas ini."
-
-#: src\uagent\docs_util.py:27
-msgid "Project README"
-msgstr "README Proyek"
-
-#: src\uagent\docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "Panduan cepat (instalasi wheel Windows)"
-
-#: src\uagent\docs_util.py:37
-msgid "Web Inspector (playwright_inspector) guide"
-msgstr "Panduan Web Inspector (playwright_inspector)"
-
-#: src\uagent\docs_util.py:42
-msgid "Developer information"
-msgstr "Informasi pengembang"
-
-#: src\uagent\docs_util.py:149
-#, python-format
-msgid "unknown doc name: %(name)r"
-msgstr "nama dokumen tidak dikenal: %(name)r"
-
-#: src\uagent\docs_util.py:172
-#, python-format
-msgid "doc file not found: %(filename)s"
-msgstr "file dokumen tidak ditemukan: %(filename)s"
-
-#: src\uagent\docs_util.py:203
-#, python-format
-msgid "doc path resolution failed: %(filename)s: %(err)s"
-msgstr "gagal menemukan lokasi dokumen: %(filename)s: %(err)s"
-
-#: src\uagent\docs_util.py:227
-msgid "[docs] Available documents:"
-msgstr "[docs] Dokumen tersedia:"
-
-#: src\uagent\docs_util.py:231
-msgid "Usage:"
-msgstr "Penggunaan:"
-
-#: src\uagent\docs_util.py:232
-msgid "list"
-msgstr "daftar"
-
-#: src\uagent\docs_util.py:233
-msgid "show"
-msgstr "tampilkan"
-
-#: src\uagent\docs_util.py:234
-msgid "show path"
-msgstr "tampilkan jalur"
-
-#: src\uagent\docs_util.py:235
-msgid "open with OS"
-msgstr "buka dengan OS"
-
-#: src\uagent\env_validate.py:42
-msgid ""
-"Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/"
-"grok/claude/nvidia)."
-msgstr ""
-"Diperlukan untuk memilih penyedia LLM (azure/openai/bedrock/openrouter/"
-"gemini/grok/claude/nvidia)."
-
-#: src\uagent\env_validate.py:63
-#, python-format
-msgid ""
-"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
-"fail)."
-msgstr ""
-"Penyedia tidak dikenal: %(provider)r. Yang diizinkan: %(allowed)s (startup "
-"kemungkinan gagal)."
-
-#: src\uagent\env_validate.py:74
-msgid ""
-"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
-msgstr ""
-"Endpoint/URL dasar Azure OpenAI (mis. https://<resource>.openai.azure.com/)."
-
-#: src\uagent\env_validate.py:80
-msgid "Azure OpenAI API key."
-msgstr "Kunci API Azure OpenAI."
-
-#: src\uagent\env_validate.py:85
-msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr "Versi API Azure OpenAI (mis. 2024-xx-xx)."
-
-#: src\uagent\env_validate.py:92
-msgid "OpenAI API key."
-msgstr "Kunci API OpenAI."
-
-#: src\uagent\env_validate.py:98
-msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
-msgstr "Endpoint/URL dasar proxy Bedrock (kompatibel dengan OpenAI)."
-
-#: src\uagent\env_validate.py:105
-msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr "Kunci API proxy Bedrock (kompatibel dengan OpenAI)."
-
-#: src\uagent\env_validate.py:112
-msgid "OpenRouter API key."
-msgstr "Kunci API OpenRouter."
-
-#: src\uagent\env_validate.py:117
-msgid "Grok (xAI) API key."
-msgstr "Kunci API Grok (xAI)."
-
-#: src\uagent\env_validate.py:122
-msgid "Gemini API key."
-msgstr "Kunci API Gemini."
-
-#: src\uagent\env_validate.py:129
-msgid ""
-"Python package 'google-genai' is not installed. Provider=gemini requires it."
-msgstr ""
-"Paket Python 'google-genai' belum terpasang. Penyedia gemini membutuhkannya."
-
-#: src\uagent\env_validate.py:140
-msgid "Vertex AI API key / model name."
-msgstr "Kunci API Vertex AI / nama model."
-
-#: src\uagent\env_validate.py:149
-msgid ""
-"Python package 'google-genai' is not installed. Provider=vertexai requires "
-"it."
-msgstr ""
-"Paket Python 'google-genai' belum terpasang. Penyedia vertexai "
-"membutuhkannya."
-
-#: src\uagent\env_validate.py:157
-msgid "Anthropic (Claude) API key."
-msgstr "Kunci API Anthropic (Claude)."
-
-#: src\uagent\env_validate.py:165
-msgid ""
-"Python package 'anthropic' is not installed. Provider=claude requires it."
-msgstr ""
-"Paket Python 'anthropic' belum terpasang. Penyedia claude membutuhkannya."
-
-#: src\uagent\env_validate.py:172
-msgid "NVIDIA API key."
-msgstr "Kunci API NVIDIA."
-
-#: src\uagent\env_validate.py:190
-#, python-format
-msgid ""
-"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will "
-"likely fail)."
-msgstr ""
-"Penyedia embedding tidak dikenal: %(provider)r. Yang diizinkan: %(allowed)s "
-"(startup kemungkinan gagal)."
-
-#: src\uagent\env_validate.py:207
-msgid "Azure embedding endpoint / API key / API version / deployment name."
-msgstr "Endpoint embedding Azure / kunci API / versi API / nama deployment."
-
-#: src\uagent\env_validate.py:218
-msgid "OpenAI embedding API key / model name."
-msgstr "Kunci API embedding OpenAI / nama model."
-
-#: src\uagent\env_validate.py:230
-msgid "Bedrock embedding endpoint / API key / deployment name."
-msgstr "Endpoint embedding Bedrock / kunci API / nama deployment."
-
-#: src\uagent\env_validate.py:241
-msgid "OpenRouter embedding API key / model name."
-msgstr "Kunci API embedding OpenRouter / nama model."
-
-#: src\uagent\env_validate.py:252
-msgid "Ollama embedding base URL / model name."
-msgstr "URL dasar embedding Ollama / nama model."
-
-#: src\uagent\env_validate.py:263
-msgid "NVIDIA embedding API key / model name."
-msgstr "Kunci API embedding NVIDIA / nama model."
-
-#: src\uagent\env_validate.py:274
-msgid "Gemini embedding API key / model name."
-msgstr "Kunci API / nama model embedding Gemini."
-
-#: src\uagent\env_validate.py:285
-msgid "Vertex AI embedding API key / model name."
-msgstr "Kunci API / nama model embedding Vertex AI."
-
-#: src\uagent\env_validate.py:302
-#, python-brace-format
-msgid "[FATAL] Environment validation failed ({context})."
-msgstr "[FATAL] Validasi lingkungan gagal ({context})."
-
-#: src\uagent\env_validate.py:310
-msgid "Missing required environment variables:"
-msgstr "Variabel lingkungan yang diperlukan tidak ada:"
-
-#: src\uagent\env_validate.py:317
-msgid "Warnings:"
-msgstr "Peringatan:"
-
-#: src\uagent\env_validate.py:321
-msgid "How to fix:"
-msgstr "Cara memperbaiki:"
-
-#: src\uagent\env_validate.py:324
-msgid ""
-"- Set the variables above in your environment before starting the program."
-msgstr ""
-"- Tetapkan variabel di atas di lingkungan Anda sebelum memulai program."
-
-#: src\uagent\env_validate.py:330
-msgid ""
-"- You can set them via your OS environment settings, a .env file, your shell "
-"startup scripts,"
-msgstr ""
-"- Anda dapat menetapkannya melalui pengaturan lingkungan OS, file .env, "
-"skrip startup shell Anda,"
-
-#: src\uagent\env_validate.py:336
-msgid ""
-"  or your process manager / service configuration (CI secrets, systemd, "
-"Docker, etc.)."
-msgstr ""
-"  atau konfigurasi process manager / layanan Anda (rahasia CI, systemd, "
-"Docker, dll.)."
-
-#: src\uagent\gemini_cache_mgr.py:131
-msgid "invalid cache meta"
-msgstr "metadata cache tidak valid"
-
-#: src\uagent\image_session.py:101
-msgid "(prompt unavailable)"
-msgstr "(prompt tidak tersedia)"
-
-#: src\uagent\image_session.py:105
-#, python-format
-msgid "screenshot: %(title)s"
-msgstr "tangkapan layar: %(title)s"
-
-#: src\uagent\image_session.py:107
-msgid "screenshot"
-msgstr "tangkapan layar"
-
-#: src\uagent\image_session.py:148
-msgid "Image-session context:"
-msgstr "Konteks sesi gambar:"
-
-#: src\uagent\image_session.py:149
-msgid "This conversation already generated images."
-msgstr "Percakapan ini sudah menghasilkan gambar."
-
-#: src\uagent\image_session.py:151
-msgid ""
-"Use the prior prompts and saved file paths below as context for follow-up "
-"edits, variants, or continuations."
-msgstr ""
-"Gunakan prompt sebelumnya dan jalur file yang tersimpan di bawah ini sebagai "
-"konteks untuk pengeditan lanjutan, variasi, atau kelanjutan."
-
-#: src\uagent\image_session.py:156
-#, python-format
-msgid "Turn %(idx)d:"
-msgstr "Putaran %(idx)d:"
-
-#: src\uagent\image_session.py:157
-#, python-format
-msgid "- prompt: %(prompt)s"
-msgstr "- instruksi: %(prompt)s"
-
-#: src\uagent\image_session.py:160
-#, python-format
-msgid "- file: %(path)s"
-msgstr "- berkas: %(path)s"
-
-#: src\uagent\llm_claude.py:143 src\uagent\util_providers.py:610
-msgid "anthropic package is not installed."
-msgstr "Paket anthropic belum terpasang."
-
-#: src\uagent\llm_errors.py:398
-#, python-format
-msgid ""
-"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
-"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-msgstr ""
-"[BATAS_LAJU] provider=%(provider)s model=%(model)s status=%(status)s "
-"percobaan=%(attempt)s/%(max_retries)s tunggu=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-
-#: src\uagent\llm_flow_helpers.py:205
-msgid ""
-"The previous assistant reply was empty. Please answer based on the most "
-"recent tool result."
-msgstr ""
-"Balasan asisten sebelumnya kosong. Harap jawab berdasarkan hasil alat paling "
-"baru."
-
-#: src\uagent\llm_flow_helpers.py:218
-#, python-format
-msgid ""
-"[WARN] LLM returned an empty assistant message without tool calls.\n"
-"provider=%(provider)s depname=%(depname)s "
-"empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"This may happen with OpenAI-compatible local providers after tool calls. You "
-"can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching "
-"provider."
-msgstr ""
-"[WARN] LLM mengembalikan pesan asisten kosong tanpa panggilan alat.\n"
-"provider=%(provider)s depname=%(depname)s "
-"empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"Ini dapat terjadi pada penyedia lokal yang kompatibel dengan OpenAI setelah "
-"panggilan alat. Anda dapat mencoba menetapkan UAGENT_EMPTY_NO_TOOL_MAX ke "
-"nilai yang lebih tinggi, atau beralih penyedia."
-
-#: src\uagent\llm_flow_helpers.py:265
-msgid "arguments must be a JSON object."
-msgstr "argumen harus berupa objek JSON."
-
-#: src\uagent\llm_flow_helpers.py:272
-#, python-format
-msgid ""
-"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[kesalahan argumen alat] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-
-#: src\uagent\llm_flow_helpers.py:298
-msgid ""
-"[INFO] Reusing the previous result because this tool call matches an earlier "
-"one.\n"
-msgstr ""
-"[INFO] Menggunakan kembali hasil sebelumnya karena panggilan alat ini cocok "
-"dengan panggilan sebelumnya.\n"
-
-#: src\uagent\llm_flow_helpers.py:313
-#, python-format
-msgid ""
-"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[kesalahan runtime alat] name=%(name)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-
-#: src\uagent\llm_gemini.py:556
-msgid ""
-"google-genai could not be imported (pip install google-genai is required)."
-msgstr ""
-"google-genai tidak dapat diimpor (diperlukan pip install google-genai)."
-
-#: src\uagent\llm_gemini.py:1115
-msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
-"[Kesalahan Gemini: Respons diblokir oleh filter keamanan atau alasan "
-"penyelesaian]"
-
-#: src\uagent\llm_gemini.py:1117
-#, python-format
-msgid "[Gemini Error: %(err)s]"
-msgstr "[Kesalahan Gemini: %(err)s]"
-
-#: src\uagent\llm_image_helpers.py:7
-msgid "Describe this screenshot and summarize the visible UI."
-msgstr "Jelaskan tangkapan layar ini dan ringkas UI yang terlihat."
-
-#: src\uagent\llm_image_helpers.py:11
-msgid "Read all visible text in this screenshot and summarize it."
-msgstr "Baca semua teks yang terlihat di tangkapan layar ini dan ringkas."
-
-#: src\uagent\llm_image_helpers.py:15
-msgid "Inspect this screenshot for errors, warnings, and important UI state."
-msgstr ""
-"Periksa tangkapan layar ini untuk error, peringatan, dan status UI penting."
-
-#: src\uagent\llm_message_helpers.py:155
-#, python-format
-msgid "[WARN] Auto shrink_llm failed: %(err)s"
-msgstr "[WARN] Gagal auto shrink_llm: %(err)s"
-
-#: src\uagent\llm_openai_responses.py:69
-msgid "[WARN] assistant history contained image content; converted to text."
-msgstr "[WARN] riwayat asisten berisi konten gambar; dikonversi menjadi teks."
-
-#: src\uagent\llm_openai_responses.py:92
-msgid "[WARN] invalid image content (missing url)."
-msgstr "[WARN] konten gambar tidak valid (URL hilang)."
-
-#: src\uagent\llm_openai_responses.py:100
-#: src\uagent\llm_openai_responses.py:109
-#, python-format
-msgid "[WARN] unsupported content item: %(item)r"
-msgstr "[WARN] item konten tidak didukung: %(item)r"
-
-#: src\uagent\llm_openai_responses.py:444
-msgid "Sources:"
-msgstr "Sumber:"
-
-#: src\uagent\llm_openai_responses.py:507
-msgid "search"
-msgstr "cari"
-
-#: src\uagent\llm_openai_responses.py:509
-msgid "open page"
-msgstr "buka halaman"
-
-#: src\uagent\llm_openai_responses.py:511
-msgid "find in page"
-msgstr "cari di halaman"
-
-#: src\uagent\llm_openai_responses.py:512
-msgid "web search"
-msgstr "pencarian web"
-
-#: src\uagent\llm_openai_responses.py:526
-msgid "Web search: searching"
-msgstr "Pencarian web: mencari"
-
-#: src\uagent\llm_openai_responses.py:528
-msgid "Web search: completed"
-msgstr "Pencarian web: selesai"
-
-#: src\uagent\llm_openai_responses.py:530
-#, python-brace-format
-msgid "Web search: {action}"
-msgstr "Pencarian web: {action}"
-
-#: src\uagent\llm_openai_responses.py:587
-#, python-brace-format
-msgid ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide "
-"function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by "
-"the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no "
-"required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using "
-"human_ask instead of guessing.\n"
-"        "
-msgstr ""
-"[Aturan pemanggilan tool]\n"
-"        - Saat memanggil tool/fungsi, Anda HARUS memberikan "
-"function_call.arguments sebagai objek JSON.\n"
-"        - Objek JSON HARUS mencakup semua parameter wajib yang ditentukan "
-"oleh skema tool.\n"
-"        - Jangan pernah memanggil tool dengan objek kosong {} kecuali tool "
-"tidak memiliki parameter wajib.\n"
-"        - Jika Anda tidak memiliki parameter wajib, tanyakan kepada pengguna "
-"melalui human_ask alih-alih menebak.\n"
-"        "
-
-#: src\uagent\llm_openai_responses.py:594
-msgid ""
-"[Web search rules]\n"
-"        - Use web search only when fresh or external information is "
-"necessary.\n"
-"        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already "
-"sufficient.\n"
-"        "
-msgstr ""
-"[Aturan pencarian web]\n"
-"        - Gunakan pencarian web hanya saat informasi terbaru atau eksternal "
-"diperlukan.\n"
-"        - Jangan gunakan pencarian web untuk informasi lokal atau yang "
-"stabil.\n"
-"        - Jika jawaban sudah cukup, lebih baik menjawab tanpa pencarian "
-"web.\n"
-"        "
-
-#: src\uagent\llm_round_helpers.py:133
-#, python-format
-msgid "[Translate Error] %(diag)s"
-msgstr "[Kesalahan terjemahan] %(diag)s"
-
-#: src\uagent\llm_round_helpers.py:192 src\uagent\llm_round_helpers.py:302
-#: src\uagent\llm_round_helpers.py:635
-#, python-format
-msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "Batas percobaan 429 (%(max_retries)s) tercapai."
-
-#: src\uagent\llm_round_helpers.py:216
-msgid "[Gemini Error] An error occurred while generating a response."
-msgstr "[Kesalahan Gemini] Terjadi kesalahan saat membuat respons."
-
-#: src\uagent\llm_round_helpers.py:308
-msgid "[Claude Error] An error occurred while generating a response."
-msgstr "[Kesalahan Claude] Terjadi kesalahan saat membuat respons."
-
-#: src\uagent\llm_round_helpers.py:614
-msgid "[Network Error]"
-msgstr "[Kesalahan Jaringan]"
-
-#: src\uagent\llm_round_helpers.py:719
-#, python-format
-msgid "Error while parsing response: %(err)s"
-msgstr "Kesalahan saat mengurai respons: %(err)s"
-
-#: src\uagent\profile_manager.py:482 src\uagent\profile_manager.py:600
-msgid ""
-"You are a user profiling agent. Analyze the conversation log and extract the "
-"user's:\n"
-"1. Environment (OS, shell, editor, etc.)\n"
-"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
-"3. Constraints (security rules, offline requirements, etc.)\n"
-"\n"
-"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
-"You MUST respond ONLY with a valid JSON object matching this schema:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": "
-"\"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-msgstr ""
-"Anda adalah agen pemrofil pengguna. Analisis log percakapan dan ekstrak hal-"
-"hal berikut dari pengguna:\n"
-"1. Lingkungan (OS, shell, editor, dll.)\n"
-"2. Preferensi (gaya pengodean, alat yang disukai, preferensi tingkat "
-"keterperincian, dll.)\n"
-"3. Batasan (aturan keamanan, kebutuhan bekerja offline, dll.)\n"
-"\n"
-"Jangan sertakan pertanyaan sementara, obrolan ringan, atau kredensial "
-"sensitif.\n"
-"Anda HARUS menjawab HANYA dengan objek JSON valid yang sesuai dengan skema "
-"ini:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": "
-"\"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-
-#: src\uagent\profile_manager.py:586
-msgid "Failed to initialize LLM client."
-msgstr "Gagal menginisialisasi klien LLM."
-
-#: src\uagent\profile_manager.py:591
-#, python-format
-msgid "Found %(total_files)d log files. Starting incremental profiling..."
-msgstr "Ditemukan %(total_files)d file log. Memulai profiling bertahap..."
-
-#: src\uagent\runtime_banner.py:231
-msgid "embedding"
-msgstr "penyematan"
-
-#: src\uagent\runtime_banner.py:232
-msgid "audio speech"
-msgstr "sintesis suara"
-
-#: src\uagent\runtime_banner.py:233
-msgid "audio transcribe"
-msgstr "transkripsi audio"
-
-#: src\uagent\runtime_banner.py:234
-msgid "image generation"
-msgstr "pembuatan gambar"
-
-#: src\uagent\runtime_banner.py:235
-msgid "image analysis"
-msgstr "analisis gambar"
-
-#: src\uagent\runtime_banner.py:254
-#, python-format
-msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
-msgstr "[INFO] workdir = %(workdir)s (sumber: %(source)s)"
-
-#: src\uagent\runtime_banner.py:262 src\uagent\runtime_banner.py:276
-#: src\uagent\runtime_banner.py:281 src\uagent\runtime_banner.py:293
-#: src\uagent\runtime_banner.py:305 src\uagent\runtime_banner.py:314
-#: src\uagent\runtime_banner.py:323
-#, python-format
-msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] URL dasar = %(base_url)s"
-
-#: src\uagent\runtime_banner.py:270
-#, python-format
-msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] versi API = %(api_version)s"
-
-#: src\uagent\runtime_banner.py:332
-#, python-format
-msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
-msgstr "[INFO] vertexai = project=%(project)s, lokasi=%(location)s"
-
-#: src\uagent\runtime_banner.py:341
-#, python-format
-msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
-msgstr "[INFO] %(label)s = %(provider)s; model: %(model)s"
-
-#: src\uagent\runtime_banner.py:368
-#, python-format
-msgid ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
-msgstr ""
-"UAGENT_RESPONSES=1 disetel, tetapi penyedia '%(provider)s' tidak mendukung "
-"Responses API. Beralih ke ChatCompletions."
-
-#: src\uagent\runtime_banner.py:375
-#, python-format
-msgid "LLM API mode = %(mode)s"
-msgstr "Mode API LLM = %(mode)s"
-
-#: src\uagent\runtime_banner.py:378
-msgid "Responses (UAGENT_RESPONSES is enabled)"
-msgstr "Respons (UAGENT_RESPONSES diaktifkan)"
-
-#: src\uagent\runtime_banner.py:382
-msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-msgstr "API asli Gemini/Vertex AI/Claude (UAGENT_RESPONSES diabaikan)"
-
-#: src\uagent\runtime_banner.py:385
-msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "ChatCompletions (UAGENT_RESPONSES dinonaktifkan)"
-
-#: src\uagent\runtime_banner.py:393
-#, python-format
-msgid "LLM streaming = %(state)s"
-msgstr "Streaming LLM = %(state)s"
-
-#: src\uagent\runtime_banner.py:394
-msgid "enabled"
-msgstr "diaktifkan"
-
-#: src\uagent\runtime_banner.py:394
-msgid "disabled"
-msgstr "dinonaktifkan"
-
-#: src\uagent\runtime_env.py:186
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Isi .env.sec tidak cocok dengan variabel lingkungan UAGENT_* saat "
-"ini. Perbarui? [y/N] "
-
-#: src\uagent\runtime_env.py:202
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Use `uag_envsec` to update it."
-msgstr ""
-"[INFO] Isi .env.sec tidak cocok dengan variabel lingkungan UAGENT_* saat "
-"ini. Gunakan `uag_envsec` untuk memperbaruinya."
-
-#: src\uagent\runtime_env.py:214
-#, python-format
-msgid "Updated .env.sec: %(path)s"
-msgstr "Diperbarui .env.sec: %(path)s"
-
-#: src\uagent\runtime_env.py:218
-#, python-format
-msgid "[WARN] Failed to update .env.sec: %(err)s"
-msgstr "[PERINGATAN] Gagal memperbarui .env.sec: %(err)s"
-
-#: src\uagent\runtime_env.py:228
-msgid ""
-"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
-"environment variables? [y/N] "
-msgstr ""
-"[INFO] .env.sec tidak ada. Buat dari variabel lingkungan UAGENT_* saat ini? "
-"[y/N] "
-
-#: src\uagent\runtime_env.py:244
-msgid ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
-"startup UAGENT_* environment variables."
-msgstr ""
-"[INFO] .env.sec tidak ada. Gunakan `uag_envsec` untuk membuatnya dari "
-"variabel lingkungan UAGENT_* saat ini."
-
-#: src\uagent\runtime_env.py:254
-#, python-format
-msgid "Created .env.sec: %(path)s"
-msgstr "Dibuat .env.sec: %(path)s"
-
-#: src\uagent\runtime_env.py:258
-#, python-format
-msgid "[WARN] Failed to create .env.sec: %(err)s"
-msgstr "[PERINGATAN] Gagal membuat .env.sec: %(err)s"
-
-#: src\uagent\runtime_env.py:289
-#, python-format
-msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
-msgstr "[WARN] Gagal memeriksa sinkronisasi .env.sec: %(err)s"
-
-#: src\uagent\runtime_init.py:83
-#, python-format
-msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
-msgstr "[PERINGATAN] Gagal mendekripsi .env.sec: %(err)s"
-
-#: src\uagent\runtime_workdir.py:49
-#, python-format
-msgid "Specified workdir path is a file: %(path)s"
-msgstr "Path workdir yang ditentukan adalah file: %(path)s"
-
-#: src\uagent\scheckgui.py:131
-msgid "Drop files/images here"
-msgstr "Seret dan jatuhkan file/gambar di sini"
-
-#: src\uagent\scheckgui.py:169
-msgid "Download"
-msgstr "Unduh"
-
-#: src\uagent\scheckgui.py:329
-#, python-format
-msgid "Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"Terjadi pengecualian saat memuat memori jangka panjang bersama: %(err)s"
-
-#: src\uagent\scheckgui.py:382
-#, python-format
-msgid "[Attached File] %(name)s (%(path)s)"
-msgstr "[File Terlampir] %(name)s (%(path)s)"
-
-#: src\uagent\scheckgui.py:467
-#, python-format
-msgid "[Attached Image] %(path)s"
-msgstr "[Gambar Terlampir] %(path)s"
-
-#: src\uagent\scheckgui.py:469 src\uagent\web.py:666
-#, python-format
-msgid "[Image Path] %(path)s"
-msgstr "[Jalur Gambar] %(path)s"
-
-#: src\uagent\scheckgui.py:779 src\uagent\scheckgui.py:909
-msgid "Welcome / Quick Guide"
-msgstr "Selamat datang / Panduan singkat"
-
-#: src\uagent\scheckgui.py:787
-msgid "uag GUI (Extreme Stability)"
-msgstr "GUI uag (Stabilitas Ekstrem)"
-
-#: src\uagent\scheckgui.py:842
-msgid "↑ You can attach files by drag & drop"
-msgstr "↑ Anda dapat melampirkannya dengan drag-and-drop"
-
-#: src\uagent\scheckgui.py:863
-msgid "Attach..."
-msgstr "Lampirkan..."
-
-#: src\uagent\scheckgui.py:868
-msgid "Send"
-msgstr "Kirim"
-
-#: src\uagent\scheckgui.py:908
-msgid "Help"
-msgstr "Bantuan"
-
-#: src\uagent\scheckgui.py:923
-msgid "Mode"
-msgstr "Modus"
-
-#: src\uagent\scheckgui.py:925
-msgid "Reasoning: off"
-msgstr "Penalaran: mati"
-
-#: src\uagent\scheckgui.py:928
-msgid "Reasoning: auto"
-msgstr "Penalaran: otomatis"
-
-#: src\uagent\scheckgui.py:930
-msgid "Reasoning: minimal"
-msgstr "Penalaran: minimal"
-
-#: src\uagent\scheckgui.py:932
-msgid "Reasoning: low"
-msgstr "Penalaran: rendah"
-
-#: src\uagent\scheckgui.py:934
-msgid "Reasoning: medium"
-msgstr "Penalaran: sedang"
-
-#: src\uagent\scheckgui.py:936
-msgid "Reasoning: high"
-msgstr "Penalaran: tinggi"
-
-#: src\uagent\scheckgui.py:939
-msgid "Reasoning: xhigh"
-msgstr "Penalaran: sangat tinggi"
-
-#: src\uagent\scheckgui.py:944
-msgid "Verbosity: off"
-msgstr "Tingkat detail: mati"
-
-#: src\uagent\scheckgui.py:946
-msgid "Verbosity: low"
-msgstr "Tingkat detail: rendah"
-
-#: src\uagent\scheckgui.py:948
-msgid "Verbosity: medium"
-msgstr "Tingkat detail: sedang"
-
-#: src\uagent\scheckgui.py:950
-msgid "Verbosity: high"
-msgstr "Tingkat detail: tinggi"
-
-#: src\uagent\scheckgui.py:980
-#, python-format
-msgid "[mode] reasoning=%(mode)s"
-msgstr "[mode] penalaran=%(mode)s"
-
-#: src\uagent\scheckgui.py:984
-msgid ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; auto/"
-"minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; "
-"auto/minimal/xhigh)"
-
-#: src\uagent\scheckgui.py:992
-#, python-format
-msgid "[mode] verbosity=%(mode)s"
-msgstr "[mode] verbositas=%(mode)s"
-
-#: src\uagent\scheckgui.py:994
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-":v [0|1|2|3]  (0=off, 1=rendah, 2=sedang, 3=tinggi; tanpa "
-"argumen=pertahankan)"
-
-#: src\uagent\scheckgui.py:1123
-msgid "Enter password..."
-msgstr "Masukkan kata sandi..."
-
-#: src\uagent\scheckgui.py:1130
-msgid "Enter a message..."
-msgstr "Masukkan pesan..."
-
-#: src\uagent\scheckgui.py:1147
-msgid "Attach files"
-msgstr "Lampirkan berkas"
-
-#: src\uagent\scheckgui.py:1149
-msgid "All Files (*)"
-msgstr "Semua Berkas (*)"
-
-#: src\uagent\scheckgui.py:1401
-msgid "cannot read image"
-msgstr "tidak dapat membaca gambar"
-
-#: src\uagent\scheckgui.py:1552 src\uagent\scheckgui.py:1592
-#: src\uagent\scheckgui.py:1627
-msgid "Downloaded to"
-msgstr "Diunduh ke"
-
-#: src\uagent\scheckgui.py:1646
-msgid "Playing"
-msgstr "Sedang diputar"
-
-#: src\uagent\scheckgui.py:1656
-msgid "Stopped"
-msgstr "Berhenti"
-
-#: src\uagent\scheckgui.py:1705
-#, python-format
-msgid "[REPLY] > %(text)s"
-msgstr "[BALASAN] > %(text)s"
-
-#: src\uagent\scheckgui.py:1713
-#, python-format
-msgid "[USER] %(text)s"
-msgstr "[PENGGUNA] %(text)s"
-
-#: src\uagent\setup_cli.py:77 src\uagent\setup_cli.py:482
-#: src\uagent\setup_cli.py:572
-msgid "OpenAI API key"
-msgstr "Kunci API OpenAI"
-
-#: src\uagent\setup_cli.py:78 src\uagent\setup_cli.py:483
-#: src\uagent\setup_cli.py:573
-msgid "OpenAI base URL (optional)"
-msgstr "URL dasar OpenAI (opsional)"
-
-#: src\uagent\setup_cli.py:79
-msgid "OpenAI model/deployment name (optional)"
-msgstr "Nama model/deployment OpenAI (opsional)"
-
-#: src\uagent\setup_cli.py:85 src\uagent\setup_cli.py:474
-#: src\uagent\setup_cli.py:560
-msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
-msgstr "URL dasar Azure (mis. https://<resource>.openai.azure.com/)"
-
-#: src\uagent\setup_cli.py:87 src\uagent\setup_cli.py:476
-#: src\uagent\setup_cli.py:562
-msgid "Azure API key"
-msgstr "Kunci API Azure"
-
-#: src\uagent\setup_cli.py:91
-msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
-msgstr "Versi API Azure (opsional, mis. 2024-05-01-preview)"
-
-#: src\uagent\setup_cli.py:93 src\uagent\setup_cli.py:478
-msgid "Azure deployment name"
-msgstr "Nama deployment Azure"
-
-#: src\uagent\setup_cli.py:99 src\uagent\setup_cli.py:491
-#: src\uagent\setup_cli.py:581
-msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
-msgstr "URL dasar gateway Bedrock (mis. https://<gateway>/v1)"
-
-#: src\uagent\setup_cli.py:101 src\uagent\setup_cli.py:493
-#: src\uagent\setup_cli.py:583
-msgid "Bedrock API key"
-msgstr "Kunci API Bedrock"
-
-#: src\uagent\setup_cli.py:105 src\uagent\setup_cli.py:497
-msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
-msgstr "Nama model/deployment Bedrock (mis. openai.gpt-oss-120b)"
-
-#: src\uagent\setup_cli.py:109 src\uagent\setup_cli.py:502
-#: src\uagent\setup_cli.py:592
-msgid "OpenRouter API key"
-msgstr "Kunci API OpenRouter"
-
-#: src\uagent\setup_cli.py:110 src\uagent\setup_cli.py:503
-#: src\uagent\setup_cli.py:593
-msgid "OpenRouter base URL (optional)"
-msgstr "URL dasar OpenRouter (opsional)"
-
-#: src\uagent\setup_cli.py:114
-msgid "OpenRouter model/deployment name (optional)"
-msgstr "Nama model/deployment OpenRouter (opsional)"
-
-#: src\uagent\setup_cli.py:119
-msgid "OpenRouter fallback models (optional, comma-separated)"
-msgstr "Model cadangan OpenRouter (opsional, dipisahkan koma)"
-
-#: src\uagent\setup_cli.py:123 src\uagent\setup_cli.py:508
-msgid "Gemini API key"
-msgstr "Kunci API Gemini"
-
-#: src\uagent\setup_cli.py:124
-msgid "Gemini model name (optional)"
-msgstr "Nama model Gemini (opsional)"
-
-#: src\uagent\setup_cli.py:127
-msgid "Vertex AI API key"
-msgstr "Kunci API Vertex AI"
-
-#: src\uagent\setup_cli.py:128
-msgid "Vertex AI project ID (optional)"
-msgstr "ID proyek Vertex AI (opsional)"
-
-#: src\uagent\setup_cli.py:129
-msgid "Vertex AI location/region (optional)"
-msgstr "Lokasi/wilayah Vertex AI (opsional)"
-
-#: src\uagent\setup_cli.py:133
-msgid "Google credentials for Vertex AI (optional)"
-msgstr "Kredensial Google untuk Vertex AI (opsional)"
-
-#: src\uagent\setup_cli.py:138
-msgid "Google location/region for Vertex AI (optional)"
-msgstr "Lokasi/wilayah Google untuk Vertex AI (opsional)"
-
-#: src\uagent\setup_cli.py:140
-msgid "Vertex AI model/deployment name"
-msgstr "Nama model/deployment Vertex AI"
-
-#: src\uagent\setup_cli.py:143
-msgid "Grok API key"
-msgstr "Kunci API Grok"
-
-#: src\uagent\setup_cli.py:144
-msgid "Grok base URL (optional)"
-msgstr "URL dasar Grok (opsional)"
-
-#: src\uagent\setup_cli.py:145
-msgid "Grok model/deployment name (optional)"
-msgstr "Nama model/deployment Grok (opsional)"
-
-#: src\uagent\setup_cli.py:148
-msgid "Claude API key"
-msgstr "Kunci API Claude"
-
-#: src\uagent\setup_cli.py:149
-msgid "Claude model/deployment name (optional)"
-msgstr "Nama model/deployment Claude (opsional)"
-
-#: src\uagent\setup_cli.py:152 src\uagent\setup_cli.py:513
-#: src\uagent\setup_cli.py:607
-msgid "NVIDIA API key"
-msgstr "Kunci API NVIDIA"
-
-#: src\uagent\setup_cli.py:153 src\uagent\setup_cli.py:514
-#: src\uagent\setup_cli.py:608
-msgid "NVIDIA base URL (optional)"
-msgstr "URL dasar NVIDIA (opsional)"
-
-#: src\uagent\setup_cli.py:154
-msgid "NVIDIA model/deployment name (optional)"
-msgstr "Nama model/deployment NVIDIA (opsional)"
-
-#: src\uagent\setup_cli.py:160 src\uagent\setup_cli.py:601
-msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
-msgstr "URL dasar Ollama (mis. http://localhost:11434/v1)"
-
-#: src\uagent\setup_cli.py:165
-msgid "Ollama API key (optional, default: dummy)"
-msgstr "Kunci API Ollama (opsional, default: dummy)"
-
-#: src\uagent\setup_cli.py:167
-msgid "Ollama model/deployment name (optional)"
-msgstr "Nama model/deployment Ollama (opsional)"
-
-#: src\uagent\setup_cli.py:171
-msgid "Ollama request timeout in seconds (default: 60)"
-msgstr "Batas waktu permintaan Ollama dalam detik (default: 60)"
-
-#: src\uagent\setup_cli.py:173
-msgid "Ollama temperature (default: 0.7)"
-msgstr "Temperatur Ollama (default: 0.7)"
-
-#: src\uagent\setup_cli.py:174
-msgid "Ollama top_p (default: 0.9)"
-msgstr "top_p Ollama (default: 0.9)"
-
-#: src\uagent\setup_cli.py:175
-msgid "Ollama top_k (default: 40)"
-msgstr "top_k Ollama (default: 40)"
-
-#: src\uagent\setup_cli.py:179
-msgid "Ollama repeat_penalty (default: 1.1)"
-msgstr "repeat_penalty Ollama (default: 1.1)"
-
-#: src\uagent\setup_cli.py:181
-msgid "Ollama keep_alive (default: 5m)"
-msgstr "keep_alive Ollama (default: 5m)"
-
-#: src\uagent\setup_cli.py:182
-msgid "Ollama num_ctx (default: 8192)"
-msgstr "num_ctx Ollama (default: 8192)"
-
-#: src\uagent\setup_cli.py:183
-msgid "Ollama num_predict (default: 1024)"
-msgstr "num_predict Ollama (default: 1024)"
-
-#: src\uagent\setup_cli.py:345 src\uagent\setup_cli.py:434
-msgid "Enter number:"
-msgstr "Masukkan angka:"
-
-#: src\uagent\setup_cli.py:358
-msgid "Invalid input. Please enter a valid number."
-msgstr "Input tidak valid. Silakan masukkan angka yang benar."
-
-#: src\uagent\setup_cli.py:371
-#, python-format
-msgid " [default: %(default)s]"
-msgstr " [bawaan: %(default)s]"
-
-#: src\uagent\setup_cli.py:387
-msgid "This field is required. Please enter a value."
-msgstr "Bidang ini wajib diisi. Silakan masukkan nilai."
-
-#: src\uagent\setup_cli.py:399
-msgid "Select UAGENT_LANG"
-msgstr "Pilih UAGENT_LANG"
-
-#: src\uagent\setup_cli.py:410
-msgid "UAGENT_LANG (custom)"
-msgstr "UAGENT_LANG (kustom)"
-
-#: src\uagent\setup_cli.py:423
-msgid "Select output files to generate in the current directory"
-msgstr "Pilih file keluaran yang akan dibuat di direktori saat ini"
-
-#: src\uagent\setup_cli.py:424
-msgid "  1. .env only"
-msgstr "  1. hanya .env"
-
-#: src\uagent\setup_cli.py:425
-msgid "  2. .env + env.sh"
-msgstr "  2. .env dan env.sh"
-
-#: src\uagent\setup_cli.py:426
-msgid "  3. .env + env.ps1"
-msgstr "  3. .env dan env.ps1"
-
-#: src\uagent\setup_cli.py:427
-msgid "  4. .env + env.bat"
-msgstr "  4. .env dan env.bat"
-
-#: src\uagent\setup_cli.py:428
-msgid "  5. .env + all (sh/ps1/bat)"
-msgstr "  5. .env + semua (sh/ps1/bat)"
-
-#: src\uagent\setup_cli.py:430
-msgid "  b. back"
-msgstr "  b. kembali"
-
-#: src\uagent\setup_cli.py:431
-msgid "  q. quit"
-msgstr "  q. keluar"
-
-#: src\uagent\setup_cli.py:449
-msgid "Invalid input. Please enter 1-5, or b/q."
-msgstr "Input tidak valid. Masukkan 1-5, atau b/q."
-
-#: src\uagent\setup_cli.py:477 src\uagent\setup_cli.py:566
-msgid "Azure API version (e.g. 2024-05-01-preview)"
-msgstr "Versi API Azure (mis. 2024-05-01-preview)"
-
-#: src\uagent\setup_cli.py:484
-msgid "OpenAI model/deployment name"
-msgstr "Nama model/deployment OpenAI"
-
-#: src\uagent\setup_cli.py:504
-msgid "OpenRouter model/deployment name"
-msgstr "Nama model/deployment OpenRouter"
-
-#: src\uagent\setup_cli.py:509
-msgid "Gemini model name"
-msgstr "Nama model Gemini"
-
-#: src\uagent\setup_cli.py:515
-msgid "NVIDIA model/deployment name"
-msgstr "Nama model/deployment NVIDIA"
-
-#: src\uagent\setup_cli.py:534
-msgid "Enable image generation debug output? (0/1)"
-msgstr "Pilih penyedia pembuatan gambar"
-
-#: src\uagent\setup_cli.py:568
-msgid "Azure embedding deployment name"
-msgstr "Nama deployment Azure untuk embedding"
-
-#: src\uagent\setup_cli.py:574
-msgid "OpenAI embedding model/deployment name"
-msgstr "Nama model/deployment OpenAI untuk embedding"
-
-#: src\uagent\setup_cli.py:587
-msgid "Bedrock embedding model/deployment name"
-msgstr "Nama model/deployment Bedrock untuk embedding"
-
-#: src\uagent\setup_cli.py:594
-msgid "OpenRouter embedding model/deployment name"
-msgstr "Nama model/deployment OpenRouter untuk embedding"
-
-#: src\uagent\setup_cli.py:603
-msgid "Ollama embedding model name"
-msgstr "Nama model Ollama untuk embedding"
-
-#: src\uagent\setup_cli.py:609
-msgid "NVIDIA embedding model/deployment name"
-msgstr "Nama model/deployment NVIDIA untuk embedding"
-
-#: src\uagent\setup_cli.py:613
-msgid "Gemini embedding API key"
-msgstr "Kunci API embedding Gemini"
-
-#: src\uagent\setup_cli.py:617
-msgid "Gemini embedding model name (e.g. text-embedding-004)"
-msgstr "Nama model embedding Gemini (misalnya text-embedding-004)"
-
-#: src\uagent\setup_cli.py:622
-msgid "Vertex AI embedding API key"
-msgstr "Kunci API embedding Vertex AI"
-
-#: src\uagent\setup_cli.py:626
-msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
-msgstr "Nama model embedding Vertex AI (misalnya text-embedding-004)"
-
-#: src\uagent\setup_cli.py:675
-msgid "Azure speech deployment name"
-msgstr "Nama deployment Azure Speech"
-
-#: src\uagent\setup_cli.py:676
-msgid "Azure transcription deployment name"
-msgstr "Nama deployment transkripsi Azure"
-
-#: src\uagent\setup_cli.py:677
-msgid "OpenAI speech model/deployment name"
-msgstr "Nama model/deployment OpenAI Speech"
-
-#: src\uagent\setup_cli.py:678
-msgid "OpenAI transcription model/deployment name"
-msgstr "Nama model/deployment transkripsi OpenAI"
-
-#: src\uagent\setup_cli.py:679
-msgid "Gemini speech model name (optional)"
-msgstr "Nama model sintesis suara Gemini (opsional)"
-
-#: src\uagent\setup_cli.py:680
-msgid "Gemini transcription model name (optional)"
-msgstr "Nama model transkripsi Gemini (opsional)"
-
-#: src\uagent\setup_cli.py:681
-msgid "Vertex AI speech model name (optional)"
-msgstr "Nama model sintesis suara Vertex AI (opsional)"
-
-#: src\uagent\setup_cli.py:682
-msgid "Vertex AI transcription model name (optional)"
-msgstr "Nama model transkripsi Vertex AI (opsional)"
-
-#: src\uagent\setup_cli.py:705
-msgid "Configure optional image / embedding / audio settings?"
-msgstr ""
-"Apakah ingin mengonfigurasi pengaturan opsional untuk gambar / embedding?"
-
-#: src\uagent\setup_cli.py:706 src\uagent\setup_cli.py:721
-#: src\uagent\setup_cli.py:753 src\uagent\setup_cli.py:784
-#: src\uagent\setup_cli.py:800 src\uagent\setup_cli.py:855
-#: src\uagent\setup_cli.py:914 src\uagent\setup_cli.py:1159
-#: src\uagent\setup_cli.py:1220 src\uagent\setup_cli.py:1274
-#: src\uagent\setup_cli.py:1301 src\uagent\setup_cli.py:1322
-#: src\uagent\setup_cli.py:1459
-msgid "No"
-msgstr "Tidak"
-
-#: src\uagent\setup_cli.py:706 src\uagent\setup_cli.py:721
-#: src\uagent\setup_cli.py:753 src\uagent\setup_cli.py:784
-#: src\uagent\setup_cli.py:800 src\uagent\setup_cli.py:855
-#: src\uagent\setup_cli.py:914 src\uagent\setup_cli.py:1159
-#: src\uagent\setup_cli.py:1220 src\uagent\setup_cli.py:1274
-#: src\uagent\setup_cli.py:1301 src\uagent\setup_cli.py:1322
-#: src\uagent\setup_cli.py:1459
-msgid "Yes"
-msgstr "Ya"
-
-#: src\uagent\setup_cli.py:720
-msgid "Configure image analysis settings?"
-msgstr "Apakah ingin mengonfigurasi pengaturan analisis gambar?"
-
-#: src\uagent\setup_cli.py:731
-msgid "Select image analysis provider"
-msgstr "Pilih penyedia analisis gambar"
-
-#: src\uagent\setup_cli.py:752
-msgid "Configure image generation settings?"
-msgstr "Apakah ingin mengonfigurasi pengaturan pembuatan gambar?"
-
-#: src\uagent\setup_cli.py:763
-msgid "Select image generation provider"
-msgstr "Pilih penyedia pembuatan gambar"
-
-#: src\uagent\setup_cli.py:783
-msgid "Open generated images automatically?"
-msgstr "Buka gambar yang dihasilkan secara otomatis?"
-
-#: src\uagent\setup_cli.py:799
-msgid "Configure embedding / semantic search settings?"
-msgstr "Apakah ingin mengonfigurasi pengaturan embedding / pencarian semantik?"
-
-#: src\uagent\setup_cli.py:825
-msgid "Select embedding provider"
-msgstr "Pilih penyedia embedding"
-
-#: src\uagent\setup_cli.py:854
-msgid "Configure audio speech / transcription settings?"
-msgstr "Konfigurasikan pengaturan ucapan / transkripsi audio?"
-
-#: src\uagent\setup_cli.py:873
-msgid "Select audio speech provider"
-msgstr "Pilih penyedia sintesis suara"
-
-#: src\uagent\setup_cli.py:893
-msgid "Select audio transcribe provider"
-msgstr "Pilih penyedia transkripsi audio"
-
-#: src\uagent\setup_cli.py:913
-msgid "Open generated audio automatically?"
-msgstr "Buka audio yang dihasilkan secara otomatis?"
-
-#: src\uagent\setup_cli.py:980
-msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
-msgstr "Opsional: Responses API (Azure/OpenAI/Bedrock)"
-
-#: src\uagent\setup_cli.py:993
-msgid "Optional runtime"
-msgstr "Runtime opsional"
-
-#: src\uagent\setup_cli.py:1007
-msgid "Optional image / embedding / audio settings"
-msgstr "Pengaturan opsional untuk gambar / embedding"
-
-#: src\uagent\setup_cli.py:1149
-msgid "Optional specialized sub-agent settings"
-msgstr "Pengaturan opsional sub-agen khusus"
-
-#: src\uagent\setup_cli.py:1158
-msgid "Encrypt the generated .env file?"
-msgstr "Apakah file .env yang dihasilkan ingin dienkripsi?"
-
-#: src\uagent\setup_cli.py:1164
-#, python-format
-msgid "Encrypted file will be written as %(path)s"
-msgstr "File terenkripsi akan ditulis sebagai %(path)s"
-
-#: src\uagent\setup_cli.py:1180
-msgid "Select provider"
-msgstr "Pilih penyedia"
-
-#: src\uagent\setup_cli.py:1219
-msgid "Enable Responses API options?"
-msgstr "Aktifkan opsi Responses API?"
-
-#: src\uagent\setup_cli.py:1235
-msgid "Select reasoning"
-msgstr "Pilih penalaran"
-
-#: src\uagent\setup_cli.py:1254
-msgid "Select verbosity"
-msgstr "Pilih tingkat detail"
-
-#: src\uagent\setup_cli.py:1273
-msgid "Set optional runtime UAGENT_WORKDIR?"
-msgstr "Atur UAGENT_WORKDIR opsional?"
-
-#: src\uagent\setup_cli.py:1300
-msgid "Set optional runtime UAGENT_LANG?"
-msgstr "Atur UAGENT_LANG opsional?"
-
-#: src\uagent\setup_cli.py:1321
-msgid "Enable streaming?"
-msgstr "Aktifkan streaming?"
-
-#: src\uagent\setup_cli.py:1362
-msgid "Summary"
-msgstr "Ringkasan"
-
-#: src\uagent\setup_cli.py:1363
-#, python-format
-msgid "  Provider: %(provider)s"
-msgstr "  Penyedia: %(provider)s"
-
-#: src\uagent\setup_cli.py:1370
-#, python-format
-msgid "  Responses enabled: %(state)s"
-msgstr "  Responses diaktifkan: %(state)s"
-
-#: src\uagent\setup_cli.py:1371 src\uagent\setup_cli.py:1378
-#: src\uagent\setup_cli.py:1382 src\uagent\setup_cli.py:1388
-#: src\uagent\setup_cli.py:1394 src\uagent\setup_cli.py:1399
-#: src\uagent\setup_cli.py:1407 src\uagent\setup_cli.py:1418
-msgid "yes"
-msgstr "ya"
-
-#: src\uagent\setup_cli.py:1371 src\uagent\setup_cli.py:1378
-#: src\uagent\setup_cli.py:1382 src\uagent\setup_cli.py:1388
-#: src\uagent\setup_cli.py:1394 src\uagent\setup_cli.py:1399
-#: src\uagent\setup_cli.py:1407 src\uagent\setup_cli.py:1418
-msgid "no"
-msgstr "tidak"
-
-#: src\uagent\setup_cli.py:1377
-#, python-format
-msgid "  Streaming enabled: %(state)s"
-msgstr "  Streaming diaktifkan: %(state)s"
-
-#: src\uagent\setup_cli.py:1393
-#, python-format
-msgid "  Optional extras enabled: %(state)s"
-msgstr "  Ekstra opsional diaktifkan: %(state)s"
-
-#: src\uagent\setup_cli.py:1398
-#, python-format
-msgid "  Image analysis enabled: %(state)s"
-msgstr "  Analisis gambar diaktifkan: %(state)s"
-
-#: src\uagent\setup_cli.py:1406
-#, python-format
-msgid "  Image generation enabled: %(state)s"
-msgstr "  Pembuatan gambar diaktifkan: %(state)s"
-
-#: src\uagent\setup_cli.py:1417
-#, python-format
-msgid "  Embedding enabled: %(state)s"
-msgstr "  Embedding diaktifkan: %(state)s"
-
-#: src\uagent\setup_cli.py:1427
-#, python-format
-msgid "  Outputs: %(outputs)s"
-msgstr "  Keluaran: %(outputs)s"
-
-#: src\uagent\setup_cli.py:1430
-msgid "Generate files with this configuration?"
-msgstr "Buat file dengan konfigurasi ini?"
-
-#: src\uagent\setup_cli.py:1431
-msgid "Yes, generate"
-msgstr "Ya, buat"
-
-#: src\uagent\setup_cli.py:1431
-msgid "Back"
-msgstr "Kembali"
-
-#: src\uagent\setup_cli.py:1455
-msgid "The following files already exist and will be overwritten:"
-msgstr "File berikut sudah ada dan akan ditimpa:"
-
-#: src\uagent\setup_cli.py:1459
-msgid "Proceed?"
-msgstr "Lanjutkan?"
-
-#: src\uagent\setup_cli.py:1483
-msgid "Plain .env file removed after encryption."
-msgstr "File .env biasa dihapus setelah enkripsi."
-
-#: src\uagent\setup_cli.py:1486
-#, python-format
-msgid "Warning: Failed to remove plain .env: %(error)s"
-msgstr "Peringatan: gagal menghapus file .env biasa: %(error)s"
-
-#: src\uagent\setup_cli.py:1505
-#, python-format
-msgid "generated: %(path)s"
-msgstr "dihasilkan: %(path)s"
-
-#: src\uagent\uagent_llm.py:131
-#, python-format
-msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
-msgstr "[PERINGATAN] Putaran alat melebihi %(max)d; dihentikan."
-
-#: src\uagent\util_providers.py:243
-msgid "Environment variable UAGENT_PROVIDER is not set."
-msgstr "Variabel lingkungan UAGENT_PROVIDER belum disetel."
-
-#: src\uagent\util_providers.py:259
-#, python-format
-msgid "Unknown provider: %(provider)s"
-msgstr "Penyedia tidak dikenal: %(provider)s"
-
-#: src\uagent\util_providers.py:544 src\uagent\util_providers.py:570
-msgid "google-genai package is not installed."
-msgstr "Paket google-genai belum terpasang."
-
-#: src\uagent\util_tools.py:181
-#, python-format
-msgid "image file not found: %(path)s"
-msgstr "file gambar tidak ditemukan: %(path)s"
-
-#: src\uagent\util_tools.py:186
-#, python-format
-msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr "file gambar terlalu besar: %(size)d byte (batas=%(max)d)"
-
-#: src\uagent\util_tools.py:210
-msgid ""
-"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
-"current directory."
-msgstr ""
-"Tentukan direktori kerja. Jika tidak disetel, gunakan env var UAGENT_WORKDIR "
-"atau direktori saat ini."
-
-#: src\uagent\util_tools.py:217
-msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the "
-"startup file (if any)."
-msgstr ""
-"Mode non-interaktif. Jangan mulai loop stdin; keluar setelah memproses file "
-"startup (jika ada)."
-
-#: src\uagent\util_tools.py:355
-msgid "invalid reasoning"
-msgstr "reasoning tidak valid"
-
-#: src\uagent\util_tools.py:373
-msgid "invalid verbosity"
-msgstr "tingkat verbositas tidak valid"
-
-#: src\uagent\util_tools.py:547
-#, python-format
-msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-msgstr "[logs] Argumen tidak valid: %(arg)r (gunakan all / --all / -a / angka)"
-
-#: src\uagent\util_tools.py:586
-#, python-format
-msgid "failed to parse arguments: %(err)s"
-msgstr "gagal mengurai argumen: %(err)s"
-
-#: src\uagent\util_tools.py:589
-msgid "missing arguments"
-msgstr "argumen hilang"
-
-#: src\uagent\util_tools.py:605
-msgid "src and dst are required"
-msgstr "src dan dst wajib diisi"
-
-#: src\uagent\util_tools.py:973
-msgid ""
-"[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow "
-"the instructions.\n"
-"If the skill contains tasks, continue until they are complete.\n"
-"Use tools as needed.\n"
-msgstr ""
-"[Eksekusi skill]\n"
-"Skill ini dimaksudkan untuk dijalankan. Baca isi skill dengan saksama dan "
-"ikuti instruksinya.\n"
-"Jika skill berisi tugas, lanjutkan sampai selesai.\n"
-"Gunakan tool sesuai kebutuhan.\n"
-
-#: src\uagent\util_tools.py:980
-msgid "When finished, always call `finish_skill` if available.\n"
-msgstr "Saat selesai, selalu panggil `finish_skill` jika tersedia.\n"
-
-#: src\uagent\util_tools.py:1132
-msgid ""
-"Select a skill number to run. Enter c to cancel.\n"
-"Tip: :skills clear  (remove applied skills)\n"
-"Enter number:"
-msgstr ""
-"Pilih nomor skill untuk dijalankan. Masukkan c untuk membatalkan.\n"
-"Tip: :skills clear  (hapus skill yang diterapkan)\n"
-"Masukkan nomor:"
-
-#: src\uagent\util_tools.py:1168
-#, python-format
-msgid ""
-"Run this skill as a system-level instruction and keep it active in this "
-"session?\n"
-"\n"
-"Name: %(name)s\n"
-"Path: %(path)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"Jalankan skill ini sebagai instruksi tingkat sistem dan pertahankan aktif di "
-"sesi ini?\n"
-"\n"
-"Nama: %(name)s\n"
-"Path: %(path)s\n"
-"\n"
-"Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
-
-#: src\uagent\util_tools.py:1230
-#, python-format
-msgid ""
-"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
-"%(default)d)"
-msgstr ""
-"[clean] Argumen tidak valid: %(arg)r (gunakan number=threshold; default "
-"%(default)d)"
-
-#: src\uagent\util_tools.py:1279
-#, python-format
-msgid ""
-"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
-"Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
-"Targets: %(n)d\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"akan menghapus file log percakapan (scheck_log_*.jsonl) dari disk.\n"
-"Direktori log: %(dir)s\n"
-"Aturan: total pesan user/assistant/tool tanpa system <= %(threshold)d\n"
-"Target: %(n)d\n"
-"\n"
-"Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
-
-#: src\uagent\util_tools.py:1347
-#, python-format
-msgid " - (%(count)d msgs) %(path)s"
-msgstr " - (%(count)d pesan) %(path)s"
-
-#: src\uagent\util_tools.py:1391
-#, python-format
-msgid ""
-"will overwrite the current session log file and prepend the loaded log (no "
-"backup).\n"
-"\n"
-"Current log: %(cur_log)s\n"
-"Source log: %(src_log)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"akan menimpa file log sesi saat ini dan menambahkan log yang dimuat di awal "
-"(tanpa cadangan).\n"
-"\n"
-"Log saat ini: %(cur_log)s\n"
-"Log sumber: %(src_log)s\n"
-"\n"
-"Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
-
-#: src\uagent\util_tools.py:1522
-#, python-brace-format
-msgid ""
-"Delete {count} path(s)?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Enter y to proceed, or c to cancel."
-msgstr ""
-"Hapus {count} path?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Masukkan y untuk melanjutkan, atau c untuk membatalkan."
-
-#: src\uagent\util_tools.py:1577
-#, python-format
-msgid "Specified index %(idx)d is out of range."
-msgstr "Indeks yang ditentukan %(idx)d di luar jangkauan."
-
-#: src\uagent\util_tools.py:1586
-#, python-format
-msgid "Log file not found: %(path)s"
-msgstr "Berkas log tidak ditemukan: %(path)s"
-
-#: src\uagent\util_tools.py:1669
-#, python-format
-msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr ""
-"[Kesalahan shrink] Gagal mengurai sebagai int: %(arg)r -> simpan terakhir "
-"%(keep)d"
-
-#: src\uagent\util_tools.py:1697
-#, python-format
-msgid ""
-"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr ""
-"[Kesalahan shrink_llm] Gagal mengurai sebagai int: %(arg)r -> simpan "
-"terakhir %(keep)d"
-
-#: src\uagent\util_tools.py:1756 src\uagent\util_tools.py:1836
-msgid ""
-"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
-"set)."
-msgstr ""
-"Memori jangka panjang bersama tidak diaktifkan (UAGENT_SHARED_MEMORY_FILE "
-"belum disetel)."
-
-#: src\uagent\util_tools.py:1787
-msgid "Analyzing past logs to generate user profile..."
-msgstr "Menganalisis log sebelumnya untuk membuat profil pengguna..."
-
-#: src\uagent\util_tools.py:1791
-msgid "No past logs found or failed to generate profile."
-msgstr "Tidak ditemukan log sebelumnya atau profil gagal dibuat."
-
-#: src\uagent\util_tools.py:1793
-#, fuzzy
-msgid "User profile generated successfully from past logs!"
-msgstr "Profil pengguna berhasil dihapus."
-
-#: src\uagent\util_tools.py:1805
-msgid "No user profile data found."
-msgstr "Data profil pengguna tidak ditemukan."
-
-#: src\uagent\util_tools.py:1808
-msgid "User Profile:"
-msgstr "Profil Pengguna:"
-
-#: src\uagent\util_tools.py:1820
-msgid "User profile cleared successfully."
-msgstr "Profil pengguna berhasil dihapus."
-
-#: src\uagent\util_tools.py:1824
-msgid "No user profile file found to clear."
-msgstr "Tidak ada file profil pengguna yang ditemukan untuk dihapus."
-
-#: src\uagent\util_tools.py:1888
-msgid "Show this help"
-msgstr "Tampilkan bantuan ini"
-
-#: src\uagent\util_tools.py:1889
-msgid "Restart input from the beginning"
-msgstr "Mulai ulang input dari awal"
-
-#: src\uagent\util_tools.py:1890
-msgid "Show log file list"
-msgstr "Tampilkan daftar file log"
-
-#: src\uagent\util_tools.py:1893
-msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:"
-"\\path / :cd /)"
-msgstr ""
-"Ubah workdir tanpa konfirmasi (mis. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
-
-#: src\uagent\util_tools.py:1896
-msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
-msgstr "Daftar entri direktori (mis. :ls / :ls .. / :ls ~ / :ls C:\\path)"
-
-#: src\uagent\util_tools.py:1899
-msgid "Manage UAGENT_* env vars and save .env.sec"
-msgstr "Kelola variabel lingkungan UAGENT_* dan simpan .env.sec"
-
-#: src\uagent\util_tools.py:1901
-msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
-msgstr "Kelola/terapkan skill (mis. :skills / :skills active / :skills clear)"
-
-#: src\uagent\util_tools.py:1906
-msgid "Load a past log (overwrites current conversation history)"
-msgstr "Muat log sebelumnya (menimpa riwayat percakapan saat ini)"
-
-#: src\uagent\util_tools.py:1908
-msgid ""
-"                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current session "
-"log file (overwrite, no backup)."
-msgstr ""
-"                       Catatan: setelah dijalankan, Anda akan diminta "
-"konfirmasi; memilih 'y' akan menambahkan log yang dimuat ke awal file log "
-"sesi saat ini (menimpa, tanpa cadangan)."
-
-#: src\uagent\util_tools.py:1912
-msgid ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of user/"
-"assistant/tool messages (excluding system) is <= N (default=10)"
-msgstr ""
-"Hapus log percakapan (scheck_log_*.jsonl) saat jumlah pesan user/assistant/"
-"tool (tanpa system) <= N (default=10)"
-
-#: src\uagent\util_tools.py:1916
-msgid ""
-"Shrink conversation history (keep last N non-system messages; default=40)"
-msgstr ""
-"Perkecil riwayat percakapan (simpan N pesan non-system terakhir; default=40)"
-
-#: src\uagent\util_tools.py:1920
-msgid ""
-"Shrink history via LLM summarization (summarize older history into 1 system "
-"message; keep last N raw; default=20)"
-msgstr ""
-"Perkecil riwayat lewat ringkasan LLM (ringkas riwayat lama menjadi 1 pesan "
-"system; simpan N pesan mentah terakhir; default=20)"
-
-#: src\uagent\util_tools.py:1922
-msgid "List long-term memory notes"
-msgstr "Entri memori jangka panjang:"
-
-#: src\uagent\util_tools.py:1924
-msgid "Delete a long-term memory note by index (see :mem-list)"
-msgstr ""
-"Hapus catatan memori jangka panjang berdasarkan indeks (lihat :mem-list)"
-
-#: src\uagent\util_tools.py:1926
-#, fuzzy
-msgid "Show the learned user profile, or generate it from past logs"
-msgstr ""
-"Tampilkan profil pengguna yang dipelajari (lingkungan, preferensi, batasan)"
-
-#: src\uagent\util_tools.py:1927
-#, fuzzy
-msgid "Generate user profile from past logs"
-msgstr "Data profil pengguna tidak ditemukan."
-
-#: src\uagent\util_tools.py:1928
-msgid "Clear the learned user profile data"
-msgstr "Hapus data profil pengguna yang dipelajari"
-
-#: src\uagent\util_tools.py:1930
-msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "Salin file atau direktori (mendukung -f/--overwrite dan -p/--mkdirs)"
-
-#: src\uagent\util_tools.py:1932
-msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr ""
-"Pindahkan file atau direktori (mendukung -f/--overwrite dan -p/--mkdirs)"
-
-#: src\uagent\util_tools.py:1934
-msgid "Show the first n lines of a file (default=20)"
-msgstr "Tampilkan n baris pertama dari file (default=20)"
-
-#: src\uagent\util_tools.py:1935
-msgid "Show the last n lines of a file (default=20)"
-msgstr "Tampilkan n baris terakhir dari file (default=20)"
-
-#: src\uagent\util_tools.py:1937
-msgid "Delete file(s)/directory(ies) with preview + confirm"
-msgstr "Hapus file/direktori dengan pratinjau + konfirmasi"
-
-#: src\uagent\util_tools.py:1939
-msgid "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-msgstr ""
-"Setel mode penalaran (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; auto/minimal/"
-"xhigh)"
-
-#: src\uagent\util_tools.py:1941
-msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-"Setel mode verbositas (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; tanpa "
-"argumen=pertahankan)"
-
-#: src\uagent\util_tools.py:1942
-msgid "Exit"
-msgstr "Keluar."
-
-#: src\uagent\util_tools.py:1945
-msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-msgstr ""
-"  - Masukkan baris yang hanya berisi 'f' untuk masuk mode input multibaris."
-
-#: src\uagent\util_tools.py:1947
-#, python-format
-msgid ""
-"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-msgstr ""
-"  - Untuk mengakhiri mode input multibaris, masukkan baris yang tepat "
-"%(sentinel)s."
-
-#: src\uagent\util_tools.py:2183
-msgid "Exiting."
-msgstr "Keluar."
-
-#: src\uagent\util_tools.py:2186
-#, python-format
-msgid "Unknown command: :%(cmd)s"
-msgstr "Perintah tidak dikenal: :%(cmd)s"
-
-#: src\uagent\util_tools.py:2337
-msgid ""
-"The bullet points listed below are excerpts from this user's long-term "
-"memory (persistent memos). Use them as background information about the "
-"user. However, always prioritize newly provided information in the "
-"conversation, and if it contradicts older information, adopt the latest "
-"information.\n"
-"\n"
-msgstr ""
-"Butir-butir di bawah ini adalah cuplikan dari memori jangka panjang pengguna "
-"(memo persisten). Gunakan sebagai informasi latar belakang tentang pengguna. "
-"Namun, selalu utamakan informasi baru yang diberikan dalam percakapan; jika "
-"bertentangan dengan informasi lama, gunakan informasi terbaru.\n"
-"\n"
-
-#: src\uagent\web.py:534
-msgid ""
-"[WARN] Another task is already running in this room. Please retry after it "
-"completes."
-msgstr ""
-"[WARN] Sudah ada tugas lain yang berjalan di ruangan ini. Coba lagi setelah "
-"tugas tersebut selesai."
-
-#: src\uagent\web.py:626 src\uagent\web.py:748
-msgid ""
-"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
-"Please check environment variables when starting the web server."
-msgstr ""
-"[FATAL] Variabel lingkungan UAGENT_PROVIDER belum disetel.\n"
-"Harap periksa variabel lingkungan saat memulai server web."
-
-#: src\uagent\web.py:664
-#, python-format
-msgid "[Attached Image] %(name)s"
-msgstr "[Gambar Terlampir] %(name)s"
-
-#: src\uagent\web.py:669
-#, python-format
-msgid "[Attached File] %(name)s"
-msgstr "[File Terlampir] %(name)s"
-
-#: src\uagent\web.py:670
-#, python-format
-msgid "[File Path] %(path)s"
-msgstr "[Jalur File] %(path)s"
-
-#: src\uagent\web.py:698
-msgid "[INFO] Loaded long-term memory."
-msgstr "[INFO] Memori jangka panjang dimuat."
-
-#: src\uagent\web.py:710
-msgid "[INFO] Loaded shared long-term memory."
-msgstr "[INFO] Memori jangka panjang bersama dimuat."
-
-#: src\uagent\web.py:745
-#, python-format
-msgid ""
-"[FATAL] Web worker error.\n"
-"%(err)s"
-msgstr ""
-"[FATAL] Kesalahan worker web.\n"
-"%(err)s"
-
-#: src\uagent\web.py:882
-msgid "missing path"
-msgstr "jalur tidak ada"
-
-#: src\uagent\web.py:889
-msgid "path outside workdir"
-msgstr "jalur berada di luar workdir"
-
-#: src\uagent\web.py:1051
-msgid "Starting server on"
-msgstr "Memulai server di"
-
-#: src\uagent\web.py:1053
-msgid "External URL:"
-msgstr "URL Eksternal:"
-
-#: src\uagent\welcome.py:29
-msgid ""
-"[MCP Servers]\n"
-"- Config file not found."
-msgstr ""
-"[Server MCP]\n"
-"- File konfigurasi tidak ditemukan."
-
-#: src\uagent\welcome.py:36
-msgid ""
-"[MCP Servers]\n"
-"- No servers registered."
-msgstr ""
-"[Server MCP]\n"
-"- Tidak ada server yang terdaftar."
-
-#: src\uagent\welcome.py:38
-msgid "[MCP Servers]"
-msgstr "[Server MCP]"
-
-#: src\uagent\welcome.py:45
-#, python-format
-msgid ""
-"[MCP Servers]\n"
-"- Failed to get info: %(err)s"
-msgstr ""
-"[Server MCP]\n"
-"- Gagal mendapatkan info: %(err)s"
-
-#: src\uagent\welcome.py:64
-msgid "[Quick Guide]"
-msgstr "[Panduan Singkat]"
-
-#: src\uagent\welcome.py:65
-msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Chat: ketik pesan dan kirim (GUI: Ctrl+Enter juga tersedia)."
-
-#: src\uagent\welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with "
-"\"\"\"end)."
-msgstr ""
-"- Multiline: masukkan baris yang hanya berisi 'f' untuk masuk mode multiline "
-"(akhiri dengan \"\"\"end)."
-
-#: src\uagent\welcome.py:70
-msgid ""
-"- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
-"(slash)."
-msgstr ""
-"- Perintah: ketik ':help' untuk melihat perintah sistem (manajemen log, "
-"kompresi riwayat, dll.). Catatan: perintah dimulai dengan ':' (titik dua) "
-"bukan '/' (garis miring)."
-
-#: src\uagent\welcome.py:72
-msgid "- Exit: ':exit' or ':quit' ends the session."
-msgstr "- Keluar: ':exit' atau ':quit' mengakhiri sesi."
-
-#: src\uagent\welcome.py:74
-msgid ""
-"- Images: GUI supports drag & drop; in CUI you can input a file path for "
-"image analysis."
-msgstr ""
-"- Gambar: GUI mendukung seret dan lepas; di CUI Anda dapat memasukkan path "
-"file untuk analisis gambar."
-
-#: src\uagent\welcome.py:77
-#, python-format
-msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
-"Inspector help (`--path/--open` also available)."
-msgstr ""
-"- Docs: `%(docs_cmd)s` menampilkan dokumen bawaan; `%(webinspect_cmd)s` "
-"menampilkan bantuan Web Inspector (`--path/--open` juga tersedia)."
-
-#: src\uagent\welcome.py:81
-msgid "[Examples]"
-msgstr "[Contoh]"
-
-#: src\uagent\welcome.py:82
-msgid "- \"Analyze the source code in this folder and create a README.md.\""
-msgstr "- \"Analisis kode sumber di folder ini dan buat README.md.\""
-
-#: src\uagent\welcome.py:84
-msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window "
-"contents.\""
-msgstr ""
-"- \"Ambil tangkapan layar desktop saat ini dan jelaskan isi jendela yang "
-"terlihat.\""
-
-#: src\uagent\welcome.py:86
-msgid "- \"Create a monthly summary report from this Excel file.\""
-msgstr "- \"Buat laporan ringkasan bulanan dari file Excel ini.\""
-
-#: src\uagent\welcome.py:87
-msgid "- \"Read this PDF and list three key points.\""
-msgstr "- \"Baca PDF ini dan daftar tiga poin utama.\""
-
-#: src\uagent\welcome.py:88
-msgid "- \"Search the latest news and summarize a specific topic.\""
-msgstr "- \"Cari berita terbaru dan rangkum topik tertentu.\""
-
-#: src\uagent\welcome.py:193
-msgid "-- More -- (Enter: next) "
-msgstr "-- Lainnya -- (Enter: berikutnya) "
-
-#: src\uagent\a2a\engine.py:125
-msgid "No assistant message produced."
-msgstr "Tidak ada pesan asisten yang dihasilkan."
-
-#: src\uagent\a2a\engine.py:137
-msgid "Generated image(s)."
-msgstr "Gambar berhasil dibuat."
-
-#: src\uagent\a2a\engine.py:150
-#, python-format
-msgid "ECHO: %(text)s"
-msgstr "KELUARAN: %(text)s"
-
-#: src\uagent\a2a\engine.py:165
-#, python-format
-msgid "uagent initialization failed: %(err)s"
-msgstr "inisialisasi uagent gagal: %(err)s"
-
-#: src\uagent\a2a\engine.py:177
-#, python-format
-msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr "eksekusi uagent gagal: %(etype)s: %(err)s"
-
-#: src\uagent\a2a\engine.py:188
-#, python-format
-msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
-msgstr "Mesin UAGENT_A2A_ENGINE tidak dikenal: %(mode)s"
-
-#: src\uagent\tools\tools_control_tool.py:84
-msgid "msg.tools.no_tools"
-msgstr "[tools] Tidak ada alat yang dimuat."
-
-#: src\uagent\tools\tools_control_tool.py:104
-msgid "msg.tools.loaded_count"
-msgstr "[tools] Memuat {n} alat"
-
-#: src\uagent\tools\tools_control_tool.py:118
-msgid "cmd.help.tools_list"
-msgstr "  :tools list [query]               Daftar alat yang dimuat, secara opsional difilter berdasarkan nama/deskripsi"
-
-#: src\uagent\tools\tools_control_tool.py:124
-msgid "cmd.help.tools_on"
-msgstr ""
-"  :tools on comm                    Aktifkan alat komunikasi (Teams, Discord)
-  :tools on office                  Aktifkan alat Kantor (Excel, Word, dll.)
-  :tools on devel                   Aktifkan alat pengembangan (lint, py_compile, tests)"
-
-#: src\uagent\tools\tools_control_tool.py:130
-msgid "cmd.help.tools_off"
-msgstr ""
-"  :tools off comm                   Nonaktifkan alat komunikasi (Teams, Discord)
-  :tools off office                 Nonaktifkan alat Kantor (Excel, Word, dll.)
-  :tools off devel                  Nonaktifkan alat pengembangan (lint, py_compile, tests)"
-
-#: src\uagent\tools\tools_control_tool.py:141
-msgid "tool.description"
-msgstr "Alat tiruan untuk registrasi perintah kontrol alat."
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-08 18:12+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:17 src/uagent/checks.py:27
+#, python-format
+msgid "Please install Git. See: %(url)s"
+msgstr "Harap instal Git. Lihat: %(url)s"
+
+#: src/uagent/checks.py:20
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Silakan instal Git. Contoh: sudo apt install git (Ubuntu/Debian) atau sudo "
+"yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:23
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Silakan instal Git. Jika menggunakan Homebrew: brew install git, atau instal"
+" Xcode Command Line Tools: xcode-select --install"
+
+#: src/uagent/checks.py:30
+msgid "[ERROR] Git is not installed."
+msgstr "[KESALAHAN] Git belum terpasang."
+
+#: src/uagent/cli.py:397
+msgid "getch() fallback to input()"
+msgstr "getch() menjadi cadangan untuk input()"
+
+#: src/uagent/cli.py:604
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Ctrl+C diterima. Memulai proses shutdown..."
+
+#: src/uagent/cli.py:636 src/uagent/cli.py:706
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(Mode input multiline: masukkan isi dalam beberapa baris; untuk mengulang, "
+"ketik \"\"\"retry; akhiri dengan baris yang hanya berisi %(sentinel)s)"
+
+#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
+#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
+#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
+#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
+#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
+#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
+#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
+#: src/uagent/setup_cli.py:1462
+msgid "Cancelled."
+msgstr "Dibatalkan."
+
+#: src/uagent/cli.py:672 src/uagent/cli.py:722
+msgid "Discarded previous input. Please start over."
+msgstr "Input sebelumnya dibuang. Silakan mulai lagi."
+
+#: src/uagent/cli.py:683
+msgid "Received multiline reply."
+msgstr "Balasan multiline diterima."
+
+#: src/uagent/cli.py:841
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"Jalur file gambar ditemukan di input Anda.\n"
+"Apakah Anda ingin mengirim gambar ini ke LLM (API eksternal) untuk analisis?\n"
+"\n"
+
+#: src/uagent/cli.py:847
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr ""
+"Balas y untuk mengirim, atau n (atau c/cancel) untuk melewati pengiriman."
+
+#: src/uagent/cli.py:865
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"Konfirmasi pengiriman gambar gagal; gambar tidak akan dikirim: %(etype)s: "
+"%(err)s"
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Gagal melampirkan gambar: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:930
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Jenis event tidak dikenal=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:948
+msgid "Exited uag."
+msgstr "uag keluar."
+
+#: src/uagent/cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "[docs] nama diperlukan"
+
+msgid ""
+"Select tool genres to enable at startup.\n"
+"1: comm  - Communication (Teams, Discord, etc.)\n"
+"2: office - Office suite (Excel, Word, etc.)\n"
+"4: devel  - Development (lint, py_compile, test, etc.)\n"
+"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
+msgstr ""
+"Pilih genre alat yang akan diaktifkan saat startup.\n"
+"1: comm  - Komunikasi (Teams, Discord, dll.)\n"
+"2: office - Suite perkantoran (Excel, Word, dll.)\n"
+"4: devel  - Pengembangan (lint, py_compile, test, dll.)\n"
+"Masukkan jumlah nilai (misalnya, 3 = comm + office, 7 = semua, atau tekan Enter untuk mengaktifkan semua):"
+
+#: src/uagent/cli_startup.py:96
+#, python-format
+msgid "[WARN] Failed to apply startup tool selection: %(err)s"
+msgstr "[WARN] Gagal menerapkan pemilihan alat startup: %(err)s"
+
+#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Gagal menetapkan workdir: %(err)s"
+
+#: src/uagent/cli_startup.py:202
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Gagal meluncurkan uag_setup: %(err)s"
+
+#: src/uagent/cli_startup.py:243
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "penyedia = %(provider)s; model = %(model)s"
+
+#: src/uagent/cli_startup.py:255 src/uagent/scheckgui.py:296
+msgid "OpenRouter fallback models enabled."
+msgstr "Model fallback OpenRouter diaktifkan."
+
+#: src/uagent/cli_startup.py:259
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "direktori kerja saat ini = %(cwd)s"
+
+#: src/uagent/cli_startup.py:273 src/uagent/scheckgui.py:307
+msgid "Loaded long-term memory."
+msgstr "Memori jangka panjang dimuat."
+
+#: src/uagent/cli_startup.py:286 src/uagent/scheckgui.py:320
+msgid "Loaded shared long-term memory."
+msgstr "Memori jangka panjang bersama dimuat."
+
+#: src/uagent/cli_startup.py:293 src/uagent/web.py:718
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[PERINGATAN] Terjadi pengecualian saat memuat memori jangka panjang bersama:"
+" %(err)s"
+
+#: src/uagent/cli_startup.py:327
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[PERINGATAN] Gagal membaca file startup: %(path)s (%(err)s)"
+
+#: src/uagent/cli_startup.py:341
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "Berkas startup disediakan: %(path)s"
+
+#: src/uagent/cli_startup.py:364
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive ditentukan; keluar tanpa menunggu stdin."
+
+#: src/uagent/core.py:286 src/uagent/core.py:307
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "Variabel lingkungan %(name)s belum disetel."
+
+#: src/uagent/core.py:607
+msgid "No log files found."
+msgstr "Tidak ditemukan file log."
+
+#: src/uagent/core.py:625
+msgid "(unknown time)"
+msgstr "(waktu tidak diketahui)"
+
+#: src/uagent/core.py:628
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "log: menampilkan %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:631
+msgid "Log files:"
+msgstr "File log:"
+
+#: src/uagent/core.py:638
+msgid "(mtime unknown)"
+msgstr "(waktu modifikasi tidak diketahui)"
+
+#: src/uagent/core.py:756 src/uagent/core.py:759
+msgid "(no user message)"
+msgstr "(tanpa pesan pengguna)"
+
+#: src/uagent/core.py:764
+#, python-format
+msgid ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | %(turns)d pesan | pertama: %(first_user)s | "
+"terakhir: %(last_user)s"
+
+#: src/uagent/core.py:896
+#, python-format
+msgid ""
+"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
+msgstr ""
+"[WARN] Pesan alat yatim dibuang: tool_call_id=%(tool_call_id)r name=%(name)r"
+
+#: src/uagent/core.py:994
+#, python-format
+msgid ""
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
+msgstr ""
+"[INFO] Ada %(count)d pesan untuk dikompresi, jadi tidak ada yang diubah."
+
+#: src/uagent/core.py:1004
+#, python-format
+msgid ""
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+msgstr ""
+"[INFO] Riwayat percakapan di memori dikompresi: %(old_n)d -> %(new_n)d pesan"
+" (keep_last=%(keep_last)d)"
+
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr ""
+
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr ""
+
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr ""
+
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr ""
+
+msgid "- Output should be directly usable as a system message."
+msgstr ""
+
+msgid "Conversation chunk:\n"
+msgstr ""
+
+msgid "Write a concise summary of this chunk."
+msgstr ""
+
+msgid "- You are updating an existing conversation summary.\n"
+msgstr ""
+
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr ""
+
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr ""
+
+msgid "- Keep the result concise and suitable for a system message."
+msgstr ""
+
+msgid "Previous summary:\n"
+msgstr ""
+
+msgid "New chunk:\n"
+msgstr ""
+
+msgid "Update the summary while keeping the prior context intact."
+msgstr ""
+
+msgid "Summary of the conversation so far:\n"
+msgstr ""
+
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+
+#: src/uagent/core.py:1339
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[WARN] Kompresi riwayat mencapai batas konteks bahkan pada chunk_size=1; "
+"kembali ke shrink_messages()."
+
+#: src/uagent/core.py:1349
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr ""
+"[WARN] Kompresi riwayat tidak bisa mengecilkan chunk_size lebih lanjut; "
+"kembali ke shrink_messages()."
+
+#: src/uagent/core.py:1357
+#, python-format
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"[WARN] Batas panjang konteks kompresi riwayat terlampaui; mencoba lagi "
+"dengan chunk_size=%(chunk_size)d"
+
+#: src/uagent/core.py:1382
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help  (bantuan tidak tersedia: %(err)s)"
+
+#: src/uagent/core.py:1394
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Misi\n"
+"- Anda adalah agen eksekusi alat serbaguna yang andal, yang berjalan di lingkungan lokal, dan benar-benar dapat menjalankan perintah serta mengoperasikan berkas di mesin pengguna.\n"
+"- Minta konfirmasi pengguna sebelum melakukan operasi berbahaya apa pun.\n"
+"- Jangan menyanjung pengguna. Jangan gunakan emoji.\n"
+"- Jangan membuat ringkasan. Tetap ringkas.\n"
+"- Saat membuat berkas, keluarkan isi akhir secara lengkap (jangan keluarkan diff atau ringkasan sebagian).\n"
+
+#: src/uagent/core.py:1403
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Aturan\n"
+"- Selalu gunakan alat yang disediakan dan verifikasi informasi terbaru.\n"
+"- Bersikap kreatif, tetapi jangan menampilkan informasi yang tidak pasti.\n"
+"- Tinjau alat yang tersedia dan pilih yang paling sesuai.\n"
+"- Saat menjalankan alat, delegasikan keputusan sesedikit mungkin kepada pengguna.\n"
+
+#: src/uagent/core.py:1410
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Catatan\n"
+"- Semua pesan pengguna masuk melalui input standar skrip ini.\n"
+"- Untuk tujuan/argumen/batasan/rincian operasional yang khusus bagi alat tertentu, utamakan deskripsi masing-masing alat.\n"
+"- Jika Anda memerlukan informasi tambahan atau konfirmasi dari pengguna, gunakan alat human_ask.\n"
+"- Saat menangani ekspresi tanggal relatif, panggil get_current_time untuk merujuk ke waktu saat ini.\n"
+"- Jangan menyimpan rahasia (kata sandi/token) di memori jangka panjang (add_long_memory, dll.).\n"
+"- File dengan akhiran seperti .org / .org1 / .org2 adalah salinan cadangan dan tidak boleh diperlakukan sebagai file utama yang dapat diedit.\n"
+"- Jika Anda membuat file Python, jalankan `python -m py_compile` untuk memvalidasi sintaks.\n"
+"- Jika pengetahuan tingkat ahli diperlukan, gunakan templat prompt (Agent Skills) dan ikuti petunjuknya.\n"
+"- Jika input pengguna hanya berupa persetujuan singkat dan tidak menambahkan informasi baru, jangan ulangi penjelasan yang sama kecuali itu merupakan jawaban langsung atas pertanyaan jelas yang langsung sebelumnya. Jika perlu, tanyakan singkat: \"Bagian mana yang harus saya lanjutkan?\"\n"
+
+#: src/uagent/core.py:1422
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr ""
+"## Kebijakan operasi berbahaya (delete_file)\n"
+"- Untuk penghapusan menggunakan alat delete_file, JANGAN meminta konfirmasi sebelum pratinjau.\n"
+"- Selalu jalankan delete_file dengan dry_run=true terlebih dahulu untuk mendapatkan daftar kandidat penghapusan.\n"
+"- Tampilkan kandidat tersebut kepada pengguna dan minta konfirmasi melalui human_ask tepat satu kali.\n"
+"- Hanya ketika pengguna secara eksplisit menjawab \"y\" atau \"yes\" (atau persetujuan eksplisit yang setara), jalankan delete_file lagi dengan parameter yang sama, dry_run=false, dan confirmed=true.\n"
+"- Jika tidak ada kandidat, jangan bertanya; cukup laporkan bahwa tidak ada yang akan dihapus.\n"
+
+#: src/uagent/core.py:1430
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Misi\n"
+"- Anda adalah agen pelaksana alat serbaguna yang andal dan berjalan di lingkungan lokal; Anda dapat menjalankan perintah dan mengoperasikan mesin pengguna.\n"
+"- Minta konfirmasi pengguna sebelum melakukan operasi berbahaya apa pun.\n"
+"- Tanpa basa-basi. Tanpa emoji. Tanpa ringkasan percakapan. Tetap singkat.\n"
+"- Saat membuat file, keluarkan isi final lengkap (bukan diff atau ringkasan sebagian).\n"
+
+#: src/uagent/core.py:1438
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Aturan\n"
+"- Gunakan alat yang tersedia terlebih dahulu dan verifikasi hasilnya dengan alat.\n"
+"- Periksa deskripsi alat untuk tujuan, argumen, dan batasannya; pilih alat yang paling tepat dan paling aman.\n"
+"- Jadilah kreatif, tetapi jangan keluarkan informasi yang tidak pasti.\n"
+"- Alihkan keputusan ke pengguna sesedikit mungkin.\n"
+
+#: src/uagent/core.py:1445
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Catatan\n"
+"- Semua pesan pengguna masuk melalui input standar skrip ini.\n"
+"- Jika info/parameter yang diperlukan tidak ada, tanyakan melalui alat human_ask (jangan menebak).\n"
+"- Untuk tanggal relatif, panggil get_current_time.\n"
+"- Jangan menyimpan rahasia (kata sandi/token) di memori jangka panjang.\n"
+"- File dengan akhiran seperti .org / .org1 / .org2 adalah salinan cadangan dan tidak boleh diperlakukan sebagai file utama yang dapat diedit.\n"
+"- Jika Anda membuat file Python, jalankan `python -m py_compile`.\n"
+"- Jika pengetahuan tingkat ahli diperlukan, gunakan templat prompt Agent Skills.\n"
+"- Jika input pengguna hanya berupa persetujuan singkat dan tidak menambahkan informasi baru, jangan ulangi penjelasan yang sama kecuali itu merupakan jawaban langsung atas pertanyaan jelas yang langsung sebelumnya. Jika perlu, tanyakan singkat: \"Bagian mana yang harus saya lanjutkan?\"\n"
+
+#: src/uagent/core.py:1458
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr ""
+"- Jika pengguna memakai Windows cmd.exe, gunakan perintah multi-baris dengan"
+" caret (^) sebagai kelanjutan baris, dan buat setiap baris pendek agar tidak"
+" ada jeda baris saat salin-tempel.\n"
+
+#: src/uagent/core.py:1525
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr ""
+"Alat berikut saat ini dimuat dalam sesi ini. Pilih alat yang paling sesuai "
+"untuk tugas ini."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "README Proyek"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Panduan cepat (instalasi wheel Windows)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Panduan Web Inspector (playwright_inspector)"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "Informasi pengembang"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "nama dokumen tidak dikenal: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "file dokumen tidak ditemukan: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "gagal menemukan lokasi dokumen: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] Dokumen tersedia:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "Penggunaan:"
+
+#: src/uagent/docs_util.py:232
+msgid "list"
+msgstr "daftar"
+
+#: src/uagent/docs_util.py:233
+msgid "show"
+msgstr "tampilkan"
+
+#: src/uagent/docs_util.py:234
+msgid "show path"
+msgstr "tampilkan jalur"
+
+#: src/uagent/docs_util.py:235
+msgid "open with OS"
+msgstr "buka dengan OS"
+
+#: src/uagent/env_validate.py:42
+msgid ""
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+msgstr ""
+"Diperlukan untuk memilih penyedia LLM "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+
+#: src/uagent/env_validate.py:63
+#, python-format
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+"Penyedia tidak dikenal: %(provider)r. Yang diizinkan: %(allowed)s (startup "
+"kemungkinan gagal)."
+
+#: src/uagent/env_validate.py:74
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+"Endpoint/URL dasar Azure OpenAI (mis. https://<resource>.openai.azure.com/)."
+
+#: src/uagent/env_validate.py:80
+msgid "Azure OpenAI API key."
+msgstr "Kunci API Azure OpenAI."
+
+#: src/uagent/env_validate.py:85
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr "Versi API Azure OpenAI (mis. 2024-xx-xx)."
+
+#: src/uagent/env_validate.py:92
+msgid "OpenAI API key."
+msgstr "Kunci API OpenAI."
+
+#: src/uagent/env_validate.py:98
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr "Endpoint/URL dasar proxy Bedrock (kompatibel dengan OpenAI)."
+
+#: src/uagent/env_validate.py:105
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr "Kunci API proxy Bedrock (kompatibel dengan OpenAI)."
+
+#: src/uagent/env_validate.py:112
+msgid "OpenRouter API key."
+msgstr "Kunci API OpenRouter."
+
+#: src/uagent/env_validate.py:117
+msgid "Grok (xAI) API key."
+msgstr "Kunci API Grok (xAI)."
+
+#: src/uagent/env_validate.py:122
+msgid "Gemini API key."
+msgstr "Kunci API Gemini."
+
+#: src/uagent/env_validate.py:129
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+"Paket Python 'google-genai' belum terpasang. Penyedia gemini membutuhkannya."
+
+#: src/uagent/env_validate.py:140
+msgid "Vertex AI API key / model name."
+msgstr "Kunci API Vertex AI / nama model."
+
+#: src/uagent/env_validate.py:149
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+"Paket Python 'google-genai' belum terpasang. Penyedia vertexai "
+"membutuhkannya."
+
+#: src/uagent/env_validate.py:157
+msgid "Anthropic (Claude) API key."
+msgstr "Kunci API Anthropic (Claude)."
+
+#: src/uagent/env_validate.py:165
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+"Paket Python 'anthropic' belum terpasang. Penyedia claude membutuhkannya."
+
+#: src/uagent/env_validate.py:172
+msgid "NVIDIA API key."
+msgstr "Kunci API NVIDIA."
+
+#: src/uagent/env_validate.py:190
+#, python-format
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+"Penyedia embedding tidak dikenal: %(provider)r. Yang diizinkan: %(allowed)s "
+"(startup kemungkinan gagal)."
+
+#: src/uagent/env_validate.py:207
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr "Endpoint embedding Azure / kunci API / versi API / nama deployment."
+
+#: src/uagent/env_validate.py:218
+msgid "OpenAI embedding API key / model name."
+msgstr "Kunci API embedding OpenAI / nama model."
+
+#: src/uagent/env_validate.py:230
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr "Endpoint embedding Bedrock / kunci API / nama deployment."
+
+#: src/uagent/env_validate.py:241
+msgid "OpenRouter embedding API key / model name."
+msgstr "Kunci API embedding OpenRouter / nama model."
+
+#: src/uagent/env_validate.py:252
+msgid "Ollama embedding base URL / model name."
+msgstr "URL dasar embedding Ollama / nama model."
+
+#: src/uagent/env_validate.py:263
+msgid "NVIDIA embedding API key / model name."
+msgstr "Kunci API embedding NVIDIA / nama model."
+
+#: src/uagent/env_validate.py:274
+msgid "Gemini embedding API key / model name."
+msgstr "Kunci API / nama model embedding Gemini."
+
+#: src/uagent/env_validate.py:285
+msgid "Vertex AI embedding API key / model name."
+msgstr "Kunci API / nama model embedding Vertex AI."
+
+#: src/uagent/env_validate.py:302
+#, python-brace-format
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] Validasi lingkungan gagal ({context})."
+
+#: src/uagent/env_validate.py:310
+msgid "Missing required environment variables:"
+msgstr "Variabel lingkungan yang diperlukan tidak ada:"
+
+#: src/uagent/env_validate.py:317
+msgid "Warnings:"
+msgstr "Peringatan:"
+
+#: src/uagent/env_validate.py:321
+msgid "How to fix:"
+msgstr "Cara memperbaiki:"
+
+#: src/uagent/env_validate.py:324
+msgid ""
+"- Set the variables above in your environment before starting the program."
+msgstr ""
+"- Tetapkan variabel di atas di lingkungan Anda sebelum memulai program."
+
+#: src/uagent/env_validate.py:330
+msgid ""
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
+msgstr ""
+"- Anda dapat menetapkannya melalui pengaturan lingkungan OS, file .env, "
+"skrip startup shell Anda,"
+
+#: src/uagent/env_validate.py:336
+msgid ""
+"  or your process manager / service configuration (CI secrets, systemd, "
+"Docker, etc.)."
+msgstr ""
+"  atau konfigurasi process manager / layanan Anda (rahasia CI, systemd, "
+"Docker, dll.)."
+
+#: src/uagent/gemini_cache_mgr.py:131
+msgid "invalid cache meta"
+msgstr "metadata cache tidak valid"
+
+#: src/uagent/image_session.py:101
+msgid "(prompt unavailable)"
+msgstr "(prompt tidak tersedia)"
+
+#: src/uagent/image_session.py:105
+#, python-format
+msgid "screenshot: %(title)s"
+msgstr "tangkapan layar: %(title)s"
+
+#: src/uagent/image_session.py:107
+msgid "screenshot"
+msgstr "tangkapan layar"
+
+#: src/uagent/image_session.py:148
+msgid "Image-session context:"
+msgstr "Konteks sesi gambar:"
+
+#: src/uagent/image_session.py:149
+msgid "This conversation already generated images."
+msgstr "Percakapan ini sudah menghasilkan gambar."
+
+#: src/uagent/image_session.py:151
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"Gunakan prompt sebelumnya dan jalur file yang tersimpan di bawah ini sebagai"
+" konteks untuk pengeditan lanjutan, variasi, atau kelanjutan."
+
+#: src/uagent/image_session.py:156
+#, python-format
+msgid "Turn %(idx)d:"
+msgstr "Putaran %(idx)d:"
+
+#: src/uagent/image_session.py:157
+#, python-format
+msgid "- prompt: %(prompt)s"
+msgstr "- instruksi: %(prompt)s"
+
+#: src/uagent/image_session.py:160
+#, python-format
+msgid "- file: %(path)s"
+msgstr "- berkas: %(path)s"
+
+#: src/uagent/llm_claude.py:143 src/uagent/util_providers.py:610
+msgid "anthropic package is not installed."
+msgstr "Paket anthropic belum terpasang."
+
+#: src/uagent/llm_errors.py:398
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr ""
+"[BATAS_LAJU] provider=%(provider)s model=%(model)s status=%(status)s "
+"percobaan=%(attempt)s/%(max_retries)s tunggu=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+
+#: src/uagent/llm_flow_helpers.py:205
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+"Balasan asisten sebelumnya kosong. Harap jawab berdasarkan hasil alat paling"
+" baru."
+
+#: src/uagent/llm_flow_helpers.py:218
+#, python-format
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+msgstr ""
+"[WARN] LLM mengembalikan pesan asisten kosong tanpa panggilan alat.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"Ini dapat terjadi pada penyedia lokal yang kompatibel dengan OpenAI setelah panggilan alat. Anda dapat mencoba menetapkan UAGENT_EMPTY_NO_TOOL_MAX ke nilai yang lebih tinggi, atau beralih penyedia."
+
+#: src/uagent/llm_flow_helpers.py:265
+msgid "arguments must be a JSON object."
+msgstr "argumen harus berupa objek JSON."
+
+#: src/uagent/llm_flow_helpers.py:272
+#, python-format
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[kesalahan argumen alat] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+
+#: src/uagent/llm_flow_helpers.py:298
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr ""
+"[INFO] Menggunakan kembali hasil sebelumnya karena panggilan alat ini cocok "
+"dengan panggilan sebelumnya.\n"
+
+#: src/uagent/llm_flow_helpers.py:313
+#, python-format
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[kesalahan runtime alat] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+
+#: src/uagent/llm_gemini.py:556
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr ""
+"google-genai tidak dapat diimpor (diperlukan pip install google-genai)."
+
+#: src/uagent/llm_gemini.py:1115
+msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
+msgstr ""
+"[Kesalahan Gemini: Respons diblokir oleh filter keamanan atau alasan "
+"penyelesaian]"
+
+#: src/uagent/llm_gemini.py:1117
+#, python-format
+msgid "[Gemini Error: %(err)s]"
+msgstr "[Kesalahan Gemini: %(err)s]"
+
+#: src/uagent/llm_image_helpers.py:7
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr "Jelaskan tangkapan layar ini dan ringkas UI yang terlihat."
+
+#: src/uagent/llm_image_helpers.py:11
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr "Baca semua teks yang terlihat di tangkapan layar ini dan ringkas."
+
+#: src/uagent/llm_image_helpers.py:15
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr ""
+"Periksa tangkapan layar ini untuk error, peringatan, dan status UI penting."
+
+#: src/uagent/llm_message_helpers.py:155
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] Gagal auto shrink_llm: %(err)s"
+
+#: src/uagent/llm_openai_responses.py:69
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr "[WARN] riwayat asisten berisi konten gambar; dikonversi menjadi teks."
+
+#: src/uagent/llm_openai_responses.py:92
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[WARN] konten gambar tidak valid (URL hilang)."
+
+#: src/uagent/llm_openai_responses.py:100
+#: src/uagent/llm_openai_responses.py:109
+#, python-format
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[WARN] item konten tidak didukung: %(item)r"
+
+#: src/uagent/llm_openai_responses.py:444
+msgid "Sources:"
+msgstr "Sumber:"
+
+#: src/uagent/llm_openai_responses.py:507
+msgid "search"
+msgstr "cari"
+
+#: src/uagent/llm_openai_responses.py:509
+msgid "open page"
+msgstr "buka halaman"
+
+#: src/uagent/llm_openai_responses.py:511
+msgid "find in page"
+msgstr "cari di halaman"
+
+#: src/uagent/llm_openai_responses.py:512
+msgid "web search"
+msgstr "pencarian web"
+
+#: src/uagent/llm_openai_responses.py:526
+msgid "Web search: searching"
+msgstr "Pencarian web: mencari"
+
+#: src/uagent/llm_openai_responses.py:528
+msgid "Web search: completed"
+msgstr "Pencarian web: selesai"
+
+#: src/uagent/llm_openai_responses.py:530
+#, python-brace-format
+msgid "Web search: {action}"
+msgstr "Pencarian web: {action}"
+
+#: src/uagent/llm_openai_responses.py:587
+#, python-brace-format
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[Aturan pemanggilan tool]\n"
+"        - Saat memanggil tool/fungsi, Anda HARUS memberikan function_call.arguments sebagai objek JSON.\n"
+"        - Objek JSON HARUS mencakup semua parameter wajib yang ditentukan oleh skema tool.\n"
+"        - Jangan pernah memanggil tool dengan objek kosong {} kecuali tool tidak memiliki parameter wajib.\n"
+"        - Jika Anda tidak memiliki parameter wajib, tanyakan kepada pengguna melalui human_ask alih-alih menebak.\n"
+"        "
+
+#: src/uagent/llm_openai_responses.py:594
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[Aturan pencarian web]\n"
+"        - Gunakan pencarian web hanya saat informasi terbaru atau eksternal diperlukan.\n"
+"        - Jangan gunakan pencarian web untuk informasi lokal atau yang stabil.\n"
+"        - Jika jawaban sudah cukup, lebih baik menjawab tanpa pencarian web.\n"
+"        "
+
+#: src/uagent/llm_round_helpers.py:133
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[Kesalahan terjemahan] %(diag)s"
+
+#: src/uagent/llm_round_helpers.py:192 src/uagent/llm_round_helpers.py:302
+#: src/uagent/llm_round_helpers.py:636
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "Batas percobaan 429 (%(max_retries)s) tercapai."
+
+#: src/uagent/llm_round_helpers.py:216
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Kesalahan Gemini] Terjadi kesalahan saat membuat respons."
+
+#: src/uagent/llm_round_helpers.py:308
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Kesalahan Claude] Terjadi kesalahan saat membuat respons."
+
+msgid "Input exceeds the context window."
+msgstr ""
+
+msgid "Connection error"
+msgstr ""
+
+#: src/uagent/llm_round_helpers.py:615
+msgid "[Network Error]"
+msgstr "[Kesalahan Jaringan]"
+
+msgid "Unexpected exception."
+msgstr ""
+
+#: src/uagent/llm_round_helpers.py:720
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Kesalahan saat mengurai respons: %(err)s"
+
+#: src/uagent/profile_manager.py:482 src/uagent/profile_manager.py:600
+msgid ""
+"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
+"1. Environment (OS, shell, editor, etc.)\n"
+"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
+"3. Constraints (security rules, offline requirements, etc.)\n"
+"\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+msgstr ""
+"Anda adalah agen pemrofil pengguna. Analisis log percakapan dan ekstrak hal-hal berikut dari pengguna:\n"
+"1. Lingkungan (OS, shell, editor, dll.)\n"
+"2. Preferensi (gaya pengodean, alat yang disukai, preferensi tingkat keterperincian, dll.)\n"
+"3. Batasan (aturan keamanan, kebutuhan bekerja offline, dll.)\n"
+"\n"
+"Jangan sertakan pertanyaan sementara, obrolan ringan, atau kredensial sensitif.\n"
+"Anda HARUS menjawab HANYA dengan objek JSON valid yang sesuai dengan skema ini:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+
+#: src/uagent/profile_manager.py:586
+msgid "Failed to initialize LLM client."
+msgstr "Gagal menginisialisasi klien LLM."
+
+#: src/uagent/profile_manager.py:591
+#, python-format
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr "Ditemukan %(total_files)d file log. Memulai profiling bertahap..."
+
+#: src/uagent/runtime_banner.py:231
+msgid "embedding"
+msgstr "penyematan"
+
+#: src/uagent/runtime_banner.py:232
+msgid "audio speech"
+msgstr "sintesis suara"
+
+#: src/uagent/runtime_banner.py:233
+msgid "audio transcribe"
+msgstr "transkripsi audio"
+
+#: src/uagent/runtime_banner.py:234
+msgid "image generation"
+msgstr "pembuatan gambar"
+
+#: src/uagent/runtime_banner.py:235
+msgid "image analysis"
+msgstr "analisis gambar"
+
+#: src/uagent/runtime_banner.py:254
+#, python-format
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] workdir = %(workdir)s (sumber: %(source)s)"
+
+#: src/uagent/runtime_banner.py:262 src/uagent/runtime_banner.py:276
+#: src/uagent/runtime_banner.py:281 src/uagent/runtime_banner.py:293
+#: src/uagent/runtime_banner.py:305 src/uagent/runtime_banner.py:314
+#: src/uagent/runtime_banner.py:323
+#, python-format
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] URL dasar = %(base_url)s"
+
+#: src/uagent/runtime_banner.py:270
+#, python-format
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] versi API = %(api_version)s"
+
+#: src/uagent/runtime_banner.py:332
+#, python-format
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = project=%(project)s, lokasi=%(location)s"
+
+#: src/uagent/runtime_banner.py:341
+#, python-format
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; model: %(model)s"
+
+#: src/uagent/runtime_banner.py:368
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 disetel, tetapi penyedia '%(provider)s' tidak mendukung "
+"Responses API. Beralih ke ChatCompletions."
+
+#: src/uagent/runtime_banner.py:375
+#, python-format
+msgid "LLM API mode = %(mode)s"
+msgstr "Mode API LLM = %(mode)s"
+
+#: src/uagent/runtime_banner.py:378
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Respons (UAGENT_RESPONSES diaktifkan)"
+
+#: src/uagent/runtime_banner.py:382
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "API asli Gemini/Vertex AI/Claude (UAGENT_RESPONSES diabaikan)"
+
+#: src/uagent/runtime_banner.py:385
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "ChatCompletions (UAGENT_RESPONSES dinonaktifkan)"
+
+#: src/uagent/runtime_banner.py:393
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "Streaming LLM = %(state)s"
+
+#: src/uagent/runtime_banner.py:394
+msgid "enabled"
+msgstr "diaktifkan"
+
+#: src/uagent/runtime_banner.py:394
+msgid "disabled"
+msgstr "dinonaktifkan"
+
+#: src/uagent/runtime_env.py:186
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] Isi .env.sec tidak cocok dengan variabel lingkungan UAGENT_* saat "
+"ini. Perbarui? [y/N] "
+
+#: src/uagent/runtime_env.py:202
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] Isi .env.sec tidak cocok dengan variabel lingkungan UAGENT_* saat "
+"ini. Gunakan `uag_envsec` untuk memperbaruinya."
+
+#: src/uagent/runtime_env.py:214
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "Diperbarui .env.sec: %(path)s"
+
+#: src/uagent/runtime_env.py:218
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[PERINGATAN] Gagal memperbarui .env.sec: %(err)s"
+
+#: src/uagent/runtime_env.py:228
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec tidak ada. Buat dari variabel lingkungan UAGENT_* saat ini? "
+"[y/N] "
+
+#: src/uagent/runtime_env.py:244
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec tidak ada. Gunakan `uag_envsec` untuk membuatnya dari "
+"variabel lingkungan UAGENT_* saat ini."
+
+#: src/uagent/runtime_env.py:254
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr "Dibuat .env.sec: %(path)s"
+
+#: src/uagent/runtime_env.py:258
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[PERINGATAN] Gagal membuat .env.sec: %(err)s"
+
+#: src/uagent/runtime_env.py:289
+#, python-format
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr "[WARN] Gagal memeriksa sinkronisasi .env.sec: %(err)s"
+
+#: src/uagent/runtime_init.py:83
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[PERINGATAN] Gagal mendekripsi .env.sec: %(err)s"
+
+#: src/uagent/runtime_workdir.py:49
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Path workdir yang ditentukan adalah file: %(path)s"
+
+#: src/uagent/scheckgui.py:131
+msgid "Drop files/images here"
+msgstr "Seret dan jatuhkan file/gambar di sini"
+
+#: src/uagent/scheckgui.py:169
+msgid "Download"
+msgstr "Unduh"
+
+#: src/uagent/scheckgui.py:329
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"Terjadi pengecualian saat memuat memori jangka panjang bersama: %(err)s"
+
+#: src/uagent/scheckgui.py:382
+#, python-format
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[File Terlampir] %(name)s (%(path)s)"
+
+#: src/uagent/scheckgui.py:467
+#, python-format
+msgid "[Attached Image] %(path)s"
+msgstr "[Gambar Terlampir] %(path)s"
+
+#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
+#, python-format
+msgid "[Image Path] %(path)s"
+msgstr "[Jalur Gambar] %(path)s"
+
+#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
+msgid "Welcome / Quick Guide"
+msgstr "Selamat datang / Panduan singkat"
+
+#: src/uagent/scheckgui.py:787
+msgid "uag GUI (Extreme Stability)"
+msgstr "GUI uag (Stabilitas Ekstrem)"
+
+#: src/uagent/scheckgui.py:842
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ Anda dapat melampirkannya dengan drag-and-drop"
+
+#: src/uagent/scheckgui.py:863
+msgid "Attach..."
+msgstr "Lampirkan..."
+
+#: src/uagent/scheckgui.py:868
+msgid "Send"
+msgstr "Kirim"
+
+#: src/uagent/scheckgui.py:908
+msgid "Help"
+msgstr "Bantuan"
+
+#: src/uagent/scheckgui.py:923
+msgid "Mode"
+msgstr "Modus"
+
+#: src/uagent/scheckgui.py:925
+msgid "Reasoning: off"
+msgstr "Penalaran: mati"
+
+#: src/uagent/scheckgui.py:928
+msgid "Reasoning: auto"
+msgstr "Penalaran: otomatis"
+
+#: src/uagent/scheckgui.py:930
+msgid "Reasoning: minimal"
+msgstr "Penalaran: minimal"
+
+#: src/uagent/scheckgui.py:932
+msgid "Reasoning: low"
+msgstr "Penalaran: rendah"
+
+#: src/uagent/scheckgui.py:934
+msgid "Reasoning: medium"
+msgstr "Penalaran: sedang"
+
+#: src/uagent/scheckgui.py:936
+msgid "Reasoning: high"
+msgstr "Penalaran: tinggi"
+
+#: src/uagent/scheckgui.py:939
+msgid "Reasoning: xhigh"
+msgstr "Penalaran: sangat tinggi"
+
+#: src/uagent/scheckgui.py:944
+msgid "Verbosity: off"
+msgstr "Tingkat detail: mati"
+
+#: src/uagent/scheckgui.py:946
+msgid "Verbosity: low"
+msgstr "Tingkat detail: rendah"
+
+#: src/uagent/scheckgui.py:948
+msgid "Verbosity: medium"
+msgstr "Tingkat detail: sedang"
+
+#: src/uagent/scheckgui.py:950
+msgid "Verbosity: high"
+msgstr "Tingkat detail: tinggi"
+
+#: src/uagent/scheckgui.py:980
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[mode] penalaran=%(mode)s"
+
+#: src/uagent/scheckgui.py:984
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/scheckgui.py:992
+#, python-format
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[mode] verbositas=%(mode)s"
+
+#: src/uagent/scheckgui.py:994
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+":v [0|1|2|3]  (0=off, 1=rendah, 2=sedang, 3=tinggi; tanpa "
+"argumen=pertahankan)"
+
+#: src/uagent/scheckgui.py:1123
+msgid "Enter password..."
+msgstr "Masukkan kata sandi..."
+
+#: src/uagent/scheckgui.py:1130
+msgid "Enter a message..."
+msgstr "Masukkan pesan..."
+
+#: src/uagent/scheckgui.py:1147
+msgid "Attach files"
+msgstr "Lampirkan berkas"
+
+#: src/uagent/scheckgui.py:1149
+msgid "All Files (*)"
+msgstr "Semua Berkas (*)"
+
+#: src/uagent/scheckgui.py:1401
+msgid "cannot read image"
+msgstr "tidak dapat membaca gambar"
+
+#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
+#: src/uagent/scheckgui.py:1627
+msgid "Downloaded to"
+msgstr "Diunduh ke"
+
+#: src/uagent/scheckgui.py:1646
+msgid "Playing"
+msgstr "Sedang diputar"
+
+#: src/uagent/scheckgui.py:1656
+msgid "Stopped"
+msgstr "Berhenti"
+
+#: src/uagent/scheckgui.py:1705
+#, python-format
+msgid "[REPLY] > %(text)s"
+msgstr "[BALASAN] > %(text)s"
+
+#: src/uagent/scheckgui.py:1713
+#, python-format
+msgid "[USER] %(text)s"
+msgstr "[PENGGUNA] %(text)s"
+
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
+#: src/uagent/setup_cli.py:572
+msgid "OpenAI API key"
+msgstr "Kunci API OpenAI"
+
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
+#: src/uagent/setup_cli.py:573
+msgid "OpenAI base URL (optional)"
+msgstr "URL dasar OpenAI (opsional)"
+
+#: src/uagent/setup_cli.py:79
+msgid "OpenAI model/deployment name (optional)"
+msgstr "Nama model/deployment OpenAI (opsional)"
+
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:560
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr "URL dasar Azure (mis. https://<resource>.openai.azure.com/)"
+
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
+#: src/uagent/setup_cli.py:562
+msgid "Azure API key"
+msgstr "Kunci API Azure"
+
+#: src/uagent/setup_cli.py:91
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "Versi API Azure (opsional, mis. 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
+msgid "Azure deployment name"
+msgstr "Nama deployment Azure"
+
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:581
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "URL dasar gateway Bedrock (mis. https://<gateway>/v1)"
+
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
+#: src/uagent/setup_cli.py:583
+msgid "Bedrock API key"
+msgstr "Kunci API Bedrock"
+
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "Nama model/deployment Bedrock (mis. openai.gpt-oss-120b)"
+
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
+#: src/uagent/setup_cli.py:592
+msgid "OpenRouter API key"
+msgstr "Kunci API OpenRouter"
+
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
+#: src/uagent/setup_cli.py:593
+msgid "OpenRouter base URL (optional)"
+msgstr "URL dasar OpenRouter (opsional)"
+
+#: src/uagent/setup_cli.py:114
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "Nama model/deployment OpenRouter (opsional)"
+
+#: src/uagent/setup_cli.py:119
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "Model cadangan OpenRouter (opsional, dipisahkan koma)"
+
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
+msgid "Gemini API key"
+msgstr "Kunci API Gemini"
+
+#: src/uagent/setup_cli.py:124
+msgid "Gemini model name (optional)"
+msgstr "Nama model Gemini (opsional)"
+
+#: src/uagent/setup_cli.py:127
+msgid "Vertex AI API key"
+msgstr "Kunci API Vertex AI"
+
+#: src/uagent/setup_cli.py:128
+msgid "Vertex AI project ID (optional)"
+msgstr "ID proyek Vertex AI (opsional)"
+
+#: src/uagent/setup_cli.py:129
+msgid "Vertex AI location/region (optional)"
+msgstr "Lokasi/wilayah Vertex AI (opsional)"
+
+#: src/uagent/setup_cli.py:133
+msgid "Google credentials for Vertex AI (optional)"
+msgstr "Kredensial Google untuk Vertex AI (opsional)"
+
+#: src/uagent/setup_cli.py:138
+msgid "Google location/region for Vertex AI (optional)"
+msgstr "Lokasi/wilayah Google untuk Vertex AI (opsional)"
+
+#: src/uagent/setup_cli.py:140
+msgid "Vertex AI model/deployment name"
+msgstr "Nama model/deployment Vertex AI"
+
+#: src/uagent/setup_cli.py:143
+msgid "Grok API key"
+msgstr "Kunci API Grok"
+
+#: src/uagent/setup_cli.py:144
+msgid "Grok base URL (optional)"
+msgstr "URL dasar Grok (opsional)"
+
+#: src/uagent/setup_cli.py:145
+msgid "Grok model/deployment name (optional)"
+msgstr "Nama model/deployment Grok (opsional)"
+
+#: src/uagent/setup_cli.py:148
+msgid "Claude API key"
+msgstr "Kunci API Claude"
+
+#: src/uagent/setup_cli.py:149
+msgid "Claude model/deployment name (optional)"
+msgstr "Nama model/deployment Claude (opsional)"
+
+#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
+#: src/uagent/setup_cli.py:607
+msgid "NVIDIA API key"
+msgstr "Kunci API NVIDIA"
+
+#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
+#: src/uagent/setup_cli.py:608
+msgid "NVIDIA base URL (optional)"
+msgstr "URL dasar NVIDIA (opsional)"
+
+#: src/uagent/setup_cli.py:154
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "Nama model/deployment NVIDIA (opsional)"
+
+#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "URL dasar Ollama (mis. http://localhost:11434/v1)"
+
+#: src/uagent/setup_cli.py:165
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "Kunci API Ollama (opsional, default: dummy)"
+
+#: src/uagent/setup_cli.py:167
+msgid "Ollama model/deployment name (optional)"
+msgstr "Nama model/deployment Ollama (opsional)"
+
+#: src/uagent/setup_cli.py:171
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "Batas waktu permintaan Ollama dalam detik (default: 60)"
+
+#: src/uagent/setup_cli.py:173
+msgid "Ollama temperature (default: 0.7)"
+msgstr "Temperatur Ollama (default: 0.7)"
+
+#: src/uagent/setup_cli.py:174
+msgid "Ollama top_p (default: 0.9)"
+msgstr "top_p Ollama (default: 0.9)"
+
+#: src/uagent/setup_cli.py:175
+msgid "Ollama top_k (default: 40)"
+msgstr "top_k Ollama (default: 40)"
+
+#: src/uagent/setup_cli.py:179
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "repeat_penalty Ollama (default: 1.1)"
+
+#: src/uagent/setup_cli.py:181
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "keep_alive Ollama (default: 5m)"
+
+#: src/uagent/setup_cli.py:182
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "num_ctx Ollama (default: 8192)"
+
+#: src/uagent/setup_cli.py:183
+msgid "Ollama num_predict (default: 1024)"
+msgstr "num_predict Ollama (default: 1024)"
+
+#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
+msgid "Enter number:"
+msgstr "Masukkan angka:"
+
+#: src/uagent/setup_cli.py:358
+msgid "Invalid input. Please enter a valid number."
+msgstr "Input tidak valid. Silakan masukkan angka yang benar."
+
+#: src/uagent/setup_cli.py:371
+#, python-format
+msgid " [default: %(default)s]"
+msgstr " [bawaan: %(default)s]"
+
+#: src/uagent/setup_cli.py:387
+msgid "This field is required. Please enter a value."
+msgstr "Bidang ini wajib diisi. Silakan masukkan nilai."
+
+#: src/uagent/setup_cli.py:399
+msgid "Select UAGENT_LANG"
+msgstr "Pilih UAGENT_LANG"
+
+#: src/uagent/setup_cli.py:410
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG (kustom)"
+
+#: src/uagent/setup_cli.py:423
+msgid "Select output files to generate in the current directory"
+msgstr "Pilih file keluaran yang akan dibuat di direktori saat ini"
+
+#: src/uagent/setup_cli.py:424
+msgid "  1. .env only"
+msgstr "  1. hanya .env"
+
+#: src/uagent/setup_cli.py:425
+msgid "  2. .env + env.sh"
+msgstr "  2. .env dan env.sh"
+
+#: src/uagent/setup_cli.py:426
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env dan env.ps1"
+
+#: src/uagent/setup_cli.py:427
+msgid "  4. .env + env.bat"
+msgstr "  4. .env dan env.bat"
+
+#: src/uagent/setup_cli.py:428
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "  5. .env + semua (sh/ps1/bat)"
+
+#: src/uagent/setup_cli.py:430
+msgid "  b. back"
+msgstr "  b. kembali"
+
+#: src/uagent/setup_cli.py:431
+msgid "  q. quit"
+msgstr "  q. keluar"
+
+#: src/uagent/setup_cli.py:449
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "Input tidak valid. Masukkan 1-5, atau b/q."
+
+#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Versi API Azure (mis. 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:484
+msgid "OpenAI model/deployment name"
+msgstr "Nama model/deployment OpenAI"
+
+#: src/uagent/setup_cli.py:504
+msgid "OpenRouter model/deployment name"
+msgstr "Nama model/deployment OpenRouter"
+
+#: src/uagent/setup_cli.py:509
+msgid "Gemini model name"
+msgstr "Nama model Gemini"
+
+#: src/uagent/setup_cli.py:515
+msgid "NVIDIA model/deployment name"
+msgstr "Nama model/deployment NVIDIA"
+
+#: src/uagent/setup_cli.py:534
+msgid "Enable image generation debug output? (0/1)"
+msgstr "Pilih penyedia pembuatan gambar"
+
+#: src/uagent/setup_cli.py:568
+msgid "Azure embedding deployment name"
+msgstr "Nama deployment Azure untuk embedding"
+
+#: src/uagent/setup_cli.py:574
+msgid "OpenAI embedding model/deployment name"
+msgstr "Nama model/deployment OpenAI untuk embedding"
+
+#: src/uagent/setup_cli.py:587
+msgid "Bedrock embedding model/deployment name"
+msgstr "Nama model/deployment Bedrock untuk embedding"
+
+#: src/uagent/setup_cli.py:594
+msgid "OpenRouter embedding model/deployment name"
+msgstr "Nama model/deployment OpenRouter untuk embedding"
+
+#: src/uagent/setup_cli.py:603
+msgid "Ollama embedding model name"
+msgstr "Nama model Ollama untuk embedding"
+
+#: src/uagent/setup_cli.py:609
+msgid "NVIDIA embedding model/deployment name"
+msgstr "Nama model/deployment NVIDIA untuk embedding"
+
+#: src/uagent/setup_cli.py:613
+msgid "Gemini embedding API key"
+msgstr "Kunci API embedding Gemini"
+
+#: src/uagent/setup_cli.py:617
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr "Nama model embedding Gemini (misalnya text-embedding-004)"
+
+#: src/uagent/setup_cli.py:622
+msgid "Vertex AI embedding API key"
+msgstr "Kunci API embedding Vertex AI"
+
+#: src/uagent/setup_cli.py:626
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr "Nama model embedding Vertex AI (misalnya text-embedding-004)"
+
+#: src/uagent/setup_cli.py:675
+msgid "Azure speech deployment name"
+msgstr "Nama deployment Azure Speech"
+
+#: src/uagent/setup_cli.py:676
+msgid "Azure transcription deployment name"
+msgstr "Nama deployment transkripsi Azure"
+
+#: src/uagent/setup_cli.py:677
+msgid "OpenAI speech model/deployment name"
+msgstr "Nama model/deployment OpenAI Speech"
+
+#: src/uagent/setup_cli.py:678
+msgid "OpenAI transcription model/deployment name"
+msgstr "Nama model/deployment transkripsi OpenAI"
+
+#: src/uagent/setup_cli.py:679
+msgid "Gemini speech model name (optional)"
+msgstr "Nama model sintesis suara Gemini (opsional)"
+
+#: src/uagent/setup_cli.py:680
+msgid "Gemini transcription model name (optional)"
+msgstr "Nama model transkripsi Gemini (opsional)"
+
+#: src/uagent/setup_cli.py:681
+msgid "Vertex AI speech model name (optional)"
+msgstr "Nama model sintesis suara Vertex AI (opsional)"
+
+#: src/uagent/setup_cli.py:682
+msgid "Vertex AI transcription model name (optional)"
+msgstr "Nama model transkripsi Vertex AI (opsional)"
+
+#: src/uagent/setup_cli.py:705
+msgid "Configure optional image / embedding / audio settings?"
+msgstr ""
+"Apakah ingin mengonfigurasi pengaturan opsional untuk gambar / embedding?"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "No"
+msgstr "Tidak"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "Yes"
+msgstr "Ya"
+
+#: src/uagent/setup_cli.py:720
+msgid "Configure image analysis settings?"
+msgstr "Apakah ingin mengonfigurasi pengaturan analisis gambar?"
+
+#: src/uagent/setup_cli.py:731
+msgid "Select image analysis provider"
+msgstr "Pilih penyedia analisis gambar"
+
+#: src/uagent/setup_cli.py:752
+msgid "Configure image generation settings?"
+msgstr "Apakah ingin mengonfigurasi pengaturan pembuatan gambar?"
+
+#: src/uagent/setup_cli.py:763
+msgid "Select image generation provider"
+msgstr "Pilih penyedia pembuatan gambar"
+
+#: src/uagent/setup_cli.py:783
+msgid "Open generated images automatically?"
+msgstr "Buka gambar yang dihasilkan secara otomatis?"
+
+#: src/uagent/setup_cli.py:799
+msgid "Configure embedding / semantic search settings?"
+msgstr ""
+"Apakah ingin mengonfigurasi pengaturan embedding / pencarian semantik?"
+
+#: src/uagent/setup_cli.py:825
+msgid "Select embedding provider"
+msgstr "Pilih penyedia embedding"
+
+#: src/uagent/setup_cli.py:854
+msgid "Configure audio speech / transcription settings?"
+msgstr "Konfigurasikan pengaturan ucapan / transkripsi audio?"
+
+#: src/uagent/setup_cli.py:873
+msgid "Select audio speech provider"
+msgstr "Pilih penyedia sintesis suara"
+
+#: src/uagent/setup_cli.py:893
+msgid "Select audio transcribe provider"
+msgstr "Pilih penyedia transkripsi audio"
+
+#: src/uagent/setup_cli.py:913
+msgid "Open generated audio automatically?"
+msgstr "Buka audio yang dihasilkan secara otomatis?"
+
+#: src/uagent/setup_cli.py:980
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "Opsional: Responses API (Azure/OpenAI/Bedrock)"
+
+#: src/uagent/setup_cli.py:993
+msgid "Optional runtime"
+msgstr "Runtime opsional"
+
+#: src/uagent/setup_cli.py:1007
+msgid "Optional image / embedding / audio settings"
+msgstr "Pengaturan opsional untuk gambar / embedding"
+
+#: src/uagent/setup_cli.py:1149
+msgid "Optional specialized sub-agent settings"
+msgstr "Pengaturan opsional sub-agen khusus"
+
+#: src/uagent/setup_cli.py:1158
+msgid "Encrypt the generated .env file?"
+msgstr "Apakah file .env yang dihasilkan ingin dienkripsi?"
+
+#: src/uagent/setup_cli.py:1164
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "File terenkripsi akan ditulis sebagai %(path)s"
+
+#: src/uagent/setup_cli.py:1180
+msgid "Select provider"
+msgstr "Pilih penyedia"
+
+#: src/uagent/setup_cli.py:1219
+msgid "Enable Responses API options?"
+msgstr "Aktifkan opsi Responses API?"
+
+#: src/uagent/setup_cli.py:1235
+msgid "Select reasoning"
+msgstr "Pilih penalaran"
+
+#: src/uagent/setup_cli.py:1254
+msgid "Select verbosity"
+msgstr "Pilih tingkat detail"
+
+#: src/uagent/setup_cli.py:1273
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "Atur UAGENT_WORKDIR opsional?"
+
+#: src/uagent/setup_cli.py:1300
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "Atur UAGENT_LANG opsional?"
+
+#: src/uagent/setup_cli.py:1321
+msgid "Enable streaming?"
+msgstr "Aktifkan streaming?"
+
+#: src/uagent/setup_cli.py:1362
+msgid "Summary"
+msgstr "Ringkasan"
+
+#: src/uagent/setup_cli.py:1363
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr "  Penyedia: %(provider)s"
+
+#: src/uagent/setup_cli.py:1370
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr "  Responses diaktifkan: %(state)s"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "yes"
+msgstr "ya"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "no"
+msgstr "tidak"
+
+#: src/uagent/setup_cli.py:1377
+#, python-format
+msgid "  Streaming enabled: %(state)s"
+msgstr "  Streaming diaktifkan: %(state)s"
+
+#: src/uagent/setup_cli.py:1393
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr "  Ekstra opsional diaktifkan: %(state)s"
+
+#: src/uagent/setup_cli.py:1398
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr "  Analisis gambar diaktifkan: %(state)s"
+
+#: src/uagent/setup_cli.py:1406
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr "  Pembuatan gambar diaktifkan: %(state)s"
+
+#: src/uagent/setup_cli.py:1417
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr "  Embedding diaktifkan: %(state)s"
+
+#: src/uagent/setup_cli.py:1427
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr "  Keluaran: %(outputs)s"
+
+#: src/uagent/setup_cli.py:1430
+msgid "Generate files with this configuration?"
+msgstr "Buat file dengan konfigurasi ini?"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Yes, generate"
+msgstr "Ya, buat"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Back"
+msgstr "Kembali"
+
+#: src/uagent/setup_cli.py:1455
+msgid "The following files already exist and will be overwritten:"
+msgstr "File berikut sudah ada dan akan ditimpa:"
+
+#: src/uagent/setup_cli.py:1459
+msgid "Proceed?"
+msgstr "Lanjutkan?"
+
+#: src/uagent/setup_cli.py:1483
+msgid "Plain .env file removed after encryption."
+msgstr "File .env biasa dihapus setelah enkripsi."
+
+#: src/uagent/setup_cli.py:1486
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "Peringatan: gagal menghapus file .env biasa: %(error)s"
+
+#: src/uagent/setup_cli.py:1505
+#, python-format
+msgid "generated: %(path)s"
+msgstr "dihasilkan: %(path)s"
+
+#: src/uagent/uagent_llm.py:129
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[PERINGATAN] Putaran alat melebihi %(max)d; dihentikan."
+
+#: src/uagent/util_providers.py:243
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "Variabel lingkungan UAGENT_PROVIDER belum disetel."
+
+#: src/uagent/util_providers.py:259
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "Penyedia tidak dikenal: %(provider)s"
+
+#: src/uagent/util_providers.py:544 src/uagent/util_providers.py:570
+msgid "google-genai package is not installed."
+msgstr "Paket google-genai belum terpasang."
+
+#: src/uagent/util_tools.py:181
+#, python-format
+msgid "image file not found: %(path)s"
+msgstr "file gambar tidak ditemukan: %(path)s"
+
+#: src/uagent/util_tools.py:186
+#, python-format
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "file gambar terlalu besar: %(size)d byte (batas=%(max)d)"
+
+#: src/uagent/util_tools.py:210
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"Tentukan direktori kerja. Jika tidak disetel, gunakan env var UAGENT_WORKDIR"
+" atau direktori saat ini."
+
+#: src/uagent/util_tools.py:217
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+"Mode non-interaktif. Jangan mulai loop stdin; keluar setelah memproses file "
+"startup (jika ada)."
+
+#: src/uagent/util_tools.py:355
+msgid "invalid reasoning"
+msgstr "reasoning tidak valid"
+
+#: src/uagent/util_tools.py:373
+msgid "invalid verbosity"
+msgstr "tingkat verbositas tidak valid"
+
+#: src/uagent/util_tools.py:547
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr ""
+"[logs] Argumen tidak valid: %(arg)r (gunakan all / --all / -a / angka)"
+
+#: src/uagent/util_tools.py:586
+#, python-format
+msgid "failed to parse arguments: %(err)s"
+msgstr "gagal mengurai argumen: %(err)s"
+
+#: src/uagent/util_tools.py:589
+msgid "missing arguments"
+msgstr "argumen hilang"
+
+#: src/uagent/util_tools.py:605
+msgid "src and dst are required"
+msgstr "src dan dst wajib diisi"
+
+#: src/uagent/util_tools.py:973
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[Eksekusi skill]\n"
+"Skill ini dimaksudkan untuk dijalankan. Baca isi skill dengan saksama dan ikuti instruksinya.\n"
+"Jika skill berisi tugas, lanjutkan sampai selesai.\n"
+"Gunakan tool sesuai kebutuhan.\n"
+
+#: src/uagent/util_tools.py:980
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr "Saat selesai, selalu panggil `finish_skill` jika tersedia.\n"
+
+#: src/uagent/util_tools.py:1132
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
+msgstr ""
+"Pilih nomor skill untuk dijalankan. Masukkan c untuk membatalkan.\n"
+"Tip: :skills clear  (hapus skill yang diterapkan)\n"
+"Masukkan nomor:"
+
+#: src/uagent/util_tools.py:1168
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"Jalankan skill ini sebagai instruksi tingkat sistem dan pertahankan aktif di sesi ini?\n"
+"\n"
+"Nama: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
+
+#: src/uagent/util_tools.py:1230
+#, python-format
+msgid ""
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Argumen tidak valid: %(arg)r (gunakan number=threshold; default "
+"%(default)d)"
+
+#: src/uagent/util_tools.py:1279
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"akan menghapus file log percakapan (scheck_log_*.jsonl) dari disk.\n"
+"Direktori log: %(dir)s\n"
+"Aturan: total pesan user/assistant/tool tanpa system <= %(threshold)d\n"
+"Target: %(n)d\n"
+"\n"
+"Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
+
+#: src/uagent/util_tools.py:1347
+#, python-format
+msgid " - (%(count)d msgs) %(path)s"
+msgstr " - (%(count)d pesan) %(path)s"
+
+#: src/uagent/util_tools.py:1391
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"akan menimpa file log sesi saat ini dan menambahkan log yang dimuat di awal (tanpa cadangan).\n"
+"\n"
+"Log saat ini: %(cur_log)s\n"
+"Log sumber: %(src_log)s\n"
+"\n"
+"Lanjutkan? Masukkan y untuk menjalankan, atau c untuk membatalkan."
+
+#: src/uagent/util_tools.py:1522
+#, python-brace-format
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"Hapus {count} path?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Masukkan y untuk melanjutkan, atau c untuk membatalkan."
+
+#: src/uagent/util_tools.py:1577
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "Indeks yang ditentukan %(idx)d di luar jangkauan."
+
+#: src/uagent/util_tools.py:1586
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Berkas log tidak ditemukan: %(path)s"
+
+#: src/uagent/util_tools.py:1669
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[Kesalahan shrink] Gagal mengurai sebagai int: %(arg)r -> simpan terakhir "
+"%(keep)d"
+
+#: src/uagent/util_tools.py:1697
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[Kesalahan shrink_llm] Gagal mengurai sebagai int: %(arg)r -> simpan "
+"terakhir %(keep)d"
+
+#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+"Memori jangka panjang bersama tidak diaktifkan (UAGENT_SHARED_MEMORY_FILE "
+"belum disetel)."
+
+#: src/uagent/util_tools.py:1787
+msgid "Analyzing past logs to generate user profile..."
+msgstr "Menganalisis log sebelumnya untuk membuat profil pengguna..."
+
+#: src/uagent/util_tools.py:1791
+msgid "No past logs found or failed to generate profile."
+msgstr "Tidak ditemukan log sebelumnya atau profil gagal dibuat."
+
+#: src/uagent/util_tools.py:1793
+#, fuzzy
+msgid "User profile generated successfully from past logs!"
+msgstr "Profil pengguna berhasil dihapus."
+
+#: src/uagent/util_tools.py:1805
+msgid "No user profile data found."
+msgstr "Data profil pengguna tidak ditemukan."
+
+#: src/uagent/util_tools.py:1808
+msgid "User Profile:"
+msgstr "Profil Pengguna:"
+
+#: src/uagent/util_tools.py:1820
+msgid "User profile cleared successfully."
+msgstr "Profil pengguna berhasil dihapus."
+
+#: src/uagent/util_tools.py:1824
+msgid "No user profile file found to clear."
+msgstr "Tidak ada file profil pengguna yang ditemukan untuk dihapus."
+
+#: src/uagent/util_tools.py:1888
+msgid "Show this help"
+msgstr "Tampilkan bantuan ini"
+
+#: src/uagent/util_tools.py:1889
+msgid "Restart input from the beginning"
+msgstr "Mulai ulang input dari awal"
+
+#: src/uagent/util_tools.py:1890
+msgid "Show log file list"
+msgstr "Tampilkan daftar file log"
+
+#: src/uagent/util_tools.py:1893
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Ubah workdir tanpa konfirmasi (mis. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+
+#: src/uagent/util_tools.py:1896
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "Daftar entri direktori (mis. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1899
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "Kelola variabel lingkungan UAGENT_* dan simpan .env.sec"
+
+#: src/uagent/util_tools.py:1901
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr "Kelola/terapkan skill (mis. :skills / :skills active / :skills clear)"
+
+#: src/uagent/util_tools.py:1906
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "Muat log sebelumnya (menimpa riwayat percakapan saat ini)"
+
+#: src/uagent/util_tools.py:1908
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Catatan: setelah dijalankan, Anda akan diminta "
+"konfirmasi; memilih 'y' akan menambahkan log yang dimuat ke awal file log "
+"sesi saat ini (menimpa, tanpa cadangan)."
+
+#: src/uagent/util_tools.py:1912
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Hapus log percakapan (scheck_log_*.jsonl) saat jumlah pesan "
+"user/assistant/tool (tanpa system) <= N (default=10)"
+
+#: src/uagent/util_tools.py:1916
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Perkecil riwayat percakapan (simpan N pesan non-system terakhir; default=40)"
+
+#: src/uagent/util_tools.py:1920
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Perkecil riwayat lewat ringkasan LLM (ringkas riwayat lama menjadi 1 pesan "
+"system; simpan N pesan mentah terakhir; default=20)"
+
+#: src/uagent/util_tools.py:1922
+msgid "List long-term memory notes"
+msgstr "Entri memori jangka panjang:"
+
+#: src/uagent/util_tools.py:1924
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr ""
+"Hapus catatan memori jangka panjang berdasarkan indeks (lihat :mem-list)"
+
+#: src/uagent/util_tools.py:1926
+#, fuzzy
+msgid "Show the learned user profile, or generate it from past logs"
+msgstr ""
+"Tampilkan profil pengguna yang dipelajari (lingkungan, preferensi, batasan)"
+
+#: src/uagent/util_tools.py:1927
+#, fuzzy
+msgid "Generate user profile from past logs"
+msgstr "Data profil pengguna tidak ditemukan."
+
+#: src/uagent/util_tools.py:1928
+msgid "Clear the learned user profile data"
+msgstr "Hapus data profil pengguna yang dipelajari"
+
+#: src/uagent/util_tools.py:1930
+msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "Salin file atau direktori (mendukung -f/--overwrite dan -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:1932
+msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr ""
+"Pindahkan file atau direktori (mendukung -f/--overwrite dan -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:1934
+msgid "Show the first n lines of a file (default=20)"
+msgstr "Tampilkan n baris pertama dari file (default=20)"
+
+#: src/uagent/util_tools.py:1935
+msgid "Show the last n lines of a file (default=20)"
+msgstr "Tampilkan n baris terakhir dari file (default=20)"
+
+#: src/uagent/util_tools.py:1937
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Hapus file/direktori dengan pratinjau + konfirmasi"
+
+#: src/uagent/util_tools.py:1939
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Setel mode penalaran (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:1941
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Setel mode verbositas (0=nonaktif, 1=rendah, 2=sedang, 3=tinggi; tanpa "
+"argumen=pertahankan)"
+
+#: src/uagent/util_tools.py:1942
+msgid "Exit"
+msgstr "Keluar."
+
+#: src/uagent/util_tools.py:1945
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"  - Masukkan baris yang hanya berisi 'f' untuk masuk mode input multibaris."
+
+#: src/uagent/util_tools.py:1947
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - Untuk mengakhiri mode input multibaris, masukkan baris yang tepat "
+"%(sentinel)s."
+
+#: src/uagent/util_tools.py:2183
+msgid "Exiting."
+msgstr "Keluar."
+
+#: src/uagent/util_tools.py:2186
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Perintah tidak dikenal: :%(cmd)s"
+
+#: src/uagent/util_tools.py:2337
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"Butir-butir di bawah ini adalah cuplikan dari memori jangka panjang pengguna (memo persisten). Gunakan sebagai informasi latar belakang tentang pengguna. Namun, selalu utamakan informasi baru yang diberikan dalam percakapan; jika bertentangan dengan informasi lama, gunakan informasi terbaru.\n"
+"\n"
+
+#: src/uagent/web.py:534
+msgid ""
+"[WARN] Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"[WARN] Sudah ada tugas lain yang berjalan di ruangan ini. Coba lagi setelah "
+"tugas tersebut selesai."
+
+#: src/uagent/web.py:626 src/uagent/web.py:748
+msgid ""
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"[FATAL] Variabel lingkungan UAGENT_PROVIDER belum disetel.\n"
+"Harap periksa variabel lingkungan saat memulai server web."
+
+#: src/uagent/web.py:664
+#, python-format
+msgid "[Attached Image] %(name)s"
+msgstr "[Gambar Terlampir] %(name)s"
+
+#: src/uagent/web.py:669
+#, python-format
+msgid "[Attached File] %(name)s"
+msgstr "[File Terlampir] %(name)s"
+
+#: src/uagent/web.py:670
+#, python-format
+msgid "[File Path] %(path)s"
+msgstr "[Jalur File] %(path)s"
+
+#: src/uagent/web.py:698
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] Memori jangka panjang dimuat."
+
+#: src/uagent/web.py:710
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] Memori jangka panjang bersama dimuat."
+
+#: src/uagent/web.py:745
+#, python-format
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[FATAL] Kesalahan worker web.\n"
+"%(err)s"
+
+#: src/uagent/web.py:882
+msgid "missing path"
+msgstr "jalur tidak ada"
+
+#: src/uagent/web.py:889
+msgid "path outside workdir"
+msgstr "jalur berada di luar workdir"
+
+#: src/uagent/web.py:1051
+msgid "Starting server on"
+msgstr "Memulai server di"
+
+#: src/uagent/web.py:1053
+msgid "External URL:"
+msgstr "URL Eksternal:"
+
+#: src/uagent/welcome.py:29
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[Server MCP]\n"
+"- File konfigurasi tidak ditemukan."
+
+#: src/uagent/welcome.py:36
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[Server MCP]\n"
+"- Tidak ada server yang terdaftar."
+
+#: src/uagent/welcome.py:38
+msgid "[MCP Servers]"
+msgstr "[Server MCP]"
+
+#: src/uagent/welcome.py:45
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[Server MCP]\n"
+"- Gagal mendapatkan info: %(err)s"
+
+#: src/uagent/welcome.py:64
+msgid "[Quick Guide]"
+msgstr "[Panduan Singkat]"
+
+#: src/uagent/welcome.py:65
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- Chat: ketik pesan dan kirim (GUI: Ctrl+Enter juga tersedia)."
+
+#: src/uagent/welcome.py:67
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr ""
+"- Multiline: masukkan baris yang hanya berisi 'f' untuk masuk mode multiline"
+" (akhiri dengan \"\"\"end)."
+
+#: src/uagent/welcome.py:70
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr ""
+"- Perintah: ketik ':help' untuk melihat perintah sistem (manajemen log, "
+"kompresi riwayat, dll.). Catatan: perintah dimulai dengan ':' (titik dua) "
+"bukan '/' (garis miring)."
+
+#: src/uagent/welcome.py:72
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- Keluar: ':exit' atau ':quit' mengakhiri sesi."
+
+#: src/uagent/welcome.py:74
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- Gambar: GUI mendukung seret dan lepas; di CUI Anda dapat memasukkan path "
+"file untuk analisis gambar."
+
+#: src/uagent/welcome.py:77
+#, python-format
+msgid ""
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Docs: `%(docs_cmd)s` menampilkan dokumen bawaan; `%(webinspect_cmd)s` "
+"menampilkan bantuan Web Inspector (`--path/--open` juga tersedia)."
+
+#: src/uagent/welcome.py:81
+msgid "[Examples]"
+msgstr "[Contoh]"
+
+#: src/uagent/welcome.py:82
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"Analisis kode sumber di folder ini dan buat README.md.\""
+
+#: src/uagent/welcome.py:84
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr ""
+"- \"Ambil tangkapan layar desktop saat ini dan jelaskan isi jendela yang "
+"terlihat.\""
+
+#: src/uagent/welcome.py:86
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"Buat laporan ringkasan bulanan dari file Excel ini.\""
+
+#: src/uagent/welcome.py:87
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"Baca PDF ini dan daftar tiga poin utama.\""
+
+#: src/uagent/welcome.py:88
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"Cari berita terbaru dan rangkum topik tertentu.\""
+
+#: src/uagent/welcome.py:193
+msgid "-- More -- (Enter: next) "
+msgstr "-- Lainnya -- (Enter: berikutnya) "
+
+#: src/uagent/a2a/engine.py:125
+msgid "No assistant message produced."
+msgstr "Tidak ada pesan asisten yang dihasilkan."
+
+#: src/uagent/a2a/engine.py:137
+msgid "Generated image(s)."
+msgstr "Gambar berhasil dibuat."
+
+#: src/uagent/a2a/engine.py:150
+#, python-format
+msgid "ECHO: %(text)s"
+msgstr "KELUARAN: %(text)s"
+
+#: src/uagent/a2a/engine.py:165
+#, python-format
+msgid "uagent initialization failed: %(err)s"
+msgstr "inisialisasi uagent gagal: %(err)s"
+
+#: src/uagent/a2a/engine.py:177
+#, python-format
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "eksekusi uagent gagal: %(etype)s: %(err)s"
+
+#: src/uagent/a2a/engine.py:188
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "Mesin UAGENT_A2A_ENGINE tidak dikenal: %(mode)s"
