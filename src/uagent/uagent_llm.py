@@ -25,27 +25,27 @@ except Exception:
     APIConnectionError = None
 
 from .llm_message_helpers import (
-_build_call_messages,
-_init_gemini_cache,
-_maybe_auto_shrink_messages,
+    _build_call_messages,
+    _init_gemini_cache,
+    _maybe_auto_shrink_messages,
 )
 from .llm_helpers import (
-_call_maybe_thread,
-_env_default_on,
+    _call_maybe_thread,
+    _env_default_on,
 )
 from .llm_round_helpers import (
-_translate_call_messages,
-_resolve_round_runtime_flags,
-_translate_assistant_if_needed,
-_call_gemini_round,
-_call_claude_round,
-_call_openai_azure_round,
+    _translate_call_messages,
+    _resolve_round_runtime_flags,
+    _translate_assistant_if_needed,
+    _call_gemini_round,
+    _call_claude_round,
+    _call_openai_azure_round,
 )
 from .llm_flow_helpers import (
-_append_assistant_message,
-_emit_final_answer_if_any,
-_handle_openai_empty_no_tool,
-_execute_tool_calls,
+    _append_assistant_message,
+    _emit_final_answer_if_any,
+    _handle_openai_empty_no_tool,
+    _execute_tool_calls,
 )
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
@@ -54,16 +54,17 @@ from . import llm_tool_narrowing as _llm_tool_narrowing
 _is_gpt54_tool_search_target = _llm_tool_narrowing._is_gpt54_tool_search_target
 _select_tool_specs_for_gpt54 = _llm_tool_narrowing._select_tool_specs_for_gpt54
 
+
 def run_llm_rounds(
-provider: str,
-client: Any,
-depname: str,
-messages: list[dict[str, Any]],
-*,
-core: Any,
-make_client_fn: Any,
-append_result_to_outfile_fn: Any,
-try_open_images_from_text_fn: Any,
+    provider: str,
+    client: Any,
+    depname: str,
+    messages: list[dict[str, Any]],
+    *,
+    core: Any,
+    make_client_fn: Any,
+    append_result_to_outfile_fn: Any,
+    try_open_images_from_text_fn: Any,
 ) -> None:
     max_tool_rounds = 200
     round_count = 0
