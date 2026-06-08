@@ -165,7 +165,6 @@ def run_llm_rounds(
                     assistant_text,
                     tool_calls_list,
                     gemini_content_dump,
-                    gemini_cache_name,
                 ) = _call_gemini_round(
                     client=client,
                     depname=depname,
