@@ -1,2444 +1,2470 @@
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-08 18:12+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
-
-#: src/uagent/checks.py:17 src/uagent/checks.py:27
-#, python-format
-msgid "Please install Git. See: %(url)s"
-msgstr "Vui lòng cài đặt Git. Xem: %(url)s"
-
-#: src/uagent/checks.py:20
-msgid ""
-"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
-"yum install git (CentOS/RHEL)"
-msgstr ""
-"Vui lòng cài đặt Git. Ví dụ: sudo apt install git (Ubuntu/Debian) hoặc sudo "
-"yum install git (CentOS/RHEL)"
-
-#: src/uagent/checks.py:23
-msgid ""
-"Please install Git. If using Homebrew: brew install git, or install Xcode "
-"Command Line Tools: xcode-select --install"
-msgstr ""
-"Vui lòng cài đặt Git. Nếu dùng Homebrew: brew install git, hoặc cài đặt "
-"Xcode Command Line Tools: xcode-select --install"
-
-#: src/uagent/checks.py:30
-msgid "[ERROR] Git is not installed."
-msgstr "[LỖI] Git chưa được cài đặt."
-
-#: src/uagent/cli.py:397
-msgid "getch() fallback to input()"
-msgstr "getch() chuyển sang input() làm phương án dự phòng"
-
-#: src/uagent/cli.py:604
-msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "Đã nhận Ctrl+C. Đang bắt đầu tắt..."
-
-#: src/uagent/cli.py:636 src/uagent/cli.py:706
-#, python-format
-msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-msgstr ""
-"(多行nhậpchế độ: Vui lòng用多行nhập正文; 要重新bắt đầu, Vui lòngnhập \"\"\"retry; 以包含 "
-"%(sentinel)s 的一行结束)"
-
-#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
-#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
-#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
-#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
-#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
-#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
-#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
-#: src/uagent/setup_cli.py:1462
-msgid "Cancelled."
-msgstr "Đã hủy."
-
-#: src/uagent/cli.py:672 src/uagent/cli.py:722
-msgid "Discarded previous input. Please start over."
-msgstr "Đã bỏ nhập trước đó. Vui lòng bắt đầu lại."
-
-#: src/uagent/cli.py:683
-msgid "Received multiline reply."
-msgstr "Đã nhận câu trả lời nhiều dòng."
-
-#: src/uagent/cli.py:841
-msgid ""
-"Image file paths were found in your input.\n"
-"Do you want to send these images to the LLM (external API) for analysis?\n"
-"\n"
-msgstr ""
-"在您的nhập中找到了图像tệpđường dẫn.\n"
-"是否将这些图像发送给 LLM(外部 API)进行分析？\n"
-"\n"
-
-#: src/uagent/cli.py:847
-msgid "Reply with y to send, or n (or c/cancel) to skip sending."
-msgstr "Trả lời y để gửi, hoặc n (hay c/cancel) để bỏ qua việc gửi."
-
-#: src/uagent/cli.py:865
-#, python-format
-msgid ""
-"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-msgstr "Xác nhận gửi ảnh thất bại; sẽ không gửi ảnh: %(etype)s: %(err)s"
-
-#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
-#, python-format
-msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "Không thể đính kèm ảnh: %(path)s (%(etype)s: %(err)s)"
-
-#: src/uagent/cli.py:930
-#, python-format
-msgid "Unknown event kind=%(kind)r: %(ev)r"
-msgstr "Kiểu sự kiện không xác định kind=%(kind)r: %(ev)r"
-
-#: src/uagent/cli.py:948
-msgid "Exited uag."
-msgstr "Đã thoát uag."
-
-#: src/uagent/cli_docs.py:33
-msgid "[docs] name is required"
-msgstr "[docs] cần có tên"
-
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
-msgstr ""
-"Chọn các thể loại công cụ để bật khi khởi động.\n"
-"1: comm  - Giao tiếp (Teams, Discord, v.v.)\n"
-"2: office - Bộ ứng dụng văn phòng (Excel, Word, v.v.)\n"
-"4: devel  - Phát triển (lint, py_compile, test, v.v.)\n"
-"Nhập tổng các giá trị (ví dụ: 3 = comm + office, 7 = tất cả, hoặc nhấn Enter để bật tất cả):"
-
-#: src/uagent/cli_startup.py:96
-#, python-format
-msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr "[WARN] Không thể áp dụng lựa chọn công cụ khởi động: %(err)s"
-
-#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
-#, python-format
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Không thể đặt thư mục làm việc: %(err)s"
-
-#: src/uagent/cli_startup.py:202
-#, python-format
-msgid "[FATAL] Failed to launch uag_setup: %(err)s"
-msgstr "[FATAL] Không thể khởi chạy uag_setup: %(err)s"
-
-#: src/uagent/cli_startup.py:243
-#, python-format
-msgid "provider = %(provider)s; model = %(model)s"
-msgstr "nhà cung cấp = %(provider)s; mô hình = %(model)s"
-
-#: src/uagent/cli_startup.py:255 src/uagent/scheckgui.py:296
-msgid "OpenRouter fallback models enabled."
-msgstr "Đã bật các mô hình dự phòng của OpenRouter."
-
-#: src/uagent/cli_startup.py:259
-#, python-format
-msgid "current workdir = %(cwd)s"
-msgstr "thư mục làm việc hiện tại = %(cwd)s"
-
-#: src/uagent/cli_startup.py:273 src/uagent/scheckgui.py:307
-msgid "Loaded long-term memory."
-msgstr "Đã tảibộ nhớ dài hạn."
-
-#: src/uagent/cli_startup.py:286 src/uagent/scheckgui.py:320
-msgid "Loaded shared long-term memory."
-msgstr "Đã tảibộ nhớ dài hạn dùng chung."
-
-#: src/uagent/cli_startup.py:293 src/uagent/web.py:718
-#, python-format
-msgid ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr "[WARN] Đã xảy ra ngoại lệ khi tải bộ nhớ dài hạn dùng chung: %(err)s"
-
-#: src/uagent/cli_startup.py:327
-#, python-format
-msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-msgstr "[WARN] Không thể đọc tệp khởi động: %(path)s (%(err)s)"
-
-#: src/uagent/cli_startup.py:341
-#, python-format
-msgid "Startup file provided: %(path)s"
-msgstr "Đã cung cấp tệp khởi động: %(path)s"
-
-#: src/uagent/cli_startup.py:364
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "Đã chỉ định --non-interactive; thoát mà không chờ stdin."
-
-#: src/uagent/core.py:286 src/uagent/core.py:307
-#, python-format
-msgid "Environment variable %(name)s is not set."
-msgstr "Biến môi trường %(name)s chưa được đặt."
-
-#: src/uagent/core.py:607
-msgid "No log files found."
-msgstr "Không tìm thấy日志tệp."
-
-#: src/uagent/core.py:625
-msgid "(unknown time)"
-msgstr "(thời gian không xác định)"
-
-#: src/uagent/core.py:628
-#, python-format
-msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
-msgstr "日志: hiển thị %(shown)d/%(total)d(thư mục=%(dir)s)"
-
-#: src/uagent/core.py:631
-msgid "Log files:"
-msgstr "日志tệp: "
-
-#: src/uagent/core.py:638
-msgid "(mtime unknown)"
-msgstr "(không rõ thời gian sửa đổi)"
-
-#: src/uagent/core.py:756 src/uagent/core.py:759
-msgid "(no user message)"
-msgstr "(không có tin nhắn của người dùng)"
-
-#: src/uagent/core.py:764
-#, python-format
-msgid ""
-"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
-"%(last_user)s"
-msgstr ""
-"[%(idx)d] %(mtime_text)s | %(turns)d tin nhắn | đầu: %(first_user)s | cuối: "
-"%(last_user)s"
-
-#: src/uagent/core.py:896
-#, python-format
-msgid ""
-"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-msgstr ""
-"[WARN] Đang loại bỏ thông báo công cụ mồ côi: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-
-#: src/uagent/core.py:994
-#, python-format
-msgid ""
-"[INFO] There were %(count)d messages to compress, so nothing was changed."
-msgstr "[INFO] Có %(count)d tin nhắn cần nén, nên không có gì thay đổi."
-
-#: src/uagent/core.py:1004
-#, python-format
-msgid ""
-"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
-"messages (keep_last=%(keep_last)d)"
-msgstr ""
-"[INFO] Đã nén lịch sử hội thoại trong bộ nhớ: %(old_n)d -> %(new_n)d tin "
-"nhắn (keep_last=%(keep_last)d)"
-
-msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
-
-msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
-
-msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
-
-msgid ""
-"- Keep the summary concise but include key decisions, constraints, and "
-"pending items.\n"
-msgstr ""
-
-msgid "- Output should be directly usable as a system message."
-msgstr ""
-
-msgid "Conversation chunk:\n"
-msgstr ""
-
-msgid "Write a concise summary of this chunk."
-msgstr ""
-
-msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
-
-msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
-
-msgid ""
-"- Merge in the new chunk without losing constraints, decisions, or pending "
-"items.\n"
-msgstr ""
-
-msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
-
-msgid "Previous summary:\n"
-msgstr ""
-
-msgid "New chunk:\n"
-msgstr ""
-
-msgid "Update the summary while keeping the prior context intact."
-msgstr ""
-
-msgid "Summary of the conversation so far:\n"
-msgstr ""
-
-msgid ""
-"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
-"older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
-
-#: src/uagent/core.py:1339
-msgid ""
-"[WARN] history compression hit context length even at chunk_size=1; falling "
-"back to shrink_messages()."
-msgstr ""
-"[WARN] Nén lịch sử đã chạm giới hạn ngữ cảnh ngay cả khi chunk_size=1; quay "
-"về shrink_messages()."
-
-#: src/uagent/core.py:1349
-msgid ""
-"[WARN] history compression could not reduce chunk_size further; falling back"
-" to shrink_messages()."
-msgstr ""
-"[WARN] Không thể giảm chunk_size thêm nữa khi nén lịch sử; quay về "
-"shrink_messages()."
-
-#: src/uagent/core.py:1357
-#, python-format
-msgid ""
-"[WARN] history compression context length exceeded; retrying with "
-"chunk_size=%(chunk_size)d"
-msgstr ""
-"[WARN] Độ dài ngữ cảnh khi nén lịch sử đã vượt quá giới hạn; thử lại với "
-"chunk_size=%(chunk_size)d"
-
-#: src/uagent/core.py:1382
-#, python-format
-msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help (trợ giúp不khả dụng: %(err)s)"
-
-#: src/uagent/core.py:1394
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
-"- Ask the user for confirmation before performing any dangerous operation.\n"
-"- Do not flatter the user. Do not use emojis.\n"
-"- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
-msgstr ""
-"## Nhiệm vụ\n"
-"- Bạn là một \"tác tử thực thi công cụ đa năng\" đang chạy trên môi trường cục bộ, và có thể thực sự thực thi lệnh cũng như thao tác với tệp trên máy của người dùng.\n"
-"- Hãy hỏi người dùng để xác nhận trước khi thực hiện bất kỳ thao tác nguy hiểm nào.\n"
-"- Không tâng bốc người dùng. Không dùng biểu tượng cảm xúc.\n"
-"- Không tóm tắt. Hãy giữ thông tin ngắn gọn.\n"
-"- Khi tạo tệp, hãy xuất đầy đủ nội dung cuối cùng (không xuất diff hoặc tóm tắt một phần).\n"
-"\n"
-
-#: src/uagent/core.py:1403
-msgid ""
-"## Rules\n"
-"- Always use the provided tools and verify the latest information.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
-msgstr ""
-"## Quy tắc\n"
-"- Luôn dùng các công cụ được cung cấp và xác minh thông tin mới nhất.\n"
-"- Hãy sáng tạo, nhưng không xuất thông tin không chắc chắn.\n"
-"- Hãy tham khảo các công cụ có sẵn và chọn công cụ phù hợp nhất.\n"
-"- Khi thực thi công cụ, hãy để người dùng quyết định ít nhất có thể.\n"
-"\n"
-
-#: src/uagent/core.py:1410
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
-"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
-msgstr ""
-"## Ghi chú\n"
-"- Tất cả tin nhắn của người dùng đi qua đầu vào chuẩn của script này.\n"
-"- Với mục đích/tham số/ràng buộc/chi tiết vận hành riêng của từng công cụ, hãy ưu tiên mô tả của chính công cụ đó.\n"
-"- Nếu bạn cần thêm thông tin hoặc xác nhận từ người dùng, hãy dùng công cụ human_ask.\n"
-"- Khi xử lý các biểu thức ngày tương đối, hãy gọi get_current_time để tham chiếu thời gian hiện tại.\n"
-"- Không lưu bí mật (mật khẩu/token) vào bộ nhớ dài hạn (add_long_memory, v.v.).\n"
-"- Các tệp có hậu tố như .org / .org1 / .org2 là bản sao lưu và không được coi là tệp chính để chỉnh sửa.\n"
-"- Nếu bạn tạo tệp Python, hãy chạy `python -m py_compile` để kiểm tra cú pháp.\n"
-"- Nếu cần kiến thức ở mức chuyên gia, hãy dùng các mẫu prompt (Agent Skills) và làm theo chúng.\n"
-"- Nếu đầu vào của người dùng chỉ là một xác nhận ngắn và không thêm thông tin mới, đừng lặp lại cùng một lời giải thích trừ khi đó là câu trả lời trực tiếp cho câu hỏi rõ ràng ngay trước đó. Nếu cần, hãy hỏi ngắn gọn: \"Tôi nên tiếp tục từ điểm nào?\"\n"
-
-#: src/uagent/core.py:1422
-msgid ""
-"## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
-msgstr ""
-"## Chính sách thao tác nguy hiểm (delete_file)\n"
-"- Khi xóa bằng công cụ delete_file, KHÔNG hỏi xác nhận trước khi xem trước.\n"
-"- Luôn chạy delete_file với dry_run=true trước để lấy danh sách các mục sẽ bị xóa.\n"
-"- Hiển thị các mục đó cho người dùng và chỉ hỏi xác nhận qua human_ask đúng một lần.\n"
-"- Chỉ khi người dùng trả lời rõ ràng \"y\" hoặc \"yes\" (hoặc đồng ý rõ ràng tương đương), hãy chạy lại delete_file với cùng tham số, dry_run=false, và confirmed=true.\n"
-"- Nếu không có mục nào, không hỏi; chỉ báo rằng sẽ không có gì bị xóa.\n"
-"\n"
-
-#: src/uagent/core.py:1430
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
-"- Ask the user for confirmation before any dangerous operation.\n"
-"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
-msgstr ""
-"## 任务\n"
-"- 你是一个在本地环境中运行的“通用工具执行代理”; 你可以执行命令并操作用户的机器.\n"
-"- 在进行任何危险操作之前, 先向用户xác nhận.\n"
-"- 不要奉承.不要使用表情符号.不要总结对话.保持简洁.\n"
-"- 创建tệp时, 输出完整的最终内容(不要输出 diff 或部分摘要).\n"
-
-#: src/uagent/core.py:1438
-msgid ""
-"## Rules\n"
-"- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Delegate as little decision-making as possible to the user.\n"
-msgstr ""
-"## 规则\n"
-"- 先使用提供的工具, 并用工具验证结果.\n"
-"- 查阅工具描述中的用途/参数/约束; chọn最合适且最安全的工具.\n"
-"- 可以有创意, 但不要输出不确定的信息.\n"
-"- 尽量少把决策交给用户.\n"
-
-#: src/uagent/core.py:1445
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
-"- Relative dates: call get_current_time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile`.\n"
-"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
-"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
-msgstr ""
-"## Ghi chú\n"
-"- Tất cả tin nhắn của người dùng đi qua đầu vào chuẩn của script này.\n"
-"- Nếu thiếu thông tin/tham số cần thiết, hãy hỏi qua human_ask (đừng đoán).\n"
-"- Khi xử lý các biểu thức ngày tương đối, hãy gọi get_current_time.\n"
-"- Không lưu bí mật (mật khẩu/token) vào bộ nhớ dài hạn.\n"
-"- Các tệp có hậu tố như .org / .org1 / .org2 là bản sao lưu và không được coi là tệp chính để chỉnh sửa.\n"
-"- Nếu bạn tạo tệp Python, hãy chạy `python -m py_compile`.\n"
-"- Nếu cần kiến thức ở mức chuyên gia, hãy dùng các mẫu prompt của Agent Skills.\n"
-"- Nếu đầu vào của người dùng chỉ là một xác nhận ngắn và không thêm thông tin mới, đừng lặp lại cùng một lời giải thích trừ khi đó là câu trả lời trực tiếp cho câu hỏi rõ ràng ngay trước đó. Nếu cần, hãy hỏi ngắn gọn: \"Tôi nên tiếp tục từ điểm nào?\"\n"
-
-#: src/uagent/core.py:1458
-msgid ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using "
-"caret (^) line continuation, and keep each line short to avoid copy/paste "
-"line breaks.\n"
-msgstr ""
-"- Nếu người dùng dùng Windows cmd.exe, hãy ưu tiên lệnh nhiều dòng bằng ký tự caret (^) để nối dòng, và giữ mỗi dòng ngắn để tránh lỗi ngắt dòng khi sao chép/dán.\n"
-"\n"
-
-#: src/uagent/core.py:1525
-msgid ""
-"The following tools are currently loaded in this session. Choose the most "
-"appropriate tool for the task."
-msgstr "当前phiên中Đã tải以下工具.Vui lòngchọn最适合该任务的工具."
-
-#: src/uagent/docs_util.py:27
-msgid "Project README"
-msgstr "项目 README"
-
-#: src/uagent/docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "快速入门(Windows wheel 安装)"
-
-#: src/uagent/docs_util.py:37
-msgid "Web Inspector (playwright_inspector) guide"
-msgstr "Web Inspector(playwright_inspector)指南"
-
-#: src/uagent/docs_util.py:42
-msgid "Developer information"
-msgstr "开发者信息"
-
-#: src/uagent/docs_util.py:149
-#, python-format
-msgid "unknown doc name: %(name)r"
-msgstr "未知文档名: %(name)r"
-
-#: src/uagent/docs_util.py:172
-#, python-format
-msgid "doc file not found: %(filename)s"
-msgstr "Không tìm thấytệp tài liệu: %(filename)s"
-
-#: src/uagent/docs_util.py:203
-#, python-format
-msgid "doc path resolution failed: %(filename)s: %(err)s"
-msgstr "文档đường dẫn解析thất bại: %(filename)s: %(err)s"
-
-#: src/uagent/docs_util.py:227
-msgid "[docs] Available documents:"
-msgstr "[docs] khả dụng文档: "
-
-#: src/uagent/docs_util.py:231
-msgid "Usage:"
-msgstr "用法: "
-
-#: src/uagent/docs_util.py:232
-msgid "list"
-msgstr "danh sách"
-
-#: src/uagent/docs_util.py:233
-msgid "show"
-msgstr "hiển thị"
-
-#: src/uagent/docs_util.py:234
-msgid "show path"
-msgstr "hiển thị đường dẫn"
-
-#: src/uagent/docs_util.py:235
-msgid "open with OS"
-msgstr "mở bằng HĐH"
-
-#: src/uagent/env_validate.py:42
-msgid ""
-"Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
-msgstr ""
-"Cần để chọn nhà cung cấp LLM "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
-
-#: src/uagent/env_validate.py:63
-#, python-format
-msgid ""
-"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
-"fail)."
-msgstr ""
-"Nhà cung cấp không xác định: %(provider)r. Được phép: %(allowed)s (khởi động"
-" có thể thất bại)."
-
-#: src/uagent/env_validate.py:74
-msgid ""
-"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
-msgstr ""
-"Điểm cuối/URL cơ sở Azure OpenAI (ví dụ: "
-"https://<resource>.openai.azure.com/)."
-
-#: src/uagent/env_validate.py:80
-msgid "Azure OpenAI API key."
-msgstr "Khóa API Azure OpenAI."
-
-#: src/uagent/env_validate.py:85
-msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr "Phiên bản API Azure OpenAI (ví dụ: 2024-xx-xx)."
-
-#: src/uagent/env_validate.py:92
-msgid "OpenAI API key."
-msgstr "Khóa API OpenAI."
-
-#: src/uagent/env_validate.py:98
-msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
-msgstr "Điểm cuối/URL cơ sở của proxy Bedrock (tương thích OpenAI)."
-
-#: src/uagent/env_validate.py:105
-msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr "Khóa API proxy Bedrock (tương thích OpenAI)."
-
-#: src/uagent/env_validate.py:112
-msgid "OpenRouter API key."
-msgstr "Khóa API OpenRouter."
-
-#: src/uagent/env_validate.py:117
-msgid "Grok (xAI) API key."
-msgstr "Khóa API Grok (xAI)."
-
-#: src/uagent/env_validate.py:122
-msgid "Gemini API key."
-msgstr "Khóa API Gemini."
-
-#: src/uagent/env_validate.py:129
-msgid ""
-"Python package 'google-genai' is not installed. Provider=gemini requires it."
-msgstr ""
-"Gói Python 'google-genai' chưa được cài đặt. Nhà cung cấp gemini cần gói "
-"này."
-
-#: src/uagent/env_validate.py:140
-msgid "Vertex AI API key / model name."
-msgstr "Khóa API Vertex AI / tên mô hình."
-
-#: src/uagent/env_validate.py:149
-msgid ""
-"Python package 'google-genai' is not installed. Provider=vertexai requires "
-"it."
-msgstr ""
-"Gói Python 'google-genai' chưa được cài đặt. Nhà cung cấp vertexai cần gói "
-"này."
-
-#: src/uagent/env_validate.py:157
-msgid "Anthropic (Claude) API key."
-msgstr "Khóa API Anthropic (Claude)."
-
-#: src/uagent/env_validate.py:165
-msgid ""
-"Python package 'anthropic' is not installed. Provider=claude requires it."
-msgstr ""
-"Gói Python 'anthropic' chưa được cài đặt. Nhà cung cấp claude cần gói này."
-
-#: src/uagent/env_validate.py:172
-msgid "NVIDIA API key."
-msgstr "Khóa API NVIDIA."
-
-#: src/uagent/env_validate.py:190
-#, python-format
-msgid ""
-"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
-" likely fail)."
-msgstr ""
-"Nhà cung cấp embedding không xác định: %(provider)r. Được phép: %(allowed)s "
-"(khởi động có thể thất bại)."
-
-#: src/uagent/env_validate.py:207
-msgid "Azure embedding endpoint / API key / API version / deployment name."
-msgstr ""
-"Điểm cuối embedding Azure / khóa API / phiên bản API / tên triển khai."
-
-#: src/uagent/env_validate.py:218
-msgid "OpenAI embedding API key / model name."
-msgstr "Khóa API embedding OpenAI / tên mô hình."
-
-#: src/uagent/env_validate.py:230
-msgid "Bedrock embedding endpoint / API key / deployment name."
-msgstr "Điểm cuối embedding Bedrock / khóa API / tên triển khai."
-
-#: src/uagent/env_validate.py:241
-msgid "OpenRouter embedding API key / model name."
-msgstr "Khóa API embedding OpenRouter / tên mô hình."
-
-#: src/uagent/env_validate.py:252
-msgid "Ollama embedding base URL / model name."
-msgstr "URL cơ sở embedding Ollama / tên mô hình."
-
-#: src/uagent/env_validate.py:263
-msgid "NVIDIA embedding API key / model name."
-msgstr "Khóa API embedding NVIDIA / tên mô hình."
-
-#: src/uagent/env_validate.py:274
-msgid "Gemini embedding API key / model name."
-msgstr "Khóa API / tên mô hình embedding của Gemini."
-
-#: src/uagent/env_validate.py:285
-msgid "Vertex AI embedding API key / model name."
-msgstr "Khóa API / tên mô hình embedding của Vertex AI."
-
-#: src/uagent/env_validate.py:302
-#, python-brace-format
-msgid "[FATAL] Environment validation failed ({context})."
-msgstr "[FATAL] Xác thực môi trường thất bại ({context})."
-
-#: src/uagent/env_validate.py:310
-msgid "Missing required environment variables:"
-msgstr "Thiếu biến môi trường bắt buộc:"
-
-#: src/uagent/env_validate.py:317
-msgid "Warnings:"
-msgstr "Cảnh báo:"
-
-#: src/uagent/env_validate.py:321
-msgid "How to fix:"
-msgstr "Cách khắc phục:"
-
-#: src/uagent/env_validate.py:324
-msgid ""
-"- Set the variables above in your environment before starting the program."
-msgstr ""
-"- Hãy đặt các biến ở trên trong môi trường của bạn trước khi khởi động "
-"chương trình."
-
-#: src/uagent/env_validate.py:330
-msgid ""
-"- You can set them via your OS environment settings, a .env file, your shell"
-" startup scripts,"
-msgstr ""
-"- Bạn có thể đặt chúng qua cài đặt biến môi trường của hệ điều hành, tệp "
-".env, các script khởi động của shell,"
-
-#: src/uagent/env_validate.py:336
-msgid ""
-"  or your process manager / service configuration (CI secrets, systemd, "
-"Docker, etc.)."
-msgstr ""
-"  hoặc cấu hình trình quản lý tiến trình / dịch vụ của bạn (secrets CI, "
-"systemd, Docker, v.v.)."
-
-#: src/uagent/gemini_cache_mgr.py:131
-msgid "invalid cache meta"
-msgstr "缓存元数据không hợp lệ"
-
-#: src/uagent/image_session.py:101
-msgid "(prompt unavailable)"
-msgstr "(không có prompt)"
-
-#: src/uagent/image_session.py:105
-#, python-format
-msgid "screenshot: %(title)s"
-msgstr "ảnh chụp màn hình: %(title)s"
-
-#: src/uagent/image_session.py:107
-msgid "screenshot"
-msgstr "ảnh chụp màn hình"
-
-#: src/uagent/image_session.py:148
-msgid "Image-session context:"
-msgstr "Ngữ cảnh phiên hình ảnh:"
-
-#: src/uagent/image_session.py:149
-msgid "This conversation already generated images."
-msgstr "Cuộc hội thoại này đã tạo ảnh rồi."
-
-#: src/uagent/image_session.py:151
-msgid ""
-"Use the prior prompts and saved file paths below as context for follow-up "
-"edits, variants, or continuations."
-msgstr ""
-"Hãy dùng các prompt trước đó và đường dẫn tệp đã lưu bên dưới làm ngữ cảnh "
-"cho chỉnh sửa tiếp, biến thể hoặc tiếp tục."
-
-#: src/uagent/image_session.py:156
-#, python-format
-msgid "Turn %(idx)d:"
-msgstr "Lượt %(idx)d:"
-
-#: src/uagent/image_session.py:157
-#, python-format
-msgid "- prompt: %(prompt)s"
-msgstr "- lời nhắc: %(prompt)s"
-
-#: src/uagent/image_session.py:160
-#, python-format
-msgid "- file: %(path)s"
-msgstr "- tệp: %(path)s"
-
-#: src/uagent/llm_claude.py:143 src/uagent/util_providers.py:610
-msgid "anthropic package is not installed."
-msgstr "Chưa cài đặt anthropic 包."
-
-#: src/uagent/llm_errors.py:398
-#, python-format
-msgid ""
-"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
-"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-msgstr ""
-"[限流] provider=%(provider)s model=%(model)s status=%(status)s "
-"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-
-#: src/uagent/llm_flow_helpers.py:205
-msgid ""
-"The previous assistant reply was empty. Please answer based on the most "
-"recent tool result."
-msgstr ""
-"Phản hồi trước đó của trợ lý trống. Hãy trả lời dựa trên kết quả công cụ gần"
-" đây nhất."
-
-#: src/uagent/llm_flow_helpers.py:218
-#, python-format
-msgid ""
-"[WARN] LLM returned an empty assistant message without tool calls.\n"
-"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
-msgstr ""
-"[WARN] LLM đã trả về một tin nhắn trợ lý trống mà không có lệnh gọi công cụ.\n"
-"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"Điều này có thể xảy ra với các nhà cung cấp cục bộ tương thích OpenAI sau khi gọi công cụ. Bạn có thể thử đặt UAGENT_EMPTY_NO_TOOL_MAX thành giá trị cao hơn, hoặc chuyển nhà cung cấp."
-
-#: src/uagent/llm_flow_helpers.py:265
-msgid "arguments must be a JSON object."
-msgstr "tham số phải là một đối tượng JSON."
-
-#: src/uagent/llm_flow_helpers.py:272
-#, python-format
-msgid ""
-"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[lỗi tham số công cụ] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-
-#: src/uagent/llm_flow_helpers.py:298
-msgid ""
-"[INFO] Reusing the previous result because this tool call matches an earlier"
-" one.\n"
-msgstr ""
-"[INFO] Đang tái sử dụng kết quả trước đó vì lần gọi công cụ này khớp với một"
-" lần trước đó.\n"
-
-#: src/uagent/llm_flow_helpers.py:313
-#, python-format
-msgid ""
-"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[lỗi khi chạy công cụ] name=%(name)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-
-#: src/uagent/llm_gemini.py:556
-msgid ""
-"google-genai could not be imported (pip install google-genai is required)."
-msgstr "Không thể nhập google-genai (cần cài bằng pip install google-genai)."
-
-#: src/uagent/llm_gemini.py:1115
-msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr "[Lỗi Gemini: Phản hồi bị chặn bởi bộ lọc an toàn hoặc lý do kết thúc]"
-
-#: src/uagent/llm_gemini.py:1117
-#, python-format
-msgid "[Gemini Error: %(err)s]"
-msgstr "[Lỗi Gemini: %(err)s]"
-
-#: src/uagent/llm_image_helpers.py:7
-msgid "Describe this screenshot and summarize the visible UI."
-msgstr ""
-"Hãy mô tả ảnh chụp màn hình này và tóm tắt giao diện người dùng hiển thị."
-
-#: src/uagent/llm_image_helpers.py:11
-msgid "Read all visible text in this screenshot and summarize it."
-msgstr ""
-"Hãy đọc toàn bộ văn bản hiển thị trong ảnh chụp màn hình này và tóm tắt lại."
-
-#: src/uagent/llm_image_helpers.py:15
-msgid "Inspect this screenshot for errors, warnings, and important UI state."
-msgstr ""
-"Hãy kiểm tra ảnh chụp màn hình này để tìm lỗi, cảnh báo và trạng thái UI "
-"quan trọng."
-
-#: src/uagent/llm_message_helpers.py:155
-#, python-format
-msgid "[WARN] Auto shrink_llm failed: %(err)s"
-msgstr "[WARN] shrink_llm tự động thất bại: %(err)s"
-
-#: src/uagent/llm_openai_responses.py:69
-msgid "[WARN] assistant history contained image content; converted to text."
-msgstr ""
-"[WARN] Lịch sử trợ lý chứa nội dung hình ảnh; đã chuyển thành văn bản."
-
-#: src/uagent/llm_openai_responses.py:92
-msgid "[WARN] invalid image content (missing url)."
-msgstr "[WARN] nội dung hình ảnh không hợp lệ (thiếu url)."
-
-#: src/uagent/llm_openai_responses.py:100
-#: src/uagent/llm_openai_responses.py:109
-#, python-format
-msgid "[WARN] unsupported content item: %(item)r"
-msgstr "[WARN] mục nội dung không được hỗ trợ: %(item)r"
-
-#: src/uagent/llm_openai_responses.py:444
-msgid "Sources:"
-msgstr "Nguồn:"
-
-#: src/uagent/llm_openai_responses.py:507
-msgid "search"
-msgstr "tìm kiếm"
-
-#: src/uagent/llm_openai_responses.py:509
-msgid "open page"
-msgstr "mở trang"
-
-#: src/uagent/llm_openai_responses.py:511
-msgid "find in page"
-msgstr "tìm trong trang"
-
-#: src/uagent/llm_openai_responses.py:512
-msgid "web search"
-msgstr "tìm kiếm web"
-
-#: src/uagent/llm_openai_responses.py:526
-msgid "Web search: searching"
-msgstr "Tìm kiếm web: đang tìm"
-
-#: src/uagent/llm_openai_responses.py:528
-msgid "Web search: completed"
-msgstr "Tìm kiếm web: hoàn tất"
-
-#: src/uagent/llm_openai_responses.py:530
-#, python-brace-format
-msgid "Web search: {action}"
-msgstr "Tìm kiếm web: {action}"
-
-#: src/uagent/llm_openai_responses.py:587
-#, python-brace-format
-msgid ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
-"        "
-msgstr ""
-"[Quy tắc gọi công cụ]\n"
-"        - Khi gọi một công cụ/hàm, bạn PHẢI truyền function_call.arguments dưới dạng một đối tượng JSON.\n"
-"        - Đối tượng JSON PHẢI bao gồm tất cả tham số bắt buộc do lược đồ công cụ xác định.\n"
-"        - Không bao giờ gọi công cụ bằng một đối tượng rỗng {} nếu công cụ có tham số bắt buộc.\n"
-"        - Nếu bạn không có một tham số bắt buộc, hãy hỏi người dùng bằng human_ask thay vì đoán.\n"
-"        "
-
-#: src/uagent/llm_openai_responses.py:594
-msgid ""
-"[Web search rules]\n"
-"        - Use web search only when fresh or external information is necessary.\n"
-"        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already sufficient.\n"
-"        "
-msgstr ""
-"[Quy tắc tìm kiếm web]\n"
-"        - Chỉ dùng tìm kiếm web khi cần thông tin mới hoặc thông tin bên ngoài.\n"
-"        - Không dùng tìm kiếm web cho thông tin cục bộ hoặc thông tin ổn định.\n"
-"        - Nếu câu trả lời đã đủ, hãy ưu tiên trả lời mà không dùng tìm kiếm web.\n"
-"        "
-
-#: src/uagent/llm_round_helpers.py:133
-#, python-format
-msgid "[Translate Error] %(diag)s"
-msgstr "[lỗi dịch] %(diag)s"
-
-#: src/uagent/llm_round_helpers.py:192 src/uagent/llm_round_helpers.py:302
-#: src/uagent/llm_round_helpers.py:636
-#, python-format
-msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "Đã đạt giới hạn thử lại 429 (%(max_retries)s)."
-
-#: src/uagent/llm_round_helpers.py:216
-msgid "[Gemini Error] An error occurred while generating a response."
-msgstr "[Lỗi Gemini] Đã xảy ra lỗi khi tạo phản hồi."
-
-#: src/uagent/llm_round_helpers.py:308
-msgid "[Claude Error] An error occurred while generating a response."
-msgstr "[Lỗi Claude] Đã xảy ra lỗi khi tạo phản hồi."
-
-msgid "Input exceeds the context window."
-msgstr ""
-
-msgid "Connection error"
-msgstr ""
-
-#: src/uagent/llm_round_helpers.py:615
-msgid "[Network Error]"
-msgstr "[Lỗi mạng]"
-
-msgid "Unexpected exception."
-msgstr ""
-
-#: src/uagent/llm_round_helpers.py:720
-#, python-format
-msgid "Error while parsing response: %(err)s"
-msgstr "Lỗi khi phân tích phản hồi: %(err)s"
-
-#: src/uagent/profile_manager.py:482 src/uagent/profile_manager.py:600
-msgid ""
-"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
-"1. Environment (OS, shell, editor, etc.)\n"
-"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
-"3. Constraints (security rules, offline requirements, etc.)\n"
-"\n"
-"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
-"You MUST respond ONLY with a valid JSON object matching this schema:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-msgstr ""
-"Bạn là một tác nhân lập hồ sơ người dùng. Hãy phân tích nhật ký hội thoại và trích xuất các thông tin sau của người dùng:\n"
-"1. Môi trường (OS, shell, trình soạn thảo, v.v.)\n"
-"2. Sở thích (phong cách lập trình, công cụ ưa thích, mức độ chi tiết mong muốn, v.v.)\n"
-"3. Ràng buộc (quy tắc bảo mật, yêu cầu làm việc ngoại tuyến, v.v.)\n"
-"\n"
-"Không bao gồm các câu hỏi tạm thời, trò chuyện xã giao, hoặc thông tin xác thực nhạy cảm.\n"
-"Bạn PHẢI chỉ trả lời bằng một đối tượng JSON hợp lệ khớp với lược đồ này:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-
-#: src/uagent/profile_manager.py:586
-msgid "Failed to initialize LLM client."
-msgstr "Không thể khởi tạo khách hàng LLM."
-
-#: src/uagent/profile_manager.py:591
-#, python-format
-msgid "Found %(total_files)d log files. Starting incremental profiling..."
-msgstr ""
-"Đã tìm thấy %(total_files)d tệp nhật ký. Đang bắt đầu lập hồ sơ tăng dần..."
-
-#: src/uagent/runtime_banner.py:231
-msgid "embedding"
-msgstr "nhúng vector"
-
-#: src/uagent/runtime_banner.py:232
-msgid "audio speech"
-msgstr "tổng hợp giọng nói"
-
-#: src/uagent/runtime_banner.py:233
-msgid "audio transcribe"
-msgstr "phiên âm âm thanh"
-
-#: src/uagent/runtime_banner.py:234
-msgid "image generation"
-msgstr "tạo ảnh"
-
-#: src/uagent/runtime_banner.py:235
-msgid "image analysis"
-msgstr "phân tích ảnh"
-
-#: src/uagent/runtime_banner.py:254
-#, python-format
-msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
-msgstr "[INFO] thư mục làm việc = %(workdir)s (nguồn: %(source)s)"
-
-#: src/uagent/runtime_banner.py:262 src/uagent/runtime_banner.py:276
-#: src/uagent/runtime_banner.py:281 src/uagent/runtime_banner.py:293
-#: src/uagent/runtime_banner.py:305 src/uagent/runtime_banner.py:314
-#: src/uagent/runtime_banner.py:323
-#, python-format
-msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] URL cơ sở = %(base_url)s"
-
-#: src/uagent/runtime_banner.py:270
-#, python-format
-msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] phiên bản API = %(api_version)s"
-
-#: src/uagent/runtime_banner.py:332
-#, python-format
-msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
-msgstr "[INFO] vertexai = dự án=%(project)s, vị trí=%(location)s"
-
-#: src/uagent/runtime_banner.py:341
-#, python-format
-msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
-msgstr "[INFO] %(label)s = %(provider)s; mô hình = %(model)s"
-
-#: src/uagent/runtime_banner.py:368
-#, python-format
-msgid ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
-msgstr ""
-"已đặt UAGENT_RESPONSES=1, 但提供方“%(provider)s”不支持 Responses API.将回退到 "
-"ChatCompletions."
-
-#: src/uagent/runtime_banner.py:375
-#, python-format
-msgid "LLM API mode = %(mode)s"
-msgstr "Chế độ LLM API = %(mode)s"
-
-#: src/uagent/runtime_banner.py:378
-msgid "Responses (UAGENT_RESPONSES is enabled)"
-msgstr "Phản hồi (UAGENT_RESPONSES đã bật)"
-
-#: src/uagent/runtime_banner.py:382
-msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-msgstr "API gốc Gemini/Vertex AI/Claude (UAGENT_RESPONSES bị bỏ qua)"
-
-#: src/uagent/runtime_banner.py:385
-msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "ChatCompletions (UAGENT_RESPONSES đã tắt)"
-
-#: src/uagent/runtime_banner.py:393
-#, python-format
-msgid "LLM streaming = %(state)s"
-msgstr "LLM 流式 = %(state)s"
-
-#: src/uagent/runtime_banner.py:394
-msgid "enabled"
-msgstr "đã bật"
-
-#: src/uagent/runtime_banner.py:394
-msgid "disabled"
-msgstr "đã tắt"
-
-#: src/uagent/runtime_env.py:186
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
-"khởi động hiện tại. Cập nhật không? [y/N] "
-
-#: src/uagent/runtime_env.py:202
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Use `uag_envsec` to update it."
-msgstr ""
-"[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
-"khởi động hiện tại. Dùng `uag_envsec` để cập nhật."
-
-#: src/uagent/runtime_env.py:214
-#, python-format
-msgid "Updated .env.sec: %(path)s"
-msgstr "Đã cập nhật .env.sec: %(path)s"
-
-#: src/uagent/runtime_env.py:218
-#, python-format
-msgid "[WARN] Failed to update .env.sec: %(err)s"
-msgstr "[CẢNH BÁO] Không thể cập nhật .env.sec: %(err)s"
-
-#: src/uagent/runtime_env.py:228
-msgid ""
-"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
-"environment variables? [y/N] "
-msgstr ""
-"[INFO] .env.sec bị thiếu. Tạo từ các biến môi trường UAGENT_* khi khởi động "
-"hiện tại? [y/N] "
-
-#: src/uagent/runtime_env.py:244
-msgid ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
-"startup UAGENT_* environment variables."
-msgstr ""
-"[INFO] .env.sec bị thiếu. Dùng `uag_envsec` để tạo từ các biến môi trường "
-"UAGENT_* khi khởi động hiện tại."
-
-#: src/uagent/runtime_env.py:254
-#, python-format
-msgid "Created .env.sec: %(path)s"
-msgstr "Đã tạo .env.sec: %(path)s"
-
-#: src/uagent/runtime_env.py:258
-#, python-format
-msgid "[WARN] Failed to create .env.sec: %(err)s"
-msgstr "[CẢNH BÁO] Không thể tạo .env.sec: %(err)s"
-
-#: src/uagent/runtime_env.py:289
-#, python-format
-msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
-msgstr "[WARN] Không thể kiểm tra đồng bộ .env.sec: %(err)s"
-
-#: src/uagent/runtime_init.py:83
-#, python-format
-msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
-msgstr "[WARN] 解密 .env.sec thất bại: %(err)s"
-
-#: src/uagent/runtime_workdir.py:49
-#, python-format
-msgid "Specified workdir path is a file: %(path)s"
-msgstr "Đường dẫn workdir được chỉ định là một tệp: %(path)s"
-
-#: src/uagent/scheckgui.py:131
-msgid "Drop files/images here"
-msgstr "Kéo và thả tệp/ảnh vào đây"
-
-#: src/uagent/scheckgui.py:169
-msgid "Download"
-msgstr "Tải xuống"
-
-#: src/uagent/scheckgui.py:329
-#, python-format
-msgid "Exception occurred while loading shared long-term memory: %(err)s"
-msgstr "Đã xảy ra ngoại lệ khi tải bộ nhớ dài hạn dùng chung: %(err)s"
-
-#: src/uagent/scheckgui.py:382
-#, python-format
-msgid "[Attached File] %(name)s (%(path)s)"
-msgstr "[Tệp đính kèm] %(name)s (%(path)s)"
-
-#: src/uagent/scheckgui.py:467
-#, python-format
-msgid "[Attached Image] %(path)s"
-msgstr "[Ảnh đính kèm] %(path)s"
-
-#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
-#, python-format
-msgid "[Image Path] %(path)s"
-msgstr "[Đường dẫn ảnh] %(path)s"
-
-#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
-msgid "Welcome / Quick Guide"
-msgstr "欢迎 / 快速指南"
-
-#: src/uagent/scheckgui.py:787
-msgid "uag GUI (Extreme Stability)"
-msgstr "uag GUI(极致稳定)"
-
-#: src/uagent/scheckgui.py:842
-msgid "↑ You can attach files by drag & drop"
-msgstr "↑ Bạn có thể đính kèm bằng kéo và thả"
-
-#: src/uagent/scheckgui.py:863
-msgid "Attach..."
-msgstr "Đính kèm..."
-
-#: src/uagent/scheckgui.py:868
-msgid "Send"
-msgstr "发送"
-
-#: src/uagent/scheckgui.py:908
-msgid "Help"
-msgstr "trợ giúp"
-
-#: src/uagent/scheckgui.py:923
-msgid "Mode"
-msgstr "chế độ"
-
-#: src/uagent/scheckgui.py:925
-msgid "Reasoning: off"
-msgstr "suy luận: 关闭"
-
-#: src/uagent/scheckgui.py:928
-msgid "Reasoning: auto"
-msgstr "suy luận: 自动"
-
-#: src/uagent/scheckgui.py:930
-msgid "Reasoning: minimal"
-msgstr "suy luận: 最小"
-
-#: src/uagent/scheckgui.py:932
-msgid "Reasoning: low"
-msgstr "suy luận: 低"
-
-#: src/uagent/scheckgui.py:934
-msgid "Reasoning: medium"
-msgstr "suy luận: 中"
-
-#: src/uagent/scheckgui.py:936
-msgid "Reasoning: high"
-msgstr "suy luận: 高"
-
-#: src/uagent/scheckgui.py:939
-msgid "Reasoning: xhigh"
-msgstr "suy luận: 超高"
-
-#: src/uagent/scheckgui.py:944
-msgid "Verbosity: off"
-msgstr "mức độ chi tiết: 关闭"
-
-#: src/uagent/scheckgui.py:946
-msgid "Verbosity: low"
-msgstr "mức độ chi tiết: 低"
-
-#: src/uagent/scheckgui.py:948
-msgid "Verbosity: medium"
-msgstr "mức độ chi tiết: 中"
-
-#: src/uagent/scheckgui.py:950
-msgid "Verbosity: high"
-msgstr "mức độ chi tiết: 高"
-
-#: src/uagent/scheckgui.py:980
-#, python-format
-msgid "[mode] reasoning=%(mode)s"
-msgstr "[mode] suy luận=%(mode)s"
-
-#: src/uagent/scheckgui.py:984
-msgid ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
-"auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=tắt, 1=thấp, 2=trung bình, 3=cao; "
-"auto/minimal/xhigh)"
-
-#: src/uagent/scheckgui.py:992
-#, python-format
-msgid "[mode] verbosity=%(mode)s"
-msgstr "[chế độ] độ chi tiết=%(mode)s"
-
-#: src/uagent/scheckgui.py:994
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-":v [0|1|2|3]  (0=tắt, 1=thấp, 2=trung bình, 3=cao; không có đối số=giữ "
-"nguyên)"
-
-#: src/uagent/scheckgui.py:1123
-msgid "Enter password..."
-msgstr "Vui lòngnhập密码..."
-
-#: src/uagent/scheckgui.py:1130
-msgid "Enter a message..."
-msgstr "Vui lòngnhậpthông báo..."
-
-#: src/uagent/scheckgui.py:1147
-msgid "Attach files"
-msgstr "Đính kèm tệp"
-
-#: src/uagent/scheckgui.py:1149
-msgid "All Files (*)"
-msgstr "Tất cả tệp (*)"
-
-#: src/uagent/scheckgui.py:1401
-msgid "cannot read image"
-msgstr "không thể đọc ảnh"
-
-#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
-#: src/uagent/scheckgui.py:1627
-msgid "Downloaded to"
-msgstr "Đã tải xuống vào"
-
-#: src/uagent/scheckgui.py:1646
-msgid "Playing"
-msgstr "Đang phát\n"
-
-#: src/uagent/scheckgui.py:1656
-msgid "Stopped"
-msgstr "Đã dừng\n"
-
-#: src/uagent/scheckgui.py:1705
-#, python-format
-msgid "[REPLY] > %(text)s"
-msgstr "[TRẢ LỜI] > %(text)s"
-
-#: src/uagent/scheckgui.py:1713
-#, python-format
-msgid "[USER] %(text)s"
-msgstr "[NGƯỜI DÙNG] %(text)s"
-
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
-#: src/uagent/setup_cli.py:572
-msgid "OpenAI API key"
-msgstr "OpenAI API 密钥"
-
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
-#: src/uagent/setup_cli.py:573
-msgid "OpenAI base URL (optional)"
-msgstr "OpenAI 基础 URL(可选)"
-
-#: src/uagent/setup_cli.py:79
-msgid "OpenAI model/deployment name (optional)"
-msgstr "OpenAI 模型/部署tên(可选)"
-
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
-#: src/uagent/setup_cli.py:560
-msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
-msgstr "Azure 基础 URL(例如 https://<resource>.openai.azure.com/)"
-
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
-#: src/uagent/setup_cli.py:562
-msgid "Azure API key"
-msgstr "Azure API 密钥"
-
-#: src/uagent/setup_cli.py:91
-msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
-msgstr "Azure API 版本(可选, 例如 2024-05-01-preview)"
-
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
-msgid "Azure deployment name"
-msgstr "Azure 部署tên"
-
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
-#: src/uagent/setup_cli.py:581
-msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
-msgstr "Bedrock 网关基础 URL(例如 https://<gateway>/v1)"
-
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
-#: src/uagent/setup_cli.py:583
-msgid "Bedrock API key"
-msgstr "Bedrock API 密钥"
-
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
-msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
-msgstr "Bedrock 模型/部署tên(例如 openai.gpt-oss-120b)"
-
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
-#: src/uagent/setup_cli.py:592
-msgid "OpenRouter API key"
-msgstr "OpenRouter API 密钥"
-
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
-#: src/uagent/setup_cli.py:593
-msgid "OpenRouter base URL (optional)"
-msgstr "OpenRouter 基础 URL(可选)"
-
-#: src/uagent/setup_cli.py:114
-msgid "OpenRouter model/deployment name (optional)"
-msgstr "OpenRouter 模型/部署tên(可选)"
-
-#: src/uagent/setup_cli.py:119
-msgid "OpenRouter fallback models (optional, comma-separated)"
-msgstr "OpenRouter 回退模型(可选, 逗号分隔)"
-
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
-msgid "Gemini API key"
-msgstr "Gemini API 密钥"
-
-#: src/uagent/setup_cli.py:124
-msgid "Gemini model name (optional)"
-msgstr "Gemini 模型tên(可选)"
-
-#: src/uagent/setup_cli.py:127
-msgid "Vertex AI API key"
-msgstr "Vertex AI API 密钥"
-
-#: src/uagent/setup_cli.py:128
-msgid "Vertex AI project ID (optional)"
-msgstr "Vertex AI 项目 ID(可选)"
-
-#: src/uagent/setup_cli.py:129
-msgid "Vertex AI location/region (optional)"
-msgstr "Vertex AI 位置/区域(可选)"
-
-#: src/uagent/setup_cli.py:133
-msgid "Google credentials for Vertex AI (optional)"
-msgstr "Thông tin xác thực Google cho Vertex AI (không bắt buộc)"
-
-#: src/uagent/setup_cli.py:138
-msgid "Google location/region for Vertex AI (optional)"
-msgstr "Vị trí/khu vực Google cho Vertex AI (không bắt buộc)"
-
-#: src/uagent/setup_cli.py:140
-msgid "Vertex AI model/deployment name"
-msgstr "Vertex AI 模型/部署tên"
-
-#: src/uagent/setup_cli.py:143
-msgid "Grok API key"
-msgstr "Grok API 密钥"
-
-#: src/uagent/setup_cli.py:144
-msgid "Grok base URL (optional)"
-msgstr "Grok 基础 URL(可选)"
-
-#: src/uagent/setup_cli.py:145
-msgid "Grok model/deployment name (optional)"
-msgstr "Grok 模型/部署tên(可选)"
-
-#: src/uagent/setup_cli.py:148
-msgid "Claude API key"
-msgstr "Claude API 密钥"
-
-#: src/uagent/setup_cli.py:149
-msgid "Claude model/deployment name (optional)"
-msgstr "Claude 模型/部署tên(可选)"
-
-#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
-#: src/uagent/setup_cli.py:607
-msgid "NVIDIA API key"
-msgstr "NVIDIA API 密钥"
-
-#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
-#: src/uagent/setup_cli.py:608
-msgid "NVIDIA base URL (optional)"
-msgstr "NVIDIA 基础 URL(可选)"
-
-#: src/uagent/setup_cli.py:154
-msgid "NVIDIA model/deployment name (optional)"
-msgstr "NVIDIA 模型/部署tên(可选)"
-
-#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
-msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
-msgstr "Ollama 基础 URL(例如 http://localhost:11434/v1)"
-
-#: src/uagent/setup_cli.py:165
-msgid "Ollama API key (optional, default: dummy)"
-msgstr "Ollama API 密钥(可选, mặc định: dummy)"
-
-#: src/uagent/setup_cli.py:167
-msgid "Ollama model/deployment name (optional)"
-msgstr "Ollama 模型/部署tên(可选)"
-
-#: src/uagent/setup_cli.py:171
-msgid "Ollama request timeout in seconds (default: 60)"
-msgstr "Ollama Vui lòng求超时(秒, mặc định值: 60)"
-
-#: src/uagent/setup_cli.py:173
-msgid "Ollama temperature (default: 0.7)"
-msgstr "Ollama 温度(mặc định值: 0.7)"
-
-#: src/uagent/setup_cli.py:174
-msgid "Ollama top_p (default: 0.9)"
-msgstr "Ollama top_p(mặc định值: 0.9)"
-
-#: src/uagent/setup_cli.py:175
-msgid "Ollama top_k (default: 40)"
-msgstr "Ollama top_k(mặc định值: 40)"
-
-#: src/uagent/setup_cli.py:179
-msgid "Ollama repeat_penalty (default: 1.1)"
-msgstr "Ollama 重复惩罚(mặc định值: 1.1)"
-
-#: src/uagent/setup_cli.py:181
-msgid "Ollama keep_alive (default: 5m)"
-msgstr "Ollama 保持存活时间(mặc định值: 5m)"
-
-#: src/uagent/setup_cli.py:182
-msgid "Ollama num_ctx (default: 8192)"
-msgstr "Ollama 上下文长度(mặc định值: 8192)"
-
-#: src/uagent/setup_cli.py:183
-msgid "Ollama num_predict (default: 1024)"
-msgstr "Ollama 预测长度(mặc định值: 1024)"
-
-#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
-msgid "Enter number:"
-msgstr "Nhập số:"
-
-#: src/uagent/setup_cli.py:358
-msgid "Invalid input. Please enter a valid number."
-msgstr "Dữ liệu nhập không hợp lệ. Vui lòng nhập một số hợp lệ."
-
-#: src/uagent/setup_cli.py:371
-#, python-format
-msgid " [default: %(default)s]"
-msgstr " [mặc định值: %(default)s]"
-
-#: src/uagent/setup_cli.py:387
-msgid "This field is required. Please enter a value."
-msgstr "此字段为必填项.Vui lòngnhập一个值."
-
-#: src/uagent/setup_cli.py:399
-msgid "Select UAGENT_LANG"
-msgstr "chọn UAGENT_LANG"
-
-#: src/uagent/setup_cli.py:410
-msgid "UAGENT_LANG (custom)"
-msgstr "UAGENT_LANG(自定义)"
-
-#: src/uagent/setup_cli.py:423
-msgid "Select output files to generate in the current directory"
-msgstr "chọn要在当前thư mụctạo的输出tệp"
-
-#: src/uagent/setup_cli.py:424
-msgid "  1. .env only"
-msgstr " 1. 仅 .env"
-
-#: src/uagent/setup_cli.py:425
-msgid "  2. .env + env.sh"
-msgstr "  2. .env + env.sh (Unix/Linux)"
-
-#: src/uagent/setup_cli.py:426
-msgid "  3. .env + env.ps1"
-msgstr "  3. .env + env.ps1 (PowerShell)"
-
-#: src/uagent/setup_cli.py:427
-msgid "  4. .env + env.bat"
-msgstr "  4. .env + env.bat (Windows)"
-
-#: src/uagent/setup_cli.py:428
-msgid "  5. .env + all (sh/ps1/bat)"
-msgstr " 5. .env + 全部(sh/ps1/bat)"
-
-#: src/uagent/setup_cli.py:430
-msgid "  b. back"
-msgstr "  b. quay lại"
-
-#: src/uagent/setup_cli.py:431
-msgid "  q. quit"
-msgstr "  q. thoát"
-
-#: src/uagent/setup_cli.py:449
-msgid "Invalid input. Please enter 1-5, or b/q."
-msgstr "nhậpkhông hợp lệ.Vui lòngnhập 1-5, 或 b/q."
-
-#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
-msgid "Azure API version (e.g. 2024-05-01-preview)"
-msgstr "Azure API 版本(例如 2024-05-01-preview)"
-
-#: src/uagent/setup_cli.py:484
-msgid "OpenAI model/deployment name"
-msgstr "OpenAI 模型/部署tên"
-
-#: src/uagent/setup_cli.py:504
-msgid "OpenRouter model/deployment name"
-msgstr "OpenRouter 模型/部署tên"
-
-#: src/uagent/setup_cli.py:509
-msgid "Gemini model name"
-msgstr "Gemini 模型tên"
-
-#: src/uagent/setup_cli.py:515
-msgid "NVIDIA model/deployment name"
-msgstr "NVIDIA 模型/部署tên"
-
-#: src/uagent/setup_cli.py:534
-msgid "Enable image generation debug output? (0/1)"
-msgstr "Select provider"
-
-#: src/uagent/setup_cli.py:568
-msgid "Azure embedding deployment name"
-msgstr "Tên triển khai Azure cho embedding"
-
-#: src/uagent/setup_cli.py:574
-msgid "OpenAI embedding model/deployment name"
-msgstr "Tên mô hình/triển khai OpenAI cho embedding"
-
-#: src/uagent/setup_cli.py:587
-msgid "Bedrock embedding model/deployment name"
-msgstr "Tên mô hình/triển khai Bedrock cho embedding"
-
-#: src/uagent/setup_cli.py:594
-msgid "OpenRouter embedding model/deployment name"
-msgstr "Tên mô hình/triển khai OpenRouter cho embedding"
-
-#: src/uagent/setup_cli.py:603
-msgid "Ollama embedding model name"
-msgstr "Tên mô hình Ollama cho embedding"
-
-#: src/uagent/setup_cli.py:609
-msgid "NVIDIA embedding model/deployment name"
-msgstr "Tên mô hình/triển khai NVIDIA cho embedding"
-
-#: src/uagent/setup_cli.py:613
-msgid "Gemini embedding API key"
-msgstr "Khóa API embedding của Gemini"
-
-#: src/uagent/setup_cli.py:617
-msgid "Gemini embedding model name (e.g. text-embedding-004)"
-msgstr "Tên mô hình embedding của Gemini (vd. text-embedding-004)"
-
-#: src/uagent/setup_cli.py:622
-msgid "Vertex AI embedding API key"
-msgstr "Khóa API embedding của Vertex AI"
-
-#: src/uagent/setup_cli.py:626
-msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
-msgstr "Tên mô hình embedding của Vertex AI (vd. text-embedding-004)"
-
-#: src/uagent/setup_cli.py:675
-msgid "Azure speech deployment name"
-msgstr "Tên triển khai Azure Speech"
-
-#: src/uagent/setup_cli.py:676
-msgid "Azure transcription deployment name"
-msgstr "Tên triển khai phiên âm Azure"
-
-#: src/uagent/setup_cli.py:677
-msgid "OpenAI speech model/deployment name"
-msgstr "Tên mô hình/triển khai OpenAI Speech"
-
-#: src/uagent/setup_cli.py:678
-msgid "OpenAI transcription model/deployment name"
-msgstr "Tên mô hình/triển khai phiên âm OpenAI"
-
-#: src/uagent/setup_cli.py:679
-msgid "Gemini speech model name (optional)"
-msgstr "tên mô hình giọng nói Gemini (không bắt buộc)"
-
-#: src/uagent/setup_cli.py:680
-msgid "Gemini transcription model name (optional)"
-msgstr "tên mô hình phiên âm Gemini (không bắt buộc)"
-
-#: src/uagent/setup_cli.py:681
-msgid "Vertex AI speech model name (optional)"
-msgstr "tên mô hình giọng nói Vertex AI (không bắt buộc)"
-
-#: src/uagent/setup_cli.py:682
-msgid "Vertex AI transcription model name (optional)"
-msgstr "tên mô hình phiên âm Vertex AI (không bắt buộc)"
-
-#: src/uagent/setup_cli.py:705
-msgid "Configure optional image / embedding / audio settings?"
-msgstr "Optional image / embedding settings"
-
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
-msgid "No"
-msgstr "否"
-
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
-msgid "Yes"
-msgstr "是"
-
-#: src/uagent/setup_cli.py:720
-msgid "Configure image analysis settings?"
-msgstr "配置图像分析đặt？"
-
-#: src/uagent/setup_cli.py:731
-msgid "Select image analysis provider"
-msgstr "chọn图像分析提供方"
-
-#: src/uagent/setup_cli.py:752
-msgid "Configure image generation settings?"
-msgstr "配置图像tạođặt？"
-
-#: src/uagent/setup_cli.py:763
-msgid "Select image generation provider"
-msgstr "Select provider"
-
-#: src/uagent/setup_cli.py:783
-msgid "Open generated images automatically?"
-msgstr "自动打开tạo的图像？"
-
-#: src/uagent/setup_cli.py:799
-msgid "Configure embedding / semantic search settings?"
-msgstr "配置 embedding / 语义搜索đặt？"
-
-#: src/uagent/setup_cli.py:825
-msgid "Select embedding provider"
-msgstr "Chọn nhà cung cấp embedding"
-
-#: src/uagent/setup_cli.py:854
-msgid "Configure audio speech / transcription settings?"
-msgstr "Cấu hình cài đặt giọng nói / phiên âm âm thanh?"
-
-#: src/uagent/setup_cli.py:873
-msgid "Select audio speech provider"
-msgstr "Chọn nhà cung cấp tổng hợp giọng nói"
-
-#: src/uagent/setup_cli.py:893
-msgid "Select audio transcribe provider"
-msgstr "Chọn nhà cung cấp phiên âm âm thanh"
-
-#: src/uagent/setup_cli.py:913
-msgid "Open generated audio automatically?"
-msgstr "Tự động mở âm thanh đã tạo?"
-
-#: src/uagent/setup_cli.py:980
-msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
-msgstr "可选: Responses API(Azure/OpenAI/Bedrock)"
-
-#: src/uagent/setup_cli.py:993
-msgid "Optional runtime"
-msgstr "可选运行时"
-
-#: src/uagent/setup_cli.py:1007
-msgid "Optional image / embedding / audio settings"
-msgstr "可选图像 / embedding đặt"
-
-#: src/uagent/setup_cli.py:1149
-msgid "Optional specialized sub-agent settings"
-msgstr "Cài đặt tùy chọn cho phụ tá chuyên biệt"
-
-#: src/uagent/setup_cli.py:1158
-msgid "Encrypt the generated .env file?"
-msgstr "加密tạo的 .env tệp？"
-
-#: src/uagent/setup_cli.py:1164
-#, python-format
-msgid "Encrypted file will be written as %(path)s"
-msgstr "加密后的tệp将写入 %(path)s"
-
-#: src/uagent/setup_cli.py:1180
-msgid "Select provider"
-msgstr "chọn提供方"
-
-#: src/uagent/setup_cli.py:1219
-msgid "Enable Responses API options?"
-msgstr "启用 Responses API 选项？"
-
-#: src/uagent/setup_cli.py:1235
-msgid "Select reasoning"
-msgstr "chọnsuy luận"
-
-#: src/uagent/setup_cli.py:1254
-msgid "Select verbosity"
-msgstr "chọnmức độ chi tiết"
-
-#: src/uagent/setup_cli.py:1273
-msgid "Set optional runtime UAGENT_WORKDIR?"
-msgstr "đặt可选运行时 UAGENT_WORKDIR？"
-
-#: src/uagent/setup_cli.py:1300
-msgid "Set optional runtime UAGENT_LANG?"
-msgstr "đặt可选运行时 UAGENT_LANG？"
-
-#: src/uagent/setup_cli.py:1321
-msgid "Enable streaming?"
-msgstr "Bật phát trực tuyến?"
-
-#: src/uagent/setup_cli.py:1362
-msgid "Summary"
-msgstr "摘要"
-
-#: src/uagent/setup_cli.py:1363
-#, python-format
-msgid "  Provider: %(provider)s"
-msgstr " 提供方: %(provider)s"
-
-#: src/uagent/setup_cli.py:1370
-#, python-format
-msgid "  Responses enabled: %(state)s"
-msgstr " Đã bật Responses: %(state)s"
-
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
-msgid "yes"
-msgstr "是"
-
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
-msgid "no"
-msgstr "否"
-
-#: src/uagent/setup_cli.py:1377
-#, python-format
-msgid "  Streaming enabled: %(state)s"
-msgstr "  Phát trực tuyến đã bật: %(state)s"
-
-#: src/uagent/setup_cli.py:1393
-#, python-format
-msgid "  Optional extras enabled: %(state)s"
-msgstr " Đã bật可选附加功能: %(state)s"
-
-#: src/uagent/setup_cli.py:1398
-#, python-format
-msgid "  Image analysis enabled: %(state)s"
-msgstr " Đã bật图像分析: %(state)s"
-
-#: src/uagent/setup_cli.py:1406
-#, python-format
-msgid "  Image generation enabled: %(state)s"
-msgstr " Đã bật图像tạo: %(state)s"
-
-#: src/uagent/setup_cli.py:1417
-#, python-format
-msgid "  Embedding enabled: %(state)s"
-msgstr " Đã bật embedding: %(state)s"
-
-#: src/uagent/setup_cli.py:1427
-#, python-format
-msgid "  Outputs: %(outputs)s"
-msgstr " 输出: %(outputs)s"
-
-#: src/uagent/setup_cli.py:1430
-msgid "Generate files with this configuration?"
-msgstr "使用此配置tạotệp？"
-
-#: src/uagent/setup_cli.py:1431
-msgid "Yes, generate"
-msgstr "是, tạo"
-
-#: src/uagent/setup_cli.py:1431
-msgid "Back"
-msgstr "返回"
-
-#: src/uagent/setup_cli.py:1455
-msgid "The following files already exist and will be overwritten:"
-msgstr "以下tệp已存在, 将被覆盖: "
-
-#: src/uagent/setup_cli.py:1459
-msgid "Proceed?"
-msgstr "继续？"
-
-#: src/uagent/setup_cli.py:1483
-msgid "Plain .env file removed after encryption."
-msgstr "加密后已xóa明文 .env tệp."
-
-#: src/uagent/setup_cli.py:1486
-#, python-format
-msgid "Warning: Failed to remove plain .env: %(error)s"
-msgstr "cảnh báo: Không thểxóa明文 .env: %(error)s"
-
-#: src/uagent/setup_cli.py:1505
-#, python-format
-msgid "generated: %(path)s"
-msgstr "已tạo: %(path)s"
-
-#: src/uagent/uagent_llm.py:129
-#, python-format
-msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
-msgstr "[CẢNH BÁO] 工具轮次已超过 %(max)d; 正在中止."
-
-#: src/uagent/util_providers.py:243
-msgid "Environment variable UAGENT_PROVIDER is not set."
-msgstr "biến môi trường UAGENT_PROVIDER 未đặt."
-
-#: src/uagent/util_providers.py:259
-#, python-format
-msgid "Unknown provider: %(provider)s"
-msgstr "未知提供方: %(provider)s"
-
-#: src/uagent/util_providers.py:544 src/uagent/util_providers.py:570
-msgid "google-genai package is not installed."
-msgstr "Chưa cài đặt google-genai 包."
-
-#: src/uagent/util_tools.py:181
-#, python-format
-msgid "image file not found: %(path)s"
-msgstr "không tìm thấy tệp ảnh: %(path)s"
-
-#: src/uagent/util_tools.py:186
-#, python-format
-msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr "tệp ảnh quá lớn: %(size)d byte (giới hạn=%(max)d)"
-
-#: src/uagent/util_tools.py:210
-msgid ""
-"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
-"current directory."
-msgstr ""
-"指定thư mục làm việc.未đặt时, 使用 UAGENT_WORKDIR biến môi trường或当前thư mục."
-
-#: src/uagent/util_tools.py:217
-msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the"
-" startup file (if any)."
-msgstr "非交互chế độ.不要启动 stdin 循环; 处理tệp khởi động(如果有)后thoát."
-
-#: src/uagent/util_tools.py:355
-msgid "invalid reasoning"
-msgstr "reasoning không hợp lệ"
-
-#: src/uagent/util_tools.py:373
-msgid "invalid verbosity"
-msgstr "mức độ chi tiết không hợp lệ"
-
-#: src/uagent/util_tools.py:547
-#, python-format
-msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-msgstr "[logs] Đối số không hợp lệ: %(arg)r (chỉ định all / --all / -a / số)"
-
-#: src/uagent/util_tools.py:586
-#, python-format
-msgid "failed to parse arguments: %(err)s"
-msgstr "không phân tích được tham số: %(err)s"
-
-#: src/uagent/util_tools.py:589
-msgid "missing arguments"
-msgstr "thiếu tham số"
-
-#: src/uagent/util_tools.py:605
-msgid "src and dst are required"
-msgstr "cần src và dst"
-
-#: src/uagent/util_tools.py:973
-msgid ""
-"[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
-"If the skill contains tasks, continue until they are complete.\n"
-"Use tools as needed.\n"
-msgstr ""
-"[Thực thi skill]\n"
-"Skill này предназнач intended to be run. Hãy đọc kỹ nội dung skill và làm theo hướng dẫn.\n"
-"Nếu skill có nhiệm vụ, hãy tiếp tục cho đến khi hoàn thành.\n"
-"Sử dụng công cụ khi cần.\n"
-
-#: src/uagent/util_tools.py:980
-msgid "When finished, always call `finish_skill` if available.\n"
-msgstr "Khi hoàn tất, luôn gọi `finish_skill` nếu có.\n"
-
-#: src/uagent/util_tools.py:1132
-msgid ""
-"Select a skill number to run. Enter c to cancel.\n"
-"Tip: :skills clear  (remove applied skills)\n"
-"Enter number:"
-msgstr ""
-"Chọn số skill để chạy. Nhập c để hủy.\n"
-"Gợi ý: :skills clear  (xóa các skill đã áp dụng)\n"
-"Nhập số:"
-
-#: src/uagent/util_tools.py:1168
-#, python-format
-msgid ""
-"Run this skill as a system-level instruction and keep it active in this session?\n"
-"\n"
-"Name: %(name)s\n"
-"Path: %(path)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"Run this skill as a system-level instruction and keep it active in this "
-"session?\\n\\nName: %(name)s\\nPath: %(path)s\\n\\nProceed? Enter y to run, "
-"or c to cancel."
-
-#: src/uagent/util_tools.py:1230
-#, python-format
-msgid ""
-"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
-"%(default)d)"
-msgstr ""
-"[clean] Đối số không hợp lệ: %(arg)r (chỉ định number=threshold; mặc định là"
-" %(default)d)"
-
-#: src/uagent/util_tools.py:1279
-#, python-format
-msgid ""
-"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
-"Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
-"Targets: %(n)d\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"sẽ xóa các tệp nhật ký hội thoại (scheck_log_*.jsonl) khỏi đĩa.\n"
-"Thư mục log: %(dir)s\n"
-"Quy tắc: tổng số tin nhắn user/assistant/tool, không tính system <= %(threshold)d\n"
-"Mục tiêu: %(n)d\n"
-"\n"
-"Tiếp tục? Nhập y để chạy, hoặc c để hủy."
-
-#: src/uagent/util_tools.py:1347
-#, python-format
-msgid " - (%(count)d msgs) %(path)s"
-msgstr " - (%(count)d tin nhắn) %(path)s"
-
-#: src/uagent/util_tools.py:1391
-#, python-format
-msgid ""
-"will overwrite the current session log file and prepend the loaded log (no backup).\n"
-"\n"
-"Current log: %(cur_log)s\n"
-"Source log: %(src_log)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"sẽ ghi đè tệp nhật ký phiên hiện tại và chèn nhật ký đã tải lên trước (không sao lưu).\n"
-"\n"
-"Log hiện tại: %(cur_log)s\n"
-"Log nguồn: %(src_log)s\n"
-"\n"
-"Tiếp tục? Nhập y để chạy, hoặc c để hủy."
-
-#: src/uagent/util_tools.py:1522
-#, python-brace-format
-msgid ""
-"Delete {count} path(s)?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Enter y to proceed, or c to cancel."
-msgstr ""
-"Xóa {count} đường dẫn?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Nhập y để tiếp tục, hoặc c để hủy."
-
-#: src/uagent/util_tools.py:1577
-#, python-format
-msgid "Specified index %(idx)d is out of range."
-msgstr "Chỉ mục %(idx)d đã chỉ định vượt phạm vi."
-
-#: src/uagent/util_tools.py:1586
-#, python-format
-msgid "Log file not found: %(path)s"
-msgstr "Không tìm thấy tệp log: %(path)s"
-
-#: src/uagent/util_tools.py:1669
-#, python-format
-msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr ""
-"[lỗi shrink] Không thể phân tích thành số nguyên: %(arg)r -> giữ %(keep)d "
-"giá trị cuối"
-
-#: src/uagent/util_tools.py:1697
-#, python-format
-msgid ""
-"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-
-#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
-msgid ""
-"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
-"set)."
-msgstr ""
-"Chưa bật bộ nhớ dài hạn dùng chung (chưa đặt UAGENT_SHARED_MEMORY_FILE)."
-
-#: src/uagent/util_tools.py:1787
-msgid "Analyzing past logs to generate user profile..."
-msgstr "Đang phân tích nhật ký trước đó để tạo hồ sơ người dùng..."
-
-#: src/uagent/util_tools.py:1791
-msgid "No past logs found or failed to generate profile."
-msgstr "Không tìm thấy nhật ký trước đó hoặc không thể tạo hồ sơ."
-
-#: src/uagent/util_tools.py:1793
-#, fuzzy
-msgid "User profile generated successfully from past logs!"
-msgstr "Hồ sơ người dùng đã được xóa thành công."
-
-#: src/uagent/util_tools.py:1805
-msgid "No user profile data found."
-msgstr "Không tìm thấy dữ liệu hồ sơ người dùng."
-
-#: src/uagent/util_tools.py:1808
-msgid "User Profile:"
-msgstr "Hồ sơ người dùng:"
-
-#: src/uagent/util_tools.py:1820
-msgid "User profile cleared successfully."
-msgstr "Hồ sơ người dùng đã được xóa thành công."
-
-#: src/uagent/util_tools.py:1824
-msgid "No user profile file found to clear."
-msgstr "Không tìm thấy tệp hồ sơ người dùng để xóa."
-
-#: src/uagent/util_tools.py:1888
-msgid "Show this help"
-msgstr "Hiển thị trợ giúp này"
-
-#: src/uagent/util_tools.py:1889
-msgid "Restart input from the beginning"
-msgstr "Nhập lại từ đầu"
-
-#: src/uagent/util_tools.py:1890
-msgid "Show log file list"
-msgstr "Hiển thị danh sách tệp log"
-
-#: src/uagent/util_tools.py:1893
-msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
-":cd /)"
-msgstr ""
-"Đổi thư mục làm việc mà không cần xác nhận (ví dụ: :cd .. / :cd ~ / :cd "
-"C:\\path / :cd /)"
-
-#: src/uagent/util_tools.py:1896
-msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
-msgstr "Liệt kê mục trong thư mục (ví dụ: :ls / :ls .. / :ls ~ / :ls C:\\path)"
-
-#: src/uagent/util_tools.py:1899
-msgid "Manage UAGENT_* env vars and save .env.sec"
-msgstr "Quản lý các biến môi trường UAGENT_* và lưu .env.sec"
-
-#: src/uagent/util_tools.py:1901
-msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
-msgstr ""
-"Quản lý/áp dụng skill (ví dụ: :skills / :skills active / :skills clear)"
-
-#: src/uagent/util_tools.py:1906
-msgid "Load a past log (overwrites current conversation history)"
-msgstr "Tải log trước đó (ghi đè lịch sử hội thoại hiện tại)"
-
-#: src/uagent/util_tools.py:1908
-msgid ""
-"                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current session "
-"log file (overwrite, no backup)."
-msgstr ""
-"                       Lưu ý: sau khi chạy, bạn sẽ được yêu cầu xác nhận; "
-"chọn 'y' sẽ chèn log đã tải vào đầu tệp log của phiên hiện tại (ghi đè, "
-"không sao lưu)."
-
-#: src/uagent/util_tools.py:1912
-msgid ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of "
-"user/assistant/tool messages (excluding system) is <= N (default=10)"
-msgstr ""
-"Xóa log hội thoại (scheck_log_*.jsonl) khi số tin nhắn user/assistant/tool "
-"(không tính system) <= N (mặc định=10)"
-
-#: src/uagent/util_tools.py:1916
-msgid ""
-"Shrink conversation history (keep last N non-system messages; default=40)"
-msgstr ""
-"Thu gọn lịch sử hội thoại (giữ N tin nhắn không phải system gần nhất; mặc "
-"định=40)"
-
-#: src/uagent/util_tools.py:1920
-msgid ""
-"Shrink history via LLM summarization (summarize older history into 1 system "
-"message; keep last N raw; default=20)"
-msgstr ""
-"Thu gọn lịch sử bằng tóm tắt LLM (tóm tắt phần lịch sử cũ thành 1 tin nhắn "
-"system; giữ N tin nhắn thô gần nhất; mặc định=20)"
-
-#: src/uagent/util_tools.py:1922
-msgid "List long-term memory notes"
-msgstr "Danh sách ghi nhớ dài hạn:"
-
-#: src/uagent/util_tools.py:1924
-msgid "Delete a long-term memory note by index (see :mem-list)"
-msgstr "Xóa một ghi chú ghi nhớ dài hạn theo chỉ mục (xem :mem-list)"
-
-#: src/uagent/util_tools.py:1926
-#, fuzzy
-msgid "Show the learned user profile, or generate it from past logs"
-msgstr "Hiển thị hồ sơ người dùng đã học (môi trường, sở thích, ràng buộc)"
-
-#: src/uagent/util_tools.py:1927
-#, fuzzy
-msgid "Generate user profile from past logs"
-msgstr "Không tìm thấy dữ liệu hồ sơ người dùng."
-
-#: src/uagent/util_tools.py:1928
-msgid "Clear the learned user profile data"
-msgstr "Xóa dữ liệu hồ sơ người dùng đã học"
-
-#: src/uagent/util_tools.py:1930
-msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "Sao chép tệp hoặc thư mục (hỗ trợ -f/--overwrite và -p/--mkdirs)"
-
-#: src/uagent/util_tools.py:1932
-msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "Di chuyển tệp hoặc thư mục (hỗ trợ -f/--overwrite và -p/--mkdirs)"
-
-#: src/uagent/util_tools.py:1934
-msgid "Show the first n lines of a file (default=20)"
-msgstr "Hiển thị n dòng đầu tiên của tệp (mặc định=20)"
-
-#: src/uagent/util_tools.py:1935
-msgid "Show the last n lines of a file (default=20)"
-msgstr "Hiển thị n dòng cuối cùng của tệp (mặc định=20)"
-
-#: src/uagent/util_tools.py:1937
-msgid "Delete file(s)/directory(ies) with preview + confirm"
-msgstr "Xóa tệp/thư mục với xem trước + xác nhận"
-
-#: src/uagent/util_tools.py:1939
-msgid ""
-"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-msgstr ""
-"Đặt chế độ suy luận (0=tắt, 1=thấp, 2=trung bình, 3=cao; auto/minimal/xhigh)"
-
-#: src/uagent/util_tools.py:1941
-msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-"Đặt mức độ chi tiết (0=tắt, 1=thấp, 2=trung bình, 3=cao; không có đối số=giữ"
-" nguyên)"
-
-#: src/uagent/util_tools.py:1942
-msgid "Exit"
-msgstr "Thoát"
-
-#: src/uagent/util_tools.py:1945
-msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-msgstr "  - Nhập một dòng chỉ là 'f' để vào chế độ nhập nhiều dòng."
-
-#: src/uagent/util_tools.py:1947
-#, python-format
-msgid ""
-"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-msgstr ""
-"  - Để kết thúc chế độ nhập nhiều dòng, nhập một dòng đúng bằng "
-"%(sentinel)s."
-
-#: src/uagent/util_tools.py:2183
-msgid "Exiting."
-msgstr "Đang thoát."
-
-#: src/uagent/util_tools.py:2186
-#, python-format
-msgid "Unknown command: :%(cmd)s"
-msgstr "Lệnh không xác định: :%(cmd)s"
-
-#: src/uagent/util_tools.py:2337
-msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
-"\n"
-msgstr ""
-"Các gạch đầu dòng bên dưới là trích đoạn từ các ghi chú bộ nhớ dài hạn (persistent memos) của người dùng. Hãy dùng chúng làm thông tin nền về người dùng. Tuy nhiên, luôn ưu tiên thông tin mới được cung cấp trong cuộc trò chuyện, và nếu nó mâu thuẫn với thông tin cũ hơn, hãy áp dụng thông tin mới nhất.\n"
-"\n"
-"\n"
-
-#: src/uagent/web.py:534
-msgid ""
-"[WARN] Another task is already running in this room. Please retry after it "
-"completes."
-msgstr ""
-"[WARN] Đã có một tác vụ khác đang chạy trong phòng này. Vui lòng thử lại sau"
-" khi tác vụ đó hoàn tất."
-
-#: src/uagent/web.py:626 src/uagent/web.py:748
-msgid ""
-"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
-"Please check environment variables when starting the web server."
-msgstr ""
-"[FATAL] Biến môi trường UAGENT_PROVIDER chưa được đặt.\n"
-"Vui lòng kiểm tra các biến môi trường khi khởi động máy chủ web."
-
-#: src/uagent/web.py:664
-#, python-format
-msgid "[Attached Image] %(name)s"
-msgstr "[Ảnh đính kèm] %(name)s"
-
-#: src/uagent/web.py:669
-#, python-format
-msgid "[Attached File] %(name)s"
-msgstr "[Tệp đính kèm] %(name)s"
-
-#: src/uagent/web.py:670
-#, python-format
-msgid "[File Path] %(path)s"
-msgstr "[Đường dẫn tệp] %(path)s"
-
-#: src/uagent/web.py:698
-msgid "[INFO] Loaded long-term memory."
-msgstr "[INFO] Đã tải bộ nhớ dài hạn."
-
-#: src/uagent/web.py:710
-msgid "[INFO] Loaded shared long-term memory."
-msgstr "[INFO] Đã tải bộ nhớ dài hạn dùng chung."
-
-#: src/uagent/web.py:745
-#, python-format
-msgid ""
-"[FATAL] Web worker error.\n"
-"%(err)s"
-msgstr ""
-"[FATAL] Lỗi worker web.\n"
-"%(err)s"
-
-#: src/uagent/web.py:882
-msgid "missing path"
-msgstr "thiếu đường dẫn"
-
-#: src/uagent/web.py:889
-msgid "path outside workdir"
-msgstr "đường dẫn nằm ngoài thư mục làm việc"
-
-#: src/uagent/web.py:1051
-msgid "Starting server on"
-msgstr "Đang khởi động máy chủ trên"
-
-#: src/uagent/web.py:1053
-msgid "External URL:"
-msgstr "URL bên ngoài:"
-
-#: src/uagent/welcome.py:29
-msgid ""
-"[MCP Servers]\n"
-"- Config file not found."
-msgstr "[MCP Servers]\\n- Config file not found."
-
-#: src/uagent/welcome.py:36
-msgid ""
-"[MCP Servers]\n"
-"- No servers registered."
-msgstr "[MCP Servers]\\n- No servers registered."
-
-#: src/uagent/welcome.py:38
-msgid "[MCP Servers]"
-msgstr "[Máy chủ MCP]"
-
-#: src/uagent/welcome.py:45
-#, python-format
-msgid ""
-"[MCP Servers]\n"
-"- Failed to get info: %(err)s"
-msgstr "[MCP Servers]\\n- Failed to get info: %(err)s"
-
-#: src/uagent/welcome.py:64
-msgid "[Quick Guide]"
-msgstr "[快速指南]"
-
-#: src/uagent/welcome.py:65
-msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- 聊天: nhậpthông báo并发送(GUI 中也可使用 Ctrl+Enter)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \\\\"
-
-#: src/uagent/welcome.py:70
-msgid ""
-"- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
-"(slash)."
-msgstr ""
-"- Lệnh: gõ ':help' để xem các lệnh hệ thống (quản lý nhật ký, nén lịch sử, "
-"v.v.). Lưu ý: các lệnh bắt đầu bằng dấu hai chấm ':' thay vì dấu gạch chéo "
-"'/'."
-
-#: src/uagent/welcome.py:72
-msgid "- Exit: ':exit' or ':quit' ends the session."
-msgstr "- thoát: 使用 ':exit' 或 ':quit' 结束phiên."
-
-#: src/uagent/welcome.py:74
-msgid ""
-"- Images: GUI supports drag & drop; in CUI you can input a file path for "
-"image analysis."
-msgstr "- 图像: GUI 支持拖放; 在 CUI 中可nhậptệpđường dẫn进行图像分析."
-
-#: src/uagent/welcome.py:77
-#, python-format
-msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
-"Inspector help (`--path/--open` also available)."
-msgstr ""
-"- Docs: `%(docs_cmd)s` hiển thị tài liệu đi kèm; `%(webinspect_cmd)s` hiển "
-"thị trợ giúp Web Inspector (`--path/--open` cũng có sẵn)."
-
-#: src/uagent/welcome.py:81
-msgid "[Examples]"
-msgstr "[示例]"
-
-#: src/uagent/welcome.py:82
-msgid "- \"Analyze the source code in this folder and create a README.md.\""
-msgstr "- \"分析此tệp夹中的源代码并创建 README.md.\""
-
-#: src/uagent/welcome.py:84
-msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window"
-" contents.\""
-msgstr "- \"截取当前桌面的屏幕截图并描述可见窗口内容.\""
-
-#: src/uagent/welcome.py:86
-msgid "- \"Create a monthly summary report from this Excel file.\""
-msgstr "- \"根据此 Excel tệp创建每月摘要报告.\""
-
-#: src/uagent/welcome.py:87
-msgid "- \"Read this PDF and list three key points.\""
-msgstr "- \"阅读此 PDF 并列出三个要点.\""
-
-#: src/uagent/welcome.py:88
-msgid "- \"Search the latest news and summarize a specific topic.\""
-msgstr "- \"搜索最新新闻并总结一个特定主题.\""
-
-#: src/uagent/welcome.py:193
-msgid "-- More -- (Enter: next) "
-msgstr "-- Thêm nữa -- (Enter: tiếp) "
-
-#: src/uagent/a2a/engine.py:125
-msgid "No assistant message produced."
-msgstr "Không tạo ra thông điệp nào từ trợ lý."
-
-#: src/uagent/a2a/engine.py:137
-msgid "Generated image(s)."
-msgstr "Đã tạo ảnh."
-
-#: src/uagent/a2a/engine.py:150
-#, python-format
-msgid "ECHO: %(text)s"
-msgstr "đầu ra: %(text)s"
-
-#: src/uagent/a2a/engine.py:165
-#, python-format
-msgid "uagent initialization failed: %(err)s"
-msgstr "khởi tạo uagent thất bại: %(err)s"
-
-#: src/uagent/a2a/engine.py:177
-#, python-format
-msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr "thực thi uagent thất bại: %(etype)s: %(err)s"
-
-#: src/uagent/a2a/engine.py:188
-#, python-format
-msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
-msgstr "未知的 UAGENT_A2A_ENGINE: %(mode)s"
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-08 18:40+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:17 src/uagent/checks.py:27
+#, python-format
+msgid "Please install Git. See: %(url)s"
+msgstr "Vui lòng cài đặt Git. Xem: %(url)s"
+
+#: src/uagent/checks.py:20
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Vui lòng cài đặt Git. Ví dụ: sudo apt install git (Ubuntu/Debian) hoặc sudo "
+"yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:23
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Vui lòng cài đặt Git. Nếu dùng Homebrew: brew install git, hoặc cài đặt "
+"Xcode Command Line Tools: xcode-select --install"
+
+#: src/uagent/checks.py:30
+msgid "[ERROR] Git is not installed."
+msgstr "[LỖI] Git chưa được cài đặt."
+
+#: src/uagent/cli.py:397
+msgid "getch() fallback to input()"
+msgstr "getch() chuyển sang input() làm phương án dự phòng"
+
+#: src/uagent/cli.py:604
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Đã nhận Ctrl+C. Đang bắt đầu tắt..."
+
+#: src/uagent/cli.py:636 src/uagent/cli.py:706
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(多行nhậpchế độ: Vui lòng用多行nhập正文; 要重新bắt đầu, Vui lòngnhập \"\"\"retry; 以包含 "
+"%(sentinel)s 的一行结束)"
+
+#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
+#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
+#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
+#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
+#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
+#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
+#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
+#: src/uagent/setup_cli.py:1462
+msgid "Cancelled."
+msgstr "Đã hủy."
+
+#: src/uagent/cli.py:672 src/uagent/cli.py:722
+msgid "Discarded previous input. Please start over."
+msgstr "Đã bỏ nhập trước đó. Vui lòng bắt đầu lại."
+
+#: src/uagent/cli.py:683
+msgid "Received multiline reply."
+msgstr "Đã nhận câu trả lời nhiều dòng."
+
+#: src/uagent/cli.py:841
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"在您的nhập中找到了图像tệpđường dẫn.\n"
+"是否将这些图像发送给 LLM(外部 API)进行分析？\n"
+"\n"
+
+#: src/uagent/cli.py:847
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "Trả lời y để gửi, hoặc n (hay c/cancel) để bỏ qua việc gửi."
+
+#: src/uagent/cli.py:865
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr "Xác nhận gửi ảnh thất bại; sẽ không gửi ảnh: %(etype)s: %(err)s"
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Không thể đính kèm ảnh: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:930
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Kiểu sự kiện không xác định kind=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:948
+msgid "Exited uag."
+msgstr "Đã thoát uag."
+
+#: src/uagent/cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "[docs] cần có tên"
+
+#: src/uagent/cli_startup.py:22
+msgid ""
+"Select tool genres to enable at startup.\n"
+"1: comm  - Communication (Teams, Discord, etc.)\n"
+"2: office - Office suite (Excel, Word, etc.)\n"
+"4: devel  - Development (lint, py_compile, test, etc.)\n"
+"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
+msgstr ""
+"Chọn các thể loại công cụ để bật khi khởi động.\n"
+"1: comm  - Giao tiếp (Teams, Discord, v.v.)\n"
+"2: office - Bộ ứng dụng văn phòng (Excel, Word, v.v.)\n"
+"4: devel  - Phát triển (lint, py_compile, test, v.v.)\n"
+"Nhập tổng các giá trị (ví dụ: 3 = comm + office, 7 = tất cả, hoặc nhấn Enter để bật tất cả):"
+
+#: src/uagent/cli_startup.py:96
+#, python-format
+msgid "[WARN] Failed to apply startup tool selection: %(err)s"
+msgstr "[WARN] Không thể áp dụng lựa chọn công cụ khởi động: %(err)s"
+
+#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Không thể đặt thư mục làm việc: %(err)s"
+
+#: src/uagent/cli_startup.py:202
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Không thể khởi chạy uag_setup: %(err)s"
+
+#: src/uagent/cli_startup.py:243
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "nhà cung cấp = %(provider)s; mô hình = %(model)s"
+
+#: src/uagent/cli_startup.py:255 src/uagent/scheckgui.py:296
+msgid "OpenRouter fallback models enabled."
+msgstr "Đã bật các mô hình dự phòng của OpenRouter."
+
+#: src/uagent/cli_startup.py:259
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "thư mục làm việc hiện tại = %(cwd)s"
+
+#: src/uagent/cli_startup.py:273 src/uagent/scheckgui.py:307
+msgid "Loaded long-term memory."
+msgstr "Đã tảibộ nhớ dài hạn."
+
+#: src/uagent/cli_startup.py:286 src/uagent/scheckgui.py:320
+msgid "Loaded shared long-term memory."
+msgstr "Đã tảibộ nhớ dài hạn dùng chung."
+
+#: src/uagent/cli_startup.py:293 src/uagent/web.py:718
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "[WARN] Đã xảy ra ngoại lệ khi tải bộ nhớ dài hạn dùng chung: %(err)s"
+
+#: src/uagent/cli_startup.py:327
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[WARN] Không thể đọc tệp khởi động: %(path)s (%(err)s)"
+
+#: src/uagent/cli_startup.py:341
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "Đã cung cấp tệp khởi động: %(path)s"
+
+#: src/uagent/cli_startup.py:364
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "Đã chỉ định --non-interactive; thoát mà không chờ stdin."
+
+#: src/uagent/core.py:286 src/uagent/core.py:307
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "Biến môi trường %(name)s chưa được đặt."
+
+#: src/uagent/core.py:607
+msgid "No log files found."
+msgstr "Không tìm thấy日志tệp."
+
+#: src/uagent/core.py:625
+msgid "(unknown time)"
+msgstr "(thời gian không xác định)"
+
+#: src/uagent/core.py:628
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "日志: hiển thị %(shown)d/%(total)d(thư mục=%(dir)s)"
+
+#: src/uagent/core.py:631
+msgid "Log files:"
+msgstr "日志tệp: "
+
+#: src/uagent/core.py:638
+msgid "(mtime unknown)"
+msgstr "(không rõ thời gian sửa đổi)"
+
+#: src/uagent/core.py:756 src/uagent/core.py:759
+msgid "(no user message)"
+msgstr "(không có tin nhắn của người dùng)"
+
+#: src/uagent/core.py:764
+#, python-format
+msgid ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | %(turns)d tin nhắn | đầu: %(first_user)s | cuối: "
+"%(last_user)s"
+
+#: src/uagent/core.py:896
+#, python-format
+msgid ""
+"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
+msgstr ""
+"[WARN] Đang loại bỏ thông báo công cụ mồ côi: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
+
+#: src/uagent/core.py:994
+#, python-format
+msgid ""
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
+msgstr "[INFO] Có %(count)d tin nhắn cần nén, nên không có gì thay đổi."
+
+#: src/uagent/core.py:1004
+#, python-format
+msgid ""
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+msgstr ""
+"[INFO] Đã nén lịch sử hội thoại trong bộ nhớ: %(old_n)d -> %(new_n)d tin "
+"nhắn (keep_last=%(keep_last)d)"
+
+#: src/uagent/core.py:1215
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr "Đã đạt giới hạn thử lại 429 (%(max_retries)s) trong khi nén lịch sử."
+
+#: src/uagent/core.py:1225
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "Lỗi khi gọi LLM để nén lịch sử: %(err)r"
+
+#: src/uagent/core.py:1258
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr "- Tóm tắt phân đoạn hội thoại bằng tiếng Anh.\n"
+
+#: src/uagent/core.py:1260
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr ""
+"- Giữ tóm tắt ngắn gọn nhưng bao gồm các quyết định chính, ràng buộc và các "
+"mục đang chờ xử lý.\n"
+
+#: src/uagent/core.py:1262
+msgid "- Output should be directly usable as a system message."
+msgstr "- Đầu ra phải có thể sử dụng trực tiếp làm tin nhắn hệ thống."
+
+#: src/uagent/core.py:1265
+msgid "Conversation chunk:\n"
+msgstr "Phân đoạn hội thoại:\n"
+
+#: src/uagent/core.py:1267
+msgid "Write a concise summary of this chunk."
+msgstr "Viết một tóm tắt ngắn gọn về phân đoạn này."
+
+#: src/uagent/core.py:1271
+msgid "- You are updating an existing conversation summary.\n"
+msgstr "- Bạn đang cập nhật một tóm tắt hội thoại hiện có.\n"
+
+#: src/uagent/core.py:1272
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr "- Giữ lại các sự thật quan trọng từ tóm tắt trước đó.\n"
+
+#: src/uagent/core.py:1274
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr ""
+"- Trộn phân đoạn mới vào mà không làm mất các ràng buộc, quyết định hoặc các"
+" mục đang chờ xử lý.\n"
+
+#: src/uagent/core.py:1276
+msgid "- Keep the result concise and suitable for a system message."
+msgstr "- Giữ kết quả ngắn gọn và phù hợp làm tin nhắn hệ thống."
+
+#: src/uagent/core.py:1279
+msgid "Previous summary:\n"
+msgstr "Tóm tắt trước đó:\n"
+
+#: src/uagent/core.py:1281
+msgid "New chunk:\n"
+msgstr "Phân đoạn mới:\n"
+
+#: src/uagent/core.py:1283
+msgid "Update the summary while keeping the prior context intact."
+msgstr "Cập nhật tóm tắt trong khi vẫn giữ nguyên bối cảnh trước đó."
+
+#: src/uagent/core.py:1304
+msgid "Summary of the conversation so far:\n"
+msgstr "Tóm tắt cuộc hội thoại cho đến nay:\n"
+
+#: src/uagent/core.py:1311
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+"[INFO] shrink_llm: {old_n} -> {new_n} tin nhắn (đã nén {old_part_n} tin nhắn"
+" cũ hơn thành 1 tóm tắt; giữ lại {tail_n} tin nhắn cuối)"
+
+#: src/uagent/core.py:1339
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[WARN] Nén lịch sử đã chạm giới hạn ngữ cảnh ngay cả khi chunk_size=1; quay "
+"về shrink_messages()."
+
+#: src/uagent/core.py:1349
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr ""
+"[WARN] Không thể giảm chunk_size thêm nữa khi nén lịch sử; quay về "
+"shrink_messages()."
+
+#: src/uagent/core.py:1357
+#, python-format
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"[WARN] Độ dài ngữ cảnh khi nén lịch sử đã vượt quá giới hạn; thử lại với "
+"chunk_size=%(chunk_size)d"
+
+#: src/uagent/core.py:1382
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help (trợ giúp不khả dụng: %(err)s)"
+
+#: src/uagent/core.py:1394
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Nhiệm vụ\n"
+"- Bạn là một \"tác tử thực thi công cụ đa năng\" đang chạy trên môi trường cục bộ, và có thể thực sự thực thi lệnh cũng như thao tác với tệp trên máy của người dùng.\n"
+"- Hãy hỏi người dùng để xác nhận trước khi thực hiện bất kỳ thao tác nguy hiểm nào.\n"
+"- Không tâng bốc người dùng. Không dùng biểu tượng cảm xúc.\n"
+"- Không tóm tắt. Hãy giữ thông tin ngắn gọn.\n"
+"- Khi tạo tệp, hãy xuất đầy đủ nội dung cuối cùng (không xuất diff hoặc tóm tắt một phần).\n"
+"\n"
+
+#: src/uagent/core.py:1403
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Quy tắc\n"
+"- Luôn dùng các công cụ được cung cấp và xác minh thông tin mới nhất.\n"
+"- Hãy sáng tạo, nhưng không xuất thông tin không chắc chắn.\n"
+"- Hãy tham khảo các công cụ có sẵn và chọn công cụ phù hợp nhất.\n"
+"- Khi thực thi công cụ, hãy để người dùng quyết định ít nhất có thể.\n"
+"\n"
+
+#: src/uagent/core.py:1410
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Ghi chú\n"
+"- Tất cả tin nhắn của người dùng đi qua đầu vào chuẩn của script này.\n"
+"- Với mục đích/tham số/ràng buộc/chi tiết vận hành riêng của từng công cụ, hãy ưu tiên mô tả của chính công cụ đó.\n"
+"- Nếu bạn cần thêm thông tin hoặc xác nhận từ người dùng, hãy dùng công cụ human_ask.\n"
+"- Khi xử lý các biểu thức ngày tương đối, hãy gọi get_current_time để tham chiếu thời gian hiện tại.\n"
+"- Không lưu bí mật (mật khẩu/token) vào bộ nhớ dài hạn (add_long_memory, v.v.).\n"
+"- Các tệp có hậu tố như .org / .org1 / .org2 là bản sao lưu và không được coi là tệp chính để chỉnh sửa.\n"
+"- Nếu bạn tạo tệp Python, hãy chạy `python -m py_compile` để kiểm tra cú pháp.\n"
+"- Nếu cần kiến thức ở mức chuyên gia, hãy dùng các mẫu prompt (Agent Skills) và làm theo chúng.\n"
+"- Nếu đầu vào của người dùng chỉ là một xác nhận ngắn và không thêm thông tin mới, đừng lặp lại cùng một lời giải thích trừ khi đó là câu trả lời trực tiếp cho câu hỏi rõ ràng ngay trước đó. Nếu cần, hãy hỏi ngắn gọn: \"Tôi nên tiếp tục từ điểm nào?\"\n"
+
+#: src/uagent/core.py:1422
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr ""
+"## Chính sách thao tác nguy hiểm (delete_file)\n"
+"- Khi xóa bằng công cụ delete_file, KHÔNG hỏi xác nhận trước khi xem trước.\n"
+"- Luôn chạy delete_file với dry_run=true trước để lấy danh sách các mục sẽ bị xóa.\n"
+"- Hiển thị các mục đó cho người dùng và chỉ hỏi xác nhận qua human_ask đúng một lần.\n"
+"- Chỉ khi người dùng trả lời rõ ràng \"y\" hoặc \"yes\" (hoặc đồng ý rõ ràng tương đương), hãy chạy lại delete_file với cùng tham số, dry_run=false, và confirmed=true.\n"
+"- Nếu không có mục nào, không hỏi; chỉ báo rằng sẽ không có gì bị xóa.\n"
+"\n"
+
+#: src/uagent/core.py:1430
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## 任务\n"
+"- 你是一个在本地环境中运行的“通用工具执行代理”; 你可以执行命令并操作用户的机器.\n"
+"- 在进行任何危险操作之前, 先向用户xác nhận.\n"
+"- 不要奉承.不要使用表情符号.不要总结对话.保持简洁.\n"
+"- 创建tệp时, 输出完整的最终内容(不要输出 diff 或部分摘要).\n"
+
+#: src/uagent/core.py:1438
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## 规则\n"
+"- 先使用提供的工具, 并用工具验证结果.\n"
+"- 查阅工具描述中的用途/参数/约束; chọn最合适且最安全的工具.\n"
+"- 可以有创意, 但不要输出不确定的信息.\n"
+"- 尽量少把决策交给用户.\n"
+
+#: src/uagent/core.py:1445
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Ghi chú\n"
+"- Tất cả tin nhắn của người dùng đi qua đầu vào chuẩn của script này.\n"
+"- Nếu thiếu thông tin/tham số cần thiết, hãy hỏi qua human_ask (đừng đoán).\n"
+"- Khi xử lý các biểu thức ngày tương đối, hãy gọi get_current_time.\n"
+"- Không lưu bí mật (mật khẩu/token) vào bộ nhớ dài hạn.\n"
+"- Các tệp có hậu tố như .org / .org1 / .org2 là bản sao lưu và không được coi là tệp chính để chỉnh sửa.\n"
+"- Nếu bạn tạo tệp Python, hãy chạy `python -m py_compile`.\n"
+"- Nếu cần kiến thức ở mức chuyên gia, hãy dùng các mẫu prompt của Agent Skills.\n"
+"- Nếu đầu vào của người dùng chỉ là một xác nhận ngắn và không thêm thông tin mới, đừng lặp lại cùng một lời giải thích trừ khi đó là câu trả lời trực tiếp cho câu hỏi rõ ràng ngay trước đó. Nếu cần, hãy hỏi ngắn gọn: \"Tôi nên tiếp tục từ điểm nào?\"\n"
+
+#: src/uagent/core.py:1458
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr ""
+"- Nếu người dùng dùng Windows cmd.exe, hãy ưu tiên lệnh nhiều dòng bằng ký tự caret (^) để nối dòng, và giữ mỗi dòng ngắn để tránh lỗi ngắt dòng khi sao chép/dán.\n"
+"\n"
+
+#: src/uagent/core.py:1525
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr "当前phiên中Đã tải以下工具.Vui lòngchọn最适合该任务的工具."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "项目 README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "快速入门(Windows wheel 安装)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Web Inspector(playwright_inspector)指南"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "开发者信息"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "未知文档名: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "Không tìm thấytệp tài liệu: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "文档đường dẫn解析thất bại: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] khả dụng文档: "
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "用法: "
+
+#: src/uagent/docs_util.py:232
+msgid "list"
+msgstr "danh sách"
+
+#: src/uagent/docs_util.py:233
+msgid "show"
+msgstr "hiển thị"
+
+#: src/uagent/docs_util.py:234
+msgid "show path"
+msgstr "hiển thị đường dẫn"
+
+#: src/uagent/docs_util.py:235
+msgid "open with OS"
+msgstr "mở bằng HĐH"
+
+#: src/uagent/env_validate.py:42
+msgid ""
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+msgstr ""
+"Cần để chọn nhà cung cấp LLM "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+
+#: src/uagent/env_validate.py:63
+#, python-format
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+"Nhà cung cấp không xác định: %(provider)r. Được phép: %(allowed)s (khởi động"
+" có thể thất bại)."
+
+#: src/uagent/env_validate.py:74
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+"Điểm cuối/URL cơ sở Azure OpenAI (ví dụ: "
+"https://<resource>.openai.azure.com/)."
+
+#: src/uagent/env_validate.py:80
+msgid "Azure OpenAI API key."
+msgstr "Khóa API Azure OpenAI."
+
+#: src/uagent/env_validate.py:85
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr "Phiên bản API Azure OpenAI (ví dụ: 2024-xx-xx)."
+
+#: src/uagent/env_validate.py:92
+msgid "OpenAI API key."
+msgstr "Khóa API OpenAI."
+
+#: src/uagent/env_validate.py:98
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr "Điểm cuối/URL cơ sở của proxy Bedrock (tương thích OpenAI)."
+
+#: src/uagent/env_validate.py:105
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr "Khóa API proxy Bedrock (tương thích OpenAI)."
+
+#: src/uagent/env_validate.py:112
+msgid "OpenRouter API key."
+msgstr "Khóa API OpenRouter."
+
+#: src/uagent/env_validate.py:117
+msgid "Grok (xAI) API key."
+msgstr "Khóa API Grok (xAI)."
+
+#: src/uagent/env_validate.py:122
+msgid "Gemini API key."
+msgstr "Khóa API Gemini."
+
+#: src/uagent/env_validate.py:129
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+"Gói Python 'google-genai' chưa được cài đặt. Nhà cung cấp gemini cần gói "
+"này."
+
+#: src/uagent/env_validate.py:140
+msgid "Vertex AI API key / model name."
+msgstr "Khóa API Vertex AI / tên mô hình."
+
+#: src/uagent/env_validate.py:149
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+"Gói Python 'google-genai' chưa được cài đặt. Nhà cung cấp vertexai cần gói "
+"này."
+
+#: src/uagent/env_validate.py:157
+msgid "Anthropic (Claude) API key."
+msgstr "Khóa API Anthropic (Claude)."
+
+#: src/uagent/env_validate.py:165
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+"Gói Python 'anthropic' chưa được cài đặt. Nhà cung cấp claude cần gói này."
+
+#: src/uagent/env_validate.py:172
+msgid "NVIDIA API key."
+msgstr "Khóa API NVIDIA."
+
+#: src/uagent/env_validate.py:190
+#, python-format
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+"Nhà cung cấp embedding không xác định: %(provider)r. Được phép: %(allowed)s "
+"(khởi động có thể thất bại)."
+
+#: src/uagent/env_validate.py:207
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr ""
+"Điểm cuối embedding Azure / khóa API / phiên bản API / tên triển khai."
+
+#: src/uagent/env_validate.py:218
+msgid "OpenAI embedding API key / model name."
+msgstr "Khóa API embedding OpenAI / tên mô hình."
+
+#: src/uagent/env_validate.py:230
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr "Điểm cuối embedding Bedrock / khóa API / tên triển khai."
+
+#: src/uagent/env_validate.py:241
+msgid "OpenRouter embedding API key / model name."
+msgstr "Khóa API embedding OpenRouter / tên mô hình."
+
+#: src/uagent/env_validate.py:252
+msgid "Ollama embedding base URL / model name."
+msgstr "URL cơ sở embedding Ollama / tên mô hình."
+
+#: src/uagent/env_validate.py:263
+msgid "NVIDIA embedding API key / model name."
+msgstr "Khóa API embedding NVIDIA / tên mô hình."
+
+#: src/uagent/env_validate.py:274
+msgid "Gemini embedding API key / model name."
+msgstr "Khóa API / tên mô hình embedding của Gemini."
+
+#: src/uagent/env_validate.py:285
+msgid "Vertex AI embedding API key / model name."
+msgstr "Khóa API / tên mô hình embedding của Vertex AI."
+
+#: src/uagent/env_validate.py:302
+#, python-brace-format
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] Xác thực môi trường thất bại ({context})."
+
+#: src/uagent/env_validate.py:310
+msgid "Missing required environment variables:"
+msgstr "Thiếu biến môi trường bắt buộc:"
+
+#: src/uagent/env_validate.py:317
+msgid "Warnings:"
+msgstr "Cảnh báo:"
+
+#: src/uagent/env_validate.py:321
+msgid "How to fix:"
+msgstr "Cách khắc phục:"
+
+#: src/uagent/env_validate.py:324
+msgid ""
+"- Set the variables above in your environment before starting the program."
+msgstr ""
+"- Hãy đặt các biến ở trên trong môi trường của bạn trước khi khởi động "
+"chương trình."
+
+#: src/uagent/env_validate.py:330
+msgid ""
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
+msgstr ""
+"- Bạn có thể đặt chúng qua cài đặt biến môi trường của hệ điều hành, tệp "
+".env, các script khởi động của shell,"
+
+#: src/uagent/env_validate.py:336
+msgid ""
+"  or your process manager / service configuration (CI secrets, systemd, "
+"Docker, etc.)."
+msgstr ""
+"  hoặc cấu hình trình quản lý tiến trình / dịch vụ của bạn (secrets CI, "
+"systemd, Docker, v.v.)."
+
+#: src/uagent/gemini_cache_mgr.py:131
+msgid "invalid cache meta"
+msgstr "缓存元数据không hợp lệ"
+
+#: src/uagent/image_session.py:101
+msgid "(prompt unavailable)"
+msgstr "(không có prompt)"
+
+#: src/uagent/image_session.py:105
+#, python-format
+msgid "screenshot: %(title)s"
+msgstr "ảnh chụp màn hình: %(title)s"
+
+#: src/uagent/image_session.py:107
+msgid "screenshot"
+msgstr "ảnh chụp màn hình"
+
+#: src/uagent/image_session.py:148
+msgid "Image-session context:"
+msgstr "Ngữ cảnh phiên hình ảnh:"
+
+#: src/uagent/image_session.py:149
+msgid "This conversation already generated images."
+msgstr "Cuộc hội thoại này đã tạo ảnh rồi."
+
+#: src/uagent/image_session.py:151
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"Hãy dùng các prompt trước đó và đường dẫn tệp đã lưu bên dưới làm ngữ cảnh "
+"cho chỉnh sửa tiếp, biến thể hoặc tiếp tục."
+
+#: src/uagent/image_session.py:156
+#, python-format
+msgid "Turn %(idx)d:"
+msgstr "Lượt %(idx)d:"
+
+#: src/uagent/image_session.py:157
+#, python-format
+msgid "- prompt: %(prompt)s"
+msgstr "- lời nhắc: %(prompt)s"
+
+#: src/uagent/image_session.py:160
+#, python-format
+msgid "- file: %(path)s"
+msgstr "- tệp: %(path)s"
+
+#: src/uagent/llm_claude.py:143 src/uagent/util_providers.py:610
+msgid "anthropic package is not installed."
+msgstr "Chưa cài đặt anthropic 包."
+
+#: src/uagent/llm_errors.py:398
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr ""
+"[限流] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+
+#: src/uagent/llm_flow_helpers.py:205
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+"Phản hồi trước đó của trợ lý trống. Hãy trả lời dựa trên kết quả công cụ gần"
+" đây nhất."
+
+#: src/uagent/llm_flow_helpers.py:218
+#, python-format
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+msgstr ""
+"[WARN] LLM đã trả về một tin nhắn trợ lý trống mà không có lệnh gọi công cụ.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"Điều này có thể xảy ra với các nhà cung cấp cục bộ tương thích OpenAI sau khi gọi công cụ. Bạn có thể thử đặt UAGENT_EMPTY_NO_TOOL_MAX thành giá trị cao hơn, hoặc chuyển nhà cung cấp."
+
+#: src/uagent/llm_flow_helpers.py:265
+msgid "arguments must be a JSON object."
+msgstr "tham số phải là một đối tượng JSON."
+
+#: src/uagent/llm_flow_helpers.py:272
+#, python-format
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[lỗi tham số công cụ] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+
+#: src/uagent/llm_flow_helpers.py:298
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr ""
+"[INFO] Đang tái sử dụng kết quả trước đó vì lần gọi công cụ này khớp với một"
+" lần trước đó.\n"
+
+#: src/uagent/llm_flow_helpers.py:313
+#, python-format
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[lỗi khi chạy công cụ] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+
+#: src/uagent/llm_gemini.py:556
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr "Không thể nhập google-genai (cần cài bằng pip install google-genai)."
+
+#: src/uagent/llm_gemini.py:1115
+msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
+msgstr "[Lỗi Gemini: Phản hồi bị chặn bởi bộ lọc an toàn hoặc lý do kết thúc]"
+
+#: src/uagent/llm_gemini.py:1117
+#, python-format
+msgid "[Gemini Error: %(err)s]"
+msgstr "[Lỗi Gemini: %(err)s]"
+
+#: src/uagent/llm_image_helpers.py:7
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr ""
+"Hãy mô tả ảnh chụp màn hình này và tóm tắt giao diện người dùng hiển thị."
+
+#: src/uagent/llm_image_helpers.py:11
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr ""
+"Hãy đọc toàn bộ văn bản hiển thị trong ảnh chụp màn hình này và tóm tắt lại."
+
+#: src/uagent/llm_image_helpers.py:15
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr ""
+"Hãy kiểm tra ảnh chụp màn hình này để tìm lỗi, cảnh báo và trạng thái UI "
+"quan trọng."
+
+#: src/uagent/llm_message_helpers.py:155
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] shrink_llm tự động thất bại: %(err)s"
+
+#: src/uagent/llm_openai_responses.py:69
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr ""
+"[WARN] Lịch sử trợ lý chứa nội dung hình ảnh; đã chuyển thành văn bản."
+
+#: src/uagent/llm_openai_responses.py:92
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[WARN] nội dung hình ảnh không hợp lệ (thiếu url)."
+
+#: src/uagent/llm_openai_responses.py:100
+#: src/uagent/llm_openai_responses.py:109
+#, python-format
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[WARN] mục nội dung không được hỗ trợ: %(item)r"
+
+#: src/uagent/llm_openai_responses.py:444
+msgid "Sources:"
+msgstr "Nguồn:"
+
+#: src/uagent/llm_openai_responses.py:507
+msgid "search"
+msgstr "tìm kiếm"
+
+#: src/uagent/llm_openai_responses.py:509
+msgid "open page"
+msgstr "mở trang"
+
+#: src/uagent/llm_openai_responses.py:511
+msgid "find in page"
+msgstr "tìm trong trang"
+
+#: src/uagent/llm_openai_responses.py:512
+msgid "web search"
+msgstr "tìm kiếm web"
+
+#: src/uagent/llm_openai_responses.py:526
+msgid "Web search: searching"
+msgstr "Tìm kiếm web: đang tìm"
+
+#: src/uagent/llm_openai_responses.py:528
+msgid "Web search: completed"
+msgstr "Tìm kiếm web: hoàn tất"
+
+#: src/uagent/llm_openai_responses.py:530
+#, python-brace-format
+msgid "Web search: {action}"
+msgstr "Tìm kiếm web: {action}"
+
+#: src/uagent/llm_openai_responses.py:587
+#, python-brace-format
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[Quy tắc gọi công cụ]\n"
+"        - Khi gọi một công cụ/hàm, bạn PHẢI truyền function_call.arguments dưới dạng một đối tượng JSON.\n"
+"        - Đối tượng JSON PHẢI bao gồm tất cả tham số bắt buộc do lược đồ công cụ xác định.\n"
+"        - Không bao giờ gọi công cụ bằng một đối tượng rỗng {} nếu công cụ có tham số bắt buộc.\n"
+"        - Nếu bạn không có một tham số bắt buộc, hãy hỏi người dùng bằng human_ask thay vì đoán.\n"
+"        "
+
+#: src/uagent/llm_openai_responses.py:594
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[Quy tắc tìm kiếm web]\n"
+"        - Chỉ dùng tìm kiếm web khi cần thông tin mới hoặc thông tin bên ngoài.\n"
+"        - Không dùng tìm kiếm web cho thông tin cục bộ hoặc thông tin ổn định.\n"
+"        - Nếu câu trả lời đã đủ, hãy ưu tiên trả lời mà không dùng tìm kiếm web.\n"
+"        "
+
+#: src/uagent/llm_round_helpers.py:133
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[lỗi dịch] %(diag)s"
+
+#: src/uagent/llm_round_helpers.py:192 src/uagent/llm_round_helpers.py:302
+#: src/uagent/llm_round_helpers.py:636
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "Đã đạt giới hạn thử lại 429 (%(max_retries)s)."
+
+#: src/uagent/llm_round_helpers.py:216
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Lỗi Gemini] Đã xảy ra lỗi khi tạo phản hồi."
+
+#: src/uagent/llm_round_helpers.py:308
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Lỗi Claude] Đã xảy ra lỗi khi tạo phản hồi."
+
+#: src/uagent/llm_round_helpers.py:600
+msgid "Input exceeds the context window."
+msgstr "Đầu vào vượt quá cửa sổ ngữ cảnh."
+
+#: src/uagent/llm_round_helpers.py:610
+msgid "Connection error"
+msgstr "Lỗi kết nối"
+
+#: src/uagent/llm_round_helpers.py:615
+msgid "[Network Error]"
+msgstr "[Lỗi mạng]"
+
+#: src/uagent/llm_round_helpers.py:642
+msgid "Unexpected exception."
+msgstr "Ngoại lệ không mong muốn."
+
+#: src/uagent/llm_round_helpers.py:720
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Lỗi khi phân tích phản hồi: %(err)s"
+
+#: src/uagent/profile_manager.py:482 src/uagent/profile_manager.py:600
+msgid ""
+"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
+"1. Environment (OS, shell, editor, etc.)\n"
+"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
+"3. Constraints (security rules, offline requirements, etc.)\n"
+"\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+msgstr ""
+"Bạn là một tác nhân lập hồ sơ người dùng. Hãy phân tích nhật ký hội thoại và trích xuất các thông tin sau của người dùng:\n"
+"1. Môi trường (OS, shell, trình soạn thảo, v.v.)\n"
+"2. Sở thích (phong cách lập trình, công cụ ưa thích, mức độ chi tiết mong muốn, v.v.)\n"
+"3. Ràng buộc (quy tắc bảo mật, yêu cầu làm việc ngoại tuyến, v.v.)\n"
+"\n"
+"Không bao gồm các câu hỏi tạm thời, trò chuyện xã giao, hoặc thông tin xác thực nhạy cảm.\n"
+"Bạn PHẢI chỉ trả lời bằng một đối tượng JSON hợp lệ khớp với lược đồ này:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+
+#: src/uagent/profile_manager.py:586
+msgid "Failed to initialize LLM client."
+msgstr "Không thể khởi tạo khách hàng LLM."
+
+#: src/uagent/profile_manager.py:591
+#, python-format
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr ""
+"Đã tìm thấy %(total_files)d tệp nhật ký. Đang bắt đầu lập hồ sơ tăng dần..."
+
+#: src/uagent/runtime_banner.py:231
+msgid "embedding"
+msgstr "nhúng vector"
+
+#: src/uagent/runtime_banner.py:232
+msgid "audio speech"
+msgstr "tổng hợp giọng nói"
+
+#: src/uagent/runtime_banner.py:233
+msgid "audio transcribe"
+msgstr "phiên âm âm thanh"
+
+#: src/uagent/runtime_banner.py:234
+msgid "image generation"
+msgstr "tạo ảnh"
+
+#: src/uagent/runtime_banner.py:235
+msgid "image analysis"
+msgstr "phân tích ảnh"
+
+#: src/uagent/runtime_banner.py:254
+#, python-format
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] thư mục làm việc = %(workdir)s (nguồn: %(source)s)"
+
+#: src/uagent/runtime_banner.py:262 src/uagent/runtime_banner.py:276
+#: src/uagent/runtime_banner.py:281 src/uagent/runtime_banner.py:293
+#: src/uagent/runtime_banner.py:305 src/uagent/runtime_banner.py:314
+#: src/uagent/runtime_banner.py:323
+#, python-format
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] URL cơ sở = %(base_url)s"
+
+#: src/uagent/runtime_banner.py:270
+#, python-format
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] phiên bản API = %(api_version)s"
+
+#: src/uagent/runtime_banner.py:332
+#, python-format
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = dự án=%(project)s, vị trí=%(location)s"
+
+#: src/uagent/runtime_banner.py:341
+#, python-format
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; mô hình = %(model)s"
+
+#: src/uagent/runtime_banner.py:368
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"已đặt UAGENT_RESPONSES=1, 但提供方“%(provider)s”不支持 Responses API.将回退到 "
+"ChatCompletions."
+
+#: src/uagent/runtime_banner.py:375
+#, python-format
+msgid "LLM API mode = %(mode)s"
+msgstr "Chế độ LLM API = %(mode)s"
+
+#: src/uagent/runtime_banner.py:378
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Phản hồi (UAGENT_RESPONSES đã bật)"
+
+#: src/uagent/runtime_banner.py:382
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "API gốc Gemini/Vertex AI/Claude (UAGENT_RESPONSES bị bỏ qua)"
+
+#: src/uagent/runtime_banner.py:385
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "ChatCompletions (UAGENT_RESPONSES đã tắt)"
+
+#: src/uagent/runtime_banner.py:393
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "LLM 流式 = %(state)s"
+
+#: src/uagent/runtime_banner.py:394
+msgid "enabled"
+msgstr "đã bật"
+
+#: src/uagent/runtime_banner.py:394
+msgid "disabled"
+msgstr "đã tắt"
+
+#: src/uagent/runtime_env.py:186
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
+"khởi động hiện tại. Cập nhật không? [y/N] "
+
+#: src/uagent/runtime_env.py:202
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
+"khởi động hiện tại. Dùng `uag_envsec` để cập nhật."
+
+#: src/uagent/runtime_env.py:214
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "Đã cập nhật .env.sec: %(path)s"
+
+#: src/uagent/runtime_env.py:218
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[CẢNH BÁO] Không thể cập nhật .env.sec: %(err)s"
+
+#: src/uagent/runtime_env.py:228
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec bị thiếu. Tạo từ các biến môi trường UAGENT_* khi khởi động "
+"hiện tại? [y/N] "
+
+#: src/uagent/runtime_env.py:244
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec bị thiếu. Dùng `uag_envsec` để tạo từ các biến môi trường "
+"UAGENT_* khi khởi động hiện tại."
+
+#: src/uagent/runtime_env.py:254
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr "Đã tạo .env.sec: %(path)s"
+
+#: src/uagent/runtime_env.py:258
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[CẢNH BÁO] Không thể tạo .env.sec: %(err)s"
+
+#: src/uagent/runtime_env.py:289
+#, python-format
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr "[WARN] Không thể kiểm tra đồng bộ .env.sec: %(err)s"
+
+#: src/uagent/runtime_init.py:83
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[WARN] 解密 .env.sec thất bại: %(err)s"
+
+#: src/uagent/runtime_workdir.py:49
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Đường dẫn workdir được chỉ định là một tệp: %(path)s"
+
+#: src/uagent/scheckgui.py:131
+msgid "Drop files/images here"
+msgstr "Kéo và thả tệp/ảnh vào đây"
+
+#: src/uagent/scheckgui.py:169
+msgid "Download"
+msgstr "Tải xuống"
+
+#: src/uagent/scheckgui.py:329
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "Đã xảy ra ngoại lệ khi tải bộ nhớ dài hạn dùng chung: %(err)s"
+
+#: src/uagent/scheckgui.py:382
+#, python-format
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[Tệp đính kèm] %(name)s (%(path)s)"
+
+#: src/uagent/scheckgui.py:467
+#, python-format
+msgid "[Attached Image] %(path)s"
+msgstr "[Ảnh đính kèm] %(path)s"
+
+#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
+#, python-format
+msgid "[Image Path] %(path)s"
+msgstr "[Đường dẫn ảnh] %(path)s"
+
+#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
+msgid "Welcome / Quick Guide"
+msgstr "欢迎 / 快速指南"
+
+#: src/uagent/scheckgui.py:787
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI(极致稳定)"
+
+#: src/uagent/scheckgui.py:842
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ Bạn có thể đính kèm bằng kéo và thả"
+
+#: src/uagent/scheckgui.py:863
+msgid "Attach..."
+msgstr "Đính kèm..."
+
+#: src/uagent/scheckgui.py:868
+msgid "Send"
+msgstr "发送"
+
+#: src/uagent/scheckgui.py:908
+msgid "Help"
+msgstr "trợ giúp"
+
+#: src/uagent/scheckgui.py:923
+msgid "Mode"
+msgstr "chế độ"
+
+#: src/uagent/scheckgui.py:925
+msgid "Reasoning: off"
+msgstr "suy luận: 关闭"
+
+#: src/uagent/scheckgui.py:928
+msgid "Reasoning: auto"
+msgstr "suy luận: 自动"
+
+#: src/uagent/scheckgui.py:930
+msgid "Reasoning: minimal"
+msgstr "suy luận: 最小"
+
+#: src/uagent/scheckgui.py:932
+msgid "Reasoning: low"
+msgstr "suy luận: 低"
+
+#: src/uagent/scheckgui.py:934
+msgid "Reasoning: medium"
+msgstr "suy luận: 中"
+
+#: src/uagent/scheckgui.py:936
+msgid "Reasoning: high"
+msgstr "suy luận: 高"
+
+#: src/uagent/scheckgui.py:939
+msgid "Reasoning: xhigh"
+msgstr "suy luận: 超高"
+
+#: src/uagent/scheckgui.py:944
+msgid "Verbosity: off"
+msgstr "mức độ chi tiết: 关闭"
+
+#: src/uagent/scheckgui.py:946
+msgid "Verbosity: low"
+msgstr "mức độ chi tiết: 低"
+
+#: src/uagent/scheckgui.py:948
+msgid "Verbosity: medium"
+msgstr "mức độ chi tiết: 中"
+
+#: src/uagent/scheckgui.py:950
+msgid "Verbosity: high"
+msgstr "mức độ chi tiết: 高"
+
+#: src/uagent/scheckgui.py:980
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[mode] suy luận=%(mode)s"
+
+#: src/uagent/scheckgui.py:984
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=tắt, 1=thấp, 2=trung bình, 3=cao; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/scheckgui.py:992
+#, python-format
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[chế độ] độ chi tiết=%(mode)s"
+
+#: src/uagent/scheckgui.py:994
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+":v [0|1|2|3]  (0=tắt, 1=thấp, 2=trung bình, 3=cao; không có đối số=giữ "
+"nguyên)"
+
+#: src/uagent/scheckgui.py:1123
+msgid "Enter password..."
+msgstr "Vui lòngnhập密码..."
+
+#: src/uagent/scheckgui.py:1130
+msgid "Enter a message..."
+msgstr "Vui lòngnhậpthông báo..."
+
+#: src/uagent/scheckgui.py:1147
+msgid "Attach files"
+msgstr "Đính kèm tệp"
+
+#: src/uagent/scheckgui.py:1149
+msgid "All Files (*)"
+msgstr "Tất cả tệp (*)"
+
+#: src/uagent/scheckgui.py:1401
+msgid "cannot read image"
+msgstr "không thể đọc ảnh"
+
+#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
+#: src/uagent/scheckgui.py:1627
+msgid "Downloaded to"
+msgstr "Đã tải xuống vào"
+
+#: src/uagent/scheckgui.py:1646
+msgid "Playing"
+msgstr "Đang phát\n"
+
+#: src/uagent/scheckgui.py:1656
+msgid "Stopped"
+msgstr "Đã dừng\n"
+
+#: src/uagent/scheckgui.py:1705
+#, python-format
+msgid "[REPLY] > %(text)s"
+msgstr "[TRẢ LỜI] > %(text)s"
+
+#: src/uagent/scheckgui.py:1713
+#, python-format
+msgid "[USER] %(text)s"
+msgstr "[NGƯỜI DÙNG] %(text)s"
+
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
+#: src/uagent/setup_cli.py:572
+msgid "OpenAI API key"
+msgstr "OpenAI API 密钥"
+
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
+#: src/uagent/setup_cli.py:573
+msgid "OpenAI base URL (optional)"
+msgstr "OpenAI 基础 URL(可选)"
+
+#: src/uagent/setup_cli.py:79
+msgid "OpenAI model/deployment name (optional)"
+msgstr "OpenAI 模型/部署tên(可选)"
+
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:560
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr "Azure 基础 URL(例如 https://<resource>.openai.azure.com/)"
+
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
+#: src/uagent/setup_cli.py:562
+msgid "Azure API key"
+msgstr "Azure API 密钥"
+
+#: src/uagent/setup_cli.py:91
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "Azure API 版本(可选, 例如 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
+msgid "Azure deployment name"
+msgstr "Azure 部署tên"
+
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:581
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "Bedrock 网关基础 URL(例如 https://<gateway>/v1)"
+
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
+#: src/uagent/setup_cli.py:583
+msgid "Bedrock API key"
+msgstr "Bedrock API 密钥"
+
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "Bedrock 模型/部署tên(例如 openai.gpt-oss-120b)"
+
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
+#: src/uagent/setup_cli.py:592
+msgid "OpenRouter API key"
+msgstr "OpenRouter API 密钥"
+
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
+#: src/uagent/setup_cli.py:593
+msgid "OpenRouter base URL (optional)"
+msgstr "OpenRouter 基础 URL(可选)"
+
+#: src/uagent/setup_cli.py:114
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "OpenRouter 模型/部署tên(可选)"
+
+#: src/uagent/setup_cli.py:119
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "OpenRouter 回退模型(可选, 逗号分隔)"
+
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
+msgid "Gemini API key"
+msgstr "Gemini API 密钥"
+
+#: src/uagent/setup_cli.py:124
+msgid "Gemini model name (optional)"
+msgstr "Gemini 模型tên(可选)"
+
+#: src/uagent/setup_cli.py:127
+msgid "Vertex AI API key"
+msgstr "Vertex AI API 密钥"
+
+#: src/uagent/setup_cli.py:128
+msgid "Vertex AI project ID (optional)"
+msgstr "Vertex AI 项目 ID(可选)"
+
+#: src/uagent/setup_cli.py:129
+msgid "Vertex AI location/region (optional)"
+msgstr "Vertex AI 位置/区域(可选)"
+
+#: src/uagent/setup_cli.py:133
+msgid "Google credentials for Vertex AI (optional)"
+msgstr "Thông tin xác thực Google cho Vertex AI (không bắt buộc)"
+
+#: src/uagent/setup_cli.py:138
+msgid "Google location/region for Vertex AI (optional)"
+msgstr "Vị trí/khu vực Google cho Vertex AI (không bắt buộc)"
+
+#: src/uagent/setup_cli.py:140
+msgid "Vertex AI model/deployment name"
+msgstr "Vertex AI 模型/部署tên"
+
+#: src/uagent/setup_cli.py:143
+msgid "Grok API key"
+msgstr "Grok API 密钥"
+
+#: src/uagent/setup_cli.py:144
+msgid "Grok base URL (optional)"
+msgstr "Grok 基础 URL(可选)"
+
+#: src/uagent/setup_cli.py:145
+msgid "Grok model/deployment name (optional)"
+msgstr "Grok 模型/部署tên(可选)"
+
+#: src/uagent/setup_cli.py:148
+msgid "Claude API key"
+msgstr "Claude API 密钥"
+
+#: src/uagent/setup_cli.py:149
+msgid "Claude model/deployment name (optional)"
+msgstr "Claude 模型/部署tên(可选)"
+
+#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
+#: src/uagent/setup_cli.py:607
+msgid "NVIDIA API key"
+msgstr "NVIDIA API 密钥"
+
+#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
+#: src/uagent/setup_cli.py:608
+msgid "NVIDIA base URL (optional)"
+msgstr "NVIDIA 基础 URL(可选)"
+
+#: src/uagent/setup_cli.py:154
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "NVIDIA 模型/部署tên(可选)"
+
+#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "Ollama 基础 URL(例如 http://localhost:11434/v1)"
+
+#: src/uagent/setup_cli.py:165
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "Ollama API 密钥(可选, mặc định: dummy)"
+
+#: src/uagent/setup_cli.py:167
+msgid "Ollama model/deployment name (optional)"
+msgstr "Ollama 模型/部署tên(可选)"
+
+#: src/uagent/setup_cli.py:171
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "Ollama Vui lòng求超时(秒, mặc định值: 60)"
+
+#: src/uagent/setup_cli.py:173
+msgid "Ollama temperature (default: 0.7)"
+msgstr "Ollama 温度(mặc định值: 0.7)"
+
+#: src/uagent/setup_cli.py:174
+msgid "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p(mặc định值: 0.9)"
+
+#: src/uagent/setup_cli.py:175
+msgid "Ollama top_k (default: 40)"
+msgstr "Ollama top_k(mặc định值: 40)"
+
+#: src/uagent/setup_cli.py:179
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama 重复惩罚(mặc định值: 1.1)"
+
+#: src/uagent/setup_cli.py:181
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "Ollama 保持存活时间(mặc định值: 5m)"
+
+#: src/uagent/setup_cli.py:182
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "Ollama 上下文长度(mặc định值: 8192)"
+
+#: src/uagent/setup_cli.py:183
+msgid "Ollama num_predict (default: 1024)"
+msgstr "Ollama 预测长度(mặc định值: 1024)"
+
+#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
+msgid "Enter number:"
+msgstr "Nhập số:"
+
+#: src/uagent/setup_cli.py:358
+msgid "Invalid input. Please enter a valid number."
+msgstr "Dữ liệu nhập không hợp lệ. Vui lòng nhập một số hợp lệ."
+
+#: src/uagent/setup_cli.py:371
+#, python-format
+msgid " [default: %(default)s]"
+msgstr " [mặc định值: %(default)s]"
+
+#: src/uagent/setup_cli.py:387
+msgid "This field is required. Please enter a value."
+msgstr "此字段为必填项.Vui lòngnhập一个值."
+
+#: src/uagent/setup_cli.py:399
+msgid "Select UAGENT_LANG"
+msgstr "chọn UAGENT_LANG"
+
+#: src/uagent/setup_cli.py:410
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG(自定义)"
+
+#: src/uagent/setup_cli.py:423
+msgid "Select output files to generate in the current directory"
+msgstr "chọn要在当前thư mụctạo的输出tệp"
+
+#: src/uagent/setup_cli.py:424
+msgid "  1. .env only"
+msgstr " 1. 仅 .env"
+
+#: src/uagent/setup_cli.py:425
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh (Unix/Linux)"
+
+#: src/uagent/setup_cli.py:426
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1 (PowerShell)"
+
+#: src/uagent/setup_cli.py:427
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat (Windows)"
+
+#: src/uagent/setup_cli.py:428
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr " 5. .env + 全部(sh/ps1/bat)"
+
+#: src/uagent/setup_cli.py:430
+msgid "  b. back"
+msgstr "  b. quay lại"
+
+#: src/uagent/setup_cli.py:431
+msgid "  q. quit"
+msgstr "  q. thoát"
+
+#: src/uagent/setup_cli.py:449
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "nhậpkhông hợp lệ.Vui lòngnhập 1-5, 或 b/q."
+
+#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Azure API 版本(例如 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:484
+msgid "OpenAI model/deployment name"
+msgstr "OpenAI 模型/部署tên"
+
+#: src/uagent/setup_cli.py:504
+msgid "OpenRouter model/deployment name"
+msgstr "OpenRouter 模型/部署tên"
+
+#: src/uagent/setup_cli.py:509
+msgid "Gemini model name"
+msgstr "Gemini 模型tên"
+
+#: src/uagent/setup_cli.py:515
+msgid "NVIDIA model/deployment name"
+msgstr "NVIDIA 模型/部署tên"
+
+#: src/uagent/setup_cli.py:534
+msgid "Enable image generation debug output? (0/1)"
+msgstr "Select provider"
+
+#: src/uagent/setup_cli.py:568
+msgid "Azure embedding deployment name"
+msgstr "Tên triển khai Azure cho embedding"
+
+#: src/uagent/setup_cli.py:574
+msgid "OpenAI embedding model/deployment name"
+msgstr "Tên mô hình/triển khai OpenAI cho embedding"
+
+#: src/uagent/setup_cli.py:587
+msgid "Bedrock embedding model/deployment name"
+msgstr "Tên mô hình/triển khai Bedrock cho embedding"
+
+#: src/uagent/setup_cli.py:594
+msgid "OpenRouter embedding model/deployment name"
+msgstr "Tên mô hình/triển khai OpenRouter cho embedding"
+
+#: src/uagent/setup_cli.py:603
+msgid "Ollama embedding model name"
+msgstr "Tên mô hình Ollama cho embedding"
+
+#: src/uagent/setup_cli.py:609
+msgid "NVIDIA embedding model/deployment name"
+msgstr "Tên mô hình/triển khai NVIDIA cho embedding"
+
+#: src/uagent/setup_cli.py:613
+msgid "Gemini embedding API key"
+msgstr "Khóa API embedding của Gemini"
+
+#: src/uagent/setup_cli.py:617
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr "Tên mô hình embedding của Gemini (vd. text-embedding-004)"
+
+#: src/uagent/setup_cli.py:622
+msgid "Vertex AI embedding API key"
+msgstr "Khóa API embedding của Vertex AI"
+
+#: src/uagent/setup_cli.py:626
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr "Tên mô hình embedding của Vertex AI (vd. text-embedding-004)"
+
+#: src/uagent/setup_cli.py:675
+msgid "Azure speech deployment name"
+msgstr "Tên triển khai Azure Speech"
+
+#: src/uagent/setup_cli.py:676
+msgid "Azure transcription deployment name"
+msgstr "Tên triển khai phiên âm Azure"
+
+#: src/uagent/setup_cli.py:677
+msgid "OpenAI speech model/deployment name"
+msgstr "Tên mô hình/triển khai OpenAI Speech"
+
+#: src/uagent/setup_cli.py:678
+msgid "OpenAI transcription model/deployment name"
+msgstr "Tên mô hình/triển khai phiên âm OpenAI"
+
+#: src/uagent/setup_cli.py:679
+msgid "Gemini speech model name (optional)"
+msgstr "tên mô hình giọng nói Gemini (không bắt buộc)"
+
+#: src/uagent/setup_cli.py:680
+msgid "Gemini transcription model name (optional)"
+msgstr "tên mô hình phiên âm Gemini (không bắt buộc)"
+
+#: src/uagent/setup_cli.py:681
+msgid "Vertex AI speech model name (optional)"
+msgstr "tên mô hình giọng nói Vertex AI (không bắt buộc)"
+
+#: src/uagent/setup_cli.py:682
+msgid "Vertex AI transcription model name (optional)"
+msgstr "tên mô hình phiên âm Vertex AI (không bắt buộc)"
+
+#: src/uagent/setup_cli.py:705
+msgid "Configure optional image / embedding / audio settings?"
+msgstr "Optional image / embedding settings"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "No"
+msgstr "否"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "Yes"
+msgstr "是"
+
+#: src/uagent/setup_cli.py:720
+msgid "Configure image analysis settings?"
+msgstr "配置图像分析đặt？"
+
+#: src/uagent/setup_cli.py:731
+msgid "Select image analysis provider"
+msgstr "chọn图像分析提供方"
+
+#: src/uagent/setup_cli.py:752
+msgid "Configure image generation settings?"
+msgstr "配置图像tạođặt？"
+
+#: src/uagent/setup_cli.py:763
+msgid "Select image generation provider"
+msgstr "Select provider"
+
+#: src/uagent/setup_cli.py:783
+msgid "Open generated images automatically?"
+msgstr "自动打开tạo的图像？"
+
+#: src/uagent/setup_cli.py:799
+msgid "Configure embedding / semantic search settings?"
+msgstr "配置 embedding / 语义搜索đặt？"
+
+#: src/uagent/setup_cli.py:825
+msgid "Select embedding provider"
+msgstr "Chọn nhà cung cấp embedding"
+
+#: src/uagent/setup_cli.py:854
+msgid "Configure audio speech / transcription settings?"
+msgstr "Cấu hình cài đặt giọng nói / phiên âm âm thanh?"
+
+#: src/uagent/setup_cli.py:873
+msgid "Select audio speech provider"
+msgstr "Chọn nhà cung cấp tổng hợp giọng nói"
+
+#: src/uagent/setup_cli.py:893
+msgid "Select audio transcribe provider"
+msgstr "Chọn nhà cung cấp phiên âm âm thanh"
+
+#: src/uagent/setup_cli.py:913
+msgid "Open generated audio automatically?"
+msgstr "Tự động mở âm thanh đã tạo?"
+
+#: src/uagent/setup_cli.py:980
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "可选: Responses API(Azure/OpenAI/Bedrock)"
+
+#: src/uagent/setup_cli.py:993
+msgid "Optional runtime"
+msgstr "可选运行时"
+
+#: src/uagent/setup_cli.py:1007
+msgid "Optional image / embedding / audio settings"
+msgstr "可选图像 / embedding đặt"
+
+#: src/uagent/setup_cli.py:1149
+msgid "Optional specialized sub-agent settings"
+msgstr "Cài đặt tùy chọn cho phụ tá chuyên biệt"
+
+#: src/uagent/setup_cli.py:1158
+msgid "Encrypt the generated .env file?"
+msgstr "加密tạo的 .env tệp？"
+
+#: src/uagent/setup_cli.py:1164
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "加密后的tệp将写入 %(path)s"
+
+#: src/uagent/setup_cli.py:1180
+msgid "Select provider"
+msgstr "chọn提供方"
+
+#: src/uagent/setup_cli.py:1219
+msgid "Enable Responses API options?"
+msgstr "启用 Responses API 选项？"
+
+#: src/uagent/setup_cli.py:1235
+msgid "Select reasoning"
+msgstr "chọnsuy luận"
+
+#: src/uagent/setup_cli.py:1254
+msgid "Select verbosity"
+msgstr "chọnmức độ chi tiết"
+
+#: src/uagent/setup_cli.py:1273
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "đặt可选运行时 UAGENT_WORKDIR？"
+
+#: src/uagent/setup_cli.py:1300
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "đặt可选运行时 UAGENT_LANG？"
+
+#: src/uagent/setup_cli.py:1321
+msgid "Enable streaming?"
+msgstr "Bật phát trực tuyến?"
+
+#: src/uagent/setup_cli.py:1362
+msgid "Summary"
+msgstr "摘要"
+
+#: src/uagent/setup_cli.py:1363
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr " 提供方: %(provider)s"
+
+#: src/uagent/setup_cli.py:1370
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr " Đã bật Responses: %(state)s"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "yes"
+msgstr "是"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "no"
+msgstr "否"
+
+#: src/uagent/setup_cli.py:1377
+#, python-format
+msgid "  Streaming enabled: %(state)s"
+msgstr "  Phát trực tuyến đã bật: %(state)s"
+
+#: src/uagent/setup_cli.py:1393
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr " Đã bật可选附加功能: %(state)s"
+
+#: src/uagent/setup_cli.py:1398
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr " Đã bật图像分析: %(state)s"
+
+#: src/uagent/setup_cli.py:1406
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr " Đã bật图像tạo: %(state)s"
+
+#: src/uagent/setup_cli.py:1417
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr " Đã bật embedding: %(state)s"
+
+#: src/uagent/setup_cli.py:1427
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr " 输出: %(outputs)s"
+
+#: src/uagent/setup_cli.py:1430
+msgid "Generate files with this configuration?"
+msgstr "使用此配置tạotệp？"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Yes, generate"
+msgstr "是, tạo"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Back"
+msgstr "返回"
+
+#: src/uagent/setup_cli.py:1455
+msgid "The following files already exist and will be overwritten:"
+msgstr "以下tệp已存在, 将被覆盖: "
+
+#: src/uagent/setup_cli.py:1459
+msgid "Proceed?"
+msgstr "继续？"
+
+#: src/uagent/setup_cli.py:1483
+msgid "Plain .env file removed after encryption."
+msgstr "加密后已xóa明文 .env tệp."
+
+#: src/uagent/setup_cli.py:1486
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "cảnh báo: Không thểxóa明文 .env: %(error)s"
+
+#: src/uagent/setup_cli.py:1505
+#, python-format
+msgid "generated: %(path)s"
+msgstr "已tạo: %(path)s"
+
+#: src/uagent/uagent_llm.py:129
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[CẢNH BÁO] 工具轮次已超过 %(max)d; 正在中止."
+
+#: src/uagent/util_providers.py:243
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "biến môi trường UAGENT_PROVIDER 未đặt."
+
+#: src/uagent/util_providers.py:259
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "未知提供方: %(provider)s"
+
+#: src/uagent/util_providers.py:544 src/uagent/util_providers.py:570
+msgid "google-genai package is not installed."
+msgstr "Chưa cài đặt google-genai 包."
+
+#: src/uagent/util_tools.py:181
+#, python-format
+msgid "image file not found: %(path)s"
+msgstr "không tìm thấy tệp ảnh: %(path)s"
+
+#: src/uagent/util_tools.py:186
+#, python-format
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "tệp ảnh quá lớn: %(size)d byte (giới hạn=%(max)d)"
+
+#: src/uagent/util_tools.py:210
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"指定thư mục làm việc.未đặt时, 使用 UAGENT_WORKDIR biến môi trường或当前thư mục."
+
+#: src/uagent/util_tools.py:217
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr "非交互chế độ.不要启动 stdin 循环; 处理tệp khởi động(如果有)后thoát."
+
+#: src/uagent/util_tools.py:355
+msgid "invalid reasoning"
+msgstr "reasoning không hợp lệ"
+
+#: src/uagent/util_tools.py:373
+msgid "invalid verbosity"
+msgstr "mức độ chi tiết không hợp lệ"
+
+#: src/uagent/util_tools.py:547
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr "[logs] Đối số không hợp lệ: %(arg)r (chỉ định all / --all / -a / số)"
+
+#: src/uagent/util_tools.py:586
+#, python-format
+msgid "failed to parse arguments: %(err)s"
+msgstr "không phân tích được tham số: %(err)s"
+
+#: src/uagent/util_tools.py:589
+msgid "missing arguments"
+msgstr "thiếu tham số"
+
+#: src/uagent/util_tools.py:605
+msgid "src and dst are required"
+msgstr "cần src và dst"
+
+#: src/uagent/util_tools.py:973
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[Thực thi skill]\n"
+"Skill này предназнач intended to be run. Hãy đọc kỹ nội dung skill và làm theo hướng dẫn.\n"
+"Nếu skill có nhiệm vụ, hãy tiếp tục cho đến khi hoàn thành.\n"
+"Sử dụng công cụ khi cần.\n"
+
+#: src/uagent/util_tools.py:980
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr "Khi hoàn tất, luôn gọi `finish_skill` nếu có.\n"
+
+#: src/uagent/util_tools.py:1132
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
+msgstr ""
+"Chọn số skill để chạy. Nhập c để hủy.\n"
+"Gợi ý: :skills clear  (xóa các skill đã áp dụng)\n"
+"Nhập số:"
+
+#: src/uagent/util_tools.py:1168
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"Run this skill as a system-level instruction and keep it active in this "
+"session?\\n\\nName: %(name)s\\nPath: %(path)s\\n\\nProceed? Enter y to run, "
+"or c to cancel."
+
+#: src/uagent/util_tools.py:1230
+#, python-format
+msgid ""
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Đối số không hợp lệ: %(arg)r (chỉ định number=threshold; mặc định là"
+" %(default)d)"
+
+#: src/uagent/util_tools.py:1279
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"sẽ xóa các tệp nhật ký hội thoại (scheck_log_*.jsonl) khỏi đĩa.\n"
+"Thư mục log: %(dir)s\n"
+"Quy tắc: tổng số tin nhắn user/assistant/tool, không tính system <= %(threshold)d\n"
+"Mục tiêu: %(n)d\n"
+"\n"
+"Tiếp tục? Nhập y để chạy, hoặc c để hủy."
+
+#: src/uagent/util_tools.py:1347
+#, python-format
+msgid " - (%(count)d msgs) %(path)s"
+msgstr " - (%(count)d tin nhắn) %(path)s"
+
+#: src/uagent/util_tools.py:1391
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"sẽ ghi đè tệp nhật ký phiên hiện tại và chèn nhật ký đã tải lên trước (không sao lưu).\n"
+"\n"
+"Log hiện tại: %(cur_log)s\n"
+"Log nguồn: %(src_log)s\n"
+"\n"
+"Tiếp tục? Nhập y để chạy, hoặc c để hủy."
+
+#: src/uagent/util_tools.py:1522
+#, python-brace-format
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"Xóa {count} đường dẫn?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Nhập y để tiếp tục, hoặc c để hủy."
+
+#: src/uagent/util_tools.py:1577
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "Chỉ mục %(idx)d đã chỉ định vượt phạm vi."
+
+#: src/uagent/util_tools.py:1586
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Không tìm thấy tệp log: %(path)s"
+
+#: src/uagent/util_tools.py:1669
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[lỗi shrink] Không thể phân tích thành số nguyên: %(arg)r -> giữ %(keep)d "
+"giá trị cuối"
+
+#: src/uagent/util_tools.py:1697
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+
+#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+"Chưa bật bộ nhớ dài hạn dùng chung (chưa đặt UAGENT_SHARED_MEMORY_FILE)."
+
+#: src/uagent/util_tools.py:1787
+msgid "Analyzing past logs to generate user profile..."
+msgstr "Đang phân tích nhật ký trước đó để tạo hồ sơ người dùng..."
+
+#: src/uagent/util_tools.py:1791
+msgid "No past logs found or failed to generate profile."
+msgstr "Không tìm thấy nhật ký trước đó hoặc không thể tạo hồ sơ."
+
+#: src/uagent/util_tools.py:1793
+#, fuzzy
+msgid "User profile generated successfully from past logs!"
+msgstr "Hồ sơ người dùng đã được xóa thành công."
+
+#: src/uagent/util_tools.py:1805
+msgid "No user profile data found."
+msgstr "Không tìm thấy dữ liệu hồ sơ người dùng."
+
+#: src/uagent/util_tools.py:1808
+msgid "User Profile:"
+msgstr "Hồ sơ người dùng:"
+
+#: src/uagent/util_tools.py:1820
+msgid "User profile cleared successfully."
+msgstr "Hồ sơ người dùng đã được xóa thành công."
+
+#: src/uagent/util_tools.py:1824
+msgid "No user profile file found to clear."
+msgstr "Không tìm thấy tệp hồ sơ người dùng để xóa."
+
+#: src/uagent/util_tools.py:1888
+msgid "Show this help"
+msgstr "Hiển thị trợ giúp này"
+
+#: src/uagent/util_tools.py:1889
+msgid "Restart input from the beginning"
+msgstr "Nhập lại từ đầu"
+
+#: src/uagent/util_tools.py:1890
+msgid "Show log file list"
+msgstr "Hiển thị danh sách tệp log"
+
+#: src/uagent/util_tools.py:1893
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Đổi thư mục làm việc mà không cần xác nhận (ví dụ: :cd .. / :cd ~ / :cd "
+"C:\\path / :cd /)"
+
+#: src/uagent/util_tools.py:1896
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "Liệt kê mục trong thư mục (ví dụ: :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1899
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "Quản lý các biến môi trường UAGENT_* và lưu .env.sec"
+
+#: src/uagent/util_tools.py:1901
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr ""
+"Quản lý/áp dụng skill (ví dụ: :skills / :skills active / :skills clear)"
+
+#: src/uagent/util_tools.py:1906
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "Tải log trước đó (ghi đè lịch sử hội thoại hiện tại)"
+
+#: src/uagent/util_tools.py:1908
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Lưu ý: sau khi chạy, bạn sẽ được yêu cầu xác nhận; "
+"chọn 'y' sẽ chèn log đã tải vào đầu tệp log của phiên hiện tại (ghi đè, "
+"không sao lưu)."
+
+#: src/uagent/util_tools.py:1912
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Xóa log hội thoại (scheck_log_*.jsonl) khi số tin nhắn user/assistant/tool "
+"(không tính system) <= N (mặc định=10)"
+
+#: src/uagent/util_tools.py:1916
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Thu gọn lịch sử hội thoại (giữ N tin nhắn không phải system gần nhất; mặc "
+"định=40)"
+
+#: src/uagent/util_tools.py:1920
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Thu gọn lịch sử bằng tóm tắt LLM (tóm tắt phần lịch sử cũ thành 1 tin nhắn "
+"system; giữ N tin nhắn thô gần nhất; mặc định=20)"
+
+#: src/uagent/util_tools.py:1922
+msgid "List long-term memory notes"
+msgstr "Danh sách ghi nhớ dài hạn:"
+
+#: src/uagent/util_tools.py:1924
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "Xóa một ghi chú ghi nhớ dài hạn theo chỉ mục (xem :mem-list)"
+
+#: src/uagent/util_tools.py:1926
+#, fuzzy
+msgid "Show the learned user profile, or generate it from past logs"
+msgstr "Hiển thị hồ sơ người dùng đã học (môi trường, sở thích, ràng buộc)"
+
+#: src/uagent/util_tools.py:1927
+#, fuzzy
+msgid "Generate user profile from past logs"
+msgstr "Không tìm thấy dữ liệu hồ sơ người dùng."
+
+#: src/uagent/util_tools.py:1928
+msgid "Clear the learned user profile data"
+msgstr "Xóa dữ liệu hồ sơ người dùng đã học"
+
+#: src/uagent/util_tools.py:1930
+msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "Sao chép tệp hoặc thư mục (hỗ trợ -f/--overwrite và -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:1932
+msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "Di chuyển tệp hoặc thư mục (hỗ trợ -f/--overwrite và -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:1934
+msgid "Show the first n lines of a file (default=20)"
+msgstr "Hiển thị n dòng đầu tiên của tệp (mặc định=20)"
+
+#: src/uagent/util_tools.py:1935
+msgid "Show the last n lines of a file (default=20)"
+msgstr "Hiển thị n dòng cuối cùng của tệp (mặc định=20)"
+
+#: src/uagent/util_tools.py:1937
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Xóa tệp/thư mục với xem trước + xác nhận"
+
+#: src/uagent/util_tools.py:1939
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Đặt chế độ suy luận (0=tắt, 1=thấp, 2=trung bình, 3=cao; auto/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:1941
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Đặt mức độ chi tiết (0=tắt, 1=thấp, 2=trung bình, 3=cao; không có đối số=giữ"
+" nguyên)"
+
+#: src/uagent/util_tools.py:1942
+msgid "Exit"
+msgstr "Thoát"
+
+#: src/uagent/util_tools.py:1945
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "  - Nhập một dòng chỉ là 'f' để vào chế độ nhập nhiều dòng."
+
+#: src/uagent/util_tools.py:1947
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - Để kết thúc chế độ nhập nhiều dòng, nhập một dòng đúng bằng "
+"%(sentinel)s."
+
+#: src/uagent/util_tools.py:2183
+msgid "Exiting."
+msgstr "Đang thoát."
+
+#: src/uagent/util_tools.py:2186
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Lệnh không xác định: :%(cmd)s"
+
+#: src/uagent/util_tools.py:2337
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"Các gạch đầu dòng bên dưới là trích đoạn từ các ghi chú bộ nhớ dài hạn (persistent memos) của người dùng. Hãy dùng chúng làm thông tin nền về người dùng. Tuy nhiên, luôn ưu tiên thông tin mới được cung cấp trong cuộc trò chuyện, và nếu nó mâu thuẫn với thông tin cũ hơn, hãy áp dụng thông tin mới nhất.\n"
+"\n"
+"\n"
+
+#: src/uagent/web.py:534
+msgid ""
+"[WARN] Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"[WARN] Đã có một tác vụ khác đang chạy trong phòng này. Vui lòng thử lại sau"
+" khi tác vụ đó hoàn tất."
+
+#: src/uagent/web.py:626 src/uagent/web.py:748
+msgid ""
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"[FATAL] Biến môi trường UAGENT_PROVIDER chưa được đặt.\n"
+"Vui lòng kiểm tra các biến môi trường khi khởi động máy chủ web."
+
+#: src/uagent/web.py:664
+#, python-format
+msgid "[Attached Image] %(name)s"
+msgstr "[Ảnh đính kèm] %(name)s"
+
+#: src/uagent/web.py:669
+#, python-format
+msgid "[Attached File] %(name)s"
+msgstr "[Tệp đính kèm] %(name)s"
+
+#: src/uagent/web.py:670
+#, python-format
+msgid "[File Path] %(path)s"
+msgstr "[Đường dẫn tệp] %(path)s"
+
+#: src/uagent/web.py:698
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] Đã tải bộ nhớ dài hạn."
+
+#: src/uagent/web.py:710
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] Đã tải bộ nhớ dài hạn dùng chung."
+
+#: src/uagent/web.py:745
+#, python-format
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[FATAL] Lỗi worker web.\n"
+"%(err)s"
+
+#: src/uagent/web.py:882
+msgid "missing path"
+msgstr "thiếu đường dẫn"
+
+#: src/uagent/web.py:889
+msgid "path outside workdir"
+msgstr "đường dẫn nằm ngoài thư mục làm việc"
+
+#: src/uagent/web.py:1051
+msgid "Starting server on"
+msgstr "Đang khởi động máy chủ trên"
+
+#: src/uagent/web.py:1053
+msgid "External URL:"
+msgstr "URL bên ngoài:"
+
+#: src/uagent/welcome.py:29
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr "[MCP Servers]\\n- Config file not found."
+
+#: src/uagent/welcome.py:36
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr "[MCP Servers]\\n- No servers registered."
+
+#: src/uagent/welcome.py:38
+msgid "[MCP Servers]"
+msgstr "[Máy chủ MCP]"
+
+#: src/uagent/welcome.py:45
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr "[MCP Servers]\\n- Failed to get info: %(err)s"
+
+#: src/uagent/welcome.py:64
+msgid "[Quick Guide]"
+msgstr "[快速指南]"
+
+#: src/uagent/welcome.py:65
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- 聊天: nhậpthông báo并发送(GUI 中也可使用 Ctrl+Enter)."
+
+#: src/uagent/welcome.py:67
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \\\\"
+
+#: src/uagent/welcome.py:70
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr ""
+"- Lệnh: gõ ':help' để xem các lệnh hệ thống (quản lý nhật ký, nén lịch sử, "
+"v.v.). Lưu ý: các lệnh bắt đầu bằng dấu hai chấm ':' thay vì dấu gạch chéo "
+"'/'."
+
+#: src/uagent/welcome.py:72
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- thoát: 使用 ':exit' 或 ':quit' 结束phiên."
+
+#: src/uagent/welcome.py:74
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr "- 图像: GUI 支持拖放; 在 CUI 中可nhậptệpđường dẫn进行图像分析."
+
+#: src/uagent/welcome.py:77
+#, python-format
+msgid ""
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Docs: `%(docs_cmd)s` hiển thị tài liệu đi kèm; `%(webinspect_cmd)s` hiển "
+"thị trợ giúp Web Inspector (`--path/--open` cũng có sẵn)."
+
+#: src/uagent/welcome.py:81
+msgid "[Examples]"
+msgstr "[示例]"
+
+#: src/uagent/welcome.py:82
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"分析此tệp夹中的源代码并创建 README.md.\""
+
+#: src/uagent/welcome.py:84
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr "- \"截取当前桌面的屏幕截图并描述可见窗口内容.\""
+
+#: src/uagent/welcome.py:86
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"根据此 Excel tệp创建每月摘要报告.\""
+
+#: src/uagent/welcome.py:87
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"阅读此 PDF 并列出三个要点.\""
+
+#: src/uagent/welcome.py:88
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"搜索最新新闻并总结一个特定主题.\""
+
+#: src/uagent/welcome.py:193
+msgid "-- More -- (Enter: next) "
+msgstr "-- Thêm nữa -- (Enter: tiếp) "
+
+#: src/uagent/a2a/engine.py:125
+msgid "No assistant message produced."
+msgstr "Không tạo ra thông điệp nào từ trợ lý."
+
+#: src/uagent/a2a/engine.py:137
+msgid "Generated image(s)."
+msgstr "Đã tạo ảnh."
+
+#: src/uagent/a2a/engine.py:150
+#, python-format
+msgid "ECHO: %(text)s"
+msgstr "đầu ra: %(text)s"
+
+#: src/uagent/a2a/engine.py:165
+#, python-format
+msgid "uagent initialization failed: %(err)s"
+msgstr "khởi tạo uagent thất bại: %(err)s"
+
+#: src/uagent/a2a/engine.py:177
+#, python-format
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "thực thi uagent thất bại: %(etype)s: %(err)s"
+
+#: src/uagent/a2a/engine.py:188
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "未知的 UAGENT_A2A_ENGINE: %(mode)s"

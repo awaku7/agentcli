@@ -1,2482 +1,2513 @@
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-08 18:12+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
-
-#: src/uagent/checks.py:17 src/uagent/checks.py:27
-#, python-format
-msgid "Please install Git. See: %(url)s"
-msgstr "Установіть Git. Перегляньте: %(url)s"
-
-#: src/uagent/checks.py:20
-msgid ""
-"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
-"yum install git (CentOS/RHEL)"
-msgstr ""
-"Установіть Git. Приклад: sudo apt install git (Ubuntu/Debian) або sudo yum "
-"install git (CentOS/RHEL)"
-
-#: src/uagent/checks.py:23
-msgid ""
-"Please install Git. If using Homebrew: brew install git, or install Xcode "
-"Command Line Tools: xcode-select --install"
-msgstr ""
-"Установіть Git. Якщо використовуєте Homebrew: brew install git або "
-"встановіть Xcode Command Line Tools: xcode-select --install"
-
-#: src/uagent/checks.py:30
-msgid "[ERROR] Git is not installed."
-msgstr "[ERROR] Git не встановлено."
-
-#: src/uagent/cli.py:397
-msgid "getch() fallback to input()"
-msgstr "getch() переходить на input() як запасний варіант"
-
-#: src/uagent/cli.py:604
-msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "Отримано Ctrl+C. Запускаю завершення..."
-
-#: src/uagent/cli.py:636 src/uagent/cli.py:706
-#, python-format
-msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-msgstr ""
-"(Режим багаторядкового вводу: введіть текст у кілька рядків; щоб почати "
-"знову, введіть \"\"\"retry; завершіть рядком, що містить %(sentinel)s)"
-
-#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
-#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
-#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
-#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
-#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
-#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
-#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
-#: src/uagent/setup_cli.py:1462
-msgid "Cancelled."
-msgstr "Скасовано."
-
-#: src/uagent/cli.py:672 src/uagent/cli.py:722
-msgid "Discarded previous input. Please start over."
-msgstr "Попередній ввід відкинуто. Почніть спочатку."
-
-#: src/uagent/cli.py:683
-msgid "Received multiline reply."
-msgstr "Отримано багаторядкову відповідь."
-
-#: src/uagent/cli.py:841
-msgid ""
-"Image file paths were found in your input.\n"
-"Do you want to send these images to the LLM (external API) for analysis?\n"
-"\n"
-msgstr ""
-"У введенні знайдено шляхи до зображень.\n"
-"Хочете надіслати ці зображення до LLM (зовнішнього API) для аналізу?"
-
-#: src/uagent/cli.py:847
-msgid "Reply with y to send, or n (or c/cancel) to skip sending."
-msgstr ""
-"Відповідайте y, щоб надіслати, або n (чи c/cancel), щоб пропустити "
-"надсилання."
-
-#: src/uagent/cli.py:865
-#, python-format
-msgid ""
-"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-msgstr ""
-"Підтвердження надсилання зображень не вдалося; зображення не буде надіслано:"
-" %(etype)s: %(err)s"
-
-#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
-#, python-format
-msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "Не вдалося прикріпити зображення: %(path)s (%(etype)s: %(err)s)"
-
-#: src/uagent/cli.py:930
-#, python-format
-msgid "Unknown event kind=%(kind)r: %(ev)r"
-msgstr "Невідомий тип події kind=%(kind)r: %(ev)r"
-
-#: src/uagent/cli.py:948
-msgid "Exited uag."
-msgstr "uag завершено."
-
-#: src/uagent/cli_docs.py:33
-msgid "[docs] name is required"
-msgstr "[docs] назва обов'язкова"
-
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
-msgstr ""
-"Виберіть категорії інструментів для увімкнення при запуску.\n"
-"1: comm  - Зв'язок (Teams, Discord тощо)\n"
-"2: office - Офісний пакет (Excel, Word тощо)\n"
-"4: devel  - Розробка (lint, py_compile, test тощо)\n"
-"Введіть суму значень (наприклад, 3 = comm + office, 7 = всі, або натисніть Enter, щоб увімкнути всі):"
-
-#: src/uagent/cli_startup.py:96
-#, python-format
-msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr "[WARN] Не вдалося застосувати вибір інструменту запуску: %(err)s"
-
-#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
-#, python-format
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Не вдалося встановити робочий каталог: %(err)s"
-
-#: src/uagent/cli_startup.py:202
-#, python-format
-msgid "[FATAL] Failed to launch uag_setup: %(err)s"
-msgstr "[FATAL] Не вдалося запустити uag_setup: %(err)s"
-
-#: src/uagent/cli_startup.py:243
-#, python-format
-msgid "provider = %(provider)s; model = %(model)s"
-msgstr "постачальник = %(provider)s; модель = %(model)s"
-
-#: src/uagent/cli_startup.py:255 src/uagent/scheckgui.py:296
-msgid "OpenRouter fallback models enabled."
-msgstr "Увімкнено резервні моделі OpenRouter."
-
-#: src/uagent/cli_startup.py:259
-#, python-format
-msgid "current workdir = %(cwd)s"
-msgstr "поточна робоча папка = %(cwd)s"
-
-#: src/uagent/cli_startup.py:273 src/uagent/scheckgui.py:307
-msgid "Loaded long-term memory."
-msgstr "Завантажена довготривала пам'ять."
-
-#: src/uagent/cli_startup.py:286 src/uagent/scheckgui.py:320
-msgid "Loaded shared long-term memory."
-msgstr "Завантажена спільна довготривала пам'ять."
-
-#: src/uagent/cli_startup.py:293 src/uagent/web.py:718
-#, python-format
-msgid ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"[WARN] Під час завантаження спільної довготривалої пам’яті сталася помилка: "
-"%(err)s"
-
-#: src/uagent/cli_startup.py:327
-#, python-format
-msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-msgstr "[WARN] Не вдалося прочитати файл запуску: %(path)s (%(err)s)"
-
-#: src/uagent/cli_startup.py:341
-#, python-format
-msgid "Startup file provided: %(path)s"
-msgstr "Надано стартовий файл: %(path)s"
-
-#: src/uagent/cli_startup.py:364
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "--non-interactive вказано; вихід без очікування stdin."
-
-#: src/uagent/core.py:286 src/uagent/core.py:307
-#, python-format
-msgid "Environment variable %(name)s is not set."
-msgstr "Змінна середовища %(name)s не встановлена."
-
-#: src/uagent/core.py:607
-msgid "No log files found."
-msgstr "Файли журналу не знайдено."
-
-#: src/uagent/core.py:625
-msgid "(unknown time)"
-msgstr "(невідомий час)"
-
-#: src/uagent/core.py:628
-#, python-format
-msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
-msgstr "журнали: показано %(shown)d/%(total)d (dir=%(dir)s)"
-
-#: src/uagent/core.py:631
-msgid "Log files:"
-msgstr "Файли журналу:"
-
-#: src/uagent/core.py:638
-msgid "(mtime unknown)"
-msgstr "(час зміни невідомий)"
-
-#: src/uagent/core.py:756 src/uagent/core.py:759
-msgid "(no user message)"
-msgstr "(немає повідомлення користувача)"
-
-#: src/uagent/core.py:764
-#, python-format
-msgid ""
-"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
-"%(last_user)s"
-msgstr ""
-"[%(idx)d] %(mtime_text)s | %(turns)d повідомлень | перше: %(first_user)s | "
-"останнє: %(last_user)s"
-
-#: src/uagent/core.py:896
-#, python-format
-msgid ""
-"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-msgstr ""
-"[WARN] Відкидаю осиротіле повідомлення інструмента: "
-"tool_call_id=%(tool_call_id)r name=%(name)r"
-
-#: src/uagent/core.py:994
-#, python-format
-msgid ""
-"[INFO] There were %(count)d messages to compress, so nothing was changed."
-msgstr ""
-"[INFO] Було %(count)d повідомлень для стискання, тому нічого не змінено."
-
-#: src/uagent/core.py:1004
-#, python-format
-msgid ""
-"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
-"messages (keep_last=%(keep_last)d)"
-msgstr ""
-"[INFO] Стиснуто історію розмови в пам’яті: %(old_n)d -> %(new_n)d "
-"повідомлень (keep_last=%(keep_last)d)"
-
-msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
-
-msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
-
-msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
-
-msgid ""
-"- Keep the summary concise but include key decisions, constraints, and "
-"pending items.\n"
-msgstr ""
-
-msgid "- Output should be directly usable as a system message."
-msgstr ""
-
-msgid "Conversation chunk:\n"
-msgstr ""
-
-msgid "Write a concise summary of this chunk."
-msgstr ""
-
-msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
-
-msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
-
-msgid ""
-"- Merge in the new chunk without losing constraints, decisions, or pending "
-"items.\n"
-msgstr ""
-
-msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
-
-msgid "Previous summary:\n"
-msgstr ""
-
-msgid "New chunk:\n"
-msgstr ""
-
-msgid "Update the summary while keeping the prior context intact."
-msgstr ""
-
-msgid "Summary of the conversation so far:\n"
-msgstr ""
-
-msgid ""
-"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
-"older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
-
-#: src/uagent/core.py:1339
-msgid ""
-"[WARN] history compression hit context length even at chunk_size=1; falling "
-"back to shrink_messages()."
-msgstr ""
-"[WARN] Стискання історії досягло межі контексту навіть за chunk_size=1; "
-"повертаюся до shrink_messages()."
-
-#: src/uagent/core.py:1349
-msgid ""
-"[WARN] history compression could not reduce chunk_size further; falling back"
-" to shrink_messages()."
-msgstr ""
-"[WARN] Стискання історії не змогло зменшити chunk_size далі; повертаюся до "
-"shrink_messages()."
-
-#: src/uagent/core.py:1357
-#, python-format
-msgid ""
-"[WARN] history compression context length exceeded; retrying with "
-"chunk_size=%(chunk_size)d"
-msgstr ""
-"[WARN] Перевищено межу контексту під час стискання історії; повторюю з "
-"chunk_size=%(chunk_size)d"
-
-#: src/uagent/core.py:1382
-#, python-format
-msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help (довідка недоступна: %(err)s)"
-
-#: src/uagent/core.py:1394
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
-"- Ask the user for confirmation before performing any dangerous operation.\n"
-"- Do not flatter the user. Do not use emojis.\n"
-"- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
-msgstr ""
-"## Місія\n"
-"- Ви здатні «агент виконання інструментів загального призначення», який працює в локальному середовищі, і ви можете фактично виконувати команди та працювати з файлами на машині користувача.\n"
-"- Попросіть користувача підтвердження перед виконанням будь-якої небезпечної операції.\n"
-"- Не підлещуйтеся користувачеві. Не використовуйте емодзі.\n"
-"— Не підсумовуйте. Тримайте інформацію стислим.\n"
-"— Під час створення файлів виводити повний кінцевий вміст (не виводити відмінності чи часткові підсумки)."
-
-#: src/uagent/core.py:1403
-msgid ""
-"## Rules\n"
-"- Always use the provided tools and verify the latest information.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
-msgstr ""
-"## Правила\n"
-"- Завжди використовуйте надані інструменти та перевіряйте найновішу інформацію.\n"
-"- Будьте креативними, але не виводьте невизначену інформацію.\n"
-"- Ознайомтеся з доступними інструментами та виберіть найбільш підходящий.\n"
-"- Виконуючи інструменти, делегуйте якомога менше прийняття рішень користувачеві."
-
-#: src/uagent/core.py:1410
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
-"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
-msgstr ""
-"## Примітки\n"
-"- Усі повідомлення користувача надходять через стандартний ввід цього скрипта.\n"
-"- Для подробиць щодо призначення/аргументів/обмежень/особливостей роботи конкретного інструмента використовуйте його опис.\n"
-"- Якщо потрібна додаткова інформація або підтвердження від користувача, використовуйте інструмент human_ask.\n"
-"- Під час обробки відносних дат викликайте get_current_time, щоб орієнтуватися на поточний час.\n"
-"- Не зберігайте секрети (паролі/токени) у довготривалій пам’яті (add_long_memory тощо).\n"
-"- Файли з суфіксами на кшталт .org / .org1 / .org2 є резервними копіями й не повинні розглядатися як основні файли для редагування.\n"
-"- Якщо створюєте Python-файли, запускайте `python -m py_compile` для перевірки синтаксису.\n"
-"- Якщо потрібні експертні знання, використовуйте шаблони запитів Agent Skills і дотримуйтеся їх.\n"
-"- Якщо введення користувача — це лише коротке підтвердження без нової інформації, не повторюйте те саме пояснення, якщо це не є прямою відповіддю на безпосередньо попереднє чітке запитання. Якщо потрібно, коротко запитайте: \"Яку саме частину продовжити?\"\n"
-
-#: src/uagent/core.py:1422
-msgid ""
-"## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
-msgstr ""
-"## Політика небезпечної операції (delete_file)\n"
-"- Для видалення за допомогою інструмента delete_file НЕ запитуйте підтвердження перед попереднім переглядом.\n"
-"— Завжди спочатку запускайте delete_file із dry_run=true, щоб отримати список кандидатів на видалення.\n"
-"- Покажіть кандидатів користувачеві та запитайте підтвердження через human_ask рівно один раз.\n"
-"- Лише коли користувач явно відповідає \"y\" або \"yes\" (або еквівалентне явне схвалення), запустіть delete_file знову з тими самими параметрами, dry_run=false і confirmed=true.\n"
-"- Якщо кандидатів нуль, не запитуйте; просто повідомте, що нічого не буде видалено."
-
-#: src/uagent/core.py:1430
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
-"- Ask the user for confirmation before any dangerous operation.\n"
-"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
-msgstr ""
-"## Місія\n"
-"- Ви здатні «агент виконання інструментів загального призначення», що працює в локальному середовищі; ви можете виконувати команди та працювати на машині користувача.\n"
-"- Попросіть користувача підтвердження перед будь-якою небезпечною операцією.\n"
-"- Без лестощів. Без емодзі. Немає підсумків розмов. Будьте лаконічними.\n"
-"— Під час створення файлів виводити повний кінцевий вміст (без відмінностей/часткових підсумків)."
-
-#: src/uagent/core.py:1438
-msgid ""
-"## Rules\n"
-"- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Delegate as little decision-making as possible to the user.\n"
-msgstr ""
-"## Правила\n"
-"- Спочатку використовуйте надані інструменти та перевірте результати за допомогою інструментів.\n"
-"- Зверніться до опису інструментів щодо цілей/аргументів/обмежень; вибрати найбільш відповідний і безпечний засіб.\n"
-"- Будьте креативними, але не виводьте невизначену інформацію.\n"
-"- Делегуйте якомога менше прийняття рішень користувачеві."
-
-#: src/uagent/core.py:1445
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
-"- Relative dates: call get_current_time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile`.\n"
-"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
-"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
-msgstr ""
-"## Примітки\n"
-"- Усі повідомлення користувача надходять через стандартний ввід цього скрипта.\n"
-"- Якщо бракує потрібної інформації/параметрів, запитайте через human_ask (не вгадуйте).\n"
-"- Для відносних дат викликайте get_current_time.\n"
-"- Не зберігайте секрети (паролі/токени) у довготривалій пам’яті.\n"
-"- Файли з суфіксами на кшталт .org / .org1 / .org2 є резервними копіями й не повинні розглядатися як основні файли для редагування.\n"
-"- Якщо створюєте Python-файли, запускайте `python -m py_compile`.\n"
-"- Якщо потрібні експертні знання, використовуйте шаблони запитів Agent Skills.\n"
-"- Якщо введення користувача — це лише коротке підтвердження без нової інформації, не повторюйте те саме пояснення, якщо це не є прямою відповіддю на безпосередньо попереднє чітке запитання. Якщо потрібно, коротко запитайте: \"Яку саме частину продовжити?\"\n"
-
-#: src/uagent/core.py:1458
-msgid ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using "
-"caret (^) line continuation, and keep each line short to avoid copy/paste "
-"line breaks.\n"
-msgstr ""
-"- Якщо користувач використовує Windows cmd.exe, віддайте перевагу "
-"багаторядковим командам із використанням продовження рядка вставки (^) і "
-"тримайте кожен рядок коротким, щоб уникнути копіювання/вставлення розривів "
-"рядків."
-
-#: src/uagent/core.py:1525
-msgid ""
-"The following tools are currently loaded in this session. Choose the most "
-"appropriate tool for the task."
-msgstr ""
-"У цьому сеансі наразі завантажуються такі інструменти. Виберіть найбільш "
-"відповідний інструмент для завдання."
-
-#: src/uagent/docs_util.py:27
-msgid "Project README"
-msgstr "Проект README"
-
-#: src/uagent/docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "Швидкий старт (колесо інсталяції Windows)"
-
-#: src/uagent/docs_util.py:37
-msgid "Web Inspector (playwright_inspector) guide"
-msgstr "Посібник Web Inspector (playwright_inspector)."
-
-#: src/uagent/docs_util.py:42
-msgid "Developer information"
-msgstr "Інформація про розробника"
-
-#: src/uagent/docs_util.py:149
-#, python-format
-msgid "unknown doc name: %(name)r"
-msgstr "невідома назва документа: %(name)r"
-
-#: src/uagent/docs_util.py:172
-#, python-format
-msgid "doc file not found: %(filename)s"
-msgstr "файл doc не знайдено: %(filename)s"
-
-#: src/uagent/docs_util.py:203
-#, python-format
-msgid "doc path resolution failed: %(filename)s: %(err)s"
-msgstr "не вдалося вирішити шлях до документа: %(filename)s: %(err)s"
-
-#: src/uagent/docs_util.py:227
-msgid "[docs] Available documents:"
-msgstr "[docs] Доступні документи:"
-
-#: src/uagent/docs_util.py:231
-msgid "Usage:"
-msgstr "Використання:"
-
-#: src/uagent/docs_util.py:232
-msgid "list"
-msgstr "список"
-
-#: src/uagent/docs_util.py:233
-msgid "show"
-msgstr "показати"
-
-#: src/uagent/docs_util.py:234
-msgid "show path"
-msgstr "показати шлях"
-
-#: src/uagent/docs_util.py:235
-msgid "open with OS"
-msgstr "відкрити в ОС"
-
-#: src/uagent/env_validate.py:42
-msgid ""
-"Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
-msgstr ""
-"Необхідно вибрати постачальника LLM "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
-
-#: src/uagent/env_validate.py:63
-#, python-format
-msgid ""
-"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
-"fail)."
-msgstr ""
-"Невідомий провайдер: %(provider)r. Дозволені: %(allowed)s (запуск, імовірно,"
-" завершиться помилкою)."
-
-#: src/uagent/env_validate.py:74
-msgid ""
-"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
-msgstr ""
-"Кінцева точка / базова URL Azure OpenAI (наприклад, "
-"https://<resource>.openai.azure.com/)."
-
-#: src/uagent/env_validate.py:80
-msgid "Azure OpenAI API key."
-msgstr "Ключ API Azure OpenAI."
-
-#: src/uagent/env_validate.py:85
-msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr "Версія API Azure OpenAI (наприклад, 2024-xx-xx)."
-
-#: src/uagent/env_validate.py:92
-msgid "OpenAI API key."
-msgstr "Ключ API OpenAI."
-
-#: src/uagent/env_validate.py:98
-msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
-msgstr "Кінцева точка / базова URL проксі Bedrock (сумісна з OpenAI)."
-
-#: src/uagent/env_validate.py:105
-msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr "Ключ API проксі Bedrock (сумісний з OpenAI)."
-
-#: src/uagent/env_validate.py:112
-msgid "OpenRouter API key."
-msgstr "Ключ API OpenRouter."
-
-#: src/uagent/env_validate.py:117
-msgid "Grok (xAI) API key."
-msgstr "Ключ API Grok (xAI)."
-
-#: src/uagent/env_validate.py:122
-msgid "Gemini API key."
-msgstr "Ключ API Gemini."
-
-#: src/uagent/env_validate.py:129
-msgid ""
-"Python package 'google-genai' is not installed. Provider=gemini requires it."
-msgstr ""
-"Пакет Python 'google-genai' не встановлено. Провайдер gemini потребує його."
-
-#: src/uagent/env_validate.py:140
-msgid "Vertex AI API key / model name."
-msgstr "Ключ API Vertex AI / назва моделі."
-
-#: src/uagent/env_validate.py:149
-msgid ""
-"Python package 'google-genai' is not installed. Provider=vertexai requires "
-"it."
-msgstr ""
-"Пакет Python 'google-genai' не встановлено. Провайдер vertexai потребує "
-"його."
-
-#: src/uagent/env_validate.py:157
-msgid "Anthropic (Claude) API key."
-msgstr "Ключ API Anthropic (Claude)."
-
-#: src/uagent/env_validate.py:165
-msgid ""
-"Python package 'anthropic' is not installed. Provider=claude requires it."
-msgstr ""
-"Пакет Python 'anthropic' не встановлено. Провайдер claude потребує його."
-
-#: src/uagent/env_validate.py:172
-msgid "NVIDIA API key."
-msgstr "Ключ API NVIDIA."
-
-#: src/uagent/env_validate.py:190
-#, python-format
-msgid ""
-"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
-" likely fail)."
-msgstr ""
-"Невідомий провайдер embedding: %(provider)r. Дозволені: %(allowed)s (запуск,"
-" імовірно, завершиться помилкою)."
-
-#: src/uagent/env_validate.py:207
-msgid "Azure embedding endpoint / API key / API version / deployment name."
-msgstr ""
-"Кінцева точка embedding Azure / ключ API / версія API / назва розгортання."
-
-#: src/uagent/env_validate.py:218
-msgid "OpenAI embedding API key / model name."
-msgstr "Ключ API embedding OpenAI / назва моделі."
-
-#: src/uagent/env_validate.py:230
-msgid "Bedrock embedding endpoint / API key / deployment name."
-msgstr "Кінцева точка embedding Bedrock / ключ API / назва розгортання."
-
-#: src/uagent/env_validate.py:241
-msgid "OpenRouter embedding API key / model name."
-msgstr "Ключ API embedding OpenRouter / назва моделі."
-
-#: src/uagent/env_validate.py:252
-msgid "Ollama embedding base URL / model name."
-msgstr "Базова URL embedding Ollama / назва моделі."
-
-#: src/uagent/env_validate.py:263
-msgid "NVIDIA embedding API key / model name."
-msgstr "Ключ API embedding NVIDIA / назва моделі."
-
-#: src/uagent/env_validate.py:274
-msgid "Gemini embedding API key / model name."
-msgstr "Ключ API / назва моделі embedding для Gemini."
-
-#: src/uagent/env_validate.py:285
-msgid "Vertex AI embedding API key / model name."
-msgstr "Ключ API / назва моделі embedding для Vertex AI."
-
-#: src/uagent/env_validate.py:302
-#, python-brace-format
-msgid "[FATAL] Environment validation failed ({context})."
-msgstr "[FATAL] Перевірка середовища не вдалася ({context})."
-
-#: src/uagent/env_validate.py:310
-msgid "Missing required environment variables:"
-msgstr "Відсутні необхідні змінні середовища:"
-
-#: src/uagent/env_validate.py:317
-msgid "Warnings:"
-msgstr "Попередження:"
-
-#: src/uagent/env_validate.py:321
-msgid "How to fix:"
-msgstr "Як виправити:"
-
-#: src/uagent/env_validate.py:324
-msgid ""
-"- Set the variables above in your environment before starting the program."
-msgstr ""
-"- Встановіть наведені вище змінні у своєму середовищі перед запуском "
-"програми."
-
-#: src/uagent/env_validate.py:330
-msgid ""
-"- You can set them via your OS environment settings, a .env file, your shell"
-" startup scripts,"
-msgstr ""
-"- Ви можете встановити їх за допомогою налаштувань середовища ОС, файлу "
-".env, сценаріїв запуску оболонки,"
-
-#: src/uagent/env_validate.py:336
-msgid ""
-"  or your process manager / service configuration (CI secrets, systemd, "
-"Docker, etc.)."
-msgstr ""
-"або ваш менеджер процесів/конфігурація служби (секрети CI, systemd, Docker "
-"тощо)."
-
-#: src/uagent/gemini_cache_mgr.py:131
-msgid "invalid cache meta"
-msgstr "недійсний мета кешу"
-
-#: src/uagent/image_session.py:101
-msgid "(prompt unavailable)"
-msgstr "(промпт недоступний)"
-
-#: src/uagent/image_session.py:105
-#, python-format
-msgid "screenshot: %(title)s"
-msgstr "знімок екрана: %(title)s"
-
-#: src/uagent/image_session.py:107
-msgid "screenshot"
-msgstr "знімок екрана"
-
-#: src/uagent/image_session.py:148
-msgid "Image-session context:"
-msgstr "Контекст сеансу зображень:"
-
-#: src/uagent/image_session.py:149
-msgid "This conversation already generated images."
-msgstr "Ця розмова вже згенерувала зображення."
-
-#: src/uagent/image_session.py:151
-msgid ""
-"Use the prior prompts and saved file paths below as context for follow-up "
-"edits, variants, or continuations."
-msgstr ""
-"Використовуйте попередні промпти та збережені шляхи до файлів нижче як "
-"контекст для подальших правок, варіантів або продовжень."
-
-#: src/uagent/image_session.py:156
-#, python-format
-msgid "Turn %(idx)d:"
-msgstr "Хід %(idx)d:"
-
-#: src/uagent/image_session.py:157
-#, python-format
-msgid "- prompt: %(prompt)s"
-msgstr "- промпт: %(prompt)s"
-
-#: src/uagent/image_session.py:160
-#, python-format
-msgid "- file: %(path)s"
-msgstr "- файл: %(path)s"
-
-#: src/uagent/llm_claude.py:143 src/uagent/util_providers.py:610
-msgid "anthropic package is not installed."
-msgstr "пакет anthropic не встановлено."
-
-#: src/uagent/llm_errors.py:398
-#, python-format
-msgid ""
-"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
-"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-msgstr ""
-"[RATE_LIMIT] постачальник=%(provider)s модель=%(model)s статус=%(status)s "
-"спроба=%(attempt)s/%(max_retries)s очікування=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-
-#: src/uagent/llm_flow_helpers.py:205
-msgid ""
-"The previous assistant reply was empty. Please answer based on the most "
-"recent tool result."
-msgstr ""
-"Попередня відповідь асистента була порожньою. Відповідайте на основі "
-"найновішого результату інструмента."
-
-#: src/uagent/llm_flow_helpers.py:218
-#, python-format
-msgid ""
-"[WARN] LLM returned an empty assistant message without tool calls.\n"
-"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
-msgstr ""
-"[WARN] LLM повернув порожнє повідомлення асистента без викликів інструментів.\n"
-"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"Таке може траплятися в локальних постачальників, сумісних з OpenAI, після викликів інструментів. Спробуйте встановити UAGENT_EMPTY_NO_TOOL_MAX у більше значення або змінити постачальника."
-
-#: src/uagent/llm_flow_helpers.py:265
-msgid "arguments must be a JSON object."
-msgstr "аргументи мають бути JSON-об’єктом."
-
-#: src/uagent/llm_flow_helpers.py:272
-#, python-format
-msgid ""
-"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[помилка аргументів інструмента] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-
-#: src/uagent/llm_flow_helpers.py:298
-msgid ""
-"[INFO] Reusing the previous result because this tool call matches an earlier"
-" one.\n"
-msgstr ""
-"[INFO] Повторно використовується попередній результат, оскільки цей виклик "
-"інструмента збігається з попереднім.\n"
-
-#: src/uagent/llm_flow_helpers.py:313
-#, python-format
-msgid ""
-"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[помилка виконання інструмента] name=%(name)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-
-#: src/uagent/llm_gemini.py:556
-msgid ""
-"google-genai could not be imported (pip install google-genai is required)."
-msgstr ""
-"Не вдалося імпортувати google-genai (потрібно pip install google-genai)."
-
-#: src/uagent/llm_gemini.py:1115
-msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
-"[Помилка Gemini: відповідь заблоковано фільтром безпеки або через причину "
-"завершення]"
-
-#: src/uagent/llm_gemini.py:1117
-#, python-format
-msgid "[Gemini Error: %(err)s]"
-msgstr "[Помилка Gemini: %(err)s]"
-
-#: src/uagent/llm_image_helpers.py:7
-msgid "Describe this screenshot and summarize the visible UI."
-msgstr "Опишіть цей знімок екрана та підсумуйте видимий інтерфейс."
-
-#: src/uagent/llm_image_helpers.py:11
-msgid "Read all visible text in this screenshot and summarize it."
-msgstr ""
-"Прочитайте весь видимий текст на цьому знімку екрана та підсумуйте його."
-
-#: src/uagent/llm_image_helpers.py:15
-msgid "Inspect this screenshot for errors, warnings, and important UI state."
-msgstr ""
-"Перевірте цей знімок екрана на помилки, попередження та важливий стан "
-"інтерфейсу."
-
-#: src/uagent/llm_message_helpers.py:155
-#, python-format
-msgid "[WARN] Auto shrink_llm failed: %(err)s"
-msgstr "[WARN] Автоматичне shrink_llm не вдалося: %(err)s"
-
-#: src/uagent/llm_openai_responses.py:69
-msgid "[WARN] assistant history contained image content; converted to text."
-msgstr ""
-"[WARN] історія асистента містила вміст зображення; перетворено на текст."
-
-#: src/uagent/llm_openai_responses.py:92
-msgid "[WARN] invalid image content (missing url)."
-msgstr "[WARN] недійсний вміст зображення (відсутня url)."
-
-#: src/uagent/llm_openai_responses.py:100
-#: src/uagent/llm_openai_responses.py:109
-#, python-format
-msgid "[WARN] unsupported content item: %(item)r"
-msgstr "[WARN] непідтримуваний елемент вмісту: %(item)r"
-
-#: src/uagent/llm_openai_responses.py:444
-msgid "Sources:"
-msgstr "Джерела:"
-
-#: src/uagent/llm_openai_responses.py:507
-msgid "search"
-msgstr "пошук"
-
-#: src/uagent/llm_openai_responses.py:509
-msgid "open page"
-msgstr "відкрити сторінку"
-
-#: src/uagent/llm_openai_responses.py:511
-msgid "find in page"
-msgstr "знайти на сторінці"
-
-#: src/uagent/llm_openai_responses.py:512
-msgid "web search"
-msgstr "вебпошук"
-
-#: src/uagent/llm_openai_responses.py:526
-msgid "Web search: searching"
-msgstr "Вебпошук: пошук"
-
-#: src/uagent/llm_openai_responses.py:528
-msgid "Web search: completed"
-msgstr "Вебпошук: завершено"
-
-#: src/uagent/llm_openai_responses.py:530
-#, python-brace-format
-msgid "Web search: {action}"
-msgstr "Вебпошук: {action}"
-
-#: src/uagent/llm_openai_responses.py:587
-#, python-brace-format
-msgid ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
-"        "
-msgstr ""
-"[Правила виклику інструменту]\n"
-"        - Викликаючи інструмент/функцію, ви ПОВИННІ надати function_call.arguments як об’єкт JSON.\n"
-"        - Об'єкт JSON ПОВИНЕН містити всі необхідні параметри, визначені схемою інструменту.\n"
-"        - Ніколи не викликайте інструмент із порожнім об’єктом {}, якщо інструмент не має необхідних параметрів.\n"
-"        - Якщо у вас немає необхідного параметра, запитайте його в користувача за допомогою human_ask замість вгадування."
-
-#: src/uagent/llm_openai_responses.py:594
-msgid ""
-"[Web search rules]\n"
-"        - Use web search only when fresh or external information is necessary.\n"
-"        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already sufficient.\n"
-"        "
-msgstr ""
-"[Правила вебпошуку]\n"
-"        - Використовуйте вебпошук лише тоді, коли потрібна свіжа або зовнішня інформація.\n"
-"        - Не використовуйте вебпошук для локальної або сталої інформації.\n"
-"        - Якщо відповідь уже достатня, краще відповідати без вебпошуку.\n"
-"        "
-
-#: src/uagent/llm_round_helpers.py:133
-#, python-format
-msgid "[Translate Error] %(diag)s"
-msgstr "[Помилка перекладу] %(diag)s"
-
-#: src/uagent/llm_round_helpers.py:192 src/uagent/llm_round_helpers.py:302
-#: src/uagent/llm_round_helpers.py:636
-#, python-format
-msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "Досягнуто 429 повторних спроб (%(max_retries)s)."
-
-#: src/uagent/llm_round_helpers.py:216
-msgid "[Gemini Error] An error occurred while generating a response."
-msgstr "[Помилка Gemini] Під час створення відповіді сталася помилка."
-
-#: src/uagent/llm_round_helpers.py:308
-msgid "[Claude Error] An error occurred while generating a response."
-msgstr "[Помилка Клода] Під час створення відповіді сталася помилка."
-
-msgid "Input exceeds the context window."
-msgstr ""
-
-msgid "Connection error"
-msgstr ""
-
-#: src/uagent/llm_round_helpers.py:615
-msgid "[Network Error]"
-msgstr "[Помилка мережі]"
-
-msgid "Unexpected exception."
-msgstr ""
-
-#: src/uagent/llm_round_helpers.py:720
-#, python-format
-msgid "Error while parsing response: %(err)s"
-msgstr "Помилка під час аналізу відповіді: %(err)s"
-
-#: src/uagent/profile_manager.py:482 src/uagent/profile_manager.py:600
-msgid ""
-"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
-"1. Environment (OS, shell, editor, etc.)\n"
-"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
-"3. Constraints (security rules, offline requirements, etc.)\n"
-"\n"
-"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
-"You MUST respond ONLY with a valid JSON object matching this schema:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-msgstr ""
-"Ви — агент профілювання користувача. Проаналізуйте журнал розмови та витягніть про користувача таке:\n"
-"1. Середовище (ОС, shell, редактор тощо)\n"
-"2. Уподобання (стиль кодування, улюблені інструменти, бажаний рівень докладності тощо)\n"
-"3. Обмеження (правила безпеки, вимоги до роботи офлайн тощо)\n"
-"\n"
-"Не включайте тимчасові запитання, балачки або чутливі облікові дані.\n"
-"Ви ПОВИННІ відповідати ЛИШЕ дійсним JSON-об'єктом, що відповідає цій схемі:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-
-#: src/uagent/profile_manager.py:586
-msgid "Failed to initialize LLM client."
-msgstr "Не вдалося ініціалізувати LLM-клієнт."
-
-#: src/uagent/profile_manager.py:591
-#, python-format
-msgid "Found %(total_files)d log files. Starting incremental profiling..."
-msgstr ""
-"Знайдено %(total_files)d файлів журналу. Починаю інкрементне профілювання..."
-
-#: src/uagent/runtime_banner.py:231
-msgid "embedding"
-msgstr "вбудовування"
-
-#: src/uagent/runtime_banner.py:232
-msgid "audio speech"
-msgstr "синтез мовлення"
-
-#: src/uagent/runtime_banner.py:233
-msgid "audio transcribe"
-msgstr "транскрибування аудіо"
-
-#: src/uagent/runtime_banner.py:234
-msgid "image generation"
-msgstr "генерація зображень"
-
-#: src/uagent/runtime_banner.py:235
-msgid "image analysis"
-msgstr "аналіз зображень"
-
-#: src/uagent/runtime_banner.py:254
-#, python-format
-msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
-msgstr "[INFO] робоча папка = %(workdir)s (джерело: %(source)s)"
-
-#: src/uagent/runtime_banner.py:262 src/uagent/runtime_banner.py:276
-#: src/uagent/runtime_banner.py:281 src/uagent/runtime_banner.py:293
-#: src/uagent/runtime_banner.py:305 src/uagent/runtime_banner.py:314
-#: src/uagent/runtime_banner.py:323
-#, python-format
-msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] базова URL-адреса = %(base_url)s"
-
-#: src/uagent/runtime_banner.py:270
-#, python-format
-msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] версія API = %(api_version)s"
-
-#: src/uagent/runtime_banner.py:332
-#, python-format
-msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
-msgstr "[INFO] vertexai = проєкт=%(project)s, розташування=%(location)s"
-
-#: src/uagent/runtime_banner.py:341
-#, python-format
-msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
-msgstr "[INFO] %(label)s = %(provider)s; модель = %(model)s"
-
-#: src/uagent/runtime_banner.py:368
-#, python-format
-msgid ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
-msgstr ""
-"UAGENT_RESPONSES=1 установлено, але постачальник '%(provider)s' не підтримує"
-" Responses API. Повертаючись до ChatCompletions."
-
-#: src/uagent/runtime_banner.py:375
-#, python-format
-msgid "LLM API mode = %(mode)s"
-msgstr "Режим LLM API = %(mode)s"
-
-#: src/uagent/runtime_banner.py:378
-msgid "Responses (UAGENT_RESPONSES is enabled)"
-msgstr "Відповіді (UAGENT_RESPONSES увімкнено)"
-
-#: src/uagent/runtime_banner.py:382
-msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-msgstr "Нативний API Gemini/Vertex AI/Claude (UAGENT_RESPONSES ігнорується)"
-
-#: src/uagent/runtime_banner.py:385
-msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "ChatCompletions (UAGENT_RESPONSES вимкнено)"
-
-#: src/uagent/runtime_banner.py:393
-#, python-format
-msgid "LLM streaming = %(state)s"
-msgstr "Потік LLM = %(state)s"
-
-#: src/uagent/runtime_banner.py:394
-msgid "enabled"
-msgstr "увімкнено"
-
-#: src/uagent/runtime_banner.py:394
-msgid "disabled"
-msgstr "вимкнено"
-
-#: src/uagent/runtime_env.py:186
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Вміст .env.sec не відповідає поточним змінним середовища запуску "
-"UAGENT_*. Оновити його? [y/N] "
-
-#: src/uagent/runtime_env.py:202
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Use `uag_envsec` to update it."
-msgstr ""
-"[INFO] Вміст .env.sec не відповідає поточним змінним середовища запуску "
-"UAGENT_*. Використайте `uag_envsec`, щоб оновити його."
-
-#: src/uagent/runtime_env.py:214
-#, python-format
-msgid "Updated .env.sec: %(path)s"
-msgstr "Оновлено .env.sec: %(path)s"
-
-#: src/uagent/runtime_env.py:218
-#, python-format
-msgid "[WARN] Failed to update .env.sec: %(err)s"
-msgstr "[WARN] Не вдалося оновити .env.sec: %(err)s"
-
-#: src/uagent/runtime_env.py:228
-msgid ""
-"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
-"environment variables? [y/N] "
-msgstr ""
-"[INFO] .env.sec відсутній. Створити його з поточних змінних середовища "
-"запуску UAGENT_*? [y/N] "
-
-#: src/uagent/runtime_env.py:244
-msgid ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
-"startup UAGENT_* environment variables."
-msgstr ""
-"[INFO] .env.sec відсутній. Використайте `uag_envsec`, щоб створити його з "
-"поточних змінних середовища запуску UAGENT_*."
-
-#: src/uagent/runtime_env.py:254
-#, python-format
-msgid "Created .env.sec: %(path)s"
-msgstr "Створено .env.sec: %(path)s"
-
-#: src/uagent/runtime_env.py:258
-#, python-format
-msgid "[WARN] Failed to create .env.sec: %(err)s"
-msgstr "[WARN] Не вдалося створити .env.sec: %(err)s"
-
-#: src/uagent/runtime_env.py:289
-#, python-format
-msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
-msgstr "[WARN] Не вдалося перевірити синхронізацію .env.sec: %(err)s"
-
-#: src/uagent/runtime_init.py:83
-#, python-format
-msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
-msgstr "[WARN] Не вдалося розшифрувати .env.sec: %(err)s"
-
-#: src/uagent/runtime_workdir.py:49
-#, python-format
-msgid "Specified workdir path is a file: %(path)s"
-msgstr "Вказаний шлях до робочого каталогу є файлом: %(path)s"
-
-#: src/uagent/scheckgui.py:131
-msgid "Drop files/images here"
-msgstr "Перетягніть сюди файли/зображення"
-
-#: src/uagent/scheckgui.py:169
-msgid "Download"
-msgstr "Завантажити"
-
-#: src/uagent/scheckgui.py:329
-#, python-format
-msgid "Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"Виняток стався під час завантаження спільної довгострокової пам’яті: %(err)s"
-
-#: src/uagent/scheckgui.py:382
-#, python-format
-msgid "[Attached File] %(name)s (%(path)s)"
-msgstr "[Прикріплений файл] %(name)s (%(path)s)"
-
-#: src/uagent/scheckgui.py:467
-#, python-format
-msgid "[Attached Image] %(path)s"
-msgstr "[Прикріплене зображення] %(path)s"
-
-#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
-#, python-format
-msgid "[Image Path] %(path)s"
-msgstr "[Шлях до зображення] %(path)s"
-
-#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
-msgid "Welcome / Quick Guide"
-msgstr "Ласкаво просимо / Короткий посібник"
-
-#: src/uagent/scheckgui.py:787
-msgid "uag GUI (Extreme Stability)"
-msgstr "uag GUI (Надзвичайна стабільність)"
-
-#: src/uagent/scheckgui.py:842
-msgid "↑ You can attach files by drag & drop"
-msgstr "↑ Їх можна прикріпити перетягуванням"
-
-#: src/uagent/scheckgui.py:863
-msgid "Attach..."
-msgstr "Прикріпити..."
-
-#: src/uagent/scheckgui.py:868
-msgid "Send"
-msgstr "Надіслати"
-
-#: src/uagent/scheckgui.py:908
-msgid "Help"
-msgstr "Довідка"
-
-#: src/uagent/scheckgui.py:923
-msgid "Mode"
-msgstr "Режим"
-
-#: src/uagent/scheckgui.py:925
-msgid "Reasoning: off"
-msgstr "Обґрунтування: викл"
-
-#: src/uagent/scheckgui.py:928
-msgid "Reasoning: auto"
-msgstr "Аргументація: авто"
-
-#: src/uagent/scheckgui.py:930
-msgid "Reasoning: minimal"
-msgstr "Аргументація: мінімальна"
-
-#: src/uagent/scheckgui.py:932
-msgid "Reasoning: low"
-msgstr "Обґрунтування: низький"
-
-#: src/uagent/scheckgui.py:934
-msgid "Reasoning: medium"
-msgstr "Аргументація: середня"
-
-#: src/uagent/scheckgui.py:936
-msgid "Reasoning: high"
-msgstr "Аргументація: висока"
-
-#: src/uagent/scheckgui.py:939
-msgid "Reasoning: xhigh"
-msgstr "Аргументація: xвисока"
-
-#: src/uagent/scheckgui.py:944
-msgid "Verbosity: off"
-msgstr "Багатослівність: вимкнено"
-
-#: src/uagent/scheckgui.py:946
-msgid "Verbosity: low"
-msgstr "Багатослівність: низька"
-
-#: src/uagent/scheckgui.py:948
-msgid "Verbosity: medium"
-msgstr "Багатослівність: середня"
-
-#: src/uagent/scheckgui.py:950
-msgid "Verbosity: high"
-msgstr "Багатослівність: висока"
-
-#: src/uagent/scheckgui.py:980
-#, python-format
-msgid "[mode] reasoning=%(mode)s"
-msgstr "[режим] міркування=%(mode)s"
-
-#: src/uagent/scheckgui.py:984
-msgid ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
-"auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=вимк., 1=низька, 2=середня, 3=висока; "
-"auto/minimal/xhigh)"
-
-#: src/uagent/scheckgui.py:992
-#, python-format
-msgid "[mode] verbosity=%(mode)s"
-msgstr "[режим] деталізація=%(mode)s"
-
-#: src/uagent/scheckgui.py:994
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-":v [0|1|2|3]  (0=вимк., 1=низьк., 2=середн., 3=висок.; без арг.=залишити)"
-
-#: src/uagent/scheckgui.py:1123
-msgid "Enter password..."
-msgstr "Введіть пароль..."
-
-#: src/uagent/scheckgui.py:1130
-msgid "Enter a message..."
-msgstr "Введіть повідомлення..."
-
-#: src/uagent/scheckgui.py:1147
-msgid "Attach files"
-msgstr "Прикріпити файли"
-
-#: src/uagent/scheckgui.py:1149
-msgid "All Files (*)"
-msgstr "Усі файли (*)"
-
-#: src/uagent/scheckgui.py:1401
-msgid "cannot read image"
-msgstr "не вдається прочитати зображення"
-
-#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
-#: src/uagent/scheckgui.py:1627
-msgid "Downloaded to"
-msgstr "Завантажено до"
-
-#: src/uagent/scheckgui.py:1646
-msgid "Playing"
-msgstr "Відтворення"
-
-#: src/uagent/scheckgui.py:1656
-msgid "Stopped"
-msgstr "Зупинено"
-
-#: src/uagent/scheckgui.py:1705
-#, python-format
-msgid "[REPLY] > %(text)s"
-msgstr "[ВІДПОВІДЬ] > %(text)s"
-
-#: src/uagent/scheckgui.py:1713
-#, python-format
-msgid "[USER] %(text)s"
-msgstr "[КОРИСТУВАЧ] %(text)s"
-
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
-#: src/uagent/setup_cli.py:572
-msgid "OpenAI API key"
-msgstr "Ключ OpenAI API"
-
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
-#: src/uagent/setup_cli.py:573
-msgid "OpenAI base URL (optional)"
-msgstr "Основна URL-адреса OpenAI (необов’язково)"
-
-#: src/uagent/setup_cli.py:79
-msgid "OpenAI model/deployment name (optional)"
-msgstr "Назва моделі/розгортання OpenAI (необов’язково)"
-
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
-#: src/uagent/setup_cli.py:560
-msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
-msgstr ""
-"Базова URL-адреса Azure (наприклад, https://<resource>.openai.azure.com/)"
-
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
-#: src/uagent/setup_cli.py:562
-msgid "Azure API key"
-msgstr "Ключ API Azure"
-
-#: src/uagent/setup_cli.py:91
-msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
-msgstr ""
-"Версія API Azure (необов’язкова, наприклад, попередній перегляд 2024-05-01)"
-
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
-msgid "Azure deployment name"
-msgstr "Назва розгортання Azure"
-
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
-#: src/uagent/setup_cli.py:581
-msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
-msgstr "Основна URL-адреса шлюзу Bedrock (наприклад, https://<gateway>/v1)"
-
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
-#: src/uagent/setup_cli.py:583
-msgid "Bedrock API key"
-msgstr "Ключ API Bedrock"
-
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
-msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
-msgstr "Модель Bedrock/назва розгортання (наприклад, openai.gpt-oss-120b)"
-
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
-#: src/uagent/setup_cli.py:592
-msgid "OpenRouter API key"
-msgstr "Ключ OpenRouter API"
-
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
-#: src/uagent/setup_cli.py:593
-msgid "OpenRouter base URL (optional)"
-msgstr "Основна URL-адреса OpenRouter (необов’язково)"
-
-#: src/uagent/setup_cli.py:114
-msgid "OpenRouter model/deployment name (optional)"
-msgstr "Назва моделі/розгортання OpenRouter (необов’язково)"
-
-#: src/uagent/setup_cli.py:119
-msgid "OpenRouter fallback models (optional, comma-separated)"
-msgstr "Запасні моделі OpenRouter (необов’язково, розділені комами)"
-
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
-msgid "Gemini API key"
-msgstr "Ключ Gemini API"
-
-#: src/uagent/setup_cli.py:124
-msgid "Gemini model name (optional)"
-msgstr "Назва моделі Gemini (необов'язково)"
-
-#: src/uagent/setup_cli.py:127
-msgid "Vertex AI API key"
-msgstr "Ключ API Vertex AI"
-
-#: src/uagent/setup_cli.py:128
-msgid "Vertex AI project ID (optional)"
-msgstr "ID проекту Vertex AI (необов’язково)"
-
-#: src/uagent/setup_cli.py:129
-msgid "Vertex AI location/region (optional)"
-msgstr "Розташування/регіон Vertex AI (необов’язково)"
-
-#: src/uagent/setup_cli.py:133
-msgid "Google credentials for Vertex AI (optional)"
-msgstr "Облікові дані Google для Vertex AI (необов’язково)"
-
-#: src/uagent/setup_cli.py:138
-msgid "Google location/region for Vertex AI (optional)"
-msgstr "Розташування/регіон Google для Vertex AI (необов’язково)"
-
-#: src/uagent/setup_cli.py:140
-msgid "Vertex AI model/deployment name"
-msgstr "Назва моделі/розгортання Vertex AI"
-
-#: src/uagent/setup_cli.py:143
-msgid "Grok API key"
-msgstr "Ключ API Grok"
-
-#: src/uagent/setup_cli.py:144
-msgid "Grok base URL (optional)"
-msgstr "Основна URL-адреса Grok (необов’язково)"
-
-#: src/uagent/setup_cli.py:145
-msgid "Grok model/deployment name (optional)"
-msgstr "Назва моделі/розгортання Grok (необов’язково)"
-
-#: src/uagent/setup_cli.py:148
-msgid "Claude API key"
-msgstr "Ключ API Claude"
-
-#: src/uagent/setup_cli.py:149
-msgid "Claude model/deployment name (optional)"
-msgstr "Назва моделі/розгортання Claude (необов’язково)"
-
-#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
-#: src/uagent/setup_cli.py:607
-msgid "NVIDIA API key"
-msgstr "Ключ API NVIDIA"
-
-#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
-#: src/uagent/setup_cli.py:608
-msgid "NVIDIA base URL (optional)"
-msgstr "Базова URL-адреса NVIDIA (необов’язково)"
-
-#: src/uagent/setup_cli.py:154
-msgid "NVIDIA model/deployment name (optional)"
-msgstr "Назва моделі/розгортання NVIDIA (необов’язково)"
-
-#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
-msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
-msgstr "Основна URL-адреса Ollama (наприклад, http://localhost:11434/v1)"
-
-#: src/uagent/setup_cli.py:165
-msgid "Ollama API key (optional, default: dummy)"
-msgstr "Ключ API Ollama (необов’язковий, за умовчанням: пустий)"
-
-#: src/uagent/setup_cli.py:167
-msgid "Ollama model/deployment name (optional)"
-msgstr "Назва моделі/розгортання Ollama (необов’язково)"
-
-#: src/uagent/setup_cli.py:171
-msgid "Ollama request timeout in seconds (default: 60)"
-msgstr "Час очікування запиту Ollama в секундах (за замовчуванням: 60)"
-
-#: src/uagent/setup_cli.py:173
-msgid "Ollama temperature (default: 0.7)"
-msgstr "Температура Ollama (за замовчуванням: 0,7)"
-
-#: src/uagent/setup_cli.py:174
-msgid "Ollama top_p (default: 0.9)"
-msgstr "Ollama top_p (за замовчуванням: 0,9)"
-
-#: src/uagent/setup_cli.py:175
-msgid "Ollama top_k (default: 40)"
-msgstr "Ollama top_k (за замовчуванням: 40)"
-
-#: src/uagent/setup_cli.py:179
-msgid "Ollama repeat_penalty (default: 1.1)"
-msgstr "Ollama repeat_penalty (за замовчуванням: 1.1)"
-
-#: src/uagent/setup_cli.py:181
-msgid "Ollama keep_alive (default: 5m)"
-msgstr "Ollama keep_alive (за замовчуванням: 5 м)"
-
-#: src/uagent/setup_cli.py:182
-msgid "Ollama num_ctx (default: 8192)"
-msgstr "Ollama num_ctx (за замовчуванням: 8192)"
-
-#: src/uagent/setup_cli.py:183
-msgid "Ollama num_predict (default: 1024)"
-msgstr "Ollama num_predict (за замовчуванням: 1024)"
-
-#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
-msgid "Enter number:"
-msgstr "Введіть номер:"
-
-#: src/uagent/setup_cli.py:358
-msgid "Invalid input. Please enter a valid number."
-msgstr "Невірний вхід. Введіть дійсний номер."
-
-#: src/uagent/setup_cli.py:371
-#, python-format
-msgid " [default: %(default)s]"
-msgstr "[за замовчуванням: %(default)s]"
-
-#: src/uagent/setup_cli.py:387
-msgid "This field is required. Please enter a value."
-msgstr "Це поле є обов'язковим для заповнення. Будь ласка, введіть значення."
-
-#: src/uagent/setup_cli.py:399
-msgid "Select UAGENT_LANG"
-msgstr "Виберіть UAGENT_LANG"
-
-#: src/uagent/setup_cli.py:410
-msgid "UAGENT_LANG (custom)"
-msgstr "UAGENT_LANG (власний)"
-
-#: src/uagent/setup_cli.py:423
-msgid "Select output files to generate in the current directory"
-msgstr "Виберіть вихідні файли для створення в поточному каталозі"
-
-#: src/uagent/setup_cli.py:424
-msgid "  1. .env only"
-msgstr "1. Лише .env"
-
-#: src/uagent/setup_cli.py:425
-msgid "  2. .env + env.sh"
-msgstr "  2. .env + env.sh (Unix/Linux)"
-
-#: src/uagent/setup_cli.py:426
-msgid "  3. .env + env.ps1"
-msgstr "  3. .env + env.ps1 (PowerShell)"
-
-#: src/uagent/setup_cli.py:427
-msgid "  4. .env + env.bat"
-msgstr "  4. .env + env.bat (Windows)"
-
-#: src/uagent/setup_cli.py:428
-msgid "  5. .env + all (sh/ps1/bat)"
-msgstr "5. .env + все (sh/ps1/bat)"
-
-#: src/uagent/setup_cli.py:430
-msgid "  b. back"
-msgstr "  b. назад"
-
-#: src/uagent/setup_cli.py:431
-msgid "  q. quit"
-msgstr "  q. вийти"
-
-#: src/uagent/setup_cli.py:449
-msgid "Invalid input. Please enter 1-5, or b/q."
-msgstr "Невірний вхід. Будь ласка, введіть 1-5 або b/q."
-
-#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
-msgid "Azure API version (e.g. 2024-05-01-preview)"
-msgstr "Версія API Azure (наприклад, попередній перегляд 2024-05-01)"
-
-#: src/uagent/setup_cli.py:484
-msgid "OpenAI model/deployment name"
-msgstr "Назва моделі/розгортання OpenAI"
-
-#: src/uagent/setup_cli.py:504
-msgid "OpenRouter model/deployment name"
-msgstr "Назва моделі/розгортання OpenRouter"
-
-#: src/uagent/setup_cli.py:509
-msgid "Gemini model name"
-msgstr "Назва моделі Gemini"
-
-#: src/uagent/setup_cli.py:515
-msgid "NVIDIA model/deployment name"
-msgstr "Назва моделі/розгортання NVIDIA"
-
-#: src/uagent/setup_cli.py:534
-msgid "Enable image generation debug output? (0/1)"
-msgstr "Виберіть постачальника генерації зображень"
-
-#: src/uagent/setup_cli.py:568
-msgid "Azure embedding deployment name"
-msgstr "Назва розгортання Azure для ембеддингів"
-
-#: src/uagent/setup_cli.py:574
-msgid "OpenAI embedding model/deployment name"
-msgstr "Назва моделі/розгортання OpenAI для ембеддингів"
-
-#: src/uagent/setup_cli.py:587
-msgid "Bedrock embedding model/deployment name"
-msgstr "Назва моделі/розгортання Bedrock для ембеддингів"
-
-#: src/uagent/setup_cli.py:594
-msgid "OpenRouter embedding model/deployment name"
-msgstr "Назва моделі/розгортання OpenRouter для ембеддингів"
-
-#: src/uagent/setup_cli.py:603
-msgid "Ollama embedding model name"
-msgstr "Назва моделі Ollama для ембеддингів"
-
-#: src/uagent/setup_cli.py:609
-msgid "NVIDIA embedding model/deployment name"
-msgstr "Назва моделі/розгортання NVIDIA для ембеддингів"
-
-#: src/uagent/setup_cli.py:613
-msgid "Gemini embedding API key"
-msgstr "Ключ API embedding для Gemini"
-
-#: src/uagent/setup_cli.py:617
-msgid "Gemini embedding model name (e.g. text-embedding-004)"
-msgstr "Назва моделі embedding для Gemini (напр. text-embedding-004)"
-
-#: src/uagent/setup_cli.py:622
-msgid "Vertex AI embedding API key"
-msgstr "Ключ API embedding для Vertex AI"
-
-#: src/uagent/setup_cli.py:626
-msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
-msgstr "Назва моделі embedding для Vertex AI (напр. text-embedding-004)"
-
-#: src/uagent/setup_cli.py:675
-msgid "Azure speech deployment name"
-msgstr "Назва розгортання Azure Speech"
-
-#: src/uagent/setup_cli.py:676
-msgid "Azure transcription deployment name"
-msgstr "Назва розгортання Azure Transcription"
-
-#: src/uagent/setup_cli.py:677
-msgid "OpenAI speech model/deployment name"
-msgstr "Назва моделі/розгортання OpenAI Speech"
-
-#: src/uagent/setup_cli.py:678
-msgid "OpenAI transcription model/deployment name"
-msgstr "Назва моделі/розгортання OpenAI Transcription"
-
-#: src/uagent/setup_cli.py:679
-msgid "Gemini speech model name (optional)"
-msgstr "назва моделі мовлення Gemini (необов’язково)"
-
-#: src/uagent/setup_cli.py:680
-msgid "Gemini transcription model name (optional)"
-msgstr "назва моделі транскрибування Gemini (необов’язково)"
-
-#: src/uagent/setup_cli.py:681
-msgid "Vertex AI speech model name (optional)"
-msgstr "назва моделі мовлення Vertex AI (необов’язково)"
-
-#: src/uagent/setup_cli.py:682
-msgid "Vertex AI transcription model name (optional)"
-msgstr "назва моделі транскрибування Vertex AI (необов’язково)"
-
-#: src/uagent/setup_cli.py:705
-msgid "Configure optional image / embedding / audio settings?"
-msgstr "Налаштувати додаткові параметри зображень / вбудовування?"
-
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
-msgid "No"
-msgstr "немає"
-
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
-msgid "Yes"
-msgstr "так"
-
-#: src/uagent/setup_cli.py:720
-msgid "Configure image analysis settings?"
-msgstr "Налаштувати параметри аналізу зображення?"
-
-#: src/uagent/setup_cli.py:731
-msgid "Select image analysis provider"
-msgstr "Виберіть постачальника аналізу зображень"
-
-#: src/uagent/setup_cli.py:752
-msgid "Configure image generation settings?"
-msgstr "Налаштувати параметри створення зображення?"
-
-#: src/uagent/setup_cli.py:763
-msgid "Select image generation provider"
-msgstr "Виберіть постачальника генерації зображень"
-
-#: src/uagent/setup_cli.py:783
-msgid "Open generated images automatically?"
-msgstr "Відкривати створені зображення автоматично?"
-
-#: src/uagent/setup_cli.py:799
-msgid "Configure embedding / semantic search settings?"
-msgstr "Налаштувати параметри вбудовування/семантичного пошуку?"
-
-#: src/uagent/setup_cli.py:825
-msgid "Select embedding provider"
-msgstr "Виберіть постачальника ембеддингів"
-
-#: src/uagent/setup_cli.py:854
-msgid "Configure audio speech / transcription settings?"
-msgstr "Налаштувати параметри озвучення / транскрипції?"
-
-#: src/uagent/setup_cli.py:873
-msgid "Select audio speech provider"
-msgstr "Виберіть постачальника синтезу мовлення"
-
-#: src/uagent/setup_cli.py:893
-msgid "Select audio transcribe provider"
-msgstr "Виберіть постачальника транскрибування аудіо"
-
-#: src/uagent/setup_cli.py:913
-msgid "Open generated audio automatically?"
-msgstr "Відкривати згенероване аудіо автоматично?"
-
-#: src/uagent/setup_cli.py:980
-msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
-msgstr "Додатково: Responses API (Azure/OpenAI/Bedrock)"
-
-#: src/uagent/setup_cli.py:993
-msgid "Optional runtime"
-msgstr "Додатковий час виконання"
-
-#: src/uagent/setup_cli.py:1007
-msgid "Optional image / embedding / audio settings"
-msgstr "Додаткові налаштування зображень / вбудовування"
-
-#: src/uagent/setup_cli.py:1149
-msgid "Optional specialized sub-agent settings"
-msgstr "Додаткові налаштування спеціалізованих субагентів"
-
-#: src/uagent/setup_cli.py:1158
-msgid "Encrypt the generated .env file?"
-msgstr "Зашифрувати створений файл .env?"
-
-#: src/uagent/setup_cli.py:1164
-#, python-format
-msgid "Encrypted file will be written as %(path)s"
-msgstr "Зашифрований файл буде записаний як %(path)s"
-
-#: src/uagent/setup_cli.py:1180
-msgid "Select provider"
-msgstr "Виберіть провайдера"
-
-#: src/uagent/setup_cli.py:1219
-msgid "Enable Responses API options?"
-msgstr "Увімкнути параметри Responses API?"
-
-#: src/uagent/setup_cli.py:1235
-msgid "Select reasoning"
-msgstr "Виберіть міркування"
-
-#: src/uagent/setup_cli.py:1254
-msgid "Select verbosity"
-msgstr "Виберіть багатослівність"
-
-#: src/uagent/setup_cli.py:1273
-msgid "Set optional runtime UAGENT_WORKDIR?"
-msgstr "Установити додаткове середовище виконання UAGENT_WORKDIR?"
-
-#: src/uagent/setup_cli.py:1300
-msgid "Set optional runtime UAGENT_LANG?"
-msgstr "Встановити додатковий час виконання UAGENT_LANG?"
-
-#: src/uagent/setup_cli.py:1321
-msgid "Enable streaming?"
-msgstr "Увімкнути потоковий режим?"
-
-#: src/uagent/setup_cli.py:1362
-msgid "Summary"
-msgstr "Резюме"
-
-#: src/uagent/setup_cli.py:1363
-#, python-format
-msgid "  Provider: %(provider)s"
-msgstr "Постачальник: %(provider)s"
-
-#: src/uagent/setup_cli.py:1370
-#, python-format
-msgid "  Responses enabled: %(state)s"
-msgstr "Відповіді включені: %(state)s"
-
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
-msgid "yes"
-msgstr "так"
-
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
-msgid "no"
-msgstr "немає"
-
-#: src/uagent/setup_cli.py:1377
-#, python-format
-msgid "  Streaming enabled: %(state)s"
-msgstr "  Потоковий режим увімкнено: %(state)s"
-
-#: src/uagent/setup_cli.py:1393
-#, python-format
-msgid "  Optional extras enabled: %(state)s"
-msgstr "Увімкнено додаткові опції: %(state)s"
-
-#: src/uagent/setup_cli.py:1398
-#, python-format
-msgid "  Image analysis enabled: %(state)s"
-msgstr "Аналіз зображень увімкнено: %(state)s"
-
-#: src/uagent/setup_cli.py:1406
-#, python-format
-msgid "  Image generation enabled: %(state)s"
-msgstr "Увімкнено створення зображень: %(state)s"
-
-#: src/uagent/setup_cli.py:1417
-#, python-format
-msgid "  Embedding enabled: %(state)s"
-msgstr "Вбудовування ввімкнено: %(state)s"
-
-#: src/uagent/setup_cli.py:1427
-#, python-format
-msgid "  Outputs: %(outputs)s"
-msgstr "Виходи: %(outputs)s"
-
-#: src/uagent/setup_cli.py:1430
-msgid "Generate files with this configuration?"
-msgstr "Згенерувати файли з цією конфігурацією?"
-
-#: src/uagent/setup_cli.py:1431
-msgid "Yes, generate"
-msgstr "Так, генерувати"
-
-#: src/uagent/setup_cli.py:1431
-msgid "Back"
-msgstr "Назад"
-
-#: src/uagent/setup_cli.py:1455
-msgid "The following files already exist and will be overwritten:"
-msgstr "Наступні файли вже існують і будуть перезаписані:"
-
-#: src/uagent/setup_cli.py:1459
-msgid "Proceed?"
-msgstr "Продовжити?"
-
-#: src/uagent/setup_cli.py:1483
-msgid "Plain .env file removed after encryption."
-msgstr "Звичайний файл .env видалено після шифрування."
-
-#: src/uagent/setup_cli.py:1486
-#, python-format
-msgid "Warning: Failed to remove plain .env: %(error)s"
-msgstr "Попередження: не вдалося видалити простий .env: %(error)s"
-
-#: src/uagent/setup_cli.py:1505
-#, python-format
-msgid "generated: %(path)s"
-msgstr "створено: %(path)s"
-
-#: src/uagent/uagent_llm.py:129
-#, python-format
-msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
-msgstr "[WARN] Раунди інструменту перевищили %(max)d; переривання."
-
-#: src/uagent/util_providers.py:243
-msgid "Environment variable UAGENT_PROVIDER is not set."
-msgstr "Змінна середовища UAGENT_PROVIDER не встановлена."
-
-#: src/uagent/util_providers.py:259
-#, python-format
-msgid "Unknown provider: %(provider)s"
-msgstr "Невідомий постачальник: %(provider)s"
-
-#: src/uagent/util_providers.py:544 src/uagent/util_providers.py:570
-msgid "google-genai package is not installed."
-msgstr "пакет google-genai не встановлено."
-
-#: src/uagent/util_tools.py:181
-#, python-format
-msgid "image file not found: %(path)s"
-msgstr "файл зображення не знайдено: %(path)s"
-
-#: src/uagent/util_tools.py:186
-#, python-format
-msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr "файл зображення завеликий: %(size)d байт (ліміт=%(max)d)"
-
-#: src/uagent/util_tools.py:210
-msgid ""
-"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
-"current directory."
-msgstr ""
-"Вкажіть робочий каталог. Якщо не встановлено, використовується "
-"UAGENT_WORKDIR env var або поточний каталог."
-
-#: src/uagent/util_tools.py:217
-msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the"
-" startup file (if any)."
-msgstr ""
-"Неінтерактивний режим. Не запускайте цикл stdin; вийти після обробки файлу "
-"запуску (якщо є)."
-
-#: src/uagent/util_tools.py:355
-msgid "invalid reasoning"
-msgstr "недійсний режим reasoning"
-
-#: src/uagent/util_tools.py:373
-msgid "invalid verbosity"
-msgstr "недійсний рівень деталізації"
-
-#: src/uagent/util_tools.py:547
-#, python-format
-msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-msgstr ""
-"[logs] Неприпустимий аргумент: %(arg)r (вкажіть all / --all / -a / номер)"
-
-#: src/uagent/util_tools.py:586
-#, python-format
-msgid "failed to parse arguments: %(err)s"
-msgstr "не вдалося розібрати аргументи: %(err)s"
-
-#: src/uagent/util_tools.py:589
-msgid "missing arguments"
-msgstr "бракує аргументів"
-
-#: src/uagent/util_tools.py:605
-msgid "src and dst are required"
-msgstr "потрібні src і dst"
-
-#: src/uagent/util_tools.py:973
-msgid ""
-"[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
-"If the skill contains tasks, continue until they are complete.\n"
-"Use tools as needed.\n"
-msgstr ""
-"[Виконання навичок]\n"
-"Цей навик призначений для запуску. Уважно прочитайте текст навичок і дотримуйтесь інструкцій.\n"
-"Якщо навичка містить завдання, продовжуйте, доки вони не будуть виконані.\n"
-"За потреби використовуйте інструменти."
-
-#: src/uagent/util_tools.py:980
-msgid "When finished, always call `finish_skill` if available.\n"
-msgstr "Після завершення завжди телефонуйте `finish_skill`, якщо доступний."
-
-#: src/uagent/util_tools.py:1132
-msgid ""
-"Select a skill number to run. Enter c to cancel.\n"
-"Tip: :skills clear  (remove applied skills)\n"
-"Enter number:"
-msgstr ""
-"Виберіть номер навички для запуску. Введіть c, щоб скасувати.\n"
-"Порада: : навички очистити (видалити застосовані навички)\n"
-"Введіть номер:"
-
-#: src/uagent/util_tools.py:1168
-#, python-format
-msgid ""
-"Run this skill as a system-level instruction and keep it active in this session?\n"
-"\n"
-"Name: %(name)s\n"
-"Path: %(path)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"Запустити цю навичку як інструкцію на системному рівні та залишити її активною протягом цього сеансу?\n"
-"\n"
-"Назва: %(name)s\n"
-"Шлях: %(path)s\n"
-"\n"
-"Продовжити? Введіть y, щоб запустити, або c, щоб скасувати."
-
-#: src/uagent/util_tools.py:1230
-#, python-format
-msgid ""
-"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
-"%(default)d)"
-msgstr ""
-"[clean] Неприпустимий аргумент: %(arg)r (вкажіть number=поріг; за "
-"замовчуванням %(default)d)"
-
-#: src/uagent/util_tools.py:1279
-#, python-format
-msgid ""
-"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
-"Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
-"Targets: %(n)d\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"видалить файли журналів розмов (scheck_log_*.jsonl) з диска.\n"
-"Каталог журналів: %(dir)s\n"
-"Правило: загальна кількість повідомлень user/assistant/tool без system <= %(threshold)d\n"
-"Цілі: %(n)d\n"
-"\n"
-"Продовжити? Введіть y, щоб запустити, або c, щоб скасувати."
-
-#: src/uagent/util_tools.py:1347
-#, python-format
-msgid " - (%(count)d msgs) %(path)s"
-msgstr " - (%(count)d повідомлень) %(path)s"
-
-#: src/uagent/util_tools.py:1391
-#, python-format
-msgid ""
-"will overwrite the current session log file and prepend the loaded log (no backup).\n"
-"\n"
-"Current log: %(cur_log)s\n"
-"Source log: %(src_log)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"перезапише поточний файл журналу сеансу та додасть завантажений журнал на початок (без резервної копії).\n"
-"\n"
-"Поточний журнал: %(cur_log)s\n"
-"Вихідний журнал: %(src_log)s\n"
-"\n"
-"Продовжити? Введіть y, щоб запустити, або c, щоб скасувати."
-
-#: src/uagent/util_tools.py:1522
-#, python-brace-format
-msgid ""
-"Delete {count} path(s)?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Enter y to proceed, or c to cancel."
-msgstr ""
-"Видалити шлях(и) {count}?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Введіть y, щоб продовжити, або c, щоб скасувати."
-
-#: src/uagent/util_tools.py:1577
-#, python-format
-msgid "Specified index %(idx)d is out of range."
-msgstr "Вказаний індекс %(idx)d поза діапазоном."
-
-#: src/uagent/util_tools.py:1586
-#, python-format
-msgid "Log file not found: %(path)s"
-msgstr "Файл журналу не знайдено: %(path)s"
-
-#: src/uagent/util_tools.py:1669
-#, python-format
-msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr ""
-"[помилка скорочення] Не вдалося розібрати як int: %(arg)r -> зберегти "
-"останній %(keep)d"
-
-#: src/uagent/util_tools.py:1697
-#, python-format
-msgid ""
-"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr ""
-"[помилка shrink_llm] Не вдалося розібрати як int: %(arg)r -> зберегти "
-"останній %(keep)d"
-
-#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
-msgid ""
-"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
-"set)."
-msgstr ""
-"Спільну довготривалу пам’ять не ввімкнено (UAGENT_SHARED_MEMORY_FILE не "
-"встановлено)."
-
-#: src/uagent/util_tools.py:1787
-msgid "Analyzing past logs to generate user profile..."
-msgstr "Попередні журнали аналізуються для створення профілю користувача..."
-
-#: src/uagent/util_tools.py:1791
-msgid "No past logs found or failed to generate profile."
-msgstr "Попередніх журналів не знайдено або не вдалося створити профіль."
-
-#: src/uagent/util_tools.py:1793
-#, fuzzy
-msgid "User profile generated successfully from past logs!"
-msgstr "Профіль користувача успішно очищено."
-
-#: src/uagent/util_tools.py:1805
-msgid "No user profile data found."
-msgstr "Дані профілю користувача не знайдено."
-
-#: src/uagent/util_tools.py:1808
-msgid "User Profile:"
-msgstr "Профіль користувача:"
-
-#: src/uagent/util_tools.py:1820
-msgid "User profile cleared successfully."
-msgstr "Профіль користувача успішно очищено."
-
-#: src/uagent/util_tools.py:1824
-msgid "No user profile file found to clear."
-msgstr "Файл профілю користувача для очищення не знайдено."
-
-#: src/uagent/util_tools.py:1888
-msgid "Show this help"
-msgstr "Показати цю довідку"
-
-#: src/uagent/util_tools.py:1889
-msgid "Restart input from the beginning"
-msgstr "Почати введення спочатку"
-
-#: src/uagent/util_tools.py:1890
-msgid "Show log file list"
-msgstr "Показати список журналів"
-
-#: src/uagent/util_tools.py:1893
-msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
-":cd /)"
-msgstr ""
-"Змінити робочий каталог без підтвердження (наприклад: :cd .. / :cd ~ / :cd "
-"C:\\path / :cd /)"
-
-#: src/uagent/util_tools.py:1896
-msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
-msgstr ""
-"Показати вміст каталогу (наприклад: :ls / :ls .. / :ls ~ / :ls C:\\path)"
-
-#: src/uagent/util_tools.py:1899
-msgid "Manage UAGENT_* env vars and save .env.sec"
-msgstr "Керуйте змінними середовища UAGENT_* і збережіть .env.sec"
-
-#: src/uagent/util_tools.py:1901
-msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
-msgstr ""
-"Керувати/застосовувати навички (наприклад: :skills / :skills active / "
-":skills clear)"
-
-#: src/uagent/util_tools.py:1906
-msgid "Load a past log (overwrites current conversation history)"
-msgstr "Завантажити попередній журнал (перезаписує поточну історію розмови)"
-
-#: src/uagent/util_tools.py:1908
-msgid ""
-"                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current session "
-"log file (overwrite, no backup)."
-msgstr ""
-"                       Примітка: після запуску вас попросять підтвердити; "
-"якщо вибрати 'y', завантажений журнал буде додано на початок поточного файлу"
-" журналу сеансу (перезапис, без резервної копії)."
-
-#: src/uagent/util_tools.py:1912
-msgid ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of "
-"user/assistant/tool messages (excluding system) is <= N (default=10)"
-msgstr ""
-"Видалити журнали розмов (scheck_log_*.jsonl), де кількість повідомлень "
-"user/assistant/tool (без system) <= N (за замовчуванням=10)"
-
-#: src/uagent/util_tools.py:1916
-msgid ""
-"Shrink conversation history (keep last N non-system messages; default=40)"
-msgstr ""
-"Стиснути історію розмов (зберегти останні N повідомлень не system; за "
-"замовчуванням=40)"
-
-#: src/uagent/util_tools.py:1920
-msgid ""
-"Shrink history via LLM summarization (summarize older history into 1 system "
-"message; keep last N raw; default=20)"
-msgstr ""
-"Стиснути історію через підсумок LLM (старішу історію звести до 1 system-"
-"повідомлення; зберегти останні N сирих; за замовчуванням=20)"
-
-#: src/uagent/util_tools.py:1922
-msgid "List long-term memory notes"
-msgstr "Показати нотатки довготривалої пам'яті"
-
-#: src/uagent/util_tools.py:1924
-msgid "Delete a long-term memory note by index (see :mem-list)"
-msgstr "Видалити запис довготривалої пам'яті за індексом (див. :mem-list)"
-
-#: src/uagent/util_tools.py:1926
-#, fuzzy
-msgid "Show the learned user profile, or generate it from past logs"
-msgstr ""
-"Показати вивчений профіль користувача (оточення, уподобання, обмеження)"
-
-#: src/uagent/util_tools.py:1927
-#, fuzzy
-msgid "Generate user profile from past logs"
-msgstr "Дані профілю користувача не знайдено."
-
-#: src/uagent/util_tools.py:1928
-msgid "Clear the learned user profile data"
-msgstr "Очистити дані вивченого профілю користувача"
-
-#: src/uagent/util_tools.py:1930
-msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "Копіювати файл або каталог (підтримує -f/--overwrite і -p/--mkdirs)"
-
-#: src/uagent/util_tools.py:1932
-msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "Перемістити файл або каталог (підтримує -f/--overwrite і -p/--mkdirs)"
-
-#: src/uagent/util_tools.py:1934
-msgid "Show the first n lines of a file (default=20)"
-msgstr "Показати перші n рядків файлу (за замовчуванням=20)"
-
-#: src/uagent/util_tools.py:1935
-msgid "Show the last n lines of a file (default=20)"
-msgstr "Показати останні n рядків файлу (за замовчуванням=20)"
-
-#: src/uagent/util_tools.py:1937
-msgid "Delete file(s)/directory(ies) with preview + confirm"
-msgstr "Видалити файл(и)/каталог(и) з попереднім переглядом і підтвердженням"
-
-#: src/uagent/util_tools.py:1939
-msgid ""
-"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-msgstr ""
-"Встановити режим міркування (0=вимкнено, 1=низький, 2=середній, 3=високий; "
-"auto/minimal/xhigh)"
-
-#: src/uagent/util_tools.py:1941
-msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-"Встановити режим багатослівності (0=вимкнено, 1=низький, 2=середній, "
-"3=високий; без аргумента=залишити)"
-
-#: src/uagent/util_tools.py:1942
-msgid "Exit"
-msgstr "Вийти"
-
-#: src/uagent/util_tools.py:1945
-msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-msgstr ""
-"- Введіть рядок, що містить лише 'f', щоб увійти в режим багаторядкового "
-"введення."
-
-#: src/uagent/util_tools.py:1947
-#, python-format
-msgid ""
-"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-msgstr ""
-"  - Щоб завершити режим багаторядкового введення, введіть рядок, що точно "
-"дорівнює %(sentinel)s."
-
-#: src/uagent/util_tools.py:2183
-msgid "Exiting."
-msgstr "Вихід."
-
-#: src/uagent/util_tools.py:2186
-#, python-format
-msgid "Unknown command: :%(cmd)s"
-msgstr "Невідома команда: :%(cmd)s"
-
-#: src/uagent/util_tools.py:2337
-msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
-"\n"
-msgstr ""
-"Наведені нижче пункти є витягами з довгострокової пам’яті цього користувача "
-"(постійні нотатки). Використовуйте їх як довідкову інформацію про "
-"користувача. Однак завжди віддавайте пріоритет новонаданій інформації в "
-"розмові, і якщо вона суперечить старій інформації, приймайте останню "
-"інформацію."
-
-#: src/uagent/web.py:534
-msgid ""
-"[WARN] Another task is already running in this room. Please retry after it "
-"completes."
-msgstr ""
-"[WARN] У цій кімнаті вже виконується інше завдання. Спробуйте ще раз після "
-"його завершення."
-
-#: src/uagent/web.py:626 src/uagent/web.py:748
-msgid ""
-"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
-"Please check environment variables when starting the web server."
-msgstr ""
-"[FATAL] Змінну середовища UAGENT_PROVIDER не встановлено.\n"
-"Перевірте змінні середовища під час запуску вебсервера."
-
-#: src/uagent/web.py:664
-#, python-format
-msgid "[Attached Image] %(name)s"
-msgstr "[Прикріплене зображення] %(name)s"
-
-#: src/uagent/web.py:669
-#, python-format
-msgid "[Attached File] %(name)s"
-msgstr "[Прикріплений файл] %(name)s"
-
-#: src/uagent/web.py:670
-#, python-format
-msgid "[File Path] %(path)s"
-msgstr "[Шлях до файлу] %(path)s"
-
-#: src/uagent/web.py:698
-msgid "[INFO] Loaded long-term memory."
-msgstr "[INFO] Завантажено довготривалу пам’ять."
-
-#: src/uagent/web.py:710
-msgid "[INFO] Loaded shared long-term memory."
-msgstr "[INFO] Завантажено спільну довготривалу пам’ять."
-
-#: src/uagent/web.py:745
-#, python-format
-msgid ""
-"[FATAL] Web worker error.\n"
-"%(err)s"
-msgstr ""
-"[FATAL] Помилка вебробочого процесу.\n"
-"%(err)s"
-
-#: src/uagent/web.py:882
-msgid "missing path"
-msgstr "відсутній шлях"
-
-#: src/uagent/web.py:889
-msgid "path outside workdir"
-msgstr "шлях поза робочим каталогом"
-
-#: src/uagent/web.py:1051
-msgid "Starting server on"
-msgstr "Запускаю сервер на"
-
-#: src/uagent/web.py:1053
-msgid "External URL:"
-msgstr "Зовнішня URL-адреса:"
-
-#: src/uagent/welcome.py:29
-msgid ""
-"[MCP Servers]\n"
-"- Config file not found."
-msgstr ""
-"[Сервери MCP]\n"
-"- Файл конфігурації не знайдено."
-
-#: src/uagent/welcome.py:36
-msgid ""
-"[MCP Servers]\n"
-"- No servers registered."
-msgstr ""
-"[Сервери MCP]\n"
-"- Сервери не зареєстровані."
-
-#: src/uagent/welcome.py:38
-msgid "[MCP Servers]"
-msgstr "[Сервери MCP]"
-
-#: src/uagent/welcome.py:45
-#, python-format
-msgid ""
-"[MCP Servers]\n"
-"- Failed to get info: %(err)s"
-msgstr ""
-"[Сервери MCP]\n"
-"- Не вдалося отримати інформацію: %(err)s"
-
-#: src/uagent/welcome.py:64
-msgid "[Quick Guide]"
-msgstr "[Короткий посібник]"
-
-#: src/uagent/welcome.py:65
-msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
-"- Чат: введіть повідомлення та надішліть (GUI: Ctrl+Enter також доступний)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Багаторядковий: введіть рядок, який є просто \"f\", щоб увійти в "
-"багаторядковий режим (закінчується \"\"\"end)."
-
-#: src/uagent/welcome.py:70
-msgid ""
-"- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
-"(slash)."
-msgstr ""
-"- Команди: введіть ':help', щоб переглянути системні команди (керування "
-"логами, стиснення історії тощо). Примітка: команди починаються з двокрапки "
-"':' замість скісної риски '/'."
-
-#: src/uagent/welcome.py:72
-msgid "- Exit: ':exit' or ':quit' ends the session."
-msgstr "- Вихід: ':exit' або ':quit' завершує сеанс."
-
-#: src/uagent/welcome.py:74
-msgid ""
-"- Images: GUI supports drag & drop; in CUI you can input a file path for "
-"image analysis."
-msgstr ""
-"- Зображення: GUI підтримує перетягування; у CUI ви можете ввести шлях до "
-"файлу для аналізу зображення."
-
-#: src/uagent/welcome.py:77
-#, python-format
-msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
-"Inspector help (`--path/--open` also available)."
-msgstr ""
-"- Docs: `%(docs_cmd)s` показує вбудовані документи; `%(webinspect_cmd)s` "
-"показує довідку Web Inspector (`--path/--open` також доступні)."
-
-#: src/uagent/welcome.py:81
-msgid "[Examples]"
-msgstr "[Приклади]"
-
-#: src/uagent/welcome.py:82
-msgid "- \"Analyze the source code in this folder and create a README.md.\""
-msgstr "- \"Проаналізуйте вихідний код у цій папці та створіть README.md.\""
-
-#: src/uagent/welcome.py:84
-msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window"
-" contents.\""
-msgstr ""
-"- «Зробити скріншот поточного робочого столу та опишіть видимий вміст "
-"вікна»."
-
-#: src/uagent/welcome.py:86
-msgid "- \"Create a monthly summary report from this Excel file.\""
-msgstr "- \"Створити місячний підсумковий звіт із цього файлу Excel.\""
-
-#: src/uagent/welcome.py:87
-msgid "- \"Read this PDF and list three key points.\""
-msgstr "– «Прочитайте цей PDF-файл і перелічіть три ключові моменти»."
-
-#: src/uagent/welcome.py:88
-msgid "- \"Search the latest news and summarize a specific topic.\""
-msgstr "- «Пошук останніх новин і підсумовування конкретної теми»."
-
-#: src/uagent/welcome.py:193
-msgid "-- More -- (Enter: next) "
-msgstr "-- Ще -- (Enter: далі) "
-
-#: src/uagent/a2a/engine.py:125
-msgid "No assistant message produced."
-msgstr "Повідомлення асистента не створено."
-
-#: src/uagent/a2a/engine.py:137
-msgid "Generated image(s)."
-msgstr "Зображення згенеровано."
-
-#: src/uagent/a2a/engine.py:150
-#, python-format
-msgid "ECHO: %(text)s"
-msgstr "вивід: %(text)s"
-
-#: src/uagent/a2a/engine.py:165
-#, python-format
-msgid "uagent initialization failed: %(err)s"
-msgstr "ініціалізація uagent не вдалася: %(err)s"
-
-#: src/uagent/a2a/engine.py:177
-#, python-format
-msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr "виконання uagent не вдалося: %(etype)s: %(err)s"
-
-#: src/uagent/a2a/engine.py:188
-#, python-format
-msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
-msgstr "Невідомий UAGENT_A2A_ENGINE: %(mode)s"
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-08 18:40+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:17 src/uagent/checks.py:27
+#, python-format
+msgid "Please install Git. See: %(url)s"
+msgstr "Установіть Git. Перегляньте: %(url)s"
+
+#: src/uagent/checks.py:20
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Установіть Git. Приклад: sudo apt install git (Ubuntu/Debian) або sudo yum "
+"install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:23
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Установіть Git. Якщо використовуєте Homebrew: brew install git або "
+"встановіть Xcode Command Line Tools: xcode-select --install"
+
+#: src/uagent/checks.py:30
+msgid "[ERROR] Git is not installed."
+msgstr "[ERROR] Git не встановлено."
+
+#: src/uagent/cli.py:397
+msgid "getch() fallback to input()"
+msgstr "getch() переходить на input() як запасний варіант"
+
+#: src/uagent/cli.py:604
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Отримано Ctrl+C. Запускаю завершення..."
+
+#: src/uagent/cli.py:636 src/uagent/cli.py:706
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(Режим багаторядкового вводу: введіть текст у кілька рядків; щоб почати "
+"знову, введіть \"\"\"retry; завершіть рядком, що містить %(sentinel)s)"
+
+#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
+#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
+#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
+#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
+#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
+#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
+#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
+#: src/uagent/setup_cli.py:1462
+msgid "Cancelled."
+msgstr "Скасовано."
+
+#: src/uagent/cli.py:672 src/uagent/cli.py:722
+msgid "Discarded previous input. Please start over."
+msgstr "Попередній ввід відкинуто. Почніть спочатку."
+
+#: src/uagent/cli.py:683
+msgid "Received multiline reply."
+msgstr "Отримано багаторядкову відповідь."
+
+#: src/uagent/cli.py:841
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"У введенні знайдено шляхи до зображень.\n"
+"Хочете надіслати ці зображення до LLM (зовнішнього API) для аналізу?"
+
+#: src/uagent/cli.py:847
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr ""
+"Відповідайте y, щоб надіслати, або n (чи c/cancel), щоб пропустити "
+"надсилання."
+
+#: src/uagent/cli.py:865
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"Підтвердження надсилання зображень не вдалося; зображення не буде надіслано:"
+" %(etype)s: %(err)s"
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Не вдалося прикріпити зображення: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:930
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Невідомий тип події kind=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:948
+msgid "Exited uag."
+msgstr "uag завершено."
+
+#: src/uagent/cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "[docs] назва обов'язкова"
+
+#: src/uagent/cli_startup.py:22
+msgid ""
+"Select tool genres to enable at startup.\n"
+"1: comm  - Communication (Teams, Discord, etc.)\n"
+"2: office - Office suite (Excel, Word, etc.)\n"
+"4: devel  - Development (lint, py_compile, test, etc.)\n"
+"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
+msgstr ""
+"Виберіть категорії інструментів для увімкнення при запуску.\n"
+"1: comm  - Зв'язок (Teams, Discord тощо)\n"
+"2: office - Офісний пакет (Excel, Word тощо)\n"
+"4: devel  - Розробка (lint, py_compile, test тощо)\n"
+"Введіть суму значень (наприклад, 3 = comm + office, 7 = всі, або натисніть Enter, щоб увімкнути всі):"
+
+#: src/uagent/cli_startup.py:96
+#, python-format
+msgid "[WARN] Failed to apply startup tool selection: %(err)s"
+msgstr "[WARN] Не вдалося застосувати вибір інструменту запуску: %(err)s"
+
+#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Не вдалося встановити робочий каталог: %(err)s"
+
+#: src/uagent/cli_startup.py:202
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Не вдалося запустити uag_setup: %(err)s"
+
+#: src/uagent/cli_startup.py:243
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "постачальник = %(provider)s; модель = %(model)s"
+
+#: src/uagent/cli_startup.py:255 src/uagent/scheckgui.py:296
+msgid "OpenRouter fallback models enabled."
+msgstr "Увімкнено резервні моделі OpenRouter."
+
+#: src/uagent/cli_startup.py:259
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "поточна робоча папка = %(cwd)s"
+
+#: src/uagent/cli_startup.py:273 src/uagent/scheckgui.py:307
+msgid "Loaded long-term memory."
+msgstr "Завантажена довготривала пам'ять."
+
+#: src/uagent/cli_startup.py:286 src/uagent/scheckgui.py:320
+msgid "Loaded shared long-term memory."
+msgstr "Завантажена спільна довготривала пам'ять."
+
+#: src/uagent/cli_startup.py:293 src/uagent/web.py:718
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[WARN] Під час завантаження спільної довготривалої пам’яті сталася помилка: "
+"%(err)s"
+
+#: src/uagent/cli_startup.py:327
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[WARN] Не вдалося прочитати файл запуску: %(path)s (%(err)s)"
+
+#: src/uagent/cli_startup.py:341
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "Надано стартовий файл: %(path)s"
+
+#: src/uagent/cli_startup.py:364
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive вказано; вихід без очікування stdin."
+
+#: src/uagent/core.py:286 src/uagent/core.py:307
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "Змінна середовища %(name)s не встановлена."
+
+#: src/uagent/core.py:607
+msgid "No log files found."
+msgstr "Файли журналу не знайдено."
+
+#: src/uagent/core.py:625
+msgid "(unknown time)"
+msgstr "(невідомий час)"
+
+#: src/uagent/core.py:628
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "журнали: показано %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:631
+msgid "Log files:"
+msgstr "Файли журналу:"
+
+#: src/uagent/core.py:638
+msgid "(mtime unknown)"
+msgstr "(час зміни невідомий)"
+
+#: src/uagent/core.py:756 src/uagent/core.py:759
+msgid "(no user message)"
+msgstr "(немає повідомлення користувача)"
+
+#: src/uagent/core.py:764
+#, python-format
+msgid ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | %(turns)d повідомлень | перше: %(first_user)s | "
+"останнє: %(last_user)s"
+
+#: src/uagent/core.py:896
+#, python-format
+msgid ""
+"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
+msgstr ""
+"[WARN] Відкидаю осиротіле повідомлення інструмента: "
+"tool_call_id=%(tool_call_id)r name=%(name)r"
+
+#: src/uagent/core.py:994
+#, python-format
+msgid ""
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
+msgstr ""
+"[INFO] Було %(count)d повідомлень для стискання, тому нічого не змінено."
+
+#: src/uagent/core.py:1004
+#, python-format
+msgid ""
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+msgstr ""
+"[INFO] Стиснуто історію розмови в пам’яті: %(old_n)d -> %(new_n)d "
+"повідомлень (keep_last=%(keep_last)d)"
+
+#: src/uagent/core.py:1215
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr ""
+"Досягнуто ліміту повторних спроб 429 (%(max_retries)s) під час стиснення "
+"історії."
+
+#: src/uagent/core.py:1225
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "Помилка під час виклику LLM для стиснення історії: %(err)r"
+
+#: src/uagent/core.py:1258
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr "- Стисло підсумуйте фрагмент розмови англійською мовою.\n"
+
+#: src/uagent/core.py:1260
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr ""
+"- Зробіть підсумок лаконічним, але включіть ключові рішення, обмеження та "
+"невирішені питання.\n"
+
+#: src/uagent/core.py:1262
+msgid "- Output should be directly usable as a system message."
+msgstr ""
+"- Результат має бути придатним для безпосереднього використання як системне "
+"повідомлення."
+
+#: src/uagent/core.py:1265
+msgid "Conversation chunk:\n"
+msgstr "Фрагмент розмови:\n"
+
+#: src/uagent/core.py:1267
+msgid "Write a concise summary of this chunk."
+msgstr "Напишіть стислий підсумок цього фрагмента."
+
+#: src/uagent/core.py:1271
+msgid "- You are updating an existing conversation summary.\n"
+msgstr "- Ви оновлюєте наявний підсумок розмови.\n"
+
+#: src/uagent/core.py:1272
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr "- Збережіть важливі факти з попереднього підсумування.\n"
+
+#: src/uagent/core.py:1274
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr ""
+"- Об'єднайте новий фрагмент, не втрачаючи обмежень, рішень або невирішених "
+"питань.\n"
+
+#: src/uagent/core.py:1276
+msgid "- Keep the result concise and suitable for a system message."
+msgstr ""
+"- Зробіть результат лаконічним і придатним для системного повідомлення."
+
+#: src/uagent/core.py:1279
+msgid "Previous summary:\n"
+msgstr "Попередній підсумок:\n"
+
+#: src/uagent/core.py:1281
+msgid "New chunk:\n"
+msgstr "Новий фрагмент:\n"
+
+#: src/uagent/core.py:1283
+msgid "Update the summary while keeping the prior context intact."
+msgstr "Оновіть підсумок, зберігши попередній контекст."
+
+#: src/uagent/core.py:1304
+msgid "Summary of the conversation so far:\n"
+msgstr "Підсумок розмови на цей момент:\n"
+
+#: src/uagent/core.py:1311
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+"[INFO] shrink_llm: {old_n} -> {new_n} повідомлень (стиснуто {old_part_n} "
+"старіших повідомлень в 1 підсумок; збережено {tail_n} останніх)"
+
+#: src/uagent/core.py:1339
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[WARN] Стискання історії досягло межі контексту навіть за chunk_size=1; "
+"повертаюся до shrink_messages()."
+
+#: src/uagent/core.py:1349
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr ""
+"[WARN] Стискання історії не змогло зменшити chunk_size далі; повертаюся до "
+"shrink_messages()."
+
+#: src/uagent/core.py:1357
+#, python-format
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"[WARN] Перевищено межу контексту під час стискання історії; повторюю з "
+"chunk_size=%(chunk_size)d"
+
+#: src/uagent/core.py:1382
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help (довідка недоступна: %(err)s)"
+
+#: src/uagent/core.py:1394
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Місія\n"
+"- Ви здатні «агент виконання інструментів загального призначення», який працює в локальному середовищі, і ви можете фактично виконувати команди та працювати з файлами на машині користувача.\n"
+"- Попросіть користувача підтвердження перед виконанням будь-якої небезпечної операції.\n"
+"- Не підлещуйтеся користувачеві. Не використовуйте емодзі.\n"
+"— Не підсумовуйте. Тримайте інформацію стислим.\n"
+"— Під час створення файлів виводити повний кінцевий вміст (не виводити відмінності чи часткові підсумки)."
+
+#: src/uagent/core.py:1403
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Правила\n"
+"- Завжди використовуйте надані інструменти та перевіряйте найновішу інформацію.\n"
+"- Будьте креативними, але не виводьте невизначену інформацію.\n"
+"- Ознайомтеся з доступними інструментами та виберіть найбільш підходящий.\n"
+"- Виконуючи інструменти, делегуйте якомога менше прийняття рішень користувачеві."
+
+#: src/uagent/core.py:1410
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Примітки\n"
+"- Усі повідомлення користувача надходять через стандартний ввід цього скрипта.\n"
+"- Для подробиць щодо призначення/аргументів/обмежень/особливостей роботи конкретного інструмента використовуйте його опис.\n"
+"- Якщо потрібна додаткова інформація або підтвердження від користувача, використовуйте інструмент human_ask.\n"
+"- Під час обробки відносних дат викликайте get_current_time, щоб орієнтуватися на поточний час.\n"
+"- Не зберігайте секрети (паролі/токени) у довготривалій пам’яті (add_long_memory тощо).\n"
+"- Файли з суфіксами на кшталт .org / .org1 / .org2 є резервними копіями й не повинні розглядатися як основні файли для редагування.\n"
+"- Якщо створюєте Python-файли, запускайте `python -m py_compile` для перевірки синтаксису.\n"
+"- Якщо потрібні експертні знання, використовуйте шаблони запитів Agent Skills і дотримуйтеся їх.\n"
+"- Якщо введення користувача — це лише коротке підтвердження без нової інформації, не повторюйте те саме пояснення, якщо це не є прямою відповіддю на безпосередньо попереднє чітке запитання. Якщо потрібно, коротко запитайте: \"Яку саме частину продовжити?\"\n"
+
+#: src/uagent/core.py:1422
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr ""
+"## Політика небезпечної операції (delete_file)\n"
+"- Для видалення за допомогою інструмента delete_file НЕ запитуйте підтвердження перед попереднім переглядом.\n"
+"— Завжди спочатку запускайте delete_file із dry_run=true, щоб отримати список кандидатів на видалення.\n"
+"- Покажіть кандидатів користувачеві та запитайте підтвердження через human_ask рівно один раз.\n"
+"- Лише коли користувач явно відповідає \"y\" або \"yes\" (або еквівалентне явне схвалення), запустіть delete_file знову з тими самими параметрами, dry_run=false і confirmed=true.\n"
+"- Якщо кандидатів нуль, не запитуйте; просто повідомте, що нічого не буде видалено."
+
+#: src/uagent/core.py:1430
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Місія\n"
+"- Ви здатні «агент виконання інструментів загального призначення», що працює в локальному середовищі; ви можете виконувати команди та працювати на машині користувача.\n"
+"- Попросіть користувача підтвердження перед будь-якою небезпечною операцією.\n"
+"- Без лестощів. Без емодзі. Немає підсумків розмов. Будьте лаконічними.\n"
+"— Під час створення файлів виводити повний кінцевий вміст (без відмінностей/часткових підсумків)."
+
+#: src/uagent/core.py:1438
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Правила\n"
+"- Спочатку використовуйте надані інструменти та перевірте результати за допомогою інструментів.\n"
+"- Зверніться до опису інструментів щодо цілей/аргументів/обмежень; вибрати найбільш відповідний і безпечний засіб.\n"
+"- Будьте креативними, але не виводьте невизначену інформацію.\n"
+"- Делегуйте якомога менше прийняття рішень користувачеві."
+
+#: src/uagent/core.py:1445
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Примітки\n"
+"- Усі повідомлення користувача надходять через стандартний ввід цього скрипта.\n"
+"- Якщо бракує потрібної інформації/параметрів, запитайте через human_ask (не вгадуйте).\n"
+"- Для відносних дат викликайте get_current_time.\n"
+"- Не зберігайте секрети (паролі/токени) у довготривалій пам’яті.\n"
+"- Файли з суфіксами на кшталт .org / .org1 / .org2 є резервними копіями й не повинні розглядатися як основні файли для редагування.\n"
+"- Якщо створюєте Python-файли, запускайте `python -m py_compile`.\n"
+"- Якщо потрібні експертні знання, використовуйте шаблони запитів Agent Skills.\n"
+"- Якщо введення користувача — це лише коротке підтвердження без нової інформації, не повторюйте те саме пояснення, якщо це не є прямою відповіддю на безпосередньо попереднє чітке запитання. Якщо потрібно, коротко запитайте: \"Яку саме частину продовжити?\"\n"
+
+#: src/uagent/core.py:1458
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr ""
+"- Якщо користувач використовує Windows cmd.exe, віддайте перевагу "
+"багаторядковим командам із використанням продовження рядка вставки (^) і "
+"тримайте кожен рядок коротким, щоб уникнути копіювання/вставлення розривів "
+"рядків."
+
+#: src/uagent/core.py:1525
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr ""
+"У цьому сеансі наразі завантажуються такі інструменти. Виберіть найбільш "
+"відповідний інструмент для завдання."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "Проект README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Швидкий старт (колесо інсталяції Windows)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Посібник Web Inspector (playwright_inspector)."
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "Інформація про розробника"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "невідома назва документа: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "файл doc не знайдено: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "не вдалося вирішити шлях до документа: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] Доступні документи:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "Використання:"
+
+#: src/uagent/docs_util.py:232
+msgid "list"
+msgstr "список"
+
+#: src/uagent/docs_util.py:233
+msgid "show"
+msgstr "показати"
+
+#: src/uagent/docs_util.py:234
+msgid "show path"
+msgstr "показати шлях"
+
+#: src/uagent/docs_util.py:235
+msgid "open with OS"
+msgstr "відкрити в ОС"
+
+#: src/uagent/env_validate.py:42
+msgid ""
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+msgstr ""
+"Необхідно вибрати постачальника LLM "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+
+#: src/uagent/env_validate.py:63
+#, python-format
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+"Невідомий провайдер: %(provider)r. Дозволені: %(allowed)s (запуск, імовірно,"
+" завершиться помилкою)."
+
+#: src/uagent/env_validate.py:74
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+"Кінцева точка / базова URL Azure OpenAI (наприклад, "
+"https://<resource>.openai.azure.com/)."
+
+#: src/uagent/env_validate.py:80
+msgid "Azure OpenAI API key."
+msgstr "Ключ API Azure OpenAI."
+
+#: src/uagent/env_validate.py:85
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr "Версія API Azure OpenAI (наприклад, 2024-xx-xx)."
+
+#: src/uagent/env_validate.py:92
+msgid "OpenAI API key."
+msgstr "Ключ API OpenAI."
+
+#: src/uagent/env_validate.py:98
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr "Кінцева точка / базова URL проксі Bedrock (сумісна з OpenAI)."
+
+#: src/uagent/env_validate.py:105
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr "Ключ API проксі Bedrock (сумісний з OpenAI)."
+
+#: src/uagent/env_validate.py:112
+msgid "OpenRouter API key."
+msgstr "Ключ API OpenRouter."
+
+#: src/uagent/env_validate.py:117
+msgid "Grok (xAI) API key."
+msgstr "Ключ API Grok (xAI)."
+
+#: src/uagent/env_validate.py:122
+msgid "Gemini API key."
+msgstr "Ключ API Gemini."
+
+#: src/uagent/env_validate.py:129
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+"Пакет Python 'google-genai' не встановлено. Провайдер gemini потребує його."
+
+#: src/uagent/env_validate.py:140
+msgid "Vertex AI API key / model name."
+msgstr "Ключ API Vertex AI / назва моделі."
+
+#: src/uagent/env_validate.py:149
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+"Пакет Python 'google-genai' не встановлено. Провайдер vertexai потребує "
+"його."
+
+#: src/uagent/env_validate.py:157
+msgid "Anthropic (Claude) API key."
+msgstr "Ключ API Anthropic (Claude)."
+
+#: src/uagent/env_validate.py:165
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+"Пакет Python 'anthropic' не встановлено. Провайдер claude потребує його."
+
+#: src/uagent/env_validate.py:172
+msgid "NVIDIA API key."
+msgstr "Ключ API NVIDIA."
+
+#: src/uagent/env_validate.py:190
+#, python-format
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+"Невідомий провайдер embedding: %(provider)r. Дозволені: %(allowed)s (запуск,"
+" імовірно, завершиться помилкою)."
+
+#: src/uagent/env_validate.py:207
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr ""
+"Кінцева точка embedding Azure / ключ API / версія API / назва розгортання."
+
+#: src/uagent/env_validate.py:218
+msgid "OpenAI embedding API key / model name."
+msgstr "Ключ API embedding OpenAI / назва моделі."
+
+#: src/uagent/env_validate.py:230
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr "Кінцева точка embedding Bedrock / ключ API / назва розгортання."
+
+#: src/uagent/env_validate.py:241
+msgid "OpenRouter embedding API key / model name."
+msgstr "Ключ API embedding OpenRouter / назва моделі."
+
+#: src/uagent/env_validate.py:252
+msgid "Ollama embedding base URL / model name."
+msgstr "Базова URL embedding Ollama / назва моделі."
+
+#: src/uagent/env_validate.py:263
+msgid "NVIDIA embedding API key / model name."
+msgstr "Ключ API embedding NVIDIA / назва моделі."
+
+#: src/uagent/env_validate.py:274
+msgid "Gemini embedding API key / model name."
+msgstr "Ключ API / назва моделі embedding для Gemini."
+
+#: src/uagent/env_validate.py:285
+msgid "Vertex AI embedding API key / model name."
+msgstr "Ключ API / назва моделі embedding для Vertex AI."
+
+#: src/uagent/env_validate.py:302
+#, python-brace-format
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] Перевірка середовища не вдалася ({context})."
+
+#: src/uagent/env_validate.py:310
+msgid "Missing required environment variables:"
+msgstr "Відсутні необхідні змінні середовища:"
+
+#: src/uagent/env_validate.py:317
+msgid "Warnings:"
+msgstr "Попередження:"
+
+#: src/uagent/env_validate.py:321
+msgid "How to fix:"
+msgstr "Як виправити:"
+
+#: src/uagent/env_validate.py:324
+msgid ""
+"- Set the variables above in your environment before starting the program."
+msgstr ""
+"- Встановіть наведені вище змінні у своєму середовищі перед запуском "
+"програми."
+
+#: src/uagent/env_validate.py:330
+msgid ""
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
+msgstr ""
+"- Ви можете встановити їх за допомогою налаштувань середовища ОС, файлу "
+".env, сценаріїв запуску оболонки,"
+
+#: src/uagent/env_validate.py:336
+msgid ""
+"  or your process manager / service configuration (CI secrets, systemd, "
+"Docker, etc.)."
+msgstr ""
+"або ваш менеджер процесів/конфігурація служби (секрети CI, systemd, Docker "
+"тощо)."
+
+#: src/uagent/gemini_cache_mgr.py:131
+msgid "invalid cache meta"
+msgstr "недійсний мета кешу"
+
+#: src/uagent/image_session.py:101
+msgid "(prompt unavailable)"
+msgstr "(промпт недоступний)"
+
+#: src/uagent/image_session.py:105
+#, python-format
+msgid "screenshot: %(title)s"
+msgstr "знімок екрана: %(title)s"
+
+#: src/uagent/image_session.py:107
+msgid "screenshot"
+msgstr "знімок екрана"
+
+#: src/uagent/image_session.py:148
+msgid "Image-session context:"
+msgstr "Контекст сеансу зображень:"
+
+#: src/uagent/image_session.py:149
+msgid "This conversation already generated images."
+msgstr "Ця розмова вже згенерувала зображення."
+
+#: src/uagent/image_session.py:151
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"Використовуйте попередні промпти та збережені шляхи до файлів нижче як "
+"контекст для подальших правок, варіантів або продовжень."
+
+#: src/uagent/image_session.py:156
+#, python-format
+msgid "Turn %(idx)d:"
+msgstr "Хід %(idx)d:"
+
+#: src/uagent/image_session.py:157
+#, python-format
+msgid "- prompt: %(prompt)s"
+msgstr "- промпт: %(prompt)s"
+
+#: src/uagent/image_session.py:160
+#, python-format
+msgid "- file: %(path)s"
+msgstr "- файл: %(path)s"
+
+#: src/uagent/llm_claude.py:143 src/uagent/util_providers.py:610
+msgid "anthropic package is not installed."
+msgstr "пакет anthropic не встановлено."
+
+#: src/uagent/llm_errors.py:398
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr ""
+"[RATE_LIMIT] постачальник=%(provider)s модель=%(model)s статус=%(status)s "
+"спроба=%(attempt)s/%(max_retries)s очікування=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+
+#: src/uagent/llm_flow_helpers.py:205
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+"Попередня відповідь асистента була порожньою. Відповідайте на основі "
+"найновішого результату інструмента."
+
+#: src/uagent/llm_flow_helpers.py:218
+#, python-format
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+msgstr ""
+"[WARN] LLM повернув порожнє повідомлення асистента без викликів інструментів.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"Таке може траплятися в локальних постачальників, сумісних з OpenAI, після викликів інструментів. Спробуйте встановити UAGENT_EMPTY_NO_TOOL_MAX у більше значення або змінити постачальника."
+
+#: src/uagent/llm_flow_helpers.py:265
+msgid "arguments must be a JSON object."
+msgstr "аргументи мають бути JSON-об’єктом."
+
+#: src/uagent/llm_flow_helpers.py:272
+#, python-format
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[помилка аргументів інструмента] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+
+#: src/uagent/llm_flow_helpers.py:298
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr ""
+"[INFO] Повторно використовується попередній результат, оскільки цей виклик "
+"інструмента збігається з попереднім.\n"
+
+#: src/uagent/llm_flow_helpers.py:313
+#, python-format
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[помилка виконання інструмента] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+
+#: src/uagent/llm_gemini.py:556
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr ""
+"Не вдалося імпортувати google-genai (потрібно pip install google-genai)."
+
+#: src/uagent/llm_gemini.py:1115
+msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
+msgstr ""
+"[Помилка Gemini: відповідь заблоковано фільтром безпеки або через причину "
+"завершення]"
+
+#: src/uagent/llm_gemini.py:1117
+#, python-format
+msgid "[Gemini Error: %(err)s]"
+msgstr "[Помилка Gemini: %(err)s]"
+
+#: src/uagent/llm_image_helpers.py:7
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr "Опишіть цей знімок екрана та підсумуйте видимий інтерфейс."
+
+#: src/uagent/llm_image_helpers.py:11
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr ""
+"Прочитайте весь видимий текст на цьому знімку екрана та підсумуйте його."
+
+#: src/uagent/llm_image_helpers.py:15
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr ""
+"Перевірте цей знімок екрана на помилки, попередження та важливий стан "
+"інтерфейсу."
+
+#: src/uagent/llm_message_helpers.py:155
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] Автоматичне shrink_llm не вдалося: %(err)s"
+
+#: src/uagent/llm_openai_responses.py:69
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr ""
+"[WARN] історія асистента містила вміст зображення; перетворено на текст."
+
+#: src/uagent/llm_openai_responses.py:92
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[WARN] недійсний вміст зображення (відсутня url)."
+
+#: src/uagent/llm_openai_responses.py:100
+#: src/uagent/llm_openai_responses.py:109
+#, python-format
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[WARN] непідтримуваний елемент вмісту: %(item)r"
+
+#: src/uagent/llm_openai_responses.py:444
+msgid "Sources:"
+msgstr "Джерела:"
+
+#: src/uagent/llm_openai_responses.py:507
+msgid "search"
+msgstr "пошук"
+
+#: src/uagent/llm_openai_responses.py:509
+msgid "open page"
+msgstr "відкрити сторінку"
+
+#: src/uagent/llm_openai_responses.py:511
+msgid "find in page"
+msgstr "знайти на сторінці"
+
+#: src/uagent/llm_openai_responses.py:512
+msgid "web search"
+msgstr "вебпошук"
+
+#: src/uagent/llm_openai_responses.py:526
+msgid "Web search: searching"
+msgstr "Вебпошук: пошук"
+
+#: src/uagent/llm_openai_responses.py:528
+msgid "Web search: completed"
+msgstr "Вебпошук: завершено"
+
+#: src/uagent/llm_openai_responses.py:530
+#, python-brace-format
+msgid "Web search: {action}"
+msgstr "Вебпошук: {action}"
+
+#: src/uagent/llm_openai_responses.py:587
+#, python-brace-format
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[Правила виклику інструменту]\n"
+"        - Викликаючи інструмент/функцію, ви ПОВИННІ надати function_call.arguments як об’єкт JSON.\n"
+"        - Об'єкт JSON ПОВИНЕН містити всі необхідні параметри, визначені схемою інструменту.\n"
+"        - Ніколи не викликайте інструмент із порожнім об’єктом {}, якщо інструмент не має необхідних параметрів.\n"
+"        - Якщо у вас немає необхідного параметра, запитайте його в користувача за допомогою human_ask замість вгадування."
+
+#: src/uagent/llm_openai_responses.py:594
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[Правила вебпошуку]\n"
+"        - Використовуйте вебпошук лише тоді, коли потрібна свіжа або зовнішня інформація.\n"
+"        - Не використовуйте вебпошук для локальної або сталої інформації.\n"
+"        - Якщо відповідь уже достатня, краще відповідати без вебпошуку.\n"
+"        "
+
+#: src/uagent/llm_round_helpers.py:133
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[Помилка перекладу] %(diag)s"
+
+#: src/uagent/llm_round_helpers.py:192 src/uagent/llm_round_helpers.py:302
+#: src/uagent/llm_round_helpers.py:636
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "Досягнуто 429 повторних спроб (%(max_retries)s)."
+
+#: src/uagent/llm_round_helpers.py:216
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Помилка Gemini] Під час створення відповіді сталася помилка."
+
+#: src/uagent/llm_round_helpers.py:308
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Помилка Клода] Під час створення відповіді сталася помилка."
+
+#: src/uagent/llm_round_helpers.py:600
+msgid "Input exceeds the context window."
+msgstr "Вхідні данные перевищують вікно контексту."
+
+#: src/uagent/llm_round_helpers.py:610
+msgid "Connection error"
+msgstr "Помилка з'єднання"
+
+#: src/uagent/llm_round_helpers.py:615
+msgid "[Network Error]"
+msgstr "[Помилка мережі]"
+
+#: src/uagent/llm_round_helpers.py:642
+msgid "Unexpected exception."
+msgstr "Непередбачений виняток."
+
+#: src/uagent/llm_round_helpers.py:720
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Помилка під час аналізу відповіді: %(err)s"
+
+#: src/uagent/profile_manager.py:482 src/uagent/profile_manager.py:600
+msgid ""
+"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
+"1. Environment (OS, shell, editor, etc.)\n"
+"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
+"3. Constraints (security rules, offline requirements, etc.)\n"
+"\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+msgstr ""
+"Ви — агент профілювання користувача. Проаналізуйте журнал розмови та витягніть про користувача таке:\n"
+"1. Середовище (ОС, shell, редактор тощо)\n"
+"2. Уподобання (стиль кодування, улюблені інструменти, бажаний рівень докладності тощо)\n"
+"3. Обмеження (правила безпеки, вимоги до роботи офлайн тощо)\n"
+"\n"
+"Не включайте тимчасові запитання, балачки або чутливі облікові дані.\n"
+"Ви ПОВИННІ відповідати ЛИШЕ дійсним JSON-об'єктом, що відповідає цій схемі:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+
+#: src/uagent/profile_manager.py:586
+msgid "Failed to initialize LLM client."
+msgstr "Не вдалося ініціалізувати LLM-клієнт."
+
+#: src/uagent/profile_manager.py:591
+#, python-format
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr ""
+"Знайдено %(total_files)d файлів журналу. Починаю інкрементне профілювання..."
+
+#: src/uagent/runtime_banner.py:231
+msgid "embedding"
+msgstr "вбудовування"
+
+#: src/uagent/runtime_banner.py:232
+msgid "audio speech"
+msgstr "синтез мовлення"
+
+#: src/uagent/runtime_banner.py:233
+msgid "audio transcribe"
+msgstr "транскрибування аудіо"
+
+#: src/uagent/runtime_banner.py:234
+msgid "image generation"
+msgstr "генерація зображень"
+
+#: src/uagent/runtime_banner.py:235
+msgid "image analysis"
+msgstr "аналіз зображень"
+
+#: src/uagent/runtime_banner.py:254
+#, python-format
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] робоча папка = %(workdir)s (джерело: %(source)s)"
+
+#: src/uagent/runtime_banner.py:262 src/uagent/runtime_banner.py:276
+#: src/uagent/runtime_banner.py:281 src/uagent/runtime_banner.py:293
+#: src/uagent/runtime_banner.py:305 src/uagent/runtime_banner.py:314
+#: src/uagent/runtime_banner.py:323
+#, python-format
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] базова URL-адреса = %(base_url)s"
+
+#: src/uagent/runtime_banner.py:270
+#, python-format
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] версія API = %(api_version)s"
+
+#: src/uagent/runtime_banner.py:332
+#, python-format
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = проєкт=%(project)s, розташування=%(location)s"
+
+#: src/uagent/runtime_banner.py:341
+#, python-format
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; модель = %(model)s"
+
+#: src/uagent/runtime_banner.py:368
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 установлено, але постачальник '%(provider)s' не підтримує"
+" Responses API. Повертаючись до ChatCompletions."
+
+#: src/uagent/runtime_banner.py:375
+#, python-format
+msgid "LLM API mode = %(mode)s"
+msgstr "Режим LLM API = %(mode)s"
+
+#: src/uagent/runtime_banner.py:378
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Відповіді (UAGENT_RESPONSES увімкнено)"
+
+#: src/uagent/runtime_banner.py:382
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "Нативний API Gemini/Vertex AI/Claude (UAGENT_RESPONSES ігнорується)"
+
+#: src/uagent/runtime_banner.py:385
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "ChatCompletions (UAGENT_RESPONSES вимкнено)"
+
+#: src/uagent/runtime_banner.py:393
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "Потік LLM = %(state)s"
+
+#: src/uagent/runtime_banner.py:394
+msgid "enabled"
+msgstr "увімкнено"
+
+#: src/uagent/runtime_banner.py:394
+msgid "disabled"
+msgstr "вимкнено"
+
+#: src/uagent/runtime_env.py:186
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] Вміст .env.sec не відповідає поточним змінним середовища запуску "
+"UAGENT_*. Оновити його? [y/N] "
+
+#: src/uagent/runtime_env.py:202
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] Вміст .env.sec не відповідає поточним змінним середовища запуску "
+"UAGENT_*. Використайте `uag_envsec`, щоб оновити його."
+
+#: src/uagent/runtime_env.py:214
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "Оновлено .env.sec: %(path)s"
+
+#: src/uagent/runtime_env.py:218
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[WARN] Не вдалося оновити .env.sec: %(err)s"
+
+#: src/uagent/runtime_env.py:228
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec відсутній. Створити його з поточних змінних середовища "
+"запуску UAGENT_*? [y/N] "
+
+#: src/uagent/runtime_env.py:244
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec відсутній. Використайте `uag_envsec`, щоб створити його з "
+"поточних змінних середовища запуску UAGENT_*."
+
+#: src/uagent/runtime_env.py:254
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr "Створено .env.sec: %(path)s"
+
+#: src/uagent/runtime_env.py:258
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[WARN] Не вдалося створити .env.sec: %(err)s"
+
+#: src/uagent/runtime_env.py:289
+#, python-format
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr "[WARN] Не вдалося перевірити синхронізацію .env.sec: %(err)s"
+
+#: src/uagent/runtime_init.py:83
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[WARN] Не вдалося розшифрувати .env.sec: %(err)s"
+
+#: src/uagent/runtime_workdir.py:49
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Вказаний шлях до робочого каталогу є файлом: %(path)s"
+
+#: src/uagent/scheckgui.py:131
+msgid "Drop files/images here"
+msgstr "Перетягніть сюди файли/зображення"
+
+#: src/uagent/scheckgui.py:169
+msgid "Download"
+msgstr "Завантажити"
+
+#: src/uagent/scheckgui.py:329
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"Виняток стався під час завантаження спільної довгострокової пам’яті: %(err)s"
+
+#: src/uagent/scheckgui.py:382
+#, python-format
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[Прикріплений файл] %(name)s (%(path)s)"
+
+#: src/uagent/scheckgui.py:467
+#, python-format
+msgid "[Attached Image] %(path)s"
+msgstr "[Прикріплене зображення] %(path)s"
+
+#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
+#, python-format
+msgid "[Image Path] %(path)s"
+msgstr "[Шлях до зображення] %(path)s"
+
+#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
+msgid "Welcome / Quick Guide"
+msgstr "Ласкаво просимо / Короткий посібник"
+
+#: src/uagent/scheckgui.py:787
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (Надзвичайна стабільність)"
+
+#: src/uagent/scheckgui.py:842
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ Їх можна прикріпити перетягуванням"
+
+#: src/uagent/scheckgui.py:863
+msgid "Attach..."
+msgstr "Прикріпити..."
+
+#: src/uagent/scheckgui.py:868
+msgid "Send"
+msgstr "Надіслати"
+
+#: src/uagent/scheckgui.py:908
+msgid "Help"
+msgstr "Довідка"
+
+#: src/uagent/scheckgui.py:923
+msgid "Mode"
+msgstr "Режим"
+
+#: src/uagent/scheckgui.py:925
+msgid "Reasoning: off"
+msgstr "Обґрунтування: викл"
+
+#: src/uagent/scheckgui.py:928
+msgid "Reasoning: auto"
+msgstr "Аргументація: авто"
+
+#: src/uagent/scheckgui.py:930
+msgid "Reasoning: minimal"
+msgstr "Аргументація: мінімальна"
+
+#: src/uagent/scheckgui.py:932
+msgid "Reasoning: low"
+msgstr "Обґрунтування: низький"
+
+#: src/uagent/scheckgui.py:934
+msgid "Reasoning: medium"
+msgstr "Аргументація: середня"
+
+#: src/uagent/scheckgui.py:936
+msgid "Reasoning: high"
+msgstr "Аргументація: висока"
+
+#: src/uagent/scheckgui.py:939
+msgid "Reasoning: xhigh"
+msgstr "Аргументація: xвисока"
+
+#: src/uagent/scheckgui.py:944
+msgid "Verbosity: off"
+msgstr "Багатослівність: вимкнено"
+
+#: src/uagent/scheckgui.py:946
+msgid "Verbosity: low"
+msgstr "Багатослівність: низька"
+
+#: src/uagent/scheckgui.py:948
+msgid "Verbosity: medium"
+msgstr "Багатослівність: середня"
+
+#: src/uagent/scheckgui.py:950
+msgid "Verbosity: high"
+msgstr "Багатослівність: висока"
+
+#: src/uagent/scheckgui.py:980
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[режим] міркування=%(mode)s"
+
+#: src/uagent/scheckgui.py:984
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=вимк., 1=низька, 2=середня, 3=висока; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/scheckgui.py:992
+#, python-format
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[режим] деталізація=%(mode)s"
+
+#: src/uagent/scheckgui.py:994
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+":v [0|1|2|3]  (0=вимк., 1=низьк., 2=середн., 3=висок.; без арг.=залишити)"
+
+#: src/uagent/scheckgui.py:1123
+msgid "Enter password..."
+msgstr "Введіть пароль..."
+
+#: src/uagent/scheckgui.py:1130
+msgid "Enter a message..."
+msgstr "Введіть повідомлення..."
+
+#: src/uagent/scheckgui.py:1147
+msgid "Attach files"
+msgstr "Прикріпити файли"
+
+#: src/uagent/scheckgui.py:1149
+msgid "All Files (*)"
+msgstr "Усі файли (*)"
+
+#: src/uagent/scheckgui.py:1401
+msgid "cannot read image"
+msgstr "не вдається прочитати зображення"
+
+#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
+#: src/uagent/scheckgui.py:1627
+msgid "Downloaded to"
+msgstr "Завантажено до"
+
+#: src/uagent/scheckgui.py:1646
+msgid "Playing"
+msgstr "Відтворення"
+
+#: src/uagent/scheckgui.py:1656
+msgid "Stopped"
+msgstr "Зупинено"
+
+#: src/uagent/scheckgui.py:1705
+#, python-format
+msgid "[REPLY] > %(text)s"
+msgstr "[ВІДПОВІДЬ] > %(text)s"
+
+#: src/uagent/scheckgui.py:1713
+#, python-format
+msgid "[USER] %(text)s"
+msgstr "[КОРИСТУВАЧ] %(text)s"
+
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
+#: src/uagent/setup_cli.py:572
+msgid "OpenAI API key"
+msgstr "Ключ OpenAI API"
+
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
+#: src/uagent/setup_cli.py:573
+msgid "OpenAI base URL (optional)"
+msgstr "Основна URL-адреса OpenAI (необов’язково)"
+
+#: src/uagent/setup_cli.py:79
+msgid "OpenAI model/deployment name (optional)"
+msgstr "Назва моделі/розгортання OpenAI (необов’язково)"
+
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:560
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr ""
+"Базова URL-адреса Azure (наприклад, https://<resource>.openai.azure.com/)"
+
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
+#: src/uagent/setup_cli.py:562
+msgid "Azure API key"
+msgstr "Ключ API Azure"
+
+#: src/uagent/setup_cli.py:91
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr ""
+"Версія API Azure (необов’язкова, наприклад, попередній перегляд 2024-05-01)"
+
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
+msgid "Azure deployment name"
+msgstr "Назва розгортання Azure"
+
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:581
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "Основна URL-адреса шлюзу Bedrock (наприклад, https://<gateway>/v1)"
+
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
+#: src/uagent/setup_cli.py:583
+msgid "Bedrock API key"
+msgstr "Ключ API Bedrock"
+
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "Модель Bedrock/назва розгортання (наприклад, openai.gpt-oss-120b)"
+
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
+#: src/uagent/setup_cli.py:592
+msgid "OpenRouter API key"
+msgstr "Ключ OpenRouter API"
+
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
+#: src/uagent/setup_cli.py:593
+msgid "OpenRouter base URL (optional)"
+msgstr "Основна URL-адреса OpenRouter (необов’язково)"
+
+#: src/uagent/setup_cli.py:114
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "Назва моделі/розгортання OpenRouter (необов’язково)"
+
+#: src/uagent/setup_cli.py:119
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "Запасні моделі OpenRouter (необов’язково, розділені комами)"
+
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
+msgid "Gemini API key"
+msgstr "Ключ Gemini API"
+
+#: src/uagent/setup_cli.py:124
+msgid "Gemini model name (optional)"
+msgstr "Назва моделі Gemini (необов'язково)"
+
+#: src/uagent/setup_cli.py:127
+msgid "Vertex AI API key"
+msgstr "Ключ API Vertex AI"
+
+#: src/uagent/setup_cli.py:128
+msgid "Vertex AI project ID (optional)"
+msgstr "ID проекту Vertex AI (необов’язково)"
+
+#: src/uagent/setup_cli.py:129
+msgid "Vertex AI location/region (optional)"
+msgstr "Розташування/регіон Vertex AI (необов’язково)"
+
+#: src/uagent/setup_cli.py:133
+msgid "Google credentials for Vertex AI (optional)"
+msgstr "Облікові дані Google для Vertex AI (необов’язково)"
+
+#: src/uagent/setup_cli.py:138
+msgid "Google location/region for Vertex AI (optional)"
+msgstr "Розташування/регіон Google для Vertex AI (необов’язково)"
+
+#: src/uagent/setup_cli.py:140
+msgid "Vertex AI model/deployment name"
+msgstr "Назва моделі/розгортання Vertex AI"
+
+#: src/uagent/setup_cli.py:143
+msgid "Grok API key"
+msgstr "Ключ API Grok"
+
+#: src/uagent/setup_cli.py:144
+msgid "Grok base URL (optional)"
+msgstr "Основна URL-адреса Grok (необов’язково)"
+
+#: src/uagent/setup_cli.py:145
+msgid "Grok model/deployment name (optional)"
+msgstr "Назва моделі/розгортання Grok (необов’язково)"
+
+#: src/uagent/setup_cli.py:148
+msgid "Claude API key"
+msgstr "Ключ API Claude"
+
+#: src/uagent/setup_cli.py:149
+msgid "Claude model/deployment name (optional)"
+msgstr "Назва моделі/розгортання Claude (необов’язково)"
+
+#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
+#: src/uagent/setup_cli.py:607
+msgid "NVIDIA API key"
+msgstr "Ключ API NVIDIA"
+
+#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
+#: src/uagent/setup_cli.py:608
+msgid "NVIDIA base URL (optional)"
+msgstr "Базова URL-адреса NVIDIA (необов’язково)"
+
+#: src/uagent/setup_cli.py:154
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "Назва моделі/розгортання NVIDIA (необов’язково)"
+
+#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "Основна URL-адреса Ollama (наприклад, http://localhost:11434/v1)"
+
+#: src/uagent/setup_cli.py:165
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "Ключ API Ollama (необов’язковий, за умовчанням: пустий)"
+
+#: src/uagent/setup_cli.py:167
+msgid "Ollama model/deployment name (optional)"
+msgstr "Назва моделі/розгортання Ollama (необов’язково)"
+
+#: src/uagent/setup_cli.py:171
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "Час очікування запиту Ollama в секундах (за замовчуванням: 60)"
+
+#: src/uagent/setup_cli.py:173
+msgid "Ollama temperature (default: 0.7)"
+msgstr "Температура Ollama (за замовчуванням: 0,7)"
+
+#: src/uagent/setup_cli.py:174
+msgid "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p (за замовчуванням: 0,9)"
+
+#: src/uagent/setup_cli.py:175
+msgid "Ollama top_k (default: 40)"
+msgstr "Ollama top_k (за замовчуванням: 40)"
+
+#: src/uagent/setup_cli.py:179
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama repeat_penalty (за замовчуванням: 1.1)"
+
+#: src/uagent/setup_cli.py:181
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "Ollama keep_alive (за замовчуванням: 5 м)"
+
+#: src/uagent/setup_cli.py:182
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx (за замовчуванням: 8192)"
+
+#: src/uagent/setup_cli.py:183
+msgid "Ollama num_predict (default: 1024)"
+msgstr "Ollama num_predict (за замовчуванням: 1024)"
+
+#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
+msgid "Enter number:"
+msgstr "Введіть номер:"
+
+#: src/uagent/setup_cli.py:358
+msgid "Invalid input. Please enter a valid number."
+msgstr "Невірний вхід. Введіть дійсний номер."
+
+#: src/uagent/setup_cli.py:371
+#, python-format
+msgid " [default: %(default)s]"
+msgstr "[за замовчуванням: %(default)s]"
+
+#: src/uagent/setup_cli.py:387
+msgid "This field is required. Please enter a value."
+msgstr "Це поле є обов'язковим для заповнення. Будь ласка, введіть значення."
+
+#: src/uagent/setup_cli.py:399
+msgid "Select UAGENT_LANG"
+msgstr "Виберіть UAGENT_LANG"
+
+#: src/uagent/setup_cli.py:410
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG (власний)"
+
+#: src/uagent/setup_cli.py:423
+msgid "Select output files to generate in the current directory"
+msgstr "Виберіть вихідні файли для створення в поточному каталозі"
+
+#: src/uagent/setup_cli.py:424
+msgid "  1. .env only"
+msgstr "1. Лише .env"
+
+#: src/uagent/setup_cli.py:425
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh (Unix/Linux)"
+
+#: src/uagent/setup_cli.py:426
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1 (PowerShell)"
+
+#: src/uagent/setup_cli.py:427
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat (Windows)"
+
+#: src/uagent/setup_cli.py:428
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "5. .env + все (sh/ps1/bat)"
+
+#: src/uagent/setup_cli.py:430
+msgid "  b. back"
+msgstr "  b. назад"
+
+#: src/uagent/setup_cli.py:431
+msgid "  q. quit"
+msgstr "  q. вийти"
+
+#: src/uagent/setup_cli.py:449
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "Невірний вхід. Будь ласка, введіть 1-5 або b/q."
+
+#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Версія API Azure (наприклад, попередній перегляд 2024-05-01)"
+
+#: src/uagent/setup_cli.py:484
+msgid "OpenAI model/deployment name"
+msgstr "Назва моделі/розгортання OpenAI"
+
+#: src/uagent/setup_cli.py:504
+msgid "OpenRouter model/deployment name"
+msgstr "Назва моделі/розгортання OpenRouter"
+
+#: src/uagent/setup_cli.py:509
+msgid "Gemini model name"
+msgstr "Назва моделі Gemini"
+
+#: src/uagent/setup_cli.py:515
+msgid "NVIDIA model/deployment name"
+msgstr "Назва моделі/розгортання NVIDIA"
+
+#: src/uagent/setup_cli.py:534
+msgid "Enable image generation debug output? (0/1)"
+msgstr "Виберіть постачальника генерації зображень"
+
+#: src/uagent/setup_cli.py:568
+msgid "Azure embedding deployment name"
+msgstr "Назва розгортання Azure для ембеддингів"
+
+#: src/uagent/setup_cli.py:574
+msgid "OpenAI embedding model/deployment name"
+msgstr "Назва моделі/розгортання OpenAI для ембеддингів"
+
+#: src/uagent/setup_cli.py:587
+msgid "Bedrock embedding model/deployment name"
+msgstr "Назва моделі/розгортання Bedrock для ембеддингів"
+
+#: src/uagent/setup_cli.py:594
+msgid "OpenRouter embedding model/deployment name"
+msgstr "Назва моделі/розгортання OpenRouter для ембеддингів"
+
+#: src/uagent/setup_cli.py:603
+msgid "Ollama embedding model name"
+msgstr "Назва моделі Ollama для ембеддингів"
+
+#: src/uagent/setup_cli.py:609
+msgid "NVIDIA embedding model/deployment name"
+msgstr "Назва моделі/розгортання NVIDIA для ембеддингів"
+
+#: src/uagent/setup_cli.py:613
+msgid "Gemini embedding API key"
+msgstr "Ключ API embedding для Gemini"
+
+#: src/uagent/setup_cli.py:617
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr "Назва моделі embedding для Gemini (напр. text-embedding-004)"
+
+#: src/uagent/setup_cli.py:622
+msgid "Vertex AI embedding API key"
+msgstr "Ключ API embedding для Vertex AI"
+
+#: src/uagent/setup_cli.py:626
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr "Назва моделі embedding для Vertex AI (напр. text-embedding-004)"
+
+#: src/uagent/setup_cli.py:675
+msgid "Azure speech deployment name"
+msgstr "Назва розгортання Azure Speech"
+
+#: src/uagent/setup_cli.py:676
+msgid "Azure transcription deployment name"
+msgstr "Назва розгортання Azure Transcription"
+
+#: src/uagent/setup_cli.py:677
+msgid "OpenAI speech model/deployment name"
+msgstr "Назва моделі/розгортання OpenAI Speech"
+
+#: src/uagent/setup_cli.py:678
+msgid "OpenAI transcription model/deployment name"
+msgstr "Назва моделі/розгортання OpenAI Transcription"
+
+#: src/uagent/setup_cli.py:679
+msgid "Gemini speech model name (optional)"
+msgstr "назва моделі мовлення Gemini (необов’язково)"
+
+#: src/uagent/setup_cli.py:680
+msgid "Gemini transcription model name (optional)"
+msgstr "назва моделі транскрибування Gemini (необов’язково)"
+
+#: src/uagent/setup_cli.py:681
+msgid "Vertex AI speech model name (optional)"
+msgstr "назва моделі мовлення Vertex AI (необов’язково)"
+
+#: src/uagent/setup_cli.py:682
+msgid "Vertex AI transcription model name (optional)"
+msgstr "назва моделі транскрибування Vertex AI (необов’язково)"
+
+#: src/uagent/setup_cli.py:705
+msgid "Configure optional image / embedding / audio settings?"
+msgstr "Налаштувати додаткові параметри зображень / вбудовування?"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "No"
+msgstr "немає"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "Yes"
+msgstr "так"
+
+#: src/uagent/setup_cli.py:720
+msgid "Configure image analysis settings?"
+msgstr "Налаштувати параметри аналізу зображення?"
+
+#: src/uagent/setup_cli.py:731
+msgid "Select image analysis provider"
+msgstr "Виберіть постачальника аналізу зображень"
+
+#: src/uagent/setup_cli.py:752
+msgid "Configure image generation settings?"
+msgstr "Налаштувати параметри створення зображення?"
+
+#: src/uagent/setup_cli.py:763
+msgid "Select image generation provider"
+msgstr "Виберіть постачальника генерації зображень"
+
+#: src/uagent/setup_cli.py:783
+msgid "Open generated images automatically?"
+msgstr "Відкривати створені зображення автоматично?"
+
+#: src/uagent/setup_cli.py:799
+msgid "Configure embedding / semantic search settings?"
+msgstr "Налаштувати параметри вбудовування/семантичного пошуку?"
+
+#: src/uagent/setup_cli.py:825
+msgid "Select embedding provider"
+msgstr "Виберіть постачальника ембеддингів"
+
+#: src/uagent/setup_cli.py:854
+msgid "Configure audio speech / transcription settings?"
+msgstr "Налаштувати параметри озвучення / транскрипції?"
+
+#: src/uagent/setup_cli.py:873
+msgid "Select audio speech provider"
+msgstr "Виберіть постачальника синтезу мовлення"
+
+#: src/uagent/setup_cli.py:893
+msgid "Select audio transcribe provider"
+msgstr "Виберіть постачальника транскрибування аудіо"
+
+#: src/uagent/setup_cli.py:913
+msgid "Open generated audio automatically?"
+msgstr "Відкривати згенероване аудіо автоматично?"
+
+#: src/uagent/setup_cli.py:980
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "Додатково: Responses API (Azure/OpenAI/Bedrock)"
+
+#: src/uagent/setup_cli.py:993
+msgid "Optional runtime"
+msgstr "Додатковий час виконання"
+
+#: src/uagent/setup_cli.py:1007
+msgid "Optional image / embedding / audio settings"
+msgstr "Додаткові налаштування зображень / вбудовування"
+
+#: src/uagent/setup_cli.py:1149
+msgid "Optional specialized sub-agent settings"
+msgstr "Додаткові налаштування спеціалізованих субагентів"
+
+#: src/uagent/setup_cli.py:1158
+msgid "Encrypt the generated .env file?"
+msgstr "Зашифрувати створений файл .env?"
+
+#: src/uagent/setup_cli.py:1164
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "Зашифрований файл буде записаний як %(path)s"
+
+#: src/uagent/setup_cli.py:1180
+msgid "Select provider"
+msgstr "Виберіть провайдера"
+
+#: src/uagent/setup_cli.py:1219
+msgid "Enable Responses API options?"
+msgstr "Увімкнути параметри Responses API?"
+
+#: src/uagent/setup_cli.py:1235
+msgid "Select reasoning"
+msgstr "Виберіть міркування"
+
+#: src/uagent/setup_cli.py:1254
+msgid "Select verbosity"
+msgstr "Виберіть багатослівність"
+
+#: src/uagent/setup_cli.py:1273
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "Установити додаткове середовище виконання UAGENT_WORKDIR?"
+
+#: src/uagent/setup_cli.py:1300
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "Встановити додатковий час виконання UAGENT_LANG?"
+
+#: src/uagent/setup_cli.py:1321
+msgid "Enable streaming?"
+msgstr "Увімкнути потоковий режим?"
+
+#: src/uagent/setup_cli.py:1362
+msgid "Summary"
+msgstr "Резюме"
+
+#: src/uagent/setup_cli.py:1363
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr "Постачальник: %(provider)s"
+
+#: src/uagent/setup_cli.py:1370
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr "Відповіді включені: %(state)s"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "yes"
+msgstr "так"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "no"
+msgstr "немає"
+
+#: src/uagent/setup_cli.py:1377
+#, python-format
+msgid "  Streaming enabled: %(state)s"
+msgstr "  Потоковий режим увімкнено: %(state)s"
+
+#: src/uagent/setup_cli.py:1393
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr "Увімкнено додаткові опції: %(state)s"
+
+#: src/uagent/setup_cli.py:1398
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr "Аналіз зображень увімкнено: %(state)s"
+
+#: src/uagent/setup_cli.py:1406
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr "Увімкнено створення зображень: %(state)s"
+
+#: src/uagent/setup_cli.py:1417
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr "Вбудовування ввімкнено: %(state)s"
+
+#: src/uagent/setup_cli.py:1427
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr "Виходи: %(outputs)s"
+
+#: src/uagent/setup_cli.py:1430
+msgid "Generate files with this configuration?"
+msgstr "Згенерувати файли з цією конфігурацією?"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Yes, generate"
+msgstr "Так, генерувати"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Back"
+msgstr "Назад"
+
+#: src/uagent/setup_cli.py:1455
+msgid "The following files already exist and will be overwritten:"
+msgstr "Наступні файли вже існують і будуть перезаписані:"
+
+#: src/uagent/setup_cli.py:1459
+msgid "Proceed?"
+msgstr "Продовжити?"
+
+#: src/uagent/setup_cli.py:1483
+msgid "Plain .env file removed after encryption."
+msgstr "Звичайний файл .env видалено після шифрування."
+
+#: src/uagent/setup_cli.py:1486
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "Попередження: не вдалося видалити простий .env: %(error)s"
+
+#: src/uagent/setup_cli.py:1505
+#, python-format
+msgid "generated: %(path)s"
+msgstr "створено: %(path)s"
+
+#: src/uagent/uagent_llm.py:129
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[WARN] Раунди інструменту перевищили %(max)d; переривання."
+
+#: src/uagent/util_providers.py:243
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "Змінна середовища UAGENT_PROVIDER не встановлена."
+
+#: src/uagent/util_providers.py:259
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "Невідомий постачальник: %(provider)s"
+
+#: src/uagent/util_providers.py:544 src/uagent/util_providers.py:570
+msgid "google-genai package is not installed."
+msgstr "пакет google-genai не встановлено."
+
+#: src/uagent/util_tools.py:181
+#, python-format
+msgid "image file not found: %(path)s"
+msgstr "файл зображення не знайдено: %(path)s"
+
+#: src/uagent/util_tools.py:186
+#, python-format
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "файл зображення завеликий: %(size)d байт (ліміт=%(max)d)"
+
+#: src/uagent/util_tools.py:210
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"Вкажіть робочий каталог. Якщо не встановлено, використовується "
+"UAGENT_WORKDIR env var або поточний каталог."
+
+#: src/uagent/util_tools.py:217
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+"Неінтерактивний режим. Не запускайте цикл stdin; вийти після обробки файлу "
+"запуску (якщо є)."
+
+#: src/uagent/util_tools.py:355
+msgid "invalid reasoning"
+msgstr "недійсний режим reasoning"
+
+#: src/uagent/util_tools.py:373
+msgid "invalid verbosity"
+msgstr "недійсний рівень деталізації"
+
+#: src/uagent/util_tools.py:547
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr ""
+"[logs] Неприпустимий аргумент: %(arg)r (вкажіть all / --all / -a / номер)"
+
+#: src/uagent/util_tools.py:586
+#, python-format
+msgid "failed to parse arguments: %(err)s"
+msgstr "не вдалося розібрати аргументи: %(err)s"
+
+#: src/uagent/util_tools.py:589
+msgid "missing arguments"
+msgstr "бракує аргументів"
+
+#: src/uagent/util_tools.py:605
+msgid "src and dst are required"
+msgstr "потрібні src і dst"
+
+#: src/uagent/util_tools.py:973
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[Виконання навичок]\n"
+"Цей навик призначений для запуску. Уважно прочитайте текст навичок і дотримуйтесь інструкцій.\n"
+"Якщо навичка містить завдання, продовжуйте, доки вони не будуть виконані.\n"
+"За потреби використовуйте інструменти."
+
+#: src/uagent/util_tools.py:980
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr "Після завершення завжди телефонуйте `finish_skill`, якщо доступний."
+
+#: src/uagent/util_tools.py:1132
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
+msgstr ""
+"Виберіть номер навички для запуску. Введіть c, щоб скасувати.\n"
+"Порада: : навички очистити (видалити застосовані навички)\n"
+"Введіть номер:"
+
+#: src/uagent/util_tools.py:1168
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"Запустити цю навичку як інструкцію на системному рівні та залишити її активною протягом цього сеансу?\n"
+"\n"
+"Назва: %(name)s\n"
+"Шлях: %(path)s\n"
+"\n"
+"Продовжити? Введіть y, щоб запустити, або c, щоб скасувати."
+
+#: src/uagent/util_tools.py:1230
+#, python-format
+msgid ""
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Неприпустимий аргумент: %(arg)r (вкажіть number=поріг; за "
+"замовчуванням %(default)d)"
+
+#: src/uagent/util_tools.py:1279
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"видалить файли журналів розмов (scheck_log_*.jsonl) з диска.\n"
+"Каталог журналів: %(dir)s\n"
+"Правило: загальна кількість повідомлень user/assistant/tool без system <= %(threshold)d\n"
+"Цілі: %(n)d\n"
+"\n"
+"Продовжити? Введіть y, щоб запустити, або c, щоб скасувати."
+
+#: src/uagent/util_tools.py:1347
+#, python-format
+msgid " - (%(count)d msgs) %(path)s"
+msgstr " - (%(count)d повідомлень) %(path)s"
+
+#: src/uagent/util_tools.py:1391
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"перезапише поточний файл журналу сеансу та додасть завантажений журнал на початок (без резервної копії).\n"
+"\n"
+"Поточний журнал: %(cur_log)s\n"
+"Вихідний журнал: %(src_log)s\n"
+"\n"
+"Продовжити? Введіть y, щоб запустити, або c, щоб скасувати."
+
+#: src/uagent/util_tools.py:1522
+#, python-brace-format
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"Видалити шлях(и) {count}?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Введіть y, щоб продовжити, або c, щоб скасувати."
+
+#: src/uagent/util_tools.py:1577
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "Вказаний індекс %(idx)d поза діапазоном."
+
+#: src/uagent/util_tools.py:1586
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Файл журналу не знайдено: %(path)s"
+
+#: src/uagent/util_tools.py:1669
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[помилка скорочення] Не вдалося розібрати як int: %(arg)r -> зберегти "
+"останній %(keep)d"
+
+#: src/uagent/util_tools.py:1697
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[помилка shrink_llm] Не вдалося розібрати як int: %(arg)r -> зберегти "
+"останній %(keep)d"
+
+#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+"Спільну довготривалу пам’ять не ввімкнено (UAGENT_SHARED_MEMORY_FILE не "
+"встановлено)."
+
+#: src/uagent/util_tools.py:1787
+msgid "Analyzing past logs to generate user profile..."
+msgstr "Попередні журнали аналізуються для створення профілю користувача..."
+
+#: src/uagent/util_tools.py:1791
+msgid "No past logs found or failed to generate profile."
+msgstr "Попередніх журналів не знайдено або не вдалося створити профіль."
+
+#: src/uagent/util_tools.py:1793
+#, fuzzy
+msgid "User profile generated successfully from past logs!"
+msgstr "Профіль користувача успішно очищено."
+
+#: src/uagent/util_tools.py:1805
+msgid "No user profile data found."
+msgstr "Дані профілю користувача не знайдено."
+
+#: src/uagent/util_tools.py:1808
+msgid "User Profile:"
+msgstr "Профіль користувача:"
+
+#: src/uagent/util_tools.py:1820
+msgid "User profile cleared successfully."
+msgstr "Профіль користувача успішно очищено."
+
+#: src/uagent/util_tools.py:1824
+msgid "No user profile file found to clear."
+msgstr "Файл профілю користувача для очищення не знайдено."
+
+#: src/uagent/util_tools.py:1888
+msgid "Show this help"
+msgstr "Показати цю довідку"
+
+#: src/uagent/util_tools.py:1889
+msgid "Restart input from the beginning"
+msgstr "Почати введення спочатку"
+
+#: src/uagent/util_tools.py:1890
+msgid "Show log file list"
+msgstr "Показати список журналів"
+
+#: src/uagent/util_tools.py:1893
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Змінити робочий каталог без підтвердження (наприклад: :cd .. / :cd ~ / :cd "
+"C:\\path / :cd /)"
+
+#: src/uagent/util_tools.py:1896
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr ""
+"Показати вміст каталогу (наприклад: :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1899
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "Керуйте змінними середовища UAGENT_* і збережіть .env.sec"
+
+#: src/uagent/util_tools.py:1901
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr ""
+"Керувати/застосовувати навички (наприклад: :skills / :skills active / "
+":skills clear)"
+
+#: src/uagent/util_tools.py:1906
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "Завантажити попередній журнал (перезаписує поточну історію розмови)"
+
+#: src/uagent/util_tools.py:1908
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Примітка: після запуску вас попросять підтвердити; "
+"якщо вибрати 'y', завантажений журнал буде додано на початок поточного файлу"
+" журналу сеансу (перезапис, без резервної копії)."
+
+#: src/uagent/util_tools.py:1912
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Видалити журнали розмов (scheck_log_*.jsonl), де кількість повідомлень "
+"user/assistant/tool (без system) <= N (за замовчуванням=10)"
+
+#: src/uagent/util_tools.py:1916
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Стиснути історію розмов (зберегти останні N повідомлень не system; за "
+"замовчуванням=40)"
+
+#: src/uagent/util_tools.py:1920
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Стиснути історію через підсумок LLM (старішу історію звести до 1 system-"
+"повідомлення; зберегти останні N сирих; за замовчуванням=20)"
+
+#: src/uagent/util_tools.py:1922
+msgid "List long-term memory notes"
+msgstr "Показати нотатки довготривалої пам'яті"
+
+#: src/uagent/util_tools.py:1924
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "Видалити запис довготривалої пам'яті за індексом (див. :mem-list)"
+
+#: src/uagent/util_tools.py:1926
+#, fuzzy
+msgid "Show the learned user profile, or generate it from past logs"
+msgstr ""
+"Показати вивчений профіль користувача (оточення, уподобання, обмеження)"
+
+#: src/uagent/util_tools.py:1927
+#, fuzzy
+msgid "Generate user profile from past logs"
+msgstr "Дані профілю користувача не знайдено."
+
+#: src/uagent/util_tools.py:1928
+msgid "Clear the learned user profile data"
+msgstr "Очистити дані вивченого профілю користувача"
+
+#: src/uagent/util_tools.py:1930
+msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "Копіювати файл або каталог (підтримує -f/--overwrite і -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:1932
+msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "Перемістити файл або каталог (підтримує -f/--overwrite і -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:1934
+msgid "Show the first n lines of a file (default=20)"
+msgstr "Показати перші n рядків файлу (за замовчуванням=20)"
+
+#: src/uagent/util_tools.py:1935
+msgid "Show the last n lines of a file (default=20)"
+msgstr "Показати останні n рядків файлу (за замовчуванням=20)"
+
+#: src/uagent/util_tools.py:1937
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Видалити файл(и)/каталог(и) з попереднім переглядом і підтвердженням"
+
+#: src/uagent/util_tools.py:1939
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Встановити режим міркування (0=вимкнено, 1=низький, 2=середній, 3=високий; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:1941
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Встановити режим багатослівності (0=вимкнено, 1=низький, 2=середній, "
+"3=високий; без аргумента=залишити)"
+
+#: src/uagent/util_tools.py:1942
+msgid "Exit"
+msgstr "Вийти"
+
+#: src/uagent/util_tools.py:1945
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"- Введіть рядок, що містить лише 'f', щоб увійти в режим багаторядкового "
+"введення."
+
+#: src/uagent/util_tools.py:1947
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - Щоб завершити режим багаторядкового введення, введіть рядок, що точно "
+"дорівнює %(sentinel)s."
+
+#: src/uagent/util_tools.py:2183
+msgid "Exiting."
+msgstr "Вихід."
+
+#: src/uagent/util_tools.py:2186
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Невідома команда: :%(cmd)s"
+
+#: src/uagent/util_tools.py:2337
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"Наведені нижче пункти є витягами з довгострокової пам’яті цього користувача "
+"(постійні нотатки). Використовуйте їх як довідкову інформацію про "
+"користувача. Однак завжди віддавайте пріоритет новонаданій інформації в "
+"розмові, і якщо вона суперечить старій інформації, приймайте останню "
+"інформацію."
+
+#: src/uagent/web.py:534
+msgid ""
+"[WARN] Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"[WARN] У цій кімнаті вже виконується інше завдання. Спробуйте ще раз після "
+"його завершення."
+
+#: src/uagent/web.py:626 src/uagent/web.py:748
+msgid ""
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"[FATAL] Змінну середовища UAGENT_PROVIDER не встановлено.\n"
+"Перевірте змінні середовища під час запуску вебсервера."
+
+#: src/uagent/web.py:664
+#, python-format
+msgid "[Attached Image] %(name)s"
+msgstr "[Прикріплене зображення] %(name)s"
+
+#: src/uagent/web.py:669
+#, python-format
+msgid "[Attached File] %(name)s"
+msgstr "[Прикріплений файл] %(name)s"
+
+#: src/uagent/web.py:670
+#, python-format
+msgid "[File Path] %(path)s"
+msgstr "[Шлях до файлу] %(path)s"
+
+#: src/uagent/web.py:698
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] Завантажено довготривалу пам’ять."
+
+#: src/uagent/web.py:710
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] Завантажено спільну довготривалу пам’ять."
+
+#: src/uagent/web.py:745
+#, python-format
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[FATAL] Помилка вебробочого процесу.\n"
+"%(err)s"
+
+#: src/uagent/web.py:882
+msgid "missing path"
+msgstr "відсутній шлях"
+
+#: src/uagent/web.py:889
+msgid "path outside workdir"
+msgstr "шлях поза робочим каталогом"
+
+#: src/uagent/web.py:1051
+msgid "Starting server on"
+msgstr "Запускаю сервер на"
+
+#: src/uagent/web.py:1053
+msgid "External URL:"
+msgstr "Зовнішня URL-адреса:"
+
+#: src/uagent/welcome.py:29
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[Сервери MCP]\n"
+"- Файл конфігурації не знайдено."
+
+#: src/uagent/welcome.py:36
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[Сервери MCP]\n"
+"- Сервери не зареєстровані."
+
+#: src/uagent/welcome.py:38
+msgid "[MCP Servers]"
+msgstr "[Сервери MCP]"
+
+#: src/uagent/welcome.py:45
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[Сервери MCP]\n"
+"- Не вдалося отримати інформацію: %(err)s"
+
+#: src/uagent/welcome.py:64
+msgid "[Quick Guide]"
+msgstr "[Короткий посібник]"
+
+#: src/uagent/welcome.py:65
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr ""
+"- Чат: введіть повідомлення та надішліть (GUI: Ctrl+Enter також доступний)."
+
+#: src/uagent/welcome.py:67
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr ""
+"- Багаторядковий: введіть рядок, який є просто \"f\", щоб увійти в "
+"багаторядковий режим (закінчується \"\"\"end)."
+
+#: src/uagent/welcome.py:70
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr ""
+"- Команди: введіть ':help', щоб переглянути системні команди (керування "
+"логами, стиснення історії тощо). Примітка: команди починаються з двокрапки "
+"':' замість скісної риски '/'."
+
+#: src/uagent/welcome.py:72
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- Вихід: ':exit' або ':quit' завершує сеанс."
+
+#: src/uagent/welcome.py:74
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- Зображення: GUI підтримує перетягування; у CUI ви можете ввести шлях до "
+"файлу для аналізу зображення."
+
+#: src/uagent/welcome.py:77
+#, python-format
+msgid ""
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Docs: `%(docs_cmd)s` показує вбудовані документи; `%(webinspect_cmd)s` "
+"показує довідку Web Inspector (`--path/--open` також доступні)."
+
+#: src/uagent/welcome.py:81
+msgid "[Examples]"
+msgstr "[Приклади]"
+
+#: src/uagent/welcome.py:82
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"Проаналізуйте вихідний код у цій папці та створіть README.md.\""
+
+#: src/uagent/welcome.py:84
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr ""
+"- «Зробити скріншот поточного робочого столу та опишіть видимий вміст "
+"вікна»."
+
+#: src/uagent/welcome.py:86
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"Створити місячний підсумковий звіт із цього файлу Excel.\""
+
+#: src/uagent/welcome.py:87
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "– «Прочитайте цей PDF-файл і перелічіть три ключові моменти»."
+
+#: src/uagent/welcome.py:88
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- «Пошук останніх новин і підсумовування конкретної теми»."
+
+#: src/uagent/welcome.py:193
+msgid "-- More -- (Enter: next) "
+msgstr "-- Ще -- (Enter: далі) "
+
+#: src/uagent/a2a/engine.py:125
+msgid "No assistant message produced."
+msgstr "Повідомлення асистента не створено."
+
+#: src/uagent/a2a/engine.py:137
+msgid "Generated image(s)."
+msgstr "Зображення згенеровано."
+
+#: src/uagent/a2a/engine.py:150
+#, python-format
+msgid "ECHO: %(text)s"
+msgstr "вивід: %(text)s"
+
+#: src/uagent/a2a/engine.py:165
+#, python-format
+msgid "uagent initialization failed: %(err)s"
+msgstr "ініціалізація uagent не вдалася: %(err)s"
+
+#: src/uagent/a2a/engine.py:177
+#, python-format
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "виконання uagent не вдалося: %(etype)s: %(err)s"
+
+#: src/uagent/a2a/engine.py:188
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "Невідомий UAGENT_A2A_ENGINE: %(mode)s"

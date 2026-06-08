@@ -1,2480 +1,2508 @@
-#
-msgid ""
-msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-08 18:12+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.18.0\n"
-
-#: src/uagent/checks.py:17 src/uagent/checks.py:27
-#, python-format
-msgid "Please install Git. See: %(url)s"
-msgstr "Tafadhali sakinisha Git. Tazama: %(url)s"
-
-#: src/uagent/checks.py:20
-msgid ""
-"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
-"yum install git (CentOS/RHEL)"
-msgstr ""
-"Tafadhali sakinisha Git. Mfano: sudo apt install git (Ubuntu/Debian) au sudo"
-" yum install git (CentOS/RHEL)"
-
-#: src/uagent/checks.py:23
-msgid ""
-"Please install Git. If using Homebrew: brew install git, or install Xcode "
-"Command Line Tools: xcode-select --install"
-msgstr ""
-"Tafadhali sakinisha Git. Ukitumia Homebrew: brew install git, au sakinisha "
-"Xcode Command Line Tools: xcode-select --install"
-
-#: src/uagent/checks.py:30
-msgid "[ERROR] Git is not installed."
-msgstr "[ERROR] Git haijasakinishwa."
-
-#: src/uagent/cli.py:397
-msgid "getch() fallback to input()"
-msgstr "getch() inatumia input() kama mbadala"
-
-#: src/uagent/cli.py:604
-msgid "Received Ctrl+C. Starting shutdown..."
-msgstr "Imepokelewa Ctrl+C. Naanza kuzima..."
-
-#: src/uagent/cli.py:636 src/uagent/cli.py:706
-#, python-format
-msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-msgstr ""
-"(Hali ya ingizo la mistari mingi: andika maudhui katika mistari kadhaa; ili "
-"kuanza upya, andika \"\"\"retry; malizia kwa mstari unao na %(sentinel)s)"
-
-#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
-#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
-#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
-#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
-#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
-#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
-#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
-#: src/uagent/setup_cli.py:1462
-msgid "Cancelled."
-msgstr "Imeghairiwa."
-
-#: src/uagent/cli.py:672 src/uagent/cli.py:722
-msgid "Discarded previous input. Please start over."
-msgstr "Ingizo la awali limeondolewa. Tafadhali anza upya."
-
-#: src/uagent/cli.py:683
-msgid "Received multiline reply."
-msgstr "Imepokea jibu la mistari mingi."
-
-#: src/uagent/cli.py:841
-msgid ""
-"Image file paths were found in your input.\n"
-"Do you want to send these images to the LLM (external API) for analysis?\n"
-"\n"
-msgstr ""
-"Njia za faili za picha zimepatikana kwenye ingizo lako.\n"
-"Je, ungependa kutuma picha hizi kwa LLM (API ya nje) kwa uchambuzi?\n"
-"\n"
-
-#: src/uagent/cli.py:847
-msgid "Reply with y to send, or n (or c/cancel) to skip sending."
-msgstr "Jibu kwa y kutuma, au n (au c/cancel) kuruka kutuma."
-
-#: src/uagent/cli.py:865
-#, python-format
-msgid ""
-"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
-msgstr ""
-"Uthibitisho wa kutuma picha umeshindwa; picha hazitatumwa: %(etype)s: "
-"%(err)s"
-
-#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
-#, python-format
-msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
-msgstr "Imeshindwa kuambatisha picha: %(path)s (%(etype)s: %(err)s)"
-
-#: src/uagent/cli.py:930
-#, python-format
-msgid "Unknown event kind=%(kind)r: %(ev)r"
-msgstr "Tukio lisilojulikana kind=%(kind)r: %(ev)r"
-
-#: src/uagent/cli.py:948
-msgid "Exited uag."
-msgstr "Uag imeondoka."
-
-#: src/uagent/cli_docs.py:33
-msgid "[docs] name is required"
-msgstr "[docs] jina linahitajika"
-
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
-msgstr ""
-"Chagua aina za zana za kuwezesha wakati wa kuanza.\n"
-"1: comm  - Mawasiliano (Teams, Discord, n.k.)\n"
-"2: office - Seti ya ofisi (Excel, Word, n.k.)\n"
-"4: devel  - Maendeleo (lint, py_compile, test, n.k.)\n"
-"Ingiza jumla ya maadili (k.m., 3 = comm + office, 7 = zote, au bonyeza Enter ili kuwezesha zote):"
-
-#: src/uagent/cli_startup.py:96
-#, python-format
-msgid "[WARN] Failed to apply startup tool selection: %(err)s"
-msgstr "[WARN] Imeshindwa kutumia uteuzi wa zana ya kuanza: %(err)s"
-
-#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
-#, python-format
-msgid "[FATAL] Failed to set workdir: %(err)s"
-msgstr "[FATAL] Imeshindwa kuweka workdir: %(err)s"
-
-#: src/uagent/cli_startup.py:202
-#, python-format
-msgid "[FATAL] Failed to launch uag_setup: %(err)s"
-msgstr "[FATAL] Imeshindwa kuzindua uag_setup: %(err)s"
-
-#: src/uagent/cli_startup.py:243
-#, python-format
-msgid "provider = %(provider)s; model = %(model)s"
-msgstr "mtoa huduma = %(provider)s; modeli = %(model)s"
-
-#: src/uagent/cli_startup.py:255 src/uagent/scheckgui.py:296
-msgid "OpenRouter fallback models enabled."
-msgstr "Miundo mbadala ya OpenRouter imewezeshwa."
-
-#: src/uagent/cli_startup.py:259
-#, python-format
-msgid "current workdir = %(cwd)s"
-msgstr "saraka ya sasa ya kazi = %(cwd)s"
-
-#: src/uagent/cli_startup.py:273 src/uagent/scheckgui.py:307
-msgid "Loaded long-term memory."
-msgstr "Kumbukumbu ya muda mrefu imepakiwa."
-
-#: src/uagent/cli_startup.py:286 src/uagent/scheckgui.py:320
-msgid "Loaded shared long-term memory."
-msgstr "Kumbukumbu ya muda mrefu ya pamoja imepakiwa."
-
-#: src/uagent/cli_startup.py:293 src/uagent/web.py:718
-#, python-format
-msgid ""
-"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"[WARN] Hitilafu imetokea wakati wa kupakia kumbukumbu ya muda mrefu ya "
-"pamoja: %(err)s"
-
-#: src/uagent/cli_startup.py:327
-#, python-format
-msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
-msgstr "[WARN] Imeshindwa kusoma faili ya kuanzisha: %(path)s (%(err)s)"
-
-#: src/uagent/cli_startup.py:341
-#, python-format
-msgid "Startup file provided: %(path)s"
-msgstr "Faili ya kuanza imetolewa: %(path)s"
-
-#: src/uagent/cli_startup.py:364
-msgid "--non-interactive was specified; exiting without waiting for stdin."
-msgstr "--non-interactive imebainishwa; inatoka bila kusubiri stdin."
-
-#: src/uagent/core.py:286 src/uagent/core.py:307
-#, python-format
-msgid "Environment variable %(name)s is not set."
-msgstr "Kigezo cha mazingira %(name)s hakijawekwa."
-
-#: src/uagent/core.py:607
-msgid "No log files found."
-msgstr "Hakuna faili za logi zilizopatikana."
-
-#: src/uagent/core.py:625
-msgid "(unknown time)"
-msgstr "(wakati usiojulikana)"
-
-#: src/uagent/core.py:628
-#, python-format
-msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
-msgstr "logi: inaonyesha %(shown)d/%(total)d (dir=%(dir)s)"
-
-#: src/uagent/core.py:631
-msgid "Log files:"
-msgstr "Faili za logi:"
-
-#: src/uagent/core.py:638
-msgid "(mtime unknown)"
-msgstr "(muda wa mabadiliko haujulikani)"
-
-#: src/uagent/core.py:756 src/uagent/core.py:759
-msgid "(no user message)"
-msgstr "(hakuna ujumbe wa mtumiaji)"
-
-#: src/uagent/core.py:764
-#, python-format
-msgid ""
-"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
-"%(last_user)s"
-msgstr ""
-"[%(idx)d] %(mtime_text)s | ujumbe %(turns)d | wa kwanza: %(first_user)s | wa"
-" mwisho: %(last_user)s"
-
-#: src/uagent/core.py:896
-#, python-format
-msgid ""
-"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-msgstr ""
-"[WARN] Nafuta ujumbe wa zana uliotengwa: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-
-#: src/uagent/core.py:994
-#, python-format
-msgid ""
-"[INFO] There were %(count)d messages to compress, so nothing was changed."
-msgstr ""
-"[INFO] Kulikuwa na ujumbe %(count)d wa kubana, kwa hiyo hakuna "
-"kilichobadilishwa."
-
-#: src/uagent/core.py:1004
-#, python-format
-msgid ""
-"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
-"messages (keep_last=%(keep_last)d)"
-msgstr ""
-"[INFO] Historia ya mazungumzo kwenye kumbukumbu imebanwa: %(old_n)d -> "
-"%(new_n)d ujumbe (keep_last=%(keep_last)d)"
-
-msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
-
-msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
-
-msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
-
-msgid ""
-"- Keep the summary concise but include key decisions, constraints, and "
-"pending items.\n"
-msgstr ""
-
-msgid "- Output should be directly usable as a system message."
-msgstr ""
-
-msgid "Conversation chunk:\n"
-msgstr ""
-
-msgid "Write a concise summary of this chunk."
-msgstr ""
-
-msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
-
-msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
-
-msgid ""
-"- Merge in the new chunk without losing constraints, decisions, or pending "
-"items.\n"
-msgstr ""
-
-msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
-
-msgid "Previous summary:\n"
-msgstr ""
-
-msgid "New chunk:\n"
-msgstr ""
-
-msgid "Update the summary while keeping the prior context intact."
-msgstr ""
-
-msgid "Summary of the conversation so far:\n"
-msgstr ""
-
-msgid ""
-"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
-"older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
-
-#: src/uagent/core.py:1339
-msgid ""
-"[WARN] history compression hit context length even at chunk_size=1; falling "
-"back to shrink_messages()."
-msgstr ""
-"[WARN] Kubana historia kulifikia kikomo cha muktadha hata kwa chunk_size=1; "
-"narudi kwa shrink_messages()."
-
-#: src/uagent/core.py:1349
-msgid ""
-"[WARN] history compression could not reduce chunk_size further; falling back"
-" to shrink_messages()."
-msgstr ""
-"[WARN] Kubana historia hakukuweza kupunguza chunk_size zaidi; narudi kwa "
-"shrink_messages()."
-
-#: src/uagent/core.py:1357
-#, python-format
-msgid ""
-"[WARN] history compression context length exceeded; retrying with "
-"chunk_size=%(chunk_size)d"
-msgstr ""
-"[WARN] Kikomo cha muktadha kimezidiwa wakati wa kubana historia; najaribu "
-"tena kwa chunk_size=%(chunk_size)d"
-
-#: src/uagent/core.py:1382
-#, python-format
-msgid ":help  (help unavailable: %(err)s)"
-msgstr ":help  (msaada haupatikani: %(err)s)"
-
-#: src/uagent/core.py:1394
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
-"- Ask the user for confirmation before performing any dangerous operation.\n"
-"- Do not flatter the user. Do not use emojis.\n"
-"- Do not summarize. Keep information concise.\n"
-"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
-msgstr ""
-"## Dhamira\n"
-"- Wewe ni \"wakala hodari wa kutekeleza zana za matumizi ya jumla\" unaoendeshwa kwenye mazingira ya ndani, na unaweza kweli kutekeleza amri na kufanya kazi kwenye faili za mtumiaji.\n"
-"- Omba uthibitisho kutoka kwa mtumiaji kabla ya kufanya operesheni yoyote hatari.\n"
-"- Usimsifie mtumiaji. Usitumie emoji.\n"
-"- Usifanye muhtasari. Weka taarifa fupi.\n"
-"- Unapounda faili, toa maudhui kamili ya mwisho (usiweke tofauti wala muhtasari wa sehemu).\n"
-
-#: src/uagent/core.py:1403
-msgid ""
-"## Rules\n"
-"- Always use the provided tools and verify the latest information.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Consult available tools and choose the most appropriate one.\n"
-"- When executing tools, delegate as little decision-making as possible to the user.\n"
-msgstr ""
-"## Kanuni\n"
-"- Tumia zana zilizotolewa kila wakati na hakiki taarifa za hivi karibuni.\n"
-"- Kuwa mbunifu, lakini usitoe taarifa zisizo hakika.\n"
-"- Rejelea zana zinazopatikana na uchague inayofaa zaidi.\n"
-"- Unapotekeleza zana, achia mtumiaji maamuzi machache kadiri iwezekanavyo.\n"
-
-#: src/uagent/core.py:1410
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
-"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
-"- When handling relative date expressions, call get_current_time to reference the current time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
-"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
-"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
-msgstr ""
-"## Maelezo\n"
-"- Ujumbe wote wa mtumiaji hupitia ingizo la kawaida la skripti hii.\n"
-"- Kwa madhumuni/hoja/vizuizi/maelezo ya uendeshaji mahususi ya zana, pendelea maelezo ya kila zana.\n"
-"- Ikiwa unahitaji taarifa za ziada au uthibitisho kutoka kwa mtumiaji, tumia zana ya human_ask.\n"
-"- Unaposhughulikia misemo ya tarehe za kulingana na muktadha, ita get_current_time ili kurejelea wakati wa sasa.\n"
-"- Usihifadhi siri (manenosiri/tokeni) katika kumbukumbu ya muda mrefu (add_long_memory, n.k.).\n"
-"- Faili zenye viambishi kama .org / .org1 / .org2 ni nakala za hifadhi na hazipaswi kutumiwa kama faili kuu za kuhariri.\n"
-"- Ukiumba faili za Python, endesha `python -m py_compile` ili kuthibitisha sintaksia.\n"
-"- Ikiwa maarifa ya kiwango cha mtaalamu yanahitajika, tumia violezo vya maongozi (Agent Skills) na ufuate.\n"
-"- Ikiwa ingizo la mtumiaji ni uthibitisho mfupi tu na haliongezi taarifa mpya, usirudie maelezo yale yale isipokuwa ni jibu la moja kwa moja kwa swali lililo wazi lililotangulia mara moja. Ikiwa inahitajika, uliza kwa ufupi: \"Ni sehemu gani niendelee nayo?\"\n"
-
-#: src/uagent/core.py:1422
-msgid ""
-"## Dangerous operation policy (delete_file)\n"
-"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
-"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
-"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
-"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
-"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
-msgstr ""
-"## Sera ya operesheni hatari (delete_file)\n"
-"- Unapotumia zana ya delete_file kufuta, USIOMBE uthibitisho kabla ya onyesho la awali.\n"
-"- Daima endesha delete_file na dry_run=true kwanza ili upate orodha ya wagombea wa kufutwa.\n"
-"- Onyesha wagombea kwa mtumiaji na uombe uthibitisho kupitia human_ask mara moja tu.\n"
-"- Ni pale tu mtumiaji anapojibu waziwazi \"y\" au \"yes\" (au idhini nyingine wazi), endesha delete_file tena kwa vigezo vilevile, dry_run=false, na confirmed=true.\n"
-"- Ikiwa kuna wagombea sifuri, usiombe; toa tu taarifa kwamba hakuna kitakachofutwa.\n"
-
-#: src/uagent/core.py:1430
-#, fuzzy
-msgid ""
-"## Mission\n"
-"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
-"- Ask the user for confirmation before any dangerous operation.\n"
-"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
-"- When creating files, output the complete final content (no diffs/partial summaries).\n"
-"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
-msgstr ""
-"## Dhamira\n"
-"- Wewe ni \"wakala hodari wa kutekeleza zana za matumizi ya jumla\" unaoendeshwa kwenye mazingira ya ndani; unaweza kutekeleza amri na kufanya kazi kwenye mashine ya mtumiaji.\n"
-"- Omba uthibitisho kutoka kwa mtumiaji kabla ya operesheni yoyote hatari.\n"
-"- Hakuna kusifia. Hakuna emoji. Hakuna muhtasari wa mazungumzo. Weka iwe fupi.\n"
-"- Unapounda faili, toa maudhui kamili ya mwisho (bila tofauti/muhtasari wa sehemu).\n"
-
-#: src/uagent/core.py:1438
-msgid ""
-"## Rules\n"
-"- Use the provided tools first and verify results with tools.\n"
-"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
-"- Be creative, but do not output uncertain information.\n"
-"- Delegate as little decision-making as possible to the user.\n"
-msgstr ""
-"## Kanuni\n"
-"- Tumia zana zilizotolewa kwanza na hakiki matokeo kwa zana.\n"
-"- Rejelea maelezo ya zana kwa kusudi/hoja/vizuizi; chagua zana inayofaa zaidi na salama.\n"
-"- Kuwa mbunifu, lakini usitoe taarifa zisizo hakika.\n"
-"- Achia mtumiaji maamuzi machache kadiri iwezekanavyo.\n"
-
-#: src/uagent/core.py:1445
-msgid ""
-"## Notes\n"
-"- All user messages come via this script's standard input.\n"
-"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
-"- Relative dates: call get_current_time.\n"
-"- Do not store secrets (passwords/tokens) in long-term memory.\n"
-"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
-"- If you create Python files, run `python -m py_compile`.\n"
-"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
-"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
-msgstr ""
-"## Maelezo\n"
-"- Ujumbe wote wa mtumiaji hupitia ingizo la kawaida la skripti hii.\n"
-"- Ikiwa taarifa/parameta zinazohitajika hazipo, uliza kupitia human_ask (usikisie).\n"
-"- Kwa tarehe za kulingana na muktadha: ita get_current_time.\n"
-"- Usihifadhi siri (manenosiri/tokeni) katika kumbukumbu ya muda mrefu.\n"
-"- Faili zenye viambishi kama .org / .org1 / .org2 ni nakala za hifadhi na hazipaswi kutumiwa kama faili kuu za kuhariri.\n"
-"- Ukiumba faili za Python, endesha `python -m py_compile`.\n"
-"- Ikiwa maarifa ya kiwango cha mtaalamu yanahitajika, tumia violezo vya maongozi ya Agent Skills.\n"
-"- Ikiwa ingizo la mtumiaji ni uthibitisho mfupi tu na haliongezi taarifa mpya, usirudie maelezo yale yale isipokuwa ni jibu la moja kwa moja kwa swali lililo wazi lililotangulia mara moja. Ikiwa inahitajika, uliza kwa ufupi: \"Ni sehemu gani niendelee nayo?\"\n"
-
-#: src/uagent/core.py:1458
-msgid ""
-"- If the user is using Windows cmd.exe, prefer multi-line commands using "
-"caret (^) line continuation, and keep each line short to avoid copy/paste "
-"line breaks.\n"
-msgstr ""
-"- Ikiwa mtumiaji anatumia Windows cmd.exe, pendelea amri za mistari mingi "
-"kwa kutumia uendelezaji wa mstari kwa caret (^), na weka kila mstari mfupi "
-"ili kuepuka mapumziko ya kunakili/kubandika.\n"
-
-#: src/uagent/core.py:1525
-msgid ""
-"The following tools are currently loaded in this session. Choose the most "
-"appropriate tool for the task."
-msgstr ""
-"Zana zifuatazo zimepakiwa sasa kwenye kipindi hiki. Chagua zana inayofaa "
-"zaidi kwa kazi hii."
-
-#: src/uagent/docs_util.py:27
-msgid "Project README"
-msgstr "README ya mradi"
-
-#: src/uagent/docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "Haraka kuanza (usakinishaji wa wheel kwenye Windows)"
-
-#: src/uagent/docs_util.py:37
-msgid "Web Inspector (playwright_inspector) guide"
-msgstr "Mwongozo wa Web Inspector (playwright_inspector)"
-
-#: src/uagent/docs_util.py:42
-msgid "Developer information"
-msgstr "Taarifa za msanidi"
-
-#: src/uagent/docs_util.py:149
-#, python-format
-msgid "unknown doc name: %(name)r"
-msgstr "jina la hati lisilojulikana: %(name)r"
-
-#: src/uagent/docs_util.py:172
-#, python-format
-msgid "doc file not found: %(filename)s"
-msgstr "faili ya hati haikupatikana: %(filename)s"
-
-#: src/uagent/docs_util.py:203
-#, python-format
-msgid "doc path resolution failed: %(filename)s: %(err)s"
-msgstr "kushindwa kutatua njia ya hati: %(filename)s: %(err)s"
-
-#: src/uagent/docs_util.py:227
-msgid "[docs] Available documents:"
-msgstr "[docs] Hati zinazopatikana:"
-
-#: src/uagent/docs_util.py:231
-msgid "Usage:"
-msgstr "Matumizi:"
-
-#: src/uagent/docs_util.py:232
-msgid "list"
-msgstr "orodha"
-
-#: src/uagent/docs_util.py:233
-msgid "show"
-msgstr "onyesha"
-
-#: src/uagent/docs_util.py:234
-msgid "show path"
-msgstr "onyesha njia"
-
-#: src/uagent/docs_util.py:235
-msgid "open with OS"
-msgstr "fungua kwa OS"
-
-#: src/uagent/env_validate.py:42
-msgid ""
-"Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
-msgstr ""
-"Lazima uchague mtoa huduma wa LLM "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
-
-#: src/uagent/env_validate.py:63
-#, python-format
-msgid ""
-"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
-"fail)."
-msgstr ""
-"Mtoa huduma asiyejulikana: %(provider)r. Inayoruhusiwa: %(allowed)s (huenda "
-"uanzishaji ukashindikana)."
-
-#: src/uagent/env_validate.py:74
-msgid ""
-"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
-msgstr ""
-"Kiunganishi/URL msingi cha Azure OpenAI (mfano: "
-"https://<resource>.openai.azure.com/)."
-
-#: src/uagent/env_validate.py:80
-msgid "Azure OpenAI API key."
-msgstr "Ufunguo wa API wa Azure OpenAI."
-
-#: src/uagent/env_validate.py:85
-msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
-msgstr "Toleo la API la Azure OpenAI (mfano, 2024-xx-xx)."
-
-#: src/uagent/env_validate.py:92
-msgid "OpenAI API key."
-msgstr "Ufunguo wa API wa OpenAI."
-
-#: src/uagent/env_validate.py:98
-msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
-msgstr ""
-"Kiunganishi/URL msingi cha proksi ya Bedrock (kinachoendana na OpenAI)."
-
-#: src/uagent/env_validate.py:105
-msgid "Bedrock proxy API key (OpenAI-compatible)."
-msgstr "Ufunguo wa API wa proksi ya Bedrock (unaotangamana na OpenAI)."
-
-#: src/uagent/env_validate.py:112
-msgid "OpenRouter API key."
-msgstr "Ufunguo wa API wa OpenRouter."
-
-#: src/uagent/env_validate.py:117
-msgid "Grok (xAI) API key."
-msgstr "Ufunguo wa API wa Grok (xAI)."
-
-#: src/uagent/env_validate.py:122
-msgid "Gemini API key."
-msgstr "Ufunguo wa API wa Gemini."
-
-#: src/uagent/env_validate.py:129
-msgid ""
-"Python package 'google-genai' is not installed. Provider=gemini requires it."
-msgstr ""
-"Kifurushi cha Python 'google-genai' hakijasakinishwa. Mtoa huduma gemini "
-"anakihitaji."
-
-#: src/uagent/env_validate.py:140
-msgid "Vertex AI API key / model name."
-msgstr "Ufunguo wa API wa Vertex AI / jina la modeli."
-
-#: src/uagent/env_validate.py:149
-msgid ""
-"Python package 'google-genai' is not installed. Provider=vertexai requires "
-"it."
-msgstr ""
-"Kifurushi cha Python 'google-genai' hakijasakinishwa. Mtoa huduma vertexai "
-"anakihitaji."
-
-#: src/uagent/env_validate.py:157
-msgid "Anthropic (Claude) API key."
-msgstr "Ufunguo wa API wa Anthropic (Claude)."
-
-#: src/uagent/env_validate.py:165
-msgid ""
-"Python package 'anthropic' is not installed. Provider=claude requires it."
-msgstr ""
-"Kifurushi cha Python 'anthropic' hakijasakinishwa. Mtoa huduma claude "
-"anakihitaji."
-
-#: src/uagent/env_validate.py:172
-msgid "NVIDIA API key."
-msgstr "Ufunguo wa API wa NVIDIA."
-
-#: src/uagent/env_validate.py:190
-#, python-format
-msgid ""
-"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
-" likely fail)."
-msgstr ""
-"Mtoa huduma wa embedding asiyejulikana: %(provider)r. Inayoruhusiwa: "
-"%(allowed)s (huenda uanzishaji ukashindikana)."
-
-#: src/uagent/env_validate.py:207
-msgid "Azure embedding endpoint / API key / API version / deployment name."
-msgstr ""
-"Kiunganishi cha embedding cha Azure / ufunguo wa API / toleo la API / jina "
-"la deployment."
-
-#: src/uagent/env_validate.py:218
-msgid "OpenAI embedding API key / model name."
-msgstr "Ufunguo wa API wa embedding wa OpenAI / jina la modeli."
-
-#: src/uagent/env_validate.py:230
-msgid "Bedrock embedding endpoint / API key / deployment name."
-msgstr ""
-"Kiunganishi cha embedding cha Bedrock / ufunguo wa API / jina la deployment."
-
-#: src/uagent/env_validate.py:241
-msgid "OpenRouter embedding API key / model name."
-msgstr "Ufunguo wa API wa embedding wa OpenRouter / jina la modeli."
-
-#: src/uagent/env_validate.py:252
-msgid "Ollama embedding base URL / model name."
-msgstr "URL msingi ya embedding ya Ollama / jina la modeli."
-
-#: src/uagent/env_validate.py:263
-msgid "NVIDIA embedding API key / model name."
-msgstr "Ufunguo wa API wa embedding wa NVIDIA / jina la modeli."
-
-#: src/uagent/env_validate.py:274
-msgid "Gemini embedding API key / model name."
-msgstr "Funguo la API / jina la modeli ya uingizaji wa Gemini."
-
-#: src/uagent/env_validate.py:285
-msgid "Vertex AI embedding API key / model name."
-msgstr "Funguo la API / jina la modeli ya uingizaji wa Vertex AI."
-
-#: src/uagent/env_validate.py:302
-#, python-brace-format
-msgid "[FATAL] Environment validation failed ({context})."
-msgstr "[FATAL] Uthibitishaji wa mazingira umeshindwa ({context})."
-
-#: src/uagent/env_validate.py:310
-msgid "Missing required environment variables:"
-msgstr "Mabadiliko ya mazingira yanayohitajika hayapo:"
-
-#: src/uagent/env_validate.py:317
-msgid "Warnings:"
-msgstr "Onyo:"
-
-#: src/uagent/env_validate.py:321
-msgid "How to fix:"
-msgstr "Jinsi ya kurekebisha:"
-
-#: src/uagent/env_validate.py:324
-msgid ""
-"- Set the variables above in your environment before starting the program."
-msgstr ""
-"- Weka vigezo vilivyo juu kwenye mazingira yako kabla ya kuanza programu."
-
-#: src/uagent/env_validate.py:330
-msgid ""
-"- You can set them via your OS environment settings, a .env file, your shell"
-" startup scripts,"
-msgstr ""
-"- Unaweza kuvianisha kupitia mipangilio ya mazingira ya OS yako, faili ya "
-".env, skripti za kuanza za ganda lako,"
-
-#: src/uagent/env_validate.py:336
-msgid ""
-"  or your process manager / service configuration (CI secrets, systemd, "
-"Docker, etc.)."
-msgstr ""
-"  au usanidi wa kidhibiti cha mchakato / huduma (siri za CI, systemd, "
-"Docker, n.k.)."
-
-#: src/uagent/gemini_cache_mgr.py:131
-msgid "invalid cache meta"
-msgstr "meta ya akiba batili"
-
-#: src/uagent/image_session.py:101
-msgid "(prompt unavailable)"
-msgstr "(kichocheo hakipatikani)"
-
-#: src/uagent/image_session.py:105
-#, python-format
-msgid "screenshot: %(title)s"
-msgstr "picha ya skrini: %(title)s"
-
-#: src/uagent/image_session.py:107
-msgid "screenshot"
-msgstr "picha ya skrini"
-
-#: src/uagent/image_session.py:148
-msgid "Image-session context:"
-msgstr "Muktadha wa kipindi cha picha:"
-
-#: src/uagent/image_session.py:149
-msgid "This conversation already generated images."
-msgstr "Mazungumzo haya tayari yamezalisha picha."
-
-#: src/uagent/image_session.py:151
-msgid ""
-"Use the prior prompts and saved file paths below as context for follow-up "
-"edits, variants, or continuations."
-msgstr ""
-"Tumia vichocheo vilivyopita na njia za faili zilizohifadhiwa hapa chini kama"
-" muktadha wa marekebisho ya kufuatilia, matoleo mbadala, au kuendeleza."
-
-#: src/uagent/image_session.py:156
-#, python-format
-msgid "Turn %(idx)d:"
-msgstr "Mzunguko %(idx)d:"
-
-#: src/uagent/image_session.py:157
-#, python-format
-msgid "- prompt: %(prompt)s"
-msgstr "- kichocheo: %(prompt)s"
-
-#: src/uagent/image_session.py:160
-#, python-format
-msgid "- file: %(path)s"
-msgstr "- faili: %(path)s"
-
-#: src/uagent/llm_claude.py:143 src/uagent/util_providers.py:610
-msgid "anthropic package is not installed."
-msgstr "Kifurushi cha anthropic hakijasakinishwa."
-
-#: src/uagent/llm_errors.py:398
-#, python-format
-msgid ""
-"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
-"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-msgstr ""
-"[RATE_LIMIT] mtoa huduma=%(provider)s modeli=%(model)s hali=%(status)s "
-"jaribio=%(attempt)s/%(max_retries)s subiri=%(wait_seconds).1fs "
-"retry_after=%(retry_after)s"
-
-#: src/uagent/llm_flow_helpers.py:205
-msgid ""
-"The previous assistant reply was empty. Please answer based on the most "
-"recent tool result."
-msgstr ""
-"Jibu la awali la msaidizi lilikuwa tupu. Jibu kulingana na matokeo ya hivi "
-"karibuni ya zana."
-
-#: src/uagent/llm_flow_helpers.py:218
-#, python-format
-msgid ""
-"[WARN] LLM returned an empty assistant message without tool calls.\n"
-"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
-msgstr ""
-"[WARN] LLM ilirudisha ujumbe tupu wa msaidizi bila simu za zana.\n"
-"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"Hili linaweza kutokea kwa watoa huduma wa ndani wanaoendana na OpenAI baada ya simu za zana. Unaweza kujaribu kuweka UAGENT_EMPTY_NO_TOOL_MAX kuwa thamani ya juu zaidi, au kubadili mtoa huduma."
-
-#: src/uagent/llm_flow_helpers.py:265
-msgid "arguments must be a JSON object."
-msgstr "hoja lazima ziwe kitu cha JSON."
-
-#: src/uagent/llm_flow_helpers.py:272
-#, python-format
-msgid ""
-"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[hitilafu ya hoja za zana] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-
-#: src/uagent/llm_flow_helpers.py:298
-msgid ""
-"[INFO] Reusing the previous result because this tool call matches an earlier"
-" one.\n"
-msgstr ""
-"[INFO] Inatumia tena matokeo ya awali kwa sababu mwito huu wa zana "
-"unalingana na wa awali.\n"
-
-#: src/uagent/llm_flow_helpers.py:313
-#, python-format
-msgid ""
-"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-msgstr ""
-"[hitilafu ya utekelezaji wa zana] name=%(name)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
-"%(tb)s"
-
-#: src/uagent/llm_gemini.py:556
-msgid ""
-"google-genai could not be imported (pip install google-genai is required)."
-msgstr ""
-"google-genai haikuweza kuingizwa (pip install google-genai inahitajika)."
-
-#: src/uagent/llm_gemini.py:1115
-msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr ""
-"[Hitilafu ya Gemini: Jibu limezuiwa na kichujio cha usalama au sababu ya "
-"kukamilisha]"
-
-#: src/uagent/llm_gemini.py:1117
-#, python-format
-msgid "[Gemini Error: %(err)s]"
-msgstr "[Hitilafu ya Gemini: %(err)s]"
-
-#: src/uagent/llm_image_helpers.py:7
-msgid "Describe this screenshot and summarize the visible UI."
-msgstr "Eleza picha hii ya skrini na ufupishe UI inayoonekana."
-
-#: src/uagent/llm_image_helpers.py:11
-msgid "Read all visible text in this screenshot and summarize it."
-msgstr ""
-"Soma maandishi yote yanayoonekana katika picha hii ya skrini na uyafupishe."
-
-#: src/uagent/llm_image_helpers.py:15
-msgid "Inspect this screenshot for errors, warnings, and important UI state."
-msgstr "Kagua picha hii ya skrini kwa makosa, maonyo, na hali muhimu ya UI."
-
-#: src/uagent/llm_message_helpers.py:155
-#, python-format
-msgid "[WARN] Auto shrink_llm failed: %(err)s"
-msgstr "[WARN] shrink_llm ya moja kwa moja imeshindikana: %(err)s"
-
-#: src/uagent/llm_openai_responses.py:69
-msgid "[WARN] assistant history contained image content; converted to text."
-msgstr ""
-"[WARN] historia ya msaidizi ilikuwa na maudhui ya picha; yamebadilishwa kuwa"
-" maandishi."
-
-#: src/uagent/llm_openai_responses.py:92
-msgid "[WARN] invalid image content (missing url)."
-msgstr "[WARN] maudhui ya picha si sahihi (URL haipo)."
-
-#: src/uagent/llm_openai_responses.py:100
-#: src/uagent/llm_openai_responses.py:109
-#, python-format
-msgid "[WARN] unsupported content item: %(item)r"
-msgstr "[WARN] kipengele cha maudhui kisichotumika: %(item)r"
-
-#: src/uagent/llm_openai_responses.py:444
-msgid "Sources:"
-msgstr "Vyanzo:"
-
-#: src/uagent/llm_openai_responses.py:507
-msgid "search"
-msgstr "tafuta"
-
-#: src/uagent/llm_openai_responses.py:509
-msgid "open page"
-msgstr "fungua ukurasa"
-
-#: src/uagent/llm_openai_responses.py:511
-msgid "find in page"
-msgstr "tafuta ndani ya ukurasa"
-
-#: src/uagent/llm_openai_responses.py:512
-msgid "web search"
-msgstr "utafutaji wa wavuti"
-
-#: src/uagent/llm_openai_responses.py:526
-msgid "Web search: searching"
-msgstr "Utafutaji wa wavuti: unatafuta"
-
-#: src/uagent/llm_openai_responses.py:528
-msgid "Web search: completed"
-msgstr "Utafutaji wa wavuti: umekamilika"
-
-#: src/uagent/llm_openai_responses.py:530
-#, python-brace-format
-msgid "Web search: {action}"
-msgstr "Utafutaji wa wavuti: {action}"
-
-#: src/uagent/llm_openai_responses.py:587
-#, python-brace-format
-msgid ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
-"        "
-msgstr ""
-"[Sheria za kupiga zana]\n"
-"        - Unapopiga zana/funguzi, lazima utoe function_call.arguments kama kitu cha JSON.\n"
-"        - Kitu cha JSON lazima kijumuishe vigezo vyote vinavyohitajika vilivyofafanuliwa na skima ya zana.\n"
-"        - Kamwe usipige zana kwa kitu tupu {} isipokuwa zana haina vigezo vinavyohitajika.\n"
-"        - Ikiwa huna kigezo kinachohitajika, muulize mtumiaji kupitia human_ask badala ya kubahatisha.\n"
-"        "
-
-#: src/uagent/llm_openai_responses.py:594
-msgid ""
-"[Web search rules]\n"
-"        - Use web search only when fresh or external information is necessary.\n"
-"        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already sufficient.\n"
-"        "
-msgstr ""
-"[Kanuni za utafutaji wa wavuti]\n"
-"        - Tumia utafutaji wa wavuti tu wakati taarifa za karibuni au za nje zinahitajika.\n"
-"        - Usitumie utafutaji wa wavuti kwa taarifa za mahali hapo au thabiti.\n"
-"        - Pendelea kujibu bila utafutaji wa wavuti wakati jibu tayari linatosha.\n"
-"        "
-
-#: src/uagent/llm_round_helpers.py:133
-#, python-format
-msgid "[Translate Error] %(diag)s"
-msgstr "[Hitilafu ya Tafsiri] %(diag)s"
-
-#: src/uagent/llm_round_helpers.py:192 src/uagent/llm_round_helpers.py:302
-#: src/uagent/llm_round_helpers.py:636
-#, python-format
-msgid "429 retry limit (%(max_retries)s) reached."
-msgstr "Kikomo cha majaribio ya 429 kimefikiwa (%(max_retries)s)."
-
-#: src/uagent/llm_round_helpers.py:216
-msgid "[Gemini Error] An error occurred while generating a response."
-msgstr "[Hitilafu ya Gemini] Hitilafu imetokea wakati wa kutengeneza jibu."
-
-#: src/uagent/llm_round_helpers.py:308
-msgid "[Claude Error] An error occurred while generating a response."
-msgstr "[Hitilafu ya Claude] Hitilafu imetokea wakati wa kutengeneza jibu."
-
-msgid "Input exceeds the context window."
-msgstr ""
-
-msgid "Connection error"
-msgstr ""
-
-#: src/uagent/llm_round_helpers.py:615
-msgid "[Network Error]"
-msgstr "[Hitilafu ya mtandao]"
-
-msgid "Unexpected exception."
-msgstr ""
-
-#: src/uagent/llm_round_helpers.py:720
-#, python-format
-msgid "Error while parsing response: %(err)s"
-msgstr "Hitilafu wakati wa kuchanganua jibu: %(err)s"
-
-#: src/uagent/profile_manager.py:482 src/uagent/profile_manager.py:600
-msgid ""
-"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
-"1. Environment (OS, shell, editor, etc.)\n"
-"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
-"3. Constraints (security rules, offline requirements, etc.)\n"
-"\n"
-"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
-"You MUST respond ONLY with a valid JSON object matching this schema:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-msgstr ""
-"Wewe ni wakala wa kuandaa wasifu wa mtumiaji. Changanua kumbukumbu ya mazungumzo na utoe yafuatayo kuhusu mtumiaji:\n"
-"1. Mazingira (OS, shell, mhariri, n.k.)\n"
-"2. Mapendeleo (mtindo wa uandishi wa msimbo, zana zinazopendekezwa, upendeleo wa kiwango cha maelezo, n.k.)\n"
-"3. Vikwazo (kanuni za usalama, mahitaji ya kufanya kazi bila mtandao, n.k.)\n"
-"\n"
-"Usijumuishe maswali ya muda, mazungumzo ya kawaida, au vitambulisho vya siri.\n"
-"Lazima ujibu TU kwa kitu halali cha JSON kinacholingana na skima hii:\n"
-"{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
-"}"
-
-#: src/uagent/profile_manager.py:586
-msgid "Failed to initialize LLM client."
-msgstr "Imeshindwa kuanzisha mteja wa LLM."
-
-#: src/uagent/profile_manager.py:591
-#, python-format
-msgid "Found %(total_files)d log files. Starting incremental profiling..."
-msgstr ""
-"Yamepatikana mafaili ya logi %(total_files)d. Naanza profiling ya hatua kwa "
-"hatua..."
-
-#: src/uagent/runtime_banner.py:231
-msgid "embedding"
-msgstr "uwekaji"
-
-#: src/uagent/runtime_banner.py:232
-msgid "audio speech"
-msgstr "usanisi wa sauti"
-
-#: src/uagent/runtime_banner.py:233
-msgid "audio transcribe"
-msgstr "unukuzi wa sauti"
-
-#: src/uagent/runtime_banner.py:234
-msgid "image generation"
-msgstr "uundaji wa picha"
-
-#: src/uagent/runtime_banner.py:235
-msgid "image analysis"
-msgstr "uchambuzi wa picha"
-
-#: src/uagent/runtime_banner.py:254
-#, python-format
-msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
-msgstr "[INFO] saraka ya kazi = %(workdir)s (chanzo: %(source)s)"
-
-#: src/uagent/runtime_banner.py:262 src/uagent/runtime_banner.py:276
-#: src/uagent/runtime_banner.py:281 src/uagent/runtime_banner.py:293
-#: src/uagent/runtime_banner.py:305 src/uagent/runtime_banner.py:314
-#: src/uagent/runtime_banner.py:323
-#, python-format
-msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] URL msingi = %(base_url)s"
-
-#: src/uagent/runtime_banner.py:270
-#, python-format
-msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] toleo la API = %(api_version)s"
-
-#: src/uagent/runtime_banner.py:332
-#, python-format
-msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
-msgstr "[INFO] vertexai = mradi=%(project)s, eneo=%(location)s"
-
-#: src/uagent/runtime_banner.py:341
-#, python-format
-msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
-msgstr "[INFO] %(label)s = %(provider)s; modeli = %(model)s"
-
-#: src/uagent/runtime_banner.py:368
-#, python-format
-msgid ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
-msgstr ""
-"UAGENT_RESPONSES=1 imewekwa, lakini mtoa huduma '%(provider)s' haiauni "
-"Responses API. Inarudi kwa ChatCompletions."
-
-#: src/uagent/runtime_banner.py:375
-#, python-format
-msgid "LLM API mode = %(mode)s"
-msgstr "Hali ya API ya LLM = %(mode)s"
-
-#: src/uagent/runtime_banner.py:378
-msgid "Responses (UAGENT_RESPONSES is enabled)"
-msgstr "Majibu (UAGENT_RESPONSES imewezeshwa)"
-
-#: src/uagent/runtime_banner.py:382
-msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-msgstr "API asilia ya Gemini/Vertex AI/Claude (UAGENT_RESPONSES inapuuziwa)"
-
-#: src/uagent/runtime_banner.py:385
-msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "ChatCompletions (UAGENT_RESPONSES imezimwa)"
-
-#: src/uagent/runtime_banner.py:393
-#, python-format
-msgid "LLM streaming = %(state)s"
-msgstr "Utiririshaji wa LLM = %(state)s"
-
-#: src/uagent/runtime_banner.py:394
-msgid "enabled"
-msgstr "imewezeshwa"
-
-#: src/uagent/runtime_banner.py:394
-msgid "disabled"
-msgstr "imezimwa"
-
-#: src/uagent/runtime_env.py:186
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Yaliyomo ya .env.sec hayalingani na vigezo vya sasa vya mazingira vya"
-" UAGENT_* wakati wa kuanzisha. Kuyasasisha? [y/N] "
-
-#: src/uagent/runtime_env.py:202
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Use `uag_envsec` to update it."
-msgstr ""
-"[INFO] Yaliyomo ya .env.sec hayalingani na vigezo vya sasa vya mazingira vya"
-" UAGENT_* wakati wa kuanzisha. Tumia `uag_envsec` kuyasasisha."
-
-#: src/uagent/runtime_env.py:214
-#, python-format
-msgid "Updated .env.sec: %(path)s"
-msgstr "Imesasishwa .env.sec: %(path)s"
-
-#: src/uagent/runtime_env.py:218
-#, python-format
-msgid "[WARN] Failed to update .env.sec: %(err)s"
-msgstr "[ONYO] Imeshindwa kusasisha .env.sec: %(err)s"
-
-#: src/uagent/runtime_env.py:228
-msgid ""
-"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
-"environment variables? [y/N] "
-msgstr ""
-"[INFO] Faili .env.sec haipo. Je, uitengeneze kutoka kwa vigezo vya sasa vya "
-"mazingira vya UAGENT_* wakati wa kuanzisha? [y/N] "
-
-#: src/uagent/runtime_env.py:244
-msgid ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
-"startup UAGENT_* environment variables."
-msgstr ""
-"[INFO] Faili .env.sec haipo. Tumia `uag_envsec` kuitengeneza kutoka kwa "
-"vigezo vya sasa vya mazingira vya UAGENT_* wakati wa kuanzisha."
-
-#: src/uagent/runtime_env.py:254
-#, python-format
-msgid "Created .env.sec: %(path)s"
-msgstr "Imeundwa .env.sec: %(path)s"
-
-#: src/uagent/runtime_env.py:258
-#, python-format
-msgid "[WARN] Failed to create .env.sec: %(err)s"
-msgstr "[ONYO] Imeshindwa kuunda .env.sec: %(err)s"
-
-#: src/uagent/runtime_env.py:289
-#, python-format
-msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
-msgstr "[WARN] Imeshindwa kuangalia ulandanishi wa .env.sec: %(err)s"
-
-#: src/uagent/runtime_init.py:83
-#, python-format
-msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
-msgstr "[ONYO] Imeshindwa kufungua usimbaji wa .env.sec: %(err)s"
-
-#: src/uagent/runtime_workdir.py:49
-#, python-format
-msgid "Specified workdir path is a file: %(path)s"
-msgstr "Njia ya workdir iliyobainishwa ni faili: %(path)s"
-
-#: src/uagent/scheckgui.py:131
-msgid "Drop files/images here"
-msgstr "Buruta na dondosha faili/picha hapa"
-
-#: src/uagent/scheckgui.py:169
-msgid "Download"
-msgstr "Pakua"
-
-#: src/uagent/scheckgui.py:329
-#, python-format
-msgid "Exception occurred while loading shared long-term memory: %(err)s"
-msgstr ""
-"Hitilafu imetokea wakati wa kupakia kumbukumbu ya muda mrefu ya pamoja: "
-"%(err)s"
-
-#: src/uagent/scheckgui.py:382
-#, python-format
-msgid "[Attached File] %(name)s (%(path)s)"
-msgstr "[Faili lililounganishwa] %(name)s (%(path)s)"
-
-#: src/uagent/scheckgui.py:467
-#, python-format
-msgid "[Attached Image] %(path)s"
-msgstr "[Picha iliyoambatishwa] %(path)s"
-
-#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
-#, python-format
-msgid "[Image Path] %(path)s"
-msgstr "[Njia ya picha] %(path)s"
-
-#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
-msgid "Welcome / Quick Guide"
-msgstr "Karibu / Mwongozo wa Haraka"
-
-#: src/uagent/scheckgui.py:787
-msgid "uag GUI (Extreme Stability)"
-msgstr "uag GUI (Uthabiti wa Juu)"
-
-#: src/uagent/scheckgui.py:842
-msgid "↑ You can attach files by drag & drop"
-msgstr "↑ Unaweza kuambatisha kwa kuburuta na kudondosha"
-
-#: src/uagent/scheckgui.py:863
-msgid "Attach..."
-msgstr "Ambatisha..."
-
-#: src/uagent/scheckgui.py:868
-msgid "Send"
-msgstr "Tuma"
-
-#: src/uagent/scheckgui.py:908
-msgid "Help"
-msgstr "Msaada"
-
-#: src/uagent/scheckgui.py:923
-msgid "Mode"
-msgstr "Hali"
-
-#: src/uagent/scheckgui.py:925
-msgid "Reasoning: off"
-msgstr "Ufikiri: umezimwa"
-
-#: src/uagent/scheckgui.py:928
-msgid "Reasoning: auto"
-msgstr "Ufikiri: otomatiki"
-
-#: src/uagent/scheckgui.py:930
-msgid "Reasoning: minimal"
-msgstr "Ufikiri: kidogo"
-
-#: src/uagent/scheckgui.py:932
-msgid "Reasoning: low"
-msgstr "Ufikiri: chini"
-
-#: src/uagent/scheckgui.py:934
-msgid "Reasoning: medium"
-msgstr "Ufikiri: kati"
-
-#: src/uagent/scheckgui.py:936
-msgid "Reasoning: high"
-msgstr "Ufikiri: juu"
-
-#: src/uagent/scheckgui.py:939
-msgid "Reasoning: xhigh"
-msgstr "Ufikiri: juu sana"
-
-#: src/uagent/scheckgui.py:944
-msgid "Verbosity: off"
-msgstr "Kiwango cha maelezo: kimezimwa"
-
-#: src/uagent/scheckgui.py:946
-msgid "Verbosity: low"
-msgstr "Kiwango cha maelezo: chini"
-
-#: src/uagent/scheckgui.py:948
-msgid "Verbosity: medium"
-msgstr "Kiwango cha maelezo: kati"
-
-#: src/uagent/scheckgui.py:950
-msgid "Verbosity: high"
-msgstr "Kiwango cha maelezo: juu"
-
-#: src/uagent/scheckgui.py:980
-#, python-format
-msgid "[mode] reasoning=%(mode)s"
-msgstr "[hali] hoja=%(mode)s"
-
-#: src/uagent/scheckgui.py:984
-msgid ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
-"auto/minimal/xhigh)"
-msgstr ""
-":r [0|1|2|3|auto|minimal|xhigh]  (0=zima, 1=chini, 2=ya kati, 3=juu; "
-"auto/minimal/xhigh)"
-
-#: src/uagent/scheckgui.py:992
-#, python-format
-msgid "[mode] verbosity=%(mode)s"
-msgstr "[hali] maelezo=%(mode)s"
-
-#: src/uagent/scheckgui.py:994
-msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ":v [0|1|2|3]  (0=zima, 1=chini, 2=katikati, 3=juu; bila hoja=weka)"
-
-#: src/uagent/scheckgui.py:1123
-msgid "Enter password..."
-msgstr "Weka nenosiri..."
-
-#: src/uagent/scheckgui.py:1130
-msgid "Enter a message..."
-msgstr "Weka ujumbe..."
-
-#: src/uagent/scheckgui.py:1147
-msgid "Attach files"
-msgstr "Ambatisha faili"
-
-#: src/uagent/scheckgui.py:1149
-msgid "All Files (*)"
-msgstr "Faili zote (*)"
-
-#: src/uagent/scheckgui.py:1401
-msgid "cannot read image"
-msgstr "haiwezi kusoma picha"
-
-#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
-#: src/uagent/scheckgui.py:1627
-msgid "Downloaded to"
-msgstr "Imepakuliwa hadi"
-
-#: src/uagent/scheckgui.py:1646
-msgid "Playing"
-msgstr "Inacheza"
-
-#: src/uagent/scheckgui.py:1656
-msgid "Stopped"
-msgstr "Imesimamishwa"
-
-#: src/uagent/scheckgui.py:1705
-#, python-format
-msgid "[REPLY] > %(text)s"
-msgstr "[JIBU] > %(text)s"
-
-#: src/uagent/scheckgui.py:1713
-#, python-format
-msgid "[USER] %(text)s"
-msgstr "[MTUMIAJI] %(text)s"
-
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
-#: src/uagent/setup_cli.py:572
-msgid "OpenAI API key"
-msgstr "Funguo ya API ya OpenAI"
-
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
-#: src/uagent/setup_cli.py:573
-msgid "OpenAI base URL (optional)"
-msgstr "URL msingi ya OpenAI (hiari)"
-
-#: src/uagent/setup_cli.py:79
-msgid "OpenAI model/deployment name (optional)"
-msgstr "Jina la muundo/utekelezaji la OpenAI (hiari)"
-
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
-#: src/uagent/setup_cli.py:560
-msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
-msgstr "URL msingi ya Azure (mf. https://<resource>.openai.azure.com/)"
-
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
-#: src/uagent/setup_cli.py:562
-msgid "Azure API key"
-msgstr "Funguo ya API ya Azure"
-
-#: src/uagent/setup_cli.py:91
-msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
-msgstr "Toleo la API la Azure (hiari, mf. 2024-05-01-preview)"
-
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
-msgid "Azure deployment name"
-msgstr "Jina la utekelezaji la Azure"
-
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
-#: src/uagent/setup_cli.py:581
-msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
-msgstr "URL msingi ya lango la Bedrock (mf. https://<gateway>/v1)"
-
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
-#: src/uagent/setup_cli.py:583
-msgid "Bedrock API key"
-msgstr "Funguo ya API ya Bedrock"
-
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
-msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
-msgstr "Jina la muundo/utekelezaji la Bedrock (mf. openai.gpt-oss-120b)"
-
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
-#: src/uagent/setup_cli.py:592
-msgid "OpenRouter API key"
-msgstr "Funguo ya API ya OpenRouter"
-
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
-#: src/uagent/setup_cli.py:593
-msgid "OpenRouter base URL (optional)"
-msgstr "URL msingi ya OpenRouter (hiari)"
-
-#: src/uagent/setup_cli.py:114
-msgid "OpenRouter model/deployment name (optional)"
-msgstr "Jina la muundo/utekelezaji la OpenRouter (hiari)"
-
-#: src/uagent/setup_cli.py:119
-msgid "OpenRouter fallback models (optional, comma-separated)"
-msgstr "Miundo mbadala ya OpenRouter (hiari, imetenganishwa kwa koma)"
-
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
-msgid "Gemini API key"
-msgstr "Funguo ya API ya Gemini"
-
-#: src/uagent/setup_cli.py:124
-msgid "Gemini model name (optional)"
-msgstr "Jina la muundo la Gemini (hiari)"
-
-#: src/uagent/setup_cli.py:127
-msgid "Vertex AI API key"
-msgstr "Funguo ya API ya Vertex AI"
-
-#: src/uagent/setup_cli.py:128
-msgid "Vertex AI project ID (optional)"
-msgstr "Kitambulisho cha mradi cha Vertex AI (hiari)"
-
-#: src/uagent/setup_cli.py:129
-msgid "Vertex AI location/region (optional)"
-msgstr "Eneo/mkoa wa Vertex AI (hiari)"
-
-#: src/uagent/setup_cli.py:133
-msgid "Google credentials for Vertex AI (optional)"
-msgstr "Kitambulisho cha Google kwa Vertex AI (hiari)"
-
-#: src/uagent/setup_cli.py:138
-msgid "Google location/region for Vertex AI (optional)"
-msgstr "Mahali/Eneo la Google kwa Vertex AI (hiari)"
-
-#: src/uagent/setup_cli.py:140
-msgid "Vertex AI model/deployment name"
-msgstr "Jina la muundo/utekelezaji la Vertex AI"
-
-#: src/uagent/setup_cli.py:143
-msgid "Grok API key"
-msgstr "Funguo ya API ya Grok"
-
-#: src/uagent/setup_cli.py:144
-msgid "Grok base URL (optional)"
-msgstr "URL msingi ya Grok (hiari)"
-
-#: src/uagent/setup_cli.py:145
-msgid "Grok model/deployment name (optional)"
-msgstr "Jina la muundo/utekelezaji la Grok (hiari)"
-
-#: src/uagent/setup_cli.py:148
-msgid "Claude API key"
-msgstr "Funguo ya API ya Claude"
-
-#: src/uagent/setup_cli.py:149
-msgid "Claude model/deployment name (optional)"
-msgstr "Jina la muundo/utekelezaji la Claude (hiari)"
-
-#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
-#: src/uagent/setup_cli.py:607
-msgid "NVIDIA API key"
-msgstr "Funguo ya API ya NVIDIA"
-
-#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
-#: src/uagent/setup_cli.py:608
-msgid "NVIDIA base URL (optional)"
-msgstr "URL msingi ya NVIDIA (hiari)"
-
-#: src/uagent/setup_cli.py:154
-msgid "NVIDIA model/deployment name (optional)"
-msgstr "Jina la modeli/utekelezaji wa NVIDIA (hiari)"
-
-#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
-msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
-msgstr "URL msingi ya Ollama (mf. http://localhost:11434/v1)"
-
-#: src/uagent/setup_cli.py:165
-msgid "Ollama API key (optional, default: dummy)"
-msgstr "Funguo ya API ya Ollama (hiari, chaguo-msingi: dummy)"
-
-#: src/uagent/setup_cli.py:167
-msgid "Ollama model/deployment name (optional)"
-msgstr "Jina la muundo/utekelezaji la Ollama (hiari)"
-
-#: src/uagent/setup_cli.py:171
-msgid "Ollama request timeout in seconds (default: 60)"
-msgstr "Muda wa kuisha kwa ombi la Ollama kwa sekunde (chaguo-msingi: 60)"
-
-#: src/uagent/setup_cli.py:173
-msgid "Ollama temperature (default: 0.7)"
-msgstr "Joto la Ollama (chaguo-msingi: 0.7)"
-
-#: src/uagent/setup_cli.py:174
-msgid "Ollama top_p (default: 0.9)"
-msgstr "Ollama top_p (chaguo-msingi: 0.9)"
-
-#: src/uagent/setup_cli.py:175
-msgid "Ollama top_k (default: 40)"
-msgstr "Ollama top_k (chaguo-msingi: 40)"
-
-#: src/uagent/setup_cli.py:179
-msgid "Ollama repeat_penalty (default: 1.1)"
-msgstr "Ollama repeat_penalty (chaguo-msingi: 1.1)"
-
-#: src/uagent/setup_cli.py:181
-msgid "Ollama keep_alive (default: 5m)"
-msgstr "Ollama keep_alive (chaguo-msingi: 5m)"
-
-#: src/uagent/setup_cli.py:182
-msgid "Ollama num_ctx (default: 8192)"
-msgstr "Ollama num_ctx (chaguo-msingi: 8192)"
-
-#: src/uagent/setup_cli.py:183
-msgid "Ollama num_predict (default: 1024)"
-msgstr "Ollama num_predict (chaguo-msingi: 1024)"
-
-#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
-msgid "Enter number:"
-msgstr "Weka nambari:"
-
-#: src/uagent/setup_cli.py:358
-msgid "Invalid input. Please enter a valid number."
-msgstr "Ingizo batili. Tafadhali weka namba halali."
-
-#: src/uagent/setup_cli.py:371
-#, python-format
-msgid " [default: %(default)s]"
-msgstr " [chaguo-msingi: %(default)s]"
-
-#: src/uagent/setup_cli.py:387
-msgid "This field is required. Please enter a value."
-msgstr "Sehemu hii inahitajika. Tafadhali weka thamani."
-
-#: src/uagent/setup_cli.py:399
-msgid "Select UAGENT_LANG"
-msgstr "Chagua UAGENT_LANG"
-
-#: src/uagent/setup_cli.py:410
-msgid "UAGENT_LANG (custom)"
-msgstr "UAGENT_LANG (maalum)"
-
-#: src/uagent/setup_cli.py:423
-msgid "Select output files to generate in the current directory"
-msgstr "Chagua faili za matokeo za kutengeneza kwenye saraka ya sasa"
-
-#: src/uagent/setup_cli.py:424
-msgid "  1. .env only"
-msgstr "  1. .env pekee"
-
-#: src/uagent/setup_cli.py:425
-msgid "  2. .env + env.sh"
-msgstr "  2. .env + env.sh (Unix/Linux)"
-
-#: src/uagent/setup_cli.py:426
-msgid "  3. .env + env.ps1"
-msgstr "  3. .env + env.ps1 (PowerShell)"
-
-#: src/uagent/setup_cli.py:427
-msgid "  4. .env + env.bat"
-msgstr "  4. .env + env.bat (Windows)"
-
-#: src/uagent/setup_cli.py:428
-msgid "  5. .env + all (sh/ps1/bat)"
-msgstr "  5. .env + zote (sh/ps1/bat)"
-
-#: src/uagent/setup_cli.py:430
-msgid "  b. back"
-msgstr "  b. nyuma"
-
-#: src/uagent/setup_cli.py:431
-msgid "  q. quit"
-msgstr "  q. toka"
-
-#: src/uagent/setup_cli.py:449
-msgid "Invalid input. Please enter 1-5, or b/q."
-msgstr "Ingizo batili. Tafadhali weka 1-5, au b/q."
-
-#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
-msgid "Azure API version (e.g. 2024-05-01-preview)"
-msgstr "Toleo la Azure API (mfano 2024-05-01-preview)"
-
-#: src/uagent/setup_cli.py:484
-msgid "OpenAI model/deployment name"
-msgstr "Jina la modeli/uwekaji la OpenAI"
-
-#: src/uagent/setup_cli.py:504
-msgid "OpenRouter model/deployment name"
-msgstr "Jina la modeli/uwekaji la OpenRouter"
-
-#: src/uagent/setup_cli.py:509
-msgid "Gemini model name"
-msgstr "Jina la modeli la Gemini"
-
-#: src/uagent/setup_cli.py:515
-msgid "NVIDIA model/deployment name"
-msgstr "Jina la modeli/uwekaji la NVIDIA"
-
-#: src/uagent/setup_cli.py:534
-msgid "Enable image generation debug output? (0/1)"
-msgstr "Washa matokeo ya uchunguzi wa uundaji picha? (0/1)"
-
-#: src/uagent/setup_cli.py:568
-msgid "Azure embedding deployment name"
-msgstr "Jina la uwekaji la Azure kwa embedding"
-
-#: src/uagent/setup_cli.py:574
-msgid "OpenAI embedding model/deployment name"
-msgstr "Jina la modeli/uwekaji la OpenAI kwa embedding"
-
-#: src/uagent/setup_cli.py:587
-msgid "Bedrock embedding model/deployment name"
-msgstr "Jina la modeli/uwekaji la Bedrock kwa embedding"
-
-#: src/uagent/setup_cli.py:594
-msgid "OpenRouter embedding model/deployment name"
-msgstr "Jina la modeli/uwekaji la OpenRouter kwa embedding"
-
-#: src/uagent/setup_cli.py:603
-msgid "Ollama embedding model name"
-msgstr "Jina la modeli la Ollama kwa embedding"
-
-#: src/uagent/setup_cli.py:609
-msgid "NVIDIA embedding model/deployment name"
-msgstr "Jina la modeli/uwekaji la NVIDIA kwa embedding"
-
-#: src/uagent/setup_cli.py:613
-msgid "Gemini embedding API key"
-msgstr "Funguo la API ya uingizaji la Gemini"
-
-#: src/uagent/setup_cli.py:617
-msgid "Gemini embedding model name (e.g. text-embedding-004)"
-msgstr "Jina la modeli ya uingizaji la Gemini (mf. text-embedding-004)"
-
-#: src/uagent/setup_cli.py:622
-msgid "Vertex AI embedding API key"
-msgstr "Funguo la API ya uingizaji la Vertex AI"
-
-#: src/uagent/setup_cli.py:626
-msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
-msgstr "Jina la modeli ya uingizaji la Vertex AI (mf. text-embedding-004)"
-
-#: src/uagent/setup_cli.py:675
-msgid "Azure speech deployment name"
-msgstr "Jina la usambazaji wa sauti la Azure"
-
-#: src/uagent/setup_cli.py:676
-msgid "Azure transcription deployment name"
-msgstr "Jina la usambazaji wa unukuzi la Azure"
-
-#: src/uagent/setup_cli.py:677
-msgid "OpenAI speech model/deployment name"
-msgstr "Jina la muundo/usambazaji wa sauti wa OpenAI"
-
-#: src/uagent/setup_cli.py:678
-msgid "OpenAI transcription model/deployment name"
-msgstr "Jina la muundo/usambazaji wa unukuzi wa OpenAI"
-
-#: src/uagent/setup_cli.py:679
-msgid "Gemini speech model name (optional)"
-msgstr "jina la modeli ya sauti ya Gemini (hiari)"
-
-#: src/uagent/setup_cli.py:680
-msgid "Gemini transcription model name (optional)"
-msgstr "jina la modeli ya unukuzi ya Gemini (hiari)"
-
-#: src/uagent/setup_cli.py:681
-msgid "Vertex AI speech model name (optional)"
-msgstr "jina la modeli ya sauti ya Vertex AI (hiari)"
-
-#: src/uagent/setup_cli.py:682
-msgid "Vertex AI transcription model name (optional)"
-msgstr "jina la modeli ya unukuzi ya Vertex AI (hiari)"
-
-#: src/uagent/setup_cli.py:705
-msgid "Configure optional image / embedding / audio settings?"
-msgstr "Sanidi mipangilio ya hiari ya picha / embedding?"
-
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
-msgid "No"
-msgstr "Hapana"
-
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
-msgid "Yes"
-msgstr "Ndiyo"
-
-#: src/uagent/setup_cli.py:720
-msgid "Configure image analysis settings?"
-msgstr "Sanidi mipangilio ya uchanganuzi wa picha?"
-
-#: src/uagent/setup_cli.py:731
-msgid "Select image analysis provider"
-msgstr "Chagua mtoa huduma wa uchanganuzi wa picha"
-
-#: src/uagent/setup_cli.py:752
-msgid "Configure image generation settings?"
-msgstr "Sanidi mipangilio ya uundaji wa picha?"
-
-#: src/uagent/setup_cli.py:763
-msgid "Select image generation provider"
-msgstr "Chagua mtoa huduma wa uundaji wa picha"
-
-#: src/uagent/setup_cli.py:783
-msgid "Open generated images automatically?"
-msgstr "Fungua picha zilizoundwa kiotomatiki?"
-
-#: src/uagent/setup_cli.py:799
-msgid "Configure embedding / semantic search settings?"
-msgstr "Sanidi mipangilio ya embedding / utafutaji wa kisemantiki?"
-
-#: src/uagent/setup_cli.py:825
-msgid "Select embedding provider"
-msgstr "Chagua mtoaji wa embedding"
-
-#: src/uagent/setup_cli.py:854
-msgid "Configure audio speech / transcription settings?"
-msgstr "Sanidi mipangilio ya sauti / unukuzi?"
-
-#: src/uagent/setup_cli.py:873
-msgid "Select audio speech provider"
-msgstr "Chagua mtoa huduma wa usanisi wa sauti"
-
-#: src/uagent/setup_cli.py:893
-msgid "Select audio transcribe provider"
-msgstr "Chagua mtoa huduma wa unukuzi wa sauti"
-
-#: src/uagent/setup_cli.py:913
-msgid "Open generated audio automatically?"
-msgstr "Fungua sauti iliyotengenezwa kiotomatiki?"
-
-#: src/uagent/setup_cli.py:980
-msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
-msgstr "Hiari: Responses API (Azure/OpenAI/Bedrock)"
-
-#: src/uagent/setup_cli.py:993
-msgid "Optional runtime"
-msgstr "Muda wa utekelezaji wa hiari"
-
-#: src/uagent/setup_cli.py:1007
-msgid "Optional image / embedding / audio settings"
-msgstr "Mipangilio ya hiari ya picha / embedding"
-
-#: src/uagent/setup_cli.py:1149
-msgid "Optional specialized sub-agent settings"
-msgstr "Mipangilio ya hiari ya mawakala wadogo maalum"
-
-#: src/uagent/setup_cli.py:1158
-msgid "Encrypt the generated .env file?"
-msgstr "Usimbue faili ya .env iliyoundwa?"
-
-#: src/uagent/setup_cli.py:1164
-#, python-format
-msgid "Encrypted file will be written as %(path)s"
-msgstr "Faili iliyosimbwa itaandikwa kama %(path)s"
-
-#: src/uagent/setup_cli.py:1180
-msgid "Select provider"
-msgstr "Chagua mtoa huduma"
-
-#: src/uagent/setup_cli.py:1219
-msgid "Enable Responses API options?"
-msgstr "Washa chaguo za Responses API?"
-
-#: src/uagent/setup_cli.py:1235
-msgid "Select reasoning"
-msgstr "Chagua kiwango cha ufikiri"
-
-#: src/uagent/setup_cli.py:1254
-msgid "Select verbosity"
-msgstr "Chagua kiwango cha maelezo"
-
-#: src/uagent/setup_cli.py:1273
-msgid "Set optional runtime UAGENT_WORKDIR?"
-msgstr "Weka UAGENT_WORKDIR ya hiari wakati wa utekelezaji?"
-
-#: src/uagent/setup_cli.py:1300
-msgid "Set optional runtime UAGENT_LANG?"
-msgstr "Weka UAGENT_LANG ya hiari wakati wa utekelezaji?"
-
-#: src/uagent/setup_cli.py:1321
-msgid "Enable streaming?"
-msgstr "Washa utiririshaji?"
-
-#: src/uagent/setup_cli.py:1362
-msgid "Summary"
-msgstr "Muhtasari"
-
-#: src/uagent/setup_cli.py:1363
-#, python-format
-msgid "  Provider: %(provider)s"
-msgstr "  Mtoa huduma: %(provider)s"
-
-#: src/uagent/setup_cli.py:1370
-#, python-format
-msgid "  Responses enabled: %(state)s"
-msgstr "  Responses imewashwa: %(state)s"
-
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
-msgid "yes"
-msgstr "ndiyo"
-
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
-msgid "no"
-msgstr "hapana"
-
-#: src/uagent/setup_cli.py:1377
-#, python-format
-msgid "  Streaming enabled: %(state)s"
-msgstr "  Utiririshaji umewezeshwa: %(state)s"
-
-#: src/uagent/setup_cli.py:1393
-#, python-format
-msgid "  Optional extras enabled: %(state)s"
-msgstr "  Ziada za hiari zimewashwa: %(state)s"
-
-#: src/uagent/setup_cli.py:1398
-#, python-format
-msgid "  Image analysis enabled: %(state)s"
-msgstr "  Uchanganuzi wa picha umewezeshwa: %(state)s"
-
-#: src/uagent/setup_cli.py:1406
-#, python-format
-msgid "  Image generation enabled: %(state)s"
-msgstr "  Uundaji wa picha umewezeshwa: %(state)s"
-
-#: src/uagent/setup_cli.py:1417
-#, python-format
-msgid "  Embedding enabled: %(state)s"
-msgstr "  Embedding imewezeshwa: %(state)s"
-
-#: src/uagent/setup_cli.py:1427
-#, python-format
-msgid "  Outputs: %(outputs)s"
-msgstr "  Matokeo: %(outputs)s"
-
-#: src/uagent/setup_cli.py:1430
-msgid "Generate files with this configuration?"
-msgstr "Tengeneza faili kwa usanidi huu?"
-
-#: src/uagent/setup_cli.py:1431
-msgid "Yes, generate"
-msgstr "Ndiyo, tengeneza"
-
-#: src/uagent/setup_cli.py:1431
-msgid "Back"
-msgstr "Rudi nyuma"
-
-#: src/uagent/setup_cli.py:1455
-msgid "The following files already exist and will be overwritten:"
-msgstr "Faili zifuatazo tayari zipo na zitaandikwa upya:"
-
-#: src/uagent/setup_cli.py:1459
-msgid "Proceed?"
-msgstr "Endelea?"
-
-#: src/uagent/setup_cli.py:1483
-msgid "Plain .env file removed after encryption."
-msgstr "Faili ya kawaida ya .env imeondolewa baada ya usimbaji."
-
-#: src/uagent/setup_cli.py:1486
-#, python-format
-msgid "Warning: Failed to remove plain .env: %(error)s"
-msgstr "Onyo: Imeshindwa kuondoa .env ya kawaida: %(error)s"
-
-#: src/uagent/setup_cli.py:1505
-#, python-format
-msgid "generated: %(path)s"
-msgstr "iliyoundwa: %(path)s"
-
-#: src/uagent/uagent_llm.py:129
-#, python-format
-msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
-msgstr "[ONYO] Mizunguko ya zana imezidi %(max)d; inasitisha."
-
-#: src/uagent/util_providers.py:243
-msgid "Environment variable UAGENT_PROVIDER is not set."
-msgstr "Kigezo cha mazingira UAGENT_PROVIDER hakijawekwa."
-
-#: src/uagent/util_providers.py:259
-#, python-format
-msgid "Unknown provider: %(provider)s"
-msgstr "Mtoa huduma asiyejulikana: %(provider)s"
-
-#: src/uagent/util_providers.py:544 src/uagent/util_providers.py:570
-msgid "google-genai package is not installed."
-msgstr "Kifurushi cha google-genai hakijasakinishwa."
-
-#: src/uagent/util_tools.py:181
-#, python-format
-msgid "image file not found: %(path)s"
-msgstr "faili la picha halikupatikana: %(path)s"
-
-#: src/uagent/util_tools.py:186
-#, python-format
-msgid "image file too large: %(size)d bytes (limit=%(max)d)"
-msgstr "faili la picha ni kubwa mno: %(size)d baiti (kikomo=%(max)d)"
-
-#: src/uagent/util_tools.py:210
-msgid ""
-"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
-"current directory."
-msgstr ""
-"Bainisha saraka ya kazi. Ikiwa haijawekwa, hutumia kigezo cha mazingira "
-"UAGENT_WORKDIR au saraka ya sasa."
-
-#: src/uagent/util_tools.py:217
-msgid ""
-"Non-interactive mode. Do not start the stdin loop; exit after processing the"
-" startup file (if any)."
-msgstr ""
-"Hali isiyoingiliana. Usianzishe mzunguko wa stdin; toka baada ya kuchakata "
-"faili ya kuanzisha (kama ipo)."
-
-#: src/uagent/util_tools.py:355
-msgid "invalid reasoning"
-msgstr "reasoning si sahihi"
-
-#: src/uagent/util_tools.py:373
-msgid "invalid verbosity"
-msgstr "kiwango cha maelezo si sahihi"
-
-#: src/uagent/util_tools.py:547
-#, python-format
-msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-msgstr "[logs] Hoja batili: %(arg)r (taja all / --all / -a / namba)"
-
-#: src/uagent/util_tools.py:586
-#, python-format
-msgid "failed to parse arguments: %(err)s"
-msgstr "imeshindwa kuchanganua hoja: %(err)s"
-
-#: src/uagent/util_tools.py:589
-msgid "missing arguments"
-msgstr "hoja hazipo"
-
-#: src/uagent/util_tools.py:605
-msgid "src and dst are required"
-msgstr "src na dst zinahitajika"
-
-#: src/uagent/util_tools.py:973
-msgid ""
-"[Skill execution]\n"
-"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
-"If the skill contains tasks, continue until they are complete.\n"
-"Use tools as needed.\n"
-msgstr ""
-"[Utekelezaji wa ujuzi]\n"
-"Ujuzi huu umekusudiwa kuendeshwa. Soma maudhui ya ujuzi kwa makini na fuata maagizo.\n"
-"Ikiwa ujuzi una kazi, endelea hadi zikamilike.\n"
-"Tumia zana inapohitajika.\n"
-
-#: src/uagent/util_tools.py:980
-msgid "When finished, always call `finish_skill` if available.\n"
-msgstr "Unapomaliza, kila mara piga `finish_skill` ikiwa ipo.\n"
-
-#: src/uagent/util_tools.py:1132
-msgid ""
-"Select a skill number to run. Enter c to cancel.\n"
-"Tip: :skills clear  (remove applied skills)\n"
-"Enter number:"
-msgstr ""
-"Chagua namba ya ujuzi wa kuendesha. Weka c ili kughairi.\n"
-"Kidokezo: :skills clear  (ondoa ujuzi uliotumika)\n"
-"Weka namba:"
-
-#: src/uagent/util_tools.py:1168
-#, python-format
-msgid ""
-"Run this skill as a system-level instruction and keep it active in this session?\n"
-"\n"
-"Name: %(name)s\n"
-"Path: %(path)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"Endesha ujuzi huu kama maagizo ya kiwango cha mfumo na uendelee kuwa hai katika kipindi hiki?\n"
-"\n"
-"Jina: %(name)s\n"
-"Njia: %(path)s\n"
-"\n"
-"Endelea? Weka y ili kuendesha, au c ili kughairi."
-
-#: src/uagent/util_tools.py:1230
-#, python-format
-msgid ""
-"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
-"%(default)d)"
-msgstr ""
-"[clean] Hoja batili: %(arg)r (taja number=threshold; chaguo-msingi ni "
-"%(default)d)"
-
-#: src/uagent/util_tools.py:1279
-#, python-format
-msgid ""
-"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
-"Log dir: %(dir)s\n"
-"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
-"Targets: %(n)d\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"itafuta faili za logi za mazungumzo (scheck_log_*.jsonl) kutoka diski.\n"
-"Saraka ya logi: %(dir)s\n"
-"Sheria: jumla ya ujumbe wa mtumiaji/msaidizi/zana bila mfumo <= %(threshold)d\n"
-"Lengo: %(n)d\n"
-"\n"
-"Kuendelea? Weka y ili kuendesha, au c kughairi."
-
-#: src/uagent/util_tools.py:1347
-#, python-format
-msgid " - (%(count)d msgs) %(path)s"
-msgstr " - (%(count)d ujumbe) %(path)s"
-
-#: src/uagent/util_tools.py:1391
-#, python-format
-msgid ""
-"will overwrite the current session log file and prepend the loaded log (no backup).\n"
-"\n"
-"Current log: %(cur_log)s\n"
-"Source log: %(src_log)s\n"
-"\n"
-"Proceed? Enter y to run, or c to cancel."
-msgstr ""
-"itaandika upya faili ya logi ya kipindi cha sasa na kuweka logi iliyopakiwa mwanzo (hakuna chelezo).\n"
-"\n"
-"Logi ya sasa: %(cur_log)s\n"
-"Logi chanzo: %(src_log)s\n"
-"\n"
-"Kuendelea? Weka y ili kuendesha, au c kughairi."
-
-#: src/uagent/util_tools.py:1522
-#, python-brace-format
-msgid ""
-"Delete {count} path(s)?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Enter y to proceed, or c to cancel."
-msgstr ""
-"Futa njia {count}?\n"
-"\n"
-"{paths}\n"
-"\n"
-"Weka y ili kuendelea, au c ili kughairi."
-
-#: src/uagent/util_tools.py:1577
-#, python-format
-msgid "Specified index %(idx)d is out of range."
-msgstr "Faharisi iliyoainishwa %(idx)d iko nje ya wigo."
-
-#: src/uagent/util_tools.py:1586
-#, python-format
-msgid "Log file not found: %(path)s"
-msgstr "Faili ya logi haikupatikana: %(path)s"
-
-#: src/uagent/util_tools.py:1669
-#, python-format
-msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr ""
-"[hitilafu ya shrink] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi ya "
-"mwisho %(keep)d"
-
-#: src/uagent/util_tools.py:1697
-#, python-format
-msgid ""
-"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr ""
-"[hitilafu ya shrink_llm] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi"
-" ya mwisho %(keep)d"
-
-#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
-msgid ""
-"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
-"set)."
-msgstr ""
-"Kumbukumbu ya muda mrefu ya pamoja haijawezeshwa (UAGENT_SHARED_MEMORY_FILE "
-"haijawekwa)."
-
-#: src/uagent/util_tools.py:1787
-msgid "Analyzing past logs to generate user profile..."
-msgstr "Kumbukumbu za awali zinachambuliwa ili kuunda wasifu wa mtumiaji..."
-
-#: src/uagent/util_tools.py:1791
-msgid "No past logs found or failed to generate profile."
-msgstr ""
-"Hakuna kumbukumbu za awali zilizopatikana au wasifu haukuweza kuundwa."
-
-#: src/uagent/util_tools.py:1793
-#, fuzzy
-msgid "User profile generated successfully from past logs!"
-msgstr "Wasifu wa mtumiaji umefutwa kwa mafanikio."
-
-#: src/uagent/util_tools.py:1805
-msgid "No user profile data found."
-msgstr "Data ya wasifu wa mtumiaji haijapatikana."
-
-#: src/uagent/util_tools.py:1808
-msgid "User Profile:"
-msgstr "Wasifu wa Mtumiaji:"
-
-#: src/uagent/util_tools.py:1820
-msgid "User profile cleared successfully."
-msgstr "Wasifu wa mtumiaji umefutwa kwa mafanikio."
-
-#: src/uagent/util_tools.py:1824
-msgid "No user profile file found to clear."
-msgstr "Hakuna faili ya wasifu wa mtumiaji iliyopatikana ili kufutwa."
-
-#: src/uagent/util_tools.py:1888
-msgid "Show this help"
-msgstr "Onyesha msaada huu"
-
-#: src/uagent/util_tools.py:1889
-msgid "Restart input from the beginning"
-msgstr "Anza upya ingizo kutoka mwanzo"
-
-#: src/uagent/util_tools.py:1890
-msgid "Show log file list"
-msgstr "Onyesha orodha ya faili za logi"
-
-#: src/uagent/util_tools.py:1893
-msgid ""
-"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
-":cd /)"
-msgstr ""
-"Badilisha saraka ya kazi bila uthibitisho (mf. :cd .. / :cd ~ / :cd C:\\path"
-" / :cd /)"
-
-#: src/uagent/util_tools.py:1896
-msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
-msgstr "Orodhesha maingizo ya saraka (mf. :ls / :ls .. / :ls ~ / :ls C:\\path)"
-
-#: src/uagent/util_tools.py:1899
-msgid "Manage UAGENT_* env vars and save .env.sec"
-msgstr "Dhibiti vigezo vya mazingira UAGENT_* na hifadhi .env.sec"
-
-#: src/uagent/util_tools.py:1901
-msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
-msgstr "Dhibiti/tumia ujuzi (mf. :skills / :skills active / :skills clear)"
-
-#: src/uagent/util_tools.py:1906
-msgid "Load a past log (overwrites current conversation history)"
-msgstr "Pakia logi ya awali (itaandika upya historia ya mazungumzo ya sasa)"
-
-#: src/uagent/util_tools.py:1908
-msgid ""
-"                       Note: after running, you will be asked for "
-"confirmation; choosing 'y' prepends the loaded log into the current session "
-"log file (overwrite, no backup)."
-msgstr ""
-"                       Kumbuka: baada ya kuendesha, utaombwa uthibitisho; "
-"ukichagua 'y', logi iliyopakiwa itawekwa mwanzo wa faili ya logi ya kipindi "
-"cha sasa (itaandika upya, bila chelezo)."
-
-#: src/uagent/util_tools.py:1912
-msgid ""
-"Delete conversation logs (scheck_log_*.jsonl) where the count of "
-"user/assistant/tool messages (excluding system) is <= N (default=10)"
-msgstr ""
-"Futa logi za mazungumzo (scheck_log_*.jsonl) ambapo idadi ya ujumbe wa "
-"mtumiaji/msaidizi/zana (bila system) ni <= N (chaguo-msingi=10)"
-
-#: src/uagent/util_tools.py:1916
-msgid ""
-"Shrink conversation history (keep last N non-system messages; default=40)"
-msgstr ""
-"Punguza historia ya mazungumzo (hifadhi ujumbe wa mwisho N usio wa system; "
-"chaguo-msingi=40)"
-
-#: src/uagent/util_tools.py:1920
-msgid ""
-"Shrink history via LLM summarization (summarize older history into 1 system "
-"message; keep last N raw; default=20)"
-msgstr ""
-"Punguza historia kwa muhtasari wa LLM (fanya muhtasari wa historia ya zamani"
-" kuwa ujumbe 1 wa system; hifadhi N za mwisho bila kuchakatwa; chaguo-"
-"msingi=20)"
-
-#: src/uagent/util_tools.py:1922
-msgid "List long-term memory notes"
-msgstr "Orodhesha madokezo ya kumbukumbu ya muda mrefu"
-
-#: src/uagent/util_tools.py:1924
-msgid "Delete a long-term memory note by index (see :mem-list)"
-msgstr "Futa dokezo la kumbukumbu ya muda mrefu kwa index (angalia :mem-list)"
-
-#: src/uagent/util_tools.py:1926
-#, fuzzy
-msgid "Show the learned user profile, or generate it from past logs"
-msgstr ""
-"Onyesha wasifu wa mtumiaji aliyejifunza (mazingira, mapendeleo, vikwazo)"
-
-#: src/uagent/util_tools.py:1927
-#, fuzzy
-msgid "Generate user profile from past logs"
-msgstr "Data ya wasifu wa mtumiaji haijapatikana."
-
-#: src/uagent/util_tools.py:1928
-msgid "Clear the learned user profile data"
-msgstr "Futa data ya wasifu wa mtumiaji aliyejifunza"
-
-#: src/uagent/util_tools.py:1930
-msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "Nakili faili au saraka (inaunga mkono -f/--overwrite na -p/--mkdirs)"
-
-#: src/uagent/util_tools.py:1932
-msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
-msgstr "Hamisha faili au saraka (inaunga mkono -f/--overwrite na -p/--mkdirs)"
-
-#: src/uagent/util_tools.py:1934
-msgid "Show the first n lines of a file (default=20)"
-msgstr "Onyesha mistari n ya kwanza ya faili (chaguo msingi=20)"
-
-#: src/uagent/util_tools.py:1935
-msgid "Show the last n lines of a file (default=20)"
-msgstr "Onyesha mistari n ya mwisho ya faili (chaguo msingi=20)"
-
-#: src/uagent/util_tools.py:1937
-msgid "Delete file(s)/directory(ies) with preview + confirm"
-msgstr "Futa faili/saraka kwa onyesho la awali + uthibitisho"
-
-#: src/uagent/util_tools.py:1939
-msgid ""
-"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
-msgstr ""
-"Weka hali ya hoja (0=zimwa, 1=chini, 2=wastani, 3=juu; auto/minimal/xhigh)"
-
-#: src/uagent/util_tools.py:1941
-msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
-msgstr ""
-"Weka hali ya urefu wa maelezo (0=zimwa, 1=chini, 2=wastani, 3=juu; bila "
-"hoja=endelea)"
-
-#: src/uagent/util_tools.py:1942
-msgid "Exit"
-msgstr "Toka"
-
-#: src/uagent/util_tools.py:1945
-msgid "  - Enter a line that is just 'f' to enter multiline input mode."
-msgstr ""
-"  - Weka mstari ambao ni tu 'f' ili kuingia katika hali ya kuingiza mistari "
-"mingi."
-
-#: src/uagent/util_tools.py:1947
-#, python-format
-msgid ""
-"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-msgstr ""
-"  - Ili kumaliza hali ya kuingiza mistari mingi, weka mstari unaolingana "
-"kabisa na %(sentinel)s."
-
-#: src/uagent/util_tools.py:2183
-msgid "Exiting."
-msgstr "Inatoka."
-
-#: src/uagent/util_tools.py:2186
-#, python-format
-msgid "Unknown command: :%(cmd)s"
-msgstr "Amri isiyojulikana: :%(cmd)s"
-
-#: src/uagent/util_tools.py:2337
-msgid ""
-"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
-"\n"
-msgstr ""
-"Vipengele vya orodha vilivyo hapa chini ni dondoo kutoka kumbukumbu ya muda mrefu ya mtumiaji huyu (memo za kudumu). Vitumie kama taarifa ya msingi kuhusu mtumiaji. Hata hivyo, daima zingatia taarifa mpya zilizotolewa katika mazungumzo, na ikiwa zinapingana na taarifa za zamani, chukua taarifa ya hivi karibuni.\n"
-"\n"
-
-#: src/uagent/web.py:534
-msgid ""
-"[WARN] Another task is already running in this room. Please retry after it "
-"completes."
-msgstr ""
-"[WARN] Kazi nyingine tayari inaendelea katika chumba hiki. Jaribu tena baada"
-" ya kukamilika."
-
-#: src/uagent/web.py:626 src/uagent/web.py:748
-msgid ""
-"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
-"Please check environment variables when starting the web server."
-msgstr ""
-"[FATAL] Kigezo cha mazingira UAGENT_PROVIDER hakijawekwa.\n"
-"Tafadhali angalia vigezo vya mazingira wakati wa kuanzisha seva ya wavuti."
-
-#: src/uagent/web.py:664
-#, python-format
-msgid "[Attached Image] %(name)s"
-msgstr "[Picha iliyoambatishwa] %(name)s"
-
-#: src/uagent/web.py:669
-#, python-format
-msgid "[Attached File] %(name)s"
-msgstr "[Faili lililoambatishwa] %(name)s"
-
-#: src/uagent/web.py:670
-#, python-format
-msgid "[File Path] %(path)s"
-msgstr "[Njia ya faili] %(path)s"
-
-#: src/uagent/web.py:698
-msgid "[INFO] Loaded long-term memory."
-msgstr "[INFO] Kumbukumbu ya muda mrefu imepakuliwa."
-
-#: src/uagent/web.py:710
-msgid "[INFO] Loaded shared long-term memory."
-msgstr "[INFO] Kumbukumbu ya muda mrefu iliyoshirikiwa imepakuliwa."
-
-#: src/uagent/web.py:745
-#, python-format
-msgid ""
-"[FATAL] Web worker error.\n"
-"%(err)s"
-msgstr ""
-"[FATAL] Hitilafu ya mchakato wa wavuti.\n"
-"%(err)s"
-
-#: src/uagent/web.py:882
-msgid "missing path"
-msgstr "njia haipo"
-
-#: src/uagent/web.py:889
-msgid "path outside workdir"
-msgstr "njia iko nje ya saraka ya kazi"
-
-#: src/uagent/web.py:1051
-msgid "Starting server on"
-msgstr "Ninaanzisha seva kwenye"
-
-#: src/uagent/web.py:1053
-msgid "External URL:"
-msgstr "URL ya Nje:"
-
-#: src/uagent/welcome.py:29
-msgid ""
-"[MCP Servers]\n"
-"- Config file not found."
-msgstr ""
-"[Seva za MCP]\n"
-"- Faili ya usanidi haikupatikana."
-
-#: src/uagent/welcome.py:36
-msgid ""
-"[MCP Servers]\n"
-"- No servers registered."
-msgstr ""
-"[Seva za MCP]\n"
-"- Hakuna seva zilizosajiliwa."
-
-#: src/uagent/welcome.py:38
-msgid "[MCP Servers]"
-msgstr "[Seva za MCP]"
-
-#: src/uagent/welcome.py:45
-#, python-format
-msgid ""
-"[MCP Servers]\n"
-"- Failed to get info: %(err)s"
-msgstr ""
-"[Seva za MCP]\n"
-"- Imeshindwa kupata taarifa: %(err)s"
-
-#: src/uagent/welcome.py:64
-msgid "[Quick Guide]"
-msgstr "[Mwongozo wa Haraka]"
-
-#: src/uagent/welcome.py:65
-msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Chat: andika ujumbe na utume (GUI: Ctrl+Enter pia inapatikana)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Mistari mingi: weka mstari wenye tu 'f' ili kuingia hali ya mistari mingi "
-"(malizia kwa \"\"\"end)."
-
-#: src/uagent/welcome.py:70
-msgid ""
-"- Commands: type ':help' to see system commands (log management, history "
-"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
-"(slash)."
-msgstr ""
-"- Amri: andika ':help' ili kuona amri za mfumo (usimamizi wa kumbukumbu, "
-"ukandamizaji wa historia, nk.). Kumbuka: amri huanza na ':' (koloni) badala "
-"ya '/' (mkwaju)."
-
-#: src/uagent/welcome.py:72
-msgid "- Exit: ':exit' or ':quit' ends the session."
-msgstr "- Toka: ':exit' au ':quit' humaliza kipindi."
-
-#: src/uagent/welcome.py:74
-msgid ""
-"- Images: GUI supports drag & drop; in CUI you can input a file path for "
-"image analysis."
-msgstr ""
-"- Picha: GUI inaunga mkono buruta na dondosha; kwenye CUI unaweza kuingiza "
-"njia ya faili kwa uchanganuzi wa picha."
-
-#: src/uagent/welcome.py:77
-#, python-format
-msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
-"Inspector help (`--path/--open` also available)."
-msgstr ""
-"- Docs: `%(docs_cmd)s` huonyesha nyaraka zilizojumuishwa; "
-"`%(webinspect_cmd)s` huonyesha msaada wa Web Inspector (`--path/--open` pia "
-"zinapatikana)."
-
-#: src/uagent/welcome.py:81
-msgid "[Examples]"
-msgstr "[Mifano]"
-
-#: src/uagent/welcome.py:82
-msgid "- \"Analyze the source code in this folder and create a README.md.\""
-msgstr "- \"Chambua msimbo chanzo kwenye folda hii na unda README.md.\""
-
-#: src/uagent/welcome.py:84
-msgid ""
-"- \"Take a screenshot of the current desktop and describe the visible window"
-" contents.\""
-msgstr ""
-"- \"Piga picha ya skrini ya eneo-kazi la sasa na eleza yaliyomo ya dirisha "
-"linaloonekana.\""
-
-#: src/uagent/welcome.py:86
-msgid "- \"Create a monthly summary report from this Excel file.\""
-msgstr ""
-"- \"Tengeneza ripoti ya muhtasari wa kila mwezi kutoka kwenye faili hii ya "
-"Excel.\""
-
-#: src/uagent/welcome.py:87
-msgid "- \"Read this PDF and list three key points.\""
-msgstr "- \"Soma PDF hii na orodhesha pointi tatu kuu.\""
-
-#: src/uagent/welcome.py:88
-msgid "- \"Search the latest news and summarize a specific topic.\""
-msgstr "- \"Tafuta habari za hivi karibuni na fupisha mada maalum.\""
-
-#: src/uagent/welcome.py:193
-msgid "-- More -- (Enter: next) "
-msgstr "-- Zaidi -- (Enter: inayofuata) "
-
-#: src/uagent/a2a/engine.py:125
-msgid "No assistant message produced."
-msgstr "Hakuna ujumbe wa msaidizi uliotolewa."
-
-#: src/uagent/a2a/engine.py:137
-msgid "Generated image(s)."
-msgstr "Picha zimezalishwa."
-
-#: src/uagent/a2a/engine.py:150
-#, python-format
-msgid "ECHO: %(text)s"
-msgstr "matokeo: %(text)s"
-
-#: src/uagent/a2a/engine.py:165
-#, python-format
-msgid "uagent initialization failed: %(err)s"
-msgstr "uanzishaji wa uagent umeshindikana: %(err)s"
-
-#: src/uagent/a2a/engine.py:177
-#, python-format
-msgid "uagent execution failed: %(etype)s: %(err)s"
-msgstr "utekelezaji wa uagent umeshindikana: %(etype)s: %(err)s"
-
-#: src/uagent/a2a/engine.py:188
-#, python-format
-msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
-msgstr "Injini isiyojulikana ya UAGENT_A2A_ENGINE: %(mode)s"
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-08 18:40+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:17 src/uagent/checks.py:27
+#, python-format
+msgid "Please install Git. See: %(url)s"
+msgstr "Tafadhali sakinisha Git. Tazama: %(url)s"
+
+#: src/uagent/checks.py:20
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Tafadhali sakinisha Git. Mfano: sudo apt install git (Ubuntu/Debian) au sudo"
+" yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:23
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Tafadhali sakinisha Git. Ukitumia Homebrew: brew install git, au sakinisha "
+"Xcode Command Line Tools: xcode-select --install"
+
+#: src/uagent/checks.py:30
+msgid "[ERROR] Git is not installed."
+msgstr "[ERROR] Git haijasakinishwa."
+
+#: src/uagent/cli.py:397
+msgid "getch() fallback to input()"
+msgstr "getch() inatumia input() kama mbadala"
+
+#: src/uagent/cli.py:604
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Imepokelewa Ctrl+C. Naanza kuzima..."
+
+#: src/uagent/cli.py:636 src/uagent/cli.py:706
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(Hali ya ingizo la mistari mingi: andika maudhui katika mistari kadhaa; ili "
+"kuanza upya, andika \"\"\"retry; malizia kwa mstari unao na %(sentinel)s)"
+
+#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
+#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
+#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
+#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
+#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
+#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
+#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
+#: src/uagent/setup_cli.py:1462
+msgid "Cancelled."
+msgstr "Imeghairiwa."
+
+#: src/uagent/cli.py:672 src/uagent/cli.py:722
+msgid "Discarded previous input. Please start over."
+msgstr "Ingizo la awali limeondolewa. Tafadhali anza upya."
+
+#: src/uagent/cli.py:683
+msgid "Received multiline reply."
+msgstr "Imepokea jibu la mistari mingi."
+
+#: src/uagent/cli.py:841
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"Njia za faili za picha zimepatikana kwenye ingizo lako.\n"
+"Je, ungependa kutuma picha hizi kwa LLM (API ya nje) kwa uchambuzi?\n"
+"\n"
+
+#: src/uagent/cli.py:847
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "Jibu kwa y kutuma, au n (au c/cancel) kuruka kutuma."
+
+#: src/uagent/cli.py:865
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"Uthibitisho wa kutuma picha umeshindwa; picha hazitatumwa: %(etype)s: "
+"%(err)s"
+
+#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Imeshindwa kuambatisha picha: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:930
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Tukio lisilojulikana kind=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:948
+msgid "Exited uag."
+msgstr "Uag imeondoka."
+
+#: src/uagent/cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "[docs] jina linahitajika"
+
+#: src/uagent/cli_startup.py:22
+msgid ""
+"Select tool genres to enable at startup.\n"
+"1: comm  - Communication (Teams, Discord, etc.)\n"
+"2: office - Office suite (Excel, Word, etc.)\n"
+"4: devel  - Development (lint, py_compile, test, etc.)\n"
+"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
+msgstr ""
+"Chagua aina za zana za kuwezesha wakati wa kuanza.\n"
+"1: comm  - Mawasiliano (Teams, Discord, n.k.)\n"
+"2: office - Seti ya ofisi (Excel, Word, n.k.)\n"
+"4: devel  - Maendeleo (lint, py_compile, test, n.k.)\n"
+"Ingiza jumla ya maadili (k.m., 3 = comm + office, 7 = zote, au bonyeza Enter ili kuwezesha zote):"
+
+#: src/uagent/cli_startup.py:96
+#, python-format
+msgid "[WARN] Failed to apply startup tool selection: %(err)s"
+msgstr "[WARN] Imeshindwa kutumia uteuzi wa zana ya kuanza: %(err)s"
+
+#: src/uagent/cli_startup.py:173 src/uagent/web.py:1034
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Imeshindwa kuweka workdir: %(err)s"
+
+#: src/uagent/cli_startup.py:202
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Imeshindwa kuzindua uag_setup: %(err)s"
+
+#: src/uagent/cli_startup.py:243
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "mtoa huduma = %(provider)s; modeli = %(model)s"
+
+#: src/uagent/cli_startup.py:255 src/uagent/scheckgui.py:296
+msgid "OpenRouter fallback models enabled."
+msgstr "Miundo mbadala ya OpenRouter imewezeshwa."
+
+#: src/uagent/cli_startup.py:259
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "saraka ya sasa ya kazi = %(cwd)s"
+
+#: src/uagent/cli_startup.py:273 src/uagent/scheckgui.py:307
+msgid "Loaded long-term memory."
+msgstr "Kumbukumbu ya muda mrefu imepakiwa."
+
+#: src/uagent/cli_startup.py:286 src/uagent/scheckgui.py:320
+msgid "Loaded shared long-term memory."
+msgstr "Kumbukumbu ya muda mrefu ya pamoja imepakiwa."
+
+#: src/uagent/cli_startup.py:293 src/uagent/web.py:718
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[WARN] Hitilafu imetokea wakati wa kupakia kumbukumbu ya muda mrefu ya "
+"pamoja: %(err)s"
+
+#: src/uagent/cli_startup.py:327
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[WARN] Imeshindwa kusoma faili ya kuanzisha: %(path)s (%(err)s)"
+
+#: src/uagent/cli_startup.py:341
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "Faili ya kuanza imetolewa: %(path)s"
+
+#: src/uagent/cli_startup.py:364
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactive imebainishwa; inatoka bila kusubiri stdin."
+
+#: src/uagent/core.py:286 src/uagent/core.py:307
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "Kigezo cha mazingira %(name)s hakijawekwa."
+
+#: src/uagent/core.py:607
+msgid "No log files found."
+msgstr "Hakuna faili za logi zilizopatikana."
+
+#: src/uagent/core.py:625
+msgid "(unknown time)"
+msgstr "(wakati usiojulikana)"
+
+#: src/uagent/core.py:628
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "logi: inaonyesha %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:631
+msgid "Log files:"
+msgstr "Faili za logi:"
+
+#: src/uagent/core.py:638
+msgid "(mtime unknown)"
+msgstr "(muda wa mabadiliko haujulikani)"
+
+#: src/uagent/core.py:756 src/uagent/core.py:759
+msgid "(no user message)"
+msgstr "(hakuna ujumbe wa mtumiaji)"
+
+#: src/uagent/core.py:764
+#, python-format
+msgid ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | ujumbe %(turns)d | wa kwanza: %(first_user)s | wa"
+" mwisho: %(last_user)s"
+
+#: src/uagent/core.py:896
+#, python-format
+msgid ""
+"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
+msgstr ""
+"[WARN] Nafuta ujumbe wa zana uliotengwa: tool_call_id=%(tool_call_id)r "
+"name=%(name)r"
+
+#: src/uagent/core.py:994
+#, python-format
+msgid ""
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
+msgstr ""
+"[INFO] Kulikuwa na ujumbe %(count)d wa kubana, kwa hiyo hakuna "
+"kilichobadilishwa."
+
+#: src/uagent/core.py:1004
+#, python-format
+msgid ""
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+msgstr ""
+"[INFO] Historia ya mazungumzo kwenye kumbukumbu imebanwa: %(old_n)d -> "
+"%(new_n)d ujumbe (keep_last=%(keep_last)d)"
+
+#: src/uagent/core.py:1215
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr ""
+"Kikomo cha kujaribu tena cha 429 (%(max_retries)s) kimefikiwa wakati wa "
+"kubana historia."
+
+#: src/uagent/core.py:1225
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "Hitilafu wakati wa kuita LLM kwa ajili ya kubana historia: %(err)r"
+
+#: src/uagent/core.py:1258
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr "- Fanya muhtasari wa sehemu ya mazungumzo kwa Kiingereza.\n"
+
+#: src/uagent/core.py:1260
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr ""
+"- Weka muhtasari ukiwa mfupi lakini ujumuishe maamuzi muhimu, vikwazo, na "
+"mambo yanayosubiriwa.\n"
+
+#: src/uagent/core.py:1262
+msgid "- Output should be directly usable as a system message."
+msgstr "- Toleo linapaswa kutumika moja kwa moja kama ujumbe wa mfumo."
+
+#: src/uagent/core.py:1265
+msgid "Conversation chunk:\n"
+msgstr "Sehemu ya mazungumzo:\n"
+
+#: src/uagent/core.py:1267
+msgid "Write a concise summary of this chunk."
+msgstr "Andika muhtasari mfupi wa sehemu hii."
+
+#: src/uagent/core.py:1271
+msgid "- You are updating an existing conversation summary.\n"
+msgstr "- Unasasisha muhtasari wa mazungumzo uliopo.\n"
+
+#: src/uagent/core.py:1272
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr "- Hifadhi mambo muhimu kutoka kwa muhtasari uliopita.\n"
+
+#: src/uagent/core.py:1274
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr ""
+"- Unganisha sehemu mpya bila kupoteza vikwazo, maamuzi, au mambo "
+"yanayosubiriwa.\n"
+
+#: src/uagent/core.py:1276
+msgid "- Keep the result concise and suitable for a system message."
+msgstr "- Weka matokeo kuwa mafupi na yanayofaa kwa ujumbe wa mfumo."
+
+#: src/uagent/core.py:1279
+msgid "Previous summary:\n"
+msgstr "Muhtasari uliopita:\n"
+
+#: src/uagent/core.py:1281
+msgid "New chunk:\n"
+msgstr "Sehemu mpya:\n"
+
+#: src/uagent/core.py:1283
+msgid "Update the summary while keeping the prior context intact."
+msgstr "Sasisha muhtasari huku ukiacha muktadha uliopita ukiwa sawa."
+
+#: src/uagent/core.py:1304
+msgid "Summary of the conversation so far:\n"
+msgstr "Muhtasari wa mazungumzo hadi sasa:\n"
+
+#: src/uagent/core.py:1311
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+"[INFO] shrink_llm: {old_n} -> {new_n} ujumbe (imebana ujumbe {old_part_n} wa"
+" zamani kuwa muhtasari 1; imehifadhi {tail_n} mwishoni)"
+
+#: src/uagent/core.py:1339
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[WARN] Kubana historia kulifikia kikomo cha muktadha hata kwa chunk_size=1; "
+"narudi kwa shrink_messages()."
+
+#: src/uagent/core.py:1349
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr ""
+"[WARN] Kubana historia hakukuweza kupunguza chunk_size zaidi; narudi kwa "
+"shrink_messages()."
+
+#: src/uagent/core.py:1357
+#, python-format
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"[WARN] Kikomo cha muktadha kimezidiwa wakati wa kubana historia; najaribu "
+"tena kwa chunk_size=%(chunk_size)d"
+
+#: src/uagent/core.py:1382
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help  (msaada haupatikani: %(err)s)"
+
+#: src/uagent/core.py:1394
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Dhamira\n"
+"- Wewe ni \"wakala hodari wa kutekeleza zana za matumizi ya jumla\" unaoendeshwa kwenye mazingira ya ndani, na unaweza kweli kutekeleza amri na kufanya kazi kwenye faili za mtumiaji.\n"
+"- Omba uthibitisho kutoka kwa mtumiaji kabla ya kufanya operesheni yoyote hatari.\n"
+"- Usimsifie mtumiaji. Usitumie emoji.\n"
+"- Usifanye muhtasari. Weka taarifa fupi.\n"
+"- Unapounda faili, toa maudhui kamili ya mwisho (usiweke tofauti wala muhtasari wa sehemu).\n"
+
+#: src/uagent/core.py:1403
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Kanuni\n"
+"- Tumia zana zilizotolewa kila wakati na hakiki taarifa za hivi karibuni.\n"
+"- Kuwa mbunifu, lakini usitoe taarifa zisizo hakika.\n"
+"- Rejelea zana zinazopatikana na uchague inayofaa zaidi.\n"
+"- Unapotekeleza zana, achia mtumiaji maamuzi machache kadiri iwezekanavyo.\n"
+
+#: src/uagent/core.py:1410
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Maelezo\n"
+"- Ujumbe wote wa mtumiaji hupitia ingizo la kawaida la skripti hii.\n"
+"- Kwa madhumuni/hoja/vizuizi/maelezo ya uendeshaji mahususi ya zana, pendelea maelezo ya kila zana.\n"
+"- Ikiwa unahitaji taarifa za ziada au uthibitisho kutoka kwa mtumiaji, tumia zana ya human_ask.\n"
+"- Unaposhughulikia misemo ya tarehe za kulingana na muktadha, ita get_current_time ili kurejelea wakati wa sasa.\n"
+"- Usihifadhi siri (manenosiri/tokeni) katika kumbukumbu ya muda mrefu (add_long_memory, n.k.).\n"
+"- Faili zenye viambishi kama .org / .org1 / .org2 ni nakala za hifadhi na hazipaswi kutumiwa kama faili kuu za kuhariri.\n"
+"- Ukiumba faili za Python, endesha `python -m py_compile` ili kuthibitisha sintaksia.\n"
+"- Ikiwa maarifa ya kiwango cha mtaalamu yanahitajika, tumia violezo vya maongozi (Agent Skills) na ufuate.\n"
+"- Ikiwa ingizo la mtumiaji ni uthibitisho mfupi tu na haliongezi taarifa mpya, usirudie maelezo yale yale isipokuwa ni jibu la moja kwa moja kwa swali lililo wazi lililotangulia mara moja. Ikiwa inahitajika, uliza kwa ufupi: \"Ni sehemu gani niendelee nayo?\"\n"
+
+#: src/uagent/core.py:1422
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr ""
+"## Sera ya operesheni hatari (delete_file)\n"
+"- Unapotumia zana ya delete_file kufuta, USIOMBE uthibitisho kabla ya onyesho la awali.\n"
+"- Daima endesha delete_file na dry_run=true kwanza ili upate orodha ya wagombea wa kufutwa.\n"
+"- Onyesha wagombea kwa mtumiaji na uombe uthibitisho kupitia human_ask mara moja tu.\n"
+"- Ni pale tu mtumiaji anapojibu waziwazi \"y\" au \"yes\" (au idhini nyingine wazi), endesha delete_file tena kwa vigezo vilevile, dry_run=false, na confirmed=true.\n"
+"- Ikiwa kuna wagombea sifuri, usiombe; toa tu taarifa kwamba hakuna kitakachofutwa.\n"
+
+#: src/uagent/core.py:1430
+#, fuzzy
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Dhamira\n"
+"- Wewe ni \"wakala hodari wa kutekeleza zana za matumizi ya jumla\" unaoendeshwa kwenye mazingira ya ndani; unaweza kutekeleza amri na kufanya kazi kwenye mashine ya mtumiaji.\n"
+"- Omba uthibitisho kutoka kwa mtumiaji kabla ya operesheni yoyote hatari.\n"
+"- Hakuna kusifia. Hakuna emoji. Hakuna muhtasari wa mazungumzo. Weka iwe fupi.\n"
+"- Unapounda faili, toa maudhui kamili ya mwisho (bila tofauti/muhtasari wa sehemu).\n"
+
+#: src/uagent/core.py:1438
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Kanuni\n"
+"- Tumia zana zilizotolewa kwanza na hakiki matokeo kwa zana.\n"
+"- Rejelea maelezo ya zana kwa kusudi/hoja/vizuizi; chagua zana inayofaa zaidi na salama.\n"
+"- Kuwa mbunifu, lakini usitoe taarifa zisizo hakika.\n"
+"- Achia mtumiaji maamuzi machache kadiri iwezekanavyo.\n"
+
+#: src/uagent/core.py:1445
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Maelezo\n"
+"- Ujumbe wote wa mtumiaji hupitia ingizo la kawaida la skripti hii.\n"
+"- Ikiwa taarifa/parameta zinazohitajika hazipo, uliza kupitia human_ask (usikisie).\n"
+"- Kwa tarehe za kulingana na muktadha: ita get_current_time.\n"
+"- Usihifadhi siri (manenosiri/tokeni) katika kumbukumbu ya muda mrefu.\n"
+"- Faili zenye viambishi kama .org / .org1 / .org2 ni nakala za hifadhi na hazipaswi kutumiwa kama faili kuu za kuhariri.\n"
+"- Ukiumba faili za Python, endesha `python -m py_compile`.\n"
+"- Ikiwa maarifa ya kiwango cha mtaalamu yanahitajika, tumia violezo vya maongozi ya Agent Skills.\n"
+"- Ikiwa ingizo la mtumiaji ni uthibitisho mfupi tu na haliongezi taarifa mpya, usirudie maelezo yale yale isipokuwa ni jibu la moja kwa moja kwa swali lililo wazi lililotangulia mara moja. Ikiwa inahitajika, uliza kwa ufupi: \"Ni sehemu gani niendelee nayo?\"\n"
+
+#: src/uagent/core.py:1458
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr ""
+"- Ikiwa mtumiaji anatumia Windows cmd.exe, pendelea amri za mistari mingi "
+"kwa kutumia uendelezaji wa mstari kwa caret (^), na weka kila mstari mfupi "
+"ili kuepuka mapumziko ya kunakili/kubandika.\n"
+
+#: src/uagent/core.py:1525
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr ""
+"Zana zifuatazo zimepakiwa sasa kwenye kipindi hiki. Chagua zana inayofaa "
+"zaidi kwa kazi hii."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "README ya mradi"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Haraka kuanza (usakinishaji wa wheel kwenye Windows)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Mwongozo wa Web Inspector (playwright_inspector)"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "Taarifa za msanidi"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "jina la hati lisilojulikana: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "faili ya hati haikupatikana: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "kushindwa kutatua njia ya hati: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] Hati zinazopatikana:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "Matumizi:"
+
+#: src/uagent/docs_util.py:232
+msgid "list"
+msgstr "orodha"
+
+#: src/uagent/docs_util.py:233
+msgid "show"
+msgstr "onyesha"
+
+#: src/uagent/docs_util.py:234
+msgid "show path"
+msgstr "onyesha njia"
+
+#: src/uagent/docs_util.py:235
+msgid "open with OS"
+msgstr "fungua kwa OS"
+
+#: src/uagent/env_validate.py:42
+msgid ""
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+msgstr ""
+"Lazima uchague mtoa huduma wa LLM "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+
+#: src/uagent/env_validate.py:63
+#, python-format
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+"Mtoa huduma asiyejulikana: %(provider)r. Inayoruhusiwa: %(allowed)s (huenda "
+"uanzishaji ukashindikana)."
+
+#: src/uagent/env_validate.py:74
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+"Kiunganishi/URL msingi cha Azure OpenAI (mfano: "
+"https://<resource>.openai.azure.com/)."
+
+#: src/uagent/env_validate.py:80
+msgid "Azure OpenAI API key."
+msgstr "Ufunguo wa API wa Azure OpenAI."
+
+#: src/uagent/env_validate.py:85
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr "Toleo la API la Azure OpenAI (mfano, 2024-xx-xx)."
+
+#: src/uagent/env_validate.py:92
+msgid "OpenAI API key."
+msgstr "Ufunguo wa API wa OpenAI."
+
+#: src/uagent/env_validate.py:98
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr ""
+"Kiunganishi/URL msingi cha proksi ya Bedrock (kinachoendana na OpenAI)."
+
+#: src/uagent/env_validate.py:105
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr "Ufunguo wa API wa proksi ya Bedrock (unaotangamana na OpenAI)."
+
+#: src/uagent/env_validate.py:112
+msgid "OpenRouter API key."
+msgstr "Ufunguo wa API wa OpenRouter."
+
+#: src/uagent/env_validate.py:117
+msgid "Grok (xAI) API key."
+msgstr "Ufunguo wa API wa Grok (xAI)."
+
+#: src/uagent/env_validate.py:122
+msgid "Gemini API key."
+msgstr "Ufunguo wa API wa Gemini."
+
+#: src/uagent/env_validate.py:129
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+"Kifurushi cha Python 'google-genai' hakijasakinishwa. Mtoa huduma gemini "
+"anakihitaji."
+
+#: src/uagent/env_validate.py:140
+msgid "Vertex AI API key / model name."
+msgstr "Ufunguo wa API wa Vertex AI / jina la modeli."
+
+#: src/uagent/env_validate.py:149
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+"Kifurushi cha Python 'google-genai' hakijasakinishwa. Mtoa huduma vertexai "
+"anakihitaji."
+
+#: src/uagent/env_validate.py:157
+msgid "Anthropic (Claude) API key."
+msgstr "Ufunguo wa API wa Anthropic (Claude)."
+
+#: src/uagent/env_validate.py:165
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+"Kifurushi cha Python 'anthropic' hakijasakinishwa. Mtoa huduma claude "
+"anakihitaji."
+
+#: src/uagent/env_validate.py:172
+msgid "NVIDIA API key."
+msgstr "Ufunguo wa API wa NVIDIA."
+
+#: src/uagent/env_validate.py:190
+#, python-format
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+"Mtoa huduma wa embedding asiyejulikana: %(provider)r. Inayoruhusiwa: "
+"%(allowed)s (huenda uanzishaji ukashindikana)."
+
+#: src/uagent/env_validate.py:207
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr ""
+"Kiunganishi cha embedding cha Azure / ufunguo wa API / toleo la API / jina "
+"la deployment."
+
+#: src/uagent/env_validate.py:218
+msgid "OpenAI embedding API key / model name."
+msgstr "Ufunguo wa API wa embedding wa OpenAI / jina la modeli."
+
+#: src/uagent/env_validate.py:230
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr ""
+"Kiunganishi cha embedding cha Bedrock / ufunguo wa API / jina la deployment."
+
+#: src/uagent/env_validate.py:241
+msgid "OpenRouter embedding API key / model name."
+msgstr "Ufunguo wa API wa embedding wa OpenRouter / jina la modeli."
+
+#: src/uagent/env_validate.py:252
+msgid "Ollama embedding base URL / model name."
+msgstr "URL msingi ya embedding ya Ollama / jina la modeli."
+
+#: src/uagent/env_validate.py:263
+msgid "NVIDIA embedding API key / model name."
+msgstr "Ufunguo wa API wa embedding wa NVIDIA / jina la modeli."
+
+#: src/uagent/env_validate.py:274
+msgid "Gemini embedding API key / model name."
+msgstr "Funguo la API / jina la modeli ya uingizaji wa Gemini."
+
+#: src/uagent/env_validate.py:285
+msgid "Vertex AI embedding API key / model name."
+msgstr "Funguo la API / jina la modeli ya uingizaji wa Vertex AI."
+
+#: src/uagent/env_validate.py:302
+#, python-brace-format
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] Uthibitishaji wa mazingira umeshindwa ({context})."
+
+#: src/uagent/env_validate.py:310
+msgid "Missing required environment variables:"
+msgstr "Mabadiliko ya mazingira yanayohitajika hayapo:"
+
+#: src/uagent/env_validate.py:317
+msgid "Warnings:"
+msgstr "Onyo:"
+
+#: src/uagent/env_validate.py:321
+msgid "How to fix:"
+msgstr "Jinsi ya kurekebisha:"
+
+#: src/uagent/env_validate.py:324
+msgid ""
+"- Set the variables above in your environment before starting the program."
+msgstr ""
+"- Weka vigezo vilivyo juu kwenye mazingira yako kabla ya kuanza programu."
+
+#: src/uagent/env_validate.py:330
+msgid ""
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
+msgstr ""
+"- Unaweza kuvianisha kupitia mipangilio ya mazingira ya OS yako, faili ya "
+".env, skripti za kuanza za ganda lako,"
+
+#: src/uagent/env_validate.py:336
+msgid ""
+"  or your process manager / service configuration (CI secrets, systemd, "
+"Docker, etc.)."
+msgstr ""
+"  au usanidi wa kidhibiti cha mchakato / huduma (siri za CI, systemd, "
+"Docker, n.k.)."
+
+#: src/uagent/gemini_cache_mgr.py:131
+msgid "invalid cache meta"
+msgstr "meta ya akiba batili"
+
+#: src/uagent/image_session.py:101
+msgid "(prompt unavailable)"
+msgstr "(kichocheo hakipatikani)"
+
+#: src/uagent/image_session.py:105
+#, python-format
+msgid "screenshot: %(title)s"
+msgstr "picha ya skrini: %(title)s"
+
+#: src/uagent/image_session.py:107
+msgid "screenshot"
+msgstr "picha ya skrini"
+
+#: src/uagent/image_session.py:148
+msgid "Image-session context:"
+msgstr "Muktadha wa kipindi cha picha:"
+
+#: src/uagent/image_session.py:149
+msgid "This conversation already generated images."
+msgstr "Mazungumzo haya tayari yamezalisha picha."
+
+#: src/uagent/image_session.py:151
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"Tumia vichocheo vilivyopita na njia za faili zilizohifadhiwa hapa chini kama"
+" muktadha wa marekebisho ya kufuatilia, matoleo mbadala, au kuendeleza."
+
+#: src/uagent/image_session.py:156
+#, python-format
+msgid "Turn %(idx)d:"
+msgstr "Mzunguko %(idx)d:"
+
+#: src/uagent/image_session.py:157
+#, python-format
+msgid "- prompt: %(prompt)s"
+msgstr "- kichocheo: %(prompt)s"
+
+#: src/uagent/image_session.py:160
+#, python-format
+msgid "- file: %(path)s"
+msgstr "- faili: %(path)s"
+
+#: src/uagent/llm_claude.py:143 src/uagent/util_providers.py:610
+msgid "anthropic package is not installed."
+msgstr "Kifurushi cha anthropic hakijasakinishwa."
+
+#: src/uagent/llm_errors.py:398
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr ""
+"[RATE_LIMIT] mtoa huduma=%(provider)s modeli=%(model)s hali=%(status)s "
+"jaribio=%(attempt)s/%(max_retries)s subiri=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+
+#: src/uagent/llm_flow_helpers.py:205
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+"Jibu la awali la msaidizi lilikuwa tupu. Jibu kulingana na matokeo ya hivi "
+"karibuni ya zana."
+
+#: src/uagent/llm_flow_helpers.py:218
+#, python-format
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+msgstr ""
+"[WARN] LLM ilirudisha ujumbe tupu wa msaidizi bila simu za zana.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"Hili linaweza kutokea kwa watoa huduma wa ndani wanaoendana na OpenAI baada ya simu za zana. Unaweza kujaribu kuweka UAGENT_EMPTY_NO_TOOL_MAX kuwa thamani ya juu zaidi, au kubadili mtoa huduma."
+
+#: src/uagent/llm_flow_helpers.py:265
+msgid "arguments must be a JSON object."
+msgstr "hoja lazima ziwe kitu cha JSON."
+
+#: src/uagent/llm_flow_helpers.py:272
+#, python-format
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[hitilafu ya hoja za zana] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+
+#: src/uagent/llm_flow_helpers.py:298
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr ""
+"[INFO] Inatumia tena matokeo ya awali kwa sababu mwito huu wa zana "
+"unalingana na wa awali.\n"
+
+#: src/uagent/llm_flow_helpers.py:313
+#, python-format
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[hitilafu ya utekelezaji wa zana] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+
+#: src/uagent/llm_gemini.py:556
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr ""
+"google-genai haikuweza kuingizwa (pip install google-genai inahitajika)."
+
+#: src/uagent/llm_gemini.py:1115
+msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
+msgstr ""
+"[Hitilafu ya Gemini: Jibu limezuiwa na kichujio cha usalama au sababu ya "
+"kukamilisha]"
+
+#: src/uagent/llm_gemini.py:1117
+#, python-format
+msgid "[Gemini Error: %(err)s]"
+msgstr "[Hitilafu ya Gemini: %(err)s]"
+
+#: src/uagent/llm_image_helpers.py:7
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr "Eleza picha hii ya skrini na ufupishe UI inayoonekana."
+
+#: src/uagent/llm_image_helpers.py:11
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr ""
+"Soma maandishi yote yanayoonekana katika picha hii ya skrini na uyafupishe."
+
+#: src/uagent/llm_image_helpers.py:15
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr "Kagua picha hii ya skrini kwa makosa, maonyo, na hali muhimu ya UI."
+
+#: src/uagent/llm_message_helpers.py:155
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] shrink_llm ya moja kwa moja imeshindikana: %(err)s"
+
+#: src/uagent/llm_openai_responses.py:69
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr ""
+"[WARN] historia ya msaidizi ilikuwa na maudhui ya picha; yamebadilishwa kuwa"
+" maandishi."
+
+#: src/uagent/llm_openai_responses.py:92
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[WARN] maudhui ya picha si sahihi (URL haipo)."
+
+#: src/uagent/llm_openai_responses.py:100
+#: src/uagent/llm_openai_responses.py:109
+#, python-format
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[WARN] kipengele cha maudhui kisichotumika: %(item)r"
+
+#: src/uagent/llm_openai_responses.py:444
+msgid "Sources:"
+msgstr "Vyanzo:"
+
+#: src/uagent/llm_openai_responses.py:507
+msgid "search"
+msgstr "tafuta"
+
+#: src/uagent/llm_openai_responses.py:509
+msgid "open page"
+msgstr "fungua ukurasa"
+
+#: src/uagent/llm_openai_responses.py:511
+msgid "find in page"
+msgstr "tafuta ndani ya ukurasa"
+
+#: src/uagent/llm_openai_responses.py:512
+msgid "web search"
+msgstr "utafutaji wa wavuti"
+
+#: src/uagent/llm_openai_responses.py:526
+msgid "Web search: searching"
+msgstr "Utafutaji wa wavuti: unatafuta"
+
+#: src/uagent/llm_openai_responses.py:528
+msgid "Web search: completed"
+msgstr "Utafutaji wa wavuti: umekamilika"
+
+#: src/uagent/llm_openai_responses.py:530
+#, python-brace-format
+msgid "Web search: {action}"
+msgstr "Utafutaji wa wavuti: {action}"
+
+#: src/uagent/llm_openai_responses.py:587
+#, python-brace-format
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[Sheria za kupiga zana]\n"
+"        - Unapopiga zana/funguzi, lazima utoe function_call.arguments kama kitu cha JSON.\n"
+"        - Kitu cha JSON lazima kijumuishe vigezo vyote vinavyohitajika vilivyofafanuliwa na skima ya zana.\n"
+"        - Kamwe usipige zana kwa kitu tupu {} isipokuwa zana haina vigezo vinavyohitajika.\n"
+"        - Ikiwa huna kigezo kinachohitajika, muulize mtumiaji kupitia human_ask badala ya kubahatisha.\n"
+"        "
+
+#: src/uagent/llm_openai_responses.py:594
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[Kanuni za utafutaji wa wavuti]\n"
+"        - Tumia utafutaji wa wavuti tu wakati taarifa za karibuni au za nje zinahitajika.\n"
+"        - Usitumie utafutaji wa wavuti kwa taarifa za mahali hapo au thabiti.\n"
+"        - Pendelea kujibu bila utafutaji wa wavuti wakati jibu tayari linatosha.\n"
+"        "
+
+#: src/uagent/llm_round_helpers.py:133
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[Hitilafu ya Tafsiri] %(diag)s"
+
+#: src/uagent/llm_round_helpers.py:192 src/uagent/llm_round_helpers.py:302
+#: src/uagent/llm_round_helpers.py:636
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "Kikomo cha majaribio ya 429 kimefikiwa (%(max_retries)s)."
+
+#: src/uagent/llm_round_helpers.py:216
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Hitilafu ya Gemini] Hitilafu imetokea wakati wa kutengeneza jibu."
+
+#: src/uagent/llm_round_helpers.py:308
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Hitilafu ya Claude] Hitilafu imetokea wakati wa kutengeneza jibu."
+
+#: src/uagent/llm_round_helpers.py:600
+msgid "Input exceeds the context window."
+msgstr "Ingizo linazidi dirisha la muktadha."
+
+#: src/uagent/llm_round_helpers.py:610
+msgid "Connection error"
+msgstr "Hitilafu ya muunganisho"
+
+#: src/uagent/llm_round_helpers.py:615
+msgid "[Network Error]"
+msgstr "[Hitilafu ya mtandao]"
+
+#: src/uagent/llm_round_helpers.py:642
+msgid "Unexpected exception."
+msgstr "Isipokuwa isiyotarajiwa."
+
+#: src/uagent/llm_round_helpers.py:720
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Hitilafu wakati wa kuchanganua jibu: %(err)s"
+
+#: src/uagent/profile_manager.py:482 src/uagent/profile_manager.py:600
+msgid ""
+"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
+"1. Environment (OS, shell, editor, etc.)\n"
+"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
+"3. Constraints (security rules, offline requirements, etc.)\n"
+"\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+msgstr ""
+"Wewe ni wakala wa kuandaa wasifu wa mtumiaji. Changanua kumbukumbu ya mazungumzo na utoe yafuatayo kuhusu mtumiaji:\n"
+"1. Mazingira (OS, shell, mhariri, n.k.)\n"
+"2. Mapendeleo (mtindo wa uandishi wa msimbo, zana zinazopendekezwa, upendeleo wa kiwango cha maelezo, n.k.)\n"
+"3. Vikwazo (kanuni za usalama, mahitaji ya kufanya kazi bila mtandao, n.k.)\n"
+"\n"
+"Usijumuishe maswali ya muda, mazungumzo ya kawaida, au vitambulisho vya siri.\n"
+"Lazima ujibu TU kwa kitu halali cha JSON kinacholingana na skima hii:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+
+#: src/uagent/profile_manager.py:586
+msgid "Failed to initialize LLM client."
+msgstr "Imeshindwa kuanzisha mteja wa LLM."
+
+#: src/uagent/profile_manager.py:591
+#, python-format
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr ""
+"Yamepatikana mafaili ya logi %(total_files)d. Naanza profiling ya hatua kwa "
+"hatua..."
+
+#: src/uagent/runtime_banner.py:231
+msgid "embedding"
+msgstr "uwekaji"
+
+#: src/uagent/runtime_banner.py:232
+msgid "audio speech"
+msgstr "usanisi wa sauti"
+
+#: src/uagent/runtime_banner.py:233
+msgid "audio transcribe"
+msgstr "unukuzi wa sauti"
+
+#: src/uagent/runtime_banner.py:234
+msgid "image generation"
+msgstr "uundaji wa picha"
+
+#: src/uagent/runtime_banner.py:235
+msgid "image analysis"
+msgstr "uchambuzi wa picha"
+
+#: src/uagent/runtime_banner.py:254
+#, python-format
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] saraka ya kazi = %(workdir)s (chanzo: %(source)s)"
+
+#: src/uagent/runtime_banner.py:262 src/uagent/runtime_banner.py:276
+#: src/uagent/runtime_banner.py:281 src/uagent/runtime_banner.py:293
+#: src/uagent/runtime_banner.py:305 src/uagent/runtime_banner.py:314
+#: src/uagent/runtime_banner.py:323
+#, python-format
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] URL msingi = %(base_url)s"
+
+#: src/uagent/runtime_banner.py:270
+#, python-format
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] toleo la API = %(api_version)s"
+
+#: src/uagent/runtime_banner.py:332
+#, python-format
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = mradi=%(project)s, eneo=%(location)s"
+
+#: src/uagent/runtime_banner.py:341
+#, python-format
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; modeli = %(model)s"
+
+#: src/uagent/runtime_banner.py:368
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 imewekwa, lakini mtoa huduma '%(provider)s' haiauni "
+"Responses API. Inarudi kwa ChatCompletions."
+
+#: src/uagent/runtime_banner.py:375
+#, python-format
+msgid "LLM API mode = %(mode)s"
+msgstr "Hali ya API ya LLM = %(mode)s"
+
+#: src/uagent/runtime_banner.py:378
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Majibu (UAGENT_RESPONSES imewezeshwa)"
+
+#: src/uagent/runtime_banner.py:382
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "API asilia ya Gemini/Vertex AI/Claude (UAGENT_RESPONSES inapuuziwa)"
+
+#: src/uagent/runtime_banner.py:385
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "ChatCompletions (UAGENT_RESPONSES imezimwa)"
+
+#: src/uagent/runtime_banner.py:393
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "Utiririshaji wa LLM = %(state)s"
+
+#: src/uagent/runtime_banner.py:394
+msgid "enabled"
+msgstr "imewezeshwa"
+
+#: src/uagent/runtime_banner.py:394
+msgid "disabled"
+msgstr "imezimwa"
+
+#: src/uagent/runtime_env.py:186
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] Yaliyomo ya .env.sec hayalingani na vigezo vya sasa vya mazingira vya"
+" UAGENT_* wakati wa kuanzisha. Kuyasasisha? [y/N] "
+
+#: src/uagent/runtime_env.py:202
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] Yaliyomo ya .env.sec hayalingani na vigezo vya sasa vya mazingira vya"
+" UAGENT_* wakati wa kuanzisha. Tumia `uag_envsec` kuyasasisha."
+
+#: src/uagent/runtime_env.py:214
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "Imesasishwa .env.sec: %(path)s"
+
+#: src/uagent/runtime_env.py:218
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[ONYO] Imeshindwa kusasisha .env.sec: %(err)s"
+
+#: src/uagent/runtime_env.py:228
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] Faili .env.sec haipo. Je, uitengeneze kutoka kwa vigezo vya sasa vya "
+"mazingira vya UAGENT_* wakati wa kuanzisha? [y/N] "
+
+#: src/uagent/runtime_env.py:244
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] Faili .env.sec haipo. Tumia `uag_envsec` kuitengeneza kutoka kwa "
+"vigezo vya sasa vya mazingira vya UAGENT_* wakati wa kuanzisha."
+
+#: src/uagent/runtime_env.py:254
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr "Imeundwa .env.sec: %(path)s"
+
+#: src/uagent/runtime_env.py:258
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[ONYO] Imeshindwa kuunda .env.sec: %(err)s"
+
+#: src/uagent/runtime_env.py:289
+#, python-format
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr "[WARN] Imeshindwa kuangalia ulandanishi wa .env.sec: %(err)s"
+
+#: src/uagent/runtime_init.py:83
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[ONYO] Imeshindwa kufungua usimbaji wa .env.sec: %(err)s"
+
+#: src/uagent/runtime_workdir.py:49
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Njia ya workdir iliyobainishwa ni faili: %(path)s"
+
+#: src/uagent/scheckgui.py:131
+msgid "Drop files/images here"
+msgstr "Buruta na dondosha faili/picha hapa"
+
+#: src/uagent/scheckgui.py:169
+msgid "Download"
+msgstr "Pakua"
+
+#: src/uagent/scheckgui.py:329
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"Hitilafu imetokea wakati wa kupakia kumbukumbu ya muda mrefu ya pamoja: "
+"%(err)s"
+
+#: src/uagent/scheckgui.py:382
+#, python-format
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[Faili lililounganishwa] %(name)s (%(path)s)"
+
+#: src/uagent/scheckgui.py:467
+#, python-format
+msgid "[Attached Image] %(path)s"
+msgstr "[Picha iliyoambatishwa] %(path)s"
+
+#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
+#, python-format
+msgid "[Image Path] %(path)s"
+msgstr "[Njia ya picha] %(path)s"
+
+#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
+msgid "Welcome / Quick Guide"
+msgstr "Karibu / Mwongozo wa Haraka"
+
+#: src/uagent/scheckgui.py:787
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (Uthabiti wa Juu)"
+
+#: src/uagent/scheckgui.py:842
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ Unaweza kuambatisha kwa kuburuta na kudondosha"
+
+#: src/uagent/scheckgui.py:863
+msgid "Attach..."
+msgstr "Ambatisha..."
+
+#: src/uagent/scheckgui.py:868
+msgid "Send"
+msgstr "Tuma"
+
+#: src/uagent/scheckgui.py:908
+msgid "Help"
+msgstr "Msaada"
+
+#: src/uagent/scheckgui.py:923
+msgid "Mode"
+msgstr "Hali"
+
+#: src/uagent/scheckgui.py:925
+msgid "Reasoning: off"
+msgstr "Ufikiri: umezimwa"
+
+#: src/uagent/scheckgui.py:928
+msgid "Reasoning: auto"
+msgstr "Ufikiri: otomatiki"
+
+#: src/uagent/scheckgui.py:930
+msgid "Reasoning: minimal"
+msgstr "Ufikiri: kidogo"
+
+#: src/uagent/scheckgui.py:932
+msgid "Reasoning: low"
+msgstr "Ufikiri: chini"
+
+#: src/uagent/scheckgui.py:934
+msgid "Reasoning: medium"
+msgstr "Ufikiri: kati"
+
+#: src/uagent/scheckgui.py:936
+msgid "Reasoning: high"
+msgstr "Ufikiri: juu"
+
+#: src/uagent/scheckgui.py:939
+msgid "Reasoning: xhigh"
+msgstr "Ufikiri: juu sana"
+
+#: src/uagent/scheckgui.py:944
+msgid "Verbosity: off"
+msgstr "Kiwango cha maelezo: kimezimwa"
+
+#: src/uagent/scheckgui.py:946
+msgid "Verbosity: low"
+msgstr "Kiwango cha maelezo: chini"
+
+#: src/uagent/scheckgui.py:948
+msgid "Verbosity: medium"
+msgstr "Kiwango cha maelezo: kati"
+
+#: src/uagent/scheckgui.py:950
+msgid "Verbosity: high"
+msgstr "Kiwango cha maelezo: juu"
+
+#: src/uagent/scheckgui.py:980
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[hali] hoja=%(mode)s"
+
+#: src/uagent/scheckgui.py:984
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=zima, 1=chini, 2=ya kati, 3=juu; "
+"auto/minimal/xhigh)"
+
+#: src/uagent/scheckgui.py:992
+#, python-format
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[hali] maelezo=%(mode)s"
+
+#: src/uagent/scheckgui.py:994
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3]  (0=zima, 1=chini, 2=katikati, 3=juu; bila hoja=weka)"
+
+#: src/uagent/scheckgui.py:1123
+msgid "Enter password..."
+msgstr "Weka nenosiri..."
+
+#: src/uagent/scheckgui.py:1130
+msgid "Enter a message..."
+msgstr "Weka ujumbe..."
+
+#: src/uagent/scheckgui.py:1147
+msgid "Attach files"
+msgstr "Ambatisha faili"
+
+#: src/uagent/scheckgui.py:1149
+msgid "All Files (*)"
+msgstr "Faili zote (*)"
+
+#: src/uagent/scheckgui.py:1401
+msgid "cannot read image"
+msgstr "haiwezi kusoma picha"
+
+#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
+#: src/uagent/scheckgui.py:1627
+msgid "Downloaded to"
+msgstr "Imepakuliwa hadi"
+
+#: src/uagent/scheckgui.py:1646
+msgid "Playing"
+msgstr "Inacheza"
+
+#: src/uagent/scheckgui.py:1656
+msgid "Stopped"
+msgstr "Imesimamishwa"
+
+#: src/uagent/scheckgui.py:1705
+#, python-format
+msgid "[REPLY] > %(text)s"
+msgstr "[JIBU] > %(text)s"
+
+#: src/uagent/scheckgui.py:1713
+#, python-format
+msgid "[USER] %(text)s"
+msgstr "[MTUMIAJI] %(text)s"
+
+#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
+#: src/uagent/setup_cli.py:572
+msgid "OpenAI API key"
+msgstr "Funguo ya API ya OpenAI"
+
+#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
+#: src/uagent/setup_cli.py:573
+msgid "OpenAI base URL (optional)"
+msgstr "URL msingi ya OpenAI (hiari)"
+
+#: src/uagent/setup_cli.py:79
+msgid "OpenAI model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la OpenAI (hiari)"
+
+#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
+#: src/uagent/setup_cli.py:560
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr "URL msingi ya Azure (mf. https://<resource>.openai.azure.com/)"
+
+#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
+#: src/uagent/setup_cli.py:562
+msgid "Azure API key"
+msgstr "Funguo ya API ya Azure"
+
+#: src/uagent/setup_cli.py:91
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "Toleo la API la Azure (hiari, mf. 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
+msgid "Azure deployment name"
+msgstr "Jina la utekelezaji la Azure"
+
+#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
+#: src/uagent/setup_cli.py:581
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "URL msingi ya lango la Bedrock (mf. https://<gateway>/v1)"
+
+#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
+#: src/uagent/setup_cli.py:583
+msgid "Bedrock API key"
+msgstr "Funguo ya API ya Bedrock"
+
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "Jina la muundo/utekelezaji la Bedrock (mf. openai.gpt-oss-120b)"
+
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
+#: src/uagent/setup_cli.py:592
+msgid "OpenRouter API key"
+msgstr "Funguo ya API ya OpenRouter"
+
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
+#: src/uagent/setup_cli.py:593
+msgid "OpenRouter base URL (optional)"
+msgstr "URL msingi ya OpenRouter (hiari)"
+
+#: src/uagent/setup_cli.py:114
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la OpenRouter (hiari)"
+
+#: src/uagent/setup_cli.py:119
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "Miundo mbadala ya OpenRouter (hiari, imetenganishwa kwa koma)"
+
+#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
+msgid "Gemini API key"
+msgstr "Funguo ya API ya Gemini"
+
+#: src/uagent/setup_cli.py:124
+msgid "Gemini model name (optional)"
+msgstr "Jina la muundo la Gemini (hiari)"
+
+#: src/uagent/setup_cli.py:127
+msgid "Vertex AI API key"
+msgstr "Funguo ya API ya Vertex AI"
+
+#: src/uagent/setup_cli.py:128
+msgid "Vertex AI project ID (optional)"
+msgstr "Kitambulisho cha mradi cha Vertex AI (hiari)"
+
+#: src/uagent/setup_cli.py:129
+msgid "Vertex AI location/region (optional)"
+msgstr "Eneo/mkoa wa Vertex AI (hiari)"
+
+#: src/uagent/setup_cli.py:133
+msgid "Google credentials for Vertex AI (optional)"
+msgstr "Kitambulisho cha Google kwa Vertex AI (hiari)"
+
+#: src/uagent/setup_cli.py:138
+msgid "Google location/region for Vertex AI (optional)"
+msgstr "Mahali/Eneo la Google kwa Vertex AI (hiari)"
+
+#: src/uagent/setup_cli.py:140
+msgid "Vertex AI model/deployment name"
+msgstr "Jina la muundo/utekelezaji la Vertex AI"
+
+#: src/uagent/setup_cli.py:143
+msgid "Grok API key"
+msgstr "Funguo ya API ya Grok"
+
+#: src/uagent/setup_cli.py:144
+msgid "Grok base URL (optional)"
+msgstr "URL msingi ya Grok (hiari)"
+
+#: src/uagent/setup_cli.py:145
+msgid "Grok model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la Grok (hiari)"
+
+#: src/uagent/setup_cli.py:148
+msgid "Claude API key"
+msgstr "Funguo ya API ya Claude"
+
+#: src/uagent/setup_cli.py:149
+msgid "Claude model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la Claude (hiari)"
+
+#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
+#: src/uagent/setup_cli.py:607
+msgid "NVIDIA API key"
+msgstr "Funguo ya API ya NVIDIA"
+
+#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
+#: src/uagent/setup_cli.py:608
+msgid "NVIDIA base URL (optional)"
+msgstr "URL msingi ya NVIDIA (hiari)"
+
+#: src/uagent/setup_cli.py:154
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "Jina la modeli/utekelezaji wa NVIDIA (hiari)"
+
+#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "URL msingi ya Ollama (mf. http://localhost:11434/v1)"
+
+#: src/uagent/setup_cli.py:165
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "Funguo ya API ya Ollama (hiari, chaguo-msingi: dummy)"
+
+#: src/uagent/setup_cli.py:167
+msgid "Ollama model/deployment name (optional)"
+msgstr "Jina la muundo/utekelezaji la Ollama (hiari)"
+
+#: src/uagent/setup_cli.py:171
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "Muda wa kuisha kwa ombi la Ollama kwa sekunde (chaguo-msingi: 60)"
+
+#: src/uagent/setup_cli.py:173
+msgid "Ollama temperature (default: 0.7)"
+msgstr "Joto la Ollama (chaguo-msingi: 0.7)"
+
+#: src/uagent/setup_cli.py:174
+msgid "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p (chaguo-msingi: 0.9)"
+
+#: src/uagent/setup_cli.py:175
+msgid "Ollama top_k (default: 40)"
+msgstr "Ollama top_k (chaguo-msingi: 40)"
+
+#: src/uagent/setup_cli.py:179
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama repeat_penalty (chaguo-msingi: 1.1)"
+
+#: src/uagent/setup_cli.py:181
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "Ollama keep_alive (chaguo-msingi: 5m)"
+
+#: src/uagent/setup_cli.py:182
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx (chaguo-msingi: 8192)"
+
+#: src/uagent/setup_cli.py:183
+msgid "Ollama num_predict (default: 1024)"
+msgstr "Ollama num_predict (chaguo-msingi: 1024)"
+
+#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
+msgid "Enter number:"
+msgstr "Weka nambari:"
+
+#: src/uagent/setup_cli.py:358
+msgid "Invalid input. Please enter a valid number."
+msgstr "Ingizo batili. Tafadhali weka namba halali."
+
+#: src/uagent/setup_cli.py:371
+#, python-format
+msgid " [default: %(default)s]"
+msgstr " [chaguo-msingi: %(default)s]"
+
+#: src/uagent/setup_cli.py:387
+msgid "This field is required. Please enter a value."
+msgstr "Sehemu hii inahitajika. Tafadhali weka thamani."
+
+#: src/uagent/setup_cli.py:399
+msgid "Select UAGENT_LANG"
+msgstr "Chagua UAGENT_LANG"
+
+#: src/uagent/setup_cli.py:410
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG (maalum)"
+
+#: src/uagent/setup_cli.py:423
+msgid "Select output files to generate in the current directory"
+msgstr "Chagua faili za matokeo za kutengeneza kwenye saraka ya sasa"
+
+#: src/uagent/setup_cli.py:424
+msgid "  1. .env only"
+msgstr "  1. .env pekee"
+
+#: src/uagent/setup_cli.py:425
+msgid "  2. .env + env.sh"
+msgstr "  2. .env + env.sh (Unix/Linux)"
+
+#: src/uagent/setup_cli.py:426
+msgid "  3. .env + env.ps1"
+msgstr "  3. .env + env.ps1 (PowerShell)"
+
+#: src/uagent/setup_cli.py:427
+msgid "  4. .env + env.bat"
+msgstr "  4. .env + env.bat (Windows)"
+
+#: src/uagent/setup_cli.py:428
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "  5. .env + zote (sh/ps1/bat)"
+
+#: src/uagent/setup_cli.py:430
+msgid "  b. back"
+msgstr "  b. nyuma"
+
+#: src/uagent/setup_cli.py:431
+msgid "  q. quit"
+msgstr "  q. toka"
+
+#: src/uagent/setup_cli.py:449
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "Ingizo batili. Tafadhali weka 1-5, au b/q."
+
+#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Toleo la Azure API (mfano 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:484
+msgid "OpenAI model/deployment name"
+msgstr "Jina la modeli/uwekaji la OpenAI"
+
+#: src/uagent/setup_cli.py:504
+msgid "OpenRouter model/deployment name"
+msgstr "Jina la modeli/uwekaji la OpenRouter"
+
+#: src/uagent/setup_cli.py:509
+msgid "Gemini model name"
+msgstr "Jina la modeli la Gemini"
+
+#: src/uagent/setup_cli.py:515
+msgid "NVIDIA model/deployment name"
+msgstr "Jina la modeli/uwekaji la NVIDIA"
+
+#: src/uagent/setup_cli.py:534
+msgid "Enable image generation debug output? (0/1)"
+msgstr "Washa matokeo ya uchunguzi wa uundaji picha? (0/1)"
+
+#: src/uagent/setup_cli.py:568
+msgid "Azure embedding deployment name"
+msgstr "Jina la uwekaji la Azure kwa embedding"
+
+#: src/uagent/setup_cli.py:574
+msgid "OpenAI embedding model/deployment name"
+msgstr "Jina la modeli/uwekaji la OpenAI kwa embedding"
+
+#: src/uagent/setup_cli.py:587
+msgid "Bedrock embedding model/deployment name"
+msgstr "Jina la modeli/uwekaji la Bedrock kwa embedding"
+
+#: src/uagent/setup_cli.py:594
+msgid "OpenRouter embedding model/deployment name"
+msgstr "Jina la modeli/uwekaji la OpenRouter kwa embedding"
+
+#: src/uagent/setup_cli.py:603
+msgid "Ollama embedding model name"
+msgstr "Jina la modeli la Ollama kwa embedding"
+
+#: src/uagent/setup_cli.py:609
+msgid "NVIDIA embedding model/deployment name"
+msgstr "Jina la modeli/uwekaji la NVIDIA kwa embedding"
+
+#: src/uagent/setup_cli.py:613
+msgid "Gemini embedding API key"
+msgstr "Funguo la API ya uingizaji la Gemini"
+
+#: src/uagent/setup_cli.py:617
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr "Jina la modeli ya uingizaji la Gemini (mf. text-embedding-004)"
+
+#: src/uagent/setup_cli.py:622
+msgid "Vertex AI embedding API key"
+msgstr "Funguo la API ya uingizaji la Vertex AI"
+
+#: src/uagent/setup_cli.py:626
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr "Jina la modeli ya uingizaji la Vertex AI (mf. text-embedding-004)"
+
+#: src/uagent/setup_cli.py:675
+msgid "Azure speech deployment name"
+msgstr "Jina la usambazaji wa sauti la Azure"
+
+#: src/uagent/setup_cli.py:676
+msgid "Azure transcription deployment name"
+msgstr "Jina la usambazaji wa unukuzi la Azure"
+
+#: src/uagent/setup_cli.py:677
+msgid "OpenAI speech model/deployment name"
+msgstr "Jina la muundo/usambazaji wa sauti wa OpenAI"
+
+#: src/uagent/setup_cli.py:678
+msgid "OpenAI transcription model/deployment name"
+msgstr "Jina la muundo/usambazaji wa unukuzi wa OpenAI"
+
+#: src/uagent/setup_cli.py:679
+msgid "Gemini speech model name (optional)"
+msgstr "jina la modeli ya sauti ya Gemini (hiari)"
+
+#: src/uagent/setup_cli.py:680
+msgid "Gemini transcription model name (optional)"
+msgstr "jina la modeli ya unukuzi ya Gemini (hiari)"
+
+#: src/uagent/setup_cli.py:681
+msgid "Vertex AI speech model name (optional)"
+msgstr "jina la modeli ya sauti ya Vertex AI (hiari)"
+
+#: src/uagent/setup_cli.py:682
+msgid "Vertex AI transcription model name (optional)"
+msgstr "jina la modeli ya unukuzi ya Vertex AI (hiari)"
+
+#: src/uagent/setup_cli.py:705
+msgid "Configure optional image / embedding / audio settings?"
+msgstr "Sanidi mipangilio ya hiari ya picha / embedding?"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "No"
+msgstr "Hapana"
+
+#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
+#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
+#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
+#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
+#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
+#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
+#: src/uagent/setup_cli.py:1459
+msgid "Yes"
+msgstr "Ndiyo"
+
+#: src/uagent/setup_cli.py:720
+msgid "Configure image analysis settings?"
+msgstr "Sanidi mipangilio ya uchanganuzi wa picha?"
+
+#: src/uagent/setup_cli.py:731
+msgid "Select image analysis provider"
+msgstr "Chagua mtoa huduma wa uchanganuzi wa picha"
+
+#: src/uagent/setup_cli.py:752
+msgid "Configure image generation settings?"
+msgstr "Sanidi mipangilio ya uundaji wa picha?"
+
+#: src/uagent/setup_cli.py:763
+msgid "Select image generation provider"
+msgstr "Chagua mtoa huduma wa uundaji wa picha"
+
+#: src/uagent/setup_cli.py:783
+msgid "Open generated images automatically?"
+msgstr "Fungua picha zilizoundwa kiotomatiki?"
+
+#: src/uagent/setup_cli.py:799
+msgid "Configure embedding / semantic search settings?"
+msgstr "Sanidi mipangilio ya embedding / utafutaji wa kisemantiki?"
+
+#: src/uagent/setup_cli.py:825
+msgid "Select embedding provider"
+msgstr "Chagua mtoaji wa embedding"
+
+#: src/uagent/setup_cli.py:854
+msgid "Configure audio speech / transcription settings?"
+msgstr "Sanidi mipangilio ya sauti / unukuzi?"
+
+#: src/uagent/setup_cli.py:873
+msgid "Select audio speech provider"
+msgstr "Chagua mtoa huduma wa usanisi wa sauti"
+
+#: src/uagent/setup_cli.py:893
+msgid "Select audio transcribe provider"
+msgstr "Chagua mtoa huduma wa unukuzi wa sauti"
+
+#: src/uagent/setup_cli.py:913
+msgid "Open generated audio automatically?"
+msgstr "Fungua sauti iliyotengenezwa kiotomatiki?"
+
+#: src/uagent/setup_cli.py:980
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "Hiari: Responses API (Azure/OpenAI/Bedrock)"
+
+#: src/uagent/setup_cli.py:993
+msgid "Optional runtime"
+msgstr "Muda wa utekelezaji wa hiari"
+
+#: src/uagent/setup_cli.py:1007
+msgid "Optional image / embedding / audio settings"
+msgstr "Mipangilio ya hiari ya picha / embedding"
+
+#: src/uagent/setup_cli.py:1149
+msgid "Optional specialized sub-agent settings"
+msgstr "Mipangilio ya hiari ya mawakala wadogo maalum"
+
+#: src/uagent/setup_cli.py:1158
+msgid "Encrypt the generated .env file?"
+msgstr "Usimbue faili ya .env iliyoundwa?"
+
+#: src/uagent/setup_cli.py:1164
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "Faili iliyosimbwa itaandikwa kama %(path)s"
+
+#: src/uagent/setup_cli.py:1180
+msgid "Select provider"
+msgstr "Chagua mtoa huduma"
+
+#: src/uagent/setup_cli.py:1219
+msgid "Enable Responses API options?"
+msgstr "Washa chaguo za Responses API?"
+
+#: src/uagent/setup_cli.py:1235
+msgid "Select reasoning"
+msgstr "Chagua kiwango cha ufikiri"
+
+#: src/uagent/setup_cli.py:1254
+msgid "Select verbosity"
+msgstr "Chagua kiwango cha maelezo"
+
+#: src/uagent/setup_cli.py:1273
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "Weka UAGENT_WORKDIR ya hiari wakati wa utekelezaji?"
+
+#: src/uagent/setup_cli.py:1300
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "Weka UAGENT_LANG ya hiari wakati wa utekelezaji?"
+
+#: src/uagent/setup_cli.py:1321
+msgid "Enable streaming?"
+msgstr "Washa utiririshaji?"
+
+#: src/uagent/setup_cli.py:1362
+msgid "Summary"
+msgstr "Muhtasari"
+
+#: src/uagent/setup_cli.py:1363
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr "  Mtoa huduma: %(provider)s"
+
+#: src/uagent/setup_cli.py:1370
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr "  Responses imewashwa: %(state)s"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "yes"
+msgstr "ndiyo"
+
+#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
+#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
+#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
+#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+msgid "no"
+msgstr "hapana"
+
+#: src/uagent/setup_cli.py:1377
+#, python-format
+msgid "  Streaming enabled: %(state)s"
+msgstr "  Utiririshaji umewezeshwa: %(state)s"
+
+#: src/uagent/setup_cli.py:1393
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr "  Ziada za hiari zimewashwa: %(state)s"
+
+#: src/uagent/setup_cli.py:1398
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr "  Uchanganuzi wa picha umewezeshwa: %(state)s"
+
+#: src/uagent/setup_cli.py:1406
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr "  Uundaji wa picha umewezeshwa: %(state)s"
+
+#: src/uagent/setup_cli.py:1417
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr "  Embedding imewezeshwa: %(state)s"
+
+#: src/uagent/setup_cli.py:1427
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr "  Matokeo: %(outputs)s"
+
+#: src/uagent/setup_cli.py:1430
+msgid "Generate files with this configuration?"
+msgstr "Tengeneza faili kwa usanidi huu?"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Yes, generate"
+msgstr "Ndiyo, tengeneza"
+
+#: src/uagent/setup_cli.py:1431
+msgid "Back"
+msgstr "Rudi nyuma"
+
+#: src/uagent/setup_cli.py:1455
+msgid "The following files already exist and will be overwritten:"
+msgstr "Faili zifuatazo tayari zipo na zitaandikwa upya:"
+
+#: src/uagent/setup_cli.py:1459
+msgid "Proceed?"
+msgstr "Endelea?"
+
+#: src/uagent/setup_cli.py:1483
+msgid "Plain .env file removed after encryption."
+msgstr "Faili ya kawaida ya .env imeondolewa baada ya usimbaji."
+
+#: src/uagent/setup_cli.py:1486
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "Onyo: Imeshindwa kuondoa .env ya kawaida: %(error)s"
+
+#: src/uagent/setup_cli.py:1505
+#, python-format
+msgid "generated: %(path)s"
+msgstr "iliyoundwa: %(path)s"
+
+#: src/uagent/uagent_llm.py:129
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[ONYO] Mizunguko ya zana imezidi %(max)d; inasitisha."
+
+#: src/uagent/util_providers.py:243
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "Kigezo cha mazingira UAGENT_PROVIDER hakijawekwa."
+
+#: src/uagent/util_providers.py:259
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "Mtoa huduma asiyejulikana: %(provider)s"
+
+#: src/uagent/util_providers.py:544 src/uagent/util_providers.py:570
+msgid "google-genai package is not installed."
+msgstr "Kifurushi cha google-genai hakijasakinishwa."
+
+#: src/uagent/util_tools.py:181
+#, python-format
+msgid "image file not found: %(path)s"
+msgstr "faili la picha halikupatikana: %(path)s"
+
+#: src/uagent/util_tools.py:186
+#, python-format
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "faili la picha ni kubwa mno: %(size)d baiti (kikomo=%(max)d)"
+
+#: src/uagent/util_tools.py:210
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"Bainisha saraka ya kazi. Ikiwa haijawekwa, hutumia kigezo cha mazingira "
+"UAGENT_WORKDIR au saraka ya sasa."
+
+#: src/uagent/util_tools.py:217
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+"Hali isiyoingiliana. Usianzishe mzunguko wa stdin; toka baada ya kuchakata "
+"faili ya kuanzisha (kama ipo)."
+
+#: src/uagent/util_tools.py:355
+msgid "invalid reasoning"
+msgstr "reasoning si sahihi"
+
+#: src/uagent/util_tools.py:373
+msgid "invalid verbosity"
+msgstr "kiwango cha maelezo si sahihi"
+
+#: src/uagent/util_tools.py:547
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr "[logs] Hoja batili: %(arg)r (taja all / --all / -a / namba)"
+
+#: src/uagent/util_tools.py:586
+#, python-format
+msgid "failed to parse arguments: %(err)s"
+msgstr "imeshindwa kuchanganua hoja: %(err)s"
+
+#: src/uagent/util_tools.py:589
+msgid "missing arguments"
+msgstr "hoja hazipo"
+
+#: src/uagent/util_tools.py:605
+msgid "src and dst are required"
+msgstr "src na dst zinahitajika"
+
+#: src/uagent/util_tools.py:973
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[Utekelezaji wa ujuzi]\n"
+"Ujuzi huu umekusudiwa kuendeshwa. Soma maudhui ya ujuzi kwa makini na fuata maagizo.\n"
+"Ikiwa ujuzi una kazi, endelea hadi zikamilike.\n"
+"Tumia zana inapohitajika.\n"
+
+#: src/uagent/util_tools.py:980
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr "Unapomaliza, kila mara piga `finish_skill` ikiwa ipo.\n"
+
+#: src/uagent/util_tools.py:1132
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
+msgstr ""
+"Chagua namba ya ujuzi wa kuendesha. Weka c ili kughairi.\n"
+"Kidokezo: :skills clear  (ondoa ujuzi uliotumika)\n"
+"Weka namba:"
+
+#: src/uagent/util_tools.py:1168
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"Endesha ujuzi huu kama maagizo ya kiwango cha mfumo na uendelee kuwa hai katika kipindi hiki?\n"
+"\n"
+"Jina: %(name)s\n"
+"Njia: %(path)s\n"
+"\n"
+"Endelea? Weka y ili kuendesha, au c ili kughairi."
+
+#: src/uagent/util_tools.py:1230
+#, python-format
+msgid ""
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Hoja batili: %(arg)r (taja number=threshold; chaguo-msingi ni "
+"%(default)d)"
+
+#: src/uagent/util_tools.py:1279
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"itafuta faili za logi za mazungumzo (scheck_log_*.jsonl) kutoka diski.\n"
+"Saraka ya logi: %(dir)s\n"
+"Sheria: jumla ya ujumbe wa mtumiaji/msaidizi/zana bila mfumo <= %(threshold)d\n"
+"Lengo: %(n)d\n"
+"\n"
+"Kuendelea? Weka y ili kuendesha, au c kughairi."
+
+#: src/uagent/util_tools.py:1347
+#, python-format
+msgid " - (%(count)d msgs) %(path)s"
+msgstr " - (%(count)d ujumbe) %(path)s"
+
+#: src/uagent/util_tools.py:1391
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"itaandika upya faili ya logi ya kipindi cha sasa na kuweka logi iliyopakiwa mwanzo (hakuna chelezo).\n"
+"\n"
+"Logi ya sasa: %(cur_log)s\n"
+"Logi chanzo: %(src_log)s\n"
+"\n"
+"Kuendelea? Weka y ili kuendesha, au c kughairi."
+
+#: src/uagent/util_tools.py:1522
+#, python-brace-format
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"Futa njia {count}?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Weka y ili kuendelea, au c ili kughairi."
+
+#: src/uagent/util_tools.py:1577
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "Faharisi iliyoainishwa %(idx)d iko nje ya wigo."
+
+#: src/uagent/util_tools.py:1586
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Faili ya logi haikupatikana: %(path)s"
+
+#: src/uagent/util_tools.py:1669
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[hitilafu ya shrink] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi ya "
+"mwisho %(keep)d"
+
+#: src/uagent/util_tools.py:1697
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[hitilafu ya shrink_llm] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi"
+" ya mwisho %(keep)d"
+
+#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+"Kumbukumbu ya muda mrefu ya pamoja haijawezeshwa (UAGENT_SHARED_MEMORY_FILE "
+"haijawekwa)."
+
+#: src/uagent/util_tools.py:1787
+msgid "Analyzing past logs to generate user profile..."
+msgstr "Kumbukumbu za awali zinachambuliwa ili kuunda wasifu wa mtumiaji..."
+
+#: src/uagent/util_tools.py:1791
+msgid "No past logs found or failed to generate profile."
+msgstr ""
+"Hakuna kumbukumbu za awali zilizopatikana au wasifu haukuweza kuundwa."
+
+#: src/uagent/util_tools.py:1793
+#, fuzzy
+msgid "User profile generated successfully from past logs!"
+msgstr "Wasifu wa mtumiaji umefutwa kwa mafanikio."
+
+#: src/uagent/util_tools.py:1805
+msgid "No user profile data found."
+msgstr "Data ya wasifu wa mtumiaji haijapatikana."
+
+#: src/uagent/util_tools.py:1808
+msgid "User Profile:"
+msgstr "Wasifu wa Mtumiaji:"
+
+#: src/uagent/util_tools.py:1820
+msgid "User profile cleared successfully."
+msgstr "Wasifu wa mtumiaji umefutwa kwa mafanikio."
+
+#: src/uagent/util_tools.py:1824
+msgid "No user profile file found to clear."
+msgstr "Hakuna faili ya wasifu wa mtumiaji iliyopatikana ili kufutwa."
+
+#: src/uagent/util_tools.py:1888
+msgid "Show this help"
+msgstr "Onyesha msaada huu"
+
+#: src/uagent/util_tools.py:1889
+msgid "Restart input from the beginning"
+msgstr "Anza upya ingizo kutoka mwanzo"
+
+#: src/uagent/util_tools.py:1890
+msgid "Show log file list"
+msgstr "Onyesha orodha ya faili za logi"
+
+#: src/uagent/util_tools.py:1893
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Badilisha saraka ya kazi bila uthibitisho (mf. :cd .. / :cd ~ / :cd C:\\path"
+" / :cd /)"
+
+#: src/uagent/util_tools.py:1896
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "Orodhesha maingizo ya saraka (mf. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1899
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "Dhibiti vigezo vya mazingira UAGENT_* na hifadhi .env.sec"
+
+#: src/uagent/util_tools.py:1901
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr "Dhibiti/tumia ujuzi (mf. :skills / :skills active / :skills clear)"
+
+#: src/uagent/util_tools.py:1906
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "Pakia logi ya awali (itaandika upya historia ya mazungumzo ya sasa)"
+
+#: src/uagent/util_tools.py:1908
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"                       Kumbuka: baada ya kuendesha, utaombwa uthibitisho; "
+"ukichagua 'y', logi iliyopakiwa itawekwa mwanzo wa faili ya logi ya kipindi "
+"cha sasa (itaandika upya, bila chelezo)."
+
+#: src/uagent/util_tools.py:1912
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Futa logi za mazungumzo (scheck_log_*.jsonl) ambapo idadi ya ujumbe wa "
+"mtumiaji/msaidizi/zana (bila system) ni <= N (chaguo-msingi=10)"
+
+#: src/uagent/util_tools.py:1916
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Punguza historia ya mazungumzo (hifadhi ujumbe wa mwisho N usio wa system; "
+"chaguo-msingi=40)"
+
+#: src/uagent/util_tools.py:1920
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Punguza historia kwa muhtasari wa LLM (fanya muhtasari wa historia ya zamani"
+" kuwa ujumbe 1 wa system; hifadhi N za mwisho bila kuchakatwa; chaguo-"
+"msingi=20)"
+
+#: src/uagent/util_tools.py:1922
+msgid "List long-term memory notes"
+msgstr "Orodhesha madokezo ya kumbukumbu ya muda mrefu"
+
+#: src/uagent/util_tools.py:1924
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "Futa dokezo la kumbukumbu ya muda mrefu kwa index (angalia :mem-list)"
+
+#: src/uagent/util_tools.py:1926
+#, fuzzy
+msgid "Show the learned user profile, or generate it from past logs"
+msgstr ""
+"Onyesha wasifu wa mtumiaji aliyejifunza (mazingira, mapendeleo, vikwazo)"
+
+#: src/uagent/util_tools.py:1927
+#, fuzzy
+msgid "Generate user profile from past logs"
+msgstr "Data ya wasifu wa mtumiaji haijapatikana."
+
+#: src/uagent/util_tools.py:1928
+msgid "Clear the learned user profile data"
+msgstr "Futa data ya wasifu wa mtumiaji aliyejifunza"
+
+#: src/uagent/util_tools.py:1930
+msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "Nakili faili au saraka (inaunga mkono -f/--overwrite na -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:1932
+msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "Hamisha faili au saraka (inaunga mkono -f/--overwrite na -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:1934
+msgid "Show the first n lines of a file (default=20)"
+msgstr "Onyesha mistari n ya kwanza ya faili (chaguo msingi=20)"
+
+#: src/uagent/util_tools.py:1935
+msgid "Show the last n lines of a file (default=20)"
+msgstr "Onyesha mistari n ya mwisho ya faili (chaguo msingi=20)"
+
+#: src/uagent/util_tools.py:1937
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Futa faili/saraka kwa onyesho la awali + uthibitisho"
+
+#: src/uagent/util_tools.py:1939
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Weka hali ya hoja (0=zimwa, 1=chini, 2=wastani, 3=juu; auto/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:1941
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Weka hali ya urefu wa maelezo (0=zimwa, 1=chini, 2=wastani, 3=juu; bila "
+"hoja=endelea)"
+
+#: src/uagent/util_tools.py:1942
+msgid "Exit"
+msgstr "Toka"
+
+#: src/uagent/util_tools.py:1945
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"  - Weka mstari ambao ni tu 'f' ili kuingia katika hali ya kuingiza mistari "
+"mingi."
+
+#: src/uagent/util_tools.py:1947
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"  - Ili kumaliza hali ya kuingiza mistari mingi, weka mstari unaolingana "
+"kabisa na %(sentinel)s."
+
+#: src/uagent/util_tools.py:2183
+msgid "Exiting."
+msgstr "Inatoka."
+
+#: src/uagent/util_tools.py:2186
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Amri isiyojulikana: :%(cmd)s"
+
+#: src/uagent/util_tools.py:2337
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"Vipengele vya orodha vilivyo hapa chini ni dondoo kutoka kumbukumbu ya muda mrefu ya mtumiaji huyu (memo za kudumu). Vitumie kama taarifa ya msingi kuhusu mtumiaji. Hata hivyo, daima zingatia taarifa mpya zilizotolewa katika mazungumzo, na ikiwa zinapingana na taarifa za zamani, chukua taarifa ya hivi karibuni.\n"
+"\n"
+
+#: src/uagent/web.py:534
+msgid ""
+"[WARN] Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"[WARN] Kazi nyingine tayari inaendelea katika chumba hiki. Jaribu tena baada"
+" ya kukamilika."
+
+#: src/uagent/web.py:626 src/uagent/web.py:748
+msgid ""
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"[FATAL] Kigezo cha mazingira UAGENT_PROVIDER hakijawekwa.\n"
+"Tafadhali angalia vigezo vya mazingira wakati wa kuanzisha seva ya wavuti."
+
+#: src/uagent/web.py:664
+#, python-format
+msgid "[Attached Image] %(name)s"
+msgstr "[Picha iliyoambatishwa] %(name)s"
+
+#: src/uagent/web.py:669
+#, python-format
+msgid "[Attached File] %(name)s"
+msgstr "[Faili lililoambatishwa] %(name)s"
+
+#: src/uagent/web.py:670
+#, python-format
+msgid "[File Path] %(path)s"
+msgstr "[Njia ya faili] %(path)s"
+
+#: src/uagent/web.py:698
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] Kumbukumbu ya muda mrefu imepakuliwa."
+
+#: src/uagent/web.py:710
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] Kumbukumbu ya muda mrefu iliyoshirikiwa imepakuliwa."
+
+#: src/uagent/web.py:745
+#, python-format
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[FATAL] Hitilafu ya mchakato wa wavuti.\n"
+"%(err)s"
+
+#: src/uagent/web.py:882
+msgid "missing path"
+msgstr "njia haipo"
+
+#: src/uagent/web.py:889
+msgid "path outside workdir"
+msgstr "njia iko nje ya saraka ya kazi"
+
+#: src/uagent/web.py:1051
+msgid "Starting server on"
+msgstr "Ninaanzisha seva kwenye"
+
+#: src/uagent/web.py:1053
+msgid "External URL:"
+msgstr "URL ya Nje:"
+
+#: src/uagent/welcome.py:29
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[Seva za MCP]\n"
+"- Faili ya usanidi haikupatikana."
+
+#: src/uagent/welcome.py:36
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[Seva za MCP]\n"
+"- Hakuna seva zilizosajiliwa."
+
+#: src/uagent/welcome.py:38
+msgid "[MCP Servers]"
+msgstr "[Seva za MCP]"
+
+#: src/uagent/welcome.py:45
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[Seva za MCP]\n"
+"- Imeshindwa kupata taarifa: %(err)s"
+
+#: src/uagent/welcome.py:64
+msgid "[Quick Guide]"
+msgstr "[Mwongozo wa Haraka]"
+
+#: src/uagent/welcome.py:65
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr "- Chat: andika ujumbe na utume (GUI: Ctrl+Enter pia inapatikana)."
+
+#: src/uagent/welcome.py:67
+msgid ""
+"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
+" \"\"\"end)."
+msgstr ""
+"- Mistari mingi: weka mstari wenye tu 'f' ili kuingia hali ya mistari mingi "
+"(malizia kwa \"\"\"end)."
+
+#: src/uagent/welcome.py:70
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr ""
+"- Amri: andika ':help' ili kuona amri za mfumo (usimamizi wa kumbukumbu, "
+"ukandamizaji wa historia, nk.). Kumbuka: amri huanza na ':' (koloni) badala "
+"ya '/' (mkwaju)."
+
+#: src/uagent/welcome.py:72
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- Toka: ':exit' au ':quit' humaliza kipindi."
+
+#: src/uagent/welcome.py:74
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- Picha: GUI inaunga mkono buruta na dondosha; kwenye CUI unaweza kuingiza "
+"njia ya faili kwa uchanganuzi wa picha."
+
+#: src/uagent/welcome.py:77
+#, python-format
+msgid ""
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Docs: `%(docs_cmd)s` huonyesha nyaraka zilizojumuishwa; "
+"`%(webinspect_cmd)s` huonyesha msaada wa Web Inspector (`--path/--open` pia "
+"zinapatikana)."
+
+#: src/uagent/welcome.py:81
+msgid "[Examples]"
+msgstr "[Mifano]"
+
+#: src/uagent/welcome.py:82
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"Chambua msimbo chanzo kwenye folda hii na unda README.md.\""
+
+#: src/uagent/welcome.py:84
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr ""
+"- \"Piga picha ya skrini ya eneo-kazi la sasa na eleza yaliyomo ya dirisha "
+"linaloonekana.\""
+
+#: src/uagent/welcome.py:86
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr ""
+"- \"Tengeneza ripoti ya muhtasari wa kila mwezi kutoka kwenye faili hii ya "
+"Excel.\""
+
+#: src/uagent/welcome.py:87
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"Soma PDF hii na orodhesha pointi tatu kuu.\""
+
+#: src/uagent/welcome.py:88
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"Tafuta habari za hivi karibuni na fupisha mada maalum.\""
+
+#: src/uagent/welcome.py:193
+msgid "-- More -- (Enter: next) "
+msgstr "-- Zaidi -- (Enter: inayofuata) "
+
+#: src/uagent/a2a/engine.py:125
+msgid "No assistant message produced."
+msgstr "Hakuna ujumbe wa msaidizi uliotolewa."
+
+#: src/uagent/a2a/engine.py:137
+msgid "Generated image(s)."
+msgstr "Picha zimezalishwa."
+
+#: src/uagent/a2a/engine.py:150
+#, python-format
+msgid "ECHO: %(text)s"
+msgstr "matokeo: %(text)s"
+
+#: src/uagent/a2a/engine.py:165
+#, python-format
+msgid "uagent initialization failed: %(err)s"
+msgstr "uanzishaji wa uagent umeshindikana: %(err)s"
+
+#: src/uagent/a2a/engine.py:177
+#, python-format
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "utekelezaji wa uagent umeshindikana: %(etype)s: %(err)s"
+
+#: src/uagent/a2a/engine.py:188
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "Injini isiyojulikana ya UAGENT_A2A_ENGINE: %(mode)s"
