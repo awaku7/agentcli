@@ -217,9 +217,9 @@ def _maybe_auto_shrink_messages(
     # Auto shrink_llm (optional)
     shrink_cnt_raw = (env_get("UAGENT_SHRINK_CNT", "") or "").strip()
     try:
-        shrink_cnt = int(shrink_cnt_raw) if shrink_cnt_raw != "" else 100
+        shrink_cnt = int(shrink_cnt_raw) if shrink_cnt_raw != "" else 0
     except Exception:
-        shrink_cnt = 100
+        shrink_cnt = 0
 
     shrink_max_tokens = _get_shrink_max_tokens(depname)
 
