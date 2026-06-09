@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Callable
 
-from .profile_manager import PROFILE_MAX_ITEMS, PROFILE_MAX_TEXT_CHARS
+from ..profile_manager import PROFILE_MAX_ITEMS, PROFILE_MAX_TEXT_CHARS
 
 
 def _clip(text: Any) -> str:
@@ -74,7 +74,7 @@ def append_long_memory_system_messages(
 
     # Inject user profile if profiling is enabled and profile exists.
     try:
-        from .profile_manager import is_profiling_enabled, load_profile
+        from ..profile_manager import is_profiling_enabled, load_profile
 
         if is_profiling_enabled():
             profile = load_profile()

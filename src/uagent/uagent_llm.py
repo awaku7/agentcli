@@ -49,7 +49,7 @@ from .llm_flow_helpers import (
 )
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
-from . import llm_tool_narrowing as _llm_tool_narrowing
+from .tools import llm_tool_narrowing as _llm_tool_narrowing
 
 _is_gpt54_tool_search_target = _llm_tool_narrowing._is_gpt54_tool_search_target
 _select_tool_specs_for_gpt54 = _llm_tool_narrowing._select_tool_specs_for_gpt54

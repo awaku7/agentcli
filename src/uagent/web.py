@@ -31,14 +31,14 @@ from fastapi.templating import Jinja2Templates
 
 # uagent module imports
 from . import core as core
-from . import runtime_init as _runtime_init
+from .runtime import runtime_init as _runtime_init
 from .i18n import _, detect_lang, set_thread_lang
 
 set_thread_lang(detect_lang())
 
 from . import uagent_llm as llm_util
 from .image_session import build_image_session_message
-from . import util_providers as providers
+from .providers import util_providers as providers
 from . import util_tools as tools_util
 from . import tools
 from .welcome import get_welcome_message

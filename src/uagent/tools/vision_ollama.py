@@ -20,7 +20,7 @@ from typing import Any
 import requests
 
 from ..env_utils import env_get
-from ..llm_ollama import _ollama_extra_params
+from ..providers.llm_ollama import _ollama_extra_params
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)

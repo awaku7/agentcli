@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from .env_utils import env_get
+from ..env_utils import env_get
 
 
 def apply_openrouter_extra_body(chat_kwargs: dict[str, Any], *, provider: str) -> None:

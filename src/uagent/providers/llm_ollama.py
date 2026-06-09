@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from .env_utils import env_get
+from ..env_utils import env_get
 
 
 def _parse_float_env(name: str, default: float) -> float:

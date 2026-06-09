@@ -5,7 +5,7 @@ import os
 from types import SimpleNamespace
 
 from uagent import tools
-from uagent.llm_openai_responses import build_responses_request
+from uagent.providers.llm_openai_responses import build_responses_request
 from uagent.uagent_llm import (
     _is_gpt54_tool_search_target,
     _select_tool_specs_for_gpt54,

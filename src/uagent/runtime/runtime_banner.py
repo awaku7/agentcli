@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from .env_utils import env_get
-from .i18n import _
+from ..env_utils import env_get
+from ..i18n import _
 
 
 def _normalize_url(core: Any, url: str) -> str:

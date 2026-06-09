@@ -1036,7 +1036,7 @@ def compress_history_with_llm(
         pass
 
     try:
-        from .gemini_cache_mgr import GeminiCacheManager
+        from .providers.gemini_cache_mgr import GeminiCacheManager
 
         mgr = GeminiCacheManager(depname)
         mgr.clear_cache(client)
@@ -1074,7 +1074,7 @@ def compress_history_with_llm(
 
     def _recreate_client() -> Any:
         try:
-            from . import util_providers
+            from .providers import util_providers
             import sys as _sys
 
             _core_mod = _sys.modules[__name__]
@@ -1083,7 +1083,7 @@ def compress_history_with_llm(
         except Exception:
             return None
 
-    from . import util_providers
+    from .providers import util_providers
 
     provider = util_providers.detect_provider()
     translator = globals().get("_")
@@ -1131,7 +1131,7 @@ def compress_history_with_llm(
                 if provider in ("gemini", "vertexai") or "genai.Client" in str(
                     type(client)
                 ):
-                    from .llm_gemini import gemini_chat_with_tools
+                    from .providers.llm_gemini import gemini_chat_with_tools
 
                     summary_content, _summary_unused1, _summary_unused2 = (
                         gemini_chat_with_tools(
@@ -1142,7 +1142,7 @@ def compress_history_with_llm(
                         )
                     )
                 elif provider == "claude":
-                    from .llm_claude import claude_chat_with_tools
+                    from .providers.llm_claude import claude_chat_with_tools
 
                     claude_result = claude_chat_with_tools(
                         client=client,

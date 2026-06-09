@@ -11,8 +11,8 @@ except Exception:
     httpx = None
 
 
-from .i18n import _
-from .env_utils import env_get
+from ..i18n import _
+from ..env_utils import env_get
 
 # OpenAI / Azure OpenAI
 try:

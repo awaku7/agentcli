@@ -4,7 +4,7 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-from .i18n import _
+from ..i18n import _
 
 
 @dataclass(frozen=True)

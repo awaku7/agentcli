@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import uagent.runtime_init  # noqa: F401
+import uagent.runtime.runtime_init  # noqa: F401
 import getpass
 import re
 import importlib
@@ -44,7 +44,7 @@ except ImportError:
     except ImportError:
         readline = None  # type: ignore
 
-from . import util_providers as providers
+from .providers import util_providers as providers
 from . import uagent_llm as llm_util
 from . import util_tools as tools_util
 from .cli_startup import run_cli_startup as _run_cli_startup
@@ -937,7 +937,7 @@ def main() -> None:
         # Clear cache on program exit
         if provider in ("gemini", "vertexai") and client:
             try:
-                from .gemini_cache_mgr import GeminiCacheManager
+                from .providers.gemini_cache_mgr import GeminiCacheManager
 
                 mgr = GeminiCacheManager(depname)
                 mgr.clear_cache(client)

@@ -7,7 +7,7 @@ from .env_utils import env_get
 from .tools.context import get_callbacks
 from .image_session import build_image_session_message
 from .i18n import _
-from .llm_gemini import _message_content_text, _sanitize_gemini_parameters
+from .providers.llm_gemini import _message_content_text, _sanitize_gemini_parameters
 
 try:
     from google.genai import types as gemini_types
@@ -22,7 +22,7 @@ def _init_gemini_cache(
     depname: str,
     messages: list[dict[str, Any]],
 ) -> Any:
-    from .gemini_cache_mgr import GeminiCacheManager
+    from .providers.gemini_cache_mgr import GeminiCacheManager
 
     cache_mgr = GeminiCacheManager(depname)
     gemini_cache_name = None

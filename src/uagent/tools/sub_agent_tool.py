@@ -15,7 +15,7 @@ from typing import Any, Dict, List, Optional
 
 from .context import get_callbacks
 from ..env_utils import env_get
-from ..util_providers import make_client
+from ..providers.util_providers import make_client
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)

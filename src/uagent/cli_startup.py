@@ -114,11 +114,11 @@ def run_cli_startup(
     set_thread_lang(detect_lang())
 
     from . import uagent_llm as llm_util
-    from . import util_providers as providers
+    from .providers import util_providers as providers
     from . import util_tools as tools_util
     from .env_utils import env_get
-    from .runtime_memory import append_long_memory_system_messages
-    from .runtime_init import (
+    from .runtime.runtime_memory import append_long_memory_system_messages
+    from .runtime.runtime_init import (
         apply_workdir,
         build_startup_banner,
         decide_workdir,

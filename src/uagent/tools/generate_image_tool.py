@@ -332,7 +332,7 @@ def _run_openai_images(
 
     http_client = None
     try:
-        from .. import util_providers as providers  # type: ignore
+        from ..providers import util_providers as providers  # type: ignore
 
         http_client = providers.make_httpx_client(verify=_ssl_verify_enabled())
         if http_client is None:
@@ -484,7 +484,7 @@ def _run_gemini_images(
 
     kwargs: dict[str, Any] = {}
     try:
-        from .. import util_providers as providers  # type: ignore
+        from ..providers import util_providers as providers  # type: ignore
 
         httpx_client = providers.make_httpx_client(verify=_ssl_verify_enabled())
         if httpx_client is not None:

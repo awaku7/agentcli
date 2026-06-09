@@ -211,7 +211,7 @@ def _provider() -> str:
 
     # 2. Try global detect_provider logic
     try:
-        from ..util_providers import detect_provider
+        from ..providers.util_providers import detect_provider
 
         p = detect_provider().lower()
     except Exception:
@@ -321,7 +321,7 @@ def _make_gemini_client(provider: str):
 
     kwargs: dict[str, Any] = {}
     try:
-        from .. import util_providers as providers  # type: ignore
+        from ..providers import util_providers as providers  # type: ignore
 
         httpx_client = providers.make_httpx_client(verify=_ssl_verify_enabled())
         if httpx_client is not None:

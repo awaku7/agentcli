@@ -468,7 +468,7 @@ def _profile_worker(messages: list[dict[str, Any]], core: Any) -> None:
     """Background worker to analyze log, extract profile, and merge."""
     try:
         # 1) Initialize LLM Client
-        from . import util_providers
+        from .providers import util_providers
 
         provider, client, model_name = util_providers.make_client(core)
         if not client:
@@ -579,7 +579,7 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
         return None
 
     # 2) Initialize LLM Client
-    from . import util_providers
+    from .providers import util_providers
 
     provider, client, model_name = util_providers.make_client(core)
     if not client:

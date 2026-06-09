@@ -34,7 +34,7 @@ set_thread_lang(detect_lang())
 from . import core as core
 from . import tools
 from .welcome import get_welcome_message
-from . import runtime_init as _runtime_init
+from .runtime import runtime_init as _runtime_init
 
 from .util_tools import (
     image_file_to_data_url,
@@ -50,7 +50,7 @@ from .util_tools import (
 
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
 from .image_session import build_image_session_message
-from .util_providers import make_client as util_make_client
+from .providers.util_providers import make_client as util_make_client
 from .tools.context import ToolCallbacks, get_callbacks
 from .tools.skill_history import make_finish_skill_handler
 from .scheduler import start_background_scheduler, stop_background_scheduler

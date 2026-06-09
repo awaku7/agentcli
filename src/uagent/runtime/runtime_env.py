@@ -8,8 +8,8 @@ from pathlib import Path
 
 from uag_envsec.secret_core import decrypt_text, encrypt_text, ensure_key_file
 
-from .env_validate import format_missing_env_message, validate_startup_env
-from .i18n import _
+from ..env_validate import format_missing_env_message, validate_startup_env
+from ..i18n import _
 from .runtime_workdir import get_startup_workdir
 
 # Runtime-only flags that should not be treated as persistent startup config

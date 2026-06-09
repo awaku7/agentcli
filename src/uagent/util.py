@@ -34,7 +34,7 @@ from typing import Any
 # scheck_core をインポート（従来通り、このモジュールに core が存在する前提のコードがあるため）
 core = importlib.import_module(".core", package="uagent")
 
-from .util_providers import make_client as _make_client  # noqa: E402
+from .providers.util_providers import make_client as _make_client  # noqa: E402
 
 from .util_tools import (  # noqa: E402
     append_result_to_outfile,

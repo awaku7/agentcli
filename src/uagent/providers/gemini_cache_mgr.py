@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import json
 import os
-from .env_utils import env_get
-from .i18n import _
+from ..env_utils import env_get
+from ..i18n import _
 import hashlib
 from typing import Any, Optional
 

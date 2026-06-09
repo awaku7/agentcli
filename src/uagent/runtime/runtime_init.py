@@ -5,7 +5,7 @@ import os
 import sys
 from pathlib import Path
 
-from .i18n import _
+from ..i18n import _
 
 from .runtime_banner import build_startup_banner
 from .runtime_env import validate_or_exit_startup_env

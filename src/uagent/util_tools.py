@@ -1780,7 +1780,7 @@ def _handle_cmd_shared_mem_list(*, tr: Any) -> bool:
 
 def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
     from .profile_manager import load_profile, profile_from_logs
-    from .runtime_memory import _format_profile
+    from .runtime.runtime_memory import _format_profile
 
     arg = (arg or "").strip().lower()
     if arg == "fromlog":
@@ -2041,7 +2041,7 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
 
     if sub == "save":
         try:
-            from .runtime_env import save_uagent_envsec
+            from .runtime.runtime_env import save_uagent_envsec
 
             sec_path = save_uagent_envsec()
             print("[env] Saved .env.sec: %(path)s" % {"path": str(sec_path)})

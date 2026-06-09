@@ -8,7 +8,7 @@ import pytest
 def test_make_client_openrouter_uses_sdk_and_exposes_compat_methods(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    from uagent import util_providers
+    from uagent.providers import util_providers
 
     calls: dict[str, dict[str, object]] = {}
 

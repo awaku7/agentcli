@@ -17,6 +17,7 @@ EXCLUDE_FILES = {
     "context.py",
     "response_util.py",
     "arg_util.py",
+    "llm_tool_narrowing.py",
 }
 
 
