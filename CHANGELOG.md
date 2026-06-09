@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.43] - 2026-06-09
+
+### Added
+- **Token-based Auto-shrink Trigger**:
+  - Implemented token-based auto-shrink trigger with model-specific defaults to manage context size efficiently.
+- **Package Structure Refactoring**:
+  - Reorganized the `uagent` package structure into `providers`, `runtime`, and `tools` for better maintainability.
+
+### Fixed & Improved
+- **Configuration Defaults**:
+  - Changed default `UAGENT_SHRINK_CNT` to 0 (disabled) to prevent unexpected context shrinking.
+
 ## [0.4.42] - 2026-06-08
 
 ### Added
