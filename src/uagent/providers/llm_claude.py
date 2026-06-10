@@ -24,12 +24,48 @@ def _parse_claude_model(
       - claude-opus-4-6   -> ("opus", 4, 6)
       - claude-opus-4.6   -> ("opus", 4, 6)
       - claude-sonnet-4-6 -> ("sonnet", 4, 6)
+      - claude-3-7-sonnet -> ("sonnet", 3, 7)
+      - claude-fable-5    -> ("fable", 5, 0)
 
-    Returns: (family, major, minor) where family is one of {"opus","sonnet"}, or None.
+    Returns: (family, major, minor) where family is one of {"opus","sonnet","fable"}, or None.
     """
 
     s = (model_name or "").strip().lower()
-    m = re.search(r"claude-(opus|sonnet)-(\d+)[\.-](\d+)", s)
+
+    # 1. claude-fable-5 or similar (family-major-minor or family-major)
+    m_fable = re.search(r"claude-(fable|opus|sonnet|haiku)-(\d+)(?:[\.-](\d+))?", s)
+    if m_fable:
+        fam = m_fable.group(1)
+        try:
+            major = int(m_fable.group(2))
+            minor = int(m_fable.group(3)) if m_fable.group(3) else 0
+            return fam, major, minor
+        except Exception:
+            pass
+
+    # 2. claude-3-7-sonnet or similar (major-minor-family)
+    m_num_first = re.search(r"claude-(\d+)[\.-](\d+)-(sonnet|opus|haiku|fable)", s)
+    if m_num_first:
+        try:
+            major = int(m_num_first.group(1))
+            minor = int(m_num_first.group(2))
+            fam = m_num_first.group(3)
+            return fam, major, minor
+        except Exception:
+            pass
+
+    # 3. Fallback for simple major version like claude-3-sonnet
+    m_simple = re.search(r"claude-(\d+)-(sonnet|opus|haiku|fable)", s)
+    if m_simple:
+        try:
+            major = int(m_simple.group(1))
+            fam = m_simple.group(2)
+            return fam, major, 0
+        except Exception:
+            pass
+
+    # 4. Classic format
+    m = re.search(r"claude-(opus|sonnet|haiku|fable)-(\d+)[\.-](\d+)", s)
     if not m:
         return None, None, None
     fam = m.group(1)
@@ -59,6 +95,8 @@ def _claude_supports_max_effort(model_name: str) -> bool:
 def _claude_supports_effort(model_name: str) -> bool:
     """Per docs, effort is supported on:
 
+    - Claude Fable 5+
+    - Claude 3.7+ (Sonnet, Opus, etc.)
     - Claude Opus 4.6
     - Claude Sonnet 4.6
     - Claude Opus 4.5
@@ -68,8 +106,18 @@ def _claude_supports_effort(model_name: str) -> bool:
 
     fam, major, minor = _parse_claude_model(model_name)
     if fam is None or major is None or minor is None:
-        # Unknown model/version: be conservative.
+        # Fallback: if model name contains "3-7", "3.7", "claude-4", "fable", "claude-5", assume it supports effort
+        s = (model_name or "").strip().lower()
+        if any(x in s for x in ("3-7", "3.7", "claude-4", "fable", "claude-5")):
+            return True
         return False
+
+    if fam == "fable" and major >= 5:
+        return True
+    if major == 3 and minor >= 7:
+        return True
+    if major >= 4:
+        return True
     if fam == "opus":
         return (major, minor) >= (4, 5)
     if fam == "sonnet":
@@ -283,6 +331,15 @@ def claude_chat_with_tools(
         except ValueError:
             pass
 
+    # If model is Claude 3.7+ or Claude 4+ or Fable 5+, treat it as a modern Claude model.
+    # Matches "3-7", "3.7", "3-8", "3.8", "3-9", "3.9", "claude-4", "fable", "claude-5", etc.
+    is_modern_claude = bool(
+        re.search(r"3[\.-][7-9]", model_name) or
+        re.search(r"claude-[4-9]", model_name) or
+        "fable" in model_name.lower() or
+        "claude-5" in model_name.lower()
+    )
+
     # Resolve max_tokens (dynamic based on environment variable or model/thinking)
     max_tokens = 4096
     max_tokens_env = (env_get("UAGENT_MAX_TOKENS") or "").strip()
@@ -292,14 +349,30 @@ def claude_chat_with_tools(
         except ValueError:
             pass
     else:
-        # If model is Claude 3.7+ or Claude 4+ or output_config (thinking) is enabled, default to 8192
-        # Matches "3-7", "3.7", "3-8", "3.8", "3-9", "3.9", "claude-4", etc.
-        is_modern_claude = bool(
-            re.search(r"3[\.-][7-9]", model_name) or
-            re.search(r"claude-[4-9]", model_name)
-        )
+        # If model is modern Claude or output_config (thinking) is enabled, default to 8192
         if is_modern_claude or out_cfg is not None:
             max_tokens = 8192
+
+    # Resolve thinking parameter for modern Claude models (Claude 3.7+, Claude 4+, Fable 5+)
+    thinking_param = None
+    if is_modern_claude and out_cfg is not None:
+        eff = out_cfg.get("effort", "medium")
+        # Map effort to budget_tokens
+        budget = 4096
+        if eff == "low":
+            budget = 1024
+        elif eff == "medium":
+            budget = 4096
+        elif eff in ("high", "max"):
+            budget = 6144
+        
+        thinking_param = {
+            "type": "enabled",
+            "budget_tokens": budget
+        }
+        # When thinking is enabled, temperature must be omitted or set to 1.0.
+        # We omit it by setting claude_temp to None.
+        claude_temp = None
 
     req_kwargs: dict[str, Any] = {
         "model": model_name,
@@ -308,14 +381,25 @@ def claude_chat_with_tools(
     }
     # If output_config (thinking/effort) is used, temperature must be omitted.
     # Otherwise, only set temperature if explicitly configured.
-    if claude_temp is not None and out_cfg is None:
+    if claude_temp is not None and out_cfg is None and thinking_param is None:
         req_kwargs["temperature"] = claude_temp
 
     if system_blocks:
         req_kwargs["system"] = system_blocks
     if anthropic_tools:
         req_kwargs["tools"] = anthropic_tools
-    if out_cfg is not None:
+    
+    if thinking_param is not None:
+        req_kwargs["thinking"] = thinking_param
+        try:
+            msg = f"[Claude] using thinking.budget_tokens: {thinking_param.get('budget_tokens')}"
+            if callable(on_output_config_info):
+                on_output_config_info(msg)
+            else:
+                print(msg)
+        except Exception:
+            pass
+    elif out_cfg is not None:
         req_kwargs["output_config"] = out_cfg
         try:
             eff = None
