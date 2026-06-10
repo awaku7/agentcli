@@ -1362,7 +1362,11 @@ def compress_history_with_llm(
             current_chunk_size = next_chunk_size
             continue
 
-        return list(messages)
+        print(
+            _t("[WARN] history compression failed due to LLM error; falling back to shrink_messages()."),
+            file=sys.stderr,
+        )
+        return shrink_messages(messages, keep_last=keep_last)
 
 
 def print_help() -> None:
