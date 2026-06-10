@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.44] - 2026-06-10
+
+### Added
+- **llmcapa Integration**:
+  - Integrated `llmcapa` library to dynamically resolve model context windows and calculate auto-shrink limits.
+  - Removed the large hardcoded `DEFAULT_SHRINK_LIMITS` dictionary in favor of dynamic calculation.
+  - Added support for `UAGENT_SHRINK_RATIO` environment variable (default: `0.9`) to customize the safety margin.
+
 ## [0.4.43] - 2026-06-09
 
 ### Added
