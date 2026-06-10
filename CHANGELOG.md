@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.46] - 2026-06-10
+
+### Added
+- **Classic Bluetooth Scanning Support**:
+  - Extended the `ble_ops` tool to support scanning both Classic Bluetooth and BLE devices simultaneously using PySide6.
+  - Added a new `scan_mode` parameter to the `ble_ops` tool.
+  - Fixed a bug in BLE scanning where the `BLEDevice` object did not have the `rssi` attribute.
+
 ## [0.4.45] - 2026-06-10
 
 ### Added
