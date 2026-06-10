@@ -189,6 +189,7 @@ def _select_tool_specs_for_gpt54(
 
     return narrowed
 
+
 def _select_tool_specs_for_gpt54_old(
     call_messages: list[dict[str, Any]],
 ) -> Optional[list[dict[str, Any]]]:

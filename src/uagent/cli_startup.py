@@ -18,6 +18,7 @@ class CliStartupState:
 
 def _prompt_startup_tool_genre_mask() -> int:
     from .i18n import _
+
     prompt = _(
         "Select tool genres to enable at startup.\n"
         "1: comm  - Communication (Teams, Discord, etc.)\n"

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 # tools/devel_control_tool.py
-import os
 import sys
 from typing import Any
 
@@ -35,6 +34,7 @@ def _set_devel_tools_enabled(enabled: bool) -> str:
             try:
                 if mod_name in sys.modules:
                     import importlib
+
                     mod = importlib.reload(sys.modules[mod_name])
                 else:
                     mod = import_module(mod_name)
@@ -49,14 +49,24 @@ def _set_devel_tools_enabled(enabled: bool) -> str:
                     if tname:
                         changed_names.append(tname)
             except Exception as e:
-                print(f"[devel_control error] Failed to load {mod_name}: {e}", file=sys.stderr)
+                print(
+                    f"[devel_control error] Failed to load {mod_name}: {e}",
+                    file=sys.stderr,
+                )
 
         if changed_names:
-            msg = _("msg.devel.enabled", default="[tools] Enabled development tools (devel): {names}", names=", ".join(changed_names))
-            
+            msg = _(
+                "msg.devel.enabled",
+                default="[tools] Enabled development tools (devel): {names}",
+                names=", ".join(changed_names),
+            )
+
             return msg
-        msg = _("msg.devel.none_enabled", default="[tools] No development tools were enabled.")
-        
+        msg = _(
+            "msg.devel.none_enabled",
+            default="[tools] No development tools were enabled.",
+        )
+
         return msg
 
     removed_names = []
@@ -81,11 +91,17 @@ def _set_devel_tools_enabled(enabled: bool) -> str:
     _sort_registered_tools()
 
     if removed_names:
-        msg = _("msg.devel.disabled", default="[tools] Disabled development tools (devel): {names}", names=", ".join(removed_names))
-        
+        msg = _(
+            "msg.devel.disabled",
+            default="[tools] Disabled development tools (devel): {names}",
+            names=", ".join(removed_names),
+        )
+
         return msg
-    msg = _("msg.devel.none_disabled", default="[tools] No development tools were disabled.")
-    
+    msg = _(
+        "msg.devel.none_disabled", default="[tools] No development tools were disabled."
+    )
+
     return msg
 
 

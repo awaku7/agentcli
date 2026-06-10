@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 # tools/comm_control_tool.py
-import json
-import os
 import sys
 from typing import Any
 
@@ -13,12 +11,12 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = False
 STATUS_LABEL = "tool:comm_control"
 
+
 def _set_comm_tools_enabled(enabled: bool) -> str:
     """Enable or disable tools with tool_genre='comm'."""
     from . import TOOL_SPECS, _RUNNERS, _register_tool_module, _sort_registered_tools
     from importlib import import_module
 
-    pkg_dir = os.path.dirname(__file__)
     comm_modules = ["teams_webhook_tool", "discord_channel_tool"]
     changed_names = []
 
@@ -29,6 +27,7 @@ def _set_comm_tools_enabled(enabled: bool) -> str:
             try:
                 if mod_name in sys.modules:
                     import importlib
+
                     mod = importlib.reload(sys.modules[mod_name])
                 else:
                     mod = import_module(mod_name)
@@ -43,15 +42,25 @@ def _set_comm_tools_enabled(enabled: bool) -> str:
                     if tname:
                         changed_names.append(tname)
             except Exception as e:
-                print(f"[comm_control error] Failed to load {mod_name}: {e}", file=sys.stderr)
+                print(
+                    f"[comm_control error] Failed to load {mod_name}: {e}",
+                    file=sys.stderr,
+                )
 
         if changed_names:
-            msg = _("msg.comm.enabled", default="[tools] Enabled communication tools (comm): {names}", names=", ".join(changed_names))
-            
+            msg = _(
+                "msg.comm.enabled",
+                default="[tools] Enabled communication tools (comm): {names}",
+                names=", ".join(changed_names),
+            )
+
             return msg
         else:
-            msg = _("msg.comm.none_enabled", default="[tools] No communication tools were enabled.")
-            
+            msg = _(
+                "msg.comm.none_enabled",
+                default="[tools] No communication tools were enabled.",
+            )
+
             return msg
     else:
         # Unregister comm tools
@@ -77,13 +86,21 @@ def _set_comm_tools_enabled(enabled: bool) -> str:
         _sort_registered_tools()
 
         if removed_names:
-            msg = _("msg.comm.disabled", default="[tools] Disabled communication tools (comm): {names}", names=", ".join(removed_names))
-            
+            msg = _(
+                "msg.comm.disabled",
+                default="[tools] Disabled communication tools (comm): {names}",
+                names=", ".join(removed_names),
+            )
+
             return msg
         else:
-            msg = _("msg.comm.none_disabled", default="[tools] No communication tools were disabled.")
-            
+            msg = _(
+                "msg.comm.none_disabled",
+                default="[tools] No communication tools were disabled.",
+            )
+
             return msg
+
 
 # Dummy TOOL_SPEC so this module gets loaded as a plugin
 TOOL_SPEC: dict[str, Any] = {
@@ -101,6 +118,7 @@ TOOL_SPEC: dict[str, Any] = {
         },
     },
 }
+
 
 def run_tool(args: dict[str, Any]) -> str:
     return "dummy"

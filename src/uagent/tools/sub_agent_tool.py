@@ -564,10 +564,12 @@ class SubAgentRunner:
         # UIにサブエージェントの開始を通知
         if cb and getattr(cb, "log_message", None):
             try:
-                cb.log_message({
-                    "role": "assistant",
-                    "content": f"[Sub-Agent: {agent_name}] 処理を開始します...\nタスク: {task_text}"
-                })
+                cb.log_message(
+                    {
+                        "role": "assistant",
+                        "content": f"[Sub-Agent: {agent_name}] 処理を開始します...\nタスク: {task_text}",
+                    }
+                )
             except Exception:
                 pass
 
@@ -582,10 +584,12 @@ class SubAgentRunner:
         # UIにサブエージェントの完了を通知
         if cb and getattr(cb, "log_message", None):
             try:
-                cb.log_message({
-                    "role": "assistant",
-                    "content": f"[Sub-Agent: {agent_name}] 処理が完了しました。\n結果:\n{raw_output}"
-                })
+                cb.log_message(
+                    {
+                        "role": "assistant",
+                        "content": f"[Sub-Agent: {agent_name}] 処理が完了しました。\n結果:\n{raw_output}",
+                    }
+                )
             except Exception:
                 pass
 

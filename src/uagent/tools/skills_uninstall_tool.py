@@ -59,14 +59,21 @@ def run_tool(args: dict[str, Any]) -> str:
     name = (args.get("name") or "").strip()
 
     if not name:
-        return json.dumps({"ok": False, "message": _("err.name_required", default="Skill name is required.")})
+        return json.dumps(
+            {
+                "ok": False,
+                "message": _("err.name_required", default="Skill name is required."),
+            }
+        )
 
     # Directory traversal check on name
     if "/" in name or "\\" in name or ".." in name or name in (".", ""):
         return json.dumps(
             {
                 "ok": False,
-                "message": _("err.invalid_name", default="Invalid skill folder name: {name}").format(name=name),
+                "message": _(
+                    "err.invalid_name", default="Invalid skill folder name: {name}"
+                ).format(name=name),
             }
         )
 
@@ -78,9 +85,9 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "message": _("err.not_found", default="Skill '{name}' is not installed in {root}").format(
-                    name=name, root=skills_root
-                ),
+                "message": _(
+                    "err.not_found", default="Skill '{name}' is not installed in {root}"
+                ).format(name=name, root=skills_root),
             }
         )
 
@@ -100,7 +107,9 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "message": _("err.unexpected", default="An unexpected error occurred: {error}").format(error=str(e)),
+                "message": _(
+                    "err.unexpected", default="An unexpected error occurred: {error}"
+                ).format(error=str(e)),
             }
         )
 

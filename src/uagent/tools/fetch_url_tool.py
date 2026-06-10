@@ -5,7 +5,13 @@ import json
 import sys
 import warnings
 from typing import Any, Optional
-from urllib.request import Request, urlopen, HTTPRedirectHandler, build_opener, HTTPSHandler
+from urllib.request import (
+    Request,
+    urlopen,
+    HTTPRedirectHandler,
+    build_opener,
+    HTTPSHandler,
+)
 import urllib.error
 
 from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
@@ -152,7 +158,7 @@ class SafeRedirectHandler(HTTPRedirectHandler):
                 code,
                 f"Too many redirects (max: {self.max_redirects})",
                 headers,
-                fp
+                fp,
             )
         new_req = super().redirect_request(req, fp, code, msg, headers, newurl)
         if new_req is not None:
@@ -259,7 +265,11 @@ def _html_to_markdown(soup_or_el) -> str:
         elif tag_name == "li":
             parent = node.parent
             if parent and parent.name == "ol":
-                siblings = [sibling for sibling in parent.children if isinstance(sibling, bs4.element.Tag) and sibling.name == "li"]
+                siblings = [
+                    sibling
+                    for sibling in parent.children
+                    if isinstance(sibling, bs4.element.Tag) and sibling.name == "li"
+                ]
                 try:
                     idx = siblings.index(node) + 1
                 except ValueError:
@@ -275,7 +285,7 @@ def _html_to_markdown(soup_or_el) -> str:
         return children_text
 
     raw_md = _convert(soup_or_el)
-    
+
     lines = raw_md.splitlines()
     result = []
     prev_empty = False
@@ -343,6 +353,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     try:
         import urllib.request
+
         if urlopen is not urllib.request.urlopen:
             resp_ctx = urlopen(req)
         else:

@@ -1899,9 +1899,11 @@ def format_help(*, core: Any) -> str:
         "  :env set/unset/save   " + tr("Manage UAGENT_* env vars and save .env.sec"),
         "  :skills [cmd]         "
         + tr("Manage/apply skills (e.g. :skills / :skills active / :skills clear)"),
-        *([
-            f"  {line}" for line in tools.get_dynamic_commands_help()
-        ] if getattr(tools, 'get_dynamic_commands_help', None) else []),
+        *(
+            [f"  {line}" for line in tools.get_dynamic_commands_help()]
+            if getattr(tools, "get_dynamic_commands_help", None)
+            else []
+        ),
         "  :load <idx|path>      "
         + tr("Load a past log (overwrites current conversation history)"),
         tr(

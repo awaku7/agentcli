@@ -269,10 +269,11 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
                     _DYNAMIC_COMMANDS[cmd_name] = {}
                 _DYNAMIC_COMMANDS[cmd_name][subcmd_name] = {
                     "handler": handler,
-                    "help_text": help_text
+                    "help_text": help_text,
                 }
 
     return True
+
 
 def _load_plugins() -> None:
     """Discover and load tool plugin modules under tools/."""

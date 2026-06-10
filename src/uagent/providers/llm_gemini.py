@@ -1112,10 +1112,15 @@ def gemini_chat_with_tools(
                 or "safety" in err_str
                 or "blocked" in err_str
             ):
-                warning_msg = "\n\n" + _("[Gemini Error: Response blocked by safety filter or finish reason]", default="[Gemini Error: Response blocked by safety filter or finish reason]")
+                warning_msg = "\n\n" + _(
+                    "[Gemini Error: Response blocked by safety filter or finish reason]",
+                    default="[Gemini Error: Response blocked by safety filter or finish reason]",
+                )
             else:
-                warning_msg = "\n\n" + _("[Gemini Error: %(err)s]", default="[Gemini Error: %(err)s]") % {"err": str(e)}
-            
+                warning_msg = "\n\n" + _(
+                    "[Gemini Error: %(err)s]", default="[Gemini Error: %(err)s]"
+                ) % {"err": str(e)}
+
             # Append the warning message so the user knows why it stopped
             assistant_text_parts.append(warning_msg)
             _emit_stream_delta(warning_msg)

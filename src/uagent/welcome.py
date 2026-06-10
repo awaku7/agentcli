@@ -19,7 +19,7 @@ def get_mcp_servers_summary():
         from .tools.mcp_servers_shared import get_default_mcp_config_path
 
         path = get_default_mcp_config_path()
-    except (ImportError, ValueError):
+    except ImportError, ValueError:
         # パッケージ外からの実行やインポート失敗時のフォールバック
         from uagent.tools.mcp_servers_shared import get_default_mcp_config_path
 
@@ -182,7 +182,9 @@ def _internal_pager(text: str) -> None:
         try:
             sys.stdout.write(chunk_str)
         except UnicodeEncodeError:
-            sys.stdout.write(chunk_str.encode("cp932", errors="replace").decode("cp932"))
+            sys.stdout.write(
+                chunk_str.encode("cp932", errors="replace").decode("cp932")
+            )
         sys.stdout.flush()
         i += page_lines
 

@@ -243,7 +243,9 @@ def claude_chat_with_tools(
                         continue
                     item_type = item.get("type")
                     if item_type == "text":
-                        new_content_blocks.append({"type": "text", "text": item.get("text", "")})
+                        new_content_blocks.append(
+                            {"type": "text", "text": item.get("text", "")}
+                        )
                     elif item_type == "image_url":
                         img_url_obj = item.get("image_url") or {}
                         url = img_url_obj.get("url") or ""
@@ -251,21 +253,22 @@ def claude_chat_with_tools(
                             try:
                                 header, data = url.split(",", 1)
                                 mime_type = header.split(";")[0].split(":")[1]
-                                new_content_blocks.append({
-                                    "type": "image",
-                                    "source": {
-                                        "type": "base64",
-                                        "media_type": mime_type,
-                                        "data": data,
+                                new_content_blocks.append(
+                                    {
+                                        "type": "image",
+                                        "source": {
+                                            "type": "base64",
+                                            "media_type": mime_type,
+                                            "data": data,
+                                        },
                                     }
-                                })
+                                )
                             except Exception:
                                 pass
                         else:
-                            new_content_blocks.append({
-                                "type": "text",
-                                "text": f"[Image URL: {url}]"
-                            })
+                            new_content_blocks.append(
+                                {"type": "text", "text": f"[Image URL: {url}]"}
+                            )
 
         elif role == "assistant":
             new_role = "assistant"
@@ -357,10 +360,10 @@ def claude_chat_with_tools(
     # If model is Claude 3.7+ or Claude 4+ or Fable 5+, treat it as a modern Claude model.
     # Matches "3-7", "3.7", "3-8", "3.8", "3-9", "3.9", "claude-4", "fable", "claude-5", etc.
     is_modern_claude = bool(
-        re.search(r"3[\.-][7-9]", model_name) or
-        re.search(r"claude-[4-9]", model_name) or
-        "fable" in model_name.lower() or
-        "claude-5" in model_name.lower()
+        re.search(r"3[\.-][7-9]", model_name)
+        or re.search(r"claude-[4-9]", model_name)
+        or "fable" in model_name.lower()
+        or "claude-5" in model_name.lower()
     )
 
     # Resolve max_tokens (dynamic based on environment variable or model/thinking)
@@ -379,7 +382,11 @@ def claude_chat_with_tools(
     # Resolve thinking parameter for modern Claude models (Claude 3.7+, Claude 4+, Fable 5+)
     thinking_param = None
     use_adaptive_thinking = False
-    if is_modern_claude and out_cfg is not None and _claude_requires_adaptive_thinking(model_name):
+    if (
+        is_modern_claude
+        and out_cfg is not None
+        and _claude_requires_adaptive_thinking(model_name)
+    ):
         # Newer models (Fable 5+ / Claude 5+) reject thinking.type=enabled.
         # Send thinking.type=adaptive and keep output_config.effort.
         use_adaptive_thinking = True
@@ -395,7 +402,7 @@ def claude_chat_with_tools(
             budget = 4096
         elif eff in ("high", "max"):
             budget = 6144
-        
+
         # Anthropic requires max_tokens > thinking.budget_tokens.
         # If UAGENT_MAX_TOKENS is set too small, shrink the budget; if it
         # cannot be at least 1024 (API minimum), disable thinking entirely.
@@ -403,10 +410,7 @@ def claude_chat_with_tools(
             budget = max_tokens - 1024
 
         if budget >= 1024:
-            thinking_param = {
-                "type": "enabled",
-                "budget_tokens": budget
-            }
+            thinking_param = {"type": "enabled", "budget_tokens": budget}
             # When thinking is enabled, temperature must be omitted or set to 1.0.
             # We omit it by setting claude_temp to None.
             claude_temp = None
@@ -425,7 +429,7 @@ def claude_chat_with_tools(
         req_kwargs["system"] = system_blocks
     if anthropic_tools:
         req_kwargs["tools"] = anthropic_tools
-    
+
     if use_adaptive_thinking and thinking_param is not None:
         req_kwargs["thinking"] = thinking_param
         if out_cfg is not None:

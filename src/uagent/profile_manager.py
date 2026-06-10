@@ -255,7 +255,8 @@ def _normalize_profile_snapshot(
     return normalized
 
 
-def _deduplicate_profile_with_llm(profile: dict[str, Any],
+def _deduplicate_profile_with_llm(
+    profile: dict[str, Any],
     *,
     provider: str | None = None,
     client: Any = None,
@@ -309,7 +310,10 @@ def _deduplicate_profile_with_llm(profile: dict[str, Any],
             response = client.chat.completions.create(
                 model=model_name,
                 messages=[
-                    {"role": "system", "content": "Return only the cleaned JSON object."},
+                    {
+                        "role": "system",
+                        "content": "Return only the cleaned JSON object.",
+                    },
                     {"role": "user", "content": prompt},
                 ],
                 temperature=0.0,

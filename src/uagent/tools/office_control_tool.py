@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 # tools/office_control_tool.py
-import json
-import os
 import sys
 from typing import Any
 
@@ -13,13 +11,19 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = False
 STATUS_LABEL = "tool:office_control"
 
+
 def _set_office_tools_enabled(enabled: bool) -> str:
     """Enable or disable tools with tool_genre='office'."""
     from . import TOOL_SPECS, _RUNNERS, _register_tool_module, _sort_registered_tools
     from importlib import import_module
 
-    pkg_dir = os.path.dirname(__file__)
-    office_modules = ["excel_ops_tool", "exstruct_tool", "recalc_excel_tool", "document_extract_tool", "read_pptx_pdf_tool"]
+    office_modules = [
+        "excel_ops_tool",
+        "exstruct_tool",
+        "recalc_excel_tool",
+        "document_extract_tool",
+        "read_pptx_pdf_tool",
+    ]
     changed_names = []
 
     if enabled:
@@ -29,6 +33,7 @@ def _set_office_tools_enabled(enabled: bool) -> str:
             try:
                 if mod_name in sys.modules:
                     import importlib
+
                     mod = importlib.reload(sys.modules[mod_name])
                 else:
                     mod = import_module(mod_name)
@@ -43,15 +48,25 @@ def _set_office_tools_enabled(enabled: bool) -> str:
                     if tname:
                         changed_names.append(tname)
             except Exception as e:
-                print(f"[office_control error] Failed to load {mod_name}: {e}", file=sys.stderr)
+                print(
+                    f"[office_control error] Failed to load {mod_name}: {e}",
+                    file=sys.stderr,
+                )
 
         if changed_names:
-            msg = _("msg.office.enabled", default="[tools] Enabled Office tools (office): {names}", names=", ".join(changed_names))
-            
+            msg = _(
+                "msg.office.enabled",
+                default="[tools] Enabled Office tools (office): {names}",
+                names=", ".join(changed_names),
+            )
+
             return msg
         else:
-            msg = _("msg.office.none_enabled", default="[tools] No Office tools were enabled.")
-            
+            msg = _(
+                "msg.office.none_enabled",
+                default="[tools] No Office tools were enabled.",
+            )
+
             return msg
     else:
         # Unregister office tools
@@ -77,13 +92,21 @@ def _set_office_tools_enabled(enabled: bool) -> str:
         _sort_registered_tools()
 
         if removed_names:
-            msg = _("msg.office.disabled", default="[tools] Disabled Office tools (office): {names}", names=", ".join(removed_names))
-            
+            msg = _(
+                "msg.office.disabled",
+                default="[tools] Disabled Office tools (office): {names}",
+                names=", ".join(removed_names),
+            )
+
             return msg
         else:
-            msg = _("msg.office.none_disabled", default="[tools] No Office tools were disabled.")
-            
+            msg = _(
+                "msg.office.none_disabled",
+                default="[tools] No Office tools were disabled.",
+            )
+
             return msg
+
 
 # Dummy TOOL_SPEC so this module gets loaded as a plugin
 TOOL_SPEC: dict[str, Any] = {
@@ -101,6 +124,7 @@ TOOL_SPEC: dict[str, Any] = {
         },
     },
 }
+
 
 def run_tool(args: dict[str, Any]) -> str:
     return "dummy"

@@ -738,7 +738,9 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
             if "Generative UI (Artifacts) Instructions" not in sys_content:
                 room.history[0]["content"] = sys_content + generative_ui_prompt
         else:
-            room.history.insert(0, {"role": "system", "content": generative_ui_prompt.strip()})
+            room.history.insert(
+                0, {"role": "system", "content": generative_ui_prompt.strip()}
+            )
 
         llm_util.run_llm_rounds(
             provider_name,
@@ -1053,6 +1055,7 @@ def main():
 
     init_web()
     import socket
+
     def get_local_ip() -> str:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

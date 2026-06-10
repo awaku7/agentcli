@@ -282,7 +282,7 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> tuple[str, An
 
     try:
         return try_read(encoding, "strict")
-    except (UnicodeDecodeError, LookupError):
+    except UnicodeDecodeError, LookupError:
         return try_read("utf-8", "replace")
 
 
@@ -1340,8 +1340,16 @@ def run_tool(args: dict[str, Any]) -> str:
                 globber = root.rglob if bool(args.get("recursive", True)) else root.glob
                 name_pattern = args.get("name_pattern", "*")
                 exclude_dirs = {
-                    ".git", "node_modules", "__pycache__", ".venv", "venv",
-                    ".uag", ".pytest_cache", ".mypy_cache", ".idea", ".vscode"
+                    ".git",
+                    "node_modules",
+                    "__pycache__",
+                    ".venv",
+                    "venv",
+                    ".uag",
+                    ".pytest_cache",
+                    ".mypy_cache",
+                    ".idea",
+                    ".vscode",
                 }
                 targets = []
                 for p in globber(name_pattern):

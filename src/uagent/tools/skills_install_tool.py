@@ -189,24 +189,31 @@ def _safe_extract_zip(
             file_count += 1
             if file_count > max_files:
                 raise ValueError(
-                    _("err.zip_too_many_files", default="ZIP archive contains too many files (limit: {max_files})").format(
-                        max_files=max_files
-                    )
+                    _(
+                        "err.zip_too_many_files",
+                        default="ZIP archive contains too many files (limit: {max_files})",
+                    ).format(max_files=max_files)
                 )
             total_size += info.file_size
             if total_size > max_size_bytes:
                 raise ValueError(
-                    _("err.zip_too_large", default="ZIP archive uncompressed size exceeds limit (limit: {max_size}MB)").format(
-                        max_size=max_size_bytes // 1_000_000
-                    )
+                    _(
+                        "err.zip_too_large",
+                        default="ZIP archive uncompressed size exceeds limit (limit: {max_size}MB)",
+                    ).format(max_size=max_size_bytes // 1_000_000)
                 )
 
             norm_path = os.path.normpath(info.filename)
-            if norm_path.startswith("/") or norm_path.startswith("\\") or ".." in norm_path.split(os.sep):
+            if (
+                norm_path.startswith("/")
+                or norm_path.startswith("\\")
+                or ".." in norm_path.split(os.sep)
+            ):
                 raise ValueError(
-                    _("err.zip_traversal", default="ZIP archive contains invalid path: {filename}").format(
-                        filename=info.filename
-                    )
+                    _(
+                        "err.zip_traversal",
+                        default="ZIP archive contains invalid path: {filename}",
+                    ).format(filename=info.filename)
                 )
 
         os.makedirs(dest_dir, exist_ok=True)
@@ -218,7 +225,7 @@ def _copy_source_tree(source: str, dest_dir: str) -> None:
     if _is_git_url(source):
         try:
             subprocess.run(["git", "--version"], capture_output=True, check=True)
-        except (subprocess.SubprocessError, FileNotFoundError):
+        except subprocess.SubprocessError, FileNotFoundError:
             raise RuntimeError(
                 _(
                     "err.git_not_found",
@@ -399,7 +406,12 @@ def run_tool(args: dict[str, Any]) -> str:
     overwrite = args.get("overwrite", True)
 
     if not raw_source:
-        return json.dumps({"ok": False, "message": _("err.source_required", default="Source is required.")})
+        return json.dumps(
+            {
+                "ok": False,
+                "message": _("err.source_required", default="Source is required."),
+            }
+        )
 
     selector, source = _split_selector_source(raw_source)
     source = _normalize_source(source)
@@ -414,7 +426,10 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "message": _("err.invalid_name", default="Invalid destination folder name: {name}").format(name=name),
+                "message": _(
+                    "err.invalid_name",
+                    default="Invalid destination folder name: {name}",
+                ).format(name=name),
             }
         )
 
@@ -444,7 +459,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 skill_dir = _find_skill_dir(workspace, selector)
                 if not skill_dir:
                     candidates = _iter_candidate_skill_dirs(workspace, recursive=True)
-                    available = ", ".join(_skill_display_name(d) for d in candidates[:20])
+                    available = ", ".join(
+                        _skill_display_name(d) for d in candidates[:20]
+                    )
                     if len(candidates) > 20:
                         available += ", ..."
                     return json.dumps(
@@ -455,7 +472,11 @@ def run_tool(args: dict[str, Any]) -> str:
                                 default=(
                                     "Could not find skill '{selector}' in {source}. Available skills: {available}"
                                 ),
-                            ).format(selector=selector, source=source, available=available or "(none)"),
+                            ).format(
+                                selector=selector,
+                                source=source,
+                                available=available or "(none)",
+                            ),
                         }
                     )
 
@@ -537,7 +558,9 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "message": _("err.unexpected", default="An unexpected error occurred: {error}").format(error=str(e)),
+                "message": _(
+                    "err.unexpected", default="An unexpected error occurred: {error}"
+                ).format(error=str(e)),
             }
         )
 
@@ -563,7 +586,9 @@ def handle_cmd_install(arg: str, **kwargs: Any) -> Any:
     if res.get("ok"):
         print(f"{_('prefix.skills', default='[skills]')} {res.get('message')}")
     else:
-        print(f"{_('prefix.skills_error', default='[skills error]')} {res.get('message')}")
+        print(
+            f"{_('prefix.skills_error', default='[skills error]')} {res.get('message')}"
+        )
 
     return CommandResult()
 

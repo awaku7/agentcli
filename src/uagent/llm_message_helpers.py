@@ -79,6 +79,7 @@ def _init_gemini_cache(
 def _count_messages_tokens(messages: list[dict[str, Any]]) -> int:
     try:
         import tiktoken
+
         encoding = tiktoken.get_encoding("cl100k_base")
     except Exception:
         # tiktoken が使えない場合は簡易文字数ベースで概算
@@ -116,7 +117,8 @@ DEFAULT_SHRINK_LIMITS = {
         "default": 100000,
     },
     "deepseek": {
-        "default": 30000,
+        "v4": 200000,
+        "default": 100000,
     },
     "gpt-5.5": {
         "pro": 200000,
@@ -125,6 +127,9 @@ DEFAULT_SHRINK_LIMITS = {
     "gpt-5": {
         "mini": 60000,
         "default": 100000,
+    },
+    "gpt-4.1": {
+        "default": 150000,
     },
     "gpt-4o": {
         "default": 60000,
@@ -135,21 +140,44 @@ DEFAULT_SHRINK_LIMITS = {
     "o3-": {
         "default": 60000,
     },
+    "o4-": {
+        "default": 60000,
+    },
+    "grok": {
+        "default": 200000,
+    },
+    "mistral": {
+        "default": 60000,
+    },
+    "nemotron": {
+        "default": 120000,
+    },
     "llama-3": {
         "default": 60000,
     },
     "llama3": {
         "default": 60000,
     },
+    "qwen3.5": {
+        "default": 200000,
+    },
     "qwen": {
+        "max": 120000,
         "plus": 200000,
+        "flash": 200000,
         "coder": 120000,
         "default": 120000,
     },
+    "gemma-4": {
+        "default": 200000,
+    },
+    "gemma4": {
+        "default": 200000,
+    },
     "gemma": {
-        "e2b": 60000,
-        "e4b": 60000,
-        "default": 120000,
+        "e2b": 24000,
+        "e4b": 24000,
+        "default": 100000,
     },
     "gpt-oss": {
         "default": 60000,
@@ -185,6 +213,7 @@ def _get_shrink_max_tokens(depname: str) -> int:
         if global_val.startswith("{") and global_val.endswith("}"):
             try:
                 import json
+
                 limits_dict = json.loads(global_val)
                 dep_lower = depname.lower()
                 for k, v in limits_dict.items():

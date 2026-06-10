@@ -1363,7 +1363,9 @@ def compress_history_with_llm(
             continue
 
         print(
-            _t("[WARN] history compression failed due to LLM error; falling back to shrink_messages()."),
+            _t(
+                "[WARN] history compression failed due to LLM error; falling back to shrink_messages()."
+            ),
             file=sys.stderr,
         )
         return shrink_messages(messages, keep_last=keep_last)
