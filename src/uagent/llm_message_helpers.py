@@ -107,92 +107,21 @@ def _count_messages_tokens(messages: list[dict[str, Any]]) -> int:
     return total_tokens
 
 
-DEFAULT_SHRINK_LIMITS = {
-    "gemini": {
-        "pro": 200000,
-        "flash": 150000,
-        "default": 150000,
-    },
-    "claude": {
-        "default": 100000,
-    },
-    "deepseek": {
-        "v4": 200000,
-        "default": 100000,
-    },
-    "gpt-5.5": {
-        "pro": 200000,
-        "default": 200000,
-    },
-    "gpt-5": {
-        "mini": 60000,
-        "default": 100000,
-    },
-    "gpt-4.1": {
-        "default": 150000,
-    },
-    "gpt-4o": {
-        "default": 60000,
-    },
-    "o1-": {
-        "default": 60000,
-    },
-    "o3-": {
-        "default": 60000,
-    },
-    "o4-": {
-        "default": 60000,
-    },
-    "grok": {
-        "default": 200000,
-    },
-    "mistral": {
-        "default": 60000,
-    },
-    "nemotron": {
-        "default": 120000,
-    },
-    "llama-3": {
-        "default": 60000,
-    },
-    "llama3": {
-        "default": 60000,
-    },
-    "qwen3.5": {
-        "default": 200000,
-    },
-    "qwen": {
-        "max": 120000,
-        "plus": 200000,
-        "flash": 200000,
-        "coder": 120000,
-        "default": 120000,
-    },
-    "gemma-4": {
-        "default": 200000,
-    },
-    "gemma4": {
-        "default": 200000,
-    },
-    "gemma": {
-        "e2b": 24000,
-        "e4b": 24000,
-        "default": 100000,
-    },
-    "gpt-oss": {
-        "default": 60000,
-    },
-}
-
-
 def _get_default_shrink_max_tokens(depname: str) -> int:
-    dep_lower = depname.lower()
-    for brand, sub_dict in DEFAULT_SHRINK_LIMITS.items():
-        if brand in dep_lower:
-            for sub_key, val in sub_dict.items():
-                if sub_key != "default" and sub_key in dep_lower:
-                    return val
-            return sub_dict.get("default", 100000)
+    try:
+        ratio_str = (env_get("UAGENT_SHRINK_RATIO") or "").strip()
+        ratio = float(ratio_str) if ratio_str else 0.9
+    except Exception:
+        ratio = 0.9
+
+    try:
+        import llmcapa
+        cap = llmcapa.get(depname)
+        if cap and cap.context_window > 0:
+            return int(cap.context_window * ratio)
+    except Exception:
+        pass
+
     return 100000
 
 
