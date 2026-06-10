@@ -126,6 +126,13 @@ def _claude_supports_effort(model_name: str) -> bool:
 
     We treat Opus 4.5+ and Sonnet 4.6+ as supported to be forward-compatible.
     """
+    try:
+        import llmcapa
+        cap = llmcapa.get(model_name)
+        if cap is not None and cap.supports_reasoning_effort:
+            return True
+    except Exception:
+        pass
 
     fam, major, minor = _parse_claude_model(model_name)
     if fam is None or major is None or minor is None:

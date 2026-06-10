@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.45] - 2026-06-10
+
+### Added
+- **Dynamic Reasoning & Thinking Budget Support**:
+  - Integrated `llmcapa` to dynamically check if a model supports reasoning effort (Claude) or thinking budget (Gemini).
+  - Updated `llmcapa` dependency to `0.1.1`.
+
 ## [0.4.44] - 2026-06-10
 
 ### Added

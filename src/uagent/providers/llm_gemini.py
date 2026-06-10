@@ -428,6 +428,13 @@ def _choose_auto_thinking_level(user_text: str) -> str:
 
 
 def _model_uses_thinking_budget(model_name: str) -> bool:
+    try:
+        import llmcapa
+        cap = llmcapa.get(model_name)
+        if cap is not None:
+            return cap.supports_thinking_budget
+    except Exception:
+        pass
     mn = (model_name or "").lower()
     return "2.5" in mn
 
