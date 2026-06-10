@@ -366,13 +366,20 @@ def claude_chat_with_tools(
         elif eff in ("high", "max"):
             budget = 6144
         
-        thinking_param = {
-            "type": "enabled",
-            "budget_tokens": budget
-        }
-        # When thinking is enabled, temperature must be omitted or set to 1.0.
-        # We omit it by setting claude_temp to None.
-        claude_temp = None
+        # Anthropic requires max_tokens > thinking.budget_tokens.
+        # If UAGENT_MAX_TOKENS is set too small, shrink the budget; if it
+        # cannot be at least 1024 (API minimum), disable thinking entirely.
+        if max_tokens <= budget:
+            budget = max_tokens - 1024
+
+        if budget >= 1024:
+            thinking_param = {
+                "type": "enabled",
+                "budget_tokens": budget
+            }
+            # When thinking is enabled, temperature must be omitted or set to 1.0.
+            # We omit it by setting claude_temp to None.
+            claude_temp = None
 
     req_kwargs: dict[str, Any] = {
         "model": model_name,
@@ -465,7 +472,8 @@ def claude_chat_with_tools(
                     pass
                 req_kwargs.pop("output_config", None)
                 # If we removed output_config, we can restore temperature if it wasn't rejected
-                req_kwargs["temperature"] = claude_temp
+                if claude_temp is not None:
+                    req_kwargs["temperature"] = claude_temp
                 try:
                     response = client.messages.create(**req_kwargs)
                 except Exception as retry_exc:
