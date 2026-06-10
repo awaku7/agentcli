@@ -1,0 +1,179 @@
+from __future__ import annotations
+
+# tools/ble_ops_tool.py
+import asyncio
+import sys
+from typing import Any
+
+from .i18n_helper import make_tool_translator
+
+_ = make_tool_translator(__file__)
+
+BUSY_LABEL = True
+STATUS_LABEL = "tool:ble_ops"
+
+TOOL_SPEC: dict[str, Any] = {
+    "tool_level": 1,  # Conditional loading (disabled by default)
+    "tool_genre": "iot",
+    "type": "function",
+    "function": {
+        "name": "ble_ops",
+        "description": _(
+            "tool.description",
+            default="Perform Bluetooth Low Energy (BLE) operations: scan for devices, read, or write GATT characteristics. Use MAC addresses on Windows/Linux, and UUIDs on macOS."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "string",
+                    "enum": ["scan", "read", "write"],
+                    "description": _(
+                        "param.action.description",
+                        default="The operation to perform. scan: discover nearby devices, read: read characteristic, write: write characteristic"
+                    )
+                },
+                "timeout": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": _(
+                        "param.timeout.description",
+                        default="Timeout in seconds for scanning or connecting"
+                    )
+                },
+                "address": {
+                    "type": "string",
+                    "description": _(
+                        "param.address.description",
+                        default="Target device MAC address (Windows/Linux) or UUID (macOS)"
+                    )
+                },
+                "char_uuid": {
+                    "type": "string",
+                    "description": _(
+                        "param.char_uuid.description",
+                        default="GATT characteristic UUID to read or write"
+                    )
+                },
+                "data_hex": {
+                    "type": "string",
+                    "description": _(
+                        "param.data_hex.description",
+                        default="Hexadecimal string of data to write (e.g., '010203'). Required only when action='write'"
+                    )
+                }
+            },
+            "required": ["action"]
+        }
+    }
+}
+
+
+async def _scan(timeout: int) -> list[dict[str, Any]]:
+    from bleak import BleakScanner
+    devices = await BleakScanner.discover(timeout=timeout)
+    result = []
+    for d in devices:
+        result.append({
+            "name": d.name or "Unknown",
+            "address": d.address,
+            "rssi": d.rssi
+        })
+    return result
+
+
+async def _read(address: str, char_uuid: str, timeout: int) -> dict[str, Any]:
+    from bleak import BleakClient
+    async with BleakClient(address, timeout=timeout) as client:
+        data = await client.read_gatt_char(char_uuid)
+        return {
+            "hex": data.hex(),
+            "text": data.decode('utf-8', errors='replace')
+        }
+
+
+async def _write(address: str, char_uuid: str, data_hex: str, timeout: int) -> str:
+    from bleak import BleakClient
+    data = bytes.fromhex(data_hex)
+    async with BleakClient(address, timeout=timeout) as client:
+        await client.write_gatt_char(char_uuid, data)
+        return "Success"
+
+
+def run_tool(args: dict[str, Any]) -> str:
+    # 1. Check dependency
+    try:
+        import bleak
+    except ImportError:
+        return _(
+            "err.bleak_missing",
+            default="Error: 'bleak' library is not installed. Please install it using:\npip install bleak"
+        )
+
+    action = args.get("action")
+    timeout = args.get("timeout", 5)
+    address = args.get("address")
+    char_uuid = args.get("char_uuid")
+    data_hex = args.get("data_hex")
+
+    # 2. Set event loop policy for Windows
+    if sys.platform == 'win32':
+        try:
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        except Exception:
+            pass
+
+    try:
+        if action == "scan":
+            res = asyncio.run(_scan(timeout))
+            return str(res)
+
+        elif action == "read":
+            if not address or not char_uuid:
+                return _(
+                    "err.missing_read_params",
+                    default="Error: 'address' and 'char_uuid' are required."
+                )
+            res = asyncio.run(_read(address, char_uuid, timeout))
+            return str(res)
+
+        elif action == "write":
+            if not address or not char_uuid or not data_hex:
+                return _(
+                    "err.missing_write_params",
+                    default="Error: 'address', 'char_uuid', and 'data_hex' are required."
+                )
+            res = asyncio.run(_write(address, char_uuid, data_hex, timeout))
+            return str(res)
+
+        else:
+            return _(
+                "err.unknown_action",
+                default="Error: Unknown action '{action}'.",
+                action=action
+            )
+
+    except Exception as e:
+        err_msg = str(e)
+        # Linux permission error handling
+        if sys.platform.startswith('linux'):
+            if "Permission" in err_msg or "AccessDenied" in err_msg or "dbus" in err_msg.lower() or "notready" in err_msg.lower():
+                return _(
+                    "err.linux_permission",
+                    default="Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
+                    err_msg=err_msg
+                )
+        # macOS permission error handling
+        elif sys.platform == 'darwin':
+            if "CoreBluetooth" in err_msg or "permission" in err_msg.lower() or "auth" in err_msg.lower():
+                return _(
+                    "err.macos_permission",
+                    default="Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth.",
+                    err_msg=err_msg
+                )
+
+        return _(
+            "err.operation_failed",
+            default="Error during BLE operation: {err_msg}",
+            err_msg=err_msg
+        )

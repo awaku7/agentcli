@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-08 19:58+0900\n"
+"POT-Creation-Date: 2026-06-10 20:37+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,13 +88,15 @@ msgid ""
 "1: comm  - Communication (Teams, Discord, etc.)\n"
 "2: office - Office suite (Excel, Word, etc.)\n"
 "4: devel  - Development (lint, py_compile, test, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
+"8: iot    - IoT (Bluetooth, etc.)\n"
+"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
 msgstr ""
 "Select tool genres to enable at startup.\n"
 "1: comm  - Communication (Teams, Discord, etc.)\n"
 "2: office - Office suite (Excel, Word, etc.)\n"
 "4: devel  - Development (lint, py_compile, test, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
+"8: iot    - IoT (Bluetooth, etc.)\n"
+"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
 
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Failed to apply startup tool selection: %(err)s"
@@ -261,6 +263,13 @@ msgid ""
 msgstr ""
 "[WARN] history compression context length exceeded; retrying with "
 "chunk_size=%(chunk_size)d"
+
+msgid ""
+"[WARN] history compression failed due to LLM error; falling back to "
+"shrink_messages()."
+msgstr ""
+"[WARN] history compression failed due to LLM error; falling back to "
+"shrink_messages()."
 
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (help unavailable: %(err)s)"
@@ -568,9 +577,6 @@ msgstr ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
 
-msgid "invalid cache meta"
-msgstr "invalid cache meta"
-
 msgid "(prompt unavailable)"
 msgstr "(prompt unavailable)"
 
@@ -601,9 +607,6 @@ msgstr "- prompt: %(prompt)s"
 
 msgid "- file: %(path)s"
 msgstr "- file: %(path)s"
-
-msgid "anthropic package is not installed."
-msgstr "anthropic package is not installed."
 
 msgid ""
 "[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
@@ -658,17 +661,6 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-msgid ""
-"google-genai could not be imported (pip install google-genai is required)."
-msgstr ""
-"google-genai could not be imported (pip install google-genai is required)."
-
-msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
-msgstr "[Gemini Error: Response blocked by safety filter or finish reason]"
-
-msgid "[Gemini Error: %(err)s]"
-msgstr "[Gemini Error: %(err)s]"
-
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "Describe this screenshot and summarize the visible UI."
 
@@ -680,67 +672,6 @@ msgstr "Inspect this screenshot for errors, warnings, and important UI state."
 
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Auto shrink_llm failed: %(err)s"
-
-msgid "[WARN] assistant history contained image content; converted to text."
-msgstr "[WARN] assistant history contained image content; converted to text."
-
-msgid "[WARN] invalid image content (missing url)."
-msgstr "[WARN] invalid image content (missing url)."
-
-msgid "[WARN] unsupported content item: %(item)r"
-msgstr "[WARN] unsupported content item: %(item)r"
-
-msgid "Sources:"
-msgstr "Sources:"
-
-msgid "search"
-msgstr "search"
-
-msgid "open page"
-msgstr "open page"
-
-msgid "find in page"
-msgstr "find in page"
-
-msgid "web search"
-msgstr "web search"
-
-msgid "Web search: searching"
-msgstr "Web search: searching"
-
-msgid "Web search: completed"
-msgstr "Web search: completed"
-
-msgid "Web search: {action}"
-msgstr "Web search: {action}"
-
-msgid ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
-"        "
-msgstr ""
-"[Tool calling rules]\n"
-"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
-"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
-"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
-"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
-"        "
-
-msgid ""
-"[Web search rules]\n"
-"        - Use web search only when fresh or external information is necessary.\n"
-"        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already sufficient.\n"
-"        "
-msgstr ""
-"[Web search rules]\n"
-"        - Use web search only when fresh or external information is necessary.\n"
-"        - Do not use web search for local or stable information.\n"
-"        - Prefer answering without web search when the answer is already sufficient.\n"
-"        "
 
 msgid "[Translate Error] %(diag)s"
 msgstr "[Translate Error] %(diag)s"
@@ -801,113 +732,6 @@ msgstr "Failed to initialize LLM client."
 
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "Found %(total_files)d log files. Starting incremental profiling..."
-
-msgid "embedding"
-msgstr "embedding"
-
-msgid "audio speech"
-msgstr "audio speech"
-
-msgid "audio transcribe"
-msgstr "audio transcribe"
-
-msgid "image generation"
-msgstr "image generation"
-
-msgid "image analysis"
-msgstr "image analysis"
-
-msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
-msgstr "[INFO] workdir = %(workdir)s (source: %(source)s)"
-
-msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] base_url = %(base_url)s"
-
-msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] api_version = %(api_version)s"
-
-msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
-msgstr "[INFO] vertexai = project=%(project)s, location=%(location)s"
-
-msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
-msgstr "[INFO] %(label)s = %(provider)s; model = %(model)s"
-
-msgid ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
-msgstr ""
-"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
-"Responses API. Falling back to ChatCompletions."
-
-msgid "LLM API mode = %(mode)s"
-msgstr "LLM API mode = %(mode)s"
-
-msgid "Responses (UAGENT_RESPONSES is enabled)"
-msgstr "Responses (UAGENT_RESPONSES is enabled)"
-
-msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-msgstr "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
-
-msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
-msgstr "ChatCompletions (UAGENT_RESPONSES is disabled)"
-
-msgid "LLM streaming = %(state)s"
-msgstr "LLM streaming = %(state)s"
-
-msgid "enabled"
-msgstr "enabled"
-
-msgid "disabled"
-msgstr "disabled"
-
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-
-msgid ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Use `uag_envsec` to update it."
-msgstr ""
-"[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Use `uag_envsec` to update it."
-
-msgid "Updated .env.sec: %(path)s"
-msgstr "Updated .env.sec: %(path)s"
-
-msgid "[WARN] Failed to update .env.sec: %(err)s"
-msgstr "[WARN] Failed to update .env.sec: %(err)s"
-
-msgid ""
-"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
-"environment variables? [y/N] "
-msgstr ""
-"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
-"environment variables? [y/N] "
-
-msgid ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
-"startup UAGENT_* environment variables."
-msgstr ""
-"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
-"startup UAGENT_* environment variables."
-
-msgid "Created .env.sec: %(path)s"
-msgstr "Created .env.sec: %(path)s"
-
-msgid "[WARN] Failed to create .env.sec: %(err)s"
-msgstr "[WARN] Failed to create .env.sec: %(err)s"
-
-msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
-msgstr "[WARN] Failed to check .env.sec synchronization: %(err)s"
-
-msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
-msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
-
-msgid "Specified workdir path is a file: %(path)s"
-msgstr "Specified workdir path is a file: %(path)s"
 
 msgid "Drop files/images here"
 msgstr "Drop files/images here"
@@ -1408,15 +1232,6 @@ msgstr "generated: %(path)s"
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Tool rounds exceeded %(max)d; aborting."
 
-msgid "Environment variable UAGENT_PROVIDER is not set."
-msgstr "Environment variable UAGENT_PROVIDER is not set."
-
-msgid "Unknown provider: %(provider)s"
-msgstr "Unknown provider: %(provider)s"
-
-msgid "google-genai package is not installed."
-msgstr "google-genai package is not installed."
-
 msgid "image file not found: %(path)s"
 msgstr "image file not found: %(path)s"
 
@@ -1878,3 +1693,197 @@ msgstr "uagent execution failed: %(etype)s: %(err)s"
 
 msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
 msgstr "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+
+msgid "invalid cache meta"
+msgstr "invalid cache meta"
+
+msgid "anthropic package is not installed."
+msgstr "anthropic package is not installed."
+
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr ""
+"google-genai could not be imported (pip install google-genai is required)."
+
+msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
+msgstr "[Gemini Error: Response blocked by safety filter or finish reason]"
+
+msgid "[Gemini Error: %(err)s]"
+msgstr "[Gemini Error: %(err)s]"
+
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr "[WARN] assistant history contained image content; converted to text."
+
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[WARN] invalid image content (missing url)."
+
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[WARN] unsupported content item: %(item)r"
+
+msgid "Sources:"
+msgstr "Sources:"
+
+msgid "search"
+msgstr "search"
+
+msgid "open page"
+msgstr "open page"
+
+msgid "find in page"
+msgstr "find in page"
+
+msgid "web search"
+msgstr "web search"
+
+msgid "Web search: searching"
+msgstr "Web search: searching"
+
+msgid "Web search: completed"
+msgstr "Web search: completed"
+
+msgid "Web search: {action}"
+msgstr "Web search: {action}"
+
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "Environment variable UAGENT_PROVIDER is not set."
+
+msgid "Unknown provider: %(provider)s"
+msgstr "Unknown provider: %(provider)s"
+
+msgid "google-genai package is not installed."
+msgstr "google-genai package is not installed."
+
+msgid "embedding"
+msgstr "embedding"
+
+msgid "audio speech"
+msgstr "audio speech"
+
+msgid "audio transcribe"
+msgstr "audio transcribe"
+
+msgid "image generation"
+msgstr "image generation"
+
+msgid "image analysis"
+msgstr "image analysis"
+
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] workdir = %(workdir)s (source: %(source)s)"
+
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] base_url = %(base_url)s"
+
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] api_version = %(api_version)s"
+
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = project=%(project)s, location=%(location)s"
+
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; model = %(model)s"
+
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+
+msgid "LLM API mode = %(mode)s"
+msgstr "LLM API mode = %(mode)s"
+
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Responses (UAGENT_RESPONSES is enabled)"
+
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "ChatCompletions (UAGENT_RESPONSES is disabled)"
+
+msgid "LLM streaming = %(state)s"
+msgstr "LLM streaming = %(state)s"
+
+msgid "enabled"
+msgstr "enabled"
+
+msgid "disabled"
+msgstr "disabled"
+
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+
+msgid "Updated .env.sec: %(path)s"
+msgstr "Updated .env.sec: %(path)s"
+
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[WARN] Failed to update .env.sec: %(err)s"
+
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+
+msgid "Created .env.sec: %(path)s"
+msgstr "Created .env.sec: %(path)s"
+
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[WARN] Failed to create .env.sec: %(err)s"
+
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr "[WARN] Failed to check .env.sec synchronization: %(err)s"
+
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
+
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Specified workdir path is a file: %(path)s"

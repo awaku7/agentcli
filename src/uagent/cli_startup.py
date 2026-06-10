@@ -24,7 +24,8 @@ def _prompt_startup_tool_genre_mask() -> int:
         "1: comm  - Communication (Teams, Discord, etc.)\n"
         "2: office - Office suite (Excel, Word, etc.)\n"
         "4: devel  - Development (lint, py_compile, test, etc.)\n"
-        "Enter the sum of values (e.g., 3 = comm + office, 7 = all, or press Enter to enable all):"
+        "8: iot    - IoT (Bluetooth, etc.)\n"
+        "Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
     )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
@@ -41,7 +42,7 @@ def _prompt_startup_tool_genre_mask() -> int:
                 sys.__stderr__.flush()
             except Exception:
                 pass
-            return 7
+            return 15
         except Exception as e:
             try:
                 sys.__stderr__.write(
@@ -50,22 +51,22 @@ def _prompt_startup_tool_genre_mask() -> int:
                 sys.__stderr__.flush()
             except Exception:
                 pass
-            return 7
+            return 15
         if not raw:
-            return 7
+            return 15
         try:
             value = int(raw, 10)
         except Exception:
             try:
-                out.write("[WARN] 0〜7 の整数を入力してください。\n")
+                out.write("[WARN] 0〜15 の整数を入力してください。\n")
                 out.flush()
             except Exception:
                 pass
             continue
-        if 0 <= value <= 7:
+        if 0 <= value <= 15:
             return value
         try:
-            out.write("[WARN] 0〜7 の整数を入力してください。\n")
+            out.write("[WARN] 0〜15 の整数を入力してください。\n")
             out.flush()
         except Exception:
             pass
@@ -79,12 +80,19 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
     from .tools.comm_control_tool import _set_comm_tools_enabled
     from .tools.devel_control_tool import _set_devel_tools_enabled
     from .tools.office_control_tool import _set_office_tools_enabled
+    try:
+        from .tools.iot_control_tool import _set_iot_tools_enabled
+    except ImportError:
+        _set_iot_tools_enabled = None
 
-    enabled_specs = (
+    enabled_specs = [
         (1, _set_comm_tools_enabled),
         (2, _set_office_tools_enabled),
         (4, _set_devel_tools_enabled),
-    )
+    ]
+    if _set_iot_tools_enabled:
+        enabled_specs.append((8, _set_iot_tools_enabled))
+
     for bit, setter in enabled_specs:
         if not (mask & bit):
             continue

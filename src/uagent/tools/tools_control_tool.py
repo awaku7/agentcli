@@ -43,8 +43,15 @@ def handle_cmd_tools_on(arg: str, **kwargs: Any) -> Any:
             return _set_devel_tools_enabled(True)
         except ImportError:
             pass
+    elif a == "iot":
+        try:
+            from .iot_control_tool import _set_iot_tools_enabled
 
-    print("Usage: :tools on [comm|office|devel]")
+            return _set_iot_tools_enabled(True)
+        except ImportError:
+            pass
+
+    print("Usage: :tools on [comm|office|devel|iot]")
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -73,8 +80,15 @@ def handle_cmd_tools_off(arg: str, **kwargs: Any) -> Any:
             return _set_devel_tools_enabled(False)
         except ImportError:
             pass
+    elif a == "iot":
+        try:
+            from .iot_control_tool import _set_iot_tools_enabled
 
-    print("Usage: :tools off [comm|office|devel]")
+            return _set_iot_tools_enabled(False)
+        except ImportError:
+            pass
+
+    print("Usage: :tools off [comm|office|devel|iot]")
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -140,7 +154,7 @@ CMD_SPECS = [
         "handler": handle_cmd_tools_on,
         "help_text": _(
             "cmd.help.tools_on",
-            default="  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   Enable development tools (lint, py_compile, tests)",
+            default="  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   Enable development tools (lint, py_compile, tests)\n  :tools on iot                     Enable IoT tools (Bluetooth, etc.)",
         ),
     },
     {
@@ -149,7 +163,7 @@ CMD_SPECS = [
         "handler": handle_cmd_tools_off,
         "help_text": _(
             "cmd.help.tools_off",
-            default="  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  Disable development tools (lint, py_compile, tests)",
+            default="  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  Disable development tools (lint, py_compile, tests)\n  :tools off iot                    Disable IoT tools (Bluetooth, etc.)",
         ),
     },
 ]
