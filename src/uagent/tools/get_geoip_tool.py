@@ -82,7 +82,10 @@ def run_tool(args: dict[str, Any]) -> str:
     # Note: Consent handling has been removed. The deprecated 'require_consent'
     # parameter is not supported and is intentionally absent from the schema.
 
-    raw = fetch_url_run({"url": "https://ipinfo.io/json"})
+    # Note: verify_ssl is disabled by default because corporate SSL-inspection
+    # proxies (e.g. Zscaler) often break certificate verification, and this
+    # tool only fetches non-sensitive, approximate location data.
+    raw = fetch_url_run({"url": "https://ipinfo.io/json", "verify_ssl": False})
     if isinstance(raw, str) and '"ok": false' in raw and "SSL error:" in raw:
         return raw
 
