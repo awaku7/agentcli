@@ -241,3 +241,95 @@ def test_fetch_url_extract_json_with_pointer(monkeypatch: pytest.MonkeyPatch) ->
         }
     )
     assert out == "2"
+
+
+def test_fetch_url_extract_markdown(monkeypatch: pytest.MonkeyPatch) -> None:
+    from uagent.tools import fetch_url_tool
+
+    class DummyHeaders:
+        def get_content_charset(self):
+            return "utf-8"
+
+    class DummyResp:
+        headers = DummyHeaders()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def read(self, _n: int) -> bytes:
+            return b"<html><body><main><h1>Hello</h1><p>World with <a href='http://link'>link</a> and <strong>bold</strong></p><ul><li>item 1</li><li>item 2</li></ul></main></body></html>"
+
+    monkeypatch.setattr(fetch_url_tool, "urlopen", lambda _req: DummyResp())
+
+    out = fetch_url_tool.run_tool(
+        {
+            "url": "https://example.com",
+            "extract": "markdown",
+        }
+    )
+    assert "# Hello" in out
+    assert "[link](http://link)" in out
+    assert "**bold**" in out
+    assert "- item 1" in out
+
+
+def test_fetch_url_http_error_handling(monkeypatch: pytest.MonkeyPatch) -> None:
+    from uagent.tools import fetch_url_tool
+    import urllib.error
+
+    def boom_http(_req, **kwargs):
+        raise urllib.error.HTTPError(
+            "https://example.com/404", 404, "Not Found", {}, None
+        )
+
+    # Mock urllib.request.urlopen to be the standard one so that our opener is used
+    import urllib.request
+    monkeypatch.setattr(urllib.request, "urlopen", urllib.request.urlopen)
+    
+    # We mock opener.open instead
+    class DummyOpener:
+        def open(self, req, timeout=10):
+            raise urllib.error.HTTPError(
+                "https://example.com/404", 404, "Not Found", {}, None
+            )
+
+    monkeypatch.setattr(fetch_url_tool, "build_opener", lambda *args: DummyOpener())
+
+    out = fetch_url_tool.run_tool({"url": "https://example.com/404"})
+    payload = json.loads(out)
+    assert payload["ok"] is False
+    assert payload["status_code"] == 404
+    assert "HTTP Error 404" in payload["error"]
+
+
+def test_fetch_url_url_error_handling(monkeypatch: pytest.MonkeyPatch) -> None:
+    from uagent.tools import fetch_url_tool
+    import urllib.error
+
+    class DummyOpener:
+        def open(self, req, timeout=10):
+            raise urllib.error.URLError("connection timed out")
+
+    monkeypatch.setattr(fetch_url_tool, "build_opener", lambda *args: DummyOpener())
+
+    out = fetch_url_tool.run_tool({"url": "https://example.com"})
+    payload = json.loads(out)
+    assert payload["ok"] is False
+    assert "URL Error" in payload["error"]
+
+
+def test_fetch_url_redirect_loop_prevention() -> None:
+    from uagent.tools.fetch_url_tool import SafeRedirectHandler
+    import urllib.request
+    import urllib.error
+
+    handler = SafeRedirectHandler(max_redirects=2)
+    req = urllib.request.Request("https://example.com")
+    req._redirect_count = 2
+
+    with pytest.raises(urllib.error.HTTPError) as excinfo:
+        handler.redirect_request(req, None, 302, "Found", {}, "https://example.com/new")
+    assert "Too many redirects" in str(excinfo.value)

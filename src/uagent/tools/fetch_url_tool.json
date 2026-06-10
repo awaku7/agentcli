@@ -13,12 +13,14 @@
       "получить url"
     ],
     "tool.system_prompt": "This tool performs the operation described by the tool name 'fetch_url'.",
-    "param.extract.description": "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer).",
+    "param.extract.description": "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer); markdown=extract simplified markdown from HTML.",
     "param.selector.description": "Optional CSS selector. If provided, the first matched element is extracted for extract=text/html.",
     "param.json_pointer.description": "Optional RFC 6901 JSON Pointer (e.g., /items/0/title) used when extract=json.",
     "param.max_bytes.description": "Maximum bytes to read from the response.",
     "param.max_chars.description": "Maximum characters to return (applied after decoding/extraction).",
-    "param.user_agent.description": "Optional User-Agent header value."
+    "param.user_agent.description": "Optional User-Agent header value.",
+    "param.timeout.description": "Timeout in seconds for the request.",
+    "param.verify_ssl.description": "Whether to verify SSL certificates."
   },
   "ja": {
     "param.url.description": "アクセスする URL。",
@@ -30,12 +32,14 @@
       "html/json 取得"
     ],
     "tool.system_prompt": "ツール名 'fetch_url' で示される処理を実行します。",
-    "param.extract.description": "抽出モード。head=レスポンス先頭を返す / text=HTML から本文テキストを抽出 / html=HTML 断片を抽出 / json=JSON を解析（必要に応じて json_pointer を適用）。",
+    "param.extract.description": "抽出モード。head=レスポンス先頭を返す / text=HTML から本文テキストを抽出 / html=HTML 断片を抽出 / json=JSON を解析（必要に応じて json_pointer を適用） / markdown=HTML から簡易的な Markdown を抽出。",
     "param.selector.description": "任意の CSS セレクタ。指定した場合、extract=text/html で最初に一致した要素を抽出します。",
     "param.json_pointer.description": "任意の RFC 6901 JSON Pointer（例: /items/0/title）。extract=json のときに使用します。",
     "param.max_bytes.description": "レスポンスから読み込む最大バイト数。",
     "param.max_chars.description": "返却する最大文字数（デコード/抽出後に適用）。",
-    "param.user_agent.description": "任意の User-Agent ヘッダー値。"
+    "param.user_agent.description": "任意の User-Agent ヘッダー値。",
+    "param.timeout.description": "リクエストのタイムアウト（秒）。",
+    "param.verify_ssl.description": "SSL 証明書を検証するかどうか。"
   },
   "es": {
     "param.url.description": "URL a la que acceder.",
@@ -47,12 +51,14 @@
       "html json"
     ],
     "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'fetch_url'.",
-    "param.extract.description": "Modo de extracción. head=devuelve el comienzo de la respuesta; text=extrae texto de HTML; html=extrae un fragmento HTML; json=analiza JSON (opcionalmente aplica json_pointer).",
+    "param.extract.description": "Modo de extracción. head=devuelve el comienzo de la respuesta; text=extrae texto de HTML; html=extrae un fragmento HTML; json=analiza JSON (opcionalmente aplica json_pointer); markdown=extrae markdown simplificado de HTML.",
     "param.selector.description": "Selector CSS opcional. Si se proporciona, se extrae el primer elemento coincidente para extract=text/html.",
     "param.json_pointer.description": "JSON Pointer opcional de RFC 6901 (por ejemplo, /items/0/title) usado cuando extract=json.",
     "param.max_bytes.description": "Número máximo de bytes que se leen de la respuesta.",
     "param.max_chars.description": "Número máximo de caracteres que se devuelven (se aplica después de la decodificación/extracción).",
-    "param.user_agent.description": "Valor opcional del encabezado User-Agent."
+    "param.user_agent.description": "Valor opcional del encabezado User-Agent.",
+    "param.timeout.description": "Tiempo de espera en segundos para la solicitud.",
+    "param.verify_ssl.description": "Si se deben verificar los certificados SSL."
   },
   "fr": {
     "param.url.description": "URL à consulter.",
@@ -64,12 +70,14 @@
       "html json"
     ],
     "tool.system_prompt": "Cet outil effectue l’opération décrite par le nom d’outil « fetch_url ».",
-    "param.extract.description": "Mode d’extraction. head=renvoie le début de la réponse ; text=extrait le texte du HTML ; html=extrait un fragment HTML ; json=analyse le JSON (application facultative de json_pointer).",
+    "param.extract.description": "Mode d’extraction. head=renvoie le début de la réponse ; text=extrait le texte du HTML ; html=extrait un fragment HTML ; json=analyse le JSON (application facultative de json_pointer) ; markdown=extrait du markdown simplifié du HTML.",
     "param.selector.description": "Sélecteur CSS facultatif. S’il est fourni, le premier élément correspondant est extrait pour extract=text/html.",
     "param.json_pointer.description": "JSON Pointer RFC 6901 facultatif (par exemple /items/0/title) utilisé lorsque extract=json.",
     "param.max_bytes.description": "Nombre maximal d’octets à lire dans la réponse.",
     "param.max_chars.description": "Nombre maximal de caractères à renvoyer (appliqué après décodage/extraction).",
-    "param.user_agent.description": "Valeur facultative de l’en-tête User-Agent."
+    "param.user_agent.description": "Valeur facultative de l’en-tête User-Agent.",
+    "param.timeout.description": "Délai d'attente en secondes pour la requête.",
+    "param.verify_ssl.description": "S'il faut vérifier les certificats SSL."
   },
   "ko": {
     "param.url.description": "접속할 URL입니다.",
@@ -81,12 +89,14 @@
       "html/json 확인"
     ],
     "tool.system_prompt": "이 도구는 도구 이름 'fetch_url'에 설명된 작업을 수행합니다.",
-    "param.extract.description": "추출 모드입니다. head=응답의 시작 부분 반환; text=HTML에서 텍스트 추출; html=HTML 조각 추출; json=JSON 파싱(필요 시 json_pointer 적용).",
+    "param.extract.description": "추출 모드입니다. head=응답의 시작 부분 반환; text=HTML에서 텍스트 추출; html=HTML 조각 추출; json=JSON 파싱(필요 시 json_pointer 적용); markdown=HTML에서 간단한 마크다운 추출.",
     "param.selector.description": "선택적 CSS 셀렉터입니다. 지정하면 extract=text/html에서 첫 번째로 일치하는 요소를 추출합니다.",
     "param.json_pointer.description": "선택적 RFC 6901 JSON Pointer(예: /items/0/title)입니다. extract=json일 때 사용합니다.",
     "param.max_bytes.description": "응답에서 읽을 최대 바이트 수입니다.",
     "param.max_chars.description": "반환할 최대 문자 수입니다(디코딩/추출 후 적용).",
-    "param.user_agent.description": "선택적 User-Agent 헤더 값입니다."
+    "param.user_agent.description": "선택적 User-Agent 헤더 값입니다.",
+    "param.timeout.description": "요청 제한 시간(초)입니다.",
+    "param.verify_ssl.description": "SSL 인증서를 검증할지 여부입니다."
   },
   "de": {
     "param.url.description": "Aufzurufende URL.",
@@ -98,12 +108,14 @@
       "html json"
     ],
     "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen 'fetch_url' beschriebenen Vorgang aus.",
-    "param.extract.description": "Extraktionsmodus. head=gibt den Anfang der Antwort zurück; text=Text aus HTML extrahieren; html=HTML-Fragment extrahieren; json=JSON analysieren (optional json_pointer anwenden).",
+    "param.extract.description": "Extraktionsmodus. head=gibt den Anfang der Antwort zurück; text=Text aus HTML extrahieren; html=HTML-Fragment extrahieren; json=JSON analysieren (optional json_pointer anwenden); markdown=vereinfachtes Markdown aus HTML extrahieren.",
     "param.selector.description": "Optionaler CSS-Selektor. Wenn angegeben, wird für extract=text/html das erste passende Element extrahiert.",
     "param.json_pointer.description": "Optionaler RFC 6901 JSON Pointer (z. B. /items/0/title), der bei extract=json verwendet wird.",
     "param.max_bytes.description": "Maximale Anzahl von Bytes, die aus der Antwort gelesen werden.",
     "param.max_chars.description": "Maximale Anzahl zurückzugebender Zeichen (wird nach Dekodierung/Extraktion angewendet).",
-    "param.user_agent.description": "Optionaler Wert für den User-Agent-Header."
+    "param.user_agent.description": "Optionaler Wert für den User-Agent-Header.",
+    "param.timeout.description": "Zeitüberschreitung in Sekunden für die Anfrage.",
+    "param.verify_ssl.description": "Ob SSL-Zertifikate überprüft werden sollen."
   },
   "it": {
     "param.url.description": "URL a cui accedere.",
@@ -115,12 +127,14 @@
       "html json"
     ],
     "tool.system_prompt": "Questo strumento esegue l’operazione descritta dal nome dello strumento 'fetch_url'.",
-    "param.extract.description": "Modalità di estrazione. head=restituisce l’inizio della risposta; text=estrae testo dall’HTML; html=estrae un frammento HTML; json=analizza JSON (applicando facoltativamente json_pointer).",
+    "param.extract.description": "Modalità di estrazione. head=restituisce l’inizio della risposta; text=estrae testo dall’HTML; html=estrae un fragmento HTML; json=analizza JSON (applicando facoltativamente json_pointer); markdown=estrae markdown semplificato dall'HTML.",
     "param.selector.description": "Selettore CSS facoltativo. Se fornito, per extract=text/html viene estratto il primo elemento corrispondente.",
     "param.json_pointer.description": "JSON Pointer RFC 6901 facoltativo (ad esempio /items/0/title) usato quando extract=json.",
     "param.max_bytes.description": "Numero massimo di byte da leggere dalla risposta.",
     "param.max_chars.description": "Numero massimo di caratteri da restituire (applicato dopo la decodifica/estrazione).",
-    "param.user_agent.description": "Valore facoltativo dell’intestazione User-Agent."
+    "param.user_agent.description": "Valore facoltativo dell’intestazione User-Agent.",
+    "param.timeout.description": "Timeout in secondi per la richiesta.",
+    "param.verify_ssl.description": "Se verificare i certificati SSL."
   },
   "ru": {
     "param.url.description": "URL для доступа.",
@@ -132,12 +146,14 @@
       "html json"
     ],
     "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента 'fetch_url'.",
-    "param.extract.description": "Режим извлечения. head=вернуть начало ответа; text=извлечь текст из HTML; html=извлечь HTML-фрагмент; json=разобрать JSON (при необходимости применить json_pointer).",
+    "param.extract.description": "Режим извлечения. head=вернуть начало ответа; text=извлечь текст из HTML; html=извлечь HTML-фрагмент; json=разобрать JSON (при необходимости применить json_pointer); markdown=извлечь упрощенный markdown из HTML.",
     "param.selector.description": "Необязательный CSS-селектор. Если он указан, для extract=text/html извлекается первый совпавший элемент.",
     "param.json_pointer.description": "Необязательный JSON Pointer RFC 6901 (например, /items/0/title), используемый при extract=json.",
     "param.max_bytes.description": "Максимальное число байтов, читаемых из ответа.",
     "param.max_chars.description": "Максимальное число возвращаемых символов (применяется после декодирования/извлечения).",
-    "param.user_agent.description": "Необязательное значение заголовка User-Agent."
+    "param.user_agent.description": "Необязательное значение заголовка User-Agent.",
+    "param.timeout.description": "Таймаут запроса в секундах.",
+    "param.verify_ssl.description": "Проверять ли SSL-сертификаты."
   },
   "pt_BR": {
     "param.url.description": "URL a acessar.",
@@ -149,12 +165,14 @@
       "html json"
     ],
     "tool.system_prompt": "Use esta ferramenta para acessar uma URL via HTTP GET.",
-    "param.extract.description": "Modo de extração. head=retorna o início da resposta; text=extrai texto do HTML; html=extrai um fragmento HTML; json=analisa JSON (opcionalmente aplica json_pointer).",
+    "param.extract.description": "Modo de extração. head=retorna o início da resposta; text=extrai texto do HTML; html=extrai um fragmento HTML; json=analisa JSON (opcionalmente aplica json_pointer); markdown=extrai markdown simplificado do HTML.",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente é extraído para extract=text/html.",
     "param.json_pointer.description": "JSON Pointer opcional da RFC 6901 (por exemplo, /items/0/title) usado quando extract=json.",
     "param.max_bytes.description": "Número máximo de bytes a ler da resposta.",
     "param.max_chars.description": "Número máximo de caracteres a retornar (aplicado após decodificação/extração).",
-    "param.user_agent.description": "Valor opcional do cabeçalho User-Agent."
+    "param.user_agent.description": "Valor opcional do cabeçalho User-Agent.",
+    "param.timeout.description": "Tempo limite em segundos para a requisição.",
+    "param.verify_ssl.description": "Se deve verificar os certificados SSL."
   },
   "pt": {
     "param.url.description": "URL para acessar.",
@@ -166,12 +184,14 @@
       "html json"
     ],
     "tool.system_prompt": "Use esta ferramenta para acessar uma URL via HTTP GET.",
-    "param.extract.description": "Modo de extração. head=retorna o início da resposta; text=extrai texto do HTML; html=extrai um fragmento HTML; json=analisa JSON (opcionalmente aplica json_pointer).",
+    "param.extract.description": "Modo de extração. head=retorna o início da resposta; text=extrai texto do HTML; html=extrai um fragmento HTML; json=analisa JSON (opcionalmente aplica json_pointer); markdown=extrai markdown simplificado do HTML.",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente é extraído para extract=text/html.",
     "param.json_pointer.description": "JSON Pointer opcional da RFC 6901 (por exemplo, /items/0/title) usado quando extract=json.",
     "param.max_bytes.description": "Máximo de bytes a serem lidos na resposta.",
     "param.max_chars.description": "Máximo de caracteres a serem retornados (aplicado após decodificação/extração).",
-    "param.user_agent.description": "Valor opcional do cabeçalho User-Agent."
+    "param.user_agent.description": "Valor opcional do cabeçalho User-Agent.",
+    "param.timeout.description": "Limite de tempo em segundos para a requisição.",
+    "param.verify_ssl.description": "Se deve verificar os certificados SSL."
   },
   "id": {
     "param.url.description": "URL yang akan diakses.",
@@ -183,12 +203,14 @@
       "html json"
     ],
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'fetch_url'.",
-    "param.extract.description": "Mode ekstraksi. head=kembalikan awal respons; text=ekstrak teks dari HTML; html=ekstrak fragmen HTML; json=urai JSON (opsional terapkan json_pointer).",
+    "param.extract.description": "Mode ekstraksi. head=kembalikan awal respons; text=ekstrak teks dari HTML; html=ekstrak fragmen HTML; json=urai JSON (opsional terapkan json_pointer); markdown=ekstrak markdown sederhana dari HTML.",
     "param.selector.description": "CSS selector opsional. Jika diberikan, elemen pertama yang cocok akan diekstrak untuk extract=text/html.",
     "param.json_pointer.description": "RFC 6901 JSON Pointer opsional (mis. /items/0/title) yang digunakan saat extract=json.",
     "param.max_bytes.description": "Maksimum byte yang dibaca dari respons.",
     "param.max_chars.description": "Maksimum karakter yang dikembalikan (diterapkan setelah decoding/ekstraksi).",
-    "param.user_agent.description": "Nilai header User-Agent opsional."
+    "param.user_agent.description": "Nilai header User-Agent opsional.",
+    "param.timeout.description": "Batas waktu dalam detik untuk permintaan.",
+    "param.verify_ssl.description": "Apakah akan memverifikasi sertifikat SSL."
   },
   "vi": {
     "param.url.description": "URL để truy cập.",
@@ -200,12 +222,14 @@
       "html json"
     ],
     "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'fetch_url'.",
-    "param.extract.description": "Chế độ khai thác. head=trả về phần đầu của phản hồi; text=trích xuất văn bản từ HTML; html=trích xuất đoạn HTML; json=phân tích cú pháp JSON (tùy chọn áp dụng json_pointer).",
+    "param.extract.description": "Chế độ khai thác. head=trả về phần đầu của phản hồi; text=trích xuất văn bản từ HTML; html=trích xuất đoạn HTML; json=phân tích cú pháp JSON (tùy chọn áp dụng json_pointer); markdown=trích xuất markdown đơn giản từ HTML.",
     "param.selector.description": "Bộ chọn CSS tùy chọn. Nếu được cung cấp, phần tử phù hợp đầu tiên sẽ được trích xuất cho extract=text/html.",
     "param.json_pointer.description": "Con trỏ JSON RFC 6901 tùy chọn (ví dụ: /items/0/title) được sử dụng khi extract=json.",
     "param.max_bytes.description": "Số byte tối đa để đọc từ phản hồi.",
     "param.max_chars.description": "Số ký tự tối đa cần trả về (áp dụng sau khi giải mã/trích xuất).",
-    "param.user_agent.description": "Giá trị tiêu đề Tác nhân người dùng tùy chọn."
+    "param.user_agent.description": "Giá trị tiêu đề Tác nhân người dùng tùy chọn.",
+    "param.timeout.description": "Thời gian chờ tính bằng giây cho yêu cầu.",
+    "param.verify_ssl.description": "Có xác minh chứng chỉ SSL hay không."
   },
   "pl": {
     "param.url.description": "Adres URL, do którego można uzyskać dostęp.",
@@ -217,12 +241,14 @@
       "html json"
     ],
     "tool.system_prompt": "Użyj tego narzędzia, aby uzyskać dostęp do wskazanego adresu URL przez HTTP GET. Zwracaj wyłącznie JSON.",
-    "param.extract.description": "Tryb ekstrakcji. head=zwróć początek odpowiedzi; text=wyodrębnij tekst z HTML; html=wyodrębnij fragment HTML; json=parsuj JSON (opcjonalnie zastosuj json_pointer).",
+    "param.extract.description": "Tryb ekstrakcji. head=zwróć początek odpowiedzi; text=wyodrębnij tekst z HTML; html=wyodrębnij fragment HTML; json=parsuj JSON (opcjonalnie zastosuj json_pointer); markdown=wyodrębnij uproszczony markdown z HTML.",
     "param.selector.description": "Opcjonalny selektor CSS. Jeśli zostanie podany, dla extract=text/html zostanie wyodrębniony pierwszy pasujący element.",
     "param.json_pointer.description": "Opcjonalny JSON Pointer RFC 6901 (np. /items/0/title) używany przy extract=json.",
     "param.max_bytes.description": "Maksymalna liczba bajtów do odczytania z odpowiedzi.",
     "param.max_chars.description": "Maksymalna liczba znaków do zwrócenia (stosowana po dekodowaniu/wyodrębnieniu).",
-    "param.user_agent.description": "Opcjonalna wartość nagłówka User-Agent."
+    "param.user_agent.description": "Opcjonalna wartość nagłówka User-Agent.",
+    "param.timeout.description": "Limit czasu w sekundach dla żądania.",
+    "param.verify_ssl.description": "Czy weryfikować certyfikaty SSL."
   },
   "hi": {
     "param.url.description": "एक्सेस करने के लिए यूआरएल.",
@@ -234,12 +260,14 @@
       "html json"
     ],
     "tool.system_prompt": "इस टूल का उपयोग HTTP GET के माध्यम से दिए गए URL तक पहुँचने के लिए करें।",
-    "param.extract.description": "निष्कर्षण मोड. head=प्रतिक्रिया का आरंभ लौटाएँ; text=HTML से पाठ निकालें; html=HTML खंड निकालें; json=JSON पार्स करें (आवश्यक होने पर json_pointer लागू करें)।",
+    "param.extract.description": "निष्कर्षण मोड. head=प्रतिक्रिया का आरंभ लौटाएँ; text=HTML से पाठ निकालें; html=HTML खंड निकालें; json=JSON पार्स करें (आवश्यक होने पर json_pointer लागू करें); markdown=HTML से सरल मार्कडाउन निकालें।",
     "param.selector.description": "वैकल्पिक CSS चयनकर्ता. प्रदान किए जाने पर, extract=text/html के लिए पहला मिलान करने वाला तत्व निकाला जाता है।",
     "param.json_pointer.description": "वैकल्पिक RFC 6901 JSON Pointer (उदा. /items/0/title) का उपयोग extract=json में किया जाता है।",
     "param.max_bytes.description": "प्रतिक्रिया से पढ़ने के लिए अधिकतम बाइट्स.",
     "param.max_chars.description": "लौटाने के लिए अधिकतम वर्ण (डिकोडिंग/निष्कर्षण के बाद लागू)।",
-    "param.user_agent.description": "वैकल्पिक उपयोगकर्ता-एजेंट हेडर मान."
+    "param.user_agent.description": "वैकल्पिक उपयोगकर्ता-एजेंट हेडर मान.",
+    "param.timeout.description": "अनुरोध के लिए सेकंड में टाइमआउट।",
+    "param.verify_ssl.description": "क्या SSL प्रमाणपत्रों को सत्यापित करना है।"
   },
   "ar": {
     "param.url.description": "عنوان URL للوصول.",
@@ -251,12 +279,14 @@
       "html json"
     ],
     "tool.system_prompt": "استخدم هذه الأداة للوصول إلى عنوان URL المحدد عبر HTTP GET.",
-    "param.extract.description": "وضع الاستخراج. head=إرجاع بداية الاستجابة؛ text=استخراج النص من HTML؛ html=استخراج جزء HTML؛ json=تحليل JSON (مع إمكانية تطبيق json_pointer).",
+    "param.extract.description": "وضع الاستخراج. head=إرجاع بداية الاستجابة؛ text=استخراج النص من HTML؛ html=استخراج جزء HTML؛ json=تحليل JSON (مع إمكانية تطبيق json_pointer)؛ markdown=استخراج لغة markdown مبسطة من HTML.",
     "param.selector.description": "محدد CSS اختياري. إذا تم توفيره، فسيتم استخراج أول عنصر مطابق عند extract=text/html.",
     "param.json_pointer.description": "JSON Pointer اختياري وفق RFC 6901 (مثل /items/0/title) يُستخدم عند extract=json.",
     "param.max_bytes.description": "الحد الأقصى للبايت للقراءة من الاستجابة.",
     "param.max_chars.description": "الحد الأقصى لعدد الأحرف المطلوب إرجاعها (يتم تطبيقه بعد فك التشفير/الاستخراج).",
-    "param.user_agent.description": "قيمة رأس وكيل المستخدم الاختيارية."
+    "param.user_agent.description": "قيمة رأس وكيل المستخدم الاختيارية.",
+    "param.timeout.description": "مهلة الطلب بالثواني.",
+    "param.verify_ssl.description": "ما إذا كان سيتم التحقق من شهادات SSL."
   },
   "sv": {
     "param.url.description": "URL att öppna.",
@@ -268,12 +298,14 @@
       "html json"
     ],
     "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet \"fetch_url\".",
-    "param.extract.description": "Extraktionsläge. head=returnera början av svaret; text=extrahera text från HTML; html=extrahera HTML-fragment; json=parsa JSON (tillämpa vid behov json_pointer).",
+    "param.extract.description": "Extraktionsläge. head=returnera början av svaret; text=extrahera text från HTML; html=extrahera HTML-fragment; json=parsa JSON (tillämpa vid behov json_pointer); markdown=extrahera förenklad markdown från HTML.",
     "param.selector.description": "Valfri CSS-selektor. Om den anges extraheras det första matchade elementet för extract=text/html.",
     "param.json_pointer.description": "Valfri RFC 6901 JSON Pointer (t.ex. /items/0/title) som används när extract=json.",
     "param.max_bytes.description": "Maximalt antal byte att läsa från svaret.",
     "param.max_chars.description": "Maximalt antal tecken att returnera (tillämpas efter avkodning/extraktion).",
-    "param.user_agent.description": "Valfritt User-Agent-huvudvärde."
+    "param.user_agent.description": "Valfritt User-Agent-huvudvärde.",
+    "param.timeout.description": "Timeout i sekunder för begäran.",
+    "param.verify_ssl.description": "Om SSL-certifikat ska verifieras."
   },
   "sw": {
     "param.url.description": "URL ya kufikia.",
@@ -285,12 +317,14 @@
       "html json"
     ],
     "tool.system_prompt": "Zana hii hutekeleza operesheni iliyoelezwa na jina la zana 'fetch_url'.",
-    "param.extract.description": "Hali ya uchimbaji. head=rudisha mwanzo wa jibu; text=toa maandishi kutoka HTML; html=toa kipande cha HTML; json=changanua JSON (na hiari tumia json_pointer).",
+    "param.extract.description": "Hali ya uchimbaji. head=rudisha mwanzo wa jibu; text=toa maandishi kutoka HTML; html=toa kipande cha HTML; json=changanua JSON (na hiari tumia json_pointer); markdown=toa markdown rahisi kutoka HTML.",
     "param.selector.description": "CSS selector ya hiari. Ikitolewa, kipengele cha kwanza kinacholingana hutolewa kwa extract=text/html.",
     "param.json_pointer.description": "RFC 6901 JSON Pointer ya hiari (mfano /items/0/title) inayotumika wakati extract=json.",
     "param.max_bytes.description": "Idadi ya juu ya bytes za kusoma kutoka kwa jibu.",
     "param.max_chars.description": "Idadi ya juu ya herufi za kurudisha (hutumika baada ya ku-decode/kuchambua).",
-    "param.user_agent.description": "Thamani ya hiari ya kichwa cha User-Agent."
+    "param.user_agent.description": "Thamani ya hiari ya kichwa cha User-Agent.",
+    "param.timeout.description": "Muda wa kuisha kwa sekunde kwa ombi.",
+    "param.verify_ssl.description": "Ikiwa utathibitisha vyeti vya SSL."
   },
   "nb": {
     "param.url.description": "URL som skal åpnes.",
@@ -302,12 +336,14 @@
       "html json"
     ],
     "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet \"fetch_url\".",
-    "param.extract.description": "Ekstraksjonsmodus. head=returner begynnelsen av svaret; text=ekstraher tekst fra HTML; html=ekstraher HTML-fragment; json=analyser JSON (bruk ved behov json_pointer).",
+    "param.extract.description": "Ekstraksjonsmodus. head=returner begynnelsen av svaret; text=ekstraher tekst fra HTML; html=ekstraher HTML-fragment; json=analyser JSON (bruk ved behov json_pointer); markdown=ekstraher forenklet markdown fra HTML.",
     "param.selector.description": "Valgfri CSS-selector. Hvis den angis, ekstraheres det første samsvarende elementet for extract=text/html.",
     "param.json_pointer.description": "Valgfri RFC 6901 JSON Pointer (f.eks. /items/0/title) som brukes når extract=json.",
     "param.max_bytes.description": "Maksimalt antall byte som leses fra svaret.",
     "param.max_chars.description": "Maksimalt antall tegn som returneres (brukes etter dekoding/ekstraksjon).",
-    "param.user_agent.description": "Valgfri User-Agent-headerverdi."
+    "param.user_agent.description": "Valgfri User-Agent-headerverdi.",
+    "param.timeout.description": "Tidsavbrudd i sekunder for forespørselen.",
+    "param.verify_ssl.description": "Om SSL-sertifikater skal verifiseres."
   },
   "nl": {
     "param.url.description": "Te benaderen URL.",
@@ -319,12 +355,14 @@
       "html json"
     ],
     "tool.system_prompt": "Gebruik deze tool om via HTTP GET toegang te krijgen tot de opgegeven URL.",
-    "param.extract.description": "Extractiemodus. head=geef het begin van de respons terug; text=haal tekst uit HTML; html=haal een HTML-fragment op; json=parse JSON (pas optioneel json_pointer toe).",
+    "param.extract.description": "Extractiemodus. head=geef het begin van de respons terug; text=haal tekst uit HTML; html=haal een HTML-fragment op; json=parse JSON (pas optioneel json_pointer toe); markdown=haal vereenvoudigde markdown uit HTML.",
     "param.selector.description": "Optionele CSS-selector. Indien opgegeven, wordt voor extract=text/html het eerste overeenkomende element uitgehaald.",
     "param.json_pointer.description": "Optionele RFC 6901 JSON Pointer (bijv. /items/0/title) voor gebruik bij extract=json.",
     "param.max_bytes.description": "Maximaal aantal bytes om uit de respons te lezen.",
     "param.max_chars.description": "Maximaal aantal tekens om terug te geven (na decoderen/extractie toegepast).",
-    "param.user_agent.description": "Optionele User-Agent headerwaarde."
+    "param.user_agent.description": "Optionele User-Agent headerwaarde.",
+    "param.timeout.description": "Time-out in seconden voor het verzoek.",
+    "param.verify_ssl.description": "Of SSL-certificaten moeten worden geverifieerd."
   },
   "fi": {
     "param.url.description": "Avattava URL.",
@@ -336,12 +374,14 @@
       "html json"
     ],
     "tool.system_prompt": "Käytä tätä työkalua avataksesi annetun URL:n HTTP GET -pyynnöllä.",
-    "param.extract.description": "Poimintatila. head=palauta vastauksen alku; text=poimi teksti HTML:stä; html=poimi HTML-fragmentti; json=jäsennä JSON (tarvittaessa käytä json_pointeria).",
+    "param.extract.description": "Poimintatila. head=palauta vastauksen alku; text=poimi teksti HTML:stä; html=poimi HTML-fragmentti; json=jäsennä JSON (tarvittaessa käytä json_pointeria); markdown=poimi yksinkertaistettu markdown HTML:stä.",
     "param.selector.description": "Valinnainen CSS-valitsin. Jos annetaan, extract=text/html käyttää ensimmäistä vastaavaa elementtiä.",
     "param.json_pointer.description": "Valinnainen RFC 6901 JSON Pointer (esim. /items/0/title), jota käytetään kun extract=json.",
     "param.max_bytes.description": "Enimmäismäärä tavuja, jotka luetaan vastauksesta.",
     "param.max_chars.description": "Enimmäismäärä merkkejä, jotka palautetaan (sovelletaan dekoodauksen/poiminnan jälkeen).",
-    "param.user_agent.description": "Valinnainen User-Agent-otsakearvo."
+    "param.user_agent.description": "Valinnainen User-Agent-otsakearvo.",
+    "param.timeout.description": "Pyynnön aikakatkaisu sekunteina.",
+    "param.verify_ssl.description": "Tarkistetaanko SSL-varmenteet."
   },
   "cs": {
     "param.url.description": "URL, ke kterému se má přistoupit.",
@@ -353,12 +393,14 @@
       "html json"
     ],
     "tool.system_prompt": "Použijte tento nástroj pro přístup k zadané URL přes HTTP GET.",
-    "param.extract.description": "Režim extrakce. head=vrátí začátek odpovědi; text=extrahuje text z HTML; html=extrahuje fragment HTML; json=analyzuje JSON (volitelně použije json_pointer).",
+    "param.extract.description": "Režim extrakce. head=vrátí začátek odpovědi; text=extrahuje text z HTML; html=extrahuje fragment HTML; json=analyzuje JSON (volitelně použije json_pointer); markdown=extrahuje zjednodušený markdown z HTML.",
     "param.selector.description": "Volitelný CSS selektor. Je-li zadán, pro extract=text/html se extrahuje první odpovídající prvek.",
     "param.json_pointer.description": "Volitelný RFC 6901 JSON Pointer (např. /items/0/title) používaný při extract=json.",
     "param.max_bytes.description": "Maximální počet bajtů, které se mají z odpovědi načíst.",
     "param.max_chars.description": "Maximální počet znaků k vrácení (uplatní se po dekódování/extrakci).",
-    "param.user_agent.description": "Volitelná hodnota hlavičky User-Agent."
+    "param.user_agent.description": "Volitelná hodnota hlavičky User-Agent.",
+    "param.timeout.description": "Časový limit v sekundách pro požadavek.",
+    "param.verify_ssl.description": "Zda ověřovat SSL certifikáty."
   },
   "uk": {
     "param.url.description": "URL, до якої потрібно звернутися.",
@@ -370,12 +412,14 @@
       "html json"
     ],
     "tool.system_prompt": "Використовуйте цей інструмент для доступу до вказаної URL через HTTP GET.",
-    "param.extract.description": "Режим витягування. head=повернути початок відповіді; text=витягнути текст з HTML; html=витягнути фрагмент HTML; json=розібрати JSON (за потреби застосувати json_pointer).",
+    "param.extract.description": "Режим витягування. head=повернути початок відповіді; text=витягнути текст з HTML; html=витягнути фрагмент HTML; json=розібрати JSON (за потреби застосувати json_pointer); markdown=витягнути спрощений markdown з HTML.",
     "param.selector.description": "Необовʼязковий CSS-селектор. Якщо його вказано, для extract=text/html витягується перший відповідний елемент.",
     "param.json_pointer.description": "Необовʼязковий RFC 6901 JSON Pointer (наприклад, /items/0/title), який використовується при extract=json.",
     "param.max_bytes.description": "Максимальна кількість байтів, що читаються з відповіді.",
     "param.max_chars.description": "Максимальна кількість символів для повернення (застосовується після декодування/витягування).",
-    "param.user_agent.description": "Необовʼязкове значення заголовка User-Agent."
+    "param.user_agent.description": "Необовʼязкове значення заголовка User-Agent.",
+    "param.timeout.description": "Таймаут запиту в секундах.",
+    "param.verify_ssl.description": "Чи перевіряти сертифікати SSL."
   },
   "tr": {
     "param.url.description": "Erişmek için URL.",
@@ -387,12 +431,14 @@
       "html json"
     ],
     "tool.system_prompt": "Bu araç, 'fetch_url' araç adıyla açıklanan işlemi gerçekleştirir.",
-    "param.extract.description": "Ekstraksiyon modu. head=yanıtın başlangıcını döndürür; metin=metni HTML'dan çıkar; html=extract HTML parçası; json=parse JSON (isteğe bağlı olarak json_pointer'ı uygulayın).",
+    "param.extract.description": "Ekstraksiyon modu. head=yanıtın başlangıcını döndürür; metin=metni HTML'dan çıkar; html=extract HTML parçası; json=parse JSON (isteğe bağlı olarak json_pointer'ı uygulayın); markdown=HTML'den basitleştirilmiş markdown çıkar.",
     "param.selector.description": "İsteğe bağlı CSS seçici. Sağlanırsa, eşleşen ilk öğe extract=text/html için çıkarılır.",
     "param.json_pointer.description": "İsteğe bağlı RFC 6901 JSON Extract=json olduğunda kullanılan işaretçi (ör. /items/0/title).",
     "param.max_bytes.description": "Yanıttan okunacak maksimum bayt sayısı.",
     "param.max_chars.description": "Döndürülecek maksimum karakter (kod çözme/çıkarma işleminden sonra uygulanır).",
-    "param.user_agent.description": "İsteğe bağlı Kullanıcı Aracısı başlık değeri."
+    "param.user_agent.description": "İsteğe bağlı Kullanıcı Aracısı başlık değeri.",
+    "param.timeout.description": "İstek için saniye cinsinden zaman aşımı.",
+    "param.verify_ssl.description": "SSL sertifikalarının doğrulanıp doğrulanmayacağı."
   },
   "th": {
     "param.url.description": "URL ที่จะเข้าถึง",
@@ -404,12 +450,14 @@
       "html json"
     ],
     "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'fetch_url'",
-    "param.extract.description": "โหมดการดึงข้อมูล: head=ส่งคืนส่วนต้นของการตอบกลับ; text=ดึงข้อความจาก HTML; html=ดึงส่วนย่อยของ HTML; json=แยกวิเคราะห์ JSON (อาจใช้ json_pointer ตามต้องการ)",
+    "param.extract.description": "โหมดการดึงข้อมูล: head=ส่งคืนส่วนต้นของการตอบกลับ; text=ดึงข้อความจาก HTML; html=ดึงส่วนย่อยของ HTML; json=แยกวิเคราะห์ JSON (อาจใช้ json_pointer ตามต้องการ); markdown=ดึงข้อมูล markdown อย่างง่ายจาก HTML",
     "param.selector.description": "CSS selector แบบไม่บังคับ หากระบุ จะดึงองค์ประกอบที่ตรงกันตัวแรกสำหรับ extract=text/html",
     "param.json_pointer.description": "JSON Pointer ของ RFC 6901 แบบไม่บังคับ (เช่น /items/0/title) ใช้เมื่อ extract=json",
     "param.max_bytes.description": "จำนวนไบต์สูงสุดที่จะอ่านจากการตอบกลับ",
     "param.max_chars.description": "จำนวนอักขระสูงสุดที่จะส่งคืน (ใช้หลังการถอดรหัส/ดึงข้อมูล)",
-    "param.user_agent.description": "ค่าเฮดเดอร์ User-Agent แบบไม่บังคับ"
+    "param.user_agent.description": "ค่าเฮดเดอร์ User-Agent แบบไม่บังคับ",
+    "param.timeout.description": "เวลาหมดเวลาเป็นวินาทีสำหรับคำขอ",
+    "param.verify_ssl.description": "กำหนดว่าจะตรวจสอบใบรับรอง SSL หรือไม่"
   },
   "zh_CN": {
     "param.url.description": "要访问的 URL。",
@@ -421,12 +469,14 @@
       "html json"
     ],
     "tool.system_prompt": "此工具执行工具名称“fetch_url”所描述的操作。",
-    "param.extract.description": "提取模式。head=返回响应开头；text=从 HTML 中提取文本；html=提取 HTML 片段；json=解析 JSON（可选应用 json_pointer）。",
+    "param.extract.description": "提取模式。head=返回响应开头；text=从 HTML 中提取文本；html=提取 HTML 片段；json=解析 JSON（可选应用 json_pointer）；markdown=从 HTML 中提取简化 Markdown。",
     "param.selector.description": "可选 CSS 选择器。提供后，在 extract=text/html 时提取第一个匹配元素。",
     "param.json_pointer.description": "可选 RFC 6901 JSON Pointer（例如 /items/0/title），在 extract=json 时使用。",
     "param.max_bytes.description": "从响应中读取的最大字节数。",
     "param.max_chars.description": "返回的最大字符数（在解码/提取后应用）。",
-    "param.user_agent.description": "可选的 User-Agent 请求头值。"
+    "param.user_agent.description": "可选的 User-Agent 请求头值。",
+    "param.timeout.description": "请求的超时时间（秒）。",
+    "param.verify_ssl.description": "是否验证 SSL 证书。"
   },
   "zh_TW": {
     "param.url.description": "要存取的 URL。",
@@ -438,12 +488,14 @@
       "html json"
     ],
     "tool.system_prompt": "此工具執行工具名稱「fetch_url」所描述的操作。",
-    "param.extract.description": "擷取模式。head=傳回回應開頭；text=從 HTML 擷取文字；html=擷取 HTML 片段；json=解析 JSON（可選套用 json_pointer）。",
+    "param.extract.description": "擷取模式。head=傳回回應開頭；text=從 HTML 擷取文字；html=擷取 HTML 片段；json=解析 JSON（可選套用 json_pointer）；markdown=從 HTML 擷取簡化 Markdown。",
     "param.selector.description": "選用 CSS 選擇器。若提供，extract=text/html 時會擷取第一個符合的元素。",
     "param.json_pointer.description": "選用 RFC 6901 JSON Pointer（例如 /items/0/title），於 extract=json 時使用。",
     "param.max_bytes.description": "從回應中讀取的最大位元組數。",
     "param.max_chars.description": "回傳的最大字元數（在解碼／擷取後套用）。",
-    "param.user_agent.description": "選用的 User-Agent 標頭值。"
+    "param.user_agent.description": "選用的 User-Agent 標頭值。",
+    "param.timeout.description": "請求的逾時時間（秒）。",
+    "param.verify_ssl.description": "是否驗證 SSL 憑證。"
   },
   "bn": {
     "param.url.description": "যে URL-এ অ্যাক্সেস করা হবে।",
@@ -455,12 +507,14 @@
       "html json"
     ],
     "tool.system_prompt": "এই টুলটি 'fetch_url' টুল নাম দ্বারা বর্ণিত কাজটি করে।",
-    "param.extract.description": "এক্সট্র্যাকশন মোড। head=প্রতিক্রিয়ার শুরু ফেরত দেয়; text=HTML থেকে টেক্সট বের করে; html=HTML fragment বের করে; json=JSON parse করে (প্রয়োজনে json_pointer প্রয়োগ করা যায়)।",
+    "param.extract.description": "এক্সট্র্যাকশন মোড। head=প্রতিক্রিয়ার শুরু ফেরত দেয়; text=HTML থেকে টেক্সট বের করে; html=HTML fragment বের করে; json=JSON parse করে (প্রয়োজনে json_pointer প্রয়োগ করা যায়); markdown=HTML থেকে সরলীকৃত markdown বের করে।",
     "param.selector.description": "ঐচ্ছিক CSS selector। দিলে extract=text/html-এর জন্য প্রথম মিলে যাওয়া element বের করা হয়।",
     "param.json_pointer.description": "ঐচ্ছিক RFC 6901 JSON Pointer (যেমন /items/0/title), extract=json হলে ব্যবহৃত হয়।",
     "param.max_bytes.description": "প্রতিক্রিয়া থেকে পড়া সর্বাধিক byte সংখ্যা।",
     "param.max_chars.description": "ফিরিয়ে দেওয়ার সর্বাধিক character সংখ্যা (ডিকোড/এক্সট্র্যাকশনের পরে প্রয়োগ করা হয়)।",
-    "param.user_agent.description": "ঐচ্ছিক User-Agent header মান।"
+    "param.user_agent.description": "ঐচ্ছিক User-Agent header মান।",
+    "param.timeout.description": "অনুরোধের জন্য সেকেন্ডে টাইমআউট।",
+    "param.verify_ssl.description": "SSL সার্টিফিকেট যাচাই করা হবে কিনা।"
   },
   "fa": {
     "param.url.description": "نشانی URL برای دسترسی.",
@@ -472,12 +526,14 @@
       "html json"
     ],
     "tool.system_prompt": "این ابزار عملیاتی را که با نام ابزار 'fetch_url' توصیف شده انجام می‌دهد.",
-    "param.extract.description": "حالت استخراج. head=ابتدای پاسخ را برمی‌گرداند؛ text=متن را از HTML استخراج می‌کند؛ html=بخشی از HTML را استخراج می‌کند؛ json=JSON را parse می‌کند (در صورت نیاز json_pointer اعمال می‌شود).",
+    "param.extract.description": "حالت استخراج. head=ابتدای پاسخ را برمی‌گرداند؛ text=متن را از HTML استخراج می‌کند؛ html=بخشی از HTML را استخراج می‌کند؛ json=JSON را parse می‌کند (در صورت نیاز json_pointer اعمال می‌شود)؛ markdown=استخراج لغة markdown ساده از HTML.",
     "param.selector.description": "CSS selector اختیاری. اگر ارائه شود، برای extract=text/html اولین عنصر منطبق استخراج می‌شود.",
     "param.json_pointer.description": "JSON Pointer اختیاری RFC 6901 (مثلاً /items/0/title) که هنگام extract=json استفاده می‌شود.",
     "param.max_bytes.description": "حداکثر تعداد byte برای خواندن از پاسخ.",
     "param.max_chars.description": "حداکثر تعداد کاراکتر برای بازگرداندن (پس از decoding/extraction اعمال می‌شود).",
-    "param.user_agent.description": "مقدار اختیاری هدر User-Agent."
+    "param.user_agent.description": "مقدار اختیاری هدر User-Agent.",
+    "param.timeout.description": "زمان اتمام درخواست به ثانیه.",
+    "param.verify_ssl.description": "آیا گواهی‌های SSL تأیید شوند یا خیر."
   },
   "mn": {
     "param.url.description": "Хандах URL.",
@@ -489,12 +545,14 @@
       "html json"
     ],
     "tool.system_prompt": "Энэ хэрэгсэл нь 'fetch_url' хэрэгслийн нэрээр тайлбарлагдсан үйлдлийг гүйцэтгэнэ.",
-    "param.extract.description": "Гарган авах горим. head=хариуны эхлэлийг буцаана; text=HTML-ээс текст гаргана; html=HTML хэсэг гаргана; json=JSON parse хийнэ (шаардлагатай бол json_pointer хэрэглэнэ).",
+    "param.extract.description": "Гарган авах горим. head=хариуны эхлэлийг буцаана; text=HTML-ээс текст гаргана; html=HTML хэсэг гаргана; json=JSON parse хийнэ (шаардлагатай бол json_pointer хэрэглэнэ); markdown=HTML-ээс хялбаршуулсан markdown гаргана.",
     "param.selector.description": "Сонголттой CSS selector. Өгвөл extract=text/html-д эхний таарсан element-ийг гаргана.",
     "param.json_pointer.description": "Сонголттой RFC 6901 JSON Pointer (жишээ нь /items/0/title). extract=json үед хэрэглэнэ.",
     "param.max_bytes.description": "Хариунаас унших хамгийн их byte.",
     "param.max_chars.description": "Буцаах хамгийн их character тоо (decode/extraction-ийн дараа хэрэглэнэ).",
-    "param.user_agent.description": "Сонголттой User-Agent header-ийн утга."
+    "param.user_agent.description": "Сонголттой User-Agent header-ийн утга.",
+    "param.timeout.description": "Хүсэлтийн хугацаа дуусах хугацаа (секундээр).",
+    "param.verify_ssl.description": "SSL сертификатыг баталгаажуулах эсэх."
   },
   "mr": {
     "param.url.description": "ज्याला access करायचे तो URL.",
@@ -506,11 +564,13 @@
       "html json"
     ],
     "tool.system_prompt": "हे टूल 'fetch_url' नावाने वर्णन केलेली क्रिया करते.",
-    "param.extract.description": "Extraction mode. head=प्रतिक्रियेची सुरुवात परत करते; text=HTML मधून मजकूर काढते; html=HTML fragment काढते; json=JSON parse करते (गरजेनुसार json_pointer लागू करता येतो).",
+    "param.extract.description": "एक्स्ट्रॅक्शन मोड. head=प्रतिसादाची सुरुवात परत करा; text=HTML मधून मजकूर काढा; html=HTML तुकडा काढा; json=JSON पार्स करा (पर्यायी json_pointer लागू करा); markdown=HTML मधून सरलीकृत markdown काढा.",
     "param.selector.description": "ऐच्छिक CSS selector. दिल्यास extract=text/html साठी पहिला जुळणारा element काढला जातो.",
     "param.json_pointer.description": "ऐच्छिक RFC 6901 JSON Pointer (उदा. /items/0/title); extract=json वेळी वापरला जातो.",
     "param.max_bytes.description": "प्रतिक्रियेतील वाचण्यायोग्य कमाल byte संख्या.",
     "param.max_chars.description": "परत देण्यायोग्य कमाल character संख्या (decode/extraction नंतर लागू).",
-    "param.user_agent.description": "ऐच्छिक User-Agent header मूल्य."
+    "param.user_agent.description": "ऐच्छिक User-Agent header मूल्य.",
+    "param.timeout.description": "विनंतीसाठी सेकंदात टाइमआउट.",
+    "param.verify_ssl.description": "SSL प्रमाणपत्रे सत्यापित करायची की नाही."
   }
 }
