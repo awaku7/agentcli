@@ -13,7 +13,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:ble_ops"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 1,  # Conditional loading (disabled by default)
+    "tool_level": 0,  # Conditional loading (disabled by default)
     "tool_genre": "iot",
     "type": "function",
     "function": {
@@ -39,6 +39,15 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.timeout.description",
                         default="Timeout in seconds for scanning or connecting"
+                    )
+                },
+                "scan_mode": {
+                    "type": "string",
+                    "enum": ["ble", "all"],
+                    "default": "ble",
+                    "description": _(
+                        "param.scan_mode.description",
+                        default="Scan mode. 'ble': scan only BLE devices (using bleak), 'all': scan both Classic Bluetooth and BLE devices (requires PySide6)"
                     )
                 },
                 "address": {
@@ -71,15 +80,60 @@ TOOL_SPEC: dict[str, Any] = {
 
 async def _scan(timeout: int) -> list[dict[str, Any]]:
     from bleak import BleakScanner
-    devices = await BleakScanner.discover(timeout=timeout)
+    devices = await BleakScanner.discover(timeout=timeout, return_adv=True)
     result = []
-    for d in devices:
+    for d, a in devices.values():
         result.append({
             "name": d.name or "Unknown",
             "address": d.address,
-            "rssi": d.rssi
+            "rssi": a.rssi
         })
     return result
+
+
+def _scan_all_pyside6(timeout: int) -> list[dict[str, Any]]:
+    import sys
+    from PySide6.QtCore import QCoreApplication, QTimer
+    from PySide6.QtBluetooth import QBluetoothDeviceDiscoveryAgent, QBluetoothDeviceInfo
+
+    app = QCoreApplication.instance() or QCoreApplication(sys.argv)
+    agent = QBluetoothDeviceDiscoveryAgent()
+    devices_list = []
+
+    def device_discovered(info: QBluetoothDeviceInfo):
+        name = info.name()
+        address = info.address().toString()
+        rssi = info.rssi()
+        
+        dev_type = "Unknown"
+        t = info.coreConfigurations()
+        is_classic = bool(t & QBluetoothDeviceInfo.CoreConfiguration.BaseRateCoreConfiguration)
+        is_ble = bool(t & QBluetoothDeviceInfo.CoreConfiguration.LowEnergyCoreConfiguration)
+        
+        if is_classic and is_ble:
+            dev_type = "Dual"
+        elif is_classic:
+            dev_type = "Classic"
+        elif is_ble:
+            dev_type = "BLE"
+            
+        devices_list.append({
+            "name": name or "Unknown",
+            "address": address,
+            "type": dev_type,
+            "rssi": rssi
+        })
+
+    agent.deviceDiscovered.connect(device_discovered)
+    agent.finished.connect(app.quit)
+    agent.errorOccurred.connect(lambda err: app.quit())
+
+    methods = QBluetoothDeviceDiscoveryAgent.DiscoveryMethod.ClassicMethod | QBluetoothDeviceDiscoveryAgent.DiscoveryMethod.LowEnergyMethod
+    agent.start(methods)
+    
+    QTimer.singleShot(timeout * 1000, app.quit)
+    app.exec()
+    return devices_list
 
 
 async def _read(address: str, char_uuid: str, timeout: int) -> dict[str, Any]:
@@ -101,20 +155,30 @@ async def _write(address: str, char_uuid: str, data_hex: str, timeout: int) -> s
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    # 1. Check dependency
-    try:
-        import bleak
-    except ImportError:
-        return _(
-            "err.bleak_missing",
-            default="Error: 'bleak' library is not installed. Please install it using:\npip install bleak"
-        )
-
     action = args.get("action")
     timeout = args.get("timeout", 5)
+    scan_mode = args.get("scan_mode", "ble")
     address = args.get("address")
     char_uuid = args.get("char_uuid")
     data_hex = args.get("data_hex")
+
+    # 1. Check dependency
+    if action == "scan" and scan_mode == "all":
+        try:
+            import PySide6
+        except ImportError:
+            return _(
+                "err.pyside6_missing",
+                default="Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
+            )
+    else:
+        try:
+            import bleak
+        except ImportError:
+            return _(
+                "err.bleak_missing",
+                default="Error: 'bleak' library is not installed. Please install it using:\npip install bleak"
+            )
 
     # 2. Set event loop policy for Windows
     if sys.platform == 'win32':
@@ -125,7 +189,10 @@ def run_tool(args: dict[str, Any]) -> str:
 
     try:
         if action == "scan":
-            res = asyncio.run(_scan(timeout))
+            if scan_mode == "all":
+                res = _scan_all_pyside6(timeout)
+            else:
+                res = asyncio.run(_scan(timeout))
             return str(res)
 
         elif action == "read":
