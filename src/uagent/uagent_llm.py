@@ -239,7 +239,6 @@ def run_llm_rounds(
                     max_retries_429=max_retries_429,
                     retry_base=retry_base,
                     retry_cap=retry_cap,
-                    messages=messages,
                 )
                 if not ok:
                     return
