@@ -171,6 +171,9 @@ def _effectively_empty_text(s: Any) -> bool:
         except Exception:
             return True
     t = s.strip()
+    # Remove thinking tags if present, to check if the actual content is empty
+    import re
+    t = re.sub(r"<thinking>.*?</thinking>", "", t, flags=re.DOTALL).strip()
     for cp in (
         0x200B,
         0x200C,

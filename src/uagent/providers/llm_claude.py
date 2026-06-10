@@ -77,6 +77,29 @@ def _parse_claude_model(
     return fam, major, minor
 
 
+# Models that rejected thinking.type=enabled in this session (per-process memo).
+# These require thinking.type=adaptive + output_config.effort.
+_ADAPTIVE_THINKING_MODELS: set[str] = set()
+
+
+def _claude_requires_adaptive_thinking(model_name: str) -> bool:
+    """Return True if the model requires thinking.type=adaptive.
+
+    Per API errors, newer models (Fable 5+ / Claude 5+) reject
+    thinking.type=enabled and require adaptive + output_config.effort.
+    Also returns True if the model was memoized after a runtime rejection.
+    """
+
+    if model_name in _ADAPTIVE_THINKING_MODELS:
+        return True
+    fam, major, _minor = _parse_claude_model(model_name)
+    if fam == "fable":
+        return True
+    if major is not None and major >= 5:
+        return True
+    return False
+
+
 def _claude_supports_max_effort(model_name: str) -> bool:
     """Per docs, max effort is supported only on Claude Opus 4.6.
 
@@ -355,7 +378,14 @@ def claude_chat_with_tools(
 
     # Resolve thinking parameter for modern Claude models (Claude 3.7+, Claude 4+, Fable 5+)
     thinking_param = None
-    if is_modern_claude and out_cfg is not None:
+    use_adaptive_thinking = False
+    if is_modern_claude and out_cfg is not None and _claude_requires_adaptive_thinking(model_name):
+        # Newer models (Fable 5+ / Claude 5+) reject thinking.type=enabled.
+        # Send thinking.type=adaptive and keep output_config.effort.
+        use_adaptive_thinking = True
+        thinking_param = {"type": "adaptive"}
+        claude_temp = None
+    elif is_modern_claude and out_cfg is not None:
         eff = out_cfg.get("effort", "medium")
         # Map effort to budget_tokens
         budget = 4096
@@ -396,7 +426,20 @@ def claude_chat_with_tools(
     if anthropic_tools:
         req_kwargs["tools"] = anthropic_tools
     
-    if thinking_param is not None:
+    if use_adaptive_thinking and thinking_param is not None:
+        req_kwargs["thinking"] = thinking_param
+        if out_cfg is not None:
+            req_kwargs["output_config"] = out_cfg
+        try:
+            eff = out_cfg.get("effort") if isinstance(out_cfg, dict) else None
+            msg = f"[Claude] using thinking.type=adaptive, output_config.effort: {eff}"
+            if callable(on_output_config_info):
+                on_output_config_info(msg)
+            else:
+                print(msg)
+        except Exception:
+            pass
+    elif thinking_param is not None:
         req_kwargs["thinking"] = thinking_param
         try:
             msg = f"[Claude] using thinking.budget_tokens: {thinking_param.get('budget_tokens')}"
@@ -456,6 +499,42 @@ def claude_chat_with_tools(
                 else:
                     raise e from retry_exc
 
+        # Case 1.5: thinking.type "enabled" is not supported (newer models
+        # require thinking.type "adaptive" + output_config.effort).
+        elif "thinking" in req_kwargs and (
+            "thinking.type.enabled" in ml
+            or ("thinking.type" in ml and "adaptive" in ml)
+        ):
+            try:
+                # Memoize: this model needs adaptive from the first request next time.
+                _ADAPTIVE_THINKING_MODELS.add(model_name)
+                fb_msg = (
+                    "[Claude] thinking.type=enabled rejected; "
+                    "retrying with thinking.type=adaptive + output_config.effort"
+                )
+                try:
+                    if callable(on_output_config_fallback):
+                        on_output_config_fallback(fb_msg)
+                    else:
+                        print(fb_msg)
+                except Exception:
+                    pass
+                req_kwargs["thinking"] = {"type": "adaptive"}
+                if out_cfg is not None:
+                    req_kwargs["output_config"] = out_cfg
+                try:
+                    response = client.messages.create(**req_kwargs)
+                except Exception as retry_exc:
+                    retry_ml = str(retry_exc).lower()
+                    # If output_config is also rejected, drop it and retry once more.
+                    if "output_config" in retry_ml or "output config" in retry_ml:
+                        req_kwargs.pop("output_config", None)
+                        response = client.messages.create(**req_kwargs)
+                    else:
+                        raise e from retry_exc
+            except Exception as retry_exc:
+                raise e from retry_exc
+
         # Case 2: output_config is rejected
         elif out_cfg is not None and ("output_config" in ml or "output config" in ml):
             try:
@@ -497,9 +576,20 @@ def claude_chat_with_tools(
         if block.type == "text":
             assistant_text += block.text
         elif block.type == "thinking":
-            thinking_text += block.thinking
-            # 思考プロセスをコンソールに表示する
-            print(f"\n[Claude Thinking]\n{block.thinking}\n")
+            _t = getattr(block, "thinking", None) or ""
+            thinking_text += _t
+            # 思考プロセスをコンソールに表示する（空ブロックは見出しを出さない）
+            if _t.strip():
+                print(f"\n[Claude Thinking]\n{_t}\n")
+            elif (env_get("UAGENT_DEBUG") or "").strip():
+                try:
+                    print(f"\n[Claude Thinking] (empty thinking block) raw={block!r}\n")
+                except Exception:
+                    pass
+        elif block.type == "redacted_thinking":
+            # 暗号化された思考ブロック（内容は表示不可）
+            if (env_get("UAGENT_DEBUG") or "").strip():
+                print("\n[Claude Thinking] (redacted_thinking block)\n")
         elif block.type == "tool_use":
             tool_calls_list.append(
                 {

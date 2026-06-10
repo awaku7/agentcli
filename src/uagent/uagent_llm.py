@@ -149,6 +149,10 @@ def run_llm_rounds(
                 tr_cfg=tr_cfg,
                 core=core,
             )
+            # Responses API is only supported on OpenAI, Azure, and OpenRouter providers.
+            # Force use_responses_api to False for other providers (like Claude) to prevent skipping final output.
+            if provider not in ("openai", "azure", "openrouter"):
+                use_responses_api = False
 
             send_tools_this_round = True
             max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
@@ -257,6 +261,22 @@ def run_llm_rounds(
                     tool_calls_list=tool_calls_list,
                 )
 
+                action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
+                    assistant_text=assistant_text,
+                    tool_calls_list=tool_calls_list,
+                    empty_no_tool_rounds=empty_no_tool_rounds,
+                    empty_no_tool_max=empty_no_tool_max,
+                    provider=provider,
+                    depname=depname,
+                    messages=messages,
+                    core=core,
+                )
+
+                if action == "continue":
+                    continue
+                if action == "break":
+                    break
+
                 if not tool_calls_list:
                     _emit_final_answer_if_any(
                         assistant_text=assistant_text,
@@ -266,6 +286,8 @@ def run_llm_rounds(
                         try_open_images_from_text_fn=try_open_images_from_text_fn,
                     )
                     break
+
+                empty_no_tool_rounds = 0
 
             else:  # OpenAI / Azure
                 ok, client, assistant_text, tool_calls_list = _call_openai_azure_round(
