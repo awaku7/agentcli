@@ -121,7 +121,9 @@ def _request_json(path: str) -> dict[str, Any]:
             raw = response.read().decode("utf-8", errors="replace")
             data = json.loads(raw or "{}")
     except HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace") if hasattr(exc, "read") else ""
+        body = (
+            exc.read().decode("utf-8", errors="replace") if hasattr(exc, "read") else ""
+        )
         try:
             detail = json.loads(body) if body else {}
         except Exception:
@@ -365,19 +367,31 @@ def run_tool(args: dict[str, Any]) -> str:
     devices_response = _fetch_devices()
     if not devices_response.get("ok"):
         payload = devices_response
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     items = devices_response.get("items", [])
     selected, error = _find_device(items, device_id, device_name)
     if error:
         payload = {"ok": False, "error": error}
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
     assert selected is not None
 
     status_response = _fetch_device_status(str(selected.get("device_id") or ""))
     if not status_response.get("ok"):
         payload = status_response
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     data = status_response["data"]
     body = _extract_body(data)

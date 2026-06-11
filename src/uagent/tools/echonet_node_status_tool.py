@@ -295,7 +295,9 @@ def _object_code_to_eoj(object_code: str | None) -> str | None:
     return f"{normalized}01"
 
 
-def _resolve_target_eoj(eoj: str | None, object_code: str | None) -> tuple[str, bytes, str | None]:
+def _resolve_target_eoj(
+    eoj: str | None, object_code: str | None
+) -> tuple[str, bytes, str | None]:
     if eoj:
         normalized = _normalize_eoj(eoj)
         if normalized is None:
@@ -369,7 +371,9 @@ def _query_node(
         sock.close()
 
 
-def _build_object_payload(target_eoj: str, frames: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+def _build_object_payload(
+    target_eoj: str, frames: list[dict[str, Any]]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     objects: list[dict[str, Any]] = []
     properties_all: list[dict[str, Any]] = []
 
@@ -415,10 +419,14 @@ def _build_status_payload(
         if merged_properties:
             node_profile_props = _property_map(merged_properties)
             if node_profile_props.get("8A"):
-                manufacturer = node_profile_props["8A"].get("raw_hex") or node_profile_props["8A"].get("value")
+                manufacturer = node_profile_props["8A"].get(
+                    "raw_hex"
+                ) or node_profile_props["8A"].get("value")
             for candidate in ("83", "8B", "8C"):
                 if node_profile_props.get(candidate):
-                    model = node_profile_props[candidate].get("raw_hex") or node_profile_props[candidate].get("value")
+                    model = node_profile_props[candidate].get(
+                        "raw_hex"
+                    ) or node_profile_props[candidate].get("value")
                     break
 
     node = {
@@ -475,7 +483,9 @@ def _format_text(payload: dict[str, Any]) -> str:
     objects = payload.get("objects") or []
     lines.append(f"Objects: {len(objects)}")
     for obj in objects[:10]:
-        lines.append(f"- {obj.get('eoj') or '(unknown)'} {obj.get('class_name') or ''}".rstrip())
+        lines.append(
+            f"- {obj.get('eoj') or '(unknown)'} {obj.get('class_name') or ''}".rstrip()
+        )
         props = obj.get("properties") or []
         for prop in props[:10]:
             lines.append(
@@ -501,7 +511,9 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("output_format") or "json").strip().lower()
 
     try:
-        timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
+        timeout = _normalize_int(
+            args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1
+        )
     except Exception:
         timeout = _DEFAULT_TIMEOUT
 
@@ -516,7 +528,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
         target_eoj_text, target_eoj_bytes, class_name = _resolve_target_eoj(
@@ -531,7 +547,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 "message": str(exc),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     started = time.monotonic()
     cache_key = {
@@ -553,7 +573,7 @@ def run_tool(args: dict[str, Any]) -> str:
             return _format_text(result)
         return json.dumps(result, ensure_ascii=False)
     try:
-        frames, _ = _query_node(
+        frames, query_meta = _query_node(
             ip_address=ip_address,
             target_eoj=target_eoj_bytes,
             target_eoj_text=target_eoj_text,

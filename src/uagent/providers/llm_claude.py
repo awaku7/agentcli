@@ -128,6 +128,7 @@ def _claude_supports_effort(model_name: str) -> bool:
     """
     try:
         import llmcapa
+
         cap = llmcapa.get(model_name)
         if cap is not None and cap.supports_reasoning_effort:
             return True

@@ -28,6 +28,11 @@ def _set_iot_tools_enabled(enabled: bool) -> str:
         "switchbot_ble_control_tool",
         "echonet_cache_tool",
         "echonet_monitor_tool",
+        "matter_controller_list_tool",
+        "matter_bridge_list_tool",
+        "matter_device_status_tool",
+        "matter_endpoint_list_tool",
+        "matter_cluster_list_tool",
     ]
     changed_names = []
 
@@ -101,9 +106,7 @@ def _set_iot_tools_enabled(enabled: bool) -> str:
         )
 
         return msg
-    msg = _(
-        "msg.iot.none_disabled", default="[tools] No IoT tools were disabled."
-    )
+    msg = _("msg.iot.none_disabled", default="[tools] No IoT tools were disabled.")
 
     return msg
 

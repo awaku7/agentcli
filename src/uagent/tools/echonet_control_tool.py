@@ -75,7 +75,15 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "action": {
                     "type": "string",
-                    "enum": ["on", "off", "open", "close", "set_value", "lock", "unlock"],
+                    "enum": [
+                        "on",
+                        "off",
+                        "open",
+                        "close",
+                        "set_value",
+                        "lock",
+                        "unlock",
+                    ],
                     "description": _(
                         "param.action.description",
                         default=(
@@ -305,7 +313,9 @@ def _class_name_from_eoj(eoj: str | None) -> str | None:
     return f"EOJ_{normalized}"
 
 
-def _resolve_target_eoj(eoj: str | None, object_code: str | None) -> tuple[str, bytes, str | None]:
+def _resolve_target_eoj(
+    eoj: str | None, object_code: str | None
+) -> tuple[str, bytes, str | None]:
     if eoj:
         normalized = _normalize_eoj(eoj)
         if normalized is None:
@@ -361,7 +371,9 @@ def _target_device_kind(target_eoj: str | None) -> str | None:
     return _TARGET_KIND_BY_CLASS_CODE.get(normalized[:4])
 
 
-def _build_target_info(target_eoj: str | None, object_code: str | None) -> dict[str, Any]:
+def _build_target_info(
+    target_eoj: str | None, object_code: str | None
+) -> dict[str, Any]:
     normalized_eoj = _normalize_eoj(target_eoj)
     kind = _target_device_kind(normalized_eoj)
     class_code = normalized_eoj[:4] if normalized_eoj else None
@@ -395,7 +407,9 @@ def _validate_control_target(
 
     allowed_actions = _ALLOWED_ACTIONS_BY_KIND.get(kind)
     if not allowed_actions:
-        code_label = _TARGET_KIND_LABELS.get(kind, target_code[:4] if target_code else "unknown")
+        code_label = _TARGET_KIND_LABELS.get(
+            kind, target_code[:4] if target_code else "unknown"
+        )
         return None, {
             "code": "unsupported_device",
             "message": _(
@@ -421,7 +435,9 @@ def _validate_control_target(
     return kind, None
 
 
-def _build_control_payload(action: str, value: int | None) -> tuple[int, bytes, int | None, dict[str, Any] | None]:
+def _build_control_payload(
+    action: str, value: int | None
+) -> tuple[int, bytes, int | None, dict[str, Any] | None]:
     normalized = action.casefold().strip()
     if normalized == "on":
         return 0x80, bytes([0x30]), 1, None
@@ -429,71 +445,106 @@ def _build_control_payload(action: str, value: int | None) -> tuple[int, bytes, 
         return 0x80, bytes([0x31]), 0, None
     if normalized == "open":
         if value is not None and (value < 0 or value > 100):
-            return 0, b"", None, {
-                "code": "invalid_argument",
-                "message": _(
-                    "err.invalid_value_range",
-                    default="The value field must be between 0 and 100.",
-                ),
-            }
+            return (
+                0,
+                b"",
+                None,
+                {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.invalid_value_range",
+                        default="The value field must be between 0 and 100.",
+                    ),
+                },
+            )
         return 0xE0, bytes([0x41]), 100, None
     if normalized == "close":
         if value is not None and (value < 0 or value > 100):
-            return 0, b"", None, {
-                "code": "invalid_argument",
-                "message": _(
-                    "err.invalid_value_range",
-                    default="The value field must be between 0 and 100.",
-                ),
-            }
+            return (
+                0,
+                b"",
+                None,
+                {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.invalid_value_range",
+                        default="The value field must be between 0 and 100.",
+                    ),
+                },
+            )
         return 0xE0, bytes([0x42]), 0, None
     if normalized == "set_value":
         if value is None:
-            return 0, b"", None, {
-                "code": "invalid_argument",
-                "message": _(
-                    "err.value_required",
-                    default="The value field is required for set_value.",
-                ),
-            }
+            return (
+                0,
+                b"",
+                None,
+                {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.value_required",
+                        default="The value field is required for set_value.",
+                    ),
+                },
+            )
         if value < 0 or value > 100:
-            return 0, b"", None, {
-                "code": "invalid_argument",
-                "message": _(
-                    "err.invalid_value_range",
-                    default="The value field must be between 0 and 100.",
-                ),
-            }
+            return (
+                0,
+                b"",
+                None,
+                {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.invalid_value_range",
+                        default="The value field must be between 0 and 100.",
+                    ),
+                },
+            )
         level = max(1, min(8, ((int(value) * 7) + 50) // 100 + 1))
         return 0xE1, bytes([0x30 + level]), int(value), None
     if normalized == "lock":
         if value is not None and (value < 0 or value > 100):
-            return 0, b"", None, {
-                "code": "invalid_argument",
-                "message": _(
-                    "err.invalid_value_range",
-                    default="The value field must be between 0 and 100.",
-                ),
-            }
+            return (
+                0,
+                b"",
+                None,
+                {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.invalid_value_range",
+                        default="The value field must be between 0 and 100.",
+                    ),
+                },
+            )
         return 0xE0, bytes([0x41]), 1, None
     if normalized == "unlock":
         if value is not None and (value < 0 or value > 100):
-            return 0, b"", None, {
-                "code": "invalid_argument",
-                "message": _(
-                    "err.invalid_value_range",
-                    default="The value field must be between 0 and 100.",
-                ),
-            }
+            return (
+                0,
+                b"",
+                None,
+                {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.invalid_value_range",
+                        default="The value field must be between 0 and 100.",
+                    ),
+                },
+            )
         return 0xE0, bytes([0x42]), 0, None
-    return 0, b"", None, {
-        "code": "invalid_argument",
-        "message": _(
-            "err.unknown_action",
-            default="Error: Unknown action '{action}'.",
-            action=action,
-        ),
-    }
+    return (
+        0,
+        b"",
+        None,
+        {
+            "code": "invalid_argument",
+            "message": _(
+                "err.unknown_action",
+                default="Error: Unknown action '{action}'.",
+                action=action,
+            ),
+        },
+    )
 
 
 def _query_node(
@@ -570,7 +621,9 @@ def _build_result(
                 continue
             properties.append(dict(prop))
 
-    node_profile_props = _property_map(properties) if target_eoj.upper() == "0EF001" else {}
+    node_profile_props = (
+        _property_map(properties) if target_eoj.upper() == "0EF001" else {}
+    )
     node = {
         "ip_address": ip_address,
         "node_id": ip_address,
@@ -578,8 +631,16 @@ def _build_result(
             "eoj": target_eoj,
             "properties": properties if target_eoj.upper() == "0EF001" else [],
         },
-        "manufacturer": node_profile_props.get("8A", {}).get("raw_hex") if node_profile_props else None,
-        "model": node_profile_props.get("8B", {}).get("raw_hex") if node_profile_props else None,
+        "manufacturer": (
+            node_profile_props.get("8A", {}).get("raw_hex")
+            if node_profile_props
+            else None
+        ),
+        "model": (
+            node_profile_props.get("8B", {}).get("raw_hex")
+            if node_profile_props
+            else None
+        ),
         "available": bool(frames),
         "reachable": bool(frames),
         "last_updated": _now_iso(),
@@ -642,7 +703,9 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("output_format") or "json").strip().lower()
 
     try:
-        timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
+        timeout = _normalize_int(
+            args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1
+        )
     except Exception:
         timeout = _DEFAULT_TIMEOUT
 
@@ -657,14 +720,20 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
         target_eoj_text, target_eoj_bytes, class_name = _resolve_target_eoj(
             str(eoj) if eoj is not None else None,
             str(object_code) if object_code is not None else None,
         )
-        target_info = _build_target_info(target_eoj_text, object_code if object_code is not None else None)
+        target_info = _build_target_info(
+            target_eoj_text, object_code if object_code is not None else None
+        )
     except ValueError as exc:
         payload = {
             "ok": False,
@@ -673,13 +742,23 @@ def run_tool(args: dict[str, Any]) -> str:
                 "message": str(exc),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
-        epc, edt, normalized_value, build_err = _build_control_payload(action, args.get("value"))
+        epc, edt, normalized_value, build_err = _build_control_payload(
+            action, args.get("value")
+        )
         if build_err is not None:
             payload = {"ok": False, "error": build_err}
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
         epc_text = f"{epc:02X}"
     except Exception as exc:
         payload = {
@@ -689,7 +768,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 "message": str(exc),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     started = time.monotonic()
     try:

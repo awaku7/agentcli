@@ -53,7 +53,9 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": _DEFAULT_WAIT_TIMEOUT,
                     "description": _(
                         "param.wait_timeout.description",
-                        default=("Client-side wait time in seconds for SSDP responses."),
+                        default=(
+                            "Client-side wait time in seconds for SSDP responses."
+                        ),
                     ),
                 },
                 "interface": {
@@ -271,9 +273,15 @@ def _extract_device_items(
     for svc in service_elements:
         service_type = (svc.findtext("./{*}serviceType") or "").strip() or None
         service_id = (svc.findtext("./{*}serviceId") or "").strip() or None
-        control_url = _safe_join(base_url, (svc.findtext("./{*}controlURL") or "").strip() or None)
-        event_sub_url = _safe_join(base_url, (svc.findtext("./{*}eventSubURL") or "").strip() or None)
-        scpd_url = _safe_join(base_url, (svc.findtext("./{*}SCPDURL") or "").strip() or None)
+        control_url = _safe_join(
+            base_url, (svc.findtext("./{*}controlURL") or "").strip() or None
+        )
+        event_sub_url = _safe_join(
+            base_url, (svc.findtext("./{*}eventSubURL") or "").strip() or None
+        )
+        scpd_url = _safe_join(
+            base_url, (svc.findtext("./{*}SCPDURL") or "").strip() or None
+        )
         if any([service_type, service_id, control_url, event_sub_url, scpd_url]):
             services.append(
                 {
@@ -356,7 +364,9 @@ def _format_text(payload: dict[str, Any]) -> str:
         services = item.get("services") or []
         lines.append(f"  services: {len(services)}")
         for service in services:
-            label = service.get("service_type") or service.get("service_id") or "(service)"
+            label = (
+                service.get("service_type") or service.get("service_id") or "(service)"
+            )
             lines.append(f"    - {label}")
         description_error = item.get("description_error")
         if description_error:
@@ -373,7 +383,10 @@ def run_tool(args: dict[str, Any]) -> str:
     )
     retry = _normalize_int(args.get("retry", _DEFAULT_RETRY), _DEFAULT_RETRY)
     limit = _normalize_int(args.get("limit", _DEFAULT_LIMIT), _DEFAULT_LIMIT)
-    search_target = str(args.get("search_target") or _DEFAULT_SEARCH_TARGET).strip() or _DEFAULT_SEARCH_TARGET
+    search_target = (
+        str(args.get("search_target") or _DEFAULT_SEARCH_TARGET).strip()
+        or _DEFAULT_SEARCH_TARGET
+    )
     output_format = str(args.get("output_format") or "json").strip().lower()
     interface_arg = args.get("interface")
     interface = str(interface_arg).strip() if interface_arg is not None else ""
@@ -410,7 +423,9 @@ def run_tool(args: dict[str, Any]) -> str:
             except Exception:
                 sock.bind(("0.0.0.0", 0))
             try:
-                sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_IF, socket.inet_aton(bind_ip))
+                sock.setsockopt(
+                    socket.IPPROTO_IP, socket.IP_MULTICAST_IF, socket.inet_aton(bind_ip)
+                )
             except Exception:
                 pass
         else:

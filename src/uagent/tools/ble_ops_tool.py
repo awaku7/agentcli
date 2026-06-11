@@ -2,6 +2,7 @@ from __future__ import annotations
 
 # tools/ble_ops_tool.py
 import asyncio
+import importlib.util
 import sys
 from typing import Any
 
@@ -20,7 +21,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "ble_ops",
         "description": _(
             "tool.description",
-            default="Perform Bluetooth Low Energy (BLE) operations: scan for devices, read, or write GATT characteristics. Use MAC addresses on Windows/Linux, and UUIDs on macOS."
+            default="Perform Bluetooth Low Energy (BLE) operations: scan for devices, read, or write GATT characteristics. Use MAC addresses on Windows/Linux, and UUIDs on macOS.",
         ),
         "parameters": {
             "type": "object",
@@ -30,16 +31,16 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["scan", "read", "write"],
                     "description": _(
                         "param.action.description",
-                        default="The operation to perform. scan: discover nearby devices, read: read characteristic, write: write characteristic"
-                    )
+                        default="The operation to perform. scan: discover nearby devices, read: read characteristic, write: write characteristic",
+                    ),
                 },
                 "timeout": {
                     "type": "integer",
                     "default": 5,
                     "description": _(
                         "param.timeout.description",
-                        default="Timeout in seconds for scanning or connecting"
-                    )
+                        default="Timeout in seconds for scanning or connecting",
+                    ),
                 },
                 "scan_mode": {
                     "type": "string",
@@ -47,47 +48,46 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "ble",
                     "description": _(
                         "param.scan_mode.description",
-                        default="Scan mode. 'ble': scan only BLE devices (using bleak), 'all': scan both Classic Bluetooth and BLE devices (requires PySide6)"
-                    )
+                        default="Scan mode. 'ble': scan only BLE devices (using bleak), 'all': scan both Classic Bluetooth and BLE devices (requires PySide6)",
+                    ),
                 },
                 "address": {
                     "type": "string",
                     "description": _(
                         "param.address.description",
-                        default="Target device MAC address (Windows/Linux) or UUID (macOS)"
-                    )
+                        default="Target device MAC address (Windows/Linux) or UUID (macOS)",
+                    ),
                 },
                 "char_uuid": {
                     "type": "string",
                     "description": _(
                         "param.char_uuid.description",
-                        default="GATT characteristic UUID to read or write"
-                    )
+                        default="GATT characteristic UUID to read or write",
+                    ),
                 },
                 "data_hex": {
                     "type": "string",
                     "description": _(
                         "param.data_hex.description",
-                        default="Hexadecimal string of data to write (e.g., '010203'). Required only when action='write'"
-                    )
-                }
+                        default="Hexadecimal string of data to write (e.g., '010203'). Required only when action='write'",
+                    ),
+                },
             },
-            "required": ["action"]
-        }
-    }
+            "required": ["action"],
+        },
+    },
 }
 
 
 async def _scan(timeout: int) -> list[dict[str, Any]]:
     from bleak import BleakScanner
+
     devices = await BleakScanner.discover(timeout=timeout, return_adv=True)
     result = []
     for d, a in devices.values():
-        result.append({
-            "name": d.name or "Unknown",
-            "address": d.address,
-            "rssi": a.rssi
-        })
+        result.append(
+            {"name": d.name or "Unknown", "address": d.address, "rssi": a.rssi}
+        )
     return result
 
 
@@ -104,33 +104,42 @@ def _scan_all_pyside6(timeout: int) -> list[dict[str, Any]]:
         name = info.name()
         address = info.address().toString()
         rssi = info.rssi()
-        
+
         dev_type = "Unknown"
         t = info.coreConfigurations()
-        is_classic = bool(t & QBluetoothDeviceInfo.CoreConfiguration.BaseRateCoreConfiguration)
-        is_ble = bool(t & QBluetoothDeviceInfo.CoreConfiguration.LowEnergyCoreConfiguration)
-        
+        is_classic = bool(
+            t & QBluetoothDeviceInfo.CoreConfiguration.BaseRateCoreConfiguration
+        )
+        is_ble = bool(
+            t & QBluetoothDeviceInfo.CoreConfiguration.LowEnergyCoreConfiguration
+        )
+
         if is_classic and is_ble:
             dev_type = "Dual"
         elif is_classic:
             dev_type = "Classic"
         elif is_ble:
             dev_type = "BLE"
-            
-        devices_list.append({
-            "name": name or "Unknown",
-            "address": address,
-            "type": dev_type,
-            "rssi": rssi
-        })
+
+        devices_list.append(
+            {
+                "name": name or "Unknown",
+                "address": address,
+                "type": dev_type,
+                "rssi": rssi,
+            }
+        )
 
     agent.deviceDiscovered.connect(device_discovered)
     agent.finished.connect(app.quit)
     agent.errorOccurred.connect(lambda err: app.quit())
 
-    methods = QBluetoothDeviceDiscoveryAgent.DiscoveryMethod.ClassicMethod | QBluetoothDeviceDiscoveryAgent.DiscoveryMethod.LowEnergyMethod
+    methods = (
+        QBluetoothDeviceDiscoveryAgent.DiscoveryMethod.ClassicMethod
+        | QBluetoothDeviceDiscoveryAgent.DiscoveryMethod.LowEnergyMethod
+    )
     agent.start(methods)
-    
+
     QTimer.singleShot(timeout * 1000, app.quit)
     app.exec()
     return devices_list
@@ -138,16 +147,15 @@ def _scan_all_pyside6(timeout: int) -> list[dict[str, Any]]:
 
 async def _read(address: str, char_uuid: str, timeout: int) -> dict[str, Any]:
     from bleak import BleakClient
+
     async with BleakClient(address, timeout=timeout) as client:
         data = await client.read_gatt_char(char_uuid)
-        return {
-            "hex": data.hex(),
-            "text": data.decode('utf-8', errors='replace')
-        }
+        return {"hex": data.hex(), "text": data.decode("utf-8", errors="replace")}
 
 
 async def _write(address: str, char_uuid: str, data_hex: str, timeout: int) -> str:
     from bleak import BleakClient
+
     data = bytes.fromhex(data_hex)
     async with BleakClient(address, timeout=timeout) as client:
         await client.write_gatt_char(char_uuid, data)
@@ -164,24 +172,20 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # 1. Check dependency
     if action == "scan" and scan_mode == "all":
-        try:
-            import PySide6
-        except ImportError:
+        if importlib.util.find_spec("PySide6") is None:
             return _(
                 "err.pyside6_missing",
-                default="Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
+                default="Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
             )
     else:
-        try:
-            import bleak
-        except ImportError:
+        if importlib.util.find_spec("bleak") is None:
             return _(
                 "err.bleak_missing",
-                default="Error: 'bleak' library is not installed. Please install it using:\npip install bleak"
+                default="Error: 'bleak' library is not installed. Please install it using:\npip install bleak",
             )
 
     # 2. Set event loop policy for Windows
-    if sys.platform == 'win32':
+    if sys.platform == "win32":
         try:
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
         except Exception:
@@ -199,7 +203,7 @@ def run_tool(args: dict[str, Any]) -> str:
             if not address or not char_uuid:
                 return _(
                     "err.missing_read_params",
-                    default="Error: 'address' and 'char_uuid' are required."
+                    default="Error: 'address' and 'char_uuid' are required.",
                 )
             res = asyncio.run(_read(address, char_uuid, timeout))
             return str(res)
@@ -208,7 +212,7 @@ def run_tool(args: dict[str, Any]) -> str:
             if not address or not char_uuid or not data_hex:
                 return _(
                     "err.missing_write_params",
-                    default="Error: 'address', 'char_uuid', and 'data_hex' are required."
+                    default="Error: 'address', 'char_uuid', and 'data_hex' are required.",
                 )
             res = asyncio.run(_write(address, char_uuid, data_hex, timeout))
             return str(res)
@@ -217,30 +221,39 @@ def run_tool(args: dict[str, Any]) -> str:
             return _(
                 "err.unknown_action",
                 default="Error: Unknown action '{action}'.",
-                action=action
+                action=action,
             )
 
     except Exception as e:
         err_msg = str(e)
         # Linux permission error handling
-        if sys.platform.startswith('linux'):
-            if "Permission" in err_msg or "AccessDenied" in err_msg or "dbus" in err_msg.lower() or "notready" in err_msg.lower():
+        if sys.platform.startswith("linux"):
+            if (
+                "Permission" in err_msg
+                or "AccessDenied" in err_msg
+                or "dbus" in err_msg.lower()
+                or "notready" in err_msg.lower()
+            ):
                 return _(
                     "err.linux_permission",
                     default="Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
-                    err_msg=err_msg
+                    err_msg=err_msg,
                 )
         # macOS permission error handling
-        elif sys.platform == 'darwin':
-            if "CoreBluetooth" in err_msg or "permission" in err_msg.lower() or "auth" in err_msg.lower():
+        elif sys.platform == "darwin":
+            if (
+                "CoreBluetooth" in err_msg
+                or "permission" in err_msg.lower()
+                or "auth" in err_msg.lower()
+            ):
                 return _(
                     "err.macos_permission",
                     default="Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth.",
-                    err_msg=err_msg
+                    err_msg=err_msg,
                 )
 
         return _(
             "err.operation_failed",
             default="Error during BLE operation: {err_msg}",
-            err_msg=err_msg
+            err_msg=err_msg,
         )

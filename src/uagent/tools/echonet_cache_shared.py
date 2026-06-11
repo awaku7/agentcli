@@ -25,7 +25,9 @@ def _serialize_key(key: Any) -> str:
     if isinstance(key, str):
         return key
     try:
-        return json.dumps(key, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        return json.dumps(
+            key, ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        )
     except Exception:
         return repr(key)
 
@@ -38,7 +40,9 @@ def _entry_age_ms(entry: dict[str, Any]) -> int:
     return max(0, int((time.monotonic() - created) * 1000))
 
 
-def cache_get(namespace: str, key: Any, ttl_seconds: int | None = None) -> dict[str, Any] | None:
+def cache_get(
+    namespace: str, key: Any, ttl_seconds: int | None = None
+) -> dict[str, Any] | None:
     ttl = _DEFAULT_TTL_SECONDS if ttl_seconds is None else max(0, int(ttl_seconds))
     cache_key = (_normalize_namespace(namespace), _serialize_key(key))
     with _CACHE_LOCK:

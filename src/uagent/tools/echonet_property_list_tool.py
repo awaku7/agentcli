@@ -69,7 +69,9 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.object_code.description",
-                        default=("Optional object code to narrow the queried object (e.g. '0130')."),
+                        default=(
+                            "Optional object code to narrow the queried object (e.g. '0130')."
+                        ),
                     ),
                 },
                 "timeout": {
@@ -312,7 +314,20 @@ def _query_node(
         sock.settimeout(0.25)
 
         if target_eoj.hex().upper() == "0EF001":
-            request_epcs = [0xD5, 0xD6, 0xD7, 0x80, 0x81, 0x82, 0x83, 0x8A, 0x8C, 0x9D, 0x9E, 0x9F]
+            request_epcs = [
+                0xD5,
+                0xD6,
+                0xD7,
+                0x80,
+                0x81,
+                0x82,
+                0x83,
+                0x8A,
+                0x8C,
+                0x9D,
+                0x9E,
+                0x9F,
+            ]
         else:
             request_epcs = [0x80, 0x81, 0x82, 0x83, 0x8A, 0x8B, 0x8C, 0x9D, 0x9E, 0x9F]
         packet = _build_get_request(target_eoj, request_epcs)
@@ -343,7 +358,9 @@ def _query_node(
         sock.close()
 
 
-def _resolve_target_eoj(eoj: str | None, object_code: str | None) -> tuple[str, bytes, str | None]:
+def _resolve_target_eoj(
+    eoj: str | None, object_code: str | None
+) -> tuple[str, bytes, str | None]:
     if eoj:
         normalized = _normalize_eoj(eoj)
         if normalized is None:
@@ -402,7 +419,9 @@ def _build_payload(
             }
         )
 
-    node_profile_props = _property_map(properties_all) if target_eoj.upper() == "0EF001" else {}
+    node_profile_props = (
+        _property_map(properties_all) if target_eoj.upper() == "0EF001" else {}
+    )
     node = {
         "ip_address": ip_address,
         "node_id": ip_address,
@@ -410,8 +429,16 @@ def _build_payload(
             "eoj": target_eoj,
             "properties": properties_all if target_eoj.upper() == "0EF001" else [],
         },
-        "manufacturer": node_profile_props.get("8A", {}).get("raw_hex") if node_profile_props else None,
-        "model": node_profile_props.get("8B", {}).get("raw_hex") if node_profile_props else None,
+        "manufacturer": (
+            node_profile_props.get("8A", {}).get("raw_hex")
+            if node_profile_props
+            else None
+        ),
+        "model": (
+            node_profile_props.get("8B", {}).get("raw_hex")
+            if node_profile_props
+            else None
+        ),
         "available": bool(frames),
         "reachable": bool(frames),
         "last_updated": _now_iso(),
@@ -420,7 +447,9 @@ def _build_payload(
     return {
         "node": node,
         "objects": objects,
-        "properties": _merge_properties(*[obj.get("properties") or [] for obj in objects]),
+        "properties": _merge_properties(
+            *[obj.get("properties") or [] for obj in objects]
+        ),
         "status": {
             "target_eoj": target_eoj,
             "reachable": bool(frames),
@@ -434,7 +463,9 @@ def _format_text(payload: dict[str, Any]) -> str:
     lines = [
         _(
             "msg.summary",
-            default=("ECHONET Lite property list fetched: {count} property(ies) in {elapsed_ms} ms."),
+            default=(
+                "ECHONET Lite property list fetched: {count} property(ies) in {elapsed_ms} ms."
+            ),
             count=len(payload.get("properties") or []),
             elapsed_ms=payload.get("elapsed_ms", 0),
         )
@@ -447,7 +478,9 @@ def _format_text(payload: dict[str, Any]) -> str:
     lines.append(f"Reachable: {node.get('reachable')}")
     lines.append(f"Objects: {len(payload.get('objects') or [])}")
     for obj in (payload.get("objects") or [])[:10]:
-        lines.append(f"- {obj.get('eoj') or '(unknown)'} {obj.get('class_name') or ''}".rstrip())
+        lines.append(
+            f"- {obj.get('eoj') or '(unknown)'} {obj.get('class_name') or ''}".rstrip()
+        )
         props = obj.get("properties") or []
         for prop in props[:20]:
             lines.append(
@@ -467,7 +500,9 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("output_format") or "json").strip().lower()
 
     try:
-        timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
+        timeout = _normalize_int(
+            args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1
+        )
         limit = _normalize_int(args.get("limit", _DEFAULT_LIMIT), _DEFAULT_LIMIT, 0)
     except Exception:
         timeout = _DEFAULT_TIMEOUT
@@ -484,7 +519,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
         target_eoj_text, target_eoj_bytes, class_name = _resolve_target_eoj(
@@ -499,7 +538,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 "message": str(exc),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     start = time.monotonic()
     try:

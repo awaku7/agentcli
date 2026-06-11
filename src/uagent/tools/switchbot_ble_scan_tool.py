@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import sys
 import time
 from datetime import datetime, timezone
@@ -52,9 +53,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "minimum": 1,
                     "description": _(
                         "param.retry.description",
-                        default=(
-                            "How many BLE scan rounds to run before returning."
-                        ),
+                        default=("How many BLE scan rounds to run before returning."),
                     ),
                 },
                 "limit": {
@@ -63,7 +62,9 @@ TOOL_SPEC: dict[str, Any] = {
                     "minimum": 0,
                     "description": _(
                         "param.limit.description",
-                        default=("Maximum number of devices to return. 0 means unlimited."),
+                        default=(
+                            "Maximum number of devices to return. 0 means unlimited."
+                        ),
                     ),
                 },
                 "device_name": {
@@ -86,8 +87,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.service_uuid.description",
-                        default=(
-                            "Optional GATT service UUID filter.")
+                        default=("Optional GATT service UUID filter."),
                     ),
                 },
                 "output_format": {
@@ -168,7 +168,9 @@ async def _scan_once(timeout: int, interface: str | None) -> list[dict[str, Any]
 
     result: list[dict[str, Any]] = []
     for device, adv in devices.values():
-        manufacturer_data = _normalize_manufacturer_data(getattr(adv, "manufacturer_data", {}) or {})
+        manufacturer_data = _normalize_manufacturer_data(
+            getattr(adv, "manufacturer_data", {}) or {}
+        )
         service_uuids = list(getattr(adv, "service_uuids", None) or [])
         result.append(
             {
@@ -177,7 +179,10 @@ async def _scan_once(timeout: int, interface: str | None) -> list[dict[str, Any]
                 "rssi": getattr(adv, "rssi", None),
                 "device_type": (
                     "switchbot"
-                    if _looks_like_switchbot(device.name or getattr(adv, "local_name", None), manufacturer_data)
+                    if _looks_like_switchbot(
+                        device.name or getattr(adv, "local_name", None),
+                        manufacturer_data,
+                    )
                     else "ble"
                 ),
                 "service_uuids": service_uuids,
@@ -222,19 +227,28 @@ async def _scan_rounds(
                 merged[key] = item
             else:
                 if item.get("rssi") is not None and (
-                    current.get("rssi") is None or item.get("rssi") > current.get("rssi")
+                    current.get("rssi") is None
+                    or item.get("rssi") > current.get("rssi")
                 ):
                     current["rssi"] = item.get("rssi")
                 current["service_uuids"] = sorted(
-                    {*(current.get("service_uuids") or []), *(item.get("service_uuids") or [])}
+                    {
+                        *(current.get("service_uuids") or []),
+                        *(item.get("service_uuids") or []),
+                    }
                 )
                 current["manufacturer_data"] = {
                     **(current.get("manufacturer_data") or {}),
                     **(item.get("manufacturer_data") or {}),
                 }
-                current["connectable"] = bool(current.get("connectable") or item.get("connectable"))
+                current["connectable"] = bool(
+                    current.get("connectable") or item.get("connectable")
+                )
                 current["last_seen"] = item.get("last_seen") or current.get("last_seen")
-                if current.get("device_type") != "switchbot" and item.get("device_type") == "switchbot":
+                if (
+                    current.get("device_type") != "switchbot"
+                    and item.get("device_type") == "switchbot"
+                ):
                     current["device_type"] = "switchbot"
         if limit > 0 and len(merged) >= limit:
             break
@@ -283,7 +297,9 @@ def _format_text(result: dict[str, Any]) -> str:
             )
         )
     if not items:
-        lines.append(_("msg.no_devices", default="No SwitchBot BLE devices were found."))
+        lines.append(
+            _("msg.no_devices", default="No SwitchBot BLE devices were found.")
+        )
     return "\n".join(lines)
 
 
@@ -309,7 +325,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     if timeout <= 0 or retry <= 0 or limit < 0:
         payload = {
@@ -318,11 +338,17 @@ def run_tool(args: dict[str, Any]) -> str:
                 "code": "invalid_argument",
                 "message": _(
                     "err.invalid_range",
-                    default=("Timeout and retry must be greater than 0; limit must be 0 or greater."),
+                    default=(
+                        "Timeout and retry must be greater than 0; limit must be 0 or greater."
+                    ),
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
         import bleak  # noqa: F401
@@ -339,7 +365,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     if sys.platform == "win32":
         try:
@@ -394,9 +424,17 @@ def run_tool(args: dict[str, Any]) -> str:
                         ),
                     },
                 }
-                return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
         elif sys.platform == "darwin":
-            if "CoreBluetooth" in err_msg or "permission" in err_msg.lower() or "auth" in err_msg.lower():
+            if (
+                "CoreBluetooth" in err_msg
+                or "permission" in err_msg.lower()
+                or "auth" in err_msg.lower()
+            ):
                 payload = {
                     "ok": False,
                     "error": {
@@ -410,7 +448,11 @@ def run_tool(args: dict[str, Any]) -> str:
                         ),
                     },
                 }
-                return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
 
         payload = {
             "ok": False,
@@ -423,4 +465,8 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )

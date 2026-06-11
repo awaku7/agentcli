@@ -56,9 +56,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "minimum": 1,
                     "description": _(
                         "param.retry.description",
-                        default=(
-                            "How many BLE scan rounds to run before connecting."
-                        ),
+                        default=("How many BLE scan rounds to run before connecting."),
                     ),
                 },
                 "limit": {
@@ -92,9 +90,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.service_uuid.description",
-                        default=(
-                            "Optional GATT service UUID filter."
-                        ),
+                        default=("Optional GATT service UUID filter."),
                     ),
                 },
                 "output_format": {
@@ -128,7 +124,9 @@ def _normalize_manufacturer_data(data: dict[int, bytes]) -> dict[str, str]:
 def _looks_like_switchbot(name: str | None, manufacturer_data: dict[str, str]) -> bool:
     if name and "switchbot" in name.casefold():
         return True
-    return any(str(key) in {str(v) for v in _SWITCHBOT_HINTS} for key in manufacturer_data)
+    return any(
+        str(key) in {str(v) for v in _SWITCHBOT_HINTS} for key in manufacturer_data
+    )
 
 
 def _matches_filters(
@@ -224,11 +222,15 @@ async def _discover_target(
                 merged[key] = item
             else:
                 if item.get("rssi") is not None and (
-                    current.get("rssi") is None or item.get("rssi") > current.get("rssi")
+                    current.get("rssi") is None
+                    or item.get("rssi") > current.get("rssi")
                 ):
                     current["rssi"] = item.get("rssi")
                 current["service_uuids"] = sorted(
-                    {*(current.get("service_uuids") or []), *(item.get("service_uuids") or [])}
+                    {
+                        *(current.get("service_uuids") or []),
+                        *(item.get("service_uuids") or []),
+                    }
                 )
                 current["manufacturer_data"] = {
                     **(current.get("manufacturer_data") or {}),
@@ -238,7 +240,10 @@ async def _discover_target(
                     current.get("connectable") or item.get("connectable")
                 )
                 current["last_seen"] = item.get("last_seen") or current.get("last_seen")
-                if current.get("device_type") != "switchbot" and item.get("device_type") == "switchbot":
+                if (
+                    current.get("device_type") != "switchbot"
+                    and item.get("device_type") == "switchbot"
+                ):
                     current["device_type"] = "switchbot"
 
     items = list(merged.values())
@@ -255,53 +260,67 @@ async def _discover_target(
         for item in items:
             if str(item.get("address") or "").casefold() == mac_address.casefold():
                 return item, None, interface_used
-        return None, {
-            "code": "not_found",
-            "message": _(
-                "err.not_found",
-                default="No SwitchBot BLE device matched the provided mac_address.",
-                mac_address=mac_address,
-            ),
-        }, interface_used
+        return (
+            None,
+            {
+                "code": "not_found",
+                "message": _(
+                    "err.not_found",
+                    default="No SwitchBot BLE device matched the provided mac_address.",
+                    mac_address=mac_address,
+                ),
+            },
+            interface_used,
+        )
 
     if device_name:
         needle = device_name.casefold()
         matches = [
-            item
-            for item in items
-            if needle in str(item.get("name") or "").casefold()
+            item for item in items if needle in str(item.get("name") or "").casefold()
         ]
         if not matches:
-            return None, {
-                "code": "not_found",
-                "message": _(
-                    "err.not_found",
-                    default="No SwitchBot BLE device matched the provided device_name.",
-                    device_name=device_name,
-                ),
-            }, interface_used
+            return (
+                None,
+                {
+                    "code": "not_found",
+                    "message": _(
+                        "err.not_found",
+                        default="No SwitchBot BLE device matched the provided device_name.",
+                        device_name=device_name,
+                    ),
+                },
+                interface_used,
+            )
         if len(matches) > 1:
-            return None, {
-                "code": "ambiguous_target",
-                "message": _(
-                    "err.ambiguous_target",
-                    default="Multiple SwitchBot BLE devices matched the provided device_name.",
-                    device_name=device_name,
-                ),
-                "matches": [
-                    {"name": item.get("name"), "address": item.get("address")}
-                    for item in matches[:10]
-                ],
-            }, interface_used
+            return (
+                None,
+                {
+                    "code": "ambiguous_target",
+                    "message": _(
+                        "err.ambiguous_target",
+                        default="Multiple SwitchBot BLE devices matched the provided device_name.",
+                        device_name=device_name,
+                    ),
+                    "matches": [
+                        {"name": item.get("name"), "address": item.get("address")}
+                        for item in matches[:10]
+                    ],
+                },
+                interface_used,
+            )
         return matches[0], None, interface_used
 
-    return None, {
-        "code": "invalid_argument",
-        "message": _(
-            "err.invalid_argument",
-            default="Either mac_address or device_name is required.",
-        ),
-    }, interface_used
+    return (
+        None,
+        {
+            "code": "invalid_argument",
+            "message": _(
+                "err.invalid_argument",
+                default="Either mac_address or device_name is required.",
+            ),
+        },
+        interface_used,
+    )
 
 
 async def _read_device_status(
@@ -347,7 +366,10 @@ async def _read_device_status(
                             hex_value = data.hex()
                             char_item["value_hex"] = hex_value
                             raw_values[str(getattr(char, "uuid", ""))] = hex_value
-                            if str(getattr(char, "uuid", "")).casefold() == _BATTERY_UUID:
+                            if (
+                                str(getattr(char, "uuid", "")).casefold()
+                                == _BATTERY_UUID
+                            ):
                                 try:
                                     battery = int(data[0])
                                 except Exception:
@@ -435,7 +457,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     if timeout <= 0 or retry <= 0 or limit < 0:
         payload = {
@@ -448,7 +474,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
         import bleak  # noqa: F401
@@ -465,7 +495,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     if sys.platform == "win32":
         try:
@@ -486,10 +520,19 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         )
         if err is not None or device is None:
-            payload = {"ok": False, "error": err or {"code": "not_found", "message": "Not found."}}
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            payload = {
+                "ok": False,
+                "error": err or {"code": "not_found", "message": "Not found."},
+            }
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
 
-        status, extra = asyncio.run(_read_device_status(device=device, timeout=timeout, limit=limit))
+        status, extra = asyncio.run(
+            _read_device_status(device=device, timeout=timeout, limit=limit)
+        )
         elapsed_ms = int((time.perf_counter() - started) * 1000)
         result = {
             "ok": True,
@@ -543,7 +586,11 @@ def run_tool(args: dict[str, Any]) -> str:
                         ),
                     },
                 }
-                return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
         elif sys.platform == "darwin":
             if (
                 "CoreBluetooth" in err_msg
@@ -563,7 +610,11 @@ def run_tool(args: dict[str, Any]) -> str:
                         ),
                     },
                 }
-                return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
 
         payload = {
             "ok": False,
@@ -576,4 +627,8 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )

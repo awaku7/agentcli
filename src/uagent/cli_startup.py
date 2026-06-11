@@ -80,6 +80,7 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
     from .tools.comm_control_tool import _set_comm_tools_enabled
     from .tools.devel_control_tool import _set_devel_tools_enabled
     from .tools.office_control_tool import _set_office_tools_enabled
+
     try:
         from .tools.iot_control_tool import _set_iot_tools_enabled
     except ImportError:

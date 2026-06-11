@@ -302,7 +302,9 @@ def _query_frames(
             except Exception:
                 sock.bind(("0.0.0.0", 0))
             try:
-                sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_IF, socket.inet_aton(bind_ip))
+                sock.setsockopt(
+                    socket.IPPROTO_IP, socket.IP_MULTICAST_IF, socket.inet_aton(bind_ip)
+                )
             except Exception:
                 pass
         else:
@@ -334,7 +336,10 @@ def _query_frames(
                     parsed.get("seoj"),
                     parsed.get("deoj"),
                     parsed.get("esv"),
-                    tuple((prop.get("epc"), prop.get("raw_hex")) for prop in parsed.get("properties", [])),
+                    tuple(
+                        (prop.get("epc"), prop.get("raw_hex"))
+                        for prop in parsed.get("properties", [])
+                    ),
                 )
                 if key in seen:
                     continue
@@ -358,7 +363,9 @@ def _property_map(properties: list[dict[str, Any]]) -> dict[str, dict[str, Any]]
         if not epc:
             continue
         if epc in mapped:
-            if prop.get("raw_hex") and prop.get("raw_hex") != mapped[epc].get("raw_hex"):
+            if prop.get("raw_hex") and prop.get("raw_hex") != mapped[epc].get(
+                "raw_hex"
+            ):
                 continue
         mapped[epc] = dict(prop)
     return mapped
@@ -374,7 +381,9 @@ def _merge_properties(*groups: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return list(merged.values())
 
 
-def _summarize_node_item(source_ip: str | None, frames: list[dict[str, Any]]) -> dict[str, Any]:
+def _summarize_node_item(
+    source_ip: str | None, frames: list[dict[str, Any]]
+) -> dict[str, Any]:
     properties = _merge_properties(*(frame.get("properties") or [] for frame in frames))
     node_profile_props = _property_map(properties)
     eoj_list: list[str] = []
@@ -386,11 +395,15 @@ def _summarize_node_item(source_ip: str | None, frames: list[dict[str, Any]]) ->
 
     manufacturer = None
     if node_profile_props.get("8A"):
-        manufacturer = node_profile_props["8A"].get("raw_hex") or node_profile_props["8A"].get("value")
+        manufacturer = node_profile_props["8A"].get("raw_hex") or node_profile_props[
+            "8A"
+        ].get("value")
     model = None
     for candidate in ("83", "8B", "8C"):
         if node_profile_props.get(candidate):
-            model = node_profile_props[candidate].get("raw_hex") or node_profile_props[candidate].get("value")
+            model = node_profile_props[candidate].get("raw_hex") or node_profile_props[
+                candidate
+            ].get("value")
             break
 
     node_profile = {
@@ -506,7 +519,8 @@ def run_tool(args: dict[str, Any]) -> str:
             grouped.setdefault(source_ip, []).append(frame)
 
         items = [
-            _summarize_node_item(source_ip, grouped[source_ip]) for source_ip in sorted(grouped.keys())
+            _summarize_node_item(source_ip, grouped[source_ip])
+            for source_ip in sorted(grouped.keys())
         ]
         if limit > 0:
             items = items[:limit]

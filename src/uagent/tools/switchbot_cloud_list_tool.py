@@ -29,9 +29,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "switchbot_cloud_list",
         "description": _(
             "tool.description",
-            default=(
-                "List SwitchBot Cloud devices for the configured account."
-            ),
+            default=("List SwitchBot Cloud devices for the configured account."),
         ),
         "parameters": {
             "type": "object",
@@ -67,7 +65,9 @@ def _build_auth_headers(token: str, secret: str, body_text: str = "") -> dict[st
     nonce = uuid.uuid4().hex
     payload = f"{token}{timestamp}{nonce}{body_text}"
     sign = base64.b64encode(
-        hmac.new(secret.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256).digest()
+        hmac.new(
+            secret.encode("utf-8"), payload.encode("utf-8"), hashlib.sha256
+        ).digest()
     ).decode("utf-8")
     return {
         "Authorization": token,
@@ -99,7 +99,9 @@ def _request_json(path: str) -> dict[str, Any]:
             raw = response.read().decode("utf-8", errors="replace")
             data = json.loads(raw or "{}")
     except HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace") if hasattr(exc, "read") else ""
+        body = (
+            exc.read().decode("utf-8", errors="replace") if hasattr(exc, "read") else ""
+        )
         try:
             detail = json.loads(body) if body else {}
         except Exception:
@@ -142,7 +144,13 @@ def _request_json(path: str) -> dict[str, Any]:
 
 def _device_sections(body: dict[str, Any]) -> list[tuple[str, list[dict[str, Any]]]]:
     sections: list[tuple[str, list[dict[str, Any]]]] = []
-    for key in ("deviceList", "infraredRemoteList", "blindTiltList", "meterList", "curtainList"):
+    for key in (
+        "deviceList",
+        "infraredRemoteList",
+        "blindTiltList",
+        "meterList",
+        "curtainList",
+    ):
         value = body.get(key)
         if isinstance(value, list):
             cleaned = [item for item in value if isinstance(item, dict)]
@@ -202,7 +210,11 @@ def run_tool(args: dict[str, Any]) -> str:
     response = _request_json("/devices")
     if not response.get("ok"):
         payload = response
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     data = response["data"]
     body = data.get("body") if isinstance(data.get("body"), dict) else {}

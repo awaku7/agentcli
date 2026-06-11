@@ -188,15 +188,23 @@ async def _discover_target(
             ):
                 current["rssi"] = item.get("rssi")
             current["service_uuids"] = sorted(
-                {*(current.get("service_uuids") or []), *(item.get("service_uuids") or [])}
+                {
+                    *(current.get("service_uuids") or []),
+                    *(item.get("service_uuids") or []),
+                }
             )
             current["manufacturer_data"] = {
                 **(current.get("manufacturer_data") or {}),
                 **(item.get("manufacturer_data") or {}),
             }
-            current["connectable"] = bool(current.get("connectable") or item.get("connectable"))
+            current["connectable"] = bool(
+                current.get("connectable") or item.get("connectable")
+            )
             current["last_seen"] = item.get("last_seen") or current.get("last_seen")
-            if current.get("device_type") != "switchbot" and item.get("device_type") == "switchbot":
+            if (
+                current.get("device_type") != "switchbot"
+                and item.get("device_type") == "switchbot"
+            ):
                 current["device_type"] = "switchbot"
 
     items = list(merged.values())
@@ -225,9 +233,7 @@ async def _discover_target(
     if device_name:
         needle = device_name.casefold()
         matches = [
-            item
-            for item in items
-            if needle in str(item.get("name") or "").casefold()
+            item for item in items if needle in str(item.get("name") or "").casefold()
         ]
         if not matches:
             return None, {
@@ -262,7 +268,9 @@ async def _discover_target(
     }
 
 
-def _build_payload(action: str, value: int | None) -> tuple[bytes | None, int | None, dict[str, Any] | None]:
+def _build_payload(
+    action: str, value: int | None
+) -> tuple[bytes | None, int | None, dict[str, Any] | None]:
     normalized = action.casefold().strip()
     if normalized in {"on", "open"}:
         return bytes([0x57, 0x01, 0x01]), 1, None
@@ -270,30 +278,42 @@ def _build_payload(action: str, value: int | None) -> tuple[bytes | None, int | 
         return bytes([0x57, 0x01, 0x00]), 0, None
     if normalized == "set_value":
         if value is None:
-            return None, None, {
-                "code": "invalid_argument",
-                "message": _(
-                    "err.value_required",
-                    default="The value field is required for set_value.",
-                ),
-            }
+            return (
+                None,
+                None,
+                {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.value_required",
+                        default="The value field is required for set_value.",
+                    ),
+                },
+            )
         if value < 0 or value > 100:
-            return None, None, {
-                "code": "invalid_argument",
-                "message": _(
-                    "err.invalid_value_range",
-                    default="The value field must be between 0 and 100.",
-                ),
-            }
+            return (
+                None,
+                None,
+                {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.invalid_value_range",
+                        default="The value field must be between 0 and 100.",
+                    ),
+                },
+            )
         return bytes([0x57, 0x01, int(value)]), int(value), None
-    return None, None, {
-        "code": "invalid_argument",
-        "message": _(
-            "err.unknown_action",
-            default="Error: Unknown action '{action}'.",
-            action=action,
-        ),
-    }
+    return (
+        None,
+        None,
+        {
+            "code": "invalid_argument",
+            "message": _(
+                "err.unknown_action",
+                default="Error: Unknown action '{action}'.",
+                action=action,
+            ),
+        },
+    )
 
 
 async def _write_control(
@@ -317,7 +337,9 @@ async def _write_control(
         if services is not None:
             for service in services:
                 for char in getattr(service, "characteristics", []) or []:
-                    properties = [str(p).lower() for p in (getattr(char, "properties", []) or [])]
+                    properties = [
+                        str(p).lower() for p in (getattr(char, "properties", []) or [])
+                    ]
                     char_uuid = str(getattr(char, "uuid", ""))
                     if not properties:
                         continue
@@ -325,13 +347,18 @@ async def _write_control(
                         writable_candidates.append(
                             {
                                 "uuid": char_uuid,
-                                "properties": list(getattr(char, "properties", []) or []),
+                                "properties": list(
+                                    getattr(char, "properties", []) or []
+                                ),
                                 "service_uuid": str(getattr(service, "uuid", "")),
                             }
                         )
                         if char_uuid.casefold() == _SWITCHBOT_WRITE_UUID:
                             chosen_char = char_uuid
-                    if chosen_char is None and char_uuid.casefold() == _SWITCHBOT_WRITE_UUID:
+                    if (
+                        chosen_char is None
+                        and char_uuid.casefold() == _SWITCHBOT_WRITE_UUID
+                    ):
                         chosen_char = char_uuid
 
         if chosen_char is None and writable_candidates:
@@ -351,8 +378,14 @@ async def _write_control(
         if services is not None:
             for service in services:
                 for char in getattr(service, "characteristics", []) or []:
-                    if str(getattr(char, "uuid", "")).casefold() == chosen_char.casefold():
-                        props = {str(p).lower() for p in (getattr(char, "properties", []) or [])}
+                    if (
+                        str(getattr(char, "uuid", "")).casefold()
+                        == chosen_char.casefold()
+                    ):
+                        props = {
+                            str(p).lower()
+                            for p in (getattr(char, "properties", []) or [])
+                        }
                         write_with_response = "write" in props
                         break
                 else:
@@ -419,7 +452,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     if timeout <= 0:
         payload = {
@@ -432,7 +469,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
         value = None if raw_value is None else int(raw_value)
@@ -447,7 +488,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
         import bleak  # noqa: F401
@@ -464,7 +509,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     if sys.platform == "win32":
         try:
@@ -482,10 +531,19 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         )
         if err is not None or device is None:
-            payload = {"ok": False, "error": err or {"code": "not_found", "message": "Not found."}}
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            payload = {
+                "ok": False,
+                "error": err or {"code": "not_found", "message": "Not found."},
+            }
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
 
-        if not _looks_like_switchbot(device.get("name"), dict(device.get("manufacturer_data") or {})):
+        if not _looks_like_switchbot(
+            device.get("name"), dict(device.get("manufacturer_data") or {})
+        ):
             payload = {
                 "ok": False,
                 "error": {
@@ -497,12 +555,24 @@ def run_tool(args: dict[str, Any]) -> str:
                 },
                 "device": device,
             }
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
 
         payload_bytes, normalized_value, build_err = _build_payload(action, value)
         if build_err is not None or payload_bytes is None:
-            payload = {"ok": False, "error": build_err or {"code": "invalid_argument", "message": "Invalid action."}}
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            payload = {
+                "ok": False,
+                "error": build_err
+                or {"code": "invalid_argument", "message": "Invalid action."},
+            }
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
 
         status, capabilities, characteristic_uuid, write_with_response = asyncio.run(
             _write_control(
@@ -556,7 +626,11 @@ def run_tool(args: dict[str, Any]) -> str:
                     "message": err_msg,
                 },
             }
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
 
         if sys.platform.startswith("linux"):
             if (
@@ -578,7 +652,11 @@ def run_tool(args: dict[str, Any]) -> str:
                         ),
                     },
                 }
-                return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
         elif sys.platform == "darwin":
             if (
                 "CoreBluetooth" in err_msg
@@ -598,7 +676,11 @@ def run_tool(args: dict[str, Any]) -> str:
                         ),
                     },
                 }
-                return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+                return (
+                    json.dumps(payload, ensure_ascii=False, indent=2)
+                    if output_format == "text"
+                    else json.dumps(payload, ensure_ascii=False)
+                )
 
         payload = {
             "ok": False,
@@ -611,4 +693,8 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )

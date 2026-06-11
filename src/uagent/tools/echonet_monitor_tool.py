@@ -153,8 +153,16 @@ def _snapshot_changes(
     for epc in keys:
         before = previous.get(epc)
         after = current.get(epc)
-        before_key = None if before is None else (before.get("raw_hex"), before.get("value"), before.get("format"))
-        after_key = None if after is None else (after.get("raw_hex"), after.get("value"), after.get("format"))
+        before_key = (
+            None
+            if before is None
+            else (before.get("raw_hex"), before.get("value"), before.get("format"))
+        )
+        after_key = (
+            None
+            if after is None
+            else (after.get("raw_hex"), after.get("value"), after.get("format"))
+        )
         if before_key == after_key:
             continue
         changes.append(
@@ -223,8 +231,12 @@ def run_tool(args: dict[str, Any]) -> str:
     ip_address = str(args.get("ip_address") or "").strip()
     eoj_arg = args.get("eoj")
     object_code_arg = args.get("object_code")
-    interval = _normalize_int(args.get("interval", _DEFAULT_INTERVAL), _DEFAULT_INTERVAL, 1)
-    duration = _normalize_int(args.get("duration", _DEFAULT_DURATION), _DEFAULT_DURATION, 1)
+    interval = _normalize_int(
+        args.get("interval", _DEFAULT_INTERVAL), _DEFAULT_INTERVAL, 1
+    )
+    duration = _normalize_int(
+        args.get("duration", _DEFAULT_DURATION), _DEFAULT_DURATION, 1
+    )
     timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
     output_format = str(args.get("output_format") or "json").strip().lower()
 
@@ -239,16 +251,26 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return payload["error"]["message"] if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            payload["error"]["message"]
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
-        target_eoj_text, target_eoj_bytes, target_name = _resolve_target_eoj(eoj_arg, object_code_arg)
+        target_eoj_text, target_eoj_bytes, target_name = _resolve_target_eoj(
+            eoj_arg, object_code_arg
+        )
     except ValueError as exc:
         payload = {
             "ok": False,
             "error": {"code": "invalid_argument", "message": str(exc)},
         }
-        return payload["error"]["message"] if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            payload["error"]["message"]
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     start = time.monotonic()
     deadline = start + duration
@@ -321,7 +343,11 @@ def run_tool(args: dict[str, Any]) -> str:
             "stopped_reason": stopped_reason,
             "elapsed_ms": elapsed_ms,
         }
-        return payload["error"]["message"] if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            payload["error"]["message"]
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     payload = {
         "ok": True,

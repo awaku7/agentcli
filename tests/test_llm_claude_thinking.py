@@ -27,7 +27,7 @@ from uagent.providers.llm_claude import (  # noqa: E402
 ENABLED_REJECT_ERR = (
     "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', "
     "'message': '\"thinking.type.enabled\" is not supported for this model. "
-    "Use \"thinking.type.adaptive\" and \"output_config.effort\" to control "
+    'Use "thinking.type.adaptive" and "output_config.effort" to control '
     "thinking behavior.'}}"
 )
 
@@ -85,6 +85,7 @@ def _clear_memo():
 # Model detection
 # ---------------------------------------------------------------------------
 
+
 @pytest.mark.parametrize(
     "model,expected",
     [
@@ -109,6 +110,7 @@ def test_memoized_model_requires_adaptive():
 # ---------------------------------------------------------------------------
 # Request building
 # ---------------------------------------------------------------------------
+
 
 def test_fable5_sends_adaptive_first_request(capsys):
     client = FakeClient([Block("text", text="ok")], reject_enabled=True)
@@ -167,6 +169,7 @@ def test_non_modern_model_sends_output_config_only():
 # Runtime fallback + memoization
 # ---------------------------------------------------------------------------
 
+
 def test_enabled_rejected_falls_back_to_adaptive_and_memoizes():
     # Use a model that is modern (sends thinking.type=enabled first) but is
     # NOT detected as adaptive, so the runtime fallback path is exercised.
@@ -199,6 +202,7 @@ def test_enabled_rejected_falls_back_to_adaptive_and_memoizes():
 # ---------------------------------------------------------------------------
 # Thinking block display
 # ---------------------------------------------------------------------------
+
 
 def test_nonempty_thinking_is_printed_and_embedded(capsys):
     content = [

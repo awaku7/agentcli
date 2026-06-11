@@ -100,9 +100,12 @@ def test_screenshot_errors_when_pyautogui_missing(
     out = screenshot_tool.run_tool({})
 
     import json
+
     obj = json.loads(out)
     assert obj.get("ok") is False
-    assert "[screenshot error]" in obj.get("message", "") or "pyautogui" in obj.get("message", "")
+    assert "[screenshot error]" in obj.get("message", "") or "pyautogui" in obj.get(
+        "message", ""
+    )
 
 
 def test_screenshot_errors_when_window_targeting_without_pygetwindow(
@@ -116,9 +119,12 @@ def test_screenshot_errors_when_window_targeting_without_pygetwindow(
 
     out = screenshot_tool.run_tool({"window_title": "notepad"})
     import json
+
     obj = json.loads(out)
     assert obj.get("ok") is False
-    assert "[screenshot error]" in obj.get("message", "") or "pygetwindow" in obj.get("message", "")
+    assert "[screenshot error]" in obj.get("message", "") or "pygetwindow" in obj.get(
+        "message", ""
+    )
 
 
 def test_screenshot_captures_desktop_with_given_path(
@@ -139,6 +145,7 @@ def test_screenshot_captures_desktop_with_given_path(
     out = screenshot_tool.run_tool({"file_path": str(out_file), "delay": 0})
 
     import json
+
     obj = json.loads(out)
     assert obj.get("ok") is True
     assert "[screenshot]" in obj.get("message", "")
@@ -157,9 +164,12 @@ def test_screenshot_window_not_found(monkeypatch: pytest.MonkeyPatch) -> None:
 
     out = screenshot_tool.run_tool({"window_title": "missing", "delay": 0})
     import json
+
     obj = json.loads(out)
     assert obj.get("ok") is False
-    assert "[screenshot error]" in obj.get("message", "") or "missing" in obj.get("message", "")
+    assert "[screenshot error]" in obj.get("message", "") or "missing" in obj.get(
+        "message", ""
+    )
 
 
 def test_screenshot_window_capture_and_close(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -205,6 +215,7 @@ def test_screenshot_window_capture_and_close(monkeypatch: pytest.MonkeyPatch) ->
     )
 
     import json
+
     obj = json.loads(out)
     assert obj.get("ok") is True
     assert "[screenshot]" in obj.get("message", "")

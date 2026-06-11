@@ -56,7 +56,15 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "action": {
                     "type": "string",
-                    "enum": ["on", "off", "open", "close", "set_value", "lock", "unlock"],
+                    "enum": [
+                        "on",
+                        "off",
+                        "open",
+                        "close",
+                        "set_value",
+                        "lock",
+                        "unlock",
+                    ],
                     "description": _(
                         "param.action.description",
                         default=(
@@ -163,7 +171,9 @@ def _request_json(
             raw = response.read().decode("utf-8", errors="replace")
             data_obj = json.loads(raw or "{}")
     except HTTPError as exc:
-        body_text = exc.read().decode("utf-8", errors="replace") if hasattr(exc, "read") else ""
+        body_text = (
+            exc.read().decode("utf-8", errors="replace") if hasattr(exc, "read") else ""
+        )
         try:
             detail = json.loads(body_text) if body_text else {}
         except Exception:
@@ -325,7 +335,10 @@ def _find_device(
                 device_name=device_name,
             ),
             "matches": [
-                {"device_name": item.get("device_name"), "device_id": item.get("device_id")}
+                {
+                    "device_name": item.get("device_name"),
+                    "device_id": item.get("device_id"),
+                }
                 for item in matches[:10]
             ],
         }
@@ -350,13 +363,17 @@ def _action_for_device(
             return "lock", "default", None
         if action_norm in {"unlock", "off"}:
             return "unlock", "default", None
-        return "", "", {
-            "code": "unsupported_device",
-            "message": _(
-                "err.unsupported_device",
-                default="The selected device type does not support the requested action.",
-            ),
-        }
+        return (
+            "",
+            "",
+            {
+                "code": "unsupported_device",
+                "message": _(
+                    "err.unsupported_device",
+                    default="The selected device type does not support the requested action.",
+                ),
+            },
+        )
 
     if "curtain" in dtype or "blind" in dtype:
         if action_norm == "open":
@@ -365,50 +382,70 @@ def _action_for_device(
             return "close", "default", None
         if action_norm == "set_value":
             if value is None:
-                return "", "", {
-                    "code": "invalid_argument",
-                    "message": _(
-                        "err.value_required",
-                        default="The value field is required for set_value.",
-                    ),
-                }
+                return (
+                    "",
+                    "",
+                    {
+                        "code": "invalid_argument",
+                        "message": _(
+                            "err.value_required",
+                            default="The value field is required for set_value.",
+                        ),
+                    },
+                )
             if value < 0 or value > 100:
-                return "", "", {
-                    "code": "invalid_argument",
-                    "message": _(
-                        "err.invalid_value_range",
-                        default="The value field must be between 0 and 100.",
-                    ),
-                }
+                return (
+                    "",
+                    "",
+                    {
+                        "code": "invalid_argument",
+                        "message": _(
+                            "err.invalid_value_range",
+                            default="The value field must be between 0 and 100.",
+                        ),
+                    },
+                )
             return "setPosition", str(int(value)), None
-        return "", "", {
-            "code": "unsupported_device",
-            "message": _(
-                "err.unsupported_device",
-                default="The selected device type does not support the requested action.",
-            ),
-        }
+        return (
+            "",
+            "",
+            {
+                "code": "unsupported_device",
+                "message": _(
+                    "err.unsupported_device",
+                    default="The selected device type does not support the requested action.",
+                ),
+            },
+        )
 
     if "plug" in dtype or "bot" in dtype:
         if action_norm == "on":
             return "turnOn", "default", None
         if action_norm == "off":
             return "turnOff", "default", None
-        return "", "", {
+        return (
+            "",
+            "",
+            {
+                "code": "unsupported_device",
+                "message": _(
+                    "err.unsupported_device",
+                    default="The selected device type does not support the requested action.",
+                ),
+            },
+        )
+
+    return (
+        "",
+        "",
+        {
             "code": "unsupported_device",
             "message": _(
                 "err.unsupported_device",
                 default="The selected device type does not support the requested action.",
             ),
-        }
-
-    return "", "", {
-        "code": "unsupported_device",
-        "message": _(
-            "err.unsupported_device",
-            default="The selected device type does not support the requested action.",
-        ),
-    }
+        },
+    )
 
 
 def _status_path(device_id: str) -> str:
@@ -431,7 +468,9 @@ def _send_command(
         "parameter": parameter,
         "commandType": "command",
     }
-    return _request_json(_command_path(device_id), method="POST", body=body, timeout=timeout)
+    return _request_json(
+        _command_path(device_id), method="POST", body=body, timeout=timeout
+    )
 
 
 def _fetch_status(device_id: str, timeout: int) -> dict[str, Any]:
@@ -515,7 +554,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     if timeout <= 0:
         payload = {
@@ -528,7 +571,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
         value = None if raw_value is None else int(raw_value)
@@ -543,14 +590,22 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     started = time.perf_counter()
     try:
         devices_resp = _request_json("/devices", method="GET", timeout=timeout)
         if not devices_resp.get("ok"):
             payload = devices_resp
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
 
         items = _build_device_list(devices_resp["data"])
         device, err = _find_device(
@@ -559,8 +614,15 @@ def run_tool(args: dict[str, Any]) -> str:
             str(device_name) if device_name else None,
         )
         if err is not None or device is None:
-            payload = {"ok": False, "error": err or {"code": "not_found", "message": "Not found."}}
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            payload = {
+                "ok": False,
+                "error": err or {"code": "not_found", "message": "Not found."},
+            }
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
 
         command, parameter, build_err = _action_for_device(
             device_type=device.get("device_type"),
@@ -568,8 +630,16 @@ def run_tool(args: dict[str, Any]) -> str:
             value=value,
         )
         if build_err is not None or not command:
-            payload = {"ok": False, "error": build_err or {"code": "invalid_argument", "message": "Invalid action."}}
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            payload = {
+                "ok": False,
+                "error": build_err
+                or {"code": "invalid_argument", "message": "Invalid action."},
+            }
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
 
         command_resp = _send_command(
             device_id=str(device.get("device_id") or ""),
@@ -579,7 +649,11 @@ def run_tool(args: dict[str, Any]) -> str:
         )
         if not command_resp.get("ok"):
             payload = command_resp
-            return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+            return (
+                json.dumps(payload, ensure_ascii=False, indent=2)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
 
         status_resp = _fetch_status(str(device.get("device_id") or ""), timeout=timeout)
         status_item: dict[str, Any] = {}
@@ -612,7 +686,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 "command": command,
                 "parameter": parameter,
                 "command_response": command_resp.get("data"),
-                "status_response": status_resp.get("data") if status_resp.get("ok") else None,
+                "status_response": (
+                    status_resp.get("data") if status_resp.get("ok") else None
+                ),
             },
             "command": {
                 "action": action,
@@ -648,4 +724,8 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )

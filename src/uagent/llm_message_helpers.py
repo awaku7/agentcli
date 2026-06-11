@@ -116,6 +116,7 @@ def _get_default_shrink_max_tokens(depname: str) -> int:
 
     try:
         import llmcapa
+
         cap = llmcapa.get(depname)
         if cap and cap.context_window > 0:
             return int(cap.context_window * ratio)

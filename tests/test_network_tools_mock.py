@@ -287,8 +287,9 @@ def test_fetch_url_http_error_handling(monkeypatch: pytest.MonkeyPatch) -> None:
 
     # Mock urllib.request.urlopen to be the standard one so that our opener is used
     import urllib.request
+
     monkeypatch.setattr(urllib.request, "urlopen", urllib.request.urlopen)
-    
+
     # We mock opener.open instead
     class DummyOpener:
         def open(self, req, timeout=10):

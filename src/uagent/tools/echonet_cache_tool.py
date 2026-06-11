@@ -103,11 +103,19 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(payload, ensure_ascii=False)
 
     if action == "clear":
-        removed = cache_clear(str(namespace).strip() if namespace is not None and str(namespace).strip() else None)
+        removed = cache_clear(
+            str(namespace).strip()
+            if namespace is not None and str(namespace).strip()
+            else None
+        )
         payload = {
             "ok": True,
             "action": "clear",
-            "namespace": str(namespace).strip() if namespace is not None and str(namespace).strip() else None,
+            "namespace": (
+                str(namespace).strip()
+                if namespace is not None and str(namespace).strip()
+                else None
+            ),
             "removed": removed,
         }
         if output_format == "text":

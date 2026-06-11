@@ -6,19 +6,15 @@ import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
 from typing import Any
-from urllib.parse import urlparse
 from xml.sax.saxutils import escape as xml_escape
 
 from .i18n_helper import make_tool_translator
 from .upnp_scan_tool import (
     _DEFAULT_LIMIT,
     _DEFAULT_RETRY,
-    _DEFAULT_SEARCH_TARGET,
     _DEFAULT_TIMEOUT,
     _DEFAULT_USER_AGENT,
-    _extract_host,
     _normalize_int,
-    _resolve_interface,
     run_tool as _scan_run_tool,
 )
 
@@ -415,7 +411,9 @@ def _find_igd_data(
         items = scan_payload.get("items") or []
         if not isinstance(items, list):
             items = []
-        candidates = _select_igd_candidates([item for item in items if isinstance(item, dict)])
+        candidates = _select_igd_candidates(
+            [item for item in items if isinstance(item, dict)]
+        )
         if candidates:
             return scan_payload, candidates, target
         last_error = _(
@@ -459,7 +457,9 @@ def _format_text(payload: dict[str, Any]) -> str:
             lines.append(f"Connection type: {payload.get('connection_type')}")
         if payload.get("uptime") is not None:
             lines.append(f"Uptime: {payload.get('uptime')}")
-        lines.append(f"Supports port mapping: {bool(payload.get('supports_port_mapping'))}")
+        lines.append(
+            f"Supports port mapping: {bool(payload.get('supports_port_mapping'))}"
+        )
     elif action == "portmap_list":
         lines.append(
             _(
@@ -562,20 +562,26 @@ def _run_status(
 
     try:
         values = _call_service_action(service, "GetExternalIPAddress", {}, timeout)
-        external_ip = values.get("NewExternalIPAddress") or values.get("ExternalIPAddress")
+        external_ip = values.get("NewExternalIPAddress") or values.get(
+            "ExternalIPAddress"
+        )
     except Exception as exc:
         warnings_list.append(str(exc))
 
     try:
         values = _call_service_action(service, "GetStatusInfo", {}, timeout)
-        connection_status = values.get("NewConnectionStatus") or values.get("ConnectionStatus")
+        connection_status = values.get("NewConnectionStatus") or values.get(
+            "ConnectionStatus"
+        )
         uptime = _int_from_text(values.get("NewUptime") or values.get("Uptime"))
     except Exception as exc:
         warnings_list.append(str(exc))
 
     try:
         values = _call_service_action(service, "GetConnectionTypeInfo", {}, timeout)
-        connection_type = values.get("NewConnectionType") or values.get("ConnectionType")
+        connection_type = values.get("NewConnectionType") or values.get(
+            "ConnectionType"
+        )
     except Exception as exc:
         warnings_list.append(str(exc))
 
@@ -650,14 +656,28 @@ def _run_portmap_list(
 
         entry = {
             "index": index,
-            "remote_host": values.get("NewRemoteHost") or values.get("RemoteHost") or None,
-            "external_port": _int_from_text(values.get("NewExternalPort") or values.get("ExternalPort")),
+            "remote_host": values.get("NewRemoteHost")
+            or values.get("RemoteHost")
+            or None,
+            "external_port": _int_from_text(
+                values.get("NewExternalPort") or values.get("ExternalPort")
+            ),
             "protocol": values.get("NewProtocol") or values.get("Protocol") or None,
-            "internal_port": _int_from_text(values.get("NewInternalPort") or values.get("InternalPort")),
-            "internal_ip": values.get("NewInternalClient") or values.get("InternalClient") or None,
-            "enabled": _bool_from_text(values.get("NewEnabled") or values.get("Enabled")),
-            "description": values.get("NewPortMappingDescription") or values.get("PortMappingDescription") or None,
-            "lease_duration": _int_from_text(values.get("NewLeaseDuration") or values.get("LeaseDuration")),
+            "internal_port": _int_from_text(
+                values.get("NewInternalPort") or values.get("InternalPort")
+            ),
+            "internal_ip": values.get("NewInternalClient")
+            or values.get("InternalClient")
+            or None,
+            "enabled": _bool_from_text(
+                values.get("NewEnabled") or values.get("Enabled")
+            ),
+            "description": values.get("NewPortMappingDescription")
+            or values.get("PortMappingDescription")
+            or None,
+            "lease_duration": _int_from_text(
+                values.get("NewLeaseDuration") or values.get("LeaseDuration")
+            ),
         }
         items.append(entry)
         if len(items) >= limit:
@@ -722,7 +742,9 @@ def _run_portmap_add(
     bind_ip = scan_payload.get("bind_ip")
     internal_ip_text = str(internal_ip or bind_ip or "").strip()
     if not internal_ip_text:
-        raise ValueError("internal_ip is required (or select an interface that resolves to a local IPv4 address).")
+        raise ValueError(
+            "internal_ip is required (or select an interface that resolves to a local IPv4 address)."
+        )
     if not _is_ipv4_address(internal_ip_text):
         raise ValueError(f"internal_ip is not a valid IPv4 address: {internal_ip_text}")
 
@@ -733,7 +755,9 @@ def _run_portmap_add(
         raise ValueError("protocol must be TCP or UDP.")
 
     lease_duration_num = _normalize_int(lease_duration, 0)
-    desc_text = str(description or "uag upnp port mapping").strip() or "uag upnp port mapping"
+    desc_text = (
+        str(description or "uag upnp port mapping").strip() or "uag upnp port mapping"
+    )
     remote_host_text = str(remote_host or "").strip()
     enabled_flag = 1 if _bool_from_text(enabled, True) else 0
 
@@ -766,14 +790,28 @@ def _run_portmap_add(
             timeout,
         )
         verified_entry = {
-            "remote_host": values.get("NewRemoteHost") or values.get("RemoteHost") or None,
-            "external_port": _int_from_text(values.get("NewExternalPort") or values.get("ExternalPort")),
+            "remote_host": values.get("NewRemoteHost")
+            or values.get("RemoteHost")
+            or None,
+            "external_port": _int_from_text(
+                values.get("NewExternalPort") or values.get("ExternalPort")
+            ),
             "protocol": values.get("NewProtocol") or values.get("Protocol") or None,
-            "internal_port": _int_from_text(values.get("NewInternalPort") or values.get("InternalPort")),
-            "internal_ip": values.get("NewInternalClient") or values.get("InternalClient") or None,
-            "enabled": _bool_from_text(values.get("NewEnabled") or values.get("Enabled")),
-            "description": values.get("NewPortMappingDescription") or values.get("PortMappingDescription") or None,
-            "lease_duration": _int_from_text(values.get("NewLeaseDuration") or values.get("LeaseDuration")),
+            "internal_port": _int_from_text(
+                values.get("NewInternalPort") or values.get("InternalPort")
+            ),
+            "internal_ip": values.get("NewInternalClient")
+            or values.get("InternalClient")
+            or None,
+            "enabled": _bool_from_text(
+                values.get("NewEnabled") or values.get("Enabled")
+            ),
+            "description": values.get("NewPortMappingDescription")
+            or values.get("PortMappingDescription")
+            or None,
+            "lease_duration": _int_from_text(
+                values.get("NewLeaseDuration") or values.get("LeaseDuration")
+            ),
         }
     except Exception:
         pass
@@ -884,7 +922,11 @@ def run_tool(args: dict[str, Any]) -> str:
             default="Error: Unknown action '{action}'.",
             action=action,
         )
-        return message if output_format == "text" else json.dumps({"ok": False, "error": message}, ensure_ascii=False)
+        return (
+            message
+            if output_format == "text"
+            else json.dumps({"ok": False, "error": message}, ensure_ascii=False)
+        )
 
     if timeout < 1:
         timeout = _DEFAULT_TIMEOUT

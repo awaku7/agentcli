@@ -299,7 +299,9 @@ def _object_code_to_eoj(object_code: str | None) -> str | None:
     return f"{normalized}01"
 
 
-def _resolve_target_eoj(eoj: str | None, object_code: str | None) -> tuple[str, bytes, str | None]:
+def _resolve_target_eoj(
+    eoj: str | None, object_code: str | None
+) -> tuple[str, bytes, str | None]:
     if eoj:
         normalized = _normalize_eoj(eoj)
         if normalized is None:
@@ -398,7 +400,9 @@ def _build_result(
                 continue
             properties.append(dict(prop))
 
-    node_profile_props = _property_map(properties) if target_eoj.upper() == "0EF001" else {}
+    node_profile_props = (
+        _property_map(properties) if target_eoj.upper() == "0EF001" else {}
+    )
     node = {
         "ip_address": ip_address,
         "node_id": ip_address,
@@ -406,8 +410,16 @@ def _build_result(
             "eoj": target_eoj,
             "properties": properties if target_eoj.upper() == "0EF001" else [],
         },
-        "manufacturer": node_profile_props.get("8A", {}).get("raw_hex") if node_profile_props else None,
-        "model": node_profile_props.get("8B", {}).get("raw_hex") if node_profile_props else None,
+        "manufacturer": (
+            node_profile_props.get("8A", {}).get("raw_hex")
+            if node_profile_props
+            else None
+        ),
+        "model": (
+            node_profile_props.get("8B", {}).get("raw_hex")
+            if node_profile_props
+            else None
+        ),
         "available": bool(frames),
         "reachable": bool(frames),
         "last_updated": _now_iso(),
@@ -469,7 +481,9 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("output_format") or "json").strip().lower()
 
     try:
-        timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
+        timeout = _normalize_int(
+            args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1
+        )
     except Exception:
         timeout = _DEFAULT_TIMEOUT
 
@@ -484,7 +498,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     if epc_text is None:
         payload = {
@@ -497,7 +515,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     try:
         target_eoj_text, target_eoj_bytes, class_name = _resolve_target_eoj(
@@ -512,7 +534,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 "message": str(exc),
             },
         }
-        return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+        return (
+            json.dumps(payload, ensure_ascii=False, indent=2)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     start = time.monotonic()
     try:
