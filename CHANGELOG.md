@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-11
+
+### Added
+- UPnP IGD discovery now deduplicates repeated service entries and prefers the actual WANIPConnection service.
+- UPnP port mapping now defaults to a 60-minute lease when not specified.
+- GeoIP tool search priority was lowered so it stays out of normal tool discovery.
+
+### Fixed & Improved
+- Matter device, endpoint, and cluster listings now dedupe by controller_id and bridge_id.
+- ECHONET Lite interface resolution now avoids virtual adapters and falls back more reliably.
+- IoT use-case docs and related tests were refreshed for the current tool layout.
+
 ## [0.4.46] - 2026-06-10
 
 ### Added

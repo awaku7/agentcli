@@ -143,10 +143,10 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "lease_duration": {
                     "type": "integer",
-                    "default": 0,
+                    "default": 3600,
                     "description": _(
                         "param.lease_duration.description",
-                        default="Lease duration in seconds for port mapping add operations. 0 means indefinite on most routers.",
+                        default="Lease duration in seconds for port mapping add operations. Default: 3600 seconds (60 minutes).",
                     ),
                 },
                 "remote_host": {
@@ -795,7 +795,7 @@ def _run_portmap_add(
     if protocol_text not in {"TCP", "UDP"}:
         raise ValueError("protocol must be TCP or UDP.")
 
-    lease_duration_num = _normalize_int(lease_duration, 0)
+    lease_duration_num = _normalize_int(lease_duration, 3600)
     desc_text = (
         str(description or "uag upnp port mapping").strip() or "uag upnp port mapping"
     )

@@ -7,6 +7,18 @@
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-11
+
+### 新規追加
+- UPnP IGD の探索で重複する service エントリを除去し、実際の WANIPConnection を優先するように変更。
+- UPnP ポートマッピングの lease_duration 未指定時の既定値を 60分に変更。
+- GeoIP ツールの検索優先度を下げ、通常のツール探索に出にくいように変更。
+
+### 修正・改善
+- Matter の device / endpoint / cluster 一覧で controller_id と bridge_id で重複排除するよう改善。
+- ECHONET Lite の interface 解決で仮想アダプタを避け、フォールバックを強化。
+- IoT 用途説明ドキュメントと関連テストを現行のツール構成に合わせて更新。
+
 ## [0.4.46] - 2026-06-10
 
 ### 新規追加
