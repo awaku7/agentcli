@@ -19,6 +19,8 @@ def _set_iot_tools_enabled(enabled: bool) -> str:
 
     iot_modules = [
         "ble_ops_tool",
+        "upnp_scan_tool",
+        "upnp_igd_control_tool",
     ]
     changed_names = []
 
