@@ -348,12 +348,12 @@ def _extract_device_items(
         return None
 
     services: list[dict[str, Any]] = []
-    service_elements = []
+    service_elements: list[ET.Element] = []
     if device is not None:
-        service_elements = list(device.findall("./{*}serviceList/{*}service"))
-    if not service_elements:
-        service_elements = list(root.findall(".//{*}service"))
+        service_elements.extend(list(device.findall("./{*}serviceList/{*}service")))
+    service_elements.extend(list(root.findall(".//{*}service")))
 
+    seen_service_keys: set[tuple[str | None, str | None, str | None, str | None, str | None]] = set()
     for svc in service_elements:
         service_type = (svc.findtext("./{*}serviceType") or "").strip() or None
         service_id = (svc.findtext("./{*}serviceId") or "").strip() or None
@@ -366,6 +366,10 @@ def _extract_device_items(
         scpd_url = _safe_join(
             base_url, (svc.findtext("./{*}SCPDURL") or "").strip() or None
         )
+        key = (service_type, service_id, control_url, event_sub_url, scpd_url)
+        if key in seen_service_keys:
+            continue
+        seen_service_keys.add(key)
         if any([service_type, service_id, control_url, event_sub_url, scpd_url]):
             services.append(
                 {
