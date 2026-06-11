@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-06-12
+
+### Added
+- Startup genre prompt translations were added across all localized catalogs.
+
+### Fixed & Improved
+- Startup genre prompt handling was cleaned up for the first-menu flow.
+
 ## [0.5.0] - 2026-06-11
 
 ### Added
