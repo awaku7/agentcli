@@ -4,11 +4,19 @@ import json
 from typing import Any
 
 from . import get_tool_catalog
+from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+
+def _is_gpt54_tool_search_enabled() -> bool:
+    enabled = (env_get("UAGENT_ENABLE_GPT54_TOOL_SEARCH") or "").strip().lower()
+    return enabled in ("1", "true", "yes", "on")
+
+
 TOOL_SPEC: dict[str, Any] = {
+    "tool_level": 0 if _is_gpt54_tool_search_enabled() else -1,
     "type": "function",
     "function": {
         "name": "tool_catalog",

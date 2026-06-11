@@ -3,7 +3,7 @@
 ## 目的
 
 `uag` に Matter 関連ツール群を追加する。
-最初はコントローラー経由とブリッジ経由の一覧・状態確認から始め、将来的に詳細取得・制御・購読まで扱える構成へ拡張する。
+現行実装では、ローカル設定(JSON / 環境変数)を読み取り、コントローラー・ブリッジ・デバイスの状態を確認できる構成にする。
 
 ## 前提
 
@@ -16,6 +16,13 @@
 - 秘密情報は長期保存しない
 - 必要な環境変数を追加する場合は `UAGENT_` を接頭辞にして統一する
 - 既存の `uag` のツール体系に合わせる
+
+## 現状の実装方針
+
+- Matter の接続先ごとに専用アダプタを持たず、まずはローカル設定を正規化して扱う
+- 読み取り専用を基本とし、制御は将来拡張とする
+- `controller_id` / `bridge_id` / `device_id` / `endpoint` で対象を明確化する
+- 取得できない項目は `null` か省略で統一する
 
 ## 共通ルール
 
@@ -31,17 +38,15 @@
 - `config_missing`
 - `not_found`
 - `ambiguous_target`
-- `network_error`
-- `timeout`
-- `unsupported_device`
 - `invalid_argument`
+- 将来予約: `network_error`, `timeout`, `unsupported_device`
 
 ### 入力方針
 
 - コントローラー系は `controller_id`, `endpoint`, `cluster` などを受ける
 - ブリッジ系は `bridge_id`, `device_id`, `endpoint` などを受ける
+- `controller_id` / `bridge_id` 省略時は全件対象とする
 - 操作系は対象デバイスと操作パラメータを明示する
-- `controller_id` / `bridge_id` の省略時動作は仕様で固定する
 
 ## ツール設計方針
 
@@ -56,16 +61,18 @@
 
 ### Phase 1: 読み取り専用
 
-- コントローラー配下のデバイス一覧取得ツール
-- ブリッジ配下のデバイス一覧取得ツール
+- コントローラー一覧取得ツール
+- ブリッジ一覧取得ツール
 - デバイス状態取得ツール
+- エンドポイント一覧取得ツール
+- クラスタ一覧取得ツール
 - JSON / text 出力
 
 ### Phase 2: 詳細取得
 
-- エンドポイント / クラスタの詳細取得ツール
 - ルーム / エリア情報の整理
 - デバイスタイプごとの最小共通情報の正規化
+- 必要なら endpoint / cluster の追加属性拡張
 
 ### Phase 3: 制御
 
@@ -83,11 +90,11 @@
 - テスト拡充
 - 実運用向けのエラーハンドリング改善
 
-## Phase 1 の具体仕様
+## 現行ツール仕様
 
 ### matter_controller_list
 
-- 役割: Matter コントローラー経由で管理下デバイス一覧を取得する
+- 役割: Matter コントローラー一覧を取得する
 - 入力:
   - `controller_id`（任意）
   - `output_format`（省略時は `json`）
@@ -101,18 +108,17 @@
   - `controller`
   - `fetched_at`
 - `items[]` の主な要素:
-  - `device_id`
-  - `device_name`
-  - `device_type`
-  - `vendor`
-  - `bridge_id`
   - `controller_id`
+  - `controller_name`
+  - `device_count`
+  - `bridge_ids`
+  - `transport`
   - `reachable`
   - `last_updated`
 
 ### matter_bridge_list
 
-- 役割: Matter ブリッジ経由で配下デバイス一覧を取得する
+- 役割: Matter ブリッジ一覧を取得する
 - 入力:
   - `bridge_id`（任意）
   - `output_format`（省略時は `json`）
@@ -126,12 +132,12 @@
   - `bridge`
   - `fetched_at`
 - `items[]` の主な要素:
-  - `device_id`
-  - `device_name`
-  - `device_type`
-  - `vendor`
   - `bridge_id`
+  - `bridge_name`
   - `controller_id`
+  - `device_count`
+  - `device_ids`
+  - `transport`
   - `reachable`
   - `last_updated`
 
@@ -174,10 +180,46 @@
   - `attributes`
   - `commands`
 
+### matter_endpoint_list
+
+- 役割: 指定デバイスのエンドポイント一覧を取得する
+- 入力:
+  - `device_id`
+  - `controller_id`（任意）
+  - `bridge_id`（任意）
+  - `output_format`（省略時は `json`）
+- 出力:
+  - `ok`
+  - `count`
+  - `items[]`
+  - `endpoints`
+  - `device`
+  - `fetched_at`
+
+### matter_cluster_list
+
+- 役割: 指定デバイスのクラスタ一覧を取得する
+- 入力:
+  - `device_id`
+  - `controller_id`（任意）
+  - `bridge_id`（任意）
+  - `endpoint`（任意）
+  - `output_format`（省略時は `json`）
+- 出力:
+  - `ok`
+  - `count`
+  - `items[]`
+  - `clusters`
+  - `endpoints`
+  - `device`
+  - `fetched_at`
+
 ## 実装メモ
 
-- Matter は実装経路が複数あるため、コントローラー別・ブリッジ別のアダプタ構造にする
-- 秘密情報やトークンは安全に扱う
+- Matter は実装経路が複数あるため、入力の正規化を先に固める
+- `UAGENT_MATTER_CONTROLLERS_JSON` / `UAGENT_MATTER_CONTROLLERS_FILE`
+- `UAGENT_MATTER_BRIDGES_JSON` / `UAGENT_MATTER_BRIDGES_FILE`
+- `UAGENT_MATTER_DEVICES_JSON` / `UAGENT_MATTER_DEVICES_FILE`
 - まずは一覧取得で実用性を確認する
 - コントローラー系とブリッジ系は別ツールとして分ける
 - 失敗理由はユーザー向けに短く返す

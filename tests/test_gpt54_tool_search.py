@@ -314,14 +314,20 @@ def test_build_responses_request_keeps_user_attachments_as_images() -> None:
 
 
 def test_tool_catalog_tool_is_registered() -> None:
-    names = {
-        spec.get("function", {}).get("name")
-        for spec in tools.get_tool_specs()
-        if isinstance(spec, dict)
-    }
-    assert "tool_catalog" in names
+    old_gate_env = _set_gpt54_tool_search_env("1")
+    try:
+        tools.reload_plugins()
+        names = {
+            spec.get("function", {}).get("name")
+            for spec in tools.get_tool_specs()
+            if isinstance(spec, dict)
+        }
+        assert "tool_catalog" in names
 
-    out = tools.run_tool("tool_catalog", {"query": "open file", "max_results": 5})
+        out = tools.run_tool("tool_catalog", {"query": "open file", "max_results": 5})
+    finally:
+        _restore_gpt54_tool_search_env(old_gate_env)
+        tools.reload_plugins()
     data = json.loads(out)
     assert data["ok"] is True
     assert data["count"] >= 1

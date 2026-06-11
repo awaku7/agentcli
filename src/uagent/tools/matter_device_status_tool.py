@@ -288,7 +288,8 @@ def _iter_device_candidates(payloads: list[tuple[Any, str]]) -> list[dict[str, A
             normalized = _normalize_device_item(item, source)
             key = (
                 str(normalized.get("device_id") or "").casefold(),
-                str(normalized.get("source") or "").casefold(),
+                str(normalized.get("controller_id") or "").casefold(),
+                str(normalized.get("bridge_id") or "").casefold(),
             )
             if not key[0]:
                 continue
