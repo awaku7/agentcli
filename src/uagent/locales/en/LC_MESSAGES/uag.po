@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,20 +83,40 @@ msgstr "Exited uag."
 msgid "[docs] name is required"
 msgstr "[docs] name is required"
 
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] startup genre prompt = numeric-input"
+
 msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
 msgstr ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "Communication (Teams, Discord, etc.)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "Office suite (Excel, Word, etc.)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "Development (lint, py_compile, test, etc.)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT (Bluetooth, etc.)"
+
+msgid "Tool genre selection"
+msgstr "Tool genre selection"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr "Use Space to toggle, Arrow keys to move, Enter to confirm."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Default"
+msgstr "Default"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
 
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Failed to apply startup tool selection: %(err)s"

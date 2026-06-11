@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,76 +115,101 @@ msgstr "uag avslutades."
 msgid "[docs] name is required"
 msgstr "[docs] namn krävs"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"Välj verktygskategorier att aktivera vid start.\n"
-"1: comm  - Kommunikation (Teams, Discord, etc.)\n"
-"2: office - Kontorssvit (Excel, Word, etc.)\n"
-"4: devel  - Utveckling (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Ange summan av värdena (t.ex. 3 = comm + office, 15 = alla, eller tryck på Enter för att aktivera alla):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] uppstartsgenre-prompt = numerisk inmatning"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+"Ange summan av talen (t.ex. 3 = comm + office, 15 = alla, eller tryck på "
+"Enter för att aktivera alla):"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "Kommunikation (Teams, Discord osv.)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "Kontorspaket (Excel, Word osv.)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "Utveckling (lint, py_compile, test osv.)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT (Bluetooth osv.)"
+
+msgid "Tool genre selection"
+msgstr "Val av verktygsgenre"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr ""
+"Använd blanksteg för att växla, piltangenterna för att flytta, och Enter för"
+" att bekräfta."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Default"
+msgstr "Standard"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr ""
+"[INFO] uppstartsgenre-prompt = numerisk inmatning (prompt_toolkit-"
+"reservlösning)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Misslyckades med att tillämpa val av startverktyg: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Kunde inte ställa in arbetskatalog: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Kunde inte starta uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "leverantör = %(provider)s; modell = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter:s reservmodeller är aktiverade."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "nuvarande arbetskatalog = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "Långtidsminne laddat."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "Delat långtidsminne laddat."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "[VARNING] Undantag uppstod vid inläsning av delat långtidsminne: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[VARNING] Kunde inte läsa startfilen: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "Startfil tillhandahållen: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--non-interactive angavs; avslutar utan att vänta på stdin."
 
@@ -355,6 +380,7 @@ msgstr ""
 "[WARN] Historikkomprimeringens kontextgräns överskreds; försöker igen med "
 "chunk_size=%(chunk_size)d"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -853,7 +879,7 @@ msgstr "Läs all synlig text i denna skärmbild och sammanfatta den."
 msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr "Inspektera denna skärmbild efter fel, varningar och viktig UI-status."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Automatisk shrink_llm misslyckades: %(err)s"
@@ -2252,23 +2278,23 @@ msgstr "Okänd UAGENT_A2A_ENGINE: %(mode)s"
 msgid "invalid cache meta"
 msgstr "ogiltig cache-metadata"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "anthropic-paketet är inte installerat."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "google-genai kunde inte importeras (pip install google-genai krävs)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr ""
 "[Gemini-fel: Svaret blockerades av säkerhetsfiltret eller "
 "avslutningsorsaken]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Gemini-fel: %(err)s]"

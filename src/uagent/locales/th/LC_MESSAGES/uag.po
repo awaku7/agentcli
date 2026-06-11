@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,76 +111,98 @@ msgstr "ออกจาก uag แล้ว"
 msgid "[docs] name is required"
 msgstr "[docs] ต้องระบุชื่อ"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"เลือกประเภทเครื่องมือที่จะเปิดใช้งานเมื่อเริ่มต้นระบบ\n"
-"1: comm  - การสื่อสาร (Teams, Discord ฯลฯ)\n"
-"2: office - ชุดโปรแกรมสำนักงาน (Excel, Word ฯลฯ)\n"
-"4: devel  - การพัฒนา (lint, py_compile, การทดสอบ ฯลฯ)\n"
-"8: iot    - IoT (Bluetooth ฯลฯ)\n"
-"ป้อนผลรวมของค่าต่างๆ (เช่น 3 = comm + office, 15 = ทั้งหมด หรือกด Enter เพื่อเปิดใช้งานทั้งหมด):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] คำถามหมวดหมู่ตอนเริ่มต้น = ป้อนตัวเลข"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+"กรุณาป้อนผลรวมของตัวเลข (เช่น 3 = comm + office, 15 = ทั้งหมด หรือกด Enter "
+"เพื่อเปิดใช้งานทั้งหมด):"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "การสื่อสาร (Teams, Discord ฯลฯ)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "ชุดสำนักงาน (Excel, Word ฯลฯ)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "การพัฒนา (lint, py_compile, test ฯลฯ)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT (Bluetooth ฯลฯ)"
+
+msgid "Tool genre selection"
+msgstr "การเลือกหมวดหมู่เครื่องมือ"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr "ใช้ Space เพื่อสลับ ใช้ปุ่มลูกศรเพื่อเลื่อน และกด Enter เพื่อยืนยัน"
+
+msgid "OK"
+msgstr "ตกลง"
+
+msgid "Default"
+msgstr "ค่าเริ่มต้น"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr ""
+"[INFO] คำถามหมวดหมู่ตอนเริ่มต้น = ป้อนตัวเลข (ตัวสำรอง prompt_toolkit)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] ไม่สามารถใช้การเลือกเครื่องมือเริ่มต้น: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[ข้อผิดพลาดร้ายแรง] ตั้งค่าไดเรกทอรีทำงานไม่สำเร็จ: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[ข้อผิดพลาดร้ายแรง] เริ่ม uag_setup ไม่สำเร็จ: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "ผู้ให้บริการ = %(provider)s; โมเดล = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "เปิดใช้งานโมเดลสำรองของ OpenRouter แล้ว"
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "ไดเรกทอรีทำงานปัจจุบัน = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "โหลดหน่วยความจำระยะยาวแล้ว"
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "โหลดหน่วยความจำระยะยาวที่แชร์แล้ว"
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "[คำเตือน] เกิดข้อยกเว้นขณะโหลดหน่วยความจำระยะยาวที่ใช้ร่วมกัน: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[คำเตือน] อ่านไฟล์เริ่มต้นไม่สำเร็จ: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "มีการระบุไฟล์เริ่มต้น: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "มีการระบุ --non-interactive; ออกจากโปรแกรมโดยไม่รอ stdin"
 
@@ -349,6 +371,7 @@ msgstr ""
 "[WARN] บริบทของการบีบอัดประวัติเกินขีดจำกัด กำลังลองใหม่ด้วย "
 "chunk_size=%(chunk_size)d"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -848,7 +871,7 @@ msgstr "อ่านข้อความที่มองเห็นทั้
 msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr "ตรวจสอบภาพหน้าจอนี้เพื่อหาข้อผิดพลาด คำเตือน และสถานะ UI ที่สำคัญ"
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] การ shrink_llm อัตโนมัติล้มเหลว: %(err)s"
@@ -2242,24 +2265,24 @@ msgstr "ไม่รู้จัก UAGENT_A2A_ENGINE: %(mode)s"
 msgid "invalid cache meta"
 msgstr "เมตาดาต้าของแคชไม่ถูกต้อง"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "ยังไม่ได้ติดตั้งแพ็กเกจ anthropic"
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr ""
 "ไม่สามารถนำเข้า google-genai ได้ (ต้องติดตั้งด้วย pip install google-genai)"
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr ""
 "[ข้อผิดพลาด Gemini: "
 "การตอบกลับถูกบล็อกโดยตัวกรองความปลอดภัยหรือเหตุผลในการสิ้นสุด]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[ข้อผิดพลาด Gemini: %(err)s]"

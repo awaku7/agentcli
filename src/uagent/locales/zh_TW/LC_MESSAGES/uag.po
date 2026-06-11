@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,75 +109,94 @@ msgstr "uag 已結束。"
 msgid "[docs] name is required"
 msgstr "[docs] 名稱為必填項目"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"選擇啟動時啟用的工具類型。\n"
-"1: comm  - 通訊 (Teams, Discord 等)\n"
-"2: office - 辦公套件 (Excel, Word 等)\n"
-"4: devel  - 開發 (lint, py_compile, 測試等)\n"
-"8: iot    - 物聯網 (Bluetooth 等)\n"
-"輸入數值之和 (例如，3 = comm + office, 15 = 全部，或按 Enter 鍵啟用全部):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] 啟動類別提示 = 數字輸入"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr "請輸入數字總和（例如：3 = comm + office，15 = 全部，或按 Enter 啟用全部）："
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "通訊（Teams、Discord 等）"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "辦公套件（Excel、Word 等）"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "開發（lint、py_compile、test 等）"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT（Bluetooth 等）"
+
+msgid "Tool genre selection"
+msgstr "工具類別選擇"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr "使用 Space 切換，方向鍵移動，Enter 確認。"
+
+msgid "OK"
+msgstr "確定"
+
+msgid "Default"
+msgstr "預設"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr "[INFO] 啟動類別提示 = 數字輸入（prompt_toolkit 備援）"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] 無法套用啟動工具選擇：%(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[致命錯誤] 無法設定工作目錄：%(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[致命錯誤] 無法啟動 uag_setup：%(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "提供者 = %(provider)s; 模型 = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "已啟用 OpenRouter 備援模型。"
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "目前工作目錄 = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "已載入長期記憶。"
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "已載入共用長期記憶。"
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[WARN] 載入共享長期記憶時發生例外：%(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[警告] 無法讀取啟動檔案：%(path)s（%(err)s）"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "已提供啟動檔：%(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "已指定 --non-interactive；不等待 stdin 即結束。"
 
@@ -332,6 +351,7 @@ msgid ""
 "chunk_size=%(chunk_size)d"
 msgstr "[WARN] 歷史壓縮的上下文長度已超出限制；以 chunk_size=%(chunk_size)d 重試"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -802,7 +822,7 @@ msgstr "請讀取這張螢幕截圖中所有可見文字並加以摘要。"
 msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr "請檢查這張螢幕截圖中的錯誤、警告與重要介面狀態。"
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] 自動 shrink_llm 失敗：%(err)s"
@@ -2160,21 +2180,21 @@ msgstr "未知的 UAGENT_A2A_ENGINE：%(mode)s"
 msgid "invalid cache meta"
 msgstr "快取中繼資料無效"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "尚未安裝 anthropic 套件。"
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "無法匯入 google-genai（需要執行 pip install google-genai）。"
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr "[Gemini 錯誤：回應被安全篩選器或結束原因攔截]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Gemini 錯誤：%(err)s]"

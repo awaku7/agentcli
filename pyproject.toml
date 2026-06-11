@@ -31,6 +31,7 @@ dependencies = [
     "urllib3>=2.6.3",
     "python-dotenv>=1.2.2",
     "tqdm>=4.67.3",
+    "prompt-toolkit>=3.0.52",
     "Pillow>=11.0.0",
     "openpyxl>=3.1.5",
     "python-docx>=1.2.0",

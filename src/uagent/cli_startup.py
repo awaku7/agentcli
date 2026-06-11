@@ -5,7 +5,6 @@ import sys
 from dataclasses import dataclass
 from typing import Any
 
-
 @dataclass
 class CliStartupState:
     provider: str
@@ -15,17 +14,13 @@ class CliStartupState:
     messages: list[dict[str, Any]]
     should_exit: bool = False
 
-
-def _prompt_startup_tool_genre_mask() -> int:
+def _prompt_startup_tool_genre_mask_fallback() -> int:
     from .i18n import _
 
+    print(_("[INFO] startup genre prompt = numeric-input"), file=sys.stderr)
+
     prompt = _(
-        "Select tool genres to enable at startup.\n"
-        "1: comm  - Communication (Teams, Discord, etc.)\n"
-        "2: office - Office suite (Excel, Word, etc.)\n"
-        "4: devel  - Development (lint, py_compile, test, etc.)\n"
-        "8: iot    - IoT (Bluetooth, etc.)\n"
-        "Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
+        "数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
     )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
@@ -36,21 +31,9 @@ def _prompt_startup_tool_genre_mask() -> int:
             pass
         try:
             raw = input().strip()
-        except EOFError as e:
-            try:
-                sys.__stderr__.write(f"[DEBUG] EOFError in input(): {e}\n")
-                sys.__stderr__.flush()
-            except Exception:
-                pass
+        except EOFError:
             return 15
-        except Exception as e:
-            try:
-                sys.__stderr__.write(
-                    f"[DEBUG] Exception in input(): {type(e).__name__}: {e}\n"
-                )
-                sys.__stderr__.flush()
-            except Exception:
-                pass
+        except Exception:
             return 15
         if not raw:
             return 15
@@ -71,6 +54,59 @@ def _prompt_startup_tool_genre_mask() -> int:
         except Exception:
             pass
 
+def _prompt_startup_tool_genre_mask() -> int:
+    from .i18n import _
+
+    try:
+        from prompt_toolkit.shortcuts import checkboxlist_dialog
+    except Exception:
+        return _prompt_startup_tool_genre_mask_fallback()
+
+    choices = [
+        ("comm", _("Communication (Teams, Discord, etc.)")),
+        ("office", _("Office suite (Excel, Word, etc.)")),
+        ("devel", _("Development (lint, py_compile, test, etc.)")),
+        ("iot", _("IoT (Bluetooth, etc.)")),
+    ]
+
+    stdin_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
+    stdout_tty = bool(
+        getattr(getattr(sys, "__stdout__", None) or sys.stdout, "isatty", lambda: False)()
+    )
+    if not (stdin_tty and stdout_tty):
+        return _prompt_startup_tool_genre_mask_fallback()
+
+    print("[INFO] startup genre prompt = prompt_toolkit", file=sys.stderr)
+    try:
+        result = checkboxlist_dialog(
+            title=_("Tool genre selection"),
+            text=_("Use Space to toggle, Arrow keys to move, Enter to confirm."),
+            ok_text=_("OK"),
+            cancel_text=_("Default"),
+            values=choices,
+            default_values=[key for key, _label in choices],
+        ).run()
+    except Exception:
+        print(
+            _("[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"),
+            file=sys.stderr,
+        )
+        return _prompt_startup_tool_genre_mask_fallback()
+
+    if result is None:
+        return 15
+
+    mask = 0
+    for key in result:
+        if key == "comm":
+            mask |= 1
+        elif key == "office":
+            mask |= 2
+        elif key == "devel":
+            mask |= 4
+        elif key == "iot":
+            mask |= 8
+    return mask
 
 def _apply_startup_tool_genre_mask(mask: int) -> None:
     if mask <= 0:
@@ -106,7 +142,6 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
                 _("[WARN] Failed to apply startup tool selection: %(err)s", err=e),
                 file=sys.stderr,
             )
-
 
 def run_cli_startup(
     *,
@@ -161,7 +196,6 @@ def run_cli_startup(
 
     set_thread_lang(detect_lang())
 
-    # Do not redirect stdout/stderr during startup to allow interactive prompt to work
     try:
         if True:
             try:
@@ -177,7 +211,6 @@ def run_cli_startup(
                 )
                 apply_workdir(decision)
                 reload_dotenv_custom()
-
             except Exception as e:
                 print(
                     _("[FATAL] Failed to set workdir: %(err)s", err=e),
@@ -254,13 +287,8 @@ def run_cli_startup(
                 % {"provider": provider, "model": depname or ""}
             )
 
-            if (
-                provider == "openrouter"
-                and (depname or "").strip() == "openrouter/auto"
-            ):
-                raw_fb = (
-                    env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
-                ).strip()
+            if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
+                raw_fb = (env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or "").strip()
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
@@ -269,9 +297,6 @@ def run_cli_startup(
                 print("[INFO] " + _("current workdir = %(cwd)s") % {"cwd": cwd})
             except Exception:
                 pass
-
-            # No redirect is active, so we don't need to flush StringIO anymore
-            pass
 
             if not non_interactive:
                 tool_genre_mask = _prompt_startup_tool_genre_mask()

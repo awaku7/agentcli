@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,75 +111,94 @@ msgstr "از uag خارج شد."
 msgid "[docs] name is required"
 msgstr "نام [اسناد] مورد نیاز است"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"انواع ابزارها را برای فعال‌سازی در هنگام راه‌اندازی انتخاب کنید.\n"
-"1: comm  - ارتباطات (Teams، Discord و غیره)\n"
-"2: office - مجموعه اداری (Excel، Word و غیره)\n"
-"4: devel  - توسعه (lint، py_compile، تست و غیره)\n"
-"8: iot    - اینترنت اشیاء (Bluetooth و غیره)\n"
-"مجموع مقادیر را وارد کنید (به عنوان مثال، 3 = comm + office، 15 = همه، یا برای فعال‌سازی همه کلید Enter را فشار دهید):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] اعلان ژانر راه‌اندازی = ورودی عددی"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "ارتباطات (Teams، Discord و غیره)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr ""
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr ""
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr ""
+
+msgid "Tool genre selection"
+msgstr "انتخاب ژانر ابزار"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr ""
+
+msgid "OK"
+msgstr ""
+
+msgid "Default"
+msgstr "پیش‌فرض"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr ""
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] خطا در اعمال انتخاب ابزار راه‌اندازی: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[خطای شدید] تنظیم workdir ناموفق بود: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] راه اندازی uag_setup ناموفق بود: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "ارائه‌دهنده = %(provider)s; مدل = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "مدل های بازگشتی OpenRouter فعال شد."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "workdir فعلی = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "حافظه بلندمدت بارگذاری شد."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "حافظه بلندمدت مشترک بارگذاری شد."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[هشدار] هنگام بارگذاری حافظه بلندمدت مشترک، استثنا رخ داد: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[هشدار] فایل راه‌اندازی خوانده نشد: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "فایل راه اندازی ارائه شده: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--غیر تعاملی مشخص شد. خروج بدون انتظار برای stdin."
 
@@ -348,6 +367,7 @@ msgstr ""
 "[WARN] طول زمینهٔ فشرده‌سازی تاریخچه از حد گذشت؛ تلاش دوباره با "
 "chunk_size=%(chunk_size)d"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -842,7 +862,7 @@ msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr ""
 "این اسکرین‌شات را از نظر خطاها، هشدارها و وضعیت مهم رابط کاربری بررسی کنید."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] کاهش خودکار shrink_llm ناموفق بود: %(err)s"
@@ -2246,22 +2266,22 @@ msgstr "UAGENT_A2A_ENGINE ناشناخته: %(mode)s"
 msgid "invalid cache meta"
 msgstr "متای حافظه پنهان نامعتبر است"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "بسته anthropic نصب نشده است."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr ""
 "امکان import کردن google-genai نبود (نصب google-genai با pip لازم است)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr "[خطای Gemini: پاسخ توسط فیلتر ایمنی یا دلیل پایان مسدود شد]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[خطای Gemini: %(err)s]"

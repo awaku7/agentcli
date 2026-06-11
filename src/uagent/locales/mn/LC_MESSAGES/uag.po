@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,59 +113,81 @@ msgstr "Uag-аас гарсан."
 msgid "[docs] name is required"
 msgstr "[docs] нэр шаардлагатай"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"Эхлэх үед идэвхжүүлэх хэрэгслийн төрлүүдийг сонгоно уу.\n"
-"1: comm  - Харилцаа холбоо (Teams, Discord гэх мэт)\n"
-"2: office - Оффисын багц (Excel, Word гэх мэт)\n"
-"4: devel  - Хөгжүүлэлт (lint, py_compile, тест гэх мэт)\n"
-"8: iot    - IoT (Bluetooth гэх мэт)\n"
-"Утгуудын нийлбэрийг оруулна уу (жишээ нь, 3 = comm + office, 15 = бүгд, эсвэл Enter дарж бүгдийг идэвхжүүлнэ үү):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] эхлүүлэх жанрын асуулт = тоон оруулга"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+"Тоонуудын нийлбэрийг оруулна уу (жишээ нь: 3 = comm + office, 15 = бүгд, "
+"эсвэл бүгдийг идэвхжүүлэхийн тулд Enter дарна уу):"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "Харилцаа холбоо (Teams, Discord гэх мэт)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "Оффисын багц (Excel, Word гэх мэт)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "Хөгжүүлэлт (lint, py_compile, test гэх мэт)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT (Bluetooth гэх мэт)"
+
+msgid "Tool genre selection"
+msgstr "Хэрэгслийн жанр сонголт"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr ""
+"Сэлгэхдээ Space, шилжихдээ суман товчнууд, баталгаажуулахдаа Enter дарна уу."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Default"
+msgstr "Өгөгдмөл"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr "[INFO] эхлүүлэх жанрын асуулт = тоон оруулга (prompt_toolkit нөөц)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Эхлүүлэх хэрэгслийн сонголтыг хэрэгжүүлж чадсангүй: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Workdir-г тохируулж чадсангүй: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup-г эхлүүлж чадсангүй: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "үйлчилгээ үзүүлэгч = %(provider)s; загвар = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter-ийн нөөц загваруудыг идэвхжүүлсэн."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "одоогийн ажлын директор = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "Ачаалагдсан урт хугацааны санах ой."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "Хуваалцсан урт хугацааны санах ойг ачааллаа."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
@@ -173,17 +195,17 @@ msgstr ""
 "[АНХААРУУЛГА] Хуваалцсан урт хугацааны санах ойг ачаалах үед онцгой "
 "тохиолдол гарлаа: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[АНХААРУУЛГА] Эхлүүлэх файлыг уншиж чадсангүй: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "Эхлүүлэх файлыг өгсөн: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--интерактив бусыг тодорхойлсон; stdin хүлээхгүйгээр гарах."
 
@@ -355,6 +377,7 @@ msgstr ""
 "[WARN] Түүх шахалтын контекстийн урт хэтэрлээ; chunk_size=%(chunk_size)d-ээр"
 " дахин оролдож байна"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -860,7 +883,7 @@ msgstr ""
 "Энэ дэлгэцийн зургийг алдаа, анхааруулга болон чухал UI төлөвийн хувьд "
 "шалгана уу."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Автомат shrink_llm амжилтгүй боллоо: %(err)s"
@@ -2278,25 +2301,25 @@ msgstr "Үл мэдэгдэх UAGENT_A2A_ENGINE: %(mode)s"
 msgid "invalid cache meta"
 msgstr "буруу кэш мета"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "антропик багц суулгаагүй байна."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr ""
 "google-genai-г импортлох боломжгүй байна (pip install google-genai "
 "шаардлагатай)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr ""
 "[Gemini алдаа: Аюулгүй байдлын шүүлтүүр эсвэл дуусгах шалтгаанаар хариултыг "
 "хаасан]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Gemini алдаа: %(err)s]"

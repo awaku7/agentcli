@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,76 +113,99 @@ msgstr "uag मधून बाहेर पडलो."
 msgid "[docs] name is required"
 msgstr "[दस्तऐवज] नाव आवश्यक आहे"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"स्टार्टअपवर सक्षम करण्यासाठी टूल प्रकार निवडा.\n"
-"1: comm  - संप्रेषण (Teams, Discord इ.)\n"
-"2: office - ऑफिस सूट (Excel, Word इ.)\n"
-"4: devel  - विकास (lint, py_compile, चाचण्या इ.)\n"
-"8: iot    - IoT (Bluetooth इ.)\n"
-"मूल्यांची बेरीज प्रविष्ट करा (उदा. 3 = comm + office, 15 = सर्व, किंवा सर्व सक्षम करण्यासाठी Enter दाबा):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] startup genre prompt = numeric-input"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+"कृपया संख्यांची एकूण बेरीज प्रविष्ट करा (उदा.: 3 = comm + office, 15 = सर्व,"
+" किंवा सर्व सक्षम करण्यासाठी Enter की दाबा):"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "संप्रेषण (Teams, Discord, इ.)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "कार्यालयीन संच (Excel, Word, इ.)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "विकास (lint, py_compile, test, इ.)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT (Bluetooth, इ.)"
+
+msgid "Tool genre selection"
+msgstr "साधन प्रकार निवड"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr ""
+"टॉगल करण्यासाठी Space वापरा, हलवण्यासाठी Arrow keys वापरा, पुष्टी करण्यासाठी"
+" Enter दाबा."
+
+msgid "OK"
+msgstr "ठीक आहे"
+
+msgid "Default"
+msgstr "डीफॉल्ट"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] स्टार्टअप साधन निवड लागू करण्यात अपयशी: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] कार्यरत निर्देशिका सेट करण्यात अयशस्वी: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup सुरू करण्यात अयशस्वी: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "पुरवठादार = %(provider)s; मॉडेल = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter चे फॉलबॅक मॉडेल्स सक्षम आहेत."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "सध्याची कार्य निर्देशिका = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "दीर्घकालीन मेमरी लोड केली."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "सामायिक केलेली दीर्घकालीन मेमरी लोड केली."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "[चेतावणी] सामायिक केलेली दीर्घकालीन मेमरी लोड करताना अपवाद आला: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[चेतावणी] स्टार्टअप फाइल वाचण्यात अयशस्वी: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "स्टार्टअप फाइल दिली: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr ""
 "--नॉन-इंटरॅक्टिव्ह निर्दिष्ट केले होते; stdin ची वाट न पाहता बाहेर पडत आहे."
@@ -351,6 +374,7 @@ msgstr ""
 "[WARN] इतिहास संकुचनाची संदर्भ मर्यादा ओलांडली; chunk_size=%(chunk_size)d सह"
 " पुन्हा प्रयत्न करत आहोत"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -847,7 +871,7 @@ msgstr "या स्क्रीनशॉटमधील सर्व दृश
 msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr "या स्क्रीनशॉटमध्ये त्रुटी, इशारे आणि महत्त्वाची UI स्थिती तपासा."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] स्वयंचलित shrink_llm अयशस्वी झाले: %(err)s"
@@ -2247,24 +2271,24 @@ msgstr "अज्ञात UAGENT_A2A_ENGINE: %(mode)s"
 msgid "invalid cache meta"
 msgstr "अवैध कॅशे मेटा"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "मानववंशीय पॅकेज स्थापित केलेले नाही."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr ""
 "google-genai आयात करता आले नाही (pip install google-genai आवश्यक आहे)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr ""
 "[Gemini त्रुटी: सुरक्षा फिल्टर किंवा समाप्तीच्या कारणामुळे प्रतिसाद अवरोधित "
 "केला आहे]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Gemini त्रुटी: %(err)s]"

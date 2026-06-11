@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,75 +110,96 @@ msgstr "تم الخروج."
 msgid "[docs] name is required"
 msgstr "[docs] الاسم مطلوب"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"حدد أنواع الأدوات لتمكينها عند بدء التشغيل.\n"
-"1: comm  - الاتصالات (Teams، Discord، إلخ.)\n"
-"2: office - المكتبية (Excel، Word، إلخ.)\n"
-"4: devel  - التطوير (lint، py_compile، الاختبار، إلخ.)\n"
-"8: iot    - إنترنت الأشياء (Bluetooth، إلخ.)\n"
-"أدخل مجموع القيم (على سبيل المثال، 3 = comm + office، 15 = الكل، أو اضغط على Enter لتمكين الكل):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] مطالبة نوع بدء التشغيل = إدخال رقمي"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+"يرجى إدخال مجموع الأرقام (مثال: 3 = comm + office، 15 = الكل، أو اضغط Enter "
+"لتفعيل الكل):"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "الاتصالات (Teams وDiscord وما إلى ذلك)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "حزمة المكتب (Excel وWord وما إلى ذلك)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "التطوير (lint وpy_compile والاختبار وما إلى ذلك)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "إنترنت الأشياء (Bluetooth وما إلى ذلك)"
+
+msgid "Tool genre selection"
+msgstr "اختيار فئة الأداة"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr "استخدم مفتاح المسافة للتبديل، ومفاتيح الأسهم للتنقل، وEnter للتأكيد."
+
+msgid "OK"
+msgstr "موافق"
+
+msgid "Default"
+msgstr "افتراضي"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr "[INFO] مطالبة نوع بدء التشغيل = إدخال رقمي (بديل prompt_toolkit)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] فشل تطبيق تحديد أداة بدء التشغيل: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[فادح] فشل في تعيين دليل العمل: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[فادح] فشل تشغيل uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "المزوّد = %(provider)s؛ النموذج = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "تم تمكين نماذج OpenRouter الاحتياطية."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "دليل العمل الحالي = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "تم تحميل الذاكرة طويلة المدى."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "تم تحميل الذاكرة المشتركة طويلة المدى."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[تحذير] حدث استثناء أثناء تحميل الذاكرة المشتركة طويلة المدى: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[تحذير] فشل في قراءة ملف بدء التشغيل: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "تم توفير ملف بدء التشغيل: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "تم تحديد --non-interactive؛ سيتم الخروج دون انتظار الإدخال القياسي."
 
@@ -344,6 +365,7 @@ msgstr ""
 "[WARN] تم تجاوز حد السياق؛ جارٍ إعادة المحاولة باستخدام "
 "chunk_size=%(chunk_size)d"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -835,7 +857,7 @@ msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr ""
 "افحص هذه اللقطة بحثًا عن الأخطاء والتحذيرات وحالة واجهة المستخدم المهمة."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] فشل shrink_llm التلقائي: %(err)s"
@@ -2233,21 +2255,21 @@ msgstr "محرك UAGENT_A2A_ENGINE غير معروف: %(mode)s"
 msgid "invalid cache meta"
 msgstr "تعريف ذاكرة التخزين المؤقت غير صالح"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "حزمة anthropic غير مثبتة."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "تعذّر استيراد google-genai (يلزم تثبيت google-genai باستخدام pip)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr "[خطأ Gemini: تم حظر الرد بواسطة فلتر الأمان أو سبب الإنهاء]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[خطأ Gemini: %(err)s]"

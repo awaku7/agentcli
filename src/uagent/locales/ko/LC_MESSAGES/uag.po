@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,75 +111,94 @@ msgstr "uag를 종료했습니다."
 msgid "[docs] name is required"
 msgstr "[docs] name이 필요합니다"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"시작 시 활성화할 도구 장르를 선택하십시오.\n"
-"1: comm  - 커뮤니케이션 (Teams, Discord 등)\n"
-"2: office - 오피스 제품군 (Excel, Word 등)\n"
-"4: devel  - 개발 (lint, py_compile, 테스트 등)\n"
-"8: iot    - IoT (Bluetooth 등)\n"
-"값의 합계를 입력하십시오 (예: 3 = comm + office, 15 = 모두, 또는 Enter를 눌러 모두 활성화):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] 시작 장르 프롬프트 = 숫자 입력"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr "숫자의 합계를 입력하세요 (예: 3 = comm + office, 15 = 모두, 또는 Enter 키를 눌러 모두 활성화):"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "커뮤니케이션(Teams, Discord 등)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "오피스 제품군(Excel, Word 등)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "개발(lint, py_compile, 테스트 등)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT(Bluetooth 등)"
+
+msgid "Tool genre selection"
+msgstr "도구 장르 선택"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr "Space로 전환하고, 화살표 키로 이동하며, Enter로 확인합니다."
+
+msgid "OK"
+msgstr "확인"
+
+msgid "Default"
+msgstr "기본값"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr "[INFO] 시작 장르 프롬프트 = 숫자 입력 (prompt_toolkit 대체)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] 시작 도구 선택을 적용하지 못했습니다: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] workdir를 설정하지 못했습니다: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup를 시작하지 못했습니다: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "공급자 = %(provider)s; 모델 = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter 대체 모델이 활성화되었습니다."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "현재 작업 디렉터리 = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "장기 메모리를 불러왔습니다."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "공유 장기 메모리를 불러왔습니다."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[WARN] 공유 장기 메모리를 로드하는 중 예외가 발생했습니다: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[WARN] 시작 파일을 읽지 못했습니다: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "시작 파일이 제공되었습니다: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--non-interactive가 지정되었습니다. stdin을 기다리지 않고 종료합니다."
 
@@ -336,6 +355,7 @@ msgid ""
 "chunk_size=%(chunk_size)d"
 msgstr "[WARN] 기록 압축이 컨텍스트 길이를 초과했습니다. chunk_size=%(chunk_size)d로 다시 시도합니다"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -807,7 +827,7 @@ msgstr "이 스크린샷에 보이는 모든 텍스트를 읽고 요약하세요
 msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr "이 스크린샷에서 오류, 경고, 중요한 UI 상태를 확인하세요."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] 자동 shrink_llm에 실패했습니다: %(err)s"
@@ -2168,21 +2188,21 @@ msgstr "알 수 없는 UAGENT_A2A_ENGINE: %(mode)s"
 msgid "invalid cache meta"
 msgstr "캐시 메타데이터가 잘못되었습니다"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "anthropic 패키지가 설치되어 있지 않습니다."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "google-genai를 가져올 수 없습니다(pip install google-genai가 필요합니다)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr "[Gemini 오류: 안전 필터 또는 종료 이유로 인해 응답이 차단되었습니다]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Gemini 오류: %(err)s]"

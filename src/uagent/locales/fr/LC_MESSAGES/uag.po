@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,61 +115,86 @@ msgstr "uag quitté."
 msgid "[docs] name is required"
 msgstr "[docs] le nom est requis"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"Sélectionnez les genres d'outils à activer au démarrage.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Suite bureautique (Excel, Word, etc.)\n"
-"4: devel  - Développement (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Saisissez la somme des valeurs (par exemple, 3 = comm + office, 15 = tous, ou appuyez sur Entrée pour tout activer) :"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] invite de genre au démarrage = saisie numérique"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+"Veuillez saisir la somme numérique (ex. : 3 = comm + office, 15 = tout, ou "
+"appuyez sur Entrée pour tout activer) :"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "Communication (Teams, Discord, etc.)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "Suite bureautique (Excel, Word, etc.)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "Développement (lint, py_compile, test, etc.)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT (Bluetooth, etc.)"
+
+msgid "Tool genre selection"
+msgstr "Sélection du genre d’outil"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr ""
+"Utilisez Espace pour basculer, les flèches pour vous déplacer et Entrée pour"
+" confirmer."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Default"
+msgstr "Par défaut"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr ""
+"[INFO] invite de genre au démarrage = saisie numérique (solution de secours "
+"prompt_toolkit)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr ""
 "[WARN] Échec de l'application de la sélection de l'outil de démarrage : "
 "%(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Échec de la définition du répertoire de travail : %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Échec du lancement de uag_setup : %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "fournisseur = %(provider)s ; modèle = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "Modèles de secours OpenRouter activés."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "répertoire de travail actuel = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "Mémoire à long terme chargée."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "Mémoire à long terme partagée chargée."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
@@ -177,19 +202,19 @@ msgstr ""
 "[AVERTISSEMENT] Une exception est survenue lors du chargement de la mémoire "
 "longue partagée : %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr ""
 "[AVERTISSEMENT] Impossible de lire le fichier de démarrage : %(path)s "
 "(%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "Fichier de démarrage fourni : %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--non-interactive a été spécifié ; sortie sans attendre stdin."
 
@@ -362,6 +387,7 @@ msgstr ""
 "[WARN] La limite de contexte a été dépassée lors de la compression de "
 "l’historique ; nouvel essai avec chunk_size=%(chunk_size)d"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -869,7 +895,7 @@ msgstr ""
 "Inspectez cette capture d’écran à la recherche d’erreurs, d’avertissements "
 "et d’un état important de l’interface."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Échec de shrink_llm automatique : %(err)s"
@@ -2292,24 +2318,24 @@ msgstr "UAGENT_A2A_ENGINE inconnu : %(mode)s"
 msgid "invalid cache meta"
 msgstr "métadonnées de cache invalides"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "Le paquet anthropic n'est pas installé."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr ""
 "google-genai n’a pas pu être importé (pip install google-genai est requis)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr ""
 "[Erreur Gemini : Réponse bloquée par le filtre de sécurité ou le motif de "
 "fin]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Erreur Gemini : %(err)s]"

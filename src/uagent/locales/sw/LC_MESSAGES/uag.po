@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,59 +113,82 @@ msgstr "Uag imeondoka."
 msgid "[docs] name is required"
 msgstr "[docs] jina linahitajika"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"Chagua aina za zana za kuwezesha wakati wa kuanza.\n"
-"1: comm  - Mawasiliano (Teams, Discord, n.k.)\n"
-"2: office - Suite ya Ofisi (Excel, Word, n.k.)\n"
-"4: devel  - Maendeleo (lint, py_compile, vipimo, n.k.)\n"
-"8: iot    - IoT (Bluetooth, n.k.)\n"
-"Ingiza jumla ya maadili (k.m., 3 = comm + office, 15 = zote, au bonyeza Enter ili kuwezesha zote):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] kidokezo cha aina ya kuanzisha = ingizo la nambari"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+"Tafadhali ingiza jumla ya nambari (mf. 3 = comm + office, 15 = zote, au "
+"bonyeza Enter ili kuwezesha zote):"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "Mawasiliano (Teams, Discord, n.k.)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "Vifurushi vya ofisi (Excel, Word, n.k.)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "Uendelezaji (lint, py_compile, majaribio, n.k.)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT (Bluetooth, n.k.)"
+
+msgid "Tool genre selection"
+msgstr "Uchaguzi wa aina ya zana"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr "Tumia Space kuwasha/kuzima, vishale kusogea, na Enter kuthibitisha."
+
+msgid "OK"
+msgstr "Sawa"
+
+msgid "Default"
+msgstr "Chaguo-msingi"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr ""
+"[INFO] kidokezo cha aina ya kuanzisha = ingizo la nambari (fallback ya "
+"prompt_toolkit)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Imeshindwa kutumia uteuzi wa zana ya kuanza: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Imeshindwa kuweka workdir: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Imeshindwa kuzindua uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "mtoa huduma = %(provider)s; modeli = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "Miundo mbadala ya OpenRouter imewezeshwa."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "saraka ya sasa ya kazi = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "Kumbukumbu ya muda mrefu imepakiwa."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "Kumbukumbu ya muda mrefu ya pamoja imepakiwa."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
@@ -173,17 +196,17 @@ msgstr ""
 "[WARN] Hitilafu imetokea wakati wa kupakia kumbukumbu ya muda mrefu ya "
 "pamoja: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[WARN] Imeshindwa kusoma faili ya kuanzisha: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "Faili ya kuanza imetolewa: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--non-interactive imebainishwa; inatoka bila kusubiri stdin."
 
@@ -355,6 +378,7 @@ msgstr ""
 "[WARN] Kikomo cha muktadha kimezidiwa wakati wa kubana historia; najaribu "
 "tena kwa chunk_size=%(chunk_size)d"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -859,7 +883,7 @@ msgstr ""
 msgid "Inspect this screenshot for errors, warnings, and important UI state."
 msgstr "Kagua picha hii ya skrini kwa makosa, maonyo, na hali muhimu ya UI."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] shrink_llm ya moja kwa moja imeshindikana: %(err)s"
@@ -2267,24 +2291,24 @@ msgstr "Injini isiyojulikana ya UAGENT_A2A_ENGINE: %(mode)s"
 msgid "invalid cache meta"
 msgstr "meta ya akiba batili"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "Kifurushi cha anthropic hakijasakinishwa."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr ""
 "google-genai haikuweza kuingizwa (pip install google-genai inahitajika)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr ""
 "[Hitilafu ya Gemini: Jibu limezuiwa na kichujio cha usalama au sababu ya "
 "kukamilisha]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Hitilafu ya Gemini: %(err)s]"

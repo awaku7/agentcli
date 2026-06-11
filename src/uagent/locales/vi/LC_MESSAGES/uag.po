@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,75 +111,98 @@ msgstr "Đã thoát uag."
 msgid "[docs] name is required"
 msgstr "[docs] cần có tên"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"Chọn các loại công cụ để bật khi khởi động.\n"
-"1: comm  - Giao tiếp (Teams, Discord, v.v.)\n"
-"2: office - Bộ văn phòng (Excel, Word, v.v.)\n"
-"4: devel  - Phát triển (lint, py_compile, kiểm thử, v.v.)\n"
-"8: iot    - IoT (Bluetooth, v.v.)\n"
-"Nhập tổng các giá trị (ví dụ: 3 = comm + office, 15 = tất cả, hoặc nhấn Enter để bật tất cả):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] lời nhắc thể loại khi khởi động = nhập số"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+"Hãy nhập tổng các số (ví dụ: 3 = comm + office, 15 = tất cả, hoặc nhấn Enter"
+" để bật tất cả):"
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "Giao tiếp (Teams, Discord, v.v.)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "Bộ ứng dụng văn phòng (Excel, Word, v.v.)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "Phát triển (lint, py_compile, test, v.v.)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT (Bluetooth, v.v.)"
+
+msgid "Tool genre selection"
+msgstr "Chọn thể loại công cụ"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr "Dùng Space để bật/tắt, phím mũi tên để di chuyển, Enter để xác nhận."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Default"
+msgstr "Mặc định"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr ""
+"[INFO] lời nhắc thể loại khi khởi động = nhập số (phương án dự phòng "
+"prompt_toolkit)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Không thể áp dụng lựa chọn công cụ khởi động: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Không thể đặt thư mục làm việc: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Không thể khởi chạy uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "nhà cung cấp = %(provider)s; mô hình = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "Đã bật các mô hình dự phòng của OpenRouter."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "thư mục làm việc hiện tại = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "Đã tảibộ nhớ dài hạn."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "Đã tảibộ nhớ dài hạn dùng chung."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[WARN] Đã xảy ra ngoại lệ khi tải bộ nhớ dài hạn dùng chung: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[WARN] Không thể đọc tệp khởi động: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "Đã cung cấp tệp khởi động: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "Đã chỉ định --non-interactive; thoát mà không chờ stdin."
 
@@ -347,6 +370,7 @@ msgstr ""
 "[WARN] Độ dài ngữ cảnh khi nén lịch sử đã vượt quá giới hạn; thử lại với "
 "chunk_size=%(chunk_size)d"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -850,7 +874,7 @@ msgstr ""
 "Hãy kiểm tra ảnh chụp màn hình này để tìm lỗi, cảnh báo và trạng thái UI "
 "quan trọng."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] shrink_llm tự động thất bại: %(err)s"
@@ -2232,21 +2256,21 @@ msgstr "未知的 UAGENT_A2A_ENGINE: %(mode)s"
 msgid "invalid cache meta"
 msgstr "缓存元数据không hợp lệ"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "Chưa cài đặt anthropic 包."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr "Không thể nhập google-genai (cần cài bằng pip install google-genai)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr "[Lỗi Gemini: Phản hồi bị chặn bởi bộ lọc an toàn hoặc lý do kết thúc]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Lỗi Gemini: %(err)s]"

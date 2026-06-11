@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-10 20:37+0900\n"
+"POT-Creation-Date: 2026-06-12 05:36+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,77 +113,100 @@ msgstr "uag suljettu."
 msgid "[docs] name is required"
 msgstr "[docs] nimi on pakollinen"
 
-msgid ""
-"Select tool genres to enable at startup.\n"
-"1: comm  - Communication (Teams, Discord, etc.)\n"
-"2: office - Office suite (Excel, Word, etc.)\n"
-"4: devel  - Development (lint, py_compile, test, etc.)\n"
-"8: iot    - IoT (Bluetooth, etc.)\n"
-"Enter the sum of values (e.g., 3 = comm + office, 15 = all, or press Enter to enable all):"
-msgstr ""
-"Valitse käynnistyksen yhteydessä otettavat työkalukategoriat käyttöön.\n"
-"1: comm  - Viestintä (Teams, Discord jne.)\n"
-"2: office - Toimistotyökalut (Excel, Word jne.)\n"
-"4: devel  - Kehitys (lint, py_compile, testit jne.)\n"
-"8: iot    - IoT (Bluetooth jne.)\n"
-"Syötä arvojen summa (esim. 3 = comm + office, 15 = kaikki, tai paina Enter ottaaksesi kaikki käyttöön):"
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] käynnistyksen genrekehote = numeerinen syöte"
 
-#: src/uagent/cli_startup.py:105
+msgid ""
+"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+msgstr ""
+
+msgid "Communication (Teams, Discord, etc.)"
+msgstr "Viestintä (Teams, Discord jne.)"
+
+msgid "Office suite (Excel, Word, etc.)"
+msgstr "Toimisto-ohjelmistot (Excel, Word jne.)"
+
+msgid "Development (lint, py_compile, test, etc.)"
+msgstr "Ohjelmistokehitys (lint, py_compile, test jne.)"
+
+msgid "IoT (Bluetooth, etc.)"
+msgstr "IoT (Bluetooth jne.)"
+
+msgid "Tool genre selection"
+msgstr "Työkalutyypin valinta"
+
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr ""
+"Paina välilyöntiä valitaksesi tai poistaaksesi valinnan, siirry "
+"nuolinäppäimillä ja vahvista Enterillä."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Default"
+msgstr "Oletus"
+
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr ""
+"[INFO] käynnistyksen genrekehote = numeerinen syöte (prompt_toolkit-"
+"vararatkaisu)"
+
+#: src/uagent/cli_startup.py:146
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Käynnistystyökalun valinnan käyttöönotto epäonnistui: %(err)s"
 
-#: src/uagent/cli_startup.py:182 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Työhakemiston asettaminen epäonnistui: %(err)s"
 
-#: src/uagent/cli_startup.py:211
+#: src/uagent/cli_startup.py:250
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup:n käynnistäminen epäonnistui: %(err)s"
 
-#: src/uagent/cli_startup.py:252
+#: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "tarjoaja = %(provider)s; malli = %(model)s"
 
-#: src/uagent/cli_startup.py:264 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouterin varamallit käytössä."
 
-#: src/uagent/cli_startup.py:268
+#: src/uagent/cli_startup.py:302
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "nykyinen työhakemisto = %(cwd)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "Pitkäaikainen muisti ladattu."
 
-#: src/uagent/cli_startup.py:295 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "Jaettu pitkäaikainen muisti ladattu."
 
-#: src/uagent/cli_startup.py:302 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "[VAROITUS] Poikkeus jaettua pitkäaikaista muistia ladattaessa: %(err)s"
 
-#: src/uagent/cli_startup.py:336
+#: src/uagent/cli_startup.py:367
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr ""
 "[VAROITUS] Käynnistystiedoston lukeminen epäonnistui: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:350
+#: src/uagent/cli_startup.py:381
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "Käynnistystiedosto annettu: %(path)s"
 
-#: src/uagent/cli_startup.py:373
+#: src/uagent/cli_startup.py:404
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr ""
 "--non-interactive on määritetty; poistutaan odottamatta stdin-syötettä."
@@ -354,6 +377,7 @@ msgstr ""
 "[WARN] Historiapakkauksen kontekstiraja ylittyi; yritetään uudelleen "
 "chunk_size-arvolla %(chunk_size)d"
 
+#: src/uagent/core.py:1367
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -854,7 +878,7 @@ msgstr ""
 "Tarkista tämä kuvakaappaus virheiden, varoitusten ja tärkeän "
 "käyttöliittymätilan varalta."
 
-#: src/uagent/llm_message_helpers.py:249
+#: src/uagent/llm_message_helpers.py:250
 #, python-format
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] Automaattinen shrink_llm epäonnistui: %(err)s"
@@ -2261,22 +2285,22 @@ msgstr "Tuntematon UAGENT_A2A_ENGINE: %(mode)s"
 msgid "invalid cache meta"
 msgstr "virheelliset välimuistin metatiedot"
 
-#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/llm_claude.py:222
 #: src/uagent/providers/util_providers.py:610
 msgid "anthropic package is not installed."
 msgstr "anthropic-pakettia ei ole asennettu."
 
-#: src/uagent/providers/llm_gemini.py:563
+#: src/uagent/providers/llm_gemini.py:564
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
 msgstr ""
 "google-genai-moduulia ei voitu tuoda (pip install google-genai vaaditaan)."
 
-#: src/uagent/providers/llm_gemini.py:1123
+#: src/uagent/providers/llm_gemini.py:1124
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr "[Gemini-virhe: Turvasuodatin tai lopetussyy esti vastauksen]"
 
-#: src/uagent/providers/llm_gemini.py:1128
+#: src/uagent/providers/llm_gemini.py:1129
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[Gemini-virhe: %(err)s]"
