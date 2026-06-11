@@ -3,28 +3,30 @@
 ## 目的
 
 `uag` に SwitchBot 関連ツール群を追加する。
-最初は Cloud API の一覧・状態確認を実装し、その後 BLE 探索・状態確認、最後に操作系へ拡張する。
+まずは Cloud API の一覧・状態確認、次に BLE の探索・状態確認、その後に操作系へ拡張する。
 
 ## 前提
 
 - Tool Genre: `iot`
-- Windows での動作を優先して確認する
-- 出力は機械処理しやすい JSON を基本にする
-- 必要に応じて text 出力も提供する
+- Cloud API と BLE を別ツールで分ける
+- Windows 優先で確認する
+- 出力は JSON を基本にする
+- 必要なら text も返す
 - 秘密情報は長期保存しない
 - 既存の `uag` のツール体系に合わせる
 
-## 共通仕様
+## 共通ルール
 
 ### 返却形式
 
-- 成功時は `ok: true` と主要データを返す
-- 失敗時は `ok: false` と `error` を返す
-- 可能なら `count` / `items` / `device` / `capabilities` を使う
+- 成功時: `ok: true` と主要データ
+- 失敗時: `ok: false` と `error`
+- 可能なら `count` / `items` / `device` / `capabilities`
 - `output_format` の既定値は `json`
 
-### 代表的なエラー
+### エラー形式
 
+- `config_missing`
 - `auth_missing`
 - `not_found`
 - `ambiguous_target`
@@ -32,202 +34,188 @@
 - `timeout`
 - `unsupported_device`
 - `invalid_argument`
+- `request_failed`
 
-### 認証情報の解決順
+### 入力方針
 
-- 既存の設定値
-- 環境変数
-- それでも不足する場合はエラー
+- Cloud 系は認証情報を内部で解決する
+- BLE 系は `interface`, `timeout`, `retry`, `limit` を受ける
+- 対象指定は `device_id`, `device_name`, `mac_address`, `service_uuid` を使う
+- 操作系は対象と操作パラメータを明示する
 
-### 環境変数候補
+## 1. Cloud API
 
-- `SWITCHBOT_TOKEN`
-- `SWITCHBOT_SECRET`
+### 認証
 
-## ツール設計方針
+- 環境変数から解決する
+  - `UAGENT_SWITCHBOT_TOKEN`
+  - `UAGENT_SWITCHBOT_SECRET`
+- 署名付きリクエストを使う
+- 標準ライブラリ中心で実装する
 
-- `switchbot_*` で統一する
-- 1 ツール 1 役を基本にする
-- Cloud 系と BLE 系は分ける
-- まずは一覧・状態確認を優先する
-- 取得できない項目は `null` か省略で統一する
+### `switchbot_cloud_list`
 
-## 追加予定の段階
+**役割**: アカウント配下の機器一覧を取得する。
+
+**入力**
+- `output_format` 省略可
+
+**出力**
+- `count`
+- `items[]`
+- `account`
+- `fetched_at`
+
+**items の主な要素**
+- `device_id`
+- `device_name`
+- `device_type`
+- `hub_id`
+- `room_id`
+- `model`
+- `firmware`
+- `online`
+- `battery`
+- `last_updated`
+- `source`
+
+### `switchbot_cloud_status`
+
+**役割**: 1台の状態を取得する。
+
+**入力**
+- `device_id` 優先
+- `device_name` 補助
+- `output_format` 省略可
+
+**ルール**
+- `device_id` を優先する
+- 複数一致なら `ambiguous_target`
+- 見つからなければ `not_found`
+
+**出力**
+- `device`
+- `status`
+- `capabilities`
+- `last_updated`
+
+**device の主な要素**
+- `device_id`
+- `device_name`
+- `device_type`
+- `hub_id`
+- `online`
+- `battery`
+- `reachable`
+
+## 2. BLE
+
+### `switchbot_ble_scan`
+
+**役割**: 近傍の SwitchBot 機器を探索する。
+
+**入力**
+- `interface`
+- `timeout`
+- `retry`
+- `limit`
+- `device_name`
+- `mac_address`
+- `service_uuid`
+- `output_format`
+
+**出力**
+- `count`
+- `items[]`
+- `interface_used`
+- `elapsed_ms`
+
+**items の主な要素**
+- `name`
+- `address`
+- `rssi`
+- `device_type`
+- `service_uuids`
+- `manufacturer_data`
+- `connectable`
+
+### `switchbot_ble_status`
+
+**役割**: BLE 機器の状態を読み取る。
+
+**入力**
+- `mac_address` 優先
+- `device_name` 補助
+- `service_uuid` 任意
+- `timeout`
+- `output_format`
+
+**出力**
+- `device`
+- `status`
+- `capabilities`
+
+### `switchbot_ble_control`
+
+**役割**: BLE 機器を簡易操作する。
+
+**入力**
+- `mac_address` または `device_name`
+- `action`
+- `value` 必要時のみ
+- `timeout`
+- `output_format`
+
+**action 例**
+- `on`
+- `off`
+- `open`
+- `close`
+- `set_value`
+
+## 3. 実装段階
 
 ### Phase 1: Cloud 読み取り
 
-- Cloud 機器一覧取得ツール
-- Cloud 機器状態取得ツール
+- `switchbot_cloud_list`
+- `switchbot_cloud_status`
 - JSON / text 出力
-- 機器名、型、状態を確認できる
-- 読み取り専用
+- 認証情報の解決
 
 ### Phase 2: Cloud 操作
 
-- Cloud 機器操作ツール
-- on / off / open / close / set value 系
-- 主要機器タイプへの対応
-- 操作失敗時の理由整理
+- 電源系
+- オープン / クローズ系
+- 値設定系
+- 失敗理由の整理
 
 ### Phase 3: BLE 読み取り
 
-- BLE 機器探索ツール
-- BLE 機器状態取得ツール
-- 機器識別
-- 読み取り専用
+- `switchbot_ble_scan`
+- `switchbot_ble_status`
 - 対象指定の安定化
 
 ### Phase 4: BLE 操作
 
-- BLE 簡易制御ツール
-- 対応機器のみ操作
-- 未対応機器は明示的に返す
+- `switchbot_ble_control`
+- 対応機器のみ実行
+- 未対応は明示的に返す
 
 ### Phase 5: 共通基盤
 
-- Cloud と BLE の共通ユーティリティ整理
+- 共通ユーティリティ整理
 - キャッシュ
 - ログ強化
 - テスト拡充
 - 実運用向けのエラーハンドリング改善
 
-## Phase 1 の具体仕様
-
-### switchbot_cloud_list
-
-- 役割: Cloud API からアカウント配下の機器一覧を取得する
-- 入力:
-  - `output_format`（省略時は `json`）
-- 出力:
-  - `ok`
-  - `count`
-  - `items[]`
-  - `account`
-  - `fetched_at`
-- `items[]` の主な要素:
-  - `device_id`
-  - `device_name`
-  - `device_type`
-  - `hub_id`
-  - `room_id`
-  - `model`
-  - `firmware`
-  - `online`
-  - `battery`
-  - `last_updated`
-
-### switchbot_cloud_status
-
-- 役割: Cloud API から指定機器の状態を取得する
-- 入力:
-  - `device_id` もしくは `device_name`
-  - `output_format`（省略時は `json`）
-- ルール:
-  - `device_id` を優先する
-  - `device_name` は補助指定とする
-  - 1 件に確定できない場合は `ambiguous_target` を返す
-- 出力:
-  - `ok`
-  - `device`
-  - `status`
-  - `capabilities`
-  - `last_updated`
-- `device` の主な要素:
-  - `device_id`
-  - `device_name`
-  - `device_type`
-  - `hub_id`
-  - `battery`
-  - `online`
-  - `reachable`
-- `status` の主な要素:
-  - `power`
-  - `mode`
-  - `position`
-  - `temperature`
-  - `humidity`
-  - `lock_state`
-
-## BLE 側の想定
-
-### switchbot_ble_scan
-
-- 役割: 近傍 SwitchBot 機器の探索
-- 入力:
-  - `timeout`
-  - `retry`
-  - `limit`
-  - `output_format`
-  - `device_name`（任意）
-  - `mac_address`（任意）
-  - `service_uuid`（任意）
-- 出力:
-  - `ok`
-  - `count`
-  - `items[]`
-  - `elapsed_ms`
-  - `interface_used`
-- `items[]` の主な要素:
-  - `name`
-  - `address`
-  - `rssi`
-  - `device_type`
-  - `service_uuids`
-  - `manufacturer_data`
-  - `connectable`
-
-### switchbot_ble_status
-
-- 役割: BLE 機器の状態読み取り
-- 入力:
-  - `mac_address` もしくは `device_name`
-  - `service_uuid`（任意）
-  - `timeout`
-  - `output_format`
-- ルール:
-  - `mac_address` を優先する
-  - `device_name` は補助指定とする
-- 出力:
-  - `ok`
-  - `device`
-  - `status`
-  - `capabilities`
-- `status` の主な要素:
-  - `power`
-  - `position`
-  - `temperature`
-  - `humidity`
-  - `battery`
-  - `last_seen`
-
-### switchbot_ble_control
-
-- 役割: BLE 機器の簡易制御
-- 入力:
-  - `mac_address` もしくは `device_name`
-  - `action`
-  - `value`（必要な場合のみ）
-  - `timeout`
-  - `output_format`
-- `action` 例:
-  - `on`
-  - `off`
-  - `open`
-  - `close`
-  - `set_value`
-- 出力:
-  - `ok`
-  - `applied`
-  - `device`
-  - `result`
-
 ## 実装メモ
 
-- Cloud API の認証情報は安全に扱う
-- BLE は近距離通信なのでタイムアウトを短めに設計する
-- まずは一覧取得で実用性を確認する
-- Cloud と BLE は別ツールとして分ける
-- 失敗理由はユーザー向けに短く返す
+- Cloud と BLE は混ぜずに分ける
+- 取得できない項目は `null` か省略で統一する
+- 失敗理由は短く返す
+- まずは一覧取得と状態確認を優先する
+- Windows での確認を優先する
 
 ## 補足
 

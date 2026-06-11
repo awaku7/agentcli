@@ -8,20 +8,23 @@
 ## 前提
 
 - Tool Genre: `iot`
+- コントローラー経由とブリッジ経由の両方を扱う
+- 依存ライブラリは最小限にする
 - Windows での動作を優先して確認する
 - 出力は機械処理しやすい JSON を基本にする
 - 必要に応じて text 出力も提供する
 - 秘密情報は長期保存しない
+- 必要な環境変数を追加する場合は `UAGENT_` を接頭辞にして統一する
 - 既存の `uag` のツール体系に合わせる
 
-## 共通仕様
+## 共通ルール
 
 ### 返却形式
 
 - 成功時は `ok: true` と主要データを返す
 - 失敗時は `ok: false` と `error` を返す
 - 可能なら `count` / `items` / `device` / `endpoints` / `clusters` を使う
-- `output_format` の既定値は `json`
+- `output_format` の既定値は `json` とする
 
 ### 代表的なエラー
 
@@ -33,11 +36,12 @@
 - `unsupported_device`
 - `invalid_argument`
 
-### 設定の解決順
+### 入力方針
 
-- 既存の設定値
-- 環境変数
-- それでも不足する場合はエラー
+- コントローラー系は `controller_id`, `endpoint`, `cluster` などを受ける
+- ブリッジ系は `bridge_id`, `device_id`, `endpoint` などを受ける
+- 操作系は対象デバイスと操作パラメータを明示する
+- `controller_id` / `bridge_id` の省略時動作は仕様で固定する
 
 ## ツール設計方針
 

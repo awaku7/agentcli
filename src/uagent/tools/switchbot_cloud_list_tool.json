@@ -1,0 +1,83 @@
+{
+  "tool_level": 0,
+  "tool_genre": "iot",
+  "type": "function",
+  "function": {
+    "name": "switchbot_cloud_list",
+    "description": {
+      "en": "List SwitchBot Cloud devices for the configured account.",
+      "ja": "設定済みアカウントの SwitchBot Cloud デバイスを一覧表示します。",
+      "id": "Daftar perangkat SwitchBot Cloud untuk akun yang dikonfigurasi.",
+      "ar": "اعرض قائمة أجهزة SwitchBot Cloud للحساب المُكوَّن.",
+      "bn": "কনফিগার করা অ্যাকাউন্টের জন্য SwitchBot Cloud ডিভাইসের তালিকা দেখায়।",
+      "cs": "Vypište zařízení SwitchBot Cloud pro nakonfigurovaný účet.",
+      "de": "Listen Sie die SwitchBot-Cloud-Geräte für das konfigurierte Konto auf.",
+      "es": "Enumere los dispositivos SwitchBot Cloud de la cuenta configurada.",
+      "fa": "دستگاه‌های SwitchBot Cloud را برای حساب پیکربندی‌شده فهرست کنید.",
+      "fi": "Listaa määritetyn tilin SwitchBot Cloud -laitteet.",
+      "fr": "Listez les appareils SwitchBot Cloud du compte configuré.",
+      "hi": "कॉन्फ़िगर किए गए खाते के लिए SwitchBot Cloud डिवाइसों की सूची दिखाएँ।",
+      "it": "Elenca i dispositivi SwitchBot Cloud per l'account configurato.",
+      "ko": "구성된 계정의 SwitchBot Cloud 장치를 나열합니다.",
+      "nb": "List opp SwitchBot Cloud-enheter for den konfigurerte kontoen.",
+      "nl": "Geef de SwitchBot Cloud-apparaten voor het geconfigureerde account weer.",
+      "pl": "Wyświetl urządzenia SwitchBot Cloud dla skonfigurowanego konta.",
+      "pt": "Liste os dispositivos SwitchBot Cloud da conta configurada.",
+      "pt_BR": "Liste os dispositivos SwitchBot Cloud da conta configurada.",
+      "ru": "Выведите список устройств SwitchBot Cloud для настроенной учетной записи.",
+      "sv": "Lista SwitchBot Cloud-enheter för det konfigurerade kontot.",
+      "th": "แสดงรายการอุปกรณ์ SwitchBot Cloud สำหรับบัญชีที่กำหนดค่าไว้",
+      "uk": "Перелічіть пристрої SwitchBot Cloud для налаштованого облікового запису.",
+      "vi": "Liệt kê các thiết bị SwitchBot Cloud cho tài khoản đã cấu hình.",
+      "zh_CN": "列出已配置账户的 SwitchBot Cloud 设备。",
+      "zh_TW": "列出已設定帳戶的 SwitchBot Cloud 裝置。",
+      "mn": "Тохируулсан дансны SwitchBot Cloud төхөөрөмжүүдийг жагсаана.",
+      "mr": "कॉन्फिगर केलेल्या खात्यासाठी SwitchBot Cloud उपकरणांची यादी करा.",
+      "tr": "Yapılandırılmış hesap için SwitchBot Cloud cihazlarını listeleyin.",
+      "el": "Παραθέστε τις συσκευές SwitchBot Cloud για τον ρυθμισμένο λογαριασμό."
+    },
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "output_format": {
+          "type": "string",
+          "enum": ["json", "text"],
+          "default": "json",
+          "description": {
+            "en": "Output format: JSON or human-readable text.",
+            "ja": "出力形式: JSON または人間が読みやすいテキスト。",
+            "id": "Format output: JSON atau teks yang dapat dibaca manusia.",
+            "ar": "تنسيق الإخراج: JSON أو نص قابل للقراءة البشرية.",
+            "bn": "আউটপুট ফরম্যাট: JSON অথবা মানুষের পড়ার উপযোগী টেক্সট।",
+            "cs": "Formát výstupu: JSON nebo text čitelný pro člověka.",
+            "de": "Ausgabeformat: JSON oder menschenlesbarer Text.",
+            "es": "Formato de salida: JSON o texto legible por humanos.",
+            "fa": "قالب خروجی: JSON یا متن قابل‌خواندن برای انسان.",
+            "fi": "Tulostemuoto: JSON tai ihmisen luettavissa oleva teksti.",
+            "fr": "Format de sortie : JSON ou texte lisible par l’humain.",
+            "hi": "आउटपुट प्रारूप: JSON या मानव-पठनीय पाठ।",
+            "it": "Formato di output: JSON o testo leggibile dall'uomo.",
+            "ko": "출력 형식: JSON 또는 사람이 읽을 수 있는 텍스트.",
+            "nb": "Utdataformat: JSON eller menneskelesbar tekst.",
+            "nl": "Uitvoerformaat: JSON of voor mensen leesbare tekst.",
+            "pl": "Format wyjściowy: JSON lub tekst czytelny dla człowieka.",
+            "pt": "Formato de saída: JSON ou texto legível por humanos.",
+            "pt_BR": "Formato de saída: JSON ou texto legível por humanos.",
+            "ru": "Формат вывода: JSON или удобочитаемый текст.",
+            "sv": "Utdataformat: JSON eller mänskligt läsbar text.",
+            "th": "รูปแบบเอาต์พุต: JSON หรือข้อความที่มนุษย์อ่านได้",
+            "uk": "Формат виводу: JSON або текст, зручний для читання людиною.",
+            "vi": "Định dạng đầu ra: JSON hoặc văn bản dễ đọc.",
+            "zh_CN": "输出格式：JSON 或人类可读文本。",
+            "zh_TW": "輸出格式：JSON 或人類可讀文字。",
+            "mn": "Гаралтын формат: JSON эсвэл хүн уншихад ойлгомжтой текст.",
+            "mr": "आउटपुट स्वरूप: JSON किंवा मानवी वाचनीय मजकूर.",
+            "tr": "Çıktı biçimi: JSON veya insan tarafından okunabilir metin.",
+            "el": "Μορφή εξόδου: JSON ή κείμενο αναγνώσιμο από άνθρωπο."
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

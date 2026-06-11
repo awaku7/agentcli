@@ -21,6 +21,13 @@ def _set_iot_tools_enabled(enabled: bool) -> str:
         "ble_ops_tool",
         "upnp_scan_tool",
         "upnp_igd_control_tool",
+        "switchbot_cloud_list_tool",
+        "switchbot_cloud_status_tool",
+        "switchbot_ble_scan_tool",
+        "switchbot_ble_status_tool",
+        "switchbot_ble_control_tool",
+        "echonet_cache_tool",
+        "echonet_monitor_tool",
     ]
     changed_names = []
 
