@@ -18,6 +18,7 @@ STATUS_LABEL = "tool:upnp_scan"
 _MSEARCH_ADDR = ("239.255.255.250", 1900)
 _DEFAULT_MX = 3
 _DEFAULT_WAIT_TIMEOUT = 4
+_DEFAULT_TIMEOUT = _DEFAULT_WAIT_TIMEOUT
 _DEFAULT_RETRY = 1
 _DEFAULT_LIMIT = 50
 _DEFAULT_SEARCH_TARGET = "ssdp:all"
@@ -131,41 +132,124 @@ def _is_ipv4_address(value: str) -> bool:
 
 def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
     raw = (interface or "").strip()
-    if not raw:
+
+    def _is_virtual_name(name: str) -> bool:
+        low = name.lower()
+        return any(
+            token in low
+            for token in (
+                "bluetooth",
+                "loopback",
+                "virtual",
+                "vmware",
+                "hyper-v",
+                "teredo",
+                "isatap",
+                "tunnel",
+                "tap",
+                "vpn",
+            )
+        )
+
+    def _score_interface(name: str, addr: str) -> int:
+        low = name.lower()
+        score = 0
+        if _is_virtual_name(name):
+            score -= 100
+        if any(token in low for token in ("ethernet", "wi-fi", "wifi", "wlan")):
+            score += 20
+        if low.startswith(("eth", "en", "lan")):
+            score += 10
+        if addr.startswith("192.168."):
+            score += 15
+        elif addr.startswith("10."):
+            score += 12
+        elif addr.startswith("172."):
+            try:
+                second = int(addr.split(".", 2)[1])
+            except Exception:
+                second = -1
+            if 16 <= second <= 31:
+                score += 12
+        elif addr.startswith("169.254."):
+            score -= 20
+        return score
+
+    def _first_ipv4_for_name(target: str) -> tuple[str | None, str | None]:
+        try:
+            import psutil  # type: ignore
+
+            for name, addrs in psutil.net_if_addrs().items():
+                if name.lower() != target:
+                    continue
+                if _is_virtual_name(name):
+                    continue
+                for addr in addrs:
+                    if getattr(addr, "family", None) == socket.AF_INET and addr.address:
+                        ip = addr.address.strip()
+                        if _is_ipv4_address(ip):
+                            return ip, name
+        except Exception:
+            pass
         return None, None
 
-    if _is_ipv4_address(raw):
-        return raw, raw
+    if raw:
+        if _is_ipv4_address(raw):
+            return raw, raw
+
+        ip, name = _first_ipv4_for_name(raw.lower())
+        if ip:
+            return ip, name
+
+        try:
+            resolved = socket.gethostbyname(raw)
+            if _is_ipv4_address(resolved):
+                return resolved, raw
+        except Exception:
+            pass
+
+        raise ValueError(
+            _(
+                "err.invalid_interface",
+                default=(
+                    "Error: Could not resolve interface '{interface}' to a local IPv4 address."
+                ),
+                interface=raw,
+            )
+        )
 
     try:
         import psutil  # type: ignore
 
-        target = raw.lower()
+        candidates: list[tuple[int, str, str]] = []
         for name, addrs in psutil.net_if_addrs().items():
-            if name.lower() != target:
+            if _is_virtual_name(name):
                 continue
             for addr in addrs:
-                if getattr(addr, "family", None) == socket.AF_INET and addr.address:
-                    return addr.address, name
+                if getattr(addr, "family", None) != socket.AF_INET or not addr.address:
+                    continue
+                ip = addr.address.strip()
+                if not _is_ipv4_address(ip):
+                    continue
+                candidates.append((_score_interface(name, ip), name, ip))
+
+        if candidates:
+            candidates.sort(key=lambda item: (item[0], item[1].lower()), reverse=True)
+            _score, best_name, best_ip = candidates[0]
+            return best_ip, best_name
     except Exception:
         pass
 
     try:
-        resolved = socket.gethostbyname(raw)
-        if _is_ipv4_address(resolved):
-            return resolved, raw
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
+            sock.connect(("8.8.8.8", 80))
+            local_ip = sock.getsockname()[0]
+            if _is_ipv4_address(local_ip):
+                return local_ip, local_ip
     except Exception:
         pass
 
-    raise ValueError(
-        _(
-            "err.invalid_interface",
-            default=(
-                "Error: Could not resolve interface '{interface}' to a local IPv4 address."
-            ),
-            interface=raw,
-        )
-    )
+    return None, None
 
 
 def _build_msearch(search_target: str, mx: int) -> bytes:

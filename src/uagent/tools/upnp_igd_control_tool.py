@@ -12,7 +12,7 @@ from .i18n_helper import make_tool_translator
 from .upnp_scan_tool import (
     _DEFAULT_LIMIT,
     _DEFAULT_RETRY,
-    _DEFAULT_TIMEOUT,
+    _DEFAULT_WAIT_TIMEOUT as _DEFAULT_TIMEOUT,
     _DEFAULT_USER_AGENT,
     _normalize_int,
     run_tool as _scan_run_tool,
@@ -263,22 +263,63 @@ def _select_igd_candidates(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return candidates
 
 
-def _select_igd_service(item: dict[str, Any]) -> dict[str, Any] | None:
+def _service_supports_port_mapping(service: dict[str, Any] | None) -> bool:
+    if not isinstance(service, dict):
+        return False
+    service_type = str(service.get("service_type") or "")
+    return "WANIPConnection" in service_type or "WANPPPConnection" in service_type
+
+
+def _service_is_layer3_forwarding(service: dict[str, Any] | None) -> bool:
+    if not isinstance(service, dict):
+        return False
+    service_type = str(service.get("service_type") or "")
+    return "Layer3Forwarding" in service_type
+
+
+def _service_matches_identifier(service: dict[str, Any] | None, identifier: Any) -> bool:
+    if not isinstance(service, dict):
+        return False
+    needle = str(identifier or "").strip()
+    if not needle:
+        return False
+    needle_low = needle.lower()
+    for field in ("service_id", "service_type", "control_url"):
+        value = str(service.get(field) or "").strip()
+        if not value:
+            continue
+        value_low = value.lower()
+        if needle == value or needle_low == value_low or needle_low in value_low or value_low in needle_low:
+            return True
+    return False
+
+
+def _select_igd_service(item: dict[str, Any], timeout: int) -> dict[str, Any] | None:
     services = item.get("services") or []
     preferred: dict[str, Any] | None = None
+    layer3_service: dict[str, Any] | None = None
     for service in services:
         if not isinstance(service, dict):
             continue
-        service_type = str(service.get("service_type") or "")
-        if "WANIPConnection" in service_type or "WANPPPConnection" in service_type:
+        if _service_supports_port_mapping(service):
             if service.get("control_url"):
                 return service
             preferred = preferred or service
+        elif _service_is_layer3_forwarding(service) and service.get("control_url"):
+            layer3_service = layer3_service or service
     if preferred and preferred.get("control_url"):
         return preferred
-    for service in services:
-        if isinstance(service, dict) and service.get("control_url"):
-            return service
+    if layer3_service:
+        try:
+            values = _call_service_action(layer3_service, "GetDefaultConnectionService", {}, timeout)
+        except Exception:
+            return None
+        default_id = values.get("NewDefaultConnectionService") or values.get("DefaultConnectionService")
+        if default_id:
+            for service in services:
+                if _service_matches_identifier(service, default_id) and _service_supports_port_mapping(service):
+                    if service.get("control_url"):
+                        return service
     return None
 
 
@@ -550,7 +591,7 @@ def _run_status(
         search_target=search_target,
     )
     device = _safe_device_copy(candidates[0])
-    service = _select_igd_service(device)
+    service = _select_igd_service(device, timeout)
     if not service:
         raise RuntimeError("No WANIPConnection or WANPPPConnection service was found.")
 
@@ -604,7 +645,7 @@ def _run_status(
         "connection_status": connection_status,
         "connection_type": connection_type,
         "uptime": uptime,
-        "supports_port_mapping": True,
+        "supports_port_mapping": _service_supports_port_mapping(service),
         "warnings": warnings_list,
     }
     return payload
@@ -625,7 +666,7 @@ def _run_portmap_list(
         search_target=search_target,
     )
     device = _safe_device_copy(candidates[0])
-    service = _select_igd_service(device)
+    service = _select_igd_service(device, timeout)
     if not service:
         raise RuntimeError("No WANIPConnection or WANPPPConnection service was found.")
 
@@ -735,7 +776,7 @@ def _run_portmap_add(
         search_target=search_target,
     )
     device = _safe_device_copy(candidates[0])
-    service = _select_igd_service(device)
+    service = _select_igd_service(device, timeout)
     if not service:
         raise RuntimeError("No WANIPConnection or WANPPPConnection service was found.")
 
@@ -861,7 +902,7 @@ def _run_portmap_delete(
         search_target=search_target,
     )
     device = _safe_device_copy(candidates[0])
-    service = _select_igd_service(device)
+    service = _select_igd_service(device, timeout)
     if not service:
         raise RuntimeError("No WANIPConnection or WANPPPConnection service was found.")
 
