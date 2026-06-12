@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-06-13
+
+### Added
+- Updated the `llmcapa` dependency to `0.1.2`.
+
+### Fixed & Improved
+- Refined Claude reasoning-effort detection for model family matching.
+- Enabled Gemini server-side tool invocation support when available.
+
 ## [0.5.1] - 2026-06-12
 
 ### Added
