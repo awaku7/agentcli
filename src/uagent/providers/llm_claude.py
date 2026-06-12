@@ -143,16 +143,14 @@ def _claude_supports_effort(model_name: str) -> bool:
             return True
         return False
 
-    if fam == "fable" and major >= 5:
-        return True
-    if major == 3 and minor >= 7:
-        return True
-    if major >= 4:
-        return True
+    if fam == "fable":
+        return major >= 5
     if fam == "opus":
         return (major, minor) >= (4, 5)
     if fam == "sonnet":
         return (major, minor) >= (4, 6)
+    if major == 3 and minor >= 7:
+        return True
     return False
 
 

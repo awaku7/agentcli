@@ -900,6 +900,12 @@ def gemini_chat_with_tools(
         if tools_list:
             cfg_kwargs["tools"] = tools_list
             try:
+                cfg_kwargs["tool_config"] = gemini_types.ToolConfig(
+                    include_server_side_tool_invocations=True
+                )
+            except Exception:
+                pass
+            try:
                 cfg_kwargs["automatic_function_calling"] = (
                     gemini_types.AutomaticFunctionCallingConfig(disable=True)
                 )
