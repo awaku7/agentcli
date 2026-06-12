@@ -57,6 +57,7 @@ def init_tools_callbacks(core: Any) -> None:
             core, "rewrite_current_log_from_messages", None
         ),
         log_message=getattr(core, "log_message", None),
+        prompt_history_append=getattr(core, "prompt_history_append", None),
         get_env=getattr(core, "get_env", None),
         get_env_url=getattr(core, "get_env_url", None),
         truncate_output=(
@@ -1359,20 +1360,6 @@ def _handle_cmd_clean(arg: str, *, core: Any, tr: Any) -> bool:
     return True
 
 
-def _inject_user_history_to_readline(messages: list[dict[str, Any]]) -> None:
-    try:
-        import readline
-
-        for msg in messages:
-            if msg.get("role") != "user":
-                continue
-            content = msg.get("content")
-            if isinstance(content, str) and content.strip():
-                readline.add_history(content.replace("\n", " "))
-    except Exception:
-        return
-
-
 def _prepend_loaded_log_to_current(
     *,
     core: Any,
@@ -1593,6 +1580,19 @@ def _handle_cmd_load(
     messages_ref.clear()
     messages_ref.extend(new_messages)
 
+    try:
+        cb = get_callbacks()
+        append_history = getattr(cb, "prompt_history_append", None)
+        if callable(append_history):
+            for msg in new_messages:
+                if msg.get("role") != "user":
+                    continue
+                content = msg.get("content")
+                if isinstance(content, str) and content.strip():
+                    append_history(content)
+    except Exception:
+        pass
+
     # Auto-restore cwd from the loaded log (no confirmation).
     try:
         target_cwd = _extract_last_cwd_from_messages(new_messages)
@@ -1627,8 +1627,6 @@ def _handle_cmd_load(
             % {"etype": type(e).__name__, "err": e},
             file=sys.stderr,
         )
-
-    _inject_user_history_to_readline(new_messages)
 
     print("Loaded log: %(path)s" % {"path": target_path})
     print("Conversation message count: %(n)d" % {"n": len(messages_ref)})
@@ -1708,6 +1706,19 @@ def _handle_cmd_shrink_llm(
     messages_ref.clear()
     messages_ref.extend(new_messages)
     _persist_messages_with_warn(messages_ref, core=core, label="shrink_llm")
+    return True
+
+
+def _handle_cmd_tokens(messages_ref: list[dict[str, Any]], *, core: Any) -> bool:
+    try:
+        from .llm_message_helpers import _count_messages_tokens
+
+        total_tokens = _count_messages_tokens(messages_ref)
+    except Exception as e:
+        print(f"[tokens error] {type(e).__name__}: {e}")
+        return True
+
+    print(f"Current token count (approx): {total_tokens}")
     return True
 
 
@@ -1921,6 +1932,7 @@ def format_help(*, core: Any) -> str:
         + tr(
             "Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
         ),
+        "  :tokens               " + tr("Show the current approximate token count of the conversation"),
         "  :mem-list             " + tr("List long-term memory notes"),
         "  :mem-del <index>      "
         + tr("Delete a long-term memory note by index (see :mem-list)"),
@@ -2137,6 +2149,9 @@ def handle_command(
 
     if cmd == "shrink_llm":
         return _handle_cmd_shrink_llm(arg, messages_ref, client, depname, core=core)
+
+    if cmd == "tokens":
+        return _handle_cmd_tokens(messages_ref, core=core)
 
     if cmd == "mem-list":
         return _handle_cmd_mem_list(tr=tr)

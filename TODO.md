@@ -70,3 +70,31 @@
 ## 保留
 
 - 翻訳 provider の追加検討は削除済み。必要時に別途整理する。
+
+## P2: prompt_toolkit への段階移行
+
+### 目的
+
+- `readline` 依存をすぐに外さず、安全側から順次置換する。
+- dumb terminal / 非TTY では従来入力にフォールバックする。
+
+### 方針
+
+- まずは `prompt_toolkit` を起動時ダイアログに限定する。
+- CLI 本体の入力は当面 `readline` を維持する。
+- TTY のときだけ補完や履歴を `prompt_toolkit` 側へ寄せる。
+- 非TTY / dumb terminal は `input()` / `readline` を継続使用する。
+- 最後に `readline` 削除を検討する。
+
+### 対象
+
+- `src/uagent/cli.py`
+- `src/uagent/cli_startup.py`
+- `src/uagent/util_tools.py`
+
+### 確認項目
+
+- TTY と非TTY で起動時動作が壊れないこと。
+- 補完・履歴・`:load` 連携が維持されること。
+- Windows / Linux で同等に動くこと。
+- `py_compile` と smoke test を通すこと。

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import uagent.runtime.runtime_init  # noqa: F401
 import getpass
-import re
 import importlib
 import json
 import os
@@ -16,7 +15,6 @@ set_thread_lang(detect_lang())
 
 import threading
 import time
-import atexit
 from typing import Any
 
 from . import tools
@@ -36,21 +34,11 @@ genai = None
 gemini_types = None
 gemini_errors = None
 
-try:
-    import readline
-except ImportError:
-    try:
-        import pyreadline3 as readline  # type: ignore
-    except ImportError:
-        readline = None  # type: ignore
-
 from .providers import util_providers as providers
 from . import uagent_llm as llm_util
 from . import util_tools as tools_util
 from .cli_startup import run_cli_startup as _run_cli_startup
-from .uagent_env_keys import _is_placeholder_uagent_key, get_known_uagent_env_keys
 from .scheduler import start_background_scheduler, stop_background_scheduler
-
 
 from uagent.utils.paths import get_history_file_path
 
@@ -63,26 +51,6 @@ from .util_tools import (
 
 # Import scheck_core
 core = importlib.import_module(".core", package="uagent")
-
-
-# Readline history setup
-_HISTORY_FILE = str(get_history_file_path())
-
-if readline:
-    try:
-        if os.path.exists(_HISTORY_FILE):
-            readline.read_history_file(_HISTORY_FILE)
-    except Exception:
-        pass
-
-    def _save_history():
-        try:
-            readline.set_history_length(1000)
-            readline.write_history_file(_HISTORY_FILE)
-        except Exception:
-            pass
-
-    atexit.register(_save_history)
 
 
 _startup_args, _startup_unknown = _parse_startup_args()
@@ -98,196 +66,139 @@ UAGENT_NON_INTERACTIVE = bool(_startup_args.get("non_interactive"))
 # Use the first element of unknown as the initial file argument if present (equivalent to the traditional sys.argv[1])
 INITIAL_FILE_ARG = _startup_unknown[0] if _startup_unknown else None
 
-
-# ------------------------------
-# Readline TAB completion (interactive TTY only)
-# - Only for :cd, :ls, :rm, and :env arguments
-# - Other inputs keep current behavior
+_PROMPT_SESSION: Any = None
+_PROMPT_REPLY_SESSION: Any = None
+_PROMPT_HISTORY: list[str] = []
 
 
-def _uagent_has_glob_meta(s: str) -> bool:
-    return any(ch in s for ch in ("*", "?", "["))
-
-
-def _uagent_split_cmd_arg(buf: str) -> tuple[str, str, int]:
-    # Split ':cmd arg...' into (cmd, arg, arg_start_index_in_buf)
-    # Notes:
-    # - intentionally simple; no quoting support
-    if not buf.startswith(":"):
-        return "", "", len(buf)
-
-    s = buf[1:]
-    m = re.match(r"^(\S+)(\s+)?(.*)$", s)
-    if not m:
-        return "", "", len(buf)
-
-    cmd = (m.group(1) or "").strip()
-    ws = m.group(2) or ""
-    rest = m.group(3) or ""
-
-    if not ws:
-        return cmd, "", len(buf)
-
-    arg_start = 1 + len(cmd) + len(ws)
-    return cmd, rest, arg_start
-
-
-def _uagent_env_candidates(prefix: str = "") -> list[str]:
-    keys = set(get_known_uagent_env_keys())
-    keys.update(
-        k
-        for k in os.environ
-        if k.startswith("UAGENT_") and not _is_placeholder_uagent_key(k)
-    )
-    if prefix:
-        keys = {k for k in keys if k.lower().startswith(prefix.lower())}
-    return sorted(keys, key=str.lower)
-
-
-def _uagent_path_candidates(prefix: str) -> list[str]:
-    # Return completion candidates for a filesystem path prefix.
-    # Notes:
-    # - We keep the *typed* directory prefix (including original slashes) so we don't
-    #   accidentally duplicate segments (e.g. 'src' -> 'src\src\...').
-    # - We expand ~ and envvars only for scanning the filesystem.
-
-    # Expand for filesystem scanning
-    expanded = os.path.expandvars(os.path.expanduser(prefix))
-
-    # Find last separator in the *typed* prefix and in the expanded prefix.
-    # We use the typed one to preserve what the user typed.
-    last_sep_typed = max(prefix.rfind("/"), prefix.rfind("\\"))
-    last_sep_expanded = max(expanded.rfind("/"), expanded.rfind("\\"))
-
-    if last_sep_expanded >= 0:
-        scan_dir = expanded[: last_sep_expanded + 1]
-        base = expanded[last_sep_expanded + 1 :]
-    else:
-        scan_dir = ""
-        base = expanded
-
-    # This is what we will prepend to returned candidates (exactly as typed)
-    if last_sep_typed >= 0:
-        out_prefix_raw = prefix[: last_sep_typed + 1]
-        typed_sep = prefix[last_sep_typed]
-    else:
-        out_prefix_raw = ""
-        typed_sep = os.sep
-
-    scan_dir_fs = scan_dir or "."
-
-    try:
-        names = os.listdir(scan_dir_fs)
-    except Exception:
-        return []
-
-    cands: list[str] = []
-    for name in names:
-        if not name.lower().startswith(base.lower()):
-            continue
-
-        full = os.path.join(scan_dir_fs, name)
-        suffix = typed_sep if os.path.isdir(full) else ""
-
-        cands.append(out_prefix_raw + name + suffix)
-
-    cands.sort(key=lambda x: x.lower())
-    return cands
-
-
-def _uagent_rl_completer(text_part: str, state: int):
-    # readline completer for ':cd' / ':ls' / ':rm' / ':cp' / ':mv' / ':head' / ':env'
-    #
-    # Important: readline expects the returned string to replace the current
-    # token fragment (text_part), not the whole argument. If we return the full
-    # argument, readline may append it and cause duplicated segments.
-    try:
-        if not readline:
-            return None
-
-        buf = readline.get_line_buffer() or ""
-        cmd, arg, _arg_start = _uagent_split_cmd_arg(buf)
-
-        if cmd not in ("cd", "ls", "rm", "cp", "mv", "head", "tail", "env"):
-            return None
-
-        if cmd == "env":
-            env_subs = ("show", "set", "unset", "save")
-            parts = [p for p in re.split(r"[ 	]+", arg) if p != ""]
-            ends_ws = bool(arg) and arg[-1] in (" ", "	")
-
-            if not parts:
-                cands = [s for s in env_subs if s.startswith(text_part.lower())]
-            else:
-                sub = parts[0].lower()
-                if sub not in env_subs:
-                    cands = [s for s in env_subs if s.startswith(text_part.lower())]
-                elif sub == "save":
-                    return None
-                else:
-                    if len(parts) == 1 and not ends_ws:
-                        cands = [s for s in env_subs if s.startswith(text_part.lower())]
-                    else:
-                        prefix = parts[-1] if len(parts) >= 2 and not ends_ws else ""
-                        cands = _uagent_env_candidates(prefix)
-
-            if not cands:
-                return None
-            if state >= len(cands):
-                return None
-            return cands[state]
-
-        prefix = arg
-        if cmd in ("cp", "mv"):
-            parts = [p for p in re.split(r"[ 	]+", arg) if p != ""]
-            if len(parts) > 2:
-                return None
-            if len(parts) == 0:
-                prefix = ""
-            elif len(parts) == 1:
-                prefix = parts[0]
-            else:
-                prefix = parts[1]
-        else:
-            # Only complete a single path argument; if spaces already present in arg, stop.
-            if " " in arg or "	" in arg:
-                return None
-
-        # For :ls/:rm, if arg already contains glob meta, do not complete (avoid odd mixes)
-        if cmd in ("ls", "rm") and _uagent_has_glob_meta(prefix):
-            return None
-
-        cands = _uagent_path_candidates(prefix)
-        if state >= len(cands):
-            return None
-
-        return cands[state]
-    except Exception:
-        return None
-
-
-def _uagent_setup_readline_completion() -> None:
-    # Enable TAB completion when readline is available.
-    # Some Windows/pyreadline environments report non-tty stdin even when
-    # interactive completion still works, so do not gate on isatty().
-    if not readline:
+def _append_prompt_history_entry(text: str) -> None:
+    normalized = (text or "").replace("\r", "").strip()
+    if not normalized:
         return
+    if normalized not in _PROMPT_HISTORY:
+        _PROMPT_HISTORY.append(normalized)
 
-    try:
-        for binding in ("tab: complete", "Tab: complete", "Control-i: complete"):
+    for session in (_PROMPT_SESSION, _PROMPT_REPLY_SESSION):
+        if session is None:
+            continue
+        history = getattr(session, "history", None)
+        append_string = getattr(history, "append_string", None)
+        if callable(append_string):
             try:
-                readline.parse_and_bind(binding)
+                append_string(normalized)
             except Exception:
                 pass
 
-        # Keep readline from splitting path fragments on separators.
-        if hasattr(readline, "set_completer_delims"):
-            readline.set_completer_delims(" ")
 
-        readline.set_completer(_uagent_rl_completer)
+def _bootstrap_prompt_history(messages: list[dict[str, Any]]) -> None:
+    for msg in messages:
+        if msg.get("role") != "user":
+            continue
+        content = msg.get("content")
+        if isinstance(content, str):
+            _append_prompt_history_entry(content)
+
+
+def _persist_prompt_history_entry(text: str) -> None:
+    normalized = (text or "").replace("\
+", "").strip()
+    if not normalized:
+        return
+
+    try:
+        from datetime import datetime
+
+        history_path = get_history_file_path()
+        os.makedirs(history_path.parent, exist_ok=True)
+        with open(history_path, "ab") as f:
+            f.write(f"\
+# {datetime.now()}\
+".encode("utf-8"))
+            for line in normalized.split("\
+"):
+                f.write(f"+{line}\
+".encode("utf-8"))
     except Exception:
         pass
 
+
+def _get_prompt_session(*, reply: bool = False) -> Any:
+    global _PROMPT_SESSION, _PROMPT_REPLY_SESSION
+    if reply:
+        if _PROMPT_REPLY_SESSION is False:
+            return None
+        if _PROMPT_REPLY_SESSION is None:
+            try:
+                from prompt_toolkit import PromptSession
+                from prompt_toolkit.history import InMemoryHistory
+            except Exception:
+                _PROMPT_REPLY_SESSION = False
+                return None
+
+            try:
+                session = PromptSession(history=InMemoryHistory())
+                for entry in _PROMPT_HISTORY:
+                    try:
+                        session.history.append_string(entry)
+                    except Exception:
+                        pass
+                _PROMPT_REPLY_SESSION = session
+            except Exception:
+                _PROMPT_REPLY_SESSION = False
+                return None
+        return _PROMPT_REPLY_SESSION
+
+    if _PROMPT_SESSION is False:
+        return None
+    if _PROMPT_SESSION is None:
+        try:
+            from prompt_toolkit import PromptSession
+            from prompt_toolkit.history import FileHistory
+        except Exception:
+            _PROMPT_SESSION = False
+            return None
+
+        try:
+            session = PromptSession(
+                history=FileHistory(str(get_history_file_path()))
+            )
+            for entry in _PROMPT_HISTORY:
+                try:
+                    session.history.append_string(entry)
+                except Exception:
+                    pass
+            _PROMPT_SESSION = session
+        except Exception:
+            _PROMPT_SESSION = False
+            return None
+    return _PROMPT_SESSION
+
+
+def _prompt_toolkit_input(
+    prompt: str, *, is_password: bool = False, reply: bool = False
+) -> str | None:
+    session = _get_prompt_session(reply=reply)
+    if session is None:
+        return None
+
+    try:
+        from prompt_toolkit.patch_stdout import patch_stdout
+    except Exception:
+        patch_stdout = None  # type: ignore
+
+    try:
+        if patch_stdout is not None:
+            with patch_stdout():
+                return session.prompt(prompt, is_password=is_password)
+        return session.prompt(prompt, is_password=is_password)
+    except EOFError:
+        raise
+    except KeyboardInterrupt:
+        raise
+    except Exception:
+        return None
+
+setattr(core, "prompt_history_append", _append_prompt_history_entry)
 
 def _flush_stdin_input_buffer() -> None:
     """Best-effort flush of *pending* user keystrokes before a prompt.
@@ -431,12 +342,16 @@ def stdin_loop() -> None:
                 if is_reply:
                     _flush_stdin_input_buffer()
 
-                if os.name == "nt":
-                    line = _getpass_fallback("[PASSWORD] > ")
-                elif sys.stdin.isatty() and sys.stdout.isatty():
-                    line = getpass.getpass("[PASSWORD] > ")
-                else:
-                    line = _getpass_fallback("[PASSWORD] > ")
+                line = _prompt_toolkit_input(
+                    "[PASSWORD] > ", is_password=True, reply=True
+                )
+                if line is None:
+                    if os.name == "nt":
+                        line = _getpass_fallback("[PASSWORD] > ")
+                    elif sys.stdin.isatty() and sys.stdout.isatty():
+                        line = getpass.getpass("[PASSWORD] > ")
+                    else:
+                        line = _getpass_fallback("[PASSWORD] > ")
             else:
                 # When replying to a prompt (human_ask), flush any pending typeahead
                 # to prevent unintended immediate submission.
@@ -445,7 +360,7 @@ def stdin_loop() -> None:
 
                 # NOTE: If LLM/Tools response start conflicts with stdin_loop, only the prompt
                 # might be displayed even though it is BUSY.
-                # However, if we stop readline() itself here because of BUSY, a line entered
+                # However, if we stop waiting for input itself here because of BUSY, a line entered
                 # into an already displayed prompt may remain unread, requiring another input,
                 # so we do not block immediately before drawing.
 
@@ -517,16 +432,16 @@ def stdin_loop() -> None:
 
                 # Read input without using input(), to avoid stdout/stderr prompt interleaving issues
                 # (input() may implicitly write to stdout depending on environment).
-                # For normal prompts, avoid an indefinite blocking readline() so that
-                # a newly-started human_ask can switch the prompt promptly.
                 if is_reply:
-                    line = sys.stdin.readline()
-                    if line == "":
-                        raise EOFError
+                    line = _prompt_toolkit_input("", reply=True)
+                    if line is None:
+                        line = sys.stdin.readline()
+                        if line == "":
+                            raise EOFError
                 else:
                     line = None
 
-                    # If readline is available, prefer input("") so TAB completion works.
+                    # If prompt_toolkit is available, use it so history navigation works.
                     # UAGENT_SIMPLE_PROMPT defaults to 0; set 1/true/yes/on to disable.
                     use_simple_prompt = str(
                         env_get("UAGENT_SIMPLE_PROMPT", "0") or ""
@@ -536,12 +451,18 @@ def stdin_loop() -> None:
                         "yes",
                         "on",
                     )
-                    # We already printed the prompt ourselves.
-                    if readline and sys.stdin.isatty() and not use_simple_prompt:
+                    prompt_session = _get_prompt_session()
+                    if (
+                        prompt_session is not None
+                        and sys.stdin.isatty()
+                        and not use_simple_prompt
+                    ):
                         try:
-                            line = input("")
-                        except EOFError:
-                            raise
+                            from prompt_toolkit.patch_stdout import patch_stdout
+                            with patch_stdout():
+                                line = prompt_session.prompt("")
+                        except Exception:
+                            line = None
                     elif os.name == "nt":
                         try:
                             import msvcrt  # type: ignore
@@ -694,6 +615,8 @@ def stdin_loop() -> None:
 
         if not user_multiline_active:
             if line.startswith(":"):
+                if not line.startswith(":load"):
+                    _append_prompt_history_entry(line)
                 core.set_status(True, "command_pending")
                 core.event_queue.put({"kind": "command", "text": line})
                 continue
@@ -714,6 +637,7 @@ def stdin_loop() -> None:
                     print()
                 continue
 
+            _append_prompt_history_entry(line)
             core.set_status(True, "user_pending")
             core.event_queue.put({"kind": "user", "text": line})
         else:
@@ -730,6 +654,7 @@ def stdin_loop() -> None:
                 if not text.strip():
                     continue
 
+                _append_prompt_history_entry(text)
                 core.set_status(True, "user_pending_multi")
                 core.event_queue.put({"kind": "user", "text": text})
             else:
@@ -737,7 +662,6 @@ def stdin_loop() -> None:
 
 
 def main() -> None:
-    _uagent_setup_readline_completion()
 
     startup = _run_cli_startup(
         core=core,
@@ -751,6 +675,7 @@ def main() -> None:
     client = startup.client
     depname = startup.depname
     messages = startup.messages
+    _bootstrap_prompt_history(messages)
 
     if startup.should_exit:
         return
@@ -777,6 +702,7 @@ def main() -> None:
                     prompt = getattr(result, "prompt", None) or "Run the loaded skill."
                     user_msg = {"role": "user", "content": prompt}
                     messages.append(user_msg)
+                    _append_prompt_history_entry(prompt)
                     core.log_message(user_msg)
                     llm_util.run_llm_rounds(
                         provider,
