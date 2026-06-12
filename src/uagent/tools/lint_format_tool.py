@@ -25,6 +25,7 @@ import os
 import re
 import shlex
 import subprocess
+from pathlib import Path
 from typing import Any, Optional
 
 from .safe_file_ops_extras import ensure_within_workdir, is_path_dangerous
@@ -183,6 +184,46 @@ def _tool_exists_mdformat() -> bool:
     return code == 0
 
 
+_TOOL_SUFFIXES: dict[str, set[str]] = {
+    "ruff": {".py"},
+    "black": {".py"},
+    "mypy": {".py"},
+    "mdformat": {".md"},
+}
+
+
+def _collect_targets_for_tool(targets: list[str], tool: str) -> tuple[list[str], list[str]]:
+    suffixes = _TOOL_SUFFIXES.get(tool, set())
+    matched: list[str] = []
+    missing: list[str] = []
+    seen: set[str] = set()
+
+    for target in targets:
+        p = Path(target)
+        if not p.exists():
+            missing.append(str(p))
+            continue
+
+        if p.is_file():
+            if p.suffix.lower() in suffixes:
+                item = str(p)
+                if item not in seen:
+                    seen.add(item)
+                    matched.append(item)
+            continue
+
+        if p.is_dir():
+            for child in p.rglob('*'):
+                if child.is_file() and child.suffix.lower() in suffixes:
+                    item = str(child)
+                    if item not in seen:
+                        seen.add(item)
+                        matched.append(item)
+            continue
+
+    return matched, missing
+
+
 def _human_confirm(message: str) -> bool:
     try:
         from .human_ask_tool import run_tool as human_ask
@@ -291,38 +332,42 @@ def run_tool(args: dict[str, Any]) -> str:
     results: list[dict[str, Any]] = []
 
     for tool in selected:
+        tool_safe_targets = tool_targets[tool]
+
         if tool == "ruff":
             if mode == "check":
                 cmd_parts = (
-                    ["python", "-m", "ruff", "check"] + safe_targets + sanitized_extra
+                    ["python", "-m", "ruff", "check"]
+                    + tool_safe_targets
+                    + sanitized_extra
                 )
             else:
                 cmd_parts = (
                     ["python", "-m", "ruff", "check", "--fix"]
-                    + safe_targets
+                    + tool_safe_targets
                     + sanitized_extra
                 )
         elif tool == "black":
             if mode == "check":
                 cmd_parts = (
                     ["python", "-m", "black", "--check"]
-                    + safe_targets
+                    + tool_safe_targets
                     + sanitized_extra
                 )
             else:
-                cmd_parts = ["python", "-m", "black"] + safe_targets + sanitized_extra
+                cmd_parts = ["python", "-m", "black"] + tool_safe_targets + sanitized_extra
         elif tool == "mypy":
-            cmd_parts = ["python", "-m", "mypy"] + safe_targets + sanitized_extra
+            cmd_parts = ["python", "-m", "mypy"] + tool_safe_targets + sanitized_extra
         elif tool == "mdformat":
             if mode == "check":
                 cmd_parts = (
                     ["python", "-m", "mdformat", "--check"]
-                    + safe_targets
+                    + tool_safe_targets
                     + sanitized_extra
                 )
             else:
                 cmd_parts = (
-                    ["python", "-m", "mdformat"] + safe_targets + sanitized_extra
+                    ["python", "-m", "mdformat"] + tool_safe_targets + sanitized_extra
                 )
         else:
             results.append({"tool": tool, "ok": False, "error": "unsupported tool"})

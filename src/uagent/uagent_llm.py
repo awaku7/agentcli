@@ -362,6 +362,19 @@ def run_llm_rounds(
                 # Avoid a follow-up Responses round that can request generate_image again.
                 break
 
+            # Re-check before the next LLM call in case a large tool result
+            # pushed the conversation near the context limit.
+            gemini_cache_name = _maybe_auto_shrink_messages(
+                provider=provider,
+                client=client,
+                depname=depname,
+                messages=messages,
+                core=core,
+                cache_mgr=cache_mgr,
+                gemini_cache_name=gemini_cache_name,
+                call_maybe_thread_fn=_call_maybe_thread_fn,
+            )
+
             core.set_status(True, "LLM")
 
             if executed_new_tool:
