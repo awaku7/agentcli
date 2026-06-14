@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from .env_utils import env_get
 from .i18n import _, detect_lang, set_thread_lang
+from .providers.provider_caps import RESPONSES_PROVIDERS
 
 set_thread_lang(detect_lang())
 
@@ -40,7 +41,9 @@ from .llm_round_helpers import (
     _call_gemini_round,
     _call_claude_round,
     _call_openai_azure_round,
+    _call_deepseek_round,
 )
+from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .llm_flow_helpers import (
     _append_assistant_message,
     _emit_final_answer_if_any,
@@ -149,9 +152,9 @@ def run_llm_rounds(
                 tr_cfg=tr_cfg,
                 core=core,
             )
-            # Responses API is only supported on OpenAI, Azure, and OpenRouter providers.
+            # Responses API is only supported on specific providers; see providers/provider_caps.py.
             # Force use_responses_api to False for other providers (like Claude) to prevent skipping final output.
-            if provider not in ("openai", "azure", "openrouter"):
+            if provider not in RESPONSES_PROVIDERS:
                 use_responses_api = False
 
             send_tools_this_round = True
@@ -282,6 +285,66 @@ def run_llm_rounds(
                         assistant_text=assistant_text,
                         use_responses_api=use_responses_api,
                         stream_responses=stream_responses,
+                        append_result_to_outfile_fn=append_result_to_outfile_fn,
+                        try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    )
+                    break
+
+                empty_no_tool_rounds = 0
+
+            elif provider == "deepseek":
+                ok, client, assistant_text, reasoning_content, tool_calls_list = _call_deepseek_round(
+                    client=client,
+                    depname=depname,
+                    call_messages=call_messages,
+                    core=core,
+                    make_client_fn=make_client_fn,
+                    call_maybe_thread_fn=_call_maybe_thread_fn,
+                    send_tools_this_round=True,
+                    max_retries_429=max_retries_429,
+                    retry_base=retry_base,
+                    retry_cap=retry_cap,
+                )
+                if not ok:
+                    return
+
+                assistant_text = _translate_assistant_if_needed(
+                    assistant_text=assistant_text,
+                    tr_cfg=tr_cfg,
+                    use_responses_api=False,
+                    stream_responses=False,
+                )
+
+                # Build assistant message: reasoning_content is only carried
+                # forward when tool calls are present (DeepSeek API requirement).
+                deepseek_msg = build_assistant_message_with_reasoning(
+                    assistant_text=assistant_text,
+                    tool_calls_list=tool_calls_list,
+                    reasoning_content=reasoning_content,
+                )
+                messages.append(deepseek_msg)
+                core.log_message(deepseek_msg)
+
+                action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
+                    assistant_text=assistant_text,
+                    tool_calls_list=tool_calls_list,
+                    empty_no_tool_rounds=empty_no_tool_rounds,
+                    empty_no_tool_max=empty_no_tool_max,
+                    provider=provider,
+                    depname=depname,
+                    messages=messages,
+                    core=core,
+                )
+                if action == "continue":
+                    continue
+                if action == "break":
+                    break
+
+                if not tool_calls_list:
+                    _emit_final_answer_if_any(
+                        assistant_text=assistant_text,
+                        use_responses_api=False,
+                        stream_responses=False,
                         append_result_to_outfile_fn=append_result_to_outfile_fn,
                         try_open_images_from_text_fn=try_open_images_from_text_fn,
                     )

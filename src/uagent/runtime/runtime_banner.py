@@ -4,6 +4,7 @@ from typing import Any
 
 from ..env_utils import env_get
 from ..i18n import _
+from ..providers.provider_caps import RESPONSES_PROVIDERS
 
 
 def _normalize_url(core: Any, url: str) -> str:
@@ -309,6 +310,16 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 )
             }
         )
+    elif provider == "deepseek":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get("UAGENT_DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
+                )
+            }
+        )
     elif provider == "bedrock":
         lines.append(
             _("[INFO] base_url = %(base_url)s")
@@ -350,13 +361,7 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         "1",
         "true",
     )
-    _responses_supported = provider in (
-        "azure",
-        "openai",
-        "bedrock",
-        "openrouter",
-        "ollama",
-    )
+    _responses_supported = provider in RESPONSES_PROVIDERS
     if (
         _use_responses_flag
         and not _responses_supported
