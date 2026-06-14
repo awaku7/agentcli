@@ -42,6 +42,7 @@ Each provider requires specific variables. You can override the default model us
 | **Ollama** | `UAGENT_OLLAMA_BASE_URL` (Default: `http://localhost:11434/v1`) | `UAGENT_OLLAMA_DEPNAME` |
 | **Grok (xAI)** | `UAGENT_GROK_API_KEY`, `UAGENT_GROK_BASE_URL` | `UAGENT_GROK_DEPNAME` |
 | **NVIDIA** | `UAGENT_NVIDIA_API_KEY`, `UAGENT_NVIDIA_BASE_URL` | `UAGENT_NVIDIA_DEPNAME` |
+| **DeepSeek** | `UAGENT_DEEPSEEK_API_KEY`, `UAGENT_DEEPSEEK_BASE_URL` (Default: `https://api.deepseek.com`) | `UAGENT_DEEPSEEK_DEPNAME` (Default: `deepseek-v4-flash`) |
 
 > \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
 
