@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .i18n import _, detect_lang, set_thread_lang
+from .providers.provider_caps import RESPONSES_PROVIDERS
 from uag_envsec.secret_core import DEFAULT_SEC_SUFFIX, encrypt_text, ensure_key_file
 
 # Setup wizard follows detected UI language.
@@ -69,6 +70,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("claude", "Claude"),
     ("ollama", "Ollama"),
     ("nvidia", "NVIDIA"),
+    ("deepseek", "DeepSeek"),
 ]
 
 # key, required, label
@@ -182,9 +184,14 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_OLLAMA_NUM_CTX", False, _("Ollama num_ctx (default: 8192)")),
         ("UAGENT_OLLAMA_NUM_PREDICT", False, _("Ollama num_predict (default: 1024)")),
     ],
+    "deepseek": [
+        ("UAGENT_DEEPSEEK_API_KEY", True, _("DeepSeek API key")),
+        ("UAGENT_DEEPSEEK_BASE_URL", False, _("DeepSeek base URL (optional, default: https://api.deepseek.com)")),
+        ("UAGENT_DEEPSEEK_DEPNAME", False, _("DeepSeek model name (optional, default: deepseek-v4-flash)")),
+    ],
 }
 
-RESPONSES_PROVIDERS = {"openai", "azure", "bedrock", "openrouter", "ollama"}
+# RESPONSES_PROVIDERS is imported from .providers.provider_caps
 
 LANG_PRESETS = ["en", "ja", "zh_CN", "zh_TW", "ko", "th", "es", "fr", "sw"]
 
@@ -956,7 +963,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# Provider selection")
     out.append("# ==============================")
     out.append(
-        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia"
+        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek"
     )
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")
