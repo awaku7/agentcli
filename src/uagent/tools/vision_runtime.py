@@ -52,15 +52,15 @@ def _image_file_to_data_url(path: str, *, max_bytes: int = 10_000_000) -> str:
 
 
 def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
-    """Analyze an image via Responses API (OpenAI/Azure/OpenRouter)."""
+    """Analyze an image via Responses API (OpenAI/Azure/OpenRouter/Ollama)."""
 
     provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
-    if provider not in ("openai", "azure", "bedrock", "openrouter"):
+    if provider not in ("openai", "azure", "bedrock", "openrouter", "ollama"):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
                 default=(
-                    "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter "
+                    "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama "
                     "(got provider={provider!r})"
                 ),
             ).format(provider=provider)

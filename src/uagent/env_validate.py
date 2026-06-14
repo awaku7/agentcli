@@ -39,8 +39,8 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_PROVIDER"],
             reason=_(
-                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia).",
-                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia).",
+                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek).",
+                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek).",
             ),
         )
         return provider, missing, warnings
@@ -56,6 +56,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         "grok",
         "claude",
         "nvidia",
+        "deepseek",
     )
     if provider not in allowed:
         warnings.append(
@@ -170,6 +171,11 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_NVIDIA_API_KEY"],
             reason=_("NVIDIA API key.", default="NVIDIA API key."),
+        )
+    elif provider == "deepseek":
+        missing += _require(
+            ["UAGENT_DEEPSEEK_API_KEY"],
+            reason=_("DeepSeek API key.", default="DeepSeek API key."),
         )
 
     embedding_provider = (_get("UAGENT_EMBEDDING_PROVIDER") or "").lower()

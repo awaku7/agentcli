@@ -70,7 +70,7 @@ TOOL_SPEC: dict[str, Any] = {
 # hide analyze_image to avoid redundant tool calls.
 if (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in ("1", "true", "yes") and (
     env_get("UAGENT_PROVIDER") or ""
-).strip().lower() in ("azure", "openai", "bedrock", "openrouter"):
+).strip().lower() in ("azure", "openai", "bedrock", "openrouter", "ollama"):
     TOOL_SPEC = None  # type: ignore[assignment]
 
 
