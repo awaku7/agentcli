@@ -24,7 +24,7 @@ ______________________________________________________________________
 
 Specifies the primary provider to use at startup (Required).
 
-- Values: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`
+- Values: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `alibaba`, `kimi`
 
 ### 2. LLM Provider Settings
 
@@ -43,6 +43,8 @@ Each provider requires specific variables. You can override the default model us
 | **Grok (xAI)** | `UAGENT_GROK_API_KEY`, `UAGENT_GROK_BASE_URL` | `UAGENT_GROK_DEPNAME` |
 | **NVIDIA** | `UAGENT_NVIDIA_API_KEY`, `UAGENT_NVIDIA_BASE_URL` | `UAGENT_NVIDIA_DEPNAME` |
 | **DeepSeek** | `UAGENT_DEEPSEEK_API_KEY`, `UAGENT_DEEPSEEK_BASE_URL` (Default: `https://api.deepseek.com`) | `UAGENT_DEEPSEEK_DEPNAME` (Default: `deepseek-v4-flash`) |
+| **Alibaba Cloud (Qwen)** | `UAGENT_ALIBABA_API_KEY`, `UAGENT_ALIBABA_BASE_URL` (Default: `https://dashscope.aliyuncs.com/compatible-mode/v1`) | `UAGENT_ALIBABA_DEPNAME` (Default: `qwen3.5-plus`) |
+| **KIMI (Moonshot AI)** | `UAGENT_KIMI_API_KEY`, `UAGENT_KIMI_BASE_URL` (Default: `https://api.moonshot.cn/v1`) | `UAGENT_KIMI_DEPNAME` (Default: `kimi-k2`) |
 
 > \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
 
