@@ -48,6 +48,13 @@
                         <option value="medium">medium</option>
                         <option value="high">high</option>
                     </select>
+                    <span class="ml-2">Tools:</span>
+                    <span id="genre-checkboxes" class="flex items-center gap-2 text-xs">
+                        <label class="flex items-center gap-0.5 cursor-pointer"><input type="checkbox" data-genre="comm" class="genre-toggle"> comm</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer"><input type="checkbox" data-genre="office" class="genre-toggle"> office</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer"><input type="checkbox" data-genre="devel" class="genre-toggle"> devel</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer"><input type="checkbox" data-genre="iot" class="genre-toggle"> iot</label>
+                    </span>
                 </div>
             </div>
         </div>
@@ -1118,6 +1125,58 @@
 
         applyI18n(UI_LANG);
         connect();
+
+        // Tool genre selection
+        (function() {
+            const checkboxes = document.querySelectorAll('.genre-toggle');
+            let busy = false;
+
+            function updateGenreUI() {
+                checkboxes.forEach(cb => cb.disabled = busy);
+            }
+
+            function loadGenreState() {
+                fetch('/api/tool-genres')
+                    .then(r => r.json())
+                    .then(data => {
+                        busy = data.busy || false;
+                        data.genres.forEach(g => {
+                            const cb = document.querySelector(`.genre-toggle[data-genre="${g.key}"]`);
+                            if (cb) cb.checked = g.enabled;
+                        });
+                        updateGenreUI();
+                    })
+                    .catch(() => {});
+            }
+
+            function toggleGenre(genre, enabled) {
+                fetch('/api/tool-genres', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({genre, enabled})
+                }).catch(() => {});
+            }
+
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', () => {
+                    toggleGenre(cb.dataset.genre, cb.checked);
+                });
+            });
+
+            // Poll busy state every 2s
+            setInterval(() => {
+                fetch('/api/tool-genres')
+                    .then(r => r.json())
+                    .then(data => {
+                        const wasBusy = busy;
+                        busy = data.busy || false;
+                        if (busy !== wasBusy) updateGenreUI();
+                    })
+                    .catch(() => {});
+            }, 2000);
+
+            loadGenreState();
+        })();
         {% endraw %}
     </script>
 </body>

@@ -259,6 +259,19 @@ def main(argv: Optional[list[str]] = None) -> None:
     reload_dotenv_custom()
     validate_or_exit_startup_env(context="a2a")
 
+    # Tool genre selection (same dialog as CLI startup)
+    try:
+        if sys.stdout.isatty():
+            from ..cli_startup import (
+                _apply_startup_tool_genre_mask,
+                _prompt_startup_tool_genre_mask,
+            )
+
+            mask = _prompt_startup_tool_genre_mask()
+            _apply_startup_tool_genre_mask(mask)
+    except Exception:
+        pass
+
     app = build_app()
     uvicorn.run(app, host=str(args.host), port=int(args.port), reload=bool(args.reload))
 

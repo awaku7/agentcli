@@ -742,6 +742,8 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
                 0, {"role": "system", "content": generative_ui_prompt.strip()}
             )
 
+        # Track history length before LLM round to sync new messages to room after
+        _before_hist_len = len(room.history)
         llm_util.run_llm_rounds(
             provider_name,
             client,
@@ -752,6 +754,10 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
             append_result_to_outfile_fn=tools_util.append_result_to_outfile,
             try_open_images_from_text_fn=tools_util.try_open_images_from_text,
         )
+        # Sync new assistant messages missed due to skip_log_when_web in _append_assistant_message.
+        for m in room.history[_before_hist_len:]:
+            if isinstance(m, dict) and m.get("role") == "assistant":
+                room.add_message(dict(m))
 
     except BaseException as e:
         err = repr(e)
@@ -911,6 +917,70 @@ async def get_local_file(path: str):
         return FileResponse(full_norm)
     except Exception:
         raise
+
+
+# Tool genre state (initially all disabled; toggled via API)
+_genre_enabled: dict[str, bool] = {}
+
+
+@app.get("/api/tool-genres")
+async def get_tool_genres():
+    """Return list of available genres and their current enabled state."""
+    return {
+        "genres": [
+            {"key": "comm", "label": "Communication (Teams, Discord, Bluesky)", "enabled": _genre_enabled.get("comm", False)},
+            {"key": "office", "label": "Office suite (Excel, Word, PDF)", "enabled": _genre_enabled.get("office", False)},
+            {"key": "devel", "label": "Development (lint, test, git)", "enabled": _genre_enabled.get("devel", False)},
+            {"key": "iot", "label": "IoT (Bluetooth, ECHONET)", "enabled": _genre_enabled.get("iot", False)},
+        ],
+        "busy": web_manager.status.get("busy", False) if hasattr(web_manager, "status") else False,
+    }
+
+
+@app.post("/api/tool-genres")
+async def set_tool_genre(req: Request):
+    """Toggle a tool genre on/off. Only allowed when idle."""
+    from .tools.comm_control_tool import _set_comm_tools_enabled
+    from .tools.devel_control_tool import _set_devel_tools_enabled
+    from .tools.office_control_tool import _set_office_tools_enabled
+
+    _set_iot_tools_enabled = None
+    try:
+        from .tools.iot_control_tool import _set_iot_tools_enabled as _iot_setter
+        _set_iot_tools_enabled = _iot_setter
+    except ImportError:
+        pass
+
+    body = await req.json()
+    genre = str(body.get("genre", "")).strip().lower()
+    enabled = bool(body.get("enabled", False))
+
+    # Reject if busy
+    busy = bool(getattr(core, "status_busy", False))
+    if busy:
+        return JSONResponse(
+            status_code=409,
+            content={"error": "Cannot change genres while busy. Wait for the current task to complete."},
+        )
+
+    setters = {
+        "comm": _set_comm_tools_enabled,
+        "office": _set_office_tools_enabled,
+        "devel": _set_devel_tools_enabled,
+    }
+    if _set_iot_tools_enabled:
+        setters["iot"] = _set_iot_tools_enabled
+
+    setter = setters.get(genre)
+    if not setter:
+        return JSONResponse(status_code=400, content={"error": f"Unknown genre: {genre}"})
+
+    try:
+        msg = setter(enabled)
+        _genre_enabled[genre] = enabled
+        return {"ok": True, "genre": genre, "enabled": enabled, "message": msg}
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": str(e)})
 
 
 @app.websocket("/ws")

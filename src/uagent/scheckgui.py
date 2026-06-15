@@ -959,6 +959,48 @@ class MainWindow(QtWidgets.QMainWindow):
         except Exception:
             pass
 
+        # Tools menu (genre selection, only when idle)
+        try:
+            from .tools.comm_control_tool import _set_comm_tools_enabled
+            from .tools.devel_control_tool import _set_devel_tools_enabled
+            from .tools.office_control_tool import _set_office_tools_enabled
+
+            tools_menu = self.menuBar().addMenu(_("Tools"))
+
+            _set_iot_tools_enabled = None
+            try:
+                from .tools.iot_control_tool import _set_iot_tools_enabled as _iot_setter
+                _set_iot_tools_enabled = _iot_setter
+            except ImportError:
+                pass
+
+            genre_items = [
+                ("comm", _("Communication (Teams, Discord, Bluesky)"), _set_comm_tools_enabled),
+                ("office", _("Office suite (Excel, Word, PDF)"), _set_office_tools_enabled),
+                ("devel", _("Development (lint, test, git)"), _set_devel_tools_enabled),
+            ]
+            if _set_iot_tools_enabled:
+                genre_items.append(("iot", _("IoT (Bluetooth, ECHONET)"), _set_iot_tools_enabled))
+
+            self._genre_actions = {}
+            for key, label, setter in genre_items:
+                act = tools_menu.addAction(label)
+                act.setCheckable(True)
+                act.setChecked(False)
+                act.triggered.connect(lambda checked, s=setter: s(checked))
+                self._genre_actions[key] = act
+
+            # Update enabled state periodically based on busy status
+            def _update_tools_menu_state():
+                is_busy = bool(getattr(core, "status_busy", False))
+                for act in self._genre_actions.values():
+                    act.setEnabled(not is_busy)
+            self._tools_menu_timer = QtCore.QTimer()
+            self._tools_menu_timer.timeout.connect(_update_tools_menu_state)
+            self._tools_menu_timer.start(500)  # check every 500ms
+        except Exception:
+            pass
+
     def _update_mode_label(self) -> None:
         try:
             r = get_reasoning_mode()
