@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.4] - 2026-06-15
+
+### Fixed
+- Suppress duplicate DeepSeek final output when streaming is active.
+- Defer auto_user_msg insertion to prevent DeepSeek 400 error on tool_calls.
+
 ## [0.5.3] - 2026-06-15
 
 ### Added
