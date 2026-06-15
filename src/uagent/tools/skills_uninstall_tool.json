@@ -7,8 +7,7 @@
       "uninstall skill",
       "remove skill",
       "delete skill"
-    ],
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    ]
   },
   "ja": {
     "param.name.description": "アンインストールするスキルのフォルダ名。",
@@ -18,8 +17,7 @@
       "スキル削除",
       "スキルアンインストール",
       "アンインストール"
-    ],
-    "tool.system_prompt": "このツールは次の目的で使用します（ツールの説明を参照）。"
+    ]
   },
   "es": {
     "param.name.description": "El nombre de la carpeta de la habilidad...",
@@ -29,8 +27,7 @@
       "desinstalar skill",
       "eliminar skill",
       "borrar skill"
-    ],
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito (ver la descripción de la herramienta)."
+    ]
   },
   "fr": {
     "param.name.description": "Le nom du dossier de la compétence à dé...",
@@ -40,8 +37,7 @@
       "désinstaller compétence",
       "supprimer compétence",
       "effacer compétence"
-    ],
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l’outil)."
+    ]
   },
   "ko": {
     "param.name.description": "제거할 스킬의 폴더 이름입니다.",
@@ -51,8 +47,7 @@
       "스킬 제거",
       "스킬 삭제",
       "언인스톨"
-    ],
-    "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조)."
+    ]
   },
   "de": {
     "param.name.description": "Der Ordnername des zu deinstallierenden...",
@@ -62,8 +57,7 @@
       "skill deinstallieren",
       "skill entfernen",
       "skill löschen"
-    ],
-    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+    ]
   },
   "it": {
     "param.name.description": "Il nome della cartella dello skill da d...",
@@ -73,8 +67,7 @@
       "disinstalla skill",
       "rimuovi skill",
       "elimina skill"
-    ],
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+    ]
   },
   "ru": {
     "param.name.description": "Имя папки навыка, который необходимо удалить.",
@@ -83,8 +76,7 @@
       "skills_uninstall",
       "удалить навык",
       "стереть навык"
-    ],
-    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+    ]
   },
   "pt_BR": {
     "param.name.description": "O nome da pasta da skill a ser desinstalada.",
@@ -94,8 +86,7 @@
       "desinstalar skill",
       "remover skill",
       "excluir skill"
-    ],
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+    ]
   },
   "pt": {
     "param.name.description": "O nome da pasta da skill a ser desinstalada.",
@@ -105,8 +96,7 @@
       "desinstalar skill",
       "remover skill",
       "excluir skill"
-    ],
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+    ]
   },
   "id": {
     "param.name.description": "Nama folder skill yang akan diuninstal.",
@@ -115,8 +105,7 @@
       "skills_uninstall",
       "uninstal skill",
       "hapus skill"
-    ],
-    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+    ]
   },
   "vi": {
     "param.name.description": "Tên thư mục của kỹ năng cần gỡ cài đặt.",
@@ -125,8 +114,7 @@
       "skills_uninstall",
       "gỡ cài đặt kỹ năng",
       "xóa kỹ năng"
-    ],
-    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+    ]
   },
   "pl": {
     "param.name.description": "Nazwa folderu umiejętności do odinstalowania.",
@@ -135,8 +123,7 @@
       "skills_uninstall",
       "odinstaluj umiejętność",
       "usuń umiejętność"
-    ],
-    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+    ]
   },
   "hi": {
     "param.name.description": "अनइंस्टॉल किए जाने वाले कौशल का फ़ोल्डर नाम।",
@@ -145,8 +132,7 @@
       "skills_uninstall",
       "कौशल अनइंस्टॉल करें",
       "कौशल हटाएं"
-    ],
-    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता: (उपकरण विवरण देखें)।"
+    ]
   },
   "ar": {
     "param.name.description": "اسم مجلد المهارة المراد إلغاء تثبيتها.",
@@ -155,8 +141,7 @@
       "skills_uninstall",
       "إلغاء تثبيت مهارة",
       "إزالة مهارة"
-    ],
-    "tool.system_prompt": "تُستخدم هذه الأداة للغرض التالي: (راجع وصف الأداة)."
+    ]
   },
   "sv": {
     "param.name.description": "Mappnamnet för den skill som ska avinst...",
@@ -165,8 +150,7 @@
       "skills_uninstall",
       "avinstallera skill",
       "ta bort skill"
-    ],
-    "tool.system_prompt": "Det här verktyget används för följande syfte (se verktygsbeskrivningen)."
+    ]
   },
   "sw": {
     "param.name.description": "Jina la folda ya skill ya kuondoa.",
@@ -176,8 +160,7 @@
       "ondoa skill",
       "futa skill",
       "ondoa ujuzi"
-    ],
-    "tool.system_prompt": "Zana hii hutumiwa kwa madhumuni yafuatayo (angalia maelezo ya zana)."
+    ]
   },
   "nb": {
     "param.name.description": "Mappenavnet for den skillen som skal av...",
@@ -186,8 +169,7 @@
       "skills_uninstall",
       "avinstaller skill",
       "fjern skill"
-    ],
-    "tool.system_prompt": "Dette verktøyet brukes til følgende formål (se verktøybeskrivelsen)."
+    ]
   },
   "nl": {
     "param.name.description": "De mapnaam van de te deïnstalleren skill.",
@@ -196,8 +178,7 @@
       "skills_uninstall",
       "skill deïnstalleren",
       "skill verwijderen"
-    ],
-    "tool.system_prompt": "Dit hulpprogramma wordt gebruikt voor het volgende doel: (zie de toolbeschrijving)."
+    ]
   },
   "fi": {
     "param.name.description": "Poistettavan skillin kansion nimi.",
@@ -206,8 +187,7 @@
       "skills_uninstall",
       "poista skilli",
       "poista taito"
-    ],
-    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
+    ]
   },
   "cs": {
     "param.name.description": "Název složky skillu, který se má odinstalovat.",
@@ -216,8 +196,7 @@
       "skills_uninstall",
       "odinstalovat skill",
       "odebrat skill"
-    ],
-    "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
+    ]
   },
   "uk": {
     "param.name.description": "Ім'я папки навички, яку необхідно видалити.",
@@ -226,8 +205,7 @@
       "skills_uninstall",
       "видалити навичку",
       "стерти навичку"
-    ],
-    "tool.system_prompt": "Цей інструмент використовується для наступної мети: (див. опис інструменту)."
+    ]
   },
   "zh_CN": {
     "param.name.description": "要卸载的技能文件夹名称。",
@@ -237,8 +215,7 @@
       "卸载技能",
       "删除技能",
       "移除技能"
-    ],
-    "tool.system_prompt": "此工具用于以下目的（请参见工具说明）。"
+    ]
   },
   "zh_TW": {
     "param.name.description": "要解除安裝的技能資料夾名稱。",
@@ -248,8 +225,7 @@
       "解除安裝技能",
       "刪除技能",
       "移除技能"
-    ],
-    "tool.system_prompt": "此工具用於以下目的（請參見工具說明）。"
+    ]
   },
   "bn": {
     "param.name.description": "যে স্কিলটি আনইনস্টল করতে চান তার ফোল্ডা...",
@@ -259,8 +235,7 @@
       "স্কিল আনইনস্টল",
       "স্কিল মুছুন",
       "স্কিল সরান"
-    ],
-    "tool.system_prompt": "এই টুলটি নিম্নলিখিত উদ্দেশ্যে ব্যবহৃত হয় (টুলের বিবরণ দেখুন)।"
+    ]
   },
   "fa": {
     "param.name.description": "نام پوشهٔ اسکیلی که باید حذف شود.",
@@ -270,8 +245,7 @@
       "حذف اسکیل",
       "حذف مهارت",
       "remove skill"
-    ],
-    "tool.system_prompt": "از این ابزار برای هدف زیر استفاده می‌شود (به توضیح ابزار مراجعه کنید)."
+    ]
   },
   "mn": {
     "param.name.description": "Устгах skill-ийн хавтасны нэр.",
@@ -281,8 +255,7 @@
       "skill устгах",
       "skill арилгах",
       "устгах"
-    ],
-    "tool.system_prompt": "Энэ хэрэгслийг дараах зорилгоор ашиглана (хэрэгслийн тайлбарыг үзнэ үү)."
+    ]
   },
   "mr": {
     "param.name.description": "अनइंस्टॉल करायच्या skill च्या फोल्डरचे नाव.",
@@ -292,8 +265,7 @@
       "skill अनइंस्टॉल",
       "skill काढा",
       "skill हटवा"
-    ],
-    "tool.system_prompt": "हे साधन पुढील उद्देशासाठी वापरले जाते (साधनाचे वर्णन पहा)."
+    ]
   },
   "tr": {
     "param.name.description": "Kaldırılacak skill klasörünün adı.",
@@ -303,8 +275,7 @@
       "skill kaldır",
       "skill sil",
       "skill kaldırma"
-    ],
-    "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır (araç açıklamasına bakın)."
+    ]
   },
   "th": {
     "param.name.description": "ชื่อโฟลเดอร์ของสกิลที่จะถอนการติดตั้ง",
@@ -314,7 +285,6 @@
       "ถอนการติดตั้งสกิล",
       "ลบสกิล",
       "เอาสกิลออก"
-    ],
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อวัตถุประสงค์ต่อไปนี้ (ดูคำอธิบายเครื่องมือ)"
+    ]
   }
 }

@@ -20,8 +20,7 @@
       "weeks months",
       "days from date",
       "holiday check"
-    ],
-    "tool.system_prompt": "This tool adds or subtracts years, months, weeks, or days for a specified date and can also determine whether the result is a holiday using the holidays library. See the tool description for details."
+    ]
   },
   "ja": {
     "doc.get_holiday_info": "holidaysライブラリを使用して指定された国の祝日名を取得します。",
@@ -44,8 +43,7 @@
       "日数計算",
       "祝日確認",
       "日時演算"
-    ],
-    "tool.system_prompt": "このツールは、指定した日付に対して年、月、週、日を加算・減算し、必要に応じて holidays ライブラリで祝日判定も行います。詳細は tool.description を参照してください。"
+    ]
   },
   "es": {
     "doc.get_holiday_info": "Obtenga los nombres de los días festivos del país especificado utilizando la biblioteca holidays.",
@@ -68,8 +66,7 @@
       "días desde fecha",
       "comprobar festivos",
       "matemática de fechas"
-    ],
-    "tool.system_prompt": "Esta herramienta suma o resta años, meses, semanas o días a una fecha especificada y también puede determinar si el resultado cae en un festivo mediante la biblioteca holidays. Consulte la descripción de la herramienta para más detalles."
+    ]
   },
   "fr": {
     "doc.get_holiday_info": "Obtenez les noms des jours fériés du pays spécifié à l’aide de la bibliothèque holidays.",
@@ -92,8 +89,7 @@
       "jours depuis la date",
       "vérifier les jours fériés",
       "arithmétique des dates"
-    ],
-    "tool.system_prompt": "Cet outil ajoute ou soustrait des années, des mois, des semaines ou des jours à une date donnée et peut aussi déterminer si le résultat tombe un jour férié à l’aide de la bibliothèque holidays. Voir la description de l’outil pour plus de détails."
+    ]
   },
   "ko": {
     "doc.get_holiday_info": "holidays 라이브러리를 사용하여 지정된 국가의 공휴일 이름을 가져옵니다.",
@@ -116,8 +112,7 @@
       "기준일로부터 일수",
       "휴일 확인",
       "날짜 연산"
-    ],
-    "tool.system_prompt": "이 도구는 지정한 날짜에 대해 연, 월, 주, 일 단위로 더하거나 빼고, 필요하면 holidays 라이브러리로 공휴일 여부도 판정합니다. 자세한 내용은 tool.description을 참조하세요."
+    ]
   },
   "de": {
     "doc.get_holiday_info": "Ermitteln Sie mithilfe der holidays-Bibliothek die Feiertagsnamen des angegebenen Landes.",
@@ -140,8 +135,7 @@
       "tage seit datum",
       "feiertage prüfen",
       "datumsarithmetik"
-    ],
-    "tool.system_prompt": "Dieses Tool addiert oder subtrahiert Jahre, Monate, Wochen oder Tage für ein angegebenes Datum und kann mithilfe der holidays-Bibliothek auch prüfen, ob das Ergebnis ein Feiertag ist. Weitere Details finden Sie in der Toolbeschreibung."
+    ]
   },
   "it": {
     "doc.get_holiday_info": "Ottieni i nomi delle festività del paese specificato utilizzando la libreria holidays.",
@@ -164,8 +158,7 @@
       "giorni dalla data",
       "controlla festivi",
       "aritmetica date"
-    ],
-    "tool.system_prompt": "Questo strumento aggiunge o sottrae anni, mesi, settimane o giorni a una data specificata e può anche determinare se il risultato cade in un giorno festivo usando la libreria holidays. Per i dettagli, vedere la descrizione dello strumento."
+    ]
   },
   "ru": {
     "doc.get_holiday_info": "Получите названия праздников указанной страны с помощью библиотеки holidays.",
@@ -188,8 +181,7 @@
       "дни от даты",
       "проверить праздники",
       "арифметика дат"
-    ],
-    "tool.system_prompt": "Этот инструмент прибавляет или вычитает годы, месяцы, недели или дни для указанной даты и также может определить, является ли результат праздником, с помощью библиотеки holidays. Подробности см. в описании инструмента."
+    ]
   },
   "pt_BR": {
     "doc.get_holiday_info": "Obtenha os nomes dos feriados do país especificado usando a biblioteca holidays.",
@@ -212,8 +204,7 @@
       "dias a partir da data",
       "verificar feriados",
       "matemática de datas"
-    ],
-    "tool.system_prompt": "Esta ferramenta adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e também pode determinar se o resultado cai em um feriado usando a biblioteca holidays. Consulte a descrição da ferramenta para mais detalhes."
+    ]
   },
   "pt": {
     "doc.get_holiday_info": "Obtenha os nomes dos feriados do país especificado usando a biblioteca de feriados.",
@@ -236,8 +227,7 @@
       "dias desde a data",
       "verificar feriados",
       "matemática de datas"
-    ],
-    "tool.system_prompt": "Esta ferramenta adiciona ou subtrai anos, meses, semanas ou dias de uma data especificada e também pode determinar se o resultado cai em um feriado usando a biblioteca holidays. Consulte a descrição da ferramenta para mais detalhes."
+    ]
   },
   "id": {
     "doc.get_holiday_info": "Dapatkan nama hari libur untuk negara yang ditentukan menggunakan library holidays.",
@@ -260,8 +250,7 @@
       "hari sejak tanggal",
       "cek hari libur",
       "matematika tanggal"
-    ],
-    "tool.system_prompt": "Alat ini menambah atau mengurangi tahun, bulan, minggu, atau hari dari tanggal tertentu dan juga dapat menentukan apakah hasilnya merupakan hari libur dengan menggunakan library holidays. Lihat deskripsi alat untuk detail."
+    ]
   },
   "vi": {
     "doc.get_holiday_info": "Lấy tên ngày lễ của quốc gia được chỉ định bằng thư viện ngày lễ.",
@@ -284,8 +273,7 @@
       "số ngày từ ngày",
       "kiểm tra ngày lễ",
       "toán ngày tháng"
-    ],
-    "tool.system_prompt": "Công cụ này cộng hoặc trừ năm, tháng, tuần hoặc ngày cho một ngày cụ thể và cũng có thể xác định xem kết quả có phải là ngày lễ hay không bằng thư viện holidays. Xem mô tả công cụ để biết chi tiết."
+    ]
   },
   "pl": {
     "doc.get_holiday_info": "Pobierz nazwy świąt dla wskazanego kraju, korzystając z biblioteki holidays.",
@@ -308,8 +296,7 @@
       "dni od daty",
       "sprawdź święta",
       "arytmetyka dat"
-    ],
-    "tool.system_prompt": "To narzędzie dodaje lub odejmuje lata, miesiące, tygodnie albo dni dla wskazanej daty i może też sprawdzić, czy wynik przypada na święto, z użyciem biblioteki holidays. Szczegóły znajdziesz w opisie narzędzia."
+    ]
   },
   "hi": {
     "doc.get_holiday_info": "holidays लाइब्रेरी का उपयोग करके निर्दिष्ट देश के अवकाशों के नाम प्राप्त करें।",
@@ -332,8 +319,7 @@
       "तिथि से दिन",
       "छुट्टी जाँच",
       "तिथि गणित"
-    ],
-    "tool.system_prompt": "यह टूल किसी निर्दिष्ट तिथि के लिए वर्ष, महीने, सप्ताह या दिन जोड़ता या घटाता है और holidays लाइब्रेरी का उपयोग करके यह भी निर्धारित कर सकता है कि परिणाम अवकाश है या नहीं। विवरण के लिए tool.description देखें।"
+    ]
   },
   "ar": {
     "doc.get_holiday_info": "احصل على أسماء العطلات للبلد المحدد باستخدام مكتبة holidays.",
@@ -356,8 +342,7 @@
       "أيام من التاريخ",
       "التحقق من العطلات",
       "حسابات التاريخ"
-    ],
-    "tool.system_prompt": "تضيف هذه الأداة أو تطرح سنوات أو أشهر أو أسابيع أو أيامًا لتاريخ محدد، ويمكنها أيضًا التحقق مما إذا كانت النتيجة تقع في عطلة باستخدام مكتبة holidays. راجع وصف الأداة للتفاصيل."
+    ]
   },
   "sv": {
     "doc.get_holiday_info": "Hämta helgdagsnamnen för det angivna landet med hjälp av holidays-biblioteket.",
@@ -380,8 +365,7 @@
       "dagar från datum",
       "kontrollera helgdagar",
       "datumaritmetik"
-    ],
-    "tool.system_prompt": "Det här verktyget lägger till eller drar ifrån år, månader, veckor eller dagar för ett angivet datum och kan också avgöra om resultatet är en helgdag med hjälp av holidays-biblioteket. Se verktygsbeskrivningen för detaljer."
+    ]
   },
   "sw": {
     "doc.get_holiday_info": "Pata majina ya sikukuu kwa nchi iliyobainishwa kwa kutumia maktaba ya holidays.",
@@ -404,8 +388,7 @@
       "siku kutoka tarehe",
       "kagua sikukuu",
       "hesabu za tarehe"
-    ],
-    "tool.system_prompt": "Zana hii huongeza au hupunguza miaka, miezi, wiki au siku kwa tarehe iliyobainishwa, na pia inaweza kubaini kama matokeo ni sikukuu kwa kutumia maktaba ya holidays. Tazama maelezo ya zana kwa ufafanuzi zaidi."
+    ]
   },
   "nb": {
     "doc.get_holiday_info": "Hent navnene på helligdagene for det angitte landet ved hjelp av holidays-biblioteket.",
@@ -428,8 +411,7 @@
       "dager fra dato",
       "sjekk helligdager",
       "datoaritmetikk"
-    ],
-    "tool.system_prompt": "Dette verktøyet legger til eller trekker fra år, måneder, uker eller dager for en angitt dato og kan også avgjøre om resultatet er en helligdag ved hjelp av holidays-biblioteket. Se verktøybeskrivelsen for detaljer."
+    ]
   },
   "nl": {
     "doc.get_holiday_info": "Haal de feestdagennamen op voor het opgegeven land met de holidays-bibliotheek.",
@@ -452,8 +434,7 @@
       "dagen sinds datum",
       "controleer feestdagen",
       "datumrekenen"
-    ],
-    "tool.system_prompt": "Deze tool telt jaren, maanden, weken of dagen op bij of trekt ze af van een opgegeven datum en kan ook bepalen of het resultaat een feestdag is met behulp van de holidays-bibliotheek. Zie de toolbeschrijving voor details."
+    ]
   },
   "fi": {
     "doc.get_holiday_info": "Hae annetun maan juhlapäivien nimet holidays-kirjaston avulla.",
@@ -476,8 +457,7 @@
       "päiviä päivämäärästä",
       "tarkista pyhäpäivät",
       "päivämääräaritmetiikka"
-    ],
-    "tool.system_prompt": "Tämä työkalu laskee annetulle päivämäärälle vuosia, kuukausia, viikkoja tai päiviä yhteen tai vähentää niitä ja voi myös tarkistaa holidays-kirjaston avulla, osuuko tulos juhlapäivään. Katso lisätiedot työkalun kuvauksesta."
+    ]
   },
   "cs": {
     "doc.get_holiday_info": "Získejte názvy svátků pro zadanou zemi pomocí knihovny holidays.",
@@ -500,8 +480,7 @@
       "dny od data",
       "zkontrolovat svátky",
       "aritmetika dat"
-    ],
-    "tool.system_prompt": "Tento nástroj přičítá nebo odečítá roky, měsíce, týdny nebo dny pro zadané datum a pomocí knihovny holidays může také určit, zda výsledek připadá na svátek. Podrobnosti viz popis nástroje."
+    ]
   },
   "uk": {
     "doc.get_holiday_info": "Отримайте назви свят для вказаної країни за допомогою бібліотеки holidays.",
@@ -524,8 +503,7 @@
       "дні від дати",
       "перевірити свята",
       "арифметика дат"
-    ],
-    "tool.system_prompt": "Цей інструмент додає або віднімає роки, місяці, тижні чи дні для вказаної дати та за допомогою бібліотеки holidays може також визначити, чи припадає результат на свято. Докладніше див. опис інструмента."
+    ]
   },
   "tr": {
     "doc.get_holiday_info": "Tatil kitaplığını kullanarak belirtilen ülkenin tatil adlarını alın.",
@@ -548,8 +526,7 @@
       "tarihten itibaren günler",
       "tatilleri kontrol et",
       "tarih aritmetiği"
-    ],
-    "tool.system_prompt": "Bu araç, belirli bir tarih için yılları, ayları, haftaları veya günleri ekler veya çıkarır ve ayrıca tatil kitaplığını kullanarak sonucun tatil olup olmadığını da belirleyebilir. Ayrıntılar için araç açıklamasına bakın."
+    ]
   },
   "th": {
     "doc.get_holiday_info": "รับชื่อวันหยุดของประเทศที่ระบุโดยใช้ไลบรารี holidays",
@@ -572,8 +549,7 @@
       "จำนวนวันจากวันที่",
       "ตรวจวันหยุด",
       "คณิตศาสตร์วันที่"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับบวกหรือลบปี เดือน สัปดาห์ หรือวันจากวันที่ที่ระบุ และสามารถตรวจสอบได้ว่าผลลัพธ์ตรงกับวันหยุดหรือไม่ด้วยไลบรารี holidays ดูรายละเอียดเพิ่มเติมใน tool.description"
+    ]
   },
   "zh_CN": {
     "doc.get_holiday_info": "使用 holidays 库获取指定国家的节假日名称。",
@@ -596,8 +572,7 @@
       "从日期起的天数",
       "检查节假日",
       "日期运算"
-    ],
-    "tool.system_prompt": "此工具用于对指定日期进行年、月、周、日的加减运算，并可使用 holidays 库判断结果是否为节假日。详情请参见 tool.description。"
+    ]
   },
   "zh_TW": {
     "doc.get_holiday_info": "使用 holidays 庫取得指定國家的假日名稱。",
@@ -620,8 +595,7 @@
       "距日期天數",
       "檢查假日",
       "日期運算"
-    ],
-    "tool.system_prompt": "此工具用於對指定日期執行年、月、週、日的加減運算，並可使用 holidays 庫判斷結果是否為假日。詳情請參閱 tool.description。"
+    ]
   },
   "bn": {
     "doc.get_holiday_info": "holidays লাইব্রেরি ব্যবহার করে নির্দিষ্ট দেশের ছুটির দিনের নামগুলো পান।",
@@ -644,8 +618,7 @@
       "তারিখ থেকে দিন",
       "ছুটি পরীক্ষা",
       "তারিখ গাণিতিক"
-    ],
-    "tool.system_prompt": "এই টুলটি নির্দিষ্ট তারিখে বছর, মাস, সপ্তাহ বা দিন যোগ বা বিয়োগ করে এবং holidays লাইব্রেরি ব্যবহার করে ফলাফলটি ছুটি কি না তাও নির্ধারণ করতে পারে। বিস্তারিত জানতে টুল বর্ণনা দেখুন।"
+    ]
   },
   "fa": {
     "doc.get_holiday_info": "نام تعطیلاتِ کشور مشخص‌شده را با استفاده از کتابخانهٔ holidays دریافت کنید.",
@@ -668,8 +641,7 @@
       "روزها از تاریخ",
       "بررسی تعطیلات",
       "حساب تاریخ"
-    ],
-    "tool.system_prompt": "این ابزار سال، ماه، هفته یا روز را برای تاریخ مشخص اضافه یا کم می‌کند و با استفاده از کتابخانهٔ holidays می‌تواند تشخیص دهد که نتیجه تعطیل است یا نه. برای جزئیات، توضیحات ابزار را ببینید."
+    ]
   },
   "mn": {
     "doc.get_holiday_info": "holidays санг ашиглан заасан улсын баярын өдрийн нэрсийг авна.",
@@ -692,8 +664,7 @@
       "огнооноос хойших хоног",
       "баяр шалгах",
       "огнооны арифметик"
-    ],
-    "tool.system_prompt": "Энэ хэрэгсэл нь заасан огноонд жил, сар, долоо хоног эсвэл өдөр нэмж/хасаж, holidays сан ашиглан үр дүн нь баярын өдөр мөн эсэхийг бас тодорхойлж чадна. Дэлгэрэнгүйг хэрэгслийн тайлбараас үзнэ үү."
+    ]
   },
   "mr": {
     "doc.get_holiday_info": "holidays लायब्ररी वापरून दिलेल्या देशातील सुट्ट्यांची नावे मिळवा.",
@@ -716,7 +687,6 @@
       "तारखेपासून दिवस",
       "सुट्टी तपासा",
       "तारीख गणित"
-    ],
-    "tool.system_prompt": "हे साधन दिलेल्या तारखेला वर्ष, महिने, आठवडे किंवा दिवस जोडते/वजा करते आणि holidays लायब्ररी वापरून परिणाम सुट्टी आहे का तेही ठरवू शकते. तपशीलांसाठी साधनाचे वर्णन पहा."
+    ]
   }
 }

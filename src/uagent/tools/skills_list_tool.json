@@ -12,8 +12,7 @@
       "skill management",
       "skill file",
       "SKILL.md"
-    ],
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    ]
   },
   "ja": {
     "param.include_invalid.description": "SKILL.mdの解析/検証に失敗しても一覧へ含めるか（既定:true）。falseの場合、失敗スキルは除外します。",
@@ -26,8 +25,7 @@
       "スキル一覧",
       "一覧取得",
       "skills list"
-    ],
-    "tool.system_prompt": "このツールは次の目的で使用します（ツールの説明を参照）。"
+    ]
   },
   "es": {
     "param.include_invalid.description": "Si se debe incluir en la lista incluso si falla el análisis/verificación...",
@@ -40,8 +38,7 @@
       "lista de skills",
       "listar skills",
       "skills list"
-    ],
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito (ver la descripción de la herramienta)."
+    ]
   },
   "fr": {
     "param.include_invalid.description": "S'il faut l'inclure dans la liste même si l'analyse/vérification de SKILL.",
@@ -54,8 +51,7 @@
       "liste des compétences",
       "lister les compétences",
       "skills list"
-    ],
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l’outil)."
+    ]
   },
   "ko": {
     "param.include_invalid.description": "SKILL.md의 구문 분석/검증에 실패해도 목록에 포함할 것인가(디폴트:true). false인 경우 실패 스킬은 제외됩니다.",
@@ -68,8 +64,7 @@
       "스킬 목록",
       "스킬 리스트",
       "skills list"
-    ],
-    "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조)."
+    ]
   },
   "de": {
     "param.include_invalid.description": "Ob es in die Liste aufgenommen werden soll, auch wenn die Analyse/Verifiz...",
@@ -82,8 +77,7 @@
       "skills-liste",
       "skills auflisten",
       "skills list"
-    ],
-    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+    ]
   },
   "it": {
     "param.include_invalid.description": "Se includerlo nell'elenco anche se l'analisi/verifica di SKILL.",
@@ -96,8 +90,7 @@
       "elenco skill",
       "lista skill",
       "skills list"
-    ],
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+    ]
   },
   "ru": {
     "param.include_invalid.description": "Включать ли в список, даже если разбор/проверка SKILL.",
@@ -110,8 +103,7 @@
       "список навыков",
       "перечень навыков",
       "skills list"
-    ],
-    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+    ]
   },
   "pt_BR": {
     "param.include_invalid.description": "Se deve incluí-lo na lista mesmo que a análise/verificação de SKILL.",
@@ -124,8 +116,7 @@
       "lista de skills",
       "listar skills",
       "skills list"
-    ],
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+    ]
   },
   "pt": {
     "param.include_invalid.description": "Se deve ser incluído na lista mesmo se a análise/verificação de SKILL.",
@@ -138,8 +129,7 @@
       "lista de skills",
       "listar skills",
       "skills list"
-    ],
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+    ]
   },
   "id": {
     "param.include_invalid.description": "Apakah tetap dimasukkan ke daftar meski parsing/verifikasi SKILL.",
@@ -152,8 +142,7 @@
       "daftar skill",
       "list skill",
       "skills list"
-    ],
-    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+    ]
   },
   "vi": {
     "param.include_invalid.description": "Có đưa nó vào danh sách hay không ngay cả khi phân tích cú pháp/xác minh...",
@@ -166,8 +155,7 @@
       "danh sách kỹ năng",
       "liệt kê kỹ năng",
       "skills list"
-    ],
-    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+    ]
   },
   "pl": {
     "param.include_invalid.description": "Czy umieścić go na liście, nawet jeśli analiza/weryfikacja SKILL.",
@@ -180,8 +168,7 @@
       "lista umiejętności",
       "wypisz umiejętności",
       "skills list"
-    ],
-    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+    ]
   },
   "hi": {
     "param.include_invalid.description": "SKILL.",
@@ -194,8 +181,7 @@
       "कौशल सूची",
       "कौशल सूचीबद्ध करें",
       "skills list"
-    ],
-    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
+    ]
   },
   "ar": {
     "param.include_invalid.description": "ما إذا كان سيتم تضمينه في القائمة حتى في حالة فشل التحليل/التحقق من SKILL.",
@@ -208,8 +194,7 @@
       "قائمة المهارات",
       "عرض المهارات",
       "skills list"
-    ],
-    "tool.system_prompt": "تُستخدم هذه الأداة للغرض التالي: (راجع وصف الأداة)."
+    ]
   },
   "sv": {
     "param.include_invalid.description": "Om du vill kan den tas med i listan även om tolkning/verifiering av SKILL.",
@@ -222,8 +207,7 @@
       "färdighetslista",
       "lista skills",
       "skills list"
-    ],
-    "tool.system_prompt": "Det här verktyget används för följande syfte (se verktygsbeskrivningen)."
+    ]
   },
   "sw": {
     "param.include_invalid.description": "Je, iongezwe kwenye orodha hata kama uchanganuzi/uthibitisho wa SKILL.",
@@ -236,8 +220,7 @@
       "orodha ya skills",
       "orodhesha skills",
       "skills list"
-    ],
-    "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
+    ]
   },
   "nb": {
     "param.include_invalid.description": "Om du vil, kan den tas med i listen selv om tolkning/verifisering av SKILL.",
@@ -250,8 +233,7 @@
       "ferdighetsliste",
       "list skills",
       "skills list"
-    ],
-    "tool.system_prompt": "Dette verktøyet brukes til følgende formål (se verktøybeskrivelsen)."
+    ]
   },
   "nl": {
     "param.include_invalid.description": "Ook opnemen in de lijst als het parsen/verifiëren van SKILL.",
@@ -264,8 +246,7 @@
       "vaardigheden lijst",
       "skills opsommen",
       "skills list"
-    ],
-    "tool.system_prompt": "Dit hulpprogramma wordt gebruikt voor het volgende doel: (zie de toolbeschrijving)."
+    ]
   },
   "fi": {
     "param.include_invalid.description": "Sisällytetäänkö se luetteloon, vaikka SKILL.",
@@ -278,8 +259,7 @@
       "taitoluettelo",
       "listaa taidot",
       "skills list"
-    ],
-    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
+    ]
   },
   "cs": {
     "param.include_invalid.description": "Do seznamu zahrnout i položky, u nichž selže zpracování nebo ověření SKILL.",
@@ -292,8 +272,7 @@
       "seznam dovedností",
       "vypsat dovednosti",
       "skills list"
-    ],
-    "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
+    ]
   },
   "uk": {
     "param.include_invalid.description": "Чи включати до списку, навіть якщо розбір або перевірка SKILL.",
@@ -306,8 +285,7 @@
       "список навичок",
       "перелік навичок",
       "skills list"
-    ],
-    "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
+    ]
   },
   "tr": {
     "param.include_invalid.description": "SKILL.",
@@ -320,8 +298,7 @@
       "beceri listesi",
       "becerileri listele",
       "skills list"
-    ],
-    "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (araç açıklamasına bakın)."
+    ]
   },
   "th": {
     "param.include_invalid.description": "ไม่ว่าจะรวมไว้ในรายการหรือไม่ แม้ว่าการแยกวิเคราะห์/การตรวจสอบ SKILL.",
@@ -334,8 +311,7 @@
       "รายการทักษะ",
       "แสดงทักษะ",
       "skills list"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ต่อไปนี้ (ดูคำอธิบายเครื่องมือ)"
+    ]
   },
   "zh_CN": {
     "param.include_invalid.description": "即使 SKILL.md 解析/验证失败，是否将其包含在列表中（默认值：true）。如果错误，失败的技能将被排除。",
@@ -348,8 +324,7 @@
       "技能列表",
       "列出技能",
       "skills list"
-    ],
-    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+    ]
   },
   "zh_TW": {
     "param.include_invalid.description": "即使 SKILL.md 解析/驗證失敗，是否將其包含在清單中（預設值：true）。如果錯誤，失敗的技能將被排除。",
@@ -362,8 +337,7 @@
       "技能清單",
       "列出技能",
       "skills list"
-    ],
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+    ]
   },
   "bn": {
     "param.include_invalid.description": "SKILL.",
@@ -376,8 +350,7 @@
       "দক্ষতার তালিকা",
       "দক্ষতা তালিকাভুক্ত",
       "skills list"
-    ],
-    "tool.system_prompt": "এই টুলটি নিম্নলিখিত উদ্দেশ্যে ব্যবহৃত হয়: (tool description দেখুন)।"
+    ]
   },
   "fa": {
     "param.include_invalid.description": "آیا حتی اگر تجزیه/اعتبارسنجی SKILL.",
@@ -390,8 +363,7 @@
       "فهرست مهارت‌ها",
       "نمایش مهارت‌ها",
       "skills list"
-    ],
-    "tool.system_prompt": "از این ابزار برای هدف زیر استفاده می‌شود: (به توضیح ابزار مراجعه کنید)."
+    ]
   },
   "mn": {
     "param.include_invalid.description": "SKILL.",
@@ -404,8 +376,7 @@
       "ур чадварын жагсаалт",
       "ур чадвар жагсаах",
       "skills list"
-    ],
-    "tool.system_prompt": "Энэ хэрэгслийг дараах зорилгоор ашиглана: (tool description-г үзнэ үү)."
+    ]
   },
   "mr": {
     "param.include_invalid.description": "SKILL.",
@@ -418,7 +389,6 @@
       "कौशल्य यादी",
       "कौशल्ये सूचीबद्ध करा",
       "skills list"
-    ],
-    "tool.system_prompt": "हे साधन पुढील उद्देशासाठी वापरले जाते: (tool description पहा)."
+    ]
   }
 }

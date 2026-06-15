@@ -11,8 +11,7 @@
       "skill management",
       "skill file",
       "SKILL.md"
-    ],
-    "tool.system_prompt": "Use this tool for the purpose described in the tool description."
+    ]
   },
   "ja": {
     "err.invalid_args": "[ツールエラー] 引数が不正です",
@@ -24,8 +23,7 @@
       "スキル読み込み",
       "SKILL.md読み込み",
       "skills load"
-    ],
-    "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
+    ]
   },
   "es": {
     "err.invalid_args": "[error de herramienta]...",
@@ -37,8 +35,7 @@
       "cargar skill",
       "cargar skills",
       "skills load"
-    ],
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+    ]
   },
   "fr": {
     "err.invalid_args": "[erreur de l'outil] ar...",
@@ -50,8 +47,7 @@
       "charger skill",
       "charger compétences",
       "skills load"
-    ],
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+    ]
   },
   "ko": {
     "err.invalid_args": "[도구 오류] 잘못된 인수",
@@ -63,8 +59,7 @@
       "스킬 불러오기",
       "SKILL.md 읽기",
       "skills load"
-    ],
-    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+    ]
   },
   "de": {
     "err.invalid_args": "[Werkzeugfehler] Ungül...",
@@ -76,8 +71,7 @@
       "skill laden",
       "skill load",
       "skills load"
-    ],
-    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+    ]
   },
   "it": {
     "err.invalid_args": "[errore strumento] arg...",
@@ -88,8 +82,7 @@
       "skills_load",
       "carica skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+    ]
   },
   "ru": {
     "err.invalid_args": "[ошибка инструмента] н...",
@@ -100,8 +93,7 @@
       "skills_load",
       "загрузить skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+    ]
   },
   "pt_BR": {
     "err.invalid_args": "[erro da ferramenta] a...",
@@ -113,8 +105,7 @@
       "carregar skill",
       "carregar skills",
       "skills load"
-    ],
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+    ]
   },
   "pt": {
     "err.invalid_args": "[erro de ferramenta] a...",
@@ -126,8 +117,7 @@
       "carregar skill",
       "carregar skills",
       "skills load"
-    ],
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+    ]
   },
   "id": {
     "err.invalid_args": "[tool error] argumen t...",
@@ -138,8 +128,7 @@
       "skills_load",
       "muat skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat)."
+    ]
   },
   "vi": {
     "err.invalid_args": "[lỗi công cụ] đối số k...",
@@ -150,8 +139,7 @@
       "skills_load",
       "tải skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+    ]
   },
   "pl": {
     "err.invalid_args": "[błąd narzędzia] niepr...",
@@ -162,8 +150,7 @@
       "skills_load",
       "wczytaj skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+    ]
   },
   "hi": {
     "err.invalid_args": "[टूल त्रुटि] अमान्य तर्क",
@@ -174,8 +161,7 @@
       "skills_load",
       "स्किल लोड",
       "skills load"
-    ],
-    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
+    ]
   },
   "ar": {
     "err.invalid_args": "[خطأ في الأداة] وسيطات...",
@@ -186,8 +172,7 @@
       "skills_load",
       "تحميل skill",
       "skills load"
-    ],
-    "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
+    ]
   },
   "sv": {
     "err.invalid_args": "[verktygsfel] ogiltiga...",
@@ -198,8 +183,7 @@
       "skills_load",
       "ladda skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
+    ]
   },
   "sw": {
     "err.invalid_args": "[hitilafu ya zana] hoj...",
@@ -210,8 +194,7 @@
       "skills_load",
       "pakia skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
+    ]
   },
   "nb": {
     "err.invalid_args": "[verktøyfeil] ugyldige...",
@@ -222,8 +205,7 @@
       "skills_load",
       "last skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
+    ]
   },
   "nl": {
     "err.invalid_args": "[tool error] ongeldige...",
@@ -234,8 +216,7 @@
       "skills_load",
       "skill laden",
       "skills load"
-    ],
-    "tool.system_prompt": "Gebruik deze tool voor het doel dat in de toolbeschrijving staat."
+    ]
   },
   "fi": {
     "err.invalid_args": "[työkaluvirhe] virheel...",
@@ -246,8 +227,7 @@
       "skills_load",
       "lataa skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Käytä tätä työkalua työkalun kuvauksessa määriteltyyn tarkoitukseen."
+    ]
   },
   "cs": {
     "err.invalid_args": "[chyba nástroje] nepla...",
@@ -258,8 +238,7 @@
       "skills_load",
       "načíst skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Použijte tento nástroj k účelu popsanému v popisu nástroje."
+    ]
   },
   "uk": {
     "err.invalid_args": "[помилка інструменту]...",
@@ -270,8 +249,7 @@
       "skills_load",
       "завантажити skill",
       "skills load"
-    ],
-    "tool.system_prompt": "Використовуйте цей інструмент для мети, описаної в описі інструмента."
+    ]
   },
   "tr": {
     "err.invalid_args": "[araç hatası] geçersiz...",
@@ -282,8 +260,7 @@
       "skills_load",
       "skill yükle",
       "skills load"
-    ],
-    "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
+    ]
   },
   "th": {
     "err.invalid_args": "[ข้อผิดพลาดของเครื่องม...",
@@ -294,8 +271,7 @@
       "skills_load",
       "โหลดสกิล",
       "skills load"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+    ]
   },
   "zh_CN": {
     "err.invalid_args": "[工具错误]无效参数",
@@ -306,8 +282,7 @@
       "skills_load",
       "加载技能",
       "skills load"
-    ],
-    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+    ]
   },
   "zh_TW": {
     "err.invalid_args": "[工具錯誤]無效參數",
@@ -318,8 +293,7 @@
       "skills_load",
       "載入技能",
       "skills load"
-    ],
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+    ]
   },
   "bn": {
     "err.invalid_args": "[tool error] অবৈধ আর্গ...",
@@ -330,8 +304,7 @@
       "skills_load",
       "স্কিল লোড",
       "skills load"
-    ],
-    "tool.system_prompt": "টুলের বিবরণে বর্ণিত উদ্দেশ্যে এই টুল ব্যবহার করুন।"
+    ]
   },
   "fa": {
     "err.invalid_args": "[خطای ابزار] آرگومان‌ه...",
@@ -342,8 +315,7 @@
       "skills_load",
       "بارگذاری skill",
       "skills load"
-    ],
-    "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید."
+    ]
   },
   "mn": {
     "err.invalid_args": "[хэрэгслийн алдаа] бур...",
@@ -354,8 +326,7 @@
       "skills_load",
       "skill ачаалах",
       "skills load"
-    ],
-    "tool.system_prompt": "Энэ хэрэгслийг хэрэгслийн тайлбарт заасан зорилгоор ашиглана уу."
+    ]
   },
   "mr": {
     "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग...",
@@ -366,7 +337,6 @@
       "skills_load",
       "स्किल लोड",
       "skills load"
-    ],
-    "tool.system_prompt": "टूलच्या वर्णनात नमूद केलेल्या उद्देशासाठी हे टूल वापरा."
+    ]
   }
 }

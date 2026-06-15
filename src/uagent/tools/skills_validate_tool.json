@@ -12,8 +12,7 @@
       "skill management",
       "skill file",
       "SKILL.md"
-    ],
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    ]
   },
   "ja": {
     "err.invalid_args": "[ツールエラー] 引数が不正です",
@@ -26,8 +25,7 @@
       "スキル検証",
       "skill validation",
       "skills validate"
-    ],
-    "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
+    ]
   },
   "es": {
     "err.invalid_args": "[error de herramienta]...",
@@ -40,8 +38,7 @@
       "validar skill",
       "validación skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
+    ]
   },
   "fr": {
     "err.invalid_args": "[erreur de l'outil] ar...",
@@ -54,8 +51,7 @@
       "valider skill",
       "validation skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir description de l'outil)."
+    ]
   },
   "ko": {
     "err.invalid_args": "[도구 오류] 잘못된 인수",
@@ -68,8 +64,7 @@
       "스킬 검증",
       "skill validation",
       "skills validate"
-    ],
-    "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
+    ]
   },
   "de": {
     "err.invalid_args": "[Werkzeugfehler] Ungül...",
@@ -82,8 +77,7 @@
       "skill validieren",
       "skill validation",
       "skills validate"
-    ],
-    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+    ]
   },
   "it": {
     "err.invalid_args": "[errore strumento] arg...",
@@ -96,8 +90,7 @@
       "valida skill",
       "validazione skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+    ]
   },
   "ru": {
     "err.invalid_args": "[ошибка инструмента] н...",
@@ -110,8 +103,7 @@
       "проверка skill",
       "валидация skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+    ]
   },
   "pt_BR": {
     "err.invalid_args": "[erro da ferramenta] a...",
@@ -124,8 +116,7 @@
       "validar skill",
       "validação skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+    ]
   },
   "pt": {
     "err.invalid_args": "[erro de ferramenta] a...",
@@ -138,8 +129,7 @@
       "validar skill",
       "validação skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+    ]
   },
   "id": {
     "err.invalid_args": "[tool error] argumen t...",
@@ -151,8 +141,7 @@
       "skills_validate",
       "validasi skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+    ]
   },
   "vi": {
     "err.invalid_args": "[lỗi công cụ] đối số k...",
@@ -164,8 +153,7 @@
       "skills_validate",
       "xác thực skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+    ]
   },
   "pl": {
     "err.invalid_args": "[błąd narzędzia] niepr...",
@@ -178,8 +166,7 @@
       "walidacja skill",
       "sprawdź skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+    ]
   },
   "hi": {
     "err.invalid_args": "[टूल त्रुटि] अमान्य तर्क",
@@ -191,8 +178,7 @@
       "skills_validate",
       "स्किल सत्यापन",
       "skills validate"
-    ],
-    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
+    ]
   },
   "ar": {
     "err.invalid_args": "[خطأ في الأداة] وسيطات...",
@@ -204,8 +190,7 @@
       "skills_validate",
       "التحقق من المهارة",
       "skills validate"
-    ],
-    "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
+    ]
   },
   "sv": {
     "err.invalid_args": "[verktygsfel] ogiltiga...",
@@ -217,8 +202,7 @@
       "skills_validate",
       "validera skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
+    ]
   },
   "sw": {
     "err.invalid_args": "[hitilafu ya zana] hoj...",
@@ -230,8 +214,7 @@
       "skills_validate",
       "thibitisha skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
+    ]
   },
   "nb": {
     "err.invalid_args": "[verktøyfeil] ugyldige...",
@@ -243,8 +226,7 @@
       "skills_validate",
       "valider skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
+    ]
   },
   "nl": {
     "err.invalid_args": "[toolfout] ongeldige a...",
@@ -256,8 +238,7 @@
       "skills_validate",
       "skill valideren",
       "skills validate"
-    ],
-    "tool.system_prompt": "Gebruik deze tool voor het volgende doel: (zie toolbeschrijving)."
+    ]
   },
   "fi": {
     "err.invalid_args": "[työkaluvirhe] virheel...",
@@ -269,8 +250,7 @@
       "skills_validate",
       "skillin validointi",
       "skills validate"
-    ],
-    "tool.system_prompt": "Käytä tätä työkalua seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
+    ]
   },
   "cs": {
     "err.invalid_args": "[chyba nástroje] nepla...",
@@ -282,8 +262,7 @@
       "skills_validate",
       "ověřit skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
+    ]
   },
   "uk": {
     "err.invalid_args": "[помилка інструменту]...",
@@ -295,8 +274,7 @@
       "skills_validate",
       "перевірка skill",
       "skills validate"
-    ],
-    "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
+    ]
   },
   "tr": {
     "err.invalid_args": "[araç hatası] geçersiz...",
@@ -308,8 +286,7 @@
       "skills_validate",
       "skill doğrula",
       "skills validate"
-    ],
-    "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
+    ]
   },
   "th": {
     "err.invalid_args": "[ข้อผิดพลาดของเครื่องม...",
@@ -321,8 +298,7 @@
       "skills_validate",
       "ตรวจสอบสกิล",
       "skills validate"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)"
+    ]
   },
   "zh_CN": {
     "err.invalid_args": "[工具错误]无效参数",
@@ -334,8 +310,7 @@
       "skills_validate",
       "技能验证",
       "skills validate"
-    ],
-    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。"
+    ]
   },
   "zh_TW": {
     "err.invalid_args": "[工具錯誤]無效參數",
@@ -347,8 +322,7 @@
       "skills_validate",
       "技能驗證",
       "skills validate"
-    ],
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+    ]
   },
   "bn": {
     "err.invalid_args": "[টুল ত্রুটি] অবৈধ আর্গ...",
@@ -360,8 +334,7 @@
       "skills_validate",
       "দক্ষতা যাচাই",
       "skills validate"
-    ],
-    "tool.system_prompt": "এই টুলটি টুলের বর্ণনায় উল্লেখিত উদ্দেশ্যে ব্যবহার করুন।"
+    ]
   },
   "fa": {
     "err.invalid_args": "[خطای ابزار] آرگومان‌ه...",
@@ -373,8 +346,7 @@
       "skills_validate",
       "اعتبارسنجی مهارت",
       "skills validate"
-    ],
-    "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید."
+    ]
   },
   "mn": {
     "err.invalid_args": "[хэрэгслийн алдаа] бур...",
@@ -386,8 +358,7 @@
       "skills_validate",
       "skill баталгаажуулах",
       "skills validate"
-    ],
-    "tool.system_prompt": "Энэ хэрэгслийг хэрэгслийн тайлбарт заасан зорилгоор ашиглана уу."
+    ]
   },
   "mr": {
     "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग...",
@@ -399,7 +370,6 @@
       "skills_validate",
       "कौशल्य सत्यापन",
       "skills validate"
-    ],
-    "tool.system_prompt": "टूलच्या वर्णनात दिलेल्या उद्देशासाठी हे टूल वापरा."
+    ]
   }
 }

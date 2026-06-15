@@ -14,8 +14,7 @@
       "hachage",
       "해시",
       "хэш"
-    ],
-    "tool.system_prompt": "This tool calculates file hashes (sha256/sha1/md5)."
+    ]
   },
   "ja": {
     "param.algo.description": "アルゴリズム。",
@@ -28,8 +27,7 @@
       "file hash",
       "ファイルハッシュ",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "このツールはファイルのハッシュ（sha256/sha1/md5）を計算します。"
+    ]
   },
   "es": {
     "param.algo.description": "Algorit...",
@@ -42,8 +40,7 @@
       "file hash",
       "hash de archivos",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Esta herramienta calcula hashes de archivos (sha256/sha1/md5)."
+    ]
   },
   "fr": {
     "param.algo.description": "Algorit...",
@@ -56,8 +53,7 @@
       "file hash",
       "hachage fichiers",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Cet outil calcule les hachages de fichiers (sha256/sha1/md5)."
+    ]
   },
   "ko": {
     "param.algo.description": "알고리즘.",
@@ -70,8 +66,7 @@
       "file hash",
       "파일 해시",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "이 도구는 파일의 해시(sha256/sha1/md5)를 계산합니다."
+    ]
   },
   "de": {
     "param.algo.description": "Hash-Al...",
@@ -84,8 +79,7 @@
       "file hash",
       "datei hash",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Dieses Tool berechnet Dateihashes (sha256/sha1/md5)."
+    ]
   },
   "it": {
     "param.algo.description": "Algorit...",
@@ -98,8 +92,7 @@
       "file hash",
       "hash file",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Questo strumento calcola gli hash dei file (sha256/sha1/md5)."
+    ]
   },
   "ru": {
     "param.algo.description": "Алгорит...",
@@ -112,8 +105,7 @@
       "file hash",
       "хэш файлов",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Этот инструмент вычисляет хэши файлов (sha256/sha1/md5)."
+    ]
   },
   "pt_BR": {
     "param.algo.description": "Algorit...",
@@ -126,8 +118,7 @@
       "file hash",
       "hash de arquivos",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
+    ]
   },
   "pt": {
     "param.algo.description": "Algorit...",
@@ -140,8 +131,7 @@
       "file hash",
       "hash de arquivos",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Esta ferramenta calcula hashes de arquivos (sha256/sha1/md5)."
+    ]
   },
   "id": {
     "param.algo.description": "Algorit...",
@@ -154,8 +144,7 @@
       "file hash",
       "hash file",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Alat ini menghitung hash file (sha256/sha1/md5)."
+    ]
   },
   "vi": {
     "param.algo.description": "Thuật t...",
@@ -168,8 +157,7 @@
       "file hash",
       "băm tệp",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Công cụ này tính toán giá trị băm của tệp (sha256/sha1/md5)."
+    ]
   },
   "pl": {
     "param.algo.description": "Algoryt...",
@@ -182,8 +170,7 @@
       "file hash",
       "hash plików",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "To narzędzie oblicza skróty plików (sha256/sha1/md5)."
+    ]
   },
   "hi": {
     "param.algo.description": "हैशिंग...",
@@ -196,8 +183,7 @@
       "file hash",
       "फ़ाइल हैश",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "यह उपकरण फ़ाइल हैश (sha256/sha1/md5) की गणना करता है।"
+    ]
   },
   "ar": {
     "param.algo.description": "خوارزمي...",
@@ -210,8 +196,7 @@
       "file hash",
       "تجزئة الملفات",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "تقوم هذه الأداة بحساب تجزئات الملف (sha256/sha1/md5)."
+    ]
   },
   "sv": {
     "param.algo.description": "Hashalg...",
@@ -224,8 +209,7 @@
       "file hash",
       "filhash",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Det här verktyget beräknar filhashar (sha256/sha1/md5)."
+    ]
   },
   "sw": {
     "param.algo.description": "Algorit...",
@@ -238,8 +222,7 @@
       "file hash",
       "hash ya faili",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Zana hii hukokotoa hash za faili (sha256/sha1/md5)."
+    ]
   },
   "nb": {
     "param.algo.description": "Hash-al...",
@@ -252,8 +235,7 @@
       "file hash",
       "filhash",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Dette verktøyet beregner filhasher (sha256/sha1/md5)."
+    ]
   },
   "nl": {
     "param.algo.description": "Hash-al...",
@@ -266,8 +248,7 @@
       "file hash",
       "bestandshash",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Deze tool berekent bestandshashes (sha256/sha1/md5)."
+    ]
   },
   "fi": {
     "param.algo.description": "Tiivist...",
@@ -280,8 +261,7 @@
       "file hash",
       "tiedostohash",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Tämä työkalu laskee tiedostotiivisteet (sha256/sha1/md5)."
+    ]
   },
   "cs": {
     "param.algo.description": "Algorit...",
@@ -294,8 +274,7 @@
       "file hash",
       "hash souborů",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Tento nástroj vypočítává hash souborů (sha256/sha1/md5)."
+    ]
   },
   "uk": {
     "param.algo.description": "Алгорит...",
@@ -308,8 +287,7 @@
       "file hash",
       "хеш файлів",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Цей інструмент обчислює хеші файлів (sha256/sha1/md5)."
+    ]
   },
   "tr": {
     "param.algo.description": "Karma a...",
@@ -322,8 +300,7 @@
       "file hash",
       "dosya hash",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Bu araç dosya karmalarını (sha256/sha1/md5) hesaplar."
+    ]
   },
   "th": {
     "param.algo.description": "อัลกอริ...",
@@ -336,8 +313,7 @@
       "file hash",
       "แฮชไฟล์",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้คำนวณแฮชของไฟล์ (sha256/sha1/md5)"
+    ]
   },
   "zh_CN": {
     "param.algo.description": "哈希算法。",
@@ -350,8 +326,7 @@
       "file hash",
       "文件哈希",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "此工具用于计算文件的哈希值（sha256/sha1/md5）。"
+    ]
   },
   "zh_TW": {
     "param.algo.description": "雜湊演算法。",
@@ -364,8 +339,7 @@
       "file hash",
       "檔案雜湊",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "此工具用於計算檔案的雜湊值（sha256/sha1/md5）。"
+    ]
   },
   "bn": {
     "param.algo.description": "হ্যাশিং...",
@@ -378,8 +352,7 @@
       "file hash",
       "ফাইল হ্যাশ",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "এই টুলটি ফাইলের হ্যাশ (sha256/sha1/md5) গণনা করে।"
+    ]
   },
   "fa": {
     "param.algo.description": "الگوریت...",
@@ -392,8 +365,7 @@
       "file hash",
       "هش فایل",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "این ابزار هش فایل‌ها (sha256/sha1/md5) را محاسبه می‌کند."
+    ]
   },
   "mn": {
     "param.algo.description": "Хэш үүс...",
@@ -406,8 +378,7 @@
       "file hash",
       "файлын хэш",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "Энэ хэрэгсэл нь файлын хэшийг (sha256/sha1/md5) тооцоолдог."
+    ]
   },
   "mr": {
     "param.algo.description": "हॅशिंग...",
@@ -420,7 +391,6 @@
       "file hash",
       "फाइल हॅश",
       "sha256 sha1 md5"
-    ],
-    "tool.system_prompt": "हे साधन फाइल हॅश (sha256/sha1/md5) मोजते."
+    ]
   }
 }

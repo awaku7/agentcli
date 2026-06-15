@@ -13,8 +13,7 @@
       "model context protocol",
       "call remote tool",
       "mcp"
-    ],
-    "tool.system_prompt": "Use this tool according to the purpose described above (see the tool description)."
+    ]
   },
   "ja": {
     "doc.mask_values": "辞書やリスト内の値を '*' に置き換えます（構造は維持します）。",
@@ -28,8 +27,7 @@
       "mcp ツール呼び出し",
       "mcp 呼び出し",
       "サーバーツール"
-    ],
-    "tool.system_prompt": "上記の目的に従って、このツールを使用してください（ツールの説明を参照）。"
+    ]
   },
   "es": {
     "doc.mask_values": "Reemplace los valores de diccionarios y listas con '*' (conservando la estructura).",
@@ -43,8 +41,7 @@
       "llamar herramienta mcp",
       "mcp tool call",
       "servidor mcp"
-    ],
-    "tool.system_prompt": "Use esta herramienta según el propósito descrito arriba (véase la descripción de la herramienta)."
+    ]
   },
   "fr": {
     "doc.mask_values": "Remplacez les valeurs des dictionnaires et des listes par '*' (en préservant la structure).",
@@ -58,8 +55,7 @@
       "appeler outil mcp",
       "mcp tool call",
       "serveur mcp"
-    ],
-    "tool.system_prompt": "Utilisez cet outil conformément à l'objectif décrit ci-dessus (voir la description de l'outil)."
+    ]
   },
   "ko": {
     "doc.mask_values": "사전 및 목록의 값을 '*'로 대체합니다(구조 유지).",
@@ -73,8 +69,7 @@
       "mcp 도구 호출",
       "mcp 호출",
       "서버 도구"
-    ],
-    "tool.system_prompt": "위의 목적에 맞게 이 도구를 사용하세요(도구 설명 참조)."
+    ]
   },
   "de": {
     "doc.mask_values": "Ersetzen Sie Werte in Wörterbüchern und Listen durch '*' (Struktur beibehalten).",
@@ -88,8 +83,7 @@
       "mcp tool aufruf",
       "mcp aufrufen",
       "server tool"
-    ],
-    "tool.system_prompt": "Verwenden Sie dieses Tool gemäß dem oben beschriebenen Zweck (siehe Toolbeschreibung)."
+    ]
   },
   "it": {
     "doc.mask_values": "Sostituisci i valori nei dizionari e negli elenchi con '*' (preservando la struttura).",
@@ -103,8 +97,7 @@
       "chiamare strumento mcp",
       "mcp tool call",
       "server mcp"
-    ],
-    "tool.system_prompt": "Usa questo strumento in base allo scopo descritto sopra (vedi la descrizione dello strumento)."
+    ]
   },
   "ru": {
     "doc.mask_values": "Заменяйте значения в словарях и списках на '*' (с сохранением структуры).",
@@ -118,8 +111,7 @@
       "вызов mcp инструмента",
       "mcp call",
       "сервер mcp"
-    ],
-    "tool.system_prompt": "Используйте этот инструмент в соответствии с описанной выше целью (см. описание инструмента)."
+    ]
   },
   "pt_BR": {
     "doc.mask_values": "Substitua os valores em dicionários e listas por '*' (preservando a estrutura).",
@@ -133,8 +125,7 @@
       "chamar ferramenta mcp",
       "mcp tool call",
       "servidor mcp"
-    ],
-    "tool.system_prompt": "Use esta ferramenta de acordo com o propósito descrito acima (veja a descrição da ferramenta)."
+    ]
   },
   "pt": {
     "doc.mask_values": "Substitua valores em dicionários e listas por '*' (preservando a estrutura).",
@@ -148,8 +139,7 @@
       "chamar ferramenta mcp",
       "mcp tool call",
       "servidor mcp"
-    ],
-    "tool.system_prompt": "Use esta ferramenta de acordo com o propósito descrito acima (veja a descrição da ferramenta)."
+    ]
   },
   "id": {
     "doc.mask_values": "Ganti nilai dalam dictionary dan list dengan '*' (struktur tetap dipertahankan).",
@@ -163,8 +153,7 @@
       "panggil alat mcp",
       "mcp tool call",
       "server mcp"
-    ],
-    "tool.system_prompt": "Gunakan alat ini sesuai tujuan yang dijelaskan di atas (lihat deskripsi alat)."
+    ]
   },
   "vi": {
     "doc.mask_values": "Thay thế các giá trị trong từ điển và danh sách bằng '*' (bảo toàn cấu trúc).",
@@ -178,8 +167,7 @@
       "gọi công cụ mcp",
       "mcp tool call",
       "máy chủ mcp"
-    ],
-    "tool.system_prompt": "Sử dụng công cụ này theo mục đích mô tả ở trên (xem mô tả công cụ)."
+    ]
   },
   "pl": {
     "doc.mask_values": "Zastąp wartości w słownikach i listach znakiem „*” (zachowując strukturę).",
@@ -193,8 +181,7 @@
       "wywołaj narzędzie mcp",
       "mcp tool call",
       "serwer mcp"
-    ],
-    "tool.system_prompt": "Używaj tego narzędzia zgodnie z celem opisanym powyżej (patrz opis narzędzia)."
+    ]
   },
   "hi": {
     "doc.mask_values": "शब्दकोशों और सूचियों में मानों को '*' (संरचना को संरक्षित करते हुए) से बदलें।",
@@ -208,8 +195,7 @@
       "mcp टूल कॉल",
       "mcp कॉल",
       "सर्वर टूल"
-    ],
-    "tool.system_prompt": "ऊपर वर्णित उद्देश्य के अनुसार इस टूल का उपयोग करें (टूल विवरण देखें)."
+    ]
   },
   "ar": {
     "doc.mask_values": "استبدل القيم في القواميس والقوائم بـ \"*\" (مع الحفاظ على البنية).",
@@ -223,8 +209,7 @@
       "استدعاء أداة mcp",
       "mcp tool call",
       "خادم mcp"
-    ],
-    "tool.system_prompt": "استخدم هذه الأداة وفقًا للغرض الموضح أعلاه (انظر وصف الأداة)."
+    ]
   },
   "sv": {
     "doc.mask_values": "Ersätt värden i ordböcker och listor med '*' (strukturen bevaras).",
@@ -238,8 +223,7 @@
       "anropa mcp-verktyg",
       "mcp tool call",
       "mcp-server"
-    ],
-    "tool.system_prompt": "Använd det här verktyget enligt det syfte som beskrivs ovan (se verktygsbeskrivningen)."
+    ]
   },
   "sw": {
     "doc.mask_values": "Replace values in dictionaries and lists with '*' (preserving structure).",
@@ -253,8 +237,7 @@
       "mcp tool call",
       "call mcp tool",
       "server mcp"
-    ],
-    "tool.system_prompt": "Use this tool according to the purpose described above (see the tool description)."
+    ]
   },
   "nb": {
     "doc.mask_values": "Erstatt verdier i ordbøker og lister med '*' (strukturen bevares).",
@@ -268,8 +251,7 @@
       "kall mcp-verktøy",
       "mcp tool call",
       "mcp-server"
-    ],
-    "tool.system_prompt": "Bruk dette verktøyet i henhold til formålet som er beskrevet ovenfor (se verktøybeskrivelsen)."
+    ]
   },
   "nl": {
     "doc.mask_values": "Vervang waarden in woordenboeken en lijsten door '*' (structuur behouden).",
@@ -283,8 +265,7 @@
       "mcp tool aanroepen",
       "mcp tool call",
       "mcp-server"
-    ],
-    "tool.system_prompt": "Gebruik deze tool volgens het hierboven beschreven doel (zie de toolbeschrijving)."
+    ]
   },
   "fi": {
     "doc.mask_values": "Korvaa sanakirjojen ja listojen arvot '*' -merkillä (säilytä rakenne).",
@@ -298,8 +279,7 @@
       "kutsu mcp-työkalu",
       "mcp tool call",
       "mcp-palvelin"
-    ],
-    "tool.system_prompt": "Käytä tätä työkalua yllä kuvatun tarkoituksen mukaisesti (katso työkalun kuvaus)."
+    ]
   },
   "cs": {
     "doc.mask_values": "Nahraďte hodnoty ve slovnících a seznamech znakem „*“ (struktura zůstane zachována).",
@@ -313,8 +293,7 @@
       "volání mcp nástroje",
       "mcp tool call",
       "mcp server"
-    ],
-    "tool.system_prompt": "Použijte tento nástroj podle výše popsaného účelu (viz popis nástroje)."
+    ]
   },
   "uk": {
     "doc.mask_values": "Замініть значення в словниках і списках на «*» (зі збереженням структури).",
@@ -328,8 +307,7 @@
       "виклик mcp інструменту",
       "mcp tool call",
       "сервер mcp"
-    ],
-    "tool.system_prompt": "Використовуйте цей інструмент відповідно до описаної вище мети (див. опис інструмента)."
+    ]
   },
   "tr": {
     "doc.mask_values": "Sözlüklerdeki ve listelerdeki değerleri '*' (yapıyı koruyarak) ile değiştirin.",
@@ -343,8 +321,7 @@
       "mcp aracı çağır",
       "mcp tool call",
       "mcp sunucusu"
-    ],
-    "tool.system_prompt": "Bu aleti yukarıda açıklanan amaca uygun olarak kullanın (alet açıklamasına bakın)."
+    ]
   },
   "th": {
     "doc.mask_values": "แทนที่ค่าในพจนานุกรมและรายการด้วย '*' (คงโครงสร้างไว้).",
@@ -358,8 +335,7 @@
       "เรียกเครื่องมือ mcp",
       "mcp tool call",
       "เซิร์ฟเวอร์ mcp"
-    ],
-    "tool.system_prompt": "โปรดใช้เครื่องมือนี้ตามวัตถุประสงค์ข้างต้น (ดูคำอธิบายของเครื่องมือ)"
+    ]
   },
   "zh_CN": {
     "doc.mask_values": "将字典和列表中的值替换为“*”（保留结构）。",
@@ -373,8 +349,7 @@
       "mcp 工具调用",
       "mcp 调用",
       "服务器工具"
-    ],
-    "tool.system_prompt": "请根据上述目的使用此工具（参见工具说明）。"
+    ]
   },
   "zh_TW": {
     "doc.mask_values": "將字典與列表中的值取代為「*」（保留結構）。",
@@ -388,8 +363,7 @@
       "mcp 工具呼叫",
       "mcp 呼叫",
       "伺服器工具"
-    ],
-    "tool.system_prompt": "請依照上述目的使用此工具（參見工具說明）。"
+    ]
   },
   "bn": {
     "doc.mask_values": "অভিধান ও তালিকার মানগুলোকে '*' দিয়ে বদলান (গঠন অপরিবর্তিত রেখে)।",
@@ -403,8 +377,7 @@
       "mcp টুল কল",
       "mcp কল",
       "সার্ভার টুল"
-    ],
-    "tool.system_prompt": "উপরে বর্ণিত উদ্দেশ্য অনুযায়ী এই টুলটি ব্যবহার করুন (টুলের বিবরণ দেখুন)।"
+    ]
   },
   "fa": {
     "doc.mask_values": "مقادیرِ دیکشنری‌ها و فهرست‌ها را با '*' جایگزین کنید (با حفظ ساختار).",
@@ -418,8 +391,7 @@
       "فراخوانی ابزار mcp",
       "mcp tool call",
       "سرور mcp"
-    ],
-    "tool.system_prompt": "این ابزار را مطابق هدف توضیح‌داده‌شده در بالا استفاده کنید (به توضیح ابزار مراجعه کنید)."
+    ]
   },
   "mn": {
     "doc.mask_values": "Толь бичиг ба жагсаалтын утгыг '*' болгон солино (бүтцийг хадгална).",
@@ -433,8 +405,7 @@
       "mcp хэрэгсэл дуудах",
       "mcp tool call",
       "mcp сервер"
-    ],
-    "tool.system_prompt": "Дээр тайлбарласан зорилгын дагуу энэ хэрэгслийг ашиглана уу (хэрэгслийн тайлбарыг үзнэ үү)."
+    ]
   },
   "mr": {
     "doc.mask_values": "शब्दकोशे आणि यादीतील मूल्ये '*' ने बदला (रचना कायम ठेवून).",
@@ -448,7 +419,6 @@
       "mcp साधन कॉल",
       "mcp कॉल",
       "सर्व्हर साधन"
-    ],
-    "tool.system_prompt": "वर वर्णन केलेल्या उद्देशानुसार हे साधन वापरा (साधनाचे वर्णन पहा)."
+    ]
   }
 }
