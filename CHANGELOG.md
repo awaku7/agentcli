@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.3] - 2026-06-15
+
+### Added
+- Dedicated DeepSeek provider module with thinking mode and reasoning_effort support.
+- DeepSeek setup wizard integration.
+- Temperature, top_p, presence_penalty, frequency_penalty configuration for DeepSeek (non-thinking mode).
+- zh_CN and zh_TW translations/README for DeepSeek settings.
+- provider_caps.py for provider capability management.
+
+### Documentation
+- Added DeepSeek to ENVIRONMENT.md and ENVIRONMENT.ja.md provider tables.
+
+### Fixed & Improved
+- Locale .mo files recompiled.
+- Miscellaneous fixes.
+
 ## [0.5.2] - 2026-06-13
 
 ### Added
