@@ -315,6 +315,9 @@ def run_llm_rounds(
                     stream_responses=False,
                 )
 
+                # Determine if streaming is active (used for both log-skip and print-skip).
+                _ds_streaming = (env_get("UAGENT_STREAMING", "1") or "").strip().lower() not in ("0", "false", "no", "off")
+
                 # Build assistant message: reasoning_content is only carried
                 # forward when tool calls are present (DeepSeek API requirement).
                 deepseek_msg = build_assistant_message_with_reasoning(
@@ -323,7 +326,9 @@ def run_llm_rounds(
                     reasoning_content=reasoning_content,
                 )
                 messages.append(deepseek_msg)
-                core.log_message(deepseek_msg)
+                # Web streaming already emitted deltas via log_stream_delta; avoid duplicate log.
+                if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
+                    core.log_message(deepseek_msg)
 
                 action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
                     assistant_text=assistant_text,
@@ -343,7 +348,6 @@ def run_llm_rounds(
                 if not tool_calls_list:
                     # DeepSeek streaming (chat completions) already printed the text;
                     # skip the print but keep outfile/image side effects.
-                    _ds_streaming = (env_get("UAGENT_STREAMING", "1") or "").strip().lower() not in ("0", "false", "no", "off")
                     _emit_final_answer_if_any(
                         assistant_text=assistant_text,
                         use_responses_api=False,
