@@ -5,8 +5,6 @@
     "error.missing_query_parameter": "missing 'query' parameter",
     "error.run_tool_error": "run_tool error: {error}",
     "param.max_results.description": "Maximum number of results to return (default: 5).",
-    "param.n.description": "Alias (compat).",
-    "param.q.description": "Alias (compat).",
     "param.query.description": "Search query.",
     "tool.description": "Search the web via DuckDuckGo HTML interface. Returns title/link/snippet.",
     "x_search_terms": [
@@ -27,8 +25,6 @@
     "error.missing_query_parameter": "'query' パラメータがありません",
     "error.run_tool_error": "run_tool 実行エラー: {error}",
     "param.max_results.description": "返す最大件数（既定: 5）。",
-    "param.n.description": "別名（互換性用）。",
-    "param.q.description": "別名（互換性用）。",
     "param.query.description": "検索クエリ文字列。",
     "tool.description": "DuckDuckGo の HTML インターフェースで Web 検索を行い、title/link/snippet を返します。",
     "x_search_terms": [
@@ -45,8 +41,6 @@
     "error.missing_query_parameter": "falta el parámetro 'query'",
     "error.run_tool_error": "error al ejecutar ru...",
     "param.max_results.description": "Número máximo de resultados a devolver (predet...",
-    "param.n.description": "Alias de 'ma...",
-    "param.q.description": "Alias de 'qu...",
     "param.query.description": "Cadena de...",
     "tool.description": "Busque en la web a través de la interfaz HTML de DuckDuckGo y devuelva...",
     "x_search_terms": [
@@ -63,8 +57,6 @@
     "error.missing_query_parameter": "paramètre 'query' manquant",
     "error.run_tool_error": "Erreur run_tool : {error}",
     "param.max_results.description": "Nombre maximum de résultats à renvoyer (par dé...",
-    "param.n.description": "Alias de 'ma...",
-    "param.q.description": "Alias de 'qu...",
     "param.query.description": "Chaîne de...",
     "tool.description": "Recherchez sur le Web via l’interface HTML DuckDuckGo et renvoyez le t...",
     "x_search_terms": [
@@ -81,8 +73,6 @@
     "error.missing_query_parameter": "'쿼리' 매개변수가 누락되었습니다.",
     "error.run_tool_error": "run_tool 오류: {error}",
     "param.max_results.description": "반환할 최대 결과 수(기본값: 5)",
-    "param.n.description": "별칭(호환용).",
-    "param.q.description": "별칭(호환용).",
     "param.query.description": "검색어 문자열입니다.",
     "tool.description": "DuckDuckGo HTML 인터페이스를 통해 웹을 검색하고 제목/링크/스니펫을 반환합니다.",
     "x_search_terms": [
@@ -99,8 +89,6 @@
     "error.missing_query_parameter": "fehlender 'query'-Parameter",
     "error.run_tool_error": "run_tool-Fehler: {error}",
     "param.max_results.description": "Maximale Anzahl der zurückzugebenden Ergebniss...",
-    "param.n.description": "Alias für 'm...",
-    "param.q.description": "Alias für 'q...",
     "param.query.description": "Suchanfrag...",
     "tool.description": "Im Web über die DuckDuckGo-HTML-Oberfläche suchen und Titel/Link/Auszu...",
     "x_search_terms": [
@@ -117,8 +105,6 @@
     "error.missing_query_parameter": "manca il parametro 'query'",
     "error.run_tool_error": "errore run_tool: {error}",
     "param.max_results.description": "Numero massimo di risultati da restituire (pre...",
-    "param.n.description": "Alias di 'ma...",
-    "param.q.description": "Alias di 'qu...",
     "param.query.description": "Stringa de...",
     "tool.description": "Cerca nel web tramite l'interfaccia HTML di DuckDuckGo e restituisce t...",
     "x_search_terms": [
@@ -135,8 +121,6 @@
     "error.missing_query_parameter": "отсутствует параметр '...",
     "error.run_tool_error": "ошибка run_tool: {error}",
     "param.max_results.description": "Максимальное число возвращаемых результатов (п...",
-    "param.n.description": "Псевдоним дл...",
-    "param.q.description": "Псевдоним дл...",
     "param.query.description": "Строка пои...",
     "tool.description": "Ищет в вебе через HTML-интерфейс DuckDuckGo и возвращает заголовок/ссы...",
     "x_search_terms": [
@@ -153,8 +137,6 @@
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro ao executar a f...",
     "param.max_results.description": "Número máximo de resultados a retornar (padrão: 5).",
-    "param.n.description": "Alias de 'ma...",
-    "param.q.description": "Alias de 'qu...",
     "param.query.description": "String da...",
     "tool.description": "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho.",
     "x_search_terms": [
@@ -171,8 +153,6 @@
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro ao executar run...",
     "param.max_results.description": "Número máximo de resultados a serem retornados...",
-    "param.n.description": "Alias ​​de '...",
-    "param.q.description": "Alias de 'qu...",
     "param.query.description": "String da...",
     "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne tít...",
     "x_search_terms": [
@@ -189,8 +169,6 @@
     "error.missing_query_parameter": "parameter 'query' tidak ada",
     "error.run_tool_error": "Galat run_tool: {error}",
     "param.max_results.description": "Jumlah maksimum hasil yang dikembalikan (default: 5).",
-    "param.n.description": "Alias dari '...",
-    "param.q.description": "Alias dari '...",
     "param.query.description": "String kue...",
     "tool.description": "Cari web melalui antarmuka DuckDuckGo HTML dan kembalikan title/link/snippet.",
     "x_search_terms": [
@@ -207,8 +185,6 @@
     "error.missing_query_parameter": "thiếu tham số 'query'",
     "error.run_tool_error": "lỗi run_tool: {error}",
     "param.max_results.description": "Số kết quả trả về tối đa (mặc định: 5).",
-    "param.n.description": "Bí danh của...",
-    "param.q.description": "Bí danh của...",
     "param.query.description": "Chuỗi truy...",
     "tool.description": "Tìm kiếm trên web qua giao diện DuckDuckGo HTML và trả về tiêu đề/liên...",
     "x_search_terms": [
@@ -225,8 +201,6 @@
     "error.missing_query_parameter": "brakuje parametru 'query'",
     "error.run_tool_error": "błąd run_tool: {error}",
     "param.max_results.description": "Maksymalna liczba zwracanych wyników (domyślnie: 5).",
-    "param.n.description": "Alias dla 'm...",
-    "param.q.description": "Alias dla 'q...",
     "param.query.description": "Łańcuch za...",
     "tool.description": "Wyszukuj w sieci przez interfejs HTML DuckDuckGo i zwracaj tytuł/odnoś...",
     "x_search_terms": [
@@ -243,8 +217,6 @@
     "error.missing_query_parameter": "'query' पैरामीटर गायब है",
     "error.run_tool_error": "run_tool त्रुटि: {error}",
     "param.max_results.description": "लौटाए जाने वाले परिणामों की अधिकतम संख्या (डिफ...",
-    "param.n.description": "'max_results...",
-    "param.q.description": "'query' का उ...",
     "param.query.description": "खोज क्वेरी...",
     "tool.description": "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
     "x_search_terms": [
@@ -261,8 +233,6 @@
     "error.missing_query_parameter": "المعامل 'query' مفقود",
     "error.run_tool_error": "خطأ في run_tool: {error}",
     "param.max_results.description": "الحد الأقصى لعدد النتائج التي سيتم إرجاعها (ال...",
-    "param.n.description": "الاسم المستع...",
-    "param.q.description": "اسم بديل لـ...",
     "param.query.description": "سلسلة استع...",
     "tool.description": "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجِع العنوان/الرابط/المقتطف.",
     "x_search_terms": [
@@ -279,8 +249,6 @@
     "error.missing_query_parameter": "saknar parametern 'query'",
     "error.run_tool_error": "run_tool-fel: {error}",
     "param.max_results.description": "Maximalt antal resultat att returnera (standard: 5).",
-    "param.n.description": "Alias för 'm...",
-    "param.q.description": "Alias för 'q...",
     "param.query.description": "Sökfråga s...",
     "tool.description": "Sök på webben via DuckDuckGo HTML-gränssnitt och returnera titel/länk/snutt.",
     "x_search_terms": [
@@ -297,8 +265,6 @@
     "error.missing_query_parameter": "'query' haipo",
     "error.run_tool_error": "Hitilafu ya run_tool...",
     "param.max_results.description": "Idadi ya juu ya matokeo ya kurejesha (chaguoms...",
-    "param.n.description": "Kisawe cha '...",
-    "param.q.description": "Kisawe cha '...",
     "param.query.description": "Kamba ya h...",
     "tool.description": "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa...",
     "x_search_terms": [
@@ -315,8 +281,6 @@
     "error.missing_query_parameter": "mangler parameteren 'query'",
     "error.run_tool_error": "run_tool-feil: {error}",
     "param.max_results.description": "Maksimalt antall resultater som skal returnere...",
-    "param.n.description": "Alias for 'm...",
-    "param.q.description": "Alias for 'q...",
     "param.query.description": "Søkeord so...",
     "tool.description": "Søk på nettet via DuckDuckGo HTML-grensesnittet og returner tittel/lenke/utdrag.",
     "x_search_terms": [
@@ -333,8 +297,6 @@
     "error.missing_query_parameter": "ontbrekende parameter...",
     "error.run_tool_error": "run_tool fout: {error}",
     "param.max_results.description": "Maximaal aantal resultaten om terug te geven (...",
-    "param.n.description": "Alias van 'm...",
-    "param.q.description": "Alias van 'q...",
     "param.query.description": "Zoekopdracht.",
     "tool.description": "Doorzoek het web via de DuckDuckGo-HTML-interface en geef titel/link/s...",
     "x_search_terms": [
@@ -351,8 +313,6 @@
     "error.missing_query_parameter": "puuttuva 'query'-parametri",
     "error.run_tool_error": "run_tool-virhe: {error}",
     "param.max_results.description": "Palautettavien tulosten enimmäismäärä (oletus: 5).",
-    "param.n.description": "'max_results...",
-    "param.q.description": "'query'-alia...",
     "param.query.description": "Hakukysely.",
     "tool.description": "Hae webistä DuckDuckGo HTML -rajapinnan kautta ja palauta otsikko/link...",
     "x_search_terms": [
@@ -369,8 +329,6 @@
     "error.missing_query_parameter": "chybí parametr 'query'",
     "error.run_tool_error": "chyba run_tool: {error}",
     "param.max_results.description": "Maximální počet vracených výsledků (výchozí: 5).",
-    "param.n.description": "Alias pro 'm...",
-    "param.q.description": "Alias pro 'q...",
     "param.query.description": "Řetězec do...",
     "tool.description": "Vyhledává na webu přes HTML rozhraní DuckDuckGo a vrací titul/odkaz/úryvek.",
     "x_search_terms": [
@@ -387,8 +345,6 @@
     "error.missing_query_parameter": "відсутній параметр 'query'",
     "error.run_tool_error": "помилка run_tool: {error}",
     "param.max_results.description": "Максимальна кількість результатів для повернен...",
-    "param.n.description": "Псевдонім дл...",
-    "param.q.description": "Псевдонім дл...",
     "param.query.description": "Рядок пошу...",
     "tool.description": "Шукає в інтернеті через HTML-інтерфейс DuckDuckGo та повертає заголово...",
     "x_search_terms": [
@@ -405,8 +361,6 @@
     "error.missing_query_parameter": "'query' parametresi eksik",
     "error.run_tool_error": "run_tool hatası: {error}",
     "param.max_results.description": "Döndürülecek maksimum sonuç sayısı (varsayılan: 5).",
-    "param.n.description": "'max_results...",
-    "param.q.description": "'query' için...",
     "param.query.description": "Arama sorg...",
     "tool.description": "DuckDuckGo HTML arayüzü üzerinden web'de arama yapar ve başlık/bağlant...",
     "x_search_terms": [
@@ -423,8 +377,6 @@
     "error.missing_query_parameter": "ไม่มีพารามิเตอร์ 'query'",
     "error.run_tool_error": "ข้อผิดพลาด run_tool:...",
     "param.max_results.description": "จำนวนผลลัพธ์สูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 5)",
-    "param.n.description": "นามแฝงของ 'm...",
-    "param.q.description": "ชื่อแทนของ '...",
     "param.query.description": "สตริงคำค้นหา",
     "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
     "x_search_terms": [
@@ -441,8 +393,6 @@
     "error.missing_query_parameter": "缺少“查询”参数",
     "error.run_tool_error": "运行工具错误：{error}",
     "param.max_results.description": "返回结果的最大数量（默认值：5）。",
-    "param.n.description": "别名（兼容性）。",
-    "param.q.description": "别名（兼容性）。",
     "param.query.description": "搜索查询字符串。",
     "tool.description": "通过 DuckDuckGo HTML 界面搜索网络并返回标题/链接/片段。",
     "x_search_terms": [
@@ -459,8 +409,6 @@
     "error.missing_query_parameter": "缺少“查詢”參數",
     "error.run_tool_error": "運行工具錯誤：{error}",
     "param.max_results.description": "傳回結果的最大數量（預設值：5）。",
-    "param.n.description": "别名（兼容性）。",
-    "param.q.description": "别名（兼容性）。",
     "param.query.description": "搜尋查詢字串。",
     "tool.description": "透過 DuckDuckGo HTML 介面搜尋網路並返回標題/連結/片段。",
     "x_search_terms": [
@@ -477,8 +425,6 @@
     "error.missing_query_parameter": "'query' প্যারামিটার অন...",
     "error.run_tool_error": "run_tool ত্রুটি: {error}",
     "param.max_results.description": "ফেরত দেওয়ার সর্বোচ্চ ফলাফলের সংখ্যা (ডিফল্ট: 5)।",
-    "param.n.description": "'max_results...",
-    "param.q.description": "'query'-এর উ...",
     "param.query.description": "অনুসন্ধান...",
     "tool.description": "DuckDuckGo HTML ইন্টারফেসের মাধ্যমে ওয়েবে অনুসন্ধান করুন এবং শিরোনাম/...",
     "x_search_terms": [
@@ -495,8 +441,6 @@
     "error.missing_query_parameter": "پارامتر 'query' موجود نیست",
     "error.run_tool_error": "خطای run_tool: {error}",
     "param.max_results.description": "حداکثر تعداد نتایج برای بازگشت (پیش‌فرض: 5).",
-    "param.n.description": "نام مستعارِ...",
-    "param.q.description": "نام مستعارِ...",
     "param.query.description": "رشتهٔ جستجو.",
     "tool.description": "از طریق رابط HTML داک‌داک‌گو در وب جستجو کنید و عنوان/لینک/چکیده را برگردانید.",
     "x_search_terms": [
@@ -513,8 +457,6 @@
     "error.missing_query_parameter": "'query' параметр дутуу...",
     "error.run_tool_error": "run_tool алдаа: {error}",
     "param.max_results.description": "Буцаах үр дүнгийн дээд тоо (анхдагч: 5).",
-    "param.n.description": "'max_results...",
-    "param.q.description": "'query'-ийн...",
     "param.query.description": "Хайлтын ас...",
     "tool.description": "DuckDuckGo HTML интерфэйсээр вэбээс хайж, гарчиг/линк/snippet буцаана.",
     "x_search_terms": [
@@ -531,8 +473,6 @@
     "error.missing_query_parameter": "'query' पॅरामीटर नाही",
     "error.run_tool_error": "run_tool त्रुटी: {error}",
     "param.max_results.description": "परत करायच्या परिणामांची कमाल संख्या (डीफॉल्ट: 5).",
-    "param.n.description": "'max_results...",
-    "param.q.description": "'query' चे उ...",
     "param.query.description": "शोध क्वेरी...",
     "tool.description": "DuckDuckGo HTML इंटरफेसद्वारे वेबवर शोधा आणि शीर्षक/लिंक/स्निपेट परत करा.",
     "x_search_terms": [

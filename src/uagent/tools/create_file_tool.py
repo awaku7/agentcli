@@ -66,13 +66,6 @@ TOOL_SPEC: dict[str, Any] = {
                         default="File path to create.",
                     ),
                 },
-                "path": {
-                    "type": "string",
-                    "description": _(
-                        "param.path.description",
-                        default="(Compatibility) Alias of filename.",
-                    ),
-                },
                 "content": {
                     "type": "string",
                     "description": _(

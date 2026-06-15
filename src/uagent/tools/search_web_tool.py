@@ -260,20 +260,6 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Maximum number of results to return (default: 5).",
                     ),
                 },
-                "q": {
-                    "type": "string",
-                    "description": _(
-                        "param.q.description",
-                        default="Alias (compat).",
-                    ),
-                },
-                "n": {
-                    "type": "integer",
-                    "description": _(
-                        "param.n.description",
-                        default="Alias (compat).",
-                    ),
-                },
             },
             "required": ["query"],
         },

@@ -100,13 +100,6 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Path of the file to read.",
                     ),
                 },
-                "path": {
-                    "type": "string",
-                    "description": _(
-                        "param.path.description",
-                        default="(Compatibility) Alias of filename.",
-                    ),
-                },
                 "start_line": {
                     "type": "integer",
                     "description": _(
