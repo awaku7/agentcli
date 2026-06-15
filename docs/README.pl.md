@@ -23,7 +23,7 @@ Po instalacji, przy pierwszym uruchomieniu `uag` automatycznie zostanie uruchomi
 ## Główne funkcje
 
 - **Praktyczny zestaw narzędzi**: narzędzia do pracy z plikami, wyszukiwania w sieci, ekstrakcji danych (PDF/PPTX/Excel), generowania obrazów i analizy — wszystko uruchamiane lokalnie.
-- **Obsługa wielu dostawców**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
+- **Obsługa wielu dostawców**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI).
 - **Elastyczne interfejsy**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
