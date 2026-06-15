@@ -16,7 +16,7 @@ def _is_gpt54_tool_search_enabled() -> bool:
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 0 if _is_gpt54_tool_search_enabled() else -1,
+    "tool_level": 0,
     "type": "function",
     "function": {
         "name": "tool_catalog",

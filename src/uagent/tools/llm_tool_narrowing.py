@@ -69,8 +69,29 @@ def _select_tool_specs_for_gpt54(
     """
 
     specs = tools.get_tool_specs() or []
+
+    try:
+        from .catalog_tool import TOOL_SPEC as catalog_tool_spec
+    except Exception:
+        catalog_tool_spec = None
+    try:
+        from .human_ask_tool import TOOL_SPEC as human_ask_tool_spec
+    except Exception:
+        human_ask_tool_spec = None
+
+    helper_specs: list[dict[str, Any]] = []
+    helper_names: set[str] = set()
+    for helper_spec in (catalog_tool_spec, human_ask_tool_spec):
+        if isinstance(helper_spec, dict):
+            fn = helper_spec.get("function") or {}
+            if isinstance(fn, dict):
+                helper_name = str(fn.get("name") or "").strip()
+                if helper_name and helper_name not in helper_names:
+                    helper_names.add(helper_name)
+                    helper_specs.append(helper_spec)
+
     if not specs:
-        return []
+        return helper_specs
 
     def _is_low_info_user_text(text: str) -> bool:
         stripped = (text or "").strip()
@@ -159,7 +180,13 @@ def _select_tool_specs_for_gpt54(
                 print("[debug] gpt54.narrowing=zero_hit_fail_open(full_tools)")
             except Exception:
                 pass
-        return specs
+        return helper_specs + [
+            spec
+            for spec in specs
+            if isinstance(spec, dict)
+            and str((spec.get("function") or {}).get("name") or "").strip()
+            not in helper_names
+        ]
 
     selected_names = {
         "tool_catalog",
@@ -177,7 +204,7 @@ def _select_tool_specs_for_gpt54(
         selected_names.update({"python_compile", "lint_format"})
 
     narrowed: list[dict[str, Any]] = []
-    for spec in specs:
+    for spec in helper_specs + list(specs):
         if not isinstance(spec, dict):
             continue
         fn = spec.get("function") or {}
