@@ -72,6 +72,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("nvidia", "NVIDIA"),
     ("deepseek", "DeepSeek"),
     ("alibaba", "Alibaba Cloud (Qwen)"),
+    ("kimi", "KIMI (Moonshot AI)"),
 ]
 
 # key, required, label
@@ -198,6 +199,11 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_ALIBABA_API_KEY", True, _("Alibaba Cloud (Qwen) API key")),
         ("UAGENT_ALIBABA_BASE_URL", False, _("Alibaba base URL (optional, default: https://dashscope.aliyuncs.com/compatible-mode/v1)")),
         ("UAGENT_ALIBABA_DEPNAME", False, _("Alibaba model name (optional, default: qwen-max)")),
+    ],
+    "kimi": [
+        ("UAGENT_KIMI_API_KEY", True, _("KIMI (Moonshot AI) API key")),
+        ("UAGENT_KIMI_BASE_URL", False, _("KIMI base URL (optional, default: https://api.moonshot.cn/v1)")),
+        ("UAGENT_KIMI_DEPNAME", False, _("KIMI model name (optional, default: kimi-k2)")),
     ],
 }
 
