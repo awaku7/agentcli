@@ -96,9 +96,13 @@ def _list_devices() -> list[dict[str, Any]]:
     try:
         result = subprocess.run(
             ["ffmpeg", "-list_devices", "true", "-f", "dshow", "-i", "dummy"],
-            capture_output=True, text=True, timeout=10,
+            capture_output=True, timeout=10,
         )
-        stderr = result.stderr or ""
+        raw = result.stderr or b""
+        try:
+            stderr = raw.decode("utf-8", errors="replace")
+        except Exception:
+            stderr = raw.decode("cp932", errors="replace")
         devices: list[dict[str, Any]] = []
         for line in stderr.split("\n"):
             if '"' in line and ("video" in line.lower() or "camera" in line.lower()):
@@ -143,7 +147,7 @@ def _capture(
                 "-y",
                 str(save_path),
             ],
-            capture_output=True, text=True, timeout=15,
+            capture_output=True, timeout=15,
         )
         if save_path.exists() and save_path.stat().st_size > 0:
             saved = str(save_path.resolve())
@@ -171,7 +175,7 @@ def _capture(
                 alt_src = f"video={alt_name}"
                 alt_result = subprocess.run(
                     ["ffmpeg", "-f", "dshow", "-i", alt_src, "-vframes", "1", "-y", str(save_path)],
-                    capture_output=True, text=True, timeout=15,
+                    capture_output=True, timeout=15,
                 )
                 if save_path.exists() and save_path.stat().st_size > 0:
                     saved = str(save_path.resolve())
@@ -189,7 +193,7 @@ def _capture(
 
             return {
                 "ok": False,
-                "error": f"Could not capture from device. ffmpeg stderr: {result.stderr[:200]}",
+                "error": f"Could not capture from device. ffmpeg stderr: {(result.stderr or b'')[:200]}",
             }
     except FileNotFoundError:
         return {"ok": False, "error": "ffmpeg not found. Install ffmpeg and ensure it's in PATH."}
