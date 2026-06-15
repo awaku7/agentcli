@@ -51,10 +51,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "ip_address": {
+                "ip": {
                     "type": "string",
                     "description": _(
-                        "param.ip_address.description",
+                        "param.ip.description",
                         default="Target node IPv4 address.",
                     ),
                 },
@@ -67,10 +67,10 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "object_code": {
+                "obj": {
                     "type": "string",
                     "description": _(
-                        "param.object_code.description",
+                        "param.obj.description",
                         default=(
                             "Object code filter (e.g. '0130')."
                         ),
@@ -430,7 +430,7 @@ def _build_status_payload(
                     break
 
     node = {
-        "ip_address": ip_address,
+        "ip": ip_address,
         "node_id": ip_address,
         "node_profile": {
             "eoj": target_eoj,
@@ -465,7 +465,7 @@ def _format_text(payload: dict[str, Any]) -> str:
         _(
             "msg.summary",
             default="ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-            ip_address=payload.get("node", {}).get("ip_address") or "(unknown)",
+            ip_address=payload.get("node", {}).get("ip") or "(unknown)",
             elapsed_ms=payload.get("elapsed_ms", 0),
         )
     ]
@@ -505,9 +505,9 @@ def _format_text(payload: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    ip_address = str(args.get("ip_address") or "").strip()
+    ip_address = str(args.get("ip") or "").strip()
     eoj = args.get("eoj")
-    object_code = args.get("object_code")
+    object_code = args.get("obj")
     output_format = str(args.get("fmt") or "json").strip().lower()
 
     try:
@@ -555,9 +555,9 @@ def run_tool(args: dict[str, Any]) -> str:
 
     started = time.monotonic()
     cache_key = {
-        "ip_address": ip_address,
+        "ip": ip_address,
         "eoj": target_eoj_text,
-        "object_code": _normalize_object_code(object_code),
+        "obj": _normalize_object_code(object_code),
         "timeout": timeout,
     }
     cached = cache_get("node_status", cache_key, ttl_seconds=_CACHE_TTL_SECONDS)
@@ -592,7 +592,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "target": {
                     "eoj": target_eoj_text,
                     "class_name": class_name,
-                    "object_code": _normalize_object_code(object_code),
+                    "obj": _normalize_object_code(object_code),
                 },
                 "cache": {
                     "hit": False,

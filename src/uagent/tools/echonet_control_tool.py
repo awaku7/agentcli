@@ -48,10 +48,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "ip_address": {
+                "ip": {
                     "type": "string",
                     "description": _(
-                        "param.ip_address.description",
+                        "param.ip.description",
                         default="Target node IPv4 address.",
                     ),
                 },
@@ -64,10 +64,10 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "object_code": {
+                "obj": {
                     "type": "string",
                     "description": _(
-                        "param.object_code.description",
+                        "param.obj.description",
                         default=(
                             "Optional object code to narrow the queried object (e.g. '0130')."
                         ),
@@ -378,7 +378,7 @@ def _build_target_info(
     return {
         "eoj": normalized_eoj or target_eoj,
         "class_name": _class_name_from_eoj(normalized_eoj),
-        "object_code": _normalize_object_code(object_code),
+        "obj": _normalize_object_code(object_code),
         "class_code": class_code,
         "device_kind": kind or "unknown",
         "device_label": _TARGET_KIND_LABELS.get(kind, "unknown") if kind else "unknown",
@@ -623,7 +623,7 @@ def _build_result(
         _property_map(properties) if target_eoj.upper() == "0EF001" else {}
     )
     node = {
-        "ip_address": ip_address,
+        "ip": ip_address,
         "node_id": ip_address,
         "node_profile": {
             "eoj": target_eoj,
@@ -670,7 +670,7 @@ def _format_text(payload: dict[str, Any]) -> str:
             "msg.summary",
             default="ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
             action=payload.get("status", {}).get("action") or "(unknown)",
-            ip_address=payload.get("node", {}).get("ip_address") or "(unknown)",
+            ip_address=payload.get("node", {}).get("ip") or "(unknown)",
             elapsed_ms=payload.get("elapsed_ms", 0),
         )
     ]
@@ -694,9 +694,9 @@ def _format_text(payload: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    ip_address = str(args.get("ip_address") or "").strip()
+    ip_address = str(args.get("ip") or "").strip()
     eoj = args.get("eoj")
-    object_code = args.get("object_code")
+    object_code = args.get("obj")
     action = str(args.get("action") or "").strip()
     output_format = str(args.get("fmt") or "json").strip().lower()
 
@@ -801,7 +801,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     "device_kind": target_info.get("device_kind"),
                     "device_label": target_info.get("device_label"),
                     "supported": target_info.get("supported"),
-                    "object_code": target_info.get("object_code"),
+                    "obj": target_info.get("obj"),
                 },
                 "property": {
                     "epc": epc_text,

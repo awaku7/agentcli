@@ -57,10 +57,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Root directory for skill search. Uses UAGENT_SKILLS_DIRS (os.",
                     ),
                 },
-                "recursive": {
+                "recur": {
                     "type": "boolean",
                     "description": _(
-                        "param.recursive.description",
+                        "param.recur.description",
                         default="Whether to search recursively (default: true).",
                     ),
                     "default": True,
@@ -116,7 +116,7 @@ def _iter_candidate_skill_dirs(root_dir: str, recursive: bool) -> list[str]:
 
 def run_tool(args: dict[str, Any]) -> str:
     root_dir = (args or {}).get("root_dir")
-    recursive = bool((args or {}).get("recursive", True))
+    recursive = bool((args or {}).get("recur", True))
     include_invalid = bool((args or {}).get("include_invalid", True))
     strict = bool((args or {}).get("strict", False))
 

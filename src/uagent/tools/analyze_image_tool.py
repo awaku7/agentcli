@@ -42,10 +42,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "image_path": {
+                "img": {
                     "type": "string",
                     "description": _(
-                        "param.image_path.description",
+                        "param.img.description",
                         default="Path to the image file to analyze.",
                     ),
                 },
@@ -81,7 +81,7 @@ def _env_first(keys: list[str], *, required: bool, default: str = "") -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    image_path = str(args.get("image_path") or "")
+    image_path = str(args.get("img") or "")
     prompt = args.get("prompt")
     if prompt is not None:
         prompt = str(prompt)

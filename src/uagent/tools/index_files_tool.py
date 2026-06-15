@@ -85,10 +85,10 @@ else:
                         ),
                         "default": ".",
                     },
-                    "recursive": {
+                    "recur": {
                         "type": "boolean",
                         "description": _(
-                            "param.recursive.description",
+                            "param.recur.description",
                             default="Whether to search recursively when the pattern contains '**'.",
                         ),
                         "default": True,
@@ -109,7 +109,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     pattern = str(args.get("pattern", ""))
     root_path = str(args.get("root_path", "."))
-    recursive = bool(args.get("recursive", True))
+    recursive = bool(args.get("recur", True))
 
     if not pattern:
         return _("err.pattern_required", default="Error: pattern is required.")

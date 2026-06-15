@@ -4,7 +4,6 @@
     "err.max_bytes_positive": "[tool error] max_bytes must be a positive integer",
     "err.relative_path_required": "[tool error] relative_path must be a non-empty string",
     "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.max_bytes.description": "Maximum number of bytes to read (default: 5000000)",
     "param.relative_path.description": "Path relative to skill root (e.g. references/REFERENCE.md)",
     "param.skill_dir.description": "স্কিল ডিরেক্টরি",
     "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
@@ -15,14 +14,14 @@
       "read file",
       "file contents",
       "text file"
-    ]
+    ],
+    "param.maxb.description": "Maximum number of bytes to read (default: 5000000)"
   },
   "ja": {
     "err.invalid_args": "[ツールエラー] 引数が不正です",
     "err.max_bytes_positive": "[ツールエラー] max_bytes は正の整数である必要があります",
     "err.relative_path_required": "[ツールエラー] relative_path は空でない文字列である必要があります",
     "err.skill_dir_required": "[ツールエラー] skill_dir は空でない文字列である必要があります",
-    "param.max_bytes.description": "読み込み上限バイト数（既定: 5000000）",
     "param.relative_path.description": "スキルルートからの相対パス（例: references/REFERENCE.md）",
     "param.skill_dir.description": "スキルディレクトリ",
     "tool.description": "Agent Skills のスキル配下ファイルを相対パスで安全に読み込みます（references/assets/scripts 等）。ディレクトリトラバーサルは拒否します。",
@@ -31,14 +30,14 @@
       "skills ファイル読込",
       "相対パス読込",
       "skill file"
-    ]
+    ],
+    "param.maxb.description": "読み込み上限バイト数（既定: 5000000）"
   },
   "es": {
     "err.invalid_args": "[error de herramienta]...",
     "err.max_bytes_positive": "[error de herramienta] max_bytes debe ser un e...",
     "err.relative_path_required": "[error de herramienta] relative_path debe ser una...",
     "err.skill_dir_required": "[error de herramienta] skill_dir debe ser una...",
-    "param.max_bytes.description": "Número máximo de bytes para leer (predeterminado: 5000000)",
     "param.relative_path.description": "Ruta relativa a la raíz del skill (por ejemplo, references/REFERENCE.md)",
     "param.skill_dir.description": "directorio del skill",
     "tool.description": "Lee de forma segura un archivo dentro de un directorio de skill usando una ruta relativa.",
@@ -47,14 +46,14 @@
       "leer archivo skill",
       "archivo skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Número máximo de bytes para leer (predeterminado: 5000000)"
   },
   "fr": {
     "err.invalid_args": "[erreur de l'outil] ar...",
     "err.max_bytes_positive": "[erreur de l'outil] max_bytes doit être un ent...",
     "err.relative_path_required": "[erreur de l'outil] relative_path doit être une ch...",
     "err.skill_dir_required": "[erreur de l'outil] skill_dir doit être une ch...",
-    "param.max_bytes.description": "Nombre maximum d'octets à lire (par défaut : 5 000 000)",
     "param.relative_path.description": "Chemin relatif à la racine du skill (par exemple, references/REFERENCE.md)",
     "param.skill_dir.description": "répertoire du skill",
     "tool.description": "Lit en toute sécurité un fichier sous un répertoire de skill à l’aide d’un chemin relatif.",
@@ -63,14 +62,14 @@
       "lire fichier skill",
       "fichier skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Nombre maximum d'octets à lire (par défaut : 5 000 000)"
   },
   "ko": {
     "err.invalid_args": "[도구 오류] 잘못된 인수",
     "err.max_bytes_positive": "[도구 오류] max_bytes는 양의 정수여야 합니다.",
     "err.relative_path_required": "[도구 오류] relative_path는 비어 있지 않은 문자열이어야 합니다.",
     "err.skill_dir_required": "[도구 오류] skill_dir은 비어 있지 않은 문자열이어야 합니다.",
-    "param.max_bytes.description": "읽을 최대 바이트 수(기본값: 5000000)",
     "param.relative_path.description": "스킬 루트의 상대 경로(예: references/REFERENCE.md)",
     "param.skill_dir.description": "스킬 디렉터리",
     "tool.description": "상대 경로를 사용해 스킬 디렉터리 아래의 파일을 안전하게 읽습니다. 경로 탐색은 차단됩니다.",
@@ -79,14 +78,14 @@
       "스킬 파일 읽기",
       "상대경로 읽기",
       "skill file"
-    ]
+    ],
+    "param.maxb.description": "읽을 최대 바이트 수(기본값: 5000000)"
   },
   "de": {
     "err.invalid_args": "[Werkzeugfehler] Ungül...",
     "err.max_bytes_positive": "[Werkzeugfehler] max_bytes muss eine positive...",
     "err.relative_path_required": "[Werkzeugfehler] relative_path muss ein nicht leer...",
     "err.skill_dir_required": "[Werkzeugfehler] skill_dir muss ein nicht leer...",
-    "param.max_bytes.description": "Maximale Anzahl der zu lesenden Bytes (Standard: 5000000)",
     "param.relative_path.description": "Pfad relativ zur Skill-Wurzel (z. B. references/REFERENCE.md)",
     "param.skill_dir.description": "Skill-Verzeichnis",
     "tool.description": "Liest eine Datei unter einem Skill-Verzeichnis sicher über einen relativen Pfad.",
@@ -95,14 +94,14 @@
       "skill-datei lesen",
       "relative datei lesen",
       "skill file"
-    ]
+    ],
+    "param.maxb.description": "Maximale Anzahl der zu lesenden Bytes (Standard: 5000000)"
   },
   "it": {
     "err.invalid_args": "[errore strumento] arg...",
     "err.max_bytes_positive": "[errore strumento] max_bytes deve essere un in...",
     "err.relative_path_required": "[errore strumento] relative_path deve essere una s...",
     "err.skill_dir_required": "[errore strumento] skill_dir deve essere una s...",
-    "param.max_bytes.description": "Numero massimo di byte da leggere (predefinito: 5000000)",
     "param.relative_path.description": "Percorso relativo alla radice dello skill (ad es. references/REFERENCE.md)",
     "param.skill_dir.description": "directory dello skill",
     "tool.description": "Legge in modo sicuro un file sotto una directory dello skill usando un percorso relativo.",
@@ -111,14 +110,14 @@
       "leggi file skill",
       "file skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Numero massimo di byte da leggere (predefinito: 5000000)"
   },
   "ru": {
     "err.invalid_args": "[ошибка инструмента] н...",
     "err.max_bytes_positive": "[ошибка инструмента] max_bytes должен быть пол...",
     "err.relative_path_required": "[ошибка инструмента] relative_path должен быть неп...",
     "err.skill_dir_required": "[ошибка инструмента] skill_dir должен быть неп...",
-    "param.max_bytes.description": "Максимальное число байт для чтения (по умолчанию: 5000000)",
     "param.relative_path.description": "Относительный путь от корня навыка (например, references/REFERENCE.md)",
     "param.skill_dir.description": "каталог навыка",
     "tool.description": "Безопасно читает файл в каталоге навыка по относительному пути. Обход пути блокируется.",
@@ -127,14 +126,14 @@
       "читать файл skill",
       "файл skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Максимальное число байт для чтения (по умолчанию: 5000000)"
   },
   "pt_BR": {
     "err.invalid_args": "[erro da ferramenta] a...",
     "err.max_bytes_positive": "[erro da ferramenta] max_bytes deve ser um int...",
     "err.relative_path_required": "[erro da ferramenta] relative_path deve ser uma st...",
     "err.skill_dir_required": "[erro da ferramenta] skill_dir deve ser uma st...",
-    "param.max_bytes.description": "Número máximo de bytes para ler (padrão: 5000000)",
     "param.relative_path.description": "Caminho relativo à raiz do skill (por exemplo, references/REFERENCE.md)",
     "param.skill_dir.description": "diretório do skill",
     "tool.description": "Lê com segurança um arquivo dentro de um diretório de skill usando um caminho relativo.",
@@ -143,14 +142,14 @@
       "ler arquivo skill",
       "arquivo skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Número máximo de bytes para ler (padrão: 5000000)"
   },
   "pt": {
     "err.invalid_args": "[erro de ferramenta] a...",
     "err.max_bytes_positive": "[erro de ferramenta] max_bytes deve ser um núm...",
     "err.relative_path_required": "[erro de ferramenta] caminho_relativo deve ser uma...",
     "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma st...",
-    "param.max_bytes.description": "Número máximo de bytes a serem lidos (padrão: 5000000)",
     "param.relative_path.description": "Caminho relativo à raiz da habilidade (por exemplo, references/REFERENCE.md)",
     "param.skill_dir.description": "diretório da habi...",
     "tool.description": "Lê com segurança um arquivo em um diretório de habilidade usando um caminho relativo.",
@@ -159,14 +158,14 @@
       "ler arquivo skill",
       "arquivo skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Número máximo de bytes a serem lidos (padrão: 5000000)"
   },
   "id": {
     "err.invalid_args": "[tool error] argumen t...",
     "err.max_bytes_positive": "[tool error] max_bytes harus berupa integer positif",
     "err.relative_path_required": "[tool error] relative_path harus berupa string non-kosong",
     "err.skill_dir_required": "[tool error] skill_dir harus berupa string non-kosong",
-    "param.max_bytes.description": "Jumlah maksimum byte yang dibaca (default: 5000000)",
     "param.relative_path.description": "Path relatif terhadap root skill (mis. references/REFERENCE.md)",
     "param.skill_dir.description": "direktori skill",
     "tool.description": "Membaca file di bawah direktori skill secara aman menggunakan path relatif. Path traversal diblokir.",
@@ -175,14 +174,14 @@
       "baca file skill",
       "file skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Jumlah maksimum byte yang dibaca (default: 5000000)"
   },
   "vi": {
     "err.invalid_args": "[lỗi công cụ] đối số k...",
     "err.max_bytes_positive": "[lỗi công cụ] max_bytes phải là số nguyên dương",
     "err.relative_path_required": "[lỗi công cụ] đường dẫn tương đối phải là một chuỗ...",
     "err.skill_dir_required": "[lỗi công cụ] Skill_dir phải là một chuỗi không trống",
-    "param.max_bytes.description": "Số byte tối đa cần đọc (mặc định: 5000000)",
     "param.relative_path.description": "Đường dẫn tương đối tới gốc kỹ năng (ví dụ: references/REFERENCE.md)",
     "param.skill_dir.description": "thư mục kỹ năng",
     "tool.description": "Đọc an toàn một tệp trong thư mục kỹ năng bằng đường dẫn tương đối. Đường dẫn bị chặn.",
@@ -191,14 +190,14 @@
       "đọc file skill",
       "tệp skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Số byte tối đa cần đọc (mặc định: 5000000)"
   },
   "pl": {
     "err.invalid_args": "[błąd narzędzia] niepr...",
     "err.max_bytes_positive": "[błąd narzędzia] max_bytes musi być dodatnią l...",
     "err.relative_path_required": "[błąd narzędzia] ścieżka_względna musi być niepust...",
     "err.skill_dir_required": "[błąd narzędzia] katalog_umiejętności musi być...",
-    "param.max_bytes.description": "Maksymalna liczba bajtów do odczytania (domyślnie:...",
     "param.relative_path.description": "Ścieżka względna względem korzenia umiejętności (np. references/REFERENCE.md)",
     "param.skill_dir.description": "katalog umiejętności",
     "tool.description": "Bezpiecznie odczytuje plik w katalogu umiejętności, używając ścieżki względnej.",
@@ -207,14 +206,14 @@
       "czytaj plik skill",
       "plik skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Maksymalna liczba bajtów do odczytania (domyślnie:..."
   },
   "hi": {
     "err.invalid_args": "[टूल त्रुटि] अमान्य तर्क",
     "err.max_bytes_positive": "[टूल त्रुटि] max_bytes एक धनात्मक पूर्णांक होना चाहिए",
     "err.relative_path_required": "[टूल त्रुटि] सापेक्ष_पथ एक गैर-रिक्त स्ट्रिंग होना चाहिए",
     "err.skill_dir_required": "[टूल त्रुटि] स्किल_डीआईआर एक गैर-रिक्त स्ट्रिं...",
-    "param.max_bytes.description": "पढ़ने के लिए बाइट्स की अधिकतम संख्या (डिफ़ॉल्ट: 5000000)",
     "param.relative_path.description": "कौशल मूल के सापेक्ष पथ (उदा. references/REFERENCE.md)",
     "param.skill_dir.description": "कौशल निर्देशिका",
     "tool.description": "सापेक्ष पथ का उपयोग करके कौशल निर्देशिका के अंतर्गत किसी फ़ाइल को सुरक्षित रूप से पढ़ता है...",
@@ -223,14 +222,14 @@
       "स्किल फ़ाइल पढ़ें",
       "स्किल फ़ाइल",
       "skill file"
-    ]
+    ],
+    "param.maxb.description": "पढ़ने के लिए बाइट्स की अधिकतम संख्या (डिफ़ॉल्ट: 5000000)"
   },
   "ar": {
     "err.invalid_args": "[خطأ في الأداة] وسيطات...",
     "err.max_bytes_positive": "[خطأ في الأداة] يجب أن يكون max_bytes عددًا صح...",
     "err.relative_path_required": "[خطأ في الأداة] يجب أن يكون المسار النسبي عبارة عن...",
     "err.skill_dir_required": "[خطأ في الأداة] يجب أن تكون Skill_dir سلسلة غير فارغة",
-    "param.max_bytes.description": "الحد الأقصى لعدد البايتات المراد قراءتها (الافتراض...",
     "param.relative_path.description": "مسار نسبي إلى جذر المهارة (على سبيل المثال، references/REFERENCE.md)",
     "param.skill_dir.description": "دليل المهارة",
     "tool.description": "يقرأ ملفًا بأمان ضمن دليل المهارة باستخدام مسار نسبي. يتم حظر اجتياز المسار.",
@@ -239,14 +238,14 @@
       "قراءة ملف المهارة",
       "ملف المهارة",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "الحد الأقصى لعدد البايتات المراد قراءتها (الافتراض..."
   },
   "sv": {
     "err.invalid_args": "[verktygsfel] ogiltiga...",
     "err.max_bytes_positive": "[verktygsfel] max_bytes måste vara ett positiv...",
     "err.relative_path_required": "[verktygsfel] relative_path måste vara en icke-tom sträng",
     "err.skill_dir_required": "[verktygsfel] skill_dir måste vara en icke-tom sträng",
-    "param.max_bytes.description": "Maximalt antal bytes att läsa (standard: 5000000)",
     "param.relative_path.description": "Sökväg relativt skill-rot (t.ex. references/REFERENCE.md)",
     "param.skill_dir.description": "skill-katalog",
     "tool.description": "Läser en fil säkert under en skill-katalog med en relativ sökväg. Sökvägstraversering blockeras.",
@@ -255,14 +254,14 @@
       "läs skill-fil",
       "skill-fil",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Maximalt antal bytes att läsa (standard: 5000000)"
   },
   "sw": {
     "err.invalid_args": "[hitilafu ya zana] hoj...",
     "err.max_bytes_positive": "[hitilafu ya zana] max_bytes lazima iwe nambar...",
     "err.relative_path_required": "[hitilafu ya zana] relative_path lazima iwe mfuata...",
     "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuata...",
-    "param.max_bytes.description": "Idadi ya juu ya baiti za kusoma (chaguomsingi: 5000000)",
     "param.relative_path.description": "Njia ya jamaa kutoka mzizi wa skill (mfano: references/REFERENCE.md)",
     "param.skill_dir.description": "saraka ya skill",
     "tool.description": "Husoma kwa usalama faili ndani ya saraka ya skill kwa kutumia njia ya jamaa. Path traversal imezuiwa.",
@@ -271,14 +270,14 @@
       "soma faili ya skill",
       "faili ya skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Idadi ya juu ya baiti za kusoma (chaguomsingi: 5000000)"
   },
   "nb": {
     "err.invalid_args": "[verktøyfeil] ugyldige...",
     "err.max_bytes_positive": "[verktøyfeil] max_bytes må være et positivt heltall",
     "err.relative_path_required": "[verktøyfeil] relative_path må være en ikke-tom streng",
     "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
-    "param.max_bytes.description": "Maksimalt antall byte som skal leses (standard: 5000000)",
     "param.relative_path.description": "Sti relativt til skill-rot (f.eks. references/REFERENCE.md)",
     "param.skill_dir.description": "skill-katalog",
     "tool.description": "Leser en fil sikkert under en skill-katalog ved hjelp av en relativ sti. Stitraversering blokkeres.",
@@ -287,14 +286,14 @@
       "les skill-fil",
       "skill-fil",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Maksimalt antall byte som skal leses (standard: 5000000)"
   },
   "nl": {
     "err.invalid_args": "[tool error] ongeldige...",
     "err.max_bytes_positive": "[tool error] max_bytes moet een positief gehee...",
     "err.relative_path_required": "[tool error] relative_path moet een niet-lege teke...",
     "err.skill_dir_required": "[tool error] skill_dir moet een niet-lege teke...",
-    "param.max_bytes.description": "Maximaal aantal bytes om te lezen (standaard: 5000000)",
     "param.relative_path.description": "Pad relatief aan de skill-root (bijv. references/REFERENCE.md)",
     "param.skill_dir.description": "skills-map",
     "tool.description": "Leest veilig een bestand onder een skills-map met een relatief pad. Pad-traversal wordt geblokkeerd.",
@@ -303,14 +302,14 @@
       "lees skill-bestand",
       "skill-bestand",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Maximaal aantal bytes om te lezen (standaard: 5000000)"
   },
   "fi": {
     "err.invalid_args": "[tool error] virheelli...",
     "err.max_bytes_positive": "[tool error] max_bytesin on oltava positiivine...",
     "err.relative_path_required": "[tool error] relative_pathin on oltava ei-tyhjä merkkijono",
     "err.skill_dir_required": "[tool error] skill_dirin on oltava ei-tyhjä me...",
-    "param.max_bytes.description": "Luettavien tavujen enimmäismäärä (oletus: 5000000)",
     "param.relative_path.description": "Polku suhteessa skill-juureen (esim. references/REFERENCE.md)",
     "param.skill_dir.description": "skill-hakemisto",
     "tool.description": "Lukee tiedoston turvallisesti skill-hakemiston alta suhteellisella polulla. Polun läpikäynti estetään.",
@@ -319,14 +318,14 @@
       "lue skill-tiedosto",
       "skill-tiedosto",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Luettavien tavujen enimmäismäärä (oletus: 5000000)"
   },
   "cs": {
     "err.invalid_args": "[chyba nástroje] nepla...",
     "err.max_bytes_positive": "[chyba nástroje] max_bytes musí být kladné celé číslo",
     "err.relative_path_required": "[chyba nástroje] relative_path musí být neprázdný řetězec",
     "err.skill_dir_required": "[chyba nástroje] skill_dir musí být neprázdný řetězec",
-    "param.max_bytes.description": "Maximální počet bajtů k přečtení (výchozí: 5000000)",
     "param.relative_path.description": "Relativní cesta ke kořeni skillu (např. references/REFERENCE.md)",
     "param.skill_dir.description": "adresář skillu",
     "tool.description": "Bezpečně čte soubor v adresáři skillu pomocí relativní cesty. Traversal cesty je blokován.",
@@ -335,14 +334,14 @@
       "číst skill soubor",
       "skill soubor",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Maximální počet bajtů k přečtení (výchozí: 5000000)"
   },
   "uk": {
     "err.invalid_args": "[помилка інструменту]...",
     "err.max_bytes_positive": "[помилка інструменту] max_bytes має бути додат...",
     "err.relative_path_required": "[помилка інструменту] relative_path має бути непор...",
     "err.skill_dir_required": "[помилка інструменту] skill_dir має бути непор...",
-    "param.max_bytes.description": "Максимальна кількість байтів для читання (типово: 5000000)",
     "param.relative_path.description": "Відносний шлях від кореня skill (наприклад, references/REFERENCE.md)",
     "param.skill_dir.description": "каталог skill",
     "tool.description": "Безпечно читає файл у каталозі skill за відносним шляхом. Обхід шляху заблоковано.",
@@ -351,14 +350,14 @@
       "читати файл skill",
       "файл skill",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Максимальна кількість байтів для читання (типово: 5000000)"
   },
   "tr": {
     "err.invalid_args": "[araç hatası] geçersiz...",
     "err.max_bytes_positive": "[araç hatası] max_bytes pozitif bir tam sayı o...",
     "err.relative_path_required": "[araç hatası] relative_path boş olmayan bir dize olmalıdır",
     "err.skill_dir_required": "[araç hatası] skill_dir boş olmayan bir dize o...",
-    "param.max_bytes.description": "Okunacak azami bayt sayısı (varsayılan: 5000000)",
     "param.relative_path.description": "Beceri köküne göre göreli yol (örn. references/REFERENCE.md)",
     "param.skill_dir.description": "beceri dizini",
     "tool.description": "Göreli bir yol kullanarak bir beceri dizini altındaki dosyayı güvenli biçimde okur.",
@@ -367,14 +366,14 @@
       "skill dosyası oku",
       "skill dosyası",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Okunacak azami bayt sayısı (varsayılan: 5000000)"
   },
   "th": {
     "err.invalid_args": "[ข้อผิดพลาดของเครื่องม...",
     "err.max_bytes_positive": "[ข้อผิดพลาดของเครื่องมือ] max_bytes ต้องเป็นจำ...",
     "err.relative_path_required": "[ข้อผิดพลาดของเครื่องมือ] relative_path ต้องเป็นสต...",
     "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] skill_dir ต้องเป็นสต...",
-    "param.max_bytes.description": "จำนวนไบต์สูงสุดที่จะอ่าน (ค่าเริ่มต้น: 5000000)",
     "param.relative_path.description": "พาธสัมพัทธ์จากรากของสกิล (เช่น references/REFERENCE.md)",
     "param.skill_dir.description": "ไดเรกทอรีสกิล",
     "tool.description": "อ่านไฟล์ในไดเรกทอรีสกิลอย่างปลอดภัยโดยใช้พาธสัมพัทธ์ โดยบล็อกการไต่ระดับพาธ",
@@ -383,14 +382,14 @@
       "อ่านไฟล์สกิล",
       "ไฟล์สกิล",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "จำนวนไบต์สูงสุดที่จะอ่าน (ค่าเริ่มต้น: 5000000)"
   },
   "zh_CN": {
     "err.invalid_args": "[工具错误] 无效参数",
     "err.max_bytes_positive": "[工具错误] max_bytes 必须是正整数",
     "err.relative_path_required": "[工具错误] relative_path 必须是非空字符串",
     "err.skill_dir_required": "[工具错误] skill_dir 必须是非空字符串",
-    "param.max_bytes.description": "读取的最大字节数（默认值：5000000）",
     "param.relative_path.description": "相对于技能根目录的路径（例如：references/REFERENCE.md）",
     "param.skill_dir.description": "技能目录",
     "tool.description": "使用相对路径安全读取技能目录下的文件。会阻止路径穿越。",
@@ -399,14 +398,14 @@
       "读取技能文件",
       "技能文件",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "读取的最大字节数（默认值：5000000）"
   },
   "zh_TW": {
     "err.invalid_args": "[工具錯誤] 無效參數",
     "err.max_bytes_positive": "[工具錯誤] max_bytes 必須是正整數",
     "err.relative_path_required": "[工具錯誤] relative_path 必須是非空字串",
     "err.skill_dir_required": "[工具錯誤] skill_dir 必須是非空字串",
-    "param.max_bytes.description": "讀取的最大位元組數（預設值：5000000）",
     "param.relative_path.description": "相對於技能根目錄的路徑（例如：references/REFERENCE.md）",
     "param.skill_dir.description": "技能目錄",
     "tool.description": "使用相對路徑安全讀取技能目錄下的檔案。會阻止路徑穿越。",
@@ -415,14 +414,14 @@
       "讀取技能檔案",
       "技能檔案",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "讀取的最大位元組數（預設值：5000000）"
   },
   "bn": {
     "err.invalid_args": "[টুল ত্রুটি] অবৈধ আর্গ...",
     "err.max_bytes_positive": "[টুল ত্রুটি] max_bytes অবশ্যই একটি ধনাত্মক পূর...",
     "err.relative_path_required": "[টুল ত্রুটি] relative_path অবশ্যই খালি নয় এমন একট...",
     "err.skill_dir_required": "[টুল ত্রুটি] skill_dir অবশ্যই খালি নয় এমন একট...",
-    "param.max_bytes.description": "পড়ার সর্বোচ্চ বাইট সংখ্যা (ডিফল্ট: 5000000)",
     "param.relative_path.description": "skill root-এর আপেক্ষিক path (যেমন references/REFERENCE.md)",
     "param.skill_dir.description": "skills directory",
     "tool.description": "relative path ব্যবহার করে skill directory-এর ভেতরের ফাইল নিরাপদে পড়ে। path traversal আটকানো হয়।",
@@ -431,14 +430,14 @@
       "স্কিল ফাইল পড়ুন",
       "স্কিল ফাইল",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "পড়ার সর্বোচ্চ বাইট সংখ্যা (ডিফল্ট: 5000000)"
   },
   "fa": {
     "err.invalid_args": "[خطای ابزار] آرگومان‌ه...",
     "err.max_bytes_positive": "[خطای ابزار] max_bytes باید یک عدد صحیحِ مثبت باشد",
     "err.relative_path_required": "[خطای ابزار] relative_path باید یک رشتهٔ غیرخالی باشد",
     "err.skill_dir_required": "[خطای ابزار] skill_dir باید یک رشتهٔ غیرخالی باشد",
-    "param.max_bytes.description": "حداکثر تعداد بایت برای خواندن (پیش‌فرض: 5000000)",
     "param.relative_path.description": "مسیر نسبی نسبت به ریشهٔ skill (مثلاً references/REFERENCE.md)",
     "param.skill_dir.description": "پوشهٔ skillها",
     "tool.description": "فایلی را درون یک پوشهٔ skill با استفاده از مسیر نسبی، به‌صورت امن می‌خواند. عبور از مسیر مسدود می‌شود.",
@@ -447,14 +446,14 @@
       "خواندن فایل مهارت",
       "فایل مهارت",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "حداکثر تعداد بایت برای خواندن (پیش‌فرض: 5000000)"
   },
   "mn": {
     "err.invalid_args": "[хэрэгслийн алдаа] бур...",
     "err.max_bytes_positive": "[хэрэгслийн алдаа] max_bytes нь эерэг бүхэл то...",
     "err.relative_path_required": "[хэрэгслийн алдаа] relative_path нь хоосон бус мөр...",
     "err.skill_dir_required": "[хэрэгслийн алдаа] skill_dir нь хоосон бус мөр...",
-    "param.max_bytes.description": "Унших дээд хэмжээний байт (анхдагч: 5000000)",
     "param.relative_path.description": "skill root-д харьцангуй зам (ж. references/REFERENCE.md)",
     "param.skill_dir.description": "skill-ийн лавлах",
     "tool.description": "Харьцангуй зам ашиглан skill directory доторх файлыг аюулгүй уншина. Path traversal-ийг хориглоно.",
@@ -463,14 +462,14 @@
       "skill файл унших",
       "skill файл",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "Унших дээд хэмжээний байт (анхдагч: 5000000)"
   },
   "mr": {
     "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग...",
     "err.max_bytes_positive": "[टूल त्रुटी] max_bytes हा धनात्मक पूर्णांक असल...",
     "err.relative_path_required": "[टूल त्रुटी] relative_path ही रिक्त नसलेली स्ट्रिं...",
     "err.skill_dir_required": "[टूल त्रुटी] skill_dir ही रिक्त नसलेली स्ट्रिं...",
-    "param.max_bytes.description": "वाचायच्या बाइट्सची कमाल संख्या (डीफॉल्ट: 5000000)",
     "param.relative_path.description": "skill root च्या सापेक्ष path (उदा. references/REFERENCE.md)",
     "param.skill_dir.description": "skills directory",
     "tool.description": "relative path वापरून skill directory मधील फाइल सुरक्षितपणे वाचते. path traversal रोखले जाते.",
@@ -479,6 +478,7 @@
       "स्किल फाइल वाचा",
       "स्किल फाइल",
       "skills file"
-    ]
+    ],
+    "param.maxb.description": "वाचायच्या बाइट्सची कमाल संख्या (डीफॉल्ट: 5000000)"
   }
 }

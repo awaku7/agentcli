@@ -62,10 +62,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="The relative path from the skill root (e.g., references/REFERENCE.md).",
                     ),
                 },
-                "max_bytes": {
+                "maxb": {
                     "type": "integer",
                     "description": _(
-                        "param.max_bytes.description",
+                        "param.maxb.description",
                         default="Maximum number of bytes to read (default: 5,000,000).",
                     ),
                     "default": DEFAULT_MAX_READ_FILE_BYTES,
@@ -83,7 +83,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     skill_dir = args.get("skill_dir")
     relative_path = args.get("relative_path")
-    max_bytes = args.get("max_bytes", DEFAULT_MAX_READ_FILE_BYTES)
+    max_bytes = args.get("maxb", DEFAULT_MAX_READ_FILE_BYTES)
 
     if not isinstance(skill_dir, str) or not skill_dir.strip():
         return _(

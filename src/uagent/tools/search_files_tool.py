@@ -64,31 +64,31 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Search root (default: cwd).",
                     ),
                 },
-                "name_pattern": {
+                "glob": {
                     "type": "string",
                     "description": _(
-                        "param.name_pattern.description",
+                        "param.glob.description",
                         default="Filename glob pattern (e.g., '*.py', 'test_*'). If omitted, all files are considered.",
                     ),
                 },
-                "content_pattern": {
+                "re_content": {
                     "type": "string",
                     "description": _(
-                        "param.content_pattern.description",
+                        "param.re_content.description",
                         default="Regular expression to search within files. If omitted, only filename matching is performed.",
                     ),
                 },
-                "case_sensitive": {
+                "cs": {
                     "type": "boolean",
                     "description": _(
-                        "param.case_sensitive.description",
+                        "param.cs.description",
                         default="Whether the content search is case-sensitive (default: false).",
                     ),
                 },
-                "max_results": {
+                "limit": {
                     "type": "integer",
                     "description": _(
-                        "param.max_results.description",
+                        "param.limit.description",
                         default="Maximum number of matched files to return per page (default: 50).",
                     ),
                 },
@@ -372,10 +372,10 @@ def run_tool(args: dict[str, Any]) -> str:
 
     try:
         root_path = args.get("path") or args.get("root_path") or "."
-        name_pattern = args.get("name_pattern") or "*"
-        content_pattern = args.get("content_pattern", "")
-        case_sensitive = args.get("case_sensitive", False)
-        max_results = args.get("max_results", 50)
+        name_pattern = args.get("glob") or "*"
+        content_pattern = args.get("re_content", "")
+        case_sensitive = args.get("cs", False)
+        max_results = args.get("limit", 50)
         page = args.get("page", 1)
         fast_read_threshold_bytes = int(
             args.get("fast_read_threshold_bytes", 8_000_000)

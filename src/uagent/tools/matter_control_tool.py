@@ -63,10 +63,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "device_id": {
+                "dev": {
                     "type": "string",
                     "description": _(
-                        "param.device_id.description",
+                        "param.dev.description",
                         default="Device ID (required).",
                     ),
                 },
@@ -87,19 +87,19 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Value (0-100).",
                     ),
                 },
-                "controller_id": {
+                "ctrl": {
                     "type": "string",
                     "description": _(
-                        "param.controller_id.description",
+                        "param.ctrl.description",
                         default=(
                             "Controller ID (optional)."
                         ),
                     ),
                 },
-                "bridge_id": {
+                "bridge": {
                     "type": "string",
                     "description": _(
-                        "param.bridge_id.description",
+                        "param.bridge.description",
                         default=(
                             "Bridge ID (optional)."
                         ),
@@ -188,9 +188,9 @@ def _extract_items(data: Any) -> list[dict[str, Any]]:
 
 def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
     return {
-        "device_id": item.get("deviceId") or item.get("device_id") or item.get("id"),
-        "device_name": item.get("deviceName")
-        or item.get("device_name")
+        "dev": item.get("deviceId") or item.get("dev") or item.get("id"),
+        "devname": item.get("deviceName")
+        or item.get("devname")
         or item.get("name"),
         "device_type": item.get("deviceType")
         or item.get("device_type")
@@ -200,8 +200,8 @@ def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
         or item.get("manufacturer")
         or item.get("manufacturerName")
         or item.get("manufacturer_name"),
-        "bridge_id": item.get("bridgeId") or item.get("bridge_id"),
-        "controller_id": item.get("controllerId") or item.get("controller_id"),
+        "bridge": item.get("bridgeId") or item.get("bridge"),
+        "ctrl": item.get("controllerId") or item.get("ctrl"),
         "reachable": _as_bool(
             item.get("reachable")
             if item.get("reachable") is not None
@@ -223,9 +223,9 @@ def _iter_device_candidates(payloads: list[tuple[Any, str]]) -> list[dict[str, A
         for item in _extract_items(data):
             normalized = _normalize_device_item(item, source)
             key = (
-                str(normalized.get("device_id") or "").casefold(),
-                str(normalized.get("controller_id") or "").casefold(),
-                str(normalized.get("bridge_id") or "").casefold(),
+                str(normalized.get("dev") or "").casefold(),
+                str(normalized.get("ctrl") or "").casefold(),
+                str(normalized.get("bridge") or "").casefold(),
             )
             if not key[0]:
                 continue
@@ -249,14 +249,14 @@ def _filter_candidates(
 
     filtered: list[dict[str, Any]] = []
     for item in items:
-        if str(item.get("device_id") or "").casefold() != device_key:
+        if str(item.get("dev") or "").casefold() != device_key:
             continue
         if (
             controller_key
-            and str(item.get("controller_id") or "").casefold() != controller_key
+            and str(item.get("ctrl") or "").casefold() != controller_key
         ):
             continue
-        if bridge_key and str(item.get("bridge_id") or "").casefold() != bridge_key:
+        if bridge_key and str(item.get("bridge") or "").casefold() != bridge_key:
             continue
         filtered.append(item)
     return filtered
@@ -354,10 +354,10 @@ def _format_text(result: dict[str, Any]) -> str:
 
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
-    device_id = str(args.get("device_id") or "").strip()
+    device_id = str(args.get("dev") or "").strip()
     action = str(args.get("action") or "").strip().casefold()
-    controller_id = args.get("controller_id")
-    bridge_id = args.get("bridge_id")
+    controller_id = args.get("ctrl")
+    bridge_id = args.get("bridge")
     value = args.get("value")
     dry_run = bool(args.get("dry_run", False))
 
@@ -511,11 +511,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
             "device": {
-                "device_id": device_id,
-                "controller_id": (
+                "dev": device_id,
+                "ctrl": (
                     str(controller_id) if controller_id is not None else None
                 ),
-                "bridge_id": str(bridge_id) if bridge_id is not None else None,
+                "bridge": str(bridge_id) if bridge_id is not None else None,
             },
             "fetched_at": _now_iso(),
         }
@@ -537,20 +537,20 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
                 "candidates": [
                     {
-                        "device_id": item.get("device_id"),
-                        "device_name": item.get("device_name"),
-                        "controller_id": item.get("controller_id"),
-                        "bridge_id": item.get("bridge_id"),
+                        "dev": item.get("dev"),
+                        "devname": item.get("devname"),
+                        "ctrl": item.get("ctrl"),
+                        "bridge": item.get("bridge"),
                     }
                     for item in filtered[:10]
                 ],
             },
             "device": {
-                "device_id": device_id,
-                "controller_id": (
+                "dev": device_id,
+                "ctrl": (
                     str(controller_id) if controller_id is not None else None
                 ),
-                "bridge_id": str(bridge_id) if bridge_id is not None else None,
+                "bridge": str(bridge_id) if bridge_id is not None else None,
             },
             "fetched_at": _now_iso(),
         }
@@ -573,11 +573,11 @@ def run_tool(args: dict[str, Any]) -> str:
                 "message": validation_error,
             },
             "device": {
-                "device_id": item.get("device_id"),
-                "device_name": item.get("device_name"),
+                "dev": item.get("dev"),
+                "devname": item.get("devname"),
                 "device_type": device_type,
-                "controller_id": item.get("controller_id"),
-                "bridge_id": item.get("bridge_id"),
+                "ctrl": item.get("ctrl"),
+                "bridge": item.get("bridge"),
             },
             "fetched_at": _now_iso(),
         }
@@ -589,10 +589,10 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # Build command
     command: dict[str, Any] = {
-        "device_id": item.get("device_id"),
-        "device_name": item.get("device_name"),
-        "controller_id": item.get("controller_id"),
-        "bridge_id": item.get("bridge_id"),
+        "dev": item.get("dev"),
+        "devname": item.get("devname"),
+        "ctrl": item.get("ctrl"),
+        "bridge": item.get("bridge"),
         "action": action,
         "value": value,
         "queued_at": _now_iso(),
@@ -608,11 +608,11 @@ def run_tool(args: dict[str, Any]) -> str:
             ),
             "command": {**command, "dry_run": True},
             "device": {
-                "device_id": item.get("device_id"),
-                "device_name": item.get("device_name"),
+                "dev": item.get("dev"),
+                "devname": item.get("devname"),
                 "device_type": device_type,
-                "controller_id": item.get("controller_id"),
-                "bridge_id": item.get("bridge_id"),
+                "ctrl": item.get("ctrl"),
+                "bridge": item.get("bridge"),
                 "reachable": item.get("reachable"),
             },
             "fetched_at": _now_iso(),
@@ -638,11 +638,11 @@ def run_tool(args: dict[str, Any]) -> str:
             },
             "command": command,
             "device": {
-                "device_id": item.get("device_id"),
-                "device_name": item.get("device_name"),
+                "dev": item.get("dev"),
+                "devname": item.get("devname"),
                 "device_type": device_type,
-                "controller_id": item.get("controller_id"),
-                "bridge_id": item.get("bridge_id"),
+                "ctrl": item.get("ctrl"),
+                "bridge": item.get("bridge"),
             },
             "fetched_at": _now_iso(),
         }
@@ -659,11 +659,11 @@ def run_tool(args: dict[str, Any]) -> str:
             "queued_to": source_desc,
         },
         "device": {
-            "device_id": item.get("device_id"),
-            "device_name": item.get("device_name"),
+            "dev": item.get("dev"),
+            "devname": item.get("devname"),
             "device_type": device_type,
-            "controller_id": item.get("controller_id"),
-            "bridge_id": item.get("bridge_id"),
+            "ctrl": item.get("ctrl"),
+            "bridge": item.get("bridge"),
             "reachable": item.get("reachable"),
         },
         "fetched_at": _now_iso(),

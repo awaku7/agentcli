@@ -104,10 +104,10 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": 1,
                 },
-                "max_lines": {
+                "maxl": {
                     "type": ["integer", "null"],
                     "description": _(
-                        "param.max_lines.description",
+                        "param.maxl.description",
                         default="Maximum number of lines to read. If null, read to EOF.",
                     ),
                     "default": None,
@@ -120,18 +120,18 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": 1,
                 },
-                "head_lines": {
+                "head": {
                     "type": ["integer", "null"],
                     "description": _(
-                        "param.head_lines.description",
+                        "param.head.description",
                         default="Number of lines to read from the beginning. Cannot be used with tail_lines.",
                     ),
                     "default": None,
                 },
-                "tail_lines": {
+                "tail": {
                     "type": ["integer", "null"],
                     "description": _(
-                        "param.tail_lines.description",
+                        "param.tail.description",
                         default="Number of lines to read from the end. Cannot be used with head_lines.",
                     ),
                     "default": None,
@@ -155,8 +155,8 @@ def run_tool(args: dict[str, Any]) -> str:
         )
         return _json_err(msg)
 
-    head_lines = args.get("head_lines")
-    tail_lines = args.get("tail_lines")
+    head_lines = args.get("head")
+    tail_lines = args.get("tail")
 
     max_lines: int | None
 
@@ -198,7 +198,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 start_line = total_lines - tail_lines + 1
                 max_lines = tail_lines
         else:
-            raw_max_lines = args.get("max_lines")
+            raw_max_lines = args.get("maxl")
             if raw_max_lines is None:
                 max_lines = None
             else:

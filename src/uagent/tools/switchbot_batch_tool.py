@@ -39,14 +39,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "items": {
                         "type": "object",
                         "properties": {
-                            "device_id": {
+                            "dev": {
                                 "type": "string",
                                 "description": _(
                                     "param.commands.items.device_id.description",
                                     default="Device ID.",
                                 ),
                             },
-                            "device_name": {
+                            "devname": {
                                 "type": "string",
                                 "description": _(
                                     "param.commands.items.device_name.description",
@@ -88,7 +88,7 @@ TOOL_SPEC: dict[str, Any] = {
                                     default="AC mode: auto/cool/dry/fan/heat.",
                                 ),
                             },
-                            "fan_speed": {
+                            "fan": {
                                 "type": "string",
                                 "enum": ["auto", "low", "medium", "high"],
                                 "description": _(
@@ -256,8 +256,8 @@ def _device_sections(body: dict[str, Any]) -> list[tuple[str, list[dict[str, Any
 
 def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
     return {
-        "device_id": item.get("deviceId") or item.get("device_id"),
-        "device_name": item.get("deviceName") or item.get("device_name"),
+        "dev": item.get("deviceId") or item.get("dev"),
+        "devname": item.get("deviceName") or item.get("devname"),
         "device_type": item.get("deviceType") or item.get("device_type") or source,
         "hub_id": item.get("hubDeviceId") or item.get("hub_id"),
         "remote_type": item.get("remoteType"),
@@ -308,7 +308,7 @@ def _resolve_command(device: dict[str, Any], cmd: dict[str, Any]) -> dict[str, A
                     return {"error": "value is required for air conditioner set_value"}
                 clamped = max(16, min(30, int(value)))
                 mode = cmd.get("mode")
-                fan_speed = cmd.get("fan_speed")
+                fan_speed = cmd.get("fan")
                 m = _AC_MODE_MAP.get(mode or "", "")
                 f = _AC_FAN_MAP.get(fan_speed or "", "")
                 return {"command": "setAll", "parameter": f"{clamped},{m},{f},", "action": action}
@@ -398,16 +398,16 @@ def run_tool(args: dict[str, Any]) -> str:
     devices = _fetch_all_devices()
     device_index: dict[str, dict[str, Any]] = {}
     for dev in devices:
-        did = dev.get("device_id")
-        dname = dev.get("device_name")
+        did = dev.get("dev")
+        dname = dev.get("devname")
         if did:
             device_index[did.casefold()] = dev
         if dname:
             device_index[dname.casefold()] = dev
 
     def _find_device(cmd: dict[str, Any]) -> dict[str, Any] | None:
-        did = cmd.get("device_id")
-        dname = cmd.get("device_name")
+        did = cmd.get("dev")
+        dname = cmd.get("devname")
         if did:
             key = did.casefold()
             if key in device_index:
@@ -448,7 +448,7 @@ def run_tool(args: dict[str, Any]) -> str:
             continue
 
         resp = _send_command(
-            device_id=str(device.get("device_id") or ""),
+            device_id=str(device.get("dev") or ""),
             command=resolved["command"],
             parameter=resolved["parameter"],
             timeout=15,

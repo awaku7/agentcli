@@ -5,7 +5,6 @@
     "param.confirmed.description": "If true, skip the tool's internal confirmation prompt.",
     "param.dry_run.description": "If true, only list matched paths and do not delete anything.",
     "param.filename.description": "Path to delete, or a list of paths/glob patterns to delete.",
-    "param.missing_ok.description": "If true, do not error when the path does not exist.",
     "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required.",
     "x_search_terms": [
       "delete file",
@@ -16,7 +15,8 @@
       "supprimer fichier",
       "파일 삭제",
       "удалить файл"
-    ]
+    ],
+    "param.skip.description": "If true, do not error when the path does not exist."
   },
   "ja": {
     "confirm.delete_paths_bulk": "次の {count} 件のパスを削除しますか？\n\n{paths}\n\n続行する場合は y、キャンセルする場合は c を入力してください。",
@@ -24,14 +24,14 @@
     "param.confirmed.description": "有効にすると、ツール内部の確認プロンプトを省略します。",
     "param.dry_run.description": "有効にすると、一致したパスを一覧表示するだけで、削除は行いません。",
     "param.filename.description": "削除するパス、または削除対象のパス / glob パターンの一覧です。",
-    "param.missing_ok.description": "有効にすると、パスが存在しなくてもエラーにしません。",
     "tool.description": "指定したファイルまたはディレクトリを削除します。ディレクトリは再帰的に削除されます。危険な操作のため、確認が必要になる場合があります。",
     "x_search_terms": [
       "delete_file",
       "ファイル削除",
       "ディレクトリ削除",
       "削除"
-    ]
+    ],
+    "param.skip.description": "有効にすると、パスが存在しなくてもエラーにしません。"
   },
   "es": {
     "confirm.delete_paths_bulk": "¿Eliminar {count} rutas?",
@@ -39,14 +39,14 @@
     "param.confirmed.description": "Si está activado, omite el aviso de confirmación in...",
     "param.dry_run.description": "Si está activado, solo enumera las rutas coincidentes sin...",
     "param.filename.description": "Ruta a eliminar o lista de rutas/patrones glob.",
-    "param.missing_ok.description": "Si está activado, no devuelve error si la ruta n...",
     "tool.description": "Elimina el archivo o directorio especificado.Los directorios se eliminan de forma recursiva.",
     "x_search_terms": [
       "delete_file",
       "eliminar archivo",
       "eliminar carpeta",
       "borrar archivo"
-    ]
+    ],
+    "param.skip.description": "Si está activado, no devuelve error si la ruta n..."
   },
   "fr": {
     "confirm.delete_paths_bulk": "Supprimer {count} chemins ?",
@@ -54,14 +54,14 @@
     "param.confirmed.description": "Si activé, ignore l'invite de confirmation interne...",
     "param.dry_run.description": "Si activé, liste uniquement les chemins correspondants sa...",
     "param.filename.description": "Chemin à supprimer ou liste de chemins/modèles glob à supprimer.",
-    "param.missing_ok.description": "Si activé, ne produit pas d'erreur si le chemin...",
     "tool.description": "Supprime le fichier ou le répertoire spécifié.Les répertoires sont supprimés récursivement.",
     "x_search_terms": [
       "delete_file",
       "supprimer fichier",
       "supprimer dossier",
       "effacer fichier"
-    ]
+    ],
+    "param.skip.description": "Si activé, ne produit pas d'erreur si le chemin..."
   },
   "ko": {
     "confirm.delete_paths_bulk": "다음 {count}개의 경로를 삭제하시겠습니까?\n\n{paths}\n\n계속하려면 'y', 취소하려면 'c'를 입력하세요.",
@@ -69,14 +69,14 @@
     "param.confirmed.description": "활성화하면 도구 내부의 확인 프롬프트를 건너뜁니다.",
     "param.dry_run.description": "활성화하면 일치하는 경로만 나열하고 실제 삭제는 수행하지 않습니다.",
     "param.filename.description": "삭제할 경로 또는 경로/glob 패턴 목록입니다.",
-    "param.missing_ok.description": "활성화하면 경로가 존재하지 않아도 에러를 발생시키지 않습니다.",
     "tool.description": "지정된 파일 또는 디렉터리를 삭제합니다. 디렉터리는 재귀적으로 삭제됩니다. 위험한 작업이므로 확인이 필요할 수 있습니다.",
     "x_search_terms": [
       "delete_file",
       "파일 삭제",
       "디렉터리 삭제",
       "삭제"
-    ]
+    ],
+    "param.skip.description": "활성화하면 경로가 존재하지 않아도 에러를 발생시키지 않습니다."
   },
   "de": {
     "confirm.delete_paths_bulk": "{count} Pfade löschen?",
@@ -84,14 +84,14 @@
     "param.confirmed.description": "Wenn aktiviert, wird die interne Bestätigungsauffor...",
     "param.dry_run.description": "Wenn aktiviert, werden nur die passenden Pfade aufgeliste...",
     "param.filename.description": "Zu löschender Pfad oder eine Liste von Pfaden bzw. Glob-Mustern.",
-    "param.missing_ok.description": "Wenn aktiviert, wird kein Fehler ausgegeben, wen...",
     "tool.description": "Löscht die angegebene Datei oder das angegebene Verzeichnis.Verzeichnisse werden rekursiv gelöscht.",
     "x_search_terms": [
       "delete_file",
       "datei löschen",
       "verzeichnis löschen",
       "entfernen"
-    ]
+    ],
+    "param.skip.description": "Wenn aktiviert, wird kein Fehler ausgegeben, wen..."
   },
   "it": {
     "confirm.delete_paths_bulk": "Eliminare {count} percorsi?",
@@ -99,14 +99,14 @@
     "param.confirmed.description": "Se attivato, salta la richiesta di conferma interna...",
     "param.dry_run.description": "Se attivato, elenca solo i percorsi corrispondenti senza...",
     "param.filename.description": "Percorso da eliminare o elenco di percorsi/pattern glob.",
-    "param.missing_ok.description": "Se attivato, non genera errore se il percorso no...",
     "tool.description": "Elimina il file o la directory specificata.Le directory vengono eliminate ricorsivamente.",
     "x_search_terms": [
       "delete_file",
       "elimina file",
       "elimina cartella",
       "rimuovi file"
-    ]
+    ],
+    "param.skip.description": "Se attivato, non genera errore se il percorso no..."
   },
   "ru": {
     "confirm.delete_paths_bulk": "Удалить {count} путей?",
@@ -114,14 +114,14 @@
     "param.confirmed.description": "Если включено, пропускает внутренний запрос подтвер...",
     "param.dry_run.description": "Если включено, только выводит список найденных путей без удаления.",
     "param.filename.description": "Путь для удаления или список путей/шаблонов glob.",
-    "param.missing_ok.description": "Если включено, не выводит ошибку, если путь не с...",
     "tool.description": "Удаляет указанный файл или каталог. Каталоги удаляются рекурсивно. Это опасная операция, поэтому может потребоваться подтверждение.",
     "x_search_terms": [
       "delete_file",
       "удалить файл",
       "удалить каталог",
       "удаление"
-    ]
+    ],
+    "param.skip.description": "Если включено, не выводит ошибку, если путь не с..."
   },
   "pt_BR": {
     "confirm.delete_paths_bulk": "Excluir {count} caminhos?",
@@ -129,14 +129,14 @@
     "param.confirmed.description": "Se ativado, pula o prompt de confirmação interno da...",
     "param.dry_run.description": "Se ativado, lista apenas os caminhos encontrados sem excluir nada.",
     "param.filename.description": "Caminho a excluir ou lista de caminhos/padrões glob.",
-    "param.missing_ok.description": "Se ativado, não gera erro se o caminho não existir.",
     "tool.description": "Exclui o arquivo ou diretório especificado. Diretórios são excluídos recursivamente. Por ser uma operação perigosa, pode exigir confirmação.",
     "x_search_terms": [
       "delete_file",
       "excluir arquivo",
       "excluir pasta",
       "remover arquivo"
-    ]
+    ],
+    "param.skip.description": "Se ativado, não gera erro se o caminho não existir."
   },
   "pt": {
     "confirm.delete_paths_bulk": "Excluir {count} caminhos?",
@@ -144,14 +144,14 @@
     "param.confirmed.description": "Se ativado, ignore o prompt de confirmação interno...",
     "param.dry_run.description": "Se ativado, lista apenas os caminhos correspondentes e nã...",
     "param.filename.description": "Caminho a ser excluído ou uma lista de caminhos/padrões...",
-    "param.missing_ok.description": "Se ativado, não cometa erros quando o caminho nã...",
     "tool.description": "Exclui o arquivo ou diretório especificado. Diretórios são excluídos recursivamente. Como isso é perigoso, pode ser necessária confirmação.",
     "x_search_terms": [
       "delete_file",
       "excluir ficheiro",
       "excluir pasta",
       "remover ficheiro"
-    ]
+    ],
+    "param.skip.description": "Se ativado, não cometa erros quando o caminho nã..."
   },
   "id": {
     "confirm.delete_paths_bulk": "Hapus {count} path berikut?",
@@ -159,14 +159,14 @@
     "param.confirmed.description": "Jika diaktifkan, lewati prompt konfirmasi internal alat.",
     "param.dry_run.description": "Jika diaktifkan, hanya tampilkan path yang cocok dan jang...",
     "param.filename.description": "Path yang akan dihapus, atau daftar path/pola glob yang...",
-    "param.missing_ok.description": "Jika diaktifkan, tidak error saat path tidak ada.",
     "tool.description": "Hapus file atau direktori yang ditentukan. Direktori dihapus secara rekursif. Karena ini berbahaya, konfirmasi mungkin diperlukan.",
     "x_search_terms": [
       "delete_file",
       "hapus file",
       "hapus folder",
       "hapus"
-    ]
+    ],
+    "param.skip.description": "Jika diaktifkan, tidak error saat path tidak ada."
   },
   "vi": {
     "confirm.delete_paths_bulk": "Xóa đường dẫn {count}?\n\n{paths}\n\nNhập y để tiếp tục hoặc c để hủy.",
@@ -174,14 +174,14 @@
     "param.confirmed.description": "Nếu được bật, hãy bỏ qua lời nhắc xác nhận nội bộ c...",
     "param.dry_run.description": "Nếu được bật, chỉ liệt kê các đường dẫn phù hợp và không...",
     "param.filename.description": "Đường dẫn cần xóa hoặc danh sách các đường dẫn/mẫu glob cần xóa.",
-    "param.missing_ok.description": "Nếu được bật sẽ không xảy ra lỗi khi đường dẫn k...",
     "tool.description": "Xóa tệp hoặc thư mục đã chỉ định. Các thư mục sẽ bị xóa đệ quy. Vì đây là thao tác nguy hiểm nên có thể cần xác nhận.",
     "x_search_terms": [
       "delete_file",
       "xóa tệp",
       "xóa thư mục",
       "xóa"
-    ]
+    ],
+    "param.skip.description": "Nếu được bật sẽ không xảy ra lỗi khi đường dẫn k..."
   },
   "pl": {
     "confirm.delete_paths_bulk": "Usunąć ścieżki {count}?",
@@ -189,14 +189,14 @@
     "param.confirmed.description": "Jeśli ta opcja jest włączona, pomiń wewnętrzny moni...",
     "param.dry_run.description": "Jeśli ta opcja jest włączona, wyświetla tylko dopasowane...",
     "param.filename.description": "Ścieżka do usunięcia lub lista ścieżek/wzorców globalnyc...",
-    "param.missing_ok.description": "Jeśli ta opcja jest włączona, nie zgłaszaj błędu...",
     "tool.description": "Usuń określony plik lub katalog. Katalogi są usuwane rekurencyjnie. Ponieważ jest to niebezpieczna operacja, może być wymagane potwierdzenie.",
     "x_search_terms": [
       "delete_file",
       "usuń plik",
       "usuń katalog",
       "usuń"
-    ]
+    ],
+    "param.skip.description": "Jeśli ta opcja jest włączona, nie zgłaszaj błędu..."
   },
   "hi": {
     "confirm.delete_paths_bulk": "{count} पथ हटाएं?",
@@ -204,14 +204,14 @@
     "param.confirmed.description": "यदि सक्षम है, तो टूल के आंतरिक पुष्टिकरण संकेत को छोड़ दें।",
     "param.dry_run.description": "यदि सक्षम है, तो केवल मेल खाने वाले पथों को सूचीबद्ध करें...",
     "param.filename.description": "हटाने के लिए पथ, या हटाने के लिए पथ/ग्लोब पैटर्न की एक सूची।",
-    "param.missing_ok.description": "यदि सक्षम है, तो पथ मौजूद न होने पर त्रुटि न करें।",
     "tool.description": "निर्दिष्ट फ़ाइल या निर्देशिका हटाएँ। निर्देशिकाएँ पुनरावर्ती रूप से हटा दी जाती हैं। क्योंकि यह एक खतरनाक ऑपरेशन है, पुष्टि की आवश्यकता हो सकती है।",
     "x_search_terms": [
       "delete_file",
       "फ़ाइल हटाएं",
       "फ़ोल्डर हटाएं",
       "हटाएं"
-    ]
+    ],
+    "param.skip.description": "यदि सक्षम है, तो पथ मौजूद न होने पर त्रुटि न करें।"
   },
   "ar": {
     "confirm.delete_paths_bulk": "هل تريد حذف {count} من المسارات؟\n\n{paths}\n\nأدخل y للمتابعة، أو c للإلغاء.",
@@ -219,14 +219,14 @@
     "param.confirmed.description": "في حالة التمكين، قم بتخطي مطالبة التأكيد الداخلي للأداة.",
     "param.dry_run.description": "في حالة التمكين، قم بإدراج المسارات المتطابقة فقط ولا تحذف أي شيء.",
     "param.filename.description": "المسار المراد حذفه، أو قائمة المسارات/أنماط glob المراد حذفها.",
-    "param.missing_ok.description": "إذا تم تمكينه، فلا تخطئ عندما يكون المسار غير موجود.",
     "tool.description": "احذف الملف أو الدليل المحدد. تُحذف الأدلة بشكلٍ递归ي. ونظرًا لخطورة ذلك، قد يلزم التأكيد.",
     "x_search_terms": [
       "delete_file",
       "حذف ملف",
       "حذف مجلد",
       "إزالة"
-    ]
+    ],
+    "param.skip.description": "إذا تم تمكينه، فلا تخطئ عندما يكون المسار غير موجود."
   },
   "sv": {
     "confirm.delete_paths_bulk": "Ta bort {count} sökvägar?",
@@ -234,14 +234,14 @@
     "param.confirmed.description": "Om det är aktiverat hoppas verktygets interna bekrä...",
     "param.dry_run.description": "Om det är aktiverat listas endast matchande sökvägar och...",
     "param.filename.description": "Sökväg som ska tas bort, eller en lista med sökvägar/glo...",
-    "param.missing_ok.description": "Om det är aktiverat uppstår inget fel när sökväg...",
     "tool.description": "Tar bort den angivna filen eller katalogen. Kataloger tas bort rekursivt. Eftersom detta är en farlig åtgärd kan bekräftelse krävas.",
     "x_search_terms": [
       "delete_file",
       "ta bort fil",
       "ta bort mapp",
       "radera"
-    ]
+    ],
+    "param.skip.description": "Om det är aktiverat uppstår inget fel när sökväg..."
   },
   "sw": {
     "confirm.delete_paths_bulk": "Futa njia {count}?\n\n{paths}\n\nAndika y kuendelea, au c kughairi.",
@@ -249,14 +249,14 @@
     "param.confirmed.description": "Ikiwashwa, ruka ombi la uthibitisho la ndani la zana.",
     "param.dry_run.description": "Ikiwashwa, orodhesha tu njia zinazolingana na usifute chochote.",
     "param.filename.description": "Njia ya kufuta, au orodha ya njia/viwango vya glob vya kufuta.",
-    "param.missing_ok.description": "Ikiwashwa, usitoe hitilafu njia isipokuwepo.",
     "tool.description": "Futa faili au saraka iliyobainishwa. Saraka hufutwa kwa kujirudia. Kwa kuwa hiki ni kitendo hatari, uthibitisho unaweza kuhitajika.",
     "x_search_terms": [
       "delete_file",
       "futa faili",
       "futa folda",
       "ondoa"
-    ]
+    ],
+    "param.skip.description": "Ikiwashwa, usitoe hitilafu njia isipokuwepo."
   },
   "nb": {
     "confirm.delete_paths_bulk": "Slett {count} stier?",
@@ -264,14 +264,14 @@
     "param.confirmed.description": "Hvis det er aktivert, hoppes verktøyets interne bek...",
     "param.dry_run.description": "Hvis det er aktivert, listes bare samsvarende stier, og i...",
     "param.filename.description": "Sti som skal slettes, eller en liste over stier/glob-mønstre.",
-    "param.missing_ok.description": "Hvis det er aktivert, får du ikke feil når stien...",
     "tool.description": "Sletter den angitte filen eller katalogen. Kataloger slettes rekursivt. Siden dette er en farlig handling, kan bekreftelse være nødvendig.",
     "x_search_terms": [
       "delete_file",
       "slett fil",
       "slett mappe",
       "fjern"
-    ]
+    ],
+    "param.skip.description": "Hvis det er aktivert, får du ikke feil når stien..."
   },
   "nl": {
     "confirm.delete_paths_bulk": "Deze {count} paden verwijderen?",
@@ -279,14 +279,14 @@
     "param.confirmed.description": "Indien ingeschakeld, de interne bevestigingsprompt...",
     "param.dry_run.description": "Indien ingeschakeld, alleen gematchte paden tonen en niet...",
     "param.filename.description": "Pad om te verwijderen, of een lijst met paden/glob-patro...",
-    "param.missing_ok.description": "Indien ingeschakeld, geen fout geven als het pad...",
     "tool.description": "Verwijdert het opgegeven bestand of de opgegeven map. Mappen worden recursief verwijderd. Omdat dit gevaarlijk is, kan bevestiging vereist zijn.",
     "x_search_terms": [
       "delete_file",
       "bestand verwijderen",
       "map verwijderen",
       "verwijderen"
-    ]
+    ],
+    "param.skip.description": "Indien ingeschakeld, geen fout geven als het pad..."
   },
   "fi": {
     "confirm.delete_paths_bulk": "Poistetaanko nämä {count} polkua?",
@@ -294,14 +294,14 @@
     "param.confirmed.description": "Kun käytössä, ohita työkalun sisäinen vahvistuskehote.",
     "param.dry_run.description": "Kun käytössä, listaa vain osuvat polut äläkä poista mitään.",
     "param.filename.description": "Poistettava polku tai poistettavien polkujen/glob-kuvioi...",
-    "param.missing_ok.description": "Kun käytössä, älä anna virhettä, jos polkua ei o...",
     "tool.description": "Poistaa annetun tiedoston tai hakemiston. Hakemistot poistetaan rekursiivisesti. Koska tämä on vaarallista, vahvistus voidaan vaatia.",
     "x_search_terms": [
       "delete_file",
       "poista tiedosto",
       "poista kansio",
       "poista"
-    ]
+    ],
+    "param.skip.description": "Kun käytössä, älä anna virhettä, jos polkua ei o..."
   },
   "cs": {
     "confirm.delete_paths_bulk": "Smazat {count} cest?",
@@ -309,14 +309,14 @@
     "param.confirmed.description": "Je-li povoleno, přeskočí interní potvrzovací výzvu...",
     "param.dry_run.description": "Je-li povoleno, pouze vypíše odpovídající cesty a nic nesmaže.",
     "param.filename.description": "Cesta ke smazání nebo seznam cest / glob vzorů ke smazání.",
-    "param.missing_ok.description": "Je-li povoleno, nevyvolá chybu, pokud cesta neexistuje.",
     "tool.description": "Smaže zadaný soubor nebo adresář. Adresáře se mažou rekurzivně. Protože jde o nebezpečnou operaci, může být vyžadováno potvrzení.",
     "x_search_terms": [
       "delete_file",
       "smazat soubor",
       "smazat složku",
       "odstranit"
-    ]
+    ],
+    "param.skip.description": "Je-li povoleno, nevyvolá chybu, pokud cesta neexistuje."
   },
   "uk": {
     "confirm.delete_paths_bulk": "Видалити {count} шляхів?",
@@ -324,14 +324,14 @@
     "param.confirmed.description": "Якщо ввімкнено, пропускає внутрішній запит підтверд...",
     "param.dry_run.description": "Якщо ввімкнено, лише перелічує відповідні шляхи й нічого...",
     "param.filename.description": "Шлях для видалення або список шляхів/шаблонів glob для в...",
-    "param.missing_ok.description": "Якщо ввімкнено, не повертати помилку, коли шлях...",
     "tool.description": "Видаляє вказаний файл або каталог. Каталоги видаляються рекурсивно. Оскільки це небезпечна операція, може знадобитися підтвердження.",
     "x_search_terms": [
       "delete_file",
       "видалити файл",
       "видалити каталог",
       "видалення"
-    ]
+    ],
+    "param.skip.description": "Якщо ввімкнено, не повертати помилку, коли шлях..."
   },
   "tr": {
     "confirm.delete_paths_bulk": "{count} yolları silinsin mi?",
@@ -339,14 +339,14 @@
     "param.confirmed.description": "Etkinleştirilirse aracın dahili onay istemini atlayın.",
     "param.dry_run.description": "Etkinleştirilirse yalnızca eşleşen yolları listeleyin ve...",
     "param.filename.description": "Silinecek yol veya silinecek yolların/küre desenlerinin listesi.",
-    "param.missing_ok.description": "Etkinleştirilirse, yol mevcut olmadığında hata yapmayın.",
     "tool.description": "Belirtilen dosyayı veya dizini silin. Dizinler yinelemeli olarak silinir. Bu tehlikeli bir işlem olduğu için onay gerekebilir.",
     "x_search_terms": [
       "delete_file",
       "dosya sil",
       "klasör sil",
       "sil"
-    ]
+    ],
+    "param.skip.description": "Etkinleştirilirse, yol mevcut olmadığında hata yapmayın."
   },
   "th": {
     "confirm.delete_paths_bulk": "ลบ {count} เส้นทางต่อไปนี้หรือไม่?",
@@ -354,14 +354,14 @@
     "param.confirmed.description": "หากเปิดใช้งาน จะข้ามขั้นตอนการยืนยันภายในเครื่องมือ",
     "param.dry_run.description": "หากเปิดใช้งาน จะแสดงเฉพาะรายการที่ตรงกันโดยไม่มีการลบจริง",
     "param.filename.description": "เส้นทางที่จะลบ หรือรายการของเส้นทาง/รูปแบบ glob",
-    "param.missing_ok.description": "หากเปิดใช้งาน จะไม่แสดงข้อผิดพลาดหากไม่พบเส้นทาง",
     "tool.description": "ลบไฟล์หรือไดเรกทอรีที่ระบุ ไดเรกทอรีจะถูกลบแบบเรียกซ้ำ เนื่องจากเป็นการดำเนินการที่อันตราย อาจต้องมีการยืนยันก่อน",
     "x_search_terms": [
       "delete_file",
       "ลบไฟล์",
       "ลบโฟลเดอร์",
       "ลบ"
-    ]
+    ],
+    "param.skip.description": "หากเปิดใช้งาน จะไม่แสดงข้อผิดพลาดหากไม่พบเส้นทาง"
   },
   "zh_CN": {
     "confirm.delete_paths_bulk": "删除以下 {count} 个路径吗？\n\n{paths}\n\n输入 y 继续，或输入 c 取消。",
@@ -369,14 +369,14 @@
     "param.confirmed.description": "如果启用，跳过工具内部的确认提示。",
     "param.dry_run.description": "如果启用，仅列出匹配的路径，而不执行删除。",
     "param.filename.description": "要删除的路径，或路径/glob 模式列表。",
-    "param.missing_ok.description": "如果启用，路径不存在时不会报错。",
     "tool.description": "删除指定的文件或目录。目录将被递归删除。由于这是危险操作，可能需要确认。",
     "x_search_terms": [
       "delete_file",
       "删除文件",
       "删除目录",
       "移除"
-    ]
+    ],
+    "param.skip.description": "如果启用，路径不存在时不会报错。"
   },
   "zh_TW": {
     "confirm.delete_paths_bulk": "刪除以下 {count} 個路徑嗎？\n\n{paths}\n\n輸入 y 繼續，或輸入 c 取消。",
@@ -384,14 +384,14 @@
     "param.confirmed.description": "如果啟用，跳過工具內部的確認提示。",
     "param.dry_run.description": "如果啟用，僅列出相符的路徑，而不執行刪除。",
     "param.filename.description": "要刪除的路徑，或路徑/glob 模式清單。",
-    "param.missing_ok.description": "如果啟用，路徑不存在時不會報錯。",
     "tool.description": "刪除指定的檔案或目錄。目錄將被遞迴刪除。由於這是危險操作，可能需要確認。",
     "x_search_terms": [
       "delete_file",
       "刪除檔案",
       "刪除資料夾",
       "移除"
-    ]
+    ],
+    "param.skip.description": "如果啟用，路徑不存在時不會報錯。"
   },
   "bn": {
     "confirm.delete_paths_bulk": "এই {count}টি পথ মুছতে চান?\n\n{paths}\n\nচালিয়ে যেতে y, বাতিল করতে c লিখুন।",
@@ -399,14 +399,14 @@
     "param.confirmed.description": "সক্ষম থাকলে টুলের অভ্যন্তরীণ নিশ্চিতকরণ প্রম্পট এড়...",
     "param.dry_run.description": "সক্ষম থাকলে শুধু মিল থাকা পথগুলো দেখাবে, কিছুই মুছবে না।",
     "param.filename.description": "মুছতে হবে এমন পথ, অথবা মুছতে হবে এমন পথ/গ্লোব প্যাটার্নে...",
-    "param.missing_ok.description": "সক্ষম থাকলে পথ না থাকলেও ত্রুটি দেবে না।",
     "tool.description": "নির্দিষ্ট ফাইল বা ডিরেক্টরি মুছে দেয়। ডিরেক্টরি পুনরাবৃত্তিভাবে মুছে ফেলা হয়। এটি বিপজ্জনক হওয়ায় নিশ্চিতকরণ লাগতে পারে।",
     "x_search_terms": [
       "delete_file",
       "ফাইল মুছুন",
       "ফোল্ডার মুছুন",
       "মুছুন"
-    ]
+    ],
+    "param.skip.description": "সক্ষম থাকলে পথ না থাকলেও ত্রুটি দেবে না।"
   },
   "fa": {
     "confirm.delete_paths_bulk": "آیا {count} مسیر حذف شود؟\n\n{paths}\n\nبرای ادامه y و برای لغو c را...",
@@ -414,14 +414,14 @@
     "param.confirmed.description": "اگر فعال باشد، پیام تأیید داخلی ابزار را رد می‌کند.",
     "param.dry_run.description": "اگر فعال باشد، فقط مسیرهای منطبق را فهرست می‌کند و چیزی ر...",
     "param.filename.description": "مسیرِ موردنظر برای حذف، یا فهرستی از مسیرها/الگوهای glob...",
-    "param.missing_ok.description": "اگر فعال باشد، نبودن مسیر خطا محسوب نمی‌شود.",
     "tool.description": "فایل یا پوشهٔ مشخص‌شده را حذف می‌کند. پوشه‌ها به‌صورت بازگشتی حذف می‌شوند. چون این عملیات خطرناک است، ممکن است تأیید لازم باشد.",
     "x_search_terms": [
       "delete_file",
       "حذف فایل",
       "حذف پوشه",
       "حذف"
-    ]
+    ],
+    "param.skip.description": "اگر فعال باشد، نبودن مسیر خطا محسوب نمی‌شود."
   },
   "mn": {
     "confirm.delete_paths_bulk": "{count} замыг устгах уу?",
@@ -429,14 +429,14 @@
     "param.confirmed.description": "Идэвхтэй бол хэрэгслийн дотоод баталгаажуулалтын ас...",
     "param.dry_run.description": "Идэвхтэй бол зөвхөн таарсан замуудыг жагсааж, юу ч устгахгүй.",
     "param.filename.description": "Устгах зам, эсвэл устгах зам/glob хэв маягийн жагсаалт.",
-    "param.missing_ok.description": "Идэвхтэй бол зам байхгүй үед алдаа гаргахгүй.",
     "tool.description": "Заасан файл эсвэл директорыг устгана. Директоруудыг рекурсивээр устгана. Энэ нь аюултай үйлдэл тул баталгаажуулалт шаардагдаж магадгүй.",
     "x_search_terms": [
       "delete_file",
       "файл устгах",
       "хавтас устгах",
       "устгах"
-    ]
+    ],
+    "param.skip.description": "Идэвхтэй бол зам байхгүй үед алдаа гаргахгүй."
   },
   "mr": {
     "confirm.delete_paths_bulk": "{count} मार्ग काढायचे का?",
@@ -444,13 +444,13 @@
     "param.confirmed.description": "सक्षम असल्यास, साधनाचा अंतर्गत पुष्टीकरण प्रॉम्प्ट वगळा.",
     "param.dry_run.description": "सक्षम असल्यास, फक्त जुळणारे मार्ग दाखवा आणि काहीही हटवू नका.",
     "param.filename.description": "हटवायचा मार्ग, किंवा हटवायच्या मार्गांची/glob नमुन्यांची यादी.",
-    "param.missing_ok.description": "सक्षम असल्यास, मार्ग अस्तित्वात नसला तरी त्रुटी देऊ नका.",
     "tool.description": "निश्चित फाइल किंवा निर्देशिका हटवते. निर्देशिका पुनरावृत्तीने हटवल्या जातात. ही धोकादायक क्रिया असल्याने पुष्टीकरण आवश्यक असू शकते.",
     "x_search_terms": [
       "delete_file",
       "फाइल हटवा",
       "फोल्डर हटवा",
       "हटवा"
-    ]
+    ],
+    "param.skip.description": "सक्षम असल्यास, मार्ग अस्तित्वात नसला तरी त्रुटी देऊ नका."
   }
 }

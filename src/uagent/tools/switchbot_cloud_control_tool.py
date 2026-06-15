@@ -36,19 +36,19 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "device_id": {
+                "dev": {
                     "type": "string",
                     "description": _(
-                        "param.device_id.description",
+                        "param.dev.description",
                         default=(
                             "SwitchBot device ID to look up. Preferred identifier."
                         ),
                     ),
                 },
-                "device_name": {
+                "devname": {
                     "type": "string",
                     "description": _(
-                        "param.device_name.description",
+                        "param.devname.description",
                         default=(
                             "SwitchBot device name to look up when device_id is not provided."
                         ),
@@ -91,11 +91,11 @@ TOOL_SPEC: dict[str, Any] = {
                         default="AC mode: auto/cool/dry/fan/heat.",
                     ),
                 },
-                "fan_speed": {
+                "fan": {
                     "type": "string",
                     "enum": ["auto", "low", "medium", "high"],
                     "description": _(
-                        "param.fan_speed.description",
+                        "param.fan.description",
                         default="AC fan: auto/low/medium/high.",
                     ),
                 },
@@ -266,8 +266,8 @@ def _device_sections(body: dict[str, Any]) -> list[tuple[str, list[dict[str, Any
 
 def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
     return {
-        "device_id": item.get("deviceId") or item.get("device_id"),
-        "device_name": item.get("deviceName") or item.get("device_name"),
+        "dev": item.get("deviceId") or item.get("dev"),
+        "devname": item.get("deviceName") or item.get("devname"),
         "device_type": item.get("deviceType") or item.get("device_type") or source,
         "hub_id": item.get("hubDeviceId") or item.get("hub_id"),
         "room_id": item.get("roomId") or item.get("room_id"),
@@ -290,7 +290,7 @@ def _normalize_status_item(item: dict[str, Any]) -> dict[str, Any]:
         "battery": item.get("battery"),
         "position": item.get("position"),
         "light_level": item.get("lightLevel") or item.get("light_level"),
-        "fan_speed": item.get("fanSpeed") or item.get("fan_speed"),
+        "fan": item.get("fanSpeed") or item.get("fan"),
         "lock_state": item.get("lockState") or item.get("lock_state"),
         "child_lock": item.get("childLock") or item.get("child_lock"),
         "raw": item,
@@ -314,7 +314,7 @@ def _find_device(
     if device_id:
         target = device_id.casefold()
         for item in items:
-            candidate = str(item.get("device_id") or "").casefold()
+            candidate = str(item.get("dev") or "").casefold()
             if candidate == target:
                 return item, None
         return None, {
@@ -331,7 +331,7 @@ def _find_device(
     matches = [
         item
         for item in items
-        if needle in str(item.get("device_name") or "").casefold()
+        if needle in str(item.get("devname") or "").casefold()
     ]
     if not matches:
         return None, {
@@ -352,8 +352,8 @@ def _find_device(
             ),
             "matches": [
                 {
-                    "device_name": item.get("device_name"),
-                    "device_id": item.get("device_id"),
+                    "devname": item.get("devname"),
+                    "dev": item.get("dev"),
                 }
                 for item in matches[:10]
             ],
@@ -571,8 +571,8 @@ def _format_text(result: dict[str, Any]) -> str:
             "msg.summary",
             default="SwitchBot Cloud control completed: {action} on {device_name} ({device_id}).",
             action=command.get("action") or "(unknown)",
-            device_name=device.get("device_name") or "(unknown)",
-            device_id=device.get("device_id") or "(unknown)",
+            device_name=device.get("devname") or "(unknown)",
+            device_id=device.get("dev") or "(unknown)",
         ),
         f"Device type: {device.get('device_type') or '-'}",
         f"Command: {command.get('command') or '-'}",
@@ -596,8 +596,8 @@ def _build_device_list(devices_data: dict[str, Any]) -> list[dict[str, Any]]:
 
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").lower()
-    device_id = args.get("device_id")
-    device_name = args.get("device_name")
+    device_id = args.get("dev")
+    device_name = args.get("devname")
     action = str(args.get("action") or "").strip()
     raw_value = args.get("value")
 
@@ -690,7 +690,7 @@ def run_tool(args: dict[str, Any]) -> str:
             value=value,
             remote_type=device.get("raw", {}).get("remoteType"),
             mode=args.get("mode"),
-            fan_speed=args.get("fan_speed"),
+            fan_speed=args.get("fan"),
         )
         if build_err is not None or not command:
             payload = {
@@ -705,7 +705,7 @@ def run_tool(args: dict[str, Any]) -> str:
             )
 
         command_resp = _send_command(
-            device_id=str(device.get("device_id") or ""),
+            device_id=str(device.get("dev") or ""),
             command=command,
             parameter=parameter,
             timeout=timeout,
@@ -718,7 +718,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 else json.dumps(payload, ensure_ascii=False)
             )
 
-        status_resp = _fetch_status(str(device.get("device_id") or ""), timeout=timeout)
+        status_resp = _fetch_status(str(device.get("dev") or ""), timeout=timeout)
         status_item: dict[str, Any] = {}
         status_raw: dict[str, Any] | None = None
         if status_resp.get("ok"):
@@ -730,8 +730,8 @@ def run_tool(args: dict[str, Any]) -> str:
         result = {
             "ok": True,
             "device": {
-                "device_id": device.get("device_id"),
-                "device_name": device.get("device_name"),
+                "dev": device.get("dev"),
+                "devname": device.get("devname"),
                 "device_type": device.get("device_type"),
                 "hub_id": device.get("hub_id"),
                 "room_id": device.get("room_id"),

@@ -67,11 +67,11 @@ TOOL_SPEC: dict[str, Any] = {
                         default="If true, do not modify the file; only report what would change.",
                     ),
                 },
-                "max_bytes": {
+                "maxb": {
                     "type": "integer",
                     "default": 200000000,
                     "description": _(
-                        "param.max_bytes.description",
+                        "param.maxb.description",
                         default="Reject files larger than this size (bytes).",
                     ),
                 },
@@ -364,7 +364,7 @@ def run_tool(args: dict[str, Any]) -> str:
             raise ValueError("[binary_edit] invalid mode")
 
         dry_run = bool(args.get("dry_run", False))
-        max_bytes = int(args.get("max_bytes", 200_000_000))
+        max_bytes = int(args.get("maxb", 200_000_000))
 
         p = Path(path_s)
         before_size, before_sha = _ensure_file_ok(p, max_bytes=max_bytes)

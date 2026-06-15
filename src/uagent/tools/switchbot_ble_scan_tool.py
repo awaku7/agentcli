@@ -67,19 +67,19 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "device_name": {
+                "devname": {
                     "type": "string",
                     "description": _(
-                        "param.device_name.description",
+                        "param.devname.description",
                         default=(
                             "Device name filter."
                         ),
                     ),
                 },
-                "mac_address": {
+                "mac": {
                     "type": "string",
                     "description": _(
-                        "param.mac_address.description",
+                        "param.mac.description",
                         default="MAC address filter.",
                     ),
                 },
@@ -306,8 +306,8 @@ def _format_text(result: dict[str, Any]) -> str:
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").lower()
     interface = args.get("interface")
-    device_name = args.get("device_name")
-    mac_address = args.get("mac_address")
+    device_name = args.get("devname")
+    mac_address = args.get("mac")
     service_uuid = args.get("service_uuid")
 
     try:

@@ -38,9 +38,7 @@
     "param.po_msgid.description": "gettext msgid (fallback: pattern).",
     "param.anchor_before.description": "Start anchor.",
     "param.anchor_after.description": "End anchor.",
-    "param.name_pattern.description": "Glob pattern used by replace_all_in_files (default: '*').",
     "param.occurrence.description": "Occurrence (1-based; 0 = all).",
-    "param.recursive.description": "Recursively scan under the target directory.",
     "hint.escaped_newline_tokens_not_expanded": "Escaped newline tokens were not expanded. Set expand_newline_tokens=true or use actual newlines.",
     "hint.possible_regex_mode_literal": "Pattern looks like it contains regex-style meta-characters but mode is literal.",
     "hint.mixed_newline_write_style": "Input file has mixed newline styles. Writing will use the selected_for_write style.",
@@ -48,7 +46,9 @@
     "hint.anchor_after_not_found": "anchor_after was not found.",
     "hint.po_msgid_not_found": "msgid was not found in the .po file.",
     "hint.occurrence_exceeds_matches": "Requested occurrence {occurrence} exceeds available matches ({match_count}).",
-    "hint.anchor_after_not_found_after_before": "anchor_after was not found after anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after was not found after anchor_before.",
+    "param.glob.description": "Glob pattern used by replace_all_in_files (default: '*').",
+    "param.recur.description": "Recursively scan under the target directory."
   },
   "ja": {
     "err.path_missing": "パスが指定されていません",
@@ -90,8 +90,6 @@
     "param.anchor_before.description": "開始アンカー。",
     "param.anchor_after.description": "終了アンカー。",
     "param.occurrence.description": "出現位置（1始まり。0はすべて）。",
-    "param.name_pattern.description": "replace_all_in_files で使う glob パターン（既定: '*')。",
-    "param.recursive.description": "対象ディレクトリ配下を再帰的に検索します。",
     "hint.escaped_newline_tokens_not_expanded": "エスケープされた改行トークンは展開されませんでした。expand_newline_tokens=true を指定するか、実改行を使用してください。",
     "hint.possible_regex_mode_literal": "パターンに正規表現風のメタ文字が含まれているようですが、mode は literal です。",
     "hint.mixed_newline_write_style": "入力ファイルに複数の改行スタイルが混在しています。書き込み時は selected_for_write のスタイルを使用します。",
@@ -99,7 +97,9 @@
     "hint.anchor_after_not_found": "anchor_after が見つかりませんでした。",
     "hint.po_msgid_not_found": ".po ファイル内に msgid が見つかりませんでした。",
     "hint.occurrence_exceeds_matches": "指定された occurrence {occurrence} は利用可能な一致数 ({match_count}) を超えています。",
-    "hint.anchor_after_not_found_after_before": "anchor_before の後に anchor_after が見つかりませんでした。"
+    "hint.anchor_after_not_found_after_before": "anchor_before の後に anchor_after が見つかりませんでした。",
+    "param.glob.description": "replace_all_in_files で使う glob パターン（既定: '*')。",
+    "param.recur.description": "対象ディレクトリ配下を再帰的に検索します。"
   },
   "es": {
     "err.path_missing": "la ruta no está es...",
@@ -141,8 +141,6 @@
     "param.anchor_before.description": "Ancla inic...",
     "param.anchor_after.description": "Ancla fi...",
     "param.occurrence.description": "Qué ocurrencia reemplazar (...",
-    "param.name_pattern.description": "Patrón glob usado por replace_all_in_files (predetermi...",
-    "param.recursive.description": "Buscar recursivamente bajo el directorio...",
     "hint.escaped_newline_tokens_not_expanded": "Los tokens de salto de línea escapados no se expandieron.",
     "hint.possible_regex_mode_literal": "El patrón parece contener metacaracteres de tipo regex, pero mode es literal.",
     "hint.mixed_newline_write_style": "El archivo de entrada tiene estilos de salto de línea mezclados.",
@@ -150,7 +148,9 @@
     "hint.anchor_after_not_found": "No se encontró anchor_after.",
     "hint.po_msgid_not_found": "No se encontró msgid en el archivo .po.",
     "hint.occurrence_exceeds_matches": "La occurrence solicitada {occurrence} supera las coincidencias disponible...",
-    "hint.anchor_after_not_found_after_before": "No se encontró anchor_after después de ancho..."
+    "hint.anchor_after_not_found_after_before": "No se encontró anchor_after después de ancho...",
+    "param.glob.description": "Patrón glob usado por replace_all_in_files (predetermi...",
+    "param.recur.description": "Buscar recursivamente bajo el directorio..."
   },
   "fr": {
     "err.path_missing": "le chemin n'est pa...",
@@ -192,8 +192,6 @@
     "param.anchor_before.description": "Ancre de d...",
     "param.anchor_after.description": "Ancre de...",
     "param.occurrence.description": "Quelle occurrence remplacer...",
-    "param.name_pattern.description": "Motif glob utilisé par replace_all_in_files (par défau...",
-    "param.recursive.description": "Parcourir récursivement le répertoire cible.",
     "hint.escaped_newline_tokens_not_expanded": "Les jetons de saut de ligne échappés n’ont pas été développés.",
     "hint.possible_regex_mode_literal": "Le motif semble contenir des métacaractères de type regex, mais mode vaut literal.",
     "hint.mixed_newline_write_style": "Le fichier d’entrée contient plusieurs styles de saut de ligne.",
@@ -201,7 +199,9 @@
     "hint.anchor_after_not_found": "anchor_after est introuvable.",
     "hint.po_msgid_not_found": "msgid est introuvable dans le fic...",
     "hint.occurrence_exceeds_matches": "L’occurrence demandée {occurrence} dépasse les correspondances disponible...",
-    "hint.anchor_after_not_found_after_before": "anchor_after est introuvable après anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after est introuvable après anchor_before.",
+    "param.glob.description": "Motif glob utilisé par replace_all_in_files (par défau...",
+    "param.recur.description": "Parcourir récursivement le répertoire cible."
   },
   "ko": {
     "err.path_missing": "경로가 지정되지 않음",
@@ -243,8 +243,6 @@
     "param.anchor_before.description": "시작 앵커.",
     "param.anchor_after.description": "종료 앵커.",
     "param.occurrence.description": "발생 위치(1부터 시작, 0은 전체).",
-    "param.name_pattern.description": "replace_all_in_files에 사용하는 glob 패턴(기본값: '*').",
-    "param.recursive.description": "대상 디렉터리 아래를 재귀적으로 검색합니다.",
     "hint.escaped_newline_tokens_not_expanded": "이스케이프된 줄바꿈 토큰이 확장되지 않았습니다. expand_newline_tokens=true 를 설정하거나 실제 줄바꿈을 사용하세요.",
     "hint.possible_regex_mode_literal": "패턴에 정규식 스타일의 메타 문자가 포함된 것 같지만 mode는 literal입니다.",
     "hint.mixed_newline_write_style": "입력 파일에 줄바꿈 스타일이 섞여 있습니다. 쓰기 시 selected_for_write 스타일을 사용합니다.",
@@ -252,7 +250,9 @@
     "hint.anchor_after_not_found": "anchor_after를 찾을 수 없습니다.",
     "hint.po_msgid_not_found": ".po 파일에서 msgid를 찾을 수 없습니다.",
     "hint.occurrence_exceeds_matches": "요청한 occurrence {occurrence} 이(가) 사용 가능한 일치 수 ({match_count})를 초과합니다.",
-    "hint.anchor_after_not_found_after_before": "anchor_before 뒤에서 anchor_after를 찾을 수 없습니다."
+    "hint.anchor_after_not_found_after_before": "anchor_before 뒤에서 anchor_after를 찾을 수 없습니다.",
+    "param.glob.description": "replace_all_in_files에 사용하는 glob 패턴(기본값: '*').",
+    "param.recur.description": "대상 디렉터리 아래를 재귀적으로 검색합니다."
   },
   "de": {
     "err.path_missing": "Pfad nicht angegeben",
@@ -294,8 +294,6 @@
     "param.anchor_before.description": "Startanker...",
     "param.anchor_after.description": "Endanker...",
     "param.occurrence.description": "Welche Vorkommen ersetzt we...",
-    "param.name_pattern.description": "Glob-Muster für replace_all_in_files (Standard: '*').",
-    "param.recursive.description": "Unter dem Zielverzeichnis rekursiv suchen.",
     "hint.escaped_newline_tokens_not_expanded": "Escapete Zeilenumbruch-Token wurden nicht erweitert.",
     "hint.possible_regex_mode_literal": "Das Muster scheint regexartige Metazeichen zu enthalten, aber mode ist literal.",
     "hint.mixed_newline_write_style": "Die Eingabedatei enthält gemischte Zeilenumbruchstile.",
@@ -303,7 +301,9 @@
     "hint.anchor_after_not_found": "anchor_after wurde nicht...",
     "hint.po_msgid_not_found": "msgid wurde in der .",
     "hint.occurrence_exceeds_matches": "Die angeforderte occurrence {occurrence} überschreitet die verfügbaren Tr...",
-    "hint.anchor_after_not_found_after_before": "anchor_after wurde nach anchor_before nicht..."
+    "hint.anchor_after_not_found_after_before": "anchor_after wurde nach anchor_before nicht...",
+    "param.glob.description": "Glob-Muster für replace_all_in_files (Standard: '*').",
+    "param.recur.description": "Unter dem Zielverzeichnis rekursiv suchen."
   },
   "it": {
     "err.path_missing": "il percorso non è...",
@@ -345,8 +345,6 @@
     "param.anchor_before.description": "Ancoraggio...",
     "param.anchor_after.description": "Ancoragg...",
     "param.occurrence.description": "Quale occorrenza sostituire...",
-    "param.name_pattern.description": "Pattern glob usato da replace_all_in_files (predefinito: '*').",
-    "param.recursive.description": "Scansiona ricorsivamente la directory di...",
     "hint.escaped_newline_tokens_not_expanded": "I token di nuova riga con escape non sono stati espansi.",
     "hint.possible_regex_mode_literal": "Il pattern sembra contenere metacaratteri in stile regex, ma mode è literal.",
     "hint.mixed_newline_write_style": "Il file di input contiene stili di newline misti.",
@@ -354,7 +352,9 @@
     "hint.anchor_after_not_found": "anchor_after non è stato...",
     "hint.po_msgid_not_found": "msgid non è stato trovato nel file .po.",
     "hint.occurrence_exceeds_matches": "La occurrence richiesta {occurrence} supera le corrispondenze disponibili...",
-    "hint.anchor_after_not_found_after_before": "anchor_after non è stato trovato dopo anchor..."
+    "hint.anchor_after_not_found_after_before": "anchor_after non è stato trovato dopo anchor...",
+    "param.glob.description": "Pattern glob usato da replace_all_in_files (predefinito: '*').",
+    "param.recur.description": "Scansiona ricorsivamente la directory di..."
   },
   "ru": {
     "err.path_missing": "путь не указан",
@@ -396,8 +396,6 @@
     "param.anchor_before.description": "Начальный...",
     "param.anchor_after.description": "Конечный...",
     "param.occurrence.description": "Какое вхождение заменить (н...",
-    "param.name_pattern.description": "Glob-шаблон для replace_all_in_files (по умолчанию: '*').",
-    "param.recursive.description": "Рекурсивно просматривать целевой каталог.",
     "hint.escaped_newline_tokens_not_expanded": "Экранированные токены перевода строки не были раскрыты.",
     "hint.possible_regex_mode_literal": "Похоже, pattern содержит метасимволы в стиле regex, но mode равен literal.",
     "hint.mixed_newline_write_style": "Входной файл содержит смешанные стили переводов строк.",
@@ -405,7 +403,9 @@
     "hint.anchor_after_not_found": "anchor_after не найден.",
     "hint.po_msgid_not_found": "msgid не найден в файле .po.",
     "hint.occurrence_exceeds_matches": "Запрошенная occurrence {occurrence} превышает число доступных совпадений...",
-    "hint.anchor_after_not_found_after_before": "anchor_after не найден после anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after не найден после anchor_before.",
+    "param.glob.description": "Glob-шаблон для replace_all_in_files (по умолчанию: '*').",
+    "param.recur.description": "Рекурсивно просматривать целевой каталог."
   },
   "pt_BR": {
     "err.path_missing": "o caminho não foi...",
@@ -447,8 +447,6 @@
     "param.anchor_before.description": "Âncora ini...",
     "param.anchor_after.description": "Âncora f...",
     "param.occurrence.description": "Qual ocorrência substituir...",
-    "param.name_pattern.description": "Padrão glob usado por replace_all_in_files (padrão: '*').",
-    "param.recursive.description": "Examinar recursivamente o diretório de destino.",
     "hint.escaped_newline_tokens_not_expanded": "Os tokens de quebra de linha escapados não foram expandidos.",
     "hint.possible_regex_mode_literal": "O padrão parece conter metacaracteres do tipo regex, mas mode é literal.",
     "hint.mixed_newline_write_style": "O arquivo de entrada contém estilos de quebra de linha mistos.",
@@ -456,7 +454,9 @@
     "hint.anchor_after_not_found": "anchor_after não foi enc...",
     "hint.po_msgid_not_found": "msgid não foi encontrado no arqui...",
     "hint.occurrence_exceeds_matches": "A occurrence solicitada {occurrence} excede as correspondências disponíve...",
-    "hint.anchor_after_not_found_after_before": "anchor_after não foi encontrado depois de an..."
+    "hint.anchor_after_not_found_after_before": "anchor_after não foi encontrado depois de an...",
+    "param.glob.description": "Padrão glob usado por replace_all_in_files (padrão: '*').",
+    "param.recur.description": "Examinar recursivamente o diretório de destino."
   },
   "pt": {
     "err.path_missing": "o caminho não foi...",
@@ -497,9 +497,7 @@
     "param.po_msgid.description": "Alvo gettext msgid para replace...",
     "param.anchor_before.description": "Inicie a â...",
     "param.anchor_after.description": "Âncora f...",
-    "param.name_pattern.description": "Padrão Glob usado por replace_all_in_files (padrão: '*').",
     "param.occurrence.description": "Qual ocorrência substituir...",
-    "param.recursive.description": "Pesquise recursivamente no diretório de destino.",
     "hint.escaped_newline_tokens_not_expanded": "Os tokens de quebra de linha escapados não foram expandidos.",
     "hint.possible_regex_mode_literal": "O padrão parece conter metacaracteres do tipo regex, mas mode é literal.",
     "hint.mixed_newline_write_style": "O ficheiro de entrada contém estilos de quebra de linha mistos.",
@@ -507,7 +505,9 @@
     "hint.anchor_after_not_found": "anchor_after não foi enc...",
     "hint.po_msgid_not_found": "msgid não foi encontrado no fiche...",
     "hint.occurrence_exceeds_matches": "A occurrence pedida {occurrence} excede as correspondências disponíveis (...",
-    "hint.anchor_after_not_found_after_before": "anchor_after não foi encontrado depois de an..."
+    "hint.anchor_after_not_found_after_before": "anchor_after não foi encontrado depois de an...",
+    "param.glob.description": "Padrão Glob usado por replace_all_in_files (padrão: '*').",
+    "param.recur.description": "Pesquise recursivamente no diretório de destino."
   },
   "id": {
     "err.path_missing": "jalur tidak ditentukan",
@@ -549,8 +549,6 @@
     "param.anchor_before.description": "Penanda aw...",
     "param.anchor_after.description": "Penanda...",
     "param.occurrence.description": "Kemunculan ke berapa yang d...",
-    "param.name_pattern.description": "Pola glob yang digunakan oleh replace_all_in_files (de...",
-    "param.recursive.description": "Pindai direktori target secara rekursif.",
     "hint.escaped_newline_tokens_not_expanded": "Token baris baru yang di-escape tidak diperluas.",
     "hint.possible_regex_mode_literal": "Pattern tampaknya berisi metakarakter bergaya regex, tetapi mode adalah literal.",
     "hint.mixed_newline_write_style": "File input memiliki gaya baris baru campuran.",
@@ -558,7 +556,9 @@
     "hint.anchor_after_not_found": "anchor_after tidak ditemukan.",
     "hint.po_msgid_not_found": "msgid tidak ditemukan dalam file .po.",
     "hint.occurrence_exceeds_matches": "occurrence yang diminta {occurrence} melebihi jumlah kecocokan yang terse...",
-    "hint.anchor_after_not_found_after_before": "anchor_after tidak ditemukan setelah anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after tidak ditemukan setelah anchor_before.",
+    "param.glob.description": "Pola glob yang digunakan oleh replace_all_in_files (de...",
+    "param.recur.description": "Pindai direktori target secara rekursif."
   },
   "vi": {
     "err.path_missing": "đường dẫn không đư...",
@@ -600,8 +600,6 @@
     "param.anchor_before.description": "Neo bắt đầ...",
     "param.anchor_after.description": "Neo kết...",
     "param.occurrence.description": "Thay thế lần xuất hiện thứ...",
-    "param.name_pattern.description": "Mẫu glob dùng cho replace_all_in_files (mặc định: '*').",
-    "param.recursive.description": "Quét đệ quy thư mục đích.",
     "hint.escaped_newline_tokens_not_expanded": "Các token xuống dòng đã escape chưa được mở rộng.",
     "hint.possible_regex_mode_literal": "Pattern có vẻ chứa các siêu ký tự kiểu regex, nhưng mode là literal.",
     "hint.mixed_newline_write_style": "Tệp đầu vào có nhiều kiểu xuống dòng lẫn nhau. Khi ghi sẽ dùng kiểu selected_for_write.",
@@ -609,7 +607,9 @@
     "hint.anchor_after_not_found": "Không tìm thấy anchor_after.",
     "hint.po_msgid_not_found": "Không tìm thấy msgid trong tệp .po.",
     "hint.occurrence_exceeds_matches": "occurrence được yêu cầu {occurrence} vượt quá số kết quả khớp hiện có ({m...",
-    "hint.anchor_after_not_found_after_before": "Không tìm thấy anchor_after sau anchor_before."
+    "hint.anchor_after_not_found_after_before": "Không tìm thấy anchor_after sau anchor_before.",
+    "param.glob.description": "Mẫu glob dùng cho replace_all_in_files (mặc định: '*').",
+    "param.recur.description": "Quét đệ quy thư mục đích."
   },
   "pl": {
     "err.path_missing": "ścieżka nie jest o...",
@@ -651,8 +651,6 @@
     "param.anchor_before.description": "Początkowa...",
     "param.anchor_after.description": "Końcowa...",
     "param.occurrence.description": "Które wystąpienie zastąpić...",
-    "param.name_pattern.description": "Wzorzec glob używany przez replace_all_in_files (domyś...",
-    "param.recursive.description": "Skanuj rekursywnie katalog docelowy.",
     "hint.escaped_newline_tokens_not_expanded": "Escapowane tokeny końca wiersza nie zostały rozwinięte.",
     "hint.possible_regex_mode_literal": "Pattern wygląda, jakby zawierał metaznaki w stylu regex, ale mode ma wartość literal.",
     "hint.mixed_newline_write_style": "Plik wejściowy zawiera mieszane style końców wiersza.",
@@ -660,7 +658,9 @@
     "hint.anchor_after_not_found": "Nie znaleziono anchor_after.",
     "hint.po_msgid_not_found": "Nie znaleziono msgid w pliku .po.",
     "hint.occurrence_exceeds_matches": "Żądana occurrence {occurrence} przekracza liczbę dostępnych dopasowań ({m...",
-    "hint.anchor_after_not_found_after_before": "Nie znaleziono anchor_after po anchor_before."
+    "hint.anchor_after_not_found_after_before": "Nie znaleziono anchor_after po anchor_before.",
+    "param.glob.description": "Wzorzec glob używany przez replace_all_in_files (domyś...",
+    "param.recur.description": "Skanuj rekursywnie katalog docelowy."
   },
   "hi": {
     "err.path_missing": "पथ निर्दिष्ट नहीं है",
@@ -701,9 +701,7 @@
     "param.po_msgid.description": "Replace_po_entry के लिए लक्ष्य...",
     "param.anchor_before.description": "Replace_be...",
     "param.anchor_after.description": "Replace_...",
-    "param.name_pattern.description": "Replace_all_in_files द्वारा प्रयुक्त ग्लोब पैटर्न (डिफ...",
     "param.occurrence.description": "किस घटना को प्रतिस्थापित कर...",
-    "param.recursive.description": "लक्ष्य निर्देशिका के अंतर्गत पुनरावर्ती र...",
     "hint.escaped_newline_tokens_not_expanded": "एस्केप किए गए न्यूलाइन टोकन विस्तारित नहीं किए गए। expand_newline_tokens=true सेट करें या वास...",
     "hint.possible_regex_mode_literal": "pattern में regex-शैली के मेटा-अक्षर प्रतीत होते हैं, लेकिन mode literal है।",
     "hint.mixed_newline_write_style": "इनपुट फ़ाइल में मिश्रित न्यूलाइन शैलियाँ हैं। लिखते समय selected_for_write शैली...",
@@ -711,7 +709,9 @@
     "hint.anchor_after_not_found": "anchor_after नहीं मिला।",
     "hint.po_msgid_not_found": ".po फ़ाइल में msgid नहीं मिला।",
     "hint.occurrence_exceeds_matches": "अनुरोधित occurrence {occurrence}, उपलब्ध मिलानों ({match_count}) से अधिक है।",
-    "hint.anchor_after_not_found_after_before": "anchor_before के बाद anchor_after नहीं मिला।"
+    "hint.anchor_after_not_found_after_before": "anchor_before के बाद anchor_after नहीं मिला।",
+    "param.glob.description": "Replace_all_in_files द्वारा प्रयुक्त ग्लोब पैटर्न (डिफ...",
+    "param.recur.description": "लक्ष्य निर्देशिका के अंतर्गत पुनरावर्ती र..."
   },
   "ar": {
     "err.path_missing": "لم يتم تحديد المسار",
@@ -752,9 +752,7 @@
     "param.po_msgid.description": "استهدف gettext msgid لـ Replace...",
     "param.anchor_before.description": "ابدأ ربط ا...",
     "param.anchor_after.description": "نهاية ال...",
-    "param.name_pattern.description": "نمط الكرة الأرضية الذي يستخدمه استبدال_all_in_files (ا...",
     "param.occurrence.description": "أي تكرار يجب استبداله (على...",
-    "param.recursive.description": "البحث بشكل متكرر ضمن الدليل الهدف.",
     "hint.escaped_newline_tokens_not_expanded": "لم يتم توسيع رموز فواصل الأسطر المهربة. اضبط expand_newline_tokens=true أو استخدم فواصل أسطر حقيقية.",
     "hint.possible_regex_mode_literal": "يبدو أن pattern يحتوي على محارف خاصة شبيهة بالتعابير النمطية، لكن mode هو literal.",
     "hint.mixed_newline_write_style": "يحتوي ملف الإدخال على أنماط فواصل أسطر مختلطة.",
@@ -762,7 +760,9 @@
     "hint.anchor_after_not_found": "لم يتم العثور على anchor...",
     "hint.po_msgid_not_found": "لم يتم العثور على msgid في ملف .po.",
     "hint.occurrence_exceeds_matches": "تتجاوز occurrence المطلوبة {occurrence} عدد المطابقات المتاحة ({match_count}).",
-    "hint.anchor_after_not_found_after_before": "لم يتم العثور على anchor_after بعد anchor_before."
+    "hint.anchor_after_not_found_after_before": "لم يتم العثور على anchor_after بعد anchor_before.",
+    "param.glob.description": "نمط الكرة الأرضية الذي يستخدمه استبدال_all_in_files (ا...",
+    "param.recur.description": "البحث بشكل متكرر ضمن الدليل الهدف."
   },
   "sv": {
     "err.path_missing": "path är inte angiven",
@@ -803,9 +803,7 @@
     "param.po_msgid.description": "Mål-msgid för gettext för repla...",
     "param.anchor_before.description": "Startankar...",
     "param.anchor_after.description": "Slutanka...",
-    "param.name_pattern.description": "Glob-mönster som används av replace_all_in_files (stan...",
     "param.occurrence.description": "Vilken förekomst som ska er...",
-    "param.recursive.description": "Sök rekursivt under målkatalogen.",
     "hint.escaped_newline_tokens_not_expanded": "Escapade radbrytningstoken expanderades inte.",
     "hint.possible_regex_mode_literal": "Mönstret verkar innehålla regex-liknande metatecken, men mode är literal.",
     "hint.mixed_newline_write_style": "Indatafilen innehåller blandade radbrytningsstilar.",
@@ -813,7 +811,9 @@
     "hint.anchor_after_not_found": "anchor_after hittades inte.",
     "hint.po_msgid_not_found": "msgid hittades inte i .po-filen.",
     "hint.occurrence_exceeds_matches": "Begärd occurrence {occurrence} överskrider tillgängliga träffar ({match_count}).",
-    "hint.anchor_after_not_found_after_before": "anchor_after hittades inte efter anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after hittades inte efter anchor_before.",
+    "param.glob.description": "Glob-mönster som används av replace_all_in_files (stan...",
+    "param.recur.description": "Sök rekursivt under målkatalogen."
   },
   "sw": {
     "err.path_missing": "path haijabainishwa",
@@ -855,8 +855,6 @@
     "param.anchor_before.description": "Kianzio ch...",
     "param.anchor_after.description": "Mwisho w...",
     "param.occurrence.description": "Ni tukio lipi libadilishwe...",
-    "param.name_pattern.description": "Mfano wa glob unaotumiwa na replace_all_in_files (chag...",
-    "param.recursive.description": "Tafuta kwa kina chini ya saraka lengwa.",
     "hint.escaped_newline_tokens_not_expanded": "Tokeni za mstari mpya zilizotoroshwa hazikupanuliwa.",
     "hint.possible_regex_mode_literal": "pattern inaonekana kuwa na meta-herufi za mtindo wa regex, lakini mode ni literal.",
     "hint.mixed_newline_write_style": "Faili ya ingizo ina mitindo mchanganyiko ya mistari mipya.",
@@ -864,7 +862,9 @@
     "hint.anchor_after_not_found": "anchor_after haikupatikana.",
     "hint.po_msgid_not_found": "msgid haikupatikana katika faili...",
     "hint.occurrence_exceeds_matches": "occurrence iliyoombwa {occurrence} inazidi idadi ya mifanano iliyopo ({ma...",
-    "hint.anchor_after_not_found_after_before": "anchor_after haikupatikana baada ya anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after haikupatikana baada ya anchor_before.",
+    "param.glob.description": "Mfano wa glob unaotumiwa na replace_all_in_files (chag...",
+    "param.recur.description": "Tafuta kwa kina chini ya saraka lengwa."
   },
   "nb": {
     "err.path_missing": "path er ikke angitt",
@@ -905,9 +905,7 @@
     "param.po_msgid.description": "Mål-msgid for gettext for repla...",
     "param.anchor_before.description": "Startanker...",
     "param.anchor_after.description": "Sluttank...",
-    "param.name_pattern.description": "Glob-mønster brukt av replace_all_in_files (standard: '*').",
     "param.occurrence.description": "Hvilken forekomst som skal...",
-    "param.recursive.description": "Søk rekursivt under mål-katalogen.",
     "hint.escaped_newline_tokens_not_expanded": "Escapede linjeskifttoken ble ikke utvidet. Sett expand_newline_tokens=true eller bruk ekte linjeskift.",
     "hint.possible_regex_mode_literal": "Mønsteret ser ut til å inneholde regex-lignende metategn, men mode er literal.",
     "hint.mixed_newline_write_style": "Inndatafilen har blandede linjeskiftstiler. Ved skriving brukes stilen selected_for_write.",
@@ -915,7 +913,9 @@
     "hint.anchor_after_not_found": "anchor_after ble ikke funnet.",
     "hint.po_msgid_not_found": "msgid ble ikke funnet i .po-filen.",
     "hint.occurrence_exceeds_matches": "Forespurt occurrence {occurrence} overstiger tilgjengelige treff ({match_count}).",
-    "hint.anchor_after_not_found_after_before": "anchor_after ble ikke funnet etter anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after ble ikke funnet etter anchor_before.",
+    "param.glob.description": "Glob-mønster brukt av replace_all_in_files (standard: '*').",
+    "param.recur.description": "Søk rekursivt under mål-katalogen."
   },
   "nl": {
     "err.path_missing": "pad is niet opgegeven",
@@ -956,9 +956,7 @@
     "param.po_msgid.description": "Doel-gettext msgid voor replace...",
     "param.anchor_before.description": "Startanker...",
     "param.anchor_after.description": "Eindanke...",
-    "param.name_pattern.description": "Glob-patroon voor replace_all_in_files (standaard: '*').",
     "param.occurrence.description": "Welke voorkomens moeten wor...",
-    "param.recursive.description": "Zoek recursief onder de doelmap.",
     "hint.escaped_newline_tokens_not_expanded": "Geëscapete newline-tokens zijn niet uitgebreid.",
     "hint.possible_regex_mode_literal": "Het patroon lijkt regex-achtige metatekens te bevatten, maar mode is literal.",
     "hint.mixed_newline_write_style": "Het invoerbestand bevat gemengde newline-stijlen.",
@@ -966,7 +964,9 @@
     "hint.anchor_after_not_found": "anchor_after is niet gev...",
     "hint.po_msgid_not_found": "msgid is niet gevonden in het .",
     "hint.occurrence_exceeds_matches": "De gevraagde occurrence {occurrence} is groter dan het aantal beschikbare...",
-    "hint.anchor_after_not_found_after_before": "anchor_after is niet gevonden na anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after is niet gevonden na anchor_before.",
+    "param.glob.description": "Glob-patroon voor replace_all_in_files (standaard: '*').",
+    "param.recur.description": "Zoek recursief onder de doelmap."
   },
   "fi": {
     "err.path_missing": "polkua ei ole annettu",
@@ -1007,9 +1007,7 @@
     "param.po_msgid.description": "replace_po_entryn kohde-gettext...",
     "param.anchor_before.description": "Aloitusank...",
     "param.anchor_after.description": "Lopetusa...",
-    "param.name_pattern.description": "Glob-kuvio replace_all_in_filesille (oletus: '*').",
     "param.occurrence.description": "Mikä osuma korvataan (alkae...",
-    "param.recursive.description": "Etsi rekursiivisesti kohdehakemiston alta.",
     "hint.escaped_newline_tokens_not_expanded": "Escapatut rivinvaihtotokenit eivät laajentuneet.",
     "hint.possible_regex_mode_literal": "Pattern näyttää sisältävän regex-tyylisiä metamerkkejä, mutta mode on literal.",
     "hint.mixed_newline_write_style": "Syötetiedostossa on sekaisin eri rivinvaihtotyylejä.",
@@ -1017,7 +1015,9 @@
     "hint.anchor_after_not_found": "anchor_after ei löytynyt.",
     "hint.po_msgid_not_found": "msgid ei löytynyt .po-tiedostosta.",
     "hint.occurrence_exceeds_matches": "Pyydetty occurrence {occurrence} ylittää käytettävissä olevien osumien mä...",
-    "hint.anchor_after_not_found_after_before": "anchor_after ei löytynyt anchor_before-kohda..."
+    "hint.anchor_after_not_found_after_before": "anchor_after ei löytynyt anchor_before-kohda...",
+    "param.glob.description": "Glob-kuvio replace_all_in_filesille (oletus: '*').",
+    "param.recur.description": "Etsi rekursiivisesti kohdehakemiston alta."
   },
   "cs": {
     "err.path_missing": "cesta není zadána",
@@ -1059,8 +1059,6 @@
     "param.anchor_before.description": "Počáteční...",
     "param.anchor_after.description": "Koncová...",
     "param.occurrence.description": "Který výskyt nahradit (čísl...",
-    "param.name_pattern.description": "Glob vzor používaný pro replace_all_in_files (výchozí: '*').",
-    "param.recursive.description": "Rekurzivně prohledávat cílový adresář.",
     "hint.escaped_newline_tokens_not_expanded": "Escapované tokeny konce řádku nebyly rozbaleny.",
     "hint.possible_regex_mode_literal": "Pattern vypadá, že obsahuje metaznaky ve stylu regexu, ale mode je literal.",
     "hint.mixed_newline_write_style": "Vstupní soubor obsahuje smíšené styly konců řádků.",
@@ -1068,7 +1066,9 @@
     "hint.anchor_after_not_found": "anchor_after nebyl nalezen.",
     "hint.po_msgid_not_found": "msgid nebyl v souboru .po nalezen.",
     "hint.occurrence_exceeds_matches": "Požadovaná occurrence {occurrence} překračuje počet dostupných shod ({mat...",
-    "hint.anchor_after_not_found_after_before": "anchor_after nebyl nalezen po anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after nebyl nalezen po anchor_before.",
+    "param.glob.description": "Glob vzor používaný pro replace_all_in_files (výchozí: '*').",
+    "param.recur.description": "Rekurzivně prohledávat cílový adresář."
   },
   "uk": {
     "err.path_missing": "шлях не вказано",
@@ -1110,8 +1110,6 @@
     "param.anchor_before.description": "Початковий...",
     "param.anchor_after.description": "Кінцевий...",
     "param.occurrence.description": "Який збіг замінити (нумерац...",
-    "param.name_pattern.description": "Glob-шаблон, який використовується для replace_all_in_...",
-    "param.recursive.description": "Рекурсивно шукати в цільовому каталозі.",
     "hint.escaped_newline_tokens_not_expanded": "Екрановані токени переносу рядка не були розгорнуті.",
     "hint.possible_regex_mode_literal": "Схоже, pattern містить метасимволи в стилі regex, але mode дорівнює literal.",
     "hint.mixed_newline_write_style": "Вхідний файл містить змішані стилі переносів рядків.",
@@ -1119,7 +1117,9 @@
     "hint.anchor_after_not_found": "anchor_after не знайдено.",
     "hint.po_msgid_not_found": "msgid не знайдено у файлі .po.",
     "hint.occurrence_exceeds_matches": "Запитана occurrence {occurrence} перевищує кількість доступних збігів ({m...",
-    "hint.anchor_after_not_found_after_before": "anchor_after не знайдено після anchor_before."
+    "hint.anchor_after_not_found_after_before": "anchor_after не знайдено після anchor_before.",
+    "param.glob.description": "Glob-шаблон, який використовується для replace_all_in_...",
+    "param.recur.description": "Рекурсивно шукати в цільовому каталозі."
   },
   "tr": {
     "err.path_missing": "yol belirtilmedi",
@@ -1160,9 +1160,7 @@
     "param.po_msgid.description": "change_po_entry için gettext ms...",
     "param.anchor_before.description": "replacemen...",
     "param.anchor_after.description": "replacem...",
-    "param.name_pattern.description": "replacement_all_in_files tarafından kullanılan glob mo...",
     "param.occurrence.description": "Hangi olayın değiştirileceğ...",
-    "param.recursive.description": "Hedef dizinin altında yinelemeli olarak a...",
     "hint.escaped_newline_tokens_not_expanded": "Kaçışlı satır sonu tokenları genişletilmedi.",
     "hint.possible_regex_mode_literal": "Pattern regex tarzı meta karakterler içeriyor gibi görünüyor, ancak mode literal.",
     "hint.mixed_newline_write_style": "Girdi dosyasında karışık satır sonu stilleri var.",
@@ -1170,7 +1168,9 @@
     "hint.anchor_after_not_found": "anchor_after bulunamadı.",
     "hint.po_msgid_not_found": ".po dosyasında msgid bulunamadı.",
     "hint.occurrence_exceeds_matches": "İstenen occurrence {occurrence}, kullanılabilir eşleşme sayısını ({match_...",
-    "hint.anchor_after_not_found_after_before": "anchor_before sonrasında anchor_after bulunamadı."
+    "hint.anchor_after_not_found_after_before": "anchor_before sonrasında anchor_after bulunamadı.",
+    "param.glob.description": "replacement_all_in_files tarafından kullanılan glob mo...",
+    "param.recur.description": "Hedef dizinin altında yinelemeli olarak a..."
   },
   "th": {
     "err.path_missing": "ไม่ได้ระบุเส้นทาง",
@@ -1212,8 +1212,6 @@
     "param.anchor_before.description": "จุดยึดเริ่...",
     "param.anchor_after.description": "จุดยึดสิ...",
     "param.occurrence.description": "จะเปลี่ยนรายการลำดับที่เท่า...",
-    "param.name_pattern.description": "รูปแบบ glob ที่ใช้กับ replace_all_in_files (ค่าเริ่มต้น: '*')",
-    "param.recursive.description": "สแกนโฟลเดอร์เป้าหมายแบบ recursive",
     "hint.escaped_newline_tokens_not_expanded": "ไม่ได้ขยายโทเค็นขึ้นบรรทัดใหม่ที่ escape ไว้ ตั้งค่า expand_newline_tokens=true หรือใช้การขึ้...",
     "hint.possible_regex_mode_literal": "pattern ดูเหมือนมีอักขระพิเศษแบบ regex แต่ mode เป็น literal",
     "hint.mixed_newline_write_style": "ไฟล์อินพุตมีรูปแบบการขึ้นบรรทัดใหม่ปะปนกัน เมื่อเขียนจะใช้รูปแบบ selected_for_write",
@@ -1221,7 +1219,9 @@
     "hint.anchor_after_not_found": "ไม่พบ anchor_after",
     "hint.po_msgid_not_found": "ไม่พบ msgid ในไฟล์ .po",
     "hint.occurrence_exceeds_matches": "occurrence ที่ขอ {occurrence} มากกว่าจำนวนรายการที่พบ ({match_count})",
-    "hint.anchor_after_not_found_after_before": "ไม่พบ anchor_after หลัง anchor_before"
+    "hint.anchor_after_not_found_after_before": "ไม่พบ anchor_after หลัง anchor_before",
+    "param.glob.description": "รูปแบบ glob ที่ใช้กับ replace_all_in_files (ค่าเริ่มต้น: '*')",
+    "param.recur.description": "สแกนโฟลเดอร์เป้าหมายแบบ recursive"
   },
   "zh_CN": {
     "err.path_missing": "未指定路径",
@@ -1263,8 +1263,6 @@
     "param.anchor_before.description": "起始锚点。",
     "param.anchor_after.description": "结束锚点。",
     "param.occurrence.description": "要替换第几个匹配项（从 1 开始）。0 表示替换所有匹配项。",
-    "param.name_pattern.description": "replace_all_in_files 使用的 glob 模式（默认：'*'）。",
-    "param.recursive.description": "递归扫描目标目录。",
     "hint.escaped_newline_tokens_not_expanded": "转义的换行标记未展开。请设置 expand_newline_tokens=true 或使用真实换行。",
     "hint.possible_regex_mode_literal": "模式看起来包含类似正则表达式的元字符，但 mode 为 literal。",
     "hint.mixed_newline_write_style": "输入文件包含混合换行风格。写入时将使用 selected_for_write 风格。",
@@ -1272,7 +1270,9 @@
     "hint.anchor_after_not_found": "未找到 anchor_after。",
     "hint.po_msgid_not_found": "在 .po 文件中未找到 msgid。",
     "hint.occurrence_exceeds_matches": "请求的 occurrence {occurrence} 超出了可用匹配数 ({match_count})。",
-    "hint.anchor_after_not_found_after_before": "在 anchor_before 之后未找到 anchor_after。"
+    "hint.anchor_after_not_found_after_before": "在 anchor_before 之后未找到 anchor_after。",
+    "param.glob.description": "replace_all_in_files 使用的 glob 模式（默认：'*'）。",
+    "param.recur.description": "递归扫描目标目录。"
   },
   "zh_TW": {
     "err.path_missing": "未指定路徑",
@@ -1314,8 +1314,6 @@
     "param.anchor_before.description": "起始锚点。",
     "param.anchor_after.description": "结束锚点。",
     "param.occurrence.description": "要替換第幾個出現項目（從 1 開始）。0 代表替換全部。",
-    "param.name_pattern.description": "replace_all_in_files 使用的 glob 模式（預設：'*'）。",
-    "param.recursive.description": "遞迴掃描目標目錄。",
     "hint.escaped_newline_tokens_not_expanded": "已逸出的換行標記未展開。請設定 expand_newline_tokens=true 或使用真正的換行。",
     "hint.possible_regex_mode_literal": "樣式看起來包含類似正規表示式的中介字元，但 mode 是 literal。",
     "hint.mixed_newline_write_style": "輸入檔案包含混合換行樣式。寫入時將使用 selected_for_write 樣式。",
@@ -1323,7 +1321,9 @@
     "hint.anchor_after_not_found": "找不到 anchor_after。",
     "hint.po_msgid_not_found": "在 .po 檔案中找不到 msgid。",
     "hint.occurrence_exceeds_matches": "要求的 occurrence {occurrence} 超過可用的符合數 ({match_count})。",
-    "hint.anchor_after_not_found_after_before": "在 anchor_before 之後找不到 anchor_after。"
+    "hint.anchor_after_not_found_after_before": "在 anchor_before 之後找不到 anchor_after。",
+    "param.glob.description": "replace_all_in_files 使用的 glob 模式（預設：'*'）。",
+    "param.recur.description": "遞迴掃描目標目錄。"
   },
   "bn": {
     "err.path_missing": "পাথ নির্দিষ্ট করা হয়নি",
@@ -1364,9 +1364,7 @@
     "param.po_msgid.description": "replace_po_entry-এর জন্য লক্ষ্য...",
     "param.anchor_before.description": "replace_be...",
     "param.anchor_after.description": "replace_...",
-    "param.name_pattern.description": "replace_all_in_files-এর জন্য ব্যবহৃত glob pattern (ডিফ...",
     "param.occurrence.description": "কোনটি প্রতিস্থাপন হবে (১ থে...",
-    "param.recursive.description": "টার্গেট ডিরেক্টরির নিচে পুনরাবৃত্তভাবে খুঁজুন।",
     "hint.escaped_newline_tokens_not_expanded": "escaped newline tokens প্রসারিত হয়নি। expand_newline_tokens=true করুন বা প্রকৃত নতুনলাইন ব্যবহার করুন।",
     "hint.possible_regex_mode_literal": "pattern-এ regex-ধরনের বিশেষ চিহ্ন আছে বলে মনে হচ্ছে, কিন্তু mode হলো literal।",
     "hint.mixed_newline_write_style": "ইনপুট ফাইলে মিশ্র newline style আছে। লেখার সময় selected_for_write style ব্যবহার হবে।",
@@ -1374,7 +1372,9 @@
     "hint.anchor_after_not_found": "anchor_after পাওয়া যায়নি।",
     "hint.po_msgid_not_found": ".po ফাইলে msgid পাওয়া যায়নি।",
     "hint.occurrence_exceeds_matches": "অনুরোধ করা occurrence {occurrence}, উপলব্ধ মিলে ({match_count}) ছাড়িয়ে গেছে।",
-    "hint.anchor_after_not_found_after_before": "anchor_before-এর পরে anchor_after পাওয়া যায়নি।"
+    "hint.anchor_after_not_found_after_before": "anchor_before-এর পরে anchor_after পাওয়া যায়নি।",
+    "param.glob.description": "replace_all_in_files-এর জন্য ব্যবহৃত glob pattern (ডিফ...",
+    "param.recur.description": "টার্গেট ডিরেক্টরির নিচে পুনরাবৃত্তভাবে খুঁজুন।"
   },
   "fa": {
     "err.path_missing": "مسیر مشخص نشده است",
@@ -1415,9 +1415,7 @@
     "param.po_msgid.description": "msgid هدف gettext برای replace_...",
     "param.anchor_before.description": "anchor آغا...",
     "param.anchor_after.description": "anchor پ...",
-    "param.name_pattern.description": "الگوی glob مورد استفاده توسط replace_all_in_files (پیش...",
     "param.occurrence.description": "کدام occurrence جایگزین شود...",
-    "param.recursive.description": "جست‌وجوی بازگشتی در زیر دایرکتوری هدف.",
     "hint.escaped_newline_tokens_not_expanded": "توکن‌های escaped newline گسترش داده نشدند.",
     "hint.possible_regex_mode_literal": "به‌نظر می‌رسد الگو شامل نویسه‌های ویژهٔ سبک regex است، اما mode برابر literal است.",
     "hint.mixed_newline_write_style": "فایل ورودی سبک‌های newline مخلوط دارد.",
@@ -1425,7 +1423,9 @@
     "hint.anchor_after_not_found": "anchor_after پیدا نشد.",
     "hint.po_msgid_not_found": "msgid در فایل .po پیدا نشد.",
     "hint.occurrence_exceeds_matches": "occurrence درخواستی {occurrence} از تعداد تطبیق‌های موجود ({match_count})...",
-    "hint.anchor_after_not_found_after_before": "anchor_after پس از anchor_before پیدا نشد."
+    "hint.anchor_after_not_found_after_before": "anchor_after پس از anchor_before پیدا نشد.",
+    "param.glob.description": "الگوی glob مورد استفاده توسط replace_all_in_files (پیش...",
+    "param.recur.description": "جست‌وجوی بازگشتی در زیر دایرکتوری هدف."
   },
   "mn": {
     "err.path_missing": "Замын хаяг заагааг...",
@@ -1466,9 +1466,7 @@
     "param.po_msgid.description": "replace_po_entry-д зориулсан зо...",
     "param.anchor_before.description": "replace_be...",
     "param.anchor_after.description": "replace_...",
-    "param.name_pattern.description": "replace_all_in_files-д ашиглах glob pattern (анхдагч: '*').",
     "param.occurrence.description": "Аль occurrence-ийг солих вэ...",
-    "param.recursive.description": "Зорилтот директори дотор рекурсивээр хайна.",
     "hint.escaped_newline_tokens_not_expanded": "escaped newline tokens өргөтгөгдөөгүй байна.",
     "hint.possible_regex_mode_literal": "pattern нь regex маягийн тусгай тэмдэгтүүд агуулсан бололтой, гэвч mode нь l...",
     "hint.mixed_newline_write_style": "Оролтын файл newline-ийн холимог style-тэй байна.",
@@ -1476,7 +1474,9 @@
     "hint.anchor_after_not_found": "anchor_after олдсонгүй.",
     "hint.po_msgid_not_found": ".po файлд msgid олдсонгүй.",
     "hint.occurrence_exceeds_matches": "Хүссэн occurrence {occurrence} нь боломжит тааралтуудын тоо ({match_count...",
-    "hint.anchor_after_not_found_after_before": "anchor_before-ийн дараа anchor_after олдсонгүй."
+    "hint.anchor_after_not_found_after_before": "anchor_before-ийн дараа anchor_after олдсонгүй.",
+    "param.glob.description": "replace_all_in_files-д ашиглах glob pattern (анхдагч: '*').",
+    "param.recur.description": "Зорилтот директори дотор рекурсивээр хайна."
   },
   "mr": {
     "err.path_missing": "मार्ग निर्दिष्ट के...",
@@ -1517,9 +1517,7 @@
     "param.po_msgid.description": "replace_po_entry साठी लक्ष्य ge...",
     "param.anchor_before.description": "replace_be...",
     "param.anchor_after.description": "replace_...",
-    "param.name_pattern.description": "replace_all_in_files साठी वापरले जाणारे glob pattern (...",
     "param.occurrence.description": "कोणता occurrence बदलायचा (1...",
-    "param.recursive.description": "लक्ष्य निर्देशिकेखाली पुनरावृत्तीने शोधा.",
     "hint.escaped_newline_tokens_not_expanded": "escaped newline tokens विस्तारित केले गेले नाहीत.",
     "hint.possible_regex_mode_literal": "pattern मध्ये regex-शैलीतील विशेष चिन्हे आहेत असे दिसते, पण mode literal आहे.",
     "hint.mixed_newline_write_style": "इनपुट फाइलमध्ये newline styles मिश्रित आहेत. लिहिताना selected_for_write style वापरले जाईल.",
@@ -1527,6 +1525,8 @@
     "hint.anchor_after_not_found": "anchor_after सापडला नाही.",
     "hint.po_msgid_not_found": ".po फाइलमध्ये msgid सापडला नाही.",
     "hint.occurrence_exceeds_matches": "विनंती केलेला occurrence {occurrence}, उपलब्ध जुळण्यांपेक्षा ({match_coun...",
-    "hint.anchor_after_not_found_after_before": "anchor_before नंतर anchor_after सापडला नाही."
+    "hint.anchor_after_not_found_after_before": "anchor_before नंतर anchor_after सापडला नाही.",
+    "param.glob.description": "replace_all_in_files साठी वापरले जाणारे glob pattern (...",
+    "param.recur.description": "लक्ष्य निर्देशिकेखाली पुनरावृत्तीने शोधा."
   }
 }

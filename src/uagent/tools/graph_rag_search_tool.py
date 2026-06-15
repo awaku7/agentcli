@@ -132,7 +132,7 @@ def _extract_pdf_pptx_text(path: str) -> tuple[str, list[tuple[int, str]], list[
         return "", [], [f"Failed to import read_pptx_pdf: {e}"]
 
     try:
-        text_all = rpp.run_tool({"path": path, "page_index": 0, "max_chars": 2000000})
+        text_all = rpp.run_tool({"path": path, "page_index": 0, "maxc": 2000000})
         if not isinstance(text_all, str):
             text_all = str(text_all)
         text_all = text_all.strip()

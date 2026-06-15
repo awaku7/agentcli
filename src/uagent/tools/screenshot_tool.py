@@ -58,10 +58,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Path for the saved file (recommended: . png).",
                     ),
                 },
-                "window_title": {
+                "title": {
                     "type": "string",
                     "description": _(
-                        "param.window_title.description",
+                        "param.title.description",
                         default="Target window title (partial match). If specified, the window is activated and only that region is captured.",
                     ),
                 },
@@ -72,10 +72,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Wait time before capture in seconds. Default is 1 second.",
                     ),
                 },
-                "close_window": {
+                "close": {
                     "type": "boolean",
                     "description": _(
-                        "param.close_window.description",
+                        "param.close.description",
                         default="Whether to close the window after capture. Only effective if window_title is specified.",
                     ),
                 },
@@ -96,7 +96,7 @@ def run_tool(args: dict[str, Any]) -> str:
             ),
         )
 
-    window_title = str(args.get("window_title") or "").strip()
+    window_title = str(args.get("title") or "").strip()
     if window_title and pygetwindow is None:
         return make_response(
             False,
@@ -108,7 +108,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     file_path = str(args.get("file_path") or "").strip()
     delay = args.get("delay", 1)
-    close_window = bool(args.get("close_window", False))
+    close_window = bool(args.get("close", False))
 
     if not file_path:
         ts = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")

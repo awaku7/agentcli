@@ -7,10 +7,8 @@
     "err.window_not_found": "[screenshot error] No window found matching title: '{title}'",
     "out.ok": "[screenshot] Saved to {path}",
     "out.ok_closed": "[screenshot] Saved to {path} and closed window",
-    "param.close_window.description": "Whether to close the window after capture. Only effective if window_title is specified.",
     "param.delay.description": "Wait time before capture in seconds. Default is 1 second.",
     "param.file_path.description": "Path for the saved file (recommended: . png).",
-    "param.window_title.description": "Target window title (partial match). If specified, the window is activated and only that region is captured.",
     "tool.description": "Captures a screenshot of the entire desktop or a specific window.",
     "x_search_terms": [
       "screenshot",
@@ -20,7 +18,9 @@
       "desktop screenshot",
       "png capture"
     ],
-    "next_action.analyze_screenshot": "Please analyze this screenshot."
+    "next_action.analyze_screenshot": "Please analyze this screenshot.",
+    "param.close.description": "Whether to close the window after capture. Only effective if window_title is specified.",
+    "param.title.description": "Target window title (partial match). If specified, the window is activated and only that region is captured."
   },
   "ja": {
     "err.capture_fail": "[screenshot error] スクリーンショットの撮影に失敗しました: {err}",
@@ -30,10 +30,8 @@
     "err.window_not_found": "[screenshot error] タイトルに一致するウィンドウが見つかりませんでした: '{title}'",
     "out.ok": "[screenshot] {path} に保存しました",
     "out.ok_closed": "[screenshot] {path} に保存し、ウィンドウを閉じました",
-    "param.close_window.description": "撮影後にそのウィンドウを閉じるかどうか。window_title 指定時のみ有効。デフォルトは False。",
     "param.delay.description": "撮影前の待機時間（秒）。デフォルトは 1 秒（ウィンドウ切り替え用）。",
     "param.file_path.description": "保存先パス（.png推奨）。",
-    "param.window_title.description": "撮影対象のウィンドウタイトル（部分一致）。指定した場合、そのウィンドウを探してアクティブにし、その領域だけを撮影します。",
     "tool.description": "デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。",
     "x_search_terms": [
       "screenshot",
@@ -41,7 +39,9 @@
       "画面キャプチャ",
       "ウィンドウ撮影"
     ],
-    "next_action.analyze_screenshot": "このスクリーンショットを解析してください。"
+    "next_action.analyze_screenshot": "このスクリーンショットを解析してください。",
+    "param.close.description": "撮影後にそのウィンドウを閉じるかどうか。window_title 指定時のみ有効。デフォルトは False。",
+    "param.title.description": "撮影対象のウィンドウタイトル（部分一致）。指定した場合、そのウィンドウを探してアクティブにし、その領域だけを撮影します。"
   },
   "es": {
     "err.capture_fail": "[error de captura] No se pudo tomar la captura de p...",
@@ -51,17 +51,17 @@
     "err.window_not_found": "[error de captura] No se encontró ninguna ventana que coi...",
     "out.ok": "[captura] Guardado en {path}",
     "out.ok_closed": "[captura] Guardado en {path} y ventana cerrada",
-    "param.close_window.description": "Si se cierra la ventana después de capturarla.",
     "param.delay.description": "Tiempo de espera (segundos) antes de capturar.",
     "param.file_path.description": "Ruta del archivo de destino (se recomienda .",
-    "param.window_title.description": "Título de la ventana a capturar (coincidencia parcial).",
     "tool.description": "Captura una imagen de toda la pantalla o de una ventana específica.",
     "x_search_terms": [
       "screenshot",
       "captura de pantalla",
       "captura ventana"
     ],
-    "next_action.analyze_screenshot": "Por favor, analiza esta capt..."
+    "next_action.analyze_screenshot": "Por favor, analiza esta capt...",
+    "param.close.description": "Si se cierra la ventana después de capturarla.",
+    "param.title.description": "Título de la ventana a capturar (coincidencia parcial)."
   },
   "fr": {
     "err.capture_fail": "[erreur de capture d'écran] Échec de la capture d'é...",
@@ -71,17 +71,17 @@
     "err.window_not_found": "[erreur de capture d'écran] Aucune fenêtre correspondant...",
     "out.ok": "[capture d'écran] Enregistré dans {path}",
     "out.ok_closed": "[capture d'écran] Enregistré dans {path} et fenêtre fermée",
-    "param.close_window.description": "Indique s'il faut fermer la fenêtre après la capture.",
     "param.delay.description": "Temps d'attente avant la capture (secondes).",
     "param.file_path.description": "Chemin du fichier de destination (.",
-    "param.window_title.description": "Titre de la fenêtre à capturer (correspondance partielle).",
     "tool.description": "Capture une image de tout le bureau ou d'une fenêtre spécifique.",
     "x_search_terms": [
       "screenshot",
       "capture d'écran",
       "capture fenêtre"
     ],
-    "next_action.analyze_screenshot": "Veuillez analyser cette capt..."
+    "next_action.analyze_screenshot": "Veuillez analyser cette capt...",
+    "param.close.description": "Indique s'il faut fermer la fenêtre après la capture.",
+    "param.title.description": "Titre de la fenêtre à capturer (correspondance partielle)."
   },
   "ko": {
     "err.capture_fail": "[screenshot error] 스크린샷을 찍지 못했습니다: {err}",
@@ -91,10 +91,8 @@
     "err.window_not_found": "[screenshot error] 제목과 일치하는 창을 찾을 수 없습니다: '{title}'",
     "out.ok": "[screenshot] {path}에 저장했습니다",
     "out.ok_closed": "[screenshot] {path}에 저장하고 창을 닫았습니다",
-    "param.close_window.description": "촬영 후 창을 닫을지 여부입니다. window_title을 지정한 경우에만 유효합니다. 기본값은 False입니다.",
     "param.delay.description": "촬영 전 대기 시간(초)입니다. 기본값은 1초(창 전환용)입니다.",
     "param.file_path.description": "저장 경로(.png 권장).",
-    "param.window_title.description": "촬영할 창 제목(부분 일치)입니다. 지정하면 해당 창을 찾아 활성화하고 그 영역만 촬영합니다.",
     "tool.description": "전체 데스크톱 또는 특정 창의 스크린샷을 캡처합니다.",
     "x_search_terms": [
       "screenshot",
@@ -102,7 +100,9 @@
       "화면 캡처",
       "창 캡처"
     ],
-    "next_action.analyze_screenshot": "이 스크린샷을 분석해 주세요."
+    "next_action.analyze_screenshot": "이 스크린샷을 분석해 주세요.",
+    "param.close.description": "촬영 후 창을 닫을지 여부입니다. window_title을 지정한 경우에만 유효합니다. 기본값은 False입니다.",
+    "param.title.description": "촬영할 창 제목(부분 일치)입니다. 지정하면 해당 창을 찾아 활성화하고 그 영역만 촬영합니다."
   },
   "de": {
     "err.capture_fail": "[screenshot-Fehler] Screenshot konnte nicht erstell...",
@@ -112,17 +112,17 @@
     "err.window_not_found": "[screenshot-Fehler] Es wurde kein Fenster mit dem Titel '...",
     "out.ok": "[screenshot] In {path} gespeichert",
     "out.ok_closed": "[screenshot] In {path} gespeichert und Fenster geschlossen",
-    "param.close_window.description": "Ob das Fenster nach der Aufnahme geschlossen werden soll.",
     "param.delay.description": "Wartezeit vor der Aufnahme (Sekunden).",
     "param.file_path.description": "Zieldateipfad (.png empfohlen).",
-    "param.window_title.description": "Fenstertitel des aufzunehmenden Fensters (Teiltreffer).",
     "tool.description": "Erfasst einen Screenshot des gesamten Desktops oder eines best...",
     "x_search_terms": [
       "screenshot",
       "bildschirmfoto",
       "fenster screenshot"
     ],
-    "next_action.analyze_screenshot": "Bitte analysiere diesen Scre..."
+    "next_action.analyze_screenshot": "Bitte analysiere diesen Scre...",
+    "param.close.description": "Ob das Fenster nach der Aufnahme geschlossen werden soll.",
+    "param.title.description": "Fenstertitel des aufzunehmenden Fensters (Teiltreffer)."
   },
   "it": {
     "err.capture_fail": "[errore screenshot] Impossibile acquisire lo screen...",
@@ -132,17 +132,17 @@
     "err.window_not_found": "[errore screenshot] Nessuna finestra trovata con il titol...",
     "out.ok": "[screenshot] Salvato in {path}",
     "out.ok_closed": "[screenshot] Salvato in {path} e finestra chiusa",
-    "param.close_window.description": "Se chiudere la finestra dopo l'acquisizione.",
     "param.delay.description": "Tempo di attesa prima dell'acquisizione (secondi).",
     "param.file_path.description": "Percorso del file di destinazione (.",
-    "param.window_title.description": "Titolo della finestra da catturare (corrispondenza parziale).",
     "tool.description": "Acquisisce uno screenshot dell'intero desktop o di una finestr...",
     "x_search_terms": [
       "screenshot",
       "cattura schermo",
       "finestra screenshot"
     ],
-    "next_action.analyze_screenshot": "Analizza questo screenshot."
+    "next_action.analyze_screenshot": "Analizza questo screenshot.",
+    "param.close.description": "Se chiudere la finestra dopo l'acquisizione.",
+    "param.title.description": "Titolo della finestra da catturare (corrispondenza parziale)."
   },
   "ru": {
     "err.capture_fail": "[ошибка screenshot] Не удалось сделать снимок экрана: {err}",
@@ -152,10 +152,8 @@
     "err.window_not_found": "[ошибка screenshot] Не найдено окно с заголовком: '{title}'",
     "out.ok": "[screenshot] Сохранено в {path}",
     "out.ok_closed": "[screenshot] Сохранено в {path} и окно закрыто",
-    "param.close_window.description": "Закрывать ли окно после снимка. Действует только если указан window_title. По умолчанию: False.",
     "param.delay.description": "Время ожидания перед снимком (секунды).",
     "param.file_path.description": "Путь к файлу назначения (.png рекомендуется).",
-    "param.window_title.description": "Заголовок окна для снимка (частичное совпадение).",
     "tool.description": "Создаёт снимок всего рабочего стола или указанного окна.",
     "x_search_terms": [
       "screenshot",
@@ -163,7 +161,9 @@
       "снимок экрана",
       "окно"
     ],
-    "next_action.analyze_screenshot": "Пожалуйста, проанализируйте..."
+    "next_action.analyze_screenshot": "Пожалуйста, проанализируйте...",
+    "param.close.description": "Закрывать ли окно после снимка. Действует только если указан window_title. По умолчанию: False.",
+    "param.title.description": "Заголовок окна для снимка (частичное совпадение)."
   },
   "pt_BR": {
     "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
@@ -173,17 +173,17 @@
     "err.window_not_found": "[erro de captura de tela] Nenhuma janela foi encontrada c...",
     "out.ok": "[captura de tela] Salvo em {path}",
     "out.ok_closed": "[captura de tela] Salvo em {path} e janela fechada",
-    "param.close_window.description": "Se deve fechar a janela após a captura.",
     "param.delay.description": "Tempo de espera antes da captura (segundos).",
     "param.file_path.description": "Caminho do arquivo de destino (.",
-    "param.window_title.description": "Título da janela a ser capturada (correspondência parcial).",
     "tool.description": "Captura uma imagem da tela inteira ou de uma janela específica.",
     "x_search_terms": [
       "screenshot",
       "captura de tela",
       "janela screenshot"
     ],
-    "next_action.analyze_screenshot": "Por favor, analise esta capt..."
+    "next_action.analyze_screenshot": "Por favor, analise esta capt...",
+    "param.close.description": "Se deve fechar a janela após a captura.",
+    "param.title.description": "Título da janela a ser capturada (correspondência parcial)."
   },
   "pt": {
     "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
@@ -193,17 +193,17 @@
     "err.window_not_found": "[erro de captura de tela] Nenhuma janela encontrada com o...",
     "out.ok": "[captura de tela] Salvo em {path}",
     "out.ok_closed": "[captura de tela] Salvo em {path} e janela fechada",
-    "param.close_window.description": "Se deve fechar a janela após a captura.",
     "param.delay.description": "Tempo de espera antes da captura (segundos).",
     "param.file_path.description": "Caminho do arquivo de destino (.",
-    "param.window_title.description": "Título da janela a ser capturada (correspondência parcial).",
     "tool.description": "Captura uma imagem de toda a área de trabalho ou de uma janela...",
     "x_search_terms": [
       "screenshot",
       "captura de tela",
       "janela screenshot"
     ],
-    "next_action.analyze_screenshot": "Por favor, analise esta capt..."
+    "next_action.analyze_screenshot": "Por favor, analise esta capt...",
+    "param.close.description": "Se deve fechar a janela após a captura.",
+    "param.title.description": "Título da janela a ser capturada (correspondência parcial)."
   },
   "id": {
     "err.capture_fail": "[screenshot error] Gagal mengambil screenshot: {err}",
@@ -213,17 +213,17 @@
     "err.window_not_found": "[screenshot error] Tidak ada window yang cocok dengan jud...",
     "out.ok": "[screenshot] Disimpan ke {path}",
     "out.ok_closed": "[screenshot] Disimpan ke {path} dan window ditutup",
-    "param.close_window.description": "Apakah menutup window setelah pengambilan.Hanya valid saat window_title ditentukan.",
     "param.delay.description": "Waktu tunggu (detik) sebelum pengambilan.",
     "param.file_path.description": "Path file tujuan (.png disarankan).",
-    "param.window_title.description": "Judul window yang akan di-screenshot (partial match).",
     "tool.description": "Mengambil screenshot seluruh desktop atau window tertentu.",
     "x_search_terms": [
       "screenshot",
       "tangkapan layar",
       "jendela screenshot"
     ],
-    "next_action.analyze_screenshot": "Silakan analisis tangkapan l..."
+    "next_action.analyze_screenshot": "Silakan analisis tangkapan l...",
+    "param.close.description": "Apakah menutup window setelah pengambilan.Hanya valid saat window_title ditentukan.",
+    "param.title.description": "Judul window yang akan di-screenshot (partial match)."
   },
   "vi": {
     "err.capture_fail": "[lỗi ảnh chụp màn hình] Không thể chụp ảnh màn hình: {err}",
@@ -233,17 +233,17 @@
     "err.window_not_found": "[lỗi ảnh chụp màn hình] Không tìm thấy cửa sổ khớp với ti...",
     "out.ok": "[ảnh chụp màn hình] Đã lưu vào {path}",
     "out.ok_closed": "[ảnh chụp màn hình] Đã lưu vào {path} và đã đóng cửa sổ",
-    "param.close_window.description": "Có đóng cửa sổ sau khi chụp hay không. Chỉ hợp lệ khi chỉ định window_title. Mặc định là False.",
     "param.delay.description": "Thời gian chờ trước khi chụp (giây).",
     "param.file_path.description": "Đường dẫn tệp đích (.png được khuyên dùng).",
-    "param.window_title.description": "Tiêu đề cửa sổ cần chụp (khớp một phần).",
     "tool.description": "Chụp ảnh màn hình toàn bộ màn hình hoặc một cửa sổ cụ thể.",
     "x_search_terms": [
       "screenshot",
       "ảnh chụp màn hình",
       "cửa sổ screenshot"
     ],
-    "next_action.analyze_screenshot": "Vui lòng phân tích ảnh chụp..."
+    "next_action.analyze_screenshot": "Vui lòng phân tích ảnh chụp...",
+    "param.close.description": "Có đóng cửa sổ sau khi chụp hay không. Chỉ hợp lệ khi chỉ định window_title. Mặc định là False.",
+    "param.title.description": "Tiêu đề cửa sổ cần chụp (khớp một phần)."
   },
   "pl": {
     "err.capture_fail": "[błąd zrzutu ekranu] Nie udało się wykonać zrzutu e...",
@@ -253,17 +253,17 @@
     "err.window_not_found": "[błąd zrzutu ekranu] Nie znaleziono okna pasującego do ty...",
     "out.ok": "[zrzut ekranu] Zapisano do {path}",
     "out.ok_closed": "[zrzut ekranu] Zapisano do {path} i zamknięto okno",
-    "param.close_window.description": "Czy zamknąć okno po wykonaniu zrzutu. Działa tylko po podaniu window_title. Domyślnie: False.",
     "param.delay.description": "Czas oczekiwania przed wykonaniem zrzutu (w sekundach).",
     "param.file_path.description": "Ścieżka pliku docelowego (.png zalecane).",
-    "param.window_title.description": "Tytuł okna do zrzutu (dopasowanie częściowe).",
     "tool.description": "Wykonuje zrzut ekranu całego pulpitu albo wskazanego okna.",
     "x_search_terms": [
       "screenshot",
       "zrzut ekranu",
       "zrzut okna"
     ],
-    "next_action.analyze_screenshot": "Proszę przeanalizować ten zr..."
+    "next_action.analyze_screenshot": "Proszę przeanalizować ten zr...",
+    "param.close.description": "Czy zamknąć okno po wykonaniu zrzutu. Działa tylko po podaniu window_title. Domyślnie: False.",
+    "param.title.description": "Tytuł okna do zrzutu (dopasowanie częściowe)."
   },
   "hi": {
     "err.capture_fail": "[स्क्रीनशॉट त्रुटि] स्क्रीनशॉट लेने में विफल: {err}",
@@ -273,10 +273,8 @@
     "err.window_not_found": "[स्क्रीनशॉट त्रुटि] शीर्षक से मेल खाने वाली कोई विंडो नही...",
     "out.ok": "[स्क्रीनशॉट] {path} में सहेजा गया",
     "out.ok_closed": "[स्क्रीनशॉट] {path} में सहेजा गया और विंडो बंद कर दी गई",
-    "param.close_window.description": "कैप्चर के बाद विंडो बंद करनी है या नहीं। केवल तब मान्य जब window_title निर्दिष्ट हो।...",
     "param.delay.description": "कैप्चर से पहले प्रतीक्षा समय (सेकंड)। डिफ़ॉल्ट: 1 सेकं...",
     "param.file_path.description": "गंतव्य फ़ाइल पथ (.",
-    "param.window_title.description": "कैप्चर की जाने वाली विंडो का शीर्षक (आंशिक मिलान)। यदि दिया गया हो, तो उस विंडो को ढूँढकर सक्रिय किया जात...",
     "tool.description": "पूरे डेस्कटॉप या किसी विशिष्ट विंडो का स्क्रीनशॉट कैप्चर करता है।",
     "x_search_terms": [
       "screenshot",
@@ -284,7 +282,9 @@
       "स्क्रीन कैप्चर",
       "विंडो कैप्चर"
     ],
-    "next_action.analyze_screenshot": "कृपया इस स्क्रीनशॉट का विश्ल..."
+    "next_action.analyze_screenshot": "कृपया इस स्क्रीनशॉट का विश्ल...",
+    "param.close.description": "कैप्चर के बाद विंडो बंद करनी है या नहीं। केवल तब मान्य जब window_title निर्दिष्ट हो।...",
+    "param.title.description": "कैप्चर की जाने वाली विंडो का शीर्षक (आंशिक मिलान)। यदि दिया गया हो, तो उस विंडो को ढूँढकर सक्रिय किया जात..."
   },
   "ar": {
     "err.capture_fail": "[خطأ في لقطة الشاشة] فشل التقاط لقطة الشاشة: {err}",
@@ -294,10 +294,8 @@
     "err.window_not_found": "[خطأ في لقطة الشاشة] لم يتم العثور على نافذة تطابق العنوا...",
     "out.ok": "[لقطة الشاشة] تم الحفظ في {path}",
     "out.ok_closed": "[لقطة الشاشة] تم الحفظ في {path} وأُغلقت النافذة",
-    "param.close_window.description": "هل تريد إغلاق النافذة بعد الالتقاط. صالح فقط عند تحديد window_title. الافتراضي: False.",
     "param.delay.description": "مدة الانتظار قبل الالتقاط (بالثواني).",
     "param.file_path.description": "مسار الملف الوجهة (.png مُفضّل).",
-    "param.window_title.description": "عنوان النافذة المراد التقاطها (تطابق جزئي).",
     "tool.description": "يلتقط لقطة شاشة لسطح المكتب بالكامل أو لنافذة محددة.",
     "x_search_terms": [
       "screenshot",
@@ -305,7 +303,9 @@
       "التقاط الشاشة",
       "نافذة"
     ],
-    "next_action.analyze_screenshot": "يرجى تحليل لقطة الشاشة هذه."
+    "next_action.analyze_screenshot": "يرجى تحليل لقطة الشاشة هذه.",
+    "param.close.description": "هل تريد إغلاق النافذة بعد الالتقاط. صالح فقط عند تحديد window_title. الافتراضي: False.",
+    "param.title.description": "عنوان النافذة المراد التقاطها (تطابق جزئي)."
   },
   "sv": {
     "err.capture_fail": "[screenshot-fel] Det gick inte att ta skärmdumpen: {err}",
@@ -315,17 +315,17 @@
     "err.window_not_found": "[screenshot-fel] Inget fönster hittades som matchar titel...",
     "out.ok": "[screenshot] Sparades till {path}",
     "out.ok_closed": "[screenshot] Sparades till {path} och stängde fönstret",
-    "param.close_window.description": "Om fönstret ska stängas efter att bilden tagits.Gäller bara när window_title anges.",
     "param.delay.description": "Väntetid i sekunder före tagning.",
     "param.file_path.description": "Målfilsökväg (.png rekommenderas).",
-    "param.window_title.description": "Fönstertitel som ska fotograferas (delvis matchning).",
     "tool.description": "Tar en skärmdump av hela skrivbordet eller av ett specifikt fönster.",
     "x_search_terms": [
       "screenshot",
       "skärmdump",
       "fönster"
     ],
-    "next_action.analyze_screenshot": "Analysera gärna den här skär..."
+    "next_action.analyze_screenshot": "Analysera gärna den här skär...",
+    "param.close.description": "Om fönstret ska stängas efter att bilden tagits.Gäller bara när window_title anges.",
+    "param.title.description": "Fönstertitel som ska fotograferas (delvis matchning)."
   },
   "sw": {
     "err.capture_fail": "[screenshot error] Imeshindwa kupiga picha ya skrini: {err}",
@@ -335,17 +335,17 @@
     "err.window_not_found": "[screenshot error] Hakuna dirisha lililolingana na kichwa...",
     "out.ok": "[screenshot] Imehifadhiwa katika {path}",
     "out.ok_closed": "[screenshot] Imehifadhiwa katika {path} na dirisha limefungwa",
-    "param.close_window.description": "Je, dirisha lifungwe baada ya kupiga picha.Hutumika tu wakati window_title imetajwa.",
     "param.delay.description": "Muda wa kusubiri (sekunde) kabla ya kupiga picha.",
     "param.file_path.description": "Njia ya faili la lengwa (.png inapendekezwa).",
-    "param.window_title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu).",
     "tool.description": "Piga picha ya skrini ya desktop nzima au dirisha mahususi.",
     "x_search_terms": [
       "screenshot",
       "picha ya skrini",
       "dirisha"
     ],
-    "next_action.analyze_screenshot": "Tafadhali chambua picha hii..."
+    "next_action.analyze_screenshot": "Tafadhali chambua picha hii...",
+    "param.close.description": "Je, dirisha lifungwe baada ya kupiga picha.Hutumika tu wakati window_title imetajwa.",
+    "param.title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu)."
   },
   "nb": {
     "err.capture_fail": "[screenshot-feil] Klarte ikke å ta skjermbildet: {err}",
@@ -355,17 +355,17 @@
     "err.window_not_found": "[screenshot-feil] Fant ikke noe vindu som samsvarer med t...",
     "out.ok": "[screenshot] Lagret til {path}",
     "out.ok_closed": "[screenshot] Lagret til {path} og lukket vinduet",
-    "param.close_window.description": "Om vinduet skal lukkes etter at bildet er tatt.Gjelder bare når window_title er angitt.",
     "param.delay.description": "Ventetid i sekunder før opptak.",
     "param.file_path.description": "Målfilsti (.png anbefales).",
-    "param.window_title.description": "Vindustittel som skal tas bilde av (delvis treff).",
     "tool.description": "Tar et skjermbilde av hele skrivebordet eller av et bestemt vindu.",
     "x_search_terms": [
       "screenshot",
       "skjermbilde",
       "vindu"
     ],
-    "next_action.analyze_screenshot": "Vennligst analyser dette skj..."
+    "next_action.analyze_screenshot": "Vennligst analyser dette skj...",
+    "param.close.description": "Om vinduet skal lukkes etter at bildet er tatt.Gjelder bare når window_title er angitt.",
+    "param.title.description": "Vindustittel som skal tas bilde av (delvis treff)."
   },
   "nl": {
     "err.capture_fail": "[screenshot fout] Screenshot maken mislukt: {err}",
@@ -375,17 +375,17 @@
     "err.window_not_found": "[screenshot fout] Er is geen venster gevonden met titel: '{title}'",
     "out.ok": "[screenshot] Opgeslagen naar {path}",
     "out.ok_closed": "[screenshot] Opgeslagen naar {path} en venster gesloten",
-    "param.close_window.description": "Of het venster na het maken van de opname moet worden gesloten.",
     "param.delay.description": "Wachttijd (seconden) vóór het maken van de opname.",
     "param.file_path.description": "Bestemmingsbestandspad (.png aanbevolen).",
-    "param.window_title.description": "Venstertitel om vast te leggen (gedeeltelijke match).",
     "tool.description": "Leg een screenshot vast van het volledige bureaublad of van ee...",
     "x_search_terms": [
       "screenshot",
       "schermafbeelding",
       "venster"
     ],
-    "next_action.analyze_screenshot": "Analyseer deze schermafbeeld..."
+    "next_action.analyze_screenshot": "Analyseer deze schermafbeeld...",
+    "param.close.description": "Of het venster na het maken van de opname moet worden gesloten.",
+    "param.title.description": "Venstertitel om vast te leggen (gedeeltelijke match)."
   },
   "fi": {
     "err.capture_fail": "[screenshot-virhe] Kuvakaappauksen ottaminen epäonn...",
@@ -395,17 +395,17 @@
     "err.window_not_found": "[screenshot-virhe] Ikkunaa, jonka otsikko on: '{title}',...",
     "out.ok": "[screenshot] Tallennettu kohteeseen {path}",
     "out.ok_closed": "[screenshot] Tallennettu kohteeseen {path} ja ikkuna suljettu",
-    "param.close_window.description": "Suljetaanko ikkuna oton jälkeen. Voimassa vain, kun window_title on annettu. Oletus on false.",
     "param.delay.description": "Odotusaika (sekunteina) ennen ottoa.",
     "param.file_path.description": "Tallennuskohteen tiedostopolku (.",
-    "param.window_title.description": "Ikkunan otsikko, josta otos otetaan (osittainen osuma).",
     "tool.description": "Ota kuvakaappaus koko työpöydästä tai tietystä ikkunasta.",
     "x_search_terms": [
       "screenshot",
       "kuvakaappaus",
       "ikkuna"
     ],
-    "next_action.analyze_screenshot": "Analysoi tämä kuvakaappaus."
+    "next_action.analyze_screenshot": "Analysoi tämä kuvakaappaus.",
+    "param.close.description": "Suljetaanko ikkuna oton jälkeen. Voimassa vain, kun window_title on annettu. Oletus on false.",
+    "param.title.description": "Ikkunan otsikko, josta otos otetaan (osittainen osuma)."
   },
   "cs": {
     "err.capture_fail": "[screenshot chyba] Nepodařilo se pořídit snímek obr...",
@@ -415,17 +415,17 @@
     "err.window_not_found": "[screenshot chyba] Nebylo nalezeno žádné okno odpovídajíc...",
     "out.ok": "[screenshot] Uloženo do {path}",
     "out.ok_closed": "[screenshot] Uloženo do {path} a okno bylo zavřeno",
-    "param.close_window.description": "Zda po pořízení snímku zavřít okno.Platí pouze při zadání window_title.",
     "param.delay.description": "Doba čekání před pořízením snímku (sekundy).",
     "param.file_path.description": "Cílová cesta k souboru (.png doporučeno).",
-    "param.window_title.description": "Název okna, které má být zachyceno (částečná shoda).",
     "tool.description": "Pořizuje snímek celé plochy nebo konkrétního okna.",
     "x_search_terms": [
       "screenshot",
       "snímek obrazovky",
       "okno"
     ],
-    "next_action.analyze_screenshot": "Prosím analyzujte tento sním..."
+    "next_action.analyze_screenshot": "Prosím analyzujte tento sním...",
+    "param.close.description": "Zda po pořízení snímku zavřít okno.Platí pouze při zadání window_title.",
+    "param.title.description": "Název okna, které má být zachyceno (částečná shoda)."
   },
   "uk": {
     "err.capture_fail": "[помилка screenshot] Не вдалося зробити знімок екра...",
@@ -435,17 +435,17 @@
     "err.window_not_found": "[помилка screenshot] Не знайдено жодного вікна, що відпов...",
     "out.ok": "[screenshot] Збережено в {path}",
     "out.ok_closed": "[screenshot] Збережено в {path} і вікно закрито",
-    "param.close_window.description": "Чи закривати вікно після знімка. Дійсно лише коли вказано window_title. Типово: False.",
     "param.delay.description": "Час очікування перед знімком (секунди).",
     "param.file_path.description": "Шлях до файла призначення (.",
-    "param.window_title.description": "Заголовок вікна для знімка (частковий збіг). Якщо вказано, знайде це вікно, активує його і збереже лише цю область.",
     "tool.description": "Робить знімок усього робочого столу або конкретного вікна.",
     "x_search_terms": [
       "screenshot",
       "знімок екрана",
       "вікно"
     ],
-    "next_action.analyze_screenshot": "Будь ласка, проаналізуйте це..."
+    "next_action.analyze_screenshot": "Будь ласка, проаналізуйте це...",
+    "param.close.description": "Чи закривати вікно після знімка. Дійсно лише коли вказано window_title. Типово: False.",
+    "param.title.description": "Заголовок вікна для знімка (частковий збіг). Якщо вказано, знайде це вікно, активує його і збереже лише цю область."
   },
   "tr": {
     "err.capture_fail": "[ekran görüntüsü hatası] Ekran görüntüsü alınamadı: {err}",
@@ -455,17 +455,17 @@
     "err.window_not_found": "[ekran görüntüsü hatası] Başlıkla eşleşen pencere bulunam...",
     "out.ok": "[ekran görüntüsü] {path} konumuna kaydedildi",
     "out.ok_closed": "[ekran görüntüsü] {path}'a kaydedildi ve pencere kapatıldı",
-    "param.close_window.description": "Çekimden sonra pencerenin kapatılıp kapatılmayacağı.",
     "param.delay.description": "Çekimden önce bekleme süresi (saniye).",
     "param.file_path.description": "Hedef dosya yolu (.png önerilir).",
-    "param.window_title.description": "Çekilecek pencere başlığı (kısmi eşleşme).",
     "tool.description": "Tüm masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalar.",
     "x_search_terms": [
       "screenshot",
       "ekran görüntüsü",
       "pencere"
     ],
-    "next_action.analyze_screenshot": "Lütfen bu ekran görüntüsünü..."
+    "next_action.analyze_screenshot": "Lütfen bu ekran görüntüsünü...",
+    "param.close.description": "Çekimden sonra pencerenin kapatılıp kapatılmayacağı.",
+    "param.title.description": "Çekilecek pencere başlığı (kısmi eşleşme)."
   },
   "th": {
     "err.capture_fail": "[ข้อผิดพลาดภาพหน้าจอ] ไม่สามารถจับภาพหน้าจอได้: {err}",
@@ -475,17 +475,17 @@
     "err.window_not_found": "[ข้อผิดพลาดภาพหน้าจอ] ไม่พบหน้าต่างที่ตรงกับชื่อเรื่อง: '{title}'",
     "out.ok": "[ภาพหน้าจอ] บันทึกไปที่ {path}",
     "out.ok_closed": "[ภาพหน้าจอ] บันทึกไปที่ {path} และปิดหน้าต่างแล้ว",
-    "param.close_window.description": "จะปิดหน้าต่างหลังจากจับภาพหรือไม่ ใช้ได้เฉพาะเมื่อระบุ window_title ค่าเริ่มต้นคือ False",
     "param.delay.description": "เวลารอก่อนจับภาพ (วินาที) ค่าเริ่มต้นคือ 1 วินาที (สำห...",
     "param.file_path.description": "พาธไฟล์ปลายทาง (แนะนำ .",
-    "param.window_title.description": "ชื่อหน้าต่างที่จะจับภาพ (ตรงบางส่วน) หากระบุ จะค้นหาหน้าต่างนั้น ทำให้เป็นหน้าต่างที่ใช้งานอยู่ และจับเฉพาะพื้นที่นั้น",
     "tool.description": "จับภาพหน้าจอของเดสก์ท็อปทั้งหมดหรือหน้าต่างเฉพาะ",
     "x_search_terms": [
       "screenshot",
       "ภาพหน้าจอ",
       "หน้าต่าง"
     ],
-    "next_action.analyze_screenshot": "กรุณาวิเคราะห์ภาพหน้าจอนี้"
+    "next_action.analyze_screenshot": "กรุณาวิเคราะห์ภาพหน้าจอนี้",
+    "param.close.description": "จะปิดหน้าต่างหลังจากจับภาพหรือไม่ ใช้ได้เฉพาะเมื่อระบุ window_title ค่าเริ่มต้นคือ False",
+    "param.title.description": "ชื่อหน้าต่างที่จะจับภาพ (ตรงบางส่วน) หากระบุ จะค้นหาหน้าต่างนั้น ทำให้เป็นหน้าต่างที่ใช้งานอยู่ และจับเฉพาะพื้นที่นั้น"
   },
   "zh_CN": {
     "err.capture_fail": "[截图错误] 截图失败：{err}",
@@ -495,10 +495,8 @@
     "err.window_not_found": "[截图错误] 未找到标题匹配的窗口：'{title}'",
     "out.ok": "[截图] 已保存到 {path}",
     "out.ok_closed": "[截图] 已保存到 {path} 并已关闭窗口",
-    "param.close_window.description": "拍摄后是否关闭窗口。仅在指定 window_title 时有效。默认值为 False。",
     "param.delay.description": "拍摄前的等待时间（秒）。默认值为 1 秒（用于切换窗口）。",
     "param.file_path.description": "目标文件路径（建议使用 .png）。如果未指定，则会带时间戳保存到当前目录。",
-    "param.window_title.description": "要拍摄的窗口标题（部分匹配）。如果指定，则找到该窗口，使其处于活动状态，并只拍摄该区域。",
     "tool.description": "捕获整个桌面或特定窗口的屏幕截图。",
     "x_search_terms": [
       "screenshot",
@@ -506,7 +504,9 @@
       "屏幕截图",
       "窗口截图"
     ],
-    "next_action.analyze_screenshot": "请分析这张截图。"
+    "next_action.analyze_screenshot": "请分析这张截图。",
+    "param.close.description": "拍摄后是否关闭窗口。仅在指定 window_title 时有效。默认值为 False。",
+    "param.title.description": "要拍摄的窗口标题（部分匹配）。如果指定，则找到该窗口，使其处于活动状态，并只拍摄该区域。"
   },
   "zh_TW": {
     "err.capture_fail": "[截圖錯誤] 截圖失敗：{err}",
@@ -516,10 +516,8 @@
     "err.window_not_found": "[截圖錯誤] 找不到標題相符的視窗：'{title}'",
     "out.ok": "[截圖] 已儲存至 {path}",
     "out.ok_closed": "[截圖] 已儲存至 {path} 並已關閉視窗",
-    "param.close_window.description": "拍攝後是否關閉視窗。僅在指定 window_title 時有效。預設值為 False。",
     "param.delay.description": "拍攝前的等待時間（秒）。預設值為 1 秒（用於切換視窗）。",
     "param.file_path.description": "目標檔案路徑（建議使用 .png）。若未指定，會加上時間戳記儲存在目前目錄。",
-    "param.window_title.description": "要拍攝的視窗標題（部分符合）。若指定，會找到該視窗並將其設為作用中，只擷取該區域。",
     "tool.description": "擷取整個桌面或特定視窗的螢幕截圖。",
     "x_search_terms": [
       "screenshot",
@@ -527,7 +525,9 @@
       "螢幕截圖",
       "視窗截圖"
     ],
-    "next_action.analyze_screenshot": "請分析這張螢幕截圖。"
+    "next_action.analyze_screenshot": "請分析這張螢幕截圖。",
+    "param.close.description": "拍攝後是否關閉視窗。僅在指定 window_title 時有效。預設值為 False。",
+    "param.title.description": "要拍攝的視窗標題（部分符合）。若指定，會找到該視窗並將其設為作用中，只擷取該區域。"
   },
   "bn": {
     "err.capture_fail": "[screenshot error] স্ক্রিনশট নিতে ব্যর্থ: {err}",
@@ -537,10 +537,8 @@
     "err.window_not_found": "[screenshot error] শিরোনাম '{title}'-এর সাথে মেলে এমন কোন...",
     "out.ok": "[screenshot] {path} এ সংরক্ষণ করা হয়েছে",
     "out.ok_closed": "[screenshot] {path} এ সংরক্ষণ করা হয়েছে এবং উইন্ডো বন্ধ করা হয়েছে",
-    "param.close_window.description": "ক্যাপচার করার পরে উইন্ডো বন্ধ করা হবে কি না। শুধু window_title নির্দিষ্ট থাকলে বৈধ।...",
     "param.delay.description": "ক্যাপচারের আগে অপেক্ষার সময় (সেকেন্ড)। ডিফল্ট: 1 সেকে...",
     "param.file_path.description": "গন্তব্য ফাইল পাথ (.",
-    "param.window_title.description": "ক্যাপচার করার উইন্ডোর শিরোনাম (আংশিক মিল)। নির্দিষ্ট করলে, সেই উইন্ডো খুঁজে সক্রিয় করা হবে এবং শুধু সেই...",
     "tool.description": "সম্পূর্ণ ডেস্কটপ বা নির্দিষ্ট কোনো উইন্ডোর স্ক্রিনশট নেয়।",
     "x_search_terms": [
       "screenshot",
@@ -548,7 +546,9 @@
       "স্ক্রিন ক্যাপচার",
       "উইন্ডো ক্যাপচার"
     ],
-    "next_action.analyze_screenshot": "অনুগ্রহ করে এই স্ক্রিনশটটি ব..."
+    "next_action.analyze_screenshot": "অনুগ্রহ করে এই স্ক্রিনশটটি ব...",
+    "param.close.description": "ক্যাপচার করার পরে উইন্ডো বন্ধ করা হবে কি না। শুধু window_title নির্দিষ্ট থাকলে বৈধ।...",
+    "param.title.description": "ক্যাপচার করার উইন্ডোর শিরোনাম (আংশিক মিল)। নির্দিষ্ট করলে, সেই উইন্ডো খুঁজে সক্রিয় করা হবে এবং শুধু সেই..."
   },
   "fa": {
     "err.capture_fail": "[خطای اسکرین‌شات] گرفتن اسکرین‌شات ناموفق بود: {err}",
@@ -558,10 +558,8 @@
     "err.window_not_found": "[خطای اسکرین‌شات] هیچ پنجره‌ای با عنوان '{title}' پیدا نشد",
     "out.ok": "[اسکرین‌شات] در {path} ذخیره شد",
     "out.ok_closed": "[اسکرین‌شات] در {path} ذخیره شد و پنجره بسته شد",
-    "param.close_window.description": "اینکه بعد از گرفتن عکس پنجره بسته شود یا نه.",
     "param.delay.description": "زمان انتظار قبل از گرفتن عکس (ثانیه).",
     "param.file_path.description": "مسیر فایل مقصد (ترجیحاً .png).",
-    "param.window_title.description": "عنوان پنجره‌ای که باید تصویربرداری شود (تطابق جزئی).",
     "tool.description": "از کل دسکتاپ یا یک پنجرهٔ مشخص اسکرین‌شات می‌گیرد.",
     "x_search_terms": [
       "screenshot",
@@ -569,7 +567,9 @@
       "گرفتن تصویر صفحه",
       "پنجره"
     ],
-    "next_action.analyze_screenshot": "لطفاً این اسکرین‌شات را تحلی..."
+    "next_action.analyze_screenshot": "لطفاً این اسکرین‌شات را تحلی...",
+    "param.close.description": "اینکه بعد از گرفتن عکس پنجره بسته شود یا نه.",
+    "param.title.description": "عنوان پنجره‌ای که باید تصویربرداری شود (تطابق جزئی)."
   },
   "mn": {
     "err.capture_fail": "[screenshot error] Дэлгэцийн зургийг авч чадсангүй: {err}",
@@ -579,17 +579,17 @@
     "err.window_not_found": "[screenshot error] '{title}' гарчигтай цонх олдсонгүй",
     "out.ok": "[screenshot] {path} руу хадгаллаа",
     "out.ok_closed": "[screenshot] {path} руу хадгалж, цонхыг хаалаа",
-    "param.close_window.description": "Дарсны дараа цонхыг хаах эсэх. Зөвхөн window_title заасан үед хүчинтэй. Анхдагч: False.",
     "param.delay.description": "Дархаас өмнөх хүлээлгийн хугацаа (секунд).",
     "param.file_path.description": "Хадгалах файл зам (.png зөвлөж байна).",
-    "param.window_title.description": "Дарж авах цонхны гарчиг (хэсэгчилсэн тааралт). Заавал өгвөл, тэр цонхыг олж идэвхжүүлээд зөвхөн тэр хэсгийг зураглана.",
     "tool.description": "Бүх дэлгэц эсвэл тодорхой цонхны дэлгэцийн зургийг авна.",
     "x_search_terms": [
       "screenshot",
       "дэлгэцийн зураг",
       "цонх"
     ],
-    "next_action.analyze_screenshot": "Энэ дэлгэцийн зургийг шинжилнэ үү."
+    "next_action.analyze_screenshot": "Энэ дэлгэцийн зургийг шинжилнэ үү.",
+    "param.close.description": "Дарсны дараа цонхыг хаах эсэх. Зөвхөн window_title заасан үед хүчинтэй. Анхдагч: False.",
+    "param.title.description": "Дарж авах цонхны гарчиг (хэсэгчилсэн тааралт). Заавал өгвөл, тэр цонхыг олж идэвхжүүлээд зөвхөн тэр хэсгийг зураглана."
   },
   "mr": {
     "err.capture_fail": "[स्क्रीनशॉट त्रुटी] स्क्रीनशॉट घेता आला नाही: {err}",
@@ -599,10 +599,8 @@
     "err.window_not_found": "[स्क्रीनशॉट त्रुटी] '{title}' या शीर्षकाशी जुळणारी कोणतीह...",
     "out.ok": "[स्क्रीनशॉट] {path} मध्ये जतन केले",
     "out.ok_closed": "[स्क्रीनशॉट] {path} मध्ये जतन केले आणि विंडो बंद केली",
-    "param.close_window.description": "कॅप्चर केल्यानंतर विंडो बंद करायची की नाही. फक्त window_title दिल्यास वैध. डीफॉल्ट: False.",
     "param.delay.description": "कॅप्चरपूर्व प्रतीक्षा वेळ (सेकंद).",
     "param.file_path.description": "गंतव्य फाइल path (.png शिफारस).",
-    "param.window_title.description": "कॅप्चर करायच्या विंडोचे शीर्षक (आंशिक जुळणी).",
     "tool.description": "संपूर्ण डेस्कटॉप किंवा विशिष्ट विंडोचा स्क्रीनशॉट घेते.",
     "x_search_terms": [
       "screenshot",
@@ -610,6 +608,8 @@
       "स्क्रीन कॅप्चर",
       "विंडो कॅप्चर"
     ],
-    "next_action.analyze_screenshot": "कृपया या स्क्रीनशॉटचे विश्ले..."
+    "next_action.analyze_screenshot": "कृपया या स्क्रीनशॉटचे विश्ले...",
+    "param.close.description": "कॅप्चर केल्यानंतर विंडो बंद करायची की नाही. फक्त window_title दिल्यास वैध. डीफॉल्ट: False.",
+    "param.title.description": "कॅप्चर करायच्या विंडोचे शीर्षक (आंशिक जुळणी)."
   }
 }

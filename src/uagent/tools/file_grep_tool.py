@@ -125,10 +125,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Alias (compat).",
                     ),
                 },
-                "name_pattern": {
+                "glob": {
                     "type": "string",
                     "description": _(
-                        "param.name_pattern.description",
+                        "param.glob.description",
                         default=(
                             "Filename glob pattern (e.g., '*.py', 'test_*'). "
                             "If omitted, all files are considered."
@@ -136,10 +136,10 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": "*",
                 },
-                "recursive": {
+                "recur": {
                     "type": "boolean",
                     "description": _(
-                        "param.recursive.description",
+                        "param.recur.description",
                         default="Whether to search subdirectories recursively.",
                     ),
                     "default": False,
@@ -160,10 +160,10 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": False,
                 },
-                "max_results": {
+                "limit": {
                     "type": "integer",
                     "description": _(
-                        "param.max_results.description",
+                        "param.limit.description",
                         default="Maximum number of matches to return per page (default: 100).",
                     ),
                     "default": 100,
@@ -176,10 +176,10 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": 1,
                 },
-                "max_hits_per_file": {
+                "maxhits": {
                     "type": "integer",
                     "description": _(
-                        "param.max_hits_per_file.description",
+                        "param.maxhits.description",
                         default="Maximum number of matches to return per file (default: 100).",
                     ),
                     "default": 100,
@@ -389,13 +389,13 @@ def run_tool(args: dict[str, Any]) -> str:
         if raw_path in (None, ""):
             raw_path = args.get("root_path", ".")
 
-        name_pattern = get_str(args, "name_pattern", "*")
-        recursive = get_bool(args, "recursive", False)
+        name_pattern = get_str(args, "glob", "*")
+        recursive = get_bool(args, "recur", False)
         ignore_case = get_bool(args, "ignore_case", True)
         literal = get_bool(args, "literal", False)
-        max_results = max(0, get_int(args, "max_results", 100))
+        max_results = max(0, get_int(args, "limit", 100))
         page = max(1, get_int(args, "page", 1))
-        max_hits_per_file = max(0, get_int(args, "max_hits_per_file", 100))
+        max_hits_per_file = max(0, get_int(args, "maxhits", 100))
         context_lines = max(0, get_int(args, "context_lines", 0))
         filenames_only = get_bool(args, "filenames_only", False)
         binary_skip = get_bool(args, "binary_skip", True)

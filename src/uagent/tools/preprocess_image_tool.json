@@ -9,7 +9,6 @@
       "scan image",
       "document image"
     ],
-    "param.image_path.description": "Path to the source image to preprocess.",
     "param.mode.description": "Preprocess mode.",
     "param.grayscale.description": "Convert the image to grayscale.",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -19,13 +18,14 @@
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "err.mkdir_fail": "[preprocess_image] Failed to create output_dir: {err}",
-    "ok.generated": "[OK] generated: {path}"
+    "ok.generated": "[OK] generated: {path}",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "ja": {
     "tool.description": "LLM や OCR バックエンドへ画像を渡す前に前処理を行います。スクリーンショット、スキャン文書、グラフ、表、図、線画に有用です。",
@@ -35,7 +35,6 @@
       "ocr 前処理",
       "画像補正"
     ],
-    "param.image_path.description": "前処理する元画像のパス。",
     "param.mode.description": "前処理モード。",
     "param.grayscale.description": "画像をグレースケール化します。",
     "param.denoise.description": "ノイズ除去や平滑化を行います。",
@@ -45,13 +44,14 @@
     "param.resize.description": "任意のリサイズ指定。例: 2x または 1600x1200。空なら元サイズを維持します。",
     "param.contrast.description": "任意のコントラスト係数。1.0 で元のまま、1.0 より大きいとコントラスト増強。",
     "param.output_dir.description": "前処理後画像の保存先ディレクトリ。省略時は outputs/image_preprocess。",
-    "param.file_prefix.description": "保存ファイル名の接頭辞（任意）。",
     "err.image_path_empty": "[preprocess_image] image_path が必要です",
     "err.image_not_found": "[preprocess_image] 画像ファイルが見つかりません: {path}",
     "err.mode_invalid": "[preprocess_image] mode が不正です: {mode!r}。ocr/document/diagram/photo/custom を指定してください。",
     "err.resize_invalid": "[preprocess_image] resize の値が不正です: {value!r}。'2x' または '1600x1200' を指定してください。",
     "err.mkdir_fail": "[preprocess_image] output_dir の作成に失敗しました: {err}",
-    "ok.generated": "[OK] 生成しました: {path}"
+    "ok.generated": "[OK] 生成しました: {path}",
+    "param.prefix.description": "保存ファイル名の接頭辞（任意）。",
+    "param.img.description": "前処理する元画像のパス。"
   },
   "es": {
     "x_search_terms": [
@@ -61,7 +61,6 @@
       "limpieza de imagen"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -73,11 +72,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "fr": {
     "x_search_terms": [
@@ -87,7 +87,6 @@
       "nettoyage image"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -99,11 +98,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "ko": {
     "x_search_terms": [
@@ -113,7 +113,6 @@
       "이미지 정리"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -125,11 +124,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "de": {
     "x_search_terms": [
@@ -139,7 +139,6 @@
       "bild bereinigen"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -151,11 +150,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "it": {
     "x_search_terms": [
@@ -165,7 +165,6 @@
       "pulizia immagine"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -177,11 +176,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "ru": {
     "x_search_terms": [
@@ -191,7 +191,6 @@
       "очистка изображения"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -203,11 +202,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "pt_BR": {
     "x_search_terms": [
@@ -217,7 +217,6 @@
       "limpeza de imagem"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -229,11 +228,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "pt": {
     "x_search_terms": [
@@ -243,7 +243,6 @@
       "limpeza de imagem"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -255,11 +254,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "id": {
     "x_search_terms": [
@@ -269,7 +269,6 @@
       "pembersihan gambar"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -281,11 +280,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "vi": {
     "x_search_terms": [
@@ -295,7 +295,6 @@
       "làm sạch ảnh"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -307,11 +306,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "pl": {
     "x_search_terms": [
@@ -321,7 +321,6 @@
       "czyszczenie obrazu"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -333,11 +332,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "hi": {
     "x_search_terms": [
@@ -347,7 +347,6 @@
       "छवि सफाई"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -359,11 +358,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "ar": {
     "x_search_terms": [
@@ -373,7 +373,6 @@
       "تنظيف الصورة"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -385,11 +384,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "sv": {
     "x_search_terms": [
@@ -399,7 +399,6 @@
       "bildrensning"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -411,11 +410,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "sw": {
     "x_search_terms": [
@@ -425,7 +425,6 @@
       "usafishaji wa picha"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -437,11 +436,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "nb": {
     "x_search_terms": [
@@ -451,7 +451,6 @@
       "bildrens"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -463,11 +462,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "nl": {
     "x_search_terms": [
@@ -477,7 +477,6 @@
       "beeldopruiming"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -489,11 +488,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "fi": {
     "x_search_terms": [
@@ -503,7 +503,6 @@
       "kuvan puhdistus"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -515,11 +514,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "cs": {
     "x_search_terms": [
@@ -529,7 +529,6 @@
       "čištění obrázku"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -541,11 +540,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "uk": {
     "x_search_terms": [
@@ -555,7 +555,6 @@
       "очищення зображення"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -567,11 +566,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "tr": {
     "x_search_terms": [
@@ -581,7 +581,6 @@
       "görüntü temizleme"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -593,11 +592,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "th": {
     "x_search_terms": [
@@ -607,7 +607,6 @@
       "ล้างภาพ"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -619,11 +618,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "zh_CN": {
     "x_search_terms": [
@@ -633,7 +633,6 @@
       "图像清理"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -645,11 +644,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "zh_TW": {
     "x_search_terms": [
@@ -659,7 +659,6 @@
       "影像清理"
     ],
     "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.image_path.description": "Path to the source image to preprocess.",
     "ok.generated": "[OK] generated: {path}",
     "err.image_path_empty": "[preprocess_image] image_path is required",
     "param.denoise.description": "Apply denoising / smoothing.",
@@ -671,11 +670,12 @@
     "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
     "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
     "err.mode_invalid": "[preprocess_image] invalid mode: {mode!r}. Use ocr/document/diagram/photo/custom.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.image_not_found": "[preprocess_image] image file not found: {path}",
     "err.resize_invalid": "[preprocess_image] invalid resize value: {value!r}. Use '2x' or '1600x1200'.",
     "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted."
+    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.img.description": "Path to the source image to preprocess."
   },
   "bn": {
     "tool.description": "LLM বা OCR ব্যাকএন্ডে ছবি পাঠানোর আগে ছবি প্রি-প্রসেস করুন। স্ক্রিনশট, স্ক্যান করা নথি, চার্ট, টেবিল, ডায়াগ্রাম এবং...",
@@ -685,7 +685,6 @@
       "ocr প্রিপ্রসেস",
       "ছবি পরিষ্কার"
     ],
-    "param.image_path.description": "প্রি-প্রসেস করার জন্য উৎস ছবির path।",
     "param.mode.description": "প্রি-প্রসেসিং...",
     "param.grayscale.description": "ছবিটিকে grayscale-এ রূপান্তর করুন।",
     "param.denoise.description": "denoising / smoothing প্র...",
@@ -695,13 +694,14 @@
     "param.resize.description": "ঐচ্ছিক resize target, যেমন 2x বা 1600x1200। মূল size রাখতে ফাঁকা রাখুন।",
     "param.contrast.description": "ঐচ্ছিক contrast factor। 1.0 হলে মূল থাকে; 1.0-এর বেশি হলে contrast বাড়ে।",
     "param.output_dir.description": "প্রসেস করা ছবি সংরক্ষণের ডিরেক্টরি। না দিলে outputs/image_preprocess ব্যবহার হবে।",
-    "param.file_prefix.description": "সংরক্ষিত ফাইলনামের prefix (ঐচ্ছিক)।",
     "err.image_path_empty": "[preprocess_image] image_path প্রয়োজন",
     "err.image_not_found": "[preprocess_image] image file পাওয়া যায়নি: {path}",
     "err.mode_invalid": "[preprocess_image] অবৈধ mode: {mode!r}. ocr/document/diagram/photo/custom ব্যবহার করুন।",
     "err.resize_invalid": "[preprocess_image] অবৈধ resize value: {value!r}. '2x' বা '1600x1200' ব্যবহার করুন।",
     "err.mkdir_fail": "[preprocess_image] output_dir তৈরি করতে ব্যর্থ হয়েছে: {err}",
-    "ok.generated": "[OK] তৈরি হয়েছে: {path}"
+    "ok.generated": "[OK] তৈরি হয়েছে: {path}",
+    "param.prefix.description": "সংরক্ষিত ফাইলনামের prefix (ঐচ্ছিক)।",
+    "param.img.description": "প্রি-প্রসেস করার জন্য উৎস ছবির path।"
   },
   "fa": {
     "tool.description": "پیش‌پردازش تصویر را پیش از ارسال آن به backendِ LLM یا OCR انجام دهید.",
@@ -711,7 +711,6 @@
       "ocr پیش‌پردازش",
       "پاکسازی تصویر"
     ],
-    "param.image_path.description": "مسیر تصویرِ منبع برای پیش‌پردازش.",
     "param.mode.description": "mode پیش‌پردا...",
     "param.grayscale.description": "تصویر را به خاکستری تبدیل کنید.",
     "param.denoise.description": "حذف نویز / هموارسازی را ا...",
@@ -721,13 +720,14 @@
     "param.resize.description": "اندازه‌ٔ اختیاری، مثل 2x یا 1600x1200. برای حفظ اندازهٔ اصلی خالی بگذارید.",
     "param.contrast.description": "ضریب اختیاری کنتراست.1.0 حالت اصلی را نگه می‌دارد؛ بیش از 1.",
     "param.output_dir.description": "پوشهٔ ذخیرهٔ تصاویر پردازش‌شده. اگر مشخص نشود outputs/image_preprocess استفاده می‌شود.",
-    "param.file_prefix.description": "پیشوند نام فایلِ ذخیره‌شده (اختیاری).",
     "err.image_path_empty": "[preprocess_image] image_path لازم است",
     "err.image_not_found": "[preprocess_image] فایل تصویر پیدا نشد: {path}",
     "err.mode_invalid": "[preprocess_image] mode نامعتبر است: {mode!r}. از ocr/document/diagram/photo/custom استفاده کنید.",
     "err.resize_invalid": "[preprocess_image] مقدار resize نامعتبر است: {value!r}. از '2x' یا '1600x1200' استفاده کنید.",
     "err.mkdir_fail": "[preprocess_image] ایجاد output_dir ناموفق بود: {err}",
-    "ok.generated": "[OK] ایجاد شد: {path}"
+    "ok.generated": "[OK] ایجاد شد: {path}",
+    "param.prefix.description": "پیشوند نام فایلِ ذخیره‌شده (اختیاری).",
+    "param.img.description": "مسیر تصویرِ منبع برای پیش‌پردازش."
   },
   "mn": {
     "tool.description": "LLM эсвэл OCR backend руу зураг илгээхээс өмнө зурагт урьдчилсан боловсруулалт хийнэ.",
@@ -737,7 +737,6 @@
       "ocr урьдчилан боловсруулах",
       "зураг цэвэрлэх"
     ],
-    "param.image_path.description": "Урьдчилан боловсруулах эх зургийн зам.",
     "param.mode.description": "Урьдчилан бол...",
     "param.grayscale.description": "Зургийг grayscale болгоно.",
     "param.denoise.description": "denoising / smoothing хэр...",
@@ -747,13 +746,14 @@
     "param.resize.description": "Сонголттой resize target, жишээ нь 2x эсвэл 1600x1200.",
     "param.contrast.description": "Сонголттой contrast factor.1.0 нь анхны байдлыг хадгална; 1.",
     "param.output_dir.description": "Боловсруулсан зургийг хадгалах директор. Заагаагүй бол outputs/image_preprocess ашиглана.",
-    "param.file_prefix.description": "Хадгалах файлын нэрийн prefix (сонголттой).",
     "err.image_path_empty": "[preprocess_image] image_path шаардлагатай",
     "err.image_not_found": "[preprocess_image] image file олдсонгүй: {path}",
     "err.mode_invalid": "[preprocess_image] mode буруу: {mode!r}. ocr/document/diagram/photo/custom ашиглана уу.",
     "err.resize_invalid": "[preprocess_image] resize-ийн утга буруу: {value!r}. '2x' эсвэл '1600x1200' ашиглана уу.",
     "err.mkdir_fail": "[preprocess_image] output_dir үүсгэж чадсангүй: {err}",
-    "ok.generated": "[OK] үүсгэлээ: {path}"
+    "ok.generated": "[OK] үүсгэлээ: {path}",
+    "param.prefix.description": "Хадгалах файлын нэрийн prefix (сонголттой).",
+    "param.img.description": "Урьдчилан боловсруулах эх зургийн зам."
   },
   "mr": {
     "tool.description": "LLM किंवा OCR backend कडे प्रतिमा पाठवण्यापूर्वी प्रतिमेचे पूर्वप्रक्रियन करा.",
@@ -763,7 +763,6 @@
       "ocr पूर्वप्रक्रिया",
       "प्रतिमा स्वच्छता"
     ],
-    "param.image_path.description": "पूर्वप्रक्रिया करायच्या स्रोत प्रतिम...",
     "param.mode.description": "पूर्वप्रक्रिय...",
     "param.grayscale.description": "प्रतिमा grayscale मध्ये रूपा...",
     "param.denoise.description": "denoising / smoothing लाग...",
@@ -773,12 +772,13 @@
     "param.resize.description": "ऐच्छिक resize target, उदा. 2x किंवा 1600x1200. मूळ size ठेवण्यासाठी रिकामे ठेवा.",
     "param.contrast.description": "ऐच्छिक contrast factor.1.0 असल्यास मूळ राहील; 1.",
     "param.output_dir.description": "प्रक्रिया केलेल्या प्रतिमा जतन करण्यासाठी directory.",
-    "param.file_prefix.description": "जतन केलेल्या फाइलनावासाठी prefix (ऐच्छिक).",
     "err.image_path_empty": "[preprocess_image] image_path आवश्यक आहे",
     "err.image_not_found": "[preprocess_image] image file सापडली नाही: {path}",
     "err.mode_invalid": "[preprocess_image] अवैध mode: {mode!r}. ocr/document/diagram/photo/custom वापरा.",
     "err.resize_invalid": "[preprocess_image] अवैध resize value: {value!r}. '2x' किंवा '1600x1200' वापरा.",
     "err.mkdir_fail": "[preprocess_image] output_dir तयार करण्यात अपयश: {err}",
-    "ok.generated": "[OK] तयार झाले: {path}"
+    "ok.generated": "[OK] तयार झाले: {path}",
+    "param.prefix.description": "जतन केलेल्या फाइलनावासाठी prefix (ऐच्छिक).",
+    "param.img.description": "पूर्वप्रक्रिया करायच्या स्रोत प्रतिम..."
   }
 }

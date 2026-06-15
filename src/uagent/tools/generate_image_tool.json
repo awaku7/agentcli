@@ -13,7 +13,6 @@
     "param.size.description": "Image size.",
     "param.n.description": "Image count.",
     "param.output_dir.description": "Directory to save images (relative or absolute). Defaults to outputs/image_generations if omitted.",
-    "param.file_prefix.description": "Prefix for the saved filename (optional).",
     "err.invalid_provider": "invalid provider for image generation: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "required env var is missing (tried: {keys})",
     "err.openai_import": "Failed to import openai package: {err}",
@@ -31,7 +30,8 @@
     "ok.generated_one": "[OK] generated: {path}",
     "ok.generated_many": "[OK] generated:\n{paths}",
     "log.opened_default_app": "[INFO] Opened image file with the default app.",
-    "next_action.review_generated_image": "Please review the generated image."
+    "next_action.review_generated_image": "Please review the generated image.",
+    "param.prefix.description": "Prefix for the saved filename (optional)."
   },
   "ja": {
     "tool.description": "テキストプロンプトから画像を生成し、PNGとして保存してファイルパスを返します。開く処理は呼び出し元が行います。",
@@ -45,7 +45,6 @@
     "param.size.description": "画像サイズ。",
     "param.n.description": "画像枚数。",
     "param.output_dir.description": "画像の保存先ディレクトリです（相対/絶対パス可）。省略時は outputs/image_generations を使います。",
-    "param.file_prefix.description": "保存ファイル名の接頭辞です（任意）。",
     "err.invalid_provider": "画像生成の provider が不正です: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "必須の環境変数がありません（確認した項目: {keys}）",
     "err.openai_import": "openai パッケージの import に失敗しました: {err}",
@@ -63,7 +62,8 @@
     "ok.generated_one": "[OK] 生成しました: {path}",
     "ok.generated_many": "[OK] 生成しました:\n{paths}",
     "log.opened_default_app": "[INFO] 画像ファイルを既定アプリで開きました。",
-    "next_action.review_generated_image": "生成した画像を確認してください。"
+    "next_action.review_generated_image": "生成した画像を確認してください。",
+    "param.prefix.description": "保存ファイル名の接頭辞です（任意）。"
   },
   "es": {
     "tool.description": "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo.",
@@ -77,7 +77,6 @@
     "param.size.description": "Tamaño d...",
     "param.n.description": "Número de...",
     "param.output_dir.description": "Directorio para guardar las imágenes (relativo o absoluto). Si se omite, se usa outputs/image_generations.",
-    "param.file_prefix.description": "Prefijo para el nombre del archivo gua...",
     "err.invalid_provider": "proveedor no válido para la generación de imágenes: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "falta una variable de entorno requerida (probadas: {keys})",
     "err.openai_import": "No se pudo importar el paquete openai: {err}",
@@ -95,7 +94,8 @@
     "ok.generated_one": "[OK] generado: {path}",
     "ok.generated_many": "[OK] generados:\n{paths}",
     "log.opened_default_app": "[INFO] Archivo de imagen abierto con la aplicación predeterminada.",
-    "next_action.review_generated_image": "Por favor, revisa la imagen generada."
+    "next_action.review_generated_image": "Por favor, revisa la imagen generada.",
+    "param.prefix.description": "Prefijo para el nombre del archivo gua..."
   },
   "fr": {
     "tool.description": "Génère une image à partir d’un prompt texte, l’enregistre en PNG et renvoie le chemin du fichier.",
@@ -109,7 +109,6 @@
     "param.size.description": "Taille d...",
     "param.n.description": "Nombre d’...",
     "param.output_dir.description": "Répertoire où enregistrer les images (relatif ou absolu). Si omis, outputs/image_generations est utilisé.",
-    "param.file_prefix.description": "Préfixe du nom de fichier enregistré (...",
     "err.invalid_provider": "fournisseur invalide pour la génération d’images : {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "variable d’environnement requise manquante (essayées : {keys})",
     "err.openai_import": "échec de l’import du paquet openai : {err}",
@@ -127,7 +126,8 @@
     "ok.generated_one": "[OK] généré : {path}",
     "ok.generated_many": "[OK] générés :\n{paths}",
     "log.opened_default_app": "[INFO] Fichier image ouvert avec l’application par défaut.",
-    "next_action.review_generated_image": "Veuillez vérifier l'image générée."
+    "next_action.review_generated_image": "Veuillez vérifier l'image générée.",
+    "param.prefix.description": "Préfixe du nom de fichier enregistré (..."
   },
   "ko": {
     "tool.description": "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다. 열기는 호출자(CLI/GUI/Web)가 처리합니다.",
@@ -141,7 +141,6 @@
     "param.size.description": "이미지 크기.",
     "param.n.description": "이미지 수.",
     "param.output_dir.description": "이미지를 저장할 디렉터리입니다(상대/절대 경로 가능). 생략하면 outputs/image_generations를 사용합니다.",
-    "param.file_prefix.description": "저장 파일 이름의 접두사입니다(선택).",
     "err.invalid_provider": "이미지 생성을 위한 provider가 올바르지 않습니다: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "필요한 환경 변수가 없습니다(시도한 항목: {keys})",
     "err.openai_import": "openai 패키지를 가져오지 못했습니다: {err}",
@@ -159,7 +158,8 @@
     "ok.generated_one": "[OK] 생성됨: {path}",
     "ok.generated_many": "[OK] 생성됨:\n{paths}",
     "log.opened_default_app": "[INFO] 이미지 파일을 기본 앱으로 열었습니다.",
-    "next_action.review_generated_image": "생성된 이미지를 확인해 주세요."
+    "next_action.review_generated_image": "생성된 이미지를 확인해 주세요.",
+    "param.prefix.description": "저장 파일 이름의 접두사입니다(선택)."
   },
   "de": {
     "tool.description": "Erzeugt ein Bild aus einem Textprompt, speichert es als PNG und gibt den Dateipfad zurück. Das Öffnen übernimmt der Aufrufer (CLI/GUI/Web).",
@@ -173,7 +173,6 @@
     "param.size.description": "Bildgröße.",
     "param.n.description": "Anzahl de...",
     "param.output_dir.description": "Verzeichnis zum Speichern der Bilder (relativ oder absolut).",
-    "param.file_prefix.description": "Präfix für den gespeicherten Dateiname...",
     "err.invalid_provider": "Ungültiger Provider für die Bilderzeugung: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "Erforderliche Umgebungsvariable fehlt (versucht: {keys})",
     "err.openai_import": "Import des Pakets openai fehlgeschlagen: {err}",
@@ -191,7 +190,8 @@
     "ok.generated_one": "[OK] erzeugt: {path}",
     "ok.generated_many": "[OK] erzeugt:\n{paths}",
     "log.opened_default_app": "[INFO] Bilddatei mit der Standardanwendung geöffnet.",
-    "next_action.review_generated_image": "Bitte überprüfe das generierte Bild."
+    "next_action.review_generated_image": "Bitte überprüfe das generierte Bild.",
+    "param.prefix.description": "Präfix für den gespeicherten Dateiname..."
   },
   "it": {
     "tool.description": "Genera un’immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file. L’apertura è gestita dal chiamante (CLI/GUI/Web).",
@@ -205,7 +205,6 @@
     "param.size.description": "Dimensio...",
     "param.n.description": "Numero di...",
     "param.output_dir.description": "Directory in cui salvare le immagini (relativa o assoluta). Se omessa, usa outputs/image_generations.",
-    "param.file_prefix.description": "Prefisso per il nome del file salvato...",
     "err.invalid_provider": "provider non valido per la generazione immagini: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "manca una variabile d’ambiente richiesta (provate: {keys})",
     "err.openai_import": "Impossibile importare il pacchetto openai: {err}",
@@ -223,7 +222,8 @@
     "ok.generated_one": "[OK] generata: {path}",
     "ok.generated_many": "[OK] generate:\n{paths}",
     "log.opened_default_app": "[INFO] File immagine aperto con l’app predefinita.",
-    "next_action.review_generated_image": "Controlla l'immagine generata."
+    "next_action.review_generated_image": "Controlla l'immagine generata.",
+    "param.prefix.description": "Prefisso per il nome del file salvato..."
   },
   "ru": {
     "tool.description": "Создаёт изображение по текстовому запросу, сохраняет его как PNG и возвращает путь к файлу. Открытие выполняет вызывающая сторона (CLI/GUI/Web).",
@@ -237,7 +237,6 @@
     "param.size.description": "Размер и...",
     "param.n.description": "Количеств...",
     "param.output_dir.description": "Каталог для сохранения изображений (относительный или абсолютный).",
-    "param.file_prefix.description": "Префикс имени сохраняемого файла (необ...",
     "err.invalid_provider": "недопустимый provider для генерации изображений: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "отсутствует обязательная переменная окружения (пытались: {keys})",
     "err.openai_import": "не удалось импортировать пакет openai: {err}",
@@ -255,7 +254,8 @@
     "ok.generated_one": "[OK] создано: {path}",
     "ok.generated_many": "[OK] создано:\n{paths}",
     "log.opened_default_app": "[INFO] Файл изображения открыт в приложении по умолчанию.",
-    "next_action.review_generated_image": "Пожалуйста, проверьте сгенерированное изображение."
+    "next_action.review_generated_image": "Пожалуйста, проверьте сгенерированное изображение.",
+    "param.prefix.description": "Префикс имени сохраняемого файла (необ..."
   },
   "pt_BR": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
@@ -269,7 +269,6 @@
     "param.size.description": "Tamanho...",
     "param.n.description": "Número de...",
     "param.output_dir.description": "Diretório para salvar as imagens (relativo ou absoluto). Se omitido, usa outputs/image_generations.",
-    "param.file_prefix.description": "Prefixo para o nome do arquivo salvo (...",
     "err.invalid_provider": "provider inválido para geração de imagens: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "variável de ambiente obrigatória ausente (tentadas: {keys})",
     "err.openai_import": "falha ao importar o pacote openai: {err}",
@@ -287,7 +286,8 @@
     "ok.generated_one": "[OK] gerado: {path}",
     "ok.generated_many": "[OK] gerados:\n{paths}",
     "log.opened_default_app": "[INFO] Arquivo de imagem aberto no aplicativo padrão.",
-    "next_action.review_generated_image": "Por favor, revise a imagem gerada."
+    "next_action.review_generated_image": "Por favor, revise a imagem gerada.",
+    "param.prefix.description": "Prefixo para o nome do arquivo salvo (..."
   },
   "pt": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
@@ -301,7 +301,6 @@
     "param.size.description": "Tamanho...",
     "param.n.description": "Número de...",
     "param.output_dir.description": "Diretório para salvar as imagens (relativo ou absoluto). Se omitido, usa outputs/image_generations.",
-    "param.file_prefix.description": "Prefixo para o nome do arquivo salvo (...",
     "err.invalid_provider": "provider inválido para geração de imagens: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "variável de ambiente obrigatória ausente (tentadas: {keys})",
     "err.openai_import": "falha ao importar o pacote openai: {err}",
@@ -319,7 +318,8 @@
     "ok.generated_one": "[OK] gerado: {path}",
     "ok.generated_many": "[OK] gerados:\n{paths}",
     "log.opened_default_app": "[INFO] Arquivo de imagem aberto no aplicativo padrão.",
-    "next_action.review_generated_image": "Por favor, reveja a imagem gerada."
+    "next_action.review_generated_image": "Por favor, reveja a imagem gerada.",
+    "param.prefix.description": "Prefixo para o nome do arquivo salvo (..."
   },
   "id": {
     "tool.description": "Menghasilkan gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Pembukaan ditangani oleh pemanggil (CLI/GUI/Web).",
@@ -333,7 +333,6 @@
     "param.size.description": "Ukuran g...",
     "param.n.description": "Jumlah ga...",
     "param.output_dir.description": "Direktori untuk menyimpan gambar (relatif atau absolut).",
-    "param.file_prefix.description": "Awalan untuk nama file yang disimpan (...",
     "err.invalid_provider": "provider tidak valid untuk pembuatan gambar: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "variabel lingkungan yang diperlukan tidak ada (dicoba: {keys})",
     "err.openai_import": "Gagal mengimpor paket openai: {err}",
@@ -351,7 +350,8 @@
     "ok.generated_one": "[OK] berhasil dibuat: {path}",
     "ok.generated_many": "[OK] berhasil dibuat:\n{paths}",
     "log.opened_default_app": "[INFO] File gambar dibuka dengan aplikasi bawaan.",
-    "next_action.review_generated_image": "Silakan tinjau gambar yang dihasilkan."
+    "next_action.review_generated_image": "Silakan tinjau gambar yang dihasilkan.",
+    "param.prefix.description": "Awalan untuk nama file yang disimpan (..."
   },
   "vi": {
     "tool.description": "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp. Việc mở ảnh do bên gọi xử lý (CLI/GUI/Web).",
@@ -365,7 +365,6 @@
     "param.size.description": "Kích thư...",
     "param.n.description": "Số lượng...",
     "param.output_dir.description": "Thư mục lưu ảnh (tương đối hoặc tuyệt đối). Nếu bỏ qua, dùng outputs/image_generations.",
-    "param.file_prefix.description": "Tiền tố cho tên tệp đã lưu (tùy chọn).",
     "err.invalid_provider": "provider không hợp lệ cho việc tạo ảnh: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "thiếu biến môi trường bắt buộc (đã thử: {keys})",
     "err.openai_import": "không thể import gói openai: {err}",
@@ -383,7 +382,8 @@
     "ok.generated_one": "[OK] đã tạo: {path}",
     "ok.generated_many": "[OK] đã tạo:\n{paths}",
     "log.opened_default_app": "[INFO] Đã mở tệp ảnh bằng ứng dụng mặc định.",
-    "next_action.review_generated_image": "Vui lòng xem lại hình ảnh đã tạo."
+    "next_action.review_generated_image": "Vui lòng xem lại hình ảnh đã tạo.",
+    "param.prefix.description": "Tiền tố cho tên tệp đã lưu (tùy chọn)."
   },
   "pl": {
     "tool.description": "Generuje obraz z promptu tekstowego, zapisuje go jako PNG i zwraca ścieżkę pliku. Otwarcie obsługuje wywołujący (CLI/GUI/Web).",
@@ -397,7 +397,6 @@
     "param.size.description": "Rozmiar...",
     "param.n.description": "Liczba ob...",
     "param.output_dir.description": "Katalog do zapisu obrazów (względny lub bezwzględny).",
-    "param.file_prefix.description": "Prefiks nazwy zapisywanego pliku (opcj...",
     "err.invalid_provider": "nieprawidłowy provider do generowania obrazów: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "brakuje wymaganej zmiennej środowiskowej (sprawdzone: {keys})",
     "err.openai_import": "nie udało się zaimportować pakietu openai: {err}",
@@ -415,7 +414,8 @@
     "ok.generated_one": "[OK] wygenerowano: {path}",
     "ok.generated_many": "[OK] wygenerowano:\n{paths}",
     "log.opened_default_app": "[INFO] Plik obrazu otwarty w domyślnej aplikacji.",
-    "next_action.review_generated_image": "Proszę sprawdzić wygenerowany obraz."
+    "next_action.review_generated_image": "Proszę sprawdzić wygenerowany obraz.",
+    "param.prefix.description": "Prefiks nazwy zapisywanego pliku (opcj..."
   },
   "hi": {
     "tool.description": "टेक्स्ट प्रॉम्प्ट से चित्र बनाता है, उसे PNG के रूप में सहेजता है, और फ़ाइल पथ लौटाता है। खोलना कॉलर (CLI/GUI/Web) संभालता है।",
@@ -429,7 +429,6 @@
     "param.size.description": "चित्र का...",
     "param.n.description": "बनाए जाने...",
     "param.output_dir.description": "चित्र सहेजने की निर्देशिका (सापेक्ष या पूर्ण). यदि छोड़ा गया, तो outputs/image_generations उपयोग होगा.",
-    "param.file_prefix.description": "सहेजी गई फ़ाइल नाम की उपसर्ग (वैकल्पिक).",
     "err.invalid_provider": "छवि निर्माण के लिए अमान्य provider: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "आवश्यक environment variable गायब है (कोशिश की गई: {keys})",
     "err.openai_import": "openai पैकेज import करने में विफल: {err}",
@@ -447,7 +446,8 @@
     "ok.generated_one": "[OK] बनाया गया: {path}",
     "ok.generated_many": "[OK] बनाए गए:\n{paths}",
     "log.opened_default_app": "[INFO] छवि फ़ाइल डिफ़ॉल्ट ऐप से खोली गई।",
-    "next_action.review_generated_image": "कृपया बनाई गई छवि की समीक्षा करें।"
+    "next_action.review_generated_image": "कृपया बनाई गई छवि की समीक्षा करें।",
+    "param.prefix.description": "सहेजी गई फ़ाइल नाम की उपसर्ग (वैकल्पिक)."
   },
   "ar": {
     "tool.description": "ينشئ صورة من طلب نصي، ويحفظها كملف PNG، ويُرجع مسار الملف. الفتح يتولاه المستدعي (CLI/GUI/Web).",
@@ -461,7 +461,6 @@
     "param.size.description": "حجم الصورة.",
     "param.n.description": "عدد الصور...",
     "param.output_dir.description": "الدليل لحفظ الصور (نسبي أو مطلق). إذا أُهمل، يُستخدم outputs/image_generations.",
-    "param.file_prefix.description": "بادئة اسم الملف المحفوظ (اختياري).",
     "err.invalid_provider": "المزوّد غير صالح لتوليد الصور: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "متغير بيئة مطلوب مفقود (تمت المحاولة: {keys})",
     "err.openai_import": "فشل استيراد حزمة openai: {err}",
@@ -479,7 +478,8 @@
     "ok.generated_one": "[OK] تم الإنشاء: {path}",
     "ok.generated_many": "[OK] تم الإنشاء:\n{paths}",
     "log.opened_default_app": "[INFO] فُتح ملف الصورة بالتطبيق الافتراضي.",
-    "next_action.review_generated_image": "يرجى مراجعة الصورة المُنشأة."
+    "next_action.review_generated_image": "يرجى مراجعة الصورة المُنشأة.",
+    "param.prefix.description": "بادئة اسم الملف المحفوظ (اختياري)."
   },
   "sv": {
     "tool.description": "Genererar en bild från en textprompt, sparar den som PNG och վերադարձar filsökvägen. Öppningen hanteras av anroparen (CLI/GUI/Web).",
@@ -493,7 +493,6 @@
     "param.size.description": "Bildstor...",
     "param.n.description": "Antal bil...",
     "param.output_dir.description": "Katalog för att spara bilder (relativ eller absolut). Om den utelämnas används outputs/image_generations.",
-    "param.file_prefix.description": "Prefix för det sparade filnamnet (valfritt).",
     "err.invalid_provider": "ogiltig leverantör för bildgenerering: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "obligatorisk miljövariabel saknas (testade: {keys})",
     "err.openai_import": "kunde inte importera paketet openai: {err}",
@@ -511,7 +510,8 @@
     "ok.generated_one": "[OK] genererad: {path}",
     "ok.generated_many": "[OK] genererade:\n{paths}",
     "log.opened_default_app": "[INFO] Öppnade bildfilen med standardappen.",
-    "next_action.review_generated_image": "Granska gärna den genererade bilden."
+    "next_action.review_generated_image": "Granska gärna den genererade bilden.",
+    "param.prefix.description": "Prefix för det sparade filnamnet (valfritt)."
   },
   "sw": {
     "tool.description": "Hutengeneza picha kutoka kwa prompt ya maandishi, huihifadhi kama PNG, na kurudisha njia ya faili.",
@@ -525,7 +525,6 @@
     "param.size.description": "Ukubwa w...",
     "param.n.description": "Idadi ya...",
     "param.output_dir.description": "Saraka ya kuhifadhi picha (ya ndani au kamili). Ikiachwa wazi, outputs/image_generations itatumika.",
-    "param.file_prefix.description": "Kianzio cha jina la faili lililohifadh...",
     "err.invalid_provider": "provider batili kwa utengenezaji wa picha: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "mabadiliko ya mazingira yanayohitajika hayapo (yaliyotafutwa: {keys})",
     "err.openai_import": "Imeshindikana kuingiza kifurushi cha openai: {err}",
@@ -543,7 +542,8 @@
     "ok.generated_one": "[OK] imetengenezwa: {path}",
     "ok.generated_many": "[OK] zimetengenezwa:\n{paths}",
     "log.opened_default_app": "[INFO] Faili ya picha imefunguliwa kwa programu chaguo-msingi.",
-    "next_action.review_generated_image": "Tafadhali kagua picha iliyotengenezwa."
+    "next_action.review_generated_image": "Tafadhali kagua picha iliyotengenezwa.",
+    "param.prefix.description": "Kianzio cha jina la faili lililohifadh..."
   },
   "nb": {
     "tool.description": "Genererer et bilde fra en tekstprompt, lagrer det som PNG og returnerer filstien. Åpning håndteres av kalleren (CLI/GUI/Web).",
@@ -557,7 +557,6 @@
     "param.size.description": "Bildestø...",
     "param.n.description": "Antall bi...",
     "param.output_dir.description": "Katalog for lagring av bilder (relativ eller absolutt). Standard er outputs/image_generations hvis utelatt.",
-    "param.file_prefix.description": "Prefiks for det lagrede filnavnet (val...",
     "err.invalid_provider": "ugyldig leverandør for bildegenerering: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "påkrevd miljøvariabel mangler (prøvde: {keys})",
     "err.openai_import": "klarte ikke å importere pakken openai: {err}",
@@ -575,7 +574,8 @@
     "ok.generated_one": "[OK] generert: {path}",
     "ok.generated_many": "[OK] generert:\n{paths}",
     "log.opened_default_app": "[INFO] Åpnet bildefilen med standardappen.",
-    "next_action.review_generated_image": "Vennligst gå gjennom det genererte bildet."
+    "next_action.review_generated_image": "Vennligst gå gjennom det genererte bildet.",
+    "param.prefix.description": "Prefiks for det lagrede filnavnet (val..."
   },
   "nl": {
     "tool.description": "Genereert een afbeelding uit een tekstprompt, slaat deze op als PNG en geeft het bestandspad terug.",
@@ -589,7 +589,6 @@
     "param.size.description": "Afbeeldi...",
     "param.n.description": "Aantal te...",
     "param.output_dir.description": "Map om afbeeldingen op te slaan (relatief of absoluut).",
-    "param.file_prefix.description": "Voorvoegsel voor de opgeslagen bestand...",
     "err.invalid_provider": "ongeldige provider voor afbeeldingsgeneratie: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "vereiste omgevingsvariabele ontbreekt (geprobeerd: {keys})",
     "err.openai_import": "openai-pakket kan niet worden geïmporteerd: {err}",
@@ -607,7 +606,8 @@
     "ok.generated_one": "[OK] gegenereerd: {path}",
     "ok.generated_many": "[OK] gegenereerd:\n{paths}",
     "log.opened_default_app": "[INFO] Afbeeldingsbestand geopend met de standaardapp.",
-    "next_action.review_generated_image": "Bekijk de gegenereerde afbeelding."
+    "next_action.review_generated_image": "Bekijk de gegenereerde afbeelding.",
+    "param.prefix.description": "Voorvoegsel voor de opgeslagen bestand..."
   },
   "fi": {
     "tool.description": "Luo kuva tekstikehotteesta, tallentaa sen PNG:nä ja palauttaa tiedostopolun. Avaamisesta vastaa kutsuja (CLI/GUI/Web).",
@@ -621,7 +621,6 @@
     "param.size.description": "Kuvan koko.",
     "param.n.description": "Luotavien...",
     "param.output_dir.description": "Hakemisto, johon kuvat tallennetaan (suhteellinen tai absoluuttinen).",
-    "param.file_prefix.description": "Tallennetun tiedostonimen etuliite (va...",
     "err.invalid_provider": "virheellinen tarjoaja kuvan luontiin: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "vaadittu ympäristömuuttuja puuttuu (yritettiin: {keys})",
     "err.openai_import": "openai-paketin tuonti epäonnistui: {err}",
@@ -639,7 +638,8 @@
     "ok.generated_one": "[OK] luotu: {path}",
     "ok.generated_many": "[OK] luotu:\n{paths}",
     "log.opened_default_app": "[INFO] Kuvatiedosto avattiin oletussovelluksella.",
-    "next_action.review_generated_image": "Tarkista luotu kuva."
+    "next_action.review_generated_image": "Tarkista luotu kuva.",
+    "param.prefix.description": "Tallennetun tiedostonimen etuliite (va..."
   },
   "cs": {
     "tool.description": "Vytvoří obrázek z textového zadání, uloží jej jako PNG a vrátí cestu k souboru. Otevření řeší volající (CLI/GUI/Web).",
@@ -653,7 +653,6 @@
     "param.size.description": "Velikost...",
     "param.n.description": "Počet obr...",
     "param.output_dir.description": "Adresář pro uložení obrázků (relativní nebo absolutní).",
-    "param.file_prefix.description": "Předpona uloženého názvu souboru (volitelné).",
     "err.invalid_provider": "neplatný provider pro generování obrázků: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "chybí požadovaná proměnná prostředí (zkusil jsem: {keys})",
     "err.openai_import": "Nepodařilo se importovat balíček openai: {err}",
@@ -671,7 +670,8 @@
     "ok.generated_one": "[OK] vytvořeno: {path}",
     "ok.generated_many": "[OK] vytvořeno:\n{paths}",
     "log.opened_default_app": "[INFO] Soubor s obrázkem byl otevřen ve výchozí aplikaci.",
-    "next_action.review_generated_image": "Zkontrolujte prosím vygenerovaný obrázek."
+    "next_action.review_generated_image": "Zkontrolujte prosím vygenerovaný obrázek.",
+    "param.prefix.description": "Předpona uloženého názvu souboru (volitelné)."
   },
   "uk": {
     "tool.description": "Створює зображення з текстового запиту, зберігає його як PNG і повертає шлях до файла. Відкриття виконує викликач (CLI/GUI/Web).",
@@ -685,7 +685,6 @@
     "param.size.description": "Розмір з...",
     "param.n.description": "Кількість...",
     "param.output_dir.description": "Каталог для збереження зображень (відносний або абсолютний).",
-    "param.file_prefix.description": "Префікс збереженої назви файла (необов...",
     "err.invalid_provider": "недійсний provider для генерації зображень: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "відсутня обовʼязкова змінна середовища (спробовано: {keys})",
     "err.openai_import": "Не вдалося імпортувати пакет openai: {err}",
@@ -703,7 +702,8 @@
     "ok.generated_one": "[OK] створено: {path}",
     "ok.generated_many": "[OK] створено:\n{paths}",
     "log.opened_default_app": "[INFO] Файл зображення відкрито у типовій програмі.",
-    "next_action.review_generated_image": "Будь ласка, перевірте згенероване зображення."
+    "next_action.review_generated_image": "Будь ласка, перевірте згенероване зображення.",
+    "param.prefix.description": "Префікс збереженої назви файла (необов..."
   },
   "tr": {
     "tool.description": "Bir metin isteminden bir görüntü oluşturur, bunu PNG olarak kaydeder ve dosya yolunu döndürür.",
@@ -717,7 +717,6 @@
     "param.size.description": "Resim bo...",
     "param.n.description": "Oluşturul...",
     "param.output_dir.description": "Görüntülerin kaydedileceği dizin (göreceli veya mutlak).",
-    "param.file_prefix.description": "Kaydedilen dosya adı için önek (isteğe...",
     "err.invalid_provider": "görüntü oluşturma için geçersiz sağlayıcı: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "gerekli env var eksik (denendi: {keys})",
     "err.openai_import": "Openai paketi içe aktarılamadı: {err}",
@@ -735,7 +734,8 @@
     "ok.generated_one": "[OK] oluşturuldu: {path}",
     "ok.generated_many": "[OK] oluşturuldu:\n{paths}",
     "log.opened_default_app": "[INFO] Varsayılan uygulamayla açılan resim dosyası.",
-    "next_action.review_generated_image": "Lütfen oluşturulan görseli inceleyin."
+    "next_action.review_generated_image": "Lütfen oluşturulan görseli inceleyin.",
+    "param.prefix.description": "Kaydedilen dosya adı için önek (isteğe..."
   },
   "th": {
     "tool.description": "สร้างภาพจากพรอมต์ข้อความ บันทึกเป็น PNG และคืนค่าพาธของไฟล์ การเปิดไฟล์เป็นหน้าที่ของผู้เรียก (CLI/GUI/Web).",
@@ -749,7 +749,6 @@
     "param.size.description": "ขนาดภาพ...",
     "param.n.description": "จำนวนภาพท...",
     "param.output_dir.description": "ไดเรกทอรีสำหรับบันทึกภาพ (แบบสัมพัทธ์หรือแบบเต็ม). หากไม่ระบุ จะใช้ outputs/image_generations.",
-    "param.file_prefix.description": "คำนำหน้าชื่อไฟล์ที่บันทึก (ไม่บังคับ).",
     "err.invalid_provider": "provider สำหรับการสร้างภาพไม่ถูกต้อง: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "ขาดตัวแปรสภาพแวดล้อมที่จำเป็น (ลองแล้ว: {keys})",
     "err.openai_import": "นำเข้าแพ็กเกจ openai ไม่สำเร็จ: {err}",
@@ -767,7 +766,8 @@
     "ok.generated_one": "[OK] สร้างแล้ว: {path}",
     "ok.generated_many": "[OK] สร้างแล้ว:\n{paths}",
     "log.opened_default_app": "[INFO] เปิดไฟล์ภาพด้วยแอปเริ่มต้นแล้ว.",
-    "next_action.review_generated_image": "กรุณาตรวจสอบรูปภาพที่สร้างขึ้น"
+    "next_action.review_generated_image": "กรุณาตรวจสอบรูปภาพที่สร้างขึ้น",
+    "param.prefix.description": "คำนำหน้าชื่อไฟล์ที่บันทึก (ไม่บังคับ)."
   },
   "zh_CN": {
     "tool.description": "根据文本提示生成图片，将其保存为 PNG，并返回文件路径。打开由调用方处理（CLI/GUI/Web）。",
@@ -781,7 +781,6 @@
     "param.size.description": "图片尺寸。",
     "param.n.description": "图片数量。",
     "param.output_dir.description": "保存图片的目录（相对或绝对路径）。若省略，则使用 outputs/image_generations。",
-    "param.file_prefix.description": "保存文件名的前缀（可选）。",
     "err.invalid_provider": "图片生成的 provider 无效：{provider!r}（UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER）",
     "err.required_env_vars_missing": "缺少必需的环境变量（已尝试：{keys}）",
     "err.openai_import": "导入 openai 包失败：{err}",
@@ -799,7 +798,8 @@
     "ok.generated_one": "[OK] 已生成：{path}",
     "ok.generated_many": "[OK] 已生成：\n{paths}",
     "log.opened_default_app": "[INFO] 已用默认应用打开图片文件。",
-    "next_action.review_generated_image": "请检查生成的图片。"
+    "next_action.review_generated_image": "请检查生成的图片。",
+    "param.prefix.description": "保存文件名的前缀（可选）。"
   },
   "zh_TW": {
     "tool.description": "根據文字提示產生圖片，將其儲存為 PNG，並回傳檔案路徑。開啟由呼叫端處理（CLI/GUI/Web）。",
@@ -813,7 +813,6 @@
     "param.size.description": "图片尺寸。",
     "param.n.description": "图片数量。",
     "param.output_dir.description": "儲存圖片的目錄（相對或絕對路徑）。若省略，則使用 outputs/image_generations。",
-    "param.file_prefix.description": "儲存檔名的前綴（選填）。",
     "err.invalid_provider": "圖片生成的 provider 無效：{provider!r}（UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER）",
     "err.required_env_vars_missing": "缺少必要的環境變數（已嘗試：{keys}）",
     "err.openai_import": "匯入 openai 套件失敗：{err}",
@@ -831,7 +830,8 @@
     "ok.generated_one": "[OK] 已生成：{path}",
     "ok.generated_many": "[OK] 已生成：\n{paths}",
     "log.opened_default_app": "[INFO] 已用預設應用程式開啟圖片檔。",
-    "next_action.review_generated_image": "請檢查生成的圖片。"
+    "next_action.review_generated_image": "請檢查生成的圖片。",
+    "param.prefix.description": "儲存檔名的前綴（選填）。"
   },
   "bn": {
     "tool.description": "টেক্সট প্রম্পট থেকে একটি ছবি তৈরি করে, PNG হিসেবে সংরক্ষণ করে, এবং ফাইলের পথ ফেরত দেয়। খোলার কাজটি কলার (CLI/GUI/Web) করে।",
@@ -845,7 +845,6 @@
     "param.size.description": "ছবির আকা...",
     "param.n.description": "তৈরি করার...",
     "param.output_dir.description": "ছবি সংরক্ষণের ডিরেক্টরি (relative বা absolute)। না দিলে outputs/image_generations ব্যবহার করা হবে।",
-    "param.file_prefix.description": "সংরক্ষিত ফাইলনামের উপসর্গ (ঐচ্ছিক)।",
     "err.invalid_provider": "ছবি তৈরির জন্য অবৈধ provider: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "প্রয়োজনীয় পরিবেশ ভ্যারিয়েবল অনুপস্থিত (চেষ্টা করা হয়েছে: {keys})",
     "err.openai_import": "openai প্যাকেজ ইম্পোর্ট করতে ব্যর্থ: {err}",
@@ -863,7 +862,8 @@
     "ok.generated_one": "[OK] তৈরি হয়েছে: {path}",
     "ok.generated_many": "[OK] তৈরি হয়েছে:\n{paths}",
     "log.opened_default_app": "[INFO] ছবির ফাইল ডিফল্ট অ্যাপে খোলা হয়েছে।",
-    "next_action.review_generated_image": "অনুগ্রহ করে তৈরি করা ছবিটি পর্যালোচনা করুন।"
+    "next_action.review_generated_image": "অনুগ্রহ করে তৈরি করা ছবিটি পর্যালোচনা করুন।",
+    "param.prefix.description": "সংরক্ষিত ফাইলনামের উপসর্গ (ঐচ্ছিক)।"
   },
   "fa": {
     "tool.description": "از یک prompt متنی تصویر تولید می‌کند، آن را به‌صورت PNG ذخیره می‌کند و مسیر فایل را برمی‌گرداند.",
@@ -877,7 +877,6 @@
     "param.size.description": "اندازهٔ...",
     "param.n.description": "تعداد تصا...",
     "param.output_dir.description": "دایرکتوری ذخیرهٔ تصاویر (نسبی یا مطلق). اگر حذف شود، outputs/image_generations استفاده می‌شود.",
-    "param.file_prefix.description": "پیشوند نام فایل ذخیره‌شده (اختیاری).",
     "err.invalid_provider": "provider نامعتبر برای تولید تصویر: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "متغیر محیطیِ موردنیاز موجود نیست (تلاش‌شده: {keys})",
     "err.openai_import": "بارگیری بستهٔ openai ناموفق بود: {err}",
@@ -895,7 +894,8 @@
     "ok.generated_one": "[OK] تولید شد: {path}",
     "ok.generated_many": "[OK] تولید شدند:\n{paths}",
     "log.opened_default_app": "[INFO] فایل تصویر با برنامهٔ پیش‌فرض باز شد.",
-    "next_action.review_generated_image": "لطفاً تصویرِ تولیدشده را بررسی کنید."
+    "next_action.review_generated_image": "لطفاً تصویرِ تولیدشده را بررسی کنید.",
+    "param.prefix.description": "پیشوند نام فایل ذخیره‌شده (اختیاری)."
   },
   "mn": {
     "tool.description": "Текст prompt-оос зураг үүсгэж, PNG болгон хадгалаад файлын замыг буцаана. Нээх үйлдлийг дуудсан тал (CLI/GUI/Web) гүйцэтгэнэ.",
@@ -909,7 +909,6 @@
     "param.size.description": "Зургийн...",
     "param.n.description": "Үүсгэх зу...",
     "param.output_dir.description": "Зураг хадгалах директор (relative эсвэл absolute). Орхивол outputs/image_generations ашиглана.",
-    "param.file_prefix.description": "Хадгалах файлын нэрийн уртгал (сонголттой).",
     "err.invalid_provider": "Зураг үүсгэхэд дэмжигдээгүй provider: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "Шаардлагатай орчны хувьсагч алга (оролдоод үзсэн: {keys})",
     "err.openai_import": "openai багцыг импортлох амжилтгүй боллоо: {err}",
@@ -927,7 +926,8 @@
     "ok.generated_one": "[OK] үүсгэгдлээ: {path}",
     "ok.generated_many": "[OK] үүсгэгдлээ:\n{paths}",
     "log.opened_default_app": "[INFO] Зургийн файлыг үндсэн апп-аар нээлээ.",
-    "next_action.review_generated_image": "Үүсгэсэн зургийг шалгана уу."
+    "next_action.review_generated_image": "Үүсгэсэн зургийг шалгана уу.",
+    "param.prefix.description": "Хадгалах файлын нэрийн уртгал (сонголттой)."
   },
   "mr": {
     "tool.description": "टेक्स्ट प्रॉम्प्टवरून प्रतिमा तयार करते, PNG म्हणून जतन करते आणि फाइलचा मार्ग परत करते. उघडण्याची क्रिया कॉलर (CLI/GUI/Web) करतो.",
@@ -941,7 +941,6 @@
     "param.size.description": "प्रतिमेच...",
     "param.n.description": "तयार कराय...",
     "param.output_dir.description": "प्रतिमा जतन करण्याची निर्देशिका (relative किंवा absolute). वगळल्यास outputs/image_generations वापरले जाईल.",
-    "param.file_prefix.description": "जतन केलेल्या फाइलनावाचा उपसर्ग (ऐच्छिक).",
     "err.invalid_provider": "प्रतिमा निर्मितीसाठी अवैध provider: {provider!r} (UAGENT_IMG_GENERATE_PROVIDER/UAGENT_PROVIDER)",
     "err.required_env_vars_missing": "आवश्यक environment variable अनुपस्थित आहे (प्रयत्न केले: {keys})",
     "err.openai_import": "openai पॅकेज आयात करण्यात अपयश: {err}",
@@ -959,6 +958,7 @@
     "ok.generated_one": "[OK] तयार केले: {path}",
     "ok.generated_many": "[OK] तयार केले:\n{paths}",
     "log.opened_default_app": "[INFO] प्रतिमा फाइल डीफॉल्ट अॅपमध्ये उघडली.",
-    "next_action.review_generated_image": "कृपया तयार केलेली प्रतिमा तपासा।"
+    "next_action.review_generated_image": "कृपया तयार केलेली प्रतिमा तपासा।",
+    "param.prefix.description": "जतन केलेल्या फाइलनावाचा उपसर्ग (ऐच्छिक)."
   }
 }

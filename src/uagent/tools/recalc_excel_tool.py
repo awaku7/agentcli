@@ -70,10 +70,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Glob pattern used when path is a directory. Default: '*.xlsx'.",
                     ),
                 },
-                "recursive": {
+                "recur": {
                     "type": "boolean",
                     "description": _(
-                        "param.recursive.description",
+                        "param.recur.description",
                         default="Whether to scan directory recursively. Default: false.",
                     ),
                 },
@@ -208,7 +208,7 @@ def run_tool(args: dict[str, Any]) -> str:
     target_path = str(args.get("path", "") or "").strip()
     include_glob = str(args.get("include_glob", "*.xlsx") or "*.xlsx")
 
-    recursive_raw = args.get("recursive", False)
+    recursive_raw = args.get("recur", False)
     backup_raw = args.get("backup", False)
     dry_run_raw = args.get("dry_run", False)
     visible_raw = args.get("visible", False)

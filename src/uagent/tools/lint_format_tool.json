@@ -3,7 +3,6 @@
     "confirm.msg": "lint_format(mode=fix) might overwrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nReply with y to proceed, or c to cancel.",
     "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis and formatting tools.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not run npx directly.\n\nSafety:\n- mode=fix changes files, so ask for confirmation with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.",
     "param.cwd.description": "Working dir (under workdir).",
-    "param.extra_args.description": "Additional arguments (array). Reject dangerous metacharacters.",
     "param.mode.description": "check=check only / fix=automatic fix",
     "param.targets.description": "Target path array (only allowed under workdir).",
     "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
@@ -15,13 +14,13 @@
       "format",
       "ruff",
       "black"
-    ]
+    ],
+    "param.xargs.description": "Additional arguments (array). Reject dangerous metacharacters."
   },
   "ja": {
     "confirm.msg": "lint_format(mode=fix) はファイルを書き換える可能性があります。\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n実行してよければ y、キャンセルなら c と入力してください。",
     "doc.module": "lint_format_tool\n\n静的解析・フォーマッタを実行するためのラッパーツール。\n\n- Python系: ruff / black / mypy を優先\n- JavaScript系: 安全のため積極的な npx 実行はしない（ダウンロード実行になりやすい）\n\n安全:\n- mode=fix はファイル変更を伴うため human_ask で確認する。\n- 引数は配列で受け取り、危険なシェルメタ文字を含む場合は拒否する。",
     "param.cwd.description": "作業ディレクトリ（workdir下）。",
-    "param.extra_args.description": "追加引数（配列）。危険なメタ文字は拒否します。",
     "param.mode.description": "check=検査のみ / fix=自動修正",
     "param.targets.description": "対象パス配列（workdir配下のみ許可）。",
     "param.tools.description": "実行するツール名の配列。空なら自動選択（ruff/black/mypyの順で存在確認）。",
@@ -31,13 +30,13 @@
       "静的解析",
       "コード整形",
       "lint 実行"
-    ]
+    ],
+    "param.xargs.description": "追加引数（配列）。危険なメタ文字は拒否します。"
   },
   "es": {
     "confirm.msg": "lint_format(mode=fix) puede reescribir archivos.",
     "doc.module": "lint_format_tool\n\nUna herramienta contenedora para ejecutar análisis estático/formateador.\n\n- Python: prefiere ruff / black / mypy\n- JavaScript: por razones de seguridad, no ejecutes npx activamente.",
     "param.cwd.description": "Directorio de ejecución (...",
-    "param.extra_args.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos.",
     "param.mode.description": "check=verificar solo / fix=corrección automática",
     "param.targets.description": "Matriz de ruta de destino (solo permitida en w...",
     "param.tools.description": "Una serie de nombres de herramientas para ejecutar. Si está vacío, se seleccionará automáticamente.",
@@ -47,13 +46,13 @@
       "formatear código",
       "análisis estático",
       "ejecutar linters"
-    ]
+    ],
+    "param.xargs.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos."
   },
   "fr": {
     "confirm.msg": "lint_format(mode=fix) peut réécrire les fichiers.",
     "doc.module": "lint_format_tool\n\nUn outil wrapper pour exécuter une analyse statique/formateur.\n\n- Python : préférez ruff / black / mypy\n- JavaScript : Pour des raisons de sécurité, n'exécutez pas activement npx.",
     "param.cwd.description": "Répertoire d'exécution (a...",
-    "param.extra_args.description": "Arguments supplémentaires (tableau). Rejetez les métacaractères dangereux.",
     "param.mode.description": "check=vérification uniquement / fix=correcti...",
     "param.targets.description": "Tableau de chemin cible (autorisé uniquement s...",
     "param.tools.description": "Un tableau de noms d'outils à exécuter. S'il est vide, il sera automatiquement sélectionné.",
@@ -63,13 +62,13 @@
       "formater code",
       "analyse statique",
       "exécuter linters"
-    ]
+    ],
+    "param.xargs.description": "Arguments supplémentaires (tableau). Rejetez les métacaractères dangereux."
   },
   "ko": {
     "confirm.msg": "lint_format(mode=fix)는 파일을 다시 쓸 수 있습니다.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n진행하려면 y, 취소하려면 c를 입력하십시오.",
     "doc.module": "lint_format_tool\n\n정적 분석/포매터 실행을 위한 래퍼 도구.\n\n- Python 계열: ruff / black / mypy 우선\n- JavaScript 계열: 보안상의 이유로 npx를 적극적으로 실행하지 않음",
     "param.cwd.description": "작업 디렉토리(workdir 하위).",
-    "param.extra_args.description": "추가 인수(배열). 위험한 메타문자를 거부하세요.",
     "param.mode.description": "check=확인만 / fix=자동 수정",
     "param.targets.description": "대상 경로 배열(workdir에서만 허용됨).",
     "param.tools.description": "실행할 도구 이름의 배열. 비어 있으면 자동으로 선택됩니다.",
@@ -79,13 +78,13 @@
       "정적 분석",
       "코드 포맷",
       "lint 실행"
-    ]
+    ],
+    "param.xargs.description": "추가 인수(배열). 위험한 메타문자를 거부하세요."
   },
   "de": {
     "confirm.msg": "lint_format(mode=fix) kann Dateien überschreiben.",
     "doc.module": "lint_format_tool\n\nEin Wrapper-Tool zum Ausführen statischer Analyse- und Formatierungswerkzeuge.\n\n- Python: Ruff / Black / mypy bevorzugen\n- JavaScript: Aus Sicherheitsgründen npx nicht aktiv ausführen.\n\nSicherheit:\n- mode=fix ändert Dateien, daher mit human_ask nachfragen.\n- Argumente als Array akzeptieren und bei gefährlichen Shell-Metazeichen ablehnen.",
     "param.cwd.description": "Ausführungsverzeichnis (n...",
-    "param.extra_args.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen.",
     "param.mode.description": "check=nur prüfen / fix=automatische Korrektur",
     "param.targets.description": "Zielpfad-Array (nur unter workdir zulässig).",
     "param.tools.description": "Ein Array der auszuführenden Werkzeuge. Wenn leer, wird automatisch ausgewählt.",
@@ -95,13 +94,13 @@
       "code formatieren",
       "statische analyse",
       "linters ausführen"
-    ]
+    ],
+    "param.xargs.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen."
   },
   "it": {
     "confirm.msg": "lint_format(mode=fix) può riscrivere i file.",
     "doc.module": "lint_format_tool\n\nUno strumento wrapper per eseguire analisi/formattatori statici.\n\n- Python: preferisci ruff / black / mypy\n- JavaScript: per motivi di sicurezza, non eseguire attivamente npx.",
     "param.cwd.description": "Directory di esecuzione (...",
-    "param.extra_args.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi.",
     "param.mode.description": "check=solo controllo / fix=correzione automatica",
     "param.targets.description": "Array del percorso di destinazione (consentito...",
     "param.tools.description": "Un array di nomi di strumenti da eseguire. Se è vuoto, verrà selezionato automaticamente.",
@@ -111,13 +110,13 @@
       "formattare codice",
       "analisi statica",
       "eseguire lint"
-    ]
+    ],
+    "param.xargs.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi."
   },
   "ru": {
     "confirm.msg": "lint_format(mode=fix) может перезаписать файлы.",
     "doc.module": "lint_format_tool\n\nИнструмент-оболочка для запуска статического анализа/форматирования.\n\n- Python: предпочтительно ruff / black / mypy\n- JavaScript: из соображений безопасности не выполняйте npx активно.",
     "param.cwd.description": "Каталог выполнения (разре...",
-    "param.extra_args.description": "Дополнительные аргументы (массив). Отклоняйте опасные метасимволы.",
     "param.mode.description": "check=только проверка / fix=автоматическое и...",
     "param.targets.description": "Массив целевых путей (разрешен только в workdir).",
     "param.tools.description": "Массив имен инструментов для запуска. Если он пуст, он будет выбран автоматически.",
@@ -127,13 +126,13 @@
       "форматировать код",
       "статический анализ",
       "запуск linters"
-    ]
+    ],
+    "param.xargs.description": "Дополнительные аргументы (массив). Отклоняйте опасные метасимволы."
   },
   "pt_BR": {
     "confirm.msg": "lint_format(mode=fix) pode sobrescrever arquivos.\nferramentas: {tools}\nalvos: {targets}\ncwd: {cwd}\n\nDigite y para continuar ou c para cancelar.",
     "doc.module": "lint_format_tool\n\nUma ferramenta wrapper para executar análise estática/formatador.\n\n- Python: prefira ruff / black / mypy\n- JavaScript: Por motivos de segurança, não execute npx ativamente.",
     "param.cwd.description": "Diretório de execução (pe...",
-    "param.extra_args.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
     "param.mode.description": "check=verificar apenas / fix=correção automática",
     "param.targets.description": "Matriz de caminho de destino (permitido apenas...",
     "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
@@ -143,13 +142,13 @@
       "formatar código",
       "análise estática",
       "executar linters"
-    ]
+    ],
+    "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos."
   },
   "pt": {
     "confirm.msg": "lint_format(mode=fix) pode reescrever arquivos.",
     "doc.module": "lint_format_tool\n\nUma ferramenta wrapper para executar análise/formatador estático.\n\n- Python: prefira ruff/black/mypy\n- JavaScript: por motivos de segurança, não execute ativamente o npx.\n\nSegurança:\n- mode=fix envolve alterações no arquivo, então verifique com human_ask.\n- Aceite argumentos como um array e rejeite-os se contiverem metacaracteres de shell perigosos.",
     "param.cwd.description": "Diretório de execução (pe...",
-    "param.extra_args.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos.",
     "param.mode.description": "check=verificar apenas / fix=correção automática",
     "param.targets.description": "Matriz de caminho de destino (permitido apenas...",
     "param.tools.description": "Uma matriz de nomes de ferramentas a serem executadas. Se estiver vazio, será selecionado automaticamente.",
@@ -159,13 +158,13 @@
       "formatar código",
       "análise estática",
       "executar linters"
-    ]
+    ],
+    "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos."
   },
   "id": {
     "confirm.msg": "lint_format(mode=fix) dapat menulis ulang file.",
     "doc.module": "lint_format_tool\n\nTool pembungkus untuk menjalankan static analysis/formatter.\n\n- Python: utamakan ruff / black / mypy\n- JavaScript: demi keamanan, jangan menjalankan npx secara aktif.\n\nKeamanan:\n- mode=fix melibatkan perubahan file, jadi periksa dengan human_ask.\n- Terima argumen sebagai array dan tolak jika mengandung metakarakter shell berbahaya.",
     "param.cwd.description": "Direktori eksekusi (hanya...",
-    "param.extra_args.description": "Argumen tambahan (array). Tolak jika ada metakarakter shell berbahaya.",
     "param.mode.description": "check=cek saja / fix=perbaikan otomatis",
     "param.targets.description": "Array path target (hanya diizinkan di bawah workdir).",
     "param.tools.description": "Array nama tool yang akan dijalankan. Jika kosong, dipilih otomatis.",
@@ -175,13 +174,13 @@
       "format kode",
       "analisis statis",
       "jalankan linter"
-    ]
+    ],
+    "param.xargs.description": "Argumen tambahan (array). Tolak jika ada metakarakter shell berbahaya."
   },
   "vi": {
     "confirm.msg": "lint_format(mode=fix) có thể ghi lại tập tin.",
     "doc.module": "lint_format_tool\n\nMột công cụ bao bọc để chạy phân tích/định dạng tĩnh.\n\n- Python: thích ruff/black/mypy\n- JavaScript: Vì lý do an toàn, không chủ động thực thi npx.\n\nAn toàn:\n- mode=fix liên quan đến việc thay đổi tệp, vì vậy hãy kiểm tra với human_ask.\n- Chấp nhận các đối số dưới dạng một mảng và từ chối chúng nếu chúng chứa các siêu ký tự shell nguy hiểm.",
     "param.cwd.description": "Thư mục thực thi (chỉ đượ...",
-    "param.extra_args.description": "Đối số bổ sung (mảng). Từ chối các siêu ký tự nguy hiểm.",
     "param.mode.description": "kiểm tra=chỉ kiểm tra / fix=sửa tự động",
     "param.targets.description": "Mảng đường dẫn đích (chỉ được phép trong Workdir).",
     "param.tools.description": "Một loạt tên công cụ để chạy. Nếu trống, nó sẽ được chọn tự động.",
@@ -191,13 +190,13 @@
       "định dạng code",
       "phân tích tĩnh",
       "chạy linter"
-    ]
+    ],
+    "param.xargs.description": "Đối số bổ sung (mảng). Từ chối các siêu ký tự nguy hiểm."
   },
   "pl": {
     "confirm.msg": "lint_format(mode=fix) może nadpisać pliki.\nnarzędzia: {tools}\ncele: {targets}\ncwd: {cwd}\n\nWpisz y, aby kontynuować, lub c, aby anulować.",
     "doc.module": "lint_format_tool\n\nNarzędzie pośredniczące do uruchamiania statycznej analizy i formatowania.\n\n- Python: preferuj ruff / black / mypy\n- JavaScript: ze względów bezpieczeństwa nie uruchamiaj npx bezpośrednio.\n\nBezpieczeństwo:\n- mode=fix wiąże się ze zmianami plików, więc potwierdź to przez human_ask.\n- Przyjmuj argumenty jako tablicę i odrzucaj je, jeśli zawierają niebezpieczne metaznaki powłoki.",
     "param.cwd.description": "Katalog wykonania (dozwol...",
-    "param.extra_args.description": "Dodatkowe argumenty (tablica). Odrzuć niebezpieczne metaznaki.",
     "param.mode.description": "check=tylko sprawdzenie / fix=automatyczna poprawka",
     "param.targets.description": "Tablica ścieżek docelowych (dozwolona tylko w...",
     "param.tools.description": "Tablica nazw narzędzi do uruchomienia. Jeśli pusta, zostanie wybrana automatycznie.",
@@ -207,13 +206,13 @@
       "formatowanie kodu",
       "analiza statyczna",
       "uruchom linter"
-    ]
+    ],
+    "param.xargs.description": "Dodatkowe argumenty (tablica). Odrzuć niebezpieczne metaznaki."
   },
   "hi": {
     "confirm.msg": "lint_format(mode=fix) फ़ाइलों को फिर से लिख सकता है।\nउपकरण: {tools}\nलक्ष्य: {targets}\ncwd: {cwd}\n\nजारी रखने के लिए y टाइप करें,...",
     "doc.module": "lint_format_tool\n\nस्थैतिक विश्लेषण/फ़ॉर्मैटर चलाने के लिए एक रैपर टूल।\n\n- Python: ruff / black / mypy को प्राथमिकता दें\n- JavaScript: सुरक्षा कारणों से npx को सक्रिय रूप से न चलाएँ।\n\nसुरक्षा:\n- mode=fix में फ़ाइल परिवर्तन शामिल हैं, इसलिए human_ask से पुष्टि लें।\n- तर्कों को ऐरे के रूप में स्वीकार करें और खतरनाक shell metacharacters होने पर उन्हें अस्वीकार करें।",
     "param.cwd.description": "निष्पादन निर्देशिका (केवल...",
-    "param.extra_args.description": "अतिरिक्त तर्क (सरणी)। खतरनाक मेटाकैरेक्टर अस्वीकार करें।",
     "param.mode.description": "check=केवल जाँच / fix=स्वचालित सुधार",
     "param.targets.description": "लक्ष्य पथों की सरणी (केवल workdir के अंतर्गत अनुमत)।",
     "param.tools.description": "चलाने के लिए टूल नामों की एक सरणी। यदि यह खाली है, तो स्वचालित रूप से चुना जाएगा।",
@@ -223,13 +222,13 @@
       "कोड फ़ॉर्मैट",
       "स्थैतिक विश्लेषण",
       "लिंटर चलाएँ"
-    ]
+    ],
+    "param.xargs.description": "अतिरिक्त तर्क (सरणी)। खतरनाक मेटाकैरेक्टर अस्वीकार करें।"
   },
   "ar": {
     "confirm.msg": "قد يعيد lint_format(mode=fix) كتابة الملفات.\nالأدوات: {tools}\nالأهداف: {targets}\ncwd: {cwd}\n\nاكتب y للمتابعة أو c للإلغاء.",
     "doc.module": "lint_format_tool\n\nأداة تغليف لتشغيل أدوات التحليل الثابت والتنسيق.\n\n- Python: يُفضَّل ruff / black / mypy\n- JavaScript: لأسباب تتعلق بالسلامة، لا تُشغّل npx مباشرة.\n\nالسلامة:\n- الوضع mode=fix يتضمن تغييرات في الملفات، لذا اطلب التأكيد عبر human_ask.\n- تقبّل الوسائط كمصفوفة وارفضها إذا احتوت على محارف shell خاصة خطرة.",
     "param.cwd.description": "دليل التنفيذ (مسموح فقط ض...",
-    "param.extra_args.description": "وسائط إضافية (مصفوفة). ارفض المحارف الخاصة الخطرة.",
     "param.mode.description": "check=فحص فقط / fix=تصحيح تلقائي",
     "param.targets.description": "مصفوفة مسارات الأهداف (مسموح فقط ضمن workdir).",
     "param.tools.description": "مصفوفة بأسماء الأدوات المراد تشغيلها. إذا كانت فارغة فسيتم الاختيار تلقائياً.",
@@ -239,13 +238,13 @@
       "تنسيق الكود",
       "تحليل ثابت",
       "تشغيل linters"
-    ]
+    ],
+    "param.xargs.description": "وسائط إضافية (مصفوفة). ارفض المحارف الخاصة الخطرة."
   },
   "sv": {
     "confirm.msg": "lint_format(mode=fix) kan skriva om filer.\nverktyg: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSkriv y om du vill fortsätta, eller c om du vill avbryta.",
     "doc.module": "lint_format_tool\n\nEtt omslagsverktyg för att köra statisk analys och formaterare.\n\n- Python: använd helst ruff / black / mypy\n- JavaScript: av säkerhetsskäl ska npx inte köras aktivt.\n\nSäkerhet:\n- mode=fix innebär filändringar, så bekräfta via human_ask.\n- Acceptera argument som en array och avvisa dem om de innehåller farliga shell-metatecken.",
     "param.cwd.description": "Körningskatalog (tillåts...",
-    "param.extra_args.description": "Ytterligare argument (array). Avvisa farliga metatecken.",
     "param.mode.description": "check=endast kontroll / fix=automatisk korrigering",
     "param.targets.description": "Array med målvägar (tillåts endast under workdir).",
     "param.tools.description": "En array med verktygsnamn att köra. Om den är tom väljs den automatiskt.",
@@ -255,13 +254,13 @@
       "formatera kod",
       "statisk analys",
       "köra linters"
-    ]
+    ],
+    "param.xargs.description": "Ytterligare argument (array). Avvisa farliga metatecken."
   },
   "sw": {
     "confirm.msg": "lint_format(mode=fix) may rewrite files.",
     "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis and formatting tools.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not run npx directly.\n\nSafety:\n- mode=fix changes files, so ask for confirmation with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.",
     "param.cwd.description": "Execution directory (only...",
-    "param.extra_args.description": "Additional arguments (array). Reject dangerous metacharacters.",
     "param.mode.description": "check=check only / fix=automatic fix",
     "param.targets.description": "Target path array (only allowed under workdir).",
     "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
@@ -271,13 +270,13 @@
       "umbizo la msimbo",
       "uchambuzi tuli",
       "endesha linter"
-    ]
+    ],
+    "param.xargs.description": "Additional arguments (array). Reject dangerous metacharacters."
   },
   "nb": {
     "confirm.msg": "lint_format(mode=fix) kan skrive om filer.",
     "doc.module": "lint_format_tool\n\nEt innpakningsverktøy for å kjøre statisk analyse og formateringsverktøy.\n\n- Python: bruk helst ruff / black / mypy\n- JavaScript: av sikkerhetsgrunner bør npx ikke kjøres direkte.\n\nSikkerhet:\n- mode=fix innebærer filendringer, så spør via human_ask.\n- Godta argumenter som en liste og avvis dem hvis de inneholder farlige shell-metategn.",
     "param.cwd.description": "Kjøringskatalog (kun till...",
-    "param.extra_args.description": "Tilleggsargumenter (liste). Avvis farlige metategn.",
     "param.mode.description": "check=kun kontroll / fix=automatisk korrigering",
     "param.targets.description": "Liste over målbaner (kun tillatt under workdir).",
     "param.tools.description": "En liste over verktøynavn som skal kjøres. Hvis den er tom, velges den automatisk.",
@@ -287,13 +286,13 @@
       "formatere kode",
       "statisk analyse",
       "kjøre linters"
-    ]
+    ],
+    "param.xargs.description": "Tilleggsargumenter (liste). Avvis farlige metategn."
   },
   "nl": {
     "confirm.msg": "lint_format(mode=fix) kan bestanden overschrijven.\nverwerkers: {tools}\ndoelen: {targets}\ncwd: {cwd}\n\nTyp y om door te gaan of c om te annuleren.",
     "doc.module": "lint_format_tool\n\nEen wrappertool om statische analyse- en opmaaktools uit te voeren.\n\n- Python: geef de voorkeur aan ruff / black / mypy\n- JavaScript: voer om veiligheidsredenen npx niet actief uit.\n\nVeiligheid:\n- mode=fix brengt bestandswijzigingen met zich mee, dus controleer via human_ask.\n- Accepteer argumenten als een array en weiger ze als ze gevaarlijke shell-metatekens bevatten.",
     "param.cwd.description": "Uitvoermap (alleen toeges...",
-    "param.extra_args.description": "Aanvullende argumenten (array). Weiger gevaarlijke metatekens.",
     "param.mode.description": "check=alleen controleren / fix=automatische...",
     "param.targets.description": "Array met doelpaden (alleen toegestaan onder w...",
     "param.tools.description": "Een array met toolnamen om uit te voeren. Als deze leeg is, wordt automatisch gekozen.",
@@ -303,13 +302,13 @@
       "code opmaken",
       "statische analyse",
       "linters uitvoeren"
-    ]
+    ],
+    "param.xargs.description": "Aanvullende argumenten (array). Weiger gevaarlijke metatekens."
   },
   "fi": {
     "confirm.msg": "lint_format(mode=fix) voi kirjoittaa tiedostoja uudelleen.",
     "doc.module": "lint_format_tool\n\nKääretyökalu staattisen analyysin ja muotoilutyökalujen suorittamiseen.\n\n- Python: suosi ruff / black / mypy\n- JavaScript: turvallisuussyistä älä aja npx:ää suoraan.\n\nTurvallisuus:\n- mode=fix muuttaa tiedostoja, joten pyydä vahvistus human_askilla.\n- Hyväksy argumentit taulukkona ja hylkää ne, jos niissä on vaarallisia shell-metamerkkejä.",
     "param.cwd.description": "Suoritushakemisto (sallit...",
-    "param.extra_args.description": "Lisäargumentit (taulukko). Hylkää vaaralliset metamerkit.",
     "param.mode.description": "check=vain tarkistus / fix=automaattinen korjaus",
     "param.targets.description": "Kohdepolkujen taulukko (sallittu vain workdiri...",
     "param.tools.description": "Taulukko suoritettavien työkalujen nimistä. Jos se on tyhjä, valinta tehdään automaattisesti.",
@@ -319,13 +318,13 @@
       "koodin muotoilu",
       "staattinen analyysi",
       "aja linters"
-    ]
+    ],
+    "param.xargs.description": "Lisäargumentit (taulukko). Hylkää vaaralliset metamerkit."
   },
   "cs": {
     "confirm.msg": "lint_format(mode=fix) může přepsat soubory.",
     "doc.module": "lint_format_tool\n\nObalový nástroj pro spuštění statické analýzy/formátovačů.\n\n- Python: upřednostněte ruff / black / mypy\n- JavaScript: Z bezpečnostních důvodů aktivně nespouštějte npx.\n\nBezpečnost:\n- mode=fix zahrnuje změny souborů, proto se zeptejte pomocí human_ask.\n- Přijímejte argumenty jako pole a odmítněte je, pokud obsahují nebezpečné shellové metaznaky.",
     "param.cwd.description": "Spouštěcí adresář (povole...",
-    "param.extra_args.description": "Další argumenty (pole). Odmítněte nebezpečné metaznaky.",
     "param.mode.description": "check=pouze kontrola / fix=automatická oprava",
     "param.targets.description": "Pole cílových cest (povoleno pouze pod workdir).",
     "param.tools.description": "Pole názvů nástrojů, které se mají spustit. Pokud je prázdné, vybere se automaticky.",
@@ -335,13 +334,13 @@
       "formátovat kód",
       "statická analýza",
       "spustit linters"
-    ]
+    ],
+    "param.xargs.description": "Další argumenty (pole). Odmítněte nebezpečné metaznaky."
   },
   "uk": {
     "confirm.msg": "lint_format(mode=fix) може перезаписати файли.\nінструменти: {tools}\nцілі: {targets}\ncwd: {cwd}\n\nВведіть y, щоб продовжити, або c, щоб скасувати.",
     "doc.module": "lint_format_tool\n\nОбгортковий інструмент для запуску статичного аналізу/форматерів.\n\n- Python: надавайте перевагу ruff / black / mypy\n- JavaScript: З міркувань безпеки не запускайте npx активно.\n\nБезпека:\n- mode=fix передбачає зміни у файлах, тому перевіряйте через human_ask.\n- Приймайте аргументи як масив і відхиляйте їх, якщо вони містять небезпечні shell-метасимволи.",
     "param.cwd.description": "Каталог виконання (дозвол...",
-    "param.extra_args.description": "Додаткові аргументи (масив). Відхиляйте небезпечні метасимволи.",
     "param.mode.description": "check=лише перевірка / fix=автоматичне виправлення",
     "param.targets.description": "Масив цільових шляхів (дозволено лише в межах...",
     "param.tools.description": "Масив назв інструментів для запуску. Якщо порожній, буде вибрано автоматично.",
@@ -351,13 +350,13 @@
       "форматувати код",
       "статичний аналіз",
       "запуск linters"
-    ]
+    ],
+    "param.xargs.description": "Додаткові аргументи (масив). Відхиляйте небезпечні метасимволи."
   },
   "tr": {
     "confirm.msg": "lint_format(mode=fix) dosyaları yeniden yazabilir.",
     "doc.module": "lint_format_tool\n\nStatik analiz ve biçimlendirme araçlarını çalıştırmak için bir sarmalayıcı araç.\n\n- Python: ruff / black / mypy'yi tercih edin\n- JavaScript: Güvenlik nedeniyle npx'i doğrudan çalıştırmayın.\n\nGüvenlik:\n- mode=fix dosyaları değiştirir, dolayısıyla human_ask ile onay isteyin.\n- Argümanları bir dizi olarak kabul edin ve tehlikeli kabuk meta karakterleri içeriyorsa reddedin.",
     "param.cwd.description": "Yürütme dizini (yalnızca...",
-    "param.extra_args.description": "Ek bağımsız değişkenler (dizi). Tehlikeli meta karakterleri reddedin.",
     "param.mode.description": "check=yalnızca kontrol et / fix=otomatik düzeltme",
     "param.targets.description": "Hedef yol dizisi (yalnızca çalışma dizini altı...",
     "param.tools.description": "Çalıştırılacak bir dizi araç adı. Boşsa araçlar otomatik olarak seçilir.",
@@ -367,13 +366,13 @@
       "kodu biçimlendir",
       "statik analiz",
       "linter çalıştır"
-    ]
+    ],
+    "param.xargs.description": "Ek bağımsız değişkenler (dizi). Tehlikeli meta karakterleri reddedin."
   },
   "th": {
     "confirm.msg": "lint_format(mode=fix) อาจเขียนไฟล์ใหม่\nเครื่องมือ: {tools}\nเป้าหมาย: {targets}\ncwd: {cwd}\n\nพิมพ์ y หากต้องการดำเนินการต่อ หรือ c...",
     "doc.module": "lint_format_tool\n\nเครื่องมือห่อหุ้มสำหรับรันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ\n\n- Python: แนะนำ ruff / black / mypy\n- JavaScript: เพื่อความปลอดภัย ไม่ควรรัน npx โดยตรง",
     "param.cwd.description": "ไดเร็กทอรีการดำเนินการ (อ...",
-    "param.extra_args.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย",
     "param.mode.description": "check=ตรวจสอบเท่านั้น / fix=แก้ไขอัตโนมัติ",
     "param.targets.description": "อาร์เรย์เส้นทางเป้าหมาย (อนุญาตเฉพาะภายใต้ workdir)",
     "param.tools.description": "อาร์เรย์ของชื่อเครื่องมือที่จะรัน หากว่างเปล่าจะเลือกโดยอัตโนมัติ",
@@ -383,13 +382,13 @@
       "จัดรูปแบบโค้ด",
       "การวิเคราะห์แบบคงที่",
       "รัน linter"
-    ]
+    ],
+    "param.xargs.description": "อาร์กิวเมนต์เพิ่มเติม (อาร์เรย์) ปฏิเสธเมตาอักขระที่เป็นอันตราย"
   },
   "zh_CN": {
     "confirm.msg": "lint_format(mode=fix) 可能会重写文件。\n工具：{tools}\n目标：{targets}\ncwd：{cwd}\n\n如果要继续请键入 y，如果要取消请键入 c。",
     "doc.module": "lint_format_tool\n\n用于运行静态分析/格式化程序的包装工具。\n\n- Python 系：优先使用 ruff / black / mypy\n- JavaScript 系：出于安全原因，不主动执行 npx",
     "param.cwd.description": "工作目录（workdir下）。",
-    "param.extra_args.description": "附加参数（数组）。拒绝危险的元字符。",
     "param.mode.description": "check=仅检查 / fix=自动修复",
     "param.targets.description": "目标路径数组（仅允许在 workdir 下）。",
     "param.tools.description": "要运行的工具名称数组。如果为空，将自动选择。",
@@ -399,13 +398,13 @@
       "代码格式化",
       "静态分析",
       "运行 linter"
-    ]
+    ],
+    "param.xargs.description": "附加参数（数组）。拒绝危险的元字符。"
   },
   "zh_TW": {
     "confirm.msg": "lint_format(mode=fix) 可能會重寫檔案。\n工具：{tools}\n目標：{targets}\ncwd：{cwd}\n\n如果要繼續請輸入 y，如果要取消請輸入 c。",
     "doc.module": "lint_format_tool\n\n用於執行靜態分析/格式化程式的包裝工具。\n\n- Python 系：優先使用 ruff / black / mypy\n- JavaScript 系：出於安全原因，不主動執行 npx",
     "param.cwd.description": "工作目录（workdir下）。",
-    "param.extra_args.description": "附加參數（陣列）。拒絕危險的元字元。",
     "param.mode.description": "check=僅檢查 / fix=自動修復",
     "param.targets.description": "目標路徑陣列（僅允許在 workdir 下）。",
     "param.tools.description": "要執行的工具名稱陣列。如果為空，將自動選擇。",
@@ -415,13 +414,13 @@
       "程式碼格式化",
       "靜態分析",
       "執行 linter"
-    ]
+    ],
+    "param.xargs.description": "附加參數（陣列）。拒絕危險的元字元。"
   },
   "bn": {
     "confirm.msg": "lint_format(mode=fix) ফাইল আবার লিখে দিতে পারে.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nএগোতে চাইলে y, বাতিল করতে চাইলে c লিখুন।",
     "doc.module": "lint_format_tool\n\nস্ট্যাটিক বিশ্লেষণ ও ফরম্যাটার চালানোর জন্য একটি wrapper টুল।\n\n- Python: ruff / black / mypy-কে অগ্রাধিকার দিন\n- JavaScript: নিরাপত্তার কারণে npx সরাসরি চালাবেন না।\n\nনিরাপত্তা:\n- mode=fix ফাইল বদলে দেয়, তাই human_ask দিয়ে নিশ্চিত করুন।\n- আর্গুমেন্ট array হিসেবে নিন এবং বিপজ্জনক shell metacharacter থাকলে তা প্রত্যাখ্যান করুন।",
     "param.cwd.description": "চালানোর ডিরেক্টরি (শুধু w...",
-    "param.extra_args.description": "অতিরিক্ত আর্গুমেন্ট (array)। বিপজ্জনক metacharacter প্রত্যাখ্যান করুন।",
     "param.mode.description": "check=শুধু যাচাই / fix=স্বয়ংক্রিয় সংশোধন",
     "param.targets.description": "টার্গেট path-এর array (শুধু workdir-এর নিচে অন...",
     "param.tools.description": "চালানোর জন্য টুলের নামের array। খালি হলে স্বয়ংক্রিয়ভাবে বাছাই করা হবে।",
@@ -431,13 +430,13 @@
       "কোড ফরম্যাট",
       "স্থির বিশ্লেষণ",
       "লিন্টার চালান"
-    ]
+    ],
+    "param.xargs.description": "অতিরিক্ত আর্গুমেন্ট (array)। বিপজ্জনক metacharacter প্রত্যাখ্যান করুন।"
   },
   "fa": {
     "confirm.msg": "lint_format(mode=fix) ممکن است فایل‌ها را بازنویسی کند.",
     "doc.module": "lint_format_tool\n\nابزار wrapper برای اجرای ابزارهای تحلیل ایستا و قالب‌بندی.\n\n- Python: ابتدا ruff / black / mypy\n- JavaScript: به دلایل امنیتی، npx را مستقیم اجرا نکنید.\n\nامنیت:\n- حالت mode=fix فایل‌ها را تغییر می‌دهد، پس با human_ask تأیید بگیرید.\n- آرگومان‌ها را به‌صورت آرایه بپذیرید و اگر metacharacter خطرناک داشتند رد کنید.",
     "param.cwd.description": "دایرکتوری اجرا (فقط زیر w...",
-    "param.extra_args.description": "آرگومان‌های اضافی (آرایه). metacharacterهای خطرناک را رد کنید.",
     "param.mode.description": "check=فقط بررسی / fix=اصلاح خودکار",
     "param.targets.description": "آرایهٔ مسیرهای هدف (فقط زیر workdir مجاز است).",
     "param.tools.description": "آرایه‌ای از نام ابزارهایی که باید اجرا شوند. اگر خالی باشد، به‌طور خودکار انتخاب می‌شوند.",
@@ -447,13 +446,13 @@
       "فرمت کد",
       "تحلیل ایستا",
       "اجرای lint"
-    ]
+    ],
+    "param.xargs.description": "آرگومان‌های اضافی (آرایه). metacharacterهای خطرناک را رد کنید."
   },
   "mn": {
     "confirm.msg": "lint_format(mode=fix) нь файлуудыг дахин бичиж болзошгүй.",
     "doc.module": "lint_format_tool\n\nСтатик шинжилгээ болон форматлагч хэрэгслүүдийг ажиллуулах wrapper хэрэгсэл.\n\n- Python: ruff / black / mypy-г илүүд үзнэ\n- JavaScript: аюулгүй байдлын үүднээс npx-ийг шууд бүү ажиллуул.\n\nАюулгүй байдал:\n- mode=fix нь файлыг өөрчилдөг тул human_ask-аар баталгаажуулна.\n- Аргументуудыг array хэлбэрээр авч, аюултай shell metacharacter агуулсан бол татгалзана.",
     "param.cwd.description": "Ажиллуулах директор (зөвх...",
-    "param.extra_args.description": "Нэмэлт аргументууд (array). Аюултай metacharacter-уудыг татгалзана.",
     "param.mode.description": "check=зөвхөн шалгах / fix=автомат засвар",
     "param.targets.description": "Зорилтот path-уудын array (зөвхөн workdir-ийн...",
     "param.tools.description": "Ажиллуулах хэрэгслүүдийн нэрсийн array. Хоосон бол автоматаар сонгоно.",
@@ -463,13 +462,13 @@
       "код форматлах",
       "статик шинжилгээ",
       "linters ажиллуулах"
-    ]
+    ],
+    "param.xargs.description": "Нэмэлт аргументууд (array). Аюултай metacharacter-уудыг татгалзана."
   },
   "mr": {
     "confirm.msg": "lint_format(mode=fix) फाइल्स पुन्हा लिहू शकते.",
     "doc.module": "lint_format_tool\n\nस्थिर विश्लेषण आणि formatter चालवण्यासाठीचा wrapper साधन.\n\n- Python: ruff / black / mypy यांना प्राधान्य द्या\n- JavaScript: सुरक्षिततेसाठी npx थेट चालवू नका.\n\nसुरक्षा:\n- mode=fix मुळे फाइल्स बदलतात, म्हणून human_ask द्वारे पुष्टी घ्या.\n- arguments array म्हणून घ्या आणि धोकादायक shell metacharacter असल्यास नकार द्या.",
     "param.cwd.description": "चालवण्याची directory (फक्...",
-    "param.extra_args.description": "अतिरिक्त arguments (array). धोकादायक metacharacter नाकारावेत.",
     "param.mode.description": "check=फक्त तपासणी / fix=स्वयंचलित सुधारणा",
     "param.targets.description": "लक्ष्य path ची array (फक्त workdir च्या आत परवानगी).",
     "param.tools.description": "चालवायच्या साधनांच्या नावांची array. रिकामी असल्यास स्वयंचलितपणे निवड केली जाईल.",
@@ -479,6 +478,7 @@
       "कोड फॉरमॅट",
       "स्थिर विश्लेषण",
       "लिंटर चालवा"
-    ]
+    ],
+    "param.xargs.description": "अतिरिक्त arguments (array). धोकादायक metacharacter नाकारावेत."
   }
 }

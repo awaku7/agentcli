@@ -63,10 +63,10 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "image_path": {
+                "img": {
                     "type": "string",
                     "description": _(
-                        "param.image_path.description",
+                        "param.img.description",
                         default=(
                             "Local path to an image file to attach. "
                             "Supported: JPEG, PNG. Max 1 MB. "
@@ -81,10 +81,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Alt text.",
                     ),
                 },
-                "save_images": {
+                "save_img": {
                     "type": "boolean",
                     "description": _(
-                        "param.save_images.description",
+                        "param.save_img.description",
                         default="Download images.",
                     ),
                 },
@@ -269,7 +269,7 @@ def _download_and_save(url: str, prefix: str, index: int) -> str | None:
 
 def _handle_post(args: dict[str, Any], output_format: str) -> str:
     text = (args.get("text") or "").strip()
-    image_path = (args.get("image_path") or "").strip()
+    image_path = (args.get("img") or "").strip()
     alt_text = (args.get("alt") or "").strip()
 
     if not text and not image_path:
@@ -404,7 +404,7 @@ def _handle_search(args: dict[str, Any], output_format: str) -> str:
         return _err_json("search_failed", "Search request failed.", output_format)
     elapsed_ms = int((time.perf_counter() - started) * 1000)
     posts = data.get("posts") or []
-    items = [_compact_post(p, args.get("save_images"), session.get("did")) for p in posts[:limit]]
+    items = [_compact_post(p, args.get("save_img"), session.get("did")) for p in posts[:limit]]
     attachments = _collect_attachments(items)
     result = {"ok": True, "action": "search", "q": q, "count": len(items), "items": items, "elapsed_ms": elapsed_ms, "attachments": attachments}
     _open_saved_images(result)
@@ -431,7 +431,7 @@ def _handle_timeline(args: dict[str, Any], output_format: str) -> str:
     feed = data.get("feed") or []
     items = []
     for entry in feed[:limit]:
-        item = _compact_post(entry.get("post") or {}, args.get("save_images"), session.get("did"))
+        item = _compact_post(entry.get("post") or {}, args.get("save_img"), session.get("did"))
         item["reason"] = entry.get("reason")
         items.append(item)
     attachments = _collect_attachments(items)
@@ -459,7 +459,7 @@ def _handle_thread(args: dict[str, Any], output_format: str) -> str:
     if not data:
         return _err_json("thread_failed", f"Failed to get thread for: {uri}.", output_format)
     elapsed_ms = int((time.perf_counter() - started) * 1000)
-    save = args.get("save_images")
+    save = args.get("save_img")
     did = session.get("did")
     thread = data.get("thread") or {}
     compact = _compact_thread(thread, save, did)
@@ -538,7 +538,7 @@ def _handle_notifications(args: dict[str, Any], output_format: str) -> str:
         record = n.get("record") or {}
         images = _extract_images(record)
         saved: list[str] = []
-        if args.get("save_images") and images:
+        if args.get("save_img") and images:
             for idx, img in enumerate(images):
                 cid = img.get("fullsize", "")
                 if cid:

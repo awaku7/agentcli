@@ -50,11 +50,11 @@ TOOL_SPEC: dict[str, Any] = {
                         default="The output filename (e.g., 'qrcode.png'). Must end with .png.",
                     ),
                 },
-                "error_correction": {
+                "ecc": {
                     "type": "string",
                     "enum": ["L", "M", "Q", "H"],
                     "description": _(
-                        "param.error_correction.description",
+                        "param.ecc.description",
                         default="Error correction: L/M/Q/H (default: M).",
                     ),
                 },
@@ -116,7 +116,7 @@ def _backup_path(path: str) -> str:
 def run_tool(args: dict[str, Any]) -> str:
     text = str(args.get("text", ""))
     filename = str(args.get("filename", "")).strip()
-    error_correction_str = str(args.get("error_correction", "M")).upper()
+    error_correction_str = str(args.get("ecc", "M")).upper()
     box_size = args.get("box_size", 10)
     border = args.get("border", 4)
     fill_color = str(args.get("fill_color", "black"))
