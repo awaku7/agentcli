@@ -17,7 +17,7 @@ def _set_comm_tools_enabled(enabled: bool) -> str:
     from . import TOOL_SPECS, _RUNNERS, _register_tool_module, _sort_registered_tools
     from importlib import import_module
 
-    comm_modules = ["teams_webhook_tool", "discord_channel_tool"]
+    comm_modules = ["teams_webhook_tool", "discord_channel_tool", "bluesky_tool"]
     changed_names = []
 
     if enabled:

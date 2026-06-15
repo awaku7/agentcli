@@ -32,6 +32,22 @@ Après l'installation, le premier lancement d'`uag` démarrera automatiquement u
 - **Continuité de session** : Maintient le contexte de la conversation même lors du changement de fournisseur ou de modèle.
 - **Web Inspector** : Enregistre automatiquement les transitions du navigateur, le DOM et les captures d'écran avec `playwright_inspector`.
 - **Documentation intégrée** : Accédez instantanément à une documentation interne détaillée à l'aide de la commande `uag docs`.
+- **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
+
+## IoT Device Support
+
+Control smart home and IoT devices through multiple interfaces:
+
+- **SwitchBot Cloud**: List, control, and batch-operate SwitchBot devices (TV, air conditioner, lights, etc.).
+  - Infrared remote devices (on/off, brightness, temperature)
+  - Air conditioner mode and fan speed control
+  - Batch execution of multiple commands
+- **SwitchBot BLE**: Scan and control nearby SwitchBot BLE devices.
+- **ECHONET Lite**: Discover and control ECHONET Lite home appliances over the local network.
+- **Matter**: Inspect Matter controller/bridge/device structure (read-only).
+- **UPnP**: Discover UPnP devices and manage IGD port forwarding.
+
+For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 ## Utilisation
 

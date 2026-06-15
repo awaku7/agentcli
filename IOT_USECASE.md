@@ -28,6 +28,7 @@ The main `tool_genre: "iot"` tools are:
 - `switchbot_cloud_list`
 - `switchbot_cloud_status`
 - `switchbot_cloud_control`
+- `switchbot_batch`
 
 ### ECHONET Lite
 
@@ -103,7 +104,7 @@ Use the detail tools to inspect structure.
 Only do this when the target is clear and the action is supported.
 
 - BLE: `switchbot_ble_control`
-- SwitchBot Cloud: `switchbot_cloud_control`
+- SwitchBot Cloud: `switchbot_cloud_control` / `switchbot_batch`
 - ECHONET Lite: `echonet_property_set`, `echonet_control`
 - UPnP: `upnp_igd_control`
 
@@ -153,6 +154,15 @@ Common uses:
 - For SwitchBot Cloud API
 - Use list, status, then control
 - Requires credentials
+- Supports infrared remote devices (TV, air conditioner, light, etc.)
+  - on/off/brightness_up/brightness_down
+  - Air conditioner supports mode/fan_speed parameters
+
+### `switchbot_batch`
+
+- Execute multiple SwitchBot commands in a single call
+- Each command uses `device_id` or `device_name` to identify the target
+- Fetches the device list only once, making multi-step operations more efficient
 
 ### `echonet_*`
 
