@@ -7,6 +7,15 @@
 
 ## [Unreleased]
 
+## [0.5.7] - 2026-06-15
+
+### 変更
+- プロバイダ識別子を `kimi` から `moonshot` に変更 (UAGENT_PROVIDER=moonshot)。
+- 環境変数を `UAGENT_KIMI_*` から `UAGENT_MOONSHOT_*` に変更。
+- black フォーマットを39ファイルに適用しコードスタイルを統一。
+- ruff の lint エラーを修正（無効な例外構文、未使用インポート、1行文）。
+- mypy の型エラーを修正（dict 注釈、used-before-def、truthy-function チェック）。
+
 ## [0.5.6] - 2026-06-15
 
 ### 新規追加

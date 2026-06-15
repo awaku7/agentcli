@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.7] - 2026-06-15
+
+### Changed
+- Renamed provider identifier from `kimi` to `moonshot` (UAGENT_PROVIDER=moonshot).
+- Renamed environment variables from `UAGENT_KIMI_*` to `UAGENT_MOONSHOT_*`.
+- Applied black formatting across 39 files for consistent code style.
+- Fixed ruff lint errors (invalid exception syntax, unused imports, one-line statements).
+- Fixed mypy type errors (dict annotation, used-before-def, truthy-function check).
+
 ## [0.5.6] - 2026-06-15
 
 ### Added
