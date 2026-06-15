@@ -78,6 +78,8 @@ ______________________________________________________________________
 - `UAGENT_IMG_GENERATE_PROVIDER`: 画像生成に使用するプロバイダ (既定: `UAGENT_PROVIDER`)。
 - `UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME`: 画像生成用モデル ID (例: `dall-e-3`)。
 - `UAGENT_IMG_ANALYSIS_PROVIDER`: 画像解析に使用するプロバイダ (既定: `UAGENT_PROVIDER`)。
+  - 対応: `openai`, `azure`, `gemini`, `vertexai`, `ollama`, `alibaba` (Qwen-VL/DashScope), `deepseek` (Vision対応エンドポイントが必要)。
+  - 対応する `UAGENT_<PROVIDER>_API_KEY/DEPNAME/BASE_URL` 環境変数が必要。
 - `UAGENT_IMAGE_OPEN`: 画像生成後に自動で開くかどうか (`0` で無効化)。
 
 ### 6. 音声の生成と文字起こし
