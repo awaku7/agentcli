@@ -191,13 +191,8 @@ def analyze_image_openai(
                 or "https://api.openai.com/v1"
             )
             model = _img_env("openai", "analysis", "depname") or _env_first(
-                ["UAGENT_OPENAI_DEPNAME"]
+                ["UAGENT_OPENAI_DEPNAME"], default="gpt-4o-mini"
             )
-            if not (api_key and model):
-                raise RuntimeError(
-                    "Missing required env vars for openai image analysis. "
-                    "Need api_key/model (UAGENT_OPENAI_* or UAGENT_OPENAI_IMG_ANALYSIS_*)."
-                )
         client = OpenAI(api_key=api_key, base_url=base_url)
 
     # Chat Completions multimodal
