@@ -329,9 +329,7 @@ def _find_device(
     assert device_name is not None
     needle = device_name.casefold()
     matches = [
-        item
-        for item in items
-        if needle in str(item.get("devname") or "").casefold()
+        item for item in items if needle in str(item.get("devname") or "").casefold()
     ]
     if not matches:
         return None, {

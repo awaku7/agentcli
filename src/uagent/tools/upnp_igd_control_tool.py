@@ -277,7 +277,9 @@ def _service_is_layer3_forwarding(service: dict[str, Any] | None) -> bool:
     return "Layer3Forwarding" in service_type
 
 
-def _service_matches_identifier(service: dict[str, Any] | None, identifier: Any) -> bool:
+def _service_matches_identifier(
+    service: dict[str, Any] | None, identifier: Any
+) -> bool:
     if not isinstance(service, dict):
         return False
     needle = str(identifier or "").strip()
@@ -289,7 +291,12 @@ def _service_matches_identifier(service: dict[str, Any] | None, identifier: Any)
         if not value:
             continue
         value_low = value.lower()
-        if needle == value or needle_low == value_low or needle_low in value_low or value_low in needle_low:
+        if (
+            needle == value
+            or needle_low == value_low
+            or needle_low in value_low
+            or value_low in needle_low
+        ):
             return True
     return False
 
@@ -311,13 +318,19 @@ def _select_igd_service(item: dict[str, Any], timeout: int) -> dict[str, Any] | 
         return preferred
     if layer3_service:
         try:
-            values = _call_service_action(layer3_service, "GetDefaultConnectionService", {}, timeout)
+            values = _call_service_action(
+                layer3_service, "GetDefaultConnectionService", {}, timeout
+            )
         except Exception:
             return None
-        default_id = values.get("NewDefaultConnectionService") or values.get("DefaultConnectionService")
+        default_id = values.get("NewDefaultConnectionService") or values.get(
+            "DefaultConnectionService"
+        )
         if default_id:
             for service in services:
-                if _service_matches_identifier(service, default_id) and _service_supports_port_mapping(service):
+                if _service_matches_identifier(
+                    service, default_id
+                ) and _service_supports_port_mapping(service):
                     if service.get("control_url"):
                         return service
     return None

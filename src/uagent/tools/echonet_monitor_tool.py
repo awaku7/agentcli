@@ -49,18 +49,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.eoj.description",
-                        default=(
-                            "Target EOJ (default: node profile)."
-                        ),
+                        default=("Target EOJ (default: node profile)."),
                     ),
                 },
                 "obj": {
                     "type": "string",
                     "description": _(
                         "param.obj.description",
-                        default=(
-                            "Object code filter (e.g. '0130')."
-                        ),
+                        default=("Object code filter (e.g. '0130')."),
                     ),
                 },
                 "interval": {

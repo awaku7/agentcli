@@ -119,7 +119,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ],
                     "description": _(
                         "param.args.description",
-                        default='Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string.',
+                        default="Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string.",
                     ),
                 },
             },

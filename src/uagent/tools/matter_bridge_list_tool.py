@@ -36,9 +36,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.bridge.description",
-                        default=(
-                            "Bridge ID (omit for all)."
-                        ),
+                        default=("Bridge ID (omit for all)."),
                     ),
                 },
                 "fmt": {

@@ -36,9 +36,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.ctrl.description",
-                        default=(
-                            "Controller ID (omit for all)."
-                        ),
+                        default=("Controller ID (omit for all)."),
                     ),
                 },
                 "fmt": {
@@ -214,9 +212,7 @@ def _normalize_controller_item(item: dict[str, Any]) -> dict[str, Any]:
         )
     )
 
-    controller_id = (
-        item.get("controllerId") or item.get("ctrl") or item.get("id")
-    )
+    controller_id = item.get("controllerId") or item.get("ctrl") or item.get("id")
     controller_name = (
         item.get("controllerName") or item.get("controller_name") or item.get("name")
     )

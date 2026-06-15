@@ -25,7 +25,7 @@ Při prvním spuštění `uag` zkontroluje vaše prostředí a automaticky spust
 ## Hlavní vlastnosti
 
 - **Praktická sada nástrojů**: práce se soubory, webové vyhledávání, extrakce z PDF/PPTX/Excel, generování obrázků a analýza obrázků.
-- **Podpora více poskytovatelů**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI).
+- **Podpora více poskytovatelů**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
 - **Tři rozhraní**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

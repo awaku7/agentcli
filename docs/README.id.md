@@ -23,7 +23,7 @@ Setelah instalasi, saat pertama kali menjalankan `uag`, wizard setup interaktif 
 ## Fitur Utama
 
 - **Perangkat Alat Praktis**: Dilengkapi alat untuk manipulasi berkas, pencarian web, ekstraksi data (PDF/PPTX/Excel), pembuatan gambar, dan analisis, semuanya dapat dijalankan di lingkungan lokal Anda.
-- **Dukungan Multi-Provider**: Mendukung OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI).
+- **Dukungan Multi-Provider**: Mendukung OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
 - **Antarmuka Fleksibel**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

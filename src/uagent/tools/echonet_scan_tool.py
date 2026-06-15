@@ -51,9 +51,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.interface.description",
-                        default=(
-                            "Local interface IPv4/name (optional)."
-                        ),
+                        default=("Local interface IPv4/name (optional)."),
                     ),
                 },
                 "retry": {
@@ -210,7 +208,7 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
             pass
 
         raise ValueError(
-            _(  # noqa: F823
+            _(  # type: ignore[used-before-def]  # noqa: F823
                 "err.invalid_interface",
                 default=(
                     "Error: Could not resolve interface '{interface}' to a local IPv4 address."

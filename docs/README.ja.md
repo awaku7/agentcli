@@ -25,7 +25,7 @@ pip install uag
 ## 主な特長
 
 - **実用的なツール群**: ファイル操作、ウェブ検索、PDF/PPTX/Excel 抽出、画像生成、画像解析。
-- **マルチプロバイダ対応**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI)。
+- **マルチプロバイダ対応**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI。
 - **3つのインターフェース**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

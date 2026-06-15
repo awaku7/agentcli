@@ -75,7 +75,8 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["sha256", "sha1", "md5"],
                     "default": "sha256",
                     "description": _(
-                        "param.algo.description", default="Algorithm.",
+                        "param.algo.description",
+                        default="Algorithm.",
                     ),
                 },
                 "chunk_size": {

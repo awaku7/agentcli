@@ -154,13 +154,84 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
         try:
             from prompt_toolkit import PromptSession
             from prompt_toolkit.history import FileHistory
+            from prompt_toolkit.completion import (
+                Completer,
+                Completion,
+                PathCompleter,
+            )
         except Exception:
             _PROMPT_SESSION = False
             return None
 
         try:
+            # Custom completer: :ls/:cd → path completion, others → command completion
+            class _CommandCompleter(Completer):
+                def get_completions(self, document, complete_event):
+                    text = document.text_before_cursor
+                    stripped = text.lstrip()
+                    # Path completion for file-operating commands
+                    path_cmds = (
+                        ":ls ",
+                        ":cd ",
+                        ":rm ",
+                        ":cp ",
+                        ":mv ",
+                        ":head ",
+                        ":tail ",
+                        ":load ",
+                    )
+                    if stripped.startswith(path_cmds):
+                        for comp in PathCompleter().get_completions(
+                            document, complete_event
+                        ):
+                            yield comp
+                    elif stripped.startswith(":") and " " not in stripped:
+                        # Command name completion
+                        word = stripped.lstrip(":")
+                        cmds = [
+                            "ls",
+                            "cd",
+                            "rm",
+                            "cp",
+                            "mv",
+                            "head",
+                            "tail",
+                            "load",
+                            "save",
+                            "env",
+                            "help",
+                            "exit",
+                            "quit",
+                            "logs",
+                            "list",
+                            "clear",
+                            "reset",
+                            "undo",
+                            "redo",
+                            "history",
+                            "replay",
+                            "export",
+                            "import",
+                            "tools",
+                            "skills",
+                            "clean",
+                            "shrink",
+                            "shrink_llm",
+                            "tokens",
+                            "r",
+                            "mem-list",
+                            "mem-del",
+                            "profile",
+                            "profile-fromlog",
+                            "profile-clear",
+                        ]
+                        for c in cmds:
+                            if c.startswith(word):
+                                yield Completion(":" + c, start_position=-len(text))
+
             session = PromptSession(
-                history=FileHistory(str(get_history_file_path()))
+                history=FileHistory(str(get_history_file_path())),
+                completer=_CommandCompleter(),
             )
             for entry in _PROMPT_HISTORY:
                 try:
@@ -198,7 +269,9 @@ def _prompt_toolkit_input(
     except Exception:
         return None
 
+
 setattr(core, "prompt_history_append", _append_prompt_history_entry)
+
 
 def _flush_stdin_input_buffer() -> None:
     """Best-effort flush of *pending* user keystrokes before a prompt.
@@ -322,6 +395,7 @@ def stdin_loop() -> None:
     user_lines: list[str] = []
 
     while True:
+        _skip = False
         try:
             # First, check if we are waiting for a reply
             with core.human_ask_lock:
@@ -403,35 +477,17 @@ def stdin_loop() -> None:
                 # Short stabilization wait to avoid output conflicts immediately after response
                 time.sleep(0.1)
 
-                try:
-                    if not is_reply:
-                        with core.human_ask_lock:
-                            if core.human_ask_active:
-                                continue
-                        if getattr(core, "status_busy", False):
-                            time.sleep(0.1)
+                if not is_reply:
+                    with core.human_ask_lock:
+                        if core.human_ask_active:
                             continue
+                    if getattr(core, "status_busy", False):
+                        time.sleep(0.1)
+                        continue
 
-                    lock = getattr(core, "print_lock", None)
-                    if lock is None:
-                        lock = threading.RLock()
+                prompt = getattr(core, "get_prompt", lambda: "User> ")()
 
-                    with lock:
-                        prompt = getattr(core, "get_prompt", lambda: "User> ")()
-                        if out:
-                            out.write(prompt)
-                            out.flush()
-                        else:
-                            print(prompt, end="", flush=True)
-                except Exception:
-                    # Final fallback
-                    try:
-                        print(prompt, end="", flush=True)
-                    except Exception:
-                        pass
-
-                # Read input without using input(), to avoid stdout/stderr prompt interleaving issues
-                # (input() may implicitly write to stdout depending on environment).
+                # Read input
                 if is_reply:
                     line = _prompt_toolkit_input("", reply=True)
                     if line is None:
@@ -441,8 +497,7 @@ def stdin_loop() -> None:
                 else:
                     line = None
 
-                    # If prompt_toolkit is available, use it so history navigation works.
-                    # UAGENT_SIMPLE_PROMPT defaults to 0; set 1/true/yes/on to disable.
+                    # Use prompt_toolkit when available (handles prompt drawing internally)
                     use_simple_prompt = str(
                         env_get("UAGENT_SIMPLE_PROMPT", "0") or ""
                     ).lower() in (
@@ -459,53 +514,71 @@ def stdin_loop() -> None:
                     ):
                         try:
                             from prompt_toolkit.patch_stdout import patch_stdout
+
                             with patch_stdout():
-                                line = prompt_session.prompt("")
+                                line = prompt_session.prompt(prompt)
                         except Exception:
                             line = None
-                    elif os.name == "nt":
-                        try:
-                            import msvcrt  # type: ignore
-
-                            while True:
-                                with core.human_ask_lock:
-                                    if core.human_ask_active:
-                                        break
-                                if msvcrt.kbhit():
-                                    line = sys.stdin.readline()
-                                    if line == "":
-                                        raise EOFError
-                                    break
-                                time.sleep(0.1)
-                        except EOFError:
-                            raise
-                        except Exception:
-                            line = sys.stdin.readline()
-                            if line == "":
-                                raise EOFError
                     else:
-                        try:
-                            import select
+                        # Manual prompt drawing fallback
+                        lock = getattr(core, "print_lock", None)
+                        if lock is None:
+                            lock = threading.RLock()
+                        with lock:
+                            try:
+                                if out:
+                                    out.write(prompt)
+                                    out.flush()
+                                else:
+                                    print(prompt, end="", flush=True)
+                            except Exception:
+                                try:
+                                    print(prompt, end="", flush=True)
+                                except Exception:
+                                    pass
+                        if os.name == "nt":
+                            try:
+                                import msvcrt  # type: ignore
 
-                            while True:
-                                with core.human_ask_lock:
-                                    if core.human_ask_active:
+                                while True:
+                                    with core.human_ask_lock:
+                                        if core.human_ask_active:
+                                            break
+                                    if msvcrt.kbhit():
+                                        line = sys.stdin.readline()
+                                        if line == "":
+                                            raise EOFError
                                         break
-                                r, _w, _x = select.select([sys.stdin], [], [], 0.05)
-                                if r:
-                                    line = sys.stdin.readline()
-                                    if line == "":
-                                        raise EOFError
-                                    break
-                        except EOFError:
-                            raise
-                        except Exception:
-                            line = sys.stdin.readline()
-                            if line == "":
-                                raise EOFError
+                                    time.sleep(0.1)
+                            except EOFError:
+                                raise
+                            except Exception:
+                                line = sys.stdin.readline()
+                                if line == "":
+                                    raise EOFError
+                        else:
+                            try:
+                                import select
 
-                    if line is None:
-                        continue
+                                while True:
+                                    with core.human_ask_lock:
+                                        if core.human_ask_active:
+                                            break
+                                    r, _w, _x = select.select([sys.stdin], [], [], 0.05)
+                                    if r:
+                                        line = sys.stdin.readline()
+                                        if line == "":
+                                            raise EOFError
+                                        break
+                            except EOFError:
+                                raise
+                            except Exception:
+                                line = sys.stdin.readline()
+                                if line == "":
+                                    raise EOFError
+
+                if line is None:
+                    _skip = True
         except EOFError:
             break
         except KeyboardInterrupt:
@@ -532,6 +605,9 @@ def stdin_loop() -> None:
                 file=sys.stderr,
             )
             time.sleep(1)
+            continue
+
+        if _skip:
             continue
 
         line = line.rstrip("\n")

@@ -246,7 +246,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "query": {
                     "type": "string",
                     "description": _(
-                        "param.query.description", default="Search query.",
+                        "param.query.description",
+                        default="Search query.",
                     ),
                 },
                 "limit": {

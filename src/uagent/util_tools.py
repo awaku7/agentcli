@@ -1932,7 +1932,8 @@ def format_help(*, core: Any) -> str:
         + tr(
             "Shrink history via LLM summarization (summarize older history into 1 system message; keep last N raw; default=20)"
         ),
-        "  :tokens               " + tr("Show the current approximate token count of the conversation"),
+        "  :tokens               "
+        + tr("Show the current approximate token count of the conversation"),
         "  :mem-list             " + tr("List long-term memory notes"),
         "  :mem-del <index>      "
         + tr("Delete a long-term memory note by index (see :mem-list)"),

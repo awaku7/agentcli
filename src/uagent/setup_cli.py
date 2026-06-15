@@ -72,7 +72,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("nvidia", "NVIDIA"),
     ("deepseek", "DeepSeek"),
     ("alibaba", "Alibaba Cloud (Qwen)"),
-    ("kimi", "KIMI (Moonshot AI)"),
+    ("moonshot", "Moonshot AI"),
 ]
 
 # key, required, label
@@ -188,22 +188,60 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
     ],
     "deepseek": [
         ("UAGENT_DEEPSEEK_API_KEY", True, _("DeepSeek API key")),
-        ("UAGENT_DEEPSEEK_BASE_URL", False, _("DeepSeek base URL (optional, default: https://api.deepseek.com)")),
-        ("UAGENT_DEEPSEEK_DEPNAME", False, _("DeepSeek model name (optional, default: deepseek-v4-flash)")),
-        ("UAGENT_DEEPSEEK_TEMPERATURE", False, _("DeepSeek temperature (default: 0.0)")),
+        (
+            "UAGENT_DEEPSEEK_BASE_URL",
+            False,
+            _("DeepSeek base URL (optional, default: https://api.deepseek.com)"),
+        ),
+        (
+            "UAGENT_DEEPSEEK_DEPNAME",
+            False,
+            _("DeepSeek model name (optional, default: deepseek-v4-flash)"),
+        ),
+        (
+            "UAGENT_DEEPSEEK_TEMPERATURE",
+            False,
+            _("DeepSeek temperature (default: 0.0)"),
+        ),
         ("UAGENT_DEEPSEEK_TOP_P", False, _("DeepSeek top_p (default: 1.0)")),
-        ("UAGENT_DEEPSEEK_PRESENCE_PENALTY", False, _("DeepSeek presence_penalty (default: 0.0)")),
-        ("UAGENT_DEEPSEEK_FREQUENCY_PENALTY", False, _("DeepSeek frequency_penalty (default: 0.0)")),
+        (
+            "UAGENT_DEEPSEEK_PRESENCE_PENALTY",
+            False,
+            _("DeepSeek presence_penalty (default: 0.0)"),
+        ),
+        (
+            "UAGENT_DEEPSEEK_FREQUENCY_PENALTY",
+            False,
+            _("DeepSeek frequency_penalty (default: 0.0)"),
+        ),
     ],
     "alibaba": [
         ("UAGENT_ALIBABA_API_KEY", True, _("Alibaba Cloud (Qwen) API key")),
-        ("UAGENT_ALIBABA_BASE_URL", False, _("Alibaba base URL (optional, default: https://dashscope.aliyuncs.com/compatible-mode/v1)")),
-        ("UAGENT_ALIBABA_DEPNAME", False, _("Alibaba model name (optional, default: qwen3.5-plus)")),
+        (
+            "UAGENT_ALIBABA_BASE_URL",
+            False,
+            _(
+                "Alibaba base URL (optional, default: https://dashscope.aliyuncs.com/compatible-mode/v1)"
+            ),
+        ),
+        (
+            "UAGENT_ALIBABA_DEPNAME",
+            False,
+            _("Alibaba model name (optional, default: qwen3.5-plus)"),
+        ),
     ],
-    "kimi": [
-        ("UAGENT_KIMI_API_KEY", True, _("KIMI (Moonshot AI) API key")),
-        ("UAGENT_KIMI_BASE_URL", False, _("KIMI base URL (optional, default: https://api.moonshot.cn/v1)")),
-        ("UAGENT_KIMI_DEPNAME", False, _("KIMI model name (optional, default: kimi-k2)")),
+    "moonshot": [
+        ("UAGENT_MOONSHOT_API_KEY", True, _("Moonshot AI API key")),
+        (
+            "UAGENT_MOONSHOT_BASE_URL",
+            False,
+            _("Moonshot base URL (optional, default: https://api.moonshot.cn/v1)"),
+        ),
+        (
+            "UAGENT_MOONSHOT_DEPNAME",
+            False,
+            _("Moonshot model name (optional, default: kimi-k2)"),
+        ),
     ],
 }
 
@@ -979,7 +1017,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# Provider selection")
     out.append("# ==============================")
     out.append(
-        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / alibaba / kimi"
+        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / alibaba / moonshot"
     )
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")

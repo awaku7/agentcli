@@ -5,6 +5,7 @@ import sys
 from dataclasses import dataclass
 from typing import Any
 
+
 @dataclass
 class CliStartupState:
     provider: str
@@ -13,6 +14,7 @@ class CliStartupState:
     banner: str
     messages: list[dict[str, Any]]
     should_exit: bool = False
+
 
 def _prompt_startup_tool_genre_mask_fallback() -> int:
     from .i18n import _
@@ -54,6 +56,7 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
         except Exception:
             pass
 
+
 def _prompt_startup_tool_genre_mask() -> int:
     from .i18n import _
 
@@ -71,7 +74,9 @@ def _prompt_startup_tool_genre_mask() -> int:
 
     stdin_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
     stdout_tty = bool(
-        getattr(getattr(sys, "__stdout__", None) or sys.stdout, "isatty", lambda: False)()
+        getattr(
+            getattr(sys, "__stdout__", None) or sys.stdout, "isatty", lambda: False
+        )()
     )
     if not (stdin_tty and stdout_tty):
         return _prompt_startup_tool_genre_mask_fallback()
@@ -108,6 +113,7 @@ def _prompt_startup_tool_genre_mask() -> int:
             mask |= 8
     return mask
 
+
 def _apply_startup_tool_genre_mask(mask: int) -> None:
     if mask <= 0:
         return
@@ -127,7 +133,7 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
         (2, _set_office_tools_enabled),
         (4, _set_devel_tools_enabled),
     ]
-    if _set_iot_tools_enabled:
+    if _set_iot_tools_enabled is not None:
         enabled_specs.append((8, _set_iot_tools_enabled))
 
     for bit, setter in enabled_specs:
@@ -142,6 +148,7 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
                 _("[WARN] Failed to apply startup tool selection: %(err)s", err=e),
                 file=sys.stderr,
             )
+
 
 def run_cli_startup(
     *,
@@ -287,8 +294,13 @@ def run_cli_startup(
                 % {"provider": provider, "model": depname or ""}
             )
 
-            if provider == "openrouter" and (depname or "").strip() == "openrouter/auto":
-                raw_fb = (env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or "").strip()
+            if (
+                provider == "openrouter"
+                and (depname or "").strip() == "openrouter/auto"
+            ):
+                raw_fb = (
+                    env_get("UAGENT_OPENROUTER_FALLBACK_MODELS", "") or ""
+                ).strip()
                 if raw_fb:
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
