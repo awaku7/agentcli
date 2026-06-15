@@ -320,6 +320,16 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 )
             }
         )
+    elif provider == "alibaba":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get("UAGENT_ALIBABA_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1"),
+                )
+            }
+        )
     elif provider == "bedrock":
         lines.append(
             _("[INFO] base_url = %(base_url)s")

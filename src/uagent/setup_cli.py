@@ -71,6 +71,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("ollama", "Ollama"),
     ("nvidia", "NVIDIA"),
     ("deepseek", "DeepSeek"),
+    ("alibaba", "Alibaba Cloud (Qwen)"),
 ]
 
 # key, required, label
@@ -192,6 +193,11 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_DEEPSEEK_TOP_P", False, _("DeepSeek top_p (default: 1.0)")),
         ("UAGENT_DEEPSEEK_PRESENCE_PENALTY", False, _("DeepSeek presence_penalty (default: 0.0)")),
         ("UAGENT_DEEPSEEK_FREQUENCY_PENALTY", False, _("DeepSeek frequency_penalty (default: 0.0)")),
+    ],
+    "alibaba": [
+        ("UAGENT_ALIBABA_API_KEY", True, _("Alibaba Cloud (Qwen) API key")),
+        ("UAGENT_ALIBABA_BASE_URL", False, _("Alibaba base URL (optional, default: https://dashscope.aliyuncs.com/compatible-mode/v1)")),
+        ("UAGENT_ALIBABA_DEPNAME", False, _("Alibaba model name (optional, default: qwen-max)")),
     ],
 }
 
@@ -967,7 +973,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# Provider selection")
     out.append("# ==============================")
     out.append(
-        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek"
+        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / alibaba"
     )
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")

@@ -57,6 +57,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         "claude",
         "nvidia",
         "deepseek",
+        "alibaba",
     )
     if provider not in allowed:
         warnings.append(
@@ -176,6 +177,11 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_DEEPSEEK_API_KEY"],
             reason=_("DeepSeek API key.", default="DeepSeek API key."),
+        )
+    elif provider == "alibaba":
+        missing += _require(
+            ["UAGENT_ALIBABA_API_KEY"],
+            reason=_("Alibaba Cloud (Qwen) API key.", default="Alibaba Cloud (Qwen) API key."),
         )
 
     embedding_provider = (_get("UAGENT_EMBEDDING_PROVIDER") or "").lower()

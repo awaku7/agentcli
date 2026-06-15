@@ -13,5 +13,6 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "bedrock",
         "openrouter",
         "ollama",
+        "alibaba",
     }
 )
