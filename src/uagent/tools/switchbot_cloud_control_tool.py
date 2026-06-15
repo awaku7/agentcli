@@ -64,6 +64,8 @@ TOOL_SPEC: dict[str, Any] = {
                         "set_value",
                         "lock",
                         "unlock",
+                        "brightness_up",
+                        "brightness_down",
                     ],
                     "description": _(
                         "param.action.description",
@@ -80,6 +82,26 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.value.description",
                         default=(
                             "Optional numeric value for set_value actions. Range: 0-100."
+                        ),
+                    ),
+                },
+                "mode": {
+                    "type": "string",
+                    "enum": ["auto", "cool", "dry", "fan", "heat"],
+                    "description": _(
+                        "param.mode.description",
+                        default=(
+                            "Air conditioner mode (auto/cool/dry/fan/heat). Only used with air conditioner set_value."
+                        ),
+                    ),
+                },
+                "fan_speed": {
+                    "type": "string",
+                    "enum": ["auto", "low", "medium", "high"],
+                    "description": _(
+                        "param.fan_speed.description",
+                        default=(
+                            "Air conditioner fan speed (auto/low/medium/high). Only used with air conditioner set_value."
                         ),
                     ),
                 },
@@ -354,6 +376,9 @@ def _action_for_device(
     device_type: str | None,
     action: str,
     value: int | None,
+    remote_type: str | None = None,
+    mode: str | None = None,
+    fan_speed: str | None = None,
 ) -> tuple[str, str, dict[str, Any] | None]:
     dtype = _device_type_text(device_type)
     action_norm = action.casefold().strip()
@@ -431,6 +456,47 @@ def _action_for_device(
                 "message": _(
                     "err.unsupported_device",
                     default="The selected device type does not support the requested action.",
+                ),
+            },
+        )
+
+    if "infrared" in dtype or "remote" in dtype:
+        raw_remote_type = str(remote_type or "").casefold()
+        if action_norm == "on":
+            return "turnOn", "default", None
+        if action_norm == "off":
+            return "turnOff", "default", None
+        if action_norm == "brightness_up":
+            return "brightnessUp", "default", None
+        if action_norm == "brightness_down":
+            return "brightnessDown", "default", None
+        if action_norm == "set_value" and raw_remote_type in ("air conditioner",):
+            if value is None:
+                return (
+                    "",
+                    "",
+                    {
+                        "code": "invalid_argument",
+                        "message": _(
+                            "err.value_required",
+                            default="The value field is required for set_value.",
+                        ),
+                    },
+                )
+            _mode_map = {"auto": "1", "cool": "2", "dry": "3", "fan": "4", "heat": "5"}
+            _fan_map = {"auto": "1", "low": "2", "medium": "3", "high": "4"}
+            m = _mode_map.get(mode or "", "")
+            f = _fan_map.get(fan_speed or "", "")
+            clamped = max(16, min(30, value))
+            return "setAll", f"{clamped},{m},{f},", None
+        return (
+            "",
+            "",
+            {
+                "code": "unsupported_device",
+                "message": _(
+                    "err.unsupported_device",
+                    default="The selected infrared remote device type does not support the requested action.",
                 ),
             },
         )
@@ -628,6 +694,9 @@ def run_tool(args: dict[str, Any]) -> str:
             device_type=device.get("device_type"),
             action=action,
             value=value,
+            remote_type=device.get("raw", {}).get("remoteType"),
+            mode=args.get("mode"),
+            fan_speed=args.get("fan_speed"),
         )
         if build_err is not None or not command:
             payload = {
