@@ -267,7 +267,7 @@ def _read_text_robust(path: str, encoding: str, max_bytes: int) -> tuple[str, An
 
     try:
         return try_read(encoding, "strict")
-    except UnicodeDecodeError, LookupError:
+    except (UnicodeDecodeError, LookupError):
         return try_read("utf-8", "replace")
 
 

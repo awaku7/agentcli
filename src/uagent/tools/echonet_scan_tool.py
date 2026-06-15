@@ -210,7 +210,7 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
             pass
 
         raise ValueError(
-            _(
+            _(  # noqa: F823
                 "err.invalid_interface",
                 default=(
                     "Error: Could not resolve interface '{interface}' to a local IPv4 address."
@@ -307,7 +307,7 @@ def _parse_frame(raw: bytes) -> dict[str, Any] | None:
     opc = raw[11]
     idx = 12
     properties: list[dict[str, Any]] = []
-    for _ in range(opc):
+    for _i in range(opc):
         if idx + 2 > len(raw):
             break
         epc = raw[idx]

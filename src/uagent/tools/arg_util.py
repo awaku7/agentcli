@@ -26,7 +26,7 @@ def get_int(args: dict[str, Any], key: str, default: int = 0) -> int:
         return default
     try:
         return int(val)
-    except ValueError, TypeError:
+    except (ValueError, TypeError):
         return default
 
 
@@ -37,7 +37,7 @@ def get_float(args: dict[str, Any], key: str, default: float = 0.0) -> float:
         return default
     try:
         return float(val)
-    except ValueError, TypeError:
+    except (ValueError, TypeError):
         return default
 
 
