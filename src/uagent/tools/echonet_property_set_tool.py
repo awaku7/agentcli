@@ -86,9 +86,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.value.description",
-                        default=(
-                            "Optional value to set. If edt is omitted, this value is encoded as UTF-8 or integer bytes."
-                        ),
+                        default="Value to set (encoded as UTF-8 or int bytes).",
                     ),
                 },
                 "edt": {

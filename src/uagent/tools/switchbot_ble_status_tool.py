@@ -66,7 +66,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.limit.description",
                         default=(
-                            "Maximum number of characteristic entries to include. 0 means unlimited."
+                            "Max characteristics (0 = unlimited)."
                         ),
                     ),
                 },
@@ -75,7 +75,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.device_name.description",
                         default=(
-                            "Optional device name filter. Matches by exact name or substring."
+                            "Device name filter."
                         ),
                     ),
                 },

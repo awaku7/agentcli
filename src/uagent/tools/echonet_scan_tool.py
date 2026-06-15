@@ -52,7 +52,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.interface.description",
                         default=(
-                            "Optional local interface IPv4 address or interface name to bind to."
+                            "Local interface IPv4/name (optional)."
                         ),
                     ),
                 },

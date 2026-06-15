@@ -72,7 +72,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.device_name.description",
                         default=(
-                            "Optional device name filter. Matches by exact name or substring."
+                            "Device name filter."
                         ),
                     ),
                 },
