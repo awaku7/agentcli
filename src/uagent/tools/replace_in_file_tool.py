@@ -201,7 +201,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.return_hashes.description",
-                        default="If true, include sha256_before and sha256_after in the result.",
+                        default="Include sha256 before/after.",
                     ),
                     "default": False,
                 },

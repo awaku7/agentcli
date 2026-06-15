@@ -53,9 +53,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["on", "off", "open", "close", "set_value"],
                     "description": _(
                         "param.action.description",
-                        default=(
-                            "Control action to perform. on/off/open/close are direct actions; set_value uses the value field."
-                        ),
+                        default="Action: on/off/open/close/set_value.",
                     ),
                 },
                 "value": {

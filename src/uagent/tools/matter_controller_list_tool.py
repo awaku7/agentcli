@@ -37,7 +37,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.controller_id.description",
                         default=(
-                            "Optional controller ID filter. If omitted, all controllers are listed."
+                            "Controller ID (omit for all)."
                         ),
                     ),
                 },

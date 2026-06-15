@@ -46,7 +46,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.controller_id.description",
                         default=(
-                            "Optional controller ID filter. Helps disambiguate the target device."
+                            "Controller ID (optional)."
                         ),
                     ),
                 },
@@ -55,7 +55,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.bridge_id.description",
                         default=(
-                            "Optional bridge ID filter. Helps disambiguate the target device."
+                            "Bridge ID (optional)."
                         ),
                     ),
                 },
@@ -64,7 +64,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.endpoint.description",
                         default=(
-                            "Optional endpoint filter. Use to narrow the returned cluster data."
+                            "Endpoint filter (optional)."
                         ),
                     ),
                 },

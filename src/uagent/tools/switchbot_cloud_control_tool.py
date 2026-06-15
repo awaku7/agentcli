@@ -69,9 +69,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ],
                     "description": _(
                         "param.action.description",
-                        default=(
-                            "Control action to perform. on/off/open/close are direct actions; set_value uses the value field."
-                        ),
+                        default="Action: on/off/open/close/set_value/lock/unlock.",
                     ),
                 },
                 "value": {
@@ -90,9 +88,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["auto", "cool", "dry", "fan", "heat"],
                     "description": _(
                         "param.mode.description",
-                        default=(
-                            "Air conditioner mode (auto/cool/dry/fan/heat). Only used with air conditioner set_value."
-                        ),
+                        default="AC mode: auto/cool/dry/fan/heat.",
                     ),
                 },
                 "fan_speed": {
@@ -100,9 +96,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["auto", "low", "medium", "high"],
                     "description": _(
                         "param.fan_speed.description",
-                        default=(
-                            "Air conditioner fan speed (auto/low/medium/high). Only used with air conditioner set_value."
-                        ),
+                        default="AC fan: auto/low/medium/high.",
                     ),
                 },
                 "timeout": {

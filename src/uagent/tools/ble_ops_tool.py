@@ -48,7 +48,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "ble",
                     "description": _(
                         "param.scan_mode.description",
-                        default="Scan mode. 'ble': scan only BLE devices (using bleak), 'all': scan both Classic Bluetooth and BLE devices (requires P...",
+                        default="Scan mode: ble (BLE only) or all (BLE + Classic).",
                     ),
                 },
                 "address": {

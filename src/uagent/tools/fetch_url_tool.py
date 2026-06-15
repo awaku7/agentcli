@@ -73,9 +73,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "head",
                     "description": _(
                         "param.extract.description",
-                        default=(
-                            "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer); markdown=extract simplified markdown from HTML."
-                        ),
+                        default="Extract mode: head/text/html/json/markdown.",
                     ),
                 },
                 "selector": {

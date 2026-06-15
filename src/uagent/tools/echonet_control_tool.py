@@ -86,9 +86,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ],
                     "description": _(
                         "param.action.description",
-                        default=(
-                            "Control action to perform. lighting uses on/off; curtain/blind uses open/close/set_value; lock uses lock/unlock."
-                        ),
+                        default="Action: on/off/open/close/set_value/lock/unlock.",
                     ),
                 },
                 "value": {

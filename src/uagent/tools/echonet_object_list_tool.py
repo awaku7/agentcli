@@ -61,7 +61,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.eoj.description",
                         default=(
-                            "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used."
+                            "Target EOJ (default: node profile)."
                         ),
                     ),
                 },
@@ -70,7 +70,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.object_code.description",
                         default=(
-                            "Optional object code to narrow the queried object (e.g. '0130')."
+                            "Object code filter (e.g. '0130')."
                         ),
                     ),
                 },
