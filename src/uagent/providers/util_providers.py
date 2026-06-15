@@ -257,6 +257,7 @@ def detect_provider() -> str:
         "nvidia",
         "deepseek",
         "alibaba",
+        "kimi",
     ):
         print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
         sys.exit(1)
@@ -307,6 +308,11 @@ def get_model_name() -> str:
         return (
             env_get("UAGENT_ALIBABA_DEPNAME", "qwen3.5-plus")
             or "qwen3.5-plus"
+        )
+    if provider == "kimi":
+        return (
+            env_get("UAGENT_KIMI_DEPNAME", "kimi-k2")
+            or "kimi-k2"
         )
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
 
@@ -568,6 +574,21 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         api_key = core.get_env("UAGENT_ALIBABA_API_KEY")
         base_url = core.get_env_url(
             "UAGENT_ALIBABA_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        )
+
+        http_client = make_httpx_client()
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
+    if provider == "kimi":
+        api_key = core.get_env("UAGENT_KIMI_API_KEY")
+        base_url = core.get_env_url(
+            "UAGENT_KIMI_BASE_URL", "https://api.moonshot.cn/v1"
         )
 
         http_client = make_httpx_client()
