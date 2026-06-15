@@ -33,6 +33,7 @@ def _set_iot_tools_enabled(enabled: bool) -> str:
         "matter_device_status_tool",
         "matter_endpoint_list_tool",
         "matter_cluster_list_tool",
+        "get_geoip_tool",
     ]
     changed_names = []
 

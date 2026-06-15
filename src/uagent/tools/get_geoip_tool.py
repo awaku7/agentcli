@@ -15,7 +15,8 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:get_geoip"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": -1,
+    "tool_level": 1,
+    "tool_genre": "iot",
     "type": "function",
     "function": {
         "name": "get_geoip",
