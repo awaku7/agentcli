@@ -158,7 +158,7 @@ def analyze_image_openai(
                 or env_get("UAGENT_ALIBABA_BASE_URL")
                 or "https://dashscope.aliyuncs.com/compatible-mode/v1"
             )
-            model = _img_env("alibaba", "analysis", "depname") or "qwen-vl-max"
+            model = env_get("UAGENT_IMG_ANALYSIS_DEPNAME") or "qwen-vl-max"
             if not api_key:
                 raise RuntimeError(
                     "Missing required env vars for alibaba image analysis. "
