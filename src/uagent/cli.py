@@ -153,6 +153,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
     if _PROMPT_SESSION is None:
         try:
             from prompt_toolkit import PromptSession
+            from prompt_toolkit.document import Document
             from prompt_toolkit.history import FileHistory
             from prompt_toolkit.completion import (
                 Completer,
@@ -181,8 +182,15 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         ":load ",
                     )
                     if stripped.startswith(path_cmds):
+                        # Strip the command prefix so PathCompleter sees only the path
+                        prefix_end = stripped.index(" ") + 1
+                        path_text = stripped[prefix_end:]
+                        path_doc = Document(
+                            text=path_text,
+                            cursor_position=len(path_text),
+                        )
                         for comp in PathCompleter().get_completions(
-                            document, complete_event
+                            path_doc, complete_event
                         ):
                             yield comp
                     elif stripped.startswith(":") and " " not in stripped:
@@ -325,6 +333,73 @@ def _flush_stdin_input_buffer() -> None:
                 break
     except Exception:
         pass
+
+
+def _can_use_textarea() -> bool:
+    """Check if prompt_toolkit TextArea can be used for multiline editing."""
+    try:
+        from prompt_toolkit.widgets import TextArea  # noqa: F401
+        from prompt_toolkit.application import Application  # noqa: F401
+        return sys.stdin.isatty()
+    except ImportError:
+        return False
+
+
+def _multiline_editor(initial_text: str = "") -> str | None:
+    """Open a prompt_toolkit TextArea for multiline editing (non-fullscreen).
+
+    Returns the entered text, or None if cancelled.
+    """
+    from prompt_toolkit import Application
+    from prompt_toolkit.key_binding import KeyBindings
+    from prompt_toolkit.layout import HSplit, Layout, Window, WindowAlign
+    from prompt_toolkit.layout.controls import FormattedTextControl
+    from prompt_toolkit.widgets import TextArea as TA
+
+    kb = KeyBindings()
+
+    def _submit(event: Any) -> None:
+        event.app.exit(result=textarea.text)
+
+    # Ctrl+X to submit (Alt+Enter removed; Ctrl+Enter is indistinguishable from Enter on most terminals)
+    kb.add("c-x")(_submit)
+
+    @kb.add("escape")  # Esc to cancel
+    def _cancel(event: Any) -> None:
+        event.app.exit(result=None)
+
+    textarea = TA(
+        text=initial_text,
+        multiline=True,
+        focusable=True,
+        style="bg:#222222 #ffffff",
+        height=10,
+    )
+
+    footer = Window(
+        FormattedTextControl(
+            " [multiline] Ctrl+X: send  |  Esc: cancel"
+        ),
+        height=1,
+        align=WindowAlign.LEFT,
+        style="bg:#444444 #ffffff",
+    )
+
+    layout = Layout(HSplit([textarea, footer]), focused_element=textarea)
+
+    app = Application(
+        layout=layout,
+        key_bindings=kb,
+        full_screen=False,
+        mouse_support=True,
+    )
+
+    try:
+        return app.run()
+    except (EOFError, KeyboardInterrupt):
+        return None
+    except Exception:
+        return None
 
 
 def _getpass_fallback(prompt: str) -> str:
@@ -489,7 +564,7 @@ def stdin_loop() -> None:
 
                 # Read input
                 if is_reply:
-                    line = _prompt_toolkit_input("", reply=True)
+                    line = _prompt_toolkit_input("[REPLY] > ", reply=True)
                     if line is None:
                         line = sys.stdin.readline()
                         if line == "":
@@ -625,15 +700,32 @@ def stdin_loop() -> None:
             if not is_ha_multiline:
                 # Do not treat 'f' as a command to switch to multiline mode when entering a password
                 if line == "f" and not is_ha_password:
-                    with core.human_ask_lock:
-                        core.human_ask_multiline_active = True
-                        core.human_ask_lines.clear()
-                    print(
-                        _(
-                            '(Multiline input mode: enter the body in multiple lines; to restart, type """retry; finish with a line containing %(sentinel)s)'
+                    if _can_use_textarea():
+                        text = _multiline_editor()
+                        if text is None:
+                            core.set_status(True, "replying_cancel")
+                            with core.human_ask_lock:
+                                if core.human_ask_queue:
+                                    core.human_ask_queue.put("cancel")
+                            print("[REPLY] " + _("Cancelled."))
+                            should_wait_completion = True
+                        else:
+                            core.set_status(True, "replying_multi")
+                            with core.human_ask_lock:
+                                if core.human_ask_queue:
+                                    core.human_ask_queue.put(text)
+                            print("[REPLY] " + _("Received multiline reply."))
+                            should_wait_completion = True
+                    else:
+                        with core.human_ask_lock:
+                            core.human_ask_multiline_active = True
+                            core.human_ask_lines.clear()
+                        print(
+                            _(
+                                '(Multiline input mode: enter the body in multiple lines; to restart, type """retry; finish with a line containing %(sentinel)s)'
+                            )
+                            % {"sentinel": core.MULTI_INPUT_SENTINEL}
                         )
-                        % {"sentinel": core.MULTI_INPUT_SENTINEL}
-                    )
                 else:
                     core.set_status(True, "replying")
                     with core.human_ask_lock:
@@ -698,6 +790,16 @@ def stdin_loop() -> None:
                 continue
 
             if line == "f":
+                if _can_use_textarea():
+                    text = _multiline_editor()
+                    if text is None:
+                        continue
+                    if not text.strip():
+                        continue
+                    _append_prompt_history_entry(text)
+                    core.set_status(True, "user_pending_multi")
+                    core.event_queue.put({"kind": "user", "text": text})
+                    continue
                 user_multiline_active = True
                 user_lines.clear()
                 print(
