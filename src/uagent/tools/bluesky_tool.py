@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import mimetypes
 import os
+import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -131,6 +132,16 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.cid.description",
                         default="CID of a post. Required for 'like'.",
+                    ),
+                },
+                "lang": {
+                    "type": "string",
+                    "description": _(
+                        "param.lang.description",
+                        default=(
+                            "Language tag for the post (e.g. 'ja', 'en'). "
+                            "Used by 'post' action."
+                        ),
                     ),
                 },
                 "limit": {
@@ -297,11 +308,23 @@ def _handle_post(args: dict[str, Any], output_format: str) -> str:
     access_jwt = session.get("accessJwt", "")
 
     # Build record
+    lang = (args.get("lang") or "").strip()
+    if lang:
+        normalized = lang.replace("_", "-")
+        if not _validate_lang_tag(normalized):
+            return _err_json(
+                "invalid_argument",
+                f"Invalid language tag: '{lang}'. Expected BCP-47 format (e.g. ja, en, zh-CN).",
+                output_format,
+            )
+        lang = normalized
     record: dict[str, Any] = {
         "$type": "app.bsky.feed.post",
         "text": text or "",
         "createdAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
+    if lang:
+        record["langs"] = [lang]
 
     # Upload image if provided
     saved_images: list[str] = []
@@ -313,7 +336,8 @@ def _handle_post(args: dict[str, Any], output_format: str) -> str:
         images = [{"alt": alt_text, "image": blb}]
         record["embed"] = {"$type": "app.bsky.embed.images", "images": images}
 
-    post_result = _post_auth("/com.atproto.repo.createRecord", access_jwt, record, timeout=15)
+    body = {"repo": did, "collection": "app.bsky.feed.post", "record": record}
+    post_result = _post_auth("/com.atproto.repo.createRecord", access_jwt, body, timeout=15)
     if not post_result:
         return _err_json("post_failed", "Failed to create post on Bluesky.", output_format)
 
@@ -609,6 +633,11 @@ def _compact_post(post: dict[str, Any], save_images: bool = False, my_did: str |
 # ---------------------------------------------------------------------------
 # output helpers
 # ---------------------------------------------------------------------------
+
+
+def _validate_lang_tag(tag: str) -> bool:
+    """Basic BCP-47 validation. Accepts formats like ja, en, zh-CN, zh-Hans, etc."""
+    return bool(re.fullmatch(r"[a-zA-Z]{2,8}(-[a-zA-Z0-9]{2,8})*", tag))
 
 
 def _open_saved_images(result: dict[str, Any]) -> None:
