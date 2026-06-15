@@ -11,7 +11,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 BUSY_LABEL = True
-STATUS_LABEL = "tool:matter_cluster_list"
+STATUS_LABEL = "tool:matter_control"
 
 _DEFAULT_OUTPUT_FORMAT = "json"
 _ENV_CONTROLLERS_JSON = "UAGENT_MATTER_CONTROLLERS_JSON"
@@ -20,16 +20,48 @@ _ENV_BRIDGES_JSON = "UAGENT_MATTER_BRIDGES_JSON"
 _ENV_BRIDGES_FILE = "UAGENT_MATTER_BRIDGES_FILE"
 _ENV_DEVICES_JSON = "UAGENT_MATTER_DEVICES_JSON"
 _ENV_DEVICES_FILE = "UAGENT_MATTER_DEVICES_FILE"
+_ENV_COMMAND_ENV = "UAGENT_MATTER_COMMAND_JSON"
+_ENV_COMMAND_FILE = "UAGENT_MATTER_COMMAND_FILE"
+
+ACTIONS_ON_OFF = frozenset({"on", "off"})
+ACTIONS_OPEN_CLOSE = frozenset({"open", "close"})
+ACTIONS_LOCK = frozenset({"lock", "unlock"})
+ACTIONS_SET_VALUE = frozenset({"set_value"})
+ALL_ACTIONS = ACTIONS_ON_OFF | ACTIONS_OPEN_CLOSE | ACTIONS_LOCK | ACTIONS_SET_VALUE
+
+# Device type -> supported actions mapping (lowercase matching)
+_DEVICE_ACTIONS: dict[str, frozenset[str]] = {
+    "light": ACTIONS_ON_OFF | frozenset({"set_value"}),
+    "lighting": ACTIONS_ON_OFF | frozenset({"set_value"}),
+    "switch": ACTIONS_ON_OFF,
+    "outlet": ACTIONS_ON_OFF,
+    "plug": ACTIONS_ON_OFF,
+    "fan": ACTIONS_ON_OFF | frozenset({"set_value"}),
+    "lock": ACTIONS_LOCK,
+    "thermostat": ACTIONS_ON_OFF | frozenset({"set_value"}),
+    "climate": ACTIONS_ON_OFF | frozenset({"set_value"}),
+    "cover": ACTIONS_OPEN_CLOSE | frozenset({"set_value"}),
+    "curtain": ACTIONS_OPEN_CLOSE | frozenset({"set_value"}),
+    "blind": ACTIONS_OPEN_CLOSE | frozenset({"set_value"}),
+    "shade": ACTIONS_OPEN_CLOSE | frozenset({"set_value"}),
+    "window": ACTIONS_OPEN_CLOSE | frozenset({"set_value"}),
+    "sensor": frozenset(),
+    "temperature_sensor": frozenset(),
+    "humidity_sensor": frozenset(),
+}
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 0,
     "tool_genre": "iot",
     "type": "function",
     "function": {
-        "name": "matter_cluster_list",
+        "name": "matter_control",
         "description": _(
             "tool.description",
-            default="List Matter clusters and return a JSON or text summary.",
+            default=(
+                "Control a Matter device via bridge or controller and return a JSON or text result. "
+                "The command is queued to UAGENT_MATTER_COMMAND_JSON for external processing."
+            ),
         ),
         "parameters": {
             "type": "object",
@@ -38,7 +70,31 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.device_id.description",
-                        default="Matter device ID to look up. Required identifier.",
+                        default="Matter device ID to control. Required identifier.",
+                    ),
+                },
+                "action": {
+                    "type": "string",
+                    "enum": sorted(ALL_ACTIONS),
+                    "description": _(
+                        "param.action.description",
+                        default=(
+                            "Control action to perform. "
+                            "on/off for lights, switches; open/close/set_value for covers; "
+                            "lock/unlock for locks; set_value for brightness/position."
+                        ),
+                    ),
+                },
+                "value": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 100,
+                    "description": _(
+                        "param.value.description",
+                        default=(
+                            "Optional numeric value for set_value actions. "
+                            "Range: 0-100."
+                        ),
                     ),
                 },
                 "controller_id": {
@@ -59,12 +115,13 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "endpoint": {
-                    "type": "string",
+                "dry_run": {
+                    "type": "boolean",
                     "description": _(
-                        "param.endpoint.description",
+                        "param.dry_run.description",
                         default=(
-                            "Optional endpoint filter. Use to narrow the returned cluster data."
+                            "If true, validate the command without queueing it. "
+                            "Default: false."
                         ),
                     ),
                 },
@@ -78,7 +135,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
             },
-            "required": ["device_id"],
+            "required": ["device_id", "action"],
             "additionalProperties": False,
         },
     },
@@ -87,85 +144,6 @@ TOOL_SPEC: dict[str, Any] = {
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
-
-
-def _extract_location(item: dict[str, Any]) -> dict[str, Any]:
-    """Extract room/area/floor information from a raw item."""
-    result: dict[str, Any] = {}
-    room = (
-        item.get("room")
-        or item.get("area")
-        or item.get("location")
-        or item.get("zone")
-        or item.get("roomName")
-        or item.get("room_name")
-        or item.get("areaName")
-        or item.get("area_name")
-        or item.get("locationName")
-        or item.get("location_name")
-    )
-    if room is not None:
-        result["room"] = str(room)
-    section = item.get("area") or item.get("zone") or item.get("section")
-    if section is not None and str(section) != str(room):
-        result["area"] = str(section)
-    floor = item.get("floor") or item.get("floorNumber") or item.get("floor_number")
-    if floor is not None:
-        try:
-            result["floor"] = int(floor)
-        except (ValueError, TypeError):
-            result["floor"] = str(floor)
-    return result
-
-
-def _normalize_device_type_attributes(
-    device_type: str | None, raw: dict[str, Any], status: dict[str, Any] | None
-) -> dict[str, Any]:
-    """Normalize device-type specific attributes from raw data and status."""
-    attrs: dict[str, Any] = {}
-    if isinstance(status, dict):
-        raw = {**raw, **status}
-    dtype_lower = str(device_type).casefold() if device_type else ""
-    for key in (
-        "onOff", "on_off", "power", "state", "value",
-        "battery", "batteryLevel", "battery_level",
-        "brightness", "color", "colorTemperature", "color_temperature",
-        "temperature", "humidity", "pressure", "illuminance",
-        "lockState", "lock_state", "doorState", "door_state",
-        "position", "mode",
-        "currentTemperature", "current_temperature",
-        "targetTemperature", "target_temperature",
-        "hue", "saturation",
-    ):
-        if key in raw:
-            attrs[key] = raw[key]
-    if not attrs:
-        return attrs
-    relevant: set[str] = set()
-    if "light" in dtype_lower:
-        relevant = {"onOff", "on_off", "power", "brightness", "color",
-                     "colorTemperature", "color_temperature", "hue", "saturation", "state"}
-    elif "sensor" in dtype_lower or "thermometer" in dtype_lower or "humidity" in dtype_lower:
-        relevant = {"temperature", "humidity", "pressure", "illuminance", "battery", "state", "value"}
-    elif "lock" in dtype_lower:
-        relevant = {"lockState", "lock_state", "doorState", "door_state", "battery", "state"}
-    elif "thermostat" in dtype_lower or "climate" in dtype_lower or "air" in dtype_lower:
-        relevant = {"currentTemperature", "current_temperature",
-                     "targetTemperature", "target_temperature",
-                     "mode", "temperature", "humidity", "state", "power"}
-    elif any(k in dtype_lower for k in ("cover", "curtain", "blind", "shade", "window")):
-        relevant = {"position", "state", "mode", "value"}
-    elif "switch" in dtype_lower or "outlet" in dtype_lower or "plug" in dtype_lower:
-        relevant = {"onOff", "on_off", "power", "state", "value"}
-    elif "fan" in dtype_lower:
-        relevant = {"mode", "state", "power", "value"}
-    else:
-        relevant = set(attrs.keys())
-    filtered: dict[str, Any] = {}
-    for key in relevant:
-        if key in attrs:
-            filtered[key] = attrs[key]
-    return filtered
 
 
 def _as_bool(value: Any) -> bool | None:
@@ -218,152 +196,16 @@ def _extract_items(data: Any) -> list[dict[str, Any]]:
     return []
 
 
-def _normalize_cluster_item(
-    item: dict[str, Any],
-    *,
-    endpoint_id: str | None,
-    device_type: str | None,
-    source: str,
-) -> dict[str, Any]:
-    return {
-        "cluster_id": item.get("clusterId") or item.get("cluster_id") or item.get("id"),
-        "cluster_name": item.get("clusterName")
-        or item.get("cluster_name")
-        or item.get("name"),
-        "description": item.get("description")
-        or item.get("clusterDescription")
-        or item.get("cluster_description"),
-        "features": (
-            item.get("features")
-            if isinstance(item.get("features"), list)
-            else item.get("featureList")
-        ),
-        "endpoint_id": endpoint_id,
-        "device_type": device_type,
-        "attributes": (
-            item.get("attributes")
-            if isinstance(item.get("attributes"), list)
-            else item.get("attributeList")
-        ),
-        "commands": (
-            item.get("commands")
-            if isinstance(item.get("commands"), list)
-            else item.get("commandList")
-        ),
-        "source": source,
-        "raw": item,
-    }
-
-
-def _normalize_endpoint_item(item: dict[str, Any]) -> dict[str, Any]:
-    clusters = (
-        item.get("clusters")
-        if isinstance(item.get("clusters"), list)
-        else item.get("clusterList")
-    )
-    normalized_clusters = (
-        [
-            _normalize_cluster_item(
-                cluster,
-                endpoint_id=str(
-                    item.get("endpointId")
-                    or item.get("endpoint_id")
-                    or item.get("id")
-                    or ""
-                )
-                or None,
-                device_type=item.get("deviceType") or item.get("device_type"),
-                source="endpoint",
-            )
-            for cluster in clusters
-            if isinstance(cluster, dict)
-        ]
-        if isinstance(clusters, list)
-        else []
-    )
-    location = _extract_location(item)
-    return {
-        "endpoint_id": item.get("endpointId")
-        or item.get("endpoint_id")
-        or item.get("id"),
-        "device_type": item.get("deviceType") or item.get("device_type"),
-        "label": item.get("label")
-        or item.get("endpointLabel")
-        or item.get("endpoint_label")
-        or item.get("description"),
-        "unique_id": item.get("uniqueId")
-        or item.get("unique_id")
-        or item.get("uuid"),
-        "manufacturer": item.get("manufacturer")
-        or item.get("manufacturerName")
-        or item.get("manufacturer_name"),
-        "model": item.get("model")
-        or item.get("modelNumber")
-        or item.get("model_number"),
-        "room": location.get("room"),
-        "area": location.get("area"),
-        "floor": location.get("floor"),
-        "clusters": normalized_clusters,
-        "raw": item,
-    }
-
-
 def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
-    endpoints_raw = (
-        item.get("endpoints")
-        if isinstance(item.get("endpoints"), list)
-        else item.get("endpointList")
-    )
-    endpoints = (
-        [
-            _normalize_endpoint_item(endpoint)
-            for endpoint in endpoints_raw
-            if isinstance(endpoint, dict)
-        ]
-        if isinstance(endpoints_raw, list)
-        else []
-    )
-    clusters_raw = (
-        item.get("clusters")
-        if isinstance(item.get("clusters"), list)
-        else item.get("clusterList")
-    )
-    clusters = (
-        [
-            _normalize_cluster_item(
-                cluster,
-                endpoint_id=None,
-                device_type=item.get("deviceType")
-                or item.get("device_type")
-                or item.get("type")
-                or source,
-                source=source,
-            )
-            for cluster in clusters_raw
-            if isinstance(cluster, dict)
-        ]
-        if isinstance(clusters_raw, list)
-        else []
-    )
-    status = item.get("status") if isinstance(item.get("status"), dict) else None
-    if status is None:
-        status = item.get("state") if isinstance(item.get("state"), dict) else None
-
-    location = _extract_location(item)
-    device_type_val = (
-        item.get("deviceType")
-        or item.get("device_type")
-        or item.get("type")
-        or source
-    )
-    device_attributes = _normalize_device_type_attributes(device_type_val, item, status)
-
     return {
         "device_id": item.get("deviceId") or item.get("device_id") or item.get("id"),
         "device_name": item.get("deviceName")
         or item.get("device_name")
         or item.get("name"),
-        "device_type": device_type_val,
+        "device_type": item.get("deviceType")
+        or item.get("device_type")
+        or item.get("type")
+        or source,
         "vendor": item.get("vendor")
         or item.get("manufacturer")
         or item.get("manufacturerName")
@@ -379,17 +221,6 @@ def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
                 else item.get("connected")
             )
         ),
-        "last_updated": item.get("lastUpdated")
-        or item.get("last_updated")
-        or item.get("updatedAt")
-        or item.get("updated_at"),
-        "room": location.get("room"),
-        "area": location.get("area"),
-        "floor": location.get("floor"),
-        "device_attributes": device_attributes or None,
-        "endpoints": endpoints,
-        "clusters": clusters,
-        "status": status,
         "source": source,
         "raw": item,
     }
@@ -421,12 +252,10 @@ def _filter_candidates(
     device_id: str,
     controller_id: str | None,
     bridge_id: str | None,
-    endpoint: str | None,
 ) -> list[dict[str, Any]]:
     device_key = device_id.strip().casefold()
     controller_key = controller_id.strip().casefold() if controller_id else None
     bridge_key = bridge_id.strip().casefold() if bridge_id else None
-    endpoint_key = endpoint.strip().casefold() if endpoint else None
 
     filtered: list[dict[str, Any]] = []
     for item in items:
@@ -439,45 +268,77 @@ def _filter_candidates(
             continue
         if bridge_key and str(item.get("bridge_id") or "").casefold() != bridge_key:
             continue
-        if endpoint_key:
-            endpoints = item.get("endpoints") or []
-            matched = False
-            for ep in endpoints:
-                eid = str(ep.get("endpoint_id") or "").casefold()
-                if endpoint_key == eid or endpoint_key in eid:
-                    matched = True
-                    break
-            if not matched and endpoint_key not in {
-                str(item.get("device_type") or "").casefold()
-            }:
-                continue
         filtered.append(item)
     return filtered
 
 
-def _collect_clusters(item: dict[str, Any]) -> list[dict[str, Any]]:
-    clusters: list[dict[str, Any]] = []
-    seen: set[tuple[str, str, str]] = set()
+def _get_supported_actions(device_type: str | None) -> frozenset[str]:
+    if not device_type:
+        return frozenset()
+    dtype_lower = str(device_type).casefold()
+    # Exact match first, then partial match
+    if dtype_lower in _DEVICE_ACTIONS:
+        return _DEVICE_ACTIONS[dtype_lower]
+    for pattern, actions in _DEVICE_ACTIONS.items():
+        if pattern in dtype_lower:
+            return actions
+    return frozenset()
 
-    for cluster in item.get("clusters") or []:
-        cid = str(cluster.get("cluster_id") or "").casefold()
-        eid = str(cluster.get("endpoint_id") or "").casefold()
-        key = (cid, eid, "device")
-        if cid and key not in seen:
-            seen.add(key)
-            clusters.append(cluster)
 
-    for endpoint in item.get("endpoints") or []:
-        endpoint_id = str(endpoint.get("endpoint_id") or "") or None
-        for cluster in endpoint.get("clusters") or []:
-            cid = str(cluster.get("cluster_id") or "").casefold()
-            eid = str(endpoint_id or "").casefold()
-            key = (cid, eid, "endpoint")
-            if cid and key not in seen:
-                seen.add(key)
-                clusters.append(cluster)
+def _validate_action(
+    action: str, supported: frozenset[str], device_type: str | None
+) -> str | None:
+    if action not in ALL_ACTIONS:
+        return _(
+            "err.invalid_action",
+            default="Invalid action: {action}. Allowed: {allowed}",
+            action=action,
+            allowed=", ".join(sorted(ALL_ACTIONS)),
+        )
+    if not supported:
+        return _(
+            "err.unsupported_device",
+            default=(
+                "Device type '{device_type}' does not support any control actions."
+            ),
+            device_type=device_type or "unknown",
+        )
+    if action not in supported:
+        return _(
+            "err.action_not_supported",
+            default=(
+                "Action '{action}' is not supported for device type '{device_type}'. "
+                "Supported: {supported}"
+            ),
+            action=action,
+            device_type=device_type or "unknown",
+            supported=", ".join(sorted(supported)),
+        )
+    return None
 
-    return clusters
+
+def _queue_command(command: dict[str, Any]) -> tuple[bool, str]:
+    """Queue a control command via environment variable or file.
+    
+    Returns (success, source_description).
+    """
+    command_json = json.dumps(command, ensure_ascii=False)
+
+    # Priority 1: write to command file
+    file_path = os.getenv(_ENV_COMMAND_FILE, "").strip()
+    if file_path:
+        try:
+            Path(file_path).write_text(command_json, encoding="utf-8")
+            return True, f"file:{file_path}"
+        except OSError as exc:
+            return False, str(exc)
+
+    # Priority 2: write to command environment variable
+    try:
+        os.environ[_ENV_COMMAND_ENV] = command_json
+        return True, f"env:{_ENV_COMMAND_ENV}"
+    except Exception as exc:
+        return False, str(exc)
 
 
 def _format_text(result: dict[str, Any]) -> str:
@@ -485,41 +346,32 @@ def _format_text(result: dict[str, Any]) -> str:
         error = result.get("error", {})
         return f"Error: {error.get('message', 'unknown error')}"
 
+    command = result.get("command", {})
     device = result.get("device", {})
     lines = [
-        f"Matter clusters: {result.get('count', 0)}",
+        f"Matter control command queued: {command.get('action', '?')}",
         f"Device: {device.get('device_name') or '(unknown)'}",
         f"Device ID: {device.get('device_id') or '(unknown)'}",
         f"Type: {device.get('device_type') or '(unknown)'}",
-        f"Vendor: {device.get('vendor') or '-'}",
-        f"Controller: {device.get('controller_id') or '-'}",
-        f"Bridge: {device.get('bridge_id') or '-'}",
-        f"Room: {device.get('room') or '-'}",
-        f"Area: {device.get('area') or '-'}",
-        f"Floor: {device.get('floor') or '-'}",
-        f"Reachable: {device.get('reachable')}",
-        f"Fetched at: {result.get('fetched_at', '')}",
+        f"Action: {command.get('action')}",
     ]
-    clusters = result.get("clusters") or []
-    for cluster in clusters:
-        lines.append(
-            "- cluster {cid} {name} endpoint={eid} type={dtype}".format(
-                cid=cluster.get("cluster_id") or "(unknown)",
-                name=cluster.get("cluster_name") or "",
-                eid=cluster.get("endpoint_id") or "-",
-                dtype=cluster.get("device_type") or "-",
-            ).rstrip()
-        )
+    if command.get("value") is not None:
+        lines.append(f"Value: {command['value']}")
+    lines.append(f"Queued to: {command.get('queued_to') or '-'}")
+    lines.append(f"Fetched at: {result.get('fetched_at', '')}")
     return "\n".join(lines)
 
 
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("output_format") or _DEFAULT_OUTPUT_FORMAT).lower()
     device_id = str(args.get("device_id") or "").strip()
+    action = str(args.get("action") or "").strip().casefold()
     controller_id = args.get("controller_id")
     bridge_id = args.get("bridge_id")
-    endpoint = args.get("endpoint")
+    value = args.get("value")
+    dry_run = bool(args.get("dry_run", False))
 
+    # Validate required inputs
     if not device_id:
         payload = {
             "ok": False,
@@ -537,6 +389,70 @@ def run_tool(args: dict[str, Any]) -> str:
             else json.dumps(payload, ensure_ascii=False)
         )
 
+    if not action or action not in ALL_ACTIONS:
+        payload = {
+            "ok": False,
+            "error": {
+                "code": "invalid_argument",
+                "message": _(
+                    "err.action_required",
+                    default=(
+                        "A valid action is required: {allowed}"
+                    ),
+                    allowed=", ".join(sorted(ALL_ACTIONS)),
+                ),
+            },
+        }
+        return (
+            _format_text(payload)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
+
+    if action in ACTIONS_SET_VALUE and value is None:
+        payload = {
+            "ok": False,
+            "error": {
+                "code": "invalid_argument",
+                "message": _(
+                    "err.value_required",
+                    default=(
+                        "A numeric value (0-100) is required for action '{action}'."
+                    ),
+                    action=action,
+                ),
+            },
+        }
+        return (
+            _format_text(payload)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
+
+    if value is not None:
+        try:
+            int_val = int(value)
+            if int_val < 0 or int_val > 100:
+                raise ValueError
+            value = int_val
+        except (ValueError, TypeError):
+            payload = {
+                "ok": False,
+                "error": {
+                    "code": "invalid_argument",
+                    "message": _(
+                        "err.value_out_of_range",
+                        default="Value must be an integer between 0 and 100.",
+                    ),
+                },
+            }
+            return (
+                _format_text(payload)
+                if output_format == "text"
+                else json.dumps(payload, ensure_ascii=False)
+            )
+
+    # Load device config
     payloads: list[tuple[Any, str]] = []
     for json_env, file_env in (
         (_ENV_DEVICES_JSON, _ENV_DEVICES_FILE),
@@ -584,13 +500,13 @@ def run_tool(args: dict[str, Any]) -> str:
             else json.dumps(payload, ensure_ascii=False)
         )
 
+    # Find target device
     candidates = _iter_device_candidates(payloads)
     filtered = _filter_candidates(
         candidates,
         device_id=device_id,
         controller_id=str(controller_id) if controller_id is not None else None,
         bridge_id=str(bridge_id) if bridge_id is not None else None,
-        endpoint=str(endpoint) if endpoint is not None else None,
     )
 
     if not filtered:
@@ -610,7 +526,6 @@ def run_tool(args: dict[str, Any]) -> str:
                     str(controller_id) if controller_id is not None else None
                 ),
                 "bridge_id": str(bridge_id) if bridge_id is not None else None,
-                "endpoint": str(endpoint) if endpoint is not None else None,
             },
             "fetched_at": _now_iso(),
         }
@@ -646,7 +561,6 @@ def run_tool(args: dict[str, Any]) -> str:
                     str(controller_id) if controller_id is not None else None
                 ),
                 "bridge_id": str(bridge_id) if bridge_id is not None else None,
-                "endpoint": str(endpoint) if endpoint is not None else None,
             },
             "fetched_at": _now_iso(),
         }
@@ -657,40 +571,112 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     item = filtered[0]
-    clusters = _collect_clusters(item)
-    endpoint_key = str(endpoint).strip().casefold() if endpoint is not None else None
-    if endpoint_key:
-        clusters = [
-            cluster
-            for cluster in clusters
-            if endpoint_key in str(cluster.get("endpoint_id") or "").casefold()
-        ]
+    device_type = item.get("device_type") or "unknown"
+    supported = _get_supported_actions(device_type)
+    validation_error = _validate_action(action, supported, device_type)
+
+    if validation_error:
+        payload = {
+            "ok": False,
+            "error": {
+                "code": "unsupported_action",
+                "message": validation_error,
+            },
+            "device": {
+                "device_id": item.get("device_id"),
+                "device_name": item.get("device_name"),
+                "device_type": device_type,
+                "controller_id": item.get("controller_id"),
+                "bridge_id": item.get("bridge_id"),
+            },
+            "fetched_at": _now_iso(),
+        }
+        return (
+            _format_text(payload)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
+
+    # Build command
+    command: dict[str, Any] = {
+        "device_id": item.get("device_id"),
+        "device_name": item.get("device_name"),
+        "controller_id": item.get("controller_id"),
+        "bridge_id": item.get("bridge_id"),
+        "action": action,
+        "value": value,
+        "queued_at": _now_iso(),
+    }
+
+    if dry_run:
+        # Validation only, no queueing
+        result = {
+            "ok": True,
+            "message": _(
+                "msg.dry_run",
+                default="Dry run: command validated but not queued.",
+            ),
+            "command": {**command, "dry_run": True},
+            "device": {
+                "device_id": item.get("device_id"),
+                "device_name": item.get("device_name"),
+                "device_type": device_type,
+                "controller_id": item.get("controller_id"),
+                "bridge_id": item.get("bridge_id"),
+                "reachable": item.get("reachable"),
+            },
+            "fetched_at": _now_iso(),
+        }
+        return (
+            _format_text(result)
+            if output_format == "text"
+            else json.dumps(result, ensure_ascii=False)
+        )
+
+    # Queue the command
+    queued, source_desc = _queue_command(command)
+    if not queued:
+        payload = {
+            "ok": False,
+            "error": {
+                "code": "queue_failed",
+                "message": _(
+                    "err.queue_failed",
+                    default="Failed to queue control command: {reason}",
+                    reason=source_desc,
+                ),
+            },
+            "command": command,
+            "device": {
+                "device_id": item.get("device_id"),
+                "device_name": item.get("device_name"),
+                "device_type": device_type,
+                "controller_id": item.get("controller_id"),
+                "bridge_id": item.get("bridge_id"),
+            },
+            "fetched_at": _now_iso(),
+        }
+        return (
+            _format_text(payload)
+            if output_format == "text"
+            else json.dumps(payload, ensure_ascii=False)
+        )
 
     result = {
         "ok": True,
-        "count": len(clusters),
-        "items": clusters,
-        "clusters": clusters,
-        "endpoints": item.get("endpoints") or [],
+        "command": {
+            **command,
+            "queued_to": source_desc,
+        },
         "device": {
             "device_id": item.get("device_id"),
             "device_name": item.get("device_name"),
-            "device_type": item.get("device_type"),
-            "vendor": item.get("vendor"),
-            "bridge_id": item.get("bridge_id"),
+            "device_type": device_type,
             "controller_id": item.get("controller_id"),
-            "room": item.get("room"),
-            "area": item.get("area"),
-            "floor": item.get("floor"),
-            "device_attributes": item.get("device_attributes"),
+            "bridge_id": item.get("bridge_id"),
             "reachable": item.get("reachable"),
-            "last_updated": item.get("last_updated"),
-            "source": item.get("source"),
         },
         "fetched_at": _now_iso(),
-        "raw": {
-            "source": item.get("source"),
-        },
     }
     if output_format == "text":
         return _format_text(result)

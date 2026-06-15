@@ -1,0 +1,97 @@
+{
+  "tool_level": 0,
+  "tool_genre": "iot",
+  "type": "function",
+  "function": {
+    "name": "matter_control",
+    "description": {
+      "en": "Control a Matter device via bridge or controller and return a JSON or text result. The command is queued to UAGENT_MATTER_COMMAND_JSON for external processing.",
+      "ja": "Matter デバイスをブリッジまたはコントローラー経由で制御し、JSON またはテキスト結果を返します。コマンドは外部処理のために UAGENT_MATTER_COMMAND_JSON にキューイングされます。",
+      "zh_CN": "通过桥接器或控制器控制 Matter 设备，并返回 JSON 或文本结果。命令将排队到 UAGENT_MATTER_COMMAND_JSON 以供外部处理。",
+      "zh_TW": "透過橋接器或控制器控制 Matter 裝置，並傳回 JSON 或文字結果。指令將排入 UAGENT_MATTER_COMMAND_JSON 以供外部處理。",
+      "ko": "브리지 또는 컨트롤러를 통해 Matter 장치를 제어하고 JSON 또는 텍스트 결과를 반환합니다. 명령은 외부 처리를 위해 UAGENT_MATTER_COMMAND_JSON에 대기합니다."
+    },
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "device_id": {
+          "type": "string",
+          "description": {
+            "en": "Matter device ID to control. Required identifier.",
+            "ja": "制御する Matter デバイス ID。必須識別子です。",
+            "zh_CN": "要控制的 Matter 设备 ID。必填标识符。",
+            "zh_TW": "要控制的 Matter 裝置 ID。必填識別碼。",
+            "ko": "제어할 Matter 장치 ID입니다. 필수 식별자입니다."
+          }
+        },
+        "action": {
+          "type": "string",
+          "enum": ["close", "lock", "off", "on", "open", "set_value", "unlock"],
+          "description": {
+            "en": "Control action to perform. on/off for lights, switches; open/close/set_value for covers; lock/unlock for locks; set_value for brightness/position.",
+            "ja": "実行する制御アクション。照明/スイッチは on/off、カバーは open/close/set_value、ロックは lock/unlock、明るさ/位置は set_value。",
+            "zh_CN": "要执行的控制操作。灯/开关用 on/off；窗帘用 open/close/set_value；锁用 lock/unlock；亮度/位置用 set_value。",
+            "zh_TW": "要執行的控制動作。燈/開關用 on/off；窗簾用 open/close/set_value；鎖用 lock/unlock；亮度/位置用 set_value。",
+            "ko": "수행할 제어 작업입니다. 조명/스위치는 on/off, 커버는 open/close/set_value, 잠금장치는 lock/unlock, 밝기/위치는 set_value입니다."
+          }
+        },
+        "value": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": {
+            "en": "Optional numeric value for set_value actions. Range: 0-100.",
+            "ja": "set_value アクションのオプションの数値。範囲: 0-100。",
+            "zh_CN": "set_value 操作的可选数值。范围：0-100。",
+            "zh_TW": "set_value 動作的選擇性數值。範圍：0-100。",
+            "ko": "set_value 작업의 선택적 숫자 값입니다. 범위: 0-100."
+          }
+        },
+        "controller_id": {
+          "type": "string",
+          "description": {
+            "en": "Optional controller ID filter. Helps disambiguate the target device.",
+            "ja": "任意のコントローラー ID フィルター。対象デバイスの曖昧さ解消に役立ちます。",
+            "zh_CN": "可选的控制器 ID 过滤器。帮助消除目标设备歧义。",
+            "zh_TW": "可選的控制器 ID 篩選器。可協助釐清目標裝置。",
+            "ko": "선택적 컨트롤러 ID 필터입니다. 대상 장치 식별을 명확하게 하는 데 도움이 됩니다."
+          }
+        },
+        "bridge_id": {
+          "type": "string",
+          "description": {
+            "en": "Optional bridge ID filter. Helps disambiguate the target device.",
+            "ja": "任意のブリッジ ID フィルター。対象デバイスの曖昧さ解消に役立ちます。",
+            "zh_CN": "可选的桥 ID 过滤器。帮助消除目标设备歧义。",
+            "zh_TW": "可選的橋接器 ID 篩選器。可協助釐清目標裝置。",
+            "ko": "선택적 브리지 ID 필터입니다. 대상 장치 식별을 명확하게 하는 데 도움이 됩니다."
+          }
+        },
+        "dry_run": {
+          "type": "boolean",
+          "description": {
+            "en": "If true, validate the command without queueing it. Default: false.",
+            "ja": "true の場合、コマンドをキューイングせずに検証のみ行います。デフォルト: false。",
+            "zh_CN": "如果为 true，则仅验证命令而不排队。默认值：false。",
+            "zh_TW": "如果為 true，則僅驗證指令而不排隊。預設值：false。",
+            "ko": "true인 경우 명령을 대기열에 넣지 않고 검증만 합니다. 기본값: false."
+          }
+        },
+        "output_format": {
+          "type": "string",
+          "enum": ["json", "text"],
+          "default": "json",
+          "description": {
+            "en": "Output format: JSON or human-readable text.",
+            "ja": "出力形式: JSON または人間が読みやすいテキスト。",
+            "zh_CN": "输出格式：JSON 或人类可读文本。",
+            "zh_TW": "輸出格式：JSON 或人類可讀文字。",
+            "ko": "출력 형식: JSON 또는 사람이 읽을 수 있는 텍스트."
+          }
+        }
+      },
+      "required": ["device_id", "action"],
+      "additionalProperties": false
+    }
+  }
+}
