@@ -61,6 +61,35 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
 
 
+def _extract_location(item: dict[str, Any]) -> dict[str, Any]:
+    """Extract room/area/floor information from a raw item."""
+    result: dict[str, Any] = {}
+    room = (
+        item.get("room")
+        or item.get("area")
+        or item.get("location")
+        or item.get("zone")
+        or item.get("roomName")
+        or item.get("room_name")
+        or item.get("areaName")
+        or item.get("area_name")
+        or item.get("locationName")
+        or item.get("location_name")
+    )
+    if room is not None:
+        result["room"] = str(room)
+    section = item.get("area") or item.get("zone") or item.get("section")
+    if section is not None and str(section) != str(room):
+        result["area"] = str(section)
+    floor = item.get("floor") or item.get("floorNumber") or item.get("floor_number")
+    if floor is not None:
+        try:
+            result["floor"] = int(floor)
+        except (ValueError, TypeError):
+            result["floor"] = str(floor)
+    return result
+
+
 def _as_bool(value: Any) -> bool | None:
     if value is None:
         return None
@@ -172,6 +201,7 @@ def _normalize_bridge_item(item: dict[str, Any]) -> dict[str, Any]:
     bridge_name = item.get("bridgeName") or item.get("bridge_name") or item.get("name")
     controller_id = item.get("controllerId") or item.get("controller_id")
 
+    location = _extract_location(item)
     return {
         "bridge_id": bridge_id,
         "bridge_name": bridge_name,
@@ -183,6 +213,9 @@ def _normalize_bridge_item(item: dict[str, Any]) -> dict[str, Any]:
             or item.get("devices")
             or item.get("deviceList")
         ),
+        "room": location.get("room"),
+        "area": location.get("area"),
+        "floor": location.get("floor"),
         "transport": item.get("transport")
         or item.get("connectionType")
         or item.get("connection_type"),
@@ -251,9 +284,12 @@ def _format_text(result: dict[str, Any]) -> str:
         f"Fetched at: {result.get('fetched_at', '')}",
     ]
     for item in result.get("items", []):
+        room = item.get("room") or ""
+        loc = f" [{room}]" if room else ""
         lines.append(
-            "- {name} (id={bid}) devices={count} controller={controller} reachable={reachable}".format(
+            "- {name}{loc} (id={bid}) devices={count} controller={controller} reachable={reachable}".format(
                 name=item.get("bridge_name") or "(unknown)",
+                loc=loc,
                 bid=item.get("bridge_id") or "(unknown)",
                 count=item.get("device_count"),
                 controller=item.get("controller_id") or "-",

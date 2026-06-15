@@ -80,6 +80,85 @@ def _now_iso() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
 
 
+def _extract_location(item: dict[str, Any]) -> dict[str, Any]:
+    """Extract room/area/floor information from a raw item."""
+    result: dict[str, Any] = {}
+    room = (
+        item.get("room")
+        or item.get("area")
+        or item.get("location")
+        or item.get("zone")
+        or item.get("roomName")
+        or item.get("room_name")
+        or item.get("areaName")
+        or item.get("area_name")
+        or item.get("locationName")
+        or item.get("location_name")
+    )
+    if room is not None:
+        result["room"] = str(room)
+    section = item.get("area") or item.get("zone") or item.get("section")
+    if section is not None and str(section) != str(room):
+        result["area"] = str(section)
+    floor = item.get("floor") or item.get("floorNumber") or item.get("floor_number")
+    if floor is not None:
+        try:
+            result["floor"] = int(floor)
+        except (ValueError, TypeError):
+            result["floor"] = str(floor)
+    return result
+
+
+def _normalize_device_type_attributes(
+    device_type: str | None, raw: dict[str, Any], status: dict[str, Any] | None
+) -> dict[str, Any]:
+    """Normalize device-type specific attributes from raw data and status."""
+    attrs: dict[str, Any] = {}
+    if isinstance(status, dict):
+        raw = {**raw, **status}
+    dtype_lower = str(device_type).casefold() if device_type else ""
+    for key in (
+        "onOff", "on_off", "power", "state", "value",
+        "battery", "batteryLevel", "battery_level",
+        "brightness", "color", "colorTemperature", "color_temperature",
+        "temperature", "humidity", "pressure", "illuminance",
+        "lockState", "lock_state", "doorState", "door_state",
+        "position", "mode",
+        "currentTemperature", "current_temperature",
+        "targetTemperature", "target_temperature",
+        "hue", "saturation",
+    ):
+        if key in raw:
+            attrs[key] = raw[key]
+    if not attrs:
+        return attrs
+    relevant: set[str] = set()
+    if "light" in dtype_lower:
+        relevant = {"onOff", "on_off", "power", "brightness", "color",
+                     "colorTemperature", "color_temperature", "hue", "saturation", "state"}
+    elif "sensor" in dtype_lower or "thermometer" in dtype_lower or "humidity" in dtype_lower:
+        relevant = {"temperature", "humidity", "pressure", "illuminance", "battery", "state", "value"}
+    elif "lock" in dtype_lower:
+        relevant = {"lockState", "lock_state", "doorState", "door_state", "battery", "state"}
+    elif "thermostat" in dtype_lower or "climate" in dtype_lower or "air" in dtype_lower:
+        relevant = {"currentTemperature", "current_temperature",
+                     "targetTemperature", "target_temperature",
+                     "mode", "temperature", "humidity", "state", "power"}
+    elif any(k in dtype_lower for k in ("cover", "curtain", "blind", "shade", "window")):
+        relevant = {"position", "state", "mode", "value"}
+    elif "switch" in dtype_lower or "outlet" in dtype_lower or "plug" in dtype_lower:
+        relevant = {"onOff", "on_off", "power", "state", "value"}
+    elif "fan" in dtype_lower:
+        relevant = {"mode", "state", "power", "value"}
+    else:
+        relevant = set(attrs.keys())
+    filtered: dict[str, Any] = {}
+    for key in relevant:
+        if key in attrs:
+            filtered[key] = attrs[key]
+    return filtered
+
+
 def _as_bool(value: Any) -> bool | None:
     if value is None:
         return None
@@ -136,6 +215,14 @@ def _normalize_cluster_item(item: dict[str, Any]) -> dict[str, Any]:
         "cluster_name": item.get("clusterName")
         or item.get("cluster_name")
         or item.get("name"),
+        "description": item.get("description")
+        or item.get("clusterDescription")
+        or item.get("cluster_description"),
+        "features": (
+            item.get("features")
+            if isinstance(item.get("features"), list)
+            else item.get("featureList")
+        ),
         "attributes": (
             item.get("attributes")
             if isinstance(item.get("attributes"), list)
@@ -165,11 +252,28 @@ def _normalize_endpoint_item(item: dict[str, Any]) -> dict[str, Any]:
         if isinstance(clusters, list)
         else []
     )
+    location = _extract_location(item)
     return {
         "endpoint_id": item.get("endpointId")
         or item.get("endpoint_id")
         or item.get("id"),
         "device_type": item.get("deviceType") or item.get("device_type"),
+        "label": item.get("label")
+        or item.get("endpointLabel")
+        or item.get("endpoint_label")
+        or item.get("description"),
+        "unique_id": item.get("uniqueId")
+        or item.get("unique_id")
+        or item.get("uuid"),
+        "manufacturer": item.get("manufacturer")
+        or item.get("manufacturerName")
+        or item.get("manufacturer_name"),
+        "model": item.get("model")
+        or item.get("modelNumber")
+        or item.get("model_number"),
+        "room": location.get("room"),
+        "area": location.get("area"),
+        "floor": location.get("floor"),
         "clusters": normalized_clusters,
         "raw": item,
     }
@@ -208,15 +312,21 @@ def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
     if status is None:
         status = item.get("state") if isinstance(item.get("state"), dict) else None
 
+    location = _extract_location(item)
+    device_type_val = (
+        item.get("deviceType")
+        or item.get("device_type")
+        or item.get("type")
+        or source
+    )
+    device_attributes = _normalize_device_type_attributes(device_type_val, item, status)
+
     return {
         "device_id": item.get("deviceId") or item.get("device_id") or item.get("id"),
         "device_name": item.get("deviceName")
         or item.get("device_name")
         or item.get("name"),
-        "device_type": item.get("deviceType")
-        or item.get("device_type")
-        or item.get("type")
-        or source,
+        "device_type": device_type_val,
         "vendor": item.get("vendor")
         or item.get("manufacturer")
         or item.get("manufacturerName")
@@ -236,6 +346,10 @@ def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
         or item.get("last_updated")
         or item.get("updatedAt")
         or item.get("updated_at"),
+        "room": location.get("room"),
+        "area": location.get("area"),
+        "floor": location.get("floor"),
+        "device_attributes": device_attributes or None,
         "endpoints": endpoints,
         "clusters": clusters,
         "status": status,
@@ -304,15 +418,23 @@ def _format_text(result: dict[str, Any]) -> str:
         f"Vendor: {device.get('vendor') or '-'}",
         f"Controller: {device.get('controller_id') or '-'}",
         f"Bridge: {device.get('bridge_id') or '-'}",
+        f"Room: {device.get('room') or '-'}",
+        f"Area: {device.get('area') or '-'}",
+        f"Floor: {device.get('floor') or '-'}",
         f"Reachable: {device.get('reachable')}",
         f"Fetched at: {result.get('fetched_at', '')}",
     ]
     endpoints = result.get("endpoints") or []
     for endpoint in endpoints:
         clusters = endpoint.get("clusters") or []
+        ep_label = endpoint.get("label") or ""
+        ep_room = endpoint.get("room") or ""
+        loc = f" [{ep_room}]" if ep_room else ""
+        loc += f' "{ep_label}"' if ep_label else ""
         lines.append(
-            "- endpoint {eid} type={dtype} clusters={count}".format(
+            "- endpoint {eid}{loc} type={dtype} clusters={count}".format(
                 eid=endpoint.get("endpoint_id") or "(unknown)",
+                loc=loc,
                 dtype=endpoint.get("device_type") or "-",
                 count=len(clusters),
             )
@@ -473,6 +595,10 @@ def run_tool(args: dict[str, Any]) -> str:
             "vendor": item.get("vendor"),
             "bridge_id": item.get("bridge_id"),
             "controller_id": item.get("controller_id"),
+            "room": item.get("room"),
+            "area": item.get("area"),
+            "floor": item.get("floor"),
+            "device_attributes": item.get("device_attributes"),
             "reachable": item.get("reachable"),
             "last_updated": item.get("last_updated"),
             "source": item.get("source"),
