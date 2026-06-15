@@ -18,10 +18,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Change the current working directory after user confirmation.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool performs the operation described by the tool name 'change_workdir'.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

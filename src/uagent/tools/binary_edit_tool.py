@@ -26,16 +26,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Edit a local file as raw bytes: offset write, search/replace, insert/delete (splice), JSON patch.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool is used for the following purpose: edit a local file as raw bytes (binary).\n\n"
-                "SECURITY / SAFETY:\n"
-                "- This tool modifies local files and can corrupt them.\n"
-                "- Always request confirmation with human_ask before writing.\n"
-                "- Do not operate on paths outside the current workdir when running under the host agent's safety policies.\n"
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

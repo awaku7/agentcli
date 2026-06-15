@@ -45,14 +45,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Extract text and basic structure from Word-like documents (. docx, .",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Read .docx, .rtf, or .odt documents and return JSON only. "
-                "If output_format=text, place the extracted text in the JSON response. "
-                "If output_format=json, include structured sections and tables when available."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

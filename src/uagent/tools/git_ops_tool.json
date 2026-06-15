@@ -31,8 +31,7 @@
       "git",
       "깃",
       "git"
-    ],
-    "tool.system_prompt": "This tool is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: && || | > < `\nFor git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).\n"
+    ]
   },
   "ja": {
     "doc.module": "Git操作ツール: git_ops\n\n安全第一で Git の主要操作を提供します。\n\nこのツールは「日常操作をできるだけ tool 経由で完結させる」ことを目的にしています。\n一方で、Git は破壊的操作や外部への書き込み（push）を簡単に実行できるため、\n以下の方針で厳しめに制限します。\n\n設計方針（重要）\n- 対話を伴う操作を避ける\n  - PAGER/EDITOR を無効化\n  - commit/merge は --no-edit を付与（できる限り）\n  - 資格情報入力を避けるため GIT_TERMINAL_PROMPT=0\n- 危険操作はデフォルト禁止\n  - 例: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto 等\n- それでも必要な場合のみ allow_danger=true を明示して実行可能にする\n  - ただし「事故率が高い/取り返しがつきにくい」ものは allow_danger でも禁止する\n- 引数は「許可リスト」方式\n  - すべてのオプション（-x / --xxx）を網羅許可せず、用途に応じて明示許可\n  - 明らかなメタ文字（&& || | > < `）を含む引数は拒否\n\n注意\n- このツールは git の全機能を無制限に提供するものではありません。\n- 設計上、安全性を優先して「できない」操作があります。",
@@ -62,8 +61,7 @@
       "git 操作",
       "git コマンド",
       "安全第一"
-    ],
-    "tool.system_prompt": "Gitコマンドを実行します（安全のための制限あり）。\n\n重要: args にシェルのメタ文字を含めないでください。安全のため、次の文字/シーケンスを含む引数は拒否されます: && || | > < `\ngit commit のメッセージ内の ';' は ',' に自動置換されます（-m/--message の値の中のみ）。\n"
+    ]
   },
   "es": {
     "doc.module": "Herramienta de verificación: git_ops\n\nProporcionamos las operaciones principales de Git con la seguridad como prioridad.\n\nEl objetivo de esta herramienta es \"completar tantas operaciones diarias como sea posible mediante la herramienta\".\nPor otro lado, Git permite operaciones destructivas y escrituras externas (push) con facilidad.\nLimitaremos estrictamente la siguiente política.\n\nPolítica de diseño (importante)\n- Evitar operaciones que impliquen interacción\n  - Desactivar PAGER/EDITOR\n  - commit/merge con --no-edit (en la medida de lo posible)\n  - GIT_TERMINAL_PROMPT=0 para evitar introducir credenciales\n- Las operaciones peligrosas están prohibidas de forma predeterminada\n  - Ejemplos: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, etc.\n- Especifique explícitamente allow_danger=true para poder ejecutarlas solo si es necesario\n  - Sin embargo, los elementos con \"alta tasa de accidentes/difíciles de recuperar\" están prohibidos incluso con allow_danger.\n- Los argumentos siguen un formato de \"lista permitida\"\n  - No se permiten todas las opciones (-x / --xxx) de forma general, sino que se autorizan explícitamente según el propósito.\n  - Rechace argumentos que contengan metacaracteres obvios (&& || | > < `)\n\nPrecaución\n- Esta herramienta no proporciona acceso ilimitado a todas las funciones de git.\n- Por diseño, hay algunas operaciones que no se pueden realizar por motivos de seguridad.",
@@ -93,8 +91,7 @@
       "git ops",
       "comandos git",
       "git seguro"
-    ],
-    "tool.system_prompt": "Esta herramienta se usa para ejecutar comandos Git.\n\nImportante: args no debe incluir metacaracteres de shell. Por seguridad, se rechazarán los argumentos que contengan las siguientes secuencias/caracteres: && || | > < `\nEn los mensajes de commit de git, \";\" se reemplaza automáticamente por \",\" (solo dentro de -m/--message).\n"
+    ]
   },
   "fr": {
     "doc.module": "outil de vérification : git_ops\n\nNous fournissons les opérations Git de base avec la sécurité comme priorité.\n\nLe but de cet outil est de « terminer autant que possible les opérations quotidiennes via l'outil ».\nEn revanche, Git permet facilement des opérations destructrices et des écritures externes (push).\nNous limiterons strictement la politique suivante.\n\nPolitique de conception (important)\n- Éviter les opérations impliquant une interaction\n  - Désactiver PAGER/EDITOR\n  - commit/merge avec --no-edit (autant que possible)\n  - GIT_TERMINAL_PROMPT=0 pour éviter de saisir des identifiants\n- Les opérations dangereuses sont interdites par défaut\n  - Exemples : push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, etc.\n- Spécifier explicitement allow_danger=true pour les rendre exécutables uniquement si nécessaire\n  - Toutefois, les éléments à \"fort risque d'accident / difficiles à récupérer\" sont interdits même avec allow_danger.\n- Les arguments suivent un format de \"liste autorisée\"\n  - Toutes les options (-x / --xxx) ne sont pas autorisées globalement, mais sont explicitement autorisées selon le besoin.\n  - Rejeter les arguments contenant des métacaractères évidents (&& || | > < `)\n\nAttention\n- Cet outil ne donne pas un accès illimité à toutes les fonctionnalités de git.\n- De par sa conception, certaines opérations ne peuvent pas être effectuées pour des raisons de sécurité.",
@@ -124,8 +121,7 @@
       "git ops",
       "commandes git",
       "git sûr"
-    ],
-    "tool.system_prompt": "Cet outil sert à exécuter des commandes Git.\n\nImportant : args ne doit pas contenir de métacaractères de shell. Pour des raisons de sécurité, les arguments contenant les séquences/caractères suivants seront rejetés : && || | > < `\nDans les messages de commit git, \";\" est automatiquement remplacé par \",\" (uniquement à l’intérieur de -m/--message).\n"
+    ]
   },
   "ko": {
     "doc.module": "점검 도구: git_ops\n\n우리는 보안을 최우선으로 하는 핵심 Git 작업을 제공합니다.\n\n이 도구의 목적은 \"일상적인 작업을 가능한 한 도구로 완료하는 것\"입니다.\n반면 Git은 파괴적인 작업과 외부 쓰기(push)를 쉽게 허용합니다.\n따라서 아래 정책을 엄격히 적용합니다.\n\n설계 정책(중요)\n- 상호작용이 필요한 작업을 피합니다\n  - PAGER/EDITOR 비활성화\n  - commit/merge는 가능한 한 --no-edit 사용\n  - 자격 증명 입력을 피하기 위해 GIT_TERMINAL_PROMPT=0 사용\n- 위험한 작업은 기본적으로 금지합니다\n  - 예: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto 등\n- 필요한 경우에만 allow_danger=true를 명시해 실행 가능하게 합니다\n  - 다만 사고 위험이 높거나 복구가 어려운 항목은 allow_danger가 있어도 금지합니다.\n- 인수는 \"허용 목록\" 방식입니다\n  - 모든 옵션(-x / --xxx)을 일괄 허용하지 않고, 목적에 따라 명시적으로 허용합니다.\n  - 명백한 메타문자(&& || | > < `)가 포함된 인수는 거부합니다\n\n주의\n- 이 도구는 git의 모든 기능에 무제한으로 접근할 수 있게 하지 않습니다.\n- 설계상 보안상 이유로 수행할 수 없는 작업이 있습니다.",
@@ -155,8 +151,7 @@
       "git 작업",
       "git 명령",
       "안전 git"
-    ],
-    "tool.system_prompt": "이 도구는 Git 명령을 실행하는 데 사용됩니다.\n\n중요: args에는 셸 메타문자를 포함하면 안 됩니다. 보안을 위해 다음 문자/시퀀스를 포함한 인수는 거부됩니다: && || | > < `\ngit commit 메시지의 \";\"는 자동으로 \",\"로 바뀝니다(-m/--message 값 내부에서만).\n"
+    ]
   },
   "de": {
     "doc.module": "Git-Tool: git_ops\n\nWir bieten die wichtigsten Git-Operationen mit Sicherheit an erster Stelle an.\n\nZiel dieses Tools ist es, \"die täglichen Arbeiten so weit wie möglich über das Tool abzuschließen\".\nAndererseits erlaubt Git leicht destruktive Operationen und externe Schreibzugriffe (push).\nDaher gelten die folgenden strengen Richtlinien.\n\nEntwurfsrichtlinien (wichtig)\n- Interaktive Vorgänge vermeiden\n  - PAGER/EDITOR deaktivieren\n  - commit/merge möglichst mit --no-edit\n  - GIT_TERMINAL_PROMPT=0, um die Eingabe von Zugangsdaten zu vermeiden\n- Gefährliche Operationen sind standardmäßig verboten\n  - Beispiele: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto usw.\n- Nur wenn nötig, allow_danger=true explizit angeben, um sie auszuführen\n  - Elemente mit hoher Unfallgefahr/schwer rückgängig zu machen sind jedoch auch mit allow_danger verboten.\n- Argumente folgen einer \"Allowlist\"\n  - Nicht alle Optionen (-x / --xxx) sind pauschal erlaubt, sondern nur je nach Zweck ausdrücklich.\n  - Offensichtliche Metazeichen (&& || | > < `) in Argumenten werden abgelehnt\n\nAchtung\n- Dieses Tool bietet keinen uneingeschränkten Zugriff auf alle Git-Funktionen.\n- Aus Sicherheitsgründen gibt es Operationen, die nicht ausgeführt werden können.",
@@ -186,8 +181,7 @@
       "git ops",
       "git befehle",
       "sicheres git"
-    ],
-    "tool.system_prompt": "Dieses Tool wird verwendet, um Git-Befehle auszuführen.\n\nWichtig: args dürfen keine Shell-Metazeichen enthalten. Aus Sicherheitsgründen werden Argumente mit den folgenden Zeichen/Sequenzen abgelehnt: && || | > < `\nIn git-Commit-Nachrichten wird \";\" automatisch durch \",\" ersetzt (nur innerhalb von -m/--message).\n"
+    ]
   },
   "it": {
     "doc.module": "strumento di controllo: git_ops\n\nForniamo le operazioni Git principali con la sicurezza come priorità assoluta.\n\nLo scopo di questo strumento è \"completare il più possibile le operazioni quotidiane tramite lo strumento\".\nD'altra parte, Git consente facilmente operazioni distruttive e scritture esterne (push).\nLimiteremo rigorosamente la seguente politica.\n\nPolitica di progettazione (importante)\n- Evitare operazioni che comportano interazione\n  - Disabilitare PAGER/EDITOR\n  - commit/merge con --no-edit (per quanto possibile)\n  - GIT_TERMINAL_PROMPT=0 per evitare l'inserimento delle credenziali\n- Le operazioni pericolose sono vietate per impostazione predefinita\n  - Esempi: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, ecc.\n- Specificare esplicitamente allow_danger=true per renderle eseguibili solo se necessario\n  - Tuttavia, gli elementi con \"alto tasso di incidenti/difficili da recuperare\" sono vietati anche con allow_danger.\n- Gli argomenti seguono un formato a \"lista consentita\"\n  - Non tutte le opzioni (-x / --xxx) sono consentite in modo generale, ma sono autorizzate esplicitamente in base allo scopo.\n  - Rifiutare argomenti che contengono metacaratteri evidenti (&& || | > < `)\n\nAttenzione\n- Questo strumento non fornisce accesso illimitato a tutte le funzioni di git.\n- Per progettazione, esistono alcune operazioni che non possono essere eseguite per motivi di sicurezza.",
@@ -217,8 +211,7 @@
       "git ops",
       "comandi git",
       "git sicuro"
-    ],
-    "tool.system_prompt": "Questo strumento viene usato per eseguire comandi Git.\n\nImportante: args non deve contenere metacaratteri della shell. Per sicurezza, gli argomenti contenenti le seguenti sequenze/caratteri verranno rifiutati: && || | > < `\nNei messaggi di commit git, \";\" viene sostituito automaticamente con \",\" (solo all’interno di -m/--message).\n"
+    ]
   },
   "ru": {
     "doc.module": "инструмент проверки: git_ops\n\nМы предоставляем основные операции Git, ставя безопасность на первое место.\n\nЦель этого инструмента — \"по возможности выполнять повседневные операции через инструмент\".\nС другой стороны, Git позволяет легко выполнять разрушительные операции и внешнюю запись (push).\nПоэтому нижеописанная политика строго ограничивается.\n\nПолитика проектирования (важно)\n- Избегать операций, требующих взаимодействия\n  - Отключить PAGER/EDITOR\n  - commit/merge с --no-edit (по возможности)\n  - GIT_TERMINAL_PROMPT=0, чтобы не вводить учетные данные\n- Опасные операции по умолчанию запрещены\n  - Примеры: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto и т. д.\n- Явно указывайте allow_danger=true, чтобы разрешить выполнение только при необходимости\n  - Однако элементы с \"высоким риском/трудно восстановимые\" запрещены даже при allow_danger.\n- Аргументы задаются в формате \"списка разрешений\"\n  - Не все опции (-x / --xxx) разрешены полностью; они явно разрешаются в зависимости от назначения.\n  - Отклонять аргументы, содержащие очевидные метасимволы (&& || | > < `)\n\nПредупреждение\n- Этот инструмент не предоставляет неограниченный доступ ко всем функциям git.\n- По конструкции есть операции, которые не могут быть выполнены по соображениям безопасности.",
@@ -248,8 +241,7 @@
       "git ops",
       "git команды",
       "безопасный git"
-    ],
-    "tool.system_prompt": "Этот инструмент используется для выполнения команд Git.\n\nВажно: args не должен содержать метасимволы shell. Из соображений безопасности аргументы, содержащие следующие последовательности/символы, будут отклонены: && || | > < `\nВ сообщениях коммита git символ \";\" автоматически заменяется на \",\" (только внутри -m/--message).\n"
+    ]
   },
   "pt_BR": {
     "doc.module": "ferramenta de verificação: git_ops\n\nFornecemos as operações principais do Git com a segurança em primeiro lugar.\n\nO objetivo desta ferramenta é \"concluir o máximo possível das operações diárias por meio da ferramenta\".\nPor outro lado, o Git permite facilmente operações destrutivas e gravações externas (push).\nVamos restringir rigorosamente a política abaixo.\n\nPolítica de projeto (importante)\n- Evite operações que envolvam interação\n  - Desative PAGER/EDITOR\n  - commit/merge com --no-edit (sempre que possível)\n  - GIT_TERMINAL_PROMPT=0 para evitar a inserção de credenciais\n- Operações perigosas são proibidas por padrão\n  - Exemplos: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, etc.\n- Especifique explicitamente allow_danger=true para torná-las executáveis apenas quando necessário\n  - No entanto, itens com \"alto risco de acidente/difíceis de recuperar\" são proibidos mesmo com allow_danger.\n- Os argumentos seguem um formato de \"lista permitida\"\n  - Nem todas as opções (-x / --xxx) são permitidas de forma ampla; elas são autorizadas explicitamente conforme a finalidade.\n  - Rejeite argumentos que contenham metacaracteres óbvios (&& || | > < `)\n\nCuidado\n- Esta ferramenta não fornece acesso ilimitado a todos os recursos do git.\n- Por design, há algumas operações que não podem ser realizadas por motivos de segurança.",
@@ -279,8 +271,7 @@
       "git ops",
       "comandos git",
       "git seguro"
-    ],
-    "tool.system_prompt": "Esta ferramenta é usada para executar comandos Git.\n\nImportante: args não pode incluir metacaracteres de shell. Por segurança, argumentos que contenham as seguintes sequências/caracteres serão rejeitados: && || | > < `\nNas mensagens de commit do git, \";\" é automaticamente substituído por \",\" (somente dentro de -m/--message).\n"
+    ]
   },
   "pt": {
     "doc.module": "Ferramenta Git: git_ops\n\nFornecemos as principais operações do Git com a segurança em primeiro lugar.\n\nO objetivo desta ferramenta é \"concluir as operações diárias tanto quanto possível por meio da ferramenta\".\nPor outro lado, o Git permite operações destrutivas e gravações externas (push) com facilidade.\nVamos restringir rigorosamente a política abaixo.\n\nPolítica de projeto (importante)\n- Evite operações que envolvam interação\n  - Desative PAGER/EDITOR\n  - commit/merge com --no-edit (sempre que possível)\n  - GIT_TERMINAL_PROMPT=0 para evitar inserir credenciais\n- Operações perigosas são proibidas por padrão\n  - Exemplos: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, etc.\n- Especifique explicitamente allow_danger=true para permitir a execução apenas quando necessário\n  - No entanto, itens com \"alto risco de acidente/difíceis de recuperar\" são proibidos mesmo com allow_danger.\n- Os argumentos seguem um formato de \"lista permitida\"\n  - Nem todas as opções (-x / --xxx) são permitidas de forma ampla; elas são autorizadas explicitamente conforme a finalidade.\n  - Rejeite argumentos que contenham metacaracteres óbvios (&& || | > < `)\n\nCuidado\n- Esta ferramenta não fornece acesso ilimitado a todos os recursos do git.\n- Por design, há algumas operações que não podem ser realizadas por motivos de segurança.",
@@ -310,8 +301,7 @@
       "git ops",
       "comandos git",
       "git seguro"
-    ],
-    "tool.system_prompt": "Esta ferramenta é usada para executar comandos Git.\n\nImportante: args não deve incluir metacaracteres de shell. Por segurança, qualquer argumento contendo os seguintes caracteres/sequências será rejeitado: && || | > < `\nPara mensagens de commit do git, ';' é automaticamente substituído por ',' (apenas dentro de -m/--message)."
+    ]
   },
   "id": {
     "doc.module": "Alat Git: git_ops\n\nKami menyediakan operasi Git inti dengan keamanan sebagai prioritas utama.\n\nTujuan alat ini adalah untuk \"menyelesaikan operasi harian sebanyak mungkin melalui alat.\"\nDi sisi lain, Git memungkinkan operasi destruktif dan penulisan eksternal (push) dengan mudah.\nKami akan membatasi kebijakan berikut dengan ketat.\n\nKebijakan desain (penting)\n- Hindari operasi yang melibatkan interaksi\n  - Nonaktifkan PAGER/EDITOR\n  - commit/merge dengan --no-edit (sebisa mungkin)\n  - GIT_TERMINAL_PROMPT=0 untuk menghindari input kredensial\n- Operasi berbahaya dilarang secara default\n  - Contoh: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, dll.\n- Secara eksplisit tetapkan allow_danger=true agar dapat dijalankan hanya jika perlu\n  - Namun, item dengan \"tingkat kecelakaan tinggi/sulit dipulihkan\" dilarang bahkan dengan allow_danger.\n- Argumen menggunakan format \"daftar izin\"\n  - Semua opsi (-x / --xxx) tidak diperbolehkan secara menyeluruh, tetapi diizinkan secara eksplisit sesuai tujuan.\n  - Tolak argumen yang mengandung metakarakter jelas (&& || | > < `)\n\nPerhatian\n- Alat ini tidak memberikan akses tak terbatas ke semua fitur git.\n- Karena desainnya, ada beberapa operasi yang tidak dapat dijalankan demi pertimbangan keamanan.",
@@ -341,8 +331,7 @@
       "git ops",
       "perintah git",
       "git aman"
-    ],
-    "tool.system_prompt": "Gunakan alat ini untuk menjalankan perintah Git.\n\nPenting: args tidak boleh mengandung metakarakter shell. Demi keamanan, argumen yang mengandung karakter/urutan berikut akan ditolak: && || | > < `\nUntuk pesan commit git, \";\" secara otomatis diganti dengan \",\" (hanya di dalam -m/--message)."
+    ]
   },
   "vi": {
     "doc.module": "Công cụ Git: git_ops\n\nChúng tôi cung cấp các thao tác Git cốt lõi với ưu tiên an toàn hàng đầu.\n\nMục đích của công cụ này là \"hoàn thành các thao tác hằng ngày nhiều nhất có thể thông qua công cụ\".\nMặt khác, Git cho phép thực hiện các thao tác phá huỷ và ghi bên ngoài (push) rất dễ dàng.\nChúng tôi sẽ giới hạn nghiêm ngặt chính sách sau đây.\n\nChính sách thiết kế (quan trọng)\n- Tránh các thao tác cần tương tác\n  - Vô hiệu hóa PAGER/EDITOR\n  - commit/merge với --no-edit (nếu có thể)\n  - GIT_TERMINAL_PROMPT=0 để tránh nhập thông tin xác thực\n- Các thao tác nguy hiểm bị cấm theo mặc định\n  - Ví dụ: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, v.v.\n- Chỉ khi cần mới đặt allow_danger=true để cho phép thực thi\n  - Tuy nhiên, các mục có \"rủi ro cao/khó phục hồi\" vẫn bị cấm ngay cả khi có allow_danger.\n- Đối số theo định dạng \"danh sách cho phép\"\n  - Không phải tất cả tùy chọn (-x / --xxx) đều được cho phép rộng rãi; chúng chỉ được chấp nhận rõ ràng theo mục đích.\n  - Từ chối các đối số chứa metacharacter rõ ràng (&& || | > < `)\n\nLưu ý\n- Công cụ này không cung cấp quyền truy cập không giới hạn vào mọi tính năng của git.\n- Do thiết kế, có một số thao tác không thể thực hiện vì lý do an toàn.",
@@ -372,8 +361,7 @@
       "git ops",
       "lệnh git",
       "git an toàn"
-    ],
-    "tool.system_prompt": "Công cụ này được sử dụng để chạy các lệnh Git.\n\nQuan trọng: args không được bao gồm siêu ký tự shell. Để đảm bảo an toàn, mọi đối số chứa các ký tự/chuỗi sau sẽ bị từ chối: && || | > < `\nĐối với thông báo cam kết git, ';' được tự động thay thế bằng ',' (chỉ bên trong -m/--message)."
+    ]
   },
   "pl": {
     "doc.module": "Narzędzie Git: git_ops\n\nZapewniamy podstawowe operacje Git, stawiając przede wszystkim na bezpieczeństwo.\n\nCelem tego narzędzia jest „w miarę możliwości wykonywanie codziennych operacji za pomocą narzędzia”.\nZ drugiej strony Git pozwala na łatwe operacje destrukcyjne i zewnętrzne zapisy (push).\nBędziemy ściśle ograniczać poniższe zasady.\n\nPolityka projektowa (ważne)\n- Unikaj operacji wymagających interakcji\n  - Wyłącz PAGER/EDYTOR\n  - zatwierdź/scal z --no-edit (w miarę możliwości)\n  - GIT_TERMINAL_PROMPT=0, aby uniknąć wprowadzania danych uwierzytelniających\n- Niebezpieczne operacje są domyślnie zabronione\n  - Przykłady: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto itp.\n- Jawnie określ allow_danger=true, aby można było wykonać operację tylko w razie potrzeby\n  - Jednakże elementy o wysokim ryzyku / trudne do odzyskania są zabronione nawet przy allow_danger.\n- Argumenty są w formacie „listy dozwolonych”.\n  - Nie wszystkie opcje (-x / --xxx) są dozwolone w całości, ale są wyraźnie dopuszczane zależnie od celu.\n  - Odrzuć argumenty zawierające oczywiste metaznaki (&& || | > < `)\n\nUwaga\n- To narzędzie nie zapewnia nieograniczonego dostępu do wszystkich funkcji git.\n- Ze względu na konstrukcję niektórych operacji nie można wykonać ze względów bezpieczeństwa.",
@@ -403,8 +391,7 @@
       "git ops",
       "polecenia git",
       "bezpieczny git"
-    ],
-    "tool.system_prompt": "To narzędzie służy do uruchamiania poleceń Git.\n\nWażne: argumenty nie mogą zawierać metaznaków powłoki. Ze względów bezpieczeństwa każdy argument zawierający następujące znaki/sekwencje zostanie odrzucony: && || | > < `\nW przypadku komunikatów zatwierdzeń git: „;” jest automatycznie zastępowany przez ',' (tylko wewnątrz -m/--message)."
+    ]
   },
   "hi": {
     "doc.module": "स्कैच टूल: git_ops\n\nहम पहले सुरक्षा के साथ कोर Git संचालन प्रदान करते हैं।\n\nइस टूल का उद्देश्य \"टूल के माध्यम से यथासंभव दैनिक कार्यों को पूरा करना\" है।\nदूसरी ओर, Git आसान विनाशकारी संचालन और बाहरी लेखन (पुश) की अनुमति देता है।\nहम निम्नलिखित नीति को सख्ती से सीमित करेंगे।\n\nडिज़ाइन नीति (महत्वपूर्ण)\n- ऐसे कार्यों से बचें जिनमें बातचीत शामिल हो\n  - पेजर/संपादक को अक्षम करें\n  - --no-edit के साथ प्रतिबद्ध/विलय करें (जितना संभव हो)\n  - क्रेडेंशियल दर्ज करने से बचने के लिए GIT_TERMINAL_PROMPT=0\n- खतरनाक संचालन डिफ़ॉल्ट रूप से निषिद्ध हैं\n  - उदाहरण: पुश --फोर्स, रीसेट --हार्ड, चेकआउट -एफ, क्लीन -एफडीएक्स, रीबेस --ऑनटू, आदि।\n- केवल आवश्यक होने पर ही इसे निष्पादन योग्य बनाने के लिए स्पष्ट रूप से require_danger=true निर्दिष्ट करें\n  - हालाँकि, \"उच्च दुर्घटना दर/पुनर्प्राप्ति में कठिनाई\" वाली वस्तुओं को अनुमति_खतरे के साथ भी प्रतिबंधित किया गया है।\n- तर्क \"अनुमति सूची\" प्रारूप में हैं\n  - सभी विकल्पों (-x / --xxx) को व्यापक रूप से अनुमति नहीं है, लेकिन उद्देश्य के आधार पर स्पष्ट रूप से अनुमति दी गई है।\n  - स्पष्ट मेटाएक्टर वाले तर्कों को अस्वीकार करें (&& || | > <`)\n\nसावधानी\n- यह टूल git की सभी सुविधाओं तक असीमित पहुंच प्रदान नहीं करता है।\n- डिज़ाइन के कारण, कुछ ऐसे ऑपरेशन हैं जिन्हें सुरक्षा कारणों से नहीं किया जा सकता है।",
@@ -434,8 +421,7 @@
       "git ops",
       "git कमांड",
       "सुरक्षित git"
-    ],
-    "tool.system_prompt": "इस टूल का उपयोग Git कमांड को चलाने के लिए किया जाता है।\n\nमहत्वपूर्ण: तर्कों में शेल मेटाकैरेक्टर शामिल नहीं होने चाहिए। सुरक्षा के लिए, निम्नलिखित वर्णों/अनुक्रमों वाले किसी भी तर्क को अस्वीकार कर दिया जाएगा: && || | > < `\nगिट प्रतिबद्ध संदेशों के लिए, ';' स्वचालित रूप से ',' से बदल दिया जाता है (केवल -m/--संदेश के अंदर)।"
+    ]
   },
   "ar": {
     "doc.module": "أداة الفحص: git_ops\n\nنحن نقدم عمليات Git الأساسية مع مراعاة السلامة أولاً.\n\nالغرض من هذه الأداة هو \"إكمال العمليات اليومية قدر الإمكان عبر الأداة\".\nمن ناحية أخرى، يتيح Git إجراء عمليات تدميرية سهلة وعمليات كتابة خارجية (دفع).\nسوف نقوم بتقييد السياسة التالية بشكل صارم.\n\nسياسة التصميم (مهم)\n- تجنب العمليات التي تنطوي على التفاعل\n  - تعطيل جهاز النداء/المحرر\n  - الالتزام/الدمج مع --no-edit (قدر الإمكان)\n  - GIT_TERMINAL_PROMPT=0 لتجنب إدخال بيانات الاعتماد\n- العمليات الخطرة محظورة افتراضيا\n  - أمثلة: دفع --force، إعادة تعيين --hard، checkout -f، clean -fdx، rebase --onto، إلخ.\n- حدد صراحةًallow_danger=true لجعله قابلاً للتنفيذ فقط إذا لزم الأمر\n  - ومع ذلك، فإن العناصر ذات \"معدل الحوادث المرتفع/التي يصعب استردادها\" محظورة حتى مع السماح بالخطر.\n- الوسائط موجودة بتنسيق \"قائمة الأذونات\".\n  - جميع الخيارات (-x / --xxx) غير مسموح بها بشكل شامل، ولكنها مسموح بها صراحة حسب الغرض.\n  - رفض الوسائط التي تحتوي على أحرف أولية واضحة (&& || | > < `)\n\nالحذر\n- لا توفر هذه الأداة وصولاً غير محدود إلى كافة ميزات git.\n- بسبب التصميم، هناك بعض العمليات التي لا يمكن تنفيذها لاعتبارات السلامة.",
@@ -465,8 +451,7 @@
       "git ops",
       "أوامر git",
       "git آمن"
-    ],
-    "tool.system_prompt": "تُستخدم هذه الأداة لتشغيل أوامر Git.\n\nهام: يجب ألا تتضمن الوسيطات أحرفًا أولية لـ Shell. من أجل السلامة، سيتم رفض أي وسيطة تحتوي على الأحرف/التسلسلات التالية: && || | > <`\nبالنسبة لرسائل الالتزام git، ';' يتم استبداله تلقائيًا بـ \"،\" (فقط داخل -m/--message)."
+    ]
   },
   "sv": {
     "doc.module": "git_ops_tool\n\nVi tillhandahåller centrala Git-operationer med säkerheten först.\n\nSyftet med det här verktyget är att \"så långt som möjligt slutföra dagliga Git-uppgifter via verktyget\".\nSamtidigt tillåter Git enkelt destruktiva operationer och extern skrivning (push).\nDärför begränsar vi strikt enligt följande policy.\n\nDesignpolicy (viktigt)\n- Undvik interaktiva operationer\n  - Inaktivera PAGER/EDITOR\n  - commit/merge med --no-edit (så långt det går)\n  - GIT_TERMINAL_PROMPT=0 för att undvika inloggningsuppgifter\n- Farliga operationer är förbjudna som standard\n  - Exempel: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, etc.\n- Ange uttryckligen allow_danger=true för att göra det körbart endast när det verkligen behövs\n  - Poster med hög olycksrisk/svåra att återställa är dock förbjudna även med allow_danger.\n- Argument följer ett \"tillåtelselista\"-format\n  - Alla alternativ (-x / --xxx) är inte generellt tillåtna, utan tillåts uttryckligen beroende på syftet.\n  - Avvisa argument som innehåller uppenbara metatecken (&& || | > < `)\n\nVarning\n- Det här verktyget ger inte obegränsad åtkomst till alla Git-funktioner.\n- Av säkerhetsskäl finns det vissa operationer som inte kan utföras.",
@@ -496,8 +481,7 @@
       "git ops",
       "git-kommandon",
       "säker git"
-    ],
-    "tool.system_prompt": "Det här verktyget används för att köra Git-kommandon.\n\nViktigt: args får inte innehålla shell-metatecken. Av säkerhetsskäl kommer alla argument som innehåller följande tecken/sekvenser att avvisas: && || | > < `\nFör git commit-meddelanden ersätts \";\" automatiskt med \",\" (endast inuti -m/--message).\n"
+    ]
   },
   "sw": {
     "doc.module": "Git operations tool: git_ops\n\nWe provide core Git operations with safety first.\n\nThe purpose of this tool is to complete daily operations through the tool as much as possible.\nOn the other hand, Git allows for easy destructive operations and external writes (push).\nWe will strictly limit the following policy.\n\nDesign policy (important)\n- Avoid operations that involve interaction\n  - Disable PAGER/EDITOR\n  - commit/merge with --no-edit (as much as possible)\n  - GIT_TERMINAL_PROMPT=0 to avoid entering credentials\n- Dangerous operations are prohibited by default\n  - Examples: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, etc.\n- Explicitly specify allow_danger=true to make it executable only if necessary\n  - However, items with a 'high accident rate/hard to recover' are prohibited even with allow_danger.\n- Arguments are in 'allowlist' format\n  - All options (-x / --xxx) are not permitted comprehensively, but are explicitly permitted depending on the purpose.\n  - Reject arguments containing obvious metacharacters (&& || | > < `)\n\nCaution\n- This tool does not provide unlimited access to all the features of git.\n- Due to the design, there are some operations that cannot be performed due to safety considerations.",
@@ -527,8 +511,7 @@
       "git ops",
       "amri za git",
       "git salama"
-    ],
-    "tool.system_prompt": "This tool is used to run Git commands.\n\nImportant: args must not include shell metacharacters. For safety, any argument containing the following characters/sequences will be rejected: && || | > < `\nFor git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).\n"
+    ]
   },
   "nb": {
     "doc.module": "git_ops_tool\n\nVi tilbyr sentrale Git-operasjoner med sikkerhet først.\n\nFormålet med dette verktøyet er å \"fullføre daglige oppgaver så langt det lar seg gjøre via verktøyet\".\nSamtidig gjør Git det enkelt å utføre destruktive operasjoner og ekstern skriving (push).\nDerfor begrenser vi dette strengt med følgende retningslinjer.\n\nDesignretningslinjer (viktig)\n- Unngå operasjoner som innebærer interaksjon\n  - Deaktiver PAGER/EDITOR\n  - commit/merge med --no-edit (så langt det er mulig)\n  - GIT_TERMINAL_PROMPT=0 for å unngå å måtte oppgi legitimasjon\n- Farlige operasjoner er forbudt som standard\n  - Eksempler: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, osv.\n- Angi eksplisitt allow_danger=true for å gjøre dem kjørbare bare når det er nødvendig\n  - Oppføringer med høy ulykkesrisiko/vanskelige å gjenopprette er likevel forbudt selv med allow_danger.\n- Argumenter følger en \"tillatelsesliste\"-modell\n  - Ikke alle valg (-x / --xxx) er tillatt generelt, men tillates eksplisitt avhengig av formålet.\n  - Avvis argumenter som inneholder tydelige metategn (&& || | > < `)\n\nForsiktighet\n- Dette verktøyet gir ikke ubegrenset tilgang til alle Git-funksjoner.\n- Av sikkerhetsgrunner finnes det operasjoner som ikke kan utføres.",
@@ -558,8 +541,7 @@
       "git ops",
       "git-kommandoer",
       "trygg git"
-    ],
-    "tool.system_prompt": "Dette verktøyet brukes til å kjøre Git-kommandoer.\n\nViktig: args må ikke inneholde shell-metategn. Av sikkerhetsgrunner vil argumenter som inneholder følgende tegn/sekvenser bli avvist: && || | > < `\nFor git commit-meldinger erstattes \";\" automatisk med \",\" (kun inne i -m/--message).\n"
+    ]
   },
   "nl": {
     "doc.module": "scheck-tool: git_ops\n\nWe bieden kern-Git-operaties met veiligheid voorop.\n\nHet doel van deze tool is om \"dagelijkse bewerkingen zoveel mogelijk via de tool af te ronden\".\nAan de andere kant staan Git zeer gemakkelijk destructieve bewerkingen en externe schrijfacties (push) toe.\nWe beperken het volgende beleid strikt.\n\nOntwerpbeleid (belangrijk)\n- Vermijd operaties met interactie\n  - Schakel PAGER/EDITOR uit\n  - commit/merge met --no-edit (zoveel mogelijk)\n  - GIT_TERMINAL_PROMPT=0 om het invoeren van inloggegevens te vermijden\n- Gevaarlijke operaties zijn standaard verboden\n  - Voorbeelden: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, enz.\n- Specifiek allow_danger=true opgeven om alleen dan uitvoerbaar te maken als dat nodig is\n  - Items met een \"hoog ongeluk-risico/moeilijk te herstellen\" zijn echter verboden, zelfs met allow_danger.\n- Argumenten zijn in \"toestemmingslijst\"-vorm\n  - Alle opties (-x / --xxx) zijn niet uitgebreid toegestaan, maar worden expliciet toegestaan afhankelijk van het doel.\n  - Weiger argumenten met duidelijke metatekens (&& || | > < `)\n\nLet op\n- Deze tool biedt geen onbeperkte toegang tot alle Git-functies.\n- Door het ontwerp zijn er bewerkingen die om veiligheidsredenen niet kunnen worden uitgevoerd.",
@@ -589,8 +571,7 @@
       "git ops",
       "git opdrachten",
       "veilige git"
-    ],
-    "tool.system_prompt": "Deze tool wordt gebruikt om Git-opdrachten uit te voeren.\n\nBelangrijk: args mogen geen shell-metatekens bevatten. Voor de veiligheid wordt elk argument met de volgende tekens/reeksen geweigerd: && || | > < `\nVoor git-commitberichten wordt ';' automatisch vervangen door \",\" (alleen binnen -m/--message).\n"
+    ]
   },
   "fi": {
     "doc.module": "scheck-työkalu: git_ops\n\nTarjoamme Gitin ydintoiminnot turvallisuus edellä.\n\nTämän työkalun tarkoitus on \"saada päivittäiset toimet valmiiksi mahdollisimman pitkälle työkalun avulla\".\nToisaalta Git mahdollistaa helposti tuhoavia toimintoja ja ulkoisia kirjoituksia (push).\nRajoitamme seuraavaa käytäntöä tiukasti.\n\nSuunnitteluperiaatteet (tärkeää)\n- Vältä vuorovaikutteisia toimintoja\n  - Poista PAGER/EDITOR käytöstä\n  - commit/merge --no-editillä (niin pitkälti kuin mahdollista)\n  - GIT_TERMINAL_PROMPT=0 estämään tunnistetietojen syöttö\n- Vaaralliset toiminnot ovat oletuksena kiellettyjä\n  - Esimerkkejä: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto jne.\n- Määritä allow_danger=true vain kun se on välttämätöntä\n  - Kuitenkin kohdat, joilla on \"korkea vahinkoriski / vaikea palauttaa\", ovat kiellettyjä jopa allow_dangerin kanssa.\n- Argumentit ovat \"sallittujen\" listan mukaisia\n  - Kaikkia vaihtoehtoja (-x / --xxx) ei sallita yleisesti, vaan ne sallitaan tarkoituksen mukaan erikseen.\n  - Hylkää argumentit, joissa on ilmeisiä metamerkkejä (&& || | > < `)\n\nHuomio\n- Tämä työkalu ei tarjoa rajoittamatonta pääsyä kaikkiin gitin toimintoihin.\n- Suunnittelun vuoksi joitakin toimintoja ei voida suorittaa turvallisuussyistä.",
@@ -620,8 +601,7 @@
       "git ops",
       "git-komennot",
       "turvallinen git"
-    ],
-    "tool.system_prompt": "Tätä työkalua käytetään Git-komentojen suorittamiseen.\n\nTärkeää: args ei saa sisältää shellin metamerkkejä. Turvallisuuden vuoksi kaikki argumentit, joissa on seuraavia merkkejä/sekvenssejä, hylätään: && || | > < `\nGit commit -viesteissä ' ; ' korvataan automaattisesti pilkulla ' , ' (vain -m/--message-parametrien sisällä).\n"
+    ]
   },
   "cs": {
     "doc.module": "nástroj pro kontrolu: git_ops\n\nPoskytujeme klíčové operace Git s prioritou bezpečnosti.\n\nÚčelem tohoto nástroje je „dokončit co nejvíce každodenních operací přes nástroj“.\nNa druhou stranu Git snadno umožňuje destruktivní operace a externí zápisy (push).\nNíže uvedenou politiku proto přísně omezujeme.\n\nZásady návrhu (důležité)\n- Vyhýbat se operacím, které vyžadují interakci\n  - Vypnout PAGER/EDITOR\n  - commit/merge s --no-edit (pokud možno)\n  - GIT_TERMINAL_PROMPT=0, aby se zabránilo zadávání přihlašovacích údajů\n- Nebezpečné operace jsou ve výchozím stavu zakázány\n  - Příklady: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto atd.\n- Pouze když je to nutné, výslovně zadejte allow_danger=true, aby bylo možné je provést\n  - Položky s „vysokou mírou nehody / obtížným návratem“ jsou však zakázány i s allow_danger.\n- Argumenty jsou ve formátu „seznamu povolených“\n  - Nejsou plošně povoleny všechny volby (-x / --xxx), ale výslovně podle účelu.\n  - Odmítnout argumenty obsahující zjevné metaznaky (&& || | > < `)\n\nUpozornění\n- Tento nástroj neposkytuje neomezený přístup ke všem funkcím git.\n- Z bezpečnostních důvodů existují operace, které nelze provést.",
@@ -651,8 +631,7 @@
       "git ops",
       "git příkazy",
       "bezpečný git"
-    ],
-    "tool.system_prompt": "Tento nástroj slouží ke spouštění příkazů Git.\n\nDůležité: args nesmí obsahovat shellové metaznaky. Z bezpečnostních důvodů budou odmítnuty argumenty obsahující následující znaky/sekvence: && || | > < `\nV commit zprávách git se \";\" automaticky nahrazuje \",\" (pouze uvnitř -m/--message).\n"
+    ]
   },
   "uk": {
     "doc.module": "інструмент перевірки: git_ops\n\nМи надаємо основні операції Git, ставлячи безпеку на перше місце.\n\nМета цього інструмента — «по можливості виконувати повсякденні операції через інструмент».\nЗ іншого боку, Git легко дозволяє руйнівні операції та зовнішній запис (push).\nТому наведену нижче політику суворо обмежено.\n\nПолітика проєктування (важливо)\n- Уникати операцій, що потребують взаємодії\n  - Вимкнути PAGER/EDITOR\n  - commit/merge з --no-edit (по можливості)\n  - GIT_TERMINAL_PROMPT=0, щоб уникнути введення облікових даних\n- Небезпечні операції за замовчуванням заборонені\n  - Приклади: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto тощо\n- Лише за потреби явно вкажіть allow_danger=true, щоб дозволити їх виконання\n  - Однак елементи з «високим ризиком/важко відновлювані» заборонені навіть з allow_danger.\n- Аргументи подаються у форматі «списку дозволів»\n  - Не всі опції (-x / --xxx) дозволені загалом; вони явно дозволяються залежно від призначення.\n  - Відхиляти аргументи, що містять очевидні метасимволи (&& || | > < `)\n\nЗастереження\n- Цей інструмент не надає необмеженого доступу до всіх функцій git.\n- З міркувань безпеки є операції, які неможливо виконати.",
@@ -682,8 +661,7 @@
       "git ops",
       "git команди",
       "безпечний git"
-    ],
-    "tool.system_prompt": "Цей інструмент використовується для виконання команд Git.\n\nВажливо: args не повинен містити метасимволи shell. З міркувань безпеки аргументи, що містять такі послідовності/символи, буде відхилено: && || | > < `\nУ повідомленнях коміту git символ \";\" автоматично замінюється на \",\" (лише всередині -m/--message).\n"
+    ]
   },
   "tr": {
     "doc.module": "Git işlemleri aracı: git_ops\n\nTemel Git operasyonlarını önce güvenlikle sağlıyoruz.\n\nBu aracın amacı günlük işlemleri mümkün olduğunca araç üzerinden tamamlamaktır.\nÖte yandan Git, kolay yıkıcı işlemlere ve harici yazmalara (itme) olanak tanır.\nAşağıdaki politikayı kesinlikle sınırlayacağız.\n\nTasarım politikası (önemli)\n- Etkileşim içeren işlemlerden kaçının\n  - PAGER/EDITOR'yi devre dışı bırakın\n  - --no-edit ile taahhüt/birleştirme (mümkün olduğunca)\n  - Kimlik bilgilerinin girilmesini önlemek için GIT_TERMINAL_PROMPT=0\n- Tehlikeli işlemler varsayılan olarak yasaktır\n  - Örnekler: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, vb.\n- Yalnızca gerektiğinde yürütülebilir hale getirmek için açıkça izin_danger=true belirtin\n  - Ancak 'kaza oranı yüksek/kurtarılması zor' olan öğeler, izin_danger ile bile yasaktır.\n- Bağımsız değişkenler 'izin verilenler listesi' biçimindedir\n  - Tüm seçeneklere (-x / --xxx) kapsamlı olarak izin verilmez, ancak amaca bağlı olarak açıkça izin verilir.\n  - Açık meta karakterler içeren bağımsız değişkenleri reddet (&& || | > < `)\n\nDikkat\n- Bu araç git'in tüm özelliklerine sınırsız erişim sağlamaz.\n- Tasarım gereği güvenlik nedeniyle gerçekleştirilemeyen bazı işlemler mevcuttur.",
@@ -713,8 +691,7 @@
       "git ops",
       "git komutları",
       "güvenli git"
-    ],
-    "tool.system_prompt": "Bu araç Git komutlarını çalıştırmak için kullanılır.\n\nÖnemli: args kabuk metakarakterlerini içermemelidir. Güvenlik nedeniyle, aşağıdaki karakterleri/dizileri içeren herhangi bir bağımsız değişken reddedilecektir: && || | > < `\nGit taahhüt mesajları için ';' otomatik olarak ',' ile değiştirilir (yalnızca -m/--message içinde)."
+    ]
   },
   "th": {
     "doc.module": "เครื่องมือตรวจสอบ: git_ops\n\nเราจัดเตรียมการทำงานหลักของ Git โดยให้ความปลอดภัยเป็นอันดับแรก\n\nจุดประสงค์ของเครื่องมือนี้คือ \"ทำงานประจำวันให้เสร็จได้มากที่สุดผ่านเครื่องมือ\"\nในอีกด้านหนึ่ง Git เปิดโอกาสให้ทำการทำลายข้อมูลและเขียนออกไปภายนอก (push) ได้ง่าย\nเราจึงจำกัดนโยบายต่อไปนี้อย่างเข้มงวด\n\nนโยบายการออกแบบ (สำคัญ)\n- หลีกเลี่ยงการทำงานที่ต้องโต้ตอบ\n  - ปิดใช้งาน PAGER/EDITOR\n  - commit/merge ใช้ --no-edit เท่าที่ทำได้\n  - ตั้ง GIT_TERMINAL_PROMPT=0 เพื่อหลีกเลี่ยงการป้อนข้อมูลรับรอง\n- การทำงานที่อันตรายถูกห้ามเป็นค่าเริ่มต้น\n  - ตัวอย่าง: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto เป็นต้น\n- กำหนด allow_danger=true อย่างชัดเจนเพื่อให้ทำงานได้เมื่อจำเป็นเท่านั้น\n  - อย่างไรก็ตาม รายการที่มี \"ความเสี่ยงสูง/กู้คืนยาก\" ถูกห้ามแม้จะตั้ง allow_danger ก็ตาม\n- อาร์กิวเมนต์ใช้รูปแบบ \"รายการอนุญาต\"\n  - ไม่ได้อนุญาตทุกตัวเลือก (-x / --xxx) แบบครอบคลุม แต่จะอนุญาตอย่างชัดเจนตามวัตถุประสงค์\n  - ปฏิเสธอาร์กิวเมนต์ที่มีเมตาอักขระชัดเจน (&& || | > < `)\n\nข้อควรระวัง\n- เครื่องมือนี้ไม่ได้ให้สิทธิ์เข้าถึงความสามารถทั้งหมดของ git แบบไม่จำกัด\n- ด้วยการออกแบบ จึงมีบางการทำงานที่ไม่สามารถทำได้ด้วยเหตุผลด้านความปลอดภัย",
@@ -744,8 +721,7 @@
       "git ops",
       "คำสั่ง git",
       "git ปลอดภัย"
-    ],
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเรียกใช้คำสั่ง Git\n\nสำคัญ: args ต้องไม่มีเมตาอักขระของ shell เพื่อความปลอดภัย อาร์กิวเมนต์ที่มีลำดับ/อักขระต่อไปนี้จะถูกปฏิเสธ: && || | > < `\nในข้อความ commit ของ git เครื่องหมาย \";\" จะถูกแทนที่ด้วย \",\" อัตโนมัติ (เฉพาะภายใน -m/--message)\n"
+    ]
   },
   "zh_CN": {
     "doc.module": "检查工具：git_ops\n\n我们以安全第一的方式提供核心 Git 操作。\n\n这个工具的目的是“尽可能通过工具完成日常操作”。\n另一方面，Git 允许轻松进行破坏性操作和外部写入（推送）。\n我们将严格限制以下政策。\n\n设计政策（重要）\n- 避免涉及交互的操作\n  - 禁用 PAGER/EDITOR\n  - 使用 --no-edit 提交/合并（尽可能）\n  - GIT_TERMINAL_PROMPT=0 以避免输入凭据\n- 默认禁止危险操作\n  - 示例：push --force、reset --hard、checkout -f、clean -fdx、rebase --onto 等。\n- 明确指定 allow_danger=true 时，仅在必要时允许执行\n  - 不过，即使启用 allow_danger，事故率高、难以恢复的操作仍然禁止。\n- 参数采用“允许列表”格式\n  - 不会全面允许所有选项（-x / --xxx），而是根据用途明确放行。\n  - 拒绝包含明显元字符的参数（&& || | > < `）\n\n注意事项\n- 该工具不提供对 git 所有功能的无限制访问。\n- 由于设计原因，出于安全考虑，有些操作无法进行。",
@@ -775,8 +751,7 @@
       "git ops",
       "git 命令",
       "安全 git"
-    ],
-    "tool.system_prompt": "该工具用于运行 Git 命令。\n\n重要提示：args 不得包含 shell 元字符。为了安全起见，任何包含以下字符/序列的参数都将被拒绝：&& || | > < `\ngit 提交消息中的 ';' 会自动替换为 ','（仅在 -m/--message 内）。\n"
+    ]
   },
   "zh_TW": {
     "doc.module": "檢查工具：git_ops\n\n我們以安全第一的方式提供核心 Git 操作。\n\n這個工具的目的是「盡可能透過工具完成日常操作」。\n另一方面，Git 允許輕鬆進行破壞性操作和外部寫入（推送）。\n我們將嚴格限制以下政策。\n\n設計政策（重要）\n- 避免涉及互動的操作\n  - 停用 PAGER/EDITOR\n  - 使用 --no-edit 提交/合併（盡可能）\n  - GIT_TERMINAL_PROMPT=0 以避免輸入憑證\n- 預設禁止危險操作\n  - 範例：push --force、reset --hard、checkout -f、clean -fdx、rebase --onto 等。\n- 明確指定 allow_danger=true 時，僅在必要時允許執行\n  - 不過，即使啟用 allow_danger，事故率高、難以恢復的操作仍然禁止。\n- 參數採用「允許清單」格式\n  - 不會全面允許所有選項（-x / --xxx），而是根據用途明確放行。\n  - 拒絕包含明顯元字元的參數（&& || | > < `）\n\n注意事項\n- 該工具不提供對 git 所有功能的無限制存取。\n- 由於設計原因，出於安全考慮，有些操作無法進行。",
@@ -806,8 +781,7 @@
       "git ops",
       "git 命令",
       "安全 git"
-    ],
-    "tool.system_prompt": "此工具用於執行 Git 指令。\n\n重要提示：args 不得包含 shell 元字元。為了安全起見，任何包含以下字元/序列的參數都將被拒絕：&& || | > < `\ngit 提交訊息中的 ';' 會自動替換為 ','（僅在 -m/--message 內）。\n"
+    ]
   },
   "bn": {
     "doc.module": "Git অপারেশন টুল: git_ops\n\nআমরা নিরাপত্তাকে অগ্রাধিকার দিয়ে Git-এর মূল অপারেশন সরবরাহ করি।\n\nএই টুলের উদ্দেশ্য হলো সম্ভব হলে দৈনন্দিন কাজগুলো টুলের মাধ্যমে শেষ করা।\nঅন্যদিকে, Git সহজেই ধ্বংসাত্মক কাজ এবং বাহ্যিক লেখার (push) সুযোগ দেয়।\nতাই নিচের নীতিগুলো কঠোরভাবে মানা হয়।\n\nডিজাইন নীতি (গুরুত্বপূর্ণ)\n- ইন্টারঅ্যাকশন লাগে এমন কাজ এড়ান\n  - PAGER/EDITOR নিষ্ক্রিয় করুন\n  - commit/merge এ --no-edit ব্যবহার করুন (যতটা সম্ভব)\n  - credentials ইনপুট এড়াতে GIT_TERMINAL_PROMPT=0 ব্যবহার করুন\n- বিপজ্জনক কাজ ডিফল্টে নিষিদ্ধ\n  - উদাহরণ: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto ইত্যাদি\n- কেবল প্রয়োজন হলে allow_danger=true স্পষ্টভাবে দিয়ে চালান\n  - তবে 'দুর্ঘটনার ঝুঁকি বেশি / পুনরুদ্ধার কঠিন' এমনগুলো allow_danger থাকলেও নিষিদ্ধ\n- আর্গুমেন্ট 'allowlist' ফরম্যাটে\n  - সব option (-x / --xxx) সার্বিকভাবে অনুমোদিত নয়; উদ্দেশ্য অনুযায়ী স্পষ্টভাবে অনুমোদিত\n  - স্পষ্ট মেটাচরিত্র (&& || | > < `) থাকা আর্গুমেন্ট প্রত্যাখ্যান করুন\n\nসতর্কতা\n- এই টুল git-এর সব সুবিধার সীমাহীন অ্যাক্সেস দেয় না।\n- নকশাগত কারণে নিরাপত্তার জন্য কিছু অপারেশন করা যায় না।",
@@ -837,8 +811,7 @@
       "git ops",
       "git কমান্ড",
       "নিরাপদ git"
-    ],
-    "tool.system_prompt": "এই টুলটি Git command চালাতে ব্যবহৃত হয়।\n\nগুরুত্বপূর্ণ: args-এ shell metacharacter থাকা চলবে না। নিরাপত্তার জন্য নিম্নলিখিত character/sequence থাকা arg প্রত্যাখ্যান করা হবে: && || | > < `\ngit commit message-এ ';' স্বয়ংক্রিয়ভাবে ','-এ বদলে দেওয়া হয় (শুধু -m/--message-এর ভিতরে)।\n"
+    ]
   },
   "fa": {
     "doc.module": "ابزار عملیات Git: git_ops\n\nما عملیات اصلی Git را با اولویتِ امنیت ارائه می‌کنیم.\n\nهدف این ابزار آن است که تا حد امکان کارهای روزمره را از طریق خود ابزار انجام دهد.\nاز طرف دیگر، Git به‌راحتی امکان عملیات مخرب و نوشتن بیرونی (push) را می‌دهد.\nبنابراین این سیاست‌ها را به‌طور سخت‌گیرانه اعمال می‌کنیم.\n\nسیاست طراحی (مهم)\n- از عملیات نیازمند تعامل خودداری کنید\n  - PAGER/EDITOR را غیرفعال کنید\n  - برای commit/merge تا حد امکان از --no-edit استفاده کنید\n  - برای جلوگیری از ورود اعتبارنامه‌ها از GIT_TERMINAL_PROMPT=0 استفاده کنید\n- عملیات خطرناک به‌طور پیش‌فرض ممنوع است\n  - نمونه‌ها: push --force، reset --hard، checkout -f، clean -fdx، rebase --onto و غیره\n- فقط در صورت نیاز با allow_danger=true صراحتاً قابل اجرا می‌شود\n  - با این حال، مواردی با «احتمال خطای بالا/سخت‌بودنِ بازیابی» حتی با allow_danger نیز ممنوع هستند\n- آرگومان‌ها در قالب «فهرست مجاز» هستند\n  - همهٔ گزینه‌ها (-x / --xxx) به‌صورت جامع مجاز نیستند، بلکه بسته به هدف به‌طور صریح مجاز می‌شوند\n  - آرگومان‌های دارای metacharacterهای واضح (&& || | > < `) رد می‌شوند\n\nهشدار\n- این ابزار دسترسی نامحدود به همهٔ قابلیت‌های git نمی‌دهد.\n- به‌دلیل طراحی، برخی عملیات به‌دلیل ملاحظات امنیتی قابل انجام نیستند.",
@@ -868,8 +841,7 @@
       "git ops",
       "دستورهای git",
       "git امن"
-    ],
-    "tool.system_prompt": "این ابزار برای اجرای فرمان‌های Git استفاده می‌شود.\n\nمهم: args نباید metacharacterهای shell را شامل شود. برای امنیت، هر آرگومانی که شامل این نویسه‌ها/دنباله‌ها باشد رد می‌شود: && || | > < `\nبرای پیام‌های commit در git، ';' به‌طور خودکار با ',' جایگزین می‌شود (فقط داخل -m/--message).\n"
+    ]
   },
   "mn": {
     "doc.module": "Git ажиллагааны хэрэгсэл: git_ops\n\nБид аюулгүй байдлыг нэгдүгээрт тавьсан үндсэн Git ажиллагаануудыг санал болгодог.\n\nЭнэ хэрэгслийн зорилго нь өдөр тутмын ажлуудыг аль болох хэрэгслээр гүйцэтгэх юм.\nНөгөө талаас Git нь эвдэлж болзошгүй үйлдэл болон гадагш write хийх (push) боломжийг хялбар олгодог.\nИймээс дараах бодлогыг хатуу мөрдөнө.\n\nТөслийн бодлого (чухал)\n- Харилцан үйлчлэл шаарддаг ажиллагаанаас зайлсхий\n  - PAGER/EDITOR-ийг идэвхгүй болго\n  - commit/merge дээр --no-edit ашигла (боломжтой хэмжээнд)\n  - нууц үг/итгэмжлэл оруулахгүйн тулд GIT_TERMINAL_PROMPT=0 ашигла\n- Аюултай ажиллагаа анхдагчаар хориглогдоно\n  - Жишээ: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto гэх мэт\n- Зөвхөн шаардлагатай үед allow_danger=true-г тодорхой зааж ажиллуулна\n  - Гэхдээ 'ослын эрсдэл өндөр/сэргээхэд хэцүү' зүйлс allow_danger байсан ч хориглогдоно\n- Аргументууд 'allowlist' хэлбэртэй\n  - Бүх option (-x / --xxx)-ыг бүхэлд нь зөвшөөрөхгүй, зорилгоос хамаарч тодорхой зөвшөөрнө\n  - Илэрхий metacharacter (&& || | > < `) агуулсан аргументыг татгалзана\n\nАнхаар\n- Энэ хэрэгсэл нь git-ийн бүх боломжийг хязгааргүй олгодоггүй.\n- Загварын улмаас аюулгүй байдлын шалтгаанаар хийж болохгүй ажиллагаанууд бий.",
@@ -899,8 +871,7 @@
       "git ops",
       "git тушаалууд",
       "аюулгүй git"
-    ],
-    "tool.system_prompt": "Энэ хэрэгслийг Git command ажиллуулахад ашиглана.\n\nЧухал: args-д shell metacharacter оруулах ёсгүй. Аюулгүй байдлын үүднээс дараах тэмдэг/дараалал агуулсан аргументыг татгалзана: && || | > < `\ngit commit message доторх ';' нь автоматаар ','-ээр солигдоно (-m/--message дотор л).\n"
+    ]
   },
   "mr": {
     "doc.module": "Git ऑपरेशन्स साधन: git_ops\n\nआम्ही सुरक्षा प्रथम या तत्त्वावर मुख्य Git ऑपरेशन्स पुरवतो.\n\nया साधनाचा उद्देश शक्य तितकी दैनंदिन कामे साधनाद्वारे पूर्ण करणे हा आहे.\nदुसरीकडे, Git मध्ये destructive ऑपरेशन्स आणि बाह्य writes (push) सहज करता येतात.\nम्हणून खालील धोरण कठोरपणे लागू केले जाते.\n\nडिझाइन धोरण (महत्त्वाचे)\n- संवाद लागणाऱ्या ऑपरेशन्स टाळा\n  - PAGER/EDITOR निष्क्रिय करा\n  - commit/merge शक्य तितके --no-edit सह करा\n  - credentials टाकणे टाळण्यासाठी GIT_TERMINAL_PROMPT=0 वापरा\n- धोकादायक ऑपरेशन्स डीफॉल्टने निषिद्ध\n  - उदाहरणे: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto इ.\n- आवश्यक असल्यासच allow_danger=true स्पष्टपणे देऊन ते चालवा\n  - मात्र 'अपघाताचा धोका जास्त/पुन्हा मिळवणे कठीण' अशा गोष्टी allow_danger असूनही निषिद्ध आहेत\n- arguments 'allowlist' स्वरूपात आहेत\n  - सर्व options (-x / --xxx) सर्वसाधारणपणे परवानगी नाही; उद्देशानुसार स्पष्ट परवानगी दिली जाते\n  - स्पष्ट metacharacters (&& || | > < `) असलेले arguments नाकारले जातात\n\nकाळजी\n- हे साधन git च्या सर्व वैशिष्ट्यांना अमर्याद प्रवेश देत नाही.\n- रचनेमुळे, सुरक्षेच्या कारणांमुळे काही ऑपरेशन्स करता येत नाहीत.",
@@ -930,7 +901,6 @@
       "git ops",
       "git आज्ञा",
       "सुरक्षित git"
-    ],
-    "tool.system_prompt": "हे साधन Git commands चालवण्यासाठी वापरले जाते.\n\nमहत्त्वाचे: args मध्ये shell metacharacters नसावेत. सुरक्षिततेसाठी खालील characters/sequences असलेले arguments नाकारले जातील: && || | > < `\ngit commit messages मध्ये ';' आपोआप ',' ने बदलले जाते (फक्त -m/--message च्या आत).\n"
+    ]
   }
 }

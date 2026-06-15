@@ -23,12 +23,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Estimate the user's rough location based on their public IP address. The result may be inaccurate when using VPN/proxies/mobile networks.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Fetch IP-based location data from an external service (ipinfo.io) and return a simplified result."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

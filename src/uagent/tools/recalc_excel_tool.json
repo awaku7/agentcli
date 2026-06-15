@@ -27,7 +27,6 @@
       "windows com",
       "cache values"
     ],
-    "tool.system_prompt": "Use this tool when formula cached values in .xlsx are stale (for example, when openpyxl data_only reads old values). This tool opens workbook(s) in Microsoft Excel via COM, performs a full recalculation, and saves.",
     "param.password.description": "Password (prompts if needed).",
     "prompt.password": "Enter the password for this file:\n{path}"
   },
@@ -57,7 +56,6 @@
       "再計算 excel",
       "excel 再計算 tool"
     ],
-    "tool.system_prompt": "xlsx の数式キャッシュ値が古い場合（たとえば openpyxl の data_only で古い値が読まれる場合）に使用します。このツールは COM で Microsoft Excel 上のブックを開き、全再計算して保存します。",
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
@@ -87,7 +85,6 @@
       "recálculo excel",
       "excel recalc"
     ],
-    "tool.system_prompt": "Use esta herramienta cuando los valores almacenados en caché de las fórmulas en .xlsx estén obsoletos (por ejemplo, cuando openpyxl data_only lee valores antiguos). Esta herramienta abre los libros en Microsoft Excel mediante COM, realiza un recálculo completo y los guarda.",
     "param.password.description": "Contraseña opcional para a...",
     "prompt.password": "Introduzca la contraseña de este arch..."
   },
@@ -117,7 +114,6 @@
       "recaclcul excel",
       "excel recalc"
     ],
-    "tool.system_prompt": "Utilisez cet outil lorsque les valeurs mises en cache des formules dans .xlsx sont obsolètes (par exemple, lorsque openpyxl data_only lit d'anciennes valeurs). Cet outil ouvre les classeurs dans Microsoft Excel via COM, effectue un recalcul complet et enregistre.",
     "param.password.description": "Mot de passe facultatif po...",
     "prompt.password": "Entrez le mot de passe de ce fichier..."
   },
@@ -147,7 +143,6 @@
       "엑셀 재계산",
       "recalc excel"
     ],
-    "tool.system_prompt": ".xlsx의 수식 캐시 값이 오래되었을 때(예: openpyxl data_only가 오래된 값을 읽는 경우) 이 도구를 사용하세요. 이 도구는 COM을 통해 Microsoft Excel에서 통합 문서를 열고 전체 재계산 후 저장합니다.",
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
   },
@@ -177,7 +172,6 @@
       "excel neu rechnen",
       "recalc excel"
     ],
-    "tool.system_prompt": "Verwenden Sie dieses Tool, wenn zwischengespeicherte Formelwerte in .xlsx veraltet sind (z. B. wenn openpyxl data_only alte Werte liest). Das Tool öffnet Arbeitsmappen in Microsoft Excel über COM, führt eine vollständige Neuberechnung durch und speichert.",
     "param.password.description": "Optionales Kennwort für ve...",
     "prompt.password": "Bitte geben Sie das Kennwort für dies..."
   },
@@ -207,7 +201,6 @@
       "excel ricalcolo",
       "recalc excel"
     ],
-    "tool.system_prompt": "Utilizza questo strumento quando i valori memorizzati nella cache delle formule in .xlsx sono obsoleti (ad esempio, quando openpyxl data_only legge valori vecchi). Questo strumento apre le cartelle di lavoro in Microsoft Excel tramite COM, esegue il ricalcolo completo e salva.",
     "param.password.description": "Password facoltativa per f...",
     "prompt.password": "Inserisci la password di questo file:\n{path}"
   },
@@ -237,7 +230,6 @@
       "excel пересчет",
       "recalc excel"
     ],
-    "tool.system_prompt": "Используйте этот инструмент, когда кэшированные значения формул в .xlsx устарели (например, openpyxl data_only читает старые значения). Этот инструмент открывает книги в Microsoft Excel через COM, выполняет полный перерасчет и сохраняет.",
     "param.password.description": "Необязательный пароль для...",
     "prompt.password": "Введите пароль для этого файла:\n{path}"
   },
@@ -267,7 +259,6 @@
       "recalc excel",
       "excel recalc"
     ],
-    "tool.system_prompt": "Use esta ferramenta quando os valores em cache das fórmulas em .xlsx estiverem desatualizados (por exemplo, quando openpyxl data_only lê valores antigos). Esta ferramenta abre as pastas de trabalho no Microsoft Excel via COM, executa o recálculo completo e salva.",
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
@@ -297,7 +288,6 @@
       "recalc excel",
       "excel recalc"
     ],
-    "tool.system_prompt": "Use esta ferramenta quando os valores armazenados em cache da fórmula em .xlsx estiverem obsoletos (por exemplo, quando openpyxl data_only lê valores antigos). Esta ferramenta abre pastas de trabalho no Microsoft Excel via COM, executa um recálculo completo e salva.",
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
@@ -327,7 +317,6 @@
       "recalc excel",
       "excel recalc"
     ],
-    "tool.system_prompt": "Gunakan alat ini saat nilai cache formula di .xlsx sudah usang (misalnya saat openpyxl data_only membaca nilai lama). Alat ini membuka workbook di Microsoft Excel via COM, melakukan full recalculation, dan menyimpan.",
     "param.password.description": "Kata sandi opsional untuk...",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
   },
@@ -357,7 +346,6 @@
       "excel tính lại",
       "recalc excel"
     ],
-    "tool.system_prompt": "Sử dụng công cụ này khi các giá trị được lưu trong bộ nhớ đệm của công thức trong .xlsx đã cũ (ví dụ: khi openpyxl data_only đọc các giá trị cũ). Công cụ này mở (các) sổ làm việc trong Microsoft Excel qua COM, thực hiện tính toán lại đầy đủ và lưu.",
     "param.password.description": "Mật khẩu tùy chọn cho tệp .",
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
   },
@@ -387,7 +375,6 @@
       "excel przelicz",
       "recalc excel"
     ],
-    "tool.system_prompt": "Użyj tego narzędzia, gdy wartości buforowane formułami w pliku .xlsx są nieaktualne (na przykład, gdy openpyxl data_only odczytuje tylko stare wartości). To narzędzie otwiera skoroszyty w programie Microsoft Excel za pośrednictwem interfejsu COM, wykonuje pełne ponowne obliczenia i zapisuje.",
     "param.password.description": "Opcjonalne hasło do zaszyf...",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
   },
@@ -417,7 +404,6 @@
       "एक्सेल पुनर्गणना",
       "recalc excel"
     ],
-    "tool.system_prompt": "महत्वपूर्ण: यह टूल PDF/PPTX/JSON पढ़ता है और पृष्ठ-स्तरीय टेक्स्ट लौटाता है। इनपुट: path, page_index, max_chars. आउटपुट: पृष्ठ का पाठ (सभी पृष्ठ या निर्दिष्ट पृष्ठ).",
     "param.password.description": "एन्क्रिप्टेड .",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
   },
@@ -447,7 +433,6 @@
       "excel إعادة الحساب",
       "recalc excel"
     ],
-    "tool.system_prompt": "استخدم هذه الأداة عندما تكون القيم المخزنة مؤقتًا للصيغة في .xlsx قديمة (على سبيل المثال، عندما يقرأ openpyxl data_only القيم القديمة). تفتح هذه الأداة المصنف (المصنفات) في Microsoft Excel عبر COM، وتقوم بإجراء عملية إعادة حساب كاملة، ثم تقوم بالحفظ.",
     "param.password.description": "كلمة مرور اختيارية لملفات .",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
   },
@@ -477,7 +462,6 @@
       "excel omberäkna",
       "recalc excel"
     ],
-    "tool.system_prompt": "Använd det här verktyget när formelvärdena i cacheminnet i .xlsx är föråldrade (till exempel när openpyxl data_only läser gamla värden). Verktyget öppnar arbetsböcker i Microsoft Excel via COM, gör en fullständig omräkning och sparar.",
     "param.password.description": "Valfritt lösenord för kryp...",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}"
   },
@@ -507,7 +491,6 @@
       "recalc excel",
       "excel recalc"
     ],
-    "tool.system_prompt": "Tumia zana hii wakati thamani za akiba za fomula kwenye .xlsx ni za zamani (kwa mfano, openpyxl data_only ikisoma thamani za zamani). Zana hii hufungua workbook(s) katika Microsoft Excel kupitia COM, hufanya hesabu kamili upya, na kuhifadhi.",
     "param.password.description": "Nenosiri la hiari kwa fail...",
     "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
   },
@@ -537,7 +520,6 @@
       "excel omberegn",
       "recalc excel"
     ],
-    "tool.system_prompt": "Bruk dette verktøyet når hurtigbufrede formelverdier i .xlsx er utdaterte (for eksempel når openpyxl data_only leser gamle verdier). Verktøyet åpner arbeidsbøker i Microsoft Excel via COM, utfører en full omberegning og lagrer.",
     "param.password.description": "Valgfritt passord for kryp...",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
   },
@@ -567,7 +549,6 @@
       "excel herberekening",
       "recalc excel"
     ],
-    "tool.system_prompt": "Gebruik deze tool wanneer de gecachte formulewaarden in .xlsx verouderd zijn (bijvoorbeeld wanneer openpyxl data_only oude waarden leest). Deze tool opent werkmap(pen) in Microsoft Excel via COM, voert een volledige herberekening uit en slaat op.",
     "param.password.description": "Optioneel wachtwoord voor...",
     "prompt.password": "Voer het wachtwoord voor dit bestand..."
   },
@@ -597,7 +578,6 @@
       "excel uudelleenlaskenta",
       "recalc excel"
     ],
-    "tool.system_prompt": "Käytä tätä työkalua, kun .xlsx-tiedoston kaavojen välimuistiarvot ovat vanhentuneet (esimerkiksi kun openpyxl data_only lukee vanhoja arvoja). Tämä työkalu avaa työkirjan(t) Microsoft Excelissä COM:n kautta, laskee kaiken uudelleen ja tallentaa.",
     "param.password.description": "Valinnainen salasana salat...",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
   },
@@ -627,7 +607,6 @@
       "excel přepočet",
       "recalc excel"
     ],
-    "tool.system_prompt": "Použijte tento nástroj, když jsou cache hodnoty vzorců v .xlsx zastaralé (například když openpyxl data_only čte staré hodnoty). Nástroj otevře sešity v Microsoft Excelu přes COM, provede úplný přepočet a uloží je.",
     "param.password.description": "Volitelné heslo pro šifrov...",
     "prompt.password": "Zadejte heslo k tomuto souboru:\n{path}"
   },
@@ -657,7 +636,6 @@
       "excel перерахунок",
       "recalc excel"
     ],
-    "tool.system_prompt": "Використовуйте цей інструмент, коли кешовані значення формул у .xlsx застаріли (наприклад, коли openpyxl data_only читає старі значення). Інструмент відкриває книги в Microsoft Excel через COM, виконує повний перерахунок і зберігає їх.",
     "param.password.description": "Необов’язковий пароль для...",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
   },
@@ -687,7 +665,6 @@
       "excel hesaplama",
       "recalc excel"
     ],
-    "tool.system_prompt": ".xlsx dosyasındaki formül önbelleğe alınmış değerler eski olduğunda (örneğin, openpyxl data_only eski değerleri okuduğunda) bu aracı kullanın. Bu araç, çalışma kitaplarını Microsoft Excel'de COM aracılığıyla açar, tam bir yeniden hesaplama gerçekleştirir ve kaydeder.",
     "param.password.description": "Şifrelenmiş .",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   },
@@ -717,7 +694,6 @@
       "excel คำนวณใหม่",
       "recalc excel"
     ],
-    "tool.system_prompt": "ใช้เครื่องมือนี้เมื่อค่าที่แคชไว้ของสูตรใน .xlsx ล้าสมัย (เช่น openpyxl data_only อ่านค่าเก่า) เครื่องมือนี้จะเปิดสมุดงานใน Microsoft Excel ผ่าน COM ทำการคำนวณใหม่ทั้งหมด และบันทึก",
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .",
     "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
   },
@@ -747,7 +723,6 @@
       "excel 重算",
       "recalc excel"
     ],
-    "tool.system_prompt": "当 .xlsx 中的公式缓存值过期时使用此工具（例如 openpyxl data_only 读取到旧值）。该工具会通过 COM 在 Microsoft Excel 中打开工作簿，执行完全重新计算并保存。",
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "请输入此文件的密码：\n{path}"
   },
@@ -777,7 +752,6 @@
       "excel 重算",
       "recalc excel"
     ],
-    "tool.system_prompt": "當 .xlsx 中的公式快取值過時時使用此工具（例如 openpyxl data_only 讀到舊值）。此工具會透過 COM 在 Microsoft Excel 中開啟活頁簿，執行完整重新計算並儲存。",
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "請輸入此文件的密碼：\n{path}"
   },
@@ -807,7 +781,6 @@
       "excel পুনরায় গণনা",
       "recalc excel"
     ],
-    "tool.system_prompt": "যখন .xlsx-এর সূত্র ক্যাশ মান পুরোনো হয় (যেমন openpyxl data_only পুরোনো মান পড়ে), তখন এই টুল ব্যবহার করুন। এই টুল Microsoft Excel-এ COM এর মাধ্যমে workbook(গুলি) খুলে, সম্পূর্ণ পুনর্গণনা করে, এবং সংরক্ষণ করে।",
     "param.password.description": "এনক্রিপ্টেড .",
     "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
   },
@@ -837,7 +810,6 @@
       "اکسل محاسبه مجدد",
       "recalc excel"
     ],
-    "tool.system_prompt": "وقتی مقادیر کش‌شدهٔ فرمول‌ها در .xlsx قدیمی هستند (برای مثال وقتی openpyxl data_only مقادیر قدیمی را می‌خواند) از این ابزار استفاده کنید. این ابزار workbook(ها) را در Microsoft Excel از طریق COM باز می‌کند، یک بازمحاسبهٔ کامل انجام می‌دهد و ذخیره می‌کند.",
     "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
   },
@@ -867,7 +839,6 @@
       "excel дахин бодох",
       "recalc excel"
     ],
-    "tool.system_prompt": ".xlsx доторх томьёоны кэш утгууд хуучирсан үед (жишээ нь openpyxl data_only хуучин утгуудыг унших үед) энэ хэрэгслийг ашиглана. Энэ хэрэгсэл Microsoft Excel-ийг COM-оор нээж, бүрэн дахин тооцоолол хийж, хадгална.",
     "param.password.description": "Шифрлэгдсэн .",
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
   },
@@ -897,7 +868,6 @@
       "excel पुन्हा गणना",
       "recalc excel"
     ],
-    "tool.system_prompt": "जेव्हा .xlsx मधील सूत्रांची कॅश मूल्ये जुनी असतात (उदा. openpyxl data_only जुनी मूल्ये वाचते), तेव्हा हे साधन वापरा. हे साधन Microsoft Excel मध्ये COM द्वारे workbook(s) उघडते, पूर्ण पुनर्गणना करते, आणि जतन करते.",
     "param.password.description": "एन्क्रिप्टेड .",
     "prompt.password": "या फाइलसाठी पासवर्ड टाइप करा:\n{path}"
   }

@@ -18,10 +18,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Retrieves raw long-term memory (shared memory) data shared across users. - Usually returns text in JSONL format (one record per line).",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool executes the functionality described in TOOL_SPEC.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

@@ -68,10 +68,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Generates an image from a text prompt, saves it as a PNG, and returns the file path. Opening is handled by the caller (CLI/GUI/Web).",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="Generate an image from the provided prompt. Save it as a PNG and return only the saved file path.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

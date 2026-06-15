@@ -43,10 +43,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Run static analysis/formatters (ruff/black/mypy). mode=fix modifies files, needs confirmation.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

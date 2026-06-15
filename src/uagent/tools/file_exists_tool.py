@@ -22,13 +22,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Checks if a file or directory exists at the specified path and returns type, size, timestamps (created/modified/accessed), and owner/group where av...",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Use this tool to check whether a file or directory exists and retrieve metadata "
-                "(type, size, mtime/atime/ctime, and owner/group when available)."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

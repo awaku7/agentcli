@@ -49,12 +49,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "Edit an input image using a text prompt, save the result as a PNG, and return the saved path."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Edit the provided image according to the prompt. Save the result as a PNG and return only the saved file path."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

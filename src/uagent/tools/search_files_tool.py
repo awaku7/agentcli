@@ -31,18 +31,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Search files under a directory by filename glob and optionally by content regex.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Search for files under a directory. You can filter by filename pattern (glob) and optionally "
-                "grep file contents using a regular expression. "
-                "Use path or root_path to choose the search root.\n\n"
-                "Notes:\n"
-                "- content_pattern is treated as a Python regular expression.\n"
-                "- If content_pattern is empty, only filename matching is performed.\n"
-                "- For performance, content searching may use a simple binary check internally."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

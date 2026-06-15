@@ -9,7 +9,6 @@
       "speech",
       "sound"
     ],
-    "tool.system_prompt": "Generate speech audio from the given text and save it to the specified output path. Return a JSON response only.",
     "param.text.description": "Text to synthesize into speech.",
     "param.output_path.description": "Path where the generated audio file will be saved.",
     "param.model.description": "Speech model name. If omitted, the provider default or configured deployment name is used.",
@@ -31,7 +30,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "指定されたテキストから音声を生成し、指定した出力パスに保存してください。JSONで返してください。",
     "param.text.description": "音声に変換するテキスト。",
     "param.output_path.description": "生成した音声ファイルの保存先パス。",
     "param.model.description": "音声モデル名。省略時は提供元の既定値または設定済みのデプロイ名を使います。",
@@ -53,7 +51,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Genera audio de voz a partir del texto proporcionado y guárdalo en la ruta de salida especificada. Devuelve solo una respuesta JSON.",
     "param.text.description": "Texto que se sintetizará en voz.",
     "param.output_path.description": "Ruta donde se guardará el archivo de audio generado.",
     "param.model.description": "Nombre del modelo de voz.",
@@ -75,7 +72,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Générez un audio vocal à partir du texte fourni et enregistrez-le au chemin de sortie spécifié. Renvoyez uniquement une réponse JSON.",
     "param.text.description": "Texte à synthétiser en parole.",
     "param.output_path.description": "Chemin où le fichier audio généré sera enregistré.",
     "param.model.description": "Nom du modèle vocal.",
@@ -97,7 +93,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "주어진 텍스트로 음성 오디오를 생성하고 지정된 출력 경로에 저장하세요. JSON 응답만 반환하세요.",
     "param.text.description": "음성으로 합성할 텍스트입니다.",
     "param.output_path.description": "생성된 오디오 파일이 저장될 경로입니다.",
     "param.model.description": "음성 모델 이름입니다. 생략하면 제공자 기본값 또는 구성된 배포 이름을 사용합니다.",
@@ -119,7 +114,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Erzeuge Sprachaudio aus dem angegebenen Text und speichere es am angegebenen Ausgabepfad. Gib nur eine JSON-Antwort zurück.",
     "param.text.description": "Text, der in Sprache umgewan...",
     "param.output_path.description": "Pfad, unter dem die erzeugte Audiodatei gespeic...",
     "param.model.description": "Name des Sprachmodells.",
@@ -141,7 +135,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Genera audio vocale dal testo fornito e salvalo nel percorso di output specificato. Restituisci solo una risposta JSON.",
     "param.text.description": "Testo da sintetizzare in parlato.",
     "param.output_path.description": "Percorso in cui il file audio generato verrà salvato.",
     "param.model.description": "Nome del modello vocale.",
@@ -163,7 +156,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Сгенерируйте аудио речи из указанного текста и сохраните его по заданному пути. Возвращайте только JSON-ответ.",
     "param.text.description": "Текст, который нужно озвучить.",
     "param.output_path.description": "Путь, куда будет сохранён сгенерированный аудиофайл.",
     "param.model.description": "Имя модели речи.",
@@ -185,7 +177,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Gere áudio de voz a partir do texto fornecido e salve no caminho de saída especificado. Retorne apenas uma resposta JSON.",
     "param.text.description": "Texto a ser sintetizado em fala.",
     "param.output_path.description": "Caminho onde o arquivo de áudio gerado será salvo.",
     "param.model.description": "Nome do modelo de voz.",
@@ -207,7 +198,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Gere áudio de fala a partir do texto fornecido e salve no caminho de saída especificado. Retorne apenas uma resposta JSON.",
     "param.text.description": "Texto a ser sintetizado em fala.",
     "param.output_path.description": "Caminho onde o arquivo de áudio gerado será salvo.",
     "param.model.description": "Nome do modelo de voz.",
@@ -229,7 +219,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Hasilkan audio suara dari teks yang diberikan dan simpan ke path output yang ditentukan. Kembalikan hanya respons JSON.",
     "param.text.description": "Teks yang akan disintesis me...",
     "param.output_path.description": "Path tempat file audio yang dihasilkan akan disimpan.",
     "param.model.description": "Nama model suara.",
@@ -251,7 +240,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Tạo âm thanh giọng nói từ văn bản được cung cấp và lưu vào đường dẫn đầu ra đã chỉ định. Chỉ trả về phản hồi JSON.",
     "param.text.description": "Văn bản cần chuyển thành giọ...",
     "param.output_path.description": "Đường dẫn nơi tệp âm thanh được tạo sẽ được lưu.",
     "param.model.description": "Tên mô hình giọng nói.",
@@ -273,7 +261,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Wygeneruj audio mowy z podanego tekstu i zapisz je w określonej ścieżce wyjściowej. Zwróć tylko odpowiedź JSON.",
     "param.text.description": "Tekst do zamiany na mowę.",
     "param.output_path.description": "Ścieżka, w której zostanie zapisany wygenerowan...",
     "param.model.description": "Nazwa modelu mowy.",
@@ -295,7 +282,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "दिए गए टेक्स्ट से speech audio बनाइए और उसे निर्दिष्ट output path पर सहेजिए। केवल JSON प्रतिक्रिया लौटाइए।",
     "param.text.description": "स्पीच में बदलने के लिए टेक्स्ट।",
     "param.output_path.description": "वह पथ जहाँ उत्पन्न ऑडियो फ़ाइल सहेजी जाएगी।",
     "param.model.description": "स्पीच मॉडल का नाम। यदि छोड़ा गया, तो provider का default या configured deployment name उपयोग होगा।",
@@ -317,7 +303,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "أنشئ صوتًا ناطقًا من النص المقدم واحفظه في مسار الإخراج المحدد. أعد استجابة JSON فقط.",
     "param.text.description": "النص المراد تحويله إلى كلام.",
     "param.output_path.description": "المسار الذي سيُحفظ فيه ملف الصوت المُنشأ.",
     "param.model.description": "اسم نموذج الكلام. إذا لم يُذكر، فسيُستخدم الافتراضي لدى المزوّد أو اسم النشر المُهيأ.",
@@ -339,7 +324,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Generera talaudio från den angivna texten och spara det på den angivna utmatningssökvägen. Returnera endast ett JSON-svar.",
     "param.text.description": "Text som ska syntetiseras ti...",
     "param.output_path.description": "Sökvägen där den genererade ljudfilen sparas.",
     "param.model.description": "Namn på talmodellen.",
@@ -361,7 +345,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Tengeneza sauti ya hotuba kutoka kwa maandishi yaliyotolewa na uihifadhi kwenye njia ya matokeo iliyobainishwa. Rudisha jibu la JSON pekee.",
     "param.text.description": "Maandishi ya kubadilishwa ku...",
     "param.output_path.description": "Njia ambako faili ya sauti iliyotengenezwa itah...",
     "param.model.description": "Jina la modeli ya sauti.",
@@ -383,7 +366,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Generer taleaudio fra den angitte teksten og lagre den på den angitte utgangsstien. Returner kun et JSON-svar.",
     "param.text.description": "Tekst som skal syntetiseres...",
     "param.output_path.description": "Stien der den genererte lydfilen skal lagres.",
     "param.model.description": "Navn på talemodellen.",
@@ -405,7 +387,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Genereer spraakaudio uit de opgegeven tekst en sla deze op naar het opgegeven uitvoerpad. Geef alleen een JSON-antwoord terug.",
     "param.text.description": "Tekst die naar spraak moet w...",
     "param.output_path.description": "Pad waar het gegenereerde audiobestand wordt op...",
     "param.model.description": "Naam van het spraakmodel.",
@@ -427,7 +408,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Luo puheääni annetusta tekstistä ja tallenna se määritettyyn lähtöpolkuun. Palauta vain JSON-vastaus.",
     "param.text.description": "Teksti, joka syntetisoidaan...",
     "param.output_path.description": "Polku, johon luotu äänitiedosto tallennetaan.",
     "param.model.description": "Puhemallin nimi. Jos jätetään pois, käytetään tarjoajan oletusta tai määritettyä deployment-nimeä.",
@@ -449,7 +429,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Vytvořte řečový zvuk z poskytnutého textu a uložte jej na zadanou výstupní cestu. Vraťte pouze JSON odpověď.",
     "param.text.description": "Text, který má být syntetizo...",
     "param.output_path.description": "Cesta, kam bude vygenerovaný zvukový soubor uložen.",
     "param.model.description": "Název hlasového modelu.",
@@ -471,7 +450,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Згенеруйте голосове аудіо з наданого тексту та збережіть його за вказаним вихідним шляхом. Повертайте лише JSON-відповідь.",
     "param.text.description": "Текст, який потрібно синтезу...",
     "param.output_path.description": "Шлях, куди буде збережено згенерований аудіофайл.",
     "param.model.description": "Назва голосової моделі.",
@@ -493,7 +471,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Verilen metinden konuşma sesi oluşturun ve bunu belirtilen çıkış yoluna kaydedin. Yalnızca JSON yanıtı döndürün.",
     "param.text.description": "Konuşmaya sentezlenecek metin.",
     "param.output_path.description": "Oluşturulan ses dosyasının kaydedileceği yol.",
     "param.model.description": "Konuşma modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
@@ -515,7 +492,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "สร้างเสียงจากข้อความที่กำหนดและบันทึกไปยังพาธเอาต์พุตที่ระบุ ส่งกลับเฉพาะคำตอบ JSON เท่านั้น",
     "param.text.description": "ข้อความที่ต้องการสังเคราะห์เ...",
     "param.output_path.description": "พาธที่ไฟล์เสียงที่สร้างขึ้นจะถูกบันทึก",
     "param.model.description": "ชื่อโมเดลเสียง หากไม่ระบุ จะใช้ค่าเริ่มต้นของผู้ให้บริการหรือชื่อ deployment ที่กำหนดไว้",
@@ -537,7 +513,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "根据给定文本生成语音音频，并保存到指定输出路径。只返回 JSON 响应。",
     "param.text.description": "要合成为语音的文本。",
     "param.output_path.description": "生成的音频文件将保存到的路径。",
     "param.model.description": "语音模型名称。如未指定，将使用提供方默认值或已设置的部署名称。",
@@ -559,7 +534,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "根據給定文字產生語音音訊，並儲存到指定的輸出路徑。只回傳 JSON 回應。",
     "param.text.description": "要合成為語音的文字。",
     "param.output_path.description": "產生的音訊檔將儲存到的路徑。",
     "param.model.description": "語音模型名稱。若未指定，將使用供應商預設值或已設定的部署名稱。",
@@ -581,7 +555,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "দেওয়া টেক্সট থেকে স্পিচ অডিও তৈরি করে নির্দিষ্ট আউটপুট পথে সংরক্ষণ করুন। শুধু JSON উত্তর দিন।",
     "param.text.description": "বক্তৃতায় রূপান্তর করার জন্য...",
     "param.output_path.description": "যে পথে তৈরি হওয়া অডিও ফাইল সংরক্ষিত হবে।",
     "param.model.description": "স্পিচ মডেলের নাম। উল্লেখ না করলে প্রদানকারীর ডিফল্ট বা কনফিগার করা deployment নাম ব্যবহার হবে।",
@@ -603,7 +576,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "از متن داده‌شده صوتِ گفتار تولید کنید و آن را در مسیر خروجی مشخص‌شده ذخیره کنید. فقط پاسخ JSON برگردانید.",
     "param.text.description": "متنی که باید به گفتار تبدیل شود.",
     "param.output_path.description": "مسیر ذخیرهٔ فایل صوتی تولیدشده.",
     "param.model.description": "نام مدل گفتار. اگر حذف شود، پیش‌فرض ارائه‌دهنده یا نام deployment پیکربندی‌شده استفاده می‌شود.",
@@ -625,7 +597,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "Өгөгдсөн текстээс ярианы аудио үүсгээд заасан гаралтын замд хадгал. Зөвхөн JSON хариу буцаа.",
     "param.text.description": "Яриа болгон хөрвүүлэх текст.",
     "param.output_path.description": "Үүсгэсэн аудио файлыг хадгалах зам.",
     "param.model.description": "Ярианы загварын нэр. Орхивол provider-ийн өгөгдмөл эсвэл тохируулсан deployment нэрийг ашиглана.",
@@ -647,7 +618,6 @@
       "audio_speech",
       "audio speech"
     ],
-    "tool.system_prompt": "दिलेल्या मजकुरातून स्पीच ऑडिओ तयार करा आणि तो निर्दिष्ट आउटपुट मार्गावर जतन करा. फक्त JSON प्रतिसाद द्या.",
     "param.text.description": "ध्वनीत रूपांतर करायचा मजकूर.",
     "param.output_path.description": "तयार झालेली ऑडिओ फाइल जिथे जतन होईल तो मार्ग.",
     "param.model.description": "स्पीच मॉडेलचे नाव. वगळल्यास provider चे डीफॉल्ट किंवा कॉन्फिगर केलेले deployment नाव वापरले जाईल.",

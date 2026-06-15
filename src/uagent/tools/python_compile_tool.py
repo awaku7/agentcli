@@ -24,12 +24,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Validate Python files with py_compile. Use this tool for syntax checking Python files, directories, or glob patterns.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Validate Python files with py_compile. If file paths or glob patterns are supplied, run py_compile on those targets and return the result."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

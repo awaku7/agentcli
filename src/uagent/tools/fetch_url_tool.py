@@ -34,10 +34,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool performs the operation described by the tool name 'fetch_url'.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

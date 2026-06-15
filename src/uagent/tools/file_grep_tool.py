@@ -69,17 +69,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Search for a pattern in files and return matching lines with line numbers (like grep -n). Pattern is required.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Search file contents under one or more paths. "
-                "Pattern is required. "
-                "Filter files by glob, search using a Python regular expression or literal text, "
-                "optionally include context lines, skip binary-like files, support filenames-only mode, "
-                "and auto-detect text encodings when reading. "
-                "Return JSON only."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

@@ -76,15 +76,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Run an autonomous browser task using the browser-use Python library. Use this when a site must be operated interactively, not merely fetched.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool launches browser-use to operate a browser for a natural-language task. "
-                "Do not use it for purchases, submissions, deletions, uploads, downloads, logins, "
-                "posts, or other state-changing actions unless the user has explicitly approved "
-                "the exact action and confirmed=true is supplied."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

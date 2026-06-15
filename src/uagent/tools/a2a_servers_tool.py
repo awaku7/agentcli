@@ -103,10 +103,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Manage A2A server profiles. Use only when no local tool can substitute.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="Operate on A2A server profile list. Return JSON only.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

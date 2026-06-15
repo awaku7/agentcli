@@ -29,8 +29,7 @@
       "server list",
       "profile settings",
       "a2a profile"
-    ],
-    "tool.system_prompt": "Manage A2A server profiles only when local tools cannot replace the task. Return JSON only. Use only when existing local tools cannot replace the task."
+    ]
   },
   "ja": {
     "err.config_not_found": "設定ファイルが見つかりません。action=init を先に実行してください。",
@@ -62,8 +61,7 @@
       "サーバー一覧",
       "プロファイル設定",
       "A2A プロファイル"
-    ],
-    "tool.system_prompt": "JSONのみ返してください。 既存のローカルツールで代替できない場合のみ使用してください。"
+    ]
   },
   "es": {
     "err.config_not_found": "No se encontró la configuración.",
@@ -95,8 +93,7 @@
       "lista de servidores",
       "configuración de perfil",
       "perfil a2a"
-    ],
-    "tool.system_prompt": "Administre la lista de perfiles de servidor A2A. Devuelva solo JSON. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea."
+    ]
   },
   "fr": {
     "err.config_not_found": "Configuration introuvable.",
@@ -128,8 +125,7 @@
       "liste des serveurs",
       "paramètres du profil",
       "profil a2a"
-    ],
-    "tool.system_prompt": "Gérez la liste des profils de serveur A2A. Retournez uniquement du JSON. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche."
+    ]
   },
   "ko": {
     "err.config_not_found": "설정 파일을 찾을 수 없습니다. 먼저 action=init을 실행하세요.",
@@ -161,8 +157,7 @@
       "서버 목록",
       "프로필 설정",
       "A2A 프로필"
-    ],
-    "tool.system_prompt": "A2A 서버 프로필 목록을 관리합니다. JSON만 반환하세요. 로컬 도구로 대체할 수 없는 경우에만 사용하세요."
+    ]
   },
   "de": {
     "err.config_not_found": "Konfiguration nicht gefunden.",
@@ -194,8 +189,7 @@
       "server liste",
       "profileinstellungen",
       "a2a-profil"
-    ],
-    "tool.system_prompt": "Verwalten Sie die Liste der A2A-Serverprofile. Geben Sie nur JSON zurück. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können."
+    ]
   },
   "it": {
     "err.config_not_found": "Configurazione non trovata.",
@@ -227,8 +221,7 @@
       "elenco server",
       "impostazioni profilo",
       "profilo a2a"
-    ],
-    "tool.system_prompt": "Gestisci l’elenco dei profili del server A2A. Restituisci solo JSON. Usalo solo quando gli strumenti locali non possono sostituire il compito."
+    ]
   },
   "ru": {
     "err.config_not_found": "Конфигурация не найдена.",
@@ -260,8 +253,7 @@
       "список серверов",
       "настройки профиля",
       "профиль a2a"
-    ],
-    "tool.system_prompt": "Управляйте списком профилей серверов A2A. Возвращайте только JSON. Используйте только тогда, когда локальные инструменты не могут заменить задачу."
+    ]
   },
   "pt_BR": {
     "err.config_not_found": "Configuração não encontrada.",
@@ -293,8 +285,7 @@
       "lista de servidores",
       "configurações de perfil",
       "perfil a2a"
-    ],
-    "tool.system_prompt": "Gerencie a lista de perfis de servidor A2A. Retorne apenas JSON. Use somente quando as ferramentas locais não puderem substituir a tarefa."
+    ]
   },
   "pt": {
     "err.config_not_found": "Configuração não encontrada.",
@@ -326,8 +317,7 @@
       "lista de servidores",
       "definições de perfil",
       "perfil a2a"
-    ],
-    "tool.system_prompt": "Operar na lista de perfis do servidor A2A. Retorne apenas JSON. Use apenas quando as ferramentas locais não puderem substituir a tarefa."
+    ]
   },
   "id": {
     "err.config_not_found": "Konfigurasi tidak ditemukan.",
@@ -359,8 +349,7 @@
       "daftar server",
       "pengaturan profil",
       "profil a2a"
-    ],
-    "tool.system_prompt": "Kelola daftar profil server A2A. Kembalikan JSON saja. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas."
+    ]
   },
   "vi": {
     "err.config_not_found": "Không tìm thấy cấu hình.",
@@ -392,8 +381,7 @@
       "danh sách máy chủ",
       "cài đặt hồ sơ",
       "hồ sơ a2a"
-    ],
-    "tool.system_prompt": "Hoạt động trên danh sách hồ sơ máy chủ A2A. Chỉ trả về JSON. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ."
+    ]
   },
   "pl": {
     "err.config_not_found": "Nie znaleziono konfiguracji.",
@@ -425,8 +413,7 @@
       "lista serwerów",
       "ustawienia profilu",
       "profil a2a"
-    ],
-    "tool.system_prompt": "Działaj na liście profili serwerów A2A. Zwróć tylko JSON. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania."
+    ]
   },
   "hi": {
     "err.config_not_found": "कॉन्फ़िगरेशन नहीं मिला.",
@@ -458,8 +445,7 @@
       "सर्वर सूची",
       "प्रोफ़ाइल सेटिंग्स",
       "a2a प्रोफ़ाइल"
-    ],
-    "tool.system_prompt": "A2A सर्वर प्रोफ़ाइल सूची पर कार्य करें। केवल JSON लौटाएँ. केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।"
+    ]
   },
   "ar": {
     "err.config_not_found": "لم يتم العثور على الإعدادات.",
@@ -491,8 +477,7 @@
       "قائمة الخوادم",
       "إعدادات الملف الشخصي",
       "ملف a2a"
-    ],
-    "tool.system_prompt": "أدر قائمة ملفات تعريف خوادم A2A. أعد JSON فقط. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة."
+    ]
   },
   "sv": {
     "err.config_not_found": "Konfiguration hittades inte.",
@@ -524,8 +509,7 @@
       "serverlista",
       "profilinställningar",
       "a2a-profil"
-    ],
-    "tool.system_prompt": "Hantera listan över A2A-serverprofiler. Returnera endast JSON. Använd endast när lokala verktyg inte kan ersätta uppgiften."
+    ]
   },
   "sw": {
     "err.config_not_found": "Mipangilio haikupatikana.",
@@ -557,8 +541,7 @@
       "orodha ya seva",
       "mipangilio ya wasifu",
       "wasifu wa a2a"
-    ],
-    "tool.system_prompt": "Dhibiti orodha ya wasifu za seva za A2A. Rudisha JSON pekee. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi."
+    ]
   },
   "nb": {
     "err.config_not_found": "Konfigurasjon ble ikke funnet.",
@@ -590,8 +573,7 @@
       "serverliste",
       "profilinnstillinger",
       "a2a-profil"
-    ],
-    "tool.system_prompt": "Arbeid med listen over A2A-serverprofiler. Returner bare JSON. Bruk bare når lokale verktøy ikke kan erstatte oppgaven."
+    ]
   },
   "nl": {
     "err.config_not_found": "Configuratie niet gevonden.",
@@ -623,8 +605,7 @@
       "serverlijst",
       "profielinstellingen",
       "a2a-profiel"
-    ],
-    "tool.system_prompt": "Werk op de lijst met A2A-serverprofielen. Geef alleen JSON terug. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen."
+    ]
   },
   "fi": {
     "err.config_not_found": "Asetustiedostoa ei löydy.",
@@ -656,8 +637,7 @@
       "palvelinluettelo",
       "profiiliasetukset",
       "a2a-profiili"
-    ],
-    "tool.system_prompt": "Käsittele A2A-palvelinprofiilien listaa. Palauta vain JSON. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää."
+    ]
   },
   "cs": {
     "err.config_not_found": "Konfigurace nenalezena.",
@@ -689,8 +669,7 @@
       "seznam serverů",
       "nastavení profilu",
       "profil a2a"
-    ],
-    "tool.system_prompt": "Pracujte se seznamem profilů A2A serverů. Vracejte pouze JSON. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit."
+    ]
   },
   "uk": {
     "err.config_not_found": "Конфігурацію не знайдено.",
@@ -722,8 +701,7 @@
       "список серверів",
       "налаштування профілю",
       "профіль a2a"
-    ],
-    "tool.system_prompt": "Працюйте зі списком профілів серверів A2A. Повертайте лише JSON. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання."
+    ]
   },
   "tr": {
     "err.config_not_found": "Yapılandırma bulunamadı.",
@@ -755,8 +733,7 @@
       "sunucu listesi",
       "profil ayarları",
       "a2a profili"
-    ],
-    "tool.system_prompt": "A2A sunucu profili listesini yönetin. Yalnızca JSON değerini döndür. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın."
+    ]
   },
   "th": {
     "err.config_not_found": "ไม่พบไฟล์ตั้งค่า กรุณารัน action=init ก่อน.",
@@ -788,8 +765,7 @@
       "รายการเซิร์ฟเวอร์",
       "การตั้งค่าโปรไฟล์",
       "โปรไฟล์ a2a"
-    ],
-    "tool.system_prompt": "จัดการรายการโปรไฟล์เซิร์ฟเวอร์ A2A ส่งคืน JSON เท่านั้น. ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้."
+    ]
   },
   "zh_CN": {
     "err.config_not_found": "未找到配置文件。请先运行 action=init。",
@@ -821,8 +797,7 @@
       "服务器列表",
       "设置设置",
       "A2A 设置"
-    ],
-    "tool.system_prompt": "管理 A2A 服务器配置文件列表。仅返回 JSON。 仅在本地工具无法替代该任务时使用。"
+    ]
   },
   "zh_TW": {
     "err.config_not_found": "未找到組態檔。請先執行 action=init。",
@@ -854,8 +829,7 @@
       "伺服器列表",
       "設定檔設定",
       "A2A 設定檔"
-    ],
-    "tool.system_prompt": "管理 A2A 伺服器設定檔列表。僅回傳 JSON。 僅在本機工具無法取代該任務時使用。"
+    ]
   },
   "bn": {
     "err.config_not_found": "কনফিগারেশন পাওয়া যায়নি। আগে action=...",
@@ -887,8 +861,7 @@
       "সার্ভার তালিকা",
       "প্রোফাইল সেটিংস",
       "a2a প্রোফাইল"
-    ],
-    "tool.system_prompt": "A2A সার্ভার প্রোফাইল পরিচালনা করুন। শুধু JSON ফেরত দিন। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।"
+    ]
   },
   "fa": {
     "err.config_not_found": "پیکربندی پیدا نشد.",
@@ -920,8 +893,7 @@
       "فهرست سرورها",
       "تنظیمات پروفایل",
       "پروفایل a2a"
-    ],
-    "tool.system_prompt": "فهرست پروفایل‌های سرور A2A را مدیریت کنید. فقط JSON برگردانید. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند."
+    ]
   },
   "mn": {
     "err.config_not_found": "Тохиргоо олдсонгүй.",
@@ -953,8 +925,7 @@
       "серверийн жагсаалт",
       "профайлын тохиргоо",
       "a2a профайл"
-    ],
-    "tool.system_prompt": "A2A серверийн профайлуудын жагсаалтыг удирдана. Зөвхөн JSON буцаана. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу."
+    ]
   },
   "mr": {
     "err.config_not_found": "कॉन्फिगरेशन सापडले नाही.",
@@ -986,7 +957,6 @@
       "सर्व्हर सूची",
       "प्रोफाइल सेटिंग्ज",
       "a2a प्रोफाइल"
-    ],
-    "tool.system_prompt": "A2A सर्व्हर प्रोफाइल्सची यादी व्यवस्थापित करा. फक्त JSON परत द्या. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा."
+    ]
   }
 }

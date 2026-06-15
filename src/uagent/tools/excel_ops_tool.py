@@ -27,10 +27,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Read/write an Excel (. xlsx) file and get sheet names.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool performs the operation described by the tool name 'excel_ops'.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

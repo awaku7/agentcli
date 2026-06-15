@@ -15,7 +15,6 @@
       "sheet names",
       "excel file"
     ],
-    "tool.system_prompt": "This tool performs the operation described by the tool name 'excel_ops'.",
     "param.password.description": "Password (prompts if needed).",
     "prompt.password": "Enter the password for this file:\n{path}"
   },
@@ -33,7 +32,6 @@
       "シート名",
       "xlsx"
     ],
-    "tool.system_prompt": "このツールは、ツール名 'excel_ops' で示される処理を実行します。",
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
@@ -51,7 +49,6 @@
       "nombres de hoja",
       "xlsx"
     ],
-    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'excel_ops'.",
     "param.password.description": "Contraseña opcional para a...",
     "prompt.password": "Introduzca la contraseña de este arch..."
   },
@@ -69,7 +66,6 @@
       "noms de feuille",
       "xlsx"
     ],
-    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « excel_ops ».",
     "param.password.description": "Mot de passe facultatif po...",
     "prompt.password": "Entrez le mot de passe de ce fichier..."
   },
@@ -87,7 +83,6 @@
       "시트 이름",
       "xlsx"
     ],
-    "tool.system_prompt": "이 도구는 도구 이름 'excel_ops'에 설명된 작업을 수행합니다.",
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
   },
@@ -105,7 +100,6 @@
       "blattnamen",
       "xlsx"
     ],
-    "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „excel_ops“ beschriebenen Vorgang aus.",
     "param.password.description": "Optionales Kennwort für ve...",
     "prompt.password": "Bitte geben Sie das Kennwort für dies..."
   },
@@ -123,7 +117,6 @@
       "nomi dei fogli",
       "xlsx"
     ],
-    "tool.system_prompt": "Questo strumento esegue l'operazione descritta dal nome dello strumento 'excel_ops'.",
     "param.password.description": "Password facoltativa per f...",
     "prompt.password": "Inserisci la password di questo file:\n{path}"
   },
@@ -141,7 +134,6 @@
       "имена листов",
       "xlsx"
     ],
-    "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «excel_ops».",
     "param.password.description": "Необязательный пароль для...",
     "prompt.password": "Введите пароль для этого файла:\n{path}"
   },
@@ -159,7 +151,6 @@
       "nomes de planilha",
       "xlsx"
     ],
-    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'excel_ops'.",
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
@@ -177,7 +168,6 @@
       "nomes de planilha",
       "xlsx"
     ],
-    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'excel_ops'.",
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
@@ -195,7 +185,6 @@
       "nama sheet",
       "xlsx"
     ],
-    "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'excel_ops'.",
     "param.password.description": "Kata sandi opsional untuk...",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
   },
@@ -213,7 +202,6 @@
       "tên trang tính",
       "xlsx"
     ],
-    "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'excel_ops'.",
     "param.password.description": "Mật khẩu tùy chọn cho tệp .",
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
   },
@@ -231,7 +219,6 @@
       "nazwy arkuszy",
       "xlsx"
     ],
-    "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą narzędzia „excel_ops”.",
     "param.password.description": "Opcjonalne hasło do zaszyf...",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
   },
@@ -249,7 +236,6 @@
       "शीट नाम",
       "xlsx"
     ],
-    "tool.system_prompt": "यह टूल टूल नाम 'excel_ops' द्वारा वर्णित ऑपरेशन करता है।",
     "param.password.description": "एन्क्रिप्टेड .",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
   },
@@ -267,7 +253,6 @@
       "أسماء الأوراق",
       "xlsx"
     ],
-    "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة 'excel_ops'.",
     "param.password.description": "كلمة مرور اختيارية لملفات .",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
   },
@@ -285,7 +270,6 @@
       "bladnamn",
       "xlsx"
     ],
-    "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'excel_ops'.",
     "param.password.description": "Valfritt lösenord för kryp...",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}"
   },
@@ -303,7 +287,6 @@
       "majina ya karatasi",
       "xlsx"
     ],
-    "tool.system_prompt": "Zana hii hutekeleza operesheni iliyoelezwa na jina la zana 'excel_ops'.",
     "param.password.description": "Nenosiri la hiari kwa fail...",
     "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
   },
@@ -321,7 +304,6 @@
       "arknavn",
       "xlsx"
     ],
-    "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'excel_ops'.",
     "param.password.description": "Valgfritt passord for kryp...",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
   },
@@ -339,7 +321,6 @@
       "bladnamen",
       "xlsx"
     ],
-    "tool.system_prompt": "Deze tool voert de bewerking uit die door de toolnaam 'excel_ops' wordt beschreven.",
     "param.password.description": "Optioneel wachtwoord voor...",
     "prompt.password": "Voer het wachtwoord voor dit bestand..."
   },
@@ -357,7 +338,6 @@
       "välilehtien nimet",
       "xlsx"
     ],
-    "tool.system_prompt": "Tämä työkalu suorittaa työkalun nimen 'excel_ops' kuvaaman toiminnon.",
     "param.password.description": "Salasana salatuille .",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
   },
@@ -375,7 +355,6 @@
       "názvy listů",
       "xlsx"
     ],
-    "tool.system_prompt": "Tento nástroj provádí operaci popsanou názvem nástroje 'excel_ops'.",
     "param.password.description": "Volitelné heslo pro šifrov...",
     "prompt.password": "Zadejte heslo pro tento soubor:\n{path}"
   },
@@ -393,7 +372,6 @@
       "імена аркушів",
       "xlsx"
     ],
-    "tool.system_prompt": "Цей інструмент виконує операцію, описану назвою інструмента 'excel_ops'.",
     "param.password.description": "Необовʼязковий пароль для...",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
   },
@@ -411,7 +389,6 @@
       "sayfa adları",
       "xlsx"
     ],
-    "tool.system_prompt": "Bu araç, 'excel_ops' araç adıyla açıklanan işlemi gerçekleştirir.",
     "param.password.description": "Şifrelenmiş .",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   },
@@ -429,7 +406,6 @@
       "ชื่อชีต",
       "xlsx"
     ],
-    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'excel_ops'",
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .",
     "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
   },
@@ -447,7 +423,6 @@
       "工作表名称",
       "xlsx"
     ],
-    "tool.system_prompt": "此工具执行工具名称“excel_ops”所描述的操作。",
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "请输入此文件的密码：\n{path}"
   },
@@ -465,7 +440,6 @@
       "工作表名稱",
       "xlsx"
     ],
-    "tool.system_prompt": "此工具執行工具名稱「excel_ops」所描述的操作。",
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "請輸入此文件的密碼：\n{path}"
   },
@@ -483,7 +457,6 @@
       "শিটের নাম",
       "xlsx"
     ],
-    "tool.system_prompt": "এই টুলটি 'excel_ops' টুল নামে বর্ণিত অপারেশনটি সম্পাদন করে।",
     "param.password.description": "এনক্রিপ্ট করা .",
     "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
   },
@@ -501,7 +474,6 @@
       "نام برگه‌ها",
       "xlsx"
     ],
-    "tool.system_prompt": "این ابزار عملیاتی را انجام می‌دهد که با نام ابزار 'excel_ops' توصیف شده است.",
     "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
   },
@@ -519,7 +491,6 @@
       "хуудасны нэрс",
       "xlsx"
     ],
-    "tool.system_prompt": "Энэ хэрэгсэл нь 'excel_ops' хэрэгслийн нэрээр тайлбарлагдсан үйлдлийг гүйцэтгэнэ.",
     "param.password.description": "Шифрлэгдсэн .",
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
   },
@@ -537,7 +508,6 @@
       "शीट नावे",
       "xlsx"
     ],
-    "tool.system_prompt": "हे टूल 'excel_ops' या टूल नावाने वर्णन केलेली क्रिया करते.",
     "param.password.description": "एनक्रिप्टेड .",
     "prompt.password": "या फाइलचा पासवर्ड टाका:\n{path}"
   }

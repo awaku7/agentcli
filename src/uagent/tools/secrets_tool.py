@@ -184,13 +184,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Manage local secrets using symmetric key in uagent state directory.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Manage local secrets. Return JSON only. "
-                "Key file is stored under the uagent state dir (default: ~/.uag)."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

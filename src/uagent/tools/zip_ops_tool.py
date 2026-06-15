@@ -37,16 +37,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Create/extract/list ZIP files. Protected against Zip Slip and Zip Bomb.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections). "
-                "Important: during extract, Zip Slip paths (../, absolute paths, drive letters, etc.) are rejected. "
-                "Important: overwrite=True for extract may overwrite existing files and will ask for confirmation via human_ask. "
-                "Important: Zip bomb protections reject archives exceeding max_files and max_total_uncompressed_bytes. "
-                "Important: paths outside workdir are rejected (per safe_file_ops_extras)."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

@@ -11,8 +11,7 @@
       "top-level windows",
       "pid",
       "class name"
-    ],
-    "tool.system_prompt": "This tool lists top-level window titles on Windows and returns structured JSON. Windows only."
+    ]
   },
   "ja": {
     "param.all.description": "非表示ウィンドウも含める。",
@@ -24,8 +23,7 @@
       "ウィンドウ一覧",
       "ウィンドウタイトル",
       "トップレベルウィンドウ"
-    ],
-    "tool.system_prompt": "このツールは Windows 上のトップレベルウィンドウタイトルを列挙し、構造化 JSON を返します。Windows 専用です。"
+    ]
   },
   "es": {
     "param.all.description": "Incluya ventanas no visibles.",
@@ -37,8 +35,7 @@
       "títulos de ventanas",
       "ventanas superiores",
       "listar ventanas"
-    ],
-    "tool.system_prompt": "Esta herramienta enumera títulos de ventanas de nivel superior en Windows y devuelve JSON estructurado. Es solo para Windows."
+    ]
   },
   "fr": {
     "param.all.description": "Incluez les fenêtres non...",
@@ -50,8 +47,7 @@
       "titres de fenêtres",
       "fenêtres de niveau supérieur",
       "lister fenêtres"
-    ],
-    "tool.system_prompt": "Cet outil répertorie les titres des fenêtres de niveau supérieur sous Windows et renvoie un JSON structuré. Il est réservé à Windows."
+    ]
   },
   "ko": {
     "param.all.description": "보이지 않는 창을 포함합니다.",
@@ -63,8 +59,7 @@
       "창 목록",
       "창 제목",
       "최상위 창"
-    ],
-    "tool.system_prompt": "이 도구는 Windows에서 최상위 창 제목을 열거하고 구조화된 JSON을 반환합니다. Windows 전용입니다."
+    ]
   },
   "de": {
     "param.all.description": "Schließen Sie nicht sich...",
@@ -76,8 +71,7 @@
       "fenstertitel",
       "oberste fenster",
       "fenster auflisten"
-    ],
-    "tool.system_prompt": "Dieses Tool listet die Titel der Fenster der obersten Ebene unter Windows auf und gibt strukturiertes JSON zurück. Es ist nur unter Windows verfügbar."
+    ]
   },
   "it": {
     "param.all.description": "Includi finestre non vis...",
@@ -89,8 +83,7 @@
       "titoli finestre",
       "finestre top-level",
       "elenca finestre"
-    ],
-    "tool.system_prompt": "Questo strumento elenca i titoli delle finestre di primo livello su Windows e restituisce JSON strutturato. È disponibile solo su Windows."
+    ]
   },
   "ru": {
     "param.all.description": "Включите невидимые окна.",
@@ -102,8 +95,7 @@
       "заголовки окон",
       "верхний уровень",
       "список окон"
-    ],
-    "tool.system_prompt": "Этот инструмент перечисляет заголовки окон верхнего уровня в Windows и возвращает структурированный JSON. Он работает только в Windows."
+    ]
   },
   "pt_BR": {
     "param.all.description": "Inclui janelas não visíveis.",
@@ -115,8 +107,7 @@
       "títulos de janelas",
       "janelas de nível superior",
       "listar janelas"
-    ],
-    "tool.system_prompt": "Esta ferramenta lista os títulos das janelas de nível superior no Windows e retorna JSON estruturado. É exclusiva para Windows."
+    ]
   },
   "pt": {
     "param.all.description": "Inclui janelas não visíveis.",
@@ -128,8 +119,7 @@
       "títulos de janelas",
       "janelas de nível superior",
       "listar janelas"
-    ],
-    "tool.system_prompt": "Esta ferramenta enumera títulos de janelas de nível superior no Windows e retorna JSON estruturado. É apenas para Windows."
+    ]
   },
   "id": {
     "param.all.description": "Sertakan jendela yang ti...",
@@ -141,8 +131,7 @@
       "judul jendela",
       "jendela tingkat atas",
       "daftar jendela"
-    ],
-    "tool.system_prompt": "Alat ini menghitung judul jendela tingkat atas di Windows dan mengembalikan JSON terstruktur. Ini hanya untuk Windows."
+    ]
   },
   "vi": {
     "param.all.description": "Bao gồm các cửa sổ không...",
@@ -154,8 +143,7 @@
       "tiêu đề cửa sổ",
       "cửa sổ cấp cao nhất",
       "liệt kê cửa sổ"
-    ],
-    "tool.system_prompt": "Công cụ này liệt kê các tiêu đề cửa sổ cấp cao nhất trên Windows và trả về JSON có cấu trúc. Nó chỉ dành cho Windows."
+    ]
   },
   "pl": {
     "param.all.description": "Uwzględnij niewidoczne okna.",
@@ -167,8 +155,7 @@
       "tytuły okien",
       "okna najwyższego poziomu",
       "lista okien"
-    ],
-    "tool.system_prompt": "To narzędzie wyświetla tytuły okien najwyższego poziomu w systemie Windows i zwraca ustrukturyzowany JSON. Działa tylko w systemie Windows."
+    ]
   },
   "hi": {
     "param.all.description": "ग़ैर-दृश्यमान विंडो शामि...",
@@ -180,8 +167,7 @@
       "विंडो शीर्षक",
       "शीर्ष-स्तरीय विंडो",
       "विंडो सूची"
-    ],
-    "tool.system_prompt": "यह टूल विंडोज़ पर शीर्ष-स्तरीय विंडो शीर्षकों की सूची बनाता है और संरचित JSON लौटाता है। यह केवल विंडोज़ पर काम करता है।"
+    ]
   },
   "ar": {
     "param.all.description": "تضمين النوافذ غير المرئية.",
@@ -193,8 +179,7 @@
       "عناوين النوافذ",
       "نوافذ المستوى الأعلى",
       "سرد النوافذ"
-    ],
-    "tool.system_prompt": "تسرد هذه الأداة عناوين النوافذ ذات المستوى الأعلى في Windows وتعيد JSON منظمًا. تعمل على Windows فقط."
+    ]
   },
   "sv": {
     "param.all.description": "Inkludera även icke-synl...",
@@ -206,8 +191,7 @@
       "fönstertitlar",
       "översta fönster",
       "lista fönster"
-    ],
-    "tool.system_prompt": "Det här verktyget listar titlarna för fönster på översta nivån i Windows och returnerar strukturerad JSON. Det fungerar endast i Windows."
+    ]
   },
   "sw": {
     "param.all.description": "Include non-visible windows.",
@@ -219,8 +203,7 @@
       "majina ya madirisha",
       "madirisha ya juu",
       "orodhesha madirisha"
-    ],
-    "tool.system_prompt": "This tool lists top-level window titles on Windows and returns structured JSON. Windows only."
+    ]
   },
   "nb": {
     "param.all.description": "Ta også med usynlige vinduer.",
@@ -232,8 +215,7 @@
       "vindustitler",
       "øverste vinduer",
       "liste vinduer"
-    ],
-    "tool.system_prompt": "Dette verktøyet lister opp vindustitler på øverste nivå i Windows og returnerer strukturert JSON. Det er kun for Windows."
+    ]
   },
   "nl": {
     "param.all.description": "Niet-zichtbare vensters...",
@@ -245,8 +227,7 @@
       "venstertitels",
       "bovenste vensters",
       "vensters opsommen"
-    ],
-    "tool.system_prompt": "Dit hulpmiddel somt de titels van vensters op het hoogste niveau in Windows op en geeft gestructureerde JSON terug. Alleen voor Windows."
+    ]
   },
   "fi": {
     "param.all.description": "Sisällytä myös näkymättö...",
@@ -258,8 +239,7 @@
       "ikkunoiden otsikot",
       "ylimmän tason ikkunat",
       "luettele ikkunat"
-    ],
-    "tool.system_prompt": "Listaa Windowsin ylimmän tason ikkunoiden otsikot ja palauta jäsennelty JSON. Vain Windowsissa."
+    ]
   },
   "cs": {
     "param.all.description": "Zahrnout i neviditelná okna.",
@@ -271,8 +251,7 @@
       "názvy oken",
       "okna nejvyšší úrovně",
       "vypsat okna"
-    ],
-    "tool.system_prompt": "Tento nástroj vypisuje názvy oken nejvyšší úrovně ve Windows a vrací strukturovaný JSON. Funguje pouze ve Windows."
+    ]
   },
   "uk": {
     "param.all.description": "Включити також невидимі...",
@@ -284,8 +263,7 @@
       "заголовки вікон",
       "вікна верхнього рівня",
       "список вікон"
-    ],
-    "tool.system_prompt": "Цей інструмент перелічує заголовки вікон верхнього рівня у Windows і повертає структурований JSON. Працює лише у Windows."
+    ]
   },
   "tr": {
     "param.all.description": "Görünmeyen pencereleri d...",
@@ -297,8 +275,7 @@
       "pencere başlıkları",
       "üst düzey pencereler",
       "pencere listesi"
-    ],
-    "tool.system_prompt": "Bu araç, Windows'ta üst düzey pencere başlıklarını listeler ve yapılandırılmış JSON değerini döndürür. Yalnızca Windows."
+    ]
   },
   "th": {
     "param.all.description": "รวมถึงหน้าต่างที่มองไม่เห็น",
@@ -310,8 +287,7 @@
       "ชื่อหน้าต่าง",
       "หน้าต่างระดับบนสุด",
       "รายการหน้าต่าง"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้แสดงรายการชื่อหน้าต่างระดับบนสุดบน Windows และส่งคืน JSON ที่มีโครงสร้าง ใช้ได้เฉพาะ Windows เท่านั้น"
+    ]
   },
   "zh_CN": {
     "param.all.description": "包括不可见的窗口。",
@@ -323,8 +299,7 @@
       "窗口标题",
       "顶层窗口",
       "列出窗口"
-    ],
-    "tool.system_prompt": "该工具枚举 Windows 上的顶级窗口标题并返回结构化 JSON。它仅适用于 Windows。"
+    ]
   },
   "zh_TW": {
     "param.all.description": "包括不可見的視窗。",
@@ -336,8 +311,7 @@
       "視窗標題",
       "頂層視窗",
       "列出視窗"
-    ],
-    "tool.system_prompt": "此工具會列舉 Windows 上的頂層視窗標題並傳回結構化 JSON。它僅適用於 Windows。"
+    ]
   },
   "bn": {
     "param.all.description": "অদৃশ্য উইন্ডোগুলিও অন্তর...",
@@ -349,8 +323,7 @@
       "উইন্ডো শিরোনাম",
       "শীর্ষ-স্তরের উইন্ডো",
       "উইন্ডো তালিকা"
-    ],
-    "tool.system_prompt": "এই টুলটি Windows-এ শীর্ষ-স্তরের উইন্ডোর শিরোনাম তালিকাভুক্ত করে কাঠামোবদ্ধ JSON ফেরত দেয়। শুধু Windows-এ কাজ করে।"
+    ]
   },
   "fa": {
     "param.all.description": "پنجره‌های نامرئی را نیز...",
@@ -362,8 +335,7 @@
       "عنوان پنجره‌ها",
       "پنجره‌های سطح بالا",
       "فهرست پنجره‌ها"
-    ],
-    "tool.system_prompt": "این ابزار عنوان پنجره‌های سطح بالای ویندوز را فهرست می‌کند و JSON ساخت‌یافته برمی‌گرداند. فقط در Windows کار می‌کند."
+    ]
   },
   "mn": {
     "param.all.description": "Үл харагдах цонхнуудыг м...",
@@ -375,8 +347,7 @@
       "цонхны гарчиг",
       "дээд түвшний цонх",
       "цонх жагсаах"
-    ],
-    "tool.system_prompt": "Энэ хэрэгсэл нь Windows дээрх дээд түвшний цонхны гарчгуудыг жагсааж, бүтэцлэгдсэн JSON буцаана. Зөвхөн Windows-д ажиллана."
+    ]
   },
   "mr": {
     "param.all.description": "दिसत नसलेल्या विंडोही सम...",
@@ -388,7 +359,6 @@
       "विंडो शीर्षके",
       "वरिष्ठ स्तर विंडो",
       "विंडो यादी"
-    ],
-    "tool.system_prompt": "हे साधन Windows वरील शीर्ष-स्तरीय विंडो शीर्षके सूचीबद्ध करून संरचित JSON परत करते. फक्त Windowsवरच कार्य करते."
+    ]
   }
 }

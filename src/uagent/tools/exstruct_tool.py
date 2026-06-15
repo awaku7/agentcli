@@ -92,10 +92,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Use exstruct to extract structured data from an Excel (. xlsx) and return/save as JSON/YAML.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool performs the operation described by the tool name 'exstruct'.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

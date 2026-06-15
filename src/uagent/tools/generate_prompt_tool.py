@@ -30,18 +30,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Generate a prompt string from a file using a Python format template.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Read a text file under workdir and generate a prompt string by applying a template (Python str.format).\n"
-                "Available template variables:\n"
-                "- content: full file content (text)\n"
-                "- lines: number of lines\n"
-                "- bytes: file size in bytes\n"
-                "- basename: file basename\n"
-                "- path: absolute resolved path\n"
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

@@ -16,13 +16,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Enumerate top-level window titles on Windows and return structured JSON. Parameters: 'all' (include non-visible), 'pid' (include PID), 'class' (inc...",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool enumerates top-level window titles on Windows and returns structured JSON. "
-                "It is Windows-only."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

@@ -26,12 +26,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "Execute Python code in a controlled way. Use this tool for calculations, data processing, or running short scripts."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Execute Python code in a controlled way. When you are about to run code, briefly state what will be executed."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

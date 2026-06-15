@@ -15,8 +15,7 @@
       "format",
       "ruff",
       "black"
-    ],
-    "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
+    ]
   },
   "ja": {
     "confirm.msg": "lint_format(mode=fix) はファイルを書き換える可能性があります。\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n実行してよければ y、キャンセルなら c と入力してください。",
@@ -32,8 +31,7 @@
       "静的解析",
       "コード整形",
       "lint 実行"
-    ],
-    "tool.system_prompt": "静的解析・フォーマッタを実行します。ユーザーの追加確認が必要な場合（例：mode=fix）、human_ask を使用してください。"
+    ]
   },
   "es": {
     "confirm.msg": "lint_format(mode=fix) puede reescribir archivos.",
@@ -49,8 +47,7 @@
       "formatear código",
       "análisis estático",
       "ejecutar linters"
-    ],
-    "tool.system_prompt": "Ejecute análisis/formateadores estáticos. Si se requiere confirmación adicional del usuario (por ejemplo, mode=fix), use human_ask."
+    ]
   },
   "fr": {
     "confirm.msg": "lint_format(mode=fix) peut réécrire les fichiers.",
@@ -66,8 +63,7 @@
       "formater code",
       "analyse statique",
       "exécuter linters"
-    ],
-    "tool.system_prompt": "Exécutez une analyse statique/des formateurs. Si une confirmation supplémentaire de l'utilisateur est requise (par exemple, mode=fix), utilisez human_ask."
+    ]
   },
   "ko": {
     "confirm.msg": "lint_format(mode=fix)는 파일을 다시 쓸 수 있습니다.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\n진행하려면 y, 취소하려면 c를 입력하십시오.",
@@ -83,8 +79,7 @@
       "정적 분석",
       "코드 포맷",
       "lint 실행"
-    ],
-    "tool.system_prompt": "정적 분석/포매터를 실행합니다. 추가 사용자 확인이 필요한 경우(예: mode=fix), human_ask를 사용하세요."
+    ]
   },
   "de": {
     "confirm.msg": "lint_format(mode=fix) kann Dateien überschreiben.",
@@ -100,8 +95,7 @@
       "code formatieren",
       "statische analyse",
       "linters ausführen"
-    ],
-    "tool.system_prompt": "Führen Sie statische Analyse-/Formatierungswerkzeuge aus. Wenn zusätzliche Benutzerbestätigung erforderlich ist (z. B. mode=fix), verwenden Sie human_ask."
+    ]
   },
   "it": {
     "confirm.msg": "lint_format(mode=fix) può riscrivere i file.",
@@ -117,8 +111,7 @@
       "formattare codice",
       "analisi statica",
       "eseguire lint"
-    ],
-    "tool.system_prompt": "Esegui analisi/formattatori statici. Se è necessaria un'ulteriore conferma da parte dell'utente (ad esempio, mode=fix), utilizzare human_ask."
+    ]
   },
   "ru": {
     "confirm.msg": "lint_format(mode=fix) может перезаписать файлы.",
@@ -134,8 +127,7 @@
       "форматировать код",
       "статический анализ",
       "запуск linters"
-    ],
-    "tool.system_prompt": "Запустите статический анализ/форматирование. Если требуется дополнительное подтверждение пользователя (например, mode=fix), используйте human_ask."
+    ]
   },
   "pt_BR": {
     "confirm.msg": "lint_format(mode=fix) pode sobrescrever arquivos.\nferramentas: {tools}\nalvos: {targets}\ncwd: {cwd}\n\nDigite y para continuar ou c para cancelar.",
@@ -151,8 +143,7 @@
       "formatar código",
       "análise estática",
       "executar linters"
-    ],
-    "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
+    ]
   },
   "pt": {
     "confirm.msg": "lint_format(mode=fix) pode reescrever arquivos.",
@@ -168,8 +159,7 @@
       "formatar código",
       "análise estática",
       "executar linters"
-    ],
-    "tool.system_prompt": "Execute análises/formatadores estáticos. Se for necessária confirmação adicional do usuário (por exemplo, mode=fix), use human_ask."
+    ]
   },
   "id": {
     "confirm.msg": "lint_format(mode=fix) dapat menulis ulang file.",
@@ -185,8 +175,7 @@
       "format kode",
       "analisis statis",
       "jalankan linter"
-    ],
-    "tool.system_prompt": "Jalankan static analysis/formatter. Jika diperlukan konfirmasi pengguna tambahan (mis. mode=fix), gunakan human_ask."
+    ]
   },
   "vi": {
     "confirm.msg": "lint_format(mode=fix) có thể ghi lại tập tin.",
@@ -202,8 +191,7 @@
       "định dạng code",
       "phân tích tĩnh",
       "chạy linter"
-    ],
-    "tool.system_prompt": "Chạy phân tích/định dạng tĩnh. Nếu cần có xác nhận bổ sung của người dùng (ví dụ: mode=fix), hãy sử dụng human_ask."
+    ]
   },
   "pl": {
     "confirm.msg": "lint_format(mode=fix) może nadpisać pliki.\nnarzędzia: {tools}\ncele: {targets}\ncwd: {cwd}\n\nWpisz y, aby kontynuować, lub c, aby anulować.",
@@ -219,8 +207,7 @@
       "formatowanie kodu",
       "analiza statyczna",
       "uruchom linter"
-    ],
-    "tool.system_prompt": "Uruchamiaj statyczną analizę/formatowanie. Jeśli potrzebne jest dodatkowe potwierdzenie użytkownika (np. mode=fix), użyj human_ask."
+    ]
   },
   "hi": {
     "confirm.msg": "lint_format(mode=fix) फ़ाइलों को फिर से लिख सकता है।\nउपकरण: {tools}\nलक्ष्य: {targets}\ncwd: {cwd}\n\nजारी रखने के लिए y टाइप करें,...",
@@ -236,8 +223,7 @@
       "कोड फ़ॉर्मैट",
       "स्थैतिक विश्लेषण",
       "लिंटर चलाएँ"
-    ],
-    "tool.system_prompt": "स्थैतिक विश्लेषण/फ़ॉर्मैटर चलाएँ। यदि अतिरिक्त उपयोगकर्ता पुष्टि आवश्यक हो (जैसे mode=fix), तो human_ask का उपयोग करें।"
+    ]
   },
   "ar": {
     "confirm.msg": "قد يعيد lint_format(mode=fix) كتابة الملفات.\nالأدوات: {tools}\nالأهداف: {targets}\ncwd: {cwd}\n\nاكتب y للمتابعة أو c للإلغاء.",
@@ -253,8 +239,7 @@
       "تنسيق الكود",
       "تحليل ثابت",
       "تشغيل linters"
-    ],
-    "tool.system_prompt": "شغّل أدوات التحليل الثابت/التنسيق. إذا كانت هناك حاجة إلى تأكيد إضافي من المستخدم (مثل mode=fix)، فاستخدم human_ask."
+    ]
   },
   "sv": {
     "confirm.msg": "lint_format(mode=fix) kan skriva om filer.\nverktyg: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSkriv y om du vill fortsätta, eller c om du vill avbryta.",
@@ -270,8 +255,7 @@
       "formatera kod",
       "statisk analys",
       "köra linters"
-    ],
-    "tool.system_prompt": "Kör statisk analys/formaterare. Om ytterligare användarbekräftelse krävs (t.ex. mode=fix), använd human_ask."
+    ]
   },
   "sw": {
     "confirm.msg": "lint_format(mode=fix) may rewrite files.",
@@ -287,8 +271,7 @@
       "umbizo la msimbo",
       "uchambuzi tuli",
       "endesha linter"
-    ],
-    "tool.system_prompt": "Run static analysis/formatters. If additional user confirmation is required (e.g., mode=fix), use human_ask."
+    ]
   },
   "nb": {
     "confirm.msg": "lint_format(mode=fix) kan skrive om filer.",
@@ -304,8 +287,7 @@
       "formatere kode",
       "statisk analyse",
       "kjøre linters"
-    ],
-    "tool.system_prompt": "Kjør statisk analyse/formateringsverktøy. Hvis ytterligere brukerbekreftelse kreves (for eksempel mode=fix), bruk human_ask."
+    ]
   },
   "nl": {
     "confirm.msg": "lint_format(mode=fix) kan bestanden overschrijven.\nverwerkers: {tools}\ndoelen: {targets}\ncwd: {cwd}\n\nTyp y om door te gaan of c om te annuleren.",
@@ -321,8 +303,7 @@
       "code opmaken",
       "statische analyse",
       "linters uitvoeren"
-    ],
-    "tool.system_prompt": "Voer statische analyse/opmaaktools uit. Als aanvullende gebruikersbevestiging nodig is (bijv. mode=fix), gebruik human_ask."
+    ]
   },
   "fi": {
     "confirm.msg": "lint_format(mode=fix) voi kirjoittaa tiedostoja uudelleen.",
@@ -338,8 +319,7 @@
       "koodin muotoilu",
       "staattinen analyysi",
       "aja linters"
-    ],
-    "tool.system_prompt": "Suorita staattinen analyysi/muotoilutyökalut. Jos tarvitaan lisävahvistus käyttäjältä (esim. mode=fix), käytä human_askia."
+    ]
   },
   "cs": {
     "confirm.msg": "lint_format(mode=fix) může přepsat soubory.",
@@ -355,8 +335,7 @@
       "formátovat kód",
       "statická analýza",
       "spustit linters"
-    ],
-    "tool.system_prompt": "Spusťte statickou analýzu/formátovače. Pokud je vyžadováno další potvrzení uživatele (např. mode=fix), použijte human_ask."
+    ]
   },
   "uk": {
     "confirm.msg": "lint_format(mode=fix) може перезаписати файли.\nінструменти: {tools}\nцілі: {targets}\ncwd: {cwd}\n\nВведіть y, щоб продовжити, або c, щоб скасувати.",
@@ -372,8 +351,7 @@
       "форматувати код",
       "статичний аналіз",
       "запуск linters"
-    ],
-    "tool.system_prompt": "Запускайте статичний аналіз/форматери. Якщо потрібне додаткове підтвердження користувача (наприклад, mode=fix), використовуйте human_ask."
+    ]
   },
   "tr": {
     "confirm.msg": "lint_format(mode=fix) dosyaları yeniden yazabilir.",
@@ -389,8 +367,7 @@
       "kodu biçimlendir",
       "statik analiz",
       "linter çalıştır"
-    ],
-    "tool.system_prompt": "Statik analiz/biçimlendiricileri çalıştırın. Ek kullanıcı onayı gerekiyorsa (örn. mode=fix), human_ask'ı kullanın."
+    ]
   },
   "th": {
     "confirm.msg": "lint_format(mode=fix) อาจเขียนไฟล์ใหม่\nเครื่องมือ: {tools}\nเป้าหมาย: {targets}\ncwd: {cwd}\n\nพิมพ์ y หากต้องการดำเนินการต่อ หรือ c...",
@@ -406,8 +383,7 @@
       "จัดรูปแบบโค้ด",
       "การวิเคราะห์แบบคงที่",
       "รัน linter"
-    ],
-    "tool.system_prompt": "รันการวิเคราะห์สถิติ/ตัวจัดรูปแบบ หากต้องการการยืนยันจากผู้ใช้เพิ่มเติม (เช่น mode=fix) ให้ใช้ human_ask"
+    ]
   },
   "zh_CN": {
     "confirm.msg": "lint_format(mode=fix) 可能会重写文件。\n工具：{tools}\n目标：{targets}\ncwd：{cwd}\n\n如果要继续请键入 y，如果要取消请键入 c。",
@@ -423,8 +399,7 @@
       "代码格式化",
       "静态分析",
       "运行 linter"
-    ],
-    "tool.system_prompt": "运行静态分析/格式化程序。如果需要额外的用户确认（例如 mode=fix），请使用 human_ask。"
+    ]
   },
   "zh_TW": {
     "confirm.msg": "lint_format(mode=fix) 可能會重寫檔案。\n工具：{tools}\n目標：{targets}\ncwd：{cwd}\n\n如果要繼續請輸入 y，如果要取消請輸入 c。",
@@ -440,8 +415,7 @@
       "程式碼格式化",
       "靜態分析",
       "執行 linter"
-    ],
-    "tool.system_prompt": "執行靜態分析/格式化程序。如果需要額外的使用者確認（例如 mode=fix），請使用 human_ask。"
+    ]
   },
   "bn": {
     "confirm.msg": "lint_format(mode=fix) ফাইল আবার লিখে দিতে পারে.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nএগোতে চাইলে y, বাতিল করতে চাইলে c লিখুন।",
@@ -457,8 +431,7 @@
       "কোড ফরম্যাট",
       "স্থির বিশ্লেষণ",
       "লিন্টার চালান"
-    ],
-    "tool.system_prompt": "স্ট্যাটিক বিশ্লেষণ/ফরম্যাটার চালান। অতিরিক্ত ব্যবহারকারী নিশ্চিতকরণ লাগলে (যেমন mode=fix), human_ask ব্যবহার করুন।"
+    ]
   },
   "fa": {
     "confirm.msg": "lint_format(mode=fix) ممکن است فایل‌ها را بازنویسی کند.",
@@ -474,8 +447,7 @@
       "فرمت کد",
       "تحلیل ایستا",
       "اجرای lint"
-    ],
-    "tool.system_prompt": "تحلیل ایستا/قالب‌بندها را اجرا کنید. اگر تأیید اضافی کاربر لازم است (مثلاً mode=fix)، از human_ask استفاده کنید."
+    ]
   },
   "mn": {
     "confirm.msg": "lint_format(mode=fix) нь файлуудыг дахин бичиж болзошгүй.",
@@ -491,8 +463,7 @@
       "код форматлах",
       "статик шинжилгээ",
       "linters ажиллуулах"
-    ],
-    "tool.system_prompt": "Статик шинжилгээ/форматлагчдыг ажиллуулна уу. Хэрэв нэмэлт хэрэглэгчийн баталгаажуулалт шаардлагатай бол (жишээ нь mode=fix), human_ask ашиглана уу."
+    ]
   },
   "mr": {
     "confirm.msg": "lint_format(mode=fix) फाइल्स पुन्हा लिहू शकते.",
@@ -508,7 +479,6 @@
       "कोड फॉरमॅट",
       "स्थिर विश्लेषण",
       "लिंटर चालवा"
-    ],
-    "tool.system_prompt": "स्थिर विश्लेषण/formatter चालवा. अतिरिक्त वापरकर्ता पुष्टी आवश्यक असल्यास (उदा. mode=fix), human_ask वापरा."
+    ]
   }
 }

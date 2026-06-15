@@ -22,7 +22,6 @@
       "export json",
       "export yaml"
     ],
-    "tool.system_prompt": "This tool performs the operation described by the tool name 'exstruct'.",
     "param.password.description": "Password (prompts if needed).",
     "prompt.password": "Enter the password for this file:{path}"
   },
@@ -46,7 +45,6 @@
       "構造化データ",
       "json yaml"
     ],
-    "tool.system_prompt": "ツール名 'exstruct' で示される処理を実行します。JSONのみを返してください。",
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
@@ -70,7 +68,6 @@
       "datos estructurados",
       "json yaml"
     ],
-    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'exstruct'.",
     "param.password.description": "Contraseña opcional para a...",
     "prompt.password": "Introduzca la contraseña de este arc..."
   },
@@ -94,7 +91,6 @@
       "données structurées",
       "json yaml"
     ],
-    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « exstruct » .",
     "param.password.description": "Mot de passe facultatif po...",
     "prompt.password": "Entrez le mot de passe de ce fichier..."
   },
@@ -118,7 +114,6 @@
       "구조화 데이터",
       "json yaml"
     ],
-    "tool.system_prompt": "이 도구는 도구 이름 'exstruct'에 설명된 작업을 수행합니다.",
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
   },
@@ -142,7 +137,6 @@
       "strukturierte daten",
       "json yaml"
     ],
-    "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „exstruct“ beschriebenen Vorgang aus.",
     "param.password.description": "Optionales Kennwort für ve...",
     "prompt.password": "Bitte geben Sie das Kennwort für die..."
   },
@@ -166,7 +160,6 @@
       "dati strutturati",
       "json yaml"
     ],
-    "tool.system_prompt": "Questo strumento esegue l'operazione descritta dal nome dello strumento 'exstruct'.",
     "param.password.description": "Password facoltativa per f...",
     "prompt.password": "Inserisci la password di questo file..."
   },
@@ -190,7 +183,6 @@
       "структурированные данные",
       "json yaml"
     ],
-    "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «exstruct».",
     "param.password.description": "Необязательный пароль для...",
     "prompt.password": "Введите пароль для этого файла:\n{path}"
   },
@@ -214,7 +206,6 @@
       "dados estruturados",
       "json yaml"
     ],
-    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'exstruct'.",
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
@@ -238,7 +229,6 @@
       "dados estruturados",
       "json yaml"
     ],
-    "tool.system_prompt": "Use esta ferramenta para executar a operação descrita pelo nome da ferramenta 'exstruct'.",
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
@@ -262,7 +252,6 @@
       "data terstruktur",
       "json yaml"
     ],
-    "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'exstruct'.",
     "param.password.description": "Kata sandi opsional untuk...",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
   },
@@ -286,7 +275,6 @@
       "dữ liệu có cấu trúc",
       "json yaml"
     ],
-    "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'exstruct'.",
     "param.password.description": "Mật khẩu tùy chọn cho tệp .",
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
   },
@@ -310,7 +298,6 @@
       "dane strukturalne",
       "json yaml"
     ],
-    "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą narzędzia „exstruct”.",
     "param.password.description": "Opcjonalne hasło do zaszyf...",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
   },
@@ -334,7 +321,6 @@
       "संरचित डेटा",
       "json yaml"
     ],
-    "tool.system_prompt": "यह टूल टूल नाम 'exstruct' द्वारा वर्णित ऑपरेशन करता है।",
     "param.password.description": "एन्क्रिप्टेड .",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
   },
@@ -358,7 +344,6 @@
       "بيانات منظمة",
       "json yaml"
     ],
-    "tool.system_prompt": "استخدم هذه الأداة لتنفيذ العملية الموضحة باسم الأداة 'exstruct'.",
     "param.password.description": "كلمة مرور اختيارية لملفات .",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
   },
@@ -382,7 +367,6 @@
       "strukturerad data",
       "json yaml"
     ],
-    "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'exstruct'.",
     "param.password.description": "Valfritt lösenord för kryp...",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}"
   },
@@ -406,7 +390,6 @@
       "data zilizopangwa",
       "json yaml"
     ],
-    "tool.system_prompt": "Tumia zana hii kutekeleza operesheni iliyoelezwa na jina la zana 'exstruct'.",
     "param.password.description": "Nenosiri la hiari kwa fail...",
     "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
   },
@@ -430,7 +413,6 @@
       "strukturert data",
       "json yaml"
     ],
-    "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'exstruct'.",
     "param.password.description": "Valgfritt passord for kryp...",
     "prompt.password": "Skriv inn passordet for denne filen:..."
   },
@@ -454,7 +436,6 @@
       "gestructureerde data",
       "json yaml"
     ],
-    "tool.system_prompt": "Gebruik dit hulpmiddel om de bewerking uit te voeren die door de toolnaam 'exstruct' wordt beschreven.",
     "param.password.description": "Optioneel wachtwoord voor...",
     "prompt.password": "Voer het wachtwoord voor dit bestand..."
   },
@@ -478,7 +459,6 @@
       "rakenteinen data",
       "json yaml"
     ],
-    "tool.system_prompt": "Käytä tätä työkalua suorittamaan toiminto, joka on kuvattu työkalun nimellä 'exstruct'.",
     "param.password.description": "Salasana salatuille .",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
   },
@@ -502,7 +482,6 @@
       "strukturovaná data",
       "json yaml"
     ],
-    "tool.system_prompt": "Tento nástroj provádí operaci popsanou názvem nástroje 'exstruct'.",
     "param.password.description": "Volitelné heslo pro šifrov...",
     "prompt.password": "Zadejte heslo pro tento soubor:\n{path}"
   },
@@ -526,7 +505,6 @@
       "структуровані дані",
       "json yaml"
     ],
-    "tool.system_prompt": "Цей інструмент виконує операцію, описану назвою інструмента 'exstruct'.",
     "param.password.description": "Необовʼязковий пароль для...",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
   },
@@ -550,7 +528,6 @@
       "yapılandırılmış veri",
       "json yaml"
     ],
-    "tool.system_prompt": "Bu araç, 'exstruct' araç adıyla tanımlanan işlemi gerçekleştirir.",
     "param.password.description": "Şifrelenmiş .",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   },
@@ -574,7 +551,6 @@
       "ข้อมูลโครงสร้าง",
       "json yaml"
     ],
-    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'exstruct'",
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .",
     "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
   },
@@ -598,7 +574,6 @@
       "结构化数据",
       "json yaml"
     ],
-    "tool.system_prompt": "该工具执行工具名称“exstruct”所描述的操作。",
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "请输入此文件的密码：\n{path}"
   },
@@ -622,7 +597,6 @@
       "結構化資料",
       "json yaml"
     ],
-    "tool.system_prompt": "此工具執行工具名稱「exstruct」所描述的操作。",
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "請輸入此文件的密碼：\n{path}"
   },
@@ -646,7 +620,6 @@
       "কাঠামোবদ্ধ ডেটা",
       "json yaml"
     ],
-    "tool.system_prompt": "এই টুলটি 'exstruct' নামের টুলে বর্ণিত কাজটি সম্পাদন করে।",
     "param.password.description": "এনক্রিপ্ট করা .",
     "prompt.password": "এই ফাইলটির পাসওয়ার্ড লিখুন:\n{path}"
   },
@@ -670,7 +643,6 @@
       "داده ساخت‌یافته",
       "json yaml"
     ],
-    "tool.system_prompt": "این ابزار عملیاتی را که با نام ابزار 'exstruct' توصیف شده انجام می‌دهد.",
     "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
   },
@@ -694,7 +666,6 @@
       "бүтэцтэй өгөгдөл",
       "json yaml"
     ],
-    "tool.system_prompt": "Энэ хэрэгсэл нь 'exstruct' нэрээр тайлбарласан үйлдлийг гүйцэтгэнэ.",
     "param.password.description": "Шифрлэгдсэн .",
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
   },
@@ -718,7 +689,6 @@
       "संरचित डेटा",
       "json yaml"
     ],
-    "tool.system_prompt": "हे साधन 'exstruct' या साधन-नावाने वर्णन केलेली क्रिया करते.",
     "param.password.description": "एन्क्रिप्ट केलेल्या .",
     "prompt.password": "या फाइलसाठी पासवर्ड टाका:\n{path}"
   }

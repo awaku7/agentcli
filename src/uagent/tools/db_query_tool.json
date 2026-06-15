@@ -10,8 +10,7 @@
       "database",
       "sqlite",
       "query"
-    ],
-    "tool.system_prompt": "This tool performs the operation described by the tool name 'db_query'."
+    ]
   },
   "ja": {
     "param.db_path.description": "SQLite データベースファイルのパス。",
@@ -22,8 +21,7 @@
       "db query",
       "SQLite クエリ",
       "PRAGMA"
-    ],
-    "tool.system_prompt": "このツールは、ツール名 'db_query' で示される処理を実行します。"
+    ]
   },
   "es": {
     "param.db_path.description": "Ruta al archivo de base de dat...",
@@ -34,8 +32,7 @@
       "db query",
       "consulta sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'db_query'."
+    ]
   },
   "fr": {
     "param.db_path.description": "Chemin du fichier de base de d...",
@@ -46,8 +43,7 @@
       "db query",
       "requête sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "Cet outil effectue l'opération décrite par le nom d'outil « db_query »."
+    ]
   },
   "ko": {
     "param.db_path.description": "SQLite 데이터베이스 파일의 경로입니다.",
@@ -58,8 +54,7 @@
       "db query",
       "sqlite 쿼리",
       "pragma"
-    ],
-    "tool.system_prompt": "이 도구는 도구 이름 'db_query'에 설명된 작업을 수행합니다."
+    ]
   },
   "de": {
     "param.db_path.description": "Pfad zur SQLite-Datenbankdatei.",
@@ -70,8 +65,7 @@
       "db query",
       "sqlite-abfrage",
       "pragma"
-    ],
-    "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „db_query“ beschriebenen Vorgang aus."
+    ]
   },
   "it": {
     "param.db_path.description": "Percorso del file di database...",
@@ -82,8 +76,7 @@
       "db query",
       "query sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "Questo strumento esegue l'operazione descritta dal nome dello strumento 'db_query'."
+    ]
   },
   "ru": {
     "param.db_path.description": "Путь к файлу базы данных SQLite.",
@@ -94,8 +87,7 @@
       "db query",
       "sqlite запрос",
       "pragma"
-    ],
-    "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «db_query»."
+    ]
   },
   "pt_BR": {
     "param.db_path.description": "Caminho para o arquivo de banc...",
@@ -106,8 +98,7 @@
       "db query",
       "consulta sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
+    ]
   },
   "pt": {
     "param.db_path.description": "Caminho para o arquivo de banc...",
@@ -118,8 +109,7 @@
       "db query",
       "consulta sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
+    ]
   },
   "id": {
     "param.db_path.description": "Jalur ke file database SQLite.",
@@ -130,8 +120,7 @@
       "db query",
       "kueri sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'db_query'."
+    ]
   },
   "vi": {
     "param.db_path.description": "Đường dẫn đến tệp cơ sở dữ liệ...",
@@ -142,8 +131,7 @@
       "db query",
       "truy vấn sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "Công cụ này thực hiện thao tác được mô tả bằng tên công cụ 'db_query'."
+    ]
   },
   "pl": {
     "param.db_path.description": "Ścieżka do pliku bazy danych SQLite.",
@@ -154,8 +142,7 @@
       "db query",
       "zapytanie sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "Narzędzie to wykonuje operację opisaną pod nazwą „db_query”."
+    ]
   },
   "hi": {
     "param.db_path.description": "SQLite डेटाबेस फ़ाइल का पथ.",
@@ -166,8 +153,7 @@
       "db query",
       "sqlite क्वेरी",
       "pragma"
-    ],
-    "tool.system_prompt": "यह टूल टूल नाम 'db_query' द्वारा वर्णित ऑपरेशन करता है।"
+    ]
   },
   "ar": {
     "param.db_path.description": "المسار إلى ملف قاعدة بيانات SQLite.",
@@ -178,8 +164,7 @@
       "db query",
       "استعلام sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"db_query\"."
+    ]
   },
   "sv": {
     "param.db_path.description": "Sökvägen till SQLite-databasfilen.",
@@ -190,8 +175,7 @@
       "db query",
       "sqlite-fråga",
       "pragma"
-    ],
-    "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'db_query'."
+    ]
   },
   "sw": {
     "param.db_path.description": "Njia ya faili la hifadhidata y...",
@@ -202,8 +186,7 @@
       "db query",
       "hojaji sqlite",
       "pragma"
-    ],
-    "tool.system_prompt": "Tumia zana hii kutekeleza operesheni iliyoelezwa na jina la zana 'db_query'."
+    ]
   },
   "nb": {
     "param.db_path.description": "Stien til SQLite-databasefilen.",
@@ -214,8 +197,7 @@
       "db query",
       "sqlite-spørring",
       "pragma"
-    ],
-    "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet 'db_query'."
+    ]
   },
   "nl": {
     "param.db_path.description": "Pad naar het SQLite-databasebestand.",
@@ -226,8 +208,7 @@
       "db query",
       "sqlite-query",
       "pragma"
-    ],
-    "tool.system_prompt": "Gebruik deze tool voor SQLite-querys en retourneer JSON. Alleen leesbewerkingen (SELECT) en schema-inspectie (PRAGMA) worden ondersteund."
+    ]
   },
   "fi": {
     "param.db_path.description": "SQLite-tietokantatiedoston polku.",
@@ -238,8 +219,7 @@
       "db query",
       "sqlite-kysely",
       "pragma"
-    ],
-    "tool.system_prompt": "Käytä tätä työkalua SQLite-kyselyihin ja palauta JSON. Tukee vain lukuoperaatioita (SELECT) ja skeeman tarkistusta (PRAGMA)."
+    ]
   },
   "cs": {
     "param.db_path.description": "Cesta k souboru databáze SQLite.",
@@ -250,8 +230,7 @@
       "db query",
       "sqlite dotaz",
       "pragma"
-    ],
-    "tool.system_prompt": "Tento nástroj provádí operaci popsanou názvem nástroje 'db_query'."
+    ]
   },
   "uk": {
     "param.db_path.description": "Шлях до файла бази даних SQLite.",
@@ -262,8 +241,7 @@
       "db query",
       "sqlite запит",
       "pragma"
-    ],
-    "tool.system_prompt": "Цей інструмент виконує операцію, описану назвою інструмента 'db_query'."
+    ]
   },
   "tr": {
     "param.db_path.description": "SQLite veritabanı dosyasının yolu.",
@@ -274,8 +252,7 @@
       "db query",
       "sqlite sorgu",
       "pragma"
-    ],
-    "tool.system_prompt": "Bu araç, 'db_query' araç adıyla açıklanan işlemi gerçekleştirir."
+    ]
   },
   "th": {
     "param.db_path.description": "พาธไปยังไฟล์ฐานข้อมูล SQLite",
@@ -286,8 +263,7 @@
       "db query",
       "sqlite คิวรี",
       "pragma"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้ดำเนินการตามที่อธิบายไว้ในชื่อเครื่องมือ 'db_query'"
+    ]
   },
   "zh_CN": {
     "param.db_path.description": "SQLite 数据库文件的路径。",
@@ -298,8 +274,7 @@
       "db query",
       "sqlite 查询",
       "pragma"
-    ],
-    "tool.system_prompt": "此工具执行工具名称“db_query”所描述的操作。"
+    ]
   },
   "zh_TW": {
     "param.db_path.description": "SQLite 資料庫檔案的路徑。",
@@ -310,8 +285,7 @@
       "db query",
       "sqlite 查詢",
       "pragma"
-    ],
-    "tool.system_prompt": "此工具執行工具名稱「db_query」所描述的操作。"
+    ]
   },
   "bn": {
     "param.db_path.description": "SQLite ডেটাবেস ফাইলের পথ।",
@@ -322,8 +296,7 @@
       "db query",
       "sqlite কুয়েরি",
       "pragma"
-    ],
-    "tool.system_prompt": "এই টুলটি 'db_query' নামের টুল দ্বারা বর্ণিত অপারেশনটি সম্পাদন করে।"
+    ]
   },
   "fa": {
     "param.db_path.description": "مسیر فایل پایگاه‌دادهٔ SQLite.",
@@ -334,8 +307,7 @@
       "db query",
       "sqlite پرس‌وجو",
       "pragma"
-    ],
-    "tool.system_prompt": "این ابزار عملیاتی را انجام می‌دهد که با نام ابزار 'db_query' توصیف شده است."
+    ]
   },
   "mn": {
     "param.db_path.description": "SQLite өгөгдлийн сангийн файлын зам.",
@@ -346,8 +318,7 @@
       "db query",
       "sqlite асуулга",
       "pragma"
-    ],
-    "tool.system_prompt": "Энэ хэрэгсэл нь 'db_query' хэрэгслийн нэрээр тодорхойлсон ажиллагааг гүйцэтгэнэ."
+    ]
   },
   "mr": {
     "param.db_path.description": "SQLite डेटाबेस फाइलचा मार्ग.",
@@ -358,7 +329,6 @@
       "db query",
       "sqlite क्वेरी",
       "pragma"
-    ],
-    "tool.system_prompt": "हे टूल 'db_query' या टूल नावाने वर्णन केलेली क्रिया करते."
+    ]
   }
 }

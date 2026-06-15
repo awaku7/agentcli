@@ -35,10 +35,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Send a message to an A2A server profile. Use only when no local tool can substitute.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="Send an A2A message. Return JSON only.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

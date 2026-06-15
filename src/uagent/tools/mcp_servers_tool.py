@@ -24,13 +24,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Manage MCP server definitions in mcp_servers.json (list/add/remove/set_default/validate/init_template).",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Operate on MCP server definitions stored in mcp_servers.json. "
-                "Return JSON only. Do not include human-readable text outside JSON."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

@@ -9,7 +9,6 @@
       "server profile",
       "mcp config"
     ],
-    "tool.system_prompt": "Operate on MCP server definitions stored in mcp_servers.json. Return JSON only; do not include human-readable text outside JSON.",
     "param.action.description": "Operation to perform. One of: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Path to mcp_servers.json. If omitted, uses the default location.",
     "param.pretty.description": "If true, pretty-print JSON output (default: true).",
@@ -55,7 +54,6 @@
       "サーバー管理",
       "json 出力"
     ],
-    "tool.system_prompt": "mcp_servers.json に保存された MCP サーバー定義を操作します。返答は JSON のみとし、JSON 以外の人間向けテキストは出力しません。",
     "param.action.description": "実行する操作。list/add/remove/set_default/validate/init_template のいずれか。",
     "param.path.description": "mcp_servers.json のパス。省略時は既定の場所を使用します。",
     "param.pretty.description": "true の場合、JSON 出力を整形します（既定: true）。",
@@ -101,7 +99,6 @@
       "gestión de servidores",
       "solo json"
     ],
-    "tool.system_prompt": "Trabaje sobre las definiciones de servidores MCP almacenadas en mcp_servers.json. Devuelva solo JSON; no incluya texto legible fuera del JSON.",
     "param.action.description": "Operación a realizar. Una de: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Ruta a mcp_servers.json. Si se omite, usa la ubicación predeterminada.",
     "param.pretty.description": "Si es true, formatea la salida JSON (por defect...",
@@ -147,7 +144,6 @@
       "gestion serveur",
       "json seulement"
     ],
-    "tool.system_prompt": "Travaillez sur les définitions de serveurs MCP stockées dans mcp_servers.json. Retournez uniquement du JSON ; n'incluez aucun texte lisible hors du JSON.",
     "param.action.description": "Opération à effectuer. L'une de : list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Chemin vers mcp_servers.json.",
     "param.pretty.description": "Si true, formate la sortie JSON (par défaut : true).",
@@ -193,7 +189,6 @@
       "서버 관리",
       "json 출력"
     ],
-    "tool.system_prompt": "mcp_servers.json에 저장된 MCP 서버 정의를 조작합니다. JSON만 반환하며, JSON 이외의 사람용 문장을 출력하지 않습니다.",
     "param.action.description": "수행할 작업. list/add/remove/set_default/validate/init_template 중 하나.",
     "param.path.description": "mcp_servers.json 경로. 생략하면 기본 위치를 사용합니다.",
     "param.pretty.description": "true이면 JSON 출력을 보기 좋게 포맷합니다(기본: true).",
@@ -239,7 +234,6 @@
       "serververwaltung",
       "nur json"
     ],
-    "tool.system_prompt": "Arbeiten Sie mit den in mcp_servers.json gespeicherten MCP-Serverdefinitionen. Geben Sie nur JSON zurück; fügen Sie keinen für Menschen lesbaren Text außerhalb des JSON ein.",
     "param.action.description": "Auszuführende Operation. Eine von: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Pfad zu mcp_servers.json.",
     "param.pretty.description": "Wenn true, wird die JSON-Ausgabe formatiert aus...",
@@ -285,7 +279,6 @@
       "gestione server",
       "solo json"
     ],
-    "tool.system_prompt": "Lavora sulle definizioni dei server MCP archiviate in mcp_servers.json. Restituisci solo JSON; non includere testo leggibile al di fuori del JSON.",
     "param.action.description": "Operazione da eseguire. Una tra: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Percorso di mcp_servers.json.",
     "param.pretty.description": "Se true, formatta l'output JSON (impostazione p...",
@@ -331,7 +324,6 @@
       "управление серверами",
       "только json"
     ],
-    "tool.system_prompt": "Работайте с определениями MCP-серверов, хранящимися в mcp_servers.json. Возвращайте только JSON. Не выводите человекочитаемый текст вне JSON.",
     "param.action.description": "Операция для выполнения. Одна из: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Путь к mcp_servers.json.",
     "param.pretty.description": "Если true, форматировать вывод JSON (по умолчан...",
@@ -377,7 +369,6 @@
       "gestão de servidores",
       "somente json"
     ],
-    "tool.system_prompt": "Opere sobre as definições de servidores MCP armazenadas em mcp_servers.json. Retorne apenas JSON; não inclua texto legível fora do JSON.",
     "param.action.description": "Operação a ser executada. Uma de: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Caminho para mcp_servers.json. Se omitido, usa o local padrão.",
     "param.pretty.description": "Se true, formata a saída JSON (padrão: true).",
@@ -423,7 +414,6 @@
       "gestão de servidores",
       "somente json"
     ],
-    "tool.system_prompt": "Opere sobre as definições de servidores MCP armazenadas em mcp_servers.json. Retorne apenas JSON; não inclua texto legível fora do JSON.",
     "param.action.description": "Operação a ser executada. Um de: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Caminho para mcp_servers.json. Se omitido, usa o local padrão.",
     "param.pretty.description": "Se verdadeiro, saída JSON de impressão bonita (...",
@@ -469,7 +459,6 @@
       "manajemen server",
       "json saja"
     ],
-    "tool.system_prompt": "Kelola definisi server MCP yang disimpan di mcp_servers.json. Kembalikan JSON saja. Jangan sertakan teks yang dapat dibaca manusia di luar JSON.",
     "param.action.description": "Operasi yang akan dilakukan.",
     "param.path.description": "Path ke mcp_servers.json. Jika dihilangkan, gunakan lokasi default.",
     "param.pretty.description": "Jika true, format output JSON dengan rapi (defa...",
@@ -515,7 +504,6 @@
       "quản lý máy chủ",
       "chỉ json"
     ],
-    "tool.system_prompt": "Hoạt động trên các định nghĩa máy chủ MCP được lưu trữ trong mcp_servers.json. Chỉ trả về JSON. Không bao gồm văn bản mà con người có thể đọc được bên ngoài JSON.",
     "param.action.description": "Thao tác để thực hiện. Một trong: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Đường dẫn đến mcp_servers.json. Nếu bỏ qua, sử dụng vị trí mặc định.",
     "param.pretty.description": "Nếu đúng, đầu ra JSON được in đẹp (mặc định: true).",
@@ -561,7 +549,6 @@
       "zarządzanie serwerami",
       "tylko json"
     ],
-    "tool.system_prompt": "Działaj na definicjach serwerów MCP przechowywanych w pliku mcp_servers.json. Zwróć tylko JSON. Nie dołączaj tekstu czytelnego dla człowieka poza formatem JSON.",
     "param.action.description": "Operacja do wykonania. Jeden z: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Ścieżka do pliku mcp_servers.json.",
     "param.pretty.description": "Jeśli to prawda, ładnie wydrukuj dane wyjściowe...",
@@ -607,7 +594,6 @@
       "सर्वर प्रबंधन",
       "केवल json"
     ],
-    "tool.system_prompt": "mcp_servers.json में संग्रहीत MCP सर्वर परिभाषाओं पर कार्य करें। केवल JSON लौटाएँ. JSON के बाहर मानव-पठनीय पाठ शामिल न करें।",
     "param.action.description": "प्रदर्शन करने के लिए ऑपरेशन.",
     "param.path.description": "mcp_servers.",
     "param.pretty.description": "यदि सत्य है, तो प्रीटी-प्रिंट JSON आउटपुट (डिफ़...",
@@ -653,7 +639,6 @@
       "إدارة الخوادم",
       "json فقط"
     ],
-    "tool.system_prompt": "تعمل على تعريفات خادم MCP المخزنة في mcp_servers.json. إرجاع JSON فقط. لا تقم بتضمين نص يمكن قراءته خارج JSON.",
     "param.action.description": "عملية لأداء. أحد: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "المسار إلى mcp_servers.json. إذا تم حذفه، يستخدم الموقع الافتراضي.",
     "param.pretty.description": "إذا كان صحيحًا، فاطبع مخرجات JSON بشكل جميل (ال...",
@@ -699,7 +684,6 @@
       "serverhantering",
       "endast json"
     ],
-    "tool.system_prompt": "Arbeta med MCP-serverdefinitioner som lagras i mcp_servers.json. Returnera endast JSON. Inkludera inte mänskligt läsbar text utanför JSON.",
     "param.action.description": "Åtgärd som ska utföras. En av: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Sökväg till mcp_servers.json.",
     "param.pretty.description": "Om true, formatera JSON-utdata snyggt (standard: true).",
@@ -745,7 +729,6 @@
       "server management",
       "json only"
     ],
-    "tool.system_prompt": "Fanya kazi kwenye ufafanuzi wa seva za MCP uliohifadhiwa katika mcp_servers.json. Rudisha JSON pekee; usijumuishe maandishi yanayoeleweka na binadamu nje ya JSON.",
     "param.action.description": "Operesheni ya kutekeleza.",
     "param.path.description": "Njia ya mcp_servers.json. Iwapo imeachwa, tumia eneo chaguo-msingi.",
     "param.pretty.description": "Iwapo true, chapisha JSON kwa urembo (chaguo-ms...",
@@ -791,7 +774,6 @@
       "serveradministrasjon",
       "bare json"
     ],
-    "tool.system_prompt": "Arbeid med MCP-serverdefinisjoner som er lagret i mcp_servers.json. Returner bare JSON. Ikke ta med lesbar tekst utenfor JSON.",
     "param.action.description": "Handling som skal utføres. En av: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Sti til mcp_servers.json. Hvis utelatt, brukes standardplasseringen.",
     "param.pretty.description": "Hvis true, formater JSON-utdata pent (standard: true).",
@@ -837,7 +819,6 @@
       "serverbeheer",
       "alleen json"
     ],
-    "tool.system_prompt": "Werk met MCP-serverdefinities die zijn opgeslagen in mcp_servers.json. Geef alleen JSON terug; geen leesbare tekst buiten JSON.",
     "param.action.description": "Uit te voeren bewerking.",
     "param.path.description": "Pad naar mcp_servers.json.",
     "param.pretty.description": "Als true, formatteer de JSON-uitvoer netjes (st...",
@@ -883,7 +864,6 @@
       "palvelinhallinta",
       "vain json"
     ],
-    "tool.system_prompt": "Käsittele mcp_servers.json-tiedostoon tallennettuja MCP-palvelinmäärittelyjä. Palauta vain JSON; älä sisällytä JSONin ulkopuolista ihmisluettavaa tekstiä.",
     "param.action.description": "Suoritettava toiminto.",
     "param.path.description": "Polku mcp_servers.json -tiedostoon.",
     "param.pretty.description": "Jos true, muotoile JSON-tuloste (oletus: true).",
@@ -929,7 +909,6 @@
       "správa serverů",
       "jen json"
     ],
-    "tool.system_prompt": "Pracujte s definicemi MCP serverů uloženými v mcp_servers.json. Vracejte pouze JSON a nic jiného.",
     "param.action.description": "Prováděná akce. Jedna z: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Cesta k mcp_servers.json.",
     "param.pretty.description": "Je-li true, formátuje JSON výstup (výchozí: true).",
@@ -975,7 +954,6 @@
       "керування серверами",
       "лише json"
     ],
-    "tool.system_prompt": "Працюйте з визначеннями MCP-серверів, збереженими в mcp_servers.json. Повертавайте лише JSON і нічого більше.",
     "param.action.description": "Дія, яку слід виконати. Одна з: list/add/remove/set_default/validate/init_template.",
     "param.path.description": "Шлях до mcp_servers.json.",
     "param.pretty.description": "Якщо true, форматувати JSON-вивід (типово: true).",
@@ -1021,7 +999,6 @@
       "sunucu yönetimi",
       "yalnızca json"
     ],
-    "tool.system_prompt": "mcp_servers.json'da saklanan MCP sunucu tanımları üzerinde çalışın. Yalnızca JSON değerini döndür; JSON dışında insanlar tarafından okunabilen metinler eklemeyin.",
     "param.action.description": "Gerçekleştirilecek işlem.",
     "param.path.description": "mcp_servers.json yolu. Atlanırsa varsayılan konumu kullanır.",
     "param.pretty.description": "Doğruysa, güzel yazdır JSON çıktısı (varsayılan...",
@@ -1067,7 +1044,6 @@
       "การจัดการเซิร์ฟเวอร์",
       "json เท่านั้น"
     ],
-    "tool.system_prompt": "ดำเนินการกับนิยามเซิร์ฟเวอร์ MCP ที่เก็บไว้ใน mcp_servers.json ส่งคืน JSON เท่านั้น และห้ามแสดงข้อความที่อ่านได้โดยมนุษย์นอก JSON",
     "param.action.description": "การทำงานที่จะทำ หนึ่งใน: list/add/remove/set_default/validate/init_template",
     "param.path.description": "พาธไปยัง mcp_servers.json หากละไว้จะใช้ตำแหน่งเริ่มต้น",
     "param.pretty.description": "ถ้าเป็น true ให้จัดรูปแบบ JSON ให้อ่านง่าย (ค่า...",
@@ -1113,7 +1089,6 @@
       "服务器管理",
       "仅 json"
     ],
-    "tool.system_prompt": "操作 mcp_servers.json 中保存的 MCP 服务器定义。仅返回 JSON；不要在 JSON 之外输出可读文本。",
     "param.action.description": "要执行的操作。可选：list/add/remove/set_default/validate/init_template。",
     "param.path.description": "mcp_servers.json 的路径。省略时使用默认位置。",
     "param.pretty.description": "为 true 时，对 JSON 输出进行美化格式化（默认：true）。",
@@ -1159,7 +1134,6 @@
       "伺服器管理",
       "僅 json"
     ],
-    "tool.system_prompt": "操作 mcp_servers.json 中儲存的 MCP 伺服器定義。僅回傳 JSON；請勿在 JSON 之外輸出可讀文字。",
     "param.action.description": "要執行的操作。可選：list/add/remove/set_default/validate/init_template。",
     "param.path.description": "mcp_servers.json 的路徑。省略時使用預設位置。",
     "param.pretty.description": "為 true 時，將 JSON 輸出美化格式化（預設：true）。",
@@ -1205,7 +1179,6 @@
       "সার্ভার ব্যবস্থাপনা",
       "শুধু json"
     ],
-    "tool.system_prompt": "mcp_servers.json-এ সংরক্ষিত MCP সার্ভার সংজ্ঞাগুলির ওপর কাজ করুন। JSON-ই ফেরত দিন; JSON-এর বাইরে মানুষের-পাঠ্য কোনো লেখা দেবেন না।",
     "param.action.description": "করণীয় অপারেশন। list, add, remove, set_default, validate, init_template-এর একটি।",
     "param.path.description": "mcp_servers.json-এর পথ। উল্লেখ না করলে ডিফল্ট অবস্থান ব্যবহার করা হয়।",
     "param.pretty.description": "true হলে JSON আউটপুট সুন্দরভাবে ফরম্যাট করুন (d...",
@@ -1251,7 +1224,6 @@
       "مدیریت سرور",
       "فقط json"
     ],
-    "tool.system_prompt": "روی تعاریف سرور MCP ذخیره‌شده در mcp_servers.json کار کنید. فقط JSON برگردانید؛ هیچ متن قابل‌خواندن توسط انسان خارج از JSON ندهید.",
     "param.action.description": "عملیاتی که باید انجام شود.",
     "param.path.description": "مسیر mcp_servers.json. اگر مشخص نشود، از مکان پیش‌فرض استفاده می‌شود.",
     "param.pretty.description": "اگر true باشد، خروجی JSON را زیبا/خوانا چاپ کند...",
@@ -1297,7 +1269,6 @@
       "серверийн удирдлага",
       "зөвхөн json"
     ],
-    "tool.system_prompt": "mcp_servers.json-д хадгалсан MCP серверийн тодорхойлолтууд дээр ажиллана. Зөвхөн JSON буцаана; JSON-оос гадуур хүн уншиж болох текст бүү оруул.",
     "param.action.description": "Хийх үйлдэл. list, add, remove, set_default, validate, init_template-ээс нэг.",
     "param.path.description": "mcp_servers.json-ийн зам. Заагаагүй бол анхдагч байршлыг ашиглана.",
     "param.pretty.description": "true бол JSON гаралтыг гоёор хэвлэнэ (анхдагч: true).",
@@ -1343,7 +1314,6 @@
       "सर्व्हर व्यवस्थापन",
       "फक्त json"
     ],
-    "tool.system_prompt": "mcp_servers.json मध्ये साठवलेल्या MCP server definitions वर कार्य करा. फक्त JSON परत करा; JSON च्या बाहेर मानवी-वाचनीय मजकूर देऊ नका.",
     "param.action.description": "करावयाची क्रिया. list, add, remove, set_default, validate, init_template यापैकी एक.",
     "param.path.description": "mcp_servers.json चा path. दिला नाही तर default location वापरली जाते.",
     "param.pretty.description": "true असल्यास JSON output सुंदररित्या print करा...",

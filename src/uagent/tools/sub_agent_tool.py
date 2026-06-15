@@ -99,13 +99,6 @@ TOOL_SPEC: Dict[str, Any] = {
             "tool.description",
             default="Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent...",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Run a specialized sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) to solve a task. "
-                "This sub-agent does not make destructive modifications. It returns structured insights as JSON."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

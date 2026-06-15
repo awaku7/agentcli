@@ -16,8 +16,7 @@
       "supprimer fichier",
       "파일 삭제",
       "удалить файл"
-    ],
-    "tool.system_prompt": "Delete the specified path only after confirming with the user if the operation may be destructive."
+    ]
   },
   "ja": {
     "confirm.delete_paths_bulk": "次の {count} 件のパスを削除しますか？\n\n{paths}\n\n続行する場合は y、キャンセルする場合は c を入力してください。",
@@ -32,8 +31,7 @@
       "ファイル削除",
       "ディレクトリ削除",
       "削除"
-    ],
-    "tool.system_prompt": "破壊的な操作になる可能性があるため、ユーザーに確認した後にのみ指定されたパスを削除してください。"
+    ]
   },
   "es": {
     "confirm.delete_paths_bulk": "¿Eliminar {count} rutas?",
@@ -48,8 +46,7 @@
       "eliminar archivo",
       "eliminar carpeta",
       "borrar archivo"
-    ],
-    "tool.system_prompt": "Elimine la ruta especificada solo después de confirmar con el usuario si la operación puede ser destructiva."
+    ]
   },
   "fr": {
     "confirm.delete_paths_bulk": "Supprimer {count} chemins ?",
@@ -64,8 +61,7 @@
       "supprimer fichier",
       "supprimer dossier",
       "effacer fichier"
-    ],
-    "tool.system_prompt": "Ne supprimez le chemin spécifié qu’après confirmation de l’utilisateur si l’opération peut être destructive."
+    ]
   },
   "ko": {
     "confirm.delete_paths_bulk": "다음 {count}개의 경로를 삭제하시겠습니까?\n\n{paths}\n\n계속하려면 'y', 취소하려면 'c'를 입력하세요.",
@@ -80,8 +76,7 @@
       "파일 삭제",
       "디렉터리 삭제",
       "삭제"
-    ],
-    "tool.system_prompt": "파괴적인 작업일 수 있으므로 사용자에게 확인을 받은 후에만 지정된 경로를 삭제하십시오."
+    ]
   },
   "de": {
     "confirm.delete_paths_bulk": "{count} Pfade löschen?",
@@ -96,8 +91,7 @@
       "datei löschen",
       "verzeichnis löschen",
       "entfernen"
-    ],
-    "tool.system_prompt": "Löschen Sie den angegebenen Pfad nur nach ausdrücklicher Bestätigung durch den Benutzer, da dies ein destruktiver Vorgang sein kann."
+    ]
   },
   "it": {
     "confirm.delete_paths_bulk": "Eliminare {count} percorsi?",
@@ -112,8 +106,7 @@
       "elimina file",
       "elimina cartella",
       "rimuovi file"
-    ],
-    "tool.system_prompt": "Elimina il percorso specificato solo dopo la conferma dell’utente se l’operazione può essere distruttiva."
+    ]
   },
   "ru": {
     "confirm.delete_paths_bulk": "Удалить {count} путей?",
@@ -128,8 +121,7 @@
       "удалить файл",
       "удалить каталог",
       "удаление"
-    ],
-    "tool.system_prompt": "Удаляйте указанный путь только после подтверждения пользователя, если операция может быть деструктивной."
+    ]
   },
   "pt_BR": {
     "confirm.delete_paths_bulk": "Excluir {count} caminhos?",
@@ -144,8 +136,7 @@
       "excluir arquivo",
       "excluir pasta",
       "remover arquivo"
-    ],
-    "tool.system_prompt": "Exclua o caminho especificado somente após confirmar com o usuário se a operação puder ser destrutiva."
+    ]
   },
   "pt": {
     "confirm.delete_paths_bulk": "Excluir {count} caminhos?",
@@ -160,8 +151,7 @@
       "excluir ficheiro",
       "excluir pasta",
       "remover ficheiro"
-    ],
-    "tool.system_prompt": "Exclua o caminho especificado somente após confirmar com o usuário se a operação pode ser destrutiva."
+    ]
   },
   "id": {
     "confirm.delete_paths_bulk": "Hapus {count} path berikut?",
@@ -176,8 +166,7 @@
       "hapus file",
       "hapus folder",
       "hapus"
-    ],
-    "tool.system_prompt": "Hapus path yang ditentukan hanya setelah mengonfirmasi dengan pengguna jika operasi mungkin bersifat destruktif."
+    ]
   },
   "vi": {
     "confirm.delete_paths_bulk": "Xóa đường dẫn {count}?\n\n{paths}\n\nNhập y để tiếp tục hoặc c để hủy.",
@@ -192,8 +181,7 @@
       "xóa tệp",
       "xóa thư mục",
       "xóa"
-    ],
-    "tool.system_prompt": "Chỉ xóa đường dẫn đã chỉ định sau khi xác nhận với người dùng nếu thao tác có thể bị phá hủy."
+    ]
   },
   "pl": {
     "confirm.delete_paths_bulk": "Usunąć ścieżki {count}?",
@@ -208,8 +196,7 @@
       "usuń plik",
       "usuń katalog",
       "usuń"
-    ],
-    "tool.system_prompt": "Usuń określoną ścieżkę dopiero po potwierdzeniu z użytkownikiem, jeśli operacja może być destrukcyjna."
+    ]
   },
   "hi": {
     "confirm.delete_paths_bulk": "{count} पथ हटाएं?",
@@ -224,8 +211,7 @@
       "फ़ाइल हटाएं",
       "फ़ोल्डर हटाएं",
       "हटाएं"
-    ],
-    "tool.system_prompt": "यदि ऑपरेशन विनाशकारी हो सकता है तो उपयोगकर्ता से पुष्टि करने के बाद ही निर्दिष्ट पथ को हटाएं।"
+    ]
   },
   "ar": {
     "confirm.delete_paths_bulk": "هل تريد حذف {count} من المسارات؟\n\n{paths}\n\nأدخل y للمتابعة، أو c للإلغاء.",
@@ -240,8 +226,7 @@
       "حذف ملف",
       "حذف مجلد",
       "إزالة"
-    ],
-    "tool.system_prompt": "احذف المسار المحدد فقط بعد التأكيد مع المستخدم إذا كانت العملية قد تكون مدمرة."
+    ]
   },
   "sv": {
     "confirm.delete_paths_bulk": "Ta bort {count} sökvägar?",
@@ -256,8 +241,7 @@
       "ta bort fil",
       "ta bort mapp",
       "radera"
-    ],
-    "tool.system_prompt": "Ta bort den angivna sökvägen endast efter att du har fått bekräftelse från användaren, eftersom åtgärden kan vara destruktiv."
+    ]
   },
   "sw": {
     "confirm.delete_paths_bulk": "Futa njia {count}?\n\n{paths}\n\nAndika y kuendelea, au c kughairi.",
@@ -272,8 +256,7 @@
       "futa faili",
       "futa folda",
       "ondoa"
-    ],
-    "tool.system_prompt": "Futa njia iliyobainishwa tu baada ya kuthibitisha na mtumiaji ikiwa kitendo kinaweza kuharibu data."
+    ]
   },
   "nb": {
     "confirm.delete_paths_bulk": "Slett {count} stier?",
@@ -288,8 +271,7 @@
       "slett fil",
       "slett mappe",
       "fjern"
-    ],
-    "tool.system_prompt": "Slett den angitte stien bare etter å ha fått bekreftelse fra brukeren, siden handlingen kan være destruktiv."
+    ]
   },
   "nl": {
     "confirm.delete_paths_bulk": "Deze {count} paden verwijderen?",
@@ -304,8 +286,7 @@
       "bestand verwijderen",
       "map verwijderen",
       "verwijderen"
-    ],
-    "tool.system_prompt": "Verwijder het opgegeven pad alleen nadat de gebruiker de bewerking heeft bevestigd als deze mogelijk destructief is."
+    ]
   },
   "fi": {
     "confirm.delete_paths_bulk": "Poistetaanko nämä {count} polkua?",
@@ -320,8 +301,7 @@
       "poista tiedosto",
       "poista kansio",
       "poista"
-    ],
-    "tool.system_prompt": "Poista annettu polku vasta, kun käyttäjä on vahvistanut toiminnon, jos se voi olla tuhoava."
+    ]
   },
   "cs": {
     "confirm.delete_paths_bulk": "Smazat {count} cest?",
@@ -336,8 +316,7 @@
       "smazat soubor",
       "smazat složku",
       "odstranit"
-    ],
-    "tool.system_prompt": "Zadanou cestu mažte pouze po potvrzení od uživatele, pokud může být operace destruktivní."
+    ]
   },
   "uk": {
     "confirm.delete_paths_bulk": "Видалити {count} шляхів?",
@@ -352,8 +331,7 @@
       "видалити файл",
       "видалити каталог",
       "видалення"
-    ],
-    "tool.system_prompt": "Видаляйте вказаний шлях лише після підтвердження користувачем, якщо операція може бути деструктивною."
+    ]
   },
   "tr": {
     "confirm.delete_paths_bulk": "{count} yolları silinsin mi?",
@@ -368,8 +346,7 @@
       "dosya sil",
       "klasör sil",
       "sil"
-    ],
-    "tool.system_prompt": "Belirtilen yolu yalnızca işlemin yıkıcı olup olmadığını kullanıcıyla onayladıktan sonra silin."
+    ]
   },
   "th": {
     "confirm.delete_paths_bulk": "ลบ {count} เส้นทางต่อไปนี้หรือไม่?",
@@ -384,8 +361,7 @@
       "ลบไฟล์",
       "ลบโฟลเดอร์",
       "ลบ"
-    ],
-    "tool.system_prompt": "ลบเส้นทางที่ระบุหลังจากได้รับการยืนยันจากผู้ใช้แล้วเท่านั้น หากการดำเนินการอาจเป็นการทำลายข้อมูล"
+    ]
   },
   "zh_CN": {
     "confirm.delete_paths_bulk": "删除以下 {count} 个路径吗？\n\n{paths}\n\n输入 y 继续，或输入 c 取消。",
@@ -400,8 +376,7 @@
       "删除文件",
       "删除目录",
       "移除"
-    ],
-    "tool.system_prompt": "仅在与用户确认后才删除指定路径，因为这可能具有破坏性。"
+    ]
   },
   "zh_TW": {
     "confirm.delete_paths_bulk": "刪除以下 {count} 個路徑嗎？\n\n{paths}\n\n輸入 y 繼續，或輸入 c 取消。",
@@ -416,8 +391,7 @@
       "刪除檔案",
       "刪除資料夾",
       "移除"
-    ],
-    "tool.system_prompt": "僅在與使用者確認後才刪除指定路徑，因為這可能具有破壞性。"
+    ]
   },
   "bn": {
     "confirm.delete_paths_bulk": "এই {count}টি পথ মুছতে চান?\n\n{paths}\n\nচালিয়ে যেতে y, বাতিল করতে c লিখুন।",
@@ -432,8 +406,7 @@
       "ফাইল মুছুন",
       "ফোল্ডার মুছুন",
       "মুছুন"
-    ],
-    "tool.system_prompt": "যদি অপারেশনটি ধ্বংসাত্মক হতে পারে, তবে ব্যবহারকারীর নিশ্চিতকরণ পাওয়ার পরেই নির্দিষ্ট পথ মুছুন।"
+    ]
   },
   "fa": {
     "confirm.delete_paths_bulk": "آیا {count} مسیر حذف شود؟\n\n{paths}\n\nبرای ادامه y و برای لغو c را...",
@@ -448,8 +421,7 @@
       "حذف فایل",
       "حذف پوشه",
       "حذف"
-    ],
-    "tool.system_prompt": "اگر عملیات ممکن است مخرب باشد، مسیر مشخص‌شده را فقط پس از تأیید کاربر حذف کنید."
+    ]
   },
   "mn": {
     "confirm.delete_paths_bulk": "{count} замыг устгах уу?",
@@ -464,8 +436,7 @@
       "файл устгах",
       "хавтас устгах",
       "устгах"
-    ],
-    "tool.system_prompt": "Үйлдэл нь устгах/эвдэх шинжтэй байж болох тул эхлээд хэрэглэгчээс баталгаажуулалт авсны дараа л заасан замыг устга."
+    ]
   },
   "mr": {
     "confirm.delete_paths_bulk": "{count} मार्ग काढायचे का?",
@@ -480,7 +451,6 @@
       "फाइल हटवा",
       "फोल्डर हटवा",
       "हटवा"
-    ],
-    "tool.system_prompt": "जर क्रिया हानीकारक असू शकते, तर वापरकर्त्याची पुष्टी मिळाल्यानंतरच निर्दिष्ट मार्ग हटवा."
+    ]
   }
 }

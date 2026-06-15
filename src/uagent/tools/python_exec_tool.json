@@ -13,8 +13,7 @@
       "exécuter python",
       "파이썬 실행",
       "запустить python"
-    ],
-    "tool.system_prompt": "Execute Python code in a controlled way.\n- If you need Python standard library features or reliable numeric computation, use this tool.\n- If file paths or glob patterns are supplied, run py_compile on those targets and return the result.\n- When you are about to run code, briefly state what will be executed.\n- Do not use cmd_exec to run Python unless explicitly necessary."
+    ]
   },
   "ja": {
     "param.code.description": "Pythonコード。",
@@ -26,8 +25,7 @@
       "python 実行",
       "python スクリプト",
       "py_compile"
-    ],
-    "tool.system_prompt": "制御された方法で Python コードを実行します。標準ライブラリが必要な計算や、ファイル検証（py_compile）に使用してください。実行前に、何を行うかを簡潔に説明してください。"
+    ]
   },
   "es": {
     "param.code.description": "Código Py...",
@@ -39,8 +37,7 @@
       "ejecutar python",
       "script python",
       "py_compile"
-    ],
-    "tool.system_prompt": "Ejecute código Python de forma controlada.\n- Si necesita funciones de la biblioteca estándar de Python o cálculos numéricos fiables, use esta herramienta.\n- Si se proporcionan rutas de archivos o patrones glob, ejecute py_compile sobre esos destinos y devuelva el resultado.\n- Antes de ejecutar el código, indique brevemente qué se va a ejecutar.\n- No use cmd_exec para ejecutar Python salvo que sea estrictamente necesario."
+    ]
   },
   "fr": {
     "param.code.description": "Code Pyth...",
@@ -52,8 +49,7 @@
       "exécuter python",
       "script python",
       "py_compile"
-    ],
-    "tool.system_prompt": "Exécutez le code Python de manière contrôlée.\n- Si vous avez besoin des fonctions de la bibliothèque standard Python ou de calculs numériques fiables, utilisez cet outil.\n- Si des chemins de fichiers ou des motifs glob sont fournis, exécutez py_compile sur ces cibles et renvoyez le résultat.\n- Avant d’exécuter le code, indiquez brièvement ce qui va être lancé.\n- N’utilisez pas cmd_exec pour exécuter Python, sauf nécessité explicite."
+    ]
   },
   "ko": {
     "param.code.description": "Python 코드.",
@@ -65,8 +61,7 @@
       "python 실행",
       "python 스크립트",
       "py_compile"
-    ],
-    "tool.system_prompt": "제어된 방식으로 Python 코드를 실행합니다. 표준 라이브러리가 필요한 계산이나 파일 검증(py_compile)에 사용하세요. 실행 전 무엇을 수행하는지 간략히 설명하십시오."
+    ]
   },
   "de": {
     "param.code.description": "Auszuführ...",
@@ -78,8 +73,7 @@
       "python ausführen",
       "python skript",
       "py_compile"
-    ],
-    "tool.system_prompt": "Führen Sie Python-Code kontrolliert aus.\n- Wenn Sie Funktionen der Python-Standardbibliothek oder zuverlässige numerische Berechnungen benötigen, verwenden Sie dieses Tool.\n- Wenn Dateipfade oder Glob-Muster angegeben sind, führen Sie py_compile auf diesen Zielen aus und geben Sie das Ergebnis zurück.\n- Kündigen Sie kurz an, was ausgeführt wird, bevor Sie Code starten.\n- Verwenden Sie cmd_exec nicht zum Ausführen von Python, außer wenn es ausdrücklich nötig ist."
+    ]
   },
   "it": {
     "param.code.description": "Codice Py...",
@@ -91,8 +85,7 @@
       "esegui python",
       "script python",
       "py_compile"
-    ],
-    "tool.system_prompt": "Esegui codice Python in modo controllato.\n- Se ti servono funzioni della libreria standard di Python o calcoli numerici affidabili, usa questo strumento.\n- Se vengono forniti percorsi di file o pattern glob, esegui py_compile su quei target e restituisci il risultato.\n- Prima di eseguire il codice, indica brevemente cosa verrà eseguito.\n- Non usare cmd_exec per eseguire Python, salvo che sia espressamente necessario."
+    ]
   },
   "ru": {
     "param.code.description": "Код Pytho...",
@@ -104,8 +97,7 @@
       "запуск python",
       "python скрипт",
       "py_compile"
-    ],
-    "tool.system_prompt": "Выполняйте код Python в контролируемом режиме.\n- Если вам нужны возможности стандартной библиотеки Python или надежные численные вычисления, используйте этот инструмент.\n- Если заданы пути к файлам или шаблоны glob, запустите py_compile для этих целей и верните результат.\n- Перед запуском кода кратко укажите, что будет выполнено.\n- Не используйте cmd_exec для запуска Python, если это не требуется явно."
+    ]
   },
   "pt_BR": {
     "param.code.description": "Código Py...",
@@ -117,8 +109,7 @@
       "executar python",
       "script python",
       "py_compile"
-    ],
-    "tool.system_prompt": "Execute código Python de forma controlada.\n- Se precisar de recursos da biblioteca padrão do Python ou de cálculos numéricos confiáveis, use esta ferramenta.\n- Se caminhos de arquivo ou padrões glob forem fornecidos, execute py_compile nesses destinos e retorne o resultado.\n- Antes de executar o código, indique brevemente o que será executado.\n- Não use cmd_exec para executar Python, a menos que seja estritamente necessário."
+    ]
   },
   "pt": {
     "param.code.description": "Código Py...",
@@ -130,8 +121,7 @@
       "executar python",
       "script python",
       "py_compile"
-    ],
-    "tool.system_prompt": "Execute código Python de forma controlada.\n- Se precisar de recursos da biblioteca padrão do Python ou de cálculos numéricos confiáveis, use esta ferramenta.\n- Se caminhos de arquivo ou padrões glob forem fornecidos, execute py_compile nesses destinos e retorne o resultado.\n- Antes de executar o código, indique brevemente o que será executado.\n- Não use cmd_exec para executar Python, a menos que seja estritamente necessário."
+    ]
   },
   "id": {
     "param.code.description": "Kode Pyth...",
@@ -143,8 +133,7 @@
       "jalankan python",
       "skrip python",
       "py_compile"
-    ],
-    "tool.system_prompt": "Jalankan kode Python dengan cara yang terkontrol.\n- Jika Anda memerlukan fitur standard library Python atau komputasi numerik yang andal, gunakan alat ini.\n- Jika path file atau pola glob diberikan, jalankan py_compile pada target tersebut dan kembalikan hasilnya.\n- Saat akan menjalankan kode, beri tahu secara singkat apa yang akan dieksekusi.\n- Jangan gunakan cmd_exec untuk menjalankan Python kecuali benar-benar diperlukan."
+    ]
   },
   "vi": {
     "param.code.description": "Mã Python...",
@@ -156,8 +145,7 @@
       "chạy python",
       "script python",
       "py_compile"
-    ],
-    "tool.system_prompt": "Thực thi mã Python theo cách được kiểm soát.\n- Nếu bạn cần các tính năng của thư viện chuẩn Python hoặc tính toán số đáng tin cậy, hãy dùng công cụ này.\n- Nếu có đường dẫn tệp hoặc mẫu glob, hãy chạy py_compile trên các mục tiêu đó và trả về kết quả.\n- Trước khi chạy mã, hãy nêu ngắn gọn nội dung sẽ được thực thi.\n- Không dùng cmd_exec để chạy Python trừ khi thực sự cần thiết."
+    ]
   },
   "pl": {
     "param.code.description": "Kod Pytho...",
@@ -169,8 +157,7 @@
       "uruchom python",
       "skrypt python",
       "py_compile"
-    ],
-    "tool.system_prompt": "Wykonuj kod Pythona w kontrolowany sposób.\n- Jeśli potrzebujesz funkcji standardowej biblioteki Pythona lub niezawodnych obliczeń numerycznych, użyj tego narzędzia.\n- Jeśli podano ścieżki plików lub wzorce glob, uruchom na nich py_compile i zwróć wynik.\n- Zanim uruchomisz kod, krótko określ, co zostanie wykonane.\n- Nie używaj cmd_exec do uruchamiania Pythona, chyba że jest to wyraźnie konieczne."
+    ]
   },
   "hi": {
     "param.code.description": "निष्पादित...",
@@ -182,8 +169,7 @@
       "python चलाएँ",
       "python स्क्रिप्ट",
       "py_compile"
-    ],
-    "tool.system_prompt": "Python कोड को नियंत्रित तरीके से निष्पादित करें।\n- यदि आपको Python मानक लाइब्रेरी की सुविधाओं या विश्वसनीय संख्यात्मक गणना की आवश्यकता है, तो इस टूल का उपयोग करें।\n- यदि फ़ाइल पथ या glob पैटर्न दिए गए हों, तो उन लक्ष्यों पर py_compile चलाएँ और परिणाम लौटाएँ।\n- कोड चलाने से पहले, संक्षेप में बताएं कि क्या निष्पादित किया जाएगा।\n- जब तक स्पष्ट रूप से आवश्यक न हो, Python चलाने के लिए cmd_exec का उपयोग न करें।"
+    ]
   },
   "ar": {
     "param.code.description": "كود بايثو...",
@@ -195,8 +181,7 @@
       "تشغيل python",
       "سكربت python",
       "py_compile"
-    ],
-    "tool.system_prompt": "نفّذ كود Python بطريقة خاضعة للرقابة.\n- إذا كنت تحتاج إلى ميزات مكتبة Python القياسية أو إلى حسابات رقمية موثوقة، فاستخدم هذه الأداة.\n- إذا تم توفير مسارات ملفات أو أنماط glob، فشغّل py_compile على تلك الأهداف وأعد النتيجة.\n- قبل تنفيذ الكود، اذكر بإيجاز ما الذي سيتم تنفيذه.\n- لا تستخدم cmd_exec لتشغيل Python إلا عند الضرورة الصريحة."
+    ]
   },
   "sv": {
     "param.code.description": "Python-ko...",
@@ -208,8 +193,7 @@
       "kör python",
       "python skript",
       "py_compile"
-    ],
-    "tool.system_prompt": "Kör Python-kod på ett kontrollerat sätt.\n- Om du behöver funktioner i Python-standardbiblioteket eller tillförlitliga numeriska beräkningar, använd det här verktyget.\n- Om filsökvägar eller glob-mönster anges, kör py_compile på dessa mål och returnera resultatet.\n- Innan du kör koden, ange kort vad som ska köras.\n- Använd inte cmd_exec för att köra Python om det inte uttryckligen behövs."
+    ]
   },
   "sw": {
     "param.code.description": "Python co...",
@@ -221,8 +205,7 @@
       "run python",
       "python script",
       "py_compile"
-    ],
-    "tool.system_prompt": "Execute Python code in a controlled way.\n- If you need Python standard library features or reliable numeric computation, use this tool.\n- If file paths or glob patterns are supplied, run py_compile on those targets and return the result.\n- When you are about to run code, briefly state what will be executed.\n- Do not use cmd_exec to run Python unless explicitly necessary."
+    ]
   },
   "nb": {
     "param.code.description": "Python-ko...",
@@ -234,8 +217,7 @@
       "kjør python",
       "python skript",
       "py_compile"
-    ],
-    "tool.system_prompt": "Kjør Python-kode på en kontrollert måte.\n- Hvis du trenger funksjoner fra Python-standardbiblioteket eller pålitelige numeriske beregninger, bruk dette verktøyet.\n- Hvis filstier eller glob-mønstre er oppgitt, kjør py_compile på disse målene og returner resultatet.\n- Før du kjører koden, si kort hva som skal utføres.\n- Ikke bruk cmd_exec til å kjøre Python med mindre det er uttrykkelig nødvendig."
+    ]
   },
   "nl": {
     "param.code.description": "Python-co...",
@@ -247,8 +229,7 @@
       "python uitvoeren",
       "python script",
       "py_compile"
-    ],
-    "tool.system_prompt": "Voer Python-code op een gecontroleerde manier uit.\n- Als u de standaardbibliotheek van Python of betrouwbare numerieke berekening nodig hebt, gebruik dan deze tool.\n- Als bestandspaden of glob-patronen zijn opgegeven, voer py_compile uit op die doelen en geef het resultaat terug.\n- Vermeld kort wat er uitgevoerd gaat worden voordat u de code draait.\n- Gebruik cmd_exec niet om Python uit te voeren, tenzij dat echt nodig is."
+    ]
   },
   "fi": {
     "param.code.description": "Suoritett...",
@@ -260,8 +241,7 @@
       "suorita python",
       "python skripti",
       "py_compile"
-    ],
-    "tool.system_prompt": "Suorita Python-koodi hallitusti.\n- Jos tarvitset Pythonin vakiokirjaston ominaisuuksia tai luotettavaa numeerista laskentaa, käytä tätä työkalua.\n- Jos annetaan tiedostopolkuja tai glob-kuvioita, aja py_compile näille kohteille ja palauta tulos.\n- Ennen kuin suoritat koodin, kerro lyhyesti, mitä ajetaan.\n- Älä käytä cmd_execiä Pythonin ajamiseen, ellei se ole nimenomaisesti tarpeen."
+    ]
   },
   "cs": {
     "param.code.description": "Python kó...",
@@ -273,8 +253,7 @@
       "spustit python",
       "python skript",
       "py_compile"
-    ],
-    "tool.system_prompt": "Spouštějte Python kód kontrolovaně.\n- Pokud potřebujete funkce standardní knihovny Pythonu nebo spolehlivé numerické výpočty, použijte tento nástroj.\n- Pokud jsou zadány cesty k souborům nebo glob vzory, spusťte na nich py_compile a vraťte výsledek.\n- Než kód spustíte, stručně uveďte, co se bude provádět.\n- Nepoužívejte cmd_exec ke spuštění Pythonu, pokud to není výslovně nutné."
+    ]
   },
   "uk": {
     "param.code.description": "Код Pytho...",
@@ -286,8 +265,7 @@
       "запустити python",
       "python скрипт",
       "py_compile"
-    ],
-    "tool.system_prompt": "Виконуйте код Python контрольовано.\n- Якщо вам потрібні можливості стандартної бібліотеки Python або надійні чисельні обчислення, використовуйте цей інструмент.\n- Якщо вказано шляхи до файлів або glob-шаблони, запустіть на них py_compile і поверніть результат.\n- Перед запуском коду коротко опишіть, що буде виконано.\n- Не використовуйте cmd_exec для запуску Python, якщо це не є явно необхідним."
+    ]
   },
   "tr": {
     "param.code.description": "Yürütülec...",
@@ -299,8 +277,7 @@
       "python çalıştır",
       "python betik",
       "py_compile"
-    ],
-    "tool.system_prompt": "Python kodunu kontrollü bir şekilde yürütün.\n- Python standart kitaplık özelliklerine veya güvenilir sayısal hesaplamaya ihtiyacınız varsa bu aracı kullanın.\n- Dosya yolları veya glob kalıpları sağlanmışsa, bu hedeflerde py_compile komutunu çalıştırın ve sonucu döndürün.\n- Kodu çalıştırmak üzereyken ne yürütüleceğini kısaca belirtin.\n- Açıkça gerekmedikçe Python'u çalıştırmak için cmd_exec kullanmayın."
+    ]
   },
   "th": {
     "param.code.description": "รหัส Pyth...",
@@ -312,8 +289,7 @@
       "รัน python",
       "สคริปต์ python",
       "py_compile"
-    ],
-    "tool.system_prompt": "รันโค้ด Python อย่างเป็นระบบ\n- หากต้องใช้ความสามารถจากไลบรารีมาตรฐานของ Python หรือการคำนวณเชิงตัวเลขที่เชื่อถือได้ ให้ใช้เครื่องมือนี้\n- หากมีการระบุพาธไฟล์หรือรูปแบบ glob ให้รัน py_compile กับเป้าหมายเหล่านั้นและส่งผลลัพธ์กลับ\n- ก่อนเริ่มรันโค้ด ให้บอกสั้น ๆ ว่าจะดำเนินการอะไร\n- อย่าใช้ cmd_exec เพื่อรัน Python เว้นแต่จำเป็นจริง ๆ"
+    ]
   },
   "zh_CN": {
     "param.code.description": "Python代码。",
@@ -325,8 +301,7 @@
       "运行 python",
       "python 脚本",
       "py_compile"
-    ],
-    "tool.system_prompt": "以受控方式执行 Python 代码。\n- 如果需要 Python 标准库功能或可靠的数值计算，请使用此工具。\n- 如果提供了文件路径或 glob 模式，请对这些目标运行 py_compile 并返回结果。\n- 在执行代码之前，请简要说明将要执行的内容。\n- 除非确有必要，不要使用 cmd_exec 运行 Python。"
+    ]
   },
   "zh_TW": {
     "param.code.description": "Python代码。",
@@ -338,8 +313,7 @@
       "執行 python",
       "python 腳本",
       "py_compile"
-    ],
-    "tool.system_prompt": "以受控方式執行 Python 程式碼。\n- 如果需要 Python 標準函式庫功能或可靠的數值計算，請使用此工具。\n- 如果提供了檔案路徑或 glob 樣式，請對這些目標執行 py_compile 並回傳結果。\n- 在執行程式碼前，請簡要說明將要執行的內容。\n- 除非確有必要，不要使用 cmd_exec 來執行 Python。"
+    ]
   },
   "bn": {
     "param.code.description": "নির্বাহ ক...",
@@ -351,8 +325,7 @@
       "python চালান",
       "python স্ক্রিপ্ট",
       "py_compile"
-    ],
-    "tool.system_prompt": "Python কোড নিয়ন্ত্রিতভাবে চালান।\n- যদি Python standard library-এর সুবিধা বা নির্ভরযোগ্য সংখ্যাগত গণনা দরকার হয়, এই টুল ব্যবহার করুন।\n- যদি ফাইল path বা glob pattern দেওয়া থাকে, সেই target-গুলিতে py_compile চালিয়ে ফলাফল ফেরত দিন।\n- কোড চালানোর আগে সংক্ষেপে জানান কী চালানো হবে।\n- স্পষ্টভাবে প্রয়োজন না হলে Python চালাতে cmd_exec ব্যবহার করবেন না।"
+    ]
   },
   "fa": {
     "param.code.description": "کد پایتون...",
@@ -364,8 +337,7 @@
       "اجرای python",
       "اسکریپت python",
       "py_compile"
-    ],
-    "tool.system_prompt": "کد پایتون را به‌صورت کنترل‌شده اجرا کنید.\n- اگر به امکانات کتابخانهٔ استاندارد پایتون یا محاسبات عددی قابل‌اعتماد نیاز دارید، از این ابزار استفاده کنید.\n- اگر مسیر فایل یا الگوی glob داده شده است، py_compile را روی آن targets اجرا کنید و نتیجه را برگردانید.\n- پیش از اجرای کد، کوتاه توضیح دهید چه چیزی اجرا خواهد شد.\n- برای اجرای پایتون از cmd_exec استفاده نکنید مگر اینکه صراحتاً لازم باشد."
+    ]
   },
   "mn": {
     "param.code.description": "Ажиллуула...",
@@ -377,8 +349,7 @@
       "python ажиллуулах",
       "python скрипт",
       "py_compile"
-    ],
-    "tool.system_prompt": "Python кодыг хяналттайгаар ажиллуулна уу.\n- Хэрэв Python standard library-ийн боломжууд эсвэл найдвартай тоон тооцоо хэрэгтэй бол энэ хэрэгслийг ашигла.\n- Хэрэв файлын зам эсвэл glob pattern өгөгдвөл, тэдгээр target дээр py_compile ажиллуулаад үр дүнг буцаана уу.\n- Код ажиллуулахын өмнө юу ажиллуулах гэж байгааг товч хэлнэ үү.\n- Явцын хувьд зайлшгүй шаардлагагүй бол Python ажиллуулахад cmd_exec бүү ашигла."
+    ]
   },
   "mr": {
     "param.code.description": "चालवायचा...",
@@ -390,7 +361,6 @@
       "python चालवा",
       "python स्क्रिप्ट",
       "py_compile"
-    ],
-    "tool.system_prompt": "Python code नियंत्रित पद्धतीने execute करा.\n- Python standard library features किंवा reliable numeric computation हवी असल्यास हे tool वापरा.\n- file paths किंवा glob patterns दिले असल्यास, त्या targets वर py_compile चालवा आणि result परत करा.\n- code चालवण्यापूर्वी थोडक्यात काय चालवणार आहात ते सांगा.\n- स्पष्टपणे गरज नसल्यास Python चालवण्यासाठी cmd_exec वापरू नका."
+    ]
   }
 }

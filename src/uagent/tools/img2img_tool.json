@@ -5,7 +5,6 @@
       "img2img",
       "img2img"
     ],
-    "tool.system_prompt": "Edit the provided image according to the prompt. Save the result as a PNG and return only the saved file path.",
     "param.image_path.description": "Path to the source image to edit.",
     "param.prompt.description": "Instructions for how to edit the image.",
     "param.mask_path.description": "Optional path to a mask image. Transparent areas are treated as editable in many APIs.",
@@ -36,7 +35,6 @@
       "画像プロンプト",
       "編集"
     ],
-    "tool.system_prompt": "指定された画像をプロンプトに従って編集してください。結果を PNG として保存し、保存したファイルパスだけを返してください。",
     "param.image_path.description": "編集する元画像のパス。",
     "param.prompt.description": "画像の編集内容を指示します。",
     "param.mask_path.description": "任意のマスク画像のパス。透過部分が多くの API で編集対象として扱われます。",
@@ -67,7 +65,6 @@
       "prompt de imagen",
       "edición"
     ],
-    "tool.system_prompt": "Edita la imagen proporcionada según el prompt. Guarda el resultado como PNG y devuelve solo la ruta del archivo guardado.",
     "param.image_path.description": "Ruta de la imagen de origen qu...",
     "param.prompt.description": "Instrucciones sobre cómo editar la imagen.",
     "param.mask_path.description": "Ruta opcional a una imagen de máscara.",
@@ -98,7 +95,6 @@
       "prompt image",
       "édition image"
     ],
-    "tool.system_prompt": "Modifiez l’image fournie selon le prompt. Enregistrez le résultat au format PNG et renvoyez uniquement le chemin du fichier enregistré.",
     "param.image_path.description": "Chemin du fichier image source...",
     "param.prompt.description": "Instructions sur la manière de modif...",
     "param.mask_path.description": "Chemin facultatif vers une image masque.",
@@ -129,7 +125,6 @@
       "이미지 프롬프트",
       "편집"
     ],
-    "tool.system_prompt": "제공된 이미지를 프롬프트에 따라 편집하세요. 결과를 PNG로 저장하고 저장된 파일 경로만 반환하세요.",
     "param.image_path.description": "편집할 원본 이미지 파일의 경로입니다.",
     "param.prompt.description": "이미지를 어떻게 편집할지에 대한 지시입니다.",
     "param.mask_path.description": "선택 사항인 마스크 이미지 경로입니다. 투명한 영역은 많은 API에서 편집 가능 영역으로 처리됩니다.",
@@ -160,7 +155,6 @@
       "bild prompt",
       "bild edit"
     ],
-    "tool.system_prompt": "Bearbeite das bereitgestellte Bild gemäß dem Prompt. Speichere das Ergebnis als PNG und gib nur den gespeicherten Dateipfad zurück.",
     "param.image_path.description": "Pfad zur Quellbilddatei, die b...",
     "param.prompt.description": "Anweisungen dazu, wie das Bild bearb...",
     "param.mask_path.description": "Optionaler Pfad zu einem Maskenbild.",
@@ -191,7 +185,6 @@
       "prompt immagine",
       "edit immagine"
     ],
-    "tool.system_prompt": "Modifica l’immagine fornita secondo il prompt. Salva il risultato in PNG e restituisci solo il percorso del file salvato.",
     "param.image_path.description": "Percorso del file immagine sor...",
     "param.prompt.description": "Istruzioni su come modificare l’immagine.",
     "param.mask_path.description": "Percorso facoltativo di un’immagine maschera.",
@@ -222,7 +215,6 @@
       "prompt изображения",
       "редактирование"
     ],
-    "tool.system_prompt": "Отредактируйте предоставленное изображение согласно запросу. Сохраните результат в PNG и верните только путь к сохранённому файлу.",
     "param.image_path.description": "Путь к исходному файлу изображ...",
     "param.prompt.description": "Инструкция о том, как нужно отредакт...",
     "param.mask_path.description": "Необязательный путь к изображению-маске.",
@@ -253,7 +245,6 @@
       "prompt de imagem",
       "edição de imagem"
     ],
-    "tool.system_prompt": "Edite a imagem fornecida de acordo com o prompt. Salve o resultado como PNG e retorne apenas o caminho do arquivo salvo.",
     "param.image_path.description": "Caminho do arquivo de imagem d...",
     "param.prompt.description": "Instruções de como editar a imagem.",
     "param.mask_path.description": "Caminho opcional para uma imagem de máscara.",
@@ -284,7 +275,6 @@
       "prompt de imagem",
       "edição de imagem"
     ],
-    "tool.system_prompt": "Edite a imagem fornecida de acordo com o prompt. Salve o resultado como PNG e retorne apenas o caminho do arquivo salvo.",
     "param.image_path.description": "Caminho do arquivo de imagem d...",
     "param.prompt.description": "Instruções de como editar a imagem.",
     "param.mask_path.description": "Caminho opcional para uma imagem de máscara.",
@@ -315,7 +305,6 @@
       "prompt gambar",
       "ubah gambar"
     ],
-    "tool.system_prompt": "Edit gambar yang diberikan sesuai prompt. Simpan hasilnya sebagai PNG dan kembalikan hanya path file yang disimpan.",
     "param.image_path.description": "Path ke file gambar sumber yan...",
     "param.prompt.description": "Instruksi tentang cara mengedit gambar.",
     "param.mask_path.description": "Path opsional ke gambar mask. Area transparan sering dianggap dapat diedit dalam banyak API.",
@@ -346,7 +335,6 @@
       "prompt ảnh",
       "sửa ảnh"
     ],
-    "tool.system_prompt": "Chỉnh sửa ảnh được cung cấp theo prompt. Lưu kết quả dưới dạng PNG và chỉ trả về đường dẫn tệp đã lưu.",
     "param.image_path.description": "Đường dẫn tới tệp ảnh nguồn cầ...",
     "param.prompt.description": "Hướng dẫn về cách chỉnh sửa ảnh.",
     "param.mask_path.description": "Đường dẫn tùy chọn tới ảnh mặt nạ.",
@@ -377,7 +365,6 @@
       "prompt obrazu",
       "edycja obrazu"
     ],
-    "tool.system_prompt": "Edytuj dostarczony obraz zgodnie z promptem. Zapisz wynik jako PNG i zwróć tylko ścieżkę do zapisanego pliku.",
     "param.image_path.description": "Ścieżka do pliku obrazu źródło...",
     "param.prompt.description": "Instrukcje dotyczące tego, jak należ...",
     "param.mask_path.description": "Opcjonalna ścieżka do obrazu maski.",
@@ -408,7 +395,6 @@
       "prompt obrázku",
       "úprava obrázku"
     ],
-    "tool.system_prompt": "Upravte poskytnutý obrázek podle promptu. Uložte výsledek jako PNG a vraťte pouze cestu k uloženému souboru.",
     "param.image_path.description": "Cesta ke zdrojovému obrázku k...",
     "param.prompt.description": "Pokyny, jak má být obrázek upraven.",
     "param.mask_path.description": "Volitelná cesta k obrázku masky. Průhledné oblasti jsou v mnoha API považovány za upravitelné.",
@@ -439,7 +425,6 @@
       "prompt зображення",
       "редагування"
     ],
-    "tool.system_prompt": "Відредагуйте надане зображення згідно із запитом. Збережіть результат як PNG і поверніть лише шлях до збереженого файлу.",
     "param.image_path.description": "Шлях до вихідного файла зображ...",
     "param.prompt.description": "Інструкції щодо того, як потрібно ре...",
     "param.mask_path.description": "Необов’язковий шлях до зображення-маски.",
@@ -470,7 +455,6 @@
       "موجه صورة",
       "تعديل صورة"
     ],
-    "tool.system_prompt": "حرّر الصورة المقدَّمة وفقًا للتعليمات. احفظ النتيجة كملف PNG وأعد فقط مسار الملف المحفوظ.",
     "param.image_path.description": "مسار ملف الصورة المصدر المراد...",
     "param.prompt.description": "تعليمات حول كيفية تحرير الصورة.",
     "param.mask_path.description": "مسار اختياري لصورة قناع.",
@@ -501,7 +485,6 @@
       "bildprompt",
       "bildredigering"
     ],
-    "tool.system_prompt": "Redigera den angivna bilden enligt prompten. Spara resultatet som PNG och returnera endast den sparade filsökvägen.",
     "param.image_path.description": "Sökväg till källbilden som ska...",
     "param.prompt.description": "Instruktioner för hur bilden ska red...",
     "param.mask_path.description": "Valfri sökväg till en maskbild.",
@@ -532,7 +515,6 @@
       "พรอมต์ภาพ",
       "ปรับแต่งภาพ"
     ],
-    "tool.system_prompt": "แก้ไขภาพที่ให้มาตามพรอมป์ บันทึกผลเป็น PNG และส่งกลับเฉพาะพาธของไฟล์ที่บันทึกแล้ว",
     "param.image_path.description": "พาธไปยังไฟล์ภาพต้นฉบับที่ต้องก...",
     "param.prompt.description": "คำสั่งว่าต้องการแก้ไขภาพอย่างไร",
     "param.mask_path.description": "พาธทางเลือกไปยังไฟล์มาสก์ พื้นที่โปร่งใสในหลาย API มักถือว่าแก้ไขได้",
@@ -563,7 +545,6 @@
       "görsel prompt",
       "görsel düzenleme"
     ],
-    "tool.system_prompt": "Sağlanan görüntüyü isteme göre düzenleyin. Sonucu PNG olarak kaydedin ve yalnızca kaydedilen dosya yolunu döndürün.",
     "param.image_path.description": "Düzenlenecek kaynak görüntü do...",
     "param.prompt.description": "Görüntünün nasıl düzenleneceğine dai...",
     "param.mask_path.description": "İsteğe bağlı maske görüntüsü yolu. Saydam alanlar birçok API’de düzenlenebilir kabul edilir.",
@@ -594,7 +575,6 @@
       "bildeprompt",
       "bilderedigering"
     ],
-    "tool.system_prompt": "Rediger bildet i henhold til prompten. Lagre resultatet som PNG og returner bare filstien til det lagrede bildet.",
     "param.image_path.description": "Sti til kildebildet som skal r...",
     "param.prompt.description": "Instruksjoner for hvordan bildet ska...",
     "param.mask_path.description": "Valgfri sti til et maskebilde.",
@@ -625,7 +605,6 @@
       "afbeelding prompt",
       "beeldbewerking"
     ],
-    "tool.system_prompt": "Bewerk de aangeleverde afbeelding volgens de prompt. Sla het resultaat op als PNG en geef alleen het opgeslagen bestandspad terug.",
     "param.image_path.description": "Pad naar het bronafbeeldingsbe...",
     "param.prompt.description": "Instructies voor hoe de afbeelding m...",
     "param.mask_path.description": "Optioneel pad naar een maskerafbeelding.",
@@ -656,7 +635,6 @@
       "kuvaprompti",
       "kuvankäsittely"
     ],
-    "tool.system_prompt": "Muokkaa annettua kuvaa kehotteen mukaan. Tallenna tulos PNG:nä ja palauta vain tallennetun tiedoston polku.",
     "param.image_path.description": "Muokattavan lähdekuvatiedoston...",
     "param.prompt.description": "Ohjeet siitä, miten kuvaa tulee muokata.",
     "param.mask_path.description": "Valinnainen polku maskikuvaan. Läpinäkyviä alueita käsitellään monissa API:issa muokattavina.",
@@ -687,7 +665,6 @@
       "prompt ya picha",
       "uhariri wa picha"
     ],
-    "tool.system_prompt": "Hariri picha iliyotolewa kulingana na maelekezo. Hifadhi matokeo kama PNG na urudishe tu njia ya faili iliyohifadhiwa.",
     "param.image_path.description": "Njia ya faili la picha chanzo...",
     "param.prompt.description": "Maelekezo ya jinsi picha inavyopaswa...",
     "param.mask_path.description": "Njia ya hiari ya picha ya kinyago.",
@@ -718,7 +695,6 @@
       "छवि प्रॉम्प्ट",
       "संपादन"
     ],
-    "tool.system_prompt": "दी गई छवि को प्रॉम्प्ट के अनुसार संपादित करें। परिणाम को PNG के रूप में सहेजें और केवल सहेजी गई फ़ाइल का पथ लौटाएँ।",
     "param.image_path.description": "संपादित की जाने वाली स्रोत छवि...",
     "param.prompt.description": "छवि को कैसे संपादित करना है, इसके निर्देश।",
     "param.mask_path.description": "मास्क छवि का वैकल्पिक पथ। पारदर्शी क्षेत्र कई API में संपादन योग्य माने जाते हैं।",
@@ -749,7 +725,6 @@
       "图像提示词",
       "编辑图片"
     ],
-    "tool.system_prompt": "请根据提示编辑提供的图像。将结果保存为 PNG，并仅返回已保存文件的路径。",
     "param.image_path.description": "要编辑的源图像文件路径。",
     "param.prompt.description": "如何编辑图像的说明。",
     "param.mask_path.description": "可选的遮罩图像路径。在许多 API 中，透明区域会被视为可编辑。",
@@ -780,7 +755,6 @@
       "影像提示詞",
       "編輯圖片"
     ],
-    "tool.system_prompt": "請依照提示編輯提供的影像。將結果儲存為 PNG，並僅回傳已儲存檔案的路徑。",
     "param.image_path.description": "要編輯的來源影像檔案路徑。",
     "param.prompt.description": "如何編輯影像的說明。",
     "param.mask_path.description": "可選的遮罩影像路徑。在許多 API 中，透明區域會被視為可編輯。",
@@ -811,7 +785,6 @@
       "ছবি প্রম্পট",
       "ছবি এডিট"
     ],
-    "tool.system_prompt": "দেওয়া ছবিটি prompt অনুযায়ী সম্পাদনা করুন। ফলাফল PNG হিসেবে সংরক্ষণ করুন এবং কেবল সংরক্ষিত ফাইল path ফেরত দিন।",
     "param.image_path.description": "সম্পাদনা করার জন্য উৎস ছবির path।",
     "param.prompt.description": "ছবিটি কীভাবে সম্পাদনা করতে হবে তার ন...",
     "param.mask_path.description": "ঐচ্ছিক mask image-এর path। অনেক API-তে transparent এলাকা editable ধরা হয়।",
@@ -842,7 +815,6 @@
       "پرامپت تصویر",
       "ادیت تصویر"
     ],
-    "tool.system_prompt": "تصویر ارائه‌شده را مطابق prompt ویرایش کنید. نتیجه را به‌صورت PNG ذخیره کنید و فقط مسیر فایل ذخیره‌شده را برگردانید.",
     "param.image_path.description": "مسیر فایل تصویرِ منبع برای ویرایش.",
     "param.prompt.description": "دستورالعملِ نحوهٔ ویرایش تصویر.",
     "param.mask_path.description": "مسیر اختیاری یک تصویر mask. نواحی شفاف در بسیاری از APIها قابل ویرایش در نظر گرفته می‌شوند.",
@@ -873,7 +845,6 @@
       "зураг prompt",
       "зураг edit"
     ],
-    "tool.system_prompt": "Өгөгдсөн зургийг prompt-ын дагуу засна уу. Үр дүнг PNG болгон хадгалаад зөвхөн хадгалсан файлын замыг буцаана уу.",
     "param.image_path.description": "Засах эх зургийн зам.",
     "param.prompt.description": "Зургийг хэрхэн засах тухай заавар.",
     "param.mask_path.description": "Сонголттой mask зургийн зам. Ил тод хэсгүүдийг олон API дээр засварлах боломжтой гэж үздэг.",
@@ -904,7 +875,6 @@
       "प्रतिमा प्रॉम्प्ट",
       "संपादन"
     ],
-    "tool.system_prompt": "दिलेली प्रतिमा prompt नुसार संपादित करा. निकाल PNG म्हणून जतन करा आणि फक्त जतन केलेला फाइल path परत द्या.",
     "param.image_path.description": "संपादित करायच्या मूळ प्रतिमेचा path.",
     "param.prompt.description": "प्रतिमा कशी संपादित करायची याच्या सूचना.",
     "param.mask_path.description": "ऐच्छिक mask प्रतिमेचा path. अनेक API मध्ये transparent भाग editable मानले जातात.",

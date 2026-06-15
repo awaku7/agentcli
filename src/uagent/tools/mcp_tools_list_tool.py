@@ -44,13 +44,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Connect to an MCP server (HTTP or stdio) and list its tools. "
-                "Prefer using configured servers in mcp_servers.json when possible."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

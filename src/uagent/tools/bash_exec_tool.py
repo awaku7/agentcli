@@ -30,12 +30,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "As a last resort, execute a bash command. Use only when no other appropriate tool is available."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool is a LAST RESORT. Use only if no other appropriate tool is available."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

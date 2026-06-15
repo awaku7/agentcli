@@ -86,17 +86,6 @@ TOOL_SPEC: dict[str, Any] = {
             default="Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
         )
         + _DESC_SUFFIX,
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool is a LAST RESORT.\n"
-                "1. First check handle_mcp / mcp_tools_list for alternative means.\n"
-                "2. Only if no other way exists, use this tool to execute PowerShell.\n"
-                "3. Do not use this for Python execution. Use python_exec instead.\n\n"
-                "Security Note:\n"
-                "- Dangerous patterns like download-exec (IWR/IRM/curl/wget etc.) or Base64 (-Enc) will be confirmed or blocked."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

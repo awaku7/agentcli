@@ -122,10 +122,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Post a message or webhook-supported JSON payload to a Microsoft Teams Incoming Webhook URL stored in an environment variable.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="Post a payload to Microsoft Teams Incoming Webhook. Return JSON only.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

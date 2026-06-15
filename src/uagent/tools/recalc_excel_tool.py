@@ -27,13 +27,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values. Supports a single .",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Use this tool when formula cached values in .xlsx are stale (e.g., openpyxl data_only reads old values). "
-                "This tool opens workbook(s) in Microsoft Excel via COM, performs full recalculation, and saves."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

@@ -19,14 +19,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that...",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Append exactly one note to the shared memory store.\n"
-                "If shared memory is disabled (UAGENT_SHARED_MEMORY_FILE not set), return a message explaining how to enable it.\n"
-                "Do not store secrets (passwords/tokens/API keys)."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

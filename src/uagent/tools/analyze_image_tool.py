@@ -20,10 +20,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Load an image file and have AI (Vision) describe its contents. Useful for analyzing screenshots or reading charts/tables.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool performs the operation described by the tool name 'analyze_image'.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[
