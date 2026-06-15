@@ -7,6 +7,26 @@
 
 ## [Unreleased]
 
+## [0.5.6] - 2026-06-15
+
+### 新規追加
+- USBカメラツール (`usb_camera`): 撮影、デバイス一覧、能力取得（クロスプラットフォーム）。
+- 画像解析に Alibaba Cloud (Qwen) プロバイダを追加。
+- 画像解析に Kimi (Moonshot AI) プロバイダを追加。
+- DeepSeek ビジョンバックエンド（Vision対応エンドポイントが必要）。
+- USBカメラに `list_caps` アクション（対応解像度/FPSの表示）。
+
+### 変更
+- 全30ロケールのツール説明文を短縮（約8K文字 / 約2Kトークン削減）。
+- ツールスペックからエイリアスパラメータを削除（path/filename, root_path/path 等）。
+- 全ツールスペックから不要な `system_prompt` フィールドを削除。
+- 31個のパラメータキーを短縮 (output_format→fmt, max_results→limit 等)。
+- USBカメラのクロスプラットフォーム対応 (dshow/v4l2/avfoundation)。
+
+### 修正
+- Ruff警告の修正: 例外構文、未使用変数、未定義名。
+- USBカメラのffmpeg cp932デコードエラーを修正。
+
 ## [0.5.5] - 2026-06-15
 
 ### 新規追加

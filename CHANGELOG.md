@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.6] - 2026-06-15
+
+### Added
+- USB camera tool (`usb_camera`): capture photos, list devices, query capabilities (cross-platform).
+- Alibaba Cloud (Qwen) provider for image analysis.
+- Kimi (Moonshot AI) provider for image analysis.
+- DeepSeek vision backend (requires vision-capable endpoint).
+- `list_caps` action for USB camera to show supported resolutions and FPS.
+
+### Changed
+- Shortened tool descriptions across all 30 locales (~8K chars / ~2K tokens reduction).
+- Removed alias parameters from tool specs (path/filename, root_path/path, etc.).
+- Removed dead `system_prompt` fields from all tool specs.
+- Renamed 31 param keys to shorter names (output_format→fmt, max_results→limit, etc.).
+- Cross-platform USB camera support (dshow/v4l2/avfoundation).
+
+### Fixed
+- Ruff warnings: exception syntax, unused variable, undefined name.
+- USB camera ffmpeg cp932 decode error on Windows.
+
 ## [0.5.5] - 2026-06-15
 
 ### Added
