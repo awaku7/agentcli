@@ -410,8 +410,6 @@ def get_dynamic_commands_help() -> list[str]:
 
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
-    # To comply with OpenAI/Azure API schema, remove custom extended fields (e.g., system_prompt).
-    #
     # Note:
     # - Both Chat Completions and Responses expect tools without a top-level "name".
     #   The canonical form is: {"type":"function","function":{"name":..., ...}}
@@ -428,7 +426,6 @@ def get_tool_specs() -> list[dict[str, Any]]:
         spec_copy.pop("load_order", None)
         if "function" in spec_copy and isinstance(spec_copy["function"], dict):
             func_copy = spec_copy["function"].copy()
-            func_copy.pop("system_prompt", None)
             spec_copy["function"] = func_copy
 
             # Ensure OpenAI/OpenRouter strict schema compatibility:
