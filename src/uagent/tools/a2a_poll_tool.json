@@ -542,7 +542,7 @@
       "a2a poll"
     ],
     "tool.system_prompt": "轮询 A2A 任务。仅返回 JSON。 仅在本地工具无法替代该任务时使用。",
-    "param.profile.description": "配置名或 a2a://name。省略则使用默认配置。",
+    "param.profile.description": "配置名或 a2a://name。省略则使用默认设置。",
     "param.task_id.description": "要轮询的任务 ID。",
     "param.interval_ms.description": "覆盖轮询间隔（毫秒）。",
     "param.timeout_s.description": "覆盖超时（秒）。",

@@ -320,7 +320,7 @@
       "列出 mcp 工具",
       "发现工具"
     ],
-    "tool.system_prompt": "连接到 MCP 服务器（HTTP 或 stdio）并列出其工具。尽可能优先使用 mcp_servers.json 中配置的服务器。"
+    "tool.system_prompt": "连接到 MCP 服务器（HTTP 或 stdio）并列出其工具。尽可能优先使用 mcp_servers.json 中设置的服务器。"
   },
   "zh_TW": {
     "param.pretty.description": "是否格式化 JSON 輸出。",
@@ -333,7 +333,7 @@
       "列出 mcp 工具",
       "探索工具"
     ],
-    "tool.system_prompt": "連接到 MCP 伺服器（HTTP 或 stdio）並列出其工具。盡可能優先使用 mcp_servers.json 中配置的伺服器。"
+    "tool.system_prompt": "連接到 MCP 伺服器（HTTP 或 stdio）並列出其工具。盡可能優先使用 mcp_servers.json 中設定的伺服器。"
   },
   "bn": {
     "param.pretty.description": "JSON আউটপুট সুন্দরভাবে ফরম্যাট করবেন কি না।",

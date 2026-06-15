@@ -795,12 +795,12 @@
     "err.openai_import": "匯入 openai 套件失敗：{err}",
     "err.image_path_empty": "[img2img] 需要 image_path",
     "err.prompt_empty": "[img2img] prompt 為空",
-    "err.image_not_found": "[img2img] 找不到圖像檔案：{path}",
+    "err.image_not_found": "[img2img] 找不到圖片檔案：{path}",
     "err.mask_not_found": "[img2img] 找不到遮罩檔案：{path}",
     "err.depname_missing": "[img2img] 尚未設定 Image model（deployment name）。\n請設定 UAGENT_<PROVIDER>_IMG_EDIT_DEPNAME 或 UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME。",
     "err.mkdir_fail": "[img2img] 建立 output_dir 失敗：{err}",
     "err.gen_fail": "[img2img] 影像編輯失敗。\nprovider={provider} model={model} size={size} n={n}\n{err}",
-    "err.no_saved": "[img2img] 圖像資料為空",
+    "err.no_saved": "[img2img] 圖片資料為空",
     "ok.generated": "[OK] 已生成"
   },
   "bn": {
