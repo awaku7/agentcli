@@ -87,7 +87,7 @@ def analyze_image_openai(
     """Analyze an image using OpenAI/Azure OpenAI Chat Completions."""
 
     provider_l = (provider or "").strip().lower()
-    if provider_l not in ("openai", "azure"):
+    if provider_l not in ("openai", "azure", "alibaba"):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
@@ -149,31 +149,40 @@ def analyze_image_openai(
             api_version=api_version,
         )
     else:
-        api_key = _img_env("openai", "analysis", "api_key") or _env_first(
-            [
-                "UAGENT_OPENAI_API_KEY",
-            ]
-        )
-        base_url = (
-            _img_env("openai", "analysis", "base_url")
-            or env_get("UAGENT_OPENAI_BASE_URL")
-            or "https://api.openai.com/v1"
-        )
-        model = _img_env("openai", "analysis", "depname") or _env_first(
-            [
-                "UAGENT_OPENAI_DEPNAME",
-            ]
-        )
-        if not (api_key and model):
-            raise RuntimeError(
-                _(
-                    "err.missing_env.openai",
-                    default=(
-                        "Missing required env vars for openai image analysis. "
-                        "Need api_key/model (UAGENT_OPENAI_* or UAGENT_OPENAI_IMG_ANALYSIS_*)."
-                    ),
-                )
+        if provider_l == "alibaba":
+            api_key = _img_env("alibaba", "analysis", "api_key") or _env_first(
+                ["UAGENT_ALIBABA_API_KEY", "UAGENT_OPENAI_API_KEY"]
             )
+            base_url = (
+                _img_env("alibaba", "analysis", "base_url")
+                or env_get("UAGENT_ALIBABA_BASE_URL")
+                or "https://dashscope.aliyuncs.com/compatible-mode/v1"
+            )
+            model = _img_env("alibaba", "analysis", "depname") or _env_first(
+                ["UAGENT_ALIBABA_DEPNAME"]
+            )
+            if not (api_key and model):
+                raise RuntimeError(
+                    "Missing required env vars for alibaba image analysis. "
+                    "Need api_key/model (UAGENT_ALIBABA_*)."
+                )
+        else:  # openai
+            api_key = _img_env("openai", "analysis", "api_key") or _env_first(
+                ["UAGENT_OPENAI_API_KEY"]
+            )
+            base_url = (
+                _img_env("openai", "analysis", "base_url")
+                or env_get("UAGENT_OPENAI_BASE_URL")
+                or "https://api.openai.com/v1"
+            )
+            model = _img_env("openai", "analysis", "depname") or _env_first(
+                ["UAGENT_OPENAI_DEPNAME"]
+            )
+            if not (api_key and model):
+                raise RuntimeError(
+                    "Missing required env vars for openai image analysis. "
+                    "Need api_key/model (UAGENT_OPENAI_* or UAGENT_OPENAI_IMG_ANALYSIS_*)."
+                )
         client = OpenAI(api_key=api_key, base_url=base_url)
 
     # Chat Completions multimodal

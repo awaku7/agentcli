@@ -110,7 +110,7 @@ def run_tool(args: dict[str, Any]) -> str:
             prompt=prompt,
         )
 
-    if provider_l in ("openai", "azure"):
+    if provider_l in ("openai", "azure", "alibaba"):
         from .vision_openai import analyze_image_openai
 
         return analyze_image_openai(
