@@ -7,6 +7,20 @@
 
 ## [Unreleased]
 
+## [0.5.5] - 2026-06-15
+
+### 新規追加
+- SwitchBot赤外線リモコン対応: TV/エアコン/ライトの on/off、明るさ、エアコンモード・風速指定。
+- SwitchBotバッチツール: 複数コマンドを一括実行。
+- Blueskyツール: 投稿（テキスト＋画像）、プロフィール、検索、タイムライン、スレッド、いいね、通知。
+- Bluesky `lang` パラメータ (BCP-47): 多言語投稿対応＋バリデーション。
+- Bluesky 画像アップロードと自動保存・表示（CLI/Web/GUI）。
+- COMMUNICATION.md: bluesky/discord/teams のコミュニケーションツールドキュメント。
+- README.md および全翻訳ファイルに IoT セクションを追加。
+
+### ドキュメント
+- IOT_USECASE.ja.md / IOT_USECASE.md を新ツール・バッチ対応に更新。
+
 ## [0.5.4] - 2026-06-15
 
 ### 修正
