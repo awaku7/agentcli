@@ -326,7 +326,10 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
             % {
                 "base_url": _normalize_url(
                     core,
-                    env_get("UAGENT_ALIBABA_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1"),
+                    env_get(
+                        "UAGENT_ALIBABA_BASE_URL",
+                        "https://dashscope.aliyuncs.com/compatible-mode/v1",
+                    ),
                 )
             }
         )

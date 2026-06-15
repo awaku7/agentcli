@@ -23,7 +23,7 @@ pip install uag
 ## मुख्य वैशिष्ट्ये
 
 - **उपयुक्त साधनांचा संच**: फाइल बदल, वेब शोध, PDF/PPTX/Excel पार्सिंग, प्रतिमा निर्मिती, प्रतिमा विश्लेषण.
-- **अनेक प्रदात्यांना समर्थन**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI).
+- **अनेक प्रदात्यांना समर्थन**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
 - **तीन इंटरफेसेस**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

@@ -396,7 +396,7 @@ def claude_chat_with_tools(
         # Newer models (Fable 5+ / Claude 5+) reject thinking.type=enabled.
         # Send thinking.type=adaptive and keep output_config.effort.
         use_adaptive_thinking = True
-        thinking_param = {"type": "adaptive"}
+        thinking_param: dict[str, Any] = {"type": "adaptive"}
         claude_temp = None
     elif is_modern_claude and out_cfg is not None:
         eff = out_cfg.get("effort", "medium")

@@ -165,9 +165,7 @@ def _request_json(
                 "code": "config_missing",
                 "message": _(
                     "err.config_missing",
-                    default=(
-                        "SwitchBot Cloud credentials are missing."
-                    ),
+                    default=("SwitchBot Cloud credentials are missing."),
                 ),
             },
         }
@@ -229,6 +227,7 @@ def _request_json(
 
 
 # --- device listing and lookup ---
+
 
 def _device_sections(body: dict[str, Any]) -> list[tuple[str, list[dict[str, Any]]]]:
     sections: list[tuple[str, list[dict[str, Any]]]] = []
@@ -299,7 +298,11 @@ def _resolve_command(device: dict[str, Any], cmd: dict[str, Any]) -> dict[str, A
         if action == "brightness_up":
             return {"command": "brightnessUp", "parameter": "default", "action": action}
         if action == "brightness_down":
-            return {"command": "brightnessDown", "parameter": "default", "action": action}
+            return {
+                "command": "brightnessDown",
+                "parameter": "default",
+                "action": action,
+            }
         if action == "set_value":
             raw_remote_type = str(device.get("remote_type") or "").casefold()
             if raw_remote_type in ("air conditioner",):
@@ -311,8 +314,14 @@ def _resolve_command(device: dict[str, Any], cmd: dict[str, Any]) -> dict[str, A
                 fan_speed = cmd.get("fan")
                 m = _AC_MODE_MAP.get(mode or "", "")
                 f = _AC_FAN_MAP.get(fan_speed or "", "")
-                return {"command": "setAll", "parameter": f"{clamped},{m},{f},", "action": action}
-            return {"error": f"Unsupported remote type for set_value: {raw_remote_type}"}
+                return {
+                    "command": "setAll",
+                    "parameter": f"{clamped},{m},{f},",
+                    "action": action,
+                }
+            return {
+                "error": f"Unsupported remote type for set_value: {raw_remote_type}"
+            }
         return {"error": f"Unsupported action for infrared device: {action}"}
 
     # lock devices
@@ -333,7 +342,11 @@ def _resolve_command(device: dict[str, Any], cmd: dict[str, Any]) -> dict[str, A
             value = cmd.get("value")
             if value is None:
                 return {"error": "value is required for set_value on curtain/blind"}
-            return {"command": "setPosition", "parameter": str(int(value)), "action": action}
+            return {
+                "command": "setPosition",
+                "parameter": str(int(value)),
+                "action": action,
+            }
         return {"error": f"Unsupported action for curtain/blind: {action}"}
 
     # plug / bot
@@ -429,21 +442,25 @@ def run_tool(args: dict[str, Any]) -> str:
     for cmd in commands:
         device = _find_device(cmd)
         if device is None:
-            steps.append({
-                "ok": False,
-                "label": f"{cmd.get('device_id') or cmd.get('device_name') or '?'}",
-                "error": "Device not found",
-            })
+            steps.append(
+                {
+                    "ok": False,
+                    "label": f"{cmd.get('device_id') or cmd.get('device_name') or '?'}",
+                    "error": "Device not found",
+                }
+            )
             failed += 1
             continue
 
         resolved = _resolve_command(device, cmd)
         if "error" in resolved:
-            steps.append({
-                "ok": False,
-                "label": f"{device.get('device_name')}/{cmd.get('action')}",
-                "error": resolved["error"],
-            })
+            steps.append(
+                {
+                    "ok": False,
+                    "label": f"{device.get('device_name')}/{cmd.get('action')}",
+                    "error": resolved["error"],
+                }
+            )
             failed += 1
             continue
 
@@ -455,20 +472,24 @@ def run_tool(args: dict[str, Any]) -> str:
         )
         if resp.get("ok"):
             succeeded += 1
-            steps.append({
-                "ok": True,
-                "label": f"{device.get('device_name')}/{cmd.get('action')}",
-                "command": resolved["command"],
-                "parameter": resolved["parameter"],
-                "response": resp["data"],
-            })
+            steps.append(
+                {
+                    "ok": True,
+                    "label": f"{device.get('device_name')}/{cmd.get('action')}",
+                    "command": resolved["command"],
+                    "parameter": resolved["parameter"],
+                    "response": resp["data"],
+                }
+            )
         else:
             failed += 1
-            steps.append({
-                "ok": False,
-                "label": f"{device.get('device_name')}/{cmd.get('action')}",
-                "error": resp.get("error", {}).get("message", "unknown"),
-            })
+            steps.append(
+                {
+                    "ok": False,
+                    "label": f"{device.get('device_name')}/{cmd.get('action')}",
+                    "error": resp.get("error", {}).get("message", "unknown"),
+                }
+            )
 
     elapsed_ms = int((time.perf_counter() - started) * 1000)
     result = {

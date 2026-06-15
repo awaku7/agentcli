@@ -45,18 +45,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.ctrl.description",
-                        default=(
-                            "Controller ID (optional)."
-                        ),
+                        default=("Controller ID (optional)."),
                     ),
                 },
                 "bridge": {
                     "type": "string",
                     "description": _(
                         "param.bridge.description",
-                        default=(
-                            "Bridge ID (optional)."
-                        ),
+                        default=("Bridge ID (optional)."),
                     ),
                 },
                 "fmt": {
@@ -118,15 +114,34 @@ def _normalize_device_type_attributes(
         raw = {**raw, **status}
     dtype_lower = str(device_type).casefold() if device_type else ""
     for key in (
-        "onOff", "on_off", "power", "state", "value",
-        "battery", "batteryLevel", "battery_level",
-        "brightness", "color", "colorTemperature", "color_temperature",
-        "temperature", "humidity", "pressure", "illuminance",
-        "lockState", "lock_state", "doorState", "door_state",
-        "position", "mode",
-        "currentTemperature", "current_temperature",
-        "targetTemperature", "target_temperature",
-        "hue", "saturation",
+        "onOff",
+        "on_off",
+        "power",
+        "state",
+        "value",
+        "battery",
+        "batteryLevel",
+        "battery_level",
+        "brightness",
+        "color",
+        "colorTemperature",
+        "color_temperature",
+        "temperature",
+        "humidity",
+        "pressure",
+        "illuminance",
+        "lockState",
+        "lock_state",
+        "doorState",
+        "door_state",
+        "position",
+        "mode",
+        "currentTemperature",
+        "current_temperature",
+        "targetTemperature",
+        "target_temperature",
+        "hue",
+        "saturation",
     ):
         if key in raw:
             attrs[key] = raw[key]
@@ -134,17 +149,58 @@ def _normalize_device_type_attributes(
         return attrs
     relevant: set[str] = set()
     if "light" in dtype_lower:
-        relevant = {"onOff", "on_off", "power", "brightness", "color",
-                     "colorTemperature", "color_temperature", "hue", "saturation", "state"}
-    elif "sensor" in dtype_lower or "thermometer" in dtype_lower or "humidity" in dtype_lower:
-        relevant = {"temperature", "humidity", "pressure", "illuminance", "battery", "state", "value"}
+        relevant = {
+            "onOff",
+            "on_off",
+            "power",
+            "brightness",
+            "color",
+            "colorTemperature",
+            "color_temperature",
+            "hue",
+            "saturation",
+            "state",
+        }
+    elif (
+        "sensor" in dtype_lower
+        or "thermometer" in dtype_lower
+        or "humidity" in dtype_lower
+    ):
+        relevant = {
+            "temperature",
+            "humidity",
+            "pressure",
+            "illuminance",
+            "battery",
+            "state",
+            "value",
+        }
     elif "lock" in dtype_lower:
-        relevant = {"lockState", "lock_state", "doorState", "door_state", "battery", "state"}
-    elif "thermostat" in dtype_lower or "climate" in dtype_lower or "air" in dtype_lower:
-        relevant = {"currentTemperature", "current_temperature",
-                     "targetTemperature", "target_temperature",
-                     "mode", "temperature", "humidity", "state", "power"}
-    elif any(k in dtype_lower for k in ("cover", "curtain", "blind", "shade", "window")):
+        relevant = {
+            "lockState",
+            "lock_state",
+            "doorState",
+            "door_state",
+            "battery",
+            "state",
+        }
+    elif (
+        "thermostat" in dtype_lower or "climate" in dtype_lower or "air" in dtype_lower
+    ):
+        relevant = {
+            "currentTemperature",
+            "current_temperature",
+            "targetTemperature",
+            "target_temperature",
+            "mode",
+            "temperature",
+            "humidity",
+            "state",
+            "power",
+        }
+    elif any(
+        k in dtype_lower for k in ("cover", "curtain", "blind", "shade", "window")
+    ):
         relevant = {"position", "state", "mode", "value"}
     elif "switch" in dtype_lower or "outlet" in dtype_lower or "plug" in dtype_lower:
         relevant = {"onOff", "on_off", "power", "state", "value"}
@@ -262,9 +318,7 @@ def _normalize_endpoint_item(item: dict[str, Any]) -> dict[str, Any]:
         or item.get("endpointLabel")
         or item.get("endpoint_label")
         or item.get("description"),
-        "unique_id": item.get("uniqueId")
-        or item.get("unique_id")
-        or item.get("uuid"),
+        "unique_id": item.get("uniqueId") or item.get("unique_id") or item.get("uuid"),
         "manufacturer": item.get("manufacturer")
         or item.get("manufacturerName")
         or item.get("manufacturer_name"),
@@ -314,18 +368,13 @@ def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
 
     location = _extract_location(item)
     device_type_val = (
-        item.get("deviceType")
-        or item.get("device_type")
-        or item.get("type")
-        or source
+        item.get("deviceType") or item.get("device_type") or item.get("type") or source
     )
     device_attributes = _normalize_device_type_attributes(device_type_val, item, status)
 
     return {
         "dev": item.get("deviceId") or item.get("dev") or item.get("id"),
-        "devname": item.get("deviceName")
-        or item.get("devname")
-        or item.get("name"),
+        "devname": item.get("deviceName") or item.get("devname") or item.get("name"),
         "device_type": device_type_val,
         "vendor": item.get("vendor")
         or item.get("manufacturer")
@@ -393,10 +442,7 @@ def _filter_candidates(
     for item in items:
         if str(item.get("dev") or "").casefold() != device_key:
             continue
-        if (
-            controller_key
-            and str(item.get("ctrl") or "").casefold() != controller_key
-        ):
+        if controller_key and str(item.get("ctrl") or "").casefold() != controller_key:
             continue
         if bridge_key and str(item.get("bridge") or "").casefold() != bridge_key:
             continue
@@ -533,9 +579,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
             "device": {
                 "dev": device_id,
-                "ctrl": (
-                    str(controller_id) if controller_id is not None else None
-                ),
+                "ctrl": (str(controller_id) if controller_id is not None else None),
                 "bridge": str(bridge_id) if bridge_id is not None else None,
             },
             "fetched_at": _now_iso(),
@@ -568,9 +612,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
             "device": {
                 "dev": device_id,
-                "ctrl": (
-                    str(controller_id) if controller_id is not None else None
-                ),
+                "ctrl": (str(controller_id) if controller_id is not None else None),
                 "bridge": str(bridge_id) if bridge_id is not None else None,
             },
             "fetched_at": _now_iso(),

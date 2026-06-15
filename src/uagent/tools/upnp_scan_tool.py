@@ -353,7 +353,9 @@ def _extract_device_items(
         service_elements.extend(list(device.findall("./{*}serviceList/{*}service")))
     service_elements.extend(list(root.findall(".//{*}service")))
 
-    seen_service_keys: set[tuple[str | None, str | None, str | None, str | None, str | None]] = set()
+    seen_service_keys: set[
+        tuple[str | None, str | None, str | None, str | None, str | None]
+    ] = set()
     for svc in service_elements:
         service_type = (svc.findtext("./{*}serviceType") or "").strip() or None
         service_id = (svc.findtext("./{*}serviceId") or "").strip() or None

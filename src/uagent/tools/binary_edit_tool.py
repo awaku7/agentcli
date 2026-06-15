@@ -51,7 +51,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "path": {
                     "type": "string",
                     "description": _(
-                        "param.path.description", default="File path (under workdir).",
+                        "param.path.description",
+                        default="File path (under workdir).",
                     ),
                 },
                 "mode": {

@@ -23,7 +23,7 @@ pip install uag
 ## 主要功能
 
 - **实用工具集**：配备有用于文件操作、网络搜索、数据提取（PDF/PPTX/Excel）、图像生成与分析的工具，均可在本地环境中执行。
-- **多提供商支持**：支持 OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI)。
+- **多提供商支持**：支持 OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI。
 - **灵活的界面**：
   - **CLI**：`uag` / `python -m uagent`
   - **GUI**：`uagg` / `python -m uagent.gui`

@@ -257,7 +257,7 @@ def detect_provider() -> str:
         "nvidia",
         "deepseek",
         "alibaba",
-        "kimi",
+        "moonshot",
     ):
         print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
         sys.exit(1)
@@ -305,15 +305,9 @@ def get_model_name() -> str:
             or "deepseek-v4-flash"
         )
     if provider == "alibaba":
-        return (
-            env_get("UAGENT_ALIBABA_DEPNAME", "qwen3.5-plus")
-            or "qwen3.5-plus"
-        )
-    if provider == "kimi":
-        return (
-            env_get("UAGENT_KIMI_DEPNAME", "kimi-k2")
-            or "kimi-k2"
-        )
+        return env_get("UAGENT_ALIBABA_DEPNAME", "qwen3.5-plus") or "qwen3.5-plus"
+    if provider == "moonshot":
+        return env_get("UAGENT_MOONSHOT_DEPNAME", "kimi-k2") or "kimi-k2"
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
 
 
@@ -573,7 +567,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     if provider == "alibaba":
         api_key = core.get_env("UAGENT_ALIBABA_API_KEY")
         base_url = core.get_env_url(
-            "UAGENT_ALIBABA_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1"
+            "UAGENT_ALIBABA_BASE_URL",
+            "https://dashscope.aliyuncs.com/compatible-mode/v1",
         )
 
         http_client = make_httpx_client()
@@ -585,10 +580,10 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         return provider, client, model_name
 
-    if provider == "kimi":
-        api_key = core.get_env("UAGENT_KIMI_API_KEY")
+    if provider == "moonshot":
+        api_key = core.get_env("UAGENT_MOONSHOT_API_KEY")
         base_url = core.get_env_url(
-            "UAGENT_KIMI_BASE_URL", "https://api.moonshot.cn/v1"
+            "UAGENT_MOONSHOT_BASE_URL", "https://api.moonshot.cn/v1"
         )
 
         http_client = make_httpx_client()

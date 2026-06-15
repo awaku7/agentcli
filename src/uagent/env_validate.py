@@ -58,7 +58,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         "nvidia",
         "deepseek",
         "alibaba",
-        "kimi",
+        "moonshot",
     )
     if provider not in allowed:
         warnings.append(
@@ -182,13 +182,18 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
     elif provider == "alibaba":
         missing += _require(
             ["UAGENT_ALIBABA_API_KEY"],
-            reason=_("Alibaba Cloud (Qwen) API key.", default="Alibaba Cloud (Qwen) API key."),
+            reason=_(
+                "Alibaba Cloud (Qwen) API key.", default="Alibaba Cloud (Qwen) API key."
+            ),
         )
-    elif provider == "kimi":
-        missing += _require(
-            ["UAGENT_KIMI_API_KEY"],
-            reason=_("KIMI (Moonshot AI) API key.", default="KIMI (Moonshot AI) API key."),
-        )
+    elif provider == "moonshot":
+        if not _get("UAGENT_MOONSHOT_API_KEY"):
+            missing.append(
+                MissingEnv(
+                    name="UAGENT_MOONSHOT_API_KEY",
+                    reason=_("Moonshot AI API key.", default="Moonshot AI API key."),
+                )
+            )
 
     embedding_provider = (_get("UAGENT_EMBEDDING_PROVIDER") or "").lower()
     if embedding_provider:

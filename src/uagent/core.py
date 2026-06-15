@@ -858,9 +858,12 @@ def normalize_message_from_log(obj: dict[str, Any]) -> Optional[dict[str, Any]]:
 def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
     Remove "isolated tool messages that do not have a corresponding assistant.tool_calls" from messages.
+    Also strip tool_calls from assistant messages whose tool_call_ids have no matching tool response
+    (e.g. after :load of a session that was interrupted mid-tool-call).
     """
     cleaned: list[dict[str, Any]] = []
     seen_tool_call_ids: set[str] = set()
+    responded_tool_call_ids: set[str] = set()
 
     for m in messages:
         role = m.get("role")
@@ -879,6 +882,7 @@ def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str
         elif role == "tool":
             tcid = m.get("tool_call_id")
             if isinstance(tcid, str) and tcid in seen_tool_call_ids:
+                responded_tool_call_ids.add(tcid)
                 cleaned.append(m)
             else:
                 # Orphan tool -> Discard as it causes an error in the API
@@ -904,6 +908,24 @@ def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str
         else:
             # system / user / normal assistant are kept as is
             cleaned.append(m)
+
+    # Second pass: strip tool_calls from assistant messages whose IDs
+    # have no corresponding tool response (unresolved tool calls).
+    unresolved_ids = seen_tool_call_ids - responded_tool_call_ids
+    if unresolved_ids:
+        for i, m in enumerate(cleaned):
+            if m.get("role") == "assistant" and "tool_calls" in m:
+                tcs = m.get("tool_calls") or []
+                new_tcs = [
+                    tc
+                    for tc in tcs
+                    if isinstance(tc, dict) and tc.get("id") not in unresolved_ids
+                ]
+                if not new_tcs:
+                    # All tool_calls are unresolved -> remove the key entirely
+                    del m["tool_calls"]
+                elif len(new_tcs) < len(tcs):
+                    m["tool_calls"] = new_tcs
 
     return cleaned
 

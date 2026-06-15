@@ -37,9 +37,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.namespace.description",
-                        default=(
-                            "Cache namespace (omit for all)."
-                        ),
+                        default=("Cache namespace (omit for all)."),
                     ),
                 },
                 "fmt": {

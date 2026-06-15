@@ -188,7 +188,9 @@ _TOOL_SUFFIXES: dict[str, set[str]] = {
 }
 
 
-def _collect_targets_for_tool(targets: list[str], tool: str) -> tuple[list[str], list[str]]:
+def _collect_targets_for_tool(
+    targets: list[str], tool: str
+) -> tuple[list[str], list[str]]:
     suffixes = _TOOL_SUFFIXES.get(tool, set())
     matched: list[str] = []
     missing: list[str] = []
@@ -209,7 +211,7 @@ def _collect_targets_for_tool(targets: list[str], tool: str) -> tuple[list[str],
             continue
 
         if p.is_dir():
-            for child in p.rglob('*'):
+            for child in p.rglob("*"):
                 if child.is_file() and child.suffix.lower() in suffixes:
                     item = str(child)
                     if item not in seen:
@@ -351,7 +353,9 @@ def run_tool(args: dict[str, Any]) -> str:
                     + sanitized_extra
                 )
             else:
-                cmd_parts = ["python", "-m", "black"] + tool_safe_targets + sanitized_extra
+                cmd_parts = (
+                    ["python", "-m", "black"] + tool_safe_targets + sanitized_extra
+                )
         elif tool == "mypy":
             cmd_parts = ["python", "-m", "mypy"] + tool_safe_targets + sanitized_extra
         elif tool == "mdformat":

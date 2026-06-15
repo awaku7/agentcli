@@ -91,18 +91,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.ctrl.description",
-                        default=(
-                            "Controller ID (optional)."
-                        ),
+                        default=("Controller ID (optional)."),
                     ),
                 },
                 "bridge": {
                     "type": "string",
                     "description": _(
                         "param.bridge.description",
-                        default=(
-                            "Bridge ID (optional)."
-                        ),
+                        default=("Bridge ID (optional)."),
                     ),
                 },
                 "dry_run": {
@@ -189,9 +185,7 @@ def _extract_items(data: Any) -> list[dict[str, Any]]:
 def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
     return {
         "dev": item.get("deviceId") or item.get("dev") or item.get("id"),
-        "devname": item.get("deviceName")
-        or item.get("devname")
-        or item.get("name"),
+        "devname": item.get("deviceName") or item.get("devname") or item.get("name"),
         "device_type": item.get("deviceType")
         or item.get("device_type")
         or item.get("type")
@@ -251,10 +245,7 @@ def _filter_candidates(
     for item in items:
         if str(item.get("dev") or "").casefold() != device_key:
             continue
-        if (
-            controller_key
-            and str(item.get("ctrl") or "").casefold() != controller_key
-        ):
+        if controller_key and str(item.get("ctrl") or "").casefold() != controller_key:
             continue
         if bridge_key and str(item.get("bridge") or "").casefold() != bridge_key:
             continue
@@ -309,7 +300,7 @@ def _validate_action(
 
 def _queue_command(command: dict[str, Any]) -> tuple[bool, str]:
     """Queue a control command via environment variable or file.
-    
+
     Returns (success, source_description).
     """
     command_json = json.dumps(command, ensure_ascii=False)
@@ -386,9 +377,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "code": "invalid_argument",
                 "message": _(
                     "err.action_required",
-                    default=(
-                        "A valid action is required: {allowed}"
-                    ),
+                    default=("A valid action is required: {allowed}"),
                     allowed=", ".join(sorted(ALL_ACTIONS)),
                 ),
             },
@@ -512,9 +501,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
             "device": {
                 "dev": device_id,
-                "ctrl": (
-                    str(controller_id) if controller_id is not None else None
-                ),
+                "ctrl": (str(controller_id) if controller_id is not None else None),
                 "bridge": str(bridge_id) if bridge_id is not None else None,
             },
             "fetched_at": _now_iso(),
@@ -547,9 +534,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
             "device": {
                 "dev": device_id,
-                "ctrl": (
-                    str(controller_id) if controller_id is not None else None
-                ),
+                "ctrl": (str(controller_id) if controller_id is not None else None),
                 "bridge": str(bridge_id) if bridge_id is not None else None,
             },
             "fetched_at": _now_iso(),

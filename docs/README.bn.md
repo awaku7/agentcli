@@ -23,7 +23,7 @@ pip install uag
 ## মূল বৈশিষ্ট্য
 
 - **ব্যবহারিক টুলসেট**: ফাইল ম্যানিপুলেশন, ওয়েব সার্চ, PDF/PPTX/Excel extraction, image generation, এবং image analysis।
-- **মাল্টি-প্রোভাইডার সাপোর্ট**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI)।
+- **মাল্টি-প্রোভাইডার সাপোর্ট**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI।
 - **তিনটি ইন্টারফেস**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

@@ -37,10 +37,7 @@ from .providers.llm_openrouter import (
 from .providers.llm_openrouter_responses import apply_openrouter_responses_compat
 from .providers.llm_ollama import apply_ollama_extra_body
 from .providers.llm_ollama_responses import apply_ollama_responses_compat
-from .providers.llm_deepseek import (
-    deepseek_chat_with_tools,
-    build_assistant_message_with_reasoning,
-)
+from .providers.llm_deepseek import deepseek_chat_with_tools
 from .llm_helpers import (
     _auto_low_quality,
     _bump_effort,

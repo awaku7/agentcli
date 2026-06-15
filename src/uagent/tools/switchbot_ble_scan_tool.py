@@ -71,9 +71,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.devname.description",
-                        default=(
-                            "Device name filter."
-                        ),
+                        default=("Device name filter."),
                     ),
                 },
                 "mac": {

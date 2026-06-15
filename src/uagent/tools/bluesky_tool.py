@@ -143,9 +143,8 @@ TOOL_SPEC: dict[str, Any] = {
 
 def _get_credentials() -> tuple[str | None, str | None]:
     handle = os.environ.get("UAGENT_BLUESKY_HANDLE") or os.environ.get("BLUESKY_HANDLE")
-    password = (
-        os.environ.get("UAGENT_BLUESKY_APP_PASSWORD")
-        or os.environ.get("BLUESKY_APP_PASSWORD")
+    password = os.environ.get("UAGENT_BLUESKY_APP_PASSWORD") or os.environ.get(
+        "BLUESKY_APP_PASSWORD"
     )
     return handle, password
 
@@ -166,7 +165,9 @@ def _create_session(handle: str, password: str, timeout: int) -> dict[str, Any] 
 # ---------------------------------------------------------------------------
 
 
-def _get_auth(path: str, access_jwt: str, params: dict[str, Any] | None = None, timeout: int = 15) -> dict[str, Any] | None:
+def _get_auth(
+    path: str, access_jwt: str, params: dict[str, Any] | None = None, timeout: int = 15
+) -> dict[str, Any] | None:
     url = f"{_API_BASE}{path}"
     headers = {"Authorization": f"Bearer {access_jwt}"}
     try:
@@ -177,7 +178,13 @@ def _get_auth(path: str, access_jwt: str, params: dict[str, Any] | None = None, 
         return None
 
 
-def _post_auth(path: str, access_jwt: str, body: dict[str, Any] | bytes, content_type: str | None = None, timeout: int = 15) -> dict[str, Any] | None:
+def _post_auth(
+    path: str,
+    access_jwt: str,
+    body: dict[str, Any] | bytes,
+    content_type: str | None = None,
+    timeout: int = 15,
+) -> dict[str, Any] | None:
     """POST with Bearer auth. Accepts dict (JSON) or bytes (raw blob)."""
     url = f"{_API_BASE}{path}"
     headers = {"Authorization": f"Bearer {access_jwt}"}
@@ -190,7 +197,9 @@ def _post_auth(path: str, access_jwt: str, body: dict[str, Any] | bytes, content
         data = None
         json_body = body if isinstance(body, dict) else None
     try:
-        resp = requests.post(url, headers=headers, json=json_body, data=data, timeout=timeout)
+        resp = requests.post(
+            url, headers=headers, json=json_body, data=data, timeout=timeout
+        )
         resp.raise_for_status()
         return resp.json()
     except requests.RequestException:
@@ -209,7 +218,9 @@ def _ensure_session() -> dict[str, Any] | None:
 # ---------------------------------------------------------------------------
 
 
-def _upload_blob(access_jwt: str, image_path: str, timeout: int = 30) -> dict[str, Any] | None:
+def _upload_blob(
+    access_jwt: str, image_path: str, timeout: int = 30
+) -> dict[str, Any] | None:
     """Upload an image blob to Bluesky. Returns the blob reference dict."""
     path = Path(image_path)
     if not path.is_file():
@@ -220,7 +231,13 @@ def _upload_blob(access_jwt: str, image_path: str, timeout: int = 30) -> dict[st
     mime, _ = mimetypes.guess_type(str(path))
     if mime not in ("image/jpeg", "image/png", "image/gif", "image/webp"):
         return None
-    return _post_auth("/com.atproto.repo.uploadBlob", access_jwt, data, content_type=mime, timeout=timeout)
+    return _post_auth(
+        "/com.atproto.repo.uploadBlob",
+        access_jwt,
+        data,
+        content_type=mime,
+        timeout=timeout,
+    )
 
 
 def _extract_images(record: dict[str, Any] | None) -> list[dict[str, Any]]:
@@ -236,7 +253,8 @@ def _extract_images(record: dict[str, Any] | None) -> list[dict[str, Any]]:
                 "fullsize": img.get("image", {}).get("ref", {}).get("$link", ""),
                 "thumb": img.get("thumb", ""),
             }
-            for img in images if isinstance(img, dict)
+            for img in images
+            if isinstance(img, dict)
         ]
     return []
 
@@ -273,14 +291,22 @@ def _handle_post(args: dict[str, Any], output_format: str) -> str:
     alt_text = (args.get("alt") or "").strip()
 
     if not text and not image_path:
-        return _err_json("invalid_argument", "Text or image_path is required for post action.", output_format)
+        return _err_json(
+            "invalid_argument",
+            "Text or image_path is required for post action.",
+            output_format,
+        )
 
     if len(text) > 300:
         text = text[:300]
 
     session = _ensure_session()
     if not session or not session.get("accessJwt"):
-        return _err_json("auth_failed", "Authentication failed. Check your Bluesky credentials.", output_format)
+        return _err_json(
+            "auth_failed",
+            "Authentication failed. Check your Bluesky credentials.",
+            output_format,
+        )
 
     started = time.perf_counter()
     did = session.get("did", "")
@@ -309,19 +335,28 @@ def _handle_post(args: dict[str, Any], output_format: str) -> str:
     if image_path:
         blob = _upload_blob(access_jwt, image_path)
         if not blob:
-            return _err_json("image_upload_failed", f"Failed to upload image: {image_path}. Check file exists, is JPEG/PNG, and under 1 MB.", output_format)
+            return _err_json(
+                "image_upload_failed",
+                f"Failed to upload image: {image_path}. Check file exists, is JPEG/PNG, and under 1 MB.",
+                output_format,
+            )
         blb = blob.get("blob") or {}
         images = [{"alt": alt_text, "image": blb}]
         record["embed"] = {"$type": "app.bsky.embed.images", "images": images}
 
     body = {"repo": did, "collection": "app.bsky.feed.post", "record": record}
-    post_result = _post_auth("/com.atproto.repo.createRecord", access_jwt, body, timeout=15)
+    post_result = _post_auth(
+        "/com.atproto.repo.createRecord", access_jwt, body, timeout=15
+    )
     if not post_result:
-        return _err_json("post_failed", "Failed to create post on Bluesky.", output_format)
+        return _err_json(
+            "post_failed", "Failed to create post on Bluesky.", output_format
+        )
 
     elapsed_ms = int((time.perf_counter() - started) * 1000)
     result = {
-        "ok": True, "action": "post",
+        "ok": True,
+        "action": "post",
         "text": text,
         "has_image": bool(image_path),
         "uri": post_result.get("uri"),
@@ -352,13 +387,18 @@ def _handle_profile(args: dict[str, Any], output_format: str) -> str:
 
     started = time.perf_counter()
     target = actor if actor else session.get("handle", "")
-    data = _get_auth("/app.bsky.actor.getProfile", session["accessJwt"], {"actor": target})
+    data = _get_auth(
+        "/app.bsky.actor.getProfile", session["accessJwt"], {"actor": target}
+    )
     if not data:
-        return _err_json("profile_failed", f"Failed to get profile for: {target}.", output_format)
+        return _err_json(
+            "profile_failed", f"Failed to get profile for: {target}.", output_format
+        )
 
     elapsed_ms = int((time.perf_counter() - started) * 1000)
     result = {
-        "ok": True, "action": "profile",
+        "ok": True,
+        "action": "profile",
         "did": data.get("did"),
         "handle": data.get("handle"),
         "display_name": data.get("displayName"),
@@ -373,15 +413,17 @@ def _handle_profile(args: dict[str, Any], output_format: str) -> str:
     }
     if output_format == "text":
         bio = (result.get("description") or "-")[:80]
-        return "\n".join([
-            f"Profile: {result.get('display_name', '-')} (@{result.get('handle', '-')})",
-            f"  DID: {result.get('did', '-')}",
-            f"  Bio: {bio}",
-            f"  Followers: {result.get('followers_count', 0)}",
-            f"  Following: {result.get('follows_count', 0)}",
-            f"  Posts: {result.get('posts_count', 0)}",
-            f"  Created: {result.get('created_at', '-')}",
-        ])
+        return "\n".join(
+            [
+                f"Profile: {result.get('display_name', '-')} (@{result.get('handle', '-')})",
+                f"  DID: {result.get('did', '-')}",
+                f"  Bio: {bio}",
+                f"  Followers: {result.get('followers_count', 0)}",
+                f"  Following: {result.get('follows_count', 0)}",
+                f"  Posts: {result.get('posts_count', 0)}",
+                f"  Created: {result.get('created_at', '-')}",
+            ]
+        )
     return json.dumps(result, ensure_ascii=False)
 
 
@@ -393,20 +435,37 @@ def _handle_profile(args: dict[str, Any], output_format: str) -> str:
 def _handle_search(args: dict[str, Any], output_format: str) -> str:
     q = (args.get("q") or "").strip()
     if not q:
-        return _err_json("invalid_argument", "Query (q) is required for search.", output_format)
+        return _err_json(
+            "invalid_argument", "Query (q) is required for search.", output_format
+        )
     session = _ensure_session()
     if not session or not session.get("accessJwt"):
         return _err_json("auth_failed", "Authentication failed.", output_format)
     limit = min(max(int(args.get("limit", 20)), 1), 100)
     started = time.perf_counter()
-    data = _get_auth("/app.bsky.feed.searchPosts", session["accessJwt"], {"q": q, "limit": str(limit)})
+    data = _get_auth(
+        "/app.bsky.feed.searchPosts",
+        session["accessJwt"],
+        {"q": q, "limit": str(limit)},
+    )
     if not data:
         return _err_json("search_failed", "Search request failed.", output_format)
     elapsed_ms = int((time.perf_counter() - started) * 1000)
     posts = data.get("posts") or []
-    items = [_compact_post(p, args.get("save_img"), session.get("did")) for p in posts[:limit]]
+    items = [
+        _compact_post(p, args.get("save_img"), session.get("did"))
+        for p in posts[:limit]
+    ]
     attachments = _collect_attachments(items)
-    result = {"ok": True, "action": "search", "q": q, "count": len(items), "items": items, "elapsed_ms": elapsed_ms, "attachments": attachments}
+    result = {
+        "ok": True,
+        "action": "search",
+        "q": q,
+        "count": len(items),
+        "items": items,
+        "elapsed_ms": elapsed_ms,
+        "attachments": attachments,
+    }
     _open_saved_images(result)
     if output_format == "text":
         return _fmt_posts(result, title=f"Search results for '{q}':")
@@ -424,18 +483,29 @@ def _handle_timeline(args: dict[str, Any], output_format: str) -> str:
         return _err_json("auth_failed", "Authentication failed.", output_format)
     limit = min(max(int(args.get("limit", 20)), 1), 100)
     started = time.perf_counter()
-    data = _get_auth("/app.bsky.feed.getTimeline", session["accessJwt"], {"limit": str(limit)})
+    data = _get_auth(
+        "/app.bsky.feed.getTimeline", session["accessJwt"], {"limit": str(limit)}
+    )
     if not data:
         return _err_json("timeline_failed", "Failed to get timeline.", output_format)
     elapsed_ms = int((time.perf_counter() - started) * 1000)
     feed = data.get("feed") or []
     items = []
     for entry in feed[:limit]:
-        item = _compact_post(entry.get("post") or {}, args.get("save_img"), session.get("did"))
+        item = _compact_post(
+            entry.get("post") or {}, args.get("save_img"), session.get("did")
+        )
         item["reason"] = entry.get("reason")
         items.append(item)
     attachments = _collect_attachments(items)
-    result = {"ok": True, "action": "timeline", "count": len(items), "items": items, "elapsed_ms": elapsed_ms, "attachments": attachments}
+    result = {
+        "ok": True,
+        "action": "timeline",
+        "count": len(items),
+        "items": items,
+        "elapsed_ms": elapsed_ms,
+        "attachments": attachments,
+    }
     _open_saved_images(result)
     if output_format == "text":
         return _fmt_posts(result, title="Timeline:")
@@ -450,14 +520,18 @@ def _handle_timeline(args: dict[str, Any], output_format: str) -> str:
 def _handle_thread(args: dict[str, Any], output_format: str) -> str:
     uri = (args.get("uri") or "").strip()
     if not uri:
-        return _err_json("invalid_argument", "URI is required for thread.", output_format)
+        return _err_json(
+            "invalid_argument", "URI is required for thread.", output_format
+        )
     session = _ensure_session()
     if not session or not session.get("accessJwt"):
         return _err_json("auth_failed", "Authentication failed.", output_format)
     started = time.perf_counter()
     data = _get_auth("/app.bsky.feed.getPostThread", session["accessJwt"], {"uri": uri})
     if not data:
-        return _err_json("thread_failed", f"Failed to get thread for: {uri}.", output_format)
+        return _err_json(
+            "thread_failed", f"Failed to get thread for: {uri}.", output_format
+        )
     elapsed_ms = int((time.perf_counter() - started) * 1000)
     save = args.get("save_img")
     did = session.get("did")
@@ -465,7 +539,9 @@ def _handle_thread(args: dict[str, Any], output_format: str) -> str:
     compact = _compact_thread(thread, save, did)
     attachments = _collect_attachments([compact])
     result = {
-        "ok": True, "action": "thread", "uri": uri,
+        "ok": True,
+        "action": "thread",
+        "uri": uri,
         "thread": compact,
         "attachments": attachments,
         "elapsed_ms": elapsed_ms,
@@ -476,12 +552,17 @@ def _handle_thread(args: dict[str, Any], output_format: str) -> str:
     return json.dumps(result, ensure_ascii=False)
 
 
-def _compact_thread(thread: dict[str, Any], save_images: bool = False, my_did: str | None = None) -> dict[str, Any]:
+def _compact_thread(
+    thread: dict[str, Any], save_images: bool = False, my_did: str | None = None
+) -> dict[str, Any]:
     post_data = thread.get("post") or thread
     out = {"post": _compact_post(post_data, save_images, my_did)}
     replies = thread.get("replies")
     if isinstance(replies, list):
-        out["replies"] = [_compact_thread(r, save_images, my_did) if isinstance(r, dict) else r for r in replies[:5]]
+        out["replies"] = [
+            _compact_thread(r, save_images, my_did) if isinstance(r, dict) else r
+            for r in replies[:5]
+        ]
     return out
 
 
@@ -494,7 +575,9 @@ def _handle_like(args: dict[str, Any], output_format: str) -> str:
     uri = (args.get("uri") or "").strip()
     cid = (args.get("cid") or "").strip()
     if not uri or not cid:
-        return _err_json("invalid_argument", "Both uri and cid are required for like.", output_format)
+        return _err_json(
+            "invalid_argument", "Both uri and cid are required for like.", output_format
+        )
     session = _ensure_session()
     if not session or not session.get("accessJwt"):
         return _err_json("auth_failed", "Authentication failed.", output_format)
@@ -511,7 +594,14 @@ def _handle_like(args: dict[str, Any], output_format: str) -> str:
     if not like_result:
         return _err_json("like_failed", "Failed to like the post.", output_format)
     elapsed_ms = int((time.perf_counter() - started) * 1000)
-    result = {"ok": True, "action": "like", "uri": uri, "like_uri": like_result.get("uri"), "like_cid": like_result.get("cid"), "elapsed_ms": elapsed_ms}
+    result = {
+        "ok": True,
+        "action": "like",
+        "uri": uri,
+        "like_uri": like_result.get("uri"),
+        "like_cid": like_result.get("cid"),
+        "elapsed_ms": elapsed_ms,
+    }
     if output_format == "text":
         return f"Liked: {uri}\nLike URI: {like_result.get('uri', '-')}"
     return json.dumps(result, ensure_ascii=False)
@@ -528,9 +618,15 @@ def _handle_notifications(args: dict[str, Any], output_format: str) -> str:
         return _err_json("auth_failed", "Authentication failed.", output_format)
     limit = min(max(int(args.get("limit", 20)), 1), 100)
     started = time.perf_counter()
-    data = _get_auth("/app.bsky.notification.listNotifications", session["accessJwt"], {"limit": str(limit)})
+    data = _get_auth(
+        "/app.bsky.notification.listNotifications",
+        session["accessJwt"],
+        {"limit": str(limit)},
+    )
     if not data:
-        return _err_json("notifications_failed", "Failed to get notifications.", output_format)
+        return _err_json(
+            "notifications_failed", "Failed to get notifications.", output_format
+        )
     elapsed_ms = int((time.perf_counter() - started) * 1000)
     notifs = data.get("notifications") or []
     items = []
@@ -546,26 +642,38 @@ def _handle_notifications(args: dict[str, Any], output_format: str) -> str:
                     sp = _download_and_save(url, "notif", idx + 1)
                     if sp:
                         saved.append(sp)
-        items.append({
-            "uri": n.get("uri"),
-            "cid": n.get("cid"),
-            "author": n.get("author", {}).get("handle"),
-            "reason": n.get("reason"),
-            "reason_subject": n.get("reasonSubject"),
-            "record_text": record.get("text", "") if isinstance(record, dict) else "",
-            "is_read": n.get("isRead"),
-            "indexed_at": n.get("indexedAt"),
-            "images": images,
-            "saved_images": saved if saved else None,
-        })
-    result = {"ok": True, "action": "notifications", "count": len(items), "items": items, "elapsed_ms": elapsed_ms}
+        items.append(
+            {
+                "uri": n.get("uri"),
+                "cid": n.get("cid"),
+                "author": n.get("author", {}).get("handle"),
+                "reason": n.get("reason"),
+                "reason_subject": n.get("reasonSubject"),
+                "record_text": (
+                    record.get("text", "") if isinstance(record, dict) else ""
+                ),
+                "is_read": n.get("isRead"),
+                "indexed_at": n.get("indexedAt"),
+                "images": images,
+                "saved_images": saved if saved else None,
+            }
+        )
+    result = {
+        "ok": True,
+        "action": "notifications",
+        "count": len(items),
+        "items": items,
+        "elapsed_ms": elapsed_ms,
+    }
     _open_saved_images(result)
     if output_format == "text":
         lines = [f"Notifications ({result['count']}):"]
         for n in items:
             label = "READ" if n.get("is_read") else "NEW"
             txt = (n.get("record_text") or "")[:60]
-            lines.append(f"  [{label}] {n.get('reason', '?')} from @{n.get('author', '?')}: {txt}")
+            lines.append(
+                f"  [{label}] {n.get('reason', '?')} from @{n.get('author', '?')}: {txt}"
+            )
             if n.get("saved_images"):
                 for sp in n["saved_images"]:
                     lines.append(f"         Image: {sp}")
@@ -578,7 +686,9 @@ def _handle_notifications(args: dict[str, Any], output_format: str) -> str:
 # ---------------------------------------------------------------------------
 
 
-def _compact_post(post: dict[str, Any], save_images: bool = False, my_did: str | None = None) -> dict[str, Any]:
+def _compact_post(
+    post: dict[str, Any], save_images: bool = False, my_did: str | None = None
+) -> dict[str, Any]:
     author = post.get("author") or {}
     record = post.get("record") or {}
     images = _extract_images(record)
@@ -604,7 +714,9 @@ def _compact_post(post: dict[str, Any], save_images: bool = False, my_did: str |
         "repost_count": post.get("repostCount"),
         "images": images,
         "saved_images": saved if saved else None,
-        "attachments": [{"type": "image", "saved_path": sp} for sp in saved] if saved else None,
+        "attachments": (
+            [{"type": "image", "saved_path": sp} for sp in saved] if saved else None
+        ),
     }
 
 
@@ -627,13 +739,16 @@ def _open_saved_images(result: dict[str, Any]) -> None:
     if open_flag in ("0", "false", "no", "off"):
         return
     seen: set[str] = set()
-    for att in (result.get("attachments") or []):
+    for att in result.get("attachments") or []:
         sp = att.get("saved_path", "")
         if sp and sp not in seen:
             seen.add(sp)
             if open_image_with_default_app(sp):
                 print(
-                    _("log.opened_app", default="[INFO] Opened image with default app."),
+                    _(
+                        "log.opened_app",
+                        default="[INFO] Opened image with default app.",
+                    ),
                     file=sys.stderr,
                 )
 
@@ -643,13 +758,13 @@ def _collect_attachments(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
     seen: set[str] = set()
     for item in items:
-        for att in (item.get("attachments") or []):
+        for att in item.get("attachments") or []:
             sp = att.get("saved_path", "")
             if sp and sp not in seen:
                 seen.add(sp)
                 result.append(att)
         # Also check nested items (thread replies)
-        for reply in (item.get("replies") or []):
+        for reply in item.get("replies") or []:
             if isinstance(reply, dict):
                 result.extend(_collect_attachments([reply]))
     return result
@@ -657,7 +772,11 @@ def _collect_attachments(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def _err_json(code: str, message: str, output_format: str) -> str:
     payload = {"ok": False, "error": {"code": code, "message": message}}
-    return json.dumps(payload, ensure_ascii=False, indent=2) if output_format == "text" else json.dumps(payload, ensure_ascii=False)
+    return (
+        json.dumps(payload, ensure_ascii=False, indent=2)
+        if output_format == "text"
+        else json.dumps(payload, ensure_ascii=False)
+    )
 
 
 def _fmt(template: str, **kw: Any) -> str:
@@ -706,7 +825,9 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").lower()
     action = (args.get("action") or "").strip().lower()
     if not action:
-        return _err_json("invalid_argument", "The action field is required.", output_format)
+        return _err_json(
+            "invalid_argument", "The action field is required.", output_format
+        )
     handlers = {
         "post": _handle_post,
         "profile": _handle_profile,
@@ -719,4 +840,6 @@ def run_tool(args: dict[str, Any]) -> str:
     handler = handlers.get(action)
     if handler:
         return handler(args, output_format)
-    return _err_json("invalid_argument", f"Unsupported action: {action}.", output_format)
+    return _err_json(
+        "invalid_argument", f"Unsupported action: {action}.", output_format
+    )

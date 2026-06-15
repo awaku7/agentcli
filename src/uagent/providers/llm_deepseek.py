@@ -13,10 +13,10 @@ Differences from the generic OpenAI-compatible path:
 - Default base_url is ``https://api.deepseek.com`` (no ``/v1`` suffix).
 - Default model is ``deepseek-v4-flash`` (``deepseek-chat`` is deprecated 2026-07-24).
 """
+
 from __future__ import annotations
 
 import json
-import traceback
 from typing import Any
 from urllib.error import URLError
 
@@ -71,6 +71,7 @@ def _resolve_deepseek_effort(raw: str) -> str | None:
 # reasoning_content helpers
 # ---------------------------------------------------------------------------
 
+
 def extract_reasoning_content(msg: Any) -> str:
     """Pull reasoning_content out of an OpenAI SDK message object or dict."""
     # SDK object attribute
@@ -112,6 +113,7 @@ def build_assistant_message_with_reasoning(
 # ---------------------------------------------------------------------------
 # chat_kwargs builder
 # ---------------------------------------------------------------------------
+
 
 def build_deepseek_chat_kwargs(
     *,
@@ -169,7 +171,11 @@ def build_deepseek_chat_kwargs(
     # logprobs/top_logprobs are intentionally NOT sent (400 in thinking mode).
     if effort_used not in _VALID_EFFORTS:
         # temperature
-        temp_env = (env_get("UAGENT_DEEPSEEK_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or "").strip()
+        temp_env = (
+            env_get("UAGENT_DEEPSEEK_TEMPERATURE")
+            or env_get("UAGENT_TEMPERATURE")
+            or ""
+        ).strip()
         try:
             resolved_temp = float(temp_env) if temp_env else 0.0
         except ValueError:
@@ -224,6 +230,7 @@ def _strip_reasoning_content_no_tool(
 # Response parser
 # ---------------------------------------------------------------------------
 
+
 def parse_deepseek_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
     """Parse a non-streaming chat completion response from DeepSeek.
 
@@ -257,11 +264,13 @@ def parse_deepseek_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
             fn_args = "{}"
         elif not isinstance(fn_args, str):
             fn_args = str(fn_args)
-        tool_calls_list.append({
-            "id": tc_id or "",
-            "type": "function",
-            "function": {"name": fn_name, "arguments": fn_args},
-        })
+        tool_calls_list.append(
+            {
+                "id": tc_id or "",
+                "type": "function",
+                "function": {"name": fn_name, "arguments": fn_args},
+            }
+        )
 
     # content
     raw_content = getattr(msg, "content", "")
@@ -293,6 +302,7 @@ def parse_deepseek_response(resp: Any) -> tuple[str, str, list[dict[str, Any]]]:
 # ---------------------------------------------------------------------------
 # Streaming parser
 # ---------------------------------------------------------------------------
+
 
 def parse_deepseek_stream(
     stream: Any,
@@ -370,8 +380,7 @@ def parse_deepseek_stream(
                 print("")
 
     tool_calls_list = [
-        v for _, v in sorted(tool_calls_acc.items())
-        if v["function"]["name"]
+        v for _, v in sorted(tool_calls_acc.items()) if v["function"]["name"]
     ]
 
     return "".join(text_parts), "".join(reasoning_parts), tool_calls_list
@@ -380,6 +389,7 @@ def parse_deepseek_stream(
 # ---------------------------------------------------------------------------
 # Main round function
 # ---------------------------------------------------------------------------
+
 
 def deepseek_chat_with_tools(
     client: Any,
@@ -402,7 +412,9 @@ def deepseek_chat_with_tools(
     attempt_429 = 0
 
     _reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
-    _auto_user_text = _extract_latest_user_text(call_messages) if _reasoning == "auto" else ""
+    _auto_user_text = (
+        _extract_latest_user_text(call_messages) if _reasoning == "auto" else ""
+    )
 
     req_tools = _tools.get_tool_specs() if send_tools_this_round else None
 
@@ -418,29 +430,41 @@ def deepseek_chat_with_tools(
             )
 
             if effort_used:
-                label = f"LLM:auto->{effort_used}" if _reasoning == "auto" else f"LLM:{effort_used}"
+                label = (
+                    f"LLM:auto->{effort_used}"
+                    if _reasoning == "auto"
+                    else f"LLM:{effort_used}"
+                )
                 try:
                     core.set_status(True, label)
                 except Exception:
                     pass
 
             if stream:
-                assistant_text, reasoning_content, tool_calls_list = call_maybe_thread_fn(
-                    lambda: parse_deepseek_stream(
-                        client.chat.completions.create(**chat_kwargs, stream=True),
-                        print_delta_fn=(
-                            None
-                            if bool(getattr(core, "_is_web", False))
-                            else (lambda s: print(s, end="", flush=True) if s else None)
-                        ),
-                        core=core,
+                assistant_text, reasoning_content, tool_calls_list = (
+                    call_maybe_thread_fn(
+                        lambda: parse_deepseek_stream(
+                            client.chat.completions.create(**chat_kwargs, stream=True),
+                            print_delta_fn=(
+                                None
+                                if bool(getattr(core, "_is_web", False))
+                                else (
+                                    lambda s: (
+                                        print(s, end="", flush=True) if s else None
+                                    )
+                                )
+                            ),
+                            core=core,
+                        )
                     )
                 )
             else:
                 resp = call_maybe_thread_fn(
                     lambda: client.chat.completions.create(**chat_kwargs)
                 )
-                assistant_text, reasoning_content, tool_calls_list = parse_deepseek_response(resp)
+                assistant_text, reasoning_content, tool_calls_list = (
+                    parse_deepseek_response(resp)
+                )
 
             return True, client, assistant_text, reasoning_content, tool_calls_list
 
@@ -492,7 +516,10 @@ def deepseek_chat_with_tools(
                 print(repr(e))
                 return False, client, "", "", []
 
-            print("[DeepSeek Error] " + _("An error occurred while generating a response."))
+            print(
+                "[DeepSeek Error] "
+                + _("An error occurred while generating a response.")
+            )
             _maybe_print_certifi_where(e)
             print(repr(e))
             return False, client, "", "", []

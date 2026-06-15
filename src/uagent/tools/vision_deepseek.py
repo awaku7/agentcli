@@ -49,7 +49,9 @@ def _get_deepseek_client():
 
 def analyze_image_deepseek(*, image_path: str, prompt: str | None) -> str:
     client = _get_deepseek_client()
-    model = env_get("UAGENT_DEEPSEEK_DEPNAME", "deepseek-v4-flash") or "deepseek-v4-flash"
+    model = (
+        env_get("UAGENT_DEEPSEEK_DEPNAME", "deepseek-v4-flash") or "deepseek-v4-flash"
+    )
     text = (prompt or "").strip() or "Please describe this image in detail."
     data_url = _image_file_to_data_url(image_path)
 
@@ -67,17 +69,25 @@ def analyze_image_deepseek(*, image_path: str, prompt: str | None) -> str:
             ],
         )
         content = resp.choices[0].message.content if resp.choices else ""
-        return (content or "").strip() or _("warn.empty", default="[WARN] empty response")
+        return (content or "").strip() or _(
+            "warn.empty", default="[WARN] empty response"
+        )
     except Exception as e:
         err = str(e)
         if "image_url" in err or "image" in err.lower():
-            return json.dumps({
-                "ok": False,
-                "error": (
-                    "The configured DeepSeek endpoint does not support image input. "
-                    "To use DeepSeek vision, set UAGENT_DEEPSEEK_BASE_URL to a vision-capable endpoint "
-                    "(e.g., a provider that supports vision models) and UAGENT_DEEPSEEK_DEPNAME to the model name. "
-                    "Current models available: deepseek-v4-flash, deepseek-v4-pro (text-only)."
-                ),
-            }, ensure_ascii=False)
-        return json.dumps({"ok": False, "error": f"DeepSeek vision call failed: {err[:200]}"}, ensure_ascii=False)
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": (
+                        "The configured DeepSeek endpoint does not support image input. "
+                        "To use DeepSeek vision, set UAGENT_DEEPSEEK_BASE_URL to a vision-capable endpoint "
+                        "(e.g., a provider that supports vision models) and UAGENT_DEEPSEEK_DEPNAME to the model name. "
+                        "Current models available: deepseek-v4-flash, deepseek-v4-pro (text-only)."
+                    ),
+                },
+                ensure_ascii=False,
+            )
+        return json.dumps(
+            {"ok": False, "error": f"DeepSeek vision call failed: {err[:200]}"},
+            ensure_ascii=False,
+        )

@@ -293,17 +293,19 @@ def run_llm_rounds(
                 empty_no_tool_rounds = 0
 
             elif provider == "deepseek":
-                ok, client, assistant_text, reasoning_content, tool_calls_list = _call_deepseek_round(
-                    client=client,
-                    depname=depname,
-                    call_messages=call_messages,
-                    core=core,
-                    make_client_fn=make_client_fn,
-                    call_maybe_thread_fn=_call_maybe_thread_fn,
-                    send_tools_this_round=True,
-                    max_retries_429=max_retries_429,
-                    retry_base=retry_base,
-                    retry_cap=retry_cap,
+                ok, client, assistant_text, reasoning_content, tool_calls_list = (
+                    _call_deepseek_round(
+                        client=client,
+                        depname=depname,
+                        call_messages=call_messages,
+                        core=core,
+                        make_client_fn=make_client_fn,
+                        call_maybe_thread_fn=_call_maybe_thread_fn,
+                        send_tools_this_round=True,
+                        max_retries_429=max_retries_429,
+                        retry_base=retry_base,
+                        retry_cap=retry_cap,
+                    )
                 )
                 if not ok:
                     return
@@ -316,7 +318,9 @@ def run_llm_rounds(
                 )
 
                 # Determine if streaming is active (used for both log-skip and print-skip).
-                _ds_streaming = (env_get("UAGENT_STREAMING", "1") or "").strip().lower() not in ("0", "false", "no", "off")
+                _ds_streaming = (
+                    env_get("UAGENT_STREAMING", "1") or ""
+                ).strip().lower() not in ("0", "false", "no", "off")
 
                 # Build assistant message: reasoning_content is only carried
                 # forward when tool calls are present (DeepSeek API requirement).
