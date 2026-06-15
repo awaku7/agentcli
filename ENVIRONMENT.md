@@ -85,6 +85,8 @@ Configuration settings for built-in web search (grounding) features provided dir
 - `UAGENT_IMG_GENERATE_PROVIDER`: Provider for image generation (Default: `UAGENT_PROVIDER`).
 - `UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME`: Model ID for image generation (e.g., `dall-e-3`).
 - `UAGENT_IMG_ANALYSIS_PROVIDER`: Provider for image analysis (Default: `UAGENT_PROVIDER`).
+  - Supported: `openai`, `azure`, `gemini`, `vertexai`, `ollama`, `alibaba` (Qwen-VL via DashScope), `deepseek` (vision-capable endpoint required).
+  - Requires the corresponding `UAGENT_<PROVIDER>_API_KEY/DEPNAME/BASE_URL` env vars.
 - `UAGENT_IMAGE_OPEN`: Whether to automatically open images after generation (`0` to disable).
 
 ### 6. Audio Speech and Transcription
