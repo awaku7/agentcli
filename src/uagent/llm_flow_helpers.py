@@ -42,10 +42,11 @@ def _emit_final_answer_if_any(
     stream_responses: bool,
     append_result_to_outfile_fn: Any,
     try_open_images_from_text_fn: Any,
+    skip_print: bool = False,
 ) -> None:
     if not _effectively_empty_text(assistant_text):
         # Responses+Streaming already printed deltas in parse_responses_stream(); avoid double-print.
-        if not (use_responses_api and stream_responses):
+        if not skip_print and not (use_responses_api and stream_responses):
             print(assistant_text)
         append_result_to_outfile_fn(assistant_text)
         try_open_images_from_text_fn(assistant_text)
