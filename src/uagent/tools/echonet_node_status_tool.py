@@ -85,12 +85,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Timeout (seconds).",
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -508,7 +508,7 @@ def run_tool(args: dict[str, Any]) -> str:
     ip_address = str(args.get("ip_address") or "").strip()
     eoj = args.get("eoj")
     object_code = args.get("object_code")
-    output_format = str(args.get("output_format") or "json").strip().lower()
+    output_format = str(args.get("fmt") or "json").strip().lower()
 
     try:
         timeout = _normalize_int(

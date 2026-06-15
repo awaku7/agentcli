@@ -90,12 +90,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Timeout (seconds).",
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -238,7 +238,7 @@ def run_tool(args: dict[str, Any]) -> str:
         args.get("duration", _DEFAULT_DURATION), _DEFAULT_DURATION, 1
     )
     timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
-    output_format = str(args.get("output_format") or "json").strip().lower()
+    output_format = str(args.get("fmt") or "json").strip().lower()
 
     if not ip_address:
         payload = {

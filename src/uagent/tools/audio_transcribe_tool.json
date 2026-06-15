@@ -13,7 +13,6 @@
     "param.model.description": "Transcription model name. If omitted, the provider default or configured deployment name is used.",
     "param.language.description": "Optional language hint (e.g. 'ja', 'en').",
     "param.prompt.description": "Optional context prompt to improve transcription quality.",
-    "param.output_format.description": "How much detail to return in the JSON response: text or json.",
     "err.unsupported_provider": "Unsupported provider for audio transcription: {provider!r}",
     "err.openai_import": "Failed to import openai package: {err}",
     "err.path_empty": "path is required",
@@ -21,7 +20,8 @@
     "err.invalid_output_format": "Invalid output_format: {output_format}",
     "err.transcribe_failed": "Audio transcription failed: {err}",
     "ok.transcribed": "Transcription completed",
-    "warn.empty_transcript": "[WARN] empty transcript"
+    "warn.empty_transcript": "[WARN] empty transcript",
+    "param.fmt.description": "How much detail to return in the JSON response: text or json."
   },
   "ja": {
     "tool.description": "音声ファイルを書き起こしてテキストを返します。会議、インタビュー、音声メモに使えます。",
@@ -34,7 +34,6 @@
     "param.model.description": "書き起こしモデル名。省略時は提供元の既定値または設定済みのデプロイ名を使います。",
     "param.language.description": "任意の言語ヒント（例: 'ja', 'en'）。",
     "param.prompt.description": "書き起こし精度を高めるための任意の文脈プロンプト。",
-    "param.output_format.description": "JSON 応答で返す詳細度。text または json。",
     "err.unsupported_provider": "音声書き起こしに対応していない provider です: {provider!r}",
     "err.openai_import": "openai パッケージの読み込みに失敗しました: {err}",
     "err.path_empty": "path は必須です",
@@ -42,7 +41,8 @@
     "err.invalid_output_format": "output_format が無効です: {output_format}",
     "err.transcribe_failed": "音声の書き起こしに失敗しました: {err}",
     "ok.transcribed": "書き起こしが完了しました",
-    "warn.empty_transcript": "書き起こし結果が空です"
+    "warn.empty_transcript": "書き起こし結果が空です",
+    "param.fmt.description": "JSON 応答で返す詳細度。text または json。"
   },
   "es": {
     "tool.description": "Transcribe un archivo de audio a texto. Útil para reuniones, entrevistas y notas de voz.",
@@ -55,7 +55,6 @@
     "param.model.description": "Nombre del modelo de transcripción.",
     "param.language.description": "Sugerencia de idioma opcional (por ejemplo, 'ja', 'en').",
     "param.prompt.description": "Indicador de contexto opcional para mejorar la calidad...",
-    "param.output_format.description": "Cantidad de detalle que se devolverá en la respuesta JSON:...",
     "err.unsupported_provider": "Proveedor no compatible para la transcripción de audio:...",
     "err.openai_import": "No se pudo importar el paquete open...",
     "err.path_empty": "path es oblig...",
@@ -63,7 +62,8 @@
     "err.invalid_output_format": "output_format inválido: {output_format}",
     "err.transcribe_failed": "Falló la transcripción de audi...",
     "ok.transcribed": "Transcripción completada",
-    "warn.empty_transcript": "[WARN] transcripción..."
+    "warn.empty_transcript": "[WARN] transcripción...",
+    "param.fmt.description": "Cantidad de detalle que se devolverá en la respuesta JSON:..."
   },
   "fr": {
     "tool.description": "Transcrit un fichier audio en texte.",
@@ -76,7 +76,6 @@
     "param.model.description": "Nom du modèle de transcription.",
     "param.language.description": "Indice de langue facultatif (par ex. 'ja', 'en').",
     "param.prompt.description": "Prompt de contexte facultatif pour améliorer la qualit...",
-    "param.output_format.description": "Niveau de détail à renvoyer dans la réponse JSON : text ou json.",
     "err.unsupported_provider": "Fournisseur non pris en charge pour la transcription au...",
     "err.openai_import": "Échec de l’import du paquet openai...",
     "err.path_empty": "path est requis",
@@ -84,7 +83,8 @@
     "err.invalid_output_format": "output_format invalide : {output_format}",
     "err.transcribe_failed": "Échec de la transcription audi...",
     "ok.transcribed": "Transcription terminée",
-    "warn.empty_transcript": "[WARN] transcription vide"
+    "warn.empty_transcript": "[WARN] transcription vide",
+    "param.fmt.description": "Niveau de détail à renvoyer dans la réponse JSON : text ou json."
   },
   "ko": {
     "tool.description": "오디오 파일을 텍스트로 변환합니다. 회의, 인터뷰, 음성 메모에 유용합니다.",
@@ -97,7 +97,6 @@
     "param.model.description": "전사 모델 이름입니다. 생략하면 제공자 기본값 또는 구성된 배포 이름을 사용합니다.",
     "param.language.description": "선택적 언어 힌트(예: 'ja', 'en').",
     "param.prompt.description": "전사 품질을 높이기 위한 선택적 문맥 프롬프트입니다.",
-    "param.output_format.description": "JSON 응답에서 반환할 상세 수준: text 또는 json.",
     "err.unsupported_provider": "오디오 전사를 지원하지 않는 provider입니다: {provider!r}",
     "err.openai_import": "openai 패키지 import에 실패했습니다: {err}",
     "err.path_empty": "path가 필요합니다",
@@ -105,7 +104,8 @@
     "err.invalid_output_format": "잘못된 output_format입니다: {output_format}",
     "err.transcribe_failed": "오디오 전사에 실패했습니다: {err}",
     "ok.transcribed": "전사가 완료되었습니다",
-    "warn.empty_transcript": "[WARN] 전사 결과가 비어 있습니다"
+    "warn.empty_transcript": "[WARN] 전사 결과가 비어 있습니다",
+    "param.fmt.description": "JSON 응답에서 반환할 상세 수준: text 또는 json."
   },
   "de": {
     "tool.description": "Transkribiert eine Audiodatei in Text.",
@@ -118,7 +118,6 @@
     "param.model.description": "Name des Transkriptionsmodells.",
     "param.language.description": "Optionaler Sprachhinweis (z. B. 'ja', 'en').",
     "param.prompt.description": "Optionaler Kontext-Prompt zur Verbesserung der Transkr...",
-    "param.output_format.description": "Wie viel Detail in der JSON-Antwort zurückgegeben werden s...",
     "err.unsupported_provider": "Nicht unterstützter Provider für Audio-Transkription: {...",
     "err.openai_import": "Import des Pakets openai fehlgeschl...",
     "err.path_empty": "path ist erfo...",
@@ -126,7 +125,8 @@
     "err.invalid_output_format": "Ungültiges output_format: {output_format}",
     "err.transcribe_failed": "Audio-Transkription fehlgeschl...",
     "ok.transcribed": "Transkription abgesc...",
-    "warn.empty_transcript": "[WARN] leeres Transkript"
+    "warn.empty_transcript": "[WARN] leeres Transkript",
+    "param.fmt.description": "Wie viel Detail in der JSON-Antwort zurückgegeben werden s..."
   },
   "it": {
     "tool.description": "Trascrive un file audio in testo. Utile per riunioni, interviste e note vocali.",
@@ -139,7 +139,6 @@
     "param.model.description": "Nome del modello di trascrizione.",
     "param.language.description": "Suggerimento facoltativo per la lingua (ad es. 'ja', 'en').",
     "param.prompt.description": "Prompt di contesto facoltativo per migliorare la quali...",
-    "param.output_format.description": "Quanto dettaglio restituire nella risposta JSON: text o json.",
     "err.unsupported_provider": "Provider non supportato per la trascrizione audio: {provider!r}",
     "err.openai_import": "Importazione del pacchetto openai n...",
     "err.path_empty": "path è obblig...",
@@ -147,7 +146,8 @@
     "err.invalid_output_format": "output_format non valido: {output_format}",
     "err.transcribe_failed": "Trascrizione audio non riuscit...",
     "ok.transcribed": "Trascrizione completata",
-    "warn.empty_transcript": "[WARN] trascrizione vuota"
+    "warn.empty_transcript": "[WARN] trascrizione vuota",
+    "param.fmt.description": "Quanto dettaglio restituire nella risposta JSON: text o json."
   },
   "ru": {
     "tool.description": "Преобразует аудиофайл в текст. Полезно для встреч, интервью и голосовых заметок.",
@@ -160,7 +160,6 @@
     "param.model.description": "Имя модели распознавания.",
     "param.language.description": "Необязательная подсказка языка (например, 'ja', 'en').",
     "param.prompt.description": "Необязательный контекстный prompt для улучшения качест...",
-    "param.output_format.description": "Сколько подробностей вернуть в JSON-ответе: text или json.",
     "err.unsupported_provider": "Неподдерживаемый provider для распознавания аудио: {provider!r}",
     "err.openai_import": "Не удалось импортировать пакет open...",
     "err.path_empty": "path обязателен",
@@ -168,7 +167,8 @@
     "err.invalid_output_format": "Недопустимый output_format: {output...",
     "err.transcribe_failed": "Не удалось распознать аудио: {err}",
     "ok.transcribed": "Транскрипция завершена",
-    "warn.empty_transcript": "[WARN] пустая транск..."
+    "warn.empty_transcript": "[WARN] пустая транск...",
+    "param.fmt.description": "Сколько подробностей вернуть в JSON-ответе: text или json."
   },
   "pt_BR": {
     "tool.description": "Transcreve um arquivo de áudio para texto. Útil para reuniões, entrevistas e notas de voz.",
@@ -181,7 +181,6 @@
     "param.model.description": "Nome do modelo de transcrição.",
     "param.language.description": "Dica de idioma opcional (ex.: 'ja', 'en').",
     "param.prompt.description": "Prompt de contexto opcional para melhorar a qualidade...",
-    "param.output_format.description": "Quanto detalhe retornar na resposta JSON: text ou json.",
     "err.unsupported_provider": "Provedor não compatível para transcrição de áudio: {provider!r}",
     "err.openai_import": "Falha ao importar o pacote openai: {err}",
     "err.path_empty": "path é obriga...",
@@ -189,7 +188,8 @@
     "err.invalid_output_format": "output_format inválido: {output_format}",
     "err.transcribe_failed": "Falha na transcrição de áudio: {err}",
     "ok.transcribed": "Transcrição concluída",
-    "warn.empty_transcript": "[WARN] transcrição vazia"
+    "warn.empty_transcript": "[WARN] transcrição vazia",
+    "param.fmt.description": "Quanto detalhe retornar na resposta JSON: text ou json."
   },
   "pt": {
     "tool.description": "Transcreve um arquivo de áudio para texto. Útil para reuniões, entrevistas e notas de voz.",
@@ -202,7 +202,6 @@
     "param.model.description": "Nome do modelo de transcrição.",
     "param.language.description": "Dica de idioma opcional (por exemplo, 'ja', 'en').",
     "param.prompt.description": "Prompt de contexto opcional para melhorar a qualidade...",
-    "param.output_format.description": "Quantidade de detalhes a retornar na resposta JSON: text ou json.",
     "err.unsupported_provider": "Provedor não compatível para transcrição de áudio: {provider!r}",
     "err.openai_import": "Falha ao importar o pacote openai: {err}",
     "err.path_empty": "path é obriga...",
@@ -210,7 +209,8 @@
     "err.invalid_output_format": "output_format inválido: {output_format}",
     "err.transcribe_failed": "Falha na transcrição de áudio: {err}",
     "ok.transcribed": "Transcrição concluída",
-    "warn.empty_transcript": "[WARN] transcrição vazia"
+    "warn.empty_transcript": "[WARN] transcrição vazia",
+    "param.fmt.description": "Quantidade de detalhes a retornar na resposta JSON: text ou json."
   },
   "id": {
     "tool.description": "Mentranskripsi file audio menjadi teks. Berguna untuk rapat, wawancara, dan catatan suara.",
@@ -223,7 +223,6 @@
     "param.model.description": "Nama model transkripsi.",
     "param.language.description": "Petunjuk bahasa opsional (mis. 'ja', 'en').",
     "param.prompt.description": "Prompt konteks opsional untuk meningkatkan kualitas tr...",
-    "param.output_format.description": "Seberapa detail yang dikembalikan dalam respons JSON: text...",
     "err.unsupported_provider": "Provider tidak didukung untuk transkripsi audio: {provider!r}",
     "err.openai_import": "Gagal mengimpor paket openai: {err}",
     "err.path_empty": "path wajib diisi",
@@ -231,7 +230,8 @@
     "err.invalid_output_format": "output_format tidak valid: {output_...",
     "err.transcribe_failed": "Transkripsi audio gagal: {err}",
     "ok.transcribed": "Transkripsi selesai",
-    "warn.empty_transcript": "[WARN] transkrip kosong"
+    "warn.empty_transcript": "[WARN] transkrip kosong",
+    "param.fmt.description": "Seberapa detail yang dikembalikan dalam respons JSON: text..."
   },
   "vi": {
     "tool.description": "Chuyển tệp âm thanh thành văn bản. Hữu ích cho cuộc họp, phỏng vấn và ghi chú giọng nói.",
@@ -244,7 +244,6 @@
     "param.model.description": "Tên mô hình phiên âm.",
     "param.language.description": "Gợi ý ngôn ngữ tùy chọn (ví dụ 'ja', 'en').",
     "param.prompt.description": "Prompt ngữ cảnh tùy chọn để cải thiện chất lượng phiên âm.",
-    "param.output_format.description": "Mức độ chi tiết trả về trong phản hồi JSON: text hoặc json.",
     "err.unsupported_provider": "Nhà cung cấp không hỗ trợ cho phiên âm âm thanh: {provider!r}",
     "err.openai_import": "Không thể import gói openai: {err}",
     "err.path_empty": "path là bắt buộc",
@@ -252,7 +251,8 @@
     "err.invalid_output_format": "output_format không hợp lệ: {output...",
     "err.transcribe_failed": "Phiên âm âm thanh thất bại: {err}",
     "ok.transcribed": "Đã phiên âm xong",
-    "warn.empty_transcript": "[WARN] bản phiên âm trống"
+    "warn.empty_transcript": "[WARN] bản phiên âm trống",
+    "param.fmt.description": "Mức độ chi tiết trả về trong phản hồi JSON: text hoặc json."
   },
   "pl": {
     "tool.description": "Transkrybuje plik audio do tekstu. Przydatne podczas spotkań, wywiadów i notatek głosowych.",
@@ -265,7 +265,6 @@
     "param.model.description": "Nazwa modelu transkrypcji.",
     "param.language.description": "Opcjonalna podpowiedź języka (np. 'ja', 'en').",
     "param.prompt.description": "Opcjonalny prompt kontekstowy poprawiający jakość tran...",
-    "param.output_format.description": "Ile szczegółów zwrócić w odpowiedzi JSON: text lub json.",
     "err.unsupported_provider": "Nieobsługiwany provider dla transkrypcji audio: {provider!r}",
     "err.openai_import": "Nie udało się zaimportować pakietu...",
     "err.path_empty": "path jest wym...",
@@ -273,7 +272,8 @@
     "err.invalid_output_format": "nieprawidłowy output_format: {outpu...",
     "err.transcribe_failed": "Transkrypcja audio nie powiodł...",
     "ok.transcribed": "Transkrypcja zakończona",
-    "warn.empty_transcript": "[WARN] pusta transkrypcja"
+    "warn.empty_transcript": "[WARN] pusta transkrypcja",
+    "param.fmt.description": "Ile szczegółów zwrócić w odpowiedzi JSON: text lub json."
   },
   "hi": {
     "tool.description": "ऑडियो फ़ाइल को टेक्स्ट में ट्रांसक्राइब करता है। मीटिंग, इंटरव्यू और वॉइस नोट्स...",
@@ -286,7 +286,6 @@
     "param.model.description": "ट्रांसक्रिप्शन मॉडल का नाम। यदि छोड़ा गया, तो provider का default या configured deployment nam...",
     "param.language.description": "वैकल्पिक भाषा संकेत (जैसे 'ja', 'en').",
     "param.prompt.description": "ट्रांसक्रिप्शन गुणवत्ता सुधारने के लिए वैकल्पिक contex...",
-    "param.output_format.description": "JSON प्रतिक्रिया में कितनी जानकारी लौटानी है: text या json.",
     "err.unsupported_provider": "ऑडियो ट्रांसक्रिप्शन के लिए असमर्थित provider: {provider!r}",
     "err.openai_import": "openai पैकेज import करने में विफल: {err}",
     "err.path_empty": "path आवश्यक है",
@@ -294,7 +293,8 @@
     "err.invalid_output_format": "अमान्य output_format: {output_format}",
     "err.transcribe_failed": "ऑडियो ट्रांसक्रिप्शन विफल: {err}",
     "ok.transcribed": "ट्रांसक्रिप्शन पूरा हुआ",
-    "warn.empty_transcript": "[WARN] खाली ट्रांसक्रिप्ट"
+    "warn.empty_transcript": "[WARN] खाली ट्रांसक्रिप्ट",
+    "param.fmt.description": "JSON प्रतिक्रिया में कितनी जानकारी लौटानी है: text या json."
   },
   "ar": {
     "tool.description": "يحوّل ملفًا صوتيًا إلى نص. مفيد للاجتماعات والمقابلات والملاحظات الصوتية.",
@@ -307,7 +307,6 @@
     "param.model.description": "اسم نموذج التفريغ. إذا لم يُذكر، فسيُستخدم الافتراضي لدى المزوّد أو اسم النشر المُهيأ.",
     "param.language.description": "تلميح اختياري للغة (مثل 'ja' أو 'en').",
     "param.prompt.description": "موجه سياقي اختياري لتحسين جودة التفريغ.",
-    "param.output_format.description": "مقدار التفاصيل التي سيتم إرجاعها في استجابة JSON: text أو json.",
     "err.unsupported_provider": "مزوّد غير مدعوم لتفريغ الصوت: {provider!r}",
     "err.openai_import": "فشل استيراد حزمة openai: {err}",
     "err.path_empty": "path مطلوب",
@@ -315,7 +314,8 @@
     "err.invalid_output_format": "output_format غير صالح: {output_format}",
     "err.transcribe_failed": "فشل تفريغ الصوت: {err}",
     "ok.transcribed": "اكتمل التفريغ",
-    "warn.empty_transcript": "[WARN] التفريغ فارغ"
+    "warn.empty_transcript": "[WARN] التفريغ فارغ",
+    "param.fmt.description": "مقدار التفاصيل التي سيتم إرجاعها في استجابة JSON: text أو json."
   },
   "sv": {
     "tool.description": "Transkriberar en ljudfil till text. Användbart för möten, intervjuer och röstanteckningar.",
@@ -328,7 +328,6 @@
     "param.model.description": "Namn på transkriptionsmodellen.",
     "param.language.description": "Valfri språktips (t.ex. 'ja', 'en').",
     "param.prompt.description": "Valfri kontextprompt för att förbättra transkriptionsk...",
-    "param.output_format.description": "Hur mycket detaljer som ska returneras i JSON-svaret: text...",
     "err.unsupported_provider": "Ej stödd leverantör för ljudtranskribering: {provider!r}",
     "err.openai_import": "Det gick inte att importera paketet...",
     "err.path_empty": "path krävs",
@@ -336,7 +335,8 @@
     "err.invalid_output_format": "ogiltigt output_format: {output_format}",
     "err.transcribe_failed": "Ljudtranskribering misslyckade...",
     "ok.transcribed": "Transkriberingen är klar",
-    "warn.empty_transcript": "[WARN] tom transkription"
+    "warn.empty_transcript": "[WARN] tom transkription",
+    "param.fmt.description": "Hur mycket detaljer som ska returneras i JSON-svaret: text..."
   },
   "sw": {
     "tool.description": "Hubadilisha faili ya sauti kuwa maandishi.",
@@ -349,7 +349,6 @@
     "param.model.description": "Jina la modeli ya transkripsheni.",
     "param.language.description": "Kidokezo cha hiari cha lugha (mf. 'ja', 'en').",
     "param.prompt.description": "Prompt ya muktadha ya hiari ili kuboresha ubora wa tra...",
-    "param.output_format.description": "Kiwango cha maelezo ya kurudisha kwenye jibu la JSON: text au json.",
     "err.unsupported_provider": "Mtoa huduma huyu hauniunzi transkripsheni ya sauti: {pr...",
     "err.openai_import": "Imeshindwa kuingiza kifurushi opena...",
     "err.path_empty": "path inahitajika",
@@ -357,7 +356,8 @@
     "err.invalid_output_format": "output_format si sahihi: {output_format}",
     "err.transcribe_failed": "Transkripsheni ya sauti imeshi...",
     "ok.transcribed": "Transkripsheni imeka...",
-    "warn.empty_transcript": "[WARN] transkripti tupu"
+    "warn.empty_transcript": "[WARN] transkripti tupu",
+    "param.fmt.description": "Kiwango cha maelezo ya kurudisha kwenye jibu la JSON: text au json."
   },
   "nb": {
     "tool.description": "Transkriberer en lydfil til tekst. Nyttig for møter, intervjuer og tale-notater.",
@@ -370,7 +370,6 @@
     "param.model.description": "Navn på transkripsjonsmodellen.",
     "param.language.description": "Valgfri språkledetråd (f.eks. 'ja', 'en').",
     "param.prompt.description": "Valgfri kontekstprompt for å forbedre transkripsjonskv...",
-    "param.output_format.description": "Hvor mye detaljer som skal returneres i JSON-svaret: text...",
     "err.unsupported_provider": "Ikke-støttet leverandør for lydtranskripsjon: {provider!r}",
     "err.openai_import": "Kunne ikke importere openai-pakken: {err}",
     "err.path_empty": "path er påkrevd",
@@ -378,7 +377,8 @@
     "err.invalid_output_format": "ugyldig output_format: {output_format}",
     "err.transcribe_failed": "Lydtranskripsjon mislyktes: {err}",
     "ok.transcribed": "Transkripsjon fullført",
-    "warn.empty_transcript": "[WARN] tom transkripsjon"
+    "warn.empty_transcript": "[WARN] tom transkripsjon",
+    "param.fmt.description": "Hvor mye detaljer som skal returneres i JSON-svaret: text..."
   },
   "nl": {
     "tool.description": "Zet een audiobestand om naar tekst.",
@@ -391,7 +391,6 @@
     "param.model.description": "Naam van het transcriptiemodel.",
     "param.language.description": "Optionele taalhint (bijv. 'ja', 'en').",
     "param.prompt.description": "Optionele contextprompt om de transcriptiekwaliteit te...",
-    "param.output_format.description": "Hoeveel detail moet worden teruggegeven in het JSON-antwoo...",
     "err.unsupported_provider": "Niet-ondersteunde provider voor audiotranscriptie: {provider!r}",
     "err.openai_import": "Importeren van het openai-pakket mi...",
     "err.path_empty": "path is verplicht",
@@ -399,7 +398,8 @@
     "err.invalid_output_format": "ongeldige output_format: {output_format}",
     "err.transcribe_failed": "Audiotranscriptie mislukt: {err}",
     "ok.transcribed": "Transcriptie voltooid",
-    "warn.empty_transcript": "[WARN] lege transcriptie"
+    "warn.empty_transcript": "[WARN] lege transcriptie",
+    "param.fmt.description": "Hoeveel detail moet worden teruggegeven in het JSON-antwoo..."
   },
   "fi": {
     "tool.description": "Muuntaa äänitiedoston tekstiksi.",
@@ -412,7 +412,6 @@
     "param.model.description": "Litterointimallin nimi. Jos jätetään pois, käytetään tarjoajan oletusta tai määritettyä deployment-nimeä.",
     "param.language.description": "Valinnainen kielivihje (esim. 'ja', 'en').",
     "param.prompt.description": "Valinnainen kontekstikehote litteroinnin laadun parant...",
-    "param.output_format.description": "Kuinka paljon yksityiskohtia JSON-vastauksessa palautetaan...",
     "err.unsupported_provider": "Äänilitterointiin ei tuettu provider: {provider!r}",
     "err.openai_import": "openai-paketin tuonti epäonnistui: {err}",
     "err.path_empty": "path on pakol...",
@@ -420,7 +419,8 @@
     "err.invalid_output_format": "virheellinen output_format: {output...",
     "err.transcribe_failed": "Äänilitterointi epäonnistui: {err}",
     "ok.transcribed": "Litterointi valmis",
-    "warn.empty_transcript": "[WARN] tyhjä litterointi"
+    "warn.empty_transcript": "[WARN] tyhjä litterointi",
+    "param.fmt.description": "Kuinka paljon yksityiskohtia JSON-vastauksessa palautetaan..."
   },
   "cs": {
     "tool.description": "Převede zvukový soubor na text. Užitečné pro schůzky, rozhovory a hlasové poznámky.",
@@ -433,7 +433,6 @@
     "param.model.description": "Název modelu pro přepis.",
     "param.language.description": "Volitelná nápověda jazyka (např. 'ja', 'en').",
     "param.prompt.description": "Volitelný kontextový prompt pro zlepšení kvality přepisu.",
-    "param.output_format.description": "Kolik podrobností vrátit v JSON odpovědi: text nebo json.",
     "err.unsupported_provider": "Nepodporovaný provider pro přepis audia: {provider!r}",
     "err.openai_import": "Import balíčku openai se nezdařil: {err}",
     "err.path_empty": "path je povinné",
@@ -441,7 +440,8 @@
     "err.invalid_output_format": "neplatný output_format: {output_format}",
     "err.transcribe_failed": "Přepis audia selhal: {err}",
     "ok.transcribed": "Přepis dokončen",
-    "warn.empty_transcript": "[WARN] prázdný přepis"
+    "warn.empty_transcript": "[WARN] prázdný přepis",
+    "param.fmt.description": "Kolik podrobností vrátit v JSON odpovědi: text nebo json."
   },
   "uk": {
     "tool.description": "Перетворює аудіофайл у текст. Корисно для зустрічей, інтерв'ю та голосових нотаток.",
@@ -454,7 +454,6 @@
     "param.model.description": "Назва моделі транскрипції.",
     "param.language.description": "Необов'язкова підказка мови (наприклад, 'ja', 'en').",
     "param.prompt.description": "Необов'язковий контекстний prompt для покращення якост...",
-    "param.output_format.description": "Скільки деталей повернути в JSON-відповіді: text або json.",
     "err.unsupported_provider": "Непідтримуваний provider для транскрипції аудіо: {provider!r}",
     "err.openai_import": "Не вдалося імпортувати пакет openai...",
     "err.path_empty": "path є обов'я...",
@@ -462,7 +461,8 @@
     "err.invalid_output_format": "недійсний output_format: {output_format}",
     "err.transcribe_failed": "Не вдалося транскрибувати ауді...",
     "ok.transcribed": "Транскрипцію завершено",
-    "warn.empty_transcript": "[WARN] порожня транс..."
+    "warn.empty_transcript": "[WARN] порожня транс...",
+    "param.fmt.description": "Скільки деталей повернути в JSON-відповіді: text або json."
   },
   "tr": {
     "tool.description": "Bir ses dosyasını metne dönüştürün.",
@@ -475,7 +475,6 @@
     "param.model.description": "Transkripsiyon modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
     "param.language.description": "İsteğe bağlı dil ipucu (ör. 'ja', 'en').",
     "param.prompt.description": "Transkripsiyon kalitesini artırmak için isteğe bağlı b...",
-    "param.output_format.description": "JSON yanıtında ne kadar ayrıntı döndürülecek: text veya json.",
     "err.unsupported_provider": "Ses transkripsiyonu için desteklenmeyen sağlayıcı: {provider!r}",
     "err.openai_import": "Openai paketi içe aktarılamadı: {err}",
     "err.path_empty": "yol gerekli",
@@ -483,7 +482,8 @@
     "err.invalid_output_format": "Geçersiz çıktı_biçimi: {output_format}",
     "err.transcribe_failed": "Sesin transkripsiyonu başarısı...",
     "ok.transcribed": "Transkripsiyon tamamlandı",
-    "warn.empty_transcript": "[WARN] boş transkript"
+    "warn.empty_transcript": "[WARN] boş transkript",
+    "param.fmt.description": "JSON yanıtında ne kadar ayrıntı döndürülecek: text veya json."
   },
   "th": {
     "tool.description": "ถอดเสียงไฟล์เสียงเป็นข้อความ เหมาะสำหรับการประชุม การสัมภาษณ์ และบันทึกเสียง",
@@ -496,7 +496,6 @@
     "param.model.description": "ชื่อโมเดลถอดเสียง หากไม่ระบุ จะใช้ค่าเริ่มต้นของผู้ให้บริการหรือชื่อ deployment ที่กำหนดไว้",
     "param.language.description": "คำใบ้ภาษาแบบเลือกได้ (เช่น 'ja', 'en')",
     "param.prompt.description": "พรอมป์ต์บริบทแบบเลือกได้เพื่อช่วยปรับคุณภาพการถอดเสียง",
-    "param.output_format.description": "รายละเอียดที่ต้องการส่งกลับใน JSON: text หรือ json",
     "err.unsupported_provider": "ผู้ให้บริการนี้ไม่รองรับการถอดเสียง: {provider!r}",
     "err.openai_import": "นำเข้าแพ็กเกจ openai ไม่สำเร็จ: {err}",
     "err.path_empty": "ต้องระบุ path",
@@ -504,7 +503,8 @@
     "err.invalid_output_format": "output_format ไม่ถูกต้อง: {output_format}",
     "err.transcribe_failed": "การถอดเสียงล้มเหลว: {err}",
     "ok.transcribed": "ถอดเสียงเสร็จแล้ว",
-    "warn.empty_transcript": "[WARN] ข้อความถอดเสี..."
+    "warn.empty_transcript": "[WARN] ข้อความถอดเสี...",
+    "param.fmt.description": "รายละเอียดที่ต้องการส่งกลับใน JSON: text หรือ json"
   },
   "zh_CN": {
     "tool.description": "将音频文件转写为文本。适用于会议、访谈和语音笔记。",
@@ -517,7 +517,6 @@
     "param.model.description": "转写模型名称。如未指定，将使用提供方默认值或已设置的部署名称。",
     "param.language.description": "可选语言提示（例如 'ja'、'en'）。",
     "param.prompt.description": "可选上下文提示，用于提升转写质量。",
-    "param.output_format.description": "在 JSON 响应中返回多少细节：text 或 json。",
     "err.unsupported_provider": "音频转写不支持的 provider：{provider!r}",
     "err.openai_import": "导入 openai 包失败：{err}",
     "err.path_empty": "path 是必需的",
@@ -525,7 +524,8 @@
     "err.invalid_output_format": "无效的 output_format：{output_format}",
     "err.transcribe_failed": "音频转写失败：{err}",
     "ok.transcribed": "转写完成",
-    "warn.empty_transcript": "[WARN] 转写结果为空"
+    "warn.empty_transcript": "[WARN] 转写结果为空",
+    "param.fmt.description": "在 JSON 响应中返回多少细节：text 或 json。"
   },
   "zh_TW": {
     "tool.description": "將音訊檔轉寫為文字。適用於會議、訪談與語音筆記。",
@@ -538,7 +538,6 @@
     "param.model.description": "轉寫模型名稱。若未指定，將使用供應商預設值或已設定的部署名稱。",
     "param.language.description": "可選語言提示（例如 'ja'、'en'）。",
     "param.prompt.description": "可選的上下文提示，用於提升轉寫品質。",
-    "param.output_format.description": "在 JSON 回應中要返回多少細節：text 或 json。",
     "err.unsupported_provider": "音訊轉寫不支援的 provider：{provider!r}",
     "err.openai_import": "匯入 openai 套件失敗：{err}",
     "err.path_empty": "path 為必填項目",
@@ -546,7 +545,8 @@
     "err.invalid_output_format": "無效的 output_format：{output_format}",
     "err.transcribe_failed": "音訊轉寫失敗：{err}",
     "ok.transcribed": "轉寫完成",
-    "warn.empty_transcript": "[WARN] 轉寫結果為空"
+    "warn.empty_transcript": "[WARN] 轉寫結果為空",
+    "param.fmt.description": "在 JSON 回應中要返回多少細節：text 或 json。"
   },
   "bn": {
     "tool.description": "একটি অডিও ফাইলকে টেক্সটে ট্রান্সক্রাইব করুন। মিটিং, ইন্টারভিউ ও ভয়েস নোটের জন্য উপযোগী।",
@@ -559,7 +559,6 @@
     "param.model.description": "ট্রান্সক্রিপশন মডেলের নাম। উল্লেখ না করলে প্রদানকারীর ডিফল্ট বা কনফিগার করা deployment নাম ব্যবহার হবে।",
     "param.language.description": "ঐচ্ছিক ভাষা-ইঙ্গিত (যেমন 'ja', 'en').",
     "param.prompt.description": "ট্রান্সক্রিপশন মান উন্নত করতে ঐচ্ছিক context prompt।",
-    "param.output_format.description": "JSON উত্তরে কতটা বিস্তারিত ফেরত দিতে হবে: text বা json।",
     "err.unsupported_provider": "অডিও ট্রান্সক্রিপশনের জন্য সমর্থিত নয় এমন provider: {p...",
     "err.openai_import": "openai প্যাকেজ ইম্পোর্ট করতে ব্যর্থ...",
     "err.path_empty": "path প্রয়োজন",
@@ -567,7 +566,8 @@
     "err.invalid_output_format": "অবৈধ output_format: {output_format}",
     "err.transcribe_failed": "অডিও ট্রান্সক্রিপশন ব্যর্থ হয়...",
     "ok.transcribed": "ট্রান্সক্রিপশন সম্পন...",
-    "warn.empty_transcript": "[WARN] ফাঁকা ট্রান্স..."
+    "warn.empty_transcript": "[WARN] ফাঁকা ট্রান্স...",
+    "param.fmt.description": "JSON উত্তরে কতটা বিস্তারিত ফেরত দিতে হবে: text বা json।"
   },
   "fa": {
     "tool.description": "یک فایل صوتی را به متن تبدیل کنید. برای جلسات، مصاحبه‌ها و یادداشت‌های صوتی مفید است.",
@@ -580,7 +580,6 @@
     "param.model.description": "نام مدل پیاده‌سازی. اگر حذف شود، پیش‌فرض ارائه‌دهنده یا نام deployment پیکربندی‌شده استفاده می‌شود.",
     "param.language.description": "راهنمای اختیاری زبان (مثلاً 'ja'، 'en').",
     "param.prompt.description": "پرامپت زمینهٔ اختیاری برای بهبود کیفیت پیاده‌سازی.",
-    "param.output_format.description": "میزان جزئیات بازگشتی در پاسخ JSON: text یا json.",
     "err.unsupported_provider": "provider پشتیبانی نمی‌شود برای پیاده‌سازی صوتی: {provider!r}",
     "err.openai_import": "بارگیری بستهٔ openai ناموفق بود: {err}",
     "err.path_empty": "path لازم است",
@@ -588,7 +587,8 @@
     "err.invalid_output_format": "output_format نامعتبر است: {output_...",
     "err.transcribe_failed": "پیاده‌سازی صوتی ناموفق بود: {err}",
     "ok.transcribed": "پیاده‌سازی کامل شد",
-    "warn.empty_transcript": "[WARN] متن پیاده‌ساز..."
+    "warn.empty_transcript": "[WARN] متن پیاده‌ساز...",
+    "param.fmt.description": "میزان جزئیات بازگشتی در پاسخ JSON: text یا json."
   },
   "mn": {
     "tool.description": "Аудио файлыг текст болгон хөрвүүлнэ. Хурал, ярилцлага, дуу хоолойн тэмдэглэлд хэрэгтэй.",
@@ -601,7 +601,6 @@
     "param.model.description": "Хөрвүүлэлтийн загварын нэр. Орхивол provider-ийн өгөгдмөл эсвэл тохируулсан deployment нэрийг ашиглана.",
     "param.language.description": "Сонголттой хэлний зөвлөмж (жишээ нь 'ja', 'en').",
     "param.prompt.description": "Хөрвүүлэлтийн чанарыг сайжруулах нэмэлт context prompt.",
-    "param.output_format.description": "JSON хариунд хэдий хэмжээний дэлгэрэнгүй өгөх вэ: text эсвэл json.",
     "err.unsupported_provider": "Аудио хөрвүүлэлтийг дэмждэггүй provider: {provider!r}",
     "err.openai_import": "openai багцыг импортлох амжилтгүй б...",
     "err.path_empty": "path шаардлагатай",
@@ -609,7 +608,8 @@
     "err.invalid_output_format": "Буруу output_format: {output_format}",
     "err.transcribe_failed": "Аудио хөрвүүлэлт амжилтгүй бол...",
     "ok.transcribed": "Хөрвүүлэлт дууслаа",
-    "warn.empty_transcript": "[WARN] хоосон хөрвүү..."
+    "warn.empty_transcript": "[WARN] хоосон хөрвүү...",
+    "param.fmt.description": "JSON хариунд хэдий хэмжээний дэлгэрэнгүй өгөх вэ: text эсвэл json."
   },
   "mr": {
     "tool.description": "ऑडिओ फाईलचे मजकुरात लिप्यंतरण करा. मीटिंग्ज, मुलाखती आणि व्हॉइस नोट्ससाठी उपयुक्त.",
@@ -622,7 +622,6 @@
     "param.model.description": "लिप्यंतरण मॉडेलचे नाव. वगळल्यास provider चे डीफॉल्ट किंवा कॉन्फिगर केलेले deployment नाव वापरले जाईल.",
     "param.language.description": "ऐच्छिक भाषेचा इशारा (उदा. 'ja', 'en').",
     "param.prompt.description": "लिप्यंतरण गुणवत्ता वाढवण्यासाठी ऐच्छिक context prompt.",
-    "param.output_format.description": "JSON प्रतिसादात किती तपशील द्यायचा: text किंवा json.",
     "err.unsupported_provider": "ऑडिओ लिप्यंतरणासाठी असमर्थित provider: {provider!r}",
     "err.openai_import": "openai पॅकेज आयात करण्यात अपयश: {err}",
     "err.path_empty": "path आवश्यक आहे",
@@ -630,6 +629,7 @@
     "err.invalid_output_format": "अवैध output_format: {output_format}",
     "err.transcribe_failed": "ऑडिओ लिप्यंतरण अयशस्वी: {err}",
     "ok.transcribed": "लिप्यंतरण पूर्ण झाले",
-    "warn.empty_transcript": "[WARN] रिक्त लिप्यंतरण"
+    "warn.empty_transcript": "[WARN] रिक्त लिप्यंतरण",
+    "param.fmt.description": "JSON प्रतिसादात किती तपशील द्यायचा: text किंवा json."
   }
 }

@@ -42,12 +42,12 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -93,7 +93,7 @@ def _format_snapshot(payload: dict[str, Any]) -> str:
 def run_tool(args: dict[str, Any]) -> str:
     action = str(args.get("action") or "snapshot").strip().lower()
     namespace = args.get("namespace")
-    output_format = str(args.get("output_format") or "json").strip().lower()
+    output_format = str(args.get("fmt") or "json").strip().lower()
 
     if action == "snapshot":
         payload = cache_snapshot()

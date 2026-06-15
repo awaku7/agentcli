@@ -93,12 +93,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default=("Optional GATT service UUID filter."),
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -436,7 +436,7 @@ def _format_text(result: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    output_format = str(args.get("output_format") or "json").lower()
+    output_format = str(args.get("fmt") or "json").lower()
     interface = args.get("interface")
     device_name = args.get("device_name")
     mac_address = args.get("mac_address")

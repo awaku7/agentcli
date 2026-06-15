@@ -51,12 +51,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Device name (fallback).",
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -360,7 +360,7 @@ def _fetch_device_status(device_id: str) -> dict[str, Any]:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    output_format = str(args.get("output_format") or "json").lower()
+    output_format = str(args.get("fmt") or "json").lower()
     device_id = args.get("device_id")
     device_name = args.get("device_name")
 

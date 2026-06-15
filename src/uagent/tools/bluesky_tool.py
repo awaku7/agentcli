@@ -703,7 +703,7 @@ def _fmt_thread_recursive(thread: dict[str, Any], lines: list[str], depth: int) 
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    output_format = str(args.get("output_format") or "json").lower()
+    output_format = str(args.get("fmt") or "json").lower()
     action = (args.get("action") or "").strip().lower()
     if not action:
         return _err_json("invalid_argument", "The action field is required.", output_format)

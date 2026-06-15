@@ -70,12 +70,12 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": _DEFAULT_OUTPUT_FORMAT,
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -577,7 +577,7 @@ def _format_text(result: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    output_format = str(args.get("output_format") or _DEFAULT_OUTPUT_FORMAT).lower()
+    output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
     device_id = str(args.get("device_id") or "").strip()
     controller_id = args.get("controller_id")
     bridge_id = args.get("bridge_id")

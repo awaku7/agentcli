@@ -78,12 +78,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Optional context prompt to improve transcription quality.",
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["text", "json"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default=(
                             "How much detail to return in the JSON response: text or json."
                         ),
@@ -174,7 +174,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if not raw_path:
         return make_response(False, _("err.path_empty", default="path is required"))
 
-    output_format = get_str(args, "output_format", "json").lower()
+    output_format = get_str(args, "fmt", "json").lower()
     if output_format not in ("text", "json"):
         return make_response(
             False,
@@ -324,7 +324,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "path": safe_path,
         "provider": provider,
         "model": model,
-        "output_format": output_format,
+        "fmt": output_format,
         "text": text,
     }
     if language:

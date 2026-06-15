@@ -34,12 +34,12 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 }
@@ -206,7 +206,7 @@ def _format_text(result: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    output_format = (args.get("output_format") or "json").lower()
+    output_format = (args.get("fmt") or "json").lower()
     response = _request_json("/devices")
     if not response.get("ok"):
         payload = response
