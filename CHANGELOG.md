@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.8] - 2026-06-15
+
+### Added
+- Multiline input mode with prompt_toolkit TextArea (Ctrl+X to submit, Esc to cancel, fallback to legacy `"""end` mode).
+- Tool genre selection UI: GUI (Tools menu), Web (checkboxes in header), A2A server (startup dialog).
+- Tool genre selection disabled while busy (IDLE only).
+- get_geoip tool moved to IoT genre (conditional loading via genre mask).
+- Web UI: real-time sync of final assistant messages after LLM rounds.
+- Web UI: GET/POST /api/tool-genres endpoints for dynamic genre toggling.
+- Human_ask prompt now shows `[REPLY] >` prompt in CLI.
+
 ## [0.5.7] - 2026-06-15
 
 ### Changed
