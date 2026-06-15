@@ -20,14 +20,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="List entries in a directory with pagination, similar to ls.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "List directory entries and return a paginated listing. "
-                "Use page and max_results for pagination. "
-                "If show_hidden is false, omit hidden entries (dotfiles and dot-directories)."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

@@ -12,8 +12,7 @@
       "config",
       "secret",
       "env var"
-    ],
-    "tool.system_prompt": "This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value."
+    ]
   },
   "ja": {
     "param.mask.description": "true の場合、値をマスクします（例: 秘密情報）。既定は true。",
@@ -26,8 +25,7 @@
       "env 取得",
       "環境変数",
       "値取得"
-    ],
-    "tool.system_prompt": "このツールは、指定した環境変数の値を取得して返すために使います。必要に応じて値をマスクします。"
+    ]
   },
   "es": {
     "param.mask.description": "Si es true, enmascara el valor (por ejemplo, información co...",
@@ -40,8 +38,7 @@
       "get env",
       "variable de entorno",
       "leer env"
-    ],
-    "tool.system_prompt": "Esta herramienta se utiliza para obtener el valor de una variable de entorno especificada y devolverlo. Opcionalmente, enmascara el valor."
+    ]
   },
   "fr": {
     "param.mask.description": "Si true, masque la valeur (par exemple, des informations se...",
@@ -54,8 +51,7 @@
       "get env",
       "variable d'environnement",
       "lire env"
-    ],
-    "tool.system_prompt": "Cet outil sert à obtenir la valeur d'une variable d'environnement spécifiée et à la renvoyer. Il peut éventuellement masquer la valeur."
+    ]
   },
   "ko": {
     "param.mask.description": "true인 경우 값을 마스킹합니다(예: 비밀 정보). 기본값은 true입니다.",
@@ -68,8 +64,7 @@
       "env 가져오기",
       "환경 변수",
       "값 읽기"
-    ],
-    "tool.system_prompt": "이 도구는 지정한 환경 변수의 값을 가져와 반환하는 데 사용됩니다. 필요에 따라 값을 마스킹할 수 있습니다."
+    ]
   },
   "de": {
     "param.mask.description": "Wenn true, wird der Wert maskiert (z.B.",
@@ -82,8 +77,7 @@
       "get env",
       "umgebungsvariable",
       "env lesen"
-    ],
-    "tool.system_prompt": "Verwenden Sie dieses Tool, um den Wert einer angegebenen Umgebungsvariable abzurufen und zurückzugeben. Der Wert kann optional maskiert werden."
+    ]
   },
   "it": {
     "param.mask.description": "Se true, maschera il valore (ad esempio informazioni sensib...",
@@ -96,8 +90,7 @@
       "get env",
       "variabile d'ambiente",
       "leggi env"
-    ],
-    "tool.system_prompt": "Questo strumento serve a recuperare il valore di una variabile d'ambiente specificata e restituirlo. Facoltativamente, maschera il valore."
+    ]
   },
   "ru": {
     "param.mask.description": "Если true, маскирует значение (например, конфиденциальную и...",
@@ -110,8 +103,7 @@
       "get env",
       "переменная среды",
       "читать env"
-    ],
-    "tool.system_prompt": "Этот инструмент используется для получения значения указанной переменной среды и его возврата. При необходимости значение можно замаскировать."
+    ]
   },
   "pt_BR": {
     "param.mask.description": "Se true, mascara o valor (por exemplo, informações confiden...",
@@ -124,8 +116,7 @@
       "get env",
       "variável de ambiente",
       "ler env"
-    ],
-    "tool.system_prompt": "Esta ferramenta é usada para obter o valor de uma variável de ambiente especificada e retorná-lo. Opcionalmente, mascare o valor."
+    ]
   },
   "pt": {
     "param.mask.description": "Se verdadeiro, mascara o valor (por exemplo, informações se...",
@@ -138,8 +129,7 @@
       "get env",
       "variável de ambiente",
       "ler env"
-    ],
-    "tool.system_prompt": "Esta ferramenta é usada para obter o valor de uma variável de ambiente especificada e retorná-lo. Opcionalmente, mascare o valor."
+    ]
   },
   "id": {
     "param.mask.description": "Jika true, sembunyikan nilai (mis. informasi rahasia). Default true.",
@@ -152,8 +142,7 @@
       "get env",
       "variabel lingkungan",
       "baca env"
-    ],
-    "tool.system_prompt": "Gunakan alat ini untuk mendapatkan nilai variabel lingkungan tertentu dan mengembalikannya. Nilai dapat disamarkan bila perlu."
+    ]
   },
   "vi": {
     "param.mask.description": "Nếu đúng, hãy che dấu giá trị (ví dụ: thông tin bí mật).",
@@ -166,8 +155,7 @@
       "get env",
       "biến môi trường",
       "đọc env"
-    ],
-    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: lấy giá trị của biến môi trường được chỉ định và trả về giá trị đó. Tùy chọn che dấu giá trị."
+    ]
   },
   "pl": {
     "param.mask.description": "Jeśli prawda, maskuje wartość (np.tajne informacje).",
@@ -180,8 +168,7 @@
       "get env",
       "zmienna środowiskowa",
       "odczyt env"
-    ],
-    "tool.system_prompt": "Narzędzie to służy do następującego celu: uzyskania wartości określonej zmiennej środowiskowej i zwrócenia jej. Opcjonalnie zamaskuj wartość."
+    ]
   },
   "hi": {
     "param.mask.description": "यदि true है, तो मान को मास्क करता है (जैसे गुप्त जानकारी)।...",
@@ -194,8 +181,7 @@
       "get env",
       "पर्यावरण चर",
       "env पढ़ें"
-    ],
-    "tool.system_prompt": "इस टूल का उपयोग निर्दिष्ट पर्यावरण चर का मान प्राप्त करने और लौटाने के लिए किया जाता है। आवश्यकतानुसार मान को मास्क किया जा सकता है।"
+    ]
   },
   "ar": {
     "param.mask.description": "إذا كان صحيحًا، فإنه يخفي القيمة (مثل المعلومات السرية).",
@@ -208,8 +194,7 @@
       "get env",
       "متغير بيئة",
       "قراءة env"
-    ],
-    "tool.system_prompt": "تُستخدم هذه الأداة للحصول على قيمة متغير بيئة محدد وإرجاعها. يمكن إخفاء القيمة اختياريًا."
+    ]
   },
   "sv": {
     "param.mask.description": "Om true, maskerar värdet (t.ex.hemlig information).",
@@ -222,8 +207,7 @@
       "get env",
       "miljövariabel",
       "läs env"
-    ],
-    "tool.system_prompt": "Det här verktyget används för att hämta värdet för en angiven miljövariabel och returnera det. Värdet kan maskeras vid behov."
+    ]
   },
   "sw": {
     "param.mask.description": "true হলে মানটি আড়াল করা হবে (যেমন গোপন তথ্য)। ডিফল্ট true।",
@@ -236,8 +220,7 @@
       "get env",
       "mabadiliko ya mazingira",
       "soma env"
-    ],
-    "tool.system_prompt": "এই টুলটি নির্দিষ্ট পরিবেশ ভ্যারিয়েবলের মান পড়ে ফেরত দিতে ব্যবহার করা হয়। প্রয়োজনে মান আড়াল করা যায়।"
+    ]
   },
   "nb": {
     "param.mask.description": "Hvis true, maskerer verdien (for eksempel sensitiv informas...",
@@ -250,8 +233,7 @@
       "get env",
       "miljøvariabel",
       "les env"
-    ],
-    "tool.system_prompt": "Dette verktøyet brukes til å hente verdien til en angitt miljøvariabel og returnere den. Verdien kan maskeres ved behov."
+    ]
   },
   "nl": {
     "param.mask.description": "Indien true, wordt de waarde gemaskeerd (bijv.",
@@ -264,8 +246,7 @@
       "get env",
       "omgevingsvariabele",
       "lees env"
-    ],
-    "tool.system_prompt": "Deze tool wordt gebruikt voor het volgende doel: haal de waarde op van een opgegeven omgevingsvariabele en geef deze terug. Kan de waarde optioneel maskeren."
+    ]
   },
   "fi": {
     "param.mask.description": "Jos true, arvo peitetään (esim. salainen tieto). Oletus on true.",
@@ -278,8 +259,7 @@
       "get env",
       "ympäristömuuttuja",
       "lue env"
-    ],
-    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: hae annetun ympäristömuuttujan arvo ja palauta se. Arvon voi halutessa peittää."
+    ]
   },
   "cs": {
     "param.mask.description": "Pokud je true, skryje hodnotu (např.citlivé údaje).",
@@ -292,8 +272,7 @@
       "get env",
       "proměnná prostředí",
       "číst env"
-    ],
-    "tool.system_prompt": "Tento nástroj se používá k následujícímu účelu: získat hodnotu zadané proměnné prostředí a vrátit ji. Volitelně hodnotu zamaskuje."
+    ]
   },
   "uk": {
     "param.mask.description": "Якщо значення true, маскує значення (наприклад, конфіденцій...",
@@ -306,8 +285,7 @@
       "get env",
       "змінна середовища",
       "читати env"
-    ],
-    "tool.system_prompt": "Цей інструмент використовується для такої мети: отримати значення вказаної змінної середовища та повернути його. За потреби значення можна замаскувати."
+    ]
   },
   "tr": {
     "param.mask.description": "Doğruysa değeri maskeler (ör. gizli bilgiler). Varsayılan doğrudur.",
@@ -320,8 +298,7 @@
       "get env",
       "ortam değişkeni",
       "env oku"
-    ],
-    "tool.system_prompt": "Bu araç şu amaç için kullanılır: Belirtilen ortam değişkeninin değerini almak ve onu döndürmek. İsteğe bağlı olarak değeri maskeleyin."
+    ]
   },
   "th": {
     "param.mask.description": "หากเป็นจริง ให้ปิดบังค่า (เช่น ข้อมูลลับ) ค่าเริ่มต้นคือจริง",
@@ -334,8 +311,7 @@
       "get env",
       "ตัวแปรสภาพแวดล้อม",
       "อ่าน env"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อรับค่าของตัวแปรสภาพแวดล้อมที่ระบุและส่งกลับ สามารถเลือกปิดบังค่าได้"
+    ]
   },
   "zh_CN": {
     "param.mask.description": "如果为 true，则掩码该值（例如敏感信息）。默认值为 true。",
@@ -348,8 +324,7 @@
       "get env",
       "环境变量",
       "读取 env"
-    ],
-    "tool.system_prompt": "此工具用于获取指定环境变量的值并返回。可选择对该值进行掩码。"
+    ]
   },
   "zh_TW": {
     "param.mask.description": "如果為 true，則遮罩該值（例如機密資訊）。預設為 true。",
@@ -362,8 +337,7 @@
       "get env",
       "環境變數",
       "讀取 env"
-    ],
-    "tool.system_prompt": "此工具用於取得指定環境變數的值並傳回。可選擇對該值進行遮罩。"
+    ]
   },
   "bn": {
     "param.mask.description": "true হলে মানটি আড়াল করা হবে (যেমন গোপন তথ্য)। ডিফল্ট true।",
@@ -376,8 +350,7 @@
       "get env",
       "পরিবেশ চলক",
       "env পড়ুন"
-    ],
-    "tool.system_prompt": "এই টুলটি নির্দিষ্ট পরিবেশ ভ্যারিয়েবলের মান পড়ে ফেরত দিতে ব্যবহার করা হয়। প্রয়োজনে মান আড়াল করা যায়।"
+    ]
   },
   "fa": {
     "param.mask.description": "اگر true باشد، مقدار را مخفی می‌کند (مثلاً اطلاعات محرمانه).",
@@ -390,8 +363,7 @@
       "get env",
       "متغیر محیطی",
       "خواندن env"
-    ],
-    "tool.system_prompt": "این ابزار برای گرفتن مقدار یک متغیر محیطی مشخص و برگرداندن آن استفاده می‌شود. در صورت نیاز می‌توان مقدار را مخفی کرد."
+    ]
   },
   "mn": {
     "param.mask.description": "true бол утгыг далдална (жишээ нь нууц мэдээлэл). Өгөгдмөл нь true.",
@@ -404,8 +376,7 @@
       "get env",
       "орчны хувьсагч",
       "env унших"
-    ],
-    "tool.system_prompt": "Энэ хэрэгсэл нь заасан орчны хувьсагчийн утгыг авч буцаахад ашиглагдана. Шаардлагатай бол утгыг далдлаж болно."
+    ]
   },
   "mr": {
     "param.mask.description": "true असल्यास मूल्य लपवते (उदा. गुप्त माहिती). डीफॉल्ट true आहे.",
@@ -418,7 +389,6 @@
       "get env",
       "पर्यावरण चल",
       "env वाचा"
-    ],
-    "tool.system_prompt": "हे साधन निर्दिष्ट environment variable चे मूल्य मिळवण्यासाठी आणि परत करण्यासाठी वापरले जाते. आवश्यक असल्यास मूल्य लपवू शकते."
+    ]
   }
 }

@@ -26,13 +26,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "Convert text to speech, save the audio as a file, and return the saved path."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Generate speech audio from the given text and save it to the specified output path. "
-                "Return a JSON response only."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

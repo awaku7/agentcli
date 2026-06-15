@@ -10,8 +10,7 @@
       "execute shell",
       "json command",
       "cmd"
-    ],
-    "tool.system_prompt": "This tool is a last resort. Use it only if no other appropriate tool is available. Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
+    ]
   },
   "ja": {
     "param.command.description": "OS シェルに渡すコマンド文字列。Windows では cmd.exe /c を使います。",
@@ -22,8 +21,7 @@
       "cmd exec json",
       "シェルコマンド",
       "json結果"
-    ],
-    "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。コマンドは慎重に扱い、ユーザーが明示的に確認した場合を除いて破壊的な操作は避けてください。"
+    ]
   },
   "es": {
     "param.command.description": "Cadena de comando que se pasa al shell del sistema.",
@@ -34,8 +32,7 @@
       "cmd exec json",
       "comando shell",
       "resultado json"
-    ],
-    "tool.system_prompt": "Esta herramienta es el último recurso. Úsala solo si no hay otra herramienta adecuada disponible. Sé conservador con los comandos y evita operaciones destructivas a menos que el usuario lo confirme explícitamente."
+    ]
   },
   "fr": {
     "param.command.description": "Chaîne de commande transmise au shell du système.Sous Windows, cmd.",
@@ -46,8 +43,7 @@
       "cmd exec json",
       "commande shell",
       "résultat json"
-    ],
-    "tool.system_prompt": "Cet outil est un dernier recours. Utilisez-le uniquement si aucun autre outil approprié n'est disponible. Soyez prudent avec les commandes et évitez les opérations destructrices, sauf confirmation explicite de l'utilisateur."
+    ]
   },
   "ko": {
     "param.command.description": "시스템 셸에 전달되는 명령 문자열입니다. Windows에서는 cmd.exe /c를 사용합니다.",
@@ -58,8 +54,7 @@
       "cmd exec json",
       "쉘 명령",
       "json 결과"
-    ],
-    "tool.system_prompt": "이 도구는 최후의 수단입니다. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요. 명령은 신중하게 사용하고, 사용자가 명시적으로 확인하지 않는 한 파괴적인 작업은 피하세요."
+    ]
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge, die an die System-Shell übergeben wird.",
@@ -70,8 +65,7 @@
       "cmd exec json",
       "shell-befehl",
       "json-ergebnis"
-    ],
-    "tool.system_prompt": "Dieses Tool ist ein letzter Ausweg. Verwenden Sie es nur, wenn kein anderes geeignetes Werkzeug verfügbar ist. Gehen Sie bei Befehlen vorsichtig vor und vermeiden Sie destruktive Vorgänge, sofern der Benutzer dies nicht ausdrücklich bestätigt."
+    ]
   },
   "it": {
     "param.command.description": "Stringa di comando passata alla shell di sistema.",
@@ -82,8 +76,7 @@
       "cmd exec json",
       "comando shell",
       "risultato json"
-    ],
-    "tool.system_prompt": "Questo strumento è un'ultima risorsa. Usalo solo se non è disponibile nessun altro strumento appropriato. Sii prudente con i comandi ed evita operazioni distruttive se non sono esplicitamente confermate dall'utente."
+    ]
   },
   "ru": {
     "param.command.description": "Строка команды, передаваемая системной оболочке.",
@@ -94,8 +87,7 @@
       "cmd exec json",
       "команда shell",
       "json результат"
-    ],
-    "tool.system_prompt": "Этот инструмент — крайняя мера. Используйте его только если нет другого подходящего инструмента. Будьте осторожны с командами и избегайте разрушительных операций, если это явно не подтверждено пользователем."
+    ]
   },
   "pt_BR": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
@@ -106,8 +98,7 @@
       "cmd exec json",
       "comando shell",
       "resultado json"
-    ],
-    "tool.system_prompt": "Esta ferramenta é um último recurso. Use-a somente se nenhuma outra ferramenta apropriada estiver disponível. Seja conservador com os comandos e evite operações destrutivas, a menos que haja confirmação explícita do usuário."
+    ]
   },
   "pt": {
     "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
@@ -118,8 +109,7 @@
       "cmd exec json",
       "comando shell",
       "resultado json"
-    ],
-    "tool.system_prompt": "Esta ferramenta é um ÚLTIMO RECURSO. Use-o somente se nenhuma outra ferramenta apropriada estiver disponível. Seja conservador com os comandos e evite operações destrutivas, a menos que seja explicitamente confirmado pelo usuário."
+    ]
   },
   "id": {
     "param.command.description": "String perintah yang diteruskan ke shell sistem.",
@@ -130,8 +120,7 @@
       "cmd exec json",
       "perintah shell",
       "hasil json"
-    ],
-    "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR. Gunakan hanya jika tidak ada alat lain yang lebih sesuai. Bersikaplah konservatif terhadap perintah dan hindari operasi yang merusak kecuali telah dikonfirmasi secara eksplisit oleh pengguna."
+    ]
   },
   "vi": {
     "param.command.description": "Chuỗi lệnh được truyền đến shell hệ thống. Trên Windows, dùng cmd.exe /c.",
@@ -142,8 +131,7 @@
       "cmd exec json",
       "lệnh shell",
       "kết quả json"
-    ],
-    "tool.system_prompt": "Công cụ này là một GIẢI PHÁP CUỐI CÙNG. Chỉ sử dụng nó nếu không có công cụ thích hợp nào khác. Hãy thận trọng với các lệnh và tránh các hoạt động phá hoại trừ khi được người dùng xác nhận rõ ràng."
+    ]
   },
   "pl": {
     "param.command.description": "Ciąg polecenia przekazywany do powłoki systemowej.",
@@ -154,8 +142,7 @@
       "cmd exec json",
       "polecenie shell",
       "wynik json"
-    ],
-    "tool.system_prompt": "To narzędzie jest ostatecznością. Używaj go tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie. Zachowaj ostrożność w przypadku poleceń i unikaj destrukcyjnych operacji, chyba że użytkownik wyraźnie to potwierdzi."
+    ]
   },
   "hi": {
     "param.command.description": "सिस्टम शेल को दी जाने वाली कमांड स्ट्रिंग। Windows पर cmd.",
@@ -166,8 +153,7 @@
       "cmd exec json",
       "शेल कमांड",
       "json परिणाम"
-    ],
-    "tool.system_prompt": "यह टूल अंतिम उपाय है। इसका उपयोग केवल तभी करें जब कोई अन्य उपयुक्त टूल उपलब्ध न हो। कमांड के साथ सावधानी बरतें और जब तक उपयोगकर्ता स्पष्ट रूप से पुष्टि न करे, विनाशकारी कार्यों से बचें।"
+    ]
   },
   "ar": {
     "param.command.description": "سلسلة الأوامر التي تُمرَّر إلى غلاف النظام. في Windows يُستخدم cmd.exe /c.",
@@ -178,8 +164,7 @@
       "cmd exec json",
       "أمر shell",
       "نتيجة json"
-    ],
-    "tool.system_prompt": "هذه الأداة هي الملاذ الأخير. استخدمها فقط إذا لم تتوفر أداة أخرى مناسبة. كن حذرًا مع الأوامر وتجنب العمليات التدميرية ما لم يؤكد المستخدم ذلك صراحةً."
+    ]
   },
   "sv": {
     "param.command.description": "Kommandosträng som skickas till systemets skal. I Windows används cmd.exe /c.",
@@ -190,8 +175,7 @@
       "cmd exec json",
       "shellkommando",
       "json-resultat"
-    ],
-    "tool.system_prompt": "Det här verktyget är en sista utväg. Använd det bara om inget annat lämpligt verktyg finns tillgängligt. Var försiktig med kommandon och undvik destruktiva åtgärder om inte användaren uttryckligen har bekräftat dem."
+    ]
   },
   "sw": {
     "param.command.description": "Mfuatano wa amri unaopitishwa kwa ganda la mfumo.",
@@ -202,8 +186,7 @@
       "cmd exec json",
       "amri shell",
       "matokeo ya json"
-    ],
-    "tool.system_prompt": "Zana hii ni suluhisho la mwisho. Itumie tu ikiwa hakuna zana nyingine inayofaa inayopatikana. Kuwa mwangalifu na amri na epuka shughuli zenye uharibifu isipokuwa mtumiaji athibitishe wazi."
+    ]
   },
   "nb": {
     "param.command.description": "Kommandostreng som sendes til systemskallet. På Windows brukes cmd.exe /c.",
@@ -214,8 +197,7 @@
       "cmd exec json",
       "shellkommando",
       "json-resultat"
-    ],
-    "tool.system_prompt": "Dette verktøyet er en siste utvei. Bruk det bare hvis ikke noe annet passende verktøy er tilgjengelig. Vær forsiktig med kommandoer og unngå destruktive operasjoner med mindre brukeren eksplisitt har bekreftet dem."
+    ]
   },
   "nl": {
     "param.command.description": "Opdrachtregel die naar de systeem-shell wordt doorgegeven.",
@@ -226,8 +208,7 @@
       "cmd exec json",
       "shellopdracht",
       "jsonresultaat"
-    ],
-    "tool.system_prompt": "Deze tool is een LAATSTE REDMIDDEL. Gebruik deze alleen als geen andere geschikte tool beschikbaar is. Wees voorzichtig met opdrachten en vermijd destructieve handelingen tenzij de gebruiker dit expliciet bevestigt."
+    ]
   },
   "fi": {
     "param.command.description": "Komentorivi, joka välitetään järjestelmän komentotulkille.",
@@ -238,8 +219,7 @@
       "cmd exec json",
       "shell-komento",
       "json-tulos"
-    ],
-    "tool.system_prompt": "Tämä työkalu on VIIMEINEN KEINO. Käytä sitä vain, jos muuta sopivaa työkalua ei ole. Ole varovainen komentojen kanssa ja vältä tuhoavia toimia, ellei käyttäjä ole vahvistanut niitä."
+    ]
   },
   "cs": {
     "param.command.description": "Řetězec příkazu předávaný systémovému shellu.",
@@ -250,8 +230,7 @@
       "cmd exec json",
       "shell příkaz",
       "json výsledek"
-    ],
-    "tool.system_prompt": "Tento nástroj je POSLEDNÍ MOŽNOST. Používejte jej pouze tehdy, pokud není k dispozici žádný jiný vhodný nástroj. S příkazy zacházejte opatrně a vyhněte se destruktivním operacím, pokud je uživatel výslovně nepotvrdí."
+    ]
   },
   "uk": {
     "param.command.description": "Рядок команди, що передається системній оболонці.",
@@ -262,8 +241,7 @@
       "cmd exec json",
       "команда shell",
       "json результат"
-    ],
-    "tool.system_prompt": "Цей інструмент — КРАЙНІЙ ЗАХІД. Використовуйте його лише тоді, коли немає іншого відповідного інструмента. Будьте обережні з командами та уникайте руйнівних операцій, якщо користувач явно їх не підтвердив."
+    ]
   },
   "tr": {
     "param.command.description": "Sistem kabuğuna iletilen komut dizisi. Windows’ta cmd.exe /c kullanılır.",
@@ -274,8 +252,7 @@
       "cmd exec json",
       "kabuk komutu",
       "json sonucu"
-    ],
-    "tool.system_prompt": "Bu araç son çaredir. Bunu yalnızca başka uygun bir araç bulunmadığında kullanın. Komutlar konusunda dikkatli olun ve kullanıcı tarafından açıkça onaylanmadıkça yıkıcı işlemlerden kaçının."
+    ]
   },
   "th": {
     "param.command.description": "สตริงคำสั่งที่ส่งไปยังเชลล์ของระบบ บน Windows ใช้ cmd.exe /c",
@@ -286,8 +263,7 @@
       "cmd exec json",
       "คำสั่งเชลล์",
       "ผลลัพธ์ json"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้เป็นทางเลือกสุดท้าย ใช้เฉพาะเมื่อไม่มีเครื่องมืออื่นที่เหมาะสมเท่านั้น ใช้คำสั่งอย่างระมัดระวัง และหลีกเลี่ยงการดำเนินการที่ทำลายล้าง เว้นแต่ผู้ใช้จะยืนยันอย่างชัดเจน"
+    ]
   },
   "zh_CN": {
     "param.command.description": "传递给系统 shell 的命令字符串。Windows 上使用 cmd.exe /c。",
@@ -298,8 +274,7 @@
       "cmd exec json",
       "shell 命令",
       "json 结果"
-    ],
-    "tool.system_prompt": "该工具是最后手段。仅在没有其他合适工具可用时使用。请谨慎使用命令，除非用户明确确认，否则避免破坏性操作。"
+    ]
   },
   "zh_TW": {
     "param.command.description": "傳遞給系統 shell 的命令字串。Windows 會使用 cmd.exe /c。",
@@ -310,8 +285,7 @@
       "cmd exec json",
       "shell 指令",
       "json 結果"
-    ],
-    "tool.system_prompt": "此工具是最後手段。僅在沒有其他合適工具可用時使用。請謹慎使用命令，除非使用者明確確認，否則避免破壞性操作。"
+    ]
   },
   "bn": {
     "param.command.description": "OS shell-এ পাঠানোর কমান্ড স্ট্রিং। Windows-এ cmd.exe /c ব্যবহার করা হয়।",
@@ -322,8 +296,7 @@
       "cmd exec json",
       "শেল কমান্ড",
       "json ফলাফল"
-    ],
-    "tool.system_prompt": "এই টুলটি শেষ উপায়। অন্য কোনো উপযুক্ত টুল না থাকলে তবেই ব্যবহার করুন। কমান্ডে সংযত থাকুন এবং ব্যবহারকারী স্পষ্টভাবে নিশ্চিত না করলে ধ্বংসাত্মক কাজ এড়িয়ে চলুন।"
+    ]
   },
   "fa": {
     "param.command.description": "رشتهٔ فرمانی که به پوستهٔ سیستم داده می‌شود.در ویندوز از cmd.",
@@ -334,8 +307,7 @@
       "cmd exec json",
       "فرمان شل",
       "نتیجه json"
-    ],
-    "tool.system_prompt": "این ابزار آخرین راه‌حل است. فقط اگر ابزار مناسب دیگری در دسترس نیست از آن استفاده کنید. در استفاده از فرمان‌ها محتاط باشید و مگر با تأیید صریح کاربر، از عملیات مخرب خودداری کنید."
+    ]
   },
   "mn": {
     "param.command.description": "Системийн shell-д дамжуулах командын мөр. Windows дээр cmd.exe /c ашиглана.",
@@ -346,8 +318,7 @@
       "cmd exec json",
       "shell тушаал",
       "json үр дүн"
-    ],
-    "tool.system_prompt": "Энэ хэрэгсэл нь хамгийн сүүлчийн арга. Өөр тохирох хэрэгсэл байхгүй үед л ашиглана уу. Командуудыг болгоомжтой ашиглаж, хэрэглэгч тодорхой баталгаажуулаагүй бол эвдэлж болох үйлдлээс зайлсхий."
+    ]
   },
   "mr": {
     "param.command.description": "OS shell ला दिलेली कमांड स्ट्रिंग. Windows वर cmd.exe /c वापरले जाते.",
@@ -358,7 +329,6 @@
       "cmd exec json",
       "शेल कमांड",
       "json निकाल"
-    ],
-    "tool.system_prompt": "हे साधन शेवटचा उपाय आहे. दुसरे योग्य साधन उपलब्ध नसेल तरच वापरा. कमांड वापरताना काळजी घ्या आणि वापरकर्त्याने स्पष्टपणे पुष्टी न दिल्यास विध्वंसक कृती टाळा."
+    ]
   }
 }

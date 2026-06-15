@@ -29,10 +29,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Captures a screenshot of the entire desktop or a specific window.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool is used for the following purpose: capture a screenshot of the desktop or a specified window.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

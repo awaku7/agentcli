@@ -35,10 +35,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Poll an A2A task until terminal state. Use only when no local tool can substitute.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="Poll an A2A task. Return JSON only.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

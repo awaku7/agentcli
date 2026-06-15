@@ -25,15 +25,6 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description", default="Rename (move) a file or directory."
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool renames or moves a file or directory.\n\n"
-                "Safety Notes:\n"
-                "- Confirmation is required for absolute paths, paths containing '..', or operations outside the workdir.\n"
-                "- overwrite=true requires confirmation as it involves deletion of the destination."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

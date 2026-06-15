@@ -28,10 +28,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Generate a QR code image (PNG) from text or URL. Customizable colors and size.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="Generate a QR code image from text or URL. Save it as a PNG file inside the workdir. If the file already exists, overwrite=false will raise an error. If overwrite=true, a backup is created before writing.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=["qr", "qrcode", "generate qr", "make qr", "qr code"],

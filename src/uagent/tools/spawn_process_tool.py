@@ -50,12 +50,6 @@ TOOL_SPEC: dict[str, Any] = {
             "required": ["command"],
             "type": "object",
         },
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool performs the operation described by the tool name 'spawn_process'. Use it when that action is needed."
-            ),
-        ),
     },
     "type": "function",
 }

@@ -9,7 +9,6 @@
       "speech",
       "sound"
     ],
-    "tool.system_prompt": "Transcribe the given audio file and return a JSON response only. If output_format=text, include the transcript text in the response. If output_format=json, include basic metadata as well.",
     "param.path.description": "Path to the input audio file.",
     "param.model.description": "Transcription model name. If omitted, the provider default or configured deployment name is used.",
     "param.language.description": "Optional language hint (e.g. 'ja', 'en').",
@@ -31,7 +30,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "指定された音声ファイルを書き起こし、JSONで返してください。output_format=text の場合は書き起こし本文を、output_format=json の場合は基本情報も含めてください。",
     "param.path.description": "入力する音声ファイルのパス。",
     "param.model.description": "書き起こしモデル名。省略時は提供元の既定値または設定済みのデプロイ名を使います。",
     "param.language.description": "任意の言語ヒント（例: 'ja', 'en'）。",
@@ -53,7 +51,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Transcribe el archivo de audio indicado y devuelve solo una respuesta JSON. Si output_format=text, incluye el texto transcrito; si output_format=json, incluye también metadatos básicos.",
     "param.path.description": "Ruta al archivo de audio d...",
     "param.model.description": "Nombre del modelo de transcripción.",
     "param.language.description": "Sugerencia de idioma opcional (por ejemplo, 'ja', 'en').",
@@ -75,7 +72,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Transcrivez le fichier audio fourni et renvoyez uniquement une réponse JSON. Si output_format=text, incluez le texte transcrit dans la réponse. Si output_format=json, incluez aussi les métadonnées de base.",
     "param.path.description": "Chemin vers le fichier aud...",
     "param.model.description": "Nom du modèle de transcription.",
     "param.language.description": "Indice de langue facultatif (par ex. 'ja', 'en').",
@@ -97,7 +93,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "지정된 오디오 파일을 변환하고 JSON 응답만 반환하세요. output_format=text이면 변환된 텍스트를 포함하고, output_format=json이면 기본 메타데이터도 포함하세요.",
     "param.path.description": "입력 오디오 파일의 경로입니다.",
     "param.model.description": "전사 모델 이름입니다. 생략하면 제공자 기본값 또는 구성된 배포 이름을 사용합니다.",
     "param.language.description": "선택적 언어 힌트(예: 'ja', 'en').",
@@ -119,7 +114,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Transkribieren Sie die angegebene Audiodatei und geben Sie nur eine JSON-Antwort zurück. Wenn output_format=text, fügen Sie den Transkripttext ein. Wenn output_format=json, fügen Sie außerdem grundlegende Metadaten hinzu.",
     "param.path.description": "Pfad zur Eingabe-Audiodatei.",
     "param.model.description": "Name des Transkriptionsmodells.",
     "param.language.description": "Optionaler Sprachhinweis (z. B. 'ja', 'en').",
@@ -141,7 +135,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Trascrivi il file audio specificato e restituisci solo una risposta JSON. Se output_format=text, includi il testo trascritto. Se output_format=json, includi anche i metadati di base.",
     "param.path.description": "Percorso del file audio di...",
     "param.model.description": "Nome del modello di trascrizione.",
     "param.language.description": "Suggerimento facoltativo per la lingua (ad es. 'ja', 'en').",
@@ -163,7 +156,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Транскрибируйте указанный аудиофайл и возвращайте только JSON-ответ. Если output_format=text, включите текст транскрипции. Если output_format=json, добавьте также базовые метаданные.",
     "param.path.description": "Путь к входному аудиофайлу.",
     "param.model.description": "Имя модели распознавания.",
     "param.language.description": "Необязательная подсказка языка (например, 'ja', 'en').",
@@ -185,7 +177,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Transcreva o arquivo de áudio informado e retorne apenas uma resposta JSON. Se output_format=text, inclua o texto transcrito. Se output_format=json, inclua também metadados básicos.",
     "param.path.description": "Caminho para o arquivo de...",
     "param.model.description": "Nome do modelo de transcrição.",
     "param.language.description": "Dica de idioma opcional (ex.: 'ja', 'en').",
@@ -207,7 +198,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Transcreva o arquivo de áudio fornecido e retorne apenas uma resposta JSON. Se output_format=text, inclua o texto transcrito. Se output_format=json, inclua também metadados básicos.",
     "param.path.description": "Caminho para o arquivo de...",
     "param.model.description": "Nome do modelo de transcrição.",
     "param.language.description": "Dica de idioma opcional (por exemplo, 'ja', 'en').",
@@ -229,7 +219,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Transkripsikan file audio yang diberikan dan kembalikan hanya respons JSON. Jika output_format=text, sertakan teks transkrip. Jika output_format=json, sertakan juga metadata dasar.",
     "param.path.description": "Jalur ke file audio input.",
     "param.model.description": "Nama model transkripsi.",
     "param.language.description": "Petunjuk bahasa opsional (mis. 'ja', 'en').",
@@ -251,7 +240,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Phiên âm tệp âm thanh được chỉ định và chỉ trả về phản hồi JSON. Nếu output_format=text, hãy bao gồm متن bản phiên âm. Nếu output_format=json, hãy bao gồm cả siêu dữ liệu cơ bản.",
     "param.path.description": "Đường dẫn tới tệp âm thanh...",
     "param.model.description": "Tên mô hình phiên âm.",
     "param.language.description": "Gợi ý ngôn ngữ tùy chọn (ví dụ 'ja', 'en').",
@@ -273,7 +261,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Przepisz podany plik audio i zwróć wyłącznie odpowiedź JSON. Jeśli output_format=text, dołącz tekst transkrypcji. Jeśli output_format=json, dołącz także podstawowe metadane.",
     "param.path.description": "Ścieżka do wejściowego pli...",
     "param.model.description": "Nazwa modelu transkrypcji.",
     "param.language.description": "Opcjonalna podpowiedź języka (np. 'ja', 'en').",
@@ -295,7 +282,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "दी गई ऑडियो फ़ाइल को ट्रांसक्राइब करें और केवल JSON प्रतिक्रिया लौटाएँ। यदि output_format=text हो, तो ट्रांसक्रिप्ट टेक्स्ट शामिल करें। यदि output_format=json हो, तो मूल मेटाडेटा भी शामिल करें।",
     "param.path.description": "इनपुट ऑडियो फ़ाइल का पथ।",
     "param.model.description": "ट्रांसक्रिप्शन मॉडल का नाम। यदि छोड़ा गया, तो provider का default या configured deployment nam...",
     "param.language.description": "वैकल्पिक भाषा संकेत (जैसे 'ja', 'en').",
@@ -317,7 +303,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "قم بتفريغ ملف الصوت المحدد وأعد استجابة JSON فقط. إذا كان output_format=text، فأدرج نص التفريغ في الاستجابة. وإذا كان output_format=json، فأدرج أيضًا البيانات الوصفية الأساسية.",
     "param.path.description": "المسار إلى ملف الصوت المدخل.",
     "param.model.description": "اسم نموذج التفريغ. إذا لم يُذكر، فسيُستخدم الافتراضي لدى المزوّد أو اسم النشر المُهيأ.",
     "param.language.description": "تلميح اختياري للغة (مثل 'ja' أو 'en').",
@@ -339,7 +324,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Transkribera den angivna ljudfilen och returnera endast ett JSON-svar. Om output_format=text, inkludera transkripttexten. Om output_format=json, inkludera även grundläggande metadata.",
     "param.path.description": "Sökväg till inmatningsljud...",
     "param.model.description": "Namn på transkriptionsmodellen.",
     "param.language.description": "Valfri språktips (t.ex. 'ja', 'en').",
@@ -361,7 +345,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Andika upya faili ya sauti iliyotolewa na urudishe jibu la JSON pekee. Ikiwa output_format=text, jumuisha maandishi ya transkripti. Ikiwa output_format=json, jumuisha pia metadata ya msingi.",
     "param.path.description": "Njia ya faili ya sauti ya...",
     "param.model.description": "Jina la modeli ya transkripsheni.",
     "param.language.description": "Kidokezo cha hiari cha lugha (mf. 'ja', 'en').",
@@ -383,7 +366,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Transkriber den angitte lydfilen og returner kun et JSON-svar. Hvis output_format=text, ta med transkripsjonsteksten. Hvis output_format=json, ta også med grunnleggende metadata.",
     "param.path.description": "Sti til inngangslydfilen.",
     "param.model.description": "Navn på transkripsjonsmodellen.",
     "param.language.description": "Valgfri språkledetråd (f.eks. 'ja', 'en').",
@@ -405,7 +387,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Transcribeer het opgegeven audiobestand en geef alleen een JSON-antwoord terug. Als output_format=text, neem dan de transcripttekst op. Als output_format=json, neem dan ook basismetadata op.",
     "param.path.description": "Pad naar het invoeraudiobe...",
     "param.model.description": "Naam van het transcriptiemodel.",
     "param.language.description": "Optionele taalhint (bijv. 'ja', 'en').",
@@ -427,7 +408,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Litteroi annettu äänitiedosto ja palauta vain JSON-vastaus. Jos output_format=text, sisällytä litterointiteksti. Jos output_format=json, sisällytä myös perustiedot.",
     "param.path.description": "Syöteäänitiedoston polku.",
     "param.model.description": "Litterointimallin nimi. Jos jätetään pois, käytetään tarjoajan oletusta tai määritettyä deployment-nimeä.",
     "param.language.description": "Valinnainen kielivihje (esim. 'ja', 'en').",
@@ -449,7 +429,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Přepište zadaný zvukový soubor a vraťte pouze JSON odpověď. Pokud output_format=text, zahrňte přepis. Pokud output_format=json, zahrňte také základní metadata.",
     "param.path.description": "Cesta ke vstupnímu zvukové...",
     "param.model.description": "Název modelu pro přepis.",
     "param.language.description": "Volitelná nápověda jazyka (např. 'ja', 'en').",
@@ -471,7 +450,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Транскрибуйте вказаний аудіофайл і повертайте лише JSON-відповідь. Якщо output_format=text, включіть текст транскрипції. Якщо output_format=json, також включіть базові метадані.",
     "param.path.description": "Шлях до вхідного аудіофайлу.",
     "param.model.description": "Назва моделі транскрипції.",
     "param.language.description": "Необов'язкова підказка мови (наприклад, 'ja', 'en').",
@@ -493,7 +471,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Verilen ses dosyasını yazıya dökün ve yalnızca JSON yanıtını döndürün. Output_format=text ise transkript metnini yanıta ekleyin. Output_format=json ise temel meta verileri de ekleyin.",
     "param.path.description": "Giriş ses dosyasının yolu.",
     "param.model.description": "Transkripsiyon modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
     "param.language.description": "İsteğe bağlı dil ipucu (ör. 'ja', 'en').",
@@ -515,7 +492,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "ถอดเสียงไฟล์เสียงที่ระบุและส่งกลับเป็น JSON เท่านั้น หาก output_format=text ให้ใส่ข้อความถอดเสียงในคำตอบ หาก output_format=json ให้ใส่ข้อมูลเมตาพื้นฐานด้วย",
     "param.path.description": "พาธไปยังไฟล์เสียงต้นฉบับ",
     "param.model.description": "ชื่อโมเดลถอดเสียง หากไม่ระบุ จะใช้ค่าเริ่มต้นของผู้ให้บริการหรือชื่อ deployment ที่กำหนดไว้",
     "param.language.description": "คำใบ้ภาษาแบบเลือกได้ (เช่น 'ja', 'en')",
@@ -537,7 +513,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "转写指定的音频文件，并且只返回 JSON 响应。如果 output_format=text，请在响应中包含转写文本；如果 output_format=json，请同时包含基本元数据。",
     "param.path.description": "输入音频文件的路径。",
     "param.model.description": "转写模型名称。如未指定，将使用提供方默认值或已设置的部署名称。",
     "param.language.description": "可选语言提示（例如 'ja'、'en'）。",
@@ -559,7 +534,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "轉寫指定的音訊檔，並且只回傳 JSON 回應。如果 output_format=text，請在回應中包含轉寫文字；如果 output_format=json，請同時包含基本中繼資料。",
     "param.path.description": "輸入音訊檔的路徑。",
     "param.model.description": "轉寫模型名稱。若未指定，將使用供應商預設值或已設定的部署名稱。",
     "param.language.description": "可選語言提示（例如 'ja'、'en'）。",
@@ -581,7 +555,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "দেওয়া অডিও ফাইল ট্রান্সক্রাইব করে শুধু JSON উত্তর দিন। output_format=text হলে ট্রান্সক্রিপ্ট টেক্সট অন্তর্ভুক্ত করুন; output_format=json হলে মৌলিক metadata-ও অন্তর্ভুক্ত করুন।",
     "param.path.description": "ইনপুট অডিও ফাইলের পথ।",
     "param.model.description": "ট্রান্সক্রিপশন মডেলের নাম। উল্লেখ না করলে প্রদানকারীর ডিফল্ট বা কনফিগার করা deployment নাম ব্যবহার হবে।",
     "param.language.description": "ঐচ্ছিক ভাষা-ইঙ্গিত (যেমন 'ja', 'en').",
@@ -603,7 +576,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "فایل صوتیِ داده‌شده را تبدیل کنید و فقط یک پاسخ JSON برگردانید. اگر output_format=text است، متن پیاده‌سازی‌شده را هم شامل کنید. اگر output_format=json است، فرادادهٔ پایه را هم اضافه کنید.",
     "param.path.description": "مسیر فایل صوتی ورودی.",
     "param.model.description": "نام مدل پیاده‌سازی. اگر حذف شود، پیش‌فرض ارائه‌دهنده یا نام deployment پیکربندی‌شده استفاده می‌شود.",
     "param.language.description": "راهنمای اختیاری زبان (مثلاً 'ja'، 'en').",
@@ -625,7 +597,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "Өгөгдсөн аудио файлыг хөрвүүлээд зөвхөн JSON хариу буцаа. output_format=text бол хөрвүүлсэн текстийг, output_format=json бол үндсэн metadata-г мөн оруулна.",
     "param.path.description": "Оролтын аудио файлын зам.",
     "param.model.description": "Хөрвүүлэлтийн загварын нэр. Орхивол provider-ийн өгөгдмөл эсвэл тохируулсан deployment нэрийг ашиглана.",
     "param.language.description": "Сонголттой хэлний зөвлөмж (жишээ нь 'ja', 'en').",
@@ -647,7 +618,6 @@
       "audio_transcribe",
       "audio transcribe"
     ],
-    "tool.system_prompt": "दिलेली ऑडिओ फाईल लिप्यंतरित करा आणि फक्त JSON प्रतिसाद द्या. output_format=text असल्यास लिप्यंतरित मजकूर समाविष्ट करा. output_format=json असल्यास मूलभूत metadata देखील समाविष्ट करा.",
     "param.path.description": "इनपुट ऑडिओ फाईलचा मार्ग.",
     "param.model.description": "लिप्यंतरण मॉडेलचे नाव. वगळल्यास provider चे डीफॉल्ट किंवा कॉन्फिगर केलेले deployment नाव वापरले जाईल.",
     "param.language.description": "ऐच्छिक भाषेचा इशारा (उदा. 'ja', 'en').",

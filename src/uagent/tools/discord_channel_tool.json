@@ -18,8 +18,7 @@
     "x_search_terms": [
       "discord_channel",
       "discord channel"
-    ],
-    "tool.system_prompt": "Use this tool to talk to a Discord channel via REST API. A bot token must be provided through an environment variable. Return JSON only."
+    ]
   },
   "ja": {
     "err.exception": "例外が発生しました",
@@ -42,8 +41,7 @@
       "discord チャンネル",
       "チャンネル対話",
       "bot メッセージ"
-    ],
-    "tool.system_prompt": "REST APIを介してDiscordチャンネルと通信するためにこのツールを使用します。環境変数を通じてボットトークンを提供する必要があります。JSONのみを返します。"
+    ]
   },
   "es": {
     "err.exception": "Excepción",
@@ -66,8 +64,7 @@
       "canal discord",
       "bot discord",
       "chat canal"
-    ],
-    "tool.system_prompt": "Utilice esta herramienta para hablar con un canal de Discord a través de la API REST. Se debe proporcionar un token de bot mediante una variable de entorno. Devuelve solo JSON."
+    ]
   },
   "fr": {
     "err.exception": "Except...",
@@ -90,8 +87,7 @@
       "canal discord",
       "bot discord",
       "chat canal"
-    ],
-    "tool.system_prompt": "Utilisez cet outil pour parler à un salon Discord via l'API REST. Un jeton de bot doit être fourni via une variable d'environnement. Renvoie uniquement du JSON."
+    ]
   },
   "ko": {
     "err.exception": "예외 발생",
@@ -114,8 +110,7 @@
       "디스코드 채널",
       "채널 대화",
       "봇 메시지"
-    ],
-    "tool.system_prompt": "REST API를 통해 Discord 채널과 통신하려면 이 도구를 사용하십시오. 환경 변수를 통해 봇 토큰을 제공해야 합니다. JSON만 반환합니다."
+    ]
   },
   "de": {
     "err.exception": "Ausnahme",
@@ -138,8 +133,7 @@
       "discord channel",
       "discord bot",
       "kanal chat"
-    ],
-    "tool.system_prompt": "Verwenden Sie dieses Tool, um über die REST-API mit einem Discord-Channel zu kommunizieren. Ein Bot-Token muss über eine Umgebungsvariable bereitgestellt werden. Geben Sie nur JSON zurück."
+    ]
   },
   "it": {
     "err.exception": "Eccezione",
@@ -162,8 +156,7 @@
       "canale discord",
       "bot discord",
       "chat canale"
-    ],
-    "tool.system_prompt": "Usa questo strumento per parlare con un canale Discord tramite API REST. Un token bot deve essere fornito tramite una variabile di ambiente. Restituisce solo JSON."
+    ]
   },
   "ru": {
     "err.exception": "Исключ...",
@@ -186,8 +179,7 @@
       "канал discord",
       "бот discord",
       "чат канала"
-    ],
-    "tool.system_prompt": "Используйте этот инструмент для общения с каналом Discord через REST API. Токен бота должен быть предоставлен через переменную окружения. Возвращайте только JSON."
+    ]
   },
   "pt_BR": {
     "err.exception": "Exceção",
@@ -210,8 +202,7 @@
       "canal discord",
       "bot discord",
       "chat do canal"
-    ],
-    "tool.system_prompt": "Use esta ferramenta para falar com um canal do Discord via API REST. Um token de bot deve ser fornecido por meio de uma variável de ambiente. Retorne apenas JSON."
+    ]
   },
   "pt": {
     "err.exception": "Exceção",
@@ -234,8 +225,7 @@
       "canal discord",
       "bot discord",
       "chat do canal"
-    ],
-    "tool.system_prompt": "Use esta ferramenta para conversar com um canal Discord via REST API. Um token de bot deve ser fornecido por meio de uma variável de ambiente. Retorne apenas JSON."
+    ]
   },
   "id": {
     "err.exception": "Terjad...",
@@ -258,8 +248,7 @@
       "saluran discord",
       "bot discord",
       "obrolan saluran"
-    ],
-    "tool.system_prompt": "Gunakan alat ini untuk berbicara ke channel Discord via REST API. Token bot harus disediakan melalui variabel lingkungan. Kembalikan JSON saja."
+    ]
   },
   "vi": {
     "err.exception": "Ngoại lệ",
@@ -282,8 +271,7 @@
       "kênh discord",
       "bot discord",
       "trò chuyện kênh"
-    ],
-    "tool.system_prompt": "Dùng công cụ này để giao tiếp với kênh Discord qua REST API. Token bot phải được cung cấp qua biến môi trường. Chỉ trả về JSON."
+    ]
   },
   "pl": {
     "err.exception": "Wyjątek",
@@ -306,8 +294,7 @@
       "kanał discord",
       "bot discord",
       "czat kanału"
-    ],
-    "tool.system_prompt": "Użyj tego narzędzia do komunikacji z kanałem Discord przez REST API. Token bota musi być podany przez zmienną środowiskową. Zwracaj wyłącznie JSON."
+    ]
   },
   "hi": {
     "err.exception": "अपवाद",
@@ -330,8 +317,7 @@
       "डिस्कॉर्ड चैनल",
       "बॉट संदेश",
       "चैनल चैट"
-    ],
-    "tool.system_prompt": "REST API के माध्यम से Discord चैनल से बात करने के लिए इस टूल का उपयोग करें। bot token environment variable के माध्यम से दिया जाना चाहिए। केवल JSON लौटाएँ।"
+    ]
   },
   "ar": {
     "err.exception": "استثناء",
@@ -354,8 +340,7 @@
       "قناة discord",
       "بوت discord",
       "دردشة القناة"
-    ],
-    "tool.system_prompt": "استخدم هذه الأداة للتواصل مع قناة Discord عبر REST API. يجب توفير رمز bot عبر متغير بيئة. أعد JSON فقط."
+    ]
   },
   "sv": {
     "err.exception": "Undantag",
@@ -378,8 +363,7 @@
       "discord-kanal",
       "discord bot",
       "kanalchatt"
-    ],
-    "tool.system_prompt": "Använd det här verktyget för att prata med en Discord-kanal via REST API. En bottoken måste anges via en miljövariabel. Returnera endast JSON."
+    ]
   },
   "sw": {
     "err.exception": "Hitilafu",
@@ -402,8 +386,7 @@
       "kituo cha discord",
       "bot discord",
       "mazungumzo ya kituo"
-    ],
-    "tool.system_prompt": "Tumia zana hii kuwasiliana na chaneli ya Discord kupitia REST API. Tokeni ya bot lazima itolewe kupitia kigezo cha mazingira. Rudisha JSON pekee."
+    ]
   },
   "nb": {
     "err.exception": "Unntak",
@@ -426,8 +409,7 @@
       "discord-kanal",
       "discord bot",
       "kanalchat"
-    ],
-    "tool.system_prompt": "Bruk dette verktøyet til å snakke med en Discord-kanal via REST API. En bottoken må oppgis via en miljøvariabel. Returner bare JSON."
+    ]
   },
   "nl": {
     "err.exception": "Uitzon...",
@@ -450,8 +432,7 @@
       "discord-kanaal",
       "discord bot",
       "kanaalchat"
-    ],
-    "tool.system_prompt": "Gebruik dit hulpmiddel om via de REST-API met een Discord-kanaal te communiceren. Een bottoken moet via een omgevingsvariabele worden opgegeven. Geef alleen JSON terug."
+    ]
   },
   "fi": {
     "err.exception": "Poikkeus",
@@ -474,8 +455,7 @@
       "discord-kanava",
       "discord botti",
       "kanavakeskustelu"
-    ],
-    "tool.system_prompt": "Käytä tätä työkalua Discord-kanavan kanssa keskusteluun REST-rajapinnan kautta. Bottitunnus on annettava ympäristömuuttujan kautta. Palauta vain JSON."
+    ]
   },
   "cs": {
     "err.exception": "Výjimka",
@@ -498,8 +478,7 @@
       "kanál discord",
       "bot discord",
       "chat kanálu"
-    ],
-    "tool.system_prompt": "Použijte tento nástroj ke komunikaci s Discord kanálem přes REST API. Bot token musí být poskytnut přes proměnnou prostředí. Vracejte pouze JSON."
+    ]
   },
   "uk": {
     "err.exception": "Виняток",
@@ -522,8 +501,7 @@
       "канал discord",
       "бот discord",
       "чат каналу"
-    ],
-    "tool.system_prompt": "Використовуйте цей інструмент для взаємодії з каналом Discord через REST API. Токен бота потрібно надати через змінну середовища. Повертайте лише JSON."
+    ]
   },
   "tr": {
     "err.exception": "İstisna",
@@ -546,8 +524,7 @@
       "discord kanalı",
       "discord bot",
       "kanal sohbeti"
-    ],
-    "tool.system_prompt": "REST API aracılığıyla bir Discord kanalıyla konuşmak için bu aracı kullanın. Bir ortam değişkeni aracılığıyla bir bot belirteci sağlanmalıdır. Yalnızca JSON değerini döndür."
+    ]
   },
   "th": {
     "err.exception": "ข้อยกเว้น",
@@ -570,8 +547,7 @@
       "ช่อง discord",
       "บอท discord",
       "แชทช่อง"
-    ],
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อคุยกับช่อง Discord ผ่าน REST API ต้องระบุโทเค็นบอทผ่านตัวแปรสภาพแวดล้อม ส่งคืน JSON เท่านั้น"
+    ]
   },
   "zh_CN": {
     "err.exception": "异常",
@@ -594,8 +570,7 @@
       "discord 频道",
       "频道聊天",
       "bot 消息"
-    ],
-    "tool.system_prompt": "使用此工具通过 REST API 与 Discord 频道通信。必须通过环境变量提供机器人令牌。仅返回 JSON。"
+    ]
   },
   "zh_TW": {
     "err.exception": "例外",
@@ -618,8 +593,7 @@
       "discord 頻道",
       "頻道聊天",
       "bot 訊息"
-    ],
-    "tool.system_prompt": "使用此工具透過 REST API 與 Discord 頻道通訊。必須透過環境變數提供機器人權杖。僅傳回 JSON。"
+    ]
   },
   "bn": {
     "err.exception": "ব্যতিক্রম",
@@ -642,8 +616,7 @@
       "ডিসকর্ড চ্যানেল",
       "বট বার্তা",
       "চ্যানেল চ্যাট"
-    ],
-    "tool.system_prompt": "REST API-এর মাধ্যমে Discord চ্যানেলের সাথে কথা বলতে এই টুল ব্যবহার করুন। পরিবেশ চলকের মাধ্যমে বট টোকেন দিতে হবে। শুধু JSON ফেরত দিন।"
+    ]
   },
   "fa": {
     "err.exception": "استثنا",
@@ -666,8 +639,7 @@
       "کانال discord",
       "ربات discord",
       "گفتگوی کانال"
-    ],
-    "tool.system_prompt": "از این ابزار برای گفت‌وگو با یک کانال Discord از طریق REST API استفاده کنید. توکن بات باید از طریق یک متغیر محیطی ارائه شود. فقط JSON برگردانید."
+    ]
   },
   "mn": {
     "err.exception": "Алдаа",
@@ -690,8 +662,7 @@
       "discord суваг",
       "discord бот",
       "суваг чат"
-    ],
-    "tool.system_prompt": "REST API-аар Discord сувгийн kanssa харилцахад энэ хэрэгслийг ашигла. Орчны хувьсагчаар бот токен өгөх шаардлагатай. Зөвхөн JSON буцаа."
+    ]
   },
   "mr": {
     "err.exception": "अपवाद",
@@ -714,7 +685,6 @@
       "डिस्कॉर्ड चॅनेल",
       "बॉट संदेश",
       "चॅनेल चॅट"
-    ],
-    "tool.system_prompt": "REST API द्वारे Discord चॅनेलशी बोलण्यासाठी हे साधन वापरा. environment variable द्वारे बॉट टोकन द्या. फक्त JSON परत करा."
+    ]
   }
 }

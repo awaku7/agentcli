@@ -3,7 +3,6 @@
     "err.unavailable": "This tool is available on Unix-like systems with bash installed.",
     "param.command.description": "Command string passed to bash -lc.",
     "tool.description": "As a last resort, execute a bash command. Use only when no other appropriate tool is available.",
-    "tool.system_prompt": "This tool is a LAST RESORT. Use only if no other appropriate tool is available.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -16,7 +15,6 @@
     "err.unavailable": "このツールは bash がインストールされた Unix 系でのみ利用できます。",
     "param.command.description": "bash -lc に渡すコマンド文字列。",
     "tool.description": "最終手段として bash コマンドを実行します。他に適切なツールがない場合にのみ使用してください。",
-    "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -29,7 +27,6 @@
     "err.unavailable": "Esta herramienta está disponible en sistemas tipo Unix con ba...",
     "param.command.description": "Cadena de comando pasada a bash -lc.",
     "tool.description": "Como último recurso, ejecuta un comando bash.",
-    "tool.system_prompt": "Esta herramienta es el ÚLTIMO RECURSO. Úsala solo si no hay otra herramienta adecuada disponible.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -42,7 +39,6 @@
     "err.unavailable": "Cet outil est disponible sur les systèmes de type Unix avec b...",
     "param.command.description": "Chaîne de commande transmise à...",
     "tool.description": "En dernier recours, exécutez une commande bash.",
-    "tool.system_prompt": "Cet outil est un DERNIER RECOURS. Ne l’utilisez que si aucun autre outil approprié n’est disponible.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -55,7 +51,6 @@
     "err.unavailable": "이 도구는 bash가 설치된 Unix 계열에서만 사용할 수 있습니다.",
     "param.command.description": "bash -lc에 전달할 명령 문자열입니다.",
     "tool.description": "최후의 수단으로 bash 명령을 실행합니다. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요.",
-    "tool.system_prompt": "이 도구는 최후의 수단입니다. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -68,7 +63,6 @@
     "err.unavailable": "Dieses Tool ist auf Unix-ähnlichen Systemen mit installiertem...",
     "param.command.description": "An bash -lc übergebene Befehlsz...",
     "tool.description": "Führen Sie als letzten Ausweg einen bash-Befehl aus.",
-    "tool.system_prompt": "Dieses Tool ist die LETZTE OPTION. Nur verwenden, wenn kein anderes geeignetes Tool verfügbar ist.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -81,7 +75,6 @@
     "err.unavailable": "Questo strumento è disponibile sui sistemi Unix-like con bash...",
     "param.command.description": "Stringa di comando passata a ba...",
     "tool.description": "Come ultima risorsa, esegui un comando bash.",
-    "tool.system_prompt": "Questo strumento è l'ultima risorsa. Usalo solo se non è disponibile nessun altro strumento appropriato.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -94,7 +87,6 @@
     "err.unavailable": "Этот инструмент доступен в системах Unix-подобного типа с уст...",
     "param.command.description": "Строка команды, передаваемая в...",
     "tool.description": "В крайнем случае выполните команду bash. Используйте только если нет других подходящих инструментов.",
-    "tool.system_prompt": "Этот инструмент — КРАЙНЯЯ МЕРА. Используйте его только если нет других подходящих инструментов.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -107,7 +99,6 @@
     "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com...",
     "param.command.description": "String de comando passada para...",
     "tool.description": "Como último recurso, execute um comando bash.",
-    "tool.system_prompt": "Esta ferramenta é o ÚLTIMO RECURSO. Use-a apenas se nenhuma outra ferramenta adequada estiver disponível.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -120,7 +111,6 @@
     "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com...",
     "param.command.description": "Cadeia de comandos passada para...",
     "tool.description": "Como último recurso, execute um comando bash.",
-    "tool.system_prompt": "Esta ferramenta é um ÚLTIMO RECURSO. Use somente se nenhuma outra ferramenta apropriada estiver disponível.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -133,7 +123,6 @@
     "err.unavailable": "Alat ini tersedia pada sistem mirip Unix dengan bash terpasang.",
     "param.command.description": "String perintah yang diteruskan...",
     "tool.description": "Sebagai upaya terakhir, jalankan perintah bash.",
-    "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR. Gunakan hanya jika tidak ada alat lain yang lebih sesuai tersedia.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -146,7 +135,6 @@
     "err.unavailable": "Công cụ này chỉ khả dụng trên các hệ thống kiểu Unix có bash...",
     "param.command.description": "Chuỗi lệnh được truyền cho bash -lc.",
     "tool.description": "Phương án cuối cùng là thực thi lệnh bash. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác.",
-    "tool.system_prompt": "Công cụ này là PHƯƠNG ÁN CUỐI CÙNG. Chỉ sử dụng nếu không có sẵn công cụ thích hợp nào khác.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -159,7 +147,6 @@
     "err.unavailable": "To narzędzie jest dostępne w systemach typu Unix z zainstalow...",
     "param.command.description": "Ciąg poleceń przekazywany do ba...",
     "tool.description": "W ostateczności wykonaj polecenie bash.",
-    "tool.system_prompt": "To narzędzie jest OSTATECZNOŚCIĄ. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -172,7 +159,6 @@
     "err.unavailable": "यह उपकरण bash स्थापित Unix-जैसे सिस्टम पर उपलब्ध है।",
     "param.command.description": "bash -lc को दी जाने वाली कमांड...",
     "tool.description": "अंतिम उपाय के रूप में bash कमांड चलाएँ। केवल तभी उपयोग करें जब कोई अन्य उपयुक्त उपकरण उपलब्ध न हो।",
-    "tool.system_prompt": "यह उपकरण अंतिम उपाय है। इसका उपयोग तभी करें जब कोई अन्य उपयुक्त उपकरण उपलब्ध न हो।",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -185,7 +171,6 @@
     "err.unavailable": "هذه الأداة متاحة على أنظمة شبيهة بـ Unix التي يحتوي عليها bash.",
     "param.command.description": "سلسلة الأوامر التي تُمرَّر إلى...",
     "tool.description": "كخيار أخير، نفّذ أمر bash. استخدمه فقط عندما لا تتوفر أداة مناسبة أخرى.",
-    "tool.system_prompt": "هذه الأداة هي الخيار الأخير. استخدمها فقط عندما لا تتوفر أداة مناسبة أخرى.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -198,7 +183,6 @@
     "err.unavailable": "Det här verktyget är tillgängligt på Unix-liknande system med...",
     "param.command.description": "Kommandosträng som skickas till...",
     "tool.description": "Kör ett bash-kommando som sista utväg. Används bara när inget annat lämpligt verktyg finns tillgängligt.",
-    "tool.system_prompt": "Det här verktyget är en sista utväg. Använd det bara om inget annat lämpligt verktyg finns tillgängligt.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -211,7 +195,6 @@
     "err.unavailable": "Zana hii inapatikana kwenye mifumo ya aina ya Unix yenye bash...",
     "param.command.description": "Mfuatano wa amri unaopitishwa k...",
     "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya bash.",
-    "tool.system_prompt": "Hii ni suluhisho la mwisho. Tumia tu ikiwa hakuna zana nyingine inayofaa inayopatikana.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -224,7 +207,6 @@
     "err.unavailable": "Dette verktøyet er tilgjengelig på Unix-lignende systemer med...",
     "param.command.description": "Kommandostreng som sendes til b...",
     "tool.description": "Kjør en bash-kommando som siste utvei. Brukes bare når ingen andre egnede verktøy er tilgjengelige.",
-    "tool.system_prompt": "Dette verktøyet er en SISTE UTVEI. Bruk det bare hvis ingen andre egnede verktøy er tilgjengelige.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -237,7 +219,6 @@
     "err.unavailable": "Deze tool is beschikbaar op Unix-achtige systemen met bash ge...",
     "param.command.description": "Opdrachtregel die aan bash -lc...",
     "tool.description": "Voer als laatste redmiddel een bash-opdracht uit.",
-    "tool.system_prompt": "Deze tool is een LAATSTE REDMIDDEL. Gebruik deze alleen als geen andere geschikte tool beschikbaar is.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -250,7 +231,6 @@
     "err.unavailable": "Tämä työkalu on käytettävissä Unix-tyyppisissä järjestelmissä...",
     "param.command.description": "Komentorivi, joka välitetään ba...",
     "tool.description": "Suorita bash-komento vain viimeisenä keinona.",
-    "tool.system_prompt": "Tämä työkalu on VIIMEINEN KEINO. Käytä sitä vain, jos muuta sopivaa työkalua ei ole käytettävissä.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -263,7 +243,6 @@
     "err.unavailable": "Tento nástroj je dostupný v unixových systémech s nainstalovaným bash.",
     "param.command.description": "Řetězec příkazu předaný do bash -lc.",
     "tool.description": "Jako poslední možnost spusťte bash příkaz.",
-    "tool.system_prompt": "Tento nástroj je POSLEDNÍ MOŽNOST. Používejte jej pouze tehdy, když není k dispozici žádný jiný vhodný nástroj.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -276,7 +255,6 @@
     "err.unavailable": "Цей інструмент доступний у Unix-подібних системах із встановл...",
     "param.command.description": "Рядок команди, що передається д...",
     "tool.description": "Як крайній захід виконайте команду bash.",
-    "tool.system_prompt": "Цей інструмент — крайній захід. Використовуйте його лише тоді, коли немає іншого відповідного інструмента.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -289,7 +267,6 @@
     "err.unavailable": "Bu araç, bash yüklü Unix benzeri sistemlerde kullanılabilir.",
     "param.command.description": "bash -lc'ye iletilen komut dizesi.",
     "tool.description": "Son çare olarak bir bash komutu çalıştırın. Yalnızca başka uygun bir araç yoksa kullanın.",
-    "tool.system_prompt": "Bu araç son çaredir. Yalnızca başka uygun bir araç yoksa kullanın.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -302,7 +279,6 @@
     "err.unavailable": "เครื่องมือนี้ใช้ได้บนระบบ Unix ที่ติดตั้ง bash",
     "param.command.description": "สตริงคำสั่งที่จะส่งให้ bash -lc",
     "tool.description": "ใช้คำสั่ง bash เป็นทางเลือกสุดท้าย ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม",
-    "tool.system_prompt": "เครื่องมือนี้เป็นทางเลือกสุดท้าย ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -315,7 +291,6 @@
     "err.unavailable": "该工具可在已安装 bash 的类 Unix 系统上使用。",
     "param.command.description": "传递给 bash -lc 的命令字符串。",
     "tool.description": "作为最后手段，执行 bash 命令。仅当没有其他合适的工具可用时才使用。",
-    "tool.system_prompt": "该工具是最后手段。仅当没有其他合适的工具可用时才使用。",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -328,7 +303,6 @@
     "err.unavailable": "此工具可在已安裝 bash 的類 Unix 系統上使用。",
     "param.command.description": "傳遞給 bash -lc 的命令字串。",
     "tool.description": "作為最後手段，執行 bash 指令。僅當沒有其他合適的工具可用時才使用。",
-    "tool.system_prompt": "此工具是最後手段。僅當沒有其他合適的工具可用時才使用。",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -341,7 +315,6 @@
     "err.unavailable": "এই টুলটি bash ইনস্টল করা Unix-ধরনের সিস্টেমে ব্যবহার করা যায়।",
     "param.command.description": "bash -lc-এ পাঠানো হবে এমন কমান্...",
     "tool.description": "শেষ উপায় হিসেবে bash কমান্ড চালান। অন্য কোনো উপযুক্ত টুল না থাকলে তবেই ব্যবহার করুন।",
-    "tool.system_prompt": "এই টুলটি শেষ উপায়। অন্য কোনো উপযুক্ত টুল না থাকলে তবেই ব্যবহার করুন।",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -354,7 +327,6 @@
     "err.unavailable": "این ابزار روی سیستم‌های شبه‌Unix که bash نصب دارند در دسترس است.",
     "param.command.description": "رشتهٔ فرمانی که به bash -lc ارس...",
     "tool.description": "در آخرین مرحله، یک فرمان bash اجرا کنید. فقط وقتی ابزار مناسب دیگری در دسترس نیست از آن استفاده کنید.",
-    "tool.system_prompt": "این ابزار آخرین راه‌حل است. فقط وقتی ابزار مناسب دیگری در دسترس نیست از آن استفاده کنید.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -367,7 +339,6 @@
     "err.unavailable": "Энэ хэрэгсэл нь bash суулгасан Unix-төст систем дээр ашиглах...",
     "param.command.description": "bash -lc руу дамжуулах командын мөр.",
     "tool.description": "Хамгийн сүүлчийн арга болгон bash команд ажиллуулна. Өөр тохирох хэрэгсэл байхгүй үед л ашиглана уу.",
-    "tool.system_prompt": "Энэ нь хамгийн сүүлчийн арга. Өөр тохирох хэрэгсэл байхгүй үед л ашиглана уу.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",
@@ -380,7 +351,6 @@
     "err.unavailable": "हे साधन bash स्थापित असलेल्या Unix-सदृश प्रणालींवर उपलब्ध आहे.",
     "param.command.description": "bash -lc ला दिलेली कमांड स्ट्रिंग.",
     "tool.description": "शेवटचा उपाय म्हणून bash कमांड चालवा. इतर कोणतेही योग्य साधन उपलब्ध नसल्यासच वापरा.",
-    "tool.system_prompt": "हे साधन शेवटचा उपाय आहे. इतर कोणतेही योग्य साधन उपलब्ध नसल्यासच वापरा.",
     "x_search_terms": [
       "bash_exec",
       "bash exec",

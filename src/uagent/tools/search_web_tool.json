@@ -16,8 +16,7 @@
       "recherche web",
       "웹 검색",
       "поиск в вебе"
-    ],
-    "tool.system_prompt": "This tool performs a DuckDuckGo HTML search and returns title/link/snippet. If results are empty, the site may be rate-limiting or blocking the request."
+    ]
   },
   "ja": {
     "error.args_must_be_dict": "argsはdictである必要があります",
@@ -32,8 +31,7 @@
       "ウェブ検索",
       "DuckDuckGo検索",
       "Web検索"
-    ],
-    "tool.system_prompt": "このツールは DuckDuckGo の HTML 検索を実行し、title/link/snippet を返します。結果が空の場合は、サイト側でレート制限またはブロックされている可能性があります。"
+    ]
   },
   "es": {
     "error.args_must_be_dict": "args debe ser un...",
@@ -48,8 +46,7 @@
       "buscar web",
       "búsqueda web",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "Esta herramienta realiza una búsqueda HTML de DuckDuckGo y devuelve título/enlace/extracto. Si los resultados están vacíos, es posible que el sitio esté limitando la velocidad o bloqueando la solicitud."
+    ]
   },
   "fr": {
     "error.args_must_be_dict": "args doit être u...",
@@ -64,8 +61,7 @@
       "recherche web",
       "recherche duckduckgo",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "Cet outil effectue une recherche DuckDuckGo HTML et renvoie le titre/lien/extrait. Si les résultats sont vides, le site peut limiter le débit ou bloquer la demande."
+    ]
   },
   "ko": {
     "error.args_must_be_dict": "args는 딕셔너리여야 합니다",
@@ -80,8 +76,7 @@
       "웹 검색",
       "덕덕고 검색",
       "DuckDuckGo 검색"
-    ],
-    "tool.system_prompt": "이 도구는 DuckDuckGo HTML 검색을 수행하고 제목/링크/스니펫을 반환합니다. 결과가 비어 있으면 사이트에서 요청 속도를 제한하거나 차단하고 있을 수 있습니다."
+    ]
   },
   "de": {
     "error.args_must_be_dict": "args muss ein Di...",
@@ -96,8 +91,7 @@
       "websuche",
       "duckduckgo suche",
       "suchmaschine"
-    ],
-    "tool.system_prompt": "Dieses Tool führt eine DuckDuckGo-HTML-Suche aus und gibt Titel/Link/Auszug zurück. Wenn die Ergebnisse leer sind, limitiert die Seite möglicherweise die Anfragen oder blockiert sie."
+    ]
   },
   "it": {
     "error.args_must_be_dict": "args deve essere...",
@@ -112,8 +106,7 @@
       "ricerca web",
       "ricerca duckduckgo",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "Questo strumento esegue una ricerca HTML di DuckDuckGo e restituisce titolo/link/anteprima. Se i risultati sono vuoti, il sito potrebbe limitare le richieste o bloccarle."
+    ]
   },
   "ru": {
     "error.args_must_be_dict": "args должен быть...",
@@ -128,8 +121,7 @@
       "поиск в вебе",
       "поиск duckduckgo",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "Этот инструмент выполняет HTML-поиск DuckDuckGo и возвращает заголовок/ссылку/фрагмент. Если результаты пусты, сайт может ограничивать частоту запросов или блокировать их."
+    ]
   },
   "pt_BR": {
     "error.args_must_be_dict": "args deve ser um...",
@@ -144,8 +136,7 @@
       "buscar na web",
       "pesquisa web",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "Esta ferramenta executa uma busca HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
+    ]
   },
   "pt": {
     "error.args_must_be_dict": "args deve ser um...",
@@ -160,8 +151,7 @@
       "pesquisa na web",
       "busca web",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "Esta ferramenta realiza uma pesquisa HTML do DuckDuckGo e retorna título/link/trecho. Se os resultados estiverem vazios, o site pode estar limitando a taxa ou bloqueando a solicitação."
+    ]
   },
   "id": {
     "error.args_must_be_dict": "args harus berup...",
@@ -176,8 +166,7 @@
       "pencarian web",
       "cari web",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "Gunakan pencarian DuckDuckGo HTML dan kembalikan title/link/snippet. Jika hasil kosong, situs mungkin sedang membatasi laju atau memblokir permintaan."
+    ]
   },
   "vi": {
     "error.args_must_be_dict": "args phải là một...",
@@ -192,8 +181,7 @@
       "tìm kiếm web",
       "tìm web",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "Công cụ này thực hiện tìm kiếm DuckDuckGo HTML và trả về tiêu đề/liên kết/snippet. Nếu kết quả trống, trang web có thể đang giới hạn tốc độ hoặc chặn yêu cầu."
+    ]
   },
   "pl": {
     "error.args_must_be_dict": "args musi być dict",
@@ -208,8 +196,7 @@
       "wyszukiwanie w sieci",
       "wyszukiwanie web",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "To narzędzie wykonuje wyszukiwanie HTML DuckDuckGo i zwraca tytuł/odnośnik/fragment. Jeśli wyniki są puste, witryna może ograniczać szybkość albo blokować żądanie."
+    ]
   },
   "hi": {
     "error.args_must_be_dict": "args एक dict होन...",
@@ -224,8 +211,7 @@
       "वेब खोज",
       "DuckDuckGo खोज",
       "ऑनलाइन खोज"
-    ],
-    "tool.system_prompt": "यह टूल DuckDuckGo HTML खोज करता है और शीर्षक/लिंक/स्निपेट लौटाता है। यदि परिणाम खाली हैं, तो साइट दर-सीमित कर सकती है या अनुरोध को अवरुद्ध कर सकती है।"
+    ]
   },
   "ar": {
     "error.args_must_be_dict": "يجب أن تكون args...",
@@ -240,8 +226,7 @@
       "بحث الويب",
       "بحث duckduckgo",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "تُجري هذه الأداة بحثًا عبر DuckDuckGo HTML وتُرجع العنوان/الرابط/المقتطف. إذا كانت النتائج فارغة، فقد يكون الموقع يحدّ من معدل الطلبات أو يحظرها."
+    ]
   },
   "sv": {
     "error.args_must_be_dict": "args måste vara...",
@@ -256,8 +241,7 @@
       "webbsök",
       "duckduckgo-sök",
       "webbsökning"
-    ],
-    "tool.system_prompt": "Det här verktyget gör en DuckDuckGo-HTML-sökning och returnerar titel/länk/snutt. Om resultaten är tomma kan webbplatsen vara hastighetsbegränsande eller blockera begäran."
+    ]
   },
   "sw": {
     "error.args_must_be_dict": "args lazima iwe dict",
@@ -272,8 +256,7 @@
       "utafutaji wa wavuti",
       "duckduckgo",
       "utafutaji web"
-    ],
-    "tool.system_prompt": "Zana hii hufanya utafutaji wa DuckDuckGo HTML na kurudisha kichwa/kiungo/dondoo. Matokeo yakikaa tupu, huenda tovuti inapunguza kasi au inazuia ombi."
+    ]
   },
   "nb": {
     "error.args_must_be_dict": "args må være en dict",
@@ -288,8 +271,7 @@
       "nettsøk",
       "duckduckgo-søk",
       "webbsøk"
-    ],
-    "tool.system_prompt": "Dette verktøyet utfører et DuckDuckGo HTML-søk og returnerer tittel/lenke/utdrag. Hvis resultatene er tomme, kan nettstedet begrense hastigheten eller blokkere forespørselen."
+    ]
   },
   "nl": {
     "error.args_must_be_dict": "args moet een di...",
@@ -304,8 +286,7 @@
       "webzoek",
       "duckduckgo zoek",
       "web zoeken"
-    ],
-    "tool.system_prompt": "Doorzoek DuckDuckGo via HTML en geef titel/link/snippet terug. Als resultaten leeg zijn, kan de site verzoeken rate-limiten of blokkeren."
+    ]
   },
   "fi": {
     "error.args_must_be_dict": "argsin on oltava...",
@@ -320,8 +301,7 @@
       "verkkohaku",
       "duckduckgo-haku",
       "web-haku"
-    ],
-    "tool.system_prompt": "Hae DuckDuckGo:sta HTML:n kautta ja palauta otsikko/linkki/katkelma. Jos tulokset ovat tyhjiä, sivusto voi rajoittaa pyyntöjä tai estää ne."
+    ]
   },
   "cs": {
     "error.args_must_be_dict": "args musí být dict",
@@ -336,8 +316,7 @@
       "vyhledávání na webu",
       "duckduckgo hledání",
       "web hledání"
-    ],
-    "tool.system_prompt": "Tento nástroj provádí vyhledávání DuckDuckGo HTML a vrací titul/odkaz/úryvek. Pokud jsou výsledky prázdné, může být web omezující rychlost nebo blokující požadavek."
+    ]
   },
   "uk": {
     "error.args_must_be_dict": "args має бути dict",
@@ -352,8 +331,7 @@
       "пошук в вебі",
       "пошук duckduckgo",
       "duckduckgo"
-    ],
-    "tool.system_prompt": "Цей інструмент виконує HTML-пошук DuckDuckGo і повертає заголовок/посилання/уривок. Якщо результати порожні, сайт може обмежувати частоту запитів або блокувати їх."
+    ]
   },
   "tr": {
     "error.args_must_be_dict": "args bir dict ol...",
@@ -368,8 +346,7 @@
       "web arama",
       "duckduckgo arama",
       "çevrimiçi arama"
-    ],
-    "tool.system_prompt": "Bu araç DuckDuckGo HTML araması yapar ve başlık/bağlantı/snippet döndürür. Sonuçlar boşsa site istekleri hız sınırlıyor veya engelliyor olabilir."
+    ]
   },
   "th": {
     "error.args_must_be_dict": "args ต้องเป็น dict",
@@ -384,8 +361,7 @@
       "ค้นหาเว็บ",
       "ค้นหา DuckDuckGo",
       "เว็บค้นหา"
-    ],
-    "tool.system_prompt": "เครื่องมือนี้ทำการค้นหา DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป หากผลลัพธ์ว่างเปล่า ไซต์อาจจำกัดอัตราหรือบล็อกคำขอ"
+    ]
   },
   "zh_CN": {
     "error.args_must_be_dict": "args 必须是一个字典",
@@ -400,8 +376,7 @@
       "网页搜索",
       "DuckDuckGo搜索",
       "网络搜索"
-    ],
-    "tool.system_prompt": "该工具执行 DuckDuckGo HTML 搜索并返回标题/链接/片段。如果结果为空，则该站点可能会限制速率或阻止请求。"
+    ]
   },
   "zh_TW": {
     "error.args_must_be_dict": "args 必須是字典",
@@ -416,8 +391,7 @@
       "網頁搜尋",
       "DuckDuckGo搜尋",
       "網路搜尋"
-    ],
-    "tool.system_prompt": "此工具執行 DuckDuckGo HTML 搜尋並返回標題/連結/片段。如果結果為空，則該網站可能會限制速率或阻止請求。"
+    ]
   },
   "bn": {
     "error.args_must_be_dict": "args একটি dict হ...",
@@ -432,8 +406,7 @@
       "ওয়েব অনুসন্ধান",
       "duckduckgo অনুসন্ধান",
       "অনলাইন অনুসন্ধান"
-    ],
-    "tool.system_prompt": "এই টুলটি DuckDuckGo HTML অনুসন্ধান করে এবং শিরোনাম/লিংক/স্নিপেট ফেরত দেয়। ফলাফল ফাঁকা হলে, সাইটটি অনুরোধের হার সীমিত বা ব্লক করতে পারে।"
+    ]
   },
   "fa": {
     "error.args_must_be_dict": "args باید یک dic...",
@@ -448,8 +421,7 @@
       "جستجوی وب",
       "جستجوی duckduckgo",
       "جستجوی آنلاین"
-    ],
-    "tool.system_prompt": "این ابزار یک جستجوی HTML در DuckDuckGo انجام می‌دهد و عنوان/لینک/چکیده را برمی‌گرداند. اگر نتایج خالی باشند، ممکن است سایت نرخ درخواست‌ها را محدود کرده یا درخواست را مسدود کرده باشد."
+    ]
   },
   "mn": {
     "error.args_must_be_dict": "args нь dict бай...",
@@ -464,8 +436,7 @@
       "вэб хайлт",
       "duckduckgo хайлт",
       "онлайн хайлт"
-    ],
-    "tool.system_prompt": "Энэ хэрэгсэл DuckDuckGo HTML хайлт хийж, гарчиг/линк/snippet буцаана. Хэрэв үр дүн хоосон байвал сайт хүсэлтийн хурдыг хязгаарлаж эсвэл хүсэлтийг блоклосон байж болно."
+    ]
   },
   "mr": {
     "error.args_must_be_dict": "args हे dict असण...",
@@ -480,7 +451,6 @@
       "वेब शोध",
       "डकडकगो शोध",
       "ऑनलाइन शोध"
-    ],
-    "tool.system_prompt": "हे साधन DuckDuckGo HTML शोध करते आणि शीर्षक/लिंक/स्निपेट परत करते. परिणाम रिकामे असल्यास, साइटने विनंती दर मर्यादित केला असू शकतो किंवा विनंती अवरोधित केली असू शकते."
+    ]
   }
 }

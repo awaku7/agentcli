@@ -22,17 +22,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Create a text file. Optional overwrite with backup (.org). Choose encoding for Excel (utf-8-sig) or programmatic (utf-8).",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Create a text file under workdir. If the file already exists, overwrite=false will raise an error. "
-                "If overwrite=true, a backup is created before writing. "
-                "Return a JSON string with the created path and other status fields so the result is easy to inspect. "
-                "Tip: For CSV/TSV intended to be opened directly in Microsoft Excel, consider encoding='utf-8-sig' (UTF-8 with BOM). "
-                "For machine processing and interoperability, prefer encoding='utf-8' (no BOM). "
-                "If unsure, ask how the file will be used (Excel vs. programmatic processing)."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

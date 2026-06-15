@@ -4,7 +4,6 @@
     "param.current_file.description": "(اختياري) قصر نطاق تفكير الوكيل الفرعي على هذا الملف المحدد.",
     "param.task.description": "تعليمات أو مهمة محددة للوكيل الفرعي لمعالجتها.",
     "tool.description": "قم بتشغيل وكيل فرعي متخصص وآمن (مخطط أو مراجع أو ملخص) تحت سيطرة المنسق الرئيسي لمعالجة مهام محددة وإرجاع النتائج الهيكلية.",
-    "tool.system_prompt": "قم بتشغيل وكيل فرعي متخصص لتشخيص مشكلة أو التخطيط لها. لا يقوم هذا الوكيل الفرعي بإجراء تعديلات مدمرة، ويرجع رؤى منظمة بصيغة JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -36,7 +35,6 @@
     "param.current_file.description": "(ঐচ্ছিক) সাব-এজেন্টের যুক্তির পরিধি এই নির্দিষ্ট ফাইলে সীমাবদ্ধ করুন।",
     "param.task.description": "সাব-এজেন্ট দ্বারা প্রক্রিয়া করার জন্য নির্দিষ্ট নির...",
     "tool.description": "নির্দিষ্ট কাজগুলি প্রক্রিয়া করতে এবং কাঠামোগত ফলাফল ফেরত দিতে প্যারেন্ট অর্কেস্ট্রেটরের নিয়ন্ত্রণে একটি বিশেষায়িত, নিরাপদ সাব-এজেন্ট (পরিকল্পনাক...",
-    "tool.system_prompt": "একটি কাজ সমাধান করতে একটি বিশেষায়িত সাব-এজেন্ট চালান। এই সাব-এজেন্ট ধ্বংসাত্মক পরিবর্তন করে না। এটি JSON হিসাবে কাঠামোগত ফলাফল ফেরত দেয়।",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -68,7 +66,6 @@
     "param.current_file.description": "(Volitelné) Omezit rozsah uvažování sub-agenta na tento konkrétní soubor.",
     "param.task.description": "Konkrétní pokyny nebo úkol, které má sub-agent zpracovat.",
     "tool.description": "Spustí specializovaného, bezpečného sub-agenta (plánovač, recenzent nebo sumarizátor) pod kontrolou mateřského orchestrátoru pro zpracování konkrét...",
-    "tool.system_prompt": "Spusťte specializovaného sub-agenta pro vyřešení úkolu. Tento sub-agent neprovádí destruktivní změny. Vrací strukturované poznatky jako JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -100,7 +97,6 @@
     "param.current_file.description": "(Optional) Schränkt den Denkbereich des Sub-Agents auf diese spezifi...",
     "param.task.description": "Spezifische Anweisungen/Aufgaben, die der Sub-Agent...",
     "tool.description": "Führt einen spezialisierten, sicheren Sub-Agenten (Planer, Reviewer oder Zusammenfasser) unter der Kontrolle des übergeordneten Orchestrators aus,...",
-    "tool.system_prompt": "Führen Sie einen spezialisierten Sub-Agenten aus, um eine Aufgabe zu lösen. Dieser Sub-Agent nimmt keine destruktiven Änderungen vor. Er gibt strukturierte Erkenntnisse als JSON zurück.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -138,7 +134,6 @@
     "param.strict_output.description": "Treat missing required fields or schema mismatch as errors.",
     "param.task.description": "Specific instruction/task for the sub-agent to process.",
     "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent...",
-    "tool.system_prompt": "Run a specialized sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) to solve a task. This sub-agent does not make destructive modifications. It returns structured insights as JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -162,7 +157,6 @@
     "param.current_file.description": "(Opcional) Limitar el alcance del razonamiento del subagente a este...",
     "param.task.description": "Instrucción o tarea específica para que la procese e...",
     "tool.description": "Ejecuta un subagente especializado y seguro (planificador, revisor o resumidor) bajo el control del orquestador principal para procesar tareas espe...",
-    "tool.system_prompt": "Ejecute un subagente especializado para resolver una tarea. Este subagente no realiza modificaciones destructivas. Devuelve hallazgos estructurados como JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -194,7 +188,6 @@
     "param.current_file.description": "(اختیاری) محدود کردن دامنه استدلال عامل فرعی به این فایل خاص.",
     "param.task.description": "دستورالعمل یا وظیفه خاص برای پردازش توسط عامل فرعی.",
     "tool.description": "یک عامل فرعی تخصصی و ایمن (برنامه‌ریز، بازبین یا خلاصه‌ساز) را تحت کنترل هماهنگ‌کننده اصلی اجرا کنید تا کارهای خاصی را پردازش کند و یافته‌های ساختا...",
-    "tool.system_prompt": "یک عامل فرعی تخصصی را برای حل یک کار اجرا کنید. این عامل فرعی تغییرات مخرب ایجاد نمی‌کند. نتایج ساختاریافته را به صورت JSON برمی‌گرداند.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -226,7 +219,6 @@
     "param.current_file.description": "(Valinnainen) Rajaa alitoimijan päättelyalue tähän tiettyyn tiedostoon.",
     "param.task.description": "Erityinen ohje tai tehtävä alitoimijan käsiteltäväksi.",
     "tool.description": "Suorittaa erikoistuneen, turvallisen alitoimijan (suunnittelija, arvioija tai tiivistäjä) pääorhestraattorin valvonnassa tiettyjen tehtävien käsitt...",
-    "tool.system_prompt": "Suorita erikoistunut alitoimija tehtävän ratkaisemiseksi. Tämä alitoimija ei tee tuhoavia muutoksia. Se palauttaa jäsennellyt havainnot JSON-muodossa.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -258,7 +250,6 @@
     "param.current_file.description": "(Facultatif) Limiter la portée de raisonnement du sous-agent à ce fi...",
     "param.task.description": "Instruction ou tâche spécifique à traiter par le sous-agent.",
     "tool.description": "Exécute un sous-agent spécialisé et sûr (planificateur, réviseur ou résumeur) sous le contrôle de l'orchestrateur parent pour traiter des tâches sp...",
-    "tool.system_prompt": "Exécutez un sous-agent spécialisé pour résoudre une tâche. Ce sous-agent ne fait pas de modifications destructrices. Il renvoie des informations structurées au format JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -290,7 +281,6 @@
     "param.current_file.description": "(वैकल्पिक) उप-एजेंट के तर्क कार्यक्षेत्र को इस विशिष्ट फ़ाइल तक सीमित करें।",
     "param.task.description": "उप-एजेंट द्वारा संसाधित किए जाने वाले विशिष्ट निर्दे...",
     "tool.description": "विशिष्ट कार्यों को संसाधित करने और संरचित परिणाम प्राप्त करने के लिए मुख्य ऑर्केस्ट्रेटर के नियंत्रण में एक विशेष, सुरक्षित उप-एजेंट (योजनाकार, समी...",
-    "tool.system_prompt": "किसी कार्य को हल करने के लिए एक विशेष उप-एजेंट चलाएं। यह उप-एजेंट विनाशकारी बदलाव नहीं करता है। यह JSON के रूप में संरचित जानकारी लौटाता है।",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -322,7 +312,6 @@
     "param.current_file.description": "(Opsional) Batasi cakupan penalaran sub-agen ke file spesifik ini.",
     "param.task.description": "Instruksi/tugas spesifik yang harus diproses oleh sub-agen.",
     "tool.description": "Jalankan sub-agen khusus yang aman (perencana, peninjau, atau peringkas) di bawah kendali orkestrator induk untuk memproses tugas-tugas tertentu da...",
-    "tool.system_prompt": "Jalankan sub-agen khusus untuk menyelesaikan tugas. Sub-agen ini tidak melakukan modifikasi destruktif. Ini mengembalikan temuan terstruktur sebagai JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -354,7 +343,6 @@
     "param.current_file.description": "(Opzionale) Limita l'ambito di ragionamento del sotto-agente a quest...",
     "param.task.description": "Istruzione o compito specifico che il sotto-agente d...",
     "tool.description": "Esegue un sotto-agente specializzato e sicuro (pianificatore, revisore o riassuntore) sotto il controllo dell'orchestratore principale per elaborar...",
-    "tool.system_prompt": "Esegui un sotto-agente specializzato per risolvere un compito. Questo sotto-agente non apporta modifiche distruttive. Restituisce informazioni strutturate in formato JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -392,7 +380,6 @@
     "param.strict_output.description": "必須フィールドの欠落やスキーマの不一致をエラーとして扱うかどうか。",
     "param.task.description": "サブエージェントに具体的に処理させるタスク指示。",
     "tool.description": "親オーケストレーターの制御下で、特定の専門業務（計画・レビュー・要約）に特化した安全なサブエージェントを実行し、構造化された結果を返します。",
-    "tool.system_prompt": "計画・レビュー・要約の専門サブエージェントを実行してタスクを解決します。このサブエージェントは破壊的な変更は行わず、構造化された知見をJSONで返します。",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -421,7 +408,6 @@
     "param.current_file.description": "(선택 사항) 서브 에이전트의 추론 범위를 이 특정 파일로 제한합니다.",
     "param.task.description": "서브 에이전트가 처리할 구체적인 지시 사항 또는 작업.",
     "tool.description": "특정 작업을 처리하고 구조화된 결과를 반환하기 위해 상위 오케스트레이터의 제어 하에 전문화되고 안전한 서브 에이전트(기획자, 검토자 또는 요약자)를 실행합니다.",
-    "tool.system_prompt": "작업을 해결하기 위해 전문 서브 에이전트를 실행합니다. 이 서브 에이전트는 파괴적인 수정을 가하지 않으며, 구조화된 인사이트를 JSON으로 반환합니다.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -454,7 +440,6 @@
     "param.current_file.description": "(Нэмэлт) Дэд агентийн ажиллах хүрээг энэхүү тодорхой файлаар хязгаарлах.",
     "param.task.description": "Дэд агентаар шийдвэрлүүлэх тодорхой заавар эсвэл даалгавар.",
     "tool.description": "Тодорхой даалгавруудыг шийдвэрлэж, бүтэцлэгдсэн үр дүнг буцаахын тулд үндсэн оркестраторын удирдлага дор тусгай, аюулгүй дэд агентийг (төлөвлөгч, х...",
-    "tool.system_prompt": "Даалгаврыг шийдвэрлэхийн тулд тусгай дэд агентийг ажиллуулна. Энэ дэд агент нь өөрчлөлт хийхгүй бөгөөд үр дүнг JSON хэлбэрээр буцаана.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -486,7 +471,6 @@
     "param.current_file.description": "(पर्यायी) उप-एजंटची विचार करण्याची मर्यादा या विशिष्ट फाईलपर्यंत मर्यादित करा.",
     "param.task.description": "उप-एजंटने प्रक्रिया करण्यासाठी विशिष्ट सूचना किंवा कार्य.",
     "tool.description": "विशिष्ट कार्ये पार पाडण्यासाठी आणि संरचित परिणाम परत मिळवण्यासाठी मुख्य ऑर्केस्ट्रेटरच्या नियंत्रणाखाली एक विशेष, सुरक्षित उप-एजंट (नियोजक, समीक्षक...",
-    "tool.system_prompt": "कार्य पूर्ण करण्यासाठी एका विशेष उप-एजंटला चालवा. हा उप-एजंट विनाशकारी बदल करत नाही. तो JSON स्वरूपात संरचित माहिती परत करतो.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -518,7 +502,6 @@
     "param.current_file.description": "(Valgfritt) Begrens underagentens resonneringsomfang til denne spesi...",
     "param.task.description": "Spesifikk instruksjon eller oppgave som underagenten...",
     "tool.description": "Kjør en spesialisert, sikker underagent (planlegger, anmelder eller oppsummerer) under kontroll av overordnet orchestrator for å behandle spesifikk...",
-    "tool.system_prompt": "Kjør en spesialisert underagent for å løse en oppgave. Denne underagenten gjør ikke destruktive endringer, og returnerer strukturerte innsikter som JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -550,7 +533,6 @@
     "param.current_file.description": "(Optioneel) Beperk het redeneerbereik van de sub-agent tot dit speci...",
     "param.task.description": "Specifieke instructie/taak die de sub-agent moet verwerken.",
     "tool.description": "Voer een gespecialiseerde, veilige sub-agent uit (planner, reviewer of samenvatter) onder controle van de hoofd-orchestrator om specifieke taken te...",
-    "tool.system_prompt": "Voer een gespecialiseerde sub-agent uit om een taak op te lossen. Deze sub-agent brengt geen destructieve wijzigingen aan en retourneert gestructureerde inzichten als JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -582,7 +564,6 @@
     "param.current_file.description": "(Opcjonalnie) Ogranicz zakres rozumowania podagenta do tego konkretnego pliku.",
     "param.task.description": "Konkretna instrukcja lub zadanie do przetworzenia pr...",
     "tool.description": "Uruchom wyspecjalizowanego, bezpiecznego podagenta (planistę, recenzenta lub podsumowującego) pod kontrolą głównego orchestratora, aby przetworzyć...",
-    "tool.system_prompt": "Uruchom wyspecjalizowanego podagenta w celu rozwiązania zadania. Ten podagent nie dokonuje destrukcyjnych modyfikacji. Zwraca ustrukturyzowane wyniki jako JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -614,7 +595,6 @@
     "param.current_file.description": "(Opcional) Limitar o escopo de raciocínio do subagente a este arquiv...",
     "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
     "tool.description": "Executa um subagente especializado e seguro (planejador, revisor ou resumidor) sob o controle do orquestrador pai para processar tarefas específica...",
-    "tool.system_prompt": "Execute um subagente especializado para resolver uma tarefa. Este subagente não faz modificações destrutivas e retorna insights estruturados como JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -646,7 +626,6 @@
     "param.current_file.description": "(Opcional) Limitar o escopo de raciocínio do subagente a este arquiv...",
     "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
     "tool.description": "Executa um subagente especializado e seguro (planejador, revisor ou resumidor) sob o controle do orquestrador pai para processar tarefas específica...",
-    "tool.system_prompt": "Execute um subagente especializado para resolver uma tarefa. Este subagente não faz modificações destrutivas e retorna insights estruturados como JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -678,7 +657,6 @@
     "param.current_file.description": "(Необязательно) Ограничить область рассуждений суб-агента этим конкр...",
     "param.task.description": "Конкретная инструкция или задача для обработки суб-агентом.",
     "tool.description": "Запуск специализированного безопасного суб-агента (планировщика, рецензента или суммаризатора) под управлением основного оркестратора для выполнени...",
-    "tool.system_prompt": "Запустите специализированного суб-агента для решения задачи. Этот суб-агент не вносит деструктивных изменений. Он возвращает структурированные выводы в формате JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -711,7 +689,6 @@
     "param.current_file.description": "(Valfritt) Begränsa underagentens resonemang till denna specifika fil.",
     "param.task.description": "Specifik instruktion eller uppgift för underagenten...",
     "tool.description": "Kör en specialiserad, säker underagent (planerare, granskare eller sammanfattare) under kontroll av huvudorkestratorn för att bearbeta specifika up...",
-    "tool.system_prompt": "Kör en specialiserad underagent för att lösa en uppgift. Denna underagent gör inga destruktiva ändringar och returnerar strukturerade insikter som JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -743,7 +720,6 @@
     "param.current_file.description": "(Hiari) Punguza wigo wa kufikiri wa ejenti msaidizi kwenye faili hii maalum.",
     "param.task.description": "Maagizo au kazi maalum kwa ajili ya ejenti msaidizi...",
     "tool.description": "Endesha ejenti msaidizi maalum na salama (mpangaji, mkaguzi, au muhtasari) chini ya udhibiti wa orchestrator mkuu ili kushughulikia kazi maalum na...",
-    "tool.system_prompt": "Endesha ejenti msaidizi maalum ili kutatua kazi. Ejenti msaidizi huyu hafanyi mabadiliko ya uharibifu na kurudisha matokeo kama JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -775,7 +751,6 @@
     "param.current_file.description": "(ไม่บังคับ) จำกัดขอบเขตการคิดของซับเอเจนต์ไว้ที่ไฟล์เฉพาะนี้",
     "param.task.description": "คำสั่งหรือภารกิจเฉพาะเจาะจงเพื่อให้ซับเอเจนต์ประมวลผล",
     "tool.description": "รันซับเอเจนต์เฉพาะทางที่มีความปลอดภัย (ผู้วางแผน, ผู้ตรวจทาน หรือผู้สรุปความ) ภายใต้การควบคุมของออเคสเตรเตอร์หลักเพื่อประมวลผลภารกิจเฉพาะและส่งคืนผ...",
-    "tool.system_prompt": "รันซับเอเจนต์เฉพาะทางเพื่อแก้ปัญหาภารกิจ ซับเอเจนต์นี้จะไม่ทำการแก้ไขใดๆ ที่เป็นอันตราย และจะส่งคืนผลลัพธ์ในรูปแบบ JSON ที่มีโครงสร้างชัดเจน",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -807,7 +782,6 @@
     "param.current_file.description": "(İsteğe bağlı) Alt temsilcinin akıl yürütme kapsamını bu belirli dos...",
     "param.task.description": "Alt temsilcinin işlemesi için belirli talimat veya görev.",
     "tool.description": "Belirli görevleri işlemek ve yapılandırılmış bulguları geri döndürmek için ana düzenleyicinin kontrolü altında özel, güvenli bir alt temsilci (plan...",
-    "tool.system_prompt": "Bir görevi çözmek için özel bir alt temsilci çalıştırın. Bu alt temsilci yıkıcı değişiklikler yapmaz ve yapılandırılmış bulguları JSON olarak döndürür.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -839,7 +813,6 @@
     "param.current_file.description": "(Необов'язково) Обмежити область міркувань суб-агента цим конкретним файлом.",
     "param.task.description": "Конкретна інструкція або завдання для обробки суб-агентом.",
     "tool.description": "Запуск спеціалізованого безпечного суб-агента (планувальника, рецензента або сумаризатора) під управлінням головного оркестратора для виконання кон...",
-    "tool.system_prompt": "Запустіть спеціалізованого суб-агента для вирішення завдання. Цей суб-агент не вносить деструктивних змін і повертає структуровані висновки у форматі JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -871,7 +844,6 @@
     "param.current_file.description": "(Tùy chọn) Giới hạn phạm vi lập luận của sub-agent trong tệp cụ thể này.",
     "param.task.description": "Hướng dẫn hoặc nhiệm vụ cụ thể để sub-agent xử lý.",
     "tool.description": "Chạy một sub-agent chuyên biệt và an toàn (lập kế hoạch, đánh giá hoặc tóm tắt) dưới sự kiểm soát của điều phối viên chính để xử lý các nhiệm vụ cụ...",
-    "tool.system_prompt": "Chạy một sub-agent chuyên biệt để giải quyết nhiệm vụ. Sub-agent này không thực hiện các sửa đổi phá hủy và trả về kết quả có cấu trúc dưới dạng JSON.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -903,7 +875,6 @@
     "param.current_file.description": "（可选）将子智能体的推理范围限制在此特定文件。",
     "param.task.description": "要交由子智能体处理的具体指令或任务。",
     "tool.description": "在主编排器的控制下，运行专门且安全的子智能体（规划器、审查器或摘要器）来处理特定任务并返回结构化的发现。",
-    "tool.system_prompt": "运行专业的子智能体来解决任务。该子智能体不会进行破坏性修改，并以 JSON 格式返回结构化的发现。",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -936,7 +907,6 @@
     "param.current_file.description": "（選填）將子代理的推理範圍限制在此特定檔案。",
     "param.task.description": "要交由子代理處理的具體指令或任務。",
     "tool.description": "在主協調器的控制下，執行專門且安全的子代理（規劃器、審查器或摘要器）以處理特定任務並傳回結構化的發現。",
-    "tool.system_prompt": "執行專業的子代理以解決任務。該子代理不會進行破壞性修改，並以 JSON 格式傳回結構化的發現。",
     "x_search_terms": [
       "sub-agent",
       "planner",

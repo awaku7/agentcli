@@ -180,14 +180,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "read recent messages, and optionally wait for replies after sending."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Use this tool to talk to a Discord channel via REST API. "
-                "A bot token must be provided through an environment variable. "
-                "Return JSON only."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

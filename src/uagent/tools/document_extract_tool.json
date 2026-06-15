@@ -9,7 +9,6 @@
       "odt",
       "extract text"
     ],
-    "tool.system_prompt": "Read .docx, .rtf, or .odt documents and return JSON only. If output_format=text, place the extracted text in the JSON response. If output_format=json, include structured sections and tables when available.",
     "param.path.description": "Path to the input document (.docx, .rtf, .odt).",
     "param.output_format.description": "Output format: text or json.",
     "param.password.description": "Password (prompts if needed).",
@@ -23,7 +22,6 @@
       "文書抽出",
       "テキスト抽出"
     ],
-    "tool.system_prompt": ".docx, .rtf, .odt 文書を読み取り、JSON のみを返してください。output_format=text の場合は抽出テキストを JSON に入れ、output_format=json の場合は利用できるなら構造化された section と table を含めてください。",
     "param.path.description": "入力ドキュメント（.docx, .rtf, .odt）のパス。",
     "param.output_format.description": "出力形式: text または json。",
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
@@ -37,7 +35,6 @@
       "extraer documento",
       "extraer texto"
     ],
-    "tool.system_prompt": "Lee documentos .docx, .rtf o .odt y devuelve solo JSON. Si output_format=text, coloca el texto extraído en la respuesta JSON. Si output_format=json, incluye secciones y tablas estructuradas cuando estén disponibles.",
     "param.path.description": "Ruta del documento de entrada (.docx, .rtf, .odt).",
     "param.output_format.description": "Formato de salida: text o...",
     "param.password.description": "Contraseña opcional para u...",
@@ -51,7 +48,6 @@
       "extraire document",
       "extraire texte"
     ],
-    "tool.system_prompt": "Lisez des documents .docx, .rtf ou .odt et renvoyez uniquement du JSON. Si output_format=text, placez le texte extrait dans la réponse JSON. Si output_format=json, incluez des sections et des tableaux structurés lorsque c’est possible.",
     "param.path.description": "Chemin du document d’entrée (.docx, .rtf, .odt).",
     "param.output_format.description": "Format de sortie : text o...",
     "param.password.description": "Mot de passe facultatif po...",
@@ -65,7 +61,6 @@
       "문서 추출",
       "텍스트 추출"
     ],
-    "tool.system_prompt": ".docx, .rtf, .odt 문서를 읽고 JSON만 반환하세요. output_format=text인 경우 추출한 텍스트를 JSON 응답에 넣고, output_format=json인 경우 가능하면 구조화된 섹션과 표를 포함하세요.",
     "param.path.description": "입력 문서(.docx, .rtf, .odt)의 경로.",
     "param.output_format.description": "출력 형식: text 또는 json.",
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
@@ -79,7 +74,6 @@
       "dokument extrahieren",
       "text extrahieren"
     ],
-    "tool.system_prompt": "Lies .docx-, .rtf- oder .odt-Dokumente und gib nur JSON zurück. Wenn output_format=text gesetzt ist, platziere den extrahierten Text in der JSON-Antwort. Wenn output_format=json gesetzt ist, gib nach Möglichkeit strukturierte Abschnitte und Tabellen zurück.",
     "param.path.description": "Pfad zum Eingabedokument (.docx, .rtf, .odt).",
     "param.output_format.description": "Ausgabeformat: text oder json.",
     "param.password.description": "Optionales Kennwort für ei...",
@@ -93,7 +87,6 @@
       "estrai documento",
       "estrai testo"
     ],
-    "tool.system_prompt": "Leggi documenti .docx, .rtf o .odt e restituisci solo JSON. Se output_format=text, inserisci il testo estratto nella risposta JSON. Se output_format=json, includi sezioni e tabelle strutturate quando disponibili.",
     "param.path.description": "Percorso del documento di input (.docx, .rtf, .",
     "param.output_format.description": "Formato di output: text o...",
     "param.password.description": "Password facoltativa per u...",
@@ -107,7 +100,6 @@
       "извлечь документ",
       "извлечь текст"
     ],
-    "tool.system_prompt": "Считывайте документы .docx, .rtf или .odt и возвращайте только JSON. Если output_format=text, поместите извлечённый текст в JSON-ответ. Если output_format=json, по возможности включайте структурированные разделы и таблицы.",
     "param.path.description": "Путь к входному документу (.docx, .rtf, .odt).",
     "param.output_format.description": "Формат вывода: text или json.",
     "param.password.description": "Необязательный пароль для...",
@@ -121,7 +113,6 @@
       "extrair documento",
       "extrair texto"
     ],
-    "tool.system_prompt": "Leia documentos .docx, .rtf ou .odt e retorne apenas JSON. Se output_format=text, coloque o texto extraído na resposta JSON. Se output_format=json, inclua seções e tabelas estruturadas quando disponíveis.",
     "param.path.description": "Caminho do documento de entrada (.docx, .rtf, .",
     "param.output_format.description": "Formato de saída: text ou...",
     "param.password.description": "Senha opcional para um arq...",
@@ -135,7 +126,6 @@
       "extrair documento",
       "extrair texto"
     ],
-    "tool.system_prompt": "Leia documentos .docx, .rtf ou .odt e retorne apenas JSON. Se output_format=text, coloque o texto extraído na resposta JSON. Se output_format=json, inclua seções e tabelas estruturadas quando disponíveis.",
     "param.path.description": "Caminho para o documento de entrada (.docx, .",
     "param.output_format.description": "Formato de saída: text ou...",
     "param.password.description": "Senha opcional para arquiv...",
@@ -149,7 +139,6 @@
       "ekstrak dokumen",
       "ekstrak teks"
     ],
-    "tool.system_prompt": "Baca dokumen .docx, .rtf, atau .odt dan kembalikan JSON saja. Jika output_format=text, masukkan teks hasil ekstraksi ke dalam respons JSON. Jika output_format=json, sertakan sections dan tables terstruktur jika tersedia.",
     "param.path.description": "Path dokumen input (.docx, .rtf, .odt).",
     "param.output_format.description": "Format output: text atau json.",
     "param.password.description": "Kata sandi opsional untuk...",
@@ -163,7 +152,6 @@
       "trích xuất tài liệu",
       "trích xuất văn bản"
     ],
-    "tool.system_prompt": "Đọc tài liệu .docx, .rtf hoặc .odt và chỉ trả về JSON. Nếu output_format=text, hãy đặt văn bản đã trích xuất vào phản hồi JSON. Nếu output_format=json, hãy bao gồm các sections và tables có cấu trúc khi có sẵn.",
     "param.path.description": "Đường dẫn đến tài liệu đầu vào (.docx, .rtf, .odt).",
     "param.output_format.description": "Định dạng đầu ra: text ho...",
     "param.password.description": "Mật khẩu tùy chọn cho tệp...",
@@ -177,7 +165,6 @@
       "wyodrębnij dokument",
       "wyodrębnij tekst"
     ],
-    "tool.system_prompt": "Czytaj dokumenty .docx, .rtf lub .odt i zwracaj wyłącznie JSON. Jeśli output_format=text, umieść wyodrębniony tekst w odpowiedzi JSON. Jeśli output_format=json, dołącz sformatowane sekcje i tabele, gdy są dostępne.",
     "param.path.description": "Ścieżka do dokumentu wejściowego (.docx, .",
     "param.output_format.description": "Format wyjściowy: text lu...",
     "param.password.description": "Opcjonalne hasło do zaszyf...",
@@ -191,7 +178,6 @@
       "दस्तावेज़ निकालें",
       "पाठ निकालें"
     ],
-    "tool.system_prompt": ".docx, .rtf, या .odt दस्तावेज़ पढ़ें और केवल JSON लौटाएँ। यदि output_format=text चुना गया है, तो निकाले गए पाठ को JSON प्रतिक्रिया में रखें। यदि output_format=json चुना गया है, तो उपलब्ध होने पर संरचित अनुभाग और तालिकाएँ शामिल करें।",
     "param.path.description": "इनपुट दस्तावेज़ का पथ (.docx, .rtf, .odt)।",
     "param.output_format.description": "आउटपुट स्वरूप: text या json.",
     "param.password.description": "एन्क्रिप्टेड DOCX फ़ाइल के...",
@@ -205,7 +191,6 @@
       "استخراج مستند",
       "استخراج نص"
     ],
-    "tool.system_prompt": "اقرأ مستندات .docx أو .rtf أو .odt وأعد JSON فقط. إذا كان output_format=text، فضع النص المستخرج في استجابة JSON. إذا كان output_format=json، فضمّن الأقسام والجداول المنظَّمة عند توفرها.",
     "param.path.description": "المسار إلى مستند الإدخال (.docx، .rtf، .odt).",
     "param.output_format.description": "تنسيق الإخراج: text أو json.",
     "param.password.description": "كلمة مرور اختيارية لملف DO...",
@@ -219,7 +204,6 @@
       "extrahera dokument",
       "extrahera text"
     ],
-    "tool.system_prompt": "Läs .docx-, .rtf- eller .odt-dokument och returnera endast JSON. Om output_format=text, placera den extraherade texten i JSON-svaret. Om output_format=json, inkludera strukturerade avsnitt och tabeller när de finns tillgängliga.",
     "param.path.description": "Sökväg till indokumentet (.docx, .rtf, .odt).",
     "param.output_format.description": "Utdataformat: text eller json.",
     "param.password.description": "Valfritt lösenord för kryp...",
@@ -233,7 +217,6 @@
       "toa hati",
       "toa maandishi"
     ],
-    "tool.system_prompt": "Soma hati za .docx, .rtf, au .odt na urudishe JSON pekee. Ikiwa output_format=text, weka maandishi yaliyotolewa ndani ya jibu la JSON. Ikiwa output_format=json, jumuisha sehemu na majedwali yaliyopangwa inapowezekana.",
     "param.path.description": "Njia ya hati ya ingizo (.docx, .rtf, .odt).",
     "param.output_format.description": "Muundo wa matokeo: text a...",
     "param.password.description": "Nenosiri la hiari kwa fail...",
@@ -247,7 +230,6 @@
       "ekstraher dokument",
       "ekstraher tekst"
     ],
-    "tool.system_prompt": "Les .docx-, .rtf- eller .odt-dokumenter og returner bare JSON. Hvis output_format=text er angitt, legg den ekstraherte teksten inn i JSON-svaret. Hvis output_format=json er angitt, ta med strukturerte seksjoner og tabeller når de er tilgjengelige.",
     "param.path.description": "Sti til inndokumentet (.docx, .rtf, .odt).",
     "param.output_format.description": "Utdataformat: text eller json.",
     "param.password.description": "Valgfritt passord for en k...",
@@ -261,7 +243,6 @@
       "document extraheren",
       "tekst extraheren"
     ],
-    "tool.system_prompt": "Extraheer tekst en basisstructuur uit Word-documenten en geef alleen JSON terug. Als output_format=text is opgegeven, zet dan de geëxtraheerde tekst in de JSON-reactie. Als output_format=json is opgegeven, neem waar mogelijk gestructureerde secties en tabellen op.",
     "param.path.description": "Pad naar het invoerdocument (.docx, .rtf, .odt).",
     "param.output_format.description": "Uitvoerformaat: text of json.",
     "param.password.description": "Optioneel wachtwoord voor...",
@@ -275,7 +256,6 @@
       "poimi asiakirja",
       "poimi teksti"
     ],
-    "tool.system_prompt": "Lue .docx-, .rtf- tai .odt-asiakirjat ja palauta vain JSON. Jos output_format=text on valittu, sijoita poimittu teksti JSON-vastaukseen. Jos output_format=json on valittu, sisällytä mahdollisuuksien mukaan jäsennellyt osiot ja taulukot.",
     "param.path.description": "Syöteasiakirjan polku (.docx, .rtf, .odt).",
     "param.output_format.description": "Tulostusmuoto: text tai json.",
     "param.password.description": "Salasana salatulle DOCX-ti...",
@@ -289,7 +269,6 @@
       "extrahovat dokument",
       "extrahovat text"
     ],
-    "tool.system_prompt": "Načtěte dokumenty .docx, .rtf nebo .odt a vraťte pouze JSON. Pokud je output_format=text, vložte extrahovaný text do JSON odpovědi. Pokud je output_format=json, zahrňte podle možností strukturované sekce a tabulky.",
     "param.path.description": "Cesta k vstupnímu dokumentu (.docx, .rtf, .odt).",
     "param.output_format.description": "Výstupní formát: text neb...",
     "param.password.description": "Volitelné heslo pro šifrov...",
@@ -303,7 +282,6 @@
       "витягти документ",
       "витягти текст"
     ],
-    "tool.system_prompt": "Зчитайте документи .docx, .rtf або .odt і повертайте лише JSON. Якщо output_format=text, помістіть витягнутий текст у JSON-відповідь. Якщо output_format=json, за можливості включайте структуровані розділи та таблиці.",
     "param.path.description": "Шлях до вхідного документа (.docx, .rtf, .odt).",
     "param.output_format.description": "Формат виводу: text або json.",
     "param.password.description": "Необовʼязковий пароль для...",
@@ -317,7 +295,6 @@
       "belge çıkar",
       "metin çıkar"
     ],
-    "tool.system_prompt": ".docx, .rtf veya .odt belgelerini okuyun ve yalnızca JSON değerini döndürün. Output_format=text ise, çıkartılan metni JSON yanıtına yerleştirin. Output_format=json ise, mümkün olduğunda yapılandırılmış bölümleri ve tabloları ekleyin.",
     "param.path.description": "Giriş belgesinin yolu (.docx, .rtf, .odt).",
     "param.output_format.description": "Çıkış formatı: metin veya...",
     "param.password.description": "Şifrelenmiş DOCX dosyası i...",
@@ -331,7 +308,6 @@
       "แยกเอกสาร",
       "แยกข้อความ"
     ],
-    "tool.system_prompt": "อ่านเอกสาร .docx, .rtf หรือ .odt และส่งกลับเฉพาะ JSON เท่านั้น หากเป็น output_format=text ให้นำข้อความที่แยกได้ใส่ในคำตอบ JSON หากเป็น output_format=json ให้รวม sections และ tables แบบมีโครงสร้างเมื่อมีให้ใช้งาน",
     "param.path.description": "พาธของเอกสารต้นทาง (.docx, .rtf, .odt)",
     "param.output_format.description": "รูปแบบผลลัพธ์: text หรือ json",
     "param.password.description": "รหัสผ่านสำหรับไฟล์ DOCX ที...",
@@ -345,7 +321,6 @@
       "文档提取",
       "文本提取"
     ],
-    "tool.system_prompt": "读取 .docx、.rtf 或 .odt 文档并且只返回 JSON。如果 output_format=text，请把提取出的文本放入 JSON 响应中。如果 output_format=json，请在可用时包含结构化的 sections 和 tables。",
     "param.path.description": "输入文档（.docx、.rtf、.odt）的路径。",
     "param.output_format.description": "输出格式：text 或 json。",
     "param.password.description": "密码（需要时提示输入）。",
@@ -359,7 +334,6 @@
       "文件擷取",
       "文字擷取"
     ],
-    "tool.system_prompt": "讀取 .docx、.rtf 或 .odt 文件，並且只回傳 JSON。如果 output_format=text，請把擷取到的文字放入 JSON 回應中。如果 output_format=json，請在可用時包含結構化的 sections 與 tables。",
     "param.path.description": "輸入文件（.docx、.rtf、.odt）的路徑。",
     "param.output_format.description": "輸出格式：text 或 json。",
     "param.password.description": "密码（需要时提示输入）。",
@@ -373,7 +347,6 @@
       "নথি নির্যাস",
       "পাঠ্য নির্যাস"
     ],
-    "tool.system_prompt": "'.docx', '.rtf' বা '.odt' ডকুমেন্ট পড়ে শুধু JSON ফেরত দিন। output_format=text হলে বের করা লেখাটি JSON উত্তরে রাখুন। output_format=json হলে, সম্ভব হলে কাঠামোবদ্ধ section ও table অন্তর্ভুক্ত করুন।",
     "param.path.description": "ইনপুট ডকুমেন্টের পথ (.docx, .rtf, .odt)।",
     "param.output_format.description": "আউটপুট ফরম্যাট: text বা json।",
     "param.password.description": "এনক্রিপ্ট করা DOCX ফাইলের...",
@@ -387,7 +360,6 @@
       "استخراج سند",
       "استخراج متن"
     ],
-    "tool.system_prompt": "اسناد .docx، .rtf یا .odt را بخوانید و فقط JSON برگردانید. اگر output_format=text باشد، متن استخراج‌شده را در پاسخ JSON قرار دهید. اگر output_format=json باشد، در صورت امکان بخش‌ها و جدول‌های ساختاریافته را هم شامل کنید.",
     "param.path.description": "مسیر سند ورودی (.docx، .rtf، .odt).",
     "param.output_format.description": "فرمت خروجی: text یا json.",
     "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
@@ -401,7 +373,6 @@
       "баримт задлах",
       "текст задлах"
     ],
-    "tool.system_prompt": ".docx, .rtf, .odt баримтуудыг уншиж зөвхөн JSON буцаана уу. output_format=text бол гаргасан текстыг JSON хариунд оруулна. output_format=json бол боломжтой үед бүтэцтэй section болон table-уудыг багтаана уу.",
     "param.path.description": "Оролтын баримтын зам (.docx, .rtf, .odt).",
     "param.output_format.description": "Гаралтын формат: text эсв...",
     "param.password.description": "Шифрлэгдсэн DOCX файлын со...",
@@ -415,7 +386,6 @@
       "दस्तऐवज काढा",
       "मजकूर काढा"
     ],
-    "tool.system_prompt": ".docx, .rtf किंवा .odt दस्तऐवज वाचा आणि फक्त JSON परत करा. output_format=text असल्यास काढलेला मजकूर JSON प्रतिसादात ठेवा. output_format=json असल्यास शक्य असल्यास रचनाबद्ध विभाग आणि तक्ते समाविष्ट करा.",
     "param.path.description": "इनपुट दस्तऐवजाचा मार्ग (.docx, .rtf, .odt).",
     "param.output_format.description": "आउटपुट स्वरूप: text किंवा...",
     "param.password.description": "एनक्रिप्टेड DOCX फाइलसाठी...",

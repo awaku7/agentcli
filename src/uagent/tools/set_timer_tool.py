@@ -25,10 +25,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Displays a message after a specified number of seconds. Optionally, an automatic message can be input into the LLM.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool is used for the following purpose: display a message after a specified number of seconds and optionally input an automatic message to the LLM.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

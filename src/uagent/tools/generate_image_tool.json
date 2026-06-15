@@ -9,7 +9,6 @@
       "text to image",
       "art"
     ],
-    "tool.system_prompt": "Generate an image from the provided prompt. Save it as a PNG and return only the saved file path.",
     "param.prompt.description": "Instructions (prompt) for the image you want to generate.",
     "param.size.description": "Image size.",
     "param.n.description": "Image count.",
@@ -42,7 +41,6 @@
       "png 画像",
       "画像作成"
     ],
-    "tool.system_prompt": "与えられたプロンプトから画像を生成してください。PNGとして保存し、保存先のファイルパスだけを返してください。",
     "param.prompt.description": "生成したい画像の指示（プロンプト）です。",
     "param.size.description": "画像サイズ。",
     "param.n.description": "画像枚数。",
@@ -75,7 +73,6 @@
       "generación de imagen",
       "png"
     ],
-    "tool.system_prompt": "Genera una imagen a partir del prompt proporcionado. Guárdala como PNG y devuelve solo la ruta del archivo guardado.",
     "param.prompt.description": "Instrucciones (prompt) para la imagen que quieres generar.",
     "param.size.description": "Tamaño d...",
     "param.n.description": "Número de...",
@@ -108,7 +105,6 @@
       "génération image",
       "png"
     ],
-    "tool.system_prompt": "Générez une image à partir du prompt fourni. Enregistrez-la en PNG et renvoyez uniquement le chemin du fichier enregistré.",
     "param.prompt.description": "Instructions (prompt) pour l’image que vous souhaitez générer.",
     "param.size.description": "Taille d...",
     "param.n.description": "Nombre d’...",
@@ -141,7 +137,6 @@
       "png 이미지",
       "이미지 만들기"
     ],
-    "tool.system_prompt": "주어진 프롬프트로 이미지를 생성하세요. PNG로 저장하고 저장된 파일 경로만 반환하세요.",
     "param.prompt.description": "생성할 이미지에 대한 지시사항(프롬프트)입니다.",
     "param.size.description": "이미지 크기.",
     "param.n.description": "이미지 수.",
@@ -174,7 +169,6 @@
       "bild erzeugen",
       "png"
     ],
-    "tool.system_prompt": "Erzeuge ein Bild aus dem angegebenen Prompt. Speichere es als PNG und gib nur den gespeicherten Dateipfad zurück.",
     "param.prompt.description": "Anweisungen (Prompt) für das gewünschte Bild.",
     "param.size.description": "Bildgröße.",
     "param.n.description": "Anzahl de...",
@@ -207,7 +201,6 @@
       "generazione immagine",
       "png"
     ],
-    "tool.system_prompt": "Genera un’immagine dal prompt fornito. Salvala come PNG e restituisci solo il percorso del file salvato.",
     "param.prompt.description": "Istruzioni (prompt) per l’immagine che vuoi generare.",
     "param.size.description": "Dimensio...",
     "param.n.description": "Numero di...",
@@ -240,7 +233,6 @@
       "генерация изображения",
       "png"
     ],
-    "tool.system_prompt": "Создайте изображение по указанному запросу. Сохраните его как PNG и верните только путь к сохранённому файлу.",
     "param.prompt.description": "Инструкции (запрос) для изображения, которое вы хотите...",
     "param.size.description": "Размер и...",
     "param.n.description": "Количеств...",
@@ -273,7 +265,6 @@
       "geração de imagem",
       "png"
     ],
-    "tool.system_prompt": "Gere uma imagem a partir do prompt fornecido. Salve como PNG e retorne apenas o caminho do arquivo salvo.",
     "param.prompt.description": "Instruções (prompt) para a imagem que você quer gerar.",
     "param.size.description": "Tamanho...",
     "param.n.description": "Número de...",
@@ -306,7 +297,6 @@
       "geração de imagem",
       "png"
     ],
-    "tool.system_prompt": "Gere uma imagem a partir do prompt fornecido. Salve como PNG e retorne apenas o caminho do arquivo salvo.",
     "param.prompt.description": "Instruções (prompt) para a imagem que você quer gerar.",
     "param.size.description": "Tamanho...",
     "param.n.description": "Número de...",
@@ -339,7 +329,6 @@
       "pembuatan gambar",
       "png"
     ],
-    "tool.system_prompt": "Hasilkan gambar dari prompt yang diberikan. Simpan sebagai PNG dan kembalikan hanya path file yang disimpan.",
     "param.prompt.description": "Instruksi (prompt) untuk gambar yang ingin Anda buat.",
     "param.size.description": "Ukuran g...",
     "param.n.description": "Jumlah ga...",
@@ -372,7 +361,6 @@
       "tạo hình ảnh",
       "png"
     ],
-    "tool.system_prompt": "Tạo ảnh từ prompt được cung cấp. Lưu dưới dạng PNG và chỉ trả về đường dẫn tệp đã lưu.",
     "param.prompt.description": "Hướng dẫn (prompt) cho ảnh bạn muốn tạo.",
     "param.size.description": "Kích thư...",
     "param.n.description": "Số lượng...",
@@ -405,7 +393,6 @@
       "generowanie obrazu",
       "png"
     ],
-    "tool.system_prompt": "Wygeneruj obraz z podanego promptu. Zapisz go jako PNG i zwróć tylko ścieżkę do zapisanego pliku.",
     "param.prompt.description": "Instrukcje (prompt) dla obrazu, który chcesz wygenerować.",
     "param.size.description": "Rozmiar...",
     "param.n.description": "Liczba ob...",
@@ -438,7 +425,6 @@
       "छवि जनरेशन",
       "png"
     ],
-    "tool.system_prompt": "दिए गए प्रॉम्प्ट से एक चित्र बनाइए। उसे PNG के रूप में सहेजिए और केवल सहेजी गई फ़ाइल का पथ लौटाइए।",
     "param.prompt.description": "आप जिस चित्र को बनाना चाहते हैं, उसके लिए निर्देश (प्रॉम्प्ट).",
     "param.size.description": "चित्र का...",
     "param.n.description": "बनाए जाने...",
@@ -471,7 +457,6 @@
       "توليد صورة",
       "png"
     ],
-    "tool.system_prompt": "أنشئ صورة من الطلب المقدم. احفظها كملف PNG وأعد فقط مسار الملف المحفوظ.",
     "param.prompt.description": "تعليمات (الطلب) للصورة التي تريد إنشاءها.",
     "param.size.description": "حجم الصورة.",
     "param.n.description": "عدد الصور...",
@@ -504,7 +489,6 @@
       "bildgenerering",
       "png"
     ],
-    "tool.system_prompt": "Generera en bild från den angivna prompten. Spara den som PNG och returnera endast den sparade filsökvägen.",
     "param.prompt.description": "Instruktioner (prompt) för bilden du vill skapa.",
     "param.size.description": "Bildstor...",
     "param.n.description": "Antal bil...",
@@ -537,7 +521,6 @@
       "utengenezaji wa picha",
       "png"
     ],
-    "tool.system_prompt": "Tengeneza picha kutoka kwa prompt uliyopewa. Ihifadhi kama PNG na urudishe tu njia ya faili iliyohifadhiwa.",
     "param.prompt.description": "Maelekezo (prompt) kwa picha unayotaka kutengeneza.",
     "param.size.description": "Ukubwa w...",
     "param.n.description": "Idadi ya...",
@@ -570,7 +553,6 @@
       "bildegenerering",
       "png"
     ],
-    "tool.system_prompt": "Generer et bilde fra den angitte prompten. Lagre det som PNG og returner bare den lagrede filstien.",
     "param.prompt.description": "Instruksjoner (prompt) for bildet du vil generere.",
     "param.size.description": "Bildestø...",
     "param.n.description": "Antall bi...",
@@ -603,7 +585,6 @@
       "afbeelding genereren",
       "png"
     ],
-    "tool.system_prompt": "Genereer een afbeelding van de opgegeven prompt. Sla deze op als PNG en geef alleen het opgeslagen bestandspad terug.",
     "param.prompt.description": "Instructies (prompt) voor de afbeelding die u wilt genereren.",
     "param.size.description": "Afbeeldi...",
     "param.n.description": "Aantal te...",
@@ -636,7 +617,6 @@
       "kuvagenerointi",
       "png"
     ],
-    "tool.system_prompt": "Luo kuva annetusta kehotteesta. Tallenna se PNG:nä ja palauta vain tallennettu tiedostopolku.",
     "param.prompt.description": "Ohjeet (prompt) luotavaa kuvaa varten.",
     "param.size.description": "Kuvan koko.",
     "param.n.description": "Luotavien...",
@@ -669,7 +649,6 @@
       "generování obrázku",
       "png"
     ],
-    "tool.system_prompt": "Vytvořte obrázek z poskytnutého zadání. Uložte jej jako PNG a vraťte pouze cestu k uloženému souboru.",
     "param.prompt.description": "Pokyny (zadání) pro obrázek, který chcete vytvořit.",
     "param.size.description": "Velikost...",
     "param.n.description": "Počet obr...",
@@ -702,7 +681,6 @@
       "генерація зображення",
       "png"
     ],
-    "tool.system_prompt": "Створіть зображення з наданого запиту. Збережіть його як PNG і поверніть лише шлях до збереженого файла.",
     "param.prompt.description": "Інструкції (запит) для зображення, яке ви хочете створити.",
     "param.size.description": "Розмір з...",
     "param.n.description": "Кількість...",
@@ -735,7 +713,6 @@
       "görüntü üretimi",
       "png"
     ],
-    "tool.system_prompt": "Sağlanan istemden bir görüntü oluşturun. PNG olarak kaydedin ve yalnızca kaydedilen dosya yolunu döndürün.",
     "param.prompt.description": "Oluşturmak istediğiniz görüntüye ilişkin talimatlar (istem).",
     "param.size.description": "Resim bo...",
     "param.n.description": "Oluşturul...",
@@ -768,7 +745,6 @@
       "สร้างรูปภาพ",
       "png"
     ],
-    "tool.system_prompt": "สร้างภาพจากพรอมต์ที่ให้มา บันทึกเป็น PNG และคืนค่าเฉพาะพาธของไฟล์ที่บันทึกแล้ว.",
     "param.prompt.description": "คำสั่ง (พรอมต์) สำหรับภาพที่ต้องการสร้าง.",
     "param.size.description": "ขนาดภาพ...",
     "param.n.description": "จำนวนภาพท...",
@@ -801,7 +777,6 @@
       "图像生成",
       "png"
     ],
-    "tool.system_prompt": "根据提供的提示生成图片。将其保存为 PNG，并且只返回已保存的文件路径。",
     "param.prompt.description": "用于生成图片的指令（提示）。",
     "param.size.description": "图片尺寸。",
     "param.n.description": "图片数量。",
@@ -834,7 +809,6 @@
       "影像生成",
       "png"
     ],
-    "tool.system_prompt": "根據提供的提示產生圖片。將其儲存為 PNG，並且只回傳已儲存的檔案路徑。",
     "param.prompt.description": "用來生成圖片的指示（提示）。",
     "param.size.description": "图片尺寸。",
     "param.n.description": "图片数量。",
@@ -867,7 +841,6 @@
       "ছবি জেনারেশন",
       "png"
     ],
-    "tool.system_prompt": "প্রদত্ত প্রম্পট থেকে একটি ছবি তৈরি করুন। PNG হিসেবে সংরক্ষণ করুন এবং শুধু সংরক্ষিত ফাইলের পথটি ফেরত দিন।",
     "param.prompt.description": "আপনি যে ছবি তৈরি করতে চান তার নির্দেশনা (প্রম্পট)।",
     "param.size.description": "ছবির আকা...",
     "param.n.description": "তৈরি করার...",
@@ -900,7 +873,6 @@
       "ایجاد تصویر",
       "png"
     ],
-    "tool.system_prompt": "از prompt داده‌شده یک تصویر تولید کنید. آن را به‌صورت PNG ذخیره کنید و فقط مسیر فایل ذخیره‌شده را برگردانید.",
     "param.prompt.description": "دستورالعمل‌ها (prompt) برای تصویری که می‌خواهید تولید کنید.",
     "param.size.description": "اندازهٔ...",
     "param.n.description": "تعداد تصا...",
@@ -933,7 +905,6 @@
       "зураг үүсгэлт",
       "png"
     ],
-    "tool.system_prompt": "Өгөгдсөн prompt-оос зураг үүсгэ. PNG болгон хадгалж, зөвхөн хадгалсан файлын замыг буцаа.",
     "param.prompt.description": "Үүсгэхийг хүсэж буй зурагт зориулсан заавар (prompt).",
     "param.size.description": "Зургийн...",
     "param.n.description": "Үүсгэх зу...",
@@ -966,7 +937,6 @@
       "प्रतिमा निर्मिती",
       "png"
     ],
-    "tool.system_prompt": "दिलेल्या प्रॉम्प्टवरून प्रतिमा तयार करा. ती PNG म्हणून जतन करा आणि फक्त जतन केलेल्या फाइलचा मार्ग परत करा.",
     "param.prompt.description": "तुम्हाला तयार करायच्या प्रतिमेसाठीच्या सूचना (प्रॉम्प्ट).",
     "param.size.description": "प्रतिमेच...",
     "param.n.description": "तयार कराय...",

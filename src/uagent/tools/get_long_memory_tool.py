@@ -18,10 +18,6 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description", default="Get all saved long-term memory notes (JSONL)."
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool is used for the following purpose: retrieve all saved long-term memory notes (in JSONL format).",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

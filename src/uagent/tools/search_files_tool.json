@@ -25,8 +25,7 @@
       "rechercher des fichiers",
       "파일 찾기",
       "поиск файлов"
-    ],
-    "tool.system_prompt": "Search for files under a directory. You can filter by filename pattern (glob) and optionally search file contents using a regular expression.\n\nNotes:\n- content_pattern is treated as a Python regular expression.\n- If content_pattern is empty, only filename matching is performed.\n- For performance and safety, content searching may use a simple binary check internally."
+    ]
   },
   "ja": {
     "err.dir_not_exist": "[search_files エラー] ディレクトリが存在しません: {path}",
@@ -50,8 +49,7 @@
       "ファイル検索",
       "内容検索",
       "glob検索"
-    ],
-    "tool.system_prompt": "ディレクトリ下のファイルを検索します。ファイル名のパターン（glob）で絞り込み、必要に応じて正規表現でファイル内容を検索できます。\n\n注意:\n- content_pattern は Python の正規表現として扱われます。\n- content_pattern が空の場合は、ファイル名の一致のみを行います。\n- 性能と安全性のため、内容検索は内部で単純なバイナリチェックを使う場合があります。"
+    ]
   },
   "es": {
     "err.dir_not_exist": "[error de search_files] El directorio no existe: {path}",
@@ -75,7 +73,6 @@
       "buscar contenido",
       "glob"
     ],
-    "tool.system_prompt": "Busca archivos en un directorio. Puede filtrar por patrón de nombre de archivo (glob) y, opcionalmente, buscar el contenido de los archivos mediante una expresión regular.\n\nNotas:\n- content_pattern se trata como una expresión regular de Python.\n- Si content_pattern está vacío, solo se realiza la coincidencia por nombre de archivo.\n- Por rendimiento y seguridad, la búsqueda de contenido puede usar internamente una comprobación binaria simple.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "fr": {
@@ -100,7 +97,6 @@
       "recherche contenu",
       "glob"
     ],
-    "tool.system_prompt": "Recherchez des fichiers dans un répertoire. Vous pouvez filtrer par motif de nom de fichier (glob) et, si besoin, rechercher le contenu des fichiers à l’aide d’une expression régulière.\n\nNotes :\n- content_pattern est traité comme une expression régulière Python.\n- Si content_pattern est vide, seule la correspondance sur le nom de fichier est effectuée.\n- Pour des raisons de performances et de sécurité, la recherche de contenu peut utiliser en interne une simple vérification binaire.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "ko": {
@@ -125,7 +121,6 @@
       "내용 검색",
       "glob 검색"
     ],
-    "tool.system_prompt": "디렉터리 아래 파일을 검색합니다. 파일명 패턴(glob)으로 필터링하고 필요하면 정규식으로 파일 내용을 검색할 수 있습니다.\n\n참고:\n- content_pattern은 Python 정규식으로 처리됩니다.\n- content_pattern이 비어 있으면 파일명 일치만 수행합니다.\n- 성능과 안전성 때문에 내용 검색은 내부적으로 단순한 바이너리 검사를 사용할 수 있습니다.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "de": {
@@ -150,7 +145,6 @@
       "inhaltsuche",
       "glob"
     ],
-    "tool.system_prompt": "Suchen Sie Dateien in einem Verzeichnis. Sie können nach einem Dateinamensmuster (glob) filtern und optional den Dateiinhalt mit einem regulären Ausdruck durchsuchen.\n\nHinweise:\n- content_pattern wird als Python-Regulärer Ausdruck behandelt.\n- Wenn content_pattern leer ist, wird nur der Dateiname geprüft.\n- Aus Leistungs- und Sicherheitsgründen kann die Inhaltssuche intern eine einfache Binärprüfung verwenden.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "it": {
@@ -175,7 +169,6 @@
       "ricerca contenuto",
       "glob"
     ],
-    "tool.system_prompt": "Cerca file in una directory. Puoi filtrare per modello di nome file (glob) e, facoltativamente, cercare il contenuto dei file con un'espressione regolare.\n\nNote:\n- content_pattern è trattato come un'espressione regolare Python.\n- Se content_pattern è vuoto, viene eseguita solo la corrispondenza del nome file.\n- Per prestazioni e sicurezza, la ricerca del contenuto può usare internamente un semplice controllo binario.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "ru": {
@@ -200,7 +193,6 @@
       "поиск по содержимому",
       "glob"
     ],
-    "tool.system_prompt": "Ищите файлы в каталоге. Можно фильтровать по шаблону имени файла (glob) и при необходимости искать содержимое файлов с помощью регулярного выражения.\n\nПримечания:\n- content_pattern интерпретируется как регулярное выражение Python.\n- Если content_pattern пуст, выполняется только сопоставление по имени файла.\n- В целях производительности и безопасности поиск по содержимому может внутренне использовать простую бинарную проверку.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "pt_BR": {
@@ -225,7 +217,6 @@
       "buscar conteúdo",
       "glob"
     ],
-    "tool.system_prompt": "Pesquise arquivos em um diretório. Você pode filtrar por padrão de nome de arquivo (glob) e, opcionalmente, pesquisar o conteúdo dos arquivos com uma expressão regular.\n\nObservações:\n- content_pattern é tratado como uma expressão regular Python.\n- Se content_pattern estiver vazio, apenas a correspondência pelo nome do arquivo é realizada.\n- Por desempenho e segurança, a busca no conteúdo pode usar internamente uma verificação binária simples.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "pt": {
@@ -250,7 +241,6 @@
       "buscar conteúdo",
       "glob"
     ],
-    "tool.system_prompt": "Pesquise arquivos em um diretório. Você pode filtrar por padrão de nome de arquivo (glob) e, opcionalmente, pesquisar o conteúdo dos arquivos com uma expressão regular.\n\nObservações:\n- content_pattern é tratado como uma expressão regular Python.\n- Se content_pattern estiver vazio, apenas a correspondência pelo nome do arquivo será feita.\n- Por desempenho e segurança, a pesquisa de conteúdo pode usar internamente uma verificação binária simples.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "id": {
@@ -275,7 +265,6 @@
       "pencarian isi",
       "glob"
     ],
-    "tool.system_prompt": "Cari file di bawah direktori. Anda dapat memfilter berdasarkan pola nama file (glob) dan secara opsional mencari isi file menggunakan ekspresi reguler.\n\nCatatan:\n- content_pattern diperlakukan sebagai ekspresi reguler Python.\n- Jika content_pattern kosong, hanya pencocokan nama file yang dilakukan.\n- Demi kinerja dan keamanan, pencarian isi dapat menggunakan pemeriksaan biner sederhana di dalam.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "vi": {
@@ -300,7 +289,6 @@
       "tìm nội dung",
       "glob"
     ],
-    "tool.system_prompt": "Tìm kiếm tập tin trong một thư mục. Bạn có thể lọc theo mẫu tên tệp (toàn cầu) và tùy ý tìm kiếm nội dung tệp bằng biểu thức chính quy.\n\nGhi chú:\n- content_pattern được coi là biểu thức chính quy của Python.\n- Nếu content_pattern trống thì chỉ thực hiện khớp tên tệp.\n- Để đảm bảo hiệu suất và an toàn, việc tìm kiếm nội dung có thể sử dụng kiểm tra nhị phân đơn giản trong nội bộ.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "pl": {
@@ -325,7 +313,6 @@
       "wyszukiwanie treści",
       "glob"
     ],
-    "tool.system_prompt": "Wyszukaj pliki w katalogu. Możesz filtrować według wzorca nazwy pliku (glob) i opcjonalnie przeszukiwać zawartość plików za pomocą wyrażenia regularnego.\n\nUwagi:\n- content_pattern jest traktowany jako wyrażenie regularne Pythona.\n- Jeśli content_pattern jest puste, wykonywane jest tylko dopasowanie nazwy pliku.\n- Ze względu na wydajność i bezpieczeństwo wyszukiwanie treści może wewnętrznie używać prostego sprawdzenia binarnego.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "hi": {
@@ -350,7 +337,6 @@
       "सामग्री खोज",
       "glob"
     ],
-    "tool.system_prompt": "किसी निर्देशिका में फ़ाइलें खोजें। आप फ़ाइल नाम पैटर्न (glob) से फ़िल्टर कर सकते हैं और चाहें तो नियमित अभिव्यक्ति से फ़ाइल सामग्री भी खोज सकते हैं।\n\nनोट्स:\n- content_pattern को Python नियमित अभिव्यक्ति माना जाता है।\n- यदि content_pattern खाली है, तो केवल फ़ाइल नाम मिलान किया जाता है।\n- प्रदर्शन और सुरक्षा के लिए, सामग्री खोज आंतरिक रूप से एक सरल बाइनरी जाँच का उपयोग कर सकती है।",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "ar": {
@@ -375,7 +361,6 @@
       "بحث المحتوى",
       "glob"
     ],
-    "tool.system_prompt": "ابحث عن الملفات داخل دليل. يمكنك التصفية حسب نمط اسم الملف (glob) والبحث اختياريًا في محتوى الملف باستخدام تعبير نمطي.\n\nملاحظات:\n- يُعامل content_pattern كتعبير نمطي في Python.\n- إذا كان content_pattern فارغًا، فسيتم البحث بالاسم فقط.\n- لأسباب تتعلق بالأداء والسلامة، قد يستخدم البحث في المحتوى داخليًا فحصًا ثنائيًا بسيطًا.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "sv": {
@@ -400,7 +385,6 @@
       "innehållssök",
       "glob"
     ],
-    "tool.system_prompt": "Sök efter filer i en katalog. Du kan filtrera med filnamnsmönster (glob) och valfritt söka i filinnehåll med ett reguljärt uttryck.\n\nAnmärkningar:\n- content_pattern behandlas som ett Python-reguljärt uttryck.\n- Om content_pattern är tomt görs bara filnamnsmatchning.\n- För prestanda och säkerhet kan innehållssökningen internt använda en enkel binär kontroll.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "sw": {
@@ -425,7 +409,6 @@
       "utafutaji maudhui",
       "glob"
     ],
-    "tool.system_prompt": "Tafuta faili ndani ya saraka. Unaweza kuchuja kwa kigezo cha jina la faili (glob) na, ukihitajika, kutafuta yaliyomo kwa kutumia regex.\n\nVidokezo:\n- content_pattern huchukuliwa kama regex ya Python.\n- Ikiwa content_pattern ni tupu, utafutaji wa jina la faili pekee ndio hufanyika.\n- Kwa ufanisi na usalama, utafutaji wa yaliyomo unaweza kutumia ukaguzi rahisi wa jozi-baiti ndani yake.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "nb": {
@@ -450,7 +433,6 @@
       "innholdssøk",
       "glob"
     ],
-    "tool.system_prompt": "Søk etter filer i en katalog. Du kan filtrere på filnavnmønster (glob) og eventuelt søke i filinnhold med et regulært uttrykk.\n\nMerk:\n- content_pattern behandles som et Python-regulært uttrykk.\n- Hvis content_pattern er tom, gjøres bare filnavnsmatching.\n- Av ytelses- og sikkerhetshensyn kan innholdssøk internt bruke en enkel binær kontroll.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "nl": {
@@ -475,7 +457,6 @@
       "inhoud zoeken",
       "glob"
     ],
-    "tool.system_prompt": "Zoek bestanden onder een map. U kunt filteren op bestandsnaam (glob) en optioneel de inhoud zoeken met een reguliere expressie.\n\nOpmerkingen:\n- content_pattern wordt behandeld als een Python-regex.\n- Als content_pattern leeg is, wordt alleen op bestandsnaam gezocht.\n- Voor prestaties en veiligheid kan inhoudszoeken intern een eenvoudige binaire controle gebruiken.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "fi": {
@@ -500,7 +481,6 @@
       "sisältöhaku",
       "glob"
     ],
-    "tool.system_prompt": "Etsi tiedostoja hakemiston alta. Voit rajata hakua tiedostonimikuviolla (glob) ja halutessasi etsiä sisällöstä säännöllisellä lausekkeella.\n\nHuomautukset:\n- content_pattern käsitellään Pythonin säännöllisenä lausekkeena.\n- Jos content_pattern on tyhjä, tehdään vain tiedostonimihaku.\n- Suorituskyvyn ja turvallisuuden vuoksi sisällönhaku voi käyttää sisäisesti yksinkertaista binääritarkistusta.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "cs": {
@@ -525,7 +505,6 @@
       "vyhledání obsahu",
       "glob"
     ],
-    "tool.system_prompt": "Vyhledávejte soubory v adresáři. Můžete filtrovat podle vzoru názvu souboru (glob) a volitelně prohledávat obsah souborů pomocí regulárního výrazu.\n\nPoznámky:\n- content_pattern je interpretován jako regulární výraz Pythonu.\n- Pokud je content_pattern prázdný, provádí se pouze porovnání názvu souboru.\n- Z důvodů výkonu a bezpečnosti může vyhledávání obsahu interně používat jednoduchou binární kontrolu.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "uk": {
@@ -550,7 +529,6 @@
       "пошук вмісту",
       "glob"
     ],
-    "tool.system_prompt": "Шукайте файли в каталозі. Ви можете фільтрувати за шаблоном назви файлу (glob) і, за потреби, шукати вміст файлів за допомогою регулярного виразу.\n\nПримітки:\n- content_pattern трактується як регулярний вираз Python.\n- Якщо content_pattern порожній, виконується лише зіставлення за назвою файла.\n- З міркувань продуктивності та безпеки пошук вмісту може внутрішньо використовувати просту бінарну перевірку.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "tr": {
@@ -575,7 +553,6 @@
       "içerik arama",
       "glob"
     ],
-    "tool.system_prompt": "Bir dizin altındaki dosyaları arayın. Dosya adı desenine (glob) göre filtreleyebilir ve isteğe bağlı olarak dosya içeriğini düzenli ifadeyle arayabilirsiniz.\n\nNotlar:\n- content_pattern bir Python düzenli ifadesi olarak ele alınır.\n- content_pattern boşsa yalnızca dosya adı eşleştirmesi yapılır.\n- Performans ve güvenlik için içerik araması dahili olarak basit bir ikili denetim kullanabilir.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "th": {
@@ -600,7 +577,6 @@
       "ค้นหาเนื้อหา",
       "glob"
     ],
-    "tool.system_prompt": "ค้นหาไฟล์ภายใต้ไดเรกทอรี คุณสามารถกรองตามรูปแบบชื่อไฟล์ (glob) และเลือกค้นหาเนื้อหาไฟล์ด้วยนิพจน์ทั่วไปได้\n\nหมายเหตุ:\n- content_pattern จะถูกตีความเป็น regular expression ของ Python\n- หาก content_pattern ว่าง จะตรวจเฉพาะการจับคู่ชื่อไฟล์เท่านั้น\n- เพื่อประสิทธิภาพและความปลอดภัย การค้นหาเนื้อหาอาจใช้การตรวจสอบแบบไบนารีอย่างง่ายภายใน",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "zh_CN": {
@@ -625,7 +601,6 @@
       "内容搜索",
       "glob"
     ],
-    "tool.system_prompt": "在目录中搜索文件。您可以按文件名模式（glob）筛选，并可选地使用正则表达式搜索文件内容。\n\n注意：\n- content_pattern 会被视为 Python 正则表达式。\n- 如果 content_pattern 为空，则只进行文件名匹配。\n- 为了性能和安全，内容搜索内部可能会使用简单的二进制检查。",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "zh_TW": {
@@ -650,7 +625,6 @@
       "內容搜尋",
       "glob"
     ],
-    "tool.system_prompt": "在目錄中搜尋檔案。您可以依檔名模式（glob）篩選，並可選擇使用正規表示式搜尋檔案內容。\n\n注意：\n- content_pattern 會被視為 Python 正規表示式。\n- 如果 content_pattern 為空，則只進行檔名比對。\n- 為了效能與安全，內容搜尋內部可能會使用簡單的二進位檢查。",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "bn": {
@@ -675,7 +649,6 @@
       "বিষয়বস্তু অনুসন্ধান",
       "glob"
     ],
-    "tool.system_prompt": "ডিরেক্টরির মধ্যে ফাইল খুঁজুন। filename pattern (glob) দিয়ে ফিল্টার করতে পারেন এবং চাইলে regular expression ব্যবহার করে file contents-ও খুঁজতে পারেন।\n\nনোট:\n- content_pattern কে Python regular expression হিসেবে ধরা হয়।\n- content_pattern খালি হলে শুধু filename matching করা হয়।\n- কর্মদক্ষতা ও নিরাপত্তার জন্য, content search ভিতরে simple binary check ব্যবহার করতে পারে।",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "fa": {
@@ -700,7 +673,6 @@
       "جستجوی محتوا",
       "glob"
     ],
-    "tool.system_prompt": "فایل‌ها را در یک پوشه جستجو کنید. می‌توانید بر اساس الگوی نام فایل (glob) فیلتر کنید و در صورت نیاز با یک regular expression محتوای فایل‌ها را هم جستجو کنید.\n\nنکته‌ها:\n- content_pattern به‌عنوان regular expression پایتون تفسیر می‌شود.\n- اگر content_pattern خالی باشد، فقط تطابق نام فایل انجام می‌شود.\n- برای کارایی و ایمنی، جستجوی محتوا ممکن است درونی از یک بررسی سادهٔ باینری استفاده کند.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "mn": {
@@ -725,7 +697,6 @@
       "агуулга хайх",
       "glob"
     ],
-    "tool.system_prompt": "Лавлах доторх файлуудыг хайна. Та файлын нэрийн загвараар (glob) шүүж, шаардлагатай бол regular expression ашиглан файлын агуулгыг хайж болно.\n\nТэмдэглэл:\n- content_pattern нь Python regular expression гэж ойлгогдоно.\n- content_pattern хоосон бол зөвхөн файлын нэрийн тохиролт хийнэ.\n- Гүйцэтгэл ба аюулгүй байдлын үүднээс агуулга хайлт дотооддоо энгийн binary шалгалт ашиглаж болно.",
     "param.page.description": "Page number to retrieve (default: 1)."
   },
   "mr": {
@@ -750,7 +721,6 @@
       "मजकूर शोध",
       "glob"
     ],
-    "tool.system_prompt": "डिरेक्टरीतील फाइल्स शोधा. तुम्ही फाइलनावाच्या pattern (glob) ने फिल्टर करू शकता आणि आवश्यक असल्यास regular expression वापरून file contents देखील शोधू शकता.\n\nटीप:\n- content_pattern ला Python regular expression समजले जाते.\n- content_pattern रिक्त असल्यास फक्त filename matching केले जाते.\n- कार्यक्षमता आणि सुरक्षिततेसाठी, content search अंतर्गत simple binary check वापरू शकते.",
     "param.page.description": "Page number to retrieve (default: 1)."
   }
 }

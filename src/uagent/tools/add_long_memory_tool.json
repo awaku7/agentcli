@@ -9,8 +9,7 @@
       "remember",
       "memory note",
       "long term memory"
-    ],
-    "tool.system_prompt": "Save one useful long-term memory note.\nDo not store secrets such as passwords, API keys, or tokens."
+    ]
   },
   "ja": {
     "param.note.description": "保存するメモ本文。",
@@ -20,8 +19,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "有用な長期記憶メモを1件だけ保存します。\nパスワード、APIキー、トークンなどの秘密情報は保存しないでください。"
+    ]
   },
   "es": {
     "param.note.description": "El texto de la nota a guardar.",
@@ -31,8 +29,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Guarde una nota útil para la memoria a largo plazo.\nNo almacene secretos como contraseñas, claves API o tokens."
+    ]
   },
   "fr": {
     "param.note.description": "Le texte de la note à enregistrer.",
@@ -42,8 +39,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Enregistrez une note de mémoire utile à long terme.\nNe stockez pas de secrets tels que des mots de passe, des clés API ou des jetons."
+    ]
   },
   "ko": {
     "param.note.description": "저장할 메모 텍스트입니다.",
@@ -53,8 +49,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "유용한 장기 기억 메모 하나를 저장하세요.\n비밀번호, API 키 또는 토큰과 같은 비밀을 저장하지 마십시오."
+    ]
   },
   "de": {
     "param.note.description": "Der zu speichernde Notiztext.",
@@ -64,8 +59,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Speichern Sie eine nützliche Langzeitgedächtnisnotiz.\nSpeichern Sie keine Geheimnisse wie Passwörter, API-Schlüssel oder Token."
+    ]
   },
   "it": {
     "param.note.description": "Il testo della nota da salvare.",
@@ -75,8 +69,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Salva una nota utile nella memoria a lungo termine.\nNon archiviare segreti come password, chiavi API o token."
+    ]
   },
   "ru": {
     "param.note.description": "Текст заметки, которую нужно сохранить.",
@@ -86,8 +79,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Сохраните одну полезную заметку на долговременную память.\nНе храните секреты, такие как пароли, ключи API или токены."
+    ]
   },
   "pt_BR": {
     "param.note.description": "O texto da nota a ser salvo.",
@@ -97,8 +89,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Salve uma nota útil sobre a memória de longo prazo.\nNão armazene segredos como senhas, chaves API ou tokens."
+    ]
   },
   "pt": {
     "param.note.description": "O texto da nota a ser salvo.",
@@ -108,8 +99,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Salve uma nota útil sobre a memória de longo prazo.\nNão armazene segredos como senhas, chaves de API ou tokens."
+    ]
   },
   "id": {
     "param.note.description": "Teks catatan yang akan disimpan.",
@@ -119,8 +109,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Simpan satu catatan memori jangka panjang yang berguna.\nJangan simpan rahasia seperti kata sandi, kunci API, atau token."
+    ]
   },
   "vi": {
     "param.note.description": "Văn bản ghi chú cần lưu.",
@@ -130,8 +119,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Lưu một ghi chú bộ nhớ dài hạn hữu ích.\nKhông lưu trữ các bí mật như mật khẩu, khóa API hoặc mã thông báo."
+    ]
   },
   "pl": {
     "param.note.description": "Tekst notatki do zapisania.",
@@ -141,8 +129,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Zapisz jedną przydatną notatkę dotyczącą pamięci długoterminowej.\nNie przechowuj sekretów, takich jak hasła, klucze API lub tokeny."
+    ]
   },
   "hi": {
     "param.note.description": "सहेजने के लिए नोट पाठ.",
@@ -152,8 +139,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "एक उपयोगी दीर्घकालिक स्मृति नोट सहेजें।\nपासवर्ड, एपीआई कुंजी या टोकन जैसे रहस्य संग्रहीत न करें।"
+    ]
   },
   "ar": {
     "param.note.description": "نص الملاحظة المراد حفظه.",
@@ -163,8 +149,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "احفظ ملاحظة واحدة مفيدة للذاكرة طويلة المدى.\nلا تقم بتخزين أسرار مثل كلمات المرور أو مفاتيح API أو الرموز المميزة."
+    ]
   },
   "sv": {
     "param.note.description": "Texten i anteckningen som ska sparas.",
@@ -174,8 +159,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Spara en användbar anteckning i långtidsminnet.\nSpara inte hemligheter som lösenord, API-nycklar eller token."
+    ]
   },
   "sw": {
     "param.note.description": "Maandishi ya dokezo la kuhifadhi.",
@@ -185,8 +169,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Hifadhi dokezo moja muhimu la kumbukumbu ya muda mrefu. Usihifadhi siri kama vile nywila, funguo za API, au tokeni."
+    ]
   },
   "nb": {
     "param.note.description": "Teksten i notatet som skal lagres.",
@@ -196,8 +179,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Lagre ett nyttig notat i langtidsminnet.\nIkke lagre hemmeligheter som passord, API-nøkler eller token."
+    ]
   },
   "nl": {
     "param.note.description": "De notitietekst om op te slaan.",
@@ -207,8 +189,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Sla één nuttige langetermijngeheugen-notitie op.\nSla geen geheimen op zoals wachtwoorden, API-sleutels of tokens."
+    ]
   },
   "fi": {
     "param.note.description": "Tallennettava muistiinpanoteksti.",
@@ -218,8 +199,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Tallenna yksi hyödyllinen pitkäaikaisen muistin muistiinpano.\nÄlä tallenna salaisuuksia kuten salasanoja, API-avaimia tai tokeneita."
+    ]
   },
   "cs": {
     "param.note.description": "Text poznámky, kterou chcete uložit.",
@@ -229,8 +209,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Uložte jednu užitečnou poznámku do dlouhodobé paměti.\nNeukládejte tajné údaje, jako jsou hesla, API klíče nebo tokeny."
+    ]
   },
   "uk": {
     "param.note.description": "Текст нотатки, яку потрібно зберегти.",
@@ -240,8 +219,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Збережіть одну корисну нотатку в довготривалій пам’яті.\nНе зберігайте секрети, як-от паролі, ключі API або токени."
+    ]
   },
   "tr": {
     "param.note.description": "Kaydedilecek not metni.",
@@ -251,8 +229,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Yararlı bir uzun süreli hafıza notu kaydedin.\nParolalar, API anahtarları veya belirteçler gibi sırları saklamayın."
+    ]
   },
   "th": {
     "param.note.description": "ข้อความบันทึกย่อที่จะบันทึก",
@@ -262,8 +239,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "บันทึกบันทึกความทรงจำระยะยาวที่มีประโยชน์หนึ่งรายการ\nอย่าเก็บความลับ เช่น รหัสผ่าน คีย์ API หรือโทเค็น"
+    ]
   },
   "zh_CN": {
     "param.note.description": "要保存的注释文本。",
@@ -273,8 +249,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "保存一条有用的长期记忆笔记。\n不要存储密码、API 密钥或令牌等机密。"
+    ]
   },
   "zh_TW": {
     "param.note.description": "要儲存的註釋文字。",
@@ -284,8 +259,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "保存一則有用的長期記憶筆記。\n不要儲存密碼、API 金鑰或令牌等機密。"
+    ]
   },
   "bn": {
     "param.note.description": "সংরক্ষণ করার জন্য নোটের লেখা।",
@@ -295,8 +269,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "একটি উপকারী দীর্ঘমেয়াদি স্মৃতি নোট সংরক্ষণ করুন।\nপাসওয়ার্ড, API কী, বা টোকেনের মতো গোপন তথ্য সংরক্ষণ করবেন না।"
+    ]
   },
   "fa": {
     "param.note.description": "متن یادداشتی که باید ذخیره شود.",
@@ -306,8 +279,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "یک یادداشت مفید برای حافظهٔ بلندمدت ذخیره کنید.\nرازهایی مانند گذرواژه، کلید API یا توکن را ذخیره نکنید."
+    ]
   },
   "mn": {
     "param.note.description": "Хадгалах тэмдэглэлийн текст.",
@@ -317,8 +289,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "Ашигтай нэг урт хугацааны санах ойн тэмдэглэлийг хадгална уу.\nНууц үг, API key, token зэрэг нууцыг бүү хадгал."
+    ]
   },
   "mr": {
     "param.note.description": "जतन करायच्या नोंदीचा मजकूर.",
@@ -328,7 +299,6 @@
       "add long memory",
       "long memory",
       "save memory"
-    ],
-    "tool.system_prompt": "एक उपयुक्त दीर्घकालीन स्मृती नोंद जतन करा.\nपासवर्ड, API की किंवा टोकनसारखी गुपिते जतन करू नका."
+    ]
   }
 }

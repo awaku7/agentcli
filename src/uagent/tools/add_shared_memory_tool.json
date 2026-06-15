@@ -9,8 +9,7 @@
       "shared memory",
       "share note",
       "memory store"
-    ],
-    "tool.system_prompt": "Append exactly one note to the shared memory store.\nDo not store secrets (passwords/tokens/API keys)."
+    ]
   },
   "ja": {
     "param.note.description": "共有メモとして追記する本文。",
@@ -20,8 +19,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "共有メモリストアにメモをちょうど1件追加します。\n共有メモリが無効（UAGENT_SHARED_MEMORY_FILE 未設定）の場合は、有効化方法を説明するメッセージを返します。\n秘密情報（パスワード、トークン、APIキー）は保存しないでください。"
+    ]
   },
   "es": {
     "param.note.description": "El texto de la nota a compartir.",
@@ -31,8 +29,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Añade exactamente una nota al almacén de memoria compartida.\nSi la memoria compartida está deshabilitada (UAGENT_SHARED_MEMORY_FILE no está configurada), devuelve un mensaje que explique cómo habilitarla.\nNo almacenes secretos (contraseñas/tokens/claves de API)."
+    ]
   },
   "fr": {
     "param.note.description": "Le texte de la note à partager.",
@@ -42,8 +39,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Ajoutez exactement une note au stockage de mémoire partagée.\nSi la mémoire partagée est désactivée (UAGENT_SHARED_MEMORY_FILE non défini), renvoyez un message expliquant comment l’activer.\nNe stockez pas de secrets (mots de passe/jetons/clés API)."
+    ]
   },
   "ko": {
     "param.note.description": "공유할 메모 텍스트입니다.",
@@ -53,8 +49,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "공유 메모리 저장소에 메모를 정확히 1개 추가합니다.\n공유 메모리가 비활성화되어 있으면(UAGENT_SHARED_MEMORY_FILE 미설정) 활성화 방법을 안내하는 메시지를 반환합니다.\n비밀 정보(비밀번호/토큰/API 키)는 저장하지 마세요."
+    ]
   },
   "de": {
     "param.note.description": "Der zu teilende Notiztext.",
@@ -64,8 +59,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Fügen Sie genau eine Notiz dem gemeinsam genutzten Speicher hinzu.\nWenn der gemeinsame Speicher deaktiviert ist (UAGENT_SHARED_MEMORY_FILE nicht gesetzt), geben Sie eine Meldung zurück, die erklärt, wie er aktiviert werden kann.\nSpeichern Sie keine Geheimnisse (Passwörter/Token/API-Schlüssel)."
+    ]
   },
   "it": {
     "param.note.description": "Il testo della nota da condividere.",
@@ -75,8 +69,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Aggiungi esattamente una nota all'archivio della memoria condivisa.\nSe la memoria condivisa è disabilitata (UAGENT_SHARED_MEMORY_FILE non impostata), restituisci un messaggio che spiega come abilitarla.\nNon archiviare segreti (password/token/chiavi API)."
+    ]
   },
   "ru": {
     "param.note.description": "Текст заметки, которой нужно поделиться.",
@@ -86,8 +79,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Добавьте ровно одну заметку в хранилище общей памяти.\nЕсли общая память отключена (UAGENT_SHARED_MEMORY_FILE не задан), верните сообщение с объяснением, как её включить.\nНе храните секреты (пароли/токены/ключи API)."
+    ]
   },
   "pt_BR": {
     "param.note.description": "O texto da nota a ser compartilhada.",
@@ -97,8 +89,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Adicione exatamente uma nota ao armazenamento de memória compartilhada.\nSe a memória compartilhada estiver desabilitada (UAGENT_SHARED_MEMORY_FILE não definida), retorne uma mensagem explicando como habilitá-la.\nNão armazene segredos (senhas/tokens/chaves de API)."
+    ]
   },
   "pt": {
     "param.note.description": "O texto da nota a ser compartilhada.",
@@ -108,8 +99,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Adicione exatamente uma nota ao armazenamento de memória compartilhada.\nSe a memória compartilhada estiver desabilitada (UAGENT_SHARED_MEMORY_FILE não definida), retorne uma mensagem explicando como habilitá-la.\nNão armazene segredos (senhas/tokens/chaves de API)."
+    ]
   },
   "id": {
     "param.note.description": "Teks catatan yang akan dibagikan.",
@@ -119,8 +109,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Tambahkan tepat satu catatan ke penyimpanan shared memory.\nJika shared memory dinonaktifkan (UAGENT_SHARED_MEMORY_FILE tidak disetel), kembalikan pesan yang menjelaskan cara mengaktifkannya.\nJangan menyimpan rahasia (kata sandi/token/API key)."
+    ]
   },
   "vi": {
     "param.note.description": "Văn bản ghi chú cần chia sẻ.",
@@ -130,8 +119,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Thêm đúng một ghi chú vào kho lưu trữ bộ nhớ dùng chung.\nNếu bộ nhớ dùng chung bị tắt (UAGENT_SHARED_MEMORY_FILE chưa được đặt), hãy trả về thông báo hướng dẫn cách bật.\nKhông lưu trữ bí mật (mật khẩu/mã thông báo/khóa API)."
+    ]
   },
   "pl": {
     "param.note.description": "Tekst notatki do udostępnienia.",
@@ -141,8 +129,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Dołącz dokładnie jedną notatkę do magazynu pamięci współdzielonej.\nJeśli pamięć współdzielona jest wyłączona (nie ustawiono UAGENT_SHARED_MEMORY_FILE), zwróć komunikat wyjaśniający, jak ją włączyć.\nNie przechowuj sekretów (hasła/tokeny/klucze API)."
+    ]
   },
   "hi": {
     "param.note.description": "साझा करने के लिए नोट पाठ.",
@@ -152,8 +139,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "साझा मेमोरी स्टोर में बिल्कुल एक नोट जोड़ें।\nयदि साझा मेमोरी अक्षम है (UAGENT_SHARED_MEMORY_FILE सेट नहीं है), तो इसे सक्षम करने का तरीका बताते हुए एक संदेश लौटाएँ।\nरहस्य (पासवर्ड/टोकन/एपीआई कुंजियाँ) संग्रहीत न करें।"
+    ]
   },
   "ar": {
     "param.note.description": "نص المذكرة للمشاركة.",
@@ -163,8 +149,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "إلحاق ملاحظة واحدة بالضبط بمخزن الذاكرة المشتركة.\nإذا تم تعطيل الذاكرة المشتركة (لم يتم تعيين UAGENT_SHARED_MEMORY_FILE)، قم بإرجاع رسالة تشرح كيفية تمكينها.\nلا تقم بتخزين الأسرار (كلمات المرور/الرموز المميزة/مفاتيح واجهة برمجة التطبيقات)."
+    ]
   },
   "sv": {
     "param.note.description": "Texten i anteckningen som ska delas.",
@@ -174,8 +159,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Lägg till exakt en anteckning i det delade minnet.\nOm delat minne är inaktiverat (UAGENT_SHARED_MEMORY_FILE är inte satt), returnera ett meddelande som förklarar hur det aktiveras.\nSpara inte hemligheter (lösenord, token eller API-nycklar)."
+    ]
   },
   "sw": {
     "param.note.description": "Maandishi ya dokezo la kushiriki.",
@@ -185,8 +169,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Hifadhi dokezo moja muhimu la kumbukumbu ya pamoja. Usihifadhi siri kama vile nywila, funguo za API, au tokeni."
+    ]
   },
   "nb": {
     "param.note.description": "Teksten i notatet som skal deles.",
@@ -196,8 +179,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Legg til nøyaktig ett notat i det delte minnet.\nHvis delt minne er deaktivert (UAGENT_SHARED_MEMORY_FILE er ikke satt), returner en melding som forklarer hvordan det kan aktiveres.\nIkke lagre hemmeligheter (passord, token eller API-nøkler)."
+    ]
   },
   "nl": {
     "param.note.description": "De notitietekst om te delen.",
@@ -207,8 +189,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Voeg precies één notitie toe aan de gedeelde geheugenopslag.\nAls gedeeld geheugen is uitgeschakeld (UAGENT_SHARED_MEMORY_FILE niet ingesteld), geef dan een bericht hoe het kan worden ingeschakeld.\nSla geen geheimen op (wachtwoorden/tokens/API-sleutels)."
+    ]
   },
   "fi": {
     "param.note.description": "Jaettava muistiinpanoteksti.",
@@ -218,8 +199,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Lisää täsmälleen yksi muistiinpano jaettuun muistiin.\nJos jaettu muisti on poissa käytöstä (UAGENT_SHARED_MEMORY_FILE ei ole asetettu), palauta viesti, jossa kerrotaan, miten se otetaan käyttöön.\nÄlä tallenna salaisuuksia (salasanat/tokeneita/API-avaimia)."
+    ]
   },
   "cs": {
     "param.note.description": "Text poznámky ke sdílení.",
@@ -229,8 +209,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Přidejte do sdílené paměti přesně jednu poznámku.\nPokud je sdílená paměť vypnutá (UAGENT_SHARED_MEMORY_FILE není nastaven), vraťte zprávu s vysvětlením, jak ji zapnout.\nNeukládejte tajné údaje (hesla/tokeny/API klíče)."
+    ]
   },
   "uk": {
     "param.note.description": "Текст нотатки для спільного доступу.",
@@ -240,8 +219,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Додайте до спільної пам’яті рівно одну нотатку.\nЯкщо спільну пам’ять вимкнено (UAGENT_SHARED_MEMORY_FILE не встановлено), поверніть повідомлення з поясненням, як її увімкнути.\nНе зберігайте секрети (паролі/токени/ключі API)."
+    ]
   },
   "tr": {
     "param.note.description": "Paylaşılacak not metni.",
@@ -251,8 +229,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Paylaşılan hafıza deposuna tam olarak bir not ekleyin.\nSırları saklamayın (şifreler/belirteçler/API anahtarlar)."
+    ]
   },
   "th": {
     "param.note.description": "ข้อความบันทึกที่จะแชร์",
@@ -262,8 +239,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "เพิ่มบันทึกเพียงหนึ่งรายการลงในที่เก็บหน่วยความจำที่ใช้ร่วมกัน\nอย่าเก็บความลับ (รหัสผ่าน/โทเค็น/API คีย์)"
+    ]
   },
   "zh_CN": {
     "param.note.description": "要分享的备注文本。",
@@ -273,8 +249,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "仅向共享记忆存储中追加一条备注。\n如果共享记忆已禁用（未设置 UAGENT_SHARED_MEMORY_FILE），请返回说明如何启用的消息。\n不要存储秘密（密码/令牌/API 密钥）。"
+    ]
   },
   "zh_TW": {
     "param.note.description": "要分享的備註文字。",
@@ -284,8 +259,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "僅向共享記憶儲存中新增一則備註。\n如果共享記憶已停用（未設定 UAGENT_SHARED_MEMORY_FILE），請回傳說明如何啟用的訊息。\n不要儲存機密資料（密碼/權杖/API 金鑰）。"
+    ]
   },
   "bn": {
     "param.note.description": "শেয়ার করার নোটের লেখা।",
@@ -295,8 +269,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "শেয়ার্ড মেমরি স্টোরে ঠিক একটি নোট যোগ করুন।\nশেয়ার্ড মেমরি বন্ধ থাকলে (UAGENT_SHARED_MEMORY_FILE সেট না থাকলে), কীভাবে চালু করবেন তা ব্যাখ্যা করে একটি বার্তা ফেরত দিন।\nগোপন তথ্য (পাসওয়ার্ড/টোকেন/API কী) সংরক্ষণ করবেন না।"
+    ]
   },
   "fa": {
     "param.note.description": "متن یادداشت برای اشتراک.",
@@ -306,8 +279,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "دقیقاً یک یادداشت را به مخزن حافظهٔ مشترک اضافه کنید.\nاگر حافظهٔ مشترک غیرفعال است (UAGENT_SHARED_MEMORY_FILE تنظیم نشده)، پیامی دربارهٔ نحوهٔ فعال‌سازی برگردانید.\nرازها (گذرواژه/توکن/کلید API) را ذخیره نکنید."
+    ]
   },
   "mn": {
     "param.note.description": "Хуваалцах тэмдэглэлийн текст.",
@@ -317,8 +289,7 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "Хамтын санах ойд яг нэг тэмдэглэл нэм.\nХэрэв shared memory идэвхгүй бол (UAGENT_SHARED_MEMORY_FILE тохируулагдаагүй) хэрхэн асаахыг тайлбарласан мессеж буцаа.\nНууц үг, токен, API түлхүүр зэрэг нууцыг бүү хадгал."
+    ]
   },
   "mr": {
     "param.note.description": "शेअर करायच्या नोंदीचा मजकूर.",
@@ -328,7 +299,6 @@
       "add shared memory",
       "shared memory",
       "share memory"
-    ],
-    "tool.system_prompt": "शेअर केलेल्या स्मृती साठ्यात नेमकी एकच नोंद जोडा.\nशेअर केलेली स्मृती निष्क्रिय असल्यास (UAGENT_SHARED_MEMORY_FILE सेट नसल्यास), ती कशी सुरू करायची ते सांगणारा संदेश परत करा.\nगुपिते (पासवर्ड/टोकन/API की) जतन करू नका."
+    ]
   }
 }

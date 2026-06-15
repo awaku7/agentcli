@@ -21,13 +21,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool is a LAST RESORT. Use it only if no other appropriate tool is available. "
-                "Be conservative with commands and avoid destructive operations unless explicitly confirmed by the user."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

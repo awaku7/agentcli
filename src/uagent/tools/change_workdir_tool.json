@@ -13,8 +13,7 @@
       "changer de répertoire",
       "디렉터리 변경",
       "сменить директорию"
-    ],
-    "tool.system_prompt": "Use this tool to change the current working directory after user confirmation."
+    ]
   },
   "ja": {
     "confirm.change_workdir": "作業ディレクトリを変更: {path}?\nyで続行、cでキャンセル。",
@@ -26,8 +25,7 @@
       "作業ディレクトリ変更",
       "ディレクトリ切り替え",
       "ワークディレクトリ"
-    ],
-    "tool.system_prompt": "ユーザー確認の後、現在の作業ディレクトリを変更します。"
+    ]
   },
   "es": {
     "confirm.change_workdir": "Cambiar el directorio de trabajo actual a: {new_dir}\n\n¿Cont...",
@@ -39,8 +37,7 @@
       "cambiar directorio",
       "cambiar workdir",
       "directorio de trabajo"
-    ],
-    "tool.system_prompt": "Use esta herramienta para cambiar el directorio de trabajo actual tras la confirmación del usuario."
+    ]
   },
   "fr": {
     "confirm.change_workdir": "Modifier le répertoire de travail actuel vers : {new_dir}...",
@@ -52,8 +49,7 @@
       "changer répertoire",
       "changer workdir",
       "répertoire de travail"
-    ],
-    "tool.system_prompt": "Utilisez cet outil pour modifier le répertoire de travail actuel après confirmation de l'utilisateur."
+    ]
   },
   "ko": {
     "confirm.change_workdir": "작업 디렉토리 변경: {path}?\ny 입력시 진행, c 입력시 취소.",
@@ -65,8 +61,7 @@
       "작업 디렉터리 변경",
       "디렉터리 전환",
       "워크 디렉터리"
-    ],
-    "tool.system_prompt": "사용자 확인 후 현재 작업 디렉터리를 변경합니다."
+    ]
   },
   "de": {
     "confirm.change_workdir": "Ändern Sie das aktuelle Arbeitsverzeichnis zu: {new_dir}\n\nF...",
@@ -78,8 +73,7 @@
       "arbeitsverzeichnis ändern",
       "verzeichnis wechseln",
       "working directory"
-    ],
-    "tool.system_prompt": "Verwenden Sie dieses Tool, um das aktuelle Arbeitsverzeichnis nach Bestätigung durch den Benutzer zu ändern."
+    ]
   },
   "it": {
     "confirm.change_workdir": "Cambia la directory di lavoro corrente in: {new_dir}\n\nConti...",
@@ -91,8 +85,7 @@
       "cambia directory",
       "cambia workdir",
       "directory di lavoro"
-    ],
-    "tool.system_prompt": "Usa questo strumento per cambiare la directory di lavoro corrente dopo la conferma dell'utente."
+    ]
   },
   "ru": {
     "confirm.change_workdir": "Изменить текущий рабочий каталог на: {new_dir}\n\nПродолжить?",
@@ -104,8 +97,7 @@
       "сменить каталог",
       "сменить workdir",
       "рабочий каталог"
-    ],
-    "tool.system_prompt": "Используйте этот инструмент, чтобы изменить текущий рабочий каталог после подтверждения пользователя."
+    ]
   },
   "pt_BR": {
     "confirm.change_workdir": "Alterar o diretório de trabalho atual para: {new_dir}\n\nCont...",
@@ -117,8 +109,7 @@
       "mudar diretório",
       "mudar workdir",
       "diretório de trabalho"
-    ],
-    "tool.system_prompt": "Use esta ferramenta para alterar o diretório de trabalho atual após a confirmação do usuário."
+    ]
   },
   "pt": {
     "confirm.change_workdir": "Altere o diretório de trabalho atual para: {new_dir}\n\nConti...",
@@ -130,8 +121,7 @@
       "mudar diretório",
       "mudar workdir",
       "diretório de trabalho"
-    ],
-    "tool.system_prompt": "Use esta ferramenta para alterar o diretório de trabalho atual após a confirmação do usuário."
+    ]
   },
   "id": {
     "confirm.change_workdir": "Ubah direktori kerja saat ini menjadi: {new_dir}\n\nLanjut?",
@@ -143,8 +133,7 @@
       "ubah direktori",
       "ubah workdir",
       "direktori kerja"
-    ],
-    "tool.system_prompt": "Gunakan alat ini untuk mengubah direktori kerja saat ini setelah konfirmasi pengguna."
+    ]
   },
   "vi": {
     "confirm.change_workdir": "Thay đổi thư mục làm việc hiện tại thành: {new_dir}\n\nTiếp tục?",
@@ -156,8 +145,7 @@
       "đổi thư mục",
       "đổi workdir",
       "thư mục làm việc"
-    ],
-    "tool.system_prompt": "Dùng công cụ này để thay đổi thư mục làm việc hiện tại sau khi người dùng xác nhận."
+    ]
   },
   "pl": {
     "confirm.change_workdir": "Zmień bieżący katalog roboczy na: {new_dir}\n\nKontynuować?",
@@ -169,8 +157,7 @@
       "zmień katalog",
       "zmień workdir",
       "katalog roboczy"
-    ],
-    "tool.system_prompt": "Użyj tego narzędzia, aby zmienić bieżący katalog roboczy po potwierdzeniu użytkownika."
+    ]
   },
   "hi": {
     "confirm.change_workdir": "वर्तमान कार्यशील निर्देशिका को इसमें बदलें: {new_dir}\n\nआगे...",
@@ -182,8 +169,7 @@
       "कार्य निर्देशिका बदलें",
       "workdir बदलें",
       "कार्यशील निर्देशिका"
-    ],
-    "tool.system_prompt": "उपयोगकर्ता की पुष्टि के बाद वर्तमान कार्यशील निर्देशिका को बदलने के लिए इस टूल का उपयोग करें।"
+    ]
   },
   "ar": {
     "confirm.change_workdir": "قم بتغيير دليل العمل الحالي إلى: {new_dir}\n\nهل تريد المتابع...",
@@ -195,8 +181,7 @@
       "تغيير المجلد",
       "تغيير workdir",
       "مجلد العمل"
-    ],
-    "tool.system_prompt": "استخدم هذه الأداة لتغيير دليل العمل الحالي بعد تأكيد المستخدم."
+    ]
   },
   "sv": {
     "confirm.change_workdir": "Ändra den aktuella arbetskatalogen till: {new_dir}\n\nFortsätta?",
@@ -208,8 +193,7 @@
       "ändra katalog",
       "byt workdir",
       "arbetskatalog"
-    ],
-    "tool.system_prompt": "Använd det här verktyget för att ändra den aktuella arbetskatalogen efter användarens bekräftelse."
+    ]
   },
   "sw": {
     "confirm.change_workdir": "Badilisha saraka ya sasa ya kazi kuwa: {new_dir}\n\nUendelee?",
@@ -221,8 +205,7 @@
       "badili saraka",
       "badili workdir",
       "saraka ya kazi"
-    ],
-    "tool.system_prompt": "Badilisha saraka ya sasa ya kazi baada ya uthibitisho wa mtumiaji."
+    ]
   },
   "nb": {
     "confirm.change_workdir": "Endre den gjeldende arbeidskatalogen til: {new_dir}\n\nFortse...",
@@ -234,8 +217,7 @@
       "endre katalog",
       "bytt workdir",
       "arbeidskatalog"
-    ],
-    "tool.system_prompt": "Bruk dette verktøyet til å endre den gjeldende arbeidskatalogen etter bekreftelse fra brukeren."
+    ]
   },
   "nl": {
     "confirm.change_workdir": "Wijzig de huidige werkmap naar: {new_dir}\n\nDoorgaan?",
@@ -247,8 +229,7 @@
       "map wijzigen",
       "workdir wijzigen",
       "werkmappen"
-    ],
-    "tool.system_prompt": "Gebruik deze tool om de huidige werkmap te wijzigen na bevestiging van de gebruiker."
+    ]
   },
   "fi": {
     "confirm.change_workdir": "Vaihdetaan nykyinen työskentelyhakemisto tähän: {new_dir}...",
@@ -260,8 +241,7 @@
       "vaihda kansio",
       "vaihda workdir",
       "työhakemisto"
-    ],
-    "tool.system_prompt": "Käytä tätä työkalua nykyisen työskentelyhakemiston vaihtamiseen käyttäjän vahvistuksen jälkeen."
+    ]
   },
   "cs": {
     "confirm.change_workdir": "Změnit aktuální pracovní adresář na: {new_dir}\n\nPokračovat?",
@@ -273,8 +253,7 @@
       "změnit adresář",
       "změnit workdir",
       "pracovní adresář"
-    ],
-    "tool.system_prompt": "Použijte tento nástroj ke změně aktuálního pracovního adresáře po potvrzení uživatele."
+    ]
   },
   "uk": {
     "confirm.change_workdir": "Змінити поточний робочий каталог на: {new_dir}\n\nПродовжити?",
@@ -286,8 +265,7 @@
       "змінити каталог",
       "змінити workdir",
       "робочий каталог"
-    ],
-    "tool.system_prompt": "Використовуйте цей інструмент, щоб змінити поточний робочий каталог після підтвердження користувача."
+    ]
   },
   "tr": {
     "confirm.change_workdir": "Geçerli çalışma dizinini şu şekilde değiştirin: {new_dir}...",
@@ -299,8 +277,7 @@
       "dizini değiştir",
       "workdir değiştir",
       "çalışma dizini"
-    ],
-    "tool.system_prompt": "Kullanıcı onayından sonra mevcut çalışma dizinini değiştirmek için bu aracı kullanın."
+    ]
   },
   "th": {
     "confirm.change_workdir": "เปลี่ยนไดเรกทอรีทำงานปัจจุบันเป็น: {new_dir}\n\nดำเนินการต่อห...",
@@ -312,8 +289,7 @@
       "เปลี่ยนไดเรกทอรี",
       "เปลี่ยน workdir",
       "ไดเรกทอรีทำงาน"
-    ],
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อเปลี่ยนไดเรกทอรีทำงานปัจจุบันหลังจากผู้ใช้ยืนยัน"
+    ]
   },
   "zh_CN": {
     "confirm.change_workdir": "将当前工作目录更改为：{new_dir}\n\n继续吗？输入 y 继续，输入 c 取消。",
@@ -325,8 +301,7 @@
       "更改工作目录",
       "切换目录",
       "工作目录"
-    ],
-    "tool.system_prompt": "在用户确认后更改当前工作目录。"
+    ]
   },
   "zh_TW": {
     "confirm.change_workdir": "將目前工作目錄變更為：{new_dir}\n\n繼續嗎？輸入 y 繼續，輸入 c 取消。",
@@ -338,8 +313,7 @@
       "變更工作目錄",
       "切換目錄",
       "工作目錄"
-    ],
-    "tool.system_prompt": "在使用者確認後變更目前工作目錄。"
+    ]
   },
   "bn": {
     "confirm.change_workdir": "বর্তমান কাজের ডিরেক্টরি {new_dir}-এ বদলানো হবে:\n\nচালিয়ে যে...",
@@ -351,8 +325,7 @@
       "কাজের ডিরেক্টরি বদলান",
       "workdir বদলান",
       "কাজের ডিরেক্টরি"
-    ],
-    "tool.system_prompt": "ব্যবহারকারীর নিশ্চিতকরণের পরে বর্তমান কাজের ডিরেক্টরি পরিবর্তন করতে এই টুলটি ব্যবহার করুন।"
+    ]
   },
   "fa": {
     "confirm.change_workdir": "دایرکتوری کاری فعلی را به {new_dir} تغییر دهید:\n\nادامه می‌د...",
@@ -364,8 +337,7 @@
       "تغییر پوشه",
       "تغییر workdir",
       "پوشهٔ کاری"
-    ],
-    "tool.system_prompt": "از این ابزار برای تغییر دایرکتوری کاری فعلی پس از تأیید کاربر استفاده کنید."
+    ]
   },
   "mn": {
     "confirm.change_workdir": "Одоогийн ажиллах лавлахыг {new_dir} рүү өөрчилнө:\n\nҮргэлжлү...",
@@ -377,8 +349,7 @@
       "ажлын хавтас солих",
       "workdir солих",
       "ажлын лавлах"
-    ],
-    "tool.system_prompt": "Хэрэглэгч баталгаажуулсны дараа одоогийн ажиллах лавлахыг өөрчлөхөд энэ хэрэгслийг ашиглана уу."
+    ]
   },
   "mr": {
     "confirm.change_workdir": "सध्याची कार्यरत निर्देशिका {new_dir} येथे बदलली जाईल:\n\nपुढे...",
@@ -390,7 +361,6 @@
       "कार्य निर्देशिका बदला",
       "workdir बदला",
       "कार्यशील निर्देशिका"
-    ],
-    "tool.system_prompt": "वापरकर्त्याच्या पुष्टीनंतर सध्याची कार्यरत निर्देशिका बदलण्यासाठी हे साधन वापरा."
+    ]
   }
 }

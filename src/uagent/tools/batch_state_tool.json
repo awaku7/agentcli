@@ -13,7 +13,6 @@
       "continue batch",
       "task queue"
     ],
-    "tool.system_prompt": "Manage batch state. Prefer targets=[{dir, files, index}] and current_target. Use current to fetch the current file. After processing it, call complete_file. Use reset to restore the batch to its original pending state while preserving metadata. Use complete_file, skip_file, or error_file for explicit per-file results. Return JSON only.",
     "param.action.description": "Action: init/load/status/current/complete_file/...",
     "param.batch_id.description": "Batch ID.",
     "param.task_description.description": "Short description of the batch task.",
@@ -48,7 +47,6 @@
       "バッチ継続",
       "タスクキュー"
     ],
-    "tool.system_prompt": "バッチ状態を管理してください。targets=[{dir, files, index}] と current_target を優先し、current で現在のファイルを取得します。処理後は complete_file を呼び出してください。ファイル単位の明示的な結果には complete_file、skip_file、error_file を使います。JSON のみを返してください。",
     "param.action.description": "操作: init/load/status/current/complete_file/...",
     "param.batch_id.description": "バッチID。",
     "param.task_description.description": "バッチ作業の概要。",
@@ -83,7 +81,6 @@
       "continuar lote",
       "cola de tareas"
     ],
-    "tool.system_prompt": "Administra el estado del lote. Prioriza targets=[{dir, files, index}] y current_target. Usa current para obtener el archivo actual. Después de procesarlo, llama a complete_file. Usa complete_file, skip_file o error_file para resultados explícitos por archivo. Devuelve solo JSON.",
     "param.action.description": "Acción: init/load/status/current/complete_file/...",
     "param.batch_id.description": "ID del...",
     "param.task_description.description": "Breve descripción de la tarea por lotes.",
@@ -118,7 +115,6 @@
       "continuer le lot",
       "file de tâches"
     ],
-    "tool.system_prompt": "Gérez l’état du lot. Privilégiez targets=[{dir, files, index}] et current_target. Utilisez current pour récupérer le fichier courant. Après traitement, appelez complete_file. Utilisez complete_file, skip_file ou error_file pour des résultats explicites par fichier. Retournez uniquement du JSON.",
     "param.action.description": "Action : init/load/status/current/complete_file...",
     "param.batch_id.description": "ID du...",
     "param.task_description.description": "Brève description de la tâche du lot.",
@@ -153,7 +149,6 @@
       "배치 계속",
       "작업 대기열"
     ],
-    "tool.system_prompt": "배치 상태를 관리합니다. targets=[{dir, files, index}]와 current_target을 우선하고, current로 현재 파일을 가져옵니다. 처리 후 complete_file을 호출하세요. 파일별 명시적 결과에는 complete_file, skip_file, error_file을 사용합니다. JSON만 반환하세요.",
     "param.action.description": "작업: init/load/status/current/complete_file/...",
     "param.batch_id.description": "배치 ID.",
     "param.task_description.description": "배치 작업의 간단한 요약.",
@@ -188,7 +183,6 @@
       "stapel fortsetzen",
       "aufgabenwarteschlange"
     ],
-    "tool.system_prompt": "Verwalten Sie den Batch-Status. Bevorzugen Sie targets=[{dir, files, index}] und current_target. Verwenden Sie current, um die aktuelle Datei abzurufen. Rufen Sie nach der Verarbeitung complete_file auf. Verwenden Sie complete_file, skip_file oder error_file für explizite Ergebnisse pro Datei. Geben Sie nur JSON zurück.",
     "param.action.description": "Aktion: init/load/status/current/complete_file/...",
     "param.batch_id.description": "Batch-ID.",
     "param.task_description.description": "Kurze Beschreibung der Batch-Aufgabe.",
@@ -223,7 +217,6 @@
       "continua batch",
       "coda attività"
     ],
-    "tool.system_prompt": "Gestisci lo stato del batch. Dai priorità a targets=[{dir, files, index}] e current_target. Usa current per ottenere il file corrente. Dopo l’elaborazione, chiama complete_file. Usa complete_file, skip_file o error_file per risultati espliciti per file. Restituisci solo JSON.",
     "param.action.description": "Azione: init/load/status/current/complete_file/...",
     "param.batch_id.description": "ID batch.",
     "param.task_description.description": "Breve riepilogo dell'attività batch.",
@@ -258,7 +251,6 @@
       "продолжить пакет",
       "очередь задач"
     ],
-    "tool.system_prompt": "Управляйте состоянием пакета. Предпочитайте targets=[{dir, files, index}] и current_target. Используйте current, чтобы получить текущий файл. После обработки вызывайте complete_file. Используйте complete_file, skip_file или error_file для явных результатов по каждому файлу. Возвращайте только JSON.",
     "param.action.description": "Действие: init/load/status/current/complete_fil...",
     "param.batch_id.description": "ID пак...",
     "param.task_description.description": "Краткое описание пакетной задачи.",
@@ -293,7 +285,6 @@
       "continuar lote",
       "fila de tarefas"
     ],
-    "tool.system_prompt": "Gerencie o estado do lote. Priorize targets=[{dir, files, index}] e current_target. Use current para obter o arquivo atual. Depois de processá-lo, chame complete_file. Use complete_file, skip_file ou error_file para resultados explícitos por arquivo. Retorne apenas JSON.",
     "param.action.description": "Ação: init/load/status/current/complete_file/sk...",
     "param.batch_id.description": "ID do...",
     "param.task_description.description": "Resumo curto da tarefa do lote.",
@@ -328,7 +319,6 @@
       "continuar lote",
       "fila de tarefas"
     ],
-    "tool.system_prompt": "Gira o estado do lote. Priorize targets=[{dir, files, index}] e current_target. Use current para obter o ficheiro atual. Depois de o processar, chame complete_file. Use complete_file, skip_file ou error_file para resultados explícitos por ficheiro. Retorne apenas JSON.",
     "param.action.description": "Ação: init/load/status/current/complete_file/sk...",
     "param.batch_id.description": "ID do...",
     "param.task_description.description": "Breve resumo da tarefa do lote.",
@@ -363,7 +353,6 @@
       "lanjutkan batch",
       "antrean tugas"
     ],
-    "tool.system_prompt": "Kelola status batch. Utamakan targets=[{dir, files, index}] dan current_target. Gunakan current untuk mengambil file saat ini. Setelah memprosesnya, panggil complete_file. Gunakan complete_file, skip_file, atau error_file untuk hasil per file yang eksplisit. Kembalikan JSON saja.",
     "param.action.description": "Aksi: init/load/status/current/complete_file/sk...",
     "param.batch_id.description": "ID batch.",
     "param.task_description.description": "Ringkasan singkat tugas batch.",
@@ -398,7 +387,6 @@
       "ব্যাচ চালিয়ে যান",
       "কাজের সারি"
     ],
-    "tool.system_prompt": "ব্যাচের অবস্থা পরিচালনা করুন। targets=[{dir, files, index}] এবং current_target-কে অগ্রাধিকার দিন। বর্তমান ফাইল পেতে current ব্যবহার করুন। প্রক্রিয়াকরণের পরে complete_file ডাকুন। প্রতি ফাইলের স্পষ্ট ফলাফলের জন্য complete_file, skip_file, বা error_file ব্যবহার করুন। শুধু JSON ফেরত দিন।",
     "param.action.description": "অ্যাকশন: init/load/status/current/complete_file...",
     "param.batch_id.description": "ব্যাচ...",
     "param.task_description.description": "batch কাজের সংক্ষিপ্ত বিবরণ।",
@@ -433,7 +421,6 @@
       "ادامه دسته",
       "صف وظایف"
     ],
-    "tool.system_prompt": "وضعیت دسته را مدیریت کنید. targets=[{dir, files, index}] و current_target را در اولویت قرار دهید. برای دریافت فایل فعلی از current استفاده کنید. پس از پردازش، complete_file را فراخوانی کنید. برای نتایج صریح هر فایل از complete_file، skip_file یا error_file استفاده کنید. فقط JSON برگردانید.",
     "param.action.description": "عملیات: init/load/status/current/complete_file/...",
     "param.batch_id.description": "شناسه...",
     "param.task_description.description": "توضیح کوتاهِ وظیفهٔ batch.",
@@ -468,7 +455,6 @@
       "багцыг үргэлжлүүлэх",
       "даалгаврын дараалал"
     ],
-    "tool.system_prompt": "Багцын төлөвийг удирдана уу. targets=[{dir, files, index}] болон current_target-ыг түрүүнд тавина. Одоогийн файлыг авахын тулд current ашиглана уу. Боловсруулсны дараа complete_file дуудна уу. Файл бүрийн тодорхой үр дүнд complete_file, skip_file, эсвэл error_file ашиглана. Зөвхөн JSON буцаана уу.",
     "param.action.description": "Үйлдэл: init/load/status/current/complete_file/...",
     "param.batch_id.description": "Багцын...",
     "param.task_description.description": "batch ажлын товч тайлбар.",
@@ -503,7 +489,6 @@
       "बॅच सुरू ठेवा",
       "कार्य रांग"
     ],
-    "tool.system_prompt": "बॅच स्थिती व्यवस्थापित करा. targets=[{dir, files, index}] आणि current_target यांना प्राधान्य द्या. चालू फाइल मिळवण्यासाठी current वापरा. प्रक्रिया केल्यानंतर complete_file कॉल करा. स्पष्ट प्रति-फाइल निकालांसाठी complete_file, skip_file, किंवा error_file वापरा. फक्त JSON परत करा.",
     "param.action.description": "क्रिया: init/load/status/current/complete_file/...",
     "param.batch_id.description": "बॅच ID.",
     "param.task_description.description": "batch कार्याचे थोडक्यात वर्णन.",
@@ -538,7 +523,6 @@
       "tiếp tục lô",
       "hàng đợi tác vụ"
     ],
-    "tool.system_prompt": "Quản lý trạng thái batch. Ưu tiên targets=[{dir, files, index}] và current_target. Dùng current để lấy tệp hiện tại. Sau khi xử lý, gọi complete_file. Dùng complete_file, skip_file hoặc error_file cho kết quả rõ ràng theo từng tệp. Chỉ trả về JSON.",
     "param.action.description": "Hành động: init/load/status/current/complete_fi...",
     "param.batch_id.description": "ID batch.",
     "param.task_description.description": "Tóm tắt ngắn gọn về tác vụ batch.",
@@ -573,7 +557,6 @@
       "kontynuuj wsad",
       "kolejka zadań"
     ],
-    "tool.system_prompt": "Zarządzaj stanem partii. Preferuj targets=[{dir, files, index}] oraz current_target. Użyj current, aby pobrać bieżący plik. Po przetworzeniu wywołaj complete_file. Używaj complete_file, skip_file lub error_file dla jawnych wyników dla pliku. Zwracaj tylko JSON.",
     "param.action.description": "Akcja: init/load/status/current/complete_file/s...",
     "param.batch_id.description": "ID wsadu.",
     "param.task_description.description": "Krótki opis zadania partii.",
@@ -608,7 +591,6 @@
       "बैच जारी रखें",
       "कार्य कतार"
     ],
-    "tool.system_prompt": "बैच स्थिति प्रबंधित करें। targets=[{dir, files, index}] और current_target को प्राथमिकता दें। वर्तमान फ़ाइल पाने के लिए current का उपयोग करें। संसाधित करने के बाद complete_file कॉल करें। प्रति-फ़ाइल स्पष्ट परिणामों के लिए complete_file, skip_file या error_file का उपयोग करें। केवल JSON लौटाएँ।",
     "param.action.description": "क्रिया: init/load/status/current/complete_file/...",
     "param.batch_id.description": "बैच ID.",
     "param.task_description.description": "बैच कार्य का संक्षिप्त विवरण.",
@@ -643,7 +625,6 @@
       "متابعة الدفعة",
       "طابور المهام"
     ],
-    "tool.system_prompt": "أدِر حالة الدفعة. أعطِ الأولوية لـ targets=[{dir, files, index}] و current_target. استخدم current لجلب الملف الحالي. بعد المعالجة، استدعِ complete_file. استخدم complete_file أو skip_file أو error_file للنتائج الصريحة لكل ملف. أعد JSON فقط.",
     "param.action.description": "الإجراء: init/load/status/current/complete_file...",
     "param.batch_id.description": "معرّف...",
     "param.task_description.description": "وصف موجز لمهمة الدفعة.",
@@ -678,7 +659,6 @@
       "fortsätt batch",
       "uppgiftskö"
     ],
-    "tool.system_prompt": "Hantera batchstatus. Prioritera targets=[{dir, files, index}] och current_target. Använd current för att hämta den aktuella filen. Anropa complete_file efter bearbetning. Använd complete_file, skip_file eller error_file för tydliga resultat per fil. Returnera bara JSON.",
     "param.action.description": "Åtgärd: init/load/status/current/complete_file/...",
     "param.batch_id.description": "Batch-ID.",
     "param.task_description.description": "Kort sammanfattning av batchuppgiften.",
@@ -713,7 +693,6 @@
       "endeleza kundi",
       "foleni ya kazi"
     ],
-    "tool.system_prompt": "Dhibiti hali ya batch. Tanguliza targets=[{dir, files, index}] na current_target. Tumia current kupata faili la sasa. Baada ya kulichakata, piga complete_file. Tumia complete_file, skip_file, au error_file kwa matokeo ya wazi kwa kila faili. Rudisha JSON pekee.",
     "param.action.description": "Kitendo: init/load/status/current/complete_file...",
     "param.batch_id.description": "Kitamb...",
     "param.task_description.description": "Maelezo mafupi ya kazi ya batch.",
@@ -748,7 +727,6 @@
       "fortsett batch",
       "oppgavekø"
     ],
-    "tool.system_prompt": "Administrer batchstatus. Prioriter targets=[{dir, files, index}] og current_target. Bruk current for å hente gjeldende fil. Kall complete_file etter behandling. Bruk complete_file, skip_file eller error_file for eksplisitte resultater per fil. Returner bare JSON.",
     "param.action.description": "Handling: init/load/status/current/complete_fil...",
     "param.batch_id.description": "Batch-ID.",
     "param.task_description.description": "Kort oppsummering av batch-oppgaven.",
@@ -783,7 +761,6 @@
       "batch voortzetten",
       "takenwachtrij"
     ],
-    "tool.system_prompt": "Beheer de batchstatus. Geef prioriteit aan targets=[{dir, files, index}] en current_target. Gebruik current om het huidige bestand op te halen. Roep na verwerking complete_file aan. Gebruik complete_file, skip_file of error_file voor expliciete resultaten per bestand. Geef alleen JSON terug.",
     "param.action.description": "Actie: init/load/status/current/complete_file/s...",
     "param.batch_id.description": "Batch-ID.",
     "param.task_description.description": "Korte samenvatting van de batchtaak.",
@@ -818,7 +795,6 @@
       "jatka erää",
       "tehtäväjono"
     ],
-    "tool.system_prompt": "Hallitse erätilaa. Suosi kohteita targets=[{dir, files, index}] ja current_target. Hae nykyinen tiedosto current-komennolla. Kutsu complete_file käsittelyn jälkeen. Käytä complete_file-, skip_file- tai error_file-komentoja tiedostokohtaisiin selkeisiin tuloksiin. Palauta vain JSON.",
     "param.action.description": "Toiminto: init/load/status/current/complete_fil...",
     "param.batch_id.description": "Erän t...",
     "param.task_description.description": "Lyhyt kuvaus eräajosta.",
@@ -853,7 +829,6 @@
       "pokračovat v dávce",
       "fronta úloh"
     ],
-    "tool.system_prompt": "Spravujte stav dávky. Přednostně používejte targets=[{dir, files, index}] a current_target. K získání aktuálního souboru použijte current. Po zpracování zavolejte complete_file. Pro explicitní výsledky po jednotlivých souborech používejte complete_file, skip_file nebo error_file. Vracejte pouze JSON.",
     "param.action.description": "Akce: init/load/status/current/complete_file/sk...",
     "param.batch_id.description": "ID dávky.",
     "param.task_description.description": "Stručný popis dávkového úkolu.",
@@ -888,7 +863,6 @@
       "продовжити пакет",
       "черга завдань"
     ],
-    "tool.system_prompt": "Керуйте станом пакета. Надавайте перевагу targets=[{dir, files, index}] і current_target. Використовуйте current, щоб отримати поточний файл. Після обробки викликайте complete_file. Для явних результатів по кожному файлу використовуйте complete_file, skip_file або error_file. Повертайте лише JSON.",
     "param.action.description": "Дія: init/load/status/current/complete_file/ski...",
     "param.batch_id.description": "ID пак...",
     "param.task_description.description": "Короткий опис пакетного завдання.",
@@ -923,7 +897,6 @@
       "toplu işleme devam et",
       "görev kuyruğu"
     ],
-    "tool.system_prompt": "Toplu durumunu yönetin. targets=[{dir, files, index}] ve current_target öğelerini önceliklendirin. Geçerli dosyayı almak için current kullanın. İşledikten sonra complete_file çağırın. Dosya başına açık sonuçlar için complete_file, skip_file veya error_file kullanın. Yalnızca JSON döndürün.",
     "param.action.description": "İşlem: init/load/status/current/complete_file/s...",
     "param.batch_id.description": "Toplu...",
     "param.task_description.description": "Toplu görevin kısa açıklaması.",
@@ -958,7 +931,6 @@
       "ดำเนินชุดงานต่อ",
       "คิวงาน"
     ],
-    "tool.system_prompt": "จัดการสถานะแบตช์ ให้ความสำคัญกับ targets=[{dir, files, index}] และ current_target ใช้ current เพื่อดึงไฟล์ปัจจุบัน หลังประมวลผลให้เรียก complete_file ใช้ complete_file, skip_file หรือ error_file สำหรับผลลัพธ์รายไฟล์ที่ชัดเจน ส่งกลับเฉพาะ JSON",
     "param.action.description": "การทำงาน: init/load/status/current/complete_fil...",
     "param.batch_id.description": "รหัสแบ...",
     "param.task_description.description": "สรุปสั้น ๆ ของงานแบตช์",
@@ -993,7 +965,6 @@
       "继续批处理",
       "任务队列"
     ],
-    "tool.system_prompt": "管理批处理状态。优先使用 targets=[{dir, files, index}] 和 current_target。使用 current 获取当前文件。处理后调用 complete_file。对于逐文件的明确结果，请使用 complete_file、skip_file 或 error_file。仅返回 JSON。",
     "param.action.description": "操作: init/load/status/current/complete_file/...",
     "param.batch_id.description": "批次ID。",
     "param.task_description.description": "批处理任务的简要说明。",
@@ -1028,7 +999,6 @@
       "繼續批次",
       "任務佇列"
     ],
-    "tool.system_prompt": "管理批次狀態。優先使用 targets=[{dir, files, index}] 和 current_target。使用 current 取得目前的檔案。處理後請呼叫 complete_file。對於逐檔的明確結果，請使用 complete_file、skip_file 或 error_file。僅回傳 JSON。",
     "param.action.description": "操作: init/load/status/current/complete_file/...",
     "param.batch_id.description": "批次ID。",
     "param.task_description.description": "批次任務的簡要說明。",

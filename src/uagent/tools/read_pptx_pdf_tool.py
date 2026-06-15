@@ -69,14 +69,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text.\n"
-                "Input: path, page_index, max_chars\n"
-                "Output: page text (all pages or specified page)\n\n"
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

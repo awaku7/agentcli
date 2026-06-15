@@ -18,17 +18,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool provides reference information so the LLM can perform time calculations accurately.\n"
-                "- ISO 8601 format (with offset)\n"
-                "- Weekday (English)\n"
-                "- UTC time\n"
-                "- Numeric components (year, month, day, hour, minute, second)\n"
-                "Use these to convert ambiguous user requests (e.g., 'next Monday') into a concrete date/time.\n"
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

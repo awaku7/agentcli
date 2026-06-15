@@ -13,7 +13,6 @@
       "progress check",
       "monitor task"
     ],
-    "tool.system_prompt": "Poll an A2A task only when local tools cannot replace the task. Return JSON only. Use only when existing local tools cannot replace the task.",
     "param.profile.description": "Profile name or a2a://name. If omitted, uses default profile.",
     "param.task_id.description": "Task ID to poll.",
     "param.interval_ms.description": "Override polling interval (ms).",
@@ -35,7 +34,6 @@
       "監視タスク",
       "ポーリング"
     ],
-    "tool.system_prompt": "JSONのみ返してください。 既存のローカルツールで代替できない場合のみ使用してください。",
     "param.profile.description": "プロファイル名または a2a://name。省略時は既定プロファイルを使用します。",
     "param.task_id.description": "ポーリング対象のタスクID。",
     "param.interval_ms.description": "ポーリング間隔（ms）の上書き。",
@@ -57,7 +55,6 @@
       "vigilar tarea",
       "a2a poll"
     ],
-    "tool.system_prompt": "Consulta una tarea A2A. Devuelve solo JSON. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
     "param.profile.description": "Nombre de perfil o a2a://name.",
     "param.task_id.description": "ID de la tare...",
     "param.interval_ms.description": "Anular el intervalo de sonde...",
@@ -79,7 +76,6 @@
       "surveiller la tâche",
       "a2a poll"
     ],
-    "tool.system_prompt": "Interrogez une tâche A2A. Retournez uniquement du JSON. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "param.profile.description": "Nom du profil ou a2a://name. Si omis, utilise le profil par défaut.",
     "param.task_id.description": "ID de la tâch...",
     "param.interval_ms.description": "Remplacer l’intervalle d’int...",
@@ -101,7 +97,6 @@
       "작업 감시",
       "a2a poll"
     ],
-    "tool.system_prompt": "A2A 작업을 폴링합니다. JSON만 반환하세요. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
     "param.profile.description": "프로필 이름 또는 a2a://name. 생략 시 기본 프로필을 사용합니다.",
     "param.task_id.description": "폴링할 작업 ID.",
     "param.interval_ms.description": "폴링 간격(ms) 재정의.",
@@ -123,7 +118,6 @@
       "aufgabe überwachen",
       "a2a poll"
     ],
-    "tool.system_prompt": "Fragen Sie eine A2A-Aufgabe ab. Nur JSON zurückgeben. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
     "param.profile.description": "Profilname oder a2a://name.",
     "param.task_id.description": "Aufgaben-ID z...",
     "param.interval_ms.description": "Abfrageintervall (ms) übersc...",
@@ -145,7 +139,6 @@
       "monitora attività",
       "a2a poll"
     ],
-    "tool.system_prompt": "Interroga un'attività A2A. Restituisci solo JSON. Usalo solo quando gli strumenti locali non possono sostituire il compito.",
     "param.profile.description": "Nome del profilo o a2a://name.",
     "param.task_id.description": "ID attività d...",
     "param.interval_ms.description": "Sovrascrivi l'intervallo di...",
@@ -167,7 +160,6 @@
       "наблюдать задачу",
       "a2a poll"
     ],
-    "tool.system_prompt": "Опросите задачу A2A. Возвращайте только JSON. Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
     "param.profile.description": "Имя профиля или a2a://name.",
     "param.task_id.description": "Идентификатор...",
     "param.interval_ms.description": "Переопределить интервал опро...",
@@ -189,7 +181,6 @@
       "monitorar tarefa",
       "a2a poll"
     ],
-    "tool.system_prompt": "Faça polling de uma tarefa A2A. Retorne apenas JSON. Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
     "param.task_id.description": "ID da tarefa...",
     "param.interval_ms.description": "Substituir o intervalo de po...",
@@ -211,7 +202,6 @@
       "monitorizar tarefa",
       "a2a poll"
     ],
-    "tool.system_prompt": "Faça polling de uma tarefa A2A. Retorne apenas JSON. Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
     "param.task_id.description": "ID da tarefa...",
     "param.interval_ms.description": "Substituir o intervalo de po...",
@@ -233,7 +223,6 @@
       "pantau tugas",
       "a2a poll"
     ],
-    "tool.system_prompt": "Lakukan polling pada tugas A2A. Kembalikan JSON saja. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
     "param.profile.description": "Nama profil atau a2a://name.",
     "param.task_id.description": "ID tugas yang...",
     "param.interval_ms.description": "Ganti interval polling (ms).",
@@ -255,7 +244,6 @@
       "theo dõi tác vụ",
       "a2a poll"
     ],
-    "tool.system_prompt": "Thăm dò một tác vụ A2A. Chỉ trả về JSON. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "param.profile.description": "Tên hồ sơ hoặc a2a://name. Nếu bỏ qua, dùng hồ sơ mặc định.",
     "param.task_id.description": "ID tác vụ cần...",
     "param.interval_ms.description": "Ghi đè khoảng thời gian thăm...",
@@ -277,7 +265,6 @@
       "monitoruj zadanie",
       "a2a poll"
     ],
-    "tool.system_prompt": "Odpytuj zadanie A2A. Zwracaj wyłącznie JSON. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
     "param.profile.description": "Nazwa profilu lub a2a://name.",
     "param.task_id.description": "ID zadania do...",
     "param.interval_ms.description": "Zastąp interwał odpytywania (ms).",
@@ -299,7 +286,6 @@
       "कार्य निगरानी",
       "a2a poll"
     ],
-    "tool.system_prompt": "A2A कार्य को पोल करें। केवल JSON लौटाएँ। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
     "param.profile.description": "प्रोफ़ाइल नाम या a2a://name.",
     "param.task_id.description": "पोल किए जाने...",
     "param.interval_ms.description": "पोलिंग अंतराल (मिलीसेकंड) को...",
@@ -321,7 +307,6 @@
       "مراقبة المهمة",
       "a2a poll"
     ],
-    "tool.system_prompt": "استعلم عن مهمة A2A. أعد JSON فقط. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
     "param.profile.description": "اسم الملف الشخصي أو a2a://name.",
     "param.task_id.description": "معرّف المهمة...",
     "param.interval_ms.description": "تجاوز فترة الاستعلام (مللي ثانية).",
@@ -343,7 +328,6 @@
       "övervaka uppgift",
       "a2a poll"
     ],
-    "tool.system_prompt": "Polla en A2A-uppgift. Returnera endast JSON. Använd endast när lokala verktyg inte kan ersätta uppgiften.",
     "param.profile.description": "Profilnamn eller a2a://name.",
     "param.task_id.description": "Uppgifts-ID a...",
     "param.interval_ms.description": "Åsidosätt pollingintervall (ms).",
@@ -365,7 +349,6 @@
       "fuatilia kazi",
       "a2a poll"
     ],
-    "tool.system_prompt": "Fuatilia kazi ya A2A. Rudisha JSON pekee. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
     "param.profile.description": "Jina la wasifu au a2a://name.",
     "param.task_id.description": "Kitambulisho...",
     "param.interval_ms.description": "Badilisha muda wa uchunguzi (ms).",
@@ -387,7 +370,6 @@
       "overvåk oppgave",
       "a2a poll"
     ],
-    "tool.system_prompt": "Poll en A2A-oppgave. Returner bare JSON. Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "param.profile.description": "Profilnavn eller a2a://name. Hvis utelatt, brukes standardprofilen.",
     "param.task_id.description": "Oppgave-ID so...",
     "param.interval_ms.description": "Overstyr pollingintervall (ms).",
@@ -409,7 +391,6 @@
       "taak bewaken",
       "a2a poll"
     ],
-    "tool.system_prompt": "Poll een A2A-taak. Geef alleen JSON terug. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
     "param.profile.description": "Profielnaam of a2a://naam.",
     "param.task_id.description": "Taak-ID om te...",
     "param.interval_ms.description": "Polling-interval (ms) oversc...",
@@ -431,7 +412,6 @@
       "seuraa tehtävää",
       "a2a poll"
     ],
-    "tool.system_prompt": "Kysy A2A-tehtävää. Palauta vain JSON. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
     "param.profile.description": "Profiilin nimi tai a2a://nimi.",
     "param.task_id.description": "Seurattavan t...",
     "param.interval_ms.description": "Korvaa kyselyväli (ms).",
@@ -453,7 +433,6 @@
       "sledovat úlohu",
       "a2a poll"
     ],
-    "tool.system_prompt": "Dotazujte úlohu A2A. Vracejte pouze JSON. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
     "param.profile.description": "Název profilu nebo a2a://name.",
     "param.task_id.description": "ID úlohy, kte...",
     "param.interval_ms.description": "Přepsat interval dotazování (ms).",
@@ -475,7 +454,6 @@
       "стежити за завданням",
       "a2a poll"
     ],
-    "tool.system_prompt": "Опитуйте завдання A2A. Повертайте лише JSON. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
     "param.profile.description": "Назва профілю або a2a://name.",
     "param.task_id.description": "ID завдання,...",
     "param.interval_ms.description": "Перевизначити інтервал опиту...",
@@ -497,7 +475,6 @@
       "görevi izle",
       "a2a poll"
     ],
-    "tool.system_prompt": "Bir A2A görevini yoklayın. Yalnızca JSON değerini döndür. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "param.profile.description": "Profil adı veya a2a://name. Atlanırsa varsayılan profili kullanır.",
     "param.task_id.description": "Anket yapmak...",
     "param.interval_ms.description": "Yoklama aralığını (ms) geçer...",
@@ -519,7 +496,6 @@
       "ติดตามงาน",
       "a2a poll"
     ],
-    "tool.system_prompt": "โพลงาน A2A ส่งคืน JSON เท่านั้น. ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
     "param.profile.description": "ชื่อโปรไฟล์หรือ a2a://name หากละไว้จะใช้โปรไฟล์เริ่มต้น.",
     "param.task_id.description": "รหัสงานที่จะโพล.",
     "param.interval_ms.description": "แทนที่ช่วงเวลาโพล (มิลลิวินาที).",
@@ -541,7 +517,6 @@
       "监控任务",
       "a2a poll"
     ],
-    "tool.system_prompt": "轮询 A2A 任务。仅返回 JSON。 仅在本地工具无法替代该任务时使用。",
     "param.profile.description": "配置名或 a2a://name。省略则使用默认设置。",
     "param.task_id.description": "要轮询的任务 ID。",
     "param.interval_ms.description": "覆盖轮询间隔（毫秒）。",
@@ -563,7 +538,6 @@
       "監控任務",
       "a2a poll"
     ],
-    "tool.system_prompt": "輪詢 A2A 任務。僅回傳 JSON。 僅在本機工具無法取代該任務時使用。",
     "param.profile.description": "設定檔名稱或 a2a://name。省略時使用預設設定檔。",
     "param.task_id.description": "要輪詢的任務 ID。",
     "param.interval_ms.description": "覆寫輪詢間隔（毫秒）。",
@@ -585,7 +559,6 @@
       "কাজ পর্যবেক্ষণ",
       "a2a poll"
     ],
-    "tool.system_prompt": "A2A কাজটি পোল করুন। শুধু JSON ফেরত দিন। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।",
     "param.profile.description": "প্রোফাইলের নাম বা a2a://name। বাদ দিলে ডিফল্ট প্রোফাইল ব্যবহার হবে।",
     "param.task_id.description": "যে কাজটি পোল...",
     "param.interval_ms.description": "পোলিং ব্যবধান (মিলিসেকেন্ড)...",
@@ -607,7 +580,6 @@
       "نظارت بر وظیفه",
       "a2a poll"
     ],
-    "tool.system_prompt": "وظیفهٔ A2A را بررسی کنید. فقط JSON برگردانید. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند.",
     "param.profile.description": "نام پروفایل یا a2a://name.",
     "param.task_id.description": "شناسهٔ وظیفه‌...",
     "param.interval_ms.description": "فاصلهٔ بررسی (میلی‌ثانیه) را...",
@@ -629,7 +601,6 @@
       "даалгавар хянах",
       "a2a poll"
     ],
-    "tool.system_prompt": "A2A даалгаврыг шалгана уу. Зөвхөн JSON буцаана. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу.",
     "param.profile.description": "Профайлын нэр эсвэл a2a://name.",
     "param.task_id.description": "Шалгах даалга...",
     "param.interval_ms.description": "Шалгалтын интервал (мс)-ыг ө...",
@@ -651,7 +622,6 @@
       "कार्य निरीक्षण",
       "a2a poll"
     ],
-    "tool.system_prompt": "A2A कार्य पोल करा. फक्त JSON परत द्या. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा.",
     "param.profile.description": "प्रोफाइलचे नाव किंवा a2a://name.",
     "param.task_id.description": "ज्या कार्याचा...",
     "param.interval_ms.description": "पोलिंग अंतर (ms) बदलून द्या.",

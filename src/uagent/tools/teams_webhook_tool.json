@@ -8,7 +8,6 @@
       "incoming webhook",
       "notify teams"
     ],
-    "tool.system_prompt": "Post a payload to Microsoft Teams Incoming Webhook. Return JSON only.",
     "param.message.description": "Message text to post to Teams. Used as plain text unless card fields are provided.",
     "param.title.description": "Card title for webhook-supported payloads.",
     "param.summary.description": "Card summary for webhook-supported payloads.",
@@ -28,7 +27,6 @@
       "Teams 投稿",
       "webhook 送信"
     ],
-    "tool.system_prompt": "Microsoft Teams Incoming Webhook にペイロードを送信します。JSON のみ返してください。",
     "param.message.description": "Teams に投稿するメッセージ本文。カード項目が指定されていない場合はプレーンテキストとして使います。",
     "param.title.description": "webhook で利用できるペイロード向けのカードタイトル。",
     "param.summary.description": "webhook で利用できるペイロード向けのカード概要。",
@@ -48,7 +46,6 @@
       "publicar en teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "Envía una carga al Microsoft Teams Incoming Webhook. Devuelve solo JSON.",
     "param.message.description": "Texto del mensaje para publicar en Teams.",
     "param.title.description": "Título de la tarjeta para cargas compat...",
     "param.summary.description": "Resumen de la tarjeta para cargas compati...",
@@ -68,7 +65,6 @@
       "publier sur teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "Publiez une charge vers Microsoft Teams Incoming Webhook. Retournez uniquement du JSON.",
     "param.message.description": "Texte du message à publier dans Teams.",
     "param.title.description": "Titre de la carte pour les charges pris...",
     "param.summary.description": "Résumé de la carte pour les charges prise...",
@@ -88,7 +84,6 @@
       "teams 게시",
       "webhook 전송"
     ],
-    "tool.system_prompt": "Microsoft Teams Incoming Webhook으로 페이로드를 전송합니다. JSON만 반환하세요.",
     "param.message.description": "Teams에 게시할 메시지 본문입니다. 카드 필드가 제공되지 않으면 일반 텍스트로 사용됩니다.",
     "param.title.description": "webhook에서 지원하는 페이로드용 카드 제목입니다.",
     "param.summary.description": "webhook에서 지원하는 페이로드용 카드 요약입니다.",
@@ -108,7 +103,6 @@
       "an teams senden",
       "webhook-payload"
     ],
-    "tool.system_prompt": "Sende eine Nutzlast an den Microsoft Teams Incoming Webhook. Nur JSON zurückgeben.",
     "param.message.description": "Nachrichtentext für Teams.",
     "param.title.description": "Kartentitel für vom Webhook unterstützt...",
     "param.summary.description": "Karten-Zusammenfassung für vom Webhook un...",
@@ -128,7 +122,6 @@
       "pubblica su teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "Invia un payload a Microsoft Teams Incoming Webhook. Restituisci solo JSON.",
     "param.message.description": "Testo del messaggio da pubblicare su Teams.",
     "param.title.description": "Titolo della scheda per i payload suppo...",
     "param.summary.description": "Riepilogo della scheda per i payload supp...",
@@ -148,7 +141,6 @@
       "публикация в teams",
       "webhook payload"
     ],
-    "tool.system_prompt": "Отправляйте payload в Microsoft Teams Incoming Webhook. Возвращайте только JSON.",
     "param.message.description": "Текст сообщения для публикации в Teams.",
     "param.title.description": "Заголовок карточки для payload, поддерж...",
     "param.summary.description": "Краткое описание карточки для payload, по...",
@@ -168,7 +160,6 @@
       "publicar no teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "Envie um payload para o Microsoft Teams Incoming Webhook. Retorne apenas JSON.",
     "param.message.description": "Texto da mensagem a ser publicado no Teams.",
     "param.title.description": "Título do cartão para payloads compatív...",
     "param.summary.description": "Resumo do cartão para payloads compatívei...",
@@ -188,7 +179,6 @@
       "publicar no teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "Publique uma carga no Webhook de entrada do Microsoft Teams. Retorne apenas JSON.",
     "param.message.description": "Texto da mensagem para postar no Teams.",
     "param.title.description": "Título do cartão para cargas suportadas...",
     "param.summary.description": "Resumo do cartão para cargas suportadas p...",
@@ -208,7 +198,6 @@
       "kirim ke teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "Kirim payload ke Microsoft Teams Incoming Webhook. Kembalikan JSON saja.",
     "param.message.description": "Teks pesan yang dikirim ke Teams.",
     "param.title.description": "Judul card untuk payload webhook yang m...",
     "param.summary.description": "Ringkasan card untuk payload webhook yang...",
@@ -228,7 +217,6 @@
       "đăng lên teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "Đăng tải trọng lên Webhook đến của Microsoft Teams. Chỉ trả về JSON.",
     "param.message.description": "Nội dung tin nhắn để đăng lên Teams.",
     "param.title.description": "Tiêu đề thẻ cho tải trọng được webhook hỗ trợ.",
     "param.summary.description": "Tóm tắt thẻ về tải trọng được webhook hỗ trợ.",
@@ -248,7 +236,6 @@
       "opublikuj w teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "Opublikuj ładunek w przychodzącym webhooku Microsoft Teams. Zwróć tylko JSON.",
     "param.message.description": "Tekst wiadomości do opublikowania w aplikacji Teams.",
     "param.title.description": "Tytuł karty dla ładunków obsługiwanych...",
     "param.summary.description": "Podsumowanie karty dla ładunków obsługiwa...",
@@ -268,7 +255,6 @@
       "teams पर पोस्ट",
       "webhook payload"
     ],
-    "tool.system_prompt": "Microsoft Teams इनकमिंग वेबहुक पर एक पेलोड पोस्ट करें। केवल JSON लौटाएँ.",
     "param.message.description": "टीमों को पोस्ट करने के लिए संदेश पाठ.",
     "param.title.description": "वेबहुक-समर्थित पेलोड के लिए कार्ड शीर्षक।",
     "param.summary.description": "वेबहुक-समर्थित पेलोड के लिए कार्ड सारांश।",
@@ -288,7 +274,6 @@
       "نشر في teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "نشر حمولة إلى Microsoft Teams Incoming Webhook. إرجاع JSON فقط.",
     "param.message.description": "رسالة نصية للنشر إلى Teams. يُستخدم كنص عادي ما لم يتم توفير حقول البطاقة.",
     "param.title.description": "عنوان البطاقة للحمولات التي تدعم خطاف الويب.",
     "param.summary.description": "ملخص البطاقة للحمولات التي تدعم webhook.",
@@ -308,7 +293,6 @@
       "posta till teams",
       "webhook payload"
     ],
-    "tool.system_prompt": "Skicka en payload till Microsoft Teams Incoming Webhook. Returnera endast JSON.",
     "param.message.description": "Meddelandetext som ska publiceras i Teams. Används som vanlig text om inga kortfält anges.",
     "param.title.description": "Korttitel för payloads som stöds av webhook.",
     "param.summary.description": "Kortsammanfattning för payloads som stöds...",
@@ -328,7 +312,6 @@
       "chapisha kwa teams",
       "payload webhook"
     ],
-    "tool.system_prompt": "Tuma payload kwenda Microsoft Teams Incoming Webhook. Rudisha JSON pekee.",
     "param.message.description": "Maandishi ya ujumbe wa kuchapisha kwenye Teams.",
     "param.title.description": "Kichwa cha kadi kwa payload zinazotumik...",
     "param.summary.description": "Muhtasari wa kadi kwa payload zinazotumik...",
@@ -348,7 +331,6 @@
       "publiser til teams",
       "webhook payload"
     ],
-    "tool.system_prompt": "Publiser en payload til Microsoft Teams Incoming Webhook. Returner bare JSON.",
     "param.message.description": "Meldingstekst som skal publiseres i Teams.",
     "param.title.description": "Korttittel for payload-er som støttes a...",
     "param.summary.description": "Kortsammendrag for payload-er som støttes...",
@@ -368,7 +350,6 @@
       "plaats in teams",
       "webhook payload"
     ],
-    "tool.system_prompt": "Plaats een payload naar Microsoft Teams Incoming Webhook. Geef alleen JSON terug.",
     "param.message.description": "Berichttekst om naar Teams te posten.",
     "param.title.description": "Kaarttitel voor payloads die webhook-on...",
     "param.summary.description": "Kaartsamenvatting voor payloads die webho...",
@@ -388,7 +369,6 @@
       "lähetä teamsiin",
       "webhook payload"
     ],
-    "tool.system_prompt": "Lähetä lataus Microsoft Teams Incoming Webhookiin. Palauta vain JSON.",
     "param.message.description": "Teamsiin julkaistava viestiteksti.",
     "param.title.description": "Kortin otsikko webhookia tukeville lata...",
     "param.summary.description": "Kortin yhteenveto webhookia tukeville lat...",
@@ -408,7 +388,6 @@
       "publikovat do teams",
       "webhook payload"
     ],
-    "tool.system_prompt": "Odešlete payload do Microsoft Teams Incoming Webhook. Vracejte pouze JSON.",
     "param.message.description": "Text zprávy, která se má odeslat do Teams.",
     "param.title.description": "Název karty pro payloady podporované we...",
     "param.summary.description": "Shrnutí karty pro payloady podporované we...",
@@ -428,7 +407,6 @@
       "публікація в teams",
       "webhook payload"
     ],
-    "tool.system_prompt": "Надішліть payload до Microsoft Teams Incoming Webhook. Повертайте лише JSON.",
     "param.message.description": "Текст повідомлення для публікації в Teams.",
     "param.title.description": "Назва картки для payload, що підтримуют...",
     "param.summary.description": "Короткий опис картки для payload, що підт...",
@@ -448,7 +426,6 @@
       "teamse gönder",
       "webhook payload"
     ],
-    "tool.system_prompt": "Microsoft Teams Incoming Webhook'a bir yük gönderin. Yalnızca JSON döndürün.",
     "param.message.description": "Teams'e gönderilecek mesaj metni. Kart alanları verilmedikçe düz metin olarak kullanılır.",
     "param.title.description": "Webhook destekli yükler için kart başlığı.",
     "param.summary.description": "Webhook destekli yükler için kart özeti.",
@@ -468,7 +445,6 @@
       "โพสต์ไปยัง teams",
       "webhook payload"
     ],
-    "tool.system_prompt": "ส่ง payload ไปยัง Microsoft Teams Incoming Webhook ส่งกลับเฉพาะ JSON",
     "param.message.description": "ข้อความที่จะโพสต์ไปยัง Teams ใช้เป็นข้อความธรรมดาเว้นแต่จะระบุฟิลด์ของการ์ด",
     "param.title.description": "ชื่อการ์ดสำหรับ payload ที่รองรับ webhook",
     "param.summary.description": "สรุปการ์ดสำหรับ payload ที่รองรับ webhook",
@@ -488,7 +464,6 @@
       "发布到 teams",
       "webhook 载荷"
     ],
-    "tool.system_prompt": "向 Microsoft Teams Incoming Webhook 发送负载。仅返回 JSON。",
     "param.message.description": "要发布到 Teams 的消息文本。除非提供了卡片字段，否则将作为纯文本使用。",
     "param.title.description": "适用于 webhook 支持的负载的卡片标题。",
     "param.summary.description": "适用于 webhook 支持的负载的卡片摘要。",
@@ -508,7 +483,6 @@
       "發佈到 teams",
       "webhook 載荷"
     ],
-    "tool.system_prompt": "向 Microsoft Teams Incoming Webhook 傳送載荷。只回傳 JSON。",
     "param.message.description": "要發布到 Teams 的訊息文字。除非提供卡片欄位，否則會以純文字使用。",
     "param.title.description": "適用於 webhook 支援載荷的卡片標題。",
     "param.summary.description": "適用於 webhook 支援載荷的卡片摘要。",
@@ -528,7 +502,6 @@
       "teams এ পোস্ট",
       "webhook payload"
     ],
-    "tool.system_prompt": "Microsoft Teams Incoming Webhook-এ একটি payload পাঠান। শুধু JSON ফেরত দিন।",
     "param.message.description": "Teams-এ পাঠানোর বার্তার লেখা। card field দেওয়া না থাকলে plain text হিসেবে ব্যবহৃত হয়।",
     "param.title.description": "webhook-সমর্থিত payload-এর জন্য card শিরোনাম।",
     "param.summary.description": "webhook-সমর্থিত payload-এর জন্য card সারসংক্ষেপ।",
@@ -548,7 +521,6 @@
       "ارسال به teams",
       "webhook payload"
     ],
-    "tool.system_prompt": "یک payload به Microsoft Teams Incoming Webhook ارسال کنید. فقط JSON برگردانید.",
     "param.message.description": "متن پیام برای ارسال در Teams.",
     "param.title.description": "عنوان کارت برای payloadهای پشتیبانی‌شده...",
     "param.summary.description": "خلاصهٔ کارت برای payloadهای پشتیبانی‌شده...",
@@ -568,7 +540,6 @@
       "teams рүү илгээх",
       "webhook payload"
     ],
-    "tool.system_prompt": "Microsoft Teams Incoming Webhook руу payload илгээнэ үү. Зөвхөн JSON буцаана.",
     "param.message.description": "Teams рүү нийтлэх мессежийн текст. Картын талбарууд өгөөгүй бол энгийн текстээр ашиглана.",
     "param.title.description": "webhook дэмждэг payload-д зориулсан кар...",
     "param.summary.description": "webhook дэмждэг payload-д зориулсан карты...",
@@ -588,7 +559,6 @@
       "teams वर पोस्ट करा",
       "webhook payload"
     ],
-    "tool.system_prompt": "Microsoft Teams Incoming Webhook वर payload पाठवा. फक्त JSON परत करा.",
     "param.message.description": "Teams वर पोस्ट करायचा संदेश मजकूर.",
     "param.title.description": "webhook-समर्थित payload साठी कार्ड शीर्षक.",
     "param.summary.description": "webhook-समर्थित payload साठी कार्ड सारांश.",

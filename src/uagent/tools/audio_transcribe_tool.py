@@ -24,14 +24,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "Transcribe an audio file to text. Useful for meetings, interviews, and voice notes."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Transcribe the given audio file and return a JSON response only. "
-                "If output_format=text, include the transcript text in the response. "
-                "If output_format=json, include basic metadata as well."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

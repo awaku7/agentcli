@@ -1,7 +1,6 @@
 {
   "en": {
     "tool.description": "Generate a QR code image (PNG) from text or URL. Customizable colors and size.",
-    "tool.system_prompt": "Generate a QR code image from text or URL. Save it as a PNG file inside the workdir. If the file already exists, overwrite=false will raise an error. If overwrite=true, a backup is created before writing.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -26,7 +25,6 @@
   },
   "ja": {
     "tool.description": "テキストやURLからQRコード画像（PNG）を生成します。誤り訂正レベル、ボックスサイズ、ボーダー、色のカスタマイズに対応しています。",
-    "tool.system_prompt": "テキストやURLからQRコード画像を生成します。ワークディレクトリ内にPNGファイルとして保存します。ファイルが既に存在する場合、overwrite=falseではエラーが発生します。overwrite=trueの場合、書き込み前にバックアップが作成されます。",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -51,7 +49,6 @@
   },
   "es": {
     "tool.description": "Genera una imagen de código QR (PNG) a partir de texto o URL.",
-    "tool.system_prompt": "Genera una imagen de código QR a partir de texto o URL. Guárdala como un archivo PNG dentro del workdir. Si el archivo ya existe, overwrite=false dará error. Si overwrite=true, se crea una copia de seguridad antes de escribir.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -76,7 +73,6 @@
   },
   "fr": {
     "tool.description": "Générez une image de code QR (PNG) à partir d’un texte ou d’une URL.",
-    "tool.system_prompt": "Générez une image de code QR à partir d’un texte ou d’une URL. Enregistrez-la en PNG dans le workdir. Si le fichier existe déjà, overwrite=false provoquera une erreur. Si overwrite=true, une sauvegarde est créée avant l’écriture.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -101,7 +97,6 @@
   },
   "ko": {
     "tool.description": "텍스트나 URL로부터 QR 코드 이미지(PNG)를 생성합니다. 오류 정정 수준, 박스 크기, 테두리, 색상을 조정할 수 있습니다.",
-    "tool.system_prompt": "텍스트나 URL로부터 QR 코드 이미지를 생성합니다. workdir 안에 PNG 파일로 저장하세요. 파일이 이미 있으면 overwrite=false일 때 오류가 발생합니다. overwrite=true이면 쓰기 전에 백업을 만듭니다.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -126,7 +121,6 @@
   },
   "de": {
     "tool.description": "Erzeugt ein QR-Code-Bild (PNG) aus Text oder URL.",
-    "tool.system_prompt": "Erzeuge ein QR-Code-Bild aus Text oder URL. Speichere es als PNG im workdir. Wenn die Datei bereits existiert, führt overwrite=false zu einem Fehler. Bei overwrite=true wird vor dem Schreiben eine Sicherung erstellt.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -151,7 +145,6 @@
   },
   "it": {
     "tool.description": "Genera un’immagine del codice QR (PNG) da testo o URL.",
-    "tool.system_prompt": "Genera un’immagine del codice QR da testo o URL. Salvala come file PNG nel workdir. Se il file esiste già, overwrite=false genererà un errore. Se overwrite=true, viene creato un backup prima della scrittura.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -176,7 +169,6 @@
   },
   "ru": {
     "tool.description": "Создаёт изображение QR-кода (PNG) из текста или URL.",
-    "tool.system_prompt": "Создайте изображение QR-кода из текста или URL. Сохраните его как PNG-файл в workdir. Если файл уже существует, overwrite=false вызовет ошибку. Если overwrite=true, перед записью создаётся резервная копия.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -201,7 +193,6 @@
   },
   "pt_BR": {
     "tool.description": "Gera uma imagem de código QR (PNG) a partir de texto ou URL.",
-    "tool.system_prompt": "Gere uma imagem de código QR a partir de texto ou URL. Salve-a como um arquivo PNG dentro do workdir. Se o arquivo já existir, overwrite=false gerará erro. Se overwrite=true, um backup é criado antes da escrita.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -226,7 +217,6 @@
   },
   "pt": {
     "tool.description": "Gera uma imagem de código QR (PNG) a partir de texto ou URL.",
-    "tool.system_prompt": "Gere uma imagem de código QR a partir de texto ou URL. Guarde-a como um ficheiro PNG dentro do workdir. Se o ficheiro já existir, overwrite=false gera erro. Se overwrite=true, é criada uma cópia de segurança antes da escrita.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -251,7 +241,6 @@
   },
   "id": {
     "tool.description": "Menghasilkan gambar kode QR (PNG) dari teks atau URL.",
-    "tool.system_prompt": "Hasilkan gambar kode QR dari teks atau URL. Simpan sebagai file PNG di dalam workdir. Jika file sudah ada, overwrite=false akan menghasilkan galat. Jika overwrite=true, cadangan dibuat sebelum menulis.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -276,7 +265,6 @@
   },
   "vi": {
     "tool.description": "Tạo ảnh mã QR (PNG) từ văn bản hoặc URL.",
-    "tool.system_prompt": "Tạo ảnh mã QR từ văn bản hoặc URL. Lưu dưới dạng tệp PNG trong workdir. Nếu tệp đã tồn tại, overwrite=false sẽ báo lỗi. Nếu overwrite=true, sẽ tạo bản sao lưu trước khi ghi.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -301,7 +289,6 @@
   },
   "pl": {
     "tool.description": "Generuje obraz kodu QR (PNG) z tekstu lub adresu URL.",
-    "tool.system_prompt": "Wygeneruj obraz kodu QR z tekstu lub adresu URL. Zapisz go jako plik PNG w workdir. Jeśli plik już istnieje, overwrite=false spowoduje błąd. Jeśli overwrite=true, przed zapisem zostanie utworzona kopia zapasowa.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -326,7 +313,6 @@
   },
   "hi": {
     "tool.description": "टेक्स्ट या URL से QR कोड छवि (PNG) बनाता है। त्रुटि-सुधार स्तर, बॉक्स आकार,...",
-    "tool.system_prompt": "टेक्स्ट या URL से QR कोड छवि बनाएं। इसे workdir के भीतर PNG फ़ाइल के रूप में सहेजें। यदि फ़ाइल पहले से मौजूद है, तो overwrite=false पर त्रुटि होगी। overwrite=true होने पर लिखने से पहले बैकअप बनाया जाएगा।",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -351,7 +337,6 @@
   },
   "ar": {
     "tool.description": "ينشئ صورة رمز QR (PNG) من نص أو رابط.",
-    "tool.system_prompt": "أنشئ صورة رمز QR من نص أو رابط. احفظها كملف PNG داخل workdir. إذا كان الملف موجودًا بالفعل، فإن overwrite=false سيؤدي إلى خطأ. وإذا كان overwrite=true، فسيتم إنشاء نسخة احتياطية قبل الكتابة.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -376,7 +361,6 @@
   },
   "th": {
     "tool.description": "สร้างรูปภาพคิวอาร์โค้ด (PNG) จากข้อความหรือ URL รองรับการปรับระดับการแก้ไขข...",
-    "tool.system_prompt": "สร้างรูปภาพคิวอาร์โค้ดจากข้อความหรือ URL แล้วบันทึกเป็นไฟล์ PNG ภายใน workdir ถ้ามีไฟล์อยู่แล้ว overwrite=false จะทำให้เกิดข้อผิดพลาด ถ้า overwrite=true จะสร้างไฟล์สำรองก่อนเขียน",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -401,7 +385,6 @@
   },
   "zh_CN": {
     "tool.description": "根据文本或 URL 生成 QR 码图片（PNG）。支持调整纠错级别、方块大小、边框和颜色。",
-    "tool.system_prompt": "根据文本或 URL 生成 QR 码图片。将其保存为 workdir 中的 PNG 文件。如果文件已存在，overwrite=false 会报错；如果 overwrite=true，则会先创建备份再写入。",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -426,7 +409,6 @@
   },
   "zh_TW": {
     "tool.description": "根據文字或 URL 產生 QR 碼圖片（PNG）。支援調整錯誤修正等級、方塊大小、邊框與色彩。",
-    "tool.system_prompt": "根據文字或 URL 產生 QR 碼圖片。請將其存成 workdir 內的 PNG 檔。如果檔案已存在，overwrite=false 會報錯；若 overwrite=true，則會先建立備份再寫入。",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -451,7 +433,6 @@
   },
   "bn": {
     "tool.description": "টেক্সট বা URL থেকে QR কোড ছবি (PNG) তৈরি করে। error correction level, box s...",
-    "tool.system_prompt": "টেক্সট বা URL থেকে একটি QR কোড ছবি তৈরি করুন। এটি workdir-এর ভিতরে PNG ফাইল হিসেবে সংরক্ষণ করুন। ফাইল আগে থেকেই থাকলে overwrite=false এ error হবে। overwrite=true হলে লেখার আগে backup তৈরি হবে।",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -476,7 +457,6 @@
   },
   "fa": {
     "tool.description": "از متن یا URL یک تصویر کد QR (PNG) می‌سازد.",
-    "tool.system_prompt": "از متن یا URL یک تصویر کد QR بسازید. آن را به‌صورت فایل PNG داخل workdir ذخیره کنید. اگر فایل از قبل وجود داشته باشد، overwrite=false خطا می‌دهد. اگر overwrite=true باشد، پیش از نوشتن نسخهٔ پشتیبان ساخته می‌شود.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -501,7 +481,6 @@
   },
   "mn": {
     "tool.description": "Текст эсвэл URL-ээс QR кодын зураг (PNG) үүсгэнэ.",
-    "tool.system_prompt": "Текст эсвэл URL-ээс QR кодын зураг үүсгэнэ үү. Үүнийг workdir дотор PNG файл болгон хадгална уу. Хэрэв файл аль хэдийн байвал overwrite=false үед алдаа гарна. overwrite=true бол бичихийн өмнө нөөц хувилбар үүсгэнэ.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -526,7 +505,6 @@
   },
   "mr": {
     "tool.description": "मजकूर किंवा URL मधून QR कोड प्रतिमा (PNG) तयार करते.",
-    "tool.system_prompt": "मजकूर किंवा URL मधून QR कोड प्रतिमा तयार करा. ती workdir मध्ये PNG फाइल म्हणून जतन करा. फाइल आधीपासून अस्तित्वात असल्यास overwrite=false मुळे त्रुटी होईल. overwrite=true असल्यास लिहिण्यापूर्वी बॅकअप तयार केला जाईल.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -551,7 +529,6 @@
   },
   "sw": {
     "tool.description": "Hutengeneza picha ya msimbo wa QR (PNG) kutoka kwa maandishi au URL.",
-    "tool.system_prompt": "Tengeneza picha ya msimbo wa QR kutoka kwa maandishi au URL. Ihifadhi kama faili ya PNG ndani ya workdir. Ikiwa faili tayari ipo, overwrite=false itatoa kosa. Ikiwa overwrite=true, nakala rudufu itaundwa kabla ya kuandika.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -576,7 +553,6 @@
   },
   "tr": {
     "tool.description": "Metin veya URL’den bir QR kodu görüntüsü (PNG) oluşturur.",
-    "tool.system_prompt": "Metin veya URL’den bir QR kodu görüntüsü oluşturun. Bunu workdir içinde PNG dosyası olarak kaydedin. Dosya zaten varsa overwrite=false hata verir. overwrite=true ise yazmadan önce yedek oluşturulur.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -601,7 +577,6 @@
   },
   "cs": {
     "tool.description": "Vytvoří obrázek QR kódu (PNG) z textu nebo URL.",
-    "tool.system_prompt": "Vytvořte obrázek QR kódu z textu nebo URL. Uložte jej jako soubor PNG do workdir. Pokud soubor už existuje, overwrite=false vyvolá chybu. Při overwrite=true se před zápisem vytvoří záloha.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -626,7 +601,6 @@
   },
   "fi": {
     "tool.description": "Luo QR-koodikuva (PNG) tekstistä tai URL-osoitteesta.",
-    "tool.system_prompt": "Luo QR-koodikuva tekstistä tai URL-osoitteesta. Tallenna se PNG-tiedostona workdiriin. Jos tiedosto on jo olemassa, overwrite=false aiheuttaa virheen. Kun overwrite=true, ennen kirjoitusta luodaan varmuuskopio.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -651,7 +625,6 @@
   },
   "nb": {
     "tool.description": "Genererer et QR-kodebilde (PNG) fra tekst eller URL.",
-    "tool.system_prompt": "Generer et QR-kodebilde fra tekst eller URL. Lagre det som en PNG-fil i workdir. Hvis filen allerede finnes, vil overwrite=false gi feil. Med overwrite=true lages en sikkerhetskopi før skriving.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -676,7 +649,6 @@
   },
   "nl": {
     "tool.description": "Genereer een QR-codeafbeelding (PNG) uit tekst of URL.",
-    "tool.system_prompt": "Genereer een QR-codeafbeelding uit tekst of URL. Sla deze op als PNG-bestand in de workdir. Als het bestand al bestaat, geeft overwrite=false een fout. Bij overwrite=true wordt vóór het schrijven een back-up gemaakt.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -701,7 +673,6 @@
   },
   "sv": {
     "tool.description": "Skapar en QR-kodbild (PNG) från text eller URL.",
-    "tool.system_prompt": "Skapa en QR-kodbild från text eller URL. Spara den som en PNG-fil i workdir. Om filen redan finns ger overwrite=false ett fel. Med overwrite=true skapas en säkerhetskopia före skrivning.",
     "x_search_terms": [
       "qr",
       "qrcode",
@@ -726,7 +697,6 @@
   },
   "uk": {
     "tool.description": "Створює зображення QR-коду (PNG) з тексту або URL.",
-    "tool.system_prompt": "Створіть зображення QR-коду з тексту або URL. Збережіть його як PNG-файл у workdir. Якщо файл уже існує, overwrite=false викличе помилку. Якщо overwrite=true, перед записом буде створено резервну копію.",
     "x_search_terms": [
       "qr",
       "qrcode",

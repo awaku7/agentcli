@@ -14,10 +14,6 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description", default="Get the current working directory."
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool is used for the following purpose: get the current working directory.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

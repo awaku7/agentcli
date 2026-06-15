@@ -9,8 +9,7 @@
       "country",
       "ip geolocation",
       "geo ip"
-    ],
-    "tool.system_prompt": "Fetch IP-based location data from an external service (ipinfo.io) and return a simplified result."
+    ]
   },
   "ja": {
     "param.format.description": "出力形式。",
@@ -20,8 +19,7 @@
       "geoip 取得",
       "IP 位置情報",
       "位置推定"
-    ],
-    "tool.system_prompt": "外部サービス（ipinfo.io）から IP ベースの位置情報を取得し、簡略化した結果を返します。"
+    ]
   },
   "es": {
     "param.format.description": "Formato de salida.",
@@ -31,8 +29,7 @@
       "get geoip",
       "geoip",
       "ubicación IP"
-    ],
-    "tool.system_prompt": "Obtenga datos de ubicación basados en IP desde un servicio externo (ipinfo.io) y devuelva un resultado simplificado."
+    ]
   },
   "fr": {
     "param.format.description": "Format de sortie.",
@@ -42,8 +39,7 @@
       "get geoip",
       "geoip",
       "localisation IP"
-    ],
-    "tool.system_prompt": "Récupère des données de localisation basées sur l'adresse IP depuis un service externe (ipinfo.io) et renvoie un résultat simplifié."
+    ]
   },
   "ko": {
     "param.format.description": "출력 형식.",
@@ -53,8 +49,7 @@
       "geoip 가져오기",
       "IP 위치",
       "위치 추정"
-    ],
-    "tool.system_prompt": "외부 서비스(ipinfo.io)에서 IP 기반 위치 데이터를 가져와 간단한 결과를 반환합니다."
+    ]
   },
   "de": {
     "param.format.description": "Ausgabeformat.",
@@ -64,8 +59,7 @@
       "get geoip",
       "geoip",
       "ip standort"
-    ],
-    "tool.system_prompt": "Ruft IP-basierte Standortdaten von einem externen Dienst (ipinfo.io) ab und gibt ein vereinfachtes Ergebnis zurück."
+    ]
   },
   "it": {
     "param.format.description": "Formato di output.",
@@ -75,8 +69,7 @@
       "get geoip",
       "geoip",
       "posizione IP"
-    ],
-    "tool.system_prompt": "Recupera da un servizio esterno (ipinfo.io) i dati di localizzazione basati su IP e restituisce un risultato semplificato."
+    ]
   },
   "ru": {
     "param.format.description": "Формат вывода.",
@@ -86,8 +79,7 @@
       "get geoip",
       "геоip",
       "ip location"
-    ],
-    "tool.system_prompt": "Получает данные о местоположении по IP из внешнего сервиса (ipinfo.io) и возвращает упрощённый результат."
+    ]
   },
   "pt_BR": {
     "param.format.description": "Formato de saída.",
@@ -97,8 +89,7 @@
       "get geoip",
       "geoip",
       "localização IP"
-    ],
-    "tool.system_prompt": "Obtém dados de localização com base em IP de um serviço externo (ipinfo.io) e retorna um resultado simplificado."
+    ]
   },
   "pt": {
     "param.format.description": "Formato de saída.",
@@ -108,8 +99,7 @@
       "get geoip",
       "geoip",
       "localização IP"
-    ],
-    "tool.system_prompt": "Busque dados de localização baseados em IP de um serviço externo (ipinfo.io) e retorne um resultado simplificado."
+    ]
   },
   "id": {
     "param.format.description": "Format keluaran.",
@@ -119,8 +109,7 @@
       "get geoip",
       "geoip",
       "lokasi IP"
-    ],
-    "tool.system_prompt": "Ambil data lokasi berbasis IP dari layanan eksternal (ipinfo.io) dan kembalikan hasil yang disederhanakan."
+    ]
   },
   "vi": {
     "param.format.description": "Định dạng đầu ra.",
@@ -130,8 +119,7 @@
       "get geoip",
       "geoip",
       "vị trí IP"
-    ],
-    "tool.system_prompt": "Tìm nạp dữ liệu vị trí dựa trên IP từ một dịch vụ bên ngoài (ipinfo.io) và trả về kết quả đơn giản hóa."
+    ]
   },
   "pl": {
     "param.format.description": "Format wyjściowy.",
@@ -141,8 +129,7 @@
       "get geoip",
       "geoip",
       "lokalizacja IP"
-    ],
-    "tool.system_prompt": "Pobierz dane lokalizacyjne oparte na protokole IP z usługi zewnętrznej (ipinfo.io) i zwróć uproszczony wynik."
+    ]
   },
   "hi": {
     "param.format.description": "आउटपुट स्वरूप.",
@@ -152,8 +139,7 @@
       "get geoip",
       "geoip",
       "IP स्थान"
-    ],
-    "tool.system_prompt": "बाहरी सेवा (ipinfo.io) से आईपी-आधारित स्थान डेटा प्राप्त करें और एक सरलीकृत परिणाम लौटाएं।"
+    ]
   },
   "ar": {
     "param.format.description": "تنسيق الإخراج.",
@@ -163,8 +149,7 @@
       "get geoip",
       "geoip",
       "موقع IP"
-    ],
-    "tool.system_prompt": "جلب بيانات الموقع المستندة إلى IP من خدمة خارجية (ipinfo.io) وإرجاع نتيجة مبسطة."
+    ]
   },
   "sv": {
     "param.format.description": "Utdataformat.",
@@ -174,8 +159,7 @@
       "get geoip",
       "geoip",
       "ip plats"
-    ],
-    "tool.system_prompt": "Hämta platsdata baserat på IP från en extern tjänst (ipinfo.io) och returnera ett förenklat resultat."
+    ]
   },
   "sw": {
     "param.format.description": "Output format.",
@@ -185,8 +169,7 @@
       "get geoip",
       "geoip",
       "eneo la IP"
-    ],
-    "tool.system_prompt": "Fetch IP-based location data from an external service (ipinfo.io) and return a simplified result."
+    ]
   },
   "nb": {
     "param.format.description": "Utdataformat.",
@@ -196,8 +179,7 @@
       "get geoip",
       "geoip",
       "ip plassering"
-    ],
-    "tool.system_prompt": "Hent IP-basert posisjonsdata fra en ekstern tjeneste (ipinfo.io) og returner et forenklet resultat."
+    ]
   },
   "nl": {
     "param.format.description": "Uitvoerformaat.",
@@ -207,8 +189,7 @@
       "get geoip",
       "geoip",
       "ip locatie"
-    ],
-    "tool.system_prompt": "Haal IP-gebaseerde locatiegegevens op via een externe dienst (ipinfo.io) en geef een vereenvoudigd resultaat terug."
+    ]
   },
   "fi": {
     "param.format.description": "Tulostusmuoto.",
@@ -218,8 +199,7 @@
       "get geoip",
       "geoip",
       "ip-sijainti"
-    ],
-    "tool.system_prompt": "Hae IP-pohjaiset sijaintitiedot ulkoisesta palvelusta (ipinfo.io) ja palauta yksinkertaistettu tulos."
+    ]
   },
   "cs": {
     "param.format.description": "Formát výstupu.",
@@ -229,8 +209,7 @@
       "get geoip",
       "geoip",
       "ip poloha"
-    ],
-    "tool.system_prompt": "Získá z externí služby (ipinfo.io) údaje o poloze na základě IP a vrátí zjednodušený výsledek."
+    ]
   },
   "uk": {
     "param.format.description": "Формат виводу.",
@@ -240,8 +219,7 @@
       "get geoip",
       "geoip",
       "ip місце"
-    ],
-    "tool.system_prompt": "Отримує з зовнішнього сервісу (ipinfo.io) дані про місцеперебування на основі IP та повертає спрощений результат."
+    ]
   },
   "tr": {
     "param.format.description": "Çıkış formatı.",
@@ -251,8 +229,7 @@
       "get geoip",
       "geoip",
       "ip konum"
-    ],
-    "tool.system_prompt": "Harici bir hizmetten (ipinfo.io) IP-tabanlı konum verilerini alın ve basitleştirilmiş bir sonuç döndürün."
+    ]
   },
   "th": {
     "param.format.description": "รูปแบบเอาต์พุต",
@@ -262,8 +239,7 @@
       "get geoip",
       "geoip",
       "ตำแหน่ง IP"
-    ],
-    "tool.system_prompt": "ดึงข้อมูลตำแหน่งตาม IP จากบริการภายนอก (ipinfo.io) และส่งคืนผลลัพธ์แบบย่อ"
+    ]
   },
   "zh_CN": {
     "param.format.description": "输出格式。",
@@ -273,8 +249,7 @@
       "get geoip",
       "geoip",
       "IP 位置"
-    ],
-    "tool.system_prompt": "从外部服务（ipinfo.io）获取基于 IP 的位置数据，并返回简化结果。"
+    ]
   },
   "zh_TW": {
     "param.format.description": "輸出格式。",
@@ -284,8 +259,7 @@
       "get geoip",
       "geoip",
       "IP 位置"
-    ],
-    "tool.system_prompt": "從外部服務（ipinfo.io）取得基於 IP 的位置資料，並回傳簡化結果。"
+    ]
   },
   "bn": {
     "param.format.description": "আউটপুট ফরম্যাট।",
@@ -295,8 +269,7 @@
       "get geoip",
       "geoip",
       "IP অবস্থান"
-    ],
-    "tool.system_prompt": "বহিরাগত সেবা (ipinfo.io) থেকে IP-ভিত্তিক অবস্থানের তথ্য নিয়ে একটি সরলীকৃত ফলাফল ফেরত দেয়।"
+    ]
   },
   "fa": {
     "param.format.description": "فرمت خروجی.",
@@ -306,8 +279,7 @@
       "get geoip",
       "geoip",
       "موقعیت IP"
-    ],
-    "tool.system_prompt": "داده‌های مکان‌یابی مبتنی بر IP را از یک سرویس خارجی (ipinfo.io) دریافت می‌کند و نتیجه‌ای ساده‌شده برمی‌گرداند."
+    ]
   },
   "mn": {
     "param.format.description": "Гаралтын формат.",
@@ -317,8 +289,7 @@
       "get geoip",
       "geoip",
       "IP байршил"
-    ],
-    "tool.system_prompt": "Гаднын үйлчилгээ (ipinfo.io)-с IP-д суурилсан байршлын өгөгдөл авч, энгийн үр дүн буцаана."
+    ]
   },
   "mr": {
     "param.format.description": "आउटपुट फॉरमॅट.",
@@ -328,7 +299,6 @@
       "get geoip",
       "geoip",
       "IP स्थान"
-    ],
-    "tool.system_prompt": "बाह्य सेवा (ipinfo.io) कडून IP-आधारित स्थान डेटा मिळवते आणि सुलभ परिणाम परत करते."
+    ]
   }
 }

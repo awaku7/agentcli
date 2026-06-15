@@ -12,7 +12,6 @@
       "page text",
       "extract pages"
     ],
-    "tool.system_prompt": "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
     "param.password.description": "Password (prompts if needed).",
     "prompt.password": "Enter the password for this file:\n{path}"
   },
@@ -27,7 +26,6 @@
       "ページテキスト",
       "pdf pptx 解析"
     ],
-    "tool.system_prompt": "重要: このツールは PDF/PPTX/JSON を読み取り、ページ単位のテキストを返します。入力: path, page_index, max_chars。出力: ページテキスト（全ページまたは指定ページ）。",
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
@@ -42,7 +40,6 @@
       "texto por página",
       "pdf pptx leer"
     ],
-    "tool.system_prompt": "IMPORTANTE: esta herramienta lee PDF/PPTX/JSON y devuelve texto por página. Entrada: path, page_index, max_chars. Salida: texto de la página (todas las páginas o la página especificada).",
     "param.password.description": "Contraseña opcional para a...",
     "prompt.password": "Introduzca la contraseña de este arch..."
   },
@@ -57,7 +54,6 @@
       "texte par page",
       "pdf pptx lire"
     ],
-    "tool.system_prompt": "IMPORTANT : cet outil lit les fichiers PDF/PPTX/JSON et renvoie le texte au niveau de la page. Entrée : chemin, page_index, max_chars. Sortie : texte de la page (toutes les pages ou la page spécifiée).",
     "param.password.description": "Mot de passe facultatif po...",
     "prompt.password": "Entrez le mot de passe de ce fichier..."
   },
@@ -72,7 +68,6 @@
       "페이지 텍스트",
       "pdf pptx 추출"
     ],
-    "tool.system_prompt": "중요: 이 도구는 PDF/PPTX/JSON을 읽고 페이지 단위 텍스트를 반환합니다. 입력: path, page_index, max_chars. 출력: 페이지 텍스트(모든 페이지 또는 지정된 페이지).",
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
   },
@@ -87,7 +82,6 @@
       "seitentext",
       "pdf pptx text"
     ],
-    "tool.system_prompt": "WICHTIG: Dieses Tool liest PDF/PPTX/JSON und gibt Text auf Seitenebene zurück. Eingabe: Pfad, page_index, max_chars. Ausgabe: Seitentext (alle Seiten oder die angegebene Seite).",
     "param.password.description": "Optionales Kennwort für ve...",
     "prompt.password": "Bitte geben Sie das Kennwort für dies..."
   },
@@ -102,7 +96,6 @@
       "testo per pagina",
       "pdf pptx leggere"
     ],
-    "tool.system_prompt": "IMPORTANTE: questo strumento legge PDF/PPTX/JSON e restituisce testo a livello di pagina. Input: percorso, page_index, max_chars. Output: testo della pagina (tutte le pagine o la pagina specificata).",
     "param.password.description": "Password facoltativa per f...",
     "prompt.password": "Inserisci la password di questo file:\n{path}"
   },
@@ -117,7 +110,6 @@
       "текст по страницам",
       "pdf pptx читать"
     ],
-    "tool.system_prompt": "ВАЖНО: этот инструмент читает PDF/PPTX/JSON и возвращает текст на уровне страницы. Ввод: path, page_index, max_chars. Вывод: текст страницы (все страницы или указанная страница).",
     "param.password.description": "Необязательный пароль для...",
     "prompt.password": "Введите пароль для этого файла:\n{path}"
   },
@@ -132,7 +124,6 @@
       "texto por página",
       "pdf pptx ler"
     ],
-    "tool.system_prompt": "IMPORTANTE: esta ferramenta lê PDF/PPTX/JSON e retorna texto por página. Entrada: caminho, page_index, max_chars. Saída: texto da página (todas as páginas ou a página especificada).",
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
@@ -147,7 +138,6 @@
       "texto por página",
       "pdf pptx ler"
     ],
-    "tool.system_prompt": "IMPORTANTE: Esta ferramenta lê PDF/PPTX/JSON e retorna texto em nível de página. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
@@ -162,7 +152,6 @@
       "teks per halaman",
       "pdf pptx baca"
     ],
-    "tool.system_prompt": "PENTING: Alat ini membaca PDF/PPTX/JSON dan mengembalikan teks tingkat halaman. Input: path, page_index, max_chars. Output: teks halaman (semua halaman atau halaman yang ditentukan).",
     "param.password.description": "Kata sandi opsional untuk...",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
   },
@@ -177,7 +166,6 @@
       "văn bản theo trang",
       "pdf pptx đọc"
     ],
-    "tool.system_prompt": "QUAN TRỌNG: Công cụ này đọc PDF/PPTX/JSON và trả về văn bản cấp trang. Đầu vào: đường dẫn, page_index, max_chars. Đầu ra: văn bản trang (tất cả các trang hoặc trang được chỉ định).",
     "param.password.description": "Mật khẩu tùy chọn cho tệp...",
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
   },
@@ -192,7 +180,6 @@
       "tekst na stronę",
       "pdf pptx czytaj"
     ],
-    "tool.system_prompt": "WAŻNE: To narzędzie odczytuje pliki PDF/PPTX/JSON i zwraca tekst na poziomie strony. Dane wejściowe: ścieżka, indeks_strony, max_chars. Dane wyjściowe: tekst strony (wszystkie strony lub określona strona).",
     "param.password.description": "Opcjonalne hasło do zaszyf...",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
   },
@@ -207,7 +194,6 @@
       "पृष्ठ पाठ",
       "pdf pptx पढ़ना"
     ],
-    "tool.system_prompt": "महत्वपूर्ण: यह टूल PDF/PPTX/JSON पढ़ता है और पेज-स्तरीय टेक्स्ट लौटाता है। इनपुट: path, page_index, max_chars। आउटपुट: पेज टेक्स्ट (सभी पेज या निर्दिष्ट पेज)।",
     "param.password.description": "एन्क्रिप्टेड पीडीएफ/पीपीटी...",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
   },
@@ -222,7 +208,6 @@
       "نص الصفحة",
       "pdf pptx قراءة"
     ],
-    "tool.system_prompt": "هام: تقوم هذه الأداة بقراءة PDF/PPTX/JSON وإرجاع النص على مستوى الصفحة. الإدخال: path و page_index و max_chars. الإخراج: نص الصفحة (جميع الصفحات أو الصفحة المحددة).",
     "param.password.description": "كلمة مرور اختيارية لملفات...",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
   },
@@ -237,7 +222,6 @@
       "sidtext",
       "pdf pptx läs"
     ],
-    "tool.system_prompt": "VIKTIGT: Det här verktyget läser PDF/PPTX/JSON och returnerar text på sidnivå. Indata: path, page_index, max_chars. Utdata: sidtext (alla sidor eller angiven sida).",
     "param.password.description": "Valfritt lösenord för kryp...",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}"
   },
@@ -252,7 +236,6 @@
       "maandishi kwa ukurasa",
       "pdf pptx soma"
     ],
-    "tool.system_prompt": "MUHIMU: Zana hii husoma PDF/PPTX/JSON na kurudisha maandishi ya kila ukurasa. Ingizo: path, page_index, max_chars. Tokeo: maandishi ya ukurasa (kurasa zote au ukurasa uliochaguliwa).",
     "param.password.description": "Nenosiri la hiari kwa fail...",
     "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
   },
@@ -267,7 +250,6 @@
       "sidetekst",
       "pdf pptx les"
     ],
-    "tool.system_prompt": "VIKTIG: Dette verktøyet leser PDF/PPTX/JSON og returnerer tekst på sidenivå. Input: path, page_index, max_chars. Output: sidetekst (alle sider eller angitt side).",
     "param.password.description": "Valgfritt passord for kryp...",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
   },
@@ -282,7 +264,6 @@
       "paginatekst",
       "pdf pptx lezen"
     ],
-    "tool.system_prompt": "BELANGRIJK: deze tool leest PDF/PPTX/JSON en geeft tekst op paginaniveau terug. Invoer: path, page_index, max_chars. Uitvoer: tekst van de pagina (alle pagina’s of de opgegeven pagina).",
     "param.password.description": "Optioneel wachtwoord voor...",
     "prompt.password": "Voer het wachtwoord voor dit bestand..."
   },
@@ -297,7 +278,6 @@
       "sivuteksti",
       "pdf pptx lue"
     ],
-    "tool.system_prompt": "TÄRKEÄÄ: tämä työkalu lukee PDF/PPTX/JSON-tiedostoja ja palauttaa tekstin sivukohtaisesti. Syöte: path, page_index, max_chars. Tuloste: sivun teksti (kaikki sivut tai annettu sivu).",
     "param.password.description": "Valinnainen salasana salat...",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
   },
@@ -312,7 +292,6 @@
       "text strany",
       "pdf pptx číst"
     ],
-    "tool.system_prompt": "DŮLEŽITÉ: Tento nástroj čte PDF/PPTX/JSON a vrací text po stránkách. Vstup: path, page_index, max_chars. Výstup: text stránky (všechny stránky nebo zadaná stránka).",
     "param.password.description": "Volitelné heslo pro šifrov...",
     "prompt.password": "Zadejte heslo k tomuto souboru:\n{path}"
   },
@@ -327,7 +306,6 @@
       "текст сторінки",
       "pdf pptx читати"
     ],
-    "tool.system_prompt": "ВАЖЛИВО: цей інструмент читає PDF/PPTX/JSON і повертає текст на рівні сторінки. Вхід: path, page_index, max_chars. Вихід: текст сторінки (усі сторінки або вказана сторінка).",
     "param.password.description": "Необов’язковий пароль для...",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
   },
@@ -342,7 +320,6 @@
       "sayfa metni",
       "pdf pptx okuma"
     ],
-    "tool.system_prompt": "IMPORTANT: Bu araç PDF/PPTX/JSON okur ve sayfa düzeyinde metin döndürür. Giriş: yol, sayfa_dizini, maksimum_karakterler. Çıktı: sayfa metni (tüm sayfalar veya belirtilen sayfa).",
     "param.password.description": "Şifrelenmiş PDF/PPTX dosya...",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   },
@@ -357,7 +334,6 @@
       "ข้อความต่อหน้า",
       "pdf pptx อ่าน"
     ],
-    "tool.system_prompt": "สำคัญ: เครื่องมือนี้อ่าน PDF/PPTX/JSON และส่งคืนข้อความระดับหน้า อินพุต: path, page_index, max_chars เอาต์พุต: ข้อความของหน้า (ทุกหน้าหรือหน้าที่ระบุ)",
     "param.password.description": "รหัสผ่านสำหรับไฟล์ PDF/PPT...",
     "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
   },
@@ -372,7 +348,6 @@
       "页面文本",
       "pdf pptx 提取"
     ],
-    "tool.system_prompt": "重要：此工具读取 PDF/PPTX/JSON，并返回页级文本。输入：path、page_index、max_chars。输出：页面文本（全部页面或指定页面）。",
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "请输入此文件的密码：\n{path}"
   },
@@ -387,7 +362,6 @@
       "頁面文字",
       "pdf pptx 擷取"
     ],
-    "tool.system_prompt": "重要：此工具讀取 PDF/PPTX/JSON，並回傳頁面層級文字。輸入：path、page_index、max_chars。輸出：頁面文字（全部頁面或指定頁面）。",
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "請輸入此文件的密碼：\n{path}"
   },
@@ -402,7 +376,6 @@
       "পৃষ্ঠার লেখা",
       "pdf pptx পড়া"
     ],
-    "tool.system_prompt": "গুরুত্বপূর্ণ: এই টুল PDF/PPTX/JSON পড়ে এবং পৃষ্ঠা-স্তরের লেখা ফেরত দেয়। ইনপুট: path, page_index, max_chars। আউটপুট: পৃষ্ঠার লেখা (সব পৃষ্ঠা বা নির্দিষ্ট পৃষ্ঠা)।",
     "param.password.description": "এনক্রিপ্টেড PDF/PPTX ফাইলে...",
     "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
   },
@@ -417,7 +390,6 @@
       "متن صفحه",
       "pdf pptx خواندن"
     ],
-    "tool.system_prompt": "مهم: این ابزار PDF/PPTX/JSON را می‌خواند و متنِ سطحِ صفحه را برمی‌گرداند. ورودی: path، page_index، max_chars. خروجی: متن صفحه (همهٔ صفحه‌ها یا صفحهٔ مشخص‌شده).",
     "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
   },
@@ -432,7 +404,6 @@
       "хуудасны текст",
       "pdf pptx унш"
     ],
-    "tool.system_prompt": "ЧУХАЛ: Энэ хэрэгсэл нь PDF/PPTX/JSON уншаад хуудасны түвшний текст буцаана. Оролт: path, page_index, max_chars. Гаралт: хуудасны текст (бүх хуудас эсвэл заасан хуудас).",
     "param.password.description": "Шифрлэгдсэн PDF/PPTX файлы...",
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
   },
@@ -447,7 +418,6 @@
       "पृष्ठ मजकूर",
       "pdf pptx वाचन"
     ],
-    "tool.system_prompt": "महत्त्वाचे: हे tool PDF/PPTX/JSON वाचते आणि पृष्ठ-स्तरीय मजकूर परत करते. इनपुट: path, page_index, max_chars. आउटपुट: पानाचा मजकूर (सर्व पानांचा किंवा निर्दिष्ट पानाचा).",
     "param.password.description": "एन्क्रिप्टेड PDF/PPTX फाइल...",
     "prompt.password": "या फाइलचा password टाका:\n{path}"
   }

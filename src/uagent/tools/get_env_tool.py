@@ -20,10 +20,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Gets the value of a specified environment variable and returns it. Optionally masks the value.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="This tool is used for the following purpose: get the value of a specified environment variable and return it. Optionally mask the value.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

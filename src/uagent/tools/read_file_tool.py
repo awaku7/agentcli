@@ -55,10 +55,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Read file contents (max 1MB). Supports partial reading via start_line/max_lines.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default="Read file contents.\n- For large files, partial reading using start_line/max_lines is recommended.\n- Newlines are normalized automatically.",
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

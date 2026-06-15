@@ -52,12 +52,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "Apply image preprocessing such as grayscale, denoise, binarization, and edge enhancement, then save the result as a PNG."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Preprocess the provided image according to the selected mode or options, save the result as a PNG, and return only the saved file path."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

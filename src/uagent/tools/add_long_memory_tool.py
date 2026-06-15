@@ -24,13 +24,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "Save a single long-term memory note about the user/environment that may be useful in future conversations."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Save one useful long-term memory note.\n"
-                "Do not store secrets such as passwords, API keys, or tokens."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

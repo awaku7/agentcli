@@ -24,8 +24,7 @@
       "read text",
       "partial read",
       "max lines"
-    ],
-    "tool.system_prompt": "Read file contents.\n- For large files, partial reading using start_line/max_lines is recommended.\n- Newlines are normalized automatically."
+    ]
   },
   "ja": {
     "err.dual_lines": "[read_file error] head_lines と tail_lines は同時に指定できません",
@@ -52,8 +51,7 @@
       "最大行数",
       "テキストを読む",
       "ファイルリーダー"
-    ],
-    "tool.system_prompt": "ファイルの内容を読み取ります。大きいファイルの場合は start_line/max_lines による部分的な読み取りを推奨します。改行コードは自動的に正規化されます。"
+    ]
   },
   "es": {
     "err.dual_lines": "[error read_file] head_lines y tail_lines no pueden especificarse al...",
@@ -80,7 +78,6 @@
       "líneas máximas",
       "leer contenido"
     ],
-    "tool.system_prompt": "Lee contenidos de archivos. Para archivos grandes, se recomienda lectura parcial. Los saltos de línea se normalizan.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "fr": {
@@ -108,7 +105,6 @@
       "lignes max",
       "lire contenu"
     ],
-    "tool.system_prompt": "Lit le contenu du fichier. Pour les gros fichiers, privilégiez la lecture partielle. Normalisation automatique des sauts de ligne.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "ko": {
@@ -136,7 +132,6 @@
       "최대 줄 수",
       "내용 읽기"
     ],
-    "tool.system_prompt": "파일 내용을 읽습니다. 대용량 파일은 부분 읽기를 권장하며, 줄바꿈은 자동으로 정규화됩니다.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "de": {
@@ -164,7 +159,6 @@
       "max zeilen",
       "inhalt lesen"
     ],
-    "tool.system_prompt": "Liest Dateiinhalt. Für große Dateien wird teilweises Lesen empfohlen. Zeilenumbrüche werden automatisch normalisiert.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "it": {
@@ -192,7 +186,6 @@
       "righe max",
       "leggi contenuto"
     ],
-    "tool.system_prompt": "Legge il contenuto del file. Per file grandi, si consiglia la lettura parziale. Normalizzazione automatica dei ritorni a capo.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "ru": {
@@ -220,7 +213,6 @@
       "макс строк",
       "чтение содержимого"
     ],
-    "tool.system_prompt": "Читает файл. Для больших файлов используйте частичное чтение. Переносы строк нормализуются автоматически.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "pt_BR": {
@@ -248,7 +240,6 @@
       "linhas máximas",
       "ler conteúdo"
     ],
-    "tool.system_prompt": "Lê o conteúdo do arquivo. Para arquivos grandes, use leitura parcial. Quebras de linha são normalizadas.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "pt": {
@@ -276,7 +267,6 @@
       "linhas máximas",
       "ler conteúdo"
     ],
-    "tool.system_prompt": "Leia o conteúdo do arquivo.\n- Para arquivos grandes, recomenda-se a leitura parcial usando start_line/max_lines.\n- As novas linhas são normalizadas automaticamente.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "id": {
@@ -304,7 +294,6 @@
       "baris maksimum",
       "baca isi"
     ],
-    "tool.system_prompt": "Baca isi file.\n- Untuk file besar, disarankan pembacaan sebagian menggunakan start_line/max_lines.\n- Baris baru dinormalisasi secara otomatis.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "vi": {
@@ -332,7 +321,6 @@
       "số dòng tối đa",
       "đọc nội dung"
     ],
-    "tool.system_prompt": "Đọc nội dung tập tin.\n- Đối với các tệp lớn, nên đọc một phần bằng start_line/max_lines.\n- Dòng mới được chuẩn hóa tự động.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "pl": {
@@ -360,7 +348,6 @@
       "maks wierszy",
       "czytaj zawartość"
     ],
-    "tool.system_prompt": "Czyta zawartość pliku.\n- W przypadku dużych plików zaleca się częściowy odczyt z użyciem start_line/max_lines.\n- Nowe linie są automatycznie normalizowane.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "hi": {
@@ -388,7 +375,6 @@
       "अधिकतम पंक्तियाँ",
       "सामग्री पढ़ें"
     ],
-    "tool.system_prompt": "फ़ाइल सामग्री पढ़ें.\n- बड़ी फ़ाइलों के लिए, स्टार्ट_लाइन/मैक्स_लाइन्स का उपयोग करके आंशिक रूप से पढ़ने की अनुशंसा की जाती है।\n- नई लाइनें स्वचालित रूप से सामान्य हो जाती हैं।",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "ar": {
@@ -416,7 +402,6 @@
       "الحد الأقصى للأسطر",
       "قراءة المحتوى"
     ],
-    "tool.system_prompt": "اقرأ محتويات الملف.\n- بالنسبة للملفات الكبيرة، يوصى بالقراءة الجزئية باستخدام start_line/max_lines.\n- تتم تسوية فواصل الأسطر تلقائيًا.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "sv": {
@@ -444,7 +429,6 @@
       "max rader",
       "läs innehåll"
     ],
-    "tool.system_prompt": "Läs filinnehållet.\n- För stora filer rekommenderas partiell läsning med start_line/max_lines.\n- Radbrytningar normaliseras automatiskt.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "sw": {
@@ -472,7 +456,6 @@
       "mistari ya juu",
       "soma yaliyomo"
     ],
-    "tool.system_prompt": "Soma maudhui ya faili.\n- Kwa faili kubwa, inashauriwa kusoma kwa sehemu kwa kutumia start_line/max_lines.\n- Mivunjo ya mistari husawazishwa kiotomatiki.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "nb": {
@@ -500,7 +483,6 @@
       "maks linjer",
       "les innhold"
     ],
-    "tool.system_prompt": "Les filinnholdet.\n- For store filer anbefales delvis lesing med start_line/max_lines.\n- Linjeskift normaliseres automatisk.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "nl": {
@@ -528,7 +510,6 @@
       "max regels",
       "lees inhoud"
     ],
-    "tool.system_prompt": "Bestandsinhoud lezen.\n- Voor grote bestanden wordt gedeeltelijk lezen met start_line/max_lines aanbevolen.\n- Nieuwe regels worden automatisch genormaliseerd.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "fi": {
@@ -556,7 +537,6 @@
       "enimmäisrivimäärä",
       "lue sisältö"
     ],
-    "tool.system_prompt": "Lue tiedoston sisältö.\n- Suurille tiedostoille suositellaan osittaista lukemista start_line/max_lines-parametreilla.\n- Rivinvaihdot normalisoidaan automaattisesti.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "cs": {
@@ -584,7 +564,6 @@
       "max řádků",
       "číst obsah"
     ],
-    "tool.system_prompt": "Čte obsah souboru.\n- U velkých souborů se doporučuje částečné čtení pomocí start_line/max_lines.\n- Konce řádků se automaticky normalizují.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "uk": {
@@ -612,7 +591,6 @@
       "макс рядків",
       "читати вміст"
     ],
-    "tool.system_prompt": "Читає вміст файла.\n- Для великих файлів рекомендовано часткове читання через start_line/max_lines.\n- Перенесення рядків автоматично нормалізуються.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "tr": {
@@ -640,7 +618,6 @@
       "maksimum satır",
       "içeriği oku"
     ],
-    "tool.system_prompt": "Dosya içeriğini okuyun.\n- Büyük dosyalar için start_line/max_lines kullanılarak kısmi okuma yapılması önerilir.\n- Yeni satırlar otomatik olarak normalleştirilir.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "th": {
@@ -668,7 +645,6 @@
       "จำนวนบรรทัดสูงสุด",
       "อ่านเนื้อหา"
     ],
-    "tool.system_prompt": "อ่านเนื้อหาไฟล์ แนะนำให้อ่านบางส่วนสำหรับไฟล์ขนาดใหญ่ ปรับมาตรฐานการขึ้นบรรทัดให้อัตโนมัติ",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "zh_CN": {
@@ -696,7 +672,6 @@
       "最大行数",
       "读取内容"
     ],
-    "tool.system_prompt": "读取文件内容。大文件建议部分读取。换行符将自动标准化。",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "zh_TW": {
@@ -724,7 +699,6 @@
       "最大行數",
       "讀取內容"
     ],
-    "tool.system_prompt": "讀取檔案內容。大檔案建議部分讀取。換行符將自動標準化。",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "bn": {
@@ -752,7 +726,6 @@
       "সর্বোচ্চ লাইন",
       "বিষয়বস্তু পড়ুন"
     ],
-    "tool.system_prompt": "ফাইলের বিষয়বস্তু পড়ুন।\n- বড় ফাইল হলে start_line/max_lines ব্যবহার করে আংশিক পড়া সুপারিশ করা হয়।\n- নতুন লাইন স্বয়ংক্রিয়ভাবে স্বাভাবিকায়িত হয়।",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "fa": {
@@ -780,7 +753,6 @@
       "حداکثر سطرها",
       "خواندن محتوا"
     ],
-    "tool.system_prompt": "محتوای فایل را بخوانید.\n- برای فایل‌های بزرگ، خواندن بخشی با start_line/max_lines توصیه می‌شود.\n- خط‌های جدید به‌طور خودکار نرمال‌سازی می‌شوند.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "mn": {
@@ -808,7 +780,6 @@
       "дээд мөр",
       "агуулга унших"
     ],
-    "tool.system_prompt": "Файлын агуулгыг уншина.\n- Том файл бол start_line/max_lines ашиглан хэсэгчлэн уншихыг зөвлөж байна.\n- Шинэ мөрүүдийг автоматаар хэвийн болгоно.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   },
   "mr": {
@@ -836,7 +807,6 @@
       "कमाल ओळी",
       "सामग्री वाचा"
     ],
-    "tool.system_prompt": "फाइलची सामग्री वाचा.\n- मोठ्या फाइल्ससाठी start_line/max_lines वापरून आंशिक वाचन सुचवले जाते.\n- नवीन ओळी आपोआप सामान्यीकृत केल्या जातात.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
   }
 }

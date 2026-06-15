@@ -45,18 +45,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "Some operations or special characters in arguments may be restricted for security."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "This tool is used to run Git commands.\n"
-                "\n"
-                "Important: args must not include shell metacharacters. For safety, any argument containing the "
-                "following characters/sequences will be rejected: && || | > < `\n"
-                "For git commit messages, ';' is automatically replaced with ',' (only inside -m/--message).\n"
-                "\n"
-                "Return value: This tool always returns JSON with ok/returncode/stdout/stderr."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

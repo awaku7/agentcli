@@ -25,13 +25,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "Because this is dangerous, confirmation may be required."
             ),
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Delete the specified path only after confirming with the user if it is a potentially "
-                "destructive operation."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[

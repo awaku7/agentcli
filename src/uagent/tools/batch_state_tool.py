@@ -41,16 +41,6 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Manage batch state for multi-file tasks under ~/.uag/batches/.",
         ),
-        "system_prompt": _(
-            "tool.system_prompt",
-            default=(
-                "Manage batch state. Prefer targets=[{dir, files, index}] and current_target. "
-                "Use current to fetch the current file. After processing it, call complete_file. "
-                "Use reset to restore the batch to its original pending state while preserving metadata. "
-                "Use complete_file, skip_file, or error_file for explicit per-file results. "
-                "Return JSON only."
-            ),
-        ),
         "x_search_terms": _(
             "x_search_terms",
             default=[
