@@ -128,4 +128,12 @@ def run_tool(args: dict[str, Any]) -> str:
             prompt=prompt,
         )
 
+    if provider_l in ("deepseek",):
+        from .vision_deepseek import analyze_image_deepseek
+
+        return analyze_image_deepseek(
+            image_path=image_path,
+            prompt=prompt,
+        )
+
     raise RuntimeError(f"Unsupported provider: {provider}")

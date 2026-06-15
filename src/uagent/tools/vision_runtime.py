@@ -55,7 +55,7 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
     """Analyze an image via Responses API (OpenAI/Azure/OpenRouter/Ollama)."""
 
     provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
-    if provider not in ("openai", "azure", "bedrock", "openrouter", "ollama"):
+    if provider not in ("openai", "azure", "bedrock", "openrouter", "ollama", "deepseek"):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
