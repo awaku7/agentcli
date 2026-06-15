@@ -41,7 +41,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "lint_format",
         "description": _(
             "tool.description",
-            default="Run static analysis/formatters (e.g., ruff/black/mypy). mode=fix modifies files and requires confirmation.",
+            default="Run static analysis/formatters (ruff/black/mypy). mode=fix modifies files, needs confirmation.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -110,7 +110,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": None,
                     "description": _(
                         "param.cwd.description",
-                        default="Working directory (must be under workdir). Defaults to current directory if null.",
+                        default="Working dir (under workdir).",
                     ),
                 },
             },

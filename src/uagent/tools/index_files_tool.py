@@ -38,7 +38,7 @@ else:
             "name": "index_files",
             "description": _(
                 "tool.description",
-                default="Indexes specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful for preparing for search without reading file contents immediately.",
+                default="Indexes specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful for prep...",
             ),
             "x_search_terms": _(
                 "x_search_terms",

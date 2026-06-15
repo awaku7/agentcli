@@ -21,7 +21,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "ble_ops",
         "description": _(
             "tool.description",
-            default="Perform Bluetooth Low Energy (BLE) operations: scan for devices, read, or write GATT characteristics. Use MAC addresses on Windows/Linux, and UUIDs on macOS.",
+            default="Perform Bluetooth Low Energy (BLE) operations: scan for devices, read, or write GATT characteristics. Use MAC addresses on Windows/Linux, and UUIDs...",
         ),
         "parameters": {
             "type": "object",
@@ -31,7 +31,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["scan", "read", "write"],
                     "description": _(
                         "param.action.description",
-                        default="The operation to perform. scan: discover nearby devices, read: read characteristic, write: write characteristic",
+                        default="The operation to perform. scan: discover nearby devices, read: read characteristic, write: write characteristic.",
                     ),
                 },
                 "timeout": {
@@ -39,7 +39,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": 5,
                     "description": _(
                         "param.timeout.description",
-                        default="Timeout in seconds for scanning or connecting",
+                        default="Timeout (seconds).",
                     ),
                 },
                 "scan_mode": {
@@ -48,7 +48,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "ble",
                     "description": _(
                         "param.scan_mode.description",
-                        default="Scan mode. 'ble': scan only BLE devices (using bleak), 'all': scan both Classic Bluetooth and BLE devices (requires PySide6)",
+                        default="Scan mode. 'ble': scan only BLE devices (using bleak), 'all': scan both Classic Bluetooth and BLE devices (requires P...",
                     ),
                 },
                 "address": {
@@ -62,7 +62,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.char_uuid.description",
-                        default="GATT characteristic UUID to read or write",
+                        default="Char UUID.",
                     ),
                 },
                 "data_hex": {

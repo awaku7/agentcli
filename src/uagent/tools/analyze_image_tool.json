@@ -36,7 +36,7 @@
     "tool.system_prompt": "Analice la imagen descrita por el nombre de la herramienta \"analyze_image\" y devuelva el resultado."
   },
   "fr": {
-    "param.image_path.description": "Chemin d'accès au fichier image à analyser.",
+    "param.image_path.description": "Chemin d'accès au fichier image...",
     "param.prompt.description": "Ce que vous voulez savoir sur l'image.",
     "tool.description": "Chargez une image et demandez à AI (Vision) d’en décrire le contenu. Utile pour les captures d’écran, les graphiques et les tableaux.",
     "x_search_terms": [
@@ -69,9 +69,9 @@
     "tool.system_prompt": "Analysieren Sie das durch den Toolnamen \"analyze_image\" beschriebene Bild und geben Sie das Ergebnis zurück."
   },
   "it": {
-    "param.image_path.description": "Percorso del file immagine da analizzare.",
+    "param.image_path.description": "Percorso del file immagine da a...",
     "param.prompt.description": "Cosa vuoi sapere sull'immagine.",
-    "tool.description": "Carica un file immagine e chiedi ad AI (Vision) di descriverne il contenuto. Utile per analizzare screenshot o leggere grafici/tabelle.",
+    "tool.description": "Carica un file immagine e chiedi ad AI (Vision) di descriverne il contenuto.",
     "x_search_terms": [
       "Carica un file immagine e chiedi ad AI (Vision) di descriverne il contenuto. Utile per analizzare screenshot o leggere grafici/tabelle",
       "analyze_image",
@@ -82,7 +82,7 @@
   "ru": {
     "param.image_path.description": "Путь к файлу изображения для анализа.",
     "param.prompt.description": "Что вы хотите знать об изображении.",
-    "tool.description": "Загрузите файл изображения и попросите AI (Vision) описать его содержимое. Полезно для анализа снимков экрана или чтения диаграмм/таблиц.",
+    "tool.description": "Загрузите файл изображения и попросите AI (Vision) описать его содержимое.",
     "x_search_terms": [
       "Загрузите файл изображения и попросите AI (Vision) описать его содержимое. Полезно для анализа снимков экрана или чтения диаграмм/таблиц",
       "analyze_image",
@@ -91,7 +91,7 @@
     "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «analyze_image»."
   },
   "pt_BR": {
-    "param.image_path.description": "Caminho para o arquivo de imagem a ser analisado.",
+    "param.image_path.description": "Caminho para o arquivo de image...",
     "param.prompt.description": "O que você quer saber sobre a imagem.",
     "tool.description": "Carregue uma imagem e faça com que a IA (Visão) a descreva. Útil para capturas de tela, gráficos e tabelas.",
     "x_search_terms": [
@@ -102,9 +102,9 @@
     "tool.system_prompt": "Analise a imagem descrita pelo nome da ferramenta \"analyze_image\" e retorne o resultado."
   },
   "pt": {
-    "param.image_path.description": "Caminho para o arquivo de imagem a ser analisado.",
+    "param.image_path.description": "Caminho para o arquivo de image...",
     "param.prompt.description": "O que você quer saber sobre a imagem.",
-    "tool.description": "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo. Útil para analisar capturas de tela ou ler gráficos/tabelas.",
+    "tool.description": "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo.",
     "x_search_terms": [
       "Carregue um arquivo de imagem e faça com que a IA (Visão) descreva seu conteúdo. Útil para analisar capturas de tela ou ler gráficos/tabelas",
       "analyze_image",
@@ -113,7 +113,7 @@
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'analyze_image'."
   },
   "id": {
-    "param.image_path.description": "Jalur ke file gambar yang akan dianalisis.",
+    "param.image_path.description": "Jalur ke file gambar yang akan...",
     "param.prompt.description": "Apa yang ingin Anda ketahui tentang gambar.",
     "tool.description": "Muat file gambar dan minta AI (Vision) mendeskripsikan isinya. Berguna untuk menganalisis tangkapan layar atau membaca grafik/tabel.",
     "x_search_terms": [
@@ -168,7 +168,7 @@
     "tool.system_prompt": "تقوم هذه الأداة بتنفيذ العملية الموضحة باسم الأداة \"analyze_image\"."
   },
   "sv": {
-    "param.image_path.description": "Sökväg till bildfilen som ska analyseras.",
+    "param.image_path.description": "Sökväg till bildfilen som ska a...",
     "param.prompt.description": "Det du vill veta om bilden.",
     "tool.description": "Läs in en bildfil och låt AI (Vision) beskriva innehållet. Användbart för att analysera skärmdumpar eller läsa diagram/tabeller.",
     "x_search_terms": [
@@ -179,9 +179,9 @@
     "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet \"analyze_image\"."
   },
   "sw": {
-    "param.image_path.description": "Njia ya faili la picha litakalochanganuliwa.",
+    "param.image_path.description": "Njia ya faili la picha litakalo...",
     "param.prompt.description": "Unachotaka kujua kuhusu picha.",
-    "tool.description": "Pakia faili la picha na umwombe AI ya kuona (Vision) aeleze maudhui yake. Inafaa kwa kuchanganua picha za skrini, chati, na majedwali.",
+    "tool.description": "Pakia faili la picha na umwombe AI ya kuona (Vision) aeleze maudhui yake.",
     "x_search_terms": [
       "Pakia faili la picha na umwombe AI ya kuona (Vision) aeleze maudhui yake. Inafaa kwa kuchanganua picha za skrini, chati, na majedwali",
       "analyze_image",
@@ -190,7 +190,7 @@
     "tool.system_prompt": "Changanua picha iliyoelezwa na jina la zana \"analyze_image\" na urudishe matokeo."
   },
   "nb": {
-    "param.image_path.description": "Sti til bildefilen som skal analyseres.",
+    "param.image_path.description": "Sti til bildefilen som skal ana...",
     "param.prompt.description": "Det du vil vite om bildet.",
     "tool.description": "Last inn en bildefil og la AI (Vision) beskrive innholdet. Nyttig for å analysere skjermbilder eller lese grafer/tabeller.",
     "x_search_terms": [
@@ -201,9 +201,9 @@
     "tool.system_prompt": "Dette verktøyet utfører operasjonen som er beskrevet av verktøynavnet \"analyze_image\"."
   },
   "nl": {
-    "param.image_path.description": "Pad naar het afbeeldingsbestand om te analyseren.",
+    "param.image_path.description": "Pad naar het afbeeldingsbestand...",
     "param.prompt.description": "Wat u over de afbeelding wilt weten.",
-    "tool.description": "Laad een afbeeldingsbestand en laat AI (Vision) de inhoud beschrijven. Handig voor het analyseren van screenshots of het lezen van grafieken/tabellen.",
+    "tool.description": "Laad een afbeeldingsbestand en laat AI (Vision) de inhoud beschrijven.",
     "x_search_terms": [
       "Laad een afbeeldingsbestand en laat AI (Vision) de inhoud beschrijven. Handig voor het analyseren van screenshots of het lezen van grafieken/tabellen",
       "analyze_image",
@@ -214,7 +214,7 @@
   "fi": {
     "param.image_path.description": "Analysoitavan kuvatiedoston polku.",
     "param.prompt.description": "Mitä haluat tietää kuvasta.",
-    "tool.description": "Lataa kuvatiedosto ja anna tekoälyn (Vision) kuvata sen sisältö. Hyödyllinen kuvakaappausten analysointiin tai kaavioiden/taulukoiden lukemiseen.",
+    "tool.description": "Lataa kuvatiedosto ja anna tekoälyn (Vision) kuvata sen sisältö.",
     "x_search_terms": [
       "Lataa kuvatiedosto ja anna tekoälyn (Vision) kuvata sen sisältö. Hyödyllinen kuvakaappausten analysointiin tai kaavioiden/taulukoiden lukemiseen",
       "analyze_image",
@@ -245,7 +245,7 @@
     "tool.system_prompt": "Проаналізуйте зображення, описане назвою інструмента \"analyze_image\", і поверніть результат."
   },
   "tr": {
-    "param.image_path.description": "Analiz edilecek görüntü dosyasının yolu.",
+    "param.image_path.description": "Analiz edilecek görüntü dosyası...",
     "param.prompt.description": "Resim hakkında bilmek istedikleriniz.",
     "tool.description": "Bir resim yükleyin ve AI (Görme)'nin bunu açıklamasını sağlayın. Ekran görüntüleri, grafikler ve tablolar için kullanışlıdır.",
     "x_search_terms": [
@@ -312,7 +312,7 @@
   },
   "mn": {
     "param.image_path.description": "Шинжлэх зургийн файлын зам.",
-    "param.prompt.description": "Зургийн талаар юу мэдэхийг хүсэж байгаагаа бичнэ үү.",
+    "param.prompt.description": "Зургийн талаар юу мэдэхийг хүсэж байгаага...",
     "tool.description": "Зургийн файлыг ачаалж, AI (Vision)-аар агуулгыг нь тайлбарлуулна. Дэлгэцийн зураг, график, хүснэгтэд хэрэгтэй.",
     "x_search_terms": [
       "Зургийн файлыг ачаалж, AI (Vision)-аар агуулгыг нь тайлбарлуулна. Дэлгэцийн зураг, график, хүснэгтэд хэрэгтэй",
@@ -322,7 +322,7 @@
     "tool.system_prompt": "\"analyze_image\" хэрэгслийн нэрээр тодорхойлсон зургийг шинжилж, үр дүнг буцаана уу."
   },
   "mr": {
-    "param.image_path.description": "विश्लेषण करायच्या प्रतिमा फाइलचा path.",
+    "param.image_path.description": "विश्लेषण करायच्या प्रतिमा फाइलच...",
     "param.prompt.description": "प्रतिमेबद्दल तुम्हाला काय जाणून घ्यायचे आहे.",
     "tool.description": "एक प्रतिमा लोड करा आणि AI (Vision) कडून तिचे वर्णन करून घ्या. स्क्रीनशॉट, चार्ट आणि तक्त्यांसाठी उपयुक्त.",
     "x_search_terms": [

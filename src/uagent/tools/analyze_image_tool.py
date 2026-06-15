@@ -57,7 +57,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.prompt.description",
-                        default="What you want to know about the image (e.g., 'Read the error message in this image', 'Describe the UI layout'). If omitted, it will default to 'Please describe this image in detail'.",
+                        default="What you want to know about the image (e. g.",
                     ),
                 },
             },

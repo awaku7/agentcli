@@ -128,7 +128,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": 10,
                     "description": _(
                         "param.timeout.description",
-                        default="Timeout in seconds for the request.",
+                        default="Timeout (seconds).",
                     ),
                 },
                 "verify_ssl": {

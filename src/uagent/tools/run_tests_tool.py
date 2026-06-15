@@ -37,7 +37,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "run_tests",
         "description": _(
             "tool.description",
-            default="Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
+            default="Run tests (auto-detects pytest/unittest/npm). Extra args with shell metachars rejected.",
         ),
         "x_search_terms": _(
             "x_search_terms",

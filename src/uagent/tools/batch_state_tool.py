@@ -87,18 +87,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": list(_TOOL_ACTIONS),
                     "description": _(
                         "param.action.description",
-                        default=(
-                            "Action: init/load/status/current/complete_file/skip_file/error_file/reset/finalize/list. "
-                            "Use current for the current file. After processing it, call complete_file. "
-                            "Use complete_file, skip_file, or error_file for explicit per-file results."
-                        ),
+                        default="Action: init/load/status/current/complete_file/...",
                     ),
                 },
                 "batch_id": {
                     "type": "string",
                     "description": _(
                         "param.batch_id.description",
-                        default="Batch ID. Required for load/status/reset/finalize; optional for init/list.",
+                        default="Batch ID.",
                     ),
                 },
                 "task_description": {
@@ -184,7 +180,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": sorted(_ALLOWED_STATUSES),
                     "description": _(
                         "param.status.description",
-                        default="Batch status: active/done/paused/cancelled/error.",
+                        default="Batch status.",
                     ),
                 },
                 "message": {

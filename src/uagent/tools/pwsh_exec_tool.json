@@ -3,7 +3,7 @@
     "err.timeout": "[pwsh_exec timeout] did not finish within {seconds} seconds",
     "param.command.description": "PowerShell command string passed to -Command.",
     "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
-    "tool.description": "As a last resort, execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available.",
+    "tool.description": "Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh exec"
@@ -24,10 +24,10 @@
     "tool.system_prompt": "このツールは【最終手段】です。\n1. まず handle_mcp / mcp_tools_list で代替手段がないか確認してください。\n2. 他に手段がない場合にのみ、このツールで PowerShell を実行します。\n3. Python の実行には使用しないでください。代わりに python_exec ツールを使用してください。\n\nセキュリティ注記:\n- download-exec（IWR/IRM/curl/wget 等）、Base64(-Enc) 等の危険パターンは確認が入る/ブロックされます。"
   },
   "es": {
-    "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en {seconds} segundos",
-    "param.command.description": "Cadena de comando de PowerShell pasada a -Command.",
-    "param.shell.description": "Ejecutable de PowerShell a utilizar: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell). Si se omite, se seleccionará automáticamente.",
-    "tool.description": "Como último recurso, ejecute PowerShell. Úselo solo cuando no haya otra herramienta adecuada, por ejemplo MCP.",
+    "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en {seconds}...",
+    "param.command.description": "Cadena de comando de PowerShell pasada a -...",
+    "param.shell.description": "Ejecutable de PowerShell a utilizar: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell).",
+    "tool.description": "Como último recurso, ejecute PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh exec",
@@ -37,10 +37,10 @@
     "tool.system_prompt": "Esta herramienta es el ÚLTIMO RECURSO.\n1. Primero verifique si se puede usar handle_mcp / mcp_tools_list en su lugar.\n2. Use esta herramienta solo cuando no haya otra herramienta adecuada disponible.\n3. No use esta herramienta para ejecutar Python; use python_exec en su lugar.\n\nNotas de seguridad:\n- Los patrones peligrosos como download-exec (IWR/IRM/curl/wget) y Base64 (-Enc) pueden bloquearse o requerir confirmación."
   },
   "fr": {
-    "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans les {seconds} secondes",
-    "param.command.description": "Chaîne de commande PowerShell transmise à -Command.",
-    "param.shell.description": "Exécutable PowerShell à utiliser : 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell). En cas d'omission, sélection automatique.",
-    "tool.description": "En dernier recours, exécutez PowerShell. À utiliser uniquement lorsqu’aucun autre outil approprié, par exemple MCP, n’est disponible.",
+    "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans le...",
+    "param.command.description": "Chaîne de commande PowerShell transmise à...",
+    "param.shell.description": "Exécutable PowerShell à utiliser : 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
+    "tool.description": "En dernier recours, exécutez PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh exec",
@@ -63,10 +63,10 @@
     "tool.system_prompt": "이 도구는 마지막 수단입니다.\n1. 먼저 대신 handle_mcp / mcp_tools_list를 사용할 수 있는지 확인하세요.\n2. 다른 적절한 도구가 없을 때만 이 도구를 사용하세요.\n3. Python을 실행하는 데 이 도구를 사용하지 마세요. 대신 python_exec를 사용하세요.\n\n보안 참고 사항:\n- download-exec(IWR/IRM/curl/wget) 및 Base64(-Enc) 같은 위험한 패턴은 차단되거나 확인이 필요할 수 있습니다."
   },
   "de": {
-    "err.timeout": "[pwsh_exec timeout] wurde nicht innerhalb von {seconds} Sekunden beendet",
-    "param.command.description": "PowerShell-Befehlszeichenfolge, die an -Command übergeben wird.",
-    "param.shell.description": "Zu verwendende PowerShell-Exe: 'pwsh' (PowerShell 7+) oder 'powershell' (Windows PowerShell). Wenn weggelassen, erfolgt die automatische Auswahl.",
-    "tool.description": "Als letzten Ausweg führen Sie PowerShell aus. Nur verwenden, wenn kein anderes geeignetes Tool, z. B. MCP, verfügbar ist.",
+    "err.timeout": "[pwsh_exec timeout] wurde nicht innerhalb von {seconds}...",
+    "param.command.description": "PowerShell-Befehlszeichenfolge, die an -Co...",
+    "param.shell.description": "Zu verwendende PowerShell-Exe: 'pwsh' (PowerShell 7+) oder 'powershell' (Windows PowerShell).",
+    "tool.description": "Als letzten Ausweg führen Sie PowerShell aus.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh ausführen",
@@ -77,9 +77,9 @@
   },
   "it": {
     "err.timeout": "[timeout pwsh_exec] non è terminato entro {seconds} secondi",
-    "param.command.description": "Stringa di comando di PowerShell passata a -Command.",
-    "param.shell.description": "Eseguibile di PowerShell da usare: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell). Se omesso, viene selezionato automaticamente.",
-    "tool.description": "Come ultima risorsa, esegui PowerShell. Utilizzare solo quando non è disponibile alcun altro strumento appropriato, ad esempio MCP.",
+    "param.command.description": "Stringa di comando di PowerShell passata a...",
+    "param.shell.description": "Eseguibile di PowerShell da usare: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell).",
+    "tool.description": "Come ultima risorsa, esegui PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh esegui",
@@ -90,9 +90,9 @@
   },
   "ru": {
     "err.timeout": "[таймаут pwsh_exec] не завершился в течение {seconds} секунд",
-    "param.command.description": "Командная строка PowerShell передается в -Command.",
-    "param.shell.description": "Исполняемый файл PowerShell для использования: 'pwsh' (PowerShell 7+) или 'powershell' (Windows PowerShell). Если не указано, выбирается автоматически.",
-    "tool.description": "В крайнем случае выполните PowerShell. Используйте только тогда, когда другой подходящий инструмент, например MCP, недоступен.",
+    "param.command.description": "Командная строка PowerShell передается в -...",
+    "param.shell.description": "Исполняемый файл PowerShell для использования: 'pwsh' (PowerShell 7+) или 'powershell' (Windows PowerShell).",
+    "tool.description": "В крайнем случае выполните PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh запуск",
@@ -103,9 +103,9 @@
   },
   "pt_BR": {
     "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
-    "param.command.description": "String de comando do PowerShell passada para -Command.",
-    "param.shell.description": "Executável do PowerShell a usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell). Se omitido, a seleção será automática.",
-    "tool.description": "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta adequada, como MCP, estiver disponível.",
+    "param.command.description": "String de comando do PowerShell passada pa...",
+    "param.shell.description": "Executável do PowerShell a usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
+    "tool.description": "Como último recurso, execute o PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh exec",
@@ -116,9 +116,9 @@
   },
   "pt": {
     "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
-    "param.command.description": "Cadeia de comandos do PowerShell passada para -Command.",
-    "param.shell.description": "Executável do PowerShell para usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell). Se omitido, selecione automaticamente.",
-    "tool.description": "Como último recurso, execute o PowerShell. Use somente quando nenhuma outra ferramenta apropriada, como MCP, estiver disponível.",
+    "param.command.description": "Cadeia de comandos do PowerShell passada p...",
+    "param.shell.description": "Executável do PowerShell para usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
+    "tool.description": "Como último recurso, execute o PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh exec",
@@ -129,9 +129,9 @@
   },
   "id": {
     "err.timeout": "[pwsh_exec timeout] tidak selesai dalam {seconds} detik",
-    "param.command.description": "String perintah PowerShell yang diteruskan ke -Command.",
-    "param.shell.description": "Executable PowerShell yang digunakan: 'pwsh' (PowerShell 7+) atau 'powershell' (Windows PowerShell). Jika dihilangkan, pilih otomatis.",
-    "tool.description": "Sebagai upaya terakhir, jalankan PowerShell. Gunakan hanya jika tidak ada alat lain yang sesuai (misalnya MCP).",
+    "param.command.description": "String perintah PowerShell yang diteruskan...",
+    "param.shell.description": "Executable PowerShell yang digunakan: 'pwsh' (PowerShell 7+) atau 'powershell' (Windows PowerShell).",
+    "tool.description": "Sebagai upaya terakhir, jalankan PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh jalankan",
@@ -141,10 +141,10 @@
     "tool.system_prompt": "Alat ini adalah UPAYA TERAKHIR.\n1. Pertama periksa apakah handle_mcp / mcp_tools_list dapat digunakan.\n2. Gunakan alat ini hanya jika tidak ada alat lain yang sesuai.\n3. Jangan gunakan alat ini untuk menjalankan Python; gunakan python_exec sebagai gantinya.\n\nCatatan keamanan:\n- Pola berbahaya seperti download-exec (IWR/IRM/curl/wget) dan Base64 (-Enc) dapat diblokir atau memerlukan konfirmasi."
   },
   "vi": {
-    "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng {seconds} giây",
+    "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng {s...",
     "param.command.description": "Chuỗi lệnh PowerShell được chuyển tới -Command.",
-    "param.shell.description": "PowerShell có thể thực thi để sử dụng: 'pwsh' (PowerShell 7+) hoặc 'powershell' (Windows PowerShell). Nếu bỏ qua, hãy tự động chọn.",
-    "tool.description": "Phương án cuối cùng là thực thi PowerShell. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác (ví dụ: MCP).",
+    "param.shell.description": "PowerShell có thể thực thi để sử dụng: 'pwsh' (PowerShell 7+) hoặc 'powershell' (Windows PowerShell).",
+    "tool.description": "Phương án cuối cùng là thực thi PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh thực thi",
@@ -156,8 +156,8 @@
   "pl": {
     "err.timeout": "[pwsh_exec timeout] nie zakończono w ciągu {seconds} sekund",
     "param.command.description": "Ciąg poleceń PowerShell przekazany do -Command.",
-    "param.shell.description": "Plik wykonywalny PowerShell do użycia: „pwsh” (PowerShell 7+) lub „powershell” (Windows PowerShell). Jeśli zostanie pominięty, wybierz automatycznie.",
-    "tool.description": "W ostateczności uruchom PowerShell. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie (np. MCP).",
+    "param.shell.description": "Plik wykonywalny PowerShell do użycia: „pwsh” (PowerShell 7+) lub „powershell” (Windows PowerShell).",
+    "tool.description": "W ostateczności uruchom PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh uruchom",
@@ -168,9 +168,9 @@
   },
   "hi": {
     "err.timeout": "[pwsh_exec टाइमआउट] {seconds} सेकंड के भीतर समाप्त नहीं हुआ",
-    "param.command.description": "-Command को पास की जाने वाली PowerShell कमांड स्ट्रिंग।",
-    "param.shell.description": "उपयोग करने योग्य PowerShell निष्पादन योग्य: 'pwsh' (PowerShell 7+) या 'powershell' (Windows PowerShell)। यदि छोड़ा गया हो, तो स्वतः चुनें।",
-    "tool.description": "अंतिम उपाय के रूप में PowerShell निष्पादित करें। इसे केवल तभी उपयोग करें जब कोई अन्य उपयुक्त उपकरण, जैसे MCP, उपलब्ध न हो।",
+    "param.command.description": "-Command को पास की जाने वाली PowerShell कम...",
+    "param.shell.description": "उपयोग करने योग्य PowerShell निष्पादन योग्य: 'pwsh' (PowerShell 7+) या 'powershell' (Windows PowerShell)। यदि छोड...",
+    "tool.description": "अंतिम उपाय के रूप में PowerShell निष्पादित करें। इसे केवल तभी उपयोग करें जब कोई अन्...",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh चलाएँ",
@@ -182,8 +182,8 @@
   "ar": {
     "err.timeout": "[مهلة pwsh_exec] لم تنته خلال {seconds} ثانية",
     "param.command.description": "تم تمرير سلسلة أوامر PowerShell إلى -Command.",
-    "param.shell.description": "ملف PowerShell التنفيذي المستخدم: 'pwsh' (PowerShell 7+) أو 'powershell' (Windows PowerShell). إذا تم حذفه، فسيتم اختياره تلقائيًا.",
-    "tool.description": "كحل أخير، قم بتنفيذ PowerShell. استخدم فقط في حالة عدم توفر أي أداة أخرى مناسبة (على سبيل المثال، MCP).",
+    "param.shell.description": "ملف PowerShell التنفيذي المستخدم: 'pwsh' (PowerShell 7+) أو 'powershell' (Windows PowerShell).",
+    "tool.description": "كحل أخير، قم بتنفيذ PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "تشغيل pwsh",
@@ -194,9 +194,9 @@
   },
   "sv": {
     "err.timeout": "[pwsh_exec timeout] blev inte klar inom {seconds} sekunder",
-    "param.command.description": "PowerShell-kommandosträng som skickas till -Command.",
-    "param.shell.description": "PowerShell-exekveringsfil att använda: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Om den utelämnas väljs den automatiskt.",
-    "tool.description": "Som sista utväg, kör PowerShell. Använd endast när inget annat lämpligt verktyg, till exempel MCP, finns tillgängligt.",
+    "param.command.description": "PowerShell-kommandosträng som skickas till...",
+    "param.shell.description": "PowerShell-exekveringsfil att använda: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell).",
+    "tool.description": "Som sista utväg, kör PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh kör",
@@ -209,7 +209,7 @@
     "err.timeout": "[pwsh_exec timeout] did not finish within {seconds} seconds",
     "param.command.description": "PowerShell command string passed to -Command.",
     "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
-    "tool.description": "As a last resort, execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available.",
+    "tool.description": "As a last resort, execute PowerShell.Use only when no other appropriate tool (e.g.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh run",
@@ -220,9 +220,9 @@
   },
   "nb": {
     "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen {seconds} sekunder",
-    "param.command.description": "PowerShell-kommando-streng som sendes til -Command.",
-    "param.shell.description": "PowerShell-kjørbar fil som skal brukes: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell). Hvis den utelates, velges den automatisk.",
-    "tool.description": "Som siste utvei, kjør PowerShell. Bruk bare når ingen andre passende verktøy, for eksempel MCP, er tilgjengelige.",
+    "param.command.description": "PowerShell-kommando-streng som sendes til...",
+    "param.shell.description": "PowerShell-kjørbar fil som skal brukes: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell).",
+    "tool.description": "Som siste utvei, kjør PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh kjør",
@@ -233,9 +233,9 @@
   },
   "nl": {
     "err.timeout": "[pwsh_exec timeout] niet voltooid binnen {seconds} seconden",
-    "param.command.description": "PowerShell-opdrachtstring die aan -Command wordt doorgegeven.",
-    "param.shell.description": "PowerShell-uitvoerbaar bestand om te gebruiken: 'pwsh' (PowerShell 7+) of 'powershell' (Windows PowerShell). Indien weggelaten, wordt automatisch gekozen.",
-    "tool.description": "Voer als laatste redmiddel PowerShell uit. Gebruik dit alleen wanneer geen andere geschikte tool (bijv. MCP) beschikbaar is.",
+    "param.command.description": "PowerShell-opdrachtstring die aan -Command...",
+    "param.shell.description": "PowerShell-uitvoerbaar bestand om te gebruiken: 'pwsh' (PowerShell 7+) of 'powershell' (Windows PowerShell).",
+    "tool.description": "Voer als laatste redmiddel PowerShell uit.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh uitvoeren",
@@ -246,9 +246,9 @@
   },
   "fi": {
     "err.timeout": "[pwsh_exec aikakatkaisu] ei valmistunut {seconds} sekunnissa",
-    "param.command.description": "PowerShell-komentorivi, joka välitetään -Command-parametrille.",
-    "param.shell.description": "Käytettävä PowerShell-suoritettava: 'pwsh' (PowerShell 7+) tai 'powershell' (Windows PowerShell). Jos jätetään pois, valitaan automaattisesti.",
-    "tool.description": "Suorita PowerShell vain viimeisenä keinona. Käytä tätä vain, kun mitään muuta sopivaa työkalua, kuten MCP:tä, ei ole käytettävissä.",
+    "param.command.description": "PowerShell-komentorivi, joka välitetään -C...",
+    "param.shell.description": "Käytettävä PowerShell-suoritettava: 'pwsh' (PowerShell 7+) tai 'powershell' (Windows PowerShell).",
+    "tool.description": "Suorita PowerShell vain viimeisenä keinona.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh suorita",
@@ -260,8 +260,8 @@
   "cs": {
     "err.timeout": "[pwsh_exec timeout] nebylo dokončeno během {seconds} sekund",
     "param.command.description": "Řetězec příkazu PowerShell předaný do -Command.",
-    "param.shell.description": "Spustitelný soubor PowerShellu, který se použije: 'pwsh' (PowerShell 7+) nebo 'powershell' (Windows PowerShell). Pokud je vynecháno, vybere se automaticky.",
-    "tool.description": "Jako poslední možnost spusťte PowerShell. Používejte pouze tehdy, když není k dispozici žádný jiný vhodný nástroj, například MCP.",
+    "param.shell.description": "Spustitelný soubor PowerShellu, který se použije: 'pwsh' (PowerShell 7+) nebo 'powershell' (Windows PowerShell).",
+    "tool.description": "Jako poslední možnost spusťte PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh spustit",
@@ -272,9 +272,9 @@
   },
   "uk": {
     "err.timeout": "[тайм-аут pwsh_exec] не завершився протягом {seconds} секунд",
-    "param.command.description": "Рядок команди PowerShell, що передається до -Command.",
-    "param.shell.description": "Виконуваний файл PowerShell для використання: 'pwsh' (PowerShell 7+) або 'powershell' (Windows PowerShell). Якщо не вказано, вибирається автоматично.",
-    "tool.description": "Як крайній захід, виконайте PowerShell. Використовуйте лише тоді, коли немає іншого відповідного інструмента, наприклад MCP.",
+    "param.command.description": "Рядок команди PowerShell, що передається д...",
+    "param.shell.description": "Виконуваний файл PowerShell для використання: 'pwsh' (PowerShell 7+) або 'powershell' (Windows PowerShell).",
+    "tool.description": "Як крайній захід, виконайте PowerShell.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh запуск",
@@ -286,8 +286,8 @@
   "tr": {
     "err.timeout": "[pwsh_exec timeout] {seconds} saniye içinde tamamlanmadı",
     "param.command.description": "PowerShell komut dizesi -Command'a aktarıldı.",
-    "param.shell.description": "Kullanılacak PowerShell yürütülebilir dosyası: 'pwsh' (PowerShell 7+) veya 'powershell' (Windows PowerShell). Atlanırsa otomatik seçin.",
-    "tool.description": "Son çare olarak PowerShell'i çalıştırın. Yalnızca başka uygun bir araç (örn. MCP) mevcut olmadığında kullanın.",
+    "param.shell.description": "Kullanılacak PowerShell yürütülebilir dosyası: 'pwsh' (PowerShell 7+) veya 'powershell' (Windows PowerShell).",
+    "tool.description": "Son çare olarak PowerShell'i çalıştırın.Yalnızca başka uygun bir araç (örn.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh çalıştır",
@@ -299,7 +299,7 @@
   "th": {
     "err.timeout": "[pwsh_exec หมดเวลา] ไม่เสร็จสิ้นภายใน {seconds} วินาที",
     "param.command.description": "สตริงคำสั่ง PowerShell ที่ส่งผ่านไปยัง -Command",
-    "param.shell.description": "ไฟล์ปฏิบัติการ PowerShell ที่จะใช้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ระบบจะเลือกให้อัตโนมัติ",
+    "param.shell.description": "ไฟล์ปฏิบัติการ PowerShell ที่จะใช้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ระบบ...",
     "tool.description": "เป็นทางเลือกสุดท้าย ให้รัน PowerShell ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น MCP เท่านั้น",
     "x_search_terms": [
       "pwsh_exec",
@@ -338,8 +338,8 @@
   "bn": {
     "err.timeout": "[pwsh_exec timeout] {seconds} সেকেন্ডের মধ্যে শেষ হয়নি",
     "param.command.description": "-Command-এ পাঠানো PowerShell কমান্ড স্ট্রিং।",
-    "param.shell.description": "ব্যবহারযোগ্য PowerShell executable: 'pwsh' (PowerShell 7+) অথবা 'powershell' (Windows PowerShell)। উল্লেখ না করলে স্বয়ংক্রিয়ভাবে নির্বাচন করবে।",
-    "tool.description": "শেষ আশ্রয় হিসেবে PowerShell চালান। অন্য কোনো উপযুক্ত tool (যেমন MCP) না থাকলে কেবল ব্যবহার করুন।",
+    "param.shell.description": "ব্যবহারযোগ্য PowerShell executable: 'pwsh' (PowerShell 7+) অথবা 'powershell' (Windows PowerShell)। উল্লেখ না করল...",
+    "tool.description": "শেষ আশ্রয় হিসেবে PowerShell চালান। অন্য কোনো উপযুক্ত tool (যেমন MCP) না থাকলে কেবল...",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh চালান",
@@ -350,9 +350,9 @@
   },
   "fa": {
     "err.timeout": "[مهلت pwsh_exec] در مدت {seconds} ثانیه تمام نشد",
-    "param.command.description": "رشتهٔ فرمان PowerShell که به -Command ارسال می‌شود.",
-    "param.shell.description": "اجرای PowerShell مورد استفاده: 'pwsh' (PowerShell 7+) یا 'powershell' (Windows PowerShell). اگر مشخص نشود، به‌صورت خودکار انتخاب می‌شود.",
-    "tool.description": "در آخرین چاره، PowerShell را اجرا کنید. فقط وقتی هیچ ابزار مناسب دیگری (مثلاً MCP) در دسترس نیست از آن استفاده کنید.",
+    "param.command.description": "رشتهٔ فرمان PowerShell که به -Command ارسا...",
+    "param.shell.description": "اجرای PowerShell مورد استفاده: 'pwsh' (PowerShell 7+) یا 'powershell' (Windows PowerShell).",
+    "tool.description": "در آخرین چاره، PowerShell را اجرا کنید.",
     "x_search_terms": [
       "pwsh_exec",
       "اجرای pwsh",
@@ -364,8 +364,8 @@
   "mn": {
     "err.timeout": "[pwsh_exec timeout] {seconds} секундийн дотор дууссангүй",
     "param.command.description": "-Command руу дамжуулах PowerShell command string.",
-    "param.shell.description": "Ашиглах PowerShell executable: 'pwsh' (PowerShell 7+) эсвэл 'powershell' (Windows PowerShell). Заагаагүй бол автоматаар сонгоно.",
-    "tool.description": "Сүүлчийн арга болгон PowerShell ажиллуулна. Өөр тохирох хэрэгсэл (жиш., MCP) байхгүй үед л ашиглана.",
+    "param.shell.description": "Ашиглах PowerShell executable: 'pwsh' (PowerShell 7+) эсвэл 'powershell' (Windows PowerShell).",
+    "tool.description": "Сүүлчийн арга болгон PowerShell ажиллуулна.Өөр тохирох хэрэгсэл (жиш.",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh ажиллуулах",
@@ -377,7 +377,7 @@
   "mr": {
     "err.timeout": "[pwsh_exec timeout] {seconds} सेकंदांत पूर्ण झाले नाही",
     "param.command.description": "-Command ला दिलेली PowerShell command string.",
-    "param.shell.description": "वापरण्यासाठी PowerShell executable: 'pwsh' (PowerShell 7+) किंवा 'powershell' (Windows PowerShell). दिले नाही तर आपोआप निवडले जाईल.",
+    "param.shell.description": "वापरण्यासाठी PowerShell executable: 'pwsh' (PowerShell 7+) किंवा 'powershell' (Windows PowerShell).",
     "tool.description": "शेवटचा उपाय म्हणून PowerShell चालवा. इतर कोणतेही योग्य tool (उदा. MCP) उपलब्ध नसल्यासच वापरा.",
     "x_search_terms": [
       "pwsh_exec",

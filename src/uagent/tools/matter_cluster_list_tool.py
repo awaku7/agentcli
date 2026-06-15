@@ -29,7 +29,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "matter_cluster_list",
         "description": _(
             "tool.description",
-            default="List Matter clusters and return a JSON or text summary.",
+            default="List Matter clusters for a device.",
         ),
         "parameters": {
             "type": "object",
@@ -38,7 +38,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.device_id.description",
-                        default="Matter device ID to look up. Required identifier.",
+                        default="Device ID (required).",
                     ),
                 },
                 "controller_id": {
@@ -74,7 +74,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": _DEFAULT_OUTPUT_FORMAT,
                     "description": _(
                         "param.output_format.description",
-                        default="Output format: JSON or human-readable text.",
+                        default="Format: json or text.",
                     ),
                 },
             },

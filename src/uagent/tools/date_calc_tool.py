@@ -26,7 +26,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "date_calc",
         "description": _(
             "tool.description",
-            default="Performs addition or subtraction of years, months, weeks, or days for a specified date and returns the result. Includes holiday determination using the 'holidays' library.",
+            default="Performs addition or subtraction of years, months, weeks, or days for a specified date and returns the result. Includes holiday determination using...",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -97,7 +97,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.country.description",
-                        default="Country code for holiday determination (ISO 3166-1 alpha-2, e.g., 'JP', 'US', 'GB', 'FR'). Default is 'JP'.",
+                        default="Country code.",
                     ),
                     "default": "JP",
                 },

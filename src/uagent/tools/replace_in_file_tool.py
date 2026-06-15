@@ -71,13 +71,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "replace_in_file",
         "description": _(
             "tool.description",
-            default=(
-                "Safely edit text files. Newline handling: by default, the "
-                "two-character tokens \\r\\n, \\r, and \\n in pattern/replacement "
-                "are converted to real newlines before matching. Set "
-                "expand_newline_tokens=false to match those backslash characters "
-                "literally. Existing file newline style is preserved when writing."
-            ),
+            default="Safely edit text files (literal/regex replace, insert, append). Supports backslash escape in patterns.",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -117,13 +111,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.expand_newline_tokens.description",
-                        default=(
-                            "If true (default), convert the literal token strings "
-                            "\\r\\n, \\r, and \\n in pattern/replacement/anchors "
-                            "to real newlines before matching. If false, keep those "
-                            "backslash characters literal. JSON actual newlines are "
-                            "accepted either way."
-                        ),
+                        default="Convert backslash-n/r escapes (default: true).",
                     ),
                     "default": True,
                 },
@@ -131,7 +119,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.path.description",
-                        default="Target file path (recommended: under workdir).",
+                        default="File path (under workdir).",
                     ),
                 },
                 "mode": {
@@ -139,10 +127,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["literal", "regex"],
                     "description": _(
                         "param.mode.description",
-                        default=(
-                            "Replacement mode: literal (plain substring) or regex (Python re). "
-                            "If you use regex, escape backslashes in JSON strings, for example \\d, \\s, and \\."
-                        ),
+                        default="Mode: literal or regex.",
                     ),
                     "default": "literal",
                 },
@@ -150,7 +135,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.pattern.description",
-                        default="Search pattern. Use \\n for newlines. In JSON strings, write backslash sequences as \\\\n.",
+                        default="Search pattern (use \\n for newlines).",
                     ),
                 },
                 "replacement": {
@@ -163,28 +148,28 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.po_msgid.description",
-                        default="Target gettext msgid for replace_po_entry. If omitted, pattern is used as a fallback.",
+                        default="gettext msgid (fallback: pattern).",
                     ),
                 },
                 "anchor_before": {
                     "type": "string",
                     "description": _(
                         "param.anchor_before.description",
-                        default="Start anchor for replace_between (literal or regex depending on mode).",
+                        default="Start anchor.",
                     ),
                 },
                 "anchor_after": {
                     "type": "string",
                     "description": _(
                         "param.anchor_after.description",
-                        default="End anchor for replace_between (literal or regex depending on mode).",
+                        default="End anchor.",
                     ),
                 },
                 "preview": {
                     "type": "boolean",
                     "description": _(
                         "param.preview.description",
-                        default="If true, return a preview only and do not modify the file.",
+                        default="Preview only (no changes).",
                     ),
                     "default": True,
                 },
@@ -192,7 +177,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.occurrence.description",
-                        default="Which occurrence to replace (1-based). 0 means replace all occurrences.",
+                        default="Occurrence (1-based; 0 = all).",
                     ),
                     "default": 0,
                 },
@@ -235,7 +220,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ],
                     "description": _(
                         "param.action.description",
-                        default="Operation: replace, append, insert_at_end, insert_before, insert_after, insert_at_line, replace_between, replace_po_entry, or replace_all_in_files.",
+                        default="Action: replace/append/insert/etc.",
                     ),
                     "default": "replace",
                 },

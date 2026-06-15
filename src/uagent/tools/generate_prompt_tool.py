@@ -28,10 +28,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "generate_prompt",
         "description": _(
             "tool.description",
-            default=(
-                "Generate a prompt string from a file using a Python format template. "
-                "The template can reference variables like {content}, {lines}, {bytes}, {basename}, {path}."
-            ),
+            default="Generate a prompt string from a file using a Python format template.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

@@ -53,7 +53,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "read_file",
         "description": _(
             "tool.description",
-            default="Read file contents (up to 1,000,000 bytes). Partial reading is possible by specifying start_line and max_lines.",
+            default="Read file contents (max 1MB). Supports partial reading via start_line/max_lines.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -111,7 +111,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.start_line.description",
-                        default="Line number to start reading from (1-based). Default is 1. If page is specified, start_line is automatically calculated.",
+                        default="Line number to start reading from (1-based). Default is 1.",
                     ),
                     "default": 1,
                 },

@@ -559,7 +559,7 @@ else:
             "name": "semantic_search_files",
             "description": _(
                 "tool.description",
-                default="Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document parts. Indexing is performed on the first run or when files are updated.",
+                default="Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document pa...",
             ),
             "x_search_terms": _(
                 "x_search_terms",

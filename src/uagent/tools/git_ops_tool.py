@@ -120,7 +120,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ],
                     "description": _(
                         "param.command.description",
-                        default="Git subcommand to run (safety-first restrictions apply).",
+                        default="Git subcommand (restricted).",
                     ),
                 },
                 "args": {

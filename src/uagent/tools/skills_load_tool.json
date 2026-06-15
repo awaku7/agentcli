@@ -2,7 +2,7 @@
   "en": {
     "err.invalid_args": "[tool error] invalid args",
     "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
+    "param.skill_dir.description": "The skill directory (must contain SKILL.md).",
     "tool.description": "Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
     "x_search_terms": [
       "skills_load",
@@ -28,9 +28,9 @@
     "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
   },
   "es": {
-    "err.invalid_args": "[error de herramienta] argumentos no válidos",
-    "err.skill_dir_required": "[error de herramienta] skill_dir debe ser una cadena no vacía",
-    "param.skill_dir.description": "Directorio de la habilidad (se requiere SKILL.md directamente debajo)",
+    "err.invalid_args": "[error de herramienta]...",
+    "err.skill_dir_required": "[error de herramienta] skill_dir debe ser una...",
+    "param.skill_dir.description": "Directorio de la habilidad (se requiere S...",
     "tool.description": "Carga el SKILL.md de una habilidad de agente y devuelve su frontmatter YAML y su cuerpo Markdown.",
     "x_search_terms": [
       "skills_load",
@@ -41,10 +41,10 @@
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
   },
   "fr": {
-    "err.invalid_args": "[erreur de l'outil] arguments invalides",
-    "err.skill_dir_required": "[erreur de l'outil] skill_dir doit être une chaîne non vide",
-    "param.skill_dir.description": "Répertoire de la compétence (SKILL.md est requis juste en dessous)",
-    "tool.description": "Charge le SKILL.md d'une compétence d'agent et renvoie son frontmatter YAML et son corps Markdown.",
+    "err.invalid_args": "[erreur de l'outil] ar...",
+    "err.skill_dir_required": "[erreur de l'outil] skill_dir doit être une ch...",
+    "param.skill_dir.description": "Répertoire de la compétence (SKILL.",
+    "tool.description": "Charge le SKILL.",
     "x_search_terms": [
       "skills_load",
       "charger skill",
@@ -67,10 +67,10 @@
     "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
   },
   "de": {
-    "err.invalid_args": "[Werkzeugfehler] Ungültige Argumente",
-    "err.skill_dir_required": "[Werkzeugfehler] skill_dir muss ein nicht leerer String sein",
-    "param.skill_dir.description": "Skill-Verzeichnis (SKILL.md ist direkt darunter erforderlich)",
-    "tool.description": "Lädt die SKILL.md für einen Agent Skill und gibt dessen YAML-Frontmatter und Markdown-Inhalt zurück.",
+    "err.invalid_args": "[Werkzeugfehler] Ungül...",
+    "err.skill_dir_required": "[Werkzeugfehler] skill_dir muss ein nicht leer...",
+    "param.skill_dir.description": "Skill-Verzeichnis (SKILL.",
+    "tool.description": "Lädt die SKILL.",
     "x_search_terms": [
       "skills_load",
       "skill laden",
@@ -80,10 +80,10 @@
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
   },
   "it": {
-    "err.invalid_args": "[errore strumento] argomenti non validi",
-    "err.skill_dir_required": "[errore strumento] skill_dir deve essere una stringa non vuota",
-    "param.skill_dir.description": "Directory dello skill (SKILL.md è richiesto direttamente sotto)",
-    "tool.description": "Carica lo SKILL.md per uno skill dell'agente e restituisce il suo frontmatter YAML e il corpo Markdown.",
+    "err.invalid_args": "[errore strumento] arg...",
+    "err.skill_dir_required": "[errore strumento] skill_dir deve essere una s...",
+    "param.skill_dir.description": "Directory dello skill (SKILL.",
+    "tool.description": "Carica lo SKILL.",
     "x_search_terms": [
       "skills_load",
       "carica skill",
@@ -92,9 +92,9 @@
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
   },
   "ru": {
-    "err.invalid_args": "[ошибка инструмента] недопустимые аргументы",
-    "err.skill_dir_required": "[ошибка инструмента] skill_dir должен быть непустой строкой",
-    "param.skill_dir.description": "Каталог навыка (SKILL.md должен находиться непосредственно ниже)",
+    "err.invalid_args": "[ошибка инструмента] н...",
+    "err.skill_dir_required": "[ошибка инструмента] skill_dir должен быть неп...",
+    "param.skill_dir.description": "Каталог навыка (SKILL.",
     "tool.description": "Загружает SKILL.md для Agent Skill и возвращает его YAML frontmatter и Markdown-тело.",
     "x_search_terms": [
       "skills_load",
@@ -104,9 +104,9 @@
     "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
   },
   "pt_BR": {
-    "err.invalid_args": "[erro da ferramenta] argumentos inválidos",
-    "err.skill_dir_required": "[erro da ferramenta] skill_dir deve ser uma string não vazia",
-    "param.skill_dir.description": "Diretório do skill (SKILL.md é necessário logo abaixo)",
+    "err.invalid_args": "[erro da ferramenta] a...",
+    "err.skill_dir_required": "[erro da ferramenta] skill_dir deve ser uma st...",
+    "param.skill_dir.description": "Diretório do skill (SKILL.",
     "tool.description": "Carrega o SKILL.md de uma Agent Skill e retorna o frontmatter YAML e o corpo Markdown.",
     "x_search_terms": [
       "skills_load",
@@ -117,9 +117,9 @@
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   },
   "pt": {
-    "err.invalid_args": "[erro de ferramenta] argumentos inválidos",
-    "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma string não vazia",
-    "param.skill_dir.description": "Diretório de habilidades (SKILL.md é necessário diretamente abaixo)",
+    "err.invalid_args": "[erro de ferramenta] a...",
+    "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma st...",
+    "param.skill_dir.description": "Diretório de habilidades (SKILL.",
     "tool.description": "Carrega o SKILL.md de uma habilidade do agente e retorna o YAML frontmatter e o corpo Markdown.",
     "x_search_terms": [
       "skills_load",
@@ -130,9 +130,9 @@
     "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   },
   "id": {
-    "err.invalid_args": "[tool error] argumen tidak valid",
+    "err.invalid_args": "[tool error] argumen t...",
     "err.skill_dir_required": "[tool error] skill_dir harus berupa string non-kosong",
-    "param.skill_dir.description": "Direktori skill (SKILL.md harus berada tepat di bawahnya)",
+    "param.skill_dir.description": "Direktori skill (SKILL.",
     "tool.description": "Muat SKILL.md untuk Agent Skill dan kembalikan frontmatter YAML serta isi Markdown-nya.",
     "x_search_terms": [
       "skills_load",
@@ -142,7 +142,7 @@
     "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat)."
   },
   "vi": {
-    "err.invalid_args": "[lỗi công cụ] đối số không hợp lệ",
+    "err.invalid_args": "[lỗi công cụ] đối số k...",
     "err.skill_dir_required": "[lỗi công cụ] skill_dir phải là một chuỗi không trống",
     "param.skill_dir.description": "Thư mục kỹ năng (bên dưới phải có SKILL.md)",
     "tool.description": "Tải SKILL.md của một Agent Skill và trả về YAML frontmatter cùng phần thân Markdown của nó.",
@@ -154,9 +154,9 @@
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
   },
   "pl": {
-    "err.invalid_args": "[błąd narzędzia] nieprawidłowe argumenty",
-    "err.skill_dir_required": "[błąd narzędzia] skill_dir musi być niepustym ciągiem znaków",
-    "param.skill_dir.description": "Katalog umiejętności (SKILL.md jest wymagany bezpośrednio poniżej)",
+    "err.invalid_args": "[błąd narzędzia] niepr...",
+    "err.skill_dir_required": "[błąd narzędzia] skill_dir musi być niepustym...",
+    "param.skill_dir.description": "Katalog umiejętności (SKILL.",
     "tool.description": "Ładuje plik SKILL.md dla umiejętności agenta i zwraca jego YAML frontmatter oraz treść Markdown.",
     "x_search_terms": [
       "skills_load",
@@ -167,7 +167,7 @@
   },
   "hi": {
     "err.invalid_args": "[टूल त्रुटि] अमान्य तर्क",
-    "err.skill_dir_required": "[टूल त्रुटि] स्किल_डीआईआर एक गैर-रिक्त स्ट्रिंग होनी चाहिए",
+    "err.skill_dir_required": "[टूल त्रुटि] स्किल_डीआईआर एक गैर-रिक्त स्ट्रिं...",
     "param.skill_dir.description": "कौशल निर्देशिका (SKILL.md सीधे नीचे आवश्यक है)",
     "tool.description": "एजेंट कौशल के लिए SKILL.md को लोड करता है और इसका YAML फ्रंटमैटर और मार्कडाउन बॉडी लौटाता है।",
     "x_search_terms": [
@@ -178,9 +178,9 @@
     "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   },
   "ar": {
-    "err.invalid_args": "[خطأ في الأداة] وسيطات غير صالحة",
+    "err.invalid_args": "[خطأ في الأداة] وسيطات...",
     "err.skill_dir_required": "[خطأ في الأداة] يجب أن تكون skill_dir سلسلة غير فارغة",
-    "param.skill_dir.description": "دليل المهارة (يجب أن يكون SKILL.md موجودًا مباشرةً تحته)",
+    "param.skill_dir.description": "دليل المهارة (يجب أن يكون SKILL.",
     "tool.description": "يحمّل SKILL.md الخاص بمهارة وكيل ويعيد YAML frontmatter ونص Markdown.",
     "x_search_terms": [
       "skills_load",
@@ -190,7 +190,7 @@
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
   },
   "sv": {
-    "err.invalid_args": "[verktygsfel] ogiltiga argument",
+    "err.invalid_args": "[verktygsfel] ogiltiga...",
     "err.skill_dir_required": "[verktygsfel] skill_dir måste vara en icke-tom sträng",
     "param.skill_dir.description": "Katalog för skill (SKILL.md krävs direkt under)",
     "tool.description": "Läser SKILL.md för en Agent Skill och returnerar dess YAML frontmatter och Markdown-body.",
@@ -202,9 +202,9 @@
     "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
   },
   "sw": {
-    "err.invalid_args": "[hitilafu ya zana] hoja batili",
-    "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuatano usio tupu",
-    "param.skill_dir.description": "Saraka ya skill (SKILL.md inahitajika moja kwa moja chini yake)",
+    "err.invalid_args": "[hitilafu ya zana] hoj...",
+    "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuata...",
+    "param.skill_dir.description": "Saraka ya skill (SKILL.",
     "tool.description": "Hupakia SKILL.md ya Agent Skill na kurudisha YAML frontmatter na kiini cha Markdown.",
     "x_search_terms": [
       "skills_load",
@@ -214,9 +214,9 @@
     "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
   },
   "nb": {
-    "err.invalid_args": "[verktøyfeil] ugyldige argumenter",
+    "err.invalid_args": "[verktøyfeil] ugyldige...",
     "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
-    "param.skill_dir.description": "Katalog for skill (SKILL.md kreves direkte under)",
+    "param.skill_dir.description": "Katalog for skill (SKILL.",
     "tool.description": "Laster SKILL.md for en Agent Skill og returnerer YAML-frontmatter og Markdown-innhold.",
     "x_search_terms": [
       "skills_load",
@@ -226,8 +226,8 @@
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   },
   "nl": {
-    "err.invalid_args": "[tool error] ongeldige argumenten",
-    "err.skill_dir_required": "[tool error] skill_dir moet een niet-lege tekenreeks zijn",
+    "err.invalid_args": "[tool error] ongeldige...",
+    "err.skill_dir_required": "[tool error] skill_dir moet een niet-lege teke...",
     "param.skill_dir.description": "Skill-map (SKILL.md is direct eronder vereist)",
     "tool.description": "Laadt de SKILL.md voor een Agent Skill en retourneert de YAML-frontmatter en de Markdown-body.",
     "x_search_terms": [
@@ -238,9 +238,9 @@
     "tool.system_prompt": "Gebruik deze tool voor het doel dat in de toolbeschrijving staat."
   },
   "fi": {
-    "err.invalid_args": "[työkaluvirhe] virheelliset аргументы",
-    "err.skill_dir_required": "[työkaluvirhe] skill_dirin on oltava ei-tyhjä merkkijono",
-    "param.skill_dir.description": "Skill-hakemisto (SKILL.md vaaditaan heti sen alla)",
+    "err.invalid_args": "[työkaluvirhe] virheel...",
+    "err.skill_dir_required": "[työkaluvirhe] skill_dirin on oltava ei-tyhjä...",
+    "param.skill_dir.description": "Skill-hakemisto (SKILL.",
     "tool.description": "Lataa Agent Skillin SKILL.md-tiedoston ja palauttaa sen YAML-frontmatterin sekä Markdown-rungon.",
     "x_search_terms": [
       "skills_load",
@@ -250,7 +250,7 @@
     "tool.system_prompt": "Käytä tätä työkalua työkalun kuvauksessa määriteltyyn tarkoitukseen."
   },
   "cs": {
-    "err.invalid_args": "[chyba nástroje] neplatné argumenty",
+    "err.invalid_args": "[chyba nástroje] nepla...",
     "err.skill_dir_required": "[chyba nástroje] skill_dir musí být neprázdný řetězec",
     "param.skill_dir.description": "Adresář skillu (SKILL.md musí být přímo pod ním)",
     "tool.description": "Načte SKILL.md pro Agent Skill a vrátí jeho YAML frontmatter a Markdownový obsah.",
@@ -262,9 +262,9 @@
     "tool.system_prompt": "Použijte tento nástroj k účelu popsanému v popisu nástroje."
   },
   "uk": {
-    "err.invalid_args": "[помилка інструменту] недійсні аргументи",
-    "err.skill_dir_required": "[помилка інструменту] skill_dir має бути непорожнім рядком",
-    "param.skill_dir.description": "Каталог skill (SKILL.md має бути безпосередньо під ним)",
+    "err.invalid_args": "[помилка інструменту]...",
+    "err.skill_dir_required": "[помилка інструменту] skill_dir має бути непор...",
+    "param.skill_dir.description": "Каталог skill (SKILL.",
     "tool.description": "Завантажує SKILL.md для Agent Skill і повертає його YAML frontmatter та Markdown-вміст.",
     "x_search_terms": [
       "skills_load",
@@ -274,9 +274,9 @@
     "tool.system_prompt": "Використовуйте цей інструмент для мети, описаної в описі інструмента."
   },
   "tr": {
-    "err.invalid_args": "[araç hatası] geçersiz argümanlar",
-    "err.skill_dir_required": "[araç hatası] skill_dir boş olmayan bir dize olmalıdır",
-    "param.skill_dir.description": "Beceri dizini (SKILL.md doğrudan altında gereklidir)",
+    "err.invalid_args": "[araç hatası] geçersiz...",
+    "err.skill_dir_required": "[araç hatası] skill_dir boş olmayan bir dize o...",
+    "param.skill_dir.description": "Beceri dizini (SKILL.",
     "tool.description": "Bir Agent Skill için SKILL.md'yi yükler ve YAML frontmatter ile Markdown gövdesini döndürür.",
     "x_search_terms": [
       "skills_load",
@@ -286,9 +286,9 @@
     "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
   },
   "th": {
-    "err.invalid_args": "[ข้อผิดพลาดของเครื่องมือ] args ไม่ถูกต้อง",
-    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] skill_dir ต้องเป็นสตริงที่ไม่ว่างเปล่า",
-    "param.skill_dir.description": "ไดเรกทอรีทักษะ (ต้องมี SKILL.md อยู่ถัดลงมาโดยตรง)",
+    "err.invalid_args": "[ข้อผิดพลาดของเครื่องม...",
+    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] skill_dir ต้องเป็นสต...",
+    "param.skill_dir.description": "ไดเรกทอรีทักษะ (ต้องมี SKILL.",
     "tool.description": "โหลด SKILL.md ของ Agent Skill และส่งคืน YAML frontmatter และเนื้อหา Markdown",
     "x_search_terms": [
       "skills_load",
@@ -322,8 +322,8 @@
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   },
   "bn": {
-    "err.invalid_args": "[tool error] অবৈধ আর্গুমেন্ট",
-    "err.skill_dir_required": "[tool error] skill_dir অবশ্যই একটি খালি নয় এমন স্ট্রিং হতে হবে",
+    "err.invalid_args": "[tool error] অবৈধ আর্গ...",
+    "err.skill_dir_required": "[tool error] skill_dir অবশ্যই একটি খালি নয় এম...",
     "param.skill_dir.description": "স্কিল ডিরেক্টরি (SKILL.md সরাসরি নিচে থাকতে হবে)",
     "tool.description": "একটি Agent Skill-এর SKILL.md লোড করে তার YAML frontmatter এবং Markdown body ফেরত দেয়।",
     "x_search_terms": [
@@ -334,10 +334,10 @@
     "tool.system_prompt": "টুলের বিবরণে বর্ণিত উদ্দেশ্যে এই টুল ব্যবহার করুন।"
   },
   "fa": {
-    "err.invalid_args": "[خطای ابزار] آرگومان‌ها نامعتبرند",
+    "err.invalid_args": "[خطای ابزار] آرگومان‌ه...",
     "err.skill_dir_required": "[خطای ابزار] skill_dir باید یک رشتهٔ غیرخالی باشد",
     "param.skill_dir.description": "پوشهٔ مهارت (SKILL.md باید دقیقاً زیر آن باشد)",
-    "tool.description": "SKILL.md یک Agent Skill را بارگذاری می‌کند و frontmatter ی YAML و بدنهٔ Markdown آن را برمی‌گرداند.",
+    "tool.description": "SKILL.",
     "x_search_terms": [
       "skills_load",
       "بارگذاری skill",
@@ -346,9 +346,9 @@
     "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید."
   },
   "mn": {
-    "err.invalid_args": "[хэрэгслийн алдаа] буруу аргументууд",
-    "err.skill_dir_required": "[хэрэгслийн алдаа] skill_dir нь хоосон бус мөр байх ёстой",
-    "param.skill_dir.description": "Skill-ийн директор (SKILL.md нь яг доор байрлах шаардлагатай)",
+    "err.invalid_args": "[хэрэгслийн алдаа] бур...",
+    "err.skill_dir_required": "[хэрэгслийн алдаа] skill_dir нь хоосон бус мөр...",
+    "param.skill_dir.description": "Skill-ийн директор (SKILL.",
     "tool.description": "Agent Skill-ийн SKILL.md-г ачаалж, YAML frontmatter болон Markdown body-г буцаана.",
     "x_search_terms": [
       "skills_load",
@@ -358,9 +358,9 @@
     "tool.system_prompt": "Энэ хэрэгслийг хэрэгслийн тайлбарт заасан зорилгоор ашиглана уу."
   },
   "mr": {
-    "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग्युमेंट्स",
-    "err.skill_dir_required": "[टूल त्रुटी] skill_dir एक रिक्त नसलेली स्ट्रिंग असणे आवश्यक आहे",
-    "param.skill_dir.description": "स्किल डिरेक्टरी (SKILL.md थेट खाली असणे आवश्यक आहे)",
+    "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग...",
+    "err.skill_dir_required": "[टूल त्रुटी] skill_dir एक रिक्त नसलेली स्ट्रिं...",
+    "param.skill_dir.description": "स्किल डिरेक्टरी (SKILL.",
     "tool.description": "एखाद्या Agent Skill साठी SKILL.md लोड करते आणि त्याचा YAML frontmatter व Markdown body परत करते.",
     "x_search_terms": [
       "skills_load",

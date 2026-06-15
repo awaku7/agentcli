@@ -24,7 +24,7 @@
     "tool.system_prompt": "このツールは現在の作業ディレクトリを取得するために使います。"
   },
   "es": {
-    "tool.description": "Obtiene el directorio de trabajo actual.",
+    "tool.description": "Obtiene el directorio de trabaj...",
     "x_search_terms": [
       "get_workdir",
       "directorio de trabajo",
@@ -34,7 +34,7 @@
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: obtener el directorio de trabajo actual."
   },
   "fr": {
-    "tool.description": "Obtient le répertoire de travail actuel.",
+    "tool.description": "Obtient le répertoire de travai...",
     "x_search_terms": [
       "get_workdir",
       "répertoire de travail",
@@ -54,7 +54,7 @@
     "tool.system_prompt": "이 도구는 현재 작업 디렉터리를 가져오는 목적으로 사용됩니다."
   },
   "de": {
-    "tool.description": "Ruft das aktuelle Arbeitsverzeichnis ab.",
+    "tool.description": "Ruft das aktuelle Arbeitsverzei...",
     "x_search_terms": [
       "get_workdir",
       "arbeitsverzeichnis",
@@ -64,7 +64,7 @@
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: das aktuelle Arbeitsverzeichnis abzurufen."
   },
   "it": {
-    "tool.description": "Ottiene la directory di lavoro corrente.",
+    "tool.description": "Ottiene la directory di lavoro...",
     "x_search_terms": [
       "get_workdir",
       "directory di lavoro",
@@ -94,7 +94,7 @@
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: obter o diretório de trabalho atual."
   },
   "pt": {
-    "tool.description": "Obtenha o diretório de trabalho atual.",
+    "tool.description": "Obtenha o diretório de trabalho...",
     "x_search_terms": [
       "get_workdir",
       "diretório de trabalho",
@@ -134,7 +134,7 @@
     "tool.system_prompt": "To narzędzie służy do następującego celu: pobranie bieżącego katalogu roboczego."
   },
   "hi": {
-    "tool.description": "वर्तमान कार्यशील निर्देशिका प्राप्त करें.",
+    "tool.description": "वर्तमान कार्यशील निर्देशिका प्र...",
     "x_search_terms": [
       "get_workdir",
       "कार्यशील निर्देशिका",
@@ -174,7 +174,7 @@
     "tool.system_prompt": "Use this tool to get the current working directory."
   },
   "nb": {
-    "tool.description": "Henter den gjeldende arbeidskatalogen.",
+    "tool.description": "Henter den gjeldende arbeidskat...",
     "x_search_terms": [
       "get_workdir",
       "arbeidskatalog",

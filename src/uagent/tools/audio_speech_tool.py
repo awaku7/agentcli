@@ -82,7 +82,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.voice.description",
-                        default="Voice name to use for speech synthesis.",
+                        default="Voice.",
                     ),
                     "default": "alloy",
                 },

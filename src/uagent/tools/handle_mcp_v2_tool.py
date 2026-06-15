@@ -67,13 +67,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "handle_mcp_v2",
         "description": _(
             "tool.description",
-            default=(
-                "Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments. "
-                "Return value is a JSON string with at least: ok and text. "
-                "When applicable, saved_path is included (e.g., when the server returns saved_path, or when a file payload like "
-                "{filename, mime, data_base64} is returned and this client saves it to a local downloads directory). "
-                "Note: saved_path may be omitted when the tool does not return any file payload."
-            ),
+            default="Call a tool from an MCP server. Provide tool arguments as a dictionary in tool_arguments.",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -125,7 +119,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ],
                     "description": _(
                         "param.tool_arguments.description",
-                        default='Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string. Example object: {"yymm": "2503", "dept": "ＳＢＣ", "plan_diff": false}',
+                        default='Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string.',
                     ),
                 },
             },

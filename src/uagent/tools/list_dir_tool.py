@@ -61,7 +61,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.root_path.description",
-                        default="Alias of path for backward compatibility.",
+                        default="Alias (compat).",
                     ),
                 },
                 "show_hidden": {

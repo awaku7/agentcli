@@ -1,6 +1,6 @@
 {
   "en": {
-    "tool.description": "Send a message to an A2A server profile (a2a://name or profile name). Use only when existing local tools cannot replace the task.",
+    "tool.description": "Send a message to an A2A server profile. Use only when no local tool can substitute.",
     "x_search_terms": [
       "a2a_send",
       "a2a send",
@@ -38,11 +38,11 @@
     "param.profile.description": "プロファイル名または a2a://name。省略時は既定プロファイルを使用します。",
     "param.message.description": "送信するユーザーメッセージ。",
     "param.return_immediately.description": "true の場合、タスク作成後すぐに返します。",
-    "err.missing_message": "'message' が指定されていません。",
+    "err.missing_message": "'message'がありません。",
     "err.exception": "例外"
   },
   "es": {
-    "tool.description": "Envía un mensaje a un perfil de servidor A2A (a2a://name o nombre de perfil). Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
+    "tool.description": "Envía un mensaje a un perfil de servidor A2A (a2a://name o nombre de perfil).",
     "x_search_terms": [
       "a2a_send",
       "enviar mensaje",
@@ -56,14 +56,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Enviar un mensaje A2A. Devuelve solo JSON. Úsalo solo cuando las herramientas locales no puedan reemplazar la tarea.",
-    "param.profile.description": "Nombre de perfil o a2a://name. Si se omite, usa el perfil predeterminado.",
-    "param.message.description": "Mensaje del usuario a enviar.",
-    "param.return_immediately.description": "Si es true, devuelve justo después de crear la tarea.",
+    "param.profile.description": "Nombre de perfil o a2a://name.",
+    "param.message.description": "Mensaje del usuari...",
+    "param.return_immediately.description": "Si es true, devuelve justo después de c...",
     "err.missing_message": "Falta 'message'.",
     "err.exception": "Excepción"
   },
   "fr": {
-    "tool.description": "Envoyez un message à un profil de serveur A2A (a2a://name ou nom de profil). À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
+    "tool.description": "Envoyez un message à un profil de serveur A2A (a2a://name ou nom de profil).",
     "x_search_terms": [
       "a2a_send",
       "envoyer un message",
@@ -78,10 +78,10 @@
     ],
     "tool.system_prompt": "Envoyez un message A2A. Retournez uniquement du JSON. À utiliser uniquement lorsque les outils locaux ne peuvent pas remplacer la tâche.",
     "param.profile.description": "Nom du profil ou a2a://name. Si omis, utilise le profil par défaut.",
-    "param.message.description": "Message utilisateur à envoyer.",
-    "param.return_immediately.description": "Si true, renvoyer juste après la création de la tâche.",
+    "param.message.description": "Message utilisateu...",
+    "param.return_immediately.description": "Si true, renvoyer juste après la créati...",
     "err.missing_message": "'message' manquant.",
-    "err.exception": "Exception inattendue"
+    "err.exception": "Except..."
   },
   "ko": {
     "tool.description": "A2A 서버 프로필(a2a://name 또는 프로필 이름)로 메시지를 전송합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
@@ -101,11 +101,11 @@
     "param.profile.description": "프로필 이름 또는 a2a://name. 생략 시 기본 프로필을 사용합니다.",
     "param.message.description": "전송할 사용자 메시지.",
     "param.return_immediately.description": "true이면 작업 생성 직후 반환합니다.",
-    "err.missing_message": "'message'가 지정되지 않았습니다.",
+    "err.missing_message": "'message'가 없습니다.",
     "err.exception": "예외"
   },
   "de": {
-    "tool.description": "Senden Sie eine Nachricht an ein A2A-Serverprofil (a2a://name oder Profilname). Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
+    "tool.description": "Senden Sie eine Nachricht an ein A2A-Serverprofil (a2a://name oder Profilname).",
     "x_search_terms": [
       "a2a_send",
       "Nachricht senden",
@@ -119,14 +119,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Senden Sie eine A2A-Nachricht. Nur JSON zurückgeben. Nur verwenden, wenn lokale Werkzeuge die Aufgabe nicht ersetzen können.",
-    "param.profile.description": "Profilname oder a2a://name. Wenn es weggelassen wird, wird das Standardprofil verwendet.",
-    "param.message.description": "Zu sendende Benutzernachricht.",
-    "param.return_immediately.description": "Wenn true, direkt nach dem Erstellen der Aufgabe zurückkehren.",
+    "param.profile.description": "Profilname oder a2a://name.",
+    "param.message.description": "Zu sendende Benutz...",
+    "param.return_immediately.description": "Wenn true, direkt nach dem Erstellen de...",
     "err.missing_message": "'message' fehlt.",
     "err.exception": "Ausnahme"
   },
   "it": {
-    "tool.description": "Invia un messaggio a un profilo server A2A (a2a://nome o nome profilo). Usalo solo quando gli strumenti locali non possono sostituire il compito.",
+    "tool.description": "Invia un messaggio a un profilo server A2A (a2a://nome o nome profilo).",
     "x_search_terms": [
       "a2a_send",
       "invia messaggio",
@@ -140,14 +140,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Invia un messaggio A2A. Restituisci solo JSON. Usalo solo quando gli strumenti locali non possono sostituire il compito.",
-    "param.profile.description": "Nome del profilo o a2a://name. Se omesso, utilizza il profilo predefinito.",
-    "param.message.description": "Messaggio utente da inviare.",
-    "param.return_immediately.description": "Se true, ritorna subito dopo la creazione dell'attività.",
+    "param.profile.description": "Nome del profilo o a2a://name.",
+    "param.message.description": "Messaggio utente d...",
+    "param.return_immediately.description": "Se true, ritorna subito dopo la creazio...",
     "err.missing_message": "Manca 'message'.",
     "err.exception": "Eccezione"
   },
   "ru": {
-    "tool.description": "Отправьте сообщение в профиль сервера A2A (a2a://name или имя профиля). Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
+    "tool.description": "Отправьте сообщение в профиль сервера A2A (a2a://name или имя профиля).",
     "x_search_terms": [
       "a2a_send",
       "отправить сообщение",
@@ -161,14 +161,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Отправьте сообщение A2A. Возвращайте только JSON. Используйте только тогда, когда локальные инструменты не могут заменить задачу.",
-    "param.profile.description": "Имя профиля или a2a://name. Если опущено, используется профиль по умолчанию.",
-    "param.message.description": "Сообщение пользователя для отправки.",
-    "param.return_immediately.description": "Если true, верните ответ сразу после создания задачи.",
-    "err.missing_message": "Отсутствует 'message'.",
-    "err.exception": "Исключение"
+    "param.profile.description": "Имя профиля или a2a://name.",
+    "param.message.description": "Сообщение пользова...",
+    "param.return_immediately.description": "Если true, верните ответ сразу после со...",
+    "err.missing_message": "Отсутствует 'me...",
+    "err.exception": "Исключ..."
   },
   "pt_BR": {
-    "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil). Use somente quando as ferramentas locais não puderem substituir a tarefa.",
+    "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil).",
     "x_search_terms": [
       "a2a_send",
       "enviar mensagem",
@@ -183,13 +183,13 @@
     ],
     "tool.system_prompt": "Envie uma mensagem A2A. Retorne apenas JSON. Use somente quando as ferramentas locais não puderem substituir a tarefa.",
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
-    "param.message.description": "Mensagem do usuário a ser enviada.",
-    "param.return_immediately.description": "Se true, retorne logo após a criação da tarefa.",
+    "param.message.description": "Mensagem do usuári...",
+    "param.return_immediately.description": "Se true, retorne logo após a criação da...",
     "err.missing_message": "Falta 'message'.",
     "err.exception": "Exceção"
   },
   "pt": {
-    "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://name ou nome do perfil). Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
+    "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://name ou nome do perfil).",
     "x_search_terms": [
       "a2a_send",
       "enviar mensagem",
@@ -204,13 +204,13 @@
     ],
     "tool.system_prompt": "Envie uma mensagem A2A. Retorne apenas JSON. Use apenas quando as ferramentas locais não puderem substituir a tarefa.",
     "param.profile.description": "Nome do perfil ou a2a://nome. Se omitido, usa o perfil padrão.",
-    "param.message.description": "Mensagem do usuário a ser enviada.",
-    "param.return_immediately.description": "Se true, retorne logo após a criação da tarefa.",
+    "param.message.description": "Mensagem do usuári...",
+    "param.return_immediately.description": "Se true, retorne logo após a criação da...",
     "err.missing_message": "Falta 'message'.",
     "err.exception": "Exceção"
   },
   "id": {
-    "tool.description": "Kirim pesan ke profil server A2A (a2a://name atau nama profil). Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
+    "tool.description": "Kirim pesan ke profil server A2A (a2a://name atau nama profil).",
     "x_search_terms": [
       "a2a_send",
       "kirim pesan",
@@ -224,14 +224,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Kirim pesan A2A. Kembalikan JSON saja. Gunakan hanya saat alat lokal tidak dapat menggantikan tugas.",
-    "param.profile.description": "Nama profil atau a2a://name. Jika dihilangkan, gunakan profil default.",
-    "param.message.description": "Pesan pengguna yang akan dikirim.",
-    "param.return_immediately.description": "Jika true, kembali segera setelah tugas dibuat.",
-    "err.missing_message": "Tidak ada 'message'.",
-    "err.exception": "Terjadi pengecualian."
+    "param.profile.description": "Nama profil atau a2a://name.",
+    "param.message.description": "Pesan pengguna yan...",
+    "param.return_immediately.description": "Jika true, kembali segera setelah tugas...",
+    "err.missing_message": "Tidak ada 'mess...",
+    "err.exception": "Terjad..."
   },
   "vi": {
-    "tool.description": "Gửi tin nhắn đến hồ sơ máy chủ A2A (a2a://name hoặc tên hồ sơ). Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
+    "tool.description": "Gửi tin nhắn đến hồ sơ máy chủ A2A (a2a://name hoặc tên hồ sơ).",
     "x_search_terms": [
       "a2a_send",
       "gửi tin nhắn",
@@ -246,13 +246,13 @@
     ],
     "tool.system_prompt": "Gửi tin nhắn A2A. Chỉ trả về JSON. Chỉ dùng khi các công cụ cục bộ không thể thay thế tác vụ.",
     "param.profile.description": "Tên hồ sơ hoặc a2a://name. Nếu bỏ qua, sử dụng hồ sơ mặc định.",
-    "param.message.description": "Tin nhắn người dùng cần gửi.",
-    "param.return_immediately.description": "Nếu đúng, hãy quay lại ngay sau khi tạo nhiệm vụ.",
-    "err.missing_message": "Thiếu trường 'message'.",
+    "param.message.description": "Tin nhắn người dùn...",
+    "param.return_immediately.description": "Nếu đúng, hãy quay lại ngay sau khi tạo...",
+    "err.missing_message": "Thiếu trường 'm...",
     "err.exception": "Ngoại lệ"
   },
   "pl": {
-    "tool.description": "Wyślij wiadomość do profilu serwera A2A (a2a://name lub nazwa profilu). Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
+    "tool.description": "Wyślij wiadomość do profilu serwera A2A (a2a://name lub nazwa profilu).",
     "x_search_terms": [
       "a2a_send",
       "wyślij wiadomość",
@@ -266,14 +266,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Wyślij wiadomość A2A. Zwracaj wyłącznie JSON. Używaj tylko wtedy, gdy lokalne narzędzia nie mogą zastąpić zadania.",
-    "param.profile.description": "Nazwa profilu lub a2a://nazwa. Jeśli zostanie pominięty, używa profilu domyślnego.",
-    "param.message.description": "Wiadomość użytkownika do wysłania.",
-    "param.return_immediately.description": "Jeśli true, zwróć odpowiedź zaraz po utworzeniu zadania.",
+    "param.profile.description": "Nazwa profilu lub a2a://nazwa.",
+    "param.message.description": "Wiadomość użytkown...",
+    "param.return_immediately.description": "Jeśli true, zwróć odpowiedź zaraz po ut...",
     "err.missing_message": "Brakuje 'message'.",
     "err.exception": "Wyjątek"
   },
   "hi": {
-    "tool.description": "A2A सर्वर प्रोफ़ाइल (a2a://name या प्रोफ़ाइल नाम) पर संदेश भेजें। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
+    "tool.description": "A2A सर्वर प्रोफ़ाइल (a2a://name या प्रोफ़ाइल नाम) पर संदेश भेजें। केवल तब उपयोग क...",
     "x_search_terms": [
       "a2a_send",
       "संदेश भेजें",
@@ -287,14 +287,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "A2A संदेश भेजें। केवल JSON लौटाएँ। केवल तब उपयोग करें जब स्थानीय उपकरण कार्य को प्रतिस्थापित नहीं कर सकते।",
-    "param.profile.description": "प्रोफ़ाइल नाम या a2a://नाम. यदि छोड़ा गया है, तो डिफ़ॉल्ट प्रोफ़ाइल का उपयोग करता है।",
-    "param.message.description": "भेजने के लिए उपयोगकर्ता संदेश.",
-    "param.return_immediately.description": "यदि true है, तो कार्य बनने के तुरंत बाद वापस लौटें।",
+    "param.profile.description": "प्रोफ़ाइल नाम या a2a://नाम.",
+    "param.message.description": "भेजने के लिए उपयोग...",
+    "param.return_immediately.description": "यदि true है, तो कार्य बनने के तुरंत बाद...",
     "err.missing_message": "'message' गुम है।",
     "err.exception": "अपवाद"
   },
   "ar": {
-    "tool.description": "أرسل رسالة إلى ملف تعريف خادم A2A (a2a://name أو اسم الملف الشخصي). استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
+    "tool.description": "أرسل رسالة إلى ملف تعريف خادم A2A (a2a://name أو اسم الملف الشخصي).",
     "x_search_terms": [
       "a2a_send",
       "إرسال رسالة",
@@ -308,14 +308,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "أرسل رسالة A2A. أعد JSON فقط. استخدمه فقط عندما لا تستطيع الأدوات المحلية استبدال المهمة.",
-    "param.profile.description": "اسم الملف الشخصي أو a2a://name. إذا حُذف، يُستخدم الملف الشخصي الافتراضي.",
-    "param.message.description": "رسالة المستخدم المراد إرسالها.",
+    "param.profile.description": "اسم الملف الشخصي أو a2a://name.",
+    "param.message.description": "رسالة المستخدم الم...",
     "param.return_immediately.description": "إذا كانت true، فارجع مباشرة بعد إنشاء المهمة.",
-    "err.missing_message": "القيمة 'message' مفقودة.",
+    "err.missing_message": "القيمة 'message...",
     "err.exception": "استثناء"
   },
   "sv": {
-    "tool.description": "Skicka ett meddelande till en A2A-serverprofil (a2a://name eller profilnamn). Använd endast när lokala verktyg inte kan ersätta uppgiften.",
+    "tool.description": "Skicka ett meddelande till en A2A-serverprofil (a2a://name eller profilnamn).",
     "x_search_terms": [
       "a2a_send",
       "skicka meddelande",
@@ -329,14 +329,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Skicka ett A2A-meddelande. Returnera endast JSON. Använd endast när lokala verktyg inte kan ersätta uppgiften.",
-    "param.profile.description": "Profilnamn eller a2a://name. Om det utelämnas används standardprofilen.",
-    "param.message.description": "Användarmeddelandet som ska skickas.",
-    "param.return_immediately.description": "Om true, returnera direkt efter att uppgiften har skapats.",
+    "param.profile.description": "Profilnamn eller a2a://name.",
+    "param.message.description": "Användarmeddelande...",
+    "param.return_immediately.description": "Om true, returnera direkt efter att upp...",
     "err.missing_message": "Saknar 'message'.",
     "err.exception": "Undantag"
   },
   "sw": {
-    "tool.description": "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili). Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
+    "tool.description": "Tuma ujumbe kwa profaili ya seva ya A2A (a2a://name au jina la profaili).",
     "x_search_terms": [
       "a2a_send",
       "tuma ujumbe",
@@ -350,14 +350,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Tuma ujumbe wa A2A. Rudisha JSON pekee. Tumia tu wakati zana za ndani haziwezi kuchukua nafasi ya kazi.",
-    "param.profile.description": "Jina la profaili au a2a://name. Ikiwa halikutajwa, tumia profaili chaguomsingi.",
-    "param.message.description": "Ujumbe wa mtumiaji wa kutuma.",
-    "param.return_immediately.description": "Ikiwa ni kweli, rudisha mara tu baada ya kazi kuundwa.",
-    "err.missing_message": "Kipengee 'message' hakipo.",
+    "param.profile.description": "Jina la profaili au a2a://name.",
+    "param.message.description": "Ujumbe wa mtumiaji...",
+    "param.return_immediately.description": "Ikiwa ni kweli, rudisha mara tu baada y...",
+    "err.missing_message": "Kipengee 'messa...",
     "err.exception": "Hitilafu"
   },
   "nb": {
-    "tool.description": "Send en melding til en A2A-serverprofil (a2a://name eller profilnavn). Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
+    "tool.description": "Send en melding til en A2A-serverprofil (a2a://name eller profilnavn).",
     "x_search_terms": [
       "a2a_send",
       "send melding",
@@ -372,13 +372,13 @@
     ],
     "tool.system_prompt": "Send en A2A-melding. Returner bare JSON. Bruk bare når lokale verktøy ikke kan erstatte oppgaven.",
     "param.profile.description": "Profilnavn eller a2a://name. Hvis utelatt, brukes standardprofilen.",
-    "param.message.description": "Brukermeldingen som skal sendes.",
-    "param.return_immediately.description": "Hvis true, returner rett etter at oppgaven er opprettet.",
+    "param.message.description": "Brukermeldingen so...",
+    "param.return_immediately.description": "Hvis true, returner rett etter at oppga...",
     "err.missing_message": "Mangler 'message'.",
     "err.exception": "Unntak"
   },
   "nl": {
-    "tool.description": "Stuur een bericht naar een A2A-serverprofiel (a2a://name of profielnaam). Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
+    "tool.description": "Stuur een bericht naar een A2A-serverprofiel (a2a://name of profielnaam).",
     "x_search_terms": [
       "a2a_send",
       "bericht verzenden",
@@ -392,14 +392,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Stuur een A2A-bericht. Geef alleen JSON terug. Gebruik dit alleen wanneer lokale hulpmiddelen de taak niet kunnen vervangen.",
-    "param.profile.description": "Profielnaam of a2a://naam. Indien weggelaten, wordt het standaardprofiel gebruikt.",
-    "param.message.description": "Gebruikersbericht om te verzenden.",
-    "param.return_immediately.description": "Als true, direct terugkeren na het aanmaken van de taak.",
-    "err.missing_message": "Ontbrekend 'message'.",
-    "err.exception": "Uitzondering"
+    "param.profile.description": "Profielnaam of a2a://naam.",
+    "param.message.description": "Gebruikersbericht...",
+    "param.return_immediately.description": "Als true, direct terugkeren na het aanm...",
+    "err.missing_message": "Ontbrekend 'mes...",
+    "err.exception": "Uitzon..."
   },
   "fi": {
-    "tool.description": "Lähetä viesti A2A-palvelinprofiiliin (a2a://name tai profiilin nimi). Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
+    "tool.description": "Lähetä viesti A2A-palvelinprofiiliin (a2a://name tai profiilin nimi).",
     "x_search_terms": [
       "a2a_send",
       "lähetä viesti",
@@ -413,14 +413,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Lähetä A2A-viesti. Palauta vain JSON. Käytä vain, kun paikalliset työkalut eivät voi korvata tehtävää.",
-    "param.profile.description": "Profiilin nimi tai a2a://nimi. Jos jätetään pois, käytetään oletusprofiilia.",
-    "param.message.description": "Lähetettävä käyttäjän viesti.",
-    "param.return_immediately.description": "Jos true, palauta heti tehtävän luonnin jälkeen.",
+    "param.profile.description": "Profiilin nimi tai a2a://nimi.",
+    "param.message.description": "Lähetettävä käyttä...",
+    "param.return_immediately.description": "Jos true, palauta heti tehtävän luonnin...",
     "err.missing_message": "Puuttuva 'message'.",
     "err.exception": "Poikkeus"
   },
   "cs": {
-    "tool.description": "Odešle zprávu do profilu serveru A2A (a2a://name nebo název profilu). Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
+    "tool.description": "Odešle zprávu do profilu serveru A2A (a2a://name nebo název profilu).",
     "x_search_terms": [
       "a2a_send",
       "odeslat zprávu",
@@ -434,14 +434,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Odešlete zprávu A2A. Vracejte pouze JSON. Používejte pouze tehdy, když místní nástroje nemohou úlohu nahradit.",
-    "param.profile.description": "Název profilu nebo a2a://name. Pokud je vynecháno, použije se výchozí profil.",
-    "param.message.description": "Uživatelská zpráva k odeslání.",
+    "param.profile.description": "Název profilu nebo a2a://name.",
+    "param.message.description": "Uživatelská zpráva...",
     "param.return_immediately.description": "Je-li true, vraťte se hned po vytvoření úlohy.",
     "err.missing_message": "Chybí 'message'.",
     "err.exception": "Výjimka"
   },
   "uk": {
-    "tool.description": "Надсилає повідомлення до профілю сервера A2A (a2a://name або назва профілю). Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
+    "tool.description": "Надсилає повідомлення до профілю сервера A2A (a2a://name або назва профілю).",
     "x_search_terms": [
       "a2a_send",
       "надіслати повідомлення",
@@ -455,14 +455,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "Надішліть повідомлення A2A. Повертайте лише JSON. Використовуйте лише тоді, коли локальні інструменти не можуть замінити завдання.",
-    "param.profile.description": "Назва профілю або a2a://name. Якщо опущено, використовується профіль за замовчуванням.",
-    "param.message.description": "Повідомлення користувача для надсилання.",
-    "param.return_immediately.description": "Якщо true, поверніть відповідь одразу після створення завдання.",
+    "param.profile.description": "Назва профілю або a2a://name.",
+    "param.message.description": "Повідомлення корис...",
+    "param.return_immediately.description": "Якщо true, поверніть відповідь одразу п...",
     "err.missing_message": "Відсутнє 'message'.",
     "err.exception": "Виняток"
   },
   "tr": {
-    "tool.description": "Bir A2A sunucu profiline (a2a://name veya profil adı) mesaj gönderin. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
+    "tool.description": "Bir A2A sunucu profiline (a2a://name veya profil adı) mesaj gönderin.",
     "x_search_terms": [
       "a2a_send",
       "mesaj gönder",
@@ -477,13 +477,13 @@
     ],
     "tool.system_prompt": "Bir A2A mesajı gönderin. Yalnızca JSON döndürün. Yalnızca yerel araçlar görevi yerine geçemediğinde kullanın.",
     "param.profile.description": "Profil adı veya a2a://name. Atlanırsa varsayılan profili kullanır.",
-    "param.message.description": "Gönderilecek kullanıcı mesajı.",
-    "param.return_immediately.description": "Doğruysa, görev oluşturulduktan hemen sonra geri dönün.",
+    "param.message.description": "Gönderilecek kulla...",
+    "param.return_immediately.description": "Doğruysa, görev oluşturulduktan hemen s...",
     "err.missing_message": "'Mesaj' eksik.",
     "err.exception": "İstisna"
   },
   "th": {
-    "tool.description": "ส่งข้อความไปยังโปรไฟล์เซิร์ฟเวอร์ A2A (a2a://name หรือชื่อโปรไฟล์). ใช้เฉพาะเมื่อเครื่องมือในเครื่องไม่สามารถแทนงานนี้ได้.",
+    "tool.description": "ส่งข้อความไปยังโปรไฟล์เซิร์ฟเวอร์ A2A (a2a://name หรือชื่อโปรไฟล์).",
     "x_search_terms": [
       "a2a_send",
       "ส่งข้อความ",
@@ -546,7 +546,7 @@
     "err.exception": "例外"
   },
   "bn": {
-    "tool.description": "একটি A2A সার্ভার প্রোফাইলে (a2a://name বা প্রোফাইল নাম) একটি বার্তা পাঠায়। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।",
+    "tool.description": "একটি A2A সার্ভার প্রোফাইলে (a2a://name বা প্রোফাইল নাম) একটি বার্তা পাঠায়। এটি ক...",
     "x_search_terms": [
       "a2a_send",
       "বার্তা পাঠান",
@@ -561,13 +561,13 @@
     ],
     "tool.system_prompt": "A2A বার্তা পাঠান। শুধু JSON ফেরত দিন। এটি কেবল তখনই ব্যবহার করুন যখন বিদ্যমান স্থানীয় টুল দিয়ে কাজটি প্রতিস্থাপন করা যায় না।",
     "param.profile.description": "প্রোফাইলের নাম বা a2a://name। বাদ দিলে ডিফল্ট প্রোফাইল ব্যবহার হবে।",
-    "param.message.description": "পাঠানোর জন্য ব্যবহারকারীর বার্তা।",
+    "param.message.description": "পাঠানোর জন্য ব্যবহ...",
     "param.return_immediately.description": "true হলে, কাজ তৈরি হওয়ার পরই ফিরে আসে।",
-    "err.missing_message": "'message' অনুপস্থিত।",
+    "err.missing_message": "'message' অনুপস...",
     "err.exception": "ব্যতিক্রম"
   },
   "fa": {
-    "tool.description": "به یک پروفایل سرور A2A (a2a://name یا نام پروفایل) پیام می‌فرستد. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند.",
+    "tool.description": "به یک پروفایل سرور A2A (a2a://name یا نام پروفایل) پیام می‌فرستد.",
     "x_search_terms": [
       "a2a_send",
       "ارسال پیام",
@@ -581,14 +581,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "پیام A2A ارسال کنید. فقط JSON برگردانید. فقط زمانی استفاده کنید که ابزارهای محلیِ موجود نتوانند جایگزین آن شوند.",
-    "param.profile.description": "نام پروفایل یا a2a://name. اگر حذف شود، از پروفایل پیش‌فرض استفاده می‌شود.",
+    "param.profile.description": "نام پروفایل یا a2a://name.",
     "param.message.description": "پیام کاربر برای ارسال.",
-    "param.return_immediately.description": "اگر true باشد، بلافاصله پس از ایجاد وظیفه برمی‌گردد.",
-    "err.missing_message": "'message' وجود ندارد.",
+    "param.return_immediately.description": "اگر true باشد، بلافاصله پس از ایجاد وظی...",
+    "err.missing_message": "'message' وجود...",
     "err.exception": "استثنا"
   },
   "mn": {
-    "tool.description": "A2A серверийн профайлд (a2a://name эсвэл профайлын нэр) мессеж илгээнэ. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу.",
+    "tool.description": "A2A серверийн профайлд (a2a://name эсвэл профайлын нэр) мессеж илгээнэ.",
     "x_search_terms": [
       "a2a_send",
       "мессеж илгээх",
@@ -602,14 +602,14 @@
       "a2a send"
     ],
     "tool.system_prompt": "A2A мессеж илгээнэ үү. Зөвхөн JSON буцаана. Одоо байгаа локал хэрэгслээр орлуулах боломжгүй үед л ашиглана уу.",
-    "param.profile.description": "Профайлын нэр эсвэл a2a://name. Хэрэв орхивол анхдагч профайлыг ашиглана.",
-    "param.message.description": "Илгээх хэрэглэгчийн мессеж.",
-    "param.return_immediately.description": "true бол даалгавар үүссэний дараа шууд буцаана.",
-    "err.missing_message": "'message' дутуу байна.",
+    "param.profile.description": "Профайлын нэр эсвэл a2a://name.",
+    "param.message.description": "Илгээх хэрэглэгчий...",
+    "param.return_immediately.description": "true бол даалгавар үүссэний дараа шууд...",
+    "err.missing_message": "'message' дутуу...",
     "err.exception": "Алдаа"
   },
   "mr": {
-    "tool.description": "A2A सर्व्हर प्रोफाइलला (a2a://name किंवा प्रोफाइलचे नाव) संदेश पाठवतो. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा.",
+    "tool.description": "A2A सर्व्हर प्रोफाइलला (a2a://name किंवा प्रोफाइलचे नाव) संदेश पाठवतो.",
     "x_search_terms": [
       "a2a_send",
       "संदेश पाठवा",
@@ -623,10 +623,10 @@
       "a2a send"
     ],
     "tool.system_prompt": "A2A संदेश पाठवा. फक्त JSON परत द्या. विद्यमान स्थानिक साधनांनी ते बदलता येत नसेल तेव्हाच वापरा.",
-    "param.profile.description": "प्रोफाइलचे नाव किंवा a2a://name. वगळल्यास डीफॉल्ट प्रोफाइल वापरले जाईल.",
-    "param.message.description": "पाठवायचा वापरकर्ता संदेश.",
-    "param.return_immediately.description": "true असल्यास, कार्य तयार झाल्यानंतर लगेच परत येते.",
-    "err.missing_message": "'message' अनुपस्थित आहे.",
+    "param.profile.description": "प्रोफाइलचे नाव किंवा a2a://name.",
+    "param.message.description": "पाठवायचा वापरकर्ता...",
+    "param.return_immediately.description": "true असल्यास, कार्य तयार झाल्यानंतर लगे...",
+    "err.missing_message": "'message' अनुपस...",
     "err.exception": "अपवाद"
   }
 }

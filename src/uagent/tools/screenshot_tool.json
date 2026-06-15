@@ -3,14 +3,14 @@
     "err.capture_fail": "[screenshot error] Failed to take screenshot: {err}",
     "err.close_fail": "[screenshot] Saved to {path} but failed to close window: {err}",
     "err.pyautogui_missing": "[screenshot error] pyautogui module is not installed.",
-    "err.pygetwindow_missing": "[screenshot error] The pygetwindow module is not installed (required for window specification).",
-    "err.window_not_found": "[screenshot error] No window was found matching title: '{title}'",
+    "err.pygetwindow_missing": "[screenshot error] pygetwindow module is not installed (required for window targeting).",
+    "err.window_not_found": "[screenshot error] No window found matching title: '{title}'",
     "out.ok": "[screenshot] Saved to {path}",
     "out.ok_closed": "[screenshot] Saved to {path} and closed window",
-    "param.close_window.description": "Whether to close the window after shooting. Valid only when window_title is specified. Default is False.",
-    "param.delay.description": "Wait time (seconds) before shooting. Default is 1 second (for window switching).",
-    "param.file_path.description": "Destination file path (.png recommended). If not specified, it will be saved in the current directory with a timestamp.",
-    "param.window_title.description": "Window title to be shot (partial match). If specified, locates that window, makes it active, and photographs only that area.",
+    "param.close_window.description": "Whether to close the window after capture. Only effective if window_title is specified.",
+    "param.delay.description": "Wait time before capture in seconds. Default is 1 second.",
+    "param.file_path.description": "Path for the saved file (recommended: . png).",
+    "param.window_title.description": "Target window title (partial match). If specified, the window is activated and only that region is captured.",
     "tool.description": "Captures a screenshot of the entire desktop or a specific window.",
     "x_search_terms": [
       "screenshot",
@@ -33,7 +33,7 @@
     "out.ok_closed": "[screenshot] {path} に保存し、ウィンドウを閉じました",
     "param.close_window.description": "撮影後にそのウィンドウを閉じるかどうか。window_title 指定時のみ有効。デフォルトは False。",
     "param.delay.description": "撮影前の待機時間（秒）。デフォルトは 1 秒（ウィンドウ切り替え用）。",
-    "param.file_path.description": "保存先のファイルパス（.png 推奨）。指定がない場合はカレントディレクトリにタイムスタンプ付きで保存します。",
+    "param.file_path.description": "保存先パス（.png推奨）。",
     "param.window_title.description": "撮影対象のウィンドウタイトル（部分一致）。指定した場合、そのウィンドウを探してアクティブにし、その領域だけを撮影します。",
     "tool.description": "デスクトップ画面、または指定したタイトルのウィンドウのスクリーンショットを撮影します。",
     "x_search_terms": [
@@ -46,17 +46,17 @@
     "next_action.analyze_screenshot": "このスクリーンショットを解析してください。"
   },
   "es": {
-    "err.capture_fail": "[error de captura] No se pudo tomar la captura de pantalla: {err}",
+    "err.capture_fail": "[error de captura] No se pudo tomar la captura de p...",
     "err.close_fail": "[captura] Se guardó en {path}, pero no se pudo cerrar la ventana: {err}",
     "err.pyautogui_missing": "[error de captura] El módulo pyautogui no está instalado.",
-    "err.pygetwindow_missing": "[error de captura] El módulo pygetwindow no está instalado (necesario para especificar la ventana).",
-    "err.window_not_found": "[error de captura] No se encontró ninguna ventana que coincida con el título: '{title}'",
+    "err.pygetwindow_missing": "[error de captura] El módulo pygetwindow no está instalado (necesario para especific...",
+    "err.window_not_found": "[error de captura] No se encontró ninguna ventana que coi...",
     "out.ok": "[captura] Guardado en {path}",
     "out.ok_closed": "[captura] Guardado en {path} y ventana cerrada",
-    "param.close_window.description": "Si se cierra la ventana después de capturarla. Solo válido cuando se especifica window_title. El valor predeterminado es False.",
-    "param.delay.description": "Tiempo de espera (segundos) antes de capturar. El valor predeterminado es 1 segundo (para cambiar de ventana).",
-    "param.file_path.description": "Ruta del archivo de destino (se recomienda .png). Si no se especifica, se guardará en el directorio actual con una marca de tiempo.",
-    "param.window_title.description": "Título de la ventana a capturar (coincidencia parcial). Si se especifica, localiza esa ventana, la activa y captura solo esa zona.",
+    "param.close_window.description": "Si se cierra la ventana después de capturarla.",
+    "param.delay.description": "Tiempo de espera (segundos) antes de capturar.",
+    "param.file_path.description": "Ruta del archivo de destino (se recomienda .",
+    "param.window_title.description": "Título de la ventana a capturar (coincidencia parcial).",
     "tool.description": "Captura una imagen de toda la pantalla o de una ventana específica.",
     "x_search_terms": [
       "screenshot",
@@ -64,20 +64,20 @@
       "captura ventana"
     ],
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: capturar una imagen de la pantalla o de una ventana especificada.",
-    "next_action.analyze_screenshot": "Por favor, analiza esta captura de pantalla."
+    "next_action.analyze_screenshot": "Por favor, analiza esta capt..."
   },
   "fr": {
-    "err.capture_fail": "[erreur de capture d'écran] Échec de la capture d'écran : {err}",
-    "err.close_fail": "[capture d'écran] Enregistré dans {path}, mais impossible de fermer la fenêtre : {err}",
-    "err.pyautogui_missing": "[erreur de capture d'écran] Le module pyautogui n'est pas installé.",
-    "err.pygetwindow_missing": "[erreur de capture d'écran] Le module pygetwindow n'est pas installé (nécessaire pour préciser une fenêtre).",
-    "err.window_not_found": "[erreur de capture d'écran] Aucune fenêtre correspondant au titre '{title}' n'a été trouvée",
+    "err.capture_fail": "[erreur de capture d'écran] Échec de la capture d'é...",
+    "err.close_fail": "[capture d'écran] Enregistré dans {path}, mais impossible de fermer la f...",
+    "err.pyautogui_missing": "[erreur de capture d'écran] Le module pyautogui n'...",
+    "err.pygetwindow_missing": "[erreur de capture d'écran] Le module pygetwindow n'est pas installé (nécessaire pou...",
+    "err.window_not_found": "[erreur de capture d'écran] Aucune fenêtre correspondant...",
     "out.ok": "[capture d'écran] Enregistré dans {path}",
     "out.ok_closed": "[capture d'écran] Enregistré dans {path} et fenêtre fermée",
-    "param.close_window.description": "Indique s'il faut fermer la fenêtre après la capture. Valable uniquement lorsque window_title est spécifié. Par défaut : False.",
-    "param.delay.description": "Temps d'attente avant la capture (secondes). Par défaut : 1 seconde (pour changer de fenêtre).",
-    "param.file_path.description": "Chemin du fichier de destination (.png recommandé). S'il n'est pas spécifié, il sera enregistré dans le répertoire courant avec un horodatage.",
-    "param.window_title.description": "Titre de la fenêtre à capturer (correspondance partielle). Si spécifié, localise cette fenêtre, la rend active et ne capture que cette zone.",
+    "param.close_window.description": "Indique s'il faut fermer la fenêtre après la capture.",
+    "param.delay.description": "Temps d'attente avant la capture (secondes).",
+    "param.file_path.description": "Chemin du fichier de destination (.",
+    "param.window_title.description": "Titre de la fenêtre à capturer (correspondance partielle).",
     "tool.description": "Capture une image de tout le bureau ou d'une fenêtre spécifique.",
     "x_search_terms": [
       "screenshot",
@@ -85,7 +85,7 @@
       "capture fenêtre"
     ],
     "tool.system_prompt": "Cet outil est utilisé dans le but suivant : capturer une image du bureau ou d'une fenêtre spécifiée.",
-    "next_action.analyze_screenshot": "Veuillez analyser cette capture d'écran."
+    "next_action.analyze_screenshot": "Veuillez analyser cette capt..."
   },
   "ko": {
     "err.capture_fail": "[screenshot error] 스크린샷을 찍지 못했습니다: {err}",
@@ -97,7 +97,7 @@
     "out.ok_closed": "[screenshot] {path}에 저장하고 창을 닫았습니다",
     "param.close_window.description": "촬영 후 창을 닫을지 여부입니다. window_title을 지정한 경우에만 유효합니다. 기본값은 False입니다.",
     "param.delay.description": "촬영 전 대기 시간(초)입니다. 기본값은 1초(창 전환용)입니다.",
-    "param.file_path.description": "저장할 파일 경로(.png 권장)입니다. 지정하지 않으면 현재 디렉터리에 타임스탬프와 함께 저장합니다.",
+    "param.file_path.description": "저장 경로(.png 권장).",
     "param.window_title.description": "촬영할 창 제목(부분 일치)입니다. 지정하면 해당 창을 찾아 활성화하고 그 영역만 촬영합니다.",
     "tool.description": "전체 데스크톱 또는 특정 창의 스크린샷을 캡처합니다.",
     "x_search_terms": [
@@ -110,39 +110,39 @@
     "next_action.analyze_screenshot": "이 스크린샷을 분석해 주세요."
   },
   "de": {
-    "err.capture_fail": "[screenshot-Fehler] Screenshot konnte nicht erstellt werden: {err}",
-    "err.close_fail": "[screenshot] In {path} gespeichert, Fenster konnte aber nicht geschlossen werden: {err}",
-    "err.pyautogui_missing": "[screenshot-Fehler] Das Modul pyautogui ist nicht installiert.",
-    "err.pygetwindow_missing": "[screenshot-Fehler] Das Modul pygetwindow ist nicht installiert (für die Fensterangabe erforderlich).",
-    "err.window_not_found": "[screenshot-Fehler] Es wurde kein Fenster mit dem Titel '{title}' gefunden",
+    "err.capture_fail": "[screenshot-Fehler] Screenshot konnte nicht erstell...",
+    "err.close_fail": "[screenshot] In {path} gespeichert, Fenster konnte aber nicht geschlosse...",
+    "err.pyautogui_missing": "[screenshot-Fehler] Das Modul pyautogui ist nicht...",
+    "err.pygetwindow_missing": "[screenshot-Fehler] Das Modul pygetwindow ist nicht installiert (für die Fensteranga...",
+    "err.window_not_found": "[screenshot-Fehler] Es wurde kein Fenster mit dem Titel '...",
     "out.ok": "[screenshot] In {path} gespeichert",
     "out.ok_closed": "[screenshot] In {path} gespeichert und Fenster geschlossen",
-    "param.close_window.description": "Ob das Fenster nach der Aufnahme geschlossen werden soll. Nur gültig, wenn window_title angegeben ist. Standard: False.",
-    "param.delay.description": "Wartezeit vor der Aufnahme (Sekunden). Standard: 1 Sekunde (zum Umschalten zwischen Fenstern).",
-    "param.file_path.description": "Zieldateipfad (.png empfohlen). Falls nicht angegeben, wird mit Zeitstempel im aktuellen Verzeichnis gespeichert.",
-    "param.window_title.description": "Fenstertitel des aufzunehmenden Fensters (Teiltreffer). Wenn angegeben, wird dieses Fenster gesucht, aktiviert und nur dieser Bereich aufgenommen.",
-    "tool.description": "Erfasst einen Screenshot des gesamten Desktops oder eines bestimmten Fensters.",
+    "param.close_window.description": "Ob das Fenster nach der Aufnahme geschlossen werden soll.",
+    "param.delay.description": "Wartezeit vor der Aufnahme (Sekunden).",
+    "param.file_path.description": "Zieldateipfad (.png empfohlen).",
+    "param.window_title.description": "Fenstertitel des aufzunehmenden Fensters (Teiltreffer).",
+    "tool.description": "Erfasst einen Screenshot des gesamten Desktops oder eines best...",
     "x_search_terms": [
       "screenshot",
       "bildschirmfoto",
       "fenster screenshot"
     ],
     "tool.system_prompt": "Dieses Tool wird für folgenden Zweck verwendet: einen Screenshot des Desktops oder eines angegebenen Fensters erfassen.",
-    "next_action.analyze_screenshot": "Bitte analysiere diesen Screenshot."
+    "next_action.analyze_screenshot": "Bitte analysiere diesen Scre..."
   },
   "it": {
-    "err.capture_fail": "[errore screenshot] Impossibile acquisire lo screenshot: {err}",
+    "err.capture_fail": "[errore screenshot] Impossibile acquisire lo screen...",
     "err.close_fail": "[screenshot] Salvato in {path}, ma impossibile chiudere la finestra: {err}",
     "err.pyautogui_missing": "[errore screenshot] Il modulo pyautogui non è installato.",
-    "err.pygetwindow_missing": "[errore screenshot] Il modulo pygetwindow non è installato (necessario per specificare la finestra).",
-    "err.window_not_found": "[errore screenshot] Nessuna finestra trovata con il titolo: '{title}'",
+    "err.pygetwindow_missing": "[errore screenshot] Il modulo pygetwindow non è installato (necessario per specifica...",
+    "err.window_not_found": "[errore screenshot] Nessuna finestra trovata con il titol...",
     "out.ok": "[screenshot] Salvato in {path}",
     "out.ok_closed": "[screenshot] Salvato in {path} e finestra chiusa",
-    "param.close_window.description": "Se chiudere la finestra dopo l'acquisizione. Valido solo quando window_title è specificato. Predefinito: False.",
-    "param.delay.description": "Tempo di attesa prima dell'acquisizione (secondi). Predefinito: 1 secondo (per il cambio finestra).",
-    "param.file_path.description": "Percorso del file di destinazione (.png consigliato). Se non specificato, viene salvato nella directory corrente con timestamp.",
-    "param.window_title.description": "Titolo della finestra da catturare (corrispondenza parziale). Se specificato, individua quella finestra, la attiva e cattura solo quell'area.",
-    "tool.description": "Acquisisce uno screenshot dell'intero desktop o di una finestra specifica.",
+    "param.close_window.description": "Se chiudere la finestra dopo l'acquisizione.",
+    "param.delay.description": "Tempo di attesa prima dell'acquisizione (secondi).",
+    "param.file_path.description": "Percorso del file di destinazione (.",
+    "param.window_title.description": "Titolo della finestra da catturare (corrispondenza parziale).",
+    "tool.description": "Acquisisce uno screenshot dell'intero desktop o di una finestr...",
     "x_search_terms": [
       "screenshot",
       "cattura schermo",
@@ -160,9 +160,9 @@
     "out.ok": "[screenshot] Сохранено в {path}",
     "out.ok_closed": "[screenshot] Сохранено в {path} и окно закрыто",
     "param.close_window.description": "Закрывать ли окно после снимка. Действует только если указан window_title. По умолчанию: False.",
-    "param.delay.description": "Время ожидания перед снимком (секунды). По умолчанию: 1 секунда (для переключения окна).",
-    "param.file_path.description": "Путь к файлу назначения (.png рекомендуется). Если не указано, будет сохранено в текущем каталоге с отметкой времени.",
-    "param.window_title.description": "Заголовок окна для снимка (частичное совпадение). Если указан, окно ищется, активируется, и снимок делается только этой области.",
+    "param.delay.description": "Время ожидания перед снимком (секунды).",
+    "param.file_path.description": "Путь к файлу назначения (.png рекомендуется).",
+    "param.window_title.description": "Заголовок окна для снимка (частичное совпадение).",
     "tool.description": "Создаёт снимок всего рабочего стола или указанного окна.",
     "x_search_terms": [
       "screenshot",
@@ -171,20 +171,20 @@
       "окно"
     ],
     "tool.system_prompt": "Этот инструмент используется для следующей цели: создавать снимок рабочего стола или указанного окна.",
-    "next_action.analyze_screenshot": "Пожалуйста, проанализируйте этот снимок экрана."
+    "next_action.analyze_screenshot": "Пожалуйста, проанализируйте..."
   },
   "pt_BR": {
     "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
     "err.close_fail": "[captura de tela] Salvo em {path}, mas não foi possível fechar a janela: {err}",
-    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não está instalado.",
-    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (necessário para especificar a janela).",
-    "err.window_not_found": "[erro de captura de tela] Nenhuma janela foi encontrada com o título: '{title}'",
+    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não e...",
+    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (necessário para e...",
+    "err.window_not_found": "[erro de captura de tela] Nenhuma janela foi encontrada c...",
     "out.ok": "[captura de tela] Salvo em {path}",
     "out.ok_closed": "[captura de tela] Salvo em {path} e janela fechada",
-    "param.close_window.description": "Se deve fechar a janela após a captura. Válido apenas quando window_title for especificado. Padrão: False.",
-    "param.delay.description": "Tempo de espera antes da captura (segundos). Padrão: 1 segundo (para trocar de janela).",
-    "param.file_path.description": "Caminho do arquivo de destino (.png recomendado). Se não for especificado, será salvo no diretório atual com carimbo de data/hora.",
-    "param.window_title.description": "Título da janela a ser capturada (correspondência parcial). Se especificado, localiza a janela, a ativa e captura apenas essa área.",
+    "param.close_window.description": "Se deve fechar a janela após a captura.",
+    "param.delay.description": "Tempo de espera antes da captura (segundos).",
+    "param.file_path.description": "Caminho do arquivo de destino (.",
+    "param.window_title.description": "Título da janela a ser capturada (correspondência parcial).",
     "tool.description": "Captura uma imagem da tela inteira ou de uma janela específica.",
     "x_search_terms": [
       "screenshot",
@@ -192,41 +192,41 @@
       "janela screenshot"
     ],
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: capturar uma imagem da área de trabalho ou de uma janela especificada.",
-    "next_action.analyze_screenshot": "Por favor, analise esta captura de tela."
+    "next_action.analyze_screenshot": "Por favor, analise esta capt..."
   },
   "pt": {
     "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
     "err.close_fail": "[captura de tela] Salvo em {path}, mas não foi possível fechar a janela: {err}",
-    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não está instalado.",
-    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (necessário para especificar a janela).",
-    "err.window_not_found": "[erro de captura de tela] Nenhuma janela encontrada com o título: '{title}'",
+    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não e...",
+    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (necessário para e...",
+    "err.window_not_found": "[erro de captura de tela] Nenhuma janela encontrada com o...",
     "out.ok": "[captura de tela] Salvo em {path}",
     "out.ok_closed": "[captura de tela] Salvo em {path} e janela fechada",
-    "param.close_window.description": "Se deve fechar a janela após a captura. Válido apenas quando window_title for especificado. Padrão: False.",
-    "param.delay.description": "Tempo de espera antes da captura (segundos). Padrão: 1 segundo (para trocar de janela).",
-    "param.file_path.description": "Caminho do arquivo de destino (.png recomendado). Se não for especificado, será salvo no diretório atual com carimbo de data/hora.",
-    "param.window_title.description": "Título da janela a ser capturada (correspondência parcial). Se informado, localiza a janela, ativa-a e captura apenas essa área.",
-    "tool.description": "Captura uma imagem de toda a área de trabalho ou de uma janela específica.",
+    "param.close_window.description": "Se deve fechar a janela após a captura.",
+    "param.delay.description": "Tempo de espera antes da captura (segundos).",
+    "param.file_path.description": "Caminho do arquivo de destino (.",
+    "param.window_title.description": "Título da janela a ser capturada (correspondência parcial).",
+    "tool.description": "Captura uma imagem de toda a área de trabalho ou de uma janela...",
     "x_search_terms": [
       "screenshot",
       "captura de tela",
       "janela screenshot"
     ],
     "tool.system_prompt": "Use esta ferramenta para capturar uma imagem da área de trabalho ou de uma janela específica.",
-    "next_action.analyze_screenshot": "Por favor, analise esta captura de ecrã."
+    "next_action.analyze_screenshot": "Por favor, analise esta capt..."
   },
   "id": {
     "err.capture_fail": "[screenshot error] Gagal mengambil screenshot: {err}",
     "err.close_fail": "[screenshot] Disimpan ke {path} tetapi gagal menutup window: {err}",
     "err.pyautogui_missing": "[screenshot error] modul pyautogui tidak terpasang.",
     "err.pygetwindow_missing": "[screenshot error] modul pygetwindow tidak terpasang (diperlukan untuk menentukan window).",
-    "err.window_not_found": "[screenshot error] Tidak ada window yang cocok dengan judul: '{title}'",
+    "err.window_not_found": "[screenshot error] Tidak ada window yang cocok dengan jud...",
     "out.ok": "[screenshot] Disimpan ke {path}",
     "out.ok_closed": "[screenshot] Disimpan ke {path} dan window ditutup",
-    "param.close_window.description": "Apakah menutup window setelah pengambilan. Hanya valid saat window_title ditentukan. Default false.",
-    "param.delay.description": "Waktu tunggu (detik) sebelum pengambilan. Default 1 detik (untuk berpindah window).",
-    "param.file_path.description": "Path file tujuan (.png disarankan). Jika tidak ditentukan, akan disimpan di direktori saat ini dengan timestamp.",
-    "param.window_title.description": "Judul window yang akan di-screenshot (partial match). Jika ditentukan, alat akan mencari window itu, mengaktifkannya, dan memotret hanya area tersebut.",
+    "param.close_window.description": "Apakah menutup window setelah pengambilan.Hanya valid saat window_title ditentukan.",
+    "param.delay.description": "Waktu tunggu (detik) sebelum pengambilan.",
+    "param.file_path.description": "Path file tujuan (.png disarankan).",
+    "param.window_title.description": "Judul window yang akan di-screenshot (partial match).",
     "tool.description": "Mengambil screenshot seluruh desktop atau window tertentu.",
     "x_search_terms": [
       "screenshot",
@@ -234,20 +234,20 @@
       "jendela screenshot"
     ],
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: ambil screenshot desktop atau window tertentu.",
-    "next_action.analyze_screenshot": "Silakan analisis tangkapan layar ini."
+    "next_action.analyze_screenshot": "Silakan analisis tangkapan l..."
   },
   "vi": {
     "err.capture_fail": "[lỗi ảnh chụp màn hình] Không thể chụp ảnh màn hình: {err}",
     "err.close_fail": "[ảnh chụp màn hình] Đã lưu vào {path} nhưng không thể đóng cửa sổ: {err}",
     "err.pyautogui_missing": "[lỗi ảnh chụp màn hình] Chưa cài đặt mô-đun pyautogui.",
     "err.pygetwindow_missing": "[lỗi ảnh chụp màn hình] Chưa cài đặt mô-đun pygetwindow (cần để chỉ định cửa sổ).",
-    "err.window_not_found": "[lỗi ảnh chụp màn hình] Không tìm thấy cửa sổ khớp với tiêu đề: '{title}'",
+    "err.window_not_found": "[lỗi ảnh chụp màn hình] Không tìm thấy cửa sổ khớp với ti...",
     "out.ok": "[ảnh chụp màn hình] Đã lưu vào {path}",
     "out.ok_closed": "[ảnh chụp màn hình] Đã lưu vào {path} và đã đóng cửa sổ",
     "param.close_window.description": "Có đóng cửa sổ sau khi chụp hay không. Chỉ hợp lệ khi chỉ định window_title. Mặc định là False.",
-    "param.delay.description": "Thời gian chờ trước khi chụp (giây). Mặc định là 1 giây (để chuyển cửa sổ).",
-    "param.file_path.description": "Đường dẫn tệp đích (.png được khuyên dùng). Nếu không chỉ định, tệp sẽ được lưu trong thư mục hiện tại với dấu thời gian.",
-    "param.window_title.description": "Tiêu đề cửa sổ cần chụp (khớp một phần). Nếu được chỉ định, công cụ sẽ tìm cửa sổ đó, kích hoạt nó và chỉ chụp vùng đó.",
+    "param.delay.description": "Thời gian chờ trước khi chụp (giây).",
+    "param.file_path.description": "Đường dẫn tệp đích (.png được khuyên dùng).",
+    "param.window_title.description": "Tiêu đề cửa sổ cần chụp (khớp một phần).",
     "tool.description": "Chụp ảnh màn hình toàn bộ màn hình hoặc một cửa sổ cụ thể.",
     "x_search_terms": [
       "screenshot",
@@ -255,20 +255,20 @@
       "cửa sổ screenshot"
     ],
     "tool.system_prompt": "Hãy dùng công cụ này để chụp ảnh màn hình của màn hình nền hoặc một cửa sổ được chỉ định.",
-    "next_action.analyze_screenshot": "Vui lòng phân tích ảnh chụp màn hình này."
+    "next_action.analyze_screenshot": "Vui lòng phân tích ảnh chụp..."
   },
   "pl": {
-    "err.capture_fail": "[błąd zrzutu ekranu] Nie udało się wykonać zrzutu ekranu: {err}",
+    "err.capture_fail": "[błąd zrzutu ekranu] Nie udało się wykonać zrzutu e...",
     "err.close_fail": "[zrzut ekranu] Zapisano do {path}, ale nie udało się zamknąć okna: {err}",
-    "err.pyautogui_missing": "[błąd zrzutu ekranu] Moduł pyautogui nie jest zainstalowany.",
+    "err.pyautogui_missing": "[błąd zrzutu ekranu] Moduł pyautogui nie jest zain...",
     "err.pygetwindow_missing": "[błąd zrzutu ekranu] Moduł pygetwindow nie jest zainstalowany (wymagany do wskazania okna).",
-    "err.window_not_found": "[błąd zrzutu ekranu] Nie znaleziono okna pasującego do tytułu: '{title}'",
+    "err.window_not_found": "[błąd zrzutu ekranu] Nie znaleziono okna pasującego do ty...",
     "out.ok": "[zrzut ekranu] Zapisano do {path}",
     "out.ok_closed": "[zrzut ekranu] Zapisano do {path} i zamknięto okno",
     "param.close_window.description": "Czy zamknąć okno po wykonaniu zrzutu. Działa tylko po podaniu window_title. Domyślnie: False.",
-    "param.delay.description": "Czas oczekiwania przed wykonaniem zrzutu (w sekundach). Domyślnie: 1 sekunda (na przełączenie okna).",
-    "param.file_path.description": "Ścieżka pliku docelowego (.png zalecane). Jeśli nie zostanie podana, plik zostanie zapisany w bieżącym katalogu z sygnaturą czasu.",
-    "param.window_title.description": "Tytuł okna do zrzutu (dopasowanie częściowe). Jeśli podano, narzędzie znajdzie to okno, aktywuje je i zapisze tylko ten obszar.",
+    "param.delay.description": "Czas oczekiwania przed wykonaniem zrzutu (w sekundach).",
+    "param.file_path.description": "Ścieżka pliku docelowego (.png zalecane).",
+    "param.window_title.description": "Tytuł okna do zrzutu (dopasowanie częściowe).",
     "tool.description": "Wykonuje zrzut ekranu całego pulpitu albo wskazanego okna.",
     "x_search_terms": [
       "screenshot",
@@ -276,20 +276,20 @@
       "zrzut okna"
     ],
     "tool.system_prompt": "Użyj tego narzędzia do wykonania zrzutu ekranu pulpitu lub wskazanego okna.",
-    "next_action.analyze_screenshot": "Proszę przeanalizować ten zrzut ekranu."
+    "next_action.analyze_screenshot": "Proszę przeanalizować ten zr..."
   },
   "hi": {
     "err.capture_fail": "[स्क्रीनशॉट त्रुटि] स्क्रीनशॉट लेने में विफल: {err}",
     "err.close_fail": "[स्क्रीनशॉट] {path} में सहेजा गया, लेकिन विंडो बंद नहीं हो सकी: {err}",
     "err.pyautogui_missing": "[स्क्रीनशॉट त्रुटि] pyautogui मॉड्यूल स्थापित नहीं है।",
-    "err.pygetwindow_missing": "[स्क्रीनशॉट त्रुटि] pygetwindow मॉड्यूल स्थापित नहीं है (विंडो निर्दिष्ट करने के लिए आवश्यक है)।",
-    "err.window_not_found": "[स्क्रीनशॉट त्रुटि] शीर्षक से मेल खाने वाली कोई विंडो नहीं मिली: '{title}'",
+    "err.pygetwindow_missing": "[स्क्रीनशॉट त्रुटि] pygetwindow मॉड्यूल स्थापित नहीं है (विंडो निर्दिष्ट करने के लिए...",
+    "err.window_not_found": "[स्क्रीनशॉट त्रुटि] शीर्षक से मेल खाने वाली कोई विंडो नही...",
     "out.ok": "[स्क्रीनशॉट] {path} में सहेजा गया",
     "out.ok_closed": "[स्क्रीनशॉट] {path} में सहेजा गया और विंडो बंद कर दी गई",
-    "param.close_window.description": "कैप्चर के बाद विंडो बंद करनी है या नहीं। केवल तब मान्य जब window_title निर्दिष्ट हो। डिफ़ॉल्ट: False.",
-    "param.delay.description": "कैप्चर से पहले प्रतीक्षा समय (सेकंड)। डिफ़ॉल्ट: 1 सेकंड (विंडो स्विच के लिए).",
-    "param.file_path.description": "गंतव्य फ़ाइल पथ (.png अनुशंसित)। यदि निर्दिष्ट नहीं है, तो इसे वर्तमान निर्देशिका में टाइमस्टैम्प के साथ सहेजा जाएगा।",
-    "param.window_title.description": "कैप्चर की जाने वाली विंडो का शीर्षक (आंशिक मिलान)। यदि दिया गया हो, तो उस विंडो को ढूँढकर सक्रिय किया जाता है और केवल उसी क्षेत्र का कैप्चर लिया जाता है।",
+    "param.close_window.description": "कैप्चर के बाद विंडो बंद करनी है या नहीं। केवल तब मान्य जब window_title निर्दिष्ट हो।...",
+    "param.delay.description": "कैप्चर से पहले प्रतीक्षा समय (सेकंड)। डिफ़ॉल्ट: 1 सेकं...",
+    "param.file_path.description": "गंतव्य फ़ाइल पथ (.",
+    "param.window_title.description": "कैप्चर की जाने वाली विंडो का शीर्षक (आंशिक मिलान)। यदि दिया गया हो, तो उस विंडो को ढूँढकर सक्रिय किया जात...",
     "tool.description": "पूरे डेस्कटॉप या किसी विशिष्ट विंडो का स्क्रीनशॉट कैप्चर करता है।",
     "x_search_terms": [
       "screenshot",
@@ -298,20 +298,20 @@
       "विंडो कैप्चर"
     ],
     "tool.system_prompt": "इस टूल का उपयोग डेस्कटॉप या किसी निर्दिष्ट विंडो का स्क्रीनशॉट कैप्चर करने के लिए करें।",
-    "next_action.analyze_screenshot": "कृपया इस स्क्रीनशॉट का विश्लेषण करें।"
+    "next_action.analyze_screenshot": "कृपया इस स्क्रीनशॉट का विश्ल..."
   },
   "ar": {
     "err.capture_fail": "[خطأ في لقطة الشاشة] فشل التقاط لقطة الشاشة: {err}",
     "err.close_fail": "[لقطة الشاشة] تم الحفظ في {path} ولكن تعذّر إغلاق النافذة: {err}",
     "err.pyautogui_missing": "[خطأ في لقطة الشاشة] لم يتم تثبيت وحدة pyautogui.",
     "err.pygetwindow_missing": "[خطأ في لقطة الشاشة] لم يتم تثبيت وحدة pygetwindow (مطلوبة لتحديد النافذة).",
-    "err.window_not_found": "[خطأ في لقطة الشاشة] لم يتم العثور على نافذة تطابق العنوان: '{title}'",
+    "err.window_not_found": "[خطأ في لقطة الشاشة] لم يتم العثور على نافذة تطابق العنوا...",
     "out.ok": "[لقطة الشاشة] تم الحفظ في {path}",
     "out.ok_closed": "[لقطة الشاشة] تم الحفظ في {path} وأُغلقت النافذة",
     "param.close_window.description": "هل تريد إغلاق النافذة بعد الالتقاط. صالح فقط عند تحديد window_title. الافتراضي: False.",
-    "param.delay.description": "مدة الانتظار قبل الالتقاط (بالثواني). الافتراضي: ثانية واحدة (لتبديل النافذة).",
-    "param.file_path.description": "مسار الملف الوجهة (.png مُفضّل). إذا لم يُحدَّد، يُحفظ في الدليل الحالي مع طابع زمني.",
-    "param.window_title.description": "عنوان النافذة المراد التقاطها (تطابق جزئي). إذا تم تحديده، يتم العثور على تلك النافذة وتفعيلها والتقاط تلك المنطقة فقط.",
+    "param.delay.description": "مدة الانتظار قبل الالتقاط (بالثواني).",
+    "param.file_path.description": "مسار الملف الوجهة (.png مُفضّل).",
+    "param.window_title.description": "عنوان النافذة المراد التقاطها (تطابق جزئي).",
     "tool.description": "يلتقط لقطة شاشة لسطح المكتب بالكامل أو لنافذة محددة.",
     "x_search_terms": [
       "screenshot",
@@ -327,13 +327,13 @@
     "err.close_fail": "[screenshot] Sparades till {path} men det gick inte att stänga fönstret: {err}",
     "err.pyautogui_missing": "[screenshot-fel] Modulen pyautogui är inte installerad.",
     "err.pygetwindow_missing": "[screenshot-fel] Modulen pygetwindow är inte installerad (krävs för att ange fönster).",
-    "err.window_not_found": "[screenshot-fel] Inget fönster hittades som matchar titeln: '{title}'",
+    "err.window_not_found": "[screenshot-fel] Inget fönster hittades som matchar titel...",
     "out.ok": "[screenshot] Sparades till {path}",
     "out.ok_closed": "[screenshot] Sparades till {path} och stängde fönstret",
-    "param.close_window.description": "Om fönstret ska stängas efter att bilden tagits. Gäller bara när window_title anges. Standard är False.",
-    "param.delay.description": "Väntetid i sekunder före tagning. Standard är 1 sekund (för att hinna byta fönster).",
-    "param.file_path.description": "Målfilsökväg (.png rekommenderas). Om inget anges sparas filen i den aktuella katalogen med en tidsstämpel.",
-    "param.window_title.description": "Fönstertitel som ska fotograferas (delvis matchning). Om den anges letas fönstret upp, aktiveras och endast det området fotograferas.",
+    "param.close_window.description": "Om fönstret ska stängas efter att bilden tagits.Gäller bara när window_title anges.",
+    "param.delay.description": "Väntetid i sekunder före tagning.",
+    "param.file_path.description": "Målfilsökväg (.png rekommenderas).",
+    "param.window_title.description": "Fönstertitel som ska fotograferas (delvis matchning).",
     "tool.description": "Tar en skärmdump av hela skrivbordet eller av ett specifikt fönster.",
     "x_search_terms": [
       "screenshot",
@@ -341,20 +341,20 @@
       "fönster"
     ],
     "tool.system_prompt": "Det här verktyget används för att ta en skärmdump av skrivbordet eller ett angivet fönster.",
-    "next_action.analyze_screenshot": "Analysera gärna den här skärmdumpen."
+    "next_action.analyze_screenshot": "Analysera gärna den här skär..."
   },
   "sw": {
     "err.capture_fail": "[screenshot error] Imeshindwa kupiga picha ya skrini: {err}",
     "err.close_fail": "[screenshot] Imehifadhiwa katika {path} lakini imeshindwa kufunga dirisha: {err}",
     "err.pyautogui_missing": "[screenshot error] Moduli ya pyautogui haijasakinishwa.",
     "err.pygetwindow_missing": "[screenshot error] Moduli ya pygetwindow haijasakinishwa (inahitajika kwa kutaja dirisha).",
-    "err.window_not_found": "[screenshot error] Hakuna dirisha lililolingana na kichwa: '{title}'",
+    "err.window_not_found": "[screenshot error] Hakuna dirisha lililolingana na kichwa...",
     "out.ok": "[screenshot] Imehifadhiwa katika {path}",
     "out.ok_closed": "[screenshot] Imehifadhiwa katika {path} na dirisha limefungwa",
-    "param.close_window.description": "Je, dirisha lifungwe baada ya kupiga picha. Hutumika tu wakati window_title imetajwa. Chaguomsingi ni False.",
-    "param.delay.description": "Muda wa kusubiri (sekunde) kabla ya kupiga picha. Chaguomsingi ni sekunde 1 (kwa kubadilisha dirisha).",
-    "param.file_path.description": "Njia ya faili la lengwa (.png inapendekezwa). Ikiwa haijatolewa, itahifadhiwa katika saraka ya sasa na muhuri wa muda.",
-    "param.window_title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu). Ikiwa kimeelezwa, hupata dirisha hilo, kulifanya kuwa hai, na kupiga picha eneo hilo tu.",
+    "param.close_window.description": "Je, dirisha lifungwe baada ya kupiga picha.Hutumika tu wakati window_title imetajwa.",
+    "param.delay.description": "Muda wa kusubiri (sekunde) kabla ya kupiga picha.",
+    "param.file_path.description": "Njia ya faili la lengwa (.png inapendekezwa).",
+    "param.window_title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu).",
     "tool.description": "Piga picha ya skrini ya desktop nzima au dirisha mahususi.",
     "x_search_terms": [
       "screenshot",
@@ -362,20 +362,20 @@
       "dirisha"
     ],
     "tool.system_prompt": "Zana hii hutumiwa kwa lengo lifuatalo: piga picha ya skrini ya desktop au dirisha lililotajwa.",
-    "next_action.analyze_screenshot": "Tafadhali chambua picha hii ya skrini."
+    "next_action.analyze_screenshot": "Tafadhali chambua picha hii..."
   },
   "nb": {
     "err.capture_fail": "[screenshot-feil] Klarte ikke å ta skjermbildet: {err}",
     "err.close_fail": "[screenshot] Lagret til {path}, men klarte ikke å lukke vinduet: {err}",
     "err.pyautogui_missing": "[screenshot-feil] Modulen pyautogui er ikke installert.",
     "err.pygetwindow_missing": "[screenshot-feil] Modulen pygetwindow er ikke installert (kreves for å angi vindu).",
-    "err.window_not_found": "[screenshot-feil] Fant ikke noe vindu som samsvarer med tittelen: '{title}'",
+    "err.window_not_found": "[screenshot-feil] Fant ikke noe vindu som samsvarer med t...",
     "out.ok": "[screenshot] Lagret til {path}",
     "out.ok_closed": "[screenshot] Lagret til {path} og lukket vinduet",
-    "param.close_window.description": "Om vinduet skal lukkes etter at bildet er tatt. Gjelder bare når window_title er angitt. Standard er False.",
-    "param.delay.description": "Ventetid i sekunder før opptak. Standard er 1 sekund (for å bytte vindu).",
-    "param.file_path.description": "Målfilsti (.png anbefales). Hvis ikke angitt, lagres den i gjeldende katalog med et tidsstempel.",
-    "param.window_title.description": "Vindustittel som skal tas bilde av (delvis treff). Hvis den er angitt, finner verktøyet vinduet, aktiverer det og tar bare bilde av det området.",
+    "param.close_window.description": "Om vinduet skal lukkes etter at bildet er tatt.Gjelder bare når window_title er angitt.",
+    "param.delay.description": "Ventetid i sekunder før opptak.",
+    "param.file_path.description": "Målfilsti (.png anbefales).",
+    "param.window_title.description": "Vindustittel som skal tas bilde av (delvis treff).",
     "tool.description": "Tar et skjermbilde av hele skrivebordet eller av et bestemt vindu.",
     "x_search_terms": [
       "screenshot",
@@ -383,41 +383,41 @@
       "vindu"
     ],
     "tool.system_prompt": "Dette verktøyet brukes til å ta et skjermbilde av skrivebordet eller et angitt vindu.",
-    "next_action.analyze_screenshot": "Vennligst analyser dette skjermbildet."
+    "next_action.analyze_screenshot": "Vennligst analyser dette skj..."
   },
   "nl": {
     "err.capture_fail": "[screenshot fout] Screenshot maken mislukt: {err}",
     "err.close_fail": "[screenshot] Opgeslagen naar {path}, maar het venster sluiten mislukte: {err}",
-    "err.pyautogui_missing": "[screenshot fout] De module pyautogui is niet geïnstalleerd.",
-    "err.pygetwindow_missing": "[screenshot fout] De module pygetwindow is niet geïnstalleerd (vereist voor vensterspecificatie).",
+    "err.pyautogui_missing": "[screenshot fout] De module pyautogui is niet geïn...",
+    "err.pygetwindow_missing": "[screenshot fout] De module pygetwindow is niet geïnstalleerd (vereist voor vensters...",
     "err.window_not_found": "[screenshot fout] Er is geen venster gevonden met titel: '{title}'",
     "out.ok": "[screenshot] Opgeslagen naar {path}",
     "out.ok_closed": "[screenshot] Opgeslagen naar {path} en venster gesloten",
-    "param.close_window.description": "Of het venster na het maken van de opname moet worden gesloten. Alleen geldig wanneer window_title is opgegeven. Standaard is false.",
-    "param.delay.description": "Wachttijd (seconden) vóór het maken van de opname. Standaard is 1 seconde (voor wisselen van venster).",
-    "param.file_path.description": "Bestemmingsbestandspad (.png aanbevolen). Als niet opgegeven, wordt het opgeslagen in de huidige map met een tijdstempel.",
-    "param.window_title.description": "Venstertitel om vast te leggen (gedeeltelijke match). Als opgegeven, zoekt het dat venster, activeert het en fotografeert alleen dat gebied.",
-    "tool.description": "Leg een screenshot vast van het volledige bureaublad of van een specifiek venster.",
+    "param.close_window.description": "Of het venster na het maken van de opname moet worden gesloten.",
+    "param.delay.description": "Wachttijd (seconden) vóór het maken van de opname.",
+    "param.file_path.description": "Bestemmingsbestandspad (.png aanbevolen).",
+    "param.window_title.description": "Venstertitel om vast te leggen (gedeeltelijke match).",
+    "tool.description": "Leg een screenshot vast van het volledige bureaublad of van ee...",
     "x_search_terms": [
       "screenshot",
       "schermafbeelding",
       "venster"
     ],
     "tool.system_prompt": "Leg een screenshot vast van het bureaublad of een opgegeven venster.",
-    "next_action.analyze_screenshot": "Analyseer deze schermafbeelding, alstublieft."
+    "next_action.analyze_screenshot": "Analyseer deze schermafbeeld..."
   },
   "fi": {
-    "err.capture_fail": "[screenshot-virhe] Kuvakaappauksen ottaminen epäonnistui: {err}",
-    "err.close_fail": "[screenshot] Tallennettu kohteeseen {path}, mutta ikkunan sulkeminen epäonnistui: {err}",
+    "err.capture_fail": "[screenshot-virhe] Kuvakaappauksen ottaminen epäonn...",
+    "err.close_fail": "[screenshot] Tallennettu kohteeseen {path}, mutta ikkunan sulkeminen epä...",
     "err.pyautogui_missing": "[screenshot-virhe] pyautogui-moduulia ei ole asennettu.",
     "err.pygetwindow_missing": "[screenshot-virhe] pygetwindow-moduulia ei ole asennettu (vaaditaan ikkunan valintaa varten).",
-    "err.window_not_found": "[screenshot-virhe] Ikkunaa, jonka otsikko on: '{title}', ei löytynyt",
+    "err.window_not_found": "[screenshot-virhe] Ikkunaa, jonka otsikko on: '{title}',...",
     "out.ok": "[screenshot] Tallennettu kohteeseen {path}",
     "out.ok_closed": "[screenshot] Tallennettu kohteeseen {path} ja ikkuna suljettu",
     "param.close_window.description": "Suljetaanko ikkuna oton jälkeen. Voimassa vain, kun window_title on annettu. Oletus on false.",
-    "param.delay.description": "Odotusaika (sekunteina) ennen ottoa. Oletus on 1 sekunti (ikkunan vaihtoa varten).",
-    "param.file_path.description": "Tallennuskohteen tiedostopolku (.png suositeltu). Jos ei anneta, tiedosto tallennetaan nykyiseen hakemistoon aikaleimalla.",
-    "param.window_title.description": "Ikkunan otsikko, josta otos otetaan (osittainen osuma). Jos annetaan, työkalu etsii sen ikkunan, aktivoi sen ja kuvaa vain kyseisen alueen.",
+    "param.delay.description": "Odotusaika (sekunteina) ennen ottoa.",
+    "param.file_path.description": "Tallennuskohteen tiedostopolku (.",
+    "param.window_title.description": "Ikkunan otsikko, josta otos otetaan (osittainen osuma).",
     "tool.description": "Ota kuvakaappaus koko työpöydästä tai tietystä ikkunasta.",
     "x_search_terms": [
       "screenshot",
@@ -428,17 +428,17 @@
     "next_action.analyze_screenshot": "Analysoi tämä kuvakaappaus."
   },
   "cs": {
-    "err.capture_fail": "[screenshot chyba] Nepodařilo se pořídit snímek obrazovky: {err}",
+    "err.capture_fail": "[screenshot chyba] Nepodařilo se pořídit snímek obr...",
     "err.close_fail": "[screenshot] Uloženo do {path}, ale nepodařilo se zavřít okno: {err}",
     "err.pyautogui_missing": "[screenshot chyba] Modul pyautogui není nainstalován.",
     "err.pygetwindow_missing": "[screenshot chyba] Modul pygetwindow není nainstalován (je vyžadován pro určení okna).",
-    "err.window_not_found": "[screenshot chyba] Nebylo nalezeno žádné okno odpovídající názvu: '{title}'",
+    "err.window_not_found": "[screenshot chyba] Nebylo nalezeno žádné okno odpovídajíc...",
     "out.ok": "[screenshot] Uloženo do {path}",
     "out.ok_closed": "[screenshot] Uloženo do {path} a okno bylo zavřeno",
-    "param.close_window.description": "Zda po pořízení snímku zavřít okno. Platí pouze při zadání window_title. Výchozí hodnota je False.",
-    "param.delay.description": "Doba čekání před pořízením snímku (sekundy). Výchozí je 1 sekunda (pro přepnutí okna).",
-    "param.file_path.description": "Cílová cesta k souboru (.png doporučeno). Pokud není zadána, uloží se do aktuálního adresáře s časovým razítkem.",
-    "param.window_title.description": "Název okna, které má být zachyceno (částečná shoda). Pokud je zadán, najde se toto okno, aktivuje se a zachytí se pouze tato oblast.",
+    "param.close_window.description": "Zda po pořízení snímku zavřít okno.Platí pouze při zadání window_title.",
+    "param.delay.description": "Doba čekání před pořízením snímku (sekundy).",
+    "param.file_path.description": "Cílová cesta k souboru (.png doporučeno).",
+    "param.window_title.description": "Název okna, které má být zachyceno (částečná shoda).",
     "tool.description": "Pořizuje snímek celé plochy nebo konkrétního okna.",
     "x_search_terms": [
       "screenshot",
@@ -446,19 +446,19 @@
       "okno"
     ],
     "tool.system_prompt": "Tento nástroj slouží k následujícímu účelu: pořídit snímek plochy nebo zadaného okna.",
-    "next_action.analyze_screenshot": "Prosím analyzujte tento snímek obrazovky."
+    "next_action.analyze_screenshot": "Prosím analyzujte tento sním..."
   },
   "uk": {
-    "err.capture_fail": "[помилка screenshot] Не вдалося зробити знімок екрана: {err}",
+    "err.capture_fail": "[помилка screenshot] Не вдалося зробити знімок екра...",
     "err.close_fail": "[screenshot] Збережено в {path}, але не вдалося закрити вікно: {err}",
     "err.pyautogui_missing": "[помилка screenshot] Модуль pyautogui не встановлено.",
     "err.pygetwindow_missing": "[помилка screenshot] Модуль pygetwindow не встановлено (потрібен для вибору вікна).",
-    "err.window_not_found": "[помилка screenshot] Не знайдено жодного вікна, що відповідає назві: '{title}'",
+    "err.window_not_found": "[помилка screenshot] Не знайдено жодного вікна, що відпов...",
     "out.ok": "[screenshot] Збережено в {path}",
     "out.ok_closed": "[screenshot] Збережено в {path} і вікно закрито",
     "param.close_window.description": "Чи закривати вікно після знімка. Дійсно лише коли вказано window_title. Типово: False.",
-    "param.delay.description": "Час очікування перед знімком (секунди). Типово 1 секунда (для перемикання вікна).",
-    "param.file_path.description": "Шлях до файла призначення (.png рекомендовано). Якщо не вказано, буде збережено в поточному каталозі з міткою часу.",
+    "param.delay.description": "Час очікування перед знімком (секунди).",
+    "param.file_path.description": "Шлях до файла призначення (.",
     "param.window_title.description": "Заголовок вікна для знімка (частковий збіг). Якщо вказано, знайде це вікно, активує його і збереже лише цю область.",
     "tool.description": "Робить знімок усього робочого столу або конкретного вікна.",
     "x_search_terms": [
@@ -467,20 +467,20 @@
       "вікно"
     ],
     "tool.system_prompt": "Цей інструмент використовується для такої мети: зробити знімок робочого столу або вказаного вікна.",
-    "next_action.analyze_screenshot": "Будь ласка, проаналізуйте цей знімок екрана."
+    "next_action.analyze_screenshot": "Будь ласка, проаналізуйте це..."
   },
   "tr": {
     "err.capture_fail": "[ekran görüntüsü hatası] Ekran görüntüsü alınamadı: {err}",
     "err.close_fail": "[ekran görüntüsü] {path} konumuna kaydedildi ancak pencere kapatılamadı: {err}",
     "err.pyautogui_missing": "[ekran görüntüsü hatası] pyautogui modülü kurulu değil.",
-    "err.pygetwindow_missing": "[ekran görüntüsü hatası] Pygetwindow modülü kurulu değil (pencere spesifikasyonu için gereklidir).",
-    "err.window_not_found": "[ekran görüntüsü hatası] Başlıkla eşleşen pencere bulunamadı: '{title}'",
+    "err.pygetwindow_missing": "[ekran görüntüsü hatası] Pygetwindow modülü kurulu değil (pencere spesifikasyonu içi...",
+    "err.window_not_found": "[ekran görüntüsü hatası] Başlıkla eşleşen pencere bulunam...",
     "out.ok": "[ekran görüntüsü] {path} konumuna kaydedildi",
     "out.ok_closed": "[ekran görüntüsü] {path}'a kaydedildi ve pencere kapatıldı",
-    "param.close_window.description": "Çekimden sonra pencerenin kapatılıp kapatılmayacağı. Yalnızca window_title belirtildiğinde geçerlidir. Varsayılan Yanlış'tır.",
-    "param.delay.description": "Çekimden önce bekleme süresi (saniye). Varsayılan 1 saniyedir (pencere geçişi için).",
-    "param.file_path.description": "Hedef dosya yolu (.png önerilir). Belirtilmemişse, geçerli dizine bir zaman damgasıyla kaydedilecektir.",
-    "param.window_title.description": "Çekilecek pencere başlığı (kısmi eşleşme). Belirtilmişse o pencerenin yerini belirler, aktif hale getirir ve yalnızca o alanın fotoğrafını çeker.",
+    "param.close_window.description": "Çekimden sonra pencerenin kapatılıp kapatılmayacağı.",
+    "param.delay.description": "Çekimden önce bekleme süresi (saniye).",
+    "param.file_path.description": "Hedef dosya yolu (.png önerilir).",
+    "param.window_title.description": "Çekilecek pencere başlığı (kısmi eşleşme).",
     "tool.description": "Tüm masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalar.",
     "x_search_terms": [
       "screenshot",
@@ -488,7 +488,7 @@
       "pencere"
     ],
     "tool.system_prompt": "Bu araç şu amaç için kullanılır: masaüstünün veya belirli bir pencerenin ekran görüntüsünü yakalamak.",
-    "next_action.analyze_screenshot": "Lütfen bu ekran görüntüsünü analiz edin."
+    "next_action.analyze_screenshot": "Lütfen bu ekran görüntüsünü..."
   },
   "th": {
     "err.capture_fail": "[ข้อผิดพลาดภาพหน้าจอ] ไม่สามารถจับภาพหน้าจอได้: {err}",
@@ -499,8 +499,8 @@
     "out.ok": "[ภาพหน้าจอ] บันทึกไปที่ {path}",
     "out.ok_closed": "[ภาพหน้าจอ] บันทึกไปที่ {path} และปิดหน้าต่างแล้ว",
     "param.close_window.description": "จะปิดหน้าต่างหลังจากจับภาพหรือไม่ ใช้ได้เฉพาะเมื่อระบุ window_title ค่าเริ่มต้นคือ False",
-    "param.delay.description": "เวลารอก่อนจับภาพ (วินาที) ค่าเริ่มต้นคือ 1 วินาที (สำหรับสลับหน้าต่าง)",
-    "param.file_path.description": "พาธไฟล์ปลายทาง (แนะนำ .png) หากไม่ระบุ จะบันทึกในไดเร็กทอรีปัจจุบันพร้อมเวลาประทับ",
+    "param.delay.description": "เวลารอก่อนจับภาพ (วินาที) ค่าเริ่มต้นคือ 1 วินาที (สำห...",
+    "param.file_path.description": "พาธไฟล์ปลายทาง (แนะนำ .",
     "param.window_title.description": "ชื่อหน้าต่างที่จะจับภาพ (ตรงบางส่วน) หากระบุ จะค้นหาหน้าต่างนั้น ทำให้เป็นหน้าต่างที่ใช้งานอยู่ และจับเฉพาะพื้นที่นั้น",
     "tool.description": "จับภาพหน้าจอของเดสก์ท็อปทั้งหมดหรือหน้าต่างเฉพาะ",
     "x_search_terms": [
@@ -560,13 +560,13 @@
     "err.close_fail": "[screenshot] {path} এ সংরক্ষণ করা হয়েছে, কিন্তু উইন্ডো বন্ধ করা যায়নি: {err}",
     "err.pyautogui_missing": "[screenshot error] pyautogui মডিউল ইনস্টল করা নেই।",
     "err.pygetwindow_missing": "[screenshot error] pygetwindow মডিউল ইনস্টল করা নেই (উইন্ডো নির্দিষ্ট করতে প্রয়োজন)।",
-    "err.window_not_found": "[screenshot error] শিরোনাম '{title}'-এর সাথে মেলে এমন কোনো উইন্ডো পাওয়া যায়নি",
+    "err.window_not_found": "[screenshot error] শিরোনাম '{title}'-এর সাথে মেলে এমন কোন...",
     "out.ok": "[screenshot] {path} এ সংরক্ষণ করা হয়েছে",
     "out.ok_closed": "[screenshot] {path} এ সংরক্ষণ করা হয়েছে এবং উইন্ডো বন্ধ করা হয়েছে",
-    "param.close_window.description": "ক্যাপচার করার পরে উইন্ডো বন্ধ করা হবে কি না। শুধু window_title নির্দিষ্ট থাকলে বৈধ। ডিফল্ট: False.",
-    "param.delay.description": "ক্যাপচারের আগে অপেক্ষার সময় (সেকেন্ড)। ডিফল্ট: 1 সেকেন্ড (উইন্ডো বদলানোর জন্য).",
-    "param.file_path.description": "গন্তব্য ফাইল পাথ (.png সুপারিশকৃত)। নির্দিষ্ট না করলে, টাইমস্ট্যাম্পসহ বর্তমান ডিরেক্টরিতে সংরক্ষণ করা হবে।",
-    "param.window_title.description": "ক্যাপচার করার উইন্ডোর শিরোনাম (আংশিক মিল)। নির্দিষ্ট করলে, সেই উইন্ডো খুঁজে সক্রিয় করা হবে এবং শুধু সেই অংশের ছবি তোলা হবে।",
+    "param.close_window.description": "ক্যাপচার করার পরে উইন্ডো বন্ধ করা হবে কি না। শুধু window_title নির্দিষ্ট থাকলে বৈধ।...",
+    "param.delay.description": "ক্যাপচারের আগে অপেক্ষার সময় (সেকেন্ড)। ডিফল্ট: 1 সেকে...",
+    "param.file_path.description": "গন্তব্য ফাইল পাথ (.",
+    "param.window_title.description": "ক্যাপচার করার উইন্ডোর শিরোনাম (আংশিক মিল)। নির্দিষ্ট করলে, সেই উইন্ডো খুঁজে সক্রিয় করা হবে এবং শুধু সেই...",
     "tool.description": "সম্পূর্ণ ডেস্কটপ বা নির্দিষ্ট কোনো উইন্ডোর স্ক্রিনশট নেয়।",
     "x_search_terms": [
       "screenshot",
@@ -575,7 +575,7 @@
       "উইন্ডো ক্যাপচার"
     ],
     "tool.system_prompt": "এই টুলটি ব্যবহৃত হয় ডেস্কটপ বা নির্দিষ্ট কোনো উইন্ডোর স্ক্রিনশট নিতে।",
-    "next_action.analyze_screenshot": "অনুগ্রহ করে এই স্ক্রিনশটটি বিশ্লেষণ করুন।"
+    "next_action.analyze_screenshot": "অনুগ্রহ করে এই স্ক্রিনশটটি ব..."
   },
   "fa": {
     "err.capture_fail": "[خطای اسکرین‌شات] گرفتن اسکرین‌شات ناموفق بود: {err}",
@@ -585,10 +585,10 @@
     "err.window_not_found": "[خطای اسکرین‌شات] هیچ پنجره‌ای با عنوان '{title}' پیدا نشد",
     "out.ok": "[اسکرین‌شات] در {path} ذخیره شد",
     "out.ok_closed": "[اسکرین‌شات] در {path} ذخیره شد و پنجره بسته شد",
-    "param.close_window.description": "اینکه بعد از گرفتن عکس پنجره بسته شود یا نه. فقط وقتی window_title مشخص شده باشد معتبر است. پیش‌فرض: False.",
-    "param.delay.description": "زمان انتظار قبل از گرفتن عکس (ثانیه). پیش‌فرض: 1 ثانیه (برای جابه‌جایی پنجره).",
-    "param.file_path.description": "مسیر فایل مقصد (ترجیحاً .png). اگر مشخص نشود، با مُهر زمان در پوشهٔ فعلی ذخیره می‌شود.",
-    "param.window_title.description": "عنوان پنجره‌ای که باید تصویربرداری شود (تطابق جزئی). اگر مشخص شود، همان پنجره پیدا و فعال می‌شود و فقط همان بخش تصویربرداری می‌شود.",
+    "param.close_window.description": "اینکه بعد از گرفتن عکس پنجره بسته شود یا نه.",
+    "param.delay.description": "زمان انتظار قبل از گرفتن عکس (ثانیه).",
+    "param.file_path.description": "مسیر فایل مقصد (ترجیحاً .png).",
+    "param.window_title.description": "عنوان پنجره‌ای که باید تصویربرداری شود (تطابق جزئی).",
     "tool.description": "از کل دسکتاپ یا یک پنجرهٔ مشخص اسکرین‌شات می‌گیرد.",
     "x_search_terms": [
       "screenshot",
@@ -597,7 +597,7 @@
       "پنجره"
     ],
     "tool.system_prompt": "این ابزار برای این منظور استفاده می‌شود: گرفتن اسکرین‌شات از دسکتاپ یا یک پنجرهٔ مشخص.",
-    "next_action.analyze_screenshot": "لطفاً این اسکرین‌شات را تحلیل کنید."
+    "next_action.analyze_screenshot": "لطفاً این اسکرین‌شات را تحلی..."
   },
   "mn": {
     "err.capture_fail": "[screenshot error] Дэлгэцийн зургийг авч чадсангүй: {err}",
@@ -608,8 +608,8 @@
     "out.ok": "[screenshot] {path} руу хадгаллаа",
     "out.ok_closed": "[screenshot] {path} руу хадгалж, цонхыг хаалаа",
     "param.close_window.description": "Дарсны дараа цонхыг хаах эсэх. Зөвхөн window_title заасан үед хүчинтэй. Анхдагч: False.",
-    "param.delay.description": "Дархаас өмнөх хүлээлгийн хугацаа (секунд). Анхдагч: 1 секунд (цонх солиход зориулсан).",
-    "param.file_path.description": "Хадгалах файл зам (.png зөвлөж байна). Заагаагүй бол одоогийн хавтсанд цагийн тэмдэгтэйгээр хадгална.",
+    "param.delay.description": "Дархаас өмнөх хүлээлгийн хугацаа (секунд).",
+    "param.file_path.description": "Хадгалах файл зам (.png зөвлөж байна).",
     "param.window_title.description": "Дарж авах цонхны гарчиг (хэсэгчилсэн тааралт). Заавал өгвөл, тэр цонхыг олж идэвхжүүлээд зөвхөн тэр хэсгийг зураглана.",
     "tool.description": "Бүх дэлгэц эсвэл тодорхой цонхны дэлгэцийн зургийг авна.",
     "x_search_terms": [
@@ -625,13 +625,13 @@
     "err.close_fail": "[स्क्रीनशॉट] {path} मध्ये जतन केले, पण विंडो बंद करता आली नाही: {err}",
     "err.pyautogui_missing": "[स्क्रीनशॉट त्रुटी] pyautogui मॉड्यूल स्थापित नाही.",
     "err.pygetwindow_missing": "[स्क्रीनशॉट त्रुटी] pygetwindow मॉड्यूल स्थापित नाही (विंडो निर्दिष्ट करण्यासाठी आवश्यक).",
-    "err.window_not_found": "[स्क्रीनशॉट त्रुटी] '{title}' या शीर्षकाशी जुळणारी कोणतीही विंडो सापडली नाही",
+    "err.window_not_found": "[स्क्रीनशॉट त्रुटी] '{title}' या शीर्षकाशी जुळणारी कोणतीह...",
     "out.ok": "[स्क्रीनशॉट] {path} मध्ये जतन केले",
     "out.ok_closed": "[स्क्रीनशॉट] {path} मध्ये जतन केले आणि विंडो बंद केली",
     "param.close_window.description": "कॅप्चर केल्यानंतर विंडो बंद करायची की नाही. फक्त window_title दिल्यास वैध. डीफॉल्ट: False.",
-    "param.delay.description": "कॅप्चरपूर्व प्रतीक्षा वेळ (सेकंद). डीफॉल्ट: 1 सेकंद (विंडो बदलण्यासाठी).",
-    "param.file_path.description": "गंतव्य फाइल path (.png शिफारस). दिले नसल्यास, टाइमस्टॅम्पसह सध्याच्या डिरेक्टरीत जतन केले जाईल.",
-    "param.window_title.description": "कॅप्चर करायच्या विंडोचे शीर्षक (आंशिक जुळणी). दिल्यास, ती विंडो शोधून सक्रिय केली जाईल आणि फक्त तोच भाग कॅप्चर केला जाईल.",
+    "param.delay.description": "कॅप्चरपूर्व प्रतीक्षा वेळ (सेकंद).",
+    "param.file_path.description": "गंतव्य फाइल path (.png शिफारस).",
+    "param.window_title.description": "कॅप्चर करायच्या विंडोचे शीर्षक (आंशिक जुळणी).",
     "tool.description": "संपूर्ण डेस्कटॉप किंवा विशिष्ट विंडोचा स्क्रीनशॉट घेते.",
     "x_search_terms": [
       "screenshot",
@@ -640,6 +640,6 @@
       "विंडो कॅप्चर"
     ],
     "tool.system_prompt": "हे साधन डेस्कटॉप किंवा निर्दिष्ट विंडोचा स्क्रीनशॉट घेण्यासाठी वापरले जाते.",
-    "next_action.analyze_screenshot": "कृपया या स्क्रीनशॉटचे विश्लेषण करा।"
+    "next_action.analyze_screenshot": "कृपया या स्क्रीनशॉटचे विश्ले..."
   }
 }

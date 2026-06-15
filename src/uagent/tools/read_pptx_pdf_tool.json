@@ -3,7 +3,7 @@
     "param.max_chars.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters.",
     "param.page_index.description": "1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
     "param.path.description": "Path to a PDF / PPTX / JSON file.",
-    "tool.description": "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .pdf / .pptx / .json. For PDF/PPTX, this module converts it into the common JSON schema.",
+    "tool.description": "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .",
     "x_search_terms": [
       "read_pptx_pdf",
       "read pptx pdf",
@@ -13,7 +13,7 @@
       "extract pages"
     ],
     "tool.system_prompt": "IMPORTANT: This tool reads PDF/PPTX/JSON and returns page-level text. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
-    "param.password.description": "Optional password for encrypted PDF/PPTX files. If omitted and the input is encrypted, you will be prompted once for a password.",
+    "param.password.description": "Password (prompts if needed).",
     "param.page.description": "Page number to read (1-based). Alias of page_index.",
     "prompt.password": "Enter the password for this file:\n{path}"
   },
@@ -29,15 +29,15 @@
       "pdf pptx 解析"
     ],
     "tool.system_prompt": "重要: このツールは PDF/PPTX/JSON を読み取り、ページ単位のテキストを返します。入力: path, page_index, max_chars。出力: ページテキスト（全ページまたは指定ページ）。",
-    "param.password.description": "暗号化された PDF/PPTX ファイルのパスワード（任意）。省略時に入力ファイルが暗号化されている場合は、1回だけパスワード入力を求めます。",
+    "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
     "param.page.description": "読み取るページ番号（1始まり）。page_index の別名です。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
   "es": {
     "param.max_chars.description": "Número máximo de caracteres a devolver. Si se omite, se trunca a 8000 caracteres.",
-    "param.page_index.description": "Número de página basado en 1 (página PDF o índice de diapositiva PPTX). Si se omite, devuelve el texto concatenado de todas las páginas.",
+    "param.page_index.description": "Número de página basado en 1 (página PDF o índice de diapositiva PPTX).",
     "param.path.description": "Ruta a un archivo PDF / PPTX / JSON.",
-    "tool.description": "Lee PDF/PPTX (o su esquema JSON común) y devuelve el texto extraído por página. Puede establecer la ruta en .pdf / .pptx / .json. Para PDF/PPTX, este módulo lo convierte al esquema JSON común.",
+    "tool.description": "Lee PDF/PPTX (o su esquema JSON común) y devuelve el texto extraído por página.",
     "x_search_terms": [
       "read_pptx_pdf",
       "leer pdf pptx",
@@ -45,15 +45,15 @@
       "pdf pptx leer"
     ],
     "tool.system_prompt": "IMPORTANTE: esta herramienta lee PDF/PPTX/JSON y devuelve texto por página. Entrada: path, page_index, max_chars. Salida: texto de la página (todas las páginas o la página especificada).",
-    "param.password.description": "Contraseña opcional para archivos PDF/PPTX cifrados. Si se omite y la entrada está cifrada, se le pedirá la contraseña una vez.",
-    "prompt.password": "Introduzca la contraseña de este archivo:\n{path}",
+    "param.password.description": "Contraseña opcional para a...",
+    "prompt.password": "Introduzca la contraseña de este arch...",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "fr": {
-    "param.max_chars.description": "Nombre maximum de caractères à renvoyer. En cas d'omission, la sortie est tronquée à 8 000 caractères.",
-    "param.page_index.description": "Numéro de page commençant à 1 (page PDF ou index de diapositive PPTX). En cas d'omission, renvoie le texte concaténé de toutes les pages.",
-    "param.path.description": "Chemin vers un fichier PDF / PPTX / JSON.",
-    "tool.description": "Lit un PDF/PPTX (ou leur schéma JSON commun) et renvoie le texte extrait page par page. Vous pouvez définir le chemin vers .pdf / .pptx / .json. Pour PDF/PPTX, ce module le convertit en schéma JSON commun.",
+    "param.max_chars.description": "Nombre maximum de caractères à renvoyer.",
+    "param.page_index.description": "Numéro de page commençant à 1 (page PDF ou index de diapositive PPTX).",
+    "param.path.description": "Chemin vers un fichier PDF / P...",
+    "tool.description": "Lit un PDF/PPTX (ou leur schéma JSON commun) et renvoie le texte extrait page par page.",
     "x_search_terms": [
       "read_pptx_pdf",
       "lire pdf pptx",
@@ -61,8 +61,8 @@
       "pdf pptx lire"
     ],
     "tool.system_prompt": "IMPORTANT : cet outil lit les fichiers PDF/PPTX/JSON et renvoie le texte au niveau de la page. Entrée : chemin, page_index, max_chars. Sortie : texte de la page (toutes les pages ou la page spécifiée).",
-    "param.password.description": "Mot de passe facultatif pour les fichiers PDF/PPTX chiffrés. S'il est omis et que l'entrée est chiffrée, il vous sera demandé une seule fois.",
-    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}",
+    "param.password.description": "Mot de passe facultatif po...",
+    "prompt.password": "Entrez le mot de passe de ce fichier...",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "ko": {
@@ -77,15 +77,15 @@
       "pdf pptx 추출"
     ],
     "tool.system_prompt": "중요: 이 도구는 PDF/PPTX/JSON을 읽고 페이지 단위 텍스트를 반환합니다. 입력: path, page_index, max_chars. 출력: 페이지 텍스트(모든 페이지 또는 지정된 페이지).",
-    "param.password.description": "암호화된 PDF/PPTX 파일의 선택적 비밀번호입니다. 생략되었고 입력 파일이 암호화되어 있으면 한 번 비밀번호 입력을 요청합니다.",
+    "param.password.description": "비밀번호(필요시 프롬프트 표시).",
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "de": {
-    "param.max_chars.description": "Maximale Anzahl der zurückzugebenden Zeichen. Wenn weggelassen, wird auf 8000 Zeichen gekürzt.",
-    "param.page_index.description": "1-basierte Seitennummer (PDF-Seite oder PPTX-Folienindex). Wenn weggelassen, wird der verkettete Text aller Seiten zurückgegeben.",
+    "param.max_chars.description": "Maximale Anzahl der zurückzugebenden Zeichen.",
+    "param.page_index.description": "1-basierte Seitennummer (PDF-Seite oder PPTX-Folienindex).",
     "param.path.description": "Pfad zu einer PDF-/PPTX-/JSON-Datei.",
-    "tool.description": "Liest PDF/PPTX (oder ihr gemeinsames JSON-Schema) und gibt den extrahierten Text seitenweise zurück. Der Pfad kann auf .pdf / .pptx / .json gesetzt werden. Bei PDF/PPTX konvertiert dieses Modul in das gemeinsame JSON-Schema.",
+    "tool.description": "Liest PDF/PPTX (oder ihr gemeinsames JSON-Schema) und gibt den extrahierten Text seitenweise zurück.",
     "x_search_terms": [
       "read_pptx_pdf",
       "pdf pptx lesen",
@@ -93,15 +93,15 @@
       "pdf pptx text"
     ],
     "tool.system_prompt": "WICHTIG: Dieses Tool liest PDF/PPTX/JSON und gibt Text auf Seitenebene zurück. Eingabe: Pfad, page_index, max_chars. Ausgabe: Seitentext (alle Seiten oder die angegebene Seite).",
-    "param.password.description": "Optionales Kennwort für verschlüsselte PDF/PPTX-Dateien. Wenn es weggelassen wird und die Eingabe verschlüsselt ist, werden Sie einmal zur Eingabe aufgefordert.",
-    "prompt.password": "Bitte geben Sie das Kennwort für diese Datei ein:\n{path}",
+    "param.password.description": "Optionales Kennwort für ve...",
+    "prompt.password": "Bitte geben Sie das Kennwort für dies...",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "it": {
     "param.max_chars.description": "Numero massimo di caratteri da restituire. Se omesso, tronca a 8000 caratteri.",
-    "param.page_index.description": "Numero di pagina a partire da 1 (pagina PDF o indice diapositiva PPTX). Se omesso, restituisce il testo concatenato di tutte le pagine.",
-    "param.path.description": "Percorso di un file PDF / PPTX / JSON.",
-    "tool.description": "Legge PDF/PPTX (o il loro schema JSON comune) e restituisce il testo estratto per pagina. È possibile impostare il percorso su .pdf / .pptx / .json. Per PDF/PPTX, questo modulo lo converte nello schema JSON comune.",
+    "param.page_index.description": "Numero di pagina a partire da 1 (pagina PDF o indice diapositiva PPTX).",
+    "param.path.description": "Percorso di un file PDF / PPTX...",
+    "tool.description": "Legge PDF/PPTX (o il loro schema JSON comune) e restituisce il testo estratto per pagina.",
     "x_search_terms": [
       "read_pptx_pdf",
       "leggi pdf pptx",
@@ -109,15 +109,15 @@
       "pdf pptx leggere"
     ],
     "tool.system_prompt": "IMPORTANTE: questo strumento legge PDF/PPTX/JSON e restituisce testo a livello di pagina. Input: percorso, page_index, max_chars. Output: testo della pagina (tutte le pagine o la pagina specificata).",
-    "param.password.description": "Password facoltativa per file PDF/PPTX crittografati. Se omessa e l'input è crittografato, verrà richiesto di inserirla una sola volta.",
+    "param.password.description": "Password facoltativa per f...",
     "prompt.password": "Inserisci la password di questo file:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "ru": {
-    "param.max_chars.description": "Максимальное количество возвращаемых символов. Если не указано, результат обрезается до 8000 символов.",
-    "param.page_index.description": "Номер страницы, начиная с 1 (страница PDF или индекс слайда PPTX). Если не указано, возвращается объединенный текст всех страниц.",
+    "param.max_chars.description": "Максимальное количество возвращаемых символов.",
+    "param.page_index.description": "Номер страницы, начиная с 1 (страница PDF или индекс слайда PPTX).",
     "param.path.description": "Путь к файлу PDF / PPTX / JSON.",
-    "tool.description": "Читает PDF/PPTX (или их общую JSON-схему) и возвращает извлеченный текст по страницам. Можно указать путь к .pdf / .pptx / .json. Для PDF/PPTX этот модуль преобразует данные в общую JSON-схему.",
+    "tool.description": "Читает PDF/PPTX (или их общую JSON-схему) и возвращает извлеченный текст по страницам.",
     "x_search_terms": [
       "read_pptx_pdf",
       "читать pdf pptx",
@@ -125,15 +125,15 @@
       "pdf pptx читать"
     ],
     "tool.system_prompt": "ВАЖНО: этот инструмент читает PDF/PPTX/JSON и возвращает текст на уровне страницы. Ввод: path, page_index, max_chars. Вывод: текст страницы (все страницы или указанная страница).",
-    "param.password.description": "Необязательный пароль для зашифрованных файлов PDF/PPTX. Если он не указан и входные данные зашифрованы, пароль будет запрошен один раз.",
+    "param.password.description": "Необязательный пароль для...",
     "prompt.password": "Введите пароль для этого файла:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "pt_BR": {
     "param.max_chars.description": "Número máximo de caracteres a serem retornados. Se omitido, trunca em 8.000 caracteres.",
-    "param.page_index.description": "Número da página começando em 1 (página PDF ou índice do slide PPTX). Se omitido, retorna o texto concatenado de todas as páginas.",
-    "param.path.description": "Caminho para um arquivo PDF / PPTX / JSON.",
-    "tool.description": "Lê PDF/PPTX (ou seu esquema JSON comum) e retorna o texto extraído por página. Você pode definir o caminho para .pdf / .pptx / .json. Para PDF/PPTX, este módulo o converte para o esquema JSON comum.",
+    "param.page_index.description": "Número da página começando em 1 (página PDF ou índice do slide PPTX).",
+    "param.path.description": "Caminho para um arquivo PDF /...",
+    "tool.description": "Lê PDF/PPTX (ou seu esquema JSON comum) e retorna o texto extraído por página.",
     "x_search_terms": [
       "read_pptx_pdf",
       "ler pdf pptx",
@@ -141,15 +141,15 @@
       "pdf pptx ler"
     ],
     "tool.system_prompt": "IMPORTANTE: esta ferramenta lê PDF/PPTX/JSON e retorna texto por página. Entrada: caminho, page_index, max_chars. Saída: texto da página (todas as páginas ou a página especificada).",
-    "param.password.description": "Senha opcional para arquivos PDF/PPTX criptografados. Se omitida e a entrada estiver criptografada, será solicitada uma única vez.",
+    "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "pt": {
     "param.max_chars.description": "Número máximo de caracteres a serem retornados. Se omitido, truncará em 8.000 caracteres.",
-    "param.page_index.description": "Número de página baseado em 1 (página PDF ou índice de slides PPTX). Se omitido, retorna texto concatenado para todas as páginas.",
-    "param.path.description": "Caminho para um arquivo PDF / PPTX / JSON.",
-    "tool.description": "Leia PDF/PPTX (ou seu esquema JSON comum) e retorne o texto extraído por página. Você pode definir o caminho para .pdf/.pptx/.json. Para PDF/PPTX, este módulo o converte no esquema JSON comum.",
+    "param.page_index.description": "Número de página baseado em 1 (página PDF ou índice de slides PPTX).",
+    "param.path.description": "Caminho para um arquivo PDF /...",
+    "tool.description": "Leia PDF/PPTX (ou seu esquema JSON comum) e retorne o texto extraído por página.",
     "x_search_terms": [
       "read_pptx_pdf",
       "ler pdf pptx",
@@ -157,15 +157,15 @@
       "pdf pptx ler"
     ],
     "tool.system_prompt": "IMPORTANTE: Esta ferramenta lê PDF/PPTX/JSON e retorna texto em nível de página. Input: path, page_index, max_chars. Output: page text (all pages or specified page).",
-    "param.password.description": "Senha opcional para arquivos PDF/PPTX criptografados. Se omitido e a entrada for criptografada, uma senha será solicitada uma vez.",
+    "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "id": {
-    "param.max_chars.description": "Jumlah maksimum karakter yang dikembalikan. Jika tidak ditentukan, dipotong pada 8000 karakter.",
-    "param.page_index.description": "Nomor halaman berbasis 1 (halaman PDF atau indeks slide PPTX). Jika tidak ditentukan, mengembalikan teks gabungan untuk semua halaman.",
+    "param.max_chars.description": "Jumlah maksimum karakter yang dikembalikan.",
+    "param.page_index.description": "Nomor halaman berbasis 1 (halaman PDF atau indeks slide PPTX).",
     "param.path.description": "Path ke file PDF / PPTX / JSON.",
-    "tool.description": "Baca PDF/PPTX (atau skema JSON umum mereka) dan kembalikan teks yang diekstrak per halaman. Anda dapat mengatur path ke .pdf / .pptx / .json. Untuk PDF/PPTX, modul ini mengonversinya ke skema JSON umum.",
+    "tool.description": "Baca PDF/PPTX (atau skema JSON umum mereka) dan kembalikan teks yang diekstrak per halaman.",
     "x_search_terms": [
       "read_pptx_pdf",
       "baca pdf pptx",
@@ -173,7 +173,7 @@
       "pdf pptx baca"
     ],
     "tool.system_prompt": "PENTING: Alat ini membaca PDF/PPTX/JSON dan mengembalikan teks tingkat halaman. Input: path, page_index, max_chars. Output: teks halaman (semua halaman atau halaman yang ditentukan).",
-    "param.password.description": "Kata sandi opsional untuk file PDF/PPTX terenkripsi. Jika tidak diisi dan input terenkripsi, Anda akan diminta kata sandi satu kali.",
+    "param.password.description": "Kata sandi opsional untuk...",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
@@ -181,7 +181,7 @@
     "param.max_chars.description": "Số ký tự tối đa cần trả về. Nếu bỏ qua, sẽ cắt ngắn ở 8000 ký tự.",
     "param.page_index.description": "Số trang dựa trên 1 (trang PDF hoặc chỉ mục slide PPTX). Nếu bị bỏ qua, trả về văn bản nối cho tất cả các trang.",
     "param.path.description": "Đường dẫn đến tệp PDF / PPTX / JSON.",
-    "tool.description": "Đọc PDF/PPTX (hoặc lược đồ JSON phổ biến của chúng) và trả về văn bản được trích xuất theo trang. Bạn có thể đặt đường dẫn đến .pdf/.pptx/.json. Đối với PDF/PPTX, mô-đun này chuyển đổi nó thành lược đồ JSON chung.",
+    "tool.description": "Đọc PDF/PPTX (hoặc lược đồ JSON phổ biến của chúng) và trả về văn bản được trích xuất theo trang.",
     "x_search_terms": [
       "read_pptx_pdf",
       "đọc pdf pptx",
@@ -189,15 +189,15 @@
       "pdf pptx đọc"
     ],
     "tool.system_prompt": "QUAN TRỌNG: Công cụ này đọc PDF/PPTX/JSON và trả về văn bản cấp trang. Đầu vào: đường dẫn, page_index, max_chars. Đầu ra: văn bản trang (tất cả các trang hoặc trang được chỉ định).",
-    "param.password.description": "Mật khẩu tùy chọn cho tệp PDF/PPTX đã mã hóa. Nếu bỏ qua và dữ liệu đầu vào đã được mã hóa, bạn sẽ được yêu cầu nhập mật khẩu một lần.",
+    "param.password.description": "Mật khẩu tùy chọn cho tệp...",
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "pl": {
-    "param.max_chars.description": "Maksymalna liczba znaków do zwrócenia. W przypadku pominięcia obcinany jest po 8000 znaków.",
-    "param.page_index.description": "Numer strony oparty na 1 (strona PDF lub indeks slajdów PPTX). Jeśli zostanie pominięty, zwraca połączony tekst dla wszystkich stron.",
+    "param.max_chars.description": "Maksymalna liczba znaków do zwrócenia.",
+    "param.page_index.description": "Numer strony oparty na 1 (strona PDF lub indeks slajdów PPTX).",
     "param.path.description": "Ścieżka do pliku PDF / PPTX / JSON.",
-    "tool.description": "Czytaj pliki PDF/PPTX (lub ich typowy schemat JSON) i zwracaj wyodrębniony tekst według stron. Możesz ustawić ścieżkę na .pdf / .pptx / .json. W przypadku formatu PDF/PPTX moduł ten konwertuje go na typowy schemat JSON.",
+    "tool.description": "Czytaj pliki PDF/PPTX (lub ich typowy schemat JSON) i zwracaj wyodrębniony tekst według stron.",
     "x_search_terms": [
       "read_pptx_pdf",
       "czytaj pdf pptx",
@@ -205,15 +205,15 @@
       "pdf pptx czytaj"
     ],
     "tool.system_prompt": "WAŻNE: To narzędzie odczytuje pliki PDF/PPTX/JSON i zwraca tekst na poziomie strony. Dane wejściowe: ścieżka, indeks_strony, max_chars. Dane wyjściowe: tekst strony (wszystkie strony lub określona strona).",
-    "param.password.description": "Opcjonalne hasło do zaszyfrowanych plików PDF/PPTX. Jeśli zostanie pominięte, a dane wejściowe są zaszyfrowane, hasło zostanie poproszone tylko raz.",
+    "param.password.description": "Opcjonalne hasło do zaszyf...",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "hi": {
     "param.max_chars.description": "लौटने के लिए वर्णों की अधिकतम संख्या. यदि छोड़ दिया जाए, तो 8000 अक्षर कम हो जाते हैं।",
-    "param.page_index.description": "1-आधारित पेज नंबर (पीडीएफ पेज या पीपीटीएक्स स्लाइड इंडेक्स)। यदि छोड़ा गया है, तो सभी पृष्ठों के लिए संक्षिप्त पाठ लौटाता है।",
-    "param.path.description": "पीडीएफ/पीपीटीएक्स/जेएसओएन फ़ाइल का पथ।",
-    "tool.description": "PDF/PPTX (या उनके सामान्य JSON स्कीमा) को पढ़ें और पृष्ठ के अनुसार निकाला गया पाठ लौटाएँ। आप पथ को .pdf / .pptx / .json पर सेट कर सकते हैं। PDF/PPTX के लिए, यह मॉड्यूल इसे सामान्य JSON स्कीमा में बदल देता है।",
+    "param.page_index.description": "1-आधारित पेज नंबर (पीडीएफ पेज या पीपीटीएक्स स्लाइड इंडेक्स)। यदि छोड़ा गया है, तो सभी पृष्ठों के लिए...",
+    "param.path.description": "पीडीएफ/पीपीटीएक्स/जेएसओएन फ़ाइ...",
+    "tool.description": "PDF/PPTX (या उनके सामान्य JSON स्कीमा) को पढ़ें और पृष्ठ के अनुसार निकाला गया पाठ लौटाएँ। आप पथ को .",
     "x_search_terms": [
       "read_pptx_pdf",
       "pdf pptx पढ़ें",
@@ -221,7 +221,7 @@
       "pdf pptx पढ़ना"
     ],
     "tool.system_prompt": "महत्वपूर्ण: यह टूल PDF/PPTX/JSON पढ़ता है और पेज-स्तरीय टेक्स्ट लौटाता है। इनपुट: path, page_index, max_chars। आउटपुट: पेज टेक्स्ट (सभी पेज या निर्दिष्ट पेज)।",
-    "param.password.description": "एन्क्रिप्टेड पीडीएफ/पीपीटीएक्स फाइलों के लिए वैकल्पिक पासवर्ड। यदि छोड़ दिया गया है और इनपुट एन्क्रिप्ट किया गया है, तो आपको एक बार पासवर्ड के लिए संकेत दिया जाएगा।",
+    "param.password.description": "एन्क्रिप्टेड पीडीएफ/पीपीटी...",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
@@ -229,7 +229,7 @@
     "param.max_chars.description": "الحد الأقصى لعدد الأحرف المراد إرجاعها. إذا تم حذفه، فسيتم اقتطاعه عند 8000 حرف.",
     "param.page_index.description": "رقم صفحة يعتمد على 1 (صفحة PDF أو فهرس شريحة PPTX). إذا تم حذفه، فسيتم إرجاع النص المتسلسل لجميع الصفحات.",
     "param.path.description": "المسار إلى ملف PDF / PPTX / JSON.",
-    "tool.description": "اقرأ ملفات PDF/PPTX (أو مخطط JSON المشترك الخاص بها) وأعد النص المستخرج حسب الصفحة. يمكنك تعيين المسار إلى .pdf / .pptx / .json. بالنسبة إلى PDF/PPTX، تقوم هذه الوحدة بتحويله إلى المخطط JSON المشترك.",
+    "tool.description": "اقرأ ملفات PDF/PPTX (أو مخطط JSON المشترك الخاص بها) وأعد النص المستخرج حسب الصفحة.",
     "x_search_terms": [
       "read_pptx_pdf",
       "قراءة pdf pptx",
@@ -237,15 +237,15 @@
       "pdf pptx قراءة"
     ],
     "tool.system_prompt": "هام: تقوم هذه الأداة بقراءة PDF/PPTX/JSON وإرجاع النص على مستوى الصفحة. الإدخال: path و page_index و max_chars. الإخراج: نص الصفحة (جميع الصفحات أو الصفحة المحددة).",
-    "param.password.description": "كلمة مرور اختيارية لملفات PDF/PPTX المشفرة. إذا تم حذفه وتم تشفير الإدخال، فستتم مطالبتك مرة واحدة بكلمة المرور.",
+    "param.password.description": "كلمة مرور اختيارية لملفات...",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "sv": {
-    "param.max_chars.description": "Maximalt antal tecken som ska returneras. Om det utelämnas trunkeras resultatet vid 8000 tecken.",
-    "param.page_index.description": "1-baserat sidnummer (PDF-sida eller PPTX-bildindex). Om det utelämnas returneras den sammanfogade texten för alla sidor.",
-    "param.path.description": "Sökväg till en PDF / PPTX / JSON-fil.",
-    "tool.description": "Läser PDF/PPTX (eller deras gemensamma JSON-schema) och returnerar extraherad text per sida. Du kan ange sökvägen som .pdf / .pptx / .json. För PDF/PPTX konverterar modulen detta till det gemensamma JSON-schemat.",
+    "param.max_chars.description": "Maximalt antal tecken som ska returneras.",
+    "param.page_index.description": "1-baserat sidnummer (PDF-sida eller PPTX-bildindex).",
+    "param.path.description": "Sökväg till en PDF / PPTX / JS...",
+    "tool.description": "Läser PDF/PPTX (eller deras gemensamma JSON-schema) och returnerar extraherad text per sida.",
     "x_search_terms": [
       "read_pptx_pdf",
       "läs pdf pptx",
@@ -253,15 +253,15 @@
       "pdf pptx läs"
     ],
     "tool.system_prompt": "VIKTIGT: Det här verktyget läser PDF/PPTX/JSON och returnerar text på sidnivå. Indata: path, page_index, max_chars. Utdata: sidtext (alla sidor eller angiven sida).",
-    "param.password.description": "Valfritt lösenord för krypterade PDF/PPTX-filer. Om det utelämnas och indata är krypterad kommer du att ombes ange ett lösenord en gång.",
+    "param.password.description": "Valfritt lösenord för kryp...",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "sw": {
     "param.max_chars.description": "Idadi ya juu ya herufi za kurejesha. Ikiwa haijatajwa, hupunguzwa hadi herufi 8000.",
-    "param.page_index.description": "Nambari ya ukurasa kuanzia 1 (ukurasa wa PDF au index ya slaidi ya PPTX). Ikiwa haijatajwa, hurudisha maandishi yaliyounganishwa ya kurasa zote.",
+    "param.page_index.description": "Nambari ya ukurasa kuanzia 1 (ukurasa wa PDF au index ya slaidi ya PPTX).",
     "param.path.description": "Njia ya faili la PDF / PPTX / JSON.",
-    "tool.description": "Soma PDF/PPTX (au schema yao ya kawaida ya JSON) na rudisha maandishi yaliyotolewa kwa kila ukurasa. Unaweza kuweka path kuwa .pdf / .pptx / .json. Kwa PDF/PPTX, moduli hii hubadilisha kuwa schema ya kawaida ya JSON.",
+    "tool.description": "Soma PDF/PPTX (au schema yao ya kawaida ya JSON) na rudisha maandishi yaliyotolewa kwa kila ukurasa.",
     "x_search_terms": [
       "read_pptx_pdf",
       "soma pdf pptx",
@@ -269,15 +269,15 @@
       "pdf pptx soma"
     ],
     "tool.system_prompt": "MUHIMU: Zana hii husoma PDF/PPTX/JSON na kurudisha maandishi ya kila ukurasa. Ingizo: path, page_index, max_chars. Tokeo: maandishi ya ukurasa (kurasa zote au ukurasa uliochaguliwa).",
-    "param.password.description": "Nenosiri la hiari kwa faili za PDF/PPTX zilizosimbwa. Likiachwa na ingizo likiwa limesimbwa, utaulizwa nenosiri mara moja.",
+    "param.password.description": "Nenosiri la hiari kwa fail...",
     "prompt.password": "Ingiza nenosiri la faili hii:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "nb": {
-    "param.max_chars.description": "Maksimalt antall tegn som skal returneres. Hvis det utelates, trunkeres resultatet til 8000 tegn.",
-    "param.page_index.description": "1-basert sidenummer (PDF-side eller PPTX-lysbildefølge). Hvis det utelates, returneres den sammenslåtte teksten for alle sider.",
+    "param.max_chars.description": "Maksimalt antall tegn som skal returneres.",
+    "param.page_index.description": "1-basert sidenummer (PDF-side eller PPTX-lysbildefølge).",
     "param.path.description": "Sti til en PDF / PPTX / JSON-fil.",
-    "tool.description": "Leser PDF/PPTX (eller deres felles JSON-skjema) og returnerer uttrukket tekst per side. Du kan sette stien til .pdf / .pptx / .json. For PDF/PPTX konverterer modulen dette til det felles JSON-skjemaet.",
+    "tool.description": "Leser PDF/PPTX (eller deres felles JSON-skjema) og returnerer uttrukket tekst per side.",
     "x_search_terms": [
       "read_pptx_pdf",
       "les pdf pptx",
@@ -285,15 +285,15 @@
       "pdf pptx les"
     ],
     "tool.system_prompt": "VIKTIG: Dette verktøyet leser PDF/PPTX/JSON og returnerer tekst på sidenivå. Input: path, page_index, max_chars. Output: sidetekst (alle sider eller angitt side).",
-    "param.password.description": "Valgfritt passord for krypterte PDF/PPTX-filer. Hvis det utelates og inndata er kryptert, blir du bedt om et passord én gang.",
+    "param.password.description": "Valgfritt passord for kryp...",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "nl": {
-    "param.max_chars.description": "Maximaal aantal tekens om terug te geven. Indien weggelaten, wordt afgekapt op 8000 tekens.",
-    "param.page_index.description": "Paginanummer vanaf 1 (PDF-pagina of PPTX-dia-index). Indien weggelaten, wordt de samengevoegde tekst van alle pagina’s teruggegeven.",
-    "param.path.description": "Pad naar een PDF / PPTX / JSON-bestand.",
-    "tool.description": "Leest PDF/PPTX (of het gemeenschappelijke JSON-schema) en geeft de geëxtraheerde tekst per pagina terug. U kunt het pad instellen op .pdf / .pptx / .json. Voor PDF/PPTX zet deze module dit om naar het gemeenschappelijke JSON-schema.",
+    "param.max_chars.description": "Maximaal aantal tekens om terug te geven.",
+    "param.page_index.description": "Paginanummer vanaf 1 (PDF-pagina of PPTX-dia-index).",
+    "param.path.description": "Pad naar een PDF / PPTX / JSON...",
+    "tool.description": "Leest PDF/PPTX (of het gemeenschappelijke JSON-schema) en geeft de geëxtraheerde tekst per pagina...",
     "x_search_terms": [
       "read_pptx_pdf",
       "lees pdf pptx",
@@ -301,15 +301,15 @@
       "pdf pptx lezen"
     ],
     "tool.system_prompt": "BELANGRIJK: deze tool leest PDF/PPTX/JSON en geeft tekst op paginaniveau terug. Invoer: path, page_index, max_chars. Uitvoer: tekst van de pagina (alle pagina’s of de opgegeven pagina).",
-    "param.password.description": "Optioneel wachtwoord voor versleutelde PDF/PPTX-bestanden. Als dit wordt weggelaten en de invoer versleuteld is, wordt u één keer om een wachtwoord gevraagd.",
-    "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}",
+    "param.password.description": "Optioneel wachtwoord voor...",
+    "prompt.password": "Voer het wachtwoord voor dit bestand...",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "fi": {
-    "param.max_chars.description": "Palautettavien merkkien enimmäismäärä. Jos jätetään pois, tulos katkaistaan 8000 merkkiin.",
-    "param.page_index.description": "1:stä alkava sivunumero (PDF-sivu tai PPTX-dian indeksi). Jos jätetään pois, palautetaan kaikkien sivujen yhdistetty teksti.",
+    "param.max_chars.description": "Palautettavien merkkien enimmäismäärä.",
+    "param.page_index.description": "1:stä alkava sivunumero (PDF-sivu tai PPTX-dian indeksi).",
     "param.path.description": "Polku PDF-/PPTX-/JSON-tiedostoon.",
-    "tool.description": "Lukee PDF/PPTX-tiedoston (tai niiden yhteisen JSON-skeeman) ja palauttaa sivukohtaisesti puretun tekstin. Poluksi voi antaa .pdf / .pptx / .json. PDF/PPTX muunnetaan yhteiseen JSON-skeemaan.",
+    "tool.description": "Lukee PDF/PPTX-tiedoston (tai niiden yhteisen JSON-skeeman) ja palauttaa sivukohtaisesti puretun...",
     "x_search_terms": [
       "read_pptx_pdf",
       "lue pdf pptx",
@@ -317,7 +317,7 @@
       "pdf pptx lue"
     ],
     "tool.system_prompt": "TÄRKEÄÄ: tämä työkalu lukee PDF/PPTX/JSON-tiedostoja ja palauttaa tekstin sivukohtaisesti. Syöte: path, page_index, max_chars. Tuloste: sivun teksti (kaikki sivut tai annettu sivu).",
-    "param.password.description": "Valinnainen salasana salatuille PDF/PPTX-tiedostoille. Jos se jätetään pois ja syöte on salattu, sinulta kysytään salasana kerran.",
+    "param.password.description": "Valinnainen salasana salat...",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
@@ -325,7 +325,7 @@
     "param.max_chars.description": "Maximální počet znaků k vrácení. Pokud není zadáno, výsledek se zkrátí na 8000 znaků.",
     "param.page_index.description": "Číslo stránky od 1 (stránka PDF nebo index snímku PPTX). Pokud není zadáno, vrátí spojitý text všech stránek.",
     "param.path.description": "Cesta k souboru PDF / PPTX / JSON.",
-    "tool.description": "Načte PDF/PPTX (nebo jejich společné JSON schéma) a vrátí extrahovaný text po stránkách. Cestu můžete nastavit na .pdf / .pptx / .json. U PDF/PPTX tento modul převede obsah na společné JSON schéma.",
+    "tool.description": "Načte PDF/PPTX (nebo jejich společné JSON schéma) a vrátí extrahovaný text po stránkách.",
     "x_search_terms": [
       "read_pptx_pdf",
       "číst pdf pptx",
@@ -333,15 +333,15 @@
       "pdf pptx číst"
     ],
     "tool.system_prompt": "DŮLEŽITÉ: Tento nástroj čte PDF/PPTX/JSON a vrací text po stránkách. Vstup: path, page_index, max_chars. Výstup: text stránky (všechny stránky nebo zadaná stránka).",
-    "param.password.description": "Volitelné heslo pro šifrované soubory PDF/PPTX. Pokud není zadáno a vstup je šifrovaný, budete jednou vyzváni k zadání hesla.",
+    "param.password.description": "Volitelné heslo pro šifrov...",
     "prompt.password": "Zadejte heslo k tomuto souboru:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "uk": {
-    "param.max_chars.description": "Максимальна кількість символів для повернення. Якщо не вказано, результат обрізається до 8000 символів.",
-    "param.page_index.description": "Номер сторінки, починаючи з 1 (сторінка PDF або індекс слайда PPTX). Якщо не вказано, повертає об’єднаний текст усіх сторінок.",
+    "param.max_chars.description": "Максимальна кількість символів для повернення.",
+    "param.page_index.description": "Номер сторінки, починаючи з 1 (сторінка PDF або індекс слайда PPTX).",
     "param.path.description": "Шлях до файла PDF / PPTX / JSON.",
-    "tool.description": "Читає PDF/PPTX (або їхню спільну JSON-схему) та повертає витягнений текст за сторінками. Можна вказати шлях до .pdf / .pptx / .json. Для PDF/PPTX цей модуль перетворює їх у спільну JSON-схему.",
+    "tool.description": "Читає PDF/PPTX (або їхню спільну JSON-схему) та повертає витягнений текст за сторінками.",
     "x_search_terms": [
       "read_pptx_pdf",
       "читати pdf pptx",
@@ -349,15 +349,15 @@
       "pdf pptx читати"
     ],
     "tool.system_prompt": "ВАЖЛИВО: цей інструмент читає PDF/PPTX/JSON і повертає текст на рівні сторінки. Вхід: path, page_index, max_chars. Вихід: текст сторінки (усі сторінки або вказана сторінка).",
-    "param.password.description": "Необов’язковий пароль для зашифрованих файлів PDF/PPTX. Якщо його не вказано і вхідні дані зашифровані, пароль буде запитано один раз.",
+    "param.password.description": "Необов’язковий пароль для...",
     "prompt.password": "Введіть пароль для цього файла:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "tr": {
     "param.max_chars.description": "Döndürülecek maksimum karakter sayısı. Atlanırsa, 8000 karakter uzunluğunda kesilir.",
-    "param.page_index.description": "1-tabanlı sayfa numarası (PDF sayfa veya PPTX slayt dizini). Atlanırsa, tüm sayfalar için birleştirilmiş metni döndürür.",
+    "param.page_index.description": "1-tabanlı sayfa numarası (PDF sayfa veya PPTX slayt dizini).",
     "param.path.description": "PDF / PPTX / JSON dosyasının yolu.",
-    "tool.description": "PDF/PPTX (veya bunların ortak JSON şemasını) okuyun ve çıkarılan metni sayfa sayfa döndürün. Yolu .pdf / .pptx / .json olarak ayarlayabilirsiniz. PDF/PPTX için bu modül onu ortak JSON şemasına dönüştürür.",
+    "tool.description": "PDF/PPTX (veya bunların ortak JSON şemasını) okuyun ve çıkarılan metni sayfa sayfa döndürün.Yolu .",
     "x_search_terms": [
       "read_pptx_pdf",
       "pdf pptx oku",
@@ -365,7 +365,7 @@
       "pdf pptx okuma"
     ],
     "tool.system_prompt": "IMPORTANT: Bu araç PDF/PPTX/JSON okur ve sayfa düzeyinde metin döndürür. Giriş: yol, sayfa_dizini, maksimum_karakterler. Çıktı: sayfa metni (tüm sayfalar veya belirtilen sayfa).",
-    "param.password.description": "Şifrelenmiş PDF/PPTX dosyaları için isteğe bağlı şifre. Atlanırsa ve giriş şifrelenirse, bir kez parola girmeniz istenecektir.",
+    "param.password.description": "Şifrelenmiş PDF/PPTX dosya...",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
@@ -373,7 +373,7 @@
     "param.max_chars.description": "จำนวนอักขระสูงสุดที่จะส่งคืน หากละเว้นจะตัดทอนที่ 8000 อักขระ",
     "param.page_index.description": "หมายเลขหน้าแบบเริ่มที่ 1 (หน้า PDF หรือดัชนีสไลด์ PPTX) หากละเว้น จะส่งคืนข้อความที่ต่อกันของทุกหน้า",
     "param.path.description": "พาธไปยังไฟล์ PDF / PPTX / JSON",
-    "tool.description": "อ่าน PDF/PPTX (หรือสคีมา JSON กลาง) และส่งคืนข้อความที่แยกออกมาตามหน้า คุณสามารถกำหนดพาธเป็น .pdf / .pptx / .json ได้ สำหรับ PDF/PPTX โมดูลนี้จะแปลงเป็นสคีมา JSON กลาง",
+    "tool.description": "อ่าน PDF/PPTX (หรือสคีมา JSON กลาง) และส่งคืนข้อความที่แยกออกมาตามหน้า คุณสามารถกำหนดพาธเป็น .",
     "x_search_terms": [
       "read_pptx_pdf",
       "อ่าน pdf pptx",
@@ -381,7 +381,7 @@
       "pdf pptx อ่าน"
     ],
     "tool.system_prompt": "สำคัญ: เครื่องมือนี้อ่าน PDF/PPTX/JSON และส่งคืนข้อความระดับหน้า อินพุต: path, page_index, max_chars เอาต์พุต: ข้อความของหน้า (ทุกหน้าหรือหน้าที่ระบุ)",
-    "param.password.description": "รหัสผ่านสำหรับไฟล์ PDF/PPTX ที่เข้ารหัส (ไม่บังคับ) หากไม่ระบุและข้อมูลนำเข้าถูกเข้ารหัส ระบบจะขอรหัสผ่านหนึ่งครั้ง",
+    "param.password.description": "รหัสผ่านสำหรับไฟล์ PDF/PPT...",
     "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
@@ -397,7 +397,7 @@
       "pdf pptx 提取"
     ],
     "tool.system_prompt": "重要：此工具读取 PDF/PPTX/JSON，并返回页级文本。输入：path、page_index、max_chars。输出：页面文本（全部页面或指定页面）。",
-    "param.password.description": "加密 PDF/PPTX 文件的可选密码。如果省略且输入内容已加密，系统会提示您输入一次密码。",
+    "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "请输入此文件的密码：\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
@@ -413,7 +413,7 @@
       "pdf pptx 擷取"
     ],
     "tool.system_prompt": "重要：此工具讀取 PDF/PPTX/JSON，並回傳頁面層級文字。輸入：path、page_index、max_chars。輸出：頁面文字（全部頁面或指定頁面）。",
-    "param.password.description": "加密 PDF/PPTX 檔案的可選密碼。若省略且輸入內容已加密，系統會提示您輸入一次密碼。",
+    "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "請輸入此文件的密碼：\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
@@ -421,7 +421,7 @@
     "param.max_chars.description": "ফেরত দেওয়া যাবে সর্বোচ্চ কত অক্ষর। উল্লেখ না করলে 8000 অক্ষরে কেটে দেওয়া হবে।",
     "param.page_index.description": "1-ভিত্তিক পৃষ্ঠা নম্বর (PDF পৃষ্ঠা বা PPTX স্লাইড সূচক)। উল্লেখ না করলে সব পৃষ্ঠার সংযুক্ত লেখা ফেরত দেয়।",
     "param.path.description": "একটি PDF / PPTX / JSON ফাইলের পথ।",
-    "tool.description": "PDF/PPTX (অথবা তাদের সাধারণ JSON schema) পড়ে পৃষ্ঠা অনুযায়ী extracted text ফেরত দেয়। পথটি .pdf / .pptx / .json হতে পারে। PDF/PPTX-এর ক্ষেত্রে এই মডিউল সেটিকে সাধারণ JSON schema-তে রূপান্তর করে।",
+    "tool.description": "PDF/PPTX (অথবা তাদের সাধারণ JSON schema) পড়ে পৃষ্ঠা অনুযায়ী extracted text ফেরত দেয়। পথটি .",
     "x_search_terms": [
       "read_pptx_pdf",
       "pdf pptx পড়ুন",
@@ -429,15 +429,15 @@
       "pdf pptx পড়া"
     ],
     "tool.system_prompt": "গুরুত্বপূর্ণ: এই টুল PDF/PPTX/JSON পড়ে এবং পৃষ্ঠা-স্তরের লেখা ফেরত দেয়। ইনপুট: path, page_index, max_chars। আউটপুট: পৃষ্ঠার লেখা (সব পৃষ্ঠা বা নির্দিষ্ট পৃষ্ঠা)।",
-    "param.password.description": "এনক্রিপ্টেড PDF/PPTX ফাইলের ঐচ্ছিক পাসওয়ার্ড। উল্লেখ না করলে এবং ইনপুট এনক্রিপ্টেড হলে, একবার পাসওয়ার্ড চাইবে।",
+    "param.password.description": "এনক্রিপ্টেড PDF/PPTX ফাইলে...",
     "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "fa": {
     "param.max_chars.description": "حداکثر تعداد نویسه‌های بازگشتی. اگر مشخص نشود، خروجی در 8000 نویسه کوتاه می‌شود.",
-    "param.page_index.description": "شمارهٔ صفحه بر پایهٔ 1 (صفحهٔ PDF یا شمارهٔ اسلاید PPTX). اگر مشخص نشود، متنِ همهٔ صفحه‌ها به‌صورت پیوسته برگردانده می‌شود.",
+    "param.page_index.description": "شمارهٔ صفحه بر پایهٔ 1 (صفحهٔ PDF یا شمارهٔ اسلاید PPTX).",
     "param.path.description": "مسیر یک فایل PDF / PPTX / JSON.",
-    "tool.description": "PDF/PPTX (یا طرح‌وارهٔ JSON مشترک آن‌ها) را می‌خواند و متن استخراج‌شده را به‌ازای هر صفحه برمی‌گرداند. می‌توانید مسیر را به .pdf / .pptx / .json بدهید. برای PDF/PPTX، این ماژول آن را به طرح‌وارهٔ JSON مشترک تبدیل می‌کند.",
+    "tool.description": "PDF/PPTX (یا طرح‌وارهٔ JSON مشترک آن‌ها) را می‌خواند و متن استخراج‌شده را به‌ازای هر صفحه برمی‌گر...",
     "x_search_terms": [
       "read_pptx_pdf",
       "خواندن pdf pptx",
@@ -445,15 +445,15 @@
       "pdf pptx خواندن"
     ],
     "tool.system_prompt": "مهم: این ابزار PDF/PPTX/JSON را می‌خواند و متنِ سطحِ صفحه را برمی‌گرداند. ورودی: path، page_index، max_chars. خروجی: متن صفحه (همهٔ صفحه‌ها یا صفحهٔ مشخص‌شده).",
-    "param.password.description": "گذرواژهٔ اختیاری برای فایل‌های PDF/PPTX رمزگذاری‌شده. اگر مشخص نشود و ورودی رمزگذاری‌شده باشد، یک‌بار برای گذرواژه از شما پرسیده می‌شود.",
+    "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "mn": {
     "param.max_chars.description": "Буцаах тэмдэгтийн дээд тоо. Заагаагүй бол 8000 тэмдэгтээр таслана.",
-    "param.page_index.description": "1-ээс эхэлсэн хуудасны дугаар (PDF хуудас эсвэл PPTX слайдын индекс). Заагаагүй бол бүх хуудасны нийлмэл текстыг буцаана.",
+    "param.page_index.description": "1-ээс эхэлсэн хуудасны дугаар (PDF хуудас эсвэл PPTX слайдын индекс).",
     "param.path.description": "PDF / PPTX / JSON файлын зам.",
-    "tool.description": "PDF/PPTX (эсвэл тэдгээрийн нийтлэг JSON schema)-г уншиж, хуудас бүрийн extracted text-ийг буцаана. Замыг .pdf / .pptx / .json болгож болно. PDF/PPTX-ийн хувьд энэ module түүнийг нийтлэг JSON schema болгон хөрвүүлнэ.",
+    "tool.description": "PDF/PPTX (эсвэл тэдгээрийн нийтлэг JSON schema)-г уншиж, хуудас бүрийн extracted text-ийг буцаана.",
     "x_search_terms": [
       "read_pptx_pdf",
       "pdf pptx унших",
@@ -461,15 +461,15 @@
       "pdf pptx унш"
     ],
     "tool.system_prompt": "ЧУХАЛ: Энэ хэрэгсэл нь PDF/PPTX/JSON уншаад хуудасны түвшний текст буцаана. Оролт: path, page_index, max_chars. Гаралт: хуудасны текст (бүх хуудас эсвэл заасан хуудас).",
-    "param.password.description": "Шифрлэгдсэн PDF/PPTX файлын сонголттой нууц үг. Заагаагүй бөгөөд оролт шифрлэгдсэн бол нэг удаа нууц үг асууна.",
+    "param.password.description": "Шифрлэгдсэн PDF/PPTX файлы...",
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   },
   "mr": {
     "param.max_chars.description": "परत देण्यासाठी जास्तीत जास्त अक्षरे. दिले नाही तर 8000 अक्षरांवर कापले जाईल.",
-    "param.page_index.description": "1 पासून सुरू होणारा पान क्रमांक (PDF पान किंवा PPTX स्लाइड index). दिले नाही तर सर्व पानांचा जोडलेला मजकूर परत करतो.",
+    "param.page_index.description": "1 पासून सुरू होणारा पान क्रमांक (PDF पान किंवा PPTX स्लाइड index).",
     "param.path.description": "PDF / PPTX / JSON फाइलचा path.",
-    "tool.description": "PDF/PPTX (किंवा त्यांचा समान JSON schema) वाचून पानानुसार काढलेला मजकूर परत करते. path .pdf / .pptx / .json देऊ शकता. PDF/PPTX साठी हे module ते समान JSON schema मध्ये रूपांतरित करते.",
+    "tool.description": "PDF/PPTX (किंवा त्यांचा समान JSON schema) वाचून पानानुसार काढलेला मजकूर परत करते.path .pdf / .",
     "x_search_terms": [
       "read_pptx_pdf",
       "pdf pptx वाचा",
@@ -477,7 +477,7 @@
       "pdf pptx वाचन"
     ],
     "tool.system_prompt": "महत्त्वाचे: हे tool PDF/PPTX/JSON वाचते आणि पृष्ठ-स्तरीय मजकूर परत करते. इनपुट: path, page_index, max_chars. आउटपुट: पानाचा मजकूर (सर्व पानांचा किंवा निर्दिष्ट पानाचा).",
-    "param.password.description": "एन्क्रिप्टेड PDF/PPTX फाइलसाठी ऐच्छिक password. दिला नाही आणि input एन्क्रिप्टेड असेल तर, एकदाच password विचारला जाईल.",
+    "param.password.description": "एन्क्रिप्टेड PDF/PPTX फाइल...",
     "prompt.password": "या फाइलचा password टाका:\n{path}",
     "param.page.description": "Page number to read (1-based). Alias of page_index."
   }

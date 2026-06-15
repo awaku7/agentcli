@@ -22,10 +22,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "python_compile",
         "description": _(
             "tool.description",
-            default=(
-                "Validate Python files with py_compile. Use this tool for syntax checking Python files, directories, or glob patterns. "
-                "Directories are scanned recursively for *.py files."
-            ),
+            default="Validate Python files with py_compile. Use this tool for syntax checking Python files, directories, or glob patterns.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -51,10 +48,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.path.description",
-                        default=(
-                            "A Python file, directory, or glob pattern to validate with py_compile. "
-                            "Directories are scanned recursively for *.py files."
-                        ),
+                        default="A Python file, directory, or glob pattern to validate with py_compile. Directories are scanned recursively for *.",
                     ),
                 },
                 "paths": {
@@ -62,10 +56,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "items": {"type": "string"},
                     "description": _(
                         "param.paths.description",
-                        default=(
-                            "Multiple Python files, directories, or glob patterns to validate with py_compile. "
-                            "Directories are scanned recursively for *.py files."
-                        ),
+                        default="Multiple Python files, directories, or glob patterns to validate with py_compile. Directories are scanned recursively...",
                     ),
                 },
             },

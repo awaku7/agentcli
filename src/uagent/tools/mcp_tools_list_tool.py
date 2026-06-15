@@ -42,11 +42,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "mcp_tools_list",
         "description": _(
             "tool.description",
-            default=(
-                "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the list of available tools. "
-                "Before performing any API/system integration, use this tool to discover what MCP tools are available. "
-                "Supports HTTP-based and stdio-based MCP servers."
-            ),
+            default="Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

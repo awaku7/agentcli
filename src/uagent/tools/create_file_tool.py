@@ -20,16 +20,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "create_file",
         "description": _(
             "tool.description",
-            default=(
-                "Create a text file. By default, the tool will not overwrite an existing file. "
-                "If overwrite=true is specified and the destination already exists, the tool creates a backup "
-                "(<filename>.org / <filename>.org1 / ...) immediately before overwriting. "
-                "The tool returns a JSON string with status details such as the created path, whether it was "
-                "created or overwritten, and the backup path when applicable. "
-                "Tip: If you want CSV/TSV files to open correctly in Microsoft Excel when opened directly, consider encoding='utf-8-sig' (UTF-8 with BOM). "
-                "For machine processing and interoperability, prefer encoding='utf-8' (no BOM). "
-                "If unsure, ask how the file will be used (Excel vs. programmatic processing)."
-            ),
+            default="Create a text file. Optional overwrite with backup (.org). Choose encoding for Excel (utf-8-sig) or programmatic (utf-8).",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -72,7 +63,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.filename.description",
-                        default="Path of the file to create.",
+                        default="File path to create.",
                     ),
                 },
                 "path": {
@@ -86,21 +77,21 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.content.description",
-                        default="Text content to write.",
+                        default="Text content.",
                     ),
                 },
                 "encoding": {
                     "type": "string",
                     "description": _(
                         "param.encoding.description",
-                        default="Text encoding (e.g., 'utf-8', 'cp932'). Default: 'utf-8'.",
+                        default="Encoding (e.g. utf-8, cp932; default: utf-8).",
                     ),
                 },
                 "overwrite": {
                     "type": "boolean",
                     "description": _(
                         "param.overwrite.description",
-                        default="Whether to overwrite if the file already exists (default: false).",
+                        default="Overwrite if exists (default: false).",
                     ),
                 },
             },

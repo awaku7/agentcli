@@ -20,10 +20,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "file_exists",
         "description": _(
             "tool.description",
-            default=(
-                "Checks if a file or directory exists at the specified path and returns "
-                "type, size, timestamps (created/modified/accessed), and owner/group where available."
-            ),
+            default="Checks if a file or directory exists at the specified path and returns type, size, timestamps (created/modified/accessed), and owner/group where av...",
         ),
         "system_prompt": _(
             "tool.system_prompt",

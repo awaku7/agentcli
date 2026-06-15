@@ -32,11 +32,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "bluesky",
         "description": _(
             "tool.description",
-            default=(
-                "Interact with Bluesky (AT Protocol). "
-                "Supports posting, searching, and more. "
-                "Requires UAGENT_BLUESKY_HANDLE and UAGENT_BLUESKY_APP_PASSWORD."
-            ),
+            default="Interact with Bluesky (AT Protocol): post/search/timeline/thread/like/notifications.",
         ),
         "parameters": {
             "type": "object",
@@ -54,12 +50,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ],
                     "description": _(
                         "param.action.description",
-                        default=(
-                            "Action to perform. 'post' creates a new text post. "
-                            "'profile' gets profile info. 'search' searches posts. "
-                            "'timeline' gets your home feed. 'thread' gets a post thread. "
-                            "'like' likes a post. 'notifications' lists your notifications."
-                        ),
+                        default="Action.",
                     ),
                 },
                 "text": {
@@ -87,61 +78,49 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.alt.description",
-                        default=(
-                            "Alt text for the attached image. "
-                            "Used together with image_path for 'post'."
-                        ),
+                        default="Alt text.",
                     ),
                 },
                 "save_images": {
                     "type": "boolean",
                     "description": _(
                         "param.save_images.description",
-                        default=(
-                            "Download images from posts and save locally. "
-                            "Used by 'timeline', 'search', 'thread', 'notifications'."
-                        ),
+                        default="Download images.",
                     ),
                 },
                 "actor": {
                     "type": "string",
                     "description": _(
                         "param.actor.description",
-                        default=(
-                            "Bluesky handle or DID. "
-                            "Used by 'profile' (optional, defaults to self)."
-                        ),
+                        default="Handle or DID.",
                     ),
                 },
                 "q": {
                     "type": "string",
                     "description": _(
                         "param.q.description",
-                        default="Search query string. Required for 'search'.",
+                        default="Search query.",
                     ),
                 },
                 "uri": {
                     "type": "string",
                     "description": _(
                         "param.uri.description",
-                        default="AT URI of a post. Used by 'thread' and 'like'.",
+                        default="AT URI for thread/like.",
                     ),
                 },
                 "cid": {
                     "type": "string",
                     "description": _(
                         "param.cid.description",
-                        default="CID of a post. Required for 'like'.",
+                        default="CID for like.",
                     ),
                 },
                 "lang": {
                     "type": "string",
                     "description": _(
                         "param.lang.description",
-                        default=(
-                            "Language tag for the post (e.g. 'ja', 'en'). "
-                            "Used by 'post' action."
-                        ),
+                        default="Language tag.",
                     ),
                 },
                 "limit": {
@@ -151,7 +130,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": 20,
                     "description": _(
                         "param.limit.description",
-                        default="Maximum number of results. Used by 'search', 'timeline', 'notifications'. Default: 20.",
+                        default="Max results.",
                     ),
                 },
             },

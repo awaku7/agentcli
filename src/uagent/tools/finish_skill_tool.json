@@ -1,7 +1,7 @@
 {
   "en": {
     "param.message.description": "Optional final message to the user.",
-    "tool.description": "Signal that the current skill's tasks are complete. (Use ONLY during skill execution based on SKILL.md). This removes skill instructions and prevents infinite loops.",
+    "tool.description": "Signal that the current skill's tasks are complete. (Use ONLY during skill execution based on SKILL.",
     "x_search_terms": [
       "finish_skill",
       "finish skill",
@@ -34,8 +34,8 @@
     "tool.system_prompt": "SKILL.md に基づくスキルが完了したときにこのツールを使い、指示を削除して無限ループを防ぎます。"
   },
   "es": {
-    "param.message.description": "Mensaje final opcional para el usuario.",
-    "tool.description": "Indica que las tareas de la habilidad actual se han completado. (Usar SOLO durante la ejecución de habilidades basada en SKILL.md). Esto elimina las instrucciones de la habilidad y evita bucles infinitos.",
+    "param.message.description": "Mensaje final opcional para el u...",
+    "tool.description": "Indica que las tareas de la habilidad actual se han completado.",
     "x_search_terms": [
       "finish_skill",
       "terminar habilidad",
@@ -51,8 +51,8 @@
     "tool.system_prompt": "Use esta herramienta cuando se haya completado una habilidad basada en SKILL.md, para que se eliminen las instrucciones y se eviten bucles infinitos."
   },
   "fr": {
-    "param.message.description": "Message final facultatif pour l'utilisateur.",
-    "tool.description": "Signale que les tâches de la compétence actuelle sont terminées. (Utiliser UNIQUEMENT lors de l'exécution de compétences basées sur SKILL.md). Cela supprime les instructions de la compétence et évite les boucles infinies.",
+    "param.message.description": "Message final facultatif pour l'...",
+    "tool.description": "Signale que les tâches de la compétence actuelle sont terminées.",
     "x_search_terms": [
       "finish_skill",
       "terminer la compétence",
@@ -85,8 +85,8 @@
     "tool.system_prompt": "SKILL.md 기반 스킬이 완료되면 이 도구를 사용하여 지침을 제거하고 무한 루프를 방지합니다."
   },
   "de": {
-    "param.message.description": "Optionale Abschlussnachricht an den Benutzer.",
-    "tool.description": "Signalisiert, dass die Aufgaben des aktuellen Skills abgeschlossen sind. (Nur während der Skill-Ausführung basierend auf SKILL.md verwenden). Dies entfernt Skill-Anweisungen und verhindert Endlosschleifen.",
+    "param.message.description": "Optionale Abschlussnachricht an...",
+    "tool.description": "Signalisiert, dass die Aufgaben des aktuellen Skills abgeschlossen sind.",
     "x_search_terms": [
       "finish_skill",
       "fertigkeit beenden",
@@ -102,8 +102,8 @@
     "tool.system_prompt": "Verwenden Sie dieses Tool, wenn eine SKILL.md-basierte Fähigkeit abgeschlossen wurde, damit die Anweisungen entfernt und Endlosschleifen verhindert werden."
   },
   "it": {
-    "param.message.description": "Messaggio finale facoltativo per l'utente.",
-    "tool.description": "Segnala che le attività della skill corrente sono state completate. (Usare SOLO durante l'esecuzione di skill basata su SKILL.md). In questo modo si rimuovono le istruzioni della skill e si evitano cicli infiniti.",
+    "param.message.description": "Messaggio finale facoltativo per...",
+    "tool.description": "Segnala che le attività della skill corrente sono state completate.",
     "x_search_terms": [
       "finish_skill",
       "termina skill",
@@ -119,8 +119,8 @@
     "tool.system_prompt": "Usa questo strumento quando una skill basata su SKILL.md è stata completata, in modo che le istruzioni vengano rimosse e si evitino cicli infiniti."
   },
   "ru": {
-    "param.message.description": "Необязательное заключительное сообщение пользователю.",
-    "tool.description": "Сигнал о завершении задач текущего навыка. (Используйте ТОЛЬКО при выполнении навыков на основе SKILL.md). Это удаляет инструкции навыка и предотвращает бесконечные циклы.",
+    "param.message.description": "Необязательное заключительное со...",
+    "tool.description": "Сигнал о завершении задач текущего навыка.",
     "x_search_terms": [
       "finish_skill",
       "завершить навык",
@@ -136,8 +136,8 @@
     "tool.system_prompt": "Используйте этот инструмент после завершения навыка на основе SKILL.md, чтобы инструкции были удалены и бесконечные циклы предотвращались."
   },
   "pt_BR": {
-    "param.message.description": "Mensagem final opcional para o usuário.",
-    "tool.description": "Sinaliza que as tarefas da habilidade atual foram concluídas. (Use APENAS durante a execução de habilidades baseada em SKILL.md). Isso remove as instruções da habilidade e evita loops infinitos.",
+    "param.message.description": "Mensagem final opcional para o u...",
+    "tool.description": "Sinaliza que as tarefas da habilidade atual foram concluídas.",
     "x_search_terms": [
       "finish_skill",
       "encerrar habilidade",
@@ -153,8 +153,8 @@
     "tool.system_prompt": "Use esta ferramenta quando uma habilidade baseada em SKILL.md tiver sido concluída, para que as instruções sejam removidas e loops infinitos sejam evitados."
   },
   "pt": {
-    "param.message.description": "Mensagem final opcional para o usuário.",
-    "tool.description": "Sinalize que as tarefas da habilidade atual foram concluídas. (Use SOMENTE durante a execução de habilidades com base em SKILL.md). Isso remove instruções de habilidade e evita loops infinitos.",
+    "param.message.description": "Mensagem final opcional para o u...",
+    "tool.description": "Sinalize que as tarefas da habilidade atual foram concluídas.",
     "x_search_terms": [
       "finish_skill",
       "terminar habilidade",
@@ -171,7 +171,7 @@
   },
   "id": {
     "param.message.description": "Pesan penutup opsional untuk pengguna.",
-    "tool.description": "Menandakan bahwa tugas skill saat ini telah selesai. (Hanya gunakan saat eksekusi skill berdasarkan SKILL.md). Ini menghapus instruksi skill dan mencegah loop tak berujung.",
+    "tool.description": "Menandakan bahwa tugas skill saat ini telah selesai.",
     "x_search_terms": [
       "finish_skill",
       "selesaikan skill",
@@ -187,8 +187,8 @@
     "tool.system_prompt": "Gunakan alat ini saat skill berbasis SKILL.md telah selesai, agar instruksi dihapus dan loop tak berujung dapat dicegah."
   },
   "vi": {
-    "param.message.description": "Thông báo cuối cùng tùy chọn cho người dùng.",
-    "tool.description": "Báo rằng các tác vụ của kỹ năng hiện tại đã hoàn tất. (Chỉ dùng khi thực thi kỹ năng dựa trên SKILL.md). Việc này sẽ xóa hướng dẫn kỹ năng và ngăn vòng lặp vô hạn.",
+    "param.message.description": "Thông báo cuối cùng tùy chọn cho...",
+    "tool.description": "Báo rằng các tác vụ của kỹ năng hiện tại đã hoàn tất.(Chỉ dùng khi thực thi kỹ năng dựa trên SKILL.",
     "x_search_terms": [
       "finish_skill",
       "kết thúc kỹ năng",
@@ -204,8 +204,8 @@
     "tool.system_prompt": "Hãy dùng công cụ này khi một kỹ năng dựa trên SKILL.md đã hoàn tất, để hướng dẫn được xóa và ngăn vòng lặp vô hạn."
   },
   "pl": {
-    "param.message.description": "Opcjonalna wiadomość końcowa dla użytkownika.",
-    "tool.description": "Oznacza, że zadania bieżącej umiejętności zostały ukończone. (Używaj TYLKO podczas wykonywania umiejętności na podstawie SKILL.md). To usuwa instrukcje umiejętności i zapobiega nieskończonym pętlom.",
+    "param.message.description": "Opcjonalna wiadomość końcowa dla...",
+    "tool.description": "Oznacza, że zadania bieżącej umiejętności zostały ukończone.",
     "x_search_terms": [
       "finish_skill",
       "zakończ umiejętność",
@@ -221,8 +221,8 @@
     "tool.system_prompt": "Użyj tego narzędzia, gdy umiejętność oparta na SKILL.md została zakończona, aby instrukcje zostały usunięte i nie powstawały nieskończone pętle."
   },
   "hi": {
-    "param.message.description": "उपयोगकर्ता के लिए वैकल्पिक अंतिम संदेश.",
-    "tool.description": "संकेत दें कि वर्तमान कौशल के कार्य पूरे हो गए हैं। (केवल SKILL.md पर आधारित कौशल निष्पादन के दौरान उपयोग करें)। यह कौशल निर्देशों को हटा देता है और अनंत लूप को रोकता है।",
+    "param.message.description": "उपयोगकर्ता के लिए वैकल्पिक अंतिम...",
+    "tool.description": "संकेत दें कि वर्तमान कौशल के कार्य पूरे हो गए हैं। (केवल SKILL.",
     "x_search_terms": [
       "finish_skill",
       "कौशल समाप्त करें",
@@ -239,7 +239,7 @@
   },
   "ar": {
     "param.message.description": "رسالة نهائية اختيارية للمستخدم.",
-    "tool.description": "قم بالإشارة إلى أن مهام المهارة الحالية قد اكتملت. (استخدم فقط أثناء تنفيذ المهارات بناءً على SKILL.md). يؤدي هذا إلى إزالة تعليمات المهارة ويمنع الحلقات اللانهائية.",
+    "tool.description": "قم بالإشارة إلى أن مهام المهارة الحالية قد اكتملت.(استخدم فقط أثناء تنفيذ المهارات بناءً على SKILL.",
     "x_search_terms": [
       "finish_skill",
       "إنهاء المهارة",
@@ -255,8 +255,8 @@
     "tool.system_prompt": "استخدم هذه الأداة عندما تكتمل مهارة مبنية على SKILL.md، حتى تُزال التعليمات وتُمنع الحلقات اللانهائية."
   },
   "sv": {
-    "param.message.description": "Valfritt slutmeddelande till användaren.",
-    "tool.description": "Markerar att den aktuella skillens uppgifter är slutförda. (Använd endast under skillkörning baserat på SKILL.md). Detta tar bort instruktionerna för skillen och förhindrar oändliga loopar.",
+    "param.message.description": "Valfritt slutmeddelande till anv...",
+    "tool.description": "Markerar att den aktuella skillens uppgifter är slutförda.",
     "x_search_terms": [
       "finish_skill",
       "avsluta färdighet",
@@ -272,8 +272,8 @@
     "tool.system_prompt": "Använd det här verktyget när en skill som följer SKILL.md har slutförts, så att instruktionerna tas bort och oändliga loopar förhindras."
   },
   "sw": {
-    "param.message.description": "Ujumbe wa mwisho wa hiari kwa mtumiaji.",
-    "tool.description": "Huonyesha kuwa majukumu ya skill ya sasa yamekamilika. (Tumia tu wakati wa utekelezaji wa skill kulingana na SKILL.md). Hii huondoa maagizo ya skill na huzuia mizunguko isiyoisha.",
+    "param.message.description": "Ujumbe wa mwisho wa hiari kwa mt...",
+    "tool.description": "Huonyesha kuwa majukumu ya skill ya sasa yamekamilika.",
     "x_search_terms": [
       "finish_skill",
       "maliza ujuzi",
@@ -289,8 +289,8 @@
     "tool.system_prompt": "Tumia zana hii wakati skill inayofuata SKILL.md imekamilika, ili maagizo yaondolewe na mizunguko isiyoisha yazuiwe."
   },
   "nb": {
-    "param.message.description": "Valgfri avsluttende melding til brukeren.",
-    "tool.description": "Markerer at den aktuelle skill-oppgaven er fullført. (Bruk KUN under kjøring av en skill basert på SKILL.md). Dette fjerner skill-instruksjonene og forhindrer uendelige løkker.",
+    "param.message.description": "Valgfri avsluttende melding til...",
+    "tool.description": "Markerer at den aktuelle skill-oppgaven er fullført.",
     "x_search_terms": [
       "finish_skill",
       "avslutt ferdighet",
@@ -306,8 +306,8 @@
     "tool.system_prompt": "Bruk dette verktøyet når en skill som følger SKILL.md er fullført, slik at instruksjonene fjernes og uendelige løkker unngås."
   },
   "nl": {
-    "param.message.description": "Optioneel eindbericht aan de gebruiker.",
-    "tool.description": "Geeft aan dat de taken van de huidige skill zijn voltooid. Gebruik dit alleen tijdens een skill-uitvoering op basis van SKILL.md. Daarmee worden de skill-instructies verwijderd en worden oneindige lussen voorkomen.",
+    "param.message.description": "Optioneel eindbericht aan de geb...",
+    "tool.description": "Geeft aan dat de taken van de huidige skill zijn voltooid.",
     "x_search_terms": [
       "finish_skill",
       "vaardigheid beëindigen",
@@ -324,7 +324,7 @@
   },
   "fi": {
     "param.message.description": "Valinnainen loppuviesti käyttäjälle.",
-    "tool.description": "Ilmoittaa, että nykyisen skillin tehtävät on suoritettu. Käytä tätä vain SKILL.md:n mukaista skill-suoritusta varten. Näin skill-ohjeet poistetaan ja äärettömät silmukat estetään.",
+    "tool.description": "Ilmoittaa, että nykyisen skillin tehtävät on suoritettu.Käytä tätä vain SKILL.",
     "x_search_terms": [
       "finish_skill",
       "lopeta taito",
@@ -340,8 +340,8 @@
     "tool.system_prompt": "Käytä tätä työkalua, kun SKILL.md:n mukainen skill on suoritettu, jotta ohjeet poistetaan ja äärettömät silmukat estetään."
   },
   "cs": {
-    "param.message.description": "Volitelná závěrečná zpráva pro uživatele.",
-    "tool.description": "Označuje, že úkoly aktuální dovednosti byly dokončeny. (Používejte POUZE při spuštění dovednosti podle SKILL.md). Tím se odstraní pokyny dovednosti a zabrání se nekonečným smyčkám.",
+    "param.message.description": "Volitelná závěrečná zpráva pro u...",
+    "tool.description": "Označuje, že úkoly aktuální dovednosti byly dokončeny.",
     "x_search_terms": [
       "finish_skill",
       "ukončit dovednost",
@@ -357,8 +357,8 @@
     "tool.system_prompt": "Použijte tento nástroj, když je dovednost podle SKILL.md dokončena, aby se odstranily pokyny a zabránilo se nekonečným smyčkám."
   },
   "uk": {
-    "param.message.description": "Необовʼязкове завершальне повідомлення для користувача.",
-    "tool.description": "Позначає, що завдання поточної навички виконано. (Використовуйте ЛИШЕ під час виконання навички на основі SKILL.md). Це видаляє інструкції навички та запобігає нескінченним циклам.",
+    "param.message.description": "Необовʼязкове завершальне повідо...",
+    "tool.description": "Позначає, що завдання поточної навички виконано.",
     "x_search_terms": [
       "finish_skill",
       "завершити навичку",
@@ -375,7 +375,7 @@
   },
   "tr": {
     "param.message.description": "Kullanıcıya isteğe bağlı son mesaj.",
-    "tool.description": "Mevcut becerinin görevlerinin tamamlandığının sinyalini verin. (SKILL.md'ye dayalı beceri yürütme sırasında ONLY kullanın). Bu, beceri talimatlarını kaldırır ve sonsuz döngüleri önler.",
+    "tool.description": "Mevcut becerinin görevlerinin tamamlandığının sinyalini verin.(SKILL.",
     "x_search_terms": [
       "finish_skill",
       "beceriyi bitir",
@@ -392,7 +392,7 @@
   },
   "th": {
     "param.message.description": "ข้อความสุดท้ายถึงผู้ใช้ (ไม่บังคับ)",
-    "tool.description": "สัญญาณว่างานของทักษะปัจจุบันเสร็จสมบูรณ์แล้ว (ใช้เฉพาะระหว่างการเรียกใช้ทักษะตาม SKILL.md เท่านั้น) สิ่งนี้จะลบคำแนะนำทักษะและป้องกันการวนซ้ำไม่สิ้นสุด",
+    "tool.description": "สัญญาณว่างานของทักษะปัจจุบันเสร็จสมบูรณ์แล้ว (ใช้เฉพาะระหว่างการเรียกใช้ทักษะตาม SKILL.",
     "x_search_terms": [
       "finish_skill",
       "จบสกิล",
@@ -442,8 +442,8 @@
     "tool.system_prompt": "當基於 SKILL.md 的技能完成時使用此工具，以便刪除說明並防止無限迴圈。"
   },
   "bn": {
-    "param.message.description": "ব্যবহারকারীর জন্য ঐচ্ছিক চূড়ান্ত বার্তা।",
-    "tool.description": "বর্তমান skill-এর কাজ সম্পন্ন হয়েছে তা জানান। (শুধু SKILL.md-ভিত্তিক skill চালানোর সময় ব্যবহার করুন)। এতে skill নির্দেশনা সরিয়ে ফেলা হয় এবং অনন্ত লুপ প্রতিরোধ হয়।",
+    "param.message.description": "ব্যবহারকারীর জন্য ঐচ্ছিক চূড়ান্...",
+    "tool.description": "বর্তমান skill-এর কাজ সম্পন্ন হয়েছে তা জানান। (শুধু SKILL.",
     "x_search_terms": [
       "finish_skill",
       "দক্ষতা শেষ করুন",
@@ -460,7 +460,7 @@
   },
   "fa": {
     "param.message.description": "پیام پایانی اختیاری برای کاربر.",
-    "tool.description": "اعلام می‌کند که کارهای skill فعلی تمام شده‌اند. (فقط هنگام اجرای skill مبتنی بر SKILL.md استفاده شود). این کار دستورالعمل‌های skill را حذف می‌کند و از حلقه‌های بی‌نهایت جلوگیری می‌کند.",
+    "tool.description": "اعلام می‌کند که کارهای skill فعلی تمام شده‌اند.(فقط هنگام اجرای skill مبتنی بر SKILL.",
     "x_search_terms": [
       "finish_skill",
       "پایان مهارت",
@@ -476,8 +476,8 @@
     "tool.system_prompt": "وقتی یک skill مبتنی بر SKILL.md تمام شد از این ابزار استفاده کنید تا دستورالعمل‌ها حذف شوند و حلقه‌های بی‌نهایت جلوگیری شوند."
   },
   "mn": {
-    "param.message.description": "Хэрэглэгчид өгөх сонголттой төгсгөлийн мессеж.",
-    "tool.description": "Одоогийн skill-ийн даалгавар дууссаныг мэдэгдэнэ. (Зөвхөн SKILL.md-д суурилсан skill ажиллах үед ашиглана). Ингэснээр skill-ийн зааврыг устгаж, төгсгөлгүй давталтаас сэргийлнэ.",
+    "param.message.description": "Хэрэглэгчид өгөх сонголттой төгс...",
+    "tool.description": "Одоогийн skill-ийн даалгавар дууссаныг мэдэгдэнэ.(Зөвхөн SKILL.",
     "x_search_terms": [
       "finish_skill",
       "ур чадварыг дуусгах",
@@ -494,7 +494,7 @@
   },
   "mr": {
     "param.message.description": "वापरकर्त्यासाठी ऐच्छिक अंतिम संदेश.",
-    "tool.description": "सद्य skill चे कार्य पूर्ण झाले आहे हे सूचित करते. (फक्त SKILL.md-आधारित skill चालवताना वापरा). यामुळे skill सूचना काढल्या जातात आणि अनंत लूप टाळले जातात.",
+    "tool.description": "सद्य skill चे कार्य पूर्ण झाले आहे हे सूचित करते.(फक्त SKILL.md-आधारित skill चालवताना वापरा).",
     "x_search_terms": [
       "finish_skill",
       "कौशल्य समाप्त करा",

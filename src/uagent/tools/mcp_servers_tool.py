@@ -22,10 +22,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "mcp_servers",
         "description": _(
             "tool.description",
-            default=(
-                "Manage MCP server definitions in mcp_servers.json (list/add/remove/set_default/validate/init_template). "
-                "JSON output only."
-            ),
+            default="Manage MCP server definitions in mcp_servers.json (list/add/remove/set_default/validate/init_template).",
         ),
         "system_prompt": _(
             "tool.system_prompt",

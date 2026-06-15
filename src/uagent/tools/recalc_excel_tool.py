@@ -25,11 +25,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "recalc_excel",
         "description": _(
             "tool.description",
-            default=(
-                "Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values. "
-                "Supports a single .xlsx file or a directory scan. By default, no backup "
-                "is created before saving only when backup=true is specified."
-            ),
+            default="Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values. Supports a single .",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -71,10 +67,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.password.description",
-                        default=(
-                            "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, "
-                            "the tool will prompt once for a password."
-                        ),
+                        default="Password (prompts if needed).",
                     ),
                 },
                 "include_glob": {

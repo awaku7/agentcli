@@ -59,7 +59,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.file_path.description",
-                        default="Path for the saved file (recommended: .png). Defaults to current directory with a timestamp if omitted.",
+                        default="Path for the saved file (recommended: . png).",
                     ),
                 },
                 "window_title": {
@@ -80,7 +80,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.close_window.description",
-                        default="Whether to close the window after capture. Only effective if window_title is specified. Default is False.",
+                        default="Whether to close the window after capture. Only effective if window_title is specified.",
                     ),
                 },
             },

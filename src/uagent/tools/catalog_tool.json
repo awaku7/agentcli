@@ -22,8 +22,8 @@
     ]
   },
   "es": {
-    "param.max_results.description": "Número máximo de entradas de catálogo a devolver.",
-    "param.query.description": "Consulta en lenguaje natural que describe la capacidad necesaria.",
+    "param.max_results.description": "Número máximo de entradas de catálogo a d...",
+    "param.query.description": "Consulta en lenguaje natural que describe la capacida...",
     "tool.description": "Devuelve un catálogo ligero de herramientas disponibles para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas.",
     "x_search_terms": [
       "catalog",
@@ -33,7 +33,7 @@
     ]
   },
   "fr": {
-    "param.max_results.description": "Nombre maximal d'entrées de catalogue à renvoyer.",
+    "param.max_results.description": "Nombre maximal d'entrées de catalogue à r...",
     "param.query.description": "Requête en langage naturel décrivant la capacité nécessaire.",
     "tool.description": "Renvoie un catalogue allégé des outils disponibles afin que le modèle puisse trouver les outils pertinents avant de demander leurs définitions complètes.",
     "x_search_terms": [
@@ -55,8 +55,8 @@
     ]
   },
   "de": {
-    "param.max_results.description": "Maximale Anzahl der zurückzugebenden Katalogeinträge.",
-    "param.query.description": "Abfrage in natürlicher Sprache, die die benötigte Funktion beschreibt.",
+    "param.max_results.description": "Maximale Anzahl der zurückzugebenden Kata...",
+    "param.query.description": "Abfrage in natürlicher Sprache, die die benötigte Fun...",
     "tool.description": "Gibt einen leichtgewichtigen Katalog der verfügbaren Tools zurück, damit das Modell relevante Tools entdecken kann, bevor es vollständige Tool-Definitionen anfordert.",
     "x_search_terms": [
       "catalog",
@@ -66,8 +66,8 @@
     ]
   },
   "it": {
-    "param.max_results.description": "Numero massimo di voci del catalogo da restituire.",
-    "param.query.description": "Query in linguaggio naturale che descrive la funzionalità richiesta.",
+    "param.max_results.description": "Numero massimo di voci del catalogo da re...",
+    "param.query.description": "Query in linguaggio naturale che descrive la funziona...",
     "tool.description": "Restituisce un catalogo leggero degli strumenti disponibili, così il modello può individuare quelli pertinenti prima di richiederne le definizioni complete.",
     "x_search_terms": [
       "catalog",
@@ -77,8 +77,8 @@
     ]
   },
   "ru": {
-    "param.max_results.description": "Максимальное количество записей каталога для возврата.",
-    "param.query.description": "Запрос на естественном языке, описывающий необходимую возможность.",
+    "param.max_results.description": "Максимальное количество записей каталога...",
+    "param.query.description": "Запрос на естественном языке, описывающий необходимую...",
     "tool.description": "Возвращает облегченный каталог доступных инструментов, чтобы модель могла найти подходящие инструменты перед запросом полных определений инструментов.",
     "x_search_terms": [
       "catalog",
@@ -88,8 +88,8 @@
     ]
   },
   "pt_BR": {
-    "param.max_results.description": "Número máximo de entradas de catálogo a serem retornadas.",
-    "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária.",
+    "param.max_results.description": "Número máximo de entradas de catálogo a s...",
+    "param.query.description": "Consulta em linguagem natural descrevendo a capacidad...",
     "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas.",
     "x_search_terms": [
       "catalog",
@@ -99,8 +99,8 @@
     ]
   },
   "pt": {
-    "param.max_results.description": "Número máximo de entradas de catálogo a serem retornadas.",
-    "param.query.description": "Consulta em linguagem natural que descreve a capacidade necessária.",
+    "param.max_results.description": "Número máximo de entradas de catálogo a s...",
+    "param.query.description": "Consulta em linguagem natural que descreve a capacida...",
     "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas.",
     "x_search_terms": [
       "catalog",
@@ -110,8 +110,8 @@
     ]
   },
   "id": {
-    "param.max_results.description": "Jumlah maksimum entri katalog yang akan dikembalikan.",
-    "param.query.description": "Kueri berbahasa alami yang menjelaskan kemampuan yang dibutuhkan.",
+    "param.max_results.description": "Jumlah maksimum entri katalog yang akan d...",
+    "param.query.description": "Kueri berbahasa alami yang menjelaskan kemampuan yang...",
     "tool.description": "Kembalikan katalog ringan berisi alat yang tersedia agar model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap.",
     "x_search_terms": [
       "catalog",
@@ -143,7 +143,7 @@
     ]
   },
   "hi": {
-    "param.max_results.description": "लौटाने के लिए कैटलॉग प्रविष्टियों की अधिकतम संख्या.",
+    "param.max_results.description": "लौटाने के लिए कैटलॉग प्रविष्टियों की अधिक...",
     "param.query.description": "आवश्यक क्षमता का वर्णन करने वाली प्राकृतिक-भाषा क्वेरी।",
     "tool.description": "उपलब्ध टूल का एक हल्का कैटलॉग लौटाएँ ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके।",
     "x_search_terms": [
@@ -176,7 +176,7 @@
     ]
   },
   "sw": {
-    "param.max_results.description": "Idadi ya juu ya maingizo ya katalogi ya kurudishwa.",
+    "param.max_results.description": "Idadi ya juu ya maingizo ya katalogi ya k...",
     "param.query.description": "Utafutaji wa lugha ya kawaida unaoeleza uwezo unaohitajika.",
     "tool.description": "Rudisha katalogi nyepesi ya zana zinazopatikana ili modeli iweze kugundua zana husika kabla ya kuomba ufafanuzi kamili wa zana.",
     "x_search_terms": [
@@ -187,7 +187,7 @@
     ]
   },
   "nb": {
-    "param.max_results.description": "Maksimalt antall katalogoppføringer som skal returneres.",
+    "param.max_results.description": "Maksimalt antall katalogoppføringer som s...",
     "param.query.description": "Naturlig språkspørring som beskriver funksjonen som trengs.",
     "tool.description": "Returnerer en lett katalog over tilgjengelige verktøy slik at modellen kan finne relevante verktøy før den ber om fullstendige verktøydefinisjoner.",
     "x_search_terms": [
@@ -198,8 +198,8 @@
     ]
   },
   "nl": {
-    "param.max_results.description": "Maximaal aantal catalogusitems om terug te geven.",
-    "param.query.description": "Query in natuurlijke taal die de benodigde mogelijkheid beschrijft.",
+    "param.max_results.description": "Maximaal aantal catalogusitems om terug t...",
+    "param.query.description": "Query in natuurlijke taal die de benodigde mogelijkhe...",
     "tool.description": "Geef een lichtgewicht catalogus van beschikbare tools terug, zodat het model relevante tools kan vinden voordat volledige tooldefinities worden opgevraagd.",
     "x_search_terms": [
       "catalog",
@@ -209,8 +209,8 @@
     ]
   },
   "fi": {
-    "param.max_results.description": "Palautettavien luettelomerkintöjen enimmäismäärä.",
-    "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavan ominaisuuden.",
+    "param.max_results.description": "Palautettavien luettelomerkintöjen enimmä...",
+    "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavan om...",
     "tool.description": "Palauta kevyt luettelo käytettävissä olevista työkaluista, jotta malli voi löytää sopivat työkalut ennen täydellisten työkalumääritysten pyytämistä.",
     "x_search_terms": [
       "catalog",
@@ -231,7 +231,7 @@
     ]
   },
   "uk": {
-    "param.max_results.description": "Максимальна кількість елементів каталогу для повернення.",
+    "param.max_results.description": "Максимальна кількість елементів каталогу...",
     "param.query.description": "Запит природною мовою, що описує потрібну можливість.",
     "tool.description": "Повертає легкий каталог доступних інструментів, щоб модель могла знайти потрібні інструменти ще до запиту повних визначень інструментів.",
     "x_search_terms": [
@@ -286,7 +286,7 @@
     ]
   },
   "bn": {
-    "param.max_results.description": "ফেরত দেওয়ার জন্য ক্যাটালগ এন্ট্রির সর্বাধিক সংখ্যা।",
+    "param.max_results.description": "ফেরত দেওয়ার জন্য ক্যাটালগ এন্ট্রির সর্বা...",
     "param.query.description": "প্রয়োজনীয় ক্ষমতাটি বর্ণনা করে এমন প্রাকৃতিক ভাষার প্রশ্ন।",
     "tool.description": "উপলভ্য টুলগুলোর একটি হালকা ক্যাটালগ ফেরত দেয়, যাতে পুরো টুলের সংজ্ঞা চাইবার আগে মডেল প্রাসঙ্গিক টুল খুঁজে পায়।",
     "x_search_terms": [

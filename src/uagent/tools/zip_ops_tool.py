@@ -35,7 +35,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "zip_ops",
         "description": _(
             "tool.description",
-            default="Create/extract/list ZIP files (with Zip Slip/Zip Bomb protections).",
+            default="Create/extract/list ZIP files. Protected against Zip Slip and Zip Bomb.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

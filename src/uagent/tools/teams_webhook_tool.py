@@ -200,7 +200,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.timeout_s.description",
-                        default="Request timeout in seconds.",
+                        default="Timeout.",
                     ),
                     "default": DEFAULT_TIMEOUT_S,
                 },

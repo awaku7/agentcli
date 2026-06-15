@@ -24,10 +24,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "binary_edit",
         "description": _(
             "tool.description",
-            default=(
-                "Edit a local file as raw bytes (binary). Supports offset write, search/replace, splice (insert/delete), "
-                "and applying a simple JSON patch. Dangerous: this tool can corrupt files."
-            ),
+            default="Edit a local file as raw bytes: offset write, search/replace, insert/delete (splice), JSON patch.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -64,7 +61,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "path": {
                     "type": "string",
                     "description": _(
-                        "param.path.description", default="Target file path."
+                        "param.path.description", default="File path (under workdir).",
                     ),
                 },
                 "mode": {
@@ -121,7 +118,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": 1,
                     "description": _(
                         "param.occurrence.description",
-                        default="Which occurrence to replace (1-based). 0 means replace all occurrences (still requires same length).",
+                        default="Occurrence (1-based; 0 = all).",
                     ),
                 },
                 "splice_op": {

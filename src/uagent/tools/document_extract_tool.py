@@ -43,10 +43,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "document_extract",
         "description": _(
             "tool.description",
-            default=(
-                "Extract text and basic structure from Word-like documents (.docx, .rtf, .odt). "
-                "Choose output_format=text or output_format=json. The tool always returns JSON."
-            ),
+            default="Extract text and basic structure from Word-like documents (. docx, .",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -89,10 +86,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.password.description",
-                        default=(
-                            "Optional password for encrypted DOCX input. If omitted and the file is encrypted, "
-                            "the tool will prompt once for a password."
-                        ),
+                        default="Password (prompts if needed).",
                     ),
                 },
                 "output_format": {

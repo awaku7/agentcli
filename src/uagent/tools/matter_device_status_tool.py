@@ -76,7 +76,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": _DEFAULT_OUTPUT_FORMAT,
                     "description": _(
                         "param.output_format.description",
-                        default="Output format: JSON or human-readable text.",
+                        default="Format: json or text.",
                     ),
                 },
             },

@@ -16,12 +16,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "get_shared_memory",
         "description": _(
             "tool.description",
-            default=(
-                "Retrieves raw long-term memory (shared memory) data shared across users.\n"
-                "- Usually returns text in JSONL format (one record per line).\n"
-                "- If shared memory is disabled or the file is missing, returns a descriptive message.\n"
-                "- Output size is automatically trimmed to the internal maximum byte limit."
-            ),
+            default="Retrieves raw long-term memory (shared memory) data shared across users. - Usually returns text in JSONL format (one record per line).",
         ),
         "system_prompt": _(
             "tool.system_prompt",

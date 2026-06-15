@@ -25,11 +25,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "skills_install",
         "description": _(
             "tool.description",
-            default=(
-                "Install or update an Agent Skill from a Git repository, remote ZIP, local directory, "
-                "or local ZIP file into ~/.uag/skills. Supports marketplace-style repositories; use "
-                "skill@source to install one skill, or all@source to install the whole package."
-            ),
+            default="Install or update an Agent Skill (Git repo, remote/local ZIP, local dir).",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -59,21 +55,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.source.description",
-                        default=(
-                            "The source URL or path (Git URL, HTTP ZIP URL, local directory, or local ZIP). "
-                            "You can also prefix a selector as skill@source to install one skill, or "
-                            "all@source to install the whole package."
-                        ),
+                        default="The source URL or path (Git URL, HTTP ZIP URL, local directory, or local ZIP). You can also prefix a selector as skil...",
                     ),
                 },
                 "name": {
                     "type": "string",
                     "description": _(
                         "param.name.description",
-                        default=(
-                            "Optional destination folder name. If not specified, it will be inferred from the source. "
-                            "When selecting a specific skill, it defaults to the selected skill name."
-                        ),
+                        default="Optional destination folder name. If not specified, it will be inferred from the source.",
                     ),
                 },
                 "overwrite": {

@@ -21,13 +21,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "get_geoip",
         "description": _(
             "tool.description",
-            default=(
-                "Estimate the user's rough location based on their public IP address. "
-                "The result may be inaccurate when using VPN/proxies/mobile networks.\n\n"
-                "Policy:\n"
-                "- Use this tool when you need the user's approximate location (city/region/country) and the user has not provided it.\n"
-                "- If the user already provided their location, prefer that and do not call get_geoip."
-            ),
+            default="Estimate the user's rough location based on their public IP address. The result may be inaccurate when using VPN/proxies/mobile networks.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

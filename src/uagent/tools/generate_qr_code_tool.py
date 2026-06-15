@@ -26,7 +26,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "generate_qr_code",
         "description": _(
             "tool.description",
-            default="Generate a QR code image (PNG) from text or URL. Supports customization of error correction level, box size, border, and colors.",
+            default="Generate a QR code image (PNG) from text or URL. Customizable colors and size.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -59,7 +59,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["L", "M", "Q", "H"],
                     "description": _(
                         "param.error_correction.description",
-                        default="Error correction level: 'L' (7%), 'M' (15%), 'Q' (25%), 'H' (30%). Default: 'M'.",
+                        default="Error correction: L/M/Q/H (default: M).",
                     ),
                 },
                 "box_size": {
@@ -87,14 +87,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.back_color.description",
-                        default="Background color (e.g., 'white', '#FFFFFF'). Default: 'white'.",
+                        default="BG color (default: white).",
                     ),
                 },
                 "overwrite": {
                     "type": "boolean",
                     "description": _(
                         "param.overwrite.description",
-                        default="Whether to overwrite if the file already exists (default: false).",
+                        default="Overwrite if exists (default: false).",
                     ),
                 },
             },
