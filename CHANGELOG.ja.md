@@ -7,6 +7,22 @@
 
 ## [Unreleased]
 
+## [0.5.3] - 2026-06-15
+
+### 新規追加
+- DeepSeek専用プロバイダモジュール（thinking mode / reasoning_effort対応）。
+- DeepSeekセットアップウィザード統合。
+- DeepSeek用 temperature / top_p / presence_penalty / frequency_penalty 設定（非thinking時）。
+- zh_CN / zh_TW 翻訳・README。
+- provider_caps.py（プロバイダ機能管理用）。
+
+### ドキュメント
+- ENVIRONMENT.md / ENVIRONMENT.ja.md のプロバイダ一覧にDeepSeekを追加。
+
+### 修正・改善
+- ロケール .mo ファイルを再コンパイル。
+- その他修正。
+
 ## [0.5.2] - 2026-06-13
 
 ### 新規追加
