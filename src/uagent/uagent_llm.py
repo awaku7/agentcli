@@ -341,12 +341,16 @@ def run_llm_rounds(
                     break
 
                 if not tool_calls_list:
+                    # DeepSeek streaming (chat completions) already printed the text;
+                    # skip the print but keep outfile/image side effects.
+                    _ds_streaming = (env_get("UAGENT_STREAMING", "1") or "").strip().lower() not in ("0", "false", "no", "off")
                     _emit_final_answer_if_any(
                         assistant_text=assistant_text,
                         use_responses_api=False,
                         stream_responses=False,
                         append_result_to_outfile_fn=append_result_to_outfile_fn,
                         try_open_images_from_text_fn=try_open_images_from_text_fn,
+                        skip_print=_ds_streaming,
                     )
                     break
 
