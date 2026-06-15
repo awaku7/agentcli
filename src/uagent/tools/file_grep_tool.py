@@ -133,7 +133,7 @@ TOOL_SPEC: dict[str, Any] = {
                     ],
                     "description": _(
                         "param.root_path.description",
-                        default="Alias of path for consistency with search_files.",
+                        default="Alias (compat).",
                     ),
                 },
                 "name_pattern": {

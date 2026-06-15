@@ -33,7 +33,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "a2a_poll",
         "description": _(
             "tool.description",
-            default="Poll an A2A task until it reaches a terminal status.",
+            default="Poll an A2A task until terminal state. Use only when no local tool can substitute.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

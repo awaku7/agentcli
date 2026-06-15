@@ -32,12 +32,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "playwright_inspector",
         "description": _(
             "tool.description",
-            default=(
-                "Launch Playwright Inspector to capture browser operations. Opens the specified URL "
-                "and saves the page state (HTML and image) after the user clicks the Resume button. "
-                "Additionally, saves numbered per-navigation HTML/PNG under pages/, keeps latest.html updated, "
-                "writes index.jsonl, and records navigation, network, console events, DOM events, and page summaries in a JSONL file."
-            ),
+            default="Launch Playwright Inspector to capture browser operations. Opens the specified URL and saves the page state (HTML and image) after the user clicks ...",
         ),
         "x_search_terms": _(
             "x_search_terms",

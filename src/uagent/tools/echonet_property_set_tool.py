@@ -106,7 +106,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "minimum": 1,
                     "description": _(
                         "param.timeout.description",
-                        default="Timeout in seconds for ECHONET Lite requests.",
+                        default="Timeout (seconds).",
                     ),
                 },
                 "output_format": {
@@ -115,7 +115,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "json",
                     "description": _(
                         "param.output_format.description",
-                        default="Output format: JSON or human-readable text.",
+                        default="Format: json or text.",
                     ),
                 },
             },

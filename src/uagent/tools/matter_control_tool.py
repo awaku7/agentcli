@@ -58,10 +58,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "matter_control",
         "description": _(
             "tool.description",
-            default=(
-                "Control a Matter device via bridge or controller and return a JSON or text result. "
-                "The command is queued to UAGENT_MATTER_COMMAND_JSON for external processing."
-            ),
+            default="Control a Matter device (on/off/open/close/lock/unlock/set_value).",
         ),
         "parameters": {
             "type": "object",
@@ -70,7 +67,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.device_id.description",
-                        default="Matter device ID to control. Required identifier.",
+                        default="Device ID (required).",
                     ),
                 },
                 "action": {
@@ -78,11 +75,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": sorted(ALL_ACTIONS),
                     "description": _(
                         "param.action.description",
-                        default=(
-                            "Control action to perform. "
-                            "on/off for lights, switches; open/close/set_value for covers; "
-                            "lock/unlock for locks; set_value for brightness/position."
-                        ),
+                        default="Action.",
                     ),
                 },
                 "value": {
@@ -91,10 +84,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "maximum": 100,
                     "description": _(
                         "param.value.description",
-                        default=(
-                            "Optional numeric value for set_value actions. "
-                            "Range: 0-100."
-                        ),
+                        default="Value (0-100).",
                     ),
                 },
                 "controller_id": {
@@ -131,7 +121,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": _DEFAULT_OUTPUT_FORMAT,
                     "description": _(
                         "param.output_format.description",
-                        default="Output format: JSON or human-readable text.",
+                        default="Format: json or text.",
                     ),
                 },
             },

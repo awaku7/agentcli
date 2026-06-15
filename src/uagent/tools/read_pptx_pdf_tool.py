@@ -67,10 +67,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "read_pptx_pdf",
         "description": _(
             "tool.description",
-            default=(
-                "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. "
-                "You can set path to .pdf / .pptx / .json. For PDF/PPTX, this module converts it into the common JSON schema."
-            ),
+            default="Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -113,20 +110,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.password.description",
-                        default=(
-                            "Optional password for encrypted PDF/PPTX files. If omitted and the input is encrypted, "
-                            "the tool will prompt once for a password."
-                        ),
+                        default="Password (prompts if needed).",
                     ),
                 },
                 "page_index": {
                     "type": "integer",
                     "description": _(
                         "param.page_index.description",
-                        default=(
-                            "1-based page number (PDF page or PPTX slide index). "
-                            "If omitted, returns concatenated text for all pages. Alias of page."
-                        ),
+                        default="1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
                     ),
                 },
                 "page": {

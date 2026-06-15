@@ -52,7 +52,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.expression.description",
-                        default="The mathematical expression to evaluate (e.g., '123 * (45 + 67)', 'sqrt(144)', 'sin(pi/2)'). Functions from Python's math module are available.",
+                        default="The mathematical expression to evaluate (e. g.",
                     ),
                 }
             },

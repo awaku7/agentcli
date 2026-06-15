@@ -45,7 +45,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.mac_address.description",
-                        default="Optional device MAC address filter.",
+                        default="MAC address filter.",
                     ),
                 },
                 "action": {
@@ -84,7 +84,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "json",
                     "description": _(
                         "param.output_format.description",
-                        default="Output format: JSON or human-readable text.",
+                        default="Format: json or text.",
                     ),
                 },
             },

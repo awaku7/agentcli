@@ -16,10 +16,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "db_query",
         "description": _(
             "tool.description",
-            default=(
-                "Execute an SQL query against an SQLite database and return the result. "
-                "Only read-only operations (SELECT) and schema inspection (PRAGMA) are supported."
-            ),
+            default="Execute an SQL query against an SQLite database and return the result. Only read-only operations (SELECT) and schema inspection (PRAGMA) are suppor...",
         ),
         "system_prompt": _(
             "tool.system_prompt",

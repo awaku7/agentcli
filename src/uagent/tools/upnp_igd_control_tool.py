@@ -55,7 +55,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": _DEFAULT_TIMEOUT,
                     "description": _(
                         "param.timeout.description",
-                        default="Timeout in seconds for discovery and SOAP requests.",
+                        default="Timeout (seconds).",
                     ),
                 },
                 "retry": {
@@ -99,14 +99,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "json",
                     "description": _(
                         "param.output_format.description",
-                        default="Output format: JSON or human-readable text.",
+                        default="Format: json or text.",
                     ),
                 },
                 "external_port": {
                     "type": "integer",
                     "description": _(
                         "param.external_port.description",
-                        default="External port number for port mapping add/delete operations.",
+                        default="External port.",
                     ),
                 },
                 "internal_ip": {
@@ -122,7 +122,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.internal_port.description",
-                        default="Internal port number for port mapping add operations.",
+                        default="Internal port.",
                     ),
                 },
                 "protocol": {
@@ -138,7 +138,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.description.description",
-                        default="Port mapping description used for add operations.",
+                        default="Description.",
                     ),
                 },
                 "lease_duration": {

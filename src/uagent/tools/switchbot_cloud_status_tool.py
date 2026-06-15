@@ -41,14 +41,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.device_id.description",
-                        default="SwitchBot device ID to look up. Preferred identifier.",
+                        default="Device ID (preferred).",
                     ),
                 },
                 "device_name": {
                     "type": "string",
                     "description": _(
                         "param.device_name.description",
-                        default="SwitchBot device name to look up when device_id is not provided.",
+                        default="Device name (fallback).",
                     ),
                 },
                 "output_format": {
@@ -57,7 +57,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "json",
                     "description": _(
                         "param.output_format.description",
-                        default="Output format: JSON or human-readable text.",
+                        default="Format: json or text.",
                     ),
                 },
             },

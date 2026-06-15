@@ -16,11 +16,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "get_current_time",
         "description": _(
             "tool.description",
-            default=(
-                "Return the current time and detailed date/time information (timezone, weekday, UTC time). "
-                "Use this to resolve relative date expressions (e.g., 'today', 'tomorrow', 'this weekend', "
-                "'the 3rd Tuesday of next month') by determining the current weekday and UTC offset."
-            ),
+            default="Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

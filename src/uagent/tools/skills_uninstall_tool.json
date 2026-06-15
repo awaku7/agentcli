@@ -12,7 +12,7 @@
   },
   "ja": {
     "param.name.description": "アンインストールするスキルのフォルダ名。",
-    "tool.description": "Agent Skillを ~/.uag/skills からアンインストール（削除）します。",
+    "tool.description": "Agent Skillを~/.uag/skillsからアンインストール。",
     "x_search_terms": [
       "skills_uninstall",
       "スキル削除",
@@ -22,8 +22,8 @@
     "tool.system_prompt": "このツールは次の目的で使用します（ツールの説明を参照）。"
   },
   "es": {
-    "param.name.description": "El nombre de la carpeta de la habilidad que se va a desinstalar.",
-    "tool.description": "Desinstale una habilidad de agente de ~/.uag/skills.",
+    "param.name.description": "El nombre de la carpeta de la habilidad...",
+    "tool.description": "Desinstale una habilidad de agente de ~/.",
     "x_search_terms": [
       "skills_uninstall",
       "desinstalar skill",
@@ -33,8 +33,8 @@
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito (ver la descripción de la herramienta)."
   },
   "fr": {
-    "param.name.description": "Le nom du dossier de la compétence à désinstaller.",
-    "tool.description": "Désinstallez une compétence d'agent de ~/.uag/skills.",
+    "param.name.description": "Le nom du dossier de la compétence à dé...",
+    "tool.description": "Désinstallez une compétence d'agent de ~/.",
     "x_search_terms": [
       "skills_uninstall",
       "désinstaller compétence",
@@ -55,8 +55,8 @@
     "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조)."
   },
   "de": {
-    "param.name.description": "Der Ordnername des zu deinstallierenden Skills.",
-    "tool.description": "Deinstallieren Sie einen Agent-Skill aus ~/.uag/skills.",
+    "param.name.description": "Der Ordnername des zu deinstallierenden...",
+    "tool.description": "Deinstallieren Sie einen Agent-Skill aus ~/.",
     "x_search_terms": [
       "skills_uninstall",
       "skill deinstallieren",
@@ -66,8 +66,8 @@
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
   },
   "it": {
-    "param.name.description": "Il nome della cartella dello skill da disinstallare.",
-    "tool.description": "Disinstalla uno skill dell'agente da ~/.uag/skills.",
+    "param.name.description": "Il nome della cartella dello skill da d...",
+    "tool.description": "Disinstalla uno skill dell'agente da ~/.",
     "x_search_terms": [
       "skills_uninstall",
       "disinstalla skill",
@@ -159,7 +159,7 @@
     "tool.system_prompt": "تُستخدم هذه الأداة للغرض التالي: (راجع وصف الأداة)."
   },
   "sv": {
-    "param.name.description": "Mappnamnet för den skill som ska avinstalleras.",
+    "param.name.description": "Mappnamnet för den skill som ska avinst...",
     "tool.description": "Avinstallera en Agent Skill från ~/.uag/skills.",
     "x_search_terms": [
       "skills_uninstall",
@@ -180,7 +180,7 @@
     "tool.system_prompt": "Zana hii hutumiwa kwa madhumuni yafuatayo (angalia maelezo ya zana)."
   },
   "nb": {
-    "param.name.description": "Mappenavnet for den skillen som skal avinstalleres.",
+    "param.name.description": "Mappenavnet for den skillen som skal av...",
     "tool.description": "Avinstaller en Agent Skill fra ~/.uag/skills.",
     "x_search_terms": [
       "skills_uninstall",
@@ -252,7 +252,7 @@
     "tool.system_prompt": "此工具用於以下目的（請參見工具說明）。"
   },
   "bn": {
-    "param.name.description": "যে স্কিলটি আনইনস্টল করতে চান তার ফোল্ডারের নাম।",
+    "param.name.description": "যে স্কিলটি আনইনস্টল করতে চান তার ফোল্ডা...",
     "tool.description": "~/.uag/skills থেকে Agent Skill আনইনস্টল করুন।",
     "x_search_terms": [
       "skills_uninstall",
@@ -297,7 +297,7 @@
   },
   "tr": {
     "param.name.description": "Kaldırılacak skill klasörünün adı.",
-    "tool.description": "Bir Agent Skill’i ~/.uag/skills içinden kaldırın.",
+    "tool.description": "Bir Agent Skill’i ~/.",
     "x_search_terms": [
       "skills_uninstall",
       "skill kaldır",

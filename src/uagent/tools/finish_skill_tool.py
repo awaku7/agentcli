@@ -18,7 +18,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "finish_skill",
         "description": _(
             "tool.description",
-            default="Signal that the current skill's tasks are complete. (Use ONLY during skill execution based on SKILL.md). This removes skill instructions and prevents infinite loops.",
+            default="Signal that the current skill's tasks are complete. (Use ONLY during skill execution based on SKILL.",
         ),
         "x_search_terms": _(
             "x_search_terms",

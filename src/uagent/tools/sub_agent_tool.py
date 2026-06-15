@@ -97,10 +97,7 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "run_sub_agent",
         "description": _(
             "tool.description",
-            default=(
-                "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) "
-                "under the control of the parent orchestrator to process specific tasks and return structured findings."
-            ),
+            default="Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent...",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -210,7 +207,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.evidence_required.description",
-                        default="Require evidence items in the response.",
+                        default="Require evidence.",
                     ),
                 },
                 "evidence_min_items": {

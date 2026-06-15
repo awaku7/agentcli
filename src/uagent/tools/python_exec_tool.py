@@ -62,7 +62,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.code.description",
-                        default="Python code to execute (single-line or multi-line).",
+                        default="Python code.",
                     ),
                 },
             },

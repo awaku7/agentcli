@@ -29,10 +29,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "switchbot_batch",
         "description": _(
             "tool.description",
-            default=(
-                "Execute multiple SwitchBot Cloud commands in sequence (batch operation)."
-                " Each command is sent one by one. All commands share the same account."
-            ),
+            default="Execute multiple SwitchBot Cloud commands in sequence.",
         ),
         "parameters": {
             "type": "object",
@@ -46,7 +43,7 @@ TOOL_SPEC: dict[str, Any] = {
                                 "type": "string",
                                 "description": _(
                                     "param.commands.items.device_id.description",
-                                    default="SwitchBot device ID.",
+                                    default="Device ID.",
                                 ),
                             },
                             "device_name": {
@@ -80,7 +77,7 @@ TOOL_SPEC: dict[str, Any] = {
                                 "maximum": 100,
                                 "description": _(
                                     "param.commands.items.value.description",
-                                    default="Numeric value for set_value (temperature for AC). Range: 0-100.",
+                                    default="Value (0-100).",
                                 ),
                             },
                             "mode": {
@@ -88,7 +85,7 @@ TOOL_SPEC: dict[str, Any] = {
                                 "enum": ["auto", "cool", "dry", "fan", "heat"],
                                 "description": _(
                                     "param.commands.items.mode.description",
-                                    default="Air conditioner mode.",
+                                    default="AC mode: auto/cool/dry/fan/heat.",
                                 ),
                             },
                             "fan_speed": {
@@ -96,7 +93,7 @@ TOOL_SPEC: dict[str, Any] = {
                                 "enum": ["auto", "low", "medium", "high"],
                                 "description": _(
                                     "param.commands.items.fan_speed.description",
-                                    default="Air conditioner fan speed.",
+                                    default="AC fan: auto/low/medium/high.",
                                 ),
                             },
                         },
@@ -105,7 +102,7 @@ TOOL_SPEC: dict[str, Any] = {
                     },
                     "description": _(
                         "param.commands.description",
-                        default="List of commands to execute in sequence.",
+                        default="Commands to execute.",
                     ),
                 },
                 "output_format": {
@@ -114,7 +111,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "json",
                     "description": _(
                         "param.output_format.description",
-                        default="Output format: JSON or human-readable text.",
+                        default="Format: json or text.",
                     ),
                 },
             },

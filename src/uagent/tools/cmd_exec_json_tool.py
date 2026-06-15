@@ -19,10 +19,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "cmd_exec_json",
         "description": _(
             "tool.description",
-            default=(
-                "As a last resort, execute a shell command and return a JSON result. "
-                "Use only when no safer or more specific tool is available (e.g., an MCP integration)."
-            ),
+            default="As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

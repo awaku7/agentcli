@@ -62,7 +62,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "minimum": 1,
                     "description": _(
                         "param.retry.description",
-                        default="How many discovery rounds to send before returning.",
+                        default="Discovery rounds.",
                     ),
                 },
                 "limit": {
@@ -80,7 +80,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": "json",
                     "description": _(
                         "param.output_format.description",
-                        default="Output format: JSON or human-readable text.",
+                        default="Format: json or text.",
                     ),
                 },
             },

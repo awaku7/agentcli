@@ -101,7 +101,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "a2a_servers",
         "description": _(
             "tool.description",
-            default="Manage A2A server profiles under the uagent state dir (~/.uag/a2a/a2a_servers.json).",
+            default="Manage A2A server profiles. Use only when no local tool can substitute.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -141,7 +141,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.action.description",
-                        default="Action: init/list/add/remove/set_default/get/resolve",
+                        default="Action: init/list/add/remove/set_default/get/resolve.",
                     ),
                 },
                 "name": {
@@ -162,7 +162,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.token.description",
-                        default="Bearer token (plaintext). It will be encrypted before storing.",
+                        default="Bearer token.",
                     ),
                 },
                 "timeout_s": {

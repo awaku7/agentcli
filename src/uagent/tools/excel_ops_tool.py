@@ -25,10 +25,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "excel_ops",
         "description": _(
             "tool.description",
-            default=(
-                "Read/write an Excel (.xlsx) file and get sheet names. When writing to an existing file, "
-                "a backup with the same name (<file_path>.org / <file_path>.org1 / ...) is created immediately before writing."
-            ),
+            default="Read/write an Excel (. xlsx) file and get sheet names.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -61,31 +58,21 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["read", "write", "get_sheet_names", "keep_only_sheets"],
                     "description": _(
                         "param.action.description",
-                        default=(
-                            "Operation to perform.\n"
-                            "- 'read': read the specified sheet and return JSON.\n"
-                            "- 'write': write JSON data to the specified sheet (create file if missing).\n"
-                            "- 'get_sheet_names': get a list of sheet names.\n"
-                            "- 'keep_only_sheets': create a new workbook (output_path) that keeps only the specified sheets. "
-                            "It copies values (not formulas) from the source workbook."
-                        ),
+                        default="Operation.",
                     ),
                 },
                 "file_path": {
                     "type": "string",
                     "description": _(
                         "param.file_path.description",
-                        default="Absolute path to the Excel file.",
+                        default="Excel path (absolute).",
                     ),
                 },
                 "password": {
                     "type": "string",
                     "description": _(
                         "param.password.description",
-                        default=(
-                            "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, "
-                            "the tool will prompt once for a password."
-                        ),
+                        default="Password (prompts if needed).",
                     ),
                 },
                 "sheet_name": {
@@ -101,7 +88,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.data.description",
-                        default="Data to write (JSON string).",
+                        default="Data (JSON string).",
                     ),
                 },
                 "keep_sheets": {
@@ -109,20 +96,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "items": {"type": "string"},
                     "description": _(
                         "param.keep_sheets.description",
-                        default=(
-                            "Sheet names to keep (used only for action='keep_only_sheets'). "
-                            "If any specified sheet does not exist, the tool errors."
-                        ),
+                        default="Sheets to keep.",
                     ),
                 },
                 "output_path": {
                     "type": "string",
                     "description": _(
                         "param.output_path.description",
-                        default=(
-                            "Output path for action='keep_only_sheets'. If it already exists, it is overwritten after creating a backup "
-                            "(<output_path>.org / <output_path>.org1 / ...)."
-                        ),
+                        default="Output path.",
                     ),
                 },
             },

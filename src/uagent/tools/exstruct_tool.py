@@ -90,10 +90,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "exstruct",
         "description": _(
             "tool.description",
-            default=(
-                "Use exstruct to extract structured data from an Excel (.xlsx) and return/save as JSON/YAML. "
-                "If export_file.output_path already exists, a backup (<output_path>.org / <output_path>.org1 / ...) is created immediately before saving."
-            ),
+            default="Use exstruct to extract structured data from an Excel (. xlsx) and return/save as JSON/YAML.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -142,10 +139,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.password.description",
-                        default=(
-                            "Optional password for encrypted .xlsx files. If omitted and the file is encrypted, "
-                            "the tool will prompt once for a password."
-                        ),
+                        default="Password (prompts if needed).",
                     ),
                 },
                 "mode": {
@@ -153,7 +147,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["light", "standard", "verbose"],
                     "description": _(
                         "param.mode.description",
-                        default="Extraction mode. Defaults to standard.",
+                        default="Extraction mode.",
                     ),
                 },
                 "include_shapes": {
@@ -174,7 +168,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "boolean",
                     "description": _(
                         "param.pretty.description",
-                        default="Pretty print output. Default is false.",
+                        default="Pretty print.",
                     ),
                 },
                 "format": {
@@ -189,7 +183,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.output_path.description",
-                        default="Output path for export_file.",
+                        default="Output path.",
                     ),
                 },
                 "sheets_dir": {

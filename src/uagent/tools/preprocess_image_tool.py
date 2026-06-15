@@ -91,7 +91,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.mode.description",
-                        default="Preprocessing mode: ocr, document, diagram, photo, or custom.",
+                        default="Preprocess mode.",
                     ),
                     "default": "ocr",
                 },

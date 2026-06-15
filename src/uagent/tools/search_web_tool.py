@@ -215,7 +215,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "search_web",
         "description": _(
             "tool.description",
-            default="Search the web via DuckDuckGo HTML interface and return title/link/snippet.",
+            default="Search the web via DuckDuckGo HTML interface. Returns title/link/snippet.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -250,7 +250,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "query": {
                     "type": "string",
                     "description": _(
-                        "param.query.description", default="Search query string."
+                        "param.query.description", default="Search query.",
                     ),
                 },
                 "max_results": {
@@ -264,14 +264,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.q.description",
-                        default="Alias of 'query' (for backward compatibility).",
+                        default="Alias (compat).",
                     ),
                 },
                 "n": {
                     "type": "integer",
                     "description": _(
                         "param.n.description",
-                        default="Alias of 'max_results' (for backward compatibility).",
+                        default="Alias (compat).",
                     ),
                 },
             },

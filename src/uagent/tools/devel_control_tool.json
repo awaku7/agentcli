@@ -63,17 +63,17 @@
     "tool.description": "Dummy tool for development tool control registration."
   },
   "bn": {
-    "msg.devel.enabled": "[tools] ডেভেলপমেন্ট টুলস (devel) সক্রিয় করা হয়েছে: {names}",
-    "msg.devel.disabled": "[tools] ডেভেলপমেন্ট টুলস (devel) নিষ্ক্রিয় করা হয়েছে: {names}",
-    "msg.devel.none_enabled": "[tools] কোনো ডেভেলপমেন্ট টুল সক্রিয় করা হয়নি।",
-    "msg.devel.none_disabled": "[tools] কোনো ডেভেলপমেন্ট টুল নিষ্ক্রিয় করা হয়নি।",
+    "msg.devel.enabled": "[tools] ডেভেলপমেন্ট টুলস (devel) সক্রিয় করা হয...",
+    "msg.devel.disabled": "[tools] ডেভেলপমেন্ট টুলস (devel) নিষ্ক্রিয় করা...",
+    "msg.devel.none_enabled": "[tools] কোনো ডেভেলপমেন্ট টুল সক্রিয় কর...",
+    "msg.devel.none_disabled": "[tools] কোনো ডেভেলপমেন্ট টুল নিষ্ক্রিয়...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "cs": {
-    "msg.devel.enabled": "[tools] Vývojové nástroje (devel) byly povoleny: {names}",
+    "msg.devel.enabled": "[tools] Vývojové nástroje (devel) byly povoleny...",
     "msg.devel.disabled": "[tools] Vývojové nástroje (devel) byly zakázány: {names}",
-    "msg.devel.none_enabled": "[tools] Nebyly povoleny žádné vývojové nástroje.",
-    "msg.devel.none_disabled": "[tools] Nebyly zakázány žádné vývojové nástroje.",
+    "msg.devel.none_enabled": "[tools] Nebyly povoleny žádné vývojové...",
+    "msg.devel.none_disabled": "[tools] Nebyly zakázány žádné vývojové n...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "fa": {
@@ -84,10 +84,10 @@
     "tool.description": "Dummy tool for development tool control registration."
   },
   "fi": {
-    "msg.devel.enabled": "[tools] Kehitystyökalut (devel) otettiin käyttöön: {names}",
-    "msg.devel.disabled": "[tools] Kehitystyökalut (devel) poistettiin käytöstä: {names}",
-    "msg.devel.none_enabled": "[tools] Yhtään kehitystyökalua ei otettu käyttöön.",
-    "msg.devel.none_disabled": "[tools] Yhtään kehitystyökalua ei poistettu käytöstä.",
+    "msg.devel.enabled": "[tools] Kehitystyökalut (devel) otettiin käyttö...",
+    "msg.devel.disabled": "[tools] Kehitystyökalut (devel) poistettiin käyt...",
+    "msg.devel.none_enabled": "[tools] Yhtään kehitystyökalua ei otett...",
+    "msg.devel.none_disabled": "[tools] Yhtään kehitystyökalua ei poiste...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "hi": {
@@ -100,15 +100,15 @@
   "id": {
     "msg.devel.enabled": "[tools] Alat pengembangan (devel) diaktifkan: {names}",
     "msg.devel.disabled": "[tools] Alat pengembangan (devel) dinonaktifkan: {names}",
-    "msg.devel.none_enabled": "[tools] Tidak ada alat pengembangan yang diaktifkan.",
-    "msg.devel.none_disabled": "[tools] Tidak ada alat pengembangan yang dinonaktifkan.",
+    "msg.devel.none_enabled": "[tools] Tidak ada alat pengembangan yan...",
+    "msg.devel.none_disabled": "[tools] Tidak ada alat pengembangan yang...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "it": {
-    "msg.devel.enabled": "[tools] Strumenti di sviluppo (devel) abilitati: {names}",
-    "msg.devel.disabled": "[tools] Strumenti di sviluppo (devel) disabilitati: {names}",
-    "msg.devel.none_enabled": "[tools] Nessuno strumento di sviluppo è stato abilitato.",
-    "msg.devel.none_disabled": "[tools] Nessuno strumento di sviluppo è stato disabilitato.",
+    "msg.devel.enabled": "[tools] Strumenti di sviluppo (devel) abilitati...",
+    "msg.devel.disabled": "[tools] Strumenti di sviluppo (devel) disabilita...",
+    "msg.devel.none_enabled": "[tools] Nessuno strumento di sviluppo è...",
+    "msg.devel.none_disabled": "[tools] Nessuno strumento di sviluppo è...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "nb": {
@@ -119,43 +119,43 @@
     "tool.description": "Dummy tool for development tool control registration."
   },
   "nl": {
-    "msg.devel.enabled": "[tools] Ontwikkelhulpmiddelen (devel) zijn ingeschakeld: {names}",
-    "msg.devel.disabled": "[tools] Ontwikkelhulpmiddelen (devel) zijn uitgeschakeld: {names}",
-    "msg.devel.none_enabled": "[tools] Er zijn geen ontwikkelhulpmiddelen ingeschakeld.",
-    "msg.devel.none_disabled": "[tools] Er zijn geen ontwikkelhulpmiddelen uitgeschakeld.",
+    "msg.devel.enabled": "[tools] Ontwikkelhulpmiddelen (devel) zijn inge...",
+    "msg.devel.disabled": "[tools] Ontwikkelhulpmiddelen (devel) zijn uitge...",
+    "msg.devel.none_enabled": "[tools] Er zijn geen ontwikkelhulpmidde...",
+    "msg.devel.none_disabled": "[tools] Er zijn geen ontwikkelhulpmiddel...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "pl": {
-    "msg.devel.enabled": "[tools] Narzędzia deweloperskie (devel) zostały włączone: {names}",
-    "msg.devel.disabled": "[tools] Narzędzia deweloperskie (devel) zostały wyłączone: {names}",
-    "msg.devel.none_enabled": "[tools] Nie włączono żadnych narzędzi deweloperskich.",
-    "msg.devel.none_disabled": "[tools] Nie wyłączono żadnych narzędzi deweloperskich.",
+    "msg.devel.enabled": "[tools] Narzędzia deweloperskie (devel) zostały...",
+    "msg.devel.disabled": "[tools] Narzędzia deweloperskie (devel) zostały...",
+    "msg.devel.none_enabled": "[tools] Nie włączono żadnych narzędzi d...",
+    "msg.devel.none_disabled": "[tools] Nie wyłączono żadnych narzędzi d...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "pt": {
-    "msg.devel.enabled": "[tools] Ferramentas de desenvolvimento (devel) ativadas: {names}",
-    "msg.devel.disabled": "[tools] Ferramentas de desenvolvimento (devel) desativadas: {names}",
-    "msg.devel.none_enabled": "[tools] Nenhuma ferramenta de desenvolvimento foi ativada.",
-    "msg.devel.none_disabled": "[tools] Nenhuma ferramenta de desenvolvimento foi desativada.",
+    "msg.devel.enabled": "[tools] Ferramentas de desenvolvimento (devel)...",
+    "msg.devel.disabled": "[tools] Ferramentas de desenvolvimento (devel) d...",
+    "msg.devel.none_enabled": "[tools] Nenhuma ferramenta de desenvolv...",
+    "msg.devel.none_disabled": "[tools] Nenhuma ferramenta de desenvolvi...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "pt_BR": {
-    "msg.devel.enabled": "[tools] Ferramentas de desenvolvimento (devel) ativadas: {names}",
-    "msg.devel.disabled": "[tools] Ferramentas de desenvolvimento (devel) desativadas: {names}",
-    "msg.devel.none_enabled": "[tools] Nenhuma ferramenta de desenvolvimento foi ativada.",
-    "msg.devel.none_disabled": "[tools] Nenhuma ferramenta de desenvolvimento foi desativada.",
+    "msg.devel.enabled": "[tools] Ferramentas de desenvolvimento (devel)...",
+    "msg.devel.disabled": "[tools] Ferramentas de desenvolvimento (devel) d...",
+    "msg.devel.none_enabled": "[tools] Nenhuma ferramenta de desenvolv...",
+    "msg.devel.none_disabled": "[tools] Nenhuma ferramenta de desenvolvi...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "ru": {
-    "msg.devel.enabled": "[tools] Инструменты разработки (devel) включены: {names}",
-    "msg.devel.disabled": "[tools] Инструменты разработки (devel) выключены: {names}",
-    "msg.devel.none_enabled": "[tools] Ни один инструмент разработки не был включен.",
-    "msg.devel.none_disabled": "[tools] Ни один инструмент разработки не был выключен.",
+    "msg.devel.enabled": "[tools] Инструменты разработки (devel) включены...",
+    "msg.devel.disabled": "[tools] Инструменты разработки (devel) выключены...",
+    "msg.devel.none_enabled": "[tools] Ни один инструмент разработки н...",
+    "msg.devel.none_disabled": "[tools] Ни один инструмент разработки не...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "sv": {
-    "msg.devel.enabled": "[tools] Utvecklingsverktyg (devel) har aktiverats: {names}",
-    "msg.devel.disabled": "[tools] Utvecklingsverktyg (devel) har avaktiverats: {names}",
+    "msg.devel.enabled": "[tools] Utvecklingsverktyg (devel) har aktivera...",
+    "msg.devel.disabled": "[tools] Utvecklingsverktyg (devel) har avaktiver...",
     "msg.devel.none_enabled": "[tools] Inga utvecklingsverktyg aktiverades.",
     "msg.devel.none_disabled": "[tools] Inga utvecklingsverktyg avaktiverades.",
     "tool.description": "Dummy tool for development tool control registration."
@@ -170,22 +170,22 @@
   "uk": {
     "msg.devel.enabled": "[tools] Інструменти розробки (devel) увімкнено: {names}",
     "msg.devel.disabled": "[tools] Інструменти розробки (devel) вимкнено: {names}",
-    "msg.devel.none_enabled": "[tools] Жоден інструмент розробки не було увімкнено.",
-    "msg.devel.none_disabled": "[tools] Жоден інструмент розробки не було вимкнено.",
+    "msg.devel.none_enabled": "[tools] Жоден інструмент розробки не бу...",
+    "msg.devel.none_disabled": "[tools] Жоден інструмент розробки не бул...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "vi": {
     "msg.devel.enabled": "[tools] Đã bật công cụ phát triển (devel): {names}",
     "msg.devel.disabled": "[tools] Đã tắt công cụ phát triển (devel): {names}",
-    "msg.devel.none_enabled": "[tools] Không có công cụ phát triển nào được bật.",
-    "msg.devel.none_disabled": "[tools] Không có công cụ phát triển nào được tắt.",
+    "msg.devel.none_enabled": "[tools] Không có công cụ phát triển nào...",
+    "msg.devel.none_disabled": "[tools] Không có công cụ phát triển nào...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "mn": {
-    "msg.devel.enabled": "[tools] Хөгжүүлэлтийн хэрэгслүүд (devel) идэвхжсэн: {names}",
-    "msg.devel.disabled": "[tools] Хөгжүүлэлтийн хэрэгслүүд (devel) идэвхгүй болсон: {names}",
-    "msg.devel.none_enabled": "[tools] Ямар ч хөгжүүлэлтийн хэрэгсэл идэвхжээгүй.",
-    "msg.devel.none_disabled": "[tools] Ямар ч хөгжүүлэлтийн хэрэгсэл идэвхгүй болоогүй.",
+    "msg.devel.enabled": "[tools] Хөгжүүлэлтийн хэрэгслүүд (devel) идэвхж...",
+    "msg.devel.disabled": "[tools] Хөгжүүлэлтийн хэрэгслүүд (devel) идэвхгү...",
+    "msg.devel.none_enabled": "[tools] Ямар ч хөгжүүлэлтийн хэрэгсэл и...",
+    "msg.devel.none_disabled": "[tools] Ямар ч хөгжүүлэлтийн хэрэгсэл ид...",
     "tool.description": "Dummy tool for development tool control registration."
   },
   "mr": {
@@ -198,15 +198,15 @@
   "sw": {
     "msg.devel.enabled": "[tools] Zana za maendeleo (devel) zimewezeshwa: {names}",
     "msg.devel.disabled": "[tools] Zana za maendeleo (devel) zimezimwa: {names}",
-    "msg.devel.none_enabled": "[tools] Hakuna zana za maendeleo zilizowezeshwa.",
+    "msg.devel.none_enabled": "[tools] Hakuna zana za maendeleo zilizo...",
     "msg.devel.none_disabled": "[tools] Hakuna zana za maendeleo zilizozimwa.",
-    "tool.description": "Zana bandia kwa ajili ya kusajili udhibiti wa zana za maendeleo."
+    "tool.description": "Zana bandia kwa ajili ya kusajili udhibiti wa zana..."
   },
   "tr": {
-    "msg.devel.enabled": "[tools] Geliştirme araçları (devel) etkinleştirildi: {names}",
-    "msg.devel.disabled": "[tools] Geliştirme araçları (devel) devre dışı bırakıldı: {names}",
-    "msg.devel.none_enabled": "[tools] Hiç geliştirme aracı etkinleştirilmedi.",
-    "msg.devel.none_disabled": "[tools] Hiç geliştirme aracı devre dışı bırakılmadı.",
+    "msg.devel.enabled": "[tools] Geliştirme araçları (devel) etkinleştir...",
+    "msg.devel.disabled": "[tools] Geliştirme araçları (devel) devre dışı b...",
+    "msg.devel.none_enabled": "[tools] Hiç geliştirme aracı etkinleşti...",
+    "msg.devel.none_disabled": "[tools] Hiç geliştirme aracı devre dışı...",
     "tool.description": "Geliştirme aracı denetimi kaydı için sahte araç."
   }
 }

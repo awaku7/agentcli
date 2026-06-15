@@ -182,7 +182,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "secrets",
         "description": _(
             "tool.description",
-            default="Manage local secrets using a shared key file under the uagent state dir.",
+            default="Manage local secrets using symmetric key in uagent state directory.",
         ),
         "system_prompt": _(
             "tool.system_prompt",
@@ -217,7 +217,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.action.description",
-                        default="Action: init/encrypt/decrypt/sign/verify/json_encrypt/json_decrypt",
+                        default="Action: init/encrypt/decrypt/sign/verify/json_encrypt/json_decrypt.",
                     ),
                 },
                 "overwrite": {

@@ -1048,12 +1048,7 @@ else:
             "name": "graph_rag_search",
             "description": _(
                 "tool.description",
-                default=(
-                    "Search local files using GraphRAG (Graph + Vector hybrid). "
-                    "Supported: py/md/txt/pdf/pptx/xlsx. "
-                    "Builds a lightweight knowledge graph (entities/relations) in SQLite, "
-                    "retrieves relevant chunks via graph traversal (hops), and returns them along with vector search results."
-                ),
+                default="Search local files using GraphRAG (Graph + Vector hybrid). Supported: py/md/txt/pdf/pptx/xlsx.",
             ),
             "x_search_terms": _(
                 "x_search_terms",

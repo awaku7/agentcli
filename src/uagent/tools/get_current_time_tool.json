@@ -1,6 +1,6 @@
 {
   "en": {
-    "tool.description": "Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.g., 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') by determining the current weekday and UTC offset.",
+    "tool.description": "Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.",
     "x_search_terms": [
       "current time",
       "now",
@@ -24,7 +24,7 @@
     "tool.system_prompt": "このツールは、LLMが時間の計算を正確に行うための参照情報を提供します。\n- ISO 8601形式（オフセット付き）\n- 曜日（英語）\n- UTC時刻\n- 数値コンポーネント（年、月、日、時、分、秒）\nこれらを使用して、ユーザーの曖昧な要求（例：「次の月曜日」）を具体的な日時に変換してください。\n"
   },
   "es": {
-    "tool.description": "Devuelve la hora actual e información detallada de fecha/hora (zona horaria, día de la semana, hora UTC). Utilice esto para resolver expresiones de fecha relativa (por ejemplo, 'hoy', 'mañana', 'este fin de semana', 'el tercer martes del próximo mes') determinando el día de la semana actual y el desplazamiento UTC.",
+    "tool.description": "Devuelve la hora actual e información detallada de fecha/hora (zona horaria, día de la semana, hora UTC).",
     "x_search_terms": [
       "get_current_time",
       "hora actual",
@@ -34,7 +34,7 @@
     "tool.system_prompt": "Esta herramienta proporciona información de referencia para que el LLM pueda realizar cálculos de tiempo con precisión.\n- Formato ISO 8601 (con desplazamiento)\n- Día de la semana (inglés)\n- Hora UTC\n- Componentes numéricos (año, mes, día, hora, minuto, segundo)\nÚselos para convertir solicitudes de usuarios ambiguas (por ejemplo, 'el próximo lunes') en una fecha/hora concreta.\n"
   },
   "fr": {
-    "tool.description": "Renvoie l’heure actuelle et les informations détaillées sur la date/heure (fuseau horaire, jour de la semaine, heure UTC). Utilisez-le pour résoudre les expressions de date relative (par exemple, « aujourd'hui », « demain », « ce week-end », « le 3e mardi du mois prochain ») en déterminant le jour de la semaine en cours et le décalage UTC.",
+    "tool.description": "Renvoie l’heure actuelle et les informations détaillées sur la date/heure (fuseau horaire, jour de la semaine, heure UTC).",
     "x_search_terms": [
       "get_current_time",
       "heure actuelle",
@@ -54,7 +54,7 @@
     "tool.system_prompt": "이 도구는 LLM이 시간 계산을 정확하게 수행할 수 있도록 참고 정보를 제공합니다.\n- ISO 8601 형식(오프셋 포함)\n- 요일(영어)\n- UTC 시간\n- 숫자 구성 요소(년, 월, 일, 시, 분, 초)\n이를 사용하여 모호한 사용자 요청(예: '다음 월요일')을 구체적인 날짜/시간으로 변환합니다.\n"
   },
   "de": {
-    "tool.description": "Gibt die aktuelle Uhrzeit und detaillierte Datums-/Uhrzeitinformationen (Zeitzone, Wochentag, UTC-Zeit) zurück. Verwenden Sie dies, um relative Datumsausdrücke (z. B. „heute“, „morgen“, „dieses Wochenende“, „der 3. Dienstag des nächsten Monats“) aufzulösen, indem Sie den aktuellen Wochentag und den UTC-Offset ermitteln.",
+    "tool.description": "Gibt die aktuelle Uhrzeit und detaillierte Datums-/Uhrzeitinformationen (Zeitzone, Wochentag, UTC-Zeit) zurück.",
     "x_search_terms": [
       "get_current_time",
       "aktuelle zeit",
@@ -64,7 +64,7 @@
     "tool.system_prompt": "Dieses Tool stellt Referenzinformationen bereit, damit das LLM Zeitberechnungen genau durchführen kann.\n- ISO 8601-Format (mit Offset)\n- Wochentag (Englisch)\n- UTC-Zeit\n- Numerische Komponenten (Jahr, Monat, Tag, Stunde, Minute, Sekunde)\nVerwenden Sie diese, um mehrdeutige Benutzeranfragen (z. B. „nächsten Montag“) in ein konkretes Datum/eine konkrete Uhrzeit umzuwandeln.\n"
   },
   "it": {
-    "tool.description": "Restituisce l'ora corrente e informazioni dettagliate su data/ora (fuso orario, giorno della settimana, ora UTC). Utilizzalo per risolvere le espressioni di data relativa (ad esempio, \"oggi\", \"domani\", \"questo fine settimana\", \"il terzo martedì del mese prossimo\") determinando il giorno della settimana corrente e l'offset UTC.",
+    "tool.description": "Restituisce l'ora corrente e informazioni dettagliate su data/ora (fuso orario, giorno della settimana, ora UTC).",
     "x_search_terms": [
       "get_current_time",
       "ora attuale",
@@ -74,7 +74,7 @@
     "tool.system_prompt": "Questo strumento fornisce informazioni di riferimento in modo che il LLM possa eseguire calcoli temporali in modo accurato.\n- Formato ISO 8601 (con offset)\n- Giorno della settimana (inglese)\n- Ora UTC\n- Componenti numeriche (anno, mese, giorno, ora, minuto, secondo)\nUtilizzali per convertire le richieste ambigue degli utenti (ad esempio \"lunedì prossimo\") in una data/ora concreta.\n"
   },
   "ru": {
-    "tool.description": "Возвращает текущее время и подробную информацию о дате/времени (часовой пояс, день недели, время UTC). Используйте это для разрешения выражений относительных дат (например, «сегодня», «завтра», «эти выходные», «третий вторник следующего месяца») путем определения текущего дня недели и смещения UTC.",
+    "tool.description": "Возвращает текущее время и подробную информацию о дате/времени (часовой пояс, день недели, время UTC).",
     "x_search_terms": [
       "get_current_time",
       "текущее время",
@@ -84,7 +84,7 @@
     "tool.system_prompt": "Этот инструмент предоставляет справочную информацию, позволяющую LLM точно выполнять вычисления времени.\n- Формат ISO 8601 (со смещением)\n- День недели (английский)\n- Время UTC\n- Числовые компоненты (год, месяц, день, час, минута, секунда)\nИспользуйте их для преобразования неоднозначных пользовательских запросов (например, «следующий понедельник») в конкретную дату/время.\n"
   },
   "pt_BR": {
-    "tool.description": "Retorna a hora atual e informações detalhadas de data/hora (fuso horário, dia da semana, horário UTC). Use isto para resolver expressões de data relativa (por exemplo, 'hoje', 'amanhã', 'este fim de semana', 'a terceira terça-feira do próximo mês') determinando o dia da semana atual e o deslocamento UTC.",
+    "tool.description": "Retorna a hora atual e informações detalhadas de data/hora (fuso horário, dia da semana, horário UTC).",
     "x_search_terms": [
       "get_current_time",
       "hora atual",
@@ -94,7 +94,7 @@
     "tool.system_prompt": "Esta ferramenta fornece informações de referência para que o LLM possa realizar cálculos de tempo com precisão.\n- Formato ISO 8601 (com deslocamento)\n- Dia da semana (inglês)\n- Hora UTC\n- Componentes numéricos (ano, mês, dia, hora, minuto, segundo)\nUse-os para converter solicitações ambíguas do usuário (por exemplo, 'próxima segunda-feira') em uma data/hora concreta.\n"
   },
   "pt": {
-    "tool.description": "Retorna a hora atual e informações detalhadas de data/hora (fuso horário, dia da semana, horário UTC). Use isto para resolver expressões de data relativa (por exemplo, 'hoje', 'amanhã', 'este fim de semana', 'a terceira terça-feira do próximo mês') determinando o dia da semana atual e o deslocamento UTC.",
+    "tool.description": "Retorna a hora atual e informações detalhadas de data/hora (fuso horário, dia da semana, horário UTC).",
     "x_search_terms": [
       "get_current_time",
       "hora atual",
@@ -104,7 +104,7 @@
     "tool.system_prompt": "Esta ferramenta fornece informações de referência para que o LLM possa realizar cálculos de tempo com precisão.\n- Formato ISO 8601 (com deslocamento)\n- Dia da semana (Inglês)\n- hora UTC\n- Componentes numéricos (ano, mês, dia, hora, minuto, segundo)\nUse-os para converter solicitações ambíguas do usuário (por exemplo, 'próxima segunda-feira') em uma data/hora concreta."
   },
   "id": {
-    "tool.description": "Kembalikan waktu saat ini dan informasi tanggal/waktu terperinci (zona waktu, hari dalam minggu, waktu UTC). Gunakan ini untuk menyelesaikan ekspresi tanggal relatif (mis. 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') dengan menentukan hari saat ini dan offset UTC.",
+    "tool.description": "Kembalikan waktu saat ini dan informasi tanggal/waktu terperinci (zona waktu, hari dalam minggu, waktu UTC).",
     "x_search_terms": [
       "get_current_time",
       "waktu saat ini",
@@ -114,7 +114,7 @@
     "tool.system_prompt": "Alat ini menyediakan informasi referensi agar LLM dapat melakukan perhitungan waktu dengan akurat.\n- Format ISO 8601 (dengan offset)\n- Hari dalam minggu (bahasa Inggris)\n- Waktu UTC\n- Komponen numerik (tahun, bulan, hari, jam, menit, detik)\nGunakan ini untuk mengubah permintaan pengguna yang ambigu (mis. \"next Monday\") menjadi tanggal/waktu yang konkret."
   },
   "vi": {
-    "tool.description": "Trả về thời gian hiện tại và thông tin ngày/giờ chi tiết (múi giờ, ngày trong tuần, giờ UTC). Sử dụng công cụ này để giải quyết các biểu thức ngày tương đối (ví dụ: 'hôm nay', 'ngày mai', 'cuối tuần này', 'thứ Ba thứ 3 của tháng tiếp theo') bằng cách xác định ngày trong tuần hiện tại và độ lệch UTC.",
+    "tool.description": "Trả về thời gian hiện tại và thông tin ngày/giờ chi tiết (múi giờ, ngày trong tuần, giờ UTC).",
     "x_search_terms": [
       "get_current_time",
       "thời gian hiện tại",
@@ -124,7 +124,7 @@
     "tool.system_prompt": "Công cụ này cung cấp thông tin tham khảo để LLM có thể thực hiện tính toán thời gian một cách chính xác.\n- Định dạng ISO 8601 (có offset)\n- Ngày trong tuần (tiếng Anh)\n- Giờ UTC\n- Thành phần số (năm, tháng, ngày, giờ, phút, giây)\nSử dụng những thông tin này để chuyển đổi các yêu cầu không rõ ràng của người dùng (ví dụ: 'Thứ Hai tuần sau') thành ngày/giờ cụ thể."
   },
   "pl": {
-    "tool.description": "Zwróć bieżący czas i szczegółowe informacje o dacie/godzinie (strefa czasowa, dzień tygodnia, czas UTC). Użyj tej opcji, aby rozwiązać względne wyrażenia dotyczące dat (np. „dzisiaj”, „jutro”, „w ten weekend”, „trzeci wtorek następnego miesiąca”) poprzez określenie bieżącego dnia tygodnia i przesunięcia czasu UTC.",
+    "tool.description": "Zwróć bieżący czas i szczegółowe informacje o dacie/godzinie (strefa czasowa, dzień tygodnia, czas UTC).",
     "x_search_terms": [
       "get_current_time",
       "aktualny czas",
@@ -134,7 +134,7 @@
     "tool.system_prompt": "To narzędzie zapewnia informacje referencyjne, dzięki którym LLM może dokładnie wykonywać obliczenia czasu.\n-Format ISO 8601 (z offsetem)\n- Dzień powszedni (angielski)\n- Czas UTC\n- Składniki numeryczne (rok, miesiąc, dzień, godzina, minuta, sekunda)\nUżyj ich, aby przekonwertować niejednoznaczne żądania użytkowników (np. „w następny poniedziałek”) na konkretną datę/godzinę."
   },
   "hi": {
-    "tool.description": "वर्तमान समय और विस्तृत दिनांक/समय जानकारी (समयक्षेत्र, कार्यदिवस, यूटीसी समय) लौटाएँ। वर्तमान कार्यदिवस और यूटीसी ऑफसेट का निर्धारण करके सापेक्ष दिनांक अभिव्यक्तियों (उदाहरण के लिए, 'आज', 'कल', 'इस सप्ताहांत', 'अगले महीने का तीसरा मंगलवार') को हल करने के लिए इसका उपयोग करें।",
+    "tool.description": "वर्तमान समय और विस्तृत दिनांक/समय जानकारी (समयक्षेत्र, कार्यदिवस, यूटीसी समय) लौटाएँ। वर्तमान कार्यदिवस और यूटीसी ऑफसेट का निर्धारण करके...",
     "x_search_terms": [
       "get_current_time",
       "वर्तमान समय",
@@ -144,7 +144,7 @@
     "tool.system_prompt": "यह उपकरण संदर्भ जानकारी प्रदान करता है ताकि एलएलएम समय की गणना सटीक रूप से कर सके।\n- आईएसओ 8601 प्रारूप (ऑफसेट के साथ)\n- कार्यदिवस (अंग्रेजी)\n- यूटीसी समय\n- संख्यात्मक घटक (वर्ष, माह, दिन, घंटा, मिनट, सेकंड)\nअस्पष्ट उपयोगकर्ता अनुरोधों (उदाहरण के लिए, 'अगले सोमवार') को एक ठोस तारीख/समय में बदलने के लिए इनका उपयोग करें।"
   },
   "ar": {
-    "tool.description": "قم بإرجاع الوقت الحالي ومعلومات التاريخ/الوقت التفصيلية (المنطقة الزمنية، أيام الأسبوع، توقيت UTC). استخدم هذا لحل تعبيرات التاريخ النسبي (على سبيل المثال، \"اليوم\"، و\"غدًا\"، و\"عطلة نهاية الأسبوع هذه\"، و\"الثلاثاء الثالث من الشهر التالي\") عن طريق تحديد يوم الأسبوع الحالي وإزاحة UTC.",
+    "tool.description": "قم بإرجاع الوقت الحالي ومعلومات التاريخ/الوقت التفصيلية (المنطقة الزمنية، أيام الأسبوع، توقيت UTC).",
     "x_search_terms": [
       "get_current_time",
       "الوقت الحالي",
@@ -154,7 +154,7 @@
     "tool.system_prompt": "توفر هذه الأداة معلومات مرجعية حتى يتمكن LLM من إجراء حسابات الوقت بدقة.\n- تنسيق ISO 8601 (مع الإزاحة)\n- أيام الأسبوع (الإنجليزية)\n- التوقيت العالمي المنسق\n- المكونات الرقمية (السنة، الشهر، اليوم، الساعة، الدقيقة، الثانية)\nاستخدمها لتحويل طلبات المستخدم الغامضة (على سبيل المثال، \"الاثنين المقبل\") إلى تاريخ/وقت محدد."
   },
   "sv": {
-    "tool.description": "Returnerar aktuell tid och detaljerad datum-/tidsinformation (tidszon, veckodag, UTC-tid). Använd detta för att tolka relativa datumuttryck (t.ex. \"idag\", \"imorgon\", \"den här helgen\", \"nästa månads tredje tisdag\") genom att avgöra aktuell veckodag och UTC-offset.",
+    "tool.description": "Returnerar aktuell tid och detaljerad datum-/tidsinformation (tidszon, veckodag, UTC-tid).",
     "x_search_terms": [
       "get_current_time",
       "aktuell tid",
@@ -164,7 +164,7 @@
     "tool.system_prompt": "Det här verktyget ger referensinformation så att LLM:n kan göra tidsberäkningar korrekt.\n- ISO 8601-format (med offset)\n- Veckodag (engelska)\n- UTC-tid\n- Numeriska komponenter (år, månad, dag, timme, minut, sekund)\nAnvänd detta för att omvandla otydliga användarbegäranden (t.ex. \"nästa måndag\") till ett konkret datum/en konkret tid.\n"
   },
   "sw": {
-    "tool.description": "Rudisha muda wa sasa na maelezo ya kina ya tarehe/muda (eneo la saa, siku ya wiki, muda wa UTC). Tumia hili kutatua semi za tarehe za uwiano (mfano, 'leo', 'kesho', 'mwishoni mwa wiki hii', 'Jumanne ya tatu ya mwezi ujao') kwa kubaini siku ya sasa ya wiki na mkengeuko wa UTC.",
+    "tool.description": "Rudisha muda wa sasa na maelezo ya kina ya tarehe/muda (eneo la saa, siku ya wiki, muda wa UTC).",
     "x_search_terms": [
       "get_current_time",
       "muda wa sasa",
@@ -174,7 +174,7 @@
     "tool.system_prompt": "Zana hii hutoa maelezo ya marejeleo ili LLM iweze kufanya hesabu za muda kwa usahihi.\n- Muundo wa ISO 8601 (na mkengeuko)\n- Siku ya wiki (Kiingereza)\n- Muda wa UTC\n- Vipengele vya nambari (mwaka, mwezi, siku, saa, dakika, sekunde)\nTumia hivi kubadilisha maombi yasiyoeleweka ya mtumiaji (mfano, 'Jumatatu ijayo') kuwa tarehe/muda mahsusi.\n"
   },
   "nb": {
-    "tool.description": "Returnerer gjeldende tid og detaljert dato-/tidsinformasjon (tidssone, ukedag, UTC-tid). Bruk dette til å tolke relative datouttrykk (for eksempel «i dag», «i morgen», «denne helgen», «tirsdagen i neste måned») ved å finne gjeldende ukedag og UTC-forskyvning.",
+    "tool.description": "Returnerer gjeldende tid og detaljert dato-/tidsinformasjon (tidssone, ukedag, UTC-tid).",
     "x_search_terms": [
       "get_current_time",
       "gjeldende tid",
@@ -184,7 +184,7 @@
     "tool.system_prompt": "Dette verktøyet gir referanseinformasjon slik at LLM-en kan utføre tidsberegninger nøyaktig.\n- ISO 8601-format (med forskyvning)\n- Ukedag (engelsk)\n- UTC-tid\n- Numeriske komponenter (år, måned, dag, time, minutt, sekund)\nBruk dette til å gjøre uklare brukerspørsmål (for eksempel «neste mandag») om til en konkret dato/et konkret tidspunkt.\n"
   },
   "nl": {
-    "tool.description": "Gee de huidige tijd en gedetailleerde datum/tijd-informatie terug (tijdzone, weekdag, UTC-tijd). Gebruik dit om relatieve datumuitdrukkingen op te lossen (bijv. \"vandaag\", \"morgen\", \"dit weekend\", \"de 3e dinsdag van volgende maand\") door de huidige weekdag en UTC-offset te bepalen.",
+    "tool.description": "Gee de huidige tijd en gedetailleerde datum/tijd-informatie terug (tijdzone, weekdag, UTC-tijd).",
     "x_search_terms": [
       "get_current_time",
       "huidige tijd",
@@ -194,7 +194,7 @@
     "tool.system_prompt": "Deze tool levert referentie-informatie zodat de LLM tijdberekeningen nauwkeurig kan uitvoeren.\n- ISO 8601-indeling (met offset)\n- Weekdag (Engels)\n- UTC-tijd\n- Numerieke componenten (jaar, maand, dag, uur, minuut, seconde)\nGebruik dit om dubbelzinnige gebruikersverzoeken (bijv. \"volgende maandag\") om te zetten naar een concrete datum/tijd.\n"
   },
   "fi": {
-    "tool.description": "Palauttaa nykyisen ajan ja yksityiskohtaiset päivämäärä-/aikatiedot (aikavyöhyke, viikonpäivä, UTC-aika). Käytä tätä suhteellisten päivämääräilmausten ratkaisemiseen (esim. \"tänään\", \"huomenna\", \"tänä viikonloppuna\", \"ensi kuun kolmas tiistai\") selvittämällä nykyinen viikonpäivä ja UTC-siirtymä.",
+    "tool.description": "Palauttaa nykyisen ajan ja yksityiskohtaiset päivämäärä-/aikatiedot (aikavyöhyke, viikonpäivä, UTC-aika).",
     "x_search_terms": [
       "get_current_time",
       "nykyinen aika",
@@ -204,7 +204,7 @@
     "tool.system_prompt": "Tämä työkalu tarjoaa viitetiedot, jotta LLM voi tehdä aikalaskut tarkasti.\n- ISO 8601 -muoto (siirtymällä)\n- Viikonpäivä (englanniksi)\n- UTC-aika\n- Numeeriset osat (vuosi, kuukausi, päivä, tunti, minuutti, sekunti)\nKäytä näitä muuttamaan epäselvät käyttäjäpyynnöt (esim. \"ensi maanantai\") konkreettiseksi päivämääräksi/ajaksi.\n"
   },
   "cs": {
-    "tool.description": "Vraťte aktuální čas a podrobné informace o datu/čase (časové pásmo, den v týdnu, čas UTC). Použijte to k vyřešení relativních datových výrazů (např. „dnes“, „zítra“, „tento víkend“, „třetí úterý příštího měsíce“) určením aktuálního dne v týdnu a posunu UTC.",
+    "tool.description": "Vraťte aktuální čas a podrobné informace o datu/čase (časové pásmo, den v týdnu, čas UTC).",
     "x_search_terms": [
       "get_current_time",
       "aktuální čas",
@@ -214,7 +214,7 @@
     "tool.system_prompt": "Tento nástroj poskytuje referenční informace, aby LLM mohlo přesně provádět výpočty času.\n- Formát ISO 8601 (s posunem)\n- Den v týdnu (anglicky)\n- Čas UTC\n- Číselné složky (rok, měsíc, den, hodina, minuta, sekunda)\nPoužijte je k převodu nejednoznačných uživatelských požadavků (např. „příští pondělí“) na konkrétní datum/čas.\n"
   },
   "uk": {
-    "tool.description": "Повертає поточний час і докладну інформацію про дату/час (часовий пояс, день тижня, UTC-час). Використовуйте це, щоб розв’язувати відносні вирази дати (наприклад, «сьогодні», «завтра», «ці вихідні», «третій вівторок наступного місяця») шляхом визначення поточного дня тижня та зміщення UTC.",
+    "tool.description": "Повертає поточний час і докладну інформацію про дату/час (часовий пояс, день тижня, UTC-час).",
     "x_search_terms": [
       "get_current_time",
       "поточний час",
@@ -224,7 +224,7 @@
     "tool.system_prompt": "Цей інструмент надає довідкову інформацію, щоб LLM міг точно виконувати обчислення часу.\n- Формат ISO 8601 (із зміщенням)\n- День тижня (англійською)\n- Час UTC\n- Числові складові (рік, місяць, день, година, хвилина, секунда)\nВикористовуйте це, щоб перетворювати неоднозначні запити користувача (наприклад, «наступний понеділок») на конкретну дату/час.\n"
   },
   "tr": {
-    "tool.description": "Geçerli saati ve ayrıntılı tarih/saat bilgilerini (saat dilimi, hafta içi, UTC saati) döndürür. Haftanın geçerli gününü ve UTC farkını belirleyerek göreli tarih ifadelerini (örneğin, 'bugün', 'yarın', 'bu hafta sonu', 'gelecek ayın 3. Salısı') çözümlemek için bunu kullanın.",
+    "tool.description": "Geçerli saati ve ayrıntılı tarih/saat bilgilerini (saat dilimi, hafta içi, UTC saati) döndürür.",
     "x_search_terms": [
       "get_current_time",
       "geçerli saat",
@@ -234,7 +234,7 @@
     "tool.system_prompt": "Bu araç, LLM'ın zaman hesaplamalarını doğru bir şekilde gerçekleştirebilmesi için referans bilgileri sağlar.\n- ISO 8601 formatı (ofset ile)\n- Hafta içi (İngilizce)\n- UTC zamanı\n- Sayısal bileşenler (yıl, ay, gün, saat, dakika, saniye)\nBelirsiz kullanıcı isteklerini (örneğin, 'gelecek Pazartesi') somut bir tarih/saat'e dönüştürmek için bunları kullanın."
   },
   "th": {
-    "tool.description": "ส่งคืนเวลาปัจจุบันและข้อมูลวันที่/เวลาโดยละเอียด (เขตเวลา วันในสัปดาห์ เวลา UTC) ใช้ข้อมูลนี้เพื่อแก้ไขนิพจน์วันที่แบบสัมพันธ์ (เช่น 'วันนี้' 'พรุ่งนี้' 'สุดสัปดาห์นี้' 'วันอังคารที่ 3 ของเดือนถัดไป') โดยพิจารณาวันในสัปดาห์ปัจจุบันและค่าออฟเซ็ต UTC",
+    "tool.description": "ส่งคืนเวลาปัจจุบันและข้อมูลวันที่/เวลาโดยละเอียด (เขตเวลา วันในสัปดาห์ เวลา UTC) ใช้ข้อมูลนี้เพื่อแก้ไขนิพจน์วันที่แบบสัมพันธ์ (เช่น 'วั...",
     "x_search_terms": [
       "get_current_time",
       "เวลาปัจจุบัน",
@@ -264,7 +264,7 @@
     "tool.system_prompt": "此工具提供參考資訊，以便 LLM 能夠準確地執行時間計算。\n- ISO 8601 格式（含偏移量）\n- 星期（英文）\n- UTC 時間\n- 數值元件（年、月、日、時、分、秒）\n使用這些資訊將不明確的使用者請求（例如「下週一」）轉換為具體的日期/時間。\n"
   },
   "bn": {
-    "tool.description": "বর্তমান সময় এবং বিস্তারিত তারিখ/সময়ের তথ্য (টাইমজোন, সপ্তাহের দিন, UTC সময়) ফেরত দেয়। বর্তমান সপ্তাহের দিন ও UTC অফসেট নির্ণয় করে আপেক্ষিক তারিখের অভিব্যক্তি (যেমন, 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') নির্ধারণ করতে এটি ব্যবহার করুন।",
+    "tool.description": "বর্তমান সময় এবং বিস্তারিত তারিখ/সময়ের তথ্য (টাইমজোন, সপ্তাহের দিন, UTC সময়) ফেরত দেয়। বর্তমান সপ্তাহের দিন ও UTC অফসেট নির্ণয় করে আ...",
     "x_search_terms": [
       "get_current_time",
       "বর্তমান সময়",
@@ -274,7 +274,7 @@
     "tool.system_prompt": "এই টুলটি LLM-কে সময় গণনা সঠিকভাবে করতে সহায়তার জন্য রেফারেন্স তথ্য সরবরাহ করে।\n- ISO 8601 ফরম্যাট (অফসেটসহ)\n- সপ্তাহের দিন (ইংরেজি)\n- UTC সময়\n- সংখ্যাগত উপাদান (বছর, মাস, দিন, ঘন্টা, মিনিট, সেকেন্ড)\nএসব ব্যবহার করে অস্পষ্ট ব্যবহারকারী অনুরোধ (যেমন, 'next Monday')-কে একটি নির্দিষ্ট তারিখ/সময়ে রূপান্তর করুন।\n"
   },
   "fa": {
-    "tool.description": "زمان فعلی و اطلاعات دقیق تاریخ/زمان (منطقهٔ زمانی، روز هفته، زمان UTC) را برمی‌گرداند. از این ابزار برای حل عبارت‌های تاریخ نسبی (برای مثال، «today»، «tomorrow»، «this weekend»، «the 3rd Tuesday of next month») با تعیین روز هفتهٔ فعلی و اختلاف UTC استفاده کنید.",
+    "tool.description": "زمان فعلی و اطلاعات دقیق تاریخ/زمان (منطقهٔ زمانی، روز هفته، زمان UTC) را برمی‌گرداند.",
     "x_search_terms": [
       "get_current_time",
       "زمان فعلی",
@@ -284,7 +284,7 @@
     "tool.system_prompt": "این ابزار اطلاعات مرجع فراهم می‌کند تا LLM بتواند محاسبات زمانی را دقیق انجام دهد.\n- قالب ISO 8601 (با offset)\n- روز هفته (انگلیسی)\n- زمان UTC\n- مؤلفه‌های عددی (سال، ماه، روز، ساعت، دقیقه، ثانیه)\nاز این‌ها برای تبدیل درخواست‌های مبهم کاربر (برای مثال، «next Monday») به یک تاریخ/زمان مشخص استفاده کنید.\n"
   },
   "mn": {
-    "tool.description": "Одоогийн цаг болон дэлгэрэнгүй огноо/цагийн мэдээлэл (цагийн бүс, долоо хоногийн өдөр, UTC цаг) буцаана. Одоогийн долоо хоногийн өдөр болон UTC зөрүүг тодорхойлсноор харьцангуй огнооны илэрхийлэлүүдийг (жишээ нь, 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') шийдвэрлэхэд ашиглана уу.",
+    "tool.description": "Одоогийн цаг болон дэлгэрэнгүй огноо/цагийн мэдээлэл (цагийн бүс, долоо хоногийн өдөр, UTC цаг) буцаана.",
     "x_search_terms": [
       "get_current_time",
       "одоогийн цаг",
@@ -294,7 +294,7 @@
     "tool.system_prompt": "Энэ хэрэгсэл нь LLM-д цагийн тооцоог үнэн зөв хийхэд туслах лавлах мэдээлэл өгдөг.\n- ISO 8601 формат (offset-той)\n- Долоо хоногийн өдөр (англи)\n- UTC цаг\n- Тоон бүрдэл хэсгүүд (жил, сар, өдөр, цаг, минут, секунд)\nЭдгээрийг ашиглан хэрэглэгчийн хоёрдмол утгатай хүсэлтүүдийг (жишээ нь, “next Monday”) тодорхой огноо/цаг болгон хувиргана уу.\n"
   },
   "mr": {
-    "tool.description": "सध्याचा वेळ आणि तपशीलवार दिनांक/वेळ माहिती (time zone, weekday, UTC वेळ) परत करते. सद्य weekday आणि UTC offset ठरवून सापेक्ष दिनांक अभिव्यक्ती (उदा. 'today', 'tomorrow', 'this weekend', 'the 3rd Tuesday of next month') सोडवण्यासाठी याचा वापर करा.",
+    "tool.description": "सध्याचा वेळ आणि तपशीलवार दिनांक/वेळ माहिती (time zone, weekday, UTC वेळ) परत करते.",
     "x_search_terms": [
       "get_current_time",
       "सध्याचा वेळ",

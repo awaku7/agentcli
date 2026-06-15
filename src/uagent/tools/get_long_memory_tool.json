@@ -1,7 +1,7 @@
 {
   "en": {
     "doc.run_tool": "A tool to retrieve the entire long-term memory (JSONL text).",
-    "tool.description": "Gets all saved long-term memory notes (JSONL).",
+    "tool.description": "Get all saved long-term memory notes (JSONL).",
     "x_search_terms": [
       "get_long_memory",
       "get long memory",
@@ -25,7 +25,7 @@
   },
   "es": {
     "doc.run_tool": "Una herramienta para recuperar toda la memoria a largo plazo (texto JSONL).",
-    "tool.description": "Obtiene todas las notas guardadas de la memoria a largo plazo (JSONL).",
+    "tool.description": "Obtiene todas las notas guardadas de la me...",
     "x_search_terms": [
       "get_long_memory",
       "memoria a largo plazo",
@@ -36,7 +36,7 @@
   },
   "fr": {
     "doc.run_tool": "Un outil pour récupérer l'intégralité de la mémoire à long terme (texte JSONL).",
-    "tool.description": "Récupère toutes les notes enregistrées de mémoire à long terme (JSONL).",
+    "tool.description": "Récupère toutes les notes enregistrées de...",
     "x_search_terms": [
       "get_long_memory",
       "mémoire à long terme",
@@ -58,7 +58,7 @@
   },
   "de": {
     "doc.run_tool": "Ein Tool zum Abrufen des gesamten Langzeitgedächtnisses (JSONL-Text).",
-    "tool.description": "Ruft alle gespeicherten Langzeitgedächtnis-Notizen (JSONL) ab.",
+    "tool.description": "Ruft alle gespeicherten Langzeitgedächtnis...",
     "x_search_terms": [
       "get_long_memory",
       "langzeitgedächtnis",
@@ -69,7 +69,7 @@
   },
   "it": {
     "doc.run_tool": "Uno strumento per recuperare l'intera memoria a lungo termine (testo JSONL).",
-    "tool.description": "Recupera tutte le note salvate nella memoria a lungo termine (JSONL).",
+    "tool.description": "Recupera tutte le note salvate nella memor...",
     "x_search_terms": [
       "get_long_memory",
       "memoria a lungo termine",
@@ -80,7 +80,7 @@
   },
   "ru": {
     "doc.run_tool": "Инструмент для извлечения всей долговременной памяти (текст JSONL).",
-    "tool.description": "Получает все сохранённые заметки долговременной памяти (JSONL).",
+    "tool.description": "Получает все сохранённые заметки долговрем...",
     "x_search_terms": [
       "get_long_memory",
       "долговременная память",
@@ -91,7 +91,7 @@
   },
   "pt_BR": {
     "doc.run_tool": "Uma ferramenta para recuperar toda a memória de longo prazo (texto JSONL).",
-    "tool.description": "Obtém todas as notas salvas da memória de longo prazo (JSONL).",
+    "tool.description": "Obtém todas as notas salvas da memória de...",
     "x_search_terms": [
       "get_long_memory",
       "memória de longo prazo",
@@ -102,7 +102,7 @@
   },
   "pt": {
     "doc.run_tool": "Uma ferramenta para recuperar toda a memória de longo prazo (texto JSONL).",
-    "tool.description": "Obtenha todas as notas salvas da memória de longo prazo (JSONL).",
+    "tool.description": "Obtenha todas as notas salvas da memória d...",
     "x_search_terms": [
       "get_long_memory",
       "memória de longo prazo",
@@ -113,7 +113,7 @@
   },
   "id": {
     "doc.run_tool": "Alat untuk mengambil seluruh memori jangka panjang (teks JSONL).",
-    "tool.description": "Ambil semua catatan memori jangka panjang yang tersimpan (JSONL).",
+    "tool.description": "Ambil semua catatan memori jangka panjang...",
     "x_search_terms": [
       "get_long_memory",
       "memori jangka panjang",
@@ -124,7 +124,7 @@
   },
   "vi": {
     "doc.run_tool": "Một công cụ để truy xuất toàn bộ bộ nhớ dài hạn (văn bản JSONL).",
-    "tool.description": "Nhận tất cả các ghi chú bộ nhớ dài hạn đã lưu (JSONL).",
+    "tool.description": "Nhận tất cả các ghi chú bộ nhớ dài hạn đã...",
     "x_search_terms": [
       "get_long_memory",
       "bộ nhớ dài hạn",
@@ -135,7 +135,7 @@
   },
   "pl": {
     "doc.run_tool": "Narzędzie umożliwiające odzyskanie całej pamięci długotrwałej (tekst JSONL).",
-    "tool.description": "Pobierz wszystkie zapisane notatki pamięci długoterminowej (JSONL).",
+    "tool.description": "Pobierz wszystkie zapisane notatki pamięci...",
     "x_search_terms": [
       "get_long_memory",
       "pamięć długoterminowa",
@@ -146,7 +146,7 @@
   },
   "hi": {
     "doc.run_tool": "संपूर्ण दीर्घकालिक मेमोरी (JSONL टेक्स्ट) को पुनः प्राप्त करने के लिए एक उपकरण।",
-    "tool.description": "सभी सहेजे गए दीर्घकालिक मेमोरी नोट्स (JSONL) प्राप्त करें।",
+    "tool.description": "सभी सहेजे गए दीर्घकालिक मेमोरी नोट्स (JSON...",
     "x_search_terms": [
       "get_long_memory",
       "दीर्घकालिक मेमोरी",
@@ -157,7 +157,7 @@
   },
   "ar": {
     "doc.run_tool": "أداة لاسترداد الذاكرة طويلة المدى بالكامل (نص JSONL).",
-    "tool.description": "احصل على جميع ملاحظات الذاكرة طويلة المدى المحفوظة (JSONL).",
+    "tool.description": "احصل على جميع ملاحظات الذاكرة طويلة المدى...",
     "x_search_terms": [
       "get_long_memory",
       "الذاكرة طويلة المدى",
@@ -168,7 +168,7 @@
   },
   "sv": {
     "doc.run_tool": "Verktyg för att hämta all långtidsminnesdata (JSONL-text).",
-    "tool.description": "Hämta alla sparade långtidsminnesanteckningar (JSONL).",
+    "tool.description": "Hämta alla sparade långtidsminnesantecknin...",
     "x_search_terms": [
       "get_long_memory",
       "långtidsminne",
@@ -201,7 +201,7 @@
   },
   "nl": {
     "doc.run_tool": "Een tool om alle langetermijngeheugen-notities op te halen (JSONL-tekst).",
-    "tool.description": "Haalt alle opgeslagen langetermijngeheugen-notities op (JSONL).",
+    "tool.description": "Haalt alle opgeslagen langetermijngeheugen...",
     "x_search_terms": [
       "get_long_memory",
       "langetermijngeheugen",
@@ -212,7 +212,7 @@
   },
   "fi": {
     "doc.run_tool": "Työkalu koko pitkäaikaisen muistin hakemiseen (JSONL-teksti).",
-    "tool.description": "Hakee kaikki tallennetut pitkäaikaisen muistin muistiinpanot (JSONL).",
+    "tool.description": "Hakee kaikki tallennetut pitkäaikaisen mui...",
     "x_search_terms": [
       "get_long_memory",
       "pitkäaikainen muisti",
@@ -223,7 +223,7 @@
   },
   "cs": {
     "doc.run_tool": "Nástroj pro načtení celé dlouhodobé paměti (text JSONL).",
-    "tool.description": "Získá všechny uložené poznámky dlouhodobé paměti (JSONL).",
+    "tool.description": "Získá všechny uložené poznámky dlouhodobé...",
     "x_search_terms": [
       "get_long_memory",
       "dlouhodobá paměť",
@@ -234,7 +234,7 @@
   },
   "uk": {
     "doc.run_tool": "Інструмент для отримання всієї довготривалої пам’яті (текст JSONL).",
-    "tool.description": "Отримує всі збережені нотатки довготривалої пам’яті (JSONL).",
+    "tool.description": "Отримує всі збережені нотатки довготривало...",
     "x_search_terms": [
       "get_long_memory",
       "довготривала пам’ять",
@@ -245,7 +245,7 @@
   },
   "tr": {
     "doc.run_tool": "Uzun süreli belleğin tamamını (JSONL metni) almak için bir araç.",
-    "tool.description": "Kaydedilen tüm uzun süreli hafıza notlarını alır (JSONL).",
+    "tool.description": "Kaydedilen tüm uzun süreli hafıza notların...",
     "x_search_terms": [
       "get_long_memory",
       "uzun süreli bellek",
@@ -256,7 +256,7 @@
   },
   "th": {
     "doc.run_tool": "เครื่องมือสำหรับดึงข้อมูลหน่วยความจำระยะยาวทั้งหมด (ข้อความ JSONL)",
-    "tool.description": "ดึงบันทึกหน่วยความจำระยะยาวที่บันทึกไว้ทั้งหมด (JSONL)",
+    "tool.description": "ดึงบันทึกหน่วยความจำระยะยาวที่บันทึกไว้ทั้...",
     "x_search_terms": [
       "get_long_memory",
       "หน่วยความจำระยะยาว",
@@ -289,7 +289,7 @@
   },
   "bn": {
     "doc.run_tool": "সারা দীর্ঘমেয়াদি মেমরি (JSONL টেক্সট) ফেরত আনার একটি টুল।",
-    "tool.description": "সংরক্ষিত সব দীর্ঘমেয়াদি মেমরি নোট (JSONL) ফেরত আনে।",
+    "tool.description": "সংরক্ষিত সব দীর্ঘমেয়াদি মেমরি নোট (JSONL)...",
     "x_search_terms": [
       "get_long_memory",
       "get long memory",
@@ -300,7 +300,7 @@
   },
   "fa": {
     "doc.run_tool": "ابزاری برای بازیابی تمام حافظهٔ بلندمدت (متن JSONL).",
-    "tool.description": "تمام یادداشت‌های ذخیره‌شدهٔ حافظهٔ بلندمدت (JSONL) را می‌گیرد.",
+    "tool.description": "تمام یادداشت‌های ذخیره‌شدهٔ حافظهٔ بلندمدت...",
     "x_search_terms": [
       "get_long_memory",
       "get long memory",
@@ -311,7 +311,7 @@
   },
   "mn": {
     "doc.run_tool": "Бүх урт хугацааны санах ойг (JSONL текст) авах хэрэгсэл.",
-    "tool.description": "Хадгалсан бүх урт хугацааны санах ойн тэмдэглэлийг (JSONL) авна.",
+    "tool.description": "Хадгалсан бүх урт хугацааны санах ойн тэмд...",
     "x_search_terms": [
       "get_long_memory",
       "get long memory",
@@ -322,7 +322,7 @@
   },
   "mr": {
     "doc.run_tool": "संपूर्ण दीर्घकालीन मेमरी (JSONL मजकूर) मिळवण्यासाठीचे साधन.",
-    "tool.description": "साठवलेल्या सर्व दीर्घकालीन मेमरी नोंदी (JSONL) मिळवते.",
+    "tool.description": "साठवलेल्या सर्व दीर्घकालीन मेमरी नोंदी (JS...",
     "x_search_terms": [
       "get_long_memory",
       "get long memory",

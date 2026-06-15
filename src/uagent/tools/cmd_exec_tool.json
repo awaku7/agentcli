@@ -1,7 +1,7 @@
 {
   "en": {
     "param.command.description": "Command string to execute.",
-    "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool, such as Python or MCP, is available.",
+    "tool.description": "As a last resort, execute a Windows command. Use only when no other appropriate tool (e.g., MCP) is available.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -25,7 +25,7 @@
   },
   "es": {
     "param.command.description": "Cadena de comando a ejecutar.",
-    "tool.description": "Como último recurso, ejecuta un comando de Windows. Úselo solo cuando no haya otra herramienta adecuada, como Python o MCP, disponible.",
+    "tool.description": "Como último recurso, ejecuta un comando de Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -36,7 +36,7 @@
   },
   "fr": {
     "param.command.description": "Chaîne de commande à exécuter.",
-    "tool.description": "En dernier recours, exécutez une commande Windows. À utiliser uniquement lorsqu'aucun autre outil approprié, comme Python ou MCP, n'est disponible.",
+    "tool.description": "En dernier recours, exécutez une commande Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -58,7 +58,7 @@
   },
   "de": {
     "param.command.description": "Befehlszeichenfolge zum Ausführen.",
-    "tool.description": "Führt als letzter Ausweg einen Windows-Befehl aus. Nur verwenden, wenn kein anderes geeignetes Tool, etwa Python oder MCP, verfügbar ist.",
+    "tool.description": "Führt als letzter Ausweg einen Windows-Befehl aus.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -69,7 +69,7 @@
   },
   "it": {
     "param.command.description": "Stringa di comando da eseguire.",
-    "tool.description": "Come ultima risorsa, esegui un comando Windows. Usalo solo quando non è disponibile nessun altro strumento appropriato, come Python o MCP.",
+    "tool.description": "Come ultima risorsa, esegui un comando Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -80,7 +80,7 @@
   },
   "ru": {
     "param.command.description": "Командная строка для выполнения.",
-    "tool.description": "В крайнем случае выполните команду Windows. Используйте только если нет других подходящих инструментов, например Python или MCP.",
+    "tool.description": "В крайнем случае выполните команду Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -91,7 +91,7 @@
   },
   "pt_BR": {
     "param.command.description": "Comando a ser executado.",
-    "tool.description": "Como último recurso, execute um comando do Windows. Use apenas quando nenhuma outra ferramenta adequada, como Python ou MCP, estiver disponível.",
+    "tool.description": "Como último recurso, execute um comando do Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -102,7 +102,7 @@
   },
   "pt": {
     "param.command.description": "Cadeia de comandos a ser executada.",
-    "tool.description": "Como último recurso, execute um comando do Windows. Use somente quando nenhuma outra ferramenta apropriada, como Python ou MCP, estiver disponível.",
+    "tool.description": "Como último recurso, execute um comando do Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -113,7 +113,7 @@
   },
   "id": {
     "param.command.description": "String perintah yang akan dijalankan.",
-    "tool.description": "Sebagai upaya terakhir, jalankan perintah Windows. Gunakan hanya jika tidak ada alat lain yang lebih sesuai, seperti Python atau MCP, yang tersedia.",
+    "tool.description": "Sebagai upaya terakhir, jalankan perintah Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -124,7 +124,7 @@
   },
   "vi": {
     "param.command.description": "Chuỗi lệnh để thực thi.",
-    "tool.description": "Phương án cuối cùng là thực thi lệnh Windows. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác, chẳng hạn như Python hoặc MCP.",
+    "tool.description": "Phương án cuối cùng là thực thi lệnh Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -135,7 +135,7 @@
   },
   "pl": {
     "param.command.description": "Ciąg poleceń do wykonania.",
-    "tool.description": "W ostateczności wykonaj polecenie systemu Windows. Używaj tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie, takie jak Python lub MCP.",
+    "tool.description": "W ostateczności wykonaj polecenie systemu Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -168,7 +168,7 @@
   },
   "sv": {
     "param.command.description": "Kommandosträng att köra.",
-    "tool.description": "Kör ett Windows-kommando som sista utväg. Används bara när inget annat lämpligt verktyg, som Python eller MCP, finns tillgängligt.",
+    "tool.description": "Kör ett Windows-kommando som sista utväg.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -179,7 +179,7 @@
   },
   "sw": {
     "param.command.description": "Mfuatano wa amri wa kutekeleza.",
-    "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya Windows. Tumia tu wakati hakuna zana nyingine inayofaa, kama Python au MCP, inayopatikana.",
+    "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -190,7 +190,7 @@
   },
   "nb": {
     "param.command.description": "Kommandostreng som skal kjøres.",
-    "tool.description": "Kjør en Windows-kommando som siste utvei. Brukes bare når ingen andre egnede verktøy, som Python eller MCP, er tilgjengelige.",
+    "tool.description": "Kjør en Windows-kommando som siste utvei.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -201,7 +201,7 @@
   },
   "nl": {
     "param.command.description": "Uit te voeren opdrachtregel.",
-    "tool.description": "Voer als laatste redmiddel een Windows-opdracht uit. Gebruik dit alleen wanneer geen andere geschikte tool, zoals Python of MCP, beschikbaar is.",
+    "tool.description": "Voer als laatste redmiddel een Windows-opdracht uit.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -212,7 +212,7 @@
   },
   "fi": {
     "param.command.description": "Suoritettava komentorivi.",
-    "tool.description": "Suorita Windows-komento vain viimeisenä keinona. Käytä tätä vain, kun mitään muuta sopivaa työkalua, kuten Pythonia tai MCP:tä, ei ole käytettävissä.",
+    "tool.description": "Suorita Windows-komento vain viimeisenä keinona.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -223,7 +223,7 @@
   },
   "cs": {
     "param.command.description": "Řetězec příkazu k vykonání.",
-    "tool.description": "Jako poslední možnost spustí příkaz Windows. Použijte pouze tehdy, když není k dispozici žádný jiný vhodný nástroj, například Python nebo MCP.",
+    "tool.description": "Jako poslední možnost spustí příkaz Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -234,7 +234,7 @@
   },
   "uk": {
     "param.command.description": "Рядок команди для виконання.",
-    "tool.description": "Як крайній захід, виконує команду Windows. Використовуйте лише тоді, коли немає іншого відповідного інструмента, наприклад Python або MCP.",
+    "tool.description": "Як крайній захід, виконує команду Windows.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -245,7 +245,7 @@
   },
   "tr": {
     "param.command.description": "Yürütülecek komut dizisi.",
-    "tool.description": "Son çare olarak bir Windows komutunu çalıştırın. Yalnızca Python veya MCP gibi başka uygun bir araç bulunmadığında kullanın.",
+    "tool.description": "Son çare olarak bir Windows komutunu çalıştırın.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -300,7 +300,7 @@
   },
   "fa": {
     "param.command.description": "رشتهٔ فرمان برای اجرا.",
-    "tool.description": "به‌عنوان آخرین راه‌حل، یک فرمان Windows اجرا می‌کند. فقط زمانی استفاده کنید که ابزار مناسب دیگری، مانند Python یا MCP، در دسترس نباشد.",
+    "tool.description": "به‌عنوان آخرین راه‌حل، یک فرمان Windows اجرا می‌کند.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",
@@ -311,7 +311,7 @@
   },
   "mn": {
     "param.command.description": "Ажиллуулах командын мөр.",
-    "tool.description": "Хамгийн сүүлчийн арга болгон Windows команд ажиллуулна. Python эсвэл MCP шиг өөр тохирох хэрэгсэл байхгүй үед л ашиглана уу.",
+    "tool.description": "Хамгийн сүүлчийн арга болгон Windows команд ажиллуулна.",
     "x_search_terms": [
       "cmd_exec",
       "cmd exec",

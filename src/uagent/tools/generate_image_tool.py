@@ -105,7 +105,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.size.description",
-                        default="Image size. E.g., 1024x1024 / 1024x1536 / 1536x1024",
+                        default="Image size.",
                     ),
                     "default": "1024x1024",
                 },
@@ -113,7 +113,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.n.description",
-                        default="Number of images to generate (currently 1 is recommended).",
+                        default="Image count.",
                     ),
                     "default": 1,
                     "minimum": 1,
@@ -145,14 +145,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.quality.description",
-                        default="Image quality (optional; e.g. auto/high/medium/low).",
+                        default="Image quality.",
                     ),
                 },
                 "background": {
                     "type": "string",
                     "description": _(
                         "param.background.description",
-                        default="Image background (optional; e.g. auto/transparent).",
+                        default="Image background.",
                     ),
                 },
             },

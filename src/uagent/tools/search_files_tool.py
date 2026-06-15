@@ -73,14 +73,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.path.description",
-                        default="Root directory to start searching from (default: current directory). Alias of root_path.",
+                        default="Search root (default: cwd).",
                     ),
                 },
                 "root_path": {
                     "type": "string",
                     "description": _(
                         "param.root_path.description",
-                        default="Alias of path for backward compatibility.",
+                        default="Alias (compat).",
                     ),
                 },
                 "name_pattern": {
@@ -123,10 +123,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.fast_read_threshold_bytes.description",
-                        default=(
-                            "Files smaller than this threshold are fully read() for faster searching (default: 8000000 ≈ 8MB). "
-                            "Larger files are scanned line-by-line."
-                        ),
+                        default="Files smaller than this threshold are fully read() for faster searching (default: 8000000 ≈ 8MB). Larger files are sc...",
                     ),
                     "default": 8000000,
                 },

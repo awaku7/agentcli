@@ -26,7 +26,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "skills_list",
         "description": _(
             "tool.description",
-            default="Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL.md). Scans UAGENT_SKILLS_DIRS or ./skills if root_dir is omitted.",
+            default="Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL. md).",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -54,7 +54,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.root_dir.description",
-                        default="Root directory for skill search. Uses UAGENT_SKILLS_DIRS (os.pathsep delimited) or ./skills by default.",
+                        default="Root directory for skill search. Uses UAGENT_SKILLS_DIRS (os.",
                     ),
                 },
                 "recursive": {

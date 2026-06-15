@@ -74,11 +74,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "browser_use_task",
         "description": _(
             "tool.description",
-            default=(
-                "Run an autonomous browser task using the browser-use Python library. "
-                "Use this when a site must be operated interactively, not merely fetched. "
-                "Dangerous actions require explicit user confirmation via confirmed=true."
-            ),
+            default="Run an autonomous browser task using the browser-use Python library. Use this when a site must be operated interactively, not merely fetched.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

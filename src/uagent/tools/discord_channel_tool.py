@@ -220,7 +220,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.message.description",
-                        default="Message to send for send/send_and_wait actions.",
+                        default="Message.",
                     ),
                 },
                 "limit": {

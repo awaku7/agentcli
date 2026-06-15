@@ -1,7 +1,7 @@
 {
   "en": {
     "param.note.description": "The note text to share.",
-    "tool.description": "Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that it is disabled. Never store secrets such as passwords or API keys.",
+    "tool.description": "Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that...",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -25,7 +25,7 @@
   },
   "es": {
     "param.note.description": "El texto de la nota a compartir.",
-    "tool.description": "Añade una sola nota al almacén de memoria compartida a largo plazo (compartida entre usuarios/sesiones). Si la memoria compartida no está configurada, la herramienta informa que está deshabilitada. No almacenes secretos como contraseñas o claves de API.",
+    "tool.description": "Añade una sola nota al almacén de memoria compartida a largo plazo (compartida entre usuarios/sesiones).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -36,7 +36,7 @@
   },
   "fr": {
     "param.note.description": "Le texte de la note à partager.",
-    "tool.description": "Ajoute une seule note au stockage de mémoire partagée à long terme (partagé entre utilisateurs/sessions). Si la mémoire partagée n’est pas configurée, l’outil indique qu’elle est désactivée. Ne stockez jamais de secrets comme des mots de passe ou des clés API.",
+    "tool.description": "Ajoute une seule note au stockage de mémoire partagée à long terme (partagé entre utilisateurs/sessions).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -58,7 +58,7 @@
   },
   "de": {
     "param.note.description": "Der zu teilende Notiztext.",
-    "tool.description": "Fügen Sie dem gemeinsam genutzten Langzeitspeicher eine einzelne Notiz hinzu (gemeinsam für Benutzer und Sitzungen). Wenn der gemeinsame Speicher nicht konfiguriert ist, meldet das Tool, dass er deaktiviert ist. Speichern Sie niemals Geheimnisse wie Passwörter oder API-Schlüssel.",
+    "tool.description": "Fügen Sie dem gemeinsam genutzten Langzeitspeicher eine einzelne Notiz hinzu (gemeinsam für Benutzer und Sitzungen).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -69,7 +69,7 @@
   },
   "it": {
     "param.note.description": "Il testo della nota da condividere.",
-    "tool.description": "Aggiunge una singola nota all'archivio di memoria condivisa a lungo termine (condivisa tra utenti/sessioni). Se la memoria condivisa non è configurata, lo strumento segnala che è disabilitata. Non archiviare mai segreti come password o chiavi API.",
+    "tool.description": "Aggiunge una singola nota all'archivio di memoria condivisa a lungo termine (condivisa tra utenti/sessioni).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -80,7 +80,7 @@
   },
   "ru": {
     "param.note.description": "Текст заметки, которой нужно поделиться.",
-    "tool.description": "Добавьте одну заметку в общую долговременную память (общую для всех пользователей/сессий). Если общая память не настроена, инструмент сообщает, что она отключена. Никогда не храните секреты, такие как пароли или ключи API.",
+    "tool.description": "Добавьте одну заметку в общую долговременную память (общую для всех пользователей/сессий).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -91,7 +91,7 @@
   },
   "pt_BR": {
     "param.note.description": "O texto da nota a ser compartilhada.",
-    "tool.description": "Adicione uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões). Se a memória compartilhada não estiver configurada, a ferramenta informa que ela está desabilitada. Nunca armazene segredos como senhas ou chaves de API.",
+    "tool.description": "Adicione uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -102,7 +102,7 @@
   },
   "pt": {
     "param.note.description": "O texto da nota a ser compartilhada.",
-    "tool.description": "Adicione uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões). Se a memória compartilhada não estiver configurada, a ferramenta informa que ela está desabilitada. Nunca armazene segredos como senhas ou chaves de API.",
+    "tool.description": "Adicione uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -113,7 +113,7 @@
   },
   "id": {
     "param.note.description": "Teks catatan yang akan dibagikan.",
-    "tool.description": "Tambahkan satu catatan ke penyimpanan memori jangka panjang bersama (dibagikan lintas pengguna/sesi). Jika shared memory tidak dikonfigurasi, alat akan melaporkan bahwa fitur tersebut dinonaktifkan. Jangan pernah menyimpan rahasia seperti kata sandi atau API key.",
+    "tool.description": "Tambahkan satu catatan ke penyimpanan memori jangka panjang bersama (dibagikan lintas pengguna/sesi).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -124,7 +124,7 @@
   },
   "vi": {
     "param.note.description": "Văn bản ghi chú cần chia sẻ.",
-    "tool.description": "Thêm một ghi chú vào kho lưu trữ bộ nhớ dài hạn dùng chung (chia sẻ giữa người dùng/phiên). Nếu bộ nhớ dùng chung không được cấu hình, công cụ sẽ báo rằng tính năng này bị tắt. Không bao giờ lưu trữ bí mật như mật khẩu hoặc khóa API.",
+    "tool.description": "Thêm một ghi chú vào kho lưu trữ bộ nhớ dài hạn dùng chung (chia sẻ giữa người dùng/phiên).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -135,7 +135,7 @@
   },
   "pl": {
     "param.note.description": "Tekst notatki do udostępnienia.",
-    "tool.description": "Dołącz pojedynczą notatkę do współdzielonego magazynu pamięci długoterminowej (wspólnego dla użytkowników/sesji). Jeśli pamięć współdzielona nie jest skonfigurowana, narzędzie zgłosi, że jest wyłączona. Nigdy nie przechowuj sekretów, takich jak hasła lub klucze API.",
+    "tool.description": "Dołącz pojedynczą notatkę do współdzielonego magazynu pamięci długoterminowej (wspólnego dla użytkowników/sesji).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -146,7 +146,7 @@
   },
   "hi": {
     "param.note.description": "साझा करने के लिए नोट पाठ.",
-    "tool.description": "साझा दीर्घकालिक मेमोरी स्टोर (उपयोगकर्ताओं/सत्रों में साझा) में एक नोट जोड़ें। यदि साझा मेमोरी कॉन्फ़िगर नहीं की गई है, तो टूल रिपोर्ट करता है कि यह अक्षम है। पासवर्ड या एपीआई कुंजी जैसे रहस्य कभी भी संग्रहीत न करें।",
+    "tool.description": "साझा दीर्घकालिक मेमोरी स्टोर (उपयोगकर्ताओं/सत्रों में साझा) में एक नोट जोड़ें। यदि साझा मेमोरी कॉन्फ़िगर नहीं की गई है, तो टूल रिपोर्ट करता है कि य...",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -157,7 +157,7 @@
   },
   "ar": {
     "param.note.description": "نص المذكرة للمشاركة.",
-    "tool.description": "قم بإلحاق ملاحظة واحدة بمخزن الذاكرة طويل المدى المشترك (المشترك بين المستخدمين/الجلسات). إذا لم يتم تكوين الذاكرة المشتركة، فستقوم الأداة بالإبلاغ عن تعطيلها. لا تقم مطلقًا بتخزين أسرار مثل كلمات المرور أو مفاتيح واجهة برمجة التطبيقات (API).",
+    "tool.description": "قم بإلحاق ملاحظة واحدة بمخزن الذاكرة طويل المدى المشترك (المشترك بين المستخدمين/الجلسات).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -168,7 +168,7 @@
   },
   "sv": {
     "param.note.description": "Texten i anteckningen som ska delas.",
-    "tool.description": "Lägg till en anteckning i det delade långtidsminnet som delas mellan användare och sessioner. Om delat minne inte är konfigurerat rapporterar verktyget att det är inaktiverat. Spara aldrig hemligheter som lösenord eller API-nycklar.",
+    "tool.description": "Lägg till en anteckning i det delade långtidsminnet som delas mellan användare och sessioner.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -190,7 +190,7 @@
   },
   "nb": {
     "param.note.description": "Teksten i notatet som skal deles.",
-    "tool.description": "Legg til ett notat i det delte langtidsminnet som deles mellom brukere og økter. Hvis delt minne ikke er konfigurert, rapporterer verktøyet at det er deaktivert. Ikke lagre hemmeligheter som passord eller API-nøkler.",
+    "tool.description": "Legg til ett notat i det delte langtidsminnet som deles mellom brukere og økter.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -201,7 +201,7 @@
   },
   "nl": {
     "param.note.description": "De notitietekst om te delen.",
-    "tool.description": "Voeg één notitie toe aan de gedeelde langetermijngeheugenopslag (gedeeld tussen gebruikers/sessies). Als gedeeld geheugen niet is geconfigureerd, meldt de tool dat het is uitgeschakeld. Sla nooit geheimen op zoals wachtwoorden of API-sleutels.",
+    "tool.description": "Voeg één notitie toe aan de gedeelde langetermijngeheugenopslag (gedeeld tussen gebruikers/sessies).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -212,7 +212,7 @@
   },
   "fi": {
     "param.note.description": "Jaettava muistiinpanoteksti.",
-    "tool.description": "Lisää yksi muistiinpano jaettuun pitkäaikaisen muistin varastoon (jaettu käyttäjien/istuntojen kesken). Jos jaettua muistia ei ole määritetty, työkalu ilmoittaa sen olevan poissa käytöstä. Älä koskaan tallenna salaisuuksia kuten salasanoja tai API-avaimia.",
+    "tool.description": "Lisää yksi muistiinpano jaettuun pitkäaikaisen muistin varastoon (jaettu käyttäjien/istuntojen kesken).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -223,7 +223,7 @@
   },
   "cs": {
     "param.note.description": "Text poznámky ke sdílení.",
-    "tool.description": "Přidá jednu poznámku do sdíleného úložiště dlouhodobé paměti (sdíleného mezi uživateli a relacemi). Pokud sdílená paměť není nakonfigurována, nástroj oznámí, že je vypnutá. Nikdy neukládejte tajné údaje, jako jsou hesla nebo API klíče.",
+    "tool.description": "Přidá jednu poznámku do sdíleného úložiště dlouhodobé paměti (sdíleného mezi uživateli a relacemi).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -234,7 +234,7 @@
   },
   "uk": {
     "param.note.description": "Текст нотатки для спільного доступу.",
-    "tool.description": "Додає одну нотатку до спільного сховища довготривалої пам’яті (спільного між користувачами та сеансами). Якщо спільну пам’ять не налаштовано, інструмент повідомляє, що її вимкнено. Ніколи не зберігайте секрети, як-от паролі або ключі API.",
+    "tool.description": "Додає одну нотатку до спільного сховища довготривалої пам’яті (спільного між користувачами та сеансами).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -245,7 +245,7 @@
   },
   "tr": {
     "param.note.description": "Paylaşılacak not metni.",
-    "tool.description": "Paylaşılan uzun vadeli bellek deposuna (kullanıcılar/oturumlar arasında paylaşılan) tek bir not ekleyin. Paylaşılan bellek yapılandırılmamışsa araç bunun devre dışı bırakıldığını bildirir. Parolalar veya API anahtarları gibi sırları asla saklamayın.",
+    "tool.description": "Paylaşılan uzun vadeli bellek deposuna (kullanıcılar/oturumlar arasında paylaşılan) tek bir not ekleyin.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -256,7 +256,7 @@
   },
   "th": {
     "param.note.description": "ข้อความบันทึกที่จะแชร์",
-    "tool.description": "เพิ่มบันทึกหนึ่งรายการลงในที่เก็บหน่วยความจำระยะยาวที่ใช้ร่วมกัน (แชร์ระหว่างผู้ใช้/เซสชัน) หากไม่ได้กำหนดค่าหน่วยความจำที่ใช้ร่วมกัน เครื่องมือจะรายงานว่าถูกปิดใช้งาน อย่าเก็บความลับ เช่น รหัสผ่านหรือคีย์ API",
+    "tool.description": "เพิ่มบันทึกหนึ่งรายการลงในที่เก็บหน่วยความจำระยะยาวที่ใช้ร่วมกัน (แชร์ระหว่างผู้ใช้/เซสชัน) หากไม่ได้กำหนดค่าหน่วยความจำที่ใช้ร่วมกัน เครื่องมือจะร...",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -289,7 +289,7 @@
   },
   "bn": {
     "param.note.description": "শেয়ার করার নোটের লেখা।",
-    "tool.description": "শেয়ার করা দীর্ঘমেয়াদি মেমরি স্টোরে একটি মাত্র নোট যোগ করুন (ব্যবহারকারী/সেশনের মধ্যে ভাগ করা)। শেয়ার্ড মেমরি কনফিগার না থাকলে টুল জানায় যে এটি নিষ্ক্রিয়। পাসওয়ার্ড বা API কী-এর মতো গোপন তথ্য কখনও সংরক্ষণ করবেন না।",
+    "tool.description": "শেয়ার করা দীর্ঘমেয়াদি মেমরি স্টোরে একটি মাত্র নোট যোগ করুন (ব্যবহারকারী/সেশনের মধ্যে ভাগ করা)। শেয়ার্ড মেমরি কনফিগার না থাকলে টুল জানায় যে এটি...",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -300,7 +300,7 @@
   },
   "fa": {
     "param.note.description": "متن یادداشت برای اشتراک.",
-    "tool.description": "یک یادداشت را به مخزنِ حافظهٔ بلندمدتِ مشترک (مشترک میان کاربران/جلسه‌ها) اضافه کنید. اگر حافظهٔ مشترک پیکربندی نشده باشد، ابزار گزارش می‌کند که غیرفعال است. هرگز رازهایی مانند گذرواژه یا کلید API را ذخیره نکنید.",
+    "tool.description": "یک یادداشت را به مخزنِ حافظهٔ بلندمدتِ مشترک (مشترک میان کاربران/جلسه‌ها) اضافه کنید.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -311,7 +311,7 @@
   },
   "mn": {
     "param.note.description": "Хуваалцах тэмдэглэлийн текст.",
-    "tool.description": "Хэрэглэгч/сессүүдийн хооронд хуваалцдаг урт хугацааны хамтын санах ойн санд нэг тэмдэглэл нэмнэ. Хэрэв shared memory тохируулагдаагүй бол энэ хэрэгсэл идэвхгүй гэдгийг мэдэгдэнэ. Нууц үг, API түлхүүр зэрэг нууцыг хэзээ ч бүү хадгал.",
+    "tool.description": "Хэрэглэгч/сессүүдийн хооронд хуваалцдаг урт хугацааны хамтын санах ойн санд нэг тэмдэглэл нэмнэ.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -322,7 +322,7 @@
   },
   "mr": {
     "param.note.description": "शेअर करायच्या नोंदीचा मजकूर.",
-    "tool.description": "शेअर केलेल्या दीर्घकालीन स्मृती साठ्यात एकच नोंद जोडा (वापरकर्ते/सत्रांमध्ये सामायिक). शेअर केलेली स्मृती कॉन्फिगर नसल्यास, साधन ती निष्क्रिय असल्याचे कळवते. पासवर्ड किंवा API कीसारखी गुपिते कधीही जतन करू नका.",
+    "tool.description": "शेअर केलेल्या दीर्घकालीन स्मृती साठ्यात एकच नोंद जोडा (वापरकर्ते/सत्रांमध्ये सामायिक).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",

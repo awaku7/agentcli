@@ -2,7 +2,7 @@
   "en": {
     "param.command.description": "Command string passed to the OS shell. On Windows, cmd.exe /c is used.",
     "param.cwd.description": "Working directory for the command.",
-    "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.g., an MCP integration).",
+    "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -26,9 +26,9 @@
     "tool.system_prompt": "このツールは最終手段です。他に適切なツールがない場合にのみ使用してください。コマンドは慎重に扱い、ユーザーが明示的に確認した場合を除いて破壊的な操作は避けてください。"
   },
   "es": {
-    "param.command.description": "Cadena de comando que se pasa al shell del sistema. En Windows se usa cmd.exe /c.",
+    "param.command.description": "Cadena de comando que se pasa al shell del sistema.",
     "param.cwd.description": "Directorio de trabajo para el comando.",
-    "tool.description": "Como último recurso, ejecuta un comando de shell y devuelve un resultado JSON. Úsala solo cuando no haya disponible una herramienta más segura o específica (por ejemplo, una integración MCP).",
+    "tool.description": "Como último recurso, ejecuta un comando de shell y devuelve un resultado JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -38,9 +38,9 @@
     "tool.system_prompt": "Esta herramienta es el último recurso. Úsala solo si no hay otra herramienta adecuada disponible. Sé conservador con los comandos y evita operaciones destructivas a menos que el usuario lo confirme explícitamente."
   },
   "fr": {
-    "param.command.description": "Chaîne de commande transmise au shell du système. Sous Windows, cmd.exe /c est utilisé.",
+    "param.command.description": "Chaîne de commande transmise au shell du système.Sous Windows, cmd.",
     "param.cwd.description": "Répertoire de travail pour la commande.",
-    "tool.description": "En dernier recours, exécute une commande shell et renvoie un résultat JSON. À utiliser uniquement lorsqu'aucun outil plus sûr ou plus spécifique n'est disponible (par exemple, une intégration MCP).",
+    "tool.description": "En dernier recours, exécute une commande shell et renvoie un résultat JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -62,9 +62,9 @@
     "tool.system_prompt": "이 도구는 최후의 수단입니다. 다른 적절한 도구를 사용할 수 없는 경우에만 사용하세요. 명령은 신중하게 사용하고, 사용자가 명시적으로 확인하지 않는 한 파괴적인 작업은 피하세요."
   },
   "de": {
-    "param.command.description": "Befehlszeichenfolge, die an die System-Shell übergeben wird. Unter Windows wird cmd.exe /c verwendet.",
+    "param.command.description": "Befehlszeichenfolge, die an die System-Shell übergeben wird.",
     "param.cwd.description": "Arbeitsverzeichnis für den Befehl.",
-    "tool.description": "Führt als letzter Ausweg einen Shell-Befehl aus und gibt ein JSON-Ergebnis zurück. Nur verwenden, wenn kein sichereres oder spezifischeres Tool verfügbar ist (z. B. eine MCP-Integration).",
+    "tool.description": "Führt als letzter Ausweg einen Shell-Befehl aus und gibt ein JSON-Ergebnis zurück.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -74,9 +74,9 @@
     "tool.system_prompt": "Dieses Tool ist ein letzter Ausweg. Verwenden Sie es nur, wenn kein anderes geeignetes Werkzeug verfügbar ist. Gehen Sie bei Befehlen vorsichtig vor und vermeiden Sie destruktive Vorgänge, sofern der Benutzer dies nicht ausdrücklich bestätigt."
   },
   "it": {
-    "param.command.description": "Stringa di comando passata alla shell di sistema. Su Windows viene usato cmd.exe /c.",
+    "param.command.description": "Stringa di comando passata alla shell di sistema.",
     "param.cwd.description": "Directory di lavoro per il comando.",
-    "tool.description": "Come ultima risorsa, esegue un comando di shell e restituisce un risultato JSON. Da utilizzare solo quando non è disponibile uno strumento più sicuro o più specifico (ad esempio, un'integrazione MCP).",
+    "tool.description": "Come ultima risorsa, esegue un comando di shell e restituisce un risultato JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -86,9 +86,9 @@
     "tool.system_prompt": "Questo strumento è un'ultima risorsa. Usalo solo se non è disponibile nessun altro strumento appropriato. Sii prudente con i comandi ed evita operazioni distruttive se non sono esplicitamente confermate dall'utente."
   },
   "ru": {
-    "param.command.description": "Строка команды, передаваемая системной оболочке. В Windows используется cmd.exe /c.",
+    "param.command.description": "Строка команды, передаваемая системной оболочке.",
     "param.cwd.description": "Рабочий каталог для команды.",
-    "tool.description": "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON. Используйте только тогда, когда более безопасный или более конкретный инструмент недоступен (например, интеграция MCP).",
+    "tool.description": "В крайнем случае выполняет команду оболочки и возвращает результат в формате JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -98,9 +98,9 @@
     "tool.system_prompt": "Этот инструмент — крайняя мера. Используйте его только если нет другого подходящего инструмента. Будьте осторожны с командами и избегайте разрушительных операций, если это явно не подтверждено пользователем."
   },
   "pt_BR": {
-    "param.command.description": "Cadeia de comandos passada para o shell do sistema. No Windows, usa-se cmd.exe /c.",
+    "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
     "param.cwd.description": "Diretório de trabalho para o comando.",
-    "tool.description": "Como último recurso, executa um comando de shell e retorna um resultado em JSON. Use somente quando nenhuma ferramenta mais segura ou específica estiver disponível (por exemplo, uma integração MCP).",
+    "tool.description": "Como último recurso, executa um comando de shell e retorna um resultado em JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -110,9 +110,9 @@
     "tool.system_prompt": "Esta ferramenta é um último recurso. Use-a somente se nenhuma outra ferramenta apropriada estiver disponível. Seja conservador com os comandos e evite operações destrutivas, a menos que haja confirmação explícita do usuário."
   },
   "pt": {
-    "param.command.description": "Cadeia de comandos passada para o shell do sistema. No Windows, usa-se cmd.exe /c.",
+    "param.command.description": "Cadeia de comandos passada para o shell do sistema.",
     "param.cwd.description": "Diretório de trabalho para o comando.",
-    "tool.description": "Como último recurso, execute um comando shell e retorne um resultado JSON. Use somente quando nenhuma ferramenta mais segura ou específica estiver disponível (por exemplo, uma integração MCP).",
+    "tool.description": "Como último recurso, execute um comando shell e retorne um resultado JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -122,9 +122,9 @@
     "tool.system_prompt": "Esta ferramenta é um ÚLTIMO RECURSO. Use-o somente se nenhuma outra ferramenta apropriada estiver disponível. Seja conservador com os comandos e evite operações destrutivas, a menos que seja explicitamente confirmado pelo usuário."
   },
   "id": {
-    "param.command.description": "String perintah yang diteruskan ke shell sistem. Di Windows, digunakan cmd.exe /c.",
+    "param.command.description": "String perintah yang diteruskan ke shell sistem.",
     "param.cwd.description": "Direktori kerja untuk perintah tersebut.",
-    "tool.description": "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON. Gunakan hanya jika tidak ada alat lain yang lebih aman atau lebih spesifik yang tersedia (misalnya integrasi MCP).",
+    "tool.description": "Sebagai upaya terakhir, jalankan perintah shell dan kembalikan hasil JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -136,7 +136,7 @@
   "vi": {
     "param.command.description": "Chuỗi lệnh được truyền đến shell hệ thống. Trên Windows, dùng cmd.exe /c.",
     "param.cwd.description": "Thư mục làm việc cho lệnh.",
-    "tool.description": "Phương án cuối cùng là thực thi lệnh shell và trả về kết quả JSON. Chỉ sử dụng khi không có sẵn công cụ nào an toàn hơn hoặc cụ thể hơn (ví dụ: tích hợp MCP).",
+    "tool.description": "Phương án cuối cùng là thực thi lệnh shell và trả về kết quả JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -146,9 +146,9 @@
     "tool.system_prompt": "Công cụ này là một GIẢI PHÁP CUỐI CÙNG. Chỉ sử dụng nó nếu không có công cụ thích hợp nào khác. Hãy thận trọng với các lệnh và tránh các hoạt động phá hoại trừ khi được người dùng xác nhận rõ ràng."
   },
   "pl": {
-    "param.command.description": "Ciąg polecenia przekazywany do powłoki systemowej. W systemie Windows używany jest cmd.exe /c.",
+    "param.command.description": "Ciąg polecenia przekazywany do powłoki systemowej.",
     "param.cwd.description": "Katalog roboczy polecenia.",
-    "tool.description": "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON. Używaj tylko wtedy, gdy nie jest dostępne bezpieczniejsze lub bardziej szczegółowe narzędzie (np. integracja MCP).",
+    "tool.description": "W ostateczności wykonaj polecenie powłoki i zwróć wynik JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -158,9 +158,9 @@
     "tool.system_prompt": "To narzędzie jest ostatecznością. Używaj go tylko wtedy, gdy nie jest dostępne żadne inne odpowiednie narzędzie. Zachowaj ostrożność w przypadku poleceń i unikaj destrukcyjnych operacji, chyba że użytkownik wyraźnie to potwierdzi."
   },
   "hi": {
-    "param.command.description": "सिस्टम शेल को दी जाने वाली कमांड स्ट्रिंग। Windows पर cmd.exe /c का उपयोग किया जाता है।",
+    "param.command.description": "सिस्टम शेल को दी जाने वाली कमांड स्ट्रिंग। Windows पर cmd.",
     "param.cwd.description": "आदेश के लिए कार्यशील निर्देशिका.",
-    "tool.description": "अंतिम उपाय के रूप में, एक शेल कमांड निष्पादित करें और JSON परिणाम लौटाएँ। केवल तभी उपयोग करें जब कोई अधिक सुरक्षित या अधिक विशिष्ट टूल उपलब्ध न हो (उदाहरण के लिए, MCP एकीकरण)।",
+    "tool.description": "अंतिम उपाय के रूप में, एक शेल कमांड निष्पादित करें और JSON परिणाम लौटाएँ। केवल तभी उपयोग करें जब कोई अधिक सुरक्षित या अधिक विश...",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -184,7 +184,7 @@
   "sv": {
     "param.command.description": "Kommandosträng som skickas till systemets skal. I Windows används cmd.exe /c.",
     "param.cwd.description": "Arbetskatalog för kommandot.",
-    "tool.description": "Kör ett shell-kommando som sista utväg och returnera ett JSON-resultat. Används endast när inget säkrare eller mer specifikt verktyg finns tillgängligt (till exempel en MCP-integrering).",
+    "tool.description": "Kör ett shell-kommando som sista utväg och returnera ett JSON-resultat.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -194,9 +194,9 @@
     "tool.system_prompt": "Det här verktyget är en sista utväg. Använd det bara om inget annat lämpligt verktyg finns tillgängligt. Var försiktig med kommandon och undvik destruktiva åtgärder om inte användaren uttryckligen har bekräftat dem."
   },
   "sw": {
-    "param.command.description": "Mfuatano wa amri unaopitishwa kwa ganda la mfumo. Kwenye Windows hutumiwa cmd.exe /c.",
+    "param.command.description": "Mfuatano wa amri unaopitishwa kwa ganda la mfumo.",
     "param.cwd.description": "Saraka ya kazi ya amri.",
-    "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON. Tumia tu wakati hakuna zana salama zaidi au mahususi zaidi inayopatikana (kwa mfano, ujumuishaji wa MCP).",
+    "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya shell na urudishe matokeo ya JSON.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -208,7 +208,7 @@
   "nb": {
     "param.command.description": "Kommandostreng som sendes til systemskallet. På Windows brukes cmd.exe /c.",
     "param.cwd.description": "Arbeidskatalog for kommandoen.",
-    "tool.description": "Kjør en shell-kommando som siste utvei og returner et JSON-resultat. Brukes bare når ikke noe tryggere eller mer spesifikt verktøy er tilgjengelig (for eksempel en MCP-integrasjon).",
+    "tool.description": "Kjør en shell-kommando som siste utvei og returner et JSON-resultat.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -218,9 +218,9 @@
     "tool.system_prompt": "Dette verktøyet er en siste utvei. Bruk det bare hvis ikke noe annet passende verktøy er tilgjengelig. Vær forsiktig med kommandoer og unngå destruktive operasjoner med mindre brukeren eksplisitt har bekreftet dem."
   },
   "nl": {
-    "param.command.description": "Opdrachtregel die naar de systeem-shell wordt doorgegeven. Op Windows wordt cmd.exe /c gebruikt.",
+    "param.command.description": "Opdrachtregel die naar de systeem-shell wordt doorgegeven.",
     "param.cwd.description": "Werkmap voor de opdracht.",
-    "tool.description": "Voer als laatste redmiddel een shell-opdracht uit en geef een JSON-resultaat terug. Gebruik dit alleen wanneer geen veiligere of specifiekere tool beschikbaar is (bijv. een MCP-integratie).",
+    "tool.description": "Voer als laatste redmiddel een shell-opdracht uit en geef een JSON-resultaat terug.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -230,9 +230,9 @@
     "tool.system_prompt": "Deze tool is een LAATSTE REDMIDDEL. Gebruik deze alleen als geen andere geschikte tool beschikbaar is. Wees voorzichtig met opdrachten en vermijd destructieve handelingen tenzij de gebruiker dit expliciet bevestigt."
   },
   "fi": {
-    "param.command.description": "Komentorivi, joka välitetään järjestelmän komentotulkille. Windowsissa käytetään cmd.exe /c -komentoa.",
+    "param.command.description": "Komentorivi, joka välitetään järjestelmän komentotulkille.",
     "param.cwd.description": "Komennon työskentelyhakemisto.",
-    "tool.description": "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos. Käytä tätä vain, kun mitään turvallisempaa tai tarkempaa työkalua ei ole saatavilla (esim. MCP-integraatio).",
+    "tool.description": "Suorita viimeisenä keinona shell-komento ja palauta JSON-tulos.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -242,9 +242,9 @@
     "tool.system_prompt": "Tämä työkalu on VIIMEINEN KEINO. Käytä sitä vain, jos muuta sopivaa työkalua ei ole. Ole varovainen komentojen kanssa ja vältä tuhoavia toimia, ellei käyttäjä ole vahvistanut niitä."
   },
   "cs": {
-    "param.command.description": "Řetězec příkazu předávaný systémovému shellu. Ve Windows se používá cmd.exe /c.",
+    "param.command.description": "Řetězec příkazu předávaný systémovému shellu.",
     "param.cwd.description": "Pracovní adresář pro příkaz.",
-    "tool.description": "Jako poslední možnost spustí shellový příkaz a vrátí JSON výsledek. Použijte pouze tehdy, když není k dispozici bezpečnější nebo specifičtější nástroj (například integrace MCP).",
+    "tool.description": "Jako poslední možnost spustí shellový příkaz a vrátí JSON výsledek.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -254,9 +254,9 @@
     "tool.system_prompt": "Tento nástroj je POSLEDNÍ MOŽNOST. Používejte jej pouze tehdy, pokud není k dispozici žádný jiný vhodný nástroj. S příkazy zacházejte opatrně a vyhněte se destruktivním operacím, pokud je uživatel výslovně nepotvrdí."
   },
   "uk": {
-    "param.command.description": "Рядок команди, що передається системній оболонці. У Windows використовується cmd.exe /c.",
+    "param.command.description": "Рядок команди, що передається системній оболонці.",
     "param.cwd.description": "Робочий каталог для команди.",
-    "tool.description": "Як крайній захід, виконує команду shell і повертає JSON-результат. Використовуйте лише тоді, коли немає безпечнішого або більш спеціалізованого інструмента (наприклад, інтеграції MCP).",
+    "tool.description": "Як крайній захід, виконує команду shell і повертає JSON-результат.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -268,7 +268,7 @@
   "tr": {
     "param.command.description": "Sistem kabuğuna iletilen komut dizisi. Windows’ta cmd.exe /c kullanılır.",
     "param.cwd.description": "Komutun çalışma dizini.",
-    "tool.description": "Son çare olarak, bir kabuk komutu yürütün ve JSON sonucunu döndürün. Yalnızca daha güvenli veya daha spesifik bir araç mevcut olmadığında kullanın (örn. MCP entegrasyonu).",
+    "tool.description": "Son çare olarak, bir kabuk komutu yürütün ve JSON sonucunu döndürün.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -280,7 +280,7 @@
   "th": {
     "param.command.description": "สตริงคำสั่งที่ส่งไปยังเชลล์ของระบบ บน Windows ใช้ cmd.exe /c",
     "param.cwd.description": "ไดเร็กทอรีการทำงานสำหรับคำสั่ง",
-    "tool.description": "ใช้เป็นทางเลือกสุดท้ายเพื่อรันคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เฉพาะเมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่านี้ (เช่น การเชื่อมต่อ MCP)",
+    "tool.description": "ใช้เป็นทางเลือกสุดท้ายเพื่อรันคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เฉพาะเมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่าน...",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -316,7 +316,7 @@
   "bn": {
     "param.command.description": "OS shell-এ পাঠানোর কমান্ড স্ট্রিং। Windows-এ cmd.exe /c ব্যবহার করা হয়।",
     "param.cwd.description": "কমান্ডের জন্য কাজের ডিরেক্টরি।",
-    "tool.description": "শেষ উপায় হিসেবে একটি শেল কমান্ড চালিয়ে JSON ফলাফল ফেরত দেয়। যখন আরও নিরাপদ বা নির্দিষ্ট কোনো টুল নেই (যেমন MCP ইন্টিগ্রেশন) তখনই ব্যবহার করুন।",
+    "tool.description": "শেষ উপায় হিসেবে একটি শেল কমান্ড চালিয়ে JSON ফলাফল ফেরত দেয়। যখন আরও নিরাপদ বা নির্দিষ্ট কোনো টুল নেই (যেমন MCP ইন্টিগ্রেশন)...",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -326,9 +326,9 @@
     "tool.system_prompt": "এই টুলটি শেষ উপায়। অন্য কোনো উপযুক্ত টুল না থাকলে তবেই ব্যবহার করুন। কমান্ডে সংযত থাকুন এবং ব্যবহারকারী স্পষ্টভাবে নিশ্চিত না করলে ধ্বংসাত্মক কাজ এড়িয়ে চলুন।"
   },
   "fa": {
-    "param.command.description": "رشتهٔ فرمانی که به پوستهٔ سیستم داده می‌شود. در ویندوز از cmd.exe /c استفاده می‌شود.",
+    "param.command.description": "رشتهٔ فرمانی که به پوستهٔ سیستم داده می‌شود.در ویندوز از cmd.",
     "param.cwd.description": "دایرکتوری کاری برای فرمان.",
-    "tool.description": "به‌عنوان آخرین راه‌حل، یک فرمان shell اجرا می‌کند و نتیجه را به‌صورت JSON برمی‌گرداند. فقط زمانی استفاده کنید که ابزار امن‌تر یا مشخص‌تری در دسترس نباشد (مثلاً یک یکپارچه‌سازی MCP).",
+    "tool.description": "به‌عنوان آخرین راه‌حل، یک فرمان shell اجرا می‌کند و نتیجه را به‌صورت JSON برمی‌گرداند.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -340,7 +340,7 @@
   "mn": {
     "param.command.description": "Системийн shell-д дамжуулах командын мөр. Windows дээр cmd.exe /c ашиглана.",
     "param.cwd.description": "Командын ажиллах лавлах.",
-    "tool.description": "Хамгийн сүүлчийн арга болгон shell команд ажиллуулж JSON үр дүнг буцаана. Илүү аюулгүй эсвэл илүү тодорхой хэрэгсэл байхгүй үед л ашиглана (жишээ нь MCP интеграци).",
+    "tool.description": "Хамгийн сүүлчийн арга болгон shell команд ажиллуулж JSON үр дүнг буцаана.",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",

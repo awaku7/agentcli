@@ -83,7 +83,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "pwsh_exec",
         "description": _(
             "tool.description",
-            default="[Last resort] Execute PowerShell. Use only when no other appropriate tool (e.g., MCP) is available.",
+            default="Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
         )
         + _DESC_SUFFIX,
         "system_prompt": _(

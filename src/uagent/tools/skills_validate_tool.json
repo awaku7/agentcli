@@ -2,7 +2,7 @@
   "en": {
     "err.invalid_args": "[tool error] invalid args",
     "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.skill_dir.description": "Skill directory (SKILL.md is required directly below)",
+    "param.skill_dir.description": "The skill directory (must contain SKILL.md).",
     "param.strict.description": "Should warnings also be treated as a failure? (default: false)",
     "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
     "x_search_terms": [
@@ -30,11 +30,11 @@
     "tool.system_prompt": "このツールは、ツール説明に記載の目的で使用します。"
   },
   "es": {
-    "err.invalid_args": "[error de herramienta] argumentos no válidos",
-    "err.skill_dir_required": "[error de herramienta] skill_dir debe ser una cadena no vacía",
-    "param.skill_dir.description": "Directorio de habilidades (se requiere SKILL.md directamente debajo)",
-    "param.strict.description": "¿Las advertencias también deben tratarse como fallos? (predeterminado: false)",
-    "tool.description": "Valida un directorio de habilidades (SKILL.md) según la especificación de habilidades del agente y devuelve errores y advertencias.",
+    "err.invalid_args": "[error de herramienta]...",
+    "err.skill_dir_required": "[error de herramienta] skill_dir debe ser una...",
+    "param.skill_dir.description": "Directorio de habilidades (se requiere SK...",
+    "param.strict.description": "¿Las advertencias también deben tratarse como fallos?",
+    "tool.description": "Valida un directorio de habilidades (SKILL.",
     "x_search_terms": [
       "skills_validate",
       "validar skill",
@@ -44,11 +44,11 @@
     "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (ver descripción de la herramienta)."
   },
   "fr": {
-    "err.invalid_args": "[erreur de l'outil] arguments invalides",
-    "err.skill_dir_required": "[erreur de l'outil] skill_dir doit être une chaîne non vide",
-    "param.skill_dir.description": "Répertoire de compétences (SKILL.md est requis directement ci-dessous)",
-    "param.strict.description": "Faut-il aussi traiter les avertissements comme des échecs ? (par défaut : false)",
-    "tool.description": "Valide un répertoire de compétences (SKILL.md) conformément à la spécification des compétences de l'agent et renvoie les erreurs et les avertissements.",
+    "err.invalid_args": "[erreur de l'outil] ar...",
+    "err.skill_dir_required": "[erreur de l'outil] skill_dir doit être une ch...",
+    "param.skill_dir.description": "Répertoire de compétences (SKILL.",
+    "param.strict.description": "Faut-il aussi traiter les avertissements comme des échecs ?",
+    "tool.description": "Valide un répertoire de compétences (SKILL.",
     "x_search_terms": [
       "skills_validate",
       "valider skill",
@@ -72,11 +72,11 @@
     "tool.system_prompt": "이 도구는 다음과 같은 목적으로 사용됩니다: (도구 설명 참조)"
   },
   "de": {
-    "err.invalid_args": "[Werkzeugfehler] Ungültige Argumente",
-    "err.skill_dir_required": "[Werkzeugfehler] skill_dir muss ein nicht leerer String sein",
-    "param.skill_dir.description": "Skill-Verzeichnis (SKILL.md ist direkt darunter erforderlich)",
-    "param.strict.description": "Sollen Warnungen ebenfalls als Fehler behandelt werden? (Standard: false)",
-    "tool.description": "Validiert ein Skill-Verzeichnis (SKILL.md) gemäß der Agent-Skills-Spezifikation und gibt Fehler sowie Warnungen zurück.",
+    "err.invalid_args": "[Werkzeugfehler] Ungül...",
+    "err.skill_dir_required": "[Werkzeugfehler] skill_dir muss ein nicht leer...",
+    "param.skill_dir.description": "Skill-Verzeichnis (SKILL.",
+    "param.strict.description": "Sollen Warnungen ebenfalls als Fehler behandelt werden?",
+    "tool.description": "Validiert ein Skill-Verzeichnis (SKILL.",
     "x_search_terms": [
       "skills_validate",
       "skill validieren",
@@ -86,10 +86,10 @@
     "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
   },
   "it": {
-    "err.invalid_args": "[errore strumento] argomenti non validi",
-    "err.skill_dir_required": "[errore strumento] skill_dir deve essere una stringa non vuota",
-    "param.skill_dir.description": "Directory dello skill (SKILL.md è richiesto direttamente sotto)",
-    "param.strict.description": "Gli avvisi devono essere considerati anch'essi un fallimento? (predefinito: false)",
+    "err.invalid_args": "[errore strumento] arg...",
+    "err.skill_dir_required": "[errore strumento] skill_dir deve essere una s...",
+    "param.skill_dir.description": "Directory dello skill (SKILL.",
+    "param.strict.description": "Gli avvisi devono essere considerati anch'essi un fallimento?",
     "tool.description": "Convalida una directory di skill (SKILL.md) secondo la specifica Agent Skills e restituisce errori e avvisi.",
     "x_search_terms": [
       "skills_validate",
@@ -100,9 +100,9 @@
     "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
   },
   "ru": {
-    "err.invalid_args": "[ошибка инструмента] недопустимые аргументы",
-    "err.skill_dir_required": "[ошибка инструмента] skill_dir должен быть непустой строкой",
-    "param.skill_dir.description": "Каталог навыка (SKILL.md должен находиться непосредственно ниже)",
+    "err.invalid_args": "[ошибка инструмента] н...",
+    "err.skill_dir_required": "[ошибка инструмента] skill_dir должен быть неп...",
+    "param.skill_dir.description": "Каталог навыка (SKILL.",
     "param.strict.description": "Считать ли предупреждения ошибками? (по умолчанию: false)",
     "tool.description": "Проверяет каталог навыка (SKILL.md) согласно спецификации Agent Skills и возвращает ошибки и предупреждения.",
     "x_search_terms": [
@@ -114,9 +114,9 @@
     "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
   },
   "pt_BR": {
-    "err.invalid_args": "[erro da ferramenta] argumentos inválidos",
-    "err.skill_dir_required": "[erro da ferramenta] skill_dir deve ser uma string não vazia",
-    "param.skill_dir.description": "Diretório do skill (SKILL.md é necessário logo abaixo)",
+    "err.invalid_args": "[erro da ferramenta] a...",
+    "err.skill_dir_required": "[erro da ferramenta] skill_dir deve ser uma st...",
+    "param.skill_dir.description": "Diretório do skill (SKILL.",
     "param.strict.description": "Os avisos também devem ser tratados como falha? (padrão: false)",
     "tool.description": "Valida um diretório de skill (SKILL.md) de acordo com a especificação Agent Skills e retorna erros e avisos.",
     "x_search_terms": [
@@ -128,11 +128,11 @@
     "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
   },
   "pt": {
-    "err.invalid_args": "[erro de ferramenta] argumentos inválidos",
-    "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma string não vazia",
-    "param.skill_dir.description": "Diretório de habilidades (SKILL.md é necessário diretamente abaixo)",
+    "err.invalid_args": "[erro de ferramenta] a...",
+    "err.skill_dir_required": "[erro de ferramenta] skill_dir deve ser uma st...",
+    "param.skill_dir.description": "Diretório de habilidades (SKILL.",
     "param.strict.description": "Os avisos também devem ser tratados como falha? (padrão: falso)",
-    "tool.description": "Valida um diretório de habilidades (SKILL.md) de acordo com a especificação de habilidades do agente e retorna erros e avisos.",
+    "tool.description": "Valida um diretório de habilidades (SKILL.",
     "x_search_terms": [
       "skills_validate",
       "validar skill",
@@ -142,9 +142,9 @@
     "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
   },
   "id": {
-    "err.invalid_args": "[tool error] argumen tidak valid",
+    "err.invalid_args": "[tool error] argumen t...",
     "err.skill_dir_required": "[tool error] skill_dir harus berupa string non-kosong",
-    "param.skill_dir.description": "Direktori skill (SKILL.md harus berada tepat di bawahnya)",
+    "param.skill_dir.description": "Direktori skill (SKILL.",
     "param.strict.description": "Apakah warning juga diperlakukan sebagai kegagalan? (default: false)",
     "tool.description": "Memvalidasi direktori skill (SKILL.md) sesuai spesifikasi Agent Skills dan mengembalikan error serta warning.",
     "x_search_terms": [
@@ -155,9 +155,9 @@
     "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
   },
   "vi": {
-    "err.invalid_args": "[lỗi công cụ] đối số không hợp lệ",
+    "err.invalid_args": "[lỗi công cụ] đối số k...",
     "err.skill_dir_required": "[lỗi công cụ] skill_dir phải là một chuỗi không trống",
-    "param.skill_dir.description": "Thư mục kỹ năng (SKILL.md được yêu cầu ngay bên dưới)",
+    "param.skill_dir.description": "Thư mục kỹ năng (SKILL.",
     "param.strict.description": "Có nên coi cảnh báo cũng là lỗi không? (mặc định: false)",
     "tool.description": "Xác thực thư mục kỹ năng (SKILL.md) theo thông số Kỹ năng của tác nhân và trả về các lỗi cũng như cảnh báo.",
     "x_search_terms": [
@@ -168,9 +168,9 @@
     "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
   },
   "pl": {
-    "err.invalid_args": "[błąd narzędzia] nieprawidłowe argumenty",
-    "err.skill_dir_required": "[błąd narzędzia] skill_dir musi być niepustym ciągiem znaków",
-    "param.skill_dir.description": "Katalog umiejętności (SKILL.md jest wymagany bezpośrednio poniżej)",
+    "err.invalid_args": "[błąd narzędzia] niepr...",
+    "err.skill_dir_required": "[błąd narzędzia] skill_dir musi być niepustym...",
+    "param.skill_dir.description": "Katalog umiejętności (SKILL.",
     "param.strict.description": "Czy ostrzeżenia też należy traktować jako błąd? (domyślnie: fałsz)",
     "tool.description": "Sprawdza katalog umiejętności (SKILL.md) zgodnie ze specyfikacją Agent Skills i zwraca błędy i ostrzeżenia.",
     "x_search_terms": [
@@ -183,7 +183,7 @@
   },
   "hi": {
     "err.invalid_args": "[टूल त्रुटि] अमान्य तर्क",
-    "err.skill_dir_required": "[टूल त्रुटि] skill_dir एक गैर-रिक्त स्ट्रिंग होनी चाहिए",
+    "err.skill_dir_required": "[टूल त्रुटि] skill_dir एक गैर-रिक्त स्ट्रिंग ह...",
     "param.skill_dir.description": "कौशल निर्देशिका (SKILL.md सीधे नीचे आवश्यक है)",
     "param.strict.description": "क्या चेतावनियों को भी विफलता माना जाना चाहिए? (डिफ़ॉल्ट: false)",
     "tool.description": "एजेंट कौशल विनिर्देश के अनुसार एक कौशल निर्देशिका (SKILL.md) को मान्य करता है और त्रुटियाँ और चेतावनियाँ लौटाता है।",
@@ -195,7 +195,7 @@
     "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता है: (उपकरण विवरण देखें)।"
   },
   "ar": {
-    "err.invalid_args": "[خطأ في الأداة] وسيطات غير صالحة",
+    "err.invalid_args": "[خطأ في الأداة] وسيطات...",
     "err.skill_dir_required": "[خطأ في الأداة] يجب أن تكون skill_dir سلسلة غير فارغة",
     "param.skill_dir.description": "دليل المهارات (مطلوب SKILL.md أدناه مباشرة)",
     "param.strict.description": "هل يجب أيضًا التعامل مع التحذيرات على أنها أخطاء؟ (الافتراضي: false)",
@@ -208,7 +208,7 @@
     "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة)."
   },
   "sv": {
-    "err.invalid_args": "[verktygsfel] ogiltiga argument",
+    "err.invalid_args": "[verktygsfel] ogiltiga...",
     "err.skill_dir_required": "[verktygsfel] skill_dir måste vara en icke-tom sträng",
     "param.skill_dir.description": "Katalog för skill (SKILL.md krävs direkt under)",
     "param.strict.description": "Ska varningar också behandlas som fel? (standard: false)",
@@ -221,9 +221,9 @@
     "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen)."
   },
   "sw": {
-    "err.invalid_args": "[hitilafu ya zana] hoja batili",
-    "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuatano usio tupu",
-    "param.skill_dir.description": "Saraka ya skill (SKILL.md inahitajika moja kwa moja chini yake)",
+    "err.invalid_args": "[hitilafu ya zana] hoj...",
+    "err.skill_dir_required": "[hitilafu ya zana] skill_dir lazima iwe mfuata...",
+    "param.skill_dir.description": "Saraka ya skill (SKILL.",
     "param.strict.description": "Je, maonyo pia yahesabiwe kama kushindwa? (chaguomsingi: false)",
     "tool.description": "Huthibitisha saraka ya skill (SKILL.md) kulingana na Agent Skills spec na kurudisha makosa na maonyo.",
     "x_search_terms": [
@@ -234,9 +234,9 @@
     "tool.system_prompt": "Tumia zana hii kwa kusudi lililoelezwa kwenye maelezo ya zana."
   },
   "nb": {
-    "err.invalid_args": "[verktøyfeil] ugyldige argumenter",
+    "err.invalid_args": "[verktøyfeil] ugyldige...",
     "err.skill_dir_required": "[verktøyfeil] skill_dir må være en ikke-tom streng",
-    "param.skill_dir.description": "Katalog for skill (SKILL.md kreves direkte under)",
+    "param.skill_dir.description": "Katalog for skill (SKILL.",
     "param.strict.description": "Skal varsler også behandles som feil? (standard: false)",
     "tool.description": "Validerer en skill-katalog (SKILL.md) i henhold til Agent Skills-spesifikasjonen og returnerer feil og varsler.",
     "x_search_terms": [
@@ -247,10 +247,10 @@
     "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen)."
   },
   "nl": {
-    "err.invalid_args": "[toolfout] ongeldige argumenten",
-    "err.skill_dir_required": "[toolfout] skill_dir moet een niet-lege tekenreeks zijn",
+    "err.invalid_args": "[toolfout] ongeldige a...",
+    "err.skill_dir_required": "[toolfout] skill_dir moet een niet-lege tekenr...",
     "param.skill_dir.description": "Skillmap (SKILL.md is direct eronder vereist)",
-    "param.strict.description": "Moeten waarschuwingen ook als fout worden behandeld? (standaard: false)",
+    "param.strict.description": "Moeten waarschuwingen ook als fout worden behandeld?",
     "tool.description": "Valideert een skillmap (SKILL.md) volgens de Agent Skills-specificatie en geeft fouten en waarschuwingen terug.",
     "x_search_terms": [
       "skills_validate",
@@ -260,9 +260,9 @@
     "tool.system_prompt": "Gebruik deze tool voor het volgende doel: (zie toolbeschrijving)."
   },
   "fi": {
-    "err.invalid_args": "[työkaluvirhe] virheelliset аргументы",
-    "err.skill_dir_required": "[työkaluvirhe] skill_dirin on oltava ei-tyhjä merkkijono",
-    "param.skill_dir.description": "Skill-hakemisto (SKILL.md vaaditaan heti sen alla)",
+    "err.invalid_args": "[työkaluvirhe] virheel...",
+    "err.skill_dir_required": "[työkaluvirhe] skill_dirin on oltava ei-tyhjä...",
+    "param.skill_dir.description": "Skill-hakemisto (SKILL.",
     "param.strict.description": "Käsitelläänkö varoituksetkin epäonnistumisena? (oletus: false)",
     "tool.description": "Validoi skill-hakemiston (SKILL.md) Agent Skills -määrityksen mukaisesti ja palauttaa virheet sekä varoitukset.",
     "x_search_terms": [
@@ -273,7 +273,7 @@
     "tool.system_prompt": "Käytä tätä työkalua seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
   },
   "cs": {
-    "err.invalid_args": "[chyba nástroje] neplatné argumenty",
+    "err.invalid_args": "[chyba nástroje] nepla...",
     "err.skill_dir_required": "[chyba nástroje] skill_dir musí být neprázdný řetězec",
     "param.skill_dir.description": "Adresář skillu (SKILL.md musí být přímo pod ním)",
     "param.strict.description": "Mají se varování také považovat za chybu? (výchozí: false)",
@@ -286,9 +286,9 @@
     "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
   },
   "uk": {
-    "err.invalid_args": "[помилка інструменту] недійсні аргументи",
-    "err.skill_dir_required": "[помилка інструменту] skill_dir має бути непорожнім рядком",
-    "param.skill_dir.description": "Каталог skill (SKILL.md має бути безпосередньо під ним)",
+    "err.invalid_args": "[помилка інструменту]...",
+    "err.skill_dir_required": "[помилка інструменту] skill_dir має бути непор...",
+    "param.skill_dir.description": "Каталог skill (SKILL.",
     "param.strict.description": "Чи слід також вважати попередження помилками? (типово: false)",
     "tool.description": "Перевіряє каталог skill (SKILL.md) згідно зі специфікацією Agent Skills і повертає помилки та попередження.",
     "x_search_terms": [
@@ -299,9 +299,9 @@
     "tool.system_prompt": "Використовуйте цей інструмент для такої мети: (див. опис інструменту)."
   },
   "tr": {
-    "err.invalid_args": "[araç hatası] geçersiz argümanlar",
-    "err.skill_dir_required": "[araç hatası] skill_dir boş olmayan bir dize olmalıdır",
-    "param.skill_dir.description": "Beceri dizini (SKILL.md doğrudan altında gereklidir)",
+    "err.invalid_args": "[araç hatası] geçersiz...",
+    "err.skill_dir_required": "[araç hatası] skill_dir boş olmayan bir dize o...",
+    "param.skill_dir.description": "Beceri dizini (SKILL.",
     "param.strict.description": "Uyarılar da başarısızlık olarak kabul edilsin mi? (varsayılan: false)",
     "tool.description": "Agent Skills belirtimine göre bir beceri dizinini (SKILL.md) doğrular ve hata ile uyarıları döndürür.",
     "x_search_terms": [
@@ -312,9 +312,9 @@
     "tool.system_prompt": "Bu araç, araç açıklamasında belirtilen amaç için kullanılır."
   },
   "th": {
-    "err.invalid_args": "[ข้อผิดพลาดของเครื่องมือ] args ไม่ถูกต้อง",
-    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] skill_dir ต้องเป็นสตริงที่ไม่ว่างเปล่า",
-    "param.skill_dir.description": "ไดเรกทอรีทักษะ (จำเป็นต้องมี SKILL.md ด้านล่างโดยตรง)",
+    "err.invalid_args": "[ข้อผิดพลาดของเครื่องม...",
+    "err.skill_dir_required": "[ข้อผิดพลาดของเครื่องมือ] skill_dir ต้องเป็นสต...",
+    "param.skill_dir.description": "ไดเรกทอรีทักษะ (จำเป็นต้องมี SKILL.",
     "param.strict.description": "ควรถือว่า warning เป็นความล้มเหลวด้วยหรือไม่ (ค่าเริ่มต้น: false)",
     "tool.description": "ตรวจสอบไดเร็กทอรีทักษะ (SKILL.md) ตามข้อมูลจำเพาะของ Agent Skills และส่งคืนข้อผิดพลาดและคำเตือน",
     "x_search_terms": [
@@ -351,8 +351,8 @@
     "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
   },
   "bn": {
-    "err.invalid_args": "[টুল ত্রুটি] অবৈধ আর্গুমেন্ট",
-    "err.skill_dir_required": "[টুল ত্রুটি] skill_dir অবশ্যই একটি খালি নয় এমন স্ট্রিং হতে হবে",
+    "err.invalid_args": "[টুল ত্রুটি] অবৈধ আর্গ...",
+    "err.skill_dir_required": "[টুল ত্রুটি] skill_dir অবশ্যই একটি খালি নয় এম...",
     "param.skill_dir.description": "স্কিল ডিরেক্টরি (SKILL.md সরাসরি নিচে থাকতে হবে)",
     "param.strict.description": "warning-গুলোকেও কি ব্যর্থতা হিসেবে ধরা হবে? (ডিফল্ট: false)",
     "tool.description": "Agent Skills স্পেসিফিকেশন অনুযায়ী একটি skill directory (SKILL.md) যাচাই করে এবং error ও warning ফেরত দেয়।",
@@ -364,7 +364,7 @@
     "tool.system_prompt": "এই টুলটি টুলের বর্ণনায় উল্লেখিত উদ্দেশ্যে ব্যবহার করুন।"
   },
   "fa": {
-    "err.invalid_args": "[خطای ابزار] آرگومان‌ها نامعتبرند",
+    "err.invalid_args": "[خطای ابزار] آرگومان‌ه...",
     "err.skill_dir_required": "[خطای ابزار] skill_dir باید یک رشتهٔ غیرخالی باشد",
     "param.skill_dir.description": "پوشهٔ مهارت (SKILL.md باید درست زیر آن باشد)",
     "param.strict.description": "آیا هشدارها هم باید به‌عنوان خطا در نظر گرفته شوند؟ (پیش‌فرض: false)",
@@ -377,9 +377,9 @@
     "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید."
   },
   "mn": {
-    "err.invalid_args": "[хэрэгслийн алдаа] буруу аргументууд",
-    "err.skill_dir_required": "[хэрэгслийн алдаа] skill_dir нь хоосон бус мөр байх ёстой",
-    "param.skill_dir.description": "Skill-ийн директор (SKILL.md нь яг доор байрлах шаардлагатай)",
+    "err.invalid_args": "[хэрэгслийн алдаа] бур...",
+    "err.skill_dir_required": "[хэрэгслийн алдаа] skill_dir нь хоосон бус мөр...",
+    "param.skill_dir.description": "Skill-ийн директор (SKILL.",
     "param.strict.description": "Анхааруулгыг ч алдаа гэж үзэх үү? (анхдагч: false)",
     "tool.description": "Agent Skills-ийн тодорхойлолтын дагуу skill-ийн директор (SKILL.md)-ийг шалгаж, алдаа болон анхааруулгыг буцаана.",
     "x_search_terms": [
@@ -390,9 +390,9 @@
     "tool.system_prompt": "Энэ хэрэгслийг хэрэгслийн тайлбарт заасан зорилгоор ашиглана уу."
   },
   "mr": {
-    "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग्युमेंट्स",
-    "err.skill_dir_required": "[टूल त्रुटी] skill_dir एक रिक्त नसलेली स्ट्रिंग असणे आवश्यक आहे",
-    "param.skill_dir.description": "स्किल डिरेक्टरी (SKILL.md थेट खाली असणे आवश्यक आहे)",
+    "err.invalid_args": "[टूल त्रुटी] अवैध आर्ग...",
+    "err.skill_dir_required": "[टूल त्रुटी] skill_dir एक रिक्त नसलेली स्ट्रिं...",
+    "param.skill_dir.description": "स्किल डिरेक्टरी (SKILL.",
     "param.strict.description": "चेतावण्या देखील अपयश मानायच्या का? (डीफॉल्ट: false)",
     "tool.description": "Agent Skills च्या स्पेसिफिकेशननुसार skill directory (SKILL.md) पडताळते आणि त्रुटी व चेतावण्या परत करते.",
     "x_search_terms": [

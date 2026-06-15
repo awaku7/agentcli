@@ -26,7 +26,7 @@
     "tool.system_prompt": "このツールは、ツール名 'db_query' で示される処理を実行します。"
   },
   "es": {
-    "param.db_path.description": "Ruta al archivo de base de datos SQLite.",
+    "param.db_path.description": "Ruta al archivo de base de dat...",
     "param.sql.description": "SQL a ejecutar.",
     "tool.description": "Ejecuta una consulta SQL en una base de datos SQLite y devuelve el resultado. Solo se admiten operaciones de solo lectura (SELECT) e inspección del esquema (PRAGMA).",
     "x_search_terms": [
@@ -38,9 +38,9 @@
     "tool.system_prompt": "Esta herramienta realiza la operación descrita por el nombre de herramienta 'db_query'."
   },
   "fr": {
-    "param.db_path.description": "Chemin du fichier de base de données SQLite.",
+    "param.db_path.description": "Chemin du fichier de base de d...",
     "param.sql.description": "SQL à exécuter.",
-    "tool.description": "Exécute une requête SQL sur une base de données SQLite et renvoie le résultat. Seules les opérations en lecture seule (SELECT) et l'inspection du schéma (PRAGMA) sont prises en charge.",
+    "tool.description": "Exécute une requête SQL sur une base de données SQLite et renvoie le résultat.",
     "x_search_terms": [
       "db_query",
       "db query",
@@ -64,7 +64,7 @@
   "de": {
     "param.db_path.description": "Pfad zur SQLite-Datenbankdatei.",
     "param.sql.description": "Auszuführendes SQL.",
-    "tool.description": "Führt eine SQL-Abfrage für eine SQLite-Datenbank aus und gibt das Ergebnis zurück. Unterstützt werden nur schreibgeschützte Vorgänge (SELECT) und die Schemaprüfung (PRAGMA).",
+    "tool.description": "Führt eine SQL-Abfrage für eine SQLite-Datenbank aus und gibt das Ergebnis zurück.",
     "x_search_terms": [
       "db_query",
       "db query",
@@ -74,9 +74,9 @@
     "tool.system_prompt": "Dieses Tool führt den durch den Toolnamen „db_query“ beschriebenen Vorgang aus."
   },
   "it": {
-    "param.db_path.description": "Percorso del file di database SQLite.",
+    "param.db_path.description": "Percorso del file di database...",
     "param.sql.description": "SQL da eseguire.",
-    "tool.description": "Esegue una query SQL su un database SQLite e restituisce il risultato. Sono supportate solo le operazioni di sola lettura (SELECT) e l'ispezione dello schema (PRAGMA).",
+    "tool.description": "Esegue una query SQL su un database SQLite e restituisce il risultato.",
     "x_search_terms": [
       "db_query",
       "db query",
@@ -98,7 +98,7 @@
     "tool.system_prompt": "Этот инструмент выполняет операцию, описанную именем инструмента «db_query»."
   },
   "pt_BR": {
-    "param.db_path.description": "Caminho para o arquivo de banco de dados SQLite.",
+    "param.db_path.description": "Caminho para o arquivo de banc...",
     "param.sql.description": "SQL a ser executado.",
     "tool.description": "Executa uma consulta SQL em um banco de dados SQLite e retorna o resultado. Somente operações de leitura (SELECT) e inspeção do esquema (PRAGMA) são suportadas.",
     "x_search_terms": [
@@ -110,7 +110,7 @@
     "tool.system_prompt": "Esta ferramenta executa a operação descrita pelo nome da ferramenta 'db_query'."
   },
   "pt": {
-    "param.db_path.description": "Caminho para o arquivo de banco de dados SQLite.",
+    "param.db_path.description": "Caminho para o arquivo de banc...",
     "param.sql.description": "SQL para executar.",
     "tool.description": "Execute uma consulta SQL em um banco de dados SQLite e retorne o resultado. Somente operações somente leitura (SELECT) e inspeção de esquema (PRAGMA) são suportadas.",
     "x_search_terms": [
@@ -134,7 +134,7 @@
     "tool.system_prompt": "Alat ini menjalankan operasi yang dijelaskan oleh nama alat 'db_query'."
   },
   "vi": {
-    "param.db_path.description": "Đường dẫn đến tệp cơ sở dữ liệu SQLite.",
+    "param.db_path.description": "Đường dẫn đến tệp cơ sở dữ liệ...",
     "param.sql.description": "SQL để thực thi.",
     "tool.description": "Thực hiện truy vấn SQL đối với cơ sở dữ liệu SQLite và trả về kết quả. Chỉ hỗ trợ các hoạt động chỉ đọc (SELECT) và kiểm tra lược đồ (PRAGMA).",
     "x_search_terms": [
@@ -194,7 +194,7 @@
     "tool.system_prompt": "Det här verktyget utför den åtgärd som beskrivs av verktygsnamnet 'db_query'."
   },
   "sw": {
-    "param.db_path.description": "Njia ya faili la hifadhidata ya SQLite.",
+    "param.db_path.description": "Njia ya faili la hifadhidata y...",
     "param.sql.description": "SQL ya kutekeleza.",
     "tool.description": "Tekeleza hoja za SQL dhidi ya hifadhidata ya SQLite na urudishe matokeo. Inaauni tu shughuli za kusoma pekee (SELECT) na ukaguzi wa schema (PRAGMA).",
     "x_search_terms": [

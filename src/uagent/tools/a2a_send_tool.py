@@ -33,7 +33,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "a2a_send",
         "description": _(
             "tool.description",
-            default="Send a message to an A2A server profile (a2a://name or profile name).",
+            default="Send a message to an A2A server profile. Use only when no local tool can substitute.",
         ),
         "system_prompt": _(
             "tool.system_prompt",

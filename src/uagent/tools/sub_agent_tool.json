@@ -25,7 +25,7 @@
       "تصحيح"
     ],
     "param.evidence_min_items.description": "الحد الأدنى لعدد عناصر الأدلة المطلوبة.",
-    "param.evidence_required.description": "طلب عناصر الأدلة في الاستجابة.",
+    "param.evidence_required.description": "طلب عناصر الأد...",
     "param.required_fields.description": "قائمة الحقول المطلوبة في استجابة JSON.",
     "param.response_mode.description": "وضع الإخراج للوكيل الفرعي.",
     "param.response_schema.description": "كائن JSON Schema اختياري للاستجابة المتوقعة.",
@@ -34,8 +34,8 @@
   "bn": {
     "param.agent_name.description": "চালানোর জন্য বিশেষায়িত সাব-এজেন্টের নাম।",
     "param.current_file.description": "(ঐচ্ছিক) সাব-এজেন্টের যুক্তির পরিধি এই নির্দিষ্ট ফাইলে সীমাবদ্ধ করুন।",
-    "param.task.description": "সাব-এজেন্ট দ্বারা প্রক্রিয়া করার জন্য নির্দিষ্ট নির্দেশাবলী বা কাজ।",
-    "tool.description": "নির্দিষ্ট কাজগুলি প্রক্রিয়া করতে এবং কাঠামোগত ফলাফল ফেরত দিতে প্যারেন্ট অর্কেস্ট্রেটরের নিয়ন্ত্রণে একটি বিশেষায়িত, নিরাপদ সাব-এজেন্ট (পরিকল্পনাকারী, পর্যালোচক বা সারসংক্ষেপকারী) চালান।",
+    "param.task.description": "সাব-এজেন্ট দ্বারা প্রক্রিয়া করার জন্য নির্দিষ্ট নির...",
+    "tool.description": "নির্দিষ্ট কাজগুলি প্রক্রিয়া করতে এবং কাঠামোগত ফলাফল ফেরত দিতে প্যারেন্ট অর্কেস্ট্রেটরের নিয়ন্ত্রণে একটি বিশেষায়িত, নিরাপদ সাব-এজেন্ট (পরিকল্পনাক...",
     "tool.system_prompt": "একটি কাজ সমাধান করতে একটি বিশেষায়িত সাব-এজেন্ট চালান। এই সাব-এজেন্ট ধ্বংসাত্মক পরিবর্তন করে না। এটি JSON হিসাবে কাঠামোগত ফলাফল ফেরত দেয়।",
     "x_search_terms": [
       "sub-agent",
@@ -57,17 +57,17 @@
       "ডিবাগ"
     ],
     "param.evidence_min_items.description": "প্রয়োজনীয় প্রমাণের উপাদানের ন্যূনতম সংখ্যা।",
-    "param.evidence_required.description": "প্রতিক্রিয়ায় প্রমাণের উপাদান প্রয়োজন।",
-    "param.required_fields.description": "JSON প্রতিক্রিয়ায় প্রয়োজনীয় ক্ষেত্রগুলির তালিকা।",
+    "param.evidence_required.description": "প্রতিক্রিয়ায়...",
+    "param.required_fields.description": "JSON প্রতিক্রিয়ায় প্রয়োজনীয় ক্ষেত্রগুল...",
     "param.response_mode.description": "সাব-এজেন্টের জন্য আউটপুট মোড।",
     "param.response_schema.description": "প্রত্যাশিত প্রতিক্রিয়ার জন্য ঐচ্ছিক JSON Schema অবজেক্ট।",
-    "param.strict_output.description": "অনুপস্থিত প্রয়োজনীয় ক্ষেত্র বা স্কিমার অমিলকে ত্রুটি হিসাবে বিবেচনা করুন।"
+    "param.strict_output.description": "অনুপস্থিত প্রয়োজনীয় ক্ষেত্র বা স্কিমার অমিলকে ত্রুটি হ..."
   },
   "cs": {
-    "param.agent_name.description": "Název specializovaného sub-agenta, který se má spustit.",
+    "param.agent_name.description": "Název specializovaného sub-agenta, který s...",
     "param.current_file.description": "(Volitelné) Omezit rozsah uvažování sub-agenta na tento konkrétní soubor.",
     "param.task.description": "Konkrétní pokyny nebo úkol, které má sub-agent zpracovat.",
-    "tool.description": "Spustí specializovaného, bezpečného sub-agenta (plánovač, recenzent nebo sumarizátor) pod kontrolou mateřského orchestrátoru pro zpracování konkrétních úkolů a vrácení strukturovaných nálezů.",
+    "tool.description": "Spustí specializovaného, bezpečného sub-agenta (plánovač, recenzent nebo sumarizátor) pod kontrolou mateřského orchestrátoru pro zpracování konkrét...",
     "tool.system_prompt": "Spusťte specializovaného sub-agenta pro vyřešení úkolu. Tento sub-agent neprovádí destruktivní změny. Vrací strukturované poznatky jako JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -89,17 +89,17 @@
       "ladění"
     ],
     "param.evidence_min_items.description": "Minimální požadovaný počet položek důkazů.",
-    "param.evidence_required.description": "Vyžadovat položky důkazů v odpovědi.",
+    "param.evidence_required.description": "Vyžadovat polo...",
     "param.required_fields.description": "Seznam požadovaných polí v odpovědi JSON.",
-    "param.response_mode.description": "Výstupní režim pro podřízeného agenta.",
+    "param.response_mode.description": "Výstupní režim pro podřízen...",
     "param.response_schema.description": "Volitelný objekt JSON Schema pro očekávanou odpověď.",
-    "param.strict_output.description": "Považovat chybějící požadovaná pole nebo nesoulad schématu za chyby."
+    "param.strict_output.description": "Považovat chybějící požadovaná pole nebo nesoulad schéma..."
   },
   "de": {
-    "param.agent_name.description": "Der Name des spezialisierten Sub-Agents, der ausgeführt werden soll.",
-    "param.current_file.description": "(Optional) Schränkt den Denkbereich des Sub-Agents auf diese spezifische Datei ein.",
-    "param.task.description": "Spezifische Anweisungen/Aufgaben, die der Sub-Agent verarbeiten soll.",
-    "tool.description": "Führt einen spezialisierten, sicheren Sub-Agenten (Planer, Reviewer oder Zusammenfasser) unter der Kontrolle des übergeordneten Orchestrators aus, um bestimmte Aufgaben zu verarbeiten und strukturierte Ergebnisse zurückzugeben.",
+    "param.agent_name.description": "Der Name des spezialisierten Sub-Agents, d...",
+    "param.current_file.description": "(Optional) Schränkt den Denkbereich des Sub-Agents auf diese spezifi...",
+    "param.task.description": "Spezifische Anweisungen/Aufgaben, die der Sub-Agent...",
+    "tool.description": "Führt einen spezialisierten, sicheren Sub-Agenten (Planer, Reviewer oder Zusammenfasser) unter der Kontrolle des übergeordneten Orchestrators aus,...",
     "tool.system_prompt": "Führen Sie einen spezialisierten Sub-Agenten aus, um eine Aufgabe zu lösen. Dieser Sub-Agent nimmt keine destruktiven Änderungen vor. Er gibt strukturierte Erkenntnisse als JSON zurück.",
     "x_search_terms": [
       "sub-agent",
@@ -121,23 +121,23 @@
       "Fehlerbehebung"
     ],
     "param.evidence_min_items.description": "Mindestanzahl der erforderlichen Belege.",
-    "param.evidence_required.description": "Belege in der Antwort anfordern.",
-    "param.required_fields.description": "Liste der erforderlichen Felder in der JSON-Antwort.",
+    "param.evidence_required.description": "Belege in der...",
+    "param.required_fields.description": "Liste der erforderlichen Felder in der JSO...",
     "param.response_mode.description": "Ausgabemodus für den Sub-Agenten.",
     "param.response_schema.description": "Optionales JSON-Schema-Objekt für die erwartete Antwort.",
-    "param.strict_output.description": "Fehlende erforderliche Felder oder Schema-Abweichungen als Fehler behandeln."
+    "param.strict_output.description": "Fehlende erforderliche Felder oder Schema-Abweichungen a..."
   },
   "en": {
     "param.agent_name.description": "The name of the specialized sub-agent to run.",
     "param.current_file.description": "(Optional) Limit the sub-agent's reasoning scope to this specific file.",
     "param.evidence_min_items.description": "Minimum number of evidence items required.",
-    "param.evidence_required.description": "Require evidence items in the response.",
+    "param.evidence_required.description": "Require evidence.",
     "param.required_fields.description": "List of required fields in the JSON response.",
     "param.response_mode.description": "Output mode for the sub-agent.",
     "param.response_schema.description": "Optional JSON Schema object for the expected response.",
     "param.strict_output.description": "Treat missing required fields or schema mismatch as errors.",
     "param.task.description": "Specific instruction/task for the sub-agent to process.",
-    "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent orchestrator to process specific tasks and return structured findings.",
+    "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent...",
     "tool.system_prompt": "Run a specialized sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) to solve a task. This sub-agent does not make destructive modifications. It returns structured insights as JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -159,9 +159,9 @@
   },
   "es": {
     "param.agent_name.description": "El nombre del subagente especializado a ejecutar.",
-    "param.current_file.description": "(Opcional) Limitar el alcance del razonamiento del subagente a este archivo específico.",
-    "param.task.description": "Instrucción o tarea específica para que la procese el subagente.",
-    "tool.description": "Ejecuta un subagente especializado y seguro (planificador, revisor o resumidor) bajo el control del orquestador principal para procesar tareas específicas y devolver hallazgos estructurados.",
+    "param.current_file.description": "(Opcional) Limitar el alcance del razonamiento del subagente a este...",
+    "param.task.description": "Instrucción o tarea específica para que la procese e...",
+    "tool.description": "Ejecuta un subagente especializado y seguro (planificador, revisor o resumidor) bajo el control del orquestador principal para procesar tareas espe...",
     "tool.system_prompt": "Ejecute un subagente especializado para resolver una tarea. Este subagente no realiza modificaciones destructivas. Devuelve hallazgos estructurados como JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -182,18 +182,18 @@
       "análisis de errores",
       "depuración"
     ],
-    "param.evidence_min_items.description": "Número mínimo de elementos de evidencia requeridos.",
-    "param.evidence_required.description": "Requerir elementos de evidencia en la respuesta.",
+    "param.evidence_min_items.description": "Número mínimo de elementos de evidencia...",
+    "param.evidence_required.description": "Requerir eleme...",
     "param.required_fields.description": "Lista de campos requeridos en la respuesta JSON.",
     "param.response_mode.description": "Modo de salida para el subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para la respuesta esperada.",
-    "param.strict_output.description": "Tratar los campos requeridos faltantes o la discrepancia de esquema como errores."
+    "param.strict_output.description": "Tratar los campos requeridos faltantes o la discrepancia..."
   },
   "fa": {
     "param.agent_name.description": "نام عامل فرعی تخصصی برای اجرا.",
     "param.current_file.description": "(اختیاری) محدود کردن دامنه استدلال عامل فرعی به این فایل خاص.",
     "param.task.description": "دستورالعمل یا وظیفه خاص برای پردازش توسط عامل فرعی.",
-    "tool.description": "یک عامل فرعی تخصصی و ایمن (برنامه‌ریز، بازبین یا خلاصه‌ساز) را تحت کنترل هماهنگ‌کننده اصلی اجرا کنید تا کارهای خاصی را پردازش کند و یافته‌های ساختاریافته را برگرداند.",
+    "tool.description": "یک عامل فرعی تخصصی و ایمن (برنامه‌ریز، بازبین یا خلاصه‌ساز) را تحت کنترل هماهنگ‌کننده اصلی اجرا کنید تا کارهای خاصی را پردازش کند و یافته‌های ساختا...",
     "tool.system_prompt": "یک عامل فرعی تخصصی را برای حل یک کار اجرا کنید. این عامل فرعی تغییرات مخرب ایجاد نمی‌کند. نتایج ساختاریافته را به صورت JSON برمی‌گرداند.",
     "x_search_terms": [
       "sub-agent",
@@ -215,17 +215,17 @@
       "دیباگ"
     ],
     "param.evidence_min_items.description": "حداقل تعداد موارد شواهد مورد نیاز.",
-    "param.evidence_required.description": "الزام وجود موارد شواهد در پاسخ.",
+    "param.evidence_required.description": "الزام وجود موا...",
     "param.required_fields.description": "لیست فیلدهای الزامی در پاسخ JSON.",
     "param.response_mode.description": "حالت خروجی برای زیر-عامل.",
     "param.response_schema.description": "شیء اختیاری JSON Schema برای پاسخ مورد انتظار.",
-    "param.strict_output.description": "در نظر گرفتن فیلدهای الزامی مفقود یا عدم تطابق طرحواره به عنوان خطا."
+    "param.strict_output.description": "در نظر گرفتن فیلدهای الزامی مفقود یا عدم تطابق طرحواره ب..."
   },
   "fi": {
-    "param.agent_name.description": "Ajettavan erikoistuneen alitoimijan (sub-agent) nimi.",
+    "param.agent_name.description": "Ajettavan erikoistuneen alitoimijan (sub-a...",
     "param.current_file.description": "(Valinnainen) Rajaa alitoimijan päättelyalue tähän tiettyyn tiedostoon.",
     "param.task.description": "Erityinen ohje tai tehtävä alitoimijan käsiteltäväksi.",
-    "tool.description": "Suorittaa erikoistuneen, turvallisen alitoimijan (suunnittelija, arvioija tai tiivistäjä) pääorhestraattorin valvonnassa tiettyjen tehtävien käsittelemiseksi ja jäsenneltyjen tulosten palauttamiseksi.",
+    "tool.description": "Suorittaa erikoistuneen, turvallisen alitoimijan (suunnittelija, arvioija tai tiivistäjä) pääorhestraattorin valvonnassa tiettyjen tehtävien käsitt...",
     "tool.system_prompt": "Suorita erikoistunut alitoimija tehtävän ratkaisemiseksi. Tämä alitoimija ei tee tuhoavia muutoksia. Se palauttaa jäsennellyt havainnot JSON-muodossa.",
     "x_search_terms": [
       "sub-agent",
@@ -247,17 +247,17 @@
       "vianmääritys"
     ],
     "param.evidence_min_items.description": "Todisteiden vähimmäismäärä.",
-    "param.evidence_required.description": "Vaadi todisteet vastauksessa.",
+    "param.evidence_required.description": "Vaadi todistee...",
     "param.required_fields.description": "Luettelo pakollisista kentistä JSON-vastauksessa.",
     "param.response_mode.description": "Alijäsenen tulostustila.",
     "param.response_schema.description": "Valinnainen JSON-skeemaobjekti odotetulle vastaukselle.",
-    "param.strict_output.description": "Käsittele puuttuvia pakollisia kenttiä tai skeeman epätäsmäisyyksiä virheinä."
+    "param.strict_output.description": "Käsittele puuttuvia pakollisia kenttiä tai skeeman epätä..."
   },
   "fr": {
     "param.agent_name.description": "Le nom du sous-agent spécialisé à exécuter.",
-    "param.current_file.description": "(Facultatif) Limiter la portée de raisonnement du sous-agent à ce fichier spécifique.",
+    "param.current_file.description": "(Facultatif) Limiter la portée de raisonnement du sous-agent à ce fi...",
     "param.task.description": "Instruction ou tâche spécifique à traiter par le sous-agent.",
-    "tool.description": "Exécute un sous-agent spécialisé et sûr (planificateur, réviseur ou résumeur) sous le contrôle de l'orchestrateur parent pour traiter des tâches spécifiques et renvoyer des résultats structurés.",
+    "tool.description": "Exécute un sous-agent spécialisé et sûr (planificateur, réviseur ou résumeur) sous le contrôle de l'orchestrateur parent pour traiter des tâches sp...",
     "tool.system_prompt": "Exécutez un sous-agent spécialisé pour résoudre une tâche. Ce sous-agent ne fait pas de modifications destructrices. Il renvoie des informations structurées au format JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -279,17 +279,17 @@
       "débogage"
     ],
     "param.evidence_min_items.description": "Nombre minimal d'éléments de preuve requis.",
-    "param.evidence_required.description": "Exiger des éléments de preuve dans la réponse.",
+    "param.evidence_required.description": "Exiger des élé...",
     "param.required_fields.description": "Liste des champs requis dans la réponse JSON.",
-    "param.response_mode.description": "Mode de sortie pour le sous-agent.",
+    "param.response_mode.description": "Mode de sortie pour le sous...",
     "param.response_schema.description": "Objet JSON Schema facultatif pour la réponse attendue.",
-    "param.strict_output.description": "Traiter les champs requis manquants ou les non-correspondances de schéma comme des erreurs."
+    "param.strict_output.description": "Traiter les champs requis manquants ou les non-correspon..."
   },
   "hi": {
     "param.agent_name.description": "चलाने के लिए विशेष उप-एजेंट (sub-agent) का नाम।",
     "param.current_file.description": "(वैकल्पिक) उप-एजेंट के तर्क कार्यक्षेत्र को इस विशिष्ट फ़ाइल तक सीमित करें।",
-    "param.task.description": "उप-एजेंट द्वारा संसाधित किए जाने वाले विशिष्ट निर्देश या कार्य।",
-    "tool.description": "विशिष्ट कार्यों को संसाधित करने और संरचित परिणाम प्राप्त करने के लिए मुख्य ऑर्केस्ट्रेटर के नियंत्रण में एक विशेष, सुरक्षित उप-एजेंट (योजनाकार, समीक्षक या सारांशकर्ता) चलाएं।",
+    "param.task.description": "उप-एजेंट द्वारा संसाधित किए जाने वाले विशिष्ट निर्दे...",
+    "tool.description": "विशिष्ट कार्यों को संसाधित करने और संरचित परिणाम प्राप्त करने के लिए मुख्य ऑर्केस्ट्रेटर के नियंत्रण में एक विशेष, सुरक्षित उप-एजेंट (योजनाकार, समी...",
     "tool.system_prompt": "किसी कार्य को हल करने के लिए एक विशेष उप-एजेंट चलाएं। यह उप-एजेंट विनाशकारी बदलाव नहीं करता है। यह JSON के रूप में संरचित जानकारी लौटाता है।",
     "x_search_terms": [
       "sub-agent",
@@ -311,17 +311,17 @@
       "डीबग"
     ],
     "param.evidence_min_items.description": "आवश्यक साक्ष्य वस्तुओं की न्यूनतम संख्या।",
-    "param.evidence_required.description": "प्रतिक्रिया में साक्ष्य वस्तुओं की आवश्यकता है।",
+    "param.evidence_required.description": "प्रतिक्रिया मे...",
     "param.required_fields.description": "JSON प्रतिक्रिया में आवश्यक फ़ील्ड की सूची।",
     "param.response_mode.description": "उप-एजेंट के लिए आउटपुट मोड।",
     "param.response_schema.description": "अपेक्षित प्रतिक्रिया के लिए वैकल्पिक JSON Schema ऑब्जेक्ट।",
-    "param.strict_output.description": "लापता आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप में मानें।"
+    "param.strict_output.description": "लापता आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप..."
   },
   "id": {
     "param.agent_name.description": "Nama sub-agen khusus yang akan dijalankan.",
     "param.current_file.description": "(Opsional) Batasi cakupan penalaran sub-agen ke file spesifik ini.",
     "param.task.description": "Instruksi/tugas spesifik yang harus diproses oleh sub-agen.",
-    "tool.description": "Jalankan sub-agen khusus yang aman (perencana, peninjau, atau peringkas) di bawah kendali orkestrator induk untuk memproses tugas-tugas tertentu dan mengembalikan temuan terstruktur.",
+    "tool.description": "Jalankan sub-agen khusus yang aman (perencana, peninjau, atau peringkas) di bawah kendali orkestrator induk untuk memproses tugas-tugas tertentu da...",
     "tool.system_prompt": "Jalankan sub-agen khusus untuk menyelesaikan tugas. Sub-agen ini tidak melakukan modifikasi destruktif. Ini mengembalikan temuan terstruktur sebagai JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -343,17 +343,17 @@
       "debugging"
     ],
     "param.evidence_min_items.description": "Jumlah minimum item bukti yang diperlukan.",
-    "param.evidence_required.description": "Wajibkan item bukti dalam respons.",
+    "param.evidence_required.description": "Wajibkan item...",
     "param.required_fields.description": "Daftar bidang yang diperlukan dalam respons JSON.",
     "param.response_mode.description": "Mode output untuk sub-agen.",
     "param.response_schema.description": "Objek JSON Schema opsional untuk respons yang diharapkan.",
-    "param.strict_output.description": "Perlakukan bidang wajib yang hilang atau ketidakcocokan skema sebagai kesalahan."
+    "param.strict_output.description": "Perlakukan bidang wajib yang hilang atau ketidakcocokan..."
   },
   "it": {
-    "param.agent_name.description": "Il nome del sotto-agente specializzato da eseguire.",
-    "param.current_file.description": "(Opzionale) Limita l'ambito di ragionamento del sotto-agente a questo file specifico.",
-    "param.task.description": "Istruzione o compito specifico che il sotto-agente deve elaborare.",
-    "tool.description": "Esegue un sotto-agente specializzato e sicuro (pianificatore, revisore o riassuntore) sotto il controllo dell'orchestratore principale per elaborare compiti specifici e restituire risultati strutturati.",
+    "param.agent_name.description": "Il nome del sotto-agente specializzato da...",
+    "param.current_file.description": "(Opzionale) Limita l'ambito di ragionamento del sotto-agente a quest...",
+    "param.task.description": "Istruzione o compito specifico che il sotto-agente d...",
+    "tool.description": "Esegue un sotto-agente specializzato e sicuro (pianificatore, revisore o riassuntore) sotto il controllo dell'orchestratore principale per elaborar...",
     "tool.system_prompt": "Esegui un sotto-agente specializzato per risolvere un compito. Questo sotto-agente non apporta modifiche distruttive. Restituisce informazioni strutturate in formato JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -375,17 +375,17 @@
       "debugging"
     ],
     "param.evidence_min_items.description": "Numero minimo di elementi di prova richiesti.",
-    "param.evidence_required.description": "Richiedi elementi di prova nella risposta.",
+    "param.evidence_required.description": "Richiedi eleme...",
     "param.required_fields.description": "Elenco dei campi richiesti nella resposta JSON.",
-    "param.response_mode.description": "Modalità di output per il sotto-agente.",
+    "param.response_mode.description": "Modalità di output per il s...",
     "param.response_schema.description": "Oggetto JSON Schema opzionale per la risposta attesa.",
-    "param.strict_output.description": "Tratta i campi richiesti mancanti o la mancata corrispondenza dello schema come errori."
+    "param.strict_output.description": "Tratta i campi richiesti mancanti o la mancata corrispon..."
   },
   "ja": {
     "param.agent_name.description": "実行する専門サブエージェントの名前。",
     "param.current_file.description": "（任意）サブエージェントの推論対象をこの特定のファイルに制限します。",
     "param.evidence_min_items.description": "必要なエビデンス項目の最小数。",
-    "param.evidence_required.description": "応答にエビデンス項目を必須とするかどうか。",
+    "param.evidence_required.description": "エビデンス必須。",
     "param.required_fields.description": "JSON応答で必須とするフィールドの一覧。",
     "param.response_mode.description": "サブエージェントの出力モード。",
     "param.response_schema.description": "期待される応答のオプションのJSONスキーマオブジェクト。",
@@ -453,7 +453,7 @@
     "param.agent_name.description": "Ажиллуулах тусгай дэд агентийн нэр.",
     "param.current_file.description": "(Нэмэлт) Дэд агентийн ажиллах хүрээг энэхүү тодорхой файлаар хязгаарлах.",
     "param.task.description": "Дэд агентаар шийдвэрлүүлэх тодорхой заавар эсвэл даалгавар.",
-    "tool.description": "Тодорхой даалгавруудыг шийдвэрлэж, бүтэцлэгдсэн үр дүнг буцаахын тулд үндсэн оркестраторын удирдлага дор тусгай, аюулгүй дэд агентийг (төлөвлөгч, хянагч эсвэл нэгтгэгч) ажиллуулна.",
+    "tool.description": "Тодорхой даалгавруудыг шийдвэрлэж, бүтэцлэгдсэн үр дүнг буцаахын тулд үндсэн оркестраторын удирдлага дор тусгай, аюулгүй дэд агентийг (төлөвлөгч, х...",
     "tool.system_prompt": "Даалгаврыг шийдвэрлэхийн тулд тусгай дэд агентийг ажиллуулна. Энэ дэд агент нь өөрчлөлт хийхгүй бөгөөд үр дүнг JSON хэлбэрээр буцаана.",
     "x_search_terms": [
       "sub-agent",
@@ -475,8 +475,8 @@
       "дебаг"
     ],
     "param.evidence_min_items.description": "Шаардлагатай нотлох баримтын хамгийн бага тоо.",
-    "param.evidence_required.description": "Хариунд нотлох баримтын зүйлсийг шаардах.",
-    "param.required_fields.description": "JSON хариу дахь шаардлагатай талбаруудын жагсаалт.",
+    "param.evidence_required.description": "Хариунд нотлох...",
+    "param.required_fields.description": "JSON хариу дахь шаардлагатай талбаруудын ж...",
     "param.response_mode.description": "Дэд агентын гаралтын горим.",
     "param.response_schema.description": "Хүлээгдэж буй хариунд зориулсан нэмэлт JSON Schema объект.",
     "param.strict_output.description": "Шаардлагатай талбар дутуу эсвэл схемийн зөрүүг алдаа гэж үзэх."
@@ -485,7 +485,7 @@
     "param.agent_name.description": "चालवण्यासाठी विशेष उप-एजंटचे (sub-agent) नाव.",
     "param.current_file.description": "(पर्यायी) उप-एजंटची विचार करण्याची मर्यादा या विशिष्ट फाईलपर्यंत मर्यादित करा.",
     "param.task.description": "उप-एजंटने प्रक्रिया करण्यासाठी विशिष्ट सूचना किंवा कार्य.",
-    "tool.description": "विशिष्ट कार्ये पार पाडण्यासाठी आणि संरचित परिणाम परत मिळवण्यासाठी मुख्य ऑर्केस्ट्रेटरच्या नियंत्रणाखाली एक विशेष, सुरक्षित उप-एजंट (नियोजक, समीक्षक किंवा सारांशकर्ता) चालवा.",
+    "tool.description": "विशिष्ट कार्ये पार पाडण्यासाठी आणि संरचित परिणाम परत मिळवण्यासाठी मुख्य ऑर्केस्ट्रेटरच्या नियंत्रणाखाली एक विशेष, सुरक्षित उप-एजंट (नियोजक, समीक्षक...",
     "tool.system_prompt": "कार्य पूर्ण करण्यासाठी एका विशेष उप-एजंटला चालवा. हा उप-एजंट विनाशकारी बदल करत नाही. तो JSON स्वरूपात संरचित माहिती परत करतो.",
     "x_search_terms": [
       "sub-agent",
@@ -507,17 +507,17 @@
       "डीबग"
     ],
     "param.evidence_min_items.description": "आवश्यक पुराव्यांच्या घटकांची किमान संख्या.",
-    "param.evidence_required.description": "प्रतिसादामध्ये पुराव्याचे घटक आवश्यक करा.",
+    "param.evidence_required.description": "प्रतिसादामध्ये...",
     "param.required_fields.description": "JSON प्रतिसादामधील आवश्यक फील्डची सूची.",
     "param.response_mode.description": "सब-एजंटसाठी आउटपुट मोड.",
     "param.response_schema.description": "अपेक्षित प्रतिसादासाठी पर्यायी JSON Schema ऑब्जेक्ट.",
     "param.strict_output.description": "गहाळ आवश्यक फील्ड किंवा स्कीमा विसंगती त्रुटी म्हणून समजा."
   },
   "nb": {
-    "param.agent_name.description": "Navnet på den spesialiserte underagenten som skal kjøres.",
-    "param.current_file.description": "(Valgfritt) Begrens underagentens resonneringsomfang til denne spesifikke filen.",
-    "param.task.description": "Spesifikk instruksjon eller oppgave som underagenten skal behandle.",
-    "tool.description": "Kjør en spesialisert, sikker underagent (planlegger, anmelder eller oppsummerer) under kontroll av overordnet orchestrator for å behandle spesifikke oppgaver og returnere strukturerte funn.",
+    "param.agent_name.description": "Navnet på den spesialiserte underagenten s...",
+    "param.current_file.description": "(Valgfritt) Begrens underagentens resonneringsomfang til denne spesi...",
+    "param.task.description": "Spesifikk instruksjon eller oppgave som underagenten...",
+    "tool.description": "Kjør en spesialisert, sikker underagent (planlegger, anmelder eller oppsummerer) under kontroll av overordnet orchestrator for å behandle spesifikk...",
     "tool.system_prompt": "Kjør en spesialisert underagent for å løse en oppgave. Denne underagenten gjør ikke destruktive endringer, og returnerer strukturerte innsikter som JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -539,17 +539,17 @@
       "feilsøking"
     ],
     "param.evidence_min_items.description": "Minimum antall påkrevde beviselementer.",
-    "param.evidence_required.description": "Krev beviselementer i svaret.",
+    "param.evidence_required.description": "Krev beviselem...",
     "param.required_fields.description": "Liste over påkrevde felt i JSON-svaret.",
     "param.response_mode.description": "Utdatamodus for underagenten.",
     "param.response_schema.description": "Valgfritt JSON-skjemaobjekt for det forventede svaret.",
-    "param.strict_output.description": "Behandle manglende påkrevde felt eller avvik i skjemaet som feil."
+    "param.strict_output.description": "Behandle manglende påkrevde felt eller avvik i skjemaet..."
   },
   "nl": {
-    "param.agent_name.description": "De naam van de gespecialiseerde sub-agent die moet worden uitgevoerd.",
-    "param.current_file.description": "(Optioneel) Beperk het redeneerbereik van de sub-agent tot dit specifieke bestand.",
+    "param.agent_name.description": "De naam van de gespecialiseerde sub-agent...",
+    "param.current_file.description": "(Optioneel) Beperk het redeneerbereik van de sub-agent tot dit speci...",
     "param.task.description": "Specifieke instructie/taak die de sub-agent moet verwerken.",
-    "tool.description": "Voer een gespecialiseerde, veilige sub-agent uit (planner, reviewer of samenvatter) onder controle van de hoofd-orchestrator om specifieke taken te verwerken en gestructureerde resultaten te retourneren.",
+    "tool.description": "Voer een gespecialiseerde, veilige sub-agent uit (planner, reviewer of samenvatter) onder controle van de hoofd-orchestrator om specifieke taken te...",
     "tool.system_prompt": "Voer een gespecialiseerde sub-agent uit om een taak op te lossen. Deze sub-agent brengt geen destructieve wijzigingen aan en retourneert gestructureerde inzichten als JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -571,17 +571,17 @@
       "foutopsporing"
     ],
     "param.evidence_min_items.description": "Minimaal aantal vereiste bewijsstukken.",
-    "param.evidence_required.description": "Vereis bewijsstukken in het antwoord.",
+    "param.evidence_required.description": "Vereis bewijss...",
     "param.required_fields.description": "Lijst met vereiste velden in het JSON-antwoord.",
     "param.response_mode.description": "Uitvoermodus voor de subagent.",
     "param.response_schema.description": "Optioneel JSON-schema-object voor het verwachte antwoord.",
-    "param.strict_output.description": "Ontbrekende vereiste velden of schema-afwijkingen als fouten behandelen."
+    "param.strict_output.description": "Ontbrekende vereiste velden of schema-afwijkingen als fo..."
   },
   "pl": {
-    "param.agent_name.description": "Nazwa wyspecjalizowanego podagenta do uruchomienia.",
+    "param.agent_name.description": "Nazwa wyspecjalizowanego podagenta do uruc...",
     "param.current_file.description": "(Opcjonalnie) Ogranicz zakres rozumowania podagenta do tego konkretnego pliku.",
-    "param.task.description": "Konkretna instrukcja lub zadanie do przetworzenia przez podagenta.",
-    "tool.description": "Uruchom wyspecjalizowanego, bezpiecznego podagenta (planistę, recenzenta lub podsumowującego) pod kontrolą głównego orchestratora, aby przetworzyć określone zadania i zwrócić ustrukturyzowane wyniki.",
+    "param.task.description": "Konkretna instrukcja lub zadanie do przetworzenia pr...",
+    "tool.description": "Uruchom wyspecjalizowanego, bezpiecznego podagenta (planistę, recenzenta lub podsumowującego) pod kontrolą głównego orchestratora, aby przetworzyć...",
     "tool.system_prompt": "Uruchom wyspecjalizowanego podagenta w celu rozwiązania zadania. Ten podagent nie dokonuje destrukcyjnych modyfikacji. Zwraca ustrukturyzowane wyniki jako JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -602,18 +602,18 @@
       "analiza błędów",
       "debugowanie"
     ],
-    "param.evidence_min_items.description": "Minimalna wymagana liczba elementów dowodowych.",
-    "param.evidence_required.description": "Wymagaj elementów dowodowych w odpowiedzi.",
+    "param.evidence_min_items.description": "Minimalna wymagana liczba elementów dow...",
+    "param.evidence_required.description": "Wymagaj elemen...",
     "param.required_fields.description": "Lista wymaganych pól w odpowiedzi JSON.",
     "param.response_mode.description": "Tryb wyjściowy dla podagenta.",
     "param.response_schema.description": "Opcjonalny obiekt JSON Schema dla oczekiwanej odpowiedzi.",
-    "param.strict_output.description": "Traktuj brakujące wymagane pola lub niezgodność schematu jako błędy."
+    "param.strict_output.description": "Traktuj brakujące wymagane pola lub niezgodność schematu..."
   },
   "pt": {
-    "param.agent_name.description": "O nome do subagente especializado a ser executado.",
-    "param.current_file.description": "(Opcional) Limitar o escopo de raciocínio do subagente a este arquivo específico.",
+    "param.agent_name.description": "O nome do subagente especializado a ser ex...",
+    "param.current_file.description": "(Opcional) Limitar o escopo de raciocínio do subagente a este arquiv...",
     "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
-    "tool.description": "Executa um subagente especializado e seguro (planejador, revisor ou resumidor) sob o controle do orquestrador pai para processar tarefas específicas e retornar descobertas estruturadas.",
+    "tool.description": "Executa um subagente especializado e seguro (planejador, revisor ou resumidor) sob o controle do orquestrador pai para processar tarefas específica...",
     "tool.system_prompt": "Execute um subagente especializado para resolver uma tarefa. Este subagente não faz modificações destrutivas e retorna insights estruturados como JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -635,17 +635,17 @@
       "depuração"
     ],
     "param.evidence_min_items.description": "Número mínimo de itens de prova necessários.",
-    "param.evidence_required.description": "Exigir itens de prova na resposta.",
+    "param.evidence_required.description": "Exigir itens d...",
     "param.required_fields.description": "Lista de campos obrigatórios na resposta JSON.",
     "param.response_mode.description": "Modo de saída para o subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
-    "param.strict_output.description": "Tratar campos obrigatórios em falta ou incompatibilidade de esquema como erros."
+    "param.strict_output.description": "Tratar campos obrigatórios em falta ou incompatibilidade..."
   },
   "pt_BR": {
-    "param.agent_name.description": "O nome do subagente especializado a ser executado.",
-    "param.current_file.description": "(Opcional) Limitar o escopo de raciocínio do subagente a este arquivo específico.",
+    "param.agent_name.description": "O nome do subagente especializado a ser ex...",
+    "param.current_file.description": "(Opcional) Limitar o escopo de raciocínio do subagente a este arquiv...",
     "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
-    "tool.description": "Executa um subagente especializado e seguro (planejador, revisor ou resumidor) sob o controle do orquestrador pai para processar tarefas específicas e retornar descobertas estruturadas.",
+    "tool.description": "Executa um subagente especializado e seguro (planejador, revisor ou resumidor) sob o controle do orquestrador pai para processar tarefas específica...",
     "tool.system_prompt": "Execute um subagente especializado para resolver uma tarefa. Este subagente não faz modificações destrutivas e retorna insights estruturados como JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -666,18 +666,18 @@
       "análise de erros",
       "depuração"
     ],
-    "param.evidence_min_items.description": "Número mínimo de itens de evidência necessários.",
-    "param.evidence_required.description": "Exigir itens de evidência na resposta.",
+    "param.evidence_min_items.description": "Número mínimo de itens de evidência nec...",
+    "param.evidence_required.description": "Exigir itens d...",
     "param.required_fields.description": "Lista de campos obrigatórios na resposta JSON.",
     "param.response_mode.description": "Modo de saída para o subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
-    "param.strict_output.description": "Tratar campos obrigatórios ausentes ou incompatibilidade de esquema como erros."
+    "param.strict_output.description": "Tratar campos obrigatórios ausentes ou incompatibilidade..."
   },
   "ru": {
     "param.agent_name.description": "Имя специализированного суб-агента для запуска.",
-    "param.current_file.description": "(Необязательно) Ограничить область рассуждений суб-агента этим конкретным файлом.",
+    "param.current_file.description": "(Необязательно) Ограничить область рассуждений суб-агента этим конкр...",
     "param.task.description": "Конкретная инструкция или задача для обработки суб-агентом.",
-    "tool.description": "Запуск специализированного безопасного суб-агента (планировщика, рецензента или суммаризатора) под управлением основного оркестратора для выполнения конкретных задач и возврата структурированных результатов.",
+    "tool.description": "Запуск специализированного безопасного суб-агента (планировщика, рецензента или суммаризатора) под управлением основного оркестратора для выполнени...",
     "tool.system_prompt": "Запустите специализированного суб-агента для решения задачи. Этот суб-агент не вносит деструктивных изменений. Он возвращает структурированные выводы в формате JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -699,18 +699,18 @@
       "отладка",
       "дебаг"
     ],
-    "param.evidence_min_items.description": "Минимальное количество требуемых элементов подтверждения.",
-    "param.evidence_required.description": "Требовать элементы подтверждения в ответе.",
+    "param.evidence_min_items.description": "Минимальное количество требуемых элемен...",
+    "param.evidence_required.description": "Требовать элем...",
     "param.required_fields.description": "Список обязательных полей в ответе JSON.",
     "param.response_mode.description": "Режим вывода для субагента.",
     "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
-    "param.strict_output.description": "Считать отсутствие обязательных полей или несоответствие схемы ошибками."
+    "param.strict_output.description": "Считать отсутствие обязательных полей или несоответствие..."
   },
   "sv": {
-    "param.agent_name.description": "Namnet på den specialiserade underagenten som ska köras.",
+    "param.agent_name.description": "Namnet på den specialiserade underagenten...",
     "param.current_file.description": "(Valfritt) Begränsa underagentens resonemang till denna specifika fil.",
-    "param.task.description": "Specifik instruktion eller uppgift för underagenten att bearbeta.",
-    "tool.description": "Kör en specialiserad, säker underagent (planerare, granskare eller sammanfattare) under kontroll av huvudorkestratorn för att bearbeta specifika uppgifter och returnera strukturerade resultat.",
+    "param.task.description": "Specifik instruktion eller uppgift för underagenten...",
+    "tool.description": "Kör en specialiserad, säker underagent (planerare, granskare eller sammanfattare) under kontroll av huvudorkestratorn för att bearbeta specifika up...",
     "tool.system_prompt": "Kör en specialiserad underagent för att lösa en uppgift. Denna underagent gör inga destruktiva ändringar och returnerar strukturerade insikter som JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -732,17 +732,17 @@
       "felsökning"
     ],
     "param.evidence_min_items.description": "Minsta antal bevisobjekt som krävs.",
-    "param.evidence_required.description": "Kräv bevisobjekt i svaret.",
+    "param.evidence_required.description": "Kräv bevisobje...",
     "param.required_fields.description": "Lista över obligatoriska fält i JSON-svaret.",
     "param.response_mode.description": "Utdataläge för underagenten.",
     "param.response_schema.description": "Valfritt JSON-schemaobjekt för det förväntade svaret.",
-    "param.strict_output.description": "Behandla saknade obligatoriska fält eller schemaavvikelelser som fel."
+    "param.strict_output.description": "Behandla saknade obligatoriska fält eller schemaavvikele..."
   },
   "sw": {
     "param.agent_name.description": "Jina la ejenti msaidizi maalum wa kumendesha.",
     "param.current_file.description": "(Hiari) Punguza wigo wa kufikiri wa ejenti msaidizi kwenye faili hii maalum.",
-    "param.task.description": "Maagizo au kazi maalum kwa ajili ya ejenti msaidizi kushughulikia.",
-    "tool.description": "Endesha ejenti msaidizi maalum na salama (mpangaji, mkaguzi, au muhtasari) chini ya udhibiti wa orchestrator mkuu ili kushughulikia kazi maalum na kurudisha matokeo yaliyoundwa.",
+    "param.task.description": "Maagizo au kazi maalum kwa ajili ya ejenti msaidizi...",
+    "tool.description": "Endesha ejenti msaidizi maalum na salama (mpangaji, mkaguzi, au muhtasari) chini ya udhibiti wa orchestrator mkuu ili kushughulikia kazi maalum na...",
     "tool.system_prompt": "Endesha ejenti msaidizi maalum ili kutatua kazi. Ejenti msaidizi huyu hafanyi mabadiliko ya uharibifu na kurudisha matokeo kama JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -763,18 +763,18 @@
       "uchambuzi wa makosa",
       "utatuzi"
     ],
-    "param.evidence_min_items.description": "Idadi ya chini kabisa ya vipengele vya ushahidi vinavyohitajika.",
-    "param.evidence_required.description": "Hitaji vipengele vya ushahidi katika jibu.",
-    "param.required_fields.description": "Orodha ya sehemu zinazohitajika katika jibu la JSON.",
-    "param.response_mode.description": "Hali ya kutoa matokeo kwa ajili ya wakala mdogo.",
-    "param.response_schema.description": "Kitu cha hiari cha JSON Schema kwa ajili ya jibu linalotarajiwa.",
-    "param.strict_output.description": "Chukulia sehemu zinazohitajika zilizokosekana au kutolingana kwa muundo kama makosa."
+    "param.evidence_min_items.description": "Idadi ya chini kabisa ya vipengele vya...",
+    "param.evidence_required.description": "Hitaji vipenge...",
+    "param.required_fields.description": "Orodha ya sehemu zinazohitajika katika jib...",
+    "param.response_mode.description": "Hali ya kutoa matokeo kwa a...",
+    "param.response_schema.description": "Kitu cha hiari cha JSON Schema kwa ajili ya jibu li...",
+    "param.strict_output.description": "Chukulia sehemu zinazohitajika zilizokosekana au kutolin..."
   },
   "th": {
     "param.agent_name.description": "ชื่อของซับเอเจนต์ (sub-agent) เฉพาะทางที่จะรัน",
     "param.current_file.description": "(ไม่บังคับ) จำกัดขอบเขตการคิดของซับเอเจนต์ไว้ที่ไฟล์เฉพาะนี้",
     "param.task.description": "คำสั่งหรือภารกิจเฉพาะเจาะจงเพื่อให้ซับเอเจนต์ประมวลผล",
-    "tool.description": "รันซับเอเจนต์เฉพาะทางที่มีความปลอดภัย (ผู้วางแผน, ผู้ตรวจทาน หรือผู้สรุปความ) ภายใต้การควบคุมของออเคสเตรเตอร์หลักเพื่อประมวลผลภารกิจเฉพาะและส่งคืนผลลัพธ์ที่เป็นโครงสร้าง",
+    "tool.description": "รันซับเอเจนต์เฉพาะทางที่มีความปลอดภัย (ผู้วางแผน, ผู้ตรวจทาน หรือผู้สรุปความ) ภายใต้การควบคุมของออเคสเตรเตอร์หลักเพื่อประมวลผลภารกิจเฉพาะและส่งคืนผ...",
     "tool.system_prompt": "รันซับเอเจนต์เฉพาะทางเพื่อแก้ปัญหาภารกิจ ซับเอเจนต์นี้จะไม่ทำการแก้ไขใดๆ ที่เป็นอันตราย และจะส่งคืนผลลัพธ์ในรูปแบบ JSON ที่มีโครงสร้างชัดเจน",
     "x_search_terms": [
       "sub-agent",
@@ -796,17 +796,17 @@
       "ดีบัก"
     ],
     "param.evidence_min_items.description": "จำนวนขั้นต่ำของรายการหลักฐานที่ต้องการ",
-    "param.evidence_required.description": "กำหนดให้มีรายการหลักฐานในการตอบกลับ",
+    "param.evidence_required.description": "กำหนดให้มีรายก...",
     "param.required_fields.description": "รายการฟิลด์ที่จำเป็นในการตอบกลับแบบ JSON",
     "param.response_mode.description": "โหมดเอาต์พุตสำหรับซับเอเจนต์",
     "param.response_schema.description": "อ็อบเจกต์ JSON Schema ทางเลือกสำหรับการตอบกลับที่คาดหวัง",
-    "param.strict_output.description": "จัดการกรณีที่ฟิลด์ที่จำเป็นขาดหายไปหรือสกีมาไม่ตรงกันเป็นข้อผิดพลาด"
+    "param.strict_output.description": "จัดการกรณีที่ฟิลด์ที่จำเป็นขาดหายไปหรือสกีมาไม่ตรงกันเป็..."
   },
   "tr": {
-    "param.agent_name.description": "Çalıştırılacak özel alt temsilcinin (sub-agent) adı.",
-    "param.current_file.description": "(İsteğe bağlı) Alt temsilcinin akıl yürütme kapsamını bu belirli dosyayla sınırlandırın.",
+    "param.agent_name.description": "Çalıştırılacak özel alt temsilcinin (sub-a...",
+    "param.current_file.description": "(İsteğe bağlı) Alt temsilcinin akıl yürütme kapsamını bu belirli dos...",
     "param.task.description": "Alt temsilcinin işlemesi için belirli talimat veya görev.",
-    "tool.description": "Belirli görevleri işlemek ve yapılandırılmış bulguları geri döndürmek için ana düzenleyicinin kontrolü altında özel, güvenli bir alt temsilci (planlayıcı, denetçi veya özetleyici) çalıştırın.",
+    "tool.description": "Belirli görevleri işlemek ve yapılandırılmış bulguları geri döndürmek için ana düzenleyicinin kontrolü altında özel, güvenli bir alt temsilci (plan...",
     "tool.system_prompt": "Bir görevi çözmek için özel bir alt temsilci çalıştırın. Bu alt temsilci yıkıcı değişiklikler yapmaz ve yapılandırılmış bulguları JSON olarak döndürür.",
     "x_search_terms": [
       "sub-agent",
@@ -828,17 +828,17 @@
       "hata ayıklama"
     ],
     "param.evidence_min_items.description": "Gerekli minimum kanıt öğesi sayısı.",
-    "param.evidence_required.description": "Yanıtta kanıt öğelerini zorunlu kıl.",
+    "param.evidence_required.description": "Yanıtta kanıt...",
     "param.required_fields.description": "JSON yanıtındaki zorunlu alanların listesi.",
     "param.response_mode.description": "Alt aracı için çıktı modu.",
     "param.response_schema.description": "Beklenen yanıt için isteğe bağlı JSON Şeması nesnesi.",
-    "param.strict_output.description": "Eksik zorunlu alanları veya şema uyumsuzluğunu hata olarak değerlendir."
+    "param.strict_output.description": "Eksik zorunlu alanları veya şema uyumsuzluğunu hata olar..."
   },
   "uk": {
     "param.agent_name.description": "Ім'я спеціалізованого суб-агента для запуску.",
     "param.current_file.description": "(Необов'язково) Обмежити область міркувань суб-агента цим конкретним файлом.",
     "param.task.description": "Конкретна інструкція або завдання для обробки суб-агентом.",
-    "tool.description": "Запуск спеціалізованого безпечного суб-агента (планувальника, рецензента або сумаризатора) під управлінням головного оркестратора для виконання конкретних завдань і повернення структурованих результатів.",
+    "tool.description": "Запуск спеціалізованого безпечного суб-агента (планувальника, рецензента або сумаризатора) під управлінням головного оркестратора для виконання кон...",
     "tool.system_prompt": "Запустіть спеціалізованого суб-агента для вирішення завдання. Цей суб-агент не вносить деструктивних змін і повертає структуровані висновки у форматі JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -859,18 +859,18 @@
       "аналіз помилок",
       "налагодження"
     ],
-    "param.evidence_min_items.description": "Мінімальна кількість необхідних елементів підтвердження.",
-    "param.evidence_required.description": "Вимагати елементи підтвердження у відповіді.",
+    "param.evidence_min_items.description": "Мінімальна кількість необхідних елемент...",
+    "param.evidence_required.description": "Вимагати елеме...",
     "param.required_fields.description": "Список обов'язкових полей у відповіді JSON.",
     "param.response_mode.description": "Режим виведення для субагента.",
     "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
-    "param.strict_output.description": "Вважати відсутність обов'язкових полів або невідповідність схеми помилками."
+    "param.strict_output.description": "Вважати відсутність обов'язкових полів або невідповідніс..."
   },
   "vi": {
     "param.agent_name.description": "Tên của sub-agent chuyên biệt cần chạy.",
     "param.current_file.description": "(Tùy chọn) Giới hạn phạm vi lập luận của sub-agent trong tệp cụ thể này.",
     "param.task.description": "Hướng dẫn hoặc nhiệm vụ cụ thể để sub-agent xử lý.",
-    "tool.description": "Chạy một sub-agent chuyên biệt và an toàn (lập kế hoạch, đánh giá hoặc tóm tắt) dưới sự kiểm soát của điều phối viên chính để xử lý các nhiệm vụ cụ thể và trả về kết quả có cấu trúc.",
+    "tool.description": "Chạy một sub-agent chuyên biệt và an toàn (lập kế hoạch, đánh giá hoặc tóm tắt) dưới sự kiểm soát của điều phối viên chính để xử lý các nhiệm vụ cụ...",
     "tool.system_prompt": "Chạy một sub-agent chuyên biệt để giải quyết nhiệm vụ. Sub-agent này không thực hiện các sửa đổi phá hủy và trả về kết quả có cấu trúc dưới dạng JSON.",
     "x_search_terms": [
       "sub-agent",
@@ -891,9 +891,9 @@
       "phân tích lỗi",
       "gỡ lỗi"
     ],
-    "param.evidence_min_items.description": "Số lượng mục bằng chứng tối thiểu được yêu cầu.",
-    "param.evidence_required.description": "Yêu cầu các mục bằng chứng trong phản hồi.",
-    "param.required_fields.description": "Danh sách các trường bắt buộc trong phản hồi JSON.",
+    "param.evidence_min_items.description": "Số lượng mục bằng chứng tối thiểu được...",
+    "param.evidence_required.description": "Yêu cầu các mụ...",
+    "param.required_fields.description": "Danh sách các trường bắt buộc trong phản h...",
     "param.response_mode.description": "Chế độ đầu ra cho tác nhân phụ.",
     "param.response_schema.description": "Đối tượng JSON Schema tùy chọn cho phản hồi mong đợi.",
     "param.strict_output.description": "Coi các trường bắt buộc bị thiếu hoặc không khớp lược đồ là lỗi."
