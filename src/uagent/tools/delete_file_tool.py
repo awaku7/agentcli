@@ -61,11 +61,11 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Path to delete, or a list of paths/glob patterns to delete.",
                     ),
                 },
-                "missing_ok": {
+                "skip": {
                     "type": "boolean",
                     "default": False,
                     "description": _(
-                        "param.missing_ok.description",
+                        "param.skip.description",
                         default="If true, do not error when the path does not exist.",
                     ),
                 },
@@ -154,7 +154,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if raw_input is None:
         raw_input = args.get("path")
 
-    missing_ok_raw = args.get("missing_ok", False)
+    missing_ok_raw = args.get("skip", False)
     dry_run_is_set = "dry_run" in args
     dry_run_raw = args.get("dry_run", None)
     allow_dir_raw = args.get("allow_dir", True)

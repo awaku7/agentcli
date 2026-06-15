@@ -70,19 +70,19 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "device_name": {
+                "devname": {
                     "type": "string",
                     "description": _(
-                        "param.device_name.description",
+                        "param.devname.description",
                         default=(
                             "Device name filter."
                         ),
                     ),
                 },
-                "mac_address": {
+                "mac": {
                     "type": "string",
                     "description": _(
-                        "param.mac_address.description",
+                        "param.mac.description",
                         default="MAC address filter.",
                     ),
                 },
@@ -412,8 +412,8 @@ def _format_text(result: dict[str, Any]) -> str:
         _(
             "msg.summary",
             default="SwitchBot BLE status fetched: {device_name} ({device_id}).",
-            device_name=device.get("device_name") or device.get("name") or "(unknown)",
-            device_id=device.get("device_id") or device.get("address") or "(unknown)",
+            device_name=device.get("devname") or device.get("name") or "(unknown)",
+            device_id=device.get("dev") or device.get("address") or "(unknown)",
         ),
         f"Address: {device.get('address') or '-'}",
         f"RSSI: {device.get('rssi')}",
@@ -438,8 +438,8 @@ def _format_text(result: dict[str, Any]) -> str:
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").lower()
     interface = args.get("interface")
-    device_name = args.get("device_name")
-    mac_address = args.get("mac_address")
+    device_name = args.get("devname")
+    mac_address = args.get("mac")
     service_uuid = args.get("service_uuid")
 
     try:
@@ -537,8 +537,8 @@ def run_tool(args: dict[str, Any]) -> str:
         result = {
             "ok": True,
             "device": {
-                "device_id": device.get("address"),
-                "device_name": device.get("name"),
+                "dev": device.get("address"),
+                "devname": device.get("name"),
                 "device_type": device.get("device_type"),
                 "hub_id": None,
                 "online": True,

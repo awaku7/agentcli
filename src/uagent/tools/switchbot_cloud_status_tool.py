@@ -37,17 +37,17 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "device_id": {
+                "dev": {
                     "type": "string",
                     "description": _(
-                        "param.device_id.description",
+                        "param.dev.description",
                         default="Device ID (preferred).",
                     ),
                 },
-                "device_name": {
+                "devname": {
                     "type": "string",
                     "description": _(
-                        "param.device_name.description",
+                        "param.devname.description",
                         default="Device name (fallback).",
                     ),
                 },
@@ -200,8 +200,8 @@ def _device_sections(body: dict[str, Any]) -> list[tuple[str, list[dict[str, Any
 
 def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
     return {
-        "device_id": item.get("deviceId") or item.get("device_id"),
-        "device_name": item.get("deviceName") or item.get("device_name"),
+        "dev": item.get("deviceId") or item.get("dev"),
+        "devname": item.get("deviceName") or item.get("devname"),
         "device_type": item.get("deviceType") or item.get("device_type") or source,
         "hub_id": item.get("hubDeviceId") or item.get("hub_id"),
         "room_id": item.get("roomId") or item.get("room_id"),
@@ -224,7 +224,7 @@ def _normalize_status_item(item: dict[str, Any]) -> dict[str, Any]:
         "battery": item.get("battery"),
         "position": item.get("position"),
         "light_level": item.get("lightLevel") or item.get("light_level"),
-        "fan_speed": item.get("fanSpeed") or item.get("fan_speed"),
+        "fan": item.get("fanSpeed") or item.get("fan"),
         "lock_state": item.get("lockState") or item.get("lock_state"),
         "child_lock": item.get("childLock") or item.get("child_lock"),
         "raw": item,
@@ -248,7 +248,7 @@ def _find_device(
     if device_id:
         target = device_id.casefold()
         for item in items:
-            candidate = str(item.get("device_id") or "").casefold()
+            candidate = str(item.get("dev") or "").casefold()
             if candidate == target:
                 return item, None
         return None, {
@@ -264,7 +264,7 @@ def _find_device(
     exact = [
         item
         for item in items
-        if str(item.get("device_name") or "").casefold() == device_name.casefold()
+        if str(item.get("devname") or "").casefold() == device_name.casefold()
     ]
     if len(exact) == 1:
         return exact[0], None
@@ -281,7 +281,7 @@ def _find_device(
     partial = [
         item
         for item in items
-        if device_name.casefold() in str(item.get("device_name") or "").casefold()
+        if device_name.casefold() in str(item.get("devname") or "").casefold()
     ]
     if len(partial) == 1:
         return partial[0], None
@@ -317,8 +317,8 @@ def _format_text(result: dict[str, Any]) -> str:
         _(
             "msg.summary",
             default="SwitchBot Cloud status fetched: {device_name} ({device_id}).",
-            device_name=device.get("device_name") or "(unknown)",
-            device_id=device.get("device_id") or "(unknown)",
+            device_name=device.get("devname") or "(unknown)",
+            device_id=device.get("dev") or "(unknown)",
         ),
         f"Type: {device.get('device_type') or '(unknown)'}",
         f"Online: {device.get('online')}",
@@ -361,8 +361,8 @@ def _fetch_device_status(device_id: str) -> dict[str, Any]:
 
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").lower()
-    device_id = args.get("device_id")
-    device_name = args.get("device_name")
+    device_id = args.get("dev")
+    device_name = args.get("devname")
 
     devices_response = _fetch_devices()
     if not devices_response.get("ok"):
@@ -384,7 +384,7 @@ def run_tool(args: dict[str, Any]) -> str:
         )
     assert selected is not None
 
-    status_response = _fetch_device_status(str(selected.get("device_id") or ""))
+    status_response = _fetch_device_status(str(selected.get("dev") or ""))
     if not status_response.get("ok"):
         payload = status_response
         return (

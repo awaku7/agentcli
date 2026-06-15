@@ -58,10 +58,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Target device MAC address (Windows/Linux) or UUID (macOS)",
                     ),
                 },
-                "char_uuid": {
+                "uuid": {
                     "type": "string",
                     "description": _(
-                        "param.char_uuid.description",
+                        "param.uuid.description",
                         default="Char UUID.",
                     ),
                 },
@@ -167,7 +167,7 @@ def run_tool(args: dict[str, Any]) -> str:
     timeout = args.get("timeout", 5)
     scan_mode = args.get("scan_mode", "ble")
     address = args.get("address")
-    char_uuid = args.get("char_uuid")
+    char_uuid = args.get("uuid")
     data_hex = args.get("data_hex")
 
     # 1. Check dependency

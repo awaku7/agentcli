@@ -122,10 +122,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Directory to save images (relative or absolute). Defaults to outputs/image_generations if omitted.",
                     ),
                 },
-                "file_prefix": {
+                "prefix": {
                     "type": "string",
                     "description": _(
-                        "param.file_prefix.description",
+                        "param.prefix.description",
                         default="Prefix for the saved filename (optional).",
                     ),
                     "default": "img",
@@ -611,7 +611,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     default_output_dir = str(get_image_generations_dir())
     output_dir = str(args.get("output_dir") or default_output_dir)
-    file_prefix = str(args.get("file_prefix") or "img")
+    file_prefix = str(args.get("prefix") or "img")
     provider = _get_provider()
     try:
         image_model = _get_image_depname(cb.get_env, provider)

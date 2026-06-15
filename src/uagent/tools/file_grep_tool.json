@@ -7,12 +7,9 @@
     "param.context_lines.description": "Number of lines of leading and trailing context for each match.",
     "param.filenames_only.description": "If enabled, return only the list of filenames with matches.",
     "param.ignore_case.description": "Whether to ignore case (default: true).",
-    "param.max_results.description": "Maximum number of match lines to return (default: 100).",
-    "param.name_pattern.description": "Glob pattern for filenames (e.g., '*.py').",
     "param.path.description": "Root directory or specific file path (default: '.').",
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.pattern.description": "Regex pattern to search for.",
-    "param.recursive.description": "Whether to search subdirectories recursively.",
     "tool.description": "Search for a pattern in files and return matching lines with line numbers (like grep -n). Pattern is required.",
     "x_search_terms": [
       "grep",
@@ -23,7 +20,10 @@
       "rechercher dans les fichiers",
       "파일 검색",
       "поиск в файлах"
-    ]
+    ],
+    "param.limit.description": "Maximum number of match lines to return (default: 100).",
+    "param.glob.description": "Glob pattern for filenames (e.g., '*.py').",
+    "param.recur.description": "Whether to search subdirectories recursively."
   },
   "ja": {
     "err.exception": "grep 操作中に例外が発生しました。",
@@ -33,19 +33,19 @@
     "param.context_lines.description": "各一致箇所の前後の文脈行数です。",
     "param.filenames_only.description": "有効にすると、一致したファイル名の一覧のみを返します。",
     "param.ignore_case.description": "大文字小文字を区別しないかどうか（既定: true）。",
-    "param.max_results.description": "返却する一致行の最大数（既定: 100）。",
-    "param.name_pattern.description": "ファイル名の glob パターン（例: '*.py'）。",
     "param.path.description": "ルートディレクトリまたは特定のファイルパス（既定: '.'）。",
     "param.page.description": "取得するページ番号（既定: 1）。",
     "param.pattern.description": "検索する正規表現パターン。",
-    "param.recursive.description": "サブディレクトリを再帰的に検索するかどうか。",
     "tool.description": "ファイル内のパターンを検索し、行番号付きの一致行を返します（grep -n 相当）。pattern は必須です。",
     "x_search_terms": [
       "file_grep",
       "file grep",
       "grep 検索",
       "行抽出"
-    ]
+    ],
+    "param.limit.description": "返却する一致行の最大数（既定: 100）。",
+    "param.glob.description": "ファイル名の glob パターン（例: '*.py'）。",
+    "param.recur.description": "サブディレクトリを再帰的に検索するかどうか。"
   },
   "es": {
     "err.exception": "Se produjo una excepción durante las operaciones de grep.",
@@ -55,11 +55,8 @@
     "param.context_lines.description": "Número de líneas de contexto antes y después de cada coincidencia.",
     "param.filenames_only.description": "Si está activado, devuelve solo la lista de nombres de a...",
     "param.ignore_case.description": "Si se debe ignorar mayúsculas y minú...",
-    "param.max_results.description": "Número máximo de líneas coincidentes que se devolverán (p...",
-    "param.name_pattern.description": "Patrón glob para nombres de archivo (por ejemplo, '*.py').",
     "param.path.description": "Directorio raíz o ruta de archivo específica (predeterminado: '.').",
     "param.pattern.description": "Patrón de expresión regul...",
-    "param.recursive.description": "Si se debe buscar recursivamente en subdir...",
     "tool.description": "Busque un patrón en los archivos y devuelva las líneas coincidentes con números de línea (como grep -n).",
     "x_search_terms": [
       "file_grep",
@@ -67,7 +64,10 @@
       "buscar patrón",
       "líneas"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Número máximo de líneas coincidentes que se devolverán (p...",
+    "param.glob.description": "Patrón glob para nombres de archivo (por ejemplo, '*.py').",
+    "param.recur.description": "Si se debe buscar recursivamente en subdir..."
   },
   "fr": {
     "err.exception": "Une exception s'est produite lors des opérations grep.",
@@ -77,11 +77,8 @@
     "param.context_lines.description": "Nombre de lignes de contexte avant et après chaque correspondance.",
     "param.filenames_only.description": "Si activé, renvoie uniquement la liste des noms de fichi...",
     "param.ignore_case.description": "Si la casse doit être ignorée (par d...",
-    "param.max_results.description": "Nombre maximal de lignes de correspondance à renvoyer (pa...",
-    "param.name_pattern.description": "Motif glob pour les noms de fichiers (ex. '*.py').",
     "param.path.description": "Répertoire racine ou chemin de fichier spécifique (par défaut : '.').",
     "param.pattern.description": "Motif regex à rechercher.",
-    "param.recursive.description": "Si la recherche doit être effectuée récurs...",
     "tool.description": "Recherchez un motif dans des fichiers et renvoyez les lignes correspondantes avec leurs numéros de ligne (c...",
     "x_search_terms": [
       "file_grep",
@@ -89,7 +86,10 @@
       "chercher motif",
       "lignes"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Nombre maximal de lignes de correspondance à renvoyer (pa...",
+    "param.glob.description": "Motif glob pour les noms de fichiers (ex. '*.py').",
+    "param.recur.description": "Si la recherche doit être effectuée récurs..."
   },
   "ko": {
     "err.exception": "grep 작업 중 예외가 발생했습니다.",
@@ -99,11 +99,8 @@
     "param.context_lines.description": "각 일치 항목의 앞뒤 문맥 줄 수입니다.",
     "param.filenames_only.description": "활성화하면 일치하는 파일 이름 목록만 반환합니다.",
     "param.ignore_case.description": "대소문자를 무시할지 여부입니다(기본값: true).",
-    "param.max_results.description": "반환할 최대 일치 행 수입니다(기본값: 100).",
-    "param.name_pattern.description": "파일 이름에 대한 Glob 패턴(예: '*.py').",
     "param.path.description": "루트 디렉터리 또는 특정 파일 경로(기본값: '.').",
     "param.pattern.description": "검색할 정규식 패턴입니다.",
-    "param.recursive.description": "하위 디렉터리를 재귀적으로 검색할지 여부입니다.",
     "tool.description": "파일에서 패턴을 검색하고 행 번호가 포함된 일치 행을 반환합니다(grep -n과 유사). pattern은 필수입니다.",
     "x_search_terms": [
       "file_grep",
@@ -111,7 +108,10 @@
       "패턴 검색",
       "행 추출"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "반환할 최대 일치 행 수입니다(기본값: 100).",
+    "param.glob.description": "파일 이름에 대한 Glob 패턴(예: '*.py').",
+    "param.recur.description": "하위 디렉터리를 재귀적으로 검색할지 여부입니다."
   },
   "de": {
     "err.exception": "Beim Grep-Vorgang ist eine Ausnahme aufgetreten.",
@@ -121,11 +121,8 @@
     "param.context_lines.description": "Anzahl der Zeilen Kontext vor und nach jeder Übereinstimmung.",
     "param.filenames_only.description": "Wenn aktiviert, wird nur die Liste der Dateinamen mit Tr...",
     "param.ignore_case.description": "Ob die Groß-/Kleinschreibung ignorie...",
-    "param.max_results.description": "Maximale Anzahl der zurückzugebenden Trefferzeilen (Stand...",
-    "param.name_pattern.description": "Glob-Muster für Dateinamen (z. B. '*.py').",
     "param.path.description": "Stammverzeichnis oder bestimmter Dateipfad (Standard: '.').",
     "param.pattern.description": "Regex-Muster, nach dem ge...",
-    "param.recursive.description": "Ob Unterverzeichnisse rekursiv durchsucht...",
     "tool.description": "Sucht in Dateien nach einem Muster und gibt passende Zeilen mit Zeilennummern zurück (wie grep -n).",
     "x_search_terms": [
       "file_grep",
@@ -133,7 +130,10 @@
       "muster suchen",
       "zeilen"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Trefferzeilen (Stand...",
+    "param.glob.description": "Glob-Muster für Dateinamen (z. B. '*.py').",
+    "param.recur.description": "Ob Unterverzeichnisse rekursiv durchsucht..."
   },
   "it": {
     "err.exception": "Si è verificata un'eccezione durante le operazioni grep.",
@@ -143,11 +143,8 @@
     "param.context_lines.description": "Numero di righe di contesto precedente e successivo per ogni...",
     "param.filenames_only.description": "Se abilitato, restituisce solo l'elenco dei nomi dei fil...",
     "param.ignore_case.description": "Se ignorare le maiuscole/minuscole (...",
-    "param.max_results.description": "Numero massimo di righe corrispondenti da restituire (pre...",
-    "param.name_pattern.description": "Pattern glob per i nomi dei file (es. '*.py').",
     "param.path.description": "Directory principale o percorso file specifico (predefinito: '.').",
     "param.pattern.description": "Pattern regex da cercare.",
-    "param.recursive.description": "Se cercare ricorsivamente nelle sottodirectory.",
     "tool.description": "Cerca un pattern nei file e restituisce le righe corrispondenti con i numeri di riga (come grep -n).",
     "x_search_terms": [
       "file_grep",
@@ -155,7 +152,10 @@
       "cerca pattern",
       "righe"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Numero massimo di righe corrispondenti da restituire (pre...",
+    "param.glob.description": "Pattern glob per i nomi dei file (es. '*.py').",
+    "param.recur.description": "Se cercare ricorsivamente nelle sottodirectory."
   },
   "ru": {
     "err.exception": "Во время операций grep произошло исключение.",
@@ -165,11 +165,8 @@
     "param.context_lines.description": "Количество строк контекста до и после каждого совпадения.",
     "param.filenames_only.description": "Если включено, возвращать только список имен файлов с со...",
     "param.ignore_case.description": "Игнорировать ли регистр (по умолчани...",
-    "param.max_results.description": "Максимальное количество возвращаемых строк совпадений (по...",
-    "param.name_pattern.description": "Glob-шаблон для имен файлов (например, '*.py').",
     "param.path.description": "Корневой каталог или конкретный путь к файлу (по умолчанию: '.').",
     "param.pattern.description": "Регулярное выражение для...",
-    "param.recursive.description": "Нужно ли искать в подкаталогах рекурсивно.",
     "tool.description": "Ищите шаблон в файлах и возвращайте совпадающие строки с номерами строк (как grep -n). Шаблон обязателен.",
     "x_search_terms": [
       "file_grep",
@@ -177,7 +174,10 @@
       "поиск шаблона",
       "строки"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Максимальное количество возвращаемых строк совпадений (по...",
+    "param.glob.description": "Glob-шаблон для имен файлов (например, '*.py').",
+    "param.recur.description": "Нужно ли искать в подкаталогах рекурсивно."
   },
   "pt_BR": {
     "err.exception": "Ocorreu uma exceção durante as operações de grep.",
@@ -187,11 +187,8 @@
     "param.context_lines.description": "Número de linhas de contexto antes e depois de cada correspondência.",
     "param.filenames_only.description": "Se ativado, retorne apenas a lista de nomes de arquivos...",
     "param.ignore_case.description": "Se deve ignorar maiúsculas e minúscu...",
-    "param.max_results.description": "Número máximo de linhas de correspondência a retornar (pa...",
-    "param.name_pattern.description": "Padrão glob para nomes de arquivos (ex.: '*.py').",
     "param.path.description": "Diretório raiz ou caminho de arquivo específico (padrão: '.').",
     "param.pattern.description": "Padrão regex para pesquisar.",
-    "param.recursive.description": "Se deve pesquisar subdiretórios recursivamente.",
     "tool.description": "Procure um padrão nos arquivos e retorne as linhas correspondentes com números de linha (como grep -n).",
     "x_search_terms": [
       "file_grep",
@@ -199,7 +196,10 @@
       "buscar padrão",
       "linhas"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Número máximo de linhas de correspondência a retornar (pa...",
+    "param.glob.description": "Padrão glob para nomes de arquivos (ex.: '*.py').",
+    "param.recur.description": "Se deve pesquisar subdiretórios recursivamente."
   },
   "pt": {
     "err.exception": "Ocorreu uma exceção durante operações grep.",
@@ -209,11 +209,8 @@
     "param.context_lines.description": "Número de linhas de contexto inicial e final para cada corre...",
     "param.filenames_only.description": "Se habilitado, retorne apenas a lista de nomes de arquiv...",
     "param.ignore_case.description": "Se deve ignorar maiúsculas e minúscu...",
-    "param.max_results.description": "Número máximo de linhas de correspondência a serem retorn...",
-    "param.name_pattern.description": "Padrão glob para nomes de arquivos (por exemplo, '*.py').",
     "param.path.description": "Diretório raiz ou caminho de arquivo específico (padrão: '.').",
     "param.pattern.description": "Padrão Regex a ser pesquisado.",
-    "param.recursive.description": "Se deve pesquisar subdiretórios recursivamente.",
     "tool.description": "Procure um padrão nos arquivos e retorne linhas correspondentes com números de linha (como grep -n).",
     "x_search_terms": [
       "file_grep",
@@ -221,7 +218,10 @@
       "buscar padrão",
       "linhas"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Número máximo de linhas de correspondência a serem retorn...",
+    "param.glob.description": "Padrão glob para nomes de arquivos (por exemplo, '*.py').",
+    "param.recur.description": "Se deve pesquisar subdiretórios recursivamente."
   },
   "id": {
     "err.exception": "Terjadi pengecualian saat operasi grep.",
@@ -231,11 +231,8 @@
     "param.context_lines.description": "Jumlah baris konteks sebelum dan sesudah setiap kecocokan.",
     "param.filenames_only.description": "Jika diaktifkan, kembalikan hanya daftar nama file yang cocok.",
     "param.ignore_case.description": "Apakah huruf besar/kecil diabaikan (...",
-    "param.max_results.description": "Jumlah maksimum baris kecocokan yang dikembalikan (default: 100).",
-    "param.name_pattern.description": "Pola glob untuk nama file (mis. '*.py').",
     "param.path.description": "Direktori akar atau jalur file tertentu (default: '.').",
     "param.pattern.description": "Pola regex yang akan dicari.",
-    "param.recursive.description": "Apakah mencari subdirektori secara rekursif.",
     "tool.description": "Cari pola dalam file dan kembalikan baris yang cocok beserta nomor barisnya (seperti grep -n). Pattern wajib diisi.",
     "x_search_terms": [
       "file_grep",
@@ -243,7 +240,10 @@
       "cari pola",
       "baris"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Jumlah maksimum baris kecocokan yang dikembalikan (default: 100).",
+    "param.glob.description": "Pola glob untuk nama file (mis. '*.py').",
+    "param.recur.description": "Apakah mencari subdirektori secara rekursif."
   },
   "vi": {
     "err.exception": "Ngoại lệ xảy ra trong quá trình hoạt động grep.",
@@ -253,11 +253,8 @@
     "param.context_lines.description": "Số dòng ngữ cảnh đầu và cuối cho mỗi trận đấu.",
     "param.filenames_only.description": "Nếu được bật, chỉ trả về danh sách tên tệp trùng khớp.",
     "param.ignore_case.description": "Có bỏ qua trường hợp nào không (mặc...",
-    "param.max_results.description": "Số dòng khớp tối đa cần trả về (mặc định: 100).",
-    "param.name_pattern.description": "Mẫu chung cho tên tệp (ví dụ: '*.py').",
     "param.path.description": "Thư mục gốc hoặc đường dẫn tệp cụ thể (mặc định: '.').",
     "param.pattern.description": "Mẫu Regex để tìm kiếm.",
-    "param.recursive.description": "Có tìm kiếm đệ quy các thư mục con hay không.",
     "tool.description": "Tìm mẫu trong tệp và trả về các dòng khớp với số dòng (như grep -n). Pattern là bắt buộc.",
     "x_search_terms": [
       "file_grep",
@@ -265,7 +262,10 @@
       "tìm mẫu",
       "dòng"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Số dòng khớp tối đa cần trả về (mặc định: 100).",
+    "param.glob.description": "Mẫu chung cho tên tệp (ví dụ: '*.py').",
+    "param.recur.description": "Có tìm kiếm đệ quy các thư mục con hay không."
   },
   "pl": {
     "err.exception": "Wystąpił wyjątek podczas operacji grep.",
@@ -275,11 +275,8 @@
     "param.context_lines.description": "Liczba linii kontekstu początkowego i końcowego dla każdego...",
     "param.filenames_only.description": "Jeśli ta opcja jest włączona, zwróć tylko listę nazw pli...",
     "param.ignore_case.description": "Czy ignorować wielkość liter (domyśl...",
-    "param.max_results.description": "Maksymalna liczba linii dopasowania do zwrócenia (domyślnie: 100).",
-    "param.name_pattern.description": "Wzorzec globu dla nazw plików (np. „*.py”).",
     "param.path.description": "Katalog główny lub określona ścieżka pliku (domyślnie: „.”).",
     "param.pattern.description": "Wzór wyrażenia regularneg...",
-    "param.recursive.description": "Określa, czy rekursywnie przeszukiwać podk...",
     "tool.description": "Wyszukaj wzorzec w plikach i zwróć pasujące linie z numerami linii (np. grep -n). Wzorzec jest wymagany.",
     "x_search_terms": [
       "file_grep",
@@ -287,7 +284,10 @@
       "szukaj wzorca",
       "wiersze"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Maksymalna liczba linii dopasowania do zwrócenia (domyślnie: 100).",
+    "param.glob.description": "Wzorzec globu dla nazw plików (np. „*.py”).",
+    "param.recur.description": "Określa, czy rekursywnie przeszukiwać podk..."
   },
   "hi": {
     "err.exception": "ग्रेप परिचालन के दौरान अपवाद उत्पन्न हुआ.",
@@ -297,11 +297,8 @@
     "param.context_lines.description": "प्रत्येक मैच के लिए अग्रणी और अनुगामी संदर्भ की पंक्तियों की संख्या।",
     "param.filenames_only.description": "यदि सक्षम है, तो केवल मिलान वाले फ़ाइल नामों की सूची लौटाएँ।",
     "param.ignore_case.description": "क्या मामले को अनदेखा करना है (डिफ़ॉल...",
-    "param.max_results.description": "लौटाने के लिए मिलान पंक्तियों की अधिकतम संख्या (डिफ़ॉल्ट: 100)।",
-    "param.name_pattern.description": "फ़ाइल नामों के लिए ग्लोब पैटर्न (उदाहरण के लिए, '*.py')।",
     "param.path.description": "रूट निर्देशिका या विशिष्ट फ़ाइल पथ (डिफ़ॉल्ट: '.')।",
     "param.pattern.description": "खोजने के लिए रेगेक्स पैटर्न।",
-    "param.recursive.description": "क्या उपनिर्देशिकाओं को पुनरावर्ती रूप से ख...",
     "tool.description": "फ़ाइलों में एक पैटर्न खोजें और पंक्ति संख्याओं (जैसे grep -n) के साथ मिलान वाली पंक्तियाँ लौटाएँ। पैटर्न आवश्यक है.",
     "x_search_terms": [
       "file_grep",
@@ -309,7 +306,10 @@
       "पैटर्न खोज",
       "पंक्तियाँ"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "लौटाने के लिए मिलान पंक्तियों की अधिकतम संख्या (डिफ़ॉल्ट: 100)।",
+    "param.glob.description": "फ़ाइल नामों के लिए ग्लोब पैटर्न (उदाहरण के लिए, '*.py')।",
+    "param.recur.description": "क्या उपनिर्देशिकाओं को पुनरावर्ती रूप से ख..."
   },
   "ar": {
     "err.exception": "حدث استثناء أثناء عمليات grep.",
@@ -319,11 +319,8 @@
     "param.context_lines.description": "عدد أسطر السياق البادئة والزائدة لكل مباراة.",
     "param.filenames_only.description": "في حالة تمكينه، قم بإرجاع قائمة أسماء الملفات ذات التطابقات فقط.",
     "param.ignore_case.description": "ما إذا كان سيتم تجاهل حالة الأحرف (ا...",
-    "param.max_results.description": "الحد الأقصى لعدد خطوط المطابقة المراد إرجاعها (الافتراضي: 100).",
-    "param.name_pattern.description": "نمط الكرة الأرضية لأسماء الملفات (على سبيل المثال، \"*.py\").",
     "param.path.description": "الدليل الجذر أو مسار ملف محدد (الافتراضي: '.').",
     "param.pattern.description": "نمط Regex للبحث عنه.",
-    "param.recursive.description": "ما إذا كان سيتم البحث في الدلائل الفرعية ب...",
     "tool.description": "ابحث عن نمط في الملفات وأرجع الأسطر المطابقة بأرقام الأسطر (مثل grep -n). النمط مطلوب.",
     "x_search_terms": [
       "file_grep",
@@ -331,7 +328,10 @@
       "بحث نمط",
       "أسطر"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "الحد الأقصى لعدد خطوط المطابقة المراد إرجاعها (الافتراضي: 100).",
+    "param.glob.description": "نمط الكرة الأرضية لأسماء الملفات (على سبيل المثال، \"*.py\").",
+    "param.recur.description": "ما إذا كان سيتم البحث في الدلائل الفرعية ب..."
   },
   "sv": {
     "err.exception": "Ett undantag inträffade under grep-operationen.",
@@ -341,11 +341,8 @@
     "param.context_lines.description": "Antal rader med kontext före och efter varje träff.",
     "param.filenames_only.description": "Om aktiverat, returnera endast listan över filnamn med träffar.",
     "param.ignore_case.description": "Om versaler/gemener ska ignoreras (s...",
-    "param.max_results.description": "Maximalt antal träffrader att returnera (standard: 100).",
-    "param.name_pattern.description": "Glob-mönster för filnamn (t.ex. '*.py').",
     "param.path.description": "Rotkatalog eller specifik filsökväg (standard: '.').",
     "param.pattern.description": "Regex-mönster att söka efter.",
-    "param.recursive.description": "Om underkataloger ska sökas rekursivt.",
     "tool.description": "Sök efter ett mönster i filer och returnera matchande rader med radnummer (som grep -n). Mönstret krävs.",
     "x_search_terms": [
       "file_grep",
@@ -353,7 +350,10 @@
       "sök mönster",
       "rader"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Maximalt antal träffrader att returnera (standard: 100).",
+    "param.glob.description": "Glob-mönster för filnamn (t.ex. '*.py').",
+    "param.recur.description": "Om underkataloger ska sökas rekursivt."
   },
   "sw": {
     "err.exception": "Hitilafu imetokea wakati wa operesheni za grep.",
@@ -363,11 +363,8 @@
     "param.context_lines.description": "Idadi ya mistari ya muktadha kabla na baada ya kila ulinganifu.",
     "param.filenames_only.description": "Ikiwa imewashwa, rudisha tu orodha ya majina ya faili ye...",
     "param.ignore_case.description": "Iwapo kupuuza herufi kubwa/kidogo (c...",
-    "param.max_results.description": "Idadi ya juu ya mistari ya ulinganifu ya kurudisha (chagu...",
-    "param.name_pattern.description": "Muundo wa glob kwa majina ya faili (mfano \"*.py\").",
     "param.path.description": "Saraka ya mizizi au njia mahususi ya faili (chaguo-msingi: \".\").",
     "param.pattern.description": "Muundo wa regex wa kutafuta.",
-    "param.recursive.description": "Iwapo kutafuta kwa kujirudia katika saraka ndogo.",
     "tool.description": "Tafuta muundo ndani ya faili na urudishe mistari inayolingana pamoja na nambari za mistari (kama grep -n).",
     "x_search_terms": [
       "file_grep",
@@ -375,7 +372,10 @@
       "tafuta muundo",
       "mistari"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Idadi ya juu ya mistari ya ulinganifu ya kurudisha (chagu...",
+    "param.glob.description": "Muundo wa glob kwa majina ya faili (mfano \"*.py\").",
+    "param.recur.description": "Iwapo kutafuta kwa kujirudia katika saraka ndogo."
   },
   "nb": {
     "err.exception": "Det oppsto et unntak under grep-operasjonen.",
@@ -385,11 +385,8 @@
     "param.context_lines.description": "Antall linjer med kontekst før og etter hvert treff.",
     "param.filenames_only.description": "Hvis aktivert, returner bare listen over filnavn med treff.",
     "param.ignore_case.description": "Om store/små bokstaver skal ignorere...",
-    "param.max_results.description": "Maksimalt antall trefflinjer som skal returneres (standard: 100).",
-    "param.name_pattern.description": "Glob-mønster for filnavn (f.eks. '*.py').",
     "param.path.description": "Rotkatalog eller spesifikk filsti (standard: '.').",
     "param.pattern.description": "Regex-mønster som skal sø...",
-    "param.recursive.description": "Om underkataloger skal søkes rekursivt.",
     "tool.description": "Søk etter et mønster i filer og returner samsvarende linjer med linjenumre (som grep -n). Mønsteret er obligatorisk.",
     "x_search_terms": [
       "file_grep",
@@ -397,7 +394,10 @@
       "søk mønster",
       "linjer"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Maksimalt antall trefflinjer som skal returneres (standard: 100).",
+    "param.glob.description": "Glob-mønster for filnavn (f.eks. '*.py').",
+    "param.recur.description": "Om underkataloger skal søkes rekursivt."
   },
   "nl": {
     "err.exception": "Er is een uitzondering opgetreden tijdens grep-bewerkingen.",
@@ -407,11 +407,8 @@
     "param.context_lines.description": "Aantal regels context vóór en na elke treffer.",
     "param.filenames_only.description": "Indien ingeschakeld, alleen de lijst met bestandsnamen m...",
     "param.ignore_case.description": "Of hoofdletterverschillen genegeerd...",
-    "param.max_results.description": "Maximaal aantal regeltreffers om terug te geven (standaard: 100).",
-    "param.name_pattern.description": "Glob-patroon voor bestandsnamen (bijv. '*.py').",
     "param.path.description": "Rootmap of specifiek bestandspad (standaard: '.').",
     "param.pattern.description": "Regex-patroon om naar te...",
-    "param.recursive.description": "Of submappen recursief doorzocht moeten worden.",
     "tool.description": "Zoek naar een patroon in bestanden en geef overeenkomende regels met regelnummers terug (zoals grep -n).",
     "x_search_terms": [
       "file_grep",
@@ -419,7 +416,10 @@
       "zoek patroon",
       "regels"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Maximaal aantal regeltreffers om terug te geven (standaard: 100).",
+    "param.glob.description": "Glob-patroon voor bestandsnamen (bijv. '*.py').",
+    "param.recur.description": "Of submappen recursief doorzocht moeten worden."
   },
   "fi": {
     "err.exception": "Poikkeus grep-toiminnoissa.",
@@ -429,11 +429,8 @@
     "param.context_lines.description": "Rivien määrä ennen ja jälkeen jokaisen osuman.",
     "param.filenames_only.description": "Jos käytössä, palauta vain osuman sisältävien tiedostojen nimet.",
     "param.ignore_case.description": "Huomioidaanko kirjainkoko (oletus: true).",
-    "param.max_results.description": "Palautettavien riviosumien enimmäismäärä (oletus: 100).",
-    "param.name_pattern.description": "Glob-kuvio tiedostonimille (esim. '*.py').",
     "param.path.description": "Perushakemisto tai yksittäinen tiedostopolku (oletus: '.').",
     "param.pattern.description": "Etsittävä regex-kaava.",
-    "param.recursive.description": "Etsitäänkö alihakemistoista rekursiivisesti.",
     "tool.description": "Etsi tiedostoista kaavaa ja palauta osuvat rivit rivinumeroineen (kuten grep -n). Kaava on pakollinen.",
     "x_search_terms": [
       "file_grep",
@@ -441,7 +438,10 @@
       "etsi malli",
       "rivit"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Palautettavien riviosumien enimmäismäärä (oletus: 100).",
+    "param.glob.description": "Glob-kuvio tiedostonimille (esim. '*.py').",
+    "param.recur.description": "Etsitäänkö alihakemistoista rekursiivisesti."
   },
   "cs": {
     "err.exception": "Při operaci grep došlo k výjimce.",
@@ -451,11 +451,8 @@
     "param.context_lines.description": "Počet řádků kontextu před a po každé shodě.",
     "param.filenames_only.description": "Je-li povoleno, vraťte pouze seznam názvů souborů se shodami.",
     "param.ignore_case.description": "Zda ignorovat velikost písmen (výcho...",
-    "param.max_results.description": "Maximální počet řádků se shodou k vrácení (výchozí: 100).",
-    "param.name_pattern.description": "Glob vzor pro názvy souborů (např. '*.py').",
     "param.path.description": "Kořenový adresář nebo konkrétní cesta k souboru (výchozí: '.').",
     "param.pattern.description": "Regex vzor k vyhledání.",
-    "param.recursive.description": "Zda hledat v podadresářích rekurzivně.",
     "tool.description": "Hledá vzor v souborech a vrací odpovídající řádky s čísly řádků (jako grep -n). Vzor je povinný.",
     "x_search_terms": [
       "file_grep",
@@ -463,7 +460,10 @@
       "hledat vzor",
       "řádky"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Maximální počet řádků se shodou k vrácení (výchozí: 100).",
+    "param.glob.description": "Glob vzor pro názvy souborů (např. '*.py').",
+    "param.recur.description": "Zda hledat v podadresářích rekurzivně."
   },
   "uk": {
     "err.exception": "Під час операції grep сталася виняткова ситуація.",
@@ -473,11 +473,8 @@
     "param.context_lines.description": "Кількість рядків контексту до і після кожного збігу.",
     "param.filenames_only.description": "Якщо ввімкнено, повертати лише список назв файлів зі збігами.",
     "param.ignore_case.description": "Чи ігнорувати регістр (типово: true).",
-    "param.max_results.description": "Максимальна кількість рядків зі збігами для повернення (т...",
-    "param.name_pattern.description": "Glob-шаблон для назв файлів (наприклад, '*.py').",
     "param.path.description": "Кореневий каталог або конкретний шлях до файла (типово: '.').",
     "param.pattern.description": "Шаблон регулярного виразу...",
-    "param.recursive.description": "Чи шукати в підкаталогах рекурсивно.",
     "tool.description": "Шукає шаблон у файлах і повертає відповідні рядки з номерами рядків (як grep -n). Шаблон є обовʼязковим.",
     "x_search_terms": [
       "file_grep",
@@ -485,7 +482,10 @@
       "пошук шаблону",
       "рядки"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Максимальна кількість рядків зі збігами для повернення (т...",
+    "param.glob.description": "Glob-шаблон для назв файлів (наприклад, '*.py').",
+    "param.recur.description": "Чи шукати в підкаталогах рекурсивно."
   },
   "tr": {
     "err.exception": "Grep işlemleri sırasında özel durum oluştu.",
@@ -495,11 +495,8 @@
     "param.context_lines.description": "Her maç için önde gelen ve sondaki bağlamın satır sayısı.",
     "param.filenames_only.description": "Etkinleştirilirse yalnızca eşleşen dosya adlarının liste...",
     "param.ignore_case.description": "Büyük/küçük harfin göz ardı edilip e...",
-    "param.max_results.description": "Döndürülecek maksimum eşleşme satırı sayısı (varsayılan: 100).",
-    "param.name_pattern.description": "Dosya adları için genel desen (ör. '*.py').",
     "param.path.description": "Kök dizin veya belirli bir dosya yolu (varsayılan: '.').",
     "param.pattern.description": "Aranacak normal ifade modeli.",
-    "param.recursive.description": "Alt dizinlerin yinelemeli olarak aranıp ar...",
     "tool.description": "Dosyalarda bir model arayın ve satır numaralarıyla eşleşen satırları döndürün (grep -n gibi). Desen gereklidir.",
     "x_search_terms": [
       "file_grep",
@@ -507,7 +504,10 @@
       "desen ara",
       "satırlar"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Döndürülecek maksimum eşleşme satırı sayısı (varsayılan: 100).",
+    "param.glob.description": "Dosya adları için genel desen (ör. '*.py').",
+    "param.recur.description": "Alt dizinlerin yinelemeli olarak aranıp ar..."
   },
   "th": {
     "err.exception": "เกิดข้อยกเว้นระหว่างการดำเนินการ grep",
@@ -517,11 +517,8 @@
     "param.context_lines.description": "จำนวนบรรทัดบริบทก่อนหน้าและหลังจากแต่ละรายการที่ตรงกัน",
     "param.filenames_only.description": "หากเปิดใช้งาน ให้ส่งคืนเฉพาะรายชื่อไฟล์ที่พบการตรงกันเท่านั้น",
     "param.ignore_case.description": "จะละเว้นตัวพิมพ์เล็ก/ใหญ่หรือไม่ (ค่...",
-    "param.max_results.description": "จำนวนบรรทัดที่ตรงกันสูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 100)",
-    "param.name_pattern.description": "รูปแบบ Glob สำหรับชื่อไฟล์ (เช่น '*.py')",
     "param.path.description": "ไดเรกทอรีรากหรือเส้นทางไฟล์ที่ระบุ (ค่าเริ่มต้น: '.')",
     "param.pattern.description": "รูปแบบ Regex ที่จะค้นหา",
-    "param.recursive.description": "จะค้นหาในไดเรกทอรีย่อยแบบเรียกซ้ำหรือไม่",
     "tool.description": "ค้นหารูปแบบในไฟล์และส่งคืนบรรทัดที่ตรงกันพร้อมหมายเลขบรรทัด (เหมือน grep -n) โดย pattern เป็นข้อบังคับ",
     "x_search_terms": [
       "file_grep",
@@ -529,7 +526,10 @@
       "ค้นหารูปแบบ",
       "บรรทัด"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "จำนวนบรรทัดที่ตรงกันสูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 100)",
+    "param.glob.description": "รูปแบบ Glob สำหรับชื่อไฟล์ (เช่น '*.py')",
+    "param.recur.description": "จะค้นหาในไดเรกทอรีย่อยแบบเรียกซ้ำหรือไม่"
   },
   "zh_CN": {
     "err.exception": "grep 操作期间发生异常。",
@@ -539,11 +539,8 @@
     "param.context_lines.description": "每个匹配项前后显示的上下文行数。",
     "param.filenames_only.description": "如果启用，则只返回包含匹配项的文件名列表。",
     "param.ignore_case.description": "是否忽略大小写（默认：true）。",
-    "param.max_results.description": "要返回的最大匹配行数（默认：100）。",
-    "param.name_pattern.description": "文件名的 Glob 模式（例如 '*.py'）。",
     "param.path.description": "根目录或特定文件路径（默认：'.'）。",
     "param.pattern.description": "要搜索的正则表达式模式。",
-    "param.recursive.description": "是否递归搜索子目录。",
     "tool.description": "在文件中搜索模式并返回带有行号的匹配行（类似 grep -n）。pattern 是必填项。",
     "x_search_terms": [
       "file_grep",
@@ -551,7 +548,10 @@
       "搜索模式",
       "行"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "要返回的最大匹配行数（默认：100）。",
+    "param.glob.description": "文件名的 Glob 模式（例如 '*.py'）。",
+    "param.recur.description": "是否递归搜索子目录。"
   },
   "zh_TW": {
     "err.exception": "grep 操作期間發生例外。",
@@ -561,11 +561,8 @@
     "param.context_lines.description": "每個相符項目前後顯示的上下文行數。",
     "param.filenames_only.description": "如果啟用，則只傳回包含相符項的檔名清單。",
     "param.ignore_case.description": "是否忽略大小寫（預設：true）。",
-    "param.max_results.description": "要傳回的最大相符行數（預設：100）。",
-    "param.name_pattern.description": "檔名的 Glob 模式（例如 '*.py'）。",
     "param.path.description": "根目錄或特定檔案路徑（預設：'.'）。",
     "param.pattern.description": "要搜尋的正規表示式模式。",
-    "param.recursive.description": "是否遞迴搜尋子目錄。",
     "tool.description": "在檔案中搜尋模式並傳回帶有行號的相符行（類似 grep -n）。pattern 是必填項。",
     "x_search_terms": [
       "file_grep",
@@ -573,7 +570,10 @@
       "搜尋模式",
       "行"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "要傳回的最大相符行數（預設：100）。",
+    "param.glob.description": "檔名的 Glob 模式（例如 '*.py'）。",
+    "param.recur.description": "是否遞迴搜尋子目錄。"
   },
   "bn": {
     "err.exception": "grep অপারেশনের সময় ব্যতিক্রম ঘটেছে।",
@@ -583,11 +583,8 @@
     "param.context_lines.description": "প্রতিটি ম্যাচের আগে ও পরে কতগুলো প্রসঙ্গ লাইন দেখানো হবে।",
     "param.filenames_only.description": "সক্ষম হলে, শুধুমাত্র ম্যাচ থাকা ফাইলনামের তালিকা ফেরত দিন।",
     "param.ignore_case.description": "case উপেক্ষা করা হবে কি না (ডিফল্ট: true)।",
-    "param.max_results.description": "ফেরত দেওয়া ম্যাচ লাইনের সর্বোচ্চ সংখ্যা (ডিফল্ট: 100)।",
-    "param.name_pattern.description": "ফাইলনামের জন্য glob pattern (যেমন, '*.py').",
     "param.path.description": "রুট ডিরেক্টরি বা নির্দিষ্ট ফাইলের পথ (ডিফল্ট: '.').",
     "param.pattern.description": "যে regex pattern খোঁজা হবে।",
-    "param.recursive.description": "উপ-ডিরেক্টরিগুলো recursiveভাবে খোঁজা হবে কি না।",
     "tool.description": "ফাইলে একটি pattern খুঁজে ম্যাচ হওয়া লাইনগুলো লাইন নম্বরসহ ফেরত দেয় (grep -n-এর মতো)। pattern আবশ্যক।",
     "x_search_terms": [
       "file_grep",
@@ -595,7 +592,10 @@
       "প্যাটার্ন খোঁজ",
       "লাইন"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "ফেরত দেওয়া ম্যাচ লাইনের সর্বোচ্চ সংখ্যা (ডিফল্ট: 100)।",
+    "param.glob.description": "ফাইলনামের জন্য glob pattern (যেমন, '*.py').",
+    "param.recur.description": "উপ-ডিরেক্টরিগুলো recursiveভাবে খোঁজা হবে কি না।"
   },
   "fa": {
     "err.exception": "در عملیات grep استثنا رخ داد.",
@@ -605,11 +605,8 @@
     "param.context_lines.description": "تعداد خطوطِ زمینهٔ قبل و بعد از هر تطابق.",
     "param.filenames_only.description": "اگر فعال باشد، فقط فهرست نام فایل‌های دارای تطابق را برگردانید.",
     "param.ignore_case.description": "اینکه حروف بزرگ/کوچک نادیده گرفته شو...",
-    "param.max_results.description": "حداکثر تعداد خطوط تطابق برای بازگرداندن (پیش‌فرض: 100).",
-    "param.name_pattern.description": "الگوی glob برای نام فایل‌ها (مثلاً '*.py').",
     "param.path.description": "دایرکتوری ریشه یا مسیر فایل مشخص (پیش‌فرض: '.').",
     "param.pattern.description": "الگوی regex برای جستجو.",
-    "param.recursive.description": "اینکه زیرشاخه‌ها به‌صورت بازگشتی جستجو شون...",
     "tool.description": "در فایل‌ها یک الگو را جستجو می‌کند و خطوط منطبق را همراه شماره خط برمی‌گرداند (مثل grep -n). pattern الزامی است.",
     "x_search_terms": [
       "file_grep",
@@ -617,7 +614,10 @@
       "جستجوی الگو",
       "خطوط"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "حداکثر تعداد خطوط تطابق برای بازگرداندن (پیش‌فرض: 100).",
+    "param.glob.description": "الگوی glob برای نام فایل‌ها (مثلاً '*.py').",
+    "param.recur.description": "اینکه زیرشاخه‌ها به‌صورت بازگشتی جستجو شون..."
   },
   "mn": {
     "err.exception": "grep үйлдлийн үед алдаа гарлаа.",
@@ -627,11 +627,8 @@
     "param.context_lines.description": "Тохирсон мөр бүрийн өмнөх ба дараах контекст мөрийн тоо.",
     "param.filenames_only.description": "Идэвхжүүлбэл, зөвхөн тохирсон файлын нэрсийн жагсаалтыг буцаана.",
     "param.ignore_case.description": "Том/жижиг үсгийг үл тоох эсэх (өгөгд...",
-    "param.max_results.description": "Буцаах тохирсон мөрийн дээд тоо (өгөгдмөл: 100).",
-    "param.name_pattern.description": "Файлын нэрэнд зориулсан glob pattern (жишээ нь, '*.py').",
     "param.path.description": "Root directory эсвэл тодорхой файлын зам (өгөгдмөл: '.').",
     "param.pattern.description": "Хайх regex pattern.",
-    "param.recursive.description": "Дэд директоруудыг рекурсивээр хайх эсэх.",
     "tool.description": "Файл дотроос pattern хайж, таарсан мөрүүдийг мөрийн дугаартай нь буцаана (grep -n шиг). pattern заавал хэрэгтэй.",
     "x_search_terms": [
       "file_grep",
@@ -639,7 +636,10 @@
       "хээ хайх",
       "мөр"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Буцаах тохирсон мөрийн дээд тоо (өгөгдмөл: 100).",
+    "param.glob.description": "Файлын нэрэнд зориулсан glob pattern (жишээ нь, '*.py').",
+    "param.recur.description": "Дэд директоруудыг рекурсивээр хайх эсэх."
   },
   "mr": {
     "err.exception": "grep क्रियांमध्ये अपवाद आला.",
@@ -649,11 +649,8 @@
     "param.context_lines.description": "प्रत्येक जुळणीसाठी आधी/नंतरच्या context ओळींची संख्या.",
     "param.filenames_only.description": "सक्षम असल्यास, फक्त जुळणाऱ्या फाइलनावांची यादी परत करा.",
     "param.ignore_case.description": "अक्षरांचा case दुर्लक्षित करायचा का...",
-    "param.max_results.description": "परत करावयाच्या जुळणी ओळींची कमाल संख्या (डीफॉल्ट: 100).",
-    "param.name_pattern.description": "फाइलनावांसाठी glob pattern (उदा., '*.py').",
     "param.path.description": "root directory किंवा विशिष्ट फाइलचा मार्ग (डीफॉल्ट: '.').",
     "param.pattern.description": "शोधायचा regex pattern.",
-    "param.recursive.description": "उप-डिरेक्टऱ्या recursive पद्धतीने शोधायच्या का.",
     "tool.description": "फाइलमध्ये pattern शोधते आणि जुळणाऱ्या ओळी ओळींच्या क्रमांकांसह परत करते (grep -n सारखे). pattern आवश्यक आहे.",
     "x_search_terms": [
       "file_grep",
@@ -661,6 +658,9 @@
       "नमुना शोधा",
       "ओळी"
     ],
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "परत करावयाच्या जुळणी ओळींची कमाल संख्या (डीफॉल्ट: 100).",
+    "param.glob.description": "फाइलनावांसाठी glob pattern (उदा., '*.py').",
+    "param.recur.description": "उप-डिरेक्टऱ्या recursive पद्धतीने शोधायच्या का."
   }
 }

@@ -112,10 +112,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
                     ),
                 },
-                "max_chars": {
+                "maxc": {
                     "type": "integer",
                     "description": _(
-                        "param.max_chars.description",
+                        "param.maxc.description",
                         default=(
                             "Maximum number of characters to return. If omitted, truncates at 8000 characters."
                         ),
@@ -561,7 +561,7 @@ def run_tool(args: dict[str, Any]) -> str:
     path = (args.get("path") or "").strip()
     password = str(args.get("password") or "").strip() or None
     page_index = args.get("page_index") or args.get("page")
-    max_chars = args.get("max_chars")
+    max_chars = args.get("maxc")
 
     if not path:
         return _("err.path_required", default="[read_pptx_pdf error] path is required")

@@ -1,7 +1,6 @@
 {
   "en": {
     "param.include_invalid.description": "Whether to include skills that failed parsing or validation (default: true).",
-    "param.recursive.description": "Search recursively (default: true)",
     "param.root_dir.description": "Root directory for skill search. Uses UAGENT_SKILLS_DIRS (os.",
     "param.strict.description": "Whether to treat validation warnings as errors (default: false).",
     "tool.description": "Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL. md).",
@@ -12,11 +11,11 @@
       "skill management",
       "skill file",
       "SKILL.md"
-    ]
+    ],
+    "param.recur.description": "Search recursively (default: true)"
   },
   "ja": {
     "param.include_invalid.description": "SKILL.mdの解析/検証に失敗しても一覧へ含めるか（既定:true）。falseの場合、失敗スキルは除外します。",
-    "param.recursive.description": "再帰的に探索するか（既定:true）",
     "param.root_dir.description": "スキル探索ルート。UAGENT_SKILLS_DIRSを使用。",
     "param.strict.description": "仕様検証で warnings を失敗扱いにするか（既定:false）",
     "tool.description": "指定ルート配下のスキル一覧を返す（frontmatterのみ読み込み）。",
@@ -25,11 +24,11 @@
       "スキル一覧",
       "一覧取得",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "再帰的に探索するか（既定:true）"
   },
   "es": {
     "param.include_invalid.description": "Si se debe incluir en la lista incluso si falla el análisis/verificación...",
-    "param.recursive.description": "Buscar recursivamente (predeterminado: verdadero)",
     "param.root_dir.description": "Ruta de búsqueda de skills.",
     "param.strict.description": "Si las advertencias deben tratarse como fallos durante la ver...",
     "tool.description": "Devuelve una lista de habilidades bajo la raíz especificada (solo lee el contenido inicial) según la especifica...",
@@ -38,11 +37,11 @@
       "lista de skills",
       "listar skills",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Buscar recursivamente (predeterminado: verdadero)"
   },
   "fr": {
     "param.include_invalid.description": "S'il faut l'inclure dans la liste même si l'analyse/vérification de SKILL.",
-    "param.recursive.description": "Recherche récursive (par défaut : vrai)",
     "param.root_dir.description": "Racine de recherche des compétences.",
     "param.strict.description": "S'il faut traiter les avertissements comme des échecs lors de...",
     "tool.description": "Renvoie une liste de compétences sous la racine spécifiée (lecture uniquement du contenu) basée sur la spécific...",
@@ -51,11 +50,11 @@
       "liste des compétences",
       "lister les compétences",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Recherche récursive (par défaut : vrai)"
   },
   "ko": {
     "param.include_invalid.description": "SKILL.md의 구문 분석/검증에 실패해도 목록에 포함할 것인가(디폴트:true). false인 경우 실패 스킬은 제외됩니다.",
-    "param.recursive.description": "재귀적으로 검색(기본값: true)",
     "param.root_dir.description": "스킬 검색 루트 디렉토리. UAGENT_SKILLS_DIRS 사용.",
     "param.strict.description": "사양 검증에서 경고를 실패로 간주할지 여부입니다(기본값: false).",
     "tool.description": "지정된 루트 아래의 스킬 목록 반환(frontmatter만 읽음).",
@@ -64,11 +63,11 @@
       "스킬 목록",
       "스킬 리스트",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "재귀적으로 검색(기본값: true)"
   },
   "de": {
     "param.include_invalid.description": "Ob es in die Liste aufgenommen werden soll, auch wenn die Analyse/Verifiz...",
-    "param.recursive.description": "Rekursiv suchen (Standard: true)",
     "param.root_dir.description": "Suchwurzel für Skills.",
     "param.strict.description": "Ob Warnungen bei der Spezifikationsprüfung als Fehler behande...",
     "tool.description": "Gibt anhand der Agent-Skills-Spezifikation (SKILL.",
@@ -77,11 +76,11 @@
       "skills-liste",
       "skills auflisten",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Rekursiv suchen (Standard: true)"
   },
   "it": {
     "param.include_invalid.description": "Se includerlo nell'elenco anche se l'analisi/verifica di SKILL.",
-    "param.recursive.description": "Cerca in modo ricorsivo (predefinito: true)",
     "param.root_dir.description": "Radice di ricerca degli skill.",
     "param.strict.description": "Se trattare anche i warning come fallimenti durante la verifi...",
     "tool.description": "Restituisce un elenco di skill sotto la radice specificata in base alla specifica Agent Skills (SKILL.",
@@ -90,11 +89,11 @@
       "elenco skill",
       "lista skill",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Cerca in modo ricorsivo (predefinito: true)"
   },
   "ru": {
     "param.include_invalid.description": "Включать ли в список, даже если разбор/проверка SKILL.",
-    "param.recursive.description": "Искать рекурсивно (по умолчанию: true)",
     "param.root_dir.description": "Корень поиска навыков.",
     "param.strict.description": "Считать ли предупреждения ошибками при проверке спецификации...",
     "tool.description": "Возвращает список навыков в указанном корне согласно спецификации Agent Skills (SKILL.",
@@ -103,11 +102,11 @@
       "список навыков",
       "перечень навыков",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Искать рекурсивно (по умолчанию: true)"
   },
   "pt_BR": {
     "param.include_invalid.description": "Se deve incluí-lo na lista mesmo que a análise/verificação de SKILL.",
-    "param.recursive.description": "Pesquisar recursivamente (padrão: true)",
     "param.root_dir.description": "Raiz de busca dos skills.",
     "param.strict.description": "Se avisos também devem ser tratados como falha durante a veri...",
     "tool.description": "Retorna uma lista de skills sob a raiz especificada com base na especificação Agent Skills (SKILL.",
@@ -116,11 +115,11 @@
       "lista de skills",
       "listar skills",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Pesquisar recursivamente (padrão: true)"
   },
   "pt": {
     "param.include_invalid.description": "Se deve ser incluído na lista mesmo se a análise/verificação de SKILL.",
-    "param.recursive.description": "Pesquisa recursivamente (padrão: verdadeiro)",
     "param.root_dir.description": "Rota de busca de habilidades.",
     "param.strict.description": "Se os avisos devem ser tratados como falhas durante a verific...",
     "tool.description": "Retorna uma lista de habilidades na raiz especificada (lê apenas frontmatter) com base na especificação de habi...",
@@ -129,11 +128,11 @@
       "lista de skills",
       "listar skills",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Pesquisa recursivamente (padrão: verdadeiro)"
   },
   "id": {
     "param.include_invalid.description": "Apakah tetap dimasukkan ke daftar meski parsing/verifikasi SKILL.",
-    "param.recursive.description": "Cari secara rekursif (default: true)",
     "param.root_dir.description": "Root pencarian skill.",
     "param.strict.description": "Apakah warning juga dianggap sebagai kegagalan saat verifikas...",
     "tool.description": "Mengembalikan daftar skill di bawah root yang ditentukan (membaca frontmatter saja) berdasarkan spesifikasi Age...",
@@ -142,11 +141,11 @@
       "daftar skill",
       "list skill",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Cari secara rekursif (default: true)"
   },
   "vi": {
     "param.include_invalid.description": "Có đưa nó vào danh sách hay không ngay cả khi phân tích cú pháp/xác minh...",
-    "param.recursive.description": "Tìm kiếm đệ quy (mặc định: true)",
     "param.root_dir.description": "Lộ trình tìm kiếm kỹ năng.",
     "param.strict.description": "Có coi cảnh báo là lỗi trong quá trình xác minh thông số kỹ t...",
     "tool.description": "Trả về danh sách các kỹ năng trong gốc được chỉ định (chỉ đọc phần đầu) dựa trên thông số kỹ năng của đặc vụ (S...",
@@ -155,11 +154,11 @@
       "danh sách kỹ năng",
       "liệt kê kỹ năng",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Tìm kiếm đệ quy (mặc định: true)"
   },
   "pl": {
     "param.include_invalid.description": "Czy umieścić go na liście, nawet jeśli analiza/weryfikacja SKILL.",
-    "param.recursive.description": "Szukaj rekurencyjnie (domyślnie: prawda)",
     "param.root_dir.description": "Trasa poszukiwania umiejętności.",
     "param.strict.description": "Czy podczas weryfikacji specyfikacji traktować ostrzeżenia ja...",
     "tool.description": "Zwraca listę umiejętności w określonym katalogu głównym (odczytuje tylko frontmatter) w oparciu o specyfikację...",
@@ -168,11 +167,11 @@
       "lista umiejętności",
       "wypisz umiejętności",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Szukaj rekurencyjnie (domyślnie: prawda)"
   },
   "hi": {
     "param.include_invalid.description": "SKILL.",
-    "param.recursive.description": "पुनरावर्ती रूप से खोजें (डिफ़ॉल्ट: सत्य)",
     "param.root_dir.description": "कौशल खोज मार्ग.",
     "param.strict.description": "क्या विनिर्देशन सत्यापन के दौरान चेतावनियों को विफलता माना जा...",
     "tool.description": "एजेंट कौशल विशिष्टता (SKILL.",
@@ -181,11 +180,11 @@
       "कौशल सूची",
       "कौशल सूचीबद्ध करें",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "पुनरावर्ती रूप से खोजें (डिफ़ॉल्ट: सत्य)"
   },
   "ar": {
     "param.include_invalid.description": "ما إذا كان سيتم تضمينه في القائمة حتى في حالة فشل التحليل/التحقق من SKILL.",
-    "param.recursive.description": "البحث بشكل متكرر (الافتراضي: صحيح)",
     "param.root_dir.description": "جذر البحث عن المهارات.",
     "param.strict.description": "ما إذا كان سيتم اعتبار التحذيرات حالات فشل أثناء التحقق من ال...",
     "tool.description": "إرجاع قائمة المهارات تحت الجذر المحدد (يقرأ المادة الأمامية فقط) بناءً على مواصفات مهارات الوكيل (SKILL.md).",
@@ -194,11 +193,11 @@
       "قائمة المهارات",
       "عرض المهارات",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "البحث بشكل متكرر (الافتراضي: صحيح)"
   },
   "sv": {
     "param.include_invalid.description": "Om du vill kan den tas med i listan även om tolkning/verifiering av SKILL.",
-    "param.recursive.description": "Sök rekursivt (standard: true)",
     "param.root_dir.description": "Sökväg för skills.",
     "param.strict.description": "Om varningar ska betraktas som fel vid verifiering av specifi...",
     "tool.description": "Returnerar en lista över skills under angiven rot (läser bara frontmatter) enligt Agent Skills-specifikationen...",
@@ -207,11 +206,11 @@
       "färdighetslista",
       "lista skills",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Sök rekursivt (standard: true)"
   },
   "sw": {
     "param.include_invalid.description": "Je, iongezwe kwenye orodha hata kama uchanganuzi/uthibitisho wa SKILL.",
-    "param.recursive.description": "Tafuta kwa kujirudia (chaguomsingi: true)",
     "param.root_dir.description": "Mzizi wa kutafuta skills.",
     "param.strict.description": "Je, maonyo yahesabiwe kama kushindwa wakati wa kuthibitisha m...",
     "tool.description": "Hurejesha orodha ya skills chini ya root iliyobainishwa (husoma frontmatter pekee) kulingana na Agent Skills sp...",
@@ -220,11 +219,11 @@
       "orodha ya skills",
       "orodhesha skills",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Tafuta kwa kujirudia (chaguomsingi: true)"
   },
   "nb": {
     "param.include_invalid.description": "Om du vil, kan den tas med i listen selv om tolkning/verifisering av SKILL.",
-    "param.recursive.description": "Søk rekursivt (standard: true)",
     "param.root_dir.description": "Søkesti for skills.",
     "param.strict.description": "Om varsler skal behandles som feil ved spesifikasjonsverifise...",
     "tool.description": "Returnerer en liste over skills under angitt rot (leser bare frontmatter) i henhold til Agent Skills-spesifikas...",
@@ -233,11 +232,11 @@
       "ferdighetsliste",
       "list skills",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Søk rekursivt (standard: true)"
   },
   "nl": {
     "param.include_invalid.description": "Ook opnemen in de lijst als het parsen/verifiëren van SKILL.",
-    "param.recursive.description": "Recursief zoeken (standaard: true)",
     "param.root_dir.description": "Zoekroot voor skills.",
     "param.strict.description": "Of waarschuwingen bij het verifiëren van de specificatie als...",
     "tool.description": "Geeft een lijst van skills onder de opgegeven root terug (leest alleen frontmatter) op basis van de Agent Skill...",
@@ -246,11 +245,11 @@
       "vaardigheden lijst",
       "skills opsommen",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Recursief zoeken (standaard: true)"
   },
   "fi": {
     "param.include_invalid.description": "Sisällytetäänkö se luetteloon, vaikka SKILL.",
-    "param.recursive.description": "Hae rekursiivisesti (oletus: true)",
     "param.root_dir.description": "Skillien hakujuuri.",
     "param.strict.description": "Käsitelläänkö varoituksetkin epäonnistumisina määrityksen tar...",
     "tool.description": "Palauttaa luettelon annettujen juurten alla olevista skilleistä (lukee vain frontmatterin) Agent Skills -määrit...",
@@ -259,11 +258,11 @@
       "taitoluettelo",
       "listaa taidot",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Hae rekursiivisesti (oletus: true)"
   },
   "cs": {
     "param.include_invalid.description": "Do seznamu zahrnout i položky, u nichž selže zpracování nebo ověření SKILL.",
-    "param.recursive.description": "Prohledávat rekurzivně (výchozí: true)",
     "param.root_dir.description": "Kořen pro vyhledávání skills.",
     "param.strict.description": "Zda považovat varování při ověřování specifikace za chyby (vý...",
     "tool.description": "Vrací seznam skills pod zadaným kořenem (čte pouze frontmatter) podle specifikace Agent Skills (SKILL.md).",
@@ -272,11 +271,11 @@
       "seznam dovedností",
       "vypsat dovednosti",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Prohledávat rekurzivně (výchozí: true)"
   },
   "uk": {
     "param.include_invalid.description": "Чи включати до списку, навіть якщо розбір або перевірка SKILL.",
-    "param.recursive.description": "Шукати рекурсивно (типово: true)",
     "param.root_dir.description": "Корінь пошуку skills.",
     "param.strict.description": "Чи вважати попередження помилками під час перевірки специфіка...",
     "tool.description": "Повертає список skills у вказаному корені (читає лише frontmatter) згідно зі специфікацією Agent Skills (SKILL.",
@@ -285,11 +284,11 @@
       "список навичок",
       "перелік навичок",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Шукати рекурсивно (типово: true)"
   },
   "tr": {
     "param.include_invalid.description": "SKILL.",
-    "param.recursive.description": "Yinelemeli ara (varsayılan: true)",
     "param.root_dir.description": "Beceri arama kökü.",
     "param.strict.description": "Özellik doğrulaması sırasında uyarılar da başarısızlık olarak...",
     "tool.description": "Agent Skills belirtimine (SKILL.",
@@ -298,11 +297,11 @@
       "beceri listesi",
       "becerileri listele",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "Yinelemeli ara (varsayılan: true)"
   },
   "th": {
     "param.include_invalid.description": "ไม่ว่าจะรวมไว้ในรายการหรือไม่ แม้ว่าการแยกวิเคราะห์/การตรวจสอบ SKILL.",
-    "param.recursive.description": "ค้นหาซ้ำ (ค่าเริ่มต้น: จริง)",
     "param.root_dir.description": "รากสำหรับค้นหาทักษะ หากเว้นว่างหรือไม่ได้ระบุ จะใช้ UAGENT...",
     "param.strict.description": "จะถือว่า warning เป็นความล้มเหลวระหว่างการตรวจสอบข้อกำหนดหรือ...",
     "tool.description": "ส่งคืนรายการทักษะภายใต้รูทที่ระบุ (อ่านเฉพาะส่วนหน้าเท่านั้น) ตามข้อมูลจำเพาะของทักษะตัวแทน (SKILL.",
@@ -311,11 +310,11 @@
       "รายการทักษะ",
       "แสดงทักษะ",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "ค้นหาซ้ำ (ค่าเริ่มต้น: จริง)"
   },
   "zh_CN": {
     "param.include_invalid.description": "即使 SKILL.md 解析/验证失败，是否将其包含在列表中（默认值：true）。如果错误，失败的技能将被排除。",
-    "param.recursive.description": "递归搜索（默认值：true）",
     "param.root_dir.description": "技能搜索根目录。使用UAGENT_SKILLS_DIRS。",
     "param.strict.description": "在规范验证期间是否将警告视为失败（默认：false）。",
     "tool.description": "根据代理技能规范 (SKILL.md) 返回指定根下的技能列表（仅读取 frontmatter）。如果省略 root_dir，则扫描 UAGENT_SKILLS_DIRS 或 ./skills。",
@@ -324,11 +323,11 @@
       "技能列表",
       "列出技能",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "递归搜索（默认值：true）"
   },
   "zh_TW": {
     "param.include_invalid.description": "即使 SKILL.md 解析/驗證失敗，是否將其包含在清單中（預設值：true）。如果錯誤，失敗的技能將被排除。",
-    "param.recursive.description": "遞歸搜尋（預設值：true）",
     "param.root_dir.description": "技能搜索根目录。使用UAGENT_SKILLS_DIRS。",
     "param.strict.description": "在規格驗證期間是否將警告視為失敗（預設：false）。",
     "tool.description": "根據代理技能規格 (SKILL.md) 傳回指定根下的技能清單（僅讀取 frontmatter）。如果省略 root_dir，則掃描 UAGENT_SKILLS_DIRS 或 ./skills。",
@@ -337,11 +336,11 @@
       "技能清單",
       "列出技能",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "遞歸搜尋（預設值：true）"
   },
   "bn": {
     "param.include_invalid.description": "SKILL.",
-    "param.recursive.description": "recursive ভাবে খুঁজুন (default: true)",
     "param.root_dir.description": "skill অনুসন্ধানের root। ফাঁকা/অসুনির্দিষ্ট হলে UAGENT_SKIL...",
     "param.strict.description": "specification verification-এর সময় warnings-কে ব্যর্থতা হিসেব...",
     "tool.description": "Agent Skills স্পেসিফিকেশন (SKILL.",
@@ -350,11 +349,11 @@
       "দক্ষতার তালিকা",
       "দক্ষতা তালিকাভুক্ত",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "recursive ভাবে খুঁজুন (default: true)"
   },
   "fa": {
     "param.include_invalid.description": "آیا حتی اگر تجزیه/اعتبارسنجی SKILL.",
-    "param.recursive.description": "جست‌وجوی بازگشتی (پیش‌فرض: true)",
     "param.root_dir.description": "ریشهٔ جست‌وجوی skillها.",
     "param.strict.description": "آیا warningها هنگام اعتبارسنجی specification خطا محسوب شوند ی...",
     "tool.description": "فهرستی از skillها را در زیر ریشهٔ مشخص‌شده برمی‌گرداند (فقط frontmatter را می‌خواند) بر پایهٔ مشخصات Agent Skil...",
@@ -363,11 +362,11 @@
       "فهرست مهارت‌ها",
       "نمایش مهارت‌ها",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "جست‌وجوی بازگشتی (پیش‌فرض: true)"
   },
   "mn": {
     "param.include_invalid.description": "SKILL.",
-    "param.recursive.description": "давтагдан хайх (анхдагч: true)",
     "param.root_dir.description": "skill хайх root.Хоосон/заагаагүй бол UAGENT_SKILLS_DIRS (os.",
     "param.strict.description": "specification verification хийх үед warnings-ийг алдаа гэж үз...",
     "tool.description": "Agent Skills-ийн specification (SKILL.",
@@ -376,11 +375,11 @@
       "ур чадварын жагсаалт",
       "ур чадвар жагсаах",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "давтагдан хайх (анхдагч: true)"
   },
   "mr": {
     "param.include_invalid.description": "SKILL.",
-    "param.recursive.description": "recursive शोध (default: true)",
     "param.root_dir.description": "skill शोधण्याचे root.",
     "param.strict.description": "specification verification दरम्यान warnings ना अपयश मानायचे क...",
     "tool.description": "Agent Skills specification (SKILL.",
@@ -389,6 +388,7 @@
       "कौशल्य यादी",
       "कौशल्ये सूचीबद्ध करा",
       "skills list"
-    ]
+    ],
+    "param.recur.description": "recursive शोध (default: true)"
   }
 }

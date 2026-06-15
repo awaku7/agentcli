@@ -32,19 +32,19 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "device_name": {
+                "devname": {
                     "type": "string",
                     "description": _(
-                        "param.device_name.description",
+                        "param.devname.description",
                         default=(
                             "Optional device name filter. Matches by exact name or substring."
                         ),
                     ),
                 },
-                "mac_address": {
+                "mac": {
                     "type": "string",
                     "description": _(
-                        "param.mac_address.description",
+                        "param.mac.description",
                         default="MAC address filter.",
                     ),
                 },
@@ -415,8 +415,8 @@ def _format_text(result: dict[str, Any]) -> str:
             "msg.summary",
             default="SwitchBot BLE control completed: {action} on {device_name} ({device_id}).",
             action=status.get("action") or "(unknown)",
-            device_name=device.get("device_name") or device.get("name") or "(unknown)",
-            device_id=device.get("device_id") or device.get("address") or "(unknown)",
+            device_name=device.get("devname") or device.get("name") or "(unknown)",
+            device_id=device.get("dev") or device.get("address") or "(unknown)",
         ),
         f"Address: {device.get('address') or '-'}",
         f"Device type: {device.get('device_type') or '-'}",
@@ -432,8 +432,8 @@ def _format_text(result: dict[str, Any]) -> str:
 
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").lower()
-    device_name = args.get("device_name")
-    mac_address = args.get("mac_address")
+    device_name = args.get("devname")
+    mac_address = args.get("mac")
     action = str(args.get("action") or "").strip()
     raw_value = args.get("value")
 
@@ -583,8 +583,8 @@ def run_tool(args: dict[str, Any]) -> str:
         result = {
             "ok": True,
             "device": {
-                "device_id": device.get("address"),
-                "device_name": device.get("name"),
+                "dev": device.get("address"),
+                "devname": device.get("name"),
                 "device_type": device.get("device_type"),
                 "hub_id": None,
                 "online": True,

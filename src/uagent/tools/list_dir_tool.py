@@ -57,10 +57,10 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": False,
                 },
-                "max_results": {
+                "limit": {
                     "type": "integer",
                     "description": _(
-                        "param.max_results.description",
+                        "param.limit.description",
                         default="Maximum number of entries to return per page (default: 50).",
                     ),
                     "default": 50,
@@ -154,7 +154,7 @@ def run_tool(args: dict[str, Any]) -> str:
     root_path = str((args or {}).get("path") or (args or {}).get("root_path") or ".")
     show_hidden = bool((args or {}).get("show_hidden", False))
 
-    max_results_raw = (args or {}).get("max_results", 50)
+    max_results_raw = (args or {}).get("limit", 50)
     page_raw = (args or {}).get("page", 1)
 
     try:

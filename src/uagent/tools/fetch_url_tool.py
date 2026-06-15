@@ -85,28 +85,28 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "json_pointer": {
+                "ptr": {
                     "type": "string",
                     "description": _(
-                        "param.json_pointer.description",
+                        "param.ptr.description",
                         default=(
                             "Optional RFC 6901 JSON Pointer (e.g., /items/0/title) used when extract=json."
                         ),
                     ),
                 },
-                "max_bytes": {
+                "maxb": {
                     "type": "integer",
                     "default": 4000,
                     "description": _(
-                        "param.max_bytes.description",
+                        "param.maxb.description",
                         default="Maximum bytes to read from the response.",
                     ),
                 },
-                "max_chars": {
+                "maxc": {
                     "type": "integer",
                     "default": 8000,
                     "description": _(
-                        "param.max_chars.description",
+                        "param.maxc.description",
                         default="Maximum characters to return (applied after decoding/extraction).",
                     ),
                 },
@@ -125,11 +125,11 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Timeout (seconds).",
                     ),
                 },
-                "verify_ssl": {
+                "ssl": {
                     "type": "boolean",
                     "default": True,
                     "description": _(
-                        "param.verify_ssl.description",
+                        "param.ssl.description",
                         default="Whether to verify SSL certificates.",
                     ),
                 },
@@ -303,10 +303,10 @@ def run_tool(args: dict[str, Any]) -> str:
 
     extract = str(args.get("extract") or "head")
     selector = str(args.get("selector") or "") or None
-    json_pointer = str(args.get("json_pointer") or "") or None
+    json_pointer = str(args.get("ptr") or "") or None
 
-    max_bytes = int(args.get("max_bytes") or 4000)
-    max_chars = int(args.get("max_chars") or 8000)
+    max_bytes = int(args.get("maxb") or 4000)
+    max_chars = int(args.get("maxc") or 8000)
 
     if max_bytes <= 0:
         max_bytes = 0
@@ -318,7 +318,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     ua = str(args.get("user_agent") or "") or "curl/7.79.1"
     timeout = int(args.get("timeout") or 10)
-    verify_ssl = args.get("verify_ssl", True)
+    verify_ssl = args.get("ssl", True)
     if not isinstance(verify_ssl, bool):
         verify_ssl = str(verify_ssl).lower() in ("true", "1", "yes")
 

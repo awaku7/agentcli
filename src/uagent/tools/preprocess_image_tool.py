@@ -74,10 +74,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "image_path": {
+                "img": {
                     "type": "string",
                     "description": _(
-                        "param.image_path.description",
+                        "param.img.description",
                         default="Path to the source image to preprocess.",
                     ),
                 },
@@ -151,10 +151,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
                     ),
                 },
-                "file_prefix": {
+                "prefix": {
                     "type": "string",
                     "description": _(
-                        "param.file_prefix.description",
+                        "param.prefix.description",
                         default="Prefix for the saved filename (optional).",
                     ),
                     "default": "preprocess_image",
@@ -261,7 +261,7 @@ def _apply_mode(img: Image.Image, mode: str) -> tuple[Image.Image, list[str]]:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    image_path = str(args.get("image_path") or "").strip()
+    image_path = str(args.get("img") or "").strip()
     if not image_path:
         raise RuntimeError(
             _(
@@ -289,7 +289,7 @@ def run_tool(args: dict[str, Any]) -> str:
     resize = args.get("resize")
     output_dir = str(args.get("output_dir") or "outputs/image_preprocess").strip()
     file_prefix = (
-        str(args.get("file_prefix") or "preprocess_image").strip() or "preprocess_image"
+        str(args.get("prefix") or "preprocess_image").strip() or "preprocess_image"
     )
 
     img = Image.open(p)

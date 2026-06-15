@@ -38,10 +38,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "ip_address": {
+                "ip": {
                     "type": "string",
                     "description": _(
-                        "param.ip_address.description",
+                        "param.ip.description",
                         default="Target node IPv4 address.",
                     ),
                 },
@@ -54,10 +54,10 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "object_code": {
+                "obj": {
                     "type": "string",
                     "description": _(
-                        "param.object_code.description",
+                        "param.obj.description",
                         default=(
                             "Object code filter (e.g. '0130')."
                         ),
@@ -169,7 +169,7 @@ def _snapshot_changes(
             {
                 "timestamp": timestamp,
                 "node": {
-                    "ip_address": ip_address,
+                    "ip": ip_address,
                     "node_id": ip_address,
                 },
                 "object": {
@@ -194,11 +194,11 @@ def _format_text(payload: dict[str, Any]) -> str:
         )
     ]
     target = payload.get("target") or {}
-    if target.get("ip_address"):
+    if target.get("ip"):
         lines.append(f"IP: {target.get('ip_address')}")
     if target.get("eoj"):
         lines.append(f"EOJ: {target.get('eoj')}")
-    if target.get("object_code"):
+    if target.get("obj"):
         lines.append(f"object_code: {target.get('object_code')}")
     lines.append(f"Interval: {payload.get('interval')} s")
     lines.append(f"Duration: {payload.get('duration')} s")
@@ -228,9 +228,9 @@ def _format_text(payload: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    ip_address = str(args.get("ip_address") or "").strip()
+    ip_address = str(args.get("ip") or "").strip()
     eoj_arg = args.get("eoj")
-    object_code_arg = args.get("object_code")
+    object_code_arg = args.get("obj")
     interval = _normalize_int(
         args.get("interval", _DEFAULT_INTERVAL), _DEFAULT_INTERVAL, 1
     )
@@ -331,9 +331,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 ),
             },
             "target": {
-                "ip_address": ip_address,
+                "ip": ip_address,
                 "eoj": target_eoj_text,
-                "object_code": object_code_arg,
+                "obj": object_code_arg,
                 "name": target_name,
             },
             "interval": interval,
@@ -354,9 +354,9 @@ def run_tool(args: dict[str, Any]) -> str:
         "count": len(all_changes),
         "changes": all_changes,
         "target": {
-            "ip_address": ip_address,
+            "ip": ip_address,
             "eoj": target_eoj_text,
-            "object_code": object_code_arg,
+            "obj": object_code_arg,
             "name": target_name,
         },
         "interval": interval,

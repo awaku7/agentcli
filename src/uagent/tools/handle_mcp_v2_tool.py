@@ -112,13 +112,13 @@ TOOL_SPEC: dict[str, Any] = {
                         default="The name of the tool to execute.",
                     ),
                 },
-                "tool_arguments": {
+                "args": {
                     "anyOf": [
                         {"type": "object", "additionalProperties": True},
                         {"type": "string"},
                     ],
                     "description": _(
-                        "param.tool_arguments.description",
+                        "param.args.description",
                         default='Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string.',
                     ),
                 },
@@ -321,7 +321,7 @@ def run_tool(args: dict[str, Any]) -> str:
     server_name = str(args.get("server_name", "")).strip()
     url = args.get("url", "")
     name = args.get("tool_name")
-    argv = args.get("tool_arguments", {})
+    argv = args.get("args", {})
 
     # Allow tool_arguments to be provided as a JSON string (some proxies/LLMs serialize objects).
     if argv is None:

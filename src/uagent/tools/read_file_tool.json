@@ -5,11 +5,8 @@
     "err.out_of_range": "(file has only {count} lines, start_line {start_line} is out of range)",
     "msg.truncated": "[read_file truncated: Byte limit {max_bytes} reached]",
     "param.filename.description": "Path of the file to read.",
-    "param.head_lines.description": "Number of lines to read from the beginning. Cannot be used with tail_lines.",
-    "param.max_lines.description": "Maximum number of lines to read. If null, read to EOF.",
     "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
     "param.start_line.description": "Line number to start reading from (1-based). Default is 1.",
-    "param.tail_lines.description": "Number of lines to read from the end. Cannot be used with head_lines.",
     "tool.description": "Read file contents (max 1MB). Supports partial reading via start_line/max_lines.",
     "x_search_terms": [
       "read_file",
@@ -24,7 +21,10 @@
       "read text",
       "partial read",
       "max lines"
-    ]
+    ],
+    "param.head.description": "Number of lines to read from the beginning. Cannot be used with tail_lines.",
+    "param.maxl.description": "Maximum number of lines to read. If null, read to EOF.",
+    "param.tail.description": "Number of lines to read from the end. Cannot be used with head_lines."
   },
   "ja": {
     "err.dual_lines": "[read_file error] head_lines と tail_lines は同時に指定できません",
@@ -32,11 +32,8 @@
     "err.out_of_range": "(ファイルは {count} 行しかありません。start_line {start_line} は範囲外です)",
     "msg.truncated": "[read_file truncated: バイト制限 {max_bytes} に達しました]",
     "param.filename.description": "読み取るファイルのパス。",
-    "param.head_lines.description": "先頭から読み取る行数。tail_lines と同時に指定することはできません。",
-    "param.max_lines.description": "読み取る最大行数。null の場合はファイル末尾まで読み取ります。",
     "param.page.description": "読み取るページ番号（1始まり）。max_lines と併用します。",
     "param.start_line.description": "読み取りを開始する行番号（1始まり）。デフォルトは 1 です。",
-    "param.tail_lines.description": "末尾から読み取る行数。head_lines と同時に指定することはできません。",
     "tool.description": "ファイル内容を読み取ります（最大 1,000,000バイト）。start_line や max_lines を指定して部分的に読み取ることも可能です。",
     "x_search_terms": [
       "read_file",
@@ -51,7 +48,10 @@
       "最大行数",
       "テキストを読む",
       "ファイルリーダー"
-    ]
+    ],
+    "param.head.description": "先頭から読み取る行数。tail_lines と同時に指定することはできません。",
+    "param.maxl.description": "読み取る最大行数。null の場合はファイル末尾まで読み取ります。",
+    "param.tail.description": "末尾から読み取る行数。head_lines と同時に指定することはできません。"
   },
   "es": {
     "err.dual_lines": "[error read_file] head_lines y tail_lines no pueden especificarse al...",
@@ -59,10 +59,7 @@
     "err.out_of_range": "(El archivo solo tiene {count} líneas.",
     "msg.truncated": "[read_file truncado: límite de bytes {max_bytes} a...",
     "param.filename.description": "Ruta del archivo a leer.",
-    "param.head_lines.description": "Número de líneas a leer desde el principio. No se puede usar con tail_lines.",
-    "param.max_lines.description": "Número máximo de líneas a leer.",
     "param.start_line.description": "Número de línea (desde 1) para empezar la lectura.",
-    "param.tail_lines.description": "Número de líneas a leer desde el final. No se puede usar con head_lines.",
     "tool.description": "Lee el contenido del archivo (hasta 1.000.000 bytes).",
     "x_search_terms": [
       "read_file",
@@ -78,7 +75,10 @@
       "líneas máximas",
       "leer contenido"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Número de líneas a leer desde el principio. No se puede usar con tail_lines.",
+    "param.maxl.description": "Número máximo de líneas a leer.",
+    "param.tail.description": "Número de líneas a leer desde el final. No se puede usar con head_lines."
   },
   "fr": {
     "err.dual_lines": "[erreur read_file] head_lines et tail_lines ne peuvent pas être spéci...",
@@ -86,10 +86,7 @@
     "err.out_of_range": "(Le fichier ne contient que {count} lignes.",
     "msg.truncated": "[read_file tronqué : limite d'octets {max_bytes} atteinte]",
     "param.filename.description": "Chemin du fichier à lire.",
-    "param.head_lines.description": "Nombre de lignes à lire depuis le début. Ne peut pas être utilisé avec tail_lines.",
-    "param.max_lines.description": "Nombre maximum de lignes à lire.",
     "param.start_line.description": "Numéro de ligne (début à 1) pour commencer la lecture.",
-    "param.tail_lines.description": "Nombre de lignes à lire depuis la fin.",
     "tool.description": "Lit le contenu d'un fichier (max 1 000 000 octets).",
     "x_search_terms": [
       "read_file",
@@ -105,7 +102,10 @@
       "lignes max",
       "lire contenu"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Nombre de lignes à lire depuis le début. Ne peut pas être utilisé avec tail_lines.",
+    "param.maxl.description": "Nombre maximum de lignes à lire.",
+    "param.tail.description": "Nombre de lignes à lire depuis la fin."
   },
   "ko": {
     "err.dual_lines": "[read_file 에러] head_lines와 tail_lines는 동시에 지정할 수 없습니다.",
@@ -113,10 +113,7 @@
     "err.out_of_range": "(파일은 {count}개 행만 있습니다. start_line {start_line}은 범위를 벗어납니다)",
     "msg.truncated": "[read_file 생략됨: 바이트 제한 {max_bytes} 도달]",
     "param.filename.description": "읽을 파일의 경로.",
-    "param.head_lines.description": "처음부터 읽을 행 수. tail_lines와 함께 사용할 수 없습니다.",
-    "param.max_lines.description": "읽을 최대 행 수. null인 경우 끝까지 읽습니다.",
     "param.start_line.description": "읽기를 시작할 행 번호(1부터 시작). 기본값은 1입니다.",
-    "param.tail_lines.description": "끝에서부터 읽을 행 수. head_lines와 함께 사용할 수 없습니다.",
     "tool.description": "파일 내용을 읽습니다(최대 1,000,000바이트). start_line 및 max_lines를 사용하여 부분적으로 읽을 수 있습니다.",
     "x_search_terms": [
       "read_file",
@@ -132,7 +129,10 @@
       "최대 줄 수",
       "내용 읽기"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "처음부터 읽을 행 수. tail_lines와 함께 사용할 수 없습니다.",
+    "param.maxl.description": "읽을 최대 행 수. null인 경우 끝까지 읽습니다.",
+    "param.tail.description": "끝에서부터 읽을 행 수. head_lines와 함께 사용할 수 없습니다."
   },
   "de": {
     "err.dual_lines": "[read_file Fehler] head_lines und tail_lines können nicht gleichzeiti...",
@@ -140,10 +140,7 @@
     "err.out_of_range": "(Die Datei hat nur {count} Zeilen.",
     "msg.truncated": "[read_file abgeschnitten: Byte-Limit {max_bytes} erreicht]",
     "param.filename.description": "Pfad der zu lesenden Datei.",
-    "param.head_lines.description": "Anzahl der Zeilen, die vom Anfang an gelesen werden sollen.",
-    "param.max_lines.description": "Maximale Anzahl der zu lesenden Zeilen.",
     "param.start_line.description": "Zeilennummer (beginnend bei 1), ab der gelesen werden s...",
-    "param.tail_lines.description": "Anzahl der Zeilen, die vom Ende an gelesen werden sollen.",
     "tool.description": "Liest Dateiinhalte (bis zu 1.000.000 Byte).",
     "x_search_terms": [
       "read_file",
@@ -159,7 +156,10 @@
       "max zeilen",
       "inhalt lesen"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Anzahl der Zeilen, die vom Anfang an gelesen werden sollen.",
+    "param.maxl.description": "Maximale Anzahl der zu lesenden Zeilen.",
+    "param.tail.description": "Anzahl der Zeilen, die vom Ende an gelesen werden sollen."
   },
   "it": {
     "err.dual_lines": "[errore read_file] head_lines e tail_lines non possono essere specifi...",
@@ -167,10 +167,7 @@
     "err.out_of_range": "(Il file ha solo {count} righe. start_line {start_line} è fuori intervallo)",
     "msg.truncated": "[read_file troncato: limite di byte {max_bytes} raggiunto]",
     "param.filename.description": "Percorso del file da l...",
-    "param.head_lines.description": "Numero di righe da leggere dall'inizio. Non cumulabile con tail_lines.",
-    "param.max_lines.description": "Numero massimo di righe da leggere.",
     "param.start_line.description": "Numero di riga (da 1) da cui iniziare. Predefinito è 1.",
-    "param.tail_lines.description": "Numero di righe da leggere dalla fine. Non cumulabile con head_lines.",
     "tool.description": "Legge il contenuto del file (fino a 1.000.000 di byte).",
     "x_search_terms": [
       "read_file",
@@ -186,7 +183,10 @@
       "righe max",
       "leggi contenuto"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Numero di righe da leggere dall'inizio. Non cumulabile con tail_lines.",
+    "param.maxl.description": "Numero massimo di righe da leggere.",
+    "param.tail.description": "Numero di righe da leggere dalla fine. Non cumulabile con head_lines."
   },
   "ru": {
     "err.dual_lines": "[ошибка read_file] head_lines и tail_lines нельзя указывать одновременно.",
@@ -194,10 +194,7 @@
     "err.out_of_range": "(В файле всего {count} строк. start_line {start_line} вне диапазона)",
     "msg.truncated": "[read_file усечено: достигнут лимит {max_bytes} байт]",
     "param.filename.description": "Путь к файлу для чтения.",
-    "param.head_lines.description": "Количество строк для чтения с начала. Нельзя использовать вместе с tail_lines.",
-    "param.max_lines.description": "Максимальное число строк для чтения.",
     "param.start_line.description": "Номер строки (с 1), с которой начать чтение. По умолчанию 1.",
-    "param.tail_lines.description": "Количество строк для чтения с конца.",
     "tool.description": "Читает содержимое файла (до 1 000 000 байт).",
     "x_search_terms": [
       "read_file",
@@ -213,7 +210,10 @@
       "макс строк",
       "чтение содержимого"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Количество строк для чтения с начала. Нельзя использовать вместе с tail_lines.",
+    "param.maxl.description": "Максимальное число строк для чтения.",
+    "param.tail.description": "Количество строк для чтения с конца."
   },
   "pt_BR": {
     "err.dual_lines": "[erro read_file] head_lines e tail_lines não podem ser especificados...",
@@ -221,10 +221,7 @@
     "err.out_of_range": "(O arquivo tem apenas {count} linhas.",
     "msg.truncated": "[read_file truncado: limite de bytes {max_bytes} atingido]",
     "param.filename.description": "Caminho do arquivo a s...",
-    "param.head_lines.description": "Número de linhas para ler do início. Não pode ser usado com tail_lines.",
-    "param.max_lines.description": "Número máximo de linhas a ler. Se nulo, lê até o fim.",
     "param.start_line.description": "Número da linha (iniciando em 1) para começar a leitura.",
-    "param.tail_lines.description": "Número de linhas para ler do fim. Não pode ser usado com head_lines.",
     "tool.description": "Lê o conteúdo do arquivo (até 1.000.000 bytes).",
     "x_search_terms": [
       "read_file",
@@ -240,7 +237,10 @@
       "linhas máximas",
       "ler conteúdo"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Número de linhas para ler do início. Não pode ser usado com tail_lines.",
+    "param.maxl.description": "Número máximo de linhas a ler. Se nulo, lê até o fim.",
+    "param.tail.description": "Número de linhas para ler do fim. Não pode ser usado com head_lines."
   },
   "pt": {
     "err.dual_lines": "[erro read_file] head_lines e tail_lines não podem ser especificados...",
@@ -248,10 +248,7 @@
     "err.out_of_range": "(O arquivo possui apenas {count} linhas.",
     "msg.truncated": "[read_file truncado: limite de bytes {max_bytes} atingido]",
     "param.filename.description": "Caminho do arquivo a s...",
-    "param.head_lines.description": "Número de linhas a serem lidas desde o início.",
-    "param.max_lines.description": "Número máximo de linhas a serem lidas.",
     "param.start_line.description": "Número da linha (começando em 1) para iniciar a leitura.",
-    "param.tail_lines.description": "Número de linhas a serem lidas a partir do final.",
     "tool.description": "Leia o conteúdo do arquivo (até 1.000.000 bytes).",
     "x_search_terms": [
       "read_file",
@@ -267,7 +264,10 @@
       "linhas máximas",
       "ler conteúdo"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Número de linhas a serem lidas desde o início.",
+    "param.maxl.description": "Número máximo de linhas a serem lidas.",
+    "param.tail.description": "Número de linhas a serem lidas a partir do final."
   },
   "id": {
     "err.dual_lines": "[read_file error] head_lines dan tail_lines tidak dapat ditentukan bersamaan.",
@@ -275,10 +275,7 @@
     "err.out_of_range": "(File hanya memiliki {count} baris.",
     "msg.truncated": "[read_file terpotong: batas byte {max_bytes} tercapai]",
     "param.filename.description": "Jalur file yang akan d...",
-    "param.head_lines.description": "Jumlah baris yang dibaca dari awal.",
-    "param.max_lines.description": "Jumlah maksimum baris yang dibaca.",
     "param.start_line.description": "Nomor baris (mulai dari 1) untuk memulai pembacaan.",
-    "param.tail_lines.description": "Jumlah baris yang dibaca dari akhir.",
     "tool.description": "Baca isi file (hingga 1.000.000 byte).",
     "x_search_terms": [
       "read_file",
@@ -294,7 +291,10 @@
       "baris maksimum",
       "baca isi"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Jumlah baris yang dibaca dari awal.",
+    "param.maxl.description": "Jumlah maksimum baris yang dibaca.",
+    "param.tail.description": "Jumlah baris yang dibaca dari akhir."
   },
   "vi": {
     "err.dual_lines": "[lỗi read_file] head_lines và tail_lines không thể được chỉ định cùng một lúc",
@@ -302,10 +302,7 @@
     "err.out_of_range": "(Tệp chỉ có dòng {count}. start_line {start_line} nằm ngoài phạm vi)",
     "msg.truncated": "[read_file bị cắt bớt: Đã đạt đến giới hạn byte {m...",
     "param.filename.description": "Đường dẫn của tập tin...",
-    "param.head_lines.description": "Số dòng cần đọc từ đầu. Không thể chỉ định cùng lúc với tail_lines.",
-    "param.max_lines.description": "Số hàng tối đa để đọc. Nếu null thì đọc đến cuối file.",
     "param.start_line.description": "Số dòng (bắt đầu từ 1) để bắt đầu đọc. Mặc định là 1.",
-    "param.tail_lines.description": "Số dòng đọc từ cuối. Không thể chỉ định cùng lúc với head_lines.",
     "tool.description": "Đọc nội dung tệp (tối đa 1.000.000 byte).",
     "x_search_terms": [
       "read_file",
@@ -321,7 +318,10 @@
       "số dòng tối đa",
       "đọc nội dung"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Số dòng cần đọc từ đầu. Không thể chỉ định cùng lúc với tail_lines.",
+    "param.maxl.description": "Số hàng tối đa để đọc. Nếu null thì đọc đến cuối file.",
+    "param.tail.description": "Số dòng đọc từ cuối. Không thể chỉ định cùng lúc với head_lines."
   },
   "pl": {
     "err.dual_lines": "[błąd read_file] head_lines i tail_lines nie mogą być określone jednocześnie.",
@@ -329,10 +329,7 @@
     "err.out_of_range": "(Plik zawiera tylko linie {count}.",
     "msg.truncated": "[read_file obcięty: osiągnięto limit {max_bytes} bajtów]",
     "param.filename.description": "Ścieżka pliku do odczy...",
-    "param.head_lines.description": "Liczba linii do przeczytania od początku.",
-    "param.max_lines.description": "Maksymalna liczba wierszy do odczytania.",
     "param.start_line.description": "Numer linii (zaczynając od 1), aby rozpocząć czytanie.",
-    "param.tail_lines.description": "Liczba linii do odczytania od końca.",
     "tool.description": "Odczytaj zawartość pliku (do 1 000 000 bajtów).",
     "x_search_terms": [
       "read_file",
@@ -348,7 +345,10 @@
       "maks wierszy",
       "czytaj zawartość"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Liczba linii do przeczytania od początku.",
+    "param.maxl.description": "Maksymalna liczba wierszy do odczytania.",
+    "param.tail.description": "Liczba linii do odczytania od końca."
   },
   "hi": {
     "err.dual_lines": "[read_file error] हेड_लाइन्स और टेल_लाइन्स को एक ही समय में निर्दिष्ट...",
@@ -356,10 +356,7 @@
     "err.out_of_range": "(फ़ाइल में केवल {count} लाइनें हैं। स्टार्ट_लाइन {start_line} सीमा...",
     "msg.truncated": "[पढ़ें_फ़ाइल को छोटा किया गया: बाइट सीमा {max_byte...",
     "param.filename.description": "पढ़ने के लिए फ़ाइल का पथ.",
-    "param.head_lines.description": "आरंभ से पढ़ने योग्य पंक्तियों की संख्या.",
-    "param.max_lines.description": "पढ़ने के लिए पंक्तियों की अधिकतम संख्या.",
     "param.start_line.description": "पढ़ना शुरू करने के लिए लाइन नंबर (1 से शुरू)। डिफ़ॉल्ट 1 है.",
-    "param.tail_lines.description": "अंत से पढ़ने के लिए पंक्तियों की संख्या.",
     "tool.description": "फ़ाइल सामग्री पढ़ें (1,000,000 बाइट्स तक)। स्टार्ट_लाइन और मैक्स_लाइन्स निर्द...",
     "x_search_terms": [
       "read_file",
@@ -375,7 +372,10 @@
       "अधिकतम पंक्तियाँ",
       "सामग्री पढ़ें"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "आरंभ से पढ़ने योग्य पंक्तियों की संख्या.",
+    "param.maxl.description": "पढ़ने के लिए पंक्तियों की अधिकतम संख्या.",
+    "param.tail.description": "अंत से पढ़ने के लिए पंक्तियों की संख्या."
   },
   "ar": {
     "err.dual_lines": "[read_file خطأ] لا يمكن تحديد head_lines وtail_lines في الوقت نفسه.",
@@ -383,10 +383,7 @@
     "err.out_of_range": "(الملف يحتوي على {count} سطرًا فقط. start_line {start_line} خارج النطاق)",
     "msg.truncated": "[read_file تم اقتطاعه: تم الوصول إلى حد {max_bytes} بايت]",
     "param.filename.description": "مسار الملف المراد قراءته.",
-    "param.head_lines.description": "عدد الأسطر التي يجب قراءتها من البداية.",
-    "param.max_lines.description": "الحد الأقصى لعدد الأسطر المراد قراءتها.",
     "param.start_line.description": "رقم السطر (يبدأ من 1) لبدء القراءة. الافتراضي هو 1.",
-    "param.tail_lines.description": "عدد الأسطر التي يجب قراءتها من النهاية.",
     "tool.description": "قراءة محتويات الملف (حتى 1,000,000 بايت).",
     "x_search_terms": [
       "read_file",
@@ -402,7 +399,10 @@
       "الحد الأقصى للأسطر",
       "قراءة المحتوى"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "عدد الأسطر التي يجب قراءتها من البداية.",
+    "param.maxl.description": "الحد الأقصى لعدد الأسطر المراد قراءتها.",
+    "param.tail.description": "عدد الأسطر التي يجب قراءتها من النهاية."
   },
   "sv": {
     "err.dual_lines": "[read_file-fel] head_lines och tail_lines kan inte anges samtidigt.",
@@ -410,10 +410,7 @@
     "err.out_of_range": "(Filen har bara {count} rader.",
     "msg.truncated": "[read_file trunkerad: bytegränsen {max_bytes} har nåtts]",
     "param.filename.description": "Sökväg till filen som...",
-    "param.head_lines.description": "Antal rader som ska läsas från början. Kan inte anges samtidigt med tail_lines.",
-    "param.max_lines.description": "Maximalt antal rader att läsa. Om null läses till slutet.",
     "param.start_line.description": "Radnummer (börjar på 1) där läsningen ska starta.",
-    "param.tail_lines.description": "Antal rader som ska läsas från slutet.",
     "tool.description": "Läs filinnehåll (upp till 1 000 000 byte).",
     "x_search_terms": [
       "read_file",
@@ -429,7 +426,10 @@
       "max rader",
       "läs innehåll"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Antal rader som ska läsas från början. Kan inte anges samtidigt med tail_lines.",
+    "param.maxl.description": "Maximalt antal rader att läsa. Om null läses till slutet.",
+    "param.tail.description": "Antal rader som ska läsas från slutet."
   },
   "sw": {
     "err.dual_lines": "[hitilafu read_file] head_lines na tail_lines haviwezi kutolewa kwa w...",
@@ -437,10 +437,7 @@
     "err.out_of_range": "(Faili lina mistari {count} pekee. start_line {start_line} iko nje ya masafa)",
     "msg.truncated": "[read_file imekatizwa: kikomo cha baiti {max_bytes...",
     "param.filename.description": "Njia ya faili la kusoma.",
-    "param.head_lines.description": "Idadi ya mistari ya kusoma kuanzia mwanzo. Haiwezi kutolewa pamoja na tail_lines.",
-    "param.max_lines.description": "Idadi ya juu ya mistari ya kusoma.",
     "param.start_line.description": "Nambari ya mstari wa kuanzia kusoma (kuanzia 1).",
-    "param.tail_lines.description": "Idadi ya mistari ya kusoma kuanzia mwisho.",
     "tool.description": "Soma maudhui ya faili (hadi baiti 1,000,000).",
     "x_search_terms": [
       "read_file",
@@ -456,7 +453,10 @@
       "mistari ya juu",
       "soma yaliyomo"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Idadi ya mistari ya kusoma kuanzia mwanzo. Haiwezi kutolewa pamoja na tail_lines.",
+    "param.maxl.description": "Idadi ya juu ya mistari ya kusoma.",
+    "param.tail.description": "Idadi ya mistari ya kusoma kuanzia mwisho."
   },
   "nb": {
     "err.dual_lines": "[read_file-feil] head_lines og tail_lines kan ikke angis samtidig.",
@@ -464,10 +464,7 @@
     "err.out_of_range": "(Filen har bare {count} linjer. start_line {start_line} er utenfor området)",
     "msg.truncated": "[read_file avkortet: bytegrensen {max_bytes} er nådd]",
     "param.filename.description": "Stien til filen som sk...",
-    "param.head_lines.description": "Antall linjer som skal leses fra starten. Kan ikke angis samtidig med tail_lines.",
-    "param.max_lines.description": "Maksimalt antall linjer som skal leses.",
     "param.start_line.description": "Linjenummer (starter på 1) der lesingen skal begynne.",
-    "param.tail_lines.description": "Antall linjer som skal leses fra slutten.",
     "tool.description": "Les filinnhold (opptil 1 000 000 byte).",
     "x_search_terms": [
       "read_file",
@@ -483,7 +480,10 @@
       "maks linjer",
       "les innhold"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Antall linjer som skal leses fra starten. Kan ikke angis samtidig med tail_lines.",
+    "param.maxl.description": "Maksimalt antall linjer som skal leses.",
+    "param.tail.description": "Antall linjer som skal leses fra slutten."
   },
   "nl": {
     "err.dual_lines": "[read_file fout] head_lines en tail_lines kunnen niet tegelijk worden opgegeven",
@@ -491,10 +491,7 @@
     "err.out_of_range": "(Het bestand heeft slechts {count} regels.",
     "msg.truncated": "[read_file afgekapt: byte-limiet {max_bytes} bereikt]",
     "param.filename.description": "Pad van het bestand da...",
-    "param.head_lines.description": "Aantal regels dat vanaf het begin gelezen wordt.",
-    "param.max_lines.description": "Maximaal aantal regels om te lezen.",
     "param.start_line.description": "Regelnummer (vanaf 1) om te beginnen met lezen. Standaard is 1.",
-    "param.tail_lines.description": "Aantal regels dat vanaf het einde gelezen wordt.",
     "tool.description": "Bestandsinhoud lezen (tot 1.000.000 bytes).",
     "x_search_terms": [
       "read_file",
@@ -510,7 +507,10 @@
       "max regels",
       "lees inhoud"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Aantal regels dat vanaf het begin gelezen wordt.",
+    "param.maxl.description": "Maximaal aantal regels om te lezen.",
+    "param.tail.description": "Aantal regels dat vanaf het einde gelezen wordt."
   },
   "fi": {
     "err.dual_lines": "[read_file-virhe] head_lines ja tail_lines eivät voi olla käytössä yhtä aikaa",
@@ -518,10 +518,7 @@
     "err.out_of_range": "(Tiedostossa on vain {count} riviä.",
     "msg.truncated": "[read_file katkaistu: tavuraja {max_bytes} saavutettu]",
     "param.filename.description": "Luettavan tiedoston polku.",
-    "param.head_lines.description": "Alusta luettavien rivien määrä. Ei voi olla yhtä aikaa tail_linesin kanssa.",
-    "param.max_lines.description": "Luettavien rivien enimmäismäärä.",
     "param.start_line.description": "Rivinumero (alkaen 1), josta lukeminen aloitetaan. Oletus on 1.",
-    "param.tail_lines.description": "Lopusta luettavien rivien määrä.",
     "tool.description": "Lue tiedoston sisältö (enintään 1 000 000 tavua).",
     "x_search_terms": [
       "read_file",
@@ -537,7 +534,10 @@
       "enimmäisrivimäärä",
       "lue sisältö"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Alusta luettavien rivien määrä. Ei voi olla yhtä aikaa tail_linesin kanssa.",
+    "param.maxl.description": "Luettavien rivien enimmäismäärä.",
+    "param.tail.description": "Lopusta luettavien rivien määrä."
   },
   "cs": {
     "err.dual_lines": "[read_file chyba] head_lines a tail_lines nelze zadat současně.",
@@ -545,10 +545,7 @@
     "err.out_of_range": "(Soubor má pouze {count} řádků. start_line {start_line} je mimo rozsah)",
     "msg.truncated": "[read_file zkráceno: dosažen limit {max_bytes} bajtů]",
     "param.filename.description": "Cesta k souboru, který...",
-    "param.head_lines.description": "Počet řádků ke čtení od začátku. Nelze zadat současně s tail_lines.",
-    "param.max_lines.description": "Maximální počet řádků ke čtení.",
     "param.start_line.description": "Číslo řádku (od 1), od kterého se má začít číst. Výchozí je 1.",
-    "param.tail_lines.description": "Počet řádků ke čtení od konce. Nelze zadat současně s head_lines.",
     "tool.description": "Čte obsah souboru (až 1 000 000 bajtů).",
     "x_search_terms": [
       "read_file",
@@ -564,7 +561,10 @@
       "max řádků",
       "číst obsah"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Počet řádků ke čtení od začátku. Nelze zadat současně s tail_lines.",
+    "param.maxl.description": "Maximální počet řádků ke čtení.",
+    "param.tail.description": "Počet řádků ke čtení od konce. Nelze zadat současně s head_lines."
   },
   "uk": {
     "err.dual_lines": "[read_file помилка] head_lines і tail_lines не можна вказувати одночасно.",
@@ -572,10 +572,7 @@
     "err.out_of_range": "(У файлі лише {count} рядків. start_line {start_line} поза діапазоном)",
     "msg.truncated": "[read_file скорочено: досягнуто ліміт {max_bytes} байтів]",
     "param.filename.description": "Шлях до файла, який сл...",
-    "param.head_lines.description": "Кількість рядків для читання з початку. Не можна вказувати одночасно з tail_lines.",
-    "param.max_lines.description": "Максимальна кількість рядків для читання.",
     "param.start_line.description": "Номер рядка (починаючи з 1), з якого почати читання. Типово 1.",
-    "param.tail_lines.description": "Кількість рядків для читання з кінця.",
     "tool.description": "Читає вміст файла (до 1 000 000 байтів).",
     "x_search_terms": [
       "read_file",
@@ -591,7 +588,10 @@
       "макс рядків",
       "читати вміст"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Кількість рядків для читання з початку. Не можна вказувати одночасно з tail_lines.",
+    "param.maxl.description": "Максимальна кількість рядків для читання.",
+    "param.tail.description": "Кількість рядків для читання з кінця."
   },
   "tr": {
     "err.dual_lines": "[dosya okuma hatası] başlık satırları ve kuyruk_satırları aynı anda b...",
@@ -599,10 +599,7 @@
     "err.out_of_range": "(Dosyada yalnızca {count} satır var. start_line {start_line} aralık dışında)",
     "msg.truncated": "[okuma_dosyası kesildi: Bayt sınırına {max_bytes}...",
     "param.filename.description": "Okunacak dosyanın yolu.",
-    "param.head_lines.description": "Baştan itibaren okunacak satır sayısı. tail_lines ile aynı anda belirtilemez.",
-    "param.max_lines.description": "Okunacak maksimum satır sayısı.",
     "param.start_line.description": "Okumaya başlamak için satır numarası (1'den başlayarak).",
-    "param.tail_lines.description": "Sondan itibaren okunacak satır sayısı.",
     "tool.description": "Dosya içeriğini okuyun (1,000,000 bayta kadar).",
     "x_search_terms": [
       "read_file",
@@ -618,7 +615,10 @@
       "maksimum satır",
       "içeriği oku"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Baştan itibaren okunacak satır sayısı. tail_lines ile aynı anda belirtilemez.",
+    "param.maxl.description": "Okunacak maksimum satır sayısı.",
+    "param.tail.description": "Sondan itibaren okunacak satır sayısı."
   },
   "th": {
     "err.dual_lines": "[ข้อผิดพลาด read_file] ไม่สามารถระบุ head_lines และ tail_lines พร้อมกันได้",
@@ -626,10 +626,7 @@
     "err.out_of_range": "(ไฟล์มีเพียง {count} บรรทัด start_line {start_line} เกินขอบเขต)",
     "msg.truncated": "[read_file ถูกตัด: ถึงขีดจำกัด {max_bytes} ไบต์]",
     "param.filename.description": "เส้นทางของไฟล์ที่ต้องก...",
-    "param.head_lines.description": "จำนวนบรรทัดที่อ่านจากตอนต้น ไม่สามารถใช้ร่วมกับ tail_lines ได้",
-    "param.max_lines.description": "จำนวนบรรทัดสูงสุดที่จะอ่าน หากเป็น null จะอ่านจนจบไฟล์",
     "param.start_line.description": "ลำดับบรรทัดที่เริ่มอ่าน (เริ่มที่ 1) ค่าเริ่มต้นคือ 1",
-    "param.tail_lines.description": "จำนวนบรรทัดที่อ่านจากตอนท้าย ไม่สามารถใช้ร่วมกับ head_lines ได้",
     "tool.description": "อ่านเนื้อหาไฟล์ (สูงสุด 1,000,000 ไบต์) สามารถระบุ start_line และ max_lines เ...",
     "x_search_terms": [
       "read_file",
@@ -645,7 +642,10 @@
       "จำนวนบรรทัดสูงสุด",
       "อ่านเนื้อหา"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "จำนวนบรรทัดที่อ่านจากตอนต้น ไม่สามารถใช้ร่วมกับ tail_lines ได้",
+    "param.maxl.description": "จำนวนบรรทัดสูงสุดที่จะอ่าน หากเป็น null จะอ่านจนจบไฟล์",
+    "param.tail.description": "จำนวนบรรทัดที่อ่านจากตอนท้าย ไม่สามารถใช้ร่วมกับ head_lines ได้"
   },
   "zh_CN": {
     "err.dual_lines": "[read_file 错误] head_lines 和 tail_lines 不能同时指定。",
@@ -653,10 +653,7 @@
     "err.out_of_range": "（该文件只有 {count} 行。start_line {start_line} 超出范围）",
     "msg.truncated": "[read_file 已截断：达到字节限制 {max_bytes}]",
     "param.filename.description": "要读取的文件路径。",
-    "param.head_lines.description": "从头读取的行数。不能与 tail_lines 同时指定。",
-    "param.max_lines.description": "读取的最大行数。为 null 时读取到末尾。",
     "param.start_line.description": "开始读取的行号（从 1 开始）。默认为 1。",
-    "param.tail_lines.description": "从末尾读取的行数。不能与 head_lines 同时指定。",
     "tool.description": "读取文件内容（最大 1,000,000 字节）。可指定 start_line 和 max_lines 进行部分读取。",
     "x_search_terms": [
       "read_file",
@@ -672,7 +669,10 @@
       "最大行数",
       "读取内容"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "从头读取的行数。不能与 tail_lines 同时指定。",
+    "param.maxl.description": "读取的最大行数。为 null 时读取到末尾。",
+    "param.tail.description": "从末尾读取的行数。不能与 head_lines 同时指定。"
   },
   "zh_TW": {
     "err.dual_lines": "[read_file 錯誤] head_lines 和 tail_lines 不能同時指定。",
@@ -680,10 +680,7 @@
     "err.out_of_range": "（該檔案只有 {count} 行。start_line {start_line} 超出範圍）",
     "msg.truncated": "[read_file 已截斷：達到位元組限制 {max_bytes}]",
     "param.filename.description": "要讀取的檔案路徑。",
-    "param.head_lines.description": "從頭讀取的行數。不能與 tail_lines 同時指定。",
-    "param.max_lines.description": "讀取的最大行數。為 null 時讀取到末尾。",
     "param.start_line.description": "開始讀取的行號（從 1 開始）。預設為 1。",
-    "param.tail_lines.description": "從末尾讀取的行數。不能與 head_lines 同時指定。",
     "tool.description": "讀取檔案內容（最大 1,000,000 位元組）。可指定 start_line 和 max_lines 進行部分讀取。",
     "x_search_terms": [
       "read_file",
@@ -699,7 +696,10 @@
       "最大行數",
       "讀取內容"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "從頭讀取的行數。不能與 tail_lines 同時指定。",
+    "param.maxl.description": "讀取的最大行數。為 null 時讀取到末尾。",
+    "param.tail.description": "從末尾讀取的行數。不能與 head_lines 同時指定。"
   },
   "bn": {
     "err.dual_lines": "[read_file ত্রুটি] head_lines এবং tail_lines একসাথে নির্দিষ্ট করা যাবে না",
@@ -707,10 +707,7 @@
     "err.out_of_range": "(ফাইলটিতে মাত্র {count}টি লাইন আছে। start_line {start_line} সীমার বাইরে)",
     "msg.truncated": "[read_file সংক্ষিপ্ত: {max_bytes} বাইট সীমায় পৌঁছেছে]",
     "param.filename.description": "পড়ার জন্য ফাইলের পথ।",
-    "param.head_lines.description": "শুরুর দিক থেকে যত লাইন পড়বে। tail_lines-এর সাথে একসাথে দেওয়া যাবে না।",
-    "param.max_lines.description": "পড়ার সর্বোচ্চ লাইনসংখ্যা। null হলে ফাইলের শেষ পর্য...",
     "param.start_line.description": "পড়া শুরু করার লাইন নম্বর (1 থেকে শুরু)। ডিফল্ট 1।",
-    "param.tail_lines.description": "শেষ দিক থেকে যত লাইন পড়বে। head_lines-এর সাথে একসাথে দেওয়া যাবে না।",
     "tool.description": "ফাইলের বিষয়বস্তু পড়ুন (সর্বোচ্চ 1,000,000 বাইট)। start_line ও max_lines দিয...",
     "x_search_terms": [
       "read_file",
@@ -726,7 +723,10 @@
       "সর্বোচ্চ লাইন",
       "বিষয়বস্তু পড়ুন"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "শুরুর দিক থেকে যত লাইন পড়বে। tail_lines-এর সাথে একসাথে দেওয়া যাবে না।",
+    "param.maxl.description": "পড়ার সর্বোচ্চ লাইনসংখ্যা। null হলে ফাইলের শেষ পর্য...",
+    "param.tail.description": "শেষ দিক থেকে যত লাইন পড়বে। head_lines-এর সাথে একসাথে দেওয়া যাবে না।"
   },
   "fa": {
     "err.dual_lines": "[خطای read_file] head_lines و tail_lines را نمی‌توان هم‌زمان مشخص کرد",
@@ -734,10 +734,7 @@
     "err.out_of_range": "(فایل فقط {count} خط دارد. start_line {start_line} خارج از محدوده است)",
     "msg.truncated": "[read_file کوتاه شد: به محدودیت {max_bytes} بایت رسید]",
     "param.filename.description": "مسیر فایل برای خواندن.",
-    "param.head_lines.description": "تعداد خطوطی که از ابتدا خوانده می‌شوند. نمی‌توان هم‌زمان با tail_lines مشخص کرد.",
-    "param.max_lines.description": "حداکثر تعداد خطوط برای خواندن.",
     "param.start_line.description": "شمارهٔ خطی که خواندن از آن آغاز می‌شود (از 1). پیش‌فرض 1 است.",
-    "param.tail_lines.description": "تعداد خطوطی که از انتها خوانده می‌شوند.",
     "tool.description": "محتوای فایل را بخوانید (تا 1,000,000 بایت).",
     "x_search_terms": [
       "read_file",
@@ -753,7 +750,10 @@
       "حداکثر سطرها",
       "خواندن محتوا"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "تعداد خطوطی که از ابتدا خوانده می‌شوند. نمی‌توان هم‌زمان با tail_lines مشخص کرد.",
+    "param.maxl.description": "حداکثر تعداد خطوط برای خواندن.",
+    "param.tail.description": "تعداد خطوطی که از انتها خوانده می‌شوند."
   },
   "mn": {
     "err.dual_lines": "[read_file алдаа] head_lines ба tail_lines-ийг зэрэг зааж болохгүй",
@@ -761,10 +761,7 @@
     "err.out_of_range": "(Файлд ердөө {count} мөр байна.",
     "msg.truncated": "[read_file тасарсан: {max_bytes} байтын хязгаарт хүрлээ]",
     "param.filename.description": "Унших файлын зам.",
-    "param.head_lines.description": "Эхнээс унших мөрийн тоо. tail_lines-тай зэрэг зааж болохгүй.",
-    "param.max_lines.description": "Унших хамгийн их мөрийн тоо.",
     "param.start_line.description": "Уншиж эхлэх мөрийн дугаар (1-ээс эхэлнэ). Анхдагч нь 1.",
-    "param.tail_lines.description": "Төгсгөлөөс унших мөрийн тоо. head_lines-тай зэрэг зааж болохгүй.",
     "tool.description": "Файлын агуулгыг уншина (хамгийн ихдээ 1,000,000 байт).",
     "x_search_terms": [
       "read_file",
@@ -780,7 +777,10 @@
       "дээд мөр",
       "агуулга унших"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "Эхнээс унших мөрийн тоо. tail_lines-тай зэрэг зааж болохгүй.",
+    "param.maxl.description": "Унших хамгийн их мөрийн тоо.",
+    "param.tail.description": "Төгсгөлөөс унших мөрийн тоо. head_lines-тай зэрэг зааж болохгүй."
   },
   "mr": {
     "err.dual_lines": "[read_file त्रुटी] head_lines आणि tail_lines एकाच वेळी देता येत नाहीत",
@@ -788,10 +788,7 @@
     "err.out_of_range": "(फाइलमध्ये फक्त {count} ओळी आहेत.",
     "msg.truncated": "[read_file संक्षिप्त: {max_bytes} बाइट मर्यादा गाठली]",
     "param.filename.description": "वाचायच्या फाइलचा path.",
-    "param.head_lines.description": "सुरुवातीपासून वाचायच्या ओळींची संख्या. tail_lines सोबत एकाच वेळी देता येत नाही.",
-    "param.max_lines.description": "वाचायच्या जास्तीत जास्त ओळी.",
     "param.start_line.description": "वाचायला सुरूवात करायच्या ओळीचा क्रमांक (1 पासून).",
-    "param.tail_lines.description": "शेवटापासून वाचायच्या ओळींची संख्या.",
     "tool.description": "फाइलची सामग्री वाचा (जास्तीत जास्त 1,000,000 बाइट्स).",
     "x_search_terms": [
       "read_file",
@@ -807,6 +804,9 @@
       "कमाल ओळी",
       "सामग्री वाचा"
     ],
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines."
+    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
+    "param.head.description": "सुरुवातीपासून वाचायच्या ओळींची संख्या. tail_lines सोबत एकाच वेळी देता येत नाही.",
+    "param.maxl.description": "वाचायच्या जास्तीत जास्त ओळी.",
+    "param.tail.description": "शेवटापासून वाचायच्या ओळींची संख्या."
   }
 }

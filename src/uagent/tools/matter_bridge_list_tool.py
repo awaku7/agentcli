@@ -32,10 +32,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "bridge_id": {
+                "bridge": {
                     "type": "string",
                     "description": _(
-                        "param.bridge_id.description",
+                        "param.bridge.description",
                         default=(
                             "Bridge ID (omit for all)."
                         ),
@@ -197,15 +197,15 @@ def _normalize_bridge_item(item: dict[str, Any]) -> dict[str, Any]:
         )
     )
 
-    bridge_id = item.get("bridgeId") or item.get("bridge_id") or item.get("id")
+    bridge_id = item.get("bridgeId") or item.get("bridge") or item.get("id")
     bridge_name = item.get("bridgeName") or item.get("bridge_name") or item.get("name")
-    controller_id = item.get("controllerId") or item.get("controller_id")
+    controller_id = item.get("controllerId") or item.get("ctrl")
 
     location = _extract_location(item)
     return {
-        "bridge_id": bridge_id,
+        "bridge": bridge_id,
         "bridge_name": bridge_name,
-        "controller_id": controller_id,
+        "ctrl": controller_id,
         "device_count": device_count,
         "device_ids": _normalize_id_list(
             item.get("deviceIds")
@@ -236,10 +236,10 @@ def _normalize_id_list(value: Any) -> list[str]:
             if isinstance(item, dict):
                 ident = (
                     item.get("deviceId")
-                    or item.get("device_id")
+                    or item.get("dev")
                     or item.get("id")
                     or item.get("bridgeId")
-                    or item.get("bridge_id")
+                    or item.get("bridge")
                 )
                 if ident is not None and str(ident).strip():
                     items.append(str(ident))
@@ -264,7 +264,7 @@ def _filter_bridges(
         return items
     filtered: list[dict[str, Any]] = []
     for item in items:
-        bid = str(item.get("bridge_id") or "").casefold()
+        bid = str(item.get("bridge") or "").casefold()
         bname = str(item.get("bridge_name") or "").casefold()
         if needle in bid or needle in bname:
             filtered.append(item)
@@ -290,9 +290,9 @@ def _format_text(result: dict[str, Any]) -> str:
             "- {name}{loc} (id={bid}) devices={count} controller={controller} reachable={reachable}".format(
                 name=item.get("bridge_name") or "(unknown)",
                 loc=loc,
-                bid=item.get("bridge_id") or "(unknown)",
+                bid=item.get("bridge") or "(unknown)",
                 count=item.get("device_count"),
-                controller=item.get("controller_id") or "-",
+                controller=item.get("ctrl") or "-",
                 reachable=item.get("reachable"),
             )
         )
@@ -301,7 +301,7 @@ def _format_text(result: dict[str, Any]) -> str:
 
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
-    bridge_id = args.get("bridge_id")
+    bridge_id = args.get("bridge")
 
     try:
         bridges_raw, source = _load_bridges_payload()
@@ -361,7 +361,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
             "bridge": {
                 "scope": "filtered",
-                "bridge_id": str(bridge_id),
+                "bridge": str(bridge_id),
                 "source": source,
             },
             "fetched_at": _now_iso(),
@@ -378,7 +378,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "items": filtered,
         "bridge": {
             "scope": "filtered" if bridge_id else "all",
-            "bridge_id": str(bridge_id) if bridge_id is not None else None,
+            "bridge": str(bridge_id) if bridge_id is not None else None,
             "total": len(items),
             "source": source,
         },

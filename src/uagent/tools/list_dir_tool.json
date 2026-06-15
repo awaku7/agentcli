@@ -11,8 +11,8 @@
     ],
     "param.path.description": "Directory to list (default: current directory). Alias of root_path.",
     "param.show_hidden.description": "Include hidden entries in the listing.",
-    "param.max_results.description": "Maximum number of entries to return per page (default: 50).",
-    "param.page.description": "Page number to retrieve (default: 1)."
+    "param.page.description": "Page number to retrieve (default: 1).",
+    "param.limit.description": "Maximum number of entries to return per page (default: 50)."
   },
   "ja": {
     "tool.description": "ディレクトリの内容を一覧表示（ページネーション対応）。",
@@ -25,8 +25,8 @@
     ],
     "param.path.description": "一覧表示するディレクトリ（既定: 現在のディレクトリ）。root_path の別名です。",
     "param.show_hidden.description": "非表示項目も一覧に含めます。",
-    "param.max_results.description": "1 ページあたりに返す最大項目数（既定: 50）。",
-    "param.page.description": "取得するページ番号（既定: 1）。"
+    "param.page.description": "取得するページ番号（既定: 1）。",
+    "param.limit.description": "1 ページあたりに返す最大項目数（既定: 50）。"
   },
   "es": {
     "tool.description": "Enumere los elementos de un directorio y devuelva JSON e...",
@@ -39,8 +39,8 @@
     ],
     "param.path.description": "Directorio a listar (valor predeterminado: d...",
     "param.show_hidden.description": "Incluir elementos ocultos en la lista.",
-    "param.max_results.description": "Número máximo de elementos a devolver por página (valor...",
-    "param.page.description": "Número de página a recuperar (valo..."
+    "param.page.description": "Número de página a recuperar (valo...",
+    "param.limit.description": "Número máximo de elementos a devolver por página (valor..."
   },
   "fr": {
     "tool.description": "Répertoriez les éléments d’un répertoire et renvoyez un...",
@@ -53,8 +53,8 @@
     ],
     "param.path.description": "Répertoire à lister (par défaut : répertoire...",
     "param.show_hidden.description": "Inclure les éléments masqués dans l...",
-    "param.max_results.description": "Nombre maximal d’éléments à renvoyer par page (par défaut : 50).",
-    "param.page.description": "Numéro de page à récupérer (par dé..."
+    "param.page.description": "Numéro de page à récupérer (par dé...",
+    "param.limit.description": "Nombre maximal d’éléments à renvoyer par page (par défaut : 50)."
   },
   "ko": {
     "tool.description": "디렉토리 내용 목록 표시(페이지네이션 지원).",
@@ -67,8 +67,8 @@
     ],
     "param.path.description": "나열할 디렉터리(기본값: 현재 디렉터리). root_path의 별칭입니다.",
     "param.show_hidden.description": "숨김 항목도 목록에 포함합니다.",
-    "param.max_results.description": "페이지당 반환할 최대 항목 수(기본값: 50).",
-    "param.page.description": "가져올 페이지 번호(기본값: 1)."
+    "param.page.description": "가져올 페이지 번호(기본값: 1).",
+    "param.limit.description": "페이지당 반환할 최대 항목 수(기본값: 50)."
   },
   "de": {
     "tool.description": "Listen Sie die Einträge eines Verzeichnisses auf und geb...",
@@ -81,8 +81,8 @@
     ],
     "param.path.description": "Aufzulistendes Verzeichnis (Standard: aktuel...",
     "param.show_hidden.description": "Versteckte Einträge in die Liste au...",
-    "param.max_results.description": "Maximale Anzahl der Einträge pro Seite (Standard: 50).",
-    "param.page.description": "Abzurufende Seitennummer (Standard: 1)."
+    "param.page.description": "Abzurufende Seitennummer (Standard: 1).",
+    "param.limit.description": "Maximale Anzahl der Einträge pro Seite (Standard: 50)."
   },
   "it": {
     "tool.description": "Elenca gli elementi di una directory e restituisce JSON...",
@@ -95,8 +95,8 @@
     ],
     "param.path.description": "Directory da elencare (predefinita: director...",
     "param.show_hidden.description": "Includi gli elementi nascosti nell’...",
-    "param.max_results.description": "Numero massimo di elementi da restituire per pagina (pre...",
-    "param.page.description": "Numero di pagina da recuperare (pr..."
+    "param.page.description": "Numero di pagina da recuperare (pr...",
+    "param.limit.description": "Numero massimo di elementi da restituire per pagina (pre..."
   },
   "ru": {
     "tool.description": "Перечислите элементы каталога и верните структурированны...",
@@ -109,8 +109,8 @@
     ],
     "param.path.description": "Каталог для вывода (по умолчанию: текущий ка...",
     "param.show_hidden.description": "Включать скрытые элементы в список.",
-    "param.max_results.description": "Максимальное число элементов на странице (по умолчанию: 50).",
-    "param.page.description": "Номер страницы для получения (по у..."
+    "param.page.description": "Номер страницы для получения (по у...",
+    "param.limit.description": "Максимальное число элементов на странице (по умолчанию: 50)."
   },
   "pt_BR": {
     "tool.description": "Liste os itens de um diretório e retorne JSON estruturado.",
@@ -123,8 +123,8 @@
     ],
     "param.path.description": "Diretório a listar (padrão: diretório atual).",
     "param.show_hidden.description": "Incluir itens ocultos na lista.",
-    "param.max_results.description": "Número máximo de itens a retornar por página (padrão: 50).",
-    "param.page.description": "Número da página a recuperar (padr..."
+    "param.page.description": "Número da página a recuperar (padr...",
+    "param.limit.description": "Número máximo de itens a retornar por página (padrão: 50)."
   },
   "pt": {
     "tool.description": "Liste os itens de um diretório e devolva JSON estruturado.",
@@ -137,8 +137,8 @@
     ],
     "param.path.description": "Diretório a listar (predefinição: diretório...",
     "param.show_hidden.description": "Incluir itens ocultos na lista.",
-    "param.max_results.description": "Número máximo de itens a devolver por página (predefinição: 50).",
-    "param.page.description": "Número da página a obter (predefin..."
+    "param.page.description": "Número da página a obter (predefin...",
+    "param.limit.description": "Número máximo de itens a devolver por página (predefinição: 50)."
   },
   "id": {
     "tool.description": "Daftarkan item dalam sebuah direktori dan kembalikan JSO...",
@@ -151,8 +151,8 @@
     ],
     "param.path.description": "Direktori yang akan ditampilkan (default: di...",
     "param.show_hidden.description": "Sertakan item tersembunyi dalam daftar.",
-    "param.max_results.description": "Jumlah maksimum item yang dikembalikan per halaman (defa...",
-    "param.page.description": "Nomor halaman yang diambil (default: 1)."
+    "param.page.description": "Nomor halaman yang diambil (default: 1).",
+    "param.limit.description": "Jumlah maksimum item yang dikembalikan per halaman (defa..."
   },
   "vi": {
     "tool.description": "Liệt kê các mục trong một thư mục và trả về JSON có cấu...",
@@ -165,8 +165,8 @@
     ],
     "param.path.description": "Thư mục cần liệt kê (mặc định: thư mục hiện...",
     "param.show_hidden.description": "Bao gồm cả các mục ẩn trong danh sách.",
-    "param.max_results.description": "Số lượng mục tối đa trả về mỗi trang (mặc định: 50).",
-    "param.page.description": "Số trang cần lấy (mặc định: 1)."
+    "param.page.description": "Số trang cần lấy (mặc định: 1).",
+    "param.limit.description": "Số lượng mục tối đa trả về mỗi trang (mặc định: 50)."
   },
   "pl": {
     "tool.description": "Wylistuj elementy katalogu i zwróć ustrukturyzowany JSON.",
@@ -179,8 +179,8 @@
     ],
     "param.path.description": "Katalog do wyświetlenia (domyślnie: bieżący...",
     "param.show_hidden.description": "Uwzględnij ukryte elementy na liście.",
-    "param.max_results.description": "Maksymalna liczba elementów zwracanych na stronę (domyśl...",
-    "param.page.description": "Numer strony do pobrania (domyślnie: 1)."
+    "param.page.description": "Numer strony do pobrania (domyślnie: 1).",
+    "param.limit.description": "Maksymalna liczba elementów zwracanych na stronę (domyśl..."
   },
   "hi": {
     "tool.description": "किसी निर्देशिका के आइटम सूचीबद्ध करें और संरचित JSON लौट...",
@@ -193,8 +193,8 @@
     ],
     "param.path.description": "सूचीबद्ध करने की निर्देशिका (डिफ़ॉल्ट: वर्तम...",
     "param.show_hidden.description": "छिपे हुए आइटम सूची में शामिल करें।",
-    "param.max_results.description": "प्रति पृष्ठ लौटाए जाने वाले अधिकतम आइटम (डिफ़ॉल्ट: 50).",
-    "param.page.description": "प्राप्त करने के लिए पृष्ठ संख्या (..."
+    "param.page.description": "प्राप्त करने के लिए पृष्ठ संख्या (...",
+    "param.limit.description": "प्रति पृष्ठ लौटाए जाने वाले अधिकतम आइटम (डिफ़ॉल्ट: 50)."
   },
   "ar": {
     "tool.description": "اعرض عناصر دليل وأعد JSON منظمًا.",
@@ -207,8 +207,8 @@
     ],
     "param.path.description": "الدليل المراد عرضه (الافتراضي: الدليل الحالي).",
     "param.show_hidden.description": "تضمين العناصر المخفية في القائمة.",
-    "param.max_results.description": "الحد الأقصى للعناصر المعروضة في كل صفحة (الافتراضي: 50).",
-    "param.page.description": "رقم الصفحة المراد جلبها (الافتراضي: 1)."
+    "param.page.description": "رقم الصفحة المراد جلبها (الافتراضي: 1).",
+    "param.limit.description": "الحد الأقصى للعناصر المعروضة في كل صفحة (الافتراضي: 50)."
   },
   "sv": {
     "tool.description": "Lista poster i en katalog och returnera strukturerad JSON.",
@@ -221,8 +221,8 @@
     ],
     "param.path.description": "Katalog som ska listas (standard: aktuell ka...",
     "param.show_hidden.description": "Inkludera dolda poster i listan.",
-    "param.max_results.description": "Maximalt antal poster per sida (standard: 50).",
-    "param.page.description": "Sidnummer att hämta (standard: 1)."
+    "param.page.description": "Sidnummer att hämta (standard: 1).",
+    "param.limit.description": "Maximalt antal poster per sida (standard: 50)."
   },
   "sw": {
     "tool.description": "Orodhesha vipengee vya saraka na urudishe JSON yenye muu...",
@@ -235,8 +235,8 @@
     ],
     "param.path.description": "Saraka ya kuorodheshwa (chaguo-msingi: sarak...",
     "param.show_hidden.description": "Jumuisha vipengee vilivyofichwa kwe...",
-    "param.max_results.description": "Idadi ya juu ya vipengee vya kurudishwa kwa kila ukurasa...",
-    "param.page.description": "Namba ya ukurasa wa kuchukua (chag..."
+    "param.page.description": "Namba ya ukurasa wa kuchukua (chag...",
+    "param.limit.description": "Idadi ya juu ya vipengee vya kurudishwa kwa kila ukurasa..."
   },
   "nb": {
     "tool.description": "List opp elementer i en katalog og returner strukturert...",
@@ -249,8 +249,8 @@
     ],
     "param.path.description": "Katalogen som skal listes (standard: gjelden...",
     "param.show_hidden.description": "Ta med skjulte elementer i listen.",
-    "param.max_results.description": "Maks antall elementer per side (standard: 50).",
-    "param.page.description": "Sidenummeret som skal hentes (stan..."
+    "param.page.description": "Sidenummeret som skal hentes (stan...",
+    "param.limit.description": "Maks antall elementer per side (standard: 50)."
   },
   "nl": {
     "tool.description": "Geef de items in een map weer en retourneer gestructuree...",
@@ -263,8 +263,8 @@
     ],
     "param.path.description": "Map om weer te geven (standaard: huidige map).",
     "param.show_hidden.description": "Verborgen items opnemen in de lijst.",
-    "param.max_results.description": "Maximaal aantal items per pagina (standaard: 50).",
-    "param.page.description": "Paginanummer om op te halen (stand..."
+    "param.page.description": "Paginanummer om op te halen (stand...",
+    "param.limit.description": "Maximaal aantal items per pagina (standaard: 50)."
   },
   "fi": {
     "tool.description": "Listaa hakemiston kohteet ja palauta jäsennelty JSON.",
@@ -277,8 +277,8 @@
     ],
     "param.path.description": "Listattava hakemisto (oletus: nykyinen hakem...",
     "param.show_hidden.description": "Sisällytä piilotetut kohteet listaan.",
-    "param.max_results.description": "Sivua kohti palautettavien kohteiden enimmäismäärä (oletus: 50).",
-    "param.page.description": "Haettava sivunumero (oletus: 1)."
+    "param.page.description": "Haettava sivunumero (oletus: 1).",
+    "param.limit.description": "Sivua kohti palautettavien kohteiden enimmäismäärä (oletus: 50)."
   },
   "cs": {
     "tool.description": "Vypíše položky v adresáři a vrátí strukturovaný JSON.",
@@ -291,8 +291,8 @@
     ],
     "param.path.description": "Adresář k vypsání (výchozí: aktuální adresář).",
     "param.show_hidden.description": "Zahrnout do seznamu skryté položky.",
-    "param.max_results.description": "Maximální počet položek na stránku (výchozí: 50).",
-    "param.page.description": "Číslo stránky k načtení (výchozí: 1)."
+    "param.page.description": "Číslo stránky k načtení (výchozí: 1).",
+    "param.limit.description": "Maximální počet položek na stránku (výchozí: 50)."
   },
   "uk": {
     "tool.description": "Перелічіть елементи каталогу та поверніть структурований...",
@@ -305,8 +305,8 @@
     ],
     "param.path.description": "Каталог для виведення (за замовчуванням: пот...",
     "param.show_hidden.description": "Включати приховані елементи до списку.",
-    "param.max_results.description": "Максимальна кількість елементів на сторінку (за замовчув...",
-    "param.page.description": "Номер сторінки для отримання (за з..."
+    "param.page.description": "Номер сторінки для отримання (за з...",
+    "param.limit.description": "Максимальна кількість елементів на сторінку (за замовчув..."
   },
   "tr": {
     "tool.description": "Bir dizindeki öğeleri listeleyin ve yapılandırılmış JSON...",
@@ -319,8 +319,8 @@
     ],
     "param.path.description": "Listelenecek dizin (varsayılan: geçerli dizin).",
     "param.show_hidden.description": "Gizli öğeleri listeye dahil et.",
-    "param.max_results.description": "Sayfa başına döndürülecek maksimum öğe sayısı (varsayılan: 50).",
-    "param.page.description": "Alınacak sayfa numarası (varsayılan: 1)."
+    "param.page.description": "Alınacak sayfa numarası (varsayılan: 1).",
+    "param.limit.description": "Sayfa başına döndürülecek maksimum öğe sayısı (varsayılan: 50)."
   },
   "th": {
     "tool.description": "แสดงรายการรายการในไดเรกทอรีและส่งคืน JSON ที่มีโครงสร้าง...",
@@ -333,8 +333,8 @@
     ],
     "param.path.description": "ไดเรกทอรีที่จะใช้แสดงรายการ (ค่าเริ่มต้น: ได...",
     "param.show_hidden.description": "รวมรายการที่ซ่อนอยู่ในรายการ.",
-    "param.max_results.description": "จำนวนรายการสูงสุดต่อหน้าที่ส่งกลับ (ค่าเริ่มต้น: 50).",
-    "param.page.description": "หมายเลขหน้าที่ต้องการดึง (ค่าเริ่ม..."
+    "param.page.description": "หมายเลขหน้าที่ต้องการดึง (ค่าเริ่ม...",
+    "param.limit.description": "จำนวนรายการสูงสุดต่อหน้าที่ส่งกลับ (ค่าเริ่มต้น: 50)."
   },
   "zh_CN": {
     "tool.description": "列出目录内容（支持分页）。",
@@ -347,8 +347,8 @@
     ],
     "param.path.description": "要列出的目录（默认：当前目录）。root_path 的别名。",
     "param.show_hidden.description": "在列表中包含隐藏条目。",
-    "param.max_results.description": "每页返回的最大条目数（默认：50）。",
-    "param.page.description": "要获取的页码（默认：1）。"
+    "param.page.description": "要获取的页码（默认：1）。",
+    "param.limit.description": "每页返回的最大条目数（默认：50）。"
   },
   "zh_TW": {
     "tool.description": "列出目录内容（支持分页）。",
@@ -361,8 +361,8 @@
     ],
     "param.path.description": "要列出的目錄（預設：目前目錄）。root_path 的別名。",
     "param.show_hidden.description": "在列表中包含隱藏項目。",
-    "param.max_results.description": "每頁要傳回的最大項目數（預設：50）。",
-    "param.page.description": "要取得的頁碼（預設：1）。"
+    "param.page.description": "要取得的頁碼（預設：1）。",
+    "param.limit.description": "每頁要傳回的最大項目數（預設：50）。"
   },
   "bn": {
     "tool.description": "একটি ডিরেক্টরির আইটেম তালিকাভুক্ত করুন এবং কাঠামোবদ্ধ JS...",
@@ -375,8 +375,8 @@
     ],
     "param.path.description": "যে ডিরেক্টরি তালিকাভুক্ত হবে (ডিফল্ট: বর্তমা...",
     "param.show_hidden.description": "লুকানো আইটেমগুলো তালিকায় অন্তর্ভুক...",
-    "param.max_results.description": "প্রতি পৃষ্ঠায় ফেরত দেওয়া সর্বোচ্চ আইটেম সংখ্যা (ডিফল্ট: 50).",
-    "param.page.description": "যে পৃষ্ঠাটি নিতে হবে (ডিফল্ট: 1)."
+    "param.page.description": "যে পৃষ্ঠাটি নিতে হবে (ডিফল্ট: 1).",
+    "param.limit.description": "প্রতি পৃষ্ঠায় ফেরত দেওয়া সর্বোচ্চ আইটেম সংখ্যা (ডিফল্ট: 50)."
   },
   "fa": {
     "tool.description": "آیتم‌های یک پوشه را فهرست کنید و JSON ساخت‌یافته برگردانید.",
@@ -389,8 +389,8 @@
     ],
     "param.path.description": "پوشه‌ای که باید فهرست شود (پیش‌فرض: پوشهٔ فع...",
     "param.show_hidden.description": "آیتم‌های مخفی را هم در فهرست شامل کنید.",
-    "param.max_results.description": "حداکثر تعداد آیتم در هر صفحه (پیش‌فرض: 50).",
-    "param.page.description": "شماره صفحه‌ای که باید دریافت شود (..."
+    "param.page.description": "شماره صفحه‌ای که باید دریافت شود (...",
+    "param.limit.description": "حداکثر تعداد آیتم در هر صفحه (پیش‌فرض: 50)."
   },
   "mn": {
     "tool.description": "Лавлахын зүйлсийг жагсааж, бүтэцлэгдсэн JSON буцаана.",
@@ -403,8 +403,8 @@
     ],
     "param.path.description": "Жагсаах лавлах (анхдагч: одоогийн лавлах).",
     "param.show_hidden.description": "Нуусан зүйлсийг жагсаалтад оруулна.",
-    "param.max_results.description": "Хуудас бүрт буцаах хамгийн их зүйлсийн тоо (анхдагч: 50).",
-    "param.page.description": "Авах хуудасны дугаар (анхдагч: 1)."
+    "param.page.description": "Авах хуудасны дугаар (анхдагч: 1).",
+    "param.limit.description": "Хуудас бүрт буцаах хамгийн их зүйлсийн тоо (анхдагч: 50)."
   },
   "mr": {
     "tool.description": "एखाद्या डिरेक्टरीतील घटक सूचीबद्ध करा आणि संरचित JSON पर...",
@@ -417,7 +417,7 @@
     ],
     "param.path.description": "सूचीबद्ध करायची डिरेक्टरी (डीफॉल्ट: सध्याची...",
     "param.show_hidden.description": "लपलेले घटक यादीत समाविष्ट करा.",
-    "param.max_results.description": "प्रति पृष्ठ परत द्यायची कमाल घटकसंख्या (डीफॉल्ट: 50).",
-    "param.page.description": "घ्यायचा पृष्ठ क्रमांक (डीफॉल्ट: 1)."
+    "param.page.description": "घ्यायचा पृष्ठ क्रमांक (डीफॉल्ट: 1).",
+    "param.limit.description": "प्रति पृष्ठ परत द्यायची कमाल घटकसंख्या (डीफॉल्ट: 50)."
   }
 }

@@ -441,7 +441,7 @@ def _format_text(payload: dict[str, Any]) -> str:
             lines.append(f"  type: {item.get('device_type')}")
         if item.get("uuid"):
             lines.append(f"  uuid: {item.get('uuid')}")
-        if item.get("ip_address"):
+        if item.get("ip"):
             lines.append(f"  ip: {item.get('ip_address')}")
         if item.get("location"):
             lines.append(f"  location: {item.get('location')}")
@@ -566,7 +566,7 @@ def run_tool(args: dict[str, Any]) -> str:
             location = raw_item.get("location")
             item = {
                 "source_address": raw_item.get("source_address"),
-                "ip_address": _extract_host(location) or raw_item.get("source_address"),
+                "ip": _extract_host(location) or raw_item.get("source_address"),
                 "st": raw_item.get("st"),
                 "usn": raw_item.get("usn"),
                 "location": location,

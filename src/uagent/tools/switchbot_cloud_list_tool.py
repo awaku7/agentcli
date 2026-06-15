@@ -168,8 +168,8 @@ def _device_sections(body: dict[str, Any]) -> list[tuple[str, list[dict[str, Any
 
 def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
     return {
-        "device_id": item.get("deviceId") or item.get("device_id"),
-        "device_name": item.get("deviceName") or item.get("device_name"),
+        "dev": item.get("deviceId") or item.get("dev"),
+        "devname": item.get("deviceName") or item.get("devname"),
         "device_type": item.get("deviceType") or item.get("device_type") or source,
         "hub_id": item.get("hubDeviceId") or item.get("hub_id"),
         "room_id": item.get("roomId") or item.get("room_id"),
@@ -195,9 +195,9 @@ def _format_text(result: dict[str, Any]) -> str:
     for item in result.get("items", []):
         lines.append(
             "- {name} [{dtype}] id={did} hub={hub} online={online}".format(
-                name=item.get("device_name") or "(unknown)",
+                name=item.get("devname") or "(unknown)",
                 dtype=item.get("device_type") or "(unknown)",
-                did=item.get("device_id") or "(unknown)",
+                did=item.get("dev") or "(unknown)",
                 hub=item.get("hub_id") or "-",
                 online=item.get("online"),
             )

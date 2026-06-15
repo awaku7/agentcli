@@ -48,10 +48,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "ip_address": {
+                "ip": {
                     "type": "string",
                     "description": _(
-                        "param.ip_address.description",
+                        "param.ip.description",
                         default="Target node IPv4 address.",
                     ),
                 },
@@ -64,10 +64,10 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "object_code": {
+                "obj": {
                     "type": "string",
                     "description": _(
-                        "param.object_code.description",
+                        "param.obj.description",
                         default=(
                             "Optional object code to narrow the queried object (e.g. '0130')."
                         ),
@@ -460,7 +460,7 @@ def _build_result(
         _property_map(properties) if target_eoj.upper() == "0EF001" else {}
     )
     node = {
-        "ip_address": ip_address,
+        "ip": ip_address,
         "node_id": ip_address,
         "node_profile": {
             "eoj": target_eoj,
@@ -503,7 +503,7 @@ def _format_text(payload: dict[str, Any]) -> str:
         _(
             "msg.summary",
             default="ECHONET Lite property set completed: {ip_address} / {epc} in {elapsed_ms} ms.",
-            ip_address=payload.get("node", {}).get("ip_address") or "(unknown)",
+            ip_address=payload.get("node", {}).get("ip") or "(unknown)",
             epc=payload.get("status", {}).get("epc") or "(unknown)",
             elapsed_ms=payload.get("elapsed_ms", 0),
         )
@@ -530,9 +530,9 @@ def _format_text(payload: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    ip_address = str(args.get("ip_address") or "").strip()
+    ip_address = str(args.get("ip") or "").strip()
     eoj = args.get("eoj")
-    object_code = args.get("object_code")
+    object_code = args.get("obj")
     epc_text = _normalize_epc(args.get("epc") if args.get("epc") is not None else None)
     output_format = str(args.get("fmt") or "json").strip().lower()
 
@@ -673,7 +673,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "target": {
                     "eoj": target_eoj_text,
                     "class_name": class_name,
-                    "object_code": _normalize_object_code(object_code),
+                    "obj": _normalize_object_code(object_code),
                     "epc": epc_text,
                 },
                 "property": {

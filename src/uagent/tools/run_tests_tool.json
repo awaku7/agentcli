@@ -9,7 +9,6 @@
     "error.shell_metacharacters_not_allowed": "shell metacharacters are not allowed in arguments: {arg}",
     "error.unsupported_framework": "unsupported framework: {framework}",
     "param.cwd.description": "Working directory to run in (must be within workdir). If null, current directory.",
-    "param.extra_args.description": "Additional arguments array. Reject if shell metacharacters are present.",
     "param.framework.description": "Test framework type.",
     "param.pythonpath.description": "Additional PYTHONPATH (e.g. 'src'). If provided, it is prefixed to the test command.",
     "param.report.description": "Output format.",
@@ -25,7 +24,8 @@
       "테스트 실행",
       "запустить тесты"
     ],
-    "summary.no_change": "Successfully made no changes (0 matches)"
+    "summary.no_change": "Successfully made no changes (0 matches)",
+    "param.xargs.description": "Additional arguments array. Reject if shell metacharacters are present."
   },
   "ja": {
     "doc.module": "run_tests_tool\n\nテストを実行するためのラッパーツール。\n\n目的:\n- cmd_exec/pwsh_exec を直接呼ぶ代わりに、テスト実行を定型化し、結果を構造化して返す。\n- framework=auto で pytest / unittest / npm を自動判定する。\n\n安全方針:\n- テスト実行は基本的に危険操作ではないため human_ask は行わない。\n- ただし、コマンド注入につながるメタ文字（&&, |, > など）を含む extra_args は拒否する。\n\n実装:\n- 内部では cmd_exec_json_tool を利用し、returncode/stdout/stderr を処理する。\n- stdout/stderr は callbacks.truncate_output があれば適用する。\n- cwd の指定には cmd_exec_json の cwd 引数を使う（cd && は使わない）。\n\n追加機能:\n- pythonpath: 追加の PYTHONPATH を設定してテストを実行する。\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -37,7 +37,6 @@
     "error.shell_metacharacters_not_allowed": "引数にシェルのメタ文字は使用できません: {arg}",
     "error.unsupported_framework": "未対応の framework です: {framework}",
     "param.cwd.description": "実行する作業ディレクトリ（workdir 配下である必要があります）。null の場合はカレントディレクトリ。",
-    "param.extra_args.description": "追加引数の配列。シェルのメタ文字が含まれる場合は拒否します。",
     "param.framework.description": "テストフレームワークの種類。",
     "param.pythonpath.description": "追加の PYTHONPATH（例: 'src'）。指定した場合はテストコマンドの前に付与します。",
     "param.report.description": "出力形式。",
@@ -49,7 +48,8 @@
       "pytest unittest npm",
       "テスト"
     ],
-    "summary.no_change": "変更はありませんでした（0 件の一致）"
+    "summary.no_change": "変更はありませんでした（0 件の一致）",
+    "param.xargs.description": "追加引数の配列。シェルのメタ文字が含まれる場合は拒否します。"
   },
   "es": {
     "doc.module": "run_tests_tool\n\nUna herramienta envoltorio para ejecutar pruebas.\n\nPropósito:\n- En lugar de llamar directamente a cmd_exec/pwsh_exec, estandariza la ejecución de pruebas y devuelve resultados estructurados.\n- Detecta automáticamente pytest / unittest / npm con framework=auto.\n\nPolítica de seguridad:\n- La ejecución de pruebas, por lo general, no es una operación peligrosa, por lo que no se utiliza human_ask.\n- Sin embargo, se rechazan los extra_args que incluyan metacaracteres de inyección de comandos (&&, |, >, etc.).\n\nImplementación:\n- Usa internamente cmd_exec_json_tool y maneja returncode/stdout/stderr.\n- Para stdout/stderr, aplica callbacks.truncate_output si existe.\n- Para especificar cwd, use el argumento cwd de cmd_exec_json (no use cd &&).\n\nFunciones adicionales:\n- pythonpath: configure un PYTHONPATH adicional para ejecutar pruebas.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -61,7 +61,6 @@
     "error.shell_metacharacters_not_allowed": "No se permiten metacaracteres del shell en los argume...",
     "error.unsupported_framework": "framework no compatible: {framework}",
     "param.cwd.description": "Directorio de trabajo en el que ejecutar (debe estar dentro de workdir).",
-    "param.extra_args.description": "Matriz de argumentos adicionales. Rechazar si hay metacaracteres del shell.",
     "param.framework.description": "Tipo de framework...",
     "param.pythonpath.description": "PYTHONPATH adicional (por ejemplo, 'src').",
     "param.report.description": "Formato de...",
@@ -73,7 +72,8 @@
       "correr tests",
       "test runner"
     ],
-    "summary.no_change": "Se realizaron correctamente 0 cambios (0 coincidencias)"
+    "summary.no_change": "Se realizaron correctamente 0 cambios (0 coincidencias)",
+    "param.xargs.description": "Matriz de argumentos adicionales. Rechazar si hay metacaracteres del shell."
   },
   "fr": {
     "doc.module": "run_tests_tool\n\nUn outil de type wrapper pour exécuter les tests.\n\nObjectif :\n- Plutôt que d'appeler directement cmd_exec/pwsh_exec, standardiser l'exécution des tests et renvoyer des résultats structurés.\n- Détecter automatiquement pytest / unittest / npm avec framework=auto.\n\nPolitique de sécurité :\n- L'exécution des tests n'est généralement pas une opération dangereuse, donc human_ask n'est pas utilisé.\n- En revanche, les extra_args contenant des métacaractères d'injection de commande (&&, |, >, etc.) sont rejetés.\n\nMise en œuvre :\n- Utilise en interne cmd_exec_json_tool et gère returncode/stdout/stderr.\n- Pour stdout/stderr, applique callbacks.truncate_output s'il existe.\n- Pour la définition de cwd, utilisez l'argument cwd de cmd_exec_json (n'utilisez pas cd &&).\n\nFonctionnalités supplémentaires :\n- pythonpath : configure PYTHONPATH supplémentaire pour exécuter les tests.\n  - Windows : set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX : PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -85,7 +85,6 @@
     "error.shell_metacharacters_not_allowed": "les métacaractères du shell ne sont pas autorisés dan...",
     "error.unsupported_framework": "framework non pris en charge :...",
     "param.cwd.description": "Répertoire de travail dans lequel exécuter (doit se trouver dans workdir).",
-    "param.extra_args.description": "Tableau d'arguments supplémentaires.",
     "param.framework.description": "Type de framework...",
     "param.pythonpath.description": "PYTHONPATH supplémentaire (par exemple 'src').",
     "param.report.description": "Format de s...",
@@ -97,7 +96,8 @@
       "lancer tests",
       "test runner"
     ],
-    "summary.no_change": "Aucune modification effectuée avec succès (0 correspondances)"
+    "summary.no_change": "Aucune modification effectuée avec succès (0 correspondances)",
+    "param.xargs.description": "Tableau d'arguments supplémentaires."
   },
   "ko": {
     "doc.module": "run_tests_tool\n\n테스트를 실행하는 래퍼 도구입니다.\n\n목적:\n- cmd_exec/pwsh_exec를 직접 호출하는 대신 테스트 실행을 표준화하고 구조화된 결과를 반환합니다.\n- framework=auto에서 pytest / unittest / npm을 자동 감지합니다.\n\n안전 정책:\n- 테스트 실행은 기본적으로 위험한 작업이 아니므로 human_ask는 수행하지 않습니다.\n- 그러나 명령 주입 메타문자 (&&, |, > 등)를 포함하는 extra_args는 거부합니다.\n\n구현:\n- 내부적으로 cmd_exec_json_tool을 사용하고 returncode/stdout/stderr를 처리합니다.\n- stdout/stderr에는 callbacks.truncate_output이 있으면 적용합니다.\n- cwd 지정에는 cmd_exec_json의 cwd 인수를 사용합니다 (cd &&는 사용하지 않음).\n\n추가 기능:\n- pythonpath: 테스트 실행을 위해 추가 PYTHONPATH를 설정합니다.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -109,7 +109,6 @@
     "error.shell_metacharacters_not_allowed": "인수에는 셸 메타문자를 사용할 수 없습니다: {arg}",
     "error.unsupported_framework": "지원되지 않는 framework입니다: {framework}",
     "param.cwd.description": "실행할 작업 디렉터리(workdir 내부여야 함). null이면 현재 디렉터리를 사용합니다.",
-    "param.extra_args.description": "추가 인수 배열. 셸 메타문자가 있으면 거부합니다.",
     "param.framework.description": "테스트 프레임워크 유형.",
     "param.pythonpath.description": "추가 PYTHONPATH(예: 'src'). 제공되면 테스트 명령 앞에 붙습니다.",
     "param.report.description": "출력 형식.",
@@ -121,7 +120,8 @@
       "pytest unittest npm",
       "테스트"
     ],
-    "summary.no_change": "성공적으로 변경 사항이 없었습니다(일치 0개)"
+    "summary.no_change": "성공적으로 변경 사항이 없었습니다(일치 0개)",
+    "param.xargs.description": "추가 인수 배열. 셸 메타문자가 있으면 거부합니다."
   },
   "de": {
     "doc.module": "run_tests_tool\n\nEin Wrapper-Tool zum Ausführen von Tests.\n\nZweck:\n- Statt cmd_exec/pwsh_exec direkt aufzurufen, wird die Testausführung standardisiert und strukturierte Ergebnisse zurückgegeben.\n- pytest / unittest / npm werden bei framework=auto automatisch erkannt.\n\nSicherheitsrichtlinie:\n- Die Testausführung ist im Allgemeinen keine gefährliche Operation, daher wird human_ask nicht aufgerufen.\n- extra_args mit Befehlsinjektions-Metazeichen (&&, |, > usw.) werden jedoch abgelehnt.\n\nImplementierung:\n- Verwendet intern cmd_exec_json_tool und verarbeitet returncode/stdout/stderr.\n- Für stdout/stderr wird callbacks.truncate_output angewendet, falls verfügbar.\n- Für cwd wird das cwd-Argument von cmd_exec_json verwendet (nicht cd &&).\n\nZusätzliche Funktionen:\n- pythonpath: Zusätzliches PYTHONPATH für die Testausführung konfigurieren.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -133,7 +133,6 @@
     "error.shell_metacharacters_not_allowed": "Shell-Metazeichen sind in Argumenten nicht erlaubt: {arg}",
     "error.unsupported_framework": "nicht unterstütztes framework:...",
     "param.cwd.description": "Arbeitsverzeichnis, in dem ausgeführt werden soll (muss innerhalb von workdir...",
-    "param.extra_args.description": "Zusätzliches Argumentarray. Ablehnen, wenn Shell-Metazeichen vorhanden sind.",
     "param.framework.description": "Typ des Test-Fram...",
     "param.pythonpath.description": "Zusätzliches PYTHONPATH (z. B. 'src'). Wenn angegeben, wird es dem Testbefehl vorangestellt.",
     "param.report.description": "Ausgabeformat.",
@@ -144,7 +143,8 @@
       "tests ausführen",
       "test runner"
     ],
-    "summary.no_change": "Erfolgreich keine Änderungen vorgenommen (0 Treffer)"
+    "summary.no_change": "Erfolgreich keine Änderungen vorgenommen (0 Treffer)",
+    "param.xargs.description": "Zusätzliches Argumentarray. Ablehnen, wenn Shell-Metazeichen vorhanden sind."
   },
   "it": {
     "doc.module": "run_tests_tool\n\nUno strumento wrapper per eseguire i test.\n\nScopo:\n- Anziché chiamare direttamente cmd_exec/pwsh_exec, standardizza l'esecuzione dei test e restituisce risultati strutturati.\n- Rileva automaticamente pytest / unittest / npm con framework=auto.\n\nPolitica di sicurezza:\n- L'esecuzione dei test in genere non è un'operazione pericolosa, quindi human_ask non viene eseguito.\n- Tuttavia, extra_args che contengono metacaratteri di iniezione di comandi (&&, |, >, ecc.) vengono rifiutati.\n\nImplementazione:\n- Usa internamente cmd_exec_json_tool e gestisce returncode/stdout/stderr.\n- Per stdout/stderr, applica callbacks.truncate_output se disponibile.\n- Per specificare cwd, usa l'argomento cwd di cmd_exec_json (non usare cd &&).\n\nFunzionalità aggiuntive:\n- pythonpath: configura un PYTHONPATH aggiuntivo per eseguire i test.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -156,7 +156,6 @@
     "error.shell_metacharacters_not_allowed": "i metacaratteri della shell non sono consentiti negli...",
     "error.unsupported_framework": "framework non supportato: {framework}",
     "param.cwd.description": "Directory di lavoro in cui eseguire (deve trovarsi all'interno di workdir).",
-    "param.extra_args.description": "Array di argomenti aggiuntivi. Rifiuta se sono presenti metacaratteri della shell.",
     "param.framework.description": "Tipo di framework...",
     "param.pythonpath.description": "PYTHONPATH aggiuntivo (ad es. 'src'). Se fornito, viene anteposto al comando di test.",
     "param.report.description": "Formato di...",
@@ -167,7 +166,8 @@
       "esegui test",
       "test runner"
     ],
-    "summary.no_change": "Nessuna modifica apportata con successo (0 corrispondenze)"
+    "summary.no_change": "Nessuna modifica apportata con successo (0 corrispondenze)",
+    "param.xargs.description": "Array di argomenti aggiuntivi. Rifiuta se sono presenti metacaratteri della shell."
   },
   "ru": {
     "doc.module": "run_tests_tool\n\nИнструмент-обёртка для запуска тестов.\n\nНазначение:\n- Вместо прямого вызова cmd_exec/pwsh_exec формализует запуск тестов и возвращает структурированные результаты.\n- Автоматически определяет pytest / unittest / npm при framework=auto.\n\nПолитика безопасности:\n- Запуск тестов в целом не является опасной операцией, поэтому human_ask не вызывается.\n- Однако extra_args с метасимволами инъекции команд (&&, |, > и т. п.) будут отклонены.\n\nРеализация:\n- Внутри используется cmd_exec_json_tool и обрабатываются returncode/stdout/stderr.\n- Для stdout/stderr применяется callbacks.truncate_output, если он существует.\n- Для указания cwd используется аргумент cwd из cmd_exec_json (без cd &&).\n\nДополнительные возможности:\n- pythonpath: настраивает дополнительный PYTHONPATH для запуска тестов.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -179,7 +179,6 @@
     "error.shell_metacharacters_not_allowed": "метасимволы shell не допускаются в аргументах: {arg}",
     "error.unsupported_framework": "неподдерживаемый framework: {fr...",
     "param.cwd.description": "Рабочий каталог для запуска (должен находиться внутри workdir).",
-    "param.extra_args.description": "Массив дополнительных аргументов. Отклонять, если присутствуют метасимволы shell.",
     "param.framework.description": "Тип тестового фре...",
     "param.pythonpath.description": "Дополнительный PYTHONPATH (например, 'src'). Если задан, он добавляется перед командой теста.",
     "param.report.description": "Формат вывода.",
@@ -190,7 +189,8 @@
       "запуск тестов",
       "test runner"
     ],
-    "summary.no_change": "Успешно без изменений (0 совпадений)"
+    "summary.no_change": "Успешно без изменений (0 совпадений)",
+    "param.xargs.description": "Массив дополнительных аргументов. Отклонять, если присутствуют метасимволы shell."
   },
   "pt_BR": {
     "doc.module": "run_tests_tool\n\nUma ferramenta wrapper para executar testes.\n\nPropósito:\n- Em vez de chamar cmd_exec/pwsh_exec diretamente, padroniza a execução de testes e retorna resultados estruturados.\n- Detecta automaticamente pytest / unittest / npm com framework=auto.\n\nPolítica de segurança:\n- A execução de testes, em geral, não é uma operação perigosa, portanto human_ask não é chamado.\n- No entanto, extra_args que contenham metacaracteres de injeção de comando (&&, |, >, etc.) serão rejeitados.\n\nImplementação:\n- Usa internamente cmd_exec_json_tool e trata returncode/stdout/stderr.\n- Para stdout/stderr, aplique callbacks.truncate_output se existir.\n- Para especificar cwd, use o argumento cwd de cmd_exec_json (não use cd &&).\n\nRecursos adicionais:\n- pythonpath: configura PYTHONPATH adicional para executar testes.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -202,7 +202,6 @@
     "error.shell_metacharacters_not_allowed": "metacaracteres de shell não são permitidos nos argume...",
     "error.unsupported_framework": "framework não suportado: {framework}",
     "param.cwd.description": "Diretório de trabalho para execução (deve estar dentro de workdir).",
-    "param.extra_args.description": "Array de argumentos adicionais. Rejeite se houver metacaracteres de shell.",
     "param.framework.description": "Tipo de framework...",
     "param.pythonpath.description": "PYTHONPATH adicional (por exemplo, 'src'). Se fornecido, ele é prefixado ao comando de teste.",
     "param.report.description": "Formato de...",
@@ -214,7 +213,8 @@
       "rodar testes",
       "test runner"
     ],
-    "summary.no_change": "Nenhuma alteração foi feita com sucesso (0 correspondências)"
+    "summary.no_change": "Nenhuma alteração foi feita com sucesso (0 correspondências)",
+    "param.xargs.description": "Array de argumentos adicionais. Rejeite se houver metacaracteres de shell."
   },
   "pt": {
     "doc.module": "run_tests_tool\n\nUma ferramenta wrapper para executar testes.\n\nObjetivo:\n- Em vez de chamar cmd_exec/pwsh_exec diretamente, padronize a execução do teste e retorne resultados estruturados.\n- Detectar automaticamente pytest / unittest / npm quando framework=auto.\n\nPolítica de segurança:\n- A execução do teste geralmente não é uma operação perigosa, portanto human_ask não é executado.\n- No entanto, extra_args contendo metacaracteres de injeção de comando (&&, |, >, etc.) são rejeitados.\n\nImplementação:\n- Usa internamente cmd_exec_json_tool e lida com returncode/stdout/stderr.\n- Para stdout/stderr, aplique callbacks.truncate_output se disponível.\n- Para especificação cwd, use o argumento cwd de cmd_exec_json (não use cd &&).\n\nRecursos adicionais:\n- pythonpath: configure PYTHONPATH extra para execução de testes.\n  - Windows: defina PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -226,7 +226,6 @@
     "error.shell_metacharacters_not_allowed": "metacaracteres shell não são permitidos em argumentos: {arg}",
     "error.unsupported_framework": "framework não suportado: {framework}",
     "param.cwd.description": "Diretório de trabalho para execução (deve estar dentro de workdir).",
-    "param.extra_args.description": "Matriz de argumentos adicionais.",
     "param.framework.description": "Tipo de estrutura...",
     "param.pythonpath.description": "PYTHONPATH adicional (por exemplo, 'src'). Se fornecido, será prefixado ao comando de teste.",
     "param.report.description": "Formato de...",
@@ -238,7 +237,8 @@
       "rodar testes",
       "test runner"
     ],
-    "summary.no_change": "Concluído com sucesso sem alterações (0 correspondências)"
+    "summary.no_change": "Concluído com sucesso sem alterações (0 correspondências)",
+    "param.xargs.description": "Matriz de argumentos adicionais."
   },
   "id": {
     "doc.module": "run_tests_tool\n\nTool pembungkus untuk menjalankan tes.\n\nTujuan:\n- Alih-alih memanggil cmd_exec/pwsh_exec secara langsung, standarkan eksekusi test dan kembalikan hasil terstruktur.\n- Auto-detect pytest / unittest / npm ketika framework=auto.\n\nKebijakan keamanan:\n- Eksekusi test umumnya bukan operasi berbahaya, jadi human_ask tidak dilakukan.\n- Namun, extra_args yang mengandung metakarakter injeksi perintah (&&, |, >, dll.) ditolak.\n\nImplementasi:\n- Menggunakan cmd_exec_json_tool di dalamnya dan menangani returncode/stdout/stderr.\n- Untuk stdout/stderr, terapkan callbacks.truncate_output jika tersedia.\n- Untuk cwd, gunakan argumen cwd dari cmd_exec_json (jangan gunakan cd &&).\n\nFitur tambahan:\n- pythonpath: konfigurasi PYTHONPATH tambahan untuk menjalankan tes.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -250,7 +250,6 @@
     "error.shell_metacharacters_not_allowed": "metakarakter shell tidak diizinkan di argumen: {arg}",
     "error.unsupported_framework": "framework tidak didukung: {framework}",
     "param.cwd.description": "Direktori kerja untuk menjalankan (harus di dalam workdir).",
-    "param.extra_args.description": "Array argumen tambahan. Tolak jika ada metakarakter shell.",
     "param.framework.description": "Jenis framework tes.",
     "param.pythonpath.description": "PYTHONPATH tambahan (mis. 'src'). Jika diberikan, akan diprefix ke perintah tes.",
     "param.report.description": "Format kelu...",
@@ -261,7 +260,8 @@
       "jalankan tes",
       "test runner"
     ],
-    "summary.no_change": "Berhasil tanpa perubahan (0 kecocokan)"
+    "summary.no_change": "Berhasil tanpa perubahan (0 kecocokan)",
+    "param.xargs.description": "Array argumen tambahan. Tolak jika ada metakarakter shell."
   },
   "vi": {
     "doc.module": "run_tests_tool\n\nMột công cụ bao bọc để chạy thử nghiệm.\n\nMục đích:\n- Thay vì gọi trực tiếp cmd_exec/pwsh_exec, hãy chuẩn hóa việc thực hiện kiểm tra và trả về kết quả có cấu trúc.\n- Tự động phát hiện pytest/unittest/npm khi framework=auto.\n\nChính sách an toàn:\n- Thực hiện kiểm thử nói chung không phải là một hoạt động nguy hiểm nên không thể thực hiện human_ask.\n- Tuy nhiên, extra_args chứa siêu ký tự chèn lệnh (&&, |, >, v.v.) đều bị từ chối.\n\nThực hiện:\n- Sử dụng nội bộ cmd_exec_json_tool và xử lý returncode/stdout/stderr.\n- Đối với stdout/stderr, áp dụng callbacks.truncate_output nếu có.\n- Đối với đặc tả cwd, sử dụng đối số cwd của cmd_exec_json (không sử dụng cd &&).\n\nCác tính năng bổ sung:\n- pythonpath: cấu hình thêm PYTHONPATH để chạy thử nghiệm.\n  - Windows: đặt PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -273,7 +273,6 @@
     "error.shell_metacharacters_not_allowed": "siêu ký tự shell không được phép trong các đối số: {arg}",
     "error.unsupported_framework": "khung không được hỗ trợ: {framework}",
     "param.cwd.description": "Thư mục làm việc để chạy (phải nằm trong workdir).",
-    "param.extra_args.description": "Mảng đối số bổ sung. Từ chối nếu có siêu ký tự shell.",
     "param.framework.description": "Loại khung kiểm tra.",
     "param.pythonpath.description": "PYTHONPATH bổ sung (ví dụ: 'src'). Nếu được cung cấp, nó sẽ được đặt trước lệnh kiểm tra.",
     "param.report.description": "Định dạng đ...",
@@ -284,7 +283,8 @@
       "chạy тест",
       "test runner"
     ],
-    "summary.no_change": "Đã hoàn tất thành công mà không có thay đổi nào (0 kết quả khớp)"
+    "summary.no_change": "Đã hoàn tất thành công mà không có thay đổi nào (0 kết quả khớp)",
+    "param.xargs.description": "Mảng đối số bổ sung. Từ chối nếu có siêu ký tự shell."
   },
   "pl": {
     "doc.module": "narzędzie run_tests_tool\n\nNarzędzie opakowujące do uruchamiania testów.\n\nCel:\n- Zamiast bezpośrednio wywoływać cmd_exec/pwsh_exec, standaryzuj wykonywanie testów i zwracaj uporządkowane wyniki.\n- Automatycznie wykrywaj pytest / unittest / npm, gdy framework=auto.\n\nPolityka bezpieczeństwa:\n- Wykonanie testów zazwyczaj nie jest operacją niebezpieczną, więc human_ask nie jest wywoływany.\n- Jednak extra_args zawierające metaznaki wstrzyknięcia poleceń (&&, |, > itd.) są odrzucane.\n\nImplementacja:\n- Wewnątrz używa cmd_exec_json_tool i obsługuje returncode/stdout/stderr.\n- Dla stdout/stderr zastosuj callbacks.truncate_output, jeśli jest dostępny.\n- Do ustawienia cwd użyj argumentu cwd z cmd_exec_json (nie używaj cd &&).\n\nDodatkowe funkcje:\n- pythonpath: skonfiguruj dodatkowy PYTHONPATH do uruchamiania testów.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -296,7 +296,6 @@
     "error.shell_metacharacters_not_allowed": "metaznaki powłoki nie są dozwolone w argumentach: {arg}",
     "error.unsupported_framework": "niewspierany framework: {framework}",
     "param.cwd.description": "Katalog roboczy, w którym ma zostać uruchomiony (musi znajdować się w katalogu...",
-    "param.extra_args.description": "Tablica dodatkowych argumentów. Odrzuć, jeśli obecne są metaznaki powłoki.",
     "param.framework.description": "Typ platformy tes...",
     "param.pythonpath.description": "Dodatkowy PYTHONPATH (np. „src”). Jeśli jest podany, jest poprzedzany poleceniem testowym.",
     "param.report.description": "Format wyjś...",
@@ -307,7 +306,8 @@
       "uruchom testy",
       "test runner"
     ],
-    "summary.no_change": "Pomyślnie nie wprowadzono żadnych zmian (0 dopasowań)"
+    "summary.no_change": "Pomyślnie nie wprowadzono żadnych zmian (0 dopasowań)",
+    "param.xargs.description": "Tablica dodatkowych argumentów. Odrzuć, jeśli obecne są metaznaki powłoki."
   },
   "hi": {
     "doc.module": "run_tests_tool\n\nपरीक्षण चलाने के लिए एक रैपर टूल।\n\nउद्देश्य:\n- सीधे cmd_exec/pwsh_exec को कॉल करने के बजाय, परीक्षण निष्पादन को मानकीकृत करें और संरचित परिणाम लौटाएँ।\n- framework=auto होने पर pytest / unittest / npm को स्वतः पहचानें।\n\nसुरक्षा नीति:\n- परीक्षण चलाना सामान्यतः खतरनाक ऑपरेशन नहीं है, इसलिए human_ask नहीं किया जाता।\n- लेकिन कमांड-इंजेक्शन वाले मेटाकैरेक्टर (&&, |, > आदि) वाले extra_args अस्वीकार किए जाते हैं।\n\nकार्यान्वयन:\n- अंदर से cmd_exec_json_tool का उपयोग करता है और returncode/stdout/stderr को संभालता है।\n- stdout/stderr के लिए, यदि उपलब्ध हो, callbacks.truncate_output लागू करें।\n- cwd निर्दिष्ट करने के लिए cmd_exec_json के cwd तर्क का उपयोग करें (cd && का उपयोग न करें)।\n\nअतिरिक्त सुविधाएँ:\n- pythonpath: परीक्षण चलाने के लिए अतिरिक्त PYTHONPATH कॉन्फ़िगर करें।\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -319,7 +319,6 @@
     "error.shell_metacharacters_not_allowed": "तर्कों में शेल मेटाकैरेक्टर की अनुमति नहीं है: {arg}",
     "error.unsupported_framework": "असमर्थित ढाँचा: {framework}",
     "param.cwd.description": "कार्यशील निर्देशिका को चलाने के लिए (वर्कडीआईआर के भीतर होना चाहिए)। यदि शून्य...",
-    "param.extra_args.description": "अतिरिक्त तर्क सरणी. यदि शेल मेटाकैरेक्टर मौजूद हैं तो अस्वीकार करें।",
     "param.framework.description": "टेस्ट फ्रेमवर्क प...",
     "param.pythonpath.description": "अतिरिक्त PythonPATH (उदा.'src').",
     "param.report.description": "आउटपुट स्वरूप.",
@@ -330,7 +329,8 @@
       "टेस्ट चलाएँ",
       "test runner"
     ],
-    "summary.no_change": "सफलतापूर्वक कोई परिवर्तन नहीं किया गया (0 मिलान)"
+    "summary.no_change": "सफलतापूर्वक कोई परिवर्तन नहीं किया गया (0 मिलान)",
+    "param.xargs.description": "अतिरिक्त तर्क सरणी. यदि शेल मेटाकैरेक्टर मौजूद हैं तो अस्वीकार करें।"
   },
   "ar": {
     "doc.module": "run_tests_tool\n\nأداة تغليف لتشغيل الاختبارات.\n\nالغرض:\n- بدلاً من استدعاء cmd_exec/pwsh_exec مباشرةً، توحّد هذه الأداة تنفيذ الاختبارات وتعيد نتائج منظّمة.\n- تكتشف pytest / unittest / npm تلقائياً عند استخدام framework=auto.\n\nسياسة السلامة:\n- تشغيل الاختبارات ليس إجراءً خطيراً عادةً، لذلك لا يتم استدعاء human_ask.\n- ومع ذلك، تُرفض extra_args التي تحتوي على أحرف خاصة بحقن الأوامر (&&، |، >، إلخ).\n\nالتنفيذ:\n- تستخدم داخلياً cmd_exec_json_tool وتتعامل مع returncode/stdout/stderr.\n- بالنسبة إلى stdout/stderr، تُطبَّق callbacks.truncate_output إذا كانت متاحة.\n- لتحديد cwd، استخدم وسيطة cwd في cmd_exec_json (ولا تستخدم cd &&).\n\nميزات إضافية:\n- pythonpath: اضبط PYTHONPATH إضافيّاً لتشغيل الاختبارات.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -342,7 +342,6 @@
     "error.shell_metacharacters_not_allowed": "أحرف shell الخاصة غير مسموح بها في الوسائط: {arg}",
     "error.unsupported_framework": "framework غير مدعوم: {framework}",
     "param.cwd.description": "دليل العمل الذي سيتم التشغيل فيه (يجب أن يكون ضمن workdir).",
-    "param.extra_args.description": "مصفوفة وسيطات إضافية. ارفض إذا كانت تحتوي على أحرف خاصة للصدفة.",
     "param.framework.description": "نوع إطار الاختبار.",
     "param.pythonpath.description": "PYTHONPATH إضافي (مثل 'src'). إذا تم توفيره، يُضاف قبل أمر الاختبار.",
     "param.report.description": "تنسيق الإخراج.",
@@ -353,7 +352,8 @@
       "تشغيل الاختبارات",
       "test runner"
     ],
-    "summary.no_change": "تم بنجاح دون إجراء أي تغييرات (0 تطابق)"
+    "summary.no_change": "تم بنجاح دون إجراء أي تغييرات (0 تطابق)",
+    "param.xargs.description": "مصفوفة وسيطات إضافية. ارفض إذا كانت تحتوي على أحرف خاصة للصدفة."
   },
   "sv": {
     "doc.module": "run_tests_tool\n\nEtt wrapperverktyg för att köra tester.\n\nSyfte:\n- I stället för att anropa cmd_exec/pwsh_exec direkt standardiseras testkörningen och strukturerade resultat returneras.\n- Auto-detektera pytest / unittest / npm när framework=auto.\n\nSäkerhetspolicy:\n- Testkörning är i allmänhet inte en farlig operation, så human_ask används inte.\n- extra_args som innehåller metatecken för kommandoinjektion (&&, |, > osv.) avvisas dock.\n\nImplementation:\n- Använder internt cmd_exec_json_tool och hanterar returncode/stdout/stderr.\n- För stdout/stderr används callbacks.truncate_output om den finns.\n- För cwd används cmd_exec_jsons cwd-argument (inte cd &&).\n\nYtterligare funktioner:\n- pythonpath: konfigurera extra PYTHONPATH för att köra tester.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -365,7 +365,6 @@
     "error.shell_metacharacters_not_allowed": "shell-metatecken är inte tillåtna i argument: {arg}",
     "error.unsupported_framework": "framework stöds inte: {framework}",
     "param.cwd.description": "Arbetskatalog att köra i (måste ligga inom workdir). Om null används aktuell katalog.",
-    "param.extra_args.description": "Ytterligare argumentlista. Avvisa om shell-metatecken finns.",
     "param.framework.description": "Typ av testframework.",
     "param.pythonpath.description": "Ytterligare PYTHONPATH (t.ex. 'src'). Om det anges läggs det framför testkommandot.",
     "param.report.description": "Utdataformat.",
@@ -376,7 +375,8 @@
       "köra tester",
       "test runner"
     ],
-    "summary.no_change": "Utfördes utan ändringar (0 träffar)"
+    "summary.no_change": "Utfördes utan ändringar (0 träffar)",
+    "param.xargs.description": "Ytterligare argumentlista. Avvisa om shell-metatecken finns."
   },
   "sw": {
     "doc.module": "run_tests_tool\n\nZana mbadala ya kuendesha majaribio.\n\nLengo:\n- Badala ya kuita cmd_exec/pwsh_exec moja kwa moja, sanifisha utekelezaji wa majaribio na rudisha matokeo yaliyopangwa.\n- Tambua pytest / unittest / npm kiotomatiki wakati framework=auto.\n\nSera ya usalama:\n- Utekelezaji wa majaribio kwa kawaida si operesheni hatari, kwa hiyo human_ask haitumiki.\n- Hata hivyo, extra_args zilizo na alama hatari za kuingiza amri (&&, |, >, n.k.) hukataliwa.\n\nUtekelezaji:\n- Ndani hutumia cmd_exec_json_tool na hushughulikia returncode/stdout/stderr.\n- Kwa stdout/stderr, tumia callbacks.truncate_output ikiwa ipo.\n- Kwa kubainisha cwd, tumia hoja ya cwd ya cmd_exec_json (usitumie cd &&).\n\nVipengele vya ziada:\n- pythonpath: sanidi PYTHONPATH ya ziada kwa ajili ya kuendesha majaribio.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -388,7 +388,6 @@
     "error.shell_metacharacters_not_allowed": "alama za shell haziruhusiwi katika hoja: {arg}",
     "error.unsupported_framework": "framework haitumiki: {framework}",
     "param.cwd.description": "Saraka ya kazi ya kuendesha ndani yake (lazima iwe ndani ya workdir).",
-    "param.extra_args.description": "Safu ya hoja za ziada. Kataa ikiwa kuna alama za shell.",
     "param.framework.description": "Aina ya framework...",
     "param.pythonpath.description": "PYTHONPATH ya ziada (kwa mfano 'src'). Ikitolewa, huwekwa mbele ya amri ya majaribio.",
     "param.report.description": "Muundo wa m...",
@@ -399,7 +398,8 @@
       "endesha majaribio",
       "test runner"
     ],
-    "summary.no_change": "Hakuna mabadiliko yaliyofanywa kwa mafanikio (mfanano 0)"
+    "summary.no_change": "Hakuna mabadiliko yaliyofanywa kwa mafanikio (mfanano 0)",
+    "param.xargs.description": "Safu ya hoja za ziada. Kataa ikiwa kuna alama za shell."
   },
   "nb": {
     "doc.module": "run_tests_tool\n\nEt wrapperverktøy for å kjøre tester.\n\nFormål:\n- I stedet for å kalle cmd_exec/pwsh_exec direkte, standardiser testkjøringen og returner strukturerte resultater.\n- Auto-detektér pytest / unittest / npm når framework=auto.\n\nSikkerhetspolicy:\n- Testkjøring er som regel ikke en farlig operasjon, så human_ask brukes ikke.\n- extra_args som inneholder metategn for kommandoinjeksjon (&&, |, > osv.) avvises likevel.\n\nImplementasjon:\n- Bruker internt cmd_exec_json_tool og håndterer returncode/stdout/stderr.\n- For stdout/stderr brukes callbacks.truncate_output hvis den finnes.\n- For cwd brukes cmd_exec_jsons cwd-argument (ikke cd &&).\n\nYtterligere funksjoner:\n- pythonpath: konfigurer ekstra PYTHONPATH for å kjøre tester.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -411,7 +411,6 @@
     "error.shell_metacharacters_not_allowed": "skallmetategn er ikke tillatt i argumenter: {arg}",
     "error.unsupported_framework": "framework støttes ikke: {framework}",
     "param.cwd.description": "Arbeidskatalog å kjøre i (må ligge innenfor workdir). Hvis null brukes gjeldende katalog.",
-    "param.extra_args.description": "Ekstra argumentliste. Avvis hvis det finnes skallmetategn.",
     "param.framework.description": "Type testframework.",
     "param.pythonpath.description": "Ekstra PYTHONPATH (f.eks. 'src'). Hvis angitt, prefikseres det testkommandoen.",
     "param.report.description": "Utdataformat.",
@@ -422,7 +421,8 @@
       "kjør tester",
       "test runner"
     ],
-    "summary.no_change": "Klarte uten endringer (0 treff)"
+    "summary.no_change": "Klarte uten endringer (0 treff)",
+    "param.xargs.description": "Ekstra argumentliste. Avvis hvis det finnes skallmetategn."
   },
   "nl": {
     "doc.module": "run_tests_tool\n\nEen wrapper-tool voor het uitvoeren van tests.\n\nDoel:\n- In plaats van cmd_exec/pwsh_exec direct aan te roepen, testuitvoering standaardiseren en gestructureerde resultaten teruggeven.\n- Auto-detectie van pytest / unittest / npm wanneer framework=auto.\n\nVeiligheidsbeleid:\n- Testuitvoering is doorgaans geen gevaarlijke handeling, dus human_ask wordt niet uitgevoerd.\n- extra_args met command-injection metatekens (&&, |, >, enz.) worden echter geweigerd.\n\nImplementatie:\n- Gebruikt intern cmd_exec_json_tool en verwerkt returncode/stdout/stderr.\n- Voor stdout/stderr wordt indien beschikbaar callbacks.truncate_output toegepast.\n- Gebruik voor cwd de cwd-parameter van cmd_exec_json (niet cd &&).\n\nExtra functies:\n- pythonpath: extra PYTHONPATH instellen voor het uitvoeren van tests.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -434,7 +434,6 @@
     "error.shell_metacharacters_not_allowed": "shell-metatekens zijn niet toegestaan in argumenten: {arg}",
     "error.unsupported_framework": "niet-ondersteund framework: {fr...",
     "param.cwd.description": "Werkmap om in uit te voeren (moet binnen workdir liggen).",
-    "param.extra_args.description": "Aanvullende argumenten-array. Weigeren als shell-metatekens aanwezig zijn.",
     "param.framework.description": "Type testframework.",
     "param.pythonpath.description": "Extra PYTHONPATH (bijv. 'src'). Indien opgegeven, wordt dit voor de testopdracht geplaatst.",
     "param.report.description": "Uitvoerformaat.",
@@ -445,7 +444,8 @@
       "tests uitvoeren",
       "test runner"
     ],
-    "summary.no_change": "Succesvol zonder wijzigingen uitgevoerd (0 treffers)"
+    "summary.no_change": "Succesvol zonder wijzigingen uitgevoerd (0 treffers)",
+    "param.xargs.description": "Aanvullende argumenten-array. Weigeren als shell-metatekens aanwezig zijn."
   },
   "fi": {
     "doc.module": "run_tests_tool\n\nTestien ajamiseen tarkoitettu apurityökalu.\n\nTarkoitus:\n- Sen sijaan, että kutsuttaisiin cmd_exec/pwsh_execia suoraan, standardoi testien suoritus ja palauta jäsennellyt tulokset.\n- Automaattinen pytest / unittest / npm -tunnistus, kun framework=auto.\n\nTurvallisuuskäytäntö:\n- Testien suorittaminen ei yleensä ole vaarallinen toimenpide, joten human_askia ei käytetä.\n- extra_args, jotka sisältävät komentoinjektion metamerkkejä (&&, |, > jne.), hylätään.\n\nToteutus:\n- Käyttää sisäisesti cmd_exec_json_toolia ja käsittelee returncode/stdout/stderr-arvot.\n- stdout/stderr:iin sovelletaan tarvittaessa callbacks.truncate_outputia.\n- cwd:n asettamiseen käytä cmd_exec_jsonin cwd-parametria (älä käytä cd &&).\n\nLisäominaisuudet:\n- pythonpath: aseta ylimääräinen PYTHONPATH testien ajoa varten.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -457,7 +457,6 @@
     "error.shell_metacharacters_not_allowed": "shellin metamerkkejä ei sallita argumenteissa: {arg}",
     "error.unsupported_framework": "tuetun ulkopuolinen framework:...",
     "param.cwd.description": "Työhakemisto, jossa suoritetaan (on oltava workdirin sisällä).",
-    "param.extra_args.description": "Lisäargumenttitaulukko. Hylätään, jos shell-metamerkkejä on mukana.",
     "param.framework.description": "Testikehyksen tyyppi.",
     "param.pythonpath.description": "Lisä-PYTHONPATH (esim. 'src'). Jos annetaan, se lisätään testikomennon eteen.",
     "param.report.description": "Tulostusmuoto.",
@@ -468,7 +467,8 @@
       "aja testit",
       "test runner"
     ],
-    "summary.no_change": "Suoritettiin onnistuneesti ilman muutoksia (0 osumaa)"
+    "summary.no_change": "Suoritettiin onnistuneesti ilman muutoksia (0 osumaa)",
+    "param.xargs.description": "Lisäargumenttitaulukko. Hylätään, jos shell-metamerkkejä on mukana."
   },
   "cs": {
     "doc.module": "run_tests_tool\n\nObalovací nástroj pro spouštění testů.\n\nÚčel:\n- Místo přímého volání cmd_exec/pwsh_exec standardizuje spouštění testů a vrací strukturované výsledky.\n- Při framework=auto automaticky rozpozná pytest / unittest / npm.\n\nBezpečnostní politika:\n- Spouštění testů obecně není nebezpečná operace, takže se human_ask nepoužívá.\n- Parametr extra_args však nesmí obsahovat metaznaky pro injekci příkazů (&&, |, > atd.); takové hodnoty jsou odmítnuty.\n\nImplementace:\n- Interně používá cmd_exec_json_tool a zpracovává returncode/stdout/stderr.\n- Pro stdout/stderr použije callbacks.truncate_output, je-li k dispozici.\n- Pro určení cwd používejte argument cwd z cmd_exec_json (nepoužívejte cd &&).\n\nDalší funkce:\n- pythonpath: nastaví dodatečný PYTHONPATH pro běh testů.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -480,7 +480,6 @@
     "error.shell_metacharacters_not_allowed": "v argumentech nejsou povoleny shell metaznaky: {arg}",
     "error.unsupported_framework": "nepodporovaný framework: {framework}",
     "param.cwd.description": "Pracovní adresář pro spuštění (musí být v rámci workdir).",
-    "param.extra_args.description": "Pole dalších argumentů. Odmítnout, pokud obsahují shell metaznaky.",
     "param.framework.description": "Typ testovacího f...",
     "param.pythonpath.description": "Dodatečný PYTHONPATH (např. 'src'). Je-li zadán, přidá se před testovací příkaz.",
     "param.report.description": "Formát výstupu.",
@@ -491,7 +490,8 @@
       "spustit testy",
       "test runner"
     ],
-    "summary.no_change": "Úspěšně bez provedení změn (0 shod)"
+    "summary.no_change": "Úspěšně bez provedení změn (0 shod)",
+    "param.xargs.description": "Pole dalších argumentů. Odmítnout, pokud obsahují shell metaznaky."
   },
   "uk": {
     "doc.module": "run_tests_tool\n\nОбгортка для запуску тестів.\n\nПризначення:\n- Замість прямого виклику cmd_exec/pwsh_exec стандартизує запуск тестів і повертає структуровані результати.\n- Автоматично визначає pytest / unittest / npm, коли framework=auto.\n\nПолітика безпеки:\n- Запуск тестів загалом не є небезпечною операцією, тому human_ask не виконується.\n- Однак extra_args, що містять метасимволи ін’єкції команд (&&, |, > тощо), відхиляються.\n\nРеалізація:\n- Усередині використовує cmd_exec_json_tool і обробляє returncode/stdout/stderr.\n- Для stdout/stderr застосовується callbacks.truncate_output, якщо він є.\n- Для вказання cwd використовуйте аргумент cwd з cmd_exec_json (не використовуйте cd &&).\n\nДодаткові можливості:\n- pythonpath: налаштовує додатковий PYTHONPATH для запуску тестів.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -503,7 +503,6 @@
     "error.shell_metacharacters_not_allowed": "метасимволи shell не дозволені в аргументах: {arg}",
     "error.unsupported_framework": "непідтримуваний framework: {fra...",
     "param.cwd.description": "Робочий каталог для запуску (має бути в межах workdir).",
-    "param.extra_args.description": "Масив додаткових аргументів. Відхиляти, якщо присутні метасимволи shell.",
     "param.framework.description": "Тип тестового fra...",
     "param.pythonpath.description": "Додатковий PYTHONPATH (наприклад, 'src'). Якщо задано, додається перед тестовою командою.",
     "param.report.description": "Формат виводу.",
@@ -514,7 +513,8 @@
       "запуск тестів",
       "test runner"
     ],
-    "summary.no_change": "Успішно без змін (0 збігів)"
+    "summary.no_change": "Успішно без змін (0 збігів)",
+    "param.xargs.description": "Масив додаткових аргументів. Відхиляти, якщо присутні метасимволи shell."
   },
   "tr": {
     "doc.module": "run_tests_tool\n\nTestleri çalıştırmak için bir sarma aracı.\n\nAmaç:\n- Doğrudan cmd_exec/pwsh_exec'i çağırmak yerine test yürütmeyi standartlaştırın ve yapılandırılmış sonuçları döndürün.\n- Framework=auto olduğunda pytest/unittest/npm'yi otomatik olarak algıla.\n\nGüvenlik politikası:\n- Test yürütme genellikle tehlikeli bir işlem olmadığından human_ask gerçekleştirilmez.\n- Ancak, komut ekleme meta karakterlerini (&&, |, > vb.) içeren extra_args reddedilir.\n\nUygulama:\n- Dahili olarak cmd_exec_json_tool'u kullanır ve dönüş kodunu/stdout/stderr'i yönetir.\n- Stdout/stderr için varsa callbacks.truncate_output'u uygulayın.\n- Cwd belirtimi için cmd_exec_json'un cwd bağımsız değişkenini kullanın (cd && kullanmayın).\n\nEk özellikler:\n- pythonpath: testleri çalıştırmak için ekstra PYTHONPATH yapılandırın.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -526,7 +526,6 @@
     "error.shell_metacharacters_not_allowed": "Bağımsız değişkenlerde kabuk meta karakterlerine izin...",
     "error.unsupported_framework": "desteklenmeyen çerçeve: {framework}",
     "param.cwd.description": "Çalıştırılacak çalışma dizini (workdir içinde olmalıdır). Boşsa geçerli dizini kullanın.",
-    "param.extra_args.description": "Ek bağımsız değişkenler dizisi. Kabuk meta karakterleri mevcutsa reddet.",
     "param.framework.description": "Çerçeve türünü te...",
     "param.pythonpath.description": "Ek PYTHONPATH (ör. 'src'). Sağlanmışsa, test komutunun önüne eklenir.",
     "param.report.description": "Çıkış formatı.",
@@ -537,7 +536,8 @@
       "testleri çalıştır",
       "test runner"
     ],
-    "summary.no_change": "Başarıyla hiçbir değişiklik yapılmadı (0 eşleşme)"
+    "summary.no_change": "Başarıyla hiçbir değişiklik yapılmadı (0 eşleşme)",
+    "param.xargs.description": "Ek bağımsız değişkenler dizisi. Kabuk meta karakterleri mevcutsa reddet."
   },
   "th": {
     "doc.module": "run_tests_tool\n\nเครื่องมือห่อหุ้มสำหรับการรันการทดสอบ\n\nวัตถุประสงค์:\n- แทนที่จะเรียก cmd_exec/pwsh_exec โดยตรง ให้ทำให้การทดสอบเป็นมาตรฐานและส่งคืนผลลัพธ์แบบมีโครงสร้าง\n- ตรวจจับ pytest / unittest / npm แบบอัตโนมัติเมื่อใช้ framework=auto\n\nนโยบายความปลอดภัย:\n- การรันทดสอบโดยทั่วไปไม่ใช่การดำเนินการที่เป็นอันตราย จึงไม่เรียก human_ask\n- อย่างไรก็ตาม extra_args ที่มีเมตาอักขระสำหรับการฉีดคำสั่ง (&&, |, > ฯลฯ) จะถูกปฏิเสธ\n\nการใช้งาน:\n- ภายในใช้ cmd_exec_json_tool และจัดการ returncode/stdout/stderr\n- สำหรับ stdout/stderr ให้ใช้ callbacks.truncate_output หากมี\n- สำหรับการระบุ cwd ให้ใช้อาร์กิวเมนต์ cwd ของ cmd_exec_json (อย่าใช้ cd &&)\n\nคุณสมบัติเพิ่มเติม:\n- pythonpath: ตั้งค่า PYTHONPATH เพิ่มเติมสำหรับการรันการทดสอบ\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -549,7 +549,6 @@
     "error.shell_metacharacters_not_allowed": "ไม่อนุญาตให้ใช้อักขระเมตาของเชลล์ในอาร์กิวเมนต์: {arg}",
     "error.unsupported_framework": "framework ที่ไม่รองรับ: {framework}",
     "param.cwd.description": "ไดเร็กทอรีการทำงานที่จะใช้ (ต้องอยู่ภายใน workdir) หากเป็น null ให้ใช้ไดเร็กทอรีปัจจุบัน",
-    "param.extra_args.description": "อาร์เรย์อาร์กิวเมนต์เพิ่มเติม ปฏิเสธหากมีเมตาอักขระของเชลล์",
     "param.framework.description": "ประเภทของกรอบการทดสอบ",
     "param.pythonpath.description": "PYTHONPATH เพิ่มเติม (เช่น 'src') หากระบุ จะวางนำหน้าคำสั่งทดสอบ",
     "param.report.description": "รูปแบบเอาต์พุต",
@@ -560,7 +559,8 @@
       "รันเทสต์",
       "test runner"
     ],
-    "summary.no_change": "สำเร็จโดยไม่มีการเปลี่ยนแปลง (ตรงกัน 0 รายการ)"
+    "summary.no_change": "สำเร็จโดยไม่มีการเปลี่ยนแปลง (ตรงกัน 0 รายการ)",
+    "param.xargs.description": "อาร์เรย์อาร์กิวเมนต์เพิ่มเติม ปฏิเสธหากมีเมตาอักขระของเชลล์"
   },
   "zh_CN": {
     "doc.module": "run_tests_tool\n\n用于运行测试的包装工具。\n\n目的：\n- 不直接调用 cmd_exec/pwsh_exec，而是规范化测试执行并返回结构化结果。\n- 在 framework=auto 时自动检测 pytest / unittest / npm。\n\n安全策略：\n- 测试执行通常不是危险操作，因此不调用 human_ask。\n- 但是，包含命令注入元字符（&&、|、> 等）的 extra_args 会被拒绝。\n\n实现：\n- 内部使用 cmd_exec_json_tool，并处理 returncode/stdout/stderr。\n- 对于 stdout/stderr，如存在 callbacks.truncate_output，则应用它。\n- 对于 cwd 指定，使用 cmd_exec_json 的 cwd 参数（不要使用 cd &&）。\n\n附加功能：\n- pythonpath：为测试运行设置额外的 PYTHONPATH。\n  - Windows：set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX：PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -572,7 +572,6 @@
     "error.shell_metacharacters_not_allowed": "参数中不允许使用 shell 元字符：{arg}",
     "error.unsupported_framework": "不支持的 framework：{framework}",
     "param.cwd.description": "运行时使用的工作目录（必须位于 workdir 内）。如果为 null，则使用当前目录。",
-    "param.extra_args.description": "附加参数数组。如果存在 shell 元字符则拒绝。",
     "param.framework.description": "测试框架类型。",
     "param.pythonpath.description": "附加 PYTHONPATH（例如 'src'）。如果提供，会加在测试命令前。",
     "param.report.description": "输出格式。",
@@ -583,7 +582,8 @@
       "运行测试",
       "测试运行器"
     ],
-    "summary.no_change": "成功地未作任何更改（0 个匹配）"
+    "summary.no_change": "成功地未作任何更改（0 个匹配）",
+    "param.xargs.description": "附加参数数组。如果存在 shell 元字符则拒绝。"
   },
   "zh_TW": {
     "doc.module": "run_tests_tool\n\n用於執行測試的包裝工具。\n\n目的：\n- 不直接呼叫 cmd_exec/pwsh_exec，而是將測試執行標準化並回傳結構化結果。\n- 在 framework=auto 時自動偵測 pytest / unittest / npm。\n\n安全政策：\n- 測試執行通常不是危險操作，因此不執行 human_ask。\n- 但是，包含命令注入元字元（&&、|、> 等）的 extra_args 會被拒絕。\n\n實作：\n- 內部使用 cmd_exec_json_tool，並處理 returncode/stdout/stderr。\n- 對於 stdout/stderr，如有 callbacks.truncate_output 則套用。\n- cwd 的指定請使用 cmd_exec_json 的 cwd 參數（不要使用 cd &&）。\n\n附加功能：\n- pythonpath：為測試執行設定額外的 PYTHONPATH。\n  - Windows：set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX：PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -595,7 +595,6 @@
     "error.shell_metacharacters_not_allowed": "參數中不允許使用 shell 元字元：{arg}",
     "error.unsupported_framework": "不支援的 framework：{framework}",
     "param.cwd.description": "執行時使用的工作目錄（必須位於 workdir 內）。如果為 null，則使用目前目錄。",
-    "param.extra_args.description": "附加參數陣列。如果存在 shell 元字元則拒絕。",
     "param.framework.description": "測試框架類型。",
     "param.pythonpath.description": "附加 PYTHONPATH（例如 'src'）。如果提供，會加在測試命令前。",
     "param.report.description": "輸出格式。",
@@ -606,7 +605,8 @@
       "執行測試",
       "測試執行器"
     ],
-    "summary.no_change": "成功地未進行任何變更（0 個符合）"
+    "summary.no_change": "成功地未進行任何變更（0 個符合）",
+    "param.xargs.description": "附加參數陣列。如果存在 shell 元字元則拒絕。"
   },
   "bn": {
     "doc.module": "run_tests_tool\n\nটেস্ট চালানোর জন্য একটি wrapper টুল।\n\nউদ্দেশ্য:\n- cmd_exec/pwsh_exec সরাসরি না ডেকে টেস্ট চালানোকে মানসম্মত করা এবং কাঠামোবদ্ধ ফলাফল ফেরত দেওয়া।\n- framework=auto হলে pytest / unittest / npm স্বয়ংক্রিয়ভাবে শনাক্ত করা।\n\nনিরাপত্তা নীতি:\n- টেস্ট চালানো সাধারণত ঝুঁকিপূর্ণ কাজ নয়, তাই human_ask করা হয় না।\n- তবে command-injection metacharacter (&&, |, >, ইত্যাদি) থাকা extra_args প্রত্যাখ্যান করা হয়।\n\nবাস্তবায়ন:\n- ভেতরে cmd_exec_json_tool ব্যবহার করে returncode/stdout/stderr হ্যান্ডল করা হয়।\n- stdout/stderr-এর জন্য callbacks.truncate_output থাকলে তা প্রয়োগ করা হয়।\n- cwd নির্দিষ্ট করতে cmd_exec_json-এর cwd আর্গুমেন্ট ব্যবহার করুন (cd && ব্যবহার করবেন না)।\n\nঅতিরিক্ত সুবিধা:\n- pythonpath: টেস্ট চালানোর জন্য অতিরিক্ত PYTHONPATH কনফিগার করুন।\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -618,7 +618,6 @@
     "error.shell_metacharacters_not_allowed": "আর্গুমেন্টে shell metacharacter অনুমোদিত নয়: {arg}",
     "error.unsupported_framework": "অসমর্থিত framework: {framework}",
     "param.cwd.description": "চালানোর জন্য workdir-এর ভেতরের working directory। null হলে current directory ব...",
-    "param.extra_args.description": "অতিরিক্ত আর্গুমেন্ট অ্যারে। shell metacharacter থাকলে প্রত্যাখ্যান করুন।",
     "param.framework.description": "টেস্ট framework-এ...",
     "param.pythonpath.description": "অতিরিক্ত PYTHONPATH (যেমন 'src'). দিলে তা test command-এর আগে যোগ হয়।",
     "param.report.description": "আউটপুট ফরম্যাট।",
@@ -629,7 +628,8 @@
       "টেস্ট চালান",
       "test runner"
     ],
-    "summary.no_change": "সফলভাবে কোনো পরিবর্তন করা হয়নি (0টি match)"
+    "summary.no_change": "সফলভাবে কোনো পরিবর্তন করা হয়নি (0টি match)",
+    "param.xargs.description": "অতিরিক্ত আর্গুমেন্ট অ্যারে। shell metacharacter থাকলে প্রত্যাখ্যান করুন।"
   },
   "fa": {
     "doc.module": "run_tests_tool\n\nابزار wrapper برای اجرای تست‌ها.\n\nهدف:\n- به‌جای فراخوانی مستقیم cmd_exec/pwsh_exec، اجرای تست را استاندارد می‌کند و نتیجهٔ ساخت‌یافته برمی‌گرداند.\n- وقتی framework=auto است، pytest / unittest / npm را به‌طور خودکار تشخیص می‌دهد.\n\nسیاست ایمنی:\n- اجرای تست‌ها معمولاً عملیات خطرناکی نیست، بنابراین human_ask انجام نمی‌شود.\n- با این حال، extra_args که شامل metacharacterهای تزریق فرمان (&&، |، > و غیره) باشند رد می‌شوند.\n\nپیاده‌سازی:\n- درون‌ساخت از cmd_exec_json_tool استفاده می‌کند و returncode/stdout/stderr را مدیریت می‌کند.\n- برای stdout/stderr، اگر callbacks.truncate_output موجود باشد از آن استفاده می‌شود.\n- برای تعیین cwd، از آرگومان cwd در cmd_exec_json استفاده کنید (از cd && استفاده نکنید).\n\nویژگی‌های اضافی:\n- pythonpath: برای اجرای تست‌ها PYTHONPATH اضافی تنظیم کنید.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -641,7 +641,6 @@
     "error.shell_metacharacters_not_allowed": "استفاده از metacharacterهای shell در آرگومان‌ها مجاز...",
     "error.unsupported_framework": "framework پشتیبانی‌نشده: {framework}",
     "param.cwd.description": "دایرکتوری کاری برای اجرا (باید داخل workdir باشد).",
-    "param.extra_args.description": "آرایهٔ آرگومان‌های اضافی. اگر metacharacterهای shell وجود داشته باشد، رد شود.",
     "param.framework.description": "نوع framework تست.",
     "param.pythonpath.description": "PYTHONPATH اضافی (مثلاً 'src'). اگر ارائه شود، به ابتدای فرمان تست افزوده می‌شود.",
     "param.report.description": "قالب خروجی.",
@@ -652,7 +651,8 @@
       "اجرای تست‌ها",
       "test runner"
     ],
-    "summary.no_change": "با موفقیت هیچ تغییری انجام نشد (0 match)"
+    "summary.no_change": "با موفقیت هیچ تغییری انجام نشد (0 match)",
+    "param.xargs.description": "آرایهٔ آرگومان‌های اضافی. اگر metacharacterهای shell وجود داشته باشد، رد شود."
   },
   "mn": {
     "doc.module": "run_tests_tool\n\nТест ажиллуулахад зориулсан wrapper хэрэгсэл.\n\nЗорилго:\n- cmd_exec/pwsh_exec-ийг шууд дуудахгүйгээр тест ажиллуулахыг стандартчилж, бүтэцтэй үр дүн буцаана.\n- framework=auto үед pytest / unittest / npm-ийг автоматаар танина.\n\nАюулгүй байдлын бодлого:\n- Тест ажиллуулах нь ерөнхийдөө аюултай үйлдэл биш тул human_ask хийхгүй.\n- Гэхдээ command-injection metacharacter (&&, |, > гэх мэт) агуулсан extra_args-ыг татгалзана.\n\nХэрэгжилт:\n- Дотроо cmd_exec_json_tool ашиглаж returncode/stdout/stderr-ийг боловсруулна.\n- stdout/stderr-д callbacks.truncate_output байвал хэрэглэнэ.\n- cwd-г заахдаа cmd_exec_json-ийн cwd аргументыг ашиглана (cd && бүү ашигла).\n\nНэмэлт боломжууд:\n- pythonpath: тест ажиллуулахад зориулж нэмэлт PYTHONPATH тохируулна.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -664,7 +664,6 @@
     "error.shell_metacharacters_not_allowed": "аргументуудад shell metacharacter ашиглахыг зөвшөөрөх...",
     "error.unsupported_framework": "дэмжигдээгүй framework: {framework}",
     "param.cwd.description": "Ажиллуулах working directory (workdir дотор байх ёстой).",
-    "param.extra_args.description": "Нэмэлт аргументын массив. Shell metacharacter байвал татгалзана.",
     "param.framework.description": "Тестийн framework...",
     "param.pythonpath.description": "Нэмэлт PYTHONPATH (жишээ нь 'src'). Өгвөл тестийн командыг өмнө нь залгана.",
     "param.report.description": "Гаралтын фо...",
@@ -675,7 +674,8 @@
       "тест ажиллуулах",
       "test runner"
     ],
-    "summary.no_change": "Амжилттай өөрчлөлт хийгдээгүй (0 таарсан)"
+    "summary.no_change": "Амжилттай өөрчлөлт хийгдээгүй (0 таарсан)",
+    "param.xargs.description": "Нэмэлт аргументын массив. Shell metacharacter байвал татгалзана."
   },
   "mr": {
     "doc.module": "run_tests_tool\n\nचाचण्या चालवण्यासाठीचे wrapper साधन.\n\nउद्देश:\n- cmd_exec/pwsh_exec थेट न बोलावता चाचणी चालवणे प्रमाणित करणे आणि संरचित निकाल परत करणे.\n- framework=auto असताना pytest / unittest / npm आपोआप ओळखणे.\n\nसुरक्षा धोरण:\n- चाचणी चालवणे सामान्यतः धोकादायक क्रिया नाही, त्यामुळे human_ask केला जात नाही.\n- मात्र, command-injection metacharacter (&&, |, > इ.) असलेले extra_args नाकारले जातात.\n\nअंमलबजावणी:\n- आतून cmd_exec_json_tool वापरते आणि returncode/stdout/stderr हाताळते.\n- stdout/stderr साठी callbacks.truncate_output उपलब्ध असल्यास ते लागू केले जाते.\n- cwd निर्दिष्ट करण्यासाठी cmd_exec_json चे cwd आर्ग्युमेंट वापरा (cd && वापरू नका).\n\nअतिरिक्त वैशिष्ट्ये:\n- pythonpath: चाचण्या चालवण्यासाठी अतिरिक्त PYTHONPATH कॉन्फिगर करा.\n  - Windows: set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX: PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
@@ -687,7 +687,6 @@
     "error.shell_metacharacters_not_allowed": "आर्ग्युमेंट्समध्ये shell metacharacter अनुमत नाहीत: {arg}",
     "error.unsupported_framework": "असमर्थित framework: {framework}",
     "param.cwd.description": "चालवण्यासाठीचा working directory (workdir च्या आत असणे आवश्यक).",
-    "param.extra_args.description": "अतिरिक्त आर्ग्युमेंट्सची array. shell metacharacter असल्यास नकार द्या.",
     "param.framework.description": "चाचणी framework च...",
     "param.pythonpath.description": "अतिरिक्त PYTHONPATH (उदा. 'src'). दिल्यास ते test command च्या आधी जोडले जाते.",
     "param.report.description": "आउटपुट स्वरूप.",
@@ -698,6 +697,7 @@
       "चाचण्या चालवा",
       "test runner"
     ],
-    "summary.no_change": "यशस्वीरीत्या कोणतेही बदल झाले नाहीत (0 जुळण्या)"
+    "summary.no_change": "यशस्वीरीत्या कोणतेही बदल झाले नाहीत (0 जुळण्या)",
+    "param.xargs.description": "अतिरिक्त आर्ग्युमेंट्सची array. shell metacharacter असल्यास नकार द्या."
   }
 }

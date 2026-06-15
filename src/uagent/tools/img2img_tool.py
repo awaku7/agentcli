@@ -63,10 +63,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "image_path": {
+                "img": {
                     "type": "string",
                     "description": _(
-                        "param.image_path.description",
+                        "param.img.description",
                         default="Path to the source image to edit.",
                     ),
                 },
@@ -113,10 +113,10 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "file_prefix": {
+                "prefix": {
                     "type": "string",
                     "description": _(
-                        "param.file_prefix.description",
+                        "param.prefix.description",
                         default="Prefix for the saved filename (optional).",
                     ),
                     "default": "img2img",
@@ -457,7 +457,7 @@ def _run_gemini_img2img(
 def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
-    image_path = str(args.get("image_path") or "").strip()
+    image_path = str(args.get("img") or "").strip()
     prompt = str(args.get("prompt") or "").strip()
     mask_path = str(args.get("mask_path") or "").strip()
     if not image_path:
@@ -488,7 +488,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     default_output_dir = str(get_image_generations_dir())
     output_dir = str(args.get("output_dir") or default_output_dir)
-    file_prefix = str(args.get("file_prefix") or "img2img")
+    file_prefix = str(args.get("prefix") or "img2img")
     provider = _provider()
     try:
         image_model = _get_model(provider)
@@ -598,7 +598,7 @@ def run_tool(args: dict[str, Any]) -> str:
     data: dict[str, Any] = {
         "provider": provider,
         "model": image_model,
-        "image_path": str(src),
+        "img": str(src),
         "mask_path": str(mask) if mask is not None else None,
         "prompt": prompt,
         "size": size,

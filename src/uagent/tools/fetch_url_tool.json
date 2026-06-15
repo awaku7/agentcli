@@ -14,12 +14,12 @@
     ],
     "param.extract.description": "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer); markdown=extract simplified markdown from HTML.",
     "param.selector.description": "Optional CSS selector. If provided, the first matched element is extracted for extract=text/html.",
-    "param.json_pointer.description": "Optional RFC 6901 JSON Pointer (e.g., /items/0/title) used when extract=json.",
-    "param.max_bytes.description": "Maximum bytes to read from the response.",
-    "param.max_chars.description": "Maximum characters to return (applied after decoding/extraction).",
     "param.user_agent.description": "Optional User-Agent header value.",
     "param.timeout.description": "Timeout (seconds).",
-    "param.verify_ssl.description": "Whether to verify SSL certificates."
+    "param.ptr.description": "Optional RFC 6901 JSON Pointer (e.g., /items/0/title) used when extract=json.",
+    "param.maxb.description": "Maximum bytes to read from the response.",
+    "param.maxc.description": "Maximum characters to return (applied after decoding/extraction).",
+    "param.ssl.description": "Whether to verify SSL certificates."
   },
   "ja": {
     "param.url.description": "アクセスする URL。",
@@ -32,12 +32,12 @@
     ],
     "param.extract.description": "抽出モード。head=レスポンス先頭を返す / text=HTML から本文テキストを抽出 / html=HTML 断片を抽出 / json=JSON を解析（必要に応じて json_pointer を適用） / markdown=HTML から簡易的な Markdown を抽出。",
     "param.selector.description": "任意の CSS セレクタ。指定した場合、extract=text/html で最初に一致した要素を抽出します。",
-    "param.json_pointer.description": "任意の RFC 6901 JSON Pointer（例: /items/0/title）。extract=json のときに使用します。",
-    "param.max_bytes.description": "レスポンスから読み込む最大バイト数。",
-    "param.max_chars.description": "返却する最大文字数（デコード/抽出後に適用）。",
     "param.user_agent.description": "任意の User-Agent ヘッダー値。",
     "param.timeout.description": "リクエストのタイムアウト（秒）。",
-    "param.verify_ssl.description": "SSL 証明書を検証するかどうか。"
+    "param.ptr.description": "任意の RFC 6901 JSON Pointer（例: /items/0/title）。extract=json のときに使用します。",
+    "param.maxb.description": "レスポンスから読み込む最大バイト数。",
+    "param.maxc.description": "返却する最大文字数（デコード/抽出後に適用）。",
+    "param.ssl.description": "SSL 証明書を検証するかどうか。"
   },
   "es": {
     "param.url.description": "URL a la que acceder.",
@@ -50,12 +50,12 @@
     ],
     "param.extract.description": "Modo de extracción.",
     "param.selector.description": "Selector CSS opcional. Si se proporciona, se extrae el primer elemento coincidente para extract=text/html.",
-    "param.json_pointer.description": "JSON Pointer opcional de RFC 6901 (por ejemplo, /items/0/title) usado cuan...",
-    "param.max_bytes.description": "Número máximo de bytes que se leen de...",
-    "param.max_chars.description": "Número máximo de caracteres que se devuelven (se aplica despué...",
     "param.user_agent.description": "Valor opcional del encabezado...",
     "param.timeout.description": "Tiempo de esper...",
-    "param.verify_ssl.description": "Si se deben verificar los certif..."
+    "param.ptr.description": "JSON Pointer opcional de RFC 6901 (por ejemplo, /items/0/title) usado cuan...",
+    "param.maxb.description": "Número máximo de bytes que se leen de...",
+    "param.maxc.description": "Número máximo de caracteres que se devuelven (se aplica despué...",
+    "param.ssl.description": "Si se deben verificar los certif..."
   },
   "fr": {
     "param.url.description": "URL à consulter.",
@@ -68,12 +68,12 @@
     ],
     "param.extract.description": "Mode d’extraction.",
     "param.selector.description": "Sélecteur CSS facultatif. S’il est fourni, le premier élément correspondant est extrait pour extract=text/html.",
-    "param.json_pointer.description": "JSON Pointer RFC 6901 facultatif (par exemple /items/0/title) utilisé lors...",
-    "param.max_bytes.description": "Nombre maximal d’octets à lire dans l...",
-    "param.max_chars.description": "Nombre maximal de caractères à renvoyer (appliqué après décoda...",
     "param.user_agent.description": "Valeur facultative de l’en-têt...",
     "param.timeout.description": "Délai d'attente...",
-    "param.verify_ssl.description": "S'il faut vérifier les certifica..."
+    "param.ptr.description": "JSON Pointer RFC 6901 facultatif (par exemple /items/0/title) utilisé lors...",
+    "param.maxb.description": "Nombre maximal d’octets à lire dans l...",
+    "param.maxc.description": "Nombre maximal de caractères à renvoyer (appliqué après décoda...",
+    "param.ssl.description": "S'il faut vérifier les certifica..."
   },
   "ko": {
     "param.url.description": "접속할 URL입니다.",
@@ -86,12 +86,12 @@
     ],
     "param.extract.description": "추출 모드입니다. head=응답의 시작 부분 반환; text=HTML에서 텍스트 추출; html=HTML 조각 추출; json=JSON 파싱(필요 시 json_pointer 적용); markdown=HTML에서 간단한 마크다운 추출.",
     "param.selector.description": "선택적 CSS 셀렉터입니다. 지정하면 extract=text/html에서 첫 번째로 일치하는 요소를 추출합니다.",
-    "param.json_pointer.description": "선택적 RFC 6901 JSON Pointer(예: /items/0/title)입니다. extract=json일 때 사용합니다.",
-    "param.max_bytes.description": "응답에서 읽을 최대 바이트 수입니다.",
-    "param.max_chars.description": "반환할 최대 문자 수입니다(디코딩/추출 후 적용).",
     "param.user_agent.description": "선택적 User-Agent 헤더 값입니다.",
     "param.timeout.description": "요청 제한 시간(초)입니다.",
-    "param.verify_ssl.description": "SSL 인증서를 검증할지 여부입니다."
+    "param.ptr.description": "선택적 RFC 6901 JSON Pointer(예: /items/0/title)입니다. extract=json일 때 사용합니다.",
+    "param.maxb.description": "응답에서 읽을 최대 바이트 수입니다.",
+    "param.maxc.description": "반환할 최대 문자 수입니다(디코딩/추출 후 적용).",
+    "param.ssl.description": "SSL 인증서를 검증할지 여부입니다."
   },
   "de": {
     "param.url.description": "Aufzurufende URL.",
@@ -104,12 +104,12 @@
     ],
     "param.extract.description": "Extraktionsmodus.",
     "param.selector.description": "Optionaler CSS-Selektor. Wenn angegeben, wird für extract=text/html das erste passende Element extrahiert.",
-    "param.json_pointer.description": "Optionaler RFC 6901 JSON Pointer (z.B.",
-    "param.max_bytes.description": "Maximale Anzahl von Bytes, die aus de...",
-    "param.max_chars.description": "Maximale Anzahl zurückzugebender Zeichen (wird nach Dekodierun...",
     "param.user_agent.description": "Optionaler Wert für den User-A...",
     "param.timeout.description": "Zeitüberschreit...",
-    "param.verify_ssl.description": "Ob SSL-Zertifikate überprüft wer..."
+    "param.ptr.description": "Optionaler RFC 6901 JSON Pointer (z.B.",
+    "param.maxb.description": "Maximale Anzahl von Bytes, die aus de...",
+    "param.maxc.description": "Maximale Anzahl zurückzugebender Zeichen (wird nach Dekodierun...",
+    "param.ssl.description": "Ob SSL-Zertifikate überprüft wer..."
   },
   "it": {
     "param.url.description": "URL a cui accedere.",
@@ -122,12 +122,12 @@
     ],
     "param.extract.description": "Modalità di estrazione.",
     "param.selector.description": "Selettore CSS facoltativo. Se fornito, per extract=text/html viene estratto il primo elemento corrispondente.",
-    "param.json_pointer.description": "JSON Pointer RFC 6901 facoltativo (ad esempio /items/0/title) usato quando...",
-    "param.max_bytes.description": "Numero massimo di byte da leggere dal...",
-    "param.max_chars.description": "Numero massimo di caratteri da restituire (applicato dopo la d...",
     "param.user_agent.description": "Valore facoltativo dell’intest...",
     "param.timeout.description": "Timeout in seco...",
-    "param.verify_ssl.description": "Se verificare i certificati SSL."
+    "param.ptr.description": "JSON Pointer RFC 6901 facoltativo (ad esempio /items/0/title) usato quando...",
+    "param.maxb.description": "Numero massimo di byte da leggere dal...",
+    "param.maxc.description": "Numero massimo di caratteri da restituire (applicato dopo la d...",
+    "param.ssl.description": "Se verificare i certificati SSL."
   },
   "ru": {
     "param.url.description": "URL для доступа.",
@@ -140,12 +140,12 @@
     ],
     "param.extract.description": "Режим извлечения.",
     "param.selector.description": "Необязательный CSS-селектор. Если он указан, для extract=text/html извлекается первый совпавший элемент.",
-    "param.json_pointer.description": "Необязательный JSON Pointer RFC 6901 (например, /items/0/title), используе...",
-    "param.max_bytes.description": "Максимальное число байтов, читаемых и...",
-    "param.max_chars.description": "Максимальное число возвращаемых символов (применяется после де...",
     "param.user_agent.description": "Необязательное значение заголо...",
     "param.timeout.description": "Таймаут запроса...",
-    "param.verify_ssl.description": "Проверять ли SSL-сертификаты."
+    "param.ptr.description": "Необязательный JSON Pointer RFC 6901 (например, /items/0/title), используе...",
+    "param.maxb.description": "Максимальное число байтов, читаемых и...",
+    "param.maxc.description": "Максимальное число возвращаемых символов (применяется после де...",
+    "param.ssl.description": "Проверять ли SSL-сертификаты."
   },
   "pt_BR": {
     "param.url.description": "URL a acessar.",
@@ -158,12 +158,12 @@
     ],
     "param.extract.description": "Modo de extração.",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente é extraído para extract=text/html.",
-    "param.json_pointer.description": "JSON Pointer opcional da RFC 6901 (por exemplo, /items/0/title) usado quan...",
-    "param.max_bytes.description": "Número máximo de bytes a ler da resposta.",
-    "param.max_chars.description": "Número máximo de caracteres a retornar (aplicado após decodifi...",
     "param.user_agent.description": "Valor opcional do cabeçalho Us...",
     "param.timeout.description": "Tempo limite em...",
-    "param.verify_ssl.description": "Se deve verificar os certificados SSL."
+    "param.ptr.description": "JSON Pointer opcional da RFC 6901 (por exemplo, /items/0/title) usado quan...",
+    "param.maxb.description": "Número máximo de bytes a ler da resposta.",
+    "param.maxc.description": "Número máximo de caracteres a retornar (aplicado após decodifi...",
+    "param.ssl.description": "Se deve verificar os certificados SSL."
   },
   "pt": {
     "param.url.description": "URL para acessar.",
@@ -176,12 +176,12 @@
     ],
     "param.extract.description": "Modo de extração.",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente é extraído para extract=text/html.",
-    "param.json_pointer.description": "JSON Pointer opcional da RFC 6901 (por exemplo, /items/0/title) usado quan...",
-    "param.max_bytes.description": "Máximo de bytes a serem lidos na resposta.",
-    "param.max_chars.description": "Máximo de caracteres a serem retornados (aplicado após decodif...",
     "param.user_agent.description": "Valor opcional do cabeçalho Us...",
     "param.timeout.description": "Limite de tempo...",
-    "param.verify_ssl.description": "Se deve verificar os certificados SSL."
+    "param.ptr.description": "JSON Pointer opcional da RFC 6901 (por exemplo, /items/0/title) usado quan...",
+    "param.maxb.description": "Máximo de bytes a serem lidos na resposta.",
+    "param.maxc.description": "Máximo de caracteres a serem retornados (aplicado após decodif...",
+    "param.ssl.description": "Se deve verificar os certificados SSL."
   },
   "id": {
     "param.url.description": "URL yang akan diakses.",
@@ -194,12 +194,12 @@
     ],
     "param.extract.description": "Mode ekstraksi.",
     "param.selector.description": "CSS selector opsional. Jika diberikan, elemen pertama yang cocok akan diekstrak untuk extract=text/html.",
-    "param.json_pointer.description": "RFC 6901 JSON Pointer opsional (mis.",
-    "param.max_bytes.description": "Maksimum byte yang dibaca dari respons.",
-    "param.max_chars.description": "Maksimum karakter yang dikembalikan (diterapkan setelah decodi...",
     "param.user_agent.description": "Nilai header User-Agent opsional.",
     "param.timeout.description": "Batas waktu dal...",
-    "param.verify_ssl.description": "Apakah akan memverifikasi sertif..."
+    "param.ptr.description": "RFC 6901 JSON Pointer opsional (mis.",
+    "param.maxb.description": "Maksimum byte yang dibaca dari respons.",
+    "param.maxc.description": "Maksimum karakter yang dikembalikan (diterapkan setelah decodi...",
+    "param.ssl.description": "Apakah akan memverifikasi sertif..."
   },
   "vi": {
     "param.url.description": "URL để truy cập.",
@@ -212,12 +212,12 @@
     ],
     "param.extract.description": "Chế độ khai thác.",
     "param.selector.description": "Bộ chọn CSS tùy chọn. Nếu được cung cấp, phần tử phù hợp đầu tiên sẽ được trích xuất cho extract=text/html.",
-    "param.json_pointer.description": "Con trỏ JSON RFC 6901 tùy chọn (ví dụ: /items/0/title) được sử dụng khi ex...",
-    "param.max_bytes.description": "Số byte tối đa để đọc từ phản hồi.",
-    "param.max_chars.description": "Số ký tự tối đa cần trả về (áp dụng sau khi giải mã/trích xuất).",
     "param.user_agent.description": "Giá trị tiêu đề Tác nhân người...",
     "param.timeout.description": "Thời gian chờ t...",
-    "param.verify_ssl.description": "Có xác minh chứng chỉ SSL hay không."
+    "param.ptr.description": "Con trỏ JSON RFC 6901 tùy chọn (ví dụ: /items/0/title) được sử dụng khi ex...",
+    "param.maxb.description": "Số byte tối đa để đọc từ phản hồi.",
+    "param.maxc.description": "Số ký tự tối đa cần trả về (áp dụng sau khi giải mã/trích xuất).",
+    "param.ssl.description": "Có xác minh chứng chỉ SSL hay không."
   },
   "pl": {
     "param.url.description": "Adres URL, do którego można uzysk...",
@@ -230,12 +230,12 @@
     ],
     "param.extract.description": "Tryb ekstrakcji.",
     "param.selector.description": "Opcjonalny selektor CSS.",
-    "param.json_pointer.description": "Opcjonalny JSON Pointer RFC 6901 (np. /items/0/title) używany przy extract=json.",
-    "param.max_bytes.description": "Maksymalna liczba bajtów do odczytani...",
-    "param.max_chars.description": "Maksymalna liczba znaków do zwrócenia (stosowana po dekodowani...",
     "param.user_agent.description": "Opcjonalna wartość nagłówka Us...",
     "param.timeout.description": "Limit czasu w s...",
-    "param.verify_ssl.description": "Czy weryfikować certyfikaty SSL."
+    "param.ptr.description": "Opcjonalny JSON Pointer RFC 6901 (np. /items/0/title) używany przy extract=json.",
+    "param.maxb.description": "Maksymalna liczba bajtów do odczytani...",
+    "param.maxc.description": "Maksymalna liczba znaków do zwrócenia (stosowana po dekodowani...",
+    "param.ssl.description": "Czy weryfikować certyfikaty SSL."
   },
   "hi": {
     "param.url.description": "एक्सेस करने के लिए यूआरएल.",
@@ -248,12 +248,12 @@
     ],
     "param.extract.description": "निष्कर्षण मोड.",
     "param.selector.description": "वैकल्पिक CSS चयनकर्ता. प्रदान किए जाने पर, extract=text/html के लिए पहला मिलान करने वाला तत्व निकाला जाता है।",
-    "param.json_pointer.description": "वैकल्पिक RFC 6901 JSON Pointer (उदा.",
-    "param.max_bytes.description": "प्रतिक्रिया से पढ़ने के लिए अधिकतम बाइट्स.",
-    "param.max_chars.description": "लौटाने के लिए अधिकतम वर्ण (डिकोडिंग/निष्कर्षण के बाद लागू)।",
     "param.user_agent.description": "वैकल्पिक उपयोगकर्ता-एजेंट हेडर मान.",
     "param.timeout.description": "अनुरोध के लिए स...",
-    "param.verify_ssl.description": "क्या SSL प्रमाणपत्रों को सत्यापि..."
+    "param.ptr.description": "वैकल्पिक RFC 6901 JSON Pointer (उदा.",
+    "param.maxb.description": "प्रतिक्रिया से पढ़ने के लिए अधिकतम बाइट्स.",
+    "param.maxc.description": "लौटाने के लिए अधिकतम वर्ण (डिकोडिंग/निष्कर्षण के बाद लागू)।",
+    "param.ssl.description": "क्या SSL प्रमाणपत्रों को सत्यापि..."
   },
   "ar": {
     "param.url.description": "عنوان URL للوصول.",
@@ -266,12 +266,12 @@
     ],
     "param.extract.description": "وضع الاستخراج.",
     "param.selector.description": "محدد CSS اختياري. إذا تم توفيره، فسيتم استخراج أول عنصر مطابق عند extract=text/html.",
-    "param.json_pointer.description": "JSON Pointer اختياري وفق RFC 6901 (مثل /items/0/title) يُستخدم عند extract=json.",
-    "param.max_bytes.description": "الحد الأقصى للبايت للقراءة من الاستجابة.",
-    "param.max_chars.description": "الحد الأقصى لعدد الأحرف المطلوب إرجاعها (يتم تطبيقه بعد فك الت...",
     "param.user_agent.description": "قيمة رأس وكيل المستخدم الاختيارية.",
     "param.timeout.description": "مهلة الطلب بالث...",
-    "param.verify_ssl.description": "ما إذا كان سيتم التحقق من شهادات SSL."
+    "param.ptr.description": "JSON Pointer اختياري وفق RFC 6901 (مثل /items/0/title) يُستخدم عند extract=json.",
+    "param.maxb.description": "الحد الأقصى للبايت للقراءة من الاستجابة.",
+    "param.maxc.description": "الحد الأقصى لعدد الأحرف المطلوب إرجاعها (يتم تطبيقه بعد فك الت...",
+    "param.ssl.description": "ما إذا كان سيتم التحقق من شهادات SSL."
   },
   "sv": {
     "param.url.description": "URL att öppna.",
@@ -284,12 +284,12 @@
     ],
     "param.extract.description": "Extraktionsläge.",
     "param.selector.description": "Valfri CSS-selektor. Om den anges extraheras det första matchade elementet för extract=text/html.",
-    "param.json_pointer.description": "Valfri RFC 6901 JSON Pointer (t.ex. /items/0/title) som används när extract=json.",
-    "param.max_bytes.description": "Maximalt antal byte att läsa från svaret.",
-    "param.max_chars.description": "Maximalt antal tecken att returnera (tillämpas efter avkodning...",
     "param.user_agent.description": "Valfritt User-Agent-huvudvärde.",
     "param.timeout.description": "Timeout i sekun...",
-    "param.verify_ssl.description": "Om SSL-certifikat ska verifieras."
+    "param.ptr.description": "Valfri RFC 6901 JSON Pointer (t.ex. /items/0/title) som används när extract=json.",
+    "param.maxb.description": "Maximalt antal byte att läsa från svaret.",
+    "param.maxc.description": "Maximalt antal tecken att returnera (tillämpas efter avkodning...",
+    "param.ssl.description": "Om SSL-certifikat ska verifieras."
   },
   "sw": {
     "param.url.description": "URL ya kufikia.",
@@ -302,12 +302,12 @@
     ],
     "param.extract.description": "Hali ya uchimbaji.",
     "param.selector.description": "CSS selector ya hiari. Ikitolewa, kipengele cha kwanza kinacholingana hutolewa kwa extract=text/html.",
-    "param.json_pointer.description": "RFC 6901 JSON Pointer ya hiari (mfano /items/0/title) inayotumika wakati e...",
-    "param.max_bytes.description": "Idadi ya juu ya bytes za kusoma kutok...",
-    "param.max_chars.description": "Idadi ya juu ya herufi za kurudisha (hutumika baada ya ku-deco...",
     "param.user_agent.description": "Thamani ya hiari ya kichwa cha...",
     "param.timeout.description": "Muda wa kuisha...",
-    "param.verify_ssl.description": "Ikiwa utathibitisha vyeti vya SSL."
+    "param.ptr.description": "RFC 6901 JSON Pointer ya hiari (mfano /items/0/title) inayotumika wakati e...",
+    "param.maxb.description": "Idadi ya juu ya bytes za kusoma kutok...",
+    "param.maxc.description": "Idadi ya juu ya herufi za kurudisha (hutumika baada ya ku-deco...",
+    "param.ssl.description": "Ikiwa utathibitisha vyeti vya SSL."
   },
   "nb": {
     "param.url.description": "URL som skal åpnes.",
@@ -320,12 +320,12 @@
     ],
     "param.extract.description": "Ekstraksjonsmodus.",
     "param.selector.description": "Valgfri CSS-selector. Hvis den angis, ekstraheres det første samsvarende elementet for extract=text/html.",
-    "param.json_pointer.description": "Valgfri RFC 6901 JSON Pointer (f.eks. /items/0/title) som brukes når extract=json.",
-    "param.max_bytes.description": "Maksimalt antall byte som leses fra svaret.",
-    "param.max_chars.description": "Maksimalt antall tegn som returneres (brukes etter dekoding/ek...",
     "param.user_agent.description": "Valgfri User-Agent-headerverdi.",
     "param.timeout.description": "Tidsavbrudd i s...",
-    "param.verify_ssl.description": "Om SSL-sertifikater skal verifiseres."
+    "param.ptr.description": "Valgfri RFC 6901 JSON Pointer (f.eks. /items/0/title) som brukes når extract=json.",
+    "param.maxb.description": "Maksimalt antall byte som leses fra svaret.",
+    "param.maxc.description": "Maksimalt antall tegn som returneres (brukes etter dekoding/ek...",
+    "param.ssl.description": "Om SSL-sertifikater skal verifiseres."
   },
   "nl": {
     "param.url.description": "Te benaderen URL.",
@@ -338,12 +338,12 @@
     ],
     "param.extract.description": "Extractiemodus.",
     "param.selector.description": "Optionele CSS-selector. Indien opgegeven, wordt voor extract=text/html het eerste overeenkomende element uitgehaald.",
-    "param.json_pointer.description": "Optionele RFC 6901 JSON Pointer (bijv.",
-    "param.max_bytes.description": "Maximaal aantal bytes om uit de respo...",
-    "param.max_chars.description": "Maximaal aantal tekens om terug te geven (na decoderen/extract...",
     "param.user_agent.description": "Optionele User-Agent headerwaarde.",
     "param.timeout.description": "Time-out in sec...",
-    "param.verify_ssl.description": "Of SSL-certificaten moeten worde..."
+    "param.ptr.description": "Optionele RFC 6901 JSON Pointer (bijv.",
+    "param.maxb.description": "Maximaal aantal bytes om uit de respo...",
+    "param.maxc.description": "Maximaal aantal tekens om terug te geven (na decoderen/extract...",
+    "param.ssl.description": "Of SSL-certificaten moeten worde..."
   },
   "fi": {
     "param.url.description": "Avattava URL.",
@@ -356,12 +356,12 @@
     ],
     "param.extract.description": "Poimintatila.",
     "param.selector.description": "Valinnainen CSS-valitsin. Jos annetaan, extract=text/html käyttää ensimmäistä vastaavaa elementtiä.",
-    "param.json_pointer.description": "Valinnainen RFC 6901 JSON Pointer (esim.",
-    "param.max_bytes.description": "Enimmäismäärä tavuja, jotka luetaan v...",
-    "param.max_chars.description": "Enimmäismäärä merkkejä, jotka palautetaan (sovelletaan dekooda...",
     "param.user_agent.description": "Valinnainen User-Agent-otsakearvo.",
     "param.timeout.description": "Pyynnön aikakat...",
-    "param.verify_ssl.description": "Tarkistetaanko SSL-varmenteet."
+    "param.ptr.description": "Valinnainen RFC 6901 JSON Pointer (esim.",
+    "param.maxb.description": "Enimmäismäärä tavuja, jotka luetaan v...",
+    "param.maxc.description": "Enimmäismäärä merkkejä, jotka palautetaan (sovelletaan dekooda...",
+    "param.ssl.description": "Tarkistetaanko SSL-varmenteet."
   },
   "cs": {
     "param.url.description": "URL, ke kterému se má přistoupit.",
@@ -374,12 +374,12 @@
     ],
     "param.extract.description": "Režim extrakce.",
     "param.selector.description": "Volitelný CSS selektor. Je-li zadán, pro extract=text/html se extrahuje první odpovídající prvek.",
-    "param.json_pointer.description": "Volitelný RFC 6901 JSON Pointer (např. /items/0/title) používaný při extract=json.",
-    "param.max_bytes.description": "Maximální počet bajtů, které se mají...",
-    "param.max_chars.description": "Maximální počet znaků k vrácení (uplatní se po dekódování/extrakci).",
     "param.user_agent.description": "Volitelná hodnota hlavičky Use...",
     "param.timeout.description": "Časový limit v...",
-    "param.verify_ssl.description": "Zda ověřovat SSL certifikáty."
+    "param.ptr.description": "Volitelný RFC 6901 JSON Pointer (např. /items/0/title) používaný při extract=json.",
+    "param.maxb.description": "Maximální počet bajtů, které se mají...",
+    "param.maxc.description": "Maximální počet znaků k vrácení (uplatní se po dekódování/extrakci).",
+    "param.ssl.description": "Zda ověřovat SSL certifikáty."
   },
   "uk": {
     "param.url.description": "URL, до якої потрібно звернутися.",
@@ -392,12 +392,12 @@
     ],
     "param.extract.description": "Режим витягування.",
     "param.selector.description": "Необовʼязковий CSS-селектор. Якщо його вказано, для extract=text/html витягується перший відповідний елемент.",
-    "param.json_pointer.description": "Необовʼязковий RFC 6901 JSON Pointer (наприклад, /items/0/title), який вик...",
-    "param.max_bytes.description": "Максимальна кількість байтів, що чита...",
-    "param.max_chars.description": "Максимальна кількість символів для повернення (застосовується...",
     "param.user_agent.description": "Необовʼязкове значення заголов...",
     "param.timeout.description": "Таймаут запиту...",
-    "param.verify_ssl.description": "Чи перевіряти сертифікати SSL."
+    "param.ptr.description": "Необовʼязковий RFC 6901 JSON Pointer (наприклад, /items/0/title), який вик...",
+    "param.maxb.description": "Максимальна кількість байтів, що чита...",
+    "param.maxc.description": "Максимальна кількість символів для повернення (застосовується...",
+    "param.ssl.description": "Чи перевіряти сертифікати SSL."
   },
   "tr": {
     "param.url.description": "Erişmek için URL.",
@@ -410,12 +410,12 @@
     ],
     "param.extract.description": "Ekstraksiyon modu.",
     "param.selector.description": "İsteğe bağlı CSS seçici. Sağlanırsa, eşleşen ilk öğe extract=text/html için çıkarılır.",
-    "param.json_pointer.description": "İsteğe bağlı RFC 6901 JSON Extract=json olduğunda kullanılan işaretçi (ör.",
-    "param.max_bytes.description": "Yanıttan okunacak maksimum bayt sayısı.",
-    "param.max_chars.description": "Döndürülecek maksimum karakter (kod çözme/çıkarma işleminden s...",
     "param.user_agent.description": "İsteğe bağlı Kullanıcı Aracısı...",
     "param.timeout.description": "İstek için sani...",
-    "param.verify_ssl.description": "SSL sertifikalarının doğrulanıp..."
+    "param.ptr.description": "İsteğe bağlı RFC 6901 JSON Extract=json olduğunda kullanılan işaretçi (ör.",
+    "param.maxb.description": "Yanıttan okunacak maksimum bayt sayısı.",
+    "param.maxc.description": "Döndürülecek maksimum karakter (kod çözme/çıkarma işleminden s...",
+    "param.ssl.description": "SSL sertifikalarının doğrulanıp..."
   },
   "th": {
     "param.url.description": "URL ที่จะเข้าถึง",
@@ -428,12 +428,12 @@
     ],
     "param.extract.description": "โหมดการดึงข้อมูล: head=ส่งคืนส่วนต้นของก...",
     "param.selector.description": "CSS selector แบบไม่บังคับ หากระบุ จะดึงองค์ประกอบที่ตรงกันตัวแรกสำหรับ extract=text/html",
-    "param.json_pointer.description": "JSON Pointer ของ RFC 6901 แบบไม่บังคับ (เช่น /items/0/title) ใช้เมื่อ extract=json",
-    "param.max_bytes.description": "จำนวนไบต์สูงสุดที่จะอ่านจากการตอบกลับ",
-    "param.max_chars.description": "จำนวนอักขระสูงสุดที่จะส่งคืน (ใช้หลังการถอดรหัส/ดึงข้อมูล)",
     "param.user_agent.description": "ค่าเฮดเดอร์ User-Agent แบบไม่บังคับ",
     "param.timeout.description": "เวลาหมดเวลาเป็น...",
-    "param.verify_ssl.description": "กำหนดว่าจะตรวจสอบใบรับรอง SSL หรือไม่"
+    "param.ptr.description": "JSON Pointer ของ RFC 6901 แบบไม่บังคับ (เช่น /items/0/title) ใช้เมื่อ extract=json",
+    "param.maxb.description": "จำนวนไบต์สูงสุดที่จะอ่านจากการตอบกลับ",
+    "param.maxc.description": "จำนวนอักขระสูงสุดที่จะส่งคืน (ใช้หลังการถอดรหัส/ดึงข้อมูล)",
+    "param.ssl.description": "กำหนดว่าจะตรวจสอบใบรับรอง SSL หรือไม่"
   },
   "zh_CN": {
     "param.url.description": "要访问的 URL。",
@@ -446,12 +446,12 @@
     ],
     "param.extract.description": "提取模式。head=返回响应开头；text=从 HTML 中提取文本；html=提取 HTML 片段；json=解析 JSON（可选应用 json_pointer）；markdown=从 HTML 中提取简化 Markdown。",
     "param.selector.description": "可选 CSS 选择器。提供后，在 extract=text/html 时提取第一个匹配元素。",
-    "param.json_pointer.description": "可选 RFC 6901 JSON Pointer（例如 /items/0/title），在 extract=json 时使用。",
-    "param.max_bytes.description": "从响应中读取的最大字节数。",
-    "param.max_chars.description": "返回的最大字符数（在解码/提取后应用）。",
     "param.user_agent.description": "可选的 User-Agent 请求头值。",
     "param.timeout.description": "请求的超时时间（秒）。",
-    "param.verify_ssl.description": "是否验证 SSL 证书。"
+    "param.ptr.description": "可选 RFC 6901 JSON Pointer（例如 /items/0/title），在 extract=json 时使用。",
+    "param.maxb.description": "从响应中读取的最大字节数。",
+    "param.maxc.description": "返回的最大字符数（在解码/提取后应用）。",
+    "param.ssl.description": "是否验证 SSL 证书。"
   },
   "zh_TW": {
     "param.url.description": "要存取的 URL。",
@@ -464,12 +464,12 @@
     ],
     "param.extract.description": "擷取模式。head=傳回回應開頭；text=從 HTML 擷取文字；html=擷取 HTML 片段；json=解析 JSON（可選套用 json_pointer）；markdown=從 HTML 擷取簡化 Markdown。",
     "param.selector.description": "選用 CSS 選擇器。若提供，extract=text/html 時會擷取第一個符合的元素。",
-    "param.json_pointer.description": "選用 RFC 6901 JSON Pointer（例如 /items/0/title），於 extract=json 時使用。",
-    "param.max_bytes.description": "從回應中讀取的最大位元組數。",
-    "param.max_chars.description": "回傳的最大字元數（在解碼／擷取後套用）。",
     "param.user_agent.description": "選用的 User-Agent 標頭值。",
     "param.timeout.description": "請求的逾時時間（秒）。",
-    "param.verify_ssl.description": "是否驗證 SSL 憑證。"
+    "param.ptr.description": "選用 RFC 6901 JSON Pointer（例如 /items/0/title），於 extract=json 時使用。",
+    "param.maxb.description": "從回應中讀取的最大位元組數。",
+    "param.maxc.description": "回傳的最大字元數（在解碼／擷取後套用）。",
+    "param.ssl.description": "是否驗證 SSL 憑證。"
   },
   "bn": {
     "param.url.description": "যে URL-এ অ্যাক্সেস করা হবে।",
@@ -482,12 +482,12 @@
     ],
     "param.extract.description": "এক্সট্র্যাকশন মোড। head=প্রতিক্রিয়ার শু...",
     "param.selector.description": "ঐচ্ছিক CSS selector। দিলে extract=text/html-এর জন্য প্রথম মিলে যাওয়া element বের করা হয়।",
-    "param.json_pointer.description": "ঐচ্ছিক RFC 6901 JSON Pointer (যেমন /items/0/title), extract=json হলে ব্যবহৃত হয়।",
-    "param.max_bytes.description": "প্রতিক্রিয়া থেকে পড়া সর্বাধিক byte সংখ্যা।",
-    "param.max_chars.description": "ফিরিয়ে দেওয়ার সর্বাধিক character সংখ্যা (ডিকোড/এক্সট্র্যাকশন...",
     "param.user_agent.description": "ঐচ্ছিক User-Agent header মান।",
     "param.timeout.description": "অনুরোধের জন্য স...",
-    "param.verify_ssl.description": "SSL সার্টিফিকেট যাচাই করা হবে কিনা।"
+    "param.ptr.description": "ঐচ্ছিক RFC 6901 JSON Pointer (যেমন /items/0/title), extract=json হলে ব্যবহৃত হয়।",
+    "param.maxb.description": "প্রতিক্রিয়া থেকে পড়া সর্বাধিক byte সংখ্যা।",
+    "param.maxc.description": "ফিরিয়ে দেওয়ার সর্বাধিক character সংখ্যা (ডিকোড/এক্সট্র্যাকশন...",
+    "param.ssl.description": "SSL সার্টিফিকেট যাচাই করা হবে কিনা।"
   },
   "fa": {
     "param.url.description": "نشانی URL برای دسترسی.",
@@ -500,12 +500,12 @@
     ],
     "param.extract.description": "حالت استخراج.",
     "param.selector.description": "CSS selector اختیاری. اگر ارائه شود، برای extract=text/html اولین عنصر منطبق استخراج می‌شود.",
-    "param.json_pointer.description": "JSON Pointer اختیاری RFC 6901 (مثلاً /items/0/title) که هنگام extract=json...",
-    "param.max_bytes.description": "حداکثر تعداد byte برای خواندن از پاسخ.",
-    "param.max_chars.description": "حداکثر تعداد کاراکتر برای بازگرداندن (پس از decoding/extractio...",
     "param.user_agent.description": "مقدار اختیاری هدر User-Agent.",
     "param.timeout.description": "زمان اتمام درخو...",
-    "param.verify_ssl.description": "آیا گواهی‌های SSL تأیید شوند یا خیر."
+    "param.ptr.description": "JSON Pointer اختیاری RFC 6901 (مثلاً /items/0/title) که هنگام extract=json...",
+    "param.maxb.description": "حداکثر تعداد byte برای خواندن از پاسخ.",
+    "param.maxc.description": "حداکثر تعداد کاراکتر برای بازگرداندن (پس از decoding/extractio...",
+    "param.ssl.description": "آیا گواهی‌های SSL تأیید شوند یا خیر."
   },
   "mn": {
     "param.url.description": "Хандах URL.",
@@ -518,12 +518,12 @@
     ],
     "param.extract.description": "Гарган авах горим.",
     "param.selector.description": "Сонголттой CSS selector. Өгвөл extract=text/html-д эхний таарсан element-ийг гаргана.",
-    "param.json_pointer.description": "Сонголттой RFC 6901 JSON Pointer (жишээ нь /items/0/title).",
-    "param.max_bytes.description": "Хариунаас унших хамгийн их byte.",
-    "param.max_chars.description": "Буцаах хамгийн их character тоо (decode/extraction-ийн дараа х...",
     "param.user_agent.description": "Сонголттой User-Agent header-и...",
     "param.timeout.description": "Хүсэлтийн хугац...",
-    "param.verify_ssl.description": "SSL сертификатыг баталгаажуулах эсэх."
+    "param.ptr.description": "Сонголттой RFC 6901 JSON Pointer (жишээ нь /items/0/title).",
+    "param.maxb.description": "Хариунаас унших хамгийн их byte.",
+    "param.maxc.description": "Буцаах хамгийн их character тоо (decode/extraction-ийн дараа х...",
+    "param.ssl.description": "SSL сертификатыг баталгаажуулах эсэх."
   },
   "mr": {
     "param.url.description": "ज्याला access करायचे तो URL.",
@@ -536,11 +536,11 @@
     ],
     "param.extract.description": "एक्स्ट्रॅक्शन मोड.",
     "param.selector.description": "ऐच्छिक CSS selector. दिल्यास extract=text/html साठी पहिला जुळणारा element काढला जातो.",
-    "param.json_pointer.description": "ऐच्छिक RFC 6901 JSON Pointer (उदा. /items/0/title); extract=json वेळी वापरला जातो.",
-    "param.max_bytes.description": "प्रतिक्रियेतील वाचण्यायोग्य कमाल byte...",
-    "param.max_chars.description": "परत देण्यायोग्य कमाल character संख्या (decode/extraction नंतर लागू).",
     "param.user_agent.description": "ऐच्छिक User-Agent header मूल्य.",
     "param.timeout.description": "विनंतीसाठी सेकं...",
-    "param.verify_ssl.description": "SSL प्रमाणपत्रे सत्यापित करायची..."
+    "param.ptr.description": "ऐच्छिक RFC 6901 JSON Pointer (उदा. /items/0/title); extract=json वेळी वापरला जातो.",
+    "param.maxb.description": "प्रतिक्रियेतील वाचण्यायोग्य कमाल byte...",
+    "param.maxc.description": "परत देण्यायोग्य कमाल character संख्या (decode/extraction नंतर लागू).",
+    "param.ssl.description": "SSL प्रमाणपत्रे सत्यापित करायची..."
   }
 }

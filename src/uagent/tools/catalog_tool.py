@@ -51,10 +51,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Natural-language query describing the needed capability.",
                     ),
                 },
-                "max_results": {
+                "limit": {
                     "type": "integer",
                     "description": _(
-                        "param.max_results.description",
+                        "param.limit.description",
                         default="Maximum number of catalog entries to return.",
                     ),
                     "default": 12,
@@ -68,7 +68,7 @@ TOOL_SPEC: dict[str, Any] = {
 
 def run_tool(args: dict[str, Any]) -> str:
     query = str(args.get("query") or "").strip()
-    max_results_raw = args.get("max_results", 12)
+    max_results_raw = args.get("limit", 12)
     try:
         max_results = int(max_results_raw)
     except Exception:

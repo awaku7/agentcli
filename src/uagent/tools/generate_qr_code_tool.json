@@ -10,7 +10,6 @@
     ],
     "param.text.description": "The text or URL to encode into the QR code.",
     "param.filename.description": "The output filename (e.g., 'qrcode.png'). Must end with .png.",
-    "param.error_correction.description": "Error correction: L/M/Q/H (default: M).",
     "param.box_size.description": "Size of each box (pixel width/height). Default: 10.",
     "param.border.description": "Border width (number of boxes). Default: 4.",
     "param.fill_color.description": "Color of the QR code modules (e.g., 'black', '#000000'). Default: 'black'.",
@@ -21,7 +20,8 @@
     "error.must_be_png": "filename must end with .png",
     "error.file_exists": "File already exists: %(path)s",
     "status.created": "Created QR code: %(path)s",
-    "status.overwritten": "Overwrote QR code: %(path)s"
+    "status.overwritten": "Overwrote QR code: %(path)s",
+    "param.ecc.description": "Error correction: L/M/Q/H (default: M)."
   },
   "ja": {
     "tool.description": "テキストやURLからQRコード画像（PNG）を生成します。誤り訂正レベル、ボックスサイズ、ボーダー、色のカスタマイズに対応しています。",
@@ -34,7 +34,6 @@
     ],
     "param.text.description": "QRコードにエンコードするテキストまたはURL。",
     "param.filename.description": "出力ファイル名（例: 'qrcode.png'）。.pngで終わる必要があります。",
-    "param.error_correction.description": "誤り訂正: L/M/Q/H（デフォルト: M）。",
     "param.box_size.description": "各ボックスのサイズ（ピクセル単位の幅/高さ）。デフォルト: 10。",
     "param.border.description": "ボーダーの幅（ボックス数）。デフォルト: 4。",
     "param.fill_color.description": "QRコードのモジュールの色（例: 'black', '#000000'）。デフォルト: 'black'。",
@@ -45,7 +44,8 @@
     "error.must_be_png": "ファイル名は.pngで終わる必要があります",
     "error.file_exists": "ファイルが既に存在します: %(path)s",
     "status.created": "QRコードを作成しました: %(path)s",
-    "status.overwritten": "QRコードを上書きしました: %(path)s"
+    "status.overwritten": "QRコードを上書きしました: %(path)s",
+    "param.ecc.description": "誤り訂正: L/M/Q/H（デフォルト: M）。"
   },
   "es": {
     "tool.description": "Genera una imagen de código QR (PNG) a partir de texto o URL.",
@@ -58,7 +58,6 @@
     ],
     "param.text.description": "El texto o la URL que se codificará en e...",
     "param.filename.description": "El nombre del archivo de salida (por ejemplo, 'qrcode.png').",
-    "param.error_correction.description": "Nivel de corrección de errores: 'L'...",
     "param.box_size.description": "Tamaño de cada bloque (ancho/alto en píxeles).",
     "param.border.description": "Ancho del borde (número de bloques).",
     "param.fill_color.description": "Color de los módulos del código QR (por ejemplo, 'black', '#000000').",
@@ -69,7 +68,8 @@
     "error.must_be_png": "filename debe terminar en .",
     "error.file_exists": "El archivo ya existe: %(path)s",
     "status.created": "Código QR creado: %(path)s",
-    "status.overwritten": "Código QR sobrescrito: %..."
+    "status.overwritten": "Código QR sobrescrito: %...",
+    "param.ecc.description": "Nivel de corrección de errores: 'L'..."
   },
   "fr": {
     "tool.description": "Générez une image de code QR (PNG) à partir d’un texte ou d’une URL.",
@@ -82,7 +82,6 @@
     ],
     "param.text.description": "Le texte ou l’URL à encoder dans le code QR.",
     "param.filename.description": "Le nom du fichier de sortie (par ex.'qrcode.png').",
-    "param.error_correction.description": "Niveau de correction d’erreur : 'L'...",
     "param.box_size.description": "Taille de chaque case (largeur/hauteur en pixels).",
     "param.border.description": "Largeur de la bordure (nombre de cases).",
     "param.fill_color.description": "Couleur des modules du code QR (par ex. 'black', '#000000'). Défaut : 'black'.",
@@ -93,7 +92,8 @@
     "error.must_be_png": "filename doit se termine...",
     "error.file_exists": "Le fichier existe déjà : %...",
     "status.created": "Code QR créé : %(path)s",
-    "status.overwritten": "Code QR écrasé : %(path)s"
+    "status.overwritten": "Code QR écrasé : %(path)s",
+    "param.ecc.description": "Niveau de correction d’erreur : 'L'..."
   },
   "ko": {
     "tool.description": "텍스트나 URL로부터 QR 코드 이미지(PNG)를 생성합니다. 오류 정정 수준, 박스 크기, 테두리, 색상을 조정할 수 있습니다.",
@@ -106,7 +106,6 @@
     ],
     "param.text.description": "QR 코드에 인코딩할 텍스트 또는 URL입니다.",
     "param.filename.description": "출력 파일명입니다(예: 'qrcode.png'). .png로 끝나야 합니다.",
-    "param.error_correction.description": "오류 수정: L/M/Q/H(기본: M).",
     "param.box_size.description": "각 박스의 크기(픽셀 단위의 너비/높이)입니다. 기본값: 10.",
     "param.border.description": "테두리 폭(박스 개수)입니다. 기본값: 4.",
     "param.fill_color.description": "QR 코드 모듈의 색상입니다(예: 'black', '#000000'). 기본값: 'black'.",
@@ -117,7 +116,8 @@
     "error.must_be_png": "filename은 .png로 끝나야 합니다",
     "error.file_exists": "파일이 이미 있습니다: %(path)s",
     "status.created": "QR 코드 생성됨: %(path)s",
-    "status.overwritten": "QR 코드 덮어씀: %(path)s"
+    "status.overwritten": "QR 코드 덮어씀: %(path)s",
+    "param.ecc.description": "오류 수정: L/M/Q/H(기본: M)."
   },
   "de": {
     "tool.description": "Erzeugt ein QR-Code-Bild (PNG) aus Text oder URL.",
@@ -130,7 +130,6 @@
     ],
     "param.text.description": "Der Text oder die URL, die im QR-Code co...",
     "param.filename.description": "Der Ausgabedateiname (z. B. 'qrcode.png'). Muss auf .png enden.",
-    "param.error_correction.description": "Fehlerkorrekturstufe: 'L' (7 %), 'M'...",
     "param.box_size.description": "Größe jedes Kästchens (Pixelbreite/-höhe). Standard: 10.",
     "param.border.description": "Randbreite (Anzahl der Kästchen). Standard: 4.",
     "param.fill_color.description": "Farbe der QR-Code-Module (z. B. 'black', '#000000'). Standard: 'black'.",
@@ -141,7 +140,8 @@
     "error.must_be_png": "filename muss auf .png enden",
     "error.file_exists": "Datei existiert bereits: %...",
     "status.created": "QR-Code erstellt: %(path)s",
-    "status.overwritten": "QR-Code überschrieben: %..."
+    "status.overwritten": "QR-Code überschrieben: %...",
+    "param.ecc.description": "Fehlerkorrekturstufe: 'L' (7 %), 'M'..."
   },
   "it": {
     "tool.description": "Genera un’immagine del codice QR (PNG) da testo o URL.",
@@ -154,7 +154,6 @@
     ],
     "param.text.description": "Il testo o l’URL da codificare nel codice QR.",
     "param.filename.description": "Il nome del file di output (ad es.'qrcode.png').",
-    "param.error_correction.description": "Livello di correzione errori: 'L' (7...",
     "param.box_size.description": "Dimensione di ogni riquadro (larghezza/altezza i...",
     "param.border.description": "Larghezza del bordo (numero di riquadri).",
     "param.fill_color.description": "Colore dei moduli del codice QR (ad es.'black', '#000000').",
@@ -165,7 +164,8 @@
     "error.must_be_png": "filename deve terminare...",
     "error.file_exists": "Il file esiste già: %(path)s",
     "status.created": "Codice QR creato: %(path)s",
-    "status.overwritten": "Codice QR sovrascritto:..."
+    "status.overwritten": "Codice QR sovrascritto:...",
+    "param.ecc.description": "Livello di correzione errori: 'L' (7..."
   },
   "ru": {
     "tool.description": "Создаёт изображение QR-кода (PNG) из текста или URL.",
@@ -178,7 +178,6 @@
     ],
     "param.text.description": "Текст или URL, который нужно закодироват...",
     "param.filename.description": "Имя выходного файла (например, 'qrcode.png').",
-    "param.error_correction.description": "Уровень коррекции ошибок: 'L' (7 %),...",
     "param.box_size.description": "Размер каждого блока (ширина/высота в пикселях).",
     "param.border.description": "Ширина рамки (число блоков). По умолчанию: 4.",
     "param.fill_color.description": "Цвет модулей QR-кода (например, 'black', '#000000'). По умолчанию: 'black'.",
@@ -189,7 +188,8 @@
     "error.must_be_png": "filename должен заканчив...",
     "error.file_exists": "Файл уже существует: %(path)s",
     "status.created": "QR-код создан: %(path)s",
-    "status.overwritten": "QR-код перезаписан: %(path)s"
+    "status.overwritten": "QR-код перезаписан: %(path)s",
+    "param.ecc.description": "Уровень коррекции ошибок: 'L' (7 %),..."
   },
   "pt_BR": {
     "tool.description": "Gera uma imagem de código QR (PNG) a partir de texto ou URL.",
@@ -202,7 +202,6 @@
     ],
     "param.text.description": "O texto ou a URL a ser codificada no código QR.",
     "param.filename.description": "O nome do arquivo de saída (por exemplo, 'qrcode.png').",
-    "param.error_correction.description": "Nível de correção de erro: 'L' (7%),...",
     "param.box_size.description": "Tamanho de cada bloco (largura/altura em pixels).",
     "param.border.description": "Largura da borda (número de blocos). Padrão: 4.",
     "param.fill_color.description": "Cor dos módulos do código QR (por exemplo, 'black', '#000000'). Padrão: 'black'.",
@@ -213,7 +212,8 @@
     "error.must_be_png": "filename deve terminar c...",
     "error.file_exists": "O arquivo já existe: %(path)s",
     "status.created": "QR code criado: %(path)s",
-    "status.overwritten": "QR code sobrescrito: %(path)s"
+    "status.overwritten": "QR code sobrescrito: %(path)s",
+    "param.ecc.description": "Nível de correção de erro: 'L' (7%),..."
   },
   "pt": {
     "tool.description": "Gera uma imagem de código QR (PNG) a partir de texto ou URL.",
@@ -226,7 +226,6 @@
     ],
     "param.text.description": "O texto ou a URL a codificar no código QR.",
     "param.filename.description": "O nome do ficheiro de saída (por exemplo, 'qrcode.png').",
-    "param.error_correction.description": "Nível de correção de erros: 'L' (7%)...",
     "param.box_size.description": "Tamanho de cada bloco (largura/altura em pixels).",
     "param.border.description": "Largura da margem (número de blocos).",
     "param.fill_color.description": "Cor dos módulos do código QR (por exemplo, 'black', '#000000').",
@@ -237,7 +236,8 @@
     "error.must_be_png": "filename tem de terminar...",
     "error.file_exists": "O ficheiro já existe: %(path)s",
     "status.created": "Código QR criado: %(path)s",
-    "status.overwritten": "Código QR substituído: %..."
+    "status.overwritten": "Código QR substituído: %...",
+    "param.ecc.description": "Nível de correção de erros: 'L' (7%)..."
   },
   "id": {
     "tool.description": "Menghasilkan gambar kode QR (PNG) dari teks atau URL.",
@@ -250,7 +250,6 @@
     ],
     "param.text.description": "Teks atau URL yang akan dienkode ke dala...",
     "param.filename.description": "Nama file keluaran (misalnya, 'qrcode.png').",
-    "param.error_correction.description": "Tingkat koreksi galat: 'L' (7%), 'M'...",
     "param.box_size.description": "Ukuran tiap kotak (lebar/tinggi piksel). Default: 10.",
     "param.border.description": "Lebar batas (jumlah kotak). Default: 4.",
     "param.fill_color.description": "Warna modul kode QR (misalnya, 'black', '#000000'). Default: 'black'.",
@@ -261,7 +260,8 @@
     "error.must_be_png": "filename harus berakhiran .",
     "error.file_exists": "File sudah ada: %(path)s",
     "status.created": "QR code dibuat: %(path)s",
-    "status.overwritten": "QR code ditimpa: %(path)s"
+    "status.overwritten": "QR code ditimpa: %(path)s",
+    "param.ecc.description": "Tingkat koreksi galat: 'L' (7%), 'M'..."
   },
   "vi": {
     "tool.description": "Tạo ảnh mã QR (PNG) từ văn bản hoặc URL.",
@@ -274,7 +274,6 @@
     ],
     "param.text.description": "Văn bản hoặc URL sẽ được mã hóa vào mã QR.",
     "param.filename.description": "Tên tệp đầu ra (ví dụ: 'qrcode.png'). Phải kết thúc bằng .png.",
-    "param.error_correction.description": "Mức sửa lỗi: 'L' (7%), 'M' (15%), 'Q...",
     "param.box_size.description": "Kích thước mỗi ô (chiều rộng/chiều cao theo pixel).",
     "param.border.description": "Độ rộng viền (số ô). Mặc định: 4.",
     "param.fill_color.description": "Màu của các mô-đun mã QR (ví dụ: 'black', '#000000'). Mặc định: 'black'.",
@@ -285,7 +284,8 @@
     "error.must_be_png": "filename phải kết thúc b...",
     "error.file_exists": "Tệp đã tồn tại: %(path)s",
     "status.created": "Đã tạo mã QR: %(path)s",
-    "status.overwritten": "Đã ghi đè mã QR: %(path)s"
+    "status.overwritten": "Đã ghi đè mã QR: %(path)s",
+    "param.ecc.description": "Mức sửa lỗi: 'L' (7%), 'M' (15%), 'Q..."
   },
   "pl": {
     "tool.description": "Generuje obraz kodu QR (PNG) z tekstu lub adresu URL.",
@@ -298,7 +298,6 @@
     ],
     "param.text.description": "Tekst lub adres URL, który ma zostać zak...",
     "param.filename.description": "Nazwa pliku wyjściowego (np.'qrcode.png').",
-    "param.error_correction.description": "Poziom korekcji błędów: 'L' (7%), 'M...",
     "param.box_size.description": "Rozmiar każdego pola (szerokość/wysokość w pikse...",
     "param.border.description": "Szerokość obramowania (liczba pól).",
     "param.fill_color.description": "Kolor modułów kodu QR (np. 'black', '#000000'). Domyślnie: 'black'.",
@@ -309,7 +308,8 @@
     "error.must_be_png": "filename musi kończyć si...",
     "error.file_exists": "Plik już istnieje: %(path)s",
     "status.created": "Utworzono kod QR: %(path)s",
-    "status.overwritten": "Nadpisano kod QR: %(path)s"
+    "status.overwritten": "Nadpisano kod QR: %(path)s",
+    "param.ecc.description": "Poziom korekcji błędów: 'L' (7%), 'M..."
   },
   "hi": {
     "tool.description": "टेक्स्ट या URL से QR कोड छवि (PNG) बनाता है। त्रुटि-सुधार स्तर, बॉक्स आकार,...",
@@ -322,7 +322,6 @@
     ],
     "param.text.description": "QR कोड में एन्कोड करने के लिए टेक्स्ट या URL।",
     "param.filename.description": "आउटपुट फ़ाइल नाम (उदाहरण: 'qrcode.png'). .png पर समाप्त होना चाहिए।",
-    "param.error_correction.description": "त्रुटि-सुधार स्तर: 'L' (7%), 'M' (15...",
     "param.box_size.description": "प्रत्येक बॉक्स का आकार (पिक्सेल चौड़ाई/ऊँचाई)। ड...",
     "param.border.description": "बॉर्डर की चौड़ाई (बॉक्सों की संख्या)। डि...",
     "param.fill_color.description": "QR कोड मॉड्यूल का रंग (उदाहरण: 'black', '#000000'). डिफ़ॉल्ट: 'black'.",
@@ -333,7 +332,8 @@
     "error.must_be_png": "filename .",
     "error.file_exists": "फ़ाइल पहले से मौजूद है: %(...",
     "status.created": "QR कोड बनाया गया: %(path)s",
-    "status.overwritten": "QR कोड ओवरराइट किया गया:..."
+    "status.overwritten": "QR कोड ओवरराइट किया गया:...",
+    "param.ecc.description": "त्रुटि-सुधार स्तर: 'L' (7%), 'M' (15..."
   },
   "ar": {
     "tool.description": "ينشئ صورة رمز QR (PNG) من نص أو رابط.",
@@ -346,7 +346,6 @@
     ],
     "param.text.description": "النص أو الرابط المراد ترميزه داخل رمز QR.",
     "param.filename.description": "اسم ملف الإخراج (مثل 'qrcode.png'). يجب أن ينتهي بـ .png.",
-    "param.error_correction.description": "مستوى تصحيح الأخطاء: 'L' (7%)، 'M' (...",
     "param.box_size.description": "حجم كل مربع (العرض/الارتفاع بالبكسل). الافتراضي: 10.",
     "param.border.description": "عرض الحدود (عدد المربعات). الافتراضي: 4.",
     "param.fill_color.description": "لون وحدات رمز QR (مثل 'black' أو '#000000'). الافتراضي: 'black'.",
@@ -357,7 +356,8 @@
     "error.must_be_png": "يجب أن ينتهي filename بـ .png",
     "error.file_exists": "الملف موجود بالفعل: %(path)s",
     "status.created": "تم إنشاء رمز QR: %(path)s",
-    "status.overwritten": "تمت الكتابة فوق رمز QR:..."
+    "status.overwritten": "تمت الكتابة فوق رمز QR:...",
+    "param.ecc.description": "مستوى تصحيح الأخطاء: 'L' (7%)، 'M' (..."
   },
   "th": {
     "tool.description": "สร้างรูปภาพคิวอาร์โค้ด (PNG) จากข้อความหรือ URL รองรับการปรับระดับการแก้ไขข...",
@@ -370,7 +370,6 @@
     ],
     "param.text.description": "ข้อความหรือ URL ที่จะเข้ารหัสในคิวอาร์โค้ด",
     "param.filename.description": "ชื่อไฟล์ผลลัพธ์ (เช่น 'qrcode.png') ต้องลงท้ายด้วย .png",
-    "param.error_correction.description": "ระดับการแก้ไขข้อผิดพลาด: 'L' (7%), '...",
     "param.box_size.description": "ขนาดของแต่ละช่อง (กว้าง/สูงเป็นพิกเซล) ค่าเริ่มต้น: 10",
     "param.border.description": "ความกว้างของขอบ (จำนวนช่อง) ค่าเริ่มต้น: 4",
     "param.fill_color.description": "สีของโมดูลคิวอาร์โค้ด (เช่น 'black', '#000000') ค่าเริ่มต้น: 'black'",
@@ -381,7 +380,8 @@
     "error.must_be_png": "filename ต้องลงท้ายด้วย .png",
     "error.file_exists": "ไฟล์มีอยู่แล้ว: %(path)s",
     "status.created": "สร้างคิวอาร์โค้ดแล้ว:...",
-    "status.overwritten": "เขียนทับคิวอาร์โค้ดแล้ว:..."
+    "status.overwritten": "เขียนทับคิวอาร์โค้ดแล้ว:...",
+    "param.ecc.description": "ระดับการแก้ไขข้อผิดพลาด: 'L' (7%), '..."
   },
   "zh_CN": {
     "tool.description": "根据文本或 URL 生成 QR 码图片（PNG）。支持调整纠错级别、方块大小、边框和颜色。",
@@ -394,7 +394,6 @@
     ],
     "param.text.description": "要编码到二维码中的文本或 URL。",
     "param.filename.description": "输出文件名（例如 'qrcode.png'）。必须以 .png 结尾。",
-    "param.error_correction.description": "纠错级别: L/M/Q/H（默认: M）。",
     "param.box_size.description": "每个方块的大小（像素宽/高）。默认：10。",
     "param.border.description": "边框宽度（方块数量）。默认：4。",
     "param.fill_color.description": "二维码模块颜色（例如 'black'、'#000000'）。默认：'black'。",
@@ -405,7 +404,8 @@
     "error.must_be_png": "filename 必须以 .png 结尾",
     "error.file_exists": "文件已存在：%(path)s",
     "status.created": "已创建二维码：%(path)s",
-    "status.overwritten": "已覆盖二维码：%(path)s"
+    "status.overwritten": "已覆盖二维码：%(path)s",
+    "param.ecc.description": "纠错级别: L/M/Q/H（默认: M）。"
   },
   "zh_TW": {
     "tool.description": "根據文字或 URL 產生 QR 碼圖片（PNG）。支援調整錯誤修正等級、方塊大小、邊框與色彩。",
@@ -418,7 +418,6 @@
     ],
     "param.text.description": "要編碼進 QR 碼的文字或 URL。",
     "param.filename.description": "輸出檔名（例如 'qrcode.png'）。必須以 .png 結尾。",
-    "param.error_correction.description": "纠错级别: L/M/Q/H（默认: M）。",
     "param.box_size.description": "每個方塊的大小（像素寬/高）。預設：10。",
     "param.border.description": "邊框寬度（方塊數量）。預設：4。",
     "param.fill_color.description": "QR 碼模組顏色（例如 'black'、'#000000'）。預設：'black'。",
@@ -429,7 +428,8 @@
     "error.must_be_png": "filename 必須以 .png 結尾",
     "error.file_exists": "檔案已存在：%(path)s",
     "status.created": "已建立 QR 碼：%(path)s",
-    "status.overwritten": "已覆寫 QR 碼：%(path)s"
+    "status.overwritten": "已覆寫 QR 碼：%(path)s",
+    "param.ecc.description": "纠错级别: L/M/Q/H（默认: M）。"
   },
   "bn": {
     "tool.description": "টেক্সট বা URL থেকে QR কোড ছবি (PNG) তৈরি করে। error correction level, box s...",
@@ -442,7 +442,6 @@
     ],
     "param.text.description": "QR কোডে এনকোড করার জন্য টেক্সট বা URL।",
     "param.filename.description": "আউটপুট ফাইলের নাম (যেমন 'qrcode.png')। অবশ্যই .",
-    "param.error_correction.description": "Error correction level: 'L' (7%), 'M...",
     "param.box_size.description": "প্রতিটি বক্সের আকার (পিক্সেল প্রস্থ/উচ্চতা)। ডিফল্ট: 10।",
     "param.border.description": "বর্ডারের প্রস্থ (বক্সের সংখ্যা)। ডিফল্ট: 4।",
     "param.fill_color.description": "QR কোড মডিউলের রঙ (উদাহরণ: 'black', '#000000')। ডিফল্ট: 'black'।",
@@ -453,7 +452,8 @@
     "error.must_be_png": "filename অবশ্যই .",
     "error.file_exists": "ফাইল আগে থেকেই আছে: %(path)s",
     "status.created": "QR কোড তৈরি হয়েছে: %(...",
-    "status.overwritten": "QR কোড overwrite করা হয়..."
+    "status.overwritten": "QR কোড overwrite করা হয়...",
+    "param.ecc.description": "Error correction level: 'L' (7%), 'M..."
   },
   "fa": {
     "tool.description": "از متن یا URL یک تصویر کد QR (PNG) می‌سازد.",
@@ -466,7 +466,6 @@
     ],
     "param.text.description": "متن یا URL برای کدگذاری در QR.",
     "param.filename.description": "نام فایل خروجی (مثلاً 'qrcode.png'). باید با .png تمام شود.",
-    "param.error_correction.description": "سطح تصحیح خطا: 'L' (7%)، 'M' (15%)،...",
     "param.box_size.description": "اندازهٔ هر خانه (عرض/ارتفاع بر حسب پیکسل). پیش‌فرض: 10.",
     "param.border.description": "عرض حاشیه (تعداد خانه‌ها). پیش‌فرض: 4.",
     "param.fill_color.description": "رنگ ماژول‌های کد QR (مثلاً 'black'، '#000000'). پیش‌فرض: 'black'.",
@@ -477,7 +476,8 @@
     "error.must_be_png": "filename باید با .",
     "error.file_exists": "فایل از قبل وجود دارد: %(path)s",
     "status.created": "کد QR ساخته شد: %(path)s",
-    "status.overwritten": "کد QR بازنویسی شد: %(path)s"
+    "status.overwritten": "کد QR بازنویسی شد: %(path)s",
+    "param.ecc.description": "سطح تصحیح خطا: 'L' (7%)، 'M' (15%)،..."
   },
   "mn": {
     "tool.description": "Текст эсвэл URL-ээс QR кодын зураг (PNG) үүсгэнэ.",
@@ -490,7 +490,6 @@
     ],
     "param.text.description": "QR кодод кодлох текст эсвэл URL.",
     "param.filename.description": "Гаралтын файлын нэр (жишээ нь 'qrcode.png'). .png-ээр төгсөх ёстой.",
-    "param.error_correction.description": "Алдааны засварлалын түвшин: 'L' (7%)...",
     "param.box_size.description": "Нэг нүдний хэмжээ (пикселийн өргөн/өндөр). Анхдагч: 10.",
     "param.border.description": "Хүрээний өргөн (нүдний тоо). Анхдагч: 4.",
     "param.fill_color.description": "QR кодын модулийн өнгө (жишээ нь 'black', '#000000'). Анхдагч: 'black'.",
@@ -501,7 +500,8 @@
     "error.must_be_png": "filename .",
     "error.file_exists": "Файл аль хэдийн байна: %(path)s",
     "status.created": "QR код үүсгэлээ: %(path)s",
-    "status.overwritten": "QR код дээр нь бичлээ: %..."
+    "status.overwritten": "QR код дээр нь бичлээ: %...",
+    "param.ecc.description": "Алдааны засварлалын түвшин: 'L' (7%)..."
   },
   "mr": {
     "tool.description": "मजकूर किंवा URL मधून QR कोड प्रतिमा (PNG) तयार करते.",
@@ -514,7 +514,6 @@
     ],
     "param.text.description": "QR कोडमध्ये एन्कोड करायचा मजकूर किंवा URL.",
     "param.filename.description": "आउटपुट फाइलचे नाव (उदा. 'qrcode.png'). ते .png नेच संपले पाहिजे.",
-    "param.error_correction.description": "त्रुटी सुधारणा स्तर: 'L' (7%), 'M' (...",
     "param.box_size.description": "प्रत्येक बॉक्सचा आकार (पिक्सेल रुंदी/उंची). डीफॉल्ट: 10.",
     "param.border.description": "बॉर्डरची रुंदी (बॉक्सांची संख्या). डीफॉल्ट: 4.",
     "param.fill_color.description": "QR कोड मॉड्यूलचा रंग (उदा. 'black', '#000000'). डीफॉल्ट: 'black'.",
@@ -525,7 +524,8 @@
     "error.must_be_png": "filename .png ने संपले पाहिजे",
     "error.file_exists": "फाइल आधीपासून अस्तित्वात आ...",
     "status.created": "QR कोड तयार केला: %(path)s",
-    "status.overwritten": "QR कोड ओव्हरराइट केला: %..."
+    "status.overwritten": "QR कोड ओव्हरराइट केला: %...",
+    "param.ecc.description": "त्रुटी सुधारणा स्तर: 'L' (7%), 'M' (..."
   },
   "sw": {
     "tool.description": "Hutengeneza picha ya msimbo wa QR (PNG) kutoka kwa maandishi au URL.",
@@ -538,7 +538,6 @@
     ],
     "param.text.description": "Maandishi au URL ya kusimbwa ndani ya ms...",
     "param.filename.description": "Jina la faili la matokeo (kwa mfano, 'qrcode.png').",
-    "param.error_correction.description": "Kiwango cha kusahihisha makosa: 'L'...",
     "param.box_size.description": "Ukubwa wa kila kisanduku (upana/urefu kwa pikseli).",
     "param.border.description": "Upana wa mpaka (idadi ya visanduku).",
     "param.fill_color.description": "Rangi ya moduli za msimbo wa QR (mfano 'black', '#000000').",
@@ -549,7 +548,8 @@
     "error.must_be_png": "filename lazima iishe kwa .",
     "error.file_exists": "Faili tayari ipo: %(path)s",
     "status.created": "QR code imeundwa: %(path)s",
-    "status.overwritten": "QR code imeandikwa upya:..."
+    "status.overwritten": "QR code imeandikwa upya:...",
+    "param.ecc.description": "Kiwango cha kusahihisha makosa: 'L'..."
   },
   "tr": {
     "tool.description": "Metin veya URL’den bir QR kodu görüntüsü (PNG) oluşturur.",
@@ -562,7 +562,6 @@
     ],
     "param.text.description": "QR koduna kodlanacak metin veya URL.",
     "param.filename.description": "Çıktı dosya adı (örneğin 'qrcode.png'). .png ile bitmelidir.",
-    "param.error_correction.description": "Hata düzeltme düzeyi: 'L' (%7), 'M'...",
     "param.box_size.description": "Her kutunun boyutu (piksel genişliği/yüksekliği).",
     "param.border.description": "Kenarlık genişliği (kutu sayısı).",
     "param.fill_color.description": "QR kodu modüllerinin rengi (ör. 'black', '#000000'). Varsayılan: 'black'.",
@@ -573,7 +572,8 @@
     "error.must_be_png": "filename .png ile bitmelidir",
     "error.file_exists": "Dosya zaten var: %(path)s",
     "status.created": "QR kodu oluşturuldu: %...",
-    "status.overwritten": "QR kodu üzerine yazıldı:..."
+    "status.overwritten": "QR kodu üzerine yazıldı:...",
+    "param.ecc.description": "Hata düzeltme düzeyi: 'L' (%7), 'M'..."
   },
   "cs": {
     "tool.description": "Vytvoří obrázek QR kódu (PNG) z textu nebo URL.",
@@ -586,7 +586,6 @@
     ],
     "param.text.description": "Text nebo URL, které se má zakódovat do...",
     "param.filename.description": "Název výstupního souboru (např. 'qrcode.png'). Musí končit na .png.",
-    "param.error_correction.description": "Úroveň opravy chyb: 'L' (7 %), 'M' (...",
     "param.box_size.description": "Velikost každé buňky (šířka/výška v pixelech).",
     "param.border.description": "Šířka okraje (počet buněk). Výchozí: 4.",
     "param.fill_color.description": "Barva modulů QR kódu (např. 'black', '#000000'). Výchozí: 'black'.",
@@ -597,7 +596,8 @@
     "error.must_be_png": "filename musí končit na .png",
     "error.file_exists": "Soubor už existuje: %(path)s",
     "status.created": "QR kód vytvořen: %(path)s",
-    "status.overwritten": "QR kód přepsán: %(path)s"
+    "status.overwritten": "QR kód přepsán: %(path)s",
+    "param.ecc.description": "Úroveň opravy chyb: 'L' (7 %), 'M' (..."
   },
   "fi": {
     "tool.description": "Luo QR-koodikuva (PNG) tekstistä tai URL-osoitteesta.",
@@ -610,7 +610,6 @@
     ],
     "param.text.description": "Teksti tai URL, joka koodataan QR-koodiin.",
     "param.filename.description": "Tulostiedoston nimi (esim. 'qrcode.png'). Sen on päätyttävä .png.",
-    "param.error_correction.description": "Virheenkorjaustaso: 'L' (7 %), 'M' (...",
     "param.box_size.description": "Kunkin ruudun koko (pikselin leveys/korkeus).",
     "param.border.description": "Reunuksen leveys (ruutujen määrä). Oletus: 4.",
     "param.fill_color.description": "QR-koodin moduulien väri (esim. 'black', '#000000'). Oletus: 'black'.",
@@ -621,7 +620,8 @@
     "error.must_be_png": "filename-päätteen on olt...",
     "error.file_exists": "Tiedosto on jo olemassa: %...",
     "status.created": "QR-koodi luotu: %(path)s",
-    "status.overwritten": "QR-koodi korvattu: %(path)s"
+    "status.overwritten": "QR-koodi korvattu: %(path)s",
+    "param.ecc.description": "Virheenkorjaustaso: 'L' (7 %), 'M' (..."
   },
   "nb": {
     "tool.description": "Genererer et QR-kodebilde (PNG) fra tekst eller URL.",
@@ -634,7 +634,6 @@
     ],
     "param.text.description": "Teksten eller URL-en som skal kodes inn...",
     "param.filename.description": "Navnet på utdatafilen (for eksempel 'qrcode.png'). Må ende på .png.",
-    "param.error_correction.description": "Feilrettingsnivå: 'L' (7 %), 'M' (15...",
     "param.box_size.description": "Størrelsen på hver boks (bredde/høyde i piksler).",
     "param.border.description": "Rammebredde (antall bokser). Standard: 4.",
     "param.fill_color.description": "Fargen på QR-kodemodulene (for eksempel 'black', '#000000'). Standard: 'black'.",
@@ -645,7 +644,8 @@
     "error.must_be_png": "filename må slutte på .png",
     "error.file_exists": "Filen finnes allerede: %(path)s",
     "status.created": "QR-kode opprettet: %(path)s",
-    "status.overwritten": "QR-kode overskrevet: %(path)s"
+    "status.overwritten": "QR-kode overskrevet: %(path)s",
+    "param.ecc.description": "Feilrettingsnivå: 'L' (7 %), 'M' (15..."
   },
   "nl": {
     "tool.description": "Genereer een QR-codeafbeelding (PNG) uit tekst of URL.",
@@ -658,7 +658,6 @@
     ],
     "param.text.description": "De tekst of URL die in de QR-code moet w...",
     "param.filename.description": "De uitvoernaam (bijv. 'qrcode.png'). Moet eindigen op .png.",
-    "param.error_correction.description": "Foutcorrectieniveau: 'L' (7%), 'M' (...",
     "param.box_size.description": "De grootte van elk blok (breedte/hoogte in pixels).",
     "param.border.description": "Randbreedte (aantal blokken). Standaard: 4.",
     "param.fill_color.description": "De kleur van de QR-codemodules (bijv. 'black', '#000000'). Standaard: 'black'.",
@@ -669,7 +668,8 @@
     "error.must_be_png": "filename moet eindigen op .",
     "error.file_exists": "Bestand bestaat al: %(path)s",
     "status.created": "QR-code gemaakt: %(path)s",
-    "status.overwritten": "QR-code overschreven: %(..."
+    "status.overwritten": "QR-code overschreven: %(...",
+    "param.ecc.description": "Foutcorrectieniveau: 'L' (7%), 'M' (..."
   },
   "sv": {
     "tool.description": "Skapar en QR-kodbild (PNG) från text eller URL.",
@@ -682,7 +682,6 @@
     ],
     "param.text.description": "Den text eller URL som ska kodas in i QR-koden.",
     "param.filename.description": "Namnet på utdatafilen (t.ex. 'qrcode.png'). Måste sluta med .png.",
-    "param.error_correction.description": "Felkorrigeringsnivå: 'L' (7 %), 'M'...",
     "param.box_size.description": "Storleken på varje ruta (bredd/höjd i pixlar).",
     "param.border.description": "Rambredd (antal rutor). Standard: 4.",
     "param.fill_color.description": "Färgen på QR-kodens moduler (t.ex. 'black', '#000000'). Standard: 'black'.",
@@ -693,7 +692,8 @@
     "error.must_be_png": "filename måste sluta med .png",
     "error.file_exists": "Filen finns redan: %(path)s",
     "status.created": "QR-kod skapad: %(path)s",
-    "status.overwritten": "QR-kod överskriven: %(path)s"
+    "status.overwritten": "QR-kod överskriven: %(path)s",
+    "param.ecc.description": "Felkorrigeringsnivå: 'L' (7 %), 'M'..."
   },
   "uk": {
     "tool.description": "Створює зображення QR-коду (PNG) з тексту або URL.",
@@ -706,7 +706,6 @@
     ],
     "param.text.description": "Текст або URL, який потрібно закодувати...",
     "param.filename.description": "Ім'я вихідного файлу (наприклад, 'qrcode.png').",
-    "param.error_correction.description": "Рівень виправлення помилок: 'L' (7 %...",
     "param.box_size.description": "Розмір кожного блока (ширина/висота в пікселях).",
     "param.border.description": "Ширина рамки (кількість блоків).",
     "param.fill_color.description": "Колір модулів QR-коду (наприклад, 'black', '#000000'). За замовчуванням: 'black'.",
@@ -717,6 +716,7 @@
     "error.must_be_png": "filename має закінчувати...",
     "error.file_exists": "Файл уже існує: %(path)s",
     "status.created": "QR-код створено: %(path)s",
-    "status.overwritten": "QR-код перезаписано: %(path)s"
+    "status.overwritten": "QR-код перезаписано: %(path)s",
+    "param.ecc.description": "Рівень виправлення помилок: 'L' (7 %..."
   }
 }

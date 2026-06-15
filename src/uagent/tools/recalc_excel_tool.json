@@ -16,7 +16,6 @@
     "param.include_glob.description": "Glob pattern used when path is a directory. Default: '*.xlsx'.",
     "param.max_files.description": "Maximum number of files to process when scanning a directory. Default: 200.",
     "param.path.description": "Target .xlsx file path or directory path.",
-    "param.recursive.description": "Whether to scan directory recursively. Default: false.",
     "param.visible.description": "Show Excel window during automation. Default: false.",
     "tool.description": "Recalculate Excel formulas by automating Microsoft Excel (Windows COM) and save updated cached values. Supports a single .",
     "x_search_terms": [
@@ -28,7 +27,8 @@
       "cache values"
     ],
     "param.password.description": "Password (prompts if needed).",
-    "prompt.password": "Enter the password for this file:\n{path}"
+    "prompt.password": "Enter the password for this file:\n{path}",
+    "param.recur.description": "Whether to scan directory recursively. Default: false."
   },
   "ja": {
     "err.backup_bool": "backupはbooleanで指定してください",
@@ -47,7 +47,6 @@
     "param.include_glob.description": "path がディレクトリの場合の glob パターン。既定: '*.xlsx'。",
     "param.max_files.description": "ディレクトリ走査時に処理する最大ファイル数。既定: 200。",
     "param.path.description": "対象の .xlsx ファイルパス、またはディレクトリパス。",
-    "param.recursive.description": "ディレクトリを再帰走査するかどうか。既定: false。",
     "param.visible.description": "自動操作中に Excel ウィンドウを表示するかどうか。既定: false。",
     "tool.description": "Excelの数式を再計算（Windows COM自動化）。計算後のキャッシュ値を保存。",
     "x_search_terms": [
@@ -57,7 +56,8 @@
       "excel 再計算 tool"
     ],
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
-    "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
+    "prompt.password": "このファイルのパスワードを入力してください:\n{path}",
+    "param.recur.description": "ディレクトリを再帰走査するかどうか。既定: false。"
   },
   "es": {
     "err.backup_bool": "backup debe ser un bo...",
@@ -76,7 +76,6 @@
     "param.include_glob.description": "Patrón glob usado cuando path es un directorio.",
     "param.max_files.description": "Número máximo de archivos a procesar al analizar un directorio.",
     "param.path.description": "Ruta del archivo .",
-    "param.recursive.description": "Indica si se debe analizar el directorio de forma r...",
     "param.visible.description": "Mostrar la ventana de Excel durante la automatiza...",
     "tool.description": "Recalcula fórmulas de Excel automatizando Microsoft Excel (Windows COM) y guarda los valores almacenados en caché actua...",
     "x_search_terms": [
@@ -86,7 +85,8 @@
       "excel recalc"
     ],
     "param.password.description": "Contraseña opcional para a...",
-    "prompt.password": "Introduzca la contraseña de este arch..."
+    "prompt.password": "Introduzca la contraseña de este arch...",
+    "param.recur.description": "Indica si se debe analizar el directorio de forma r..."
   },
   "fr": {
     "err.backup_bool": "backup doit être un b...",
@@ -105,7 +105,6 @@
     "param.include_glob.description": "Motif glob utilisé lorsque path est un répertoire.",
     "param.max_files.description": "Nombre maximal de fichiers à traiter lors de l'analyse d'un répertoire.",
     "param.path.description": "Chemin du fichier .",
-    "param.recursive.description": "Indique si le répertoire doit être analysé de maniè...",
     "param.visible.description": "Afficher la fenêtre Excel pendant l'automatisation.",
     "tool.description": "Recalcule les formules Excel en automatisant Microsoft Excel (Windows COM) et enregistre les valeurs mises en cache mis...",
     "x_search_terms": [
@@ -115,7 +114,8 @@
       "excel recalc"
     ],
     "param.password.description": "Mot de passe facultatif po...",
-    "prompt.password": "Entrez le mot de passe de ce fichier..."
+    "prompt.password": "Entrez le mot de passe de ce fichier...",
+    "param.recur.description": "Indique si le répertoire doit être analysé de maniè..."
   },
   "ko": {
     "err.backup_bool": "backup는 부울이어야 합니다.",
@@ -134,7 +134,6 @@
     "param.include_glob.description": "path가 디렉터리일 때 사용하는 glob 패턴입니다. 기본값: '*.xlsx'.",
     "param.max_files.description": "디렉터리를 스캔할 때 처리할 최대 파일 수입니다. 기본값: 200.",
     "param.path.description": "대상 .xlsx 파일 경로 또는 디렉터리 경로입니다.",
-    "param.recursive.description": "디렉터리를 재귀적으로 검사할지 여부입니다. 기본값: false.",
     "param.visible.description": "자동화 중 Excel 창을 표시합니다. 기본값: false.",
     "tool.description": "Excel 자동화(Windows COM)로 수식 재계산 후 캐시 값 저장.",
     "x_search_terms": [
@@ -144,7 +143,8 @@
       "recalc excel"
     ],
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
-    "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
+    "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}",
+    "param.recur.description": "디렉터리를 재귀적으로 검사할지 여부입니다. 기본값: false."
   },
   "de": {
     "err.backup_bool": "backup muss ein boole...",
@@ -163,7 +163,6 @@
     "param.include_glob.description": "Glob-Muster, das verwendet wird, wenn path ein Verzeichnis...",
     "param.max_files.description": "Maximale Anzahl zu verarbeitender Dateien beim Scannen eines Verzeichnis...",
     "param.path.description": "Zielpfad der .",
-    "param.recursive.description": "Ob das Verzeichnis rekursiv gescannt werden soll.",
     "param.visible.description": "Excel-Fenster während der Automatisierung anzeigen.",
     "tool.description": "Berechnen Sie Excel-Formeln neu, indem Sie Microsoft Excel (Windows COM) automatisieren, und speichern Sie aktualisiert...",
     "x_search_terms": [
@@ -173,7 +172,8 @@
       "recalc excel"
     ],
     "param.password.description": "Optionales Kennwort für ve...",
-    "prompt.password": "Bitte geben Sie das Kennwort für dies..."
+    "prompt.password": "Bitte geben Sie das Kennwort für dies...",
+    "param.recur.description": "Ob das Verzeichnis rekursiv gescannt werden soll."
   },
   "it": {
     "err.backup_bool": "backup deve essere un...",
@@ -192,7 +192,6 @@
     "param.include_glob.description": "Pattern glob utilizzato quando path è una directory.",
     "param.max_files.description": "Numero massimo di file da elaborare durante la scansione di una directory.",
     "param.path.description": "Percorso del file .",
-    "param.recursive.description": "Indica se eseguire la scansione ricorsiva della dir...",
     "param.visible.description": "Mostra la finestra di Excel durante l'automazione.",
     "tool.description": "Ricalcola le formule di Excel automatizzando Microsoft Excel (Windows COM) e salva i valori memorizzati nella cache agg...",
     "x_search_terms": [
@@ -202,7 +201,8 @@
       "recalc excel"
     ],
     "param.password.description": "Password facoltativa per f...",
-    "prompt.password": "Inserisci la password di questo file:\n{path}"
+    "prompt.password": "Inserisci la password di questo file:\n{path}",
+    "param.recur.description": "Indica se eseguire la scansione ricorsiva della dir..."
   },
   "ru": {
     "err.backup_bool": "backup должен быть ло...",
@@ -221,7 +221,6 @@
     "param.include_glob.description": "Шаблон glob, используемый, когда path является каталогом.",
     "param.max_files.description": "Максимальное количество файлов, обрабатываемых при сканировании каталога.",
     "param.path.description": "Путь к целевому файлу .",
-    "param.recursive.description": "Сканировать каталог рекурсивно или нет.",
     "param.visible.description": "Показывать окно Excel во время автоматизации.",
     "tool.description": "Пересчитывает формулы Excel, автоматизируя Microsoft Excel (Windows COM), и сохраняет обновленные кэшированные значения.",
     "x_search_terms": [
@@ -231,7 +230,8 @@
       "recalc excel"
     ],
     "param.password.description": "Необязательный пароль для...",
-    "prompt.password": "Введите пароль для этого файла:\n{path}"
+    "prompt.password": "Введите пароль для этого файла:\n{path}",
+    "param.recur.description": "Сканировать каталог рекурсивно или нет."
   },
   "pt_BR": {
     "err.backup_bool": "backup deve ser um bo...",
@@ -250,7 +250,6 @@
     "param.include_glob.description": "Padrão glob usado quando path é um diretório. Padrão: '*.xlsx'.",
     "param.max_files.description": "Número máximo de arquivos a processar ao varrer um diretório. Padrão: 200.",
     "param.path.description": "Caminho do arquivo .",
-    "param.recursive.description": "Se deve varrer o diretório recursivamente. Padrão: false.",
     "param.visible.description": "Mostrar a janela do Excel durante a automação.",
     "tool.description": "Recalcula fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salva os valores em cache atualizados.",
     "x_search_terms": [
@@ -260,7 +259,8 @@
       "excel recalc"
     ],
     "param.password.description": "Senha opcional para arquiv...",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+    "prompt.password": "Digite a senha deste arquivo:\n{path}",
+    "param.recur.description": "Se deve varrer o diretório recursivamente. Padrão: false."
   },
   "pt": {
     "err.backup_bool": "backup deve ser um bo...",
@@ -279,7 +279,6 @@
     "param.include_glob.description": "Padrão glob usado quando path é um diretório. Padrão: '*.xlsx'.",
     "param.max_files.description": "Número máximo de arquivos a processar ao varrer um diretório. Padrão: 200.",
     "param.path.description": "Caminho do arquivo .",
-    "param.recursive.description": "Se o diretório deve ser verificado recursivamente.",
     "param.visible.description": "Mostrar a janela do Excel durante a automação.",
     "tool.description": "Recalcule fórmulas do Excel automatizando o Microsoft Excel (Windows COM) e salve valores atualizados em cache.",
     "x_search_terms": [
@@ -289,7 +288,8 @@
       "excel recalc"
     ],
     "param.password.description": "Senha opcional para arquiv...",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+    "prompt.password": "Digite a senha deste arquivo:\n{path}",
+    "param.recur.description": "Se o diretório deve ser verificado recursivamente."
   },
   "id": {
     "err.backup_bool": "backup harus berupa b...",
@@ -308,7 +308,6 @@
     "param.include_glob.description": "Pola glob yang digunakan saat path adalah direktori.",
     "param.max_files.description": "Jumlah maksimum file yang diproses saat memindai direktori. Default: 200.",
     "param.path.description": "Path file .xlsx target atau path direktori.",
-    "param.recursive.description": "Apakah direktori dipindai secara rekursif. Default: false.",
     "param.visible.description": "Tampilkan jendela Excel selama otomasi. Default: false.",
     "tool.description": "Hitung ulang formula Excel dengan mengotomasi Microsoft Excel (Windows COM) dan simpan nilai cache yang diperbarui.",
     "x_search_terms": [
@@ -318,7 +317,8 @@
       "excel recalc"
     ],
     "param.password.description": "Kata sandi opsional untuk...",
-    "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
+    "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}",
+    "param.recur.description": "Apakah direktori dipindai secara rekursif. Default: false."
   },
   "vi": {
     "err.backup_bool": "bản sao lưu phải là m...",
@@ -337,7 +337,6 @@
     "param.include_glob.description": "Mẫu toàn cầu được sử dụng khi đường dẫn là một thư mục.",
     "param.max_files.description": "Số tệp tối đa cần xử lý khi quét một thư mục. Mặc định: 200.",
     "param.path.description": "Đích đường dẫn tệp .",
-    "param.recursive.description": "Có quét thư mục theo dạng đệ quy hay không.",
     "param.visible.description": "Hiển thị cửa sổ Excel trong khi tự động hóa.",
     "tool.description": "Tính toán lại các công thức Excel bằng cách tự động hóa Microsoft Excel (Windows COM) và lưu các giá trị được lưu trong...",
     "x_search_terms": [
@@ -347,7 +346,8 @@
       "recalc excel"
     ],
     "param.password.description": "Mật khẩu tùy chọn cho tệp .",
-    "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
+    "prompt.password": "Nhập mật khẩu của tệp này:\n{path}",
+    "param.recur.description": "Có quét thư mục theo dạng đệ quy hay không."
   },
   "pl": {
     "err.backup_bool": "kopia zapasowa musi b...",
@@ -366,7 +366,6 @@
     "param.include_glob.description": "Wzorzec globalny używany, gdy ścieżka jest katalogiem.",
     "param.max_files.description": "Maksymalna liczba plików do przetworzenia podczas skanowania katalogu.",
     "param.path.description": "Docelowa ścieżka pliku .",
-    "param.recursive.description": "Czy skanować katalog rekurencyjnie. Domyślnie: false.",
     "param.visible.description": "Pokazuj okno Excela podczas automatyzacji.",
     "tool.description": "Przeliczaj formuły programu Excel, automatyzując program Microsoft Excel (Windows COM) i zapisuj zaktualizowane wartośc...",
     "x_search_terms": [
@@ -376,7 +375,8 @@
       "recalc excel"
     ],
     "param.password.description": "Opcjonalne hasło do zaszyf...",
-    "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
+    "prompt.password": "Wprowadź hasło do tego pliku:\n{path}",
+    "param.recur.description": "Czy skanować katalog rekurencyjnie. Domyślnie: false."
   },
   "hi": {
     "err.backup_bool": "बैकअप बूलियन होना चाहिए",
@@ -395,7 +395,6 @@
     "param.include_glob.description": "जब path एक निर्देशिका हो, तब उपयोग किया जाने वाला glob पैटर...",
     "param.max_files.description": "निर्देशिका स्कैन करते समय संसाधित की जाने वाली अधिकतम फ़ाइलें। डिफ़ॉल्ट: 200.",
     "param.path.description": "लक्ष्य .xlsx फ़ाइल पथ या निर्देशिका पथ।",
-    "param.recursive.description": "क्या निर्देशिका को पुनरावर्ती रूप से स्कैन करना है।...",
     "param.visible.description": "स्वचालन के दौरान Excel विंडो दिखाएँ। डिफ़ॉल्ट: false.",
     "tool.description": "Microsoft Excel (Windows COM) को स्वचालित करके Excel सूत्रों की पुनर्गणना करें और अपडेट किए गए कैश मान सहेजें। एकल .",
     "x_search_terms": [
@@ -405,7 +404,8 @@
       "recalc excel"
     ],
     "param.password.description": "एन्क्रिप्टेड .",
-    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
+    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}",
+    "param.recur.description": "क्या निर्देशिका को पुनरावर्ती रूप से स्कैन करना है।..."
   },
   "ar": {
     "err.backup_bool": "يجب أن تكون النسخة ال...",
@@ -424,7 +424,6 @@
     "param.include_glob.description": "يتم استخدام نمط الكرة الأرضية عندما يكون المسار دليلاً.",
     "param.max_files.description": "الحد الأقصى لعدد الملفات التي يجب معالجتها عند فحص الدليل. الافتراضي: 200.",
     "param.path.description": "الهدف مسار الملف .xlsx أو مسار الدليل.",
-    "param.recursive.description": "ما إذا كان سيتم مسح الدليل بشكل متكرر أم لا.",
     "param.visible.description": "إظهار نافذة Excel أثناء التشغيل الآلي. الافتراضي: خطأ.",
     "tool.description": "إعادة حساب صيغ Excel عن طريق أتمتة Microsoft Excel (Windows COM) وحفظ القيم المخزنة مؤقتًا المحدثة.يدعم ملف .",
     "x_search_terms": [
@@ -434,7 +433,8 @@
       "recalc excel"
     ],
     "param.password.description": "كلمة مرور اختيارية لملفات .",
-    "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
+    "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}",
+    "param.recur.description": "ما إذا كان سيتم مسح الدليل بشكل متكرر أم لا."
   },
   "sv": {
     "err.backup_bool": "backup måste vara ett...",
@@ -453,7 +453,6 @@
     "param.include_glob.description": "Glob-mönster som används när path är en katalog. Standard: '*.xlsx'.",
     "param.max_files.description": "Maximalt antal filer att bearbeta vid skanning av en katalog. Standard: 200.",
     "param.path.description": "Målfilsökväg för .xlsx eller katalogsökväg.",
-    "param.recursive.description": "Om katalogen ska skannas rekursivt. Standard: false.",
     "param.visible.description": "Visa Excel-fönstret under automatisering.",
     "tool.description": "Beräkna om Excel-formler genom att automatisera Microsoft Excel (Windows COM) och spara uppdaterade cachevärden.",
     "x_search_terms": [
@@ -463,7 +462,8 @@
       "recalc excel"
     ],
     "param.password.description": "Valfritt lösenord för kryp...",
-    "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+    "prompt.password": "Ange lösenordet för den här filen:\n{path}",
+    "param.recur.description": "Om katalogen ska skannas rekursivt. Standard: false."
   },
   "sw": {
     "err.backup_bool": "backup lazima iwe boolean.",
@@ -482,7 +482,6 @@
     "param.include_glob.description": "Mfano wa glob unaotumika wakati path ni saraka.",
     "param.max_files.description": "Idadi ya juu ya faili za kuchakata wakati wa kuchanganua saraka.",
     "param.path.description": "Njia ya faili lengwa la .",
-    "param.recursive.description": "Ikiwa saraka itachanganuliwa kwa kina. Chaguomsingi: false.",
     "param.visible.description": "Onyesha dirisha la Excel wakati wa otomatiki.",
     "tool.description": "Fanya hesabu upya za fomula za Excel kwa kuendesha Microsoft Excel (Windows COM) na uhifadhi thamani za akiba zilizosas...",
     "x_search_terms": [
@@ -492,7 +491,8 @@
       "excel recalc"
     ],
     "param.password.description": "Nenosiri la hiari kwa fail...",
-    "prompt.password": "Ingiza nenosiri la faili hii:\n{path}"
+    "prompt.password": "Ingiza nenosiri la faili hii:\n{path}",
+    "param.recur.description": "Ikiwa saraka itachanganuliwa kwa kina. Chaguomsingi: false."
   },
   "nb": {
     "err.backup_bool": "backup må være en boo...",
@@ -511,7 +511,6 @@
     "param.include_glob.description": "Glob-mønster som brukes når path er en katalog. Standard: '*.xlsx'.",
     "param.max_files.description": "Maksimalt antall filer som skal behandles når en katalog skannes. Standard: 200.",
     "param.path.description": "Målfilsti for .xlsx eller katalogsti.",
-    "param.recursive.description": "Om katalogen skal skannes rekursivt. Standard: false.",
     "param.visible.description": "Vis Excel-vinduet under automatisering. Standard: false.",
     "tool.description": "Beregn Excel-formler på nytt ved å automatisere Microsoft Excel (Windows COM) og lagre oppdaterte hurtigbufrede verdier.",
     "x_search_terms": [
@@ -521,7 +520,8 @@
       "recalc excel"
     ],
     "param.password.description": "Valgfritt passord for kryp...",
-    "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
+    "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
+    "param.recur.description": "Om katalogen skal skannes rekursivt. Standard: false."
   },
   "nl": {
     "err.backup_bool": "backup moet een boole...",
@@ -540,7 +540,6 @@
     "param.include_glob.description": "Glob-patroon dat wordt gebruikt wanneer path een map is.",
     "param.max_files.description": "Maximaal aantal bestanden dat wordt verwerkt bij het scannen van een map.",
     "param.path.description": "Pad naar het doel-.",
-    "param.recursive.description": "Of de map recursief moet worden gescand. Standaard: false.",
     "param.visible.description": "Excel-venster tonen tijdens automatisering.",
     "tool.description": "Herbereken Excel-formules door Microsoft Excel (Windows COM) te automatiseren en sla bijgewerkte cachewaarden op.",
     "x_search_terms": [
@@ -550,7 +549,8 @@
       "recalc excel"
     ],
     "param.password.description": "Optioneel wachtwoord voor...",
-    "prompt.password": "Voer het wachtwoord voor dit bestand..."
+    "prompt.password": "Voer het wachtwoord voor dit bestand...",
+    "param.recur.description": "Of de map recursief moet worden gescand. Standaard: false."
   },
   "fi": {
     "err.backup_bool": "backupin täytyy olla...",
@@ -569,7 +569,6 @@
     "param.include_glob.description": "Glob-kuvio, jota käytetään kun path on hakemisto. Oletus: '*.xlsx'.",
     "param.max_files.description": "Hakemistoa skannattaessa käsiteltävien tiedostojen enimmäismäärä. Oletus: 200.",
     "param.path.description": "Kohteena olevan .",
-    "param.recursive.description": "Skannataanko hakemisto rekursiivisesti. Oletus: false.",
     "param.visible.description": "Näytä Excel-ikkuna automaation aikana. Oletus: false.",
     "tool.description": "Laskee Excel-kaavat uudelleen automatisoimalla Microsoft Exceliä (Windows COM) ja tallentaa päivitetyt välimuistiarvot.",
     "x_search_terms": [
@@ -579,7 +578,8 @@
       "recalc excel"
     ],
     "param.password.description": "Valinnainen salasana salat...",
-    "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
+    "prompt.password": "Anna tämän tiedoston salasana:\n{path}",
+    "param.recur.description": "Skannataanko hakemisto rekursiivisesti. Oletus: false."
   },
   "cs": {
     "err.backup_bool": "backup musí být boolean.",
@@ -598,7 +598,6 @@
     "param.include_glob.description": "Glob vzor použitý, když je path adresář. Výchozí: '*.xlsx'.",
     "param.max_files.description": "Maximální počet souborů ke zpracování při prohledávání adresáře. Výchozí: 200.",
     "param.path.description": "Cílová cesta k souboru .",
-    "param.recursive.description": "Zda prohledávat adresář rekurzivně. Výchozí: false.",
     "param.visible.description": "Zobrazit během automatizace okno Excelu. Výchozí: false.",
     "tool.description": "Přepočítá vzorce v Excelu automatizací Microsoft Excelu (Windows COM) a uloží aktualizované cache hodnoty.",
     "x_search_terms": [
@@ -608,7 +607,8 @@
       "recalc excel"
     ],
     "param.password.description": "Volitelné heslo pro šifrov...",
-    "prompt.password": "Zadejte heslo k tomuto souboru:\n{path}"
+    "prompt.password": "Zadejte heslo k tomuto souboru:\n{path}",
+    "param.recur.description": "Zda prohledávat adresář rekurzivně. Výchozí: false."
   },
   "uk": {
     "err.backup_bool": "backup має бути логіч...",
@@ -627,7 +627,6 @@
     "param.include_glob.description": "Шаблон glob, який використовується, коли path є каталогом.",
     "param.max_files.description": "Максимальна кількість файлів для обробки під час сканування каталогу. Типово: 200.",
     "param.path.description": "Цільовий шлях до файлу .",
-    "param.recursive.description": "Чи сканувати каталог рекурсивно. Типово: false.",
     "param.visible.description": "Показувати вікно Excel під час автоматизації.",
     "tool.description": "Перераховує формули Excel, автоматизуючи Microsoft Excel (Windows COM), і зберігає оновлені кешовані значення.",
     "x_search_terms": [
@@ -637,7 +636,8 @@
       "recalc excel"
     ],
     "param.password.description": "Необов’язковий пароль для...",
-    "prompt.password": "Введіть пароль для цього файла:\n{path}"
+    "prompt.password": "Введіть пароль для цього файла:\n{path}",
+    "param.recur.description": "Чи сканувати каталог рекурсивно. Типово: false."
   },
   "tr": {
     "err.backup_bool": "yedekleme bir boole o...",
@@ -656,7 +656,6 @@
     "param.include_glob.description": "Yol bir dizin olduğunda kullanılan glob modeli.Varsayılan: '*.",
     "param.max_files.description": "Bir dizini tararken işlenecek maksimum dosya sayısı. Varsayılan: 200.",
     "param.path.description": ".",
-    "param.recursive.description": "Dizinin yinelemeli olarak taranıp taranmayacağı.",
     "param.visible.description": "Otomasyon sırasında Excel penceresini göster.",
     "tool.description": "Microsoft Excel'i (Windows COM) otomatikleştirerek Excel formüllerini yeniden hesaplayın ve güncellenmiş önbelleğe alın...",
     "x_search_terms": [
@@ -666,7 +665,8 @@
       "recalc excel"
     ],
     "param.password.description": "Şifrelenmiş .",
-    "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
+    "prompt.password": "Bu dosyanın şifresini girin:\n{path}",
+    "param.recur.description": "Dizinin yinelemeli olarak taranıp taranmayacağı."
   },
   "th": {
     "err.backup_bool": "backup ต้องเป็นบูลีน",
@@ -685,7 +685,6 @@
     "param.include_glob.description": "รูปแบบ glob ที่ใช้เมื่อ path เป็นไดเร็กทอรี ค่าเริ่มต้น: '*.xlsx'",
     "param.max_files.description": "จำนวนไฟล์สูงสุดที่จะประมวลผลเมื่อสแกนไดเร็กทอรี ค่าเริ่มต้น: 200",
     "param.path.description": "พาธไฟล์ .xlsx เป้าหมาย หรือพาธไดเร็กทอรี",
-    "param.recursive.description": "จะสแกนไดเร็กทอรีแบบเรียกซ้ำหรือไม่ ค่าเริ่มต้น: false",
     "param.visible.description": "แสดงหน้าต่าง Excel ระหว่างทำงานอัตโนมัติ ค่าเริ่ม...",
     "tool.description": "คำนวณสูตร Excel ใหม่โดยทำงานอัตโนมัติกับ Microsoft Excel (Windows COM) และบันทึกค่าที่แคชไว้ซึ่งอัปเดตแล้ว รองรับไฟล์ .",
     "x_search_terms": [
@@ -695,7 +694,8 @@
       "recalc excel"
     ],
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .",
-    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
+    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}",
+    "param.recur.description": "จะสแกนไดเร็กทอรีแบบเรียกซ้ำหรือไม่ ค่าเริ่มต้น: false"
   },
   "zh_CN": {
     "err.backup_bool": "backup 必须是布尔值",
@@ -714,7 +714,6 @@
     "param.include_glob.description": "当 path 是目录时使用的 glob 模式。默认值：'*.xlsx'。",
     "param.max_files.description": "扫描目录时要处理的最大文件数。默认值：200。",
     "param.path.description": "目标 .xlsx 文件路径或目录路径。",
-    "param.recursive.description": "是否递归扫描目录。默认值：false。",
     "param.visible.description": "自动化期间是否显示 Excel 窗口。默认值：false。",
     "tool.description": "通过自动化Excel(Windows COM)重新计算公式并保存更新后的缓存值。",
     "x_search_terms": [
@@ -724,7 +723,8 @@
       "recalc excel"
     ],
     "param.password.description": "密码（需要时提示输入）。",
-    "prompt.password": "请输入此文件的密码：\n{path}"
+    "prompt.password": "请输入此文件的密码：\n{path}",
+    "param.recur.description": "是否递归扫描目录。默认值：false。"
   },
   "zh_TW": {
     "err.backup_bool": "backup 必須是布林值",
@@ -743,7 +743,6 @@
     "param.include_glob.description": "當 path 是目錄時使用的 glob 樣式。預設值：'*.xlsx'。",
     "param.max_files.description": "掃描目錄時要處理的最大檔案數。預設值：200。",
     "param.path.description": "目標 .xlsx 檔案路徑或目錄路徑。",
-    "param.recursive.description": "是否遞迴掃描目錄。預設值：false。",
     "param.visible.description": "自動化期間是否顯示 Excel 視窗。預設值：false。",
     "tool.description": "通过自动化Excel(Windows COM)重新计算公式并保存更新后的缓存值。",
     "x_search_terms": [
@@ -753,7 +752,8 @@
       "recalc excel"
     ],
     "param.password.description": "密码（需要时提示输入）。",
-    "prompt.password": "請輸入此文件的密碼：\n{path}"
+    "prompt.password": "請輸入此文件的密碼：\n{path}",
+    "param.recur.description": "是否遞迴掃描目錄。預設值：false。"
   },
   "bn": {
     "err.backup_bool": "backup অবশ্যই একটি বু...",
@@ -772,7 +772,6 @@
     "param.include_glob.description": "path একটি ডিরেক্টরি হলে ব্যবহৃত glob pattern। ডিফল্ট: '*.xlsx'.",
     "param.max_files.description": "ডিরেক্টরি স্ক্যান করার সময় প্রক্রিয়াকৃত সর্বোচ্চ ফাইল সংখ্যা। ডিফল্ট: 200.",
     "param.path.description": "লক্ষ্য .xlsx ফাইলের পাথ বা ডিরেক্টরির পাথ।",
-    "param.recursive.description": "ডিরেক্টরি পুনরাবৃত্তভাবে স্ক্যান করা হবে কি না। ডিফ...",
     "param.visible.description": "স্বয়ংক্রিয়করণের সময় Excel উইন্ডো দেখান। ডিফল্ট: false.",
     "tool.description": "Microsoft Excel (Windows COM) স্বয়ংক্রিয়ভাবে চালিয়ে Excel সূত্র পুনর্গণনা করে আপডেটেড ক্যাশ মান সংরক্ষণ করুন। একটি .",
     "x_search_terms": [
@@ -782,7 +781,8 @@
       "recalc excel"
     ],
     "param.password.description": "এনক্রিপ্টেড .",
-    "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
+    "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}",
+    "param.recur.description": "ডিরেক্টরি পুনরাবৃত্তভাবে স্ক্যান করা হবে কি না। ডিফ..."
   },
   "fa": {
     "err.backup_bool": "backup باید یک مقدار...",
@@ -801,7 +801,6 @@
     "param.include_glob.description": "الگوی glob که وقتی path یک پوشه است استفاده می‌شود.",
     "param.max_files.description": "حداکثر تعداد فایل‌هایی که هنگام اسکن یک پوشه پردازش می‌شوند. پیش‌فرض: 200.",
     "param.path.description": "مسیر فایل .xlsx هدف یا مسیر پوشه.",
-    "param.recursive.description": "اینکه پوشه به‌صورت بازگشتی اسکن شود یا نه. پیش‌فرض: false.",
     "param.visible.description": "در هنگام خودکارسازی پنجره Excel را نشان دهید.",
     "tool.description": "فرمول‌های Excel را با خودکارسازی Microsoft Excel (Windows COM) دوباره محاسبه کنید و مقادیر کش‌شدهٔ به‌روزشده را ذخیره ک...",
     "x_search_terms": [
@@ -811,7 +810,8 @@
       "recalc excel"
     ],
     "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
-    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
+    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}",
+    "param.recur.description": "اینکه پوشه به‌صورت بازگشتی اسکن شود یا نه. پیش‌فرض: false."
   },
   "mn": {
     "err.backup_bool": "backup нь boolean бай...",
@@ -830,7 +830,6 @@
     "param.include_glob.description": "path нь лавлах үед ашиглах glob загвар. Анхдагч: '*.xlsx'.",
     "param.max_files.description": "Лавлахыг шалгах үед боловсруулах хамгийн их файлын тоо. Анхдагч: 200.",
     "param.path.description": "Зорилтот .xlsx файлын зам эсвэл лавлахын зам.",
-    "param.recursive.description": "Лавлахыг рекурсивээр шалгах эсэх. Анхдагч: false.",
     "param.visible.description": "Автоматжуулалтын үеэр Excel цонхыг харуулах эсэх.",
     "tool.description": "Microsoft Excel-ийг (Windows COM) автоматжуулж Excel-ийн томьёог дахин тооцоолж, шинэчилсэн кэш утгуудыг хадгална.Нэг .",
     "x_search_terms": [
@@ -840,7 +839,8 @@
       "recalc excel"
     ],
     "param.password.description": "Шифрлэгдсэн .",
-    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
+    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}",
+    "param.recur.description": "Лавлахыг рекурсивээр шалгах эсэх. Анхдагч: false."
   },
   "mr": {
     "err.backup_bool": "backup बूलियन असणे आव...",
@@ -859,7 +859,6 @@
     "param.include_glob.description": "path ही निर्देशिका असल्यास वापरला जाणारा glob pattern.",
     "param.max_files.description": "निर्देशिका स्कॅन करताना प्रक्रिया करायच्या जास्तीत जास्त फाइल्स. डीफॉल्ट: 200.",
     "param.path.description": "लक्ष्य .",
-    "param.recursive.description": "निर्देशिका पुनरावृत्तीने स्कॅन करायची की नाही.",
     "param.visible.description": "स्वयंचलनादरम्यान Excel विंडो दाखवा. डीफॉल्ट: false.",
     "tool.description": "Microsoft Excel (Windows COM) चे स्वयंचलन करून Excel सूत्रांची पुनर्गणना करा आणि अद्ययावत कॅश मूल्ये जतन करा.एकल .",
     "x_search_terms": [
@@ -869,6 +868,7 @@
       "recalc excel"
     ],
     "param.password.description": "एन्क्रिप्टेड .",
-    "prompt.password": "या फाइलसाठी पासवर्ड टाइप करा:\n{path}"
+    "prompt.password": "या फाइलसाठी पासवर्ड टाइप करा:\n{path}",
+    "param.recur.description": "निर्देशिका पुनरावृत्तीने स्कॅन करायची की नाही."
   }
 }

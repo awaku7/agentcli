@@ -81,12 +81,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
                     ),
                 },
-                "extra_args": {
+                "xargs": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
                     "description": _(
-                        "param.extra_args.description",
+                        "param.xargs.description",
                         default="Additional arguments (array). Rejected if shell metacharacters are present.",
                     ),
                 },
@@ -208,7 +208,7 @@ def _apply_pythonpath_prefix(cmd_str: str, pythonpath: Optional[str]) -> str:
 def run_tool(args: dict[str, Any]) -> str:
     framework = str(args.get("framework") or "auto")
     target = args.get("target", None)
-    extra_args = args.get("extra_args", []) or []
+    extra_args = args.get("xargs", []) or []
     cwd = args.get("cwd", None)
     pythonpath = args.get("pythonpath", None)
     report = str(args.get("report") or "json")

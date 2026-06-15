@@ -249,10 +249,10 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.query.description", default="Search query.",
                     ),
                 },
-                "max_results": {
+                "limit": {
                     "type": "integer",
                     "description": _(
-                        "param.max_results.description",
+                        "param.limit.description",
                         default="Maximum number of results to return (default: 5).",
                     ),
                 },
@@ -283,7 +283,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 ensure_ascii=False,
             )
 
-        n_raw = args.get("max_results", args.get("n", DEFAULT_MAX_RESULTS))
+        n_raw = args.get("limit", args.get("n", DEFAULT_MAX_RESULTS))
         n: int
         if isinstance(n_raw, int):
             n = n_raw
@@ -300,7 +300,7 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(
             {
                 "query": q_str,
-                "max_results": n,
+                "limit": n,
                 "result_count": len(results),
                 "results": results,
             },

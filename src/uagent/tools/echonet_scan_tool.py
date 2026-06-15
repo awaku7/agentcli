@@ -498,7 +498,7 @@ def _summarize_node_item(
     }
 
     return {
-        "ip_address": source_ip,
+        "ip": source_ip,
         "node_id": source_ip,
         "node_profile": node_profile,
         "manufacturer": manufacturer,

@@ -232,18 +232,18 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": 0,
                 },
-                "name_pattern": {
+                "glob": {
                     "type": "string",
                     "description": _(
-                        "param.name_pattern.description",
+                        "param.glob.description",
                         default="Glob pattern used by replace_all_in_files (default: '*').",
                     ),
                     "default": "*",
                 },
-                "recursive": {
+                "recur": {
                     "type": "boolean",
                     "description": _(
-                        "param.recursive.description",
+                        "param.recur.description",
                         default="Recursively scan under the target directory.",
                     ),
                     "default": True,
@@ -1322,8 +1322,8 @@ def run_tool(args: dict[str, Any]) -> str:
             if root.is_file():
                 targets = [root]
             else:
-                globber = root.rglob if bool(args.get("recursive", True)) else root.glob
-                name_pattern = args.get("name_pattern", "*")
+                globber = root.rglob if bool(args.get("recur", True)) else root.glob
+                name_pattern = args.get("glob", "*")
                 exclude_dirs = {
                     ".git",
                     "node_modules",

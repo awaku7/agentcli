@@ -92,12 +92,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default="An array of target paths (must be under workdir).",
                     ),
                 },
-                "extra_args": {
+                "xargs": {
                     "type": "array",
                     "items": {"type": "string"},
                     "default": [],
                     "description": _(
-                        "param.extra_args.description",
+                        "param.xargs.description",
                         default="Additional arguments (array). Dangerous metacharacters are rejected.",
                     ),
                 },
@@ -240,7 +240,7 @@ def run_tool(args: dict[str, Any]) -> str:
     tools = args.get("tools", []) or []
     mode = str(args.get("mode") or "check")
     targets = args.get("targets", ["."]) or ["."]
-    extra_args = args.get("extra_args", []) or []
+    extra_args = args.get("xargs", []) or []
     cwd = args.get("cwd", None)
 
     if mode not in ("check", "fix"):

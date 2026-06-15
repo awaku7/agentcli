@@ -32,10 +32,10 @@ TOOL_SPEC: dict[str, Any] = {
         "parameters": {
             "type": "object",
             "properties": {
-                "controller_id": {
+                "ctrl": {
                     "type": "string",
                     "description": _(
-                        "param.controller_id.description",
+                        "param.ctrl.description",
                         default=(
                             "Controller ID (omit for all)."
                         ),
@@ -215,7 +215,7 @@ def _normalize_controller_item(item: dict[str, Any]) -> dict[str, Any]:
     )
 
     controller_id = (
-        item.get("controllerId") or item.get("controller_id") or item.get("id")
+        item.get("controllerId") or item.get("ctrl") or item.get("id")
     )
     controller_name = (
         item.get("controllerName") or item.get("controller_name") or item.get("name")
@@ -223,7 +223,7 @@ def _normalize_controller_item(item: dict[str, Any]) -> dict[str, Any]:
 
     location = _extract_location(item)
     normalized = {
-        "controller_id": controller_id,
+        "ctrl": controller_id,
         "controller_name": controller_name,
         "device_count": device_count,
         "bridge_ids": bridge_ids,
@@ -254,7 +254,7 @@ def _filter_controllers(
         return items
     filtered: list[dict[str, Any]] = []
     for item in items:
-        cid = str(item.get("controller_id") or "").casefold()
+        cid = str(item.get("ctrl") or "").casefold()
         cname = str(item.get("controller_name") or "").casefold()
         if needle in cid or needle in cname:
             filtered.append(item)
@@ -280,7 +280,7 @@ def _format_text(result: dict[str, Any]) -> str:
             "- {name}{loc} (id={cid}) devices={count} bridges={bridges} reachable={reachable}".format(
                 name=item.get("controller_name") or "(unknown)",
                 loc=loc,
-                cid=item.get("controller_id") or "(unknown)",
+                cid=item.get("ctrl") or "(unknown)",
                 count=item.get("device_count"),
                 bridges=",".join(item.get("bridge_ids") or []) or "-",
                 reachable=item.get("reachable"),
@@ -291,7 +291,7 @@ def _format_text(result: dict[str, Any]) -> str:
 
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
-    controller_id = args.get("controller_id")
+    controller_id = args.get("ctrl")
 
     try:
         controllers_raw, source = _load_controllers_payload()
@@ -353,7 +353,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
             "controller": {
                 "scope": "filtered",
-                "controller_id": str(controller_id),
+                "ctrl": str(controller_id),
                 "source": source,
             },
             "fetched_at": _now_iso(),
@@ -370,7 +370,7 @@ def run_tool(args: dict[str, Any]) -> str:
         "items": filtered,
         "controller": {
             "scope": "filtered" if controller_id else "all",
-            "controller_id": str(controller_id) if controller_id is not None else None,
+            "ctrl": str(controller_id) if controller_id is not None else None,
             "total": len(items),
             "source": source,
         },

@@ -3,7 +3,6 @@
     "param.data_hex.description": "Hex string of bytes to write/insert (e.g. 'DEADBEEF' or 'DE AD BE EF').",
     "param.delete_len.description": "Number of bytes to delete (splice delete).",
     "param.dry_run.description": "If true, do not modify the file; only report what would change.",
-    "param.max_bytes.description": "Reject files larger than this size (bytes).",
     "param.mode.description": "Edit mode.",
     "param.occurrence.description": "Occurrence (1-based; 0 = all).",
     "param.offset.description": "Byte offset (0-based). Required for write/splice.",
@@ -20,13 +19,13 @@
       "binary patch",
       "offset edit",
       "splice"
-    ]
+    ],
+    "param.maxb.description": "Reject files larger than this size (bytes)."
   },
   "ja": {
     "param.data_hex.description": "書き込み/挿入するバイト列の16進文字列（例: 'DEADBEEF' または 'DE AD BE EF'）。",
     "param.delete_len.description": "削除するバイト数（splice の delete）。",
     "param.dry_run.description": "true の場合、ファイルは変更せず、変更内容だけを報告します。",
-    "param.max_bytes.description": "このサイズ（バイト）を超えるファイルは拒否します。",
     "param.mode.description": "編集モード。",
     "param.occurrence.description": "出現位置（1始まり。0はすべて）。",
     "param.offset.description": "バイトオフセット（0 始まり）。write/splice で必須です。",
@@ -40,13 +39,13 @@
       "ローカルファイルをバイナリ（生バイト列）として編集します。オフセット書き換え、検索/置換、挿入/削除（splice）、簡易 JSON パッチ適用に対応します。危険: ファイルを破損させる可能性があります",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "このサイズ（バイト）を超えるファイルは拒否します。"
   },
   "es": {
     "param.data_hex.description": "Cadena hexadecimal de bytes que se escribirá o insertará (por ejempl...",
     "param.delete_len.description": "Número de bytes que se eliminarán (elim...",
     "param.dry_run.description": "Si es true, no modifique el archivo; solo informe lo que cambiaría.",
-    "param.max_bytes.description": "Rechaza archivos mayores que este tamaño...",
     "param.mode.description": "Modo de...",
     "param.occurrence.description": "Qué ocurrencia reemplazar (...",
     "param.offset.description": "Desplazamiento de bytes (empezando en 0).",
@@ -60,13 +59,13 @@
       "Edita un archivo local como bytes sin procesar (binario). Admite escritura por desplazamiento, búsqueda/reemplazo, splice (insertar/eliminar) y la aplicación de un parche JSON sencillo. Peligroso: esta herramienta puede dañar archivos",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Rechaza archivos mayores que este tamaño..."
   },
   "fr": {
     "param.data_hex.description": "Chaîne hexadécimale d'octets à écrire/insérer (par exemple 'DEADBEEF...",
     "param.delete_len.description": "Nombre d'octets à supprimer (suppressio...",
     "param.dry_run.description": "Si true, ne modifiez pas le fichier ; signalez seulement ce...",
-    "param.max_bytes.description": "Rejette les fichiers plus grands que cet...",
     "param.mode.description": "Mode d'...",
     "param.occurrence.description": "Quelle occurrence remplacer...",
     "param.offset.description": "Décalage en octets (à partir de 0).",
@@ -80,13 +79,13 @@
       "Modifiez un fichier local sous forme d'octets bruts (binaire). Prend en charge l'écriture à un décalage, la recherche/remplacement, le splice (insertion/suppression) et l'application d'un correctif JSON simple. Dangereux : cet outil peut corrompre des fichiers",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Rejette les fichiers plus grands que cet..."
   },
   "ko": {
     "param.data_hex.description": "쓰기/삽입할 바이트의 16진수 문자열입니다(예: 'DEADBEEF' 또는 'DE AD BE EF').",
     "param.delete_len.description": "삭제할 바이트 수(splice 삭제)입니다.",
     "param.dry_run.description": "true인 경우 파일을 수정하지 않고 변경될 내용만 보고합니다.",
-    "param.max_bytes.description": "이 크기(바이트)보다 큰 파일은 거부합니다.",
     "param.mode.description": "편집 모드입니다.",
     "param.occurrence.description": "발생 위치(1부터 시작, 0은 전체).",
     "param.offset.description": "바이트 오프셋(0부터 시작)입니다. write/splice에 필요합니다.",
@@ -100,13 +99,13 @@
       "로컬 파일을 원시 바이트(바이너리)로 편집합니다. 오프셋 쓰기, 검색/바꾸기, splice(삽입/삭제), 간단한 JSON 패치 적용을 지원합니다. 위험: 이 도구는 파일을 손상시킬 수 있습니다",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "이 크기(바이트)보다 큰 파일은 거부합니다."
   },
   "de": {
     "param.data_hex.description": "Hex-String der Bytes zum Schreiben/Einfügen (z.B.",
     "param.delete_len.description": "Anzahl der zu löschenden Bytes (Splice-...",
     "param.dry_run.description": "Wenn true, die Datei nicht ändern; nur melden, was sich ändern würde.",
-    "param.max_bytes.description": "Dateien ablehnen, die größer als diese G...",
     "param.mode.description": "Bearbei...",
     "param.occurrence.description": "Welches Vorkommen ersetzt w...",
     "param.offset.description": "Byte-Offset (beginnend bei 0).",
@@ -120,13 +119,13 @@
       "Bearbeitet eine lokale Datei als Rohbytes (binär). Unterstützt Schreiben mit Offset, Suchen/Ersetzen, Splice (Einfügen/Löschen) und das Anwenden eines einfachen JSON-Patches. Gefährlich: Dieses Tool kann Dateien beschädigen",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Dateien ablehnen, die größer als diese G..."
   },
   "it": {
     "param.data_hex.description": "Stringa esadecimale dei byte da scrivere o inserire (ad es.",
     "param.delete_len.description": "Numero di byte da eliminare (eliminazio...",
     "param.dry_run.description": "Se true, non modificare il file; segnala solo cosa cambierebbe.",
-    "param.max_bytes.description": "Rifiuta file più grandi di questa dimens...",
     "param.mode.description": "Modalit...",
     "param.occurrence.description": "Quale occorrenza sostituire...",
     "param.offset.description": "Offset byte (a partire da 0).",
@@ -140,13 +139,13 @@
       "Modifica un file locale come byte grezzi (binario). Supporta la scrittura a offset, la ricerca/sostituzione, lo splice (inserimento/eliminazione) e l'applicazione di un semplice patch JSON. Pericoloso: questo strumento può corrompere i file",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Rifiuta file più grandi di questa dimens..."
   },
   "ru": {
     "param.data_hex.description": "Шестнадцатеричная строка байтов для записи или вставки (например, 'D...",
     "param.delete_len.description": "Количество байтов для удаления (удалени...",
     "param.dry_run.description": "Если true, не изменяйте файл; сообщайте только о том, что изменится.",
-    "param.max_bytes.description": "Отклонять файлы, размер которых превышае...",
     "param.mode.description": "Режим р...",
     "param.occurrence.description": "Какое вхождение заменить (н...",
     "param.offset.description": "Смещение байта (нумерация с 0).",
@@ -160,13 +159,13 @@
       "Редактирует локальный файл как необработанные байты (двоичные данные). Поддерживает запись со смещением, поиск/замену, splice (вставку/удаление) и применение простого JSON-патча. Опасно: этот инструмент может повредить файлы",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Отклонять файлы, размер которых превышае..."
   },
   "pt_BR": {
     "param.data_hex.description": "String hexadecimal de bytes para escrever/inserir (por exemplo, 'DEA...",
     "param.delete_len.description": "Número de bytes a serem excluídos (excl...",
     "param.dry_run.description": "Se true, não modifique o arquivo; apenas informe o que mudaria.",
-    "param.max_bytes.description": "Rejeita arquivos maiores que este tamanh...",
     "param.mode.description": "Modo de...",
     "param.occurrence.description": "Qual ocorrência substituir...",
     "param.offset.description": "Deslocamento de bytes (começando em 0).",
@@ -180,13 +179,13 @@
       "Edite um arquivo local como bytes brutos (binários). Suporta gravação por deslocamento, pesquisa/substituição, splice (inserção/exclusão) e aplicação de um JSON patch simples. Perigoso: esta ferramenta pode corromper arquivos",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Rejeita arquivos maiores que este tamanh..."
   },
   "pt": {
     "param.data_hex.description": "Sequência hexadecimal de bytes para escrever/inserir (por exemplo, '...",
     "param.delete_len.description": "Número de bytes a serem excluídos (excl...",
     "param.dry_run.description": "Se for verdade, não modifique o arquivo; apenas relate o que mudaria.",
-    "param.max_bytes.description": "Rejeite arquivos maiores que esse tamanh...",
     "param.mode.description": "Modo de...",
     "param.occurrence.description": "Qual ocorrência substituir...",
     "param.offset.description": "Deslocamento de bytes (baseado em 0).",
@@ -200,13 +199,13 @@
       "Edite um arquivo local como bytes brutos (binários). Suporta gravação de deslocamento, pesquisa/substituição, emenda (inserção/exclusão) e aplicação de um patch JSON simples. Perigoso: esta ferramenta pode corromper arquivos",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Rejeite arquivos maiores que esse tamanh..."
   },
   "id": {
     "param.data_hex.description": "String hex byte yang akan ditulis/disisipkan (mis.",
     "param.delete_len.description": "Jumlah byte yang akan dihapus (splice delete).",
     "param.dry_run.description": "Jika true, jangan ubah file; hanya laporkan perubahan yang a...",
-    "param.max_bytes.description": "Tolak file yang lebih besar dari ukuran...",
     "param.mode.description": "Mode pe...",
     "param.occurrence.description": "Kemunculan mana yang akan d...",
     "param.offset.description": "Offset byte (berbasis 0).",
@@ -220,13 +219,13 @@
       "Edit file lokal sebagai byte mentah (binary). Mendukung penulisan pada offset, pencarian/penggantian, splice (insert/delete), dan penerapan patch JSON sederhana. Berbahaya: alat ini dapat merusak file",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Tolak file yang lebih besar dari ukuran..."
   },
   "vi": {
     "param.data_hex.description": "Chuỗi byte hex để ghi/chèn (ví dụ: 'DEADBEEF' hoặc 'DE AD BE EF').",
     "param.delete_len.description": "Số byte cần xóa (xóa mối nối).",
     "param.dry_run.description": "Nếu đúng, không sửa đổi tệp; chỉ báo cáo những gì sẽ thay đổi.",
-    "param.max_bytes.description": "Từ chối các tệp lớn hơn kích thước này (byte).",
     "param.mode.description": "Chế độ...",
     "param.occurrence.description": "Lần xuất hiện nào cần thay...",
     "param.offset.description": "Bù byte (dựa trên 0). Cần thiết cho việc ghi/ghép.",
@@ -240,13 +239,13 @@
       "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân). Hỗ trợ ghi offset, tìm kiếm/thay thế, ghép (chèn/xóa) và áp dụng bản vá JSON đơn giản. Nguy hiểm: công cụ này có thể làm hỏng tập tin",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Từ chối các tệp lớn hơn kích thước này (byte)."
   },
   "pl": {
     "param.data_hex.description": "Szesnastkowy ciąg bajtów do zapisania/wstawienia (np.",
     "param.delete_len.description": "Liczba bajtów do usunięcia (usunięcie splotu).",
     "param.dry_run.description": "Jeśli ma wartość true, nie modyfikuj pliku; zgłaszaj tylko t...",
-    "param.max_bytes.description": "Odrzuć pliki większe niż ten rozmiar (w...",
     "param.mode.description": "Tryb ed...",
     "param.occurrence.description": "Które wystąpienie zastąpić...",
     "param.offset.description": "Przesunięcie bajtu (od 0). Wymagane do zapisu/splotu.",
@@ -260,13 +259,13 @@
       "Edytuj plik lokalny jako surowe bajty (binarne). Obsługuje zapis offsetowy, wyszukiwanie/zamiana, łączenie (wstawianie/usuwanie) i stosowanie prostej łatki JSON. Niebezpieczne: to narzędzie może uszkodzić pliki",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Odrzuć pliki większe niż ten rozmiar (w..."
   },
   "hi": {
     "param.data_hex.description": "लिखने/डालने के लिए बाइट्स की हेक्स स्ट्रिंग (जैसे 'DEADBEEF' या 'DE...",
     "param.delete_len.description": "हटाने के लिए बाइट्स की संख्या (स्प्लिस डिलीट)।",
     "param.dry_run.description": "यदि सत्य है, तो फ़ाइल को संशोधित न करें; केवल वही रिपोर्ट कर...",
-    "param.max_bytes.description": "इस आकार (बाइट्स) से बड़ी फ़ाइलों को अस्व...",
     "param.mode.description": "संपादन मोड.",
     "param.occurrence.description": "किस घटना को प्रतिस्थापित कर...",
     "param.offset.description": "बाइट ऑफसेट (0-आधारित)। लिखने/बँटाई के लिए आवश्यक है.",
@@ -280,13 +279,13 @@
       "स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करें। ऑफसेट लिखने, खोजने/प्रतिस्थापित करने, जोड़ने (डालने/हटाने) और एक सरल JSON पैच लागू करने का समर्थन करता है। खतरनाक: यह टूल फ़ाइलों को दूषित कर सकता है।",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "इस आकार (बाइट्स) से बड़ी फ़ाइलों को अस्व..."
   },
   "ar": {
     "param.data_hex.description": "سلسلة hex للبايتات المراد كتابتها/إدراجها (مثل 'DEADBEEF' أو 'DE AD BE EF').",
     "param.delete_len.description": "عدد البايتات المراد حذفها (splice حذف).",
     "param.dry_run.description": "إذا كان true، فلا تعدل الملف؛ بل اعرض فقط ما الذي سيتغير.",
-    "param.max_bytes.description": "ارفض الملفات الأكبر من هذا الحجم (بالبايت).",
     "param.mode.description": "وضع الت...",
     "param.occurrence.description": "أي ظهور سيتم استبداله (يبدأ...",
     "param.offset.description": "إزاحة البايت (تبدأ من 0). مطلوبة في write/splice.",
@@ -300,13 +299,13 @@
       "تحرير ملف محلي على شكل بايتات خام (ثنائي). يدعم الكتابة بالإزاحة، البحث/الاستبدال، splice (إدراج/حذف)، وتطبيق رقعة JSON بسيطة. تحذير: قد تتسبب هذه الأداة في إتلاف الملفات",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "ارفض الملفات الأكبر من هذا الحجم (بالبايت)."
   },
   "sv": {
     "param.data_hex.description": "Hexsträng med byte att skriva/infoga (t.ex. 'DEADBEEF' eller 'DE AD BE EF').",
     "param.delete_len.description": "Antal byte som ska tas bort (splice-delete).",
     "param.dry_run.description": "Om true, ändra inte filen; rapportera bara vad som skulle ändras.",
-    "param.max_bytes.description": "Avvisa filer som är större än denna stor...",
     "param.mode.description": "Rediger...",
     "param.occurrence.description": "Vilket förekommande träff s...",
     "param.offset.description": "Byte-offset (0-baserat). Krävs för write/splice.",
@@ -320,13 +319,13 @@
       "Redigera en lokal fil som råa byte (binär). Stöder offset-skrivning, sök/ersätt, splice (infoga/ta bort) och enkel JSON-patchning. Farligt: det här verktyget kan förstöra filer",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Avvisa filer som är större än denna stor..."
   },
   "sw": {
     "param.data_hex.description": "Mfuatano wa hex wa bytes za kuandika au kuingiza (mfano 'DEADBEEF' a...",
     "param.delete_len.description": "Idadi ya bytes za kufuta (splice delete).",
     "param.dry_run.description": "Ikiwa ni kweli, usibadilishe faili; ripoti tu kitakachobadilika.",
-    "param.max_bytes.description": "Kataa faili zilizo kubwa kuliko ukubwa h...",
     "param.mode.description": "Hali ya...",
     "param.occurrence.description": "Ni tukio lipi la kubadilish...",
     "param.offset.description": "Nafasi ya byte (kuanzia 0).",
@@ -340,13 +339,13 @@
       "Hariri faili kama bytes ghafi (binary). Inaunga mkono kuandika kwa offset, kutafuta/kubadilisha, splice (kuingiza/kufuta), na kutumia kiraka rahisi cha JSON. Hatari: zana hii inaweza kuharibu faili",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Kataa faili zilizo kubwa kuliko ukubwa h..."
   },
   "nb": {
     "param.data_hex.description": "Hexstreng med byte som skal skrives/innsettes (f.eks.",
     "param.delete_len.description": "Antall byte som skal slettes (splice-sl...",
     "param.dry_run.description": "Hvis true, ikke endre filen; bare rapporter hva som ville endres.",
-    "param.max_bytes.description": "Avvis filer som er større enn denne stør...",
     "param.mode.description": "Rediger...",
     "param.occurrence.description": "Hvilket treff som skal erst...",
     "param.offset.description": "Byte-offset (0-basert). Kreves for write/splice.",
@@ -360,13 +359,13 @@
       "Rediger en lokal fil som rå byte (binær). Støtter offset-skriving, søk/erstatt, splice (sett inn/slett) og enkel JSON-patching. Farlig: dette verktøyet kan ødelegge filer",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Avvis filer som er større enn denne stør..."
   },
   "nl": {
     "param.data_hex.description": "Hex-tekenreeks van bytes om te schrijven/in te voegen (bijv.",
     "param.delete_len.description": "Aantal bytes om te verwijderen (splice...",
     "param.dry_run.description": "Als true, wijzig het bestand niet; rapporteer alleen wat zou...",
-    "param.max_bytes.description": "Weiger bestanden groter dan deze grootte...",
     "param.mode.description": "Bewerki...",
     "param.occurrence.description": "Welke voorkomens vervangen...",
     "param.offset.description": "Byte-offset (0-based). Vereist voor write/splice.",
@@ -380,13 +379,13 @@
       "Bewerk een lokaal bestand als ruwe bytes (binair). Ondersteunt offset write, zoeken/vervangen, splice (insert/delete) en het toepassen van een eenvoudige JSON-patch. Gevaarlijk: deze tool kan bestanden beschadigen",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Weiger bestanden groter dan deze grootte..."
   },
   "fi": {
     "param.data_hex.description": "Kirjoitettavien/lisättävien tavujen heksamerkkijono (esim.",
     "param.delete_len.description": "Poistettavien tavujen määrä (splice delete).",
     "param.dry_run.description": "Jos true, älä muuta tiedostoa; raportoi vain, mitä muuttuisi.",
-    "param.max_bytes.description": "Hylkää tätä suuremmat tiedostot (tavuina).",
     "param.mode.description": "Muokkau...",
     "param.occurrence.description": "Mikä esiintymä korvataan (a...",
     "param.offset.description": "Tavusiirtymä (alkaen 0).",
@@ -400,13 +399,13 @@
       "Muokkaa paikallista tiedostoa raakatavuina (binäärinä). Tukee offset-kirjoitusta, haku/korvausta, spliceä (insert/delete) ja yksinkertaista JSON-paikkausta. Vaarallinen: tämä työkalu voi rikkoa tiedostoja",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Hylkää tätä suuremmat tiedostot (tavuina)."
   },
   "cs": {
     "param.data_hex.description": "Hexadecimální řetězec bajtů k zápisu/vložení (např.",
     "param.delete_len.description": "Počet bajtů ke smazání (splice delete).",
     "param.dry_run.description": "Pokud je true, soubor se neupraví; pouze se nahlásí, co by s...",
-    "param.max_bytes.description": "Odmítne soubory větší než tato velikost...",
     "param.mode.description": "Režim ú...",
     "param.occurrence.description": "Který výskyt nahradit (čísl...",
     "param.offset.description": "Byte offset (od 0). Vyžadováno pro write/splice.",
@@ -420,13 +419,13 @@
       "Upravuje místní soubor jako surové bajty (binárně). Podporuje zápis s offsetem, hledání/nahrazování, splice (vložení/smazání) a jednoduchý JSON patch. Nebezpečné: tento nástroj může poškodit soubory",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Odmítne soubory větší než tato velikost..."
   },
   "uk": {
     "param.data_hex.description": "Шістнадцятковий рядок байтів для запису/вставки (наприклад, 'DEADBEE...",
     "param.delete_len.description": "Кількість байтів для видалення (splice...",
     "param.dry_run.description": "Якщо true, файл не змінюється; повідомляється лише про те, щ...",
-    "param.max_bytes.description": "Відхиляє файли, більші за цей розмір (у...",
     "param.mode.description": "Режим р...",
     "param.occurrence.description": "Яке входження замінити (нум...",
     "param.offset.description": "Зсув байта (від 0). Потрібно для write/splice.",
@@ -440,13 +439,13 @@
       "Редагує локальний файл як необроблені байти (бінарно). Підтримує запис зі зсувом, пошук/заміни, splice (вставку/видалення) і простий JSON-патч. Небезпечно: цей інструмент може пошкодити файли",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Відхиляє файли, більші за цей розмір (у..."
   },
   "tr": {
     "param.data_hex.description": "Yazılacak/eklenecek onaltılık bayt dizisi (örneğin, 'DEADBEEF' veya...",
     "param.delete_len.description": "Silinecek bayt sayısı (ekleme silme).",
     "param.dry_run.description": "Doğruysa dosyayı değiştirmeyin; yalnızca neyin değişeceğini bildirin.",
-    "param.max_bytes.description": "Bu boyuttan (bayt) daha büyük dosyaları...",
     "param.mode.description": "Düzenle...",
     "param.occurrence.description": "Hangi olayın değiştirileceğ...",
     "param.offset.description": "Bayt ofseti (0-tabanlı).",
@@ -460,13 +459,13 @@
       "Yerel bir dosyayı ham bayt (ikili) olarak düzenleyin. Ofset yazma, arama/değiştirme, ekleme (ekleme/silme) ve basit bir JSON yaması uygulamayı destekler. Tehlikeli: Bu araç dosyaları bozabilir",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Bu boyuttan (bayt) daha büyük dosyaları..."
   },
   "th": {
     "param.data_hex.description": "สตริงเลขฐานสิบหกของไบต์ที่จะเขียนหรือแทรก (เช่น 'DEADBEEF' หรือ 'DE AD BE EF')",
     "param.delete_len.description": "จำนวนไบต์ที่จะลบ (การลบแบบ splice)",
     "param.dry_run.description": "หากเป็น true จะไม่แก้ไขไฟล์; รายงานเฉพาะสิ่งที่จะเปลี่ยนแปลง",
-    "param.max_bytes.description": "ปฏิเสธไฟล์ที่มีขนาดใหญ่กว่านี้ (ไบต์)",
     "param.mode.description": "โหมดแก้ไข",
     "param.occurrence.description": "จะให้แทนที่รายการที่กี่ (นั...",
     "param.offset.description": "ออฟเซ็ตของไบต์ (เริ่มที่ 0) จำเป็นสำหรับ write/splice",
@@ -480,13 +479,13 @@
       "แก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี) รองรับการเขียนตามออฟเซ็ต การค้นหา/แทนที่ splice (แทรก/ลบ) และการใช้ JSON patch แบบง่าย ๆ อันตราย: เครื่องมือนี้อาจทำให้ไฟล์เสียหายได้",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "ปฏิเสธไฟล์ที่มีขนาดใหญ่กว่านี้ (ไบต์)"
   },
   "zh_CN": {
     "param.data_hex.description": "要写入/插入的十六进制字节字符串（例如 'DEADBEEF' 或 'DE AD BE EF'）。",
     "param.delete_len.description": "要删除的字节数（splice 删除）。",
     "param.dry_run.description": "如果为 true，则不修改文件；只报告将发生的更改。",
-    "param.max_bytes.description": "拒绝大于此大小（字节）的文件。",
     "param.mode.description": "编辑模式。",
     "param.occurrence.description": "出现位置（从1开始，0为全部）。",
     "param.offset.description": "字节偏移量（从 0 开始）。write/splice 需要。",
@@ -500,13 +499,13 @@
       "将本地文件按原始字节（二进制）进行编辑。支持按偏移写入、搜索/替换、splice（插入/删除）以及应用简单的 JSON 补丁。危险：此工具可能损坏文件",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "拒绝大于此大小（字节）的文件。"
   },
   "zh_TW": {
     "param.data_hex.description": "要寫入/插入的十六進位位元組字串（例如 'DEADBEEF' 或 'DE AD BE EF'）。",
     "param.delete_len.description": "要刪除的位元組數（splice 刪除）。",
     "param.dry_run.description": "如果為 true，則不修改檔案；只回報將發生的變更。",
-    "param.max_bytes.description": "拒絕大於此大小（位元組）的檔案。",
     "param.mode.description": "編輯模式。",
     "param.occurrence.description": "出现位置（从1开始，0为全部）。",
     "param.offset.description": "位元組位移（從 0 開始）。write/splice 需要。",
@@ -520,13 +519,13 @@
       "將本機檔案以原始位元組（二進位）方式編輯。支援依位移寫入、搜尋/取代、splice（插入/刪除）以及套用簡單的 JSON 修補。危險：此工具可能會損毀檔案",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "拒絕大於此大小（位元組）的檔案。"
   },
   "bn": {
     "param.data_hex.description": "লিখতে/ঢোকাতে বাইটের হেক্স স্ট্রিং (যেমন 'DEADBEEF' বা 'DE AD BE EF')।",
     "param.delete_len.description": "মুছতে হবে এমন বাইটের সংখ্যা (splice delete)।",
     "param.dry_run.description": "true হলে ফাইল বদলানো হবে না; শুধু কী বদলাত তা জানানো হবে।",
-    "param.max_bytes.description": "এই আকারের (বাইট) চেয়ে বড় ফাইল প্রত্যাখ...",
     "param.mode.description": "সম্পাদন...",
     "param.occurrence.description": "কোন occurrence বদলাবে (১-ভি...",
     "param.offset.description": "বাইট অফসেট (০-ভিত্তিক)। write/splice-এর জন্য প...",
@@ -540,13 +539,13 @@
       "একটি লোকাল ফাইলকে raw bytes (binary) হিসেবে সম্পাদনা করে। offset write, search/replace, splice (insert/delete), এবং সাধারণ JSON patch প্রয়োগ সমর্থন করে। বিপজ্জনক: এই টুল ফাইল নষ্ট করতে পারে",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "এই আকারের (বাইট) চেয়ে বড় ফাইল প্রত্যাখ..."
   },
   "fa": {
     "param.data_hex.description": "رشتهٔ هگزِ بایت‌هایی که باید نوشته/درج شوند (مثلاً 'DEADBEEF' یا 'DE...",
     "param.delete_len.description": "تعداد بایت‌هایی که باید حذف شوند (حذف splice).",
     "param.dry_run.description": "اگر true باشد، فایل تغییر نمی‌کند؛ فقط گزارش می‌شود چه چیزی...",
-    "param.max_bytes.description": "فایل‌هایی بزرگ‌تر از این اندازه (بایت) ر...",
     "param.mode.description": "حالت وی...",
     "param.occurrence.description": "اینکه کدام occurrence جایگز...",
     "param.offset.description": "موقعیت بایت (از ۰). برای write/splice لازم است.",
@@ -560,13 +559,13 @@
       "یک فایل محلی را به‌صورت بایت‌های خام (binary) ویرایش می‌کند. نوشتن با offset، جستجو/جایگزینی، splice (درج/حذف) و اعمال یک پچ JSON ساده را پشتیبانی می‌کند. خطرناک است: این ابزار می‌تواند فایل‌ها را خراب کند",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "فایل‌هایی بزرگ‌تر از این اندازه (بایت) ر..."
   },
   "mn": {
     "param.data_hex.description": "Бичих/оруулж тавих байтуудын hex мөр (жишээ нь 'DEADBEEF' эсвэл 'DE...",
     "param.delete_len.description": "Устгах байтын тоо (splice delete).",
     "param.dry_run.description": "true бол файлыг өөрчлөхгүй; зөвхөн юу өөрчлөгдөхийг мэдээлнэ.",
-    "param.max_bytes.description": "Энэ хэмжээнээс (байт) том файлуудыг татгалзана.",
     "param.mode.description": "Засварл...",
     "param.occurrence.description": "Аль давтамжийг солих вэ (1-...",
     "param.offset.description": "Байт офсет (0-ээс эхэлнэ).",
@@ -580,13 +579,13 @@
       "Орон нутгийн файлыг raw bytes (binary) хэлбэрээр засварлана. Offset write, search/replace, splice (insert/delete), мөн энгийн JSON patch хэрэглэхийг дэмжинэ. Аюултай: энэ хэрэгсэл файлыг гэмтээж болно",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "Энэ хэмжээнээс (байт) том файлуудыг татгалзана."
   },
   "mr": {
     "param.data_hex.description": "लिहायच्या/घालायच्या बाइट्सची हेक्स स्ट्रिंग (उदा.",
     "param.delete_len.description": "किती बाइट्स हटवायचे (splice delete).",
     "param.dry_run.description": "true असल्यास फाइल बदलू नका; काय बदलले असते तेच कळवा.",
-    "param.max_bytes.description": "या आकारापेक्षा (बाइट्स) मोठ्या फाइल्स ना...",
     "param.mode.description": "संपादना...",
     "param.occurrence.description": "कोणता occurrence बदलायचा (१...",
     "param.offset.description": "बाइट ऑफसेट (०-आधारित). write/splice साठी आवश्यक.",
@@ -600,6 +599,7 @@
       "स्थानिक फाइल raw bytes (binary) म्हणून संपादित करते. offset write, search/replace, splice (insert/delete), आणि साधा JSON patch लागू करणे समर्थित आहे. धोकादायक: हे टूल फाइल खराब करू शकते",
       "binary_edit",
       "binary edit"
-    ]
+    ],
+    "param.maxb.description": "या आकारापेक्षा (बाइट्स) मोठ्या फाइल्स ना..."
   }
 }

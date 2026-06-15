@@ -49,10 +49,10 @@ TOOL_SPEC: dict[str, Any] = {
                         default="The name of the environment variable to read.",
                     ),
                 },
-                "missing_ok": {
+                "skip": {
                     "type": "boolean",
                     "description": _(
-                        "param.missing_ok.description",
+                        "param.skip.description",
                         default="If true, returns '(not set)' instead of an error if the variable is missing. Default is false.",
                     ),
                 },
@@ -99,7 +99,7 @@ def run_tool(args: dict[str, Any]) -> str:
     cb = get_callbacks()
 
     name = str(args.get("name", "") or "").strip()
-    missing_ok = bool(args.get("missing_ok", False))
+    missing_ok = bool(args.get("skip", False))
 
     # Security default: mask unless explicitly disabled.
     mask = True if args.get("mask") is None else bool(args.get("mask"))
