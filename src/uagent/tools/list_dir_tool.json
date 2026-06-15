@@ -37,7 +37,7 @@
       "lista de carpetas",
       "listar archivos"
     ],
-    "param.path.description": "Directorio a listar (valor predeterminado: directorio actual).",
+    "param.path.description": "Directorio a listar (valor predeterminado: d...",
     "param.show_hidden.description": "Incluir elementos ocultos en la lista.",
     "param.max_results.description": "Número máximo de elementos a devolver por página (valor...",
     "param.page.description": "Número de página a recuperar (valo..."
@@ -51,7 +51,7 @@
       "liste de dossiers",
       "lister fichiers"
     ],
-    "param.path.description": "Répertoire à lister (par défaut : répertoire courant).",
+    "param.path.description": "Répertoire à lister (par défaut : répertoire...",
     "param.show_hidden.description": "Inclure les éléments masqués dans l...",
     "param.max_results.description": "Nombre maximal d’éléments à renvoyer par page (par défaut : 50).",
     "param.page.description": "Numéro de page à récupérer (par dé..."
@@ -79,7 +79,7 @@
       "ordnerliste",
       "dateien auflisten"
     ],
-    "param.path.description": "Aufzulistendes Verzeichnis (Standard: aktuelles Verzeichnis).",
+    "param.path.description": "Aufzulistendes Verzeichnis (Standard: aktuel...",
     "param.show_hidden.description": "Versteckte Einträge in die Liste au...",
     "param.max_results.description": "Maximale Anzahl der Einträge pro Seite (Standard: 50).",
     "param.page.description": "Abzurufende Seitennummer (Standard: 1)."
@@ -93,7 +93,7 @@
       "elenco cartelle",
       "elenca file"
     ],
-    "param.path.description": "Directory da elencare (predefinita: directory corrente).",
+    "param.path.description": "Directory da elencare (predefinita: director...",
     "param.show_hidden.description": "Includi gli elementi nascosti nell’...",
     "param.max_results.description": "Numero massimo di elementi da restituire per pagina (pre...",
     "param.page.description": "Numero di pagina da recuperare (pr..."
@@ -107,7 +107,7 @@
       "список папок",
       "список файлов"
     ],
-    "param.path.description": "Каталог для вывода (по умолчанию: текущий каталог). Псевдоним root_path.",
+    "param.path.description": "Каталог для вывода (по умолчанию: текущий ка...",
     "param.show_hidden.description": "Включать скрытые элементы в список.",
     "param.max_results.description": "Максимальное число элементов на странице (по умолчанию: 50).",
     "param.page.description": "Номер страницы для получения (по у..."
@@ -121,7 +121,7 @@
       "lista de pastas",
       "listar arquivos"
     ],
-    "param.path.description": "Diretório a listar (padrão: diretório atual). Alias de root_path.",
+    "param.path.description": "Diretório a listar (padrão: diretório atual).",
     "param.show_hidden.description": "Incluir itens ocultos na lista.",
     "param.max_results.description": "Número máximo de itens a retornar por página (padrão: 50).",
     "param.page.description": "Número da página a recuperar (padr..."
@@ -135,7 +135,7 @@
       "lista de pastas",
       "listar ficheiros"
     ],
-    "param.path.description": "Diretório a listar (predefinição: diretório atual). Alias de root_path.",
+    "param.path.description": "Diretório a listar (predefinição: diretório...",
     "param.show_hidden.description": "Incluir itens ocultos na lista.",
     "param.max_results.description": "Número máximo de itens a devolver por página (predefinição: 50).",
     "param.page.description": "Número da página a obter (predefin..."
@@ -149,7 +149,7 @@
       "daftar folder",
       "daftar file"
     ],
-    "param.path.description": "Direktori yang akan ditampilkan (default: direktori saat ini).",
+    "param.path.description": "Direktori yang akan ditampilkan (default: di...",
     "param.show_hidden.description": "Sertakan item tersembunyi dalam daftar.",
     "param.max_results.description": "Jumlah maksimum item yang dikembalikan per halaman (defa...",
     "param.page.description": "Nomor halaman yang diambil (default: 1)."
@@ -163,7 +163,7 @@
       "danh sách folder",
       "danh sách file"
     ],
-    "param.path.description": "Thư mục cần liệt kê (mặc định: thư mục hiện tại). Bí danh của root_path.",
+    "param.path.description": "Thư mục cần liệt kê (mặc định: thư mục hiện...",
     "param.show_hidden.description": "Bao gồm cả các mục ẩn trong danh sách.",
     "param.max_results.description": "Số lượng mục tối đa trả về mỗi trang (mặc định: 50).",
     "param.page.description": "Số trang cần lấy (mặc định: 1)."
@@ -177,7 +177,7 @@
       "lista folderów",
       "lista plików"
     ],
-    "param.path.description": "Katalog do wyświetlenia (domyślnie: bieżący katalog). Alias root_path.",
+    "param.path.description": "Katalog do wyświetlenia (domyślnie: bieżący...",
     "param.show_hidden.description": "Uwzględnij ukryte elementy na liście.",
     "param.max_results.description": "Maksymalna liczba elementów zwracanych na stronę (domyśl...",
     "param.page.description": "Numer strony do pobrania (domyślnie: 1)."
@@ -191,7 +191,7 @@
       "फ़ोल्डर सूची",
       "फ़ाइल सूची"
     ],
-    "param.path.description": "सूचीबद्ध करने की निर्देशिका (डिफ़ॉल्ट: वर्तमान निर्देशिका)। root...",
+    "param.path.description": "सूचीबद्ध करने की निर्देशिका (डिफ़ॉल्ट: वर्तम...",
     "param.show_hidden.description": "छिपे हुए आइटम सूची में शामिल करें।",
     "param.max_results.description": "प्रति पृष्ठ लौटाए जाने वाले अधिकतम आइटम (डिफ़ॉल्ट: 50).",
     "param.page.description": "प्राप्त करने के लिए पृष्ठ संख्या (..."
@@ -205,7 +205,7 @@
       "قائمة المجلدات",
       "قائمة الملفات"
     ],
-    "param.path.description": "الدليل المراد عرضه (الافتراضي: الدليل الحالي). بديل لـ root_path.",
+    "param.path.description": "الدليل المراد عرضه (الافتراضي: الدليل الحالي).",
     "param.show_hidden.description": "تضمين العناصر المخفية في القائمة.",
     "param.max_results.description": "الحد الأقصى للعناصر المعروضة في كل صفحة (الافتراضي: 50).",
     "param.page.description": "رقم الصفحة المراد جلبها (الافتراضي: 1)."
@@ -219,7 +219,7 @@
       "mapplista",
       "fillista"
     ],
-    "param.path.description": "Katalog som ska listas (standard: aktuell katalog). Alias för root_path.",
+    "param.path.description": "Katalog som ska listas (standard: aktuell ka...",
     "param.show_hidden.description": "Inkludera dolda poster i listan.",
     "param.max_results.description": "Maximalt antal poster per sida (standard: 50).",
     "param.page.description": "Sidnummer att hämta (standard: 1)."
@@ -233,7 +233,7 @@
       "orodha ya folda",
       "orodha ya faili"
     ],
-    "param.path.description": "Saraka ya kuorodheshwa (chaguo-msingi: saraka ya sasa).",
+    "param.path.description": "Saraka ya kuorodheshwa (chaguo-msingi: sarak...",
     "param.show_hidden.description": "Jumuisha vipengee vilivyofichwa kwe...",
     "param.max_results.description": "Idadi ya juu ya vipengee vya kurudishwa kwa kila ukurasa...",
     "param.page.description": "Namba ya ukurasa wa kuchukua (chag..."
@@ -247,7 +247,7 @@
       "mappeliste",
       "filliste"
     ],
-    "param.path.description": "Katalogen som skal listes (standard: gjeldende katalog).",
+    "param.path.description": "Katalogen som skal listes (standard: gjelden...",
     "param.show_hidden.description": "Ta med skjulte elementer i listen.",
     "param.max_results.description": "Maks antall elementer per side (standard: 50).",
     "param.page.description": "Sidenummeret som skal hentes (stan..."
@@ -261,7 +261,7 @@
       "mappenlijst",
       "bestanden weergeven"
     ],
-    "param.path.description": "Map om weer te geven (standaard: huidige map). Alias van root_path.",
+    "param.path.description": "Map om weer te geven (standaard: huidige map).",
     "param.show_hidden.description": "Verborgen items opnemen in de lijst.",
     "param.max_results.description": "Maximaal aantal items per pagina (standaard: 50).",
     "param.page.description": "Paginanummer om op te halen (stand..."
@@ -275,7 +275,7 @@
       "kansiolista",
       "tiedostolista"
     ],
-    "param.path.description": "Listattava hakemisto (oletus: nykyinen hakemisto). root_pathin alias.",
+    "param.path.description": "Listattava hakemisto (oletus: nykyinen hakem...",
     "param.show_hidden.description": "Sisällytä piilotetut kohteet listaan.",
     "param.max_results.description": "Sivua kohti palautettavien kohteiden enimmäismäärä (oletus: 50).",
     "param.page.description": "Haettava sivunumero (oletus: 1)."
@@ -289,7 +289,7 @@
       "seznam složek",
       "seznam souborů"
     ],
-    "param.path.description": "Adresář k vypsání (výchozí: aktuální adresář). Alias root_path.",
+    "param.path.description": "Adresář k vypsání (výchozí: aktuální adresář).",
     "param.show_hidden.description": "Zahrnout do seznamu skryté položky.",
     "param.max_results.description": "Maximální počet položek na stránku (výchozí: 50).",
     "param.page.description": "Číslo stránky k načtení (výchozí: 1)."
@@ -303,7 +303,7 @@
       "список папок",
       "список файлів"
     ],
-    "param.path.description": "Каталог для виведення (за замовчуванням: поточний каталог).",
+    "param.path.description": "Каталог для виведення (за замовчуванням: пот...",
     "param.show_hidden.description": "Включати приховані елементи до списку.",
     "param.max_results.description": "Максимальна кількість елементів на сторінку (за замовчув...",
     "param.page.description": "Номер сторінки для отримання (за з..."
@@ -317,7 +317,7 @@
       "klasör listesi",
       "dosya listesi"
     ],
-    "param.path.description": "Listelenecek dizin (varsayılan: geçerli dizin). root_path için takma ad.",
+    "param.path.description": "Listelenecek dizin (varsayılan: geçerli dizin).",
     "param.show_hidden.description": "Gizli öğeleri listeye dahil et.",
     "param.max_results.description": "Sayfa başına döndürülecek maksimum öğe sayısı (varsayılan: 50).",
     "param.page.description": "Alınacak sayfa numarası (varsayılan: 1)."
@@ -331,7 +331,7 @@
       "รายการโฟลเดอร์",
       "รายการไฟล์"
     ],
-    "param.path.description": "ไดเรกทอรีที่จะใช้แสดงรายการ (ค่าเริ่มต้น: ไดเรกทอรีปัจจุบัน) ชื่...",
+    "param.path.description": "ไดเรกทอรีที่จะใช้แสดงรายการ (ค่าเริ่มต้น: ได...",
     "param.show_hidden.description": "รวมรายการที่ซ่อนอยู่ในรายการ.",
     "param.max_results.description": "จำนวนรายการสูงสุดต่อหน้าที่ส่งกลับ (ค่าเริ่มต้น: 50).",
     "param.page.description": "หมายเลขหน้าที่ต้องการดึง (ค่าเริ่ม..."
@@ -373,7 +373,7 @@
       "ফোল্ডার তালিকা",
       "ফাইল তালিকা"
     ],
-    "param.path.description": "যে ডিরেক্টরি তালিকাভুক্ত হবে (ডিফল্ট: বর্তমান ডিরেক্টরি)। root_p...",
+    "param.path.description": "যে ডিরেক্টরি তালিকাভুক্ত হবে (ডিফল্ট: বর্তমা...",
     "param.show_hidden.description": "লুকানো আইটেমগুলো তালিকায় অন্তর্ভুক...",
     "param.max_results.description": "প্রতি পৃষ্ঠায় ফেরত দেওয়া সর্বোচ্চ আইটেম সংখ্যা (ডিফল্ট: 50).",
     "param.page.description": "যে পৃষ্ঠাটি নিতে হবে (ডিফল্ট: 1)."
@@ -387,7 +387,7 @@
       "فهرست فایل",
       "فهرست دایرکتوری"
     ],
-    "param.path.description": "پوشه‌ای که باید فهرست شود (پیش‌فرض: پوشهٔ فعلی). نام مستعار root_path.",
+    "param.path.description": "پوشه‌ای که باید فهرست شود (پیش‌فرض: پوشهٔ فع...",
     "param.show_hidden.description": "آیتم‌های مخفی را هم در فهرست شامل کنید.",
     "param.max_results.description": "حداکثر تعداد آیتم در هر صفحه (پیش‌فرض: 50).",
     "param.page.description": "شماره صفحه‌ای که باید دریافت شود (..."
@@ -401,7 +401,7 @@
       "хавтас жагсаалт",
       "файл жагсаалт"
     ],
-    "param.path.description": "Жагсаах лавлах (анхдагч: одоогийн лавлах). root_path-ийн нэршил.",
+    "param.path.description": "Жагсаах лавлах (анхдагч: одоогийн лавлах).",
     "param.show_hidden.description": "Нуусан зүйлсийг жагсаалтад оруулна.",
     "param.max_results.description": "Хуудас бүрт буцаах хамгийн их зүйлсийн тоо (анхдагч: 50).",
     "param.page.description": "Авах хуудасны дугаар (анхдагч: 1)."
@@ -415,7 +415,7 @@
       "फोल्डर यादी",
       "फाइल यादी"
     ],
-    "param.path.description": "सूचीबद्ध करायची डिरेक्टरी (डीफॉल्ट: सध्याची डिरेक्टरी).",
+    "param.path.description": "सूचीबद्ध करायची डिरेक्टरी (डीफॉल्ट: सध्याची...",
     "param.show_hidden.description": "लपलेले घटक यादीत समाविष्ट करा.",
     "param.max_results.description": "प्रति पृष्ठ परत द्यायची कमाल घटकसंख्या (डीफॉल्ट: 50).",
     "param.page.description": "घ्यायचा पृष्ठ क्रमांक (डीफॉल्ट: 1)."
