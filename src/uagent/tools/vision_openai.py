@@ -87,7 +87,7 @@ def analyze_image_openai(
     """Analyze an image using OpenAI/Azure OpenAI Chat Completions."""
 
     provider_l = (provider or "").strip().lower()
-    if provider_l not in ("openai", "azure", "alibaba"):
+    if provider_l not in ("openai", "azure", "alibaba", "kimi"):
         raise RuntimeError(
             _(
                 "err.unsupported_provider",
@@ -163,6 +163,23 @@ def analyze_image_openai(
                 raise RuntimeError(
                     "Missing required env vars for alibaba image analysis. "
                     "Need api_key/model (UAGENT_ALIBABA_*)."
+                )
+        elif provider_l == "kimi":
+            api_key = _img_env("kimi", "analysis", "api_key") or _env_first(
+                ["UAGENT_KIMI_API_KEY", "UAGENT_OPENAI_API_KEY"]
+            )
+            base_url = (
+                _img_env("kimi", "analysis", "base_url")
+                or env_get("UAGENT_KIMI_BASE_URL")
+                or "https://api.moonshot.cn/v1"
+            )
+            model = _img_env("kimi", "analysis", "depname") or _env_first(
+                ["UAGENT_KIMI_DEPNAME"], default="kimi-k2"
+            )
+            if not (api_key and model):
+                raise RuntimeError(
+                    "Missing required env vars for kimi image analysis. "
+                    "Need api_key/model (UAGENT_KIMI_*)."
                 )
         else:  # openai
             api_key = _img_env("openai", "analysis", "api_key") or _env_first(
