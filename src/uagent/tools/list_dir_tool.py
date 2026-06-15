@@ -54,14 +54,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.path.description",
-                        default="Directory to list (default: current directory). Alias of root_path.",
-                    ),
-                },
-                "root_path": {
-                    "type": "string",
-                    "description": _(
-                        "param.root_path.description",
-                        default="Alias (compat).",
+                        default="Directory to list (default: current directory).",
                     ),
                 },
                 "show_hidden": {

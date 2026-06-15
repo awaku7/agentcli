@@ -76,13 +76,6 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Search root (default: cwd).",
                     ),
                 },
-                "root_path": {
-                    "type": "string",
-                    "description": _(
-                        "param.root_path.description",
-                        default="Alias (compat).",
-                    ),
-                },
                 "name_pattern": {
                     "type": "string",
                     "description": _(

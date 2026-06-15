@@ -120,13 +120,6 @@ TOOL_SPEC: dict[str, Any] = {
                         default="1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
                     ),
                 },
-                "page": {
-                    "type": "integer",
-                    "description": _(
-                        "param.page.description",
-                        default="Page number to read (1-based). Alias of page_index.",
-                    ),
-                },
                 "max_chars": {
                     "type": "integer",
                     "description": _(

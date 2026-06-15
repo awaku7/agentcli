@@ -68,16 +68,6 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Path to delete, or a list of paths/glob patterns to delete.",
                     ),
                 },
-                "path": {
-                    "anyOf": [
-                        {"type": "string"},
-                        {"type": "array", "items": {"type": "string"}},
-                    ],
-                    "description": _(
-                        "param.path.description",
-                        default="(Compatibility) Alias of filename.",
-                    ),
-                },
                 "missing_ok": {
                     "type": "boolean",
                     "default": False,

@@ -71,13 +71,6 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Path of the input file (must be under workdir).",
                     ),
                 },
-                "filename": {
-                    "type": "string",
-                    "description": _(
-                        "param.filename.description",
-                        default="(Compatibility) Alias of path.",
-                    ),
-                },
                 "template": {
                     "type": "string",
                     "description": _(
