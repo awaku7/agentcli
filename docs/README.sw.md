@@ -25,7 +25,7 @@ Wakati wa kuzindua kwa mara ya kwanza, `uag` hukagua mazingira yako na huanza ki
 ## Vipengele Vikuu
 
 - **Zana za vitendo**: Usimamizi wa faili, utafutaji wa wavuti, uchimbaji wa PDF/PPTX/Excel, uundaji wa picha, na uchambuzi wa picha.
-- **Unga mkono wa watoa huduma wengi**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
+- **Unga mkono wa watoa huduma wengi**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI).
 - **Miingiliano mitatu**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

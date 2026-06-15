@@ -23,7 +23,7 @@ pip install uag
 ## Основные возможности
 
 - **Практичный набор инструментов**: Оснащен инструментами для манипуляций с файлами, веб-поиска, извлечения данных (PDF/PPTX/Excel), генерации и анализа изображений — все это выполняется в вашей локальной среде.
-- **Поддержка нескольких провайдеров**: Поддерживает OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
+- **Поддержка нескольких провайдеров**: Поддерживает OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI).
 - **Гибкие интерфейсы**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

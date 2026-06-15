@@ -25,7 +25,7 @@ Bij de eerste start controleert `uag` je omgeving en start automatisch de setupw
 ## Belangrijkste functies
 
 - **Praktische toolset**: bestandsmanipulatie, webzoekopdrachten, PDF/PPTX/Excel-extractie, beeldgeneratie en beeldanalyse.
-- **Ondersteuning voor meerdere providers**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
+- **Ondersteuning voor meerdere providers**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI).
 - **Drie interfaces**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

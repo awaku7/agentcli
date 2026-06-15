@@ -25,7 +25,7 @@ pip install uag
 ## أهم الميزات
 
 - **مجموعة أدوات عملية**: التعامل مع الملفات، البحث على الويب، استخراج PDF/PPTX/Excel، توليد الصور، وتحليل الصور.
-- **دعم عدة مزوّدين**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA.
+- **دعم عدة مزوّدين**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI).
 - **ثلاث واجهات**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
