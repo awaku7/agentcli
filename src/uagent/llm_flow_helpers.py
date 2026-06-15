@@ -248,6 +248,7 @@ def _execute_tool_calls(
     use_tool_result_cache: bool,
 ) -> bool:
     executed_new_tool = False
+    pending_auto_user_msgs: list[dict[str, Any]] = []
 
     for tc in tool_calls_list:
         func = tc["function"]
@@ -359,7 +360,10 @@ def _execute_tool_calls(
         core.log_message(tool_msg)
 
         if auto_user_msg is not None:
-            messages.append(auto_user_msg)
-            core.log_message(auto_user_msg)
+            pending_auto_user_msgs.append(auto_user_msg)
+
+    for auto_user_msg in pending_auto_user_msgs:
+        messages.append(auto_user_msg)
+        core.log_message(auto_user_msg)
 
     return executed_new_tool
