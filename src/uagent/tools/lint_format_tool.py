@@ -328,7 +328,7 @@ def run_tool(args: dict[str, Any]) -> str:
     results: list[dict[str, Any]] = []
 
     for tool in selected:
-        tool_safe_targets = tool_targets[tool]
+        tool_safe_targets = safe_targets
 
         if tool == "ruff":
             if mode == "check":

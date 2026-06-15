@@ -306,7 +306,6 @@ def _handle_post(args: dict[str, Any], output_format: str) -> str:
         record["langs"] = [lang]
 
     # Upload image if provided
-    saved_images: list[str] = []
     if image_path:
         blob = _upload_blob(access_jwt, image_path)
         if not blob:

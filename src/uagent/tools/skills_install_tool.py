@@ -214,7 +214,7 @@ def _copy_source_tree(source: str, dest_dir: str) -> None:
     if _is_git_url(source):
         try:
             subprocess.run(["git", "--version"], capture_output=True, check=True)
-        except subprocess.SubprocessError, FileNotFoundError:
+        except (subprocess.SubprocessError, FileNotFoundError):
             raise RuntimeError(
                 _(
                     "err.git_not_found",

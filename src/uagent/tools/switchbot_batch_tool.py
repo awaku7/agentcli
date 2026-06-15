@@ -363,7 +363,7 @@ def _format_result_text(result: dict[str, Any]) -> str:
         f"{result.get('failed', 0)} failed",
     ]
     for i, step in enumerate(result.get("steps", []), 1):
-        status = "OK" if step.get("ok") else f"FAIL"
+        status = "OK" if step.get("ok") else "FAIL"
         label = step.get("label", f"cmd#{i}")
         lines.append(f"  [{status}] {label}")
         if step.get("error"):
