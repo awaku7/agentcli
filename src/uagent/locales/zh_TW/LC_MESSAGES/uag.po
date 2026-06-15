@@ -161,7 +161,7 @@ msgstr "[致命錯誤] 無法啟動 uag_setup：%(err)s"
 #: src/uagent/cli_startup.py:291
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
-msgstr "提供者 = %(provider)s; 模型 = %(model)s"
+msgstr "供應商 = %(provider)s; 模型 = %(model)s"
 
 #: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
@@ -568,7 +568,7 @@ msgstr ""
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
-msgstr "未知提供者：%(provider)r。允許值：%(allowed)s（啟動很可能會失敗）。"
+msgstr "未知供應商：%(provider)r。允許值：%(allowed)s（啟動很可能會失敗）。"
 
 #: src/uagent/env_validate.py:74
 msgid ""
@@ -640,7 +640,7 @@ msgstr "NVIDIA API 金鑰。"
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
-msgstr "未知 embedding 提供者：%(provider)r。允許值：%(allowed)s（啟動很可能會失敗）。"
+msgstr "未知 embedding 供應商：%(provider)r。允許值：%(allowed)s（啟動很可能會失敗）。"
 
 #: src/uagent/env_validate.py:207
 msgid "Azure embedding endpoint / API key / API version / deployment name."
@@ -776,7 +776,7 @@ msgid ""
 msgstr ""
 "[WARN] LLM 回傳了空的助理訊息，但沒有工具呼叫。\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"這可能發生在與 OpenAI 相容的本地提供者於工具呼叫之後。您可以嘗試將 UAGENT_EMPTY_NO_TOOL_MAX 設為更高的值，或切換提供者。"
+"這可能發生在與 OpenAI 相容的本地供應商於工具呼叫之後。您可以嘗試將 UAGENT_EMPTY_NO_TOOL_MAX 設為更高的值，或切換供應商。"
 
 #: src/uagent/llm_flow_helpers.py:265
 msgid "arguments must be a JSON object."
@@ -1242,6 +1242,34 @@ msgstr "Ollama num_ctx（預設：8192）"
 msgid "Ollama num_predict (default: 1024)"
 msgstr "Ollama num_predict（預設：1024）"
 
+#: src/uagent/setup_cli.py:188
+msgid "DeepSeek API key"
+msgstr "DeepSeek API 金鑰"
+
+#: src/uagent/setup_cli.py:189
+msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
+msgstr "DeepSeek base URL（選填，預設：https://api.deepseek.com）"
+
+#: src/uagent/setup_cli.py:190
+msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
+msgstr "DeepSeek model name（選填，預設：deepseek-v4-flash）"
+
+#: src/uagent/setup_cli.py:191
+msgid "DeepSeek temperature (default: 0.0)"
+msgstr "DeepSeek temperature（預設：0.0）"
+
+#: src/uagent/setup_cli.py:192
+msgid "DeepSeek top_p (default: 1.0)"
+msgstr "DeepSeek top_p（預設：1.0）"
+
+#: src/uagent/setup_cli.py:193
+msgid "DeepSeek presence_penalty (default: 0.0)"
+msgstr "DeepSeek presence_penalty（預設：0.0）"
+
+#: src/uagent/setup_cli.py:194
+msgid "DeepSeek frequency_penalty (default: 0.0)"
+msgstr "DeepSeek frequency_penalty（預設：0.0）"
+
 #: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
 msgid "Enter number:"
 msgstr "請選擇要執行的 skill 編號。輸入 c 取消。\n"
@@ -1429,7 +1457,7 @@ msgstr "要設定圖片分析選項嗎？"
 
 #: src/uagent/setup_cli.py:731
 msgid "Select image analysis provider"
-msgstr "選擇影像分析提供者"
+msgstr "選擇影像分析供應商"
 
 #: src/uagent/setup_cli.py:752
 msgid "Configure image generation settings?"
@@ -1437,7 +1465,7 @@ msgstr "要設定圖片生成選項嗎？"
 
 #: src/uagent/setup_cli.py:763
 msgid "Select image generation provider"
-msgstr "選擇圖片生成提供者"
+msgstr "選擇圖片生成供應商"
 
 #: src/uagent/setup_cli.py:783
 msgid "Open generated images automatically?"
@@ -1449,7 +1477,7 @@ msgstr "要設定嵌入 / 語意搜尋選項嗎？"
 
 #: src/uagent/setup_cli.py:825
 msgid "Select embedding provider"
-msgstr "選擇嵌入提供者"
+msgstr "選擇嵌入供應商"
 
 #: src/uagent/setup_cli.py:854
 msgid "Configure audio speech / transcription settings?"
@@ -1457,11 +1485,11 @@ msgstr "設定語音/轉錄音訊選項？"
 
 #: src/uagent/setup_cli.py:873
 msgid "Select audio speech provider"
-msgstr "選擇語音合成提供者"
+msgstr "選擇語音合成供應商"
 
 #: src/uagent/setup_cli.py:893
 msgid "Select audio transcribe provider"
-msgstr "選擇音訊轉寫提供者"
+msgstr "選擇音訊轉寫供應商"
 
 #: src/uagent/setup_cli.py:913
 msgid "Open generated audio automatically?"
@@ -1494,7 +1522,7 @@ msgstr "加密後的檔案將寫入為 %(path)s"
 
 #: src/uagent/setup_cli.py:1180
 msgid "Select provider"
-msgstr "選擇提供者"
+msgstr "選擇供應商"
 
 #: src/uagent/setup_cli.py:1219
 msgid "Enable Responses API options?"
@@ -1527,7 +1555,7 @@ msgstr "摘要"
 #: src/uagent/setup_cli.py:1363
 #, python-format
 msgid "  Provider: %(provider)s"
-msgstr "  提供者：%(provider)s"
+msgstr "  供應商：%(provider)s"
 
 #: src/uagent/setup_cli.py:1370
 #, python-format
@@ -1807,23 +1835,23 @@ msgstr "找不到先前的記錄，或無法產生輪廓。"
 #: src/uagent/util_tools.py:1793
 #, fuzzy
 msgid "User profile generated successfully from past logs!"
-msgstr "用户画像已成功清除。"
+msgstr "使用者畫像已成功從過往記錄生成！"
 
 #: src/uagent/util_tools.py:1805
 msgid "No user profile data found."
-msgstr "未找到用户画像數據。"
+msgstr "未找到使用者畫像資料。"
 
 #: src/uagent/util_tools.py:1808
 msgid "User Profile:"
-msgstr "用户画像:"
+msgstr "使用者畫像："
 
 #: src/uagent/util_tools.py:1820
 msgid "User profile cleared successfully."
-msgstr "用户画像已成功清除。"
+msgstr "使用者畫像已成功清除。"
 
 #: src/uagent/util_tools.py:1824
 msgid "No user profile file found to clear."
-msgstr "未找到可清除的用户画像文件。"
+msgstr "未找到可供清除的使用者畫像檔案。"
 
 #: src/uagent/util_tools.py:1888
 msgid "Show this help"
@@ -1896,16 +1924,16 @@ msgstr "依索引刪除長期記憶筆記（請參見 :mem-list）"
 #: src/uagent/util_tools.py:1928
 #, fuzzy
 msgid "Show the learned user profile, or generate it from past logs"
-msgstr "顯示已學習的用户画像（環境、偏好、約束）"
+msgstr "顯示已學習的使用者畫像（環境、偏好、約束）"
 
 #: src/uagent/util_tools.py:1929
 #, fuzzy
 msgid "Generate user profile from past logs"
-msgstr "未找到用户画像數據。"
+msgstr "從過往記錄產生使用者畫像"
 
 #: src/uagent/util_tools.py:1930
 msgid "Clear the learned user profile data"
-msgstr "清除已學習的用户画像數據"
+msgstr "清除已學習的使用者畫像資料"
 
 #: src/uagent/util_tools.py:1932
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
@@ -2284,7 +2312,7 @@ msgstr "環境變數 UAGENT_PROVIDER 未設定。"
 #: src/uagent/providers/util_providers.py:259
 #, python-format
 msgid "Unknown provider: %(provider)s"
-msgstr "未知的提供者：%(provider)s"
+msgstr "未知的供應商：%(provider)s"
 
 #: src/uagent/providers/util_providers.py:544
 #: src/uagent/providers/util_providers.py:570
@@ -2348,7 +2376,7 @@ msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
 "Responses API. Falling back to ChatCompletions."
 msgstr ""
-"已設定 UAGENT_RESPONSES=1，但提供者 '%(provider)s' 不支援 Responses API。將回退至 "
+"已設定 UAGENT_RESPONSES=1，但供應商 '%(provider)s' 不支援 Responses API。將回退至 "
 "ChatCompletions。"
 
 #: src/uagent/runtime/runtime_banner.py:375

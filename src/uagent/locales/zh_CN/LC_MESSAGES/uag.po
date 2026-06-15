@@ -567,7 +567,7 @@ msgstr ""
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
-msgstr "未知提供者：%(provider)r。允许值：%(allowed)s（启动很可能会失败）。"
+msgstr "未知提供商：%(provider)r。允许值：%(allowed)s（启动很可能会失败）。"
 
 #: src/uagent/env_validate.py:74
 msgid ""
@@ -639,7 +639,7 @@ msgstr "NVIDIA API 密钥。"
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
-msgstr "未知 embedding 提供者：%(provider)r。允许值：%(allowed)s（启动很可能会失败）。"
+msgstr "未知 embedding 提供商：%(provider)r。允许值：%(allowed)s（启动很可能会失败）。"
 
 #: src/uagent/env_validate.py:207
 msgid "Azure embedding endpoint / API key / API version / deployment name."
@@ -914,7 +914,7 @@ msgstr "下载"
 #: src/uagent/scheckgui.py:329
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
-msgstr "载入共享长期记忆时发生异常：%(err)s"
+msgstr "加载共享长期记忆时发生异常：%(err)s"
 
 #: src/uagent/scheckgui.py:382
 #, python-format
@@ -1240,6 +1240,34 @@ msgstr "Ollama 上下文长度（默认值：8192）"
 #: src/uagent/setup_cli.py:183
 msgid "Ollama num_predict (default: 1024)"
 msgstr "Ollama 预测长度（默认值：1024）"
+
+#: src/uagent/setup_cli.py:188
+msgid "DeepSeek API key"
+msgstr "DeepSeek API 密钥"
+
+#: src/uagent/setup_cli.py:189
+msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
+msgstr "DeepSeek 基础 URL（可选，默认值：https://api.deepseek.com）"
+
+#: src/uagent/setup_cli.py:190
+msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
+msgstr "DeepSeek 模型名称（可选，默认值：deepseek-v4-flash）"
+
+#: src/uagent/setup_cli.py:191
+msgid "DeepSeek temperature (default: 0.0)"
+msgstr "DeepSeek 温度（默认值：0.0）"
+
+#: src/uagent/setup_cli.py:192
+msgid "DeepSeek top_p (default: 1.0)"
+msgstr "DeepSeek top_p（默认值：1.0）"
+
+#: src/uagent/setup_cli.py:193
+msgid "DeepSeek presence_penalty (default: 0.0)"
+msgstr "DeepSeek presence_penalty（默认值：0.0）"
+
+#: src/uagent/setup_cli.py:194
+msgid "DeepSeek frequency_penalty (default: 0.0)"
+msgstr "DeepSeek frequency_penalty（默认值：0.0）"
 
 #: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
 msgid "Enter number:"

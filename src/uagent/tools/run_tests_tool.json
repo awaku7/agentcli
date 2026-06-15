@@ -587,7 +587,7 @@
     "summary.no_change": "สำเร็จโดยไม่มีการเปลี่ยนแปลง (ตรงกัน 0 รายการ)"
   },
   "zh_CN": {
-    "doc.module": "run_tests_tool\n\n用于运行测试的包装工具。\n\n目的：\n- 不直接调用 cmd_exec/pwsh_exec，而是规范化测试执行并返回结构化结果。\n- 在 framework=auto 时自动检测 pytest / unittest / npm。\n\n安全策略：\n- 测试执行通常不是危险操作，因此不调用 human_ask。\n- 但是，包含命令注入元字符（&&、|、> 等）的 extra_args 会被拒绝。\n\n实现：\n- 内部使用 cmd_exec_json_tool，并处理 returncode/stdout/stderr。\n- 对于 stdout/stderr，如存在 callbacks.truncate_output，则应用它。\n- 对于 cwd 指定，使用 cmd_exec_json 的 cwd 参数（不要使用 cd &&）。\n\n附加功能：\n- pythonpath：为测试运行配置额外的 PYTHONPATH。\n  - Windows：set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX：PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
+    "doc.module": "run_tests_tool\n\n用于运行测试的包装工具。\n\n目的：\n- 不直接调用 cmd_exec/pwsh_exec，而是规范化测试执行并返回结构化结果。\n- 在 framework=auto 时自动检测 pytest / unittest / npm。\n\n安全策略：\n- 测试执行通常不是危险操作，因此不调用 human_ask。\n- 但是，包含命令注入元字符（&&、|、> 等）的 extra_args 会被拒绝。\n\n实现：\n- 内部使用 cmd_exec_json_tool，并处理 returncode/stdout/stderr。\n- 对于 stdout/stderr，如存在 callbacks.truncate_output，则应用它。\n- 对于 cwd 指定，使用 cmd_exec_json 的 cwd 参数（不要使用 cd &&）。\n\n附加功能：\n- pythonpath：为测试运行设置额外的 PYTHONPATH。\n  - Windows：set PYTHONPATH=<pythonpath>;%PYTHONPATH% && <cmd>\n  - POSIX：PYTHONPATH=<pythonpath>:$PYTHONPATH <cmd>",
     "error.cwd_not_allowed": "不允许使用 cwd：{error}",
     "error.dangerous_cwd_rejected": "已拒绝危险的 cwd：{cwd}",
     "error.framework_auto_detect_failed": "framework 自动检测失败",

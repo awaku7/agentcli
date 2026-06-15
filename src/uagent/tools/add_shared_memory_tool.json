@@ -267,7 +267,7 @@
   },
   "zh_CN": {
     "param.note.description": "要分享的备注文本。",
-    "tool.description": "向共享长期记忆存储中追加一条备注（在用户/会话之间共享）。如果未配置共享记忆，工具会提示该功能已禁用。不要存储密码或 API 密钥等机密信息。",
+    "tool.description": "向共享长期记忆存储中追加一条备注（在用户/会话之间共享）。如果未设置共享记忆，工具会提示该功能已禁用。不要存储密码或 API 密钥等机密信息。",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",

@@ -188,6 +188,10 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         ("UAGENT_DEEPSEEK_API_KEY", True, _("DeepSeek API key")),
         ("UAGENT_DEEPSEEK_BASE_URL", False, _("DeepSeek base URL (optional, default: https://api.deepseek.com)")),
         ("UAGENT_DEEPSEEK_DEPNAME", False, _("DeepSeek model name (optional, default: deepseek-v4-flash)")),
+        ("UAGENT_DEEPSEEK_TEMPERATURE", False, _("DeepSeek temperature (default: 0.0)")),
+        ("UAGENT_DEEPSEEK_TOP_P", False, _("DeepSeek top_p (default: 1.0)")),
+        ("UAGENT_DEEPSEEK_PRESENCE_PENALTY", False, _("DeepSeek presence_penalty (default: 0.0)")),
+        ("UAGENT_DEEPSEEK_FREQUENCY_PENALTY", False, _("DeepSeek frequency_penalty (default: 0.0)")),
     ],
 }
 

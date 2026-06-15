@@ -163,18 +163,39 @@ def build_deepseek_chat_kwargs(
         # No explicit thinking toggle -> API default (enabled for v4 models)
         pass
 
-    # Temperature: in thinking mode it's ignored by the API, but we still
-    # send a sane default for non-thinking mode.
+    # Non-thinking-mode parameters: temperature, top_p, presence_penalty,
+    # frequency_penalty.  In thinking mode these are silently ignored or
+    # rejected by the API, so we only send them when thinking is disabled.
     # logprobs/top_logprobs are intentionally NOT sent (400 in thinking mode).
-    temp_env = (env_get("UAGENT_DEEPSEEK_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or "").strip()
-    try:
-        resolved_temp = float(temp_env) if temp_env else 0.0
-    except ValueError:
-        resolved_temp = 0.0
-
     if effort_used not in _VALID_EFFORTS:
-        # Only send temperature when not in thinking mode
+        # temperature
+        temp_env = (env_get("UAGENT_DEEPSEEK_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or "").strip()
+        try:
+            resolved_temp = float(temp_env) if temp_env else 0.0
+        except ValueError:
+            resolved_temp = 0.0
         chat_kwargs["temperature"] = resolved_temp
+
+        # top_p (default: 1.0)
+        top_p_env = (env_get("UAGENT_DEEPSEEK_TOP_P") or "").strip()
+        try:
+            chat_kwargs["top_p"] = float(top_p_env) if top_p_env else 1.0
+        except ValueError:
+            chat_kwargs["top_p"] = 1.0
+
+        # presence_penalty (default: 0.0)
+        pp_env = (env_get("UAGENT_DEEPSEEK_PRESENCE_PENALTY") or "").strip()
+        try:
+            chat_kwargs["presence_penalty"] = float(pp_env) if pp_env else 0.0
+        except ValueError:
+            chat_kwargs["presence_penalty"] = 0.0
+
+        # frequency_penalty (default: 0.0)
+        fp_env = (env_get("UAGENT_DEEPSEEK_FREQUENCY_PENALTY") or "").strip()
+        try:
+            chat_kwargs["frequency_penalty"] = float(fp_env) if fp_env else 0.0
+        except ValueError:
+            chat_kwargs["frequency_penalty"] = 0.0
 
     return chat_kwargs, effort_used
 

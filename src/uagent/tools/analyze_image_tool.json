@@ -279,14 +279,14 @@
   },
   "zh_TW": {
     "param.image_path.description": "要分析的影像檔案的路徑。",
-    "param.prompt.description": "您想了解有關圖像的資訊。",
-    "tool.description": "載入圖像並讓 AI（視覺）描述其內容。適用於分析螢幕截圖、圖表和表格。",
+    "param.prompt.description": "您想了解有關圖片的資訊。",
+    "tool.description": "載入圖片並讓 AI（視覺）描述其內容。適用於分析螢幕截圖、圖表和表格。",
     "x_search_terms": [
-      "載入圖像並讓 AI（視覺）描述其內容。適用於分析螢幕截圖、圖表和表格",
+      "載入圖片並讓 AI（視覺）描述其內容。適用於分析螢幕截圖、圖表和表格",
       "analyze_image",
       "analyze image"
     ],
-    "tool.system_prompt": "分析工具名稱「analyze_image」所描述的圖像，並回傳結果。"
+    "tool.system_prompt": "分析工具名稱「analyze_image」所描述的圖片，並回傳結果。"
   },
   "bn": {
     "param.image_path.description": "বিশ্লেষণ করার জন্য ছবির ফাইলের পথ।",
