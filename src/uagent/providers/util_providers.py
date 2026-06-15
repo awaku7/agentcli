@@ -305,8 +305,8 @@ def get_model_name() -> str:
         )
     if provider == "alibaba":
         return (
-            env_get("UAGENT_ALIBABA_DEPNAME", "qwen-max")
-            or "qwen-max"
+            env_get("UAGENT_ALIBABA_DEPNAME", "qwen3.5-plus")
+            or "qwen3.5-plus"
         )
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
 
