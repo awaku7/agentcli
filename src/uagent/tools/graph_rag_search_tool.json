@@ -30,7 +30,6 @@
       "entity relation",
       "local file search"
     ],
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
     "warn.indexing_title": "\n[WARN] Indexing warnings (de-duplicated, top 50):"
   },
   "ja": {
@@ -64,7 +63,6 @@
       "グラフRAG",
       "ローカル検索"
     ],
-    "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。",
     "warn.indexing_title": "[WARN] インデクシング警告（重複除去、先頭50件）:"
   },
   "es": {
@@ -98,7 +96,6 @@
       "búsqueda de grafo y vector",
       "búsqueda local"
     ],
-    "tool.system_prompt": "Esta herramienta se usa para el propósito siguiente: (consulte la descripción de la herramienta).",
     "warn.indexing_title": "[WARN] Advertencia de indexación (eliminación..."
   },
   "fr": {
@@ -132,7 +129,6 @@
       "recherche graphe-vecteur",
       "recherche locale"
     ],
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l'outil).",
     "warn.indexing_title": "[WARN] Avertissement d'indexation (suppression..."
   },
   "ko": {
@@ -166,7 +162,6 @@
       "그래프-벡터 검색",
       "로컬 검색"
     ],
-    "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조).",
     "warn.indexing_title": "[WARN] 인덱싱 경고(중복 제거, 처음 50개 항목):"
   },
   "de": {
@@ -200,7 +195,6 @@
       "Graph-Vektor-Suche",
       "lokale Suche"
     ],
-    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet (siehe Toolbeschreibung).",
     "warn.indexing_title": "[WARN] Indizierungswarnung (Duplikate entfernt..."
   },
   "it": {
@@ -234,7 +228,6 @@
       "ricerca grafo-vettore",
       "ricerca locale"
     ],
-    "tool.system_prompt": "Questo strumento viene utilizzato per lo scopo seguente (vedere la descrizione dello strumento).",
     "warn.indexing_title": "[WARN] Avviso di indicizzazione (rimozione dup..."
   },
   "ru": {
@@ -268,7 +261,6 @@
       "графо-векторный поиск",
       "локальный поиск"
     ],
-    "tool.system_prompt": "Этот инструмент используется для следующей цели (см. описание инструмента).",
     "warn.indexing_title": "[WARN] Предупреждение индексации (удалены дубл..."
   },
   "pt_BR": {
@@ -302,7 +294,6 @@
       "busca grafo-vetor",
       "busca local"
     ],
-    "tool.system_prompt": "Esta ferramenta é usada para o propósito seguinte (veja a descrição da ferramenta).",
     "warn.indexing_title": "[WARN] Aviso de indexação (remoção de duplicad..."
   },
   "pt": {
@@ -336,7 +327,6 @@
       "pesquisa grafo-vetor",
       "pesquisa local"
     ],
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (consulte a descrição da ferramenta).",
     "warn.indexing_title": "[AVISO] Aviso de indexação (remoção duplicada,..."
   },
   "id": {
@@ -370,7 +360,6 @@
       "pencarian graf-vektor",
       "pencarian lokal"
     ],
-    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat).",
     "warn.indexing_title": "[WARN] Peringatan pengindeksan (penghapusan du..."
   },
   "vi": {
@@ -404,7 +393,6 @@
       "tìm kiếm đồ thị-vectơ",
       "tìm kiếm cục bộ"
     ],
-    "tool.system_prompt": "Công cụ này được dùng cho mục đích sau (xem mô tả công cụ).",
     "warn.indexing_title": "[WARN] Cảnh báo lập chỉ mục (loại bỏ trùng lặp..."
   },
   "pl": {
@@ -438,7 +426,6 @@
       "wyszukiwanie grafowo-wektorowe",
       "wyszukiwanie lokalne"
     ],
-    "tool.system_prompt": "To narzędzie jest używane w następującym celu (zobacz opis narzędzia).",
     "warn.indexing_title": "[WARN] Ostrzeżenie indeksowania (usunięto dupl..."
   },
   "hi": {
@@ -472,7 +459,6 @@
       "ग्राफ-वेक्टर खोज",
       "स्थानीय खोज"
     ],
-    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्य के लिए किया जाता है: (उपकरण विवरण देखें)।",
     "warn.indexing_title": "[चेतावनी] अनुक्रमण चेतावनी (डुप्लिकेट निष्कासन..."
   },
   "ar": {
@@ -506,7 +492,6 @@
       "بحث الرسم البياني-المتجهي",
       "بحث محلي"
     ],
-    "tool.system_prompt": "تُستخدم هذه الأداة للغرض التالي: (انظر وصف الأداة).",
     "warn.indexing_title": "[تحذير] تحذير الفهرسة (إزالة مكررة، أول 50 عنصرًا):"
   },
   "sv": {
@@ -540,7 +525,6 @@
       "graf-vektor-sökning",
       "lokal sökning"
     ],
-    "tool.system_prompt": "Det här verktyget används för följande syfte: (se verktygsbeskrivningen).",
     "warn.indexing_title": "[VARNING] Indexeringsvarning (duplicatrensning..."
   },
   "sw": {
@@ -574,7 +558,6 @@
       "utafutaji wa grafu-vekta",
       "utafutaji wa ndani"
     ],
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description).",
     "warn.indexing_title": "[WARN] Indexing warning (duplicate removal, fi..."
   },
   "nb": {
@@ -608,7 +591,6 @@
       "graf-vektor-søk",
       "lokalt søk"
     ],
-    "tool.system_prompt": "Dette verktøyet brukes til følgende formål: (se verktøybeskrivelsen).",
     "warn.indexing_title": "[ADVARSEL] Indekseringsadvarsel (duplikatfjern..."
   },
   "nl": {
@@ -642,7 +624,6 @@
       "graaf-vectorzoekopdracht",
       "lokale zoekopdracht"
     ],
-    "tool.system_prompt": "Dit gereedschap wordt gebruikt voor het volgende doel: (zie toolbeschrijving).",
     "warn.indexing_title": "[WARN] Indexeringswaarschuwing (duplicaten ver..."
   },
   "fi": {
@@ -676,7 +657,6 @@
       "graafi-vektorihaku",
       "paikallinen haku"
     ],
-    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus).",
     "warn.indexing_title": "[WARN] Indeksointivaroitus (duplikaatit poiste..."
   },
   "cs": {
@@ -710,7 +690,6 @@
       "graf-vektorové vyhledávání",
       "místní vyhledávání"
     ],
-    "tool.system_prompt": "Tento nástroj se používá k následujícímu účelu: (viz popis nástroje).",
     "warn.indexing_title": "[WARN] Varování indexování (odstranění duplici..."
   },
   "uk": {
@@ -744,7 +723,6 @@
       "графо-векторний пошук",
       "локальний пошук"
     ],
-    "tool.system_prompt": "Цей інструмент використовується для такої мети (див. опис інструмента).",
     "warn.indexing_title": "[WARN] Попередження індексації (видалення дубл..."
   },
   "tr": {
@@ -778,7 +756,6 @@
       "graf-vektör arama",
       "yerel arama"
     ],
-    "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (alet açıklamasına bakın).",
     "warn.indexing_title": "[WARN] Dizine ekleme uyarısı (yinelenen öğeler..."
   },
   "th": {
@@ -812,7 +789,6 @@
       "การค้นหากราฟ-เวกเตอร์",
       "การค้นหาภายในเครื่อง"
     ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้เพื่อวัตถุประสงค์ดังต่อไปนี้: (ดูรายละเอียดเครื่องมือ)",
     "warn.indexing_title": "[WARN] คำเตือนการทำดัชนี (ลบรายการซ้ำ, 50 รายการแรก):"
   },
   "zh_CN": {
@@ -846,7 +822,6 @@
       "图向量搜索",
       "本地搜索"
     ],
-    "tool.system_prompt": "此工具用于以下目的：（参见工具说明）。",
     "warn.indexing_title": "[WARN] 索引警告（重复移除，前 50 项）："
   },
   "zh_TW": {
@@ -880,7 +855,6 @@
       "圖向量搜尋",
       "本地搜尋"
     ],
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。",
     "warn.indexing_title": "[WARN] 索引警告（重複移除，前 50 項）："
   },
   "bn": {
@@ -914,7 +888,6 @@
       "গ্রাফ-ভেক্টর অনুসন্ধান",
       "স্থানীয় অনুসন্ধান"
     ],
-    "tool.system_prompt": "এই টুলটি নিম্নলিখিত উদ্দেশ্যে ব্যবহার করা হয়: (tool description দেখুন)।",
     "warn.indexing_title": "[WARN] ইনডেক্সিং সতর্কতা (ডুপ্লিকেট অপসারণ, প্..."
   },
   "fa": {
@@ -948,7 +921,6 @@
       "جستجوی گراف-بردار",
       "جستجوی محلی"
     ],
-    "tool.system_prompt": "این ابزار برای هدف زیر استفاده می‌شود: (به توضیح ابزار مراجعه کنید).",
     "warn.indexing_title": "[WARN] هشدار ایندکس‌سازی (حذف موارد تکراری، 50..."
   },
   "mn": {
@@ -982,7 +954,6 @@
       "граф-вектор хайлт",
       "орон нутгийн хайлт"
     ],
-    "tool.system_prompt": "Энэ хэрэгсэл дараах зорилгоор ашиглагдана: (tool description-г үзнэ үү).",
     "warn.indexing_title": "[WARN] Индекстэй холбоотой анхааруулга (давхар..."
   },
   "mr": {
@@ -1016,7 +987,6 @@
       "ग्राफ-व्हेक्टर शोध",
       "स्थानिक शोध"
     ],
-    "tool.system_prompt": "हे साधन पुढील उद्देशासाठी वापरले जाते: (tool description पहा).",
     "warn.indexing_title": "[WARN] इंडेक्सिंग चेतावणी (duplicate removal,..."
   }
 }

@@ -35,7 +35,6 @@
       "find replace",
       "search replace"
     ],
-    "tool.system_prompt": "Use this tool only for existing text files. Pattern is required. path and replacement are required. replace_po_entry needs po_msgid. replace_between needs anchor_before and anchor_after. replace_all_in_files uses name_pattern and recursive. If preview=false, confirm_over can block large changes. Return JSON only.",
     "param.po_msgid.description": "gettext msgid (fallback: pattern).",
     "param.anchor_before.description": "Start anchor.",
     "param.anchor_after.description": "End anchor.",
@@ -87,7 +86,6 @@
       "置換編集",
       "編集置換"
     ],
-    "tool.system_prompt": "このツールは既存のテキストファイルにのみ使用してください。pattern は必須です。path と replacement も必須です。replace_po_entry には po_msgid が必要です。replace_between には anchor_before と anchor_after が必要です。replace_all_in_files では name_pattern と recursive を使います。preview=false のとき、confirm_over が大きな変更をブロックすることがあります。JSON のみを返してください。",
     "param.po_msgid.description": "gettext msgid（省略時はpatternを使用）。",
     "param.anchor_before.description": "開始アンカー。",
     "param.anchor_after.description": "終了アンカー。",
@@ -139,7 +137,6 @@
       "corregir archivo",
       "modificar archivo"
     ],
-    "tool.system_prompt": "Use esta herramienta solo para archivos de texto existentes. El patrón es obligatorio. path y replacement son obligatorios. replace_po_entry necesita po_msgid. replace_between necesita anchor_before y anchor_after. replace_all_in_files usa name_pattern y recursive. Si preview=false, confirm_over puede bloquear cambios grandes. Devuelve solo JSON.",
     "param.po_msgid.description": "msgid de gettext objetivo para...",
     "param.anchor_before.description": "Ancla inic...",
     "param.anchor_after.description": "Ancla fi...",
@@ -191,7 +188,6 @@
       "corriger fichier",
       "modifier fichier"
     ],
-    "tool.system_prompt": "Utilisez cet outil uniquement pour des fichiers texte existants. Le motif est obligatoire. path et replacement sont obligatoires. replace_po_entry a besoin de po_msgid. replace_between a besoin de anchor_before et anchor_after. replace_all_in_files utilise name_pattern et recursive. Si preview=false, confirm_over peut bloquer les grandes modifications. Retournez uniquement du JSON.",
     "param.po_msgid.description": "msgid gettext cible pour replac...",
     "param.anchor_before.description": "Ancre de d...",
     "param.anchor_after.description": "Ancre de...",
@@ -243,7 +239,6 @@
       "파일 교정",
       "파일 변경"
     ],
-    "tool.system_prompt": "이 도구는 기존 텍스트 파일에만 사용하세요. pattern은 필수입니다. path와 replacement도 필수입니다. replace_po_entry에는 po_msgid가 필요합니다. replace_between에는 anchor_before와 anchor_after가 필요합니다. replace_all_in_files는 name_pattern과 recursive를 사용합니다. preview=false이면 confirm_over가 큰 변경을 차단할 수 있습니다. JSON만 반환하세요.",
     "param.po_msgid.description": "gettext msgid(생략시 pattern 사용).",
     "param.anchor_before.description": "시작 앵커.",
     "param.anchor_after.description": "종료 앵커.",
@@ -295,7 +290,6 @@
       "datei ändern",
       "datei korrigieren"
     ],
-    "tool.system_prompt": "Verwenden Sie dieses Tool nur für vorhandene Textdateien. Das Muster ist erforderlich. path und replacement sind erforderlich. replace_po_entry benötigt po_msgid. replace_between benötigt anchor_before und anchor_after. replace_all_in_files verwendet name_pattern und recursive. Wenn preview=false, kann confirm_over große Änderungen blockieren. Nur JSON zurückgeben.",
     "param.po_msgid.description": "Ziel-Gettext-msgid für replace_...",
     "param.anchor_before.description": "Startanker...",
     "param.anchor_after.description": "Endanker...",
@@ -347,7 +341,6 @@
       "correggere file",
       "cambiare file"
     ],
-    "tool.system_prompt": "Usa questo strumento solo per file di testo esistenti. Il pattern è obbligatorio. path e replacement sono obbligatori. replace_po_entry richiede po_msgid. replace_between richiede anchor_before e anchor_after. replace_all_in_files usa name_pattern e recursive. Se preview=false, confirm_over può bloccare sostituzioni grandi. Restituisci solo JSON.",
     "param.po_msgid.description": "msgid gettext di destinazione p...",
     "param.anchor_before.description": "Ancoraggio...",
     "param.anchor_after.description": "Ancoragg...",
@@ -399,7 +392,6 @@
       "исправить файл",
       "изменить файл"
     ],
-    "tool.system_prompt": "Используйте этот инструмент только для существующих текстовых файлов. Паттерн обязателен. path и replacement обязательны. Для replace_po_entry нужен po_msgid. Для replace_between нужны anchor_before и anchor_after. replace_all_in_files использует name_pattern и recursive. Если preview=false, confirm_over может заблокировать крупные изменения. Возвращайте только JSON.",
     "param.po_msgid.description": "Целевой gettext msgid для repla...",
     "param.anchor_before.description": "Начальный...",
     "param.anchor_after.description": "Конечный...",
@@ -451,7 +443,6 @@
       "corrigir arquivo",
       "modificar arquivo"
     ],
-    "tool.system_prompt": "Use esta ferramenta apenas para arquivos de texto existentes. O padrão é obrigatório. path e replacement são obrigatórios. replace_po_entry precisa de po_msgid. replace_between precisa de anchor_before e anchor_after. replace_all_in_files usa name_pattern e recursive. Se preview=false, confirm_over pode bloquear alterações grandes. Retorne apenas JSON.",
     "param.po_msgid.description": "msgid gettext de destino para r...",
     "param.anchor_before.description": "Âncora ini...",
     "param.anchor_after.description": "Âncora f...",
@@ -503,7 +494,6 @@
       "corrigir ficheiro",
       "modificar ficheiro"
     ],
-    "tool.system_prompt": "Use esta ferramenta apenas para arquivos de texto existentes. O padrão é obrigatório. caminho e substituição são necessários. replace_po_entry precisa de po_msgid. replace_between precisa de âncora_antes e âncora_depois. replace_all_in_files usa name_pattern e recursivo. Se preview=false, confirm_over poderá bloquear grandes alterações. Retorne apenas JSON.",
     "param.po_msgid.description": "Alvo gettext msgid para replace...",
     "param.anchor_before.description": "Inicie a â...",
     "param.anchor_after.description": "Âncora f...",
@@ -555,7 +545,6 @@
       "perbaiki file",
       "ubah file"
     ],
-    "tool.system_prompt": "Gunakan alat ini hanya untuk file teks yang sudah ada. Pattern wajib diisi. path dan replacement juga wajib diisi. replace_po_entry memerlukan po_msgid. replace_between memerlukan anchor_before dan anchor_after. replace_all_in_files menggunakan name_pattern dan recursive. Jika preview=false, confirm_over dapat memblokir perubahan besar. Kembalikan hanya JSON.",
     "param.po_msgid.description": "msgid gettext target untuk repl...",
     "param.anchor_before.description": "Penanda aw...",
     "param.anchor_after.description": "Penanda...",
@@ -607,7 +596,6 @@
       "sửa file",
       "đổi file"
     ],
-    "tool.system_prompt": "Chỉ dùng công cụ này cho các tệp văn bản hiện có. Pattern là bắt buộc. path và replacement cũng là bắt buộc. replace_po_entry cần po_msgid. replace_between cần anchor_before và anchor_after. replace_all_in_files dùng name_pattern và recursive. Nếu preview=false, confirm_over có thể chặn các thay đổi lớn. Chỉ trả về JSON.",
     "param.po_msgid.description": "msgid gettext đích cho replace_...",
     "param.anchor_before.description": "Neo bắt đầ...",
     "param.anchor_after.description": "Neo kết...",
@@ -659,7 +647,6 @@
       "popraw plik",
       "zmień plik"
     ],
-    "tool.system_prompt": "Używaj tego narzędzia tylko do istniejących plików tekstowych. Pattern jest wymagany. path i replacement są wymagane. replace_po_entry wymaga po_msgid. replace_between wymaga anchor_before i anchor_after. replace_all_in_files używa name_pattern i recursive. Jeśli preview=false, confirm_over może zablokować duże zmiany. Zwracaj tylko JSON.",
     "param.po_msgid.description": "Docelowy msgid gettext dla repl...",
     "param.anchor_before.description": "Początkowa...",
     "param.anchor_after.description": "Końcowa...",
@@ -711,7 +698,6 @@
       "फ़ाइल सुधारें",
       "फ़ाइल संशोधित करें"
     ],
-    "tool.system_prompt": "इस टूल का उपयोग केवल मौजूदा टेक्स्ट फ़ाइलों के लिए करें। पैटर्न आवश्यक है. पथ और प्रतिस्थापन की आवश्यकता है. रिप्लेस_पो_एंट्री को po_msgid की आवश्यकता है। रिप्लेस_बिटवीन को एंकर_बिफोर और एंकर_आफ्टर की जरूरत है। Replace_all_in_files name_pattern और पुनरावर्ती का उपयोग करता है। यदि पूर्वावलोकन=गलत है, तो कन्फर्म_ओवर बड़े बदलावों को रोक सकता है। केवल JSON लौटाएँ.",
     "param.po_msgid.description": "Replace_po_entry के लिए लक्ष्य...",
     "param.anchor_before.description": "Replace_be...",
     "param.anchor_after.description": "Replace_...",
@@ -763,7 +749,6 @@
       "إصلاح ملف",
       "تعديل ملف"
     ],
-    "tool.system_prompt": "استخدم هذه الأداة فقط للملفات النصية الموجودة. النمط مطلوب. مطلوب المسار والاستبدال. استبدال_po_entry يحتاج إلى po_msgid. استبدال_بين يحتاج إلى مرساة_قبل و مرساة_بعد. يستخدم استبدال_all_in_files name_pattern والتكراري. إذا كانت Preview=false، فيمكن لـfirm_over حظر التغييرات الكبيرة. إرجاع JSON فقط.",
     "param.po_msgid.description": "استهدف gettext msgid لـ Replace...",
     "param.anchor_before.description": "ابدأ ربط ا...",
     "param.anchor_after.description": "نهاية ال...",
@@ -815,7 +800,6 @@
       "korrigera fil",
       "ändra fil"
     ],
-    "tool.system_prompt": "Använd bara det här verktyget för befintliga textfiler. Mönster krävs. path och replacement krävs. replace_po_entry kräver po_msgid.",
     "param.po_msgid.description": "Mål-msgid för gettext för repla...",
     "param.anchor_before.description": "Startankar...",
     "param.anchor_after.description": "Slutanka...",
@@ -867,7 +851,6 @@
       "rekebisha faili",
       "badilisha faili"
     ],
-    "tool.system_prompt": "Tumia zana hii kwa faili za maandishi zilizopo tu. Mfano ni wa lazima. path na replacement ni lazima. replace_po_entry inahitaji po_msgid. replace_between inahitaji anchor_before na anchor_after. replace_all_in_files hutumia name_pattern na recursive. Ikiwa preview=false, confirm_over inaweza kuzuia mabadiliko makubwa. Rudisha JSON pekee.",
     "param.po_msgid.description": "Gettext msgid lengwa kwa replac...",
     "param.anchor_before.description": "Kianzio ch...",
     "param.anchor_after.description": "Mwisho w...",
@@ -919,7 +902,6 @@
       "korriger fil",
       "endre fil"
     ],
-    "tool.system_prompt": "Bruk bare dette verktøyet for eksisterende tekstfiler. Mønster er påkrevd. path og replacement er påkrevd. replace_po_entry krever po_msgid.",
     "param.po_msgid.description": "Mål-msgid for gettext for repla...",
     "param.anchor_before.description": "Startanker...",
     "param.anchor_after.description": "Sluttank...",
@@ -971,7 +953,6 @@
       "corrigeer bestand",
       "wijzig bestand"
     ],
-    "tool.system_prompt": "Gebruik dit hulpmiddel alleen voor bestaande tekstbestanden. Een patroon is vereist. path en replacement zijn vereist. replace_po_entry heeft po_msgid nodig. replace_between heeft anchor_before en anchor_after nodig. replace_all_in_files gebruikt name_pattern en recursive. Als preview=false is, kan confirm_over grote wijzigingen blokkeren. Geef alleen JSON terug.",
     "param.po_msgid.description": "Doel-gettext msgid voor replace...",
     "param.anchor_before.description": "Startanker...",
     "param.anchor_after.description": "Eindanke...",
@@ -1023,7 +1004,6 @@
       "korjaa tiedosto",
       "vaihda tiedosto"
     ],
-    "tool.system_prompt": "Käytä tätä työkalua vain olemassa oleville tekstitiedostoille. Kaava on pakollinen. path ja replacement ovat pakollisia. replace_po_entry tarvitsee po_msgid-arvon. replace_between tarvitsee anchor_before- ja anchor_after-arvot. replace_all_in_files käyttää name_pattern- ja recursive-parametreja. Jos preview=false, confirm_over voi estää suuret muutokset. Palauta vain JSON.",
     "param.po_msgid.description": "replace_po_entryn kohde-gettext...",
     "param.anchor_before.description": "Aloitusank...",
     "param.anchor_after.description": "Lopetusa...",
@@ -1075,7 +1055,6 @@
       "opravit soubor",
       "změnit soubor"
     ],
-    "tool.system_prompt": "Používejte tento nástroj pouze pro existující textové soubory. Vzor je povinný. path a replacement jsou povinné. replace_po_entry vyžaduje po_msgid. replace_between vyžaduje anchor_before a anchor_after. replace_all_in_files používá name_pattern a recursive. Pokud preview=false, confirm_over může blokovat velké změny. Vracejte pouze JSON.",
     "param.po_msgid.description": "Cílové gettext msgid pro replac...",
     "param.anchor_before.description": "Počáteční...",
     "param.anchor_after.description": "Koncová...",
@@ -1127,7 +1106,6 @@
       "виправити файл",
       "змінити файл"
     ],
-    "tool.system_prompt": "Використовуйте цей інструмент лише для наявних текстових файлів. Шаблон обов’язковий. path і replacement обов’язкові. replace_po_entry потребує po_msgid. replace_between потребує anchor_before та anchor_after. replace_all_in_files використовує name_pattern і recursive. Якщо preview=false, confirm_over може заблокувати великі зміни. Повертайте лише JSON.",
     "param.po_msgid.description": "Цільовий gettext msgid для repl...",
     "param.anchor_before.description": "Початковий...",
     "param.anchor_after.description": "Кінцевий...",
@@ -1179,7 +1157,6 @@
       "dosyayı düzelt",
       "dosyayı değiştir"
     ],
-    "tool.system_prompt": "Bu aracı yalnızca mevcut metin dosyaları için kullanın. Desen gerekli. yol ve değiştirme gereklidir. replacement_po_entry'nin po_msgid'e ihtiyacı var. replacement_between için çapa_before ve çapa_sonra ihtiyacı var. replacement_all_in_files, name_pattern ve özyinelemeli kullanır. önizleme=yanlış ise, onaylama_over büyük değişiklikleri engelleyebilir. Yalnızca JSON değerini döndür.",
     "param.po_msgid.description": "change_po_entry için gettext ms...",
     "param.anchor_before.description": "replacemen...",
     "param.anchor_after.description": "replacem...",
@@ -1231,7 +1208,6 @@
       "แก้ไขไฟล์",
       "เปลี่ยนไฟล์"
     ],
-    "tool.system_prompt": "ใช้เครื่องมือนี้กับไฟล์ข้อความที่มีอยู่แล้วเท่านั้น pattern เป็นสิ่งจำเป็น path และ replacement ก็จำเป็นเช่นกัน replace_po_entry ต้องใช้ po_msgid replace_between ต้องใช้ anchor_before และ anchor_after replace_all_in_files ใช้ name_pattern และ recursive หาก preview=false confirm_over อาจบล็อกการเปลี่ยนแปลงขนาดใหญ่ ส่งกลับเฉพาะ JSON เท่านั้น",
     "param.po_msgid.description": "msgid ของ gettext เป้าหมายสำหรั...",
     "param.anchor_before.description": "จุดยึดเริ่...",
     "param.anchor_after.description": "จุดยึดสิ...",
@@ -1283,7 +1259,6 @@
       "修正文件",
       "修改文件"
     ],
-    "tool.system_prompt": "仅将此工具用于现有文本文件。pattern 是必需的。path 和 replacement 也是必需的。replace_po_entry 需要 po_msgid。replace_between 需要 anchor_before 和 anchor_after。replace_all_in_files 使用 name_pattern 和 recursive。preview=false 时，confirm_over 可能会阻止大规模更改。只返回 JSON。",
     "param.po_msgid.description": "gettext msgid（省略时使用pattern）。",
     "param.anchor_before.description": "起始锚点。",
     "param.anchor_after.description": "结束锚点。",
@@ -1335,7 +1310,6 @@
       "修正檔案",
       "修改檔案"
     ],
-    "tool.system_prompt": "僅將此工具用於現有文字檔。pattern 是必填的。path 與 replacement 也是必填的。replace_po_entry 需要 po_msgid。replace_between 需要 anchor_before 與 anchor_after。replace_all_in_files 使用 name_pattern 與 recursive。preview=false 時，confirm_over 可能會阻止大規模變更。只回傳 JSON。",
     "param.po_msgid.description": "gettext msgid（省略时使用pattern）。",
     "param.anchor_before.description": "起始锚点。",
     "param.anchor_after.description": "结束锚点。",
@@ -1387,7 +1361,6 @@
       "ফাইল ঠিক করুন",
       "ফাইল পরিবর্তন"
     ],
-    "tool.system_prompt": "শুধু বিদ্যমান টেক্সট ফাইলের জন্য এই টুল ব্যবহার করুন। pattern আবশ্যক। path এবং replacement আবশ্যক। replace_po_entry-এর জন্য po_msgid দরকার। replace_between-এর জন্য anchor_before এবং anchor_after দরকার। replace_all_in_files name_pattern এবং recursive ব্যবহার করে। preview=false হলে confirm_over বড় পরিবর্তন আটকে দিতে পারে। শুধু JSON ফেরত দিন।",
     "param.po_msgid.description": "replace_po_entry-এর জন্য লক্ষ্য...",
     "param.anchor_before.description": "replace_be...",
     "param.anchor_after.description": "replace_...",
@@ -1439,7 +1412,6 @@
       "اصلاح فایل",
       "تغییر فایل"
     ],
-    "tool.system_prompt": "فقط برای فایل‌های متنیِ موجود از این ابزار استفاده کنید. pattern الزامی است. path و replacement هم الزامی‌اند. replace_po_entry به po_msgid نیاز دارد. replace_between به anchor_before و anchor_after نیاز دارد. replace_all_in_files از name_pattern و recursive استفاده می‌کند. اگر preview=false باشد، confirm_over می‌تواند تغییرات بزرگ را متوقف کند. فقط JSON برگردانید.",
     "param.po_msgid.description": "msgid هدف gettext برای replace_...",
     "param.anchor_before.description": "anchor آغا...",
     "param.anchor_after.description": "anchor پ...",
@@ -1491,7 +1463,6 @@
       "файлыг засах",
       "файлыг өөрчлөх"
     ],
-    "tool.system_prompt": "Зөвхөн байгаа текст файлуудад энэ хэрэгслийг ашигла. pattern шаардлагатай. path болон replacement шаардлагатай. replace_po_entry-д po_msgid хэрэгтэй. replace_between-д anchor_before болон anchor_after хэрэгтэй. replace_all_in_files нь name_pattern болон recursive ашиглана. preview=false үед confirm_over нь том өөрчлөлтүүдийг хааж болно. Зөвхөн JSON буцаана уу.",
     "param.po_msgid.description": "replace_po_entry-д зориулсан зо...",
     "param.anchor_before.description": "replace_be...",
     "param.anchor_after.description": "replace_...",
@@ -1543,7 +1514,6 @@
       "फाइल दुरुस्त करा",
       "फाइल बदल"
     ],
-    "tool.system_prompt": "फक्त विद्यमान मजकूर फायलींसाठी हे साधन वापरा. pattern आवश्यक आहे. path आणि replacement आवश्यक आहेत. replace_po_entry साठी po_msgid आवश्यक आहे. replace_between साठी anchor_before आणि anchor_after आवश्यक आहेत. replace_all_in_files name_pattern आणि recursive वापरते. preview=false असल्यास confirm_over मोठे बदल रोखू शकते. फक्त JSON परत करा.",
     "param.po_msgid.description": "replace_po_entry साठी लक्ष्य ge...",
     "param.anchor_before.description": "replace_be...",
     "param.anchor_after.description": "replace_...",

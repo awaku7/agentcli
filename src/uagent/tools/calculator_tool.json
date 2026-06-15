@@ -13,8 +13,7 @@
       "evaluate",
       "solve",
       "numeric"
-    ],
-    "tool.system_prompt": "Calculate a mathematical expression and return the result. Return JSON only."
+    ]
   },
   "ja": {
     "param.expression.description": "評価する数式（例: '123*(45+67)'）。",
@@ -30,8 +29,7 @@
       "算術",
       "評価",
       "解く"
-    ],
-    "tool.system_prompt": "数式を計算して結果を返します。JSONのみ返してください。"
+    ]
   },
   "es": {
     "param.expression.description": "La fórmula que desea calcular (por ejemplo,...",
@@ -47,8 +45,7 @@
       "evaluar",
       "resolver",
       "numérico"
-    ],
-    "tool.system_prompt": "Calcule una expresión matemática y devuelva el resultado. Devuelva solo JSON."
+    ]
   },
   "fr": {
     "param.expression.description": "La formule que vous souhaitez calculer (par...",
@@ -64,8 +61,7 @@
       "évaluer",
       "résoudre",
       "numérique"
-    ],
-    "tool.system_prompt": "Calculez une expression mathématique et renvoyez le résultat. Retournez uniquement du JSON."
+    ]
   },
   "ko": {
     "param.expression.description": "계산할 수식(예: '123*(45+67)').",
@@ -81,8 +77,7 @@
       "평가",
       "해결",
       "숫자"
-    ],
-    "tool.system_prompt": "수학 표현식을 계산하고 결과를 반환합니다. JSON만 반환하세요."
+    ]
   },
   "de": {
     "param.expression.description": "Die Formel, die Sie berechnen möchten (z.B.",
@@ -98,8 +93,7 @@
       "auswerten",
       "lösen",
       "numerisch"
-    ],
-    "tool.system_prompt": "Berechnen Sie einen mathematischen Ausdruck und geben Sie das Ergebnis zurück. Geben Sie nur JSON zurück."
+    ]
   },
   "it": {
     "param.expression.description": "La formula che desideri calcolare (ad esemp...",
@@ -115,8 +109,7 @@
       "valutare",
       "risolvere",
       "numerico"
-    ],
-    "tool.system_prompt": "Calcola un'espressione matematica e restituisci il risultato. Restituisci solo JSON."
+    ]
   },
   "ru": {
     "param.expression.description": "Формула, которую вы хотите вычислить (напри...",
@@ -132,8 +125,7 @@
       "оценить",
       "решить",
       "числовой"
-    ],
-    "tool.system_prompt": "Вычислите математическое выражение и верните результат. Возвращайте только JSON."
+    ]
   },
   "pt_BR": {
     "param.expression.description": "A fórmula que você deseja calcular (por exe...",
@@ -149,8 +141,7 @@
       "avaliar",
       "resolver",
       "numérico"
-    ],
-    "tool.system_prompt": "Calcule uma expressão matemática e retorne o resultado. Retorne apenas JSON."
+    ]
   },
   "pt": {
     "param.expression.description": "A fórmula que você deseja calcular (por exe...",
@@ -166,8 +157,7 @@
       "avaliar",
       "resolver",
       "numérico"
-    ],
-    "tool.system_prompt": "Calcule uma expressão matemática e retorne o resultado. Retorne apenas JSON."
+    ]
   },
   "id": {
     "param.expression.description": "Rumus yang ingin Anda hitung (mis.",
@@ -183,8 +173,7 @@
       "mengevaluasi",
       "menyelesaikan",
       "numerik"
-    ],
-    "tool.system_prompt": "Hitung ekspresi matematika dan kembalikan hasilnya. Kembalikan JSON saja."
+    ]
   },
   "vi": {
     "param.expression.description": "Công thức bạn muốn tính toán (ví dụ: '123 *...",
@@ -200,8 +189,7 @@
       "đánh giá",
       "giải",
       "số"
-    ],
-    "tool.system_prompt": "Tính toán một biểu thức toán học và trả về kết quả. Chỉ trả về JSON."
+    ]
   },
   "pl": {
     "param.expression.description": "Formuła, którą chcesz obliczyć (np.",
@@ -217,8 +205,7 @@
       "ocenić",
       "rozwiązać",
       "numeryczny"
-    ],
-    "tool.system_prompt": "Oblicz wyrażenie matematyczne i zwróć wynik. Zwracaj wyłącznie JSON."
+    ]
   },
   "hi": {
     "param.expression.description": "वह सूत्र जिसकी आप गणना करना चाहते हैं (जैसे...",
@@ -234,8 +221,7 @@
       "मूल्यांकन",
       "हल करना",
       "संख्यात्मक"
-    ],
-    "tool.system_prompt": "गणितीय अभिव्यक्ति की गणना करें और परिणाम लौटाएँ। केवल JSON लौटाएँ।"
+    ]
   },
   "ar": {
     "param.expression.description": "الصيغة التي تريد حسابها (على سبيل المثال، '...",
@@ -251,8 +237,7 @@
       "تقييم",
       "حل",
       "عددي"
-    ],
-    "tool.system_prompt": "احسب تعبيرًا رياضيًا وأعد النتيجة. أعد JSON فقط."
+    ]
   },
   "sv": {
     "param.expression.description": "Formeln du vill beräkna (t.ex.",
@@ -268,8 +253,7 @@
       "utvärdera",
       "lösa",
       "numerisk"
-    ],
-    "tool.system_prompt": "Beräkna ett matematiskt uttryck och returnera resultatet. Returnera endast JSON."
+    ]
   },
   "sw": {
     "param.expression.description": "Usemi/formula unaotaka kukokotoa (mfano '12...",
@@ -285,8 +269,7 @@
       "tathmini",
       "suluhisha",
       "nambari"
-    ],
-    "tool.system_prompt": "Kokotoa usemi wa hisabati na urudishe matokeo. Rudisha JSON pekee."
+    ]
   },
   "nb": {
     "param.expression.description": "Formelen du vil beregne (f.eks.",
@@ -302,8 +285,7 @@
       "evaluere",
       "løse",
       "numerisk"
-    ],
-    "tool.system_prompt": "Beregn et matematisk uttrykk og returner resultatet. Returner bare JSON."
+    ]
   },
   "nl": {
     "param.expression.description": "De formule die u wilt berekenen (bijv.",
@@ -319,8 +301,7 @@
       "evalueren",
       "oplossen",
       "numeriek"
-    ],
-    "tool.system_prompt": "Bereken een wiskundige expressie en geef het resultaat terug. Geef alleen JSON terug."
+    ]
   },
   "fi": {
     "param.expression.description": "Laskettava lauseke (esim.",
@@ -336,8 +317,7 @@
       "arvioida",
       "ratkaista",
       "numeerinen"
-    ],
-    "tool.system_prompt": "Laske matemaattinen lauseke ja palauta tulos. Palauta vain JSON."
+    ]
   },
   "cs": {
     "param.expression.description": "Vzorec, který chcete vypočítat (např.",
@@ -353,8 +333,7 @@
       "vyhodnotit",
       "vyřešit",
       "číselný"
-    ],
-    "tool.system_prompt": "Vypočítejte matematický výraz a vraťte výsledek. Vracejte pouze JSON."
+    ]
   },
   "uk": {
     "param.expression.description": "Формула, яку ви хочете обчислити (наприклад...",
@@ -370,8 +349,7 @@
       "оцінити",
       "розв’язати",
       "числовий"
-    ],
-    "tool.system_prompt": "Обчисліть математичний вираз і поверніть результат. Повертайте лише JSON."
+    ]
   },
   "tr": {
     "param.expression.description": "Hesaplamak istediğiniz formül (ör.",
@@ -387,8 +365,7 @@
       "değerlendirmek",
       "çözmek",
       "sayısal"
-    ],
-    "tool.system_prompt": "Matematiksel bir ifade hesaplayın ve sonucu döndürün. Yalnızca JSON değerini döndür."
+    ]
   },
   "th": {
     "param.expression.description": "สูตรที่คุณต้องการคำนวณ (เช่น '123 * (45 + 6...",
@@ -404,8 +381,7 @@
       "ประเมิน",
       "แก้",
       "ตัวเลข"
-    ],
-    "tool.system_prompt": "คำนวณนิพจน์ทางคณิตศาสตร์และส่งกลับผลลัพธ์ ส่งคืนเฉพาะ JSON เท่านั้น"
+    ]
   },
   "zh_CN": {
     "param.expression.description": "要计算的数学表达式（例如: '123*(45+67)'）。",
@@ -421,8 +397,7 @@
       "求值",
       "求解",
       "数值"
-    ],
-    "tool.system_prompt": "计算数学表达式并返回结果。仅返回 JSON。"
+    ]
   },
   "zh_TW": {
     "param.expression.description": "要计算的数学表达式（例如: '123*(45+67)'）。",
@@ -438,8 +413,7 @@
       "求值",
       "求解",
       "數值"
-    ],
-    "tool.system_prompt": "計算數學表達式並回傳結果。僅回傳 JSON。"
+    ]
   },
   "bn": {
     "param.expression.description": "আপনি যে সূত্রটি গণনা করতে চান (যেমন '123 *...",
@@ -455,8 +429,7 @@
       "মূল্যায়ন",
       "সমাধান",
       "সংখ্যাসূচক"
-    ],
-    "tool.system_prompt": "একটি গাণিতিক expression গণনা করুন এবং ফলাফল ফেরত দিন। শুধু JSON ফেরত দিন।"
+    ]
   },
   "fa": {
     "param.expression.description": "فرمولی که می‌خواهید محاسبه کنید (مثلاً '123...",
@@ -472,8 +445,7 @@
       "ارزیابی",
       "حل",
       "عددی"
-    ],
-    "tool.system_prompt": "یک عبارت ریاضی را محاسبه کنید و نتیجه را برگردانید. فقط JSON برگردانید."
+    ]
   },
   "mn": {
     "param.expression.description": "Тооцоолохыг хүссэн томьёо (жишээ нь '123 *...",
@@ -489,8 +461,7 @@
       "үнэлэх",
       "шийдэх",
       "тоон"
-    ],
-    "tool.system_prompt": "Математик илэрхийллийг бодож үр дүнг буцаана. Зөвхөн JSON буцаана."
+    ]
   },
   "mr": {
     "param.expression.description": "तुम्हाला ज्याची गणना करायची आहे ते सूत्र (उदा.",
@@ -506,7 +477,6 @@
       "मूल्यांकन",
       "सोडवणे",
       "संख्यात्मक"
-    ],
-    "tool.system_prompt": "एक गणिती expression मोजा आणि निकाल परत करा. फक्त JSON परत करा."
+    ]
   }
 }

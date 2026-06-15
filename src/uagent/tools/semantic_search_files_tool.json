@@ -30,7 +30,6 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "tool.system_prompt": "This tool is used for semantic search over local files. Return JSON only.",
     "err.disabled_reason": "embedding endpoint is unreachable."
   },
   "ja": {
@@ -58,7 +57,6 @@
       "ベクトル検索",
       "埋め込み検索"
     ],
-    "tool.system_prompt": "このツールは次の目的で使用されます (ツールの説明を参照)。",
     "err.disabled_reason": "埋め込み API に到達できません。"
   },
   "es": {
@@ -86,7 +84,6 @@
       "búsqueda vectorial",
       "archivos locales"
     ],
-    "tool.system_prompt": "Esta herramienta se utiliza para la búsqueda semántica en archivos locales. Devuelve solo JSON.",
     "err.disabled_reason": "No se puede الوصول al API de embeddings."
   },
   "fr": {
@@ -114,7 +111,6 @@
       "recherche vectorielle",
       "fichiers locaux"
     ],
-    "tool.system_prompt": "Cet outil sert à la recherche sémantique dans les fichiers locaux. Retournez uniquement du JSON.",
     "err.disabled_reason": "L’API d’embeddings est inaccessible."
   },
   "ko": {
@@ -142,7 +138,6 @@
       "벡터 검색",
       "임베딩 검색"
     ],
-    "tool.system_prompt": "이 도구는 로컬 파일에 대한 의미 검색에 사용됩니다. JSON만 반환하세요.",
     "err.disabled_reason": "임베딩 API에 연결할 수 없습니다."
   },
   "de": {
@@ -170,7 +165,6 @@
       "vektorsuche",
       "lokale dateien"
     ],
-    "tool.system_prompt": "Dieses Tool wird für semantische Suche in lokalen Dateien verwendet. Geben Sie nur JSON zurück.",
     "err.disabled_reason": "Die Embedding-API ist nicht erreichbar."
   },
   "it": {
@@ -198,7 +192,6 @@
       "ricerca vettoriale",
       "file locali"
     ],
-    "tool.system_prompt": "Questo strumento serve per la ricerca semantica nei file locali. Restituisci solo JSON.",
     "err.disabled_reason": "L’API di embedding non è raggiungibile."
   },
   "ru": {
@@ -226,7 +219,6 @@
       "векторный поиск",
       "локальные файлы"
     ],
-    "tool.system_prompt": "Этот инструмент используется для семантического поиска по локальным файлам. Возвращайте только JSON.",
     "err.disabled_reason": "Embedding API недоступен."
   },
   "pt_BR": {
@@ -254,7 +246,6 @@
       "busca vetorial",
       "arquivos locais"
     ],
-    "tool.system_prompt": "Esta ferramenta é usada para pesquisa semântica em arquivos locais. Retorne apenas JSON.",
     "err.disabled_reason": "A API de embeddings não está acessível."
   },
   "pt": {
@@ -282,7 +273,6 @@
       "busca vetorial",
       "arquivos locais"
     ],
-    "tool.system_prompt": "Esta ferramenta é usada para pesquisa semântica em arquivos locais. Retorne apenas JSON.",
     "err.disabled_reason": "A API de embeddings não está acessível."
   },
   "id": {
@@ -310,7 +300,6 @@
       "pencarian vektor",
       "file lokal"
     ],
-    "tool.system_prompt": "Alat ini digunakan untuk pencarian semantik pada file lokal. Kembalikan JSON saja.",
     "err.disabled_reason": "API embedding tidak dapat dijangkau."
   },
   "vi": {
@@ -338,7 +327,6 @@
       "tìm kiếm vector",
       "tệp cục bộ"
     ],
-    "tool.system_prompt": "Công cụ này được dùng để tìm kiếm ngữ nghĩa trên các tệp cục bộ. Chỉ trả về JSON.",
     "err.disabled_reason": "Không thể truy cập Embedding API."
   },
   "pl": {
@@ -366,7 +354,6 @@
       "wyszukiwanie wektorowe",
       "pliki lokalne"
     ],
-    "tool.system_prompt": "To narzędzie służy do wyszukiwania semantycznego w lokalnych plikach. Zwracaj tylko JSON.",
     "err.disabled_reason": "Interfejs Embedding API jest niedostępny."
   },
   "hi": {
@@ -394,7 +381,6 @@
       "वेक्टर खोज",
       "स्थानीय फ़ाइलें"
     ],
-    "tool.system_prompt": "यह टूल स्थानीय फ़ाइलों पर अर्थ-आधारित खोज के लिए उपयोग किया जाता है। केवल JSON लौटाएँ।",
     "err.disabled_reason": "embedding endpoint is unreachable."
   },
   "ar": {
@@ -422,7 +408,6 @@
       "البحث المتجهي",
       "الملفات المحلية"
     ],
-    "tool.system_prompt": "تُستخدم هذه الأداة للبحث الدلالي في الملفات المحلية. أرجع JSON فقط.",
     "err.disabled_reason": "تعذر الوصول إلى واجهة Embedding API."
   },
   "sv": {
@@ -450,7 +435,6 @@
       "vektorsökning",
       "lokala filer"
     ],
-    "tool.system_prompt": "Det här verktyget används för semantisk sökning i lokala filer. Returnera endast JSON.",
     "err.disabled_reason": "Embedding API är inte tillgängligt."
   },
   "sw": {
@@ -478,7 +462,6 @@
       "utafutaji wa vekta",
       "faili za ndani"
     ],
-    "tool.system_prompt": "Chombo hiki hutumiwa kwa utafutaji wa kimaana kwenye faili za ndani. Rudisha JSON pekee.",
     "err.disabled_reason": "Embedding API haipatikani."
   },
   "nb": {
@@ -506,7 +489,6 @@
       "vektorsøk",
       "lokale filer"
     ],
-    "tool.system_prompt": "Dette verktøyet brukes til semantisk søk i lokale filer. Returner bare JSON.",
     "err.disabled_reason": "Embedding API er ikke tilgjengelig."
   },
   "nl": {
@@ -534,7 +516,6 @@
       "vector zoekopdracht",
       "lokale bestanden"
     ],
-    "tool.system_prompt": "Deze tool wordt gebruikt voor semantisch zoeken in lokale bestanden. Geef alleen JSON terug.",
     "err.disabled_reason": "Embedding-API is niet bereikbaar."
   },
   "fi": {
@@ -562,7 +543,6 @@
       "vektorihaku",
       "paikalliset tiedostot"
     ],
-    "tool.system_prompt": "Tätä työkalua käytetään paikallisten tiedostojen semanttiseen hakuun. Palauta vain JSON.",
     "err.disabled_reason": "Embedding-API ei ole tavoitettavissa."
   },
   "cs": {
@@ -590,7 +570,6 @@
       "vektorové hledání",
       "místní soubory"
     ],
-    "tool.system_prompt": "Tento nástroj slouží k sémantickému vyhledávání v místních souborech. Vracejte pouze JSON.",
     "err.disabled_reason": "Embedding API není dostupné."
   },
   "uk": {
@@ -618,7 +597,6 @@
       "векторний пошук",
       "локальні файли"
     ],
-    "tool.system_prompt": "Цей інструмент використовується для семантичного пошуку в локальних файлах. Поверніть лише JSON.",
     "err.disabled_reason": "Embedding API недоступний."
   },
   "tr": {
@@ -646,7 +624,6 @@
       "vektör arama",
       "yerel dosyalar"
     ],
-    "tool.system_prompt": "Bu araç, yerel dosyalar üzerinde anlamsal arama için kullanılır. Yalnızca JSON döndürün.",
     "err.disabled_reason": "Embedding API’ye ulaşılamıyor."
   },
   "th": {
@@ -674,7 +651,6 @@
       "ค้นหาเวกเตอร์",
       "ไฟล์ในเครื่อง"
     ],
-    "tool.system_prompt": "เครื่องมือนี้ใช้สำหรับการค้นหาเชิงความหมายในไฟล์ในเครื่อง ส่งคืน JSON เท่านั้น",
     "err.disabled_reason": "ไม่สามารถเข้าถึง Embedding API ได้"
   },
   "zh_CN": {
@@ -702,7 +678,6 @@
       "向量搜索",
       "本地文件"
     ],
-    "tool.system_prompt": "此工具用于对本地文件进行语义搜索。仅返回 JSON。",
     "err.disabled_reason": "无法访问嵌入 API。"
   },
   "zh_TW": {
@@ -730,7 +705,6 @@
       "向量搜尋",
       "本機檔案"
     ],
-    "tool.system_prompt": "此工具用於對本機檔案執行語義搜尋。僅回傳 JSON。",
     "err.disabled_reason": "無法連線到嵌入 API。"
   },
   "bn": {
@@ -758,7 +732,6 @@
       "ভেক্টর অনুসন্ধান",
       "স্থানীয় ফাইল"
     ],
-    "tool.system_prompt": "এই টুলটি স্থানীয় ফাইলের অর্থবহ অনুসন্ধানের জন্য ব্যবহৃত হয়। শুধু JSON ফেরত দিন।",
     "err.disabled_reason": "embedding endpoint-এ পৌঁছানো যাচ্ছে না।"
   },
   "fa": {
@@ -786,7 +759,6 @@
       "جستجوی برداری",
       "فایل‌های محلی"
     ],
-    "tool.system_prompt": "این ابزار برای جست‌وجوی معنایی در فایل‌های محلی استفاده می‌شود. فقط JSON برگردانید.",
     "err.disabled_reason": "نقطهٔ پایانی embedding در دسترس نیست."
   },
   "mn": {
@@ -814,7 +786,6 @@
       "вектор хайлт",
       "орон нутгийн файл"
     ],
-    "tool.system_prompt": "Энэ хэрэгсэл нь орон нутгийн файлуудад утгын хайлт хийхэд ашиглагдана. Зөвхөн JSON буцаана уу.",
     "err.disabled_reason": "embedding endpoint хүрэх боломжгүй байна."
   },
   "mr": {
@@ -842,7 +813,6 @@
       "व्हेक्टर शोध",
       "स्थानिक फाइल्स"
     ],
-    "tool.system_prompt": "हे साधन स्थानिक फाइल्सवर अर्थपूर्ण शोधासाठी वापरले जाते. फक्त JSON परत करा.",
     "err.disabled_reason": "embedding endpoint उपलब्ध नाही."
   }
 }

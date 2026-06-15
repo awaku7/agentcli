@@ -25,7 +25,6 @@
       "테스트 실행",
       "запустить тесты"
     ],
-    "tool.system_prompt": "Use this tool for the purpose described in the tool description.",
     "summary.no_change": "Successfully made no changes (0 matches)"
   },
   "ja": {
@@ -50,7 +49,6 @@
       "pytest unittest npm",
       "テスト"
     ],
-    "tool.system_prompt": "このツールは、ツール説明に記載された目的のために使用します。",
     "summary.no_change": "変更はありませんでした（0 件の一致）"
   },
   "es": {
@@ -75,7 +73,6 @@
       "correr tests",
       "test runner"
     ],
-    "tool.system_prompt": "Use esta herramienta para el propósito descrito en la descripción de la herramienta.",
     "summary.no_change": "Se realizaron correctamente 0 cambios (0 coincidencias)"
   },
   "fr": {
@@ -100,7 +97,6 @@
       "lancer tests",
       "test runner"
     ],
-    "tool.system_prompt": "Utilisez cet outil pour l'objectif décrit dans la description de l'outil.",
     "summary.no_change": "Aucune modification effectuée avec succès (0 correspondances)"
   },
   "ko": {
@@ -125,7 +121,6 @@
       "pytest unittest npm",
       "테스트"
     ],
-    "tool.system_prompt": "이 도구는 도구 설명에 적힌 목적에 사용합니다.",
     "summary.no_change": "성공적으로 변경 사항이 없었습니다(일치 0개)"
   },
   "de": {
@@ -149,7 +144,6 @@
       "tests ausführen",
       "test runner"
     ],
-    "tool.system_prompt": "Verwenden Sie dieses Tool für den in der Toolbeschreibung beschriebenen Zweck.",
     "summary.no_change": "Erfolgreich keine Änderungen vorgenommen (0 Treffer)"
   },
   "it": {
@@ -173,7 +167,6 @@
       "esegui test",
       "test runner"
     ],
-    "tool.system_prompt": "Utilizza questo strumento per lo scopo descritto nella descrizione dello strumento.",
     "summary.no_change": "Nessuna modifica apportata con successo (0 corrispondenze)"
   },
   "ru": {
@@ -197,7 +190,6 @@
       "запуск тестов",
       "test runner"
     ],
-    "tool.system_prompt": "Используйте этот инструмент для цели, описанной в описании инструмента.",
     "summary.no_change": "Успешно без изменений (0 совпадений)"
   },
   "pt_BR": {
@@ -222,7 +214,6 @@
       "rodar testes",
       "test runner"
     ],
-    "tool.system_prompt": "Use esta ferramenta para o propósito descrito na descrição da ferramenta.",
     "summary.no_change": "Nenhuma alteração foi feita com sucesso (0 correspondências)"
   },
   "pt": {
@@ -247,7 +238,6 @@
       "rodar testes",
       "test runner"
     ],
-    "tool.system_prompt": "Use esta ferramenta para a finalidade descrita na descrição da ferramenta.",
     "summary.no_change": "Concluído com sucesso sem alterações (0 correspondências)"
   },
   "id": {
@@ -271,7 +261,6 @@
       "jalankan tes",
       "test runner"
     ],
-    "tool.system_prompt": "Gunakan alat ini untuk tujuan yang dijelaskan pada deskripsi alat.",
     "summary.no_change": "Berhasil tanpa perubahan (0 kecocokan)"
   },
   "vi": {
@@ -295,7 +284,6 @@
       "chạy тест",
       "test runner"
     ],
-    "tool.system_prompt": "Hãy dùng công cụ này cho mục đích được mô tả trong phần mô tả công cụ.",
     "summary.no_change": "Đã hoàn tất thành công mà không có thay đổi nào (0 kết quả khớp)"
   },
   "pl": {
@@ -319,7 +307,6 @@
       "uruchom testy",
       "test runner"
     ],
-    "tool.system_prompt": "Użyj tego narzędzia zgodnie z opisem narzędzia.",
     "summary.no_change": "Pomyślnie nie wprowadzono żadnych zmian (0 dopasowań)"
   },
   "hi": {
@@ -343,7 +330,6 @@
       "टेस्ट चलाएँ",
       "test runner"
     ],
-    "tool.system_prompt": "इस टूल का उपयोग टूल विवरण में बताए गए उद्देश्य के लिए करें।",
     "summary.no_change": "सफलतापूर्वक कोई परिवर्तन नहीं किया गया (0 मिलान)"
   },
   "ar": {
@@ -367,7 +353,6 @@
       "تشغيل الاختبارات",
       "test runner"
     ],
-    "tool.system_prompt": "استخدم هذه الأداة للغرض الموصوف في وصف الأداة.",
     "summary.no_change": "تم بنجاح دون إجراء أي تغييرات (0 تطابق)"
   },
   "sv": {
@@ -391,7 +376,6 @@
       "köra tester",
       "test runner"
     ],
-    "tool.system_prompt": "Använd det här verktyget för syftet som beskrivs i verktygsbeskrivningen.",
     "summary.no_change": "Utfördes utan ändringar (0 träffar)"
   },
   "sw": {
@@ -415,7 +399,6 @@
       "endesha majaribio",
       "test runner"
     ],
-    "tool.system_prompt": "Tumia zana hii kwa madhumuni yaliyofafanuliwa katika maelezo ya zana.",
     "summary.no_change": "Hakuna mabadiliko yaliyofanywa kwa mafanikio (mfanano 0)"
   },
   "nb": {
@@ -439,7 +422,6 @@
       "kjør tester",
       "test runner"
     ],
-    "tool.system_prompt": "Bruk dette verktøyet til formålet som er beskrevet i verktøybeskrivelsen.",
     "summary.no_change": "Klarte uten endringer (0 treff)"
   },
   "nl": {
@@ -463,7 +445,6 @@
       "tests uitvoeren",
       "test runner"
     ],
-    "tool.system_prompt": "Gebruik deze tool voor het doel dat in de toolbeschrijving staat.",
     "summary.no_change": "Succesvol zonder wijzigingen uitgevoerd (0 treffers)"
   },
   "fi": {
@@ -487,7 +468,6 @@
       "aja testit",
       "test runner"
     ],
-    "tool.system_prompt": "Käytä tätä työkalua työkalun kuvauksessa määriteltyyn tarkoitukseen.",
     "summary.no_change": "Suoritettiin onnistuneesti ilman muutoksia (0 osumaa)"
   },
   "cs": {
@@ -511,7 +491,6 @@
       "spustit testy",
       "test runner"
     ],
-    "tool.system_prompt": "Používejte tento nástroj k účelu popsanému v popisu nástroje.",
     "summary.no_change": "Úspěšně bez provedení změn (0 shod)"
   },
   "uk": {
@@ -535,7 +514,6 @@
       "запуск тестів",
       "test runner"
     ],
-    "tool.system_prompt": "Використовуйте цей інструмент для мети, описаної в описі інструмента.",
     "summary.no_change": "Успішно без змін (0 збігів)"
   },
   "tr": {
@@ -559,7 +537,6 @@
       "testleri çalıştır",
       "test runner"
     ],
-    "tool.system_prompt": "Bu aracı, araç açıklamasında açıklanan amaç için kullanın.",
     "summary.no_change": "Başarıyla hiçbir değişiklik yapılmadı (0 eşleşme)"
   },
   "th": {
@@ -583,7 +560,6 @@
       "รันเทสต์",
       "test runner"
     ],
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อวัตถุประสงค์ที่อธิบายไว้ในคำอธิบายเครื่องมือ",
     "summary.no_change": "สำเร็จโดยไม่มีการเปลี่ยนแปลง (ตรงกัน 0 รายการ)"
   },
   "zh_CN": {
@@ -607,7 +583,6 @@
       "运行测试",
       "测试运行器"
     ],
-    "tool.system_prompt": "请将此工具用于工具说明中描述的用途。",
     "summary.no_change": "成功地未作任何更改（0 个匹配）"
   },
   "zh_TW": {
@@ -631,7 +606,6 @@
       "執行測試",
       "測試執行器"
     ],
-    "tool.system_prompt": "請將此工具用於工具說明中描述的用途。",
     "summary.no_change": "成功地未進行任何變更（0 個符合）"
   },
   "bn": {
@@ -655,7 +629,6 @@
       "টেস্ট চালান",
       "test runner"
     ],
-    "tool.system_prompt": "এই টুলটি টুলের বর্ণনায় উল্লিখিত উদ্দেশ্যের জন্য ব্যবহার করুন।",
     "summary.no_change": "সফলভাবে কোনো পরিবর্তন করা হয়নি (0টি match)"
   },
   "fa": {
@@ -679,7 +652,6 @@
       "اجرای تست‌ها",
       "test runner"
     ],
-    "tool.system_prompt": "از این ابزار برای هدفی که در توضیح ابزار آمده استفاده کنید.",
     "summary.no_change": "با موفقیت هیچ تغییری انجام نشد (0 match)"
   },
   "mn": {
@@ -703,7 +675,6 @@
       "тест ажиллуулах",
       "test runner"
     ],
-    "tool.system_prompt": "Энэ хэрэгслийг tool description-д тайлбарласан зорилгоор ашиглана уу.",
     "summary.no_change": "Амжилттай өөрчлөлт хийгдээгүй (0 таарсан)"
   },
   "mr": {
@@ -727,7 +698,6 @@
       "चाचण्या चालवा",
       "test runner"
     ],
-    "tool.system_prompt": "हे साधन tool description मध्ये दिलेल्या उद्देशासाठी वापरा.",
     "summary.no_change": "यशस्वीरीत्या कोणतेही बदल झाले नाहीत (0 जुळण्या)"
   }
 }

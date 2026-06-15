@@ -10,8 +10,7 @@
       "add skill",
       "download skill",
       "git clone skill"
-    ],
-    "tool.system_prompt": "This tool is used for the following purpose: (see tool description)."
+    ]
   },
   "ja": {
     "param.source.description": "インストール元のURLまたはパス（Git URL、HTTP ZIP URL、ローカルディレクトリ、またはローカルZIP）。",
@@ -24,8 +23,7 @@
       "スキル追加",
       "スキルダウンロード",
       "git clone"
-    ],
-    "tool.system_prompt": "このツールは次の目的で使用します（ツールの説明を参照）。"
+    ]
   },
   "es": {
     "param.source.description": "La URL o ruta de origen (URL de Git, URL de ZIP HTTP, directorio local o ZIP local).",
@@ -37,8 +35,7 @@
       "instalar skill",
       "añadir skill",
       "descargar skill"
-    ],
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito (ver la descripción de la herramienta)."
+    ]
   },
   "fr": {
     "param.source.description": "L'URL ou le chemin source (URL Git, URL ZIP HTTP, répertoire local ou ZIP local).",
@@ -50,8 +47,7 @@
       "installer compétence",
       "ajouter compétence",
       "télécharger compétence"
-    ],
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant : (voir la description de l’outil)."
+    ]
   },
   "ko": {
     "param.source.description": "소스 URL 또는 경로(Git URL, HTTP ZIP URL, 로컬 디렉터리 또는 로컬 ZIP).",
@@ -63,8 +59,7 @@
       "스킬 설치",
       "스킬 추가",
       "스킬 다운로드"
-    ],
-    "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조)."
+    ]
   },
   "de": {
     "param.source.description": "Die Quell-URL oder der Quellpfad (Git-URL, HTTP-ZIP-URL, lokales Verzeichnis oder lokales ZIP).",
@@ -76,8 +71,7 @@
       "skill installieren",
       "skill hinzufügen",
       "skill herunterladen"
-    ],
-    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet: (siehe Toolbeschreibung)."
+    ]
   },
   "it": {
     "param.source.description": "L'URL o il percorso di origine (URL Git, URL ZIP HTTP, directory locale o ZIP locale).",
@@ -89,8 +83,7 @@
       "installa skill",
       "aggiungi skill",
       "scarica skill"
-    ],
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo: (vedere la descrizione dello strumento)."
+    ]
   },
   "ru": {
     "param.source.description": "Исходный URL-адрес или путь (Git URL, HTTP ZIP URL, локальный каталог или локальный ZIP).",
@@ -102,8 +95,7 @@
       "установить навык",
       "добавить навык",
       "скачать навык"
-    ],
-    "tool.system_prompt": "Этот инструмент используется для следующей цели: (см. описание инструмента)."
+    ]
   },
   "pt_BR": {
     "param.source.description": "A URL ou caminho de origem (URL Git, URL ZIP HTTP, diretório local ou ZIP local).",
@@ -115,8 +107,7 @@
       "instalar skill",
       "adicionar skill",
       "baixar skill"
-    ],
-    "tool.system_prompt": "Esta ferramenta é usada para o seguinte propósito: (veja a descrição da ferramenta)."
+    ]
   },
   "pt": {
     "param.source.description": "A URL ou caminho de origem (URL Git, URL ZIP HTTP, diretório local ou ZIP local).",
@@ -128,8 +119,7 @@
       "instalar skill",
       "adicionar skill",
       "baixar skill"
-    ],
-    "tool.system_prompt": "Esta ferramenta é utilizada para o seguinte propósito: (ver descrição da ferramenta)."
+    ]
   },
   "id": {
     "param.source.description": "URL atau jalur sumber (Git URL, HTTP ZIP URL, direktori lokal, atau ZIP lokal).",
@@ -141,8 +131,7 @@
       "instal skill",
       "tambah skill",
       "unduh skill"
-    ],
-    "tool.system_prompt": "Gunakan alat ini untuk tujuan berikut: (lihat deskripsi alat)."
+    ]
   },
   "vi": {
     "param.source.description": "URL hoặc đường dẫn nguồn (URL Git, URL ZIP HTTP, thư mục cục bộ hoặc ZIP cục bộ).",
@@ -154,8 +143,7 @@
       "cài đặt kỹ năng",
       "thêm kỹ năng",
       "tải kỹ năng"
-    ],
-    "tool.system_prompt": "Công cụ này được sử dụng cho mục đích sau: (xem mô tả công cụ)."
+    ]
   },
   "pl": {
     "param.source.description": "Adres URL lub ścieżka źródłowa (adres URL Git, adres URL ZIP HTTP, katalog lokalny lub lokalny plik ZIP).",
@@ -167,8 +155,7 @@
       "zainstaluj umiejętność",
       "dodaj umiejętność",
       "pobierz umiejętność"
-    ],
-    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia)."
+    ]
   },
   "hi": {
     "param.source.description": "स्रोत URL या पथ (Git URL, HTTP ZIP URL, स्थानीय निर्देशिका, या स्थानीय ZIP)।",
@@ -180,8 +167,7 @@
       "कौशल स्थापित करें",
       "कौशल जोड़ें",
       "कौशल डाउनलोड करें"
-    ],
-    "tool.system_prompt": "इस उपकरण का उपयोग निम्नलिखित उद्देश्यों के लिए किया जाता: (उपकरण विवरण देखें)।"
+    ]
   },
   "ar": {
     "param.source.description": "عنوان URL أو مسار المصدر (عنوان URL لـ Git، أو عنوان URL لـ ZIP عبر HTTP، أو دليل محلي، أو ملف ZIP محلي).",
@@ -193,8 +179,7 @@
       "تثبيت مهارة",
       "إضافة مهارة",
       "تنزيل مهارة"
-    ],
-    "tool.system_prompt": "تُستخدم هذه الأداة للغرض التالي: (راجع وصف الأداة)."
+    ]
   },
   "sv": {
     "param.source.description": "Käll-URL eller sökväg (Git-URL, HTTP-ZIP-URL, lokal katalog eller lokal ZIP).",
@@ -206,8 +191,7 @@
       "installera skill",
       "lägg till skill",
       "ladda ner skill"
-    ],
-    "tool.system_prompt": "Det här verktyget används för följande syfte (se verktygsbeskrivningen)."
+    ]
   },
   "sw": {
     "param.source.description": "URL ya chanzo au njia (Git URL, HTTP ZIP URL, saraka ya ndani, au ZIP ya ndani).",
@@ -219,8 +203,7 @@
       "sakinisha skill",
       "ongeza skill",
       "pakua skill"
-    ],
-    "tool.system_prompt": "Tumia zana hii kwa kusudi lifuatalo: (ona maelezo ya zana)."
+    ]
   },
   "nb": {
     "param.source.description": "Kilde-URL eller søkebane (Git-URL, HTTP-ZIP-URL, lokal katalog eller lokal ZIP).",
@@ -232,8 +215,7 @@
       "installer skill",
       "legg til skill",
       "last ned skill"
-    ],
-    "tool.system_prompt": "Dette verktøyet brukes til følgende formål (se verktøybeskrivelsen)."
+    ]
   },
   "nl": {
     "param.source.description": "De bron-URL of het pad (Git-URL, HTTP-ZIP-URL, lokale map of lokale ZIP).",
@@ -245,8 +227,7 @@
       "skill installeren",
       "skill toevoegen",
       "skill downloaden"
-    ],
-    "tool.system_prompt": "Dit hulpprogramma wordt gebruikt voor het volgende doel: (zie de toolbeschrijving)."
+    ]
   },
   "fi": {
     "param.source.description": "Lähde-URL tai -polku (Git-URL, HTTP-ZIP-URL, paikallinen hakemisto tai paikallinen ZIP).",
@@ -258,8 +239,7 @@
       "asenna skilli",
       "lisää skilli",
       "lataa skilli"
-    ],
-    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen: (katso työkalun kuvaus)."
+    ]
   },
   "cs": {
     "param.source.description": "Zdrojová URL nebo cesta (Git URL, HTTP ZIP URL, lokální adresář nebo lokální ZIP).",
@@ -271,8 +251,7 @@
       "nainstalovat skill",
       "přidat skill",
       "stáhnout skill"
-    ],
-    "tool.system_prompt": "Použijte tento nástroj k následujícímu účelu: (viz popis nástroje)."
+    ]
   },
   "uk": {
     "param.source.description": "Джерело URL або шлях (Git URL, HTTP ZIP URL, локальний каталог або локальний ZIP).",
@@ -284,8 +263,7 @@
       "встановити навичку",
       "додати навичку",
       "завантажити навичку"
-    ],
-    "tool.system_prompt": "Цей інструмент використовується для наступної мети: (див. опис інструменту)."
+    ]
   },
   "bn": {
     "param.source.description": "উৎস URL বা পথ (Git URL, HTTP ZIP URL, স্থানীয় ডিরেক্টরি, বা স্থানীয় ZIP)।",
@@ -297,8 +275,7 @@
       "স্কিল ইনস্টল",
       "স্কিল যোগ করুন",
       "স্কিল ডাউনলোড"
-    ],
-    "tool.system_prompt": "এই টুলটি নিম্নলিখিত উদ্দেশ্যে ব্যবহার করা হয়: (টুলের বর্ণনা দেখুন)।"
+    ]
   },
   "fa": {
     "param.source.description": "نشانی URL یا مسیر منبع (Git URL، HTTP ZIP URL، فهرست محلی یا ZIP محلی).",
@@ -310,8 +287,7 @@
       "نصب skill",
       "افزودن skill",
       "دانلود skill"
-    ],
-    "tool.system_prompt": "این ابزار برای هدف زیر استفاده می‌شود: (به توضیح ابزار مراجعه کنید)."
+    ]
   },
   "mn": {
     "param.source.description": "Эх сурвалжийн URL эсвэл зам (Git URL, HTTP ZIP URL, локал лавлах, эсвэл локал ZIP).",
@@ -323,8 +299,7 @@
       "skill суулгах",
       "skill нэмэх",
       "skill татах"
-    ],
-    "tool.system_prompt": "Энэ хэрэгсэл дараах зорилгоор ашиглагдана: (хэрэгслийн тайлбарыг үзнэ үү)."
+    ]
   },
   "mr": {
     "param.source.description": "स्रोत URL किंवा पथ (Git URL, HTTP ZIP URL, स्थानिक डिरेक्टरी किंवा स्थानिक ZIP).",
@@ -336,8 +311,7 @@
       "skill स्थापित करा",
       "skill जोडा",
       "skill डाउनलोड करा"
-    ],
-    "tool.system_prompt": "हे साधन पुढील उद्देशासाठी वापरले जाते: (साधनाचे वर्णन पहा)."
+    ]
   },
   "th": {
     "param.source.description": "URL หรือพาธของแหล่งที่มา (Git URL, HTTP ZIP URL, ไดเรกทอรีภายในเครื่อง หรือ ZIP ภายในเครื่อง)",
@@ -349,8 +323,7 @@
       "ติดตั้ง skill",
       "เพิ่ม skill",
       "ดาวน์โหลด skill"
-    ],
-    "tool.system_prompt": "ใช้เครื่องมือนี้เพื่อจุดประสงค์ต่อไปนี้: (ดูคำอธิบายเครื่องมือ)"
+    ]
   },
   "tr": {
     "param.source.description": "Kaynak URL veya yol (Git URL, HTTP ZIP URL, yerel dizin veya yerel ZIP).",
@@ -362,8 +335,7 @@
       "skill yükle",
       "skill ekle",
       "skill indir"
-    ],
-    "tool.system_prompt": "Bu araç aşağıdaki amaç için kullanılır: (araç açıklamasına bakın)."
+    ]
   },
   "zh_CN": {
     "param.source.description": "源 URL 或路径（Git URL、HTTP ZIP URL、本地目录或本地 ZIP）。",
@@ -376,8 +348,7 @@
       "添加 skill",
       "下载 skill",
       "git clone skill"
-    ],
-    "tool.system_prompt": "此工具用于以下目的：（参见工具说明）。"
+    ]
   },
   "zh_TW": {
     "param.source.description": "來源 URL 或路徑（Git URL、HTTP ZIP URL、本機目錄或本機 ZIP）。",
@@ -390,7 +361,6 @@
       "新增 skill",
       "下載 skill",
       "git clone skill"
-    ],
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。"
+    ]
   }
 }

@@ -13,7 +13,6 @@
       "capture page",
       "playwright"
     ],
-    "tool.system_prompt": "Use this tool for the purpose described in TOOL_SPEC.",
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "After the operation, press Resume (▷) in the Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
@@ -30,7 +29,6 @@
       "ブラウザキャプチャ",
       "フロー記録"
     ],
-    "tool.system_prompt": "このツールは次の目的で使用されます（ツールの説明を参照）。",
     "ui.captured": "--- キャプチャ完了: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "操作後、Inspector の Resume (▷) を押してください。",
     "ui.started": "--- PLAYWRIGHT INSPECTOR 起動済み ---"
@@ -47,7 +45,6 @@
       "captura navegador",
       "flujo"
     ],
-    "tool.system_prompt": "Esta herramienta se utiliza para el siguiente propósito: (véase la descripción de la herramienta).",
     "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/...",
     "ui.resume_prompt": "Después de la operación, pulse Reanudar (▷) en el Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR INICIADO ---"
@@ -64,7 +61,6 @@
       "capture navigateur",
       "flux"
     ],
-    "tool.system_prompt": "Cet outil est utilisé dans le but suivant (voir la description de l'outil).",
     "ui.captured": "--- CAPTURÉ : {html}, {png}, {flow}, {snapshots}/,...",
     "ui.resume_prompt": "Après l'opération, appuyez sur Reprendre (▷) dans l'Inspecteur.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR DÉMARRÉ ---"
@@ -81,7 +77,6 @@
       "브라우저 캡처",
       "흐름 기록"
     ],
-    "tool.system_prompt": "이 도구는 다음 목적에 사용됩니다(도구 설명 참조).",
     "ui.captured": "--- 캡처 완료: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "작업 후 Inspector에서 Resume (▷)을 누르세요.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR 시작됨 ---"
@@ -98,7 +93,6 @@
       "browser erfassen",
       "flow aufzeichnen"
     ],
-    "tool.system_prompt": "Dieses Tool wird für den folgenden Zweck verwendet (siehe Toolbeschreibung).",
     "ui.captured": "--- ERFASST: {html}, {png}, {flow}, {snapshots}/,...",
     "ui.resume_prompt": "Drücken Sie nach dem Vorgang im Inspektor auf „Fortsetzen“ (▷).",
     "ui.started": "--- PLAYWRIGHT INSPECTOR GESTARTET ---"
@@ -115,7 +109,6 @@
       "cattura browser",
       "flow capture"
     ],
-    "tool.system_prompt": "Questo strumento viene utilizzato per il seguente scopo (vedere la descrizione dello strumento).",
     "ui.captured": "--- ACQUISITO: {html}, {png}, {flow}, {snapshots}/...",
     "ui.resume_prompt": "Dopo l'operazione, premi Riprendi (▷) nell'Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR AVVIATO ---"
@@ -132,7 +125,6 @@
       "захват браузера",
       "запись потока"
     ],
-    "tool.system_prompt": "Этот инструмент используется для следующей цели (см. описание инструмента).",
     "ui.captured": "--- ЗАХВАЧЕНО: {html}, {png}, {flow}, {snapshots}/...",
     "ui.resume_prompt": "После операции нажмите «Продолжить» (▷) в Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR ЗАПУЩЕН ---"
@@ -149,7 +141,6 @@
       "captura navegador",
       "registro de fluxo"
     ],
-    "tool.system_prompt": "Use esta ferramenta para o propósito descrito em TOOL_SPEC.",
     "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/...",
     "ui.resume_prompt": "Após a operação, pressione Continuar (▷) no Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR INICIADO ---"
@@ -166,7 +157,6 @@
       "captura navegador",
       "registo de fluxo"
     ],
-    "tool.system_prompt": "Use esta ferramenta para o propósito descrito em TOOL_SPEC.",
     "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/...",
     "ui.resume_prompt": "Após a operação, pressione Continuar (▷) no Inspetor.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR INICIADO ---"
@@ -183,7 +173,6 @@
       "tangkap browser",
       "rekam alur"
     ],
-    "tool.system_prompt": "Alat ini digunakan untuk tujuan berikut: (lihat deskripsi alat).",
     "ui.captured": "--- TERTANGKAP: {html}, {png}, {flow}, {snapshots}...",
     "ui.resume_prompt": "Setelah operasi, tekan Resume (▷) di Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR DIMULAI ---"
@@ -200,7 +189,6 @@
       "chụp trình duyệt",
       "ghi luồng"
     ],
-    "tool.system_prompt": "Công cụ này được dùng cho mục đích được mô tả trong TOOL_SPEC.",
     "ui.captured": "--- ĐÃ THU THẬP: {html}, {png}, {flow}, {snapshots...",
     "ui.resume_prompt": "Sau thao tác, nhấn Tiếp tục (▷) trong Thanh tra.",
     "ui.started": "--- KIỂM TRA PLAYWRIGHT BẮT ĐẦU ---"
@@ -217,7 +205,6 @@
       "przechwytywanie przeglądarki",
       "rejestracja przepływu"
     ],
-    "tool.system_prompt": "Narzędzie to służy do następującego celu: (patrz opis narzędzia).",
     "ui.captured": "--- PRZECHWYCONO: {html}, {png}, {flow}, {snapshot...",
     "ui.resume_prompt": "Po operacji naciśnij Wznów (▷) w Inspektorze.",
     "ui.started": "--- INSPEKTOR PLACÓWEK RUSZYŁ ---"
@@ -234,7 +221,6 @@
       "ब्राउज़र कैप्चर",
       "फ़्लो रिकॉर्ड"
     ],
-    "tool.system_prompt": "इस उपकरण का उपयोग TOOL_SPEC में वर्णित उद्देश्य के लिए किया जाता है।",
     "ui.captured": "--- कैप्चर किया गया: {html}, {png}, {flow}, {snaps...",
     "ui.resume_prompt": "कार्रवाई के बाद, Inspector में Resume (▷) दबाएँ।",
     "ui.started": "--- PLAYWRIGHT INSPECTOR शुरू हुआ ---"
@@ -251,7 +237,6 @@
       "التقاط المتصفح",
       "تسجيل التدفق"
     ],
-    "tool.system_prompt": "تستخدم هذه الأداة للأغراض التالية: (انظر وصف الأداة).",
     "ui.captured": "--- تم التقاطها: {html}، {png}، {flow}، {snapshots...",
     "ui.resume_prompt": "بعد العملية، اضغط على \"استئناف\" (▷) في المفتش.",
     "ui.started": "--- بدأ مفتش الكاتب المسرحي ---"
@@ -268,7 +253,6 @@
       "webbläsarfångst",
       "flödesfångst"
     ],
-    "tool.system_prompt": "Använd det här verktyget för det syfte som beskrivs i TOOL_SPEC.",
     "ui.captured": "--- INFÅNGAT: {html}, {png}, {flow}, {snapshots}/,...",
     "ui.resume_prompt": "Efter åtgärden, tryck på Fortsätt (▷) i Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTAD ---"
@@ -285,7 +269,6 @@
       "browser capture",
       "flow capture"
     ],
-    "tool.system_prompt": "Use this tool for the purpose described in TOOL_SPEC.",
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/,...",
     "ui.resume_prompt": "After the operation, press Resume (▷) in the Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
@@ -302,7 +285,6 @@
       "nettleseropptak",
       "flytlogg"
     ],
-    "tool.system_prompt": "Bruk dette verktøyet for formålet som er beskrevet i TOOL_SPEC.",
     "ui.captured": "--- OPPFANGET: {html}, {png}, {flow}, {snapshots}/...",
     "ui.resume_prompt": "Etter operasjonen, trykk på Fortsett (▷) i Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTET ---"
@@ -319,7 +301,6 @@
       "browseropname",
       "flow-opname"
     ],
-    "tool.system_prompt": "Gebruik deze tool voor het doel dat in TOOL_SPEC staat beschreven.",
     "ui.captured": "--- VASTGELEGD: {html}, {png}, {flow}, {snapshots}...",
     "ui.resume_prompt": "Druk na de handeling op Doorgaan (▷) in de Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR GESTART ---"
@@ -336,7 +317,6 @@
       "selaimen kaappaus",
       "kulun tallennus"
     ],
-    "tool.system_prompt": "Tätä työkalua käytetään seuraavaan tarkoitukseen (katso työkalun kuvaus).",
     "ui.captured": "--- TALLENNETTU: {html}, {png}, {flow}, {snapshots...",
     "ui.resume_prompt": "Toiminnon jälkeen paina Jatka (▷) Inspectorissa.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR KÄYNNIST..."
@@ -353,7 +333,6 @@
       "zachycení prohlížeče",
       "záznam toku"
     ],
-    "tool.system_prompt": "Tento nástroj se používá k následujícímu účelu (viz popis nástroje).",
     "ui.captured": "--- ZACHYCENO: {html}, {png}, {flow}, {snapshots}/...",
     "ui.resume_prompt": "Po operaci stiskněte v Inspectoru Resume (▷).",
     "ui.started": "--- PLAYWRIGHT INSPECTOR SPUŠTĚN ---"
@@ -370,7 +349,6 @@
       "захоплення браузера",
       "запис потоку"
     ],
-    "tool.system_prompt": "Цей інструмент використовується для такої мети (див. опис інструмента).",
     "ui.captured": "--- ЗАХОПЛЕНО: {html}, {png}, {flow}, {snapshots}/...",
     "ui.resume_prompt": "Після операції натисніть Resume (▷) в Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR ЗАПУЩЕНО ---"
@@ -387,7 +365,6 @@
       "tarayıcı yakalama",
       "akış kaydı"
     ],
-    "tool.system_prompt": "Bu aracı TOOL_SPEC'da açıklanan amaç için kullanın.",
     "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/,...",
     "ui.resume_prompt": "İşlemden sonra Inspector'da Devam Et (▷) tuşuna basın.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
@@ -404,7 +381,6 @@
       "การจับเบราว์เซอร์",
       "บันทึกโฟลว์"
     ],
-    "tool.system_prompt": "ใช้เครื่องมือนี้ตามวัตถุประสงค์ที่อธิบายไว้ใน TOOL_SPEC",
     "ui.captured": "--- จับภาพแล้ว: {html}, {png}, {flow}, {snapshots}...",
     "ui.resume_prompt": "หลังจากดำเนินการแล้ว ให้กด Resume (▷) ใน Inspector",
     "ui.started": "--- เริ่มใช้ PLAYWRIGHT INSPECTOR..."
@@ -421,7 +397,6 @@
       "浏览器捕获",
       "流程记录"
     ],
-    "tool.system_prompt": "该工具用于以下目的：（参见工具说明）。",
     "ui.captured": "--- 已捕获: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "操作完成后，请在 Inspector 中点击 Resume (▷)。",
     "ui.started": "--- PLAYWRIGHT INSPECTOR 已启动 ---"
@@ -438,7 +413,6 @@
       "瀏覽器擷取",
       "流程記錄"
     ],
-    "tool.system_prompt": "此工具用於以下目的：（請參閱工具說明）。",
     "ui.captured": "--- 已捕获: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "操作完成後，請在 Inspector 中按下 Resume (▷)。",
     "ui.started": "--- PLAYWRIGHT INSPECTOR 已啟動 ---"
@@ -455,7 +429,6 @@
       "ব্রাউজার ক্যাপচার",
       "ফ্লো রেকর্ড"
     ],
-    "tool.system_prompt": "TOOL_SPEC-এ বর্ণিত উদ্দেশ্যের জন্য এই টুলটি ব্যবহার করুন।",
     "ui.captured": "--- সংরক্ষিত: {html}, {png}, {flow}, {snapshots}/,...",
     "ui.resume_prompt": "অপারেশনের পর Inspector-এ Resume (▷) চাপুন।",
     "ui.started": "--- PLAYWRIGHT INSPECTOR চালু হয়..."
@@ -472,7 +445,6 @@
       "ضبط مرورگر",
       "ثبت جریان"
     ],
-    "tool.system_prompt": "از این ابزار برای هدفی که در TOOL_SPEC توضیح داده شده استفاده کنید.",
     "ui.captured": "--- ثبت شد: {html}، {png}، {flow}، {snapshots}/، p...",
     "ui.resume_prompt": "پس از انجام عملیات، در Inspector دکمه Resume (▷) را بزنید.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR شروع شد ---"
@@ -489,7 +461,6 @@
       "хөтчийн бичлэг",
       "урсгалын бүртгэл"
     ],
-    "tool.system_prompt": "TOOL_SPEC-д тайлбарласан зорилгод энэ хэрэгслийг ашиглана уу.",
     "ui.captured": "--- БАРИГДСАН: {html}, {png}, {flow}, {snapshots}/...",
     "ui.resume_prompt": "Үйлдлийн дараа Inspector дээр Resume (▷) дарна уу.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR АЖИЛЛАЖ..."
@@ -506,7 +477,6 @@
       "ब्राउझर कॅप्चर",
       "फ्लो रेकॉर्ड"
     ],
-    "tool.system_prompt": "TOOL_SPEC मध्ये वर्णन केलेल्या उद्देशासाठी हे साधन वापरा.",
     "ui.captured": "--- कॅप्चर झाले: {html}, {png}, {flow}, {snapshots...",
     "ui.resume_prompt": "ऑपरेशननंतर Inspector मध्ये Resume (▷) दाबा.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR सुरू झाले ---"
