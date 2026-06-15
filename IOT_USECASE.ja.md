@@ -28,6 +28,7 @@
 - `switchbot_cloud_list`
 - `switchbot_cloud_status`
 - `switchbot_cloud_control`
+- `switchbot_batch`
 
 ### ECHONET Lite
 
@@ -103,7 +104,7 @@
 対象が一意で、対応操作が分かっているときだけ行う。
 
 - BLE: `switchbot_ble_control`
-- SwitchBot Cloud: `switchbot_cloud_control`
+- SwitchBot Cloud: `switchbot_cloud_control` / `switchbot_batch`
 - ECHONET Lite: `echonet_property_set`, `echonet_control`
 - UPnP: `upnp_igd_control`
 
@@ -153,6 +154,15 @@ Matter は現時点では主に読み取り系を使う。
 - SwitchBot Cloud API 向け
 - 一覧、状態、制御の順で使う
 - 認証情報がないと使えない
+- TV/エアコン/ライトなどの赤外線リモコン機器の操作に対応
+  - on/off/brightness_up/brightness_down
+  - エアコンは mode/fan_speed パラメータでモード・風速指定可能
+
+### `switchbot_batch`
+
+- 複数の SwitchBot コマンドを一括実行する
+- 各コマンドは `device_id` または `device_name` で対象を指定
+- デバイス一覧取得は1回で済むため、複数操作を効率的に実行できる
 
 ### `echonet_*`
 

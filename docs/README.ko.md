@@ -32,8 +32,24 @@ pip install uag
 - **세션 연속성**: 프로바이더나 모델을 전환해도 대화 문맥을 유지합니다.
 - **Web Inspector**: `playwright_inspector`를 사용하여 브라우저 이동, DOM, 스크린샷을 자동으로 저장합니다.
 - **내장 문서**: `uag docs` 명령을 사용하여 상세한 내부 문서를 즉시 확인할 수 있습니다.
+- **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## 사용법
+
+## IoT Device Support
+
+Control smart home and IoT devices through multiple interfaces:
+
+- **SwitchBot Cloud**: List, control, and batch-operate SwitchBot devices (TV, air conditioner, lights, etc.).
+  - Infrared remote devices (on/off, brightness, temperature)
+  - Air conditioner mode and fan speed control
+  - Batch execution of multiple commands
+- **SwitchBot BLE**: Scan and control nearby SwitchBot BLE devices.
+- **ECHONET Lite**: Discover and control ECHONET Lite home appliances over the local network.
+- **Matter**: Inspect Matter controller/bridge/device structure (read-only).
+- **UPnP**: Discover UPnP devices and manage IGD port forwarding.
+
+For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 ### 시작 및 종료
 
