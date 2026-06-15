@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.5] - 2026-06-15
+
+### Added
+- SwitchBot infrared remote control support: TV/AC/light on/off, brightness, AC mode/fan speed.
+- SwitchBot batch tool: execute multiple commands in a single call.
+- Bluesky tool: post (text + image), profile, search, timeline, thread, like, notifications.
+- Bluesky `lang` parameter (BCP-47) with validation for multi-language posting.
+- Bluesky image upload and auto-save/display (CLI, Web, GUI).
+- COMMUNICATION.md: documentation for bluesky, discord, teams comm tools.
+- IoT section in README.md and all translation README files.
+
+### Documentation
+- IOT_USECASE.ja.md / IOT_USECASE.md updated with new tools and batch details.
+
 ## [0.5.4] - 2026-06-15
 
 ### Fixed
