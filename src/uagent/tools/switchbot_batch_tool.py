@@ -105,12 +105,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Commands to execute.",
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -372,7 +372,7 @@ def _format_result_text(result: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    output_format = str(args.get("output_format") or "json").lower()
+    output_format = str(args.get("fmt") or "json").lower()
     commands = args.get("commands", [])
 
     if not commands or not isinstance(commands, list):

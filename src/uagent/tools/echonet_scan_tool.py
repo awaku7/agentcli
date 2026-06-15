@@ -74,12 +74,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Maximum number of nodes to return. 0 means unlimited.",
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -555,7 +555,7 @@ def run_tool(args: dict[str, Any]) -> str:
     timeout = _normalize_int(args.get("timeout", _DEFAULT_TIMEOUT), _DEFAULT_TIMEOUT, 1)
     retry = _normalize_int(args.get("retry", _DEFAULT_RETRY), _DEFAULT_RETRY, 1)
     limit = _normalize_int(args.get("limit", _DEFAULT_LIMIT), _DEFAULT_LIMIT, 0)
-    output_format = str(args.get("output_format") or "json").strip().lower()
+    output_format = str(args.get("fmt") or "json").strip().lower()
     interface_arg = args.get("interface")
     interface = str(interface_arg).strip() if interface_arg is not None else ""
 

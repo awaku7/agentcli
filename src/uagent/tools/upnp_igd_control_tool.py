@@ -93,12 +93,12 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -227,7 +227,7 @@ def _scan_devices(
         "retry": retry,
         "limit": limit,
         "search_target": search_target,
-        "output_format": "json",
+        "fmt": "json",
     }
     scan_text = _scan_run_tool(scan_args)
     try:
@@ -953,7 +953,7 @@ def run_tool(args: dict[str, Any]) -> str:
         str(args.get("search_target") or _DEFAULT_IGD_SEARCH_TARGET).strip()
         or _DEFAULT_IGD_SEARCH_TARGET
     )
-    output_format = str(args.get("output_format") or "json").strip().lower()
+    output_format = str(args.get("fmt") or "json").strip().lower()
     interface_arg = args.get("interface")
     interface = str(interface_arg).strip() if interface_arg is not None else ""
 

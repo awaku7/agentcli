@@ -91,12 +91,12 @@ TOOL_SPEC: dict[str, Any] = {
                         default="Timeout (seconds).",
                     ),
                 },
-                "output_format": {
+                "fmt": {
                     "type": "string",
                     "enum": ["json", "text"],
                     "default": "json",
                     "description": _(
-                        "param.output_format.description",
+                        "param.fmt.description",
                         default="Format: json or text.",
                     ),
                 },
@@ -478,7 +478,7 @@ def run_tool(args: dict[str, Any]) -> str:
     eoj = args.get("eoj")
     object_code = args.get("object_code")
     epc_text = _normalize_epc(args.get("epc") if args.get("epc") is not None else None)
-    output_format = str(args.get("output_format") or "json").strip().lower()
+    output_format = str(args.get("fmt") or "json").strip().lower()
 
     try:
         timeout = _normalize_int(
