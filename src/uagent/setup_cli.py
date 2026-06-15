@@ -198,7 +198,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
     "alibaba": [
         ("UAGENT_ALIBABA_API_KEY", True, _("Alibaba Cloud (Qwen) API key")),
         ("UAGENT_ALIBABA_BASE_URL", False, _("Alibaba base URL (optional, default: https://dashscope.aliyuncs.com/compatible-mode/v1)")),
-        ("UAGENT_ALIBABA_DEPNAME", False, _("Alibaba model name (optional, default: qwen-max)")),
+        ("UAGENT_ALIBABA_DEPNAME", False, _("Alibaba model name (optional, default: qwen3.5-plus)")),
     ],
     "kimi": [
         ("UAGENT_KIMI_API_KEY", True, _("KIMI (Moonshot AI) API key")),
@@ -979,7 +979,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# Provider selection")
     out.append("# ==============================")
     out.append(
-        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / alibaba"
+        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / alibaba / kimi"
     )
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")

@@ -78,7 +78,7 @@ ______________________________________________________________________
 - `UAGENT_IMG_GENERATE_PROVIDER`: 画像生成に使用するプロバイダ (既定: `UAGENT_PROVIDER`)。
 - `UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME`: 画像生成用モデル ID (例: `dall-e-3`)。
 - `UAGENT_IMG_ANALYSIS_PROVIDER`: 画像解析に使用するプロバイダ (既定: `UAGENT_PROVIDER`)。
-  - 対応: `openai`, `azure`, `gemini`, `vertexai`, `ollama`, `alibaba` (Qwen-VL/DashScope), `deepseek` (Vision対応エンドポイントが必要)。
+  - 対応: `openai`, `azure`, `gemini`, `vertexai`, `ollama`, `alibaba` (Qwen-VL/DashScope), `kimi` (Moonshot AI), `deepseek` (Vision対応エンドポイントが必要)。
   - `UAGENT_IMG_ANALYSIS_DEPNAME`: 画像解析用モデルの上書き (任意)。
   - `UAGENT_<PROVIDER>_API_KEY` / `UAGENT_<PROVIDER>_BASE_URL` が適用される。
   - デフォルトモデル: `gpt-4o-mini` (openai), `qwen-vl-max` (alibaba), `kimi-k2` (kimi)。
