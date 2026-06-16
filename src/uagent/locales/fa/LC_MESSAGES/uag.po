@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-12 05:36+0900\n"
+"POT-Creation-Date: 2026-06-16 14:32+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,30 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[خطا] Git نصب نشده است."
 
-#: src/uagent/cli.py:397
+#: src/uagent/cli.py:456
 msgid "getch() fallback to input()"
 msgstr "در صورت ناموفق بودن getch()، از input() استفاده می‌شود"
 
-#: src/uagent/cli.py:604
+#: src/uagent/cli.py:673
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C دریافت شد. در حال آغاز پایان برنامه..."
 
-#: src/uagent/cli.py:636 src/uagent/cli.py:706
+#: src/uagent/cli.py:710 src/uagent/cli.py:755 src/uagent/setup_cli.py:1244
+#: src/uagent/setup_cli.py:1263 src/uagent/setup_cli.py:1286
+#: src/uagent/setup_cli.py:1302 src/uagent/setup_cli.py:1321
+#: src/uagent/setup_cli.py:1340 src/uagent/setup_cli.py:1354
+#: src/uagent/setup_cli.py:1367 src/uagent/setup_cli.py:1375
+#: src/uagent/setup_cli.py:1388 src/uagent/setup_cli.py:1400
+#: src/uagent/setup_cli.py:1411 src/uagent/setup_cli.py:1497
+#: src/uagent/setup_cli.py:1523
+msgid "Cancelled."
+msgstr "لغو شد."
+
+#: src/uagent/cli.py:717 src/uagent/cli.py:772
+msgid "Received multiline reply."
+msgstr "پاسخ چندخطی دریافت شد."
+
+#: src/uagent/cli.py:725 src/uagent/cli.py:807
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -54,26 +69,11 @@ msgstr ""
 "(حالت ورودی چند خطی: متن را در چند خط وارد کنید؛ برای راه اندازی مجدد، "
 "\"\"\" دوباره امتحان کنید؛ با خطی حاوی %(sentinel)s پایان دهید)"
 
-#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
-#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
-#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
-#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
-#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
-#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
-#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
-#: src/uagent/setup_cli.py:1462
-msgid "Cancelled."
-msgstr "لغو شد."
-
-#: src/uagent/cli.py:672 src/uagent/cli.py:722
+#: src/uagent/cli.py:761 src/uagent/cli.py:824
 msgid "Discarded previous input. Please start over."
 msgstr "ورودی قبلی کنار گذاشته شد. لطفا از نو شروع کنید."
 
-#: src/uagent/cli.py:683
-msgid "Received multiline reply."
-msgstr "پاسخ چندخطی دریافت شد."
-
-#: src/uagent/cli.py:841
+#: src/uagent/cli.py:945
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -82,28 +82,28 @@ msgstr ""
 "مسیرهای فایل تصویری در ورودی شما پیدا شد.\n"
 "آیا می خواهید این تصاویر را برای تجزیه و تحلیل به LLM (API خارجی) ارسال کنید؟"
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:951
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "برای ارسال با y یا n (یا c/cancel) برای رد شدن از ارسال پاسخ دهید."
 
-#: src/uagent/cli.py:865
+#: src/uagent/cli.py:969
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr ""
 "تایید ارسال تصویر ناموفق بود. تصاویر را ارسال نمی کند: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
+#: src/uagent/cli.py:997 src/uagent/scheckgui.py:432
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "تصویر پیوست نشد: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:930
+#: src/uagent/cli.py:1034
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "رویداد ناشناخته type=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:948
+#: src/uagent/cli.py:1052
 msgid "Exited uag."
 msgstr "از uag خارج شد."
 
@@ -111,94 +111,136 @@ msgstr "از uag خارج شد."
 msgid "[docs] name is required"
 msgstr "نام [اسناد] مورد نیاز است"
 
+#: src/uagent/cli_startup.py:22
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] اعلان ژانر راه‌اندازی = ورودی عددی"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
-"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+"Enter the sum of numbers "
+"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, "
+"Enter=enable all):"
 msgstr ""
+"مجموع اعداد را وارد کنید "
+"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, "
+"Enter=فعال‌سازی همه):"
 
-msgid "Communication (Teams, Discord, etc.)"
-msgstr "ارتباطات (Teams، Discord و غیره)"
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:977
+#: src/uagent/web.py:931
+msgid "Communication (Teams, Discord, Bluesky)"
+msgstr "ارتباطات (Teams, Discord, Bluesky)"
 
-msgid "Office suite (Excel, Word, etc.)"
+#: src/uagent/cli_startup.py:70 src/uagent/scheckgui.py:978
+#: src/uagent/web.py:932
+msgid "Office (Excel, Word, PDF, PPT, document extraction)"
+msgstr "Office (Excel, Word, PDF, PPT, استخراج اسناد)"
+
+#: src/uagent/cli_startup.py:71 src/uagent/scheckgui.py:979
+#: src/uagent/web.py:933
+msgid ""
+"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr ""
+"Development (lint, test, git, DB, اسکرین‌شات, browser, binary, compile)"
 
-msgid "Development (lint, py_compile, test, etc.)"
-msgstr ""
+#: src/uagent/cli_startup.py:72 src/uagent/scheckgui.py:982
+#: src/uagent/web.py:934
+msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, دوربین, geo-IP)"
 
-msgid "IoT (Bluetooth, etc.)"
-msgstr ""
+#: src/uagent/cli_startup.py:73 src/uagent/scheckgui.py:984
+#: src/uagent/web.py:935
+msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
+msgstr "اجرا (cmd, python, pwsh, bash, زیرعامل)"
 
+#: src/uagent/cli_startup.py:74 src/uagent/scheckgui.py:986
+#: src/uagent/web.py:936
+msgid "External (A2A, MCP, fetch, search web)"
+msgstr "خارجی (A2A, MCP, واکشی, جستجوی وب)"
+
+#: src/uagent/cli_startup.py:75 src/uagent/scheckgui.py:988
+#: src/uagent/web.py:937
+msgid "Media (image gen/edit/analyze, audio, QR code)"
+msgstr "Media (تولید/ویرایش/تحلیل تصویر, صدا, کد QR)"
+
+msgid "[INFO] startup genre prompt = prompt_toolkit"
+msgstr "[INFO] startup genre prompt = prompt_toolkit"
+
+#: src/uagent/cli_startup.py:90
 msgid "Tool genre selection"
 msgstr "انتخاب ژانر ابزار"
 
+#: src/uagent/cli_startup.py:91
 msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
 msgstr ""
+"برای تغییر وضعیت از Space استفاده کنید، برای حرکت از کلیدهای Arrow، برای "
+"تأیید از Enter استفاده کنید."
 
+#: src/uagent/cli_startup.py:92
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
+#: src/uagent/cli_startup.py:93
 msgid "Default"
 msgstr "پیش‌فرض"
 
+#: src/uagent/cli_startup.py:99
 msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
-msgstr ""
+msgstr "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
 
-#: src/uagent/cli_startup.py:146
+#: src/uagent/cli_startup.py:164
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] خطا در اعمال انتخاب ابزار راه‌اندازی: %(err)s"
 
-#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:239 src/uagent/web.py:1131
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[خطای شدید] تنظیم workdir ناموفق بود: %(err)s"
 
-#: src/uagent/cli_startup.py:250
+#: src/uagent/cli_startup.py:268
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] راه اندازی uag_setup ناموفق بود: %(err)s"
 
-#: src/uagent/cli_startup.py:291
+#: src/uagent/cli_startup.py:309
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "ارائه‌دهنده = %(provider)s; مدل = %(model)s"
 
-#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:321 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "مدل های بازگشتی OpenRouter فعال شد."
 
-#: src/uagent/cli_startup.py:302
+#: src/uagent/cli_startup.py:325
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "workdir فعلی = %(cwd)s"
 
-#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:336 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "حافظه بلندمدت بارگذاری شد."
 
-#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:349 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "حافظه بلندمدت مشترک بارگذاری شد."
 
-#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:356 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[هشدار] هنگام بارگذاری حافظه بلندمدت مشترک، استثنا رخ داد: %(err)s"
 
-#: src/uagent/cli_startup.py:367
+#: src/uagent/cli_startup.py:390
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[هشدار] فایل راه‌اندازی خوانده نشد: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:381
+#: src/uagent/cli_startup.py:404
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "فایل راه اندازی ارائه شده: %(path)s"
 
-#: src/uagent/cli_startup.py:404
+#: src/uagent/cli_startup.py:427
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--غیر تعاملی مشخص شد. خروج بدون انتظار برای stdin."
 
@@ -241,16 +283,7 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d پیام | نخست: %(first_user)s | آخر: "
 "%(last_user)s"
 
-#: src/uagent/core.py:896
-#, python-format
-msgid ""
-"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-msgstr ""
-"[WARN] پیام ابزار یتیم حذف می‌شود: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-
-#: src/uagent/core.py:994
+#: src/uagent/core.py:1016
 #, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
@@ -258,7 +291,7 @@ msgstr ""
 "[INFO] تعداد %(count)d پیام برای فشرده‌سازی وجود داشت، بنابراین چیزی تغییر "
 "نکرد."
 
-#: src/uagent/core.py:1004
+#: src/uagent/core.py:1026
 #, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
@@ -267,20 +300,20 @@ msgstr ""
 "[INFO] تاریخچهٔ گفت‌وگو در حافظه فشرده شد: %(old_n)d -> %(new_n)d پیام "
 "(keep_last=%(keep_last)d)"
 
-#: src/uagent/core.py:1215
+#: src/uagent/core.py:1237
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr ""
 "در حین فشرده‌سازی تاریخچه، به حد مجاز تلاش مجدد ۴۲۹ (%(max_retries)s) رسید."
 
-#: src/uagent/core.py:1225
+#: src/uagent/core.py:1247
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "خطا در هنگام فراخوانی LLM برای فشرده‌سازی تاریخچه: %(err)r"
 
-#: src/uagent/core.py:1258
+#: src/uagent/core.py:1280
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- بخش گفتگو را به انگلیسی خلاصه کنید.\n"
 
-#: src/uagent/core.py:1260
+#: src/uagent/core.py:1282
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
@@ -288,27 +321,27 @@ msgstr ""
 "- خلاصه را مختصر نگه دارید اما تصمیمات کلیدی، محدودیت‌ها و موارد معلق را "
 "شامل شود.\n"
 
-#: src/uagent/core.py:1262
+#: src/uagent/core.py:1284
 msgid "- Output should be directly usable as a system message."
 msgstr "- خروجی باید مستقیماً به عنوان پیام سیستم قابل استفاده باشد."
 
-#: src/uagent/core.py:1265
+#: src/uagent/core.py:1287
 msgid "Conversation chunk:\n"
 msgstr "بخش گفتگو:\n"
 
-#: src/uagent/core.py:1267
+#: src/uagent/core.py:1289
 msgid "Write a concise summary of this chunk."
 msgstr "یک خلاصه مختصر از این بخش بنویسید."
 
-#: src/uagent/core.py:1271
+#: src/uagent/core.py:1293
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- شما در حال به‌روزرسانی خلاصه گفتگوی موجود هستید.\n"
 
-#: src/uagent/core.py:1272
+#: src/uagent/core.py:1294
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- حقایق مهم را از خلاصه قبلی حفظ کنید.\n"
 
-#: src/uagent/core.py:1274
+#: src/uagent/core.py:1296
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
@@ -316,27 +349,27 @@ msgstr ""
 "- بخش جدید را بدون از دست دادن محدودیت‌ها، تصمیمات یا موارد معلق ادغام "
 "کنید.\n"
 
-#: src/uagent/core.py:1276
+#: src/uagent/core.py:1298
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- نتیجه را مختصر و مناسب برای پیام سیستم نگه دارید."
 
-#: src/uagent/core.py:1279
+#: src/uagent/core.py:1301
 msgid "Previous summary:\n"
 msgstr "خلاصه قبلی:\n"
 
-#: src/uagent/core.py:1281
+#: src/uagent/core.py:1303
 msgid "New chunk:\n"
 msgstr "بخش جدید:\n"
 
-#: src/uagent/core.py:1283
+#: src/uagent/core.py:1305
 msgid "Update the summary while keeping the prior context intact."
 msgstr "خلاصه را با حفظ بافت قبلی به‌روزرسانی کنید."
 
-#: src/uagent/core.py:1304
+#: src/uagent/core.py:1326
 msgid "Summary of the conversation so far:\n"
 msgstr "خلاصه گفتگو تا کنون:\n"
 
-#: src/uagent/core.py:1311
+#: src/uagent/core.py:1333
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -344,7 +377,7 @@ msgstr ""
 "[INFO] shrink_llm: {old_n} -> {new_n} پیام (فشرده‌سازی {old_part_n} پیام "
 "قدیمی‌تر در ۱ خلاصه؛ حفظ {tail_n} پیام در انتها)"
 
-#: src/uagent/core.py:1339
+#: src/uagent/core.py:1361
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -352,13 +385,13 @@ msgstr ""
 "[WARN] فشرده‌سازی تاریخچه حتی با chunk_size=1 هم به محدودیت زمینه رسید؛ "
 "بازگشت به shrink_messages()."
 
-#: src/uagent/core.py:1349
+#: src/uagent/core.py:1371
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
 msgstr "[WARN] امکان کاهش بیشتر chunk_size نبود؛ بازگشت به shrink_messages()."
 
-#: src/uagent/core.py:1357
+#: src/uagent/core.py:1379
 #, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
@@ -367,7 +400,7 @@ msgstr ""
 "[WARN] طول زمینهٔ فشرده‌سازی تاریخچه از حد گذشت؛ تلاش دوباره با "
 "chunk_size=%(chunk_size)d"
 
-#: src/uagent/core.py:1367
+#: src/uagent/core.py:1389
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -375,13 +408,12 @@ msgstr ""
 "[WARN] فشرده‌سازی تاریخچه به دلیل خطای LLM شکست خورد؛ بازگشت به "
 "shrink_messages()."
 
-#: src/uagent/core.py:1388
+#: src/uagent/core.py:1410
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help (راهنما در دسترس نیست: %(err)s)"
 
-#: src/uagent/core.py:1400
-#, fuzzy
+#: src/uagent/core.py:1422
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -398,7 +430,7 @@ msgstr ""
 "- خلاصه نکن. اطلاعات را مختصر نگه دارید\n"
 "- هنگام ایجاد فایل، محتوای نهایی کامل را خروجی بگیرید (تفاوت یا خلاصه جزئی را خروجی نگیرید)."
 
-#: src/uagent/core.py:1409
+#: src/uagent/core.py:1431
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -412,7 +444,7 @@ msgstr ""
 "- با ابزارهای موجود مشورت کنید و مناسب ترین آنها را انتخاب کنید.\n"
 "- هنگام اجرای ابزارها، تا حد امکان تصمیم گیری کمتری را به کاربر محول کنید."
 
-#: src/uagent/core.py:1416
+#: src/uagent/core.py:1438
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -436,7 +468,7 @@ msgstr ""
 "- در صورت نیاز به دانش در سطح متخصص، از الگوهای سریع (Agent Skills) استفاده کنید و آنها را دنبال کنید.\n"
 "- اگر ورودی کاربر فقط یک تأیید کوتاه است و هیچ اطلاعات جدیدی اضافه نمی کند، همان توضیح را تکرار نکنید، مگر اینکه پاسخ مستقیم به سؤال روشن بلافاصله قبل باشد. در صورت نیاز، به طور خلاصه بپرسید: \"با کدام نقطه ادامه دهم؟\""
 
-#: src/uagent/core.py:1428
+#: src/uagent/core.py:1450
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -452,8 +484,7 @@ msgstr ""
 "- فقط زمانی که کاربر صریحاً «y» یا «yes» (یا تأیید صریح معادل آن) را پاسخ داد، دوباره delete_file را با همان پارامترها، dry_run=false، و confirmed=true اجرا کنید.\n"
 "- اگر کاندیداها صفر است، نپرسید. فقط گزارش دهید که چیزی حذف نمی شود."
 
-#: src/uagent/core.py:1436
-#, fuzzy
+#: src/uagent/core.py:1458
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -468,7 +499,7 @@ msgstr ""
 "- نه چاپلوسی. بدون ایموجی بدون خلاصه مکالمه آن را مختصر نگه دارید.\n"
 "- هنگام ایجاد فایل، محتوای نهایی کامل را خروجی بگیرید (بدون تفاوت / خلاصه جزئی)."
 
-#: src/uagent/core.py:1444
+#: src/uagent/core.py:1466
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -482,7 +513,7 @@ msgstr ""
 "- خلاق باشید، اما اطلاعات نامطمئن را خروجی نکنید.\n"
 "- تا حد امکان تصمیم گیری کمتری را به کاربر محول کنید."
 
-#: src/uagent/core.py:1451
+#: src/uagent/core.py:1473
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -504,7 +535,7 @@ msgstr ""
 "- اگر دانش در سطح متخصص مورد نیاز است، از الگوهای سریع Agent Skills استفاده کنید.\n"
 "- اگر ورودی کاربر فقط یک تأیید کوتاه است و هیچ اطلاعات جدیدی اضافه نمی کند، همان توضیح را تکرار نکنید، مگر اینکه پاسخ مستقیم به سؤال روشن بلافاصله قبل باشد. در صورت نیاز، به طور خلاصه بپرسید: \"با کدام نقطه ادامه دهم؟\""
 
-#: src/uagent/core.py:1464
+#: src/uagent/core.py:1486
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -514,7 +545,7 @@ msgstr ""
 " از ادامه خط caret (^) ترجیح دهید و هر خط را کوتاه نگه دارید تا از شکسته شدن"
 " خطوط کپی/پیست جلوگیری کنید."
 
-#: src/uagent/core.py:1531
+#: src/uagent/core.py:1553
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -577,15 +608,14 @@ msgstr "نمایش مسیر"
 msgid "open with OS"
 msgstr "باز کردن با سیستم‌عامل"
 
-#: src/uagent/env_validate.py:42
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
 msgstr ""
-"برای انتخاب ارائه دهنده LLM "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia) لازم است."
+"انتخاب ارائه‌دهنده LLM الزامی است "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
 
-#: src/uagent/env_validate.py:63
+#: src/uagent/env_validate.py:66
 #, python-format
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
@@ -594,77 +624,86 @@ msgstr ""
 "ارائه دهنده ناشناس: %(provider)r. مجاز: %(allowed)s (راه اندازی احتمالاً با "
 "شکست مواجه خواهد شد)."
 
-#: src/uagent/env_validate.py:74
+#: src/uagent/env_validate.py:77
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
 msgstr ""
 "URL پایانی/پایه OpenAI Azure (به عنوان مثال، "
 "https://<resource>.openai.azure.com/)."
 
-#: src/uagent/env_validate.py:80
+#: src/uagent/env_validate.py:83
 msgid "Azure OpenAI API key."
 msgstr "کلید Azure OpenAI API."
 
-#: src/uagent/env_validate.py:85
+#: src/uagent/env_validate.py:88
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
 msgstr "نسخه Azure OpenAI API (به عنوان مثال، 2024-xx-xx)."
 
-#: src/uagent/env_validate.py:92
+#: src/uagent/env_validate.py:95
 msgid "OpenAI API key."
 msgstr "کلید OpenAI API."
 
-#: src/uagent/env_validate.py:98
+#: src/uagent/env_validate.py:101
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
 msgstr "نشانی وب نقطه پایانی/پایه پروکسی بستر (سازگار با OpenAI)."
 
-#: src/uagent/env_validate.py:105
+#: src/uagent/env_validate.py:108
 msgid "Bedrock proxy API key (OpenAI-compatible)."
 msgstr "کلید API پروکسی بستر (سازگار با OpenAI)."
 
-#: src/uagent/env_validate.py:112
+#: src/uagent/env_validate.py:115
 msgid "OpenRouter API key."
 msgstr "کلید OpenRouter API."
 
-#: src/uagent/env_validate.py:117
+#: src/uagent/env_validate.py:120
 msgid "Grok (xAI) API key."
 msgstr "کلید API Grok (xAI)."
 
-#: src/uagent/env_validate.py:122
+#: src/uagent/env_validate.py:125
 msgid "Gemini API key."
 msgstr "کلید Gemini API."
 
-#: src/uagent/env_validate.py:129
+#: src/uagent/env_validate.py:132
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr ""
 "بسته Python 'google-genai' نصب نشده است. ارائه دهنده=جوزا به آن نیاز دارد."
 
-#: src/uagent/env_validate.py:140
+#: src/uagent/env_validate.py:143
 msgid "Vertex AI API key / model name."
 msgstr "کلید / نام مدل Vertex AI API."
 
-#: src/uagent/env_validate.py:149
+#: src/uagent/env_validate.py:152
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
 msgstr ""
 "بسته Python 'google-genai' نصب نشده است. Provider=vertexai به آن نیاز دارد."
 
-#: src/uagent/env_validate.py:157
+#: src/uagent/env_validate.py:160
 msgid "Anthropic (Claude) API key."
 msgstr "کلید API Anthropic (Claude)."
 
-#: src/uagent/env_validate.py:165
+#: src/uagent/env_validate.py:168
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr ""
 "بسته Python 'anthropic' نصب نشده است. Provider=claude به آن نیاز دارد."
 
-#: src/uagent/env_validate.py:172
+#: src/uagent/env_validate.py:175
 msgid "NVIDIA API key."
 msgstr "کلید NVIDIA API."
 
-#: src/uagent/env_validate.py:190
+msgid "DeepSeek API key."
+msgstr "کلید API DeepSeek."
+
+msgid "Alibaba Cloud (Qwen) API key."
+msgstr "کلید API Alibaba Cloud (Qwen)."
+
+msgid "Moonshot AI API key."
+msgstr "کلید API Moonshot AI."
+
+#: src/uagent/env_validate.py:213
 #, python-format
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
@@ -673,61 +712,61 @@ msgstr ""
 "ارائه دهنده جاسازی ناشناس: %(provider)r. مجاز: %(allowed)s (راه اندازی "
 "احتمالاً با شکست مواجه خواهد شد)."
 
-#: src/uagent/env_validate.py:207
+#: src/uagent/env_validate.py:230
 msgid "Azure embedding endpoint / API key / API version / deployment name."
 msgstr "Azure جاسازی نقطه پایانی / کلید API / نسخه API / نام استقرار."
 
-#: src/uagent/env_validate.py:218
+#: src/uagent/env_validate.py:241
 msgid "OpenAI embedding API key / model name."
 msgstr "OpenAI تعبیه کلید API / نام مدل."
 
-#: src/uagent/env_validate.py:230
+#: src/uagent/env_validate.py:253
 msgid "Bedrock embedding endpoint / API key / deployment name."
 msgstr "پایه جاسازی نقطه پایانی / کلید API / نام استقرار."
 
-#: src/uagent/env_validate.py:241
+#: src/uagent/env_validate.py:264
 msgid "OpenRouter embedding API key / model name."
 msgstr "OpenRouter جاسازی کلید API / نام مدل."
 
-#: src/uagent/env_validate.py:252
+#: src/uagent/env_validate.py:275
 msgid "Ollama embedding base URL / model name."
 msgstr "Ollama درج URL پایه / نام مدل."
 
-#: src/uagent/env_validate.py:263
+#: src/uagent/env_validate.py:286
 msgid "NVIDIA embedding API key / model name."
 msgstr "NVIDIA جاسازی کلید API / نام مدل."
 
-#: src/uagent/env_validate.py:274
+#: src/uagent/env_validate.py:297
 msgid "Gemini embedding API key / model name."
 msgstr "کلید API / نام مدل جاسازی Gemini."
 
-#: src/uagent/env_validate.py:285
+#: src/uagent/env_validate.py:308
 msgid "Vertex AI embedding API key / model name."
 msgstr "کلید API / نام مدل جاسازی Vertex AI."
 
-#: src/uagent/env_validate.py:302
+#: src/uagent/env_validate.py:325
 #, python-brace-format
 msgid "[FATAL] Environment validation failed ({context})."
 msgstr "[خطای شدید] اعتبارسنجی محیط ناموفق بود ({context})."
 
-#: src/uagent/env_validate.py:310
+#: src/uagent/env_validate.py:333
 msgid "Missing required environment variables:"
 msgstr "عدم وجود متغیرهای محیطی مورد نیاز:"
 
-#: src/uagent/env_validate.py:317
+#: src/uagent/env_validate.py:340
 msgid "Warnings:"
 msgstr "هشدارها:"
 
-#: src/uagent/env_validate.py:321
+#: src/uagent/env_validate.py:344
 msgid "How to fix:"
 msgstr "نحوه رفع :"
 
-#: src/uagent/env_validate.py:324
+#: src/uagent/env_validate.py:347
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr "- قبل از شروع برنامه، متغیرهای بالا را در محیط خود تنظیم کنید."
 
-#: src/uagent/env_validate.py:330
+#: src/uagent/env_validate.py:353
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
@@ -735,7 +774,7 @@ msgstr ""
 "- می توانید آنها را از طریق تنظیمات محیط سیستم عامل، یک فایل .env، اسکریپت "
 "های راه اندازی پوسته تنظیم کنید،"
 
-#: src/uagent/env_validate.py:336
+#: src/uagent/env_validate.py:359
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -797,13 +836,13 @@ msgstr ""
 "تلاش=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_flow_helpers.py:205
+#: src/uagent/llm_flow_helpers.py:206
 msgid ""
 "The previous assistant reply was empty. Please answer based on the most "
 "recent tool result."
 msgstr "پاسخ دستیار قبلی خالی بود. لطفاً بر اساس آخرین نتیجه ابزار پاسخ دهید."
 
-#: src/uagent/llm_flow_helpers.py:218
+#: src/uagent/llm_flow_helpers.py:219
 #, python-format
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
@@ -814,11 +853,11 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s vala_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "این ممکن است با ارائه دهندگان محلی سازگار با OpenAI پس از تماس ابزار اتفاق بیفتد. می‌توانید UAGENT_EMPTY_NO_TOOL_MAX را روی یک مقدار بالاتر تنظیم کنید یا ارائه‌دهنده را تغییر دهید."
 
-#: src/uagent/llm_flow_helpers.py:265
+#: src/uagent/llm_flow_helpers.py:267
 msgid "arguments must be a JSON object."
 msgstr "آرگومان ها باید یک شی JSON باشند."
 
-#: src/uagent/llm_flow_helpers.py:272
+#: src/uagent/llm_flow_helpers.py:274
 #, python-format
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
@@ -829,7 +868,7 @@ msgstr ""
 "ردیابی:\n"
 "%(tb)s"
 
-#: src/uagent/llm_flow_helpers.py:298
+#: src/uagent/llm_flow_helpers.py:300
 msgid ""
 "[INFO] Reusing the previous result because this tool call matches an earlier"
 " one.\n"
@@ -837,7 +876,7 @@ msgstr ""
 "[INFO] استفاده مجدد از نتیجه قبلی زیرا این فراخوانی ابزار با نتیجه قبلی "
 "مطابقت دارد."
 
-#: src/uagent/llm_flow_helpers.py:313
+#: src/uagent/llm_flow_helpers.py:315
 #, python-format
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
@@ -867,42 +906,46 @@ msgstr ""
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] کاهش خودکار shrink_llm ناموفق بود: %(err)s"
 
-#: src/uagent/llm_round_helpers.py:136
+#: src/uagent/llm_round_helpers.py:137
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[خطای ترجمه] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:195 src/uagent/llm_round_helpers.py:305
-#: src/uagent/llm_round_helpers.py:639
+#: src/uagent/llm_round_helpers.py:196 src/uagent/llm_round_helpers.py:306
+#: src/uagent/llm_round_helpers.py:640
+#: src/uagent/providers/llm_deepseek.py:609
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "به محدودیت 429 تلاش مجدد (%(max_retries)s) رسیده است."
 
-#: src/uagent/llm_round_helpers.py:219
+#: src/uagent/llm_round_helpers.py:220
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[خطای جمینی] هنگام ایجاد پاسخ خطایی روی داد."
 
-#: src/uagent/llm_round_helpers.py:311
+#: src/uagent/llm_round_helpers.py:312
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[خطای کلود] هنگام ایجاد پاسخ خطایی روی داد."
 
-#: src/uagent/llm_round_helpers.py:603
+#: src/uagent/llm_round_helpers.py:604
+#: src/uagent/providers/llm_deepseek.py:619
 msgid "Input exceeds the context window."
 msgstr "ورودی از پنجره زمینه فراتر رفته است."
 
-#: src/uagent/llm_round_helpers.py:613
+#: src/uagent/llm_round_helpers.py:614
+#: src/uagent/providers/llm_deepseek.py:652
 msgid "Connection error"
 msgstr "خطای اتصال"
 
-#: src/uagent/llm_round_helpers.py:618
+#: src/uagent/llm_round_helpers.py:619
+#: src/uagent/providers/llm_deepseek.py:657
 msgid "[Network Error]"
 msgstr "[خطای شبکه]"
 
-#: src/uagent/llm_round_helpers.py:645
+#: src/uagent/llm_round_helpers.py:646
 msgid "Unexpected exception."
 msgstr "استثنای غیرمنتظره."
 
-#: src/uagent/llm_round_helpers.py:723
+#: src/uagent/llm_round_helpers.py:724
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "خطا هنگام تجزیه پاسخ: %(err)s"
@@ -1046,12 +1089,15 @@ msgstr "پرحرفی: متوسط"
 msgid "Verbosity: high"
 msgstr "پرحرفی: زیاد"
 
-#: src/uagent/scheckgui.py:980
+msgid "Tools"
+msgstr "ابزارها"
+
+#: src/uagent/scheckgui.py:1027
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[حالت] استدلال=%(mode)s"
 
-#: src/uagent/scheckgui.py:984
+#: src/uagent/scheckgui.py:1031
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1059,618 +1105,661 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=خاموش، 1=کم، 2=متوسط، 3=زیاد؛ "
 "auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:992
+#: src/uagent/scheckgui.py:1039
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[حالت] میزان جزئیات=%(mode)s"
 
-#: src/uagent/scheckgui.py:994
+#: src/uagent/scheckgui.py:1041
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3] (0=خاموش، 1=کم، 2=متوسط، 3=بالا؛ بدون ارگ=نگه داشتن)"
 
-#: src/uagent/scheckgui.py:1123
+#: src/uagent/scheckgui.py:1170
 msgid "Enter password..."
 msgstr "رمز عبور را وارد کنید..."
 
-#: src/uagent/scheckgui.py:1130
+#: src/uagent/scheckgui.py:1177
 msgid "Enter a message..."
 msgstr "یک پیام وارد کنید..."
 
-#: src/uagent/scheckgui.py:1147
+#: src/uagent/scheckgui.py:1194
 msgid "Attach files"
 msgstr "فایل ها را پیوست کنید"
 
-#: src/uagent/scheckgui.py:1149
+#: src/uagent/scheckgui.py:1196
 msgid "All Files (*)"
 msgstr "همه فایل ها (*)"
 
-#: src/uagent/scheckgui.py:1401
+#: src/uagent/scheckgui.py:1448
 msgid "cannot read image"
 msgstr "خواندن تصویر ممکن نیست"
 
-#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
-#: src/uagent/scheckgui.py:1627
+#: src/uagent/scheckgui.py:1599 src/uagent/scheckgui.py:1639
+#: src/uagent/scheckgui.py:1674
 msgid "Downloaded to"
 msgstr "دانلود شده به"
 
-#: src/uagent/scheckgui.py:1646
+#: src/uagent/scheckgui.py:1693
 msgid "Playing"
 msgstr "در حال پخش"
 
-#: src/uagent/scheckgui.py:1656
+#: src/uagent/scheckgui.py:1703
 msgid "Stopped"
 msgstr "متوقف شد"
 
-#: src/uagent/scheckgui.py:1705
+#: src/uagent/scheckgui.py:1752
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[پاسخ] > %(text)s"
 
-#: src/uagent/scheckgui.py:1713
+#: src/uagent/scheckgui.py:1760
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[کاربر] %(text)s"
 
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
-#: src/uagent/setup_cli.py:572
+#: src/uagent/setup_cli.py:81 src/uagent/setup_cli.py:543
+#: src/uagent/setup_cli.py:633
 msgid "OpenAI API key"
 msgstr "کلید OpenAI API"
 
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
-#: src/uagent/setup_cli.py:573
+#: src/uagent/setup_cli.py:82 src/uagent/setup_cli.py:544
+#: src/uagent/setup_cli.py:634
 msgid "OpenAI base URL (optional)"
 msgstr "URL پایه OpenAI (اختیاری)"
 
-#: src/uagent/setup_cli.py:79
+#: src/uagent/setup_cli.py:83
 msgid "OpenAI model/deployment name (optional)"
 msgstr "نام مدل/استقرار OpenAI (اختیاری)"
 
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
-#: src/uagent/setup_cli.py:560
+#: src/uagent/setup_cli.py:89 src/uagent/setup_cli.py:535
+#: src/uagent/setup_cli.py:621
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr "URL پایه Azure (به عنوان مثال https://<resource>.openai.azure.com/)"
 
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
-#: src/uagent/setup_cli.py:562
+#: src/uagent/setup_cli.py:91 src/uagent/setup_cli.py:537
+#: src/uagent/setup_cli.py:623
 msgid "Azure API key"
 msgstr "کلید Azure API"
 
-#: src/uagent/setup_cli.py:91
+#: src/uagent/setup_cli.py:95
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr "نسخه Azure API (اختیاری، به عنوان مثال 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
+#: src/uagent/setup_cli.py:97 src/uagent/setup_cli.py:539
 msgid "Azure deployment name"
 msgstr "نام استقرار Azure"
 
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
-#: src/uagent/setup_cli.py:581
+#: src/uagent/setup_cli.py:103 src/uagent/setup_cli.py:552
+#: src/uagent/setup_cli.py:642
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr "URL پایه دروازه بستر (به عنوان مثال https://<gateway>/v1)"
 
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
-#: src/uagent/setup_cli.py:583
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:554
+#: src/uagent/setup_cli.py:644
 msgid "Bedrock API key"
 msgstr "کلید Bedrock API"
 
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:558
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr "مدل پایه/نام استقرار (به عنوان مثال openai.gpt-oss-120b)"
 
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
-#: src/uagent/setup_cli.py:592
+#: src/uagent/setup_cli.py:113 src/uagent/setup_cli.py:563
+#: src/uagent/setup_cli.py:653
 msgid "OpenRouter API key"
 msgstr "کلید OpenRouter API"
 
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
-#: src/uagent/setup_cli.py:593
+#: src/uagent/setup_cli.py:114 src/uagent/setup_cli.py:564
+#: src/uagent/setup_cli.py:654
 msgid "OpenRouter base URL (optional)"
 msgstr "URL پایه OpenRouter (اختیاری)"
 
-#: src/uagent/setup_cli.py:114
+#: src/uagent/setup_cli.py:118
 msgid "OpenRouter model/deployment name (optional)"
 msgstr "نام مدل/استقرار OpenRouter (اختیاری)"
 
-#: src/uagent/setup_cli.py:119
+#: src/uagent/setup_cli.py:123
 msgid "OpenRouter fallback models (optional, comma-separated)"
 msgstr "مدل‌های بازگشتی OpenRouter (اختیاری، جدا شده با کاما)"
 
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
+#: src/uagent/setup_cli.py:127 src/uagent/setup_cli.py:569
 msgid "Gemini API key"
 msgstr "کلید Gemini API"
 
-#: src/uagent/setup_cli.py:124
+#: src/uagent/setup_cli.py:128
 msgid "Gemini model name (optional)"
 msgstr "نام مدل جمینی (اختیاری)"
 
-#: src/uagent/setup_cli.py:127
+#: src/uagent/setup_cli.py:131
 msgid "Vertex AI API key"
 msgstr "کلید Vertex AI API"
 
-#: src/uagent/setup_cli.py:128
+#: src/uagent/setup_cli.py:132
 msgid "Vertex AI project ID (optional)"
 msgstr "شناسه پروژه Vertex AI (اختیاری)"
 
-#: src/uagent/setup_cli.py:129
+#: src/uagent/setup_cli.py:133
 msgid "Vertex AI location/region (optional)"
 msgstr "مکان/منطقه AI Vertex (اختیاری)"
 
-#: src/uagent/setup_cli.py:133
+#: src/uagent/setup_cli.py:137
 msgid "Google credentials for Vertex AI (optional)"
 msgstr "اعتبارنامه Google برای Vertex AI (اختیاری)"
 
-#: src/uagent/setup_cli.py:138
+#: src/uagent/setup_cli.py:142
 msgid "Google location/region for Vertex AI (optional)"
 msgstr "مکان/منطقه Google برای Vertex AI (اختیاری)"
 
-#: src/uagent/setup_cli.py:140
+#: src/uagent/setup_cli.py:144
 msgid "Vertex AI model/deployment name"
 msgstr "نام مدل/استقرار هوش مصنوعی Vertex"
 
-#: src/uagent/setup_cli.py:143
+#: src/uagent/setup_cli.py:147
 msgid "Grok API key"
 msgstr "کلید API Grok"
 
-#: src/uagent/setup_cli.py:144
+#: src/uagent/setup_cli.py:148
 msgid "Grok base URL (optional)"
 msgstr "URL پایه Grok (اختیاری)"
 
-#: src/uagent/setup_cli.py:145
+#: src/uagent/setup_cli.py:149
 msgid "Grok model/deployment name (optional)"
 msgstr "نام مدل/استقرار Grok (اختیاری)"
 
-#: src/uagent/setup_cli.py:148
+#: src/uagent/setup_cli.py:152
 msgid "Claude API key"
 msgstr "کلید Claude API"
 
-#: src/uagent/setup_cli.py:149
+#: src/uagent/setup_cli.py:153
 msgid "Claude model/deployment name (optional)"
 msgstr "نام مدل/استقرار کلود (اختیاری)"
 
-#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
-#: src/uagent/setup_cli.py:607
+#: src/uagent/setup_cli.py:156 src/uagent/setup_cli.py:574
+#: src/uagent/setup_cli.py:668
 msgid "NVIDIA API key"
 msgstr "کلید NVIDIA API"
 
-#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
-#: src/uagent/setup_cli.py:608
+#: src/uagent/setup_cli.py:157 src/uagent/setup_cli.py:575
+#: src/uagent/setup_cli.py:669
 msgid "NVIDIA base URL (optional)"
 msgstr "URL پایه NVIDIA (اختیاری)"
 
-#: src/uagent/setup_cli.py:154
+#: src/uagent/setup_cli.py:158
 msgid "NVIDIA model/deployment name (optional)"
 msgstr "نام مدل/استقرار NVIDIA (اختیاری)"
 
-#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
+#: src/uagent/setup_cli.py:164 src/uagent/setup_cli.py:662
 msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
 msgstr "نشانی وب پایه اوللاما (به عنوان مثال http://localhost:11434/v1)"
 
-#: src/uagent/setup_cli.py:165
+#: src/uagent/setup_cli.py:169
 msgid "Ollama API key (optional, default: dummy)"
 msgstr "کلید Ollama API (اختیاری، پیش‌فرض: ساختگی)"
 
-#: src/uagent/setup_cli.py:167
+#: src/uagent/setup_cli.py:171
 msgid "Ollama model/deployment name (optional)"
 msgstr "نام مدل/استقرار اوللاما (اختیاری)"
 
-#: src/uagent/setup_cli.py:171
+#: src/uagent/setup_cli.py:175
 msgid "Ollama request timeout in seconds (default: 60)"
 msgstr "مهلت درخواست Ollama در ثانیه (پیش‌فرض: 60)"
 
-#: src/uagent/setup_cli.py:173
+#: src/uagent/setup_cli.py:177
 msgid "Ollama temperature (default: 0.7)"
 msgstr "دمای اولاما (پیش‌فرض: 0.7)"
 
-#: src/uagent/setup_cli.py:174
+#: src/uagent/setup_cli.py:178
 msgid "Ollama top_p (default: 0.9)"
 msgstr "Olama top_p (پیش‌فرض: 0.9)"
 
-#: src/uagent/setup_cli.py:175
+#: src/uagent/setup_cli.py:179
 msgid "Ollama top_k (default: 40)"
 msgstr "Olama top_k (پیش‌فرض: 40)"
 
-#: src/uagent/setup_cli.py:179
+#: src/uagent/setup_cli.py:183
 msgid "Ollama repeat_penalty (default: 1.1)"
 msgstr "Ollama repeat_penalty (پیش‌فرض: 1.1)"
 
-#: src/uagent/setup_cli.py:181
+#: src/uagent/setup_cli.py:185
 msgid "Ollama keep_alive (default: 5m)"
 msgstr "Ollama keep_alive (پیش‌فرض: 5 متر)"
 
-#: src/uagent/setup_cli.py:182
+#: src/uagent/setup_cli.py:186
 msgid "Ollama num_ctx (default: 8192)"
 msgstr "Ollama num_ctx (پیش‌فرض: 8192)"
 
-#: src/uagent/setup_cli.py:183
+#: src/uagent/setup_cli.py:187
 msgid "Ollama num_predict (default: 1024)"
 msgstr "Ollama num_predict (پیش‌فرض: 1024)"
 
-#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
+msgid "DeepSeek API key"
+msgstr "کلید API DeepSeek"
+
+msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
+msgstr "URL پایه DeepSeek (اختیاری، پیش‌فرض: https://api.deepseek.com)"
+
+msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
+msgstr "نام مدل DeepSeek (اختیاری، پیش‌فرض: deepseek-v4-flash)"
+
+msgid "DeepSeek temperature (default: 0.0)"
+msgstr "DeepSeek temperature (پیش‌فرض: 0.0)"
+
+msgid "DeepSeek top_p (default: 1.0)"
+msgstr "DeepSeek top_p (پیش‌فرض: 1.0)"
+
+msgid "DeepSeek presence_penalty (default: 0.0)"
+msgstr "DeepSeek presence_penalty (پیش‌فرض: 0.0)"
+
+msgid "DeepSeek frequency_penalty (default: 0.0)"
+msgstr "DeepSeek frequency_penalty (پیش‌فرض: 0.0)"
+
+msgid "Alibaba Cloud (Qwen) API key"
+msgstr "کلید API Alibaba Cloud (Qwen)"
+
+msgid ""
+"Alibaba base URL (optional, default: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+msgstr ""
+"URL پایه Alibaba (اختیاری، پیش‌فرض: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+
+msgid "Alibaba model name (optional, default: qwen3.5-plus)"
+msgstr "نام مدل Alibaba (اختیاری، پیش‌فرض: qwen3.5-plus)"
+
+msgid "Moonshot AI API key"
+msgstr "کلید API Moonshot AI"
+
+msgid "Moonshot base URL (optional, default: https://api.moonshot.cn/v1)"
+msgstr "URL پایه Moonshot (اختیاری، پیش‌فرض: https://api.moonshot.cn/v1)"
+
+msgid "Moonshot model name (optional, default: kimi-k2)"
+msgstr "نام مدل Moonshot (اختیاری، پیش‌فرض: kimi-k2)"
+
+#: src/uagent/setup_cli.py:406 src/uagent/setup_cli.py:495
 msgid "Enter number:"
 msgstr "شماره را وارد کنید:"
 
-#: src/uagent/setup_cli.py:358
+#: src/uagent/setup_cli.py:419
 msgid "Invalid input. Please enter a valid number."
 msgstr "ورودی نامعتبر است. لطفا یک عدد معتبر وارد کنید"
 
-#: src/uagent/setup_cli.py:371
+#: src/uagent/setup_cli.py:432
 #, python-format
 msgid " [default: %(default)s]"
 msgstr "[پیش‌فرض: %(default)s]"
 
-#: src/uagent/setup_cli.py:387
+#: src/uagent/setup_cli.py:448
 msgid "This field is required. Please enter a value."
 msgstr "این فیلد الزامی است. لطفا یک مقدار وارد کنید."
 
-#: src/uagent/setup_cli.py:399
+#: src/uagent/setup_cli.py:460
 msgid "Select UAGENT_LANG"
 msgstr "UAGENT_LANG را انتخاب کنید"
 
-#: src/uagent/setup_cli.py:410
+#: src/uagent/setup_cli.py:471
 msgid "UAGENT_LANG (custom)"
 msgstr "UAGENT_LANG (سفارشی)"
 
-#: src/uagent/setup_cli.py:423
+#: src/uagent/setup_cli.py:484
 msgid "Select output files to generate in the current directory"
 msgstr "فایل های خروجی را برای تولید در فهرست فعلی انتخاب کنید"
 
-#: src/uagent/setup_cli.py:424
+#: src/uagent/setup_cli.py:485
 msgid "  1. .env only"
 msgstr "1. فقط env"
 
-#: src/uagent/setup_cli.py:425
+#: src/uagent/setup_cli.py:486
 msgid "  2. .env + env.sh"
 msgstr "2. .env + env.sh"
 
-#: src/uagent/setup_cli.py:426
+#: src/uagent/setup_cli.py:487
 msgid "  3. .env + env.ps1"
 msgstr "3. env + env.ps1"
 
-#: src/uagent/setup_cli.py:427
+#: src/uagent/setup_cli.py:488
 msgid "  4. .env + env.bat"
 msgstr "4. env + env.bat"
 
-#: src/uagent/setup_cli.py:428
+#: src/uagent/setup_cli.py:489
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "5. env + all (sh/ps1/bat)"
 
-#: src/uagent/setup_cli.py:430
+#: src/uagent/setup_cli.py:491
 msgid "  b. back"
 msgstr "ب برگشت"
 
-#: src/uagent/setup_cli.py:431
+#: src/uagent/setup_cli.py:492
 msgid "  q. quit"
 msgstr "q ترک کردن"
 
-#: src/uagent/setup_cli.py:449
+#: src/uagent/setup_cli.py:510
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr "ورودی نامعتبر است. لطفاً 1-5 یا b/q را وارد کنید."
 
-#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
+#: src/uagent/setup_cli.py:538 src/uagent/setup_cli.py:627
 msgid "Azure API version (e.g. 2024-05-01-preview)"
 msgstr "نسخه Azure API (به عنوان مثال 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:484
+#: src/uagent/setup_cli.py:545
 msgid "OpenAI model/deployment name"
 msgstr "نام مدل/استقرار OpenAI"
 
-#: src/uagent/setup_cli.py:504
+#: src/uagent/setup_cli.py:565
 msgid "OpenRouter model/deployment name"
 msgstr "نام مدل/استقرار OpenRouter"
 
-#: src/uagent/setup_cli.py:509
+#: src/uagent/setup_cli.py:570
 msgid "Gemini model name"
 msgstr "نام مدل جمینی"
 
-#: src/uagent/setup_cli.py:515
+#: src/uagent/setup_cli.py:576
 msgid "NVIDIA model/deployment name"
 msgstr "نام مدل/استقرار NVIDIA"
 
-#: src/uagent/setup_cli.py:534
+#: src/uagent/setup_cli.py:595
 msgid "Enable image generation debug output? (0/1)"
 msgstr "خروجی اشکال زدایی تولید تصویر فعال شود؟ (0/1)"
 
-#: src/uagent/setup_cli.py:568
+#: src/uagent/setup_cli.py:629
 msgid "Azure embedding deployment name"
 msgstr "نام استقرار جاسازی Azure"
 
-#: src/uagent/setup_cli.py:574
+#: src/uagent/setup_cli.py:635
 msgid "OpenAI embedding model/deployment name"
 msgstr "نام مدل/استقرار تعبیه OpenAI"
 
-#: src/uagent/setup_cli.py:587
+#: src/uagent/setup_cli.py:648
 msgid "Bedrock embedding model/deployment name"
 msgstr "نام مدل/استقرار جاسازی بستر"
 
-#: src/uagent/setup_cli.py:594
+#: src/uagent/setup_cli.py:655
 msgid "OpenRouter embedding model/deployment name"
 msgstr "نام مدل/استقرار جاسازی OpenRouter"
 
-#: src/uagent/setup_cli.py:603
+#: src/uagent/setup_cli.py:664
 msgid "Ollama embedding model name"
 msgstr "نام مدل تعبیه شده اوللاما"
 
-#: src/uagent/setup_cli.py:609
+#: src/uagent/setup_cli.py:670
 msgid "NVIDIA embedding model/deployment name"
 msgstr "نام مدل/استقرار جاسازی NVIDIA"
 
-#: src/uagent/setup_cli.py:613
+#: src/uagent/setup_cli.py:674
 msgid "Gemini embedding API key"
 msgstr "کلید API جاسازی Gemini"
 
-#: src/uagent/setup_cli.py:617
+#: src/uagent/setup_cli.py:678
 msgid "Gemini embedding model name (e.g. text-embedding-004)"
 msgstr "نام مدل جاسازی Gemini (مثلاً text-embedding-004)"
 
-#: src/uagent/setup_cli.py:622
+#: src/uagent/setup_cli.py:683
 msgid "Vertex AI embedding API key"
 msgstr "کلید API جاسازی Vertex AI"
 
-#: src/uagent/setup_cli.py:626
+#: src/uagent/setup_cli.py:687
 msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
 msgstr "نام مدل جاسازی Vertex AI (مثلاً text-embedding-004)"
 
-#: src/uagent/setup_cli.py:675
+#: src/uagent/setup_cli.py:736
 msgid "Azure speech deployment name"
 msgstr "نام استقرار گفتار Azure"
 
-#: src/uagent/setup_cli.py:676
+#: src/uagent/setup_cli.py:737
 msgid "Azure transcription deployment name"
 msgstr "نام استقرار رونویسی Azure"
 
-#: src/uagent/setup_cli.py:677
+#: src/uagent/setup_cli.py:738
 msgid "OpenAI speech model/deployment name"
 msgstr "نام مدل/استقرار گفتار OpenAI"
 
-#: src/uagent/setup_cli.py:678
+#: src/uagent/setup_cli.py:739
 msgid "OpenAI transcription model/deployment name"
 msgstr "مدل رونویسی OpenAI / نام استقرار"
 
-#: src/uagent/setup_cli.py:679
+#: src/uagent/setup_cli.py:740
 msgid "Gemini speech model name (optional)"
 msgstr "نام مدل گفتار جمینی (اختیاری)"
 
-#: src/uagent/setup_cli.py:680
+#: src/uagent/setup_cli.py:741
 msgid "Gemini transcription model name (optional)"
 msgstr "نام مدل رونویسی Gemini (اختیاری)"
 
-#: src/uagent/setup_cli.py:681
+#: src/uagent/setup_cli.py:742
 msgid "Vertex AI speech model name (optional)"
 msgstr "نام مدل گفتار Vertex AI (اختیاری)"
 
-#: src/uagent/setup_cli.py:682
+#: src/uagent/setup_cli.py:743
 msgid "Vertex AI transcription model name (optional)"
 msgstr "نام مدل رونویسی Vertex AI (اختیاری)"
 
-#: src/uagent/setup_cli.py:705
+#: src/uagent/setup_cli.py:766
 msgid "Configure optional image / embedding / audio settings?"
 msgstr "تنظیمات اختیاری تصویر / جاسازی / صدا را پیکربندی کنید؟"
 
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
+#: src/uagent/setup_cli.py:767 src/uagent/setup_cli.py:782
+#: src/uagent/setup_cli.py:814 src/uagent/setup_cli.py:845
+#: src/uagent/setup_cli.py:861 src/uagent/setup_cli.py:916
+#: src/uagent/setup_cli.py:975 src/uagent/setup_cli.py:1220
+#: src/uagent/setup_cli.py:1281 src/uagent/setup_cli.py:1335
+#: src/uagent/setup_cli.py:1362 src/uagent/setup_cli.py:1383
+#: src/uagent/setup_cli.py:1520
 msgid "No"
 msgstr "خیر"
 
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
+#: src/uagent/setup_cli.py:767 src/uagent/setup_cli.py:782
+#: src/uagent/setup_cli.py:814 src/uagent/setup_cli.py:845
+#: src/uagent/setup_cli.py:861 src/uagent/setup_cli.py:916
+#: src/uagent/setup_cli.py:975 src/uagent/setup_cli.py:1220
+#: src/uagent/setup_cli.py:1281 src/uagent/setup_cli.py:1335
+#: src/uagent/setup_cli.py:1362 src/uagent/setup_cli.py:1383
+#: src/uagent/setup_cli.py:1520
 msgid "Yes"
 msgstr "بله"
 
-#: src/uagent/setup_cli.py:720
+#: src/uagent/setup_cli.py:781
 msgid "Configure image analysis settings?"
 msgstr "تنظیمات تجزیه و تحلیل تصویر را پیکربندی کنید؟"
 
-#: src/uagent/setup_cli.py:731
+#: src/uagent/setup_cli.py:792
 msgid "Select image analysis provider"
 msgstr "ارائه دهنده تجزیه و تحلیل تصویر را انتخاب کنید"
 
-#: src/uagent/setup_cli.py:752
+#: src/uagent/setup_cli.py:813
 msgid "Configure image generation settings?"
 msgstr "تنظیمات تولید تصویر را پیکربندی کنید؟"
 
-#: src/uagent/setup_cli.py:763
+#: src/uagent/setup_cli.py:824
 msgid "Select image generation provider"
 msgstr "ارائه دهنده تولید تصویر را انتخاب کنید"
 
-#: src/uagent/setup_cli.py:783
+#: src/uagent/setup_cli.py:844
 msgid "Open generated images automatically?"
 msgstr "تصاویر تولید شده به صورت خودکار باز شوند؟"
 
-#: src/uagent/setup_cli.py:799
+#: src/uagent/setup_cli.py:860
 msgid "Configure embedding / semantic search settings?"
 msgstr "تنظیمات جستجوی تعبیه / معنایی را پیکربندی کنید؟"
 
-#: src/uagent/setup_cli.py:825
+#: src/uagent/setup_cli.py:886
 msgid "Select embedding provider"
 msgstr "ارائه دهنده جاسازی را انتخاب کنید"
 
-#: src/uagent/setup_cli.py:854
+#: src/uagent/setup_cli.py:915
 msgid "Configure audio speech / transcription settings?"
 msgstr "تنظیمات گفتار / رونویسی صوتی پیکربندی شود؟"
 
-#: src/uagent/setup_cli.py:873
+#: src/uagent/setup_cli.py:934
 msgid "Select audio speech provider"
 msgstr "ارائه دهنده گفتار صوتی را انتخاب کنید"
 
-#: src/uagent/setup_cli.py:893
+#: src/uagent/setup_cli.py:954
 msgid "Select audio transcribe provider"
 msgstr "ارائه دهنده رونویسی صوتی را انتخاب کنید"
 
-#: src/uagent/setup_cli.py:913
+#: src/uagent/setup_cli.py:974
 msgid "Open generated audio automatically?"
 msgstr "صدای تولید شده به صورت خودکار باز شود؟"
 
-#: src/uagent/setup_cli.py:980
+#: src/uagent/setup_cli.py:1041
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "اختیاری: Responses API (Azure/OpenAI/Bedrock)"
 
-#: src/uagent/setup_cli.py:993
+#: src/uagent/setup_cli.py:1054
 msgid "Optional runtime"
 msgstr "زمان اجرا اختیاری"
 
-#: src/uagent/setup_cli.py:1007
+#: src/uagent/setup_cli.py:1068
 msgid "Optional image / embedding / audio settings"
 msgstr "تنظیمات تصویر / تعبیه / صدا اختیاری"
 
-#: src/uagent/setup_cli.py:1149
+#: src/uagent/setup_cli.py:1210
 msgid "Optional specialized sub-agent settings"
 msgstr "تنظیمات اختیاری زیرعامل‌های تخصصی"
 
-#: src/uagent/setup_cli.py:1158
+#: src/uagent/setup_cli.py:1219
 msgid "Encrypt the generated .env file?"
 msgstr "فایل env. ایجاد شده را رمزگذاری کنید؟"
 
-#: src/uagent/setup_cli.py:1164
+#: src/uagent/setup_cli.py:1225
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "فایل رمزگذاری شده به صورت %(path)s نوشته می شود"
 
-#: src/uagent/setup_cli.py:1180
+#: src/uagent/setup_cli.py:1241
 msgid "Select provider"
 msgstr "ارائه دهنده را انتخاب کنید"
 
-#: src/uagent/setup_cli.py:1219
+#: src/uagent/setup_cli.py:1280
 msgid "Enable Responses API options?"
 msgstr "گزینه های Responses API فعال شوند؟"
 
-#: src/uagent/setup_cli.py:1235
+#: src/uagent/setup_cli.py:1296
 msgid "Select reasoning"
 msgstr "استدلال را انتخاب کنید"
 
-#: src/uagent/setup_cli.py:1254
+#: src/uagent/setup_cli.py:1315
 msgid "Select verbosity"
 msgstr "پرحرفی را انتخاب کنید"
 
-#: src/uagent/setup_cli.py:1273
+#: src/uagent/setup_cli.py:1334
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "زمان اجرا اختیاری UAGENT_WORKDIR تنظیم شود؟"
 
-#: src/uagent/setup_cli.py:1300
+#: src/uagent/setup_cli.py:1361
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "زمان اجرا اختیاری UAGENT_LANG تنظیم شود؟"
 
-#: src/uagent/setup_cli.py:1321
+#: src/uagent/setup_cli.py:1382
 msgid "Enable streaming?"
 msgstr "پخش جریانی فعال شود؟"
 
-#: src/uagent/setup_cli.py:1362
+#: src/uagent/setup_cli.py:1423
 msgid "Summary"
 msgstr "خلاصه"
 
-#: src/uagent/setup_cli.py:1363
+#: src/uagent/setup_cli.py:1424
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "ارائه دهنده: %(provider)s"
 
-#: src/uagent/setup_cli.py:1370
+#: src/uagent/setup_cli.py:1431
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "پاسخ‌ها فعال شدند: %(state)s"
 
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+#: src/uagent/setup_cli.py:1432 src/uagent/setup_cli.py:1439
+#: src/uagent/setup_cli.py:1443 src/uagent/setup_cli.py:1449
+#: src/uagent/setup_cli.py:1455 src/uagent/setup_cli.py:1460
+#: src/uagent/setup_cli.py:1468 src/uagent/setup_cli.py:1479
 msgid "yes"
 msgstr "بله"
 
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+#: src/uagent/setup_cli.py:1432 src/uagent/setup_cli.py:1439
+#: src/uagent/setup_cli.py:1443 src/uagent/setup_cli.py:1449
+#: src/uagent/setup_cli.py:1455 src/uagent/setup_cli.py:1460
+#: src/uagent/setup_cli.py:1468 src/uagent/setup_cli.py:1479
 msgid "no"
 msgstr "نه"
 
-#: src/uagent/setup_cli.py:1377
+#: src/uagent/setup_cli.py:1438
 #, python-format
 msgid "  Streaming enabled: %(state)s"
 msgstr "پخش جریانی فعال شد: %(state)s"
 
-#: src/uagent/setup_cli.py:1393
+#: src/uagent/setup_cli.py:1454
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "موارد اضافی اختیاری فعال شده است: %(state)s"
 
-#: src/uagent/setup_cli.py:1398
+#: src/uagent/setup_cli.py:1459
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "تجزیه و تحلیل تصویر فعال شد: %(state)s"
 
-#: src/uagent/setup_cli.py:1406
+#: src/uagent/setup_cli.py:1467
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "تولید تصویر فعال شد: %(state)s"
 
-#: src/uagent/setup_cli.py:1417
+#: src/uagent/setup_cli.py:1478
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "جاسازی فعال شد: %(state)s"
 
-#: src/uagent/setup_cli.py:1427
+#: src/uagent/setup_cli.py:1488
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "خروجی ها: %(outputs)s"
 
-#: src/uagent/setup_cli.py:1430
+#: src/uagent/setup_cli.py:1491
 msgid "Generate files with this configuration?"
 msgstr "فایل هایی با این پیکربندی تولید می شود؟"
 
-#: src/uagent/setup_cli.py:1431
+#: src/uagent/setup_cli.py:1492
 msgid "Yes, generate"
 msgstr "بله، تولید کنید"
 
-#: src/uagent/setup_cli.py:1431
+#: src/uagent/setup_cli.py:1492
 msgid "Back"
 msgstr "برگشت"
 
-#: src/uagent/setup_cli.py:1455
+#: src/uagent/setup_cli.py:1516
 msgid "The following files already exist and will be overwritten:"
 msgstr "فایل های زیر از قبل وجود دارند و رونویسی خواهند شد:"
 
-#: src/uagent/setup_cli.py:1459
+#: src/uagent/setup_cli.py:1520
 msgid "Proceed?"
 msgstr "ادامه دهید؟"
 
-#: src/uagent/setup_cli.py:1483
+#: src/uagent/setup_cli.py:1544
 msgid "Plain .env file removed after encryption."
 msgstr "فایل .env ساده پس از رمزگذاری حذف شد."
 
-#: src/uagent/setup_cli.py:1486
+#: src/uagent/setup_cli.py:1547
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "هشدار: حذف .env: %(error)s انجام نشد"
 
-#: src/uagent/setup_cli.py:1505
+#: src/uagent/setup_cli.py:1566
 #, python-format
 msgid "generated: %(path)s"
 msgstr "تولید شده: %(path)s"
 
-#: src/uagent/uagent_llm.py:129
+#: src/uagent/uagent_llm.py:132
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[هشدار] دور ابزار بیش از %(max)d است. سقط"
 
-#: src/uagent/util_tools.py:181
+#: src/uagent/util_tools.py:182
 #, python-format
 msgid "image file not found: %(path)s"
 msgstr "فایل تصویری یافت نشد: %(path)s"
 
-#: src/uagent/util_tools.py:186
+#: src/uagent/util_tools.py:187
 #, python-format
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "فایل تصویر خیلی بزرگ است: %(size)d بایت (limit=%(max)d)"
 
-#: src/uagent/util_tools.py:210
+#: src/uagent/util_tools.py:211
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1678,7 +1767,7 @@ msgstr ""
 "فهرست کاری را مشخص کنید. اگر تنظیم نشده باشد، از UAGENT_WORKDIR env var یا "
 "دایرکتوری فعلی استفاده می کند."
 
-#: src/uagent/util_tools.py:217
+#: src/uagent/util_tools.py:218
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
@@ -1686,34 +1775,34 @@ msgstr ""
 "حالت غیر تعاملی حلقه stdin را شروع نکنید. پس از پردازش فایل راه اندازی (در "
 "صورت وجود) خارج شوید."
 
-#: src/uagent/util_tools.py:355
+#: src/uagent/util_tools.py:356
 msgid "invalid reasoning"
 msgstr "استدلال نامعتبر"
 
-#: src/uagent/util_tools.py:373
+#: src/uagent/util_tools.py:374
 msgid "invalid verbosity"
 msgstr "پرحرفی نامعتبر"
 
-#: src/uagent/util_tools.py:547
+#: src/uagent/util_tools.py:548
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr ""
 "[logs] آرگومان نامعتبر: %(arg)r (all / --all / -a / number را مشخص کنید)"
 
-#: src/uagent/util_tools.py:586
+#: src/uagent/util_tools.py:587
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "تجزیه آرگومان‌ها ناموفق بود: %(err)s"
 
-#: src/uagent/util_tools.py:589
+#: src/uagent/util_tools.py:590
 msgid "missing arguments"
 msgstr "استدلال های گم شده"
 
-#: src/uagent/util_tools.py:605
+#: src/uagent/util_tools.py:606
 msgid "src and dst are required"
 msgstr "src و dst مورد نیاز است"
 
-#: src/uagent/util_tools.py:973
+#: src/uagent/util_tools.py:974
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -1725,11 +1814,11 @@ msgstr ""
 "اگر مهارت شامل وظایفی است، تا زمانی که کامل شوند ادامه دهید.\n"
 "در صورت نیاز از ابزار استفاده کنید."
 
-#: src/uagent/util_tools.py:980
+#: src/uagent/util_tools.py:981
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "پس از اتمام، در صورت موجود بودن، همیشه «finish_skill» را صدا بزنید."
 
-#: src/uagent/util_tools.py:1132
+#: src/uagent/util_tools.py:1133
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1739,7 +1828,7 @@ msgstr ""
 "نکته: : مهارت ها واضح است (مهارت های کاربردی را حذف کنید)\n"
 "شماره را وارد کنید:"
 
-#: src/uagent/util_tools.py:1168
+#: src/uagent/util_tools.py:1169
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -1756,7 +1845,7 @@ msgstr ""
 "\n"
 "ادامه دهید؟ y را برای اجرا یا c را برای لغو وارد کنید."
 
-#: src/uagent/util_tools.py:1230
+#: src/uagent/util_tools.py:1231
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -1765,7 +1854,7 @@ msgstr ""
 "[clean] آرگومان نامعتبر: %(arg)r (number=threshold را مشخص کنید؛ پیش‌فرض "
 "%(default)d است)"
 
-#: src/uagent/util_tools.py:1279
+#: src/uagent/util_tools.py:1280
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1782,12 +1871,12 @@ msgstr ""
 "\n"
 "ادامه دهید؟ y را برای اجرا یا c را برای لغو وارد کنید."
 
-#: src/uagent/util_tools.py:1347
+#: src/uagent/util_tools.py:1348
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr "- (%(count)d پیام) %(path)s"
 
-#: src/uagent/util_tools.py:1391
+#: src/uagent/util_tools.py:1378
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -1804,7 +1893,7 @@ msgstr ""
 "\n"
 "ادامه دهید؟ y را برای اجرا یا c را برای لغو وارد کنید."
 
-#: src/uagent/util_tools.py:1522
+#: src/uagent/util_tools.py:1509
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1819,24 +1908,24 @@ msgstr ""
 "\n"
 "برای ادامه y یا برای لغو c را وارد کنید."
 
-#: src/uagent/util_tools.py:1577
+#: src/uagent/util_tools.py:1564
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "شاخص مشخص شده %(idx)d خارج از محدوده است."
 
-#: src/uagent/util_tools.py:1586
+#: src/uagent/util_tools.py:1573
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "فایل گزارش یافت نشد: %(path)s"
 
-#: src/uagent/util_tools.py:1669
+#: src/uagent/util_tools.py:1667
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[خطای کوچک کردن] تجزیه به عنوان int انجام نشد: %(arg)r -> نگه داشتن آخرین "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1697
+#: src/uagent/util_tools.py:1695
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1844,55 +1933,54 @@ msgstr ""
 "[خطای shrink_llm] تجزیه به عنوان int انجام نشد: %(arg)r -> نگه داشتن آخرین "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
+#: src/uagent/util_tools.py:1767 src/uagent/util_tools.py:1847
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr ""
 "حافظه بلند مدت مشترک فعال نیست (UAGENT_SHARED_MEMORY_FILE تنظیم نشده است)."
 
-#: src/uagent/util_tools.py:1787
+#: src/uagent/util_tools.py:1798
 msgid "Analyzing past logs to generate user profile..."
 msgstr "در حال تحلیل گزارش‌های قبلی برای ایجاد نمایهٔ کاربر..."
 
-#: src/uagent/util_tools.py:1791
+#: src/uagent/util_tools.py:1802
 msgid "No past logs found or failed to generate profile."
 msgstr "هیچ گزارش قبلی پیدا نشد یا ایجاد نمایه انجام نشد."
 
-#: src/uagent/util_tools.py:1793
-#, fuzzy
+#: src/uagent/util_tools.py:1804
 msgid "User profile generated successfully from past logs!"
 msgstr "پروفایل کاربر با موفقیت پاک شد."
 
-#: src/uagent/util_tools.py:1805
+#: src/uagent/util_tools.py:1816
 msgid "No user profile data found."
 msgstr "هیچ داده‌ای برای پروفایل کاربر یافت نشد."
 
-#: src/uagent/util_tools.py:1808
+#: src/uagent/util_tools.py:1819
 msgid "User Profile:"
 msgstr "پروفایل کاربر:"
 
-#: src/uagent/util_tools.py:1820
+#: src/uagent/util_tools.py:1831
 msgid "User profile cleared successfully."
 msgstr "پروفایل کاربر با موفقیت پاک شد."
 
-#: src/uagent/util_tools.py:1824
+#: src/uagent/util_tools.py:1835
 msgid "No user profile file found to clear."
 msgstr "هیچ فایل پروفایل کاربری برای پاک کردن یافت نشد."
 
-#: src/uagent/util_tools.py:1888
+#: src/uagent/util_tools.py:1899
 msgid "Show this help"
 msgstr "این کمک را نشان دهید"
 
-#: src/uagent/util_tools.py:1889
+#: src/uagent/util_tools.py:1900
 msgid "Restart input from the beginning"
 msgstr "ورودی را از ابتدا مجدداً راه اندازی کنید"
 
-#: src/uagent/util_tools.py:1890
+#: src/uagent/util_tools.py:1901
 msgid "Show log file list"
 msgstr "نمایش لیست فایل های گزارش"
 
-#: src/uagent/util_tools.py:1893
+#: src/uagent/util_tools.py:1904
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -1900,26 +1988,26 @@ msgstr ""
 "تغییر مسیر کاری بدون تأیید (به عنوان مثال :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
 
-#: src/uagent/util_tools.py:1896
+#: src/uagent/util_tools.py:1907
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr ""
 "فهرست ورودی های فهرست (به عنوان مثال: ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:1899
+#: src/uagent/util_tools.py:1910
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "متغیرهای محیطی UAGENT_* را مدیریت کنید و .env.sec را ذخیره کنید"
 
-#: src/uagent/util_tools.py:1901
+#: src/uagent/util_tools.py:1912
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "مدیریت/به کارگیری مهارت ها (به عنوان مثال: مهارت ها / : مهارت های فعال /: "
 "مهارت های واضح)"
 
-#: src/uagent/util_tools.py:1908
+#: src/uagent/util_tools.py:1919
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "بارگیری گزارش گذشته (سابقه مکالمه فعلی را بازنویسی می کند)"
 
-#: src/uagent/util_tools.py:1910
+#: src/uagent/util_tools.py:1921
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1928,7 +2016,7 @@ msgstr ""
 "توجه: پس از اجرا از شما درخواست تایید می شود. انتخاب 'y' گزارش بارگذاری شده "
 "را به فایل گزارش جلسه جاری اضافه می کند (بازنویسی، بدون پشتیبان)."
 
-#: src/uagent/util_tools.py:1914
+#: src/uagent/util_tools.py:1925
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -1936,12 +2024,12 @@ msgstr ""
 "حذف گزارش‌های مکالمه (scheck_log_*.jsonl) که در آن تعداد پیام‌های "
 "کاربر/دستیار/ابزار (به استثنای سیستم) <= N (پیش‌فرض=10) است."
 
-#: src/uagent/util_tools.py:1918
+#: src/uagent/util_tools.py:1929
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr "کوچک کردن تاریخچه مکالمه (حفظ آخرین N پیام غیر سیستمی؛ پیش فرض = 40)"
 
-#: src/uagent/util_tools.py:1922
+#: src/uagent/util_tools.py:1933
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -1949,71 +2037,72 @@ msgstr ""
 "کوچک کردن تاریخچه از طریق خلاصه‌سازی LLM (تاریخچه قدیمی‌تر را در 1 پیام "
 "سیستم خلاصه کنید؛ آخرین N را خام نگه دارید؛ پیش‌فرض = 20)"
 
-#: src/uagent/util_tools.py:1924
+msgid "Show the current approximate token count of the conversation"
+msgstr "نمایش تعداد تقریبی توکن فعلی مکالمه"
+
+#: src/uagent/util_tools.py:1937
 msgid "List long-term memory notes"
 msgstr "یادداشت های حافظه بلند مدت را فهرست کنید"
 
-#: src/uagent/util_tools.py:1926
+#: src/uagent/util_tools.py:1939
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "یک یادداشت حافظه بلند مدت را بر اساس فهرست حذف کنید (به :mem-list مراجعه "
 "کنید)"
 
-#: src/uagent/util_tools.py:1928
-#, fuzzy
+#: src/uagent/util_tools.py:1941
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr "نمایش پروفایل کاربر یادگرفته شده (محیط، ترجیحات، محدودیت‌ها)"
 
-#: src/uagent/util_tools.py:1929
-#, fuzzy
+#: src/uagent/util_tools.py:1942
 msgid "Generate user profile from past logs"
 msgstr "هیچ داده‌ای برای پروفایل کاربر یافت نشد."
 
-#: src/uagent/util_tools.py:1930
+#: src/uagent/util_tools.py:1943
 msgid "Clear the learned user profile data"
 msgstr "پاک کردن داده‌های پروفایل کاربر یادگرفته شده"
 
-#: src/uagent/util_tools.py:1932
+#: src/uagent/util_tools.py:1945
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "کپی فایل یا فهرست (پشتیبانی از -f/--بازنویسی و -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1934
+#: src/uagent/util_tools.py:1947
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "انتقال فایل یا دایرکتوری (پشتیبانی از -f/--overwrite و -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1936
+#: src/uagent/util_tools.py:1949
 msgid "Show the first n lines of a file (default=20)"
 msgstr "نمایش n خط اول یک فایل (پیش فرض = 20)"
 
-#: src/uagent/util_tools.py:1937
+#: src/uagent/util_tools.py:1950
 msgid "Show the last n lines of a file (default=20)"
 msgstr "نمایش n خط آخر یک فایل (پیش فرض = 20)"
 
-#: src/uagent/util_tools.py:1939
+#: src/uagent/util_tools.py:1952
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "حذف فایل(ها)/دایرکتوری(ها) با پیش نمایش + تایید"
 
-#: src/uagent/util_tools.py:1941
+#: src/uagent/util_tools.py:1954
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "حالت استدلال را تنظیم کنید (0=خاموش، 1=کم، 2=متوسط، 3=بالا؛ "
 "خودکار/حداقل/گزیده)"
 
-#: src/uagent/util_tools.py:1943
+#: src/uagent/util_tools.py:1956
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "حالت پرحرفی را تنظیم کنید (0=خاموش، 1=کم، 2=متوسط، 3=بالا، بدون ارگ=حفظ)"
 
-#: src/uagent/util_tools.py:1944
+#: src/uagent/util_tools.py:1957
 msgid "Exit"
 msgstr "خارج شوید"
 
-#: src/uagent/util_tools.py:1947
+#: src/uagent/util_tools.py:1960
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "- خطی را وارد کنید که فقط \"f\" باشد تا وارد حالت ورودی چند خطی شوید."
 
-#: src/uagent/util_tools.py:1949
+#: src/uagent/util_tools.py:1962
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
@@ -2021,16 +2110,16 @@ msgstr ""
 "- برای پایان دادن به حالت ورودی چند خطی، خطی را وارد کنید که دقیقا "
 "%(sentinel)s باشد."
 
-#: src/uagent/util_tools.py:2185
+#: src/uagent/util_tools.py:2201
 msgid "Exiting."
 msgstr "در حال خروج"
 
-#: src/uagent/util_tools.py:2188
+#: src/uagent/util_tools.py:2204
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "دستور ناشناخته: %(cmd)s"
 
-#: src/uagent/util_tools.py:2339
+#: src/uagent/util_tools.py:2355
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2048,7 +2137,7 @@ msgstr ""
 "[هشدار] کار دیگری در حال حاضر در این اتاق در حال اجرا است. لطفاً پس از تکمیل"
 " آن دوباره امتحان کنید."
 
-#: src/uagent/web.py:626 src/uagent/web.py:767
+#: src/uagent/web.py:626 src/uagent/web.py:773
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2099,7 +2188,7 @@ msgstr ""
 "3. جاوا اسکریپت تعاملی (به عنوان مثال، Chart.js برای نمودارها، یا مدیریت وضعیت ساده) را اضافه کنید.\n"
 "4. کد را به چند بلوک تقسیم نکنید؛ آن را در یک بلوک ```html واحد و یکپارچه نگه دارید.\n"
 
-#: src/uagent/web.py:764
+#: src/uagent/web.py:770
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2108,19 +2197,19 @@ msgstr ""
 "[FATAL] خطای وب کارگر.\n"
 "%(err)s"
 
-#: src/uagent/web.py:901
+#: src/uagent/web.py:907
 msgid "missing path"
 msgstr "مسیر وجود ندارد"
 
-#: src/uagent/web.py:908
+#: src/uagent/web.py:914
 msgid "path outside workdir"
 msgstr "مسیر خارج از پوشهٔ کار"
 
-#: src/uagent/web.py:1071
+#: src/uagent/web.py:1149
 msgid "Starting server on"
 msgstr "در حال راه‌اندازی سرور روی"
 
-#: src/uagent/web.py:1073
+#: src/uagent/web.py:1151
 msgid "External URL:"
 msgstr "آدرس URL خارجی:"
 
@@ -2266,10 +2355,13 @@ msgstr "UAGENT_A2A_ENGINE ناشناخته: %(mode)s"
 msgid "invalid cache meta"
 msgstr "متای حافظه پنهان نامعتبر است"
 
-#: src/uagent/providers/llm_claude.py:222
-#: src/uagent/providers/util_providers.py:610
+#: src/uagent/providers/llm_claude.py:220
+#: src/uagent/providers/util_providers.py:668
 msgid "anthropic package is not installed."
 msgstr "بسته anthropic نصب نشده است."
+
+msgid "An error occurred while generating a response."
+msgstr "هنگام تولید پاسخ خطایی رخ داد."
 
 #: src/uagent/providers/llm_gemini.py:564
 msgid ""
@@ -2277,11 +2369,11 @@ msgid ""
 msgstr ""
 "امکان import کردن google-genai نبود (نصب google-genai با pip لازم است)."
 
-#: src/uagent/providers/llm_gemini.py:1124
+#: src/uagent/providers/llm_gemini.py:1130
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr "[خطای Gemini: پاسخ توسط فیلتر ایمنی یا دلیل پایان مسدود شد]"
 
-#: src/uagent/providers/llm_gemini.py:1129
+#: src/uagent/providers/llm_gemini.py:1135
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[خطای Gemini: %(err)s]"
@@ -2366,68 +2458,70 @@ msgstr ""
 msgid "Environment variable UAGENT_PROVIDER is not set."
 msgstr "متغیر محیطی UAGENT_PROVIDER تنظیم نشده است."
 
-#: src/uagent/providers/util_providers.py:259
+#: src/uagent/providers/util_providers.py:262
 #, python-format
 msgid "Unknown provider: %(provider)s"
 msgstr "ارائه دهنده ناشناس: %(provider)s"
 
-#: src/uagent/providers/util_providers.py:544
-#: src/uagent/providers/util_providers.py:570
+#: src/uagent/providers/util_providers.py:602
+#: src/uagent/providers/util_providers.py:628
 msgid "google-genai package is not installed."
 msgstr "بسته google-genai نصب نشده است."
 
-#: src/uagent/runtime/runtime_banner.py:231
+#: src/uagent/runtime/runtime_banner.py:232
 msgid "embedding"
 msgstr "تعبیه کردن"
 
-#: src/uagent/runtime/runtime_banner.py:232
+#: src/uagent/runtime/runtime_banner.py:233
 msgid "audio speech"
 msgstr "سخنرانی صوتی"
 
-#: src/uagent/runtime/runtime_banner.py:233
+#: src/uagent/runtime/runtime_banner.py:234
 msgid "audio transcribe"
 msgstr "رونویسی صوتی"
 
-#: src/uagent/runtime/runtime_banner.py:234
+#: src/uagent/runtime/runtime_banner.py:235
 msgid "image generation"
 msgstr "تولید تصویر"
 
-#: src/uagent/runtime/runtime_banner.py:235
+#: src/uagent/runtime/runtime_banner.py:236
 msgid "image analysis"
 msgstr "تجزیه و تحلیل تصویر"
 
-#: src/uagent/runtime/runtime_banner.py:254
+#: src/uagent/runtime/runtime_banner.py:255
 #, python-format
 msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
 msgstr "[INFO] workdir = %(workdir)s (منبع: %(source)s)"
 
-#: src/uagent/runtime/runtime_banner.py:262
-#: src/uagent/runtime/runtime_banner.py:276
-#: src/uagent/runtime/runtime_banner.py:281
-#: src/uagent/runtime/runtime_banner.py:293
-#: src/uagent/runtime/runtime_banner.py:305
-#: src/uagent/runtime/runtime_banner.py:314
-#: src/uagent/runtime/runtime_banner.py:323
+#: src/uagent/runtime/runtime_banner.py:263
+#: src/uagent/runtime/runtime_banner.py:277
+#: src/uagent/runtime/runtime_banner.py:282
+#: src/uagent/runtime/runtime_banner.py:294
+#: src/uagent/runtime/runtime_banner.py:306
+#: src/uagent/runtime/runtime_banner.py:315
+#: src/uagent/runtime/runtime_banner.py:325
+#: src/uagent/runtime/runtime_banner.py:338
+#: src/uagent/runtime/runtime_banner.py:347
 #, python-format
 msgid "[INFO] base_url = %(base_url)s"
 msgstr "[اطلاعات] base_url = %(base_url)s"
 
-#: src/uagent/runtime/runtime_banner.py:270
+#: src/uagent/runtime/runtime_banner.py:271
 #, python-format
 msgid "[INFO] api_version = %(api_version)s"
 msgstr "[اطلاعات] api_version = %(api_version)s"
 
-#: src/uagent/runtime/runtime_banner.py:332
+#: src/uagent/runtime/runtime_banner.py:356
 #, python-format
 msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
 msgstr "[اطلاعات] vertexai = project=%(project)s, location=%(location)s"
 
-#: src/uagent/runtime/runtime_banner.py:341
+#: src/uagent/runtime/runtime_banner.py:365
 #, python-format
 msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
 msgstr "[اطلاعات] %(label)s = %(provider)s؛ مدل = %(model)s"
 
-#: src/uagent/runtime/runtime_banner.py:368
+#: src/uagent/runtime/runtime_banner.py:386
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
@@ -2436,34 +2530,34 @@ msgstr ""
 "UAGENT_RESPONSES=1 تنظیم شده است، اما ارائه‌دهنده '%(provider)s' از "
 "Responses API پشتیبانی نمی‌کند. به ChatCompletions بازمی‌گردد."
 
-#: src/uagent/runtime/runtime_banner.py:375
+#: src/uagent/runtime/runtime_banner.py:393
 #, python-format
 msgid "LLM API mode = %(mode)s"
 msgstr "حالت API LLM = %(mode)s"
 
-#: src/uagent/runtime/runtime_banner.py:378
+#: src/uagent/runtime/runtime_banner.py:396
 msgid "Responses (UAGENT_RESPONSES is enabled)"
 msgstr "پاسخ ها (UAGENT_RESPONSES فعال است)"
 
-#: src/uagent/runtime/runtime_banner.py:382
+#: src/uagent/runtime/runtime_banner.py:400
 msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
 msgstr ""
 "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES نادیده گرفته شده است)"
 
-#: src/uagent/runtime/runtime_banner.py:385
+#: src/uagent/runtime/runtime_banner.py:403
 msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "تکمیل چت (UAGENT_RESPONSES غیرفعال است)"
 
-#: src/uagent/runtime/runtime_banner.py:393
+#: src/uagent/runtime/runtime_banner.py:411
 #, python-format
 msgid "LLM streaming = %(state)s"
 msgstr "پخش جریانی LLM = %(state)s"
 
-#: src/uagent/runtime/runtime_banner.py:394
+#: src/uagent/runtime/runtime_banner.py:412
 msgid "enabled"
 msgstr "فعال شد"
 
-#: src/uagent/runtime/runtime_banner.py:394
+#: src/uagent/runtime/runtime_banner.py:412
 msgid "disabled"
 msgstr "از کار افتاده است"
 

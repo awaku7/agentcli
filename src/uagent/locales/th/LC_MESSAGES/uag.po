@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-12 05:36+0900\n"
+"POT-Creation-Date: 2026-06-16 14:32+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,30 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[ข้อผิดพลาด] ยังไม่ได้ติดตั้ง Git"
 
-#: src/uagent/cli.py:397
+#: src/uagent/cli.py:456
 msgid "getch() fallback to input()"
 msgstr "getch() ใช้ input() แทน"
 
-#: src/uagent/cli.py:604
+#: src/uagent/cli.py:673
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "ได้รับ Ctrl+C แล้ว กำลังเริ่มปิดโปรแกรม..."
 
-#: src/uagent/cli.py:636 src/uagent/cli.py:706
+#: src/uagent/cli.py:710 src/uagent/cli.py:755 src/uagent/setup_cli.py:1244
+#: src/uagent/setup_cli.py:1263 src/uagent/setup_cli.py:1286
+#: src/uagent/setup_cli.py:1302 src/uagent/setup_cli.py:1321
+#: src/uagent/setup_cli.py:1340 src/uagent/setup_cli.py:1354
+#: src/uagent/setup_cli.py:1367 src/uagent/setup_cli.py:1375
+#: src/uagent/setup_cli.py:1388 src/uagent/setup_cli.py:1400
+#: src/uagent/setup_cli.py:1411 src/uagent/setup_cli.py:1497
+#: src/uagent/setup_cli.py:1523
+msgid "Cancelled."
+msgstr "ยกเลิกแล้ว"
+
+#: src/uagent/cli.py:717 src/uagent/cli.py:772
+msgid "Received multiline reply."
+msgstr "ได้รับการตอบกลับหลายบรรทัด"
+
+#: src/uagent/cli.py:725 src/uagent/cli.py:807
 #, python-format
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
@@ -54,26 +69,11 @@ msgstr ""
 "(โหมดป้อนหลายบรรทัด: ป้อนเนื้อหาหลายบรรทัด; หากต้องการเริ่มใหม่ ให้พิมพ์ "
 "\"\"\"retry; จบด้วยบรรทัดที่มี %(sentinel)s)"
 
-#: src/uagent/cli.py:666 src/uagent/setup_cli.py:1183
-#: src/uagent/setup_cli.py:1202 src/uagent/setup_cli.py:1225
-#: src/uagent/setup_cli.py:1241 src/uagent/setup_cli.py:1260
-#: src/uagent/setup_cli.py:1279 src/uagent/setup_cli.py:1293
-#: src/uagent/setup_cli.py:1306 src/uagent/setup_cli.py:1314
-#: src/uagent/setup_cli.py:1327 src/uagent/setup_cli.py:1339
-#: src/uagent/setup_cli.py:1350 src/uagent/setup_cli.py:1436
-#: src/uagent/setup_cli.py:1462
-msgid "Cancelled."
-msgstr "ยกเลิกแล้ว"
-
-#: src/uagent/cli.py:672 src/uagent/cli.py:722
+#: src/uagent/cli.py:761 src/uagent/cli.py:824
 msgid "Discarded previous input. Please start over."
 msgstr "ละทิ้งข้อมูลที่ป้อนก่อนหน้าแล้ว โปรดเริ่มใหม่"
 
-#: src/uagent/cli.py:683
-msgid "Received multiline reply."
-msgstr "ได้รับการตอบกลับหลายบรรทัด"
-
-#: src/uagent/cli.py:841
+#: src/uagent/cli.py:945
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -83,27 +83,27 @@ msgstr ""
 "ต้องการส่งรูปภาพเหล่านี้ไปยัง LLM (API ภายนอก) เพื่อวิเคราะห์หรือไม่\n"
 "\n"
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:951
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "ตอบ y เพื่อส่ง หรือ n (หรือ c/cancel) เพื่อข้ามการส่ง"
 
-#: src/uagent/cli.py:865
+#: src/uagent/cli.py:969
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "ยืนยันการส่งรูปภาพไม่สำเร็จ จะไม่ส่งรูปภาพ: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:893 src/uagent/scheckgui.py:432
+#: src/uagent/cli.py:997 src/uagent/scheckgui.py:432
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "แนบรูปภาพไม่สำเร็จ: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:930
+#: src/uagent/cli.py:1034
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "ไม่รู้จักชนิดเหตุการณ์ kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:948
+#: src/uagent/cli.py:1052
 msgid "Exited uag."
 msgstr "ออกจาก uag แล้ว"
 
@@ -111,98 +111,137 @@ msgstr "ออกจาก uag แล้ว"
 msgid "[docs] name is required"
 msgstr "[docs] ต้องระบุชื่อ"
 
+#: src/uagent/cli_startup.py:22
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] คำถามหมวดหมู่ตอนเริ่มต้น = ป้อนตัวเลข"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
-"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+"Enter the sum of numbers "
+"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, "
+"Enter=enable all):"
 msgstr ""
-"กรุณาป้อนผลรวมของตัวเลข (เช่น 3 = comm + office, 15 = ทั้งหมด หรือกด Enter "
-"เพื่อเปิดใช้งานทั้งหมด):"
+"ป้อนผลรวมของตัวเลข "
+"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, "
+"Enter=เปิดใช้งานทั้งหมด):กรุณาป้อนผลรวมของตัวเลข (เช่น 3 = comm + office, 15"
+" = ทั้งหมด หรือกด Enter เพื่อเปิดใช้งานทั้งหมด):"
 
-msgid "Communication (Teams, Discord, etc.)"
-msgstr "การสื่อสาร (Teams, Discord ฯลฯ)"
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:977
+#: src/uagent/web.py:931
+msgid "Communication (Teams, Discord, Bluesky)"
+msgstr "การสื่อสาร (Teams, Discord, Bluesky)"
 
-msgid "Office suite (Excel, Word, etc.)"
-msgstr "ชุดสำนักงาน (Excel, Word ฯลฯ)"
+#: src/uagent/cli_startup.py:70 src/uagent/scheckgui.py:978
+#: src/uagent/web.py:932
+msgid "Office (Excel, Word, PDF, PPT, document extraction)"
+msgstr "Office (Excel, Word, PDF, PPT, การแยกเอกสาร)"
 
-msgid "Development (lint, py_compile, test, etc.)"
-msgstr "การพัฒนา (lint, py_compile, test ฯลฯ)"
+#: src/uagent/cli_startup.py:71 src/uagent/scheckgui.py:979
+#: src/uagent/web.py:933
+msgid ""
+"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+msgstr ""
+"Development (lint, test, git, DB, ภาพหน้าจอ, browser, binary, compile)"
 
-msgid "IoT (Bluetooth, etc.)"
-msgstr "IoT (Bluetooth ฯลฯ)"
+#: src/uagent/cli_startup.py:72 src/uagent/scheckgui.py:982
+#: src/uagent/web.py:934
+msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, กล้อง, geo-IP)"
 
+#: src/uagent/cli_startup.py:73 src/uagent/scheckgui.py:984
+#: src/uagent/web.py:935
+msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
+msgstr "การดำเนินการ (cmd, python, pwsh, bash, ซับเอเจนต์)"
+
+#: src/uagent/cli_startup.py:74 src/uagent/scheckgui.py:986
+#: src/uagent/web.py:936
+msgid "External (A2A, MCP, fetch, search web)"
+msgstr "ภายนอก (A2A, MCP, ดึงข้อมูล, ค้นหาเว็บ)"
+
+#: src/uagent/cli_startup.py:75 src/uagent/scheckgui.py:988
+#: src/uagent/web.py:937
+msgid "Media (image gen/edit/analyze, audio, QR code)"
+msgstr "Media (สร้าง/แก้ไข/วิเคราะห์รูปภาพ, เสียง, รหัส QR)"
+
+msgid "[INFO] startup genre prompt = prompt_toolkit"
+msgstr "[INFO] startup genre prompt = prompt_toolkit"
+
+#: src/uagent/cli_startup.py:90
 msgid "Tool genre selection"
 msgstr "การเลือกหมวดหมู่เครื่องมือ"
 
+#: src/uagent/cli_startup.py:91
 msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
 msgstr "ใช้ Space เพื่อสลับ ใช้ปุ่มลูกศรเพื่อเลื่อน และกด Enter เพื่อยืนยัน"
 
+#: src/uagent/cli_startup.py:92
 msgid "OK"
 msgstr "ตกลง"
 
+#: src/uagent/cli_startup.py:93
 msgid "Default"
 msgstr "ค่าเริ่มต้น"
 
+#: src/uagent/cli_startup.py:99
 msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
 msgstr ""
 "[INFO] คำถามหมวดหมู่ตอนเริ่มต้น = ป้อนตัวเลข (ตัวสำรอง prompt_toolkit)"
 
-#: src/uagent/cli_startup.py:146
+#: src/uagent/cli_startup.py:164
 #, python-format
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] ไม่สามารถใช้การเลือกเครื่องมือเริ่มต้น: %(err)s"
 
-#: src/uagent/cli_startup.py:221 src/uagent/web.py:1053
+#: src/uagent/cli_startup.py:239 src/uagent/web.py:1131
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[ข้อผิดพลาดร้ายแรง] ตั้งค่าไดเรกทอรีทำงานไม่สำเร็จ: %(err)s"
 
-#: src/uagent/cli_startup.py:250
+#: src/uagent/cli_startup.py:268
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[ข้อผิดพลาดร้ายแรง] เริ่ม uag_setup ไม่สำเร็จ: %(err)s"
 
-#: src/uagent/cli_startup.py:291
+#: src/uagent/cli_startup.py:309
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "ผู้ให้บริการ = %(provider)s; โมเดล = %(model)s"
 
-#: src/uagent/cli_startup.py:298 src/uagent/scheckgui.py:296
+#: src/uagent/cli_startup.py:321 src/uagent/scheckgui.py:296
 msgid "OpenRouter fallback models enabled."
 msgstr "เปิดใช้งานโมเดลสำรองของ OpenRouter แล้ว"
 
-#: src/uagent/cli_startup.py:302
+#: src/uagent/cli_startup.py:325
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "ไดเรกทอรีทำงานปัจจุบัน = %(cwd)s"
 
-#: src/uagent/cli_startup.py:313 src/uagent/scheckgui.py:307
+#: src/uagent/cli_startup.py:336 src/uagent/scheckgui.py:307
 msgid "Loaded long-term memory."
 msgstr "โหลดหน่วยความจำระยะยาวแล้ว"
 
-#: src/uagent/cli_startup.py:326 src/uagent/scheckgui.py:320
+#: src/uagent/cli_startup.py:349 src/uagent/scheckgui.py:320
 msgid "Loaded shared long-term memory."
 msgstr "โหลดหน่วยความจำระยะยาวที่แชร์แล้ว"
 
-#: src/uagent/cli_startup.py:333 src/uagent/web.py:718
+#: src/uagent/cli_startup.py:356 src/uagent/web.py:718
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "[คำเตือน] เกิดข้อยกเว้นขณะโหลดหน่วยความจำระยะยาวที่ใช้ร่วมกัน: %(err)s"
 
-#: src/uagent/cli_startup.py:367
+#: src/uagent/cli_startup.py:390
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[คำเตือน] อ่านไฟล์เริ่มต้นไม่สำเร็จ: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:381
+#: src/uagent/cli_startup.py:404
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "มีการระบุไฟล์เริ่มต้น: %(path)s"
 
-#: src/uagent/cli_startup.py:404
+#: src/uagent/cli_startup.py:427
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "มีการระบุ --non-interactive; ออกจากโปรแกรมโดยไม่รอ stdin"
 
@@ -245,23 +284,14 @@ msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d ข้อความ | แรก: %(first_user)s | ล่าสุด:"
 " %(last_user)s"
 
-#: src/uagent/core.py:896
-#, python-format
-msgid ""
-"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-msgstr ""
-"[WARN] กำลังละทิ้งข้อความเครื่องมือที่ค้างอยู่: "
-"tool_call_id=%(tool_call_id)r name=%(name)r"
-
-#: src/uagent/core.py:994
+#: src/uagent/core.py:1016
 #, python-format
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
 msgstr ""
 "[INFO] มีข้อความ %(count)d ข้อความให้บีบอัด ดังนั้นจึงไม่มีการเปลี่ยนแปลง"
 
-#: src/uagent/core.py:1004
+#: src/uagent/core.py:1026
 #, python-format
 msgid ""
 "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
@@ -270,19 +300,19 @@ msgstr ""
 "[INFO] บีบอัดประวัติการสนทนาในหน่วยความจำแล้ว: %(old_n)d -> %(new_n)d "
 "ข้อความ (keep_last=%(keep_last)d)"
 
-#: src/uagent/core.py:1215
+#: src/uagent/core.py:1237
 msgid "429 retry limit (%(max_retries)s) reached while history compression."
 msgstr "เกินขีดจำกัดการลองใหม่ 429 (%(max_retries)s) ขณะบีบอัดประวัติ"
 
-#: src/uagent/core.py:1225
+#: src/uagent/core.py:1247
 msgid "Error while calling LLM for history compression: %(err)r"
 msgstr "เกิดข้อผิดพลาดขณะเรียก LLM เพื่อบีบอัดประวัติ: %(err)r"
 
-#: src/uagent/core.py:1258
+#: src/uagent/core.py:1280
 msgid "- Summarize the conversation chunk in English.\n"
 msgstr "- สรุปส่วนของการสนทนาเป็นภาษาอังกฤษ\n"
 
-#: src/uagent/core.py:1260
+#: src/uagent/core.py:1282
 msgid ""
 "- Keep the summary concise but include key decisions, constraints, and "
 "pending items.\n"
@@ -290,27 +320,27 @@ msgstr ""
 "- รักษาความกระชับของสรุป แต่รวมถึงการตัดสินใจที่สำคัญ ข้อจำกัด "
 "และรายการที่ค้างอยู่\n"
 
-#: src/uagent/core.py:1262
+#: src/uagent/core.py:1284
 msgid "- Output should be directly usable as a system message."
 msgstr "- ผลลัพธ์ควรสามารถนำไปใช้เป็นข้อความระบบได้โดยตรง"
 
-#: src/uagent/core.py:1265
+#: src/uagent/core.py:1287
 msgid "Conversation chunk:\n"
 msgstr "ส่วนของการสนทนา:\n"
 
-#: src/uagent/core.py:1267
+#: src/uagent/core.py:1289
 msgid "Write a concise summary of this chunk."
 msgstr "เขียนสรุปที่กระชับของส่วนนี้"
 
-#: src/uagent/core.py:1271
+#: src/uagent/core.py:1293
 msgid "- You are updating an existing conversation summary.\n"
 msgstr "- คุณกำลังอัปเดตสรุปการสนทนาที่มีอยู่\n"
 
-#: src/uagent/core.py:1272
+#: src/uagent/core.py:1294
 msgid "- Preserve important facts from the previous summary.\n"
 msgstr "- รักษาข้อเท็จจริงที่สำคัญจากสรุปก่อนหน้า\n"
 
-#: src/uagent/core.py:1274
+#: src/uagent/core.py:1296
 msgid ""
 "- Merge in the new chunk without losing constraints, decisions, or pending "
 "items.\n"
@@ -318,27 +348,27 @@ msgstr ""
 "- รวมส่วนใหม่เข้าด้วยกันโดยไม่สูญเสียข้อจำกัด การตัดสินใจ "
 "หรือรายการที่ค้างอยู่\n"
 
-#: src/uagent/core.py:1276
+#: src/uagent/core.py:1298
 msgid "- Keep the result concise and suitable for a system message."
 msgstr "- รักษาผลลัพธ์ให้กระชับและเหมาะสมสำหรับข้อความระบบ"
 
-#: src/uagent/core.py:1279
+#: src/uagent/core.py:1301
 msgid "Previous summary:\n"
 msgstr "สรุปก่อนหน้า:\n"
 
-#: src/uagent/core.py:1281
+#: src/uagent/core.py:1303
 msgid "New chunk:\n"
 msgstr "ส่วนใหม่:\n"
 
-#: src/uagent/core.py:1283
+#: src/uagent/core.py:1305
 msgid "Update the summary while keeping the prior context intact."
 msgstr "อัปเดตสรุปในขณะที่ยังคงบริบทก่อนหน้าไว้ครบถ้วน"
 
-#: src/uagent/core.py:1304
+#: src/uagent/core.py:1326
 msgid "Summary of the conversation so far:\n"
 msgstr "สรุปการสนทนาจนถึงตอนนี้:\n"
 
-#: src/uagent/core.py:1311
+#: src/uagent/core.py:1333
 msgid ""
 "[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
 "older messages into 1 summary; kept {tail_n} tail)"
@@ -346,7 +376,7 @@ msgstr ""
 "[INFO] shrink_llm: {old_n} -> {new_n} ข้อความ (บีบอัดข้อความเก่า "
 "{old_part_n} ข้อความให้เหลือ 1 สรุป; คงเหลือส่วนท้าย {tail_n} ข้อความ)"
 
-#: src/uagent/core.py:1339
+#: src/uagent/core.py:1361
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; falling "
 "back to shrink_messages()."
@@ -354,7 +384,7 @@ msgstr ""
 "[WARN] การบีบอัดประวัติถึงขีดจำกัดบริบทแม้จะใช้ chunk_size=1 แล้ว "
 "จึงกลับไปใช้ shrink_messages()"
 
-#: src/uagent/core.py:1349
+#: src/uagent/core.py:1371
 msgid ""
 "[WARN] history compression could not reduce chunk_size further; falling back"
 " to shrink_messages()."
@@ -362,7 +392,7 @@ msgstr ""
 "[WARN] การบีบอัดประวัติไม่สามารถลด chunk_size ลงได้อีก จึงกลับไปใช้ "
 "shrink_messages()"
 
-#: src/uagent/core.py:1357
+#: src/uagent/core.py:1379
 #, python-format
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
@@ -371,7 +401,7 @@ msgstr ""
 "[WARN] บริบทของการบีบอัดประวัติเกินขีดจำกัด กำลังลองใหม่ด้วย "
 "chunk_size=%(chunk_size)d"
 
-#: src/uagent/core.py:1367
+#: src/uagent/core.py:1389
 msgid ""
 "[WARN] history compression failed due to LLM error; falling back to "
 "shrink_messages()."
@@ -379,13 +409,12 @@ msgstr ""
 "[WARN] การบีบอัดประวัติล้มเหลวเนื่องจากข้อผิดพลาดของ LLM; กำลังกลับไปใช้ "
 "shrink_messages()"
 
-#: src/uagent/core.py:1388
+#: src/uagent/core.py:1410
 #, python-format
 msgid ":help  (help unavailable: %(err)s)"
 msgstr ":help  (ไม่สามารถใช้ความช่วยเหลือได้: %(err)s)"
 
-#: src/uagent/core.py:1400
-#, fuzzy
+#: src/uagent/core.py:1422
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
@@ -403,7 +432,7 @@ msgstr ""
 "- เมื่อสร้างไฟล์ ให้แสดงเนื้อหาสุดท้ายแบบครบถ้วน (ห้ามแสดง diff หรือสรุปบางส่วน)\n"
 "\n"
 
-#: src/uagent/core.py:1409
+#: src/uagent/core.py:1431
 msgid ""
 "## Rules\n"
 "- Always use the provided tools and verify the latest information.\n"
@@ -418,7 +447,7 @@ msgstr ""
 "- เมื่อใช้เครื่องมือ ให้โยนการตัดสินใจให้ผู้ใช้น้อยที่สุดเท่าที่จะทำได้\n"
 "\n"
 
-#: src/uagent/core.py:1416
+#: src/uagent/core.py:1438
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -442,7 +471,7 @@ msgstr ""
 "- หากต้องใช้ความรู้ระดับผู้เชี่ยวชาญ ให้ใช้เทมเพลตพรอมต์ (Agent Skills) และปฏิบัติตาม\n"
 "- หากอินพุตของผู้ใช้เป็นเพียงการยืนยันสั้น ๆ และไม่ได้เพิ่มข้อมูลใหม่ อย่าพูดอธิบายซ้ำ เว้นแต่จะเป็นคำตอบโดยตรงต่อคำถามที่ชัดเจนก่อนหน้านั้น หากจำเป็น ให้ถามสั้น ๆ ว่า: \"ฉันควรดำเนินต่อจากส่วนไหน?\"\n"
 
-#: src/uagent/core.py:1428
+#: src/uagent/core.py:1450
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -459,8 +488,7 @@ msgstr ""
 "- หากไม่มีรายการที่พบ ให้รายงานว่าจะไม่มีการลบโดยไม่ต้องถาม\n"
 "\n"
 
-#: src/uagent/core.py:1436
-#, fuzzy
+#: src/uagent/core.py:1458
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -475,7 +503,7 @@ msgstr ""
 "- ห้ามประจบ ห้ามใช้อีโมจิ ห้ามสรุปบทสนทนา ให้กระชับ\n"
 "- เมื่อต้องสร้างไฟล์ ให้แสดงเนื้อหาสุดท้ายแบบครบถ้วน (ห้ามแสดง diff หรือสรุปบางส่วน)\n"
 
-#: src/uagent/core.py:1444
+#: src/uagent/core.py:1466
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -489,7 +517,7 @@ msgstr ""
 "- คิดอย่างสร้างสรรค์ แต่ห้ามให้ข้อมูลที่ไม่แน่ชัด\n"
 "- มอบหมายการตัดสินใจให้ผู้ใช้น้อยที่สุดเท่าที่จะทำได้\n"
 
-#: src/uagent/core.py:1451
+#: src/uagent/core.py:1473
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -511,7 +539,7 @@ msgstr ""
 "- หากต้องใช้ความรู้ระดับผู้เชี่ยวชาญ ให้ใช้เทมเพลตพรอมต์ของ Agent Skills\n"
 "- หากอินพุตของผู้ใช้เป็นเพียงการยืนยันสั้น ๆ และไม่ได้เพิ่มข้อมูลใหม่ อย่าพูดอธิบายซ้ำ เว้นแต่จะเป็นคำตอบโดยตรงต่อคำถามที่ชัดเจนก่อนหน้านั้น หากจำเป็น ให้ถามสั้น ๆ ว่า: \"ฉันควรดำเนินต่อจากส่วนไหน?\"\n"
 
-#: src/uagent/core.py:1464
+#: src/uagent/core.py:1486
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -520,7 +548,7 @@ msgstr ""
 "- หากผู้ใช้ใช้ Windows cmd.exe ให้ใช้คำสั่งหลายบรรทัดโดยใช้ caret (^) เพื่อเชื่อมบรรทัด และทำให้แต่ละบรรทัดสั้นเพื่อหลีกเลี่ยงปัญหาการคัดลอก/วาง\n"
 "\n"
 
-#: src/uagent/core.py:1531
+#: src/uagent/core.py:1553
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -583,15 +611,14 @@ msgstr "แสดงเส้นทาง"
 msgid "open with OS"
 msgstr "เปิดด้วย OS"
 
-#: src/uagent/env_validate.py:42
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
 msgstr ""
-"จำเป็นสำหรับการเลือกผู้ให้บริการ LLM "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)"
+"จำเป็นต้องเลือกผู้ให้บริการ LLM "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)"
 
-#: src/uagent/env_validate.py:63
+#: src/uagent/env_validate.py:66
 #, python-format
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
@@ -600,56 +627,56 @@ msgstr ""
 "ผู้ให้บริการไม่รู้จัก: %(provider)r. ค่าที่อนุญาต: %(allowed)s "
 "(การเริ่มต้นอาจล้มเหลว)"
 
-#: src/uagent/env_validate.py:74
+#: src/uagent/env_validate.py:77
 msgid ""
 "Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
 msgstr ""
 "ปลายทาง/URL ฐานของ Azure OpenAI (เช่น https://<resource>.openai.azure.com/)"
 
-#: src/uagent/env_validate.py:80
+#: src/uagent/env_validate.py:83
 msgid "Azure OpenAI API key."
 msgstr "คีย์ API ของ Azure OpenAI"
 
-#: src/uagent/env_validate.py:85
+#: src/uagent/env_validate.py:88
 msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
 msgstr "เวอร์ชัน API ของ Azure OpenAI (เช่น 2024-xx-xx)"
 
-#: src/uagent/env_validate.py:92
+#: src/uagent/env_validate.py:95
 msgid "OpenAI API key."
 msgstr "คีย์ API ของ OpenAI"
 
-#: src/uagent/env_validate.py:98
+#: src/uagent/env_validate.py:101
 msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
 msgstr "ปลายทาง/URL ฐานของพร็อกซี Bedrock (เข้ากันได้กับ OpenAI)"
 
-#: src/uagent/env_validate.py:105
+#: src/uagent/env_validate.py:108
 msgid "Bedrock proxy API key (OpenAI-compatible)."
 msgstr "คีย์ API ของ Bedrock proxy (รองรับ OpenAI)"
 
-#: src/uagent/env_validate.py:112
+#: src/uagent/env_validate.py:115
 msgid "OpenRouter API key."
 msgstr "คีย์ API ของ OpenRouter"
 
-#: src/uagent/env_validate.py:117
+#: src/uagent/env_validate.py:120
 msgid "Grok (xAI) API key."
 msgstr "คีย์ API ของ Grok (xAI)"
 
-#: src/uagent/env_validate.py:122
+#: src/uagent/env_validate.py:125
 msgid "Gemini API key."
 msgstr "คีย์ API ของ Gemini"
 
-#: src/uagent/env_validate.py:129
+#: src/uagent/env_validate.py:132
 msgid ""
 "Python package 'google-genai' is not installed. Provider=gemini requires it."
 msgstr ""
 "ยังไม่ได้ติดตั้งแพ็กเกจ Python 'google-genai' ผู้ให้บริการ gemini "
 "ต้องใช้แพ็กเกจนี้"
 
-#: src/uagent/env_validate.py:140
+#: src/uagent/env_validate.py:143
 msgid "Vertex AI API key / model name."
 msgstr "คีย์ API ของ Vertex AI / ชื่อโมเดล"
 
-#: src/uagent/env_validate.py:149
+#: src/uagent/env_validate.py:152
 msgid ""
 "Python package 'google-genai' is not installed. Provider=vertexai requires "
 "it."
@@ -657,22 +684,31 @@ msgstr ""
 "ยังไม่ได้ติดตั้งแพ็กเกจ Python 'google-genai' ผู้ให้บริการ vertexai "
 "ต้องใช้แพ็กเกจนี้"
 
-#: src/uagent/env_validate.py:157
+#: src/uagent/env_validate.py:160
 msgid "Anthropic (Claude) API key."
 msgstr "คีย์ API ของ Anthropic (Claude)"
 
-#: src/uagent/env_validate.py:165
+#: src/uagent/env_validate.py:168
 msgid ""
 "Python package 'anthropic' is not installed. Provider=claude requires it."
 msgstr ""
 "ยังไม่ได้ติดตั้งแพ็กเกจ Python 'anthropic' ผู้ให้บริการ claude "
 "ต้องใช้แพ็กเกจนี้"
 
-#: src/uagent/env_validate.py:172
+#: src/uagent/env_validate.py:175
 msgid "NVIDIA API key."
 msgstr "คีย์ API ของ NVIDIA"
 
-#: src/uagent/env_validate.py:190
+msgid "DeepSeek API key."
+msgstr "คีย์ API DeepSeek."
+
+msgid "Alibaba Cloud (Qwen) API key."
+msgstr "คีย์ API Alibaba Cloud (Qwen)."
+
+msgid "Moonshot AI API key."
+msgstr "คีย์ API Moonshot AI."
+
+#: src/uagent/env_validate.py:213
 #, python-format
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
@@ -681,62 +717,62 @@ msgstr ""
 "ผู้ให้บริการ embedding ไม่รู้จัก: %(provider)r. ค่าที่อนุญาต: %(allowed)s "
 "(การเริ่มต้นอาจล้มเหลว)"
 
-#: src/uagent/env_validate.py:207
+#: src/uagent/env_validate.py:230
 msgid "Azure embedding endpoint / API key / API version / deployment name."
 msgstr ""
 "ปลายทาง embedding ของ Azure / คีย์ API / เวอร์ชัน API / ชื่อ deployment"
 
-#: src/uagent/env_validate.py:218
+#: src/uagent/env_validate.py:241
 msgid "OpenAI embedding API key / model name."
 msgstr "คีย์ API embedding ของ OpenAI / ชื่อโมเดล"
 
-#: src/uagent/env_validate.py:230
+#: src/uagent/env_validate.py:253
 msgid "Bedrock embedding endpoint / API key / deployment name."
 msgstr "ปลายทาง embedding ของ Bedrock / คีย์ API / ชื่อ deployment"
 
-#: src/uagent/env_validate.py:241
+#: src/uagent/env_validate.py:264
 msgid "OpenRouter embedding API key / model name."
 msgstr "คีย์ API embedding ของ OpenRouter / ชื่อโมเดล"
 
-#: src/uagent/env_validate.py:252
+#: src/uagent/env_validate.py:275
 msgid "Ollama embedding base URL / model name."
 msgstr "URL ฐาน embedding ของ Ollama / ชื่อโมเดล"
 
-#: src/uagent/env_validate.py:263
+#: src/uagent/env_validate.py:286
 msgid "NVIDIA embedding API key / model name."
 msgstr "คีย์ API embedding ของ NVIDIA / ชื่อโมเดล"
 
-#: src/uagent/env_validate.py:274
+#: src/uagent/env_validate.py:297
 msgid "Gemini embedding API key / model name."
 msgstr "คีย์ API / ชื่อโมเดลสำหรับ embedding ของ Gemini"
 
-#: src/uagent/env_validate.py:285
+#: src/uagent/env_validate.py:308
 msgid "Vertex AI embedding API key / model name."
 msgstr "คีย์ API / ชื่อโมเดลสำหรับ embedding ของ Vertex AI"
 
-#: src/uagent/env_validate.py:302
+#: src/uagent/env_validate.py:325
 #, python-brace-format
 msgid "[FATAL] Environment validation failed ({context})."
 msgstr "[FATAL] การตรวจสอบสภาพแวดล้อมล้มเหลว ({context})."
 
-#: src/uagent/env_validate.py:310
+#: src/uagent/env_validate.py:333
 msgid "Missing required environment variables:"
 msgstr "ตัวแปรสภาพแวดล้อมที่จำเป็นหายไป:"
 
-#: src/uagent/env_validate.py:317
+#: src/uagent/env_validate.py:340
 msgid "Warnings:"
 msgstr "คำเตือน:"
 
-#: src/uagent/env_validate.py:321
+#: src/uagent/env_validate.py:344
 msgid "How to fix:"
 msgstr "วิธีแก้ไข:"
 
-#: src/uagent/env_validate.py:324
+#: src/uagent/env_validate.py:347
 msgid ""
 "- Set the variables above in your environment before starting the program."
 msgstr "- ตั้งค่าตัวแปรข้างต้นในสภาพแวดล้อมของคุณก่อนเริ่มโปรแกรม"
 
-#: src/uagent/env_validate.py:330
+#: src/uagent/env_validate.py:353
 msgid ""
 "- You can set them via your OS environment settings, a .env file, your shell"
 " startup scripts,"
@@ -744,7 +780,7 @@ msgstr ""
 "- คุณสามารถตั้งค่าได้ผ่านการตั้งค่าสภาพแวดล้อมของระบบปฏิบัติการ, ไฟล์ .env, "
 "สคริปต์เริ่มต้นของเชลล์"
 
-#: src/uagent/env_validate.py:336
+#: src/uagent/env_validate.py:359
 msgid ""
 "  or your process manager / service configuration (CI secrets, systemd, "
 "Docker, etc.)."
@@ -806,7 +842,7 @@ msgstr ""
 "ครั้งที่=%(attempt)s/%(max_retries)s รอ=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 
-#: src/uagent/llm_flow_helpers.py:205
+#: src/uagent/llm_flow_helpers.py:206
 msgid ""
 "The previous assistant reply was empty. Please answer based on the most "
 "recent tool result."
@@ -814,7 +850,7 @@ msgstr ""
 "คำตอบก่อนหน้าของผู้ช่วยว่างเปล่า "
 "โปรดตอบโดยอ้างอิงจากผลลัพธ์ล่าสุดของเครื่องมือ"
 
-#: src/uagent/llm_flow_helpers.py:218
+#: src/uagent/llm_flow_helpers.py:219
 #, python-format
 msgid ""
 "[WARN] LLM returned an empty assistant message without tool calls.\n"
@@ -825,11 +861,11 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "สิ่งนี้อาจเกิดขึ้นกับผู้ให้บริการภายในที่รองรับ OpenAI หลังจากเรียกใช้เครื่องมือ คุณสามารถลองตั้งค่า UAGENT_EMPTY_NO_TOOL_MAX ให้สูงขึ้น หรือสลับผู้ให้บริการ"
 
-#: src/uagent/llm_flow_helpers.py:265
+#: src/uagent/llm_flow_helpers.py:267
 msgid "arguments must be a JSON object."
 msgstr "อาร์กิวเมนต์ต้องเป็นออบเจ็กต์ JSON"
 
-#: src/uagent/llm_flow_helpers.py:272
+#: src/uagent/llm_flow_helpers.py:274
 #, python-format
 msgid ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
@@ -840,7 +876,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
-#: src/uagent/llm_flow_helpers.py:298
+#: src/uagent/llm_flow_helpers.py:300
 msgid ""
 "[INFO] Reusing the previous result because this tool call matches an earlier"
 " one.\n"
@@ -848,7 +884,7 @@ msgstr ""
 "[INFO] กำลังใช้ผลลัพธ์ก่อนหน้าอีกครั้ง "
 "เนื่องจากการเรียกใช้เครื่องมือนี้ตรงกับการเรียกก่อนหน้า\n"
 
-#: src/uagent/llm_flow_helpers.py:313
+#: src/uagent/llm_flow_helpers.py:315
 #, python-format
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
@@ -876,42 +912,46 @@ msgstr "ตรวจสอบภาพหน้าจอนี้เพื่อ
 msgid "[WARN] Auto shrink_llm failed: %(err)s"
 msgstr "[WARN] การ shrink_llm อัตโนมัติล้มเหลว: %(err)s"
 
-#: src/uagent/llm_round_helpers.py:136
+#: src/uagent/llm_round_helpers.py:137
 #, python-format
 msgid "[Translate Error] %(diag)s"
 msgstr "[ข้อผิดพลาดการแปล] %(diag)s"
 
-#: src/uagent/llm_round_helpers.py:195 src/uagent/llm_round_helpers.py:305
-#: src/uagent/llm_round_helpers.py:639
+#: src/uagent/llm_round_helpers.py:196 src/uagent/llm_round_helpers.py:306
+#: src/uagent/llm_round_helpers.py:640
+#: src/uagent/providers/llm_deepseek.py:609
 #, python-format
 msgid "429 retry limit (%(max_retries)s) reached."
 msgstr "ถึงขีดจำกัดการลองใหม่ 429 แล้ว (%(max_retries)s)"
 
-#: src/uagent/llm_round_helpers.py:219
+#: src/uagent/llm_round_helpers.py:220
 msgid "[Gemini Error] An error occurred while generating a response."
 msgstr "[ข้อผิดพลาด Gemini] เกิดข้อผิดพลาดขณะสร้างการตอบกลับ"
 
-#: src/uagent/llm_round_helpers.py:311
+#: src/uagent/llm_round_helpers.py:312
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr "[ข้อผิดพลาด Claude] เกิดข้อผิดพลาดขณะสร้างการตอบกลับ"
 
-#: src/uagent/llm_round_helpers.py:603
+#: src/uagent/llm_round_helpers.py:604
+#: src/uagent/providers/llm_deepseek.py:619
 msgid "Input exceeds the context window."
 msgstr "อินพุตเกินหน้าต่างบริบท"
 
-#: src/uagent/llm_round_helpers.py:613
+#: src/uagent/llm_round_helpers.py:614
+#: src/uagent/providers/llm_deepseek.py:652
 msgid "Connection error"
 msgstr "ข้อผิดพลาดในการเชื่อมต่อ"
 
-#: src/uagent/llm_round_helpers.py:618
+#: src/uagent/llm_round_helpers.py:619
+#: src/uagent/providers/llm_deepseek.py:657
 msgid "[Network Error]"
 msgstr "[ข้อผิดพลาดเครือข่าย]"
 
-#: src/uagent/llm_round_helpers.py:645
+#: src/uagent/llm_round_helpers.py:646
 msgid "Unexpected exception."
 msgstr "ข้อยกเว้นที่ไม่คาดคิด"
 
-#: src/uagent/llm_round_helpers.py:723
+#: src/uagent/llm_round_helpers.py:724
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "เกิดข้อผิดพลาดขณะแยกวิเคราะห์การตอบกลับ: %(err)s"
@@ -1054,12 +1094,15 @@ msgstr "ระดับรายละเอียด: ปานกลาง"
 msgid "Verbosity: high"
 msgstr "ระดับรายละเอียด: สูง"
 
-#: src/uagent/scheckgui.py:980
+msgid "Tools"
+msgstr "เครื่องมือ"
+
+#: src/uagent/scheckgui.py:1027
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] การใช้เหตุผล=%(mode)s"
 
-#: src/uagent/scheckgui.py:984
+#: src/uagent/scheckgui.py:1031
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1067,618 +1110,663 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=ปิด, 1=ต่ำ, 2=ปานกลาง, 3=สูง; "
 "auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:992
+#: src/uagent/scheckgui.py:1039
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[โหมด] ความละเอียด=%(mode)s"
 
-#: src/uagent/scheckgui.py:994
+#: src/uagent/scheckgui.py:1041
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3]  (0=ปิด, 1=ต่ำ, 2=กลาง, 3=สูง; ไม่ใส่ค่า=คงเดิม)"
 
-#: src/uagent/scheckgui.py:1123
+#: src/uagent/scheckgui.py:1170
 msgid "Enter password..."
 msgstr "กรอกรหัสผ่าน..."
 
-#: src/uagent/scheckgui.py:1130
+#: src/uagent/scheckgui.py:1177
 msgid "Enter a message..."
 msgstr "กรอกข้อความ..."
 
-#: src/uagent/scheckgui.py:1147
+#: src/uagent/scheckgui.py:1194
 msgid "Attach files"
 msgstr "แนบไฟล์"
 
-#: src/uagent/scheckgui.py:1149
+#: src/uagent/scheckgui.py:1196
 msgid "All Files (*)"
 msgstr "ไฟล์ทั้งหมด (*)"
 
-#: src/uagent/scheckgui.py:1401
+#: src/uagent/scheckgui.py:1448
 msgid "cannot read image"
 msgstr "ไม่สามารถอ่านรูปภาพได้"
 
-#: src/uagent/scheckgui.py:1552 src/uagent/scheckgui.py:1592
-#: src/uagent/scheckgui.py:1627
+#: src/uagent/scheckgui.py:1599 src/uagent/scheckgui.py:1639
+#: src/uagent/scheckgui.py:1674
 msgid "Downloaded to"
 msgstr "ดาวน์โหลดไปยัง"
 
-#: src/uagent/scheckgui.py:1646
+#: src/uagent/scheckgui.py:1693
 msgid "Playing"
 msgstr "กำลังเล่น\n"
 
-#: src/uagent/scheckgui.py:1656
+#: src/uagent/scheckgui.py:1703
 msgid "Stopped"
 msgstr "หยุดแล้ว\n"
 
-#: src/uagent/scheckgui.py:1705
+#: src/uagent/scheckgui.py:1752
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[ตอบกลับ] > %(text)s"
 
-#: src/uagent/scheckgui.py:1713
+#: src/uagent/scheckgui.py:1760
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[ผู้ใช้] %(text)s"
 
-#: src/uagent/setup_cli.py:77 src/uagent/setup_cli.py:482
-#: src/uagent/setup_cli.py:572
+#: src/uagent/setup_cli.py:81 src/uagent/setup_cli.py:543
+#: src/uagent/setup_cli.py:633
 msgid "OpenAI API key"
 msgstr "คีย์ API ของ OpenAI"
 
-#: src/uagent/setup_cli.py:78 src/uagent/setup_cli.py:483
-#: src/uagent/setup_cli.py:573
+#: src/uagent/setup_cli.py:82 src/uagent/setup_cli.py:544
+#: src/uagent/setup_cli.py:634
 msgid "OpenAI base URL (optional)"
 msgstr "URL ฐานของ OpenAI (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:79
+#: src/uagent/setup_cli.py:83
 msgid "OpenAI model/deployment name (optional)"
 msgstr "ชื่อโมเดล/ดีพลอยเมนต์ของ OpenAI (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:85 src/uagent/setup_cli.py:474
-#: src/uagent/setup_cli.py:560
+#: src/uagent/setup_cli.py:89 src/uagent/setup_cli.py:535
+#: src/uagent/setup_cli.py:621
 msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
 msgstr "URL ฐานของ Azure (เช่น https://<resource>.openai.azure.com/)"
 
-#: src/uagent/setup_cli.py:87 src/uagent/setup_cli.py:476
-#: src/uagent/setup_cli.py:562
+#: src/uagent/setup_cli.py:91 src/uagent/setup_cli.py:537
+#: src/uagent/setup_cli.py:623
 msgid "Azure API key"
 msgstr "คีย์ API ของ Azure"
 
-#: src/uagent/setup_cli.py:91
+#: src/uagent/setup_cli.py:95
 msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
 msgstr "เวอร์ชัน API ของ Azure (ไม่บังคับ เช่น 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:93 src/uagent/setup_cli.py:478
+#: src/uagent/setup_cli.py:97 src/uagent/setup_cli.py:539
 msgid "Azure deployment name"
 msgstr "ชื่อดีพลอยเมนต์ของ Azure"
 
-#: src/uagent/setup_cli.py:99 src/uagent/setup_cli.py:491
-#: src/uagent/setup_cli.py:581
+#: src/uagent/setup_cli.py:103 src/uagent/setup_cli.py:552
+#: src/uagent/setup_cli.py:642
 msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
 msgstr "URL ฐานของเกตเวย์ Bedrock (เช่น https://<gateway>/v1)"
 
-#: src/uagent/setup_cli.py:101 src/uagent/setup_cli.py:493
-#: src/uagent/setup_cli.py:583
+#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:554
+#: src/uagent/setup_cli.py:644
 msgid "Bedrock API key"
 msgstr "คีย์ API ของ Bedrock"
 
-#: src/uagent/setup_cli.py:105 src/uagent/setup_cli.py:497
+#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:558
 msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
 msgstr "ชื่อโมเดล/ดีพลอยเมนต์ของ Bedrock (เช่น openai.gpt-oss-120b)"
 
-#: src/uagent/setup_cli.py:109 src/uagent/setup_cli.py:502
-#: src/uagent/setup_cli.py:592
+#: src/uagent/setup_cli.py:113 src/uagent/setup_cli.py:563
+#: src/uagent/setup_cli.py:653
 msgid "OpenRouter API key"
 msgstr "คีย์ API ของ OpenRouter"
 
-#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:503
-#: src/uagent/setup_cli.py:593
+#: src/uagent/setup_cli.py:114 src/uagent/setup_cli.py:564
+#: src/uagent/setup_cli.py:654
 msgid "OpenRouter base URL (optional)"
 msgstr "URL ฐานของ OpenRouter (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:114
+#: src/uagent/setup_cli.py:118
 msgid "OpenRouter model/deployment name (optional)"
 msgstr "ชื่อโมเดล/ดีพลอยเมนต์ของ OpenRouter (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:119
+#: src/uagent/setup_cli.py:123
 msgid "OpenRouter fallback models (optional, comma-separated)"
 msgstr "โมเดลสำรองของ OpenRouter (ไม่บังคับ, คั่นด้วยจุลภาค)"
 
-#: src/uagent/setup_cli.py:123 src/uagent/setup_cli.py:508
+#: src/uagent/setup_cli.py:127 src/uagent/setup_cli.py:569
 msgid "Gemini API key"
 msgstr "คีย์ API ของ Gemini"
 
-#: src/uagent/setup_cli.py:124
+#: src/uagent/setup_cli.py:128
 msgid "Gemini model name (optional)"
 msgstr "ชื่อโมเดล Gemini (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:127
+#: src/uagent/setup_cli.py:131
 msgid "Vertex AI API key"
 msgstr "คีย์ API ของ Vertex AI"
 
-#: src/uagent/setup_cli.py:128
+#: src/uagent/setup_cli.py:132
 msgid "Vertex AI project ID (optional)"
 msgstr "รหัสโปรเจ็กต์ของ Vertex AI (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:129
+#: src/uagent/setup_cli.py:133
 msgid "Vertex AI location/region (optional)"
 msgstr "ตำแหน่ง/ภูมิภาคของ Vertex AI (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:133
+#: src/uagent/setup_cli.py:137
 msgid "Google credentials for Vertex AI (optional)"
 msgstr "ข้อมูลรับรอง Google สำหรับ Vertex AI (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:138
+#: src/uagent/setup_cli.py:142
 msgid "Google location/region for Vertex AI (optional)"
 msgstr "ตำแหน่ง/ภูมิภาค Google สำหรับ Vertex AI (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:140
+#: src/uagent/setup_cli.py:144
 msgid "Vertex AI model/deployment name"
 msgstr "ชื่อโมเดล/ดีพลอยเมนต์ของ Vertex AI"
 
-#: src/uagent/setup_cli.py:143
+#: src/uagent/setup_cli.py:147
 msgid "Grok API key"
 msgstr "คีย์ API ของ Grok"
 
-#: src/uagent/setup_cli.py:144
+#: src/uagent/setup_cli.py:148
 msgid "Grok base URL (optional)"
 msgstr "URL ฐานของ Grok (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:145
+#: src/uagent/setup_cli.py:149
 msgid "Grok model/deployment name (optional)"
 msgstr "ชื่อโมเดล/ดีพลอยเมนต์ของ Grok (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:148
+#: src/uagent/setup_cli.py:152
 msgid "Claude API key"
 msgstr "คีย์ API ของ Claude"
 
-#: src/uagent/setup_cli.py:149
+#: src/uagent/setup_cli.py:153
 msgid "Claude model/deployment name (optional)"
 msgstr "ชื่อโมเดล/ดีพลอยเมนต์ของ Claude (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:152 src/uagent/setup_cli.py:513
-#: src/uagent/setup_cli.py:607
+#: src/uagent/setup_cli.py:156 src/uagent/setup_cli.py:574
+#: src/uagent/setup_cli.py:668
 msgid "NVIDIA API key"
 msgstr "คีย์ API ของ NVIDIA"
 
-#: src/uagent/setup_cli.py:153 src/uagent/setup_cli.py:514
-#: src/uagent/setup_cli.py:608
+#: src/uagent/setup_cli.py:157 src/uagent/setup_cli.py:575
+#: src/uagent/setup_cli.py:669
 msgid "NVIDIA base URL (optional)"
 msgstr "URL ฐานของ NVIDIA (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:154
+#: src/uagent/setup_cli.py:158
 msgid "NVIDIA model/deployment name (optional)"
 msgstr "ชื่อโมเดล/ดีพลอยเมนต์ของ NVIDIA (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:160 src/uagent/setup_cli.py:601
+#: src/uagent/setup_cli.py:164 src/uagent/setup_cli.py:662
 msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
 msgstr "URL ฐานของ Ollama (เช่น http://localhost:11434/v1)"
 
-#: src/uagent/setup_cli.py:165
+#: src/uagent/setup_cli.py:169
 msgid "Ollama API key (optional, default: dummy)"
 msgstr "คีย์ API ของ Ollama (ไม่บังคับ, ค่าเริ่มต้น: dummy)"
 
-#: src/uagent/setup_cli.py:167
+#: src/uagent/setup_cli.py:171
 msgid "Ollama model/deployment name (optional)"
 msgstr "ชื่อโมเดล/ดีพลอยเมนต์ของ Ollama (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:171
+#: src/uagent/setup_cli.py:175
 msgid "Ollama request timeout in seconds (default: 60)"
 msgstr "เวลาหมดเขตคำขอของ Ollama เป็นวินาที (ค่าเริ่มต้น: 60)"
 
-#: src/uagent/setup_cli.py:173
+#: src/uagent/setup_cli.py:177
 msgid "Ollama temperature (default: 0.7)"
 msgstr "ค่า temperature ของ Ollama (ค่าเริ่มต้น: 0.7)"
 
-#: src/uagent/setup_cli.py:174
+#: src/uagent/setup_cli.py:178
 msgid "Ollama top_p (default: 0.9)"
 msgstr "ค่า top_p ของ Ollama (ค่าเริ่มต้น: 0.9)"
 
-#: src/uagent/setup_cli.py:175
+#: src/uagent/setup_cli.py:179
 msgid "Ollama top_k (default: 40)"
 msgstr "ค่า top_k ของ Ollama (ค่าเริ่มต้น: 40)"
 
-#: src/uagent/setup_cli.py:179
+#: src/uagent/setup_cli.py:183
 msgid "Ollama repeat_penalty (default: 1.1)"
 msgstr "ค่า repeat_penalty ของ Ollama (ค่าเริ่มต้น: 1.1)"
 
-#: src/uagent/setup_cli.py:181
+#: src/uagent/setup_cli.py:185
 msgid "Ollama keep_alive (default: 5m)"
 msgstr "ค่า keep_alive ของ Ollama (ค่าเริ่มต้น: 5m)"
 
-#: src/uagent/setup_cli.py:182
+#: src/uagent/setup_cli.py:186
 msgid "Ollama num_ctx (default: 8192)"
 msgstr "ค่า num_ctx ของ Ollama (ค่าเริ่มต้น: 8192)"
 
-#: src/uagent/setup_cli.py:183
+#: src/uagent/setup_cli.py:187
 msgid "Ollama num_predict (default: 1024)"
 msgstr "ค่า num_predict ของ Ollama (ค่าเริ่มต้น: 1024)"
 
-#: src/uagent/setup_cli.py:345 src/uagent/setup_cli.py:434
+msgid "DeepSeek API key"
+msgstr "คีย์ API DeepSeek"
+
+msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
+msgstr ""
+"URL ฐานของ DeepSeek (ไม่บังคับ, ค่าเริ่มต้น: https://api.deepseek.com)"
+
+msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
+msgstr "ชื่อโมเดล DeepSeek (ไม่บังคับ, ค่าเริ่มต้น: deepseek-v4-flash)"
+
+msgid "DeepSeek temperature (default: 0.0)"
+msgstr "DeepSeek temperature (ค่าเริ่มต้น: 0.0)"
+
+msgid "DeepSeek top_p (default: 1.0)"
+msgstr "DeepSeek top_p (ค่าเริ่มต้น: 1.0)"
+
+msgid "DeepSeek presence_penalty (default: 0.0)"
+msgstr "DeepSeek presence_penalty (ค่าเริ่มต้น: 0.0)"
+
+msgid "DeepSeek frequency_penalty (default: 0.0)"
+msgstr "DeepSeek frequency_penalty (ค่าเริ่มต้น: 0.0)"
+
+msgid "Alibaba Cloud (Qwen) API key"
+msgstr "คีย์ API Alibaba Cloud (Qwen)"
+
+msgid ""
+"Alibaba base URL (optional, default: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+msgstr ""
+"URL ฐานของ Alibaba (ไม่บังคับ, ค่าเริ่มต้น: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+
+msgid "Alibaba model name (optional, default: qwen3.5-plus)"
+msgstr "ชื่อโมเดล Alibaba (ไม่บังคับ, ค่าเริ่มต้น: qwen3.5-plus)"
+
+msgid "Moonshot AI API key"
+msgstr "คีย์ API Moonshot AI"
+
+msgid "Moonshot base URL (optional, default: https://api.moonshot.cn/v1)"
+msgstr ""
+"URL ฐานของ Moonshot (ไม่บังคับ, ค่าเริ่มต้น: https://api.moonshot.cn/v1)"
+
+msgid "Moonshot model name (optional, default: kimi-k2)"
+msgstr "ชื่อโมเดล Moonshot (ไม่บังคับ, ค่าเริ่มต้น: kimi-k2)"
+
+#: src/uagent/setup_cli.py:406 src/uagent/setup_cli.py:495
 msgid "Enter number:"
 msgstr "ป้อนหมายเลข:"
 
-#: src/uagent/setup_cli.py:358
+#: src/uagent/setup_cli.py:419
 msgid "Invalid input. Please enter a valid number."
 msgstr "ข้อมูลไม่ถูกต้อง โปรดป้อนหมายเลขที่ถูกต้อง"
 
-#: src/uagent/setup_cli.py:371
+#: src/uagent/setup_cli.py:432
 #, python-format
 msgid " [default: %(default)s]"
 msgstr " [ค่าเริ่มต้น: %(default)s]"
 
-#: src/uagent/setup_cli.py:387
+#: src/uagent/setup_cli.py:448
 msgid "This field is required. Please enter a value."
 msgstr "ช่องนี้จำเป็นต้องกรอก โปรดป้อนค่า"
 
-#: src/uagent/setup_cli.py:399
+#: src/uagent/setup_cli.py:460
 msgid "Select UAGENT_LANG"
 msgstr "เลือก UAGENT_LANG"
 
-#: src/uagent/setup_cli.py:410
+#: src/uagent/setup_cli.py:471
 msgid "UAGENT_LANG (custom)"
 msgstr "UAGENT_LANG (กำหนดเอง)"
 
-#: src/uagent/setup_cli.py:423
+#: src/uagent/setup_cli.py:484
 msgid "Select output files to generate in the current directory"
 msgstr "เลือกไฟล์เอาต์พุตที่จะสร้างในไดเรกทอรีปัจจุบัน"
 
-#: src/uagent/setup_cli.py:424
+#: src/uagent/setup_cli.py:485
 msgid "  1. .env only"
 msgstr "  1. เฉพาะ .env"
 
-#: src/uagent/setup_cli.py:425
+#: src/uagent/setup_cli.py:486
 msgid "  2. .env + env.sh"
 msgstr "  2. .env + env.sh (Unix/Linux)"
 
-#: src/uagent/setup_cli.py:426
+#: src/uagent/setup_cli.py:487
 msgid "  3. .env + env.ps1"
 msgstr "  3. .env + env.ps1 (PowerShell)"
 
-#: src/uagent/setup_cli.py:427
+#: src/uagent/setup_cli.py:488
 msgid "  4. .env + env.bat"
 msgstr "  4. .env + env.bat (Windows)"
 
-#: src/uagent/setup_cli.py:428
+#: src/uagent/setup_cli.py:489
 msgid "  5. .env + all (sh/ps1/bat)"
 msgstr "  5. .env + ทั้งหมด (sh/ps1/bat)"
 
-#: src/uagent/setup_cli.py:430
+#: src/uagent/setup_cli.py:491
 msgid "  b. back"
 msgstr "  b. กลับ"
 
-#: src/uagent/setup_cli.py:431
+#: src/uagent/setup_cli.py:492
 msgid "  q. quit"
 msgstr "  q. ออก"
 
-#: src/uagent/setup_cli.py:449
+#: src/uagent/setup_cli.py:510
 msgid "Invalid input. Please enter 1-5, or b/q."
 msgstr "ข้อมูลไม่ถูกต้อง โปรดป้อน 1-5 หรือ b/q"
 
-#: src/uagent/setup_cli.py:477 src/uagent/setup_cli.py:566
+#: src/uagent/setup_cli.py:538 src/uagent/setup_cli.py:627
 msgid "Azure API version (e.g. 2024-05-01-preview)"
 msgstr "เวอร์ชัน Azure API (เช่น 2024-05-01-preview)"
 
-#: src/uagent/setup_cli.py:484
+#: src/uagent/setup_cli.py:545
 msgid "OpenAI model/deployment name"
 msgstr "ชื่อโมเดล/การใช้งานของ OpenAI"
 
-#: src/uagent/setup_cli.py:504
+#: src/uagent/setup_cli.py:565
 msgid "OpenRouter model/deployment name"
 msgstr "ชื่อโมเดล/การใช้งานของ OpenRouter"
 
-#: src/uagent/setup_cli.py:509
+#: src/uagent/setup_cli.py:570
 msgid "Gemini model name"
 msgstr "ชื่อโมเดล Gemini"
 
-#: src/uagent/setup_cli.py:515
+#: src/uagent/setup_cli.py:576
 msgid "NVIDIA model/deployment name"
 msgstr "ชื่อโมเดล/การใช้งานของ NVIDIA"
 
-#: src/uagent/setup_cli.py:534
+#: src/uagent/setup_cli.py:595
 msgid "Enable image generation debug output? (0/1)"
 msgstr "เปิดใช้เอาต์พุตดีบักสำหรับการสร้างภาพหรือไม่? (0/1)"
 
-#: src/uagent/setup_cli.py:568
+#: src/uagent/setup_cli.py:629
 msgid "Azure embedding deployment name"
 msgstr "ชื่อการใช้งาน Azure สำหรับ embedding"
 
-#: src/uagent/setup_cli.py:574
+#: src/uagent/setup_cli.py:635
 msgid "OpenAI embedding model/deployment name"
 msgstr "ชื่อโมเดล/การใช้งาน OpenAI สำหรับ embedding"
 
-#: src/uagent/setup_cli.py:587
+#: src/uagent/setup_cli.py:648
 msgid "Bedrock embedding model/deployment name"
 msgstr "ชื่อโมเดล/การใช้งาน Bedrock สำหรับ embedding"
 
-#: src/uagent/setup_cli.py:594
+#: src/uagent/setup_cli.py:655
 msgid "OpenRouter embedding model/deployment name"
 msgstr "ชื่อโมเดล/การใช้งาน OpenRouter สำหรับ embedding"
 
-#: src/uagent/setup_cli.py:603
+#: src/uagent/setup_cli.py:664
 msgid "Ollama embedding model name"
 msgstr "ชื่อโมเดล Ollama สำหรับ embedding"
 
-#: src/uagent/setup_cli.py:609
+#: src/uagent/setup_cli.py:670
 msgid "NVIDIA embedding model/deployment name"
 msgstr "ชื่อโมเดล/การใช้งาน NVIDIA สำหรับ embedding"
 
-#: src/uagent/setup_cli.py:613
+#: src/uagent/setup_cli.py:674
 msgid "Gemini embedding API key"
 msgstr "คีย์ API embedding ของ Gemini"
 
-#: src/uagent/setup_cli.py:617
+#: src/uagent/setup_cli.py:678
 msgid "Gemini embedding model name (e.g. text-embedding-004)"
 msgstr "ชื่อโมเดล embedding ของ Gemini (เช่น text-embedding-004)"
 
-#: src/uagent/setup_cli.py:622
+#: src/uagent/setup_cli.py:683
 msgid "Vertex AI embedding API key"
 msgstr "คีย์ API embedding ของ Vertex AI"
 
-#: src/uagent/setup_cli.py:626
+#: src/uagent/setup_cli.py:687
 msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
 msgstr "ชื่อโมเดล embedding ของ Vertex AI (เช่น text-embedding-004)"
 
-#: src/uagent/setup_cli.py:675
+#: src/uagent/setup_cli.py:736
 msgid "Azure speech deployment name"
 msgstr "ชื่อการปรับใช้เสียงของ Azure"
 
-#: src/uagent/setup_cli.py:676
+#: src/uagent/setup_cli.py:737
 msgid "Azure transcription deployment name"
 msgstr "ชื่อการปรับใช้การถอดเสียงของ Azure"
 
-#: src/uagent/setup_cli.py:677
+#: src/uagent/setup_cli.py:738
 msgid "OpenAI speech model/deployment name"
 msgstr "ชื่อโมเดล/การปรับใช้เสียงของ OpenAI"
 
-#: src/uagent/setup_cli.py:678
+#: src/uagent/setup_cli.py:739
 msgid "OpenAI transcription model/deployment name"
 msgstr "ชื่อโมเดล/การปรับใช้การถอดเสียงของ OpenAI"
 
-#: src/uagent/setup_cli.py:679
+#: src/uagent/setup_cli.py:740
 msgid "Gemini speech model name (optional)"
 msgstr "ชื่อโมเดลเสียงพูดของ Gemini (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:680
+#: src/uagent/setup_cli.py:741
 msgid "Gemini transcription model name (optional)"
 msgstr "ชื่อโมเดลถอดเสียงของ Gemini (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:681
+#: src/uagent/setup_cli.py:742
 msgid "Vertex AI speech model name (optional)"
 msgstr "ชื่อโมเดลเสียงพูดของ Vertex AI (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:682
+#: src/uagent/setup_cli.py:743
 msgid "Vertex AI transcription model name (optional)"
 msgstr "ชื่อโมเดลถอดเสียงของ Vertex AI (ไม่บังคับ)"
 
-#: src/uagent/setup_cli.py:705
+#: src/uagent/setup_cli.py:766
 msgid "Configure optional image / embedding / audio settings?"
 msgstr "ต้องการกำหนดค่าตัวเลือกเพิ่มเติมสำหรับรูปภาพ / การฝัง / เสียงหรือไม่?"
 
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
+#: src/uagent/setup_cli.py:767 src/uagent/setup_cli.py:782
+#: src/uagent/setup_cli.py:814 src/uagent/setup_cli.py:845
+#: src/uagent/setup_cli.py:861 src/uagent/setup_cli.py:916
+#: src/uagent/setup_cli.py:975 src/uagent/setup_cli.py:1220
+#: src/uagent/setup_cli.py:1281 src/uagent/setup_cli.py:1335
+#: src/uagent/setup_cli.py:1362 src/uagent/setup_cli.py:1383
+#: src/uagent/setup_cli.py:1520
 msgid "No"
 msgstr "ไม่"
 
-#: src/uagent/setup_cli.py:706 src/uagent/setup_cli.py:721
-#: src/uagent/setup_cli.py:753 src/uagent/setup_cli.py:784
-#: src/uagent/setup_cli.py:800 src/uagent/setup_cli.py:855
-#: src/uagent/setup_cli.py:914 src/uagent/setup_cli.py:1159
-#: src/uagent/setup_cli.py:1220 src/uagent/setup_cli.py:1274
-#: src/uagent/setup_cli.py:1301 src/uagent/setup_cli.py:1322
-#: src/uagent/setup_cli.py:1459
+#: src/uagent/setup_cli.py:767 src/uagent/setup_cli.py:782
+#: src/uagent/setup_cli.py:814 src/uagent/setup_cli.py:845
+#: src/uagent/setup_cli.py:861 src/uagent/setup_cli.py:916
+#: src/uagent/setup_cli.py:975 src/uagent/setup_cli.py:1220
+#: src/uagent/setup_cli.py:1281 src/uagent/setup_cli.py:1335
+#: src/uagent/setup_cli.py:1362 src/uagent/setup_cli.py:1383
+#: src/uagent/setup_cli.py:1520
 msgid "Yes"
 msgstr "ใช่"
 
-#: src/uagent/setup_cli.py:720
+#: src/uagent/setup_cli.py:781
 msgid "Configure image analysis settings?"
 msgstr "ต้องการกำหนดค่าการวิเคราะห์รูปภาพหรือไม่?"
 
-#: src/uagent/setup_cli.py:731
+#: src/uagent/setup_cli.py:792
 msgid "Select image analysis provider"
 msgstr "เลือกผู้ให้บริการวิเคราะห์ภาพ"
 
-#: src/uagent/setup_cli.py:752
+#: src/uagent/setup_cli.py:813
 msgid "Configure image generation settings?"
 msgstr "ต้องการกำหนดค่าการสร้างรูปภาพหรือไม่?"
 
-#: src/uagent/setup_cli.py:763
+#: src/uagent/setup_cli.py:824
 msgid "Select image generation provider"
 msgstr "เลือกผู้ให้บริการสร้างภาพ"
 
-#: src/uagent/setup_cli.py:783
+#: src/uagent/setup_cli.py:844
 msgid "Open generated images automatically?"
 msgstr "เปิดรูปภาพที่สร้างขึ้นโดยอัตโนมัติหรือไม่?"
 
-#: src/uagent/setup_cli.py:799
+#: src/uagent/setup_cli.py:860
 msgid "Configure embedding / semantic search settings?"
 msgstr "ต้องการกำหนดค่าการฝัง / การค้นหาเชิงความหมายหรือไม่?"
 
-#: src/uagent/setup_cli.py:825
+#: src/uagent/setup_cli.py:886
 msgid "Select embedding provider"
 msgstr "เลือกผู้ให้บริการ embedding"
 
-#: src/uagent/setup_cli.py:854
+#: src/uagent/setup_cli.py:915
 msgid "Configure audio speech / transcription settings?"
 msgstr "ต้องการกำหนดค่าการพูดเป็นเสียง / การถอดเสียงหรือไม่?"
 
-#: src/uagent/setup_cli.py:873
+#: src/uagent/setup_cli.py:934
 msgid "Select audio speech provider"
 msgstr "เลือกผู้ให้บริการสังเคราะห์เสียงพูด"
 
-#: src/uagent/setup_cli.py:893
+#: src/uagent/setup_cli.py:954
 msgid "Select audio transcribe provider"
 msgstr "เลือกผู้ให้บริการถอดเสียง"
 
-#: src/uagent/setup_cli.py:913
+#: src/uagent/setup_cli.py:974
 msgid "Open generated audio automatically?"
 msgstr "เปิดเสียงที่สร้างขึ้นโดยอัตโนมัติไหม?"
 
-#: src/uagent/setup_cli.py:980
+#: src/uagent/setup_cli.py:1041
 msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
 msgstr "ตัวเลือกเพิ่มเติม: Responses API (Azure/OpenAI/Bedrock)"
 
-#: src/uagent/setup_cli.py:993
+#: src/uagent/setup_cli.py:1054
 msgid "Optional runtime"
 msgstr "การตั้งค่ารันไทม์เสริม\n"
 
-#: src/uagent/setup_cli.py:1007
+#: src/uagent/setup_cli.py:1068
 msgid "Optional image / embedding / audio settings"
 msgstr "การตั้งค่าเพิ่มเติมสำหรับรูปภาพ / embedding / เสียง"
 
-#: src/uagent/setup_cli.py:1149
+#: src/uagent/setup_cli.py:1210
 msgid "Optional specialized sub-agent settings"
 msgstr "การตั้งค่าเสริมสำหรับซับเอเจนต์เฉพาะทาง"
 
-#: src/uagent/setup_cli.py:1158
+#: src/uagent/setup_cli.py:1219
 msgid "Encrypt the generated .env file?"
 msgstr "ต้องการเข้ารหัสไฟล์ .env ที่สร้างขึ้นหรือไม่?"
 
-#: src/uagent/setup_cli.py:1164
+#: src/uagent/setup_cli.py:1225
 #, python-format
 msgid "Encrypted file will be written as %(path)s"
 msgstr "ไฟล์ที่เข้ารหัสจะถูกเขียนเป็น %(path)s"
 
-#: src/uagent/setup_cli.py:1180
+#: src/uagent/setup_cli.py:1241
 msgid "Select provider"
 msgstr "เลือกผู้ให้บริการ"
 
-#: src/uagent/setup_cli.py:1219
+#: src/uagent/setup_cli.py:1280
 msgid "Enable Responses API options?"
 msgstr "เปิดใช้ตัวเลือก Responses API หรือไม่?"
 
-#: src/uagent/setup_cli.py:1235
+#: src/uagent/setup_cli.py:1296
 msgid "Select reasoning"
 msgstr "เลือกระดับการให้เหตุผล\n"
 
-#: src/uagent/setup_cli.py:1254
+#: src/uagent/setup_cli.py:1315
 msgid "Select verbosity"
 msgstr "เลือกระดับรายละเอียด\n"
 
-#: src/uagent/setup_cli.py:1273
+#: src/uagent/setup_cli.py:1334
 msgid "Set optional runtime UAGENT_WORKDIR?"
 msgstr "ต้องการตั้งค่า UAGENT_WORKDIR แบบไม่บังคับหรือไม่?"
 
-#: src/uagent/setup_cli.py:1300
+#: src/uagent/setup_cli.py:1361
 msgid "Set optional runtime UAGENT_LANG?"
 msgstr "ต้องการตั้งค่า UAGENT_LANG แบบไม่บังคับหรือไม่?"
 
-#: src/uagent/setup_cli.py:1321
+#: src/uagent/setup_cli.py:1382
 msgid "Enable streaming?"
 msgstr "เปิดใช้งานการสตรีมไหม?"
 
-#: src/uagent/setup_cli.py:1362
+#: src/uagent/setup_cli.py:1423
 msgid "Summary"
 msgstr "สรุป\n"
 
-#: src/uagent/setup_cli.py:1363
+#: src/uagent/setup_cli.py:1424
 #, python-format
 msgid "  Provider: %(provider)s"
 msgstr "  ผู้ให้บริการ: %(provider)s"
 
-#: src/uagent/setup_cli.py:1370
+#: src/uagent/setup_cli.py:1431
 #, python-format
 msgid "  Responses enabled: %(state)s"
 msgstr "  เปิดใช้ Responses: %(state)s"
 
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+#: src/uagent/setup_cli.py:1432 src/uagent/setup_cli.py:1439
+#: src/uagent/setup_cli.py:1443 src/uagent/setup_cli.py:1449
+#: src/uagent/setup_cli.py:1455 src/uagent/setup_cli.py:1460
+#: src/uagent/setup_cli.py:1468 src/uagent/setup_cli.py:1479
 msgid "yes"
 msgstr "ใช่\n"
 
-#: src/uagent/setup_cli.py:1371 src/uagent/setup_cli.py:1378
-#: src/uagent/setup_cli.py:1382 src/uagent/setup_cli.py:1388
-#: src/uagent/setup_cli.py:1394 src/uagent/setup_cli.py:1399
-#: src/uagent/setup_cli.py:1407 src/uagent/setup_cli.py:1418
+#: src/uagent/setup_cli.py:1432 src/uagent/setup_cli.py:1439
+#: src/uagent/setup_cli.py:1443 src/uagent/setup_cli.py:1449
+#: src/uagent/setup_cli.py:1455 src/uagent/setup_cli.py:1460
+#: src/uagent/setup_cli.py:1468 src/uagent/setup_cli.py:1479
 msgid "no"
 msgstr "ไม่\n"
 
-#: src/uagent/setup_cli.py:1377
+#: src/uagent/setup_cli.py:1438
 #, python-format
 msgid "  Streaming enabled: %(state)s"
 msgstr "  เปิดใช้งานการสตรีม: %(state)s"
 
-#: src/uagent/setup_cli.py:1393
+#: src/uagent/setup_cli.py:1454
 #, python-format
 msgid "  Optional extras enabled: %(state)s"
 msgstr "  เปิดใช้ส่วนเสริมเพิ่มเติม: %(state)s"
 
-#: src/uagent/setup_cli.py:1398
+#: src/uagent/setup_cli.py:1459
 #, python-format
 msgid "  Image analysis enabled: %(state)s"
 msgstr "  เปิดใช้การวิเคราะห์รูปภาพ: %(state)s"
 
-#: src/uagent/setup_cli.py:1406
+#: src/uagent/setup_cli.py:1467
 #, python-format
 msgid "  Image generation enabled: %(state)s"
 msgstr "  เปิดใช้การสร้างรูปภาพ: %(state)s"
 
-#: src/uagent/setup_cli.py:1417
+#: src/uagent/setup_cli.py:1478
 #, python-format
 msgid "  Embedding enabled: %(state)s"
 msgstr "  เปิดใช้การฝังเวกเตอร์: %(state)s"
 
-#: src/uagent/setup_cli.py:1427
+#: src/uagent/setup_cli.py:1488
 #, python-format
 msgid "  Outputs: %(outputs)s"
 msgstr "  เอาต์พุต: %(outputs)s"
 
-#: src/uagent/setup_cli.py:1430
+#: src/uagent/setup_cli.py:1491
 msgid "Generate files with this configuration?"
 msgstr "ต้องการสร้างไฟล์ด้วยการตั้งค่านี้หรือไม่?"
 
-#: src/uagent/setup_cli.py:1431
+#: src/uagent/setup_cli.py:1492
 msgid "Yes, generate"
 msgstr "ใช่ สร้างเลย\n"
 
-#: src/uagent/setup_cli.py:1431
+#: src/uagent/setup_cli.py:1492
 msgid "Back"
 msgstr "ย้อนกลับ\n"
 
-#: src/uagent/setup_cli.py:1455
+#: src/uagent/setup_cli.py:1516
 msgid "The following files already exist and will be overwritten:"
 msgstr "ไฟล์ต่อไปนี้มีอยู่แล้วและจะถูกเขียนทับ:"
 
-#: src/uagent/setup_cli.py:1459
+#: src/uagent/setup_cli.py:1520
 msgid "Proceed?"
 msgstr "ดำเนินการต่อหรือไม่?\n"
 
-#: src/uagent/setup_cli.py:1483
+#: src/uagent/setup_cli.py:1544
 msgid "Plain .env file removed after encryption."
 msgstr "ลบไฟล์ .env แบบข้อความธรรมดาแล้วหลังจากเข้ารหัส"
 
-#: src/uagent/setup_cli.py:1486
+#: src/uagent/setup_cli.py:1547
 #, python-format
 msgid "Warning: Failed to remove plain .env: %(error)s"
 msgstr "คำเตือน: ไม่สามารถลบ .env แบบปกติได้: %(error)s"
 
-#: src/uagent/setup_cli.py:1505
+#: src/uagent/setup_cli.py:1566
 #, python-format
 msgid "generated: %(path)s"
 msgstr "สร้างแล้ว: %(path)s"
 
-#: src/uagent/uagent_llm.py:129
+#: src/uagent/uagent_llm.py:132
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] รอบการเรียกใช้เครื่องมือเกิน %(max)d; กำลังยกเลิก\n"
 
-#: src/uagent/util_tools.py:181
+#: src/uagent/util_tools.py:182
 #, python-format
 msgid "image file not found: %(path)s"
 msgstr "ไม่พบไฟล์ภาพ: %(path)s"
 
-#: src/uagent/util_tools.py:186
+#: src/uagent/util_tools.py:187
 #, python-format
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "ไฟล์ภาพมีขนาดใหญ่เกินไป: %(size)d ไบต์ (จำกัด=%(max)d)"
 
-#: src/uagent/util_tools.py:210
+#: src/uagent/util_tools.py:211
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1686,41 +1774,41 @@ msgstr ""
 "ระบุไดเรกทอรีทำงาน หากไม่ได้กำหนด จะใช้ตัวแปรสภาพแวดล้อม UAGENT_WORKDIR "
 "หรือไดเรกทอรีปัจจุบัน\n"
 
-#: src/uagent/util_tools.py:217
+#: src/uagent/util_tools.py:218
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
 msgstr ""
 "โหมดไม่โต้ตอบ อย่าเริ่ม stdin loop ให้ออกหลังประมวลผลไฟล์เริ่มต้น (ถ้ามี)"
 
-#: src/uagent/util_tools.py:355
+#: src/uagent/util_tools.py:356
 msgid "invalid reasoning"
 msgstr "reasoning ไม่ถูกต้อง"
 
-#: src/uagent/util_tools.py:373
+#: src/uagent/util_tools.py:374
 msgid "invalid verbosity"
 msgstr "ระดับความละเอียดไม่ถูกต้อง"
 
-#: src/uagent/util_tools.py:547
+#: src/uagent/util_tools.py:548
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr ""
 "[logs] อาร์กิวเมนต์ไม่ถูกต้อง: %(arg)r (ระบุ all / --all / -a / ตัวเลข)"
 
-#: src/uagent/util_tools.py:586
+#: src/uagent/util_tools.py:587
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "ไม่สามารถแยกวิเคราะห์อาร์กิวเมนต์ได้: %(err)s"
 
-#: src/uagent/util_tools.py:589
+#: src/uagent/util_tools.py:590
 msgid "missing arguments"
 msgstr "อาร์กิวเมนต์ไม่ครบ"
 
-#: src/uagent/util_tools.py:605
+#: src/uagent/util_tools.py:606
 msgid "src and dst are required"
 msgstr "ต้องระบุ src และ dst"
 
-#: src/uagent/util_tools.py:973
+#: src/uagent/util_tools.py:974
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -1732,11 +1820,11 @@ msgstr ""
 "หากสกิลมีงาน ให้ทำต่อจนเสร็จ\n"
 "ใช้เครื่องมือเมื่อจำเป็น\n"
 
-#: src/uagent/util_tools.py:980
+#: src/uagent/util_tools.py:981
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "เมื่อเสร็จแล้ว ให้เรียก `finish_skill` เสมอถ้ามี\n"
 
-#: src/uagent/util_tools.py:1132
+#: src/uagent/util_tools.py:1133
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -1746,7 +1834,7 @@ msgstr ""
 "เคล็ดลับ: :skills clear  (ลบสกิลที่ใช้แล้ว)\n"
 "ใส่หมายเลข:"
 
-#: src/uagent/util_tools.py:1168
+#: src/uagent/util_tools.py:1169
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -1763,7 +1851,7 @@ msgstr ""
 "\n"
 "ดำเนินการต่อ? กด y เพื่อรัน หรือ c เพื่อยกเลิก"
 
-#: src/uagent/util_tools.py:1230
+#: src/uagent/util_tools.py:1231
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -1772,7 +1860,7 @@ msgstr ""
 "[clean] อาร์กิวเมนต์ไม่ถูกต้อง: %(arg)r (ระบุ number=threshold; "
 "ค่าเริ่มต้นคือ %(default)d)"
 
-#: src/uagent/util_tools.py:1279
+#: src/uagent/util_tools.py:1280
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1789,12 +1877,12 @@ msgstr ""
 "\n"
 "ต้องการดำเนินการต่อไหม? กด y เพื่อรัน หรือ c เพื่อยกเลิก."
 
-#: src/uagent/util_tools.py:1347
+#: src/uagent/util_tools.py:1348
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr " - (%(count)d ข้อความ) %(path)s"
 
-#: src/uagent/util_tools.py:1391
+#: src/uagent/util_tools.py:1378
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -1811,7 +1899,7 @@ msgstr ""
 "\n"
 "ต้องการดำเนินการต่อไหม? กด y เพื่อรัน หรือ c เพื่อยกเลิก."
 
-#: src/uagent/util_tools.py:1522
+#: src/uagent/util_tools.py:1509
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1826,24 +1914,24 @@ msgstr ""
 "\n"
 "พิมพ์ y เพื่อดำเนินการ หรือ c เพื่อยกเลิก"
 
-#: src/uagent/util_tools.py:1577
+#: src/uagent/util_tools.py:1564
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "ดัชนีที่ระบุ %(idx)d อยู่นอกช่วง"
 
-#: src/uagent/util_tools.py:1586
+#: src/uagent/util_tools.py:1573
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "ไม่พบไฟล์บันทึก: %(path)s"
 
-#: src/uagent/util_tools.py:1669
+#: src/uagent/util_tools.py:1667
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[ข้อผิดพลาด shrink] แปลงเป็นจำนวนเต็มไม่สำเร็จ: %(arg)r -> เก็บ %(keep)d "
 "รายการล่าสุด"
 
-#: src/uagent/util_tools.py:1697
+#: src/uagent/util_tools.py:1695
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -1851,7 +1939,7 @@ msgstr ""
 "[ข้อผิดพลาด shrink_llm] แปลงเป็น int ไม่ได้: %(arg)r -> ใช้ค่า %(keep)d "
 "ล่าสุด"
 
-#: src/uagent/util_tools.py:1756 src/uagent/util_tools.py:1836
+#: src/uagent/util_tools.py:1767 src/uagent/util_tools.py:1847
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -1859,48 +1947,47 @@ msgstr ""
 "ยังไม่ได้เปิดใช้งานหน่วยความจำระยะยาวร่วม (ยังไม่ได้ตั้งค่า "
 "UAGENT_SHARED_MEMORY_FILE)\n"
 
-#: src/uagent/util_tools.py:1787
+#: src/uagent/util_tools.py:1798
 msgid "Analyzing past logs to generate user profile..."
 msgstr "กำลังวิเคราะห์บันทึกก่อนหน้าเพื่อสร้างโปรไฟล์ผู้ใช้..."
 
-#: src/uagent/util_tools.py:1791
+#: src/uagent/util_tools.py:1802
 msgid "No past logs found or failed to generate profile."
 msgstr "ไม่พบบันทึกก่อนหน้าหรือไม่สามารถสร้างโปรไฟล์ได้"
 
-#: src/uagent/util_tools.py:1793
-#, fuzzy
+#: src/uagent/util_tools.py:1804
 msgid "User profile generated successfully from past logs!"
 msgstr "ล้างโปรไฟล์ผู้ใช้สำเร็จแล้ว"
 
-#: src/uagent/util_tools.py:1805
+#: src/uagent/util_tools.py:1816
 msgid "No user profile data found."
 msgstr "ไม่พบข้อมูลโปรไฟล์ผู้ใช้"
 
-#: src/uagent/util_tools.py:1808
+#: src/uagent/util_tools.py:1819
 msgid "User Profile:"
 msgstr "โปรไฟล์ผู้ใช้:"
 
-#: src/uagent/util_tools.py:1820
+#: src/uagent/util_tools.py:1831
 msgid "User profile cleared successfully."
 msgstr "ล้างโปรไฟล์ผู้ใช้สำเร็จแล้ว"
 
-#: src/uagent/util_tools.py:1824
+#: src/uagent/util_tools.py:1835
 msgid "No user profile file found to clear."
 msgstr "ไม่พบไฟล์โปรไฟล์ผู้ใช้ที่จะล้าง"
 
-#: src/uagent/util_tools.py:1888
+#: src/uagent/util_tools.py:1899
 msgid "Show this help"
 msgstr "แสดงวิธีใช้นี้"
 
-#: src/uagent/util_tools.py:1889
+#: src/uagent/util_tools.py:1900
 msgid "Restart input from the beginning"
 msgstr "เริ่มป้อนข้อมูลใหม่จากต้นฉบับ"
 
-#: src/uagent/util_tools.py:1890
+#: src/uagent/util_tools.py:1901
 msgid "Show log file list"
 msgstr "แสดงรายการไฟล์บันทึก"
 
-#: src/uagent/util_tools.py:1893
+#: src/uagent/util_tools.py:1904
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -1908,23 +1995,23 @@ msgstr ""
 "เปลี่ยนไดเรกทอรีทำงานโดยไม่ต้องยืนยัน (เช่น :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
 
-#: src/uagent/util_tools.py:1896
+#: src/uagent/util_tools.py:1907
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "แสดงรายการในไดเรกทอรี (เช่น :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:1899
+#: src/uagent/util_tools.py:1910
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "จัดการตัวแปรสภาพแวดล้อม UAGENT_* และบันทึก .env.sec"
 
-#: src/uagent/util_tools.py:1901
+#: src/uagent/util_tools.py:1912
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "จัดการ/ใช้งานสกิล (เช่น :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:1908
+#: src/uagent/util_tools.py:1919
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "โหลดบันทึกย้อนหลัง (เขียนทับประวัติการสนทนาปัจจุบัน)"
 
-#: src/uagent/util_tools.py:1910
+#: src/uagent/util_tools.py:1921
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -1934,7 +2021,7 @@ msgstr ""
 " จะนำบันทึกที่โหลดมาไปไว้ก่อนหน้าบันทึกของเซสชันปัจจุบัน (เขียนทับ, "
 "ไม่มีสำรอง)"
 
-#: src/uagent/util_tools.py:1914
+#: src/uagent/util_tools.py:1925
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -1942,14 +2029,14 @@ msgstr ""
 "ลบบันทึกการสนทนา (scheck_log_*.jsonl) เมื่อจำนวนข้อความ user/assistant/tool "
 "(ไม่รวม system) <= N (ค่าเริ่มต้น=10)"
 
-#: src/uagent/util_tools.py:1918
+#: src/uagent/util_tools.py:1929
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "ย่อประวัติการสนทนา (เก็บข้อความที่ไม่ใช่ system ล่าสุด N รายการ; "
 "ค่าเริ่มต้น=40)"
 
-#: src/uagent/util_tools.py:1922
+#: src/uagent/util_tools.py:1933
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -1957,69 +2044,70 @@ msgstr ""
 "ย่อประวัติด้วยการสรุปจาก LLM (สรุปประวัติเก่าเป็นข้อความ system 1 รายการ; "
 "เก็บข้อความดิบล่าสุด N รายการ; ค่าเริ่มต้น=20)"
 
-#: src/uagent/util_tools.py:1924
+msgid "Show the current approximate token count of the conversation"
+msgstr "แสดงจำนวนโทเค็นโดยประมาณปัจจุบันของการสนทนา"
+
+#: src/uagent/util_tools.py:1937
 msgid "List long-term memory notes"
 msgstr "แสดงบันทึกหน่วยความจำระยะยาว"
 
-#: src/uagent/util_tools.py:1926
+#: src/uagent/util_tools.py:1939
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "ลบบันทึกหน่วยความจำระยะยาวตามดัชนี (ดู :mem-list)"
 
-#: src/uagent/util_tools.py:1928
-#, fuzzy
+#: src/uagent/util_tools.py:1941
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr "แสดงโปรไฟล์ผู้ใช้ที่เรียนรู้ (สภาพแวดล้อม, ความชอบ, ข้อจำกัด)"
 
-#: src/uagent/util_tools.py:1929
-#, fuzzy
+#: src/uagent/util_tools.py:1942
 msgid "Generate user profile from past logs"
 msgstr "ไม่พบข้อมูลโปรไฟล์ผู้ใช้"
 
-#: src/uagent/util_tools.py:1930
+#: src/uagent/util_tools.py:1943
 msgid "Clear the learned user profile data"
 msgstr "ล้างข้อมูลโปรไฟล์ผู้ใช้ที่เรียนรู้"
 
-#: src/uagent/util_tools.py:1932
+#: src/uagent/util_tools.py:1945
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "คัดลอกไฟล์หรือไดเรกทอรี (รองรับ -f/--overwrite และ -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1934
+#: src/uagent/util_tools.py:1947
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "ย้ายไฟล์หรือไดเรกทอรี (รองรับ -f/--overwrite และ -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:1936
+#: src/uagent/util_tools.py:1949
 msgid "Show the first n lines of a file (default=20)"
 msgstr "แสดง n บรรทัดแรกของไฟล์ (ค่าเริ่มต้น=20)"
 
-#: src/uagent/util_tools.py:1937
+#: src/uagent/util_tools.py:1950
 msgid "Show the last n lines of a file (default=20)"
 msgstr "แสดง n บรรทัดสุดท้ายของไฟล์ (ค่าเริ่มต้น=20)"
 
-#: src/uagent/util_tools.py:1939
+#: src/uagent/util_tools.py:1952
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "ลบไฟล์/ไดเรกทอรีพร้อมพรีวิวและยืนยัน"
 
-#: src/uagent/util_tools.py:1941
+#: src/uagent/util_tools.py:1954
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "ตั้งค่าโหมดเหตุผล (0=ปิด, 1=ต่ำ, 2=ปานกลาง, 3=สูง; auto/minimal/xhigh)"
 
-#: src/uagent/util_tools.py:1943
+#: src/uagent/util_tools.py:1956
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "ตั้งค่าโหมดรายละเอียด (0=ปิด, 1=ต่ำ, 2=กลาง, 3=สูง; "
 "ไม่ใส่อาร์กิวเมนต์=คงเดิม)"
 
-#: src/uagent/util_tools.py:1944
+#: src/uagent/util_tools.py:1957
 msgid "Exit"
 msgstr "ออก"
 
-#: src/uagent/util_tools.py:1947
+#: src/uagent/util_tools.py:1960
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "  - ป้อนบรรทัดที่มีเพียง 'f' เพื่อเข้าสู่โหมดป้อนหลายบรรทัด"
 
-#: src/uagent/util_tools.py:1949
+#: src/uagent/util_tools.py:1962
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
@@ -2027,16 +2115,16 @@ msgstr ""
 "  - หากต้องการจบโหมดป้อนหลายบรรทัด ให้ป้อนบรรทัดที่ตรงกับ %(sentinel)s "
 "เท่านั้น"
 
-#: src/uagent/util_tools.py:2185
+#: src/uagent/util_tools.py:2201
 msgid "Exiting."
 msgstr "กำลังออก"
 
-#: src/uagent/util_tools.py:2188
+#: src/uagent/util_tools.py:2204
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "ไม่รู้จักคำสั่ง: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2339
+#: src/uagent/util_tools.py:2355
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2052,7 +2140,7 @@ msgstr ""
 "[WARN] มีงานอื่นกำลังทำงานอยู่ในห้องนี้แล้ว "
 "โปรดลองอีกครั้งหลังจากงานนั้นเสร็จสิ้น"
 
-#: src/uagent/web.py:626 src/uagent/web.py:767
+#: src/uagent/web.py:626 src/uagent/web.py:773
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2103,7 +2191,7 @@ msgstr ""
 "3. รวม JavaScript ที่โต้ตอบได้ (เช่น Chart.js สำหรับแผนภูมิ หรือการจัดการสถานะอย่างง่าย)\n"
 "4. อย่าแบ่งโค้ดออกเป็นหลายบล็อก ให้เก็บไว้ในบล็อก ```html เดียวที่รวมกัน\n"
 
-#: src/uagent/web.py:764
+#: src/uagent/web.py:770
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2112,19 +2200,19 @@ msgstr ""
 "[FATAL] ข้อผิดพลาดของเว็บเวิร์กเกอร์\n"
 "%(err)s"
 
-#: src/uagent/web.py:901
+#: src/uagent/web.py:907
 msgid "missing path"
 msgstr "ไม่พบพาธ"
 
-#: src/uagent/web.py:908
+#: src/uagent/web.py:914
 msgid "path outside workdir"
 msgstr "พาธอยู่นอกไดเรกทอรีทำงาน"
 
-#: src/uagent/web.py:1071
+#: src/uagent/web.py:1149
 msgid "Starting server on"
 msgstr "กำลังเริ่มเซิร์ฟเวอร์ที่"
 
-#: src/uagent/web.py:1073
+#: src/uagent/web.py:1151
 msgid "External URL:"
 msgstr "URL ภายนอก:"
 
@@ -2265,10 +2353,13 @@ msgstr "ไม่รู้จัก UAGENT_A2A_ENGINE: %(mode)s"
 msgid "invalid cache meta"
 msgstr "เมตาดาต้าของแคชไม่ถูกต้อง"
 
-#: src/uagent/providers/llm_claude.py:222
-#: src/uagent/providers/util_providers.py:610
+#: src/uagent/providers/llm_claude.py:220
+#: src/uagent/providers/util_providers.py:668
 msgid "anthropic package is not installed."
 msgstr "ยังไม่ได้ติดตั้งแพ็กเกจ anthropic"
+
+msgid "An error occurred while generating a response."
+msgstr "เกิดข้อผิดพลาดขณะสร้างการตอบสนอง"
 
 #: src/uagent/providers/llm_gemini.py:564
 msgid ""
@@ -2276,13 +2367,13 @@ msgid ""
 msgstr ""
 "ไม่สามารถนำเข้า google-genai ได้ (ต้องติดตั้งด้วย pip install google-genai)"
 
-#: src/uagent/providers/llm_gemini.py:1124
+#: src/uagent/providers/llm_gemini.py:1130
 msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
 msgstr ""
 "[ข้อผิดพลาด Gemini: "
 "การตอบกลับถูกบล็อกโดยตัวกรองความปลอดภัยหรือเหตุผลในการสิ้นสุด]"
 
-#: src/uagent/providers/llm_gemini.py:1129
+#: src/uagent/providers/llm_gemini.py:1135
 #, python-format
 msgid "[Gemini Error: %(err)s]"
 msgstr "[ข้อผิดพลาด Gemini: %(err)s]"
@@ -2369,68 +2460,70 @@ msgstr ""
 msgid "Environment variable UAGENT_PROVIDER is not set."
 msgstr "ไม่ได้ตั้งค่าตัวแปรสภาพแวดล้อม UAGENT_PROVIDER"
 
-#: src/uagent/providers/util_providers.py:259
+#: src/uagent/providers/util_providers.py:262
 #, python-format
 msgid "Unknown provider: %(provider)s"
 msgstr "ผู้ให้บริการไม่รู้จัก: %(provider)s"
 
-#: src/uagent/providers/util_providers.py:544
-#: src/uagent/providers/util_providers.py:570
+#: src/uagent/providers/util_providers.py:602
+#: src/uagent/providers/util_providers.py:628
 msgid "google-genai package is not installed."
 msgstr "ยังไม่ได้ติดตั้งแพ็กเกจ google-genai"
 
-#: src/uagent/runtime/runtime_banner.py:231
+#: src/uagent/runtime/runtime_banner.py:232
 msgid "embedding"
 msgstr "การฝังเวกเตอร์"
 
-#: src/uagent/runtime/runtime_banner.py:232
+#: src/uagent/runtime/runtime_banner.py:233
 msgid "audio speech"
 msgstr "สังเคราะห์เสียงพูด"
 
-#: src/uagent/runtime/runtime_banner.py:233
+#: src/uagent/runtime/runtime_banner.py:234
 msgid "audio transcribe"
 msgstr "ถอดเสียง"
 
-#: src/uagent/runtime/runtime_banner.py:234
+#: src/uagent/runtime/runtime_banner.py:235
 msgid "image generation"
 msgstr "สร้างภาพ"
 
-#: src/uagent/runtime/runtime_banner.py:235
+#: src/uagent/runtime/runtime_banner.py:236
 msgid "image analysis"
 msgstr "วิเคราะห์ภาพ"
 
-#: src/uagent/runtime/runtime_banner.py:254
+#: src/uagent/runtime/runtime_banner.py:255
 #, python-format
 msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
 msgstr "[INFO] ไดเรกทอรีทำงาน = %(workdir)s (แหล่งที่มา: %(source)s)"
 
-#: src/uagent/runtime/runtime_banner.py:262
-#: src/uagent/runtime/runtime_banner.py:276
-#: src/uagent/runtime/runtime_banner.py:281
-#: src/uagent/runtime/runtime_banner.py:293
-#: src/uagent/runtime/runtime_banner.py:305
-#: src/uagent/runtime/runtime_banner.py:314
-#: src/uagent/runtime/runtime_banner.py:323
+#: src/uagent/runtime/runtime_banner.py:263
+#: src/uagent/runtime/runtime_banner.py:277
+#: src/uagent/runtime/runtime_banner.py:282
+#: src/uagent/runtime/runtime_banner.py:294
+#: src/uagent/runtime/runtime_banner.py:306
+#: src/uagent/runtime/runtime_banner.py:315
+#: src/uagent/runtime/runtime_banner.py:325
+#: src/uagent/runtime/runtime_banner.py:338
+#: src/uagent/runtime/runtime_banner.py:347
 #, python-format
 msgid "[INFO] base_url = %(base_url)s"
 msgstr "[INFO] URL ฐาน = %(base_url)s"
 
-#: src/uagent/runtime/runtime_banner.py:270
+#: src/uagent/runtime/runtime_banner.py:271
 #, python-format
 msgid "[INFO] api_version = %(api_version)s"
 msgstr "[INFO] เวอร์ชัน API = %(api_version)s"
 
-#: src/uagent/runtime/runtime_banner.py:332
+#: src/uagent/runtime/runtime_banner.py:356
 #, python-format
 msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
 msgstr "[INFO] vertexai = โปรเจกต์=%(project)s, ตำแหน่ง=%(location)s"
 
-#: src/uagent/runtime/runtime_banner.py:341
+#: src/uagent/runtime/runtime_banner.py:365
 #, python-format
 msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
 msgstr "[INFO] %(label)s = %(provider)s; โมเดล = %(model)s"
 
-#: src/uagent/runtime/runtime_banner.py:368
+#: src/uagent/runtime/runtime_banner.py:386
 #, python-format
 msgid ""
 "UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
@@ -2439,33 +2532,33 @@ msgstr ""
 "ตั้งค่า UAGENT_RESPONSES=1 แล้ว แต่ผู้ให้บริการ '%(provider)s' ไม่รองรับ "
 "Responses API จึงเปลี่ยนไปใช้ ChatCompletions"
 
-#: src/uagent/runtime/runtime_banner.py:375
+#: src/uagent/runtime/runtime_banner.py:393
 #, python-format
 msgid "LLM API mode = %(mode)s"
 msgstr "โหมด LLM API = %(mode)s"
 
-#: src/uagent/runtime/runtime_banner.py:378
+#: src/uagent/runtime/runtime_banner.py:396
 msgid "Responses (UAGENT_RESPONSES is enabled)"
 msgstr "Responses (เปิดใช้งาน UAGENT_RESPONSES)"
 
-#: src/uagent/runtime/runtime_banner.py:382
+#: src/uagent/runtime/runtime_banner.py:400
 msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
 msgstr "API แบบเนทีฟของ Gemini/Vertex AI/Claude (UAGENT_RESPONSES ถูกละเว้น)"
 
-#: src/uagent/runtime/runtime_banner.py:385
+#: src/uagent/runtime/runtime_banner.py:403
 msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
 msgstr "ChatCompletions (ปิดใช้งาน UAGENT_RESPONSES)"
 
-#: src/uagent/runtime/runtime_banner.py:393
+#: src/uagent/runtime/runtime_banner.py:411
 #, python-format
 msgid "LLM streaming = %(state)s"
 msgstr "การสตรีม LLM = %(state)s"
 
-#: src/uagent/runtime/runtime_banner.py:394
+#: src/uagent/runtime/runtime_banner.py:412
 msgid "enabled"
 msgstr "เปิดใช้งาน"
 
-#: src/uagent/runtime/runtime_banner.py:394
+#: src/uagent/runtime/runtime_banner.py:412
 msgid "disabled"
 msgstr "ปิดใช้งาน"
 

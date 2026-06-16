@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-12 05:36+0900\n"
+"POT-Creation-Date: 2026-06-16 14:32+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,12 @@ msgstr "getch() fallback to input()"
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Received Ctrl+C. Starting shutdown..."
 
+msgid "Cancelled."
+msgstr "Cancelled."
+
+msgid "Received multiline reply."
+msgstr "Received multiline reply."
+
 msgid ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
 "\"\"\"retry; finish with a line containing %(sentinel)s)"
@@ -45,14 +51,8 @@ msgstr ""
 "(Multiline input mode: enter the body in multiple lines; to restart, type "
 "\"\"\"retry; finish with a line containing %(sentinel)s)"
 
-msgid "Cancelled."
-msgstr "Cancelled."
-
 msgid "Discarded previous input. Please start over."
 msgstr "Discarded previous input. Please start over."
-
-msgid "Received multiline reply."
-msgstr "Received multiline reply."
 
 msgid ""
 "Image file paths were found in your input.\n"
@@ -87,21 +87,39 @@ msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] startup genre prompt = numeric-input"
 
 msgid ""
-"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+"Enter the sum of numbers "
+"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, "
+"Enter=enable all):"
 msgstr ""
-"数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+"Enter the sum of numbers "
+"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, "
+"Enter=enable all):"
 
-msgid "Communication (Teams, Discord, etc.)"
-msgstr "Communication (Teams, Discord, etc.)"
+msgid "Communication (Teams, Discord, Bluesky)"
+msgstr "Communication (Teams, Discord, Bluesky)"
 
-msgid "Office suite (Excel, Word, etc.)"
-msgstr "Office suite (Excel, Word, etc.)"
+msgid "Office (Excel, Word, PDF, PPT, document extraction)"
+msgstr "Office (Excel, Word, PDF, PPT, document extraction)"
 
-msgid "Development (lint, py_compile, test, etc.)"
-msgstr "Development (lint, py_compile, test, etc.)"
+msgid ""
+"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+msgstr ""
+"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 
-msgid "IoT (Bluetooth, etc.)"
-msgstr "IoT (Bluetooth, etc.)"
+msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+
+msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
+msgstr "Execution (cmd, python, pwsh, bash, sub-agent)"
+
+msgid "External (A2A, MCP, fetch, search web)"
+msgstr "External (A2A, MCP, fetch, search web)"
+
+msgid "Media (image gen/edit/analyze, audio, QR code)"
+msgstr "Media (image gen/edit/analyze, audio, QR code)"
+
+msgid "[INFO] startup genre prompt = prompt_toolkit"
+msgstr "[INFO] startup genre prompt = prompt_toolkit"
 
 msgid "Tool genre selection"
 msgstr "Tool genre selection"
@@ -183,13 +201,6 @@ msgid ""
 msgstr ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s"
-
-msgid ""
-"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
-msgstr ""
-"[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r "
-"name=%(name)r"
 
 msgid ""
 "[INFO] There were %(count)d messages to compress, so nothing was changed."
@@ -468,10 +479,10 @@ msgstr "open with OS"
 
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
 msgstr ""
 "Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia)."
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
 
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
@@ -534,6 +545,15 @@ msgstr ""
 
 msgid "NVIDIA API key."
 msgstr "NVIDIA API key."
+
+msgid "DeepSeek API key."
+msgstr "DeepSeek API key."
+
+msgid "Alibaba Cloud (Qwen) API key."
+msgstr "Alibaba Cloud (Qwen) API key."
+
+msgid "Moonshot AI API key."
+msgstr "Moonshot AI API key."
 
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
@@ -825,6 +845,9 @@ msgstr "Verbosity: medium"
 msgid "Verbosity: high"
 msgstr "Verbosity: high"
 
+msgid "Tools"
+msgstr "Tools"
+
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] reasoning=%(mode)s"
 
@@ -993,6 +1016,49 @@ msgstr "Ollama num_ctx (default: 8192)"
 
 msgid "Ollama num_predict (default: 1024)"
 msgstr "Ollama num_predict (default: 1024)"
+
+msgid "DeepSeek API key"
+msgstr "DeepSeek API key"
+
+msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
+msgstr "DeepSeek base URL (optional, default: https://api.deepseek.com)"
+
+msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
+msgstr "DeepSeek model name (optional, default: deepseek-v4-flash)"
+
+msgid "DeepSeek temperature (default: 0.0)"
+msgstr "DeepSeek temperature (default: 0.0)"
+
+msgid "DeepSeek top_p (default: 1.0)"
+msgstr "DeepSeek top_p (default: 1.0)"
+
+msgid "DeepSeek presence_penalty (default: 0.0)"
+msgstr "DeepSeek presence_penalty (default: 0.0)"
+
+msgid "DeepSeek frequency_penalty (default: 0.0)"
+msgstr "DeepSeek frequency_penalty (default: 0.0)"
+
+msgid "Alibaba Cloud (Qwen) API key"
+msgstr "Alibaba Cloud (Qwen) API key"
+
+msgid ""
+"Alibaba base URL (optional, default: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+msgstr ""
+"Alibaba base URL (optional, default: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+
+msgid "Alibaba model name (optional, default: qwen3.5-plus)"
+msgstr "Alibaba model name (optional, default: qwen3.5-plus)"
+
+msgid "Moonshot AI API key"
+msgstr "Moonshot AI API key"
+
+msgid "Moonshot base URL (optional, default: https://api.moonshot.cn/v1)"
+msgstr "Moonshot base URL (optional, default: https://api.moonshot.cn/v1)"
+
+msgid "Moonshot model name (optional, default: kimi-k2)"
+msgstr "Moonshot model name (optional, default: kimi-k2)"
 
 msgid "Enter number:"
 msgstr "Enter number:"
@@ -1479,6 +1545,9 @@ msgstr ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
 
+msgid "Show the current approximate token count of the conversation"
+msgstr "Show the current approximate token count of the conversation"
+
 msgid "List long-term memory notes"
 msgstr "List long-term memory notes"
 
@@ -1719,6 +1788,9 @@ msgstr "invalid cache meta"
 
 msgid "anthropic package is not installed."
 msgstr "anthropic package is not installed."
+
+msgid "An error occurred while generating a response."
+msgstr "An error occurred while generating a response."
 
 msgid ""
 "google-genai could not be imported (pip install google-genai is required)."
