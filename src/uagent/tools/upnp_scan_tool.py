@@ -3,11 +3,16 @@ from __future__ import annotations
 import json
 import socket
 import time
-import urllib.request
-import xml.etree.ElementTree as ET
 from typing import Any
-from urllib.parse import urljoin, urlparse
 
+from ._upnp_shared import (
+    _DEFAULT_USER_AGENT,
+    _MSEARCH_ADDR,
+    extract_device_items,
+    extract_host,
+    extract_uuid,
+    fetch_url_text,
+)
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -15,14 +20,12 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = True
 STATUS_LABEL = "tool:upnp_scan"
 
-_MSEARCH_ADDR = ("239.255.255.250", 1900)
 _DEFAULT_MX = 3
 _DEFAULT_WAIT_TIMEOUT = 4
 _DEFAULT_TIMEOUT = _DEFAULT_WAIT_TIMEOUT
 _DEFAULT_RETRY = 1
 _DEFAULT_LIMIT = 50
 _DEFAULT_SEARCH_TARGET = "ssdp:all"
-_DEFAULT_USER_AGENT = "uag-upnp-scan/1.0"
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
@@ -33,7 +36,8 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Discover UPnP/SSDP devices on the local network and return a JSON or text list."
+                "Discover UPnP/SSDP devices on the local network and return a JSON or text list. "
+                "Supports filtering by name, manufacturer, model, or device type."
             ),
         ),
         "parameters": {
@@ -44,9 +48,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": _DEFAULT_MX,
                     "description": _(
                         "param.mx.description",
-                        default=(
-                            "SSDP MX header value (1-5 seconds) used by M-SEARCH."
-                        ),
+                        default="SSDP MX header value (1-5 seconds) used by M-SEARCH.",
                     ),
                 },
                 "wait_timeout": {
@@ -54,18 +56,14 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": _DEFAULT_WAIT_TIMEOUT,
                     "description": _(
                         "param.wait_timeout.description",
-                        default=(
-                            "Client-side wait time in seconds for SSDP responses."
-                        ),
+                        default="Client-side wait time in seconds for SSDP responses.",
                     ),
                 },
                 "interface": {
                     "type": "string",
                     "description": _(
                         "param.interface.description",
-                        default=(
-                            "Optional local interface IPv4 address or interface name to bind to."
-                        ),
+                        default="Optional local interface IPv4 address or interface name to bind to.",
                     ),
                 },
                 "retry": {
@@ -73,9 +71,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": _DEFAULT_RETRY,
                     "description": _(
                         "param.retry.description",
-                        default=(
-                            "How many SSDP discovery rounds to send before returning."
-                        ),
+                        default="How many SSDP discovery rounds to send before returning.",
                     ),
                 },
                 "limit": {
@@ -91,9 +87,35 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": _DEFAULT_SEARCH_TARGET,
                     "description": _(
                         "param.search_target.description",
-                        default=(
-                            "SSDP search target (ST), for example 'ssdp:all' or 'upnp:rootdevice'."
-                        ),
+                        default="SSDP search target (ST), e.g. 'ssdp:all' or 'upnp:rootdevice'.",
+                    ),
+                },
+                "filter_name": {
+                    "type": "string",
+                    "description": _(
+                        "param.filter_name.description",
+                        default="Optional case-insensitive substring filter for friendly_name.",
+                    ),
+                },
+                "filter_manufacturer": {
+                    "type": "string",
+                    "description": _(
+                        "param.filter_manufacturer.description",
+                        default="Optional case-insensitive substring filter for manufacturer.",
+                    ),
+                },
+                "filter_model": {
+                    "type": "string",
+                    "description": _(
+                        "param.filter_model.description",
+                        default="Optional case-insensitive substring filter for model_name.",
+                    ),
+                },
+                "filter_type": {
+                    "type": "string",
+                    "description": _(
+                        "param.filter_type.description",
+                        default="Optional case-insensitive substring filter for device_type.",
                     ),
                 },
                 "fmt": {
@@ -178,7 +200,6 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
     def _first_ipv4_for_name(target: str) -> tuple[str | None, str | None]:
         try:
             import psutil  # type: ignore
-
             for name, addrs in psutil.net_if_addrs().items():
                 if name.lower() != target:
                     continue
@@ -196,31 +217,25 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
     if raw:
         if _is_ipv4_address(raw):
             return raw, raw
-
         ip, name = _first_ipv4_for_name(raw.lower())
         if ip:
             return ip, name
-
         try:
             resolved = socket.gethostbyname(raw)
             if _is_ipv4_address(resolved):
                 return resolved, raw
         except Exception:
             pass
-
         raise ValueError(
             _(
                 "err.invalid_interface",
-                default=(
-                    "Error: Could not resolve interface '{interface}' to a local IPv4 address."
-                ),
+                default="Error: Could not resolve interface '{interface}' to a local IPv4 address.",
                 interface=raw,
             )
         )
 
     try:
         import psutil  # type: ignore
-
         candidates: list[tuple[int, str, str]] = []
         for name, addrs in psutil.net_if_addrs().items():
             if _is_virtual_name(name):
@@ -232,7 +247,6 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
                 if not _is_ipv4_address(ip):
                     continue
                 candidates.append((_score_interface(name, ip), name, ip))
-
         if candidates:
             candidates.sort(key=lambda item: (item[0], item[1].lower()), reverse=True)
             _score, best_name, best_ip = candidates[0]
@@ -248,7 +262,6 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
                 return local_ip, local_ip
     except Exception:
         pass
-
     return None, None
 
 
@@ -277,138 +290,12 @@ def _parse_ssdp_response(raw: bytes) -> dict[str, str]:
     return headers
 
 
-def _extract_uuid(text: str | None) -> str | None:
-    if not text:
-        return None
-    lower = text.lower()
-    idx = lower.find("uuid:")
-    if idx >= 0:
-        text = text[idx + 5 :]
-    if "::" in text:
-        text = text.split("::", 1)[0]
-    return text.strip() or None
-
-
-def _safe_join(base: str | None, url: str | None) -> str | None:
-    if not url:
-        return None
-    url = url.strip()
-    if not url:
-        return None
-    if base:
-        return urljoin(base, url)
-    return url
-
-
-def _extract_host(location: str | None) -> str | None:
-    if not location:
-        return None
-    try:
-        parsed = urlparse(location)
-        return parsed.hostname
-    except Exception:
-        return None
-
-
-def _fetch_url_text(location: str, timeout: int) -> tuple[str, dict[str, str]]:
-    request = urllib.request.Request(
-        location,
-        headers={"User-Agent": _DEFAULT_USER_AGENT},
-        method="GET",
-    )
-    with urllib.request.urlopen(request, timeout=timeout) as response:
-        charset = response.headers.get_content_charset() or "utf-8"
-        body = response.read(1_000_000).decode(charset, errors="replace")
-        return body, {k.lower(): v for k, v in response.headers.items()}
-
-
-def _extract_device_items(
-    xml_text: str,
-    base_url: str | None,
-) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    root = ET.fromstring(xml_text)
-    device = root if root.tag.endswith("device") else root.find("./{*}device")
-    if device is None:
-        device = root.find(".//{*}device")
-
-    def t(name: str) -> str | None:
-        candidates = []
-        if device is not None:
-            candidates.append(device)
-        candidates.append(root)
-        for elem in candidates:
-            try:
-                value = elem.findtext(f"./{{*}}{name}")
-            except Exception:
-                value = None
-            if value:
-                value = value.strip()
-                if value:
-                    return value
-        return None
-
-    services: list[dict[str, Any]] = []
-    service_elements: list[ET.Element] = []
-    if device is not None:
-        service_elements.extend(list(device.findall("./{*}serviceList/{*}service")))
-    service_elements.extend(list(root.findall(".//{*}service")))
-
-    seen_service_keys: set[
-        tuple[str | None, str | None, str | None, str | None, str | None]
-    ] = set()
-    for svc in service_elements:
-        service_type = (svc.findtext("./{*}serviceType") or "").strip() or None
-        service_id = (svc.findtext("./{*}serviceId") or "").strip() or None
-        control_url = _safe_join(
-            base_url, (svc.findtext("./{*}controlURL") or "").strip() or None
-        )
-        event_sub_url = _safe_join(
-            base_url, (svc.findtext("./{*}eventSubURL") or "").strip() or None
-        )
-        scpd_url = _safe_join(
-            base_url, (svc.findtext("./{*}SCPDURL") or "").strip() or None
-        )
-        key = (service_type, service_id, control_url, event_sub_url, scpd_url)
-        if key in seen_service_keys:
-            continue
-        seen_service_keys.add(key)
-        if any([service_type, service_id, control_url, event_sub_url, scpd_url]):
-            services.append(
-                {
-                    "service_type": service_type,
-                    "service_id": service_id,
-                    "control_url": control_url,
-                    "event_sub_url": event_sub_url,
-                    "scpd_url": scpd_url,
-                }
-            )
-
-    presentation_url = _safe_join(base_url, t("presentationURL"))
-    udn = t("UDN") or t("uuid")
-
-    info = {
-        "friendly_name": t("friendlyName"),
-        "manufacturer": t("manufacturer"),
-        "model_name": t("modelName"),
-        "device_type": t("deviceType"),
-        "uuid": _extract_uuid(udn),
-        "presentation_url": presentation_url,
-        "serial_number": t("serialNumber"),
-        "model_number": t("modelNumber"),
-        "services": services,
-    }
-
-    return info, services
-
-
 def _format_text(payload: dict[str, Any]) -> str:
     lines: list[str] = []
     lines.append(
         _(
             "msg.summary",
-            default=(
-                "UPnP discovery completed: {count} device(s) found in {elapsed_ms} ms."
-            ),
+            default="UPnP discovery completed: {count} device(s) found in {elapsed_ms} ms.",
             count=payload.get("count", 0),
             elapsed_ms=payload.get("elapsed_ms", 0),
         )
@@ -425,6 +312,10 @@ def _format_text(payload: dict[str, Any]) -> str:
     search_target = payload.get("search_target")
     if search_target:
         lines.append(f"ST: {search_target}")
+    filters = payload.get("filters", {})
+    active_filters = {k: v for k, v in filters.items() if v}
+    if active_filters:
+        lines.append(f"Filters: {active_filters}")
     lines.append("")
 
     items = payload.get("items") or []
@@ -444,7 +335,7 @@ def _format_text(payload: dict[str, Any]) -> str:
         if item.get("uuid"):
             lines.append(f"  uuid: {item.get('uuid')}")
         if item.get("ip"):
-            lines.append(f"  ip: {item.get('ip_address')}")
+            lines.append(f"  ip: {item.get('ip')}")
         if item.get("location"):
             lines.append(f"  location: {item.get('location')}")
         if item.get("presentation_url"):
@@ -453,16 +344,15 @@ def _format_text(payload: dict[str, Any]) -> str:
             lines.append(f"  server: {item.get('server')}")
         services = item.get("services") or []
         lines.append(f"  services: {len(services)}")
-        for service in services:
-            label = (
-                service.get("service_type") or service.get("service_id") or "(service)"
-            )
+        for svc in services[:5]:
+            label = svc.get("service_type") or svc.get("service_id") or "(service)"
             lines.append(f"    - {label}")
+        if len(services) > 5:
+            lines.append(f"    ... and {len(services) - 5} more")
         description_error = item.get("description_error")
         if description_error:
             lines.append(f"  description_error: {description_error}")
         lines.append("")
-
     return "\n".join(lines).strip()
 
 
@@ -480,6 +370,13 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").strip().lower()
     interface_arg = args.get("interface")
     interface = str(interface_arg).strip() if interface_arg is not None else ""
+
+    filter_name = str(args.get("filter_name") or "").strip().lower() or None
+    filter_manufacturer = (
+        str(args.get("filter_manufacturer") or "").strip().lower() or None
+    )
+    filter_model = str(args.get("filter_model") or "").strip().lower() or None
+    filter_type = str(args.get("filter_type") or "").strip().lower() or None
 
     if mx < 1:
         mx = _DEFAULT_MX
@@ -514,7 +411,9 @@ def run_tool(args: dict[str, Any]) -> str:
                 sock.bind(("0.0.0.0", 0))
             try:
                 sock.setsockopt(
-                    socket.IPPROTO_IP, socket.IP_MULTICAST_IF, socket.inet_aton(bind_ip)
+                    socket.IPPROTO_IP,
+                    socket.IP_MULTICAST_IF,
+                    socket.inet_aton(bind_ip),
                 )
             except Exception:
                 pass
@@ -538,7 +437,11 @@ def run_tool(args: dict[str, Any]) -> str:
                     usn = headers.get("usn") or ""
                     st = headers.get("st") or ""
                     source_ip = source[0] if source else ""
-                    key = (location.lower() if location else "", usn.lower(), source_ip)
+                    key = (
+                        location.lower() if location else "",
+                        usn.lower(),
+                        source_ip,
+                    )
                     if key in seen:
                         continue
                     seen.add(key)
@@ -553,9 +456,9 @@ def run_tool(args: dict[str, Any]) -> str:
                             "raw_headers": headers,
                         }
                     )
-                    if len(raw_devices) >= limit:
+                    if len(raw_devices) >= limit * 2:
                         break
-                if len(raw_devices) >= limit:
+                if len(raw_devices) >= limit * 2:
                     break
                 if attempt + 1 < retry:
                     time.sleep(0.15)
@@ -564,11 +467,11 @@ def run_tool(args: dict[str, Any]) -> str:
 
         items: list[dict[str, Any]] = []
         desc_timeout = max(1, min(wait_timeout, 5))
-        for raw_item in raw_devices[:limit]:
+        for raw_item in raw_devices:
             location = raw_item.get("location")
-            item = {
+            item: dict[str, Any] = {
                 "source_address": raw_item.get("source_address"),
-                "ip": _extract_host(location) or raw_item.get("source_address"),
+                "ip": extract_host(location) or raw_item.get("source_address"),
                 "st": raw_item.get("st"),
                 "usn": raw_item.get("usn"),
                 "location": location,
@@ -578,7 +481,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "manufacturer": None,
                 "model_name": None,
                 "device_type": None,
-                "uuid": _extract_uuid(raw_item.get("usn") or ""),
+                "uuid": extract_uuid(raw_item.get("usn") or ""),
                 "presentation_url": None,
                 "serial_number": None,
                 "model_number": None,
@@ -588,17 +491,40 @@ def run_tool(args: dict[str, Any]) -> str:
             }
             if location:
                 try:
-                    body, _headers = _fetch_url_text(location, timeout=desc_timeout)
-                    desc_info, services = _extract_device_items(body, location)
-                    item.update({k: v for k, v in desc_info.items() if k != "services"})
+                    body, _headers = fetch_url_text(location, timeout=desc_timeout)
+                    desc_info, services, _tree = extract_device_items(body, location)
+                    item.update(
+                        {k: v for k, v in desc_info.items() if k != "services"}
+                    )
                     item["services"] = services
                     item["description_status"] = "ok"
                 except Exception as exc:
                     item["description_status"] = "error"
                     item["description_error"] = str(exc)
-            items.append(item)
 
-        payload = {
+            # Apply filters
+            if filter_name:
+                val = (item.get("friendly_name") or "").lower()
+                if filter_name not in val:
+                    continue
+            if filter_manufacturer:
+                val = (item.get("manufacturer") or "").lower()
+                if filter_manufacturer not in val:
+                    continue
+            if filter_model:
+                val = (item.get("model_name") or "").lower()
+                if filter_model not in val:
+                    continue
+            if filter_type:
+                val = (item.get("device_type") or "").lower()
+                if filter_type not in val:
+                    continue
+
+            items.append(item)
+            if len(items) >= limit:
+                break
+
+        payload: dict[str, Any] = {
             "ok": True,
             "count": len(items),
             "items": items,
@@ -611,6 +537,14 @@ def run_tool(args: dict[str, Any]) -> str:
             "limit": limit,
             "elapsed_ms": int((time.monotonic() - start_time) * 1000),
         }
+        if any([filter_name, filter_manufacturer, filter_model, filter_type]):
+            payload["filters"] = {
+                "filter_name": filter_name,
+                "filter_manufacturer": filter_manufacturer,
+                "filter_model": filter_model,
+                "filter_type": filter_type,
+            }
+
         if output_format == "text":
             return _format_text(payload)
         return json.dumps(payload, ensure_ascii=False)

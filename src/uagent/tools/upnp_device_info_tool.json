@@ -1,0 +1,292 @@
+{
+  "en": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP address. Returns device metadata, service list, and device tree (sub-devices).",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "ar": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "bn": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "cs": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "de": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "es": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "fa": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "fi": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "fr": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "hi": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "id": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "it": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "ko": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "mn": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "mr": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "nb": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "nl": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "pl": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "pt": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "pt_BR": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "ru": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "sv": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "sw": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "th": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "tr": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "uk": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "vi": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "zh_CN": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "zh_TW": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  }
+}
