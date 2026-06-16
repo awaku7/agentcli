@@ -928,13 +928,13 @@ async def get_tool_genres():
     """Return list of available genres and their current enabled state."""
     return {
         "genres": [
-            {"key": "comm", "label": "Communication (Teams, Discord, Bluesky)", "enabled": _genre_enabled.get("comm", False)},
-            {"key": "office", "label": "Office suite (Excel, Word, PDF)", "enabled": _genre_enabled.get("office", False)},
-            {"key": "devel", "label": "Development (lint, test, git, DB query, screenshot, browser)", "enabled": _genre_enabled.get("devel", False)},
-            {"key": "iot", "label": "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera)", "enabled": _genre_enabled.get("iot", False)},
-            {"key": "exec", "label": "Execution (cmd, python, pwsh, bash, sub-agent)", "enabled": _genre_enabled.get("exec", False)},
-            {"key": "external", "label": "External (A2A, MCP, fetch, search web)", "enabled": _genre_enabled.get("external", False)},
-            {"key": "media", "label": "Media (image gen/edit, audio, QR code)", "enabled": _genre_enabled.get("media", False)},
+            {"key": "comm", "label": _("Communication (Teams, Discord, Bluesky)"), "enabled": _genre_enabled.get("comm", False)},
+            {"key": "office", "label": _("Office (Excel, Word, PDF, PPT, document extraction)"), "enabled": _genre_enabled.get("office", False)},
+            {"key": "devel", "label": _("Development (lint, test, git, DB, screenshot, browser, binary, compile)"), "enabled": _genre_enabled.get("devel", False)},
+            {"key": "iot", "label": _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"), "enabled": _genre_enabled.get("iot", False)},
+            {"key": "exec", "label": _("Execution (cmd, python, pwsh, bash, sub-agent)"), "enabled": _genre_enabled.get("exec", False)},
+            {"key": "external", "label": _("External (A2A, MCP, fetch, search web)"), "enabled": _genre_enabled.get("external", False)},
+            {"key": "media", "label": _("Media (image gen/edit/analyze, audio, QR code)"), "enabled": _genre_enabled.get("media", False)},
         ],
         "busy": web_manager.status.get("busy", False) if hasattr(web_manager, "status") else False,
     }

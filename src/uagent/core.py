@@ -862,70 +862,70 @@ def sanitize_messages_for_tools(messages: list[dict[str, Any]]) -> list[dict[str
     (e.g. after :load of a session that was interrupted mid-tool-call).
     """
     cleaned: list[dict[str, Any]] = []
-    seen_tool_call_ids: set[str] = set()
-    responded_tool_call_ids: set[str] = set()
+    pending_tool_ids: set[str] = set()
+    pending_tool_block_start: int | None = None
+
+    def _drop_pending_tool_block() -> None:
+        nonlocal pending_tool_block_start
+        if pending_tool_block_start is not None:
+            del cleaned[pending_tool_block_start:]
+        pending_tool_ids.clear()
+        pending_tool_block_start = None
 
     for m in messages:
-        role = m.get("role")
+        if not isinstance(m, dict):
+            continue
 
-        if role == "assistant" and "tool_calls" in m:
-            # Record the tool_call IDs of this assistant
-            tcs = m.get("tool_calls") or []
-            for tc in tcs:
-                if not isinstance(tc, dict):
-                    continue
-                tcid = tc.get("id")
-                if isinstance(tcid, str) and tcid:
-                    seen_tool_call_ids.add(tcid)
-            cleaned.append(m)
+        while True:
+            role = m.get("role")
+            tool_calls = m.get("tool_calls") or []
+            has_tool_calls = isinstance(tool_calls, list) and bool(tool_calls)
 
-        elif role == "tool":
-            tcid = m.get("tool_call_id")
-            if isinstance(tcid, str) and tcid in seen_tool_call_ids:
-                responded_tool_call_ids.add(tcid)
+            # If a tool-call block is interrupted by any non-tool message, drop the
+            # incomplete block and keep later history instead of truncating the tail.
+            if pending_tool_block_start is not None and role != "tool":
+                _drop_pending_tool_block()
+                continue
+
+            if role == "assistant" and has_tool_calls:
+                tool_ids: set[str] = set()
+                for tc in tool_calls:
+                    if not isinstance(tc, dict):
+                        continue
+                    tcid = tc.get("id")
+                    if isinstance(tcid, str) and tcid:
+                        tool_ids.add(tcid)
+
+                # Keep the assistant turn even when tool IDs are missing, but do not
+                # enter pending-tool mode because we cannot reliably match tool results.
                 cleaned.append(m)
-            else:
-                # Orphan tool -> Discard as it causes an error in the API
-                # NOTE: Do not emit blank lines (they look like extra newlines after tool output).
-                # If you want diagnostics, enable: UAGENT_DEBUG_ORPHAN_TOOL=1
-                if (env_get("UAGENT_DEBUG_ORPHAN_TOOL", "0") or "").strip().lower() in (
-                    "1",
-                    "true",
-                    "yes",
-                    "on",
-                ):
-                    try:
-                        print(
-                            _(
-                                "[WARN] Dropping orphan tool message: tool_call_id=%(tool_call_id)r name=%(name)r"
-                            )
-                            % {"tool_call_id": tcid, "name": m.get("name")},
-                            file=sys.stderr,
-                        )
-                    except Exception:
-                        pass
+                if tool_ids:
+                    pending_tool_ids = tool_ids
+                    pending_tool_block_start = len(cleaned) - 1
+                break
 
-        else:
-            # system / user / normal assistant are kept as is
+            if role == "tool":
+                tcid = m.get("tool_call_id")
+                if pending_tool_block_start is None:
+                    # Orphan tool result: ignore it and continue with later history.
+                    break
+
+                if not (isinstance(tcid, str) and tcid in pending_tool_ids):
+                    # Mismatched tool result: ignore it. The pending block will be
+                    # dropped later if it is interrupted by a non-tool message.
+                    break
+
+                cleaned.append(m)
+                pending_tool_ids.discard(tcid)
+                if not pending_tool_ids:
+                    pending_tool_block_start = None
+                break
+
             cleaned.append(m)
+            break
 
-    # Second pass: strip tool_calls from assistant messages whose IDs
-    # have no corresponding tool response (unresolved tool calls).
-    unresolved_ids = seen_tool_call_ids - responded_tool_call_ids
-    if unresolved_ids:
-        for i, m in enumerate(cleaned):
-            if m.get("role") == "assistant" and "tool_calls" in m:
-                tcs = m.get("tool_calls") or []
-                new_tcs = [
-                    tc
-                    for tc in tcs
-                    if isinstance(tc, dict) and tc.get("id") not in unresolved_ids
-                ]
-                if not new_tcs:
-                    # All tool_calls are unresolved -> remove the key entirely
-                    del m["tool_calls"]
-                elif len(new_tcs) < len(tcs):
-                    m["tool_calls"] = new_tcs
+    if pending_tool_block_start is not None:
+        del cleaned[pending_tool_block_start:]
 
     return cleaned
 

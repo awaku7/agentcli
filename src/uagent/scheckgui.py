@@ -975,17 +975,17 @@ class MainWindow(QtWidgets.QMainWindow):
 
             genre_items = [
                 ("comm", _("Communication (Teams, Discord, Bluesky)"), _set_comm_tools_enabled),
-                ("office", _("Office suite (Excel, Word, PDF)"), _set_office_tools_enabled),
-                ("devel", _("Development (lint, test, git, DB query, screenshot, browser)"), _set_devel_tools_enabled),
+                ("office", _("Office (Excel, Word, PDF, PPT, document extraction)"), _set_office_tools_enabled),
+                ("devel", _("Development (lint, test, git, DB, screenshot, browser, binary, compile)"), _set_devel_tools_enabled),
             ]
             if _set_iot_tools_enabled:
-                genre_items.append(("iot", _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera)"), _set_iot_tools_enabled))
+                genre_items.append(("iot", _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"), _set_iot_tools_enabled))
             if _set_exec_tools_enabled:
                 genre_items.append(("exec", _("Execution (cmd, python, pwsh, bash, sub-agent)"), _set_exec_tools_enabled))
             if _set_external_tools_enabled:
                 genre_items.append(("external", _("External (A2A, MCP, fetch, search web)"), _set_external_tools_enabled))
             if _set_media_tools_enabled:
-                genre_items.append(("media", _("Media (image gen/edit, audio, QR code)"), _set_media_tools_enabled))
+                genre_items.append(("media", _("Media (image gen/edit/analyze, audio, QR code)"), _set_media_tools_enabled))
 
             self._genre_actions = {}
             for key, label, setter in genre_items:

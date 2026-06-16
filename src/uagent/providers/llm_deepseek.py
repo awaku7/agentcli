@@ -17,6 +17,7 @@ Differences from the generic OpenAI-compatible path:
 from __future__ import annotations
 
 import json
+import sys
 from typing import Any
 from urllib.error import URLError
 
@@ -227,6 +228,124 @@ def _strip_reasoning_content_no_tool(
 
 
 # ---------------------------------------------------------------------------
+# Diagnostic helper for "insufficient tool messages" error
+# ---------------------------------------------------------------------------
+
+
+def _diagnose_message_structure(messages: list[dict[str, Any]]) -> None:
+    """Print diagnostic info about message structure to stderr
+    when DeepSeek API reports 'insufficient tool messages'."""
+    try:
+        tail = messages[-8:] if len(messages) > 8 else messages
+        print(
+            "[DeepSeek Debug] Last %d messages (diagnosing 'insufficient tool messages'):"
+            % len(tail),
+            file=sys.stderr,
+        )
+        for idx, m in enumerate(tail):
+            role = m.get("role", "?")
+            raw_c = m.get("content")
+            if isinstance(raw_c, str):
+                content_preview = raw_c[:80]
+            elif raw_c is None:
+                content_preview = "(null)"
+            else:
+                try:
+                    content_preview = str(raw_c)[:80]
+                except Exception:
+                    content_preview = f"({type(raw_c).__name__})"
+
+            tcs = m.get("tool_calls")
+            tc_count = len(tcs) if isinstance(tcs, list) else 0
+            tc_ids = set()
+            if isinstance(tcs, list):
+                for _tc in tcs:
+                    if isinstance(_tc, dict):
+                        _tid = _tc.get("id")
+                        if isinstance(_tid, str):
+                            tc_ids.add(_tid)
+
+            tc_id_val = m.get("tool_call_id", "")
+            rc = m.get("reasoning_content", "")
+            rc_flag = " reasoning" if rc else ""
+
+            extra = ""
+            if tc_count:
+                extra += " tool_calls=%d ids=%s" % (tc_count, sorted(tc_ids))
+            if tc_id_val:
+                extra += " tool_call_id=%r" % tc_id_val
+            if rc_flag:
+                extra += rc_flag
+
+            print(
+                "  [%d] role=%s%s content=%r" % (idx, role, extra, content_preview),
+                file=sys.stderr,
+            )
+    except Exception:
+        pass
+
+
+def _repair_incomplete_tool_sequences(
+    messages: list[dict[str, Any]],
+) -> bool:
+    """Remove tool_calls (and their reasoning_content) from assistant messages
+    that lack complete tool responses immediately following them.
+
+    This is a more aggressive repair than sanitize_messages_for_tools:
+    it also handles empty-ID tool calls that the sanitizer may miss.
+
+    Returns True if any messages were modified in-place.
+    """
+    modified = False
+    i = 0
+    while i < len(messages):
+        m = messages[i]
+        if m.get("role") == "assistant" and "tool_calls" in m:
+            tcs = m.get("tool_calls") or []
+            if not isinstance(tcs, list) or not tcs:
+                i += 1
+                continue
+
+            # Collect tool_call IDs from this assistant message
+            tool_ids: set[str] = set()
+            for tc in tcs:
+                if isinstance(tc, dict):
+                    tid = tc.get("id")
+                    if isinstance(tid, str):
+                        tool_ids.add(tid)
+
+            # Look ahead for consecutive tool messages
+            j = i + 1
+            found_ids: set[str] = set()
+            while j < len(messages) and messages[j].get("role") == "tool":
+                tcid = messages[j].get("tool_call_id")
+                if isinstance(tcid, str):
+                    found_ids.add(tcid)
+                j += 1
+
+            # Check completeness: every tool_call_id from the assistant
+            # must have a matching tool response.
+            missing = tool_ids - found_ids
+            if missing:
+                new_tcs = [
+                    tc
+                    for tc in tcs
+                    if isinstance(tc, dict) and tc.get("id") not in missing
+                ]
+                if new_tcs:
+                    m["tool_calls"] = new_tcs
+                else:
+                    # All tool_calls are missing responses -> remove entirely
+                    del m["tool_calls"]
+                    # Also strip reasoning_content since tool_calls are gone
+                    if "reasoning_content" in m:
+                        del m["reasoning_content"]
+                modified = True
+        i += 1
+    return modified
+
+
+# ---------------------------------------------------------------------------
 # Response parser
 # ---------------------------------------------------------------------------
 
@@ -410,6 +529,7 @@ def deepseek_chat_with_tools(
     Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
     """
     attempt_429 = 0
+    tool_repair_attempted = False
 
     _reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
     _auto_user_text = (
@@ -502,6 +622,29 @@ def deepseek_chat_with_tools(
                 return False, client, "", "", []
             # 400 BadRequest
             if BadRequestError is not None and isinstance(e, BadRequestError):
+                err_text_lower = err.lower()
+                if (
+                    "insufficient tool messages" in err_text_lower
+                    and not tool_repair_attempted
+                ):
+                    # Diagnose the problem
+                    print(
+                        "[DeepSeek Error] 400 BadRequest - 'insufficient tool messages'"
+                    )
+                    _diagnose_message_structure(call_messages)
+                    # Attempt repair: strip incomplete tool-call sequences
+                    if _repair_incomplete_tool_sequences(call_messages):
+                        tool_repair_attempted = True
+                        print(
+                            "[DeepSeek] Repaired incomplete tool sequences, retrying...",
+                            file=sys.stderr,
+                        )
+                        continue  # Retry with repaired messages
+                    # Repair didn't change anything; fall through to normal error
+                    print(
+                        "[DeepSeek] Repair did not change messages, giving up.",
+                        file=sys.stderr,
+                    )
                 print("[DeepSeek Error] 400 BadRequest")
                 print(f"Error code: 400 - {e}")
                 return False, client, "", "", []

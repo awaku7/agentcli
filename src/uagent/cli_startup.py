@@ -22,7 +22,7 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
     print(_("[INFO] startup genre prompt = numeric-input"), file=sys.stderr)
 
     prompt = _(
-        "数値の合計を入力してください (1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=すべて, Enter=すべて有効化):"
+        "Enter the sum of numbers (1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, Enter=enable all):"
     )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
@@ -67,12 +67,12 @@ def _prompt_startup_tool_genre_mask() -> int:
 
     choices = [
         ("comm", _("Communication (Teams, Discord, Bluesky)")),
-        ("office", _("Office suite (Excel, Word, PDF)")),
-        ("devel", _("Development (lint, test, git, DB query, screenshot, browser)")),
-        ("iot", _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera)")),
+        ("office", _("Office (Excel, Word, PDF, PPT, document extraction)")),
+        ("devel", _("Development (lint, test, git, DB, screenshot, browser, binary, compile)")),
+        ("iot", _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)")),
         ("exec", _("Execution (cmd, python, pwsh, bash, sub-agent)")),
         ("external", _("External (A2A, MCP, fetch, search web)")),
-        ("media", _("Media (image gen/edit, audio, QR code)")),
+        ("media", _("Media (image gen/edit/analyze, audio, QR code)")),
     ]
 
     stdin_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
@@ -84,7 +84,7 @@ def _prompt_startup_tool_genre_mask() -> int:
     if not (stdin_tty and stdout_tty):
         return _prompt_startup_tool_genre_mask_fallback()
 
-    print("[INFO] startup genre prompt = prompt_toolkit", file=sys.stderr)
+    print(_("[INFO] startup genre prompt = prompt_toolkit"), file=sys.stderr)
     try:
         result = checkboxlist_dialog(
             title=_("Tool genre selection"),
