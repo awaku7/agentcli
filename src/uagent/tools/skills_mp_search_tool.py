@@ -1,5 +1,5 @@
 # tools/skills_mp_search_tool.py
-"""skills_mp_search_tool implementation for browsing SkillsMP marketplace."""
+"""skills_mp_search_tool implementation for browsing SkillsMP / ClawHub marketplace."""
 
 from __future__ import annotations
 
@@ -17,6 +17,10 @@ STATUS_LABEL = "tool:skills_mp_search"
 
 MARKETPLACE_API = "https://skillsmp.com/api/skills"
 SKILLSMP_URL = "https://skillsmp.com"
+
+# ClawHub
+CLAWHUB_API_BASE = "https://clawhub.ai"
+CLAWHUB_URL = "https://clawhub.ai"
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 0,
@@ -84,6 +88,15 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": "recent",
                 },
+                "source": {
+                    "type": "string",
+                    "enum": ["skillsmp", "clawhub"],
+                    "description": _(
+                        "param.source.description",
+                        default="Marketplace source: 'skillsmp' (skillsmp.com) or 'clawhub' (clawhub.ai). Default: 'skillsmp'.",
+                    ),
+                    "default": "skillsmp",
+                },
             },
         },
     },
@@ -113,16 +126,80 @@ def _fetch_json(url: str) -> dict[str, Any]:
         return {"error": str(e)}
 
 
-def _format_skills_table(skills: list[dict[str, Any]], page: int, total_pages: int) -> str:
+def _fetch_clawhub(query: str, limit: int, sort_by: str) -> dict[str, Any]:
+    """Fetch skills from ClawHub API."""
+    if query:
+        # vector search
+        params = f"?q={urllib.request.quote(query)}&nonSuspiciousOnly=true"
+        url = f"{CLAWHUB_API_BASE}/api/v1/search{params}"
+        result = _fetch_json(url)
+        if "error" in result:
+            return result
+        results = result.get("results", [])
+        # Convert to our internal format
+        skills = []
+        for r in results:
+            skills.append({
+                "name": r.get("displayName") or r.get("slug", "?"),
+                "slug": r.get("slug", ""),
+                "author": r.get("ownerHandle") or (r.get("owner") or {}).get("displayName") or "?",
+                "stars": 0,
+                "description": r.get("summary", "") or "",
+                "githubUrl": f"{CLAWHUB_URL}/{r.get('slug', '')}",
+                "updatedAt": _ts_to_iso(r.get("updatedAt")),
+                "version": r.get("version", ""),
+                "score": r.get("score", 0),
+            })
+        return {"skills": skills, "pagination": {"totalPages": 1}}
+    else:
+        # browse list
+        sort_map = {"recent": "updated", "stars": "stars", "name": "recommended"}
+        sort_param = sort_map.get(sort_by, "updated")
+        url = f"{CLAWHUB_API_BASE}/api/v1/skills?limit={limit}&sort={sort_param}&nonSuspiciousOnly=true"
+        result = _fetch_json(url)
+        if "error" in result:
+            return result
+        items = result.get("items", [])
+        skills = []
+        for item in items:
+            skills.append({
+                "name": item.get("displayName") or item.get("slug", "?"),
+                "slug": item.get("slug", ""),
+                "author": item.get("ownerHandle") or "?",
+                "stars": (item.get("stats") or {}).get("stars", 0),
+                "description": item.get("summary", "") or "",
+                "githubUrl": f"{CLAWHUB_URL}/{item.get('slug', '')}",
+                "updatedAt": _ts_to_iso(item.get("updatedAt")),
+                "version": (item.get("latestVersion") or {}).get("version", ""),
+            })
+        return {"skills": skills, "pagination": {"totalPages": 1}}
+
+
+def _ts_to_iso(ts: int | None) -> str:
+    """Convert Unix timestamp to ISO date string."""
+    if not ts:
+        return ""
+    from datetime import datetime, timezone
+
+    return datetime.fromtimestamp(ts / 1000, tz=timezone.utc).strftime("%Y-%m-%d")
+
+
+def _format_skills_table(skills: list[dict[str, Any]], page: int, total_pages: int, source: str = "skillsmp") -> str:
     """Format skills list as readable text."""
     if not skills:
         return _("msg.no_results", default="No skills found.")
 
     lines: list[str] = []
+    if source == "clawhub":
+        header_key = "msg.header_clawhub"
+        header_default = "ClawHub Marketplace — Page {page}/{total}"
+    else:
+        header_key = "msg.header"
+        header_default = "SkillsMP Marketplace — Page {page}/{total}"
     lines.append(
         _(
-            "msg.header",
-            default="SkillsMP Marketplace — Page {page}/{total}",
+            header_key,
+            default=header_default,
         ).format(page=page, total=total_pages if total_pages else "?")
     )
     lines.append("")
@@ -154,12 +231,20 @@ def _format_skills_table(skills: list[dict[str, Any]], page: int, total_pages: i
             ).format(next=page + 1)
         )
 
-    install_hint = _(
-        "msg.install_hint",
-        default="Install a skill with: skills_install source=<githubUrl>",
-    )
+    if source == "clawhub":
+        install_hint = _(
+            "msg.install_hint_clawhub",
+            default="Install a skill with: skills_install source=<url>",
+        )
+        marketplace_url = CLAWHUB_URL
+    else:
+        install_hint = _(
+            "msg.install_hint",
+            default="Install a skill with: skills_install source=<githubUrl>",
+        )
+        marketplace_url = SKILLSMP_URL
     lines.append(f"[Hint] {install_hint}")
-    lines.append(f"       {SKILLSMP_URL}")
+    lines.append(f"       {marketplace_url}")
 
     return "\n".join(lines)
 
@@ -170,6 +255,7 @@ def run_tool(args: dict[str, Any]) -> str:
     page = int(args.get("page") or 1)
     limit = int(args.get("limit") or 10)
     sort_by = (args.get("sort_by") or "recent").strip()
+    source = (args.get("source") or "skillsmp").strip().lower()
 
     if limit < 1:
         limit = 1
@@ -178,12 +264,14 @@ def run_tool(args: dict[str, Any]) -> str:
     if page < 1:
         page = 1
 
-    params = f"?limit={limit}&page={page}&sortBy={sort_by}"
-    if query:
-        params += f"&search={urllib.request.quote(query)}"
-
-    url = MARKETPLACE_API + params
-    result = _fetch_json(url)
+    if source == "clawhub":
+        result = _fetch_clawhub(query, limit, sort_by)
+    else:
+        params = f"?limit={limit}&page={page}&sortBy={sort_by}"
+        if query:
+            params += f"&search={urllib.request.quote(query)}"
+        url = MARKETPLACE_API + params
+        result = _fetch_json(url)
 
     if "error" in result:
         return json.dumps({
@@ -204,11 +292,12 @@ def run_tool(args: dict[str, Any]) -> str:
             "message": _("msg.no_results", default="No skills found."),
         })
 
-    formatted = _format_skills_table(skills, page, total_pages)
+    formatted = _format_skills_table(skills, page, total_pages, source=source)
 
     return json.dumps(
         {
             "ok": True,
+            "source": source,
             "skills": [
                 {
                     "name": s.get("name"),
@@ -231,7 +320,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
 
 def handle_cmd_mp_search(arg: str, **kwargs: Any) -> Any:
-    """CLI command handler for :skills mp_search <query> [--page N] [--limit N] [--sort recent|stars|name]."""
+    """CLI command handler for :skills mp_search <query> [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]."""
     from ..util_tools import CommandResult
 
     parts = arg.strip().split()
@@ -239,6 +328,7 @@ def handle_cmd_mp_search(arg: str, **kwargs: Any) -> Any:
     page = 1
     limit = 10
     sort_by = "recent"
+    source = "skillsmp"
 
     i = 0
     while i < len(parts):
@@ -258,6 +348,9 @@ def handle_cmd_mp_search(arg: str, **kwargs: Any) -> Any:
         elif p == "--sort" and i + 1 < len(parts):
             sort_by = parts[i + 1]
             i += 2
+        elif p == "--source" and i + 1 < len(parts):
+            source = parts[i + 1].lower()
+            i += 2
         else:
             if query:
                 query += " "
@@ -269,6 +362,7 @@ def handle_cmd_mp_search(arg: str, **kwargs: Any) -> Any:
         "page": page,
         "limit": limit,
         "sort_by": sort_by,
+        "source": source,
     }
     res_json = run_tool(args_dict)
     res = json.loads(res_json)
@@ -290,8 +384,8 @@ CMD_SPEC = {
     "help_text": _(
         "help_text.mp_search",
         default=(
-            "  :skills mp_search [query] [--page N] [--limit N] [--sort recent|stars|name]\n"
-            "    Search and browse the SkillsMP marketplace for Agent Skills."
+            "  :skills mp_search [query] [--page N] [--limit N] [--sort recent|stars|name] [--source skillsmp|clawhub]\n"
+            "    Search and browse SkillsMP (skillsmp.com) or ClawHub (clawhub.ai) marketplace for Agent Skills."
         ),
     ),
 }
