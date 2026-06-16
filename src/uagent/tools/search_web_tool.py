@@ -211,6 +211,7 @@ STATUS_LABEL = "tool:search_web"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "external",
     "function": {
         "name": "search_web",
         "description": _(

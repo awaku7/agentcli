@@ -13,6 +13,7 @@ BUSY_LABEL = False
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "get_long_memory",
         "description": _(

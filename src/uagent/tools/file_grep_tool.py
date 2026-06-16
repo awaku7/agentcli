@@ -63,6 +63,7 @@ def _json_err(message: str, **extra: Any) -> str:
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "file_grep",
         "description": _(

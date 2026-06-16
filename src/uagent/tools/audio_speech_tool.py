@@ -18,6 +18,7 @@ BUSY_LABEL = True
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 8000,
     "type": "function",
+    "tool_genre": "media",
     "function": {
         "name": "audio_speech",
         "description": _(

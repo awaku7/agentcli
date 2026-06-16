@@ -18,6 +18,7 @@ TOOL_SPEC: dict[str, Any] = {
     # -1 = disabled (will not be registered/loaded)
     "tool_level": 0 if os.name == "nt" else -1,
     "type": "function",
+    "tool_genre": "exec",
     "function": {
         "name": "cmd_exec",
         "description": _(

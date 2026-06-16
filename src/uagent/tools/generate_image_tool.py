@@ -62,6 +62,7 @@ class _StatusSpinner:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "media",
     "function": {
         "name": "generate_image",
         "description": _(

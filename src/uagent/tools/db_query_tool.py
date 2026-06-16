@@ -12,6 +12,7 @@ BUSY_LABEL = True
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "devel",
     "function": {
         "name": "db_query",
         "description": _(

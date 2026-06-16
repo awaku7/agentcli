@@ -555,6 +555,7 @@ if not _ENABLE_SEMANTIC_SEARCH:
 else:
     TOOL_SPEC = {
         "type": "function",
+        "tool_genre": "devel",
         "function": {
             "name": "semantic_search_files",
             "description": _(

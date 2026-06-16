@@ -22,6 +22,7 @@ STATUS_LABEL = "tool:skills_list"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "skills_list",
         "description": _(

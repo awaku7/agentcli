@@ -178,6 +178,7 @@ def json_decrypt_fields(*, json_path: str, fields: list[str]) -> None:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "secrets",
         "description": _(

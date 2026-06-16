@@ -1044,6 +1044,7 @@ if not _ENABLE_SEMANTIC_SEARCH:
 else:
     TOOL_SPEC = {
         "type": "function",
+        "tool_genre": "devel",
         "function": {
             "name": "graph_rag_search",
             "description": _(

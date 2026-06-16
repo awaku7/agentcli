@@ -18,6 +18,7 @@ def _is_gpt54_tool_search_enabled() -> bool:
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": 0,
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "tool_catalog",
         "description": _(

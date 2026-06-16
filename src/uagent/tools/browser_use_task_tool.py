@@ -70,6 +70,7 @@ LOAD_DISABLED_REASON = ""
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": -1,
     "type": "function",
+    "tool_genre": "devel",
     "function": {
         "name": "browser_use_task",
         "description": _(

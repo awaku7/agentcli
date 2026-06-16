@@ -23,6 +23,7 @@ except ImportError:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "devel",
     "function": {
         "name": "screenshot",
         "description": _(

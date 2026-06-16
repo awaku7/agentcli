@@ -13,6 +13,7 @@ from . import shared_memory
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": -1,
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "add_shared_memory",
         "description": _(

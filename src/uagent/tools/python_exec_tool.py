@@ -18,6 +18,7 @@ STATUS_LABEL = "tool:python_exec"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "exec",
     "function": {
         "name": "python_exec",
         "description": _(

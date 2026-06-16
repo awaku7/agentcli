@@ -15,6 +15,7 @@ BUSY_LABEL = True
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "exec",
     "function": {
         "name": "cmd_exec_json",
         "description": _(

@@ -16,6 +16,7 @@ STATUS_LABEL = "tool:file_exists"
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "file_exists",
         "description": _(

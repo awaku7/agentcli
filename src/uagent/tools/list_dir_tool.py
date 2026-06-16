@@ -14,6 +14,7 @@ STATUS_LABEL = "tool:list_dir"
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "list_dir",
         "description": _(

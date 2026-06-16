@@ -22,7 +22,7 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
     print(_("[INFO] startup genre prompt = numeric-input"), file=sys.stderr)
 
     prompt = _(
-        "数値の合計を入力してください (例: 3 = comm + office, 15 = すべて, または Enter キーを押してすべて有効化):"
+        "数値の合計を入力してください (1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=すべて, Enter=すべて有効化):"
     )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
@@ -34,24 +34,24 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
         try:
             raw = input().strip()
         except EOFError:
-            return 15
+            return 127
         except Exception:
-            return 15
+            return 127
         if not raw:
-            return 15
+            return 127
         try:
             value = int(raw, 10)
         except Exception:
             try:
-                out.write("[WARN] 0〜15 の整数を入力してください。\n")
+                out.write("[WARN] 0〜127 の整数を入力してください。\n")
                 out.flush()
             except Exception:
                 pass
             continue
-        if 0 <= value <= 15:
+        if 0 <= value <= 127:
             return value
         try:
-            out.write("[WARN] 0〜15 の整数を入力してください。\n")
+            out.write("[WARN] 0〜127 の整数を入力してください。\n")
             out.flush()
         except Exception:
             pass
@@ -66,10 +66,13 @@ def _prompt_startup_tool_genre_mask() -> int:
         return _prompt_startup_tool_genre_mask_fallback()
 
     choices = [
-        ("comm", _("Communication (Teams, Discord, etc.)")),
-        ("office", _("Office suite (Excel, Word, etc.)")),
-        ("devel", _("Development (lint, py_compile, test, etc.)")),
-        ("iot", _("IoT (Bluetooth, etc.)")),
+        ("comm", _("Communication (Teams, Discord, Bluesky)")),
+        ("office", _("Office suite (Excel, Word, PDF)")),
+        ("devel", _("Development (lint, test, git, DB query, screenshot, browser)")),
+        ("iot", _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera)")),
+        ("exec", _("Execution (cmd, python, pwsh, bash, sub-agent)")),
+        ("external", _("External (A2A, MCP, fetch, search web)")),
+        ("media", _("Media (image gen/edit, audio, QR code)")),
     ]
 
     stdin_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
@@ -99,7 +102,7 @@ def _prompt_startup_tool_genre_mask() -> int:
         return _prompt_startup_tool_genre_mask_fallback()
 
     if result is None:
-        return 15
+        return 127
 
     mask = 0
     for key in result:
@@ -111,6 +114,12 @@ def _prompt_startup_tool_genre_mask() -> int:
             mask |= 4
         elif key == "iot":
             mask |= 8
+        elif key == "exec":
+            mask |= 16
+        elif key == "external":
+            mask |= 32
+        elif key == "media":
+            mask |= 64
     return mask
 
 
@@ -119,14 +128,15 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
         return
 
     from .i18n import _
-    from .tools.comm_control_tool import _set_comm_tools_enabled
-    from .tools.devel_control_tool import _set_devel_tools_enabled
-    from .tools.office_control_tool import _set_office_tools_enabled
-
-    try:
-        from .tools.iot_control_tool import _set_iot_tools_enabled
-    except ImportError:
-        _set_iot_tools_enabled = None
+    from .tools.genre_control_tool import (
+        _set_comm_tools_enabled,
+        _set_devel_tools_enabled,
+        _set_exec_tools_enabled,
+        _set_external_tools_enabled,
+        _set_iot_tools_enabled,
+        _set_media_tools_enabled,
+        _set_office_tools_enabled,
+    )
 
     enabled_specs = [
         (1, _set_comm_tools_enabled),
@@ -135,6 +145,12 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
     ]
     if _set_iot_tools_enabled is not None:
         enabled_specs.append((8, _set_iot_tools_enabled))
+    if _set_exec_tools_enabled is not None:
+        enabled_specs.append((16, _set_exec_tools_enabled))
+    if _set_external_tools_enabled is not None:
+        enabled_specs.append((32, _set_external_tools_enabled))
+    if _set_media_tools_enabled is not None:
+        enabled_specs.append((64, _set_media_tools_enabled))
 
     for bit, setter in enabled_specs:
         if not (mask & bit):

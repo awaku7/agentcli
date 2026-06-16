@@ -67,6 +67,7 @@ def _make_summary(
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "replace_in_file",
         "description": _(

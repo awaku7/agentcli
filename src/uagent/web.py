@@ -930,8 +930,11 @@ async def get_tool_genres():
         "genres": [
             {"key": "comm", "label": "Communication (Teams, Discord, Bluesky)", "enabled": _genre_enabled.get("comm", False)},
             {"key": "office", "label": "Office suite (Excel, Word, PDF)", "enabled": _genre_enabled.get("office", False)},
-            {"key": "devel", "label": "Development (lint, test, git)", "enabled": _genre_enabled.get("devel", False)},
-            {"key": "iot", "label": "IoT (Bluetooth, ECHONET)", "enabled": _genre_enabled.get("iot", False)},
+            {"key": "devel", "label": "Development (lint, test, git, DB query, screenshot, browser)", "enabled": _genre_enabled.get("devel", False)},
+            {"key": "iot", "label": "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera)", "enabled": _genre_enabled.get("iot", False)},
+            {"key": "exec", "label": "Execution (cmd, python, pwsh, bash, sub-agent)", "enabled": _genre_enabled.get("exec", False)},
+            {"key": "external", "label": "External (A2A, MCP, fetch, search web)", "enabled": _genre_enabled.get("external", False)},
+            {"key": "media", "label": "Media (image gen/edit, audio, QR code)", "enabled": _genre_enabled.get("media", False)},
         ],
         "busy": web_manager.status.get("busy", False) if hasattr(web_manager, "status") else False,
     }
@@ -940,16 +943,15 @@ async def get_tool_genres():
 @app.post("/api/tool-genres")
 async def set_tool_genre(req: Request):
     """Toggle a tool genre on/off. Only allowed when idle."""
-    from .tools.comm_control_tool import _set_comm_tools_enabled
-    from .tools.devel_control_tool import _set_devel_tools_enabled
-    from .tools.office_control_tool import _set_office_tools_enabled
-
-    _set_iot_tools_enabled = None
-    try:
-        from .tools.iot_control_tool import _set_iot_tools_enabled as _iot_setter
-        _set_iot_tools_enabled = _iot_setter
-    except ImportError:
-        pass
+    from .tools.genre_control_tool import (
+        _set_comm_tools_enabled,
+        _set_devel_tools_enabled,
+        _set_exec_tools_enabled,
+        _set_external_tools_enabled,
+        _set_iot_tools_enabled,
+        _set_media_tools_enabled,
+        _set_office_tools_enabled,
+    )
 
     body = await req.json()
     genre = str(body.get("genre", "")).strip().lower()
@@ -970,6 +972,12 @@ async def set_tool_genre(req: Request):
     }
     if _set_iot_tools_enabled:
         setters["iot"] = _set_iot_tools_enabled
+    if _set_exec_tools_enabled:
+        setters["exec"] = _set_exec_tools_enabled
+    if _set_external_tools_enabled:
+        setters["external"] = _set_external_tools_enabled
+    if _set_media_tools_enabled:
+        setters["media"] = _set_media_tools_enabled
 
     setter = setters.get(genre)
     if not setter:

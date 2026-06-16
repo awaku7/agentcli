@@ -10,6 +10,7 @@ import json
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "devel",
     "function": {
         "name": "list_windows_titles",
         "description": _(

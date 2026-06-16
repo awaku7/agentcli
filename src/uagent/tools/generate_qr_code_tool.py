@@ -22,6 +22,7 @@ BUSY_LABEL = True
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 10,
     "type": "function",
+    "tool_genre": "media",
     "function": {
         "name": "generate_qr_code",
         "description": _(

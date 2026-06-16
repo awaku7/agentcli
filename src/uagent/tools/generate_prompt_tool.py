@@ -24,6 +24,7 @@ def _json_err(message: str, **extra: Any) -> str:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "generate_prompt",
         "description": _(

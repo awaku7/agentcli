@@ -172,6 +172,7 @@ CMD_SPECS = [
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": -1,  # Do not load as an LLM tool
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "tools_control_dummy",
         "description": _(

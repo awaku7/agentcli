@@ -14,6 +14,7 @@ BUSY_LABEL = False  # human_ask disables Busy (handled specially by tools/__init
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "human_ask",
         "x_scheck": {"emit_tool_trace": False},

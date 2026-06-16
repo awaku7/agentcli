@@ -93,6 +93,7 @@ class DuplicateCallGuard:
 TOOL_SPEC: Dict[str, Any] = {
     "load_order": 50,
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "run_sub_agent",
         "description": _(

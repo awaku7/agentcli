@@ -14,6 +14,7 @@ from typing import Any, Optional
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "get_system_specs",
         "description": _(

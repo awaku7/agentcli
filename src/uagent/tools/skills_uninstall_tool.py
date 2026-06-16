@@ -16,6 +16,7 @@ STATUS_LABEL = "tool:skills_uninstall"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "basic",
     "function": {
         "name": "skills_uninstall",
         "description": _(

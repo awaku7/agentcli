@@ -41,6 +41,7 @@ STATUS_LABEL = "tool:img2img"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "media",
     "function": {
         "name": "img2img",
         "description": _(

@@ -44,6 +44,7 @@ STATUS_LABEL = "tool:preprocess_image"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "tool_genre": "media",
     "function": {
         "name": "preprocess_image",
         "description": _(
