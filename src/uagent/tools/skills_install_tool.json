@@ -10,7 +10,19 @@
       "add skill",
       "download skill",
       "git clone skill"
-    ]
+    ],
+    "title.install_confirm": "Skill Installation Confirmation",
+    "label.skill_name": "Skill:  %(name)s",
+    "label.author": "Author: %(author)s",
+    "label.description": "Description: %(desc)s",
+    "label.source": "Source: %(source)s",
+    "label.safe": "Safety: No dangerous patterns detected.",
+    "warn.danger_found": "!! WARNING: Dangerous patterns detected !!",
+    "prompt.install": "Install this skill? [y/N] ",
+    "msg.cancelled": "Installation cancelled.",
+    "msg.cancelled_detail": "User cancelled skill installation.",
+    "msg.proceeding": "Proceeding with installation...",
+    "msg.no_description": "(no description)"
   },
   "ja": {
     "param.source.description": "インストール元のURLまたはパス（Git URL、HTTP ZIP URL、ローカルディレクトリ、またはローカルZIP）。",
@@ -23,7 +35,19 @@
       "スキル追加",
       "スキルダウンロード",
       "git clone"
-    ]
+    ],
+    "title.install_confirm": "スキルインストール確認",
+    "label.skill_name": "スキル: %(name)s",
+    "label.author": "作者: %(author)s",
+    "label.description": "説明: %(desc)s",
+    "label.source": "ソース: %(source)s",
+    "label.safe": "安全性: 危険パターンは検出されませんでした。",
+    "warn.danger_found": "!! 警告: 危険なパターンが検出されました !!",
+    "prompt.install": "このスキルをインストールしますか？ [y/N] ",
+    "msg.cancelled": "インストールをキャンセルしました。",
+    "msg.cancelled_detail": "ユーザーがスキルインストールをキャンセルしました。",
+    "msg.proceeding": "インストールを実行します...",
+    "msg.no_description": "(説明なし)"
   },
   "es": {
     "param.source.description": "La URL o ruta de origen (URL de Git, URL de ZIP HTTP, directorio local o ZIP local).",
@@ -35,7 +59,19 @@
       "instalar skill",
       "añadir skill",
       "descargar skill"
-    ]
+    ],
+    "title.install_confirm": "Confirmación de instalación de habilidad",
+    "label.skill_name": "Habilidad: %(name)s",
+    "label.author": "Autor: %(author)s",
+    "label.description": "Descripción: %(desc)s",
+    "label.source": "Fuente: %(source)s",
+    "label.safe": "Seguridad: No se detectaron patrones peligrosos.",
+    "warn.danger_found": "!! ADVERTENCIA: Se detectaron patrones peligrosos !!",
+    "prompt.install": "¿Instalar esta habilidad? [y/N] ",
+    "msg.cancelled": "Instalación cancelada.",
+    "msg.cancelled_detail": "El usuario canceló la instalación de la habilidad.",
+    "msg.proceeding": "Procediendo con la instalación...",
+    "msg.no_description": "(sin descripción)"
   },
   "fr": {
     "param.source.description": "L'URL ou le chemin source (URL Git, URL ZIP HTTP, répertoire local ou ZIP local).",
@@ -47,7 +83,19 @@
       "installer compétence",
       "ajouter compétence",
       "télécharger compétence"
-    ]
+    ],
+    "title.install_confirm": "Confirmation d'installation de la compétence",
+    "label.skill_name": "Compétence : %(name)s",
+    "label.author": "Auteur : %(author)s",
+    "label.description": "Description : %(desc)s",
+    "label.source": "Source : %(source)s",
+    "label.safe": "Sécurité : Aucun motif dangereux détecté.",
+    "warn.danger_found": "!! ATTENTION : Motifs dangereux détectés !!",
+    "prompt.install": "Installer cette compétence ? [y/N] ",
+    "msg.cancelled": "Installation annulée.",
+    "msg.cancelled_detail": "L'utilisateur a annulé l'installation de la compétence.",
+    "msg.proceeding": "Installation en cours...",
+    "msg.no_description": "(aucune description)"
   },
   "ko": {
     "param.source.description": "소스 URL 또는 경로(Git URL, HTTP ZIP URL, 로컬 디렉터리 또는 로컬 ZIP).",
@@ -59,7 +107,19 @@
       "스킬 설치",
       "스킬 추가",
       "스킬 다운로드"
-    ]
+    ],
+    "title.install_confirm": "스킬 설치 확인",
+    "label.skill_name": "스킬: %(name)s",
+    "label.author": "작성자: %(author)s",
+    "label.description": "설명: %(desc)s",
+    "label.source": "출처: %(source)s",
+    "label.safe": "안전: 위험한 패턴이 감지되지 않았습니다.",
+    "warn.danger_found": "!! 경고: 위험한 패턴이 감지되었습니다 !!",
+    "prompt.install": "이 스킬을 설치하시겠습니까? [y/N] ",
+    "msg.cancelled": "설치가 취소되었습니다.",
+    "msg.cancelled_detail": "사용자가 스킬 설치를 취소했습니다.",
+    "msg.proceeding": "설치를 진행 중입니다...",
+    "msg.no_description": "(설명 없음)"
   },
   "de": {
     "param.source.description": "Die Quell-URL oder der Quellpfad (Git-URL, HTTP-ZIP-URL, lokales Verzeichnis oder lokales ZIP).",
@@ -71,7 +131,19 @@
       "skill installieren",
       "skill hinzufügen",
       "skill herunterladen"
-    ]
+    ],
+    "title.install_confirm": "Bestätigung der Skill-Installation",
+    "label.skill_name": "Skill: %(name)s",
+    "label.author": "Autor: %(author)s",
+    "label.description": "Beschreibung: %(desc)s",
+    "label.source": "Quelle: %(source)s",
+    "label.safe": "Sicherheit: Keine gefährlichen Muster erkannt.",
+    "warn.danger_found": "!! WARNUNG: Gefährliche Muster erkannt !!",
+    "prompt.install": "Diesen Skill installieren? [y/N] ",
+    "msg.cancelled": "Installation abgebrochen.",
+    "msg.cancelled_detail": "Benutzer hat die Skill-Installation abgebrochen.",
+    "msg.proceeding": "Installation wird durchgeführt...",
+    "msg.no_description": "(keine Beschreibung)"
   },
   "it": {
     "param.source.description": "L'URL o il percorso di origine (URL Git, URL ZIP HTTP, directory locale o ZIP locale).",
@@ -83,7 +155,19 @@
       "installa skill",
       "aggiungi skill",
       "scarica skill"
-    ]
+    ],
+    "title.install_confirm": "Conferma installazione skill",
+    "label.skill_name": "Skill: %(name)s",
+    "label.author": "Autore: %(author)s",
+    "label.description": "Descrizione: %(desc)s",
+    "label.source": "Fonte: %(source)s",
+    "label.safe": "Sicurezza: Nessun pattern pericoloso rilevato.",
+    "warn.danger_found": "!! ATTENZIONE: Rilevati pattern pericolosi !!",
+    "prompt.install": "Installare questa skill? [y/N] ",
+    "msg.cancelled": "Installazione annullata.",
+    "msg.cancelled_detail": "L'utente ha annullato l'installazione della skill.",
+    "msg.proceeding": "Procedo con l'installazione...",
+    "msg.no_description": "(nessuna descrizione)"
   },
   "ru": {
     "param.source.description": "Исходный URL-адрес или путь (Git URL, HTTP ZIP URL, локальный каталог или локальный ZIP).",
@@ -95,7 +179,19 @@
       "установить навык",
       "добавить навык",
       "скачать навык"
-    ]
+    ],
+    "title.install_confirm": "Подтверждение установки навыка",
+    "label.skill_name": "Навык: %(name)s",
+    "label.author": "Автор: %(author)s",
+    "label.description": "Описание: %(desc)s",
+    "label.source": "Источник: %(source)s",
+    "label.safe": "Безопасность: Опасных шаблонов не обнаружено.",
+    "warn.danger_found": "!! ПРЕДУПРЕЖДЕНИЕ: Обнаружены опасные шаблоны !!",
+    "prompt.install": "Установить этот навык? [y/N] ",
+    "msg.cancelled": "Установка отменена.",
+    "msg.cancelled_detail": "Пользователь отменил установку навыка.",
+    "msg.proceeding": "Выполняется установка...",
+    "msg.no_description": "(нет описания)"
   },
   "pt_BR": {
     "param.source.description": "A URL ou caminho de origem (URL Git, URL ZIP HTTP, diretório local ou ZIP local).",
@@ -107,7 +203,19 @@
       "instalar skill",
       "adicionar skill",
       "baixar skill"
-    ]
+    ],
+    "title.install_confirm": "Confirmação de Instalação de Skill",
+    "label.skill_name": "Skill: %(name)s",
+    "label.author": "Autor: %(author)s",
+    "label.description": "Descrição: %(desc)s",
+    "label.source": "Fonte: %(source)s",
+    "label.safe": "Segurança: Nenhum padrão perigoso detectado.",
+    "warn.danger_found": "!! AVISO: Padrões perigosos detectados !!",
+    "prompt.install": "Instalar esta skill? [y/N] ",
+    "msg.cancelled": "Instalação cancelada.",
+    "msg.cancelled_detail": "Usuário cancelou a instalação da skill.",
+    "msg.proceeding": "Prosseguindo com a instalação...",
+    "msg.no_description": "(sem descrição)"
   },
   "pt": {
     "param.source.description": "A URL ou caminho de origem (URL Git, URL ZIP HTTP, diretório local ou ZIP local).",
@@ -119,7 +227,19 @@
       "instalar skill",
       "adicionar skill",
       "baixar skill"
-    ]
+    ],
+    "title.install_confirm": "Confirmação de Instalação de Skill",
+    "label.skill_name": "Skill: %(name)s",
+    "label.author": "Autor: %(author)s",
+    "label.description": "Descrição: %(desc)s",
+    "label.source": "Fonte: %(source)s",
+    "label.safe": "Segurança: Nenhum padrão perigoso detectado.",
+    "warn.danger_found": "!! AVISO: Padrões perigosos detectados !!",
+    "prompt.install": "Instalar esta skill? [y/N] ",
+    "msg.cancelled": "Instalação cancelada.",
+    "msg.cancelled_detail": "Utilizador cancelou a instalação da skill.",
+    "msg.proceeding": "A prosseguir com a instalação...",
+    "msg.no_description": "(sem descrição)"
   },
   "id": {
     "param.source.description": "URL atau jalur sumber (Git URL, HTTP ZIP URL, direktori lokal, atau ZIP lokal).",
@@ -131,7 +251,19 @@
       "instal skill",
       "tambah skill",
       "unduh skill"
-    ]
+    ],
+    "title.install_confirm": "Konfirmasi Instalasi Skill",
+    "label.skill_name": "Skill: %(name)s",
+    "label.author": "Penulis: %(author)s",
+    "label.description": "Deskripsi: %(desc)s",
+    "label.source": "Sumber: %(source)s",
+    "label.safe": "Keamanan: Tidak ada pola berbahaya yang terdeteksi.",
+    "warn.danger_found": "!! PERINGATAN: Pola berbahaya terdeteksi !!",
+    "prompt.install": "Instal skill ini? [y/N] ",
+    "msg.cancelled": "Instalasi dibatalkan.",
+    "msg.cancelled_detail": "Pengguna membatalkan instalasi skill.",
+    "msg.proceeding": "Melanjutkan instalasi...",
+    "msg.no_description": "(tidak ada deskripsi)"
   },
   "vi": {
     "param.source.description": "URL hoặc đường dẫn nguồn (URL Git, URL ZIP HTTP, thư mục cục bộ hoặc ZIP cục bộ).",
@@ -143,7 +275,19 @@
       "cài đặt kỹ năng",
       "thêm kỹ năng",
       "tải kỹ năng"
-    ]
+    ],
+    "title.install_confirm": "Xác nhận cài đặt kỹ năng",
+    "label.skill_name": "Kỹ năng: %(name)s",
+    "label.author": "Tác giả: %(author)s",
+    "label.description": "Mô tả: %(desc)s",
+    "label.source": "Nguồn: %(source)s",
+    "label.safe": "An toàn: Không phát hiện mẫu nguy hiểm.",
+    "warn.danger_found": "!! CẢNH BÁO: Đã phát hiện mẫu nguy hiểm !!",
+    "prompt.install": "Cài đặt kỹ năng này? [y/N] ",
+    "msg.cancelled": "Đã hủy cài đặt.",
+    "msg.cancelled_detail": "Người dùng đã hủy cài đặt kỹ năng.",
+    "msg.proceeding": "Đang tiến hành cài đặt...",
+    "msg.no_description": "(không có mô tả)"
   },
   "pl": {
     "param.source.description": "Adres URL lub ścieżka źródłowa (adres URL Git, adres URL ZIP HTTP, katalog lokalny lub lokalny plik ZIP).",
@@ -155,7 +299,19 @@
       "zainstaluj umiejętność",
       "dodaj umiejętność",
       "pobierz umiejętność"
-    ]
+    ],
+    "title.install_confirm": "Potwierdzenie instalacji umiejętności",
+    "label.skill_name": "Umiejętność: %(name)s",
+    "label.author": "Autor: %(author)s",
+    "label.description": "Opis: %(desc)s",
+    "label.source": "Źródło: %(source)s",
+    "label.safe": "Bezpieczeństwo: Nie wykryto niebezpiecznych wzorców.",
+    "warn.danger_found": "!! OSTRZEŻENIE: Wykryto niebezpieczne wzorce !!",
+    "prompt.install": "Zainstalować tę umiejętność? [y/N] ",
+    "msg.cancelled": "Instalacja anulowana.",
+    "msg.cancelled_detail": "Użytkownik anulował instalację umiejętności.",
+    "msg.proceeding": "Trwa instalacja...",
+    "msg.no_description": "(brak opisu)"
   },
   "hi": {
     "param.source.description": "स्रोत URL या पथ (Git URL, HTTP ZIP URL, स्थानीय निर्देशिका, या स्थानीय ZIP)।",
@@ -167,7 +323,19 @@
       "कौशल स्थापित करें",
       "कौशल जोड़ें",
       "कौशल डाउनलोड करें"
-    ]
+    ],
+    "title.install_confirm": "कौशल स्थापना पुष्टि",
+    "label.skill_name": "कौशल: %(name)s",
+    "label.author": "लेखक: %(author)s",
+    "label.description": "विवरण: %(desc)s",
+    "label.source": "स्रोत: %(source)s",
+    "label.safe": "सुरक्षा: कोई खतरनाक पैटर्न नहीं मिला।",
+    "warn.danger_found": "!! चेतावनी: खतरनाक पैटर्न मिले !!",
+    "prompt.install": "इस कौशल को स्थापित करें? [y/N] ",
+    "msg.cancelled": "स्थापना रद्द कर दी गई।",
+    "msg.cancelled_detail": "उपयोगकर्ता ने कौशल स्थापना रद्द कर दी।",
+    "msg.proceeding": "स्थापना जारी है...",
+    "msg.no_description": "(कोई विवरण नहीं)"
   },
   "ar": {
     "param.source.description": "عنوان URL أو مسار المصدر (عنوان URL لـ Git، أو عنوان URL لـ ZIP عبر HTTP، أو دليل محلي، أو ملف ZIP محلي).",
@@ -179,7 +347,19 @@
       "تثبيت مهارة",
       "إضافة مهارة",
       "تنزيل مهارة"
-    ]
+    ],
+    "title.install_confirm": "تأكيد تثبيت المهارة",
+    "label.skill_name": "المهارة: %(name)s",
+    "label.author": "المؤلف: %(author)s",
+    "label.description": "الوصف: %(desc)s",
+    "label.source": "المصدر: %(source)s",
+    "label.safe": "الأمان: لم يتم اكتشاف أنماط خطيرة.",
+    "warn.danger_found": "!! تحذير: تم اكتشاف أنماط خطيرة !!",
+    "prompt.install": "تثبيت هذه المهارة؟ [y/N] ",
+    "msg.cancelled": "تم إلغاء التثبيت.",
+    "msg.cancelled_detail": "المستخدم ألغى تثبيت المهارة.",
+    "msg.proceeding": "جارٍ التثبيت...",
+    "msg.no_description": "(لا يوجد وصف)"
   },
   "sv": {
     "param.source.description": "Käll-URL eller sökväg (Git-URL, HTTP-ZIP-URL, lokal katalog eller lokal ZIP).",
@@ -191,7 +371,19 @@
       "installera skill",
       "lägg till skill",
       "ladda ner skill"
-    ]
+    ],
+    "title.install_confirm": "Bekräftelse av installation av färdighet",
+    "label.skill_name": "Färdighet: %(name)s",
+    "label.author": "Författare: %(author)s",
+    "label.description": "Beskrivning: %(desc)s",
+    "label.source": "Källa: %(source)s",
+    "label.safe": "Säkerhet: Inga farliga mönster upptäckta.",
+    "warn.danger_found": "!! VARNING: Farliga mönster upptäckta !!",
+    "prompt.install": "Installera denna färdighet? [y/N] ",
+    "msg.cancelled": "Installation avbruten.",
+    "msg.cancelled_detail": "Användaren avbröt installationen av färdigheten.",
+    "msg.proceeding": "Installation pågår...",
+    "msg.no_description": "(ingen beskrivning)"
   },
   "sw": {
     "param.source.description": "URL ya chanzo au njia (Git URL, HTTP ZIP URL, saraka ya ndani, au ZIP ya ndani).",
@@ -203,7 +395,19 @@
       "sakinisha skill",
       "ongeza skill",
       "pakua skill"
-    ]
+    ],
+    "title.install_confirm": "Uthibitishaji wa Usakinishaji wa Ustadi",
+    "label.skill_name": "Ustadi: %(name)s",
+    "label.author": "Mwandishi: %(author)s",
+    "label.description": "Maelezo: %(desc)s",
+    "label.source": "Chanzo: %(source)s",
+    "label.safe": "Usalama: Hakuna mifumo hatari iliyogunduliwa.",
+    "warn.danger_found": "!! ONYO: Mifumo hatari imegunduliwa !!",
+    "prompt.install": "Sakinisha ustadi huu? [y/N] ",
+    "msg.cancelled": "Usakinishaji umeghairiwa.",
+    "msg.cancelled_detail": "Mtumiaji ameghairi usakinishaji wa ustadi.",
+    "msg.proceeding": "Inaendelea na usakinishaji...",
+    "msg.no_description": "(hakuna maelezo)"
   },
   "nb": {
     "param.source.description": "Kilde-URL eller søkebane (Git-URL, HTTP-ZIP-URL, lokal katalog eller lokal ZIP).",
@@ -215,7 +419,19 @@
       "installer skill",
       "legg til skill",
       "last ned skill"
-    ]
+    ],
+    "title.install_confirm": "Bekreftelse av installasjon av ferdighet",
+    "label.skill_name": "Ferdighet: %(name)s",
+    "label.author": "Forfatter: %(author)s",
+    "label.description": "Beskrivelse: %(desc)s",
+    "label.source": "Kilde: %(source)s",
+    "label.safe": "Sikkerhet: Ingen farlige mønstre oppdaget.",
+    "warn.danger_found": "!! ADVARSEL: Farlige mønstre oppdaget !!",
+    "prompt.install": "Installer denne ferdigheten? [y/N] ",
+    "msg.cancelled": "Installasjon avbrutt.",
+    "msg.cancelled_detail": "Brukeren avbrøt installasjonen av ferdigheten.",
+    "msg.proceeding": "Installasjon pågår...",
+    "msg.no_description": "(ingen beskrivelse)"
   },
   "nl": {
     "param.source.description": "De bron-URL of het pad (Git-URL, HTTP-ZIP-URL, lokale map of lokale ZIP).",
@@ -227,7 +443,19 @@
       "skill installeren",
       "skill toevoegen",
       "skill downloaden"
-    ]
+    ],
+    "title.install_confirm": "Bevestiging van installatie van vaardigheid",
+    "label.skill_name": "Vaardigheid: %(name)s",
+    "label.author": "Auteur: %(author)s",
+    "label.description": "Beschrijving: %(desc)s",
+    "label.source": "Bron: %(source)s",
+    "label.safe": "Veiligheid: Geen gevaarlijke patronen gedetecteerd.",
+    "warn.danger_found": "!! WAARSCHUWING: Gevaarlijke patronen gedetecteerd !!",
+    "prompt.install": "Deze vaardigheid installeren? [y/N] ",
+    "msg.cancelled": "Installatie geannuleerd.",
+    "msg.cancelled_detail": "Gebruiker heeft de installatie van de vaardigheid geannuleerd.",
+    "msg.proceeding": "Bezig met installatie...",
+    "msg.no_description": "(geen beschrijving)"
   },
   "fi": {
     "param.source.description": "Lähde-URL tai -polku (Git-URL, HTTP-ZIP-URL, paikallinen hakemisto tai paikallinen ZIP).",
@@ -239,7 +467,19 @@
       "asenna skilli",
       "lisää skilli",
       "lataa skilli"
-    ]
+    ],
+    "title.install_confirm": "Taidon asennuksen vahvistus",
+    "label.skill_name": "Taito: %(name)s",
+    "label.author": "Tekijä: %(author)s",
+    "label.description": "Kuvaus: %(desc)s",
+    "label.source": "Lähde: %(source)s",
+    "label.safe": "Turvallisuus: Vaarallisia kuvioita ei havaittu.",
+    "warn.danger_found": "!! VAROITUS: Vaarallisia kuvioita havaittu !!",
+    "prompt.install": "Asennetaanko tämä taito? [y/N] ",
+    "msg.cancelled": "Asennus peruutettu.",
+    "msg.cancelled_detail": "Käyttäjä peruutti taidon asennuksen.",
+    "msg.proceeding": "Asennus käynnissä...",
+    "msg.no_description": "(ei kuvausta)"
   },
   "cs": {
     "param.source.description": "Zdrojová URL nebo cesta (Git URL, HTTP ZIP URL, lokální adresář nebo lokální ZIP).",
@@ -251,7 +491,19 @@
       "nainstalovat skill",
       "přidat skill",
       "stáhnout skill"
-    ]
+    ],
+    "title.install_confirm": "Potvrzení instalace dovednosti",
+    "label.skill_name": "Dovednost: %(name)s",
+    "label.author": "Autor: %(author)s",
+    "label.description": "Popis: %(desc)s",
+    "label.source": "Zdroj: %(source)s",
+    "label.safe": "Bezpečnost: Nebyly zjištěny žádné nebezpečné vzory.",
+    "warn.danger_found": "!! VAROVÁNÍ: Byly zjištěny nebezpečné vzory !!",
+    "prompt.install": "Nainstalovat tuto dovednost? [y/N] ",
+    "msg.cancelled": "Instalace zrušena.",
+    "msg.cancelled_detail": "Uživatel zrušil instalaci dovednosti.",
+    "msg.proceeding": "Probíhá instalace...",
+    "msg.no_description": "(bez popisu)"
   },
   "uk": {
     "param.source.description": "Джерело URL або шлях (Git URL, HTTP ZIP URL, локальний каталог або локальний ZIP).",
@@ -263,7 +515,19 @@
       "встановити навичку",
       "додати навичку",
       "завантажити навичку"
-    ]
+    ],
+    "title.install_confirm": "Підтвердження встановлення навички",
+    "label.skill_name": "Навичка: %(name)s",
+    "label.author": "Автор: %(author)s",
+    "label.description": "Опис: %(desc)s",
+    "label.source": "Джерело: %(source)s",
+    "label.safe": "Безпека: Небезпечних шаблонів не виявлено.",
+    "warn.danger_found": "!! ПОПЕРЕДЖЕННЯ: Виявлено небезпечні шаблони !!",
+    "prompt.install": "Встановити цю навичку? [y/N] ",
+    "msg.cancelled": "Встановлення скасовано.",
+    "msg.cancelled_detail": "Користувач скасував встановлення навички.",
+    "msg.proceeding": "Виконується встановлення...",
+    "msg.no_description": "(немає опису)"
   },
   "bn": {
     "param.source.description": "উৎস URL বা পথ (Git URL, HTTP ZIP URL, স্থানীয় ডিরেক্টরি, বা স্থানীয় ZIP)।",
@@ -275,7 +539,19 @@
       "স্কিল ইনস্টল",
       "স্কিল যোগ করুন",
       "স্কিল ডাউনলোড"
-    ]
+    ],
+    "title.install_confirm": "স্কিল ইনস্টলেশন নিশ্চিতকরণ",
+    "label.skill_name": "স্কিল: %(name)s",
+    "label.author": "লেখক: %(author)s",
+    "label.description": "বর্ণনা: %(desc)s",
+    "label.source": "উৎস: %(source)s",
+    "label.safe": "নিরাপত্তা: কোনো বিপজ্জনক প্যাটার্ন সনাক্ত হয়নি।",
+    "warn.danger_found": "!! সতর্কতা: বিপজ্জনক প্যাটার্ন সনাক্ত হয়েছে !!",
+    "prompt.install": "এই স্কিলটি ইনস্টল করবেন? [y/N] ",
+    "msg.cancelled": "ইনস্টলেশন বাতিল করা হয়েছে।",
+    "msg.cancelled_detail": "ব্যবহারকারী স্কিল ইনস্টলেশন বাতিল করেছেন।",
+    "msg.proceeding": "ইনস্টলেশন চলছে...",
+    "msg.no_description": "(কোনো বর্ণনা নেই)"
   },
   "fa": {
     "param.source.description": "نشانی URL یا مسیر منبع (Git URL، HTTP ZIP URL، فهرست محلی یا ZIP محلی).",
@@ -287,7 +563,19 @@
       "نصب skill",
       "افزودن skill",
       "دانلود skill"
-    ]
+    ],
+    "title.install_confirm": "تأیید نصب مهارت",
+    "label.skill_name": "مهارت: %(name)s",
+    "label.author": "نویسنده: %(author)s",
+    "label.description": "توضیحات: %(desc)s",
+    "label.source": "منبع: %(source)s",
+    "label.safe": "ایمنی: هیچ الگوی خطرناکی تشخیص داده نشد.",
+    "warn.danger_found": "!! هشدار: الگوهای خطرناک تشخیص داده شد !!",
+    "prompt.install": "این مهارت نصب شود؟ [y/N] ",
+    "msg.cancelled": "نصب لغو شد.",
+    "msg.cancelled_detail": "کاربر نصب مهارت را لغو کرد.",
+    "msg.proceeding": "در حال نصب...",
+    "msg.no_description": "(بدون توضیحات)"
   },
   "mn": {
     "param.source.description": "Эх сурвалжийн URL эсвэл зам (Git URL, HTTP ZIP URL, локал лавлах, эсвэл локал ZIP).",
@@ -299,7 +587,19 @@
       "skill суулгах",
       "skill нэмэх",
       "skill татах"
-    ]
+    ],
+    "title.install_confirm": "Ур чадварын суулгацыг баталгаажуулах",
+    "label.skill_name": "Ур чадвар: %(name)s",
+    "label.author": "Зохиогч: %(author)s",
+    "label.description": "Тайлбар: %(desc)s",
+    "label.source": "Эх сурвалж: %(source)s",
+    "label.safe": "Аюулгүй байдал: Аюултай хэв маяг илрээгүй.",
+    "warn.danger_found": "!! АНХААРУУЛГА: Аюултай хэв маяг илэрсэн !!",
+    "prompt.install": "Энэ ур чадварыг суулгах уу? [y/N] ",
+    "msg.cancelled": "Суулгац цуцлагдсан.",
+    "msg.cancelled_detail": "Хэрэглэгч ур чадварын суулгацыг цуцалсан.",
+    "msg.proceeding": "Суулгац үргэлжилж байна...",
+    "msg.no_description": "(тайлбар байхгүй)"
   },
   "mr": {
     "param.source.description": "स्रोत URL किंवा पथ (Git URL, HTTP ZIP URL, स्थानिक डिरेक्टरी किंवा स्थानिक ZIP).",
@@ -311,7 +611,19 @@
       "skill स्थापित करा",
       "skill जोडा",
       "skill डाउनलोड करा"
-    ]
+    ],
+    "title.install_confirm": "कौशल स्थापना पुष्टीकरण",
+    "label.skill_name": "कौशल: %(name)s",
+    "label.author": "लेखक: %(author)s",
+    "label.description": "वर्णन: %(desc)s",
+    "label.source": "स्रोत: %(source)s",
+    "label.safe": "सुरक्षा: कोणतेही धोकादायक नमुने आढळले नाहीत.",
+    "warn.danger_found": "!! इशारा: धोकादायक नमुने आढळले !!",
+    "prompt.install": "हे कौशल स्थापित करायचे? [y/N] ",
+    "msg.cancelled": "स्थापना रद्द केली.",
+    "msg.cancelled_detail": "वापरकर्त्याने कौशल स्थापना रद्द केली.",
+    "msg.proceeding": "स्थापना सुरू आहे...",
+    "msg.no_description": "(वर्णन नाही)"
   },
   "th": {
     "param.source.description": "URL หรือพาธของแหล่งที่มา (Git URL, HTTP ZIP URL, ไดเรกทอรีภายในเครื่อง หรือ ZIP ภายในเครื่อง)",
@@ -323,7 +635,19 @@
       "ติดตั้ง skill",
       "เพิ่ม skill",
       "ดาวน์โหลด skill"
-    ]
+    ],
+    "title.install_confirm": "การยืนยันการติดตั้งสกิล",
+    "label.skill_name": "สกิล: %(name)s",
+    "label.author": "ผู้เขียน: %(author)s",
+    "label.description": "คำอธิบาย: %(desc)s",
+    "label.source": "แหล่งที่มา: %(source)s",
+    "label.safe": "ความปลอดภัย: ไม่พบรูปแบบอันตราย",
+    "warn.danger_found": "!! คำเตือน: พบรูปแบบอันตราย !!",
+    "prompt.install": "ติดตั้งสกิลนี้? [y/N] ",
+    "msg.cancelled": "การติดตั้งถูกยกเลิก",
+    "msg.cancelled_detail": "ผู้ใช้ยกเลิกการติดตั้งสกิล",
+    "msg.proceeding": "กำลังดำเนินการติดตั้ง...",
+    "msg.no_description": "(ไม่มีคำอธิบาย)"
   },
   "tr": {
     "param.source.description": "Kaynak URL veya yol (Git URL, HTTP ZIP URL, yerel dizin veya yerel ZIP).",
@@ -335,7 +659,19 @@
       "skill yükle",
       "skill ekle",
       "skill indir"
-    ]
+    ],
+    "title.install_confirm": "Yetenek Yükleme Onayı",
+    "label.skill_name": "Yetenek: %(name)s",
+    "label.author": "Yazar: %(author)s",
+    "label.description": "Açıklama: %(desc)s",
+    "label.source": "Kaynak: %(source)s",
+    "label.safe": "Güvenlik: Tehlikeli desen tespit edilmedi.",
+    "warn.danger_found": "!! UYARI: Tehlikeli desenler tespit edildi !!",
+    "prompt.install": "Bu yetenek yüklensin mi? [y/N] ",
+    "msg.cancelled": "Yükleme iptal edildi.",
+    "msg.cancelled_detail": "Kullanıcı yetenek yüklemeyi iptal etti.",
+    "msg.proceeding": "Yükleme devam ediyor...",
+    "msg.no_description": "(açıklama yok)"
   },
   "zh_CN": {
     "param.source.description": "源 URL 或路径（Git URL、HTTP ZIP URL、本地目录或本地 ZIP）。",
@@ -348,7 +684,19 @@
       "添加 skill",
       "下载 skill",
       "git clone skill"
-    ]
+    ],
+    "title.install_confirm": "技能安装确认",
+    "label.skill_name": "技能：%(name)s",
+    "label.author": "作者：%(author)s",
+    "label.description": "描述：%(desc)s",
+    "label.source": "来源：%(source)s",
+    "label.safe": "安全：未检测到危险模式。",
+    "warn.danger_found": "!! 警告：检测到危险模式 !!",
+    "prompt.install": "安装此技能？ [y/N] ",
+    "msg.cancelled": "安装已取消。",
+    "msg.cancelled_detail": "用户取消了技能安装。",
+    "msg.proceeding": "正在安装...",
+    "msg.no_description": "（无描述）"
   },
   "zh_TW": {
     "param.source.description": "來源 URL 或路徑（Git URL、HTTP ZIP URL、本機目錄或本機 ZIP）。",
@@ -361,6 +709,18 @@
       "新增 skill",
       "下載 skill",
       "git clone skill"
-    ]
+    ],
+    "title.install_confirm": "技能安裝確認",
+    "label.skill_name": "技能：%(name)s",
+    "label.author": "作者：%(author)s",
+    "label.description": "描述：%(desc)s",
+    "label.source": "來源：%(source)s",
+    "label.safe": "安全：未偵測到危險模式。",
+    "warn.danger_found": "!! 警告：偵測到危險模式 !!",
+    "prompt.install": "安裝此技能？ [y/N] ",
+    "msg.cancelled": "安裝已取消。",
+    "msg.cancelled_detail": "使用者取消了技能安裝。",
+    "msg.proceeding": "正在安裝...",
+    "msg.no_description": "（無描述）"
   }
 }

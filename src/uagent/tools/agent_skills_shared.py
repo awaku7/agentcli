@@ -97,13 +97,19 @@ def get_default_skill_roots(cwd: Optional[str] = None) -> list[str]:
     # - UAGENT_SKILLS_DIRS (if set)
     # - ~/.uag/skills (centralized user skills)
     # - ~/skills
+    # - ~/.claude/skills (Claude Code)
     # - ./skills (relative to cwd)
     # - ./.uag/skills (relative to cwd; repo-local override)
+    # - ./.cursor/skills (Cursor, project-local)
+    # - ./.github/skills (GitHub Copilot agent mode, project-local)
     roots = parts + [
         os.path.join(os.path.expanduser("~"), ".uag", "skills"),
         os.path.join(os.path.expanduser("~"), "skills"),
+        os.path.join(os.path.expanduser("~"), ".claude", "skills"),
         os.path.join(base, "skills"),
         os.path.join(base, ".uag", "skills"),
+        os.path.join(base, ".cursor", "skills"),
+        os.path.join(base, ".github", "skills"),
     ]
 
     # De-duplicate while preserving order.

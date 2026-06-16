@@ -389,6 +389,101 @@ def _is_all_selector(selector: str) -> bool:
     return selector.strip().lower() in {"all", "*"}
 
 
+# Dangerous patterns to scan for in SKILL.md content
+_DANGEROUS_PATTERNS: list[tuple[str, str, str]] = [
+    ("rm_destructive", r"\brm\s+[-][rf]\s+[/~]", "Destructive recursive delete (rm -rf /, rm -rf ~)"),
+    ("del_force", r"\bdel\s+[/][f]\s+", "Force delete file (del /f)"),
+    ("rd_destructive", r"\brd\s+[/][s]\s+[/][q]?\s+", "Destructive directory removal (rd /s)"),
+    ("sudo_exec", r"\bsudo\s+(rm|del|dd|mkfs|format|shutdown|reboot)", "Privileged destructive command"),
+    ("pipe_to_shell", r"(curl|wget|iwr|Invoke-WebRequest)\s+.*[|]\s*(sh|bash|pwsh|powershell|iex)", "Pipe download to shell execution"),
+    ("download_exec", r"(curl|wget)\s+.*[-]O[-]\s*[|]\s*(sh|bash)", "Download and execute pattern"),
+    ("base64_decode_exec", r"(base64\s+-d|frombase64|\[\s*System\.Text\.Encoding)", "Potentially obfuscated code execution"),
+    ("chmod_recursive", r"\bchmod\s+[-]?R?\s*777\s+", "Recursive permission change to world-writable"),
+    ("format_disk", r"\bformat\s+\w+:|mkfs\.", "Disk format operation"),
+    ("shutdown", r"\bshutdown\s+[/]?[sfr]", "System shutdown/restart command"),
+    ("net_user_admin", r"\bnet\s+user\s+\w+\s+.*/add|net\s+localgroup\s+.*/add", "User account / privilege escalation"),
+    ("dangerous_curl", r"\bcurl\s+.*[-][-]insecure|-k\s+|--ssl-no-revoke", "SSL verification disabled (curl -k)"),
+]
+
+
+def _danger_scan_skill(skill_body: str) -> list[dict[str, str]]:
+    """Scan SKILL.md body for dangerous patterns. Returns list of findings."""
+    findings: list[dict[str, str]] = []
+    for pattern_id, regex, description in _DANGEROUS_PATTERNS:
+        if re.search(regex, skill_body, re.IGNORECASE | re.MULTILINE):
+            # Find the matching line for context
+            for line in skill_body.splitlines():
+                if re.search(regex, line, re.IGNORECASE):
+                    findings.append({
+                        "pattern": pattern_id,
+                        "description": description,
+                        "line": line.strip()[:200],
+                    })
+                    break
+    return findings
+
+
+def _load_skill_md_text(skill_dir: str) -> str | None:
+    """Load SKILL.md text from a directory, return None if not found."""
+    md_path = os.path.join(skill_dir, "SKILL.md")
+    if os.path.isfile(md_path):
+        try:
+            with open(md_path, "r", encoding="utf-8") as f:
+                return f.read()
+        except Exception:
+            pass
+    return None
+
+
+def _analyze_skill_for_confirm(
+    skill_dir: str,
+    name: str,
+    source: str,
+) -> dict[str, Any]:
+    """Analyze a skill for the confirmation prompt.
+
+    Returns a dict with skill metadata and safety scan results.
+    """
+    from .agent_skills_shared import split_frontmatter, parse_frontmatter_yaml
+
+    result: dict[str, Any] = {
+        "skill_name": name,
+        "source": source,
+    }
+
+    md_text = _load_skill_md_text(skill_dir)
+    if not md_text:
+        result["description"] = ""
+        result["warnings"] = ["SKILL.md not found"]
+        result["danger_found"] = False
+        result["danger_details"] = []
+        return result
+
+    # Extract frontmatter
+    try:
+        fm_text, body = split_frontmatter(md_text)
+        fm = parse_frontmatter_yaml(fm_text)
+        desc = fm.get("description") or ""
+        if isinstance(desc, str):
+            result["description"] = desc.strip()
+        else:
+            result["description"] = str(desc) if desc else ""
+        # Also extract author if available
+        author = fm.get("author")
+        if author:
+            result["author"] = str(author)
+    except Exception:
+        result["description"] = ""
+        result["warnings"] = ["Could not parse SKILL.md frontmatter"]
+
+    # Danger scan
+    dangers = _danger_scan_skill(md_text)
+    result["danger_found"] = len(dangers) > 0
+    result["danger_details"] = dangers
+
+    return result
+
+
 def run_tool(args: dict[str, Any]) -> str:
     """Execute the skills_install tool."""
     raw_source = (args.get("source") or "").strip()
@@ -440,15 +535,19 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         os.makedirs(skills_root, exist_ok=True)
 
-        # Specific skill from a marketplace/package: skill@source
-        if selector and not _is_all_selector(selector):
-            with tempfile.TemporaryDirectory() as tmpdir:
-                workspace = os.path.join(tmpdir, "workspace")
-                _copy_source_tree(source, workspace)
+        # Extract source to a temp directory for analysis
+        with tempfile.TemporaryDirectory() as tmpdir:
+            workspace = os.path.join(tmpdir, "workspace")
+            _copy_source_tree(source, workspace)
 
+            # Find the actual skill directory
+            skill_dir: str | None = None
+            if selector and not _is_all_selector(selector):
                 skill_dir = _find_skill_dir(workspace, selector)
                 if not skill_dir:
-                    candidates = _iter_candidate_skill_dirs(workspace, recursive=True)
+                    candidates = _iter_candidate_skill_dirs(
+                        workspace, recursive=True
+                    )
                     available = ", ".join(
                         _skill_display_name(d) for d in candidates[:20]
                     )
@@ -459,9 +558,7 @@ def run_tool(args: dict[str, Any]) -> str:
                             "ok": False,
                             "message": _(
                                 "err.marketplace_skill_not_found",
-                                default=(
-                                    "Could not find skill '{selector}' in {source}. Available skills: {available}"
-                                ),
+                                default="Could not find skill '{selector}' in {source}. Available skills: {available}",
                             ).format(
                                 selector=selector,
                                 source=source,
@@ -471,78 +568,174 @@ def run_tool(args: dict[str, Any]) -> str:
                     )
 
                 if not args.get("name"):
-                    name = os.path.basename(os.path.normpath(skill_dir)) or selector
+                    new_name = os.path.basename(
+                        os.path.normpath(skill_dir)
+                    ) or selector
+                    name = new_name
                     dest_dir = os.path.join(skills_root, name)
+            else:
+                # Whole package: use the workspace itself or its single-child dir
+                root_skill_md = os.path.join(workspace, "SKILL.md")
+                if os.path.isfile(root_skill_md):
+                    skill_dir = workspace
+                else:
+                    nested = _iter_candidate_skill_dirs(
+                        workspace, recursive=False
+                    )
+                    if len(nested) == 1:
+                        skill_dir = nested[0]
+                    else:
+                        skill_dir = workspace
 
-                if os.path.exists(dest_dir):
-                    if not overwrite:
-                        return json.dumps(
-                            {
-                                "ok": False,
-                                "message": _(
-                                    "err.already_exists",
-                                    default="Destination directory already exists: {path}. Use overwrite=true to update.",
-                                ).format(path=dest_dir),
-                            }
-                        )
-                    shutil.rmtree(dest_dir)
+            # --- Always confirm with the user ---
+            if skill_dir:
+                analysis = _analyze_skill_for_confirm(skill_dir, name, source)
 
+                # Print analysis
+                print("")
+                print("=" * 60)
+                print(_("title.install_confirm", default="Skill Installation Confirmation"))
+                print("=" * 60)
+                print(
+                    _("label.skill_name", default="Skill:  %(name)s")
+                    % {"name": analysis.get("skill_name", name)}
+                )
+                if analysis.get("author"):
+                    print(
+                        _("label.author", default="Author: %(author)s")
+                        % {"author": analysis["author"]}
+                    )
+                desc = analysis.get("description", "") or _("msg.no_description", default="(no description)")
+                print(
+                    _("label.description", default="Description: %(desc)s")
+                    % {"desc": desc[:200]}
+                )
+                print(
+                    _("label.source", default="Source: %(source)s")
+                    % {"source": analysis.get("source", source)}
+                )
+
+                if analysis.get("danger_found"):
+                    print("")
+                    print(
+                        _("warn.danger_found", default="!! WARNING: Dangerous patterns detected !!")
+                    )
+                    for d in analysis["danger_details"]:
+                        print(f"  - [{d['pattern']}] {d['description']}")
+                        print(f"    {d['line'][:120]}")
+                else:
+                    print("")
+                    print(
+                        _("label.safe", default="Safety: No dangerous patterns detected.")
+                    )
+                print("")
+
+                # Ask user
+                from .context import get_callbacks
+                cb = get_callbacks()
+                prompt = _(
+                    "prompt.install",
+                    default="Install this skill? [y/N] ",
+                )
+                print(prompt, end="", flush=True)
+
+                user_input = ""
+                try:
+                    q = cb.human_ask_queue_ref()
+                    if q is not None:
+                        user_input = q.get(timeout=300)
+                    else:
+                        # Fallback: read from stdin
+                        try:
+                            user_input = input("")
+                        except Exception:
+                            user_input = "n"
+                except Exception:
+                    user_input = "n"
+
+                user_input = user_input.strip().lower()
+                if user_input not in ("y", "yes"):
+                    print(
+                        _("msg.cancelled", default="Installation cancelled.")
+                    )
+                    return json.dumps({
+                        "ok": False,
+                        "message": _("msg.cancelled_detail", default="User cancelled skill installation."),
+                    })
+
+                print(
+                    _("msg.proceeding", default="Proceeding with installation...")
+                )
+
+            # --- Installation phase ---
+            if os.path.exists(dest_dir):
+                if not overwrite:
+                    return json.dumps(
+                        {
+                            "ok": False,
+                            "message": _(
+                                "err.already_exists",
+                                default="Destination directory already exists: {path}. Use overwrite=true to update.",
+                            ).format(path=dest_dir),
+                        }
+                    )
+                shutil.rmtree(dest_dir)
+
+            if skill_dir:
                 _copy_skill_dir_contents(skill_dir, dest_dir)
+            else:
+                _copy_skill_dir_contents(workspace, dest_dir)
+
+            # Report result
+            root_md = os.path.join(dest_dir, "SKILL.md")
+            if os.path.isfile(root_md):
+                if selector:
+                    return json.dumps(
+                        {
+                            "ok": True,
+                            "path": dest_dir,
+                            "skill": name,
+                            "message": _(
+                                "success.installed_selected",
+                                default="Successfully installed skill '{name}' from {source} to {path}",
+                            ).format(name=name, source=source, path=dest_dir),
+                        }
+                    )
                 return json.dumps(
                     {
                         "ok": True,
                         "path": dest_dir,
-                        "skill": os.path.basename(os.path.normpath(skill_dir)),
                         "message": _(
-                            "success.installed_selected",
-                            default="Successfully installed skill '{name}' from {source} to {path}",
-                        ).format(name=name, source=source, path=dest_dir),
+                            "success.installed",
+                            default="Successfully installed skill '{name}' to {path}",
+                        ).format(name=name, path=dest_dir),
                     }
                 )
 
-        # Whole package / marketplace / single skill tree install
-        _copy_source_tree(source, dest_dir)
+            nested = _iter_candidate_skill_dirs(dest_dir, recursive=True)
+            if nested:
+                return json.dumps(
+                    {
+                        "ok": True,
+                        "path": dest_dir,
+                        "skill_count": len(nested),
+                        "message": _(
+                            "success.installed_marketplace",
+                            default="Successfully installed marketplace/package '{name}' to {path} ({count} skill definitions found).",
+                        ).format(name=name, path=dest_dir, count=len(nested)),
+                    }
+                )
 
-        root_skill_md = os.path.join(dest_dir, "SKILL.md")
-        if os.path.isfile(root_skill_md):
             return json.dumps(
                 {
                     "ok": True,
                     "path": dest_dir,
                     "message": _(
-                        "success.installed",
-                        default="Successfully installed skill '{name}' to {path}",
-                    ).format(name=name, path=dest_dir),
+                        "warn.missing_skill_md",
+                        default="Skill installed at {path}, but SKILL.md was not found in the root.",
+                    ).format(path=dest_dir),
                 }
             )
-
-        nested_skill_dirs = _iter_candidate_skill_dirs(dest_dir, recursive=True)
-        if nested_skill_dirs:
-            return json.dumps(
-                {
-                    "ok": True,
-                    "path": dest_dir,
-                    "skill_count": len(nested_skill_dirs),
-                    "message": _(
-                        "success.installed_marketplace",
-                        default=(
-                            "Successfully installed marketplace/package '{name}' to {path} "
-                            "({count} skill definitions found)."
-                        ),
-                    ).format(name=name, path=dest_dir, count=len(nested_skill_dirs)),
-                }
-            )
-
-        return json.dumps(
-            {
-                "ok": True,
-                "path": dest_dir,
-                "message": _(
-                    "warn.missing_skill_md",
-                    default="Skill installed at {path}, but SKILL.md was not found in the root.",
-                ).format(path=dest_dir),
-            }
-        )
 
     except Exception as e:
         return json.dumps(
