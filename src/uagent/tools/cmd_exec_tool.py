@@ -80,11 +80,18 @@ def run_tool(args: dict[str, Any]) -> str:
 
     # Keep behavior close to legacy: use cmd.exe on Windows.
     if os.name == "nt":
-        cmd = ["cmd.exe", "/c", command]
+        cmd = f"chcp 65001 >nul & {command}"
+        p = subprocess.run(
+            cmd,
+            shell=True,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
     else:
         cmd = ["sh", "-lc", command]
-
-    p = subprocess.run(cmd, capture_output=True, text=True)
+        p = subprocess.run(cmd, capture_output=True, text=True)
     out = p.stdout
     err = p.stderr
 
