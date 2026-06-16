@@ -31,6 +31,7 @@ pip install uag
   - **A2A сервер**: `uaga` / `python -m uagent.a2a.server`
 - **MCP дэмжлэг**: гаднын MCP хэрэгслийн серверүүдтэй холбогдох боломжтой.
 - **Session-ийн үргэлжлэл**: модел эсвэл provider солигдсон ч контекст хадгалагдана.
+- **Agent Skills зах зээл**: [SkillsMP](https://skillsmp.com) эсвэл [ClawHub](https://clawhub.ai)-аас `:skills mp_search` ашиглан нийгэмлэгийн Agent Skills-ийг үзэх, суулгах.
 - **Web Inspector**: `playwright_inspector`-оор browser navigation, DOM snapshot, screenshot хадгална.
 - **Дагалдах docs**: `uag docs`-оор bundled docs уншиж болно.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -72,7 +73,7 @@ uaga
 - `:tools`: ачаалагдсан хэрэгслүүдийг харуулна
 - `:logs [n]`: сүүлийн session log-уудыг харуулна
 - `:load <index>`: өмнөх session-ийг ачаална
-- `:skills`: Agent Skills-ийг сонгож ачаална
+- `:skills`: Agent Skills сонгох, ачаалах (`:skills mp_search` ашиглан [SkillsMP](https://skillsmp.com) эсвэл [ClawHub](https://clawhub.ai) зах зээлээр үзэх)
 - `:shrink [n]`: history-г товчилж, сүүлийн `n` мессежийг үлдээнэ
 
 ## Тохиргоо ба дэлгэрэнгүй

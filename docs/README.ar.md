@@ -33,6 +33,7 @@ pip install uag
   - **خادم A2A**: `uaga` / `python -m uagent.a2a.server`
 - **دعم MCP**: الاتصال بخوادم أدوات MCP الخارجية.
 - **استمرارية الجلسة**: الحفاظ على السياق عند تبديل النماذج أو المزوّدين.
+- **سوق مهارات الوكلاء**: تصفح وقم بتثبيت مهارات المجتمع من [SkillsMP](https://skillsmp.com) أو [ClawHub](https://clawhub.ai) باستخدام `:skills mp_search`.
 - **Web Inspector**: حفظ انتقالات المتصفح ولقطات DOM ولقطات الشاشة باستخدام `playwright_inspector`.
 - **وثائق مدمجة**: قراءة الوثائق المرفقة باستخدام `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -73,7 +74,7 @@ uaga
 - `:tools`: عرض الأدوات المحمّلة
 - `:logs [n]`: عرض آخر سجلات الجلسة
 - `:load <index>`: تحميل جلسة سابقة
-- `:skills`: اختيار وتحميل Agent Skills
+- `:skills`: تحديد وتحميل Agent Skills (استخدم `:skills mp_search` لتصفح أسواق [SkillsMP](https://skillsmp.com) أو [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: تلخيص السجل والإبقاء على آخر `n` من الرسائل
 
 ## الإعداد والتفاصيل

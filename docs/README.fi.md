@@ -33,6 +33,7 @@ Ensimmäisellä käynnistyksellä `uag` tarkistaa ympäristösi ja käynnistää
   - **A2A-palvelin**: `uaga` / `python -m uagent.a2a.server`
 - **MCP-tuki**: Yhdistä ulkoisiin MCP-työkalupalvelimiin.
 - **Istunnon jatkuvuus**: säilytä konteksti, kun vaihdat mallia tai provideria.
+- **Agent Skills -markkinapaikka**: Selaa ja asenna yhteisön Agent Skills -taitoja osoitteesta [SkillsMP](https://skillsmp.com) tai [ClawHub](https://clawhub.ai) komennolla `:skills mp_search`.
 - **Web Inspector**: tallenna selaimen siirtymät, DOM-tilannevedokset ja kuvakaappaukset `playwright_inspector`-työkalulla.
 - **Sisäänrakennetut dokumentit**: lue mukana tulevat dokumentit komennolla `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -73,7 +74,7 @@ Katso `UAGENT_A2A_*`-asetukset, kuten tunnistus, host, portti, uudelleenlataus, 
 - `:tools`: näytä ladatut työkalut
 - `:logs [n]`: näytä viimeisimmät istuntolokit
 - `:load <index>`: lataa aiempi istunto
-- `:skills`: valitse ja lataa Agent Skills -osaamisia
+- `:skills`: valitse ja lataa Agent Skills (käytä `:skills mp_search` selataksesi [SkillsMP](https://skillsmp.com)- tai [ClawHub](https://clawhub.ai)-markkinapaikkoja)
 - `:shrink [n]`: tiivistä historia ja säilytä viimeiset `n` viestiä
 
 ## Asetukset ja lisätiedot

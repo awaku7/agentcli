@@ -30,6 +30,7 @@ pip install uag
   - **Web**: `uagw` / `python -m uagent.web`
 - **MCP (模型上下文協定)**：支援連接到外部 MCP 工具伺服器。
 - **會話持續性**：即使切換供應商或模型，也能保持對話上下文。
+- **Agent Skills 市集**: 使用 `:skills mp_search` 瀏覽和安裝來自 [SkillsMP](https://skillsmp.com) 或 [ClawHub](https://clawhub.ai) 的社群 Agent Skills。
 - **Web 檢查器**：使用 `playwright_inspector` 自動儲存瀏覽器跳轉、DOM 和截圖。
 - **內建文件**：使用 `uag docs` 指令即可即時瀏覽詳細的內部文件。
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -77,7 +78,7 @@ Gemini / Claude / Vertex AI 使用各自的原生 API 路徑，不在 Responses 
 - `:tools`：顯示已載入的工具清單。
 - `:logs [n]`：顯示對話日誌（`n` 用於指定顯示筆數）。
 - `:load <index>`：載入先前的對話以恢復交談。
-- `:skills`：選擇並載入智能體技能（額外的角色或指令）。
+- `:skills`: 選擇並載入 Agent Skills（使用 `:skills mp_search` 瀏覽 [SkillsMP](https://skillsmp.com) 或 [ClawHub](https://clawhub.ai) 市集）
 - `:shrink [n]`：整理歷史記錄，僅保留最後 `n` 條訊息以節省 Token。
 
 ## 設定與詳情

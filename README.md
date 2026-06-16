@@ -31,6 +31,7 @@ On first launch, `uag` checks your environment and starts the setup wizard autom
   - **A2A server**: `uaga` / `python -m uagent.a2a.server`
 - **MCP support**: Connect to external MCP tool servers.
 - **Session continuity**: Keep context when switching models or providers.
+- **Agent Skills marketplace**: Browse and install community Agent Skills from [SkillsMP](https://skillsmp.com) or [ClawHub](https://clawhub.ai) with `:skills mp_search`.
 - **Web Inspector**: Save browser transitions, DOM snapshots, and screenshots with `playwright_inspector`.
 - **Built-in docs**: Read bundled docs with `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -71,7 +72,7 @@ See [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md
 - `:tools`: show loaded tools
 - `:logs [n]`: show recent session logs
 - `:load <index>`: load a previous session
-- `:skills`: select and load Agent Skills
+- `:skills`: select and load Agent Skills (use `:skills mp_search` to browse [SkillsMP](https://skillsmp.com) or [ClawHub](https://clawhub.ai) marketplaces)
 - `:shrink [n]`: summarize history and keep the last `n` messages
 
 ## Configuration and details

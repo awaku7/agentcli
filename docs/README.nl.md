@@ -33,6 +33,7 @@ Bij de eerste start controleert `uag` je omgeving en start automatisch de setupw
   - **A2A-server**: `uaga` / `python -m uagent.a2a.server`
 - **MCP-ondersteuning**: verbinding maken met externe MCP-toolservers.
 - **Sessiebehoud**: context behouden wanneer je van model of provider wisselt.
+- **Agent Skills-marktplaats**: Blader door en installeer community Agent Skills van [SkillsMP](https://skillsmp.com) of [ClawHub](https://clawhub.ai) met `:skills mp_search`.
 - **Web Inspector**: sla browsertransities, DOM-snapshots en screenshots op met `playwright_inspector`.
 - **Ingebouwde documentatie**: lees meegeleverde docs met `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -73,7 +74,7 @@ Zie [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md
 - `:tools`: toon geladen tools
 - `:logs [n]`: toon recente sessielogs
 - `:load <index>`: laad een eerdere sessie
-- `:skills`: selecteer en laad Agent Skills
+- `:skills`: selecteer en laad Agent Skills (gebruik `:skills mp_search` om de [SkillsMP](https://skillsmp.com)- of [ClawHub](https://clawhub.ai)-marktplaatsen te doorbladeren)
 - `:shrink [n]`: vat de historie samen en behoud de laatste `n` berichten
 
 ## Configuratie en details

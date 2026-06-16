@@ -31,6 +31,7 @@ Setelah instalasi, saat pertama kali menjalankan `uag`, wizard setup interaktif 
   - **A2A (Server)**: `uaga` / `python -m uagent.a2a.server`
 - **MCP (Model Context Protocol)**: Mendukung koneksi ke server alat MCP eksternal.
 - **Kelangsungan Sesi**: Menjaga konteks percakapan bahkan saat berpindah provider atau model.
+- **Marketplace Skill Agen**: Jelajahi dan instal Skill Agen komunitas dari [SkillsMP](https://skillsmp.com) atau [ClawHub](https://clawhub.ai) dengan `:skills mp_search`.
 - **Web Inspector**: Menyimpan transisi browser, DOM, dan screenshot secara otomatis menggunakan `playwright_inspector`.
 - **Dokumentasi Bawaan**: Akses instan ke dokumentasi internal yang rinci menggunakan perintah `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -77,7 +78,7 @@ Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.
 - `:tools`: Menampilkan daftar alat yang dimuat.
 - `:logs [n]`: Menampilkan log sesi (`n` untuk menentukan jumlah entri).
 - `:load <index>`: Memuat sesi sebelumnya untuk melanjutkan percakapan.
-- `:skills`: Memilih dan memuat Agent Skills (peran atau instruksi tambahan).
+- `:skills`: pilih dan muat Agent Skills (gunakan `:skills mp_search` untuk menjelajahi marketplace [SkillsMP](https://skillsmp.com) atau [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: Menyusun riwayat agar hanya menyimpan `n` pesan terakhir untuk menghemat token.
 
 ## Konfigurasi dan Rincian

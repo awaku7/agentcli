@@ -30,6 +30,7 @@ Después de la instalación, la primera vez que ejecute `uag` se iniciará autom
   - **Web**: `uagw` / `python -m uagent.web`
 - **MCP (Model Context Protocol)**: Soporte para conectar con servidores de herramientas MCP externos.
 - **Continuidad de sesión**: Mantiene el contexto de la conversación incluso al cambiar de proveedor o modelo.
+- **Mercado de habilidades de agente**: Explore e instale habilidades comunitarias de [SkillsMP](https://skillsmp.com) o [ClawHub](https://clawhub.ai) con `:skills mp_search`.
 - **Web Inspector**: Guarda automáticamente las transiciones del navegador, el DOM y las capturas de pantalla con `playwright_inspector`.
 - **Documentación integrada**: Acceda instantáneamente a la documentación interna detallada utilizando el comando `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -77,7 +78,7 @@ Consulte [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONME
 - `:tools`: Muestra una lista de las herramientas cargadas.
 - `:logs [n]`: Muestra los registros de sesión (`n` para especificar el número de entradas).
 - `:load <index>`: Carga una sesión pasada para reanudar la conversación.
-- `:skills`: Selecciona y carga Agent Skills (roles o instrucciones adicionales).
+- `:skills`: seleccionar y cargar Agent Skills (use `:skills mp_search` para explorar los mercados de [SkillsMP](https://skillsmp.com) o [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: Organiza el historial para mantener solo los últimos `n` mensajes y ahorrar tokens.
 
 ## Configuración y detalles

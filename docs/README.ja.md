@@ -33,6 +33,7 @@ pip install uag
   - **A2A サーバー**: `uaga` / `python -m uagent.a2a.server`
 - **MCP 対応**: 外部 MCP ツールサーバーへ接続可能。
 - **セッション継続**: モデルやプロバイダを切り替えても会話文脈を維持。
+- **Agent Skills マーケットプレイス**: [SkillsMP](https://skillsmp.com) または [ClawHub](https://clawhub.ai) でコミュニティ Agent Skill を検索・インストール（`:skills mp_search`）。
 - **Web Inspector**: `playwright_inspector` でブラウザ遷移、DOM、スクリーンショットを保存。
 - **組み込みドキュメント**: `uag docs` で同梱ドキュメントを参照可能。
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -74,7 +75,7 @@ uaga
 - `:tools`: ロード済みツール一覧を表示
 - `:logs [n]`: 直近のセッションログを表示
 - `:load <index>`: 過去セッションを読み込む
-- `:skills`: Agent Skills を選択してロード
+- `:skills`: Agent Skills を選択してロード（`:skills mp_search` で [SkillsMP](https://skillsmp.com) または [ClawHub](https://clawhub.ai) を検索可能）
 - `:shrink [n]`: 履歴を要約して末尾 `n` 件を残す
 
 ## 設定と詳細

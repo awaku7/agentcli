@@ -33,6 +33,7 @@ Wakati wa kuzindua kwa mara ya kwanza, `uag` hukagua mazingira yako na huanza ki
   - **A2A server**: `uaga` / `python -m uagent.a2a.server`
 - **Unga mkono wa MCP**: Unganisha kwenye seva za zana za MCP za nje.
 - **Mwendelezo wa kipindi**: Hifadhi muktadha hata ukibadilisha modeli au mtoa huduma.
+- **Soko la Ujuzi wa Wakala**: Vinjari na sakinisha Ujuzi wa Wakala wa jamii kutoka [SkillsMP](https://skillsmp.com) au [ClawHub](https://clawhub.ai) kwa `:skills mp_search`.
 - **Web Inspector**: Hifadhi mabadiliko ya kivinjari, picha za DOM, na skrini kwa `playwright_inspector`.
 - **Nyaraka zilizojengwa**: Soma nyaraka zilizomo kwa `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -73,7 +74,7 @@ Tazama [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT
 - `:tools`: onyesha orodha ya zana zilizopakiwa
 - `:logs [n]`: onyesha logi za hivi karibuni za kipindi
 - `:load <index>`: pakia kipindi cha awali
-- `:skills`: chagua na pakia Agent Skills
+- `:skills`: chagua na upakia Agent Skills (tumia `:skills mp_search` kuvinjari soko la [SkillsMP](https://skillsmp.com) au [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: fupisha historia na uhifadhi ujumbe wa mwisho `n`
 
 ## Usanidi na maelezo

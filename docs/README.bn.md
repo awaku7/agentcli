@@ -31,6 +31,7 @@ pip install uag
   - **A2A সার্ভার**: `uaga` / `python -m uagent.a2a.server`
 - **MCP সাপোর্ট**: বাহ্যিক MCP টুল সার্ভারের সাথে সংযোগ করতে পারে।
 - **সেশন ধারাবাহিকতা**: মডেল বা প্রোভাইডার বদলালেও প্রসঙ্গ বজায় থাকে।
+- **এজেন্ট স্কিল মার্কেটপ্লেস**: [SkillsMP](https://skillsmp.com) বা [ClawHub](https://clawhub.ai) থেকে কমিউনিটি Agent Skills ব্রাউজ এবং ইনস্টল করুন `:skills mp_search` দিয়ে।
 - **Web Inspector**: `playwright_inspector` দিয়ে ব্রাউজার নেভিগেশন, DOM snapshot, এবং screenshot সংরক্ষণ করুন।
 - **অন্তর্নির্মিত ডকস**: `uag docs` দিয়ে bundled docs পড়া যায়।
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -71,7 +72,7 @@ uaga
 - `:tools`: লোড করা টুলগুলোর তালিকা দেখায়
 - `:logs [n]`: সাম্প্রতিক সেশন লগ দেখায়
 - `:load <index>`: আগের একটি সেশন লোড করে
-- `:skills`: Agent Skills নির্বাচন করে লোড করে
+- `:skills`: Agent Skills সিলেক্ট এবং লোড করুন (`:skills mp_search` ব্যবহার করে [SkillsMP](https://skillsmp.com) বা [ClawHub](https://clawhub.ai) মার্কেটপ্লেস ব্রাউজ করুন)
 - `:shrink [n]`: history সংক্ষিপ্ত করে শেষ `n` বার্তা রেখে দেয়
 
 ## কনফিগারেশন ও বিস্তারিত

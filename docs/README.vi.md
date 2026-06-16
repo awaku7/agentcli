@@ -31,6 +31,7 @@ Sau khi cài đặt, khi chạy `uag` lần đầu tiên, trình hướng dẫn 
   - **A2A (Server)**: `uaga` / `python -m uagent.a2a.server`
 - **MCP (Model Context Protocol)**: Hỗ trợ kết nối tới các máy chủ công cụ MCP bên ngoài.
 - **Duy trì phiên làm việc**: Giữ nguyên ngữ cảnh hội thoại ngay cả khi chuyển đổi nhà cung cấp hoặc mô hình.
+- **Thị trường kỹ năng đặc vụ**: Duyệt và cài đặt Kỹ năng đặc vụ cộng đồng từ [SkillsMP](https://skillsmp.com) hoặc [ClawHub](https://clawhub.ai) với `:skills mp_search`.
 - **Web Inspector**: Tự động lưu lại các lần chuyển trang, DOM và ảnh chụp màn hình của trình duyệt bằng `playwright_inspector`.
 - **Tài liệu tích hợp**: Truy cập ngay tài liệu nội bộ chi tiết bằng lệnh `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -77,7 +78,7 @@ Xem [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md
 - `:tools`: Hiển thị danh sách công cụ đã tải.
 - `:logs [n]`: Hiển thị nhật ký phiên (`n` là số lượng mục cần xem).
 - `:load <index>`: Tải một phiên trước đó để tiếp tục hội thoại.
-- `:skills`: Chọn và tải Agent Skills (vai trò hoặc chỉ dẫn bổ sung).
+- `:skills`: chọn và tải Agent Skills (sử dụng `:skills mp_search` để duyệt thị trường [SkillsMP](https://skillsmp.com) hoặc [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: Thu gọn lịch sử để chỉ giữ `n` tin nhắn gần nhất nhằm tiết kiệm token.
 
 ## Cấu hình và chi tiết

@@ -33,6 +33,7 @@ Na primeira execução, o `uag` verifica seu ambiente e inicia automaticamente o
   - **Servidor A2A**: `uaga` / `python -m uagent.a2a.server`
 - **Suporte a MCP**: conecte-se a servidores externos de ferramentas MCP.
 - **Continuidade de sessão**: mantenha o contexto ao trocar de modelos ou provedores.
+- **Mercado de habilidades de agente**: Navegue e instale habilidades da comunidade de [SkillsMP](https://skillsmp.com) ou [ClawHub](https://clawhub.ai) com `:skills mp_search`.
 - **Web Inspector**: salve transições do navegador, snapshots do DOM e capturas de tela com `playwright_inspector`.
 - **Documentação embutida**: leia os docs incluídos com `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -73,7 +74,7 @@ Consulte [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONME
 - `:tools`: mostra as ferramentas carregadas
 - `:logs [n]`: mostra os registros recentes da sessão
 - `:load <index>`: carrega uma sessão anterior
-- `:skills`: seleciona e carrega Agent Skills
+- `:skills`: selecionar e carregar Agent Skills (use `:skills mp_search` para navegar nos marketplaces [SkillsMP](https://skillsmp.com) ou [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: resume o histórico e mantém as últimas `n` mensagens
 
 ## Configuração e detalhes

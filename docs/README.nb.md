@@ -33,6 +33,7 @@ Ved første oppstart sjekker `uag` miljøet ditt og starter automatisk oppsettsv
   - **A2A-server**: `uaga` / `python -m uagent.a2a.server`
 - **MCP-støtte**: Koble til eksterne MCP-verktøyservere.
 - **Sesjonskontinuitet**: Behold konteksten når du bytter modell eller leverandør.
+- **Agent Skills-markedsplass**: Bla gjennom og installer fellesskaps Agent Skills fra [SkillsMP](https://skillsmp.com) eller [ClawHub](https://clawhub.ai) med `:skills mp_search`.
 - **Web Inspector**: Lagre nettleseroverganger, DOM-snapshots og skjermbilder med `playwright_inspector`.
 - **Innebygd dokumentasjon**: Les medfølgende dokumentasjon med `uag docs`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -73,7 +74,7 @@ Se [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - `:tools`: vis lastede verktøy
 - `:logs [n]`: vis de nyeste sesjonsloggene
 - `:load <index>`: last inn en tidligere sesjon
-- `:skills`: velg og last inn Agent Skills
+- `:skills`: velg og last Agent Skills (bruk `:skills mp_search` for å bla gjennom [SkillsMP](https://skillsmp.com)- eller [ClawHub](https://clawhub.ai)-markedsplasser)
 - `:shrink [n]`: oppsummer historikken og behold de siste `n` meldingene
 
 ## Innstillinger og detaljer

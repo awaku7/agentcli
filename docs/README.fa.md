@@ -31,6 +31,7 @@ pip install uag
   - **A2A server**: `uaga` / `python -m uagent.a2a.server`
 - **پشتیبانی از MCP**: اتصال به سرورهای ابزار MCP خارجی.
 - **تداوم نشست**: با تغییر مدل یا ارائه‌دهنده، زمینه گفتگو حفظ می‌شود.
+- **بازار مهارت‌های عامل**: مهارت‌های انجمن را از [SkillsMP](https://skillsmp.com) یا [ClawHub](https://clawhub.ai) با `:skills mp_search` مرور و نصب کنید.
 - **Web Inspector**: با `playwright_inspector` جابه‌جایی‌های مرورگر، DOM snapshot و screenshot را ذخیره کنید.
 - **مستندات داخلی**: با `uag docs` مستندات همراه را بخوانید.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
@@ -72,7 +73,7 @@ uaga
 - `:tools`: ابزارهای بارگذاری‌شده را نشان می‌دهد
 - `:logs [n]`: لاگ‌های اخیر نشست را نشان می‌دهد
 - `:load <index>`: یک نشست قبلی را بارگذاری می‌کند
-- `:skills`: Agent Skills را انتخاب و بارگذاری می‌کند
+- `:skills`: انتخاب و بارگذاری Agent Skills (از `:skills mp_search` برای مرور بازارهای [SkillsMP](https://skillsmp.com) یا [ClawHub](https://clawhub.ai) استفاده کنید)
 - `:shrink [n]`: history را خلاصه می‌کند و آخرین `n` پیام را نگه می‌دارد
 
 ## پیکربندی و جزئیات
