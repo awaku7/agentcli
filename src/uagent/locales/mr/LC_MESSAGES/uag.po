@@ -2633,3 +2633,74 @@ msgstr "[चेतावणी] .env.sec: %(err)s डिक्रिप्ट �
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "निर्दिष्ट workdir मार्ग फाइल आहे: %(path)s"
+
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[cp error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] स्रोत आणि गंतव्य समान आहेत: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source does not exist: %(path)s"
+msgstr "[cp] स्रोत अस्तित्वात नाही: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] गंतव्य आधीपासून अस्तित्वात आहे: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] गंतव्याचा पालक अस्तित्वात नाही: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] कॉपी केले: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[mv error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] स्रोत आणि गंतव्य समान आहेत: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source does not exist: %(path)s"
+msgstr "[mv] स्रोत अस्तित्वात नाही: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] गंतव्य आधीपासून अस्तित्वात आहे: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] गंतव्याचा पालक अस्तित्वात नाही: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] हलवले: %(src)s -> %(dst)s"

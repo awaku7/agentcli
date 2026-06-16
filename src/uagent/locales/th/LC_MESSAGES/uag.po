@@ -2628,3 +2628,74 @@ msgstr "[WARN] ถอดรหัส .env.sec ไม่สำเร็จ: %(err
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "พาธ workdir ที่ระบุเป็นไฟล์: %(path)s"
+
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[cp error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] ต้นทางและปลายทางเหมือนกัน: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source does not exist: %(path)s"
+msgstr "[cp] ต้นทางไม่มีอยู่: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] ปลายทางมีอยู่แล้ว: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] โฟลเดอร์หลักของปลายทางไม่มีอยู่: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] คัดลอกแล้ว: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[mv error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] ต้นทางและปลายทางเหมือนกัน: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source does not exist: %(path)s"
+msgstr "[mv] ต้นทางไม่มีอยู่: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] ปลายทางมีอยู่แล้ว: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] โฟลเดอร์หลักของปลายทางไม่มีอยู่: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] ย้ายแล้ว: %(src)s -> %(dst)s"

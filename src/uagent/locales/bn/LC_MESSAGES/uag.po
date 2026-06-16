@@ -2698,3 +2698,74 @@ msgstr "[সতর্কতা] .env.sec ডিক্রিপ্ট করত�
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "নির্দিষ্ট ওয়ার্কডির পাথ হল একটি ফাইল: %(path)s"
+
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[cp error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] উৎস এবং গন্তব্য একই: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source does not exist: %(path)s"
+msgstr "[cp] উৎস বিদ্যমান নেই: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] গন্তব্য ইতিমধ্যে বিদ্যমান: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] গন্তব্যের প্যারেন্ট বিদ্যমান নেই: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] কপি করা হয়েছে: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[mv error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] উৎস এবং গন্তব্য একই: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source does not exist: %(path)s"
+msgstr "[mv] উৎস বিদ্যমান নেই: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] গন্তব্য ইতিমধ্যে বিদ্যমান: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] গন্তব্যের প্যারেন্ট বিদ্যমান নেই: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] সরানো হয়েছে: %(src)s -> %(dst)s"

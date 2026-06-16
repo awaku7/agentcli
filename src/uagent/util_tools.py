@@ -580,6 +580,14 @@ def _handle_cmd_tools(*, tr: Any) -> bool:
     return True
 
 
+def _strip_outer_quotes(s: str) -> str:
+    """Strip matching outer quotes (single/double) from a string."""
+    s = s.strip()
+    if len(s) >= 2 and s[0] in ('"', "'") and s[0] == s[-1]:
+        return s[1:-1]
+    return s
+
+
 def _normalize_cp_mv_args(raw: str) -> tuple[list[str], bool, bool]:
     try:
         items = shlex.split(raw, posix=False)
@@ -593,14 +601,15 @@ def _normalize_cp_mv_args(raw: str) -> tuple[list[str], bool, bool]:
     mkdirs = False
     paths: list[str] = []
     for item in items:
-        low = item.lower()
+        clean = _strip_outer_quotes(item)
+        low = clean.lower()
         if low in ("-f", "--overwrite", "--force"):
             overwrite = True
             continue
         if low in ("-p", "--mkdirs", "--parents"):
             mkdirs = True
             continue
-        paths.append(item)
+        paths.append(clean)
 
     if len(paths) < 2:
         raise ValueError(tr("src and dst are required"))
@@ -628,25 +637,31 @@ def _remove_existing_path(target: Path) -> None:
 def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]")
+        print(tr(":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"))
         return True
 
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print("[cp error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     src_raw, dst_raw = items[0], items[1]
     try:
-        from .tools.safe_file_ops_extras import ensure_within_workdir
-
-        src = Path(ensure_within_workdir(src_raw))
+        src = Path(src_raw).expanduser().resolve()
         target = _resolve_copy_move_target(src, dst_raw)
         if target == src:
             print(
-                "[cp] Source and destination are the same: %(path)s"
+                tr("[cp] Source and destination are the same: %(path)s")
                 % {"path": str(src)}
+            )
+            return True
+
+        if not src.exists():
+            print(
+                tr("[cp] Source does not exist: %(path)s") % {"path": str(src)}
             )
             return True
 
@@ -654,7 +669,7 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
             if target.exists():
                 if not overwrite:
                     print(
-                        "[cp] Destination already exists: %(path)s"
+                        tr("[cp] Destination already exists: %(path)s")
                         % {"path": str(target)}
                     )
                     return True
@@ -666,7 +681,7 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
             if target.exists():
                 if not overwrite:
                     print(
-                        "[cp] Destination already exists: %(path)s"
+                        tr("[cp] Destination already exists: %(path)s")
                         % {"path": str(target)}
                     )
                     return True
@@ -675,48 +690,60 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
                 target.parent.mkdir(parents=True, exist_ok=True)
             elif not target.parent.exists():
                 print(
-                    "[cp] Destination parent does not exist: %(path)s"
+                    tr("[cp] Destination parent does not exist: %(path)s")
                     % {"path": str(target.parent)}
                 )
                 return True
             shutil.copy2(src, target)
 
-        print("[cp] Copied: %(src)s -> %(dst)s" % {"src": str(src), "dst": str(target)})
+        print(
+            tr("[cp] Copied: %(src)s -> %(dst)s")
+            % {"src": str(src), "dst": str(target)}
+        )
         return True
     except Exception as e:
-        print("[cp error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[cp error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 
 def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
     raw = (arg or "").strip()
     if not raw:
-        print(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]")
+        print(tr(":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"))
         return True
 
     try:
         items, overwrite, mkdirs = _normalize_cp_mv_args(raw)
     except Exception as e:
-        print("[mv error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
     src_raw, dst_raw = items[0], items[1]
     try:
-        from .tools.safe_file_ops_extras import ensure_within_workdir
-
-        src = Path(ensure_within_workdir(src_raw))
+        src = Path(src_raw).expanduser().resolve()
         target = _resolve_copy_move_target(src, dst_raw)
         if target == src:
             print(
-                "[mv] Source and destination are the same: %(path)s"
+                tr("[mv] Source and destination are the same: %(path)s")
                 % {"path": str(src)}
+            )
+            return True
+
+        if not src.exists():
+            print(
+                tr("[mv] Source does not exist: %(path)s") % {"path": str(src)}
             )
             return True
 
         if target.exists():
             if not overwrite:
                 print(
-                    "[mv] Destination already exists: %(path)s" % {"path": str(target)}
+                    tr("[mv] Destination already exists: %(path)s")
+                    % {"path": str(target)}
                 )
                 return True
             _remove_existing_path(target)
@@ -725,16 +752,21 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
             target.parent.mkdir(parents=True, exist_ok=True)
         elif not target.parent.exists():
             print(
-                "[mv] Destination parent does not exist: %(path)s"
+                tr("[mv] Destination parent does not exist: %(path)s")
                 % {"path": str(target.parent)}
             )
             return True
 
         os.replace(src, target)
-        print("[mv] Moved: %(src)s -> %(dst)s" % {"src": str(src), "dst": str(target)})
+        print(
+            tr("[mv] Moved: %(src)s -> %(dst)s")
+            % {"src": str(src), "dst": str(target)}
+        )
         return True
     except Exception as e:
-        print("[mv error] %(etype)s: %(err)s" % {"etype": type(e).__name__, "err": e})
+        print(
+            tr("[mv error] %(etype)s: %(err)s") % {"etype": type(e).__name__, "err": e}
+        )
         return True
 
 

@@ -2682,3 +2682,74 @@ msgstr "[ADVERTENCIA] no se pudo descifrar .env.sec: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "la ruta de workdir especificada es un archivo: %(path)s"
+
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[cp error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] El origen y el destino son iguales: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source does not exist: %(path)s"
+msgstr "[cp] El origen no existe: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] El destino ya existe: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] El directorio padre del destino no existe: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] Copiado: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[mv error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] El origen y el destino son iguales: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source does not exist: %(path)s"
+msgstr "[mv] El origen no existe: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] El destino ya existe: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] El directorio padre del destino no existe: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] Movido: %(src)s -> %(dst)s"

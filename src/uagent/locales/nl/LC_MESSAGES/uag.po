@@ -2653,3 +2653,74 @@ msgstr "[WARN] Kan .env.sec niet ontsleutelen: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Het opgegeven workdir-pad is een bestand: %(path)s"
+
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[cp error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] Bron en bestemming zijn hetzelfde: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Source does not exist: %(path)s"
+msgstr "[cp] Bron bestaat niet: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] Bestemming bestaat al: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] Bovenliggende map van bestemming bestaat niet: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] Gekopieerd: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[mv error] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] Bron en bestemming zijn hetzelfde: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Source does not exist: %(path)s"
+msgstr "[mv] Bron bestaat niet: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] Bestemming bestaat al: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] Bovenliggende map van bestemming bestaat niet: %(path)s"
+
+#: src/uagent/util_tools.py
+#, python-format
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] Verplaatst: %(src)s -> %(dst)s"

@@ -1,0 +1,45 @@
+{
+  "en": {
+    "tool.description": "Search and browse the SkillsMP marketplace (skillsmp.com) for Agent Skills. Returns a list of skills with name, author, description, stars, and GitHub URL.",
+    "x_search_terms": [
+      "skills_mp_search",
+      "skillsmp",
+      "marketplace",
+      "search skill",
+      "browse skill",
+      "find skill",
+      "skill directory"
+    ],
+    "param.query.description": "Search query to filter skills by name or description.",
+    "param.page.description": "Page number for pagination (default: 1).",
+    "param.limit.description": "Number of results per page (default: 10, max: 50).",
+    "param.sort_by.description": "Sort order: 'recent' (newest first), 'stars' (most starred), 'name' (alphabetical). Default: 'recent'.",
+    "msg.no_results": "No skills found.",
+    "msg.header": "SkillsMP Marketplace — Page {page}/{total}",
+    "msg.next_page_hint": "Use page={next} to see more results.",
+    "msg.install_hint": "Install a skill with: skills_install source=<githubUrl>",
+    "help_text.mp_search": "  :skills mp_search [query] [--page N] [--limit N] [--sort recent|stars|name]\n    Search and browse the SkillsMP marketplace for Agent Skills.",
+    "prefix.error": "[error]"
+  },
+  "ja": {
+    "tool.description": "SkillsMPマーケットプレイス（skillsmp.com）でAgent Skillを検索・ブラウズします。スキル名、作者、説明、スター数、GitHub URLを返します。",
+    "x_search_terms": [
+      "skills_mp_search",
+      "skillsmp",
+      "マーケットプレイス",
+      "スキル検索",
+      "スキルを見つける",
+      "スキル一覧"
+    ],
+    "param.query.description": "スキル名や説明文でフィルタする検索クエリ。",
+    "param.page.description": "ページネーションのページ番号（既定: 1）。",
+    "param.limit.description": "1ページあたりの結果数（既定: 10, 最大: 50）。",
+    "param.sort_by.description": "並び順: 'recent'（新着順）、'stars'（スター数順）、'name'（アルファベット順）。既定: 'recent'。",
+    "msg.no_results": "スキルが見つかりませんでした。",
+    "msg.header": "SkillsMP マーケットプレイス — {page}/{total} ページ",
+    "msg.next_page_hint": "次のページを見るには page={next} を指定してください。",
+    "msg.install_hint": "スキルのインストール: skills_install source=<githubUrl>",
+    "help_text.mp_search": "  :skills mp_search [query] [--page N] [--limit N] [--sort recent|stars|name]\n    SkillsMPマーケットプレイスでAgent Skillを検索・ブラウズします。",
+    "prefix.error": "[エラー]"
+  }
+}

@@ -1,14 +1,14 @@
-# Translations template for PROJECT.
-# Copyright (C) 2026 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# Translations template for uagent.
+# Copyright (C) 2026 uagent
+# This file is distributed under the same license as the uagent project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: uagent VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-16 14:32+0900\n"
+"POT-Creation-Date: 2026-06-16 16:05+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -281,79 +281,6 @@ msgid ""
 "messages (keep_last=%(keep_last)d)"
 msgstr ""
 
-#: src/uagent/core.py:1237
-#, python-format
-msgid "429 retry limit (%(max_retries)s) reached while history compression."
-msgstr ""
-
-#: src/uagent/core.py:1247
-#, python-format
-msgid "Error while calling LLM for history compression: %(err)r"
-msgstr ""
-
-#: src/uagent/core.py:1280
-msgid "- Summarize the conversation chunk in English.\n"
-msgstr ""
-
-#: src/uagent/core.py:1282
-msgid ""
-"- Keep the summary concise but include key decisions, constraints, and "
-"pending items.\n"
-msgstr ""
-
-#: src/uagent/core.py:1284
-msgid "- Output should be directly usable as a system message."
-msgstr ""
-
-#: src/uagent/core.py:1287
-msgid "Conversation chunk:\n"
-msgstr ""
-
-#: src/uagent/core.py:1289
-msgid "Write a concise summary of this chunk."
-msgstr ""
-
-#: src/uagent/core.py:1293
-msgid "- You are updating an existing conversation summary.\n"
-msgstr ""
-
-#: src/uagent/core.py:1294
-msgid "- Preserve important facts from the previous summary.\n"
-msgstr ""
-
-#: src/uagent/core.py:1296
-msgid ""
-"- Merge in the new chunk without losing constraints, decisions, or "
-"pending items.\n"
-msgstr ""
-
-#: src/uagent/core.py:1298
-msgid "- Keep the result concise and suitable for a system message."
-msgstr ""
-
-#: src/uagent/core.py:1301
-msgid "Previous summary:\n"
-msgstr ""
-
-#: src/uagent/core.py:1303
-msgid "New chunk:\n"
-msgstr ""
-
-#: src/uagent/core.py:1305
-msgid "Update the summary while keeping the prior context intact."
-msgstr ""
-
-#: src/uagent/core.py:1326
-msgid "Summary of the conversation so far:\n"
-msgstr ""
-
-#: src/uagent/core.py:1333
-#, python-brace-format
-msgid ""
-"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
-"older messages into 1 summary; kept {tail_n} tail)"
-msgstr ""
-
 #: src/uagent/core.py:1361
 msgid ""
 "[WARN] history compression hit context length even at chunk_size=1; "
@@ -371,12 +298,6 @@ msgstr ""
 msgid ""
 "[WARN] history compression context length exceeded; retrying with "
 "chunk_size=%(chunk_size)d"
-msgstr ""
-
-#: src/uagent/core.py:1389
-msgid ""
-"[WARN] history compression failed due to LLM error; falling back to "
-"shrink_messages()."
 msgstr ""
 
 #: src/uagent/core.py:1410
@@ -856,20 +777,8 @@ msgstr ""
 msgid "[Claude Error] An error occurred while generating a response."
 msgstr ""
 
-#: src/uagent/llm_round_helpers.py:604 src/uagent/providers/llm_deepseek.py:619
-msgid "Input exceeds the context window."
-msgstr ""
-
-#: src/uagent/llm_round_helpers.py:614 src/uagent/providers/llm_deepseek.py:652
-msgid "Connection error"
-msgstr ""
-
 #: src/uagent/llm_round_helpers.py:619 src/uagent/providers/llm_deepseek.py:657
 msgid "[Network Error]"
-msgstr ""
-
-#: src/uagent/llm_round_helpers.py:646
-msgid "Unexpected exception."
 msgstr ""
 
 #: src/uagent/llm_round_helpers.py:724
@@ -1711,20 +1620,88 @@ msgstr ""
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr ""
 
-#: src/uagent/util_tools.py:587
+#: src/uagent/util_tools.py:595
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:590
+#: src/uagent/util_tools.py:598
 msgid "missing arguments"
 msgstr ""
 
-#: src/uagent/util_tools.py:606
+#: src/uagent/util_tools.py:615
 msgid "src and dst are required"
 msgstr ""
 
-#: src/uagent/util_tools.py:974
+#: src/uagent/util_tools.py:640
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ""
+
+#: src/uagent/util_tools.py:647 src/uagent/util_tools.py:706
+#, python-format
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:657
+#, python-format
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:664
+#, python-format
+msgid "[cp] Source does not exist: %(path)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:672 src/uagent/util_tools.py:684
+#, python-format
+msgid "[cp] Destination already exists: %(path)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:693
+#, python-format
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:700
+#, python-format
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:714
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ""
+
+#: src/uagent/util_tools.py:721 src/uagent/util_tools.py:768
+#, python-format
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:731
+#, python-format
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:738
+#, python-format
+msgid "[mv] Source does not exist: %(path)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:745
+#, python-format
+msgid "[mv] Destination already exists: %(path)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:755
+#, python-format
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:762
+#, python-format
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:1006
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and "
@@ -1733,18 +1710,18 @@ msgid ""
 "Use tools as needed.\n"
 msgstr ""
 
-#: src/uagent/util_tools.py:981
+#: src/uagent/util_tools.py:1013
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr ""
 
-#: src/uagent/util_tools.py:1133
+#: src/uagent/util_tools.py:1165
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
 "Enter number:"
 msgstr ""
 
-#: src/uagent/util_tools.py:1169
+#: src/uagent/util_tools.py:1201
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this "
@@ -1756,14 +1733,14 @@ msgid ""
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1231
+#: src/uagent/util_tools.py:1263
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1280
+#: src/uagent/util_tools.py:1312
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -1775,12 +1752,12 @@ msgid ""
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1348
+#: src/uagent/util_tools.py:1380
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1378
+#: src/uagent/util_tools.py:1410
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log "
@@ -1792,7 +1769,7 @@ msgid ""
 "Proceed? Enter y to run, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1509
+#: src/uagent/util_tools.py:1541
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -1802,194 +1779,194 @@ msgid ""
 "Enter y to proceed, or c to cancel."
 msgstr ""
 
-#: src/uagent/util_tools.py:1564
+#: src/uagent/util_tools.py:1596
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr ""
 
-#: src/uagent/util_tools.py:1573
+#: src/uagent/util_tools.py:1605
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:1667
+#: src/uagent/util_tools.py:1699
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1695
+#: src/uagent/util_tools.py:1727
 #, python-format
 msgid "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:1767 src/uagent/util_tools.py:1847
+#: src/uagent/util_tools.py:1799 src/uagent/util_tools.py:1879
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr ""
 
-#: src/uagent/util_tools.py:1798
+#: src/uagent/util_tools.py:1830
 msgid "Analyzing past logs to generate user profile..."
 msgstr ""
 
-#: src/uagent/util_tools.py:1802
+#: src/uagent/util_tools.py:1834
 msgid "No past logs found or failed to generate profile."
 msgstr ""
 
-#: src/uagent/util_tools.py:1804
+#: src/uagent/util_tools.py:1836
 msgid "User profile generated successfully from past logs!"
 msgstr ""
 
-#: src/uagent/util_tools.py:1816
+#: src/uagent/util_tools.py:1848
 msgid "No user profile data found."
 msgstr ""
 
-#: src/uagent/util_tools.py:1819
+#: src/uagent/util_tools.py:1851
 msgid "User Profile:"
 msgstr ""
 
-#: src/uagent/util_tools.py:1831
+#: src/uagent/util_tools.py:1863
 msgid "User profile cleared successfully."
 msgstr ""
 
-#: src/uagent/util_tools.py:1835
+#: src/uagent/util_tools.py:1867
 msgid "No user profile file found to clear."
 msgstr ""
 
-#: src/uagent/util_tools.py:1899
+#: src/uagent/util_tools.py:1931
 msgid "Show this help"
 msgstr ""
 
-#: src/uagent/util_tools.py:1900
+#: src/uagent/util_tools.py:1932
 msgid "Restart input from the beginning"
 msgstr ""
 
-#: src/uagent/util_tools.py:1901
+#: src/uagent/util_tools.py:1933
 msgid "Show log file list"
 msgstr ""
 
-#: src/uagent/util_tools.py:1904
+#: src/uagent/util_tools.py:1936
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path /"
 " :cd /)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1907
+#: src/uagent/util_tools.py:1939
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1910
+#: src/uagent/util_tools.py:1942
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr ""
 
-#: src/uagent/util_tools.py:1912
+#: src/uagent/util_tools.py:1944
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1919
+#: src/uagent/util_tools.py:1951
 msgid "Load a past log (overwrites current conversation history)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1921
+#: src/uagent/util_tools.py:1953
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current "
 "session log file (overwrite, no backup)."
 msgstr ""
 
-#: src/uagent/util_tools.py:1925
+#: src/uagent/util_tools.py:1957
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1929
+#: src/uagent/util_tools.py:1961
 msgid "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1933
+#: src/uagent/util_tools.py:1965
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 "
 "system message; keep last N raw; default=20)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1936
+#: src/uagent/util_tools.py:1968
 msgid "Show the current approximate token count of the conversation"
 msgstr ""
 
-#: src/uagent/util_tools.py:1937
+#: src/uagent/util_tools.py:1969
 msgid "List long-term memory notes"
 msgstr ""
 
-#: src/uagent/util_tools.py:1939
+#: src/uagent/util_tools.py:1971
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1941
+#: src/uagent/util_tools.py:1973
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr ""
 
-#: src/uagent/util_tools.py:1942
+#: src/uagent/util_tools.py:1974
 msgid "Generate user profile from past logs"
 msgstr ""
 
-#: src/uagent/util_tools.py:1943
+#: src/uagent/util_tools.py:1975
 msgid "Clear the learned user profile data"
 msgstr ""
 
-#: src/uagent/util_tools.py:1945
+#: src/uagent/util_tools.py:1977
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1947
+#: src/uagent/util_tools.py:1979
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1949
+#: src/uagent/util_tools.py:1981
 msgid "Show the first n lines of a file (default=20)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1950
+#: src/uagent/util_tools.py:1982
 msgid "Show the last n lines of a file (default=20)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1952
+#: src/uagent/util_tools.py:1984
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr ""
 
-#: src/uagent/util_tools.py:1954
+#: src/uagent/util_tools.py:1986
 msgid "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1956
+#: src/uagent/util_tools.py:1988
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 
-#: src/uagent/util_tools.py:1957
+#: src/uagent/util_tools.py:1989
 msgid "Exit"
 msgstr ""
 
-#: src/uagent/util_tools.py:1960
+#: src/uagent/util_tools.py:1992
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 
-#: src/uagent/util_tools.py:1962
+#: src/uagent/util_tools.py:1994
 #, python-format
 msgid ""
 "  - To end multiline input mode, enter a line that is exactly "
 "%(sentinel)s."
 msgstr ""
 
-#: src/uagent/util_tools.py:2201
+#: src/uagent/util_tools.py:2233
 msgid "Exiting."
 msgstr ""
 
-#: src/uagent/util_tools.py:2204
+#: src/uagent/util_tools.py:2236
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:2355
+#: src/uagent/util_tools.py:2387
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term "
 "memory (persistent memos). Use them as background information about the "
@@ -2201,6 +2178,14 @@ msgstr ""
 #: src/uagent/providers/llm_claude.py:220
 #: src/uagent/providers/util_providers.py:668
 msgid "anthropic package is not installed."
+msgstr ""
+
+#: src/uagent/providers/llm_deepseek.py:619
+msgid "Input exceeds the context window."
+msgstr ""
+
+#: src/uagent/providers/llm_deepseek.py:652
+msgid "Connection error"
 msgstr ""
 
 #: src/uagent/providers/llm_deepseek.py:664
@@ -2454,5 +2439,3387 @@ msgstr ""
 #: src/uagent/runtime/runtime_workdir.py:49
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
+msgstr ""
+
+#: src/uagent/tools/__init__.py:301
+msgid "log.load_disabled.internal"
+msgstr ""
+
+#: src/uagent/tools/__init__.py:312
+msgid "log.load_fail.internal"
+msgstr ""
+
+#: src/uagent/tools/__init__.py:337
+msgid "log.load_ok.external"
+msgstr ""
+
+#: src/uagent/tools/__init__.py:346
+msgid "log.load_fail.external"
+msgstr ""
+
+#: src/uagent/tools/__init__.py:358
+msgid "log.loaded_tools"
+msgstr ""
+
+#: src/uagent/tools/__init__.py:367
+msgid "log.no_valid_tools"
+msgstr ""
+
+#: src/uagent/tools/a2a_poll_tool.py:36 src/uagent/tools/a2a_send_tool.py:36
+#: src/uagent/tools/a2a_servers_tool.py:104
+#: src/uagent/tools/add_long_memory_tool.py:23
+#: src/uagent/tools/add_shared_memory_tool.py:20
+#: src/uagent/tools/analyze_image_tool.py:21
+#: src/uagent/tools/audio_speech_tool.py:25
+#: src/uagent/tools/audio_transcribe_tool.py:23
+#: src/uagent/tools/bash_exec_tool.py:29
+#: src/uagent/tools/batch_state_tool.py:42
+#: src/uagent/tools/binary_edit_tool.py:26 src/uagent/tools/ble_ops_tool.py:23
+#: src/uagent/tools/bluesky_tool.py:34
+#: src/uagent/tools/browser_use_task_tool.py:77
+#: src/uagent/tools/calculator_tool.py:19 src/uagent/tools/catalog_tool.py:25
+#: src/uagent/tools/change_workdir_tool.py:19
+#: src/uagent/tools/cmd_exec_json_tool.py:22
+#: src/uagent/tools/cmd_exec_tool.py:25 src/uagent/tools/create_file_tool.py:23
+#: src/uagent/tools/date_calc_tool.py:29 src/uagent/tools/db_query_tool.py:19
+#: src/uagent/tools/delete_file_tool.py:23
+#: src/uagent/tools/discord_channel_tool.py:177
+#: src/uagent/tools/document_extract_tool.py:45
+#: src/uagent/tools/echonet_cache_tool.py:21
+#: src/uagent/tools/echonet_control_tool.py:43
+#: src/uagent/tools/echonet_monitor_tool.py:33
+#: src/uagent/tools/echonet_node_status_tool.py:46
+#: src/uagent/tools/echonet_object_list_tool.py:44
+#: src/uagent/tools/echonet_property_get_tool.py:43
+#: src/uagent/tools/echonet_property_list_tool.py:44
+#: src/uagent/tools/echonet_property_set_tool.py:43
+#: src/uagent/tools/echonet_scan_tool.py:33
+#: src/uagent/tools/excel_ops_tool.py:27 src/uagent/tools/exstruct_tool.py:92
+#: src/uagent/tools/fetch_url_tool.py:33
+#: src/uagent/tools/file_exists_tool.py:23
+#: src/uagent/tools/file_grep_tool.py:70 src/uagent/tools/file_hash_tool.py:37
+#: src/uagent/tools/finish_skill_tool.py:21
+#: src/uagent/tools/generate_image_tool.py:69
+#: src/uagent/tools/generate_prompt_tool.py:31
+#: src/uagent/tools/generate_qr_code_tool.py:29
+#: src/uagent/tools/genre_control_tool.py:105
+#: src/uagent/tools/get_current_time_tool.py:19
+#: src/uagent/tools/get_env_tool.py:21 src/uagent/tools/get_geoip_tool.py:24
+#: src/uagent/tools/get_long_memory_tool.py:20
+#: src/uagent/tools/get_shared_memory_tool.py:19
+#: src/uagent/tools/get_workdir_tool.py:16 src/uagent/tools/git_ops_tool.py:42
+#: src/uagent/tools/graph_rag_search_tool.py:1051
+#: src/uagent/tools/handle_mcp_v2_tool.py:70
+#: src/uagent/tools/human_ask_tool.py:22 src/uagent/tools/img2img_tool.py:48
+#: src/uagent/tools/index_files_tool.py:41
+#: src/uagent/tools/lint_format_tool.py:43 src/uagent/tools/list_dir_tool.py:21
+#: src/uagent/tools/list_windows_titles_tool.py:17
+#: src/uagent/tools/matter_bridge_list_tool.py:27
+#: src/uagent/tools/matter_cluster_list_tool.py:31
+#: src/uagent/tools/matter_control_tool.py:60
+#: src/uagent/tools/matter_controller_list_tool.py:27
+#: src/uagent/tools/matter_device_status_tool.py:31
+#: src/uagent/tools/matter_endpoint_list_tool.py:31
+#: src/uagent/tools/mcp_servers_tool.py:25
+#: src/uagent/tools/mcp_tools_list_tool.py:45
+#: src/uagent/tools/playwright_inspector_tool.py:34
+#: src/uagent/tools/preprocess_image_tool.py:51
+#: src/uagent/tools/pwsh_exec_tool.py:86
+#: src/uagent/tools/python_compile_tool.py:24
+#: src/uagent/tools/python_exec_tool.py:25
+#: src/uagent/tools/read_file_tool.py:56
+#: src/uagent/tools/read_pptx_pdf_tool.py:69
+#: src/uagent/tools/recalc_excel_tool.py:27
+#: src/uagent/tools/rename_path_tool.py:27
+#: src/uagent/tools/replace_in_file_tool.py:74
+#: src/uagent/tools/run_tests_tool.py:39 src/uagent/tools/screenshot_tool.py:30
+#: src/uagent/tools/search_files_tool.py:32
+#: src/uagent/tools/search_web_tool.py:218 src/uagent/tools/secrets_tool.py:185
+#: src/uagent/tools/semantic_search_files_tool.py:562
+#: src/uagent/tools/set_timer_tool.py:26
+#: src/uagent/tools/skills_install_tool.py:28
+#: src/uagent/tools/skills_list_tool.py:29
+#: src/uagent/tools/skills_load_tool.py:23
+#: src/uagent/tools/skills_mp_search_tool.py:28
+#: src/uagent/tools/skills_read_file_tool.py:28
+#: src/uagent/tools/skills_uninstall_tool.py:23
+#: src/uagent/tools/skills_validate_tool.py:28
+#: src/uagent/tools/spawn_process_tool.py:15
+#: src/uagent/tools/sub_agent_tool.py:100
+#: src/uagent/tools/switchbot_batch_tool.py:31
+#: src/uagent/tools/switchbot_ble_control_tool.py:27
+#: src/uagent/tools/switchbot_ble_scan_tool.py:24
+#: src/uagent/tools/switchbot_ble_status_tool.py:27
+#: src/uagent/tools/switchbot_cloud_control_tool.py:31
+#: src/uagent/tools/switchbot_cloud_list_tool.py:31
+#: src/uagent/tools/switchbot_cloud_status_tool.py:32
+#: src/uagent/tools/system_reload_tool.py:18
+#: src/uagent/tools/system_specs_tools.py:21
+#: src/uagent/tools/teams_webhook_tool.py:122
+#: src/uagent/tools/tools_control_tool.py:179
+#: src/uagent/tools/upnp_device_info_tool.py:35
+#: src/uagent/tools/upnp_igd_control_tool.py:35
+#: src/uagent/tools/upnp_scan_tool.py:37 src/uagent/tools/usb_camera_tool.py:40
+#: src/uagent/tools/zip_ops_tool.py:38
+msgid "tool.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_poll_tool.py:40 src/uagent/tools/a2a_send_tool.py:40
+#: src/uagent/tools/a2a_servers_tool.py:108
+#: src/uagent/tools/add_long_memory_tool.py:29
+#: src/uagent/tools/add_shared_memory_tool.py:24
+#: src/uagent/tools/analyze_image_tool.py:25
+#: src/uagent/tools/audio_speech_tool.py:31
+#: src/uagent/tools/audio_transcribe_tool.py:29
+#: src/uagent/tools/bash_exec_tool.py:35
+#: src/uagent/tools/batch_state_tool.py:46
+#: src/uagent/tools/binary_edit_tool.py:30
+#: src/uagent/tools/browser_use_task_tool.py:81
+#: src/uagent/tools/calculator_tool.py:23 src/uagent/tools/catalog_tool.py:31
+#: src/uagent/tools/change_workdir_tool.py:23
+#: src/uagent/tools/cmd_exec_json_tool.py:26
+#: src/uagent/tools/cmd_exec_tool.py:31 src/uagent/tools/create_file_tool.py:27
+#: src/uagent/tools/date_calc_tool.py:33 src/uagent/tools/db_query_tool.py:23
+#: src/uagent/tools/delete_file_tool.py:30
+#: src/uagent/tools/discord_channel_tool.py:184
+#: src/uagent/tools/document_extract_tool.py:49
+#: src/uagent/tools/excel_ops_tool.py:31 src/uagent/tools/exstruct_tool.py:96
+#: src/uagent/tools/fetch_url_tool.py:39
+#: src/uagent/tools/file_exists_tool.py:27
+#: src/uagent/tools/file_grep_tool.py:74 src/uagent/tools/file_hash_tool.py:41
+#: src/uagent/tools/finish_skill_tool.py:25
+#: src/uagent/tools/generate_image_tool.py:73
+#: src/uagent/tools/generate_prompt_tool.py:35
+#: src/uagent/tools/generate_qr_code_tool.py:33
+#: src/uagent/tools/get_current_time_tool.py:23
+#: src/uagent/tools/get_env_tool.py:25 src/uagent/tools/get_geoip_tool.py:28
+#: src/uagent/tools/get_long_memory_tool.py:23
+#: src/uagent/tools/get_shared_memory_tool.py:23
+#: src/uagent/tools/get_workdir_tool.py:19 src/uagent/tools/git_ops_tool.py:49
+#: src/uagent/tools/graph_rag_search_tool.py:1055
+#: src/uagent/tools/handle_mcp_v2_tool.py:74
+#: src/uagent/tools/human_ask_tool.py:26 src/uagent/tools/img2img_tool.py:54
+#: src/uagent/tools/index_files_tool.py:45
+#: src/uagent/tools/lint_format_tool.py:47 src/uagent/tools/list_dir_tool.py:25
+#: src/uagent/tools/list_windows_titles_tool.py:21
+#: src/uagent/tools/mcp_servers_tool.py:29
+#: src/uagent/tools/mcp_tools_list_tool.py:49
+#: src/uagent/tools/playwright_inspector_tool.py:38
+#: src/uagent/tools/preprocess_image_tool.py:57
+#: src/uagent/tools/pwsh_exec_tool.py:91
+#: src/uagent/tools/python_compile_tool.py:28
+#: src/uagent/tools/python_exec_tool.py:31
+#: src/uagent/tools/read_file_tool.py:60
+#: src/uagent/tools/read_pptx_pdf_tool.py:73
+#: src/uagent/tools/recalc_excel_tool.py:31
+#: src/uagent/tools/rename_path_tool.py:30
+#: src/uagent/tools/replace_in_file_tool.py:78
+#: src/uagent/tools/run_tests_tool.py:43 src/uagent/tools/screenshot_tool.py:34
+#: src/uagent/tools/search_files_tool.py:36
+#: src/uagent/tools/search_web_tool.py:222 src/uagent/tools/secrets_tool.py:189
+#: src/uagent/tools/semantic_search_files_tool.py:566
+#: src/uagent/tools/set_timer_tool.py:30
+#: src/uagent/tools/skills_install_tool.py:32
+#: src/uagent/tools/skills_list_tool.py:33
+#: src/uagent/tools/skills_load_tool.py:27
+#: src/uagent/tools/skills_mp_search_tool.py:32
+#: src/uagent/tools/skills_read_file_tool.py:32
+#: src/uagent/tools/skills_uninstall_tool.py:27
+#: src/uagent/tools/skills_validate_tool.py:32
+#: src/uagent/tools/spawn_process_tool.py:22
+#: src/uagent/tools/sub_agent_tool.py:104
+#: src/uagent/tools/system_reload_tool.py:24
+#: src/uagent/tools/system_specs_tools.py:32
+#: src/uagent/tools/teams_webhook_tool.py:126
+#: src/uagent/tools/usb_camera_tool.py:44 src/uagent/tools/zip_ops_tool.py:42
+msgid "x_search_terms"
+msgstr ""
+
+#: src/uagent/tools/a2a_poll_tool.py:72 src/uagent/tools/a2a_send_tool.py:72
+msgid "param.profile.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_poll_tool.py:79
+msgid "param.task_id.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_poll_tool.py:86
+#: src/uagent/tools/a2a_servers_tool.py:175
+msgid "param.interval_ms.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_poll_tool.py:93
+#: src/uagent/tools/a2a_servers_tool.py:168
+#: src/uagent/tools/browser_use_task_tool.py:136
+#: src/uagent/tools/teams_webhook_tool.py:198
+msgid "param.timeout_s.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_poll_tool.py:113
+msgid "err.missing_task_id"
+msgstr ""
+
+#: src/uagent/tools/a2a_poll_tool.py:131 src/uagent/tools/a2a_send_tool.py:125
+#: src/uagent/tools/a2a_servers_tool.py:347
+#: src/uagent/tools/batch_state_tool.py:943
+#: src/uagent/tools/discord_channel_tool.py:389
+#: src/uagent/tools/secrets_tool.py:348
+#: src/uagent/tools/teams_webhook_tool.py:232
+msgid "err.exception"
+msgstr ""
+
+#: src/uagent/tools/a2a_send_tool.py:79
+#: src/uagent/tools/batch_state_tool.py:180
+#: src/uagent/tools/discord_channel_tool.py:214
+#: src/uagent/tools/finish_skill_tool.py:57
+#: src/uagent/tools/human_ask_tool.py:50 src/uagent/tools/set_timer_tool.py:61
+#: src/uagent/tools/teams_webhook_tool.py:148
+msgid "param.message.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_send_tool.py:86
+msgid "param.return_immediately.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_send_tool.py:107
+#: src/uagent/tools/discord_channel_tool.py:300
+#: src/uagent/tools/teams_webhook_tool.py:219
+msgid "err.missing_message"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:140
+#: src/uagent/tools/batch_state_tool.py:80 src/uagent/tools/ble_ops_tool.py:33
+#: src/uagent/tools/bluesky_tool.py:52
+#: src/uagent/tools/discord_channel_tool.py:200
+#: src/uagent/tools/echonet_cache_tool.py:32
+#: src/uagent/tools/echonet_control_tool.py:88
+#: src/uagent/tools/excel_ops_tool.py:56 src/uagent/tools/exstruct_tool.py:121
+#: src/uagent/tools/matter_control_tool.py:77
+#: src/uagent/tools/mcp_servers_tool.py:53
+#: src/uagent/tools/replace_in_file_tool.py:223
+#: src/uagent/tools/secrets_tool.py:213
+#: src/uagent/tools/switchbot_ble_control_tool.py:55
+#: src/uagent/tools/switchbot_cloud_control_tool.py:71
+#: src/uagent/tools/upnp_igd_control_tool.py:47
+#: src/uagent/tools/usb_camera_tool.py:71 src/uagent/tools/zip_ops_tool.py:67
+msgid "param.action.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:147 src/uagent/tools/get_env_tool.py:49
+#: src/uagent/tools/mcp_servers_tool.py:112
+#: src/uagent/tools/skills_install_tool.py:65
+#: src/uagent/tools/skills_uninstall_tool.py:47
+msgid "param.name.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:154
+msgid "param.base_url.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:161
+msgid "param.token.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:182
+#: src/uagent/tools/mcp_servers_tool.py:157
+msgid "param.set_default.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:190
+msgid "param.force.description"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:253
+msgid "err.missing_name_or_base_url"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:304
+#: src/uagent/tools/a2a_servers_tool.py:321
+msgid "err.missing_name"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:310
+#: src/uagent/tools/matter_bridge_list_tool.py:355
+#: src/uagent/tools/matter_cluster_list_tool.py:646
+#: src/uagent/tools/matter_control_tool.py:497
+#: src/uagent/tools/matter_controller_list_tool.py:345
+#: src/uagent/tools/matter_device_status_tool.py:709
+#: src/uagent/tools/matter_endpoint_list_tool.py:575
+#: src/uagent/tools/skills_uninstall_tool.py:90
+#: src/uagent/tools/switchbot_ble_control_tool.py:225
+#: src/uagent/tools/switchbot_ble_control_tool.py:240
+#: src/uagent/tools/switchbot_ble_status_tool.py:264
+#: src/uagent/tools/switchbot_ble_status_tool.py:283
+#: src/uagent/tools/switchbot_cloud_control_tool.py:323
+#: src/uagent/tools/switchbot_cloud_control_tool.py:338
+#: src/uagent/tools/switchbot_cloud_status_tool.py:257
+#: src/uagent/tools/switchbot_cloud_status_tool.py:300
+msgid "err.not_found"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:334
+#: src/uagent/tools/batch_state_tool.py:737
+#: src/uagent/tools/batch_state_tool.py:934
+#: src/uagent/tools/ble_ops_tool.py:222
+#: src/uagent/tools/echonet_control_tool.py:540
+#: src/uagent/tools/secrets_tool.py:335
+#: src/uagent/tools/switchbot_ble_control_tool.py:309
+#: src/uagent/tools/upnp_igd_control_tool.py:975
+msgid "err.unknown_action"
+msgstr ""
+
+#: src/uagent/tools/a2a_servers_tool.py:340
+msgid "err.config_not_found"
+msgstr ""
+
+#: src/uagent/tools/add_long_memory_tool.py:54
+#: src/uagent/tools/add_shared_memory_tool.py:48
+msgid "param.note.description"
+msgstr ""
+
+#: src/uagent/tools/add_long_memory_tool.py:70
+msgid "err.note_empty"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:134
+msgid "err.file_too_large"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:154
+msgid "err.skill_md_not_found"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:188
+msgid "err.frontmatter_missing_start"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:204
+msgid "err.frontmatter_missing_end"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:223
+msgid "err.frontmatter_parse_failed"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:231
+msgid "err.frontmatter_not_mapping"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:280
+msgid "err.fm_name_required"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:289
+msgid "err.fm_name_too_long"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:296
+msgid "err.fm_name_re"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:303
+msgid "err.fm_name_edge_hyphen"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:310
+msgid "err.fm_name_double_hyphen"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:320
+msgid "err.fm_name_dir_mismatch"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:330
+msgid "err.fm_desc_required"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:339
+msgid "err.fm_desc_too_long"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:349
+msgid "err.fm_license_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:360
+msgid "err.fm_compat_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:369
+msgid "err.fm_compat_empty"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:376
+msgid "err.fm_compat_too_long"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:387
+msgid "err.fm_meta_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:396
+msgid "err.fm_meta_key_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:404
+msgid "err.fm_meta_val_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:415
+msgid "err.fm_allowed_tools_type"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:442
+msgid "err.relpath_required"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:452
+msgid "err.abs_path_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:458
+msgid "err.dotdot_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:472
+msgid "err.relpath_points_to_root"
+msgstr ""
+
+#: src/uagent/tools/agent_skills_shared.py:480
+msgid "err.path_traversal"
+msgstr ""
+
+#: src/uagent/tools/analyze_image_tool.py:49
+#: src/uagent/tools/bluesky_tool.py:69 src/uagent/tools/img2img_tool.py:70
+#: src/uagent/tools/preprocess_image_tool.py:81
+msgid "param.img.description"
+msgstr ""
+
+#: src/uagent/tools/analyze_image_tool.py:56
+#: src/uagent/tools/audio_transcribe_tool.py:78
+#: src/uagent/tools/generate_image_tool.py:97
+#: src/uagent/tools/img2img_tool.py:77
+msgid "param.prompt.description"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:55 src/uagent/tools/bluesky_tool.py:59
+#: src/uagent/tools/generate_qr_code_tool.py:43
+#: src/uagent/tools/secrets_tool.py:228
+msgid "param.text.description"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:62
+#: src/uagent/tools/excel_ops_tool.py:101 src/uagent/tools/exstruct_tool.py:181
+msgid "param.output_path.description"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:69
+#: src/uagent/tools/audio_transcribe_tool.py:60
+#: src/uagent/tools/browser_use_task_tool.py:143
+msgid "param.model.description"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:78
+msgid "param.voice.description"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:88
+msgid "param.response_format.description"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:95
+msgid "param.speed.description"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:103
+#: src/uagent/tools/batch_state_tool.py:101
+msgid "param.instructions.description"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:133
+#: src/uagent/tools/audio_transcribe_tool.py:119
+#: src/uagent/tools/vision_ollama.py:71 src/uagent/tools/vision_openai.py:93
+#: src/uagent/tools/vision_runtime.py:68
+msgid "err.unsupported_provider"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:165
+#: src/uagent/tools/audio_transcribe_tool.py:151
+msgid "err.openai_import"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:191
+msgid "err.text_empty"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:194
+msgid "err.output_path_empty"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:294
+#: src/uagent/tools/audio_speech_tool.py:320
+msgid "err.speech_failed"
+msgstr ""
+
+#: src/uagent/tools/audio_speech_tool.py:357
+msgid "ok.saved"
+msgstr ""
+
+#: src/uagent/tools/audio_transcribe_tool.py:53
+#: src/uagent/tools/binary_edit_tool.py:54
+#: src/uagent/tools/document_extract_tool.py:73
+#: src/uagent/tools/file_exists_tool.py:55
+#: src/uagent/tools/file_grep_tool.py:112
+#: src/uagent/tools/generate_prompt_tool.py:59
+#: src/uagent/tools/list_dir_tool.py:49 src/uagent/tools/mcp_servers_tool.py:70
+#: src/uagent/tools/python_compile_tool.py:44
+#: src/uagent/tools/read_pptx_pdf_tool.py:97
+#: src/uagent/tools/recalc_excel_tool.py:55
+#: src/uagent/tools/replace_in_file_tool.py:122
+#: src/uagent/tools/search_files_tool.py:64
+msgid "param.path.description"
+msgstr ""
+
+#: src/uagent/tools/audio_transcribe_tool.py:69
+msgid "param.language.description"
+msgstr ""
+
+#: src/uagent/tools/audio_transcribe_tool.py:87
+#: src/uagent/tools/document_extract_tool.py:89
+#: src/uagent/tools/echonet_cache_tool.py:48
+#: src/uagent/tools/echonet_control_tool.py:117
+#: src/uagent/tools/echonet_monitor_tool.py:94
+#: src/uagent/tools/echonet_node_status_tool.py:89
+#: src/uagent/tools/echonet_object_list_tool.py:87
+#: src/uagent/tools/echonet_property_get_tool.py:95
+#: src/uagent/tools/echonet_property_list_tool.py:96
+#: src/uagent/tools/echonet_property_set_tool.py:115
+#: src/uagent/tools/echonet_scan_tool.py:80
+#: src/uagent/tools/matter_bridge_list_tool.py:47
+#: src/uagent/tools/matter_cluster_list_tool.py:70
+#: src/uagent/tools/matter_control_tool.py:119
+#: src/uagent/tools/matter_controller_list_tool.py:47
+#: src/uagent/tools/matter_device_status_tool.py:72
+#: src/uagent/tools/matter_endpoint_list_tool.py:63
+#: src/uagent/tools/switchbot_batch_tool.py:113
+#: src/uagent/tools/switchbot_ble_control_tool.py:84
+#: src/uagent/tools/switchbot_ble_scan_tool.py:96
+#: src/uagent/tools/switchbot_ble_status_tool.py:97
+#: src/uagent/tools/switchbot_cloud_control_tool.py:116
+#: src/uagent/tools/switchbot_cloud_list_tool.py:42
+#: src/uagent/tools/switchbot_cloud_status_tool.py:59
+#: src/uagent/tools/upnp_device_info_tool.py:79
+#: src/uagent/tools/upnp_igd_control_tool.py:101
+#: src/uagent/tools/upnp_scan_tool.py:126
+msgid "param.fmt.description"
+msgstr ""
+
+#: src/uagent/tools/audio_transcribe_tool.py:176
+#: src/uagent/tools/file_exists_tool.py:124
+#: src/uagent/tools/safe_file_ops.py:186
+#: src/uagent/tools/safe_file_ops_extras.py:72
+msgid "err.path_empty"
+msgstr ""
+
+#: src/uagent/tools/audio_transcribe_tool.py:183
+msgid "err.invalid_output_format"
+msgstr ""
+
+#: src/uagent/tools/audio_transcribe_tool.py:202
+#: src/uagent/tools/safe_file_ops.py:203
+#: src/uagent/tools/safe_file_ops_extras.py:104
+msgid "err.file_not_found"
+msgstr ""
+
+#: src/uagent/tools/audio_transcribe_tool.py:270
+#: src/uagent/tools/audio_transcribe_tool.py:297
+msgid "err.transcribe_failed"
+msgstr ""
+
+#: src/uagent/tools/audio_transcribe_tool.py:322
+msgid "warn.empty_transcript"
+msgstr ""
+
+#: src/uagent/tools/audio_transcribe_tool.py:339
+msgid "ok.transcribed"
+msgstr ""
+
+#: src/uagent/tools/bash_exec_tool.py:18
+msgid "err.unavailable"
+msgstr ""
+
+#: src/uagent/tools/bash_exec_tool.py:57
+#: src/uagent/tools/cmd_exec_json_tool.py:50
+#: src/uagent/tools/cmd_exec_tool.py:55 src/uagent/tools/git_ops_tool.py:110
+#: src/uagent/tools/mcp_servers_tool.py:126
+#: src/uagent/tools/pwsh_exec_tool.py:107
+#: src/uagent/tools/spawn_process_tool.py:44
+msgid "param.command.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:87
+msgid "param.batch_id.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:94
+msgid "param.task_description.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:124
+#: src/uagent/tools/lint_format_tool.py:91
+msgid "param.targets.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:134
+msgid "param.remaining_files.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:142
+msgid "param.current_target.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:149
+msgid "param.patch.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:158
+msgid "param.file.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:165
+msgid "param.reason.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:173
+msgid "param.status.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:187
+#: src/uagent/tools/create_file_tool.py:76
+#: src/uagent/tools/generate_qr_code_tool.py:93
+#: src/uagent/tools/rename_path_tool.py:72 src/uagent/tools/secrets_tool.py:220
+#: src/uagent/tools/skills_install_tool.py:72
+#: src/uagent/tools/zip_ops_tool.py:106
+msgid "param.overwrite.description"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:755
+msgid "err.batch_exists"
+msgstr ""
+
+#: src/uagent/tools/batch_state_tool.py:909
+msgid "err.invalid_patch"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:61
+#: src/uagent/tools/exstruct_tool.py:145
+#: src/uagent/tools/lint_format_tool.py:82
+#: src/uagent/tools/preprocess_image_tool.py:88
+#: src/uagent/tools/replace_in_file_tool.py:130
+#: src/uagent/tools/switchbot_cloud_control_tool.py:90
+msgid "param.mode.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:67
+#: src/uagent/tools/delete_file_tool.py:77
+#: src/uagent/tools/matter_control_tool.py:107
+#: src/uagent/tools/recalc_excel_tool.py:90
+#: src/uagent/tools/zip_ops_tool.py:130
+msgid "param.dry_run.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:75
+#: src/uagent/tools/fetch_url_tool.py:102
+#: src/uagent/tools/skills_read_file_tool.py:69
+msgid "param.maxb.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:82
+msgid "param.offset.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:89 src/uagent/tools/ble_ops_tool.py:71
+msgid "param.data_hex.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:96
+msgid "param.search_hex.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:103
+msgid "param.replace_hex.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:111
+#: src/uagent/tools/replace_in_file_tool.py:180
+msgid "param.occurrence.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:119
+msgid "param.splice_op.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:126
+msgid "param.delete_len.description"
+msgstr ""
+
+#: src/uagent/tools/binary_edit_tool.py:133
+msgid "param.patch_json.description"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:41
+#: src/uagent/tools/echonet_control_tool.py:108
+#: src/uagent/tools/echonet_monitor_tool.py:85
+#: src/uagent/tools/echonet_node_status_tool.py:80
+#: src/uagent/tools/echonet_object_list_tool.py:78
+#: src/uagent/tools/echonet_property_get_tool.py:86
+#: src/uagent/tools/echonet_property_list_tool.py:78
+#: src/uagent/tools/echonet_property_set_tool.py:106
+#: src/uagent/tools/echonet_scan_tool.py:46
+#: src/uagent/tools/fetch_url_tool.py:125
+#: src/uagent/tools/switchbot_ble_control_tool.py:75
+#: src/uagent/tools/switchbot_ble_scan_tool.py:46
+#: src/uagent/tools/switchbot_ble_status_tool.py:49
+#: src/uagent/tools/switchbot_cloud_control_tool.py:107
+#: src/uagent/tools/upnp_device_info_tool.py:70
+#: src/uagent/tools/upnp_igd_control_tool.py:57
+msgid "param.timeout.description"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:50
+msgid "param.scan_mode.description"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:57
+msgid "param.address.description"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:64
+msgid "param.uuid.description"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:177
+msgid "err.pyside6_missing"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:183
+#: src/uagent/tools/switchbot_ble_control_tool.py:503
+#: src/uagent/tools/switchbot_ble_scan_tool.py:359
+#: src/uagent/tools/switchbot_ble_status_tool.py:487
+msgid "err.bleak_missing"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:205
+msgid "err.missing_read_params"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:214
+msgid "err.missing_write_params"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:238
+#: src/uagent/tools/switchbot_ble_control_tool.py:645
+#: src/uagent/tools/switchbot_ble_scan_tool.py:417
+#: src/uagent/tools/switchbot_ble_status_tool.py:577
+msgid "err.linux_permission"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:250
+#: src/uagent/tools/switchbot_ble_control_tool.py:669
+#: src/uagent/tools/switchbot_ble_scan_tool.py:441
+#: src/uagent/tools/switchbot_ble_status_tool.py:601
+msgid "err.macos_permission"
+msgstr ""
+
+#: src/uagent/tools/ble_ops_tool.py:256
+#: src/uagent/tools/switchbot_ble_control_tool.py:688
+#: src/uagent/tools/switchbot_ble_scan_tool.py:460
+#: src/uagent/tools/switchbot_ble_status_tool.py:620
+#: src/uagent/tools/switchbot_cloud_control_tool.py:782
+msgid "err.operation_failed"
+msgstr ""
+
+#: src/uagent/tools/bluesky_tool.py:80
+msgid "param.alt.description"
+msgstr ""
+
+#: src/uagent/tools/bluesky_tool.py:87
+msgid "param.save_img.description"
+msgstr ""
+
+#: src/uagent/tools/bluesky_tool.py:94
+msgid "param.actor.description"
+msgstr ""
+
+#: src/uagent/tools/bluesky_tool.py:101
+msgid "param.q.description"
+msgstr ""
+
+#: src/uagent/tools/bluesky_tool.py:108
+msgid "param.uri.description"
+msgstr ""
+
+#: src/uagent/tools/bluesky_tool.py:115
+msgid "param.cid.description"
+msgstr ""
+
+#: src/uagent/tools/bluesky_tool.py:122
+msgid "param.lang.description"
+msgstr ""
+
+#: src/uagent/tools/bluesky_tool.py:132 src/uagent/tools/catalog_tool.py:58
+#: src/uagent/tools/discord_channel_tool.py:221
+#: src/uagent/tools/echonet_property_list_tool.py:87
+#: src/uagent/tools/echonet_scan_tool.py:71
+#: src/uagent/tools/file_grep_tool.py:167 src/uagent/tools/list_dir_tool.py:64
+#: src/uagent/tools/search_files_tool.py:92
+#: src/uagent/tools/search_web_tool.py:257
+#: src/uagent/tools/skills_mp_search_tool.py:73
+#: src/uagent/tools/switchbot_ble_scan_tool.py:64
+#: src/uagent/tools/switchbot_ble_status_tool.py:67
+#: src/uagent/tools/upnp_igd_control_tool.py:73
+#: src/uagent/tools/upnp_scan_tool.py:81
+msgid "param.limit.description"
+msgstr ""
+
+#: src/uagent/tools/bluesky_tool.py:749
+msgid "log.opened_app"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:105
+#: src/uagent/tools/sub_agent_tool.py:159
+msgid "param.task.description"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:112
+msgid "param.start_url.description"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:120
+msgid "param.headless.description"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:128
+msgid "param.max_steps.description"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:151
+msgid "param.use_cloud.description"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:159
+msgid "param.allowed_domains.description"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:167
+msgid "param.deny_downloads.description"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:175
+msgid "param.use_vision.description"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:183
+#: src/uagent/tools/generate_image_tool.py:122
+#: src/uagent/tools/img2img_tool.py:111
+#: src/uagent/tools/preprocess_image_tool.py:151
+msgid "param.output_dir.description"
+msgstr ""
+
+#: src/uagent/tools/browser_use_task_tool.py:191
+#: src/uagent/tools/delete_file_tool.py:93
+msgid "param.confirmed.description"
+msgstr ""
+
+#: src/uagent/tools/calculator_tool.py:55
+msgid "param.expression.description"
+msgstr ""
+
+#: src/uagent/tools/calculator_tool.py:71
+msgid "err.expression_missing"
+msgstr ""
+
+#: src/uagent/tools/calculator_tool.py:95
+msgid "err.eval"
+msgstr ""
+
+#: src/uagent/tools/catalog_tool.py:51
+#: src/uagent/tools/graph_rag_search_tool.py:1087
+#: src/uagent/tools/search_web_tool.py:250
+#: src/uagent/tools/semantic_search_files_tool.py:598
+#: src/uagent/tools/skills_mp_search_tool.py:58
+msgid "param.query.description"
+msgstr ""
+
+#: src/uagent/tools/change_workdir_tool.py:51
+msgid "param.new_dir.description"
+msgstr ""
+
+#: src/uagent/tools/change_workdir_tool.py:59
+msgid "param.confirm.description"
+msgstr ""
+
+#: src/uagent/tools/change_workdir_tool.py:85
+msgid "confirm.change_workdir"
+msgstr ""
+
+#: src/uagent/tools/cmd_exec_json_tool.py:57
+#: src/uagent/tools/lint_format_tool.py:108
+#: src/uagent/tools/run_tests_tool.py:97
+msgid "param.cwd.description"
+msgstr ""
+
+#: src/uagent/tools/create_file_tool.py:55
+#: src/uagent/tools/delete_file_tool.py:61
+#: src/uagent/tools/generate_qr_code_tool.py:50
+#: src/uagent/tools/read_file_tool.py:96
+msgid "param.filename.description"
+msgstr ""
+
+#: src/uagent/tools/create_file_tool.py:62
+msgid "param.content.description"
+msgstr ""
+
+#: src/uagent/tools/create_file_tool.py:69
+#: src/uagent/tools/replace_in_file_tool.py:196
+msgid "param.encoding.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:65
+msgid "param.base_date.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:72
+msgid "param.years.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:79
+msgid "param.months.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:86
+msgid "param.weeks.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:93
+msgid "param.days.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:100
+msgid "param.country.description"
+msgstr ""
+
+#: src/uagent/tools/date_calc_tool.py:108
+msgid "param.check_holiday.description"
+msgstr ""
+
+#: src/uagent/tools/db_query_tool.py:47
+msgid "param.db_path.description"
+msgstr ""
+
+#: src/uagent/tools/db_query_tool.py:54
+msgid "param.sql.description"
+msgstr ""
+
+#: src/uagent/tools/delete_file_tool.py:69 src/uagent/tools/get_env_tool.py:56
+msgid "param.skip.description"
+msgstr ""
+
+#: src/uagent/tools/delete_file_tool.py:85
+msgid "param.allow_dir.description"
+msgstr ""
+
+#: src/uagent/tools/delete_file_tool.py:246
+msgid "confirm.delete_paths_bulk"
+msgstr ""
+
+#: src/uagent/tools/discord_channel_tool.py:207
+msgid "param.channel_id.description"
+msgstr ""
+
+#: src/uagent/tools/discord_channel_tool.py:229
+msgid "param.wait_s.description"
+msgstr ""
+
+#: src/uagent/tools/discord_channel_tool.py:237
+msgid "param.poll_interval_s.description"
+msgstr ""
+
+#: src/uagent/tools/discord_channel_tool.py:245
+msgid "param.token_env.description"
+msgstr ""
+
+#: src/uagent/tools/discord_channel_tool.py:253
+msgid "param.exclude_bots.description"
+msgstr ""
+
+#: src/uagent/tools/discord_channel_tool.py:274
+msgid "err.missing_action"
+msgstr ""
+
+#: src/uagent/tools/discord_channel_tool.py:277
+msgid "err.missing_channel_id"
+msgstr ""
+
+#: src/uagent/tools/discord_channel_tool.py:293
+#: src/uagent/tools/echonet_cache_tool.py:134
+#: src/uagent/tools/matter_control_tool.py:274
+msgid "err.invalid_action"
+msgstr ""
+
+#: src/uagent/tools/discord_channel_tool.py:304
+msgid "err.message_too_long"
+msgstr ""
+
+#: src/uagent/tools/document_extract_tool.py:80
+#: src/uagent/tools/excel_ops_tool.py:70 src/uagent/tools/exstruct_tool.py:137
+#: src/uagent/tools/read_pptx_pdf_tool.py:104
+#: src/uagent/tools/recalc_excel_tool.py:62
+msgid "param.password.description"
+msgstr ""
+
+#: src/uagent/tools/document_extract_tool.py:116
+#: src/uagent/tools/excel_ops_tool.py:140 src/uagent/tools/exstruct_tool.py:34
+#: src/uagent/tools/read_pptx_pdf_tool.py:368
+#: src/uagent/tools/recalc_excel_tool.py:180
+msgid "prompt.password"
+msgstr ""
+
+#: src/uagent/tools/echonet_cache_tool.py:39
+msgid "param.namespace.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_cache_tool.py:63
+msgid "msg.snapshot"
+msgstr ""
+
+#: src/uagent/tools/echonet_cache_tool.py:76
+msgid "msg.no_items"
+msgstr ""
+
+#: src/uagent/tools/echonet_cache_tool.py:122
+msgid "msg.cleared"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:54
+#: src/uagent/tools/echonet_monitor_tool.py:44
+#: src/uagent/tools/echonet_node_status_tool.py:57
+#: src/uagent/tools/echonet_object_list_tool.py:55
+#: src/uagent/tools/echonet_property_get_tool.py:54
+#: src/uagent/tools/echonet_property_list_tool.py:55
+#: src/uagent/tools/echonet_property_set_tool.py:54
+#: src/uagent/tools/upnp_device_info_tool.py:54
+msgid "param.ip.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:61
+#: src/uagent/tools/echonet_monitor_tool.py:51
+#: src/uagent/tools/echonet_node_status_tool.py:64
+#: src/uagent/tools/echonet_object_list_tool.py:62
+#: src/uagent/tools/echonet_property_get_tool.py:61
+#: src/uagent/tools/echonet_property_list_tool.py:62
+#: src/uagent/tools/echonet_property_set_tool.py:61
+msgid "param.eoj.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:70
+#: src/uagent/tools/echonet_monitor_tool.py:58
+#: src/uagent/tools/echonet_node_status_tool.py:71
+#: src/uagent/tools/echonet_object_list_tool.py:69
+#: src/uagent/tools/echonet_property_get_tool.py:68
+#: src/uagent/tools/echonet_property_list_tool.py:69
+#: src/uagent/tools/echonet_property_set_tool.py:70
+msgid "param.obj.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:97
+#: src/uagent/tools/echonet_property_set_tool.py:88
+#: src/uagent/tools/matter_control_tool.py:86
+#: src/uagent/tools/switchbot_ble_control_tool.py:64
+#: src/uagent/tools/switchbot_cloud_control_tool.py:80
+msgid "param.value.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:322
+#: src/uagent/tools/echonet_node_status_tool.py:302
+#: src/uagent/tools/echonet_object_list_tool.py:293
+#: src/uagent/tools/echonet_property_get_tool.py:306
+#: src/uagent/tools/echonet_property_list_tool.py:365
+#: src/uagent/tools/echonet_property_set_tool.py:339
+msgid "err.invalid_eoj"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:334
+#: src/uagent/tools/echonet_node_status_tool.py:314
+#: src/uagent/tools/echonet_object_list_tool.py:305
+#: src/uagent/tools/echonet_property_get_tool.py:318
+#: src/uagent/tools/echonet_property_list_tool.py:377
+#: src/uagent/tools/echonet_property_set_tool.py:351
+msgid "err.invalid_object_code"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:400
+#: src/uagent/tools/echonet_control_tool.py:414
+#: src/uagent/tools/matter_control_tool.py:281
+#: src/uagent/tools/switchbot_ble_control_tool.py:550
+#: src/uagent/tools/switchbot_cloud_control_tool.py:389
+#: src/uagent/tools/switchbot_cloud_control_tool.py:432
+#: src/uagent/tools/switchbot_cloud_control_tool.py:449
+#: src/uagent/tools/switchbot_cloud_control_tool.py:490
+#: src/uagent/tools/switchbot_cloud_control_tool.py:502
+msgid "err.unsupported_device"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:426
+msgid "err.unsupported_action_for_device"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:453
+#: src/uagent/tools/echonet_control_tool.py:468
+#: src/uagent/tools/echonet_control_tool.py:496
+#: src/uagent/tools/echonet_control_tool.py:512
+#: src/uagent/tools/echonet_control_tool.py:527
+#: src/uagent/tools/switchbot_ble_control_tool.py:297
+#: src/uagent/tools/switchbot_cloud_control_tool.py:420
+msgid "err.invalid_value_range"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:483
+#: src/uagent/tools/echonet_property_set_tool.py:623
+#: src/uagent/tools/matter_control_tool.py:397
+#: src/uagent/tools/switchbot_ble_control_tool.py:285
+#: src/uagent/tools/switchbot_cloud_control_tool.py:408
+#: src/uagent/tools/switchbot_cloud_control_tool.py:473
+msgid "err.value_required"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:670
+#: src/uagent/tools/echonet_monitor_tool.py:186
+#: src/uagent/tools/echonet_node_status_tool.py:462
+#: src/uagent/tools/echonet_object_list_tool.py:450
+#: src/uagent/tools/echonet_property_get_tool.py:444
+#: src/uagent/tools/echonet_property_list_tool.py:461
+#: src/uagent/tools/echonet_property_set_tool.py:504
+#: src/uagent/tools/echonet_scan_tool.py:513
+#: src/uagent/tools/switchbot_ble_control_tool.py:415
+#: src/uagent/tools/switchbot_ble_scan_tool.py:276
+#: src/uagent/tools/switchbot_ble_status_tool.py:409
+#: src/uagent/tools/switchbot_cloud_control_tool.py:569
+#: src/uagent/tools/switchbot_cloud_status_tool.py:318
+#: src/uagent/tools/upnp_scan_tool.py:297
+msgid "msg.summary"
+msgstr ""
+
+#: src/uagent/tools/echonet_control_tool.py:716
+#: src/uagent/tools/echonet_node_status_tool.py:522
+#: src/uagent/tools/echonet_object_list_tool.py:497
+#: src/uagent/tools/echonet_property_get_tool.py:492
+#: src/uagent/tools/echonet_property_list_tool.py:513
+#: src/uagent/tools/echonet_property_set_tool.py:552
+msgid "err.invalid_ip_address"
+msgstr ""
+
+#: src/uagent/tools/echonet_monitor_tool.py:67
+msgid "param.interval.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_monitor_tool.py:76
+msgid "param.duration.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_monitor_tool.py:210
+msgid "msg.no_changes"
+msgstr ""
+
+#: src/uagent/tools/echonet_monitor_tool.py:245
+#: src/uagent/tools/switchbot_ble_control_tool.py:263
+#: src/uagent/tools/switchbot_ble_status_tool.py:314
+msgid "err.invalid_argument"
+msgstr ""
+
+#: src/uagent/tools/echonet_monitor_tool.py:325
+msgid "msg.no_response"
+msgstr ""
+
+#: src/uagent/tools/echonet_property_get_tool.py:75
+#: src/uagent/tools/echonet_property_set_tool.py:79
+msgid "param.epc.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_property_get_tool.py:509
+#: src/uagent/tools/echonet_property_set_tool.py:569
+msgid "err.invalid_epc"
+msgstr ""
+
+#: src/uagent/tools/echonet_property_set_tool.py:95
+msgid "param.edt.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_property_set_tool.py:591
+msgid "err.invalid_edt"
+msgstr ""
+
+#: src/uagent/tools/echonet_scan_tool.py:53
+#: src/uagent/tools/switchbot_ble_scan_tool.py:35
+#: src/uagent/tools/switchbot_ble_status_tool.py:38
+#: src/uagent/tools/upnp_igd_control_tool.py:80
+#: src/uagent/tools/upnp_scan_tool.py:65
+msgid "param.interface.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_scan_tool.py:62
+#: src/uagent/tools/switchbot_ble_scan_tool.py:55
+#: src/uagent/tools/switchbot_ble_status_tool.py:58
+#: src/uagent/tools/upnp_igd_control_tool.py:65
+#: src/uagent/tools/upnp_scan_tool.py:73
+msgid "param.retry.description"
+msgstr ""
+
+#: src/uagent/tools/echonet_scan_tool.py:211
+#: src/uagent/tools/upnp_scan_tool.py:231
+msgid "err.invalid_interface"
+msgstr ""
+
+#: src/uagent/tools/echonet_scan_tool.py:529
+#: src/uagent/tools/switchbot_ble_scan_tool.py:299
+#: src/uagent/tools/upnp_scan_tool.py:323
+msgid "msg.no_devices"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:63 src/uagent/tools/exstruct_tool.py:130
+#: src/uagent/tools/screenshot_tool.py:58
+msgid "param.file_path.description"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:77
+msgid "param.sheet_name.description"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:86
+msgid "param.data.description"
+msgstr ""
+
+#: src/uagent/tools/excel_ops_tool.py:94
+msgid "param.keep_sheets.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:152
+msgid "param.include_shapes.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:159
+msgid "param.include_cell_links.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:166
+#: src/uagent/tools/mcp_servers_tool.py:77
+#: src/uagent/tools/mcp_tools_list_tool.py:81
+msgid "param.pretty.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:174 src/uagent/tools/get_geoip_tool.py:52
+msgid "param.format.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:188
+msgid "param.sheets_dir.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:195
+msgid "param.print_areas_dir.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:202
+msgid "param.auto_page_breaks_dir.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:209
+msgid "param.table_score_threshold.description"
+msgstr ""
+
+#: src/uagent/tools/exstruct_tool.py:216
+msgid "param.density_min.description"
+msgstr ""
+
+#: src/uagent/tools/fetch_url_tool.py:67
+#: src/uagent/tools/handle_mcp_v2_tool.py:105
+#: src/uagent/tools/mcp_servers_tool.py:119
+#: src/uagent/tools/mcp_tools_list_tool.py:65
+#: src/uagent/tools/playwright_inspector_tool.py:62
+msgid "param.url.description"
+msgstr ""
+
+#: src/uagent/tools/fetch_url_tool.py:76
+msgid "param.extract.description"
+msgstr ""
+
+#: src/uagent/tools/fetch_url_tool.py:83
+msgid "param.selector.description"
+msgstr ""
+
+#: src/uagent/tools/fetch_url_tool.py:92
+msgid "param.ptr.description"
+msgstr ""
+
+#: src/uagent/tools/fetch_url_tool.py:110
+#: src/uagent/tools/read_pptx_pdf_tool.py:118
+msgid "param.maxc.description"
+msgstr ""
+
+#: src/uagent/tools/fetch_url_tool.py:117
+msgid "param.user_agent.description"
+msgstr ""
+
+#: src/uagent/tools/fetch_url_tool.py:133
+msgid "param.ssl.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:102
+#: src/uagent/tools/index_files_tool.py:77
+#: src/uagent/tools/replace_in_file_tool.py:138
+msgid "param.pattern.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:125
+#: src/uagent/tools/graph_rag_search_tool.py:1094
+#: src/uagent/tools/index_files_tool.py:84
+#: src/uagent/tools/semantic_search_files_tool.py:604
+msgid "param.root_path.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:132
+#: src/uagent/tools/replace_in_file_tool.py:239
+#: src/uagent/tools/search_files_tool.py:71
+msgid "param.glob.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:143
+#: src/uagent/tools/index_files_tool.py:92
+#: src/uagent/tools/recalc_excel_tool.py:76
+#: src/uagent/tools/replace_in_file_tool.py:247
+#: src/uagent/tools/skills_list_tool.py:64
+msgid "param.recur.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:151
+msgid "param.ignore_case.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:159
+msgid "param.literal.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:175 src/uagent/tools/list_dir_tool.py:72
+#: src/uagent/tools/read_file_tool.py:119
+#: src/uagent/tools/search_files_tool.py:99
+#: src/uagent/tools/skills_mp_search_tool.py:65
+msgid "param.page.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:183
+msgid "param.maxhits.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:191
+msgid "param.context_lines.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:199
+msgid "param.filenames_only.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:208
+msgid "param.exclude_dirs.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:217 src/uagent/tools/zip_ops_tool.py:98
+msgid "param.exclude_globs.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:225
+msgid "param.binary_skip.description"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:386
+#: src/uagent/tools/index_files_tool.py:116
+msgid "err.pattern_required"
+msgstr ""
+
+#: src/uagent/tools/file_grep_tool.py:423
+#: src/uagent/tools/search_files_tool.py:418
+msgid "err.regex_compile"
+msgstr ""
+
+#: src/uagent/tools/file_hash_tool.py:70
+#: src/uagent/tools/python_compile_tool.py:52
+msgid "param.paths.description"
+msgstr ""
+
+#: src/uagent/tools/file_hash_tool.py:79
+msgid "param.algo.description"
+msgstr ""
+
+#: src/uagent/tools/file_hash_tool.py:87
+#: src/uagent/tools/graph_rag_search_tool.py:1129
+msgid "param.chunk_size.description"
+msgstr ""
+
+#: src/uagent/tools/file_hash_tool.py:96
+msgid "param.return.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:104
+#: src/uagent/tools/img2img_tool.py:93
+msgid "param.size.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:112
+#: src/uagent/tools/img2img_tool.py:101
+msgid "param.n.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:129
+#: src/uagent/tools/img2img_tool.py:120
+#: src/uagent/tools/playwright_inspector_tool.py:69
+#: src/uagent/tools/preprocess_image_tool.py:158
+msgid "param.prefix.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:137
+msgid "param.moderation.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:144
+#: src/uagent/tools/img2img_tool.py:128
+msgid "param.quality.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:151
+#: src/uagent/tools/img2img_tool.py:135
+msgid "param.background.description"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:337
+msgid "err.httpx_unavailable"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:455
+msgid "err.empty_data"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:603
+msgid "err.prompt_empty"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:628
+msgid "err.depname_missing"
+msgstr ""
+
+#: src/uagent/tools/generate_image_tool.py:757
+msgid "err.no_saved"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:66
+msgid "param.template.description"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:86
+#: src/uagent/tools/replace_in_file_tool.py:1316
+msgid "err.path_missing"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:94
+msgid "err.template_missing"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:109
+msgid "err.not_a_file"
+msgstr ""
+
+#: src/uagent/tools/generate_prompt_tool.py:134
+msgid "err.bad_template"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:58
+msgid "param.ecc.description"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:65
+msgid "param.box_size.description"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:72
+msgid "param.border.description"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:79
+msgid "param.fill_color.description"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:86
+msgid "param.back_color.description"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:128
+msgid "error.text_required"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:130
+msgid "error.filename_required"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:132
+msgid "error.must_be_png"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:151
+msgid "error.file_exists"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:179
+msgid "status.created"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:182
+msgid "status.overwritten"
+msgstr ""
+
+#: src/uagent/tools/generate_qr_code_tool.py:218
+msgid "log.opened_default_app"
+msgstr ""
+
+#: src/uagent/tools/genre_control_tool.py:39
+#, python-brace-format
+msgid "msg.{g}.enabled"
+msgstr ""
+
+#: src/uagent/tools/genre_control_tool.py:46
+#, python-brace-format
+msgid "msg.{g}.none_enabled"
+msgstr ""
+
+#: src/uagent/tools/genre_control_tool.py:55
+#, python-brace-format
+msgid "msg.{g}.disabled"
+msgstr ""
+
+#: src/uagent/tools/genre_control_tool.py:62
+#, python-brace-format
+msgid "msg.{g}.none_disabled"
+msgstr ""
+
+#: src/uagent/tools/get_env_tool.py:63
+msgid "param.mask.description"
+msgstr ""
+
+#: src/uagent/tools/get_env_tool.py:70
+msgid "param.unmasked_chars.description"
+msgstr ""
+
+#: src/uagent/tools/get_env_tool.py:113
+#: src/uagent/tools/skills_uninstall_tool.py:66
+#: src/uagent/tools/skills_uninstall_tool.py:124
+msgid "err.name_required"
+msgstr ""
+
+#: src/uagent/tools/get_geoip_tool.py:68
+msgid "err.format_invalid"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:118
+#: src/uagent/tools/handle_mcp_v2_tool.py:122
+#: src/uagent/tools/mcp_servers_tool.py:134
+msgid "param.args.description"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:125
+msgid "param.allow_danger.description"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:205
+msgid "error.git_not_found"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:214
+msgid "error.timeout"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:222
+msgid "error.unexpected"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:259
+msgid "error.meta_char"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:296 src/uagent/tools/git_ops_tool.py:304
+msgid "error.option_denied"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:314 src/uagent/tools/git_ops_tool.py:498
+msgid "error.option_danger_requires_allow_danger"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:331
+msgid "error.option_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/git_ops_tool.py:389
+msgid "error.invalid_command"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:899
+#: src/uagent/tools/semantic_search_files_tool.py:429
+msgid "err.dir_not_found"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:969
+#: src/uagent/tools/semantic_search_files_tool.py:516
+msgid "out.query"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:971
+#: src/uagent/tools/semantic_search_files_tool.py:517
+msgid "out.target_dir"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:975
+msgid "out.db"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:978
+msgid "out.hits_summary"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:993
+msgid "warn.indexing_title"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1003
+msgid "out.results_title"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1012
+#: src/uagent/tools/semantic_search_files_tool.py:533
+msgid "out.result_content"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1018
+msgid "out.no_docs"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1026
+#: src/uagent/tools/semantic_search_files_tool.py:544
+msgid "err.query_required"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1101
+#: src/uagent/tools/semantic_search_files_tool.py:611
+msgid "param.file_pattern.description"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1108
+msgid "param.top_k_vector.description"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1115
+msgid "param.top_k_graph.description"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1122
+msgid "param.hops.description"
+msgstr ""
+
+#: src/uagent/tools/graph_rag_search_tool.py:1135
+msgid "param.overlap.description"
+msgstr ""
+
+#: src/uagent/tools/handle_mcp_v2_tool.py:98
+#: src/uagent/tools/mcp_servers_tool.py:198
+#: src/uagent/tools/mcp_tools_list_tool.py:74
+msgid "param.server_name.description"
+msgstr ""
+
+#: src/uagent/tools/handle_mcp_v2_tool.py:112
+msgid "param.tool_name.description"
+msgstr ""
+
+#: src/uagent/tools/handle_mcp_v2_tool.py:356
+msgid "err.tool_name_required"
+msgstr ""
+
+#: src/uagent/tools/handle_mcp_v2_tool.py:404
+msgid "err.stdio_url_invalid"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:57
+msgid "param.is_password.description"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:81
+msgid "msg.empty_request"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:89
+msgid "ui.title"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:91
+msgid "ui.footer"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:97
+msgid "ui.howto"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:111
+msgid "err.lock_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:117
+msgid "err.active_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:123
+msgid "err.queue_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:129
+msgid "err.lines_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:135
+msgid "err.multiline_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:141
+msgid "err.password_uninitialized"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:151
+msgid "err.already_active"
+msgstr ""
+
+#: src/uagent/tools/human_ask_tool.py:232
+msgid "msg.no_user_reply"
+msgstr ""
+
+#: src/uagent/tools/img2img_tool.py:84
+msgid "param.mask_path.description"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:107
+msgid "err.vec_unavailable"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:121
+msgid "err.root_not_dir"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:131
+msgid "err.glob_fail"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:160
+#: src/uagent/tools/semantic_search_files_tool.py:513
+msgid "out.not_found"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:179
+msgid "out.completed"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:180
+msgid "out.pattern"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:181
+msgid "out.root"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:182
+msgid "out.total"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:183
+msgid "out.success"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:187
+msgid "out.fail"
+msgstr ""
+
+#: src/uagent/tools/index_files_tool.py:192
+msgid "out.footer"
+msgstr ""
+
+#: src/uagent/tools/lint_format_tool.py:73
+msgid "param.tools.description"
+msgstr ""
+
+#: src/uagent/tools/lint_format_tool.py:100
+#: src/uagent/tools/run_tests_tool.py:89
+msgid "param.xargs.description"
+msgstr ""
+
+#: src/uagent/tools/lint_format_tool.py:311
+msgid "confirm.msg"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:56
+msgid "param.show_hidden.description"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:179
+#: src/uagent/tools/search_files_tool.py:399
+msgid "err.dir_not_exist"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:185
+msgid "err.path_not_dir"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:198 src/uagent/tools/list_dir_tool.py:223
+msgid "out.path"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:202
+msgid "out.no_entries"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:214
+#: src/uagent/tools/search_files_tool.py:500
+msgid "out.found_paginated"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:235
+msgid "out.entry.dir"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:242
+msgid "out.entry.file"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:250
+msgid "out.entry.link"
+msgstr ""
+
+#: src/uagent/tools/list_dir_tool.py:257
+msgid "out.entry.other"
+msgstr ""
+
+#: src/uagent/tools/list_windows_titles_tool.py:45
+msgid "param.all.description"
+msgstr ""
+
+#: src/uagent/tools/list_windows_titles_tool.py:52
+msgid "param.pid.description"
+msgstr ""
+
+#: src/uagent/tools/list_windows_titles_tool.py:59
+msgid "param.class.description"
+msgstr ""
+
+#: src/uagent/tools/long_memory.py:58
+msgid "msg.no_memory"
+msgstr ""
+
+#: src/uagent/tools/long_memory.py:60 src/uagent/tools/shared_memory.py:89
+msgid "err.load"
+msgstr ""
+
+#: src/uagent/tools/long_memory.py:68 src/uagent/tools/read_file_tool.py:241
+#: src/uagent/tools/shared_memory.py:97
+msgid "msg.truncated"
+msgstr ""
+
+#: src/uagent/tools/matter_bridge_list_tool.py:38
+#: src/uagent/tools/matter_cluster_list_tool.py:54
+#: src/uagent/tools/matter_control_tool.py:100
+#: src/uagent/tools/matter_device_status_tool.py:56
+#: src/uagent/tools/matter_endpoint_list_tool.py:54
+msgid "param.bridge.description"
+msgstr ""
+
+#: src/uagent/tools/matter_bridge_list_tool.py:117
+#: src/uagent/tools/matter_bridge_list_tool.py:138
+#: src/uagent/tools/matter_cluster_list_tool.py:616
+#: src/uagent/tools/matter_control_tool.py:467
+#: src/uagent/tools/matter_controller_list_tool.py:117
+#: src/uagent/tools/matter_controller_list_tool.py:140
+#: src/uagent/tools/matter_device_status_tool.py:679
+#: src/uagent/tools/matter_endpoint_list_tool.py:546
+#: src/uagent/tools/switchbot_batch_tool.py:167
+#: src/uagent/tools/switchbot_cloud_control_tool.py:172
+#: src/uagent/tools/switchbot_cloud_status_tool.py:108
+msgid "err.config_missing"
+msgstr ""
+
+#: src/uagent/tools/matter_bridge_list_tool.py:128
+#: src/uagent/tools/matter_bridge_list_tool.py:152
+#: src/uagent/tools/matter_controller_list_tool.py:128
+#: src/uagent/tools/matter_controller_list_tool.py:154
+msgid "err.invalid_config"
+msgstr ""
+
+#: src/uagent/tools/matter_cluster_list_tool.py:40
+#: src/uagent/tools/matter_control_tool.py:69
+#: src/uagent/tools/matter_device_status_tool.py:42
+#: src/uagent/tools/matter_endpoint_list_tool.py:40
+#: src/uagent/tools/switchbot_cloud_control_tool.py:42
+#: src/uagent/tools/switchbot_cloud_status_tool.py:43
+msgid "param.dev.description"
+msgstr ""
+
+#: src/uagent/tools/matter_cluster_list_tool.py:47
+#: src/uagent/tools/matter_control_tool.py:93
+#: src/uagent/tools/matter_controller_list_tool.py:38
+#: src/uagent/tools/matter_device_status_tool.py:49
+#: src/uagent/tools/matter_endpoint_list_tool.py:47
+msgid "param.ctrl.description"
+msgstr ""
+
+#: src/uagent/tools/matter_cluster_list_tool.py:61
+#: src/uagent/tools/matter_device_status_tool.py:63
+msgid "param.endpoint.description"
+msgstr ""
+
+#: src/uagent/tools/matter_cluster_list_tool.py:573
+#: src/uagent/tools/matter_control_tool.py:362
+#: src/uagent/tools/matter_device_status_tool.py:636
+#: src/uagent/tools/matter_endpoint_list_tool.py:503
+msgid "err.device_id_required"
+msgstr ""
+
+#: src/uagent/tools/matter_cluster_list_tool.py:671
+#: src/uagent/tools/matter_control_tool.py:521
+#: src/uagent/tools/matter_device_status_tool.py:734
+#: src/uagent/tools/matter_endpoint_list_tool.py:599
+#: src/uagent/tools/switchbot_ble_control_tool.py:249
+#: src/uagent/tools/switchbot_ble_status_tool.py:296
+#: src/uagent/tools/switchbot_cloud_control_tool.py:347
+#: src/uagent/tools/switchbot_cloud_status_tool.py:275
+#: src/uagent/tools/switchbot_cloud_status_tool.py:292
+msgid "err.ambiguous_target"
+msgstr ""
+
+#: src/uagent/tools/matter_control_tool.py:289
+msgid "err.action_not_supported"
+msgstr ""
+
+#: src/uagent/tools/matter_control_tool.py:379
+msgid "err.action_required"
+msgstr ""
+
+#: src/uagent/tools/matter_control_tool.py:423
+msgid "err.value_out_of_range"
+msgstr ""
+
+#: src/uagent/tools/matter_control_tool.py:591
+msgid "msg.dry_run"
+msgstr ""
+
+#: src/uagent/tools/matter_control_tool.py:619
+msgid "err.queue_failed"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:86
+msgid "param.validate.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:94
+msgid "param.default_only.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:103
+msgid "param.fail_on_warning.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:141
+msgid "param.env.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:149
+msgid "param.transport.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:165
+msgid "param.replace.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:173
+msgid "param.create_if_missing.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:182
+#: src/uagent/tools/usb_camera_tool.py:78
+msgid "param.index.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:189
+msgid "param.require_nonempty.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:206
+msgid "param.default_name.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:214
+msgid "param.default_url.description"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:251
+msgid "err.not_exists"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:260
+msgid "warn.not_exists_new"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:268
+msgid "warn.not_exists"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:280
+msgid "err.load_fail"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:287
+msgid "err.root_not_dict"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:294
+msgid "warn.no_mcp_servers"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:302
+msgid "err.mcp_servers_not_list"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:325
+msgid "warn.item_not_dict"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:338
+msgid "warn.name_missing"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:350
+#: src/uagent/tools/mcp_servers_tool.py:421
+msgid "warn.url_no_mcp"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:360
+msgid "warn.endpoint_missing"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:369
+msgid "warn.name_duplicate"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:387
+msgid "err.item_not_dict"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:400
+msgid "err.name_missing"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:413
+msgid "err.endpoint_missing"
+msgstr ""
+
+#: src/uagent/tools/mcp_servers_tool.py:430
+msgid "err.name_duplicate"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:90
+msgid "ui.started"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:92
+msgid "ui.resume_prompt"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:96
+msgid "ui.captured"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:498
+msgid "err.child_failed"
+msgstr ""
+
+#: src/uagent/tools/playwright_inspector_tool.py:503
+#: src/uagent/tools/screenshot_tool.py:159
+#: src/uagent/tools/set_timer_tool.py:118
+msgid "out.ok"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:96
+msgid "param.grayscale.description"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:104
+msgid "param.denoise.description"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:112
+msgid "param.binarize.description"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:120
+msgid "param.edge_enhance.description"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:128
+msgid "param.deskew.description"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:136
+msgid "param.resize.description"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:143
+msgid "param.contrast.description"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:269
+msgid "err.image_path_empty"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:278
+#: src/uagent/tools/vision_gemini.py:81 src/uagent/tools/vision_ollama.py:33
+#: src/uagent/tools/vision_openai.py:30 src/uagent/tools/vision_runtime.py:32
+msgid "err.image_not_found"
+msgstr ""
+
+#: src/uagent/tools/preprocess_image_tool.py:348
+msgid "ok.generated"
+msgstr ""
+
+#: src/uagent/tools/pwsh_exec_tool.py:114
+msgid "param.shell.description"
+msgstr ""
+
+#: src/uagent/tools/pwsh_exec_tool.py:153
+msgid "err.command_required"
+msgstr ""
+
+#: src/uagent/tools/pwsh_exec_tool.py:186
+msgid "err.timeout"
+msgstr ""
+
+#: src/uagent/tools/python_exec_tool.py:59
+msgid "param.code.description"
+msgstr ""
+
+#: src/uagent/tools/python_exec_tool.py:133
+msgid "[python_exec error] Provide 'code'."
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:103
+msgid "param.start_line.description"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:111
+msgid "param.maxl.description"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:127
+msgid "param.head.description"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:135
+msgid "param.tail.description"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:154
+msgid "err.filename_missing"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:166
+msgid "err.dual_lines"
+msgstr ""
+
+#: src/uagent/tools/read_file_tool.py:249
+msgid "err.out_of_range"
+msgstr ""
+
+#: src/uagent/tools/read_pptx_pdf_tool.py:111
+msgid "param.page_index.description"
+msgstr ""
+
+#: src/uagent/tools/read_pptx_pdf_tool.py:567
+#: src/uagent/tools/recalc_excel_tool.py:219
+msgid "err.path_required"
+msgstr ""
+
+#: src/uagent/tools/read_pptx_pdf_tool.py:605
+msgid "err.page_index_int"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:69
+msgid "param.include_glob.description"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:83
+msgid "param.backup.description"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:97
+msgid "param.visible.description"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:104
+#: src/uagent/tools/zip_ops_tool.py:114
+msgid "param.max_files.description"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:121
+#: src/uagent/tools/safe_file_ops.py:296
+msgid "err.path_not_found"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:130
+msgid "err.file_ext"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:139
+msgid "err.max_files_positive"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:221
+msgid "err.recursive_bool"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:223
+msgid "err.backup_bool"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:225
+msgid "err.dry_run_bool"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:227
+msgid "err.visible_bool"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:233
+msgid "err.max_files_int"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:253
+msgid "err.windows_only"
+msgstr ""
+
+#: src/uagent/tools/recalc_excel_tool.py:264
+msgid "err.pywin32_required"
+msgstr ""
+
+#: src/uagent/tools/rename_path_tool.py:58
+msgid "param.src.description"
+msgstr ""
+
+#: src/uagent/tools/rename_path_tool.py:65
+msgid "param.dst.description"
+msgstr ""
+
+#: src/uagent/tools/rename_path_tool.py:80
+msgid "param.mkdirs.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:37
+msgid "summary.error"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:42
+msgid "summary.blocked_reason"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:45
+msgid "summary.blocked"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:50
+msgid "summary.preview_matches"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:53
+#: src/uagent/tools/replace_in_file_tool.py:57
+msgid "summary.no_change"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:59
+msgid "summary.matches"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:114
+msgid "param.expand_newline_tokens.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:145
+msgid "param.replacement.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:151
+msgid "param.po_msgid.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:158
+msgid "param.anchor_before.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:165
+msgid "param.anchor_after.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:172
+msgid "param.preview.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:188
+msgid "param.confirm_over.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:204
+msgid "param.return_hashes.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:231
+msgid "param.line_no.description"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:431
+#: src/uagent/tools/replace_in_file_tool.py:655
+msgid "hint.indentation_mismatch"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:436
+msgid "hint.possible_regex"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:440
+#: src/uagent/tools/replace_in_file_tool.py:714
+msgid "hint.check_exact"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:635
+msgid "hint.escaped_newline_tokens_not_expanded"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:645
+msgid "hint.possible_regex_mode_literal"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:665
+msgid "hint.mixed_newline_write_style"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:687
+msgid "hint.anchor_before_not_found"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:694
+msgid "hint.anchor_after_not_found"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:706
+msgid "hint.po_msgid_not_found"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:832
+#: src/uagent/tools/replace_in_file_tool.py:923
+msgid "hint.occurrence_exceeds_matches"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:953
+msgid "hint.anchor_after_not_found_after_before"
+msgstr ""
+
+#: src/uagent/tools/replace_in_file_tool.py:1393
+msgid "summary.files_changed"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:73
+msgid "param.framework.description"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:80
+msgid "param.target.description"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:105
+msgid "param.pythonpath.description"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:114
+msgid "param.report.description"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:129
+msgid "error.shell_metacharacters_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:221
+msgid "error.invalid_framework"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:232
+msgid "error.invalid_report"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:253
+msgid "error.dangerous_cwd_rejected"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:266
+msgid "error.cwd_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:280
+msgid "error.framework_auto_detect_failed"
+msgstr ""
+
+#: src/uagent/tools/run_tests_tool.py:311
+msgid "error.unsupported_framework"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:100
+msgid "err.empty_command"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:107
+msgid "err.blocked_by_rule"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:115
+msgid "confirm.risky_command"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:133
+msgid "confirm.shell_metachar"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:147
+msgid "msg.allowed"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:170 src/uagent/tools/safe_exec_ops.py:244
+msgid "err.callbacks_unavailable"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:199
+msgid "err.confirm_timeout"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:204 src/uagent/tools/safe_file_ops.py:105
+msgid "ui.confirm.title"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:208 src/uagent/tools/safe_file_ops.py:109
+msgid "ui.confirm.footer"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:211 src/uagent/tools/safe_file_ops.py:112
+msgid "ui.confirm.howto"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:228 src/uagent/tools/safe_exec_ops.py:257
+msgid "err.blocked_cancelled"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:229 src/uagent/tools/safe_exec_ops.py:258
+msgid "err.blocked_rejected"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:248
+msgid "ui.fallback_prompt"
+msgstr ""
+
+#: src/uagent/tools/safe_exec_ops.py:251
+msgid "err.confirm_failed"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:131
+msgid "confirm.risky_op"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:144
+msgid "confirm.rename"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:192
+#: src/uagent/tools/safe_file_ops_extras.py:79
+msgid "err.outside_workdir"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:238
+msgid "err.create_cancel"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:248
+msgid "err.exists_overwrite_false"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:264
+msgid "err.delete_cancel"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:285
+msgid "err.delete_path_cancel"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:306
+msgid "err.delete_dir_cancel"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:323
+msgid "err.src_dst_required"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:327
+msgid "err.src_not_found"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:338
+msgid "reason.src_trigger"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:343
+msgid "reason.dst_trigger"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:351
+msgid "reason.overwrite_delete"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:358
+msgid "err.dst_exists_overwrite_false"
+msgstr ""
+
+#: src/uagent/tools/safe_file_ops.py:369
+msgid "err.rename_cancel"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:65
+#: src/uagent/tools/teams_webhook_tool.py:155
+msgid "param.title.description"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:72
+msgid "param.delay.description"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:79
+msgid "param.close.description"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:95
+msgid "err.pyautogui_missing"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:105
+msgid "err.pygetwindow_missing"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:129
+msgid "err.window_not_found"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:167
+msgid "out.ok_closed"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:172
+msgid "err.close_fail"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:191
+msgid "next_action.analyze_screenshot"
+msgstr ""
+
+#: src/uagent/tools/screenshot_tool.py:214
+msgid "err.capture_fail"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:78
+msgid "param.re_content.description"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:85
+msgid "param.cs.description"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:107
+msgid "param.fast_read_threshold_bytes.description"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:263
+#: src/uagent/tools/search_files_tool.py:307
+#: src/uagent/tools/search_files_tool.py:353
+msgid "match.line"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:269
+#: src/uagent/tools/search_files_tool.py:313
+#: src/uagent/tools/search_files_tool.py:359
+msgid "match.more"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:279
+#: src/uagent/tools/search_files_tool.py:322
+msgid "match.excerpt"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:487
+msgid "out.no_match"
+msgstr ""
+
+#: src/uagent/tools/search_files_tool.py:512
+msgid "out.file"
+msgstr ""
+
+#: src/uagent/tools/search_web_tool.py:195
+msgid "error.duckduckgo_failed_after_retries"
+msgstr ""
+
+#: src/uagent/tools/search_web_tool.py:272
+msgid "error.args_must_be_dict"
+msgstr ""
+
+#: src/uagent/tools/search_web_tool.py:281
+msgid "error.missing_query_parameter"
+msgstr ""
+
+#: src/uagent/tools/search_web_tool.py:314
+#: src/uagent/tools/search_web_tool.py:323
+msgid "error.run_tool_error"
+msgstr ""
+
+#: src/uagent/tools/secrets_tool.py:235
+msgid "param.enc_b64.description"
+msgstr ""
+
+#: src/uagent/tools/secrets_tool.py:242
+msgid "param.sig_b64.description"
+msgstr ""
+
+#: src/uagent/tools/secrets_tool.py:249
+msgid "param.json_path.description"
+msgstr ""
+
+#: src/uagent/tools/secrets_tool.py:257
+msgid "param.fields.description"
+msgstr ""
+
+#: src/uagent/tools/secrets_tool.py:284 src/uagent/tools/secrets_tool.py:296
+msgid "err.missing_text"
+msgstr ""
+
+#: src/uagent/tools/secrets_tool.py:290
+msgid "err.missing_enc_b64"
+msgstr ""
+
+#: src/uagent/tools/secrets_tool.py:304
+msgid "err.missing_text_or_sig"
+msgstr ""
+
+#: src/uagent/tools/secrets_tool.py:314 src/uagent/tools/secrets_tool.py:327
+msgid "err.missing_json_path_or_fields"
+msgstr ""
+
+#: src/uagent/tools/secrets_tool.py:341
+msgid "err.key_not_found"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:474
+msgid "err.no_index"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:480
+msgid "err.vec_fail"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:520
+msgid "out.hits"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:528
+msgid "out.result_item"
+msgstr ""
+
+#: src/uagent/tools/semantic_search_files_tool.py:618
+msgid "param.top_k.description"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:54
+msgid "param.seconds.description"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:68
+msgid "param.on_timeout_prompt.description"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:87
+msgid "err.seconds_invalid"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:93
+msgid "err.seconds_negative"
+msgstr ""
+
+#: src/uagent/tools/set_timer_tool.py:99
+msgid "msg.default_timer_done"
+msgstr ""
+
+#: src/uagent/tools/shared_memory.py:76
+msgid "msg.disabled"
+msgstr ""
+
+#: src/uagent/tools/shared_memory.py:87
+msgid "msg.no_shared_memory"
+msgstr ""
+
+#: src/uagent/tools/skill_history.py:13
+msgid "skill.prefix"
+msgstr ""
+
+#: src/uagent/tools/skill_history.py:47
+msgid "skill.warn.rewrite_failed"
+msgstr ""
+
+#: src/uagent/tools/skill_history.py:75
+msgid "skill.clear_log"
+msgstr ""
+
+#: src/uagent/tools/skill_history.py:86
+msgid "skill.ok"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:58
+msgid "param.source.description"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:183
+msgid "err.zip_too_many_files"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:191
+msgid "err.zip_too_large"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:204
+msgid "err.zip_traversal"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:221
+msgid "err.git_not_found"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:237
+msgid "err.git_pull_failed"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:252
+msgid "err.git_clone_failed"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:266
+msgid "err.download_failed"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:307
+msgid "err.unsupported_source"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:402
+#: src/uagent/tools/skills_install_tool.py:567
+msgid "err.source_required"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:420
+#: src/uagent/tools/skills_uninstall_tool.py:76
+msgid "err.invalid_name"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:434
+#: src/uagent/tools/skills_install_tool.py:483
+msgid "err.already_exists"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:461
+msgid "err.marketplace_skill_not_found"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:497
+msgid "success.installed_selected"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:513
+msgid "success.installed"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:527
+msgid "success.installed_marketplace"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:541
+msgid "warn.missing_skill_md"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:552
+#: src/uagent/tools/skills_uninstall_tool.py:112
+msgid "err.unexpected"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:577
+msgid "prefix.skills"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:580
+msgid "prefix.skills_error"
+msgstr ""
+
+#: src/uagent/tools/skills_install_tool.py:591
+msgid "help_text.install"
+msgstr ""
+
+#: src/uagent/tools/skills_list_tool.py:57
+msgid "param.root_dir.description"
+msgstr ""
+
+#: src/uagent/tools/skills_list_tool.py:72
+msgid "param.include_invalid.description"
+msgstr ""
+
+#: src/uagent/tools/skills_list_tool.py:80
+#: src/uagent/tools/skills_validate_tool.py:63
+msgid "param.strict.description"
+msgstr ""
+
+#: src/uagent/tools/skills_load_tool.py:51
+#: src/uagent/tools/skills_read_file_tool.py:56
+#: src/uagent/tools/skills_validate_tool.py:56
+msgid "param.skill_dir.description"
+msgstr ""
+
+#: src/uagent/tools/skills_load_tool.py:64
+#: src/uagent/tools/skills_read_file_tool.py:83
+#: src/uagent/tools/skills_validate_tool.py:77
+msgid "err.invalid_args"
+msgstr ""
+
+#: src/uagent/tools/skills_load_tool.py:69
+#: src/uagent/tools/skills_read_file_tool.py:91
+#: src/uagent/tools/skills_validate_tool.py:84
+msgid "err.skill_dir_required"
+msgstr ""
+
+#: src/uagent/tools/skills_mp_search_tool.py:82
+msgid "param.sort_by.description"
+msgstr ""
+
+#: src/uagent/tools/skills_mp_search_tool.py:119
+#: src/uagent/tools/skills_mp_search_tool.py:204
+msgid "msg.no_results"
+msgstr ""
+
+#: src/uagent/tools/skills_mp_search_tool.py:124
+msgid "msg.header"
+msgstr ""
+
+#: src/uagent/tools/skills_mp_search_tool.py:152
+msgid "msg.next_page_hint"
+msgstr ""
+
+#: src/uagent/tools/skills_mp_search_tool.py:158
+msgid "msg.install_hint"
+msgstr ""
+
+#: src/uagent/tools/skills_mp_search_tool.py:280
+msgid "prefix.error"
+msgstr ""
+
+#: src/uagent/tools/skills_mp_search_tool.py:291
+msgid "help_text.mp_search"
+msgstr ""
+
+#: src/uagent/tools/skills_read_file_tool.py:62
+msgid "param.relative_path.description"
+msgstr ""
+
+#: src/uagent/tools/skills_read_file_tool.py:96
+msgid "err.relative_path_required"
+msgstr ""
+
+#: src/uagent/tools/skills_read_file_tool.py:101
+msgid "err.max_bytes_positive"
+msgstr ""
+
+#: src/uagent/tools/skills_uninstall_tool.py:102
+msgid "success.uninstalled"
+msgstr ""
+
+#: src/uagent/tools/spawn_process_tool.py:67
+msgid "err.command_empty"
+msgstr ""
+
+#: src/uagent/tools/spawn_process_tool.py:74
+msgid "err.windows_start_missing_target"
+msgstr ""
+
+#: src/uagent/tools/sub_agent_tool.py:152
+msgid "param.agent_name.description"
+msgstr ""
+
+#: src/uagent/tools/sub_agent_tool.py:166
+msgid "param.current_file.description"
+msgstr ""
+
+#: src/uagent/tools/sub_agent_tool.py:174
+msgid "param.response_mode.description"
+msgstr ""
+
+#: src/uagent/tools/sub_agent_tool.py:181
+msgid "param.response_schema.description"
+msgstr ""
+
+#: src/uagent/tools/sub_agent_tool.py:189
+msgid "param.required_fields.description"
+msgstr ""
+
+#: src/uagent/tools/sub_agent_tool.py:196
+msgid "param.strict_output.description"
+msgstr ""
+
+#: src/uagent/tools/sub_agent_tool.py:203
+msgid "param.evidence_required.description"
+msgstr ""
+
+#: src/uagent/tools/sub_agent_tool.py:211
+msgid "param.evidence_min_items.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_batch_tool.py:45
+msgid "param.commands.items.device_id.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_batch_tool.py:52
+msgid "param.commands.items.device_name.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_batch_tool.py:70
+msgid "param.commands.items.action.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_batch_tool.py:79
+msgid "param.commands.items.value.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_batch_tool.py:87
+msgid "param.commands.items.mode.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_batch_tool.py:95
+msgid "param.commands.items.fan_speed.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_batch_tool.py:104
+msgid "param.commands.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_batch_tool.py:221
+#: src/uagent/tools/switchbot_cloud_control_tool.py:228
+#: src/uagent/tools/switchbot_cloud_status_tool.py:162
+msgid "err.invalid_response"
+msgstr ""
+
+#: src/uagent/tools/switchbot_batch_tool.py:397
+msgid "err.commands_required"
+msgstr ""
+
+#: src/uagent/tools/switchbot_ble_control_tool.py:38
+#: src/uagent/tools/switchbot_ble_scan_tool.py:73
+#: src/uagent/tools/switchbot_ble_status_tool.py:74
+#: src/uagent/tools/switchbot_cloud_control_tool.py:51
+#: src/uagent/tools/switchbot_cloud_status_tool.py:50
+#: src/uagent/tools/usb_camera_tool.py:86
+msgid "param.devname.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_ble_control_tool.py:47
+#: src/uagent/tools/switchbot_ble_scan_tool.py:80
+#: src/uagent/tools/switchbot_ble_status_tool.py:81
+msgid "param.mac.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_ble_control_tool.py:368
+msgid "err.no_writable_characteristic"
+msgstr ""
+
+#: src/uagent/tools/switchbot_ble_control_tool.py:448
+#: src/uagent/tools/switchbot_ble_scan_tool.py:321
+#: src/uagent/tools/switchbot_ble_status_tool.py:451
+#: src/uagent/tools/switchbot_cloud_control_tool.py:610
+msgid "err.invalid_numeric"
+msgstr ""
+
+#: src/uagent/tools/switchbot_ble_control_tool.py:465
+#: src/uagent/tools/switchbot_ble_scan_tool.py:338
+#: src/uagent/tools/switchbot_ble_status_tool.py:468
+#: src/uagent/tools/switchbot_cloud_control_tool.py:627
+msgid "err.invalid_range"
+msgstr ""
+
+#: src/uagent/tools/switchbot_ble_control_tool.py:484
+#: src/uagent/tools/switchbot_cloud_control_tool.py:646
+msgid "err.invalid_value_type"
+msgstr ""
+
+#: src/uagent/tools/switchbot_ble_scan_tool.py:87
+#: src/uagent/tools/switchbot_ble_status_tool.py:88
+msgid "param.service_uuid.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_cloud_control_tool.py:98
+msgid "param.fan.description"
+msgstr ""
+
+#: src/uagent/tools/switchbot_cloud_control_tool.py:309
+#: src/uagent/tools/switchbot_cloud_status_tool.py:243
+msgid "err.invalid_arguments"
+msgstr ""
+
+#: src/uagent/tools/system_specs_tools.py:25
+msgid "tool.system_prompt"
+msgstr ""
+
+#: src/uagent/tools/system_specs_tools.py:50
+msgid "param.include_volumes.description"
+msgstr ""
+
+#: src/uagent/tools/system_specs_tools.py:58
+msgid "param.include_disks.description"
+msgstr ""
+
+#: src/uagent/tools/teams_webhook_tool.py:162
+msgid "param.summary.description"
+msgstr ""
+
+#: src/uagent/tools/teams_webhook_tool.py:169
+msgid "param.image_url.description"
+msgstr ""
+
+#: src/uagent/tools/teams_webhook_tool.py:176
+msgid "param.theme_color.description"
+msgstr ""
+
+#: src/uagent/tools/teams_webhook_tool.py:183
+msgid "param.payload_json.description"
+msgstr ""
+
+#: src/uagent/tools/teams_webhook_tool.py:190
+msgid "param.webhook_env.description"
+msgstr ""
+
+#: src/uagent/tools/tools_control_tool.py:104
+msgid "msg.tools.no_tools"
+msgstr ""
+
+#: src/uagent/tools/tools_control_tool.py:127
+msgid "msg.tools.loaded_count"
+msgstr ""
+
+#: src/uagent/tools/tools_control_tool.py:147
+msgid "cmd.help.tools_list"
+msgstr ""
+
+#: src/uagent/tools/tools_control_tool.py:156
+msgid "cmd.help.tools_on"
+msgstr ""
+
+#: src/uagent/tools/tools_control_tool.py:165
+msgid "cmd.help.tools_off"
+msgstr ""
+
+#: src/uagent/tools/upnp_device_info_tool.py:47
+msgid "param.location.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_device_info_tool.py:62
+msgid "param.port.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_device_info_tool.py:106
+msgid "err.no_target"
+msgstr ""
+
+#: src/uagent/tools/upnp_device_info_tool.py:133
+msgid "msg.device_info"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:90
+#: src/uagent/tools/upnp_scan_tool.py:89
+msgid "param.search_target.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:108
+msgid "param.external_port.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:115
+msgid "param.internal_ip.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:124
+msgid "param.internal_port.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:133
+msgid "param.protocol.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:140
+msgid "param.description.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:148
+msgid "param.lease_duration.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:155
+msgid "param.remote_host.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:165
+msgid "param.enabled.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:474
+msgid "msg.no_igd_candidates"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:498
+msgid "msg.status.summary"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:520
+msgid "msg.portmap.summary"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:531
+msgid "msg.no_portmaps"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:545
+msgid "msg.portmap_add.summary"
+msgstr ""
+
+#: src/uagent/tools/upnp_igd_control_tool.py:563
+msgid "msg.portmap_delete.summary"
+msgstr ""
+
+#: src/uagent/tools/upnp_scan_tool.py:50
+msgid "param.mx.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_scan_tool.py:58
+msgid "param.wait_timeout.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_scan_tool.py:96
+msgid "param.filter_name.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_scan_tool.py:103
+msgid "param.filter_manufacturer.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_scan_tool.py:110
+msgid "param.filter_model.description"
+msgstr ""
+
+#: src/uagent/tools/upnp_scan_tool.py:117
+msgid "param.filter_type.description"
+msgstr ""
+
+#: src/uagent/tools/usb_camera_tool.py:93
+msgid "param.width.description"
+msgstr ""
+
+#: src/uagent/tools/usb_camera_tool.py:100
+msgid "param.height.description"
+msgstr ""
+
+#: src/uagent/tools/usb_camera_tool.py:107
+msgid "param.fps.description"
+msgstr ""
+
+#: src/uagent/tools/usb_camera_tool.py:114
+msgid "param.outdir.description"
+msgstr ""
+
+#: src/uagent/tools/vision_deepseek.py:35 src/uagent/tools/vision_openai.py:103
+#: src/uagent/tools/vision_runtime.py:81
+msgid "err.import_openai"
+msgstr ""
+
+#: src/uagent/tools/vision_deepseek.py:43 src/uagent/tools/vision_gemini.py:26
+msgid "err.missing_env"
+msgstr ""
+
+#: src/uagent/tools/vision_deepseek.py:73
+msgid "warn.empty"
+msgstr ""
+
+#: src/uagent/tools/vision_gemini.py:44
+msgid "err.not_installed"
+msgstr ""
+
+#: src/uagent/tools/vision_gemini.py:70
+msgid "err.init_client"
+msgstr ""
+
+#: src/uagent/tools/vision_gemini.py:109
+msgid "result.no_description"
+msgstr ""
+
+#: src/uagent/tools/vision_gemini.py:113
+msgid "err.analysis"
+msgstr ""
+
+#: src/uagent/tools/vision_ollama.py:42 src/uagent/tools/vision_openai.py:39
+#: src/uagent/tools/vision_runtime.py:41
+msgid "err.image_too_large"
+msgstr ""
+
+#: src/uagent/tools/vision_ollama.py:77 src/uagent/tools/vision_openai.py:109
+#: src/uagent/tools/vision_runtime.py:87
+msgid "prompt.default"
+msgstr ""
+
+#: src/uagent/tools/vision_ollama.py:86
+msgid "err.missing_env.ollama"
+msgstr ""
+
+#: src/uagent/tools/vision_ollama.py:121
+msgid "err.request_failed"
+msgstr ""
+
+#: src/uagent/tools/vision_ollama.py:134
+msgid "err.http_error"
+msgstr ""
+
+#: src/uagent/tools/vision_ollama.py:145
+msgid "err.invalid_json"
+msgstr ""
+
+#: src/uagent/tools/vision_ollama.py:161 src/uagent/tools/vision_openai.py:219
+#: src/uagent/tools/vision_runtime.py:185
+msgid "warn.empty_response"
+msgstr ""
+
+#: src/uagent/tools/vision_openai.py:139 src/uagent/tools/vision_runtime.py:100
+msgid "err.missing_env.azure"
+msgstr ""
+
+#: src/uagent/tools/vision_runtime.py:119
+msgid "err.missing_env.bedrock"
+msgstr ""
+
+#: src/uagent/tools/vision_runtime.py:135
+msgid "err.missing_env.openrouter"
+msgstr ""
+
+#: src/uagent/tools/vision_runtime.py:149
+msgid "err.missing_env.openai"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:73
+msgid "param.zip_path.description"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:81
+msgid "param.sources.description"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:89
+msgid "param.dest_dir.description"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:122
+msgid "param.max_total_uncompressed_bytes.description"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:199
+msgid "error.invalid_action"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:209
+msgid "error.zip_path_required"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:219
+msgid "error.dangerous_zip_path_rejected"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:233
+msgid "error.zip_path_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:246 src/uagent/tools/zip_ops_tool.py:379
+msgid "error.zip_not_found"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:276
+msgid "error.zip_list_failed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:289
+msgid "error.sources_required_for_create"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:304
+msgid "error.dangerous_source_rejected"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:317
+msgid "error.source_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:366
+msgid "error.zip_create_failed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:390
+msgid "error.dangerous_dest_dir_rejected"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:404
+msgid "error.dest_dir_not_allowed"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:420
+msgid "error.too_many_files_in_zip"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:433
+msgid "error.zip_too_large_to_extract"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:451
+msgid "error.dangerous_zip_entries_rejected"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:461
+msgid "confirm.extract_overwrite"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:475
+msgid "error.cancelled_by_user"
+msgstr ""
+
+#: src/uagent/tools/zip_ops_tool.py:527
+msgid "error.zip_extract_failed"
 msgstr ""
 
