@@ -7,6 +7,15 @@
 
 ## [Unreleased]
 
+## [0.5.9] - 2026-06-16
+
+### 新規追加
+- ClawHub マーケットプレイス対応: `skills_mp_search` に `source` パラメータ（`skillsmp` / `clawhub`）を追加。両方のマーケットプレイスから Agent Skill を検索・閲覧可能に。
+- skills_mp_search ツールの全30言語 i18n（15キーを全ロケールに翻訳）。
+
+### 変更
+- 全30言語の README に SkillsMP および ClawHub マーケットプレイスへのアクセス方法を追記。
+
 ## [0.5.8] - 2026-06-15
 
 ### 新規追加

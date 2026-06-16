@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.9] - 2026-06-16
+
+### Added
+- ClawHub marketplace support: `skills_mp_search` now accepts `source` parameter (`skillsmp` / `clawhub`) to search and browse community Agent Skills from either marketplace.
+- Full 30-language i18n for skills_mp_search tool (15 keys translated across all supported locales).
+
+### Changed
+- README updated in all 30 languages to document SkillsMP and ClawHub marketplace access.
+
 ## [0.5.8] - 2026-06-15
 
 ### Added
