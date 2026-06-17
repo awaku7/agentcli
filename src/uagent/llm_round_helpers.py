@@ -182,7 +182,7 @@ def _call_gemini_round(
         except Exception as e:
             attempt_429, new_client, action = _rate_limit_retry_step(
                 exception=e,
-                provider="gemini",
+                provider=provider,
                 model=depname,
                 attempt=attempt_429,
                 max_retries=max_retries_429,
