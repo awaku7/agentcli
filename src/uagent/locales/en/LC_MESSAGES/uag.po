@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-16 14:32+0900\n"
+"POT-Creation-Date: 2026-06-17 18:33+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,12 +88,15 @@ msgstr "[INFO] startup genre prompt = numeric-input"
 
 msgid ""
 "Enter the sum of numbers "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, "
-"Enter=enable all):"
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
+" Enter=enable all):"
 msgstr ""
 "Enter the sum of numbers "
-"(1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, "
-"Enter=enable all):"
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
+" Enter=enable all):"
+
+msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
+msgstr "Basic (file, env, time, prompts, skills, memory, tools control)"
 
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "Communication (Teams, Discord, Bluesky)"
@@ -549,6 +552,9 @@ msgstr "NVIDIA API key."
 msgid "DeepSeek API key."
 msgstr "DeepSeek API key."
 
+msgid "Z.AI (Zhipu AI) API key."
+msgstr "Z.AI (Zhipu AI) API key."
+
 msgid "Alibaba Cloud (Qwen) API key."
 msgstr "Alibaba Cloud (Qwen) API key."
 
@@ -673,6 +679,13 @@ msgstr ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
 
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+
 msgid "arguments must be a JSON object."
 msgstr "arguments must be a JSON object."
 
@@ -684,13 +697,6 @@ msgstr ""
 "[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
-
-msgid ""
-"[INFO] Reusing the previous result because this tool call matches an earlier"
-" one.\n"
-msgstr ""
-"[INFO] Reusing the previous result because this tool call matches an earlier"
-" one.\n"
 
 msgid ""
 "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
@@ -1038,6 +1044,15 @@ msgstr "DeepSeek presence_penalty (default: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (default: 0.0)"
 
+msgid "Z.AI (Zhipu AI) API key"
+msgstr "Z.AI (Zhipu AI) API key"
+
+msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
+msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
+
+msgid "Z.AI model name (optional, default: glm-5.2)"
+msgstr "Z.AI model name (optional, default: glm-5.2)"
+
 msgid "Alibaba Cloud (Qwen) API key"
 msgstr "Alibaba Cloud (Qwen) API key"
 
@@ -1338,6 +1353,21 @@ msgstr ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
 
+msgid ""
+"Tool genre bitmask "
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
+" Skips the interactive genre prompt when specified."
+msgstr ""
+"Tool genre bitmask "
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
+" Skips the interactive genre prompt when specified."
+
+msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+msgstr "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+
+msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+msgstr "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+
 msgid "invalid reasoning"
 msgstr "invalid reasoning"
 
@@ -1355,6 +1385,48 @@ msgstr "missing arguments"
 
 msgid "src and dst are required"
 msgstr "src and dst are required"
+
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[cp error] %(etype)s: %(err)s"
+
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] Source and destination are the same: %(path)s"
+
+msgid "[cp] Source does not exist: %(path)s"
+msgstr "[cp] Source does not exist: %(path)s"
+
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] Destination already exists: %(path)s"
+
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] Destination parent does not exist: %(path)s"
+
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] Copied: %(src)s -> %(dst)s"
+
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[mv error] %(etype)s: %(err)s"
+
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] Source and destination are the same: %(path)s"
+
+msgid "[mv] Source does not exist: %(path)s"
+msgstr "[mv] Source does not exist: %(path)s"
+
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] Destination already exists: %(path)s"
+
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] Destination parent does not exist: %(path)s"
+
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] Moved: %(src)s -> %(dst)s"
 
 msgid ""
 "[Skill execution]\n"
@@ -1979,73 +2051,3 @@ msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
 
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[cp error] %(etype)s: %(err)s"
-msgstr "[cp error] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[cp] Source and destination are the same: %(path)s"
-msgstr "[cp] Source and destination are the same: %(path)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[cp] Source does not exist: %(path)s"
-msgstr "[cp] Source does not exist: %(path)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[cp] Destination already exists: %(path)s"
-msgstr "[cp] Destination already exists: %(path)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[cp] Destination parent does not exist: %(path)s"
-msgstr "[cp] Destination parent does not exist: %(path)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[cp] Copied: %(src)s -> %(dst)s"
-msgstr "[cp] Copied: %(src)s -> %(dst)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[mv error] %(etype)s: %(err)s"
-msgstr "[mv error] %(etype)s: %(err)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[mv] Source and destination are the same: %(path)s"
-msgstr "[mv] Source and destination are the same: %(path)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[mv] Source does not exist: %(path)s"
-msgstr "[mv] Source does not exist: %(path)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[mv] Destination already exists: %(path)s"
-msgstr "[mv] Destination already exists: %(path)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[mv] Destination parent does not exist: %(path)s"
-msgstr "[mv] Destination parent does not exist: %(path)s"
-
-#: src/uagent/util_tools.py
-#, python-format
-msgid "[mv] Moved: %(src)s -> %(dst)s"
-msgstr "[mv] Moved: %(src)s -> %(dst)s"
