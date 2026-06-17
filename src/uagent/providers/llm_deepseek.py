@@ -124,12 +124,14 @@ def build_deepseek_chat_kwargs(
     req_tools: list[dict[str, Any]] | None,
     reasoning: str,
     auto_user_text: str,
+    provider: str = "deepseek",
 ) -> tuple[dict[str, Any], str | None]:
     """Build the kwargs dict for ``client.chat.completions.create``.
 
     Returns ``(chat_kwargs, effort_used)`` where ``effort_used`` is the
     resolved reasoning_effort string (or None if thinking is disabled).
     """
+    _env_prefix = "UAGENT_ZAI" if provider == "zai" else "UAGENT_DEEPSEEK"
     # Strip reasoning_content from incoming messages to avoid 400.
     # (Only relevant when reasoning_content was stored in tool-call turns.)
     clean_messages = _strip_reasoning_content_no_tool(call_messages)
@@ -173,9 +175,7 @@ def build_deepseek_chat_kwargs(
     if effort_used not in _VALID_EFFORTS:
         # temperature
         temp_env = (
-            env_get("UAGENT_DEEPSEEK_TEMPERATURE")
-            or env_get("UAGENT_TEMPERATURE")
-            or ""
+            env_get(f"{_env_prefix}_TEMPERATURE") or env_get("UAGENT_TEMPERATURE") or ""
         ).strip()
         try:
             resolved_temp = float(temp_env) if temp_env else 0.0
@@ -184,21 +184,21 @@ def build_deepseek_chat_kwargs(
         chat_kwargs["temperature"] = resolved_temp
 
         # top_p (default: 1.0)
-        top_p_env = (env_get("UAGENT_DEEPSEEK_TOP_P") or "").strip()
+        top_p_env = (env_get(f"{_env_prefix}_TOP_P") or "").strip()
         try:
             chat_kwargs["top_p"] = float(top_p_env) if top_p_env else 1.0
         except ValueError:
             chat_kwargs["top_p"] = 1.0
 
         # presence_penalty (default: 0.0)
-        pp_env = (env_get("UAGENT_DEEPSEEK_PRESENCE_PENALTY") or "").strip()
+        pp_env = (env_get(f"{_env_prefix}_PRESENCE_PENALTY") or "").strip()
         try:
             chat_kwargs["presence_penalty"] = float(pp_env) if pp_env else 0.0
         except ValueError:
             chat_kwargs["presence_penalty"] = 0.0
 
         # frequency_penalty (default: 0.0)
-        fp_env = (env_get("UAGENT_DEEPSEEK_FREQUENCY_PENALTY") or "").strip()
+        fp_env = (env_get(f"{_env_prefix}_FREQUENCY_PENALTY") or "").strip()
         try:
             chat_kwargs["frequency_penalty"] = float(fp_env) if fp_env else 0.0
         except ValueError:
@@ -523,13 +523,18 @@ def deepseek_chat_with_tools(
     retry_base: float,
     retry_cap: float,
     stream: bool = True,
+    provider: str = "deepseek",
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
-    """Run one DeepSeek chat completion round.
+    """Run one DeepSeek/z.ai chat completion round.
 
     Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
     """
     attempt_429 = 0
     tool_repair_attempted = False
+
+    # Provider-specific env var prefix and display label
+    _env_prefix = "UAGENT_ZAI" if provider == "zai" else "UAGENT_DEEPSEEK"
+    _label = "Z.AI" if provider == "zai" else "DeepSeek"
 
     _reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
     _auto_user_text = (
@@ -547,6 +552,7 @@ def deepseek_chat_with_tools(
                 req_tools=req_tools,
                 reasoning=_reasoning,
                 auto_user_text=_auto_user_text,
+                provider=provider,
             )
 
             if effort_used:
@@ -591,7 +597,7 @@ def deepseek_chat_with_tools(
         except Exception as e:
             attempt_429, new_client, action = _rate_limit_retry_step(
                 exception=e,
-                provider="deepseek",
+                provider=provider,
                 model=depname,
                 attempt=attempt_429,
                 max_retries=max_retries_429,
@@ -605,7 +611,7 @@ def deepseek_chat_with_tools(
                 continue
             if action == "give_up":
                 print(
-                    "[DeepSeek Error] "
+                    f"[{_label} Error] "
                     + _("429 retry limit (%(max_retries)s) reached.")
                     % {"max_retries": max_retries_429}
                 )
@@ -616,7 +622,7 @@ def deepseek_chat_with_tools(
             err = str(e)
             # Context window
             if "context window" in err.lower() or "exceeds the context" in err.lower():
-                print("[DeepSeek Error] " + _("Input exceeds the context window."))
+                print(f"[{_label} Error] " + _("Input exceeds the context window."))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", "", []
@@ -629,27 +635,27 @@ def deepseek_chat_with_tools(
                 ):
                     # Diagnose the problem
                     print(
-                        "[DeepSeek Error] 400 BadRequest - 'insufficient tool messages'"
+                        f"[{_label} Error] 400 BadRequest - 'insufficient tool messages'"
                     )
                     _diagnose_message_structure(call_messages)
                     # Attempt repair: strip incomplete tool-call sequences
                     if _repair_incomplete_tool_sequences(call_messages):
                         tool_repair_attempted = True
                         print(
-                            "[DeepSeek] Repaired incomplete tool sequences, retrying...",
+                            f"[{_label}] Repaired incomplete tool sequences, retrying...",
                             file=sys.stderr,
                         )
                         continue  # Retry with repaired messages
                     # Repair didn't change anything; fall through to normal error
                     print(
-                        "[DeepSeek] Repair did not change messages, giving up.",
+                        f"[{_label}] Repair did not change messages, giving up.",
                         file=sys.stderr,
                     )
-                print("[DeepSeek Error] 400 BadRequest")
+                print(f"[{_label} Error] 400 BadRequest")
                 print(f"Error code: 400 - {e}")
                 return False, client, "", "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
-                print("[DeepSeek Error] " + _("Connection error"))
+                print(f"[{_label} Error] " + _("Connection error"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
                 return False, client, "", "", []
@@ -660,7 +666,7 @@ def deepseek_chat_with_tools(
                 return False, client, "", "", []
 
             print(
-                "[DeepSeek Error] "
+                f"[{_label} Error] "
                 + _("An error occurred while generating a response.")
             )
             _maybe_print_certifi_where(e)

@@ -22,7 +22,7 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
     print(_("[INFO] startup genre prompt = numeric-input"), file=sys.stderr)
 
     prompt = _(
-        "Enter the sum of numbers (1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all, Enter=enable all):"
+        "Enter the sum of numbers (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all, Enter=enable all):"
     )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
@@ -34,11 +34,11 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
         try:
             raw = input().strip()
         except EOFError:
-            return 127
+            return 255
         except Exception:
-            return 127
+            return 255
         if not raw:
-            return 127
+            return 255
         try:
             value = int(raw, 10)
         except Exception:
@@ -66,10 +66,19 @@ def _prompt_startup_tool_genre_mask() -> int:
         return _prompt_startup_tool_genre_mask_fallback()
 
     choices = [
+        ("basic", _("Basic (file, env, time, prompts, skills, memory, tools control)")),
         ("comm", _("Communication (Teams, Discord, Bluesky)")),
         ("office", _("Office (Excel, Word, PDF, PPT, document extraction)")),
-        ("devel", _("Development (lint, test, git, DB, screenshot, browser, binary, compile)")),
-        ("iot", _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)")),
+        (
+            "devel",
+            _(
+                "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+            ),
+        ),
+        (
+            "iot",
+            _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"),
+        ),
         ("exec", _("Execution (cmd, python, pwsh, bash, sub-agent)")),
         ("external", _("External (A2A, MCP, fetch, search web)")),
         ("media", _("Media (image gen/edit/analyze, audio, QR code)")),
@@ -102,24 +111,26 @@ def _prompt_startup_tool_genre_mask() -> int:
         return _prompt_startup_tool_genre_mask_fallback()
 
     if result is None:
-        return 127
+        return 255
 
     mask = 0
     for key in result:
-        if key == "comm":
+        if key == "basic":
             mask |= 1
-        elif key == "office":
+        elif key == "comm":
             mask |= 2
-        elif key == "devel":
+        elif key == "office":
             mask |= 4
-        elif key == "iot":
+        elif key == "devel":
             mask |= 8
-        elif key == "exec":
+        elif key == "iot":
             mask |= 16
-        elif key == "external":
+        elif key == "exec":
             mask |= 32
-        elif key == "media":
+        elif key == "external":
             mask |= 64
+        elif key == "media":
+            mask |= 128
     return mask
 
 
@@ -129,6 +140,7 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
 
     from .i18n import _
     from .tools.genre_control_tool import (
+        _set_basic_tools_enabled,
         _set_comm_tools_enabled,
         _set_devel_tools_enabled,
         _set_exec_tools_enabled,
@@ -139,18 +151,19 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
     )
 
     enabled_specs = [
-        (1, _set_comm_tools_enabled),
-        (2, _set_office_tools_enabled),
-        (4, _set_devel_tools_enabled),
+        (1, _set_basic_tools_enabled),
+        (2, _set_comm_tools_enabled),
+        (4, _set_office_tools_enabled),
+        (8, _set_devel_tools_enabled),
     ]
     if _set_iot_tools_enabled is not None:
-        enabled_specs.append((8, _set_iot_tools_enabled))
+        enabled_specs.append((16, _set_iot_tools_enabled))
     if _set_exec_tools_enabled is not None:
-        enabled_specs.append((16, _set_exec_tools_enabled))
+        enabled_specs.append((32, _set_exec_tools_enabled))
     if _set_external_tools_enabled is not None:
-        enabled_specs.append((32, _set_external_tools_enabled))
+        enabled_specs.append((64, _set_external_tools_enabled))
     if _set_media_tools_enabled is not None:
-        enabled_specs.append((64, _set_media_tools_enabled))
+        enabled_specs.append((128, _set_media_tools_enabled))
 
     for bit, setter in enabled_specs:
         if not (mask & bit):
@@ -173,6 +186,7 @@ def run_cli_startup(
     env_workdir,
     initial_file_arg,
     non_interactive: bool,
+    tool_genre_mask: int | None = None,
 ) -> CliStartupState:
     import io
     import os
@@ -326,9 +340,11 @@ def run_cli_startup(
             except Exception:
                 pass
 
-            if not non_interactive:
-                tool_genre_mask = _prompt_startup_tool_genre_mask()
+            if tool_genre_mask is not None:
                 _apply_startup_tool_genre_mask(tool_genre_mask)
+            elif not non_interactive:
+                _tool_genre_mask = _prompt_startup_tool_genre_mask()
+                _apply_startup_tool_genre_mask(_tool_genre_mask)
 
             core.set_status(False, "")
 

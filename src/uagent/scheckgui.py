@@ -962,6 +962,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Tools menu (genre selection, only when idle)
         try:
             from .tools.genre_control_tool import (
+                _set_basic_tools_enabled,
                 _set_comm_tools_enabled,
                 _set_devel_tools_enabled,
                 _set_exec_tools_enabled,
@@ -974,18 +975,53 @@ class MainWindow(QtWidgets.QMainWindow):
             tools_menu = self.menuBar().addMenu(_("Tools"))
 
             genre_items = [
-                ("comm", _("Communication (Teams, Discord, Bluesky)"), _set_comm_tools_enabled),
-                ("office", _("Office (Excel, Word, PDF, PPT, document extraction)"), _set_office_tools_enabled),
-                ("devel", _("Development (lint, test, git, DB, screenshot, browser, binary, compile)"), _set_devel_tools_enabled),
+                (
+                    "basic",
+                    _(
+                        "Basic (file, env, time, prompts, skills, memory, tools control)"
+                    ),
+                    _set_basic_tools_enabled,
+                ),
+                (
+                    "comm",
+                    _("Communication (Teams, Discord, Bluesky)"),
+                    _set_comm_tools_enabled,
+                ),
+                (
+                    "office",
+                    _("Office (Excel, Word, PDF, PPT, document extraction)"),
+                    _set_office_tools_enabled,
+                ),
+                (
+                    "devel",
+                    _(
+                        "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+                    ),
+                    _set_devel_tools_enabled,
+                ),
+                (
+                    "iot",
+                    _(
+                        "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+                    ),
+                    _set_iot_tools_enabled,
+                ),
+                (
+                    "exec",
+                    _("Execution (cmd, python, pwsh, bash, sub-agent)"),
+                    _set_exec_tools_enabled,
+                ),
+                (
+                    "external",
+                    _("External (A2A, MCP, fetch, search web)"),
+                    _set_external_tools_enabled,
+                ),
+                (
+                    "media",
+                    _("Media (image gen/edit/analyze, audio, QR code)"),
+                    _set_media_tools_enabled,
+                ),
             ]
-            if _set_iot_tools_enabled:
-                genre_items.append(("iot", _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"), _set_iot_tools_enabled))
-            if _set_exec_tools_enabled:
-                genre_items.append(("exec", _("Execution (cmd, python, pwsh, bash, sub-agent)"), _set_exec_tools_enabled))
-            if _set_external_tools_enabled:
-                genre_items.append(("external", _("External (A2A, MCP, fetch, search web)"), _set_external_tools_enabled))
-            if _set_media_tools_enabled:
-                genre_items.append(("media", _("Media (image gen/edit/analyze, audio, QR code)"), _set_media_tools_enabled))
 
             self._genre_actions = {}
             for key, label, setter in genre_items:
@@ -1000,6 +1036,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 is_busy = bool(getattr(core, "status_busy", False))
                 for act in self._genre_actions.values():
                     act.setEnabled(not is_busy)
+
             self._tools_menu_timer = QtCore.QTimer()
             self._tools_menu_timer.timeout.connect(_update_tools_menu_state)
             self._tools_menu_timer.start(500)  # check every 500ms
@@ -1873,6 +1910,26 @@ def main():
         dest="workdir",
         help="Specify the working directory. If omitted, use the UAGENT_WORKDIR environment variable or the current directory.",
     )
+    parser.add_argument(
+        "--tool-genre-mask",
+        type=int,
+        default=None,
+        help="Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all). Skips the interactive genre prompt when specified.",
+    )
+    parser.add_argument(
+        "--use-tool",
+        dest="use_tool",
+        action="store_true",
+        default=None,
+        help="Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var).",
+    )
+    parser.add_argument(
+        "--no-use-tool",
+        dest="use_tool",
+        action="store_false",
+        default=None,
+        help="Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var).",
+    )
     args, unknown = parser.parse_known_args()
 
     decision = _runtime_init.decide_workdir(
@@ -1883,6 +1940,22 @@ def main():
     _runtime_init.reload_dotenv_custom()
 
     _runtime_init.validate_or_exit_startup_env(context="gui")
+
+    if getattr(args, "tool_genre_mask", None) is not None:
+        from .cli_startup import _apply_startup_tool_genre_mask
+
+        _apply_startup_tool_genre_mask(args.tool_genre_mask)
+
+    # Initialize runtime tools_enabled flag.
+    # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
+    from .env_utils import env_get as _env_get
+
+    _use_tool_arg = getattr(args, "use_tool", None)
+    if _use_tool_arg is not None:
+        core.tools_enabled = bool(_use_tool_arg)
+    else:
+        _use_tool_env = (_env_get("UAGENT_USE_TOOL") or "").strip().lower()
+        core.tools_enabled = _use_tool_env not in ("0", "false", "no", "off")
 
     prov = (os.environ.get("UAGENT_PROVIDER") or "azure").lower()
     model = ""

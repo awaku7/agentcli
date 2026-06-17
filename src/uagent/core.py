@@ -150,6 +150,10 @@ print_lock = threading.RLock()
 status_busy = False  # True while LLM/tools are processing
 status_label = ""  # e.g. "LLM" or "tool:cmd_exec"
 
+# Runtime flag to enable/disable tool sending to LLM across all providers.
+# Initialized from UAGENT_USE_TOOL env var; can be toggled at runtime via :tools on/off.
+tools_enabled = True
+
 # Remember the last selected reasoning effort so CUI prompt can show it even when
 # status lines are not printed (e.g., when stderr is not a TTY).
 # Example stored values: "LLM:auto->low", "LLM:medium"
@@ -1021,6 +1025,7 @@ def shrink_messages(
         return list(messages)
 
     trimmed_others = others[-keep_last:]
+    trimmed_others = _fix_tool_call_boundaries(trimmed_others)
     print(
         _(
             "[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d messages (keep_last=%(keep_last)d)"
@@ -1037,11 +1042,106 @@ def shrink_messages(
     return new_messages
 
 
+def _fix_tool_call_boundaries(
+    msgs: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Fix message list boundaries so it doesn't start or end mid-tool-call.
+
+    - Drop leading ``tool`` messages whose corresponding assistant tool_calls
+      were truncated away.
+    - Drop trailing assistant messages that have ``tool_calls`` but whose
+      ``tool`` responses were truncated away.
+    - Also drop leading assistant messages that have ``tool_calls`` but whose
+      ``tool`` responses were truncated away.
+    """
+    if not msgs:
+        return msgs
+
+    result = list(msgs)
+
+    # ---- Fix leading edge ----
+    # Remove leading tool messages that have no preceding assistant with tool_calls.
+    while result:
+        first = result[0]
+        if first.get("role") == "tool":
+            result.pop(0)
+            continue
+        # If the first message is an assistant with tool_calls but the
+        # following tool responses are missing, drop it too.
+        if first.get("role") == "assistant" and first.get("tool_calls"):
+            # Check if all tool_call IDs have matching tool messages.
+            tc_ids = set()
+            for tc in first.get("tool_calls") or []:
+                tc_id = tc.get("id") if isinstance(tc, dict) else None
+                if tc_id:
+                    tc_ids.add(tc_id)
+            if tc_ids:
+                # Find matching tool messages in the next few messages.
+                found_ids = set()
+                for m in result[1:]:
+                    if m.get("role") == "tool" and m.get("tool_call_id") in tc_ids:
+                        found_ids.add(m["tool_call_id"])
+                    elif m.get("role") != "tool":
+                        break
+                missing = tc_ids - found_ids
+                if missing:
+                    # Drop the assistant message and any partial tool responses.
+                    result.pop(0)
+                    while result and result[0].get("role") == "tool":
+                        result.pop(0)
+                    continue
+        break
+
+    # ---- Fix trailing edge ----
+    # Remove trailing assistant messages with tool_calls that have no tool responses.
+    while result:
+        last = result[-1]
+        if last.get("role") == "assistant" and last.get("tool_calls"):
+            tc_ids = set()
+            for tc in last.get("tool_calls") or []:
+                tc_id = tc.get("id") if isinstance(tc, dict) else None
+                if tc_id:
+                    tc_ids.add(tc_id)
+            if tc_ids:
+                # Check if there are matching tool messages after this assistant.
+                found_ids = set()
+                for m in reversed(result[:-1]):
+                    if m.get("role") == "tool" and m.get("tool_call_id") in tc_ids:
+                        found_ids.add(m["tool_call_id"])
+                missing = tc_ids - found_ids
+                if missing:
+                    result.pop()
+                    continue
+        # Remove trailing tool messages whose assistant was removed.
+        if last.get("role") == "tool":
+            # Check if there's a preceding assistant with matching tool_call_id.
+            tool_id = last.get("tool_call_id")
+            has_match = False
+            for m in reversed(result[:-1]):
+                if m.get("role") == "assistant" and m.get("tool_calls"):
+                    for tc in m.get("tool_calls") or []:
+                        tc_id = tc.get("id") if isinstance(tc, dict) else None
+                        if tc_id == tool_id:
+                            has_match = True
+                            break
+                    if has_match:
+                        break
+                if m.get("role") != "tool":
+                    break
+            if not has_match:
+                result.pop()
+                continue
+        break
+
+    return result
+
+
 def compress_history_with_llm(
     client: Any,
     depname: str,
     messages: list[dict[str, Any]],
     keep_last: int = 20,
+    use_responses_api: bool = False,
 ) -> list[dict[str, Any]]:
     """
     Launch another LLM context to summarize old user/assistant/tool messages
@@ -1087,7 +1187,6 @@ def compress_history_with_llm(
     if initial_chunk_size <= 0:
         initial_chunk_size = 20
 
-    use_responses_api = env_get("UAGENT_RESPONSES", "").lower() in ("1", "true")
     max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
     retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
     retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))

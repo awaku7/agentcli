@@ -58,6 +58,16 @@ _cli_workdir = _startup_args.get("workdir")
 _env_workdir = env_get("UAGENT_WORKDIR")
 
 UAGENT_NON_INTERACTIVE = bool(_startup_args.get("non_interactive"))
+UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
+
+# Initialize runtime tools_enabled flag.
+# Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
+_use_tool_arg = _startup_args.get("use_tool")
+if _use_tool_arg is not None:
+    core.tools_enabled = bool(_use_tool_arg)
+else:
+    _use_tool_env = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
+    core.tools_enabled = _use_tool_env not in ("0", "false", "no", "off")
 
 
 # NOTE(Mode A): workdir initialization (mkdir/chdir + startup info) is performed inside main()
@@ -340,6 +350,7 @@ def _can_use_textarea() -> bool:
     try:
         from prompt_toolkit.widgets import TextArea  # noqa: F401
         from prompt_toolkit.application import Application  # noqa: F401
+
         return sys.stdin.isatty()
     except ImportError:
         return False
@@ -377,9 +388,7 @@ def _multiline_editor(initial_text: str = "") -> str | None:
     )
 
     footer = Window(
-        FormattedTextControl(
-            " [multiline] Ctrl+X: send  |  Esc: cancel"
-        ),
+        FormattedTextControl(" [multiline] Ctrl+X: send  |  Esc: cancel"),
         height=1,
         align=WindowAlign.LEFT,
         style="bg:#444444 #ffffff",
@@ -847,6 +856,7 @@ def main() -> None:
         env_workdir=_env_workdir,
         initial_file_arg=INITIAL_FILE_ARG,
         non_interactive=UAGENT_NON_INTERACTIVE,
+        tool_genre_mask=UAGENT_TOOL_GENRE_MASK,
     )
 
     provider = startup.provider

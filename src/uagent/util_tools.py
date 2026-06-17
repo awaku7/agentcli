@@ -218,6 +218,28 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
             "Non-interactive mode. Do not start the stdin loop; exit after processing the startup file (if any)."
         ),
     )
+    parser.add_argument(
+        "--tool-genre-mask",
+        type=int,
+        default=None,
+        help=_(
+            "Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all). Skips the interactive genre prompt when specified."
+        ),
+    )
+    parser.add_argument(
+        "--use-tool",
+        dest="use_tool",
+        action="store_true",
+        default=None,
+        help=_("Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
+    )
+    parser.add_argument(
+        "--no-use-tool",
+        dest="use_tool",
+        action="store_false",
+        default=None,
+        help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
+    )
     args, unknown = parser.parse_known_args()
     return vars(args), unknown
 
@@ -660,9 +682,7 @@ def _handle_cmd_cp(arg: str, *, tr: Any) -> bool:
             return True
 
         if not src.exists():
-            print(
-                tr("[cp] Source does not exist: %(path)s") % {"path": str(src)}
-            )
+            print(tr("[cp] Source does not exist: %(path)s") % {"path": str(src)})
             return True
 
         if src.is_dir():
@@ -734,9 +754,7 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
             return True
 
         if not src.exists():
-            print(
-                tr("[mv] Source does not exist: %(path)s") % {"path": str(src)}
-            )
+            print(tr("[mv] Source does not exist: %(path)s") % {"path": str(src)})
             return True
 
         if target.exists():
@@ -759,8 +777,7 @@ def _handle_cmd_mv(arg: str, *, tr: Any) -> bool:
 
         os.replace(src, target)
         print(
-            tr("[mv] Moved: %(src)s -> %(dst)s")
-            % {"src": str(src), "dst": str(target)}
+            tr("[mv] Moved: %(src)s -> %(dst)s") % {"src": str(src), "dst": str(target)}
         )
         return True
     except Exception as e:
@@ -1729,11 +1746,27 @@ def _handle_cmd_shrink_llm(
                 % {"arg": arg, "keep": keep_last}
             )
 
+    _use_responses = (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in (
+        "1",
+        "true",
+    )
+    # Mirror the main-flow guard: only providers in RESPONSES_PROVIDERS
+    # can actually use the Responses API.  Gemini/Claude/DeepSeek etc.
+    # are routed to their own branches inside compress_history_with_llm
+    # regardless, so we just need to prevent a 404 on unsupported providers.
+    if _use_responses:
+        from .providers.provider_caps import RESPONSES_PROVIDERS
+
+        _provider = (env_get("UAGENT_PROVIDER", "") or "").strip().lower()
+        if _provider not in RESPONSES_PROVIDERS:
+            _use_responses = False
+
     new_messages = core.compress_history_with_llm(
         client=client,
         depname=depname,
         messages=messages_ref,
         keep_last=keep_last,
+        use_responses_api=_use_responses,
     )
     messages_ref.clear()
     messages_ref.extend(new_messages)
@@ -1741,11 +1774,16 @@ def _handle_cmd_shrink_llm(
     return True
 
 
-def _handle_cmd_tokens(messages_ref: list[dict[str, Any]], *, core: Any) -> bool:
+def _handle_cmd_tokens(
+    messages_ref: list[dict[str, Any]],
+    *,
+    core: Any,
+    depname: str = "",
+) -> bool:
     try:
         from .llm_message_helpers import _count_messages_tokens
 
-        total_tokens = _count_messages_tokens(messages_ref)
+        total_tokens = _count_messages_tokens(messages_ref, depname or None)
     except Exception as e:
         print(f"[tokens error] {type(e).__name__}: {e}")
         return True
@@ -2146,6 +2184,18 @@ def handle_command(
 
     if cmd == "tools":
         if arg and arg.strip():
+            parts = arg.strip().split()
+            sub = parts[0].lower()
+            # ":tools on" / ":tools off" (no extra args) => global tool toggle.
+            # ":tools on iot" / ":tools off comm" etc. => genre enable/disable + global sync.
+            if sub in ("on", "off") and len(parts) == 1:
+                core.tools_enabled = sub == "on"
+                state = "ON" if core.tools_enabled else "OFF"
+                print(f"[tools] Tool sending to LLM is now {state}")
+                return CommandResult()
+            # ":tools on <genre>" => enable genre, also re-enable global tool sending.
+            if sub == "on" and len(parts) >= 2:
+                core.tools_enabled = True
             # Try dynamic subcommands (e.g., on comm, off comm, list)
             res = tools.handle_dynamic_command(
                 "tools",
@@ -2184,7 +2234,7 @@ def handle_command(
         return _handle_cmd_shrink_llm(arg, messages_ref, client, depname, core=core)
 
     if cmd == "tokens":
-        return _handle_cmd_tokens(messages_ref, core=core)
+        return _handle_cmd_tokens(messages_ref, core=core, depname=depname)
 
     if cmd == "mem-list":
         return _handle_cmd_mem_list(tr=tr)

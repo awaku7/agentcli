@@ -25,7 +25,7 @@ from fastapi import (
     WebSocket,
     WebSocketDisconnect,
 )
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -928,15 +928,58 @@ async def get_tool_genres():
     """Return list of available genres and their current enabled state."""
     return {
         "genres": [
-            {"key": "comm", "label": _("Communication (Teams, Discord, Bluesky)"), "enabled": _genre_enabled.get("comm", False)},
-            {"key": "office", "label": _("Office (Excel, Word, PDF, PPT, document extraction)"), "enabled": _genre_enabled.get("office", False)},
-            {"key": "devel", "label": _("Development (lint, test, git, DB, screenshot, browser, binary, compile)"), "enabled": _genre_enabled.get("devel", False)},
-            {"key": "iot", "label": _("IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"), "enabled": _genre_enabled.get("iot", False)},
-            {"key": "exec", "label": _("Execution (cmd, python, pwsh, bash, sub-agent)"), "enabled": _genre_enabled.get("exec", False)},
-            {"key": "external", "label": _("External (A2A, MCP, fetch, search web)"), "enabled": _genre_enabled.get("external", False)},
-            {"key": "media", "label": _("Media (image gen/edit/analyze, audio, QR code)"), "enabled": _genre_enabled.get("media", False)},
+            {
+                "key": "basic",
+                "label": _(
+                    "Basic (file, env, time, prompts, skills, memory, tools control)"
+                ),
+                "enabled": _genre_enabled.get("basic", False),
+            },
+            {
+                "key": "comm",
+                "label": _("Communication (Teams, Discord, Bluesky)"),
+                "enabled": _genre_enabled.get("comm", False),
+            },
+            {
+                "key": "office",
+                "label": _("Office (Excel, Word, PDF, PPT, document extraction)"),
+                "enabled": _genre_enabled.get("office", False),
+            },
+            {
+                "key": "devel",
+                "label": _(
+                    "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+                ),
+                "enabled": _genre_enabled.get("devel", False),
+            },
+            {
+                "key": "iot",
+                "label": _(
+                    "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+                ),
+                "enabled": _genre_enabled.get("iot", False),
+            },
+            {
+                "key": "exec",
+                "label": _("Execution (cmd, python, pwsh, bash, sub-agent)"),
+                "enabled": _genre_enabled.get("exec", False),
+            },
+            {
+                "key": "external",
+                "label": _("External (A2A, MCP, fetch, search web)"),
+                "enabled": _genre_enabled.get("external", False),
+            },
+            {
+                "key": "media",
+                "label": _("Media (image gen/edit/analyze, audio, QR code)"),
+                "enabled": _genre_enabled.get("media", False),
+            },
         ],
-        "busy": web_manager.status.get("busy", False) if hasattr(web_manager, "status") else False,
+        "busy": (
+            web_manager.status.get("busy", False)
+            if hasattr(web_manager, "status")
+            else False
+        ),
     }
 
 
@@ -944,6 +987,7 @@ async def get_tool_genres():
 async def set_tool_genre(req: Request):
     """Toggle a tool genre on/off. Only allowed when idle."""
     from .tools.genre_control_tool import (
+        _set_basic_tools_enabled,
         _set_comm_tools_enabled,
         _set_devel_tools_enabled,
         _set_exec_tools_enabled,
@@ -962,26 +1006,27 @@ async def set_tool_genre(req: Request):
     if busy:
         return JSONResponse(
             status_code=409,
-            content={"error": "Cannot change genres while busy. Wait for the current task to complete."},
+            content={
+                "error": "Cannot change genres while busy. Wait for the current task to complete."
+            },
         )
 
     setters = {
+        "basic": _set_basic_tools_enabled,
         "comm": _set_comm_tools_enabled,
         "office": _set_office_tools_enabled,
         "devel": _set_devel_tools_enabled,
+        "iot": _set_iot_tools_enabled,
+        "exec": _set_exec_tools_enabled,
+        "external": _set_external_tools_enabled,
+        "media": _set_media_tools_enabled,
     }
-    if _set_iot_tools_enabled:
-        setters["iot"] = _set_iot_tools_enabled
-    if _set_exec_tools_enabled:
-        setters["exec"] = _set_exec_tools_enabled
-    if _set_external_tools_enabled:
-        setters["external"] = _set_external_tools_enabled
-    if _set_media_tools_enabled:
-        setters["media"] = _set_media_tools_enabled
 
     setter = setters.get(genre)
     if not setter:
-        return JSONResponse(status_code=400, content={"error": f"Unknown genre: {genre}"})
+        return JSONResponse(
+            status_code=400, content={"error": f"Unknown genre: {genre}"}
+        )
 
     try:
         msg = setter(enabled)
@@ -989,6 +1034,33 @@ async def set_tool_genre(req: Request):
         return {"ok": True, "genre": genre, "enabled": enabled, "message": msg}
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+@app.get("/api/tools-enabled")
+async def get_tools_enabled():
+    """Return whether tool sending to LLM is currently enabled."""
+    return {"enabled": bool(getattr(core, "tools_enabled", True))}
+
+
+@app.post("/api/tools-enabled")
+async def set_tools_enabled(req: Request):
+    """Toggle tool sending to LLM on/off. Only allowed when idle."""
+    if bool(getattr(core, "status_busy", False)):
+        return JSONResponse(
+            status_code=409,
+            content={
+                "error": "Cannot change tools-enabled while busy. Wait for the current task to complete."
+            },
+        )
+    body = await req.json()
+    enabled = bool(body.get("enabled", True))
+    core.tools_enabled = enabled
+    state = "ON" if enabled else "OFF"
+    return {
+        "ok": True,
+        "enabled": enabled,
+        "message": f"Tool sending to LLM is now {state}",
+    }
 
 
 @app.websocket("/ws")
@@ -1101,6 +1173,35 @@ def init_web():
 
 
 def main():
+    import argparse
+
+    from .i18n import _
+
+    parser = argparse.ArgumentParser(prog="uagw", add_help=False)
+    parser.add_argument(
+        "--tool-genre-mask",
+        type=int,
+        default=None,
+        help=_(
+            "Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all). Skips the interactive genre prompt when specified."
+        ),
+    )
+    parser.add_argument(
+        "--use-tool",
+        dest="use_tool",
+        action="store_true",
+        default=None,
+        help=_("Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
+    )
+    parser.add_argument(
+        "--no-use-tool",
+        dest="use_tool",
+        action="store_false",
+        default=None,
+        help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
+    )
+    web_args, _web_unknown = parser.parse_known_args()
+
     try:
         from .readme_util import (
             maybe_print_quickstart_on_first_run,
@@ -1130,6 +1231,20 @@ def main():
     except Exception as e:
         print(_("[FATAL] Failed to set workdir: %(err)s") % {"err": e}, file=sys.stderr)
         sys.exit(1)
+
+    if web_args.tool_genre_mask is not None:
+        from .cli_startup import _apply_startup_tool_genre_mask
+
+        _apply_startup_tool_genre_mask(web_args.tool_genre_mask)
+
+    # Initialize runtime tools_enabled flag.
+    # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
+    _use_tool_arg = getattr(web_args, "use_tool", None)
+    if _use_tool_arg is not None:
+        core.tools_enabled = bool(_use_tool_arg)
+    else:
+        _use_tool_env = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
+        core.tools_enabled = _use_tool_env not in ("0", "false", "no", "off")
 
     init_web()
     import socket

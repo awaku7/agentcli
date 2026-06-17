@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import sys
 from typing import Any, AsyncIterator, Optional
 from uuid import uuid4
 
@@ -244,6 +245,26 @@ def main(argv: Optional[list[str]] = None) -> None:
         action="store_true",
         default=_bool_env("UAGENT_A2A_RELOAD", False),
     )
+    parser.add_argument(
+        "--tool-genre-mask",
+        type=int,
+        default=None,
+        help="Tool genre bitmask (1=comm,2=office,4=devel,8=iot,16=exec,32=external,64=media,127=all). Skips the interactive genre prompt when specified.",
+    )
+    parser.add_argument(
+        "--use-tool",
+        dest="use_tool",
+        action="store_true",
+        default=None,
+        help="Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var).",
+    )
+    parser.add_argument(
+        "--no-use-tool",
+        dest="use_tool",
+        action="store_false",
+        default=None,
+        help="Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var).",
+    )
 
     args = parser.parse_args(argv)
 
@@ -261,14 +282,35 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     # Tool genre selection (same dialog as CLI startup)
     try:
-        if sys.stdout.isatty():
-            from ..cli_startup import (
-                _apply_startup_tool_genre_mask,
-                _prompt_startup_tool_genre_mask,
-            )
+        from ..cli_startup import (
+            _apply_startup_tool_genre_mask,
+            _prompt_startup_tool_genre_mask,
+        )
 
+        if args.tool_genre_mask is not None:
+            _apply_startup_tool_genre_mask(args.tool_genre_mask)
+        elif sys.stdout.isatty():
             mask = _prompt_startup_tool_genre_mask()
             _apply_startup_tool_genre_mask(mask)
+    except Exception:
+        pass
+
+    # Initialize runtime tools_enabled flag.
+    # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
+    try:
+        from .. import core as _core_module
+
+        _use_tool_arg = getattr(args, "use_tool", None)
+        if _use_tool_arg is not None:
+            _core_module.tools_enabled = bool(_use_tool_arg)
+        else:
+            _use_tool_env = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
+            _core_module.tools_enabled = _use_tool_env not in (
+                "0",
+                "false",
+                "no",
+                "off",
+            )
     except Exception:
         pass
 

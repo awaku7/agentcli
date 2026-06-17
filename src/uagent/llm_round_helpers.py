@@ -155,6 +155,7 @@ def _call_gemini_round(
     retry_cap: float,
     stream_responses: bool,
     force_thinking_level: str | None = None,
+    send_tools: bool = True,
 ) -> Any:
     attempt_429 = 0
     gemini_content_dump: dict[str, Any] = {}
@@ -172,6 +173,7 @@ def _call_gemini_round(
                     stream=stream_responses,
                     core=core,
                     force_thinking_level=force_thinking_level,
+                    send_tools=send_tools,
                 )
             )
             break
@@ -236,6 +238,7 @@ def _call_claude_round(
     max_retries_429: int,
     retry_base: float,
     retry_cap: float,
+    send_tools: bool = True,
 ) -> Any:
     attempt_429 = 0
     assistant_text = ""
@@ -282,6 +285,7 @@ def _call_claude_round(
                     output_config=_claude_out_cfg,
                     on_output_config_info=_on_output_config_info,
                     on_output_config_fallback=lambda m: print(m),
+                    send_tools=send_tools,
                 )
             )
             break
@@ -328,7 +332,7 @@ def _call_openai_azure_round(
     call_maybe_thread_fn: Any,
     use_responses_api: bool,
     stream_responses: bool,
-    send_tools_this_round: bool,
+    send_tools_this_round: bool | None = None,
     max_retries_429: int,
     retry_base: float,
     retry_cap: float,
@@ -339,7 +343,10 @@ def _call_openai_azure_round(
     tool_calls_list: list[dict[str, Any]] = []
     resp = None
 
-    send_tools_this_round = _env_default_on("UAGENT_USE_TOOL")
+    # Respect the caller's send_tools_this_round (which reflects core.tools_enabled).
+    # Only fall back to env var if the caller didn't set it.
+    if send_tools_this_round is None:
+        send_tools_this_round = _env_default_on("UAGENT_USE_TOOL")
 
     while True:
         try:
@@ -542,6 +549,8 @@ def _call_openai_azure_round(
                     temp_env = env_get("UAGENT_NVIDIA_TEMPERATURE") or ""
                 elif provider == "grok":
                     temp_env = env_get("UAGENT_GROK_TEMPERATURE") or ""
+                elif provider == "zai":
+                    temp_env = env_get("UAGENT_ZAI_TEMPERATURE") or ""
 
                 if not temp_env:
                     temp_env = env_get("UAGENT_TEMPERATURE") or ""
@@ -740,6 +749,7 @@ def _call_deepseek_round(
     max_retries_429: int,
     retry_base: float,
     retry_cap: float,
+    provider: str = "deepseek",
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
     """Thin wrapper: delegates to providers/llm_deepseek.py.
 
@@ -758,4 +768,5 @@ def _call_deepseek_round(
         retry_base=retry_base,
         retry_cap=retry_cap,
         stream=stream,
+        provider=provider,
     )

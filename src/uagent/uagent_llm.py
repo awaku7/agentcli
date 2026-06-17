@@ -50,6 +50,7 @@ from .llm_flow_helpers import (
     _handle_openai_empty_no_tool,
     _execute_tool_calls,
 )
+from . import core as _core_module
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
 from .tools import llm_tool_narrowing as _llm_tool_narrowing
@@ -116,24 +117,6 @@ def run_llm_rounds(
         while True:
             round_count += 1
 
-            gemini_cache_name = _maybe_auto_shrink_messages(
-                provider=provider,
-                client=client,
-                depname=depname,
-                messages=messages,
-                core=core,
-                cache_mgr=cache_mgr,
-                gemini_cache_name=gemini_cache_name,
-                call_maybe_thread_fn=_call_maybe_thread_fn,
-            )
-
-            if round_count > max_tool_rounds:
-                print(
-                    _("[WARN] Tool rounds exceeded %(max)d; aborting.")
-                    % {"max": max_tool_rounds}
-                )
-                break
-
             # Optional translation layer (off by default).
             # We keep the original `messages` history unchanged and create a translated
             # copy only for the LLM call.
@@ -157,7 +140,26 @@ def run_llm_rounds(
             if provider not in RESPONSES_PROVIDERS:
                 use_responses_api = False
 
-            send_tools_this_round = True
+            gemini_cache_name = _maybe_auto_shrink_messages(
+                provider=provider,
+                client=client,
+                depname=depname,
+                messages=messages,
+                core=core,
+                cache_mgr=cache_mgr,
+                gemini_cache_name=gemini_cache_name,
+                call_maybe_thread_fn=_call_maybe_thread_fn,
+                use_responses_api=use_responses_api,
+            )
+
+            if round_count > max_tool_rounds:
+                print(
+                    _("[WARN] Tool rounds exceeded %(max)d; aborting.")
+                    % {"max": max_tool_rounds}
+                )
+                break
+
+            send_tools_this_round = getattr(_core_module, "tools_enabled", True)
             max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
             retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
             retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))
@@ -184,6 +186,7 @@ def run_llm_rounds(
                     retry_base=retry_base,
                     retry_cap=retry_cap,
                     stream_responses=stream_responses,
+                    send_tools=send_tools_this_round,
                 )
                 if not ok:
                     return
@@ -246,6 +249,7 @@ def run_llm_rounds(
                     max_retries_429=max_retries_429,
                     retry_base=retry_base,
                     retry_cap=retry_cap,
+                    send_tools=send_tools_this_round,
                 )
                 if not ok:
                     return
@@ -292,7 +296,7 @@ def run_llm_rounds(
 
                 empty_no_tool_rounds = 0
 
-            elif provider == "deepseek":
+            elif provider in ("deepseek", "zai"):
                 ok, client, assistant_text, reasoning_content, tool_calls_list = (
                     _call_deepseek_round(
                         client=client,
@@ -301,10 +305,11 @@ def run_llm_rounds(
                         core=core,
                         make_client_fn=make_client_fn,
                         call_maybe_thread_fn=_call_maybe_thread_fn,
-                        send_tools_this_round=True,
+                        send_tools_this_round=send_tools_this_round,
                         max_retries_429=max_retries_429,
                         retry_base=retry_base,
                         retry_cap=retry_cap,
+                        provider=provider,
                     )
                 )
                 if not ok:
@@ -323,7 +328,7 @@ def run_llm_rounds(
                 ).strip().lower() not in ("0", "false", "no", "off")
 
                 # Build assistant message: reasoning_content is only carried
-                # forward when tool calls are present (DeepSeek API requirement).
+                # forward when tool calls are present (DeepSeek/z.ai API requirement).
                 deepseek_msg = build_assistant_message_with_reasoning(
                     assistant_text=assistant_text,
                     tool_calls_list=tool_calls_list,
@@ -350,7 +355,7 @@ def run_llm_rounds(
                     break
 
                 if not tool_calls_list:
-                    # DeepSeek streaming (chat completions) already printed the text;
+                    # DeepSeek/z.ai streaming (chat completions) already printed the text;
                     # skip the print but keep outfile/image side effects.
                     _emit_final_answer_if_any(
                         assistant_text=assistant_text,
@@ -448,6 +453,7 @@ def run_llm_rounds(
                 cache_mgr=cache_mgr,
                 gemini_cache_name=gemini_cache_name,
                 call_maybe_thread_fn=_call_maybe_thread_fn,
+                use_responses_api=use_responses_api,
             )
 
             core.set_status(True, "LLM")
