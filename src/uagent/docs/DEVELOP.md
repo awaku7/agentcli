@@ -38,7 +38,7 @@ Key modules:
     - `src/uagent/llm_round_helpers.py`
     - `src/uagent/llm_flow_helpers.py`
   - Retry / backoff helpers live in `src/uagent/llm_errors.py`
-- Provider wiring (OpenAI/Azure/Gemini/Claude/Vertex AI/Ollama/etc.): `src/uagent/util_providers.py`
+- Provider wiring (OpenAI/Azure/Gemini/Claude/Vertex AI/Ollama/DeepSeek/Z.AI/Alibaba/Moonshot/etc.): `src/uagent/providers/util_providers.py`
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`
 - Startup initialization: `src/uagent/runtime_init.py` (compatibility re-export)
   - `src/uagent/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
@@ -139,7 +139,16 @@ A tool may suppress the trace using the extended flag:
 
 - **Tool Level (`tool_level`)**: Specified in `TOOL_SPEC` to control tool loading. `-1` is disabled, `0` is enabled, and `1` is conditional loading (disabled by default).
 - **Tool Genre (`tool_genre`)**: Categorizes tools into `"comm"` (communication), `"office"` (Office suite), or `"devel"` (development). This must be specified at the top-level of `TOOL_SPEC`.
-- **Startup Selection**: During interactive CLI startup, users are prompted to select which tool genres to enable using a bitmask (1: comm, 2: office, 4: devel).
+- **Startup Selection**: During interactive CLI startup, users are prompted to select which tool genres to enable using a bitmask (1: comm, 2: office, 4: devel, 8: iot, 16: exec, 32: external, 64: media, 127: all).
+- **`--tool-genre-mask` CLI argument**: All entry points (CLI/GUI/Web/A2A) accept `--tool-genre-mask <int>`. When specified, the bitmask is applied directly and the interactive genre prompt is skipped. This works in both interactive and non-interactive modes. When omitted, the behavior is unchanged (interactive prompt in TTY mode, no genre selection in non-interactive mode).
+
+### 3.6.1 Tool-less mode (UAGENT_USE_TOOL / :tools on/off)
+
+- **Environment variable**: `UAGENT_USE_TOOL=0` (or `false`/`no`/`off`) disables tool sending to the LLM at startup. All providers (OpenAI/Azure, Gemini/VertexAI, Claude, DeepSeek/Z.AI) are supported.
+- **CLI argument**: `--use-tool` / `--no-use-tool` (all entry points: CLI/GUI/Web/A2A). Overrides `UAGENT_USE_TOOL` env var when specified. When neither is given, the env var (or default ON) is used.
+- **Runtime toggle (CLI)**: `:tools on` enables tool sending; `:tools off` disables it. The change takes effect from the next LLM round.
+- **Runtime toggle (Web)**: `GET /api/tools-enabled` returns the current state; `POST /api/tools-enabled` with `{"enabled": true/false}` toggles it (rejected while busy).
+- **Implementation**: The runtime flag is `core.tools_enabled` (boolean, default `True`). It is initialized from `UAGENT_USE_TOOL` at startup in all entry points and read by `uagent_llm.run_llm_rounds()` each round via `getattr(_core_module, "tools_enabled", True)`.
 
 ### 3.7 Agent Skills lifecycle
 

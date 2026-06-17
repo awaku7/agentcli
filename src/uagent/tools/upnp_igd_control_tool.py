@@ -9,11 +9,11 @@ from typing import Any
 from xml.sax.saxutils import escape as xml_escape
 
 from .i18n_helper import make_tool_translator
+from ._upnp_shared import _DEFAULT_USER_AGENT
 from .upnp_scan_tool import (
     _DEFAULT_LIMIT,
     _DEFAULT_RETRY,
     _DEFAULT_WAIT_TIMEOUT as _DEFAULT_TIMEOUT,
-    _DEFAULT_USER_AGENT,
     _normalize_int,
     run_tool as _scan_run_tool,
 )
@@ -29,6 +29,7 @@ TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
     "tool_genre": "iot",
     "type": "function",
+    "x_parallel_safe": True,
     "function": {
         "name": "upnp_igd_control",
         "description": _(

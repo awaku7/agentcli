@@ -53,13 +53,10 @@ TOOL_SPEC: dict[str, Any] = {
             "type": "object",
             "properties": {
                 "filename": {
-                    "anyOf": [
-                        {"type": "string"},
-                        {"type": "array", "items": {"type": "string"}},
-                    ],
+                    "type": "string",
                     "description": _(
                         "param.filename.description",
-                        default="Path to delete, or a list of paths/glob patterns to delete.",
+                        default="Path or glob pattern to delete.",
                     ),
                 },
                 "skip": {

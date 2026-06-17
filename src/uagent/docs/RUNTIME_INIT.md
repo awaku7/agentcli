@@ -92,7 +92,7 @@ Representative output:
 - `[INFO] provider = ...`
 - provider-specific lines:
   - `azure`: `base_url` + `api_version`
-  - `openai` / `openrouter` / `grok` / `nvidia` / `bedrock` / `ollama`: `base_url`
+  - `openai` / `openrouter` / `grok` / `nvidia` / `bedrock` / `ollama` / `deepseek` / `zai` / `alibaba` / `moonshot`: `base_url`
   - `vertexai`: `project` + `location`
 - If `UAGENT_RESPONSES=1` is set and the selected provider is not one of `azure`, `openai`, `bedrock`, `openrouter`, or `ollama` (excluding `gemini`, `claude`, and `vertexai`), a warning is appended:
   - `[WARN] UAGENT_RESPONSES=1 is set, but provider '...' does not support Responses API. Falling back to ChatCompletions.`

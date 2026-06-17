@@ -63,6 +63,7 @@ def mask_values(data: Any) -> Any:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,
     "tool_genre": "external",
     "function": {
         "name": "handle_mcp_v2",
@@ -114,17 +115,15 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
                 "args": {
-                    "anyOf": [
-                        {"type": "object", "additionalProperties": True},
-                        {"type": "string"},
-                    ],
+                    "type": "object",
+                    "additionalProperties": True,
                     "description": _(
                         "param.args.description",
-                        default="Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string.",
+                        default="Tool arguments to pass through to the MCP tool. Provide a JSON object.",
                     ),
                 },
             },
-            "required": ["tool_name", "tool_arguments"],
+            "required": ["tool_name"],
         },
     },
 }

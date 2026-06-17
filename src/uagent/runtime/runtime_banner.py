@@ -320,6 +320,19 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 )
             }
         )
+    elif provider == "zai":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get(
+                        "UAGENT_ZAI_BASE_URL",
+                        "https://api.z.ai/api/paas/v4/",
+                    ),
+                )
+            }
+        )
     elif provider == "alibaba":
         lines.append(
             _("[INFO] base_url = %(base_url)s")

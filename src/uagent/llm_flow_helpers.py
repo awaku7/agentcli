@@ -251,6 +251,70 @@ def _execute_tool_calls(
     executed_new_tool = False
     pending_auto_user_msgs: list[dict[str, Any]] = []
 
+    # ---- Phase 1: pre-execute parallel-safe tools ----
+    # Collect parallel-safe tool calls, run them concurrently, and store results.
+    _prefetched: dict[str, str] = {}  # tc_id -> tool_result
+    _parallel_batch: list[tuple[int, str, dict[str, Any]]] = (
+        []
+    )  # (idx_in_list, name, parsed_args)
+    _parallel_tc_ids: list[str] = []
+
+    for tc in tool_calls_list:
+        name = tc["function"]["name"]
+        if not tools.is_parallel_safe(name):
+            continue
+        arg_str = tc["function"].get("arguments") or "{}"
+        try:
+            parsed_args = json.loads(arg_str)
+            if not isinstance(parsed_args, dict):
+                continue
+        except Exception:
+            continue
+        _parallel_batch.append((len(_parallel_batch), name, parsed_args))
+        _parallel_tc_ids.append(tc["id"])
+
+    if _parallel_batch:
+        # Cache check: skip already-cached calls
+        to_run: list[tuple[str, dict[str, Any]]] = []
+        run_indices: list[int] = []
+        for idx, name, pargs in _parallel_batch:
+            canonical_args = json.dumps(pargs, ensure_ascii=False, sort_keys=True)
+            ck = json.dumps(
+                {"name": name, "args": canonical_args},
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+            cached = tool_result_cache.get(ck) if use_tool_result_cache else None
+            if cached is not None:
+                _prefetched[_parallel_tc_ids[idx]] = (
+                    _(
+                        "[INFO] Reusing the previous result because this tool call matches an earlier one.\n"
+                    )
+                    + cached  # noqa: E501
+                )
+            else:
+                to_run.append((name, pargs))
+                run_indices.append(idx)
+
+        if to_run:
+            core.set_status(True, "tool:parallel")
+            parallel_results = tools.run_tools_parallel(to_run)
+            for (name, pargs, result), orig_idx in zip(parallel_results, run_indices):
+                tc_id = _parallel_tc_ids[orig_idx]
+                _prefetched[tc_id] = result
+                # Populate cache
+                canonical_args = json.dumps(pargs, ensure_ascii=False, sort_keys=True)
+                ck = json.dumps(
+                    {"name": name, "args": canonical_args},
+                    ensure_ascii=False,
+                    sort_keys=True,
+                )
+                if ck not in tool_result_cache:
+                    tool_result_cache[ck] = result
+            executed_new_tool = bool(to_run)
+            core.set_status(True, "LLM")
+
+    # ---- Phase 2: sequential processing (prefetched results merged in) ----
     for tc in tool_calls_list:
         func = tc["function"]
         name = func["name"]
@@ -302,19 +366,30 @@ def _execute_tool_calls(
                     + cached
                 )
             else:
-                core.set_status(True, f"tool:{name}")
-                try:
-                    # ファイルアクセスをキャッシュ管理に記録
-                    if name == "read_file" and "filename" in parsed_args:
-                        cache_mgr.record_file_access(parsed_args["filename"])
+                # Check if this tool was already executed in the parallel phase
+                _tc_id = tc.get("id")
+                _prefetched_result = _prefetched.get(_tc_id) if _tc_id else None
+                if _prefetched_result is not None:
+                    tool_result = _prefetched_result
+                else:
+                    core.set_status(True, f"tool:{name}")
+                    try:
+                        # ファイルアクセスをキャッシュ管理に記録
+                        if name == "read_file" and "filename" in parsed_args:
+                            cache_mgr.record_file_access(parsed_args["filename"])
 
-                    tool_result = tools.run_tool(name, parsed_args)
-                except Exception as e:
-                    tb = traceback.format_exc()
-                    tool_result = _(
-                        "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
-                        default=f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
-                    ) % {"name": name, "etype": type(e).__name__, "err": e, "tb": tb}
+                        tool_result = tools.run_tool(name, parsed_args)
+                    except Exception as e:
+                        tb = traceback.format_exc()
+                        tool_result = _(
+                            "[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\nTraceback:\n%(tb)s",
+                            default=f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}\nTraceback:\n{tb}",
+                        ) % {
+                            "name": name,
+                            "etype": type(e).__name__,
+                            "err": e,
+                            "tb": tb,
+                        }
                 tool_result_cache[tool_cache_key] = tool_result
                 executed_new_tool = True
 

@@ -17,41 +17,15 @@ STATUS_LABEL = "tool:tools_control"
 
 def handle_cmd_tools_on(arg: str, **kwargs: Any) -> Any:
     a = (arg or "").strip().lower()
-    # Delegate to loaded handlers if available
-    # We can look up if there are registered handlers for "tools" subcommand "on"
-    # but to avoid circular dependencies or complex lookups, we can also import directly
-    # or let the dynamic command system handle it.
-    # However, since ":tools" is the main command, we can delegate to specific handlers.
-    if a == "comm":
-        try:
-            from .comm_control_tool import _set_comm_tools_enabled
+    try:
+        from .genre_control_tool import _set_genre_tools_enabled
 
-            return _set_comm_tools_enabled(True)
-        except ImportError:
-            pass
-    elif a == "office":
-        try:
-            from .office_control_tool import _set_office_tools_enabled
+        if a in ("comm", "office", "devel", "iot", "basic", "exec", "external", "media"):
+            return _set_genre_tools_enabled(a, True)
+    except ImportError:
+        pass
 
-            return _set_office_tools_enabled(True)
-        except ImportError:
-            pass
-    elif a == "devel":
-        try:
-            from .devel_control_tool import _set_devel_tools_enabled
-
-            return _set_devel_tools_enabled(True)
-        except ImportError:
-            pass
-    elif a == "iot":
-        try:
-            from .iot_control_tool import _set_iot_tools_enabled
-
-            return _set_iot_tools_enabled(True)
-        except ImportError:
-            pass
-
-    print("Usage: :tools on [comm|office|devel|iot]")
+    print("Usage: :tools on [comm|office|devel|iot|basic|exec|external|media]")
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -59,36 +33,15 @@ def handle_cmd_tools_on(arg: str, **kwargs: Any) -> Any:
 
 def handle_cmd_tools_off(arg: str, **kwargs: Any) -> Any:
     a = (arg or "").strip().lower()
-    if a == "comm":
-        try:
-            from .comm_control_tool import _set_comm_tools_enabled
+    try:
+        from .genre_control_tool import _set_genre_tools_enabled
 
-            return _set_comm_tools_enabled(False)
-        except ImportError:
-            pass
-    elif a == "office":
-        try:
-            from .office_control_tool import _set_office_tools_enabled
+        if a in ("comm", "office", "devel", "iot", "basic", "exec", "external", "media"):
+            return _set_genre_tools_enabled(a, False)
+    except ImportError:
+        pass
 
-            return _set_office_tools_enabled(False)
-        except ImportError:
-            pass
-    elif a == "devel":
-        try:
-            from .devel_control_tool import _set_devel_tools_enabled
-
-            return _set_devel_tools_enabled(False)
-        except ImportError:
-            pass
-    elif a == "iot":
-        try:
-            from .iot_control_tool import _set_iot_tools_enabled
-
-            return _set_iot_tools_enabled(False)
-        except ImportError:
-            pass
-
-    print("Usage: :tools off [comm|office|devel|iot]")
+    print("Usage: :tools off [comm|office|devel|iot|basic|exec|external|media]")
     from ..util_tools import CommandResult
 
     return CommandResult()

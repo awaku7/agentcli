@@ -6,7 +6,6 @@ import time
 from typing import Any
 
 from ._upnp_shared import (
-    _DEFAULT_USER_AGENT,
     _MSEARCH_ADDR,
     extract_device_items,
     extract_host,
@@ -31,6 +30,7 @@ TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
     "tool_genre": "iot",
     "type": "function",
+    "x_parallel_safe": True,
     "function": {
         "name": "upnp_scan",
         "description": _(
@@ -200,6 +200,7 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
     def _first_ipv4_for_name(target: str) -> tuple[str | None, str | None]:
         try:
             import psutil  # type: ignore
+
             for name, addrs in psutil.net_if_addrs().items():
                 if name.lower() != target:
                     continue
@@ -236,6 +237,7 @@ def _resolve_interface(interface: str | None) -> tuple[str | None, str | None]:
 
     try:
         import psutil  # type: ignore
+
         candidates: list[tuple[int, str, str]] = []
         for name, addrs in psutil.net_if_addrs().items():
             if _is_virtual_name(name):
@@ -493,9 +495,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 try:
                     body, _headers = fetch_url_text(location, timeout=desc_timeout)
                     desc_info, services, _tree = extract_device_items(body, location)
-                    item.update(
-                        {k: v for k, v in desc_info.items() if k != "services"}
-                    )
+                    item.update({k: v for k, v in desc_info.items() if k != "services"})
                     item["services"] = services
                     item["description_status"] = "ok"
                 except Exception as exc:

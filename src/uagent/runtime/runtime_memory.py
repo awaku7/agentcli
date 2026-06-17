@@ -29,7 +29,10 @@ def _format_profile(profile: dict[str, Any]) -> str:
 
     env_lines: list[str] = []
     for key in ("os", "shell", "editor"):
-        value = _clip(env.get(key))
+        raw = env.get(key)
+        if raw is None:
+            continue
+        value = _clip(raw)
         if not value:
             continue
         value_key = _profile_key(value)

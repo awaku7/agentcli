@@ -11,6 +11,7 @@ import os
 from pathlib import Path
 from dataclasses import dataclass, field
 from enum import Enum
+from threading import Lock
 from typing import Any, Dict, List, Optional
 
 from .context import get_callbacks
@@ -93,6 +94,7 @@ class DuplicateCallGuard:
 TOOL_SPEC: Dict[str, Any] = {
     "load_order": 50,
     "type": "function",
+    "x_parallel_safe": True,
     "tool_genre": "basic",
     "function": {
         "name": "run_sub_agent",
@@ -218,6 +220,9 @@ TOOL_SPEC: Dict[str, Any] = {
         },
     },
 }
+
+# Thread lock for parallel-safe os.environ manipulation in sub-agent
+_SUB_AGENT_ENV_LOCK = Lock()
 
 
 class SubAgentRunner:
@@ -462,14 +467,15 @@ class SubAgentRunner:
             scope_files=[current_file] if current_file else [],
         )
 
-        if not self.duplicate_guard.check_and_record(agent_name, task):
-            return json.dumps(
-                {
-                    "status": "blocked",
-                    "message": f"Duplicate call blocked for agent: {agent_name} with same arguments.",
-                },
-                ensure_ascii=False,
-            )
+        with _SUB_AGENT_ENV_LOCK:
+            if not self.duplicate_guard.check_and_record(agent_name, task):
+                return json.dumps(
+                    {
+                        "status": "blocked",
+                        "message": f"Duplicate call blocked for agent: {agent_name} with same arguments.",
+                    },
+                    ensure_ascii=False,
+                )
 
         cb = get_callbacks()
         agent_upper = agent_name.upper()
@@ -495,36 +501,37 @@ class SubAgentRunner:
 
         try:
             if sub_provider:
-                orig_provider = os.environ.get("UAGENT_PROVIDER")
-                os.environ["UAGENT_PROVIDER"] = sub_provider
-                orig_depname = None
-                orig_api_key = None
-                p_upper = sub_provider.upper()
-                dep_key = f"UAGENT_{p_upper}_DEPNAME"
-                key_key = f"UAGENT_{p_upper}_API_KEY"
-                if sub_depname:
-                    orig_depname = os.environ.get(dep_key)
-                    os.environ[dep_key] = sub_depname
-                if sub_api_key:
-                    orig_api_key = os.environ.get(key_key)
-                    os.environ[key_key] = sub_api_key
-                try:
-                    provider, client, model_name = make_client(cb)
-                finally:
-                    if orig_provider is not None:
-                        os.environ["UAGENT_PROVIDER"] = orig_provider
-                    else:
-                        os.environ.pop("UAGENT_PROVIDER", None)
+                with _SUB_AGENT_ENV_LOCK:
+                    orig_provider = os.environ.get("UAGENT_PROVIDER")
+                    os.environ["UAGENT_PROVIDER"] = sub_provider
+                    orig_depname = None
+                    orig_api_key = None
+                    p_upper = sub_provider.upper()
+                    dep_key = f"UAGENT_{p_upper}_DEPNAME"
+                    key_key = f"UAGENT_{p_upper}_API_KEY"
                     if sub_depname:
-                        if orig_depname is not None:
-                            os.environ[dep_key] = orig_depname
-                        else:
-                            os.environ.pop(dep_key, None)
+                        orig_depname = os.environ.get(dep_key)
+                        os.environ[dep_key] = sub_depname
                     if sub_api_key:
-                        if orig_api_key is not None:
-                            os.environ[key_key] = orig_api_key
+                        orig_api_key = os.environ.get(key_key)
+                        os.environ[key_key] = sub_api_key
+                    try:
+                        provider, client, model_name = make_client(cb)
+                    finally:
+                        if orig_provider is not None:
+                            os.environ["UAGENT_PROVIDER"] = orig_provider
                         else:
-                            os.environ.pop(key_key, None)
+                            os.environ.pop("UAGENT_PROVIDER", None)
+                        if sub_depname:
+                            if orig_depname is not None:
+                                os.environ[dep_key] = orig_depname
+                            else:
+                                os.environ.pop(dep_key, None)
+                        if sub_api_key:
+                            if orig_api_key is not None:
+                                os.environ[key_key] = orig_api_key
+                            else:
+                                os.environ.pop(key_key, None)
             else:
                 provider, client, model_name = make_client(cb)
         except Exception as exc:

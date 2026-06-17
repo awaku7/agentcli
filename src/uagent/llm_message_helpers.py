@@ -76,13 +76,18 @@ def _init_gemini_cache(
     return cache_mgr, gemini_cache_name
 
 
-def _count_messages_tokens(messages: list[dict[str, Any]]) -> int:
+# Cache for incremental token counting
+# key = id(messages_list) -> (total_tokens, last_known_length)
+_token_count_cache: dict[int, tuple[int, int]] = {}
+
+
+def _count_messages_tokens_fallback(messages: list[dict[str, Any]]) -> int:
+    """Fallback token counting using tiktoken or character-based heuristic."""
     try:
         import tiktoken
 
         encoding = tiktoken.get_encoding("cl100k_base")
     except Exception:
-        # tiktoken が使えない場合は簡易文字数ベースで概算
         total_chars = 0
         for m in messages:
             content = m.get("content")
@@ -92,7 +97,7 @@ def _count_messages_tokens(messages: list[dict[str, Any]]) -> int:
                 for part in content:
                     if isinstance(part, dict) and part.get("type") == "text":
                         total_chars += len(part.get("text", ""))
-        return total_chars // 3  # 簡易的な概算（1トークン ≒ 3文字）
+        return total_chars // 3
 
     total_tokens = 0
     for m in messages:
@@ -105,6 +110,61 @@ def _count_messages_tokens(messages: list[dict[str, Any]]) -> int:
                     text = part.get("text", "")
                     total_tokens += len(encoding.encode(text))
     return total_tokens
+
+
+def _count_messages_tokens(
+    messages: list[dict[str, Any]],
+    depname: str | None = None,
+) -> int:
+    """Count tokens for messages, using incremental cache when possible.
+
+    When ``depname`` is provided and llmcapa is available, uses
+    ``llmcapa.count_messages_tokens`` (provider-specific format). Otherwise
+    falls back to tiktoken (cl100k_base) or character-based heuristic.
+
+    Cache is keyed by ``id(messages)`` and reset automatically when the
+    list shrinks (compression).
+    """
+    cache_key = id(messages)
+    cached_total, cached_len = _token_count_cache.get(cache_key, (0, 0))
+    current_len = len(messages)
+
+    # If compression happened (messages were replaced), reset cache
+    if current_len < cached_len:
+        _token_count_cache.pop(cache_key, None)
+        cached_total = 0
+        cached_len = 0
+
+    # Incremental: only count newly added messages
+    if cached_len > 0 and current_len >= cached_len:
+        new_messages = messages[cached_len:]
+        if new_messages:
+            if depname:
+                try:
+                    import llmcapa
+
+                    new_tokens = llmcapa.count_messages_tokens(new_messages, depname)
+                except Exception:
+                    new_tokens = _count_messages_tokens_fallback(new_messages)
+            else:
+                new_tokens = _count_messages_tokens_fallback(new_messages)
+            cached_total += new_tokens
+        _token_count_cache[cache_key] = (cached_total, current_len)
+        return cached_total
+
+    # First call: full count
+    if depname:
+        try:
+            import llmcapa
+
+            total = llmcapa.count_messages_tokens(messages, depname)
+        except Exception:
+            total = _count_messages_tokens_fallback(messages)
+    else:
+        total = _count_messages_tokens_fallback(messages)
+
+    _token_count_cache[cache_key] = (total, current_len)
+    return total
 
 
 def _get_default_shrink_max_tokens(depname: str) -> int:
@@ -171,6 +231,7 @@ def _maybe_auto_shrink_messages(
     cache_mgr: Any,
     gemini_cache_name: Any,
     call_maybe_thread_fn: Any,
+    use_responses_api: bool = False,
 ) -> Any:
 
     # Auto shrink_llm (optional)
@@ -206,7 +267,7 @@ def _maybe_auto_shrink_messages(
     if shrink_cnt > 0 and others_count >= shrink_cnt:
         should_shrink = True
     elif shrink_max_tokens > 0:
-        total_tokens = _count_messages_tokens(messages)
+        total_tokens = _count_messages_tokens(messages, depname)
         if total_tokens >= shrink_max_tokens:
             should_shrink = True
 
@@ -229,6 +290,7 @@ def _maybe_auto_shrink_messages(
                 depname=depname,
                 messages=messages,
                 keep_last=keep_last,
+                use_responses_api=use_responses_api,
             )
         )
         messages.clear()

@@ -46,7 +46,11 @@ def get_profile_file_path() -> str:
 
 
 def load_profile() -> dict[str, Any]:
-    """Load the latest profile from scheck_profile.jsonl."""
+    """Load the latest profile from scheck_profile.jsonl.
+
+    If the file is entirely corrupted (all lines fail to parse), auto-repair
+    by overwriting it with the default profile.
+    """
     profile_file = get_profile_file_path()
     default_profile = {"environment": {}, "preferences": [], "constraints": []}
     if not os.path.exists(profile_file):
@@ -57,6 +61,8 @@ def load_profile() -> dict[str, Any]:
             lines = f.readlines()
             if not lines:
                 return default_profile
+
+            found_valid = False
             # Read the last valid line as the latest profile state
             for line in reversed(lines):
                 line = line.strip()
@@ -65,6 +71,7 @@ def load_profile() -> dict[str, Any]:
                 try:
                     data = json.loads(line)
                     if isinstance(data, dict):
+                        found_valid = True
                         # Ensure basic structure exists
                         for key in ("environment", "preferences", "constraints"):
                             if key not in data:
@@ -72,6 +79,21 @@ def load_profile() -> dict[str, Any]:
                         return _normalize_profile_snapshot(data)
                 except Exception:
                     continue
+
+            # All lines failed to parse -> file is corrupted, overwrite with default
+            if not found_valid:
+                try:
+                    with open(profile_file, "w", encoding="utf-8") as f:
+                        f.write(
+                            json.dumps(
+                                default_profile,
+                                ensure_ascii=False,
+                                separators=(",", ":"),
+                            )
+                            + "\n"
+                        )
+                except Exception:
+                    pass
     except Exception:
         pass
     return default_profile
@@ -94,42 +116,121 @@ def save_profile(profile: dict[str, Any]) -> None:
         pass
 
 
+def _normalize_for_similarity(text: str) -> str:
+    """Normalize text for fuzzy comparison: strip backticks/quotes, collapse spaces, lowercase."""
+    import re
+
+    s = re.sub(r"[`'\"「」『』]", "", text)
+    s = " ".join(s.split()).lower()
+    return s
+
+
+def _char_bigram_jaccard(a: str, b: str) -> float:
+    """Compute character bigram Jaccard similarity between two strings."""
+
+    def _bigrams(s: str) -> set[str]:
+        return {s[i : i + 2] for i in range(len(s) - 1)}
+
+    big_a = _bigrams(a)
+    big_b = _bigrams(b)
+    if not big_a or not big_b:
+        return 0.0
+    intersection = len(big_a & big_b)
+    union = len(big_a | big_b)
+    return intersection / union if union > 0 else 0.0
+
+
+def _longest_common_substring_ratio(a: str, b: str) -> float:
+    """Compute the ratio of longest common substring length to the shorter string length."""
+    if not a or not b:
+        return 0.0
+    shorter_len = min(len(a), len(b))
+    if shorter_len < 4:
+        return 0.0
+
+    # Dynamic programming for LCS (substring, not subsequence)
+    n, m = len(a), len(b)
+    dp = [[0] * (m + 1) for _ in range(n + 1)]
+    longest = 0
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            if a[i - 1] == b[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
+                if dp[i][j] > longest:
+                    longest = dp[i][j]
+            else:
+                dp[i][j] = 0
+    return longest / shorter_len
+
+
 def _is_similar_phrase(a: str, b: str) -> bool:
-    """Check if two phrases are semantically or textually very similar to avoid redundancy."""
+    """Check if two phrases are semantically or textually very similar to avoid redundancy.
+
+    Uses multiple strategies:
+    1. Exact match (case-insensitive)
+    2. Normalized match (strip backticks/quotes, collapse spaces)
+    3. Containment check for medium+ strings
+    4. Character bigram Jaccard similarity (threshold: 0.55)
+    5. Longest common substring ratio (threshold: 0.5)
+    6. Concept-domain matching via keyword pairs
+    """
     a_lower = a.lower()
     b_lower = b.lower()
     if a_lower == b_lower:
         return True
-    # If one contains the other and they are about secrets/passwords/tokens, treat as similar
-    secrets_keywords = (
-        "secret",
-        "password",
-        "token",
-        "api_key",
-        "credential",
-        "鍵",
-        "パスワード",
-        "トークン",
-        "秘密情報",
-    )
-    if any(k in a_lower for k in secrets_keywords) and any(
-        k in b_lower for k in secrets_keywords
-    ):
-        # e.g. "Do not store secrets (passwords, tokens, API keys) in long-term memory"
-        # and "Do not store secrets (passwords, tokens, API keys) in long-term or shared memory"
-        # If they share a significant common substring or both mention "do not store" and "secret"
-        if (
-            "do not store" in a_lower
-            or "must not store" in a_lower
-            or "保存しない" in a_lower
-            or "記録しない" in a_lower
-        ) and (
-            "do not store" in b_lower
-            or "must not store" in b_lower
-            or "保存しない" in b_lower
-            or "記録しない" in b_lower
-        ):
+
+    # Normalize: strip backticks, quotes, normalize whitespace
+    na = _normalize_for_similarity(a)
+    nb = _normalize_for_similarity(b)
+    if na == nb:
+        return True
+
+    # Containment check: if the shorter string (>= 8 chars) is contained in the longer one
+    if len(na) >= 8 and len(nb) >= 8:
+        if na in nb or nb in na:
             return True
+
+    # Character bigram Jaccard similarity (threshold: 0.55)
+    if len(na) >= 5 and len(nb) >= 5:
+        similarity = _char_bigram_jaccard(na, nb)
+        if similarity >= 0.55:
+            return True
+
+    # Longest common substring ratio (threshold: 0.5)
+    if len(na) >= 8 and len(nb) >= 8:
+        lcs_ratio = _longest_common_substring_ratio(na, nb)
+        if lcs_ratio >= 0.5:
+            return True
+
+    # Concept-domain matching: detect shared semantic domain via keyword pairs
+    # Each domain is defined by a set of keywords; if both strings match the same
+    # domain with sufficient coverage, treat as similar.
+    domain_sets = [
+        # Dangerous operation confirmation
+        {"危険", "確認", "事前", "前に確認"},
+        # Secret/password management (negative form)
+        {"秘密情報", "しない", "保存しない", "記憶しない", "記録しない"},
+        # Offline/local environment
+        {"ローカル", "オフライン", "オフライン/ローカル", "ローカル/オフライン"},
+        # I18N / internationalization
+        {"I18N", "国際化"},
+        # Conciseness preference
+        {"簡潔"},
+        # Markdown-first workflow
+        {"Markdown", "要件"},
+        # Dynamic commands
+        {":skills", "コマンド", "動的"},
+    ]
+
+    for domain_kws in domain_sets:
+        hits_a = sum(1 for kw in domain_kws if kw in na)
+        hits_b = sum(1 for kw in domain_kws if kw in nb)
+        # Both strings must hit at least one keyword in the domain
+        if hits_a >= 1 and hits_b >= 1:
+            # Require a minimum of 2 total hits across both strings
+            if hits_a + hits_b >= 2:
+                return True
+
     return False
 
 
@@ -223,6 +324,8 @@ def _normalize_profile_snapshot(
         env_clean: dict[str, Any] = {}
         for key in PROFILE_ENV_KEYS:
             value = env_data.get(key)
+            if value is None:
+                continue
             text = _compact_profile_text(value)
             if text:
                 env_clean[str(key)] = text[:PROFILE_MAX_TEXT_CHARS]
@@ -448,6 +551,27 @@ def _sanitize_log_for_profiling(messages: list[dict[str, Any]]) -> str:
     return "\n".join(cleaned_lines)
 
 
+def _update_profile_in_messages(
+    profile: dict[str, Any], live_messages: list[dict[str, Any]]
+) -> None:
+    """Find and replace the [USER PROFILE] system message in a live messages list."""
+    try:
+        from .runtime.runtime_memory import _format_profile
+
+        new_content = _format_profile(profile)
+        for i, msg in enumerate(live_messages):
+            if (
+                isinstance(msg, dict)
+                and msg.get("role") == "system"
+                and isinstance(msg.get("content"), str)
+                and msg["content"].startswith("[USER PROFILE]")
+            ):
+                live_messages[i] = {"role": "system", "content": new_content}
+                return
+    except Exception:
+        pass
+
+
 def run_profiling_async(messages: list[dict[str, Any]], core: Any) -> None:
     """Run the profiling process in a background thread to avoid blocking the user."""
     if not is_profiling_enabled():
@@ -463,12 +587,16 @@ def run_profiling_async(messages: list[dict[str, Any]], core: Any) -> None:
         return
 
     thread = threading.Thread(
-        target=_profile_worker, args=(messages_copy, core), daemon=True
+        target=_profile_worker, args=(messages_copy, core, messages), daemon=True
     )
     thread.start()
 
 
-def _profile_worker(messages: list[dict[str, Any]], core: Any) -> None:
+def _profile_worker(
+    messages: list[dict[str, Any]],
+    core: Any,
+    live_messages: list[dict[str, Any]] | None = None,
+) -> None:
     """Background worker to analyze log, extract profile, and merge."""
     try:
         # 1) Initialize LLM Client
@@ -557,6 +685,10 @@ def _profile_worker(messages: list[dict[str, Any]], core: Any) -> None:
             model_name=model_name,
         )
         save_profile(merged_profile)
+
+        # 5) Update in-memory messages with the new profile
+        if live_messages is not None:
+            _update_profile_in_messages(merged_profile, live_messages)
 
     except Exception:
         # Fail silently in background thread to avoid interrupting the user

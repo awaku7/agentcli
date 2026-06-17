@@ -391,18 +391,54 @@ def _is_all_selector(selector: str) -> bool:
 
 # Dangerous patterns to scan for in SKILL.md content
 _DANGEROUS_PATTERNS: list[tuple[str, str, str]] = [
-    ("rm_destructive", r"\brm\s+[-][rf]\s+[/~]", "Destructive recursive delete (rm -rf /, rm -rf ~)"),
+    (
+        "rm_destructive",
+        r"\brm\s+[-][rf]\s+[/~]",
+        "Destructive recursive delete (rm -rf /, rm -rf ~)",
+    ),
     ("del_force", r"\bdel\s+[/][f]\s+", "Force delete file (del /f)"),
-    ("rd_destructive", r"\brd\s+[/][s]\s+[/][q]?\s+", "Destructive directory removal (rd /s)"),
-    ("sudo_exec", r"\bsudo\s+(rm|del|dd|mkfs|format|shutdown|reboot)", "Privileged destructive command"),
-    ("pipe_to_shell", r"(curl|wget|iwr|Invoke-WebRequest)\s+.*[|]\s*(sh|bash|pwsh|powershell|iex)", "Pipe download to shell execution"),
-    ("download_exec", r"(curl|wget)\s+.*[-]O[-]\s*[|]\s*(sh|bash)", "Download and execute pattern"),
-    ("base64_decode_exec", r"(base64\s+-d|frombase64|\[\s*System\.Text\.Encoding)", "Potentially obfuscated code execution"),
-    ("chmod_recursive", r"\bchmod\s+[-]?R?\s*777\s+", "Recursive permission change to world-writable"),
+    (
+        "rd_destructive",
+        r"\brd\s+[/][s]\s+[/][q]?\s+",
+        "Destructive directory removal (rd /s)",
+    ),
+    (
+        "sudo_exec",
+        r"\bsudo\s+(rm|del|dd|mkfs|format|shutdown|reboot)",
+        "Privileged destructive command",
+    ),
+    (
+        "pipe_to_shell",
+        r"(curl|wget|iwr|Invoke-WebRequest)\s+.*[|]\s*(sh|bash|pwsh|powershell|iex)",
+        "Pipe download to shell execution",
+    ),
+    (
+        "download_exec",
+        r"(curl|wget)\s+.*[-]O[-]\s*[|]\s*(sh|bash)",
+        "Download and execute pattern",
+    ),
+    (
+        "base64_decode_exec",
+        r"(base64\s+-d|frombase64|\[\s*System\.Text\.Encoding)",
+        "Potentially obfuscated code execution",
+    ),
+    (
+        "chmod_recursive",
+        r"\bchmod\s+[-]?R?\s*777\s+",
+        "Recursive permission change to world-writable",
+    ),
     ("format_disk", r"\bformat\s+\w+:|mkfs\.", "Disk format operation"),
     ("shutdown", r"\bshutdown\s+[/]?[sfr]", "System shutdown/restart command"),
-    ("net_user_admin", r"\bnet\s+user\s+\w+\s+.*/add|net\s+localgroup\s+.*/add", "User account / privilege escalation"),
-    ("dangerous_curl", r"\bcurl\s+.*[-][-]insecure|-k\s+|--ssl-no-revoke", "SSL verification disabled (curl -k)"),
+    (
+        "net_user_admin",
+        r"\bnet\s+user\s+\w+\s+.*/add|net\s+localgroup\s+.*/add",
+        "User account / privilege escalation",
+    ),
+    (
+        "dangerous_curl",
+        r"\bcurl\s+.*[-][-]insecure|-k\s+|--ssl-no-revoke",
+        "SSL verification disabled (curl -k)",
+    ),
 ]
 
 
@@ -414,11 +450,13 @@ def _danger_scan_skill(skill_body: str) -> list[dict[str, str]]:
             # Find the matching line for context
             for line in skill_body.splitlines():
                 if re.search(regex, line, re.IGNORECASE):
-                    findings.append({
-                        "pattern": pattern_id,
-                        "description": description,
-                        "line": line.strip()[:200],
-                    })
+                    findings.append(
+                        {
+                            "pattern": pattern_id,
+                            "description": description,
+                            "line": line.strip()[:200],
+                        }
+                    )
                     break
     return findings
 
@@ -545,9 +583,7 @@ def run_tool(args: dict[str, Any]) -> str:
             if selector and not _is_all_selector(selector):
                 skill_dir = _find_skill_dir(workspace, selector)
                 if not skill_dir:
-                    candidates = _iter_candidate_skill_dirs(
-                        workspace, recursive=True
-                    )
+                    candidates = _iter_candidate_skill_dirs(workspace, recursive=True)
                     available = ", ".join(
                         _skill_display_name(d) for d in candidates[:20]
                     )
@@ -568,9 +604,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     )
 
                 if not args.get("name"):
-                    new_name = os.path.basename(
-                        os.path.normpath(skill_dir)
-                    ) or selector
+                    new_name = os.path.basename(os.path.normpath(skill_dir)) or selector
                     name = new_name
                     dest_dir = os.path.join(skills_root, name)
             else:
@@ -579,9 +613,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 if os.path.isfile(root_skill_md):
                     skill_dir = workspace
                 else:
-                    nested = _iter_candidate_skill_dirs(
-                        workspace, recursive=False
-                    )
+                    nested = _iter_candidate_skill_dirs(workspace, recursive=False)
                     if len(nested) == 1:
                         skill_dir = nested[0]
                     else:
@@ -594,7 +626,12 @@ def run_tool(args: dict[str, Any]) -> str:
                 # Print analysis
                 print("")
                 print("=" * 60)
-                print(_("title.install_confirm", default="Skill Installation Confirmation"))
+                print(
+                    _(
+                        "title.install_confirm",
+                        default="Skill Installation Confirmation",
+                    )
+                )
                 print("=" * 60)
                 print(
                     _("label.skill_name", default="Skill:  %(name)s")
@@ -605,7 +642,9 @@ def run_tool(args: dict[str, Any]) -> str:
                         _("label.author", default="Author: %(author)s")
                         % {"author": analysis["author"]}
                     )
-                desc = analysis.get("description", "") or _("msg.no_description", default="(no description)")
+                desc = analysis.get("description", "") or _(
+                    "msg.no_description", default="(no description)"
+                )
                 print(
                     _("label.description", default="Description: %(desc)s")
                     % {"desc": desc[:200]}
@@ -618,7 +657,10 @@ def run_tool(args: dict[str, Any]) -> str:
                 if analysis.get("danger_found"):
                     print("")
                     print(
-                        _("warn.danger_found", default="!! WARNING: Dangerous patterns detected !!")
+                        _(
+                            "warn.danger_found",
+                            default="!! WARNING: Dangerous patterns detected !!",
+                        )
                     )
                     for d in analysis["danger_details"]:
                         print(f"  - [{d['pattern']}] {d['description']}")
@@ -626,12 +668,16 @@ def run_tool(args: dict[str, Any]) -> str:
                 else:
                     print("")
                     print(
-                        _("label.safe", default="Safety: No dangerous patterns detected.")
+                        _(
+                            "label.safe",
+                            default="Safety: No dangerous patterns detected.",
+                        )
                     )
                 print("")
 
                 # Ask user
                 from .context import get_callbacks
+
                 cb = get_callbacks()
                 prompt = _(
                     "prompt.install",
@@ -655,17 +701,18 @@ def run_tool(args: dict[str, Any]) -> str:
 
                 user_input = user_input.strip().lower()
                 if user_input not in ("y", "yes"):
-                    print(
-                        _("msg.cancelled", default="Installation cancelled.")
+                    print(_("msg.cancelled", default="Installation cancelled."))
+                    return json.dumps(
+                        {
+                            "ok": False,
+                            "message": _(
+                                "msg.cancelled_detail",
+                                default="User cancelled skill installation.",
+                            ),
+                        }
                     )
-                    return json.dumps({
-                        "ok": False,
-                        "message": _("msg.cancelled_detail", default="User cancelled skill installation."),
-                    })
 
-                print(
-                    _("msg.proceeding", default="Proceeding with installation...")
-                )
+                print(_("msg.proceeding", default="Proceeding with installation..."))
 
             # --- Installation phase ---
             if os.path.exists(dest_dir):

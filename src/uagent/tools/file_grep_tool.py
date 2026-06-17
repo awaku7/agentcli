@@ -104,23 +104,14 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                 },
                 "path": {
-                    "anyOf": [
-                        {"type": "string"},
-                        {"type": "array", "items": {"type": "string"}},
-                    ],
+                    "type": "string",
                     "description": _(
                         "param.path.description",
-                        default=(
-                            "Root directory or file path to search. "
-                            "You can also pass an array of paths."
-                        ),
+                        default="Root directory or file path to search.",
                     ),
                 },
                 "root_path": {
-                    "anyOf": [
-                        {"type": "string"},
-                        {"type": "array", "items": {"type": "string"}},
-                    ],
+                    "type": "string",
                     "description": _(
                         "param.root_path.description",
                         default="Alias (compat).",

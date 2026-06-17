@@ -38,6 +38,7 @@ except ImportError:
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
+    "x_parallel_safe": True,
     "tool_genre": "external",
     "function": {
         "name": "mcp_tools_list",

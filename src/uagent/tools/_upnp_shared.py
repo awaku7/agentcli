@@ -166,12 +166,8 @@ def extract_device_items(
         "model_name": _find_text(device, "modelName"),
         "model_number": _find_text(device, "modelNumber"),
         "device_type": _find_text(device, "deviceType"),
-        "uuid": extract_uuid(
-            _find_text(device, "UDN") or _find_text(device, "uuid")
-        ),
-        "presentation_url": safe_join(
-            base_url, _find_text(device, "presentationURL")
-        ),
+        "uuid": extract_uuid(_find_text(device, "UDN") or _find_text(device, "uuid")),
+        "presentation_url": safe_join(base_url, _find_text(device, "presentationURL")),
         "serial_number": _find_text(device, "serialNumber"),
         "services": [],
     }

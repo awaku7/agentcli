@@ -1,6 +1,7 @@
 {
   "en": {
     "param.format.description": "Output format.",
+    "param.ip.description": "Optional IP address to look up. If omitted, the current public IP is used (API mode only).",
     "tool.description": "Estimate the user's rough location based on their public IP address. The result may be inaccurate when using VPN/proxies/mobile networks.",
     "x_search_terms": [
       "get_geoip",
@@ -13,6 +14,7 @@
   },
   "ja": {
     "param.format.description": "出力形式。",
+    "param.ip.description": "ルックアップ対象のIPアドレス（任意）。省略時は現在の公開IPを使用（APIモードのみ）。",
     "tool.description": "公開IPからおおよその位置を推定。VPN/プロキシ/モバイル回線では不正確な場合あり。",
     "x_search_terms": [
       "get_geoip",
@@ -23,6 +25,7 @@
   },
   "es": {
     "param.format.description": "Formato de salida.",
+    "param.ip.description": "Dirección IP opcional para buscar. Si se omite, se usa la IP pública actual (solo modo API).",
     "tool.description": "Estima la ubicación aproximada del usuario a partir de su dirección IP pública.",
     "x_search_terms": [
       "get_geoip",
@@ -33,6 +36,7 @@
   },
   "fr": {
     "param.format.description": "Format de sortie.",
+    "param.ip.description": "Adresse IP facultative à rechercher. Si omise, l'IP publique actuelle est utilisée (mode API uniquement).",
     "tool.description": "Estime la localisation approximative de l’utilisateur à partir de son adresse IP publique.",
     "x_search_terms": [
       "get_geoip",
@@ -43,6 +47,7 @@
   },
   "ko": {
     "param.format.description": "출력 형식.",
+    "param.ip.description": "조회할 IP 주소 (선택). 생략 시 현재 공인 IP 사용 (API 모드 전용).",
     "tool.description": "공인 IP로 대략적인 위치 추정. VPN/프록시/모바일 네트워크 사용 시 부정확할 수 있음.",
     "x_search_terms": [
       "get_geoip",
@@ -53,6 +58,7 @@
   },
   "de": {
     "param.format.description": "Ausgabeformat.",
+    "param.ip.description": "Optionale IP-Adresse für die Abfrage. Wenn weggelassen, wird die aktuelle öffentliche IP verwendet (nur API-Modus).",
     "tool.description": "Schätzt den ungefähren Standort des Benutzers anhand seiner öffentlichen IP-Adresse.",
     "x_search_terms": [
       "get_geoip",
@@ -63,6 +69,7 @@
   },
   "it": {
     "param.format.description": "Formato di output.",
+    "param.ip.description": "Indirizzo IP facoltativo da cercare. Se omesso, viene utilizzato l'IP pubblico corrente (solo modalità API).",
     "tool.description": "Stima la posizione approssimativa dell'utente in base al suo indirizzo IP pubblico.",
     "x_search_terms": [
       "get_geoip",
@@ -73,6 +80,7 @@
   },
   "ru": {
     "param.format.description": "Формат вывода.",
+    "param.ip.description": "Необязательный IP-адрес для поиска. Если не указан, используется текущий публичный IP (только в режиме API).",
     "tool.description": "Оценивает приблизительное местоположение пользователя на основе его общедоступного IP-адреса.",
     "x_search_terms": [
       "get_geoip",
@@ -83,6 +91,7 @@
   },
   "pt_BR": {
     "param.format.description": "Formato de saída.",
+    "param.ip.description": "Endereço IP opcional para consulta. Se omitido, o IP público atual é usado (somente modo API).",
     "tool.description": "Estima a localização aproximada do usuário com base no endereço IP público.",
     "x_search_terms": [
       "get_geoip",
@@ -93,6 +102,7 @@
   },
   "pt": {
     "param.format.description": "Formato de saída.",
+    "param.ip.description": "Endereço IP opcional para consulta. Se omitido, o IP público atual é usado (somente modo API).",
     "tool.description": "Estima a localização aproximada do usuário com base no endereço IP público.",
     "x_search_terms": [
       "get_geoip",
@@ -103,6 +113,7 @@
   },
   "id": {
     "param.format.description": "Format keluaran.",
+    "param.ip.description": "Alamat IP opsional untuk dicari. Jika dihilangkan, IP publik saat ini digunakan (hanya mode API).",
     "tool.description": "Perkirakan lokasi kasar pengguna berdasarkan alamat IP publiknya.",
     "x_search_terms": [
       "get_geoip",
@@ -113,6 +124,7 @@
   },
   "vi": {
     "param.format.description": "Định dạng đầu ra.",
+    "param.ip.description": "Địa chỉ IP tùy chọn để tra cứu. Nếu bỏ qua, IP công khai hiện tại được sử dụng (chỉ chế độ API).",
     "tool.description": "Ước tính vị trí sơ bộ của người dùng dựa trên địa chỉ IP công cộng của họ.",
     "x_search_terms": [
       "get_geoip",
@@ -123,6 +135,7 @@
   },
   "pl": {
     "param.format.description": "Format wyjściowy.",
+    "param.ip.description": "Opcjonalny adres IP do wyszukania. Jeśli pominięty, używany jest bieżący publiczny adres IP (tylko tryb API).",
     "tool.description": "Oszacuj przybliżoną lokalizację użytkownika na podstawie jego publicznego adresu IP.",
     "x_search_terms": [
       "get_geoip",
@@ -133,6 +146,7 @@
   },
   "hi": {
     "param.format.description": "आउटपुट स्वरूप.",
+    "param.ip.description": "खोजने के लिए वैकल्पिक आईपी पता। यदि छोड़ा गया है, तो वर्तमान सार्वजनिक आईपी का उपयोग किया जाता है (केवल API मोड)।",
     "tool.description": "उपयोगकर्ता के सार्वजनिक आईपी पते के आधार पर उसके अनुमानित स्थान का अनुमान लगाएं। वीपीएन, प्रॉक्सी या मोबाइल नेटवर्क का उपयोग करने पर प...",
     "x_search_terms": [
       "get_geoip",
@@ -143,6 +157,7 @@
   },
   "ar": {
     "param.format.description": "تنسيق الإخراج.",
+    "param.ip.description": "عنوان IP اختياري للبحث. إذا تم حذفه، يتم استخدام IP العام الحالي (وضع API فقط).",
     "tool.description": "قم بتقدير الموقع التقريبي للمستخدم بناءً على عنوان IP العام الخاص به.",
     "x_search_terms": [
       "get_geoip",
@@ -153,6 +168,7 @@
   },
   "sv": {
     "param.format.description": "Utdataformat.",
+    "param.ip.description": "Valfri IP-adress att slå upp. Om utelämnad används nuvarande offentliga IP (endast API-läge).",
     "tool.description": "Uppskattar användarens ungefärliga plats utifrån den publika IP-adressen.",
     "x_search_terms": [
       "get_geoip",
@@ -163,6 +179,7 @@
   },
   "sw": {
     "param.format.description": "Output format.",
+    "param.ip.description": "Anwani ya IP ya hiari ya kutafuta. Ikiwa haijatajwa, IP ya umma ya sasa inatumika (hali ya API tu).",
     "tool.description": "Estimates the user’s approximate location from their public IP address.",
     "x_search_terms": [
       "get_geoip",
@@ -173,6 +190,7 @@
   },
   "nb": {
     "param.format.description": "Utdataformat.",
+    "param.ip.description": "Valgfri IP-adresse for oppslag. Hvis utelatt, brukes nåværende offentlige IP (kun API-modus).",
     "tool.description": "Ansla brukerens omtrentlige plassering basert på den offentlige IP-adressen.",
     "x_search_terms": [
       "get_geoip",
@@ -183,6 +201,7 @@
   },
   "nl": {
     "param.format.description": "Uitvoerformaat.",
+    "param.ip.description": "Optioneel IP-adres om op te zoeken. Indien weggelaten, wordt het huidige openbare IP gebruikt (alleen API-modus).",
     "tool.description": "Schat de globale locatie van de gebruiker op basis van het openbare IP-adres.",
     "x_search_terms": [
       "get_geoip",
@@ -193,6 +212,7 @@
   },
   "fi": {
     "param.format.description": "Tulostusmuoto.",
+    "param.ip.description": "Valinnainen haettava IP-osoite. Jos jätetään pois, käytetään nykyistä julkista IP-osoitetta (vain API-tila).",
     "tool.description": "Arvioi käyttäjän karkean sijainnin julkisen IP-osoitteen perusteella.",
     "x_search_terms": [
       "get_geoip",
@@ -203,6 +223,7 @@
   },
   "cs": {
     "param.format.description": "Formát výstupu.",
+    "param.ip.description": "Volitelná IP adresa pro vyhledání. Pokud je vynechána, použije se aktuální veřejná IP (pouze režim API).",
     "tool.description": "Odhaduje přibližnou polohu uživatele podle jeho veřejné IP adresy.Při použití VPN, proxy nebo mobilní sítě může být výsledek nepřesný.",
     "x_search_terms": [
       "get_geoip",
@@ -213,6 +234,7 @@
   },
   "uk": {
     "param.format.description": "Формат виводу.",
+    "param.ip.description": "Необов'язкова IP-адреса для пошуку. Якщо не вказано, використовується поточна публічна IP (лише в режимі API).",
     "tool.description": "Оцінює приблизне місцеперебування користувача на основі його публічної IP-адреси.",
     "x_search_terms": [
       "get_geoip",
@@ -223,6 +245,7 @@
   },
   "tr": {
     "param.format.description": "Çıkış formatı.",
+    "param.ip.description": "Sorgulanacak isteğe bağlı IP adresi. Atlanırsa, mevcut genel IP kullanılır (yalnızca API modu).",
     "tool.description": "Kullanıcının genel IP adresinden yaklaşık konumunu tahmin eder.VPN'ler, proxy'ler veya mobil ağlar kullanıldığında sonuç hatalı olabilir.",
     "x_search_terms": [
       "get_geoip",
@@ -233,6 +256,7 @@
   },
   "th": {
     "param.format.description": "รูปแบบเอาต์พุต",
+    "param.ip.description": "IP แอดเดรสเสริมสำหรับค้นหา หากไม่ระบุ จะใช้ IP สาธารณะปัจจุบัน (โหมด API เท่านั้น)",
     "tool.description": "ประมาณตำแหน่งคร่าว ๆ ของผู้ใช้ตามที่อยู่ IP สาธารณะ ผลลัพธ์อาจไม่แม่นยำเมื่อใช้ VPN, พร็อกซี หรือเครือข่ายมือถือ\n\nนโยบาย:\n- ใช้เครื่อง...",
     "x_search_terms": [
       "get_geoip",
@@ -243,6 +267,7 @@
   },
   "zh_CN": {
     "param.format.description": "输出格式。",
+    "param.ip.description": "可选的要查询的IP地址。如果省略，则使用当前公网IP（仅API模式）。",
     "tool.description": "根据用户的公网 IP 地址估算其大致位置。使用 VPN、代理或移动网络时，结果可能不准确。\n\n说明：\n- 当您需要用户的大致位置（城市/地区/国家）且用户尚未提供时，请使用此工具。\n- 如果用户已经提供了位置信息，请优先使用该信息，不要调用 get_geoip。",
     "x_search_terms": [
       "get_geoip",
@@ -253,6 +278,7 @@
   },
   "zh_TW": {
     "param.format.description": "輸出格式。",
+    "param.ip.description": "可選的要查詢的IP位址。如果省略，則使用目前公網IP（僅API模式）。",
     "tool.description": "根據使用者的公開 IP 位址推估其大致位置。使用 VPN、代理或行動網路時，結果可能不準確。\n\n說明：\n- 當您需要使用者的大致位置（城市／地區／國家）且使用者尚未提供時，請使用此工具。\n- 如果使用者已經提供位置資訊，請優先使用該資訊，不要呼叫 get_geoip。",
     "x_search_terms": [
       "get_geoip",
@@ -263,6 +289,7 @@
   },
   "bn": {
     "param.format.description": "আউটপুট ফরম্যাট।",
+    "param.ip.description": "অনুসন্ধানের জন্য ঐচ্ছিক IP ঠিকানা। বাদ দিলে, বর্তমান পাবলিক IP ব্যবহার করা হয় (শুধুমাত্র API মোড)।",
     "tool.description": "পাবলিক IP ঠিকানার ভিত্তিতে ব্যবহারকারীর আনুমানিক অবস্থান অনুমান করে। VPN, proxy বা mobile network ব্যবহার করলে ফলাফল ভুল হতে পারে।\n\nনী...",
     "x_search_terms": [
       "get_geoip",
@@ -273,6 +300,7 @@
   },
   "fa": {
     "param.format.description": "فرمت خروجی.",
+    "param.ip.description": "آدرس IP اختیاری برای جستجو. در صورت حذف، IP عمومی فعلی استفاده می‌شود (فقط حالت API).",
     "tool.description": "موقعیت تقریبی کاربر را بر اساس آدرس IP عمومی او تخمین می‌زند.هنگام استفاده از VPN، پراکسی یا شبکه‌های موبایل، نتیجه ممکن است نادقیق باشد.",
     "x_search_terms": [
       "get_geoip",
@@ -283,6 +311,7 @@
   },
   "mn": {
     "param.format.description": "Гаралтын формат.",
+    "param.ip.description": "Хайх нэмэлт IP хаяг. Хасагдвал одоогийн нийтийн IP ашиглагдана (зөвхөн API горим).",
     "tool.description": "Хэрэглэгчийн нийтийн IP хаягт үндэслэн ойролцоох байршлыг тооцоолно.VPN, proxy эсвэл mobile network ашиглахад үр дүн буруу байж болно.",
     "x_search_terms": [
       "get_geoip",
@@ -293,6 +322,7 @@
   },
   "mr": {
     "param.format.description": "आउटपुट फॉरमॅट.",
+    "param.ip.description": "शोधण्यासाठी ऐच्छिक IP पत्ता. वगळल्यास, वर्तमान सार्वजनिक IP वापरले जाते (फक्त API मोड).",
     "tool.description": "वापरकर्त्याच्या सार्वजनिक IP पत्त्यावरून त्याचे अंदाजे स्थान ठरवते.VPN, proxy किंवा mobile network वापरल्यास निकाल अचूक नसू शकतो.",
     "x_search_terms": [
       "get_geoip",

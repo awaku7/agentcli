@@ -1,0 +1,12 @@
+DB-IP Lite City Database
+Copyright (c) DB-IP.com
+Licensed under Creative Commons Attribution 4.0 International License (CC-BY 4.0)
+
+Source: https://db-ip.com/db/lite.php
+License: https://creativecommons.org/licenses/by/4.0/
+
+You are free to use this database in your application, provided you give
+attribution to DB-IP.com for the data.
+
+This product includes DB-IP Lite data licensed under CC-BY 4.0.
+See LICENSE-THIRD-PARTY.md for details.

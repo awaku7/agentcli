@@ -94,5 +94,29 @@ def run_tool(args: dict[str, Any]) -> str:
         if cancelled or user_reply not in ("y", "yes"):
             return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
+    prev = os.getcwd()
     os.chdir(expanded)
-    return os.getcwd()
+    now = os.getcwd()
+
+    # Record workdir change to the log for later :load restoration
+    try:
+        from .context import get_callbacks
+        import json
+
+        cb = get_callbacks()
+        if cb and cb.log_message:
+            cwd_content = "[CWD] " + json.dumps(
+                {
+                    "event": "cd",
+                    "path": now,
+                    "prev": prev,
+                    "src": new_dir,
+                    "resolved": expanded,
+                },
+                ensure_ascii=False,
+            )
+            cb.log_message({"role": "system", "content": cwd_content})
+    except Exception:
+        pass
+
+    return now

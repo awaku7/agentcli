@@ -19,6 +19,7 @@ BUSY_LABEL = False
 STATUS_LABEL = "tool:genre_control"
 
 _GENRE_LABELS: dict[str, str] = {
+    "basic": "Basic",
     "comm": "Communication",
     "office": "Office",
     "devel": "Development",
@@ -45,7 +46,7 @@ def _set_genre_tools_enabled(genre: str, enabled: bool) -> str:
         return _(
             "msg.{g}.none_enabled".format(g=genre),
             default="[tools] No {label} tools were enabled.".format(
-                label=label, g=genre
+                label=label,
             ),
         )
     else:
@@ -61,12 +62,16 @@ def _set_genre_tools_enabled(genre: str, enabled: bool) -> str:
         return _(
             "msg.{g}.none_disabled".format(g=genre),
             default="[tools] No {label} tools were disabled.".format(
-                label=label, g=genre
+                label=label,
             ),
         )
 
 
 # Named wrappers for backward compatibility with existing imports
+def _set_basic_tools_enabled(enabled: bool) -> str:
+    return _set_genre_tools_enabled("basic", enabled)
+
+
 def _set_comm_tools_enabled(enabled: bool) -> str:
     return _set_genre_tools_enabled("comm", enabled)
 

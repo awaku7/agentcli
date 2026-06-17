@@ -12,6 +12,8 @@ import importlib.util
 from importlib import import_module, reload
 from pkgutil import iter_modules
 from typing import Any, Callable, Optional
+import concurrent.futures
+from threading import Lock
 
 try:
     from janome.tokenizer import Tokenizer as JanomeTokenizer
@@ -131,7 +133,8 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
             arg_str = str(masked)
 
         ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"[TOOL] {ts} name={name} args={arg_str}", flush=True)
+        with _TRACE_LOCK:
+            print(f"[TOOL] {ts} name={name} args={arg_str}", flush=True)
     except Exception:
         return
 
@@ -729,6 +732,57 @@ def reload_plugins() -> None:
     """Reload tool plugins (reserved for future extensions)."""
     clear_tool_i18n_cache()
     _load_plugins()
+
+
+# ------------------------------
+# parallel execution
+# ------------------------------
+
+_PARALLEL_TOOL_EXECUTOR = concurrent.futures.ThreadPoolExecutor(
+    max_workers=4,
+    thread_name_prefix="tool_par",
+)
+
+# Lock for thread-safe [TOOL] trace output
+_TRACE_LOCK = Lock()
+
+
+def is_parallel_safe(tool_name: str) -> bool:
+    """Check whether a tool is marked as safe for parallel execution."""
+    for spec in TOOL_SPECS:
+        if spec.get("function", {}).get("name") == tool_name:
+            return bool(spec.get("x_parallel_safe", False))
+    return False
+
+
+def run_tools_parallel(
+    calls: list[tuple[str, dict[str, Any]]],
+) -> list[tuple[str, dict[str, Any], str]]:
+    """Execute multiple tool calls in parallel using a thread pool.
+
+    Args:
+        calls: List of (tool_name, args) tuples.
+
+    Returns:
+        List of (tool_name, args, result) tuples in the same order as input.
+    """
+    future_map: dict[concurrent.futures.Future, tuple[int, str, dict[str, Any]]] = {}
+
+    for idx, (name, args) in enumerate(calls):
+        future = _PARALLEL_TOOL_EXECUTOR.submit(run_tool, name, args)
+        future_map[future] = (idx, name, args)
+
+    results: list[tuple[str, dict[str, Any], str] | None] = [None] * len(calls)
+    for future in concurrent.futures.as_completed(future_map):
+        idx, name, args = future_map[future]
+        try:
+            result = future.result()
+        except Exception as e:
+            result = f"[tool runtime error] name={name!r} err={type(e).__name__}: {e}"
+        results[idx] = (name, args, result)
+
+    # All slots must be filled by now; cast for type checker.
+    return [(n, a, r) for n, a, r in results]  # type: ignore[misc]
 
 
 def run_tool(name: str, args: dict[str, Any]) -> str:

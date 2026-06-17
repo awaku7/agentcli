@@ -29,6 +29,7 @@ def _json_err(message: str, **extra: Any) -> str:
 TOOL_SPEC: dict[str, Any] = {
     "load_order": 9000,
     "type": "function",
+    "x_parallel_safe": True,
     "tool_genre": "external",
     "function": {
         "name": "a2a_poll",

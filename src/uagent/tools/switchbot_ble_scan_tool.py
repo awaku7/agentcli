@@ -18,6 +18,7 @@ TOOL_SPEC: dict[str, Any] = {
     "tool_level": 0,
     "tool_genre": "iot",
     "type": "function",
+    "x_parallel_safe": True,
     "function": {
         "name": "switchbot_ble_scan",
         "description": _(

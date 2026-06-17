@@ -28,6 +28,7 @@ TOOL_SPEC: dict[str, Any] = {
     "tool_level": 0,
     "tool_genre": "comm",
     "type": "function",
+    "x_parallel_safe": True,
     "function": {
         "name": "bluesky",
         "description": _(

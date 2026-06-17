@@ -57,6 +57,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         "claude",
         "nvidia",
         "deepseek",
+        "zai",
         "alibaba",
         "moonshot",
     )
@@ -178,6 +179,11 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_DEEPSEEK_API_KEY"],
             reason=_("DeepSeek API key.", default="DeepSeek API key."),
+        )
+    elif provider == "zai":
+        missing += _require(
+            ["UAGENT_ZAI_API_KEY"],
+            reason=_("Z.AI (Zhipu AI) API key.", default="Z.AI (Zhipu AI) API key."),
         )
     elif provider == "alibaba":
         missing += _require(
