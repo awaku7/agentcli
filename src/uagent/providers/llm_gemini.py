@@ -193,6 +193,13 @@ def _sanitize_gemini_parameters(params: Any) -> Any:
     if "properties" not in out or not isinstance(out.get("properties"), dict):
         out["properties"] = {}
 
+    # Gemini requires that every key in "required" exists in "properties".
+    # Remove dangling required entries to avoid 400 INVALID_ARGUMENT.
+    v_req = out.get("required")
+    if isinstance(v_req, list):
+        valid_keys = set(out.get("properties", {}).keys())
+        out["required"] = [k for k in v_req if k in valid_keys]
+
     return out
 
 
@@ -903,12 +910,16 @@ def gemini_chat_with_tools(
     else:
         if tools_list:
             cfg_kwargs["tools"] = tools_list
-            try:
-                cfg_kwargs["tool_config"] = gemini_types.ToolConfig(
-                    include_server_side_tool_invocations=True
-                )
-            except Exception:
-                pass
+            # include_server_side_tool_invocations is not supported by
+            # VertexAI Enterprise Agent Platform. Detect via client attribute.
+            _is_vertexai = bool(getattr(client, "_vertexai", False))
+            if not _is_vertexai:
+                try:
+                    cfg_kwargs["tool_config"] = gemini_types.ToolConfig(
+                        include_server_side_tool_invocations=True
+                    )
+                except Exception:
+                    pass
             try:
                 cfg_kwargs["automatic_function_calling"] = (
                     gemini_types.AutomaticFunctionCallingConfig(disable=True)
