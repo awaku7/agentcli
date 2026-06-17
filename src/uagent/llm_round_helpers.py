@@ -174,6 +174,7 @@ def _call_gemini_round(
                     core=core,
                     force_thinking_level=force_thinking_level,
                     send_tools=send_tools,
+                    provider=provider,
                 )
             )
             break

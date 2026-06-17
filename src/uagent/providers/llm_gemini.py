@@ -563,6 +563,7 @@ def gemini_chat_with_tools(
     core: Any = None,
     force_thinking_level: str | None = None,
     send_tools: bool = True,
+    provider: str = "gemini",
 ) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
     """Gemini Developer API + google-genai を使って tool_calls 付き応答を 1 回分生成する。"""
 
@@ -911,9 +912,8 @@ def gemini_chat_with_tools(
         if tools_list:
             cfg_kwargs["tools"] = tools_list
             # include_server_side_tool_invocations is not supported by
-            # VertexAI Enterprise Agent Platform. Detect via client attribute.
-            _is_vertexai = bool(getattr(client, "_vertexai", False))
-            if not _is_vertexai:
+            # VertexAI Enterprise Agent Platform.
+            if provider != "vertexai":
                 try:
                     cfg_kwargs["tool_config"] = gemini_types.ToolConfig(
                         include_server_side_tool_invocations=True
