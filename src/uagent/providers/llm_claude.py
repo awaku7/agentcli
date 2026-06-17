@@ -206,6 +206,7 @@ def claude_chat_with_tools(
     output_config: Optional[dict[str, Any]] = None,
     on_output_config_info: Optional[Any] = None,
     on_output_config_fallback: Optional[Any] = None,
+    send_tools: bool = True,
 ) -> tuple[str, list[dict[str, Any]]]:
     """Anthropic Claude API を使って tool_calls 付き応答を生成する。
 
@@ -317,7 +318,11 @@ def claude_chat_with_tools(
                 )
 
     anthropic_tools = []
-    for spec in tools.get_tool_specs():
+    if send_tools:
+        _tool_specs_iter = tools.get_tool_specs()
+    else:
+        _tool_specs_iter = []
+    for spec in _tool_specs_iter:
         fn = spec.get("function", {})
         name = fn.get("name", "")
         desc = fn.get("description", "")

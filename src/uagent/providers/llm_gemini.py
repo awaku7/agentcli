@@ -555,6 +555,7 @@ def gemini_chat_with_tools(
     stream: bool = False,
     core: Any = None,
     force_thinking_level: str | None = None,
+    send_tools: bool = True,
 ) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
     """Gemini Developer API + google-genai を使って tool_calls 付き応答を 1 回分生成する。"""
 
@@ -575,7 +576,10 @@ def gemini_chat_with_tools(
 
     tools_list: list[Any] = []
 
-    tool_specs = tools.get_tool_specs() or []
+    if send_tools:
+        tool_specs = tools.get_tool_specs() or []
+    else:
+        tool_specs = []
     if not isinstance(tool_specs, list):
         tool_specs = []
 
