@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.10] - 2026-06-18
+
+### Fixed
+- get_geoip tool registration (`tool_level` 1 to 0) so it appears in the tool list.
+- llmcapa dependency updated to 0.2.2.
+
 ## [0.5.9] - 2026-06-16
 
 ### Added
