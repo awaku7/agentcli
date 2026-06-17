@@ -241,6 +241,7 @@ def _call_claude_round(
     retry_base: float,
     retry_cap: float,
     send_tools: bool = True,
+    provider: str = "claude",
 ) -> Any:
     attempt_429 = 0
     assistant_text = ""
