@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.11] - 2026-06-18
+
+### Added
+- Z.AI (Zhipu AI) provider support (`UAGENT_PROVIDER=zai`). Default model: `glm-5.2`.
+- Local GeoIP database support: offline IP geolocation via mmdb file (`UAGENT_GEOIP_DB_PATH` or bundled `dbip-city-lite.mmdb`).
+- `get_geoip` now accepts optional `ip` parameter for arbitrary IP lookup.
+- Tool parallel execution (async) support with `x_parallel_safe` opt-in flag.
+- Tool genre mask (`--tool-genre-mask`), tool-less mode (`--no-use-tool`).
+- Safety confirmation prompt before `skills_install`.
+- UPnP Phase 2: device info tool, scan filters, shared module.
+- `TOOL_ASYNC.md` design document.
+- `LICENSE-THIRD-PARTY.md` for DB-IP Lite (CC-BY 4.0) attribution.
+- Archive merge: restored all local development changes, preserving origin/main updates.
+
+### Fixed
+- `get_geoip` tool registration (`tool_level` 1 to 0) so it appears in the tool list.
+- `:tools on/off` import path corrected to `genre_control_tool`.
+- `:cp`/`:mv` commands now support quoted paths, removed workdir restriction.
+- DeepSeek 400 error recovery and sanitize_messages improvement.
+
+### Changed
+- Restored locale files with added translations for Z.AI, --use-tool/--no-use-tool, and Basic genre (all 30 locales).
+- llmcapa dependency updated to 0.2.2.
+
 ## [Unreleased]
 
 ## [0.5.10] - 2026-06-18

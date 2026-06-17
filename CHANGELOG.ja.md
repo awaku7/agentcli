@@ -5,6 +5,30 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.11] - 2026-06-18
+
+### 新規追加
+- Z.AI (Zhipu AI) プロバイダ対応 (`UAGENT_PROVIDER=zai`)。デフォルトモデル: `glm-5.2`。
+- ローカル GeoIP データベース対応: mmdb ファイルでオフラインIPジオロケーション (`UAGENT_GEOIP_DB_PATH` または同梱 `dbip-city-lite.mmdb`)。
+- `get_geoip` に `ip` パラメータ追加（任意IPのルックアップ）。
+- ツール並列実行（非同期）対応（`x_parallel_safe` フラグで opt-in）。
+- ツールジャンルマスク (`--tool-genre-mask`)、ツールなしモード (`--no-use-tool`)。
+- `skills_install` 実行前の安全確認プロンプト。
+- UPnP Phase 2: デバイス情報ツール、スキャンフィルター、共有モジュール。
+- `TOOL_ASYNC.md` 設計書。
+- `LICENSE-THIRD-PARTY.md`（DB-IP Lite CC-BY 4.0 帰属表示）。
+- アーカイブマージ: ローカル開発変更を全て復元し、origin/main の更新を維持。
+
+### 修正
+- `get_geoip` ツール登録問題を修正（`tool_level` 1 → 0）。
+- `:tools on/off` の import 先を `genre_control_tool` に修正。
+- `:cp`/`:mv` コマンドの引用符付きパス対応と作業ディレクトリ制限の撤廃。
+- DeepSeek 400 エラー復旧と sanitize_messages の改善。
+
+### 変更
+- ロケールファイルを復元: Z.AI、--use-tool/--no-use-tool、Basic ジャンルの翻訳を全30ロケールに追加。
+- llmcapa 依存関係を 0.2.2 に更新。
+
 ## [Unreleased]
 
 ## [0.5.10] - 2026-06-18
