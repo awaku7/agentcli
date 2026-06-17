@@ -24,5 +24,6 @@ outputs/
 a2a_key
 a2a_servers.json
 
+*.mmdb
 env.bat
 env.sh
