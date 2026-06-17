@@ -29,6 +29,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Restored locale files with added translations for Z.AI, --use-tool/--no-use-tool, and Basic genre (all 30 locales).
 - llmcapa dependency updated to 0.2.2.
 
+## [0.5.12] - 2026-06-18
+
+### Fixed
+- VertexAI: skip `include_server_side_tool_invocations` (not supported by Enterprise Agent Platform).
+- Gemini: filter dangling `required` keys in tool schema to avoid 400 INVALID_ARGUMENT.
+- Claude/Gemini: use `provider` parameter instead of hardcoded strings in `_rate_limit_retry_step`.
+- `_call_claude_round` / `_call_gemini_round`: pass `provider` from caller to fix NameError.
+
 ## [Unreleased]
 
 ## [0.5.10] - 2026-06-18

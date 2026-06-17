@@ -29,6 +29,14 @@
 - ロケールファイルを復元: Z.AI、--use-tool/--no-use-tool、Basic ジャンルの翻訳を全30ロケールに追加。
 - llmcapa 依存関係を 0.2.2 に更新。
 
+## [0.5.12] - 2026-06-18
+
+### 修正
+- VertexAI: `include_server_side_tool_invocations` をスキップ（Enterprise Agent Platform 非対応）。
+- Gemini: ツールスキーマの dangling `required` キーを除去し 400 INVALID_ARGUMENT を回避。
+- Claude/Gemini: `_rate_limit_retry_step` でハードコードではなく `provider` パラメータを使用。
+- `_call_claude_round` / `_call_gemini_round`: 呼び出し元から `provider` を渡すよう修正（NameError 対策）。
+
 ## [Unreleased]
 
 ## [0.5.10] - 2026-06-18
