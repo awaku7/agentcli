@@ -71,6 +71,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("ollama", "Ollama"),
     ("nvidia", "NVIDIA"),
     ("deepseek", "DeepSeek"),
+    ("zai", "Z.AI (Zhipu AI)"),
     ("alibaba", "Alibaba Cloud (Qwen)"),
     ("moonshot", "Moonshot AI"),
 ]
@@ -213,6 +214,19 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_DEEPSEEK_FREQUENCY_PENALTY",
             False,
             _("DeepSeek frequency_penalty (default: 0.0)"),
+        ),
+    ],
+    "zai": [
+        ("UAGENT_ZAI_API_KEY", True, _("Z.AI (Zhipu AI) API key")),
+        (
+            "UAGENT_ZAI_BASE_URL",
+            False,
+            _("Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"),
+        ),
+        (
+            "UAGENT_ZAI_DEPNAME",
+            False,
+            _("Z.AI model name (optional, default: glm-5.2)"),
         ),
     ],
     "alibaba": [
@@ -1017,7 +1031,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# Provider selection")
     out.append("# ==============================")
     out.append(
-        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / alibaba / moonshot"
+        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / zai / alibaba / moonshot"
     )
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")

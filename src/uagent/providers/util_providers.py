@@ -256,6 +256,7 @@ def detect_provider() -> str:
         "claude",
         "nvidia",
         "deepseek",
+        "zai",
         "alibaba",
         "moonshot",
     ):
@@ -304,6 +305,8 @@ def get_model_name() -> str:
             env_get("UAGENT_DEEPSEEK_DEPNAME", "deepseek-v4-flash")
             or "deepseek-v4-flash"
         )
+    if provider == "zai":
+        return env_get("UAGENT_ZAI_DEPNAME", "glm-5.2") or "glm-5.2"
     if provider == "alibaba":
         return env_get("UAGENT_ALIBABA_DEPNAME", "qwen3.5-plus") or "qwen3.5-plus"
     if provider == "moonshot":
@@ -553,6 +556,21 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         api_key = core.get_env("UAGENT_DEEPSEEK_API_KEY")
         base_url = core.get_env_url(
             "UAGENT_DEEPSEEK_BASE_URL", "https://api.deepseek.com"
+        )
+
+        http_client = make_httpx_client()
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
+    if provider == "zai":
+        api_key = core.get_env("UAGENT_ZAI_API_KEY")
+        base_url = core.get_env_url(
+            "UAGENT_ZAI_BASE_URL", "https://api.z.ai/api/paas/v4/"
         )
 
         http_client = make_httpx_client()
