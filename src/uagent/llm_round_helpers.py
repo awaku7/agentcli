@@ -156,6 +156,7 @@ def _call_gemini_round(
     stream_responses: bool,
     force_thinking_level: str | None = None,
     send_tools: bool = True,
+    provider: str = "gemini",
 ) -> Any:
     attempt_429 = 0
     gemini_content_dump: dict[str, Any] = {}

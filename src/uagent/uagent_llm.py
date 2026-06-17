@@ -187,6 +187,7 @@ def run_llm_rounds(
                     retry_cap=retry_cap,
                     stream_responses=stream_responses,
                     send_tools=send_tools_this_round,
+                    provider=provider,
                 )
                 if not ok:
                     return
@@ -250,6 +251,7 @@ def run_llm_rounds(
                     retry_base=retry_base,
                     retry_cap=retry_cap,
                     send_tools=send_tools_this_round,
+                    provider=provider,
                 )
                 if not ok:
                     return
