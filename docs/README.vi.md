@@ -34,6 +34,7 @@ Sau khi cài đặt, khi chạy `uag` lần đầu tiên, trình hướng dẫn 
 - **Thị trường kỹ năng đặc vụ**: Duyệt và cài đặt Kỹ năng đặc vụ cộng đồng từ [SkillsMP](https://skillsmp.com) hoặc [ClawHub](https://clawhub.ai) với `:skills mp_search`.
 - **Web Inspector**: Tự động lưu lại các lần chuyển trang, DOM và ảnh chụp màn hình của trình duyệt bằng `playwright_inspector`.
 - **Tài liệu tích hợp**: Truy cập ngay tài liệu nội bộ chi tiết bằng lệnh `uag docs`.
+- **Danh mục công cụ (Mới!)**: Khám phá và tải công cụ động với `tool_catalog`/`tool_load`. Hoạt động với tất cả nhà cung cấp được hỗ trợ — không yêu cầu API riêng của nhà cung cấp.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support

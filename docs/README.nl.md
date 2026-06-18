@@ -36,6 +36,7 @@ Bij de eerste start controleert `uag` je omgeving en start automatisch de setupw
 - **Agent Skills-marktplaats**: Blader door en installeer community Agent Skills van [SkillsMP](https://skillsmp.com) of [ClawHub](https://clawhub.ai) met `:skills mp_search`.
 - **Web Inspector**: sla browsertransities, DOM-snapshots en screenshots op met `playwright_inspector`.
 - **Ingebouwde documentatie**: lees meegeleverde docs met `uag docs`.
+- **Gereedschapscatalogus (Nieuw!)**: Ontdek en laad gereedschappen dynamisch met `tool_catalog`/`tool_load`. Werkt met alle ondersteunde aanbieders — geen aanbiederspecifieke API’s nodig.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support

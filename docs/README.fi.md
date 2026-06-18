@@ -36,6 +36,7 @@ Ensimmäisellä käynnistyksellä `uag` tarkistaa ympäristösi ja käynnistää
 - **Agent Skills -markkinapaikka**: Selaa ja asenna yhteisön Agent Skills -taitoja osoitteesta [SkillsMP](https://skillsmp.com) tai [ClawHub](https://clawhub.ai) komennolla `:skills mp_search`.
 - **Web Inspector**: tallenna selaimen siirtymät, DOM-tilannevedokset ja kuvakaappaukset `playwright_inspector`-työkalulla.
 - **Sisäänrakennetut dokumentit**: lue mukana tulevat dokumentit komennolla `uag docs`.
+- **Työkaluluettelo (Uusi!)**: Löydä ja lataa työkaluja dynaamisesti `tool_catalog`/`tool_load` -toiminnolla. Toimii kaikkien tuettujen palveluntarjoajien kanssa — ei vaadi palveluntarjoajakohtaisia API-liittymiä.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support

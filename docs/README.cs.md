@@ -36,6 +36,7 @@ Při prvním spuštění `uag` zkontroluje vaše prostředí a automaticky spust
 - **Tržiště dovedností agentů**: Procházejte a instalujte komunitní Agent Skills z [SkillsMP](https://skillsmp.com) nebo [ClawHub](https://clawhub.ai) pomocí `:skills mp_search`.
 - **Web Inspector**: ukládání navigací v prohlížeči, DOM snapshotů a screenshotů pomocí `playwright_inspector`.
 - **Vestavěná dokumentace**: čtení přiložených dokumentů pomocí `uag docs`.
+- **Katalog nástrojů (Novinka!)**: Dynamicky objevujte a načítejte nástroje pomocí `tool_catalog`/`tool_load`. Funguje se všemi podporovanými poskytovateli — nevyžaduje API specifická pro poskytovatele.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support

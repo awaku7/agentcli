@@ -36,6 +36,7 @@ Vid första start kontrollerar `uag` din miljö och startar automatiskt installa
 - **Agent Skills-marknadsplats**: Bläddra och installera community-Agent Skills från [SkillsMP](https://skillsmp.com) eller [ClawHub](https://clawhub.ai) med `:skills mp_search`.
 - **Web Inspector**: Spara webbläsarövergångar, DOM-snapshots och skärmbilder med `playwright_inspector`.
 - **Inbyggd dokumentation**: Läs medföljande dokumentation med `uag docs`.
+- **Verktygskatalog (Ny!)**: Upptäck och ladda verktyg dynamiskt med `tool_catalog`/`tool_load`. Fungerar med alla leverantörer som stöds — inga leverantörsspecifika API:er krävs.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support

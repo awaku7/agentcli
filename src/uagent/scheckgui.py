@@ -1023,11 +1023,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 ),
             ]
 
+            from .tools._genre_control_util import _ENABLED_GENRES
             self._genre_actions = {}
             for key, label, setter in genre_items:
                 act = tools_menu.addAction(label)
                 act.setCheckable(True)
-                act.setChecked(key == 'basic')
+                act.setChecked(key in _ENABLED_GENRES)
                 act.triggered.connect(lambda checked, s=setter: s(checked))
                 self._genre_actions[key] = act
 
@@ -1943,7 +1944,7 @@ def main():
 
     _mask = getattr(args, "tool_genre_mask", None)
     if _mask is None:
-        _mask = 1  # default: basic only
+        _mask = 0  # default: nothing
     from .cli_startup import _apply_startup_tool_genre_mask
 
     _apply_startup_tool_genre_mask(_mask)

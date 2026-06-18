@@ -101,7 +101,7 @@ def _prompt_startup_tool_genre_mask() -> int:
             ok_text=_("OK"),
             cancel_text=_("Default"),
             values=choices,
-            default_values=['basic'],
+            default_values=["basic"],
         ).run()
     except Exception:
         print(
@@ -339,16 +339,12 @@ def run_cli_startup(
                 print("[INFO] " + _("current workdir = %(cwd)s") % {"cwd": cwd})
             except Exception:
                 pass
-
             if tool_genre_mask is not None:
                 _apply_startup_tool_genre_mask(tool_genre_mask)
-            elif not non_interactive:
-                _tool_genre_mask = _prompt_startup_tool_genre_mask()
-                _apply_startup_tool_genre_mask(_tool_genre_mask)
             else:
                 # Default: basic only
-                _apply_startup_tool_genre_mask(1)
-
+                _apply_startup_tool_genre_mask(0)
+                # Default: none
             core.set_status(False, "")
 
             messages = build_initial_messages(core=core)

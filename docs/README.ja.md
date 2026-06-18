@@ -36,6 +36,7 @@ pip install uag
 - **Agent Skills マーケットプレイス**: [SkillsMP](https://skillsmp.com) または [ClawHub](https://clawhub.ai) でコミュニティ Agent Skill を検索・インストール（`:skills mp_search`）。
 - **Web Inspector**: `playwright_inspector` でブラウザ遷移、DOM、スクリーンショットを保存。
 - **組み込みドキュメント**: `uag docs` で同梱ドキュメントを参照可能。
+- **ツールカタログ (New!)**: `tool_catalog`/`tool_load` でツールを動的に発見・読み込み。全対応プロバイダで利用可能 — ベンダー固有API不要。
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 
@@ -102,7 +103,3 @@ Gemini / Claude / Vertex AI はネイティブ API 経路を使い、Responses A
 - **開発者ドキュメント**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **ロケール追加**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
 - **他言語の README**: [`docs/README.translations.md`](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
-
-`UAGENT_RESPONSES=1` を設定した場合、Responses API は OpenAI / Azure / Bedrock / OpenRouter / Ollama で使用されます。
-Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
-For other providers, uag falls back to the provider-specific or chat-completions path.

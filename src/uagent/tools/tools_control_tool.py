@@ -20,12 +20,26 @@ def handle_cmd_tools_on(arg: str, **kwargs: Any) -> Any:
     try:
         from .genre_control_tool import _set_genre_tools_enabled
 
-        if a in ("comm", "office", "devel", "iot", "basic", "exec", "external", "media"):
+        if a in (
+            "comm",
+            "office",
+            "devel",
+            "iot",
+            "basic",
+            "exec",
+            "external",
+            "media",
+        ):
             return _set_genre_tools_enabled(a, True)
     except ImportError:
         pass
 
-    print(_("msg.tools.usage_on", default="Usage: :tools on [comm|office|devel|iot|basic|exec|external|media]"))
+    print(
+        _(
+            "msg.tools.usage_on",
+            default="Usage: :tools on [comm|office|devel|iot|basic|exec|external|media]",
+        )
+    )
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -36,12 +50,26 @@ def handle_cmd_tools_off(arg: str, **kwargs: Any) -> Any:
     try:
         from .genre_control_tool import _set_genre_tools_enabled
 
-        if a in ("comm", "office", "devel", "iot", "basic", "exec", "external", "media"):
+        if a in (
+            "comm",
+            "office",
+            "devel",
+            "iot",
+            "basic",
+            "exec",
+            "external",
+            "media",
+        ):
             return _set_genre_tools_enabled(a, False)
     except ImportError:
         pass
 
-    print(_("msg.tools.usage_off", default="Usage: :tools off [comm|office|devel|iot|basic|exec|external|media]"))
+    print(
+        _(
+            "msg.tools.usage_off",
+            default="Usage: :tools off [comm|office|devel|iot|basic|exec|external|media]",
+        )
+    )
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -50,8 +78,14 @@ def handle_cmd_tools_off(arg: str, **kwargs: Any) -> Any:
 def handle_cmd_tools_load(arg: str, **kwargs: Any) -> Any:
     parts = (arg or "").strip().split()
     if not parts:
-        print(_("msg.tools.usage_load", default="Usage: :tools load <tool_name> [--persist N]"))
+        print(
+            _(
+                "msg.tools.usage_load",
+                default="Usage: :tools load <tool_name> [--persist N]",
+            )
+        )
         from ..util_tools import CommandResult
+
         return CommandResult()
 
     tool_name = parts[0]
@@ -95,6 +129,7 @@ def handle_cmd_tools_load(arg: str, **kwargs: Any) -> Any:
         print(f"[tools error] {type(e).__name__}: {e}")
 
     from ..util_tools import CommandResult
+
     return CommandResult()
 
 
@@ -141,6 +176,23 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     return CommandResult()
 
 
+def handle_cmd_tools_select(arg: str, **kwargs: Any) -> Any:
+    """Show interactive tool genre selection dialog."""
+    try:
+        from ..cli_startup import (
+            _prompt_startup_tool_genre_mask,
+            _apply_startup_tool_genre_mask,
+        )
+
+        mask = _prompt_startup_tool_genre_mask()
+        _apply_startup_tool_genre_mask(mask)
+    except Exception as e:
+        print(f"[tools error] {type(e).__name__}: {e}")
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
 # Register dynamic subcommands under ":tools"
 CMD_SPECS = [
     {
@@ -177,6 +229,15 @@ CMD_SPECS = [
         "help_text": _(
             "cmd.help.tools_off",
             default="  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  Disable development tools (lint, py_compile, tests)\n  :tools off iot                    Disable IoT tools (Bluetooth, etc.)",
+        ),
+    },
+    {
+        "command": "tools",
+        "subcommand": "select",
+        "handler": handle_cmd_tools_select,
+        "help_text": _(
+            "cmd.help.tools_select",
+            default="  :tools select                Show interactive tool genre selection dialog",
         ),
     },
 ]

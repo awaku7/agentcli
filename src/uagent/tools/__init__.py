@@ -693,7 +693,10 @@ def get_tool_catalog(
     tokens = _tokenize_catalog_query(q) if q else []
     if debug_tools:
         try:
-            print(f"[TOOLCAT] query={q!r} tokens={tokens!r} limit={limit} all_items={all_items}", flush=True)
+            print(
+                f"[TOOLCAT] query={q!r} tokens={tokens!r} limit={limit} all_items={all_items}",
+                flush=True,
+            )
         except Exception:
             pass
 
@@ -770,15 +773,19 @@ def get_tool_catalog(
         score = _score_spec(name, description, param_names, st_en, st)
         if score <= 0 and q:
             continue
-        rows.append({
-            "name": name,
-            "description": description,
-            "required": [str(x) for x in required] if isinstance(required, list) else [],
-            "parameters": param_names,
-            "loaded": True,
-            "genre": str(spec.get("tool_genre") or ""),
-            "score": score,
-        })
+        rows.append(
+            {
+                "name": name,
+                "description": description,
+                "required": (
+                    [str(x) for x in required] if isinstance(required, list) else []
+                ),
+                "parameters": param_names,
+                "loaded": True,
+                "genre": str(spec.get("tool_genre") or ""),
+                "score": score,
+            }
+        )
 
     # 2. Also search unloaded tool modules (for discovery)
     if q or all_items:
@@ -798,21 +805,25 @@ def get_tool_catalog(
                 description = str(fn.get("description") or "").strip()
                 parameters = fn.get("parameters") or {}
                 properties = parameters.get("properties") or {}
-                param_names = list(properties.keys()) if isinstance(properties, dict) else []
+                param_names = (
+                    list(properties.keys()) if isinstance(properties, dict) else []
+                )
                 st_en = _collect_search_terms(fn.get("x_search_terms_en"))
                 st = _collect_search_terms(fn.get("x_search_terms"))
                 score = _score_spec(name, description, param_names, st_en, st)
                 if score <= 0 and q:
                     continue
-                rows.append({
-                    "name": name,
-                    "description": description,
-                    "required": [],
-                    "parameters": param_names,
-                    "loaded": False,
-                    "genre": str(spec.get("tool_genre") or ""),
-                    "score": score - 100 if q else 0,
-                })
+                rows.append(
+                    {
+                        "name": name,
+                        "description": description,
+                        "required": [],
+                        "parameters": param_names,
+                        "loaded": False,
+                        "genre": str(spec.get("tool_genre") or ""),
+                        "score": score - 100 if q else 0,
+                    }
+                )
         except Exception:
             pass
 
@@ -820,14 +831,56 @@ def get_tool_catalog(
 
     out: list[dict[str, Any]] = []
     for row in rows[:limit]:
-        out.append({
-            "name": row["name"],
-            "description": row["description"],
-            "required": row["required"],
-            "parameters": row["parameters"],
-            "loaded": row["loaded"],
-            "genre": row["genre"],
-        })
+        out.append(
+            {
+                "name": row["name"],
+                "description": row["description"],
+                "required": row["required"],
+                "parameters": row["parameters"],
+                "loaded": row["loaded"],
+                "genre": row["genre"],
+            }
+        )
+
+    # Ensure web_search is always included in catalog results
+    if not any(r["name"] == "search_web" for r in out):
+        try:
+            from ._genre_control_util import _find_tool_modules
+
+            for _mname, mod in _find_tool_modules():
+                spec = getattr(mod, "TOOL_SPEC", None)
+                if not isinstance(spec, dict):
+                    continue
+                fn = spec.get("function") or {}
+                if not isinstance(fn, dict):
+                    continue
+                if fn.get("name") != "search_web":
+                    continue
+                description = str(fn.get("description") or "").strip()
+                parameters = fn.get("parameters") or {}
+                properties = parameters.get("properties") or {}
+                required = parameters.get("required") or []
+                param_names = (
+                    list(properties.keys()) if isinstance(properties, dict) else []
+                )
+                out.append(
+                    {
+                        "name": "search_web",
+                        "description": description,
+                        "required": (
+                            [str(x) for x in required]
+                            if isinstance(required, list)
+                            else []
+                        ),
+                        "parameters": param_names,
+                        "loaded": False,
+                        "genre": str(spec.get("tool_genre") or ""),
+                    }
+                )
+                break
+        except Exception:
+            pass
+
     if debug_tools:
         try:
             print(

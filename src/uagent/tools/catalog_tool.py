@@ -13,7 +13,7 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
     return {
         "tool_level": 0,
         "type": "function",
-        "tool_genre": "basic",
+        # "tool_genre": "basic",
         "function": {
             "name": "tool_catalog",
             "description": _(

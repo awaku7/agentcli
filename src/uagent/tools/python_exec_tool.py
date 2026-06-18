@@ -24,7 +24,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Execute Python code in a controlled way. Use this tool for calculations, data processing, or running short scripts."
+                "Execute Python code in a controlled way. Use this tool for calculations, data processing, or running short scripts. Search for other suitable tools via `tool_catalog` before using this tool."
             ),
         ),
         "x_search_terms": _(

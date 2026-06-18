@@ -34,6 +34,7 @@ Po instalacji, przy pierwszym uruchomieniu `uag` automatycznie zostanie uruchomi
 - **Rynek umiejętności agenta**: Przeglądaj i instaluj społecznościowe Agent Skills z [SkillsMP](https://skillsmp.com) lub [ClawHub](https://clawhub.ai) za pomocą `:skills mp_search`.
 - **Web Inspector**: automatycznie zapisuje przejścia przeglądarki, DOM i zrzuty ekranu za pomocą `playwright_inspector`.
 - **Wbudowana dokumentacja**: natychmiastowy dostęp do szczegółowej dokumentacji wewnętrznej za pomocą polecenia `uag docs`.
+- **Katalog narzędzi (Nowość!)**: Dynamicznie odkrywaj i Ŋduj narzędzia za pomocą `tool_catalog`/`tool_load`. Działa ze wszystkimi obsługowanymi dostawcami — nie wymaga API specyficznych dla dostawcy.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support

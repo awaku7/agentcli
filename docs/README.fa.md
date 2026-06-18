@@ -34,6 +34,7 @@ pip install uag
 - **بازار مهارت‌های عامل**: مهارت‌های انجمن را از [SkillsMP](https://skillsmp.com) یا [ClawHub](https://clawhub.ai) با `:skills mp_search` مرور و نصب کنید.
 - **Web Inspector**: با `playwright_inspector` جابه‌جایی‌های مرورگر، DOM snapshot و screenshot را ذخیره کنید.
 - **مستندات داخلی**: با `uag docs` مستندات همراه را بخوانید.
+- **کاتالوگ ابزار (جدید!)**: به صورت پویا ابزارها را کشف و بارگذاری کنید `tool_catalog`/`tool_load`. در همه ارائه دهندگان پشتیبانی شده کار می کند - بدون نیاز به API خاص فروشنده.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 

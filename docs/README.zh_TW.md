@@ -33,6 +33,7 @@ pip install uag
 - **Agent Skills 市集**: 使用 `:skills mp_search` 瀏覽和安裝來自 [SkillsMP](https://skillsmp.com) 或 [ClawHub](https://clawhub.ai) 的社群 Agent Skills。
 - **Web 檢查器**：使用 `playwright_inspector` 自動儲存瀏覽器跳轉、DOM 和截圖。
 - **內建文件**：使用 `uag docs` 指令即可即時瀏覽詳細的內部文件。
+- **工具目錄 (新!)**: 使用 `tool_catalog`/`tool_load` 動態發現和載入工具。適用於所有支援的提供商 — 無需特定供應商的API。
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## 使用方法

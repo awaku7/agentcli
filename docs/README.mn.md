@@ -34,6 +34,7 @@ pip install uag
 - **Agent Skills зах зээл**: [SkillsMP](https://skillsmp.com) эсвэл [ClawHub](https://clawhub.ai)-аас `:skills mp_search` ашиглан нийгэмлэгийн Agent Skills-ийг үзэх, суулгах.
 - **Web Inspector**: `playwright_inspector`-оор browser navigation, DOM snapshot, screenshot хадгална.
 - **Дагалдах docs**: `uag docs`-оор bundled docs уншиж болно.
+- **Хэрэгслийн каталог (Шинэ!)**: Хэрэгслийг динамикаар олж, ачаална уу `tool_catalog`/`tool_load`. Дэмжигдсэн бүх үйлчилгээ үзүүлэгч дээр ажилладаг - үйлдвэрлэгчийн тусгай API шаардлагагүй.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 

@@ -34,6 +34,7 @@ Setelah instalasi, saat pertama kali menjalankan `uag`, wizard setup interaktif 
 - **Marketplace Skill Agen**: Jelajahi dan instal Skill Agen komunitas dari [SkillsMP](https://skillsmp.com) atau [ClawHub](https://clawhub.ai) dengan `:skills mp_search`.
 - **Web Inspector**: Menyimpan transisi browser, DOM, dan screenshot secara otomatis menggunakan `playwright_inspector`.
 - **Dokumentasi Bawaan**: Akses instan ke dokumentasi internal yang rinci menggunakan perintah `uag docs`.
+- **Katalog alat (Baru!)**: Temukan dan muat alat secara dinamis dengan `tool_catalog`/`tool_load`. Berfungsi di semua penyedia yang didukung — tidak memerlukan API khusus penyedia.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support

@@ -34,6 +34,7 @@ pip install uag
 - **এজেন্ট স্কিল মার্কেটপ্লেস**: [SkillsMP](https://skillsmp.com) বা [ClawHub](https://clawhub.ai) থেকে কমিউনিটি Agent Skills ব্রাউজ এবং ইনস্টল করুন `:skills mp_search` দিয়ে।
 - **Web Inspector**: `playwright_inspector` দিয়ে ব্রাউজার নেভিগেশন, DOM snapshot, এবং screenshot সংরক্ষণ করুন।
 - **অন্তর্নির্মিত ডকস**: `uag docs` দিয়ে bundled docs পড়া যায়।
+- **টুল ক্যাটালগ (নতুন!)**: গতিশীলভাবে আবিষ্কার করুন এবং এর সাথে সরঞ্জামগুলি লোড করুন৷ সমস্ত সমর্থিত প্রদানকারী জুড়ে কাজ করে — কোন বিক্রেতা-নির্দিষ্ট API এর প্রয়োজন নেই। `tool_catalog`/`tool_load`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## ব্যবহার

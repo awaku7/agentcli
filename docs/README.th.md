@@ -33,6 +33,7 @@ pip install uag
 - **ตลาดทักษะเอเจนต์**: เรียกดูและติดตั้งทักษะเอเจนต์ของชุมชนจาก [SkillsMP](https://skillsmp.com) หรือ [ClawHub](https://clawhub.ai) ด้วย `:skills mp_search`
 - **Web Inspector**: บันทึกการเปลี่ยนหน้าเว็บ, DOM และภาพหน้าจอโดยอัตโนมัติด้วย `playwright_inspector`
 - **เอกสารในตัว**: เข้าถึงเอกสารรายละเอียดภายในได้ทันทีด้วยคำสั่ง `uag docs`
+- **แค็ตตาล็อกเครื่องมือ (ใหม่!)**: ค้นหาและโหลดเครื่องมือแบบไดนามิกด้วย ทำงานได้กับผู้ให้บริการที่รองรับทั้งหมด — ไม่จำเป็นต้องมี API เฉพาะผู้จำหน่าย `tool_catalog`/`tool_load`.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support

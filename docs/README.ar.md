@@ -36,6 +36,7 @@ pip install uag
 - **سوق مهارات الوكلاء**: تصفح وقم بتثبيت مهارات المجتمع من [SkillsMP](https://skillsmp.com) أو [ClawHub](https://clawhub.ai) باستخدام `:skills mp_search`.
 - **Web Inspector**: حفظ انتقالات المتصفح ولقطات DOM ولقطات الشاشة باستخدام `playwright_inspector`.
 - **وثائق مدمجة**: قراءة الوثائق المرفقة باستخدام `uag docs`.
+- **كتالوج الأدوات (جديد!)**: اكتشاف الأدوات وتحميلها ديناميكيًا `tool_catalog`/`tool_load`. يعمل عبر جميع مقدمي الخدمة المدعومين - لا يلزم وجود واجهات برمجة تطبيقات خاصة بالمورد.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support

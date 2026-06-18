@@ -36,6 +36,7 @@ Wakati wa kuzindua kwa mara ya kwanza, `uag` hukagua mazingira yako na huanza ki
 - **Soko la Ujuzi wa Wakala**: Vinjari na sakinisha Ujuzi wa Wakala wa jamii kutoka [SkillsMP](https://skillsmp.com) au [ClawHub](https://clawhub.ai) kwa `:skills mp_search`.
 - **Web Inspector**: Hifadhi mabadiliko ya kivinjari, picha za DOM, na skrini kwa `playwright_inspector`.
 - **Nyaraka zilizojengwa**: Soma nyaraka zilizomo kwa `uag docs`.
+- **Katalogi ya zana (Mpya!)**: Gundua na upakie zana kwa nguvu `tool_catalog`/`tool_load`. Inafanya kazi kwa watoa huduma wote wanaoauniwa - hakuna API maalum za muuzaji zinazohitajika.
 - **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
 
 ## IoT Device Support
