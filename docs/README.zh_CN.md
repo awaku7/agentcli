@@ -56,6 +56,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 在终端中运行 `uag` 即可启动。输入 `:exit` 退出。
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### A2A（智能体间通信）服务器
 
 您可以启动一个独立于现有界面的 A2A 兼容 HTTP 服务器。
@@ -80,6 +82,7 @@ Gemini / Claude / Vertex AI 使用各自的原生 API 路径，不在 Responses 
 - `:load <index>`：加载历史会话以恢复对话。
 - `:skills`: 选择并加载 Agent Skills（使用 `:skills mp_search` 浏览 [SkillsMP](https://skillsmp.com) 或 [ClawHub](https://clawhub.ai) 市场）
 - `:shrink [n]`：整理历史记录，仅保留最近 `n` 条消息以节省 Token。
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## 配置与详情
 

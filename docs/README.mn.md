@@ -58,6 +58,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 Терминал дээр `uag` ажиллуулаад эхлүүлнэ. Гарахын тулд `:exit` гэж бичнэ.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### A2A сервер
 
 Agent2Agent-тэй нийцтэй HTTP сервер эхлүүлнэ:
@@ -75,6 +77,7 @@ uaga
 - `:load <index>`: өмнөх session-ийг ачаална
 - `:skills`: Agent Skills сонгох, ачаалах (`:skills mp_search` ашиглан [SkillsMP](https://skillsmp.com) эсвэл [ClawHub](https://clawhub.ai) зах зээлээр үзэх)
 - `:shrink [n]`: history-г товчилж, сүүлийн `n` мессежийг үлдээнэ
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## Тохиргоо ба дэлгэрэнгүй
 

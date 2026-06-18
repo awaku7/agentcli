@@ -20,6 +20,20 @@ ______________________________________________________________________
 - Git: required for development workflows and some tools
 - OS: Windows / macOS / Linux
 
+### 0.1 Startup options
+
+All entry points (CLI/GUI/Web/A2A) accept the following common options unless noted otherwise.
+
+| Option | Entry points | Description | Defined in |
+|---|---|---|---|
+| `--workdir` / `-C` | CLI, GUI, Web, A2A | Working directory. Priority: CLI arg > `UAGENT_WORKDIR` > current dir | `util_tools.py:parse_startup_args()` |
+| `--non-interactive` | CLI | Non-interactive mode. No stdin loop; exit after processing startup file (if any). | `util_tools.py:parse_startup_args()` |
+| `--tool-genre-mask <int>` | CLI, GUI, Web, A2A | Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all). Skips interactive genre prompt when specified. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
+| `--use-tool` / `--no-use-tool` | CLI, GUI, Web, A2A | Enable/disable tool sending to LLM. Overrides `UAGENT_USE_TOOL` env var. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
+| `--host` | A2A only | Bind address (default: `0.0.0.0`, overridable by `UAGENT_A2A_HOST`). | `a2a/server.py` |
+| `--port` | A2A only | Port number (default: `8765`, overridable by `UAGENT_A2A_PORT`). | `a2a/server.py` |
+| `--reload` | A2A only | Enable hot reload (overridable by `UAGENT_A2A_RELOAD`). | `a2a/server.py`
+
 ______________________________________________________________________
 
 ## 1. Repository structure / key modules

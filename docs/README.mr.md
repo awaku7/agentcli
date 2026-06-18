@@ -58,6 +58,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 टर्मिनलमध्ये `uag` चालवा. बाहेर पडण्यासाठी `:exit` लिहा.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### A2A सर्व्हर
 
 Agent2Agent-सुसंगत HTTP सर्व्हर सुरू करा:
@@ -75,6 +77,7 @@ uaga
 - `:load <index>`: पूर्वीची session लोड करतो
 - `:skills`: Agent Skills निवडा आणि लोड करा ([SkillsMP](https://skillsmp.com) किंवा [ClawHub](https://clawhub.ai) मार्केटप्लेस ब्राउझ करण्यासाठी `:skills mp_search` वापरा)
 - `:shrink [n]`: history कमी करून शेवटची `n` संदेश ठेवतो
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## सेटिंग्ज आणि तपशील
 

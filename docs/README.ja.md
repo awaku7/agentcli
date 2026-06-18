@@ -60,6 +60,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 ターミナルで `uag` を実行して開始します。終了するには `:exit` を入力します。
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### A2A サーバー
 
 Agent2Agent 互換の HTTP サーバーを起動します。
@@ -77,6 +79,7 @@ uaga
 - `:load <index>`: 過去セッションを読み込む
 - `:skills`: Agent Skills を選択してロード（`:skills mp_search` で [SkillsMP](https://skillsmp.com) または [ClawHub](https://clawhub.ai) を検索可能）
 - `:shrink [n]`: 履歴を要約して末尾 `n` 件を残す
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## 設定と詳細
 

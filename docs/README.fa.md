@@ -58,6 +58,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 برای شروع، در ترمینال `uag` را اجرا کنید. برای خروج `:exit` را وارد کنید.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### سرور A2A
 
 یک سرور HTTP سازگار با Agent2Agent راه‌اندازی کنید:
@@ -75,6 +77,7 @@ uaga
 - `:load <index>`: یک نشست قبلی را بارگذاری می‌کند
 - `:skills`: انتخاب و بارگذاری Agent Skills (از `:skills mp_search` برای مرور بازارهای [SkillsMP](https://skillsmp.com) یا [ClawHub](https://clawhub.ai) استفاده کنید)
 - `:shrink [n]`: history را خلاصه می‌کند و آخرین `n` پیام را نگه می‌دارد
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## پیکربندی و جزئیات
 

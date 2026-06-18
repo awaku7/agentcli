@@ -57,6 +57,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 টার্মিনালে `uag` চালিয়ে শুরু করুন। বন্ধ করতে `:exit` লিখুন।
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### A2A সার্ভার
 
 Agent2Agent-সামঞ্জস্যপূর্ণ একটি HTTP সার্ভার চালু করুন:
@@ -74,6 +76,7 @@ uaga
 - `:load <index>`: আগের একটি সেশন লোড করে
 - `:skills`: Agent Skills সিলেক্ট এবং লোড করুন (`:skills mp_search` ব্যবহার করে [SkillsMP](https://skillsmp.com) বা [ClawHub](https://clawhub.ai) মার্কেটপ্লেস ব্রাউজ করুন)
 - `:shrink [n]`: history সংক্ষিপ্ত করে শেষ `n` বার্তা রেখে দেয়
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## কনফিগারেশন ও বিস্তারিত
 

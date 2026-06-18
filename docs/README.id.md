@@ -57,6 +57,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 Jalankan `uag` dari terminal Anda untuk memulai. Ketik `:exit` untuk keluar.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### Server A2A (Agent2Agent)
 
 Jalankan server HTTP yang kompatibel dengan A2A:
@@ -80,6 +82,7 @@ Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.
 - `:load <index>`: Memuat sesi sebelumnya untuk melanjutkan percakapan.
 - `:skills`: pilih dan muat Agent Skills (gunakan `:skills mp_search` untuk menjelajahi marketplace [SkillsMP](https://skillsmp.com) atau [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: Menyusun riwayat agar hanya menyimpan `n` pesan terakhir untuk menghemat token.
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## Konfigurasi dan Rincian
 

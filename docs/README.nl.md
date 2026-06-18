@@ -59,6 +59,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 Start door `uag` in je terminal uit te voeren. Typ `:exit` om te stoppen.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### A2A-server
 
 Start een HTTP-server die compatibel is met Agent2Agent:
@@ -76,6 +78,7 @@ Zie [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md
 - `:load <index>`: laad een eerdere sessie
 - `:skills`: selecteer en laad Agent Skills (gebruik `:skills mp_search` om de [SkillsMP](https://skillsmp.com)- of [ClawHub](https://clawhub.ai)-marktplaatsen te doorbladeren)
 - `:shrink [n]`: vat de historie samen en behoud de laatste `n` berichten
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## Configuratie en details
 

@@ -56,6 +56,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 Ejecute `uag` desde su terminal para comenzar. Escriba `:exit` para salir.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### Servidor A2A (Agent2Agent)
 
 Puede iniciar un servidor HTTP compatible con A2A separado de las interfaces existentes.
@@ -80,6 +82,7 @@ Consulte [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONME
 - `:load <index>`: Carga una sesión pasada para reanudar la conversación.
 - `:skills`: seleccionar y cargar Agent Skills (use `:skills mp_search` para explorar los mercados de [SkillsMP](https://skillsmp.com) o [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: Organiza el historial para mantener solo los últimos `n` mensajes y ahorrar tokens.
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## Configuración y detalles
 

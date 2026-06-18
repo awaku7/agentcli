@@ -59,6 +59,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 Endesha `uag` kwenye terminal yako ili kuanza. Andika `:exit` ili kutoka.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### Seva ya A2A
 
 Zindua seva ya HTTP inayooana na Agent2Agent:
@@ -76,6 +78,7 @@ Tazama [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT
 - `:load <index>`: pakia kipindi cha awali
 - `:skills`: chagua na upakia Agent Skills (tumia `:skills mp_search` kuvinjari soko la [SkillsMP](https://skillsmp.com) au [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: fupisha historia na uhifadhi ujumbe wa mwisho `n`
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## Usanidi na maelezo
 

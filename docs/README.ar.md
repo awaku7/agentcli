@@ -59,6 +59,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 شغّل `uag` في الطرفية لبدء التشغيل. اكتب `:exit` للخروج.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### خادم A2A
 
 شغّل خادم HTTP متوافقًا مع Agent2Agent:
@@ -76,6 +78,7 @@ uaga
 - `:load <index>`: تحميل جلسة سابقة
 - `:skills`: تحديد وتحميل Agent Skills (استخدم `:skills mp_search` لتصفح أسواق [SkillsMP](https://skillsmp.com) أو [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: تلخيص السجل والإبقاء على آخر `n` من الرسائل
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## الإعداد والتفاصيل
 

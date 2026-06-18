@@ -59,6 +59,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 Запустіть `uag` у терміналі. Щоб вийти, введіть `:exit`.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### A2A server
 
 Запустіть HTTP-сервер, сумісний з Agent2Agent:
@@ -76,6 +78,7 @@ uaga
 - `:load <index>`: завантажити попередню сесію
 - `:skills`: вибрати та завантажити Agent Skills (використовуйте `:skills mp_search` для перегляду торговельних майданчиків [SkillsMP](https://skillsmp.com) або [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: стиснути історію й залишити останні `n` повідомлень
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## Налаштування та деталі
 

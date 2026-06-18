@@ -57,6 +57,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 Chạy `uag` từ terminal để bắt đầu. Gõ `:exit` để thoát.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### Máy chủ A2A (Agent2Agent)
 
 Khởi chạy máy chủ HTTP tương thích với A2A:
@@ -80,6 +82,7 @@ Xem [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md
 - `:load <index>`: Tải một phiên trước đó để tiếp tục hội thoại.
 - `:skills`: chọn và tải Agent Skills (sử dụng `:skills mp_search` để duyệt thị trường [SkillsMP](https://skillsmp.com) hoặc [ClawHub](https://clawhub.ai))
 - `:shrink [n]`: Thu gọn lịch sử để chỉ giữ `n` tin nhắn gần nhất nhằm tiết kiệm token.
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## Cấu hình và chi tiết
 

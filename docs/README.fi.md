@@ -59,6 +59,8 @@ For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
 
 Aloita suorittamalla `uag` terminaalissa. Poistu kirjoittamalla `:exit`.
 
+For all command-line options, see [USAGE.md](USAGE.md).
+
 ### A2A-palvelin
 
 Käynnistä Agent2Agent-yhteensopiva HTTP-palvelin:
@@ -76,6 +78,7 @@ Katso `UAGENT_A2A_*`-asetukset, kuten tunnistus, host, portti, uudelleenlataus, 
 - `:load <index>`: lataa aiempi istunto
 - `:skills`: valitse ja lataa Agent Skills (käytä `:skills mp_search` selataksesi [SkillsMP](https://skillsmp.com)- tai [ClawHub](https://clawhub.ai)-markkinapaikkoja)
 - `:shrink [n]`: tiivistä historia ja säilytä viimeiset `n` viestiä
+- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
 
 ## Asetukset ja lisätiedot
 
