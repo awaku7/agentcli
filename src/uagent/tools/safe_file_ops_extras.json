@@ -128,5 +128,25 @@
     "err.file_not_found": "未找到文件：{filename}",
     "err.outside_workdir": "路徑在工作目錄之外： root={root} path={path}",
     "err.path_empty": "路徑為空"
+  },
+  "bn": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "fa": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "mn": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "mr": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
   }
 }

@@ -310,5 +310,53 @@
     "ui.confirm.footer": "===/確認===",
     "ui.confirm.howto": "如何回覆：y=繼續 / c=取消 / other=拒絕\n",
     "ui.confirm.title": "===人工確認請求==="
+  },
+  "bn": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
+  },
+  "fa": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
+  },
+  "mn": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
+  },
+  "mr": {
+    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
+    "err.blocked_cancelled": "user cancelled",
+    "err.blocked_rejected": "user rejected",
+    "err.callbacks_unavailable": "human_ask callbacks not available",
+    "err.confirm_failed": "confirmation failed",
+    "err.confirm_timeout": "confirmation timeout",
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
+    "ui.confirm.title": "=== Human confirmation request ==="
   }
 }

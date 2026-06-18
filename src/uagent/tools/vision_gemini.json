@@ -206,5 +206,37 @@
     "err.image_not_found": "找不到影像檔：{image_path}",
     "result.no_description": "[未產生描述]",
     "err.analysis": "影像分析期間發生錯誤：{error}"
+  },
+  "bn": {
+    "err.missing_env": "Missing required env var(s): {keys}",
+    "err.not_installed": "google-genai package is not installed.",
+    "err.init_client": "Failed to initialize Gemini/VertexAI client: {error}",
+    "err.image_not_found": "Image file not found: {image_path}",
+    "result.no_description": "[No description generated]",
+    "err.analysis": "Error during image analysis: {error}"
+  },
+  "fa": {
+    "err.missing_env": "Missing required env var(s): {keys}",
+    "err.not_installed": "google-genai package is not installed.",
+    "err.init_client": "Failed to initialize Gemini/VertexAI client: {error}",
+    "err.image_not_found": "Image file not found: {image_path}",
+    "result.no_description": "[No description generated]",
+    "err.analysis": "Error during image analysis: {error}"
+  },
+  "mn": {
+    "err.missing_env": "Missing required env var(s): {keys}",
+    "err.not_installed": "google-genai package is not installed.",
+    "err.init_client": "Failed to initialize Gemini/VertexAI client: {error}",
+    "err.image_not_found": "Image file not found: {image_path}",
+    "result.no_description": "[No description generated]",
+    "err.analysis": "Error during image analysis: {error}"
+  },
+  "mr": {
+    "err.missing_env": "Missing required env var(s): {keys}",
+    "err.not_installed": "google-genai package is not installed.",
+    "err.init_client": "Failed to initialize Gemini/VertexAI client: {error}",
+    "err.image_not_found": "Image file not found: {image_path}",
+    "result.no_description": "[No description generated]",
+    "err.analysis": "Error during image analysis: {error}"
   }
 }

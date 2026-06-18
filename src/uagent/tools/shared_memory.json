@@ -154,5 +154,29 @@
     "msg.disabled": "（共享記憶體已停用；設定 UAGENT_SHARED_MEMORY_FILE 來啟用它）",
     "msg.no_shared_memory": "（還沒有共享記憶體）",
     "msg.truncated": "\n[共享記憶體被截斷：限制為 {max_bytes} 位元組]"
+  },
+  "bn": {
+    "err.load": "[shared_memory error] {err_type}: {err}",
+    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
+    "msg.no_shared_memory": "(no shared memory yet)",
+    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+  },
+  "fa": {
+    "err.load": "[shared_memory error] {err_type}: {err}",
+    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
+    "msg.no_shared_memory": "(no shared memory yet)",
+    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+  },
+  "mn": {
+    "err.load": "[shared_memory error] {err_type}: {err}",
+    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
+    "msg.no_shared_memory": "(no shared memory yet)",
+    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+  },
+  "mr": {
+    "err.load": "[shared_memory error] {err_type}: {err}",
+    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
+    "msg.no_shared_memory": "(no shared memory yet)",
+    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
   }
 }

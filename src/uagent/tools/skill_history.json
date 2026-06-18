@@ -128,5 +128,25 @@
     "skill.prefix": "[SKILL] ",
     "skill.clear_log": "{message} (Cleared {removed} skill messages)",
     "skill.ok": "{message}"
+  },
+  "bn": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "fa": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "mn": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "mr": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
   }
 }
