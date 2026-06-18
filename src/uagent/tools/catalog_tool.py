@@ -19,7 +19,7 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
             "description": _(
                 "tool.description",
                 default=(
-                    "Return a JSON catalog of available tools with ok, query, count, and tools fields so the model can discover relevant tools before requesting full tool definitions. Results include a 'loaded' field indicating if the tool is currently enabled."
+                    "Return a JSON catalog of available tools with ok, query, count, and tools fields so the model can discover relevant tools before requesting full tool definitions. Results include a 'loaded' field indicating if the tool is currently enabled. When you need a capability and no loaded tool seems suitable, query this first."
                 ),
             ),
             "x_search_terms": _(
@@ -29,6 +29,7 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
                     "tool catalog",
                     "discover tools",
                     "tool discovery",
+                    "list all tools",
                 ],
             ),
             "x_search_terms_en": [
@@ -36,6 +37,7 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
                 "tool catalog",
                 "discover tools",
                 "tool discovery",
+                "list all tools",
             ],
             "parameters": {
                 "type": "object",
@@ -44,7 +46,7 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
                         "type": "string",
                         "description": _(
                             "param.query.description",
-                            default="Natural-language query describing the needed capability.",
+                            default="Natural-language query describing the needed capability. Ignored when all=true.",
                         ),
                     },
                     "limit": {
@@ -55,8 +57,15 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
                         ),
                         "default": 12,
                     },
+                    "all": {
+                        "type": "boolean",
+                        "description": _(
+                            "param.all.description",
+                            default="If true, return all available tools (loaded + unloaded) without query filtering.",
+                        ),
+                        "default": False,
+                    },
                 },
-                "required": ["query"],
             },
         },
     }
@@ -122,6 +131,7 @@ TOOL_SPEC_2: dict[str, Any] = _build_tool_load_spec()
 
 def _run_tool_catalog(args: dict[str, Any]) -> str:
     query = str(args.get("query") or "").strip()
+    all_flag = bool(args.get("all", False))
     max_results_raw = args.get("limit", 12)
     try:
         max_results = int(max_results_raw)
@@ -130,11 +140,12 @@ def _run_tool_catalog(args: dict[str, Any]) -> str:
     if max_results <= 0:
         max_results = 12
 
-    catalog = get_tool_catalog(query=query, max_results=max_results)
+    catalog = get_tool_catalog(query=query, max_results=max_results, all_items=all_flag)
     return json.dumps(
         {
             "ok": True,
             "query": query,
+            "all": all_flag,
             "count": len(catalog),
             "tools": catalog,
         },

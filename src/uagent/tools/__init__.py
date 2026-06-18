@@ -689,9 +689,13 @@ def get_tool_catalog(
     query: str,
     max_results: int = 12,
     tool_specs: Optional[list[dict[str, Any]]] = None,
+    all_items: bool = False,
 ) -> list[dict[str, Any]]:
-    """Return a lightweight searchable catalog of tools."""
-    q = (query or "").strip().lower()
+    """Return a lightweight searchable catalog of tools.
+
+    If all_items is True, return all loaded + unloaded tools without query filtering.
+    """
+    q = (query or "").strip().lower() if not all_items else ""
     try:
         limit = int(max_results)
     except Exception:
@@ -708,7 +712,7 @@ def get_tool_catalog(
     tokens = _tokenize_catalog_query(q) if q else []
     if debug_tools:
         try:
-            print(f"[TOOLCAT] query={q!r} tokens={tokens!r} limit={limit}", flush=True)
+            print(f"[TOOLCAT] query={q!r} tokens={tokens!r} limit={limit} all_items={all_items}", flush=True)
         except Exception:
             pass
 
@@ -796,7 +800,7 @@ def get_tool_catalog(
         })
 
     # 2. Also search unloaded tool modules (for discovery)
-    if q:
+    if q or all_items:
         try:
             from ._genre_control_util import _find_tool_modules
 
@@ -817,7 +821,7 @@ def get_tool_catalog(
                 st_en = _collect_search_terms(fn.get("x_search_terms_en"))
                 st = _collect_search_terms(fn.get("x_search_terms"))
                 score = _score_spec(name, description, param_names, st_en, st)
-                if score <= 0:
+                if score <= 0 and q:
                     continue
                 rows.append({
                     "name": name,
@@ -826,7 +830,7 @@ def get_tool_catalog(
                     "parameters": param_names,
                     "loaded": False,
                     "genre": str(spec.get("tool_genre") or ""),
-                    "score": score - 100,  # Penalize unloaded slightly
+                    "score": score - 100 if q else 0,
                 })
         except Exception:
             pass

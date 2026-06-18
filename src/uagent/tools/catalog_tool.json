@@ -16,7 +16,8 @@
     "msg.load.persist_unlimited": "unlimited (session)",
     "msg.load.persist_count": "{n} use(s)",
     "msg.load.ok": "Tool '{name}' has been loaded (persist={persist}) and is now available.",
-    "msg.load.not_found": "Tool '{name}' not found."
+    "msg.load.not_found": "Tool '{name}' not found.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "ja": {
     "tool.description": "利用可能なツールのJSONカタログを返します（ok, query, count, tools フィールド）。モデルが完全なツール定義を要求する前に関連ツールを発見できます。結果にはツールが現在有効かどうかを示す 'loaded' フィールドが含まれます。",
@@ -35,7 +36,8 @@
     "msg.load.persist_unlimited": "無制限（セッション中）",
     "msg.load.persist_count": "{n} 回",
     "msg.load.ok": "ツール '{name}' を読み込みました（persist={persist}）。",
-    "msg.load.not_found": "ツール '{name}' が見つかりません。"
+    "msg.load.not_found": "ツール '{name}' が見つかりません。",
+    "param.all.description": "true の場合、クエリフィルタリングなしですべての利用可能なツール（読み込み済み＋未読み込み）を返します。"
   },
   "es": {
     "tool.description": "Devuelve un catálogo JSON de herramientas disponibles con los campos ok, query, count y tools para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas. Los resultados incluyen un campo 'loaded' que indica si la herramienta está actualmente habilitada.",
@@ -54,7 +56,8 @@
     "msg.load.persist_unlimited": "ilimitado (sesión)",
     "msg.load.persist_count": "{n} uso(s)",
     "msg.load.ok": "La herramienta '{name}' se ha cargado (persist={persist}) y ahora está disponible.",
-    "msg.load.not_found": "Herramienta '{name}' no encontrada."
+    "msg.load.not_found": "Herramienta '{name}' no encontrada.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "fr": {
     "tool.description": "Retourne un catalogue JSON des outils disponibles avec les champs ok, query, count et tools afin que le modèle puisse découvrir les outils pertinents avant de demander les définitions complètes. Les résultats incluent un champ 'loaded' indiquant si l'outil est actuellement activé.",
@@ -73,7 +76,8 @@
     "msg.load.persist_unlimited": "illimité (session)",
     "msg.load.persist_count": "{n} utilisation(s)",
     "msg.load.ok": "L'outil '{name}' a été chargé (persist={persist}) et est maintenant disponible.",
-    "msg.load.not_found": "Outil '{name}' introuvable."
+    "msg.load.not_found": "Outil '{name}' introuvable.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "ko": {
     "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 검색할 수 있도록 ok, query, count 및 tools 필드를 포함한 사용 가능한 도구의 JSON 카탈로그를 반환합니다. 결과에는 도구가 현재 활성화되었는지 나타내는 'loaded' 필드가 포함됩니다.",
@@ -92,7 +96,8 @@
     "msg.load.persist_unlimited": "무제한 (세션)",
     "msg.load.persist_count": "{n}회 사용",
     "msg.load.ok": "도구 '{name}'이(가) 로드되었습니다 (persist={persist}) 이제 사용 가능합니다.",
-    "msg.load.not_found": "도구 '{name}'을(를) 찾을 수 없습니다."
+    "msg.load.not_found": "도구 '{name}'을(를) 찾을 수 없습니다.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "de": {
     "tool.description": "Gibt einen JSON-Katalog verfügbarer Werkzeuge mit den Feldern ok, query, count und tools zurück, damit das Modell relevante Werkzeuge entdecken kann, bevor es vollständige Werkzeugdefinitionen anfordert. Die Ergebnisse enthalten ein 'loaded'-Feld, das angibt, ob das Werkzeug derzeit aktiviert ist.",
@@ -111,7 +116,8 @@
     "msg.load.persist_unlimited": "unbegrenzt (Sitzung)",
     "msg.load.persist_count": "{n} Verwendung(en)",
     "msg.load.ok": "Werkzeug '{name}' wurde geladen (persist={persist}) und ist jetzt verfügbar.",
-    "msg.load.not_found": "Werkzeug '{name}' nicht gefunden."
+    "msg.load.not_found": "Werkzeug '{name}' nicht gefunden.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "it": {
     "tool.description": "Restituisce un catalogo JSON degli strumenti disponibili con i campi ok, query, count e tools in modo che il modello possa scoprire gli strumenti pertinenti prima di richiedere le definizioni complete. I risultati includono un campo 'loaded' che indica se lo strumento è attualmente abilitato.",
@@ -130,7 +136,8 @@
     "msg.load.persist_unlimited": "illimitato (sessione)",
     "msg.load.persist_count": "{n} utilizzo(i)",
     "msg.load.ok": "Strumento '{name}' è stato caricato (persist={persist}) ed è ora disponibile.",
-    "msg.load.not_found": "Strumento '{name}' non trovato."
+    "msg.load.not_found": "Strumento '{name}' non trovato.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "ru": {
     "tool.description": "Возвращает JSON-каталог доступных инструментов с полями ok, query, count и tools, чтобы модель могла обнаружить соответствующие инструменты перед запросом полных определений. Результаты включают поле 'loaded', указывающее, включен ли инструмент в настоящее время.",
@@ -149,7 +156,8 @@
     "msg.load.persist_unlimited": "безлимитно (сеанс)",
     "msg.load.persist_count": "{n} использование(я)",
     "msg.load.ok": "Инструмент '{name}' загружен (persist={persist}) и теперь доступен.",
-    "msg.load.not_found": "Инструмент '{name}' не найден."
+    "msg.load.not_found": "Инструмент '{name}' не найден.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "pt_BR": {
     "tool.description": "Retorna um catálogo JSON de ferramentas disponíveis com os campos ok, query, count e tools para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas. Os resultados incluem um campo 'loaded' indicando se a ferramenta está atualmente habilitada.",
@@ -168,7 +176,8 @@
     "msg.load.persist_unlimited": "ilimitado (sessão)",
     "msg.load.persist_count": "{n} uso(s)",
     "msg.load.ok": "Ferramenta '{name}' foi carregada (persist={persist}) e agora está disponível.",
-    "msg.load.not_found": "Ferramenta '{name}' não encontrada."
+    "msg.load.not_found": "Ferramenta '{name}' não encontrada.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "pt": {
     "tool.description": "Retorna um catálogo JSON de ferramentas disponíveis com os campos ok, query, count e tools para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas. Os resultados incluem um campo 'loaded' indicando se a ferramenta está atualmente habilitada.",
@@ -187,7 +196,8 @@
     "msg.load.persist_unlimited": "ilimitado (sessão)",
     "msg.load.persist_count": "{n} uso(s)",
     "msg.load.ok": "Ferramenta '{name}' foi carregada (persist={persist}) e agora está disponível.",
-    "msg.load.not_found": "Ferramenta '{name}' não encontrada."
+    "msg.load.not_found": "Ferramenta '{name}' não encontrada.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "id": {
     "tool.description": "Mengembalikan katalog JSON dari alat yang tersedia dengan kolom ok, query, count, dan tools sehingga model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap. Hasilnya menyertakan kolom 'loaded' yang menunjukkan apakah alat saat ini diaktifkan.",
@@ -206,7 +216,8 @@
     "msg.load.persist_unlimited": "tidak terbatas (sesi)",
     "msg.load.persist_count": "{n} penggunaan",
     "msg.load.ok": "Alat '{name}' telah dimuat (persist={persist}) dan sekarang tersedia.",
-    "msg.load.not_found": "Alat '{name}' tidak ditemukan."
+    "msg.load.not_found": "Alat '{name}' tidak ditemukan.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "vi": {
     "tool.description": "Trả về danh mục JSON của các công cụ có sẵn với các trường ok, query, count và tools để mô hình có thể khám phá các công cụ liên quan trước khi yêu cầu định nghĩa đầy đủ. Kết quả bao gồm trường 'loaded' cho biết công cụ hiện có được kích hoạt hay không.",
@@ -225,7 +236,8 @@
     "msg.load.persist_unlimited": "không giới hạn (phiên)",
     "msg.load.persist_count": "{n} lần sử dụng",
     "msg.load.ok": "Công cụ '{name}' đã được tải (persist={persist}) và hiện đã sẵn sàng.",
-    "msg.load.not_found": "Không tìm thấy công cụ '{name}'."
+    "msg.load.not_found": "Không tìm thấy công cụ '{name}'.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "pl": {
     "tool.description": "Zwraca katalog JSON dostępnych narzędzi z polami ok, query, count i tools, aby model mógł odkryć odpowiednie narzędzia przed żądaniem pełnych definicji. Wyniki zawierają pole 'loaded' wskazujące, czy narzędzie jest obecnie włączone.",
@@ -244,7 +256,8 @@
     "msg.load.persist_unlimited": "bez ograniczeń (sesja)",
     "msg.load.persist_count": "{n} użycie(a)",
     "msg.load.ok": "Narzędzie '{name}' zostało załadowane (persist={persist}) i jest teraz dostępne.",
-    "msg.load.not_found": "Nie znaleziono narzędzia '{name}'."
+    "msg.load.not_found": "Nie znaleziono narzędzia '{name}'.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "hi": {
     "tool.description": "उपलब्ध उपकरणों की एक JSON सूची लौटाता है जिसमें ok, query, count और tools फ़ील्ड हैं ताकि मॉडल पूर्ण उपकरण परिभाषाओं का अनुरोध करने से पहले प्रासंगिक उपकरणों की खोज कर सके। परिणामों में एक 'loaded' फ़ील्ड शामिल है जो इंगित करता है कि उपकरण वर्तमान में सक्षम है या नहीं।",
@@ -263,7 +276,8 @@
     "msg.load.persist_unlimited": "असीमित (सत्र)",
     "msg.load.persist_count": "{n} उपयोग",
     "msg.load.ok": "उपकरण '{name}' लोड हो गया है (persist={persist}) और अब उपलब्ध है।",
-    "msg.load.not_found": "उपकरण '{name}' नहीं मिला।"
+    "msg.load.not_found": "उपकरण '{name}' नहीं मिला।",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "ar": {
     "tool.description": "إرجاع كتالوج JSON للأدوات المتاحة مع الحقول ok وquery وcount وtools حتى يتمكن النموذج من اكتشاف الأدوات ذات الصلة قبل طلب تعريفات كاملة. تتضمن النتائج حقل 'loaded' يشير إلى ما إذا كانت الأداة مفعلة حاليًا.",
@@ -282,7 +296,8 @@
     "msg.load.persist_unlimited": "غير محدود (جلسة)",
     "msg.load.persist_count": "{n} استخدام(ات)",
     "msg.load.ok": "تم تحميل الأداة '{name}' (persist={persist}) وهي الآن متاحة.",
-    "msg.load.not_found": "الأداة '{name}' غير موجودة."
+    "msg.load.not_found": "الأداة '{name}' غير موجودة.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "sv": {
     "tool.description": "Returnerar en JSON-katalog över tillgängliga verktyg med fälten ok, query, count och tools så att modellen kan upptäcka relevanta verktyg innan den begär fullständiga verktygsdefinitioner. Resultaten innehåller ett fält 'loaded' som indikerar om verktyget för närvarande är aktiverat.",
@@ -301,7 +316,8 @@
     "msg.load.persist_unlimited": "obegränsad (session)",
     "msg.load.persist_count": "{n} användning(ar)",
     "msg.load.ok": "Verktyg '{name}' har laddats (persist={persist}) och är nu tillgängligt.",
-    "msg.load.not_found": "Verktyg '{name}' hittades inte."
+    "msg.load.not_found": "Verktyg '{name}' hittades inte.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "sw": {
     "tool.description": "Inarudisha katalogi ya JSON ya zana zinazopatikana zenye sehemu za ok, query, count, na tools ili model iweze kugundua zana muhimu kabla ya kuomba ufafanuzi kamili. Matokeo yanajumuisha sehemu ya 'loaded' inayoonyesha kama zana imewashwa kwa sasa.",
@@ -320,7 +336,8 @@
     "msg.load.persist_unlimited": "isiyo na kikomo (kikao)",
     "msg.load.persist_count": "{n} matumizi",
     "msg.load.ok": "Zana '{name}' imepakiwa (persist={persist}) na sasa inapatikana.",
-    "msg.load.not_found": "Zana '{name}' haijapatikana."
+    "msg.load.not_found": "Zana '{name}' haijapatikana.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "nb": {
     "tool.description": "Returnerer en JSON-katalog over tilgjengelige verktøy med feltene ok, query, count og tools, slik at modellen kan oppdage relevante verktøy før den ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et 'loaded'-felt som indikerer om verktøyet er aktivert for øyeblikket.",
@@ -339,7 +356,8 @@
     "msg.load.persist_unlimited": "ubegrenset (sesjon)",
     "msg.load.persist_count": "{n} bruk",
     "msg.load.ok": "Verktøy '{name}' er lastet (persist={persist}) og er nå tilgjengelig.",
-    "msg.load.not_found": "Verktøy '{name}' ikke funnet."
+    "msg.load.not_found": "Verktøy '{name}' ikke funnet.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "nl": {
     "tool.description": "Retourneert een JSON-catalogus van beschikbare tools met de velden ok, query, count en tools, zodat het model relevante tools kan ontdekken voordat het volledige tooldefinities opvraagt. Resultaten bevatten een 'loaded'-veld dat aangeeft of de tool momenteel is ingeschakeld.",
@@ -358,7 +376,8 @@
     "msg.load.persist_unlimited": "onbeperkt (sessie)",
     "msg.load.persist_count": "{n} gebruik(en)",
     "msg.load.ok": "Tool '{name}' is geladen (persist={persist}) en is nu beschikbaar.",
-    "msg.load.not_found": "Tool '{name}' niet gevonden."
+    "msg.load.not_found": "Tool '{name}' niet gevonden.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "fi": {
     "tool.description": "Palauttaa JSON-luettelon käytettävissä olevista työkaluista, joissa on kentät ok, query, count ja tools, jotta malli voi löytää asiaankuuluvia työkaluja ennen täydellisten työkalujen määritelmien pyytämistä. Tulokset sisältävät 'loaded'-kentän, joka ilmaisee, onko työkalu tällä hetkellä käytössä.",
@@ -377,7 +396,8 @@
     "msg.load.persist_unlimited": "rajoittamaton (istunto)",
     "msg.load.persist_count": "{n} käyttökerta(a)",
     "msg.load.ok": "Työkalu '{name}' on ladattu (persist={persist}) ja on nyt käytettävissä.",
-    "msg.load.not_found": "Työkalua '{name}' ei löytynyt."
+    "msg.load.not_found": "Työkalua '{name}' ei löytynyt.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "cs": {
     "tool.description": "Vrací JSON katalog dostupných nástrojů s poli ok, query, count a tools, aby model mohl objevit relevantní nástroje před požadavkem na úplné definice nástrojů. Výsledky obsahují pole 'loaded' indikující, zda je nástroj aktuálně povolen.",
@@ -396,7 +416,8 @@
     "msg.load.persist_unlimited": "neomezeně (relace)",
     "msg.load.persist_count": "{n} použití",
     "msg.load.ok": "Nástroj '{name}' byl načten (persist={persist}) a je nyní k dispozici.",
-    "msg.load.not_found": "Nástroj '{name}' nenalezen."
+    "msg.load.not_found": "Nástroj '{name}' nenalezen.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "uk": {
     "tool.description": "Повертає JSON-каталог доступних інструментів з полями ok, query, count і tools, щоб модель могла виявити відповідні інструменти перед запитом повних визначень. Результати включають поле 'loaded', яке вказує, чи ввімкнено інструмент наразі.",
@@ -415,7 +436,8 @@
     "msg.load.persist_unlimited": "безлімітно (сеанс)",
     "msg.load.persist_count": "{n} використання(ів)",
     "msg.load.ok": "Інструмент '{name}' завантажено (persist={persist}) і тепер доступний.",
-    "msg.load.not_found": "Інструмент '{name}' не знайдено."
+    "msg.load.not_found": "Інструмент '{name}' не знайдено.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "tr": {
     "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için ok, query, count ve tools alanlarını içeren mevcut araçların bir JSON kataloğunu döndürür. Sonuçlar, aracın şu anda etkin olup olmadığını gösteren bir 'loaded' alanı içerir.",
@@ -434,7 +456,8 @@
     "msg.load.persist_unlimited": "sınırsız (oturum)",
     "msg.load.persist_count": "{n} kullanım",
     "msg.load.ok": "Araç '{name}' yüklendi (persist={persist}) ve artık kullanılabilir.",
-    "msg.load.not_found": "Araç '{name}' bulunamadı."
+    "msg.load.not_found": "Araç '{name}' bulunamadı.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "th": {
     "tool.description": "ส่งคืนแคตตาล็อก JSON ของเครื่องมือที่พร้อมใช้งานพร้อมฟิลด์ ok, query, count และ tools เพื่อให้โมเดลสามารถค้นพบเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือทั้งหมด ผลลัพธ์รวมถึงฟิลด์ 'loaded' ที่ระบุว่าเครื่องมือเปิดใช้งานอยู่ในปัจจุบันหรือไม่",
@@ -453,7 +476,8 @@
     "msg.load.persist_unlimited": "ไม่จำกัด (เซสชัน)",
     "msg.load.persist_count": "{n} การใช้งาน",
     "msg.load.ok": "โหลดเครื่องมือ '{name}' แล้ว (persist={persist}) และพร้อมใช้งานแล้ว",
-    "msg.load.not_found": "ไม่พบเครื่องมือ '{name}'"
+    "msg.load.not_found": "ไม่พบเครื่องมือ '{name}'",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "zh_CN": {
     "tool.description": "返回可用工具的 JSON 目录，包含 ok、query、count 和 tools 字段，以便模型在请求完整工具定义之前发现相关工具。结果包含一个 'loaded' 字段，指示该工具当前是否已启用。",
@@ -472,7 +496,8 @@
     "msg.load.persist_unlimited": "无限制（会话）",
     "msg.load.persist_count": "{n} 次使用",
     "msg.load.ok": "工具 '{name}' 已加载（persist={persist}），现在可用。",
-    "msg.load.not_found": "未找到工具 '{name}'。"
+    "msg.load.not_found": "未找到工具 '{name}'。",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "zh_TW": {
     "tool.description": "返回可用工具的 JSON 目錄，包含 ok、query、count 和 tools 欄位，以便模型在請求完整工具定義之前發現相關工具。結果包含一個 'loaded' 欄位，指示該工具目前是否已啟用。",
@@ -491,7 +516,8 @@
     "msg.load.persist_unlimited": "無限制（會話）",
     "msg.load.persist_count": "{n} 次使用",
     "msg.load.ok": "工具 '{name}' 已載入（persist={persist}），現在可用。",
-    "msg.load.not_found": "未找到工具 '{name}'。"
+    "msg.load.not_found": "未找到工具 '{name}'。",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "bn": {
     "tool.description": "উপলব্ধ টুলের একটি JSON ক্যাটালগ ফেরত দেয় যার মধ্যে ok, query, count এবং tools ফিল্ড রয়েছে যাতে মডেল সম্পূর্ণ টুল সংজ্ঞা অনুরোধ করার আগে প্রাসঙ্গিক টুল আবিষ্কার করতে পারে। ফলাফলে একটি 'loaded' ফিল্ড অন্তর্ভুক্ত যা নির্দেশ করে টুলটি বর্তমানে সক্রিয় কিনা।",
@@ -510,7 +536,8 @@
     "msg.load.persist_unlimited": "সীমাহীন (সেশন)",
     "msg.load.persist_count": "{n} ব্যবহার",
     "msg.load.ok": "টুল '{name}' লোড হয়েছে (persist={persist}) এবং এখন উপলব্ধ।",
-    "msg.load.not_found": "টুল '{name}' পাওয়া যায়নি।"
+    "msg.load.not_found": "টুল '{name}' পাওয়া যায়নি।",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "fa": {
     "tool.description": "یک کاتالوگ JSON از ابزارهای موجود با فیلدهای ok، query، count و tools برمی‌گرداند تا مدل بتواند ابزارهای مرتبط را قبل از درخواست تعاریف کامل ابزار کشف کند. نتایج شامل یک فیلد 'loaded' است که نشان می‌دهد آیا ابزار در حال حاضر فعال است.",
@@ -529,7 +556,8 @@
     "msg.load.persist_unlimited": "نامحدود (جلسه)",
     "msg.load.persist_count": "{n} استفاده",
     "msg.load.ok": "ابزار '{name}' بارگذاری شده است (persist={persist}) و اکنون در دسترس است.",
-    "msg.load.not_found": "ابزار '{name}' یافت نشد."
+    "msg.load.not_found": "ابزار '{name}' یافت نشد.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "mn": {
     "tool.description": "Боломжтой хэрэгслүүдийн JSON каталогийг ok, query, count болон tools талбаруудтай хамт буцаана, ингэснээр загвар нь бүрэн хэрэгслийн тодорхойлолтыг хүсэхээс өмнө холбогдох хэрэгслүүдийг олж илрүүлэх боломжтой. Үр дүнд хэрэгсэл одоогоор идэвхжсэн эсэхийг харуулсан 'loaded' талбар орно.",
@@ -548,7 +576,8 @@
     "msg.load.persist_unlimited": "хязгааргүй (сесс)",
     "msg.load.persist_count": "{n} ашиглалт",
     "msg.load.ok": "Хэрэгсэл '{name}' ачаалагдсан (persist={persist}) бөгөөд одоо бэлэн байна.",
-    "msg.load.not_found": "Хэрэгсэл '{name}' олдсонгүй."
+    "msg.load.not_found": "Хэрэгсэл '{name}' олдсонгүй.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   },
   "mr": {
     "tool.description": "उपलब्ध साधनांची JSON कॅटलॉग परत करते ज्यामध्ये ok, query, count आणि tools फील्ड आहेत जेणेकरून मॉडेल पूर्ण साधन व्याख्येची विनंती करण्यापूर्वी संबंधित साधने शोधू शकेल. परिणामांमध्ये 'loaded' फील्ड समाविष्ट आहे जे सूचित करते की साधन सध्या सक्षम आहे की नाही.",
@@ -567,6 +596,7 @@
     "msg.load.persist_unlimited": "अमर्यादित (सत्र)",
     "msg.load.persist_count": "{n} वापर",
     "msg.load.ok": "साधन '{name}' लोड केले गेले आहे (persist={persist}) आणि आता उपलब्ध आहे.",
-    "msg.load.not_found": "साधन '{name}' सापडले नाही."
+    "msg.load.not_found": "साधन '{name}' सापडले नाही.",
+    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering."
   }
 }
