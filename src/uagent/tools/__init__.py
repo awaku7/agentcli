@@ -450,25 +450,6 @@ def _load_plugins() -> None:
                         file=sys.stderr,
                     )
 
-    if TOOL_SPECS:
-        names = [s["function"]["name"] for s in TOOL_SPECS]
-        print(
-            _(
-                "log.loaded_tools",
-                default=f"[tools] Loaded tools: {', '.join(names)}",
-                names=", ".join(names),
-            ),
-            file=sys.stderr,
-        )
-    else:
-        print(
-            _(
-                "log.no_valid_tools",
-                default="[tools] No valid tools were found.",
-            ),
-            file=sys.stderr,
-        )
-
 
 def handle_dynamic_command(cmd: str, arg: str, **kwargs: Any) -> Any:
     """Execute a dynamic command registered by a tool module.
