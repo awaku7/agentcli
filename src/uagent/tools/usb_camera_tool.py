@@ -31,8 +31,8 @@ def _ffmpeg_backend() -> str:
 
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 0,
     "tool_genre": "iot",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "usb_camera",

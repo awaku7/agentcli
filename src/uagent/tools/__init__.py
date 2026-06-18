@@ -222,14 +222,16 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     if not isinstance(spec, dict) or not callable(runner):
         return False
 
-    # Optional tool level in TOOL_SPEC (default: 0)
+    # Optional tool level in TOOL_SPEC (default: 0; -1 if tool_genre is set)
     # - tool_level == -1: disabled (do not register/load as LLM tool, but allow dynamic commands)
     # - tool_level == 0 or missing: enabled
     # - tool_level == 1: conditional loading (currently treated as disabled)
+    # - Tools with a tool_genre start disabled by default (genre control enables them)
     try:
-        tool_level = int(spec.get("tool_level", 0))
+        default_level = -1 if spec.get("tool_genre") else 0
+        tool_level = int(spec.get("tool_level", default_level))
     except Exception:
-        tool_level = 0
+        tool_level = -1 if spec.get("tool_genre") else 0
 
     is_llm_tool = True
     if tool_level == -1:

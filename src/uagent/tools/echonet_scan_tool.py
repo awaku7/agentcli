@@ -24,8 +24,8 @@ _NODE_PROFILE_EOJ = bytes.fromhex("0EF001")
 _EPC_NODE_PROFILE = {0xD5, 0xD6, 0xD7, 0x8A, 0x83}
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 0,
     "tool_genre": "iot",
+    "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,
     "function": {

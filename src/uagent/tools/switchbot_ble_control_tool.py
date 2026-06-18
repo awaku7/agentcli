@@ -18,8 +18,8 @@ _SWITCHBOT_HINTS = {0x0969}
 _SWITCHBOT_WRITE_UUID = "cba20002-224d-11e6-9fb8-0002a5d5c51b"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 0,
     "tool_genre": "iot",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "switchbot_ble_control",

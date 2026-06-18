@@ -22,8 +22,8 @@ _ENV_DEVICES_JSON = "UAGENT_MATTER_DEVICES_JSON"
 _ENV_DEVICES_FILE = "UAGENT_MATTER_DEVICES_FILE"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 0,
     "tool_genre": "iot",
+    "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,
     "function": {

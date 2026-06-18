@@ -1027,7 +1027,7 @@ class MainWindow(QtWidgets.QMainWindow):
             for key, label, setter in genre_items:
                 act = tools_menu.addAction(label)
                 act.setCheckable(True)
-                act.setChecked(False)
+                act.setChecked(key == 'basic')
                 act.triggered.connect(lambda checked, s=setter: s(checked))
                 self._genre_actions[key] = act
 
@@ -1941,10 +1941,12 @@ def main():
 
     _runtime_init.validate_or_exit_startup_env(context="gui")
 
-    if getattr(args, "tool_genre_mask", None) is not None:
-        from .cli_startup import _apply_startup_tool_genre_mask
+    _mask = getattr(args, "tool_genre_mask", None)
+    if _mask is None:
+        _mask = 1  # default: basic only
+    from .cli_startup import _apply_startup_tool_genre_mask
 
-        _apply_startup_tool_genre_mask(args.tool_genre_mask)
+    _apply_startup_tool_genre_mask(_mask)
 
     # Initialize runtime tools_enabled flag.
     # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.

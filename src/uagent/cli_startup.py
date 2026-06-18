@@ -22,7 +22,7 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
     print(_("[INFO] startup genre prompt = numeric-input"), file=sys.stderr)
 
     prompt = _(
-        "Enter the sum of numbers (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all, Enter=enable all):"
+        "Enter the sum of numbers (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all, Enter=basic only):"
     )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
@@ -34,11 +34,11 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
         try:
             raw = input().strip()
         except EOFError:
-            return 255
+            return 1
         except Exception:
-            return 255
+            return 1
         if not raw:
-            return 255
+            return 1
         try:
             value = int(raw, 10)
         except Exception:
@@ -101,7 +101,7 @@ def _prompt_startup_tool_genre_mask() -> int:
             ok_text=_("OK"),
             cancel_text=_("Default"),
             values=choices,
-            default_values=[key for key, _label in choices],
+            default_values=['basic'],
         ).run()
     except Exception:
         print(
@@ -111,7 +111,7 @@ def _prompt_startup_tool_genre_mask() -> int:
         return _prompt_startup_tool_genre_mask_fallback()
 
     if result is None:
-        return 255
+        return 1
 
     mask = 0
     for key in result:

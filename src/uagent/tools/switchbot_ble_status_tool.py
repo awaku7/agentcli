@@ -18,8 +18,8 @@ _SWITCHBOT_HINTS = {0x0969}
 _BATTERY_UUID = "00002a19-0000-1000-8000-00805f9b34fb"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 0,
     "tool_genre": "iot",
+    "tool_level": 1,
     "type": "function",
     "x_parallel_safe": True,
     "function": {

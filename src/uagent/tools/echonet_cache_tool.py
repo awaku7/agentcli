@@ -12,8 +12,8 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:echonet_cache"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 0,
     "tool_genre": "iot",
+    "tool_level": 1,
     "type": "function",
     "function": {
         "name": "echonet_cache",
