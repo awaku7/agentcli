@@ -124,18 +124,6 @@ Important details:
 - Extended fields such as `function.system_prompt` are removed before sending to the LLM.
 - For compatibility, the function name may be mirrored to top-level `name`.
 
-### 3.4 GPT-5.4+ Responses tool narrowing
-
-For GPT-5.4 and later within the GPT-5 line, when Responses API is enabled, uag uses a lighter tool exposure path.
-
-- Target detection is implemented in `uagent_llm._is_gpt54_tool_search_target(...)`
-- A lightweight tools prompt is selected in `util_tools.py`
-- Candidate tool specs are selected by `uagent_llm._select_tool_specs_for_gpt54(...)`
-- `tool_catalog` provides a lightweight discovery surface before passing full tool definitions
-- A small safe fallback subset is kept when catalog search returns no hits
-
-This preserves existing behavior for non-target models while reducing payload size for GPT-5.4+ Responses requests.
-
 ### 3.5 Tool trace output
 
 By default, a one-line trace is printed to stdout before tool execution:
