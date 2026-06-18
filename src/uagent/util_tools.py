@@ -2057,7 +2057,8 @@ def _uagent_env_names(prefix: str = "UAGENT_") -> list[str]:
 
 
 def _uagent_format_env_value(name: str, value: str) -> str:
-    if "KEY" in name.upper():
+    _upper = name.upper()
+    if any(kw in _upper for kw in ("KEY", "TOKEN", "PASSWORD", "SECRET", "CREDENTIAL")):
         return "***"
     return value
 
