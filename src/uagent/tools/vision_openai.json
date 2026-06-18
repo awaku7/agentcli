@@ -1,0 +1,272 @@
+{
+  "ar": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "bn": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "cs": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "de": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "en": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "es": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "fa": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "fi": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "fr": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "hi": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "id": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "it": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "ja": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "ko": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "mn": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "mr": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "nb": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "nl": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "pl": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "pt": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "pt_BR": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "ru": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "sv": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "sw": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "th": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "tr": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "uk": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "vi": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "zh_CN": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  },
+  "zh_TW": {
+    "err.image_not_found": "image file not found: {path}",
+    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
+    "err.import_openai": "Failed to import openai package: {err}",
+    "prompt.default": "Please describe this image in detail.",
+    "warn.empty_response": "[WARN] empty response",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
+  }
+}

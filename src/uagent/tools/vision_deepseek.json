@@ -1,0 +1,152 @@
+{
+  "ar": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "bn": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "cs": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "de": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "en": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "es": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "fa": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "fi": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "fr": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "hi": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "id": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "it": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "ja": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "ko": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "mn": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "mr": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "nb": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "nl": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "pl": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "pt": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "pt_BR": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "ru": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "sv": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "sw": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "th": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "tr": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "uk": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "vi": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "zh_CN": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "zh_TW": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  }
+}

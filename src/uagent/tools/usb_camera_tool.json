@@ -1,0 +1,302 @@
+{
+  "ar": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "bn": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "cs": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "de": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "en": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "es": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "fa": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "fi": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "fr": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "hi": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "id": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "it": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "ja": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "ko": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "mn": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "mr": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "nb": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "nl": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "pl": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "pt": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "pt_BR": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "ru": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "sv": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "sw": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "th": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "tr": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "uk": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "vi": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "zh_CN": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  },
+  "zh_TW": {
+    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
+    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
+    "param.index.description": "Video device index (0 = first). Default: 0.",
+    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
+    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
+    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
+    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
+    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera."
+  }
+}
