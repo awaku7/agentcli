@@ -13,7 +13,7 @@ from importlib import import_module, reload
 from pkgutil import iter_modules
 from typing import Any, Callable, Optional
 import concurrent.futures
-from threading import Lock
+from threading import Lock, RLock
 
 try:
     from janome.tokenizer import Tokenizer as JanomeTokenizer
@@ -56,6 +56,10 @@ _BUSY_LABEL_TOOLS: dict[str, str] = {}
 # Dynamic commands registered by tool modules
 # Structure: { "command_name": { "subcommand_name": { "handler": handler_func, "help_text": help_text_str } } }
 _DYNAMIC_COMMANDS: dict[str, dict[str, dict[str, Any]]] = {}
+
+# Lock for tool registry (TOOL_SPECS, _RUNNERS, _BUSY_LABEL_TOOLS, _DYNAMIC_COMMANDS)
+# Required for free-threaded Python (--disable-gil) safety.
+_TOOLS_LOCK = RLock()
 
 # ------------------------------
 # Tool trace (stdout only)
@@ -189,24 +193,25 @@ def _tool_load_order_key(spec: dict[str, Any]) -> tuple[int, int, str]:
 
 def _sort_registered_tools() -> None:
     """Sort registered tool specs and keep runner dict insertion order aligned."""
-    TOOL_SPECS.sort(key=_tool_load_order_key)
+    with _TOOLS_LOCK:
+        TOOL_SPECS.sort(key=_tool_load_order_key)
 
-    ordered_runners: dict[str, Callable[[dict[str, Any]], str]] = {}
-    for spec in TOOL_SPECS:
-        func_info = spec.get("function", {})
-        if not isinstance(func_info, dict):
-            continue
-        tool_name = func_info.get("name")
-        if tool_name in _RUNNERS:
-            ordered_runners[tool_name] = _RUNNERS[tool_name]
+        ordered_runners: dict[str, Callable[[dict[str, Any]], str]] = {}
+        for spec in TOOL_SPECS:
+            func_info = spec.get("function", {})
+            if not isinstance(func_info, dict):
+                continue
+            tool_name = func_info.get("name")
+            if tool_name in _RUNNERS:
+                ordered_runners[tool_name] = _RUNNERS[tool_name]
 
-    # Preserve any runner not represented in TOOL_SPECS as a safety fallback.
-    for tool_name, runner in _RUNNERS.items():
-        if tool_name not in ordered_runners:
-            ordered_runners[tool_name] = runner
+        # Preserve any runner not represented in TOOL_SPECS as a safety fallback.
+        for tool_name, runner in _RUNNERS.items():
+            if tool_name not in ordered_runners:
+                ordered_runners[tool_name] = runner
 
-    _RUNNERS.clear()
-    _RUNNERS.update(ordered_runners)
+        _RUNNERS.clear()
+        _RUNNERS.update(ordered_runners)
 
 
 def _register_tool_module(mod: Any, mod_name: str) -> bool:
@@ -239,21 +244,22 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     tool_name = func_info.get("name")
 
     if is_llm_tool and tool_name:
-        # If an existing tool with the same name exists, remove it first.
-        for i, existing in enumerate(TOOL_SPECS):
-            if existing.get("function", {}).get("name") == tool_name:
-                TOOL_SPECS.pop(i)
-                break
+        with _TOOLS_LOCK:
+            # If an existing tool with the same name exists, remove it first.
+            for i, existing in enumerate(TOOL_SPECS):
+                if existing.get("function", {}).get("name") == tool_name:
+                    TOOL_SPECS.pop(i)
+                    break
 
-        TOOL_SPECS.append(spec)
-        _RUNNERS[tool_name] = runner
-        _sort_registered_tools()
+            TOOL_SPECS.append(spec)
+            _RUNNERS[tool_name] = runner
+            _sort_registered_tools()
 
-        # Busy label setting
-        busy_flag = getattr(mod, "BUSY_LABEL", False)
-        if busy_flag:
-            status_label = getattr(mod, "STATUS_LABEL", f"tool:{tool_name}")
-            _BUSY_LABEL_TOOLS[tool_name] = status_label
+            # Busy label setting
+            busy_flag = getattr(mod, "BUSY_LABEL", False)
+            if busy_flag:
+                status_label = getattr(mod, "STATUS_LABEL", f"tool:{tool_name}")
+                _BUSY_LABEL_TOOLS[tool_name] = status_label
 
     # Dynamic command registration (always allowed even if tool_level == -1)
     cmd_specs = getattr(mod, "CMD_SPECS", None)
@@ -280,9 +286,10 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
 
 def _load_plugins() -> None:
     """Discover and load tool plugin modules under tools/."""
-    TOOL_SPECS.clear()
-    _RUNNERS.clear()
-    _BUSY_LABEL_TOOLS.clear()
+    with _TOOLS_LOCK:
+        TOOL_SPECS.clear()
+        _RUNNERS.clear()
+        _BUSY_LABEL_TOOLS.clear()
 
     # 1. Load internal tools
     pkg_dir = os.path.dirname(__file__)
@@ -380,6 +387,7 @@ def handle_dynamic_command(cmd: str, arg: str, **kwargs: Any) -> Any:
     Returns:
         The result of the handler (CommandResult or bool), or None if no matching handler is found.
     """
+    _ensure_loaded()
     if cmd not in _DYNAMIC_COMMANDS:
         return None
 
@@ -402,6 +410,7 @@ def handle_dynamic_command(cmd: str, arg: str, **kwargs: Any) -> Any:
 
 def get_dynamic_commands_help() -> list[str]:
     """Return help lines for all registered dynamic commands."""
+    _ensure_loaded()
     help_lines: list[str] = []
     for cmd in sorted(_DYNAMIC_COMMANDS.keys()):
         for subcmd in sorted(_DYNAMIC_COMMANDS[cmd].keys()):
@@ -413,6 +422,7 @@ def get_dynamic_commands_help() -> list[str]:
 
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
+    _ensure_loaded()
     # Note:
     # - Both Chat Completions and Responses expect tools without a top-level "name".
     #   The canonical form is: {"type":"function","function":{"name":..., ...}}
@@ -749,6 +759,7 @@ _TRACE_LOCK = Lock()
 
 def is_parallel_safe(tool_name: str) -> bool:
     """Check whether a tool is marked as safe for parallel execution."""
+    _ensure_loaded()
     for spec in TOOL_SPECS:
         if spec.get("function", {}).get("name") == tool_name:
             return bool(spec.get("x_parallel_safe", False))
@@ -766,6 +777,7 @@ def run_tools_parallel(
     Returns:
         List of (tool_name, args, result) tuples in the same order as input.
     """
+    _ensure_loaded()
     future_map: dict[concurrent.futures.Future, tuple[int, str, dict[str, Any]]] = {}
 
     for idx, (name, args) in enumerate(calls):
@@ -787,6 +799,7 @@ def run_tools_parallel(
 
 def run_tool(name: str, args: dict[str, Any]) -> str:
     """Entry point for executing a tool_call."""
+    _ensure_loaded()
     runner = _RUNNERS.get(name)
     if runner is None:
         return f"[tool error] unknown tool: {name}"
@@ -835,5 +848,13 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     return result
 
 
-# Load once on module import
-_load_plugins()
+# Lazy initialization: tools are loaded on first use
+_INITIALIZED = False
+
+
+def _ensure_loaded() -> None:
+    """Load tool plugins on first access."""
+    global _INITIALIZED
+    if not _INITIALIZED:
+        _load_plugins()
+        _INITIALIZED = True

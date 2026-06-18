@@ -35,7 +35,6 @@ gemini_types = None
 gemini_errors = None
 
 from .providers import util_providers as providers
-from . import uagent_llm as llm_util
 from . import util_tools as tools_util
 from .cli_startup import run_cli_startup as _run_cli_startup
 from .scheduler import start_background_scheduler, stop_background_scheduler
@@ -849,6 +848,7 @@ def stdin_loop() -> None:
 
 
 def main() -> None:
+    from . import uagent_llm as llm_util  # lazy
 
     startup = _run_cli_startup(
         core=core,

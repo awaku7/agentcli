@@ -35,27 +35,6 @@ from typing import Any, Optional
 
 from .env_utils import env_get
 
-# OpenAI-compatible providers
-try:
-    from openai import OpenAI  # type: ignore
-except Exception:  # openai 未インストール時など
-    OpenAI = None  # type: ignore[assignment]
-
-# Google Gemini (google-genai)
-try:
-    from google import genai
-    from google.genai import types as gemini_types
-except Exception:  # google-genai 未インストール時など
-    genai = None  # type: ignore[assignment]
-    gemini_types = None  # type: ignore[assignment]
-
-# Anthropic Claude
-try:
-    from anthropic import Anthropic
-except Exception:  # anthropic 未インストール時など
-    Anthropic = None  # type: ignore[assignment]
-
-
 _LANG_RE = re.compile(r"^[a-zA-Z]{2,3}([_-][a-zA-Z0-9]{2,8})*$")
 
 
@@ -180,6 +159,10 @@ def _translation_prompts(src_lang: str, dst_lang: str, text: str) -> tuple[str, 
 def _translate_openai_compat(
     text: str, *, src_lang: str, dst_lang: str, cfg: TranslateConfig
 ) -> tuple[str, str]:
+    try:
+        from openai import OpenAI  # lazy
+    except Exception:
+        OpenAI = None
     if OpenAI is None:
         return text, "openai package is not installed."
     if not cfg.depname:
@@ -236,6 +219,12 @@ def _extract_gemini_text(resp: Any) -> str:
 def _translate_gemini(
     text: str, *, src_lang: str, dst_lang: str, cfg: TranslateConfig
 ) -> tuple[str, str]:
+    try:
+        from google import genai  # lazy
+        from google.genai import types as gemini_types
+    except Exception:
+        genai = None
+        gemini_types = None
     if genai is None:
         return text, "google-genai package is not installed."
     if not cfg.depname:
@@ -293,6 +282,10 @@ def _translate_gemini(
 def _translate_claude(
     text: str, *, src_lang: str, dst_lang: str, cfg: TranslateConfig
 ) -> tuple[str, str]:
+    try:
+        from anthropic import Anthropic  # lazy
+    except Exception:
+        Anthropic = None
     if Anthropic is None:
         return text, "anthropic package is not installed."
     if not cfg.depname:

@@ -5,48 +5,21 @@ import time
 import atexit
 from typing import Any
 
-try:
-    import httpx
-except Exception:
-    httpx = None
-
-
 from ..i18n import _
 from ..env_utils import env_get
 
-# OpenAI / Azure OpenAI
-try:
-    from openai import AzureOpenAI, OpenAI
-except ImportError:
-    AzureOpenAI = None
-    OpenAI = None
-
-# Google Gemini (google-genai)
-try:
-    from google import genai
-except Exception:
-    genai = None
-
-# Anthropic
-try:
-    from anthropic import Anthropic
-except ImportError:
-    Anthropic = None
-
-# OpenRouter (official SDK)
-try:
-    from openrouter import OpenRouter as _OpenRouterSDK
-except Exception:
-    _OpenRouterSDK = None
-
+from threading import Lock
 
 _HTTPX_CLIENTS: list[Any] = []
+_HTTPX_CLIENTS_LOCK = Lock()
 _HTTPX_CLIENTS_REGISTERED = False
 
 
 def _close_httpx_clients() -> None:
     # Best-effort cleanup for custom httpx clients (OpenAI SDK http_client=...)
-    for c in list(_HTTPX_CLIENTS):
+    with _HTTPX_CLIENTS_LOCK:
+        clients = list(_HTTPX_CLIENTS)
+    for c in clients:
         try:
             c.close()
         except Exception:
@@ -57,7 +30,8 @@ def _register_httpx_client(c: Any) -> None:
     global _HTTPX_CLIENTS_REGISTERED
     if c is None:
         return
-    _HTTPX_CLIENTS.append(c)
+    with _HTTPX_CLIENTS_LOCK:
+        _HTTPX_CLIENTS.append(c)
     if not _HTTPX_CLIENTS_REGISTERED:
         _HTTPX_CLIENTS_REGISTERED = True
         try:
@@ -95,8 +69,9 @@ def make_httpx_timeout() -> Any:
       - UAGENT_LLM_TIMEOUT_WRITE_SEC (default 300)
       - UAGENT_LLM_TIMEOUT_POOL_SEC (default 10)
     """
-
-    if httpx is None:
+    try:
+        import httpx
+    except Exception:
         return None
 
     connect = _env_float("UAGENT_LLM_TIMEOUT_CONNECT_SEC", 10)
@@ -117,8 +92,9 @@ def make_httpx_client(
     *, verify: Any = None, event_hooks: Any = None, timeout: Any = None
 ) -> Any:
     """Create an httpx.Client with timeout from env (best-effort)."""
-
-    if httpx is None:
+    try:
+        import httpx
+    except Exception:
         return None
 
     if timeout is None:
@@ -385,6 +361,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
     model_name = get_model_name()
 
     if provider == "azure":
+        from openai import AzureOpenAI  # lazy
+
         base_url = core.get_env_url("UAGENT_AZURE_BASE_URL")
         api_key = core.get_env("UAGENT_AZURE_API_KEY")
         api_version = core.get_env("UAGENT_AZURE_API_VERSION")
@@ -408,6 +386,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "openai":
+        from openai import OpenAI  # lazy
+
         api_key = core.get_env("UAGENT_OPENAI_API_KEY")
         base_url = core.get_env_url(
             "UAGENT_OPENAI_BASE_URL", "https://api.openai.com/v1"
@@ -431,6 +411,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "bedrock":
+        from openai import OpenAI  # lazy
+
         api_key = env_get("UAGENT_BEDROCK_API_KEY") or "dummy"
         base_url = core.get_env_url("UAGENT_BEDROCK_BASE_URL")
 
@@ -452,6 +434,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "nvidia":
+        from openai import OpenAI  # lazy
+
         api_key = env_get("UAGENT_NVIDIA_API_KEY") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"
@@ -467,6 +451,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "ollama":
+        from openai import OpenAI  # lazy
+
         api_key = env_get("UAGENT_OLLAMA_API_KEY") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_OLLAMA_BASE_URL", "http://localhost:11434/v1"
@@ -483,6 +469,9 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "openrouter":
+        from openai import OpenAI  # lazy (fallback)
+        from openrouter import OpenRouter as _OpenRouterSDK  # lazy
+
         api_key = env_get("UAGENT_OPENROUTER_API_KEY") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"
@@ -540,6 +529,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "grok":
+        from openai import OpenAI  # lazy
+
         api_key = core.get_env("UAGENT_GROK_API_KEY")
         base_url = core.get_env_url("UAGENT_GROK_BASE_URL", "https://api.x.ai/v1")
 
@@ -553,6 +544,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "deepseek":
+        from openai import OpenAI  # lazy
+
         api_key = core.get_env("UAGENT_DEEPSEEK_API_KEY")
         base_url = core.get_env_url(
             "UAGENT_DEEPSEEK_BASE_URL", "https://api.deepseek.com"
@@ -568,6 +561,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "zai":
+        from openai import OpenAI  # lazy
+
         api_key = core.get_env("UAGENT_ZAI_API_KEY")
         base_url = core.get_env_url(
             "UAGENT_ZAI_BASE_URL", "https://api.z.ai/api/paas/v4/"
@@ -583,6 +578,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "alibaba":
+        from openai import OpenAI  # lazy
+
         api_key = core.get_env("UAGENT_ALIBABA_API_KEY")
         base_url = core.get_env_url(
             "UAGENT_ALIBABA_BASE_URL",
@@ -599,6 +596,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "moonshot":
+        from openai import OpenAI  # lazy
+
         api_key = core.get_env("UAGENT_MOONSHOT_API_KEY")
         base_url = core.get_env_url(
             "UAGENT_MOONSHOT_BASE_URL", "https://api.moonshot.cn/v1"
@@ -614,6 +613,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "gemini":
+        from google import genai  # lazy
+
         api_key = core.get_env("UAGENT_GEMINI_API_KEY")
         if genai is None:
             print(
@@ -641,6 +642,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "vertexai":
+        from google import genai  # lazy
+
         if genai is None:
             print(
                 "[FATAL] " + _("google-genai package is not installed."),
@@ -680,6 +683,8 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "claude":
+        from anthropic import Anthropic  # lazy
+
         api_key = core.get_env("UAGENT_CLAUDE_API_KEY")
         if Anthropic is None:
             print(

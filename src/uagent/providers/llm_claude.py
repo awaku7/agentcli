@@ -8,12 +8,6 @@ from ..env_utils import env_get
 from ..i18n import _
 from .. import tools
 
-# Anthropic
-try:
-    from anthropic import Anthropic
-except ImportError:
-    Anthropic = None
-
 
 def _parse_claude_model(
     model_name: str,
@@ -217,6 +211,10 @@ def claude_chat_with_tools(
         tool_calls_list: OpenAI 互換の tool_calls リスト
     """
 
+    try:
+        from anthropic import Anthropic  # lazy
+    except ImportError:
+        Anthropic = None
     if Anthropic is None:
         raise RuntimeError(_("anthropic package is not installed."))
 

@@ -9,14 +9,6 @@ from ..i18n import _
 
 from .. import tools
 
-# Google Gemini (google-genai)
-try:
-    from google import genai
-    from google.genai import types as gemini_types
-except Exception:  # google-genai 未インストール時など
-    genai = None  # type: ignore[assignment]
-    gemini_types = None  # type: ignore[assignment]
-
 
 # -----------------------------
 # Gemini JSON Schema 変換（修正版）
@@ -288,6 +280,7 @@ def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
         import base64
         import mimetypes
         from pathlib import Path
+        from google.genai import types as gemini_types  # lazy
     except Exception:
         return None
 
@@ -567,6 +560,12 @@ def gemini_chat_with_tools(
 ) -> tuple[str, list[dict[str, Any]], dict[str, Any]]:
     """Gemini Developer API + google-genai を使って tool_calls 付き応答を 1 回分生成する。"""
 
+    try:
+        from google import genai  # lazy
+        from google.genai import types as gemini_types
+    except Exception:
+        genai = None
+        gemini_types = None
     if genai is None or gemini_types is None:
         raise RuntimeError(
             _(
