@@ -27,3 +27,4 @@ a2a_servers.json
 *.mmdb
 env.bat
 env.sh
+gui_worker_session.log 
