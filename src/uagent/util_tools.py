@@ -2312,39 +2312,12 @@ def load_agents_md() -> str:
 
 
 
-def build_lightweight_tools_system_prompt() -> str:
-    return "\n".join(
-        [
-            "[Available Tools]",
-            "A large set of tools may be available in this environment.",
-            "Do not assume that every tool definition is already loaded in the current request.",
-            "When tool use is needed, first reason about the category of tool required and use only the minimum relevant tool surface.",
-            "If tool details are unavailable, avoid inventing parameters or functions.",
-        ]
-    )
-
-
-def _use_tools_system_prompt() -> bool:
-    use_tool = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
-    if use_tool in ("0", "false", "no", "off"):
-        return False
-    v = (env_get("UAGENT_SEND_TOOLS_PROMPT") or "").strip().lower()
-    return v in ("1", "true", "yes", "on")
-
-
 def build_initial_messages(*, core: Any) -> list[dict[str, Any]]:
     messages: list[dict[str, Any]] = []
 
     system_msg = {"role": "system", "content": core.SYSTEM_PROMPT}
     messages.append(system_msg)
     core.log_message(system_msg)
-
-    if _use_tools_system_prompt():
-        tools_prompt = build_lightweight_tools_system_prompt()
-        tools_system_msg = {"role": "system", "content": tools_prompt}
-
-        messages.append(tools_system_msg)
-        core.log_message(tools_system_msg)
 
     # Record startup cwd into the message history + log.
     try:
@@ -2366,19 +2339,7 @@ def insert_tools_system_message(
     *,
     core: Any,
 ) -> list[dict[str, Any]]:
-    if not _use_tools_system_prompt():
-        return messages
-
-    tools_prompt = build_lightweight_tools_system_prompt()
-    tools_system_msg = {"role": "system", "content": tools_prompt}
-
-    if messages and messages[0].get("role") == "system":
-        new_messages = [messages[0], tools_system_msg] + messages[1:]
-    else:
-        new_messages = [tools_system_msg] + messages
-
-    core.log_message(tools_system_msg)
-    return new_messages
+    return messages
 
 
 def build_long_memory_system_message(long_mem_raw: Any) -> dict[str, Any]:
