@@ -25,7 +25,7 @@ def handle_cmd_tools_on(arg: str, **kwargs: Any) -> Any:
     except ImportError:
         pass
 
-    print("Usage: :tools on [comm|office|devel|iot|basic|exec|external|media]")
+    print(_("msg.tools.usage_on", default="Usage: :tools on [comm|office|devel|iot|basic|exec|external|media]"))
     from ..util_tools import CommandResult
 
     return CommandResult()
@@ -41,9 +41,60 @@ def handle_cmd_tools_off(arg: str, **kwargs: Any) -> Any:
     except ImportError:
         pass
 
-    print("Usage: :tools off [comm|office|devel|iot|basic|exec|external|media]")
+    print(_("msg.tools.usage_off", default="Usage: :tools off [comm|office|devel|iot|basic|exec|external|media]"))
     from ..util_tools import CommandResult
 
+    return CommandResult()
+
+
+def handle_cmd_tools_load(arg: str, **kwargs: Any) -> Any:
+    parts = (arg or "").strip().split()
+    if not parts:
+        print(_("msg.tools.usage_load", default="Usage: :tools load <tool_name> [--persist N]"))
+        from ..util_tools import CommandResult
+        return CommandResult()
+
+    tool_name = parts[0]
+    persist = -1
+    i = 1
+    while i < len(parts):
+        if parts[i] == "--persist" and i + 1 < len(parts):
+            try:
+                persist = int(parts[i + 1])
+            except ValueError:
+                pass
+            i += 2
+        else:
+            i += 1
+
+    try:
+        from ._genre_control_util import enable_single_tool
+
+        ok = enable_single_tool(tool_name, persist=persist)
+        if ok:
+            persist_msg = (
+                " (session lifetime)" if persist == -1 else f" ({persist} use(s))"
+            )
+            print(
+                _(
+                    "msg.tools.loaded_single",
+                    default="[tools] Loaded tool: {name}{persist}",
+                    name=tool_name,
+                    persist=persist_msg,
+                )
+            )
+        else:
+            print(
+                _(
+                    "msg.tools.not_found",
+                    default="[tools] Tool not found: {name}",
+                    name=tool_name,
+                )
+            )
+    except Exception as e:
+        print(f"[tools error] {type(e).__name__}: {e}")
+
+    from ..util_tools import CommandResult
     return CommandResult()
 
 
@@ -108,6 +159,15 @@ CMD_SPECS = [
         "help_text": _(
             "cmd.help.tools_on",
             default="  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   Enable development tools (lint, py_compile, tests)\n  :tools on iot                     Enable IoT tools (Bluetooth, etc.)",
+        ),
+    },
+    {
+        "command": "tools",
+        "subcommand": "load",
+        "handler": handle_cmd_tools_load,
+        "help_text": _(
+            "cmd.help.tools_load",
+            default="  :tools load <name> [--persist N]  Load a single tool by name. --persist N: auto-unload after N uses (-1=session)",
         ),
     },
     {
