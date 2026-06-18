@@ -154,5 +154,29 @@
     "log.load_fail.internal": "[工具] 無法載入內部插件 {mod_name}: {err}",
     "log.load_ok.external": "[工具] 載入的外部工具：{entry_name}",
     "log.load_disabled.internal": "[工具] 內部插件 {mod_name} 已停用：{reason}"
+  },
+  "bn": {
+    "log.load_fail.external": "[tools] {entry_path} বহিরাগত প্লাগইন লোড করতে ব্যর্থ হয়েছে: {err}",
+    "log.load_fail.internal": "[tools] {mod_name} অভ্যন্তরীণ প্লাগইন লোড করতে ব্যর্থ হয়েছে: {err}",
+    "log.load_ok.external": "[tools] বহিরাগত টুল লোড করা হয়েছে: {entry_name}",
+    "log.load_disabled.internal": "[tools] অভ্যন্তরীণ প্লাগইন {mod_name} নিষ্ক্রিয়: {reason}"
+  },
+  "fa": {
+    "log.load_fail.external": "[tools] بارگذاری افزونه خارجی {entry_path} ناموفق بود: {err}",
+    "log.load_fail.internal": "[tools] بارگذاری افزونه داخلی {mod_name} ناموفق بود: {err}",
+    "log.load_ok.external": "[tools] ابزارهای خارجی بارگذاری شدند: {entry_name}",
+    "log.load_disabled.internal": "[tools] افزونه داخلی {mod_name} غیرفعال است: {reason}"
+  },
+  "mn": {
+    "log.load_fail.external": "[tools] Гадаад плагин {entry_path} ачаалахад бүтэлгүйтэв: {err}",
+    "log.load_fail.internal": "[tools] Дотоод плагин {mod_name} ачаалахад бүтэлгүйтэв: {err}",
+    "log.load_ok.external": "[tools] Гадаад хэрэгслүүд ачаалагдлаа: {entry_name}",
+    "log.load_disabled.internal": "[tools] Дотоод плагин {mod_name} идэвхгүй байна: {reason}"
+  },
+  "mr": {
+    "log.load_fail.external": "[tools] बाह्य प्लगइन {entry_path} लोड करण्यात अयशस्वी: {err}",
+    "log.load_fail.internal": "[tools] अंतर्गत प्लगइन {mod_name} लोड करण्यात अयशस्वी: {err}",
+    "log.load_ok.external": "[tools] बाह्य साधने लोड केली: {entry_name}",
+    "log.load_disabled.internal": "[tools] अंतर्गत प्लगइन {mod_name} अक्षम आहे: {reason}"
   }
 }
