@@ -10,7 +10,9 @@
       "country",
       "ip geolocation",
       "geo ip"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "ja": {
     "param.format.description": "出力形式。",
@@ -21,7 +23,9 @@
       "geoip 取得",
       "IP 位置情報",
       "位置推定"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "es": {
     "param.format.description": "Formato de salida.",
@@ -32,7 +36,9 @@
       "get geoip",
       "geoip",
       "ubicación IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "fr": {
     "param.format.description": "Format de sortie.",
@@ -43,7 +49,9 @@
       "get geoip",
       "geoip",
       "localisation IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "ko": {
     "param.format.description": "출력 형식.",
@@ -54,7 +62,9 @@
       "geoip 가져오기",
       "IP 위치",
       "위치 추정"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "de": {
     "param.format.description": "Ausgabeformat.",
@@ -65,7 +75,9 @@
       "get geoip",
       "geoip",
       "ip standort"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "it": {
     "param.format.description": "Formato di output.",
@@ -76,7 +88,9 @@
       "get geoip",
       "geoip",
       "posizione IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "ru": {
     "param.format.description": "Формат вывода.",
@@ -87,7 +101,9 @@
       "get geoip",
       "геоip",
       "ip location"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "pt_BR": {
     "param.format.description": "Formato de saída.",
@@ -98,7 +114,9 @@
       "get geoip",
       "geoip",
       "localização IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "pt": {
     "param.format.description": "Formato de saída.",
@@ -109,7 +127,9 @@
       "get geoip",
       "geoip",
       "localização IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "id": {
     "param.format.description": "Format keluaran.",
@@ -120,7 +140,9 @@
       "get geoip",
       "geoip",
       "lokasi IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "vi": {
     "param.format.description": "Định dạng đầu ra.",
@@ -131,7 +153,9 @@
       "get geoip",
       "geoip",
       "vị trí IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "pl": {
     "param.format.description": "Format wyjściowy.",
@@ -142,7 +166,9 @@
       "get geoip",
       "geoip",
       "lokalizacja IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "hi": {
     "param.format.description": "आउटपुट स्वरूप.",
@@ -153,7 +179,9 @@
       "get geoip",
       "geoip",
       "IP स्थान"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "ar": {
     "param.format.description": "تنسيق الإخراج.",
@@ -164,7 +192,9 @@
       "get geoip",
       "geoip",
       "موقع IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "sv": {
     "param.format.description": "Utdataformat.",
@@ -175,7 +205,9 @@
       "get geoip",
       "geoip",
       "ip plats"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "sw": {
     "param.format.description": "Output format.",
@@ -186,7 +218,9 @@
       "get geoip",
       "geoip",
       "eneo la IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "nb": {
     "param.format.description": "Utdataformat.",
@@ -197,7 +231,9 @@
       "get geoip",
       "geoip",
       "ip plassering"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "nl": {
     "param.format.description": "Uitvoerformaat.",
@@ -208,7 +244,9 @@
       "get geoip",
       "geoip",
       "ip locatie"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "fi": {
     "param.format.description": "Tulostusmuoto.",
@@ -219,7 +257,9 @@
       "get geoip",
       "geoip",
       "ip-sijainti"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "cs": {
     "param.format.description": "Formát výstupu.",
@@ -230,7 +270,9 @@
       "get geoip",
       "geoip",
       "ip poloha"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "uk": {
     "param.format.description": "Формат виводу.",
@@ -241,7 +283,9 @@
       "get geoip",
       "geoip",
       "ip місце"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "tr": {
     "param.format.description": "Çıkış formatı.",
@@ -252,7 +296,9 @@
       "get geoip",
       "geoip",
       "ip konum"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "th": {
     "param.format.description": "รูปแบบเอาต์พุต",
@@ -263,7 +309,9 @@
       "get geoip",
       "geoip",
       "ตำแหน่ง IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "zh_CN": {
     "param.format.description": "输出格式。",
@@ -274,7 +322,9 @@
       "get geoip",
       "geoip",
       "IP 位置"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "zh_TW": {
     "param.format.description": "輸出格式。",
@@ -285,7 +335,9 @@
       "get geoip",
       "geoip",
       "IP 位置"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "bn": {
     "param.format.description": "আউটপুট ফরম্যাট।",
@@ -296,7 +348,9 @@
       "get geoip",
       "geoip",
       "IP অবস্থান"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "fa": {
     "param.format.description": "فرمت خروجی.",
@@ -307,7 +361,9 @@
       "get geoip",
       "geoip",
       "موقعیت IP"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "mn": {
     "param.format.description": "Гаралтын формат.",
@@ -318,7 +374,9 @@
       "get geoip",
       "geoip",
       "IP байршил"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   },
   "mr": {
     "param.format.description": "आउटपुट फॉरमॅट.",
@@ -329,6 +387,8 @@
       "get geoip",
       "geoip",
       "IP स्थान"
-    ]
+    ],
+    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
+    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
   }
 }

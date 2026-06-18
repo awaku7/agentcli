@@ -23,7 +23,15 @@
     ],
     "param.limit.description": "Maximum number of match lines to return (default: 100).",
     "param.glob.description": "Glob pattern for filenames (e.g., '*.py').",
-    "param.recur.description": "Whether to search subdirectories recursively."
+    "param.recur.description": "Whether to search subdirectories recursively.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "ja": {
     "err.exception": "grep 操作中に例外が発生しました。",
@@ -45,7 +53,15 @@
     ],
     "param.limit.description": "返却する一致行の最大数（既定: 100）。",
     "param.glob.description": "ファイル名の glob パターン（例: '*.py'）。",
-    "param.recur.description": "サブディレクトリを再帰的に検索するかどうか。"
+    "param.recur.description": "サブディレクトリを再帰的に検索するかどうか。",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "es": {
     "err.exception": "Se produjo una excepción durante las operaciones de grep.",
@@ -67,7 +83,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Número máximo de líneas coincidentes que se devolverán (p...",
     "param.glob.description": "Patrón glob para nombres de archivo (por ejemplo, '*.py').",
-    "param.recur.description": "Si se debe buscar recursivamente en subdir..."
+    "param.recur.description": "Si se debe buscar recursivamente en subdir...",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "fr": {
     "err.exception": "Une exception s'est produite lors des opérations grep.",
@@ -89,7 +113,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Nombre maximal de lignes de correspondance à renvoyer (pa...",
     "param.glob.description": "Motif glob pour les noms de fichiers (ex. '*.py').",
-    "param.recur.description": "Si la recherche doit être effectuée récurs..."
+    "param.recur.description": "Si la recherche doit être effectuée récurs...",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "ko": {
     "err.exception": "grep 작업 중 예외가 발생했습니다.",
@@ -111,7 +143,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "반환할 최대 일치 행 수입니다(기본값: 100).",
     "param.glob.description": "파일 이름에 대한 Glob 패턴(예: '*.py').",
-    "param.recur.description": "하위 디렉터리를 재귀적으로 검색할지 여부입니다."
+    "param.recur.description": "하위 디렉터리를 재귀적으로 검색할지 여부입니다.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "de": {
     "err.exception": "Beim Grep-Vorgang ist eine Ausnahme aufgetreten.",
@@ -133,7 +173,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maximale Anzahl der zurückzugebenden Trefferzeilen (Stand...",
     "param.glob.description": "Glob-Muster für Dateinamen (z. B. '*.py').",
-    "param.recur.description": "Ob Unterverzeichnisse rekursiv durchsucht..."
+    "param.recur.description": "Ob Unterverzeichnisse rekursiv durchsucht...",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "it": {
     "err.exception": "Si è verificata un'eccezione durante le operazioni grep.",
@@ -155,7 +203,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Numero massimo di righe corrispondenti da restituire (pre...",
     "param.glob.description": "Pattern glob per i nomi dei file (es. '*.py').",
-    "param.recur.description": "Se cercare ricorsivamente nelle sottodirectory."
+    "param.recur.description": "Se cercare ricorsivamente nelle sottodirectory.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "ru": {
     "err.exception": "Во время операций grep произошло исключение.",
@@ -177,7 +233,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Максимальное количество возвращаемых строк совпадений (по...",
     "param.glob.description": "Glob-шаблон для имен файлов (например, '*.py').",
-    "param.recur.description": "Нужно ли искать в подкаталогах рекурсивно."
+    "param.recur.description": "Нужно ли искать в подкаталогах рекурсивно.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "pt_BR": {
     "err.exception": "Ocorreu uma exceção durante as operações de grep.",
@@ -199,7 +263,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Número máximo de linhas de correspondência a retornar (pa...",
     "param.glob.description": "Padrão glob para nomes de arquivos (ex.: '*.py').",
-    "param.recur.description": "Se deve pesquisar subdiretórios recursivamente."
+    "param.recur.description": "Se deve pesquisar subdiretórios recursivamente.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "pt": {
     "err.exception": "Ocorreu uma exceção durante operações grep.",
@@ -221,7 +293,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Número máximo de linhas de correspondência a serem retorn...",
     "param.glob.description": "Padrão glob para nomes de arquivos (por exemplo, '*.py').",
-    "param.recur.description": "Se deve pesquisar subdiretórios recursivamente."
+    "param.recur.description": "Se deve pesquisar subdiretórios recursivamente.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "id": {
     "err.exception": "Terjadi pengecualian saat operasi grep.",
@@ -243,7 +323,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Jumlah maksimum baris kecocokan yang dikembalikan (default: 100).",
     "param.glob.description": "Pola glob untuk nama file (mis. '*.py').",
-    "param.recur.description": "Apakah mencari subdirektori secara rekursif."
+    "param.recur.description": "Apakah mencari subdirektori secara rekursif.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "vi": {
     "err.exception": "Ngoại lệ xảy ra trong quá trình hoạt động grep.",
@@ -265,7 +353,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Số dòng khớp tối đa cần trả về (mặc định: 100).",
     "param.glob.description": "Mẫu chung cho tên tệp (ví dụ: '*.py').",
-    "param.recur.description": "Có tìm kiếm đệ quy các thư mục con hay không."
+    "param.recur.description": "Có tìm kiếm đệ quy các thư mục con hay không.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "pl": {
     "err.exception": "Wystąpił wyjątek podczas operacji grep.",
@@ -287,7 +383,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maksymalna liczba linii dopasowania do zwrócenia (domyślnie: 100).",
     "param.glob.description": "Wzorzec globu dla nazw plików (np. „*.py”).",
-    "param.recur.description": "Określa, czy rekursywnie przeszukiwać podk..."
+    "param.recur.description": "Określa, czy rekursywnie przeszukiwać podk...",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "hi": {
     "err.exception": "ग्रेप परिचालन के दौरान अपवाद उत्पन्न हुआ.",
@@ -309,7 +413,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "लौटाने के लिए मिलान पंक्तियों की अधिकतम संख्या (डिफ़ॉल्ट: 100)।",
     "param.glob.description": "फ़ाइल नामों के लिए ग्लोब पैटर्न (उदाहरण के लिए, '*.py')।",
-    "param.recur.description": "क्या उपनिर्देशिकाओं को पुनरावर्ती रूप से ख..."
+    "param.recur.description": "क्या उपनिर्देशिकाओं को पुनरावर्ती रूप से ख...",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "ar": {
     "err.exception": "حدث استثناء أثناء عمليات grep.",
@@ -331,7 +443,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "الحد الأقصى لعدد خطوط المطابقة المراد إرجاعها (الافتراضي: 100).",
     "param.glob.description": "نمط الكرة الأرضية لأسماء الملفات (على سبيل المثال، \"*.py\").",
-    "param.recur.description": "ما إذا كان سيتم البحث في الدلائل الفرعية ب..."
+    "param.recur.description": "ما إذا كان سيتم البحث في الدلائل الفرعية ب...",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "sv": {
     "err.exception": "Ett undantag inträffade under grep-operationen.",
@@ -353,7 +473,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maximalt antal träffrader att returnera (standard: 100).",
     "param.glob.description": "Glob-mönster för filnamn (t.ex. '*.py').",
-    "param.recur.description": "Om underkataloger ska sökas rekursivt."
+    "param.recur.description": "Om underkataloger ska sökas rekursivt.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "sw": {
     "err.exception": "Hitilafu imetokea wakati wa operesheni za grep.",
@@ -375,7 +503,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Idadi ya juu ya mistari ya ulinganifu ya kurudisha (chagu...",
     "param.glob.description": "Muundo wa glob kwa majina ya faili (mfano \"*.py\").",
-    "param.recur.description": "Iwapo kutafuta kwa kujirudia katika saraka ndogo."
+    "param.recur.description": "Iwapo kutafuta kwa kujirudia katika saraka ndogo.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "nb": {
     "err.exception": "Det oppsto et unntak under grep-operasjonen.",
@@ -397,7 +533,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maksimalt antall trefflinjer som skal returneres (standard: 100).",
     "param.glob.description": "Glob-mønster for filnavn (f.eks. '*.py').",
-    "param.recur.description": "Om underkataloger skal søkes rekursivt."
+    "param.recur.description": "Om underkataloger skal søkes rekursivt.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "nl": {
     "err.exception": "Er is een uitzondering opgetreden tijdens grep-bewerkingen.",
@@ -419,7 +563,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maximaal aantal regeltreffers om terug te geven (standaard: 100).",
     "param.glob.description": "Glob-patroon voor bestandsnamen (bijv. '*.py').",
-    "param.recur.description": "Of submappen recursief doorzocht moeten worden."
+    "param.recur.description": "Of submappen recursief doorzocht moeten worden.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "fi": {
     "err.exception": "Poikkeus grep-toiminnoissa.",
@@ -441,7 +593,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Palautettavien riviosumien enimmäismäärä (oletus: 100).",
     "param.glob.description": "Glob-kuvio tiedostonimille (esim. '*.py').",
-    "param.recur.description": "Etsitäänkö alihakemistoista rekursiivisesti."
+    "param.recur.description": "Etsitäänkö alihakemistoista rekursiivisesti.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "cs": {
     "err.exception": "Při operaci grep došlo k výjimce.",
@@ -463,7 +623,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Maximální počet řádků se shodou k vrácení (výchozí: 100).",
     "param.glob.description": "Glob vzor pro názvy souborů (např. '*.py').",
-    "param.recur.description": "Zda hledat v podadresářích rekurzivně."
+    "param.recur.description": "Zda hledat v podadresářích rekurzivně.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "uk": {
     "err.exception": "Під час операції grep сталася виняткова ситуація.",
@@ -485,7 +653,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Максимальна кількість рядків зі збігами для повернення (т...",
     "param.glob.description": "Glob-шаблон для назв файлів (наприклад, '*.py').",
-    "param.recur.description": "Чи шукати в підкаталогах рекурсивно."
+    "param.recur.description": "Чи шукати в підкаталогах рекурсивно.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "tr": {
     "err.exception": "Grep işlemleri sırasında özel durum oluştu.",
@@ -507,7 +683,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Döndürülecek maksimum eşleşme satırı sayısı (varsayılan: 100).",
     "param.glob.description": "Dosya adları için genel desen (ör. '*.py').",
-    "param.recur.description": "Alt dizinlerin yinelemeli olarak aranıp ar..."
+    "param.recur.description": "Alt dizinlerin yinelemeli olarak aranıp ar...",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "th": {
     "err.exception": "เกิดข้อยกเว้นระหว่างการดำเนินการ grep",
@@ -529,7 +713,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "จำนวนบรรทัดที่ตรงกันสูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 100)",
     "param.glob.description": "รูปแบบ Glob สำหรับชื่อไฟล์ (เช่น '*.py')",
-    "param.recur.description": "จะค้นหาในไดเรกทอรีย่อยแบบเรียกซ้ำหรือไม่"
+    "param.recur.description": "จะค้นหาในไดเรกทอรีย่อยแบบเรียกซ้ำหรือไม่",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "zh_CN": {
     "err.exception": "grep 操作期间发生异常。",
@@ -551,7 +743,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "要返回的最大匹配行数（默认：100）。",
     "param.glob.description": "文件名的 Glob 模式（例如 '*.py'）。",
-    "param.recur.description": "是否递归搜索子目录。"
+    "param.recur.description": "是否递归搜索子目录。",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "zh_TW": {
     "err.exception": "grep 操作期間發生例外。",
@@ -573,7 +773,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "要傳回的最大相符行數（預設：100）。",
     "param.glob.description": "檔名的 Glob 模式（例如 '*.py'）。",
-    "param.recur.description": "是否遞迴搜尋子目錄。"
+    "param.recur.description": "是否遞迴搜尋子目錄。",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "bn": {
     "err.exception": "grep অপারেশনের সময় ব্যতিক্রম ঘটেছে।",
@@ -595,7 +803,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "ফেরত দেওয়া ম্যাচ লাইনের সর্বোচ্চ সংখ্যা (ডিফল্ট: 100)।",
     "param.glob.description": "ফাইলনামের জন্য glob pattern (যেমন, '*.py').",
-    "param.recur.description": "উপ-ডিরেক্টরিগুলো recursiveভাবে খোঁজা হবে কি না।"
+    "param.recur.description": "উপ-ডিরেক্টরিগুলো recursiveভাবে খোঁজা হবে কি না।",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "fa": {
     "err.exception": "در عملیات grep استثنا رخ داد.",
@@ -617,7 +833,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "حداکثر تعداد خطوط تطابق برای بازگرداندن (پیش‌فرض: 100).",
     "param.glob.description": "الگوی glob برای نام فایل‌ها (مثلاً '*.py').",
-    "param.recur.description": "اینکه زیرشاخه‌ها به‌صورت بازگشتی جستجو شون..."
+    "param.recur.description": "اینکه زیرشاخه‌ها به‌صورت بازگشتی جستجو شون...",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "mn": {
     "err.exception": "grep үйлдлийн үед алдаа гарлаа.",
@@ -639,7 +863,15 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "Буцаах тохирсон мөрийн дээд тоо (өгөгдмөл: 100).",
     "param.glob.description": "Файлын нэрэнд зориулсан glob pattern (жишээ нь, '*.py').",
-    "param.recur.description": "Дэд директоруудыг рекурсивээр хайх эсэх."
+    "param.recur.description": "Дэд директоруудыг рекурсивээр хайх эсэх.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   },
   "mr": {
     "err.exception": "grep क्रियांमध्ये अपवाद आला.",
@@ -661,6 +893,14 @@
     "param.page.description": "Page number to retrieve (default: 1).",
     "param.limit.description": "परत करावयाच्या जुळणी ओळींची कमाल संख्या (डीफॉल्ट: 100).",
     "param.glob.description": "फाइलनावांसाठी glob pattern (उदा., '*.py').",
-    "param.recur.description": "उप-डिरेक्टऱ्या recursive पद्धतीने शोधायच्या का."
+    "param.recur.description": "उप-डिरेक्टऱ्या recursive पद्धतीने शोधायच्या का.",
+    "param.root_path.description": "Alias (compat).",
+    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
+    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
+    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
+    "param.exclude_globs.description": "Filename glob patterns to exclude.",
+    "param.binary_skip.description": "Skip files that look like binary files.",
+    "err.pattern_required": "Error: pattern is required.",
+    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}"
   }
 }

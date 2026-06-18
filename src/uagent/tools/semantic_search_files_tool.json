@@ -30,7 +30,8 @@
       "file retrieval",
       "semantic retrieval"
     ],
-    "err.disabled_reason": "embedding endpoint is unreachable."
+    "err.disabled_reason": "embedding endpoint is unreachable.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "ja": {
     "doc.db_path": "各 root_dir について、<state>/dbs 配下のハッシュ付き DB パスを返します（既定: ~/.uag（旧: ~/.scheck）/dbs）。",
@@ -57,7 +58,8 @@
       "ベクトル検索",
       "埋め込み検索"
     ],
-    "err.disabled_reason": "埋め込み API に到達できません。"
+    "err.disabled_reason": "埋め込み API に到達できません。",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "es": {
     "doc.db_path": "Devuelve la ruta de la base de datos con hash para cada root_dir bajo <state>/dbs (predeterminado: ~/.uag (antiguo: ~/.scheck)/dbs).",
@@ -84,7 +86,8 @@
       "búsqueda vectorial",
       "archivos locales"
     ],
-    "err.disabled_reason": "No se puede الوصول al API de embeddings."
+    "err.disabled_reason": "No se puede الوصول al API de embeddings.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "fr": {
     "doc.db_path": "Renvoie le chemin de la base de données haché pour chaque root_dir sous <state>/dbs (par défaut : ~/.uag (ancien : ~/.scheck)/dbs).",
@@ -111,7 +114,8 @@
       "recherche vectorielle",
       "fichiers locaux"
     ],
-    "err.disabled_reason": "L’API d’embeddings est inaccessible."
+    "err.disabled_reason": "L’API d’embeddings est inaccessible.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "ko": {
     "doc.db_path": "<state>/dbs 아래에서 각 root_dir에 대한 해시된 DB 경로를 반환합니다(기본값: ~/.uag(이전: ~/.scheck)/dbs).",
@@ -138,7 +142,8 @@
       "벡터 검색",
       "임베딩 검색"
     ],
-    "err.disabled_reason": "임베딩 API에 연결할 수 없습니다."
+    "err.disabled_reason": "임베딩 API에 연결할 수 없습니다.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "de": {
     "doc.db_path": "Gibt für jedes root_dir unter <state>/dbs den gehashten DB-Pfad zurück (Standard: ~/.uag (alt: ~/.scheck)/dbs).",
@@ -165,7 +170,8 @@
       "vektorsuche",
       "lokale dateien"
     ],
-    "err.disabled_reason": "Die Embedding-API ist nicht erreichbar."
+    "err.disabled_reason": "Die Embedding-API ist nicht erreichbar.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "it": {
     "doc.db_path": "Restituisce il percorso DB con hash per ogni root_dir sotto <state>/dbs (predefinito: ~/.uag (vecchio: ~/.scheck)/dbs).",
@@ -192,7 +198,8 @@
       "ricerca vettoriale",
       "file locali"
     ],
-    "err.disabled_reason": "L’API di embedding non è raggiungibile."
+    "err.disabled_reason": "L’API di embedding non è raggiungibile.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "ru": {
     "doc.db_path": "Возвращает хешированный путь БД для каждого root_dir в <state>/dbs (по умолчанию: ~/.uag (старый: ~/.scheck)/dbs).",
@@ -219,7 +226,8 @@
       "векторный поиск",
       "локальные файлы"
     ],
-    "err.disabled_reason": "Embedding API недоступен."
+    "err.disabled_reason": "Embedding API недоступен.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "pt_BR": {
     "doc.db_path": "Retorna o caminho do banco de dados com hash para cada root_dir em <state>/dbs (padrão: ~/.uag (antigo: ~/.scheck)/dbs).",
@@ -246,7 +254,8 @@
       "busca vetorial",
       "arquivos locais"
     ],
-    "err.disabled_reason": "A API de embeddings não está acessível."
+    "err.disabled_reason": "A API de embeddings não está acessível.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "pt": {
     "doc.db_path": "Retorna o caminho do banco de dados com hash para cada root_dir em <state>/dbs (padrão: ~/.uag (antigo: ~/.scheck)/dbs).",
@@ -273,7 +282,8 @@
       "busca vetorial",
       "arquivos locais"
     ],
-    "err.disabled_reason": "A API de embeddings não está acessível."
+    "err.disabled_reason": "A API de embeddings não está acessível.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "id": {
     "doc.db_path": "Mengembalikan path DB yang di-hash untuk setiap root_dir di bawah <state>/dbs (default: ~/.uag (lama: ~/.scheck)/dbs).",
@@ -300,7 +310,8 @@
       "pencarian vektor",
       "file lokal"
     ],
-    "err.disabled_reason": "API embedding tidak dapat dijangkau."
+    "err.disabled_reason": "API embedding tidak dapat dijangkau.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "vi": {
     "doc.db_path": "Trả về đường dẫn DB đã băm cho từng root_dir dưới <state>/dbs (mặc định: ~/.uag (cũ: ~/.scheck)/dbs).",
@@ -327,7 +338,8 @@
       "tìm kiếm vector",
       "tệp cục bộ"
     ],
-    "err.disabled_reason": "Không thể truy cập Embedding API."
+    "err.disabled_reason": "Không thể truy cập Embedding API.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "pl": {
     "doc.db_path": "Zwraca haszowaną ścieżkę DB dla każdego root_dir w <state>/dbs (domyślnie: ~/.uag (stary: ~/.scheck)/dbs).",
@@ -354,7 +366,8 @@
       "wyszukiwanie wektorowe",
       "pliki lokalne"
     ],
-    "err.disabled_reason": "Interfejs Embedding API jest niedostępny."
+    "err.disabled_reason": "Interfejs Embedding API jest niedostępny.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "hi": {
     "doc.db_path": "<state>/dbs के अंतर्गत प्रत्येक root_dir के लिए हैश्ड DB पथ लौटाता है (डिफ़ॉल्ट: ~/.uag (पुराना: ~/.scheck)/dbs)।",
@@ -381,7 +394,8 @@
       "वेक्टर खोज",
       "स्थानीय फ़ाइलें"
     ],
-    "err.disabled_reason": "embedding endpoint is unreachable."
+    "err.disabled_reason": "embedding endpoint is unreachable.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "ar": {
     "doc.db_path": "يُرجع مسار قاعدة البيانات المُجزّأ لكل root_dir ضمن <state>/dbs (الافتراضي: ~/.uag (القديم: ~/.scheck)/dbs).",
@@ -408,7 +422,8 @@
       "البحث المتجهي",
       "الملفات المحلية"
     ],
-    "err.disabled_reason": "تعذر الوصول إلى واجهة Embedding API."
+    "err.disabled_reason": "تعذر الوصول إلى واجهة Embedding API.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "sv": {
     "doc.db_path": "Returnerar den hashade DB-sökvägen för varje root_dir under <state>/dbs (standard: ~/.uag (tidigare ~/.scheck)/dbs).",
@@ -435,7 +450,8 @@
       "vektorsökning",
       "lokala filer"
     ],
-    "err.disabled_reason": "Embedding API är inte tillgängligt."
+    "err.disabled_reason": "Embedding API är inte tillgängligt.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "sw": {
     "doc.db_path": "Hurejesha njia ya DB iliyohashiwa kwa kila root_dir chini ya <state>/dbs (chaguomsingi: ~/.uag (zamani: ~/.scheck)/dbs).",
@@ -462,7 +478,8 @@
       "utafutaji wa vekta",
       "faili za ndani"
     ],
-    "err.disabled_reason": "Embedding API haipatikani."
+    "err.disabled_reason": "Embedding API haipatikani.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "nb": {
     "doc.db_path": "Returnerer den hashede DB-stien for hver root_dir under <state>/dbs (standard: ~/.uag (gammel: ~/.scheck)/dbs).",
@@ -489,7 +506,8 @@
       "vektorsøk",
       "lokale filer"
     ],
-    "err.disabled_reason": "Embedding API er ikke tilgjengelig."
+    "err.disabled_reason": "Embedding API er ikke tilgjengelig.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "nl": {
     "doc.db_path": "Geeft het gehashte DB-pad terug voor elke root_dir onder <state>/dbs (standaard: ~/.uag (oud: ~/.scheck)/dbs).",
@@ -516,7 +534,8 @@
       "vector zoekopdracht",
       "lokale bestanden"
     ],
-    "err.disabled_reason": "Embedding-API is niet bereikbaar."
+    "err.disabled_reason": "Embedding-API is niet bereikbaar.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "fi": {
     "doc.db_path": "Palauttaa hajautetun DB-polun kullekin root_dirille hakemiston <state>/dbs alla (oletus: ~/.uag (vanha: ~/.scheck)/dbs).",
@@ -543,7 +562,8 @@
       "vektorihaku",
       "paikalliset tiedostot"
     ],
-    "err.disabled_reason": "Embedding-API ei ole tavoitettavissa."
+    "err.disabled_reason": "Embedding-API ei ole tavoitettavissa.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "cs": {
     "doc.db_path": "Vrací hašovanou cestu k DB pro každé root_dir v <state>/dbs (výchozí: ~/.uag (dříve: ~/.scheck)/dbs).",
@@ -570,7 +590,8 @@
       "vektorové hledání",
       "místní soubory"
     ],
-    "err.disabled_reason": "Embedding API není dostupné."
+    "err.disabled_reason": "Embedding API není dostupné.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "uk": {
     "doc.db_path": "Повертає хешований шлях БД для кожного root_dir у <state>/dbs (типово: ~/.uag (старе: ~/.scheck)/dbs).",
@@ -597,7 +618,8 @@
       "векторний пошук",
       "локальні файли"
     ],
-    "err.disabled_reason": "Embedding API недоступний."
+    "err.disabled_reason": "Embedding API недоступний.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "tr": {
     "doc.db_path": "<state>/dbs altındaki her root_dir için karma DB yolunu döndürür (varsayılan: ~/.uag (eski: ~/.scheck)/dbs).",
@@ -624,7 +646,8 @@
       "vektör arama",
       "yerel dosyalar"
     ],
-    "err.disabled_reason": "Embedding API’ye ulaşılamıyor."
+    "err.disabled_reason": "Embedding API’ye ulaşılamıyor.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "th": {
     "doc.db_path": "ส่งคืนเส้นทาง DB ที่แฮชแล้วสำหรับ root_dir แต่ละรายการภายใต้ <state>/dbs (ค่าเริ่มต้น: ~/.uag (เดิม: ~/.scheck)/dbs)",
@@ -651,7 +674,8 @@
       "ค้นหาเวกเตอร์",
       "ไฟล์ในเครื่อง"
     ],
-    "err.disabled_reason": "ไม่สามารถเข้าถึง Embedding API ได้"
+    "err.disabled_reason": "ไม่สามารถเข้าถึง Embedding API ได้",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "zh_CN": {
     "doc.db_path": "返回 <state>/dbs 下每个 root_dir 对应的哈希 DB 路径（默认：~/.uag（旧：~/.scheck）/dbs）。",
@@ -678,7 +702,8 @@
       "向量搜索",
       "本地文件"
     ],
-    "err.disabled_reason": "无法访问嵌入 API。"
+    "err.disabled_reason": "无法访问嵌入 API。",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "zh_TW": {
     "doc.db_path": "返回 <state>/dbs 下每個 root_dir 對應的雜湊 DB 路徑（預設：~/.uag（舊：~/.scheck）/dbs）。",
@@ -705,7 +730,8 @@
       "向量搜尋",
       "本機檔案"
     ],
-    "err.disabled_reason": "無法連線到嵌入 API。"
+    "err.disabled_reason": "無法連線到嵌入 API。",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "bn": {
     "doc.db_path": "প্রতিটি root_dir-এর জন্য <state>/dbs-এর নিচে হ্যাশ করা DB path ফেরত দেয় (ডিফল্ট: ~/.uag (পুরোনো: ~/.scheck)/dbs)।",
@@ -732,7 +758,8 @@
       "ভেক্টর অনুসন্ধান",
       "স্থানীয় ফাইল"
     ],
-    "err.disabled_reason": "embedding endpoint-এ পৌঁছানো যাচ্ছে না।"
+    "err.disabled_reason": "embedding endpoint-এ পৌঁছানো যাচ্ছে না।",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "fa": {
     "doc.db_path": "برای هر root_dir، مسیر DB هش‌شده را زیر <state>/dbs برمی‌گرداند (پیش‌فرض: ~/.uag (قدیمی: ~/.scheck)/dbs).",
@@ -759,7 +786,8 @@
       "جستجوی برداری",
       "فایل‌های محلی"
     ],
-    "err.disabled_reason": "نقطهٔ پایانی embedding در دسترس نیست."
+    "err.disabled_reason": "نقطهٔ پایانی embedding در دسترس نیست.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "mn": {
     "doc.db_path": "<state>/dbs доорх root_dir бүрийн hash-лагдсан DB замыг буцаана (анхдагч: ~/.uag (хуучин: ~/.scheck)/dbs).",
@@ -786,7 +814,8 @@
       "вектор хайлт",
       "орон нутгийн файл"
     ],
-    "err.disabled_reason": "embedding endpoint хүрэх боломжгүй байна."
+    "err.disabled_reason": "embedding endpoint хүрэх боломжгүй байна.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   },
   "mr": {
     "doc.db_path": "<state>/dbs अंतर्गत प्रत्येक root_dir साठी hash केलेला DB path परत करते (डीफॉल्ट: ~/.uag (जुना: ~/.scheck)/dbs).",
@@ -813,6 +842,7 @@
       "व्हेक्टर शोध",
       "स्थानिक फाइल्स"
     ],
-    "err.disabled_reason": "embedding endpoint उपलब्ध नाही."
+    "err.disabled_reason": "embedding endpoint उपलब्ध नाही.",
+    "err.no_index": "Error: No indexed vectors found. Run index_files first."
   }
 }

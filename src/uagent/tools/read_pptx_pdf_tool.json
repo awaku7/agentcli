@@ -13,7 +13,9 @@
     ],
     "param.password.description": "Password (prompts if needed).",
     "prompt.password": "Enter the password for this file:\n{path}",
-    "param.maxc.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters."
+    "param.maxc.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "ja": {
     "param.page_index.description": "1始まりのページ番号（PDFページ / PPTXスライド番号）。省略時は全ページを連結して返します。",
@@ -27,7 +29,9 @@
     ],
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}",
-    "param.maxc.description": "返却する最大文字数。省略時は 8000 文字で切り詰めます。"
+    "param.maxc.description": "返却する最大文字数。省略時は 8000 文字で切り詰めます。",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "es": {
     "param.page_index.description": "Número de página basado en 1 (página PDF o índice de diapositiva PPTX).",
@@ -41,7 +45,9 @@
     ],
     "param.password.description": "Contraseña opcional para a...",
     "prompt.password": "Introduzca la contraseña de este arch...",
-    "param.maxc.description": "Número máximo de caracteres a devolver. Si se omite, se trunca a 8000 caracteres."
+    "param.maxc.description": "Número máximo de caracteres a devolver. Si se omite, se trunca a 8000 caracteres.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "fr": {
     "param.page_index.description": "Numéro de page commençant à 1 (page PDF ou index de diapositive PPTX).",
@@ -55,7 +61,9 @@
     ],
     "param.password.description": "Mot de passe facultatif po...",
     "prompt.password": "Entrez le mot de passe de ce fichier...",
-    "param.maxc.description": "Nombre maximum de caractères à renvoyer."
+    "param.maxc.description": "Nombre maximum de caractères à renvoyer.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "ko": {
     "param.page_index.description": "1부터 시작하는 페이지 번호(PDF 페이지 또는 PPTX 슬라이드 인덱스)입니다. 생략하면 모든 페이지의 연결된 텍스트를 반환합니다.",
@@ -69,7 +77,9 @@
     ],
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}",
-    "param.maxc.description": "반환할 최대 문자 수입니다. 생략하면 8000자로 잘립니다."
+    "param.maxc.description": "반환할 최대 문자 수입니다. 생략하면 8000자로 잘립니다.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "de": {
     "param.page_index.description": "1-basierte Seitennummer (PDF-Seite oder PPTX-Folienindex).",
@@ -83,7 +93,9 @@
     ],
     "param.password.description": "Optionales Kennwort für ve...",
     "prompt.password": "Bitte geben Sie das Kennwort für dies...",
-    "param.maxc.description": "Maximale Anzahl der zurückzugebenden Zeichen."
+    "param.maxc.description": "Maximale Anzahl der zurückzugebenden Zeichen.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "it": {
     "param.page_index.description": "Numero di pagina a partire da 1 (pagina PDF o indice diapositiva PPTX).",
@@ -97,7 +109,9 @@
     ],
     "param.password.description": "Password facoltativa per f...",
     "prompt.password": "Inserisci la password di questo file:\n{path}",
-    "param.maxc.description": "Numero massimo di caratteri da restituire. Se omesso, tronca a 8000 caratteri."
+    "param.maxc.description": "Numero massimo di caratteri da restituire. Se omesso, tronca a 8000 caratteri.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "ru": {
     "param.page_index.description": "Номер страницы, начиная с 1 (страница PDF или индекс слайда PPTX).",
@@ -111,7 +125,9 @@
     ],
     "param.password.description": "Необязательный пароль для...",
     "prompt.password": "Введите пароль для этого файла:\n{path}",
-    "param.maxc.description": "Максимальное количество возвращаемых символов."
+    "param.maxc.description": "Максимальное количество возвращаемых символов.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "pt_BR": {
     "param.page_index.description": "Número da página começando em 1 (página PDF ou índice do slide PPTX).",
@@ -125,7 +141,9 @@
     ],
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}",
-    "param.maxc.description": "Número máximo de caracteres a serem retornados. Se omitido, trunca em 8.000 caracteres."
+    "param.maxc.description": "Número máximo de caracteres a serem retornados. Se omitido, trunca em 8.000 caracteres.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "pt": {
     "param.page_index.description": "Número de página baseado em 1 (página PDF ou índice de slides PPTX).",
@@ -139,7 +157,9 @@
     ],
     "param.password.description": "Senha opcional para arquiv...",
     "prompt.password": "Digite a senha deste arquivo:\n{path}",
-    "param.maxc.description": "Número máximo de caracteres a serem retornados. Se omitido, truncará em 8.000 caracteres."
+    "param.maxc.description": "Número máximo de caracteres a serem retornados. Se omitido, truncará em 8.000 caracteres.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "id": {
     "param.page_index.description": "Nomor halaman berbasis 1 (halaman PDF atau indeks slide PPTX).",
@@ -153,7 +173,9 @@
     ],
     "param.password.description": "Kata sandi opsional untuk...",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}",
-    "param.maxc.description": "Jumlah maksimum karakter yang dikembalikan."
+    "param.maxc.description": "Jumlah maksimum karakter yang dikembalikan.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "vi": {
     "param.page_index.description": "Số trang dựa trên 1 (trang PDF hoặc chỉ mục slide PPTX). Nếu bị bỏ qua, trả về văn bản nối cho tất cả các trang.",
@@ -167,7 +189,9 @@
     ],
     "param.password.description": "Mật khẩu tùy chọn cho tệp...",
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}",
-    "param.maxc.description": "Số ký tự tối đa cần trả về. Nếu bỏ qua, sẽ cắt ngắn ở 8000 ký tự."
+    "param.maxc.description": "Số ký tự tối đa cần trả về. Nếu bỏ qua, sẽ cắt ngắn ở 8000 ký tự.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "pl": {
     "param.page_index.description": "Numer strony oparty na 1 (strona PDF lub indeks slajdów PPTX).",
@@ -181,7 +205,9 @@
     ],
     "param.password.description": "Opcjonalne hasło do zaszyf...",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}",
-    "param.maxc.description": "Maksymalna liczba znaków do zwrócenia."
+    "param.maxc.description": "Maksymalna liczba znaków do zwrócenia.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "hi": {
     "param.page_index.description": "1-आधारित पेज नंबर (पीडीएफ पेज या पीपीटीएक्स स्लाइड इंडेक्स)। यदि छोड़ा गया है, तो सभी पृष्ठों के लिए...",
@@ -195,7 +221,9 @@
     ],
     "param.password.description": "एन्क्रिप्टेड पीडीएफ/पीपीटी...",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}",
-    "param.maxc.description": "लौटने के लिए वर्णों की अधिकतम संख्या. यदि छोड़ दिया जाए, तो 8000 अक्षर कम हो जाते हैं।"
+    "param.maxc.description": "लौटने के लिए वर्णों की अधिकतम संख्या. यदि छोड़ दिया जाए, तो 8000 अक्षर कम हो जाते हैं।",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "ar": {
     "param.page_index.description": "رقم صفحة يعتمد على 1 (صفحة PDF أو فهرس شريحة PPTX). إذا تم حذفه، فسيتم إرجاع النص المتسلسل لجميع الصفحات.",
@@ -209,7 +237,9 @@
     ],
     "param.password.description": "كلمة مرور اختيارية لملفات...",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}",
-    "param.maxc.description": "الحد الأقصى لعدد الأحرف المراد إرجاعها. إذا تم حذفه، فسيتم اقتطاعه عند 8000 حرف."
+    "param.maxc.description": "الحد الأقصى لعدد الأحرف المراد إرجاعها. إذا تم حذفه، فسيتم اقتطاعه عند 8000 حرف.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "sv": {
     "param.page_index.description": "1-baserat sidnummer (PDF-sida eller PPTX-bildindex).",
@@ -223,7 +253,9 @@
     ],
     "param.password.description": "Valfritt lösenord för kryp...",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}",
-    "param.maxc.description": "Maximalt antal tecken som ska returneras."
+    "param.maxc.description": "Maximalt antal tecken som ska returneras.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "sw": {
     "param.page_index.description": "Nambari ya ukurasa kuanzia 1 (ukurasa wa PDF au index ya slaidi ya PPTX).",
@@ -237,7 +269,9 @@
     ],
     "param.password.description": "Nenosiri la hiari kwa fail...",
     "prompt.password": "Ingiza nenosiri la faili hii:\n{path}",
-    "param.maxc.description": "Idadi ya juu ya herufi za kurejesha. Ikiwa haijatajwa, hupunguzwa hadi herufi 8000."
+    "param.maxc.description": "Idadi ya juu ya herufi za kurejesha. Ikiwa haijatajwa, hupunguzwa hadi herufi 8000.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "nb": {
     "param.page_index.description": "1-basert sidenummer (PDF-side eller PPTX-lysbildefølge).",
@@ -251,7 +285,9 @@
     ],
     "param.password.description": "Valgfritt passord for kryp...",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
-    "param.maxc.description": "Maksimalt antall tegn som skal returneres."
+    "param.maxc.description": "Maksimalt antall tegn som skal returneres.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "nl": {
     "param.page_index.description": "Paginanummer vanaf 1 (PDF-pagina of PPTX-dia-index).",
@@ -265,7 +301,9 @@
     ],
     "param.password.description": "Optioneel wachtwoord voor...",
     "prompt.password": "Voer het wachtwoord voor dit bestand...",
-    "param.maxc.description": "Maximaal aantal tekens om terug te geven."
+    "param.maxc.description": "Maximaal aantal tekens om terug te geven.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "fi": {
     "param.page_index.description": "1:stä alkava sivunumero (PDF-sivu tai PPTX-dian indeksi).",
@@ -279,7 +317,9 @@
     ],
     "param.password.description": "Valinnainen salasana salat...",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}",
-    "param.maxc.description": "Palautettavien merkkien enimmäismäärä."
+    "param.maxc.description": "Palautettavien merkkien enimmäismäärä.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "cs": {
     "param.page_index.description": "Číslo stránky od 1 (stránka PDF nebo index snímku PPTX). Pokud není zadáno, vrátí spojitý text všech stránek.",
@@ -293,7 +333,9 @@
     ],
     "param.password.description": "Volitelné heslo pro šifrov...",
     "prompt.password": "Zadejte heslo k tomuto souboru:\n{path}",
-    "param.maxc.description": "Maximální počet znaků k vrácení. Pokud není zadáno, výsledek se zkrátí na 8000 znaků."
+    "param.maxc.description": "Maximální počet znaků k vrácení. Pokud není zadáno, výsledek se zkrátí na 8000 znaků.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "uk": {
     "param.page_index.description": "Номер сторінки, починаючи з 1 (сторінка PDF або індекс слайда PPTX).",
@@ -307,7 +349,9 @@
     ],
     "param.password.description": "Необов’язковий пароль для...",
     "prompt.password": "Введіть пароль для цього файла:\n{path}",
-    "param.maxc.description": "Максимальна кількість символів для повернення."
+    "param.maxc.description": "Максимальна кількість символів для повернення.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "tr": {
     "param.page_index.description": "1-tabanlı sayfa numarası (PDF sayfa veya PPTX slayt dizini).",
@@ -321,7 +365,9 @@
     ],
     "param.password.description": "Şifrelenmiş PDF/PPTX dosya...",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}",
-    "param.maxc.description": "Döndürülecek maksimum karakter sayısı. Atlanırsa, 8000 karakter uzunluğunda kesilir."
+    "param.maxc.description": "Döndürülecek maksimum karakter sayısı. Atlanırsa, 8000 karakter uzunluğunda kesilir.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "th": {
     "param.page_index.description": "หมายเลขหน้าแบบเริ่มที่ 1 (หน้า PDF หรือดัชนีสไลด์ PPTX) หากละเว้น จะส่งคืนข้อความที่ต่อกันของทุกหน้า",
@@ -335,7 +381,9 @@
     ],
     "param.password.description": "รหัสผ่านสำหรับไฟล์ PDF/PPT...",
     "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}",
-    "param.maxc.description": "จำนวนอักขระสูงสุดที่จะส่งคืน หากละเว้นจะตัดทอนที่ 8000 อักขระ"
+    "param.maxc.description": "จำนวนอักขระสูงสุดที่จะส่งคืน หากละเว้นจะตัดทอนที่ 8000 อักขระ",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "zh_CN": {
     "param.page_index.description": "从 1 开始的页码（PDF 页或 PPTX 幻灯片索引）。省略时，返回所有页面拼接后的文本。",
@@ -349,7 +397,9 @@
     ],
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "请输入此文件的密码：\n{path}",
-    "param.maxc.description": "返回的最大字符数。省略时截断为 8000 个字符。"
+    "param.maxc.description": "返回的最大字符数。省略时截断为 8000 个字符。",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "zh_TW": {
     "param.page_index.description": "從 1 開始的頁碼（PDF 頁或 PPTX 投影片索引）。省略時，會傳回所有頁面串接後的文字。",
@@ -363,7 +413,9 @@
     ],
     "param.password.description": "密码（需要时提示输入）。",
     "prompt.password": "請輸入此文件的密碼：\n{path}",
-    "param.maxc.description": "傳回的最大字元數。省略時會在 8000 個字元處截斷。"
+    "param.maxc.description": "傳回的最大字元數。省略時會在 8000 個字元處截斷。",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "bn": {
     "param.page_index.description": "1-ভিত্তিক পৃষ্ঠা নম্বর (PDF পৃষ্ঠা বা PPTX স্লাইড সূচক)। উল্লেখ না করলে সব পৃষ্ঠার সংযুক্ত লেখা ফেরত দেয়।",
@@ -377,7 +429,9 @@
     ],
     "param.password.description": "এনক্রিপ্টেড PDF/PPTX ফাইলে...",
     "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}",
-    "param.maxc.description": "ফেরত দেওয়া যাবে সর্বোচ্চ কত অক্ষর। উল্লেখ না করলে 8000 অক্ষরে কেটে দেওয়া হবে।"
+    "param.maxc.description": "ফেরত দেওয়া যাবে সর্বোচ্চ কত অক্ষর। উল্লেখ না করলে 8000 অক্ষরে কেটে দেওয়া হবে।",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "fa": {
     "param.page_index.description": "شمارهٔ صفحه بر پایهٔ 1 (صفحهٔ PDF یا شمارهٔ اسلاید PPTX).",
@@ -391,7 +445,9 @@
     ],
     "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}",
-    "param.maxc.description": "حداکثر تعداد نویسه‌های بازگشتی. اگر مشخص نشود، خروجی در 8000 نویسه کوتاه می‌شود."
+    "param.maxc.description": "حداکثر تعداد نویسه‌های بازگشتی. اگر مشخص نشود، خروجی در 8000 نویسه کوتاه می‌شود.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "mn": {
     "param.page_index.description": "1-ээс эхэлсэн хуудасны дугаар (PDF хуудас эсвэл PPTX слайдын индекс).",
@@ -405,7 +461,9 @@
     ],
     "param.password.description": "Шифрлэгдсэн PDF/PPTX файлы...",
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}",
-    "param.maxc.description": "Буцаах тэмдэгтийн дээд тоо. Заагаагүй бол 8000 тэмдэгтээр таслана."
+    "param.maxc.description": "Буцаах тэмдэгтийн дээд тоо. Заагаагүй бол 8000 тэмдэгтээр таслана.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "mr": {
     "param.page_index.description": "1 पासून सुरू होणारा पान क्रमांक (PDF पान किंवा PPTX स्लाइड index).",
@@ -419,6 +477,8 @@
     ],
     "param.password.description": "एन्क्रिप्टेड PDF/PPTX फाइल...",
     "prompt.password": "या फाइलचा password टाका:\n{path}",
-    "param.maxc.description": "परत देण्यासाठी जास्तीत जास्त अक्षरे. दिले नाही तर 8000 अक्षरांवर कापले जाईल."
+    "param.maxc.description": "परत देण्यासाठी जास्तीत जास्त अक्षरे. दिले नाही तर 8000 अक्षरांवर कापले जाईल.",
+    "err.path_required": "[read_pptx_pdf error] path is required",
+    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   }
 }

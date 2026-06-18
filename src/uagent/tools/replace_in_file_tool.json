@@ -48,7 +48,10 @@
     "hint.occurrence_exceeds_matches": "Requested occurrence {occurrence} exceeds available matches ({match_count}).",
     "hint.anchor_after_not_found_after_before": "anchor_after was not found after anchor_before.",
     "param.glob.description": "Glob pattern used by replace_all_in_files (default: '*').",
-    "param.recur.description": "Recursively scan under the target directory."
+    "param.recur.description": "Recursively scan under the target directory.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "ja": {
     "err.path_missing": "パスが指定されていません",
@@ -99,7 +102,10 @@
     "hint.occurrence_exceeds_matches": "指定された occurrence {occurrence} は利用可能な一致数 ({match_count}) を超えています。",
     "hint.anchor_after_not_found_after_before": "anchor_before の後に anchor_after が見つかりませんでした。",
     "param.glob.description": "replace_all_in_files で使う glob パターン（既定: '*')。",
-    "param.recur.description": "対象ディレクトリ配下を再帰的に検索します。"
+    "param.recur.description": "対象ディレクトリ配下を再帰的に検索します。",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "es": {
     "err.path_missing": "la ruta no está es...",
@@ -150,7 +156,10 @@
     "hint.occurrence_exceeds_matches": "La occurrence solicitada {occurrence} supera las coincidencias disponible...",
     "hint.anchor_after_not_found_after_before": "No se encontró anchor_after después de ancho...",
     "param.glob.description": "Patrón glob usado por replace_all_in_files (predetermi...",
-    "param.recur.description": "Buscar recursivamente bajo el directorio..."
+    "param.recur.description": "Buscar recursivamente bajo el directorio...",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "fr": {
     "err.path_missing": "le chemin n'est pa...",
@@ -201,7 +210,10 @@
     "hint.occurrence_exceeds_matches": "L’occurrence demandée {occurrence} dépasse les correspondances disponible...",
     "hint.anchor_after_not_found_after_before": "anchor_after est introuvable après anchor_before.",
     "param.glob.description": "Motif glob utilisé par replace_all_in_files (par défau...",
-    "param.recur.description": "Parcourir récursivement le répertoire cible."
+    "param.recur.description": "Parcourir récursivement le répertoire cible.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "ko": {
     "err.path_missing": "경로가 지정되지 않음",
@@ -252,7 +264,10 @@
     "hint.occurrence_exceeds_matches": "요청한 occurrence {occurrence} 이(가) 사용 가능한 일치 수 ({match_count})를 초과합니다.",
     "hint.anchor_after_not_found_after_before": "anchor_before 뒤에서 anchor_after를 찾을 수 없습니다.",
     "param.glob.description": "replace_all_in_files에 사용하는 glob 패턴(기본값: '*').",
-    "param.recur.description": "대상 디렉터리 아래를 재귀적으로 검색합니다."
+    "param.recur.description": "대상 디렉터리 아래를 재귀적으로 검색합니다.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "de": {
     "err.path_missing": "Pfad nicht angegeben",
@@ -303,7 +318,10 @@
     "hint.occurrence_exceeds_matches": "Die angeforderte occurrence {occurrence} überschreitet die verfügbaren Tr...",
     "hint.anchor_after_not_found_after_before": "anchor_after wurde nach anchor_before nicht...",
     "param.glob.description": "Glob-Muster für replace_all_in_files (Standard: '*').",
-    "param.recur.description": "Unter dem Zielverzeichnis rekursiv suchen."
+    "param.recur.description": "Unter dem Zielverzeichnis rekursiv suchen.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "it": {
     "err.path_missing": "il percorso non è...",
@@ -354,7 +372,10 @@
     "hint.occurrence_exceeds_matches": "La occurrence richiesta {occurrence} supera le corrispondenze disponibili...",
     "hint.anchor_after_not_found_after_before": "anchor_after non è stato trovato dopo anchor...",
     "param.glob.description": "Pattern glob usato da replace_all_in_files (predefinito: '*').",
-    "param.recur.description": "Scansiona ricorsivamente la directory di..."
+    "param.recur.description": "Scansiona ricorsivamente la directory di...",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "ru": {
     "err.path_missing": "путь не указан",
@@ -405,7 +426,10 @@
     "hint.occurrence_exceeds_matches": "Запрошенная occurrence {occurrence} превышает число доступных совпадений...",
     "hint.anchor_after_not_found_after_before": "anchor_after не найден после anchor_before.",
     "param.glob.description": "Glob-шаблон для replace_all_in_files (по умолчанию: '*').",
-    "param.recur.description": "Рекурсивно просматривать целевой каталог."
+    "param.recur.description": "Рекурсивно просматривать целевой каталог.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "pt_BR": {
     "err.path_missing": "o caminho não foi...",
@@ -456,7 +480,10 @@
     "hint.occurrence_exceeds_matches": "A occurrence solicitada {occurrence} excede as correspondências disponíve...",
     "hint.anchor_after_not_found_after_before": "anchor_after não foi encontrado depois de an...",
     "param.glob.description": "Padrão glob usado por replace_all_in_files (padrão: '*').",
-    "param.recur.description": "Examinar recursivamente o diretório de destino."
+    "param.recur.description": "Examinar recursivamente o diretório de destino.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "pt": {
     "err.path_missing": "o caminho não foi...",
@@ -507,7 +534,10 @@
     "hint.occurrence_exceeds_matches": "A occurrence pedida {occurrence} excede as correspondências disponíveis (...",
     "hint.anchor_after_not_found_after_before": "anchor_after não foi encontrado depois de an...",
     "param.glob.description": "Padrão Glob usado por replace_all_in_files (padrão: '*').",
-    "param.recur.description": "Pesquise recursivamente no diretório de destino."
+    "param.recur.description": "Pesquise recursivamente no diretório de destino.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "id": {
     "err.path_missing": "jalur tidak ditentukan",
@@ -558,7 +588,10 @@
     "hint.occurrence_exceeds_matches": "occurrence yang diminta {occurrence} melebihi jumlah kecocokan yang terse...",
     "hint.anchor_after_not_found_after_before": "anchor_after tidak ditemukan setelah anchor_before.",
     "param.glob.description": "Pola glob yang digunakan oleh replace_all_in_files (de...",
-    "param.recur.description": "Pindai direktori target secara rekursif."
+    "param.recur.description": "Pindai direktori target secara rekursif.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "vi": {
     "err.path_missing": "đường dẫn không đư...",
@@ -609,7 +642,10 @@
     "hint.occurrence_exceeds_matches": "occurrence được yêu cầu {occurrence} vượt quá số kết quả khớp hiện có ({m...",
     "hint.anchor_after_not_found_after_before": "Không tìm thấy anchor_after sau anchor_before.",
     "param.glob.description": "Mẫu glob dùng cho replace_all_in_files (mặc định: '*').",
-    "param.recur.description": "Quét đệ quy thư mục đích."
+    "param.recur.description": "Quét đệ quy thư mục đích.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "pl": {
     "err.path_missing": "ścieżka nie jest o...",
@@ -660,7 +696,10 @@
     "hint.occurrence_exceeds_matches": "Żądana occurrence {occurrence} przekracza liczbę dostępnych dopasowań ({m...",
     "hint.anchor_after_not_found_after_before": "Nie znaleziono anchor_after po anchor_before.",
     "param.glob.description": "Wzorzec glob używany przez replace_all_in_files (domyś...",
-    "param.recur.description": "Skanuj rekursywnie katalog docelowy."
+    "param.recur.description": "Skanuj rekursywnie katalog docelowy.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "hi": {
     "err.path_missing": "पथ निर्दिष्ट नहीं है",
@@ -711,7 +750,10 @@
     "hint.occurrence_exceeds_matches": "अनुरोधित occurrence {occurrence}, उपलब्ध मिलानों ({match_count}) से अधिक है।",
     "hint.anchor_after_not_found_after_before": "anchor_before के बाद anchor_after नहीं मिला।",
     "param.glob.description": "Replace_all_in_files द्वारा प्रयुक्त ग्लोब पैटर्न (डिफ...",
-    "param.recur.description": "लक्ष्य निर्देशिका के अंतर्गत पुनरावर्ती र..."
+    "param.recur.description": "लक्ष्य निर्देशिका के अंतर्गत पुनरावर्ती र...",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "ar": {
     "err.path_missing": "لم يتم تحديد المسار",
@@ -762,7 +804,10 @@
     "hint.occurrence_exceeds_matches": "تتجاوز occurrence المطلوبة {occurrence} عدد المطابقات المتاحة ({match_count}).",
     "hint.anchor_after_not_found_after_before": "لم يتم العثور على anchor_after بعد anchor_before.",
     "param.glob.description": "نمط الكرة الأرضية الذي يستخدمه استبدال_all_in_files (ا...",
-    "param.recur.description": "البحث بشكل متكرر ضمن الدليل الهدف."
+    "param.recur.description": "البحث بشكل متكرر ضمن الدليل الهدف.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "sv": {
     "err.path_missing": "path är inte angiven",
@@ -813,7 +858,10 @@
     "hint.occurrence_exceeds_matches": "Begärd occurrence {occurrence} överskrider tillgängliga träffar ({match_count}).",
     "hint.anchor_after_not_found_after_before": "anchor_after hittades inte efter anchor_before.",
     "param.glob.description": "Glob-mönster som används av replace_all_in_files (stan...",
-    "param.recur.description": "Sök rekursivt under målkatalogen."
+    "param.recur.description": "Sök rekursivt under målkatalogen.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "sw": {
     "err.path_missing": "path haijabainishwa",
@@ -864,7 +912,10 @@
     "hint.occurrence_exceeds_matches": "occurrence iliyoombwa {occurrence} inazidi idadi ya mifanano iliyopo ({ma...",
     "hint.anchor_after_not_found_after_before": "anchor_after haikupatikana baada ya anchor_before.",
     "param.glob.description": "Mfano wa glob unaotumiwa na replace_all_in_files (chag...",
-    "param.recur.description": "Tafuta kwa kina chini ya saraka lengwa."
+    "param.recur.description": "Tafuta kwa kina chini ya saraka lengwa.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "nb": {
     "err.path_missing": "path er ikke angitt",
@@ -915,7 +966,10 @@
     "hint.occurrence_exceeds_matches": "Forespurt occurrence {occurrence} overstiger tilgjengelige treff ({match_count}).",
     "hint.anchor_after_not_found_after_before": "anchor_after ble ikke funnet etter anchor_before.",
     "param.glob.description": "Glob-mønster brukt av replace_all_in_files (standard: '*').",
-    "param.recur.description": "Søk rekursivt under mål-katalogen."
+    "param.recur.description": "Søk rekursivt under mål-katalogen.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "nl": {
     "err.path_missing": "pad is niet opgegeven",
@@ -966,7 +1020,10 @@
     "hint.occurrence_exceeds_matches": "De gevraagde occurrence {occurrence} is groter dan het aantal beschikbare...",
     "hint.anchor_after_not_found_after_before": "anchor_after is niet gevonden na anchor_before.",
     "param.glob.description": "Glob-patroon voor replace_all_in_files (standaard: '*').",
-    "param.recur.description": "Zoek recursief onder de doelmap."
+    "param.recur.description": "Zoek recursief onder de doelmap.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "fi": {
     "err.path_missing": "polkua ei ole annettu",
@@ -1017,7 +1074,10 @@
     "hint.occurrence_exceeds_matches": "Pyydetty occurrence {occurrence} ylittää käytettävissä olevien osumien mä...",
     "hint.anchor_after_not_found_after_before": "anchor_after ei löytynyt anchor_before-kohda...",
     "param.glob.description": "Glob-kuvio replace_all_in_filesille (oletus: '*').",
-    "param.recur.description": "Etsi rekursiivisesti kohdehakemiston alta."
+    "param.recur.description": "Etsi rekursiivisesti kohdehakemiston alta.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "cs": {
     "err.path_missing": "cesta není zadána",
@@ -1068,7 +1128,10 @@
     "hint.occurrence_exceeds_matches": "Požadovaná occurrence {occurrence} překračuje počet dostupných shod ({mat...",
     "hint.anchor_after_not_found_after_before": "anchor_after nebyl nalezen po anchor_before.",
     "param.glob.description": "Glob vzor používaný pro replace_all_in_files (výchozí: '*').",
-    "param.recur.description": "Rekurzivně prohledávat cílový adresář."
+    "param.recur.description": "Rekurzivně prohledávat cílový adresář.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "uk": {
     "err.path_missing": "шлях не вказано",
@@ -1119,7 +1182,10 @@
     "hint.occurrence_exceeds_matches": "Запитана occurrence {occurrence} перевищує кількість доступних збігів ({m...",
     "hint.anchor_after_not_found_after_before": "anchor_after не знайдено після anchor_before.",
     "param.glob.description": "Glob-шаблон, який використовується для replace_all_in_...",
-    "param.recur.description": "Рекурсивно шукати в цільовому каталозі."
+    "param.recur.description": "Рекурсивно шукати в цільовому каталозі.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "tr": {
     "err.path_missing": "yol belirtilmedi",
@@ -1170,7 +1236,10 @@
     "hint.occurrence_exceeds_matches": "İstenen occurrence {occurrence}, kullanılabilir eşleşme sayısını ({match_...",
     "hint.anchor_after_not_found_after_before": "anchor_before sonrasında anchor_after bulunamadı.",
     "param.glob.description": "replacement_all_in_files tarafından kullanılan glob mo...",
-    "param.recur.description": "Hedef dizinin altında yinelemeli olarak a..."
+    "param.recur.description": "Hedef dizinin altında yinelemeli olarak a...",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "th": {
     "err.path_missing": "ไม่ได้ระบุเส้นทาง",
@@ -1221,7 +1290,10 @@
     "hint.occurrence_exceeds_matches": "occurrence ที่ขอ {occurrence} มากกว่าจำนวนรายการที่พบ ({match_count})",
     "hint.anchor_after_not_found_after_before": "ไม่พบ anchor_after หลัง anchor_before",
     "param.glob.description": "รูปแบบ glob ที่ใช้กับ replace_all_in_files (ค่าเริ่มต้น: '*')",
-    "param.recur.description": "สแกนโฟลเดอร์เป้าหมายแบบ recursive"
+    "param.recur.description": "สแกนโฟลเดอร์เป้าหมายแบบ recursive",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "zh_CN": {
     "err.path_missing": "未指定路径",
@@ -1272,7 +1344,10 @@
     "hint.occurrence_exceeds_matches": "请求的 occurrence {occurrence} 超出了可用匹配数 ({match_count})。",
     "hint.anchor_after_not_found_after_before": "在 anchor_before 之后未找到 anchor_after。",
     "param.glob.description": "replace_all_in_files 使用的 glob 模式（默认：'*'）。",
-    "param.recur.description": "递归扫描目标目录。"
+    "param.recur.description": "递归扫描目标目录。",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "zh_TW": {
     "err.path_missing": "未指定路徑",
@@ -1323,7 +1398,10 @@
     "hint.occurrence_exceeds_matches": "要求的 occurrence {occurrence} 超過可用的符合數 ({match_count})。",
     "hint.anchor_after_not_found_after_before": "在 anchor_before 之後找不到 anchor_after。",
     "param.glob.description": "replace_all_in_files 使用的 glob 模式（預設：'*'）。",
-    "param.recur.description": "遞迴掃描目標目錄。"
+    "param.recur.description": "遞迴掃描目標目錄。",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "bn": {
     "err.path_missing": "পাথ নির্দিষ্ট করা হয়নি",
@@ -1374,7 +1452,10 @@
     "hint.occurrence_exceeds_matches": "অনুরোধ করা occurrence {occurrence}, উপলব্ধ মিলে ({match_count}) ছাড়িয়ে গেছে।",
     "hint.anchor_after_not_found_after_before": "anchor_before-এর পরে anchor_after পাওয়া যায়নি।",
     "param.glob.description": "replace_all_in_files-এর জন্য ব্যবহৃত glob pattern (ডিফ...",
-    "param.recur.description": "টার্গেট ডিরেক্টরির নিচে পুনরাবৃত্তভাবে খুঁজুন।"
+    "param.recur.description": "টার্গেট ডিরেক্টরির নিচে পুনরাবৃত্তভাবে খুঁজুন।",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "fa": {
     "err.path_missing": "مسیر مشخص نشده است",
@@ -1425,7 +1506,10 @@
     "hint.occurrence_exceeds_matches": "occurrence درخواستی {occurrence} از تعداد تطبیق‌های موجود ({match_count})...",
     "hint.anchor_after_not_found_after_before": "anchor_after پس از anchor_before پیدا نشد.",
     "param.glob.description": "الگوی glob مورد استفاده توسط replace_all_in_files (پیش...",
-    "param.recur.description": "جست‌وجوی بازگشتی در زیر دایرکتوری هدف."
+    "param.recur.description": "جست‌وجوی بازگشتی در زیر دایرکتوری هدف.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "mn": {
     "err.path_missing": "Замын хаяг заагааг...",
@@ -1476,7 +1560,10 @@
     "hint.occurrence_exceeds_matches": "Хүссэн occurrence {occurrence} нь боломжит тааралтуудын тоо ({match_count...",
     "hint.anchor_after_not_found_after_before": "anchor_before-ийн дараа anchor_after олдсонгүй.",
     "param.glob.description": "replace_all_in_files-д ашиглах glob pattern (анхдагч: '*').",
-    "param.recur.description": "Зорилтот директори дотор рекурсивээр хайна."
+    "param.recur.description": "Зорилтот директори дотор рекурсивээр хайна.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   },
   "mr": {
     "err.path_missing": "मार्ग निर्दिष्ट के...",
@@ -1527,6 +1614,9 @@
     "hint.occurrence_exceeds_matches": "विनंती केलेला occurrence {occurrence}, उपलब्ध जुळण्यांपेक्षा ({match_coun...",
     "hint.anchor_after_not_found_after_before": "anchor_before नंतर anchor_after सापडला नाही.",
     "param.glob.description": "replace_all_in_files साठी वापरले जाणारे glob pattern (...",
-    "param.recur.description": "लक्ष्य निर्देशिकेखाली पुनरावृत्तीने शोधा."
+    "param.recur.description": "लक्ष्य निर्देशिकेखाली पुनरावृत्तीने शोधा.",
+    "param.return_hashes.description": "Include sha256 before/after.",
+    "param.action.description": "Action: replace/append/insert/etc.",
+    "param.line_no.description": "1-based line number used by insert_at_line."
   }
 }

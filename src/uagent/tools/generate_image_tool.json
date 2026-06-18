@@ -31,7 +31,10 @@
     "ok.generated_many": "[OK] generated:\n{paths}",
     "log.opened_default_app": "[INFO] Opened image file with the default app.",
     "next_action.review_generated_image": "Please review the generated image.",
-    "param.prefix.description": "Prefix for the saved filename (optional)."
+    "param.prefix.description": "Prefix for the saved filename (optional).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "ja": {
     "tool.description": "テキストプロンプトから画像を生成し、PNGとして保存してファイルパスを返します。開く処理は呼び出し元が行います。",
@@ -63,7 +66,10 @@
     "ok.generated_many": "[OK] 生成しました:\n{paths}",
     "log.opened_default_app": "[INFO] 画像ファイルを既定アプリで開きました。",
     "next_action.review_generated_image": "生成した画像を確認してください。",
-    "param.prefix.description": "保存ファイル名の接頭辞です（任意）。"
+    "param.prefix.description": "保存ファイル名の接頭辞です（任意）。",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "es": {
     "tool.description": "Genera una imagen a partir de un prompt de texto, la guarda como PNG y devuelve la ruta del archivo.",
@@ -95,7 +101,10 @@
     "ok.generated_many": "[OK] generados:\n{paths}",
     "log.opened_default_app": "[INFO] Archivo de imagen abierto con la aplicación predeterminada.",
     "next_action.review_generated_image": "Por favor, revisa la imagen generada.",
-    "param.prefix.description": "Prefijo para el nombre del archivo gua..."
+    "param.prefix.description": "Prefijo para el nombre del archivo gua...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "fr": {
     "tool.description": "Génère une image à partir d’un prompt texte, l’enregistre en PNG et renvoie le chemin du fichier.",
@@ -127,7 +136,10 @@
     "ok.generated_many": "[OK] générés :\n{paths}",
     "log.opened_default_app": "[INFO] Fichier image ouvert avec l’application par défaut.",
     "next_action.review_generated_image": "Veuillez vérifier l'image générée.",
-    "param.prefix.description": "Préfixe du nom de fichier enregistré (..."
+    "param.prefix.description": "Préfixe du nom de fichier enregistré (...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "ko": {
     "tool.description": "텍스트 프롬프트로 이미지를 생성해 PNG로 저장하고 파일 경로를 반환합니다. 열기는 호출자(CLI/GUI/Web)가 처리합니다.",
@@ -159,7 +171,10 @@
     "ok.generated_many": "[OK] 생성됨:\n{paths}",
     "log.opened_default_app": "[INFO] 이미지 파일을 기본 앱으로 열었습니다.",
     "next_action.review_generated_image": "생성된 이미지를 확인해 주세요.",
-    "param.prefix.description": "저장 파일 이름의 접두사입니다(선택)."
+    "param.prefix.description": "저장 파일 이름의 접두사입니다(선택).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "de": {
     "tool.description": "Erzeugt ein Bild aus einem Textprompt, speichert es als PNG und gibt den Dateipfad zurück. Das Öffnen übernimmt der Aufrufer (CLI/GUI/Web).",
@@ -191,7 +206,10 @@
     "ok.generated_many": "[OK] erzeugt:\n{paths}",
     "log.opened_default_app": "[INFO] Bilddatei mit der Standardanwendung geöffnet.",
     "next_action.review_generated_image": "Bitte überprüfe das generierte Bild.",
-    "param.prefix.description": "Präfix für den gespeicherten Dateiname..."
+    "param.prefix.description": "Präfix für den gespeicherten Dateiname...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "it": {
     "tool.description": "Genera un’immagine da un prompt di testo, la salva come PNG e restituisce il percorso del file. L’apertura è gestita dal chiamante (CLI/GUI/Web).",
@@ -223,7 +241,10 @@
     "ok.generated_many": "[OK] generate:\n{paths}",
     "log.opened_default_app": "[INFO] File immagine aperto con l’app predefinita.",
     "next_action.review_generated_image": "Controlla l'immagine generata.",
-    "param.prefix.description": "Prefisso per il nome del file salvato..."
+    "param.prefix.description": "Prefisso per il nome del file salvato...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "ru": {
     "tool.description": "Создаёт изображение по текстовому запросу, сохраняет его как PNG и возвращает путь к файлу. Открытие выполняет вызывающая сторона (CLI/GUI/Web).",
@@ -255,7 +276,10 @@
     "ok.generated_many": "[OK] создано:\n{paths}",
     "log.opened_default_app": "[INFO] Файл изображения открыт в приложении по умолчанию.",
     "next_action.review_generated_image": "Пожалуйста, проверьте сгенерированное изображение.",
-    "param.prefix.description": "Префикс имени сохраняемого файла (необ..."
+    "param.prefix.description": "Префикс имени сохраняемого файла (необ...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "pt_BR": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
@@ -287,7 +311,10 @@
     "ok.generated_many": "[OK] gerados:\n{paths}",
     "log.opened_default_app": "[INFO] Arquivo de imagem aberto no aplicativo padrão.",
     "next_action.review_generated_image": "Por favor, revise a imagem gerada.",
-    "param.prefix.description": "Prefixo para o nome do arquivo salvo (..."
+    "param.prefix.description": "Prefixo para o nome do arquivo salvo (...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "pt": {
     "tool.description": "Gera uma imagem a partir de um prompt de texto, salva como PNG e retorna o caminho do arquivo. A abertura é feita pelo chamador (CLI/GUI/Web).",
@@ -319,7 +346,10 @@
     "ok.generated_many": "[OK] gerados:\n{paths}",
     "log.opened_default_app": "[INFO] Arquivo de imagem aberto no aplicativo padrão.",
     "next_action.review_generated_image": "Por favor, reveja a imagem gerada.",
-    "param.prefix.description": "Prefixo para o nome do arquivo salvo (..."
+    "param.prefix.description": "Prefixo para o nome do arquivo salvo (...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "id": {
     "tool.description": "Menghasilkan gambar dari prompt teks, menyimpannya sebagai PNG, dan mengembalikan path file. Pembukaan ditangani oleh pemanggil (CLI/GUI/Web).",
@@ -351,7 +381,10 @@
     "ok.generated_many": "[OK] berhasil dibuat:\n{paths}",
     "log.opened_default_app": "[INFO] File gambar dibuka dengan aplikasi bawaan.",
     "next_action.review_generated_image": "Silakan tinjau gambar yang dihasilkan.",
-    "param.prefix.description": "Awalan untuk nama file yang disimpan (..."
+    "param.prefix.description": "Awalan untuk nama file yang disimpan (...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "vi": {
     "tool.description": "Tạo ảnh từ prompt văn bản, lưu dưới dạng PNG và trả về đường dẫn tệp. Việc mở ảnh do bên gọi xử lý (CLI/GUI/Web).",
@@ -383,7 +416,10 @@
     "ok.generated_many": "[OK] đã tạo:\n{paths}",
     "log.opened_default_app": "[INFO] Đã mở tệp ảnh bằng ứng dụng mặc định.",
     "next_action.review_generated_image": "Vui lòng xem lại hình ảnh đã tạo.",
-    "param.prefix.description": "Tiền tố cho tên tệp đã lưu (tùy chọn)."
+    "param.prefix.description": "Tiền tố cho tên tệp đã lưu (tùy chọn).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "pl": {
     "tool.description": "Generuje obraz z promptu tekstowego, zapisuje go jako PNG i zwraca ścieżkę pliku. Otwarcie obsługuje wywołujący (CLI/GUI/Web).",
@@ -415,7 +451,10 @@
     "ok.generated_many": "[OK] wygenerowano:\n{paths}",
     "log.opened_default_app": "[INFO] Plik obrazu otwarty w domyślnej aplikacji.",
     "next_action.review_generated_image": "Proszę sprawdzić wygenerowany obraz.",
-    "param.prefix.description": "Prefiks nazwy zapisywanego pliku (opcj..."
+    "param.prefix.description": "Prefiks nazwy zapisywanego pliku (opcj...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "hi": {
     "tool.description": "टेक्स्ट प्रॉम्प्ट से चित्र बनाता है, उसे PNG के रूप में सहेजता है, और फ़ाइल पथ लौटाता है। खोलना कॉलर (CLI/GUI/Web) संभालता है।",
@@ -447,7 +486,10 @@
     "ok.generated_many": "[OK] बनाए गए:\n{paths}",
     "log.opened_default_app": "[INFO] छवि फ़ाइल डिफ़ॉल्ट ऐप से खोली गई।",
     "next_action.review_generated_image": "कृपया बनाई गई छवि की समीक्षा करें।",
-    "param.prefix.description": "सहेजी गई फ़ाइल नाम की उपसर्ग (वैकल्पिक)."
+    "param.prefix.description": "सहेजी गई फ़ाइल नाम की उपसर्ग (वैकल्पिक).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "ar": {
     "tool.description": "ينشئ صورة من طلب نصي، ويحفظها كملف PNG، ويُرجع مسار الملف. الفتح يتولاه المستدعي (CLI/GUI/Web).",
@@ -479,7 +521,10 @@
     "ok.generated_many": "[OK] تم الإنشاء:\n{paths}",
     "log.opened_default_app": "[INFO] فُتح ملف الصورة بالتطبيق الافتراضي.",
     "next_action.review_generated_image": "يرجى مراجعة الصورة المُنشأة.",
-    "param.prefix.description": "بادئة اسم الملف المحفوظ (اختياري)."
+    "param.prefix.description": "بادئة اسم الملف المحفوظ (اختياري).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "sv": {
     "tool.description": "Genererar en bild från en textprompt, sparar den som PNG och վերադարձar filsökvägen. Öppningen hanteras av anroparen (CLI/GUI/Web).",
@@ -511,7 +556,10 @@
     "ok.generated_many": "[OK] genererade:\n{paths}",
     "log.opened_default_app": "[INFO] Öppnade bildfilen med standardappen.",
     "next_action.review_generated_image": "Granska gärna den genererade bilden.",
-    "param.prefix.description": "Prefix för det sparade filnamnet (valfritt)."
+    "param.prefix.description": "Prefix för det sparade filnamnet (valfritt).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "sw": {
     "tool.description": "Hutengeneza picha kutoka kwa prompt ya maandishi, huihifadhi kama PNG, na kurudisha njia ya faili.",
@@ -543,7 +591,10 @@
     "ok.generated_many": "[OK] zimetengenezwa:\n{paths}",
     "log.opened_default_app": "[INFO] Faili ya picha imefunguliwa kwa programu chaguo-msingi.",
     "next_action.review_generated_image": "Tafadhali kagua picha iliyotengenezwa.",
-    "param.prefix.description": "Kianzio cha jina la faili lililohifadh..."
+    "param.prefix.description": "Kianzio cha jina la faili lililohifadh...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "nb": {
     "tool.description": "Genererer et bilde fra en tekstprompt, lagrer det som PNG og returnerer filstien. Åpning håndteres av kalleren (CLI/GUI/Web).",
@@ -575,7 +626,10 @@
     "ok.generated_many": "[OK] generert:\n{paths}",
     "log.opened_default_app": "[INFO] Åpnet bildefilen med standardappen.",
     "next_action.review_generated_image": "Vennligst gå gjennom det genererte bildet.",
-    "param.prefix.description": "Prefiks for det lagrede filnavnet (val..."
+    "param.prefix.description": "Prefiks for det lagrede filnavnet (val...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "nl": {
     "tool.description": "Genereert een afbeelding uit een tekstprompt, slaat deze op als PNG en geeft het bestandspad terug.",
@@ -607,7 +661,10 @@
     "ok.generated_many": "[OK] gegenereerd:\n{paths}",
     "log.opened_default_app": "[INFO] Afbeeldingsbestand geopend met de standaardapp.",
     "next_action.review_generated_image": "Bekijk de gegenereerde afbeelding.",
-    "param.prefix.description": "Voorvoegsel voor de opgeslagen bestand..."
+    "param.prefix.description": "Voorvoegsel voor de opgeslagen bestand...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "fi": {
     "tool.description": "Luo kuva tekstikehotteesta, tallentaa sen PNG:nä ja palauttaa tiedostopolun. Avaamisesta vastaa kutsuja (CLI/GUI/Web).",
@@ -639,7 +696,10 @@
     "ok.generated_many": "[OK] luotu:\n{paths}",
     "log.opened_default_app": "[INFO] Kuvatiedosto avattiin oletussovelluksella.",
     "next_action.review_generated_image": "Tarkista luotu kuva.",
-    "param.prefix.description": "Tallennetun tiedostonimen etuliite (va..."
+    "param.prefix.description": "Tallennetun tiedostonimen etuliite (va...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "cs": {
     "tool.description": "Vytvoří obrázek z textového zadání, uloží jej jako PNG a vrátí cestu k souboru. Otevření řeší volající (CLI/GUI/Web).",
@@ -671,7 +731,10 @@
     "ok.generated_many": "[OK] vytvořeno:\n{paths}",
     "log.opened_default_app": "[INFO] Soubor s obrázkem byl otevřen ve výchozí aplikaci.",
     "next_action.review_generated_image": "Zkontrolujte prosím vygenerovaný obrázek.",
-    "param.prefix.description": "Předpona uloženého názvu souboru (volitelné)."
+    "param.prefix.description": "Předpona uloženého názvu souboru (volitelné).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "uk": {
     "tool.description": "Створює зображення з текстового запиту, зберігає його як PNG і повертає шлях до файла. Відкриття виконує викликач (CLI/GUI/Web).",
@@ -703,7 +766,10 @@
     "ok.generated_many": "[OK] створено:\n{paths}",
     "log.opened_default_app": "[INFO] Файл зображення відкрито у типовій програмі.",
     "next_action.review_generated_image": "Будь ласка, перевірте згенероване зображення.",
-    "param.prefix.description": "Префікс збереженої назви файла (необов..."
+    "param.prefix.description": "Префікс збереженої назви файла (необов...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "tr": {
     "tool.description": "Bir metin isteminden bir görüntü oluşturur, bunu PNG olarak kaydeder ve dosya yolunu döndürür.",
@@ -735,7 +801,10 @@
     "ok.generated_many": "[OK] oluşturuldu:\n{paths}",
     "log.opened_default_app": "[INFO] Varsayılan uygulamayla açılan resim dosyası.",
     "next_action.review_generated_image": "Lütfen oluşturulan görseli inceleyin.",
-    "param.prefix.description": "Kaydedilen dosya adı için önek (isteğe..."
+    "param.prefix.description": "Kaydedilen dosya adı için önek (isteğe...",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "th": {
     "tool.description": "สร้างภาพจากพรอมต์ข้อความ บันทึกเป็น PNG และคืนค่าพาธของไฟล์ การเปิดไฟล์เป็นหน้าที่ของผู้เรียก (CLI/GUI/Web).",
@@ -767,7 +836,10 @@
     "ok.generated_many": "[OK] สร้างแล้ว:\n{paths}",
     "log.opened_default_app": "[INFO] เปิดไฟล์ภาพด้วยแอปเริ่มต้นแล้ว.",
     "next_action.review_generated_image": "กรุณาตรวจสอบรูปภาพที่สร้างขึ้น",
-    "param.prefix.description": "คำนำหน้าชื่อไฟล์ที่บันทึก (ไม่บังคับ)."
+    "param.prefix.description": "คำนำหน้าชื่อไฟล์ที่บันทึก (ไม่บังคับ).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "zh_CN": {
     "tool.description": "根据文本提示生成图片，将其保存为 PNG，并返回文件路径。打开由调用方处理（CLI/GUI/Web）。",
@@ -799,7 +871,10 @@
     "ok.generated_many": "[OK] 已生成：\n{paths}",
     "log.opened_default_app": "[INFO] 已用默认应用打开图片文件。",
     "next_action.review_generated_image": "请检查生成的图片。",
-    "param.prefix.description": "保存文件名的前缀（可选）。"
+    "param.prefix.description": "保存文件名的前缀（可选）。",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "zh_TW": {
     "tool.description": "根據文字提示產生圖片，將其儲存為 PNG，並回傳檔案路徑。開啟由呼叫端處理（CLI/GUI/Web）。",
@@ -831,7 +906,10 @@
     "ok.generated_many": "[OK] 已生成：\n{paths}",
     "log.opened_default_app": "[INFO] 已用預設應用程式開啟圖片檔。",
     "next_action.review_generated_image": "請檢查生成的圖片。",
-    "param.prefix.description": "儲存檔名的前綴（選填）。"
+    "param.prefix.description": "儲存檔名的前綴（選填）。",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "bn": {
     "tool.description": "টেক্সট প্রম্পট থেকে একটি ছবি তৈরি করে, PNG হিসেবে সংরক্ষণ করে, এবং ফাইলের পথ ফেরত দেয়। খোলার কাজটি কলার (CLI/GUI/Web) করে।",
@@ -863,7 +941,10 @@
     "ok.generated_many": "[OK] তৈরি হয়েছে:\n{paths}",
     "log.opened_default_app": "[INFO] ছবির ফাইল ডিফল্ট অ্যাপে খোলা হয়েছে।",
     "next_action.review_generated_image": "অনুগ্রহ করে তৈরি করা ছবিটি পর্যালোচনা করুন।",
-    "param.prefix.description": "সংরক্ষিত ফাইলনামের উপসর্গ (ঐচ্ছিক)।"
+    "param.prefix.description": "সংরক্ষিত ফাইলনামের উপসর্গ (ঐচ্ছিক)।",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "fa": {
     "tool.description": "از یک prompt متنی تصویر تولید می‌کند، آن را به‌صورت PNG ذخیره می‌کند و مسیر فایل را برمی‌گرداند.",
@@ -895,7 +976,10 @@
     "ok.generated_many": "[OK] تولید شدند:\n{paths}",
     "log.opened_default_app": "[INFO] فایل تصویر با برنامهٔ پیش‌فرض باز شد.",
     "next_action.review_generated_image": "لطفاً تصویرِ تولیدشده را بررسی کنید.",
-    "param.prefix.description": "پیشوند نام فایل ذخیره‌شده (اختیاری)."
+    "param.prefix.description": "پیشوند نام فایل ذخیره‌شده (اختیاری).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "mn": {
     "tool.description": "Текст prompt-оос зураг үүсгэж, PNG болгон хадгалаад файлын замыг буцаана. Нээх үйлдлийг дуудсан тал (CLI/GUI/Web) гүйцэтгэнэ.",
@@ -927,7 +1011,10 @@
     "ok.generated_many": "[OK] үүсгэгдлээ:\n{paths}",
     "log.opened_default_app": "[INFO] Зургийн файлыг үндсэн апп-аар нээлээ.",
     "next_action.review_generated_image": "Үүсгэсэн зургийг шалгана уу.",
-    "param.prefix.description": "Хадгалах файлын нэрийн уртгал (сонголттой)."
+    "param.prefix.description": "Хадгалах файлын нэрийн уртгал (сонголттой).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   },
   "mr": {
     "tool.description": "टेक्स्ट प्रॉम्प्टवरून प्रतिमा तयार करते, PNG म्हणून जतन करते आणि फाइलचा मार्ग परत करते. उघडण्याची क्रिया कॉलर (CLI/GUI/Web) करतो.",
@@ -959,6 +1046,9 @@
     "ok.generated_many": "[OK] तयार केले:\n{paths}",
     "log.opened_default_app": "[INFO] प्रतिमा फाइल डीफॉल्ट अॅपमध्ये उघडली.",
     "next_action.review_generated_image": "कृपया तयार केलेली प्रतिमा तपासा।",
-    "param.prefix.description": "जतन केलेल्या फाइलनावाचा उपसर्ग (ऐच्छिक)."
+    "param.prefix.description": "जतन केलेल्या फाइलनावाचा उपसर्ग (ऐच्छिक).",
+    "param.moderation.description": "Image moderation mode (optional).",
+    "param.quality.description": "Image quality.",
+    "param.background.description": "Image background."
   }
 }

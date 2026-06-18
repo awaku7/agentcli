@@ -7,7 +7,12 @@
       "uninstall skill",
       "remove skill",
       "delete skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "ja": {
     "param.name.description": "アンインストールするスキルのフォルダ名。",
@@ -17,7 +22,12 @@
       "スキル削除",
       "スキルアンインストール",
       "アンインストール"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "es": {
     "param.name.description": "El nombre de la carpeta de la habilidad...",
@@ -27,7 +37,12 @@
       "desinstalar skill",
       "eliminar skill",
       "borrar skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "fr": {
     "param.name.description": "Le nom du dossier de la compétence à dé...",
@@ -37,7 +52,12 @@
       "désinstaller compétence",
       "supprimer compétence",
       "effacer compétence"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "ko": {
     "param.name.description": "제거할 스킬의 폴더 이름입니다.",
@@ -47,7 +67,12 @@
       "스킬 제거",
       "스킬 삭제",
       "언인스톨"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "de": {
     "param.name.description": "Der Ordnername des zu deinstallierenden...",
@@ -57,7 +82,12 @@
       "skill deinstallieren",
       "skill entfernen",
       "skill löschen"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "it": {
     "param.name.description": "Il nome della cartella dello skill da d...",
@@ -67,7 +97,12 @@
       "disinstalla skill",
       "rimuovi skill",
       "elimina skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "ru": {
     "param.name.description": "Имя папки навыка, который необходимо удалить.",
@@ -76,7 +111,12 @@
       "skills_uninstall",
       "удалить навык",
       "стереть навык"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "pt_BR": {
     "param.name.description": "O nome da pasta da skill a ser desinstalada.",
@@ -86,7 +126,12 @@
       "desinstalar skill",
       "remover skill",
       "excluir skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "pt": {
     "param.name.description": "O nome da pasta da skill a ser desinstalada.",
@@ -96,7 +141,12 @@
       "desinstalar skill",
       "remover skill",
       "excluir skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "id": {
     "param.name.description": "Nama folder skill yang akan diuninstal.",
@@ -105,7 +155,12 @@
       "skills_uninstall",
       "uninstal skill",
       "hapus skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "vi": {
     "param.name.description": "Tên thư mục của kỹ năng cần gỡ cài đặt.",
@@ -114,7 +169,12 @@
       "skills_uninstall",
       "gỡ cài đặt kỹ năng",
       "xóa kỹ năng"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "pl": {
     "param.name.description": "Nazwa folderu umiejętności do odinstalowania.",
@@ -123,7 +183,12 @@
       "skills_uninstall",
       "odinstaluj umiejętność",
       "usuń umiejętność"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "hi": {
     "param.name.description": "अनइंस्टॉल किए जाने वाले कौशल का फ़ोल्डर नाम।",
@@ -132,7 +197,12 @@
       "skills_uninstall",
       "कौशल अनइंस्टॉल करें",
       "कौशल हटाएं"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "ar": {
     "param.name.description": "اسم مجلد المهارة المراد إلغاء تثبيتها.",
@@ -141,7 +211,12 @@
       "skills_uninstall",
       "إلغاء تثبيت مهارة",
       "إزالة مهارة"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "sv": {
     "param.name.description": "Mappnamnet för den skill som ska avinst...",
@@ -150,7 +225,12 @@
       "skills_uninstall",
       "avinstallera skill",
       "ta bort skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "sw": {
     "param.name.description": "Jina la folda ya skill ya kuondoa.",
@@ -160,7 +240,12 @@
       "ondoa skill",
       "futa skill",
       "ondoa ujuzi"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "nb": {
     "param.name.description": "Mappenavnet for den skillen som skal av...",
@@ -169,7 +254,12 @@
       "skills_uninstall",
       "avinstaller skill",
       "fjern skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "nl": {
     "param.name.description": "De mapnaam van de te deïnstalleren skill.",
@@ -178,7 +268,12 @@
       "skills_uninstall",
       "skill deïnstalleren",
       "skill verwijderen"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "fi": {
     "param.name.description": "Poistettavan skillin kansion nimi.",
@@ -187,7 +282,12 @@
       "skills_uninstall",
       "poista skilli",
       "poista taito"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "cs": {
     "param.name.description": "Název složky skillu, který se má odinstalovat.",
@@ -196,7 +296,12 @@
       "skills_uninstall",
       "odinstalovat skill",
       "odebrat skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "uk": {
     "param.name.description": "Ім'я папки навички, яку необхідно видалити.",
@@ -205,7 +310,12 @@
       "skills_uninstall",
       "видалити навичку",
       "стерти навичку"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "zh_CN": {
     "param.name.description": "要卸载的技能文件夹名称。",
@@ -215,7 +325,12 @@
       "卸载技能",
       "删除技能",
       "移除技能"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "zh_TW": {
     "param.name.description": "要解除安裝的技能資料夾名稱。",
@@ -225,7 +340,12 @@
       "解除安裝技能",
       "刪除技能",
       "移除技能"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "bn": {
     "param.name.description": "যে স্কিলটি আনইনস্টল করতে চান তার ফোল্ডা...",
@@ -235,7 +355,12 @@
       "স্কিল আনইনস্টল",
       "স্কিল মুছুন",
       "স্কিল সরান"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "fa": {
     "param.name.description": "نام پوشهٔ اسکیلی که باید حذف شود.",
@@ -245,7 +370,12 @@
       "حذف اسکیل",
       "حذف مهارت",
       "remove skill"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "mn": {
     "param.name.description": "Устгах skill-ийн хавтасны нэр.",
@@ -255,7 +385,12 @@
       "skill устгах",
       "skill арилгах",
       "устгах"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "mr": {
     "param.name.description": "अनइंस्टॉल करायच्या skill च्या फोल्डरचे नाव.",
@@ -265,7 +400,12 @@
       "skill अनइंस्टॉल",
       "skill काढा",
       "skill हटवा"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "tr": {
     "param.name.description": "Kaldırılacak skill klasörünün adı.",
@@ -275,7 +415,12 @@
       "skill kaldır",
       "skill sil",
       "skill kaldırma"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   },
   "th": {
     "param.name.description": "ชื่อโฟลเดอร์ของสกิลที่จะถอนการติดตั้ง",
@@ -285,6 +430,11 @@
       "ถอนการติดตั้งสกิล",
       "ลบสกิล",
       "เอาสกิลออก"
-    ]
+    ],
+    "err.name_required": "Skill name is required.",
+    "err.invalid_name": "Invalid skill folder name: {name}",
+    "err.not_found": "Skill '{name}' is not installed in {root}",
+    "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
+    "err.unexpected": "An unexpected error occurred: {error}"
   }
 }

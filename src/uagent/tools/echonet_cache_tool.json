@@ -11,7 +11,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Cache action to perform: snapshot or clear."
           },
@@ -21,15 +24,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Output format: JSON or human-readable text."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "ja": {
     "tool_level": 0,
@@ -43,7 +59,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "実行するキャッシュ操作: snapshot または clear。"
           },
@@ -53,15 +72,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "出力形式: JSON または人間が読めるテキスト。"
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "id": {
     "tool_level": 0,
@@ -75,7 +107,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Tindakan cache yang akan dilakukan: snapshot atau clear."
           },
@@ -85,15 +120,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Format keluaran: JSON atau teks yang dapat dibaca manusia."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "ar": {
     "tool_level": 0,
@@ -107,7 +155,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "إجراء ذاكرة التخزين المؤقت المراد تنفيذه: snapshot أو clear."
           },
@@ -117,15 +168,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "تنسيق الإخراج: JSON أو نص قابل للقراءة البشرية."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "bn": {
     "tool_level": 0,
@@ -139,7 +203,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "কোন ক্যাশ কাজটি চালানো হবে: snapshot বা clear।"
           },
@@ -149,15 +216,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "আউটপুট ফরম্যাট: JSON অথবা মানুষের পড়ার উপযোগী টেক্সট।"
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "cs": {
     "tool_level": 0,
@@ -172,7 +252,10 @@
       "properties": {
         "action": {
           "type": "string",
-          "enum": ["snapshot", "clear"],
+          "enum": [
+            "snapshot",
+            "clear"
+          ],
           "default": "snapshot",
           "description": "Akce mezipaměti, která se má provést: snapshot nebo clear."
         },
@@ -182,14 +265,27 @@
         },
         "output_format": {
           "type": "string",
-          "enum": ["json", "text"],
+          "enum": [
+            "json",
+            "text"
+          ],
           "default": "json",
           "description": "Formát výstupu: JSON nebo text čitelný pro člověka."
         }
       },
-      "required": ["action"],
+      "required": [
+        "action"
+      ],
       "additionalProperties": false
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "de": {
     "tool_level": 0,
@@ -203,7 +299,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Auszuführende Cache-Aktion: snapshot oder clear."
           },
@@ -213,15 +312,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Ausgabeformat: JSON oder menschenlesbarer Text."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "es": {
     "tool_level": 0,
@@ -235,7 +347,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Acción de caché a realizar: snapshot o clear."
           },
@@ -245,15 +360,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Formato de salida: JSON o texto legible por humanos."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "fa": {
     "tool_level": 0,
@@ -267,7 +395,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "عملیات کش برای انجام: snapshot یا clear."
           },
@@ -277,15 +408,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "فرمت خروجی: JSON یا متن قابل خواندن توسط انسان."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "fi": {
     "tool_level": 0,
@@ -299,7 +443,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Suoritettava välimuistitoiminto: snapshot tai clear."
           },
@@ -309,15 +456,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Tulostemuoto: JSON tai ihmisen luettava teksti."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "fr": {
     "tool_level": 0,
@@ -331,7 +491,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Action de cache à effectuer : snapshot ou clear."
           },
@@ -341,15 +504,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Format de sortie : JSON ou texte lisible par l’humain."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "hi": {
     "tool_level": 0,
@@ -363,7 +539,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "किए जाने वाले कैश कार्य: snapshot या clear।"
           },
@@ -373,15 +552,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "आउटपुट प्रारूप: JSON या मानव-पठनीय पाठ।"
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "it": {
     "tool_level": 0,
@@ -395,7 +587,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Azione della cache da eseguire: snapshot o clear."
           },
@@ -405,15 +600,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Formato di output: JSON o testo leggibile dall’uomo."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "ko": {
     "tool_level": 0,
@@ -427,7 +635,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "수행할 캐시 작업: snapshot 또는 clear."
           },
@@ -437,15 +648,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "출력 형식: JSON 또는 사람이 읽을 수 있는 텍스트."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "mn": {
     "tool_level": 0,
@@ -459,7 +683,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Хийх кэш үйлдэл: snapshot эсвэл clear."
           },
@@ -469,15 +696,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Гаралтын формат: JSON эсвэл хүн уншихад ойлгомжтой текст."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "mr": {
     "tool_level": 0,
@@ -491,7 +731,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "करावयाची कॅश क्रिया: snapshot किंवा clear."
           },
@@ -501,15 +744,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "आउटपुट स्वरूप: JSON किंवा मानव-वाचनीय मजकूर."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "nb": {
     "tool_level": 0,
@@ -523,7 +779,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Cachehandling som skal utføres: snapshot eller clear."
           },
@@ -533,15 +792,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Utdataformat: JSON eller menneskelesbar tekst."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "nl": {
     "tool_level": 0,
@@ -555,7 +827,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Uit te voeren cacheactie: snapshot of clear."
           },
@@ -565,15 +840,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Uitvoerindeling: JSON of voor mensen leesbare tekst."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "pl": {
     "tool_level": 0,
@@ -587,7 +875,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Akcja pamięci podręcznej do wykonania: snapshot lub clear."
           },
@@ -597,15 +888,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Format wyjściowy: JSON lub tekst czytelny dla człowieka."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "pt": {
     "tool_level": 0,
@@ -619,7 +923,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Ação de cache a executar: snapshot ou clear."
           },
@@ -629,15 +936,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Formato de saída: JSON ou texto legível por humanos."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "pt_BR": {
     "tool_level": 0,
@@ -651,7 +971,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Ação de cache a executar: snapshot ou clear."
           },
@@ -661,15 +984,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Formato de saída: JSON ou texto legível por humanos."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "ru": {
     "tool_level": 0,
@@ -683,7 +1019,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Действие кэша для выполнения: snapshot или clear."
           },
@@ -693,15 +1032,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Формат вывода: JSON или удобочитаемый текст."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "sv": {
     "tool_level": 0,
@@ -715,7 +1067,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Cacheåtgärd att utföra: snapshot eller clear."
           },
@@ -725,15 +1080,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Utdataformat: JSON eller mänskligt läsbar text."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "sw": {
     "tool_level": 0,
@@ -747,7 +1115,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Kitendo cha kache cha kutekeleza: snapshot au clear."
           },
@@ -757,15 +1128,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Muundo wa matokeo: JSON au maandishi yanayosomeka na binadamu."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "th": {
     "tool_level": 0,
@@ -779,7 +1163,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "การดำเนินการแคชที่จะทำ: snapshot หรือ clear"
           },
@@ -789,15 +1176,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "รูปแบบเอาต์พุต: JSON หรือข้อความที่มนุษย์อ่านได้"
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "tr": {
     "tool_level": 0,
@@ -811,7 +1211,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Gerçekleştirilecek önbellek işlemi: snapshot veya clear."
           },
@@ -821,15 +1224,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Çıktı biçimi: JSON veya insan tarafından okunabilir metin."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "uk": {
     "tool_level": 0,
@@ -843,7 +1259,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Дія кешу для виконання: snapshot або clear."
           },
@@ -853,15 +1272,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Формат виводу: JSON або текст, зручний для читання людиною."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "vi": {
     "tool_level": 0,
@@ -875,7 +1307,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "Hành động bộ nhớ đệm cần thực hiện: snapshot hoặc clear."
           },
@@ -885,15 +1320,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "Định dạng đầu ra: JSON hoặc văn bản dễ đọc cho con người."
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "zh_CN": {
     "tool_level": 0,
@@ -907,7 +1355,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "要执行的缓存操作：snapshot 或 clear。"
           },
@@ -917,15 +1368,28 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "输出格式：JSON 或人类可读文本。"
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   },
   "zh_TW": {
     "tool_level": 0,
@@ -939,7 +1403,10 @@
         "properties": {
           "action": {
             "type": "string",
-            "enum": ["snapshot", "clear"],
+            "enum": [
+              "snapshot",
+              "clear"
+            ],
             "default": "snapshot",
             "description": "要執行的快取動作：snapshot 或 clear。"
           },
@@ -949,14 +1416,27 @@
           },
           "output_format": {
             "type": "string",
-            "enum": ["json", "text"],
+            "enum": [
+              "json",
+              "text"
+            ],
             "default": "json",
             "description": "輸出格式：JSON 或人類可讀文字。"
           }
         },
-        "required": ["action"],
+        "required": [
+          "action"
+        ],
         "additionalProperties": false
       }
-    }
+    },
+    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
+    "param.action.description": "Cache action to perform: snapshot or clear.",
+    "param.fmt.description": "Format: json or text.",
+    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
+    "msg.no_items": "No cached entries are present.",
+    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
+    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
+    "param.namespace.description": "Cache namespace (omit for all)."
   }
 }

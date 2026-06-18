@@ -12,7 +12,9 @@
     "err.linux_permission": "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth.",
     "err.operation_failed": "Error during BLE operation: {err_msg}",
-    "param.uuid.description": "Char UUID."
+    "param.uuid.description": "Char UUID.",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "ja": {
     "tool.description": "Bluetooth Low Energy (BLE) デバイスのスキャン、接続、GATTデータの読み書きを行います。Windows/LinuxではMACアドレス、macOSではUUIDをアドレスとして指定します。",
@@ -27,7 +29,9 @@
     "err.linux_permission": "BLE操作中にエラーが発生しました: {err_msg}\n\n【Linux/Raspberry Pi 権限エラーの解決策】\nLinux環境でBluetoothソケットへのアクセス権限が不足している可能性があります。以下のいずれかの対処を行ってください：\n1. ユーザーを bluetooth グループに追加する（推奨）：\n   sudo usermod -aG bluetooth $USER\n   （実行後、再起動または再ログインが必要です）\n2. Pythonバイナリに直接権限を付与する：\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE操作中にエラーが発生しました: {err_msg}\n\n【macOS 権限エラーの解決策】\nmacOSのセキュリティ制限により、Bluetoothへのアクセスが拒否された可能性があります。\n「システム設定 ＞ プライバシーとセキュリティ ＞ Bluetooth」を開き、現在実行中のアプリケーション（ターミナル、VS Code、Pythonプロセスなど）のアクセス許可が有効になっているか確認してください。",
     "err.operation_failed": "BLE操作中にエラーが発生しました: {err_msg}",
-    "param.uuid.description": "キャラクタUUID。"
+    "param.uuid.description": "キャラクタUUID。",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "id": {
     "tool.description": "Melakukan operasi Bluetooth Low Energy (BLE): memindai perangkat, membaca, atau menulis karakteristik GATT. Gunakan alamat MAC di Windows/Linux, dan UUID di macOS.",
@@ -42,7 +46,9 @@
     "err.linux_permission": "Kesalahan selama operasi BLE: {err_msg}\n\n[Panduan Izin Linux/Raspberry Pi]\nAnda mungkin kekurangan izin untuk mengakses soket Bluetooth. Coba salah satu dari berikut ini:\n1. Tambahkan pengguna Anda ke grup bluetooth (disarankan):\n   sudo usermod -aG bluetooth $USER\n   (Memerlukan restart atau masuk log kembali)\n2. Berikan izin langsung ke biner Python:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Kesalahan selama operasi BLE: {err_msg}\n\n[Panduan Izin macOS]\nAkses Bluetooth mungkin telah ditolak oleh pembatasan keamanan macOS.\nSilakan buka 'Pengaturan Sistem > Privasi & Keamanan > Bluetooth' dan pastikan terminal, VS Code, atau proses Python Anda diizinkan untuk mengakses Bluetooth.",
     "err.operation_failed": "Kesalahan selama operasi BLE: {err_msg}",
-    "param.uuid.description": "UUID ka..."
+    "param.uuid.description": "UUID ka...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "ar": {
     "tool.description": "إجراء عمليات بلوتوث منخفض الطاقة (BLE): مسح الأجهزة، قراءة أو كتابة خصائص GATT. استخدم عناوين MAC على ويندوز/لينكس، ومعرفات UUID على ماك.",
@@ -57,7 +63,9 @@
     "err.linux_permission": "خطأ أثناء عملية BLE: {err_msg}\n\n[دليل أذونات لينكس/راسبيري باي]\nقد تفتقر إلى الأذونات للوصول إلى مقبس البلوتوث. جرب أحد الحلول التالية:\n1. أضف المستخدم الخاص بك إلى مجموعة bluetooth (موصى به):\n   sudo usermod -aG bluetooth $USER\n   (يتطلب إعادة التشغيل أو إعادة تسجيل الدخول)\n2. امنح الأذونات مباشرة لملف بايثون الثنائي:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "خطأ أثناء عملية BLE: {err_msg}\n\n[دليل أذونات ماك]\nربما تم رفض الوصول إلى البلوتوث بسبب قيود الأمان في نظام ماك.\nيرجى فتح 'إعدادات النظام > الخصوصية والأمان > البلوتوث' والتأكد من السماح للطرفية أو VS Code أو عملية بايثون بالوصول إلى البلوتوث.",
     "err.operation_failed": "خطأ أثناء عملية BLE: {err_msg}",
-    "param.uuid.description": "معرف UU..."
+    "param.uuid.description": "معرف UU...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "bn": {
     "tool.description": "ব্লুটুথ লো এনার্জি (BLE) অপারেশন সম্পাদন করুন: ডিভাইস স্ক্যান করা, GATT বৈশিষ্ট্য পড়া বা লেখা। উইন্ডোজ/লিনাক্সে MAC ঠিকানা এবং ম্যাকওএসে UUID ব্যবহার করুন।",
@@ -72,7 +80,9 @@
     "err.linux_permission": "BLE অপারেশন চলাকালীন ত্রুটি: {err_msg}\n\n[লিনাক্স/রাসবেরি পাই অনুমতি নির্দেশিকা]\nব্লুটুথ সকেট অ্যাক্সেস করার জন্য আপনার অনুমতির অভাব থাকতে পারে। নিচের যেকোনো একটি চেষ্টা করুন:\n1. আপনার ব্যবহারকারীকে bluetooth গ্রুপে যুক্ত করুন (প্রস্তাবিত):\n   sudo usermod -aG bluetooth $USER\n   (রিস্টার্ট বা পুনরায় লগইন করা প্রয়োজন)\n2. সরাসরি পাইথন বাইনারিতে অনুমতি দিন:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE অপারেশন চলাকালীন ত্রুটি: {err_msg}\n\n[ম্যাকওএস অনুমতি নির্দেশিকা]\nম্যাকওএস নিরাপত্তা বিধিনিষেধের কারণে ব্লুটুথ অ্যাক্সেস প্রত্যাখ্যান করা হতে পারে।\nঅনুগ্রহ করে 'সিস্টেম সেটিংস > গোপনীয়তা ও নিরাপত্তা > ব্লুটুথ' খুলুন এবং আপনার টার্মিনাল, VS Code বা পাইথন প্রসেসকে ব্লুটুথ অ্যাক্সেস করার অনুমতি দিন।",
     "err.operation_failed": "BLE অপারেশন চলাকালীন ত্রুটি: {err_msg}",
-    "param.uuid.description": "পড়ার বা..."
+    "param.uuid.description": "পড়ার বা...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "cs": {
     "tool.description": "Provádějte operace Bluetooth Low Energy (BLE): skenování zařízení, čtení nebo zápis GATT charakteristik. Na Windows/Linuxu použijte MAC adresy, na macOS UUID.",
@@ -87,7 +97,9 @@
     "err.linux_permission": "Chyba během operace BLE: {err_msg}\n\n[Průvodce oprávněními pro Linux/Raspberry Pi]\nMožná nemáte oprávnění k přístupu k Bluetooth soketu. Zkuste jeden z následujících kroků:\n1. Přidejte svého uživatele do skupiny bluetooth (doporučeno):\n   sudo usermod -aG bluetooth $USER\n   (Vyžaduje restart nebo opětovné přihlášení)\n2. Udělte oprávnění přímo binárnímu souboru Pythonu:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Chyba během operace BLE: {err_msg}\n\n[Průvodce oprávněními pro macOS]\nPřístup k Bluetooth mohl být odmítnut bezpečnostními omezeními macOS.\nOtevřete prosím 'Nastavení systému > Soukromí a zabezpečení > Bluetooth' a ujistěte se, že váš terminál, VS Code nebo proces Pythonu má povolen přístup k Bluetooth.",
     "err.operation_failed": "Chyba během operace BLE: {err_msg}",
-    "param.uuid.description": "UUID GA..."
+    "param.uuid.description": "UUID GA...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "de": {
     "tool.description": "Führen Sie Bluetooth Low Energy (BLE)-Operationen aus: Geräte scannen, GATT-Charakteristiken lesen oder schreiben.",
@@ -102,7 +114,9 @@
     "err.linux_permission": "Fehler bei BLE-Operation: {err_msg}\n\n[Linux/Raspberry Pi Berechtigungshandbuch]\nIhnen fehlen möglicherweise die Berechtigungen für den Zugriff auf den Bluetooth-Socket.Versuchen Sie Folgendes:\n1.Fügen Sie Ihren Benutzer der Gruppe 'bluetooth' hinzu (empfohlen):\n   sudo usermod -aG bluetooth $USER\n   (Erfordert Neustart oder Neuanmeldung)\n2.",
     "err.macos_permission": "Fehler bei BLE-Operation: {err_msg}\n\n[macOS Berechtigungshandbuch]\nDer Bluetooth-Zugriff wurde möglicherweise durch macOS-Sicherheitsbeschränkungen verweigert.",
     "err.operation_failed": "Fehler bei BLE-Operation: {err_msg}",
-    "param.uuid.description": "GATT-Ch..."
+    "param.uuid.description": "GATT-Ch...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "es": {
     "tool.description": "Realice operaciones de Bluetooth de baja energía (BLE): escanear dispositivos, leer o escribir características GATT.",
@@ -117,7 +131,9 @@
     "err.linux_permission": "Error durante la operación BLE: {err_msg}\n\n[Guía de permisos de Linux/Raspberry Pi]\nEs posible que no tenga permisos para acceder al socket de Bluetooth.Intente una de las siguientes opciones:\n1.Agregue su usuario al grupo bluetooth (recomendado):\n   sudo usermod -aG bluetooth $USER\n   (Requiere reiniciar o volver a iniciar sesión)\n2.",
     "err.macos_permission": "Error durante la operación BLE: {err_msg}\n\n[Guía de permisos de macOS]\nEl acceso a Bluetooth puede haber sido denegado por restricciones de seguridad de macOS.",
     "err.operation_failed": "Error durante la operación BLE: {e...",
-    "param.uuid.description": "UUID de..."
+    "param.uuid.description": "UUID de...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "fa": {
     "tool.description": "انجام عملیات بلوتوث کم‌مصرف (BLE): اسکن دستگاه‌ها، خواندن یا نوشتن مشخصه‌های GATT. از آدرس‌های MAC در ویندوز/لینوکس و UUID در مک استفاده کنید.",
@@ -132,7 +148,9 @@
     "err.linux_permission": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای لینوکس/رسبری پای]\nممکن است مجوز دسترسی به سوکت بلوتوث را نداشته باشید. یکی از موارد زیر را امتحان کنید:\n1. کاربر خود را به گروه bluetooth اضافه کنید (توصیه می‌شود):\n   sudo usermod -aG bluetooth $USER\n   (نیاز به راه‌اندازی مجدد یا ورود مجدد دارد)\n2. مجوزها را مستقیماً به فایل باینری پایتون اعطا کنید:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای مک]\nدسترسی به بلوتوث ممکن است توسط محدودیت‌های امنیتی مک رد شده باشد.\nلطفاً 'تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث' را باز کنید و مطمئن شوید که ترمینال، VS Code یا فرآیند پایتون شما اجازه دسترسی به بلوتوث را دارند.",
     "err.operation_failed": "خطا در حین عملیات BLE: {err_msg}",
-    "param.uuid.description": "شناسه U..."
+    "param.uuid.description": "شناسه U...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "fi": {
     "tool.description": "Suorita Bluetooth Low Energy (BLE) -toimintoja: skannaa laitteita, lue tai kirjoita GATT-ominaisuuksia.",
@@ -147,7 +165,9 @@
     "err.linux_permission": "Virhe BLE-toiminnon aikana: {err_msg}\n\n[Linux/Raspberry Pi -käyttöoikeusopas]\nSinulla ei ehkä ole oikeuksia käyttää Bluetooth-sokettia. Kokeile jotain seuraavista:\n1. Lisää käyttäjäsi bluetooth-ryhmään (suositus):\n   sudo usermod -aG bluetooth $USER\n   (Vaatii uudelleenkäynnistyksen tai uudelleenkirjautumisen)\n2. Myönnä oikeudet suoraan Python-binäärille:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Virhe BLE-toiminnon aikana: {err_msg}\n\n[macOS-käyttöoikeusopas]\nmacOS-turva-asetukset ovat saattaneet estää Bluetooth-yhteyden.\nAvaa 'Järjestelmäasetukset > Tietosuoja ja turvallisuus > Bluetooth' ja varmista, että terminaalillasi, VS Codella tai Python-prosessillasi on oikeus käyttää Bluetoothia.",
     "err.operation_failed": "Virhe BLE-toiminnon aikana: {err_msg}",
-    "param.uuid.description": "Luettav..."
+    "param.uuid.description": "Luettav...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "fr": {
     "tool.description": "Effectuez des opérations Bluetooth Low Energy (BLE) : scannez des appareils, lisez ou écrivez des caractéristiques GATT.",
@@ -162,7 +182,9 @@
     "err.linux_permission": "Erreur lors de l'opération BLE : {err_msg}\n\n[Guide des permissions Linux/Raspberry Pi]\nIl se peut que vous n'ayez pas les permissions pour accéder au socket Bluetooth.Essayez l'une des solutions suivantes :\n1.Ajoutez votre utilisateur au groupe bluetooth (recommandé) :\n   sudo usermod -aG bluetooth $USER\n   (Nécessite un redémarrage ou une reconnexion)\n2.",
     "err.macos_permission": "Erreur lors de l'opération BLE : {err_msg}\n\n[Guide des permissions macOS]\nL'accès Bluetooth a peut-être été refusé par les restrictions de sécurité de macOS.",
     "err.operation_failed": "Erreur lors de l'opération BLE : {...",
-    "param.uuid.description": "UUID de..."
+    "param.uuid.description": "UUID de...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "hi": {
     "tool.description": "ब्लूटूथ लो एनर्जी (BLE) संचालन करें: उपकरणों को स्कैन करें, GATT विशेषताओं को पढ़ें या लिखें। विंडोज/लिनक्स पर MAC पते और macOS पर UUID का उपयोग करें।",
@@ -177,7 +199,9 @@
     "err.linux_permission": "BLE संचालन के दौरान त्रुटि: {err_msg}\n\n[लिनक्स/रास्पबेरी पाई अनुमति गाइड]\nआपके पास ब्लूटूथ सॉकेट तक पहुंचने की अनुमति नहीं हो सकती है। निम्न में से कोई एक प्रयास करें:\n1. अपने उपयोगकर्ता को bluetooth समूह में जोड़ें (अनुशंसित):\n   sudo usermod -aG bluetooth $USER\n   (पुनर्प्रारंभ या पुन: लॉगिन की आवश्यकता है)\n2. सीधे पायथन बाइनरी को अनुमति दें:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE संचालन के दौरान त्रुटि: {err_msg}\n\n[macOS अनुमति गाइड]\nmacOS सुरक्षा प्रतिबंधों द्वारा ब्लूटूथ एक्सेस को अस्वीकार कर दिया गया हो सकता है।\nकृपया 'सिस्टम सेटिंग्स > गोपनीयता और सुरक्षा > ब्लूटूथ' खोलें और सुनिश्चित करें कि आपके टर्मिनल, VS Code या पायथन प्रक्रिया को ब्लूटूथ एक्सेस करने की अनुमति है।",
     "err.operation_failed": "BLE संचालन के दौरान त्रुटि: {err_msg}",
-    "param.uuid.description": "पढ़ने य..."
+    "param.uuid.description": "पढ़ने य...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "it": {
     "tool.description": "Esegui operazioni Bluetooth Low Energy (BLE): scansiona dispositivi, leggi o scrivi caratteristiche GATT. Usa indirizzi MAC su Windows/Linux e UUID su macOS.",
@@ -192,7 +216,9 @@
     "err.linux_permission": "Errore durante l'operazione BLE: {err_msg}\n\n[Guida ai permessi Linux/Raspberry Pi]\nPotresti non avere i permessi per accedere al socket Bluetooth. Prova uno dei seguenti metodi:\n1. Aggiungi il tuo utente al gruppo bluetooth (consigliato):\n   sudo usermod -aG bluetooth $USER\n   (Richiede il riavvio o la disconnessione)\n2. Concedi i permessi direttamente al binario Python:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Errore durante l'operazione BLE: {err_msg}\n\n[Guida ai permessi macOS]\nL'accesso al Bluetooth potrebbe essere stato negato dalle restrizioni di sicurezza di macOS.",
     "err.operation_failed": "Errore durante l'operazione BLE: {...",
-    "param.uuid.description": "UUID de..."
+    "param.uuid.description": "UUID de...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "ko": {
     "tool.description": "Bluetooth Low Energy (BLE) 작업을 수행합니다: 장치 스캔, GATT 특성 읽기 또는 쓰기. Windows/Linux에서는 MAC 주소를, macOS에서는 UUID를 사용하십시오.",
@@ -207,7 +233,9 @@
     "err.linux_permission": "BLE 작업 중 오류 발생: {err_msg}\n\n[Linux/Raspberry Pi 권한 가이드]\n블루투스 소켓에 접근할 권한이 부족할 수 있습니다. 다음 중 하나를 시도해 보십시오:\n1. 사용자를 bluetooth 그룹에 추가 (권장):\n   sudo usermod -aG bluetooth $USER\n   (재부팅 또는 로그아웃 후 다시 로그인 필요)\n2. Python 바이너리에 직접 권한 부여:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE 작업 중 오류 발생: {err_msg}\n\n[macOS 권한 가이드]\nmacOS 보안 제한으로 인해 블루투스 접근이 거부되었을 수 있습니다.\n'시스템 설정 > 개인정보 보호 및 보안 > Bluetooth'를 열고 터미널, VS Code 또는 Python 프로세스의 블루투스 접근이 허용되어 있는지 확인하십시오.",
     "err.operation_failed": "BLE 작업 중 오류 발생: {err_msg}",
-    "param.uuid.description": "특성 UUID."
+    "param.uuid.description": "특성 UUID.",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "nb": {
     "tool.description": "Utfør Bluetooth Low Energy (BLE)-operasjoner: skann etter enheter, les eller skriv GATT-karakteristikker. Bruk MAC-adresser på Windows/Linux, og UUID-er på macOS.",
@@ -222,7 +250,9 @@
     "err.linux_permission": "Feil under BLE-operasjon: {err_msg}\n\n[Linux/Raspberry Pi Tillatelsesveiledning]\nDu mangler kanskje tillatelse til å få tilgang til Bluetooth-sokkelen. Prøv en av følgende:\n1. Legg til brukeren din i bluetooth-gruppen (anbefalt):\n   sudo usermod -aG bluetooth $USER\n   (Krever omstart eller ny innlogging)\n2. Gi tillatelser direkte til Python-binærfilen:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Feil under BLE-operasjon: {err_msg}\n\n[macOS Tillatelsesveiledning]\nBluetooth-tilgang kan ha blitt avvist av macOS-sikkerhetsrestriksjoner.\nVennligst åpne 'Systeminnstillinger > Personvern og sikkerhet > Bluetooth' og kontroller at terminalen, VS Code eller Python-prosessen har tilgang til Bluetooth.",
     "err.operation_failed": "Feil under BLE-operasjon: {err_msg}",
-    "param.uuid.description": "GATT-ka..."
+    "param.uuid.description": "GATT-ka...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "nl": {
     "tool.description": "Voer Bluetooth Low Energy (BLE)-bewerkingen uit: scan naar apparaten, lees of schrijf GATT-karakteristieken.",
@@ -237,7 +267,9 @@
     "err.linux_permission": "Fout tijdens BLE-bewerking: {err_msg}\n\n[Linux/Raspberry Pi Machtigingsgids]\nU hebt mogelijk geen machtigingen om toegang te krijgen tot de Bluetooth-socket.Probeer een van de volgende opties:\n1.Voeg uw gebruiker toe aan de bluetooth-groep (aanbevolen):\n   sudo usermod -aG bluetooth $USER\n   (Vereist herstart of opnieuw inloggen)\n2.",
     "err.macos_permission": "Fout tijdens BLE-bewerking: {err_msg}\n\n[macOS Machtigingsgids]\nBluetooth-toegang is mogelijk geweigerd door macOS-beveiligingsbeperkingen.\nOpen 'Systeeminstellingen > Privacy en beveiliging > Bluetooth' en zorg ervoor dat uw terminal, VS Code of Python-proces toegang heeft tot Bluetooth.",
     "err.operation_failed": "Fout tijdens BLE-bewerking: {err_msg}",
-    "param.uuid.description": "GATT-ka..."
+    "param.uuid.description": "GATT-ka...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "pl": {
     "tool.description": "Wykonuj operacje Bluetooth Low Energy (BLE): skanuj urządzenia, czytaj lub zapisuj charakterystyki GATT.",
@@ -252,7 +284,9 @@
     "err.linux_permission": "Błąd podczas operacji BLE: {err_msg}\n\n[Przewodnik po uprawnieniach Linux/Raspberry Pi]\nMożesz nie mieć uprawnień do dostępu do gniazda Bluetooth.Wypróbuj jedno z poniższych rozwiązań:\n1.Dodaj swojego użytkownika do grupy bluetooth (zalecane):\n   sudo usermod -aG bluetooth $USER\n   (Wymaga restartu lub ponownego zalogowania)\n2.",
     "err.macos_permission": "Błąd podczas operacji BLE: {err_msg}\n\n[Przewodnik po uprawnieniach macOS]\nDostęp do Bluetooth mógł zostać zablokowany przez ograniczenia bezpieczeństwa systemu macOS.",
     "err.operation_failed": "Błąd podczas operacji BLE: {err_msg}",
-    "param.uuid.description": "UUID ch..."
+    "param.uuid.description": "UUID ch...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "pt": {
     "tool.description": "Realize operações de Bluetooth Low Energy (BLE): escanear dispositivos, ler ou escrever características GATT. Use endereços MAC no Windows/Linux e UUIDs no macOS.",
@@ -267,7 +301,9 @@
     "err.linux_permission": "Erro durante a operação BLE: {err_msg}\n\n[Guia de permissões do Linux/Raspberry Pi]\nPode ser que você não tenha permissões para acessar o socket Bluetooth. Tente uma das seguintes opções:\n1. Adicione seu usuário ao grupo bluetooth (recomendado):\n   sudo usermod -aG bluetooth $USER\n   (Requer reinicialização ou novo login)\n2. Conceda permissões diretamente ao binário do Python:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Erro durante a operação BLE: {err_msg}\n\n[Guia de permissões do macOS]\nO acesso ao Bluetooth pode ter sido negado pelas restrições de segurança do macOS.",
     "err.operation_failed": "Erro durante a operação BLE: {err_msg}",
-    "param.uuid.description": "UUID da..."
+    "param.uuid.description": "UUID da...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "pt_BR": {
     "tool.description": "Realize operações de Bluetooth Low Energy (BLE): escanear dispositivos, ler ou escrever características GATT. Use endereços MAC no Windows/Linux e UUIDs no macOS.",
@@ -282,7 +318,9 @@
     "err.linux_permission": "Erro durante a operação BLE: {err_msg}\n\n[Guia de permissões do Linux/Raspberry Pi]\nPode ser que você não tenha permissões para acessar o socket Bluetooth. Tente uma das seguintes opções:\n1. Adicione seu usuário ao grupo bluetooth (recomendado):\n   sudo usermod -aG bluetooth $USER\n   (Requer reinicialização ou novo login)\n2. Conceda permissões diretamente ao binário do Python:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Erro durante a operação BLE: {err_msg}\n\n[Guia de permissões do macOS]\nO acesso ao Bluetooth pode ter sido negado pelas restrições de segurança do macOS.",
     "err.operation_failed": "Erro durante a operação BLE: {err_msg}",
-    "param.uuid.description": "UUID da..."
+    "param.uuid.description": "UUID da...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "ru": {
     "tool.description": "Выполнение операций Bluetooth Low Energy (BLE): сканирование устройств, чтение или запись характеристик GATT. Используйте MAC-адреса в Windows/Linux и UUID в macOS.",
@@ -297,7 +335,9 @@
     "err.linux_permission": "Ошибка во время операции BLE: {err_msg}\n\n[Руководство по разрешениям для Linux/Raspberry Pi]\nВозможно, у вас отсутствуют разрешения на доступ к сокету Bluetooth.Попробуйте один из следующих вариантов:\n1.Добавьте своего пользователя в группу bluetooth (рекомендуется):\n   sudo usermod -aG bluetooth $USER\n   (Требуется перезагрузка или повторный вход в систему)\n2.",
     "err.macos_permission": "Ошибка во время операции BLE: {err_msg}\n\n[Руководство по разрешениям для macOS]\nДоступ к Bluetooth мог быть отклонен ограничениями безопасности macOS.",
     "err.operation_failed": "Ошибка во время операции BLE: {err_msg}",
-    "param.uuid.description": "UUID ха..."
+    "param.uuid.description": "UUID ха...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "sv": {
     "tool.description": "Utför Bluetooth Low Energy (BLE)-åtgärder: skanna efter enheter, läs eller skriv GATT-karakteristika. Använd MAC-adresser på Windows/Linux och UUID på macOS.",
@@ -312,7 +352,9 @@
     "err.linux_permission": "Fel under BLE-åtgärd: {err_msg}\n\n[Linux/Raspberry Pi Tillståndsguide]\nDu kanske saknar behörighet att komma åt Bluetooth-uttaget. Prova något av följande:\n1. Lägg till din användare i bluetooth-gruppen (rekommenderas):\n   sudo usermod -aG bluetooth $USER\n   (Kräver omstart eller ny inloggning)\n2. Bevilja behörigheter direkt till Python-binären:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Fel under BLE-åtgärd: {err_msg}\n\n[macOS Tillståndsguide]\nBluetooth-åtkomst kan ha nekats av macOS säkerhetsrestriktioner.\nÖppna 'Systeminställningar > Integritet och säkerhet > Bluetooth' och se till att din terminal, VS Code eller Python-process har tillgång till Bluetooth.",
     "err.operation_failed": "Fel under BLE-åtgärd: {err_msg}",
-    "param.uuid.description": "GATT-ka..."
+    "param.uuid.description": "GATT-ka...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "th": {
     "tool.description": "ดำเนินการ Bluetooth Low Energy (BLE): สแกนหาอุปกรณ์, อ่าน หรือเขียนลักษณะเฉพาะของ GATT ใช้ที่อยู่ MAC บน Windows/Linux และ UUID บน macOS",
@@ -327,7 +369,9 @@
     "err.linux_permission": "ข้อผิดพลาดระหว่างการทำงานของ BLE: {err_msg}\n\n[คู่มือการอนุญาตสำหรับ Linux/Raspberry Pi]\nคุณอาจไม่มีสิทธิ์เข้าถึงซ็อกเก็ตบลูทูธ ลองทำอย่างใดอย่างหนึ่งต่อไปนี้:\n1. เพิ่มผู้ใช้ของคุณในกลุ่ม bluetooth (แนะนำ):\n   sudo usermod -aG bluetooth $USER\n   (ต้องรีสตาร์ทหรือเข้าสู่ระบบใหม่)\n2. ให้สิทธิ์โดยตรงกับไบนารีของ Python:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "ข้อผิดพลาดระหว่างการทำงานของ BLE: {err_msg}\n\n[คู่มือการอนุญาตสำหรับ macOS]\nการเข้าถึงบลูทูธอาจถูกปฏิเสธโดยข้อจำกัดด้านความปลอดภัยของ macOS\nโปรดเปิด 'การตั้งค่าระบบ > ความเป็นส่วนตัวและความปลอดภัย > บลูทูธ' และตรวจสอบให้แน่ใจว่าเทอร์มินัล, VS Code หรือกระบวนการ Python ของคุณได้รับอนุญาตให้เข้าถึงบลูทูธ",
     "err.operation_failed": "ข้อผิดพลาดระหว่างการทำงานของ BLE:...",
-    "param.uuid.description": "UUID ลั..."
+    "param.uuid.description": "UUID ลั...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "uk": {
     "tool.description": "Виконуйте операції Bluetooth Low Energy (BLE): сканування пристроїв, читання або запис характеристик GATT. Використовуйте MAC-адреси у Windows/Linux та UUID у macOS.",
@@ -342,7 +386,9 @@
     "err.linux_permission": "Помилка під час операції BLE: {err_msg}\n\n[Посібник із дозволів для Linux/Raspberry Pi]\nМожливо, у вас відсутні дозволи на доступ до сокету Bluetooth.Спробуйте один із наступних варіантів:\n1.Додайте свого користувача до групи bluetooth (рекомендовано):\n   sudo usermod -aG bluetooth $USER\n   (Потрібно перезавантаження або повторний вхід у систему)\n2.",
     "err.macos_permission": "Помилка під час операції BLE: {err_msg}\n\n[Посібник із дозволів для macOS]\nДоступ до Bluetooth міг бути відхилений обмеженнями безпеки macOS.",
     "err.operation_failed": "Помилка під час операції BLE: {err_msg}",
-    "param.uuid.description": "UUID ха..."
+    "param.uuid.description": "UUID ха...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "vi": {
     "tool.description": "Thực hiện các thao tác Bluetooth Low Energy (BLE): quét thiết bị, đọc hoặc ghi các đặc tính GATT. Sử dụng địa chỉ MAC trên Windows/Linux và UUID trên macOS.",
@@ -357,7 +403,9 @@
     "err.linux_permission": "Lỗi trong quá trình thao tác BLE: {err_msg}\n\n[Hướng dẫn cấp quyền trên Linux/Raspberry Pi]\nBạn có thể thiếu quyền truy cập vào socket Bluetooth. Hãy thử một trong các cách sau:\n1. Thêm người dùng của bạn vào nhóm bluetooth (khuyến nghị):\n   sudo usermod -aG bluetooth $USER\n   (Yêu cầu khởi động lại hoặc đăng nhập lại)\n2. Cấp quyền trực tiếp cho tệp nhị phân Python:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Lỗi trong quá trình thao tác BLE: {err_msg}\n\n[Hướng dẫn cấp quyền trên macOS]\nQuyền truy cập Bluetooth có thể đã bị từ chối bởi các hạn chế bảo mật của macOS.",
     "err.operation_failed": "Lỗi trong quá trình thao tác BLE:...",
-    "param.uuid.description": "UUID đặ..."
+    "param.uuid.description": "UUID đặ...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "zh_CN": {
     "tool.description": "执行低功耗蓝牙 (BLE) 操作：扫描设备、读取或写入 GATT 特征。在 Windows/Linux 上使用 MAC 地址，在 macOS 上使用 UUID。",
@@ -372,7 +420,9 @@
     "err.linux_permission": "BLE 操作期间出错: {err_msg}\n\n[Linux/Raspberry Pi 权限指南]\n您可能缺少访问蓝牙套接字的权限。请尝试以下操作之一：\n1. 将您的用户添加到 bluetooth 组（推荐）：\n   sudo usermod -aG bluetooth $USER\n   （需要重启或重新登录）\n2. 直接向 Python 二进制文件授予权限：\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE 操作期间出错: {err_msg}\n\n[macOS 权限指南]\n蓝牙访问可能已被 macOS 安全限制拒绝。\n请打开“系统设置 > 隐私与安全 > 蓝牙”，并确保您的终端、VS Code 或 Python 进程被允许访问蓝牙。",
     "err.operation_failed": "BLE 操作期间出错: {err_msg}",
-    "param.uuid.description": "特征UUID。"
+    "param.uuid.description": "特征UUID。",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "zh_TW": {
     "tool.description": "執行低功耗藍牙 (BLE) 操作：掃描設備、讀取或寫入 GATT 特徵。在 Windows/Linux 上使用 MAC 地址，在 macOS 上使用 UUID。",
@@ -387,7 +437,9 @@
     "err.linux_permission": "BLE 操作期間出錯: {err_msg}\n\n[Linux/Raspberry Pi 權限指南]\n您可能缺少訪問藍牙套接字的權限。請嘗試以下操作之一：\n1. 將您的用戶添加到 bluetooth 組（推薦）：\n   sudo usermod -aG bluetooth $USER\n   （需要重啟或重新登錄）\n2. 直接向 Python 二进制文件授予權限：\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE 操作期間出錯: {err_msg}\n\n[macOS 權限指南]\n藍牙訪問可能已被 macOS 安全限制拒絕。\n請打開“系統設置 > 隱私與安全 > 藍牙”，並確保您的終端、VS Code 或 Python 進程被允許訪問藍牙。",
     "err.operation_failed": "BLE 操作期間出錯: {err_msg}",
-    "param.uuid.description": "特征UUID。"
+    "param.uuid.description": "特征UUID。",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "mn": {
     "tool.description": "Bluetooth Low Energy (BLE) үйлдлийг гүйцэтгэх: төхөөрөмж хайх, GATT шинж чанарыг унших эсвэл бичих. Windows/Linux дээр MAC хаяг, macOS дээр UUID ашиглана уу.",
@@ -402,7 +454,9 @@
     "err.linux_permission": "BLE үйлдлийн явцад алдаа гарлаа: {err_msg}\n\n[Linux/Raspberry Pi Эрхийн заавар]\nТанд Bluetooth сокет руу хандах эрх дутагдаж байж магадгүй. Дараах аргуудын аль нэгийг туршиж үзнэ үү:\n1. Хэрэглэгчээ bluetooth бүлэгт нэмэх (зөвлөмж болгож байна):\n   sudo usermod -aG bluetooth $USER\n   (Дахин ачаалах эсвэл дахин нэвтрэх шаардлагатай)\n2. Python програмд шууд эрх олгох:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE үйлдлийн явцад алдаа гарлаа: {err_msg}\n\n[macOS Эрхийн заавар]\nmacOS-ийн аюулгүй байдлын хязгаарлалтаас шалтгаалан Bluetooth хандалт татгалзсан байж магадгүй.",
     "err.operation_failed": "BLE үйлдлийн явцад алдаа гарлаа: {...",
-    "param.uuid.description": "Унших э..."
+    "param.uuid.description": "Унших э...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "mr": {
     "tool.description": "ब्लूटूथ लो एनर्जी (BLE) ऑपरेशन्स करा: डिव्हाइसेस स्कॅन करा, GATT वैशिष्ट्ये वाचा किंवा लिहा. Windows/Linux वर MAC पत्ते आणि macOS वर UUID वापरा.",
@@ -417,7 +471,9 @@
     "err.linux_permission": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[लिनक्स/रास्पबेरी पाय परवानगी मार्गदर्शक]\nतुमच्याकडे ब्लूटूथ सॉकेटमध्ये प्रवेश करण्याची परवानगी नसू शकते. खालीलपैकी एक प्रयत्न करा:\n1. तुमच्या वापरकर्त्याला bluetooth गटामध्ये जोडा (शिफारस केलेले):\n   sudo usermod -aG bluetooth $USER\n   (रीस्टार्ट किंवा पुन्हा लॉगइन आवश्यक आहे)\n2. थेट पायथन बायनरीला परवानग्या द्या:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE operation दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nmacOS सुरक्षा निर्बंधांमुळे ब्लूटूथ प्रवेश नाकारला गेला असावा.\nकृपया 'सिस्टम सेटिंग्ज > गोपनीयता आणि सुरक्षा > ब्लूटूथ' उघडा आणि तुमच्या टर्मिनल, VS Code किंवा पायथन प्रक्रियेला ब्लूटूथ प्रवेश करण्याची परवानगी असल्याची खात्री करा.",
     "err.operation_failed": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}",
-    "param.uuid.description": "वाचण्या..."
+    "param.uuid.description": "वाचण्या...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
   "tr": {
     "tool.description": "Bluetooth Low Energy (BLE) işlemlerini gerçekleştirin: cihazları tarayın, GATT özelliklerini okuyun veya yazın.",
@@ -432,9 +488,11 @@
     "err.linux_permission": "BLE işlemi sırasında hata: {err_msg}\n\n[Linux/Raspberry Pi İzin Kılavuzu]\nBluetooth soketine erişim izniniz olmayabilir. Aşağıdakilerden birini deneyin:\n1. Kullanıcınızı bluetooth grubuna ekleyin (önerilir):\n   sudo usermod -aG bluetooth $USER\n   (Yeniden başlatma veya yeniden oturum açma gerektirir)\n2. Doğrudan Python ikili dosyasına izin verin:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE işlemi sırasında hata: {err_msg}\n\n[macOS İzin Kılavuzu]\nBluetooth erişimi macOS güvenlik kısıtlamaları nedeniyle reddedilmiş olabilir.",
     "err.operation_failed": "BLE işlemi sırasında hata: {err_msg}",
-    "param.uuid.description": "Okunaca..."
+    "param.uuid.description": "Okunaca...",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   },
-  "el": {
+  "sw": {
     "tool.description": "Εκτελέστε λειτουργίες Bluetooth Low Energy (BLE): σάρωση για συσκευές, ανάγνωση ή εγγραφή χαρακτηριστικών GATT. Χρησιμοποιήστε διευθύνσεις MAC σε Windows/Linux και UUID σε macOS.",
     "param.action.description": "Η λειτουργία προς εκτέλεση. scan: ανακάλυψη κοντινών συσκευών, read: ανάγνωση χαρακτηριστικού, write: εγγραφή χαρακτηριστικού",
     "param.timeout.description": "Χρονικό όριο σε δευτερόλεπτα για σάρωση ή σύνδεση",
@@ -447,6 +505,8 @@
     "err.linux_permission": "Σφάλμα κατά τη λειτουργία BLE: {err_msg}\n\n[Οδηγός δικαιωμάτων Linux/Raspberry Pi]\nΕνδέχεται να μην έχετε δικαιώματα πρόσβασης στην υποδοχή Bluetooth. Δοκιμάστε ένα από τα ακόλουθα:\n1. Προσθέστε τον χρήστη σας στην ομάδα bluetooth (συνιστάται):\n   sudo usermod -aG bluetooth $USER\n   (Απαιτείται επανεκκίνηση ή εκ νέου σύνδεση)\n2. Εκχωρήστε δικαιώματα απευθείας στο δυαδικό αρχείο της Python:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Σφάλμα κατά τη λειτουργία BLE: {err_msg}\n\n[Οδηγός δικαιωμάτων macOS]\nΗ πρόσβαση στο Bluetooth ενδέχεται να έχει απορριφθεί από τους περιορισμούς ασφαλείας του macOS.\nΠαρακαλούμε ανοίξτε τις 'Ρυθμίσεις συστήματος > Απόρρητο και ασφάλεια > Bluetooth' και βεβαιωθείτε ότι επιτρέπεται η πρόσβαση στο Bluetooth στο τερματικό σας, στο VS Code ή στη διαδικασία της Python.",
     "err.operation_failed": "Σφάλμα κατά τη λειτουργία BLE: {err_msg}",
-    "param.uuid.description": "UUID χαρακτηριστικού GATT για ανάγνωση ή εγγραφή"
+    "param.uuid.description": "UUID χαρακτηριστικού GATT για ανάγνωση ή εγγραφή",
+    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
+    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6"
   }
 }

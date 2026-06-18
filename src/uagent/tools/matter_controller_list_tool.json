@@ -1,118 +1,242 @@
 {
-  "tool_level": 0,
-  "tool_genre": "iot",
-  "type": "function",
-  "function": {
-    "name": "matter_controller_list",
-    "description": {
-      "en": "List Matter controller-managed devices and return a JSON or text summary.",
-      "ja": "Matter コントローラー管理下のデバイスを一覧表示し、JSON またはテキスト要約を返します。",
-      "id": "Daftar perangkat yang dikelola oleh controller Matter dan kembalikan ringkasan JSON atau teks.",
-      "ar": "اعرض قائمة بالأجهزة التي يديرها متحكم Matter وأعد ملخصًا بصيغة JSON أو نص.",
-      "bn": "Matter কন্ট্রোলারের অধীনে পরিচালিত ডিভাইসগুলির তালিকা দেখান এবং JSON বা টেক্সট সারসংক্ষেপ ফেরত দিন।",
-      "cs": "Vypište zařízení spravovaná ovladačem Matter a vraťte souhrn ve formátu JSON nebo textu.",
-      "de": "Listen Sie die vom Matter-Controller verwalteten Geräte auf und geben Sie eine JSON- oder Textzusammenfassung zurück.",
-      "es": "Enumere los dispositivos administrados por el controlador Matter y devuelva un resumen en JSON o texto.",
-      "fa": "دستگاه‌های مدیریت‌شده توسط کنترلر Matter را فهرست کنید و خلاصه‌ای به صورت JSON یا متن برگردانید.",
-      "fi": "Listaa Matter-ohjaimen hallitsemat laitteet ja palauta JSON- tai tekstiyhteenveto.",
-      "fr": "Listez les appareils gérés par le contrôleur Matter et renvoyez un résumé JSON ou texte.",
-      "hi": "Matter नियंत्रक द्वारा प्रबंधित डिवाइसों की सूची दें और JSON या पाठ सारांश लौटाएँ।",
-      "it": "Elenca i dispositivi gestiti dal controller Matter e restituisci un riepilogo JSON o di testo.",
-      "ko": "Matter 컨트롤러가 관리하는 장치를 나열하고 JSON 또는 텍스트 요약을 반환합니다.",
-      "nb": "List enheter som styres av Matter-kontrolleren, og returner et JSON- eller tekstoppsummering.",
-      "nl": "Geef de door de Matter-controller beheerde apparaten weer en geef een JSON- of tekstsamenvatting terug.",
-      "pl": "Wyświetl urządzenia zarządzane przez kontroler Matter i zwróć podsumowanie JSON lub tekstowe.",
-      "pt": "Liste os dispositivos gerenciados pelo controlador Matter e retorne um resumo em JSON ou texto.",
-      "pt_BR": "Liste os dispositivos gerenciados pelo controlador Matter e retorne um resumo em JSON ou texto.",
-      "ru": "Перечислите устройства, управляемые контроллером Matter, и верните сводку в формате JSON или текста.",
-      "sv": "Lista enheter som hanteras av Matter-styrenheten och returnera en JSON- eller textsammanfattning.",
-      "th": "แสดงรายการอุปกรณ์ที่จัดการโดยตัวควบคุม Matter และส่งกลับสรุปแบบ JSON หรือข้อความ",
-      "uk": "Перелічіть пристрої, якими керує контролер Matter, і поверніть підсумок у форматі JSON або тексту.",
-      "vi": "Liệt kê các thiết bị do bộ điều khiển Matter quản lý và trả về bản tóm tắt JSON hoặc văn bản.",
-      "zh_CN": "列出 Matter 控制器管理的设备，并返回 JSON 或文本摘要。",
-      "zh_TW": "列出由 Matter 控制器管理的裝置，並傳回 JSON 或文字摘要。",
-      "mn": "Matter хянагчаар удирдуулж буй төхөөрөмжүүдийг жагсааж, JSON эсвэл текстийн хураангуй буцаана.",
-      "mr": "Matter नियंत्रकाद्वारे व्यवस्थापित उपकरणांची यादी करा आणि JSON किंवा मजकूर सारांश परत करा.",
-      "tr": "Matter denetleyicisi tarafından yönetilen cihazları listeleyin ve JSON veya metin özeti döndürün.",
-      "el": "Παραθέστε τις συσκευές που διαχειρίζεται ο ελεγκτής Matter και επιστρέψτε σύνοψη σε JSON ή κείμενο."
-    },
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "controller_id": {
-          "type": "string",
-          "description": {
-            "en": "Optional controller ID filter. If omitted, all controllers are listed.",
-            "ja": "任意のコントローラー ID フィルター。省略した場合はすべてのコントローラーを一覧表示します。",
-            "id": "Filter ID controller opsional. Jika dihilangkan, semua controller akan ditampilkan.",
-            "ar": "مرشح اختياري لمعرّف المتحكم. إذا تم حذفه، فسيتم عرض جميع المتحكمات.",
-            "bn": "ঐচ্ছিক controller ID ফিল্টার। বাদ দিলে সব controller তালিকাভুক্ত হবে।",
-            "cs": "Volitelný filtr ID ovladače. Pokud je vynechán, zobrazí se všechny ovladače.",
-            "de": "Optionaler Controller-ID-Filter. Wenn weggelassen, werden alle Controller aufgelistet.",
-            "es": "Filtro opcional de ID del controlador. Si se omite, se enumeran todos los controladores.",
-            "fa": "فیلتر اختیاری شناسه کنترلر. اگر حذف شود، همه کنترلرها فهرست می‌شوند.",
-            "fi": "Valinnainen ohjaimen tunnisteen suodatin. Jos jätetään pois, kaikki ohjaimet listataan.",
-            "fr": "Filtre facultatif d’ID du contrôleur. S’il est omis, tous les contrôleurs sont listés.",
-            "hi": "वैकल्पिक नियंत्रक ID फ़िल्टर। यदि छोड़ा जाए, तो सभी नियंत्रक सूचीबद्ध होते हैं।",
-            "it": "Filtro opzionale per l'ID del controller. Se omesso, vengono elencati tutti i controller.",
-            "ko": "선택적 컨트롤러 ID 필터입니다. 생략하면 모든 컨트롤러가 나열됩니다.",
-            "nb": "Valgfritt filter for kontroller-ID. Hvis utelatt, listes alle kontrollere.",
-            "nl": "Optioneel filter op controller-ID. Als dit wordt weggelaten, worden alle controllers weergegeven.",
-            "pl": "Opcjonalny filtr identyfikatora kontrolera. Jeśli pominięty, wyświetlane są wszystkie kontrolery.",
-            "pt": "Filtro opcional de ID do controlador. Se omitido, todos os controladores serão listados.",
-            "pt_BR": "Filtro opcional de ID do controlador. Se omitido, todos os controladores serão listados.",
-            "ru": "Необязательный фильтр ID контроллера. Если опущен, выводятся все контроллеры.",
-            "sv": "Valfritt filter för styrenhets-ID. Om det utelämnas listas alla styrenheter.",
-            "th": "ตัวกรองรหัสตัวควบคุมแบบเลือกได้ หากไม่ระบุ จะแสดงตัวควบคุมทั้งหมด",
-            "uk": "Необов’язковий фільтр ID контролера. Якщо не вказано, перелічуються всі контролери.",
-            "vi": "Bộ lọc ID bộ điều khiển tùy chọn. Nếu bỏ qua, tất cả bộ điều khiển sẽ được liệt kê.",
-            "zh_CN": "可选的控制器 ID 过滤器。省略时将列出所有控制器。",
-            "zh_TW": "可選的控制器 ID 篩選器。若省略，則列出所有控制器。",
-            "mn": "Сонголттой контроллерын ID шүүлтүүр. Орхивол бүх контроллеруудыг жагсаана.",
-            "mr": "ऐच्छिक नियंत्रक ID फिल्टर. वगळल्यास, सर्व नियंत्रक सूचीबद्ध केले जातील.",
-            "tr": "İsteğe bağlı denetleyici kimliği filtresi. Atlanırsa tüm denetleyiciler listelenir.",
-            "el": "Προαιρετικό φίλτρο αναγνωριστικού ελεγκτή. Αν παραλειφθεί, παρατίθενται όλοι οι ελεγκτές."
-          }
-        },
-        "output_format": {
-          "type": "string",
-          "enum": ["json", "text"],
-          "default": "json",
-          "description": {
-            "en": "Output format: JSON or human-readable text.",
-            "ja": "出力形式: JSON または人間が読みやすいテキスト。",
-            "id": "Format output: JSON atau teks yang dapat dibaca manusia.",
-            "ar": "تنسيق الإخراج: JSON أو نص قابل للقراءة البشرية.",
-            "bn": "আউটপুট ফরম্যাট: JSON অথবা মানুষের পড়ার উপযোগী টেক্সট।",
-            "cs": "Formát výstupu: JSON nebo text čitelný pro člověka.",
-            "de": "Ausgabeformat: JSON oder menschenlesbarer Text.",
-            "es": "Formato de salida: JSON o texto legible por humanos.",
-            "fa": "قالب خروجی: JSON یا متن قابل‌خواندن برای انسان.",
-            "fi": "Tulostemuoto: JSON tai ihmisen luettavissa oleva teksti.",
-            "fr": "Format de sortie : JSON ou texte lisible par l’humain.",
-            "hi": "आउटपुट प्रारूप: JSON या मानव-पठनीय पाठ।",
-            "it": "Formato di output: JSON o testo leggibile dall'uomo.",
-            "ko": "출력 형식: JSON 또는 사람이 읽을 수 있는 텍스트.",
-            "nb": "Utdataformat: JSON eller menneskelesbar tekst.",
-            "nl": "Uitvoerformaat: JSON of voor mensen leesbare tekst.",
-            "pl": "Format wyjściowy: JSON lub tekst czytelny dla człowieka.",
-            "pt": "Formato de saída: JSON ou texto legível por humanos.",
-            "pt_BR": "Formato de saída: JSON ou texto legível por humanos.",
-            "ru": "Формат вывода: JSON или удобочитаемый текст.",
-            "sv": "Utdataformat: JSON eller mänskligt läsbar text.",
-            "th": "รูปแบบเอาต์พุต: JSON หรือข้อความที่มนุษย์อ่านได้",
-            "uk": "Формат виводу: JSON або текст, зручний для читання людиною.",
-            "vi": "Định dạng đầu ra: JSON hoặc văn bản dễ đọc.",
-            "zh_CN": "输出格式：JSON 或人类可读文本。",
-            "zh_TW": "輸出格式：JSON 或人類可讀文字。",
-            "mn": "Гаралтын формат: JSON эсвэл хүн уншихад ойлгомжтой текст.",
-            "mr": "आउटपुट स्वरूप: JSON किंवा मानवी वाचनीय मजकूर.",
-            "tr": "Çıktı biçimi: JSON veya insan tarafından okunabilir metin.",
-            "el": "Μορφή εξόδου: JSON ή κείμενο αναγνώσιμο από άνθρωπο."
-          }
-        }
-      },
-      "additionalProperties": false
-    }
+  "ar": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "bn": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "cs": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "de": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "en": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "es": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "fa": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "fi": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "fr": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "hi": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "id": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "it": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "ja": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "ko": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "mn": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "mr": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "nb": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "nl": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "pl": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "pt": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "pt_BR": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "ru": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "sv": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "sw": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "th": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "tr": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "uk": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "vi": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "zh_CN": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
+  },
+  "zh_TW": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
+    "param.ctrl.description": "Controller ID (omit for all).",
+    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
+    "err.not_found": "Matter controller not found: {controller_id}"
   }
 }

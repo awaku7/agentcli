@@ -25,7 +25,9 @@
     "param.cs.description": "Whether the content search is case-sensitive (default: false).",
     "param.re_content.description": "Regular expression to search within files. If omitted, only filename matching is performed.",
     "param.limit.description": "Maximum number of matched files to return (default: 50).",
-    "param.glob.description": "Filename glob pattern (e.g. '*.py', 'test_*'). If omitted, all files are considered."
+    "param.glob.description": "Filename glob pattern (e.g. '*.py', 'test_*'). If omitted, all files are considered.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "ja": {
     "err.dir_not_exist": "[search_files エラー] ディレクトリが存在しません: {path}",
@@ -49,7 +51,9 @@
     "param.cs.description": "内容検索を大文字小文字を区別して行うか（既定: false）。",
     "param.re_content.description": "ファイル内容を検索する正規表現。指定した場合、1行でも一致したファイルのみ返します。",
     "param.limit.description": "返す一致ファイルの最大数（既定: 50）。",
-    "param.glob.description": "ファイル名の glob パターン（例: '*.py', 'test_*'）。省略時はすべてのファイルを対象にします。"
+    "param.glob.description": "ファイル名の glob パターン（例: '*.py', 'test_*'）。省略時はすべてのファイルを対象にします。",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "es": {
     "err.dir_not_exist": "[error de search_files] El directorio no existe: {path}",
@@ -73,7 +77,9 @@
     "param.cs.description": "Si la búsqueda de contenido distingue entre mayúsculas y mi...",
     "param.re_content.description": "Expresión regular para buscar dentro de los archivos.",
     "param.limit.description": "Número máximo de archivos coincidentes a devolver (por defecto: 50).",
-    "param.glob.description": "Patrón glob de nombre de archivo (p.ej., '*.py', 'test_*')."
+    "param.glob.description": "Patrón glob de nombre de archivo (p.ej., '*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "fr": {
     "err.dir_not_exist": "[erreur search_files] Le répertoire n'existe pas : {path}",
@@ -97,7 +103,9 @@
     "param.cs.description": "Si la recherche de contenu est sensible à la casse (par déf...",
     "param.re_content.description": "Expression régulière pour rechercher dans les fichiers.",
     "param.limit.description": "Nombre maximum de fichiers correspondants à renvoyer (par défaut : 50).",
-    "param.glob.description": "Modèle glob du nom de fichier (par exemple, '*.py', 'test_*')."
+    "param.glob.description": "Modèle glob du nom de fichier (par exemple, '*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "ko": {
     "err.dir_not_exist": "[search_files 오류] 디렉터리가 존재하지 않습니다: {path}",
@@ -121,7 +129,9 @@
     "param.cs.description": "내용 검색 시 대소문자를 구분할지 여부(기본값: false).",
     "param.re_content.description": "파일 내에서 검색할 정규식입니다. 제공된 경우 일치하는 줄이 하나 이상 있는 파일만 반환됩니다.",
     "param.limit.description": "반환할 최대 일치 파일 수(기본값: 50).",
-    "param.glob.description": "파일명 glob 패턴(예: '*.py', 'test_*'). 생략하면 모든 파일이 대상입니다."
+    "param.glob.description": "파일명 glob 패턴(예: '*.py', 'test_*'). 생략하면 모든 파일이 대상입니다.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "de": {
     "err.dir_not_exist": "[search_files Fehler] Verzeichnis existiert nicht: {path}",
@@ -145,7 +155,9 @@
     "param.cs.description": "Ob die Inhaltssuche Groß-/Kleinschreibung berücksichtigt (S...",
     "param.re_content.description": "Regulärer Ausdruck für die Suche in Dateien.",
     "param.limit.description": "Maximale Anzahl der zurückzugebenden Treffer (Standard: 50).",
-    "param.glob.description": "Dateinamen-Globmuster (z.B.'*.py', 'test_*')."
+    "param.glob.description": "Dateinamen-Globmuster (z.B.'*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "it": {
     "err.dir_not_exist": "[search_files errore] La directory non esiste: {path}",
@@ -169,7 +181,9 @@
     "param.cs.description": "Indica se la ricerca nel contenuto distingue tra maiuscole...",
     "param.re_content.description": "Espressione regolare da cercare nei file.",
     "param.limit.description": "Numero massimo di file corrispondenti da restituire (predefinito: 50).",
-    "param.glob.description": "Modello glob del nome file (es.'*.py', 'test_*')."
+    "param.glob.description": "Modello glob del nome file (es.'*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "ru": {
     "err.dir_not_exist": "[search_files ошибка] Каталог не существует: {path}",
@@ -193,7 +207,9 @@
     "param.cs.description": "Проверять ли регистр при поиске по содержимому (по умолчани...",
     "param.re_content.description": "Регулярное выражение для поиска в файлах.",
     "param.limit.description": "Максимальное число совпавших файлов для возврата (по умолчанию: 50).",
-    "param.glob.description": "Шаблон glob для имени файла (например, '*.py', 'test_*')."
+    "param.glob.description": "Шаблон glob для имени файла (например, '*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "pt_BR": {
     "err.dir_not_exist": "[erro search_files] O diretório não existe: {path}",
@@ -217,7 +233,9 @@
     "param.cs.description": "Se a busca no conteúdo diferencia maiúsculas de minúsculas...",
     "param.re_content.description": "Expressão regular para pesquisar nos arquivos.",
     "param.limit.description": "Número máximo de arquivos correspondentes a retornar (padrão: 50).",
-    "param.glob.description": "Padrão glob para o nome do arquivo (ex.: '*.py', 'test_*')."
+    "param.glob.description": "Padrão glob para o nome do arquivo (ex.: '*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "pt": {
     "err.dir_not_exist": "[erro search_files] O diretório não existe: {path}",
@@ -241,7 +259,9 @@
     "param.cs.description": "Se a pesquisa de conteúdo diferencia maiúsculas de minúscul...",
     "param.re_content.description": "Expressão regular para pesquisar em arquivos.",
     "param.limit.description": "Número máximo de arquivos correspondentes a serem retornados (...",
-    "param.glob.description": "Padrão glob de nome de arquivo (por exemplo, '*.py', 'test_*')."
+    "param.glob.description": "Padrão glob de nome de arquivo (por exemplo, '*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "id": {
     "err.dir_not_exist": "[search_files error] Direktori tidak ada: {path}",
@@ -265,7 +285,9 @@
     "param.cs.description": "Apakah pencarian isi peka huruf besar/kecil (default: false).",
     "param.re_content.description": "Ekspresi reguler untuk mencari di dalam file.",
     "param.limit.description": "Jumlah maksimum file yang cocok untuk dikembalikan (default: 50).",
-    "param.glob.description": "Pola glob nama file (mis. '*.py', 'test_*'). Jika dihilangkan, semua file dipertimbangkan."
+    "param.glob.description": "Pola glob nama file (mis. '*.py', 'test_*'). Jika dihilangkan, semua file dipertimbangkan.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "vi": {
     "err.dir_not_exist": "[lỗi search_files] Thư mục không tồn tại: {path}",
@@ -289,7 +311,9 @@
     "param.cs.description": "Tìm kiếm nội dung có phân biệt chữ hoa chữ thường hay không...",
     "param.re_content.description": "Biểu thức chính quy để tìm kiếm trong tập tin.",
     "param.limit.description": "Số lượng tệp phù hợp tối đa cần trả về (mặc định: 50).",
-    "param.glob.description": "Mẫu hình cầu tên tệp (ví dụ: '*.py', 'test_*')."
+    "param.glob.description": "Mẫu hình cầu tên tệp (ví dụ: '*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "pl": {
     "err.dir_not_exist": "[błąd search_files] Katalog nie istnieje: {path}",
@@ -313,7 +337,9 @@
     "param.cs.description": "Określa, czy w wyszukiwaniu treści uwzględniana jest wielko...",
     "param.re_content.description": "Wyrażenie regularne do wyszukiwania w plikach.",
     "param.limit.description": "Maksymalna liczba pasujących plików do zwrócenia (domyślnie: 50).",
-    "param.glob.description": "Wzorzec globalny nazwy pliku (np.„*.py”, „test_*”)."
+    "param.glob.description": "Wzorzec globalny nazwy pliku (np.„*.py”, „test_*”).",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "hi": {
     "err.dir_not_exist": "[search_files त्रुटि] निर्देशिका मौजूद नहीं है: {path}",
@@ -337,7 +363,9 @@
     "param.cs.description": "क्या सामग्री खोज केस-संवेदी है (डिफ़ॉल्ट: गलत)।",
     "param.re_content.description": "फ़ाइलों के भीतर खोजने के लिए नियमित अभिव्यक्ति। यदि प्रदान किया गया है, तो केवल कम से कम...",
     "param.limit.description": "लौटाने के लिए मिलान की गई फ़ाइलों की अधिकतम संख्या (डिफ़ॉल्ट: 50)।",
-    "param.glob.description": "फ़ाइल नाम ग्लोब पैटर्न (जैसे '*."
+    "param.glob.description": "फ़ाइल नाम ग्लोब पैटर्न (जैसे '*.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "ar": {
     "err.dir_not_exist": "[خطأ search_files] الدليل غير موجود: {path}",
@@ -361,7 +389,9 @@
     "param.cs.description": "ما إذا كان البحث في المحتوى حساسًا لحالة الأحرف (الافتراضي: false).",
     "param.re_content.description": "تعبير نمطي للبحث داخل الملفات.",
     "param.limit.description": "الحد الأقصى لعدد الملفات المطابقة التي ستُعاد (الافتراضي: 50).",
-    "param.glob.description": "نمط glob لاسم الملف (مثل '*.py' و 'test_*'). إذا أُهمل، تُؤخذ جميع الملفات في الاعتبار."
+    "param.glob.description": "نمط glob لاسم الملف (مثل '*.py' و 'test_*'). إذا أُهمل، تُؤخذ جميع الملفات في الاعتبار.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "sv": {
     "err.dir_not_exist": "[search_files-fel] Katalogen finns inte: {path}",
@@ -385,7 +415,9 @@
     "param.cs.description": "Om innehållssökningen ska vara skiftlägeskänslig (standard: false).",
     "param.re_content.description": "Reguljärt uttryck att söka efter i filer.",
     "param.limit.description": "Maximalt antal matchande filer att returnera (standard: 50).",
-    "param.glob.description": "Filnamns-globmönster (t.ex. '*.py', 'test_*'). Om det utelämnas beaktas alla filer."
+    "param.glob.description": "Filnamns-globmönster (t.ex. '*.py', 'test_*'). Om det utelämnas beaktas alla filer.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "sw": {
     "err.dir_not_exist": "[search_files kosa] Saraka haipo: {path}",
@@ -409,7 +441,9 @@
     "param.cs.description": "Je, utafutaji wa yaliyomo uzingatie herufi kubwa na ndogo (...",
     "param.re_content.description": "Regex ya kutafuta ndani ya faili.",
     "param.limit.description": "Idadi ya juu ya faili zinazolingana za kurudisha (chaguomsingi: 50).",
-    "param.glob.description": "Mfano wa glob wa jina la faili (mfano: '*.py', 'test_*'). Ukiachwa, faili zote huzingatiwa."
+    "param.glob.description": "Mfano wa glob wa jina la faili (mfano: '*.py', 'test_*'). Ukiachwa, faili zote huzingatiwa.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "nb": {
     "err.dir_not_exist": "[search_files-feil] Katalogen finnes ikke: {path}",
@@ -433,7 +467,9 @@
     "param.cs.description": "Om innholdssøkingen skal skille mellom store og små bokstav...",
     "param.re_content.description": "Regulært uttrykk som skal søkes etter i filer.",
     "param.limit.description": "Maksimalt antall trefffiler som skal returneres (standard: 50).",
-    "param.glob.description": "Glob-mønster for filnavn (f.eks. '*.py', 'test_*'). Hvis utelatt, vurderes alle filer."
+    "param.glob.description": "Glob-mønster for filnavn (f.eks. '*.py', 'test_*'). Hvis utelatt, vurderes alle filer.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "nl": {
     "err.dir_not_exist": "[search_files fout] Map bestaat niet: {path}",
@@ -457,7 +493,9 @@
     "param.cs.description": "Of de inhoudszoekopdracht hoofdlettergevoelig is (standaard: false).",
     "param.re_content.description": "Reguliere expressie om in bestanden te zoeken.",
     "param.limit.description": "Maximaal aantal bestanden met treffers om terug te geven (stan...",
-    "param.glob.description": "Glob-patroon voor bestandsnamen (bijv.'*.py', 'test_*')."
+    "param.glob.description": "Glob-patroon voor bestandsnamen (bijv.'*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "fi": {
     "err.dir_not_exist": "[search_files virhe] Hakemistoa ei ole: {path}",
@@ -481,7 +519,9 @@
     "param.cs.description": "Onko sisällön haku kirjainkoon suhteen herkkä (oletus: false).",
     "param.re_content.description": "Säännöllinen lauseke, jota etsitään tiedostoista.",
     "param.limit.description": "Palautettavien osumia sisältävien tiedostojen enimmäismäärä (o...",
-    "param.glob.description": "Tiedostonimien glob-kuvio (esim.'*.py', 'test_*')."
+    "param.glob.description": "Tiedostonimien glob-kuvio (esim.'*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "cs": {
     "err.dir_not_exist": "[search_files chyba] Adresář neexistuje: {path}",
@@ -505,7 +545,9 @@
     "param.cs.description": "Zda má být vyhledávání v obsahu citlivé na velikost písmen...",
     "param.re_content.description": "Regulární výraz pro vyhledávání v souborech.",
     "param.limit.description": "Maximální počet vrácených shodných souborů (výchozí: 50).",
-    "param.glob.description": "Glob vzor názvu souboru (např.'*.py', 'test_*')."
+    "param.glob.description": "Glob vzor názvu souboru (např.'*.py', 'test_*').",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "uk": {
     "err.dir_not_exist": "[search_files помилка] Каталог не існує: {path}",
@@ -529,7 +571,9 @@
     "param.cs.description": "Чи враховувати регістр під час пошуку вмісту (типово: false).",
     "param.re_content.description": "Регулярний вираз для пошуку всередині файлів.",
     "param.limit.description": "Максимальна кількість файлів, що відповідають, які слід поверн...",
-    "param.glob.description": "Glob-шаблон назви файла (наприклад, '*.py', 'test_*'). Якщо опущено, враховуються всі файли."
+    "param.glob.description": "Glob-шаблон назви файла (наприклад, '*.py', 'test_*'). Якщо опущено, враховуються всі файли.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "tr": {
     "err.dir_not_exist": "[search_files hatası] Dizin mevcut değil: {path}",
@@ -553,7 +597,9 @@
     "param.cs.description": "İçerik aramasının büyük/küçük harfe duyarlı olup olmadığı (...",
     "param.re_content.description": "Dosyalar içinde aranacak düzenli ifade.",
     "param.limit.description": "Döndürülecek maksimum eşleşen dosya sayısı (varsayılan: 50).",
-    "param.glob.description": "Dosya adı glob deseni (örn. '*.py', 'test_*'). Atlanırsa tüm dosyalar değerlendirilir."
+    "param.glob.description": "Dosya adı glob deseni (örn. '*.py', 'test_*'). Atlanırsa tüm dosyalar değerlendirilir.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "th": {
     "err.dir_not_exist": "[ข้อผิดพลาด search_files] ไดเรกทอรีไม่มีอยู่: {path}",
@@ -577,7 +623,9 @@
     "param.cs.description": "การค้นหาเนื้อหาจะแยกตัวพิมพ์เล็ก/ใหญ่หรือไม่ (ค่าเริ่มต้น: false)",
     "param.re_content.description": "นิพจน์ทั่วไปสำหรับค้นหาภายในไฟล์ หากระบุ จะคืนเฉพาะไฟล์ที่มีอย่างน้อยหนึ่งบรรทัดที่ตรงกัน",
     "param.limit.description": "จำนวนไฟล์ที่ตรงกันสูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 50)",
-    "param.glob.description": "รูปแบบ glob ของชื่อไฟล์ (เช่น '*.py', 'test_*') หากละเว้น จะพิจารณาไฟล์ทั้งหมด"
+    "param.glob.description": "รูปแบบ glob ของชื่อไฟล์ (เช่น '*.py', 'test_*') หากละเว้น จะพิจารณาไฟล์ทั้งหมด",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "zh_CN": {
     "err.dir_not_exist": "[search_files 错误] 目录不存在：{path}",
@@ -601,7 +649,9 @@
     "param.cs.description": "内容搜索是否区分大小写（默认：false）。",
     "param.re_content.description": "用于在文件中搜索的正则表达式。若提供，则仅返回至少包含一行匹配内容的文件。",
     "param.limit.description": "要返回的最大匹配文件数（默认：50）。",
-    "param.glob.description": "文件名 glob 模式（例如 '*.py'、'test_*'）。如果省略，则考虑所有文件。"
+    "param.glob.description": "文件名 glob 模式（例如 '*.py'、'test_*'）。如果省略，则考虑所有文件。",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "zh_TW": {
     "err.dir_not_exist": "[search_files 錯誤] 目錄不存在：{path}",
@@ -625,7 +675,9 @@
     "param.cs.description": "內容搜尋是否區分大小寫（預設：false）。",
     "param.re_content.description": "要在檔案中搜尋的正規表示式。若提供，則僅傳回至少包含一行相符內容的檔案。",
     "param.limit.description": "要傳回的最大相符檔案數（預設：50）。",
-    "param.glob.description": "檔名 glob 模式（例如 '*.py'、'test_*'）。如果省略，則考慮所有檔案。"
+    "param.glob.description": "檔名 glob 模式（例如 '*.py'、'test_*'）。如果省略，則考慮所有檔案。",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "bn": {
     "err.dir_not_exist": "[search_files ত্রুটি] ডিরেক্টরি বিদ্যমান নেই: {path}",
@@ -649,7 +701,9 @@
     "param.cs.description": "বিষয়বস্তু অনুসন্ধানে বড়/ছোট হাতের অক্ষর আলাদা ধরা হবে কি...",
     "param.re_content.description": "ফাইলের মধ্যে অনুসন্ধানের জন্য regular expression। দিলে, অন্তত এক লাইন মেলা ফাইলগুলোই ফের...",
     "param.limit.description": "ফেরত দেওয়ার সর্বোচ্চ মেলানো ফাইল সংখ্যা (ডিফল্ট: 50)।",
-    "param.glob.description": "ফাইলনামের glob pattern (যেমন '*.py', 'test_*')। বাদ দিলে সব ফাইল বিবেচনা করা হয়।"
+    "param.glob.description": "ফাইলনামের glob pattern (যেমন '*.py', 'test_*')। বাদ দিলে সব ফাইল বিবেচনা করা হয়।",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "fa": {
     "err.dir_not_exist": "[خطای search_files] پوشه وجود ندارد: {path}",
@@ -673,7 +727,9 @@
     "param.cs.description": "اینکه جستجوی محتوا به حروف کوچک/بزرگ حساس باشد یا نه (پیش‌ف...",
     "param.re_content.description": "عبارت regular expression برای جستجو داخل فایل‌ها.",
     "param.limit.description": "حداکثر تعداد فایل‌های منطبق برای بازگشت (پیش‌فرض: 50).",
-    "param.glob.description": "الگوی glob نام فایل (مثلاً '*.py'، 'test_*'). اگر حذف شود، همهٔ فایل‌ها در نظر گرفته می‌شوند."
+    "param.glob.description": "الگوی glob نام فایل (مثلاً '*.py'، 'test_*'). اگر حذف شود، همهٔ فایل‌ها در نظر گرفته می‌شوند.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "mn": {
     "err.dir_not_exist": "[search_files алдаа] Лавлах олдсонгүй: {path}",
@@ -697,7 +753,9 @@
     "param.cs.description": "Агуулга хайхдаа том/жижиг үсгийг ялгах эсэх (анхдагч: false).",
     "param.re_content.description": "Файл дотор хайх regular expression. Өгвөл дор хаяж нэг тохирсон мөртэй файлуудыг л буцаана.",
     "param.limit.description": "Буцаах тохирсон файлын дээд тоо (анхдагч: 50).",
-    "param.glob.description": "Файлын нэрийн glob загвар (ж. '*.py', 'test_*'). Орхивол бүх файлыг авч үзнэ."
+    "param.glob.description": "Файлын нэрийн glob загвар (ж. '*.py', 'test_*'). Орхивол бүх файлыг авч үзнэ.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   },
   "mr": {
     "err.dir_not_exist": "[search_files त्रुटी] डिरेक्टरी अस्तित्वात नाही: {path}",
@@ -721,6 +779,8 @@
     "param.cs.description": "मजकूर शोधात मोठ्या/लहान अक्षरांचा फरक धरायचा का (डीफॉल्ट: false).",
     "param.re_content.description": "फाइल्समध्ये शोधण्यासाठी regular expression.",
     "param.limit.description": "परत द्यायच्या जुळणाऱ्या फाइल्सची कमाल संख्या (डीफॉल्ट: 50).",
-    "param.glob.description": "फाइलनाव glob pattern (उदा. '*.py', 'test_*'). वगळल्यास सर्व फाइल्स विचारात घेतल्या जातात."
+    "param.glob.description": "फाइलनाव glob pattern (उदा. '*.py', 'test_*'). वगळल्यास सर्व फाइल्स विचारात घेतल्या जातात.",
+    "param.path.description": "Search root (default: cwd).",
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
   }
 }

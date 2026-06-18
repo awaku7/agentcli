@@ -13,7 +13,8 @@
       "exécuter python",
       "파이썬 실행",
       "запустить python"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "ja": {
     "param.code.description": "Pythonコード。",
@@ -25,7 +26,8 @@
       "python 実行",
       "python スクリプト",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "es": {
     "param.code.description": "Código Py...",
@@ -37,7 +39,8 @@
       "ejecutar python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "fr": {
     "param.code.description": "Code Pyth...",
@@ -49,7 +52,8 @@
       "exécuter python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "ko": {
     "param.code.description": "Python 코드.",
@@ -61,7 +65,8 @@
       "python 실행",
       "python 스크립트",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "de": {
     "param.code.description": "Auszuführ...",
@@ -73,7 +78,8 @@
       "python ausführen",
       "python skript",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "it": {
     "param.code.description": "Codice Py...",
@@ -85,7 +91,8 @@
       "esegui python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "ru": {
     "param.code.description": "Код Pytho...",
@@ -97,7 +104,8 @@
       "запуск python",
       "python скрипт",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "pt_BR": {
     "param.code.description": "Código Py...",
@@ -109,7 +117,8 @@
       "executar python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "pt": {
     "param.code.description": "Código Py...",
@@ -121,7 +130,8 @@
       "executar python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "id": {
     "param.code.description": "Kode Pyth...",
@@ -133,7 +143,8 @@
       "jalankan python",
       "skrip python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "vi": {
     "param.code.description": "Mã Python...",
@@ -145,7 +156,8 @@
       "chạy python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "pl": {
     "param.code.description": "Kod Pytho...",
@@ -157,7 +169,8 @@
       "uruchom python",
       "skrypt python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "hi": {
     "param.code.description": "निष्पादित...",
@@ -169,7 +182,8 @@
       "python चलाएँ",
       "python स्क्रिप्ट",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "ar": {
     "param.code.description": "كود بايثو...",
@@ -181,7 +195,8 @@
       "تشغيل python",
       "سكربت python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "sv": {
     "param.code.description": "Python-ko...",
@@ -193,7 +208,8 @@
       "kör python",
       "python skript",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "sw": {
     "param.code.description": "Python co...",
@@ -205,7 +221,8 @@
       "run python",
       "python script",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "nb": {
     "param.code.description": "Python-ko...",
@@ -217,7 +234,8 @@
       "kjør python",
       "python skript",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "nl": {
     "param.code.description": "Python-co...",
@@ -229,7 +247,8 @@
       "python uitvoeren",
       "python script",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "fi": {
     "param.code.description": "Suoritett...",
@@ -241,7 +260,8 @@
       "suorita python",
       "python skripti",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "cs": {
     "param.code.description": "Python kó...",
@@ -253,7 +273,8 @@
       "spustit python",
       "python skript",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "uk": {
     "param.code.description": "Код Pytho...",
@@ -265,7 +286,8 @@
       "запустити python",
       "python скрипт",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "tr": {
     "param.code.description": "Yürütülec...",
@@ -277,7 +299,8 @@
       "python çalıştır",
       "python betik",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "th": {
     "param.code.description": "รหัส Pyth...",
@@ -289,7 +312,8 @@
       "รัน python",
       "สคริปต์ python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "zh_CN": {
     "param.code.description": "Python代码。",
@@ -301,7 +325,8 @@
       "运行 python",
       "python 脚本",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "zh_TW": {
     "param.code.description": "Python代码。",
@@ -313,7 +338,8 @@
       "執行 python",
       "python 腳本",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "bn": {
     "param.code.description": "নির্বাহ ক...",
@@ -325,7 +351,8 @@
       "python চালান",
       "python স্ক্রিপ্ট",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "fa": {
     "param.code.description": "کد پایتون...",
@@ -337,7 +364,8 @@
       "اجرای python",
       "اسکریپت python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "mn": {
     "param.code.description": "Ажиллуула...",
@@ -349,7 +377,8 @@
       "python ажиллуулах",
       "python скрипт",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "mr": {
     "param.code.description": "चालवायचा...",
@@ -361,6 +390,7 @@
       "python चालवा",
       "python स्क्रिप्ट",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   }
 }

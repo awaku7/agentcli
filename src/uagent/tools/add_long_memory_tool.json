@@ -9,7 +9,8 @@
       "remember",
       "memory note",
       "long term memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "ja": {
     "param.note.description": "保存するメモ本文。",
@@ -19,7 +20,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "es": {
     "param.note.description": "El texto de la nota a guardar.",
@@ -29,7 +31,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "fr": {
     "param.note.description": "Le texte de la note à enregistrer.",
@@ -39,7 +42,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "ko": {
     "param.note.description": "저장할 메모 텍스트입니다.",
@@ -49,7 +53,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "de": {
     "param.note.description": "Der zu speichernde Notiztext.",
@@ -59,7 +64,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "it": {
     "param.note.description": "Il testo della nota da salvare.",
@@ -69,7 +75,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "ru": {
     "param.note.description": "Текст заметки, которую нужно сохранить.",
@@ -79,7 +86,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "pt_BR": {
     "param.note.description": "O texto da nota a ser salvo.",
@@ -89,7 +97,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "pt": {
     "param.note.description": "O texto da nota a ser salvo.",
@@ -99,7 +108,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "id": {
     "param.note.description": "Teks catatan yang akan disimpan.",
@@ -109,7 +119,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "vi": {
     "param.note.description": "Văn bản ghi chú cần lưu.",
@@ -119,7 +130,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "pl": {
     "param.note.description": "Tekst notatki do zapisania.",
@@ -129,7 +141,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "hi": {
     "param.note.description": "सहेजने के लिए नोट पाठ.",
@@ -139,7 +152,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "ar": {
     "param.note.description": "نص الملاحظة المراد حفظه.",
@@ -149,7 +163,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "sv": {
     "param.note.description": "Texten i anteckningen som ska sparas.",
@@ -159,7 +174,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "sw": {
     "param.note.description": "Maandishi ya dokezo la kuhifadhi.",
@@ -169,7 +185,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "nb": {
     "param.note.description": "Teksten i notatet som skal lagres.",
@@ -179,7 +196,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "nl": {
     "param.note.description": "De notitietekst om op te slaan.",
@@ -189,7 +207,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "fi": {
     "param.note.description": "Tallennettava muistiinpanoteksti.",
@@ -199,7 +218,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "cs": {
     "param.note.description": "Text poznámky, kterou chcete uložit.",
@@ -209,7 +229,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "uk": {
     "param.note.description": "Текст нотатки, яку потрібно зберегти.",
@@ -219,7 +240,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "tr": {
     "param.note.description": "Kaydedilecek not metni.",
@@ -229,7 +251,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "th": {
     "param.note.description": "ข้อความบันทึกย่อที่จะบันทึก",
@@ -239,7 +262,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "zh_CN": {
     "param.note.description": "要保存的注释文本。",
@@ -249,7 +273,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "zh_TW": {
     "param.note.description": "要儲存的註釋文字。",
@@ -259,7 +284,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "bn": {
     "param.note.description": "সংরক্ষণ করার জন্য নোটের লেখা।",
@@ -269,7 +295,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "fa": {
     "param.note.description": "متن یادداشتی که باید ذخیره شود.",
@@ -279,7 +306,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "mn": {
     "param.note.description": "Хадгалах тэмдэглэлийн текст.",
@@ -289,7 +317,8 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   },
   "mr": {
     "param.note.description": "जतन करायच्या नोंदीचा मजकूर.",
@@ -299,6 +328,7 @@
       "add long memory",
       "long memory",
       "save memory"
-    ]
+    ],
+    "err.note_empty": "[add_long_memory error] note is empty"
   }
 }

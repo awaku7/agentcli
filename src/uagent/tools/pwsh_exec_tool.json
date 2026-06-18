@@ -7,7 +7,8 @@
     "x_search_terms": [
       "pwsh_exec",
       "pwsh exec"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "ja": {
     "err.timeout": "[pwsh_exec timeout] {seconds}秒以内に終了しませんでした",
@@ -19,7 +20,8 @@
       "pwsh 実行",
       "powershell",
       "最終手段"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "es": {
     "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en {seconds}...",
@@ -31,7 +33,8 @@
       "pwsh exec",
       "powershell",
       "último recurso"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "fr": {
     "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans le...",
@@ -43,7 +46,8 @@
       "pwsh exec",
       "powershell",
       "dernier recours"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "ko": {
     "err.timeout": "[pwsh_exec timeout]이 {seconds}초 안에 완료되지 않았습니다.",
@@ -55,7 +59,8 @@
       "pwsh 실행",
       "powershell",
       "최후 수단"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "de": {
     "err.timeout": "[pwsh_exec timeout] wurde nicht innerhalb von {seconds}...",
@@ -67,7 +72,8 @@
       "pwsh ausführen",
       "powershell",
       "letzter ausweg"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "it": {
     "err.timeout": "[timeout pwsh_exec] non è terminato entro {seconds} secondi",
@@ -79,7 +85,8 @@
       "pwsh esegui",
       "powershell",
       "ultima risorsa"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "ru": {
     "err.timeout": "[таймаут pwsh_exec] не завершился в течение {seconds} секунд",
@@ -91,7 +98,8 @@
       "pwsh запуск",
       "powershell",
       "крайняя мера"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "pt_BR": {
     "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
@@ -103,7 +111,8 @@
       "pwsh exec",
       "powershell",
       "último recurso"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "pt": {
     "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
@@ -115,7 +124,8 @@
       "pwsh exec",
       "powershell",
       "último recurso"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "id": {
     "err.timeout": "[pwsh_exec timeout] tidak selesai dalam {seconds} detik",
@@ -127,7 +137,8 @@
       "pwsh jalankan",
       "powershell",
       "upaya terakhir"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "vi": {
     "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng {s...",
@@ -139,7 +150,8 @@
       "pwsh thực thi",
       "powershell",
       "phương án cuối"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "pl": {
     "err.timeout": "[pwsh_exec timeout] nie zakończono w ciągu {seconds} sekund",
@@ -151,7 +163,8 @@
       "pwsh uruchom",
       "powershell",
       "ostateczność"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "hi": {
     "err.timeout": "[pwsh_exec टाइमआउट] {seconds} सेकंड के भीतर समाप्त नहीं हुआ",
@@ -163,7 +176,8 @@
       "pwsh चलाएँ",
       "powershell",
       "अंतिम उपाय"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "ar": {
     "err.timeout": "[مهلة pwsh_exec] لم تنته خلال {seconds} ثانية",
@@ -175,7 +189,8 @@
       "تشغيل pwsh",
       "powershell",
       "آخر ملاذ"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "sv": {
     "err.timeout": "[pwsh_exec timeout] blev inte klar inom {seconds} sekunder",
@@ -187,7 +202,8 @@
       "pwsh kör",
       "powershell",
       "sista utväg"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "sw": {
     "err.timeout": "[pwsh_exec timeout] did not finish within {seconds} seconds",
@@ -199,7 +215,8 @@
       "pwsh run",
       "powershell",
       "last resort"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "nb": {
     "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen {seconds} sekunder",
@@ -211,7 +228,8 @@
       "pwsh kjør",
       "powershell",
       "siste utvei"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "nl": {
     "err.timeout": "[pwsh_exec timeout] niet voltooid binnen {seconds} seconden",
@@ -223,7 +241,8 @@
       "pwsh uitvoeren",
       "powershell",
       "laatste redmiddel"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "fi": {
     "err.timeout": "[pwsh_exec aikakatkaisu] ei valmistunut {seconds} sekunnissa",
@@ -235,7 +254,8 @@
       "pwsh suorita",
       "powershell",
       "viimeinen keino"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "cs": {
     "err.timeout": "[pwsh_exec timeout] nebylo dokončeno během {seconds} sekund",
@@ -247,7 +267,8 @@
       "pwsh spustit",
       "powershell",
       "poslední možnost"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "uk": {
     "err.timeout": "[тайм-аут pwsh_exec] не завершився протягом {seconds} секунд",
@@ -259,7 +280,8 @@
       "pwsh запуск",
       "powershell",
       "крайній захід"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "tr": {
     "err.timeout": "[pwsh_exec timeout] {seconds} saniye içinde tamamlanmadı",
@@ -271,7 +293,8 @@
       "pwsh çalıştır",
       "powershell",
       "son çare"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "th": {
     "err.timeout": "[pwsh_exec หมดเวลา] ไม่เสร็จสิ้นภายใน {seconds} วินาที",
@@ -283,7 +306,8 @@
       "รัน pwsh",
       "powershell",
       "ทางเลือกสุดท้าย"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "zh_CN": {
     "err.timeout": "[pwsh_exec 超时] 未在 {seconds} 秒内完成",
@@ -295,7 +319,8 @@
       "pwsh 执行",
       "powershell",
       "最后手段"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "zh_TW": {
     "err.timeout": "[pwsh_exec 逾時] 未在 {seconds} 秒內完成",
@@ -307,7 +332,8 @@
       "pwsh 執行",
       "powershell",
       "最後手段"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "bn": {
     "err.timeout": "[pwsh_exec timeout] {seconds} সেকেন্ডের মধ্যে শেষ হয়নি",
@@ -319,7 +345,8 @@
       "pwsh চালান",
       "powershell",
       "শেষ উপায়"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "fa": {
     "err.timeout": "[مهلت pwsh_exec] در مدت {seconds} ثانیه تمام نشد",
@@ -331,7 +358,8 @@
       "اجرای pwsh",
       "powershell",
       "آخرین راه"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "mn": {
     "err.timeout": "[pwsh_exec timeout] {seconds} секундийн дотор дууссангүй",
@@ -343,7 +371,8 @@
       "pwsh ажиллуулах",
       "powershell",
       "сүүлийн арга"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "mr": {
     "err.timeout": "[pwsh_exec timeout] {seconds} सेकंदांत पूर्ण झाले नाही",
@@ -355,6 +384,7 @@
       "pwsh चालवा",
       "powershell",
       "शेवटचा पर्याय"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   }
 }

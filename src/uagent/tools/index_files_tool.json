@@ -26,7 +26,8 @@
       "index directory",
       "glob index"
     ],
-    "param.recur.description": "Whether to search recursively when the pattern contains '**'."
+    "param.recur.description": "Whether to search recursively when the pattern contains '**'.",
+    "out.total": "Total files: {count}"
   },
   "ja": {
     "err.glob_fail": "エラー: パターンの解析に失敗しました: {err}",
@@ -49,7 +50,8 @@
       "意味検索",
       "ベクトルDB"
     ],
-    "param.recur.description": "パターンに '**' を含む場合に再帰的に探索するかどうか。"
+    "param.recur.description": "パターンに '**' を含む場合に再帰的に探索するかどうか。",
+    "out.total": "Total files: {count}"
   },
   "es": {
     "err.glob_fail": "Error: no se pudo analizar el patr...",
@@ -72,7 +74,8 @@
       "búsqueda semántica",
       "índice vectorial"
     ],
-    "param.recur.description": "Si se debe buscar de forma recursiva cuando el patrón cont..."
+    "param.recur.description": "Si se debe buscar de forma recursiva cuando el patrón cont...",
+    "out.total": "Total files: {count}"
   },
   "fr": {
     "err.glob_fail": "Erreur : impossible d'analyser le...",
@@ -95,7 +98,8 @@
       "recherche sémantique",
       "index vectoriel"
     ],
-    "param.recur.description": "Indique s'il faut effectuer une recherche récursive lorsqu..."
+    "param.recur.description": "Indique s'il faut effectuer une recherche récursive lorsqu...",
+    "out.total": "Total files: {count}"
   },
   "ko": {
     "err.glob_fail": "오류: 패턴을 구문 분석하지 못했습니다: {err}",
@@ -118,7 +122,8 @@
       "의미 검색",
       "벡터 DB"
     ],
-    "param.recur.description": "패턴에 '**'가 포함된 경우 재귀적으로 검색할지 여부입니다."
+    "param.recur.description": "패턴에 '**'가 포함된 경우 재귀적으로 검색할지 여부입니다.",
+    "out.total": "Total files: {count}"
   },
   "de": {
     "err.glob_fail": "Fehler: Muster konnte nicht analys...",
@@ -141,7 +146,8 @@
       "semantische suche",
       "vektorindex"
     ],
-    "param.recur.description": "Ob rekursiv gesucht werden soll, wenn das Muster '**' enthält."
+    "param.recur.description": "Ob rekursiv gesucht werden soll, wenn das Muster '**' enthält.",
+    "out.total": "Total files: {count}"
   },
   "it": {
     "err.glob_fail": "Errore: impossibile analizzare il...",
@@ -164,7 +170,8 @@
       "ricerca semantica",
       "indice vettoriale"
     ],
-    "param.recur.description": "Indica se eseguire la ricerca in modo ricorsivo quando il..."
+    "param.recur.description": "Indica se eseguire la ricerca in modo ricorsivo quando il...",
+    "out.total": "Total files: {count}"
   },
   "ru": {
     "err.glob_fail": "Ошибка: не удалось разобрать шабло...",
@@ -187,7 +194,8 @@
       "семантический поиск",
       "векторный индекс"
     ],
-    "param.recur.description": "Следует ли выполнять рекурсивный поиск, если шаблон содержит '**'."
+    "param.recur.description": "Следует ли выполнять рекурсивный поиск, если шаблон содержит '**'.",
+    "out.total": "Total files: {count}"
   },
   "pt_BR": {
     "err.glob_fail": "Erro: não foi possível analisar o...",
@@ -210,7 +218,8 @@
       "busca semântica",
       "índice vetorial"
     ],
-    "param.recur.description": "Se deve pesquisar recursivamente quando o padrão contém '**'."
+    "param.recur.description": "Se deve pesquisar recursivamente quando o padrão contém '**'.",
+    "out.total": "Total files: {count}"
   },
   "pt": {
     "err.glob_fail": "Erro: Falha ao analisar o padrão: {err}",
@@ -233,7 +242,8 @@
       "pesquisa semântica",
       "índice vetorial"
     ],
-    "param.recur.description": "Se deve pesquisar recursivamente quando o padrão contém '**'."
+    "param.recur.description": "Se deve pesquisar recursivamente quando o padrão contém '**'.",
+    "out.total": "Total files: {count}"
   },
   "id": {
     "err.glob_fail": "Error: Gagal mengurai pola: {err}",
@@ -256,7 +266,8 @@
       "pencarian semantik",
       "indeks vektor"
     ],
-    "param.recur.description": "Apakah mencari secara rekursif ketika pola berisi '**'."
+    "param.recur.description": "Apakah mencari secara rekursif ketika pola berisi '**'.",
+    "out.total": "Total files: {count}"
   },
   "vi": {
     "err.glob_fail": "Lỗi: Không thể phân tích mẫu: {err}",
@@ -279,7 +290,8 @@
       "tìm kiếm ngữ nghĩa",
       "chỉ mục vector"
     ],
-    "param.recur.description": "Có tìm kiếm đệ quy khi mẫu chứa '**' hay không."
+    "param.recur.description": "Có tìm kiếm đệ quy khi mẫu chứa '**' hay không.",
+    "out.total": "Total files: {count}"
   },
   "pl": {
     "err.glob_fail": "Błąd: nie udało się przeanalizować...",
@@ -302,7 +314,8 @@
       "wyszukiwanie semantyczne",
       "indeks wektorowy"
     ],
-    "param.recur.description": "Określa, czy szukać rekurencyjnie, gdy wzorzec zawiera „**”."
+    "param.recur.description": "Określa, czy szukać rekurencyjnie, gdy wzorzec zawiera „**”.",
+    "out.total": "Total files: {count}"
   },
   "hi": {
     "err.glob_fail": "त्रुटि: पैटर्न पार्स करने में विफल...",
@@ -325,7 +338,8 @@
       "अर्थगत खोज",
       "वेक्टर सूचकांक"
     ],
-    "param.recur.description": "जब पैटर्न में '**' हो तो क्या पुनरावर्ती रूप से खोजना है।"
+    "param.recur.description": "जब पैटर्न में '**' हो तो क्या पुनरावर्ती रूप से खोजना है।",
+    "out.total": "Total files: {count}"
   },
   "ar": {
     "err.glob_fail": "خطأ: فشل تحليل النمط: {err}",
@@ -348,7 +362,8 @@
       "البحث الدلالي",
       "فهرس متجه"
     ],
-    "param.recur.description": "ما إذا كان سيتم البحث بشكل متكرر عندما يحتوي النمط على \"**\"."
+    "param.recur.description": "ما إذا كان سيتم البحث بشكل متكرر عندما يحتوي النمط على \"**\".",
+    "out.total": "Total files: {count}"
   },
   "sv": {
     "err.glob_fail": "Fel: Kunde inte tolka mönstret: {err}",
@@ -371,7 +386,8 @@
       "semantisk sökning",
       "vektorindex"
     ],
-    "param.recur.description": "Om sökningen ska vara rekursiv när mönstret innehåller \"**\"."
+    "param.recur.description": "Om sökningen ska vara rekursiv när mönstret innehåller \"**\".",
+    "out.total": "Total files: {count}"
   },
   "sw": {
     "err.glob_fail": "Error: Failed to parse pattern: {err}",
@@ -394,7 +410,8 @@
       "utafutaji wa kimaana",
       "rejeleo la vekta"
     ],
-    "param.recur.description": "Whether to search recursively when the pattern contains '**'."
+    "param.recur.description": "Whether to search recursively when the pattern contains '**'.",
+    "out.total": "Total files: {count}"
   },
   "nb": {
     "err.glob_fail": "Feil: Klarte ikke å tolke mønstere...",
@@ -417,7 +434,8 @@
       "semantisk søk",
       "vektorindeks"
     ],
-    "param.recur.description": "Om søket skal være rekursivt når mønsteret inneholder \"**\"."
+    "param.recur.description": "Om søket skal være rekursivt når mønsteret inneholder \"**\".",
+    "out.total": "Total files: {count}"
   },
   "nl": {
     "err.glob_fail": "Fout: patroon kon niet worden gepa...",
@@ -440,7 +458,8 @@
       "semantisch zoeken",
       "vectorindex"
     ],
-    "param.recur.description": "Of recursief gezocht wordt wanneer het patroon '**' bevat."
+    "param.recur.description": "Of recursief gezocht wordt wanneer het patroon '**' bevat.",
+    "out.total": "Total files: {count}"
   },
   "fi": {
     "err.glob_fail": "Virhe: kaavaa ei voitu jäsentää: {err}",
@@ -463,7 +482,8 @@
       "semanttinen haku",
       "vektorihakemisto"
     ],
-    "param.recur.description": "Etsitäänkö rekursiivisesti, kun kaava sisältää '**'."
+    "param.recur.description": "Etsitäänkö rekursiivisesti, kun kaava sisältää '**'.",
+    "out.total": "Total files: {count}"
   },
   "cs": {
     "err.glob_fail": "Chyba: Nepodařilo se zpracovat vzo...",
@@ -486,7 +506,8 @@
       "sémantické vyhledávání",
       "vektorový index"
     ],
-    "param.recur.description": "Zda při vzoru obsahujícím '**' hledat rekurzivně."
+    "param.recur.description": "Zda při vzoru obsahujícím '**' hledat rekurzivně.",
+    "out.total": "Total files: {count}"
   },
   "uk": {
     "err.glob_fail": "Помилка: не вдалося розібрати шабл...",
@@ -509,7 +530,8 @@
       "семантичний пошук",
       "векторний індекс"
     ],
-    "param.recur.description": "Чи виконувати рекурсивний пошук, коли шаблон містить '**'."
+    "param.recur.description": "Чи виконувати рекурсивний пошук, коли шаблон містить '**'.",
+    "out.total": "Total files: {count}"
   },
   "tr": {
     "err.glob_fail": "Hata: Desen ayrıştırılamadı: {err}",
@@ -532,7 +554,8 @@
       "anlamsal arama",
       "vektör dizini"
     ],
-    "param.recur.description": "Desen '**' içerdiğinde yinelemeli olarak arama yapılıp yap..."
+    "param.recur.description": "Desen '**' içerdiğinde yinelemeli olarak arama yapılıp yap...",
+    "out.total": "Total files: {count}"
   },
   "th": {
     "err.glob_fail": "ข้อผิดพลาด: ไม่สามารถแยกวิเคราะห์ร...",
@@ -555,7 +578,8 @@
       "ค้นหาเชิงความหมาย",
       "ดัชนีเวกเตอร์"
     ],
-    "param.recur.description": "จะค้นหาแบบวนซ้ำหรือไม่เมื่อรูปแบบมี '**'"
+    "param.recur.description": "จะค้นหาแบบวนซ้ำหรือไม่เมื่อรูปแบบมี '**'",
+    "out.total": "Total files: {count}"
   },
   "zh_CN": {
     "err.glob_fail": "错误：无法解析模式：{err}",
@@ -578,7 +602,8 @@
       "语义搜索",
       "向量索引"
     ],
-    "param.recur.description": "当模式包含“**”时是否递归搜索。"
+    "param.recur.description": "当模式包含“**”时是否递归搜索。",
+    "out.total": "Total files: {count}"
   },
   "zh_TW": {
     "err.glob_fail": "錯誤：無法解析模式：{err}",
@@ -601,7 +626,8 @@
       "語義搜尋",
       "向量索引"
     ],
-    "param.recur.description": "當模式包含「**」時是否遞迴搜尋。"
+    "param.recur.description": "當模式包含「**」時是否遞迴搜尋。",
+    "out.total": "Total files: {count}"
   },
   "bn": {
     "err.glob_fail": "Error: প্যাটার্ন পার্স করতে ব্যর্থ...",
@@ -624,7 +650,8 @@
       "অর্থগত অনুসন্ধান",
       "ভেক্টর সূচি"
     ],
-    "param.recur.description": "Pattern-এ '**' থাকলে recursive search করা হবে কি না।"
+    "param.recur.description": "Pattern-এ '**' থাকলে recursive search করা হবে কি না।",
+    "out.total": "Total files: {count}"
   },
   "fa": {
     "err.glob_fail": "Error: تجزیهٔ pattern با شکست مواج...",
@@ -647,7 +674,8 @@
       "جستجوی معنایی",
       "فهرست برداری"
     ],
-    "param.recur.description": "اگر pattern شامل '**' باشد، جستجوی بازگشتی انجام شود یا نه."
+    "param.recur.description": "اگر pattern شامل '**' باشد، جستجوی بازگشتی انجام شود یا نه.",
+    "out.total": "Total files: {count}"
   },
   "mn": {
     "err.glob_fail": "Error: pattern-ийг задлахад failed...",
@@ -670,7 +698,8 @@
       "семантик хайлт",
       "вектор индекс"
     ],
-    "param.recur.description": "Pattern дотор '**' байвал recursive search хийх эсэх."
+    "param.recur.description": "Pattern дотор '**' байвал recursive search хийх эсэх.",
+    "out.total": "Total files: {count}"
   },
   "mr": {
     "err.glob_fail": "Error: pattern parse करण्यात अपयश...",
@@ -693,6 +722,7 @@
       "अर्थपूर्ण शोध",
       "व्हेक्टर अनुक्रमणिका"
     ],
-    "param.recur.description": "Pattern मध्ये '**' असल्यास recursive search करायची का."
+    "param.recur.description": "Pattern मध्ये '**' असल्यास recursive search करायची का.",
+    "out.total": "Total files: {count}"
   }
 }
