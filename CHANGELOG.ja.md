@@ -5,6 +5,34 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.13] - 2026-06-18
+
+### 新規追加
+- Xiaomi MiMo (`mimo`) プロバイダ対応: OpenAI 互換 API、Reasoning/Thinking モード対応。
+  - `UAGENT_MIMO_API_KEY`、`UAGENT_MIMO_BASE_URL`（デフォルト: `https://api.xiaomimimo.com/v1`）、`UAGENT_MIMO_DEPNAME`（デフォルト: `mimo-v2.5-pro`）。
+  - DeepSeek の reasoning パスを流用し `reasoning_content` を処理。
+  - env_validate、util_providers、setup_cli、runtime_banner を更新。
+  - ENVIRONMENT.md ドキュメントを更新。
+- 動的ツールカタログ: `tool_catalog` / `tool_load` による実行時検出（全ツールの事前読み込み不要）。
+  - GUI/Web/A2A のジャンルチェックボックス切り替え。
+  - README を 30 言語に翻訳（マルチプロバイダ、ツールカタログ機能）。
+- i18n: 全ツール JSON スペックの 30 言語対応を完了。
+  - bn, fa, mn, mr の翻訳を共有 JSON ファイルに追加。
+  - 全ツール JSON ファイルを 30 言語に統一、Python コード由来の不足キーを補完。
+  - vision_runtime.json を 29 言語に翻訳（10 のバックエンド/プロンプトキー）。
+  - 6 ツール JSON ファイルを翻訳（bluesky, switchbot_batch, usb_camera, vision_deepseek, vision_ollama, vision_openai）。
+
+### 修正
+- cmd.exe cp932 環境での ANSI エスケープ文字化けを修正: `_reconfigure_stdio()` で `SetConsoleOutputCP(65001)` を呼び出すよう改善。
+
+## [0.5.12] - 2026-06-18
+
+### 修正
+- VertexAI: `include_server_side_tool_invocations` をスキップ（Enterprise Agent Platform 非対応）。
+- Gemini: ツールスキーマの dangling `required` キーを除去し 400 INVALID_ARGUMENT を回避。
+- Claude/Gemini: `_rate_limit_retry_step` でハードコードではなく `provider` パラメータを使用。
+- `_call_claude_round` / `_call_gemini_round`: 呼び出し元から `provider` を渡すよう修正（NameError 対策）。
+
 ## [0.5.11] - 2026-06-18
 
 ### 新規追加
@@ -28,23 +56,6 @@
 ### 変更
 - ロケールファイルを復元: Z.AI、--use-tool/--no-use-tool、Basic ジャンルの翻訳を全30ロケールに追加。
 - llmcapa 依存関係を 0.2.2 に更新。
-
-## [0.5.12] - 2026-06-18
-
-### 修正
-- VertexAI: `include_server_side_tool_invocations` をスキップ（Enterprise Agent Platform 非対応）。
-- Gemini: ツールスキーマの dangling `required` キーを除去し 400 INVALID_ARGUMENT を回避。
-- Claude/Gemini: `_rate_limit_retry_step` でハードコードではなく `provider` パラメータを使用。
-- `_call_claude_round` / `_call_gemini_round`: 呼び出し元から `provider` を渡すよう修正（NameError 対策）。
-
-## [Unreleased]
-
-### 新規追加
-- Xiaomi MiMo (`mimo`) プロバイダ対応: OpenAI 互換 API、Reasoning/Thinking モード対応。
-  - `UAGENT_MIMO_API_KEY`、`UAGENT_MIMO_BASE_URL`（デフォルト: `https://api.xiaomimimo.com/v1`）、`UAGENT_MIMO_DEPNAME`（デフォルト: `mimo-v2.5-pro`）。
-  - DeepSeek の reasoning パスを流用し `reasoning_content` を処理。
-  - env_validate、util_providers、setup_cli、runtime_banner を更新。
-  - ENVIRONMENT.md ドキュメントを更新。
 
 ## [0.5.10] - 2026-06-18
 
