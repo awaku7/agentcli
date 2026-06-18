@@ -1236,6 +1236,10 @@ def main():
         from .cli_startup import _apply_startup_tool_genre_mask
 
         _apply_startup_tool_genre_mask(web_args.tool_genre_mask)
+    else:
+        from .cli_startup import _apply_startup_tool_genre_mask
+
+        _apply_startup_tool_genre_mask(1)
 
     # Initialize runtime tools_enabled flag.
     # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.

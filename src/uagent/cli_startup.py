@@ -345,6 +345,9 @@ def run_cli_startup(
             elif not non_interactive:
                 _tool_genre_mask = _prompt_startup_tool_genre_mask()
                 _apply_startup_tool_genre_mask(_tool_genre_mask)
+            else:
+                # Default: basic only
+                _apply_startup_tool_genre_mask(1)
 
             core.set_status(False, "")
 

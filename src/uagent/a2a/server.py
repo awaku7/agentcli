@@ -292,6 +292,9 @@ def main(argv: Optional[list[str]] = None) -> None:
         elif sys.stdout.isatty():
             mask = _prompt_startup_tool_genre_mask()
             _apply_startup_tool_genre_mask(mask)
+        else:
+            # Default: basic only
+            _apply_startup_tool_genre_mask(1)
     except Exception:
         pass
 
