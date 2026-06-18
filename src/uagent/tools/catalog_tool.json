@@ -1,332 +1,572 @@
 {
   "en": {
-    "param.query.description": "Natural-language query describing the needed capability.",
-    "tool.description": "Return a lightweight catalog of available tools so the model can discover relevant tools before requesting full tool definitions.",
+    "tool.description": "Return a JSON catalog of available tools with ok, query, count, and tools fields so the model can discover relevant tools before requesting full tool definitions. Results include a 'loaded' field indicating if the tool is currently enabled.",
     "x_search_terms": [
       "catalog",
       "tool catalog",
       "discover tools",
       "tool discovery"
     ],
-    "param.limit.description": "Maximum number of catalog entries to return."
+    "param.query.description": "Natural-language query describing the needed capability.",
+    "param.limit.description": "Maximum number of catalog entries to return.",
+    "tool_load.description": "Load a tool by name so it becomes available for use. Use this after tool_catalog returns a tool with loaded=false. Returns the loaded tool info or an error if not found.",
+    "param.name.description": "Name of the tool to load (e.g. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Number of uses before auto-unload. -1 = unlimited (session lifetime, default). 0 = do not load. >0 = unload after N uses.",
+    "msg.load.missing_name": "Missing 'name' parameter.",
+    "msg.load.persist_unlimited": "unlimited (session)",
+    "msg.load.persist_count": "{n} use(s)",
+    "msg.load.ok": "Tool '{name}' has been loaded (persist={persist}) and is now available.",
+    "msg.load.not_found": "Tool '{name}' not found."
   },
   "ja": {
-    "param.query.description": "必要な機能を説明する自然言語のクエリ。",
-    "tool.description": "利用可能なツールの軽量なカタログを返し、モデルが完全なツール定義を要求する前に関連ツールを見つけられるようにします。",
+    "tool.description": "利用可能なツールのJSONカタログを返します（ok, query, count, tools フィールド）。モデルが完全なツール定義を要求する前に関連ツールを発見できます。結果にはツールが現在有効かどうかを示す 'loaded' フィールドが含まれます。",
     "x_search_terms": [
       "catalog",
       "ツールカタログ",
-      "ツール一覧",
-      "ツール索引"
+      "ツール検索",
+      "ツール発見"
     ],
-    "param.limit.description": "返却するカタログ項目の最大数。"
+    "param.query.description": "必要な機能を説明する自然言語のクエリ。",
+    "param.limit.description": "返却するカタログ項目の最大数。",
+    "tool_load.description": "ツールを名前で読み込み、使用可能にします。tool_catalog が loaded=false のツールを返した後に使用します。読み込まれたツールの情報、またはエラーを返します。",
+    "param.name.description": "読み込むツールの名前（例: 'generate_image', 'excel_ops'）。",
+    "param.persist.description": "自動アンロードまでの使用回数。-1 = 無制限（セッション中有効、デフォルト）。0 = 読み込まない。>0 = N回使用後にアンロード。",
+    "msg.load.missing_name": "'name' パラメータが指定されていません。",
+    "msg.load.persist_unlimited": "無制限（セッション中）",
+    "msg.load.persist_count": "{n} 回",
+    "msg.load.ok": "ツール '{name}' を読み込みました（persist={persist}）。",
+    "msg.load.not_found": "ツール '{name}' が見つかりません。"
   },
   "es": {
-    "param.query.description": "Consulta en lenguaje natural que describe la capacida...",
-    "tool.description": "Devuelve un catálogo ligero de herramientas disponibles para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas de herramientas.",
+    "tool.description": "Devuelve un catálogo JSON de herramientas disponibles con los campos ok, query, count y tools para que el modelo pueda descubrir herramientas relevantes antes de solicitar definiciones completas. Los resultados incluyen un campo 'loaded' que indica si la herramienta está actualmente habilitada.",
     "x_search_terms": [
-      "catalog",
+      "catálogo",
       "catálogo de herramientas",
-      "lista de herramientas",
-      "índice de herramientas"
+      "descubrir herramientas",
+      "descubrimiento de herramientas"
     ],
-    "param.limit.description": "Número máximo de entradas de catálogo a d..."
+    "param.query.description": "Consulta en lenguaje natural que describe la capacidad necesaria.",
+    "param.limit.description": "Número máximo de entradas del catálogo a devolver.",
+    "tool_load.description": "Carga una herramienta por nombre para que esté disponible. Use esto después de que tool_catalog devuelva una herramienta con loaded=false. Devuelve la información de la herramienta cargada o un error si no se encuentra.",
+    "param.name.description": "Nombre de la herramienta a cargar (p. ej., 'generate_image', 'excel_ops').",
+    "param.persist.description": "Número de usos antes de la descarga automática. -1 = ilimitado (duración de la sesión, predeterminado). 0 = no cargar. >0 = descargar después de N usos.",
+    "msg.load.missing_name": "Falta el parámetro 'name'.",
+    "msg.load.persist_unlimited": "ilimitado (sesión)",
+    "msg.load.persist_count": "{n} uso(s)",
+    "msg.load.ok": "La herramienta '{name}' se ha cargado (persist={persist}) y ahora está disponible.",
+    "msg.load.not_found": "Herramienta '{name}' no encontrada."
   },
   "fr": {
-    "param.query.description": "Requête en langage naturel décrivant la capacité nécessaire.",
-    "tool.description": "Renvoie un catalogue allégé des outils disponibles afin que le modèle puisse trouver les outils pertinents avant de demander leurs définitions complètes.",
+    "tool.description": "Retourne un catalogue JSON des outils disponibles avec les champs ok, query, count et tools afin que le modèle puisse découvrir les outils pertinents avant de demander les définitions complètes. Les résultats incluent un champ 'loaded' indiquant si l'outil est actuellement activé.",
     "x_search_terms": [
-      "catalog",
+      "catalogue",
       "catalogue d'outils",
-      "liste d'outils",
-      "index d'outils"
+      "découvrir des outils",
+      "découverte d'outils"
     ],
-    "param.limit.description": "Nombre maximal d'entrées de catalogue à r..."
+    "param.query.description": "Requête en langage naturel décrivant la capacité nécessaire.",
+    "param.limit.description": "Nombre maximum d'entrées du catalogue à retourner.",
+    "tool_load.description": "Charge un outil par son nom pour le rendre disponible. Utilisez ceci après que tool_catalog retourne un outil avec loaded=false. Retourne les informations de l'outil chargé ou une erreur s'il n'est pas trouvé.",
+    "param.name.description": "Nom de l'outil à charger (ex. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Nombre d'utilisations avant le déchargement automatique. -1 = illimité (durée de la session, par défaut). 0 = ne pas charger. >0 = décharger après N utilisations.",
+    "msg.load.missing_name": "Paramètre 'name' manquant.",
+    "msg.load.persist_unlimited": "illimité (session)",
+    "msg.load.persist_count": "{n} utilisation(s)",
+    "msg.load.ok": "L'outil '{name}' a été chargé (persist={persist}) et est maintenant disponible.",
+    "msg.load.not_found": "Outil '{name}' introuvable."
   },
   "ko": {
-    "param.query.description": "필요한 기능을 설명하는 자연어 쿼리입니다.",
-    "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 찾을 수 있도록 사용 가능한 도구의 간단한 카탈로그를 반환합니다.",
+    "tool.description": "모델이 전체 도구 정의를 요청하기 전에 관련 도구를 검색할 수 있도록 ok, query, count 및 tools 필드를 포함한 사용 가능한 도구의 JSON 카탈로그를 반환합니다. 결과에는 도구가 현재 활성화되었는지 나타내는 'loaded' 필드가 포함됩니다.",
     "x_search_terms": [
-      "catalog",
+      "카탈로그",
       "도구 카탈로그",
-      "도구 목록",
-      "도구 색인"
+      "도구 검색",
+      "도구 발견"
     ],
-    "param.limit.description": "반환할 카탈로그 항목의 최대 수입니다."
+    "param.query.description": "필요한 기능을 설명하는 자연어 질의.",
+    "param.limit.description": "반환할 카탈로그 항목의 최대 개수.",
+    "tool_load.description": "도구를 이름으로 로드하여 사용 가능하게 합니다. tool_catalog가 loaded=false인 도구를 반환한 후에 사용하십시오. 로드된 도구 정보를 반환하거나 찾을 수 없으면 오류를 반환합니다.",
+    "param.name.description": "로드할 도구의 이름 (예: 'generate_image', 'excel_ops').",
+    "param.persist.description": "자동 언로드 전 사용 횟수. -1 = 무제한 (세션 수명, 기본값). 0 = 로드하지 않음. >0 = N회 사용 후 언로드.",
+    "msg.load.missing_name": "'name' 매개변수가 누락되었습니다.",
+    "msg.load.persist_unlimited": "무제한 (세션)",
+    "msg.load.persist_count": "{n}회 사용",
+    "msg.load.ok": "도구 '{name}'이(가) 로드되었습니다 (persist={persist}) 이제 사용 가능합니다.",
+    "msg.load.not_found": "도구 '{name}'을(를) 찾을 수 없습니다."
   },
   "de": {
-    "param.query.description": "Abfrage in natürlicher Sprache, die die benötigte Fun...",
-    "tool.description": "Gibt einen leichtgewichtigen Katalog der verfügbaren Tools zurück, damit das Modell relevante Tools entdecken kann, bevor es vollständige Tool-Definitionen anfordert.",
+    "tool.description": "Gibt einen JSON-Katalog verfügbarer Werkzeuge mit den Feldern ok, query, count und tools zurück, damit das Modell relevante Werkzeuge entdecken kann, bevor es vollständige Werkzeugdefinitionen anfordert. Die Ergebnisse enthalten ein 'loaded'-Feld, das angibt, ob das Werkzeug derzeit aktiviert ist.",
     "x_search_terms": [
-      "catalog",
-      "tool-katalog",
-      "tool-liste",
-      "tool-index"
+      "Katalog",
+      "Werkzeugkatalog",
+      "Werkzeuge entdecken",
+      "Werkzeugentdeckung"
     ],
-    "param.limit.description": "Maximale Anzahl der zurückzugebenden Kata..."
+    "param.query.description": "Natürlichsprachliche Abfrage, die die benötigte Fähigkeit beschreibt.",
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Katalogeinträge.",
+    "tool_load.description": "Lädt ein Werkzeug mit seinem Namen, sodass es zur Verwendung verfügbar wird. Verwenden Sie dies, nachdem tool_catalog ein Werkzeug mit loaded=false zurückgegeben hat. Gibt die geladenen Werkzeuginformationen oder einen Fehler zurück, wenn nicht gefunden.",
+    "param.name.description": "Name des zu ladenden Werkzeugs (z.B. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Anzahl der Verwendungen vor dem automatischen Entladen. -1 = unbegrenzt (Sitzungsdauer, Standard). 0 = nicht laden. >0 = nach N Verwendungen entladen.",
+    "msg.load.missing_name": "Fehlender Parameter 'name'.",
+    "msg.load.persist_unlimited": "unbegrenzt (Sitzung)",
+    "msg.load.persist_count": "{n} Verwendung(en)",
+    "msg.load.ok": "Werkzeug '{name}' wurde geladen (persist={persist}) und ist jetzt verfügbar.",
+    "msg.load.not_found": "Werkzeug '{name}' nicht gefunden."
   },
   "it": {
-    "param.query.description": "Query in linguaggio naturale che descrive la funziona...",
-    "tool.description": "Restituisce un catalogo leggero degli strumenti disponibili, così il modello può individuare quelli pertinenti prima di richiederne le definizioni complete.",
+    "tool.description": "Restituisce un catalogo JSON degli strumenti disponibili con i campi ok, query, count e tools in modo che il modello possa scoprire gli strumenti pertinenti prima di richiedere le definizioni complete. I risultati includono un campo 'loaded' che indica se lo strumento è attualmente abilitato.",
     "x_search_terms": [
-      "catalog",
+      "catalogo",
       "catalogo strumenti",
-      "lista strumenti",
-      "indice strumenti"
+      "scopri strumenti",
+      "scoperta strumenti"
     ],
-    "param.limit.description": "Numero massimo di voci del catalogo da re..."
+    "param.query.description": "Query in linguaggio naturale che descrive la capacità necessaria.",
+    "param.limit.description": "Numero massimo di voci del catalogo da restituire.",
+    "tool_load.description": "Carica uno strumento per nome in modo che diventi disponibile per l'uso. Usa questo dopo che tool_catalog restituisce uno strumento con loaded=false. Restituisce le informazioni dello strumento caricato o un errore se non trovato.",
+    "param.name.description": "Nome dello strumento da caricare (es. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Numero di utilizzi prima dello scaricamento automatico. -1 = illimitato (durata della sessione, predefinito). 0 = non caricare. >0 = scarica dopo N utilizzi.",
+    "msg.load.missing_name": "Parametro 'name' mancante.",
+    "msg.load.persist_unlimited": "illimitato (sessione)",
+    "msg.load.persist_count": "{n} utilizzo(i)",
+    "msg.load.ok": "Strumento '{name}' è stato caricato (persist={persist}) ed è ora disponibile.",
+    "msg.load.not_found": "Strumento '{name}' non trovato."
   },
   "ru": {
-    "param.query.description": "Запрос на естественном языке, описывающий необходимую...",
-    "tool.description": "Возвращает облегченный каталог доступных инструментов, чтобы модель могла найти подходящие инструменты перед запросом полных определений инструментов.",
+    "tool.description": "Возвращает JSON-каталог доступных инструментов с полями ok, query, count и tools, чтобы модель могла обнаружить соответствующие инструменты перед запросом полных определений. Результаты включают поле 'loaded', указывающее, включен ли инструмент в настоящее время.",
     "x_search_terms": [
-      "catalog",
+      "каталог",
       "каталог инструментов",
-      "список инструментов",
-      "индекс инструментов"
+      "обнаружить инструменты",
+      "обнаружение инструментов"
     ],
-    "param.limit.description": "Максимальное количество записей каталога..."
+    "param.query.description": "Запрос на естественном языке, описывающий необходимую возможность.",
+    "param.limit.description": "Максимальное количество записей каталога для возврата.",
+    "tool_load.description": "Загружает инструмент по имени, чтобы он стал доступен для использования. Используйте это после того, как tool_catalog вернет инструмент с loaded=false. Возвращает информацию о загруженном инструменте или ошибку, если не найдено.",
+    "param.name.description": "Имя загружаемого инструмента (например, 'generate_image', 'excel_ops').",
+    "param.persist.description": "Количество использований до автоматической выгрузки. -1 = безлимитно (время сеанса, по умолчанию). 0 = не загружать. >0 = выгрузить после N использований.",
+    "msg.load.missing_name": "Отсутствует параметр 'name'.",
+    "msg.load.persist_unlimited": "безлимитно (сеанс)",
+    "msg.load.persist_count": "{n} использование(я)",
+    "msg.load.ok": "Инструмент '{name}' загружен (persist={persist}) и теперь доступен.",
+    "msg.load.not_found": "Инструмент '{name}' не найден."
   },
   "pt_BR": {
-    "param.query.description": "Consulta em linguagem natural descrevendo a capacidad...",
-    "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas.",
+    "tool.description": "Retorna um catálogo JSON de ferramentas disponíveis com os campos ok, query, count e tools para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas. Os resultados incluem um campo 'loaded' indicando se a ferramenta está atualmente habilitada.",
     "x_search_terms": [
-      "catalog",
+      "catálogo",
       "catálogo de ferramentas",
-      "lista de ferramentas",
-      "índice de ferramentas"
+      "descobrir ferramentas",
+      "descoberta de ferramentas"
     ],
-    "param.limit.description": "Número máximo de entradas de catálogo a s..."
+    "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária.",
+    "param.limit.description": "Número máximo de entradas do catálogo a retornar.",
+    "tool_load.description": "Carrega uma ferramenta pelo nome para que ela se torne disponível para uso. Use isto depois que tool_catalog retornar uma ferramenta com loaded=false. Retorna as informações da ferramenta carregada ou um erro se não encontrada.",
+    "param.name.description": "Nome da ferramenta a carregar (ex.: 'generate_image', 'excel_ops').",
+    "param.persist.description": "Número de usos antes do descarregamento automático. -1 = ilimitado (duração da sessão, padrão). 0 = não carregar. >0 = descarregar após N usos.",
+    "msg.load.missing_name": "Parâmetro 'name' ausente.",
+    "msg.load.persist_unlimited": "ilimitado (sessão)",
+    "msg.load.persist_count": "{n} uso(s)",
+    "msg.load.ok": "Ferramenta '{name}' foi carregada (persist={persist}) e agora está disponível.",
+    "msg.load.not_found": "Ferramenta '{name}' não encontrada."
   },
   "pt": {
-    "param.query.description": "Consulta em linguagem natural que descreve a capacida...",
-    "tool.description": "Retorna um catálogo leve das ferramentas disponíveis para que o modelo possa encontrar ferramentas relevantes antes de solicitar as definições completas.",
+    "tool.description": "Retorna um catálogo JSON de ferramentas disponíveis com os campos ok, query, count e tools para que o modelo possa descobrir ferramentas relevantes antes de solicitar definições completas. Os resultados incluem um campo 'loaded' indicando se a ferramenta está atualmente habilitada.",
     "x_search_terms": [
-      "catalog",
+      "catálogo",
       "catálogo de ferramentas",
-      "lista de ferramentas",
-      "índice de ferramentas"
+      "descobrir ferramentas",
+      "descoberta de ferramentas"
     ],
-    "param.limit.description": "Número máximo de entradas de catálogo a s..."
+    "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária.",
+    "param.limit.description": "Número máximo de entradas do catálogo a retornar.",
+    "tool_load.description": "Carrega uma ferramenta pelo nome para que ela se torne disponível para uso. Use isto depois que tool_catalog retornar uma ferramenta com loaded=false. Retorna as informações da ferramenta carregada ou um erro se não encontrada.",
+    "param.name.description": "Nome da ferramenta a carregar (ex.: 'generate_image', 'excel_ops').",
+    "param.persist.description": "Número de usos antes do descarregamento automático. -1 = ilimitado (duração da sessão, padrão). 0 = não carregar. >0 = descarregar após N usos.",
+    "msg.load.missing_name": "Parâmetro 'name' ausente.",
+    "msg.load.persist_unlimited": "ilimitado (sessão)",
+    "msg.load.persist_count": "{n} uso(s)",
+    "msg.load.ok": "Ferramenta '{name}' foi carregada (persist={persist}) e agora está disponível.",
+    "msg.load.not_found": "Ferramenta '{name}' não encontrada."
   },
   "id": {
-    "param.query.description": "Kueri berbahasa alami yang menjelaskan kemampuan yang...",
-    "tool.description": "Kembalikan katalog ringan berisi alat yang tersedia agar model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap.",
+    "tool.description": "Mengembalikan katalog JSON dari alat yang tersedia dengan kolom ok, query, count, dan tools sehingga model dapat menemukan alat yang relevan sebelum meminta definisi alat lengkap. Hasilnya menyertakan kolom 'loaded' yang menunjukkan apakah alat saat ini diaktifkan.",
     "x_search_terms": [
-      "catalog",
+      "katalog",
       "katalog alat",
-      "daftar alat",
-      "indeks alat"
+      "temukan alat",
+      "penemuan alat"
     ],
-    "param.limit.description": "Jumlah maksimum entri katalog yang akan d..."
+    "param.query.description": "Kueri bahasa alami yang menjelaskan kemampuan yang diperlukan.",
+    "param.limit.description": "Jumlah maksimum entri katalog yang akan dikembalikan.",
+    "tool_load.description": "Memuat alat berdasarkan nama sehingga tersedia untuk digunakan. Gunakan ini setelah tool_catalog mengembalikan alat dengan loaded=false. Mengembalikan info alat yang dimuat atau kesalahan jika tidak ditemukan.",
+    "param.name.description": "Nama alat yang akan dimuat (mis. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Jumlah penggunaan sebelum pembongkaran otomatis. -1 = tidak terbatas (masa sesi, default). 0 = jangan dimuat. >0 = bongkar setelah N penggunaan.",
+    "msg.load.missing_name": "Parameter 'name' hilang.",
+    "msg.load.persist_unlimited": "tidak terbatas (sesi)",
+    "msg.load.persist_count": "{n} penggunaan",
+    "msg.load.ok": "Alat '{name}' telah dimuat (persist={persist}) dan sekarang tersedia.",
+    "msg.load.not_found": "Alat '{name}' tidak ditemukan."
   },
   "vi": {
-    "param.query.description": "Truy vấn ngôn ngữ tự nhiên mô tả khả năng cần thiết.",
-    "tool.description": "Trả về một danh mục nhẹ gồm các công cụ có sẵn để mô hình có thể khám phá các công cụ có liên quan trước khi yêu cầu định nghĩa công cụ đầy đủ.",
+    "tool.description": "Trả về danh mục JSON của các công cụ có sẵn với các trường ok, query, count và tools để mô hình có thể khám phá các công cụ liên quan trước khi yêu cầu định nghĩa đầy đủ. Kết quả bao gồm trường 'loaded' cho biết công cụ hiện có được kích hoạt hay không.",
     "x_search_terms": [
-      "catalog",
+      "danh mục",
       "danh mục công cụ",
-      "danh sách công cụ",
-      "chỉ mục công cụ"
+      "khám phá công cụ",
+      "phát hiện công cụ"
     ],
-    "param.limit.description": "Số lượng mục danh mục tối đa cần trả lại."
+    "param.query.description": "Truy vấn ngôn ngữ tự nhiên mô tả khả năng cần thiết.",
+    "param.limit.description": "Số lượng mục danh mục tối đa để trả về.",
+    "tool_load.description": "Tải một công cụ theo tên để nó có sẵn để sử dụng. Sử dụng điều này sau khi tool_catalog trả về công cụ với loaded=false. Trả về thông tin công cụ đã tải hoặc lỗi nếu không tìm thấy.",
+    "param.name.description": "Tên của công cụ cần tải (ví dụ: 'generate_image', 'excel_ops').",
+    "param.persist.description": "Số lần sử dụng trước khi tự động dỡ. -1 = không giới hạn (thời gian phiên, mặc định). 0 = không tải. >0 = dỡ sau N lần sử dụng.",
+    "msg.load.missing_name": "Thiếu tham số 'name'.",
+    "msg.load.persist_unlimited": "không giới hạn (phiên)",
+    "msg.load.persist_count": "{n} lần sử dụng",
+    "msg.load.ok": "Công cụ '{name}' đã được tải (persist={persist}) và hiện đã sẵn sàng.",
+    "msg.load.not_found": "Không tìm thấy công cụ '{name}'."
   },
   "pl": {
-    "param.query.description": "Zapytanie w języku naturalnym opisujące potrzebne możliwości.",
-    "tool.description": "Zwróć uproszczony katalog dostępnych narzędzi, aby model mógł odkryć odpowiednie narzędzia przed zażądaniem pełnych definicji narzędzi.",
+    "tool.description": "Zwraca katalog JSON dostępnych narzędzi z polami ok, query, count i tools, aby model mógł odkryć odpowiednie narzędzia przed żądaniem pełnych definicji. Wyniki zawierają pole 'loaded' wskazujące, czy narzędzie jest obecnie włączone.",
     "x_search_terms": [
-      "catalog",
+      "katalog",
       "katalog narzędzi",
-      "lista narzędzi",
-      "indeks narzędzi"
+      "odkrywaj narzędzia",
+      "odkrywanie narzędzi"
     ],
-    "param.limit.description": "Maksymalna liczba wpisów katalogu do zwrotu."
+    "param.query.description": "Zapytanie w języku naturalnym opisujące potrzebną funkcjonalność.",
+    "param.limit.description": "Maksymalna liczba wpisów katalogu do zwrócenia.",
+    "tool_load.description": "Ładuje narzędzie po nazwie, aby stało się dostępne. Użyj tego, gdy tool_catalog zwróci narzędzie z loaded=false. Zwraca informacje o załadowanym narzędziu lub błąd, jeśli nie znaleziono.",
+    "param.name.description": "Nazwa narzędzia do załadowania (np. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Liczba użyć przed automatycznym rozładowaniem. -1 = bez ograniczeń (czas sesji, domyślnie). 0 = nie ładuj. >0 = rozładuj po N użyciach.",
+    "msg.load.missing_name": "Brakujący parametr 'name'.",
+    "msg.load.persist_unlimited": "bez ograniczeń (sesja)",
+    "msg.load.persist_count": "{n} użycie(a)",
+    "msg.load.ok": "Narzędzie '{name}' zostało załadowane (persist={persist}) i jest teraz dostępne.",
+    "msg.load.not_found": "Nie znaleziono narzędzia '{name}'."
   },
   "hi": {
-    "param.query.description": "आवश्यक क्षमता का वर्णन करने वाली प्राकृतिक-भाषा क्वेरी।",
-    "tool.description": "उपलब्ध टूल का एक हल्का कैटलॉग लौटाएँ ताकि मॉडल पूर्ण टूल परिभाषाओं का अनुरोध करने से पहले प्रासंगिक टूल खोज सके।",
+    "tool.description": "उपलब्ध उपकरणों की एक JSON सूची लौटाता है जिसमें ok, query, count और tools फ़ील्ड हैं ताकि मॉडल पूर्ण उपकरण परिभाषाओं का अनुरोध करने से पहले प्रासंगिक उपकरणों की खोज कर सके। परिणामों में एक 'loaded' फ़ील्ड शामिल है जो इंगित करता है कि उपकरण वर्तमान में सक्षम है या नहीं।",
     "x_search_terms": [
-      "catalog",
-      "टूल कैटलॉग",
-      "टूल सूची",
-      "टूल अनुक्रमणिका"
+      "सूची",
+      "उपकरण सूची",
+      "उपकरण खोजें",
+      "उपकरण खोज"
     ],
-    "param.limit.description": "लौटाने के लिए कैटलॉग प्रविष्टियों की अधिक..."
+    "param.query.description": "आवश्यक क्षमता का वर्णन करने वाली प्राकृतिक भाषा क्वेरी।",
+    "param.limit.description": "लौटाने के लिए सूची प्रविष्टियों की अधिकतम संख्या।",
+    "tool_load.description": "एक उपकरण को नाम से लोड करें ताकि वह उपयोग के लिए उपलब्ध हो जाए। tool_catalog द्वारा loaded=false वाला उपकरण लौटाने के बाद इसका उपयोग करें। लोड किए गए उपकरण की जानकारी या न मिलने पर त्रुटि लौटाता है।",
+    "param.name.description": "लोड करने के लिए उपकरण का नाम (जैसे 'generate_image', 'excel_ops').",
+    "param.persist.description": "स्वचालित अनलोड से पहले उपयोगों की संख्या। -1 = असीमित (सत्र अवधि, डिफ़ॉल्ट)। 0 = लोड न करें। >0 = N उपयोगों के बाद अनलोड करें।",
+    "msg.load.missing_name": "'name' पैरामीटर गायब है।",
+    "msg.load.persist_unlimited": "असीमित (सत्र)",
+    "msg.load.persist_count": "{n} उपयोग",
+    "msg.load.ok": "उपकरण '{name}' लोड हो गया है (persist={persist}) और अब उपलब्ध है।",
+    "msg.load.not_found": "उपकरण '{name}' नहीं मिला।"
   },
   "ar": {
-    "param.query.description": "استعلام بلغة طبيعية يصف القدرة المطلوبة.",
-    "tool.description": "يعرض كتالوجًا خفيفًا للأدوات المتاحة حتى يتمكن النموذج من اكتشاف الأدوات المناسبة قبل طلب التعريفات الكاملة للأدوات.",
+    "tool.description": "إرجاع كتالوج JSON للأدوات المتاحة مع الحقول ok وquery وcount وtools حتى يتمكن النموذج من اكتشاف الأدوات ذات الصلة قبل طلب تعريفات كاملة. تتضمن النتائج حقل 'loaded' يشير إلى ما إذا كانت الأداة مفعلة حاليًا.",
     "x_search_terms": [
-      "catalog",
+      "كتالوج",
       "كتالوج الأدوات",
-      "قائمة الأدوات",
-      "فهرس الأدوات"
+      "اكتشف الأدوات",
+      "اكتشاف الأدوات"
     ],
-    "param.limit.description": "الحد الأقصى لعدد عناصر الكتالوج التي ستُعاد."
+    "param.query.description": "استعلام بلغة طبيعية يصف القدرة المطلوبة.",
+    "param.limit.description": "أقصى عدد من إدخالات الكتالوج لإرجاعها.",
+    "tool_load.description": "تحميل أداة بالاسم لتصبح متاحة للاستخدام. استخدم هذا بعد أن يعيد tool_catalog أداة مع loaded=false. يعيد معلومات الأداة المحملة أو خطأ إذا لم يتم العثور عليها.",
+    "param.name.description": "اسم الأداة المراد تحميلها (مثل 'generate_image', 'excel_ops').",
+    "param.persist.description": "عدد الاستخدامات قبل التفريغ التلقائي. -1 = غير محدود (مدة الجلسة، افتراضي). 0 = لا تحميل. >0 = تفريغ بعد N استخدام.",
+    "msg.load.missing_name": "مفقود معامل 'name'.",
+    "msg.load.persist_unlimited": "غير محدود (جلسة)",
+    "msg.load.persist_count": "{n} استخدام(ات)",
+    "msg.load.ok": "تم تحميل الأداة '{name}' (persist={persist}) وهي الآن متاحة.",
+    "msg.load.not_found": "الأداة '{name}' غير موجودة."
   },
   "sv": {
-    "param.query.description": "Naturlig språk-fråga som beskriver den funktion som behövs.",
-    "tool.description": "Returnerar en lätt katalog över tillgängliga verktyg så att modellen kan hitta relevanta verktyg innan den begär fullständiga verktygsdefinitioner.",
+    "tool.description": "Returnerar en JSON-katalog över tillgängliga verktyg med fälten ok, query, count och tools så att modellen kan upptäcka relevanta verktyg innan den begär fullständiga verktygsdefinitioner. Resultaten innehåller ett fält 'loaded' som indikerar om verktyget för närvarande är aktiverat.",
     "x_search_terms": [
-      "catalog",
+      "katalog",
       "verktygskatalog",
-      "verktygslista",
-      "verktygsindex"
+      "upptäck verktyg",
+      "verktygsupptäckt"
     ],
-    "param.limit.description": "Maximalt antal katalogposter som ska returneras."
+    "param.query.description": "Naturlig-språk-fråga som beskriver den nödvändiga kapaciteten.",
+    "param.limit.description": "Maximalt antal katalogposter att returnera.",
+    "tool_load.description": "Ladda ett verktyg vid namn så att det blir tillgängligt för användning. Använd detta efter att tool_catalog returnerar ett verktyg med loaded=false. Returnerar den laddade verktygsinformationen eller ett fel om inte hittad.",
+    "param.name.description": "Namnet på verktyget att ladda (t.ex. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Antal användningar före automatisk avladdning. -1 = obegränsad (sessionens livslängd, standard). 0 = ladda inte. >0 = ladda av efter N användningar.",
+    "msg.load.missing_name": "Saknat parameter 'name'.",
+    "msg.load.persist_unlimited": "obegränsad (session)",
+    "msg.load.persist_count": "{n} användning(ar)",
+    "msg.load.ok": "Verktyg '{name}' har laddats (persist={persist}) och är nu tillgängligt.",
+    "msg.load.not_found": "Verktyg '{name}' hittades inte."
   },
   "sw": {
-    "param.query.description": "Utafutaji wa lugha ya kawaida unaoeleza uwezo unaohitajika.",
-    "tool.description": "Rudisha katalogi nyepesi ya zana zinazopatikana ili modeli iweze kugundua zana husika kabla ya kuomba ufafanuzi kamili wa zana.",
+    "tool.description": "Inarudisha katalogi ya JSON ya zana zinazopatikana zenye sehemu za ok, query, count, na tools ili model iweze kugundua zana muhimu kabla ya kuomba ufafanuzi kamili. Matokeo yanajumuisha sehemu ya 'loaded' inayoonyesha kama zana imewashwa kwa sasa.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "katalogi",
+      "katalogi ya zana",
+      "gundua zana",
+      "ugunduzi wa zana"
     ],
-    "param.limit.description": "Idadi ya juu ya maingizo ya katalogi ya k..."
+    "param.query.description": "Hoja ya lugha asilia inayoelezea uwezo unaohitajika.",
+    "param.limit.description": "Idadi ya juu zaidi ya viingilio vya katalogi kurudisha.",
+    "tool_load.description": "Pakia zana kwa jina ili iweze kutumika. Tumia hii baada ya tool_catalog kurudisha zana yenye loaded=false. Inarudisha maelezo ya zana iliyopakiwa au hitilafu ikiwa haipatikani.",
+    "param.name.description": "Jina la zana ya kupakia (mfano 'generate_image', 'excel_ops').",
+    "param.persist.description": "Idadi ya matumizi kabla ya kupakua kiotomatiki. -1 = isiyo na kikomo (muda wa kikao, chaguomsingi). 0 = usipakia. >0 = pakua baada ya matumizi N.",
+    "msg.load.missing_name": "Kigezo cha 'name' hakipo.",
+    "msg.load.persist_unlimited": "isiyo na kikomo (kikao)",
+    "msg.load.persist_count": "{n} matumizi",
+    "msg.load.ok": "Zana '{name}' imepakiwa (persist={persist}) na sasa inapatikana.",
+    "msg.load.not_found": "Zana '{name}' haijapatikana."
   },
   "nb": {
-    "param.query.description": "Naturlig språkspørring som beskriver funksjonen som trengs.",
-    "tool.description": "Returnerer en lett katalog over tilgjengelige verktøy slik at modellen kan finne relevante verktøy før den ber om fullstendige verktøydefinisjoner.",
+    "tool.description": "Returnerer en JSON-katalog over tilgjengelige verktøy med feltene ok, query, count og tools, slik at modellen kan oppdage relevante verktøy før den ber om fullstendige verktøydefinisjoner. Resultatene inkluderer et 'loaded'-felt som indikerer om verktøyet er aktivert for øyeblikket.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "katalog",
+      "verktøykatalog",
+      "oppdag verktøy",
+      "verktøyoppdagelse"
     ],
-    "param.limit.description": "Maksimalt antall katalogoppføringer som s..."
+    "param.query.description": "Naturlig språk-spørring som beskriver den nødvendige kapasiteten.",
+    "param.limit.description": "Maksimalt antall katalogoppføringer å returnere.",
+    "tool_load.description": "Laster et verktøy ved navn slik at det blir tilgjengelig for bruk. Bruk dette etter at tool_catalog returnerer et verktøy med loaded=false. Returnerer den lastede verktøyinformasjonen eller en feil hvis ikke funnet.",
+    "param.name.description": "Navnet på verktøyet som skal lastes (f.eks. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Antall bruk før automatisk avlasting. -1 = ubegrenset (sesjonens levetid, standard). 0 = ikke last. >0 = avlast etter N bruk.",
+    "msg.load.missing_name": "Manglende parameter 'name'.",
+    "msg.load.persist_unlimited": "ubegrenset (sesjon)",
+    "msg.load.persist_count": "{n} bruk",
+    "msg.load.ok": "Verktøy '{name}' er lastet (persist={persist}) og er nå tilgjengelig.",
+    "msg.load.not_found": "Verktøy '{name}' ikke funnet."
   },
   "nl": {
-    "param.query.description": "Query in natuurlijke taal die de benodigde mogelijkhe...",
-    "tool.description": "Geef een lichtgewicht catalogus van beschikbare tools terug, zodat het model relevante tools kan vinden voordat volledige tooldefinities worden opgevraagd.",
+    "tool.description": "Retourneert een JSON-catalogus van beschikbare tools met de velden ok, query, count en tools, zodat het model relevante tools kan ontdekken voordat het volledige tooldefinities opvraagt. Resultaten bevatten een 'loaded'-veld dat aangeeft of de tool momenteel is ingeschakeld.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "catalogus",
+      "toolcatalogus",
+      "tools ontdekken",
+      "toolontdekking"
     ],
-    "param.limit.description": "Maximaal aantal catalogusitems om terug t..."
+    "param.query.description": "Natuurlijke-taalquery die de benodigde mogelijkheid beschrijft.",
+    "param.limit.description": "Maximaal aantal catalogusitems om terug te geven.",
+    "tool_load.description": "Laadt een tool op naam zodat deze beschikbaar wordt voor gebruik. Gebruik dit nadat tool_catalog een tool retourneert met loaded=false. Retourneert de geladen toolinfo of een foutmelding als niet gevonden.",
+    "param.name.description": "Naam van de te laden tool (bijv. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Aantal keer gebruiken voordat automatisch wordt uitgeladen. -1 = onbeperkt (sessieduur, standaard). 0 = niet laden. >0 = uitladen na N keer gebruiken.",
+    "msg.load.missing_name": "Ontbrekende parameter 'name'.",
+    "msg.load.persist_unlimited": "onbeperkt (sessie)",
+    "msg.load.persist_count": "{n} gebruik(en)",
+    "msg.load.ok": "Tool '{name}' is geladen (persist={persist}) en is nu beschikbaar.",
+    "msg.load.not_found": "Tool '{name}' niet gevonden."
   },
   "fi": {
-    "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavan om...",
-    "tool.description": "Palauta kevyt luettelo käytettävissä olevista työkaluista, jotta malli voi löytää sopivat työkalut ennen täydellisten työkalumääritysten pyytämistä.",
+    "tool.description": "Palauttaa JSON-luettelon käytettävissä olevista työkaluista, joissa on kentät ok, query, count ja tools, jotta malli voi löytää asiaankuuluvia työkaluja ennen täydellisten työkalujen määritelmien pyytämistä. Tulokset sisältävät 'loaded'-kentän, joka ilmaisee, onko työkalu tällä hetkellä käytössä.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "luettelo",
+      "työkaluvalikoima",
+      "löydä työkaluja",
+      "työkalujen löytäminen"
     ],
-    "param.limit.description": "Palautettavien luettelomerkintöjen enimmä..."
+    "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavaa kyvykkyyttä.",
+    "param.limit.description": "Palautettavien luettelomerkintöjen enimmäismäärä.",
+    "tool_load.description": "Lataa työkalu nimellä, jotta se tulee käytettäväksi. Käytä tätä, kun tool_catalog palauttaa työkalun, jolla on loaded=false. Palauttaa ladatun työkalun tiedot tai virheen, jos sitä ei löydy.",
+    "param.name.description": "Ladattavan työkalun nimi (esim. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Käyttökertojen määrä ennen automaattista poistoa. -1 = rajoittamaton (istunnon kesto, oletus). 0 = älä lataa. >0 = poista N käyttökerran jälkeen.",
+    "msg.load.missing_name": "Puuttuva 'name'-parametri.",
+    "msg.load.persist_unlimited": "rajoittamaton (istunto)",
+    "msg.load.persist_count": "{n} käyttökerta(a)",
+    "msg.load.ok": "Työkalu '{name}' on ladattu (persist={persist}) ja on nyt käytettävissä.",
+    "msg.load.not_found": "Työkalua '{name}' ei löytynyt."
   },
   "cs": {
-    "param.query.description": "Dotaz v přirozeném jazyce popisující požadovanou schopnost.",
-    "tool.description": "Vrátí lehký katalog dostupných nástrojů, aby model mohl najít relevantní nástroje dříve, než si vyžádá jejich úplné definice.",
+    "tool.description": "Vrací JSON katalog dostupných nástrojů s poli ok, query, count a tools, aby model mohl objevit relevantní nástroje před požadavkem na úplné definice nástrojů. Výsledky obsahují pole 'loaded' indikující, zda je nástroj aktuálně povolen.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "katalog",
+      "katalog nástrojů",
+      "objevovat nástroje",
+      "objevování nástrojů"
     ],
-    "param.limit.description": "Maximální počet položek katalogu k vrácení."
+    "param.query.description": "Dotaz v přirozeném jazyce popisující požadovanou schopnost.",
+    "param.limit.description": "Maximální počet položek katalogu k vrácení.",
+    "tool_load.description": "Načte nástroj podle názvu, aby byl k dispozici pro použití. Použijte to poté, co tool_catalog vrátí nástroj s loaded=false. Vrací informace o načteném nástroji nebo chybu, pokud není nalezen.",
+    "param.name.description": "Název nástroje k načtení (např. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Počet použití před automatickým uvolněním. -1 = neomezeně (doba relace, výchozí). 0 = nenačítat. >0 = uvolnit po N použitích.",
+    "msg.load.missing_name": "Chybějící parametr 'name'.",
+    "msg.load.persist_unlimited": "neomezeně (relace)",
+    "msg.load.persist_count": "{n} použití",
+    "msg.load.ok": "Nástroj '{name}' byl načten (persist={persist}) a je nyní k dispozici.",
+    "msg.load.not_found": "Nástroj '{name}' nenalezen."
   },
   "uk": {
-    "param.query.description": "Запит природною мовою, що описує потрібну можливість.",
-    "tool.description": "Повертає легкий каталог доступних інструментів, щоб модель могла знайти потрібні інструменти ще до запиту повних визначень інструментів.",
+    "tool.description": "Повертає JSON-каталог доступних інструментів з полями ok, query, count і tools, щоб модель могла виявити відповідні інструменти перед запитом повних визначень. Результати включають поле 'loaded', яке вказує, чи ввімкнено інструмент наразі.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "каталог",
+      "каталог інструментів",
+      "виявити інструменти",
+      "виявлення інструментів"
     ],
-    "param.limit.description": "Максимальна кількість елементів каталогу..."
+    "param.query.description": "Запит природною мовою, що описує необхідну можливість.",
+    "param.limit.description": "Максимальна кількість записів каталогу для повернення.",
+    "tool_load.description": "Завантажує інструмент за назвою, щоб він став доступним для використання. Використовуйте це після того, як tool_catalog поверне інструмент із loaded=false. Повертає інформацію про завантажений інструмент або помилку, якщо не знайдено.",
+    "param.name.description": "Назва інструменту для завантаження (наприклад, 'generate_image', 'excel_ops').",
+    "param.persist.description": "Кількість використань перед автоматичним вивантаженням. -1 = безлімітно (тривалість сеансу, за замовчуванням). 0 = не завантажувати. >0 = вивантажити після N використань.",
+    "msg.load.missing_name": "Відсутній параметр 'name'.",
+    "msg.load.persist_unlimited": "безлімітно (сеанс)",
+    "msg.load.persist_count": "{n} використання(ів)",
+    "msg.load.ok": "Інструмент '{name}' завантажено (persist={persist}) і тепер доступний.",
+    "msg.load.not_found": "Інструмент '{name}' не знайдено."
   },
   "tr": {
-    "param.query.description": "Gerekli yeteneği açıklayan doğal dil sorgusu.",
-    "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için mevcut araçların basit bir kataloğunu döndürün.",
+    "tool.description": "Modelin tam araç tanımlarını istemeden önce ilgili araçları keşfedebilmesi için ok, query, count ve tools alanlarını içeren mevcut araçların bir JSON kataloğunu döndürür. Sonuçlar, aracın şu anda etkin olup olmadığını gösteren bir 'loaded' alanı içerir.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "katalog",
+      "araç kataloğu",
+      "araçları keşfet",
+      "araç keşfi"
     ],
-    "param.limit.description": "Döndürülecek maksimum katalog girişi sayısı."
+    "param.query.description": "Gerekli yeteneği tanımlayan doğal dil sorgusu.",
+    "param.limit.description": "Döndürülecek katalog girişlerinin maksimum sayısı.",
+    "tool_load.description": "Bir aracı ada göre yükleyerek kullanıma hazır hale getirir. tool_catalog'un loaded=false ile bir araç döndürmesinden sonra bunu kullanın. Yüklenen araç bilgisini veya bulunamazsa bir hata döndürür.",
+    "param.name.description": "Yüklenecek aracın adı (örn. 'generate_image', 'excel_ops').",
+    "param.persist.description": "Otomatik boşaltmadan önceki kullanım sayısı. -1 = sınırsız (oturum süresi, varsayılan). 0 = yükleme. >0 = N kullanımdan sonra boşalt.",
+    "msg.load.missing_name": "Eksik 'name' parametresi.",
+    "msg.load.persist_unlimited": "sınırsız (oturum)",
+    "msg.load.persist_count": "{n} kullanım",
+    "msg.load.ok": "Araç '{name}' yüklendi (persist={persist}) ve artık kullanılabilir.",
+    "msg.load.not_found": "Araç '{name}' bulunamadı."
   },
   "th": {
-    "param.query.description": "คำถามภาษาธรรมชาติที่อธิบายความสามารถที่ต้องการ",
-    "tool.description": "ส่งคืนแคตตาล็อกน้ำหนักเบาของเครื่องมือที่มีอยู่ เพื่อให้โมเดลสามารถค้นหาเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือทั้งหมด",
+    "tool.description": "ส่งคืนแคตตาล็อก JSON ของเครื่องมือที่พร้อมใช้งานพร้อมฟิลด์ ok, query, count และ tools เพื่อให้โมเดลสามารถค้นพบเครื่องมือที่เกี่ยวข้องก่อนที่จะขอคำจำกัดความของเครื่องมือทั้งหมด ผลลัพธ์รวมถึงฟิลด์ 'loaded' ที่ระบุว่าเครื่องมือเปิดใช้งานอยู่ในปัจจุบันหรือไม่",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "แคตตาล็อก",
+      "แคตตาล็อกเครื่องมือ",
+      "ค้นพบเครื่องมือ",
+      "การค้นพบเครื่องมือ"
     ],
-    "param.limit.description": "จำนวนรายการแคตตาล็อกสูงสุดที่จะส่งคืน"
+    "param.query.description": "ข้อความค้นหาภาษาธรรมชาติที่อธิบายความสามารถที่ต้องการ",
+    "param.limit.description": "จำนวนรายการแคตตาล็อกสูงสุดที่จะส่งคืน",
+    "tool_load.description": "โหลดเครื่องมือตามชื่อเพื่อให้พร้อมใช้งาน ใช้สิ่งนี้หลังจาก tool_catalog ส่งคืนเครื่องมือที่มี loaded=false ส่งคืนข้อมูลเครื่องมือที่โหลดหรือข้อผิดพลาดหากไม่พบ",
+    "param.name.description": "ชื่อของเครื่องมือที่จะโหลด (เช่น 'generate_image', 'excel_ops')",
+    "param.persist.description": "จำนวนการใช้งานก่อนการยกเลิกโหลดอัตโนมัติ -1 = ไม่จำกัด (อายุเซสชัน, ค่าเริ่มต้น) 0 = ไม่โหลด >0 = ยกเลิกโหลดหลังจากใช้งาน N ครั้ง",
+    "msg.load.missing_name": "ขาดพารามิเตอร์ 'name'",
+    "msg.load.persist_unlimited": "ไม่จำกัด (เซสชัน)",
+    "msg.load.persist_count": "{n} การใช้งาน",
+    "msg.load.ok": "โหลดเครื่องมือ '{name}' แล้ว (persist={persist}) และพร้อมใช้งานแล้ว",
+    "msg.load.not_found": "ไม่พบเครื่องมือ '{name}'"
   },
   "zh_CN": {
-    "param.query.description": "描述所需功能的自然语言查询。",
-    "tool.description": "返回可用工具的轻量级目录，以便模型在请求完整的工具定义之前可以发现相关的工具。",
+    "tool.description": "返回可用工具的 JSON 目录，包含 ok、query、count 和 tools 字段，以便模型在请求完整工具定义之前发现相关工具。结果包含一个 'loaded' 字段，指示该工具当前是否已启用。",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "目录",
+      "工具目录",
+      "发现工具",
+      "工具发现"
     ],
-    "param.limit.description": "要返回的目录条目的最大数量。"
+    "param.query.description": "描述所需功能的自然语言查询。",
+    "param.limit.description": "要返回的目录条目最大数量。",
+    "tool_load.description": "按名称加载工具，使其可用于使用。在 tool_catalog 返回 loaded=false 的工具后使用此功能。返回加载的工具信息，如果未找到则返回错误。",
+    "param.name.description": "要加载的工具名称（例如 'generate_image'、'excel_ops'）。",
+    "param.persist.description": "自动卸载前的使用次数。-1 = 无限制（会话生命周期，默认）。0 = 不加载。>0 = 在 N 次使用后卸载。",
+    "msg.load.missing_name": "缺少 'name' 参数。",
+    "msg.load.persist_unlimited": "无限制（会话）",
+    "msg.load.persist_count": "{n} 次使用",
+    "msg.load.ok": "工具 '{name}' 已加载（persist={persist}），现在可用。",
+    "msg.load.not_found": "未找到工具 '{name}'。"
   },
   "zh_TW": {
-    "param.query.description": "描述所需功能的自然語言查詢。",
-    "tool.description": "傳回可用工具的輕量級目錄，以便模型在請求完整的工具定義之前可以發現相關的工具。",
+    "tool.description": "返回可用工具的 JSON 目錄，包含 ok、query、count 和 tools 欄位，以便模型在請求完整工具定義之前發現相關工具。結果包含一個 'loaded' 欄位，指示該工具目前是否已啟用。",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "目錄",
+      "工具目錄",
+      "發現工具",
+      "工具發現"
     ],
-    "param.limit.description": "要傳回的目錄條目的最大數量。"
+    "param.query.description": "描述所需功能的自然語言查詢。",
+    "param.limit.description": "要返回的目錄條目最大數量。",
+    "tool_load.description": "按名稱載入工具，使其可用於使用。在 tool_catalog 返回 loaded=false 的工具後使用此功能。返回載入的工具資訊，如果未找到則返回錯誤。",
+    "param.name.description": "要載入的工具名稱（例如 'generate_image'、'excel_ops'）。",
+    "param.persist.description": "自動卸載前的使用次數。-1 = 無限制（會話生命週期，預設）。0 = 不載入。>0 = 在 N 次使用後卸載。",
+    "msg.load.missing_name": "缺少 'name' 參數。",
+    "msg.load.persist_unlimited": "無限制（會話）",
+    "msg.load.persist_count": "{n} 次使用",
+    "msg.load.ok": "工具 '{name}' 已載入（persist={persist}），現在可用。",
+    "msg.load.not_found": "未找到工具 '{name}'。"
   },
   "bn": {
-    "param.query.description": "প্রয়োজনীয় ক্ষমতাটি বর্ণনা করে এমন প্রাকৃতিক ভাষার প্রশ্ন।",
-    "tool.description": "উপলভ্য টুলগুলোর একটি হালকা ক্যাটালগ ফেরত দেয়, যাতে পুরো টুলের সংজ্ঞা চাইবার আগে মডেল প্রাসঙ্গিক টুল খুঁজে পায়।",
+    "tool.description": "উপলব্ধ টুলের একটি JSON ক্যাটালগ ফেরত দেয় যার মধ্যে ok, query, count এবং tools ফিল্ড রয়েছে যাতে মডেল সম্পূর্ণ টুল সংজ্ঞা অনুরোধ করার আগে প্রাসঙ্গিক টুল আবিষ্কার করতে পারে। ফলাফলে একটি 'loaded' ফিল্ড অন্তর্ভুক্ত যা নির্দেশ করে টুলটি বর্তমানে সক্রিয় কিনা।",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "ক্যাটালগ",
+      "টুল ক্যাটালগ",
+      "টুল আবিষ্কার করুন",
+      "টুল আবিষ্কার"
     ],
-    "param.limit.description": "ফেরত দেওয়ার জন্য ক্যাটালগ এন্ট্রির সর্বা..."
+    "param.query.description": "প্রয়োজনীয় ক্ষমতা বর্ণনা করে প্রাকৃতিক ভাষার প্রশ্ন।",
+    "param.limit.description": "ফেরত দেওয়ার জন্য ক্যাটালগ এন্ট্রির সর্বাধিক সংখ্যা।",
+    "tool_load.description": "একটি টুল নাম দিয়ে লোড করুন যাতে এটি ব্যবহারের জন্য উপলব্ধ হয়। tool_catalog loaded=false সহ একটি টুল ফেরত দেওয়ার পরে এটি ব্যবহার করুন। লোড করা টুল তথ্য বা না পাওয়া গেলে একটি ত্রুটি ফেরত দেয়।",
+    "param.name.description": "লোড করার জন্য টুলের নাম (যেমন 'generate_image', 'excel_ops')।",
+    "param.persist.description": "স্বয়ংক্রিয় আনলোডের আগে ব্যবহারের সংখ্যা। -1 = সীমাহীন (সেশনের জীবনকাল, ডিফল্ট)। 0 = লোড করবেন না। >0 = N ব্যবহারের পরে আনলোড করুন।",
+    "msg.load.missing_name": "'name' প্যারামিটার অনুপস্থিত।",
+    "msg.load.persist_unlimited": "সীমাহীন (সেশন)",
+    "msg.load.persist_count": "{n} ব্যবহার",
+    "msg.load.ok": "টুল '{name}' লোড হয়েছে (persist={persist}) এবং এখন উপলব্ধ।",
+    "msg.load.not_found": "টুল '{name}' পাওয়া যায়নি।"
   },
   "fa": {
-    "param.query.description": "پرس‌وجوی زبانِ طبیعی که قابلیتِ موردنیاز را توصیف می‌کند.",
-    "tool.description": "فهرستی سبک از ابزارهای موجود برمی‌گرداند تا مدل بتواند پیش از درخواست تعریف کامل ابزارها، ابزارهای مرتبط را پیدا کند.",
+    "tool.description": "یک کاتالوگ JSON از ابزارهای موجود با فیلدهای ok، query، count و tools برمی‌گرداند تا مدل بتواند ابزارهای مرتبط را قبل از درخواست تعاریف کامل ابزار کشف کند. نتایج شامل یک فیلد 'loaded' است که نشان می‌دهد آیا ابزار در حال حاضر فعال است.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "کاتالوگ",
+      "کاتالوگ ابزار",
+      "کشف ابزارها",
+      "کشف ابزار"
     ],
-    "param.limit.description": "حداکثر تعداد ورودی‌های فهرست برای بازگرداندن."
+    "param.query.description": "پرس و جوی زبان طبیعی که قابلیت مورد نیاز را توصیف می‌کند.",
+    "param.limit.description": "حداکثر تعداد ورودی‌های کاتالوگ برای بازگشت.",
+    "tool_load.description": "یک ابزار را با نام بارگذاری کنید تا برای استفاده در دسترس باشد. پس از اینکه tool_catalog ابزاری با loaded=false برگرداند، از این استفاده کنید. اطلاعات ابزار بارگذاری شده یا در صورت یافتن نشدن خطا برمی‌گرداند.",
+    "param.name.description": "نام ابزار برای بارگذاری (به عنوان مثال 'generate_image', 'excel_ops').",
+    "param.persist.description": "تعداد استفاده‌ها قبل از تخلیه خودکار. -1 = نامحدود (طول جلسه، پیش‌فرض). 0 = بارگذاری نشود. >0 = پس از N استفاده تخلیه شود.",
+    "msg.load.missing_name": "پارامتر 'name' وجود ندارد.",
+    "msg.load.persist_unlimited": "نامحدود (جلسه)",
+    "msg.load.persist_count": "{n} استفاده",
+    "msg.load.ok": "ابزار '{name}' بارگذاری شده است (persist={persist}) و اکنون در دسترس است.",
+    "msg.load.not_found": "ابزار '{name}' یافت نشد."
   },
   "mn": {
-    "param.query.description": "Шаардлагатай чадамжийг тайлбарласан байгалийн хэлний асуулга.",
-    "tool.description": "Бүрэн хэрэгслийн тодорхойлолт хүсэхээс өмнө загвар холбогдох хэрэгслийг олохын тулд боломжит хэрэгслүүдийн хөнгөн каталогийг буцаана.",
+    "tool.description": "Боломжтой хэрэгслүүдийн JSON каталогийг ok, query, count болон tools талбаруудтай хамт буцаана, ингэснээр загвар нь бүрэн хэрэгслийн тодорхойлолтыг хүсэхээс өмнө холбогдох хэрэгслүүдийг олж илрүүлэх боломжтой. Үр дүнд хэрэгсэл одоогоор идэвхжсэн эсэхийг харуулсан 'loaded' талбар орно.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "каталог",
+      "хэрэгслийн каталог",
+      "хэрэгслүүдийг нээх",
+      "хэрэгсэл нээлт"
     ],
-    "param.limit.description": "Буцаах каталогийн оруулгын дээд тоо."
+    "param.query.description": "Шаардлагатай чадварыг тодорхойлсон байгалийн хэлний асуулт.",
+    "param.limit.description": "Буцаах каталогийн оруулгын дээд тоо.",
+    "tool_load.description": "Хэрэгслийг нэрээр нь ачаалж, ашиглах боломжтой болгоно. tool_catalog нь loaded=false-тэй хэрэгсэл буцаасны дараа үүнийг ашиглана уу. Ачаалагдсан хэрэгслийн мэдээллийг эсвэл олдохгүй бол алдааг буцаана.",
+    "param.name.description": "Ачаалах хэрэгслийн нэр (жишээ нь 'generate_image', 'excel_ops').",
+    "param.persist.description": "Автомат буулгахаас өмнөх ашиглалтын тоо. -1 = хязгааргүй (сессийн хугацаа, анхдагч). 0 = бүү ачаал. >0 = N ашиглалтын дараа буулга.",
+    "msg.load.missing_name": "'name' параметр дутуу байна.",
+    "msg.load.persist_unlimited": "хязгааргүй (сесс)",
+    "msg.load.persist_count": "{n} ашиглалт",
+    "msg.load.ok": "Хэрэгсэл '{name}' ачаалагдсан (persist={persist}) бөгөөд одоо бэлэн байна.",
+    "msg.load.not_found": "Хэрэгсэл '{name}' олдсонгүй."
   },
   "mr": {
-    "param.query.description": "आवश्यक क्षमता वर्णन करणारी नैसर्गिक-भाषेतील चौकशी.",
-    "tool.description": "उपलब्ध साधनांचा हलका कॅटलॉग परत करते, जेणेकरून पूर्ण साधन व्याख्या मागण्यापूर्वी मॉडेलला संबंधित साधने शोधता येतील.",
+    "tool.description": "उपलब्ध साधनांची JSON कॅटलॉग परत करते ज्यामध्ये ok, query, count आणि tools फील्ड आहेत जेणेकरून मॉडेल पूर्ण साधन व्याख्येची विनंती करण्यापूर्वी संबंधित साधने शोधू शकेल. परिणामांमध्ये 'loaded' फील्ड समाविष्ट आहे जे सूचित करते की साधन सध्या सक्षम आहे की नाही.",
     "x_search_terms": [
-      "catalog",
-      "tool catalog",
-      "tool list",
-      "tool index"
+      "कॅटलॉग",
+      "साधन कॅटलॉग",
+      "साधने शोधा",
+      "साधन शोध"
     ],
-    "param.limit.description": "परत करायच्या कॅटलॉग नोंदींची कमाल संख्या."
+    "param.query.description": "आवश्यक क्षमतेचे वर्णन करणारी नैसर्गिक भाषा क्वेरी.",
+    "param.limit.description": "परत करण्यासाठी कॅटलॉग नोंदींची कमाल संख्या.",
+    "tool_load.description": "एखादे साधन नावाने लोड करा जेणेकरून ते वापरासाठी उपलब्ध होईल. tool_catalog ने loaded=false सह साधन परत केल्यानंतर हे वापरा. लोड केलेले साधन माहिती किंवा सापडले नाही तर त्रुटी परत करते.",
+    "param.name.description": "लोड करण्यासाठी साधनाचे नाव (उदा. 'generate_image', 'excel_ops').",
+    "param.persist.description": "स्वयंचलित अनलोड करण्यापूर्वी वापरांची संख्या. -1 = अमर्यादित (सत्र आयुष्य, डीफॉल्ट). 0 = लोड करू नका. >0 = N वापरांनंतर अनलोड करा.",
+    "msg.load.missing_name": "'name' पॅरामीटर गहाळ आहे.",
+    "msg.load.persist_unlimited": "अमर्यादित (सत्र)",
+    "msg.load.persist_count": "{n} वापर",
+    "msg.load.ok": "साधन '{name}' लोड केले गेले आहे (persist={persist}) आणि आता उपलब्ध आहे.",
+    "msg.load.not_found": "साधन '{name}' सापडले नाही."
   }
 }
