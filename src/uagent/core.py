@@ -105,6 +105,16 @@ def _reconfigure_stdio() -> None:
         else (_get_windows_console_output_encoding() or "cp932")
     )
 
+    # Switch console code page to UTF-8 so ANSI escape sequences (ESC byte 0x1B)
+    # are not silently corrupted by cp932 (or other non-UTF-8 code pages).
+    # Only do this for classic cmd.exe; ConPTY terminals (WT/VSCode) are skipped above.
+    try:
+        import ctypes
+
+        ctypes.windll.kernel32.SetConsoleOutputCP(65001)
+    except Exception:
+        pass
+
     try:
         if stdout_tty and hasattr(sys.stdout, "reconfigure"):
             sys.stdout.reconfigure(encoding=enc, errors="replace")
