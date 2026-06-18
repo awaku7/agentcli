@@ -28,7 +28,11 @@
     "msg.media.disabled": "[tools] أدوات الوسائط (media) مُعطَّلة: {names}",
     "msg.media.none_enabled": "[tools] لم يتم تفعيل أي أدوات وسائط.",
     "msg.media.none_disabled": "[tools] لم يتم تعطيل أي أدوات وسائط.",
-    "tool.description": "أداة وهمية لتسجيل التحكم في النوع."
+    "tool.description": "أداة وهمية لتسجيل التحكم في النوع.",
+    "msg.basic.enabled": "[tools] تم تمكين الأدوات الأساسية (basic): {names}",
+    "msg.basic.disabled": "[tools] تم تعطيل الأدوات الأساسية (basic): {names}",
+    "msg.basic.none_enabled": "[tools] لم يتم تمكين أي أدوات أساسية.",
+    "msg.basic.none_disabled": "[tools] لم يتم تعطيل أي أدوات أساسية."
   },
   "bn": {
     "msg.comm.enabled": "[tools] যোগাযোগ সরঞ্জাম (comm) সক্রিয় করা হয়েছে: {names}",
@@ -59,7 +63,11 @@
     "msg.media.disabled": "[tools] মিডিয়া সরঞ্জাম (media) নিষ্ক্রিয় করা হয়েছে: {names}",
     "msg.media.none_enabled": "[tools] কোন মিডিয়া সরঞ্জাম সক্রিয় করা হয়নি।",
     "msg.media.none_disabled": "[tools] কোন মিডিয়া সরঞ্জাম নিষ্ক্রিয় করা হয়নি।",
-    "tool.description": "ধরন নিয়ন্ত্রণ রজিস্ট্রির জন্য ডামি টুল।"
+    "tool.description": "ধরন নিয়ন্ত্রণ রজিস্ট্রির জন্য ডামি টুল।",
+    "msg.basic.enabled": "[tools] মৌলিক টুল সক্রিয় করা হয়েছে (basic): {names}",
+    "msg.basic.disabled": "[tools] মৌলিক টুল নিষ্ক্রিয় করা হয়েছে (basic): {names}",
+    "msg.basic.none_enabled": "[tools] কোনো মৌলিক টুল সক্রিয় করা হয়নি।",
+    "msg.basic.none_disabled": "[tools] কোনো মৌলিক টুল নিষ্ক্রিয় করা হয়নি।"
   },
   "cs": {
     "msg.comm.enabled": "[tools] Nástroje komunikace (comm) povoleny: {names}",
@@ -90,7 +98,11 @@
     "msg.media.disabled": "[tools] Médiové nástroje (media) zakázány: {names}",
     "msg.media.none_enabled": "[tools] Nebyly povoleny žádné médiové nástroje.",
     "msg.media.none_disabled": "[tools] Nebyly zakázány žádné médiové nástroje.",
-    "tool.description": "Fiktivní nástroj pro registraci řízení žánru."
+    "tool.description": "Fiktivní nástroj pro registraci řízení žánru.",
+    "msg.basic.enabled": "[tools] Základní nástroje povoleny (basic): {names}",
+    "msg.basic.disabled": "[tools] Základní nástroje zakázány (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Nebyly povoleny žádné základní nástroje.",
+    "msg.basic.none_disabled": "[tools] Nebyly zakázány žádné základní nástroje."
   },
   "de": {
     "msg.comm.enabled": "[tools] Kommunikationstools (comm) aktiviert: {names}",
@@ -121,7 +133,11 @@
     "msg.media.disabled": "[tools] Medientools (media) deaktiviert: {names}",
     "msg.media.none_enabled": "[tools] Keine Medientools aktiviert.",
     "msg.media.none_disabled": "[tools] Keine Medientools deaktiviert.",
-    "tool.description": "Dummy-Tool für die Genresteuerungsregistrierung."
+    "tool.description": "Dummy-Tool für die Genresteuerungsregistrierung.",
+    "msg.basic.enabled": "[tools] Basistools aktiviert (basic): {names}",
+    "msg.basic.disabled": "[tools] Basistools deaktiviert (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Es wurden keine Basistools aktiviert.",
+    "msg.basic.none_disabled": "[tools] Es wurden keine Basistools deaktiviert."
   },
   "en": {
     "msg.comm.enabled": "[tools] Enabled communication tools (comm): {names}",
@@ -152,7 +168,11 @@
     "msg.media.disabled": "[tools] Disabled Media tools (media): {names}",
     "msg.media.none_enabled": "[tools] No media tools were enabled.",
     "msg.media.none_disabled": "[tools] No media tools were disabled.",
-    "tool.description": "Dummy tool for genre control registration."
+    "tool.description": "Dummy tool for genre control registration.",
+    "msg.basic.enabled": "[tools] Enabled Basic tools (basic): {names}",
+    "msg.basic.disabled": "[tools] Disabled Basic tools (basic): {names}",
+    "msg.basic.none_enabled": "[tools] No Basic tools were enabled.",
+    "msg.basic.none_disabled": "[tools] No Basic tools were disabled."
   },
   "es": {
     "msg.comm.enabled": "[tools] Herramientas de comunicación (comm) habilitadas: {names}",
@@ -183,7 +203,11 @@
     "msg.media.disabled": "[tools] Herramientas multimedia (media) deshabilitadas: {names}",
     "msg.media.none_enabled": "[tools] No se habilitaron herramientas multimedia.",
     "msg.media.none_disabled": "[tools] No se deshabilitaron herramientas multimedia.",
-    "tool.description": "Herramienta ficticia para el registro de control de género."
+    "tool.description": "Herramienta ficticia para el registro de control de género.",
+    "msg.basic.enabled": "[tools] Herramientas básicas habilitadas (basic): {names}",
+    "msg.basic.disabled": "[tools] Herramientas básicas deshabilitadas (basic): {names}",
+    "msg.basic.none_enabled": "[tools] No se habilitaron herramientas básicas.",
+    "msg.basic.none_disabled": "[tools] No se deshabilitaron herramientas básicas."
   },
   "fa": {
     "msg.comm.enabled": "[tools] ابزارهای ارتباطات (comm) فعال شدند: {names}",
@@ -214,7 +238,11 @@
     "msg.media.disabled": "[tools] ابزارهای رسانه (media) غیرفعال شدند: {names}",
     "msg.media.none_enabled": "[tools] هیچ ابزار رسانه‌ای فعال نشد.",
     "msg.media.none_disabled": "[tools] هیچ ابزار رسانه‌ای غیرفعال نشد.",
-    "tool.description": "ابزار ساختگی برای ثبت کنترل ژانر."
+    "tool.description": "ابزار ساختگی برای ثبت کنترل ژانر.",
+    "msg.basic.enabled": "[tools] ابزارهای اصلی فعال شدند (basic): {names}",
+    "msg.basic.disabled": "[tools] ابزارهای اصلی غیرفعال شدند (basic): {names}",
+    "msg.basic.none_enabled": "[tools] هیچ ابزار اصلی فعال نشد.",
+    "msg.basic.none_disabled": "[tools] هیچ ابزار اصلی غیرفعال نشد."
   },
   "fi": {
     "msg.comm.enabled": "[tools] Viestintätyökalut (comm) käytössä: {names}",
@@ -245,7 +273,11 @@
     "msg.media.disabled": "[tools] Mediatyökalut (media) pois käytöstä: {names}",
     "msg.media.none_enabled": "[tools] Yhtään mediatyökalua ei otettu käyttöön.",
     "msg.media.none_disabled": "[tools] Yhtään mediatyökalua ei poistettu käytöstä.",
-    "tool.description": "Vale-työkalu genreohjauksen rekisteröintiin."
+    "tool.description": "Vale-työkalu genreohjauksen rekisteröintiin.",
+    "msg.basic.enabled": "[tools] Perustyökalut otettu käyttöön (basic): {names}",
+    "msg.basic.disabled": "[tools] Perustyökalut poistettu käytöstä (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Yhtään perustyökalua ei otettu käyttöön.",
+    "msg.basic.none_disabled": "[tools] Yhtään perustyökalua ei poistettu käytöstä."
   },
   "fr": {
     "msg.comm.enabled": "[tools] Outils de communication (comm) activés: {names}",
@@ -276,7 +308,11 @@
     "msg.media.disabled": "[tools] Outils multimédia (media) désactivés: {names}",
     "msg.media.none_enabled": "[tools] Aucun outil multimédia activé.",
     "msg.media.none_disabled": "[tools] Aucun outil multimédia désactivé.",
-    "tool.description": "Outil factice pour l'enregistrement du contrôle de genre."
+    "tool.description": "Outil factice pour l'enregistrement du contrôle de genre.",
+    "msg.basic.enabled": "[tools] Outils de base activés (basic): {names}",
+    "msg.basic.disabled": "[tools] Outils de base désactivés (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Aucun outil de base n'a été activé.",
+    "msg.basic.none_disabled": "[tools] Aucun outil de base n'a été désactivé."
   },
   "hi": {
     "msg.comm.enabled": "[tools] संचार उपकरण (comm) सक्षम किए गए: {names}",
@@ -307,7 +343,11 @@
     "msg.media.disabled": "[tools] मीडिया उपकरण (media) अक्षम किए गए: {names}",
     "msg.media.none_enabled": "[tools] कोई मीडिया उपकरण सक्षम नहीं किए गए।",
     "msg.media.none_disabled": "[tools] कोई मीडिया उपकरण अक्षम नहीं किए गए।",
-    "tool.description": "शैली नियंत्रण पंजीकरण के लिए डमी टूल।"
+    "tool.description": "शैली नियंत्रण पंजीकरण के लिए डमी टूल।",
+    "msg.basic.enabled": "[tools] मूल उपकरण सक्षम किए गए (basic): {names}",
+    "msg.basic.disabled": "[tools] मूल उपकरण अक्षम किए गए (basic): {names}",
+    "msg.basic.none_enabled": "[tools] कोई भी मूल उपकरण सक्षम नहीं किए गए।",
+    "msg.basic.none_disabled": "[tools] कोई भी मूल उपकरण अक्षम नहीं किए गए।"
   },
   "id": {
     "msg.comm.enabled": "[tools] Alat komunikasi (comm) diaktifkan: {names}",
@@ -338,7 +378,11 @@
     "msg.media.disabled": "[tools] Alat media (media) dinonaktifkan: {names}",
     "msg.media.none_enabled": "[tools] Tidak ada alat media yang diaktifkan.",
     "msg.media.none_disabled": "[tools] Tidak ada alat media yang dinonaktifkan.",
-    "tool.description": "Alat dummy untuk pendaftaran kontrol genre."
+    "tool.description": "Alat dummy untuk pendaftaran kontrol genre.",
+    "msg.basic.enabled": "[tools] Alat dasar diaktifkan (basic): {names}",
+    "msg.basic.disabled": "[tools] Alat dasar dinonaktifkan (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Tidak ada alat dasar yang diaktifkan.",
+    "msg.basic.none_disabled": "[tools] Tidak ada alat dasar yang dinonaktifkan."
   },
   "it": {
     "msg.comm.enabled": "[tools] Strumenti di comunicazione (comm) abilitati: {names}",
@@ -369,7 +413,11 @@
     "msg.media.disabled": "[tools] Strumenti multimediali (media) disabilitati: {names}",
     "msg.media.none_enabled": "[tools] Nessuno strumento multimediale abilitato.",
     "msg.media.none_disabled": "[tools] Nessuno strumento multimediale disabilitato.",
-    "tool.description": "Strumento fittizio per la registrazione del controllo del genere."
+    "tool.description": "Strumento fittizio per la registrazione del controllo del genere.",
+    "msg.basic.enabled": "[tools] Strumenti di base abilitati (basic): {names}",
+    "msg.basic.disabled": "[tools] Strumenti di base disabilitati (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Nessuno strumento di base abilitato.",
+    "msg.basic.none_disabled": "[tools] Nessuno strumento di base disabilitato."
   },
   "ja": {
     "msg.comm.enabled": "[tools] 通信系ツール (comm) を有効化しました: {names}",
@@ -400,7 +448,11 @@
     "msg.media.disabled": "[tools] メディア系ツール (media) を無効化しました: {names}",
     "msg.media.none_enabled": "[tools] 有効化されたメディア系ツールはありません。",
     "msg.media.none_disabled": "[tools] 無効化されたメディア系ツールはありません。",
-    "tool.description": "ジャンル制御登録用のダミーツール。"
+    "tool.description": "ジャンル制御登録用のダミーツール。",
+    "msg.basic.enabled": "[tools] 基本ツールを有効にしました (basic): {names}",
+    "msg.basic.disabled": "[tools] 基本ツールを無効にしました (basic): {names}",
+    "msg.basic.none_enabled": "[tools] 有効になった基本ツールはありませんでした。",
+    "msg.basic.none_disabled": "[tools] 無効になった基本ツールはありませんでした。"
   },
   "ko": {
     "msg.comm.enabled": "[tools] 커뮤니케이션 도구 (comm) 활성화됨: {names}",
@@ -431,7 +483,11 @@
     "msg.media.disabled": "[tools] 미디어 도구 (media) 비활성화됨: {names}",
     "msg.media.none_enabled": "[tools] 활성화된 미디어 도구가 없습니다.",
     "msg.media.none_disabled": "[tools] 비활성화된 미디어 도구가 없습니다.",
-    "tool.description": "장르 제어 등록용 더미 도구."
+    "tool.description": "장르 제어 등록용 더미 도구.",
+    "msg.basic.enabled": "[tools] 기본 도구가 활성화되었습니다 (basic): {names}",
+    "msg.basic.disabled": "[tools] 기본 도구가 비활성화되었습니다 (basic): {names}",
+    "msg.basic.none_enabled": "[tools] 활성화된 기본 도구가 없습니다.",
+    "msg.basic.none_disabled": "[tools] 비활성화된 기본 도구가 없습니다."
   },
   "mn": {
     "msg.comm.enabled": "[tools] Харилцааны хэрэгсэл (comm) идэвхжилсэн: {names}",
@@ -462,7 +518,11 @@
     "msg.media.disabled": "[tools] Мэдиа хэрэгсэл (media) идэвхгүй болсон: {names}",
     "msg.media.none_enabled": "[tools] Мэдиа хэрэгсэл идэвхжилээгүй.",
     "msg.media.none_disabled": "[tools] Мэдиа хэрэгсэл идэвхгүй болоогүй.",
-    "tool.description": "Жанрын хяналтын бүртгэлд зориулсан хуурам хэрэгсэл."
+    "tool.description": "Жанрын хяналтын бүртгэлд зориулсан хуурам хэрэгсэл.",
+    "msg.basic.enabled": "[tools] Үндсэн хэрэгслүүд идэвхжсэн (basic): {names}",
+    "msg.basic.disabled": "[tools] Үндсэн хэрэгслүүд идэвхгүйжсэн (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Идэвхжсэн үндсэн хэрэгсэл байхгүй.",
+    "msg.basic.none_disabled": "[tools] Идэвхгүйжсэн үндсэн хэрэгсэл байхгүй."
   },
   "mr": {
     "msg.comm.enabled": "[tools] संपर्क साधने (comm) सक्षम केली: {names}",
@@ -493,7 +553,11 @@
     "msg.media.disabled": "[tools] मिडिया साधने (media) अक्षम केली: {names}",
     "msg.media.none_enabled": "[tools] कोणतेही मिडिया साधन सक्षम केले गेले नाहीत.",
     "msg.media.none_disabled": "[tools] कोणतेही मिडिया साधन अक्षम केले गेले नाहीत.",
-    "tool.description": "प्रकार नियंत्रण नोंदणीसाठी डमी साधन."
+    "tool.description": "प्रकार नियंत्रण नोंदणीसाठी डमी साधन.",
+    "msg.basic.enabled": "[tools] मूलभूत साधने सक्षम केली (basic): {names}",
+    "msg.basic.disabled": "[tools] मूलभूत साधने अक्षम केली (basic): {names}",
+    "msg.basic.none_enabled": "[tools] कोणतीही मूलभूत साधने सक्षम केली नाहीत.",
+    "msg.basic.none_disabled": "[tools] कोणतीही मूलभूत साधने अक्षम केली नाहीत."
   },
   "nb": {
     "msg.comm.enabled": "[tools] Kommunikasjonsverktøy (comm) aktivert: {names}",
@@ -524,7 +588,11 @@
     "msg.media.disabled": "[tools] Mediaverktøy (media) deaktivert: {names}",
     "msg.media.none_enabled": "[tools] Ingen mediaverktøy ble aktivert.",
     "msg.media.none_disabled": "[tools] Ingen mediaverktøy ble deaktivert.",
-    "tool.description": "Dummy-verktøy for sjangerkontrollregistrering."
+    "tool.description": "Dummy-verktøy for sjangerkontrollregistrering.",
+    "msg.basic.enabled": "[tools] Grunnleggende verktøy aktivert (basic): {names}",
+    "msg.basic.disabled": "[tools] Grunnleggende verktøy deaktivert (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Ingen grunnleggende verktøy ble aktivert.",
+    "msg.basic.none_disabled": "[tools] Ingen grunnleggende verktøy ble deaktivert."
   },
   "nl": {
     "msg.comm.enabled": "[tools] Communicatiehulpmiddelen (comm) ingeschakeld: {names}",
@@ -555,7 +623,11 @@
     "msg.media.disabled": "[tools] Mediahulpmiddelen (media) uitgeschakeld: {names}",
     "msg.media.none_enabled": "[tools] Geen mediahulpmiddelen ingeschakeld.",
     "msg.media.none_disabled": "[tools] Geen mediahulpmiddelen uitgeschakeld.",
-    "tool.description": "Dummy-tool voor registratie van genrecontrole."
+    "tool.description": "Dummy-tool voor registratie van genrecontrole.",
+    "msg.basic.enabled": "[tools] Basisgereedschappen ingeschakeld (basic): {names}",
+    "msg.basic.disabled": "[tools] Basisgereedschappen uitgeschakeld (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Geen basisgereedschappen ingeschakeld.",
+    "msg.basic.none_disabled": "[tools] Geen basisgereedschappen uitgeschakeld."
   },
   "pl": {
     "msg.comm.enabled": "[tools] Narzędzia komunikacji (comm) włączone: {names}",
@@ -586,7 +658,11 @@
     "msg.media.disabled": "[tools] Narzędzia multimedialne (media) wyłączone: {names}",
     "msg.media.none_enabled": "[tools] Nie włączono żadnych narzędzi multimedialnych.",
     "msg.media.none_disabled": "[tools] Nie wyłączono żadnych narzędzi multimedialnych.",
-    "tool.description": "Atrapa narzędzia do rejestracji kontroli gatunku."
+    "tool.description": "Atrapa narzędzia do rejestracji kontroli gatunku.",
+    "msg.basic.enabled": "[tools] Podstawowe narzędzia włączone (basic): {names}",
+    "msg.basic.disabled": "[tools] Podstawowe narzędzia wyłączone (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Nie włączono żadnych podstawowych narzędzi.",
+    "msg.basic.none_disabled": "[tools] Nie wyłączono żadnych podstawowych narzędzi."
   },
   "pt": {
     "msg.comm.enabled": "[tools] Ferramentas de comunicação (comm) ativadas: {names}",
@@ -617,7 +693,11 @@
     "msg.media.disabled": "[tools] Ferramentas de mídia (media) desativadas: {names}",
     "msg.media.none_enabled": "[tools] Nenhuma ferramenta de mídia foi ativada.",
     "msg.media.none_disabled": "[tools] Nenhuma ferramenta de mídia foi desativada.",
-    "tool.description": "Ferramenta fictícia para registro de controle de gênero."
+    "tool.description": "Ferramenta fictícia para registro de controle de gênero.",
+    "msg.basic.enabled": "[tools] Ferramentas básicas activadas (basic): {names}",
+    "msg.basic.disabled": "[tools] Ferramentas básicas desactivadas (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Nenhuma ferramenta básica foi activada.",
+    "msg.basic.none_disabled": "[tools] Nenhuma ferramenta básica foi desactivada."
   },
   "pt_BR": {
     "msg.comm.enabled": "[tools] Ferramentas de comunicação (comm) ativadas: {names}",
@@ -648,7 +728,11 @@
     "msg.media.disabled": "[tools] Ferramentas de mídia (media) desativadas: {names}",
     "msg.media.none_enabled": "[tools] Nenhuma ferramenta de mídia foi ativada.",
     "msg.media.none_disabled": "[tools] Nenhuma ferramenta de mídia foi desativada.",
-    "tool.description": "Ferramenta fictícia para registro de controle de gênero."
+    "tool.description": "Ferramenta fictícia para registro de controle de gênero.",
+    "msg.basic.enabled": "[tools] Ferramentas básicas habilitadas (basic): {names}",
+    "msg.basic.disabled": "[tools] Ferramentas básicas desabilitadas (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Nenhuma ferramenta básica foi habilitada.",
+    "msg.basic.none_disabled": "[tools] Nenhuma ferramenta básica foi desabilitada."
   },
   "ru": {
     "msg.comm.enabled": "[tools] Инструменты связи (comm) включены: {names}",
@@ -679,7 +763,11 @@
     "msg.media.disabled": "[tools] Медиаинструменты (media) отключены: {names}",
     "msg.media.none_enabled": "[tools] Ни одного медиаинструмента не включено.",
     "msg.media.none_disabled": "[tools] Ни одного медиаинструмента не отключено.",
-    "tool.description": "Фиктивный инструмент для регистрации управления жанром."
+    "tool.description": "Фиктивный инструмент для регистрации управления жанром.",
+    "msg.basic.enabled": "[tools] Базовые инструменты включены (basic): {names}",
+    "msg.basic.disabled": "[tools] Базовые инструменты отключены (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Не было включено базовых инструментов.",
+    "msg.basic.none_disabled": "[tools] Не было отключено базовых инструментов."
   },
   "sv": {
     "msg.comm.enabled": "[tools] Kommunikationsverktyg (comm) aktiverade: {names}",
@@ -710,7 +798,11 @@
     "msg.media.disabled": "[tools] Mediaverktyg (media) inaktiverade: {names}",
     "msg.media.none_enabled": "[tools] Inga mediaverktyg aktiverades.",
     "msg.media.none_disabled": "[tools] Inga mediaverktyg inaktiverades.",
-    "tool.description": "Dummyverktyg för genrekontrollregistrering."
+    "tool.description": "Dummyverktyg för genrekontrollregistrering.",
+    "msg.basic.enabled": "[tools] Grundläggande verktyg aktiverade (basic): {names}",
+    "msg.basic.disabled": "[tools] Grundläggande verktyg inaktiverade (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Inga grundläggande verktyg aktiverades.",
+    "msg.basic.none_disabled": "[tools] Inga grundläggande verktyg inaktiverades."
   },
   "sw": {
     "msg.comm.enabled": "[tools] Zana za mawasiliano (comm) zimewezeshwa: {names}",
@@ -741,7 +833,11 @@
     "msg.media.disabled": "[tools] Zana za media (media) zimezimwa: {names}",
     "msg.media.none_enabled": "[tools] Hakuna zana za media zilizowezeshwa.",
     "msg.media.none_disabled": "[tools] Hakuna zana za media zilizozimwa.",
-    "tool.description": "Zana bandia kwa ajili ya kusajili udhibiti wa aina."
+    "tool.description": "Zana bandia kwa ajili ya kusajili udhibiti wa aina.",
+    "msg.basic.enabled": "[tools] Zana za msingi zimewashwa (basic): {names}",
+    "msg.basic.disabled": "[tools] Zana za msingi zimezimwa (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Hakuna zana za msingi zilizowashwa.",
+    "msg.basic.none_disabled": "[tools] Hakuna zana za msingi zilizozimwa."
   },
   "th": {
     "msg.comm.enabled": "[tools] เครื่องมือการสื่อสาร (comm) เปิดใช้งานแล้ว: {names}",
@@ -772,7 +868,11 @@
     "msg.media.disabled": "[tools] เครื่องมือสื่อ (media) ปิดใช้งานแล้ว: {names}",
     "msg.media.none_enabled": "[tools] ไม่มีเครื่องมือสื่อที่เปิดใช้งาน",
     "msg.media.none_disabled": "[tools] ไม่มีเครื่องมือสื่อที่ปิดใช้งาน",
-    "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนควบคุมประเภท"
+    "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนควบคุมประเภท",
+    "msg.basic.enabled": "[tools] เปิดใช้งานเครื่องมือพื้นฐานแล้ว (basic): {names}",
+    "msg.basic.disabled": "[tools] ปิดใช้งานเครื่องมือพื้นฐานแล้ว (basic): {names}",
+    "msg.basic.none_enabled": "[tools] ไม่มีเครื่องมือพื้นฐานที่เปิดใช้งาน",
+    "msg.basic.none_disabled": "[tools] ไม่มีเครื่องมือพื้นฐานที่ปิดใช้งาน"
   },
   "tr": {
     "msg.comm.enabled": "[tools] İletişim araçları (comm) etkinleştirildi: {names}",
@@ -803,7 +903,11 @@
     "msg.media.disabled": "[tools] Medya araçları (media) devre dışı bırakıldı: {names}",
     "msg.media.none_enabled": "[tools] Hiçbir medya aracı etkinleştirilmedi.",
     "msg.media.none_disabled": "[tools] Hiçbir medya aracı devre dışı bırakılmadı.",
-    "tool.description": "Tür kontrolü kaydı için sahte araç."
+    "tool.description": "Tür kontrolü kaydı için sahte araç.",
+    "msg.basic.enabled": "[tools] Temel araçlar etkinleştirildi (basic): {names}",
+    "msg.basic.disabled": "[tools] Temel araçlar devre dışı bırakıldı (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Hiçbir temel araç etkinleştirilmedi.",
+    "msg.basic.none_disabled": "[tools] Hiçbir temel araç devre dışı bırakılmadı."
   },
   "uk": {
     "msg.comm.enabled": "[tools] Інструменти зв’язку (comm) увімкнено: {names}",
@@ -834,7 +938,11 @@
     "msg.media.disabled": "[tools] Медіаінструменти (media) вимкнено: {names}",
     "msg.media.none_enabled": "[tools] Жодних медіаінструментів не увімкнено.",
     "msg.media.none_disabled": "[tools] Жодних медіаінструментів не вимкнено.",
-    "tool.description": "Фіктивний інструмент для реєстрації керування жанром."
+    "tool.description": "Фіктивний інструмент для реєстрації керування жанром.",
+    "msg.basic.enabled": "[tools] Базові інструменти увімкнено (basic): {names}",
+    "msg.basic.disabled": "[tools] Базові інструменти вимкнено (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Не увімкнено жодних базових інструментів.",
+    "msg.basic.none_disabled": "[tools] Не вимкнено жодних базових інструментів."
   },
   "vi": {
     "msg.comm.enabled": "[tools] Công cụ giao tiếp (comm) đã bật: {names}",
@@ -865,7 +973,11 @@
     "msg.media.disabled": "[tools] Công cụ đa phương tiện (media) đã tắt: {names}",
     "msg.media.none_enabled": "[tools] Không có công cụ đa phương tiện nào được bật.",
     "msg.media.none_disabled": "[tools] Không có công cụ đa phương tiện nào được tắt.",
-    "tool.description": "Công cụ giả lập để đăng ký kiểm soát thể loại."
+    "tool.description": "Công cụ giả lập để đăng ký kiểm soát thể loại.",
+    "msg.basic.enabled": "[tools] Công cụ cơ bản đã được bật (basic): {names}",
+    "msg.basic.disabled": "[tools] Công cụ cơ bản đã được tắt (basic): {names}",
+    "msg.basic.none_enabled": "[tools] Không có công cụ cơ bản nào được bật.",
+    "msg.basic.none_disabled": "[tools] Không có công cụ cơ bản nào được tắt."
   },
   "zh_CN": {
     "msg.comm.enabled": "[tools] 已启用通信工具 (comm): {names}",
@@ -896,7 +1008,11 @@
     "msg.media.disabled": "[tools] 已禁用媒体工具 (media): {names}",
     "msg.media.none_enabled": "[tools] 未启用任何媒体工具。",
     "msg.media.none_disabled": "[tools] 未禁用任何媒体工具。",
-    "tool.description": "用于类型控制注册的虚拟工具。"
+    "tool.description": "用于类型控制注册的虚拟工具。",
+    "msg.basic.enabled": "[tools] 已启用基本工具 (basic): {names}",
+    "msg.basic.disabled": "[tools] 已禁用基本工具 (basic): {names}",
+    "msg.basic.none_enabled": "[tools] 没有已启用的基本工具。",
+    "msg.basic.none_disabled": "[tools] 没有已禁用的基本工具。"
   },
   "zh_TW": {
     "msg.comm.enabled": "[tools] 已啟用通訊工具 (comm): {names}",
@@ -927,6 +1043,10 @@
     "msg.media.disabled": "[tools] 已禁用媒體工具 (media): {names}",
     "msg.media.none_enabled": "[tools] 未啟用任何媒體工具。",
     "msg.media.none_disabled": "[tools] 未禁用任何媒體工具。",
-    "tool.description": "用於類型控制註冊的虛擬工具。"
+    "tool.description": "用於類型控制註冊的虛擬工具。",
+    "msg.basic.enabled": "[tools] 已啟用基本工具 (basic): {names}",
+    "msg.basic.disabled": "[tools] 已停用基本工具 (basic): {names}",
+    "msg.basic.none_enabled": "[tools] 沒有已啟用的基本工具。",
+    "msg.basic.none_disabled": "[tools] 沒有已停用的基本工具。"
   }
 }
