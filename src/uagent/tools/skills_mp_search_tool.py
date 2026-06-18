@@ -23,7 +23,6 @@ CLAWHUB_API_BASE = "https://clawhub.ai"
 CLAWHUB_URL = "https://clawhub.ai"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 0,
     "type": "function",
     "tool_genre": "basic",
     "function": {

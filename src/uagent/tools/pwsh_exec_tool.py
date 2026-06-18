@@ -79,7 +79,7 @@ else:
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "tool_genre": "exec",
-    "tool_level": 0 if os.name == "nt" else -1,
+    "tool_level": -1,
     "function": {
         "name": "pwsh_exec",
         "description": _(
