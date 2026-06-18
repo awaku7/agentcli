@@ -24,7 +24,7 @@ ______________________________________________________________________
 
 起動時に使用するメインのプロバイダを指定します（必須）。
 
-- 有効な値: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `alibaba`, `kimi`
+- 有効な値: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `alibaba`, `kimi`, `mimo`
 
 ### 2. LLM プロバイダ別の設定
 

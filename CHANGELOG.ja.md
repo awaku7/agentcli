@@ -39,6 +39,13 @@
 
 ## [Unreleased]
 
+### 新規追加
+- Xiaomi MiMo (`mimo`) プロバイダ対応: OpenAI 互換 API、Reasoning/Thinking モード対応。
+  - `UAGENT_MIMO_API_KEY`、`UAGENT_MIMO_BASE_URL`（デフォルト: `https://api.xiaomimimo.com/v1`）、`UAGENT_MIMO_DEPNAME`（デフォルト: `mimo-v2.5-pro`）。
+  - DeepSeek の reasoning パスを流用し `reasoning_content` を処理。
+  - env_validate、util_providers、setup_cli、runtime_banner を更新。
+  - ENVIRONMENT.md ドキュメントを更新。
+
 ## [0.5.10] - 2026-06-18
 
 ### 修正

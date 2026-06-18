@@ -74,6 +74,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("zai", "Z.AI (Zhipu AI)"),
     ("alibaba", "Alibaba Cloud (Qwen)"),
     ("moonshot", "Moonshot AI"),
+    ("mimo", "Xiaomi MiMo"),
 ]
 
 # key, required, label
@@ -255,6 +256,19 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_MOONSHOT_DEPNAME",
             False,
             _("Moonshot model name (optional, default: kimi-k2)"),
+        ),
+    ],
+    "mimo": [
+        ("UAGENT_MIMO_API_KEY", True, _("Xiaomi MiMo API key")),
+        (
+            "UAGENT_MIMO_BASE_URL",
+            False,
+            _("MiMo base URL (optional, default: https://api.xiaomimimo.com/v1)"),
+        ),
+        (
+            "UAGENT_MIMO_DEPNAME",
+            False,
+            _("MiMo model name (optional, default: mimo-v2.5-pro)"),
         ),
     ],
 }
@@ -1031,7 +1045,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# Provider selection")
     out.append("# ==============================")
     out.append(
-        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / zai / alibaba / moonshot"
+        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / zai / alibaba / moonshot / mimo"
     )
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")

@@ -39,8 +39,8 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_PROVIDER"],
             reason=_(
-                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek).",
-                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek).",
+                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo).",
+                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo).",
             ),
         )
         return provider, missing, warnings
@@ -60,6 +60,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         "zai",
         "alibaba",
         "moonshot",
+        "mimo",
     )
     if provider not in allowed:
         warnings.append(
@@ -200,6 +201,13 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
                     reason=_("Moonshot AI API key.", default="Moonshot AI API key."),
                 )
             )
+    elif provider == "mimo":
+        missing += _require(
+            ["UAGENT_MIMO_API_KEY"],
+            reason=_(
+                "Xiaomi MiMo API key.", default="Xiaomi MiMo API key."
+            ),
+        )
 
     embedding_provider = (_get("UAGENT_EMBEDDING_PROVIDER") or "").lower()
     if embedding_provider:

@@ -24,7 +24,7 @@ ______________________________________________________________________
 
 Specifies the primary provider to use at startup (Required).
 
-- Values: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `alibaba`, `kimi`
+- Values: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `alibaba`, `kimi`, `mimo`
 
 ### 2. LLM Provider Settings
 
@@ -45,6 +45,7 @@ Each provider requires specific variables. You can override the default model us
 | **DeepSeek** | `UAGENT_DEEPSEEK_API_KEY`, `UAGENT_DEEPSEEK_BASE_URL` (Default: `https://api.deepseek.com`) | `UAGENT_DEEPSEEK_DEPNAME` (Default: `deepseek-v4-flash`) |
 | **Alibaba Cloud (Qwen)** | `UAGENT_ALIBABA_API_KEY`, `UAGENT_ALIBABA_BASE_URL` (Default: `https://dashscope.aliyuncs.com/compatible-mode/v1`) | `UAGENT_ALIBABA_DEPNAME` (Default: `qwen3.5-plus`) |
 | **KIMI (Moonshot AI)** | `UAGENT_KIMI_API_KEY`, `UAGENT_KIMI_BASE_URL` (Default: `https://api.moonshot.cn/v1`) | `UAGENT_KIMI_DEPNAME` (Default: `kimi-k2`) |
+| **Xiaomi MiMo** | `UAGENT_MIMO_API_KEY`, `UAGENT_MIMO_BASE_URL` (Default: `https://api.xiaomimimo.com/v1`) | `UAGENT_MIMO_DEPNAME` (Default: `mimo-v2.5-pro`) |
 
 > \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
 
@@ -98,76 +99,3 @@ Configuration settings for built-in web search (grounding) features provided dir
 - `UAGENT_OPENAI_SPEECH_DEPNAME`: OpenAI speech model/deployment name.
 - `UAGENT_GEMINI_SPEECH_DEPNAME`: Gemini/VertexAI speech model name (Default: `ja-JP-Neural2-B`).
 - `UAGENT_AZURE_TRANSCRIBE_DEPNAME`: Azure transcription deployment name.
-- `UAGENT_OPENAI_TRANSCRIBE_DEPNAME`: OpenAI transcription model/deployment name.
-- `UAGENT_AUDIO_OPEN`: Whether to automatically open generated audio after speech output (`0` to disable).
-
-### 7. Translation Features (Optional)
-
-Enables automatic translation of user inputs and LLM responses.
-
-- `UAGENT_TRANSLATE_PROVIDER`: Translation engine.
-  - `openai`, `azure`, `openrouter`, `openai_compat`: OpenAI-compatible API を使う翻訳。
-  - `gemini`: Google Gemini を使う翻訳。
-  - `claude`: Anthropic Claude を使う翻訳。
-- `UAGENT_TRANSLATE_TO_LLM`: Target language for user inputs (e.g., `en`). Input is skipped if it already looks like English.
-- `UAGENT_TRANSLATE_FROM_LLM`: Target language for LLM responses (e.g., `ja`).
-- `UAGENT_TRANSLATE_DEPNAME`: Model ID to use for translation (Required for API providers).
-- `UAGENT_TRANSLATE_API_KEY`: API key for translation (Optional, defaults to `UAGENT_API_KEY`).
-- `UAGENT_TRANSLATE_BASE_URL`: Base URL for translation (Optional, defaults to `UAGENT_BASE_URL`).
-
-### 8. Memory and Semantic Search
-
-- `UAGENT_MEMORY_FILE`: Path to store long-term memory notes.
-- `UAGENT_SHARED_MEMORY_FILE`: Path to store shared long-term memory.
-- `UAGENT_EMBEDDING_PROVIDER`: Provider for embeddings (default: `UAGENT_PROVIDER`).
-- `UAGENT_<PROVIDER>_EMBEDDING_BASE_URL`: Base URL for the embedding provider.
-- `UAGENT_<PROVIDER>_EMBEDDING_API_KEY`: API key for the embedding provider.
-- `UAGENT_<PROVIDER>_EMBEDDING_API_VERSION`: API version for Azure-style providers.
-- `UAGENT_<PROVIDER>_EMBEDDING_DEPNAME`: Embedding model / deployment name.
-- `UAGENT_ENABLE_SEMANTIC_SEARCH`: Enable or disable semantic search tooling.
-
-### 9. Autonomous User Profiling Settings
-
-Configure the autonomous profiling system that extracts your development environment and preferences from conversation logs.
-
-- `UAGENT_ENABLE_PROFILING`: Enable or disable autonomous profiling (`1`: Enabled(default), `0`: Disabled).
-- `UAGENT_PROFILE_FILE`: Path to store the extracted profile data (default: `scheck_profile.jsonl`).
-
-### 10. Specialized Sub-Agent Configuration (Overrides)
-
-You can override the provider, model name, and API key for specialized sub-agents (`planner`, `reviewer`, `summarizer`, `patch_designer`, `error_analyst`) executed via the `run_sub_agent` tool. If not specified, they inherit the main agent's configuration.
-
-- **General Sub-Agent Overrides**:
-  - `UAGENT_SUB_AGENT_PROVIDER`: Provider used for all sub-agents.
-  - `UAGENT_SUB_AGENT_DEPNAME`: Model name used for all sub-agents.
-  - `UAGENT_SUB_AGENT_API_KEY`: API key used for all sub-agents.
-
-- **Function-Specific Overrides (Highest Priority)**:
-  - `UAGENT_SUB_AGENT_<AGENT_NAME>_PROVIDER`: Provider for a specific sub-agent.
-  - `UAGENT_SUB_AGENT_<AGENT_NAME>_DEPNAME`: Model name for a specific sub-agent.
-  - `UAGENT_SUB_AGENT_<AGENT_NAME>_API_KEY`: API key for a specific sub-agent.
-  *(※ `<AGENT_NAME>` must be one of `PLANNER`, `REVIEWER`, `SUMMARIZER`, `PATCH_DESIGNER`, `ERROR_ANALYST`)*
-
-  *(Example: Setting `UAGENT_SUB_AGENT_SUMMARIZER_PROVIDER=gemini` and `UAGENT_SUB_AGENT_SUMMARIZER_DEPNAME=gemini-2.5-flash` allows you to route only the summarization tasks to the fast and cost-effective Gemini 2.5 Flash model)*
-
-______________________________________________________________________
-
-## A2A Server
-
-`uaga` exposes an Agent2Agent-compatible HTTP server. Configure it with:
-
-- `UAGENT_A2A_HOST`: Bind host for the server (default: `0.0.0.0`).
-- `UAGENT_A2A_PORT`: Listening port (default: `8765`).
-- `UAGENT_A2A_RELOAD`: Enable auto-reload during development.
-- `UAGENT_A2A_PUBLIC_BASE_URL`: Public base URL advertised to clients.
-- `UAGENT_A2A_CONCURRENCY`: Concurrency limit for task execution.
-- `UAGENT_A2A_ENGINE`: A2A execution mode.
-- `UAGENT_A2A_TOKEN`: Bearer token for authenticated endpoints. Leave empty to disable auth.
-
-## Security and Encryption (`uag_envsec`)
-
-If you prefer not to store sensitive API keys in plain text within the `.env` file, you can encrypt it using `uag_envsec`.
-
-1. **Encryption**: Run `uag_envsec .env` and enter a password.
-1. **Usage**: `uag` will automatically detect `.env.sec` at startup and prompt for a password to decrypt and load it.
-1. **Update**: Use `uag_envsec add --file .env.sec --key NAME --value VALUE` to add or update a variable in an existing encrypted file.

@@ -23,7 +23,7 @@ On first launch, `uag` checks your environment and starts the setup wizard autom
 ## Key Features
 
 - **Practical toolset**: File manipulation, web search, PDF/PPTX/Excel extraction, image generation, and image analysis.
-- **Multi-provider support**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI).
+- **Multi-provider support**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo.
 - **Three interfaces**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
