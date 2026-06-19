@@ -23,7 +23,7 @@ On first launch, `uag` checks your environment and starts the setup wizard autom
 ## Key Features
 
 - **Practical toolset**: File manipulation, web search, PDF/PPTX/Excel extraction, image generation, and image analysis.
-- **Multi-provider support**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo.
+- **Multi-provider support**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio.
 - **Three interfaces**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
@@ -91,7 +91,7 @@ For API keys, language settings (`UAGENT_LANG`), history shrink settings, and mo
 
 ### Responses API note
 
-If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
+If you set `UAGENT_RESPONSES=1`, Responses API is used for supported providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama / LM Studio.
 Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
 Image analysis via Responses is currently limited to OpenAI / Azure / Bedrock / OpenRouter.
 For other providers, uag falls back to the provider-specific or chat-completions path.
