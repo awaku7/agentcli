@@ -114,5 +114,9 @@
   "mr": {
     "tool.description": "प्लेराइट वापरून ब्राउझर क्रियांचा क्रम चालवा. नेव्हिगेशन, परस्परसंवाद, निष्कर्षण, माउस/कीबोर्ड नियंत्रण, सत्र, नेटवर्क, मल्टी-पेज, प्रवेशयोग्यता, कन्सोल, अपलोड, मोबाइल इम्युलेशन आणि बरेच काही समर्थित करते.",
     "param.path.description": "आउटपुट जतन करण्यासाठी फाइल पथ (सामग्री, स्क्रीनशॉट, निर्यात_पीडीएफ, इ. द्वारे वापरलेले). वगळल्यास, डेटा इनलाइन परत केला जातो."
+  },
+  "pt_BR": {
+    "tool.description": "Execute uma sequência de ações do navegador usando o Playwright. Suporta navegação, interação, extração, controle de mouse/teclado, sessão, rede, múltiplas páginas, acessibilidade, console, uploads, emulação móvel e muito mais.",
+    "param.path.description": "Caminho do arquivo para salvar a saída (usado por conteúdo, captura de tela, export_pdf, etc.). Se omitido, os dados serão retornados em linha."
   }
 }
