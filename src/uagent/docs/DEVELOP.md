@@ -52,7 +52,8 @@ Key modules:
     - `src/uagent/llm_round_helpers.py`
     - `src/uagent/llm_flow_helpers.py`
   - Retry / backoff helpers live in `src/uagent/llm_errors.py`
-- Provider wiring (OpenAI/Azure/Gemini/Claude/Vertex AI/Ollama/DeepSeek/Z.AI/Alibaba/Moonshot/etc.): `src/uagent/providers/util_providers.py`
+- Provider wiring (OpenAI/Azure/Gemini/Claude/Vertex AI/Ollama/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/etc.): `src/uagent/providers/util_providers.py`
+  - To add a new provider, modify: `util_providers.py` (detect_provider/get_model_name/make_client), `env_validate.py` (allowed list), `runtime_banner.py` (banner display), and `provider_caps.py` (Responses API support if applicable).
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`
 - Startup initialization: `src/uagent/runtime_init.py` (compatibility re-export)
   - `src/uagent/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
