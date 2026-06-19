@@ -9,7 +9,9 @@
       "location",
       "country",
       "ip geolocation",
-      "geo ip"
+      "geo ip",
+      "weather",
+      "news"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -22,7 +24,9 @@
       "get_geoip",
       "geoip 取得",
       "IP 位置情報",
-      "位置推定"
+      "位置推定",
+      "天気",
+      "ニュース"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -35,7 +39,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ubicación IP"
+      "ubicación IP",
+      "clima",
+      "noticias"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -43,12 +49,14 @@
   "fr": {
     "param.format.description": "Format de sortie.",
     "param.ip.description": "Adresse IP facultative à rechercher. Si omise, l'IP publique actuelle est utilisée (mode API uniquement).",
-    "tool.description": "Estime la localisation approximative de l’utilisateur à partir de son adresse IP publique.",
+    "tool.description": "Estime la localisation approximative de l'utilisateur à partir de son adresse IP publique.",
     "x_search_terms": [
       "get_geoip",
       "get geoip",
       "geoip",
-      "localisation IP"
+      "localisation IP",
+      "météo",
+      "actualités"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -61,7 +69,9 @@
       "get_geoip",
       "geoip 가져오기",
       "IP 위치",
-      "위치 추정"
+      "위치 추정",
+      "날씨",
+      "뉴스"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -74,7 +84,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip standort"
+      "ip standort",
+      "wetter",
+      "nachrichten"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -87,7 +99,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "posizione IP"
+      "posizione IP",
+      "meteo",
+      "notizie"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -100,7 +114,9 @@
       "get_geoip",
       "get geoip",
       "геоip",
-      "ip location"
+      "ip location",
+      "погода",
+      "новости"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -113,7 +129,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "localização IP"
+      "localização IP",
+      "clima",
+      "notícias"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -126,7 +144,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "localização IP"
+      "localização IP",
+      "clima",
+      "notícias"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -139,7 +159,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "lokasi IP"
+      "lokasi IP",
+      "cuaca",
+      "berita"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -152,7 +174,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "vị trí IP"
+      "vị trí IP",
+      "thời tiết",
+      "tin tức"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -165,7 +189,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "lokalizacja IP"
+      "lokalizacja IP",
+      "pogoda",
+      "wiadomości"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -178,7 +204,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "IP स्थान"
+      "IP स्थान",
+      "मौसम",
+      "समाचार"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -191,7 +219,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "موقع IP"
+      "موقع IP",
+      "طقس",
+      "أخبار"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -204,7 +234,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip plats"
+      "ip plats",
+      "väder",
+      "nyheter"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -212,12 +244,14 @@
   "sw": {
     "param.format.description": "Output format.",
     "param.ip.description": "Anwani ya IP ya hiari ya kutafuta. Ikiwa haijatajwa, IP ya umma ya sasa inatumika (hali ya API tu).",
-    "tool.description": "Estimates the user’s approximate location from their public IP address.",
+    "tool.description": "Estimates the user's approximate location from their public IP address.",
     "x_search_terms": [
       "get_geoip",
       "get geoip",
       "geoip",
-      "eneo la IP"
+      "eneo la IP",
+      "hali ya hewa",
+      "habari"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -230,7 +264,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip plassering"
+      "ip plassering",
+      "vær",
+      "nyheter"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -243,7 +279,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip locatie"
+      "ip locatie",
+      "weer",
+      "nieuws"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -256,7 +294,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip-sijainti"
+      "ip-sijainti",
+      "sää",
+      "uutiset"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -269,7 +309,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip poloha"
+      "ip poloha",
+      "počasí",
+      "zprávy"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -282,7 +324,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip місце"
+      "ip місце",
+      "погода",
+      "новини"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -295,7 +339,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ip konum"
+      "ip konum",
+      "hava durumu",
+      "haber"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -308,7 +354,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "ตำแหน่ง IP"
+      "ตำแหน่ง IP",
+      "สภาพอากาศ",
+      "ข่าว"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -321,7 +369,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "IP 位置"
+      "IP 位置",
+      "天气",
+      "新闻"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -334,7 +384,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "IP 位置"
+      "IP 位置",
+      "天氣",
+      "新聞"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -347,7 +399,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "IP অবস্থান"
+      "IP অবস্থান",
+      "আবহাওয়া",
+      "খবর"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -360,7 +414,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "موقعیت IP"
+      "موقعیت IP",
+      "آب و هوا",
+      "اخبار"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -373,7 +429,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "IP байршил"
+      "IP байршил",
+      "цаг агаар",
+      "мэдээ"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
@@ -386,7 +444,9 @@
       "get_geoip",
       "get geoip",
       "geoip",
-      "IP स्थान"
+      "IP स्थान",
+      "हवामान",
+      "बातम्या"
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
