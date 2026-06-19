@@ -963,7 +963,7 @@ def get_tool_catalog(
             }
         )
 
-    # Ensure web_search is always included in catalog results
+    # Ensure web_search and fetch_url are always included in catalog results
     if not any(r["name"] == "search_web" for r in out):
         try:
             from ._genre_control_util import _find_tool_modules
@@ -987,6 +987,45 @@ def get_tool_catalog(
                 out.append(
                     {
                         "name": "search_web",
+                        "description": description,
+                        "required": (
+                            [str(x) for x in required]
+                            if isinstance(required, list)
+                            else []
+                        ),
+                        "parameters": param_names,
+                        "loaded": False,
+                        "genre": str(spec.get("tool_genre") or ""),
+                    }
+                )
+                break
+        except Exception:
+            pass
+
+    # Ensure fetch_url is always included in catalog results
+    if not any(r["name"] == "fetch_url" for r in out):
+        try:
+            from ._genre_control_util import _find_tool_modules
+
+            for _mname, mod in _find_tool_modules(skip_lazy=True):
+                spec = getattr(mod, "TOOL_SPEC", None)
+                if not isinstance(spec, dict):
+                    continue
+                fn = spec.get("function") or {}
+                if not isinstance(fn, dict):
+                    continue
+                if fn.get("name") != "fetch_url":
+                    continue
+                description = str(fn.get("description") or "").strip()
+                parameters = fn.get("parameters") or {}
+                properties = parameters.get("properties") or {}
+                required = parameters.get("required") or []
+                param_names = (
+                    list(properties.keys()) if isinstance(properties, dict) else []
+                )
+                out.append(
+                    {
+                        "name": "fetch_url",
                         "description": description,
                         "required": (
                             [str(x) for x in required]
