@@ -69,7 +69,7 @@ TOOL_SPEC: dict[str, Any] = {
                             "delta_x": {"type": "number"},
                             "delta_y": {"type": "number"},
                             "delay": {"type": "integer", "default": 100},
-                            "path": {"type": "string"},
+                            "path": {"type": "string", "description": _("param.path.description", default="File path to save output (used by content, screenshot, export_pdf, etc.).")},
                             "paths": {"type": "array", "items": {"type": "string"}},
                             "url_pattern": {"type": "string"},
                             "index": {"type": "integer"},
@@ -550,10 +550,19 @@ async def execute_actions(actions: List[Dict[str, Any]], headless: bool, **kwarg
 
                 elif a_type == "content":
                     _require_frame()
-                    results.append({
-                        "type": "content",
-                        "data": await current_frame.content()
-                    })
+                    html = await current_frame.content()
+                    c_path = action.get("path")
+                    if c_path:
+                        Path(c_path).write_text(html, encoding="utf-8")
+                        results.append({
+                            "type": "content",
+                            "path": str(Path(c_path).absolute())
+                        })
+                    else:
+                        results.append({
+                            "type": "content",
+                            "data": html
+                        })
 
                 elif a_type == "screenshot":
                     s_path = action.get(
