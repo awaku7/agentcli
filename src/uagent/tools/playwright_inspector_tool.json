@@ -34,7 +34,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR 起動済み ---"
   },
   "es": {
-    "err.child_failed": "[error playwright_inspector] Error en el proceso secunda...",
+    "err.child_failed": "[error playwright_inspector] Error en el proceso secundario:\n{stderr}",
     "out.ok": "Captura completada: se crearon {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl y latest.html.\n{stdout}",
     "param.prefix.description": "Prefijo del nombre de archivo que se guardará (pr...",
     "param.url.description": "Primera URL que se abrirá (predeterminad...",
@@ -50,7 +50,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR INICIADO ---"
   },
   "fr": {
-    "err.child_failed": "[Erreur playwright_inspector] Le processus enfant a écho...",
+    "err.child_failed": "[Erreur playwright_inspector] Le processus enfant a échoué :\n{stderr}",
     "out.ok": "Capture terminée : {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl et latest.html ont été créés.\n{stdout}",
     "param.prefix.description": "Préfixe du nom de fichier à enregistrer (par défa...",
     "param.url.description": "Première URL à ouvrir (par défaut : abou...",
@@ -82,8 +82,8 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR 시작됨 ---"
   },
   "de": {
-    "err.child_failed": "[playwright_inspector-Fehler] Untergeordneter Prozess fe...",
-    "out.ok": "Erfassung abgeschlossen: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl und latest.",
+    "err.child_failed": "[playwright_inspector-Fehler] Untergeordneter Prozess fehlgeschlagen:\n{stderr}",
+    "out.ok": "Erfassung abgeschlossen: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, seiten/, index.jsonl, Latest.html erstellt.\n{stdout}",
     "param.prefix.description": "Präfix des zu speichernden Dateinamens (Standard:...",
     "param.url.description": "Zu öffnende erste URL (Standard: about:blank)",
     "tool.description": "Starten Sie Playwright Inspector, um Browservorgänge zu erfassen.",
@@ -98,8 +98,8 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR GESTARTET ---"
   },
   "it": {
-    "err.child_failed": "[errore playwright_inspector] Processo figlio non riusci...",
-    "out.ok": "Acquisizione completata: sono stati creati {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.",
+    "err.child_failed": "[errore playwright_inspector] Processo figlio non riuscito:\n{stderr}",
+    "out.ok": "Acquisizione completata: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pagine/, index.jsonl, latest.html creato.\n{stdout}",
     "param.prefix.description": "Prefisso del nome del file da salvare (predefinit...",
     "param.url.description": "Prima URL da aprire (predefinito: about:blank)",
     "tool.description": "Avvia Playwright Inspector per acquisire le operazioni del browser.",
@@ -178,7 +178,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR DIMULAI ---"
   },
   "vi": {
-    "err.child_failed": "[lỗi playwright_inspector] Quá trình con không thành côn...",
+    "err.child_failed": "[lỗi playwright_inspector] Quá trình con không thành công:\n{stderr}",
     "out.ok": "Quá trình chụp đã hoàn tất: đã tạo {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl và latest.html.\n{stdout}",
     "param.prefix.description": "Tiền tố của tên tệp cần lưu (mặc định: debug_capture)",
     "param.url.description": "URL đầu tiên mở (mặc định: about:blank)",
@@ -189,12 +189,12 @@
       "chụp trình duyệt",
       "ghi luồng"
     ],
-    "ui.captured": "--- ĐÃ THU THẬP: {html}, {png}, {flow}, {snapshots...",
+    "ui.captured": "--- ĐÃ BẮT: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Sau thao tác, nhấn Tiếp tục (▷) trong Thanh tra.",
     "ui.started": "--- KIỂM TRA PLAYWRIGHT BẮT ĐẦU ---"
   },
   "pl": {
-    "err.child_failed": "[błąd playwright_inspector] Proces potomny nie powiódł s...",
+    "err.child_failed": "[błąd playwright_inspector] Proces potomny nie powiódł się:\n{stderr}",
     "out.ok": "Przechwytywanie zakończone: utworzono {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl i latest.html.\n{stdout}",
     "param.prefix.description": "Przedrostek nazwy pliku do zapisania (domyślnie:...",
     "param.url.description": "Pierwszy adres URL do otwarcia (domyślni...",
@@ -205,7 +205,7 @@
       "przechwytywanie przeglądarki",
       "rejestracja przepływu"
     ],
-    "ui.captured": "--- PRZECHWYCONO: {html}, {png}, {flow}, {snapshot...",
+    "ui.captured": "--- JĘZYK: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Po operacji naciśnij Wznów (▷) w Inspektorze.",
     "ui.started": "--- INSPEKTOR PLACÓWEK RUSZYŁ ---"
   },
@@ -221,7 +221,7 @@
       "ब्राउज़र कैप्चर",
       "फ़्लो रिकॉर्ड"
     ],
-    "ui.captured": "--- कैप्चर किया गया: {html}, {png}, {flow}, {snaps...",
+    "ui.captured": "--- कैप्चर किया गया: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "कार्रवाई के बाद, Inspector में Resume (▷) दबाएँ।",
     "ui.started": "--- PLAYWRIGHT INSPECTOR शुरू हुआ ---"
   },
@@ -237,7 +237,7 @@
       "التقاط المتصفح",
       "تسجيل التدفق"
     ],
-    "ui.captured": "--- تم التقاطها: {html}، {png}، {flow}، {snapshots...",
+    "ui.captured": "--- تم الالتقاط: {html}، {png}، {flow}، {snapshots}/ ---",
     "ui.resume_prompt": "بعد العملية، اضغط على \"استئناف\" (▷) في المفتش.",
     "ui.started": "--- بدأ مفتش الكاتب المسرحي ---"
   },
@@ -290,7 +290,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTET ---"
   },
   "nl": {
-    "err.child_failed": "[playwright_inspector fout] Onderliggend proces mislukt:...",
+    "err.child_failed": "[playwright_inspector error] Onderliggend proces mislukt:\n{stderr}",
     "out.ok": "Vastlegging voltooid: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl en latest.html zijn gemaakt.\n{stdout}",
     "param.prefix.description": "Voorvoegsel van de bestandsnaam om op te slaan (s...",
     "param.url.description": "Eerste URL om te openen (standaard: abou...",
@@ -317,7 +317,7 @@
       "selaimen kaappaus",
       "kulun tallennus"
     ],
-    "ui.captured": "--- TALLENNETTU: {html}, {png}, {flow}, {snapshots...",
+    "ui.captured": "--- KAAPATTU: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Toiminnon jälkeen paina Jatka (▷) Inspectorissa.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR KÄYNNIST..."
   },
@@ -338,7 +338,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR SPUŠTĚN ---"
   },
   "uk": {
-    "err.child_failed": "[помилка playwright_inspector] Дочірній процес завершивс...",
+    "err.child_failed": "[помилка playwright_inspector] Помилка дочірнього процесу:\n{stderr}",
     "out.ok": "Захоплення завершено: створено {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl і latest.html.\n{stdout}",
     "param.prefix.description": "Префікс назви файла для збереження (типово: debug...",
     "param.url.description": "Перша URL-адреса для відкриття (типово:...",
@@ -418,7 +418,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR 已啟動 ---"
   },
   "bn": {
-    "err.child_failed": "[playwright_inspector ত্রুটি] সন্তানের প্রসেস ব্যর্থ হয়...",
+    "err.child_failed": "[নাট্যকার_পরিদর্শক ত্রুটি] চাইল্ড প্রক্রিয়া ব্যর্থ হয়েছে:\n{stderr}",
     "out.ok": "ক্যাপচার সম্পন্ন: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html তৈরি হয়েছে।\n{stdout}",
     "param.prefix.description": "সংরক্ষণ করার ফাইলনামের prefix (default: debug_capture)",
     "param.url.description": "প্রথমে খোলার URL (default: about:blank)",
@@ -434,7 +434,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR চালু হয়..."
   },
   "fa": {
-    "err.child_failed": "[خطای playwright_inspector] فرایند فرزند با شکست مواجه ش...",
+    "err.child_failed": "[خطای playwright_inspector] فرآیند کودک ناموفق بود:\n{stderr}",
     "out.ok": "گرفتن خروجی کامل شد: {prefix}.html، {prefix}.png، {prefix}.flow.jsonl، {prefix}_snapshots/، pages/، index.jsonl و latest.html ایجاد شدند.\n{stdout}",
     "param.prefix.description": "پیشوند نام فایل برای ذخیره (پیش‌فرض: debug_capture)",
     "param.url.description": "اولین URL برای باز کردن (پیش‌فرض: about:blank)",
@@ -450,7 +450,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR شروع شد ---"
   },
   "mn": {
-    "err.child_failed": "[playwright_inspector алдаа] Дочерний процесс амжилтгүй...",
+    "err.child_failed": "[playwright_inspector error] Хүүхдийн процесс амжилтгүй болсон:\n{stderr}",
     "out.ok": "Capture дууслаа: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html үүсгэгдлээ.\n{stdout}",
     "param.prefix.description": "Хадгалах файлын нэрийн уртгал (анхдагч: debug_capture)",
     "param.url.description": "Эхлээд нээх URL (анхдагч: about:blank)",
@@ -466,7 +466,7 @@
     "ui.started": "--- PLAYWRIGHT INSPECTOR АЖИЛЛАЖ..."
   },
   "mr": {
-    "err.child_failed": "[playwright_inspector त्रुटी] child process अयशस्वी झाला...",
+    "err.child_failed": "[playwright_inspector error] बाल प्रक्रिया अयशस्वी:\n{stderr}",
     "out.ok": "Capture पूर्ण झाले: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html तयार झाले.\n{stdout}",
     "param.prefix.description": "जतन करण्यासाठी फाइल नावाचा prefix (default: debug...",
     "param.url.description": "प्रथम उघडायचा URL (default: about:blank)",
@@ -477,7 +477,7 @@
       "ब्राउझर कॅप्चर",
       "फ्लो रेकॉर्ड"
     ],
-    "ui.captured": "--- कॅप्चर झाले: {html}, {png}, {flow}, {snapshots...",
+    "ui.captured": "--- कॅप्चर केलेले: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "ऑपरेशननंतर Inspector मध्ये Resume (▷) दाबा.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR सुरू झाले ---"
   }

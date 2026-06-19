@@ -32,8 +32,8 @@
     ]
   },
   "es": {
-    "err.bad_template": "[error de generate_prompt] la plantilla tiene una cl...",
-    "err.not_a_file": "[error de generate_prompt] no es un arc...",
+    "err.bad_template": "La plantilla [generate_prompt error] tiene una clave desconocida: {key}",
+    "err.not_a_file": "[error generar_prompt] no es un archivo: {path}",
     "err.path_missing": "[error de generate_prompt] ruta/nombre de archivo n...",
     "err.template_missing": "[error de generate_prompt] plantilla no especificada",
     "param.path.description": "Ruta del archivo de entrada (debe estar en e...",
@@ -47,8 +47,8 @@
     ]
   },
   "fr": {
-    "err.bad_template": "[erreur generate_prompt] le modèle a une clé inconnu...",
-    "err.not_a_file": "[erreur generate_prompt] pas un fichier...",
+    "err.bad_template": "Le modèle [generate_prompt error] a une clé inconnue : {key}",
+    "err.not_a_file": "[erreur Generate_prompt] ce n'est pas un fichier : {path}",
     "err.path_missing": "[erreur generate_prompt] le chemin/nom de fichier n...",
     "err.template_missing": "[erreur generate_prompt] le modèle n'est pas spécifié",
     "param.path.description": "Chemin du fichier d'entrée (doit être sous w...",
@@ -77,7 +77,7 @@
     ]
   },
   "de": {
-    "err.bad_template": "[generate_prompt-Fehler] Vorlage hat einen unbekannt...",
+    "err.bad_template": "[generate_prompt-Fehler] Vorlage hat unbekannten Schlüssel: {key}",
     "err.not_a_file": "[generate_prompt-Fehler] Keine Datei: {path}",
     "err.path_missing": "[generate_prompt-Fehler] Pfad/Dateiname ist nicht angegeben",
     "err.template_missing": "[generate_prompt-Fehler] Vorlage ist nicht angegeben",
@@ -92,7 +92,7 @@
     ]
   },
   "it": {
-    "err.bad_template": "[errore generate_prompt] il template ha una chiave s...",
+    "err.bad_template": "Il modello [generate_prompt error] ha una chiave sconosciuta: {key}",
     "err.not_a_file": "[errore generate_prompt] non è un file: {path}",
     "err.path_missing": "[errore generate_prompt] percorso/nome file non specificato",
     "err.template_missing": "[errore generate_prompt] template non specificato",
@@ -108,7 +108,7 @@
   },
   "ru": {
     "err.bad_template": "[ошибка generate_prompt] в шаблоне неизвестный ключ: {key}",
-    "err.not_a_file": "[ошибка generate_prompt] не является фа...",
+    "err.not_a_file": "[generate_prompt error] не файл: {path}",
     "err.path_missing": "[ошибка generate_prompt] путь/имя файла не указаны",
     "err.template_missing": "[ошибка generate_prompt] шаблон не указан",
     "param.path.description": "Путь к входному файлу (должен находиться в р...",
@@ -122,8 +122,8 @@
     ]
   },
   "pt_BR": {
-    "err.bad_template": "[erro generate_prompt] o modelo tem uma chave descon...",
-    "err.not_a_file": "[erro generate_prompt] não é um arquivo...",
+    "err.bad_template": "[generate_prompt error] modelo tem chave desconhecida: {key}",
+    "err.not_a_file": "[errogenerate_prompt] não é um arquivo: {path}",
     "err.path_missing": "[erro generate_prompt] o caminho/nome do arquivo nã...",
     "err.template_missing": "[erro generate_prompt] o modelo não foi especificado",
     "param.path.description": "Caminho do arquivo de entrada (deve estar em...",
@@ -137,8 +137,8 @@
     ]
   },
   "pt": {
-    "err.bad_template": "[erro generate_prompt] o modelo tem uma chave descon...",
-    "err.not_a_file": "[erro generate_prompt] não é um arquivo...",
+    "err.bad_template": "[generate_prompt error] modelo tem chave desconhecida: {key}",
+    "err.not_a_file": "[errogenerate_prompt] não é um arquivo: {path}",
     "err.path_missing": "[erro generate_prompt] caminho/nome do arquivo não...",
     "err.template_missing": "[erro generate_prompt] modelo não especificado",
     "param.path.description": "Caminho do arquivo de entrada (deve estar em...",
@@ -152,7 +152,7 @@
     ]
   },
   "id": {
-    "err.bad_template": "[generate_prompt error] template memiliki key yang t...",
+    "err.bad_template": "Templat [generate_prompt error] memiliki kunci yang tidak diketahui: {key}",
     "err.not_a_file": "[generate_prompt error] bukan file: {path}",
     "err.path_missing": "[generate_prompt error] path/filename tidak ditentukan",
     "err.template_missing": "[generate_prompt error] template tidak ditentukan",
@@ -183,7 +183,7 @@
   },
   "pl": {
     "err.bad_template": "[błąd generate_prompt] szablon zawiera nieznany klucz: {key}",
-    "err.not_a_file": "[błąd generate_prompt] to nie jest plik...",
+    "err.not_a_file": "[błąd generowania_promptu] nie jest plikiem: {path}",
     "err.path_missing": "[błąd generate_prompt] nie określono ścieżki/nazwy pliku",
     "err.template_missing": "[błąd generate_prompt] nie określono szablonu",
     "param.path.description": "Ścieżka pliku wejściowego (musi znajdować si...",
@@ -212,7 +212,7 @@
     ]
   },
   "ar": {
-    "err.bad_template": "[خطأ generate_prompt] يحتوي القالب على مفتاح غير معر...",
+    "err.bad_template": "يحتوي القالب [generate_prompt error] على مفتاح غير معروف: {key}",
     "err.not_a_file": "[خطأ generate_prompt] ليس ملفًا: {path}",
     "err.path_missing": "[خطأ generate_prompt] لم يتم تحديد المسار/اسم الملف",
     "err.template_missing": "[خطأ generate_prompt] لم يتم تحديد القالب",
@@ -242,7 +242,7 @@
     ]
   },
   "sw": {
-    "err.bad_template": "[hitilafu generate_prompt] kiolezo kina ufunguo usio...",
+    "err.bad_template": "[generate_prompt error] kiolezo kina ufunguo usiojulikana: {key}",
     "err.not_a_file": "[hitilafu generate_prompt] si faili: {path}",
     "err.path_missing": "[hitilafu generate_prompt] njia/jina la faili halij...",
     "err.template_missing": "[hitilafu generate_prompt] kiolezo hakijabainishwa",
@@ -272,7 +272,7 @@
     ]
   },
   "nl": {
-    "err.bad_template": "[generate_prompt fout] sjabloon bevat onbekende sleu...",
+    "err.bad_template": "[generate_prompt error] sjabloon heeft onbekende sleutel: {key}",
     "err.not_a_file": "[generate_prompt fout] geen bestand: {path}",
     "err.path_missing": "[generate_prompt fout] path/filename niet opgegeven",
     "err.template_missing": "[generate_prompt fout] template niet opgegeven",
@@ -287,8 +287,8 @@
     ]
   },
   "fi": {
-    "err.bad_template": "[generate_prompt-virhe] template sisältää tuntematto...",
-    "err.not_a_file": "[generate_prompt-virhe] ei ole tiedosto...",
+    "err.bad_template": "[generate_prompt error] mallissa on tuntematon avain: {key}",
+    "err.not_a_file": "[generate_prompt error] ei tiedosto: {path}",
     "err.path_missing": "[generate_prompt-virhe] path/filename puuttuu",
     "err.template_missing": "[generate_prompt-virhe] template puuttuu",
     "param.path.description": "Syötetiedoston polku (on oltava workdirin alla).",
@@ -317,7 +317,7 @@
     ]
   },
   "uk": {
-    "err.bad_template": "[generate_prompt помилка] шаблон містить невідомий к...",
+    "err.bad_template": "[generate_prompt error] шаблон має невідомий ключ: {key}",
     "err.not_a_file": "[generate_prompt помилка] це не файл: {path}",
     "err.path_missing": "[generate_prompt помилка] не вказано шлях/ім'я файла",
     "err.template_missing": "[generate_prompt помилка] не вказано шаблон",
@@ -332,8 +332,8 @@
     ]
   },
   "tr": {
-    "err.bad_template": "[generate_prompt error] şablonunda bilinmeyen anahta...",
-    "err.not_a_file": "[generate_prompt error] bir dosya değil...",
+    "err.bad_template": "[generate_prompt error] şablonunda bilinmeyen anahtar var: {key}",
+    "err.not_a_file": "[generate_prompt error] bir dosya değil: {path}",
     "err.path_missing": "[generate_prompt error] yol/dosya adı belirtilmedi",
     "err.template_missing": "[generate_prompt error] şablonu belirtilmedi",
     "param.path.description": "Giriş dosyasının yolu (workdir altında olmalıdır).",
@@ -347,8 +347,8 @@
     ]
   },
   "th": {
-    "err.bad_template": "[ข้อผิดพลาด generate_prompt] เทมเพลตมีคีย์ที่ไม่รู้จ...",
-    "err.not_a_file": "[ข้อผิดพลาด generate_prompt] ไม่ใช่ไฟล์...",
+    "err.bad_template": "เทมเพลต [generate_prompt error] มีรหัสที่ไม่รู้จัก: {key}",
+    "err.not_a_file": "[ข้อผิดพลาด Generate_prompt] ไม่ใช่ไฟล์: {path}",
     "err.path_missing": "[ข้อผิดพลาด generate_prompt] ไม่ได้ระบุเส้นทาง/ชื่อไฟล์",
     "err.template_missing": "[ข้อผิดพลาด generate_prompt] ไม่ได้ระบุเทมเพลต",
     "param.path.description": "เส้นทางของไฟล์อินพุต (ต้องอยู่ภายใต้ workdir)",

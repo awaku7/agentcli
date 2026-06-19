@@ -68,7 +68,7 @@
   },
   "fr": {
     "err.exception": "Except...",
-    "err.invalid_action": "Action non valide : {...",
+    "err.invalid_action": "Action invalide : {action}",
     "err.message_too_long": "Le contenu du message Discord doit comporter 2000 car...",
     "err.missing_action": "Action manquante.",
     "err.missing_channel_id": "ID de salon manquant.",
@@ -137,7 +137,7 @@
   },
   "it": {
     "err.exception": "Eccezione",
-    "err.invalid_action": "Azione non valida: {a...",
+    "err.invalid_action": "Azione non valida: {action}",
     "err.message_too_long": "Il contenuto del messaggio Discord deve essere di 200...",
     "err.missing_action": "Azione mancante.",
     "err.missing_channel_id": "ID canale mancante.",
@@ -160,7 +160,7 @@
   },
   "ru": {
     "err.exception": "Исключ...",
-    "err.invalid_action": "Недопустимое действие...",
+    "err.invalid_action": "Недопустимое действие: {action}",
     "err.message_too_long": "Содержание сообщения Discord должно содержать не боле...",
     "err.missing_action": "Отсутствует де...",
     "err.missing_channel_id": "Отсутствует ID канала.",
@@ -229,7 +229,7 @@
   },
   "id": {
     "err.exception": "Terjad...",
-    "err.invalid_action": "Tindakan tidak valid:...",
+    "err.invalid_action": "Tindakan tidak valid: {action}",
     "err.message_too_long": "Isi pesan Discord harus 2000 karakter atau kurang.",
     "err.missing_action": "Tidak ada 'act...",
     "err.missing_channel_id": "Tidak ada 'channel_id'.",
@@ -252,7 +252,7 @@
   },
   "vi": {
     "err.exception": "Ngoại lệ",
-    "err.invalid_action": "Hành động không hợp l...",
+    "err.invalid_action": "Hành động không hợp lệ: {action}",
     "err.message_too_long": "Nội dung tin nhắn Discord phải có 2000 ký tự trở xuống.",
     "err.missing_action": "Thiếu 'action'.",
     "err.missing_channel_id": "Thiếu 'channel_id'.",
@@ -275,7 +275,7 @@
   },
   "pl": {
     "err.exception": "Wyjątek",
-    "err.invalid_action": "Nieprawidłowa akcja:...",
+    "err.invalid_action": "Nieprawidłowa akcja: {action}",
     "err.message_too_long": "Treść wiadomości Discord nie może przekraczać 2000 znaków.",
     "err.missing_action": "Brakuje parame...",
     "err.missing_channel_id": "Brakuje parametru...",
@@ -436,7 +436,7 @@
   },
   "fi": {
     "err.exception": "Poikkeus",
-    "err.invalid_action": "Virheellinen toiminto...",
+    "err.invalid_action": "Virheellinen toiminto: {action}",
     "err.message_too_long": "Discord-viestin sisältö saa olla enintään 2000 merkkiä.",
     "err.missing_action": "'action' puuttuu.",
     "err.missing_channel_id": "'channel_id' puuttuu.",
@@ -528,7 +528,7 @@
   },
   "th": {
     "err.exception": "ข้อยกเว้น",
-    "err.invalid_action": "การดำเนินการไม่ถูกต้อ...",
+    "err.invalid_action": "การกระทำที่ไม่ถูกต้อง: {action}",
     "err.message_too_long": "เนื้อหาข้อความ Discord ต้องมีความยาวไม่เกิน 2000 ตัวอักษร",
     "err.missing_action": "ขาด 'action'",
     "err.missing_channel_id": "ขาด 'channel_id'",

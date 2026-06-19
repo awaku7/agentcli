@@ -37,7 +37,7 @@
     ],
     "param.path.description": "Ruta del documento de entrada (.docx, .rtf, .odt).",
     "param.password.description": "Contraseña opcional para u...",
-    "prompt.password": "Introduzca la contraseña de este arch...",
+    "prompt.password": "Ingrese la contraseña para este archivo:\n{path}",
     "param.fmt.description": "Formato de salida: text o..."
   },
   "fr": {
@@ -50,7 +50,7 @@
     ],
     "param.path.description": "Chemin du document d’entrée (.docx, .rtf, .odt).",
     "param.password.description": "Mot de passe facultatif po...",
-    "prompt.password": "Entrez le mot de passe de ce fichier...",
+    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}",
     "param.fmt.description": "Format de sortie : text o..."
   },
   "ko": {
@@ -76,7 +76,7 @@
     ],
     "param.path.description": "Pfad zum Eingabedokument (.docx, .rtf, .odt).",
     "param.password.description": "Optionales Kennwort für ei...",
-    "prompt.password": "Bitte geben Sie das Kennwort für dies...",
+    "prompt.password": "Geben Sie das Passwort für diese Datei ein:\n{path}",
     "param.fmt.description": "Ausgabeformat: text oder json."
   },
   "it": {
@@ -245,7 +245,7 @@
     ],
     "param.path.description": "Pad naar het invoerdocument (.docx, .rtf, .odt).",
     "param.password.description": "Optioneel wachtwoord voor...",
-    "prompt.password": "Voer het wachtwoord voor dit bestand...",
+    "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}",
     "param.fmt.description": "Uitvoerformaat: text of json."
   },
   "fi": {

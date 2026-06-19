@@ -50,7 +50,7 @@
       "xlsx"
     ],
     "param.password.description": "Contraseña opcional para a...",
-    "prompt.password": "Introduzca la contraseña de este arch..."
+    "prompt.password": "Ingrese la contraseña para este archivo:\n{path}"
   },
   "fr": {
     "param.action.description": "Opérati...",
@@ -67,7 +67,7 @@
       "xlsx"
     ],
     "param.password.description": "Mot de passe facultatif po...",
-    "prompt.password": "Entrez le mot de passe de ce fichier..."
+    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}"
   },
   "ko": {
     "param.action.description": "수행할 작업입니다.",
@@ -101,7 +101,7 @@
       "xlsx"
     ],
     "param.password.description": "Optionales Kennwort für ve...",
-    "prompt.password": "Bitte geben Sie das Kennwort für dies..."
+    "prompt.password": "Geben Sie das Passwort für diese Datei ein:\n{path}"
   },
   "it": {
     "param.action.description": "Operazi...",
@@ -322,7 +322,7 @@
       "xlsx"
     ],
     "param.password.description": "Optioneel wachtwoord voor...",
-    "prompt.password": "Voer het wachtwoord voor dit bestand..."
+    "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}"
   },
   "fi": {
     "param.action.description": "Suorite...",

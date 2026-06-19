@@ -56,7 +56,7 @@
   "es": {
     "err.dual_lines": "[error read_file] head_lines y tail_lines no pueden especificarse al...",
     "err.filename_missing": "[error read_file] nombre de archivo/ruta no e...",
-    "err.out_of_range": "(El archivo solo tiene {count} líneas.",
+    "err.out_of_range": "(el archivo tiene solo {count} líneas, start_line {start_line} está fuera de rango)",
     "msg.truncated": "[read_file truncado: límite de bytes {max_bytes} a...",
     "param.filename.description": "Ruta del archivo a leer.",
     "param.start_line.description": "Número de línea (desde 1) para empezar la lectura.",
@@ -83,7 +83,7 @@
   "fr": {
     "err.dual_lines": "[erreur read_file] head_lines et tail_lines ne peuvent pas être spéci...",
     "err.filename_missing": "[erreur read_file] nom/chemin de fichier non...",
-    "err.out_of_range": "(Le fichier ne contient que {count} lignes.",
+    "err.out_of_range": "(le fichier ne contient que {count} lignes, start_line {start_line} est hors de portée)",
     "msg.truncated": "[read_file tronqué : limite d'octets {max_bytes} atteinte]",
     "param.filename.description": "Chemin du fichier à lire.",
     "param.start_line.description": "Numéro de ligne (début à 1) pour commencer la lecture.",
@@ -137,7 +137,7 @@
   "de": {
     "err.dual_lines": "[read_file Fehler] head_lines und tail_lines können nicht gleichzeiti...",
     "err.filename_missing": "[read_file Fehler] Dateiname/Pfad nicht angegeben.",
-    "err.out_of_range": "(Die Datei hat nur {count} Zeilen.",
+    "err.out_of_range": "(Datei hat nur {count} Zeilen, start_line {start_line} liegt außerhalb des Bereichs)",
     "msg.truncated": "[read_file abgeschnitten: Byte-Limit {max_bytes} erreicht]",
     "param.filename.description": "Pfad der zu lesenden Datei.",
     "param.start_line.description": "Zeilennummer (beginnend bei 1), ab der gelesen werden s...",
@@ -218,7 +218,7 @@
   "pt_BR": {
     "err.dual_lines": "[erro read_file] head_lines e tail_lines não podem ser especificados...",
     "err.filename_missing": "[erro read_file] nome do arquivo/caminho não...",
-    "err.out_of_range": "(O arquivo tem apenas {count} linhas.",
+    "err.out_of_range": "(o arquivo tem apenas {count} linhas, start_line {start_line} está fora do intervalo)",
     "msg.truncated": "[read_file truncado: limite de bytes {max_bytes} atingido]",
     "param.filename.description": "Caminho do arquivo a s...",
     "param.start_line.description": "Número da linha (iniciando em 1) para começar a leitura.",
@@ -245,7 +245,7 @@
   "pt": {
     "err.dual_lines": "[erro read_file] head_lines e tail_lines não podem ser especificados...",
     "err.filename_missing": "[erro read_file] nome do arquivo/caminho não...",
-    "err.out_of_range": "(O arquivo possui apenas {count} linhas.",
+    "err.out_of_range": "(o arquivo tem apenas {count} linhas, start_line {start_line} está fora do intervalo)",
     "msg.truncated": "[read_file truncado: limite de bytes {max_bytes} atingido]",
     "param.filename.description": "Caminho do arquivo a s...",
     "param.start_line.description": "Número da linha (começando em 1) para iniciar a leitura.",
@@ -272,7 +272,7 @@
   "id": {
     "err.dual_lines": "[read_file error] head_lines dan tail_lines tidak dapat ditentukan bersamaan.",
     "err.filename_missing": "[read_file error] filename/path tidak ditentukan.",
-    "err.out_of_range": "(File hanya memiliki {count} baris.",
+    "err.out_of_range": "(file hanya memiliki {count} baris, start_line {start_line} di luar jangkauan)",
     "msg.truncated": "[read_file terpotong: batas byte {max_bytes} tercapai]",
     "param.filename.description": "Jalur file yang akan d...",
     "param.start_line.description": "Nomor baris (mulai dari 1) untuk memulai pembacaan.",
@@ -300,7 +300,7 @@
     "err.dual_lines": "[lỗi read_file] head_lines và tail_lines không thể được chỉ định cùng một lúc",
     "err.filename_missing": "[lỗi read_file] tên tệp/đường dẫn không được...",
     "err.out_of_range": "(Tệp chỉ có dòng {count}. start_line {start_line} nằm ngoài phạm vi)",
-    "msg.truncated": "[read_file bị cắt bớt: Đã đạt đến giới hạn byte {m...",
+    "msg.truncated": "[read_file bị cắt bớt: Đã đạt đến giới hạn byte {max_bytes}]",
     "param.filename.description": "Đường dẫn của tập tin...",
     "param.start_line.description": "Số dòng (bắt đầu từ 1) để bắt đầu đọc. Mặc định là 1.",
     "tool.description": "Đọc nội dung tệp (tối đa 1.000.000 byte).",
@@ -326,7 +326,7 @@
   "pl": {
     "err.dual_lines": "[błąd read_file] head_lines i tail_lines nie mogą być określone jednocześnie.",
     "err.filename_missing": "[błąd read_file] nie podano nazwy pliku/ścieżki.",
-    "err.out_of_range": "(Plik zawiera tylko linie {count}.",
+    "err.out_of_range": "(plik ma tylko {count} linii, linia początkowa {start_line} jest poza zakresem)",
     "msg.truncated": "[read_file obcięty: osiągnięto limit {max_bytes} bajtów]",
     "param.filename.description": "Ścieżka pliku do odczy...",
     "param.start_line.description": "Numer linii (zaczynając od 1), aby rozpocząć czytanie.",
@@ -354,7 +354,7 @@
     "err.dual_lines": "[read_file error] हेड_लाइन्स और टेल_लाइन्स को एक ही समय में निर्दिष्ट...",
     "err.filename_missing": "[read_file त्रुटि] फ़ाइल नाम/पथ निर्दिष्ट नहीं है",
     "err.out_of_range": "(फ़ाइल में केवल {count} लाइनें हैं। स्टार्ट_लाइन {start_line} सीमा...",
-    "msg.truncated": "[पढ़ें_फ़ाइल को छोटा किया गया: बाइट सीमा {max_byte...",
+    "msg.truncated": "[पढ़ें_फ़ाइल को छोटा किया गया: बाइट सीमा {max_bytes} तक पहुंच गई]",
     "param.filename.description": "पढ़ने के लिए फ़ाइल का पथ.",
     "param.start_line.description": "पढ़ना शुरू करने के लिए लाइन नंबर (1 से शुरू)। डिफ़ॉल्ट 1 है.",
     "tool.description": "फ़ाइल सामग्री पढ़ें (1,000,000 बाइट्स तक)। स्टार्ट_लाइन और मैक्स_लाइन्स निर्द...",
@@ -407,7 +407,7 @@
   "sv": {
     "err.dual_lines": "[read_file-fel] head_lines och tail_lines kan inte anges samtidigt.",
     "err.filename_missing": "[read_file-fel] filnamn/sökväg har inte angetts.",
-    "err.out_of_range": "(Filen har bara {count} rader.",
+    "err.out_of_range": "(filen har bara {count} rader, start_line {start_line} är utanför intervallet)",
     "msg.truncated": "[read_file trunkerad: bytegränsen {max_bytes} har nåtts]",
     "param.filename.description": "Sökväg till filen som...",
     "param.start_line.description": "Radnummer (börjar på 1) där läsningen ska starta.",
@@ -435,7 +435,7 @@
     "err.dual_lines": "[hitilafu read_file] head_lines na tail_lines haviwezi kutolewa kwa w...",
     "err.filename_missing": "[hitilafu read_file] jina la faili/njia halij...",
     "err.out_of_range": "(Faili lina mistari {count} pekee. start_line {start_line} iko nje ya masafa)",
-    "msg.truncated": "[read_file imekatizwa: kikomo cha baiti {max_bytes...",
+    "msg.truncated": "[soma_faili imepunguzwa: Kikomo cha Baiti {max_bytes} kimefikiwa]",
     "param.filename.description": "Njia ya faili la kusoma.",
     "param.start_line.description": "Nambari ya mstari wa kuanzia kusoma (kuanzia 1).",
     "tool.description": "Soma maudhui ya faili (hadi baiti 1,000,000).",
@@ -488,7 +488,7 @@
   "nl": {
     "err.dual_lines": "[read_file fout] head_lines en tail_lines kunnen niet tegelijk worden opgegeven",
     "err.filename_missing": "[read_file fout] filename/path niet opgegeven",
-    "err.out_of_range": "(Het bestand heeft slechts {count} regels.",
+    "err.out_of_range": "(bestand heeft slechts {count} regels, start_line {start_line} ligt buiten bereik)",
     "msg.truncated": "[read_file afgekapt: byte-limiet {max_bytes} bereikt]",
     "param.filename.description": "Pad van het bestand da...",
     "param.start_line.description": "Regelnummer (vanaf 1) om te beginnen met lezen. Standaard is 1.",
@@ -515,7 +515,7 @@
   "fi": {
     "err.dual_lines": "[read_file-virhe] head_lines ja tail_lines eivät voi olla käytössä yhtä aikaa",
     "err.filename_missing": "[read_file-virhe] filename/path puuttuu",
-    "err.out_of_range": "(Tiedostossa on vain {count} riviä.",
+    "err.out_of_range": "(tiedostossa on vain {count} riviä, aloitusrivi {start_line} on alueen ulkopuolella)",
     "msg.truncated": "[read_file katkaistu: tavuraja {max_bytes} saavutettu]",
     "param.filename.description": "Luettavan tiedoston polku.",
     "param.start_line.description": "Rivinumero (alkaen 1), josta lukeminen aloitetaan. Oletus on 1.",
@@ -758,7 +758,7 @@
   "mn": {
     "err.dual_lines": "[read_file алдаа] head_lines ба tail_lines-ийг зэрэг зааж болохгүй",
     "err.filename_missing": "[read_file алдаа] filename/path заагаагүй байна",
-    "err.out_of_range": "(Файлд ердөө {count} мөр байна.",
+    "err.out_of_range": "(файл зөвхөн {count} мөртэй, эхлэх_мөр {start_line} хүрээнээс гадуур байна)",
     "msg.truncated": "[read_file тасарсан: {max_bytes} байтын хязгаарт хүрлээ]",
     "param.filename.description": "Унших файлын зам.",
     "param.start_line.description": "Уншиж эхлэх мөрийн дугаар (1-ээс эхэлнэ). Анхдагч нь 1.",
@@ -785,7 +785,7 @@
   "mr": {
     "err.dual_lines": "[read_file त्रुटी] head_lines आणि tail_lines एकाच वेळी देता येत नाहीत",
     "err.filename_missing": "[read_file त्रुटी] filename/path निर्दिष्ट के...",
-    "err.out_of_range": "(फाइलमध्ये फक्त {count} ओळी आहेत.",
+    "err.out_of_range": "(फाइलमध्ये फक्त {count} ओळी आहेत, start_line {start_line} श्रेणीबाहेर आहे)",
     "msg.truncated": "[read_file संक्षिप्त: {max_bytes} बाइट मर्यादा गाठली]",
     "param.filename.description": "वाचायच्या फाइलचा path.",
     "param.start_line.description": "वाचायला सुरूवात करायच्या ओळीचा क्रमांक (1 पासून).",

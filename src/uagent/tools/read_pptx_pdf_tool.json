@@ -44,7 +44,7 @@
       "pdf pptx leer"
     ],
     "param.password.description": "Contraseña opcional para a...",
-    "prompt.password": "Introduzca la contraseña de este arch...",
+    "prompt.password": "Ingrese la contraseña para este archivo:\n{path}",
     "param.maxc.description": "Número máximo de caracteres a devolver. Si se omite, se trunca a 8000 caracteres.",
     "err.path_required": "[read_pptx_pdf error] path is required",
     "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
@@ -60,7 +60,7 @@
       "pdf pptx lire"
     ],
     "param.password.description": "Mot de passe facultatif po...",
-    "prompt.password": "Entrez le mot de passe de ce fichier...",
+    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}",
     "param.maxc.description": "Nombre maximum de caractères à renvoyer.",
     "err.path_required": "[read_pptx_pdf error] path is required",
     "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
@@ -92,7 +92,7 @@
       "pdf pptx text"
     ],
     "param.password.description": "Optionales Kennwort für ve...",
-    "prompt.password": "Bitte geben Sie das Kennwort für dies...",
+    "prompt.password": "Geben Sie das Passwort für diese Datei ein:\n{path}",
     "param.maxc.description": "Maximale Anzahl der zurückzugebenden Zeichen.",
     "err.path_required": "[read_pptx_pdf error] path is required",
     "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
@@ -300,7 +300,7 @@
       "pdf pptx lezen"
     ],
     "param.password.description": "Optioneel wachtwoord voor...",
-    "prompt.password": "Voer het wachtwoord voor dit bestand...",
+    "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}",
     "param.maxc.description": "Maximaal aantal tekens om terug te geven.",
     "err.path_required": "[read_pptx_pdf error] path is required",
     "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"

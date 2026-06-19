@@ -35,9 +35,9 @@
   },
   "es": {
     "error.args_must_be_dict": "args debe ser un...",
-    "error.duckduckgo_failed_after_retries": "La solicitud de DuckDuckGo falló después de l...",
+    "error.duckduckgo_failed_after_retries": "La solicitud de DuckDuckGo falló después de los reintentos: {error}",
     "error.missing_query_parameter": "falta el parámetro 'query'",
-    "error.run_tool_error": "error al ejecutar ru...",
+    "error.run_tool_error": "error de ejecución_herramienta: {error}",
     "param.query.description": "Cadena de...",
     "tool.description": "Busque en la web a través de la interfaz HTML de DuckDuckGo y devuelva...",
     "x_search_terms": [
@@ -50,7 +50,7 @@
   },
   "fr": {
     "error.args_must_be_dict": "args doit être u...",
-    "error.duckduckgo_failed_after_retries": "La requête DuckDuckGo a échoué après plusieur...",
+    "error.duckduckgo_failed_after_retries": "La requête DuckDuckGo a échoué après plusieurs tentatives : {error}",
     "error.missing_query_parameter": "paramètre 'query' manquant",
     "error.run_tool_error": "Erreur run_tool : {error}",
     "param.query.description": "Chaîne de...",
@@ -80,7 +80,7 @@
   },
   "de": {
     "error.args_must_be_dict": "args muss ein Di...",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo-Anfrage ist nach mehreren Versuche...",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-Anfrage ist nach Wiederholungsversuchen fehlgeschlagen: {error}",
     "error.missing_query_parameter": "fehlender 'query'-Parameter",
     "error.run_tool_error": "run_tool-Fehler: {error}",
     "param.query.description": "Suchanfrag...",
@@ -95,7 +95,7 @@
   },
   "it": {
     "error.args_must_be_dict": "args deve essere...",
-    "error.duckduckgo_failed_after_retries": "La richiesta DuckDuckGo è fallita dopo i tent...",
+    "error.duckduckgo_failed_after_retries": "Richiesta DuckDuckGo non riuscita dopo i tentativi: {error}",
     "error.missing_query_parameter": "manca il parametro 'query'",
     "error.run_tool_error": "errore run_tool: {error}",
     "param.query.description": "Stringa de...",
@@ -110,7 +110,7 @@
   },
   "ru": {
     "error.args_must_be_dict": "args должен быть...",
-    "error.duckduckgo_failed_after_retries": "Запрос DuckDuckGo не удался после повторных п...",
+    "error.duckduckgo_failed_after_retries": "Запрос DuckDuckGo не удался после повторных попыток: {error}",
     "error.missing_query_parameter": "отсутствует параметр '...",
     "error.run_tool_error": "ошибка run_tool: {error}",
     "param.query.description": "Строка пои...",
@@ -125,9 +125,9 @@
   },
   "pt_BR": {
     "error.args_must_be_dict": "args deve ser um...",
-    "error.duckduckgo_failed_after_retries": "A requisição ao DuckDuckGo falhou após as ten...",
+    "error.duckduckgo_failed_after_retries": "A solicitação DuckDuckGo falhou após novas tentativas: {error}",
     "error.missing_query_parameter": "falta o parâmetro 'query'",
-    "error.run_tool_error": "erro ao executar a f...",
+    "error.run_tool_error": "erro run_tool: {error}",
     "param.query.description": "String da...",
     "tool.description": "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho.",
     "x_search_terms": [
@@ -140,9 +140,9 @@
   },
   "pt": {
     "error.args_must_be_dict": "args deve ser um...",
-    "error.duckduckgo_failed_after_retries": "A solicitação DuckDuckGo falhou após novas te...",
+    "error.duckduckgo_failed_after_retries": "A solicitação DuckDuckGo falhou após novas tentativas: {error}",
     "error.missing_query_parameter": "falta o parâmetro 'query'",
-    "error.run_tool_error": "erro ao executar run...",
+    "error.run_tool_error": "erro run_tool: {error}",
     "param.query.description": "String da...",
     "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne tít...",
     "x_search_terms": [
@@ -155,7 +155,7 @@
   },
   "id": {
     "error.args_must_be_dict": "args harus berup...",
-    "error.duckduckgo_failed_after_retries": "Permintaan DuckDuckGo gagal setelah beberapa...",
+    "error.duckduckgo_failed_after_retries": "Permintaan DuckDuckGo gagal setelah percobaan ulang: {error}",
     "error.missing_query_parameter": "parameter 'query' tidak ada",
     "error.run_tool_error": "Galat run_tool: {error}",
     "param.query.description": "String kue...",
@@ -170,7 +170,7 @@
   },
   "vi": {
     "error.args_must_be_dict": "args phải là một...",
-    "error.duckduckgo_failed_after_retries": "Yêu cầu DuckDuckGo không thành công sau khi t...",
+    "error.duckduckgo_failed_after_retries": "Yêu cầu DuckDuckGo không thành công sau khi thử lại: {error}",
     "error.missing_query_parameter": "thiếu tham số 'query'",
     "error.run_tool_error": "lỗi run_tool: {error}",
     "param.query.description": "Chuỗi truy...",
@@ -185,7 +185,7 @@
   },
   "pl": {
     "error.args_must_be_dict": "args musi być dict",
-    "error.duckduckgo_failed_after_retries": "Żądanie DuckDuckGo nie powiodło się po ponown...",
+    "error.duckduckgo_failed_after_retries": "Żądanie DuckDuckGo nie powiodło się po ponownych próbach: {error}",
     "error.missing_query_parameter": "brakuje parametru 'query'",
     "error.run_tool_error": "błąd run_tool: {error}",
     "param.query.description": "Łańcuch za...",
@@ -200,7 +200,7 @@
   },
   "hi": {
     "error.args_must_be_dict": "args एक dict होन...",
-    "error.duckduckgo_failed_after_retries": "पुनः प्रयास के बाद DuckDuckGo अनुरोध विफल रहा...",
+    "error.duckduckgo_failed_after_retries": "पुनः प्रयास के बाद DuckDuckGo अनुरोध विफल रहा: {error}",
     "error.missing_query_parameter": "'query' पैरामीटर गायब है",
     "error.run_tool_error": "run_tool त्रुटि: {error}",
     "param.query.description": "खोज क्वेरी...",
@@ -230,7 +230,7 @@
   },
   "sv": {
     "error.args_must_be_dict": "args måste vara...",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo-förfrågan misslyckades efter omför...",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-begäran misslyckades efter försök: {error}",
     "error.missing_query_parameter": "saknar parametern 'query'",
     "error.run_tool_error": "run_tool-fel: {error}",
     "param.query.description": "Sökfråga s...",
@@ -245,9 +245,9 @@
   },
   "sw": {
     "error.args_must_be_dict": "args lazima iwe dict",
-    "error.duckduckgo_failed_after_retries": "Ombi la DuckDuckGo limeshindwa baada ya majar...",
+    "error.duckduckgo_failed_after_retries": "Ombi la DuckDuckGo halikufaulu baada ya kujaribu tena: {error}",
     "error.missing_query_parameter": "'query' haipo",
-    "error.run_tool_error": "Hitilafu ya run_tool...",
+    "error.run_tool_error": "hitilafu_ya_zana: {error}",
     "param.query.description": "Kamba ya h...",
     "tool.description": "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa...",
     "x_search_terms": [
@@ -260,7 +260,7 @@
   },
   "nb": {
     "error.args_must_be_dict": "args må være en dict",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo-forespørselen mislyktes etter gjen...",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-forespørsel mislyktes etter forsøk: {error}",
     "error.missing_query_parameter": "mangler parameteren 'query'",
     "error.run_tool_error": "run_tool-feil: {error}",
     "param.query.description": "Søkeord so...",
@@ -275,7 +275,7 @@
   },
   "nl": {
     "error.args_must_be_dict": "args moet een di...",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo-verzoek mislukt na meerdere poging...",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-verzoek mislukt na nieuwe pogingen: {error}",
     "error.missing_query_parameter": "ontbrekende parameter...",
     "error.run_tool_error": "run_tool fout: {error}",
     "param.query.description": "Zoekopdracht.",
@@ -290,7 +290,7 @@
   },
   "fi": {
     "error.args_must_be_dict": "argsin on oltava...",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo-pyyntö epäonnistui toistoyritysten...",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo-pyyntö epäonnistui uudelleenyritysten jälkeen: {error}",
     "error.missing_query_parameter": "puuttuva 'query'-parametri",
     "error.run_tool_error": "run_tool-virhe: {error}",
     "param.query.description": "Hakukysely.",
@@ -305,7 +305,7 @@
   },
   "cs": {
     "error.args_must_be_dict": "args musí být dict",
-    "error.duckduckgo_failed_after_retries": "Po opakovaných pokusech selhal požadavek na D...",
+    "error.duckduckgo_failed_after_retries": "Požadavek DuckDuckGo selhal po opakovaných pokusech: {error}",
     "error.missing_query_parameter": "chybí parametr 'query'",
     "error.run_tool_error": "chyba run_tool: {error}",
     "param.query.description": "Řetězec do...",
@@ -320,7 +320,7 @@
   },
   "uk": {
     "error.args_must_be_dict": "args має бути dict",
-    "error.duckduckgo_failed_after_retries": "Запит до DuckDuckGo не вдався після повторних...",
+    "error.duckduckgo_failed_after_retries": "Помилка запиту DuckDuckGo після повторних спроб: {error}",
     "error.missing_query_parameter": "відсутній параметр 'query'",
     "error.run_tool_error": "помилка run_tool: {error}",
     "param.query.description": "Рядок пошу...",
@@ -335,7 +335,7 @@
   },
   "tr": {
     "error.args_must_be_dict": "args bir dict ol...",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo isteği yeniden denemelerden sonra...",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo isteği yeniden denemelerden sonra başarısız oldu: {error}",
     "error.missing_query_parameter": "'query' parametresi eksik",
     "error.run_tool_error": "run_tool hatası: {error}",
     "param.query.description": "Arama sorg...",
@@ -352,7 +352,7 @@
     "error.args_must_be_dict": "args ต้องเป็น dict",
     "error.duckduckgo_failed_after_retries": "คำขอ DuckDuckGo ล้มเหลวหลังจากลองอีกครั้ง: {error}",
     "error.missing_query_parameter": "ไม่มีพารามิเตอร์ 'query'",
-    "error.run_tool_error": "ข้อผิดพลาด run_tool:...",
+    "error.run_tool_error": "ข้อผิดพลาด run_tool: {error}",
     "param.query.description": "สตริงคำค้นหา",
     "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ DuckDuckGo HTML และส่งคืนชื่อ/ลิงก์/ข้อความสรุป",
     "x_search_terms": [
@@ -395,7 +395,7 @@
   },
   "bn": {
     "error.args_must_be_dict": "args একটি dict হ...",
-    "error.duckduckgo_failed_after_retries": "পুনরায় চেষ্টা করার পর DuckDuckGo অনুরোধ ব্যর্...",
+    "error.duckduckgo_failed_after_retries": "DuckDuckGo অনুরোধ পুনরায় চেষ্টা করার পরে ব্যর্থ হয়েছে: {error}",
     "error.missing_query_parameter": "'query' প্যারামিটার অন...",
     "error.run_tool_error": "run_tool ত্রুটি: {error}",
     "param.query.description": "অনুসন্ধান...",
@@ -410,7 +410,7 @@
   },
   "fa": {
     "error.args_must_be_dict": "args باید یک dic...",
-    "error.duckduckgo_failed_after_retries": "درخواست DuckDuckGo پس از تلاش‌های مجدد ناموفق...",
+    "error.duckduckgo_failed_after_retries": "درخواست DuckDuckGo پس از تلاش مجدد ناموفق بود: {error}",
     "error.missing_query_parameter": "پارامتر 'query' موجود نیست",
     "error.run_tool_error": "خطای run_tool: {error}",
     "param.query.description": "رشتهٔ جستجو.",
@@ -425,7 +425,7 @@
   },
   "mn": {
     "error.args_must_be_dict": "args нь dict бай...",
-    "error.duckduckgo_failed_after_retries": "Дахин оролдсоны дараа DuckDuckGo хүсэлт амжил...",
+    "error.duckduckgo_failed_after_retries": "Дахин оролдсоны дараа DuckDuckGo хүсэлт амжилтгүй боллоо: {error}",
     "error.missing_query_parameter": "'query' параметр дутуу...",
     "error.run_tool_error": "run_tool алдаа: {error}",
     "param.query.description": "Хайлтын ас...",
@@ -440,7 +440,7 @@
   },
   "mr": {
     "error.args_must_be_dict": "args हे dict असण...",
-    "error.duckduckgo_failed_after_retries": "पुन्हा प्रयत्न केल्यानंतर DuckDuckGo विनंती अ...",
+    "error.duckduckgo_failed_after_retries": "पुन्हा प्रयत्न केल्यानंतर DuckDuckGo विनंती अयशस्वी झाली: {error}",
     "error.missing_query_parameter": "'query' पॅरामीटर नाही",
     "error.run_tool_error": "run_tool त्रुटी: {error}",
     "param.query.description": "शोध क्वेरी...",

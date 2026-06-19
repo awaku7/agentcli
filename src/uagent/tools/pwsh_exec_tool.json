@@ -37,7 +37,7 @@
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "fr": {
-    "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans le...",
+    "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans les {seconds} secondes",
     "param.command.description": "Chaîne de commande PowerShell transmise à...",
     "param.shell.description": "Exécutable PowerShell à utiliser : 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "En dernier recours, exécutez PowerShell.",
@@ -141,7 +141,7 @@
     "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "vi": {
-    "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng {s...",
+    "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng {seconds} giây",
     "param.command.description": "Chuỗi lệnh PowerShell được chuyển tới -Command.",
     "param.shell.description": "PowerShell có thể thực thi để sử dụng: 'pwsh' (PowerShell 7+) hoặc 'powershell' (Windows PowerShell).",
     "tool.description": "Phương án cuối cùng là thực thi PowerShell.",

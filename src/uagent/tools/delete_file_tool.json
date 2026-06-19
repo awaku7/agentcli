@@ -34,7 +34,7 @@
     "param.skip.description": "有効にすると、パスが存在しなくてもエラーにしません。"
   },
   "es": {
-    "confirm.delete_paths_bulk": "¿Eliminar {count} rutas?",
+    "confirm.delete_paths_bulk": "¿Eliminar {count} rutas?\n\n{paths}\n\nIngrese y para continuar o c para cancelar.",
     "param.allow_dir.description": "Si está activado, permite eliminar directorios qu...",
     "param.confirmed.description": "Si está activado, omite el aviso de confirmación in...",
     "param.dry_run.description": "Si está activado, solo enumera las rutas coincidentes sin...",
@@ -49,7 +49,7 @@
     "param.skip.description": "Si está activado, no devuelve error si la ruta n..."
   },
   "fr": {
-    "confirm.delete_paths_bulk": "Supprimer {count} chemins ?",
+    "confirm.delete_paths_bulk": "Supprimer les chemins {count} ?\n\n{paths}\n\nEntrez y pour continuer ou c pour annuler.",
     "param.allow_dir.description": "Si activé, autorise la suppression des répertoire...",
     "param.confirmed.description": "Si activé, ignore l'invite de confirmation interne...",
     "param.dry_run.description": "Si activé, liste uniquement les chemins correspondants sa...",
@@ -79,7 +79,7 @@
     "param.skip.description": "활성화하면 경로가 존재하지 않아도 에러를 발생시키지 않습니다."
   },
   "de": {
-    "confirm.delete_paths_bulk": "{count} Pfade löschen?",
+    "confirm.delete_paths_bulk": "{count}-Pfade löschen?\n\n{paths}\n\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
     "param.allow_dir.description": "Wenn aktiviert, dürfen Verzeichnisse gelöscht wer...",
     "param.confirmed.description": "Wenn aktiviert, wird die interne Bestätigungsauffor...",
     "param.dry_run.description": "Wenn aktiviert, werden nur die passenden Pfade aufgeliste...",
@@ -94,7 +94,7 @@
     "param.skip.description": "Wenn aktiviert, wird kein Fehler ausgegeben, wen..."
   },
   "it": {
-    "confirm.delete_paths_bulk": "Eliminare {count} percorsi?",
+    "confirm.delete_paths_bulk": "Eliminare {count} percorsi?\n\n{paths}\n\nImmettere y per procedere oppure c per annullare.",
     "param.allow_dir.description": "Se attivato, consente l'eliminazione delle direct...",
     "param.confirmed.description": "Se attivato, salta la richiesta di conferma interna...",
     "param.dry_run.description": "Se attivato, elenca solo i percorsi corrispondenti senza...",
@@ -109,7 +109,7 @@
     "param.skip.description": "Se attivato, non genera errore se il percorso no..."
   },
   "ru": {
-    "confirm.delete_paths_bulk": "Удалить {count} путей?",
+    "confirm.delete_paths_bulk": "Удалить пути {count}?\n\n{paths}\n\nВведите y, чтобы продолжить, или c, чтобы отменить.",
     "param.allow_dir.description": "Если включено, разрешает удаление директорий по ш...",
     "param.confirmed.description": "Если включено, пропускает внутренний запрос подтвер...",
     "param.dry_run.description": "Если включено, только выводит список найденных путей без удаления.",
@@ -124,7 +124,7 @@
     "param.skip.description": "Если включено, не выводит ошибку, если путь не с..."
   },
   "pt_BR": {
-    "confirm.delete_paths_bulk": "Excluir {count} caminhos?",
+    "confirm.delete_paths_bulk": "Excluir caminhos {count}?\n\n{paths}\n\nDigite y para continuar ou c para cancelar.",
     "param.allow_dir.description": "Se ativado, permite excluir diretórios que corres...",
     "param.confirmed.description": "Se ativado, pula o prompt de confirmação interno da...",
     "param.dry_run.description": "Se ativado, lista apenas os caminhos encontrados sem excluir nada.",
@@ -139,7 +139,7 @@
     "param.skip.description": "Se ativado, não gera erro se o caminho não existir."
   },
   "pt": {
-    "confirm.delete_paths_bulk": "Excluir {count} caminhos?",
+    "confirm.delete_paths_bulk": "Excluir caminhos {count}?\n\n{paths}\n\nDigite y para continuar ou c para cancelar.",
     "param.allow_dir.description": "Se ativado, permite a exclusão de diretórios corr...",
     "param.confirmed.description": "Se ativado, ignore o prompt de confirmação interno...",
     "param.dry_run.description": "Se ativado, lista apenas os caminhos correspondentes e nã...",
@@ -154,7 +154,7 @@
     "param.skip.description": "Se ativado, não cometa erros quando o caminho nã..."
   },
   "id": {
-    "confirm.delete_paths_bulk": "Hapus {count} path berikut?",
+    "confirm.delete_paths_bulk": "Hapus jalur {count}?\n\n{paths}\n\nMasukkan y untuk melanjutkan, atau c untuk membatalkan.",
     "param.allow_dir.description": "Jika diaktifkan, izinkan penghapusan direktori ya...",
     "param.confirmed.description": "Jika diaktifkan, lewati prompt konfirmasi internal alat.",
     "param.dry_run.description": "Jika diaktifkan, hanya tampilkan path yang cocok dan jang...",
@@ -184,7 +184,7 @@
     "param.skip.description": "Nếu được bật sẽ không xảy ra lỗi khi đường dẫn k..."
   },
   "pl": {
-    "confirm.delete_paths_bulk": "Usunąć ścieżki {count}?",
+    "confirm.delete_paths_bulk": "Usunąć ścieżki {count}?\n\n{paths}\n\nWpisz t, aby kontynuować, lub c, aby anulować.",
     "param.allow_dir.description": "Jeśli ta opcja jest włączona, zezwól na usuwanie...",
     "param.confirmed.description": "Jeśli ta opcja jest włączona, pomiń wewnętrzny moni...",
     "param.dry_run.description": "Jeśli ta opcja jest włączona, wyświetla tylko dopasowane...",
@@ -199,7 +199,7 @@
     "param.skip.description": "Jeśli ta opcja jest włączona, nie zgłaszaj błędu..."
   },
   "hi": {
-    "confirm.delete_paths_bulk": "{count} पथ हटाएं?",
+    "confirm.delete_paths_bulk": "{count} पथ हटाएं?\n\n{paths}\n\nआगे बढ़ने के लिए y दर्ज करें, या रद्द करने के लिए c दर्ज करें।",
     "param.allow_dir.description": "यदि सक्षम है, तो ग्लोब से मेल खाने वाली निर्देशिक...",
     "param.confirmed.description": "यदि सक्षम है, तो टूल के आंतरिक पुष्टिकरण संकेत को छोड़ दें।",
     "param.dry_run.description": "यदि सक्षम है, तो केवल मेल खाने वाले पथों को सूचीबद्ध करें...",
@@ -229,7 +229,7 @@
     "param.skip.description": "إذا تم تمكينه، فلا تخطئ عندما يكون المسار غير موجود."
   },
   "sv": {
-    "confirm.delete_paths_bulk": "Ta bort {count} sökvägar?",
+    "confirm.delete_paths_bulk": "Ta bort {count} sökvägar?\n\n{paths}\n\nAnge y för att fortsätta, eller c för att avbryta.",
     "param.allow_dir.description": "Om det är aktiverat tillåts borttagning av katalo...",
     "param.confirmed.description": "Om det är aktiverat hoppas verktygets interna bekrä...",
     "param.dry_run.description": "Om det är aktiverat listas endast matchande sökvägar och...",
@@ -259,7 +259,7 @@
     "param.skip.description": "Ikiwashwa, usitoe hitilafu njia isipokuwepo."
   },
   "nb": {
-    "confirm.delete_paths_bulk": "Slett {count} stier?",
+    "confirm.delete_paths_bulk": "Vil du slette {count} baner?\n\n{paths}\n\nSkriv inn y for å fortsette, eller c for å avbryte.",
     "param.allow_dir.description": "Hvis det er aktivert, tillates sletting av katalo...",
     "param.confirmed.description": "Hvis det er aktivert, hoppes verktøyets interne bek...",
     "param.dry_run.description": "Hvis det er aktivert, listes bare samsvarende stier, og i...",
@@ -274,7 +274,7 @@
     "param.skip.description": "Hvis det er aktivert, får du ikke feil når stien..."
   },
   "nl": {
-    "confirm.delete_paths_bulk": "Deze {count} paden verwijderen?",
+    "confirm.delete_paths_bulk": "{count} paden verwijderen?\n\n{paths}\n\nVoer y in om door te gaan, of c om te annuleren.",
     "param.allow_dir.description": "Indien ingeschakeld, het verwijderen van door glo...",
     "param.confirmed.description": "Indien ingeschakeld, de interne bevestigingsprompt...",
     "param.dry_run.description": "Indien ingeschakeld, alleen gematchte paden tonen en niet...",
@@ -289,7 +289,7 @@
     "param.skip.description": "Indien ingeschakeld, geen fout geven als het pad..."
   },
   "fi": {
-    "confirm.delete_paths_bulk": "Poistetaanko nämä {count} polkua?",
+    "confirm.delete_paths_bulk": "Poistetaanko {count} polut?\n\n{paths}\n\nSyötä y jatkaaksesi tai c peruuttaaksesi.",
     "param.allow_dir.description": "Kun käytössä, salli globilla osuvien hakemistojen...",
     "param.confirmed.description": "Kun käytössä, ohita työkalun sisäinen vahvistuskehote.",
     "param.dry_run.description": "Kun käytössä, listaa vain osuvat polut äläkä poista mitään.",
@@ -304,7 +304,7 @@
     "param.skip.description": "Kun käytössä, älä anna virhettä, jos polkua ei o..."
   },
   "cs": {
-    "confirm.delete_paths_bulk": "Smazat {count} cest?",
+    "confirm.delete_paths_bulk": "Smazat {count} cesty?\n\n{paths}\n\nZadejte y pro pokračování nebo c pro zrušení.",
     "param.allow_dir.description": "Je-li povoleno, dovolí mazání adresářů odpovídají...",
     "param.confirmed.description": "Je-li povoleno, přeskočí interní potvrzovací výzvu...",
     "param.dry_run.description": "Je-li povoleno, pouze vypíše odpovídající cesty a nic nesmaže.",
@@ -319,7 +319,7 @@
     "param.skip.description": "Je-li povoleno, nevyvolá chybu, pokud cesta neexistuje."
   },
   "uk": {
-    "confirm.delete_paths_bulk": "Видалити {count} шляхів?",
+    "confirm.delete_paths_bulk": "Видалити шляхи {count}?\n\n{paths}\n\nВведіть y, щоб продовжити, або c, щоб скасувати.",
     "param.allow_dir.description": "Якщо ввімкнено, дозволяє видаляти каталоги, що ві...",
     "param.confirmed.description": "Якщо ввімкнено, пропускає внутрішній запит підтверд...",
     "param.dry_run.description": "Якщо ввімкнено, лише перелічує відповідні шляхи й нічого...",
@@ -334,7 +334,7 @@
     "param.skip.description": "Якщо ввімкнено, не повертати помилку, коли шлях..."
   },
   "tr": {
-    "confirm.delete_paths_bulk": "{count} yolları silinsin mi?",
+    "confirm.delete_paths_bulk": "{count} yolları silinsin mi?\n\n{paths}\n\nDevam etmek için y'yi, iptal etmek için c'yi girin.",
     "param.allow_dir.description": "Etkinleştirilirse, glob ile eşleşen dizinlerin si...",
     "param.confirmed.description": "Etkinleştirilirse aracın dahili onay istemini atlayın.",
     "param.dry_run.description": "Etkinleştirilirse yalnızca eşleşen yolları listeleyin ve...",
@@ -349,7 +349,7 @@
     "param.skip.description": "Etkinleştirilirse, yol mevcut olmadığında hata yapmayın."
   },
   "th": {
-    "confirm.delete_paths_bulk": "ลบ {count} เส้นทางต่อไปนี้หรือไม่?",
+    "confirm.delete_paths_bulk": "ลบเส้นทาง {count} หรือไม่\n\n{paths}\n\nป้อน y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
     "param.allow_dir.description": "หากเปิดใช้งาน จะอนุญาตให้ลบไดเรกทอรีที่ตรงกับ glob",
     "param.confirmed.description": "หากเปิดใช้งาน จะข้ามขั้นตอนการยืนยันภายในเครื่องมือ",
     "param.dry_run.description": "หากเปิดใช้งาน จะแสดงเฉพาะรายการที่ตรงกันโดยไม่มีการลบจริง",
@@ -424,7 +424,7 @@
     "param.skip.description": "اگر فعال باشد، نبودن مسیر خطا محسوب نمی‌شود."
   },
   "mn": {
-    "confirm.delete_paths_bulk": "{count} замыг устгах уу?",
+    "confirm.delete_paths_bulk": "{count} замыг устгах уу?\n\n{paths}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c-г оруулна уу.",
     "param.allow_dir.description": "Идэвхтэй бол glob-той таарсан директорыг устгахыг...",
     "param.confirmed.description": "Идэвхтэй бол хэрэгслийн дотоод баталгаажуулалтын ас...",
     "param.dry_run.description": "Идэвхтэй бол зөвхөн таарсан замуудыг жагсааж, юу ч устгахгүй.",
@@ -439,7 +439,7 @@
     "param.skip.description": "Идэвхтэй бол зам байхгүй үед алдаа гаргахгүй."
   },
   "mr": {
-    "confirm.delete_paths_bulk": "{count} मार्ग काढायचे का?",
+    "confirm.delete_paths_bulk": "{count} पथ हटवायचे?\n\n{paths}\n\nपुढे जाण्यासाठी y प्रविष्ट करा किंवा रद्द करण्यासाठी c प्रविष्ट करा.",
     "param.allow_dir.description": "सक्षम असल्यास, glob शी जुळणाऱ्या निर्देशिकाही हटव...",
     "param.confirmed.description": "सक्षम असल्यास, साधनाचा अंतर्गत पुष्टीकरण प्रॉम्प्ट वगळा.",
     "param.dry_run.description": "सक्षम असल्यास, फक्त जुळणारे मार्ग दाखवा आणि काहीही हटवू नका.",

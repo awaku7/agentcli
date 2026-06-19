@@ -34,7 +34,7 @@
     "param.xargs.description": "追加引数（配列）。危険なメタ文字は拒否します。"
   },
   "es": {
-    "confirm.msg": "lint_format(mode=fix) puede reescribir archivos.",
+    "confirm.msg": "lint_format(mode=fix) podría sobrescribir archivos.\nherramientas: {tools}\nobjetivos: {targets}\ncwd: {cwd}\n\nResponda con y para continuar o c para cancelar.",
     "doc.module": "lint_format_tool\n\nUna herramienta contenedora para ejecutar análisis estático/formateador.\n\n- Python: prefiere ruff / black / mypy\n- JavaScript: por razones de seguridad, no ejecutes npx activamente.",
     "param.cwd.description": "Directorio de ejecución (...",
     "param.mode.description": "check=verificar solo / fix=corrección automática",
@@ -50,7 +50,7 @@
     "param.xargs.description": "Argumentos adicionales (matriz). Rechaza metacaracteres peligrosos."
   },
   "fr": {
-    "confirm.msg": "lint_format(mode=fix) peut réécrire les fichiers.",
+    "confirm.msg": "lint_format(mode=fix) peut écraser les fichiers.\noutils : {tools}\ncibles : {targets}\nmot de passe : {cwd}\n\nRépondez avec y pour continuer, ou c pour annuler.",
     "doc.module": "lint_format_tool\n\nUn outil wrapper pour exécuter une analyse statique/formateur.\n\n- Python : préférez ruff / black / mypy\n- JavaScript : Pour des raisons de sécurité, n'exécutez pas activement npx.",
     "param.cwd.description": "Répertoire d'exécution (a...",
     "param.mode.description": "check=vérification uniquement / fix=correcti...",
@@ -82,7 +82,7 @@
     "param.xargs.description": "추가 인수(배열). 위험한 메타문자를 거부하세요."
   },
   "de": {
-    "confirm.msg": "lint_format(mode=fix) kann Dateien überschreiben.",
+    "confirm.msg": "lint_format(mode=fix) überschreibt möglicherweise Dateien.\nWerkzeuge: {tools}\nZiele: {targets}\ncwd: {cwd}\n\nAntworten Sie mit y, um fortzufahren, oder mit c, um abzubrechen.",
     "doc.module": "lint_format_tool\n\nEin Wrapper-Tool zum Ausführen statischer Analyse- und Formatierungswerkzeuge.\n\n- Python: Ruff / Black / mypy bevorzugen\n- JavaScript: Aus Sicherheitsgründen npx nicht aktiv ausführen.\n\nSicherheit:\n- mode=fix ändert Dateien, daher mit human_ask nachfragen.\n- Argumente als Array akzeptieren und bei gefährlichen Shell-Metazeichen ablehnen.",
     "param.cwd.description": "Ausführungsverzeichnis (n...",
     "param.mode.description": "check=nur prüfen / fix=automatische Korrektur",
@@ -98,7 +98,7 @@
     "param.xargs.description": "Zusätzliche Argumente (Array). Gefährliche Metazeichen ablehnen."
   },
   "it": {
-    "confirm.msg": "lint_format(mode=fix) può riscrivere i file.",
+    "confirm.msg": "lint_format(mode=fix) potrebbe sovrascrivere i file.\nstrumenti: {tools}\nobiettivi: {targets}\ncwd: {cwd}\n\nRispondi con y per procedere o c per annullare.",
     "doc.module": "lint_format_tool\n\nUno strumento wrapper per eseguire analisi/formattatori statici.\n\n- Python: preferisci ruff / black / mypy\n- JavaScript: per motivi di sicurezza, non eseguire attivamente npx.",
     "param.cwd.description": "Directory di esecuzione (...",
     "param.mode.description": "check=solo controllo / fix=correzione automatica",
@@ -114,7 +114,7 @@
     "param.xargs.description": "Argomenti aggiuntivi (array). Rifiuta i metacaratteri pericolosi."
   },
   "ru": {
-    "confirm.msg": "lint_format(mode=fix) может перезаписать файлы.",
+    "confirm.msg": "lint_format(mode=fix) может перезаписать файлы.\nинструменты: {tools}\nцели: {targets}\ncwd: {cwd}\n\nОтветьте y, чтобы продолжить, или c, чтобы отменить.",
     "doc.module": "lint_format_tool\n\nИнструмент-оболочка для запуска статического анализа/форматирования.\n\n- Python: предпочтительно ruff / black / mypy\n- JavaScript: из соображений безопасности не выполняйте npx активно.",
     "param.cwd.description": "Каталог выполнения (разре...",
     "param.mode.description": "check=только проверка / fix=автоматическое и...",
@@ -146,7 +146,7 @@
     "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos."
   },
   "pt": {
-    "confirm.msg": "lint_format(mode=fix) pode reescrever arquivos.",
+    "confirm.msg": "lint_format(mode=fix) pode substituir arquivos.\nferramentas: {tools}\nalvos: {targets}\ncwd: {cwd}\n\nResponda com y para continuar ou c para cancelar.",
     "doc.module": "lint_format_tool\n\nUma ferramenta wrapper para executar análise/formatador estático.\n\n- Python: prefira ruff/black/mypy\n- JavaScript: por motivos de segurança, não execute ativamente o npx.\n\nSegurança:\n- mode=fix envolve alterações no arquivo, então verifique com human_ask.\n- Aceite argumentos como um array e rejeite-os se contiverem metacaracteres de shell perigosos.",
     "param.cwd.description": "Diretório de execução (pe...",
     "param.mode.description": "check=verificar apenas / fix=correção automática",
@@ -162,7 +162,7 @@
     "param.xargs.description": "Argumentos adicionais (matriz). Rejeite metacaracteres perigosos."
   },
   "id": {
-    "confirm.msg": "lint_format(mode=fix) dapat menulis ulang file.",
+    "confirm.msg": "lint_format(mode=fix) mungkin menimpa file.\nalat: {tools}\ntarget: {targets}\ncwd: {cwd}\n\nBalas dengan y untuk melanjutkan, atau c untuk membatalkan.",
     "doc.module": "lint_format_tool\n\nTool pembungkus untuk menjalankan static analysis/formatter.\n\n- Python: utamakan ruff / black / mypy\n- JavaScript: demi keamanan, jangan menjalankan npx secara aktif.\n\nKeamanan:\n- mode=fix melibatkan perubahan file, jadi periksa dengan human_ask.\n- Terima argumen sebagai array dan tolak jika mengandung metakarakter shell berbahaya.",
     "param.cwd.description": "Direktori eksekusi (hanya...",
     "param.mode.description": "check=cek saja / fix=perbaikan otomatis",
@@ -178,7 +178,7 @@
     "param.xargs.description": "Argumen tambahan (array). Tolak jika ada metakarakter shell berbahaya."
   },
   "vi": {
-    "confirm.msg": "lint_format(mode=fix) có thể ghi lại tập tin.",
+    "confirm.msg": "lint_format(mode=fix) có thể ghi đè lên các tập tin.\ncông cụ: {tools}\nmục tiêu: {targets}\ncwd: {cwd}\n\nTrả lời bằng y để tiếp tục hoặc c để hủy.",
     "doc.module": "lint_format_tool\n\nMột công cụ bao bọc để chạy phân tích/định dạng tĩnh.\n\n- Python: thích ruff/black/mypy\n- JavaScript: Vì lý do an toàn, không chủ động thực thi npx.\n\nAn toàn:\n- mode=fix liên quan đến việc thay đổi tệp, vì vậy hãy kiểm tra với human_ask.\n- Chấp nhận các đối số dưới dạng một mảng và từ chối chúng nếu chúng chứa các siêu ký tự shell nguy hiểm.",
     "param.cwd.description": "Thư mục thực thi (chỉ đượ...",
     "param.mode.description": "kiểm tra=chỉ kiểm tra / fix=sửa tự động",
@@ -258,7 +258,7 @@
     "param.xargs.description": "Ytterligare argument (array). Avvisa farliga metatecken."
   },
   "sw": {
-    "confirm.msg": "lint_format(mode=fix) may rewrite files.",
+    "confirm.msg": "lint_format(mode=fix) inaweza kubatilisha faili.\nzana: {tools}\nmalengo: {targets}\ncwd: {cwd}\n\nJibu na y ili kuendelea, au c kughairi.",
     "doc.module": "lint_format_tool\n\nA wrapper tool for running static analysis and formatting tools.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: For safety reasons, do not run npx directly.\n\nSafety:\n- mode=fix changes files, so ask for confirmation with human_ask.\n- Accept arguments as an array and reject them if they contain dangerous shell metacharacters.",
     "param.cwd.description": "Execution directory (only...",
     "param.mode.description": "check=check only / fix=automatic fix",
@@ -274,7 +274,7 @@
     "param.xargs.description": "Additional arguments (array). Reject dangerous metacharacters."
   },
   "nb": {
-    "confirm.msg": "lint_format(mode=fix) kan skrive om filer.",
+    "confirm.msg": "lint_format(mode=fix) kan overskrive filer.\nverktøy: {tools}\nmål: {targets}\ncwd: {cwd}\n\nSvar med y for å fortsette, eller c for å avbryte.",
     "doc.module": "lint_format_tool\n\nEt innpakningsverktøy for å kjøre statisk analyse og formateringsverktøy.\n\n- Python: bruk helst ruff / black / mypy\n- JavaScript: av sikkerhetsgrunner bør npx ikke kjøres direkte.\n\nSikkerhet:\n- mode=fix innebærer filendringer, så spør via human_ask.\n- Godta argumenter som en liste og avvis dem hvis de inneholder farlige shell-metategn.",
     "param.cwd.description": "Kjøringskatalog (kun till...",
     "param.mode.description": "check=kun kontroll / fix=automatisk korrigering",
@@ -306,7 +306,7 @@
     "param.xargs.description": "Aanvullende argumenten (array). Weiger gevaarlijke metatekens."
   },
   "fi": {
-    "confirm.msg": "lint_format(mode=fix) voi kirjoittaa tiedostoja uudelleen.",
+    "confirm.msg": "lint_format(mode=fix) saattaa korvata tiedostoja.\ntyökalut: {tools}\nkohteet: {targets}\ncwd: {cwd}\n\nJatka vastaamalla y:llä tai peruuta painamalla c.",
     "doc.module": "lint_format_tool\n\nKääretyökalu staattisen analyysin ja muotoilutyökalujen suorittamiseen.\n\n- Python: suosi ruff / black / mypy\n- JavaScript: turvallisuussyistä älä aja npx:ää suoraan.\n\nTurvallisuus:\n- mode=fix muuttaa tiedostoja, joten pyydä vahvistus human_askilla.\n- Hyväksy argumentit taulukkona ja hylkää ne, jos niissä on vaarallisia shell-metamerkkejä.",
     "param.cwd.description": "Suoritushakemisto (sallit...",
     "param.mode.description": "check=vain tarkistus / fix=automaattinen korjaus",
@@ -322,7 +322,7 @@
     "param.xargs.description": "Lisäargumentit (taulukko). Hylkää vaaralliset metamerkit."
   },
   "cs": {
-    "confirm.msg": "lint_format(mode=fix) může přepsat soubory.",
+    "confirm.msg": "lint_format(mode=fix) může přepsat soubory.\nnástroje: {tools}\ncíle: {targets}\ncwd: {cwd}\n\nOdpovězte pomocí y pro pokračování nebo c pro zrušení.",
     "doc.module": "lint_format_tool\n\nObalový nástroj pro spuštění statické analýzy/formátovačů.\n\n- Python: upřednostněte ruff / black / mypy\n- JavaScript: Z bezpečnostních důvodů aktivně nespouštějte npx.\n\nBezpečnost:\n- mode=fix zahrnuje změny souborů, proto se zeptejte pomocí human_ask.\n- Přijímejte argumenty jako pole a odmítněte je, pokud obsahují nebezpečné shellové metaznaky.",
     "param.cwd.description": "Spouštěcí adresář (povole...",
     "param.mode.description": "check=pouze kontrola / fix=automatická oprava",
@@ -354,7 +354,7 @@
     "param.xargs.description": "Додаткові аргументи (масив). Відхиляйте небезпечні метасимволи."
   },
   "tr": {
-    "confirm.msg": "lint_format(mode=fix) dosyaları yeniden yazabilir.",
+    "confirm.msg": "lint_format(mode=fix) dosyaların üzerine yazabilir.\naraçlar: {tools}\nhedefler: {targets}\ncwd: {cwd}\n\nDevam etmek için y, iptal etmek için c ile yanıtlayın.",
     "doc.module": "lint_format_tool\n\nStatik analiz ve biçimlendirme araçlarını çalıştırmak için bir sarmalayıcı araç.\n\n- Python: ruff / black / mypy'yi tercih edin\n- JavaScript: Güvenlik nedeniyle npx'i doğrudan çalıştırmayın.\n\nGüvenlik:\n- mode=fix dosyaları değiştirir, dolayısıyla human_ask ile onay isteyin.\n- Argümanları bir dizi olarak kabul edin ve tehlikeli kabuk meta karakterleri içeriyorsa reddedin.",
     "param.cwd.description": "Yürütme dizini (yalnızca...",
     "param.mode.description": "check=yalnızca kontrol et / fix=otomatik düzeltme",
@@ -434,7 +434,7 @@
     "param.xargs.description": "অতিরিক্ত আর্গুমেন্ট (array)। বিপজ্জনক metacharacter প্রত্যাখ্যান করুন।"
   },
   "fa": {
-    "confirm.msg": "lint_format(mode=fix) ممکن است فایل‌ها را بازنویسی کند.",
+    "confirm.msg": "lint_format (mode=fix) ممکن است فایل‌ها را بازنویسی کند.\nابزار: {tools}\nاهداف: {targets}\ncwd: {cwd}\n\nبرای ادامه با y یا برای لغو با c پاسخ دهید.",
     "doc.module": "lint_format_tool\n\nابزار wrapper برای اجرای ابزارهای تحلیل ایستا و قالب‌بندی.\n\n- Python: ابتدا ruff / black / mypy\n- JavaScript: به دلایل امنیتی، npx را مستقیم اجرا نکنید.\n\nامنیت:\n- حالت mode=fix فایل‌ها را تغییر می‌دهد، پس با human_ask تأیید بگیرید.\n- آرگومان‌ها را به‌صورت آرایه بپذیرید و اگر metacharacter خطرناک داشتند رد کنید.",
     "param.cwd.description": "دایرکتوری اجرا (فقط زیر w...",
     "param.mode.description": "check=فقط بررسی / fix=اصلاح خودکار",
@@ -450,7 +450,7 @@
     "param.xargs.description": "آرگومان‌های اضافی (آرایه). metacharacterهای خطرناک را رد کنید."
   },
   "mn": {
-    "confirm.msg": "lint_format(mode=fix) нь файлуудыг дахин бичиж болзошгүй.",
+    "confirm.msg": "lint_format(mode=fix) нь файлуудыг дарж бичиж болзошгүй.\nхэрэгсэл: {tools}\nзорилтууд: {targets}\ncwd: {cwd}\n\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c гэж хариулна уу.",
     "doc.module": "lint_format_tool\n\nСтатик шинжилгээ болон форматлагч хэрэгслүүдийг ажиллуулах wrapper хэрэгсэл.\n\n- Python: ruff / black / mypy-г илүүд үзнэ\n- JavaScript: аюулгүй байдлын үүднээс npx-ийг шууд бүү ажиллуул.\n\nАюулгүй байдал:\n- mode=fix нь файлыг өөрчилдөг тул human_ask-аар баталгаажуулна.\n- Аргументуудыг array хэлбэрээр авч, аюултай shell metacharacter агуулсан бол татгалзана.",
     "param.cwd.description": "Ажиллуулах директор (зөвх...",
     "param.mode.description": "check=зөвхөн шалгах / fix=автомат засвар",
@@ -466,7 +466,7 @@
     "param.xargs.description": "Нэмэлт аргументууд (array). Аюултай metacharacter-уудыг татгалзана."
   },
   "mr": {
-    "confirm.msg": "lint_format(mode=fix) फाइल्स पुन्हा लिहू शकते.",
+    "confirm.msg": "lint_format(mode=fix) फाइल्स ओव्हरराइट करू शकते.\nसाधने: {tools}\nलक्ष्य: {targets}\ncwd: {cwd}\n\nपुढे जाण्यासाठी y किंवा रद्द करण्यासाठी c सह उत्तर द्या.",
     "doc.module": "lint_format_tool\n\nस्थिर विश्लेषण आणि formatter चालवण्यासाठीचा wrapper साधन.\n\n- Python: ruff / black / mypy यांना प्राधान्य द्या\n- JavaScript: सुरक्षिततेसाठी npx थेट चालवू नका.\n\nसुरक्षा:\n- mode=fix मुळे फाइल्स बदलतात, म्हणून human_ask द्वारे पुष्टी घ्या.\n- arguments array म्हणून घ्या आणि धोकादायक shell metacharacter असल्यास नकार द्या.",
     "param.cwd.description": "चालवण्याची directory (फक्...",
     "param.mode.description": "check=फक्त तपासणी / fix=स्वयंचलित सुधारणा",

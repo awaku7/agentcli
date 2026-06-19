@@ -38,7 +38,7 @@
     "param.limit.description": "الحد الأقصى لعدد الأجهزة التي سيت...",
     "param.search_target.description": "هدف البحث في SSDP ‏(ST)، مثل 'ssdp:all' أو 'upnp:rootdevice'.",
     "err.invalid_interface": "خطأ: تعذّر حل الواجهة '{interface}' إلى عنوان IPv4 محلي.",
-    "msg.summary": "اكتمل اكتشاف UPnP: تم العثور على {count} جهاز(أجهزة) خلال {elapsed...",
+    "msg.summary": "اكتمل اكتشاف UPnP: تم العثور على {count} جهاز (أجهزة) في {elapsed_ms} مللي ثانية.",
     "msg.no_devices": "لم يتم العثور على أي أجه...",
     "param.fmt.description": "تنسيق الإخراج: JSO..."
   },
@@ -90,7 +90,7 @@
     "param.limit.description": "Número máximo de dispositivos a d...",
     "param.search_target.description": "Destino de búsqueda SSDP (ST), por ejemplo 'ssdp:all' o 'upnp:rootdevice'.",
     "err.invalid_interface": "Error: No se pudo resolver la interfaz '{interface}' a una dirección IPv4 local.",
-    "msg.summary": "Descubrimiento UPnP completado: se encontraron {count} dispositivo...",
+    "msg.summary": "Descubrimiento UPnP completado: {count} dispositivo(s) encontrado(s) en {elapsed_ms} ms.",
     "msg.no_devices": "No se encontraron dispos...",
     "param.fmt.description": "Formato de salida:..."
   },
@@ -129,7 +129,7 @@
     "param.limit.description": "Nombre maximal d’appareils à renvoyer.",
     "param.search_target.description": "Cible de recherche SSDP (ST), par exemple 'ssdp:all' ou 'upnp:rootdevice'.",
     "err.invalid_interface": "Erreur : impossible de résoudre l’interface '{interface}' en une adres...",
-    "msg.summary": "Découverte UPnP terminée : {count} appareil(s) trouvé(s) en {elaps...",
+    "msg.summary": "Découverte UPnP terminée : appareil(s) {count} trouvé(s) en {elapsed_ms} ms.",
     "msg.no_devices": "Aucun appareil UPnP n’a...",
     "param.fmt.description": "Format de sortie :..."
   },
@@ -233,7 +233,7 @@
     "param.limit.description": "Maximaal aantal apparaten dat wor...",
     "param.search_target.description": "SSDP-zoekdoel (ST), bijvoorbeeld 'ssdp:all' of 'upnp:rootdevice'.",
     "err.invalid_interface": "Fout: kon interface '{interface}' niet omzetten naar een lokaal IPv4-adres.",
-    "msg.summary": "UPnP-ontdekking voltooid: {count} apparaat/apparaten gevonden in {...",
+    "msg.summary": "UPnP-detectie voltooid: {count} apparaat(en) gevonden in {elapsed_ms} ms.",
     "msg.no_devices": "Er zijn geen UPnP-appara...",
     "param.fmt.description": "Uitvoerformaat: JS..."
   },
@@ -246,7 +246,7 @@
     "param.limit.description": "Maksymalna liczba urządzeń do zwr...",
     "param.search_target.description": "Cel wyszukiwania SSDP (ST), na przykład 'ssdp:all' lub 'upnp:rootdevice'.",
     "err.invalid_interface": "Błąd: Nie można było rozpoznać interfejsu '{interface}' jako lokalnego...",
-    "msg.summary": "Wykrywanie UPnP zakończone: znaleziono {count} urządzenie(a) w {el...",
+    "msg.summary": "Wykrywanie UPnP zakończone: {count} urządzeń znalezionych w {elapsed_ms} ms.",
     "msg.no_devices": "Nie znaleziono żadnych u...",
     "param.fmt.description": "Format wyjściowy:..."
   },
@@ -259,7 +259,7 @@
     "param.limit.description": "Número máximo de dispositivos a r...",
     "param.search_target.description": "Destino de pesquisa SSDP (ST), por exemplo 'ssdp:all' ou 'upnp:rootdevice'.",
     "err.invalid_interface": "Erro: Não foi possível resolver a interface '{interface}' para um ende...",
-    "msg.summary": "Descoberta UPnP concluída: {count} dispositivo(s) encontrados em {...",
+    "msg.summary": "Descoberta UPnP concluída: {count} dispositivos encontrados em {elapsed_ms} ms.",
     "msg.no_devices": "Nenhum dispositivo UPnP...",
     "param.fmt.description": "Formato de saída:..."
   },
@@ -272,7 +272,7 @@
     "param.limit.description": "Número máximo de dispositivos a r...",
     "param.search_target.description": "Destino de busca SSDP (ST), por exemplo 'ssdp:all' ou 'upnp:rootdevice'.",
     "err.invalid_interface": "Erro: Não foi possível resolver a interface '{interface}' para um ende...",
-    "msg.summary": "Descoberta UPnP concluída: {count} dispositivo(s) encontrados em {...",
+    "msg.summary": "Descoberta UPnP concluída: {count} dispositivos encontrados em {elapsed_ms} ms.",
     "msg.no_devices": "Nenhum dispositivo UPnP...",
     "param.fmt.description": "Formato de saída:..."
   },
@@ -285,7 +285,7 @@
     "param.limit.description": "Максимальное количество устройств...",
     "param.search_target.description": "Цель поиска SSDP (ST), например 'ssdp:all' или 'upnp:rootdevice'.",
     "err.invalid_interface": "Ошибка: не удалось сопоставить интерфейс '{interface}' с локальным IPv4-адресом.",
-    "msg.summary": "Обнаружение UPnP завершено: найдено {count} устройство(а) за {elap...",
+    "msg.summary": "Обнаружение UPnP завершено: {count} устройств обнаружено за {elapsed_ms} мс.",
     "msg.no_devices": "Устройства UPnP не найдены.",
     "param.fmt.description": "Формат вывода: JSO..."
   },
@@ -311,7 +311,7 @@
     "param.limit.description": "Idadi ya juu ya vifaa vya kurudishwa.",
     "param.search_target.description": "Lengo la utafutaji la SSDP (ST), kwa mfano 'ssdp:all' au 'upnp:rootdevice'.",
     "err.invalid_interface": "Hitilafu: Haikuweza kutafsiri kiolesura '{interface}' kuwa anwani ya I...",
-    "msg.summary": "Ugunduzi wa UPnP umekamilika: vifaa {count} vimepatikana ndani ya...",
+    "msg.summary": "Ugunduzi wa UPnP umekamilika: {count} vifaa vilivyopatikana katika {elapsed_ms} ms.",
     "msg.no_devices": "Hakuna vifaa vya UPnP vi...",
     "param.fmt.description": "Muundo wa matokeo:..."
   },
@@ -363,7 +363,7 @@
     "param.limit.description": "Số lượng thiết bị tối đa sẽ trả về.",
     "param.search_target.description": "Đích tìm kiếm SSDP (ST), ví dụ 'ssdp:all' hoặc 'upnp:rootdevice'.",
     "err.invalid_interface": "Lỗi: Không thể phân giải giao diện '{interface}' thành địa chỉ IPv4 cục bộ.",
-    "msg.summary": "Đã hoàn tất phát hiện UPnP: tìm thấy {count} thiết bị trong {elaps...",
+    "msg.summary": "Quá trình khám phá UPnP đã hoàn tất: {count} thiết bị được tìm thấy sau {elapsed_ms} mili giây.",
     "msg.no_devices": "Không tìm thấy thiết bị...",
     "param.fmt.description": "Định dạng đầu ra:..."
   },

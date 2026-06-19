@@ -73,7 +73,7 @@
       "json yaml"
     ],
     "param.password.description": "Contraseña opcional para a...",
-    "prompt.password": "Introduzca la contraseña de este arc...",
+    "prompt.password": "Ingrese la contraseña para este archivo:{path}",
     "error.missing_exstruct": "El paquete 'exstruct' no está instalado. Instálelo con: pip install exstruct",
     "load.disabled": "El paquete 'exstruct' no está instalado. Instálelo con: pip install exstruct"
   },
@@ -98,7 +98,7 @@
       "json yaml"
     ],
     "param.password.description": "Mot de passe facultatif po...",
-    "prompt.password": "Entrez le mot de passe de ce fichier...",
+    "prompt.password": "Entrez le mot de passe de ce fichier :{path}",
     "error.missing_exstruct": "Le package 'exstruct' n'est pas installé. Veuillez l'installer avec : pip install exstruct",
     "load.disabled": "Le package 'exstruct' n'est pas installé. Veuillez l'installer avec : pip install exstruct"
   },
@@ -148,7 +148,7 @@
       "json yaml"
     ],
     "param.password.description": "Optionales Kennwort für ve...",
-    "prompt.password": "Bitte geben Sie das Kennwort für die...",
+    "prompt.password": "Geben Sie das Passwort für diese Datei ein:{path}",
     "error.missing_exstruct": "Das Paket „exstruct“ ist nicht installiert. Bitte installieren Sie es mit: pip install exstruct",
     "load.disabled": "Das Paket „exstruct“ ist nicht installiert. Bitte installieren Sie es mit: pip install exstruct"
   },
@@ -173,7 +173,7 @@
       "json yaml"
     ],
     "param.password.description": "Password facoltativa per f...",
-    "prompt.password": "Inserisci la password di questo file...",
+    "prompt.password": "Inserisci la password per questo file:{path}",
     "error.missing_exstruct": "Il pacchetto 'exstruct' non è installato. Installalo con: pip install exstruct",
     "load.disabled": "Il pacchetto 'exstruct' non è installato. Installalo con: pip install exstruct"
   },
@@ -448,7 +448,7 @@
       "json yaml"
     ],
     "param.password.description": "Valgfritt passord for kryp...",
-    "prompt.password": "Skriv inn passordet for denne filen:...",
+    "prompt.password": "Skriv inn passordet for denne filen:{path}",
     "error.missing_exstruct": "'exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct",
     "load.disabled": "'exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct"
   },
@@ -473,7 +473,7 @@
       "json yaml"
     ],
     "param.password.description": "Optioneel wachtwoord voor...",
-    "prompt.password": "Voer het wachtwoord voor dit bestand...",
+    "prompt.password": "Voer het wachtwoord voor dit bestand in: {path}",
     "error.missing_exstruct": "Het 'exstruct'-pakket is niet geïnstalleerd. Installeer het alstublieft met: pip install exstruct",
     "load.disabled": "Het 'exstruct'-pakket is niet geïnstalleerd. Installeer het alstublieft met: pip install exstruct"
   },
