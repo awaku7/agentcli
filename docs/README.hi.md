@@ -25,7 +25,7 @@ pip install uag
 ## मुख्य विशेषताएँ
 
 - **व्यावहारिक टूलसेट**: फ़ाइल संचालन, वेब खोज, PDF/PPTX/Excel निष्कर्षण, छवि निर्माण, और छवि विश्लेषण।
-- **बहु-provider समर्थन**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
+- **बहु-provider समर्थन**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
 - **तीन इंटरफ़ेस**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

@@ -25,7 +25,7 @@ Ensimmäisellä käynnistyksellä `uag` tarkistaa ympäristösi ja käynnistää
 ## Tärkeimmät ominaisuudet
 
 - **Käytännölliset työkalut**: tiedostojen käsittely, web-haku, PDF/PPTX/Excel-purku, kuvien luonti ja kuvien analysointi.
-- **Usean providerin tuki**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
+- **Usean providerin tuki**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
 - **Kolme käyttöliittymää**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

@@ -23,7 +23,7 @@ pip install uag
 ## ویژگی‌های اصلی
 
 - **مجموعه ابزار کاربردی**: ویرایش فایل، جست‌وجوی وب، استخراج PDF/PPTX/Excel، تولید تصویر و تحلیل تصویر.
-- **پشتیبانی از چند ارائه‌دهنده**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
+- **پشتیبانی از چند ارائه‌دهنده**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
 - **سه رابط کاربری**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

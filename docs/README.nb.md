@@ -25,7 +25,7 @@ Ved første oppstart sjekker `uag` miljøet ditt og starter automatisk oppsettsv
 ## Viktige funksjoner
 
 - **Praktisk verktøysett**: Filhåndtering, nettsøk, PDF/PPTX/Excel-ekstraksjon, bildegenerering og bildeanalyse.
-- **Støtte for flere leverandører**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
+- **Støtte for flere leverandører**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
 - **Tre grensesnitt**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

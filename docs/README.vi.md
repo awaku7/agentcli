@@ -23,7 +23,7 @@ Sau khi cài đặt, khi chạy `uag` lần đầu tiên, trình hướng dẫn 
 ## Tính năng chính
 
 - **Bộ công cụ thực tiễn**: Cung cấp các công cụ để thao tác tệp tin, tìm kiếm web, trích xuất dữ liệu (PDF/PPTX/Excel), tạo ảnh và phân tích, tất cả đều có thể chạy trong môi trường cục bộ của bạn.
-- **Hỗ trợ nhiều nhà cung cấp**: Hỗ trợ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
+- **Hỗ trợ nhiều nhà cung cấp**: Hỗ trợ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
 - **Giao diện linh hoạt**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

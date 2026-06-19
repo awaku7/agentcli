@@ -25,7 +25,7 @@ Vid första start kontrollerar `uag` din miljö och startar automatiskt installa
 ## Viktiga funktioner
 
 - **Praktisk verktygssamling**: Filhantering, webbsökning, PDF/PPTX/Excel-extrahering, bildgenerering och bildanalys.
-- **Stöd för flera leverantörer**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
+- **Stöd för flera leverantörer**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
 - **Tre gränssnitt**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

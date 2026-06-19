@@ -23,7 +23,7 @@ pip install uag
 ## Гол боломжууд
 
 - **Ашигтай хэрэгслүүдийн багц**: файл өөрчлөлт, вэб хайлт, PDF/PPTX/Excel задлал, зураг үүсгэлт, зураг шинжилгээ.
-- **Олон нийлүүлэгчийн дэмжлэг**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
+- **Олон нийлүүлэгчийн дэмжлэг**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
 - **Гурван интерфэйс**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`

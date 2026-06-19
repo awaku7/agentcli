@@ -25,7 +25,7 @@ Na primeira execução, o `uag` verifica seu ambiente e inicia automaticamente o
 ## Principais recursos
 
 - **Conjunto de ferramentas prático**: manipulação de arquivos, busca na web, extração de PDF/PPTX/Excel, geração de imagens e análise de imagens.
-- **Suporte a múltiplos provedores**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
+- **Suporte a múltiplos provedores**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
 - **Três interfaces**:
   - **CLI**: `uag` / `python -m uagent`
   - **GUI**: `uagg` / `python -m uagent.gui`
