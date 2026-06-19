@@ -21,8 +21,34 @@ _ENABLED_GENRES: set[str] = set()
 _LOADED_SINGLE_TOOLS: dict[str, int] = {}
 
 
-def _find_tool_modules() -> list[tuple[str, Any]]:
-    """Return (module_name, module) pairs for all discoverable tool modules."""
+_LAZY_MODULE_NAMES: set[str] = set()
+
+
+def _is_lazy_module(mname: str) -> bool:
+    """Check if a tool module has LAZY_LOAD = True by scanning its source."""
+    pkg_dir = os.path.dirname(__file__)
+    filepath = os.path.join(pkg_dir, f"{mname}.py")
+    if not os.path.isfile(filepath):
+        return False
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            for line in f:
+                if "LAZY_LOAD" in line and "True" in line:
+                    return True
+                # Stop scanning after module-level definitions
+                if line.startswith(("def ", "class ", "TOOL_SPEC")):
+                    break
+    except Exception:
+        return False
+    return False
+
+
+def _find_tool_modules(skip_lazy: bool = False) -> list[tuple[str, Any]]:
+    """Return (module_name, module) pairs for all discoverable tool modules.
+
+    If skip_lazy is True, modules with LAZY_LOAD = True are not imported
+    (used for catalog discovery without importing heavy dependencies).
+    """
     pkg_dir = os.path.dirname(__file__)
     results: list[tuple[str, Any]] = []
     for m in pkgutil.iter_modules([pkg_dir]):
@@ -31,6 +57,8 @@ def _find_tool_modules() -> list[tuple[str, Any]]:
         if mname.startswith("_") or mname in ("context",):
             continue
         if not mname.endswith("_tool"):
+            continue
+        if skip_lazy and _is_lazy_module(mname):
             continue
         mod_name = f"uagent.tools.{mname}"
         try:
@@ -55,6 +83,15 @@ def enable_genre_tools(genre: str) -> list[str]:
         if not isinstance(spec, dict):
             continue
         if spec.get("tool_genre") != genre:
+            continue
+
+        # Skip if the module has a missing dependency
+        reason = getattr(mod, "LOAD_DISABLED_REASON", "")
+        if reason:
+            print(
+                f"[tools] Skipping {mname}: {reason}",
+                file=sys.stderr,
+            )
             continue
 
         # Force tool_level to 0 so it gets registered as an LLM tool

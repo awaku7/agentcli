@@ -43,6 +43,13 @@ from .i18n_helper import clear_tool_i18n_cache, get_locale, make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+# Lazy-loaded tool modules (skip import during _load_plugins())
+_LAZY_TOOL_MODULES: set[str] = set()
+
+# Mapping from tool name to module name for lazy tools
+# Populated from .spec.json files in _load_lazy_tool_specs()
+_LAZY_TOOL_NAME_TO_MODULE: dict[str, str] = {"exstruct": "exstruct_tool"}
+
 # Raw tool specs passed to the LLM
 TOOL_SPECS: list[dict[str, Any]] = []
 
@@ -373,6 +380,70 @@ def _register_extra_spec(
     return True
 
 
+def _load_lazy_tool_spec(mod_name: str) -> dict[str, Any] | None:
+    """Load TOOL_SPEC metadata from a .spec.json file.
+
+    Returns the spec dict, or None if not found.
+
+    Also populates _LAZY_TOOL_NAME_TO_MODULE from the file.
+    """
+    spec_path = os.path.join(os.path.dirname(__file__), f"{mod_name}.spec.json")
+    if not os.path.isfile(spec_path):
+        return None
+    try:
+        with open(spec_path, "r", encoding="utf-8") as f:
+            spec = json.load(f)
+        # Populate tool name -> module name mapping
+        fn = spec.get("function", {})
+        if isinstance(fn, dict):
+            tool_name = fn.get("name")
+            if tool_name:
+                _LAZY_TOOL_NAME_TO_MODULE[tool_name] = mod_name
+        return spec
+    except Exception:
+        return None
+
+
+def _ensure_lazy_tool_loaded(mod_name: str) -> None:
+    """Import and register a lazy tool module on demand.
+
+    Forces tool_level=0 so the tool becomes usable immediately.
+    """
+    if mod_name not in _LAZY_TOOL_MODULES:
+        return
+    full_name = f"{__name__}.{mod_name}"
+    try:
+        if full_name in sys.modules:
+            mod = reload(sys.modules[full_name])
+        else:
+            mod = import_module(full_name)
+        # Force tool_level to 0 so the tool gets registered as LLM-visible
+        spec = getattr(mod, "TOOL_SPEC", None)
+        if isinstance(spec, dict):
+            spec["tool_level"] = 0
+        _register_tool_module(mod, full_name)
+    except Exception:
+        return
+
+
+def _ensure_lazy_tool_loaded(mod_name: str) -> None:
+    """Import and register a lazy tool module on demand."""
+    if mod_name not in _LAZY_TOOL_MODULES:
+        return
+    full_name = f"{__name__}.{mod_name}"
+    try:
+        if full_name in sys.modules:
+            mod = reload(sys.modules[full_name])
+        else:
+            mod = import_module(full_name)
+        spec = getattr(mod, "TOOL_SPEC", None)
+        if isinstance(spec, dict):
+            spec["tool_level"] = 0
+        _register_tool_module(mod, full_name)
+    except Exception:
+        return
+
+
 def _load_plugins() -> None:
     """Discover and load tool plugin modules under tools/."""
     with _TOOLS_LOCK:
@@ -384,6 +455,12 @@ def _load_plugins() -> None:
     pkg_dir = os.path.dirname(__file__)
     for m in iter_modules([pkg_dir]):
         if m.name.startswith("_") or m.name == "context":
+            continue
+
+        # Lazy-loaded modules are skipped here; imported on demand
+        # (e.g. when genre is enabled or tool is individually loaded).
+        if m.name in _LAZY_TOOL_MODULES:
+            _load_lazy_tool_spec(m.name)
             continue
 
         mod_name = f"{__name__}.{m.name}"
@@ -792,7 +869,7 @@ def get_tool_catalog(
         try:
             from ._genre_control_util import _find_tool_modules
 
-            for _mname, mod in _find_tool_modules():
+            for _mname, mod in _find_tool_modules(skip_lazy=True):
                 spec = getattr(mod, "TOOL_SPEC", None)
                 if not isinstance(spec, dict):
                     continue
@@ -827,6 +904,50 @@ def get_tool_catalog(
         except Exception:
             pass
 
+    # 3. Also search lazy-loaded tool specs from .spec.json (without importing the module)
+    if q or all_items:
+        # Collect names already added by sections 1/2 for dedup
+        _cataloged_names = {r["name"] for r in rows if r.get("name")}
+        # Determine current locale for i18n
+        _lazy_locale = get_locale()
+        for mod_name in _LAZY_TOOL_MODULES:
+            spec = _load_lazy_tool_spec(mod_name)
+            if not spec:
+                continue
+            fn = spec.get("function", {})
+            if not isinstance(fn, dict):
+                continue
+            name = str(fn.get("name") or "").strip()
+            if not name or name in loaded_names or name in _cataloged_names:
+                continue
+            # Use locale-aware description if available
+            _i18n = spec.get("i18n", {}) if isinstance(spec, dict) else {}
+            _td_key = "tool.description"
+            _td = _i18n.get(_td_key, {}) if isinstance(_i18n, dict) else {}
+            if isinstance(_td, dict) and _lazy_locale in _td:
+                description = str(_td[_lazy_locale])
+            else:
+                description = str(fn.get("description") or "").strip()
+            parameters = fn.get("parameters", {})
+            properties = parameters.get("properties", {})
+            param_names = list(properties.keys()) if isinstance(properties, dict) else []
+            st_en = _collect_search_terms(fn.get("x_search_terms_en"))
+            st = _collect_search_terms(fn.get("x_search_terms"))
+            score = _score_spec(name, description, param_names, st_en, st)
+            if score <= 0 and q:
+                continue
+            rows.append(
+                {
+                    "name": name,
+                    "description": description,
+                    "required": [],
+                    "parameters": param_names,
+                    "loaded": False,
+                    "genre": str(spec.get("tool_genre") or ""),
+                    "score": score - 100 if q else 0,
+                }
+            )
+
     rows.sort(key=lambda x: (-int(x.get("score", 0)), str(x.get("name", ""))))
 
     out: list[dict[str, Any]] = []
@@ -847,7 +968,7 @@ def get_tool_catalog(
         try:
             from ._genre_control_util import _find_tool_modules
 
-            for _mname, mod in _find_tool_modules():
+            for _mname, mod in _find_tool_modules(skip_lazy=True):
                 spec = getattr(mod, "TOOL_SPEC", None)
                 if not isinstance(spec, dict):
                     continue
@@ -956,7 +1077,13 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     _ensure_loaded()
     runner = _RUNNERS.get(name)
     if runner is None:
-        return f"[tool error] unknown tool: {name}"
+        # Lazy-load fallback: try to import and register the module on demand.
+        mod_name = _LAZY_TOOL_NAME_TO_MODULE.get(name)
+        if mod_name:
+            _ensure_lazy_tool_loaded(mod_name)
+            runner = _RUNNERS.get(name)
+        if runner is None:
+            return f"[tool error] unknown tool: {name}"
 
     # ---- trace (pre) ----
     # Allow suppressing [TOOL] trace via TOOL_SPEC's extended flags.
