@@ -396,6 +396,10 @@ def _execute_tool_calls(
         elif tool_cache_key:
             tool_result_cache[tool_cache_key] = tool_result
 
+        # Ensure content is a string (OpenAI/DeepSeek requires string content for tool role)
+        if not isinstance(tool_result, str):
+            tool_result = json.dumps(tool_result, ensure_ascii=False)
+
         tool_msg: dict[str, Any] = {
             "role": "tool",
             "tool_call_id": tc["id"],
