@@ -1,43 +1,5 @@
 {
   "en": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Inspect or clear the shared ECHONET Lite cache.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Cache action to perform: snapshot or clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Optional cache namespace to clear. If omitted, clear all namespaces."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Output format: JSON or human-readable text."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -48,44 +10,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "ja": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "共有 ECHONET Lite キャッシュを確認またはクリアします。",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "実行するキャッシュ操作: snapshot または clear。"
-          },
-          "namespace": {
-            "type": "string",
-            "description": "クリアする任意のキャッシュ名前空間。省略した場合は、すべての名前空間をクリアします。"
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "出力形式: JSON または人間が読めるテキスト。"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -96,44 +20,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "id": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Periksa atau hapus cache ECHONET Lite bersama.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Tindakan cache yang akan dilakukan: snapshot atau clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Namespace cache opsional untuk dihapus. Jika dihilangkan, hapus semua namespace."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Format keluaran: JSON atau teks yang dapat dibaca manusia."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -144,44 +30,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "ar": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "افحص ذاكرة التخزين المؤقت المشتركة لـ ECHONET Lite أو امسحها.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "إجراء ذاكرة التخزين المؤقت المراد تنفيذه: snapshot أو clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "مساحة أسماء اختيارية لذاكرة التخزين المؤقت لمسحها. إذا حُذفت، فامسح جميع مساحات الأسماء."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "تنسيق الإخراج: JSON أو نص قابل للقراءة البشرية."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -192,44 +40,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "bn": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "শেয়ার করা ECHONET Lite ক্যাশ পরীক্ষা করুন বা মুছে দিন।",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "কোন ক্যাশ কাজটি চালানো হবে: snapshot বা clear।"
-          },
-          "namespace": {
-            "type": "string",
-            "description": "মুছে ফেলার জন্য ঐচ্ছিক ক্যাশ নেমস্পেস। বাদ দিলে, সব নেমস্পেস মুছে দিন।"
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "আউটপুট ফরম্যাট: JSON অথবা মানুষের পড়ার উপযোগী টেক্সট।"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -240,13 +50,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "cs": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Zkontrolujte nebo vymažte sdílenou mezipaměť ECHONET Lite."
-    },
     "parameters": {
       "type": "object",
       "properties": {
@@ -288,44 +91,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "de": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Den gemeinsam genutzten ECHONET-Lite-Cache prüfen oder löschen.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Auszuführende Cache-Aktion: snapshot oder clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Optionaler Cache-Namespace zum Löschen. Wenn weggelassen, werden alle Namespaces gelöscht."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Ausgabeformat: JSON oder menschenlesbarer Text."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -336,44 +101,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "es": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Inspeccione o borre la caché compartida de ECHONET Lite.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Acción de caché a realizar: snapshot o clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Espacio de nombres de caché opcional para borrar. Si se omite, borre todos los espacios de nombres."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Formato de salida: JSON o texto legible por humanos."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -384,44 +111,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "fa": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "کش مشترک ECHONET Lite را بررسی کنید یا پاک کنید.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "عملیات کش برای انجام: snapshot یا clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "فضای نام اختیاریِ کش برای پاک کردن. اگر حذف شود، همهٔ فضاهای نام را پاک کنید."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "فرمت خروجی: JSON یا متن قابل خواندن توسط انسان."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -432,44 +121,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "fi": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Tarkista tai tyhjennä jaettu ECHONET Lite -välimuisti.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Suoritettava välimuistitoiminto: snapshot tai clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Valinnainen välimuistin nimiavaruus tyhjennettäväksi. Jos jätetään pois, tyhjennä kaikki nimiavaruudet."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Tulostemuoto: JSON tai ihmisen luettava teksti."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -480,44 +131,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "fr": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Inspectez ou effacez le cache ECHONET Lite partagé.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Action de cache à effectuer : snapshot ou clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Espace de noms de cache facultatif à effacer. S’il est omis, effacez tous les espaces de noms."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Format de sortie : JSON ou texte lisible par l’humain."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -528,44 +141,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "hi": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "साझा ECHONET Lite कैश का निरीक्षण करें या उसे साफ़ करें।",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "किए जाने वाले कैश कार्य: snapshot या clear।"
-          },
-          "namespace": {
-            "type": "string",
-            "description": "साफ़ करने के लिए वैकल्पिक कैश नेमस्पेस। यदि छोड़ा गया, तो सभी नेमस्पेस साफ़ करें।"
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "आउटपुट प्रारूप: JSON या मानव-पठनीय पाठ।"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -576,44 +151,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "it": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Ispeziona o svuota la cache condivisa di ECHONET Lite.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Azione della cache da eseguire: snapshot o clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Namespace della cache facoltativo da svuotare. Se omesso, svuota tutti i namespace."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Formato di output: JSON o testo leggibile dall’uomo."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -624,44 +161,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "ko": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "공유 ECHONET Lite 캐시를 검사하거나 지웁니다.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "수행할 캐시 작업: snapshot 또는 clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "지울 선택적 캐시 네임스페이스입니다. 생략하면 모든 네임스페이스를 지웁니다."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "출력 형식: JSON 또는 사람이 읽을 수 있는 텍스트."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -672,44 +171,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "mn": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Хуваалцсан ECHONET Lite кэшийг шалгах эсвэл цэвэрлэх.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Хийх кэш үйлдэл: snapshot эсвэл clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Устгах сонголттой кэшийн нэрийн орон. Алгасвал бүх нэрийн орнуудыг цэвэрлэнэ."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Гаралтын формат: JSON эсвэл хүн уншихад ойлгомжтой текст."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -720,44 +181,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "mr": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "सामायिक ECHONET Lite कॅश तपासा किंवा साफ करा.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "करावयाची कॅश क्रिया: snapshot किंवा clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "साफ करण्यासाठी ऐच्छिक कॅश नेमस्पेस. वगळल्यास, सर्व नेमस्पेसेस साफ करा."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "आउटपुट स्वरूप: JSON किंवा मानव-वाचनीय मजकूर."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -768,44 +191,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "nb": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Inspiser eller tøm den delte ECHONET Lite-hurtigbufferen.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Cachehandling som skal utføres: snapshot eller clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Valgfritt cache-navnerom som skal tømmes. Hvis utelatt, tøm alle navnerom."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Utdataformat: JSON eller menneskelesbar tekst."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -816,44 +201,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "nl": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Inspecteer of wis de gedeelde ECHONET Lite-cache.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Uit te voeren cacheactie: snapshot of clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Optionele cache-naamruimte om te wissen. Indien weggelaten, wis alle naamruimten."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Uitvoerindeling: JSON of voor mensen leesbare tekst."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -864,44 +211,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "pl": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Sprawdź lub wyczyść współdzieloną pamięć podręczną ECHONET Lite.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Akcja pamięci podręcznej do wykonania: snapshot lub clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Opcjonalna przestrzeń nazw pamięci podręcznej do wyczyszczenia. Jeśli pominięto, wyczyść wszystkie przestrzenie nazw."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Format wyjściowy: JSON lub tekst czytelny dla człowieka."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -912,44 +221,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "pt": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Inspecione ou limpe o cache compartilhado do ECHONET Lite.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Ação de cache a executar: snapshot ou clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Namespace de cache opcional para limpar. Se omitido, limpe todos os namespaces."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Formato de saída: JSON ou texto legível por humanos."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -960,44 +231,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "pt_BR": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Inspecione ou limpe o cache compartilhado do ECHONET Lite.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Ação de cache a executar: snapshot ou clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Namespace de cache opcional para limpar. Se omitido, limpe todos os namespaces."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Formato de saída: JSON ou texto legível por humanos."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -1008,44 +241,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "ru": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Проверьте или очистите общий кэш ECHONET Lite.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Действие кэша для выполнения: snapshot или clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Необязательное пространство имён кэша для очистки. Если не указано, очистите все пространства имён."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Формат вывода: JSON или удобочитаемый текст."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -1056,44 +251,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "sv": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Inspektera eller rensa den delade ECHONET Lite-cachen.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Cacheåtgärd att utföra: snapshot eller clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Valfritt cache-namnområde att rensa. Om det utelämnas, rensa alla namnområden."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Utdataformat: JSON eller mänskligt läsbar text."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -1104,44 +261,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "sw": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Kagua au futa kache ya pamoja ya ECHONET Lite.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Kitendo cha kache cha kutekeleza: snapshot au clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Jina la kache la hiari la kufuta. Likiachwa, futa majina yote."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Muundo wa matokeo: JSON au maandishi yanayosomeka na binadamu."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -1152,44 +271,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "th": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "ตรวจสอบหรือล้างแคช ECHONET Lite ที่ใช้ร่วมกัน",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "การดำเนินการแคชที่จะทำ: snapshot หรือ clear"
-          },
-          "namespace": {
-            "type": "string",
-            "description": "เนมสเปซแคชแบบเลือกได้ที่จะล้าง หากละไว้ ให้ล้างทุกเนมสเปซ"
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "รูปแบบเอาต์พุต: JSON หรือข้อความที่มนุษย์อ่านได้"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -1200,44 +281,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "tr": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Paylaşılan ECHONET Lite önbelleğini inceleyin veya temizleyin.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Gerçekleştirilecek önbellek işlemi: snapshot veya clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Temizlenecek isteğe bağlı önbellek ad alanı. Atlanırsa tüm ad alanlarını temizleyin."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Çıktı biçimi: JSON veya insan tarafından okunabilir metin."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -1248,44 +291,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "uk": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Перевірте або очистьте спільний кеш ECHONET Lite.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Дія кешу для виконання: snapshot або clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Необов’язковий простір імен кешу для очищення. Якщо не вказано, очистьте всі простори імен."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Формат виводу: JSON або текст, зручний для читання людиною."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -1296,44 +301,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "vi": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "Kiểm tra hoặc xóa bộ nhớ đệm ECHONET Lite dùng chung.",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "Hành động bộ nhớ đệm cần thực hiện: snapshot hoặc clear."
-          },
-          "namespace": {
-            "type": "string",
-            "description": "Không gian tên bộ nhớ đệm tùy chọn để xóa. Nếu bỏ qua, hãy xóa tất cả không gian tên."
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "Định dạng đầu ra: JSON hoặc văn bản dễ đọc cho con người."
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -1344,44 +311,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "zh_CN": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "检查或清除共享的 ECHONET Lite 缓存。",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "要执行的缓存操作：snapshot 或 clear。"
-          },
-          "namespace": {
-            "type": "string",
-            "description": "要清除的可选缓存命名空间。若省略，则清除所有命名空间。"
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "输出格式：JSON 或人类可读文本。"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
@@ -1392,44 +321,6 @@
     "param.namespace.description": "Cache namespace (omit for all)."
   },
   "zh_TW": {
-    "tool_level": 0,
-    "tool_genre": "iot",
-    "type": "function",
-    "function": {
-      "name": "echonet_cache",
-      "description": "檢查或清除共享的 ECHONET Lite 快取。",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "action": {
-            "type": "string",
-            "enum": [
-              "snapshot",
-              "clear"
-            ],
-            "default": "snapshot",
-            "description": "要執行的快取動作：snapshot 或 clear。"
-          },
-          "namespace": {
-            "type": "string",
-            "description": "要清除的選用快取命名空間。若省略，則清除所有命名空間。"
-          },
-          "output_format": {
-            "type": "string",
-            "enum": [
-              "json",
-              "text"
-            ],
-            "default": "json",
-            "description": "輸出格式：JSON 或人類可讀文字。"
-          }
-        },
-        "required": [
-          "action"
-        ],
-        "additionalProperties": false
-      }
-    },
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",
     "param.fmt.description": "Format: json or text.",
