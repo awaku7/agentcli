@@ -1,0 +1,384 @@
+{
+  "en": {
+    "tool.description": "Translate text using Google Translate. Supports 30+ languages. Max input length: 10000 characters.",
+    "param.text.description": "Text to translate (max 10000 characters).",
+    "param.target_lang.description": "Target language code (e.g. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Source language code. Auto-detected if omitted.",
+    "x_search_terms": [
+      "translate",
+      "translation",
+      "google translate",
+      "language"
+    ]
+  },
+  "ja": {
+    "tool.description": "Google 翻訳を使用してテキストを翻訳します。 30 以上の言語をサポートします。",
+    "param.text.description": "翻訳するテキスト。",
+    "param.target_lang.description": "ターゲット言語コード (例: ja、en、zh_CN、pt_BR、fr、de、es、ko)。",
+    "param.source_lang.description": "ソース言語コード。省略した場合は自動検出されます。",
+    "x_search_terms": [
+      "翻訳",
+      "グーグル翻訳言語"
+    ]
+  },
+  "es": {
+    "tool.description": "Traduce texto usando Google Translate. Admite más de 30 idiomas.",
+    "param.text.description": "Texto a traducir.",
+    "param.target_lang.description": "Código de idioma de destino (por ejemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Código del idioma fuente. Detectado automáticamente si se omite.",
+    "x_search_terms": [
+      "traducir",
+      "traducción",
+      "google",
+      "traducir",
+      "idioma"
+    ]
+  },
+  "fr": {
+    "tool.description": "Traduisez du texte à l’aide de Google Translate. Prend en charge plus de 30 langues.",
+    "param.text.description": "Texte à traduire.",
+    "param.target_lang.description": "Code de la langue cible (par exemple ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Code de la langue source. Détecté automatiquement en cas d'omission.",
+    "x_search_terms": [
+      "traduire",
+      "traduction",
+      "google",
+      "traduire",
+      "langue"
+    ]
+  },
+  "ko": {
+    "tool.description": "Google 번역을 사용하여 텍스트를 번역하세요. 30개 이상의 언어를 지원합니다.",
+    "param.text.description": "번역할 텍스트입니다.",
+    "param.target_lang.description": "대상 언어 코드(예: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "소스 언어 코드. 생략되면 자동 감지됩니다.",
+    "x_search_terms": [
+      "번역",
+      "번역",
+      "Google",
+      "번역",
+      "언어"
+    ]
+  },
+  "de": {
+    "tool.description": "Übersetzen Sie Text mit Google Translate. Unterstützt über 30 Sprachen.",
+    "param.text.description": "Zu übersetzender Text.",
+    "param.target_lang.description": "Code der Zielsprache (z. B. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Quellsprachcode. Wird automatisch erkannt, wenn es weggelassen wird.",
+    "x_search_terms": [
+      "Übersetzung",
+      "übersetzen",
+      "Google",
+      "Translate",
+      "Sprache"
+    ]
+  },
+  "it": {
+    "tool.description": "Traduci il testo utilizzando Google Translate. Supporta oltre 30 lingue.",
+    "param.text.description": "Testo da tradurre.",
+    "param.target_lang.description": "Codice della lingua di destinazione (ad esempio ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Codice della lingua di origine. Rilevato automaticamente se omesso.",
+    "x_search_terms": [
+      "tradurre",
+      "traduzione",
+      "google",
+      "traduttore",
+      "lingua"
+    ]
+  },
+  "ru": {
+    "tool.description": "Переведите текст с помощью Google Translate. Поддерживает более 30 языков.",
+    "param.text.description": "Текст для перевода.",
+    "param.target_lang.description": "Код целевого языка (например, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Код исходного языка. Определяется автоматически, если опущено.",
+    "x_search_terms": [
+      "переводить",
+      "перевод",
+      "Google",
+      "Translate",
+      "язык"
+    ]
+  },
+  "pt_BR": {
+    "tool.description": "Traduza texto usando o Google Tradutor. Suporta mais de 30 idiomas.",
+    "param.text.description": "Texto para traduzir.",
+    "param.target_lang.description": "Código do idioma de destino (por exemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Código do idioma fonte. Detectado automaticamente se omitido.",
+    "x_search_terms": [
+      "traduzir",
+      "tradução",
+      "google",
+      "traduzir",
+      "idioma"
+    ]
+  },
+  "pt": {
+    "tool.description": "Traduza texto usando o Google Tradutor. Suporta mais de 30 idiomas.",
+    "param.text.description": "Texto para traduzir.",
+    "param.target_lang.description": "Código do idioma de destino (por exemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Código do idioma fonte. Detectado automaticamente se omitido.",
+    "x_search_terms": [
+      "traduzir",
+      "tradução",
+      "google",
+      "traduzir",
+      "idioma"
+    ]
+  },
+  "id": {
+    "tool.description": "Terjemahkan teks menggunakan Google Terjemahan. Mendukung 30+ bahasa.",
+    "param.text.description": "Teks untuk diterjemahkan.",
+    "param.target_lang.description": "Kode bahasa target (misalnya ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Kode bahasa sumber. Terdeteksi otomatis jika dihilangkan.",
+    "x_search_terms": [
+      "terjemahkan",
+      "terjemahan",
+      "bahasa",
+      "google",
+      "terjemahan"
+    ]
+  },
+  "vi": {
+    "tool.description": "Dịch văn bản bằng Google Translate. Hỗ trợ hơn 30 ngôn ngữ.",
+    "param.text.description": "Văn bản cần dịch.",
+    "param.target_lang.description": "Mã ngôn ngữ đích (ví dụ: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Mã ngôn ngữ nguồn. Tự động phát hiện nếu bỏ qua.",
+    "x_search_terms": [
+      "dịch",
+      "dịch",
+      "google",
+      "dịch",
+      "ngôn",
+      "ngữ"
+    ]
+  },
+  "pl": {
+    "tool.description": "Przetłumacz tekst za pomocą Tłumacza Google. Obsługuje ponad 30 języków.",
+    "param.text.description": "Tekst do przetłumaczenia.",
+    "param.target_lang.description": "Kod języka docelowego (np. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Kod języka źródłowego. Wykrywane automatycznie w przypadku pominięcia.",
+    "x_search_terms": [
+      "przetłumacz",
+      "tłumaczenie",
+      "google",
+      "przetłumacz",
+      "język"
+    ]
+  },
+  "hi": {
+    "tool.description": "Google अनुवाद का उपयोग करके पाठ का अनुवाद करें। 30+ भाषाओं का समर्थन करता है।",
+    "param.text.description": "अनुवाद करने के लिए पाठ.",
+    "param.target_lang.description": "लक्ष्य भाषा कोड (उदा. ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
+    "param.source_lang.description": "स्रोत भाषा कोड. यदि छोड़ा गया हो तो स्वतः पता लगाया जाता है।",
+    "x_search_terms": [
+      "अनुवाद",
+      "अनुवाद",
+      "Google",
+      "अनुवाद",
+      "भाषा"
+    ]
+  },
+  "ar": {
+    "tool.description": "ترجمة النص باستخدام ترجمة جوجل. يدعم أكثر من 30 لغة.",
+    "param.text.description": "نص للترجمة.",
+    "param.target_lang.description": "رمز اللغة المستهدفة (مثل ja وen وzh_CN وpt_BR وfr وde وes وko).",
+    "param.source_lang.description": "كود اللغة المصدر. يتم اكتشافه تلقائيًا إذا تم حذفه.",
+    "x_search_terms": [
+      "ترجمة",
+      "ترجمة",
+      "جوجل",
+      "ترجمة",
+      "اللغة"
+    ]
+  },
+  "sv": {
+    "tool.description": "Översätt text med Google Translate. Stöder 30+ språk.",
+    "param.text.description": "Text att översätta.",
+    "param.target_lang.description": "Målspråkskod (t.ex. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Källspråkskod. Upptäcks automatiskt om den utelämnas.",
+    "x_search_terms": [
+      "översätt",
+      "översättning",
+      "google",
+      "översätt",
+      "språk"
+    ]
+  },
+  "sw": {
+    "tool.description": "Tafsiri maandishi kwa kutumia Google Tafsiri. Inaauni lugha 30+.",
+    "param.text.description": "Maandishi ya kutafsiri.",
+    "param.target_lang.description": "Msimbo wa lugha lengwa (k.m. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Msimbo wa lugha ya asili. Imegunduliwa kiotomatiki ikiwa imeachwa.",
+    "x_search_terms": [
+      "kutafsiri",
+      "tafsiri",
+      "google",
+      "kutafsiri",
+      "lugha"
+    ]
+  },
+  "nb": {
+    "tool.description": "Oversett tekst ved hjelp av Google Translate. Støtter 30+ språk.",
+    "param.text.description": "Tekst som skal oversettes.",
+    "param.target_lang.description": "Målspråkkode (f.eks. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Kildespråkkode. Automatisk oppdaget hvis utelatt.",
+    "x_search_terms": [
+      "oversett",
+      "oversettelse",
+      "google",
+      "translate",
+      "språk"
+    ]
+  },
+  "nl": {
+    "tool.description": "Vertaal tekst met Google Translate. Ondersteunt meer dan 30 talen.",
+    "param.text.description": "Tekst om te vertalen.",
+    "param.target_lang.description": "Doeltaalcode (bijvoorbeeld ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Brontaalcode. Wordt automatisch gedetecteerd indien weggelaten.",
+    "x_search_terms": [
+      "vertalen",
+      "vertaling",
+      "google",
+      "vertalen",
+      "taal"
+    ]
+  },
+  "fi": {
+    "tool.description": "Käännä tekstiä Google-kääntäjän avulla. Tukee yli 30 kieltä.",
+    "param.text.description": "Käännettävä teksti.",
+    "param.target_lang.description": "Kohdekielikoodi (esim. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Lähdekielen koodi. Havaitsee automaattisesti, jos se jätetään pois.",
+    "x_search_terms": [
+      "kääntää",
+      "käännös",
+      "google",
+      "kääntäjän",
+      "kieli"
+    ]
+  },
+  "cs": {
+    "tool.description": "Přeložte text pomocí Překladače Google. Podporuje 30+ jazyků.",
+    "param.text.description": "Text k překladu.",
+    "param.target_lang.description": "Kód cílového jazyka (např. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Kód zdrojového jazyka. Automaticky zjištěno, pokud je vynecháno.",
+    "x_search_terms": [
+      "přeložit",
+      "překlad",
+      "google",
+      "přeložit",
+      "jazyk"
+    ]
+  },
+  "uk": {
+    "tool.description": "Перекладіть текст за допомогою Google Translate. Підтримує понад 30 мов.",
+    "param.text.description": "Текст для перекладу.",
+    "param.target_lang.description": "Код цільової мови (наприклад, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Вихідний код мови. Визначається автоматично, якщо опущено.",
+    "x_search_terms": [
+      "перекласти",
+      "переклад",
+      "Google",
+      "Translate",
+      "мова"
+    ]
+  },
+  "tr": {
+    "tool.description": "Google Çeviri'yi kullanarak metni çevirin. 30'dan fazla dili destekler.",
+    "param.text.description": "Çevrilecek metin.",
+    "param.target_lang.description": "Hedef dil kodu (ör. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Kaynak dil kodu. Atlanırsa otomatik olarak algılanır.",
+    "x_search_terms": [
+      "çeviri",
+      "çeviri",
+      "google",
+      "çeviri",
+      "dili"
+    ]
+  },
+  "th": {
+    "tool.description": "แปลข้อความโดยใช้ Google Translate รองรับมากกว่า 30 ภาษา",
+    "param.text.description": "ข้อความที่จะแปล",
+    "param.target_lang.description": "รหัสภาษาเป้าหมาย (เช่น ja, en, zh_CN, pt_BR, fr, de, es, ko)",
+    "param.source_lang.description": "รหัสภาษาต้นฉบับ ตรวจพบอัตโนมัติหากละเว้น",
+    "x_search_terms": [
+      "แปลการแปล",
+      "Google",
+      "แปลภาษา"
+    ]
+  },
+  "zh_CN": {
+    "tool.description": "使用 Google 翻译翻译文本。支持 30 多种语言。",
+    "param.text.description": "要翻译的文本。",
+    "param.target_lang.description": "目标语言代码（例如 ja、en、zh_CN、pt_BR、fr、de、es、ko）。",
+    "param.source_lang.description": "源语言代码。如果省略则自动检测。",
+    "x_search_terms": [
+      "翻译",
+      "翻译",
+      "谷歌翻译",
+      "语言"
+    ]
+  },
+  "zh_TW": {
+    "tool.description": "使用 Google 翻譯翻譯文字。支援 30 多種語言。",
+    "param.text.description": "要翻譯的文字。",
+    "param.target_lang.description": "目標語言代碼（例如 ja、en、zh_CN、pt_BR、fr、de、es、ko）。",
+    "param.source_lang.description": "原始語言代碼。如果省略則自動偵測。",
+    "x_search_terms": [
+      "翻譯",
+      "翻譯",
+      "谷歌翻譯",
+      "語言"
+    ]
+  },
+  "bn": {
+    "tool.description": "Google অনুবাদ ব্যবহার করে পাঠ্য অনুবাদ করুন। 30+ ভাষা সমর্থন করে।",
+    "param.text.description": "অনুবাদ করার জন্য পাঠ্য।",
+    "param.target_lang.description": "লক্ষ্য ভাষার কোড (যেমন ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
+    "param.source_lang.description": "উৎস ভাষার কোড। বাদ দিলে স্বয়ংক্রিয়ভাবে সনাক্ত করা যায়।",
+    "x_search_terms": [
+      "অনুবাদ",
+      "অনুবাদ",
+      "গুগল",
+      "অনুবাদ",
+      "ভাষা"
+    ]
+  },
+  "fa": {
+    "tool.description": "ترجمه متن با استفاده از مترجم گوگل. پشتیبانی از بیش از 30 زبان",
+    "param.text.description": "متن برای ترجمه",
+    "param.target_lang.description": "کد زبان مقصد (به عنوان مثال ja، en، zh_CN، pt_BR، fr، de، es، ko).",
+    "param.source_lang.description": "کد زبان مبدأ در صورت حذف به صورت خودکار شناسایی می شود.",
+    "x_search_terms": [
+      "ترجمه",
+      "ترجمه",
+      "گوگل",
+      "ترنسلیت",
+      "زبان"
+    ]
+  },
+  "mn": {
+    "tool.description": "Google Translate ашиглан текстийг орчуулаарай. 30+ хэлийг дэмждэг.",
+    "param.text.description": "Орчуулах текст.",
+    "param.target_lang.description": "Зорилтот хэлний код (жишээ нь: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "Эх хэлний код. Хэрэв орхигдуулсан бол автоматаар илрүүлнэ.",
+    "x_search_terms": [
+      "орчуулга",
+      "google",
+      "translate",
+      "хэл"
+    ]
+  },
+  "mr": {
+    "tool.description": "Google भाषांतर वापरून मजकूर भाषांतरित करा. 30+ भाषांना सपोर्ट करते.",
+    "param.text.description": "भाषांतर करण्यासाठी मजकूर.",
+    "param.target_lang.description": "लक्ष्य भाषा कोड (उदा. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
+    "param.source_lang.description": "स्त्रोत भाषा कोड. वगळल्यास स्वयं आढळले.",
+    "x_search_terms": [
+      "भाषांतर",
+      "भाषांतर",
+      "गुगल",
+      "भाषांतर",
+      "भाषा"
+    ]
+  }
+}
