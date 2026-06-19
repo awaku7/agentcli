@@ -377,6 +377,19 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 )
             }
         )
+    elif provider == "lmstudio":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get(
+                        "UAGENT_LMSTUDIO_BASE_URL",
+                        "http://localhost:1234/v1",
+                    ),
+                )
+            }
+        )
     elif provider == "vertexai":
         lines.append(
             _("[INFO] vertexai = project=%(project)s, location=%(location)s")

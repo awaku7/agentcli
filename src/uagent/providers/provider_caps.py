@@ -15,5 +15,6 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "openrouter",
         "ollama",
         "alibaba",
+        "lmstudio",
     }
 )

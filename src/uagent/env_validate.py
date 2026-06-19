@@ -39,8 +39,8 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_PROVIDER"],
             reason=_(
-                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo).",
-                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo).",
+                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio).",
+                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio).",
             ),
         )
         return provider, missing, warnings
@@ -61,6 +61,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         "alibaba",
         "moonshot",
         "mimo",
+        "lmstudio",
     )
     if provider not in allowed:
         warnings.append(
