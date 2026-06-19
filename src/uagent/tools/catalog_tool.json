@@ -7,7 +7,7 @@
       "discover tools",
       "tool discovery"
     ],
-    "param.query.description": "Natural-language query describing the needed capability.",
+    "param.query.description": "Natural-language query describing the needed capability. Tip: decompose your goal into sub-steps (e.g., 'geoip location + weather forecast') to improve matching.",
     "param.limit.description": "Maximum number of catalog entries to return.",
     "tool_load.description": "Load a tool by name so it becomes available for use. Use this after tool_catalog returns a tool with loaded=false. Returns the loaded tool info or an error if not found.",
     "param.name.description": "Name of the tool to load (e.g. 'generate_image', 'excel_ops').",
@@ -27,7 +27,7 @@
       "ツール検索",
       "ツール発見"
     ],
-    "param.query.description": "必要な機能を説明する自然言語のクエリ。",
+    "param.query.description": "必要な機能を説明する自然言語のクエリ。ヒント: 目的を細かい作業ステップに分解してクエリに含めると（例: 'geoip 位置情報 + 天気予報'）、マッチ精度が向上します。",
     "param.limit.description": "返却するカタログ項目の最大数。",
     "tool_load.description": "ツールを名前で読み込み、使用可能にします。tool_catalog が loaded=false のツールを返した後に使用します。読み込まれたツールの情報、またはエラーを返します。",
     "param.name.description": "読み込むツールの名前（例: 'generate_image', 'excel_ops'）。",
@@ -47,7 +47,7 @@
       "descubrir herramientas",
       "descubrimiento de herramientas"
     ],
-    "param.query.description": "Consulta en lenguaje natural que describe la capacidad necesaria.",
+    "param.query.description": "Consulta en lenguaje natural que describe la capacidad necesaria. Consejo: descomponga su objetivo en pasos (ej. 'geoip ubicación + pronóstico del tiempo') para mejorar la coincidencia.",
     "param.limit.description": "Número máximo de entradas del catálogo a devolver.",
     "tool_load.description": "Carga una herramienta por nombre para que esté disponible. Use esto después de que tool_catalog devuelva una herramienta con loaded=false. Devuelve la información de la herramienta cargada o un error si no se encuentra.",
     "param.name.description": "Nombre de la herramienta a cargar (p. ej., 'generate_image', 'excel_ops').",
@@ -67,7 +67,7 @@
       "découvrir des outils",
       "découverte d'outils"
     ],
-    "param.query.description": "Requête en langage naturel décrivant la capacité nécessaire.",
+    "param.query.description": "Requête en langage naturel décrivant la capacité nécessaire. Astuce: décomposez votre objectif en sous-étapes (ex. 'geoip localisation + prévisions météo') pour améliorer la pertinence.",
     "param.limit.description": "Nombre maximum d'entrées du catalogue à retourner.",
     "tool_load.description": "Charge un outil par son nom pour le rendre disponible. Utilisez ceci après que tool_catalog retourne un outil avec loaded=false. Retourne les informations de l'outil chargé ou une erreur s'il n'est pas trouvé.",
     "param.name.description": "Nom de l'outil à charger (ex. 'generate_image', 'excel_ops').",
@@ -87,7 +87,7 @@
       "도구 검색",
       "도구 발견"
     ],
-    "param.query.description": "필요한 기능을 설명하는 자연어 질의.",
+    "param.query.description": "필요한 기능을 설명하는 자연어 질의. 팁: 목표를 세부 단계로 나누어 쿼리에 포함하면(예: 'geoip 위치 + 날씨 예보') 매칭이 향상됩니다.",
     "param.limit.description": "반환할 카탈로그 항목의 최대 개수.",
     "tool_load.description": "도구를 이름으로 로드하여 사용 가능하게 합니다. tool_catalog가 loaded=false인 도구를 반환한 후에 사용하십시오. 로드된 도구 정보를 반환하거나 찾을 수 없으면 오류를 반환합니다.",
     "param.name.description": "로드할 도구의 이름 (예: 'generate_image', 'excel_ops').",
@@ -107,7 +107,7 @@
       "Werkzeuge entdecken",
       "Werkzeugentdeckung"
     ],
-    "param.query.description": "Natürlichsprachliche Abfrage, die die benötigte Fähigkeit beschreibt.",
+    "param.query.description": "Natürlichsprachliche Abfrage, die die benötigte Fähigkeit beschreibt. Tipp: Zerlegen Sie Ihr Ziel in Unterschritte (z.B. 'geoip Standort + Wettervorhersage') um die Treffer zu verbessern.",
     "param.limit.description": "Maximale Anzahl der zurückzugebenden Katalogeinträge.",
     "tool_load.description": "Lädt ein Werkzeug mit seinem Namen, sodass es zur Verwendung verfügbar wird. Verwenden Sie dies, nachdem tool_catalog ein Werkzeug mit loaded=false zurückgegeben hat. Gibt die geladenen Werkzeuginformationen oder einen Fehler zurück, wenn nicht gefunden.",
     "param.name.description": "Name des zu ladenden Werkzeugs (z.B. 'generate_image', 'excel_ops').",
@@ -127,7 +127,7 @@
       "scopri strumenti",
       "scoperta strumenti"
     ],
-    "param.query.description": "Query in linguaggio naturale che descrive la capacità necessaria.",
+    "param.query.description": "Query in linguaggio naturale che descrive la capacità necessaria. Suggerimento: scomponi il tuo obiettivo in sotto-passaggi (es. 'geoip posizione + previsioni meteo') per migliorare la corrispondenza.",
     "param.limit.description": "Numero massimo di voci del catalogo da restituire.",
     "tool_load.description": "Carica uno strumento per nome in modo che diventi disponibile per l'uso. Usa questo dopo che tool_catalog restituisce uno strumento con loaded=false. Restituisce le informazioni dello strumento caricato o un errore se non trovato.",
     "param.name.description": "Nome dello strumento da caricare (es. 'generate_image', 'excel_ops').",
@@ -147,7 +147,7 @@
       "обнаружить инструменты",
       "обнаружение инструментов"
     ],
-    "param.query.description": "Запрос на естественном языке, описывающий необходимую возможность.",
+    "param.query.description": "Запрос на естественном языке, описывающий необходимую возможность. Совет: разбейте цель на подшаги (например, 'geoip местоположение + прогноз погоды') для улучшения соответствия.",
     "param.limit.description": "Максимальное количество записей каталога для возврата.",
     "tool_load.description": "Загружает инструмент по имени, чтобы он стал доступен для использования. Используйте это после того, как tool_catalog вернет инструмент с loaded=false. Возвращает информацию о загруженном инструменте или ошибку, если не найдено.",
     "param.name.description": "Имя загружаемого инструмента (например, 'generate_image', 'excel_ops').",
@@ -167,7 +167,7 @@
       "descobrir ferramentas",
       "descoberta de ferramentas"
     ],
-    "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária.",
+    "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária. Dica: decomponha seu objetivo em sub-etapas (ex.: 'geoip localização + previsão do tempo') para melhorar a correspondência.",
     "param.limit.description": "Número máximo de entradas do catálogo a retornar.",
     "tool_load.description": "Carrega uma ferramenta pelo nome para que ela se torne disponível para uso. Use isto depois que tool_catalog retornar uma ferramenta com loaded=false. Retorna as informações da ferramenta carregada ou um erro se não encontrada.",
     "param.name.description": "Nome da ferramenta a carregar (ex.: 'generate_image', 'excel_ops').",
@@ -187,7 +187,7 @@
       "descobrir ferramentas",
       "descoberta de ferramentas"
     ],
-    "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária.",
+    "param.query.description": "Consulta em linguagem natural descrevendo a capacidade necessária. Dica: decomponha seu objetivo em sub-etapas (ex.: 'geoip localização + previsão do tempo') para melhorar a correspondência.",
     "param.limit.description": "Número máximo de entradas do catálogo a retornar.",
     "tool_load.description": "Carrega uma ferramenta pelo nome para que ela se torne disponível para uso. Use isto depois que tool_catalog retornar uma ferramenta com loaded=false. Retorna as informações da ferramenta carregada ou um erro se não encontrada.",
     "param.name.description": "Nome da ferramenta a carregar (ex.: 'generate_image', 'excel_ops').",
@@ -207,7 +207,7 @@
       "temukan alat",
       "penemuan alat"
     ],
-    "param.query.description": "Kueri bahasa alami yang menjelaskan kemampuan yang diperlukan.",
+    "param.query.description": "Kueri bahasa alami yang menjelaskan kemampuan yang diperlukan. Tips: uraikan tujuan Anda menjadi langkah-langkah kecil (mis. 'geoip lokasi + ramalan cuaca') untuk meningkatkan kecocokan.",
     "param.limit.description": "Jumlah maksimum entri katalog yang akan dikembalikan.",
     "tool_load.description": "Memuat alat berdasarkan nama sehingga tersedia untuk digunakan. Gunakan ini setelah tool_catalog mengembalikan alat dengan loaded=false. Mengembalikan info alat yang dimuat atau kesalahan jika tidak ditemukan.",
     "param.name.description": "Nama alat yang akan dimuat (mis. 'generate_image', 'excel_ops').",
@@ -227,7 +227,7 @@
       "khám phá công cụ",
       "phát hiện công cụ"
     ],
-    "param.query.description": "Truy vấn ngôn ngữ tự nhiên mô tả khả năng cần thiết.",
+    "param.query.description": "Truy vấn ngôn ngữ tự nhiên mô tả khả năng cần thiết. Mẹo: phân chia mục tiêu thành các bước nhỏ (ví dụ: 'geoip vị trí + dự báo thời tiết') để cải thiện độ khớp.",
     "param.limit.description": "Số lượng mục danh mục tối đa để trả về.",
     "tool_load.description": "Tải một công cụ theo tên để nó có sẵn để sử dụng. Sử dụng điều này sau khi tool_catalog trả về công cụ với loaded=false. Trả về thông tin công cụ đã tải hoặc lỗi nếu không tìm thấy.",
     "param.name.description": "Tên của công cụ cần tải (ví dụ: 'generate_image', 'excel_ops').",
@@ -247,7 +247,7 @@
       "odkrywaj narzędzia",
       "odkrywanie narzędzi"
     ],
-    "param.query.description": "Zapytanie w języku naturalnym opisujące potrzebną funkcjonalność.",
+    "param.query.description": "Zapytanie w języku naturalnym opisujące potrzebną funkcjonalność. Wskazówka: rozbij cel na podetapy (np. 'geoip lokalizacja + prognoza pogody') aby poprawić dopasowanie.",
     "param.limit.description": "Maksymalna liczba wpisów katalogu do zwrócenia.",
     "tool_load.description": "Ładuje narzędzie po nazwie, aby stało się dostępne. Użyj tego, gdy tool_catalog zwróci narzędzie z loaded=false. Zwraca informacje o załadowanym narzędziu lub błąd, jeśli nie znaleziono.",
     "param.name.description": "Nazwa narzędzia do załadowania (np. 'generate_image', 'excel_ops').",
@@ -267,7 +267,7 @@
       "उपकरण खोजें",
       "उपकरण खोज"
     ],
-    "param.query.description": "आवश्यक क्षमता का वर्णन करने वाली प्राकृतिक भाषा क्वेरी।",
+    "param.query.description": "आवश्यक क्षमता का वर्णन करने वाली प्राकृतिक भाषा क्वेरी। टिप: अपने लक्ष्य को उप-चरणों में विभाजित करें (जैसे 'geoip स्थान + मौसम पूर्वानुमान') मिलान बेहतर बनाने के लिए।",
     "param.limit.description": "लौटाने के लिए सूची प्रविष्टियों की अधिकतम संख्या।",
     "tool_load.description": "एक उपकरण को नाम से लोड करें ताकि वह उपयोग के लिए उपलब्ध हो जाए। tool_catalog द्वारा loaded=false वाला उपकरण लौटाने के बाद इसका उपयोग करें। लोड किए गए उपकरण की जानकारी या न मिलने पर त्रुटि लौटाता है।",
     "param.name.description": "लोड करने के लिए उपकरण का नाम (जैसे 'generate_image', 'excel_ops').",
@@ -287,7 +287,7 @@
       "اكتشف الأدوات",
       "اكتشاف الأدوات"
     ],
-    "param.query.description": "استعلام بلغة طبيعية يصف القدرة المطلوبة.",
+    "param.query.description": "استعلام بلغة طبيعية يصف القدرة المطلوبة. نصيحة: قم بتفكيك هدفك إلى خطوات فرعية (مثل 'geoip موقع + توقعات الطقس') لتحسين المطابقة.",
     "param.limit.description": "أقصى عدد من إدخالات الكتالوج لإرجاعها.",
     "tool_load.description": "تحميل أداة بالاسم لتصبح متاحة للاستخدام. استخدم هذا بعد أن يعيد tool_catalog أداة مع loaded=false. يعيد معلومات الأداة المحملة أو خطأ إذا لم يتم العثور عليها.",
     "param.name.description": "اسم الأداة المراد تحميلها (مثل 'generate_image', 'excel_ops').",
@@ -307,7 +307,7 @@
       "upptäck verktyg",
       "verktygsupptäckt"
     ],
-    "param.query.description": "Naturlig-språk-fråga som beskriver den nödvändiga kapaciteten.",
+    "param.query.description": "Naturlig-språk-fråga som beskriver den nödvändiga kapaciteten. Tips: dela upp ditt mål i delsteg (t.ex. 'geoip plats + väderprognos') för att förbättra matchningen.",
     "param.limit.description": "Maximalt antal katalogposter att returnera.",
     "tool_load.description": "Ladda ett verktyg vid namn så att det blir tillgängligt för användning. Använd detta efter att tool_catalog returnerar ett verktyg med loaded=false. Returnerar den laddade verktygsinformationen eller ett fel om inte hittad.",
     "param.name.description": "Namnet på verktyget att ladda (t.ex. 'generate_image', 'excel_ops').",
@@ -327,7 +327,7 @@
       "gundua zana",
       "ugunduzi wa zana"
     ],
-    "param.query.description": "Hoja ya lugha asilia inayoelezea uwezo unaohitajika.",
+    "param.query.description": "Hoja ya lugha asilia inayoelezea uwezo unaohitajika. Kidokezo: tenga lengo lako katika hatua ndogo (mfano 'geoip eneo + utabiri wa hali ya hewa') ili kuboresha ulinganifu.",
     "param.limit.description": "Idadi ya juu zaidi ya viingilio vya katalogi kurudisha.",
     "tool_load.description": "Pakia zana kwa jina ili iweze kutumika. Tumia hii baada ya tool_catalog kurudisha zana yenye loaded=false. Inarudisha maelezo ya zana iliyopakiwa au hitilafu ikiwa haipatikani.",
     "param.name.description": "Jina la zana ya kupakia (mfano 'generate_image', 'excel_ops').",
@@ -347,7 +347,7 @@
       "oppdag verktøy",
       "verktøyoppdagelse"
     ],
-    "param.query.description": "Naturlig språk-spørring som beskriver den nødvendige kapasiteten.",
+    "param.query.description": "Naturlig språk-spørring som beskriver den nødvendige kapasiteten. Tips: del opp målet ditt i delsteg (f.eks. 'geoip plassering + værmelding') for å forbedre treff.",
     "param.limit.description": "Maksimalt antall katalogoppføringer å returnere.",
     "tool_load.description": "Laster et verktøy ved navn slik at det blir tilgjengelig for bruk. Bruk dette etter at tool_catalog returnerer et verktøy med loaded=false. Returnerer den lastede verktøyinformasjonen eller en feil hvis ikke funnet.",
     "param.name.description": "Navnet på verktøyet som skal lastes (f.eks. 'generate_image', 'excel_ops').",
@@ -367,7 +367,7 @@
       "tools ontdekken",
       "toolontdekking"
     ],
-    "param.query.description": "Natuurlijke-taalquery die de benodigde mogelijkheid beschrijft.",
+    "param.query.description": "Natuurlijke-taalquery die de benodigde mogelijkheid beschrijft. Tip: splits je doel op in substappen (bijv. 'geoip locatie + weersverwachting') om de matching te verbeteren.",
     "param.limit.description": "Maximaal aantal catalogusitems om terug te geven.",
     "tool_load.description": "Laadt een tool op naam zodat deze beschikbaar wordt voor gebruik. Gebruik dit nadat tool_catalog een tool retourneert met loaded=false. Retourneert de geladen toolinfo of een foutmelding als niet gevonden.",
     "param.name.description": "Naam van de te laden tool (bijv. 'generate_image', 'excel_ops').",
@@ -387,7 +387,7 @@
       "löydä työkaluja",
       "työkalujen löytäminen"
     ],
-    "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavaa kyvykkyyttä.",
+    "param.query.description": "Luonnollisen kielen kysely, joka kuvaa tarvittavaa kyvykkyyttä. Vinkki: jaa tavoitteesi alavaiheisiin (esim. 'geoip sijainti + sääennuste') parantaaksesi osumia.",
     "param.limit.description": "Palautettavien luettelomerkintöjen enimmäismäärä.",
     "tool_load.description": "Lataa työkalu nimellä, jotta se tulee käytettäväksi. Käytä tätä, kun tool_catalog palauttaa työkalun, jolla on loaded=false. Palauttaa ladatun työkalun tiedot tai virheen, jos sitä ei löydy.",
     "param.name.description": "Ladattavan työkalun nimi (esim. 'generate_image', 'excel_ops').",
@@ -407,7 +407,7 @@
       "objevovat nástroje",
       "objevování nástrojů"
     ],
-    "param.query.description": "Dotaz v přirozeném jazyce popisující požadovanou schopnost.",
+    "param.query.description": "Dotaz v přirozeném jazyce popisující požadovanou schopnost. Tip: rozdělte svůj cíl na dílčí kroky (např. 'geoip poloha + předpověď počasí') pro lepší shodu.",
     "param.limit.description": "Maximální počet položek katalogu k vrácení.",
     "tool_load.description": "Načte nástroj podle názvu, aby byl k dispozici pro použití. Použijte to poté, co tool_catalog vrátí nástroj s loaded=false. Vrací informace o načteném nástroji nebo chybu, pokud není nalezen.",
     "param.name.description": "Název nástroje k načtení (např. 'generate_image', 'excel_ops').",
@@ -427,7 +427,7 @@
       "виявити інструменти",
       "виявлення інструментів"
     ],
-    "param.query.description": "Запит природною мовою, що описує необхідну можливість.",
+    "param.query.description": "Запит природною мовою, що описує необхідну можливість. Порада: розбийте мету на підкроки (наприклад, 'geoip місцезнаходження + прогноз погоди') для покращення відповідності.",
     "param.limit.description": "Максимальна кількість записів каталогу для повернення.",
     "tool_load.description": "Завантажує інструмент за назвою, щоб він став доступним для використання. Використовуйте це після того, як tool_catalog поверне інструмент із loaded=false. Повертає інформацію про завантажений інструмент або помилку, якщо не знайдено.",
     "param.name.description": "Назва інструменту для завантаження (наприклад, 'generate_image', 'excel_ops').",
@@ -447,7 +447,7 @@
       "araçları keşfet",
       "araç keşfi"
     ],
-    "param.query.description": "Gerekli yeteneği tanımlayan doğal dil sorgusu.",
+    "param.query.description": "Gerekli yeteneği tanımlayan doğal dil sorgusu. İpucu: hedefinizi alt adımlara ayırın (örn. 'geoip konum + hava durumu tahmini') eşleşmeyi iyileştirmek için.",
     "param.limit.description": "Döndürülecek katalog girişlerinin maksimum sayısı.",
     "tool_load.description": "Bir aracı ada göre yükleyerek kullanıma hazır hale getirir. tool_catalog'un loaded=false ile bir araç döndürmesinden sonra bunu kullanın. Yüklenen araç bilgisini veya bulunamazsa bir hata döndürür.",
     "param.name.description": "Yüklenecek aracın adı (örn. 'generate_image', 'excel_ops').",
@@ -467,7 +467,7 @@
       "ค้นพบเครื่องมือ",
       "การค้นพบเครื่องมือ"
     ],
-    "param.query.description": "ข้อความค้นหาภาษาธรรมชาติที่อธิบายความสามารถที่ต้องการ",
+    "param.query.description": "ข้อความค้นหาภาษาธรรมชาติที่อธิบายความสามารถที่ต้องการ เคล็ดลับ: แบ่งเป้าหมายของคุณเป็นขั้นตอนย่อย (เช่น 'geoip ตำแหน่ง + พยากรณ์อากาศ') เพื่อปรับปรุงการจับคู่",
     "param.limit.description": "จำนวนรายการแคตตาล็อกสูงสุดที่จะส่งคืน",
     "tool_load.description": "โหลดเครื่องมือตามชื่อเพื่อให้พร้อมใช้งาน ใช้สิ่งนี้หลังจาก tool_catalog ส่งคืนเครื่องมือที่มี loaded=false ส่งคืนข้อมูลเครื่องมือที่โหลดหรือข้อผิดพลาดหากไม่พบ",
     "param.name.description": "ชื่อของเครื่องมือที่จะโหลด (เช่น 'generate_image', 'excel_ops')",
@@ -487,7 +487,7 @@
       "发现工具",
       "工具发现"
     ],
-    "param.query.description": "描述所需功能的自然语言查询。",
+    "param.query.description": "描述所需功能的自然语言查询。提示：将目标分解为子步骤（例如 'geoip 位置 + 天气预报'）以改进匹配。",
     "param.limit.description": "要返回的目录条目最大数量。",
     "tool_load.description": "按名称加载工具，使其可用于使用。在 tool_catalog 返回 loaded=false 的工具后使用此功能。返回加载的工具信息，如果未找到则返回错误。",
     "param.name.description": "要加载的工具名称（例如 'generate_image'、'excel_ops'）。",
@@ -507,7 +507,7 @@
       "發現工具",
       "工具發現"
     ],
-    "param.query.description": "描述所需功能的自然語言查詢。",
+    "param.query.description": "描述所需功能的自然語言查詢。提示：將目標分解為子步驟（例如 'geoip 位置 + 天氣預報'）以改進匹配。",
     "param.limit.description": "要返回的目錄條目最大數量。",
     "tool_load.description": "按名稱載入工具，使其可用於使用。在 tool_catalog 返回 loaded=false 的工具後使用此功能。返回載入的工具資訊，如果未找到則返回錯誤。",
     "param.name.description": "要載入的工具名稱（例如 'generate_image'、'excel_ops'）。",
@@ -527,7 +527,7 @@
       "টুল আবিষ্কার করুন",
       "টুল আবিষ্কার"
     ],
-    "param.query.description": "প্রয়োজনীয় ক্ষমতা বর্ণনা করে প্রাকৃতিক ভাষার প্রশ্ন।",
+    "param.query.description": "প্রয়োজনীয় ক্ষমতা বর্ণনা করে প্রাকৃতিক ভাষার প্রশ্ন। টিপ: আপনার লক্ষ্যকে উপ-ধাপে বিভক্ত করুন (যেমন 'geoip অবস্থান + আবহাওয়ার পূর্বাভাস') মিল উন্নত করতে।",
     "param.limit.description": "ফেরত দেওয়ার জন্য ক্যাটালগ এন্ট্রির সর্বাধিক সংখ্যা।",
     "tool_load.description": "একটি টুল নাম দিয়ে লোড করুন যাতে এটি ব্যবহারের জন্য উপলব্ধ হয়। tool_catalog loaded=false সহ একটি টুল ফেরত দেওয়ার পরে এটি ব্যবহার করুন। লোড করা টুল তথ্য বা না পাওয়া গেলে একটি ত্রুটি ফেরত দেয়।",
     "param.name.description": "লোড করার জন্য টুলের নাম (যেমন 'generate_image', 'excel_ops')।",
@@ -547,7 +547,7 @@
       "کشف ابزارها",
       "کشف ابزار"
     ],
-    "param.query.description": "پرس و جوی زبان طبیعی که قابلیت مورد نیاز را توصیف می‌کند.",
+    "param.query.description": "پرس و جوی زبان طبیعی که قابلیت مورد نیاز را توصیف می‌کند. نکته: هدف خود را به مراحل فرعی تقسیم کنید (مثلاً 'geoip موقعیت + پیش‌بینی آب و هوا') برای بهبود تطابق.",
     "param.limit.description": "حداکثر تعداد ورودی‌های کاتالوگ برای بازگشت.",
     "tool_load.description": "یک ابزار را با نام بارگذاری کنید تا برای استفاده در دسترس باشد. پس از اینکه tool_catalog ابزاری با loaded=false برگرداند، از این استفاده کنید. اطلاعات ابزار بارگذاری شده یا در صورت یافتن نشدن خطا برمی‌گرداند.",
     "param.name.description": "نام ابزار برای بارگذاری (به عنوان مثال 'generate_image', 'excel_ops').",
@@ -567,7 +567,7 @@
       "хэрэгслүүдийг нээх",
       "хэрэгсэл нээлт"
     ],
-    "param.query.description": "Шаардлагатай чадварыг тодорхойлсон байгалийн хэлний асуулт.",
+    "param.query.description": "Шаардлагатай чадварыг тодорхойлсон байгалийн хэлний асуулт. Зөвлөгөө: зорилгоо дэд алхам болгон задал (жишээ нь 'geoip байршил + цаг агаарын урьдчилсан мэдээ') тохирохыг сайжруулах.",
     "param.limit.description": "Буцаах каталогийн оруулгын дээд тоо.",
     "tool_load.description": "Хэрэгслийг нэрээр нь ачаалж, ашиглах боломжтой болгоно. tool_catalog нь loaded=false-тэй хэрэгсэл буцаасны дараа үүнийг ашиглана уу. Ачаалагдсан хэрэгслийн мэдээллийг эсвэл олдохгүй бол алдааг буцаана.",
     "param.name.description": "Ачаалах хэрэгслийн нэр (жишээ нь 'generate_image', 'excel_ops').",
@@ -587,7 +587,7 @@
       "साधने शोधा",
       "साधन शोध"
     ],
-    "param.query.description": "आवश्यक क्षमतेचे वर्णन करणारी नैसर्गिक भाषा क्वेरी.",
+    "param.query.description": "आवश्यक क्षमतेचे वर्णन करणारी नैसर्गिक भाषा क्वेरी. टिप: तुमचे ध्येय उप-चरणांमध्ये विभाजित करा (उदा. 'geoip स्थान + हवामान अंदाज') जुळणी सुधारण्यासाठी.",
     "param.limit.description": "परत करण्यासाठी कॅटलॉग नोंदींची कमाल संख्या.",
     "tool_load.description": "एखादे साधन नावाने लोड करा जेणेकरून ते वापरासाठी उपलब्ध होईल. tool_catalog ने loaded=false सह साधन परत केल्यानंतर हे वापरा. लोड केलेले साधन माहिती किंवा सापडले नाही तर त्रुटी परत करते.",
     "param.name.description": "लोड करण्यासाठी साधनाचे नाव (उदा. 'generate_image', 'excel_ops').",
