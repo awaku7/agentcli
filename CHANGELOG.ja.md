@@ -5,6 +5,37 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.14] - 2026-06-19
+
+### 新規追加
+- LM Studio プロバイダ対応 (`UAGENT_PROVIDER=lmstudio`): Responses API 統合、ドキュメント更新。
+- `translate_text` ツール: Google Translate ラッパー (genre=devel, 30ロケールi18n, 最大10000文字)。
+- `browser_playwright`: `path` パラメータによるファイル保存、`unload_tool` 対応、ジャンルを basic に変更。
+- ツールカタログ改善: LLM がクエリをサブステップに分解してツール検索できるよう誘導。
+- `fetch_url` を常にツールカタログ結果に含めるよう改善。`tool_level` を 1（条件付きロード）に設定。
+- `get_geoip` の検索キーワードに天気/ニュース関連語句を追加。SSL エラーチェックを改善。
+- `exstruct_tool`: 遅延ロード対応と exstruct 欠落時のエラーハンドリング。
+- ブラウザ UI テンプレートを最新化。
+
+### 変更
+- `tool_load` から `persist` パラメータを削除（常に無制限）。
+- exstruct 依存関係を削除。
+- echonet_cache_tool.json i18n エントリから重複する `tool_level`/`tool_genre`/`type`/`function` を削除。
+- `browser_playwright` のジャンルを `external` から `basic` に変更。
+- `fetch_url` のジャンルを `external` から `basic` に変更。
+
+### 修正
+- ツールロールメッセージの tool_result が文字列としてシリアライズされない問題を修正。
+- 翻訳のプレースホルダー欠落を自動修正（プレースホルダーマスキング付き Google 翻訳）。
+- browser_playwright_tool.json に不足していた pt_BR 翻訳を追加（30言語完了）。
+- Azure OpenAI の None/空レスポンスに対するエラーハンドリングを `_call_openai_azure_round` に追加。
+
+### ドキュメント
+- 翻訳 README に MiMo と LM Studio の参照を追加。
+- README プロバイダ一覧に LM Studio と Responses API に関する注記を追加。
+- 新規プロバイダ追加方法（LM Studio/MiMo）のドキュメントを追加。
+- llmcapa 依存関係のバージョンを更新。
+
 ## [0.5.13] - 2026-06-18
 
 ### 新規追加

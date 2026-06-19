@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.14] - 2026-06-19
+
+### Added
+- LM Studio provider support (`UAGENT_PROVIDER=lmstudio`) with Responses API integration and documentation.
+- `translate_text` tool: Google Translate wrapper (genre=devel, 30-locale i18n, max 10000 chars).
+- `browser_playwright`: file save via `path` parameter in content action, `unload_tool` support, genre changed to basic.
+- Tool catalog enhancement: guide LLM to decompose queries into sub-steps for better tool discovery.
+- `fetch_url` always included in tool catalog results; `tool_level` set to 1 (conditional loading).
+- `get_geoip` search terms extended with weather/news keywords; SSL error check refined.
+- `exstruct_tool`: lazy-load support and error handling when exstruct is missing.
+- Browser UI template modernized.
+
+### Changed
+- Removed `persist` parameter from `tool_load` (always unlimited).
+- Removed exstruct dependency.
+- Removed redundant `tool_level`/`tool_genre`/`type`/`function` from echonet_cache_tool.json i18n entries.
+- `browser_playwright` genre changed from `external` to `basic`.
+- `fetch_url` genre changed from `external` to `basic`.
+
+### Fixed
+- Tool result serialization to string for tool role messages.
+- Missing placeholders in translations (auto-fix with placeholder masking).
+- Added missing pt_BR translations for browser_playwright_tool.json (30 languages complete).
+- Azure OpenAI None/empty response error handling in `_call_openai_azure_round`.
+
+### Documentation
+- Added MiMo and LM Studio references to translation READMEs.
+- Updated README provider list with LM Studio and Responses API notes.
+- Documented how to add new providers (LM Studio/MiMo).
+- Bumped llmcapa dependency version.
+
 ## [0.5.13] - 2026-06-18
 
 ### Added
