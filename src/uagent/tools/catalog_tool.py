@@ -120,6 +120,78 @@ TOOL_SPEC: dict[str, Any] = _build_tool_catalog_spec()
 # Also register tool_load as a second tool from this module
 TOOL_SPEC_2: dict[str, Any] = _build_tool_load_spec()
 
+# Also register unload_tool as a third tool from this module
+def _build_tool_unload_spec() -> dict[str, Any]:
+    return {
+        "tool_level": 0,
+        "type": "function",
+        "function": {
+            "name": "unload_tool",
+            "description": _(
+                "unload_tool.description",
+                default="Unload a tool by name so it is no longer available for use. Use this to remove a previously loaded tool from the session.",
+            ),
+            "x_search_terms": [
+                "unload_tool",
+                "unload tool",
+                "disable tool",
+                "remove tool",
+                "deactivate tool",
+            ],
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": _(
+                            "param.name.description",
+                            default="Name of the tool to unload (e.g. 'browser_playwright', 'generate_image').",
+                        ),
+                    },
+                },
+                "required": ["name"],
+            },
+        },
+    }
+
+
+def _run_tool_unload(args: dict[str, Any]) -> str:
+    name = str(args.get("name") or "").strip()
+    if not name:
+        return json.dumps({"ok": False, "error": _("msg.unload.missing_name", default="Missing 'name' parameter.")})
+
+    try:
+        from ._genre_control_util import disable_single_tool
+
+        ok = disable_single_tool(name)
+        if ok:
+            return json.dumps(
+                {
+                    "ok": True,
+                    "name": name,
+                    "unloaded": True,
+                    "message": _("msg.unload.ok", default="Tool '{name}' has been unloaded.", name=name),
+                }
+            )
+        else:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "name": name,
+                    "unloaded": False,
+                    "error": _("msg.unload.not_found", default="Tool '{name}' not found or not loaded.", name=name),
+                }
+            )
+    except Exception as e:
+        return json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"})
+
+
+
+
+
+# Also register unload_tool as a third tool from this module
+TOOL_SPEC_3: dict[str, Any] = _build_tool_unload_spec()
+TOOL_SPEC_3_RUNNER = _run_tool_unload
 
 def _run_tool_catalog(args: dict[str, Any]) -> str:
     query = str(args.get("query") or "").strip()
@@ -182,7 +254,8 @@ def _run_tool_load(args: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    # Determine which tool is being called based on args
+    # Default dispatcher for TOOL_SPEC (tool_catalog) and TOOL_SPEC_2 (tool_load)
+    # TOOL_SPEC_3 (unload_tool) has its own runner via TOOL_SPEC_3_RUNNER
     if "name" in args and "query" not in args:
         return _run_tool_load(args)
     return _run_tool_catalog(args)

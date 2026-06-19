@@ -298,6 +298,13 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     if isinstance(spec2, dict) and callable(runner):
         _register_extra_spec(spec2, runner, mod)
 
+    # Optional third tool spec (TOOL_SPEC_3) - supports a custom runner via TOOL_SPEC_3_RUNNER
+    spec3 = getattr(mod, "TOOL_SPEC_3", None)
+    if isinstance(spec3, dict):
+        spec3_runner = getattr(mod, "TOOL_SPEC_3_RUNNER", runner)
+        if callable(spec3_runner):
+            _register_extra_spec(spec3, spec3_runner, mod)
+
     # Dynamic command registration (always allowed even if tool_level == -1)
     cmd_specs = getattr(mod, "CMD_SPECS", None)
     if not isinstance(cmd_specs, list):

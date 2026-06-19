@@ -15,7 +15,7 @@ BUSY_LABEL = True
 STATUS_LABEL = "tool:browser_playwright"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": -1,
+    "tool_level": 1,
     "type": "function",
     "tool_genre": "external",
     "function": {
@@ -417,8 +417,10 @@ async def execute_actions(actions: List[Dict[str, Any]], headless: bool, **kwarg
 
                 elif a_type == "goto":
                     _require_frame()
+                    wu = action.get("wait_until", "networkidle")
+                    to = action.get("timeout", 30000)
                     await current_frame.goto(
-                        action["url"], wait_until="networkidle", timeout=30000
+                        action["url"], wait_until=wu, timeout=to
                     )
 
                 elif a_type == "click":
@@ -614,3 +616,7 @@ def browser_playwright_run(args: dict[str, Any]) -> dict[str, Any]:
             )
         finally:
             loop.close()
+
+
+# Alias for tool loader
+run_tool = browser_playwright_run

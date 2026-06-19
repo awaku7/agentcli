@@ -194,3 +194,20 @@ def consume_tool_use(tool_name: str) -> None:
         _sort_registered_tools()
     else:
         _LOADED_SINGLE_TOOLS[tool_name] = remaining
+
+
+def disable_single_tool(tool_name: str) -> bool:
+    """Unload a single tool by name. Returns True if found and removed."""
+    _LOADED_SINGLE_TOOLS.pop(tool_name, None)
+    from . import TOOL_SPECS, _RUNNERS, _sort_registered_tools
+
+    found = False
+    for i, spec in enumerate(TOOL_SPECS):
+        if spec.get("function", {}).get("name") == tool_name:
+            TOOL_SPECS.pop(i)
+            found = True
+            break
+    _RUNNERS.pop(tool_name, None)
+    if found:
+        _sort_registered_tools()
+    return found
