@@ -760,6 +760,8 @@ def get_tool_catalog(
         limit = 12
     if limit <= 0:
         limit = 12
+    if all_items:
+        limit = None
 
     debug_tools = str(env_get("UAGENT_DEBUG_TOOLS", "")).strip().lower() in {
         "1",

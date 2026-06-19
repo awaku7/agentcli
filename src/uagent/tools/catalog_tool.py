@@ -49,14 +49,6 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
                             default="Natural-language query describing the needed capability. Ignored when all=true.",
                         ),
                     },
-                    "limit": {
-                        "type": "integer",
-                        "description": _(
-                            "param.limit.description",
-                            default="Maximum number of catalog entries to return.",
-                        ),
-                        "default": 12,
-                    },
                     "all": {
                         "type": "boolean",
                         "description": _(
@@ -132,15 +124,8 @@ TOOL_SPEC_2: dict[str, Any] = _build_tool_load_spec()
 def _run_tool_catalog(args: dict[str, Any]) -> str:
     query = str(args.get("query") or "").strip()
     all_flag = bool(args.get("all", False))
-    max_results_raw = args.get("limit", 12)
-    try:
-        max_results = int(max_results_raw)
-    except Exception:
-        max_results = 12
-    if max_results <= 0:
-        max_results = 12
 
-    catalog = get_tool_catalog(query=query, max_results=max_results, all_items=all_flag)
+    catalog = get_tool_catalog(query=query, max_results=12, all_items=all_flag)
     return json.dumps(
         {
             "ok": True,

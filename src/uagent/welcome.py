@@ -26,23 +26,23 @@ def get_mcp_servers_summary():
         path = get_default_mcp_config_path()
 
     if not os.path.exists(path):
-        return _("[MCP Servers]\n- Config file not found.")
+        return _("[MCP Servers]\n- Config file not found.\n")
 
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
         servers = data.get("mcp_servers", [])
         if not servers:
-            return _("[MCP Servers]\n- No servers registered.")
+            return _("[MCP Servers]\n- No servers registered.\n")
 
         lines = [_("[MCP Servers]")]
         for s in servers:
             name = s.get("name", "unknown")
             transport = s.get("transport", "stdio")
             lines.append(f"- {name} ({transport})")
-        return "\n".join(lines)
+        return "\n".join(lines) + "\n"
     except Exception as e:
-        return _("[MCP Servers]\n- Failed to get info: %(err)s") % {"err": e}
+        return (_("[MCP Servers]\n- Failed to get info: %(err)s") % {"err": e}) + "\n"
 
 
 def get_welcome_ascii():
