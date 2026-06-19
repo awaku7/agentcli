@@ -136,21 +136,14 @@ def disable_genre_tools(genre: str) -> list[str]:
     return removed_names
 
 
-def enable_single_tool(tool_name: str, persist: int = -1) -> bool:
+def enable_single_tool(tool_name: str) -> bool:
     """Enable a single tool by name (regardless of genre).
 
     Args:
         tool_name: Name of the tool to load.
-        persist: Number of uses before auto-unload.
-                 -1 = unlimited (session lifetime).
-                  0 = immediately expired (do not load).
-                 >0 = unload after N uses.
 
     Returns True if found and loaded.
     """
-    if persist == 0:
-        return False
-
     from . import _register_tool_module
 
     for mname, mod in _find_tool_modules():
@@ -165,7 +158,7 @@ def enable_single_tool(tool_name: str, persist: int = -1) -> bool:
 
         # Force tool_level to 0 and register
         spec["tool_level"] = 0
-        _LOADED_SINGLE_TOOLS[tool_name] = persist
+        _LOADED_SINGLE_TOOLS[tool_name] = -1
         mod_name = f"uagent.tools.{mname}"
         return _register_tool_module(mod, mod_name)
 
@@ -173,27 +166,8 @@ def enable_single_tool(tool_name: str, persist: int = -1) -> bool:
 
 
 def consume_tool_use(tool_name: str) -> None:
-    """Decrement remaining uses for an individually loaded tool.
-    Call after each tool invocation. Auto-unloads when count reaches 0."""
-    if tool_name not in _LOADED_SINGLE_TOOLS:
-        return
-    remaining = _LOADED_SINGLE_TOOLS[tool_name]
-    if remaining == -1:
-        return  # unlimited
-    remaining -= 1
-    if remaining <= 0:
-        _LOADED_SINGLE_TOOLS.pop(tool_name, None)
-        # Remove from TOOL_SPECS and _RUNNERS
-        from . import TOOL_SPECS, _RUNNERS, _sort_registered_tools
-
-        for i, spec in enumerate(TOOL_SPECS):
-            if spec.get("function", {}).get("name") == tool_name:
-                TOOL_SPECS.pop(i)
-                break
-        _RUNNERS.pop(tool_name, None)
-        _sort_registered_tools()
-    else:
-        _LOADED_SINGLE_TOOLS[tool_name] = remaining
+    """No-op: persist/use-counting has been removed."""
+    pass
 
 
 def disable_single_tool(tool_name: str) -> bool:

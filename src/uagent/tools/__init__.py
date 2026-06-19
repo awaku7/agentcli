@@ -1152,9 +1152,6 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         # Exceptions here must not prevent tool execution.
         _emit_tool_trace(name, args)
 
-    # Consume one use for individually loaded tools (countdown auto-unload)
-    _consume_single_tool_use(name)
-
     # During human_ask, Busy should be turned off (it will wait for input).
     # After completion, set Busy back to "LLM" so GUI does not look stuck in IDLE.
     if name == "human_ask":
@@ -1179,15 +1176,6 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     result = runner(args)
     return result
 
-
-def _consume_single_tool_use(name: str) -> None:
-    """Decrement remaining uses for individually loaded tools."""
-    try:
-        from ._genre_control_util import consume_tool_use
-
-        consume_tool_use(name)
-    except Exception:
-        pass
 
 
 # Lazy initialization: tools are loaded on first use

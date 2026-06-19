@@ -100,14 +100,7 @@ def _build_tool_load_spec() -> dict[str, Any]:
                             default="Name of the tool to load (e.g. 'generate_image', 'excel_ops').",
                         ),
                     },
-                    "persist": {
-                        "type": "integer",
-                        "description": _(
-                            "param.persist.description",
-                            default="Number of uses before auto-unload. -1 = unlimited (session lifetime, default). 0 = do not load. >0 = unload after N uses.",
-                        ),
-                        "default": -1,
-                    },
+
                 },
                 "required": ["name"],
             },
@@ -215,29 +208,17 @@ def _run_tool_load(args: dict[str, Any]) -> str:
     if not name:
         return json.dumps({"ok": False, "error": _("msg.load.missing_name", default="Missing 'name' parameter.")})
 
-    persist_raw = args.get("persist", -1)
-    try:
-        persist = int(persist_raw)
-    except Exception:
-        persist = -1
-
     try:
         from ._genre_control_util import enable_single_tool
 
-        ok = enable_single_tool(name, persist=persist)
+        ok = enable_single_tool(name)
         if ok:
-            persist_msg = (
-                _("msg.load.persist_unlimited", default="unlimited (session)")
-                if persist == -1
-                else _("msg.load.persist_count", default="{n} use(s)", n=persist)
-            )
             return json.dumps(
                 {
                     "ok": True,
                     "name": name,
                     "loaded": True,
-                    "persist": persist,
-                    "message": _("msg.load.ok", default="Tool '{name}' has been loaded (persist={persist}) and is now available.", name=name, persist=persist_msg),
+                    "message": _("msg.load.ok", default="Tool '{name}' has been loaded and is now available.", name=name),
                 }
             )
         else:
