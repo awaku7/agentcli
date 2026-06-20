@@ -18,6 +18,7 @@ STATUS_LABEL = "tool:python_compile"
 TOOL_SPEC: dict[str, Any] = {
     "tool_genre": "devel",
     "type": "function",
+    "x_parallel_safe": True,
     "function": {
         "name": "python_compile",
         "description": _(
@@ -80,7 +81,6 @@ def _as_str_list(value: Any) -> list[str]:
 def _resolve_py_compile_targets(raw_targets: list[str]) -> tuple[list[str], list[str]]:
     resolved: list[str] = []
     missing: list[str] = []
-    seen: set[str] = set()
 
     for raw_target in raw_targets:
         if not raw_target:
@@ -88,56 +88,79 @@ def _resolve_py_compile_targets(raw_targets: list[str]) -> tuple[list[str], list
 
         candidates: list[str]
         if any(ch in raw_target for ch in "*?[]"):
+            # Glob pattern
             candidates = glob.glob(raw_target, recursive=True)
+            if not candidates:
+                missing.append(raw_target)
+                continue
+        elif os.path.isdir(raw_target):
+            # Directory: scan recursively for .py files
+            p = Path(raw_target)
+            candidates = [str(f) for f in p.rglob("*.py")]
+            if not candidates:
+                missing.append(raw_target)
+                continue
         else:
-            target_path = Path(raw_target)
-            if target_path.is_dir():
-                candidates = [str(p) for p in target_path.rglob("*.py")]
-            elif target_path.exists():
-                candidates = [str(target_path)]
+            # Single file or exact path
+            if os.path.isfile(raw_target):
+                candidates = [raw_target]
             else:
                 missing.append(raw_target)
                 continue
 
-        for candidate in candidates:
-            candidate_path = Path(candidate)
-            if candidate_path.is_dir():
-                continue
-            normalized = str(candidate_path)
-            if normalized not in seen:
-                seen.add(normalized)
-                resolved.append(normalized)
+        for c in candidates:
+            if c.endswith(".py") and c not in resolved:
+                resolved.append(c)
 
     return resolved, missing
 
 
-def run_tool(args: dict[str, Any]) -> str:
-    raw_targets = _as_str_list(args.get("paths"))
-    raw_targets.extend(_as_str_list(args.get("path")))
-    raw_targets = [t for t in raw_targets if str(t).strip()]
-
-    resolved_targets, missing = _resolve_py_compile_targets(raw_targets)
-    compiled: list[str] = []
-    failed: list[dict[str, str]] = []
-
-    for file_path in resolved_targets:
+def _run_compile(resolved: list[str]) -> list[dict[str, Any]]:
+    results: list[dict[str, Any]] = []
+    for fpath in resolved:
         try:
-            py_compile.compile(file_path, doraise=True)
+            py_compile.compile(fpath, doraise=True)
+            results.append({"path": fpath, "ok": True})
         except py_compile.PyCompileError as e:
-            failed.append({"path": file_path, "error": str(e)})
+            results.append({"path": fpath, "ok": False, "error": str(e)})
         except Exception as e:
-            failed.append({"path": file_path, "error": f"{type(e).__name__}: {e}"})
-        else:
-            compiled.append(file_path)
+            results.append({"path": fpath, "ok": False, "error": f"{type(e).__name__}: {e}"})
+    return results
 
-    result = {
-        "ok": not missing and not failed and bool(resolved_targets),
-        "mode": "py_compile",
-        "targets": raw_targets,
-        "resolved": resolved_targets,
-        "compiled": compiled,
-        "failed": failed,
-        "missing": missing,
-        "count": len(compiled),
-    }
-    return json.dumps(result, ensure_ascii=False, indent=2)
+
+def run_tool(args: dict[str, Any]) -> str:
+    raw_targets: list[str] = _as_str_list(args.get("path") or args.get("paths") or ".")
+
+    resolved, missing = _resolve_py_compile_targets(raw_targets)
+
+    if not resolved:
+        return json.dumps(
+            {
+                "ok": False,
+                "summary": "No Python files found to compile",
+                "targets_requested": raw_targets,
+                "missing": missing,
+                "results": [],
+            },
+            ensure_ascii=False,
+        )
+
+    results = _run_compile(resolved)
+
+    total = len(results)
+    ok_count = sum(1 for r in results if r.get("ok"))
+    fail_count = total - ok_count
+
+    return json.dumps(
+        {
+            "ok": fail_count == 0,
+            "summary": f"{ok_count} passed, {fail_count} failed out of {total} files",
+            "total": total,
+            "passed": ok_count,
+            "failed": fail_count,
+            "targets_requested": raw_targets,
+            "missing": missing,
+            "results": results,
+        },
+        ensure_ascii=False,
+    )

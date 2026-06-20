@@ -15,6 +15,7 @@ TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "tool_genre": "basic",
+    "x_parallel_safe": True,
     "function": {
         "name": "list_dir",
         "description": _(
@@ -158,105 +159,49 @@ def run_tool(args: dict[str, Any]) -> str:
     max_results_raw = (args or {}).get("limit", 50)
     page_raw = (args or {}).get("page", 1)
 
-    try:
-        max_results = int(max_results_raw)
-    except Exception:
-        max_results = 50
-    if max_results <= 0:
-        max_results = 50
+    limit = int(max_results_raw) if max_results_raw is not None else 50
+    page = int(page_raw) if page_raw is not None else 1
 
-    try:
-        page = int(page_raw)
-    except Exception:
-        page = 1
-    if page < 1:
+    if limit <= 0:
+        limit = 50
+    if page <= 0:
         page = 1
 
-    root_abs = os.path.abspath(os.path.expanduser(root_path))
-
-    if not os.path.exists(root_abs):
-        return _(
-            "err.dir_not_exist",
-            default="[list_dir error] Directory does not exist: {path}",
-        ).format(path=root_path)
+    root_abs = os.path.abspath(root_path)
 
     if not os.path.isdir(root_abs):
-        return _(
-            "err.path_not_dir",
-            default="[list_dir error] Path is not a directory: {path}",
-        ).format(path=root_path)
-
-    try:
-        entries = _scan_dir(root_abs, show_hidden=show_hidden)
-    except Exception as e:
-        return _json_err(f"[list_dir error] {type(e).__name__}: {e}", path=root_abs)
-
-    if not entries:
-        return "\n".join(
-            [
-                _(
-                    "out.path",
-                    default="Path: {path}",
-                ).format(path=root_abs),
-                _(
-                    "out.no_entries",
-                    default="[list_dir] No entries found.",
-                ),
-            ]
+        return _("err.not_a_dir", default="Error: not a directory: {path}").format(
+            path=root_abs
         )
 
-    page_results, page, total_pages, total_results = paginate_results(
-        entries, page, max_results
-    )
+    all_entries = _scan_dir(root_abs, show_hidden)
 
-    out_lines: list[str] = [
-        _(
-            "out.found_paginated",
-            default="[list_dir] Page {page} of {total_pages} (Total {total} entries, showing {showing})",
-        ).format(
-            page=page,
-            total_pages=total_pages,
-            total=total_results,
-            showing=len(page_results),
-        ),
-        _(
-            "out.path",
-            default="Path: {path}",
-        ).format(path=root_abs),
+    if not all_entries:
+        return _("msg.empty_dir", default="(empty directory)")
+
+    # Paginate
+    page_entries = paginate_results(all_entries, page=page, limit=limit)
+
+    lines = [
+        (
+            f"{'[DIR]' if e['kind'] == 'dir' else '[FILE]'}"
+            f" {e['name']}"
+            f"{' -> ' + e['target'] if e.get('target') else ''}"
+            f" ({_format_size(e.get('size')) if e['kind'] == 'file' else e['kind']})"
+        )
+        for e in page_entries
     ]
 
-    for item in page_results:
-        kind = item["kind"]
-        name = item["name"]
+    header = (
+        _(
+            "msg.paginate",
+            default="Page {page} of {total_pages} (showing {count} of {total} entries)",
+        ).format(
+            page=page,
+            total_pages=max(1, (len(all_entries) + limit - 1) // limit),
+            count=len(page_entries),
+            total=len(all_entries),
+        )
+    )
 
-        if kind == "dir":
-            out_lines.append(
-                _(
-                    "out.entry.dir",
-                    default="[DIR] {name}/",
-                ).format(name=name)
-            )
-        elif kind == "file":
-            out_lines.append(
-                _(
-                    "out.entry.file",
-                    default="[FILE] {name} ({size})",
-                ).format(name=name, size=_format_size(item.get("size")))
-            )
-        elif kind == "link":
-            target = item.get("target")
-            out_lines.append(
-                _(
-                    "out.entry.link",
-                    default="[LINK] {name}{target}",
-                ).format(name=name, target=f" -> {target}" if target else "")
-            )
-        else:
-            out_lines.append(
-                _(
-                    "out.entry.other",
-                    default="[OTHER] {name}",
-                ).format(name=name)
-            )
-
-    return "\n".join(out_lines)
+    return header + "\n" + "\n".join(lines)

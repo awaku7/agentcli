@@ -31,6 +31,7 @@ STATUS_LABEL = "tool:file_hash"
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "tool_genre": "basic",
+    "x_parallel_safe": True,
     "function": {
         "name": "file_hash",
         "description": _(

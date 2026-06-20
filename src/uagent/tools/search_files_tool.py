@@ -26,6 +26,7 @@ TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
     "tool_genre": "basic",
+    "x_parallel_safe": True,
     "function": {
         "name": "search_files",
         "description": _(

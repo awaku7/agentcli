@@ -13,6 +13,7 @@ BUSY_LABEL = True
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "tool_genre": "devel",
+    "x_parallel_safe": True,
     "function": {
         "name": "db_query",
         "description": _(
@@ -74,16 +75,26 @@ def run_tool(args: dict[str, Any]) -> str:
     # Safety: only allow SELECT / PRAGMA
     head = sql.lstrip().split(None, 1)[0].upper() if sql.strip() else ""
     if head not in ("SELECT", "PRAGMA"):
-        raise ValueError("Only SELECT/PRAGMA are allowed")
+        return _(
+            "err.readonly",
+            default="[db_query error] Only SELECT and PRAGMA statements are allowed.",
+        )
 
-    conn = sqlite3.connect(db_path)
-    conn.row_factory = sqlite3.Row
     try:
-        cur = conn.execute(sql)
-        rows = cur.fetchall()
-        result_data = [dict(r) for r in rows]
-        import json
+        conn = sqlite3.connect(db_path)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.execute(sql)
 
-        return json.dumps(result_data, ensure_ascii=False)
-    finally:
+        rows = [dict(row) for row in cursor.fetchall()]
+        colnames = [desc[0] for desc in cursor.description] if cursor.description else []
+
         conn.close()
+
+        return _(
+            "msg.result",
+            default="[db_query]\nrows={rows}\ncolumns={cols}",
+        ).format(rows=len(rows), cols=", ".join(colnames)) + "\n" + "\n".join(
+            json.dumps(r, ensure_ascii=False, default=str) for r in rows
+        )
+    except Exception as e:
+        return f"[db_query error] {type(e).__name__}: {e}"

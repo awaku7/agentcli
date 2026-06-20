@@ -23,7 +23,7 @@
     <path d="M142 164 H194" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
   </g>
   <text x="300" y="132" fill="#ffffff" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="72" font-weight="700" letter-spacing="1.5">uag</text>
-  <text x="300" y="182" fill="#dbeafe" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="28" font-weight="500">Local AI Agent</text>
-  <rect x="300" y="196" width="180" height="6" rx="3" fill="url(#accent)"/>
+  <text x="300" y="182" fill="#dbeafe" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="26" font-weight="500">Universal AI Gateway</text>
+  <rect x="300" y="196" width="225" height="6" rx="3" fill="url(#accent)"/>
   <text x="1130" y="58" text-anchor="end" fill="rgba(255,255,255,0.75)" font-family="Segoe UI, Inter, Arial, sans-serif" font-size="20" font-weight="500">commands · files · data</text>
 </svg>
