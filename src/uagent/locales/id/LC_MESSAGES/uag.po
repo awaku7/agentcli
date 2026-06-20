@@ -2382,14 +2382,8 @@ msgstr "[Panduan Singkat]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Chat: ketik pesan dan kirim (GUI: Ctrl+Enter juga tersedia)."
+msgstr "- Multiline: masukkan garis yang hanya 'f' untuk masuk ke mode multiline."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Multiline: masukkan baris yang hanya berisi 'f' untuk masuk mode multiline"
 " (akhiri dengan \"\"\"end)."
 
 #: src/uagent/welcome.py:70

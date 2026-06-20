@@ -2368,15 +2368,9 @@ msgstr "[راهنمای سریع]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- چند خطی: خطی را وارد کنید که فقط "f" باشد تا وارد حالت چند خطی شوید."
 "- چت: پیامی را تایپ کرده و ارسال کنید (GUI: Ctrl+Enter نیز موجود است)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- چند خطی: خطی را وارد کنید که فقط \"f\" باشد تا وارد حالت چند خطی شوید "
 "(پایان آن با \"\"\" پایان)."
 
 #: src/uagent/welcome.py:70

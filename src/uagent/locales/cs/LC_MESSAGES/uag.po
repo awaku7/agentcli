@@ -2397,15 +2397,9 @@ msgstr "[Rychlý průvodce]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- Víceřádkový: zadejte řádek, který je pouze 'f' pro vstup do víceřádkového režimu."
 "- Chat: napište zprávu a odešlete (GUI: Ctrl+Enter je také k dispozici)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Víceřádkový: zadejte řádek, který je pouze 'f' pro vstup do víceřádkového "
 "režimu (konec \"\"\"konec)."
 
 #: src/uagent/welcome.py:70

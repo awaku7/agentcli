@@ -2429,16 +2429,10 @@ msgstr "[দ্রুত নির্দেশিকা]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- মাল্টিলাইন: মাল্টিলাইন মোডে প্রবেশ করতে একটি লাইন লিখুন যা শুধু 'f'।"
 "- চ্যাট: একটি বার্তা টাইপ করে পাঠান (GUI: Ctrl+Enter-ও ব্যবহার করা যায়)।- "
 "চ্যাট: একটি বার্তা টাইপ করুন এবং পাঠান (GUI: Ctrl+Enter এছাড়াও উপলব্ধ)।"
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- মাল্টিলাইন: মাল্টিলাইন মোডে প্রবেশ করার জন্য একটি লাইন লিখুন যা শুধু 'f' "
 "হয় (\"\"\"শেষ দিয়ে শেষ করুন)।"
 
 #: src/uagent/welcome.py:70

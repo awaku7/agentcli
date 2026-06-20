@@ -2404,16 +2404,10 @@ msgstr "[Guia rápido]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- Multilinha: insira uma linha que seja apenas 'f' para entrar no modo multilinha."
 "- Chat: digite uma mensagem e envie (na GUI, Ctrl+Enter também está "
 "disponível)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Multiline: digite uma linha que seja apenas 'f' para entrar no modo "
 "multilinha (termine com uma linha contendo \"\"\"end)."
 
 #: src/uagent/welcome.py:70

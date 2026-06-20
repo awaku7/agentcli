@@ -780,33 +780,23 @@ def stdin_loop() -> None:
             should_wait_completion = False
             if not is_ha_multiline:
                 # Do not treat 'f' as a command to switch to multiline mode when entering a password
-                if line == "f" and not is_ha_password:
-                    if _can_use_textarea():
-                        text = _multiline_editor()
-                        if text is None:
-                            core.set_status(True, "replying_cancel")
-                            with core.human_ask_lock:
-                                if core.human_ask_queue:
-                                    core.human_ask_queue.put("cancel")
-                            print("[REPLY] " + _("Cancelled."))
-                            should_wait_completion = True
-                        else:
-                            core.set_status(True, "replying_multi")
-                            with core.human_ask_lock:
-                                if core.human_ask_queue:
-                                    core.human_ask_queue.put(text)
-                            print("[REPLY] " + _("Received multiline reply."))
-                            should_wait_completion = True
-                    else:
+                if line == "f" and not is_ha_password and _can_use_textarea():
+                    text = _multiline_editor()
+                    if text is None:
+                        core.set_status(True, "replying_cancel")
                         with core.human_ask_lock:
-                            core.human_ask_multiline_active = True
-                            core.human_ask_lines.clear()
-                        print(
-                            _(
-                                '(Multiline input mode: enter the body in multiple lines; to restart, type """retry; finish with a line containing %(sentinel)s)'
-                            )
-                            % {"sentinel": core.MULTI_INPUT_SENTINEL}
-                        )
+                            if core.human_ask_queue:
+                                core.human_ask_queue.put("cancel")
+                        print("[REPLY] " + _("Cancelled."))
+                        should_wait_completion = True
+                    else:
+                        core.set_status(True, "replying_multi")
+                        with core.human_ask_lock:
+                            if core.human_ask_queue:
+                                core.human_ask_queue.put(text)
+                        print("[REPLY] " + _("Received multiline reply."))
+                        should_wait_completion = True
+
                 else:
                     core.set_status(True, "replying")
                     with core.human_ask_lock:
@@ -835,23 +825,6 @@ def stdin_loop() -> None:
                             core.human_ask_queue.put(line)
                     print("[REPLY] " + _("Cancelled."))
                     should_wait_completion = True
-                elif line == '"""retry':
-                    with core.human_ask_lock:
-                        core.human_ask_lines.clear()
-                    print(
-                        "[REPLY] " + _("Discarded previous input. Please start over.")
-                    )
-                    continue
-                elif line == core.MULTI_INPUT_SENTINEL:
-                    core.set_status(True, "replying_multi")
-                    with core.human_ask_lock:
-                        reply_text = "\n".join(core.human_ask_lines)
-                        core.human_ask_lines.clear()
-                        core.human_ask_multiline_active = False
-                        if core.human_ask_queue:
-                            core.human_ask_queue.put(reply_text)
-                    print("[REPLY] " + _("Received multiline reply."))
-                    should_wait_completion = True
                 else:
                     with core.human_ask_lock:
                         core.human_ask_lines.append(line)
@@ -870,25 +843,15 @@ def stdin_loop() -> None:
                 core.event_queue.put({"kind": "command", "text": line})
                 continue
 
-            if line == "f":
-                if _can_use_textarea():
-                    text = _multiline_editor()
-                    if text is None:
-                        continue
-                    if not text.strip():
-                        continue
-                    _append_prompt_history_entry(text)
-                    core.set_status(True, "user_pending_multi")
-                    core.event_queue.put({"kind": "user", "text": text})
+            if line == "f" and _can_use_textarea():
+                text = _multiline_editor()
+                if text is None:
                     continue
-                user_multiline_active = True
-                user_lines.clear()
-                print(
-                    _(
-                        '(Multiline input mode: enter the body in multiple lines; to restart, type """retry; finish with a line containing %(sentinel)s)'
-                    )
-                    % {"sentinel": core.MULTI_INPUT_SENTINEL}
-                )
+                if not text.strip():
+                    continue
+                _append_prompt_history_entry(text)
+                core.set_status(True, "user_pending_multi")
+                core.event_queue.put({"kind": "user", "text": text})
                 continue
 
             if not line.strip():
@@ -900,27 +863,11 @@ def stdin_loop() -> None:
             core.set_status(True, "user_pending")
             core.event_queue.put({"kind": "user", "text": line})
         else:
-            if line == '"""retry':
-                user_lines.clear()
-                print("[INFO] " + _("Discarded previous input. Please start over."))
-                continue
-
-            if line == core.MULTI_INPUT_SENTINEL:
-                text = "\n".join(user_lines)
-                user_lines.clear()
-                user_multiline_active = False
-
-                if not text.strip():
-                    continue
-
-                _append_prompt_history_entry(text)
-                core.set_status(True, "user_pending_multi")
-                core.event_queue.put({"kind": "user", "text": text})
-            else:
                 user_lines.append(line)
 
 
 def main() -> None:
+    sys.stdout.reconfigure(encoding='utf-8')
     from . import uagent_llm as llm_util  # lazy
 
     startup = _run_cli_startup(

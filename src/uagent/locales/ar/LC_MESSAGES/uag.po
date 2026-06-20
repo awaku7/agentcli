@@ -2358,16 +2358,10 @@ msgstr "[الدليل السريع]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- متعدد الخطوط: أدخل سطرًا يتكون من "f" فقط للدخول إلى الوضع متعدد الخطوط."
 "- الدردشة: اكتب رسالة وأرسلها (واجهة المستخدم الرسومية: Ctrl+Enter متاحة "
 "أيضًا)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- متعدد الأسطر: أدخل سطرًا يتكون من \"f\" فقط للدخول إلى وضع متعدد الأسطر "
 "(ينتهي بـ \"\"\"نهاية)."
 
 #: src/uagent/welcome.py:70

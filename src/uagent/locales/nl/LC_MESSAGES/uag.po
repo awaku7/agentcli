@@ -2393,15 +2393,9 @@ msgstr "  Korte handleiding"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- Multiline: voer een regel in die alleen 'f' is om naar de multiline-modus te gaan."
 "- Chat: typ een bericht en verstuur (GUI: Ctrl+Enter is ook beschikbaar)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Multiline: voer een regel in die net 'f' is om naar de multiline-modus te "
 "gaan (eindig met \"\"\"einde)."
 
 #: src/uagent/welcome.py:70

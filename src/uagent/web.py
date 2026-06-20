@@ -40,6 +40,7 @@ from . import uagent_llm as llm_util
 from .image_session import build_image_session_message
 from .providers import util_providers as providers
 from . import util_tools as tools_util
+from .utils.paths import get_history_file_path
 from . import tools
 from .welcome import get_welcome_message
 from .gui_ansi import ansi_to_html, wrap_pre
@@ -53,6 +54,45 @@ except ImportError:
 
 
 ANSI_ESCAPE = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
+
+def _load_input_history() -> list[str]:
+    """Load input history from shared CLI history file."""
+    try:
+        p = get_history_file_path()
+        if p.exists():
+            result = []
+            for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
+                line = line.strip()
+                if line.startswith("+") and len(line) > 1:
+                    result.append(line[1:])
+            return result
+    except Exception:
+        pass
+    return []
+
+
+def _save_input_history(text: str) -> None:
+    """Append to the shared CLI history file."""
+    try:
+        t = text.replace("\r", "").strip()
+        if not t:
+            return
+        p = get_history_file_path()
+        p.parent.mkdir(parents=True, exist_ok=True)
+        # Read existing entries to avoid duplicates
+        existing = set()
+        if p.exists():
+            for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
+                line = line.strip()
+                if line.startswith("+") and len(line) > 1:
+                    existing.add(line[1:])
+        if t not in existing:
+            with open(p, "a", encoding="utf-8") as f:
+                f.write(f"+{t}\n")
+    except Exception:
+        pass
+
+
 
 app = FastAPI(title="uag Web")
 
@@ -182,10 +222,13 @@ class WebRoom:
                 except Exception:
                     pass
 
+            # Bootstrap input history from persisted file
+            input_history = _load_input_history()
             await websocket.send_json(
                 {
                     "type": "init",
                     "messages": msgs,
+                    "input_history": input_history,
                     "status": self.status,
                     "modes": {
                         "reasoning": tools_util.get_reasoning_mode(),
@@ -721,6 +764,7 @@ def run_agent_worker(
                 )
 
         room.history.append(user_msg)
+        _save_input_history(user_input)
         room.image_session = build_image_session_message(room.history, depname)
 
         # Inject Generative UI instructions into the system prompt for Web mode
@@ -1173,6 +1217,7 @@ def init_web():
 
 
 def main():
+    sys.__stdout__.reconfigure(encoding='utf-8')
     import argparse
 
     from .i18n import _

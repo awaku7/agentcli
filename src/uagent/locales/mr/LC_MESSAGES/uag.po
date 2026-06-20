@@ -2376,14 +2376,8 @@ msgstr "[त्वरित मार्गदर्शक]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- चॅट: संदेश टाइप करा आणि पाठवा (GUI: Ctrl+Enter देखील उपलब्ध आहे)."
+msgstr "- मल्टीलाइन: मल्टीलाइन मोडमध्ये प्रवेश करण्यासाठी फक्त 'f' असलेली ओळ प्रविष्ट करा."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- मल्टीलाइन: मल्टीलाइन मोडमध्ये प्रवेश करण्यासाठी फक्त 'f' असलेली ओळ एंटर "
 "करा (\"\"\"अंताने समाप्त)."
 
 #: src/uagent/welcome.py:70

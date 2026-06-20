@@ -2395,14 +2395,8 @@ msgstr "[Mwongozo wa Haraka]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Chat: andika ujumbe na utume (GUI: Ctrl+Enter pia inapatikana)."
+msgstr "- Mistari mingi: weka laini ambayo ni 'f' tu ili kuingiza modi ya laini nyingi."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Mistari mingi: weka mstari wenye tu 'f' ili kuingia hali ya mistari mingi "
 "(malizia kwa \"\"\"end)."
 
 #: src/uagent/welcome.py:70

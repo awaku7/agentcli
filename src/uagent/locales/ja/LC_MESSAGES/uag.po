@@ -2301,6 +2301,10 @@ msgstr ""
 "[MCP サーバー]\n"
 "- 情報の取得に失敗しました: %(err)s"
 
+#: src/uagent/welcome.py:65
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- 複数行: 「f」だけの行を入力すると、複数行モードに入ります。"
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[クイックガイド]"
@@ -2309,13 +2313,6 @@ msgstr "[クイックガイド]"
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr "- チャット: メッセージを入力して送信します（GUI: Ctrl+Enter でも送信できます）。"
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr "- 複数行: 'f' だけの行を入力すると複数行入力モード（multiline）に入ります（\"\"\"end で終了）。"
-
-#: src/uagent/welcome.py:70
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.). Note: commands start with ':' (colon) instead of '/' "

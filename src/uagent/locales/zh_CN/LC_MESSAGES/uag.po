@@ -2285,15 +2285,8 @@ msgstr "[快速指南]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- 聊天：输入消息并发送（GUI 中也可使用 Ctrl+Enter）。"
+msgstr "- 多行：输入仅包含"f"的行以进入多行模式。"
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr "- 多行：输入仅包含 'f' 的一行可进入多行模式（以 \"\"\"end 结束）。"
-
-#: src/uagent/welcome.py:70
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.). Note: commands start with ':' (colon) instead of '/' "

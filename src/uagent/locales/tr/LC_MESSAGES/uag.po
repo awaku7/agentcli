@@ -2385,14 +2385,8 @@ msgstr "[Hızlı Kılavuz]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Sohbet: bir mesaj yazın ve gönderin (GUI: Ctrl+Enter da mevcuttur)."
+msgstr "- Çok satırlı: çok satırlı moda girmek için yalnızca 'f' olan bir satır girin."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Çok satırlı: çok satırlı moda girmek için yalnızca 'f' olan bir satır "
 "girin (\"\"\" sonu ile bitirin)."
 
 #: src/uagent/welcome.py:70

@@ -2362,14 +2362,8 @@ msgstr "[快速指南]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- 聊天: nhậpthông báo并发送(GUI 中也可使用 Ctrl+Enter)."
+msgstr "- Multiline: nhập một dòng chỉ là 'f' để vào chế độ nhiều dòng."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
 " \\\\"
 
 #: src/uagent/welcome.py:70

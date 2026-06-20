@@ -1,6 +1,5 @@
 {
   "en": {
-    "doc.ensure_gui_sentinel": "Make sure the response from GUI ends with a multi_input_sentinel line.",
     "doc.run_tool": "human_ask does not read directly from stdin;\nlet the stdin_loop thread on the scheck.py side handle processing\nand receive results via shared state (callbacks).",
     "err.active_uninitialized": "[human_ask error] human_ask_active callbacks are not initialized.",
     "err.already_active": "[human_ask error] Another human_ask is already active.",
@@ -23,11 +22,10 @@
       "decision"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "How to answer:\n  - Type your answer and press Enter\n  - Type 'f' to enter multi-line mode\n  - In multi-line mode: '\"\"\"retry' clears, '\"\"\"end' sends\n  - Type 'c' or 'cancel' to cancel\n",
+    "ui.howto": "How to answer:\n  - Type your answer and press Enter\n  - Type 'f' to enter multi-line mode\n  - Type 'c' or 'cancel' to cancel\n",
     "ui.title": "=== Human request (human_ask) ==="
   },
   "ja": {
-    "doc.ensure_gui_sentinel": "GUI からの返答は multi_input_sentinel 行で必ず終わるようにする。",
     "doc.run_tool": "human_ask は stdin から直接読むのではなく、\nscheck.py 側の stdin_loop スレッドに処理を任せて\n共有状態（callbacks）経由で結果を受け取る。\n",
     "err.active_uninitialized": "[human_ask error] human_ask_active コールバックが初期化されていません。",
     "err.already_active": "[human_ask error] すでに別の human_ask が実行中です。",
@@ -52,7 +50,6 @@
     "ui.title": "=== 人への依頼 (human_ask) ==="
   },
   "es": {
-    "doc.ensure_gui_sentinel": "Asegúrese de que la respuesta de la interfaz gráfica termine con una línea multi_input_sentinel.",
     "doc.run_tool": "human_ask no lee directamente de stdin,\nDeje el procesamiento al hilo stdin_loop del lado de scheck.py\nReciba los resultados a través del estado compartido (callbacks).\n",
     "err.active_uninitialized": "[error de human_ask] El callback human_ask_active no se ha ini...",
     "err.already_active": "[error de human_ask] Ya se está ejecutando otro human_ask.",
@@ -77,7 +74,6 @@
     "ui.title": "=== Solicitud a una persona (h..."
   },
   "fr": {
-    "doc.ensure_gui_sentinel": "Assurez-vous que la réponse de l'interface graphique se termine par une ligne multi_input_sentinel.",
     "doc.run_tool": "human_ask ne lit pas directement depuis stdin,\nlaissez le traitement au thread stdin_loop du côté scheck.py\net recevez les résultats via l'état partagé (rappels).\n",
     "err.active_uninitialized": "[erreur human_ask] Le rappel human_ask_active n'a pas été initialisé.",
     "err.already_active": "[erreur human_ask] Un autre human_ask est déjà en c...",
@@ -102,7 +98,6 @@
     "ui.title": "=== Demande à une personne (hu..."
   },
   "ko": {
-    "doc.ensure_gui_sentinel": "GUI 로부터의 응답은 multi_input_sentinel 행으로 끝나야 합니다.",
     "doc.run_tool": "human_ask는 stdin에서 직접 읽지 않고,\nscheck.py 쪽의 stdin_loop 스레드에 처리를 맡겨\n공유 상태(callbacks)를 통해 결과를 받습니다.\n",
     "err.active_uninitialized": "[human_ask 오류] human_ask_active 콜백이 초기화되지 않았습니다.",
     "err.already_active": "[human_ask 오류] 이미 다른 human_ask가 실행 중입니다.",
@@ -127,7 +122,6 @@
     "ui.title": "=== 사람에게 요청(human_ask) ==="
   },
   "de": {
-    "doc.ensure_gui_sentinel": "Stellen Sie sicher, dass die Antwort der GUI mit einer multi_input_sentinel-Zeile endet.",
     "doc.run_tool": "human_ask liest nicht direkt von stdin,\nüberlässt die Verarbeitung dem stdin_loop-Thread auf der scheck.py-Seite\nund erhält Ergebnisse über den gemeinsamen Zustand (Callbacks).",
     "err.active_uninitialized": "[human_ask-Fehler] Der Callback human_ask_active wurde nicht i...",
     "err.already_active": "[human_ask-Fehler] Ein anderer human_ask läuft bereits.",
@@ -152,7 +146,6 @@
     "ui.title": "=== Anfrage an eine Person (hu..."
   },
   "it": {
-    "doc.ensure_gui_sentinel": "Assicurati che la risposta della GUI termini con una riga multi_input_sentinel.",
     "doc.run_tool": "human_ask non legge direttamente da stdin,\nlascia l'elaborazione al thread stdin_loop sul lato scheck.py\ne riceve i risultati tramite stato condiviso (callback).",
     "err.active_uninitialized": "[errore human_ask] La callback human_ask_active non è stata in...",
     "err.already_active": "[errore human_ask] Un altro human_ask è già in esecuzione.",
@@ -177,7 +170,6 @@
     "ui.title": "=== Richiesta a una persona (h..."
   },
   "ru": {
-    "doc.ensure_gui_sentinel": "Убедитесь, что ответ от GUI заканчивается строкой multi_input_sentinel.",
     "doc.run_tool": "human_ask не читает напрямую из stdin,\nпередает обработку потоку stdin_loop на стороне scheck.py\nи получает результаты через общее состояние (обратные вызовы).",
     "err.active_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_active не был иниц...",
     "err.already_active": "[ошибка human_ask] Другой human_ask уже запущен.",
@@ -202,7 +194,6 @@
     "ui.title": "=== Запрос к человеку (human_a..."
   },
   "pt_BR": {
-    "doc.ensure_gui_sentinel": "Certifique-se de que a resposta da GUI termine com uma linha multi_input_sentinel.",
     "doc.run_tool": "human_ask não lê diretamente do stdin,\nDeixe o processamento para a thread stdin_loop no lado scheck.py\nReceba os resultados por meio de estado compartilhado (callbacks).",
     "err.active_uninitialized": "[erro human_ask] o callback human_ask_active não foi inicializado.",
     "err.already_active": "[erro human_ask] Outro human_ask já está em execução.",
@@ -227,7 +218,6 @@
     "ui.title": "=== Solicitação para uma pesso..."
   },
   "pt": {
-    "doc.ensure_gui_sentinel": "Certifique-se de que a resposta da GUI termine com uma linha multi_input_sentinel.",
     "doc.run_tool": "human_ask não lê diretamente de stdin,\nDeixe o processamento para o thread stdin_loop no lado do scheck.py\ne receba os resultados por meio de estado compartilhado (callbacks).",
     "err.active_uninitialized": "[erro human_ask] o retorno de chamada human_ask_active não foi...",
     "err.already_active": "[erro human_ask] Outro human_ask já está em execução.",
@@ -252,7 +242,6 @@
     "ui.title": "=== Solicitação para uma pesso..."
   },
   "id": {
-    "doc.ensure_gui_sentinel": "Pastikan respons dari GUI diakhiri dengan baris multi_input_sentinel.",
     "doc.run_tool": "human_ask tidak membaca langsung dari stdin,\nSerahkan pemrosesan ke thread stdin_loop di sisi scheck.py\nTerima hasil melalui shared state (callbacks).",
     "err.active_uninitialized": "[human_ask error] callback human_ask_active belum diinisialisasi.",
     "err.already_active": "[human_ask error] human_ask lain masih berjalan.",
@@ -277,7 +266,6 @@
     "ui.title": "=== Permintaan kepada manusia..."
   },
   "vi": {
-    "doc.ensure_gui_sentinel": "Đảm bảo phản hồi từ GUI kết thúc bằng dòng multi_input_sentinel.",
     "doc.run_tool": "human_ask không đọc trực tiếp từ stdin,\nĐể lại quá trình xử lý cho luồng stdin_loop ở phía scheck.py\nNhận kết quả qua trạng thái chia sẻ (gọi lại).",
     "err.active_uninitialized": "[lỗi human_ask] lệnh gọi lại human_ask_active chưa được khởi tạo.",
     "err.already_active": "[lỗi human_ask] Một human_ask khác đang chạy.",
@@ -302,7 +290,6 @@
     "ui.title": "=== Yêu cầu với một người (hum..."
   },
   "pl": {
-    "doc.ensure_gui_sentinel": "Upewnij się, że odpowiedź z GUI kończy się linią multi_input_sentinel.",
     "doc.run_tool": "human_ask nie czyta bezpośrednio ze standardowego wejścia,\nPozostaw przetwarzanie wątkowi stdin_loop po stronie scheck.py\nOtrzymuj wyniki poprzez stan udostępniony (wywołania zwrotne).",
     "err.active_uninitialized": "[błąd human_ask] Wywołanie zwrotne human_ask_active nie został...",
     "err.already_active": "[błąd human_ask] Inny human_ask już działa.",
@@ -327,7 +314,6 @@
     "ui.title": "=== Prośba do osoby (human_ask) ==="
   },
   "hi": {
-    "doc.ensure_gui_sentinel": "सुनिश्चित करें कि GUI से प्राप्त उत्तर multi_input_sentinel पंक्ति के साथ समाप्त हो।",
     "doc.run_tool": "human_ask सीधे stdin से नहीं पढ़ता है,\nप्रोसेसिंग को scheck.py साइड पर stdin_loop थ्रेड पर छोड़ दें\nसाझा स्थिति (कॉलबैक) के माध्यम से परिणाम प्राप्त करें।",
     "err.active_uninitialized": "[मानव_आस्क त्रुटि] मानव_आस्क_एक्टिव कॉलबैक प्रारंभ नहीं किया गया है।",
     "err.already_active": "[मानव_आस्क त्रुटि] एक अन्य मानव_आस्क पहले से ही चल रहा है।",
@@ -352,7 +338,6 @@
     "ui.title": "=== किसी व्यक्ति से अनुरोध (hu..."
   },
   "ar": {
-    "doc.ensure_gui_sentinel": "تأكد من أن الاستجابة من واجهة المستخدم الرسومية تنتهي بخط multi_input_sentinel.",
     "doc.run_tool": "human_ask لا يقرأ مباشرة من stdin،\nاترك المعالجة لسلسلة الرسائل stdin_loop على الجانب scheck.py\nتلقي النتائج عبر الحالة المشتركة (عمليات الاسترجاعات).",
     "err.active_uninitialized": "[خطأ human_ask] لم تتم تهيئة رد الاتصال human_ask_active.",
     "err.already_active": "[خطأ human_ask] هناك سؤال بشري آخر قيد التشغيل بالفعل.",
@@ -377,7 +362,6 @@
     "ui.title": "=== طلب لشخص (human_ask) ==="
   },
   "sv": {
-    "doc.ensure_gui_sentinel": "Se till att svaret från GUI slutar med en multi_input_sentinel-rad.",
     "doc.run_tool": "human_ask läser inte direkt från stdin,\nlåt bearbetningen skötas av stdin_loop-tråden på scheck.py-sidan\noch ta emot resultat via delat tillstånd (callbacks).",
     "err.active_uninitialized": "[human_ask-fel] callbacken human_ask_active har inte initierats.",
     "err.already_active": "[human_ask-fel] En annan human_ask kör redan.",
@@ -402,7 +386,6 @@
     "ui.title": "=== Begäran till en person (hu..."
   },
   "sw": {
-    "doc.ensure_gui_sentinel": "Hakikisha jibu kutoka GUI linaishia kwa mstari wa multi_input_sentinel.",
     "doc.run_tool": "human_ask haisomi moja kwa moja kutoka stdin,\nacha uchakataji ufanywe na uzi wa stdin_loop upande wa scheck.py\nna upokee matokeo kupitia hali ya pamoja (callbacks).",
     "err.active_uninitialized": "[hitilafu ya human_ask] callback ya human_ask_active haijaanzishwa.",
     "err.already_active": "[hitilafu ya human_ask] human_ask mwingine tayari u...",
@@ -427,7 +410,6 @@
     "ui.title": "=== Ombi kwa mtu (human_ask) ==="
   },
   "nb": {
-    "doc.ensure_gui_sentinel": "Sørg for at svaret fra GUI slutter med en multi_input_sentinel-linje.",
     "doc.run_tool": "human_ask leser ikke direkte fra stdin,\nla behandlingen gå til stdin_loop-tråden på scheck.py-siden\nog motta resultater via delt tilstand (callbacks).",
     "err.active_uninitialized": "[human_ask-feil] callbacken human_ask_active er ikke initialisert.",
     "err.already_active": "[human_ask-feil] En annen human_ask kjører allerede.",
@@ -452,7 +434,6 @@
     "ui.title": "=== Forespørsel til en person..."
   },
   "nl": {
-    "doc.ensure_gui_sentinel": "Zorg ervoor dat het antwoord van de GUI eindigt met een multi_input_sentinel-regel.",
     "doc.run_tool": "human_ask leest niet rechtstreeks uit stdin,\nLaat de verwerking over aan de stdin_loop-thread aan de scheck.py-kant\nOntvang resultaten via gedeelde status (callbacks).",
     "err.active_uninitialized": "[human_ask fout] human_ask_active callback is niet geïnitialiseerd.",
     "err.already_active": "[human_ask fout] Er draait al een andere human_ask.",
@@ -477,7 +458,6 @@
     "ui.title": "=== Verzoek aan een persoon (h..."
   },
   "fi": {
-    "doc.ensure_gui_sentinel": "Varmista, että GUI:sta saatu vastaus päättyy multi_input_sentinel-riviin.",
     "doc.run_tool": "human_ask ei lue suoraan stdinistä,\nJätä käsittely scheck.py-puolen stdin_loop-säikeelle\nVastaanota tulokset jaetun tilan kautta (callbackit).",
     "err.active_uninitialized": "[human_ask-virhe] human_ask_active-callbackia ei ole alustettu.",
     "err.already_active": "[human_ask-virhe] Toinen human_ask on jo käynnissä.",
@@ -502,7 +482,6 @@
     "ui.title": "=== Pyyntö henkilölle (human_a..."
   },
   "cs": {
-    "doc.ensure_gui_sentinel": "Ujistěte se, že odpověď z GUI končí řádkem multi_input_sentinel.",
     "doc.run_tool": "human_ask nečte přímo ze stdin,\nsvěřte zpracování vláknu stdin_loop na straně scheck.py\na výsledky přijímejte přes sdílený stav (callbacks).",
     "err.active_uninitialized": "[human_ask error] callback human_ask_active nebyl inicializován.",
     "err.already_active": "[human_ask error] Jiný human_ask už běží.",
@@ -527,7 +506,6 @@
     "ui.title": "=== Žádost k člověku (human_ask) ==="
   },
   "uk": {
-    "doc.ensure_gui_sentinel": "Переконайтеся, що відповідь від GUI закінчується рядком multi_input_sentinel.",
     "doc.run_tool": "human_ask не читає безпосередньо зі stdin,\nпередайте обробку потоку stdin_loop на боці scheck.py\nі отримуйте результати через спільний стан (callbacks).",
     "err.active_uninitialized": "[human_ask error] callback human_ask_active не було ініціалізовано.",
     "err.already_active": "[human_ask error] Інший human_ask вже запущено.",
@@ -552,7 +530,6 @@
     "ui.title": "=== Запит до людини (human_ask) ==="
   },
   "tr": {
-    "doc.ensure_gui_sentinel": "GUI'dan gelen yanıtın multi_input_sentinel satırıyla bittiğinden emin olun.",
     "doc.run_tool": "human_ask doğrudan stdin'den okumaz;\nscheck.py tarafındaki stdin_loop iş parçacığının işlemeyi yönetmesine izin verin\nve sonuçları paylaşılan durum (geri aramalar) aracılığıyla alın.",
     "err.active_uninitialized": "[human_ask error] human_ask_active geri araması başlatılmadı.",
     "err.already_active": "[human_ask hatası] Başka bir human_ask zaten çalışıyor.",
@@ -577,7 +554,6 @@
     "ui.title": "=== Bir kişiye istek (human_ask) ==="
   },
   "th": {
-    "doc.ensure_gui_sentinel": "ตรวจสอบให้แน่ใจว่าคำตอบจาก GUI ลงท้ายด้วยบรรทัด multi_input_sentinel",
     "doc.run_tool": "human_ask ไม่ได้อ่านโดยตรงจาก stdin\nให้เธรด stdin_loop ฝั่ง scheck.py จัดการประมวลผล\nแล้วรับผลลัพธ์ผ่านสถานะที่ใช้ร่วมกัน (callbacks)\n",
     "err.active_uninitialized": "[ข้อผิดพลาด human_ask] ยังไม่ได้เริ่มต้น callback human_ask_active",
     "err.already_active": "[ข้อผิดพลาด human_ask] มี human_ask อื่นกำลังทำงานอยู่",
@@ -602,7 +578,6 @@
     "ui.title": "=== คำขอถึงบุคคล (human_ask) ==="
   },
   "zh_CN": {
-    "doc.ensure_gui_sentinel": "确保来自 GUI 的响应以 multi_input_sentinel 行结束。",
     "doc.run_tool": "human_ask 不直接从 stdin 读取，\n将处理留给 scheck.py 端的 stdin_loop 线程\n通过共享状态（回调）接收结果。\n",
     "err.active_uninitialized": "[human_ask 错误] human_ask_active 回调尚未初始化。",
     "err.already_active": "[human_ask 错误] 另一个 human_ask 已在运行。",
@@ -627,7 +602,6 @@
     "ui.title": "=== 向某人提出请求 (human_ask) ==="
   },
   "zh_TW": {
-    "doc.ensure_gui_sentinel": "確保來自 GUI 的回應以 multi_input_sentinel 行結束。",
     "doc.run_tool": "human_ask 不直接從 stdin 讀取，\n將處理留給 scheck.py 端的 stdin_loop 執行緒\n透過共享狀態（回呼）接收結果。\n",
     "err.active_uninitialized": "[human_ask 錯誤] human_ask_active 回呼尚未初始化。",
     "err.already_active": "[human_ask 錯誤] 另一個 human_ask 已在執行中。",
@@ -652,7 +626,6 @@
     "ui.title": "=== 向某人提出請求 (human_ask) ==="
   },
   "bn": {
-    "doc.ensure_gui_sentinel": "GUI থেকে আসা উত্তরটি multi_input_sentinel লাইন দিয়ে শেষ হচ্ছে কি না নিশ্চিত করুন।",
     "doc.run_tool": "human_ask সরাসরি stdin থেকে পড়ে না;\nscheck.py-র stdin_loop থ্রেডকে প্রসেসিং সামলাতে দিন\nএবং shared state (callbacks) এর মাধ্যমে ফলাফল নিন।",
     "err.active_uninitialized": "[human_ask error] human_ask_active callback শুরু করা হয়নি।",
     "err.already_active": "[human_ask error] অন্য একটি human_ask ইতিমধ্যেই চলছে।",
@@ -677,7 +650,6 @@
     "ui.title": "=== একজন মানুষের কাছে অনুরোধ (..."
   },
   "fa": {
-    "doc.ensure_gui_sentinel": "مطمئن شوید پاسخ GUI با یک خط multi_input_sentinel تمام می‌شود.",
     "doc.run_tool": "human_ask مستقیماً از stdin نمی‌خواند؛\nاجازه دهید threadِ stdin_loop در سمت scheck.py پردازش را انجام دهد\nو نتایج را از طریق shared state (callbacks) دریافت کنید.",
     "err.active_uninitialized": "[خطای human_ask] callback مربوط به human_ask_active مقداردهی ا...",
     "err.already_active": "[خطای human_ask] یک human_ask دیگر در حال اجراست.",
@@ -702,7 +674,6 @@
     "ui.title": "=== درخواست از یک شخص (human_a..."
   },
   "mn": {
-    "doc.ensure_gui_sentinel": "GUI-ээс ирсэн хариу multi_input_sentinel мөрөөр төгсөж буйг шалгана уу.",
     "doc.run_tool": "human_ask нь stdin-ээс шууд уншихгүй;\nscheck.py талын stdin_loop thread-д боловсруулалтыг даатгаж\nshared state (callbacks)-аар үр дүнг авна.",
     "err.active_uninitialized": "[human_ask error] human_ask_active callback эхлээгүй байна.",
     "err.already_active": "[human_ask error] Өөр human_ask аль хэдийн ажиллаж байна.",
@@ -727,7 +698,6 @@
     "ui.title": "=== Хүнд хандах хүсэлт (human_..."
   },
   "mr": {
-    "doc.ensure_gui_sentinel": "GUI कडून येणारे उत्तर multi_input_sentinel ओळीने संपते याची खात्री करा.",
     "doc.run_tool": "human_ask stdin मधून थेट वाचत नाही;\nscheck.py बाजूच्या stdin_loop thread कडे प्रक्रिया सोपवा\nआणि shared state (callbacks) द्वारे निकाल मिळवा.",
     "err.active_uninitialized": "[human_ask error] human_ask_active callback initialize केलेला नाही.",
     "err.already_active": "[human_ask error] दुसरा human_ask आधीच चालू आहे.",

@@ -2384,14 +2384,8 @@ msgstr "[त्वरित मार्गदर्शिका]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- चैट: एक संदेश टाइप करें और भेजें (GUI: Ctrl+Enter भी उपलब्ध है)।"
+msgstr "- मल्टीलाइन: मल्टीलाइन मोड में प्रवेश करने के लिए एक लाइन दर्ज करें जो सिर्फ 'एफ' है।"
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- मल्टीलाइन: मल्टीलाइन मोड में प्रवेश करने के लिए एक पंक्ति दर्ज करें जो "
 "सिर्फ 'एफ' है (अंत में \"\"\"अंत)।"
 
 #: src/uagent/welcome.py:70

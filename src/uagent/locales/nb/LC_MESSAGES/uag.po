@@ -2376,15 +2376,9 @@ msgstr "[Hurtigguide]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- Multiline: skriv inn en linje som bare er 'f' for å gå inn i flerlinjemodus."
 "- Chat: skriv en melding og send (GUI: Ctrl+Enter er også tilgjengelig)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Flerradig: skriv en linje som bare er 'f' for å gå inn i flerradig modus "
 "(avslutt med \"\"\"end)."
 
 #: src/uagent/welcome.py:70

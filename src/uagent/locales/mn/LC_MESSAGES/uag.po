@@ -2404,14 +2404,8 @@ msgstr "[Түргэн гарын авлага]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Чат: мессеж бичээд илгээх (GUI: Ctrl+Enter бас боломжтой)."
+msgstr "- Олон мөр: олон мөрийн горимд орохын тулд зөвхөн 'f' гэсэн мөрийг оруулна уу."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Олон мөр: олон мөрийн горимд орохын тулд зөвхөн 'f' гэсэн мөрийг оруулна "
 "уу (\"\"\" төгсгөлөөр төгсдөг)."
 
 #: src/uagent/welcome.py:70

@@ -2202,6 +2202,10 @@ msgid ""
 "- Failed to get info: %(err)s"
 msgstr ""
 
+#: src/uagent/welcome.py:65
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr ""
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr ""
@@ -2210,11 +2214,6 @@ msgstr ""
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr ""
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end "
-"with \"\"\"end)."
-msgstr ""
 
 #: src/uagent/welcome.py:70
 msgid ""

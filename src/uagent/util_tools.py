@@ -96,7 +96,6 @@ def init_tools_callbacks(core: Any) -> None:
             if hasattr(core, "human_ask_is_password")
             else None
         ),
-        multi_input_sentinel=getattr(core, "MULTI_INPUT_SENTINEL", '"""end'),
         event_queue=getattr(core, "event_queue", None),
         cmd_encoding=getattr(core, "CMD_ENCODING", "utf-8"),
         cmd_exec_timeout_ms=getattr(core, "CMD_EXEC_TIMEOUT_MS", 60_000),
@@ -1962,7 +1961,6 @@ def format_help(*, core: Any) -> str:
     """
 
     tr = getattr(core, "tr", tr_)
-    sentinel = getattr(core, "MULTI_INPUT_SENTINEL", '"""end')
 
     lines = [
         "Available commands:",
@@ -2028,10 +2026,7 @@ def format_help(*, core: Any) -> str:
         "",
         "Hints:",
         tr("  - Enter a line that is just 'f' to enter multiline input mode."),
-        tr(
-            "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-        )
-        % {"sentinel": sentinel},
+
     ]
 
     # Normalize indentation for command lines (translations may add extra leading whitespace).

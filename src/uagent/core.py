@@ -150,8 +150,6 @@ human_ask_lines: list[str] = []
 human_ask_is_password = False
 human_ask_multiline_active = False
 
-# Sentinel token for multiline input (both normal input and human_ask multiline mode)
-MULTI_INPUT_SENTINEL = '"""end'
 
 # Prompt/status
 status_lock = threading.RLock()

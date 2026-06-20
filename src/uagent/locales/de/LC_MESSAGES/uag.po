@@ -2277,8 +2277,7 @@ msgstr "Ausfahrt"
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 "- Mehrzeilig: Geben Sie eine Zeile ein, die nur 'f' enthält, um den "
-"Mehrzeilenmodus zu aktivieren (Beendigung mit \"\"\"end)."
-
+"Mehrzeilenmodus zu aktivieren (Beendigung mit 
 #: src/uagent/util_tools.py:2032
 #, python-format
 msgid ""
@@ -2423,13 +2422,10 @@ msgstr "[Kurzanleitung]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- Multiline: Geben Sie eine Zeile ein, die nur „f" ist, um in den Multiline-Modus zu wechseln."
 "- Chat: Eine Nachricht eingeben und senden (GUI: Strg+Enter ist ebenfalls "
 "verfügbar)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
 " \"\"\"end)."
 msgstr ""
 "- Mehrzeilig: Geben Sie eine Zeile ein, die nur 'f' enthält, um den "

@@ -165,7 +165,7 @@ def _maybe_offer_envsec_sync(
                 "[WARN] Failed to decrypt .env.sec: %(err)s" % {"err": e},
                 file=sys.stderr,
             )
-            return False
+            sec_plain = ""
 
     sec_values = _parse_uagent_env_text(sec_plain) if sec_plain.strip() else {}
 

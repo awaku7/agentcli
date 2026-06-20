@@ -2295,15 +2295,8 @@ msgstr "[빠른 안내]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- 채팅: 메시지를 입력하고 전송하세요(GUI에서는 Ctrl+Enter도 사용할 수 있습니다)."
+msgstr "- 여러 줄: 여러 줄 모드로 들어가려면 'f'만 입력하세요."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr "- 여러 줄: 'f'만 있는 줄을 입력하면 여러 줄 모드로 들어갑니다(끝낼 때는 \"\"\"end를 입력)."
-
-#: src/uagent/welcome.py:70
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.). Note: commands start with ':' (colon) instead of '/' "

@@ -2408,15 +2408,9 @@ msgstr "[Короткий посібник]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- Багаторядковий: введіть рядок із символом "f", щоб увійти в багаторядковий режим."
 "- Чат: введіть повідомлення та надішліть (GUI: Ctrl+Enter також доступний)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Багаторядковий: введіть рядок, який є просто \"f\", щоб увійти в "
 "багаторядковий режим (закінчується \"\"\"end)."
 
 #: src/uagent/welcome.py:70

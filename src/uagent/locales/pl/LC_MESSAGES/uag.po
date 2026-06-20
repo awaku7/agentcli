@@ -2404,15 +2404,9 @@ msgstr "[Szybki przewodnik]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- Multilinia: wprowadź linię zawierającą literę „f", aby przejść do trybu wielowierszowego."
 "- Czat: wpisz wiadomość i wyślij (w GUI dostępne jest też Ctrl+Enter)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Wielowierszowo: wpisz linię zawierającą tylko 'f', aby wejść w tryb "
 "wielowierszowy (zakończ linią \"\"\"end)."
 
 #: src/uagent/welcome.py:70

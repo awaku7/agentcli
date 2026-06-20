@@ -2391,15 +2391,9 @@ msgstr "[Pikaopas]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr ""
+msgstr "- Monirivinen: syötä rivi, joka on vain "f", siirtyäksesi moniriviseen tilaan."
 "- Keskustelu: kirjoita viesti ja lähetä (GUI: Ctrl+Enter toimii myös)."
 
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Monirivinen: kirjoita rivi, joka on pelkkä 'f', siirtyäksesi "
 "monirivitilaan (lopeta kirjoittamalla \"\"\"end)."
 
 #: src/uagent/welcome.py:70

@@ -521,6 +521,8 @@
         let CURRENT_MODES = { reasoning: 'off', verbosity: 'off' };
         let currentRoom = '';
         let pendingAttachments = [];
+        let inputHistory = [];
+        let historyIndex = -1;
 
         function getRoomIdFromUrl() {
             try {
@@ -653,6 +655,9 @@
                     streamAssistant = { id: null, div: null, pre: null, active: false, text: '' };
                     lastAssistantStreamText = '';
                     data.messages.forEach(addMessage);
+                    // Bootstrap input history from past user messages
+                    inputHistory = Array.isArray(data.input_history) ? data.input_history.slice() : [];
+                    historyIndex = inputHistory.length;
                     updateStatus(data.status);
                     if (data.modes) updateModes(data.modes);
                 } else if (data.type === 'modes') { if (data.modes) updateModes(data.modes);
@@ -748,6 +753,7 @@
 
         function addMessage(msg) {
             if (!msg) return;
+            if (String(msg.role || '').toLowerCase() === 'assistant' && !String(msg.content || '').trim() && !msg.is_raw_html) return;
             if (msg.is_raw_html) {
                 const div = document.createElement('div');
                 div.className = 'p-3 rounded-lg max-w-[85%] ' + getRoleClass(msg.role);
@@ -908,6 +914,8 @@
             var text = userInput.value.trim();
             if ((!text && !pendingAttachments.length) || sendBtn.disabled) return;
             ws.send(JSON.stringify({ type: 'user_input', text: text, attachments: pendingAttachments }));
+            if (text) { inputHistory.push(text); }
+            historyIndex = inputHistory.length;
             userInput.value = '';
             clearPendingAttachments();
         }
@@ -999,7 +1007,23 @@
             });
         }
 
-        userInput.addEventListener('keydown', function(e) { if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); sendMessage(); } });
+        userInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); sendMessage(); return; }
+            if (e.key === 'ArrowUp' && e.ctrlKey && inputHistory.length) {
+                e.preventDefault();
+                if (historyIndex > 0) { historyIndex--; }
+                else { historyIndex = inputHistory.length - 1; }
+                userInput.value = inputHistory[historyIndex];
+                return;
+            }
+            if (e.key === 'ArrowDown' && e.ctrlKey && inputHistory.length) {
+                e.preventDefault();
+                if (historyIndex < inputHistory.length - 1) { historyIndex++; }
+                else { historyIndex = inputHistory.length; userInput.value = ''; return; }
+                userInput.value = inputHistory[historyIndex];
+                return;
+            }
+        });
         sendBtn.onclick = sendMessage;
         if (pickFilesBtn && fileInput) { pickFilesBtn.onclick = function() { fileInput.click(); }; }
         if (fileInput) {
