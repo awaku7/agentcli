@@ -1,25 +1,25 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
-</ p>
+</p>
 
 <h1 align="center">uag — Universal AI Gateway</h1>
 
 <p align="center">
-  <b>U</b><b>A</b>I <b>G</b>ya kila siku — Mazingira yako, uhuru wako.
-</ p>
+  <b>U</b>_ya kila siku <b>A</b>I <b>G</b>teway - Mazingira yako, uhuru wako.
+</p>
 
 <p align="center">
-  Utendaji wa faili / Utafutaji wa Wavuti / Uzalishaji wa picha & uchanganuzi / uchimbaji wa PDF na Excel / Udhibiti wa IoT / ujumuishaji wa MCP<br>
+  Utendaji wa faili / Utafutaji wa Wavuti / Uzalishaji wa picha & uchanganuzi / uchimbaji wa PDF na Excel / Udhibiti wa IoT / muunganisho wa MCP<br>
   15+ watoa huduma / 3 UIs / Utekelezaji wa zana Sambamba / Soko la Ujuzi wa Wakala
-</ p>
+</p>
 
 <p align="center">
   <a href="https://github.com/awaku7/agentcli">GitHub</a>
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Soma hili katika lugha yako</a>
-</ p>
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Soma hii katika lugha yako</a>
+</p>
 
 ---
 
@@ -66,7 +66,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 ### 🔄 Mwendelezo wa Kikao
 
 - **Badilisha watoa huduma katikati ya kipindi** ukitumia `UAGENT_PROVIDER` — historia ya mazungumzo imehifadhiwa.
-- **Pakia upya vipindi vilivyopita** kwa `:load <index>` — endelea ulipoishia.
+- **Pakia upya vipindi vilivyopita** kwa `:pakia <index>` — endelea ulipoishia.
 - **Uakibishaji wa matokeo ya zana** huepuka kutekeleza tena tena simu ile ile inaporudiwa.
 
 ### 🛠 Zana 111

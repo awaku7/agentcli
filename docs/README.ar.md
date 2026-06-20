@@ -1,17 +1,17 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
-</ص>
+</p>
 
 <h1 align="center">uag — بوابة الذكاء الاصطناعي العالمية</h1>
 
 <p align="center">
-  <b>U</b>العالمي <b>A</b>أنا <b>G</b>بوابة — بيئتك، حريتك.
-</ص>
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — بيئتك، حريتك.
+</p>
 
 <p align="center">
   عمليات الملفات / بحث الويب / إنشاء الصور وتحليلها / استخراج PDF وExcel / التحكم في إنترنت الأشياء / تكامل MCP<br>
   أكثر من 15 مزودًا / 3 واجهات مستخدم / تنفيذ الأدوات المتوازية / سوق مهارات الوكيل
-</ص>
+</p>
 
 <p align="center">
   <a href="https://github.com/awaku7/agentcli">GitHub</a>
@@ -19,7 +19,7 @@
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
   <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">اقرأ هذا بلغتك</a>
-</ص>
+</p>
 
 ---
 

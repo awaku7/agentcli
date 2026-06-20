@@ -1,24 +1,24 @@
-<पी संरेखण='केंद्र'>
-  <img src='https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg' alt='uag लोगो' चौड़ाई='720'>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
 </p>
 
-<h1 संरेखित करें = "केंद्र">uag - यूनिवर्सल एआई गेटवे</h1>
+<h1 align="center">uag — यूनिवर्सल एआई गेटवे</h1>
 
-<पी संरेखण='केंद्र'>
-  <b>यू</b>निवर्सल <b>ए</b>आई<b>जी</b>एटवे - आपका वातावरण, आपकी स्वतंत्रता।
+<p align="center">
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — आपका पर्यावरण, आपकी स्वतंत्रता।
 </p>
 
-<पी संरेखण='केंद्र'>
+<p align="center">
   फ़ाइल संचालन / वेब खोज / छवि निर्माण और विश्लेषण / पीडीएफ और एक्सेल निष्कर्षण / IoT नियंत्रण / MCP एकीकरण<br>
   15+ प्रदाता / 3 यूआई / समानांतर उपकरण निष्पादन / एजेंट कौशल बाज़ार
 </p>
 
-<पी संरेखण='केंद्र'>
-  <a href='https://github.com/awaku7/agentcli'>GitHub</a>
+<p align="center">
+  <a href="https://github.com/awaku7/agentcli">GitHub</a>
   ·
-  <a href='https://pypi.org/project/uag/'>PyPI</a>
+  <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href='https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md'>इसे अपनी भाषा में पढ़ें</a>
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">इसे अपनी भाषा में पढ़ें</a>
 </p>
 
 ---
@@ -66,7 +66,7 @@
 ### 🔄 सत्र निरंतरता
 
 - **सत्र के मध्य में प्रदाताओं को स्विच करें** `UAGENT_PROVIDER` के साथ - वार्तालाप इतिहास संरक्षित है।
-- **पिछले सत्रों को पुनः लोड करें** `:load <index>` के साथ - जहां आपने छोड़ा था वहीं से शुरू करें।
+- **पिछले सत्रों को पुनः लोड करें** `:load<index>` के साथ - जहां आपने छोड़ा था वहीं से शुरू करें।
 - **टूल परिणाम कैशिंग** एक ही टूल कॉल दोहराए जाने पर अनावश्यक पुन: निष्पादन से बचाता है।
 
 ### 🛠 111 उपकरण
