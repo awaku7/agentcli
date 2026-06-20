@@ -433,24 +433,6 @@ def _ensure_lazy_tool_loaded(mod_name: str) -> None:
         return
 
 
-def _ensure_lazy_tool_loaded(mod_name: str) -> None:
-    """Import and register a lazy tool module on demand."""
-    if mod_name not in _LAZY_TOOL_MODULES:
-        return
-    full_name = f"{__name__}.{mod_name}"
-    try:
-        if full_name in sys.modules:
-            mod = reload(sys.modules[full_name])
-        else:
-            mod = import_module(full_name)
-        spec = getattr(mod, "TOOL_SPEC", None)
-        if isinstance(spec, dict):
-            spec["tool_level"] = 0
-        _register_tool_module(mod, full_name)
-    except Exception:
-        return
-
-
 def _load_plugins() -> None:
     """Discover and load tool plugin modules under tools/."""
     with _TOOLS_LOCK:
@@ -1130,6 +1112,17 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         if mod_name:
             _ensure_lazy_tool_loaded(mod_name)
             runner = _RUNNERS.get(name)
+        # Auto-load fallback: try to enable a single tool by name.
+        # This handles tools that exist in the module directory but are
+        # currently unloaded (e.g., genre-disabled, not-yet-loaded).
+        if runner is None:
+            try:
+                from ._genre_control_util import enable_single_tool
+
+                if enable_single_tool(name):
+                    runner = _RUNNERS.get(name)
+            except Exception:
+                pass
         if runner is None:
             return f"[tool error] unknown tool: {name}"
 
@@ -1175,7 +1168,6 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     # Otherwise do not touch status
     result = runner(args)
     return result
-
 
 
 # Lazy initialization: tools are loaded on first use
