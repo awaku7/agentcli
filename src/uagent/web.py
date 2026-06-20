@@ -1245,6 +1245,12 @@ def main():
         default=None,
         help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
+    parser.add_argument(
+        "--host",
+        type=str,
+        default=None,
+        help=_("Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."),
+    )
     web_args, _web_unknown = parser.parse_known_args()
 
     try:
@@ -1298,6 +1304,14 @@ def main():
     init_web()
     import socket
 
+    # Resolve bind host: --host arg > UAGENT_WEB_HOST env > default 127.0.0.1
+    bind_host = "127.0.0.1"
+    _env_host = (env_get("UAGENT_WEB_HOST") or "").strip()
+    if _env_host:
+        bind_host = _env_host
+    if web_args.host:
+        bind_host = web_args.host
+
     def get_local_ip() -> str:
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -1311,10 +1325,10 @@ def main():
     local_ip = get_local_ip()
     port = 8000
     sys.__stdout__.write(_("Starting server on") + f" http://localhost:{port}\n")
-    if local_ip and local_ip != "127.0.0.1":
+    if bind_host == "0.0.0.0" and local_ip and local_ip != "127.0.0.1":
         sys.__stdout__.write(_("External URL:") + f" http://{local_ip}:{port}\n")
     sys.__stdout__.flush()
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host=bind_host, port=port)
 
 
 if __name__ == "__main__":

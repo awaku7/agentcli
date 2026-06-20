@@ -1,107 +1,159 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+<पी संरेखण='केंद्र'>
+  <img src='https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg' alt='uag लोगो' चौड़ाई='720'>
 </p>
 
-# uag (स्थानीय AI एजेंट)
+<h1 संरेखित करें = "केंद्र">uag - यूनिवर्सल एआई गेटवे</h1>
 
-uag एक स्थानीय, इंटरैक्टिव एजेंट है जो **कमांड** चलाता है, **फ़ाइलों** को संभालता है, और PDF, PPTX, तथा Excel जैसी डेटा फ़ाइलों को पढ़ता है। यह उपयोगकर्ता के लिए CLI, GUI, और Web — तीन इंटरफ़ेस प्रदान करता है।
+<पी संरेखण='केंद्र'>
+  <b>यू</b>निवर्सल <b>ए</b>आई<b>जी</b>एटवे - आपका वातावरण, आपकी स्वतंत्रता।
+</p>
 
-uag को **वेंडर-लॉक्ड ऐप्स से आपको मुक्त रखने** के लिए बनाया गया है: अपने workflow के लिए उपयुक्त interface इस्तेमाल करें, provider बदलें, और अपने environment पर नियंत्रण बनाए रखें.
+<पी संरेखण='केंद्र'>
+  फ़ाइल संचालन / वेब खोज / छवि निर्माण और विश्लेषण / पीडीएफ और एक्सेल निष्कर्षण / IoT नियंत्रण / MCP एकीकरण<br>
+  15+ प्रदाता / 3 यूआई / समानांतर उपकरण निष्पादन / एजेंट कौशल बाज़ार
+</p>
 
-GitHub: https://github.com/awaku7/agentcli
+<पी संरेखण='केंद्र'>
+  <a href='https://github.com/awaku7/agentcli'>GitHub</a>
+  ·
+  <a href='https://pypi.org/project/uag/'>PyPI</a>
+  ·
+  <a href='https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md'>इसे अपनी भाषा में पढ़ें</a>
+</p>
 
-## स्थापना
+---
 
-pip का उपयोग करके PyPI से इंस्टॉल करें:
+##उग क्यों?
 
-```bash
-pip install uag
+**विक्रेता लॉक-इन से मुक्त हो जाएं।** अधिकांश एआई सहायक आपको एक विशिष्ट प्रदाता या क्लाउड सेवा से जोड़ते हैं। यूएजी अलग है.
+
+- **आपकी मशीन पर स्थानीय रूप से चलता है**। आपका डेटा आपके पास रहता है (आपके द्वारा किए गए एपीआई कॉल को छोड़कर)।
+- **प्रदाता स्वतंत्रता**: ओपनएआई, क्लाउड, जेमिनी, डीपसीक, ओलामा, एज़्योर, बेडरॉक... 15+ प्रदाता, सभी एक ही इंटरफ़ेस से पहुंच योग्य हैं। पर्यावरण चर को पुन: कॉन्फ़िगर करके उनके बीच स्वैप करें - कोई पुनर्स्थापना नहीं, कोई माइग्रेशन नहीं।
+- **111 उपकरण**: फ़ाइल I/O, वेब खोज, छवि निर्माण, BLE डिवाइस स्कैनिंग, MCP सर्वर एकीकरण - और **उनमें से 55 समानांतर में चलते हैं**। जब एलएलएम एक साथ कई टूल कॉल सक्रिय करता है, तो यूएजी स्वचालित रूप से उन्हें थ्रेड पूल के माध्यम से निष्पादित करता है।
+- **3 यूआई + ए2ए**: सीएलआई, जीयूआई, वेब और एजेंट-टू-एजेंट प्रोटोकॉल। वही इंजन, कोई इंटरफ़ेस।
+- **आईओटी तैयार**: स्विचबॉट, इकोनेट लाइट, मैटर, यूपीएनपी - एआई के माध्यम से अपने घरेलू उपकरणों को नियंत्रित करें।
+- **एजेंट कौशल**: बाज़ार से समुदाय-निर्मित कौशल स्थापित करें। यूएजी को अंतहीन रूप से बढ़ाएँ।
+
+यूएजी **आपकी शर्तों पर आपका एआई सहायक** है। किसी प्रदाता से बंधा नहीं, किसी इंटरफ़ेस से बंधा नहीं, किसी प्लेटफ़ॉर्म से बंधा नहीं।
+
+## त्वरित शुरुआत
+
+```बैश
+पिप इंस्टाल यूएजी
+यूएजी
 ```
 
-यदि आप वर्चुअल वातावरण का उपयोग करते हैं, तो पहले उसे सक्रिय करें और फिर ऊपर दिया गया कमांड चलाएँ।
+पहले लॉन्च पर, सेटअप विज़ार्ड आपको प्रदाता कॉन्फ़िगरेशन के बारे में बताता है।
+सभी पर्यावरण चर के लिए [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) देखें।
 
-पहली बार लॉन्च करने पर, `uag` आपके वातावरण की जाँच करता है और जब आवश्यक provider variables गायब होते हैं, तब सेटअप विज़ार्ड अपने आप शुरू करता है। कॉन्फ़िगरेशन विवरण के लिए [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) देखें।
+## विशेषताएँ
 
-## मुख्य विशेषताएँ
+### 🧠 मल्टी-प्रोवाइडर आर्किटेक्चर
 
-- **व्यावहारिक टूलसेट**: फ़ाइल संचालन, वेब खोज, PDF/PPTX/Excel निष्कर्षण, छवि निर्माण, और छवि विश्लेषण।
-- **बहु-provider समर्थन**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
-- **तीन इंटरफ़ेस**:
-  - **CLI**: `uag` / `python -m uagent`
-  - **GUI**: `uagg` / `python -m uagent.gui`
-  - **Web**: `uagw` / `python -m uagent.web`
-  - **A2A server**: `uaga` / `python -m uagent.a2a.server`
-- **MCP समर्थन**: बाहरी MCP tool servers से कनेक्ट करें।
-- **सेशन निरंतरता**: मॉडल या provider बदलने पर भी context बनाए रखें।
-- **एजेंट कौशल बाज़ार**: [SkillsMP](https://skillsmp.com) या [ClawHub](https://clawhub.ai) से सामुदायिक Agent Skills ब्राउज़ और इंस्टॉल करें `:skills mp_search` से।
-- **Web Inspector**: `playwright_inspector` के साथ ब्राउज़र transitions, DOM snapshots, और screenshots सहेजें।
-- **अंतर्निहित docs**: `uag docs` से bundled docs पढ़ें।
-- **टूल कैटलॉग (नया!)**: गतिशील रूप से उपकरण खोजें और लोड करें। सभी समर्थित प्रदाताओं पर काम करता है - किसी विक्रेता-विशिष्ट एपीआई की आवश्यकता नहीं है। `tool_catalog`/`tool_load`.
-- **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
+ओपनएआई / एज़्योर / बेडरॉक / ओपनराउटर / ओलामा / जेमिनी / वर्टेक्स एआई / क्लाउड / ग्रोक / एनवीडिया / डीपसीक / अलीबाबा क्लाउड (क्यूवेन) / KIMI (मूनशॉट एआई) / Xiaomi MiMo / LM स्टूडियो
 
-## उपयोग
+सभी प्रदाता समान टूलसेट और इंटरफ़ेस साझा करते हैं। `UAGENT_PROVIDER` सेट करके स्विच करें - कोई कोड परिवर्तन नहीं, कोई अलग इंस्टॉलेशन नहीं।
 
-## IoT Device Support
+### ⚡ समानांतर उपकरण निष्पादन
 
-Control smart home and IoT devices through multiple interfaces:
+जब एलएलएम एक साथ कई टूल का अनुरोध करता है, तो यूएजी **स्वचालित रूप से उन्हें समानांतर** कर देता है।
+55 उपकरण `x_parallel_safe` के रूप में चिह्नित हैं और 4-थ्रेड `ThreadPoolExecutor` के माध्यम से समवर्ती रूप से निष्पादित होते हैं।
 
-- **SwitchBot Cloud**: List, control, and batch-operate SwitchBot devices (TV, air conditioner, lights, etc.).
-  - Infrared remote devices (on/off, brightness, temperature)
-  - Air conditioner mode and fan speed control
-  - Batch execution of multiple commands
-- **SwitchBot BLE**: Scan and control nearby SwitchBot BLE devices.
-- **ECHONET Lite**: Discover and control ECHONET Lite home appliances over the local network.
-- **Matter**: Inspect Matter controller/bridge/device structure (read-only).
-- **UPnP**: Discover UPnP devices and manage IGD port forwarding.
+**उदाहरण**: पूछें "नॉर्डिक राजधानियों में मौसम की जाँच करें" → एलएलएम ने `search_web` × 5 देशों को सक्रिय किया → सभी 5 खोजें समानांतर में चलती हैं → परिणाम एक बैच में एकत्र किए गए।
 
-For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
+केवल पढ़ने योग्य उपकरण (फ़ाइल खोज, हैश गणना, निर्देशिका सूची, अनुवाद, डीबी क्वेरीज़, आदि) आक्रामक रूप से समानांतर हैं।
 
-### शुरू करना और बाहर निकलना
+### 🔄 सत्र निरंतरता
 
-टर्मिनल में `uag` चलाएँ। बाहर निकलने के लिए `:exit` टाइप करें।
+- **सत्र के मध्य में प्रदाताओं को स्विच करें** `UAGENT_PROVIDER` के साथ - वार्तालाप इतिहास संरक्षित है।
+- **पिछले सत्रों को पुनः लोड करें** `:load <index>` के साथ - जहां आपने छोड़ा था वहीं से शुरू करें।
+- **टूल परिणाम कैशिंग** एक ही टूल कॉल दोहराए जाने पर अनावश्यक पुन: निष्पादन से बचाता है।
 
-For all command-line options, see [USAGE.md](USAGE.md).
+### 🛠 111 उपकरण
 
-### A2A server
+| श्रेणी | उपकरण |
+|---|---|
+| **फ़ाइल संचालन** | पढ़ें/लिखें/बनाएं/हटाएं/खोजें/grep/हैश/ज़िप |
+| **वेब** | फ़ेच_यूआरएल, सर्च_वेब, स्क्रीनशॉट, ब्राउज़र_प्लेराइट |
+| **मीडिया** | जेनरेट_इमेज, विश्लेषण_इमेज, img2img, ऑडियो_स्पीच, ऑडियो_ट्रांसक्राइब |
+| **दस्तावेज़** | पीडीएफ/पीपीटीएक्स/डीओसीएक्स/आरटीएफ/ओडीटी निष्कर्षण, एक्सेल संरचित निष्कर्षण |
+| **आईओटी** | स्विचबॉट (क्लाउड + बीएलई), इकोनेट लाइट, मैटर, यूपीएनपी |
+| **डेव टूल्स** | git_ops, Python_compile, lint_format, run_tests, db_query |
+| **एमसीपी** | बाहरी एमसीपी सर्वर से कनेक्ट करें, टूल सूचीबद्ध करें, निष्पादित करें |
+| **A2A** | एजेंट-टू-एजेंट संचार (अन्य यूएजी इंस्टेंसेस या ए2ए-संगत सर्वर के साथ) |
+| **सिस्टम** | env vars, सिस्टम विशिष्टताएँ, समय, दिनांक गणना |
 
-Agent2Agent-संगत HTTP server चालू करें:
+### 🖥 3 इंटरफेस + A2A
 
-```bash
-uaga
-```
+| मोड | आदेश | उद्देश्य |
+|---|---|---|
+| **सीएलआई** | `उग` | तेज़ टर्मिनल-आधारित ऑपरेशन |
+| **जीयूआई** | `उअग्ग` | टिंकर के माध्यम से डेस्कटॉप यूआई |
+| **वेब** | `उगव` | ब्राउज़र-आधारित पहुंच |
+| **A2A सर्वर** | 'उगा' | मल्टी-एजेंट संचार के लिए Agent2Agent प्रोटोकॉल |
 
-`UAGENT_A2A_*` सेटिंग्स जैसे प्रमाणीकरण, होस्ट, पोर्ट, रीलोड, सार्वजनिक base URL, concurrency, और engine के लिए [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) देखें।
+### 🏠 IoT डिवाइस नियंत्रण
 
-### काम की टिप्स
+- **स्विचबॉट**: क्लाउड बैच नियंत्रण और बीएलई स्कैन/नियंत्रण
+- **इकोनेट लाइट**: स्थानीय नेटवर्क पर घरेलू उपकरणों (एसी, लाइट, वॉटर हीटर आदि) को खोजें और नियंत्रित करें
+- **मामला**: कंट्रोलर/ब्रिज/डिवाइस टोपोलॉजी का रीड-ओनली निरीक्षण
+- **यूपीएनपी**: डिवाइस खोज और आईजीडी पोर्ट अग्रेषण
 
-- `:tools`: loaded tools दिखाएँ
-- `:logs [n]`: हाल के session logs दिखाएँ
-- `:load <index>`: पिछला session लोड करें
-- `:skills`: Agent Skills चुनें और लोड करें ([SkillsMP](https://skillsmp.com) या [ClawHub](https://clawhub.ai) बाज़ार ब्राउज़ करने के लिए `:skills mp_search` का उपयोग करें)
-- `:shrink [n]`: history का सारांश बनाकर आख़िरी `n` messages रखें
-- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
+[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md) देखें
+
+### 🎯 एजेंट कौशल बाज़ार
+
+सामुदायिक कौशल के लिए [SkillsMP](https://skillsmp.com) और [ClawHub](https://clawhub.ai) ब्राउज़ करने के लिए `:skills mp_search`।
+तुरंत यूएजी की क्षमताओं को स्थापित और विस्तारित करें।
+
+### 🧩बैच स्टेट मैनेजर
+
+यूएजी लंबे समय से चल रहे बहु-फ़ाइल कार्यों में प्रगति को ट्रैक कर सकता है। जब एलएलएम दर्जनों फ़ाइलों को संसाधित करता है, तो `बैच_स्टेट` डिस्क पर लंबित, पूर्ण और विफल फ़ाइलों की सूची को बनाए रखता है। यदि सत्र समाप्त हो जाता है या एक राउंड समाप्त हो जाता है, तो अगला रन वहीं से शुरू होता है जहां वह रुका था - कुछ भी नहीं खोता है।
+
+### 🛡 मानव-इन-द-लूप
+
+`ह्यूमन_आस्क` एलएलएम को रुकने देता है और विनाशकारी ऑपरेशन (फ़ाइल हटाना, ओवरराइट करना, शेल कमांड) करने से पहले आपकी पुष्टि मांगता है। आप नियंत्रण में रहें.
+
+### 🕵️ ब्राउज़र ऑटोमेशन और वेब इंस्पेक्टर
+
+दो पूरक नाटककार-आधारित उपकरण:
+
+- **ब्राउज़र_प्लेराइट**: वास्तविक ब्राउज़र सत्र स्वचालित करें - नेविगेट करें, क्लिक करें, फ़ॉर्म भरें, डेटा निकालें, बहु-पृष्ठ प्रवाह को संभालें। बिना सिर या नेतृत्व के काम करता है।
+- **नाटककार_इंस्पेक्टर**: ब्राउज़र बदलाव रिकॉर्ड करें, प्रत्येक चरण पर DOM स्नैपशॉट और स्क्रीनशॉट कैप्चर करें। वेब इंटरैक्शन को डीबग करने या समय के साथ पृष्ठ परिवर्तनों का ऑडिट करने के लिए उपयोगी।
+
+### 🔄 डायनामिक टूल लोड हो रहा है
+
+`टूल_कैटलॉग` और `टूल_लोड` आपको रनटाइम पर टूल खोजने और सक्षम करने देते हैं।
+स्टार्टअप पर सब कुछ लोड करने की आवश्यकता नहीं है - केवल वही सक्रिय करें जिसकी आपको आवश्यकता है, जब आपको इसकी आवश्यकता हो।
+
+### 🌐 i18n / L10n
+
+日本語 / अंग्रेजी / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / और अधिक।
+स्विच करने के लिए `UAGENT_LANG` सेट करें। नया लोकेल जोड़ने के लिए [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) देखें।
+
+इस README के ​​अनुवाद [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) पर उपलब्ध हैं।
+
+### 🔒 एन्क्रिप्टेड पर्यावरण चर
+
+एपीआई कुंजियों और रहस्यों को `.env.sec` में संग्रहीत करें - एक एन्क्रिप्टेड `.env` फ़ाइल।
+`uag_envsec` से प्रबंधित करें.
 
 ## कॉन्फ़िगरेशन और विवरण
 
-### Environment variables और setup
+- **पर्यावरण चर**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **सेटअप विज़ार्ड**: `पायथन -एम uagent.setup_cli`
+- **एन्क्रिप्टेड एनवी**: `uag_envsec` - `.env` को `.env.sec` के रूप में एन्क्रिप्ट करें
+- **प्रतिक्रिया एपीआई**: प्रतिक्रिया एपीआई मोड के लिए `UAGENT_RESPONSES=1` सेट करें (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **डेवलपर दस्तावेज़**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **छोटे एलएलएम टिप्स**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
-API keys, language settings (`UAGENT_LANG`), history shrink settings, और अधिक के लिए [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) देखें।
+## परियोजना दर्शन
 
-- **Setup wizard**: `python -m uagent.setup_cli`
-- **Encrypted environment**: `.env` को `.env.sec` के रूप में encrypt करने के लिए `uag_envsec` का उपयोग करें
-- **Encrypted values अपडेट करें**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
+यूएजी **आपकी एआई, आपकी मशीन पर, आपकी शर्तों पर बनने की आकांक्षा रखता है।**
 
-### Responses API नोट
+- कोई SaaS निर्भरता नहीं - स्थानीय रूप से चलती है
+- कोई प्रदाता लॉक-इन नहीं - कभी भी स्विच करें
+- कोई यूआई लॉक-इन नहीं - सीएलआई/जीयूआई/वेब/ए2ए
+- कोई फीचर लॉक-इन नहीं - उपकरण और कौशल के साथ विस्तार करें
 
-यदि आप `UAGENT_RESPONSES=1` सेट करते हैं, तो समर्थित providers के लिए Responses API उपयोग होगा: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-अन्य providers के लिए uag provider-specific या chat-completions path पर वापस जाता है।
-
-### डेवलपर docs और अनुवाद
-
-- **डेवलपर docs**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **लोकल जोड़ें**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
-- **अन्य README अनुवाद**: [`docs/README.translations.md`](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
-
-यदि आप `UAGENT_RESPONSES=1` सेट करते हैं, तो समर्थित providers के लिए Responses API उपयोग होगा: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
-For other providers, uag falls back to the provider-specific or chat-completions path.
+एक निःशुल्क एआई एजेंट अनुभव, वेंडर लॉक-इन से मुक्त।

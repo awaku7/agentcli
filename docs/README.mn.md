@@ -1,104 +1,159 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag лого" өргөн="720">
 </p>
 
-# uag (орон нутгийн AI агент)
+<h1 align="center">uag — Universal AI Gateway</h1>
 
-uag бол **команд ажиллуулах**, **файл удирдах**, мөн PDF, PPTX, Excel зэрэг **өгөгдлийн файлуудыг унших** боломжтой орон нутгийн интерактив агент юм. Энэ нь CLI, GUI, Web гэсэн гурван интерфэйстэй.
-uag нь **нэг нийлүүлэгчид түгжигдэхээс** зайлсхийхэд туслахаар бүтээгдсэн: өөрт тохирох интерфэйсийг сонгож, нийлүүлэгчээ сольж, орчноо өөрийн хяналтад байлгаарай.
-GitHub: https://github.com/awaku7/agentcli
+<p align="center">
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Таны орчин, таны эрх чөлөө.
+</p>
 
-## Суулгах
+<p align="center">
+  Файлын ажиллагаа / Вэб хайлт / Зураг үүсгэх, дүн шинжилгээ хийх / PDF ба Excel задлах / IoT хяналт / MCP нэгтгэх<br>
+  15+ үйлчилгээ үзүүлэгч / 3 UI / Зэрэгцээ хэрэглүүр гүйцэтгэх / Agent Skills зах зээл
+</p>
 
-PyPI-ээс pip ашиглан суулгаарай:
+<p align="center">
+  <a href="https://github.com/awaku7/agentcli">GitHub</a>
+  ·
+  <a href="https://pypi.org/project/uag/">PyPI</a>
+  ·
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Үүнийг өөрийн хэлээр уншина уу</a>
+</p>
 
-```bash
+---
+
+## Яагаад uag гэж?
+
+**Үйлдвэрлэгчийн түгжээг таслан зогсоо.** Ихэнх хиймэл оюун ухааны туслахууд таныг тодорхой үйлчилгээ үзүүлэгч эсвэл үүлэн үйлчилгээтэй холбодог. uag өөр.
+
+- **Таны машин дээр орон нутагт ажилладаг**. Таны өгөгдөл тантай хамт үлдэнэ (таны API дуудлагаас бусад).
+- **Үйлчилгээ үзүүлэгчийн эрх чөлөө**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ үйлчилгээ үзүүлэгч, бүгд нэг интерфейсээс хандах боломжтой. Орчны хувьсагчдыг дахин тохируулах замаар тэдгээрийн хооронд солигдох - дахин суулгахгүй, шилжихгүй.
+- **111 хэрэгсэл**: Файл оруулах/гаралт, вэб хайлт, зураг үүсгэх, BLE төхөөрөмж скан хийх, MCP серверийг нэгтгэх — ба **55 нь зэрэгцээ ажилладаг**. LLM нь олон хэрэгслийн дуудлагыг нэгэн зэрэг хийх үед uag нь урсгалын сангаар дамжуулан автоматаар гүйцэтгэдэг.
+- **3 UI + A2A**: CLI, GUI, Вэб, Агентаас Агент руу протокол. Ижил хөдөлгүүр, ямар ч интерфейс.
+- **IoT бэлэн**: SwitchBot, ECHONET Lite, Matter, UPnP — AI-аар гэрийн төхөөрөмжүүдээ удирдаарай.
+- **Агентны ур чадвар**: Олон нийтэд бий болгосон ур чадварыг зах зээлээс суулгаарай. Uag-г эцэс төгсгөлгүй сунга.
+
+uag бол **таны нөхцлийн дагуу таны хиймэл оюун ухааны туслах болно**. Үйлчилгээ үзүүлэгчтэй холбоогүй, интерфейстэй холбоогүй, платформтой холбоогүй.
+
+## Түргэн эхлүүлэх
+
+```баш
 pip install uag
+уаг
 ```
 
-Хэрэв та virtual environment ашиглаж байгаа бол эхлээд түүнийг идэвхжүүлээд дээрх командыг ажиллуулна уу.
+Эхний эхлүүлэх үед тохиргооны шидтэн таныг үйлчилгээ үзүүлэгчийн тохиргоонд хөтлөх болно.
+Орчны бүх хувьсагчийг [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) харна уу.
 
-Анхны эхлүүлэлт дээр шаардлагатай нийлүүлэгчийн хувьсагчид байхгүй бол `uag` setup wizard-ийг автоматаар эхлүүлнэ. Тохиргооны дэлгэрэнгүйг [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)-ээс үзнэ үү.
+## Онцлогууд
 
-## Гол боломжууд
+### 🧠 Олон үйлчилгээ үзүүлэгчийн архитектур
 
-- **Ашигтай хэрэгслүүдийн багц**: файл өөрчлөлт, вэб хайлт, PDF/PPTX/Excel задлал, зураг үүсгэлт, зураг шинжилгээ.
-- **Олон нийлүүлэгчийн дэмжлэг**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
-- **Гурван интерфэйс**:
-  - **CLI**: `uag` / `python -m uagent`
-  - **GUI**: `uagg` / `python -m uagent.gui`
-  - **Web**: `uagw` / `python -m uagent.web`
-  - **A2A сервер**: `uaga` / `python -m uagent.a2a.server`
-- **MCP дэмжлэг**: гаднын MCP хэрэгслийн серверүүдтэй холбогдох боломжтой.
-- **Session-ийн үргэлжлэл**: модел эсвэл provider солигдсон ч контекст хадгалагдана.
-- **Agent Skills зах зээл**: [SkillsMP](https://skillsmp.com) эсвэл [ClawHub](https://clawhub.ai)-аас `:skills mp_search` ашиглан нийгэмлэгийн Agent Skills-ийг үзэх, суулгах.
-- **Web Inspector**: `playwright_inspector`-оор browser navigation, DOM snapshot, screenshot хадгална.
-- **Дагалдах docs**: `uag docs`-оор bundled docs уншиж болно.
-- **Хэрэгслийн каталог (Шинэ!)**: Хэрэгслийг динамикаар олж, ачаална уу `tool_catalog`/`tool_load`. Дэмжигдсэн бүх үйлчилгээ үзүүлэгч дээр ажилладаг - үйлдвэрлэгчийн тусгай API шаардлагагүй.
-- **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio
 
+Бүх үйлчилгээ үзүүлэгчид ижил хэрэгсэл, интерфейсийг хуваалцдаг. `UAGENT_PROVIDER` тохиргоогоор сэлгэнэ үү — кодын өөрчлөлт байхгүй, тусдаа суулгалт байхгүй.
 
-## IoT Device Support
+### ⚡ Зэрэгцээ хэрэгсэл гүйцэтгэх
 
-Control smart home and IoT devices through multiple interfaces:
+LLM нь нэгэн зэрэг олон хэрэгсэл хүсэх үед uag нь **автоматаар зэрэгцээ болгодог**.
+55 хэрэгслийг `x_parallel_safe` гэж тэмдэглэсэн бөгөөд 4 урсгалтай `ThreadPoolExecutor`-аар нэгэн зэрэг гүйцэтгэнэ.
 
-- **SwitchBot Cloud**: List, control, and batch-operate SwitchBot devices (TV, air conditioner, lights, etc.).
-  - Infrared remote devices (on/off, brightness, temperature)
-  - Air conditioner mode and fan speed control
-  - Batch execution of multiple commands
-- **SwitchBot BLE**: Scan and control nearby SwitchBot BLE devices.
-- **ECHONET Lite**: Discover and control ECHONET Lite home appliances over the local network.
-- **Matter**: Inspect Matter controller/bridge/device structure (read-only).
-- **UPnP**: Discover UPnP devices and manage IGD port forwarding.
+**Жишээ**: "Скандинавын нийслэлүүдийн цаг агаарыг шалгах" гэж асуу → LLM `search_web` × 5 улсыг ажиллуулж байна → бүх 5 хайлт зэрэгцэн явагдана → үр дүнг нэг багцад цуглуулна.
 
-For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
+Зөвхөн унших боломжтой хэрэгслүүд (файл хайлт, хэш тооцоо, лавлах жагсаалт, орчуулга, DB асуулга гэх мэт) нь маш хүчтэй зэрэгцээ хийгдсэн байдаг.
 
-## Ашиглах
+### 🔄 Сургалтын тасралтгүй байдал
 
-### Эхлүүлэх ба гарах
+- **Үйлчлүүлэгчдийг `UAGENT_PROVIDER`-тэй харилцан ярианы дундуур сэлгэх** — харилцан ярианы түүх хадгалагдсан.
+- **Өнгөрсөн сешнүүдийг** `:load <index>`-аар дахин ачаал — орхисон газраасаа үргэлжлүүлнэ үү.
+- **Хэрэгслийн үр дүнг кэшлэх** нь ижил хэрэгслийн дуудлагыг давтах үед дахин дахин гүйцэтгэхээс зайлсхийдэг.
 
-Терминал дээр `uag` ажиллуулаад эхлүүлнэ. Гарахын тулд `:exit` гэж бичнэ.
+### 🛠 111 Хэрэгсэл
 
-For all command-line options, see [USAGE.md](USAGE.md).
+| Ангилал | Хэрэгсэл |
+|---|---|
+| **Файлын үйлдлүүд** | унших/бичих/үүсгэх/устгах/хайх/grep/hash/zip |
+| **Вэб** | fetch_url, хайлтын_вэб, дэлгэцийн агшин, хөтөч_жүжгийн зохиолч |
+| **Хэвлэл мэдээлэл** | зураг үүсгэх, дүн шинжилгээ хийх, img2img, аудио_яриа, аудио_сийрүүлэх |
+| **Баримт бичиг** | PDF/PPTX/DOCX/RTF/ODT олборлолт, Excel-ийн бүтэцтэй олборлолт |
+| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
+| **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **MCP** | Гадаад MCP серверүүдтэй холбогдож, хэрэгслүүдийг жагсааж, |
+| **A2A** | Агент-агент хоорондын харилцаа (бусад uag instances эсвэл A2A нийцтэй серверүүдтэй) |
+| **Систем** | env vars, системийн үзүүлэлтүүд, цаг хугацаа, огнооны тооцоо |
 
-### A2A сервер
+### 🖥 3 интерфейс + A2A
 
-Agent2Agent-тэй нийцтэй HTTP сервер эхлүүлнэ:
+| Горим | Тушаал | Зорилго |
+|---|---|---|
+| **CLI** | `uag` | Терминал дээр суурилсан хурдан ажиллагаа |
+| **GUI** | `uagg` | Tkinter |-ээр дамжуулан ширээний UI
+| **Вэб** | `uagw` | Хөтөч дээр суурилсан хандалт |
+| **A2A сервер** | `uaga` | Олон агенттай харилцах Agent2Agent протокол |
 
-```bash
-uaga
-```
+### 🏠 IoT төхөөрөмжийн хяналт
 
-`UAGENT_A2A_*` тохиргоонууд — auth, host, port, reload, public base URL, concurrency, engine зэрэг —-ийн талаар [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)-ээс үзнэ үү.
+- **SwitchBot**: Үүлэн багцын хяналт ба BLE скан/хяналт
+- **ECHONET Lite**: Дотоод сүлжээн дэх гэр ахуйн цахилгаан хэрэгсэл (AC, гэрэл, ус халаагч гэх мэт) олж, удирдах боломжтой.
+- **Асуудал**: Хянагч/гүүр/төхөөрөмжийн топологийг зөвхөн унших боломжтой шалгах
+- **UPnP**: Төхөөрөмжийг илрүүлэх, IGD порт дамжуулах
 
-### Тустай зөвлөмжүүд
+[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)-г үзнэ үү.
 
-- `:tools`: ачаалагдсан хэрэгслүүдийг харуулна
-- `:logs [n]`: сүүлийн session log-уудыг харуулна
-- `:load <index>`: өмнөх session-ийг ачаална
-- `:skills`: Agent Skills сонгох, ачаалах (`:skills mp_search` ашиглан [SkillsMP](https://skillsmp.com) эсвэл [ClawHub](https://clawhub.ai) зах зээлээр үзэх)
-- `:shrink [n]`: history-г товчилж, сүүлийн `n` мессежийг үлдээнэ
-- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
+### 🎯 Agent Skills Marketplace
 
-## Тохиргоо ба дэлгэрэнгүй
+`:skills mp_search`-г ашиглан олон нийтийн ур чадварын талаар [SkillsMP](https://skillsmp.com) болон [ClawHub](https://clawhub.ai) сайтуудыг үзэж болно.
+Uag-ийн чадавхийг шууд суулгаж, өргөжүүлээрэй.
 
-### Орчны хувьсагч ба тохиргоо
+### 🧩 Багц улсын менежер
 
-API key-үүд, language settings (`UAGENT_LANG`), history shrink settings болон бусад зүйлсийн талаар [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)-ээс үзнэ үү.
+uag нь урт хугацааны олон файлын даалгавруудын явцыг хянах боломжтой. LLM нь олон арван файлыг боловсруулах үед `batch_state` нь хүлээгдэж буй, дууссан, бүтэлгүйтсэн файлуудын жагсаалтыг дискэнд хадгалдаг. Хэрэв сесс дуусвал эсвэл тойрог дууссан бол дараагийн гүйлт зогссон газраасаа үргэлжилнэ - юу ч алдахгүй.
 
-- **Setup wizard**: `python -m uagent.setup_cli`
-- **Encrypted environment**: `.env`-ийг `.env.sec` болгон encrypt хийхдээ `uag_envsec` ашиглана
-- **Encrypted values update**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
+### 🛡 Давталт дахь хүн
 
-### Responses API-ийн тэмдэглэл
+`human_ask` нь LLM-д хор хөнөөлтэй үйлдлүүд (файлыг устгах, дарж бичих, бүрхүүлийн командууд) хийхээс өмнө түр зогсоож, баталгаажуулахыг хүсэх боломжийг олгодог. Та хяналтандаа байгаарай.
 
-Хэрэв `UAGENT_RESPONSES=1`-ийг тохируулбал OpenAI / Azure / Bedrock / OpenRouter / Ollama-д Responses API ашиглана.
-Gemini / Claude / Vertex AI нь өөрсдийн native API path-аа ашигладаг бөгөөд Responses API-д хамаарахгүй.
-Image analysis-д зориулсан Responses API одоогоор зөвхөн OpenAI / Azure / Bedrock / OpenRouter дээр хязгаарлагдана.
-Бусад provider-үүдийн хувьд uag нь provider-specific эсвэл chat-completions path руу буцна.
+### 🕵️ Хөтөч автоматжуулалт ба вэб шалгагч
 
-### Developer docs ба орчуулгууд
+Жүжгийн зохиолчид суурилсан хоёр нэмэлт хэрэгсэл:
 
-- **Developer docs**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Add locales**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
-- **Other README translations**: [`docs/README.translations.md`](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
+- **browser_playwright**: Хөтчийн бодит сешнүүдийг автоматжуулах — навигац хийх, товших, маягт бөглөх, өгөгдөл задлах, олон хуудасны урсгалыг зохицуулах. Толгойгүй эсвэл толгойтой ажилладаг.
+- **жүжгийн зохиолч_инспектор**: Хөтчийн шилжилтийг бүртгэж, алхам бүр дээр DOM агшин зуурын болон дэлгэцийн агшинг аваарай. Цаг хугацааны явцад вэб харилцан үйлчлэлийг дибаг хийх эсвэл хуудасны өөрчлөлтийг шалгахад хэрэгтэй.
+
+### 🔄 Динамик хэрэгслийг ачаалж байна
+
+`хэрэгслийн_каталог` болон `хэрэгслийн_ачаалал` нь танд хэрэглүүрийн үед хэрэглүүрийг нээж идэвхжүүлэх боломжийг олгоно.
+Эхлэх үед бүх зүйлийг ачаалах шаардлагагүй - зөвхөн хэрэгтэй үедээ л идэвхжүүлээрэй.
+
+### 🌐 i18n / L10n
+
+日本語 / English / 简体中文 / 繁體中文 / / Español / Français / Русский / гэх мэт.
+Сэлхийн тулд `UAGENT_LANG`-г тохируулна уу. Шинэ хэл нэмэхийн тулд [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)-г үзнэ үү.
+
+Энэхүү README-ийн орчуулгыг [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) дээрээс авах боломжтой.
+
+### 🔒 Шифрлэгдсэн орчны хувьсагч
+
+API түлхүүр болон нууцыг `.env.sec` — шифрлэгдсэн `.env` файлд хадгална.
+`uag_envsec`-ээр удирдах.
+
+## Тохиргоо ба дэлгэрэнгүй мэдээлэл
+
+- **Орчны хувьсагчид**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Тохиргооны мастер**: `python -m uagent.setup_cli`
+- **Шифрлэгдсэн env**: `uag_envsec` — `.env`-г `.env.sec` гэж шифрлэх
+- **Responses API**: Responses API горимд `UAGENT_RESPONSES=1`-г тохируулах (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **Хөгжүүлэгчийн баримт бичиг**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- ** LLM-ийн жижиг зөвлөмж**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+
+## Төслийн философи
+
+uag **таны хиймэл оюун ухаан, таны машин, таны нөхцөлөөр байхыг эрмэлздэг.**
+
+- SaaS хамааралгүй - орон нутагт ажилладаг
+- Үйлчилгээ үзүүлэгчийн түгжээ байхгүй - хүссэн үедээ сэлгээрэй
+- UI түгжихгүй — CLI / GUI / Web / A2A
+- Түгжих функц байхгүй - багаж хэрэгсэл, ур чадвараа ашиглан өргөтгөх
+
+Үнэгүй хиймэл оюун ухааны агентын туршлага, худалдагчийг түгжихгүй.

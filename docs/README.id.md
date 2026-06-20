@@ -1,102 +1,159 @@
-<p align="center">
+<p menyelaraskan="tengah">
   <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
 </p>
 
-# uag (Local AI Agent)
+<h1 align="center">uag — Gerbang AI Universal</h1>
 
-uag adalah agen interaktif yang menjalankan **perintah**, memanipulasi **berkas**, dan membaca **berbagai format data** (PDF/PPTX/Excel, dll.) di PC lokal Anda. Aplikasi ini menyediakan tiga antarmuka: CLI, GUI, dan Web.
+<p menyelaraskan="tengah">
+  <b>U</b>universal <b>A</b>I <b>G</b>ateway — Lingkungan Anda, kebebasan Anda.
+</p>
 
-uag dibuat untuk **membebaskan Anda dari aplikasi yang terkunci pada vendor**: gunakan antarmuka yang sesuai dengan alur kerja Anda, ganti penyedia, dan tetap kendalikan lingkungan Anda.
+<p menyelaraskan="tengah">
+  Operasi file / Pencarian web / Pembuatan & analisis gambar / Ekstraksi PDF & Excel / Kontrol IoT / Integrasi MCP<br>
+  15+ penyedia / 3 UI / Eksekusi alat paralel / Pasar Keterampilan Agen
+</p>
 
-GitHub: https://github.com/awaku7/agentcli
+<p menyelaraskan="tengah">
+  <a href="https://github.com/awaku7/agentcli">GitHub</a>
+  ·
+  <a href="https://pypi.org/project/uag/">PyPI</a>
+  ·
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Baca ini dalam bahasa Anda</a>
+</p>
 
-## Instalasi
+---
 
-Anda dapat memasang `uag` melalui pip:
+## Kenapa harus?
 
-```bash
-pip install uag
+**Bebaskan diri dari penguncian vendor.** Sebagian besar asisten AI mengikat Anda ke penyedia atau layanan cloud tertentu. uag berbeda.
+
+- **Berjalan secara lokal** di mesin Anda. Data Anda tetap bersama Anda (kecuali panggilan API yang Anda lakukan).
+- **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ penyedia, semuanya dapat diakses dari satu antarmuka. Bertukar di antara keduanya dengan mengonfigurasi ulang variabel lingkungan — tanpa instalasi ulang, tanpa migrasi.
+- **111 alat**: I/O file, pencarian web, pembuatan gambar, pemindaian perangkat BLE, integrasi server MCP — dan **55 di antaranya berjalan secara paralel**. Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis mengeksekusinya melalui kumpulan thread.
+- **3 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
+- **Siap IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — kendalikan perangkat rumah Anda melalui AI.
+- **Keterampilan Agen**: Instal keterampilan yang dibangun komunitas dari pasar. Perpanjang uag tanpa henti.
+
+uag adalah **asisten AI sesuai keinginan Anda**. Tidak terikat pada penyedia, tidak terikat pada antarmuka, tidak terikat pada platform.
+
+## Mulai Cepat
+
+``` pesta
+instal pip uag
+uag
 ```
 
-Setelah instalasi, saat pertama kali menjalankan `uag`, wizard setup interaktif akan otomatis dibuka untuk mengonfigurasi variabel lingkungan Anda. Untuk informasi rinci tentang konfigurasi dan enkripsi, lihat **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
+Pada peluncuran pertama, wizard pengaturan memandu Anda melalui konfigurasi penyedia.
+Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) untuk semua variabel lingkungan.
 
-## Fitur Utama
+## Fitur
 
-- **Perangkat Alat Praktis**: Dilengkapi alat untuk manipulasi berkas, pencarian web, ekstraksi data (PDF/PPTX/Excel), pembuatan gambar, dan analisis, semuanya dapat dijalankan di lingkungan lokal Anda.
-- **Dukungan Multi-Provider**: Mendukung OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
-- **Antarmuka Fleksibel**:
-  - **CLI**: `uag` / `python -m uagent`
-  - **GUI**: `uagg` / `python -m uagent.gui`
-  - **Web**: `uagw` / `python -m uagent.web`
-  - **A2A (Server)**: `uaga` / `python -m uagent.a2a.server`
-- **MCP (Model Context Protocol)**: Mendukung koneksi ke server alat MCP eksternal.
-- **Kelangsungan Sesi**: Menjaga konteks percakapan bahkan saat berpindah provider atau model.
-- **Marketplace Skill Agen**: Jelajahi dan instal Skill Agen komunitas dari [SkillsMP](https://skillsmp.com) atau [ClawHub](https://clawhub.ai) dengan `:skills mp_search`.
-- **Web Inspector**: Menyimpan transisi browser, DOM, dan screenshot secara otomatis menggunakan `playwright_inspector`.
-- **Dokumentasi Bawaan**: Akses instan ke dokumentasi internal yang rinci menggunakan perintah `uag docs`.
-- **Katalog alat (Baru!)**: Temukan dan muat alat secara dinamis dengan `tool_catalog`/`tool_load`. Berfungsi di semua penyedia yang didukung — tidak memerlukan API khusus penyedia.
-- **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
+### 🧠 Arsitektur Multi-Penyedia
 
-## IoT Device Support
+OpenAI / Azure / Batuan Dasar / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio
 
-Control smart home and IoT devices through multiple interfaces:
+Semua penyedia berbagi perangkat dan antarmuka yang sama. Beralih berdasarkan pengaturan `UAGENT_PROVIDER` — tidak ada perubahan kode, tidak ada instalasi terpisah.
 
-- **SwitchBot Cloud**: List, control, and batch-operate SwitchBot devices (TV, air conditioner, lights, etc.).
-  - Infrared remote devices (on/off, brightness, temperature)
-  - Air conditioner mode and fan speed control
-  - Batch execution of multiple commands
-- **SwitchBot BLE**: Scan and control nearby SwitchBot BLE devices.
-- **ECHONET Lite**: Discover and control ECHONET Lite home appliances over the local network.
-- **Matter**: Inspect Matter controller/bridge/device structure (read-only).
-- **UPnP**: Discover UPnP devices and manage IGD port forwarding.
+### ⚡ Eksekusi Alat Paralel
 
-For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
+Saat LLM meminta beberapa alat secara bersamaan, uag **secara otomatis memparalelkannya**.
+55 alat ditandai `x_parallel_safe` dan dieksekusi secara bersamaan melalui `ThreadPoolExecutor` 4-thread.
 
-## Penggunaan
+**Contoh**: Tanyakan "Periksa cuaca di ibu kota Nordik" → LLM mengaktifkan `search_web` × 5 negara → kelima penelusuran dijalankan secara paralel → hasil dikumpulkan dalam satu kelompok.
 
-### Memulai dan Keluar
+Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan, kueri DB, dll.) diparalelkan secara agresif.
 
-Jalankan `uag` dari terminal Anda untuk memulai. Ketik `:exit` untuk keluar.
+### 🔄 Kontinuitas Sesi
 
-For all command-line options, see [USAGE.md](USAGE.md).
+- **Ganti penyedia di tengah sesi** dengan `UAGENT_PROVIDER` — riwayat percakapan dipertahankan.
+- **Muat ulang sesi sebelumnya** dengan `:load <index>` — lanjutkan dari bagian terakhir yang Anda tinggalkan.
+- **Caching hasil alat** menghindari eksekusi ulang yang berlebihan ketika panggilan alat yang sama diulang.
 
-### Server A2A (Agent2Agent)
+### 🛠 111 Alat
 
-Jalankan server HTTP yang kompatibel dengan A2A:
+| Kategori | Alat |
+|---|---|
+| **Operasi File** | baca/tulis/buat/hapus/pencarian/grep/hash/zip |
+| **Jaringan** | ambil_url, cari_web, tangkapan layar, browser_playwright |
+| **Media** | menghasilkan_gambar, menganalisis_gambar, img2img, audio_speech, audio_transkripsikan |
+| **Dokumen** | Ekstraksi PDF/PPTX/DOCX/RTF/ODT, ekstraksi terstruktur Excel |
+| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Materi, UPnP |
+| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan |
+| **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
+| **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal |
 
-```bash
-uaga
-```
+### 🖥 3 Antarmuka + A2A
 
-### Catatan tentang Responses API
+| Modus | Perintah | Tujuan |
+|---|---|---|
+| **KLI** | `uag` | Pengoperasian cepat berbasis terminal |
+| **GUI** | `uagg` | UI Desktop melalui tkinter |
+| **Jaringan** | `uagw` | Akses berbasis browser |
+| **Server A2A** | `uaga` | Protokol Agent2Agent untuk komunikasi multi-agen |
 
-Jika Anda menetapkan `UAGENT_RESPONSES=1`, Responses API digunakan untuk penyedia yang didukung: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI menggunakan jalur API bawaan mereka dan tidak tercakup oleh Responses API.
-Untuk penyedia lain, uag kembali ke jalur khusus penyedia atau alur chat-completions.
+### 🏠 Kontrol Perangkat IoT
 
-Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) untuk pengaturan `UAGENT_A2A_*` seperti autentikasi, host, port, reload, URL dasar publik, konkurensi, dan engine.
+- **SwitchBot**: Kontrol batch cloud & pemindaian/kontrol BLE
+- **ECHONET Lite**: Temukan dan kendalikan peralatan rumah tangga (AC, lampu, pemanas air, dll.) di jaringan lokal
+- **Materi**: Pemeriksaan topologi pengontrol/jembatan/perangkat hanya-baca
+- **UPnP**: Penemuan perangkat & penerusan port IGD
 
-### Tips Praktis (Kelangsungan dan Kontrol)
+Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 
-- `:tools`: Menampilkan daftar alat yang dimuat.
-- `:logs [n]`: Menampilkan log sesi (`n` untuk menentukan jumlah entri).
-- `:load <index>`: Memuat sesi sebelumnya untuk melanjutkan percakapan.
-- `:skills`: pilih dan muat Agent Skills (gunakan `:skills mp_search` untuk menjelajahi marketplace [SkillsMP](https://skillsmp.com) atau [ClawHub](https://clawhub.ai))
-- `:shrink [n]`: Menyusun riwayat agar hanya menyimpan `n` pesan terakhir untuk menghemat token.
-- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
+### 🎯 Pasar Keterampilan Agen
 
-## Konfigurasi dan Rincian
+`:skills mp_search` untuk menelusuri [SkillsMP](https://skillsmp.com) dan [ClawHub](https://clawhub.ai) untuk keterampilan komunitas.
+Instal dan perluas kemampuan uag dengan cepat.
 
-### Variabel Lingkungan dan Setup
+### 🧩 Manajer Status Batch
 
-Untuk pengaturan rinci (kunci API, bahasa tampilan `UAGENT_LANG`, pengaturan penyusutan riwayat, dll.), lihat **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
+uag dapat melacak kemajuan tugas multi-file yang berjalan lama. Saat LLM memproses lusinan file, `batch_state` menyimpan daftar file yang tertunda, selesai, dan gagal ke disk. Jika sesi berakhir atau putaran habis, putaran berikutnya dilanjutkan dari titik berhentinya — tidak ada yang hilang.
 
-- **Setup**: Konfigurasikan secara interaktif melalui `python -m uagent.setup_cli`.
-- **Enkripsi**: Enkripsi file `.env` Anda secara aman menggunakan alat `uag_envsec`.
-- **Pembaruan**: Gunakan `uag_envsec add --file .env.sec --key NAME --value VALUE` untuk menambah atau memperbarui variabel dalam file terenkripsi yang sudah ada.
+### 🛡 Manusia dalam Lingkaran
 
-### Dokumentasi Pengembang dan Internasionalisasi
+`human_ask` memungkinkan LLM berhenti sejenak dan meminta konfirmasi Anda sebelum melakukan operasi destruktif (penghapusan file, penimpaan, perintah shell). Anda tetap memegang kendali.
 
-- **Dokumen Pengembang**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Menambah Locale**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
-- **README Bahasa Lain**: [`docs/README.translations.md`](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
+### 🕵️ Otomatisasi Browser & Inspektur Web
+
+Dua alat berbasis Penulisan Drama yang saling melengkapi:
+
+- **browser_playwright**: Mengotomatiskan sesi browser sebenarnya — menavigasi, mengklik, mengisi formulir, mengekstrak data, menangani alur multi-halaman. Bekerja tanpa kepala atau berkepala.
+- **playwright_inspector**: Rekam transisi browser, ambil cuplikan DOM dan tangkapan layar di setiap langkah. Berguna untuk men-debug interaksi web atau mengaudit perubahan halaman seiring waktu.
+
+### 🔄 Pemuatan Alat Dinamis
+
+`tool_catalog` dan `tool_load` memungkinkan Anda menemukan dan mengaktifkan alat saat runtime.
+Tidak perlu memuat semuanya saat startup — aktifkan hanya yang Anda perlukan, saat Anda membutuhkannya.
+
+### 🌐 i18n / L10n
+
+日本語 / Inggris / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / dan masih banyak lagi.
+Setel `UAGENT_LANG` untuk beralih. Lihat [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) untuk menambahkan lokal baru.
+
+Terjemahan README ini tersedia di [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+
+### 🔒 Variabel Lingkungan Terenkripsi
+
+Simpan kunci dan rahasia API di `.env.sec` — file `.env` terenkripsi.
+Kelola dengan `uag_envsec`.
+
+## Konfigurasi & Detail
+
+- **Variabel lingkungan**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Wizard penyiapan**: `python -m uagent.setup_cli`
+- **Env terenkripsi**: `uag_envsec` — mengenkripsi `.env` sebagai `.env.sec`
+- **Responses API**: Setel `UAGENT_RESPONSES=1` untuk mode Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **Dokumen pengembang**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tips LLM kecil**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+
+## Filosofi Proyek
+
+uag bercita-cita menjadi **AI Anda, di mesin Anda, sesuai keinginan Anda.**
+
+- Tidak ada ketergantungan SaaS — berjalan secara lokal
+- Tidak ada penguncian penyedia — beralih kapan saja
+- Tidak ada penguncian UI — CLI / GUI / Web / A2A
+- Tidak ada penguncian fitur — perluas dengan alat dan keterampilan
+
+Pengalaman agen AI gratis, bebas dari penguncian vendor.

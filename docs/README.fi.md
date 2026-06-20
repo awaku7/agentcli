@@ -1,108 +1,159 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag-logo" width="720">
 </p>
 
-# uag (Paikallinen AI-agentti)
+<h1 align="center">uag – Universal AI Gateway</h1>
 
-uag on paikallinen interaktiivinen agentti, joka suorittaa **komentoja**, käsittelee **tiedostoja** ja lukee **datatiedostoja** kuten PDF-, PPTX- ja Excel-tiedostoja. Se tarjoaa kolme käyttöliittymää: CLI, GUI ja Web.
+<p align="center">
+  <b>U</b>yleinen <b>A</b>I <b>G</b>teway – ympäristösi, vapautesi.
+</p>
 
-uag on suunniteltu **vapauttamaan sinut toimittajalukituista sovelluksista**: käytä työnkulkuusi sopivaa käyttöliittymää, vaihda palveluntarjoajaa ja pidä ympäristösi hallinnassasi.
+<p align="center">
+  Tiedostojen käyttö / Verkkohaku / Kuvien luominen ja analysointi / PDF- ja Excel-poiminta / IoT-hallinta / MCP-integrointi<br>
+  Yli 15 palveluntarjoajaa / 3 käyttöliittymää / Rinnakkaistyökalujen suoritus / Agent Skills Marketplace
+</p>
 
-GitHub: https://github.com/awaku7/agentcli
+<p align="center">
+  <a href="https://github.com/awaku7/agentcli">GitHub</a>
+  ·
+  <a href="https://pypi.org/project/uag/">PyPI</a>
+  ·
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Lue tämä omalla kielelläsi</a>
+</p>
 
-## Asennus
+---
 
-Asenna PyPI:stä pipillä:
+## Miksi uag?
+
+**Vapauta toimittajan lukituksesta.** Useimmat tekoälyavustajat sitovat sinut tiettyyn palveluntarjoajaan tai pilvipalveluun. uag on erilainen.
+
+- **Toimii paikallisesti** koneellasi. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
+- **Toimittajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Yli 15 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
+- **111 työkalua**: tiedostojen I/O, verkkohaku, kuvan luominen, BLE-laitteiden skannaus, MCP-palvelinintegrointi – ja **55 niistä toimii rinnakkain**. Kun LLM käynnistää useita työkalukutsuja kerralla, uag suorittaa ne automaattisesti säiejoukon kautta.
+- **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent -protokolla. Sama moottori, mikä tahansa käyttöliittymä.
+- **IoT-valmius**: SwitchBot, ECHONET Lite, Matter, UPnP – ohjaa kodin laitteita tekoälyn avulla.
+- **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
+
+uag on **AI-avustajasi sinun ehdoillasi**. Ei sidottu palveluntarjoajaan, ei sidottu käyttöliittymään, ei sidottu alustaan.
+
+## Pika-aloitus
 
 ```bash
 pip install uag
+uag
 ```
 
-Jos käytät virtuaaliympäristöä, aktivoi se ensin ja suorita sitten yllä oleva komento.
+Ensimmäisen käynnistyksen yhteydessä ohjattu asennustoiminto opastaa sinua palveluntarjoajan määrittämisessä.
+Katso kaikki ympäristömuuttujat osoitteesta [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
 
-Ensimmäisellä käynnistyksellä `uag` tarkistaa ympäristösi ja käynnistää asetustoiminnon automaattisesti, jos vaadittuja provider-muuttujia puuttuu. Katso asetustiedot tiedostosta [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+## Ominaisuudet
 
-## Tärkeimmät ominaisuudet
+### 🧠 Usean palveluntarjoajan arkkitehtuuri
 
-- **Käytännölliset työkalut**: tiedostojen käsittely, web-haku, PDF/PPTX/Excel-purku, kuvien luonti ja kuvien analysointi.
-- **Usean providerin tuki**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI / MiMo / LM Studio.
-- **Kolme käyttöliittymää**:
-  - **CLI**: `uag` / `python -m uagent`
-  - **GUI**: `uagg` / `python -m uagent.gui`
-  - **Web**: `uagw` / `python -m uagent.web`
-  - **A2A-palvelin**: `uaga` / `python -m uagent.a2a.server`
-- **MCP-tuki**: Yhdistä ulkoisiin MCP-työkalupalvelimiin.
-- **Istunnon jatkuvuus**: säilytä konteksti, kun vaihdat mallia tai provideria.
-- **Agent Skills -markkinapaikka**: Selaa ja asenna yhteisön Agent Skills -taitoja osoitteesta [SkillsMP](https://skillsmp.com) tai [ClawHub](https://clawhub.ai) komennolla `:skills mp_search`.
-- **Web Inspector**: tallenna selaimen siirtymät, DOM-tilannevedokset ja kuvakaappaukset `playwright_inspector`-työkalulla.
-- **Sisäänrakennetut dokumentit**: lue mukana tulevat dokumentit komennolla `uag docs`.
-- **Työkaluluettelo (Uusi!)**: Löydä ja lataa työkaluja dynaamisesti `tool_catalog`/`tool_load` -toiminnolla. Toimii kaikkien tuettujen palveluntarjoajien kanssa — ei vaadi palveluntarjoajakohtaisia API-liittymiä.
-- **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio
 
-## IoT Device Support
+Kaikilla palveluntarjoajilla on sama työkalusarja ja käyttöliittymä. Vaihda asettamalla UAGENT_PROVIDER — ei koodimuutoksia, ei erillisiä asennuksia.
 
-Control smart home and IoT devices through multiple interfaces:
+### ⚡ Työkalun rinnakkaissuoritus
 
-- **SwitchBot Cloud**: List, control, and batch-operate SwitchBot devices (TV, air conditioner, lights, etc.).
-  - Infrared remote devices (on/off, brightness, temperature)
-  - Air conditioner mode and fan speed control
-  - Batch execution of multiple commands
-- **SwitchBot BLE**: Scan and control nearby SwitchBot BLE devices.
-- **ECHONET Lite**: Discover and control ECHONET Lite home appliances over the local network.
-- **Matter**: Inspect Matter controller/bridge/device structure (read-only).
-- **UPnP**: Discover UPnP devices and manage IGD port forwarding.
+Kun LLM pyytää useita työkaluja samanaikaisesti, uag **rinnakkaisee** ne automaattisesti.
+55 työkalua on merkitty `x_parallel_safe`, ja ne suoritetaan samanaikaisesti 4-säikeisen ThreadPoolExecutorin kautta.
 
-For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
+**Esimerkki**: Kysy "Tarkista sää Pohjoismaiden pääkaupungeissa" → LLM laukaisee `search_web` × 5 maata → kaikki 5 hakua suoritetaan rinnakkain → tulokset kerätään yhdessä erässä.
 
-## Käyttö
+Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös, tietokantakyselyt jne.) rinnastetaan aggressiivisesti.
 
-### Käynnistys ja lopetus
+### 🔄 Istunnon jatkuvuus
 
-Aloita suorittamalla `uag` terminaalissa. Poistu kirjoittamalla `:exit`.
+- **Vaihda palveluntarjoajaa kesken istunnon** UAGENT_PROVIDER:n kanssa – keskusteluhistoria säilyy.
+- **Lataa aiemmat istunnot** komennolla `:load <index>` – jatka siitä, mihin jäit.
+- **Työkalun tulosten välimuisti** välttää redundantin uudelleensuorituksen, kun sama työkalukutsu toistuu.
 
-For all command-line options, see [USAGE.md](USAGE.md).
+### 🛠 111 Työkalut
 
-### A2A-palvelin
+| Luokka | Työkalut |
+|---|---|
+| **Tiedostotoiminnot** | lue/kirjoita/luo/delete/search/grep/hash/zip |
+| **Web** | fetch_url, search_web, screenshot, browser_playwright |
+| **Media** | genero_image, analysoi_kuva, img2img, audio_speech, audio_transcribe |
+| **Asiakirjat** | PDF/PPTX/DOCX/RTF/ODT-uutto, Excel-strukturoitu poiminta |
+| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
+| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **MCP** | Yhdistä ulkoisiin MCP-palvelimiin, luetteloi työkalut, suorita |
+| **A2A** | Agenttien välinen viestintä (muiden uag-esiintymien tai A2A-yhteensopivien palvelimien kanssa) |
+| **Järjestelmä** | env vars, järjestelmän tiedot, aika, päivämäärälaskenta |
 
-Käynnistä Agent2Agent-yhteensopiva HTTP-palvelin:
+### 🖥 3 liitäntää + A2A
 
-```bash
-uaga
-```
+| Tila | Komento | Tarkoitus |
+|---|---|---|
+| **CLI** | "uag" | Nopea terminaalipohjainen toiminta |
+| **GUI** | "uagg" | Työpöytäkäyttöliittymä tkinterin kautta |
+| **Web** | "uagw" | Selainpohjainen pääsy |
+| **A2A-palvelin** | "uaga" | Agent2Agent-protokolla usean agentin tietoliikenteeseen |
 
-Katso `UAGENT_A2A_*`-asetukset, kuten tunnistus, host, portti, uudelleenlataus, julkinen perus-URL, rinnakkaisuus ja engine, tiedostosta [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+### 🏠 IoT-laitteiden ohjaus
 
-### Kätevät komennot
+- **SwitchBot**: Cloud eräohjaus ja BLE-skannaus/ohjaus
+- **ECHONET Lite**: Löydä ja hallitse kodinkoneet (AC, valot, vedenlämmittimet jne.) paikallisverkossa
+- **Matter**: Ohjaimen/sillan/laitteen topologian vain luku -tarkastus
+- **UPnP**: Laitteen etsintä ja IGD-portin edelleenlähetys
 
-- `:tools`: näytä ladatut työkalut
-- `:logs [n]`: näytä viimeisimmät istuntolokit
-- `:load <index>`: lataa aiempi istunto
-- `:skills`: valitse ja lataa Agent Skills (käytä `:skills mp_search` selataksesi [SkillsMP](https://skillsmp.com)- tai [ClawHub](https://clawhub.ai)-markkinapaikkoja)
-- `:shrink [n]`: tiivistä historia ja säilytä viimeiset `n` viestiä
-- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
+Katso [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 
-## Asetukset ja lisätiedot
+### 🎯 Agent Skills Marketplace
 
-### Ympäristömuuttujat ja asetukset
+`:skills mp_search` selataksesi [SkillsMP](https://skillsmp.com) ja [ClawHub](https://clawhub.ai) yhteisötaitoja.
+Asenna ja laajenna uag:n ominaisuuksia lennossa.
 
-API-avaimia, kieliasetuksia (`UAGENT_LANG`), historian tiivistysasetuksia ja muita tietoja varten katso [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+### 🧩 Erätilan johtaja
 
-- **Asetustoiminto**: `python -m uagent.setup_cli`
-- **Salattu ympäristö**: käytä `uag_envsec`-työkalua salataksesi `.env`-tiedoston muotoon `.env.sec`
-- **Salattujen arvojen päivitys**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
+uag voi seurata edistymistä pitkäkestoisissa monitiedostotehtävissä. Kun LLM käsittelee kymmeniä tiedostoja, "batch_state" säilyttää odottavien, valmiiden ja epäonnistuneiden tiedostojen luettelon levylle. Jos istunto päättyy tai kierros aikakatkaistaan, seuraavaa ajoa jatketaan siitä, mihin se pysähtyi – mitään ei häviä.
 
-### Huomio Responses API:sta
+### 🛡 Ihminen silmukassa
 
-Jos asetat arvon `UAGENT_RESPONSES=1`, Responses API:ta käytetään tuetuille providerille: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI käyttävät omia API-polkujaan, eikä Responses API kata niitä.
-Muiden providerien kohdalla uag käyttää provider-kohtaista tai chat-completions-polkuja.
+"human_ask" antaa LLM:n pysähtyä ja pyytää vahvistusta ennen tuhoavien toimintojen suorittamista (tiedoston poistaminen, ylikirjoitukset, komentotulkkikomennot). Pysyt hallinnassasi.
 
-### Kehittäjädokumentaatio ja käännökset
+### 🕵️ Selaimen automaatio ja verkkotarkastaja
 
-- **Kehittäjädokumentit**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Lisää localeja**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
-- **Muut README-käännökset**: [`docs/README.translations.md`](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
+Kaksi toisiaan täydentävää näytelmäkirjailijapohjaista työkalua:
 
-Jos asetat arvon `UAGENT_RESPONSES=1`, Responses API:ta käytetään tuetuille providerille: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
-For other providers, uag falls back to the provider-specific or chat-completions path.
+- **browser_playwright**: Automatisoi todelliset selainistunnot – navigoi, napsauta, täytä lomakkeita, poimi tietoja, käsittele monisivuisia kulkuja. Toimii päättömänä tai päättömänä.
+- **playwright_inspector**: Tallenna selaimen siirtymät, kaappaa DOM-otoksia ja kuvakaappauksia jokaisessa vaiheessa. Hyödyllinen verkkovuorovaikutusten virheenkorjauksessa tai sivumuutosten tarkastamisessa ajan mittaan.
+
+### 🔄 Dynaaminen työkalun lataus
+
+"tool_catalog" ja "tool_load" antavat sinun löytää ja ottaa työkalut käyttöön suorituksen aikana.
+Kaikkea ei tarvitse ladata käynnistyksen yhteydessä – aktivoi vain tarvitsemasi, kun tarvitset sitä.
+
+### 🌐 i18n / L10n
+
+日本語 / Englanti / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / ja paljon muuta.
+Aseta UAGENT_LANG vaihtaaksesi. Katso [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) lisätäksesi uuden kielen.
+
+Tämän README:n käännökset ovat saatavilla osoitteessa [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+
+### 🔒 Salatut ympäristömuuttujat
+
+Tallenna API-avaimet ja salaisuudet .env.sec-salatussa .env-tiedostossa.
+Hallitse komennolla "uag_envsec".
+
+## Kokoonpano ja tiedot
+
+- **Ympäristömuuttujat**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Ohjattu asennustoiminto**: `python -m uagent.setup_cli`
+- **Salattu env**: `uag_envsec` — salaa `.env` muodossa `.env.sec`
+- **Responses API**: aseta `UAGENT_RESPONSES=1` Responses API -tilalle (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **Kehittäjien asiakirjat**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Pienet LLM-vinkit**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+
+## Projektifilosofia
+
+uag pyrkii olemaan **tekoälysi, koneellasi, sinun ehdoillasi.**
+
+- Ei SaaS-riippuvuutta - toimii paikallisesti
+- Ei palveluntarjoajan lukitusta - vaihda milloin tahansa
+- Ei käyttöliittymän lukitusta - CLI / GUI / Web / A2A
+- Ei toimintojen lukitusta – laajenna työkaluilla ja taidoilla
+
+Ilmainen tekoälyagenttikokemus ilman toimittajan lukitusta.

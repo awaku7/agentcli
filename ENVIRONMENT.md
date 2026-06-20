@@ -18,34 +18,119 @@ If required environment variables (such as provider settings) are missing when y
 
 ______________________________________________________________________
 
-## Key Environment Variables
+### 1. Provider selection
 
-### 1. Provider Selection (`UAGENT_PROVIDER`)
+- `UAGENT_PROVIDER` (required): LLM provider name.
+  Supported values: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `alibaba`, `moonshot`, `mimo`, `lmstudio`.
+- `UAGENT_USE_TOOL`: Set to `0`, `false`, `no`, or `off` to disable tool sending to LLM.
 
-Specifies the primary provider to use at startup (Required).
+#### Azure OpenAI
 
-- Values: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `alibaba`, `kimi`, `mimo`
+Required if `UAGENT_PROVIDER=azure`:
 
-### 2. LLM Provider Settings
+- `UAGENT_AZURE_BASE_URL` (required)
+- `UAGENT_AZURE_DEPNAME` (required): deployment / model name
+- `UAGENT_AZURE_API_KEY` (required)
+- `UAGENT_AZURE_API_VERSION` (required, e.g. `2025-03-01-preview`)
 
-Each provider requires specific variables. You can override the default model using `UAGENT_<PROVIDER>_DEPNAME`.
+#### OpenAI
 
-| Provider | Authentication & Endpoint | Model ID (Optional) |
-| :--- | :--- | :--- |
-| **OpenAI** | `UAGENT_OPENAI_API_KEY`, `UAGENT_OPENAI_BASE_URL` | `UAGENT_OPENAI_DEPNAME` |
-| **Azure OpenAI** | `UAGENT_AZURE_API_KEY`, `UAGENT_AZURE_BASE_URL`, `UAGENT_AZURE_API_VERSION` | `UAGENT_AZURE_DEPNAME` |
-| **Claude (Anthropic)** | `UAGENT_CLAUDE_API_KEY` | `UAGENT_CLAUDE_DEPNAME` |
-| **Google (Gemini)** | `UAGENT_GEMINI_API_KEY` | `UAGENT_GEMINI_DEPNAME` |
-| **Google (Vertex AI)** | `UAGENT_VERTEXAI_API_KEY` (optional: `UAGENT_VERTEXAI_PROJECT`, `UAGENT_VERTEXAI_LOCATION`) | `UAGENT_VERTEXAI_DEPNAME` (required) |
-| **AWS Bedrock** * | `UAGENT_BEDROCK_BASE_URL`, `UAGENT_BEDROCK_API_KEY` | `UAGENT_BEDROCK_DEPNAME` |
-| **OpenRouter** | `UAGENT_OPENROUTER_API_KEY`, `UAGENT_OPENROUTER_BASE_URL` | `UAGENT_OPENROUTER_DEPNAME` |
-| **Ollama** | `UAGENT_OLLAMA_BASE_URL` (Default: `http://localhost:11434/v1`) | `UAGENT_OLLAMA_DEPNAME` |
-| **Grok (xAI)** | `UAGENT_GROK_API_KEY`, `UAGENT_GROK_BASE_URL` | `UAGENT_GROK_DEPNAME` |
-| **NVIDIA** | `UAGENT_NVIDIA_API_KEY`, `UAGENT_NVIDIA_BASE_URL` | `UAGENT_NVIDIA_DEPNAME` |
-| **DeepSeek** | `UAGENT_DEEPSEEK_API_KEY`, `UAGENT_DEEPSEEK_BASE_URL` (Default: `https://api.deepseek.com`) | `UAGENT_DEEPSEEK_DEPNAME` (Default: `deepseek-v4-flash`) |
-| **Alibaba Cloud (Qwen)** | `UAGENT_ALIBABA_API_KEY`, `UAGENT_ALIBABA_BASE_URL` (Default: `https://dashscope.aliyuncs.com/compatible-mode/v1`) | `UAGENT_ALIBABA_DEPNAME` (Default: `qwen3.5-plus`) |
-| **KIMI (Moonshot AI)** | `UAGENT_KIMI_API_KEY`, `UAGENT_KIMI_BASE_URL` (Default: `https://api.moonshot.cn/v1`) | `UAGENT_KIMI_DEPNAME` (Default: `kimi-k2`) |
-| **Xiaomi MiMo** | `UAGENT_MIMO_API_KEY`, `UAGENT_MIMO_BASE_URL` (Default: `https://api.xiaomimimo.com/v1`) | `UAGENT_MIMO_DEPNAME` (Default: `mimo-v2.5-pro`) |
+Required if `UAGENT_PROVIDER=openai`:
+
+- `UAGENT_OPENAI_API_KEY` (required)
+- `UAGENT_OPENAI_BASE_URL` (optional, default: `https://api.openai.com/v1`)
+
+#### Bedrock
+
+Required if `UAGENT_PROVIDER=bedrock`:
+
+- `UAGENT_BEDROCK_MODEL` (required, e.g. `us.anthropic.claude-sonnet-4-20250514`)
+- `UAGENT_BEDROCK_ACCESS_KEY` (required)
+- `UAGENT_BEDROCK_SECRET_KEY` (required)
+- `UAGENT_BEDROCK_REGION` (optional, default: `us-west-2`)
+
+#### OpenRouter
+
+Required if `UAGENT_PROVIDER=openrouter`:
+
+- `UAGENT_OPENROUTER_API_KEY` (required)
+
+#### Ollama
+
+Required if `UAGENT_PROVIDER=ollama`:
+
+- `UAGENT_OLLAMA_MODEL` (required)
+- `UAGENT_OLLAMA_BASE_URL` (optional, default: `http://localhost:11434/v1`)
+
+#### Google Gemini
+
+Required if `UAGENT_PROVIDER=gemini`:
+
+- `UAGENT_GEMINI_API_KEY` (required)
+- `UAGENT_GEMINI_MODEL` (optional, default: `gemini-2.5-pro-exp-03-25`)
+
+#### Google Vertex AI
+
+Required if `UAGENT_PROVIDER=vertexai`:
+
+- `UAGENT_VERTEXAI_PROJECT` (required)
+- `UAGENT_VERTEXAI_LOCATION` (required, e.g. `us-central1`)
+- `UAGENT_VERTEXAI_MODEL` (required)
+- `UAGENT_VERTEXAI_CREDENTIALS` (required): Path to Google Cloud service account JSON.
+
+#### Claude (Anthropic)
+
+Required if `UAGENT_PROVIDER=claude`:
+
+- `UAGENT_CLAUDE_API_KEY` (required)
+- `UAGENT_CLAUDE_MODEL` (optional, default: `claude-sonnet-4-20250514`)
+
+#### Grok
+
+Required if `UAGENT_PROVIDER=grok`:
+
+- `UAGENT_GROK_API_KEY` (required)
+- `UAGENT_GROK_MODEL` (optional)
+
+#### NVIDIA
+
+Required if `UAGENT_PROVIDER=nvidia`:
+
+- `UAGENT_NVIDIA_API_KEY` (required)
+- `UAGENT_NVIDIA_MODEL` (optional)
+
+#### DeepSeek
+
+Required if `UAGENT_PROVIDER=deepseek`:
+
+- `UAGENT_DEEPSEEK_API_KEY` (required)
+- `UAGENT_DEEPSEEK_BASE_URL` (optional, default: `https://api.deepseek.com`)
+
+#### Alibaba Cloud (Qwen)
+
+Required if `UAGENT_PROVIDER=alibaba`:
+
+- `UAGENT_ALIBABA_API_KEY` (required)
+- `UAGENT_ALIBABA_BASE_URL` (optional)
+
+#### Moonshot (KIMI)
+
+Required if `UAGENT_PROVIDER=moonshot`:
+
+- `UAGENT_MOONSHOT_API_KEY` (required)
+
+#### Xiaomi MiMo
+
+Required if `UAGENT_PROVIDER=mimo`:
+
+- `UAGENT_MIMO_API_KEY` (required)
+- `UAGENT_MIMO_BASE_URL` (optional)
+
+#### LM Studio
+
+Required if `UAGENT_PROVIDER=lmstudio`:
+
+- `UAGENT_LMSTUDIO_BASE_URL` (optional, default: `http://localhost:1234/v1`)
 
 > \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
 
@@ -60,6 +145,7 @@ Used by Gemini / Vertex AI features that need Google Cloud access.
 
 - `UAGENT_LANG`: Host UI language (e.g., `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`).
 - `UAGENT_WORKDIR`: Default working directory for agent operations.
+- `UAGENT_WEB_HOST`: Web server bind address (default: `127.0.0.1`). Set to `0.0.0.0` to allow external access.
 - `UAGENT_STREAMING`: Enable/disable streaming LLM responses (`1`: Enabled(default), `0`: Disabled).
 - `UAGENT_VERBOSITY`: Output verbosity level (`off`, `low`, `medium`, `high`).
 - `UAGENT_DEBUG_ENDPOINT`: Set to `1` to output endpoint and model info at startup.
@@ -77,25 +163,3 @@ Configuration settings for built-in web search (grounding) features provided dir
 - **`UAGENT_GEMINI_WEB_SEARCH`**: Controls Gemini / Vertex AI's built-in Google Search (Google Search Grounding).
   - Set to `1`, `true`, `yes`, `on`, or **leave unset (default)** to enable. When active, local web search tools are automatically disabled.
   - Set to `0`, `false`, `no`, `off` to disable and fall back to local web search tools.
-- **`UAGENT_OPENAI_WEB_SEARCH`**: Controls OpenAI Responses API's built-in web search.
-  - Set to `1`, `true`, `yes`, `on` to enable (disabled by default).
-  - Additional controls include `UAGENT_OPENAI_WEB_SEARCH_TYPE` (search type), `UAGENT_OPENAI_WEB_SEARCH_CONTEXT_SIZE` (context size), etc.
-
-### 5. Image Generation and Analysis
-
-- `UAGENT_IMG_GENERATE_PROVIDER`: Provider for image generation (Default: `UAGENT_PROVIDER`).
-- `UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME`: Model ID for image generation (e.g., `dall-e-3`).
-- `UAGENT_IMG_ANALYSIS_PROVIDER`: Provider for image analysis (Default: `UAGENT_PROVIDER`).
-  - Supported: `openai`, `azure`, `gemini`, `vertexai`, `ollama`, `alibaba` (Qwen-VL via DashScope), `kimi` (Moonshot AI), `deepseek` (vision-capable endpoint required).
-  - `UAGENT_IMG_ANALYSIS_DEPNAME`: Override model for image analysis (optional).
-  - Provider-specific `UAGENT_<PROVIDER>_API_KEY` / `UAGENT_<PROVIDER>_BASE_URL` env vars apply.
-  - Default models: `gpt-4o-mini` (openai), `qwen-vl-max` (alibaba), `kimi-k2` (kimi).
-- `UAGENT_IMAGE_OPEN`: Whether to automatically open images after generation (`0` to disable).
-
-### 6. Audio Speech and Transcription
-
-- `UAGENT_AUDIO_PROVIDER`: Provider for audio speech/transcription (Default: `UAGENT_PROVIDER`; supported: `openai`, `azure`, `gemini`, `vertexai`).
-- `UAGENT_AZURE_SPEECH_DEPNAME`: Azure speech deployment name.
-- `UAGENT_OPENAI_SPEECH_DEPNAME`: OpenAI speech model/deployment name.
-- `UAGENT_GEMINI_SPEECH_DEPNAME`: Gemini/VertexAI speech model name (Default: `ja-JP-Neural2-B`).
-- `UAGENT_AZURE_TRANSCRIBE_DEPNAME`: Azure transcription deployment name.
