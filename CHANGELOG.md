@@ -5,10 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.15] - 2026-06-20
+
+### Added
+- Input history unification: CLI, GUI, and Web now share a common history file (~/.uag/.uag_history).
+- Web UI: Ctrl+Up/Down input history navigation.
+- Web UI: input_history bootstrap on WebSocket init.
+- GUI: history bootstrap from past user messages.
+- CLI/GUI/Web: sys.stdout.reconfigure(encoding='utf-8') for proper Unicode output.
+
+### Changed
+- Removed MULTI_INPUT_SENTINEL ('"""end') from core.py and all related logic.
+- CLI multiline mode: 'f' key directly opens prompt_toolkit TextArea (Ctrl+X to send, Esc to cancel).
+- GUI history key binding changed from Shift+Up/Down to Ctrl+Up/Down.
+- .env.sec decrypt failure now returns empty string instead of False, allowing recreation with 'y'.
+- Bumped llmcapa dependency to >=0.2.5.
+
+### Removed
+- MULTI_INPUT_SENTINEL constant from core.py.
+- multi_input_sentinel field from ToolCallbacks.
+- """retry / """end line-based multiline fallback in CLI.
+- doc.ensure_gui_sentinel and sentinel-related code from human_ask_tool.py/human_ask_tool.json.
+
 ## [0.5.14] - 2026-06-19
 
 ### Added
 - LM Studio provider support (`UAGENT_PROVIDER=lmstudio`) with Responses API integration and documentation.
+
 - `translate_text` tool: Google Translate wrapper (genre=devel, 30-locale i18n, max 10000 chars).
 - `browser_playwright`: file save via `path` parameter in content action, `unload_tool` support, genre changed to basic.
 - Tool catalog enhancement: guide LLM to decompose queries into sub-steps for better tool discovery.

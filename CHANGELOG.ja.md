@@ -5,6 +5,28 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.15] - 2026-06-20
+
+### 新規追加
+- 入力履歴の統一: CLI、GUI、Web で共通の履歴ファイル (~/.uag/.uag_history) を使用。
+- Web UI: Ctrl+↑/↓ による入力履歴ナビゲーション。
+- Web UI: WebSocket 初期化時に入力履歴をブートストラップ。
+- GUI: 過去のユーザーメッセージから履歴をブートストラップ。
+- CLI/GUI/Web: sys.stdout.reconfigure(encoding='utf-8') による Unicode 出力の適正化。
+
+### 変更
+- MULTI_INPUT_SENTINEL ('"""end') を core.py および関連ロジックから完全除去。
+- CLI マルチラインモード: 'f' キーで直接 prompt_toolkit TextArea を開く (Ctrl+X 送信、Esc キャンセル)。
+- GUI 履歴キーバインドを Shift+↑/↓ から Ctrl+↑/↓ に変更。
+- .env.sec 復号失敗時の戻り値を False から空文字列に変更し、'y' で再作成可能に。
+- llmcapa 依存バージョンを >=0.2.5 に更新。
+
+### 削除
+- core.py から MULTI_INPUT_SENTINEL 定数を削除。
+- ToolCallbacks から multi_input_sentinel フィールドを削除。
+- CLI の """retry / """end による行ベースのマルチライン代替手段を削除。
+- human_ask_tool.py/human_ask_tool.json から doc.ensure_gui_sentinel およびセンチネル関連コードを削除。
+
 ## [0.5.14] - 2026-06-19
 
 ### 新規追加
