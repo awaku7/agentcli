@@ -46,7 +46,7 @@
       "入力依頼"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "回答方法:\n  - そのまま入力して Enter で送信\n  - 'f' 入力で複数行モードへ\n  - 複数行モード中: '\"\"\"retry' でクリア、'\"\"\"end' で送信\n  - 'c' または 'cancel' で中断",
+    "ui.howto": "回答方法:\n  - そのまま入力して Enter で送信\n  - 'f' 入力で複数行モードへ\n  - 'c' または 'cancel' で中断",
     "ui.title": "=== 人への依頼 (human_ask) ==="
   },
   "es": {
@@ -118,7 +118,7 @@
       "입력 요청"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "답변 방법:\n  - 그대로 입력하고 Enter로 보내기\n  - 'f'를 입력해 다중 행 모드로 전환\n  - 다중 행 모드에서: '\"\"\"retry'로 지우고 '\"\"\"end'로 보내기\n  - 'c' 또는 'cancel'로 중단",
+    "ui.howto": "답변 방법:\n  - 그대로 입력하고 Enter로 보내기\n  - 'f'를 입력해 다중 행 모드로 전환\n  - 'c' 또는 'cancel'로 중단",
     "ui.title": "=== 사람에게 요청(human_ask) ==="
   },
   "de": {
@@ -286,7 +286,7 @@
       "yêu cầu nhập"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "Cách trả lời:\n  - Chỉ cần gõ vào và nhấn Enter để gửi\n  - Nhập 'f' để vào chế độ nhiều dòng\n  - Ở chế độ nhiều dòng: xóa bằng '\"\"\"thử lại', gửi bằng '\"\"\"end'\n  - Hủy bỏ bằng 'c' hoặc 'hủy'",
+    "ui.howto": "Cách trả lời:\n  - Chỉ cần gõ vào và nhấn Enter để gửi\n  - Nhập 'f' để vào chế độ nhiều dòng\n  - Hủy bỏ bằng 'c' hoặc 'hủy'",
     "ui.title": "=== Yêu cầu của con người (human_ask) ==="
   },
   "pl": {
@@ -406,7 +406,7 @@
       "omba ingizo"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "Jinsi ya kujibu:\n  - Andika tu na ubonyeze Enter kutuma\n  - Weka f ili kuingia hali ya mistari mingi\n  - Katika hali ya mistari mingi: futa kwa \"\"\"retry, tuma kwa \"\"\"end\n  - Ghairi kwa c au cancel",
+    "ui.howto": "Jinsi ya kujibu:\n  - Andika tu na ubonyeze Enter kutuma\n  - Weka f ili kuingia hali ya mistari mingi\n  - Ghairi kwa c au cancel",
     "ui.title": "=== Ombi kwa mtu (human_ask) ==="
   },
   "nb": {
@@ -430,7 +430,7 @@
       "inndataforespørsel"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "Slik svarer du:\n  - Skriv inn og trykk Enter for å sende\n  - Skriv 'f' for å gå til flerlinjemodus\n  - I flerlinjemodus: tøm med '\"\"\"retry', send med '\"\"\"end'\n  - Avbryt med 'c' eller 'cancel'",
+    "ui.howto": "Slik svarer du:\n  - Skriv inn og trykk Enter for å sende\n  - Skriv 'f' for å gå til flerlinjemodus\n  - Avbryt med 'c' eller 'cancel'",
     "ui.title": "=== Menneskelig forespørsel (human_ask) ==="
   },
   "nl": {
@@ -574,7 +574,7 @@
       "ขอข้อมูลเข้า"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "วิธีตอบ:\n  - พิมพ์แล้วกด Enter เพื่อส่ง\n  - ป้อน 'f' เพื่อเข้าสู่โหมดหลายบรรทัด\n  - ในโหมดหลายบรรทัด: ล้างด้วย '\"\"\"retry' ส่งด้วย '\"\"\"end'\n  - ยกเลิกด้วย 'c' หรือ 'cancel'",
+    "ui.howto": "วิธีตอบ:\n  - พิมพ์แล้วกด Enter เพื่อส่ง\n  - ป้อน 'f' เพื่อเข้าสู่โหมดหลายบรรทัด\n  - ยกเลิกด้วย 'c' หรือ 'cancel'",
     "ui.title": "=== คำขอถึงบุคคล (human_ask) ==="
   },
   "zh_CN": {
@@ -598,7 +598,7 @@
       "输入请求"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "如何回答：\n  - 只需输入并按 Enter 即可发送\n  - 输入 'f' 进入多行模式\n  - 在多行模式下：用 '\"\"\"retry' 清除，用 '\"\"\"end' 发送\n  - 使用 'c' 或 'cancel' 中止",
+    "ui.howto": "如何回答：\n  - 只需输入并按 Enter 即可发送\n  - 输入 'f' 进入多行模式\n  - 使用 'c' 或 'cancel' 中止",
     "ui.title": "=== 向某人提出请求 (human_ask) ==="
   },
   "zh_TW": {
@@ -622,7 +622,7 @@
       "輸入請求"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "如何回答：\n  - 只需輸入並按 Enter 即可送出\n  - 輸入 'f' 進入多行模式\n  - 在多行模式下：以 '\"\"\"retry' 清除，以 '\"\"\"end' 傳送\n  - 使用 'c' 或 'cancel' 中止",
+    "ui.howto": "如何回答：\n  - 只需輸入並按 Enter 即可送出\n  - 輸入 'f' 進入多行模式\n  - 使用 'c' 或 'cancel' 中止",
     "ui.title": "=== 向某人提出請求 (human_ask) ==="
   },
   "bn": {
@@ -646,7 +646,7 @@
       "ইনপুট অনুরোধ"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "কীভাবে উত্তর দেবেন:\n  - শুধু টাইপ করে Enter চাপুন\n  - multiline mode-এ যেতে 'f' লিখুন\n  - multiline mode-এ: '\"\"\"retry' দিয়ে মুছুন, '\"\"\"end' দিয়ে পাঠান\n  - 'c' বা 'cancel' দিয়ে বাতিল করুন",
+    "ui.howto": "কীভাবে উত্তর দেবেন:\n  - শুধু টাইপ করে Enter চাপুন\n  - multiline mode-এ যেতে 'f' লিখুন\n  - 'c' বা 'cancel' দিয়ে বাতিল করুন",
     "ui.title": "=== মানুষের অনুরোধ (মানব_আস্ক) ==="
   },
   "fa": {
@@ -670,7 +670,7 @@
       "درخواست ورودی"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "نحوه پاسخ:\n  - کافی است تایپ کنید و Enter بزنید\n  - برای ورود به حالت چندخطی 'f' را وارد کنید\n  - در حالت چندخطی: با '\"\"\"retry' پاک کنید، با '\"\"\"end' ارسال کنید\n  - با 'c' یا 'cancel' لغو کنید",
+    "ui.howto": "نحوه پاسخ:\n  - کافی است تایپ کنید و Enter بزنید\n  - برای ورود به حالت چندخطی 'f' را وارد کنید\n  - با 'c' یا 'cancel' لغو کنید",
     "ui.title": "=== درخواست انسانی (human_ask) ==="
   },
   "mn": {
@@ -718,7 +718,7 @@
       "इनपुट विनंती"
     ],
     "ui.footer": "=== /human_ask ===",
-    "ui.howto": "कसे उत्तर द्यावे:\n  - फक्त टाइप करून Enter दाबा\n  - multiline mode मध्ये जाण्यासाठी 'f' टाइप करा\n  - multiline mode मध्ये: '\"\"\"retry' ने साफ करा, '\"\"\"end' ने पाठवा\n  - 'c' किंवा 'cancel' ने रद्द करा",
+    "ui.howto": "कसे उत्तर द्यावे:\n  - फक्त टाइप करून Enter दाबा\n  - multiline mode मध्ये जाण्यासाठी 'f' टाइप करा\n  - 'c' किंवा 'cancel' ने रद्द करा",
     "ui.title": "=== मानवी विनंती (मानवी_विचार) ==="
   }
 }

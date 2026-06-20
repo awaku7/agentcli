@@ -9,41 +9,7 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-# This tool registers the base ":tools" command and coordinates subcommands
-
 CMD_SPECS: list[dict[str, Any]] = []
-
-
-def _register_tools_subcommands() -> None:
-    """Register subcommands under :tools."""
-    global CMD_SPECS
-    # avoid re-registration
-    if CMD_SPECS:
-        return
-
-    CMD_SPECS = [
-        {
-            "command": "tools",
-            "subcommand": "list",
-            "handler": handle_cmd_tools_list,
-            "help_text": _(
-                "cmd.help.tools_list",
-                default="  :tools list [query]  List loaded tools, optionally filtered by search terms.",
-            ),
-        },
-        {
-            "command": "tools",
-            "subcommand": "load",
-            "handler": handle_cmd_tools_load,
-            "help_text": _(
-                "cmd.help.tools_load",
-                default="  :tools load <name>  Load a single tool by name.",
-            ),
-        },
-    ]
-
-
-_register_tools_subcommands()
 
 
 def handle_cmd_tools_load(arg: str, **kwargs: Any) -> Any:
@@ -134,15 +100,54 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
 
     if not names:
         if q:
-            print(_("msg.tools.no_match", default="[tools] No matching tools: {q}").format(q=q))
+            print(
+                _("msg.tools.no_match", default="[tools] No matching tools: {q}").format(
+                    q=q
+                )
+            )
         else:
             print("[tools] No tools loaded.")
-
     else:
-        print(_("msg.tools.list_header", default="[tools] Loaded tools ({count}):").format(count=len(names)))
+        print(
+            _(
+                "msg.tools.list_header",
+                default="[tools] Loaded tools ({count}):",
+            ).format(count=len(names))
+        )
         for n in sorted(names):
             print(f"  {n}")
 
     from ..util_tools import CommandResult
 
     return CommandResult()
+
+
+def _register_tools_subcommands() -> None:
+    """Register subcommands under :tools."""
+    global CMD_SPECS
+    if CMD_SPECS:
+        return
+
+    CMD_SPECS = [
+        {
+            "command": "tools",
+            "subcommand": "list",
+            "handler": handle_cmd_tools_list,
+            "help_text": _(
+                "cmd.help.tools_list",
+                default="  :tools list [query]  List loaded tools, optionally filtered by search terms.",
+            ),
+        },
+        {
+            "command": "tools",
+            "subcommand": "load",
+            "handler": handle_cmd_tools_load,
+            "help_text": _(
+                "cmd.help.tools_load",
+                default="  :tools load <name>  Load a single tool by name.",
+            ),
+        },
+    ]
+
+
+_register_tools_subcommands()
