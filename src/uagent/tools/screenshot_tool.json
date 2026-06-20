@@ -47,7 +47,7 @@
     "err.capture_fail": "[error de captura de pantalla] No se pudo tomar la captura de pantalla: {err}",
     "err.close_fail": "[captura] Se guardó en {path}, pero no se pudo cerrar la ventana: {err}",
     "err.pyautogui_missing": "[error de captura] El módulo pyautogui no está instalado.",
-    "err.pygetwindow_missing": "[error de captura] El módulo pygetwindow no está instalado (necesario para especific...",
+    "err.pygetwindow_missing": "[error de captura de pantalla] El módulo pygetwindow no está instalado (requerido para la orientación por ventana).",
     "err.window_not_found": "[error de captura de pantalla] No se encontró ninguna ventana que coincida con el título: '{title}'",
     "out.ok": "[captura] Guardado en {path}",
     "out.ok_closed": "[captura] Guardado en {path} y ventana cerrada",
@@ -59,15 +59,15 @@
       "captura de pantalla",
       "captura ventana"
     ],
-    "next_action.analyze_screenshot": "Por favor, analiza esta capt...",
+    "next_action.analyze_screenshot": "Analice esta captura de pantalla.",
     "param.close.description": "Si se cierra la ventana después de capturarla.",
     "param.title.description": "Título de la ventana a capturar (coincidencia parcial)."
   },
   "fr": {
     "err.capture_fail": "[erreur de capture d'écran] Échec de la capture d'écran : {err}",
     "err.close_fail": "[capture d'écran] Enregistré dans {path} mais n'a pas réussi à fermer la fenêtre : {err}",
-    "err.pyautogui_missing": "[erreur de capture d'écran] Le module pyautogui n'...",
-    "err.pygetwindow_missing": "[erreur de capture d'écran] Le module pygetwindow n'est pas installé (nécessaire pou...",
+    "err.pyautogui_missing": "[erreur de capture d'écran] Le module pyautogui n'est pas installé.",
+    "err.pygetwindow_missing": "[erreur de capture d'écran] Le module pygetwindow n'est pas installé (obligatoire pour le ciblage des fenêtres).",
     "err.window_not_found": "[erreur de capture d'écran] Aucune fenêtre trouvée correspondant au titre : '{title}'",
     "out.ok": "[capture d'écran] Enregistré dans {path}",
     "out.ok_closed": "[capture d'écran] Enregistré dans {path} et fenêtre fermée",
@@ -79,7 +79,7 @@
       "capture d'écran",
       "capture fenêtre"
     ],
-    "next_action.analyze_screenshot": "Veuillez analyser cette capt...",
+    "next_action.analyze_screenshot": "Veuillez analyser cette capture d'écran.",
     "param.close.description": "Indique s'il faut fermer la fenêtre après la capture.",
     "param.title.description": "Titre de la fenêtre à capturer (correspondance partielle)."
   },
@@ -107,20 +107,20 @@
   "de": {
     "err.capture_fail": "[Screenshot-Fehler] Screenshot konnte nicht erstellt werden: {err}",
     "err.close_fail": "[Screenshot] Gespeichert unter {path}, aber Fenster konnte nicht geschlossen werden: {err}",
-    "err.pyautogui_missing": "[screenshot-Fehler] Das Modul pyautogui ist nicht...",
-    "err.pygetwindow_missing": "[screenshot-Fehler] Das Modul pygetwindow ist nicht installiert (für die Fensteranga...",
+    "err.pyautogui_missing": "[Screenshot-Fehler] Das Pyautogui-Modul ist nicht installiert.",
+    "err.pygetwindow_missing": "[Screenshot-Fehler] Das Pygetwindow-Modul ist nicht installiert (erforderlich für Fenster-Targeting).",
     "err.window_not_found": "[Screenshot-Fehler] Kein Fenster mit passendem Titel gefunden: „{title}“",
     "out.ok": "[screenshot] In {path} gespeichert",
     "out.ok_closed": "[screenshot] In {path} gespeichert und Fenster geschlossen",
     "param.delay.description": "Wartezeit vor der Aufnahme (Sekunden).",
     "param.file_path.description": "Zieldateipfad (.png empfohlen).",
-    "tool.description": "Erfasst einen Screenshot des gesamten Desktops oder eines best...",
+    "tool.description": "Erfasst einen Screenshot des gesamten Desktops oder eines bestimmten Fensters.",
     "x_search_terms": [
       "screenshot",
       "bildschirmfoto",
       "fenster screenshot"
     ],
-    "next_action.analyze_screenshot": "Bitte analysiere diesen Scre...",
+    "next_action.analyze_screenshot": "Bitte analysieren Sie diesen Screenshot.",
     "param.close.description": "Ob das Fenster nach der Aufnahme geschlossen werden soll.",
     "param.title.description": "Fenstertitel des aufzunehmenden Fensters (Teiltreffer)."
   },
@@ -128,13 +128,13 @@
     "err.capture_fail": "[errore screenshot] Impossibile acquisire lo screenshot: {err}",
     "err.close_fail": "[screenshot] Salvato in {path}, ma impossibile chiudere la finestra: {err}",
     "err.pyautogui_missing": "[errore screenshot] Il modulo pyautogui non è installato.",
-    "err.pygetwindow_missing": "[errore screenshot] Il modulo pygetwindow non è installato (necessario per specifica...",
+    "err.pygetwindow_missing": "[errore screenshot] il modulo pygetwindow non è installato (richiesto per il targeting della finestra).",
     "err.window_not_found": "[errore screenshot] Nessuna finestra trovata con titolo corrispondente: '{title}'",
     "out.ok": "[screenshot] Salvato in {path}",
     "out.ok_closed": "[screenshot] Salvato in {path} e finestra chiusa",
     "param.delay.description": "Tempo di attesa prima dell'acquisizione (secondi).",
     "param.file_path.description": "Percorso del file di destinazione (.",
-    "tool.description": "Acquisisce uno screenshot dell'intero desktop o di una finestr...",
+    "tool.description": "Cattura uno screenshot dell'intero desktop o di una finestra specifica.",
     "x_search_terms": [
       "screenshot",
       "cattura schermo",
@@ -161,15 +161,15 @@
       "снимок экрана",
       "окно"
     ],
-    "next_action.analyze_screenshot": "Пожалуйста, проанализируйте...",
+    "next_action.analyze_screenshot": "Проанализируйте этот снимок экрана.",
     "param.close.description": "Закрывать ли окно после снимка. Действует только если указан window_title. По умолчанию: False.",
     "param.title.description": "Заголовок окна для снимка (частичное совпадение)."
   },
   "pt_BR": {
     "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
     "err.close_fail": "[captura de tela] Salvo em {path}, mas não foi possível fechar a janela: {err}",
-    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não e...",
-    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (necessário para e...",
+    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não está instalado.",
+    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (obrigatório para direcionamento de janela).",
     "err.window_not_found": "[erro de captura de tela] Nenhuma janela encontrada com o título correspondente: '{title}'",
     "out.ok": "[captura de tela] Salvo em {path}",
     "out.ok_closed": "[captura de tela] Salvo em {path} e janela fechada",
@@ -181,27 +181,27 @@
       "captura de tela",
       "janela screenshot"
     ],
-    "next_action.analyze_screenshot": "Por favor, analise esta capt...",
+    "next_action.analyze_screenshot": "Por favor, analise esta captura de tela.",
     "param.close.description": "Se deve fechar a janela após a captura.",
     "param.title.description": "Título da janela a ser capturada (correspondência parcial)."
   },
   "pt": {
     "err.capture_fail": "[erro de captura de tela] Falha ao capturar a tela: {err}",
     "err.close_fail": "[captura de tela] Salvo em {path}, mas não foi possível fechar a janela: {err}",
-    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não e...",
-    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (necessário para e...",
+    "err.pyautogui_missing": "[erro de captura de tela] O módulo pyautogui não está instalado.",
+    "err.pygetwindow_missing": "[erro de captura de tela] O módulo pygetwindow não está instalado (obrigatório para direcionamento de janela).",
     "err.window_not_found": "[erro de captura de tela] Nenhuma janela encontrada com o título correspondente: '{title}'",
     "out.ok": "[captura de tela] Salvo em {path}",
     "out.ok_closed": "[captura de tela] Salvo em {path} e janela fechada",
     "param.delay.description": "Tempo de espera antes da captura (segundos).",
     "param.file_path.description": "Caminho do arquivo de destino (.",
-    "tool.description": "Captura uma imagem de toda a área de trabalho ou de uma janela...",
+    "tool.description": "Captura uma captura de tela de toda a área de trabalho ou de uma janela específica.",
     "x_search_terms": [
       "screenshot",
       "captura de tela",
       "janela screenshot"
     ],
-    "next_action.analyze_screenshot": "Por favor, analise esta capt...",
+    "next_action.analyze_screenshot": "Por favor, analise esta captura de tela.",
     "param.close.description": "Se deve fechar a janela após a captura.",
     "param.title.description": "Título da janela a ser capturada (correspondência parcial)."
   },
@@ -221,7 +221,7 @@
       "tangkapan layar",
       "jendela screenshot"
     ],
-    "next_action.analyze_screenshot": "Silakan analisis tangkapan l...",
+    "next_action.analyze_screenshot": "Harap analisis tangkapan layar ini.",
     "param.close.description": "Apakah menutup window setelah pengambilan.Hanya valid saat window_title ditentukan.",
     "param.title.description": "Judul window yang akan di-screenshot (partial match)."
   },
@@ -241,14 +241,14 @@
       "ảnh chụp màn hình",
       "cửa sổ screenshot"
     ],
-    "next_action.analyze_screenshot": "Vui lòng phân tích ảnh chụp...",
+    "next_action.analyze_screenshot": "Vui lòng phân tích ảnh chụp màn hình này.",
     "param.close.description": "Có đóng cửa sổ sau khi chụp hay không. Chỉ hợp lệ khi chỉ định window_title. Mặc định là False.",
     "param.title.description": "Tiêu đề cửa sổ cần chụp (khớp một phần)."
   },
   "pl": {
     "err.capture_fail": "[błąd zrzutu ekranu] Nie udało się zrobić zrzutu ekranu: {err}",
     "err.close_fail": "[zrzut ekranu] Zapisano do {path}, ale nie udało się zamknąć okna: {err}",
-    "err.pyautogui_missing": "[błąd zrzutu ekranu] Moduł pyautogui nie jest zain...",
+    "err.pyautogui_missing": "[błąd zrzutu ekranu] moduł pyautogui nie jest zainstalowany.",
     "err.pygetwindow_missing": "[błąd zrzutu ekranu] Moduł pygetwindow nie jest zainstalowany (wymagany do wskazania okna).",
     "err.window_not_found": "[błąd zrzutu ekranu] Nie znaleziono okna pasującego do tytułu: „{title}”",
     "out.ok": "[zrzut ekranu] Zapisano do {path}",
@@ -261,7 +261,7 @@
       "zrzut ekranu",
       "zrzut okna"
     ],
-    "next_action.analyze_screenshot": "Proszę przeanalizować ten zr...",
+    "next_action.analyze_screenshot": "Proszę przeanalizować ten zrzut ekranu.",
     "param.close.description": "Czy zamknąć okno po wykonaniu zrzutu. Działa tylko po podaniu window_title. Domyślnie: False.",
     "param.title.description": "Tytuł okna do zrzutu (dopasowanie częściowe)."
   },
@@ -269,11 +269,11 @@
     "err.capture_fail": "[स्क्रीनशॉट त्रुटि] स्क्रीनशॉट लेने में विफल: {err}",
     "err.close_fail": "[स्क्रीनशॉट] {path} में सहेजा गया, लेकिन विंडो बंद नहीं हो सकी: {err}",
     "err.pyautogui_missing": "[स्क्रीनशॉट त्रुटि] pyautogui मॉड्यूल स्थापित नहीं है।",
-    "err.pygetwindow_missing": "[स्क्रीनशॉट त्रुटि] pygetwindow मॉड्यूल स्थापित नहीं है (विंडो निर्दिष्ट करने के लिए...",
+    "err.pygetwindow_missing": "pygetwindow मॉड्यूल स्थापित नहीं है (विंडो लक्ष्यीकरण के लिए आवश्यक)।",
     "err.window_not_found": "[स्क्रीनशॉट त्रुटि] शीर्षक से मेल खाती कोई विंडो नहीं मिली: '{title}'",
     "out.ok": "[स्क्रीनशॉट] {path} में सहेजा गया",
     "out.ok_closed": "[स्क्रीनशॉट] {path} में सहेजा गया और विंडो बंद कर दी गई",
-    "param.delay.description": "कैप्चर से पहले प्रतीक्षा समय (सेकंड)। डिफ़ॉल्ट: 1 सेकं...",
+    "param.delay.description": "सेकंड में कैप्चर करने से पहले प्रतीक्षा समय।",
     "param.file_path.description": "गंतव्य फ़ाइल पथ (.",
     "tool.description": "पूरे डेस्कटॉप या किसी विशिष्ट विंडो का स्क्रीनशॉट कैप्चर करता है।",
     "x_search_terms": [
@@ -282,9 +282,9 @@
       "स्क्रीन कैप्चर",
       "विंडो कैप्चर"
     ],
-    "next_action.analyze_screenshot": "कृपया इस स्क्रीनशॉट का विश्ल...",
-    "param.close.description": "कैप्चर के बाद विंडो बंद करनी है या नहीं। केवल तब मान्य जब window_title निर्दिष्ट हो।...",
-    "param.title.description": "कैप्चर की जाने वाली विंडो का शीर्षक (आंशिक मिलान)। यदि दिया गया हो, तो उस विंडो को ढूँढकर सक्रिय किया जात..."
+    "next_action.analyze_screenshot": "लक्ष्य (पाइटेस्ट पथ, यूनिटटेस्ट प्रारंभ निर्देशिका, एनपीएम स्क्रिप्ट, आदि)। यदि शून्य है, तो डिफ़ॉल्ट का उपयोग करें।",
+    "param.close.description": "कैप्चर के बाद विंडो बंद करनी है या नहीं। केवल तभी प्रभावी जब window_title निर्दिष्ट हो।",
+    "param.title.description": "कैप्चर के बाद विंडो को बंद करना है या नहीं (आंशिक मिलान)। यदि निर्दिष्ट किया गया है, तो विंडो सक्रिय हो जाती है और केवल उस क्षेत्र को कैप्चर किया जाता है।"
   },
   "ar": {
     "err.capture_fail": "[خطأ في لقطة الشاشة] فشل التقاط لقطة الشاشة: {err}",
@@ -323,7 +323,7 @@
       "skärmdump",
       "fönster"
     ],
-    "next_action.analyze_screenshot": "Analysera gärna den här skär...",
+    "next_action.analyze_screenshot": "Analysera denna skärmdump.",
     "param.close.description": "Om fönstret ska stängas efter att bilden tagits.Gäller bara när window_title anges.",
     "param.title.description": "Fönstertitel som ska fotograferas (delvis matchning)."
   },
@@ -343,7 +343,7 @@
       "picha ya skrini",
       "dirisha"
     ],
-    "next_action.analyze_screenshot": "Tafadhali chambua picha hii...",
+    "next_action.analyze_screenshot": "Tafadhali chambua picha hii ya skrini.",
     "param.close.description": "Je, dirisha lifungwe baada ya kupiga picha.Hutumika tu wakati window_title imetajwa.",
     "param.title.description": "Kichwa cha dirisha la kupiga picha (mfano wa sehemu)."
   },
@@ -363,27 +363,27 @@
       "skjermbilde",
       "vindu"
     ],
-    "next_action.analyze_screenshot": "Vennligst analyser dette skj...",
+    "next_action.analyze_screenshot": "Analyser dette skjermbildet.",
     "param.close.description": "Om vinduet skal lukkes etter at bildet er tatt.Gjelder bare når window_title er angitt.",
     "param.title.description": "Vindustittel som skal tas bilde av (delvis treff)."
   },
   "nl": {
     "err.capture_fail": "[screenshot fout] Screenshot maken mislukt: {err}",
     "err.close_fail": "[screenshot] Opgeslagen naar {path}, maar het venster sluiten mislukte: {err}",
-    "err.pyautogui_missing": "[screenshot fout] De module pyautogui is niet geïn...",
-    "err.pygetwindow_missing": "[screenshot fout] De module pygetwindow is niet geïnstalleerd (vereist voor vensters...",
+    "err.pyautogui_missing": "[screenshotfout] pyautogui-module is niet geïnstalleerd.",
+    "err.pygetwindow_missing": "[screenshotfout] pygetwindow-module is niet geïnstalleerd (vereist voor venstertargeting).",
     "err.window_not_found": "[screenshot fout] Er is geen venster gevonden met titel: '{title}'",
     "out.ok": "[screenshot] Opgeslagen naar {path}",
     "out.ok_closed": "[screenshot] Opgeslagen naar {path} en venster gesloten",
     "param.delay.description": "Wachttijd (seconden) vóór het maken van de opname.",
     "param.file_path.description": "Bestemmingsbestandspad (.png aanbevolen).",
-    "tool.description": "Leg een screenshot vast van het volledige bureaublad of van ee...",
+    "tool.description": "Maakt een screenshot van het hele bureaublad of een specifiek venster.",
     "x_search_terms": [
       "screenshot",
       "schermafbeelding",
       "venster"
     ],
-    "next_action.analyze_screenshot": "Analyseer deze schermafbeeld...",
+    "next_action.analyze_screenshot": "Analyseer deze schermafbeelding.",
     "param.close.description": "Of het venster na het maken van de opname moet worden gesloten.",
     "param.title.description": "Venstertitel om vast te leggen (gedeeltelijke match)."
   },
@@ -392,7 +392,7 @@
     "err.close_fail": "[kuvakaappaus] Tallennettu kohteeseen {path}, mutta ikkunan sulkeminen epäonnistui: {err}",
     "err.pyautogui_missing": "[screenshot-virhe] pyautogui-moduulia ei ole asennettu.",
     "err.pygetwindow_missing": "[screenshot-virhe] pygetwindow-moduulia ei ole asennettu (vaaditaan ikkunan valintaa varten).",
-    "err.window_not_found": "[screenshot-virhe] Ikkunaa, jonka otsikko on: '{title}',...",
+    "err.window_not_found": "[kuvakaappausvirhe] Otsikkoa vastaavaa ikkunaa ei löytynyt: '{title}'",
     "out.ok": "[screenshot] Tallennettu kohteeseen {path}",
     "out.ok_closed": "[screenshot] Tallennettu kohteeseen {path} ja ikkuna suljettu",
     "param.delay.description": "Odotusaika (sekunteina) ennen ottoa.",
@@ -423,7 +423,7 @@
       "snímek obrazovky",
       "okno"
     ],
-    "next_action.analyze_screenshot": "Prosím analyzujte tento sním...",
+    "next_action.analyze_screenshot": "Analyzujte prosím tento snímek obrazovky.",
     "param.close.description": "Zda po pořízení snímku zavřít okno.Platí pouze při zadání window_title.",
     "param.title.description": "Název okna, které má být zachyceno (částečná shoda)."
   },
@@ -443,7 +443,7 @@
       "знімок екрана",
       "вікно"
     ],
-    "next_action.analyze_screenshot": "Будь ласка, проаналізуйте це...",
+    "next_action.analyze_screenshot": "Проаналізуйте цей знімок екрана.",
     "param.close.description": "Чи закривати вікно після знімка. Дійсно лише коли вказано window_title. Типово: False.",
     "param.title.description": "Заголовок вікна для знімка (частковий збіг). Якщо вказано, знайде це вікно, активує його і збереже лише цю область."
   },
@@ -451,7 +451,7 @@
     "err.capture_fail": "[ekran görüntüsü hatası] Ekran görüntüsü alınamadı: {err}",
     "err.close_fail": "[ekran görüntüsü] {path} konumuna kaydedildi ancak pencere kapatılamadı: {err}",
     "err.pyautogui_missing": "[ekran görüntüsü hatası] pyautogui modülü kurulu değil.",
-    "err.pygetwindow_missing": "[ekran görüntüsü hatası] Pygetwindow modülü kurulu değil (pencere spesifikasyonu içi...",
+    "err.pygetwindow_missing": "[ekran görüntüsü hatası] pygetwindow modülü kurulu değil (pencere hedefleme için gerekli).",
     "err.window_not_found": "[ekran görüntüsü hatası] Başlıkla eşleşen pencere bulunamadı: '{title}'",
     "out.ok": "[ekran görüntüsü] {path} konumuna kaydedildi",
     "out.ok_closed": "[ekran görüntüsü] {path}'a kaydedildi ve pencere kapatıldı",
@@ -463,7 +463,7 @@
       "ekran görüntüsü",
       "pencere"
     ],
-    "next_action.analyze_screenshot": "Lütfen bu ekran görüntüsünü...",
+    "next_action.analyze_screenshot": "Lütfen bu ekran görüntüsünü analiz edin.",
     "param.close.description": "Çekimden sonra pencerenin kapatılıp kapatılmayacağı.",
     "param.title.description": "Çekilecek pencere başlığı (kısmi eşleşme)."
   },
@@ -475,7 +475,7 @@
     "err.window_not_found": "[ข้อผิดพลาดภาพหน้าจอ] ไม่พบหน้าต่างที่ตรงกับชื่อเรื่อง: '{title}'",
     "out.ok": "[ภาพหน้าจอ] บันทึกไปที่ {path}",
     "out.ok_closed": "[ภาพหน้าจอ] บันทึกไปที่ {path} และปิดหน้าต่างแล้ว",
-    "param.delay.description": "เวลารอก่อนจับภาพ (วินาที) ค่าเริ่มต้นคือ 1 วินาที (สำห...",
+    "param.delay.description": "เวลารอก่อนที่จะจับภาพในหน่วยวินาที ค่าเริ่มต้นคือ 1 วินาที",
     "param.file_path.description": "พาธไฟล์ปลายทาง (แนะนำ .",
     "tool.description": "จับภาพหน้าจอของเดสก์ท็อปทั้งหมดหรือหน้าต่างเฉพาะ",
     "x_search_terms": [
@@ -534,10 +534,10 @@
     "err.close_fail": "[screenshot] {path} এ সংরক্ষণ করা হয়েছে, কিন্তু উইন্ডো বন্ধ করা যায়নি: {err}",
     "err.pyautogui_missing": "[screenshot error] pyautogui মডিউল ইনস্টল করা নেই।",
     "err.pygetwindow_missing": "[screenshot error] pygetwindow মডিউল ইনস্টল করা নেই (উইন্ডো নির্দিষ্ট করতে প্রয়োজন)।",
-    "err.window_not_found": "[screenshot error] শিরোনাম '{title}'-এর সাথে মেলে এমন কোন...",
+    "err.window_not_found": "[স্ক্রিনশট ত্রুটি] শিরোনামটির সাথে মিলে যাওয়া কোনো উইন্ডো পাওয়া যায়নি: '{title}'",
     "out.ok": "[screenshot] {path} এ সংরক্ষণ করা হয়েছে",
     "out.ok_closed": "[screenshot] {path} এ সংরক্ষণ করা হয়েছে এবং উইন্ডো বন্ধ করা হয়েছে",
-    "param.delay.description": "ক্যাপচারের আগে অপেক্ষার সময় (সেকেন্ড)। ডিফল্ট: 1 সেকে...",
+    "param.delay.description": "সেকেন্ডে ক্যাপচার করার আগে সময় অপেক্ষা করুন৷ ডিফল্ট হল 1 সেকেন্ড।",
     "param.file_path.description": "গন্তব্য ফাইল পাথ (.",
     "tool.description": "সম্পূর্ণ ডেস্কটপ বা নির্দিষ্ট কোনো উইন্ডোর স্ক্রিনশট নেয়।",
     "x_search_terms": [
@@ -546,9 +546,9 @@
       "স্ক্রিন ক্যাপচার",
       "উইন্ডো ক্যাপচার"
     ],
-    "next_action.analyze_screenshot": "অনুগ্রহ করে এই স্ক্রিনশটটি ব...",
-    "param.close.description": "ক্যাপচার করার পরে উইন্ডো বন্ধ করা হবে কি না। শুধু window_title নির্দিষ্ট থাকলে বৈধ।...",
-    "param.title.description": "ক্যাপচার করার উইন্ডোর শিরোনাম (আংশিক মিল)। নির্দিষ্ট করলে, সেই উইন্ডো খুঁজে সক্রিয় করা হবে এবং শুধু সেই..."
+    "next_action.analyze_screenshot": "অনুগ্রহ করে এই স্ক্রিনশটটি বিশ্লেষণ করুন।",
+    "param.close.description": "পরীক্ষা চালান (অটো-ডিটেক্ট pytest/unttest/npm) এই স্ক্রিনশটটি বিশ্লেষণ করুন",
+    "param.title.description": "টার্গেট উইন্ডো শিরোনাম (আংশিক মিল)। যদি নির্দিষ্ট করা থাকে, উইন্ডোটি সক্রিয় করা হয় এবং শুধুমাত্র সেই অঞ্চলটি ক্যাপচার করা হয়।"
   },
   "fa": {
     "err.capture_fail": "[خطای اسکرین‌شات] گرفتن اسکرین‌شات ناموفق بود: {err}",
@@ -567,7 +567,7 @@
       "گرفتن تصویر صفحه",
       "پنجره"
     ],
-    "next_action.analyze_screenshot": "لطفاً این اسکرین‌شات را تحلی...",
+    "next_action.analyze_screenshot": "لطفاً این اسکرین شات را تجزیه و تحلیل کنید.",
     "param.close.description": "اینکه بعد از گرفتن عکس پنجره بسته شود یا نه.",
     "param.title.description": "عنوان پنجره‌ای که باید تصویربرداری شود (تطابق جزئی)."
   },
@@ -596,7 +596,7 @@
     "err.close_fail": "[स्क्रीनशॉट] {path} मध्ये जतन केले, पण विंडो बंद करता आली नाही: {err}",
     "err.pyautogui_missing": "[स्क्रीनशॉट त्रुटी] pyautogui मॉड्यूल स्थापित नाही.",
     "err.pygetwindow_missing": "[स्क्रीनशॉट त्रुटी] pygetwindow मॉड्यूल स्थापित नाही (विंडो निर्दिष्ट करण्यासाठी आवश्यक).",
-    "err.window_not_found": "[स्क्रीनशॉट त्रुटी] '{title}' या शीर्षकाशी जुळणारी कोणतीह...",
+    "err.window_not_found": "[स्क्रीनशॉट त्रुटी] शीर्षकाशी जुळणारी कोणतीही विंडो आढळली नाही: '{title}'",
     "out.ok": "[स्क्रीनशॉट] {path} मध्ये जतन केले",
     "out.ok_closed": "[स्क्रीनशॉट] {path} मध्ये जतन केले आणि विंडो बंद केली",
     "param.delay.description": "कॅप्चरपूर्व प्रतीक्षा वेळ (सेकंद).",
@@ -608,7 +608,7 @@
       "स्क्रीन कॅप्चर",
       "विंडो कॅप्चर"
     ],
-    "next_action.analyze_screenshot": "कृपया या स्क्रीनशॉटचे विश्ले...",
+    "next_action.analyze_screenshot": "कृपया या स्क्रीनशॉटचे विश्लेषण करा.",
     "param.close.description": "कॅप्चर केल्यानंतर विंडो बंद करायची की नाही. फक्त window_title दिल्यास वैध. डीफॉल्ट: False.",
     "param.title.description": "कॅप्चर करायच्या विंडोचे शीर्षक (आंशिक जुळणी)."
   }

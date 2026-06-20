@@ -22,7 +22,7 @@
     ]
   },
   "es": {
-    "tool.description": "Obtiene el directorio de trabaj...",
+    "tool.description": "Obtenga el directorio de trabajo actual. Se agotó el tiempo de espera del comando",
     "x_search_terms": [
       "get_workdir",
       "directorio de trabajo",
@@ -31,7 +31,7 @@
     ]
   },
   "fr": {
-    "tool.description": "Obtient le répertoire de travai...",
+    "tool.description": "Récupère le répertoire de travail actuel. La commande",
     "x_search_terms": [
       "get_workdir",
       "répertoire de travail",
@@ -49,7 +49,7 @@
     ]
   },
   "de": {
-    "tool.description": "Ruft das aktuelle Arbeitsverzei...",
+    "tool.description": "Alle gespeicherten Langzeitspeichernotizen abrufen (JSONL).",
     "x_search_terms": [
       "get_workdir",
       "arbeitsverzeichnis",
@@ -58,7 +58,7 @@
     ]
   },
   "it": {
-    "tool.description": "Ottiene la directory di lavoro...",
+    "tool.description": "Ottieni la directory di lavoro corrente.",
     "x_search_terms": [
       "get_workdir",
       "directory di lavoro",
@@ -85,7 +85,7 @@
     ]
   },
   "pt": {
-    "tool.description": "Obtenha o diretório de trabalho...",
+    "tool.description": "Obtenha o diretório de trabalho atual",
     "x_search_terms": [
       "get_workdir",
       "diretório de trabalho",
@@ -121,7 +121,7 @@
     ]
   },
   "hi": {
-    "tool.description": "वर्तमान कार्यशील निर्देशिका प्र...",
+    "tool.description": "उपयोगकर्ताओं के बीच साझा किए गए कच्चे दीर्घकालिक मेमोरी (साझा मेमोरी) डेटा को पुनर्प्राप्त करता है - आमतौर पर JSONL प्रारूप में पाठ लौटाता है (प्रति पंक्ति एक रिकॉर्ड)।",
     "x_search_terms": [
       "get_workdir",
       "कार्यशील निर्देशिका",
@@ -157,7 +157,7 @@
     ]
   },
   "nb": {
-    "tool.description": "Henter den gjeldende arbeidskat...",
+    "tool.description": "Hent gjeldende arbeidskatalog.",
     "x_search_terms": [
       "get_workdir",
       "arbeidskatalog",

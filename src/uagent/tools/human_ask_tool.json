@@ -51,17 +51,17 @@
   },
   "es": {
     "doc.run_tool": "human_ask no lee directamente de stdin,\nDeje el procesamiento al hilo stdin_loop del lado de scheck.py\nReciba los resultados a través del estado compartido (callbacks).\n",
-    "err.active_uninitialized": "[error de human_ask] El callback human_ask_active no se ha ini...",
+    "err.active_uninitialized": "[error human_ask] Las devoluciones de llamada human_ask_active no se inicializan.",
     "err.already_active": "[error de human_ask] Ya se está ejecutando otro human_ask.",
-    "err.lines_uninitialized": "[error de human_ask] El callback human_ask_lines no se ha i...",
-    "err.lock_uninitialized": "[error de human_ask] El callback human_ask_lock no se ha i...",
-    "err.multiline_uninitialized": "[error de human_ask] El callback human_ask_multiline_active no se ha i...",
-    "err.password_uninitialized": "[error de human_ask] El callback human_ask_set_password no se ha i...",
-    "err.queue_uninitialized": "[error de human_ask] El callback human_ask_queue no se ha i...",
+    "err.lines_uninitialized": "[error de human_ask] devolución de llamada de human_ask_lines no inicializada.",
+    "err.lock_uninitialized": "[error human_ask] devolución de llamada human_ask_lock no inicializada.",
+    "err.multiline_uninitialized": "[error human_ask] La devolución de llamada human_ask_multiline_active no está inicializada.",
+    "err.password_uninitialized": "[error de human_ask] devolución de llamada de human_ask_set_password no inicializada.",
+    "err.queue_uninitialized": "[error human_ask] devolución de llamada human_ask_queue no inicializada.",
     "msg.empty_request": "(La solicitud de LLM está vacía. Escriba aquí en japonés las operaciones y decisiones necesarias.)",
-    "msg.no_user_reply": "(sin respues...",
+    "msg.no_user_reply": "(sin respuesta del usuario)",
     "param.is_password.description": "Si es verdadero, oculta (enmascara) los caracteres de entrada.",
-    "param.message.description": "Escriba en japonés lo que desea...",
+    "param.message.description": "Mensaje para mostrar al usuario humano.",
     "tool.description": "Herramienta para pedir al usuario humano una entrada o decisión que el modelo no puede completar por sí solo.",
     "x_search_terms": [
       "human_ask",
@@ -69,23 +69,23 @@
       "preguntar a humano",
       "pedir entrada"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Cómo responder:\n  - Simplemente escríbalo y presione Enter para enviar\n  - Ingrese 'f' para entrar en modo multilínea\n  - En modo multilínea: borre con '\"\"\"retry', envíe con '\"\"\"e...",
-    "ui.title": "=== Solicitud a una persona (h..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Cómo responder:\n  - Escribe tu respuesta y presiona Enter.\n  - Escriba 'f' para ingresar al modo multilínea\n  - Escriba 'c' o 'cancelar' para cancelar",
+    "ui.title": "=== Solicitud humana (human_ask) ==="
   },
   "fr": {
     "doc.run_tool": "human_ask ne lit pas directement depuis stdin,\nlaissez le traitement au thread stdin_loop du côté scheck.py\net recevez les résultats via l'état partagé (rappels).\n",
     "err.active_uninitialized": "[erreur human_ask] Le rappel human_ask_active n'a pas été initialisé.",
-    "err.already_active": "[erreur human_ask] Un autre human_ask est déjà en c...",
+    "err.already_active": "[erreur human_ask] Une autre human_ask est déjà active.",
     "err.lines_uninitialized": "[erreur human_ask] Le rappel human_ask_lines n'a pas été initialisé.",
     "err.lock_uninitialized": "[erreur human_ask] Le rappel human_ask_lock n'a pas été initialisé.",
     "err.multiline_uninitialized": "[erreur human_ask] Le rappel human_ask_multiline_active n'a pas été initialisé.",
     "err.password_uninitialized": "[erreur human_ask] Le rappel human_ask_set_password n'a pas été initialisé.",
     "err.queue_uninitialized": "[erreur human_ask] Le rappel human_ask_queue n'a pas été initialisé.",
     "msg.empty_request": "(La demande du LLM est vide. Veuillez écrire ici en japonais les opérations et décisions nécessaires.)",
-    "msg.no_user_reply": "(aucune répo...",
+    "msg.no_user_reply": "(pas de réponse de l'utilisateur)",
     "param.is_password.description": "Si vrai, masque les caractères saisis.",
-    "param.message.description": "Rédigez en japonais ce que vous...",
+    "param.message.description": "Message à afficher à l'utilisateur humain.",
     "tool.description": "Outil permettant de demander à l'utilisateur humain une entrée ou une décision que le modèle ne peut pas compléter lui-même.",
     "x_search_terms": [
       "human_ask",
@@ -93,9 +93,9 @@
       "demander à humain",
       "demande utilisateur"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Comment répondre :\n  - Tapez simplement votre réponse et appuyez sur Entrée pour l'envoyer\n  - Entrez 'f' pour passer en mode multiligne\n  - En mode multiligne : effacez avec '\"\"\"...",
-    "ui.title": "=== Demande à une personne (hu..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Comment répondre :\n  - Tapez votre réponse et appuyez sur Entrée\n  - Tapez 'f' pour passer en mode multi-ligne\n  - Tapez « c » ou « annuler » pour annuler",
+    "ui.title": "=== Requête humaine (human_ask) ==="
   },
   "ko": {
     "doc.run_tool": "human_ask는 stdin에서 직접 읽지 않고,\nscheck.py 쪽의 stdin_loop 스레드에 처리를 맡겨\n공유 상태(callbacks)를 통해 결과를 받습니다.\n",
@@ -123,17 +123,17 @@
   },
   "de": {
     "doc.run_tool": "human_ask liest nicht direkt von stdin,\nüberlässt die Verarbeitung dem stdin_loop-Thread auf der scheck.py-Seite\nund erhält Ergebnisse über den gemeinsamen Zustand (Callbacks).",
-    "err.active_uninitialized": "[human_ask-Fehler] Der Callback human_ask_active wurde nicht i...",
+    "err.active_uninitialized": "[human_ask error] human_ask_active-Rückrufe werden nicht initialisiert.",
     "err.already_active": "[human_ask-Fehler] Ein anderer human_ask läuft bereits.",
-    "err.lines_uninitialized": "[human_ask-Fehler] Der Callback human_ask_lines wurde nicht...",
-    "err.lock_uninitialized": "[human_ask-Fehler] Der Callback human_ask_lock wurde nicht...",
-    "err.multiline_uninitialized": "[human_ask-Fehler] Der Callback human_ask_multiline_active wurde nicht...",
-    "err.password_uninitialized": "[human_ask-Fehler] Der Callback human_ask_set_password wurde nicht...",
-    "err.queue_uninitialized": "[human_ask-Fehler] Der Callback human_ask_queue wurde nicht...",
+    "err.lines_uninitialized": "[human_ask-Fehler] human_ask_lines-Rückruf nicht initialisiert.",
+    "err.lock_uninitialized": "[human_ask-Fehler] human_ask_lock-Rückruf nicht initialisiert.",
+    "err.multiline_uninitialized": "[human_ask-Fehler] human_ask_multiline_active-Rückruf ist nicht initialisiert.",
+    "err.password_uninitialized": "[human_ask-Fehler] human_ask_set_password-Rückruf nicht initialisiert.",
+    "err.queue_uninitialized": "[human_ask-Fehler] human_ask_queue-Rückruf nicht initialisiert.",
     "msg.empty_request": "(Die Anfrage von LLM ist leer.",
-    "msg.no_user_reply": "(keine Benut...",
+    "msg.no_user_reply": "(keine Benutzerantwort)",
     "param.is_password.description": "Wenn true, werden Eingabezeichen ausgeblendet (maskiert).",
-    "param.message.description": "Schreiben Sie auf Japanisch auf...",
+    "param.message.description": "Nachricht, die dem menschlichen Benutzer angezeigt werden soll.",
     "tool.description": "Ein Tool, um den menschlichen Benutzer um eine Eingabe/Entscheidung zu bitten, die das Modell nicht selbst durchführen kann.",
     "x_search_terms": [
       "human_ask",
@@ -141,23 +141,23 @@
       "mensch fragen",
       "benutzereingabe"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "So antworten Sie:\n  - Geben Sie den Text ein und drücken Sie zum Senden die Eingabetaste\n  - Geben Sie 'f' ein, um in den Mehrzeilenmodus zu wechseln\n  - Im Mehrzeilenmodus: mit '...",
-    "ui.title": "=== Anfrage an eine Person (hu..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "So antworten Sie:\n  - Geben Sie Ihre Antwort ein und drücken Sie die Eingabetaste\n  - Geben Sie „f“ ein, um in den Mehrzeilenmodus zu wechseln\n  - Geben Sie zum Abbrechen „c“ oder „Abbrechen“ ein",
+    "ui.title": "=== Menschliche Anfrage (human_ask) ==="
   },
   "it": {
     "doc.run_tool": "human_ask non legge direttamente da stdin,\nlascia l'elaborazione al thread stdin_loop sul lato scheck.py\ne riceve i risultati tramite stato condiviso (callback).",
-    "err.active_uninitialized": "[errore human_ask] La callback human_ask_active non è stata in...",
+    "err.active_uninitialized": "[errore human_ask] i callback human_ask_active non sono inizializzati.",
     "err.already_active": "[errore human_ask] Un altro human_ask è già in esecuzione.",
-    "err.lines_uninitialized": "[errore human_ask] La callback human_ask_lines non è stata...",
-    "err.lock_uninitialized": "[errore human_ask] La callback human_ask_lock non è stata...",
-    "err.multiline_uninitialized": "[errore human_ask] La callback human_ask_multiline_active non è stata...",
-    "err.password_uninitialized": "[errore human_ask] La callback human_ask_set_password non è stata...",
-    "err.queue_uninitialized": "[errore human_ask] La callback human_ask_queue non è stata...",
+    "err.lines_uninitialized": "[errore human_ask] callback human_ask_lines non inizializzato.",
+    "err.lock_uninitialized": "[errore human_ask] callback human_ask_lock non inizializzato.",
+    "err.multiline_uninitialized": "[errore human_ask] Il callback human_ask_multiline_active non è inizializzato.",
+    "err.password_uninitialized": "[errore human_ask] callback human_ask_set_password non inizializzata.",
+    "err.queue_uninitialized": "[errore human_ask] callback human_ask_queue non inizializzato.",
     "msg.empty_request": "(La richiesta di LLM è vuota. Scrivi qui in giapponese le operazioni e le decisioni necessarie.)",
-    "msg.no_user_reply": "(nessuna ris...",
+    "msg.no_user_reply": "(nessuna risposta da parte dell'utente)",
     "param.is_password.description": "Se vero, nasconde (maschera) i caratteri di input.",
-    "param.message.description": "Scrivi in giapponese cosa vuoi...",
+    "param.message.description": "Messaggio da mostrare all'utente umano.",
     "tool.description": "Uno strumento per chiedere all'utente umano un input/una decisione che il modello non può completare da solo.",
     "x_search_terms": [
       "human_ask",
@@ -165,23 +165,23 @@
       "chiedi all utente",
       "richiesta input"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Come rispondere:\n  - Basta scriverlo e premere Invio per inviare\n  - Digita 'f' per passare alla modalità multilinea\n  - In modalità multilinea: cancella con '\"\"\"retry', invia con...",
-    "ui.title": "=== Richiesta a una persona (h..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Come rispondere:\n  - Digita la tua risposta e premi Invio\n  - Digita \"f\" per accedere alla modalità multilinea\n  - Digita \"c\" o \"annulla\" per annullare",
+    "ui.title": "=== Richiesta umana (human_ask) ==="
   },
   "ru": {
     "doc.run_tool": "human_ask не читает напрямую из stdin,\nпередает обработку потоку stdin_loop на стороне scheck.py\nи получает результаты через общее состояние (обратные вызовы).",
-    "err.active_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_active не был иниц...",
+    "err.active_uninitialized": "[ошибка human_ask] Обратные вызовы human_ask_active не инициализируются.",
     "err.already_active": "[ошибка human_ask] Другой human_ask уже запущен.",
-    "err.lines_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_lines не инициа...",
-    "err.lock_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_lock не инициа...",
-    "err.multiline_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_multiline_active не был ин...",
-    "err.password_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_set_password не инициа...",
-    "err.queue_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_queue не инициа...",
+    "err.lines_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_lines не инициализирован.",
+    "err.lock_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_lock не инициализирован.",
+    "err.multiline_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_multiline_active не инициализирован.",
+    "err.password_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_set_password не инициализирован.",
+    "err.queue_uninitialized": "[ошибка human_ask] Обратный вызов human_ask_queue не инициализирован.",
     "msg.empty_request": "(Запрос от LLM пустой. Пожалуйста, напишите здесь необходимые операции и решения на японском языке.)",
-    "msg.no_user_reply": "(нет ответа...",
+    "msg.no_user_reply": "(нет ответа пользователя)",
     "param.is_password.description": "Если true, скрывает (маскирует) вводимые символы.",
-    "param.message.description": "Запишите на японском языке, что...",
+    "param.message.description": "Сообщение, которое будет показано пользователю-человеку.",
     "tool.description": "Инструмент для запроса у пользователя-человека ввода/решения, которые модель не может выполнить сама.",
     "x_search_terms": [
       "human_ask",
@@ -189,9 +189,9 @@
       "спросить человека",
       "запрос ввода"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Как ответить:\n  - Просто введите текст и нажмите Enter, чтобы отправить\n  - Введите 'f', чтобы перейти в многострочный режим\n  - В многострочном режиме: очистить с помощью '\"\"\"ret...",
-    "ui.title": "=== Запрос к человеку (human_a..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Как ответить:\n  - Введите ответ и нажмите Enter.\n  - Введите «f», чтобы войти в многострочный режим.\n  - Введите «c» или «отмена», чтобы отменить",
+    "ui.title": "=== Человеческий запрос (human_ask) ==="
   },
   "pt_BR": {
     "doc.run_tool": "human_ask não lê diretamente do stdin,\nDeixe o processamento para a thread stdin_loop no lado scheck.py\nReceba os resultados por meio de estado compartilhado (callbacks).",
@@ -203,9 +203,9 @@
     "err.password_uninitialized": "[erro human_ask] o callback human_ask_set_password não foi inicializado.",
     "err.queue_uninitialized": "[erro human_ask] o callback human_ask_queue não foi inicializado.",
     "msg.empty_request": "(A solicitação de LLM está vazia. Escreva aqui, em japonês, as operações e decisões necessárias.)",
-    "msg.no_user_reply": "(sem respost...",
+    "msg.no_user_reply": "(sem resposta do usuário)",
     "param.is_password.description": "Se verdadeiro, oculta (mascara) os caracteres de entrada.",
-    "param.message.description": "Escreva em japonês o que você q...",
+    "param.message.description": "Mensagem a ser mostrada ao usuário humano.",
     "tool.description": "Uma ferramenta para solicitar ao usuário humano uma entrada/decisão que o modelo não consegue concluir sozinho.",
     "x_search_terms": [
       "human_ask",
@@ -213,23 +213,23 @@
       "perguntar ao humano",
       "pedir entrada"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Como responder:\n  - Basta digitar e pressionar Enter para enviar\n  - Digite 'f' para entrar no modo multilinha\n  - No modo multilinha: limpe com '\"\"\"retry', envie com '\"\"\"end'\n  -...",
-    "ui.title": "=== Solicitação para uma pesso..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Como responder:\n  - Digite sua resposta e pressione Enter\n  - Digite 'f' para entrar no modo multilinha\n  - Digite 'c' ou 'cancelar' para cancelar",
+    "ui.title": "=== Solicitação humana (human_ask) ==="
   },
   "pt": {
     "doc.run_tool": "human_ask não lê diretamente de stdin,\nDeixe o processamento para o thread stdin_loop no lado do scheck.py\ne receba os resultados por meio de estado compartilhado (callbacks).",
-    "err.active_uninitialized": "[erro human_ask] o retorno de chamada human_ask_active não foi...",
+    "err.active_uninitialized": "[erro human_ask] retornos de chamada human_ask_active não são inicializados.",
     "err.already_active": "[erro human_ask] Outro human_ask já está em execução.",
-    "err.lines_uninitialized": "[erro human_ask] retorno de chamada human_ask_lines não ini...",
-    "err.lock_uninitialized": "[erro human_ask] retorno de chamada human_ask_lock não ini...",
-    "err.multiline_uninitialized": "[erro human_ask] o retorno de chamada human_ask_multiline_active não f...",
-    "err.password_uninitialized": "[erro human_ask] retorno de chamada human_ask_set_password não ini...",
-    "err.queue_uninitialized": "[erro human_ask] retorno de chamada human_ask_queue não ini...",
+    "err.lines_uninitialized": "[erro human_ask] retorno de chamada human_ask_lines não inicializado.",
+    "err.lock_uninitialized": "[erro human_ask] retorno de chamada human_ask_lock não inicializado.",
+    "err.multiline_uninitialized": "[erro human_ask] retorno de chamada human_ask_multiline_active não foi inicializado.",
+    "err.password_uninitialized": "[erro human_ask] retorno de chamada human_ask_set_password não inicializado.",
+    "err.queue_uninitialized": "[erro human_ask] retorno de chamada human_ask_queue não inicializado.",
     "msg.empty_request": "(A solicitação do LLM está vazia. Escreva aqui as operações e decisões necessárias em japonês.)",
-    "msg.no_user_reply": "(sem respost...",
+    "msg.no_user_reply": "(sem resposta do usuário)",
     "param.is_password.description": "Se verdadeiro, oculta (mascara) os caracteres de entrada.",
-    "param.message.description": "Escreva o que você deseja pedir...",
+    "param.message.description": "Mensagem a ser mostrada ao usuário humano.",
     "tool.description": "Ferramenta para pedir ao usuário humano uma entrada ou decisão que o modelo não consegue concluir sozinho.",
     "x_search_terms": [
       "human_ask",
@@ -237,9 +237,9 @@
       "perguntar ao humano",
       "pedir entrada"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Como responder:\n  - Basta digitar e pressionar Enter para enviar\n  - Digite 'f' para entrar no modo multilinha\n  - No modo multilinha: limpe com '\"\"\"retry', envie com '\"\"\"end'\n  -...",
-    "ui.title": "=== Solicitação para uma pesso..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Como responder:\n  - Digite sua resposta e pressione Enter\n  - Digite 'f' para entrar no modo multilinha\n  - Digite 'c' ou 'cancelar' para cancelar",
+    "ui.title": "=== Solicitação humana (human_ask) ==="
   },
   "id": {
     "doc.run_tool": "human_ask tidak membaca langsung dari stdin,\nSerahkan pemrosesan ke thread stdin_loop di sisi scheck.py\nTerima hasil melalui shared state (callbacks).",
@@ -251,9 +251,9 @@
     "err.password_uninitialized": "[human_ask error] callback human_ask_set_password belum diinisialisasi.",
     "err.queue_uninitialized": "[human_ask error] callback human_ask_queue belum diinisialisasi.",
     "msg.empty_request": "(Permintaan dari LLM kosong.",
-    "msg.no_user_reply": "(belum ada b...",
+    "msg.no_user_reply": "(tidak ada balasan pengguna)",
     "param.is_password.description": "Jika true, menyembunyikan (mem-mask) karakter input.",
-    "param.message.description": "Tulis apa yang ingin Anda minta...",
+    "param.message.description": "Pesan untuk ditampilkan kepada pengguna manusia.",
     "tool.description": "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri.",
     "x_search_terms": [
       "human_ask",
@@ -261,9 +261,9 @@
       "tanya manusia",
       "minta input"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Cara menjawab:\n  - Cukup ketik lalu tekan Enter untuk mengirim\n  - Masukkan f untuk mode multiline\n  - Dalam mode multiline: hapus dengan \"\"\"retry, kirim dengan \"\"\"end\n  - Batalka...",
-    "ui.title": "=== Permintaan kepada manusia..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Cara menjawab:\n  - Ketikkan jawaban Anda dan tekan Enter\n  - Ketik 'f' untuk masuk ke mode multi-baris\n  - Ketik 'c' atau 'batal' untuk membatalkan",
+    "ui.title": "=== Permintaan manusia (human_ask) ==="
   },
   "vi": {
     "doc.run_tool": "human_ask không đọc trực tiếp từ stdin,\nĐể lại quá trình xử lý cho luồng stdin_loop ở phía scheck.py\nNhận kết quả qua trạng thái chia sẻ (gọi lại).",
@@ -275,9 +275,9 @@
     "err.password_uninitialized": "[lỗi human_ask] lệnh gọi lại human_ask_set_password chưa được khởi tạo.",
     "err.queue_uninitialized": "[lỗi human_ask] lệnh gọi lại human_ask_queue chưa được khởi tạo.",
     "msg.empty_request": "(Yêu cầu từ LLM trống. Vui lòng viết các hoạt động và quyết định cần thiết vào đây bằng tiếng Nhật.)",
-    "msg.no_user_reply": "(không có ph...",
+    "msg.no_user_reply": "(không có người dùng trả lời)",
     "param.is_password.description": "Nếu đúng, ẩn (che giấu) ký tự đầu vào.",
-    "param.message.description": "Viết ra những điều bạn muốn yêu...",
+    "param.message.description": "Thông báo hiển thị cho người dùng.",
     "tool.description": "Một công cụ để yêu cầu người dùng đưa ra quyết định/đầu vào mà mô hình không thể tự hoàn thành.",
     "x_search_terms": [
       "human_ask",
@@ -285,23 +285,23 @@
       "hỏi người dùng",
       "yêu cầu nhập"
     ],
-    "ui.footer": "=== /human_ask...",
+    "ui.footer": "=== /human_ask ===",
     "ui.howto": "Cách trả lời:\n  - Chỉ cần gõ vào và nhấn Enter để gửi\n  - Nhập 'f' để vào chế độ nhiều dòng\n  - Ở chế độ nhiều dòng: xóa bằng '\"\"\"thử lại', gửi bằng '\"\"\"end'\n  - Hủy bỏ bằng 'c' hoặc 'hủy'",
-    "ui.title": "=== Yêu cầu với một người (hum..."
+    "ui.title": "=== Yêu cầu của con người (human_ask) ==="
   },
   "pl": {
     "doc.run_tool": "human_ask nie czyta bezpośrednio ze standardowego wejścia,\nPozostaw przetwarzanie wątkowi stdin_loop po stronie scheck.py\nOtrzymuj wyniki poprzez stan udostępniony (wywołania zwrotne).",
-    "err.active_uninitialized": "[błąd human_ask] Wywołanie zwrotne human_ask_active nie został...",
+    "err.active_uninitialized": "[błąd human_ask] Wywołania zwrotne human_ask_active nie są inicjowane.",
     "err.already_active": "[błąd human_ask] Inny human_ask już działa.",
-    "err.lines_uninitialized": "[błąd human_ask] Nie zainicjowano wywołania zwrotnego human...",
-    "err.lock_uninitialized": "[błąd human_ask] Nie zainicjowano wywołania zwrotnego huma...",
-    "err.multiline_uninitialized": "[błąd human_ask] Wywołanie zwrotne human_ask_multiline_active nie zost...",
-    "err.password_uninitialized": "[błąd human_ask] Nie zainicjowano wywołania zwrotnego human_ask_se...",
-    "err.queue_uninitialized": "[błąd human_ask] Nie zainicjowano wywołania zwrotnego human...",
+    "err.lines_uninitialized": "[błąd human_ask] Nie zainicjowano wywołania zwrotnego human_ask_lines.",
+    "err.lock_uninitialized": "[błąd human_ask] Nie zainicjowano wywołania zwrotnego human_ask_lock.",
+    "err.multiline_uninitialized": "[błąd human_ask] Wywołanie zwrotne human_ask_multiline_active nie zostało zainicjowane.",
+    "err.password_uninitialized": "[błąd human_ask] Nie zainicjowano wywołania zwrotnego human_ask_set_password.",
+    "err.queue_uninitialized": "[błąd human_ask] Nie zainicjowano wywołania zwrotnego human_ask_queue.",
     "msg.empty_request": "(Żądanie od LLM jest puste. Proszę wpisać tutaj niezbędne operacje i decyzje w języku japońskim.)",
-    "msg.no_user_reply": "(brak odpowi...",
+    "msg.no_user_reply": "(brak odpowiedzi użytkownika)",
     "param.is_password.description": "Jeśli ma wartość true, ukrywa (maskuje) wprowadzone znaki.",
-    "param.message.description": "Zapisz po japońsku, o co chcesz...",
+    "param.message.description": "Wiadomość wyświetlana użytkownikowi.",
     "tool.description": "Narzędzie prosząc użytkownika o dane wejściowe/decyzję, których model nie jest w stanie sam wykonać.",
     "x_search_terms": [
       "human_ask",
@@ -309,8 +309,8 @@
       "zapytaj człowieka",
       "prośba o dane"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Jak odpowiedzieć:\n  - Po prostu wpisz go i naciśnij Enter, aby wysłać\n  - Wpisz „f”, aby przejść do trybu wielowierszowego\n  - W trybie wielowierszowym: wyczyść za pomocą „”” „pon...",
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Jak odpowiedzieć:\n  - Wpisz odpowiedź i naciśnij Enter\n  - Wpisz „f”, aby przejść do trybu wielowierszowego\n  - Wpisz „c” lub „anuluj”, aby anulować",
     "ui.title": "=== Prośba do osoby (human_ask) ==="
   },
   "hi": {
@@ -323,19 +323,19 @@
     "err.password_uninitialized": "[मानव_आस्क त्रुटि] मानव_आस्क_सेट_पासवर्ड कॉलबैक आरंभ नहीं हुआ।",
     "err.queue_uninitialized": "[मानव_आस्क त्रुटि] मानव_आस्क_क्यू कॉलबैक आरंभ नहीं हुआ।",
     "msg.empty_request": "(एलएलएम से अनुरोध खाली है। कृपया यहां जापानी में आवश्यक संचालन और निर्णय लिखें।)",
-    "msg.no_user_reply": "(कोई उपयोगकर...",
-    "param.is_password.description": "यदि सत्य है, तो इनपुट वर्णों को छुपाता है (मुखौटा देता है)। अपना पासवर्ड या टोकन...",
-    "param.message.description": "आप किसी इंसान से जापानी भाषा मे...",
-    "tool.description": "मानव उपयोगकर्ता से इनपुट/निर्णय के लिए पूछने का एक उपकरण जिसे मॉडल स्वयं पूरा नहीं कर सकता है। सुरक्षा नोट: रहस्य (पासवर्ड/टोकन) का अनुरोध करते समय...",
+    "msg.no_user_reply": "(कोई उपयोगकर्ता उत्तर नहीं)",
+    "param.is_password.description": "यदि सत्य है, तो इनपुट वर्ण छुपाता है (मुखौटा देता है)। अपना पासवर्ड या टोकन दर्ज करने के लिए इसका उपयोग करें।",
+    "param.message.description": "मानव उपयोगकर्ता को दिखाने के लिए संदेश।",
+    "tool.description": "मानव उपयोगकर्ता से इनपुट/निर्णय के लिए पूछने का एक उपकरण जिसे मॉडल स्वयं पूरा नहीं कर सकता है। सुरक्षा नोट: रहस्यों (पासवर्ड/टोक) का अनुरोध करते समय...",
     "x_search_terms": [
       "human_ask",
       "human ask",
       "मानव से पूछें",
       "इनपुट अनुरोध"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "कैसे उत्तर दें:\n  - बस इसे टाइप करें और भेजने के लिए एंटर दबाएं\n  - मल्टीलाइन मोड में प्रवेश करने के लिए 'एफ' दर्ज करें\n  - मल्टीलाइन मोड में: '''''पुनः प्रयास करें'' के साथ स्पष्...",
-    "ui.title": "=== किसी व्यक्ति से अनुरोध (hu..."
+    "ui.footer": "=== / human_ask ===",
+    "ui.howto": "उत्तर कैसे दें:\n  - अपना उत्तर टाइप करें और एंटर दबाएं\n  - मल्टी-लाइन मोड में प्रवेश करने के लिए 'f' टाइप करें\n  - रद्द करने के लिए 'सी' या 'रद्द करें' टाइप करें",
+    "ui.title": "=== मानव अनुरोध (मानव_पूछ) ==="
   },
   "ar": {
     "doc.run_tool": "human_ask لا يقرأ مباشرة من stdin،\nاترك المعالجة لسلسلة الرسائل stdin_loop على الجانب scheck.py\nتلقي النتائج عبر الحالة المشتركة (عمليات الاسترجاعات).",
@@ -347,9 +347,9 @@
     "err.password_uninitialized": "[خطأ human_ask] لم تتم تهيئة رد الاتصال human_ask_set_password.",
     "err.queue_uninitialized": "[خطأ human_ask] لم تتم تهيئة رد الاتصال human_ask_queue.",
     "msg.empty_request": "(الطلب من LLM فارغ. يرجى كتابة العمليات والقرارات اللازمة هنا باللغة اليابانية.)",
-    "msg.no_user_reply": "(لا يوجد رد...",
+    "msg.no_user_reply": "(لا يوجد رد من المستخدم)",
     "param.is_password.description": "إذا كان صحيحا، فإنه يخفي (أقنعة) أحرف الإدخال.",
-    "param.message.description": "اكتب بالعربية ما تريد أن تطلب م...",
+    "param.message.description": "رسالة لإظهارها للمستخدم البشري.",
     "tool.description": "أداة تطلب من المستخدم البشري إدخال/قرار لا يستطيع النموذج إكماله بنفسه.",
     "x_search_terms": [
       "human_ask",
@@ -357,8 +357,8 @@
       "اسأل الإنسان",
       "طلب إدخال"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "كيفية الإجابة:\n  - فقط اكتبه واضغط على Enter للإرسال\n  - أدخل \"f\" للدخول إلى وضع الخطوط المتعددة\n  - في وضع الخطوط المتعددة: امسح باستخدام \"\"\"\"إعادة المحاولة\"، وأرسل باستخدام \"\"\"\"...",
+    "ui.footer": "عنوان URL لنقطة نهاية خادم MCP (http://... أو stdio://command...). /human_ask ===",
+    "ui.howto": "كيفية الإجابة:\n  - اكتب إجابتك ثم اضغط على Enter\n  - اكتب \"f\" للدخول إلى وضع الخطوط المتعددة\n  - اكتب \"c\" أو \"إلغاء\" للإلغاء",
     "ui.title": "=== طلب لشخص (human_ask) ==="
   },
   "sv": {
@@ -371,9 +371,9 @@
     "err.password_uninitialized": "[human_ask-fel] callbacken human_ask_set_password har inte initierats.",
     "err.queue_uninitialized": "[human_ask-fel] callbacken human_ask_queue har inte initierats.",
     "msg.empty_request": "(LLM:s begäran är tom. Skriv de nödvändiga åtgärderna och besluten här på japanska.)",
-    "msg.no_user_reply": "(inget använ...",
+    "msg.no_user_reply": "(inget svar från användaren)",
     "param.is_password.description": "Om true döljs (maskeras) inmatade tecken. Använd det för att ange ditt lösenord eller token.",
-    "param.message.description": "Skriv på japanska vad du vill b...",
+    "param.message.description": "Meddelande som ska visas för den mänskliga användaren.",
     "tool.description": "Ett verktyg för att be den mänskliga användaren om en indata/beslut som modellen inte kan slutföra själv.",
     "x_search_terms": [
       "human_ask",
@@ -381,23 +381,23 @@
       "fråga människa",
       "inmatningsbegäran"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Så svarar du:\n  - Skriv bara in det och tryck Enter för att skicka\n  - Ange 'f' för att gå till flerradsläge\n  - I flerradsläge: rensa med '\"\"\"retry', skicka med '\"\"\"end'\n  - Avbr...",
-    "ui.title": "=== Begäran till en person (hu..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Hur man svarar:\n  - Skriv ditt svar och tryck på Enter\n  - Skriv 'f' för att gå in i flerradsläge\n  - Skriv 'c' eller 'avbryt' för att avbryta",
+    "ui.title": "=== Mänsklig begäran (human_ask) ==="
   },
   "sw": {
     "doc.run_tool": "human_ask haisomi moja kwa moja kutoka stdin,\nacha uchakataji ufanywe na uzi wa stdin_loop upande wa scheck.py\nna upokee matokeo kupitia hali ya pamoja (callbacks).",
     "err.active_uninitialized": "[hitilafu ya human_ask] callback ya human_ask_active haijaanzishwa.",
-    "err.already_active": "[hitilafu ya human_ask] human_ask mwingine tayari u...",
+    "err.already_active": "[hitilafu_ya_uulizaji wa kibinadamu] Uliza_wa_uulizaji wa binadamu tayari unatumika.",
     "err.lines_uninitialized": "[hitilafu ya human_ask] callback ya human_ask_lines haijaanzishwa.",
     "err.lock_uninitialized": "[hitilafu ya human_ask] callback ya human_ask_lock haijaanzishwa.",
     "err.multiline_uninitialized": "[hitilafu ya human_ask] callback ya human_ask_multiline_active haijaanzishwa.",
     "err.password_uninitialized": "[hitilafu ya human_ask] callback ya human_ask_set_password haijaanzishwa.",
     "err.queue_uninitialized": "[hitilafu ya human_ask] callback ya human_ask_queue haijaanzishwa.",
     "msg.empty_request": "(Ombi kutoka kwa LLM ni tupu. Tafadhali andika hapa kwa Kijapani hatua na maamuzi yanayohitajika.)",
-    "msg.no_user_reply": "(hakuna jibu...",
+    "msg.no_user_reply": "(hakuna jibu la mtumiaji)",
     "param.is_password.description": "Ikiwa ni true, huficha (huziba) herufi za ingizo. Itumie kuingiza nenosiri au tokeni yako.",
-    "param.message.description": "Andika kwa Kijapani kile unacho...",
+    "param.message.description": "Ujumbe wa kuonyesha kwa mtumiaji binadamu.",
     "tool.description": "Zana ya kumuuliza mtumiaji binadamu ingizo au uamuzi ambao modeli haiwezi kukamilisha peke yake.",
     "x_search_terms": [
       "human_ask",
@@ -405,7 +405,7 @@
       "uliza binadamu",
       "omba ingizo"
     ],
-    "ui.footer": "=== /human_ask...",
+    "ui.footer": "=== /human_ask ===",
     "ui.howto": "Jinsi ya kujibu:\n  - Andika tu na ubonyeze Enter kutuma\n  - Weka f ili kuingia hali ya mistari mingi\n  - Katika hali ya mistari mingi: futa kwa \"\"\"retry, tuma kwa \"\"\"end\n  - Ghairi kwa c au cancel",
     "ui.title": "=== Ombi kwa mtu (human_ask) ==="
   },
@@ -419,9 +419,9 @@
     "err.password_uninitialized": "[human_ask-feil] callbacken human_ask_set_password er ikke initialisert.",
     "err.queue_uninitialized": "[human_ask-feil] callbacken human_ask_queue er ikke initialisert.",
     "msg.empty_request": "(LLM-forespørselen er tom. Skriv de nødvendige handlingene og beslutningene her på japansk.)",
-    "msg.no_user_reply": "(ingen bruke...",
+    "msg.no_user_reply": "(ingen brukersvar)",
     "param.is_password.description": "Hvis true, skjules (maskeres) inntastede tegn.",
-    "param.message.description": "Skriv på japansk hva du vil be...",
+    "param.message.description": "Melding som skal vises til den menneskelige brukeren.",
     "tool.description": "Et verktøy for å be den menneskelige brukeren om en input/beslutning som modellen ikke kan fullføre selv.",
     "x_search_terms": [
       "human_ask",
@@ -429,9 +429,9 @@
       "spør menneske",
       "inndataforespørsel"
     ],
-    "ui.footer": "=== /human_ask...",
+    "ui.footer": "=== /human_ask ===",
     "ui.howto": "Slik svarer du:\n  - Skriv inn og trykk Enter for å sende\n  - Skriv 'f' for å gå til flerlinjemodus\n  - I flerlinjemodus: tøm med '\"\"\"retry', send med '\"\"\"end'\n  - Avbryt med 'c' eller 'cancel'",
-    "ui.title": "=== Forespørsel til en person..."
+    "ui.title": "=== Menneskelig forespørsel (human_ask) ==="
   },
   "nl": {
     "doc.run_tool": "human_ask leest niet rechtstreeks uit stdin,\nLaat de verwerking over aan de stdin_loop-thread aan de scheck.py-kant\nOntvang resultaten via gedeelde status (callbacks).",
@@ -443,9 +443,9 @@
     "err.password_uninitialized": "[human_ask fout] human_ask_set_password callback niet geïnitialiseerd.",
     "err.queue_uninitialized": "[human_ask fout] human_ask_queue callback niet geïnitialiseerd.",
     "msg.empty_request": "(De aanvraag van de LLM is leeg. Schrijf hier de nodige acties en beslissingen in het Japans.)",
-    "msg.no_user_reply": "(geen gebrui...",
+    "msg.no_user_reply": "(geen antwoord van de gebruiker)",
     "param.is_password.description": "Als true, worden invoertekens verborgen (gemaskeerd).",
-    "param.message.description": "Schrijf in het Japans wat u aan...",
+    "param.message.description": "Bericht dat aan de menselijke gebruiker moet worden getoond.",
     "tool.description": "Een tool om de menselijke gebruiker om invoer/beslissing te vragen die het model niet zelf kan afhandelen.",
     "x_search_terms": [
       "human_ask",
@@ -453,9 +453,9 @@
       "vraag mens",
       "invoer verzoek"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Hoe te antwoorden:\n  - Typ het gewoon en druk op Enter om te verzenden\n  - Voer 'f' in om naar multiline-modus te gaan\n  - In multiline-modus: wissen met '\"\"\"retry', verzenden met...",
-    "ui.title": "=== Verzoek aan een persoon (h..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Hoe te antwoorden:\n  - Typ uw antwoord en druk op Enter\n  - Typ 'f' om de meerregelige modus te openen\n  - Typ 'c' of 'annuleren' om te annuleren",
+    "ui.title": "=== Menselijk verzoek (human_ask) ==="
   },
   "fi": {
     "doc.run_tool": "human_ask ei lue suoraan stdinistä,\nJätä käsittely scheck.py-puolen stdin_loop-säikeelle\nVastaanota tulokset jaetun tilan kautta (callbackit).",
@@ -467,9 +467,9 @@
     "err.password_uninitialized": "[human_ask-virhe] human_ask_set_password-callbackia ei ole alustettu.",
     "err.queue_uninitialized": "[human_ask-virhe] human_ask_queue-callbackia ei ole alustettu.",
     "msg.empty_request": "(LLM:n pyyntö on tyhjä. Kirjoita tähän tarvittavat toimet ja päätökset japaniksi.)",
-    "msg.no_user_reply": "(ei käyttäjä...",
+    "msg.no_user_reply": "(ei käyttäjän vastausta)",
     "param.is_password.description": "Jos true, syötemerkit piilotetaan (peitetään).",
-    "param.message.description": "Kirjoita japaniksi, mitä haluat...",
+    "param.message.description": "Ihmiskäyttäjälle näytettävä viesti.",
     "tool.description": "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse tehdä.",
     "x_search_terms": [
       "human_ask",
@@ -477,9 +477,9 @@
       "kysy ihmiseltä",
       "syötepyyntö"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Kuinka vastata:\n  - Kirjoita vain vastaus ja paina Enter lähettääksesi\n  - Siirry moniriviseen tilaan kirjoittamalla 'f'\n  - Monirivisessä tilassa: tyhjennä '\"\"\"retry', lähetä '\"\"...",
-    "ui.title": "=== Pyyntö henkilölle (human_a..."
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Miten vastata:\n  - Kirjoita vastauksesi ja paina Enter\n  - Kirjoita 'f' siirtyäksesi moniriviseen tilaan\n  - Peruuta kirjoittamalla \"c\" tai \"peruuta\".",
+    "ui.title": "=== Ihmisen pyyntö (human_ask) ==="
   },
   "cs": {
     "doc.run_tool": "human_ask nečte přímo ze stdin,\nsvěřte zpracování vláknu stdin_loop na straně scheck.py\na výsledky přijímejte přes sdílený stav (callbacks).",
@@ -491,9 +491,9 @@
     "err.password_uninitialized": "[human_ask error] callback human_ask_set_password nebyl inicializován.",
     "err.queue_uninitialized": "[human_ask error] callback human_ask_queue nebyl inicializován.",
     "msg.empty_request": "(Požadavek od LLM je prázdný. Napište sem prosím v japonštině potřebné operace a rozhodnutí.)",
-    "msg.no_user_reply": "(žádná odpov...",
+    "msg.no_user_reply": "(žádná odpověď uživatele)",
     "param.is_password.description": "Je-li true, skryje (maskuje) znaky vstupu. Použijte pro zadání hesla nebo tokenu.",
-    "param.message.description": "Napište japonsky, co chcete po...",
+    "param.message.description": "Zpráva k zobrazení lidskému uživateli.",
     "tool.description": "Nástroj pro vyžádání vstupu/rozhodnutí od člověka, které model nedokáže dokončit sám.",
     "x_search_terms": [
       "human_ask",
@@ -501,8 +501,8 @@
       "zeptat se člověka",
       "požadavek na vstup"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Jak odpovědět:\n  - Stačí napsat a stisknout Enter pro odeslání\n  - Zadejte f pro režim více řádků\n  - V režimu více řádků: vymazat pomocí \"\"\"retry, odeslat pomocí \"\"\"end\n  - Zruši...",
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Jak odpovědět:\n  - Napište svou odpověď a stiskněte Enter\n  - Zadejte „f“ pro vstup do víceřádkového režimu\n  - Pro zrušení zadejte „c“ nebo „zrušit“.",
     "ui.title": "=== Žádost k člověku (human_ask) ==="
   },
   "uk": {
@@ -515,9 +515,9 @@
     "err.password_uninitialized": "[human_ask error] callback human_ask_set_password не було ініціалізовано.",
     "err.queue_uninitialized": "[human_ask error] callback human_ask_queue не було ініціалізовано.",
     "msg.empty_request": "(Запит від LLM порожній. Будь ласка, напишіть тут японською потрібні дії та рішення.)",
-    "msg.no_user_reply": "(немає відпо...",
+    "msg.no_user_reply": "(немає відповіді користувача)",
     "param.is_password.description": "Якщо true, приховує (маскує) символи введення.",
-    "param.message.description": "Напишіть японською, що ви хочет...",
+    "param.message.description": "Повідомлення для показу людині.",
     "tool.description": "Інструмент для запиту у людини вводу/рішення, яке модель не може виконати сама.",
     "x_search_terms": [
       "human_ask",
@@ -525,8 +525,8 @@
       "запитати людину",
       "запит введення"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Як відповідати:\n  - Просто введіть текст і натисніть Enter, щоб надіслати\n  - Введіть f, щоб увійти в режим багаторядкового введення\n  - У режимі багаторядкового введення: очистит...",
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Як відповісти:\n  - Введіть свою відповідь і натисніть Enter\n  - Натисніть «f», щоб увійти в багаторядковий режим\n  - Введіть 'c' або 'cancel', щоб скасувати",
     "ui.title": "=== Запит до людини (human_ask) ==="
   },
   "tr": {
@@ -539,9 +539,9 @@
     "err.password_uninitialized": "[human_ask error] human_ask_set_password geri araması başlatılmadı.",
     "err.queue_uninitialized": "[human_ask error] human_ask_queue geri araması başlatılmadı.",
     "msg.empty_request": "(LLM'dan gelen talep boş. Lütfen gerekli işlem ve kararları buraya Japonca yazınız.)",
-    "msg.no_user_reply": "(kullanıcı y...",
+    "msg.no_user_reply": "(kullanıcı yanıtı yok)",
     "param.is_password.description": "Doğruysa, giriş karakterlerini gizler (maskeler).",
-    "param.message.description": "Bir insandan yapmasını istediği...",
+    "param.message.description": "İnsan kullanıcıya gösterilecek mesaj.",
     "tool.description": "Modelin kendi başına tamamlayamayacağı bir karar veya girdiyi insan kullanıcıdan talep eden bir araç.",
     "x_search_terms": [
       "human_ask",
@@ -549,8 +549,8 @@
       "insana sor",
       "girdi isteği"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Nasıl cevap verilir:\n  - Sadece yazın ve göndermek için Enter tuşuna basın\n  - Çok satırlı moda girmek için 'f' girin\n  - Çok satırlı modda: \"\"\"tekrar dene ile temizleyin, \"\"\"son...",
+    "ui.footer": "=== /human_ask ===",
+    "ui.howto": "Nasıl cevap verilir:\n  - Cevabınızı yazın ve Enter'a basın\n  - Çok hatlı moda girmek için 'f' yazın\n  - İptal etmek için 'c' veya 'iptal' yazın",
     "ui.title": "=== Bir kişiye istek (human_ask) ==="
   },
   "th": {
@@ -563,17 +563,17 @@
     "err.password_uninitialized": "[ข้อผิดพลาด human_ask] ยังไม่ได้เริ่มต้น callback human_ask_set_password",
     "err.queue_uninitialized": "[ข้อผิดพลาด human_ask] ยังไม่ได้เริ่มต้น callback human_ask_queue",
     "msg.empty_request": "(คำขอจาก LLM ว่างเปล่า โปรดเขียนการดำเนินการและการตัดสินใจที่จำเป็นไว้ที่นี่เป็นภาษาญี่ปุ่น)",
-    "msg.no_user_reply": "(ไม่มีการตอบ...",
+    "msg.no_user_reply": "(ไม่มีการตอบกลับจากผู้ใช้)",
     "param.is_password.description": "หากเป็น true ให้ซ่อนอักขระที่ป้อน (มาสก์) ใช้สำหรับป้อนรหัสผ่านหรือโทเค็น",
-    "param.message.description": "เขียนสิ่งที่คุณต้องการขอให้มนุษ...",
-    "tool.description": "เครื่องมือสำหรับขอให้ผู้ใช้ที่เป็นมนุษย์ป้อนข้อมูล/ตัดสินใจที่โมเดลไม่สามารถทำให้เสร็จได้ด้วยตัวเอง หมายเหตุด้านความปลอดภัย: เมื่อขอข้อมูลลับ (รหัส...",
+    "param.message.description": "ข้อความที่จะแสดงต่อผู้ใช้ที่เป็นมนุษย์",
+    "tool.description": "เครื่องมือสำหรับขอข้อมูล/การตัดสินใจจากผู้ใช้ที่เป็นมนุษย์ ซึ่งโมเดลไม่สามารถดำเนินการให้เสร็จสิ้นได้ด้วยตัวเอง หมายเหตุด้านความปลอดภัย: เมื่อขอข้อมูลลับ (รหัสผ่าน/โทเค็น...",
     "x_search_terms": [
       "human_ask",
       "human ask",
       "ถามมนุษย์",
       "ขอข้อมูลเข้า"
     ],
-    "ui.footer": "=== /human_ask...",
+    "ui.footer": "=== /human_ask ===",
     "ui.howto": "วิธีตอบ:\n  - พิมพ์แล้วกด Enter เพื่อส่ง\n  - ป้อน 'f' เพื่อเข้าสู่โหมดหลายบรรทัด\n  - ในโหมดหลายบรรทัด: ล้างด้วย '\"\"\"retry' ส่งด้วย '\"\"\"end'\n  - ยกเลิกด้วย 'c' หรือ 'cancel'",
     "ui.title": "=== คำขอถึงบุคคล (human_ask) ==="
   },
@@ -635,33 +635,33 @@
     "err.password_uninitialized": "[human_ask error] human_ask_set_password callback শুরু করা হয়নি।",
     "err.queue_uninitialized": "[human_ask error] human_ask_queue callback শুরু করা হয়নি।",
     "msg.empty_request": "(LLM থেকে আসা অনুরোধটি ফাঁকা। প্রয়োজনীয় কাজ ও সিদ্ধান্তগুলো এখানে জাপানিতে লিখুন।)",
-    "msg.no_user_reply": "(ব্যবহারকারী...",
+    "msg.no_user_reply": "(ব্যবহারকারীর কোনো উত্তর নেই)",
     "param.is_password.description": "true হলে, ইনপুট অক্ষর লুকায় (মাস্ক করে)। পাসওয়ার্ড বা টোকেন দেওয়ার সময় এটি ব্যবহার করুন।",
-    "param.message.description": "মানুষকে কী করতে বলতে চান তা জাপ...",
-    "tool.description": "মানুষের কাছ থেকে এমন input/decision চাইতে এই টুল ব্যবহার করা হয়, যা মডেল একা শেষ করতে পারে না। নিরাপত্তা নোট: গোপন তথ্য (পাসওয়ার্ড/টোকেন) চাইলে i...",
+    "param.message.description": "মানব ব্যবহারকারীকে দেখানোর জন্য বার্তা।",
+    "tool.description": "Git সাবকমান্ড (সীমাবদ্ধ) GraphRAG (Graph + Vector hybrid) এর জন্য py/md/txt/pdf/pptx/xlsion এ __ডিএক্স যে মডেলটি নিজেই সম্পূর্ণ করতে পারে না নিরাপত্তা নোট: গোপনীয়তার অনুরোধ করার সময় (পাসওয়ার্ড/টোক...",
     "x_search_terms": [
       "human_ask",
       "human ask",
       "মানুষকে জিজ্ঞাসা",
       "ইনপুট অনুরোধ"
     ],
-    "ui.footer": "=== /human_ask...",
+    "ui.footer": "=== /human_ask ===",
     "ui.howto": "কীভাবে উত্তর দেবেন:\n  - শুধু টাইপ করে Enter চাপুন\n  - multiline mode-এ যেতে 'f' লিখুন\n  - multiline mode-এ: '\"\"\"retry' দিয়ে মুছুন, '\"\"\"end' দিয়ে পাঠান\n  - 'c' বা 'cancel' দিয়ে বাতিল করুন",
-    "ui.title": "=== একজন মানুষের কাছে অনুরোধ (..."
+    "ui.title": "=== মানুষের অনুরোধ (মানব_আস্ক) ==="
   },
   "fa": {
     "doc.run_tool": "human_ask مستقیماً از stdin نمی‌خواند؛\nاجازه دهید threadِ stdin_loop در سمت scheck.py پردازش را انجام دهد\nو نتایج را از طریق shared state (callbacks) دریافت کنید.",
-    "err.active_uninitialized": "[خطای human_ask] callback مربوط به human_ask_active مقداردهی ا...",
+    "err.active_uninitialized": "[خطای_پرسش_انسان] پاسخ‌های پاسخ فعال human_ask_in اولیه نمی‌شوند.",
     "err.already_active": "[خطای human_ask] یک human_ask دیگر در حال اجراست.",
-    "err.lines_uninitialized": "[خطای human_ask] callback مربوط به human_ask_lines مقداردهی...",
-    "err.lock_uninitialized": "[خطای human_ask] callback مربوط به human_ask_lock مقداردهی...",
-    "err.multiline_uninitialized": "[خطای human_ask] callback مربوط به human_ask_multiline_active مقداردهی...",
-    "err.password_uninitialized": "[خطای human_ask] callback مربوط به human_ask_set_password مقداردهی...",
-    "err.queue_uninitialized": "[خطای human_ask] callback مربوط به human_ask_queue مقداردهی...",
+    "err.lines_uninitialized": "[خطای_پرسش_انسان] پاسخ به تماس human_ask_lines راه اندازی نشده است.",
+    "err.lock_uninitialized": "[خطای_پرسش_انسان] پاسخ تماس human_ask_lock راه اندازی نشده است.",
+    "err.multiline_uninitialized": "[خطای_پرسش_انسان] پاسخ به تماس human_ask_multiline_active راه اندازی نشده است.",
+    "err.password_uninitialized": "[خطای_پرسش_انسان] پاسخ به تماس human_ask_set_password راه اندازی نشده است.",
+    "err.queue_uninitialized": "[خطای_پرسش_انسان] پاسخ به تماس human_ask_set_password راه اندازی نشده است. ‎",
     "msg.empty_request": "(درخواست LLM خالی است. لطفاً عملیات و تصمیم‌های لازم را اینجا به ژاپنی بنویسید.)",
-    "msg.no_user_reply": "(بدون پاسخ ک...",
+    "msg.no_user_reply": "(بدون پاسخ کاربر)",
     "param.is_password.description": "اگر true باشد، نویسه‌های ورودی را پنهان (mask) می‌کند.",
-    "param.message.description": "آنچه می‌خواهید از یک انسان بخوا...",
+    "param.message.description": "پیام برای نمایش به کاربر انسانی.",
     "tool.description": "ابزاری برای درخواست ورودی/تصمیم از کاربر انسانی که مدل به‌تنهایی نمی‌تواند انجام دهد.",
     "x_search_terms": [
       "human_ask",
@@ -669,9 +669,9 @@
       "از انسان بپرس",
       "درخواست ورودی"
     ],
-    "ui.footer": "=== /human_ask...",
+    "ui.footer": "=== /human_ask ===",
     "ui.howto": "نحوه پاسخ:\n  - کافی است تایپ کنید و Enter بزنید\n  - برای ورود به حالت چندخطی 'f' را وارد کنید\n  - در حالت چندخطی: با '\"\"\"retry' پاک کنید، با '\"\"\"end' ارسال کنید\n  - با 'c' یا 'cancel' لغو کنید",
-    "ui.title": "=== درخواست از یک شخص (human_a..."
+    "ui.title": "=== درخواست انسانی (human_ask) ==="
   },
   "mn": {
     "doc.run_tool": "human_ask нь stdin-ээс шууд уншихгүй;\nscheck.py талын stdin_loop thread-д боловсруулалтыг даатгаж\nshared state (callbacks)-аар үр дүнг авна.",
@@ -683,9 +683,9 @@
     "err.password_uninitialized": "[human_ask error] human_ask_set_password callback эхлээгүй байна.",
     "err.queue_uninitialized": "[human_ask error] human_ask_queue callback эхлээгүй байна.",
     "msg.empty_request": "(LLM-ээс ирсэн хүсэлт хоосон байна. Шаардлагатай үйлдэл, шийдвэрийг энд япон хэлээр бичнэ үү.)",
-    "msg.no_user_reply": "(хэрэглэгчий...",
+    "msg.no_user_reply": "(хэрэглэгчийн хариу байхгүй)",
     "param.is_password.description": "true бол оролтын тэмдэгтүүдийг нууж (mask) харуулна.",
-    "param.message.description": "Хүнээс юу хийхийг хүсэж байгааг...",
+    "param.message.description": "Хүний хэрэглэгчдэд үзүүлэх мессеж.",
     "tool.description": "Хүн хэрэглэгчээс, модель өөрөө дуусгаж чаддаггүй оролт/шийдвэрийг хүсэх хэрэгсэл.",
     "x_search_terms": [
       "human_ask",
@@ -693,9 +693,9 @@
       "хүнээс асуу",
       "оролт хүсэх"
     ],
-    "ui.footer": "=== /human_ask...",
-    "ui.howto": "Хариулах арга:\n  - Зүгээр бичээд Enter дарж илгээнэ\n  - Олон мөрийн горимд орохын тулд 'f' гэж оруулна\n  - Олон мөрийн горимд: '\"\"\"retry' гэж арилгаад, '\"\"\"end' гэж илгээнэ\n  - 'c...",
-    "ui.title": "=== Хүнд хандах хүсэлт (human_..."
+    "ui.footer": "=== /хүний_асуу ===",
+    "ui.howto": "Хэрхэн хариулах вэ:\n  - Хариугаа бичээд Enter дарна уу\n  - Олон мөрийн горимд орохын тулд 'f' гэж бичнэ үү\n  - Цуцлахын тулд 'c' эсвэл 'cancel' гэж бичнэ үү",
+    "ui.title": "=== Хүний хүсэлт (хүний_асуулт) ==="
   },
   "mr": {
     "doc.run_tool": "human_ask stdin मधून थेट वाचत नाही;\nscheck.py बाजूच्या stdin_loop thread कडे प्रक्रिया सोपवा\nआणि shared state (callbacks) द्वारे निकाल मिळवा.",
@@ -707,9 +707,9 @@
     "err.password_uninitialized": "[human_ask error] human_ask_set_password callback initialize केलेला नाही.",
     "err.queue_uninitialized": "[human_ask error] human_ask_queue callback initialize केलेला नाही.",
     "msg.empty_request": "(LLM कडून आलेली विनंती रिकामी आहे. आवश्यक क्रिया आणि निर्णय येथे जपानीमध्ये लिहा.)",
-    "msg.no_user_reply": "(वापरकर्त्या...",
+    "msg.no_user_reply": "(वापरकर्ता उत्तर नाही)",
     "param.is_password.description": "true असल्यास, इनपुट अक्षरे लपवतो (mask करतो). पासवर्ड किंवा token टाकण्यासाठी वापरा.",
-    "param.message.description": "एखाद्या माणसाला काय करायला सांग...",
+    "param.message.description": "मानवी वापरकर्त्यास दर्शवण्यासाठी संदेश.",
     "tool.description": "मॉडेल स्वतः पूर्ण करू शकत नाही असा input/decision मानव वापरकर्त्याकडून मागण्यासाठीचे साधन.",
     "x_search_terms": [
       "human_ask",
@@ -717,8 +717,8 @@
       "माणसाला विचारा",
       "इनपुट विनंती"
     ],
-    "ui.footer": "=== /human_ask...",
+    "ui.footer": "=== /human_ask ===",
     "ui.howto": "कसे उत्तर द्यावे:\n  - फक्त टाइप करून Enter दाबा\n  - multiline mode मध्ये जाण्यासाठी 'f' टाइप करा\n  - multiline mode मध्ये: '\"\"\"retry' ने साफ करा, '\"\"\"end' ने पाठवा\n  - 'c' किंवा 'cancel' ने रद्द करा",
-    "ui.title": "=== एखाद्या व्यक्तीला विनंती (..."
+    "ui.title": "=== मानवी विनंती (मानवी_विचार) ==="
   }
 }

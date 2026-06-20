@@ -36,8 +36,8 @@
   "es": {
     "err.child_failed": "[error playwright_inspector] Error en el proceso secundario:\n{stderr}",
     "out.ok": "Captura completada: se crearon {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl y latest.html.\n{stdout}",
-    "param.prefix.description": "Prefijo del nombre de archivo que se guardará (pr...",
-    "param.url.description": "Primera URL que se abrirá (predeterminad...",
+    "param.prefix.description": "Prefijo del nombre del archivo a guardar (predeterminado: debug_capture)",
+    "param.url.description": "Primera URL para abrir (predeterminado: about:blank)",
     "tool.description": "Inicie Playwright Inspector para capturar las operaciones del navegador.",
     "x_search_terms": [
       "playwright_inspector",
@@ -45,15 +45,15 @@
       "captura navegador",
       "flujo"
     ],
-    "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/...",
+    "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Después de la operación, pulse Reanudar (▷) en el Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR INICIADO ---"
   },
   "fr": {
     "err.child_failed": "[Erreur playwright_inspector] Le processus enfant a échoué :\n{stderr}",
     "out.ok": "Capture terminée : {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl et latest.html ont été créés.\n{stdout}",
-    "param.prefix.description": "Préfixe du nom de fichier à enregistrer (par défa...",
-    "param.url.description": "Première URL à ouvrir (par défaut : abou...",
+    "param.prefix.description": "Préfixe du nom de fichier à enregistrer (par défaut : debug_capture)",
+    "param.url.description": "Première URL à ouvrir (par défaut : about:blank)",
     "tool.description": "Lancez Playwright Inspector pour capturer les actions du navigateur.",
     "x_search_terms": [
       "playwright_inspector",
@@ -61,7 +61,7 @@
       "capture navigateur",
       "flux"
     ],
-    "ui.captured": "--- CAPTURÉ : {html}, {png}, {flow}, {snapshots}/,...",
+    "ui.captured": "--- CAPTURED : {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Après l'opération, appuyez sur Reprendre (▷) dans l'Inspecteur.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR DÉMARRÉ ---"
   },
@@ -84,7 +84,7 @@
   "de": {
     "err.child_failed": "[playwright_inspector-Fehler] Untergeordneter Prozess fehlgeschlagen:\n{stderr}",
     "out.ok": "Erfassung abgeschlossen: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, seiten/, index.jsonl, Latest.html erstellt.\n{stdout}",
-    "param.prefix.description": "Präfix des zu speichernden Dateinamens (Standard:...",
+    "param.prefix.description": "Präfix des zu speichernden Dateinamens (Standard: debug_capture)",
     "param.url.description": "Zu öffnende erste URL (Standard: about:blank)",
     "tool.description": "Starten Sie Playwright Inspector, um Browservorgänge zu erfassen.",
     "x_search_terms": [
@@ -93,14 +93,14 @@
       "browser erfassen",
       "flow aufzeichnen"
     ],
-    "ui.captured": "--- ERFASST: {html}, {png}, {flow}, {snapshots}/,...",
+    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Drücken Sie nach dem Vorgang im Inspektor auf „Fortsetzen“ (▷).",
     "ui.started": "--- PLAYWRIGHT INSPECTOR GESTARTET ---"
   },
   "it": {
     "err.child_failed": "[errore playwright_inspector] Processo figlio non riuscito:\n{stderr}",
     "out.ok": "Acquisizione completata: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pagine/, index.jsonl, latest.html creato.\n{stdout}",
-    "param.prefix.description": "Prefisso del nome del file da salvare (predefinit...",
+    "param.prefix.description": "Prefisso del nome del file da salvare (predefinito: debug_capture)",
     "param.url.description": "Prima URL da aprire (predefinito: about:blank)",
     "tool.description": "Avvia Playwright Inspector per acquisire le operazioni del browser.",
     "x_search_terms": [
@@ -109,15 +109,15 @@
       "cattura browser",
       "flow capture"
     ],
-    "ui.captured": "--- ACQUISITO: {html}, {png}, {flow}, {snapshots}/...",
+    "ui.captured": "--- CATTURATO: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Dopo l'operazione, premi Riprendi (▷) nell'Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR AVVIATO ---"
   },
   "ru": {
     "err.child_failed": "[ошибка playwright_inspector] Сбой дочернего процесса:\n{stderr}",
     "out.ok": "Захват завершён: созданы {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl и latest.html.\n{stdout}",
-    "param.prefix.description": "Префикс имени файла для сохранения (по умолчанию:...",
-    "param.url.description": "Первый URL для открытия (по умолчанию: a...",
+    "param.prefix.description": "Префикс имени файла для сохранения (по умолчанию: debug_capture)",
+    "param.url.description": "Первый URL-адрес для открытия (по умолчанию: about:blank)",
     "tool.description": "Запустите Playwright Inspector, чтобы захватывать действия браузера.",
     "x_search_terms": [
       "playwright_inspector",
@@ -125,14 +125,14 @@
       "захват браузера",
       "запись потока"
     ],
-    "ui.captured": "--- ЗАХВАЧЕНО: {html}, {png}, {flow}, {snapshots}/...",
+    "ui.captured": "--- ЗАХВАТ: {html}, {png}, {flow}, {снимки}/ ---",
     "ui.resume_prompt": "После операции нажмите «Продолжить» (▷) в Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR ЗАПУЩЕН ---"
   },
   "pt_BR": {
     "err.child_failed": "[erro playwright_inspector] Falha no processo filho:\n{stderr}",
     "out.ok": "Captura concluída: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl e latest.html foram criados.\n{stdout}",
-    "param.prefix.description": "Prefixo do nome do arquivo a ser salvo (padrão: d...",
+    "param.prefix.description": "Prefixo do nome do arquivo a ser salvo (padrão: debug_capture)",
     "param.url.description": "Primeira URL a abrir (padrão: about:blank)",
     "tool.description": "Inicie o Playwright Inspector para capturar as operações do navegador.",
     "x_search_terms": [
@@ -141,14 +141,14 @@
       "captura navegador",
       "registro de fluxo"
     ],
-    "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/...",
+    "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Após a operação, pressione Continuar (▷) no Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR INICIADO ---"
   },
   "pt": {
     "err.child_failed": "[erro playwright_inspector] Falha no processo filho:\n{stderr}",
     "out.ok": "Captura concluída: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl e latest.html foram criados.\n{stdout}",
-    "param.prefix.description": "Prefixo do nome do arquivo a ser salvo (padrão: d...",
+    "param.prefix.description": "Prefixo do nome do arquivo a ser salvo (padrão: debug_capture)",
     "param.url.description": "URL inicial a abrir (padrão: about:blank)",
     "tool.description": "Inicie o Playwright Inspector para capturar as ações do navegador.",
     "x_search_terms": [
@@ -157,7 +157,7 @@
       "captura navegador",
       "registo de fluxo"
     ],
-    "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/...",
+    "ui.captured": "--- CAPTURADO: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Após a operação, pressione Continuar (▷) no Inspetor.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR INICIADO ---"
   },
@@ -173,7 +173,7 @@
       "tangkap browser",
       "rekam alur"
     ],
-    "ui.captured": "--- TERTANGKAP: {html}, {png}, {flow}, {snapshots}...",
+    "ui.captured": "--- DITANGKAP: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Setelah operasi, tekan Resume (▷) di Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR DIMULAI ---"
   },
@@ -196,8 +196,8 @@
   "pl": {
     "err.child_failed": "[błąd playwright_inspector] Proces potomny nie powiódł się:\n{stderr}",
     "out.ok": "Przechwytywanie zakończone: utworzono {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl i latest.html.\n{stdout}",
-    "param.prefix.description": "Przedrostek nazwy pliku do zapisania (domyślnie:...",
-    "param.url.description": "Pierwszy adres URL do otwarcia (domyślni...",
+    "param.prefix.description": "Przedrostek nazwy pliku do zapisania (domyślnie: debug_capture)",
+    "param.url.description": "Pierwszy adres URL do otwarcia (domyślnie: about:blank)",
     "tool.description": "Uruchom Playwright Inspector, aby przechwycić operacje przeglądarki.",
     "x_search_terms": [
       "playwright_inspector",
@@ -212,9 +212,9 @@
   "hi": {
     "err.child_failed": "[playwright_inspector error] चाइल्ड प्रक्रिया विफल हुई:\n{stderr}",
     "out.ok": "कैप्चर पूरा हुआ: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, और latest.html बनाए गए।\n{stdout}",
-    "param.prefix.description": "सहेजने के लिए फ़ाइल नाम का उपसर्ग (डिफ़ॉल्ट: debu...",
+    "param.prefix.description": "सहेजने के लिए फ़ाइल नाम का उपसर्ग (डिफ़ॉल्ट: डिबग_कैप्चर)",
     "param.url.description": "खोलने वाला पहला URL (डिफ़ॉल्ट: about:blank)",
-    "tool.description": "ब्राउज़र क्रियाएँ कैप्चर करने के लिए Playwright Inspector शुरू करें। यह निर्दिष्ट URL खोलता है और उपयोगकर्ता द्वारा Resume बटन दबाने के बाद पृष्ठ क...",
+    "tool.description": "ब्राउज़र संचालन को कैप्चर करने के लिए प्लेराइट इंस्पेक्टर लॉन्च करें। निर्दिष्ट यूआरएल खोलता है और उपयोगकर्ता द्वारा क्लिक करने के बाद पेज स्थिति (एचटीएमएल और छवि) को सहेजता है ...",
     "x_search_terms": [
       "playwright_inspector",
       "playwright inspector",
@@ -229,7 +229,7 @@
     "err.child_failed": "[خطأ playwright_inspector] فشلت العملية الفرعية:\n{stderr}",
     "out.ok": "اكتمل الالتقاط: تم إنشاء {prefix}.html، {prefix}.png، {prefix}.flow.jsonl، {prefix}_snapshots/، pages/، index.jsonl و latest.html.\n{stdout}",
     "param.prefix.description": "بادئة اسم الملف المراد حفظه (الافتراضي: debug_capture)",
-    "param.url.description": "عنوان URL الأول الذي سيتم فتحه (الافتراض...",
+    "param.url.description": "عنوان URL الأول المطلوب فتحه (الافتراضي: about:blank)",
     "tool.description": "قم بتشغيل Playwright Inspector لالتقاط عمليات المتصفح.يفتح عنوان URL المحدد ويحفظ حالة الصفحة (HTML والصورة) بعد أن ينقر المستخدم على الزر \"استئناف\".",
     "x_search_terms": [
       "playwright_inspector",
@@ -244,7 +244,7 @@
   "sv": {
     "err.child_failed": "[playwright_inspector-fel] Underprocessen misslyckades:\n{stderr}",
     "out.ok": "Infångningen slutförd: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl och latest.html skapades.\n{stdout}",
-    "param.prefix.description": "Prefix för filnamnet som ska sparas (standard: de...",
+    "param.prefix.description": "Prefix för filnamn som ska sparas (standard: debug_capture)",
     "param.url.description": "Första URL att öppna (standard: about:blank)",
     "tool.description": "Starta Playwright Inspector för att fånga webbläsaråtgärder.",
     "x_search_terms": [
@@ -253,7 +253,7 @@
       "webbläsarfångst",
       "flödesfångst"
     ],
-    "ui.captured": "--- INFÅNGAT: {html}, {png}, {flow}, {snapshots}/,...",
+    "ui.captured": "--- Fångat: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Efter åtgärden, tryck på Fortsätt (▷) i Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTAD ---"
   },
@@ -269,15 +269,15 @@
       "browser capture",
       "flow capture"
     ],
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/,...",
+    "ui.captured": "--- IMETEKWA: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "After the operation, press Resume (▷) in the Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
   },
   "nb": {
     "err.child_failed": "[playwright_inspector-feil] Underprosessen mislyktes:\n{stderr}",
     "out.ok": "Opptaket er fullført: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl og latest.html ble opprettet.\n{stdout}",
-    "param.prefix.description": "Prefiks for filnavnet som skal lagres (standard:...",
-    "param.url.description": "Første URL som skal åpnes (standard: abo...",
+    "param.prefix.description": "Prefiks for filnavn som skal lagres (standard: debug_capture)",
+    "param.url.description": "Første URL som skal åpnes (standard: about:blank)",
     "tool.description": "Start Playwright Inspector for å fange nettleserhandlinger.",
     "x_search_terms": [
       "playwright_inspector",
@@ -285,15 +285,15 @@
       "nettleseropptak",
       "flytlogg"
     ],
-    "ui.captured": "--- OPPFANGET: {html}, {png}, {flow}, {snapshots}/...",
+    "ui.captured": "--- FANGET: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Etter operasjonen, trykk på Fortsett (▷) i Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTET ---"
   },
   "nl": {
     "err.child_failed": "[playwright_inspector error] Onderliggend proces mislukt:\n{stderr}",
     "out.ok": "Vastlegging voltooid: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl en latest.html zijn gemaakt.\n{stdout}",
-    "param.prefix.description": "Voorvoegsel van de bestandsnaam om op te slaan (s...",
-    "param.url.description": "Eerste URL om te openen (standaard: abou...",
+    "param.prefix.description": "Voorvoegsel van bestandsnaam om op te slaan (standaard: debug_capture)",
+    "param.url.description": "Eerste URL om te openen (standaard: about:blank)",
     "tool.description": "Start Playwright Inspector om browseracties vast te leggen.",
     "x_search_terms": [
       "playwright_inspector",
@@ -301,14 +301,14 @@
       "browseropname",
       "flow-opname"
     ],
-    "ui.captured": "--- VASTGELEGD: {html}, {png}, {flow}, {snapshots}...",
+    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Druk na de handeling op Doorgaan (▷) in de Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR GESTART ---"
   },
   "fi": {
     "err.child_failed": "[playwright_inspector-virhe] Aliprosessi epäonnistui:\n{stderr}",
     "out.ok": "Tallennus valmis: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl ja latest.html on luotu.\n{stdout}",
-    "param.prefix.description": "Tallennettavan tiedostonimen etuliite (oletus: de...",
+    "param.prefix.description": "Tallennettavan tiedoston nimen etuliite (oletus: debug_capture)",
     "param.url.description": "Ensimmäinen avattava URL (oletus: about:blank)",
     "tool.description": "Käynnistä Playwright Inspector selaintoimintojen kaappaamiseen.",
     "x_search_terms": [
@@ -319,13 +319,13 @@
     ],
     "ui.captured": "--- KAAPATTU: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Toiminnon jälkeen paina Jatka (▷) Inspectorissa.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR KÄYNNIST..."
+    "ui.started": "--- PLAYWRIGHT INSPECTOR KÄYNNISTETTY ---"
   },
   "cs": {
     "err.child_failed": "[chyba playwright_inspector] Podřízený proces selhal:\n{stderr}",
     "out.ok": "Zachycení dokončeno: byly vytvořeny {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl a latest.html.\n{stdout}",
     "param.prefix.description": "Předpona názvu souboru k uložení (výchozí: debug_capture)",
-    "param.url.description": "První URL, které se má otevřít (výchozí:...",
+    "param.url.description": "První adresa URL k otevření (výchozí: about:blank)",
     "tool.description": "Spouští Playwright Inspector pro zachycení operací prohlížeče.Otevře zadanou URL a po kliknutí na tlačítko Resume uloží stav stránky (HTML i obrázek).",
     "x_search_terms": [
       "playwright_inspector",
@@ -333,15 +333,15 @@
       "zachycení prohlížeče",
       "záznam toku"
     ],
-    "ui.captured": "--- ZACHYCENO: {html}, {png}, {flow}, {snapshots}/...",
+    "ui.captured": "--- ZACHYCENO: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Po operaci stiskněte v Inspectoru Resume (▷).",
     "ui.started": "--- PLAYWRIGHT INSPECTOR SPUŠTĚN ---"
   },
   "uk": {
     "err.child_failed": "[помилка playwright_inspector] Помилка дочірнього процесу:\n{stderr}",
     "out.ok": "Захоплення завершено: створено {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl і latest.html.\n{stdout}",
-    "param.prefix.description": "Префікс назви файла для збереження (типово: debug...",
-    "param.url.description": "Перша URL-адреса для відкриття (типово:...",
+    "param.prefix.description": "Префікс назви файлу для збереження (за замовчуванням: debug_capture)",
+    "param.url.description": "Перша URL-адреса для відкриття (за замовчуванням: about:blank)",
     "tool.description": "Запускає Playwright Inspector для захоплення дій браузера.",
     "x_search_terms": [
       "playwright_inspector",
@@ -349,14 +349,14 @@
       "захоплення браузера",
       "запис потоку"
     ],
-    "ui.captured": "--- ЗАХОПЛЕНО: {html}, {png}, {flow}, {snapshots}/...",
+    "ui.captured": "--- ЗАПРОШЕНО: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Після операції натисніть Resume (▷) в Inspector.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR ЗАПУЩЕНО ---"
   },
   "tr": {
     "err.child_failed": "[playwright_inspector error] Alt süreç başarısız oldu:\n{stderr}",
     "out.ok": "Yakalama tamamlandı: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, sayfalar/, index.jsonl, last.html oluşturuldu.\n{stdout}",
-    "param.prefix.description": "Kaydedilecek dosya adının öneki (varsayılan: debu...",
+    "param.prefix.description": "Kaydedilecek dosya adının öneki (varsayılan: debug_capture)",
     "param.url.description": "Açılan ilk URL (varsayılan: hakkında:boş)",
     "tool.description": "Tarayıcı işlemlerini yakalamak için Playwright Inspector'ı başlatın.",
     "x_search_terms": [
@@ -365,7 +365,7 @@
       "tarayıcı yakalama",
       "akış kaydı"
     ],
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/,...",
+    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "İşlemden sonra Inspector'da Devam Et (▷) tuşuna basın.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
   },
@@ -374,16 +374,16 @@
     "out.ok": "การจับภาพเสร็จสมบูรณ์: สร้าง {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl และ latest.html แล้ว\n{stdout}",
     "param.prefix.description": "คำนำหน้าชื่อไฟล์ที่จะบันทึก (ค่าเริ่มต้น: debug_capture)",
     "param.url.description": "URL แรกที่จะเปิด (ค่าเริ่มต้น: about:blank)",
-    "tool.description": "เปิด Playwright Inspector เพื่อบันทึกการทำงานของเบราว์เซอร์ เปิด URL ที่ระบุและบันทึกสถานะของหน้าเว็บ (HTML และรูปภาพ) หลังจากผู้ใช้คลิกปุ่ม Resume...",
+    "tool.description": "เรียกใช้ Playwright Inspector เพื่อบันทึกการทำงานของเบราว์เซอร์ เปิด URL ที่ระบุและบันทึกสถานะของหน้า (HTML และรูปภาพ) หลังจากที่ผู้ใช้คลิก ...",
     "x_search_terms": [
       "playwright_inspector",
       "playwright inspector",
       "การจับเบราว์เซอร์",
       "บันทึกโฟลว์"
     ],
-    "ui.captured": "--- จับภาพแล้ว: {html}, {png}, {flow}, {snapshots}...",
+    "ui.captured": "--- จับภาพ: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "หลังจากดำเนินการแล้ว ให้กด Resume (▷) ใน Inspector",
-    "ui.started": "--- เริ่มใช้ PLAYWRIGHT INSPECTOR..."
+    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
   },
   "zh_CN": {
     "err.child_failed": "[playwright_inspector 错误] 子进程失败：\n{stderr}",
@@ -422,16 +422,16 @@
     "out.ok": "ক্যাপচার সম্পন্ন: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html তৈরি হয়েছে।\n{stdout}",
     "param.prefix.description": "সংরক্ষণ করার ফাইলনামের prefix (default: debug_capture)",
     "param.url.description": "প্রথমে খোলার URL (default: about:blank)",
-    "tool.description": "ব্রাউজারের কাজকর্ম ক্যাপচার করতে Playwright Inspector চালু করে। ব্যবহারকারী Resume বোতাম চাপার পর নির্দিষ্ট URL খুলে পেজের অবস্থা (HTML ও ছবি) সংরক...",
+    "tool.description": "একটি MCP সার্ভারের সাথে সংযুক্ত করুন ব্রাউজার অপারেশনগুলি ক্যাপচার করতে নাট্যকার পরিদর্শক চালু করুন এবং ব্যবহারকারীর ক্লিক করার পরে পৃষ্ঠার অবস্থা (HTML এবং চিত্র) সংরক্ষণ করে...",
     "x_search_terms": [
       "playwright_inspector",
       "playwright inspector",
       "ব্রাউজার ক্যাপচার",
       "ফ্লো রেকর্ড"
     ],
-    "ui.captured": "--- সংরক্ষিত: {html}, {png}, {flow}, {snapshots}/,...",
+    "ui.captured": "--- ক্যাপচার করা হয়েছে: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "অপারেশনের পর Inspector-এ Resume (▷) চাপুন।",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR চালু হয়..."
+    "ui.started": "--- প্লেরইট ইন্সপেক্টর শুরু করেছেন ---"
   },
   "fa": {
     "err.child_failed": "[خطای playwright_inspector] فرآیند کودک ناموفق بود:\n{stderr}",
@@ -445,7 +445,7 @@
       "ضبط مرورگر",
       "ثبت جریان"
     ],
-    "ui.captured": "--- ثبت شد: {html}، {png}، {flow}، {snapshots}/، p...",
+    "ui.captured": "--- ضبط شده: {html}، {png}، {flow}، {snapshots}/ ---",
     "ui.resume_prompt": "پس از انجام عملیات، در Inspector دکمه Resume (▷) را بزنید.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR شروع شد ---"
   },
@@ -461,14 +461,14 @@
       "хөтчийн бичлэг",
       "урсгалын бүртгэл"
     ],
-    "ui.captured": "--- БАРИГДСАН: {html}, {png}, {flow}, {snapshots}/...",
+    "ui.captured": "--- АВСАН: {html}, {png}, {flow}, {агшин зуурын зураг}/ ---",
     "ui.resume_prompt": "Үйлдлийн дараа Inspector дээр Resume (▷) дарна уу.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR АЖИЛЛАЖ..."
+    "ui.started": "--- ТОГЛОЛТЫН БАЙГУУЛЛАГЫН ИНСПЕКТОР ЭХЭЛСЭН ---"
   },
   "mr": {
     "err.child_failed": "[playwright_inspector error] बाल प्रक्रिया अयशस्वी:\n{stderr}",
     "out.ok": "Capture पूर्ण झाले: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html तयार झाले.\n{stdout}",
-    "param.prefix.description": "जतन करण्यासाठी फाइल नावाचा prefix (default: debug...",
+    "param.prefix.description": "सेव्ह करण्यासाठी फाइल नावाचा उपसर्ग (डीफॉल्ट: डीबग_कॅप्चर)",
     "param.url.description": "प्रथम उघडायचा URL (default: about:blank)",
     "tool.description": "ब्राउझरचे ऑपरेशन्स capture करण्यासाठी Playwright Inspector सुरू करते.",
     "x_search_terms": [

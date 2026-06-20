@@ -31,7 +31,7 @@
     "confirm.change_workdir": "¿Cambiar el directorio de trabajo a: {path}?\nIngrese y para continuar o c para cancelar.",
     "param.confirm.description": "Si se debe pedir confirmación al usuario.",
     "param.new_dir.description": "La nueva ruta del directorio al que cambiar.",
-    "tool.description": "Cambia el directorio de trabajo actual tras la confirmació...",
+    "tool.description": "Cambiar el directorio de trabajo actual después de la confirmación del usuario.",
     "x_search_terms": [
       "change_workdir",
       "cambiar directorio",
@@ -42,8 +42,8 @@
   "fr": {
     "confirm.change_workdir": "Remplacer le répertoire de travail par : {path} ?\nEntrez y pour continuer ou c pour annuler.",
     "param.confirm.description": "S'il faut demander la confirmation de l'utilisateur.",
-    "param.new_dir.description": "Le nouveau chemin de répertoire vers lequel...",
-    "tool.description": "Modifie le répertoire de travail actuel après confirmation...",
+    "param.new_dir.description": "Le nouveau chemin du répertoire vers lequel basculer.",
+    "tool.description": "Changer le répertoire de travail actuel après confirmation de l'utilisateur.",
     "x_search_terms": [
       "change_workdir",
       "changer répertoire",
@@ -66,8 +66,8 @@
   "de": {
     "confirm.change_workdir": "Arbeitsverzeichnis ändern in: {path}?\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
     "param.confirm.description": "Ob eine Bestätigung vom Benutzer angefordert werden soll.",
-    "param.new_dir.description": "Der neue Verzeichnispfad, zu dem gewechselt...",
-    "tool.description": "Ändert das aktuelle Arbeitsverzeichnis nach Bestätigung du...",
+    "param.new_dir.description": "Der neue Verzeichnispfad, zu dem gewechselt werden soll.",
+    "tool.description": "Ändern Sie das aktuelle Arbeitsverzeichnis nach Bestätigung durch den Benutzer.",
     "x_search_terms": [
       "change_workdir",
       "arbeitsverzeichnis ändern",
@@ -79,7 +79,7 @@
     "confirm.change_workdir": "Cambia la directory di lavoro in: {path}?\nImmettere y per procedere oppure c per annullare.",
     "param.confirm.description": "Se richiedere la conferma dell'utente.",
     "param.new_dir.description": "Il nuovo percorso della directory a cui passare.",
-    "tool.description": "Cambia la directory di lavoro corrente dopo la conferma de...",
+    "tool.description": "Cambia la directory di lavoro corrente dopo la conferma dell'utente.",
     "x_search_terms": [
       "change_workdir",
       "cambia directory",
@@ -150,7 +150,7 @@
   "pl": {
     "confirm.change_workdir": "Zmień katalog roboczy na: {path}?\nWpisz t, aby kontynuować, lub c, aby anulować.",
     "param.confirm.description": "Czy prosić o potwierdzenie użytkownika.",
-    "param.new_dir.description": "Nowa ścieżka katalogu, na który należy się...",
+    "param.new_dir.description": "Nowa ścieżka katalogu, do którego należy się przełączyć.",
     "tool.description": "Zmień bieżący katalog roboczy po potwierdzeniu przez użytkownika.",
     "x_search_terms": [
       "change_workdir",
@@ -211,7 +211,7 @@
     "confirm.change_workdir": "Endre workdir til: {path}?\nSkriv inn y for å fortsette, eller c for å avbryte.",
     "param.confirm.description": "Om brukeren skal bli bedt om bekreftelse.",
     "param.new_dir.description": "Den nye katalogstien det skal byttes til.",
-    "tool.description": "Endre den gjeldende arbeidskatalogen etter bekreftelse fra...",
+    "tool.description": "Endre gjeldende arbeidskatalog etter brukerbekreftelse.",
     "x_search_terms": [
       "change_workdir",
       "endre katalog",
@@ -222,7 +222,7 @@
   "nl": {
     "confirm.change_workdir": "Werkmap wijzigen in: {path}?\nVoer y in om door te gaan, of c om te annuleren.",
     "param.confirm.description": "Of om gebruikersbevestiging gevraagd moet worden.",
-    "param.new_dir.description": "Het nieuwe pad van de werkmap om naar te sc...",
+    "param.new_dir.description": "Het nieuwe mappad waarnaar moet worden overgeschakeld.",
     "tool.description": "Wijzig de huidige werkmap na bevestiging van de gebruiker.",
     "x_search_terms": [
       "change_workdir",
@@ -234,8 +234,8 @@
   "fi": {
     "confirm.change_workdir": "Muuta työhakemisto: {path}?\nSyötä y jatkaaksesi tai c peruuttaaksesi.",
     "param.confirm.description": "Pyydetäänkö käyttäjän vahvistus.",
-    "param.new_dir.description": "Uusi työskentelyhakemiston polku, johon vai...",
-    "tool.description": "Vaihda nykyinen työskentelyhakemisto käyttäjän vahvistukse...",
+    "param.new_dir.description": "Uusi hakemistopolku, johon vaihdetaan.",
+    "tool.description": "Muuta nykyistä työhakemistoa käyttäjän vahvistuksen jälkeen.",
     "x_search_terms": [
       "change_workdir",
       "vaihda kansio",
@@ -246,7 +246,7 @@
   "cs": {
     "confirm.change_workdir": "Změnit pracovní adresář na: {path}?\nZadejte y pro pokračování nebo c pro zrušení.",
     "param.confirm.description": "Zda vyžádat potvrzení od uživatele.",
-    "param.new_dir.description": "Cesta k novému adresáři, na který se chcete...",
+    "param.new_dir.description": "Nová cesta k adresáři, do které se má přepnout.",
     "tool.description": "Změní aktuální pracovní adresář po potvrzení od uživatele.",
     "x_search_terms": [
       "change_workdir",

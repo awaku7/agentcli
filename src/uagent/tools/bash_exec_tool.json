@@ -24,7 +24,7 @@
     ]
   },
   "es": {
-    "err.unavailable": "Esta herramienta está disponible en sistemas tipo Unix con ba...",
+    "err.unavailable": "Esta herramienta está disponible en sistemas tipo Unix con bash instalado.",
     "param.command.description": "Cadena de comando pasada a bash -lc.",
     "tool.description": "Como último recurso, ejecuta un comando bash.",
     "x_search_terms": [
@@ -36,8 +36,8 @@
     ]
   },
   "fr": {
-    "err.unavailable": "Cet outil est disponible sur les systèmes de type Unix avec b...",
-    "param.command.description": "Chaîne de commande transmise à...",
+    "err.unavailable": "Cet outil est disponible sur les systèmes de type Unix avec bash installé.",
+    "param.command.description": "Chaîne de commande transmise à bash -lc.",
     "tool.description": "En dernier recours, exécutez une commande bash.",
     "x_search_terms": [
       "bash_exec",
@@ -60,8 +60,8 @@
     ]
   },
   "de": {
-    "err.unavailable": "Dieses Tool ist auf Unix-ähnlichen Systemen mit installiertem...",
-    "param.command.description": "An bash -lc übergebene Befehlsz...",
+    "err.unavailable": "Dieses Tool ist auf Unix-ähnlichen Systemen mit installierter Bash verfügbar.",
+    "param.command.description": "Befehlszeichenfolge, die an bash -lc übergeben wird.",
     "tool.description": "Führen Sie als letzten Ausweg einen bash-Befehl aus.",
     "x_search_terms": [
       "bash_exec",
@@ -72,8 +72,8 @@
     ]
   },
   "it": {
-    "err.unavailable": "Questo strumento è disponibile sui sistemi Unix-like con bash...",
-    "param.command.description": "Stringa di comando passata a ba...",
+    "err.unavailable": "Questo strumento è disponibile su sistemi simili a Unix con bash installato.",
+    "param.command.description": "Stringa di comando passata a bash -lc.",
     "tool.description": "Come ultima risorsa, esegui un comando bash.",
     "x_search_terms": [
       "bash_exec",
@@ -84,8 +84,8 @@
     ]
   },
   "ru": {
-    "err.unavailable": "Этот инструмент доступен в системах Unix-подобного типа с уст...",
-    "param.command.description": "Строка команды, передаваемая в...",
+    "err.unavailable": "Этот инструмент доступен в Unix-подобных системах с установленным bash.",
+    "param.command.description": "Командная строка, передаваемая в bash -lc.",
     "tool.description": "В крайнем случае выполните команду bash. Используйте только если нет других подходящих инструментов.",
     "x_search_terms": [
       "bash_exec",
@@ -96,8 +96,8 @@
     ]
   },
   "pt_BR": {
-    "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com...",
-    "param.command.description": "String de comando passada para...",
+    "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com bash instalado.",
+    "param.command.description": "Sequência de comando passada para bash -lc.",
     "tool.description": "Como último recurso, execute um comando bash.",
     "x_search_terms": [
       "bash_exec",
@@ -108,8 +108,8 @@
     ]
   },
   "pt": {
-    "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com...",
-    "param.command.description": "Cadeia de comandos passada para...",
+    "err.unavailable": "Esta ferramenta está disponível em sistemas do tipo Unix com bash instalado.",
+    "param.command.description": "Sequência de comando passada para bash -lc.",
     "tool.description": "Como último recurso, execute um comando bash.",
     "x_search_terms": [
       "bash_exec",
@@ -121,7 +121,7 @@
   },
   "id": {
     "err.unavailable": "Alat ini tersedia pada sistem mirip Unix dengan bash terpasang.",
-    "param.command.description": "String perintah yang diteruskan...",
+    "param.command.description": "String perintah diteruskan ke bash -lc.",
     "tool.description": "Sebagai upaya terakhir, jalankan perintah bash.",
     "x_search_terms": [
       "bash_exec",
@@ -132,7 +132,7 @@
     ]
   },
   "vi": {
-    "err.unavailable": "Công cụ này chỉ khả dụng trên các hệ thống kiểu Unix có bash...",
+    "err.unavailable": "Công cụ này có sẵn trên các hệ thống giống Unix có cài đặt bash.",
     "param.command.description": "Chuỗi lệnh được truyền cho bash -lc.",
     "tool.description": "Phương án cuối cùng là thực thi lệnh bash. Chỉ sử dụng khi không có sẵn công cụ thích hợp nào khác.",
     "x_search_terms": [
@@ -144,8 +144,8 @@
     ]
   },
   "pl": {
-    "err.unavailable": "To narzędzie jest dostępne w systemach typu Unix z zainstalow...",
-    "param.command.description": "Ciąg poleceń przekazywany do ba...",
+    "err.unavailable": "To narzędzie jest dostępne w systemach typu Unix z zainstalowanym bashem.",
+    "param.command.description": "Ciąg poleceń przekazany do bash -lc.",
     "tool.description": "W ostateczności wykonaj polecenie bash.",
     "x_search_terms": [
       "bash_exec",
@@ -157,7 +157,7 @@
   },
   "hi": {
     "err.unavailable": "यह उपकरण bash स्थापित Unix-जैसे सिस्टम पर उपलब्ध है।",
-    "param.command.description": "bash -lc को दी जाने वाली कमांड...",
+    "param.command.description": "कमांड स्ट्रिंग बैश -एलसी को पास कर दी गई।",
     "tool.description": "अंतिम उपाय के रूप में bash कमांड चलाएँ। केवल तभी उपयोग करें जब कोई अन्य उपयुक्त उपकरण उपलब्ध न हो।",
     "x_search_terms": [
       "bash_exec",
@@ -169,7 +169,7 @@
   },
   "ar": {
     "err.unavailable": "هذه الأداة متاحة على أنظمة شبيهة بـ Unix التي يحتوي عليها bash.",
-    "param.command.description": "سلسلة الأوامر التي تُمرَّر إلى...",
+    "param.command.description": "تم تمرير سلسلة الأوامر إلى bash -lc.",
     "tool.description": "كخيار أخير، نفّذ أمر bash. استخدمه فقط عندما لا تتوفر أداة مناسبة أخرى.",
     "x_search_terms": [
       "bash_exec",
@@ -180,8 +180,8 @@
     ]
   },
   "sv": {
-    "err.unavailable": "Det här verktyget är tillgängligt på Unix-liknande system med...",
-    "param.command.description": "Kommandosträng som skickas till...",
+    "err.unavailable": "Det här verktyget är tillgängligt på Unix-liknande system med bash installerat.",
+    "param.command.description": "Kommandosträng skickas till bash -lc.",
     "tool.description": "Kör ett bash-kommando som sista utväg. Används bara när inget annat lämpligt verktyg finns tillgängligt.",
     "x_search_terms": [
       "bash_exec",
@@ -192,8 +192,8 @@
     ]
   },
   "sw": {
-    "err.unavailable": "Zana hii inapatikana kwenye mifumo ya aina ya Unix yenye bash...",
-    "param.command.description": "Mfuatano wa amri unaopitishwa k...",
+    "err.unavailable": "Zana hii inapatikana kwenye mifumo inayofanana na Unix iliyosakinishwa bash.",
+    "param.command.description": "Kamba ya amri iliyopitishwa kwa bash -lc.",
     "tool.description": "Kama suluhisho la mwisho, tekeleza amri ya bash.",
     "x_search_terms": [
       "bash_exec",
@@ -204,8 +204,8 @@
     ]
   },
   "nb": {
-    "err.unavailable": "Dette verktøyet er tilgjengelig på Unix-lignende systemer med...",
-    "param.command.description": "Kommandostreng som sendes til b...",
+    "err.unavailable": "Dette verktøyet er tilgjengelig på Unix-lignende systemer med bash installert.",
+    "param.command.description": "Kommandostreng sendt til bash -lc.",
     "tool.description": "Kjør en bash-kommando som siste utvei. Brukes bare når ingen andre egnede verktøy er tilgjengelige.",
     "x_search_terms": [
       "bash_exec",
@@ -216,8 +216,8 @@
     ]
   },
   "nl": {
-    "err.unavailable": "Deze tool is beschikbaar op Unix-achtige systemen met bash ge...",
-    "param.command.description": "Opdrachtregel die aan bash -lc...",
+    "err.unavailable": "Deze tool is beschikbaar op Unix-achtige systemen waarop bash is geïnstalleerd.",
+    "param.command.description": "Commandoreeks doorgegeven aan bash -lc.",
     "tool.description": "Voer als laatste redmiddel een bash-opdracht uit.",
     "x_search_terms": [
       "bash_exec",
@@ -228,8 +228,8 @@
     ]
   },
   "fi": {
-    "err.unavailable": "Tämä työkalu on käytettävissä Unix-tyyppisissä järjestelmissä...",
-    "param.command.description": "Komentorivi, joka välitetään ba...",
+    "err.unavailable": "Tämä työkalu on saatavilla Unix-tyyppisissä järjestelmissä, joihin on asennettu bash.",
+    "param.command.description": "Komentomerkkijono välitetty bash -lc:lle.",
     "tool.description": "Suorita bash-komento vain viimeisenä keinona.",
     "x_search_terms": [
       "bash_exec",
@@ -252,8 +252,8 @@
     ]
   },
   "uk": {
-    "err.unavailable": "Цей інструмент доступний у Unix-подібних системах із встановл...",
-    "param.command.description": "Рядок команди, що передається д...",
+    "err.unavailable": "Цей інструмент доступний у Unix-подібних системах із встановленим bash.",
+    "param.command.description": "Командний рядок передано в bash -lc.",
     "tool.description": "Як крайній захід виконайте команду bash.",
     "x_search_terms": [
       "bash_exec",
@@ -313,7 +313,7 @@
   },
   "bn": {
     "err.unavailable": "এই টুলটি bash ইনস্টল করা Unix-ধরনের সিস্টেমে ব্যবহার করা যায়।",
-    "param.command.description": "bash -lc-এ পাঠানো হবে এমন কমান্...",
+    "param.command.description": "কমান্ড স্ট্রিং bash -lc এ পাস হয়েছে।",
     "tool.description": "শেষ উপায় হিসেবে bash কমান্ড চালান। অন্য কোনো উপযুক্ত টুল না থাকলে তবেই ব্যবহার করুন।",
     "x_search_terms": [
       "bash_exec",
@@ -325,7 +325,7 @@
   },
   "fa": {
     "err.unavailable": "این ابزار روی سیستم‌های شبه‌Unix که bash نصب دارند در دسترس است.",
-    "param.command.description": "رشتهٔ فرمانی که به bash -lc ارس...",
+    "param.command.description": "رشته فرمان به bash -lc منتقل شد.",
     "tool.description": "در آخرین مرحله، یک فرمان bash اجرا کنید. فقط وقتی ابزار مناسب دیگری در دسترس نیست از آن استفاده کنید.",
     "x_search_terms": [
       "bash_exec",
@@ -336,7 +336,7 @@
     ]
   },
   "mn": {
-    "err.unavailable": "Энэ хэрэгсэл нь bash суулгасан Unix-төст систем дээр ашиглах...",
+    "err.unavailable": "Энэ хэрэгсэл нь bash суулгасан Unix-тэй төстэй системүүдэд боломжтой.",
     "param.command.description": "bash -lc руу дамжуулах командын мөр.",
     "tool.description": "Хамгийн сүүлчийн арга болгон bash команд ажиллуулна. Өөр тохирох хэрэгсэл байхгүй үед л ашиглана уу.",
     "x_search_terms": [

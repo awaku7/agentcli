@@ -25,7 +25,7 @@
   },
   "es": {
     "param.note.description": "El texto de la nota a guardar.",
-    "tool.description": "Guarde una única nota de memoria a largo plazo sobre el usuario/entorno que pueda ser útil en futuras c...",
+    "tool.description": "Guarde una única nota de memoria a largo plazo sobre el usuario/entorno que pueda ser útil en futuras conversaciones.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
@@ -36,7 +36,7 @@
   },
   "fr": {
     "param.note.description": "Le texte de la note à enregistrer.",
-    "tool.description": "Enregistrez une seule note de mémoire à long terme sur l'utilisateur/l'environnement qui pourrait être...",
+    "tool.description": "Enregistrez une seule note de mémoire à long terme sur l'utilisateur/l'environnement qui pourrait être utile dans les conversations futures.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
@@ -58,7 +58,7 @@
   },
   "de": {
     "param.note.description": "Der zu speichernde Notiztext.",
-    "tool.description": "Speichern Sie im Langzeitgedächtnis eine einzelne Notiz über den Benutzer/die Umgebung, die bei zukünft...",
+    "tool.description": "Speichern Sie eine einzelne Langzeitgedächtnisnotiz über den Benutzer/die Umgebung, die bei zukünftigen Gesprächen nützlich sein kann.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
@@ -69,7 +69,7 @@
   },
   "it": {
     "param.note.description": "Il testo della nota da salvare.",
-    "tool.description": "Salva una singola nota nella memoria a lungo termine sull'utente/ambiente che potrebbe essere utile in...",
+    "tool.description": "Salva una singola nota nella memoria a lungo termine sull'utente/ambiente che potrebbe essere utile in conversazioni future.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
@@ -80,7 +80,7 @@
   },
   "ru": {
     "param.note.description": "Текст заметки, которую нужно сохранить.",
-    "tool.description": "Сохраните одну заметку в долговременной памяти о пользователе/окружении, которая может пригодиться в бу...",
+    "tool.description": "Сохраните одну заметку в долговременной памяти о пользователе/среде, которая может пригодиться в будущих разговорах.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
@@ -135,7 +135,7 @@
   },
   "pl": {
     "param.note.description": "Tekst notatki do zapisania.",
-    "tool.description": "Zapisz pojedynczą notatkę w pamięci długoterminowej na temat użytkownika/środowiska, która może przydać...",
+    "tool.description": "Zapisz w pamięci długoterminowej pojedynczą notatkę o użytkowniku/środowisku, która może przydać się w przyszłych rozmowach.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
@@ -179,7 +179,7 @@
   },
   "sw": {
     "param.note.description": "Maandishi ya dokezo la kuhifadhi.",
-    "tool.description": "Hifadhi dokezo moja la kumbukumbu ya muda mrefu kuhusu mtumiaji au mazingira ambalo linaweza kusaidia k...",
+    "tool.description": "Hifadhi kumbukumbu moja ya muda mrefu kuhusu mtumiaji/mazingira ambayo inaweza kuwa muhimu katika mazungumzo yajayo.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
@@ -223,7 +223,7 @@
   },
   "cs": {
     "param.note.description": "Text poznámky, kterou chcete uložit.",
-    "tool.description": "Uloží jednu užitečnou poznámku o uživateli nebo prostředí do dlouhodobé paměti, která se může hodit v b...",
+    "tool.description": "Uložte si jednu dlouhodobou paměťovou poznámku o uživateli/prostředí, která může být užitečná v budoucích konverzacích.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
@@ -234,7 +234,7 @@
   },
   "uk": {
     "param.note.description": "Текст нотатки, яку потрібно зберегти.",
-    "tool.description": "Зберігає одну корисну нотатку про користувача або середовище в довготривалій пам’яті, яка може стати у...",
+    "tool.description": "Збережіть одну довготривалу пам’ять про користувача/оточення, яка може бути корисною в майбутніх розмовах.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",
@@ -311,7 +311,7 @@
   },
   "mn": {
     "param.note.description": "Хадгалах тэмдэглэлийн текст.",
-    "tool.description": "Ирээдүйн ярианд хэрэг болж болох хэрэглэгч эсвэл орчны тухай нэг удаагийн урт хугацааны санах ойн тэмдэ...",
+    "tool.description": "Хэрэглэгч/орчны талаарх урт хугацааны санах ойн тэмдэглэлийг цаашдын харилцан ярианд хэрэг болохуйц нэг удаа хадгалаарай.",
     "x_search_terms": [
       "add_long_memory",
       "add long memory",

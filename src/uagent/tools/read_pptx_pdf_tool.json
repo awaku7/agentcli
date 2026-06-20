@@ -43,7 +43,7 @@
       "texto por página",
       "pdf pptx leer"
     ],
-    "param.password.description": "Contraseña opcional para a...",
+    "param.password.description": "Contraseña (solicitudes si es necesario).",
     "prompt.password": "Ingrese la contraseña para este archivo:\n{path}",
     "param.maxc.description": "Número máximo de caracteres a devolver. Si se omite, se trunca a 8000 caracteres.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -51,7 +51,7 @@
   },
   "fr": {
     "param.page_index.description": "Numéro de page commençant à 1 (page PDF ou index de diapositive PPTX).",
-    "param.path.description": "Chemin vers un fichier PDF / P...",
+    "param.path.description": "Chemin d'accès à un fichier PDF/PPTX/JSON.",
     "tool.description": "Lit un PDF/PPTX (ou leur schéma JSON commun) et renvoie le texte extrait page par page.",
     "x_search_terms": [
       "read_pptx_pdf",
@@ -59,7 +59,7 @@
       "texte par page",
       "pdf pptx lire"
     ],
-    "param.password.description": "Mot de passe facultatif po...",
+    "param.password.description": "Mot de passe (invite si nécessaire).",
     "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}",
     "param.maxc.description": "Nombre maximum de caractères à renvoyer.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -91,7 +91,7 @@
       "seitentext",
       "pdf pptx text"
     ],
-    "param.password.description": "Optionales Kennwort für ve...",
+    "param.password.description": "Passwort (fragt bei Bedarf nach).",
     "prompt.password": "Geben Sie das Passwort für diese Datei ein:\n{path}",
     "param.maxc.description": "Maximale Anzahl der zurückzugebenden Zeichen.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -99,7 +99,7 @@
   },
   "it": {
     "param.page_index.description": "Numero di pagina a partire da 1 (pagina PDF o indice diapositiva PPTX).",
-    "param.path.description": "Percorso di un file PDF / PPTX...",
+    "param.path.description": "Percorso di un file PDF/PPTX/JSON.",
     "tool.description": "Legge PDF/PPTX (o il loro schema JSON comune) e restituisce il testo estratto per pagina.",
     "x_search_terms": [
       "read_pptx_pdf",
@@ -107,7 +107,7 @@
       "testo per pagina",
       "pdf pptx leggere"
     ],
-    "param.password.description": "Password facoltativa per f...",
+    "param.password.description": "Password (richiesta se necessario).",
     "prompt.password": "Inserisci la password di questo file:\n{path}",
     "param.maxc.description": "Numero massimo di caratteri da restituire. Se omesso, tronca a 8000 caratteri.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -123,7 +123,7 @@
       "текст по страницам",
       "pdf pptx читать"
     ],
-    "param.password.description": "Необязательный пароль для...",
+    "param.password.description": "Взаимодействие с определенным каналом Discord с помощью токена бота: отправка сообщений, чтение последних сообщений и, при необходимости, ожидание ответов после отправки.",
     "prompt.password": "Введите пароль для этого файла:\n{path}",
     "param.maxc.description": "Максимальное количество возвращаемых символов.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -131,7 +131,7 @@
   },
   "pt_BR": {
     "param.page_index.description": "Número da página começando em 1 (página PDF ou índice do slide PPTX).",
-    "param.path.description": "Caminho para um arquivo PDF /...",
+    "param.path.description": "Caminho para um arquivo PDF/PPTX/JSON.",
     "tool.description": "Lê PDF/PPTX (ou seu esquema JSON comum) e retorna o texto extraído por página.",
     "x_search_terms": [
       "read_pptx_pdf",
@@ -139,7 +139,7 @@
       "texto por página",
       "pdf pptx ler"
     ],
-    "param.password.description": "Senha opcional para arquiv...",
+    "param.password.description": "Senha (solicita se necessário).",
     "prompt.password": "Digite a senha deste arquivo:\n{path}",
     "param.maxc.description": "Número máximo de caracteres a serem retornados. Se omitido, trunca em 8.000 caracteres.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -147,7 +147,7 @@
   },
   "pt": {
     "param.page_index.description": "Número de página baseado em 1 (página PDF ou índice de slides PPTX).",
-    "param.path.description": "Caminho para um arquivo PDF /...",
+    "param.path.description": "Caminho para um arquivo PDF/PPTX/JSON.",
     "tool.description": "Leia PDF/PPTX (ou seu esquema JSON comum) e retorne o texto extraído por página.",
     "x_search_terms": [
       "read_pptx_pdf",
@@ -155,7 +155,7 @@
       "texto por página",
       "pdf pptx ler"
     ],
-    "param.password.description": "Senha opcional para arquiv...",
+    "param.password.description": "Senha (solicita se necessário).",
     "prompt.password": "Digite a senha deste arquivo:\n{path}",
     "param.maxc.description": "Número máximo de caracteres a serem retornados. Se omitido, truncará em 8.000 caracteres.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -171,7 +171,7 @@
       "teks per halaman",
       "pdf pptx baca"
     ],
-    "param.password.description": "Kata sandi opsional untuk...",
+    "param.password.description": "Kata sandi (diminta jika diperlukan).",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}",
     "param.maxc.description": "Jumlah maksimum karakter yang dikembalikan.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -187,7 +187,7 @@
       "văn bản theo trang",
       "pdf pptx đọc"
     ],
-    "param.password.description": "Mật khẩu tùy chọn cho tệp...",
+    "param.password.description": "Mật khẩu (nhắc nếu cần).",
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}",
     "param.maxc.description": "Số ký tự tối đa cần trả về. Nếu bỏ qua, sẽ cắt ngắn ở 8000 ký tự.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -203,15 +203,15 @@
       "tekst na stronę",
       "pdf pptx czytaj"
     ],
-    "param.password.description": "Opcjonalne hasło do zaszyf...",
+    "param.password.description": "Hasło (w razie potrzeby wyświetli monit).",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}",
     "param.maxc.description": "Maksymalna liczba znaków do zwrócenia.",
     "err.path_required": "[read_pptx_pdf error] path is required",
     "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
   },
   "hi": {
-    "param.page_index.description": "1-आधारित पेज नंबर (पीडीएफ पेज या पीपीटीएक्स स्लाइड इंडेक्स)। यदि छोड़ा गया है, तो सभी पृष्ठों के लिए...",
-    "param.path.description": "पीडीएफ/पीपीटीएक्स/जेएसओएन फ़ाइ...",
+    "param.page_index.description": "1-आधारित पेज नंबर (पीडीएफ पेज या पीपीटीएक्स स्लाइड इंडेक्स)। यदि छोड़ा गया है, तो सभी पृष्ठों के लिए संक्षिप्त पाठ लौटाता है।",
+    "param.path.description": "1-आधारित पृष्ठ संख्या (पीडीएफ पृष्ठ या PPTX स्लाइड इंडेक्स), सभी पृष्ठों के लिए संक्षिप्त पाठ लौटाता है फ़ाइल।",
     "tool.description": "PDF/PPTX (या उनके सामान्य JSON स्कीमा) को पढ़ें और पृष्ठ के अनुसार निकाला गया पाठ लौटाएँ। आप पथ को .",
     "x_search_terms": [
       "read_pptx_pdf",
@@ -219,7 +219,7 @@
       "पृष्ठ पाठ",
       "pdf pptx पढ़ना"
     ],
-    "param.password.description": "एन्क्रिप्टेड पीडीएफ/पीपीटी...",
+    "param.password.description": "पासवर्ड (यदि आवश्यक हो तो संकेत दें)।",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}",
     "param.maxc.description": "लौटने के लिए वर्णों की अधिकतम संख्या. यदि छोड़ दिया जाए, तो 8000 अक्षर कम हो जाते हैं।",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -235,7 +235,7 @@
       "نص الصفحة",
       "pdf pptx قراءة"
     ],
-    "param.password.description": "كلمة مرور اختيارية لملفات...",
+    "param.password.description": "كلمة المرور (مطالبة إذا لزم الأمر).",
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}",
     "param.maxc.description": "الحد الأقصى لعدد الأحرف المراد إرجاعها. إذا تم حذفه، فسيتم اقتطاعه عند 8000 حرف.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -243,7 +243,7 @@
   },
   "sv": {
     "param.page_index.description": "1-baserat sidnummer (PDF-sida eller PPTX-bildindex).",
-    "param.path.description": "Sökväg till en PDF / PPTX / JS...",
+    "param.path.description": "Sökväg till en PDF/PPTX/JSON-fil.",
     "tool.description": "Läser PDF/PPTX (eller deras gemensamma JSON-schema) och returnerar extraherad text per sida.",
     "x_search_terms": [
       "read_pptx_pdf",
@@ -251,7 +251,7 @@
       "sidtext",
       "pdf pptx läs"
     ],
-    "param.password.description": "Valfritt lösenord för kryp...",
+    "param.password.description": "Lösenord (meddelanden om det behövs).",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}",
     "param.maxc.description": "Maximalt antal tecken som ska returneras.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -267,7 +267,7 @@
       "maandishi kwa ukurasa",
       "pdf pptx soma"
     ],
-    "param.password.description": "Nenosiri la hiari kwa fail...",
+    "param.password.description": "Nenosiri (vidokezo ikihitajika",
     "prompt.password": "Ingiza nenosiri la faili hii:\n{path}",
     "param.maxc.description": "Idadi ya juu ya herufi za kurejesha. Ikiwa haijatajwa, hupunguzwa hadi herufi 8000.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -283,7 +283,7 @@
       "sidetekst",
       "pdf pptx les"
     ],
-    "param.password.description": "Valgfritt passord for kryp...",
+    "param.password.description": "Passord (spør om nødvendig).",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
     "param.maxc.description": "Maksimalt antall tegn som skal returneres.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -291,15 +291,15 @@
   },
   "nl": {
     "param.page_index.description": "Paginanummer vanaf 1 (PDF-pagina of PPTX-dia-index).",
-    "param.path.description": "Pad naar een PDF / PPTX / JSON...",
-    "tool.description": "Leest PDF/PPTX (of het gemeenschappelijke JSON-schema) en geeft de geëxtraheerde tekst per pagina...",
+    "param.path.description": "Pad naar een PDF-/PPTX-/JSON-bestand.",
+    "tool.description": "Lees PDF/PPTX (of hun algemene JSON-schema) en retourneer de geëxtraheerde tekst per pagina. U kunt het pad instellen op .",
     "x_search_terms": [
       "read_pptx_pdf",
       "lees pdf pptx",
       "paginatekst",
       "pdf pptx lezen"
     ],
-    "param.password.description": "Optioneel wachtwoord voor...",
+    "param.password.description": "Wachtwoord (vraagt ​​indien nodig).",
     "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}",
     "param.maxc.description": "Maximaal aantal tekens om terug te geven.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -308,14 +308,14 @@
   "fi": {
     "param.page_index.description": "1:stä alkava sivunumero (PDF-sivu tai PPTX-dian indeksi).",
     "param.path.description": "Polku PDF-/PPTX-/JSON-tiedostoon.",
-    "tool.description": "Lukee PDF/PPTX-tiedoston (tai niiden yhteisen JSON-skeeman) ja palauttaa sivukohtaisesti puretun...",
+    "tool.description": "Lue PDF/PPTX (tai niiden yleinen JSON-skeema) ja palauta purettu teksti sivulta. Voit asettaa polun .",
     "x_search_terms": [
       "read_pptx_pdf",
       "lue pdf pptx",
       "sivuteksti",
       "pdf pptx lue"
     ],
-    "param.password.description": "Valinnainen salasana salat...",
+    "param.password.description": "Salasana (kehottaa tarvittaessa).",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}",
     "param.maxc.description": "Palautettavien merkkien enimmäismäärä.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -331,7 +331,7 @@
       "text strany",
       "pdf pptx číst"
     ],
-    "param.password.description": "Volitelné heslo pro šifrov...",
+    "param.password.description": "Heslo (v případě potřeby se zobrazí výzva).",
     "prompt.password": "Zadejte heslo k tomuto souboru:\n{path}",
     "param.maxc.description": "Maximální počet znaků k vrácení. Pokud není zadáno, výsledek se zkrátí na 8000 znaků.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -347,7 +347,7 @@
       "текст сторінки",
       "pdf pptx читати"
     ],
-    "param.password.description": "Необов’язковий пароль для...",
+    "param.password.description": "Інтервал опитування під час очікування відповідей (у секундах).",
     "prompt.password": "Введіть пароль для цього файла:\n{path}",
     "param.maxc.description": "Максимальна кількість символів для повернення.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -363,7 +363,7 @@
       "sayfa metni",
       "pdf pptx okuma"
     ],
-    "param.password.description": "Şifrelenmiş PDF/PPTX dosya...",
+    "param.password.description": "Şifre (gerekirse istemde bulunur).",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}",
     "param.maxc.description": "Döndürülecek maksimum karakter sayısı. Atlanırsa, 8000 karakter uzunluğunda kesilir.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -379,7 +379,7 @@
       "ข้อความต่อหน้า",
       "pdf pptx อ่าน"
     ],
-    "param.password.description": "รหัสผ่านสำหรับไฟล์ PDF/PPT...",
+    "param.password.description": "รหัสผ่าน (แจ้งหากจำเป็น)",
     "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}",
     "param.maxc.description": "จำนวนอักขระสูงสุดที่จะส่งคืน หากละเว้นจะตัดทอนที่ 8000 อักขระ",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -427,7 +427,7 @@
       "পৃষ্ঠার লেখা",
       "pdf pptx পড়া"
     ],
-    "param.password.description": "এনক্রিপ্টেড PDF/PPTX ফাইলে...",
+    "param.password.description": "পাসওয়ার্ড (প্রয়োজন হলে প্রম্পট)।",
     "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}",
     "param.maxc.description": "ফেরত দেওয়া যাবে সর্বোচ্চ কত অক্ষর। উল্লেখ না করলে 8000 অক্ষরে কেটে দেওয়া হবে।",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -436,14 +436,14 @@
   "fa": {
     "param.page_index.description": "شمارهٔ صفحه بر پایهٔ 1 (صفحهٔ PDF یا شمارهٔ اسلاید PPTX).",
     "param.path.description": "مسیر یک فایل PDF / PPTX / JSON.",
-    "tool.description": "PDF/PPTX (یا طرح‌وارهٔ JSON مشترک آن‌ها) را می‌خواند و متن استخراج‌شده را به‌ازای هر صفحه برمی‌گر...",
+    "tool.description": "PDF/PPTX (یا طرح مشترک JSON آنها) را بخوانید و متن استخراج شده را به صفحه برگردانید. می توانید مسیر را تعیین کنید. پشتیبان گیری",
     "x_search_terms": [
       "read_pptx_pdf",
       "خواندن pdf pptx",
       "متن صفحه",
       "pdf pptx خواندن"
     ],
-    "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
+    "param.password.description": "رمز عبور (در صورت نیاز درخواست می کند).",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}",
     "param.maxc.description": "حداکثر تعداد نویسه‌های بازگشتی. اگر مشخص نشود، خروجی در 8000 نویسه کوتاه می‌شود.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -459,7 +459,7 @@
       "хуудасны текст",
       "pdf pptx унш"
     ],
-    "param.password.description": "Шифрлэгдсэн PDF/PPTX файлы...",
+    "param.password.description": "Нууц үг (шаардлагатай бол сануулна).",
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}",
     "param.maxc.description": "Буцаах тэмдэгтийн дээд тоо. Заагаагүй бол 8000 тэмдэгтээр таслана.",
     "err.path_required": "[read_pptx_pdf error] path is required",
@@ -475,7 +475,7 @@
       "पृष्ठ मजकूर",
       "pdf pptx वाचन"
     ],
-    "param.password.description": "एन्क्रिप्टेड PDF/PPTX फाइल...",
+    "param.password.description": "पासवर्ड (आवश्यक असल्यास सूचना).",
     "prompt.password": "या फाइलचा password टाका:\n{path}",
     "param.maxc.description": "परत देण्यासाठी जास्तीत जास्त अक्षरे. दिले नाही तर 8000 अक्षरांवर कापले जाईल.",
     "err.path_required": "[read_pptx_pdf error] path is required",

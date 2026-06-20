@@ -30,10 +30,10 @@
     ]
   },
   "es": {
-    "param.algo.description": "Algorit...",
-    "param.chunk_size.description": "Tamaño d...",
-    "param.paths.description": "Matriz de rutas de archivos...",
-    "param.return.description": "Formato de...",
+    "param.algo.description": "Algoritmo.",
+    "param.chunk_size.description": "Número máximo de líneas coincidentes para devolver (predeterminado: 100).",
+    "param.paths.description": "Matriz de. rutas de archivo de destino",
+    "param.return.description": "Formato de salida.",
     "tool.description": "Calcula el hash (sha256/sha1/md5) de los archivos.",
     "x_search_terms": [
       "file_hash",
@@ -43,10 +43,10 @@
     ]
   },
   "fr": {
-    "param.algo.description": "Algorit...",
-    "param.chunk_size.description": "Taille d...",
-    "param.paths.description": "Tableau des chemins des fic...",
-    "param.return.description": "Format de s...",
+    "param.algo.description": "S'il faut rechercher les sous-répertoires de manière récursive",
+    "param.chunk_size.description": "Taille du bloc",
+    "param.paths.description": "Tableau de chemins de fichiers cibles.",
+    "param.return.description": "Format de sortie.",
     "tool.description": "Calcule le hachage (sha256/sha1/md5) des fichiers.",
     "x_search_terms": [
       "file_hash",
@@ -69,8 +69,8 @@
     ]
   },
   "de": {
-    "param.algo.description": "Hash-Al...",
-    "param.chunk_size.description": "Lesebloc...",
+    "param.algo.description": "Algorithmus.",
+    "param.chunk_size.description": "Chunk-Größe.",
     "param.paths.description": "Array der Zieldateipfade.",
     "param.return.description": "Ausgabeformat.",
     "tool.description": "Berechnet den Hash (sha256/sha1/md5) von Dateien.",
@@ -82,10 +82,10 @@
     ]
   },
   "it": {
-    "param.algo.description": "Algorit...",
-    "param.chunk_size.description": "Dimensio...",
-    "param.paths.description": "Array dei percorsi dei file...",
-    "param.return.description": "Formato di...",
+    "param.algo.description": "Se ignorare maiuscole e minuscole (impostazione predefinita: true).",
+    "param.chunk_size.description": "Dimensione del blocco.",
+    "param.paths.description": "Matrice di percorsi del file di destinazione",
+    "param.return.description": "Formato di output",
     "tool.description": "Calcola l'hash (sha256/sha1/md5) dei file.",
     "x_search_terms": [
       "file_hash",
@@ -95,8 +95,8 @@
     ]
   },
   "ru": {
-    "param.algo.description": "Алгорит...",
-    "param.chunk_size.description": "Размер б...",
+    "param.algo.description": "Алгоритм.",
+    "param.chunk_size.description": "Алгоритм.",
     "param.paths.description": "Массив путей к целевым файлам.",
     "param.return.description": "Формат вывода.",
     "tool.description": "Вычисляет хэш (sha256/sha1/md5) файлов.",
@@ -108,10 +108,10 @@
     ]
   },
   "pt_BR": {
-    "param.algo.description": "Algorit...",
-    "param.chunk_size.description": "Tamanho...",
-    "param.paths.description": "Matriz de caminhos de arqui...",
-    "param.return.description": "Formato de...",
+    "param.algo.description": "Algoritmo",
+    "param.chunk_size.description": "Tamanho do pedaço.",
+    "param.paths.description": "Matriz de caminhos de arquivos de destino.",
+    "param.return.description": "Formato de saída.",
     "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
     "x_search_terms": [
       "file_hash",
@@ -121,10 +121,10 @@
     ]
   },
   "pt": {
-    "param.algo.description": "Algorit...",
-    "param.chunk_size.description": "Tamanho...",
-    "param.paths.description": "Matriz de caminhos de arqui...",
-    "param.return.description": "Formato de...",
+    "param.algo.description": "Algoritmo.",
+    "param.chunk_size.description": "Se deve ignorar maiúsculas e minúsculas (padrão: verdadeiro).",
+    "param.paths.description": "Matriz de caminhos de arquivos de destino.",
+    "param.return.description": "Formato de saída.",
     "tool.description": "Calcula o hash (sha256/sha1/md5) dos arquivos.",
     "x_search_terms": [
       "file_hash",
@@ -134,10 +134,10 @@
     ]
   },
   "id": {
-    "param.algo.description": "Algorit...",
-    "param.chunk_size.description": "Ukuran p...",
+    "param.algo.description": "Algoritma.",
+    "param.chunk_size.description": "Ukuran potongan.",
     "param.paths.description": "Array jalur file target.",
-    "param.return.description": "Format kelu...",
+    "param.return.description": "Format keluaran.",
     "tool.description": "Hitung hash (sha256/sha1/md5) dari file.",
     "x_search_terms": [
       "file_hash",
@@ -147,10 +147,10 @@
     ]
   },
   "vi": {
-    "param.algo.description": "Thuật t...",
-    "param.chunk_size.description": "Kích thư...",
+    "param.algo.description": "Thuật toán",
+    "param.chunk_size.description": "Kích thước đoạn.",
     "param.paths.description": "Mảng đường dẫn tệp đích.",
-    "param.return.description": "Định dạng đ...",
+    "param.return.description": "Định dạng đầu ra.",
     "tool.description": "Tính mã băm (sha256/sha1/md5) của tệp.",
     "x_search_terms": [
       "file_hash",
@@ -160,10 +160,10 @@
     ]
   },
   "pl": {
-    "param.algo.description": "Algoryt...",
-    "param.chunk_size.description": "Rozmiar...",
-    "param.paths.description": "Tablica docelowych ścieżek...",
-    "param.return.description": "Format wyjś...",
+    "param.algo.description": "Algorytm",
+    "param.chunk_size.description": "Rozmiar porcji.",
+    "param.paths.description": "Rozmiar fragmentu.",
+    "param.return.description": "Format wyjściowy",
     "tool.description": "Oblicza skrót (sha256/sha1/md5) plików.",
     "x_search_terms": [
       "file_hash",
@@ -173,8 +173,8 @@
     ]
   },
   "hi": {
-    "param.algo.description": "हैशिंग...",
-    "param.chunk_size.description": "पढ़ने के...",
+    "param.algo.description": "क्या उपनिर्देशिकाओं को पुनरावर्ती रूप से खोजना है।",
+    "param.chunk_size.description": "टुकड़े का आकार।",
     "param.paths.description": "लक्ष्य फ़ाइल पथों की सारणी.",
     "param.return.description": "आउटपुट स्वरूप.",
     "tool.description": "फ़ाइलों के हैश (sha256/sha1/md5) की गणना करता है।",
@@ -186,8 +186,8 @@
     ]
   },
   "ar": {
-    "param.algo.description": "خوارزمي...",
-    "param.chunk_size.description": "قراءة حج...",
+    "param.algo.description": "الخوارزمية.",
+    "param.chunk_size.description": "حجم القطعة.",
     "param.paths.description": "مجموعة من مسارات الملفات الهدف.",
     "param.return.description": "تنسيق الإخراج.",
     "tool.description": "يحسب تجزئة الملفات (sha256/sha1/md5).",
@@ -199,8 +199,8 @@
     ]
   },
   "sv": {
-    "param.algo.description": "Hashalg...",
-    "param.chunk_size.description": "Storlek...",
+    "param.algo.description": "Algoritm.",
+    "param.chunk_size.description": "Klumpstorlek.",
     "param.paths.description": "Array med målfilsökvägar.",
     "param.return.description": "Utdataformat.",
     "tool.description": "Beräknar hash (sha256/sha1/md5) för filer.",
@@ -212,10 +212,10 @@
     ]
   },
   "sw": {
-    "param.algo.description": "Algorit...",
-    "param.chunk_size.description": "Ukubwa w...",
+    "param.algo.description": "Upeo wa idadi ya mistari inayolingana itarudishwa (chaguo-msingi:",
+    "param.chunk_size.description": "Ukubwa wa sehemu.",
     "param.paths.description": "Safu ya njia za faili lengwa.",
-    "param.return.description": "Muundo wa m...",
+    "param.return.description": "Umbizo la towe.",
     "tool.description": "Hukokotoa hash (sha256/sha1/md5) za faili.",
     "x_search_terms": [
       "file_hash",
@@ -225,8 +225,8 @@
     ]
   },
   "nb": {
-    "param.algo.description": "Hash-al...",
-    "param.chunk_size.description": "Størrels...",
+    "param.algo.description": "Algoritme.",
+    "param.chunk_size.description": "Klumpstørrelse.",
     "param.paths.description": "Liste over målfilstier.",
     "param.return.description": "Utdataformat.",
     "tool.description": "Beregner hash (sha256/sha1/md5) for filer.",
@@ -238,8 +238,8 @@
     ]
   },
   "nl": {
-    "param.algo.description": "Hash-al...",
-    "param.chunk_size.description": "Leeschun...",
+    "param.algo.description": "Algoritme.",
+    "param.chunk_size.description": "Stukgrootte.",
     "param.paths.description": "Array met doelbestandspaden.",
     "param.return.description": "Uitvoerformaat.",
     "tool.description": "Berekent de hash (sha256/sha1/md5) van bestanden.",
@@ -251,8 +251,8 @@
     ]
   },
   "fi": {
-    "param.algo.description": "Tiivist...",
-    "param.chunk_size.description": "Luettava...",
+    "param.algo.description": "Algoritmi.",
+    "param.chunk_size.description": "Palakoko.",
     "param.paths.description": "Kohdetiedostopolkujen taulukko.",
     "param.return.description": "Tulostusmuoto.",
     "tool.description": "Laskee tiedostojen tiivisteen (sha256/sha1/md5).",
@@ -264,8 +264,8 @@
     ]
   },
   "cs": {
-    "param.algo.description": "Algorit...",
-    "param.chunk_size.description": "Velikost...",
+    "param.algo.description": "Algoritmus.",
+    "param.chunk_size.description": "Velikost kusu.",
     "param.paths.description": "Pole cílových cest k souborům.",
     "param.return.description": "Formát výstupu.",
     "tool.description": "Vypočítává hash souborů (sha256/sha1/md5).",
@@ -277,8 +277,8 @@
     ]
   },
   "uk": {
-    "param.algo.description": "Алгорит...",
-    "param.chunk_size.description": "Розмір б...",
+    "param.algo.description": "Максимальна кількість рядків для повернення.",
+    "param.chunk_size.description": "Розмір шматка.",
     "param.paths.description": "Масив цільових шляхів до файлів.",
     "param.return.description": "Формат виводу.",
     "tool.description": "Обчислює хеш файлів (sha256/sha1/md5).",
@@ -290,8 +290,8 @@
     ]
   },
   "tr": {
-    "param.algo.description": "Karma a...",
-    "param.chunk_size.description": "Parça bo...",
+    "param.algo.description": "Algoritma.",
+    "param.chunk_size.description": "Parça boyutu.",
     "param.paths.description": "Hedef dosya yolları dizisi.",
     "param.return.description": "Çıkış formatı.",
     "tool.description": "Dosyaların karmasını (sha256/sha1/md5) hesaplar.",
@@ -303,8 +303,8 @@
     ]
   },
   "th": {
-    "param.algo.description": "อัลกอริ...",
-    "param.chunk_size.description": "ขนาดบล็อ...",
+    "param.algo.description": "อัลกอริทึม",
+    "param.chunk_size.description": "ขนาดก้อน",
     "param.paths.description": "อาร์เรย์ของพาธไฟล์เป้าหมาย",
     "param.return.description": "รูปแบบเอาต์พุต",
     "tool.description": "คำนวณแฮชของไฟล์ (sha256/sha1/md5)",
@@ -342,8 +342,8 @@
     ]
   },
   "bn": {
-    "param.algo.description": "হ্যাশিং...",
-    "param.chunk_size.description": "পড়ার ch...",
+    "param.algo.description": "অ্যালগরিদম।",
+    "param.chunk_size.description": "খণ্ডের আকার।",
     "param.paths.description": "টার্গেট ফাইল পাথের অ্যারে।",
     "param.return.description": "আউটপুট ফরম্যাট।",
     "tool.description": "ফাইলের হ্যাশ (sha256/sha1/md5) গণনা করে।",
@@ -355,8 +355,8 @@
     ]
   },
   "fa": {
-    "param.algo.description": "الگوریت...",
-    "param.chunk_size.description": "اندازهٔ...",
+    "param.algo.description": "الگوریتم.",
+    "param.chunk_size.description": "اندازه تکه.",
     "param.paths.description": "آرایه‌ای از مسیر فایل‌های هدف.",
     "param.return.description": "قالب خروجی.",
     "tool.description": "هش فایل‌ها (sha256/sha1/md5) را محاسبه می‌کند.",
@@ -368,10 +368,10 @@
     ]
   },
   "mn": {
-    "param.algo.description": "Хэш үүс...",
-    "param.chunk_size.description": "Унших ch...",
+    "param.algo.description": "Алгоритм.",
+    "param.chunk_size.description": "Хэмжээ.",
     "param.paths.description": "Зорилтот файлын замуудын массив.",
-    "param.return.description": "Гаралтын фо...",
+    "param.return.description": "Хэрэглэгчийн_8 тэмдэгтийн дээд хэмжээ (код тайлсны дараа хэрэглэгдэх болно).",
     "tool.description": "Файлуудын хэшийг (sha256/sha1/md5) тооцоолно.",
     "x_search_terms": [
       "file_hash",
@@ -381,8 +381,8 @@
     ]
   },
   "mr": {
-    "param.algo.description": "हॅशिंग...",
-    "param.chunk_size.description": "वाचन chu...",
+    "param.algo.description": "अल्गोरिदम.",
+    "param.chunk_size.description": "भाग आकार.",
     "param.paths.description": "लक्ष्य फाइल मार्गांची array.",
     "param.return.description": "आउटपुट स्वरूप.",
     "tool.description": "फाइल्सचा hash (sha256/sha1/md5) मोजते.",

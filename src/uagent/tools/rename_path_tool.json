@@ -37,7 +37,7 @@
     "param.mkdirs.description": "Si es true, cree el directorio principal de dst antes de ejecutar.",
     "param.overwrite.description": "Si es true, elimine y reemplace dst si ya existe (se pedirá confirmación).",
     "param.src.description": "Ruta original (archivo/directorio). Se recomienda una ruta relativa.",
-    "tool.description": "Cambiar el nombre (mover) de un...",
+    "tool.description": "Cambiar el nombre (mover) un archivo o directorio.",
     "x_search_terms": [
       "rename_path",
       "renombrar",
@@ -51,7 +51,7 @@
     "param.mkdirs.description": "Si vrai, crée le répertoire parent de dst avant l'exécution.",
     "param.overwrite.description": "Si vrai, supprime et remplace dst s'il existe déjà (une confirmation sera demandée).",
     "param.src.description": "Chemin d'origine (fichier/répertoire). Chemin relatif recommandé.",
-    "tool.description": "Renommer (déplacer) un fichier...",
+    "tool.description": "Renommer (déplacer) un fichier ou un répertoire.",
     "x_search_terms": [
       "rename_path",
       "renommer",
@@ -79,7 +79,7 @@
     "param.mkdirs.description": "Wenn true, vor der Ausführung das übergeordnete Verzeichnis für dst erstellen.",
     "param.overwrite.description": "Wenn true, dst löschen und ersetzen, falls es bereits existiert (es wird um Bestätigung gebeten).",
     "param.src.description": "Ursprünglicher Pfad (Datei/Verzeichnis). Relativer Pfad empfohlen.",
-    "tool.description": "Eine Datei oder ein Verzeichnis...",
+    "tool.description": "Eine Datei oder ein Verzeichnis umbenennen (verschieben).",
     "x_search_terms": [
       "rename_path",
       "umbenennen",
@@ -93,7 +93,7 @@
     "param.mkdirs.description": "Se true, crea la directory padre di dst prima dell'esecuzione.",
     "param.overwrite.description": "Se true, elimina e sostituisce dst se già esiste (verrà chiesta conferma).",
     "param.src.description": "Percorso originale (file/directory). Percorso relativo consigliato.",
-    "tool.description": "Rinomina (sposta) un file o una...",
+    "tool.description": "Rinomina (sposta) un file o una directory.",
     "x_search_terms": [
       "rename_path",
       "rinomina",
@@ -107,7 +107,7 @@
     "param.mkdirs.description": "Если true, создать родительский каталог для dst перед выполнением.",
     "param.overwrite.description": "Если true, удалить и заменить dst, если он уже существует (будет запрошено подтверждение).",
     "param.src.description": "Исходный путь (файл/каталог). Рекомендуется относительный путь.",
-    "tool.description": "Переименовать (переместить) фай...",
+    "tool.description": "Переименуйте (переместите) файл или каталог.",
     "x_search_terms": [
       "rename_path",
       "переименовать",
@@ -121,7 +121,7 @@
     "param.mkdirs.description": "Se true, crie o diretório pai de dst antes de executar.",
     "param.overwrite.description": "Se true, exclua e substitua dst se já existir (será solicitada confirmação).",
     "param.src.description": "Caminho original (arquivo/diretório). Caminho relativo recomendado.",
-    "tool.description": "Renomeie (mova) um arquivo ou d...",
+    "tool.description": "Renomear (mover) um arquivo ou diretório.",
     "x_search_terms": [
       "rename_path",
       "renomear",
@@ -135,7 +135,7 @@
     "param.mkdirs.description": "Se for true, crie o diretório pai de dst antes de executar.",
     "param.overwrite.description": "Se for true, exclua e substitua dst se já existir (será solicitada confirmação).",
     "param.src.description": "Caminho original (arquivo/diretório). Caminho relativo recomendado.",
-    "tool.description": "Renomeie (mova) um arquivo ou d...",
+    "tool.description": "Renomear (mover) um arquivo ou diretório.",
     "x_search_terms": [
       "rename_path",
       "renomear",
@@ -149,7 +149,7 @@
     "param.mkdirs.description": "Jika true, buat direktori induk untuk dst sebelum menjalankan.",
     "param.overwrite.description": "Jika true, hapus dan ganti dst jika sudah ada (Anda akan diminta konfirmasi).",
     "param.src.description": "Path asal (file/direktori). Disarankan path relatif.",
-    "tool.description": "Ganti nama (pindahkan) file ata...",
+    "tool.description": "Ganti nama (pindahkan) file atau direktori.",
     "x_search_terms": [
       "rename_path",
       "ganti nama",
@@ -163,7 +163,7 @@
     "param.mkdirs.description": "Nếu true, hãy tạo thư mục cha của dst trước khi thực thi.",
     "param.overwrite.description": "Nếu true, hãy xóa và thay thế dst nếu nó đã tồn tại (bạn sẽ được yêu cầu xác nhận).",
     "param.src.description": "Đường dẫn gốc (file/thư mục). Đường dẫn tương đối được đề xuất.",
-    "tool.description": "Đổi tên (di chuyển) một tập tin...",
+    "tool.description": "Đổi tên (di chuyển) một tập tin hoặc thư mục. Đường dẫn",
     "x_search_terms": [
       "rename_path",
       "đổi tên",
@@ -177,7 +177,7 @@
     "param.mkdirs.description": "Jeśli ma wartość true, przed wykonaniem utwórz katalog nadrzędny dla dst.",
     "param.overwrite.description": "Jeśli prawda, usuń i zastąp dst, jeśli już istnieje (zostaniesz poproszony o potwierdzenie).",
     "param.src.description": "Oryginalna ścieżka (plik/katalog). Zalecana ścieżka względna.",
-    "tool.description": "Zmień nazwę (przenieś) pliku lu...",
+    "tool.description": "Zmień nazwę (przenieś) pliku lub katalogu.",
     "x_search_terms": [
       "rename_path",
       "zmień nazwę",
@@ -191,7 +191,7 @@
     "param.mkdirs.description": "यदि true है, तो निष्पादन से पहले dst के लिए मूल निर्देशिका बनाएं।",
     "param.overwrite.description": "यदि true है, तो dst पहले से मौजूद होने पर उसे हटाकर बदलें (आपसे पुष्टि मांगी जाएगी)।",
     "param.src.description": "मूल पथ (फ़ाइल/निर्देशिका)। सापेक्ष पथ अनुशंसित.",
-    "tool.description": "किसी फ़ाइल या निर्देशिका का नाम...",
+    "tool.description": "किसी फ़ाइल या निर्देशिका का नाम बदलें (स्थानांतरित करें)।",
     "x_search_terms": [
       "rename_path",
       "नाम बदलें",
@@ -219,7 +219,7 @@
     "param.mkdirs.description": "Om true, skapas överordnad katalog för dst före körning.",
     "param.overwrite.description": "Om true, tas dst bort och ersätts om den redan finns (du ombeds bekräfta).",
     "param.src.description": "Ursprunglig sökväg (fil/katalog). Relativ sökväg rekommenderas.",
-    "tool.description": "Byt namn på (flytta) en fil ell...",
+    "tool.description": "Byt namn på (flytta) en fil eller katalog.",
     "x_search_terms": [
       "rename_path",
       "byt namn",
@@ -233,7 +233,7 @@
     "param.mkdirs.description": "Ikiwa ni true, tengeneza saraka ya mzazi ya dst kabla ya kutekeleza.",
     "param.overwrite.description": "Ikiwa ni true, futa na ubadilishe dst ikiwa tayari ipo (utaombwa uthibitisho).",
     "param.src.description": "Njia ya asili (faili/saraka). Inapendekezwa kutumia njia ya jamaa.",
-    "tool.description": "Badilisha jina (hamisha) la fai...",
+    "tool.description": "Badilisha jina (hamisha) faili au saraka.",
     "x_search_terms": [
       "rename_path",
       "badilisha jina",
@@ -247,7 +247,7 @@
     "param.mkdirs.description": "Hvis true, opprettes overordnet katalog for dst før kjøring.",
     "param.overwrite.description": "Hvis true, slettes og erstattes dst hvis den allerede finnes (du blir bedt om bekreftelse).",
     "param.src.description": "Opprinnelig sti (fil/katalog). Relativ sti anbefales.",
-    "tool.description": "Gi nytt navn til (flytt) en fil...",
+    "tool.description": "Gi nytt navn til (flytt) en fil eller katalog.",
     "x_search_terms": [
       "rename_path",
       "gi nytt navn",
@@ -261,7 +261,7 @@
     "param.mkdirs.description": "Als true, maak de bovenliggende map voor dst aan vóór uitvoering.",
     "param.overwrite.description": "Als true, verwijder en vervang dst als het al bestaat (er wordt om bevestiging gevraagd).",
     "param.src.description": "Oorspronkelijk pad (bestand/map). Gebruik bij voorkeur een relatief pad.",
-    "tool.description": "Hernoem (verplaats) een bestand...",
+    "tool.description": "Hernoem (verplaats) een bestand of map.",
     "x_search_terms": [
       "rename_path",
       "hernoemen",
@@ -275,7 +275,7 @@
     "param.mkdirs.description": "Jos true, luo dst:n ylähakemisto ennen suorittamista.",
     "param.overwrite.description": "Jos true, poista ja korvaa dst, jos se on jo olemassa (vahvistus pyydetään).",
     "param.src.description": "Alkuperäinen polku (tiedosto/hakemisto).",
-    "tool.description": "Nimeä tiedosto tai hakemisto uu...",
+    "tool.description": "Nimeä (siirrä) tiedosto tai hakemisto uudelleen.",
     "x_search_terms": [
       "rename_path",
       "nimiä vaihda",
@@ -289,7 +289,7 @@
     "param.mkdirs.description": "Je-li true, vytvoří před spuštěním nadřazený adresář pro dst.",
     "param.overwrite.description": "Je-li true, dst se smaže a nahradí, pokud už existuje (bude vyžádáno potvrzení).",
     "param.src.description": "Původní cesta (soubor/adresář). Doporučuje se relativní cesta.",
-    "tool.description": "Přejmenuje (přesune) soubor neb...",
+    "tool.description": "Přejmenovat (přesunout) soubor nebo adresář.",
     "x_search_terms": [
       "rename_path",
       "přejmenovat",
@@ -303,7 +303,7 @@
     "param.mkdirs.description": "Якщо true, створити батьківський каталог для dst перед виконанням.",
     "param.overwrite.description": "Якщо true, видалити та замінити dst, якщо він уже існує (буде запитано підтвердження).",
     "param.src.description": "Початковий шлях (файл/каталог).",
-    "tool.description": "Перейменовує (переміщує) файл а...",
+    "tool.description": "Перейменувати (перемістити) файл або каталог.",
     "x_search_terms": [
       "rename_path",
       "перейменувати",
@@ -317,7 +317,7 @@
     "param.mkdirs.description": "Doğruysa, çalıştırmadan önce dst için ana dizini oluşturun.",
     "param.overwrite.description": "Doğruysa, dst'yi silin ve zaten mevcutsa değiştirin (onay vermeniz istenecektir).",
     "param.src.description": "Orijinal yol (dosya/dizin). Göreceli yol önerilir.",
-    "tool.description": "Bir dosyayı veya dizini yeniden...",
+    "tool.description": "Bir dosyayı veya dizini yeniden adlandırın (taşıyın).",
     "x_search_terms": [
       "rename_path",
       "yeniden adlandır",
@@ -373,7 +373,7 @@
     "param.mkdirs.description": "true হলে, চালানোর আগে dst-এর মূল ডিরেক্টরি তৈরি করুন।",
     "param.overwrite.description": "true হলে, dst আগে থেকে থাকলে তা মুছে প্রতিস্থাপন করুন (আপনাকে নিশ্চিত করতে বলা হবে)।",
     "param.src.description": "মূল পাথ (ফাইল/ডিরেক্টরি)। আপেক্ষিক পাথ সুপারিশ করা হয়।",
-    "tool.description": "ফাইল বা ডিরেক্টরির নাম পরিবর্তন...",
+    "tool.description": "একটি ফাইল বা ডিরেক্টরির নাম পরিবর্তন করুন (সরান)৷",
     "x_search_terms": [
       "rename_path",
       "নাম পরিবর্তন",
@@ -387,7 +387,7 @@
     "param.mkdirs.description": "اگر true باشد، پوشهٔ والدِ dst را پیش از اجرا ایجاد کنید.",
     "param.overwrite.description": "اگر true باشد، dst را در صورت وجود حذف و جایگزین کنید (از شما تأیید خواسته می‌شود).",
     "param.src.description": "مسیر اصلی (فایل/پوشه). مسیر نسبی توصیه می‌شود.",
-    "tool.description": "نام یک فایل یا پوشه را تغییر ده...",
+    "tool.description": "تغییر نام (انتقال) یک فایل یا فهرست.",
     "x_search_terms": [
       "rename_path",
       "تغییر نام",
@@ -401,7 +401,7 @@
     "param.mkdirs.description": "true бол dst-ийн эцэг лавлахыг ажиллуулахын өмнө үүсгэнэ.",
     "param.overwrite.description": "true бол dst аль хэдийн байвал устгаад орлуулна (баталгаажуулахыг танаас асууна).",
     "param.src.description": "Анхны зам (файл/лавлах). Харьцангуй зам хэрэглэхийг зөвлөж байна.",
-    "tool.description": "Файл эсвэл лавлахын нэрийг өөрч...",
+    "tool.description": "Файл эсвэл директорийн нэрийг өөрчлөх (зөөх).",
     "x_search_terms": [
       "rename_path",
       "нэр өөрчлөх",
@@ -415,7 +415,7 @@
     "param.mkdirs.description": "true असल्यास, चालवण्यापूर्वी dst साठी पालक डिरेक्टरी तयार करा.",
     "param.overwrite.description": "true असल्यास, dst आधीच अस्तित्वात असेल तर ते हटवून बदलून टाका (आपल्याला पुष्टी विचारली जाईल).",
     "param.src.description": "मूळ मार्ग (फाइल/डिरेक्टरी). सापेक्ष मार्ग सुचवला आहे.",
-    "tool.description": "फाइल किंवा डिरेक्टरीचे नाव बदला...",
+    "tool.description": "फाईल किंवा निर्देशिका पुनर्नामित करा (हलवा).",
     "x_search_terms": [
       "rename_path",
       "नाव बदला",

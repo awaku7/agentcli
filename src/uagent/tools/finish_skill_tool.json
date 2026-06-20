@@ -32,7 +32,7 @@
     ]
   },
   "es": {
-    "param.message.description": "Mensaje final opcional para el u...",
+    "param.message.description": "Mensaje final opcional para el usuario",
     "tool.description": "Indica que las tareas de la habilidad actual se han completado.",
     "x_search_terms": [
       "finish_skill",
@@ -48,7 +48,7 @@
     ]
   },
   "fr": {
-    "param.message.description": "Message final facultatif pour l'...",
+    "param.message.description": "Tableau des chemins de fichier cible. utilisateur.",
     "tool.description": "Signale que les tâches de la compétence actuelle sont terminées.",
     "x_search_terms": [
       "finish_skill",
@@ -80,7 +80,7 @@
     ]
   },
   "de": {
-    "param.message.description": "Optionale Abschlussnachricht an...",
+    "param.message.description": "Optionale Abschlussnachricht an den Benutzer.",
     "tool.description": "Signalisiert, dass die Aufgaben des aktuellen Skills abgeschlossen sind.",
     "x_search_terms": [
       "finish_skill",
@@ -96,7 +96,7 @@
     ]
   },
   "it": {
-    "param.message.description": "Messaggio finale facoltativo per...",
+    "param.message.description": "Messaggio finale opzionale per l'utente.",
     "tool.description": "Segnala che le attività della skill corrente sono state completate.",
     "x_search_terms": [
       "finish_skill",
@@ -112,7 +112,7 @@
     ]
   },
   "ru": {
-    "param.message.description": "Необязательное заключительное со...",
+    "param.message.description": "Необязательное последнее сообщение пользователю.",
     "tool.description": "Сигнал о завершении задач текущего навыка.",
     "x_search_terms": [
       "finish_skill",
@@ -128,7 +128,7 @@
     ]
   },
   "pt_BR": {
-    "param.message.description": "Mensagem final opcional para o u...",
+    "param.message.description": "Mensagem final opcional para o usuário.",
     "tool.description": "Sinaliza que as tarefas da habilidade atual foram concluídas.",
     "x_search_terms": [
       "finish_skill",
@@ -144,7 +144,7 @@
     ]
   },
   "pt": {
-    "param.message.description": "Mensagem final opcional para o u...",
+    "param.message.description": "Matriz de caminhos de arquivo de destino.",
     "tool.description": "Sinalize que as tarefas da habilidade atual foram concluídas.",
     "x_search_terms": [
       "finish_skill",
@@ -176,7 +176,7 @@
     ]
   },
   "vi": {
-    "param.message.description": "Thông báo cuối cùng tùy chọn cho...",
+    "param.message.description": "Thông báo cuối cùng tùy chọn gửi tới người dùng.",
     "tool.description": "Báo rằng các tác vụ của kỹ năng hiện tại đã hoàn tất.(Chỉ dùng khi thực thi kỹ năng dựa trên SKILL.",
     "x_search_terms": [
       "finish_skill",
@@ -192,7 +192,7 @@
     ]
   },
   "pl": {
-    "param.message.description": "Opcjonalna wiadomość końcowa dla...",
+    "param.message.description": "Opcjonalny komunikat końcowy dla użytkownika",
     "tool.description": "Oznacza, że zadania bieżącej umiejętności zostały ukończone.",
     "x_search_terms": [
       "finish_skill",
@@ -208,7 +208,7 @@
     ]
   },
   "hi": {
-    "param.message.description": "उपयोगकर्ता के लिए वैकल्पिक अंतिम...",
+    "param.message.description": "उपयोगकर्ता के लिए वैकल्पिक अंतिम संदेश।",
     "tool.description": "संकेत दें कि वर्तमान कौशल के कार्य पूरे हो गए हैं। (केवल SKILL.",
     "x_search_terms": [
       "finish_skill",
@@ -240,7 +240,7 @@
     ]
   },
   "sv": {
-    "param.message.description": "Valfritt slutmeddelande till anv...",
+    "param.message.description": "Valfritt slutmeddelande till användaren.",
     "tool.description": "Markerar att den aktuella skillens uppgifter är slutförda.",
     "x_search_terms": [
       "finish_skill",
@@ -256,7 +256,7 @@
     ]
   },
   "sw": {
-    "param.message.description": "Ujumbe wa mwisho wa hiari kwa mt...",
+    "param.message.description": "umbizo la mtumiaji_7).",
     "tool.description": "Huonyesha kuwa majukumu ya skill ya sasa yamekamilika.",
     "x_search_terms": [
       "finish_skill",
@@ -272,7 +272,7 @@
     ]
   },
   "nb": {
-    "param.message.description": "Valgfri avsluttende melding til...",
+    "param.message.description": "Valgfri siste melding til brukeren.",
     "tool.description": "Markerer at den aktuelle skill-oppgaven er fullført.",
     "x_search_terms": [
       "finish_skill",
@@ -288,7 +288,7 @@
     ]
   },
   "nl": {
-    "param.message.description": "Optioneel eindbericht aan de geb...",
+    "param.message.description": "Optioneel laatste bericht aan de gebruiker.",
     "tool.description": "Geeft aan dat de taken van de huidige skill zijn voltooid.",
     "x_search_terms": [
       "finish_skill",
@@ -320,7 +320,7 @@
     ]
   },
   "cs": {
-    "param.message.description": "Volitelná závěrečná zpráva pro u...",
+    "param.message.description": "Nepovinná závěrečná zpráva pro uživatele.",
     "tool.description": "Označuje, že úkoly aktuální dovednosti byly dokončeny.",
     "x_search_terms": [
       "finish_skill",
@@ -336,7 +336,7 @@
     ]
   },
   "uk": {
-    "param.message.description": "Необовʼязкове завершальне повідо...",
+    "param.message.description": "Розмір фрагмента.",
     "tool.description": "Позначає, що завдання поточної навички виконано.",
     "x_search_terms": [
       "finish_skill",
@@ -416,7 +416,7 @@
     ]
   },
   "bn": {
-    "param.message.description": "ব্যবহারকারীর জন্য ঐচ্ছিক চূড়ান্...",
+    "param.message.description": "ব্যবহারকারীর কাছে ঐচ্ছিক চূড়ান্ত বার্তা।",
     "tool.description": "বর্তমান skill-এর কাজ সম্পন্ন হয়েছে তা জানান। (শুধু SKILL.",
     "x_search_terms": [
       "finish_skill",
@@ -448,7 +448,7 @@
     ]
   },
   "mn": {
-    "param.message.description": "Хэрэглэгчид өгөх сонголттой төгс...",
+    "param.message.description": "Хэрэглэгч рүү илгээх нэмэлт эцсийн мессеж.",
     "tool.description": "Одоогийн skill-ийн даалгавар дууссаныг мэдэгдэнэ.(Зөвхөн SKILL.",
     "x_search_terms": [
       "finish_skill",

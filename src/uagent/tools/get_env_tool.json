@@ -30,8 +30,8 @@
     "err.name_required": "[get_env error] 'name' is required"
   },
   "es": {
-    "param.mask.description": "Si es true, enmascara el valor (por ejemplo, información co...",
-    "param.name.description": "Nombre de la variable de entorno que se va...",
+    "param.mask.description": "Si es verdadero, enmascara el valor (por ejemplo, para secretos). El valor predeterminado es verdadero.",
+    "param.name.description": "Nombre de la variable de entorno a leer.",
     "param.unmasked_chars.description": "Número de caracteres que se dejan al principio y al final al enmascarar.",
     "tool.description": "Obtiene el valor de una variable de entorno especificada y lo devuelve.",
     "x_search_terms": [
@@ -44,7 +44,7 @@
     "err.name_required": "[get_env error] 'name' is required"
   },
   "fr": {
-    "param.mask.description": "Si true, masque la valeur (par exemple, des informations se...",
+    "param.mask.description": "Si vrai, masque la valeur (par exemple, pour les secrets). La valeur par défaut est vraie.",
     "param.name.description": "Nom de la variable d'environnement à lire.",
     "param.unmasked_chars.description": "Nombre de caractères à conserver au début et à la fin lors du masquage.",
     "tool.description": "Obtient la valeur d'une variable d'environnement spécifiée et la renvoie.",
@@ -86,7 +86,7 @@
     "err.name_required": "[get_env error] 'name' is required"
   },
   "it": {
-    "param.mask.description": "Se true, maschera il valore (ad esempio informazioni sensib...",
+    "param.mask.description": "Se vero, maschera il valore (ad esempio, per i segreti). Il valore predefinito è vero.",
     "param.name.description": "Nome della variabile d'ambiente da leggere.",
     "param.unmasked_chars.description": "Numero di caratteri da lasciare all'inizio e alla fine durante il mascheramento.",
     "tool.description": "Recupera il valore di una variabile d'ambiente specificata e lo restituisce.",
@@ -100,7 +100,7 @@
     "err.name_required": "[get_env error] 'name' is required"
   },
   "ru": {
-    "param.mask.description": "Если true, маскирует значение (например, конфиденциальную и...",
+    "param.mask.description": "Исправление ошибок: L/M/Q/H (по умолчанию: M). Если true, значение маскируется (например, для секретов). Значение по умолчанию — true.",
     "param.name.description": "Имя переменной среды для чтения.",
     "param.unmasked_chars.description": "Количество символов, которые нужно оставить в начале и в конце при маскировании.",
     "tool.description": "Получает значение указанной переменной среды и возвращает его.",
@@ -114,7 +114,7 @@
     "err.name_required": "[get_env error] 'name' is required"
   },
   "pt_BR": {
-    "param.mask.description": "Se true, mascara o valor (por exemplo, informações confiden...",
+    "param.mask.description": "Se verdadeiro, mascara o valor (por exemplo, para segredos). O padrão é verdadeiro.",
     "param.name.description": "Nome da variável de ambiente a ser lida.",
     "param.unmasked_chars.description": "Número de caracteres a deixar no início e no final ao mascarar. O padrão é 2.",
     "tool.description": "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor.",
@@ -128,7 +128,7 @@
     "err.name_required": "[get_env error] 'name' is required"
   },
   "pt": {
-    "param.mask.description": "Se verdadeiro, mascara o valor (por exemplo, informações se...",
+    "param.mask.description": "Correção de erro: L/M/Q/H (padrão: M).",
     "param.name.description": "Nome da variável de ambiente a ser lida.",
     "param.unmasked_chars.description": "Número de caracteres a deixar no início e no final ao mascarar. O padrão é 2.",
     "tool.description": "Obtém o valor de uma variável de ambiente especificada e o retorna. Opcionalmente, mascara o valor.",
@@ -184,7 +184,7 @@
     "err.name_required": "[get_env error] 'name' is required"
   },
   "hi": {
-    "param.mask.description": "यदि true है, तो मान को मास्क करता है (जैसे गुप्त जानकारी)।...",
+    "param.mask.description": "यदि सत्य है, तो मान छुपाएं (उदाहरण के लिए, रहस्यों के लिए)। डिफ़ॉल्ट सत्य है।",
     "param.name.description": "पढ़ने के लिए पर्यावरण चर का नाम.",
     "param.unmasked_chars.description": "मास्क करते समय आरंभ और अंत में छोड़े जाने वाले वर्णों की संख्या। डिफ़ॉल्ट 2 है.",
     "tool.description": "निर्दिष्ट पर्यावरण चर का मान प्राप्त करता है और लौटाता है। आवश्यकतानुसार मान को मास्क किया जा सकता है।",
@@ -240,7 +240,7 @@
     "err.name_required": "[get_env error] 'name' is required"
   },
   "nb": {
-    "param.mask.description": "Hvis true, maskerer verdien (for eksempel sensitiv informas...",
+    "param.mask.description": "Hvis sant, maskerer verdien (f.eks. for hemmeligheter). Standard er sant.",
     "param.name.description": "Navnet på miljøvariabelen som skal leses.",
     "param.unmasked_chars.description": "Antall tegn som skal beholdes i begynnelsen og slutten ved maskering. Standard er 2.",
     "tool.description": "Henter verdien til en angitt miljøvariabel og returnerer den. Verdien kan maskeres ved behov.",
@@ -296,7 +296,7 @@
     "err.name_required": "[get_env error] 'name' is required"
   },
   "uk": {
-    "param.mask.description": "Якщо значення true, маскує значення (наприклад, конфіденцій...",
+    "param.mask.description": "Якщо true, маскує значення (наприклад, для секретів). За умовчанням встановлено значення true.",
     "param.name.description": "Назва змінної середовища для читання.",
     "param.unmasked_chars.description": "Кількість символів, які залишаються на початку та в кінці під час маскування.",
     "tool.description": "Отримує значення вказаної змінної середовища та повертає його. За потреби значення можна замаскувати.",

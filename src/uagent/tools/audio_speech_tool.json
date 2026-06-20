@@ -54,19 +54,19 @@
     "param.text.description": "Texto que se sintetizará en voz.",
     "param.output_path.description": "Ruta donde se guardará el archivo de audio generado.",
     "param.model.description": "Nombre del modelo de voz.",
-    "param.voice.description": "Nom...",
-    "param.response_format.description": "Formato del archivo de audi...",
-    "param.speed.description": "Multiplicador de velocidad de repr...",
-    "param.instructions.description": "Instrucciones opcionales para el estilo...",
+    "param.voice.description": "Voz.",
+    "param.response_format.description": "Formato de archivo de audio a generar.",
+    "param.speed.description": "Multiplicador de velocidad de reproducción (por ejemplo, 1,0).",
+    "param.instructions.description": "Instrucciones opcionales para el estilo de discurso.",
     "err.unsupported_provider": "Proveedor no compatible para voz: {provider!r}",
     "err.openai_import": "No se pudo importar el paquete openai: {err}",
-    "err.text_empty": "text es oblig...",
-    "err.output_path_empty": "output_path es oblig...",
+    "err.text_empty": "se requiere texto",
+    "err.output_path_empty": "se requiere ruta_salida",
     "err.speech_failed": "Falló la generación de voz: {err}",
-    "ok.saved": "Archivo de au..."
+    "ok.saved": "Archivo de audio guardado"
   },
   "fr": {
-    "tool.description": "Convertit du texte en parole, enregistre l’audio dans un fichier et renvo...",
+    "tool.description": "Convertissez le texte en parole, enregistrez l'audio sous forme de fichier et renvoyez le chemin enregistré.",
     "x_search_terms": [
       "Convertit du texte en parole, enregistre l’audio dans un fichier et renvoie le chemin enregistré",
       "audio_speech",
@@ -75,16 +75,16 @@
     "param.text.description": "Texte à synthétiser en parole.",
     "param.output_path.description": "Chemin où le fichier audio généré sera enregistré.",
     "param.model.description": "Nom du modèle vocal.",
-    "param.voice.description": "Nom...",
-    "param.response_format.description": "Format du fichier audio à g...",
-    "param.speed.description": "Multiplicateur de vitesse de lectu...",
-    "param.instructions.description": "Instructions facultatives pour le style...",
-    "err.unsupported_provider": "Fournisseur non pris en charge pour la synthèse...",
+    "param.voice.description": "Voix.",
+    "param.response_format.description": "Format de fichier audio à générer.",
+    "param.speed.description": "Multiplicateur de vitesse de lecture (par exemple 1,0).",
+    "param.instructions.description": "Instructions facultatives pour le style de discours.",
+    "err.unsupported_provider": "Fournisseur non pris en charge pour la parole audio : {provider!r}",
     "err.openai_import": "Échec de l'importation du package openai : {err}",
     "err.text_empty": "text est requis",
     "err.output_path_empty": "output_path est requis",
     "err.speech_failed": "Échec de la génération vocale : {err}",
-    "ok.saved": "Fichier audio..."
+    "ok.saved": "Fichier audio enregistré"
   },
   "ko": {
     "tool.description": "텍스트를 음성으로 변환하여 파일로 저장하고 저장 경로를 반환합니다.",
@@ -108,28 +108,28 @@
     "ok.saved": "오디오 파일이 저장되었습니다"
   },
   "de": {
-    "tool.description": "Konvertiert Text in Sprache, speichert die Audiodatei und gibt den gespei...",
+    "tool.description": "Text in Sprache umwandeln, Audio als Datei speichern und den gespeicherten Pfad zurückgeben.",
     "x_search_terms": [
       "Konvertiert Text in Sprache, speichert die Audiodatei und gibt den gespeicherten Pfad zurück",
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Text, der in Sprache umgewan...",
-    "param.output_path.description": "Pfad, unter dem die erzeugte Audiodatei gespeic...",
+    "param.text.description": "Text, der in Sprache umgewandelt werden soll.",
+    "param.output_path.description": "Pfad, in dem die generierte Audiodatei gespeichert wird.",
     "param.model.description": "Name des Sprachmodells.",
-    "param.voice.description": "Nam...",
+    "param.voice.description": "Stimme.",
     "param.response_format.description": "Zu erzeugendes Audio-Dateiformat.",
-    "param.speed.description": "Wiedergabegeschwindigkeits-Multipl...",
+    "param.speed.description": "Wiedergabegeschwindigkeitsmultiplikator (z. B. 1,0).",
     "param.instructions.description": "Optionale Anweisungen für den Sprachstil.",
-    "err.unsupported_provider": "Nicht unterstützter Provider für Sprachsynthese:...",
+    "err.unsupported_provider": "Nicht unterstützter Anbieter für Audio-Sprache: {provider!r}",
     "err.openai_import": "Fehler beim Importieren des OpenAI-Pakets: {err}",
-    "err.text_empty": "text ist erfo...",
-    "err.output_path_empty": "output_path ist erfo...",
+    "err.text_empty": "Text ist erforderlich",
+    "err.output_path_empty": "Ausgabepfad ist erforderlich",
     "err.speech_failed": "Sprachgenerierung fehlgeschlagen: {err}",
-    "ok.saved": "Audiodatei ge..."
+    "ok.saved": "Audiodatei gespeichert"
   },
   "it": {
-    "tool.description": "Converte testo in parlato, salva l’audio come file e restituisce il perco...",
+    "tool.description": "Converti testo in voce, salva l'audio come file e restituisce il percorso salvato.",
     "x_search_terms": [
       "Converte testo in parlato, salva l’audio come file e restituisce il percorso salvato",
       "audio_speech",
@@ -138,16 +138,16 @@
     "param.text.description": "Testo da sintetizzare in parlato.",
     "param.output_path.description": "Percorso in cui il file audio generato verrà salvato.",
     "param.model.description": "Nome del modello vocale.",
-    "param.voice.description": "Nom...",
-    "param.response_format.description": "Formato del file audio da g...",
-    "param.speed.description": "Moltiplicatore della velocità di r...",
+    "param.voice.description": "Voce.",
+    "param.response_format.description": "Formato file audio da generare.",
+    "param.speed.description": "Moltiplicatore della velocità di riproduzione (es. 1.0).",
     "param.instructions.description": "Istruzioni opzionali per lo stile della voce.",
-    "err.unsupported_provider": "Provider non supportato per la sintesi vocale: {...",
+    "err.unsupported_provider": "Provider non supportato per la voce audio: {provider!r}",
     "err.openai_import": "Impossibile importare il pacchetto openai: {err}",
-    "err.text_empty": "text è obblig...",
-    "err.output_path_empty": "output_path è obblig...",
+    "err.text_empty": "testo è obbligatorio",
+    "err.output_path_empty": "output_path è obbligatorio",
     "err.speech_failed": "Generazione vocale non riuscita: {err}",
-    "ok.saved": "File audio sa..."
+    "ok.saved": "File audio salvato"
   },
   "ru": {
     "tool.description": "Преобразует текст в речь, сохраняет аудио в файл и возвращает путь сохранения.",
@@ -159,16 +159,16 @@
     "param.text.description": "Текст, который нужно озвучить.",
     "param.output_path.description": "Путь, куда будет сохранён сгенерированный аудиофайл.",
     "param.model.description": "Имя модели речи.",
-    "param.voice.description": "Имя...",
+    "param.voice.description": "Голос.",
     "param.response_format.description": "Формат аудиофайла для генерации.",
-    "param.speed.description": "Множитель скорости воспроизведения...",
+    "param.speed.description": "Множитель скорости воспроизведения (например, 1,0).",
     "param.instructions.description": "Необязательные инструкции для стиля речи.",
     "err.unsupported_provider": "Неподдерживаемый provider для синтеза речи: {provider!r}",
     "err.openai_import": "Не удалось импортировать пакет openai: {err}.",
     "err.text_empty": "text обязателен",
     "err.output_path_empty": "output_path обязателен",
     "err.speech_failed": "Не удалось сгенерировать речь: {err}",
-    "ok.saved": "Аудиофайл сох..."
+    "ok.saved": "Аудиофайл сохранен."
   },
   "pt_BR": {
     "tool.description": "Converte texto em fala, salva o áudio em um arquivo e retorna o caminho salvo.",
@@ -180,16 +180,16 @@
     "param.text.description": "Texto a ser sintetizado em fala.",
     "param.output_path.description": "Caminho onde o arquivo de áudio gerado será salvo.",
     "param.model.description": "Nome do modelo de voz.",
-    "param.voice.description": "Nom...",
-    "param.response_format.description": "Formato do arquivo de áudio...",
-    "param.speed.description": "Multiplicador da velocidade de rep...",
+    "param.voice.description": "Voz.",
+    "param.response_format.description": "Formato de arquivo de áudio a ser gerado.",
+    "param.speed.description": "Multiplicador de velocidade de reprodução (por exemplo, 1,0).",
     "param.instructions.description": "Instruções opcionais para o estilo da voz.",
     "err.unsupported_provider": "Provedor não compatível para fala: {provider!r}",
     "err.openai_import": "Falha ao importar o pacote openai: {err}",
-    "err.text_empty": "text é obriga...",
+    "err.text_empty": "texto é obrigatório",
     "err.output_path_empty": "output_path é obrigatório",
     "err.speech_failed": "Falha na geração de voz: {err}",
-    "ok.saved": "Arquivo de áu..."
+    "ok.saved": "Arquivo de áudio salvo"
   },
   "pt": {
     "tool.description": "Converte texto em fala, salva o áudio em um arquivo e retorna o caminho salvo.",
@@ -201,37 +201,37 @@
     "param.text.description": "Texto a ser sintetizado em fala.",
     "param.output_path.description": "Caminho onde o arquivo de áudio gerado será salvo.",
     "param.model.description": "Nome do modelo de voz.",
-    "param.voice.description": "Nom...",
-    "param.response_format.description": "Formato do arquivo de áudio...",
-    "param.speed.description": "Multiplicador da velocidade de rep...",
+    "param.voice.description": "Voz.",
+    "param.response_format.description": "Formato de arquivo de áudio a ser gerado.",
+    "param.speed.description": "Multiplicador de velocidade de reprodução (por exemplo, 1,0).",
     "param.instructions.description": "Instruções opcionais para o estilo da voz.",
     "err.unsupported_provider": "Provedor não suportado para fala: {provider!r}",
     "err.openai_import": "Falha ao importar o pacote openai: {err}",
-    "err.text_empty": "text é obriga...",
+    "err.text_empty": "texto é obrigatório",
     "err.output_path_empty": "output_path é obrigatório",
     "err.speech_failed": "Falha na geração de fala: {err}",
-    "ok.saved": "Arquivo de áu..."
+    "ok.saved": "Arquivo de áudio salvo"
   },
   "id": {
-    "tool.description": "Mengubah teks menjadi suara, menyimpan audio sebagai file, dan mengembali...",
+    "tool.description": "Konversi teks menjadi ucapan, simpan audio sebagai file, dan kembalikan jalur yang disimpan.",
     "x_search_terms": [
       "Mengubah teks menjadi suara, menyimpan audio sebagai file, dan mengembalikan path yang disimpan",
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Teks yang akan disintesis me...",
+    "param.text.description": "Teks untuk disintesis menjadi ucapan.",
     "param.output_path.description": "Path tempat file audio yang dihasilkan akan disimpan.",
     "param.model.description": "Nama model suara.",
-    "param.voice.description": "Nam...",
-    "param.response_format.description": "Format file audio yang akan...",
-    "param.speed.description": "Pengali kecepatan pemutaran (misal...",
+    "param.voice.description": "Suara.",
+    "param.response_format.description": "Format file audio yang akan dihasilkan.",
+    "param.speed.description": "Pengganda kecepatan pemutaran (misalnya 1.0).",
     "param.instructions.description": "Instruksi opsional untuk gaya suara.",
     "err.unsupported_provider": "Provider tidak didukung untuk speech audio: {provider!r}",
     "err.openai_import": "Gagal mengimpor paket openai: {err}",
     "err.text_empty": "text wajib diisi",
     "err.output_path_empty": "output_path wajib diisi",
     "err.speech_failed": "Pembuatan suara gagal: {err}",
-    "ok.saved": "File audio di..."
+    "ok.saved": "File audio disimpan"
   },
   "vi": {
     "tool.description": "Chuyển văn bản thành giọng nói, lưu âm thanh thành tệp và trả về đường dẫn đã lưu.",
@@ -240,19 +240,19 @@
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Văn bản cần chuyển thành giọ...",
+    "param.text.description": "Văn bản để tổng hợp thành lời nói.",
     "param.output_path.description": "Đường dẫn nơi tệp âm thanh được tạo sẽ được lưu.",
     "param.model.description": "Tên mô hình giọng nói.",
-    "param.voice.description": "Tên...",
+    "param.voice.description": "Giọng nói.",
     "param.response_format.description": "Định dạng tệp âm thanh cần tạo.",
     "param.speed.description": "Hệ số tốc độ phát (ví dụ 1.0).",
     "param.instructions.description": "Chỉ dẫn tùy chọn cho phong cách giọng nói.",
-    "err.unsupported_provider": "Nhà cung cấp không hỗ trợ cho speech âm thanh: {...",
+    "err.unsupported_provider": "Nhà cung cấp âm thanh giọng nói không được hỗ trợ: {provider!r}",
     "err.openai_import": "Không thể import gói openai: {err}",
     "err.text_empty": "text là bắt buộc",
     "err.output_path_empty": "output_path là bắt buộc",
     "err.speech_failed": "Tạo giọng nói thất bại: {err}",
-    "ok.saved": "Đã lưu tệp âm..."
+    "ok.saved": "Đã lưu tệp âm thanh"
   },
   "pl": {
     "tool.description": "Konwertuje tekst na mowę, zapisuje dźwięk jako plik i zwraca zapisany ścieżkę.",
@@ -262,21 +262,21 @@
       "audio speech"
     ],
     "param.text.description": "Tekst do zamiany na mowę.",
-    "param.output_path.description": "Ścieżka, w której zostanie zapisany wygenerowan...",
+    "param.output_path.description": "Ścieżka, w której zostanie zapisany wygenerowany plik audio.",
     "param.model.description": "Nazwa modelu mowy.",
-    "param.voice.description": "Naz...",
-    "param.response_format.description": "Format pliku audio do wygen...",
+    "param.voice.description": "Głos.",
+    "param.response_format.description": "Format pliku audio do wygenerowania.",
     "param.speed.description": "Mnożnik szybkości odtwarzania (np. 1.0).",
     "param.instructions.description": "Opcjonalne instrukcje dotyczące stylu mowy.",
     "err.unsupported_provider": "Nieobsługiwany provider dla mowy: {provider!r}",
     "err.openai_import": "Nie udało się zaimportować pakietu Openai: {err}",
-    "err.text_empty": "text jest wym...",
+    "err.text_empty": "tekst jest wymagany",
     "err.output_path_empty": "output_path jest wymagany",
     "err.speech_failed": "Generowanie mowy nie powiodło się: {err}",
-    "ok.saved": "Plik audio za..."
+    "ok.saved": "Zapisano plik audio"
   },
   "hi": {
-    "tool.description": "टेक्स्ट को स्पीच में बदलता है, ऑडियो को फ़ाइल के रूप में सहेजता है, और सह...",
+    "tool.description": "टेक्स्ट को स्पीच में कनवर्ट करें, ऑडियो को फ़ाइल के रूप में सहेजें, और सहेजे गए पथ को वापस लौटाएँ।",
     "x_search_terms": [
       "टेक्स्ट को स्पीच में बदलता है, ऑडियो को फ़ाइल के रूप में सहेजता है, और सहेजा गया पथ लौटाता है।",
       "audio_speech",
@@ -285,8 +285,8 @@
     "param.text.description": "स्पीच में बदलने के लिए टेक्स्ट।",
     "param.output_path.description": "वह पथ जहाँ उत्पन्न ऑडियो फ़ाइल सहेजी जाएगी।",
     "param.model.description": "स्पीच मॉडल का नाम। यदि छोड़ा गया, तो provider का default या configured deployment name उपयोग होगा।",
-    "param.voice.description": "स्प...",
-    "param.response_format.description": "उत्पन्न किए जाने वाले ऑडियो...",
+    "param.voice.description": "आवाज.",
+    "param.response_format.description": "उत्पन्न करने के लिए ऑडियो फ़ाइल स्वरूप।",
     "param.speed.description": "प्लेबैक गति गुणक (जैसे 1.0).",
     "param.instructions.description": "स्पीच शैली के लिए वैकल्पिक निर्देश।",
     "err.unsupported_provider": "स्पीच ऑडियो के लिए असमर्थित provider: {provider!r}",
@@ -294,7 +294,7 @@
     "err.text_empty": "text आवश्यक है",
     "err.output_path_empty": "output_path आवश्यक है",
     "err.speech_failed": "स्पीच निर्माण विफल: {err}",
-    "ok.saved": "ऑडियो फ़ाइल स..."
+    "ok.saved": "ऑडियो फ़ाइल सहेजी गई"
   },
   "ar": {
     "tool.description": "يحوّل النص إلى كلام، ويحفظ الصوت كملف، ويعيد مسار الحفظ.",
@@ -306,7 +306,7 @@
     "param.text.description": "النص المراد تحويله إلى كلام.",
     "param.output_path.description": "المسار الذي سيُحفظ فيه ملف الصوت المُنشأ.",
     "param.model.description": "اسم نموذج الكلام. إذا لم يُذكر، فسيُستخدم الافتراضي لدى المزوّد أو اسم النشر المُهيأ.",
-    "param.voice.description": "اسم...",
+    "param.voice.description": "صوت.",
     "param.response_format.description": "تنسيق ملف الصوت المراد إنشاؤه.",
     "param.speed.description": "معامل سرعة التشغيل (مثل 1.0).",
     "param.instructions.description": "تعليمات اختيارية لأسلوب الكلام.",
@@ -318,18 +318,18 @@
     "ok.saved": "تم حفظ ملف الصوت"
   },
   "sv": {
-    "tool.description": "Konverterar text till tal, sparar ljudet som en fil och վերադարձar den sp...",
+    "tool.description": "Konvertera text till tal, spara ljudet som en fil och returnera den sparade sökvägen.",
     "x_search_terms": [
       "Konverterar text till tal, sparar ljudet som en fil och վերադարձar den sparade sökvägen",
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Text som ska syntetiseras ti...",
+    "param.text.description": "Text att syntetisera till tal.",
     "param.output_path.description": "Sökvägen där den genererade ljudfilen sparas.",
     "param.model.description": "Namn på talmodellen.",
-    "param.voice.description": "Nam...",
+    "param.voice.description": "Röst.",
     "param.response_format.description": "Ljudfilformat som ska genereras.",
-    "param.speed.description": "Uppspelningshastighetsmultiplikato...",
+    "param.speed.description": "Multiplikator för uppspelningshastighet (t.ex. 1.0).",
     "param.instructions.description": "Valfria instruktioner för talstilen.",
     "err.unsupported_provider": "Ej stödd leverantör för tal: {provider!r}",
     "err.openai_import": "Det gick inte att importera openai-paket: {err}",
@@ -339,39 +339,39 @@
     "ok.saved": "Ljudfil sparad"
   },
   "sw": {
-    "tool.description": "Hubadilisha maandishi kuwa sauti, huhifadhi sauti kama faili, na kurudish...",
+    "tool.description": "Badilisha maandishi kuwa matamshi, hifadhi sauti kama faili, na urudishe njia iliyohifadhiwa.",
     "x_search_terms": [
       "Hubadilisha maandishi kuwa sauti, huhifadhi sauti kama faili, na kurudisha njia iliyohifadhiwa",
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Maandishi ya kubadilishwa ku...",
-    "param.output_path.description": "Njia ambako faili ya sauti iliyotengenezwa itah...",
+    "param.text.description": "Maandishi ya kusanisi katika usemi.",
+    "param.output_path.description": "Njia ambapo faili ya sauti iliyotengenezwa itahifadhiwa.",
     "param.model.description": "Jina la modeli ya sauti.",
-    "param.voice.description": "Jin...",
-    "param.response_format.description": "Muundo wa faili ya sauti it...",
-    "param.speed.description": "Kizidishi cha kasi ya kucheza (mfa...",
+    "param.voice.description": "Sauti.",
+    "param.response_format.description": "Umbizo la faili ya sauti kutengeneza.",
+    "param.speed.description": "Kizidishi kasi cha uchezaji (k.m. 1.0).",
     "param.instructions.description": "Maagizo ya hiari kwa mtindo wa sauti.",
     "err.unsupported_provider": "Mtoa huduma huyu hauniunzi hotuba: {provider!r}",
     "err.openai_import": "Imeshindwa kuleta kifurushi cha openai: {err}",
     "err.text_empty": "text inahitajika",
     "err.output_path_empty": "output_path inahitajika",
     "err.speech_failed": "Uundaji wa sauti umeshindwa: {err}",
-    "ok.saved": "Faili ya saut..."
+    "ok.saved": "Faili ya sauti imehifadhiwa"
   },
   "nb": {
-    "tool.description": "Konverterer tekst til tale, lagrer lyden som en fil, og returnerer den la...",
+    "tool.description": "Konverter tekst til tale, lagre lyden som en fil, og returner den lagrede banen.",
     "x_search_terms": [
       "Konverterer tekst til tale, lagrer lyden som en fil, og returnerer den lagrede stien",
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Tekst som skal syntetiseres...",
+    "param.text.description": "Tekst som skal syntetiseres til tale.",
     "param.output_path.description": "Stien der den genererte lydfilen skal lagres.",
     "param.model.description": "Navn på talemodellen.",
-    "param.voice.description": "Nav...",
+    "param.voice.description": "Stemme.",
     "param.response_format.description": "Lydfilformat som skal genereres.",
-    "param.speed.description": "Avspillingshastighetsmultiplikator...",
+    "param.speed.description": "Multiplikator for avspillingshastighet (f.eks. 1.0).",
     "param.instructions.description": "Valgfrie instruksjoner for talestilen.",
     "err.unsupported_provider": "Ikke-støttet leverandør for tale: {provider!r}",
     "err.openai_import": "Kunne ikke importere openai-pakken: {err}",
@@ -381,17 +381,17 @@
     "ok.saved": "Lydfil lagret"
   },
   "nl": {
-    "tool.description": "Zet tekst om naar spraak, slaat audio op als bestand en geeft het opgesla...",
+    "tool.description": "Converteer tekst naar spraak, sla de audio op als bestand en retourneer het opgeslagen pad.",
     "x_search_terms": [
       "Zet tekst om naar spraak, slaat audio op als bestand en geeft het opgeslagen pad terug",
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Tekst die naar spraak moet w...",
-    "param.output_path.description": "Pad waar het gegenereerde audiobestand wordt op...",
+    "param.text.description": "Tekst om in spraak te synthetiseren.",
+    "param.output_path.description": "Pad waar het gegenereerde audiobestand wordt opgeslagen.",
     "param.model.description": "Naam van het spraakmodel.",
-    "param.voice.description": "Naa...",
-    "param.response_format.description": "Audio-bestandsformaat om te...",
+    "param.voice.description": "Stem.",
+    "param.response_format.description": "Audiobestandsformaat om te genereren.",
     "param.speed.description": "Afspeelsnelheidsfactor (bijv. 1.0).",
     "param.instructions.description": "Optionele instructies voor de spreekstijl.",
     "err.unsupported_provider": "Niet-ondersteunde provider voor spraak: {provider!r}",
@@ -399,28 +399,28 @@
     "err.text_empty": "text is verplicht",
     "err.output_path_empty": "output_path is verplicht",
     "err.speech_failed": "Spraaksynthese mislukt: {err}",
-    "ok.saved": "Audiobestand..."
+    "ok.saved": "Audiobestand opgeslagen"
   },
   "fi": {
-    "tool.description": "Muuntaa tekstin puheeksi, tallentaa äänen tiedostoksi ja palauttaa tallen...",
+    "tool.description": "Muunna teksti puheeksi, tallenna ääni tiedostona ja palauta tallennettu polku.",
     "x_search_terms": [
       "Muuntaa tekstin puheeksi, tallentaa äänen tiedostoksi ja palauttaa tallennetun polun",
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Teksti, joka syntetisoidaan...",
+    "param.text.description": "Puheeksi syntetisoitava teksti.",
     "param.output_path.description": "Polku, johon luotu äänitiedosto tallennetaan.",
     "param.model.description": "Puhemallin nimi. Jos jätetään pois, käytetään tarjoajan oletusta tai määritettyä deployment-nimeä.",
-    "param.voice.description": "Ään...",
+    "param.voice.description": "Ääni.",
     "param.response_format.description": "Luotavan äänitiedoston muoto.",
     "param.speed.description": "Toistonopeuden kerroin (esim. 1.0).",
     "param.instructions.description": "Valinnaiset ohjeet puhetyyliä varten.",
     "err.unsupported_provider": "Puheen tuottamiseen ei tuettu provider: {provider!r}",
     "err.openai_import": "openai-paketin tuonti epäonnistui: {err}",
-    "err.text_empty": "text on pakol...",
+    "err.text_empty": "teksti on pakollinen",
     "err.output_path_empty": "output_path on pakollinen",
     "err.speech_failed": "Puheentuotto epäonnistui: {err}",
-    "ok.saved": "Äänitiedosto..."
+    "ok.saved": "Äänitiedosto tallennettu"
   },
   "cs": {
     "tool.description": "Převede text na řeč, uloží zvuk jako soubor a vrátí uloženou cestu.",
@@ -429,11 +429,11 @@
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Text, který má být syntetizo...",
+    "param.text.description": "Text, který se má syntetizovat do řeči.",
     "param.output_path.description": "Cesta, kam bude vygenerovaný zvukový soubor uložen.",
     "param.model.description": "Název hlasového modelu.",
-    "param.voice.description": "Náz...",
-    "param.response_format.description": "Formát zvukového souboru k...",
+    "param.voice.description": "Hlas.",
+    "param.response_format.description": "Formát zvukového souboru k vygenerování.",
     "param.speed.description": "Násobitel rychlosti přehrávání (např.",
     "param.instructions.description": "Volitelné pokyny pro styl řeči.",
     "err.unsupported_provider": "Nepodporovaný provider pro řeč: {provider!r}",
@@ -441,7 +441,7 @@
     "err.text_empty": "text je povinné",
     "err.output_path_empty": "output_path je povinné",
     "err.speech_failed": "Generování řeči se nezdařilo: {err}",
-    "ok.saved": "Zvukový soubo..."
+    "ok.saved": "Zvukový soubor uložen"
   },
   "uk": {
     "tool.description": "Перетворює текст у мовлення, зберігає аудіо у файл і повертає шлях збереження.",
@@ -450,22 +450,22 @@
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "Текст, який потрібно синтезу...",
+    "param.text.description": "Текст для синтезу в мову.",
     "param.output_path.description": "Шлях, куди буде збережено згенерований аудіофайл.",
     "param.model.description": "Назва голосової моделі.",
-    "param.voice.description": "Наз...",
+    "param.voice.description": "Голос.",
     "param.response_format.description": "Формат аудіофайлу для генерації.",
-    "param.speed.description": "Множник швидкості відтворення (нап...",
+    "param.speed.description": "Множник швидкості відтворення (наприклад, 1,0).",
     "param.instructions.description": "Необов'язкові інструкції для стилю мовлення.",
     "err.unsupported_provider": "Непідтримуваний provider для мовлення: {provider!r}",
     "err.openai_import": "Не вдалося імпортувати пакет openai: {err}",
-    "err.text_empty": "text є обов'я...",
-    "err.output_path_empty": "output_path є обов'я...",
+    "err.text_empty": "потрібен текст",
+    "err.output_path_empty": "вихідний_шлях потрібен",
     "err.speech_failed": "Не вдалося згенерувати мовлення: {err}",
-    "ok.saved": "Аудіофайл збе..."
+    "ok.saved": "Аудіофайл збережено"
   },
   "tr": {
-    "tool.description": "Metni konuşmaya dönüştürün, sesi dosya olarak kaydedin ve kaydedilen yola...",
+    "tool.description": "Metni konuşmaya dönüştürün, sesi dosya olarak kaydedin ve kaydedilen yola geri dönün.",
     "x_search_terms": [
       "Metni konuşmaya dönüştürün, sesi dosya olarak kaydedin ve kaydedilen yola geri dönün",
       "audio_speech",
@@ -474,16 +474,16 @@
     "param.text.description": "Konuşmaya sentezlenecek metin.",
     "param.output_path.description": "Oluşturulan ses dosyasının kaydedileceği yol.",
     "param.model.description": "Konuşma modeli adı. Atlanırsa sağlayıcının varsayılan veya yapılandırılmış dağıtım adı kullanılır.",
-    "param.voice.description": "Kon...",
-    "param.response_format.description": "Oluşturulacak ses dosyası f...",
+    "param.voice.description": "Ses.",
+    "param.response_format.description": "Oluşturulacak ses dosyası biçimi.",
     "param.speed.description": "Oynatma hızı çarpanı (örn. 1,0).",
     "param.instructions.description": "Konuşma stili için isteğe bağlı talimatlar.",
-    "err.unsupported_provider": "Sesli konuşma için desteklenmeyen sağlayıcı: {pr...",
+    "err.unsupported_provider": "Sesli konuşma için desteklenmeyen sağlayıcı: {provider!r}",
     "err.openai_import": "Openai paketi içe aktarılamadı: {err}",
     "err.text_empty": "metin gerekli",
     "err.output_path_empty": "çıktı_yolu gerekli",
     "err.speech_failed": "Sesli konuşma oluşturulamadı: {err}",
-    "ok.saved": "Ses dosyası k..."
+    "ok.saved": "Ses dosyası kaydedildi"
   },
   "th": {
     "tool.description": "แปลงข้อความเป็นเสียง บันทึกเสียงเป็นไฟล์ และส่งกลับพาธที่บันทึก",
@@ -492,10 +492,10 @@
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "ข้อความที่ต้องการสังเคราะห์เ...",
+    "param.text.description": "ข้อความที่จะสังเคราะห์เป็นคำพูด",
     "param.output_path.description": "พาธที่ไฟล์เสียงที่สร้างขึ้นจะถูกบันทึก",
     "param.model.description": "ชื่อโมเดลเสียง หากไม่ระบุ จะใช้ค่าเริ่มต้นของผู้ให้บริการหรือชื่อ deployment ที่กำหนดไว้",
-    "param.voice.description": "ชื่...",
+    "param.voice.description": "เสียง",
     "param.response_format.description": "รูปแบบไฟล์เสียงที่จะสร้าง",
     "param.speed.description": "ตัวคูณความเร็วในการเล่น (เช่น 1.0)",
     "param.instructions.description": "คำสั่งเพิ่มเติมสำหรับสไตล์เสียง (เลือกได้)",
@@ -504,7 +504,7 @@
     "err.text_empty": "ต้องระบุ text",
     "err.output_path_empty": "ต้องระบุ output_path",
     "err.speech_failed": "การสร้างเสียงล้มเหลว: {err}",
-    "ok.saved": "บันทึกไฟล์เสี..."
+    "ok.saved": "บันทึกไฟล์เสียงแล้ว"
   },
   "zh_CN": {
     "tool.description": "将文本转换为语音，保存为音频文件，并返回保存路径。",
@@ -549,16 +549,16 @@
     "ok.saved": "音訊檔已儲存"
   },
   "bn": {
-    "tool.description": "টেক্সটকে বক্তৃতায় রূপান্তর করে, অডিও ফাইল হিসেবে সংরক্ষণ করুন, এবং সংরক্...",
+    "tool.description": "টেক্সটকে স্পিচ এ কনভার্ট করুন, ফাইল হিসেবে অডিও সেভ করুন এবং সেভ করা পাথ ফিরিয়ে দিন।",
     "x_search_terms": [
       "টেক্সটকে বক্তৃতায় রূপান্তর করে, অডিও ফাইল হিসেবে সংরক্ষণ করুন, এবং সংরক্ষিত পথ ফেরত দিন",
       "audio_speech",
       "audio speech"
     ],
-    "param.text.description": "বক্তৃতায় রূপান্তর করার জন্য...",
+    "param.text.description": "বক্তৃতায় সংশ্লেষিত করার জন্য পাঠ্য।",
     "param.output_path.description": "যে পথে তৈরি হওয়া অডিও ফাইল সংরক্ষিত হবে।",
     "param.model.description": "স্পিচ মডেলের নাম। উল্লেখ না করলে প্রদানকারীর ডিফল্ট বা কনফিগার করা deployment নাম ব্যবহার হবে।",
-    "param.voice.description": "স্প...",
+    "param.voice.description": "ভয়েস।",
     "param.response_format.description": "তৈরি করার অডিও ফাইলের format।",
     "param.speed.description": "প্লেব্যাক গতির গুণক (যেমন 1.0)।",
     "param.instructions.description": "স্পিচ স্টাইলের জন্য ঐচ্ছিক নির্দেশনা।",
@@ -567,10 +567,10 @@
     "err.text_empty": "text প্রয়োজন",
     "err.output_path_empty": "output_path প্রয়োজন",
     "err.speech_failed": "অডিও স্পিচ তৈরি ব্যর্থ হয়েছে: {err}",
-    "ok.saved": "অডিও ফাইল সংর..."
+    "ok.saved": "অডিও ফাইল সংরক্ষিত হয়েছে"
   },
   "fa": {
-    "tool.description": "متن را به گفتار تبدیل کنید، صدا را به‌صورت فایل ذخیره کنید و مسیر ذخیره‌ش...",
+    "tool.description": "متن را به گفتار تبدیل کنید، صدا را به صورت فایل ذخیره کنید و مسیر ذخیره شده را برگردانید.",
     "x_search_terms": [
       "متن را به گفتار تبدیل کنید، صدا را به‌صورت فایل ذخیره کنید و مسیر ذخیره‌شده را برگردانید",
       "audio_speech",
@@ -579,8 +579,8 @@
     "param.text.description": "متنی که باید به گفتار تبدیل شود.",
     "param.output_path.description": "مسیر ذخیرهٔ فایل صوتی تولیدشده.",
     "param.model.description": "نام مدل گفتار. اگر حذف شود، پیش‌فرض ارائه‌دهنده یا نام deployment پیکربندی‌شده استفاده می‌شود.",
-    "param.voice.description": "نام...",
-    "param.response_format.description": "قالب فایل صوتیِ موردنظر برا...",
+    "param.voice.description": "صدا. فرمت فایل صوتی",
+    "param.response_format.description": "برای تولید.",
     "param.speed.description": "ضریب سرعت پخش (مثلاً 1.0).",
     "param.instructions.description": "دستورالعمل اختیاری برای سبک صدا.",
     "err.unsupported_provider": "provider پشتیبانی نمی‌شود برای گفتار: {provider!r}",
@@ -588,7 +588,7 @@
     "err.text_empty": "text لازم است",
     "err.output_path_empty": "output_path لازم است",
     "err.speech_failed": "تولید گفتار ناموفق بود: {err}",
-    "ok.saved": "فایل صوتی ذخی..."
+    "ok.saved": "فایل صوتی ذخیره شد"
   },
   "mn": {
     "tool.description": "Текстийг яриа болгон хувиргаж, аудио файлаар хадгалж, хадгалсан замыг буцаана.",
@@ -600,7 +600,7 @@
     "param.text.description": "Яриа болгон хөрвүүлэх текст.",
     "param.output_path.description": "Үүсгэсэн аудио файлыг хадгалах зам.",
     "param.model.description": "Ярианы загварын нэр. Орхивол provider-ийн өгөгдмөл эсвэл тохируулсан deployment нэрийг ашиглана.",
-    "param.voice.description": "Яри...",
+    "param.voice.description": "Дуу хоолой.",
     "param.response_format.description": "Үүсгэх аудио файлын формат.",
     "param.speed.description": "Тоглуулах хурдны үржвэр (жишээ нь 1.0).",
     "param.instructions.description": "Ярианы хэв маягт зориулсан нэмэлт заавар.",
@@ -609,10 +609,10 @@
     "err.text_empty": "text шаардлагатай",
     "err.output_path_empty": "output_path шаардлагатай",
     "err.speech_failed": "Аудио яриа үүсгэж чадсангүй: {err}",
-    "ok.saved": "Аудио файл ха..."
+    "ok.saved": "Аудио файлыг хадгалсан"
   },
   "mr": {
-    "tool.description": "मजकूराचे ध्वनीत रूपांतर करा, ऑडिओ फाइल म्हणून जतन करा, आणि जतन केलेला मार...",
+    "tool.description": "मजकूराचे भाषणात रूपांतर करा, ऑडिओ फाइल म्हणून जतन करा आणि जतन केलेला मार्ग परत करा.",
     "x_search_terms": [
       "मजकूराचे ध्वनीत रूपांतर करा, ऑडिओ फाइल म्हणून जतन करा, आणि जतन केलेला मार्ग परत करा",
       "audio_speech",
@@ -621,7 +621,7 @@
     "param.text.description": "ध्वनीत रूपांतर करायचा मजकूर.",
     "param.output_path.description": "तयार झालेली ऑडिओ फाइल जिथे जतन होईल तो मार्ग.",
     "param.model.description": "स्पीच मॉडेलचे नाव. वगळल्यास provider चे डीफॉल्ट किंवा कॉन्फिगर केलेले deployment नाव वापरले जाईल.",
-    "param.voice.description": "स्प...",
+    "param.voice.description": "आवाज.",
     "param.response_format.description": "तयार करायच्या ऑडिओ फाइलचा format.",
     "param.speed.description": "प्लेबॅक गतीचा गुणक (उदा. 1.0).",
     "param.instructions.description": "स्पीच शैलीसाठी ऐच्छिक सूचना.",
@@ -630,6 +630,6 @@
     "err.text_empty": "text आवश्यक आहे",
     "err.output_path_empty": "output_path आवश्यक आहे",
     "err.speech_failed": "ऑडिओ स्पीच निर्मिती अयशस्वी: {err}",
-    "ok.saved": "ऑडिओ फाइल जतन..."
+    "ok.saved": "ऑडिओ फाइल जतन केली"
   }
 }

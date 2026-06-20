@@ -36,12 +36,12 @@
     "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
   },
   "es": {
-    "param.action.description": "Operaci...",
-    "param.data.description": "Datos JSON para...",
-    "param.file_path.description": "Ruta absoluta al ar...",
+    "param.action.description": "Operación",
+    "param.data.description": "Datos JSON para escribir.",
+    "param.file_path.description": "Ruta de Excel (absoluta).",
     "param.sheet_name.description": "Nombre de la hoja de destino.",
-    "param.keep_sheets.description": "Nombres de h...",
-    "param.output_path.description": "Ruta de s...",
+    "param.keep_sheets.description": "Hojas para guardar.",
+    "param.output_path.description": "Datos JSON para escribir",
     "tool.description": "Lea y escriba archivos de Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -49,16 +49,16 @@
       "nombres de hoja",
       "xlsx"
     ],
-    "param.password.description": "Contraseña opcional para a...",
+    "param.password.description": "Contraseña (solicitudes si es necesario).",
     "prompt.password": "Ingrese la contraseña para este archivo:\n{path}"
   },
   "fr": {
-    "param.action.description": "Opérati...",
-    "param.data.description": "Données JSON à é...",
-    "param.file_path.description": "Chemin absolu du fi...",
+    "param.action.description": "Opération.",
+    "param.data.description": "Données JSON à écrire.",
+    "param.file_path.description": "Chemin Excel (absolu).",
     "param.sheet_name.description": "Nom de la feuille cible.",
-    "param.keep_sheets.description": "Noms des feu...",
-    "param.output_path.description": "Chemin de...",
+    "param.keep_sheets.description": "Feuilles à conserver.",
+    "param.output_path.description": "Chemin de sortie.",
     "tool.description": "Lisez et écrivez des fichiers Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -66,7 +66,7 @@
       "noms de feuille",
       "xlsx"
     ],
-    "param.password.description": "Mot de passe facultatif po...",
+    "param.password.description": "Mot de passe (invite si nécessaire).",
     "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}"
   },
   "ko": {
@@ -87,12 +87,12 @@
     "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
   },
   "de": {
-    "param.action.description": "Auszufü...",
-    "param.data.description": "Zu schreibende J...",
-    "param.file_path.description": "Absoluter Pfad zur...",
+    "param.action.description": "Vorgang.",
+    "param.data.description": "Zu schreibende JSON-Daten.",
+    "param.file_path.description": "Excel-Pfad (absolut).",
     "param.sheet_name.description": "Name des Zielblatts.",
-    "param.keep_sheets.description": "Zu behaltend...",
-    "param.output_path.description": "Ausgabepf...",
+    "param.keep_sheets.description": "Zu behaltende Blätter.",
+    "param.output_path.description": "Ausgabepfad.",
     "tool.description": "Liest und schreibt Excel-Dateien (.",
     "x_search_terms": [
       "excel_ops",
@@ -100,16 +100,16 @@
       "blattnamen",
       "xlsx"
     ],
-    "param.password.description": "Optionales Kennwort für ve...",
+    "param.password.description": "Passwort (fragt bei Bedarf nach).",
     "prompt.password": "Geben Sie das Passwort für diese Datei ein:\n{path}"
   },
   "it": {
-    "param.action.description": "Operazi...",
-    "param.data.description": "Dati JSON da scr...",
-    "param.file_path.description": "Percorso assoluto d...",
+    "param.action.description": "Formato di output: testo o json.",
+    "param.data.description": "Dati JSON da scrivere.",
+    "param.file_path.description": "Percorso Excel (assoluto).",
     "param.sheet_name.description": "Nome del foglio di destinazione.",
-    "param.keep_sheets.description": "Nomi dei fog...",
-    "param.output_path.description": "Percorso...",
+    "param.keep_sheets.description": "Fogli da conservare.",
+    "param.output_path.description": "Dati JSON da scrivere.",
     "tool.description": "Legge e scrive file Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -117,16 +117,16 @@
       "nomi dei fogli",
       "xlsx"
     ],
-    "param.password.description": "Password facoltativa per f...",
+    "param.password.description": "Password (richiesta se necessario).",
     "prompt.password": "Inserisci la password di questo file:\n{path}"
   },
   "ru": {
-    "param.action.description": "Операци...",
-    "param.data.description": "JSON-данные для...",
-    "param.file_path.description": "Абсолютный путь к ф...",
+    "param.action.description": "Операция.",
+    "param.data.description": "Данные JSON для записи.",
+    "param.file_path.description": "Путь Excel (абсолютный).",
     "param.sheet_name.description": "Имя целевого листа.",
-    "param.keep_sheets.description": "Имена листов...",
-    "param.output_path.description": "Путь выво...",
+    "param.keep_sheets.description": "Путь к Excel (абсолютный).",
+    "param.output_path.description": "Выходной путь",
     "tool.description": "Чтение и запись файлов Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -134,16 +134,16 @@
       "имена листов",
       "xlsx"
     ],
-    "param.password.description": "Необязательный пароль для...",
+    "param.password.description": "Взаимодействие с определенным каналом Discord с помощью токена бота: отправка сообщений, чтение последних сообщений и, при необходимости, ожидание ответов после отправки.",
     "prompt.password": "Введите пароль для этого файла:\n{path}"
   },
   "pt_BR": {
-    "param.action.description": "Operaçã...",
-    "param.data.description": "Dados JSON a ser...",
-    "param.file_path.description": "Caminho absoluto pa...",
+    "param.action.description": "Operação.",
+    "param.data.description": "Dados JSON a serem gravados.",
+    "param.file_path.description": "Caminho do Excel (absoluto).",
     "param.sheet_name.description": "Nome da planilha de destino.",
-    "param.keep_sheets.description": "Nomes das pl...",
-    "param.output_path.description": "Caminho d...",
+    "param.keep_sheets.description": "Formato de saída: texto ou json.",
+    "param.output_path.description": "Caminho de saída.",
     "tool.description": "Leia e grave arquivos Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -151,16 +151,16 @@
       "nomes de planilha",
       "xlsx"
     ],
-    "param.password.description": "Senha opcional para arquiv...",
+    "param.password.description": "Senha (solicita se necessário).",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
   "pt": {
-    "param.action.description": "Operaçã...",
-    "param.data.description": "Dados JSON a ser...",
-    "param.file_path.description": "Caminho absoluto pa...",
+    "param.action.description": "Operação.",
+    "param.data.description": "Dados JSON a serem gravados.",
+    "param.file_path.description": "Caminho do Excel (absoluto).",
     "param.sheet_name.description": "Nome da planilha de destino.",
-    "param.keep_sheets.description": "Nomes das pl...",
-    "param.output_path.description": "Caminho d...",
+    "param.keep_sheets.description": "Folhas para guardar.",
+    "param.output_path.description": "Caminho de saída.",
     "tool.description": "Leia e grave arquivos Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -168,16 +168,16 @@
       "nomes de planilha",
       "xlsx"
     ],
-    "param.password.description": "Senha opcional para arquiv...",
+    "param.password.description": "Senha (solicita se necessário).",
     "prompt.password": "Digite a senha deste arquivo:\n{path}"
   },
   "id": {
-    "param.action.description": "Operasi...",
-    "param.data.description": "Data JSON yang a...",
-    "param.file_path.description": "Path absolut ke fil...",
+    "param.action.description": "Operasi.",
+    "param.data.description": "data JSON untuk ditulis.",
+    "param.file_path.description": "Jalur Excel (mutlak).",
     "param.sheet_name.description": "Nama sheet target.",
-    "param.keep_sheets.description": "Nama sheet y...",
-    "param.output_path.description": "Path outp...",
+    "param.keep_sheets.description": "Seprai yang harus disimpan.",
+    "param.output_path.description": "Jalur keluaran.",
     "tool.description": "Baca dan tulis file Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -185,16 +185,16 @@
       "nama sheet",
       "xlsx"
     ],
-    "param.password.description": "Kata sandi opsional untuk...",
+    "param.password.description": "Kata sandi (diminta jika diperlukan).",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
   },
   "vi": {
-    "param.action.description": "Thao tá...",
+    "param.action.description": "Nếu đúng, không xảy ra lỗi khi đường dẫn không tồn tại.",
     "param.data.description": "Dữ liệu JSON để ghi.",
-    "param.file_path.description": "Đường dẫn tuyệt đối...",
+    "param.file_path.description": "Mật khẩu (nhắc nếu cần).",
     "param.sheet_name.description": "Tên bảng mục tiêu.",
-    "param.keep_sheets.description": "Tên trang tí...",
-    "param.output_path.description": "Đường dẫn...",
+    "param.keep_sheets.description": "Trang tính cần giữ.",
+    "param.output_path.description": "Đường dẫn đầu ra.",
     "tool.description": "Đọc và ghi tệp Excel (.xlsx) và lấy tên trang tính.",
     "x_search_terms": [
       "excel_ops",
@@ -206,12 +206,12 @@
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
   },
   "pl": {
-    "param.action.description": "Operacj...",
-    "param.data.description": "Dane JSON do zap...",
-    "param.file_path.description": "Ścieżka bezwzględna...",
+    "param.action.description": "Operacja.",
+    "param.data.description": "Dane JSON do zapisania.",
+    "param.file_path.description": "Ścieżka do Excela (bezwzględna).",
     "param.sheet_name.description": "Nazwa arkusza docelowego.",
-    "param.keep_sheets.description": "Nazwy arkusz...",
-    "param.output_path.description": "Ścieżka w...",
+    "param.keep_sheets.description": "Arkusze do zachowania.",
+    "param.output_path.description": "Ścieżka wyjściowa",
     "tool.description": "Odczytuj i zapisuj pliki Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -219,16 +219,16 @@
       "nazwy arkuszy",
       "xlsx"
     ],
-    "param.password.description": "Opcjonalne hasło do zaszyf...",
+    "param.password.description": "Hasło (w razie potrzeby wyświetli monit).",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
   },
   "hi": {
-    "param.action.description": "किया जा...",
-    "param.data.description": "लिखने के लिए JSO...",
+    "param.action.description": "पासवर्ड (यदि आवश्यक हो)।",
+    "param.data.description": "लिखने के लिए JSON डेटा।",
     "param.file_path.description": "Excel फ़ाइल का पूर्ण पथ।",
     "param.sheet_name.description": "लक्ष्य शीट का नाम।",
-    "param.keep_sheets.description": "रखे जाने वाल...",
-    "param.output_path.description": "action='k...",
+    "param.keep_sheets.description": "रखने के लिए शीट।",
+    "param.output_path.description": "JSON डेटा रखना होगा।",
     "tool.description": "Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -240,12 +240,12 @@
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
   },
   "ar": {
-    "param.action.description": "العملية...",
+    "param.action.description": "كلمة المرور (مطالبات إذا لزم الأمر).",
     "param.data.description": "بيانات JSON للكتابة.",
-    "param.file_path.description": "المسار المطلق لملف...",
+    "param.file_path.description": "مسار Excel (مطلق).",
     "param.sheet_name.description": "اسم الورقة المستهدفة",
-    "param.keep_sheets.description": "أسماء الأورا...",
-    "param.output_path.description": "مسار الإخ...",
+    "param.keep_sheets.description": "مسار Excel (مطلق).",
+    "param.output_path.description": "مسار الإخراج",
     "tool.description": "اقرأ ملفات Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -257,12 +257,12 @@
     "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
   },
   "sv": {
-    "param.action.description": "Åtgärd...",
-    "param.data.description": "JSON-data som sk...",
-    "param.file_path.description": "Absolut sökväg till...",
+    "param.action.description": "Funktion.",
+    "param.data.description": "JSON-data att skriva.",
+    "param.file_path.description": "Excel-sökväg (absolut).",
     "param.sheet_name.description": "Namn på målbladet.",
-    "param.keep_sheets.description": "Bladnamn som...",
-    "param.output_path.description": "Utmatning...",
+    "param.keep_sheets.description": "Ark att behålla.",
+    "param.output_path.description": "Utdatasökväg.",
     "tool.description": "Läser och skriver Excel-filer (.",
     "x_search_terms": [
       "excel_ops",
@@ -270,16 +270,16 @@
       "bladnamn",
       "xlsx"
     ],
-    "param.password.description": "Valfritt lösenord för kryp...",
+    "param.password.description": "Lösenord (meddelanden om det behövs).",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}"
   },
   "sw": {
-    "param.action.description": "Operesh...",
-    "param.data.description": "Data ya JSON ya...",
-    "param.file_path.description": "Njia kamili ya fail...",
+    "param.action.description": "Operesheni.",
+    "param.data.description": "data ya JSON ya kuandika.",
+    "param.file_path.description": "Njia ya Excel (kabisa).",
     "param.sheet_name.description": "Jina la karatasi lengwa.",
-    "param.keep_sheets.description": "Majina ya ka...",
-    "param.output_path.description": "Njia ya m...",
+    "param.keep_sheets.description": "Muundo wa towe: maandishi au json_52__ data ya JSON ya kuandika).",
+    "param.output_path.description": "Njia ya pato",
     "tool.description": "Soma na andika faili za Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -287,16 +287,16 @@
       "majina ya karatasi",
       "xlsx"
     ],
-    "param.password.description": "Nenosiri la hiari kwa fail...",
+    "param.password.description": "Nenosiri (vidokezo ikihitajika",
     "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
   },
   "nb": {
-    "param.action.description": "Handlin...",
-    "param.data.description": "JSON-data som sk...",
-    "param.file_path.description": "Absolutt sti til Ex...",
+    "param.action.description": "Operasjon.",
+    "param.data.description": "JSON-data å skrive.",
+    "param.file_path.description": "Excel-bane (absolutt).",
     "param.sheet_name.description": "Navn på målbladet.",
-    "param.keep_sheets.description": "Navn på ark...",
-    "param.output_path.description": "Utdatafil...",
+    "param.keep_sheets.description": "Ark å beholde.",
+    "param.output_path.description": "Utdatabane.",
     "tool.description": "Leser og skriver Excel-filer (.",
     "x_search_terms": [
       "excel_ops",
@@ -304,16 +304,16 @@
       "arknavn",
       "xlsx"
     ],
-    "param.password.description": "Valgfritt passord for kryp...",
+    "param.password.description": "Passord (spør om nødvendig).",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}"
   },
   "nl": {
-    "param.action.description": "Uit te...",
-    "param.data.description": "JSON-gegevens om...",
-    "param.file_path.description": "Absoluut pad naar h...",
+    "param.action.description": "Bediening.",
+    "param.data.description": "JSON-gegevens om te schrijven.",
+    "param.file_path.description": "Excel-pad (absoluut).",
     "param.sheet_name.description": "Naam van het doelwerkblad (voor read/write).",
-    "param.keep_sheets.description": "Sheetnamen d...",
-    "param.output_path.description": "Uitvoerpa...",
+    "param.keep_sheets.description": "Bladen om te bewaren.",
+    "param.output_path.description": "Uitvoerpad.",
     "tool.description": "Lees en schrijf Excel-bestanden (.",
     "x_search_terms": [
       "excel_ops",
@@ -321,16 +321,16 @@
       "bladnamen",
       "xlsx"
     ],
-    "param.password.description": "Optioneel wachtwoord voor...",
+    "param.password.description": "Wachtwoord (vraagt ​​indien nodig).",
     "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}"
   },
   "fi": {
-    "param.action.description": "Suorite...",
-    "param.data.description": "Kirjoitettavat J...",
-    "param.file_path.description": "Excel-tiedoston abs...",
+    "param.action.description": "Käyttö.",
+    "param.data.description": "kirjoitettavat JSON-tiedot.",
+    "param.file_path.description": "Excel-polku (absoluuttinen).",
     "param.sheet_name.description": "Kohdelaskentataulun nimi (read/write).",
-    "param.keep_sheets.description": "Säilytettävä...",
-    "param.output_path.description": "Tulostepo...",
+    "param.keep_sheets.description": "Säilytettävät taulukot.",
+    "param.output_path.description": "Lähtöpolku.",
     "tool.description": "Lue ja kirjoita Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -342,12 +342,12 @@
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
   },
   "cs": {
-    "param.action.description": "Operace...",
+    "param.action.description": "Provoz.",
     "param.data.description": "JSON data k zápisu.",
-    "param.file_path.description": "Absolutní cesta k s...",
+    "param.file_path.description": "Cesta aplikace Excel (absolutní).",
     "param.sheet_name.description": "Název cílového listu.",
-    "param.keep_sheets.description": "Názvy listů,...",
-    "param.output_path.description": "Výstupní...",
+    "param.keep_sheets.description": "Listy k uchování.",
+    "param.output_path.description": "Výstupní cesta.",
     "tool.description": "Čte a zapisuje soubory Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -355,16 +355,16 @@
       "názvy listů",
       "xlsx"
     ],
-    "param.password.description": "Volitelné heslo pro šifrov...",
+    "param.password.description": "Heslo (v případě potřeby se zobrazí výzva).",
     "prompt.password": "Zadejte heslo pro tento soubor:\n{path}"
   },
   "uk": {
-    "param.action.description": "Операці...",
-    "param.data.description": "JSON-дані для за...",
-    "param.file_path.description": "Абсолютний шлях до...",
+    "param.action.description": "Операція.",
+    "param.data.description": "Операція",
+    "param.file_path.description": "Шлях Excel (абсолютний).",
     "param.sheet_name.description": "Назва цільового аркуша.",
-    "param.keep_sheets.description": "Назви аркуші...",
-    "param.output_path.description": "Шлях виво...",
+    "param.keep_sheets.description": "Шлях Excel",
+    "param.output_path.description": "Вихідний шлях",
     "tool.description": "Читає та записує файли Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -372,16 +372,16 @@
       "імена аркушів",
       "xlsx"
     ],
-    "param.password.description": "Необовʼязковий пароль для...",
+    "param.password.description": "Інтервал опитування під час очікування відповідей (у секундах).",
     "prompt.password": "Введіть пароль для цього файла:\n{path}"
   },
   "tr": {
-    "param.action.description": "Gerçekl...",
+    "param.action.description": "İşlem.",
     "param.data.description": "JSON yazılacak veri.",
-    "param.file_path.description": "Excel dosyasının mu...",
+    "param.file_path.description": "Excel yolu (mutlak).",
     "param.sheet_name.description": "Hedef sayfa adı.",
-    "param.keep_sheets.description": "Saklanacak s...",
-    "param.output_path.description": "Eylemin ç...",
+    "param.keep_sheets.description": "Saklanacak sayfalar.",
+    "param.output_path.description": "Çıkış yolu.",
     "tool.description": "Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -393,12 +393,12 @@
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
   },
   "th": {
-    "param.action.description": "การดำเน...",
-    "param.data.description": "ข้อมูล JSON ที่จ...",
-    "param.file_path.description": "พาธแบบเต็มไปยังไฟล์...",
+    "param.action.description": "ปฏิบัติการ",
+    "param.data.description": "ข้อมูล JSON ที่จะเขียน",
+    "param.file_path.description": "เส้นทาง Excel (สัมบูรณ์)",
     "param.sheet_name.description": "ชื่อแผ่นงานเป้าหมาย",
-    "param.keep_sheets.description": "ชื่อชีตที่ต้...",
-    "param.output_path.description": "พาธเอาต์พ...",
+    "param.keep_sheets.description": "รหัสผ่าน (แจ้งหากจำเป็น)",
+    "param.output_path.description": "เส้นทางเอาท์พุต",
     "tool.description": "อ่านและเขียนไฟล์ Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -444,12 +444,12 @@
     "prompt.password": "請輸入此文件的密碼：\n{path}"
   },
   "bn": {
-    "param.action.description": "যে অপার...",
-    "param.data.description": "লেখার জন্য JSON...",
-    "param.file_path.description": "Excel ফাইলের absolu...",
+    "param.action.description": "অপারেশন।",
+    "param.data.description": "JSON ডেটা লেখার জন্য।",
+    "param.file_path.description": "এক্সেল পাথ (পরম)।",
     "param.sheet_name.description": "লক্ষ্য sheet-এর নাম।",
-    "param.keep_sheets.description": "রাখতে হবে এম...",
-    "param.output_path.description": "action='k...",
+    "param.keep_sheets.description": "পাসওয়ার্ডের জন্য অপেক্ষা করুন।",
+    "param.output_path.description": "আউটপুট পথ।",
     "tool.description": "Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -461,12 +461,12 @@
     "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}"
   },
   "fa": {
-    "param.action.description": "عملیاتی...",
-    "param.data.description": "دادهٔ JSON برای...",
+    "param.action.description": "عملیات.",
+    "param.data.description": "داده های JSON برای نوشتن.",
     "param.file_path.description": "مسیر مطلق فایل Excel.",
     "param.sheet_name.description": "نام شیت هدف.",
-    "param.keep_sheets.description": "نام شیت‌هایی...",
-    "param.output_path.description": "مسیر خروج...",
+    "param.keep_sheets.description": "برگه هایی برای نگهداری.",
+    "param.output_path.description": "مسیر خروجی.",
     "tool.description": "فایل‌های Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -474,16 +474,16 @@
       "نام برگه‌ها",
       "xlsx"
     ],
-    "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
+    "param.password.description": "رمز عبور (در صورت نیاز درخواست می کند).",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
   },
   "mn": {
-    "param.action.description": "Гүйцэтг...",
+    "param.action.description": "Excel-ийн замыг",
     "param.data.description": "Бичих JSON өгөгдөл.",
-    "param.file_path.description": "Excel файлын абсолю...",
+    "param.file_path.description": "Excel зам (үнэмлэхүй).",
     "param.sheet_name.description": "Зорилтот sheet-ийн нэр.",
-    "param.keep_sheets.description": "Хадгалах she...",
-    "param.output_path.description": "action='k...",
+    "param.keep_sheets.description": "Хадгалах хуудас.",
+    "param.output_path.description": "хүртэл хадгална.",
     "tool.description": "Excel (.",
     "x_search_terms": [
       "excel_ops",
@@ -495,12 +495,12 @@
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
   },
   "mr": {
-    "param.action.description": "करावयाच...",
+    "param.action.description": "ऑपरेशन.",
     "param.data.description": "लिहायचा JSON डेटा.",
-    "param.file_path.description": "Excel फाइलचा पूर्ण...",
+    "param.file_path.description": "Excel पथ (निरपेक्ष).",
     "param.sheet_name.description": "लक्ष्य शीटचे नाव.",
-    "param.keep_sheets.description": "ज्या शीट्स ठ...",
-    "param.output_path.description": "action='k...",
+    "param.keep_sheets.description": "ठेवण्यासाठी पत्रके.",
+    "param.output_path.description": "आउटपुट पथ.",
     "tool.description": "Excel (.",
     "x_search_terms": [
       "excel_ops",

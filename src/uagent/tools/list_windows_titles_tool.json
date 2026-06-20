@@ -27,7 +27,7 @@
   },
   "es": {
     "param.all.description": "Incluya ventanas no visibles.",
-    "param.class.description": "Incluya nombres...",
+    "param.class.description": "Incluir el nombre de la clase.",
     "param.pid.description": "Incluya ID de proceso.",
     "tool.description": "Enumere los títulos de las ventanas de nivel superior en Windows y devuelva JSON estructurado.",
     "x_search_terms": [
@@ -38,9 +38,9 @@
     ]
   },
   "fr": {
-    "param.all.description": "Incluez les fenêtres non...",
-    "param.class.description": "Incluez les noms...",
-    "param.pid.description": "Incluez les ID de...",
+    "param.all.description": "Inclure les fenêtres non visibles",
+    "param.class.description": "Inclure le nom de la classe.",
+    "param.pid.description": "Inclut les ID de processus.",
     "tool.description": "Répertoriez les titres des fenêtres de niveau supérieur sous Windows et renvoyez un JSON structuré.",
     "x_search_terms": [
       "list_windows_titles",
@@ -62,9 +62,9 @@
     ]
   },
   "de": {
-    "param.all.description": "Schließen Sie nicht sich...",
-    "param.class.description": "Schließen Sie Fe...",
-    "param.pid.description": "Prozess-IDs einsch...",
+    "param.all.description": "Nicht sichtbare Fenster einschließen",
+    "param.class.description": "Klassennamen einschließen.",
+    "param.pid.description": "Prozess-IDs einschließen.",
     "tool.description": "Listen Sie die Titel der Fenster der obersten Ebene unter Windows auf und geben Sie strukturiertes JSON zurück.",
     "x_search_terms": [
       "list_windows_titles",
@@ -74,9 +74,9 @@
     ]
   },
   "it": {
-    "param.all.description": "Includi finestre non vis...",
-    "param.class.description": "Includi i nomi d...",
-    "param.pid.description": "Includi gli ID pro...",
+    "param.all.description": "Includi finestre non visibili",
+    "param.class.description": "Includi nome classe.",
+    "param.pid.description": "Includi ID processo.",
     "tool.description": "Elenca i titoli delle finestre di primo livello su Windows e restituisce JSON strutturato.",
     "x_search_terms": [
       "list_windows_titles",
@@ -87,8 +87,8 @@
   },
   "ru": {
     "param.all.description": "Включите невидимые окна.",
-    "param.class.description": "Включите имена к...",
-    "param.pid.description": "Включите идентифик...",
+    "param.class.description": "Включить имя класса.",
+    "param.pid.description": "Включите идентификаторы процессов.",
     "tool.description": "Перечислите заголовки окон верхнего уровня в Windows и верните структурированный JSON.",
     "x_search_terms": [
       "list_windows_titles",
@@ -99,7 +99,7 @@
   },
   "pt_BR": {
     "param.all.description": "Inclui janelas não visíveis.",
-    "param.class.description": "Inclui nomes de...",
+    "param.class.description": "Inclui o nome da classe.",
     "param.pid.description": "Inclui IDs de processo.",
     "tool.description": "Liste os títulos das janelas de nível superior no Windows e retorne JSON estruturado.",
     "x_search_terms": [
@@ -111,7 +111,7 @@
   },
   "pt": {
     "param.all.description": "Inclui janelas não visíveis.",
-    "param.class.description": "Inclui nomes de...",
+    "param.class.description": "Inclui o nome da classe.",
     "param.pid.description": "Inclui IDs de processo.",
     "tool.description": "Liste os títulos das janelas de nível superior no Windows e retorne JSON estruturado.",
     "x_search_terms": [
@@ -122,8 +122,8 @@
     ]
   },
   "id": {
-    "param.all.description": "Sertakan jendela yang ti...",
-    "param.class.description": "Sertakan nama ke...",
+    "param.all.description": "Sertakan jendela yang tidak terlihat",
+    "param.class.description": "Sertakan nama kelas.",
     "param.pid.description": "Sertakan ID proses.",
     "tool.description": "Enumerasi judul jendela tingkat atas di Windows dan kembalikan JSON terstruktur.",
     "x_search_terms": [
@@ -134,8 +134,8 @@
     ]
   },
   "vi": {
-    "param.all.description": "Bao gồm các cửa sổ không...",
-    "param.class.description": "Bao gồm tên lớp...",
+    "param.all.description": "Bao gồm các cửa sổ không hiển thị",
+    "param.class.description": "Bao gồm tên lớp.",
     "param.pid.description": "Bao gồm ID tiến trình.",
     "tool.description": "Liệt kê tiêu đề các cửa sổ cấp cao nhất trên Windows và trả về JSON có cấu trúc.",
     "x_search_terms": [
@@ -147,8 +147,8 @@
   },
   "pl": {
     "param.all.description": "Uwzględnij niewidoczne okna.",
-    "param.class.description": "Dołącz nazwy kla...",
-    "param.pid.description": "Dołącz identyfikat...",
+    "param.class.description": "Dołącz nazwę klasy.",
+    "param.pid.description": "Dołącz identyfikatory procesów.",
     "tool.description": "Wylistuj tytuły okien najwyższego poziomu w systemie Windows i zwróć ustrukturyzowany JSON.",
     "x_search_terms": [
       "list_windows_titles",
@@ -158,10 +158,10 @@
     ]
   },
   "hi": {
-    "param.all.description": "ग़ैर-दृश्यमान विंडो शामि...",
-    "param.class.description": "विंडो क्लास नाम...",
-    "param.pid.description": "प्रक्रिया आईडी शाम...",
-    "tool.description": "विंडोज़ पर शीर्ष-स्तरीय विंडो शीर्षकों की सूची बनाएं और संरचित JSON लौटाएँ। पैरामीटर्स: 'all' (गैर-दृश्यमान शामिल करें), 'pid' (PID शामिल करें), 'c...",
+    "param.all.description": "गैर-दृश्यमान विंडो शामिल करें",
+    "param.class.description": "कक्षा का नाम शामिल करें।",
+    "param.pid.description": "प्रक्रिया आईडी शामिल करें।",
+    "tool.description": "विंडोज़ पर शीर्ष-स्तरीय विंडो शीर्षकों की गणना करें और संरचित JSON लौटाएं। पैरामीटर: 'सभी' (गैर-दृश्यमान शामिल करें), 'पिड' (शामिल करें) पीआईडी), 'क्लास' (सहित...",
     "x_search_terms": [
       "list_windows_titles",
       "विंडो शीर्षक",
@@ -171,7 +171,7 @@
   },
   "ar": {
     "param.all.description": "تضمين النوافذ غير المرئية.",
-    "param.class.description": "تضمين أسماء فئات...",
+    "param.class.description": "قم بتضمين اسم الفصل.",
     "param.pid.description": "تضمين معرفات العمليات.",
     "tool.description": "قم بسرد عناوين النوافذ ذات المستوى الأعلى في Windows وأعد JSON منظمًا. المعلمات: 'all' (تضمين غير المرئية)، و'pid' (تضمين PID)، و'class' (تضمين اسم فئة النافذة).",
     "x_search_terms": [
@@ -182,8 +182,8 @@
     ]
   },
   "sv": {
-    "param.all.description": "Inkludera även icke-synl...",
-    "param.class.description": "Inkludera fönste...",
+    "param.all.description": "Inkludera icke-synliga fönster",
+    "param.class.description": "Inkludera klassnamn.",
     "param.pid.description": "Inkludera process-ID:n.",
     "tool.description": "Lista titlarna för fönster på översta nivån i Windows och returnera strukturerad JSON.",
     "x_search_terms": [
@@ -195,7 +195,7 @@
   },
   "sw": {
     "param.all.description": "Include non-visible windows.",
-    "param.class.description": "Include window c...",
+    "param.class.description": "Jumuisha jina la darasa.",
     "param.pid.description": "Include process IDs.",
     "tool.description": "List top-level window titles on Windows and return structured JSON.",
     "x_search_terms": [
@@ -207,7 +207,7 @@
   },
   "nb": {
     "param.all.description": "Ta også med usynlige vinduer.",
-    "param.class.description": "Ta med vinduskla...",
+    "param.class.description": "Inkluder klassenavn.",
     "param.pid.description": "Ta med prosess-ID-er.",
     "tool.description": "List opp vindustitler på øverste nivå i Windows og returner strukturert JSON.",
     "x_search_terms": [
@@ -218,8 +218,8 @@
     ]
   },
   "nl": {
-    "param.all.description": "Niet-zichtbare vensters...",
-    "param.class.description": "Vensterklassenaa...",
+    "param.all.description": "Inclusief niet-zichtbare vensters",
+    "param.class.description": "Inclusief klassenaam.",
     "param.pid.description": "Proces-ID's opnemen.",
     "tool.description": "Som de titels van vensters op het hoogste niveau in Windows op en geef gestructureerde JSON terug.",
     "x_search_terms": [
@@ -230,9 +230,9 @@
     ]
   },
   "fi": {
-    "param.all.description": "Sisällytä myös näkymättö...",
-    "param.class.description": "Sisällytä ikkuna...",
-    "param.pid.description": "Sisällytä prosessi...",
+    "param.all.description": "Sisällytä näkymättömät ikkunat",
+    "param.class.description": "Sisällytä luokan nimi.",
+    "param.pid.description": "Sisällytä prosessitunnukset.",
     "tool.description": "Listaa Windowsin ylimmän tason ikkunoiden otsikot ja palauta jäsennelty JSON.",
     "x_search_terms": [
       "list_windows_titles",
@@ -243,7 +243,7 @@
   },
   "cs": {
     "param.all.description": "Zahrnout i neviditelná okna.",
-    "param.class.description": "Zahrnout i názvy...",
+    "param.class.description": "Zahrnout název třídy.",
     "param.pid.description": "Zahrnout ID procesů.",
     "tool.description": "Vypíše názvy oken nejvyšší úrovně ve Windows a vrátí strukturovaný JSON.",
     "x_search_terms": [
@@ -254,9 +254,9 @@
     ]
   },
   "uk": {
-    "param.all.description": "Включити також невидимі...",
-    "param.class.description": "Включити також н...",
-    "param.pid.description": "Включити ідентифік...",
+    "param.all.description": "Включити невидимі вікна",
+    "param.class.description": "Включити назву класу.",
+    "param.pid.description": "Включити ідентифікатори процесів.",
     "tool.description": "Перелічує заголовки вікон верхнього рівня у Windows і повертає структурований JSON.",
     "x_search_terms": [
       "list_windows_titles",
@@ -266,9 +266,9 @@
     ]
   },
   "tr": {
-    "param.all.description": "Görünmeyen pencereleri d...",
-    "param.class.description": "Pencere sınıfı a...",
-    "param.pid.description": "İşlem kimliklerini...",
+    "param.all.description": "Görünmeyen pencereleri dahil et",
+    "param.class.description": "Sınıf adını dahil et.",
+    "param.pid.description": "İşlem kimliklerini ekleyin.",
     "tool.description": "Windows'ta üst düzey pencere başlıklarını listeleyin ve yapılandırılmış JSON değerini döndürün.",
     "x_search_terms": [
       "list_windows_titles",
@@ -281,7 +281,7 @@
     "param.all.description": "รวมถึงหน้าต่างที่มองไม่เห็น",
     "param.class.description": "รวมชื่อคลาสหน้าต่าง",
     "param.pid.description": "รวมรหัสกระบวนการ",
-    "tool.description": "แสดงรายการชื่อหน้าต่างระดับบนสุดบน Windows และส่งคืน JSON ที่มีโครงสร้าง พารามิเตอร์: 'all' (รวมหน้าต่างที่มองไม่เห็น), 'pid' (รวม PID), 'class' (ร...",
+    "tool.description": "ระบุชื่อหน้าต่างระดับบนสุดบน Windows และส่งคืน JSON ที่มีโครงสร้าง พารามิเตอร์: 'all' (รวมที่มองไม่เห็น), 'pid' (รวม PID), 'class' (รวม...",
     "x_search_terms": [
       "list_windows_titles",
       "ชื่อหน้าต่าง",
@@ -314,10 +314,10 @@
     ]
   },
   "bn": {
-    "param.all.description": "অদৃশ্য উইন্ডোগুলিও অন্তর...",
-    "param.class.description": "উইন্ডো ক্লাসের ন...",
-    "param.pid.description": "প্রসেস ID-ও অন্তর্...",
-    "tool.description": "Windows-এ শীর্ষ-স্তরের উইন্ডোর শিরোনাম তালিকাভুক্ত করে কাঠামোবদ্ধ JSON ফেরত দেয়। প্যারামিটার: 'all' (অদৃশ্য উইন্ডো অন্তর্ভুক্ত), 'pid' (প্রসেস ID...",
+    "param.all.description": "অদৃশ্যমান উইন্ডোগুলি অন্তর্ভুক্ত করুন",
+    "param.class.description": "ক্লাসের নাম অন্তর্ভুক্ত করুন৷",
+    "param.pid.description": "প্রক্রিয়া আইডি অন্তর্ভুক্ত করুন।",
+    "tool.description": "ভেক্টর ডিবিতে সূচী দেয় (semantic_search_files)। 'pid' (PID অন্তর্ভুক্ত করুন), 'class' (inc...",
     "x_search_terms": [
       "list_windows_titles",
       "উইন্ডো শিরোনাম",
@@ -326,9 +326,9 @@
     ]
   },
   "fa": {
-    "param.all.description": "پنجره‌های نامرئی را نیز...",
-    "param.class.description": "نام کلاس پنجره‌ه...",
-    "param.pid.description": "شناسه‌های فرایند ر...",
+    "param.all.description": "شامل پنجره های غیر قابل مشاهده",
+    "param.class.description": "شامل نام کلاس.",
+    "param.pid.description": "شامل شناسه های فرآیند.",
     "tool.description": "عنوان پنجره‌های سطح بالای ویندوز را فهرست می‌کند و JSON ساخت‌یافته برمی‌گرداند.",
     "x_search_terms": [
       "list_windows_titles",
@@ -338,9 +338,9 @@
     ]
   },
   "mn": {
-    "param.all.description": "Үл харагдах цонхнуудыг м...",
-    "param.class.description": "Цонхны class нэр...",
-    "param.pid.description": "Process ID-уудыг м...",
+    "param.all.description": "Харагдахгүй цонхнуудыг оруулах",
+    "param.class.description": "Ангийн нэрийг оруулах.",
+    "param.pid.description": "Процессын ID-г оруулна уу.",
     "tool.description": "Windows дээрх дээд түвшний цонхны гарчгуудыг жагсааж, бүтэцлэгдсэн JSON буцаана.",
     "x_search_terms": [
       "list_windows_titles",
@@ -350,9 +350,9 @@
     ]
   },
   "mr": {
-    "param.all.description": "दिसत नसलेल्या विंडोही सम...",
-    "param.class.description": "विंडो class नावे...",
-    "param.pid.description": "प्रक्रिया IDही समा...",
+    "param.all.description": "न दिसणाऱ्या विंडोचा समावेश करा",
+    "param.class.description": "वर्गाचे नाव समाविष्ट करा.",
+    "param.pid.description": "प्रक्रिया आयडी समाविष्ट करा.",
     "tool.description": "Windows वरील शीर्ष-स्तरीय विंडो शीर्षके सूचीबद्ध करून संरचित JSON परत करते.",
     "x_search_terms": [
       "list_windows_titles",

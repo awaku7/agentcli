@@ -30,7 +30,7 @@
     "err.unexpected": "An unexpected error occurred: {error}"
   },
   "es": {
-    "param.name.description": "El nombre de la carpeta de la habilidad...",
+    "param.name.description": "El nombre de la carpeta de la habilidad que se va a desinstalar.",
     "tool.description": "Desinstale una habilidad de agente de ~/.",
     "x_search_terms": [
       "skills_uninstall",
@@ -45,7 +45,7 @@
     "err.unexpected": "An unexpected error occurred: {error}"
   },
   "fr": {
-    "param.name.description": "Le nom du dossier de la compétence à dé...",
+    "param.name.description": "Le nom du dossier de la compétence à désinstaller.",
     "tool.description": "Désinstallez une compétence d'agent de ~/.",
     "x_search_terms": [
       "skills_uninstall",
@@ -75,7 +75,7 @@
     "err.unexpected": "An unexpected error occurred: {error}"
   },
   "de": {
-    "param.name.description": "Der Ordnername des zu deinstallierenden...",
+    "param.name.description": "Der Ordnername des Skills, der deinstalliert werden soll.",
     "tool.description": "Deinstallieren Sie einen Agent-Skill aus ~/.",
     "x_search_terms": [
       "skills_uninstall",
@@ -90,7 +90,7 @@
     "err.unexpected": "An unexpected error occurred: {error}"
   },
   "it": {
-    "param.name.description": "Il nome della cartella dello skill da d...",
+    "param.name.description": "Il nome della cartella della competenza da disinstallare.",
     "tool.description": "Disinstalla uno skill dell'agente da ~/.",
     "x_search_terms": [
       "skills_uninstall",
@@ -219,7 +219,7 @@
     "err.unexpected": "An unexpected error occurred: {error}"
   },
   "sv": {
-    "param.name.description": "Mappnamnet för den skill som ska avinst...",
+    "param.name.description": "Mappnamnet på färdigheten som ska avinstalleras.",
     "tool.description": "Avinstallera en Agent Skill från ~/.uag/skills.",
     "x_search_terms": [
       "skills_uninstall",
@@ -248,7 +248,7 @@
     "err.unexpected": "An unexpected error occurred: {error}"
   },
   "nb": {
-    "param.name.description": "Mappenavnet for den skillen som skal av...",
+    "param.name.description": "Mappenavnet til ferdigheten som skal avinstalleres.",
     "tool.description": "Avinstaller en Agent Skill fra ~/.uag/skills.",
     "x_search_terms": [
       "skills_uninstall",
@@ -348,7 +348,7 @@
     "err.unexpected": "An unexpected error occurred: {error}"
   },
   "bn": {
-    "param.name.description": "যে স্কিলটি আনইনস্টল করতে চান তার ফোল্ডা...",
+    "param.name.description": "[tool error] Related_path একটি অ-খালি স্ট্রিং হতে হবে",
     "tool.description": "~/.uag/skills থেকে Agent Skill আনইনস্টল করুন।",
     "x_search_terms": [
       "skills_uninstall",

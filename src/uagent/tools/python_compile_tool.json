@@ -129,7 +129,7 @@
     "param.paths.description": "Wiele plików Pythona, katalogów lub wzorców glob do sprawdzenia za pomocą py_compile."
   },
   "hi": {
-    "tool.description": "py_compile का उपयोग करके Python फ़ाइलों को सत्यापित करें। इस टूल का उपयोग Python फ़ाइलों, निर्देशिकाओं, या glob पै...",
+    "tool.description": "py_compile के साथ पायथन फ़ाइलों को मान्य करें।",
     "x_search_terms": [
       "python_compile",
       "py_compile",
@@ -229,7 +229,7 @@
     "param.paths.description": "py_compile ile doğrulanacak birden çok Python dosyası, dizin veya glob deseni.Dizinler *."
   },
   "th": {
-    "tool.description": "ตรวจสอบไฟล์ Python ด้วย py_compile ใช้เครื่องมือนี้เพื่อตรวจสอบไวยากรณ์ของไฟล์ Python ไดเรกทอรี หรือรูปแบบ glob โด...",
+    "tool.description": "PowerShell ใช้งานได้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
     "x_search_terms": [
       "python_compile",
       "py_compile",
@@ -259,7 +259,7 @@
     "param.paths.description": "要用 py_compile 驗證的多個 Python 檔案、目錄或 glob 模式。目錄會遞迴掃描 *.py 檔案。"
   },
   "bn": {
-    "tool.description": "py_compile দিয়ে Python ফাইল যাচাই করুন। Python ফাইল, directory, বা glob pattern-এর syntax check-এর জন্য এই tool ব...",
+    "tool.description": "পাইথন ফাইলগুলিকে py_compile দিয়ে যাচাই করুন। পাইথন ফাইল, ডিরেক্টরি বা গ্লোব প্যাটার্ন সিনট্যাক্স চেক করার জন্য এই টুলটি ব্যবহার করুন।",
     "x_search_terms": [
       "python_compile",
       "py_compile",

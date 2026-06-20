@@ -43,16 +43,16 @@
     "param.maxb.description": "このサイズ（バイト）を超えるファイルは拒否します。"
   },
   "es": {
-    "param.data_hex.description": "Cadena hexadecimal de bytes que se escribirá o insertará (por ejempl...",
-    "param.delete_len.description": "Número de bytes que se eliminarán (elim...",
+    "param.data_hex.description": "Cadena hexadecimal de bytes para escribir/insertar (por ejemplo, 'DEADBEEF' o 'DE AD BE EF').",
+    "param.delete_len.description": "Número de bytes a eliminar (eliminación por empalme).",
     "param.dry_run.description": "Si es true, no modifique el archivo; solo informe lo que cambiaría.",
-    "param.mode.description": "Modo de...",
-    "param.occurrence.description": "Qué ocurrencia reemplazar (...",
+    "param.mode.description": "Modo de edición.",
+    "param.occurrence.description": "Ocurrencia (basada en 1; 0 = todas).",
     "param.offset.description": "Desplazamiento de bytes (empezando en 0).",
-    "param.patch_json.description": "Parche JSON en forma de cadena (mo...",
+    "param.patch_json.description": "Parche de cadena JSON (modo apply_patch).",
     "param.path.description": "Ruta del archivo de destino.",
     "param.replace_hex.description": "Cadena hexadecimal con la que reemplazar (modo replace).",
-    "param.search_hex.description": "Cadena hexadecimal que se va a buscar...",
+    "param.search_hex.description": "Cadena hexadecimal para buscar (modo reemplazar).",
     "param.splice_op.description": "Operación de splice (modo splice).",
     "tool.description": "Edita un archivo local como bytes sin procesar (binario).",
     "x_search_terms": [
@@ -60,19 +60,19 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Rechaza archivos mayores que este tamaño..."
+    "param.maxb.description": "Rechazar archivos mayores a este tamaño (bytes)."
   },
   "fr": {
-    "param.data_hex.description": "Chaîne hexadécimale d'octets à écrire/insérer (par exemple 'DEADBEEF...",
-    "param.delete_len.description": "Nombre d'octets à supprimer (suppressio...",
-    "param.dry_run.description": "Si true, ne modifiez pas le fichier ; signalez seulement ce...",
-    "param.mode.description": "Mode d'...",
-    "param.occurrence.description": "Quelle occurrence remplacer...",
+    "param.data_hex.description": "Chaîne hexadécimale d'octets à écrire/insérer (par exemple 'DEADBEEF' ou 'DE AD BE EF').",
+    "param.delete_len.description": "Nombre d'octets à supprimer (splice delete).",
+    "param.dry_run.description": "Si c'est vrai, ne modifiez pas le fichier ; signalez uniquement ce qui changerait.",
+    "param.mode.description": "Mode édition.",
+    "param.occurrence.description": "Occurrence (basée sur 1 ; 0 = tout).",
     "param.offset.description": "Décalage en octets (à partir de 0).",
-    "param.patch_json.description": "Correctif JSON sous forme de chaîn...",
+    "param.patch_json.description": "Patch de chaîne JSON (mode apply_patch).",
     "param.path.description": "Chemin du fichier cible.",
     "param.replace_hex.description": "Chaîne hexadécimale à utiliser pour le remplacement (mode replace).",
-    "param.search_hex.description": "Chaîne hexadécimale à rechercher (mod...",
+    "param.search_hex.description": "Chaîne hexadécimale à rechercher (mode remplacement).",
     "param.splice_op.description": "Opération de splice (mode splice).",
     "tool.description": "Modifiez un fichier local sous forme d'octets bruts (binaire).",
     "x_search_terms": [
@@ -80,7 +80,7 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Rejette les fichiers plus grands que cet..."
+    "param.maxb.description": "Rejetez les fichiers plus grands que cette taille (octets)."
   },
   "ko": {
     "param.data_hex.description": "쓰기/삽입할 바이트의 16진수 문자열입니다(예: 'DEADBEEF' 또는 'DE AD BE EF').",
@@ -104,15 +104,15 @@
   },
   "de": {
     "param.data_hex.description": "Hex-String der Bytes zum Schreiben/Einfügen (z.B.",
-    "param.delete_len.description": "Anzahl der zu löschenden Bytes (Splice-...",
+    "param.delete_len.description": "Anzahl der zu löschenden Bytes (Splice-Löschen).",
     "param.dry_run.description": "Wenn true, die Datei nicht ändern; nur melden, was sich ändern würde.",
-    "param.mode.description": "Bearbei...",
-    "param.occurrence.description": "Welches Vorkommen ersetzt w...",
+    "param.mode.description": "Bearbeitungsmodus.",
+    "param.occurrence.description": "Vorkommen (1-basiert; 0 = alle).",
     "param.offset.description": "Byte-Offset (beginnend bei 0).",
     "param.patch_json.description": "JSON-String-Patch (Modus apply_patch).",
     "param.path.description": "Zieldateipfad.",
     "param.replace_hex.description": "Hex-String, durch den ersetzt werden soll (Modus replace).",
-    "param.search_hex.description": "Hex-String, nach dem gesucht werden s...",
+    "param.search_hex.description": "Hex-String, nach dem gesucht werden soll (Ersetzungsmodus).",
     "param.splice_op.description": "Splice-Vorgang (Modus splice).",
     "tool.description": "Bearbeitet eine lokale Datei als Rohbytes (binär).",
     "x_search_terms": [
@@ -120,39 +120,39 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Dateien ablehnen, die größer als diese G..."
+    "param.maxb.description": "Lehnt Dateien ab, die größer als diese Größe (Bytes) sind."
   },
   "it": {
     "param.data_hex.description": "Stringa esadecimale dei byte da scrivere o inserire (ad es.",
-    "param.delete_len.description": "Numero di byte da eliminare (eliminazio...",
+    "param.delete_len.description": "Numero di byte da eliminare (eliminazione di giunzione).",
     "param.dry_run.description": "Se true, non modificare il file; segnala solo cosa cambierebbe.",
-    "param.mode.description": "Modalit...",
-    "param.occurrence.description": "Quale occorrenza sostituire...",
+    "param.mode.description": "Modalità modifica.",
+    "param.occurrence.description": "Occorrenza (in base 1; 0 = tutto).",
     "param.offset.description": "Offset byte (a partire da 0).",
-    "param.patch_json.description": "Patch JSON sotto forma di stringa...",
-    "param.path.description": "Percorso del file di de...",
+    "param.patch_json.description": "Patch di stringa JSON (modalità apply_patch).",
+    "param.path.description": "Percorso del file di destinazione.",
     "param.replace_hex.description": "Stringa esadecimale con cui sostituire (modalità replace).",
-    "param.search_hex.description": "Stringa esadecimale da cercare (modal...",
-    "param.splice_op.description": "Operazione di splice (modali...",
+    "param.search_hex.description": "Stringa esadecimale da cercare (modalità di sostituzione).",
+    "param.splice_op.description": "Operazione di giunzione (modalità di giunzione).",
     "tool.description": "Modifica un file locale come byte grezzi (binario).",
     "x_search_terms": [
       "Modifica un file locale come byte grezzi (binario). Supporta la scrittura a offset, la ricerca/sostituzione, lo splice (inserimento/eliminazione) e l'applicazione di un semplice patch JSON. Pericoloso: questo strumento può corrompere i file",
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Rifiuta file più grandi di questa dimens..."
+    "param.maxb.description": "Rifiuta file più grandi di questa dimensione (byte)."
   },
   "ru": {
-    "param.data_hex.description": "Шестнадцатеричная строка байтов для записи или вставки (например, 'D...",
-    "param.delete_len.description": "Количество байтов для удаления (удалени...",
+    "param.data_hex.description": "Шестнадцатеричная строка байтов для записи/вставки (например, «DEADBEEF» или «DE AD BE EF»).",
+    "param.delete_len.description": "Количество байтов, подлежащих удалению (удаление соединения).",
     "param.dry_run.description": "Если true, не изменяйте файл; сообщайте только о том, что изменится.",
-    "param.mode.description": "Режим р...",
-    "param.occurrence.description": "Какое вхождение заменить (н...",
+    "param.mode.description": "Режим редактирования.",
+    "param.occurrence.description": "Вхождение (на основе 1; 0 = все).",
     "param.offset.description": "Смещение байта (нумерация с 0).",
-    "param.patch_json.description": "JSON-патч в виде строки (режим app...",
+    "param.patch_json.description": "Исправление строки JSON (режим apply_patch).",
     "param.path.description": "Путь к целевому файлу.",
     "param.replace_hex.description": "Шестнадцатеричная строка, которой нужно заменить (режим replace).",
-    "param.search_hex.description": "Шестнадцатеричная строка для поиска (...",
+    "param.search_hex.description": "Шестнадцатеричная строка для поиска (режим замены).",
     "param.splice_op.description": "Операция splice (режим splice).",
     "tool.description": "Редактирует локальный файл как необработанные байты (двоичные данные).",
     "x_search_terms": [
@@ -160,19 +160,19 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Отклонять файлы, размер которых превышае..."
+    "param.maxb.description": "Отклонять файлы, размер которых превышает этот размер (в байтах)."
   },
   "pt_BR": {
-    "param.data_hex.description": "String hexadecimal de bytes para escrever/inserir (por exemplo, 'DEA...",
-    "param.delete_len.description": "Número de bytes a serem excluídos (excl...",
+    "param.data_hex.description": "Sequência hexadecimal de bytes para escrever/inserir (por exemplo, 'DEADBEEF' ou 'DE AD BE EF').",
+    "param.delete_len.description": "Número de bytes a serem excluídos (exclusão de emenda).",
     "param.dry_run.description": "Se true, não modifique o arquivo; apenas informe o que mudaria.",
-    "param.mode.description": "Modo de...",
-    "param.occurrence.description": "Qual ocorrência substituir...",
+    "param.mode.description": "Modo de edição.",
+    "param.occurrence.description": "Ocorrência (baseado em 1; 0 = todos).",
     "param.offset.description": "Deslocamento de bytes (começando em 0).",
-    "param.patch_json.description": "Patch JSON em forma de string (mod...",
-    "param.path.description": "Caminho do arquivo de d...",
+    "param.patch_json.description": "Patch de string JSON (modo apply_patch).",
+    "param.path.description": "Caminho do arquivo de destino.",
     "param.replace_hex.description": "String hexadecimal para substituir (modo replace).",
-    "param.search_hex.description": "String hexadecimal a ser pesquisada (...",
+    "param.search_hex.description": "String hexadecimal a ser pesquisada (modo de substituição).",
     "param.splice_op.description": "Operação de splice (modo splice).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários).",
     "x_search_terms": [
@@ -180,34 +180,34 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Rejeita arquivos maiores que este tamanh..."
+    "param.maxb.description": "Rejeite arquivos maiores que esse tamanho (bytes)."
   },
   "pt": {
-    "param.data_hex.description": "Sequência hexadecimal de bytes para escrever/inserir (por exemplo, '...",
-    "param.delete_len.description": "Número de bytes a serem excluídos (excl...",
+    "param.data_hex.description": "Sequência hexadecimal de bytes para escrever/inserir (por exemplo, 'DEADBEEF' ou 'DE AD BE EF').",
+    "param.delete_len.description": "Número de bytes a serem excluídos (exclusão de emenda).",
     "param.dry_run.description": "Se for verdade, não modifique o arquivo; apenas relate o que mudaria.",
-    "param.mode.description": "Modo de...",
-    "param.occurrence.description": "Qual ocorrência substituir...",
+    "param.mode.description": "Modo de edição.",
+    "param.occurrence.description": "Ocorrência (baseado em 1; 0 = todos).",
     "param.offset.description": "Deslocamento de bytes (baseado em 0).",
     "param.patch_json.description": "Patch de string JSON (modo apply_patch).",
-    "param.path.description": "Caminho do arquivo de d...",
+    "param.path.description": "Caminho do arquivo de destino.",
     "param.replace_hex.description": "String hexadecimal a ser substituída por (modo de substituição).",
-    "param.search_hex.description": "String hexadecimal a ser pesquisada (...",
-    "param.splice_op.description": "Operação de emenda (modo de...",
+    "param.search_hex.description": "String hexadecimal a ser pesquisada (modo de substituição).",
+    "param.splice_op.description": "Operação de emenda (modo de emenda).",
     "tool.description": "Edite um arquivo local como bytes brutos (binários).",
     "x_search_terms": [
       "Edite um arquivo local como bytes brutos (binários). Suporta gravação de deslocamento, pesquisa/substituição, emenda (inserção/exclusão) e aplicação de um patch JSON simples. Perigoso: esta ferramenta pode corromper arquivos",
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Rejeite arquivos maiores que esse tamanh..."
+    "param.maxb.description": "Rejeite arquivos maiores que esse tamanho (bytes)."
   },
   "id": {
     "param.data_hex.description": "String hex byte yang akan ditulis/disisipkan (mis.",
     "param.delete_len.description": "Jumlah byte yang akan dihapus (splice delete).",
-    "param.dry_run.description": "Jika true, jangan ubah file; hanya laporkan perubahan yang a...",
-    "param.mode.description": "Mode pe...",
-    "param.occurrence.description": "Kemunculan mana yang akan d...",
+    "param.dry_run.description": "Jika benar, jangan ubah file; hanya laporkan apa yang akan berubah.",
+    "param.mode.description": "Modus penyuntingan.",
+    "param.occurrence.description": "Kejadian (berbasis 1; 0 = semua).",
     "param.offset.description": "Offset byte (berbasis 0).",
     "param.patch_json.description": "String patch JSON (mode apply_patch).",
     "param.path.description": "Jalur file target.",
@@ -220,20 +220,20 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Tolak file yang lebih besar dari ukuran..."
+    "param.maxb.description": "Tolak file yang lebih besar dari ukuran ini (byte)."
   },
   "vi": {
     "param.data_hex.description": "Chuỗi byte hex để ghi/chèn (ví dụ: 'DEADBEEF' hoặc 'DE AD BE EF').",
     "param.delete_len.description": "Số byte cần xóa (xóa mối nối).",
     "param.dry_run.description": "Nếu đúng, không sửa đổi tệp; chỉ báo cáo những gì sẽ thay đổi.",
-    "param.mode.description": "Chế độ...",
-    "param.occurrence.description": "Lần xuất hiện nào cần thay...",
+    "param.mode.description": "Chế độ chỉnh sửa.",
+    "param.occurrence.description": "Sự xuất hiện (dựa trên 1; 0 = tất cả).",
     "param.offset.description": "Bù byte (dựa trên 0). Cần thiết cho việc ghi/ghép.",
     "param.patch_json.description": "Bản vá chuỗi JSON (chế độ apply_patch).",
     "param.path.description": "Đường dẫn tập tin mục tiêu.",
     "param.replace_hex.description": "Chuỗi hex để thay thế bằng (chế độ thay thế). Phải có cùng độ dài với search_hex trừ khi allow_resize=true (không được hỗ trợ).",
     "param.search_hex.description": "Chuỗi hex để tìm kiếm (chế độ thay thế).",
-    "param.splice_op.description": "Thao tác ghép nối (chế độ gh...",
+    "param.splice_op.description": "Thao tác ghép nối (chế độ ghép nối).",
     "tool.description": "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân).",
     "x_search_terms": [
       "Chỉnh sửa tệp cục bộ dưới dạng byte thô (nhị phân). Hỗ trợ ghi offset, tìm kiếm/thay thế, ghép (chèn/xóa) và áp dụng bản vá JSON đơn giản. Nguy hiểm: công cụ này có thể làm hỏng tập tin",
@@ -245,14 +245,14 @@
   "pl": {
     "param.data_hex.description": "Szesnastkowy ciąg bajtów do zapisania/wstawienia (np.",
     "param.delete_len.description": "Liczba bajtów do usunięcia (usunięcie splotu).",
-    "param.dry_run.description": "Jeśli ma wartość true, nie modyfikuj pliku; zgłaszaj tylko t...",
-    "param.mode.description": "Tryb ed...",
-    "param.occurrence.description": "Które wystąpienie zastąpić...",
+    "param.dry_run.description": "Jeśli ma wartość true, nie modyfikuj pliku; zgłaszaj tylko to, co mogłoby się zmienić.",
+    "param.mode.description": "Tryb edycji.",
+    "param.occurrence.description": "Wystąpienie (na podstawie 1; 0 = wszystkie).",
     "param.offset.description": "Przesunięcie bajtu (od 0). Wymagane do zapisu/splotu.",
     "param.patch_json.description": "Łatka ciągu JSON (tryb Apply_patch).",
     "param.path.description": "Docelowa ścieżka pliku.",
     "param.replace_hex.description": "Ciąg szesnastkowy, który ma zostać zastąpiony (tryb zamiany).",
-    "param.search_hex.description": "Ciąg szesnastkowy do wyszukania (tryb...",
+    "param.search_hex.description": "Ciąg szesnastkowy do wyszukania (tryb zamiany).",
     "param.splice_op.description": "Operacja splotu (tryb splotu).",
     "tool.description": "Edytuj plik lokalny jako surowe bajty (binarne).",
     "x_search_terms": [
@@ -260,34 +260,34 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Odrzuć pliki większe niż ten rozmiar (w..."
+    "param.maxb.description": "Odrzuć pliki większe niż ten rozmiar (w bajtach)."
   },
   "hi": {
-    "param.data_hex.description": "लिखने/डालने के लिए बाइट्स की हेक्स स्ट्रिंग (जैसे 'DEADBEEF' या 'DE...",
+    "param.data_hex.description": "लिखने/डालने के लिए बाइट्स की हेक्स स्ट्रिंग (जैसे 'DEADBEEF' या 'DE AD BE EF')।",
     "param.delete_len.description": "हटाने के लिए बाइट्स की संख्या (स्प्लिस डिलीट)।",
-    "param.dry_run.description": "यदि सत्य है, तो फ़ाइल को संशोधित न करें; केवल वही रिपोर्ट कर...",
+    "param.dry_run.description": "यदि सत्य है, तो फ़ाइल को संशोधित न करें; केवल वही रिपोर्ट करें जो बदलेगा।",
     "param.mode.description": "संपादन मोड.",
-    "param.occurrence.description": "किस घटना को प्रतिस्थापित कर...",
+    "param.occurrence.description": "घटना (1-आधारित; 0 = सभी)।",
     "param.offset.description": "बाइट ऑफसेट (0-आधारित)। लिखने/बँटाई के लिए आवश्यक है.",
     "param.patch_json.description": "JSON स्ट्रिंग पैच (apply_patch मोड)।",
     "param.path.description": "लक्ष्य फ़ाइल पथ.",
     "param.replace_hex.description": "हेक्स स्ट्रिंग को (रिप्लेस मोड) से बदलें। जब तक अनुमति_resize = true (समर्थित नहीं) हो, search_hex के समान लंबाई होनी चाहिए।",
-    "param.search_hex.description": "खोजने के लिए हेक्स स्ट्रिंग (प्रतिस्थ...",
+    "param.search_hex.description": "खोजने के लिए हेक्स स्ट्रिंग (प्रतिस्थापन मोड)।",
     "param.splice_op.description": "स्प्लिस ऑपरेशन (स्प्लिस मोड)।",
-    "tool.description": "स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करें। ऑफसेट लिखने, खोजने/प्रतिस्थापि...",
+    "tool.description": "स्थानीय फ़ाइल को कच्चे बाइट्स के रूप में संपादित करें: ऑफसेट लिखना, खोजना/बदलना, सम्मिलित करना/हटाना (स्प्लिस), JSON पैच।",
     "x_search_terms": [
       "स्थानीय फ़ाइल को कच्चे बाइट्स (बाइनरी) के रूप में संपादित करें। ऑफसेट लिखने, खोजने/प्रतिस्थापित करने, जोड़ने (डालने/हटाने) और एक सरल JSON पैच लागू करने का समर्थन करता है। खतरनाक: यह टूल फ़ाइलों को दूषित कर सकता है।",
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "इस आकार (बाइट्स) से बड़ी फ़ाइलों को अस्व..."
+    "param.maxb.description": "इस आकार (बाइट्स) से बड़ी फ़ाइलों को अस्वीकार करें।"
   },
   "ar": {
     "param.data_hex.description": "سلسلة hex للبايتات المراد كتابتها/إدراجها (مثل 'DEADBEEF' أو 'DE AD BE EF').",
     "param.delete_len.description": "عدد البايتات المراد حذفها (splice حذف).",
     "param.dry_run.description": "إذا كان true، فلا تعدل الملف؛ بل اعرض فقط ما الذي سيتغير.",
-    "param.mode.description": "وضع الت...",
-    "param.occurrence.description": "أي ظهور سيتم استبداله (يبدأ...",
+    "param.mode.description": "وضع التحرير.",
+    "param.occurrence.description": "التكرار (على أساس 1؛ 0 = الكل).",
     "param.offset.description": "إزاحة البايت (تبدأ من 0). مطلوبة في write/splice.",
     "param.patch_json.description": "رقعة JSON نصية (وضع apply_patch).",
     "param.path.description": "مسار الملف الهدف.",
@@ -306,8 +306,8 @@
     "param.data_hex.description": "Hexsträng med byte att skriva/infoga (t.ex. 'DEADBEEF' eller 'DE AD BE EF').",
     "param.delete_len.description": "Antal byte som ska tas bort (splice-delete).",
     "param.dry_run.description": "Om true, ändra inte filen; rapportera bara vad som skulle ändras.",
-    "param.mode.description": "Rediger...",
-    "param.occurrence.description": "Vilket förekommande träff s...",
+    "param.mode.description": "Redigera läge.",
+    "param.occurrence.description": "Förekomst (1-baserad; 0 = alla).",
     "param.offset.description": "Byte-offset (0-baserat). Krävs för write/splice.",
     "param.patch_json.description": "JSON-sträng-patch (apply_patch-läge).",
     "param.path.description": "Målfilens sökväg.",
@@ -320,39 +320,39 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Avvisa filer som är större än denna stor..."
+    "param.maxb.description": "Avvisa filer större än denna storlek (byte)."
   },
   "sw": {
-    "param.data_hex.description": "Mfuatano wa hex wa bytes za kuandika au kuingiza (mfano 'DEADBEEF' a...",
+    "param.data_hex.description": "Mfuatano wa hex wa baiti za kuandika/kuingiza (k.m. 'DEADBEEF' au 'DE AD BE EF').",
     "param.delete_len.description": "Idadi ya bytes za kufuta (splice delete).",
     "param.dry_run.description": "Ikiwa ni kweli, usibadilishe faili; ripoti tu kitakachobadilika.",
-    "param.mode.description": "Hali ya...",
-    "param.occurrence.description": "Ni tukio lipi la kubadilish...",
+    "param.mode.description": "Hali ya kuhariri.",
+    "param.occurrence.description": "Matukio (1-msingi; 0 = yote).",
     "param.offset.description": "Nafasi ya byte (kuanzia 0).",
-    "param.patch_json.description": "Kiraka cha JSON kama kamba (hali y...",
+    "param.patch_json.description": "Kiraka cha kamba cha JSON (modi ya kutumia_kiraka).",
     "param.path.description": "Njia ya faili lengwa.",
     "param.replace_hex.description": "Mfuatano wa hex wa kubadilisha nao (hali ya replace).",
-    "param.search_hex.description": "Mfuatano wa hex wa kutafuta (hali ya...",
-    "param.splice_op.description": "Operesheni ya splice (kuingi...",
+    "param.search_hex.description": "Kamba ya Hex ya kutafuta (badilisha hali).",
+    "param.splice_op.description": "Uendeshaji wa sehemu (mode ya sehemu).",
     "tool.description": "Hariri faili kama bytes ghafi (binary).",
     "x_search_terms": [
       "Hariri faili kama bytes ghafi (binary). Inaunga mkono kuandika kwa offset, kutafuta/kubadilisha, splice (kuingiza/kufuta), na kutumia kiraka rahisi cha JSON. Hatari: zana hii inaweza kuharibu faili",
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Kataa faili zilizo kubwa kuliko ukubwa h..."
+    "param.maxb.description": "Kataa faili kubwa kuliko ukubwa huu (baiti)."
   },
   "nb": {
     "param.data_hex.description": "Hexstreng med byte som skal skrives/innsettes (f.eks.",
-    "param.delete_len.description": "Antall byte som skal slettes (splice-sl...",
+    "param.delete_len.description": "Antall byte som skal slettes (spleisesletting).",
     "param.dry_run.description": "Hvis true, ikke endre filen; bare rapporter hva som ville endres.",
-    "param.mode.description": "Rediger...",
-    "param.occurrence.description": "Hvilket treff som skal erst...",
+    "param.mode.description": "Redigeringsmodus.",
+    "param.occurrence.description": "Forekomst (1-basert; 0 = alle).",
     "param.offset.description": "Byte-offset (0-basert). Kreves for write/splice.",
     "param.patch_json.description": "JSON-streng-patch (apply_patch-modus).",
     "param.path.description": "Målfilens sti.",
     "param.replace_hex.description": "Hexstreng som skal erstattes med (replace-modus). Må være like lang som search_hex med mindre allow_resize=true (støttes ikke).",
-    "param.search_hex.description": "Hexstreng som skal søkes etter (repla...",
+    "param.search_hex.description": "Hex-streng å søke etter (erstatt modus).",
     "param.splice_op.description": "Splice-operasjon (splice-modus).",
     "tool.description": "Rediger en lokal fil som rå byte (binær).",
     "x_search_terms": [
@@ -360,19 +360,19 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Avvis filer som er større enn denne stør..."
+    "param.maxb.description": "Avvis filer større enn denne størrelsen (bytes)."
   },
   "nl": {
     "param.data_hex.description": "Hex-tekenreeks van bytes om te schrijven/in te voegen (bijv.",
-    "param.delete_len.description": "Aantal bytes om te verwijderen (splice...",
-    "param.dry_run.description": "Als true, wijzig het bestand niet; rapporteer alleen wat zou...",
-    "param.mode.description": "Bewerki...",
-    "param.occurrence.description": "Welke voorkomens vervangen...",
+    "param.delete_len.description": "Aantal bytes dat moet worden verwijderd (splice-verwijdering).",
+    "param.dry_run.description": "Indien waar, wijzig het bestand dan niet; rapporteer alleen wat er zou veranderen.",
+    "param.mode.description": "Bewerkingsmodus.",
+    "param.occurrence.description": "Voorval (gebaseerd op 1; 0 = alles).",
     "param.offset.description": "Byte-offset (0-based). Vereist voor write/splice.",
     "param.patch_json.description": "JSON patch-string (apply_patch-modus).",
     "param.path.description": "Doelbestandspad.",
     "param.replace_hex.description": "Hex-tekenreeks om mee te vervangen (replace-modus).",
-    "param.search_hex.description": "Hex-tekenreeks om naar te zoeken (rep...",
+    "param.search_hex.description": "Hex-tekenreeks waarnaar moet worden gezocht (vervangmodus).",
     "param.splice_op.description": "Splice-operatie (splice-modus).",
     "tool.description": "Bewerk een lokaal bestand als ruwe bytes (binair).",
     "x_search_terms": [
@@ -380,19 +380,19 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Weiger bestanden groter dan deze grootte..."
+    "param.maxb.description": "Bestanden weigeren die groter zijn dan deze grootte (bytes)."
   },
   "fi": {
     "param.data_hex.description": "Kirjoitettavien/lisättävien tavujen heksamerkkijono (esim.",
     "param.delete_len.description": "Poistettavien tavujen määrä (splice delete).",
     "param.dry_run.description": "Jos true, älä muuta tiedostoa; raportoi vain, mitä muuttuisi.",
-    "param.mode.description": "Muokkau...",
-    "param.occurrence.description": "Mikä esiintymä korvataan (a...",
+    "param.mode.description": "Muokkaustila.",
+    "param.occurrence.description": "Esiintyminen (1-perusteinen; 0 = kaikki).",
     "param.offset.description": "Tavusiirtymä (alkaen 0).",
-    "param.patch_json.description": "JSON-paikkamerkkijono (apply_patch...",
+    "param.patch_json.description": "JSON-merkkijonokorjaus (apply_patch-tila).",
     "param.path.description": "Kohdetiedoston polku.",
     "param.replace_hex.description": "Heksamerkkijono, jolla korvataan (replace-tila).",
-    "param.search_hex.description": "Heksamerkkijono, jota etsitään (repla...",
+    "param.search_hex.description": "Haettava heksadesimaalimerkkijono (korvaustila).",
     "param.splice_op.description": "Splice-toiminto (splice-tila).",
     "tool.description": "Muokkaa paikallista tiedostoa raakatavuina (binäärinä).",
     "x_search_terms": [
@@ -405,14 +405,14 @@
   "cs": {
     "param.data_hex.description": "Hexadecimální řetězec bajtů k zápisu/vložení (např.",
     "param.delete_len.description": "Počet bajtů ke smazání (splice delete).",
-    "param.dry_run.description": "Pokud je true, soubor se neupraví; pouze se nahlásí, co by s...",
-    "param.mode.description": "Režim ú...",
-    "param.occurrence.description": "Který výskyt nahradit (čísl...",
+    "param.dry_run.description": "Pokud je true, neupravujte soubor; pouze hlásit, co by se změnilo.",
+    "param.mode.description": "Režim úprav.",
+    "param.occurrence.description": "Výskyt (založený na 1; 0 = vše).",
     "param.offset.description": "Byte offset (od 0). Vyžadováno pro write/splice.",
     "param.patch_json.description": "Řetězec JSON patche (režim apply_patch).",
     "param.path.description": "Cesta k cílovému souboru.",
     "param.replace_hex.description": "Hexadecimální řetězec, kterým se má nahradit (režim replace).",
-    "param.search_hex.description": "Hexadecimální řetězec k hledání (reži...",
+    "param.search_hex.description": "Hexadecimální řetězec k vyhledání (režim nahrazení).",
     "param.splice_op.description": "Operace splice (režim splice).",
     "tool.description": "Upravuje místní soubor jako surové bajty (binárně).",
     "x_search_terms": [
@@ -420,19 +420,19 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Odmítne soubory větší než tato velikost..."
+    "param.maxb.description": "Odmítněte soubory větší než tato velikost (bajty)."
   },
   "uk": {
-    "param.data_hex.description": "Шістнадцятковий рядок байтів для запису/вставки (наприклад, 'DEADBEE...",
-    "param.delete_len.description": "Кількість байтів для видалення (splice...",
-    "param.dry_run.description": "Якщо true, файл не змінюється; повідомляється лише про те, щ...",
-    "param.mode.description": "Режим р...",
-    "param.occurrence.description": "Яке входження замінити (нум...",
+    "param.data_hex.description": "Шістнадцятковий рядок байтів для запису/вставки (наприклад, «DEADBEEF» або «DE AD BE EF»).",
+    "param.delete_len.description": "Кількість байтів для видалення (видалення з'єднання).",
+    "param.dry_run.description": "Якщо істина, не змінюйте файл; повідомляйте лише про те, що зміниться.",
+    "param.mode.description": "Режим редагування.",
+    "param.occurrence.description": "Поява (за 1; 0 = усі).",
     "param.offset.description": "Зсув байта (від 0). Потрібно для write/splice.",
     "param.patch_json.description": "Рядок JSON-патча (режим apply_patch).",
     "param.path.description": "Шлях до цільового файла.",
     "param.replace_hex.description": "Шістнадцятковий рядок, яким слід замінити (режим replace).",
-    "param.search_hex.description": "Шістнадцятковий рядок для пошуку (реж...",
+    "param.search_hex.description": "Шістнадцятковий рядок для пошуку (режим заміни).",
     "param.splice_op.description": "Операція splice (режим splice).",
     "tool.description": "Редагує локальний файл як необроблені байти (бінарно).",
     "x_search_terms": [
@@ -440,14 +440,14 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Відхиляє файли, більші за цей розмір (у..."
+    "param.maxb.description": "Відхиляти файли, розмір яких перевищує цей розмір (у байтах)."
   },
   "tr": {
-    "param.data_hex.description": "Yazılacak/eklenecek onaltılık bayt dizisi (örneğin, 'DEADBEEF' veya...",
+    "param.data_hex.description": "Yazılacak/eklenecek onaltılık bayt dizisi (örneğin, 'DEADBEEF' veya 'DE AD BE EF').",
     "param.delete_len.description": "Silinecek bayt sayısı (ekleme silme).",
     "param.dry_run.description": "Doğruysa dosyayı değiştirmeyin; yalnızca neyin değişeceğini bildirin.",
-    "param.mode.description": "Düzenle...",
-    "param.occurrence.description": "Hangi olayın değiştirileceğ...",
+    "param.mode.description": "Düzenleme modu.",
+    "param.occurrence.description": "Oluşum (1 tabanlı; 0 = tümü).",
     "param.offset.description": "Bayt ofseti (0-tabanlı).",
     "param.patch_json.description": "JSON dize yaması (apply_patch modu).",
     "param.path.description": "Hedef dosya yolu.",
@@ -460,21 +460,21 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "Bu boyuttan (bayt) daha büyük dosyaları..."
+    "param.maxb.description": "Bu boyuttan (bayt) daha büyük dosyaları reddedin."
   },
   "th": {
     "param.data_hex.description": "สตริงเลขฐานสิบหกของไบต์ที่จะเขียนหรือแทรก (เช่น 'DEADBEEF' หรือ 'DE AD BE EF')",
     "param.delete_len.description": "จำนวนไบต์ที่จะลบ (การลบแบบ splice)",
     "param.dry_run.description": "หากเป็น true จะไม่แก้ไขไฟล์; รายงานเฉพาะสิ่งที่จะเปลี่ยนแปลง",
     "param.mode.description": "โหมดแก้ไข",
-    "param.occurrence.description": "จะให้แทนที่รายการที่กี่ (นั...",
+    "param.occurrence.description": "การเกิดขึ้น (แบบ 1; 0 = ทั้งหมด)",
     "param.offset.description": "ออฟเซ็ตของไบต์ (เริ่มที่ 0) จำเป็นสำหรับ write/splice",
     "param.patch_json.description": "แพตช์ JSON แบบสตริง (โหมด apply_patch)",
     "param.path.description": "พาธของไฟล์เป้าหมาย",
     "param.replace_hex.description": "สตริงเลขฐานสิบหกสำหรับแทนที่ (โหมด replace) ต้องมีความยาวเท่ากับ search_hex เว้นแต่จะใช้ allow_resize=true (ไม่รองรับ)",
     "param.search_hex.description": "สตริงเลขฐานสิบหกที่ใช้ค้นหา (โหมด replace)",
-    "param.splice_op.description": "การดำเนินการแบบ splice (โหมด...",
-    "tool.description": "แก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี) รองรับการเขียนตามออฟเซ็ต การค้นหา/แทนที่ splice (แท...",
+    "param.splice_op.description": "การดำเนินการประกบ (โหมดประกบ)",
+    "tool.description": "แก้ไขไฟล์ในเครื่องเป็นไบต์ดิบ: การเขียนออฟเซ็ต, ค้นหา/แทนที่, แทรก/ลบ (ประกบกัน), แพตช์ JSON",
     "x_search_terms": [
       "แก้ไขไฟล์ในเครื่องในรูปแบบไบต์ดิบ (ไบนารี) รองรับการเขียนตามออฟเซ็ต การค้นหา/แทนที่ splice (แทรก/ลบ) และการใช้ JSON patch แบบง่าย ๆ อันตราย: เครื่องมือนี้อาจทำให้ไฟล์เสียหายได้",
       "binary_edit",
@@ -526,30 +526,30 @@
     "param.data_hex.description": "লিখতে/ঢোকাতে বাইটের হেক্স স্ট্রিং (যেমন 'DEADBEEF' বা 'DE AD BE EF')।",
     "param.delete_len.description": "মুছতে হবে এমন বাইটের সংখ্যা (splice delete)।",
     "param.dry_run.description": "true হলে ফাইল বদলানো হবে না; শুধু কী বদলাত তা জানানো হবে।",
-    "param.mode.description": "সম্পাদন...",
-    "param.occurrence.description": "কোন occurrence বদলাবে (১-ভি...",
-    "param.offset.description": "বাইট অফসেট (০-ভিত্তিক)। write/splice-এর জন্য প...",
+    "param.mode.description": "সম্পাদনা মোড।",
+    "param.occurrence.description": "ঘটনা (1-ভিত্তিক; 0 = সব)।",
+    "param.offset.description": "বাইট অফসেট (0-ভিত্তিক)। লেখা/বিভক্ত করার জন্য প্রয়োজনীয়।",
     "param.patch_json.description": "JSON স্ট্রিং প্যাচ (apply_patch mode)।",
     "param.path.description": "টার্গেট ফাইলের পথ।",
-    "param.replace_hex.description": "যার দিয়ে প্রতিস্থাপন করা হবে এমন হেক্স স্ট্রিং (replace mode)। search_hex-এর সমান দৈর্ঘ্যের হতে হবে, যদি না allow_...",
+    "param.replace_hex.description": "(প্রতিস্থাপন মোড) দিয়ে প্রতিস্থাপন করতে হেক্স স্ট্রিং। অনুমতি_রিসাইজ=সত্য (সমর্থিত নয়) না হলে অনুসন্ধান_হেক্সের সমান দৈর্ঘ্য হতে হবে।",
     "param.search_hex.description": "যে হেক্স স্ট্রিং খোঁজা হবে (replace mode)।",
     "param.splice_op.description": "splice অপারেশন (splice mode)।",
-    "tool.description": "একটি লোকাল ফাইলকে raw bytes (binary) হিসেবে সম্পাদনা করে। offset write, search/replace, splice...",
+    "tool.description": "একটি স্থানীয় ফাইলকে কাঁচা বাইট হিসাবে সম্পাদনা করুন: অফসেট লিখুন, অনুসন্ধান/প্রতিস্থাপন করুন, সন্নিবেশ করুন/মুছুন (বিচ্ছিন্ন), JSON প্যাচ।",
     "x_search_terms": [
       "একটি লোকাল ফাইলকে raw bytes (binary) হিসেবে সম্পাদনা করে। offset write, search/replace, splice (insert/delete), এবং সাধারণ JSON patch প্রয়োগ সমর্থন করে। বিপজ্জনক: এই টুল ফাইল নষ্ট করতে পারে",
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "এই আকারের (বাইট) চেয়ে বড় ফাইল প্রত্যাখ..."
+    "param.maxb.description": "এই আকারের (বাইট) থেকে বড় ফাইল প্রত্যাখ্যান করুন।"
   },
   "fa": {
-    "param.data_hex.description": "رشتهٔ هگزِ بایت‌هایی که باید نوشته/درج شوند (مثلاً 'DEADBEEF' یا 'DE...",
+    "param.data_hex.description": "رشته هگز از بایت ها برای نوشتن/درج (مثلاً «DEADBEEF» یا «DE AD BE EF»).",
     "param.delete_len.description": "تعداد بایت‌هایی که باید حذف شوند (حذف splice).",
-    "param.dry_run.description": "اگر true باشد، فایل تغییر نمی‌کند؛ فقط گزارش می‌شود چه چیزی...",
-    "param.mode.description": "حالت وی...",
-    "param.occurrence.description": "اینکه کدام occurrence جایگز...",
+    "param.dry_run.description": "اگر درست است، فایل را تغییر ندهید. فقط گزارش دهید که چه چیزی تغییر می کند.",
+    "param.mode.description": "حالت ویرایش",
+    "param.occurrence.description": "وقوع (بر اساس 1؛ 0 = همه).",
     "param.offset.description": "موقعیت بایت (از ۰). برای write/splice لازم است.",
-    "param.patch_json.description": "پچ به‌صورت رشتهٔ JSON (حالت apply_...",
+    "param.patch_json.description": "وصله رشته JSON (حالت apply_patch).",
     "param.path.description": "مسیر فایل مقصد.",
     "param.replace_hex.description": "رشتهٔ هگز برای جایگزینی (حالت replace). باید هم‌طول search_hex باشد مگر اینکه allow_resize=true باشد (پشتیبانی نمی‌شود).",
     "param.search_hex.description": "رشتهٔ هگز برای جستجو (حالت replace).",
@@ -560,14 +560,14 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "فایل‌هایی بزرگ‌تر از این اندازه (بایت) ر..."
+    "param.maxb.description": "فایل های بزرگتر از این اندازه (بایت) را رد کنید."
   },
   "mn": {
-    "param.data_hex.description": "Бичих/оруулж тавих байтуудын hex мөр (жишээ нь 'DEADBEEF' эсвэл 'DE...",
+    "param.data_hex.description": "Бичих/оруулах байтуудын зургаан талт мөр (жишээ нь: 'DEADBEEF' эсвэл 'DE AD BE EF').",
     "param.delete_len.description": "Устгах байтын тоо (splice delete).",
     "param.dry_run.description": "true бол файлыг өөрчлөхгүй; зөвхөн юу өөрчлөгдөхийг мэдээлнэ.",
-    "param.mode.description": "Засварл...",
-    "param.occurrence.description": "Аль давтамжийг солих вэ (1-...",
+    "param.mode.description": "Засварлах горим.",
+    "param.occurrence.description": "Тохиолдол (1-д суурилсан; 0 = бүгд).",
     "param.offset.description": "Байт офсет (0-ээс эхэлнэ).",
     "param.patch_json.description": "JSON мөрөн patch (apply_patch горим).",
     "param.path.description": "Зорилтот файлын зам.",
@@ -586,8 +586,8 @@
     "param.data_hex.description": "लिहायच्या/घालायच्या बाइट्सची हेक्स स्ट्रिंग (उदा.",
     "param.delete_len.description": "किती बाइट्स हटवायचे (splice delete).",
     "param.dry_run.description": "true असल्यास फाइल बदलू नका; काय बदलले असते तेच कळवा.",
-    "param.mode.description": "संपादना...",
-    "param.occurrence.description": "कोणता occurrence बदलायचा (१...",
+    "param.mode.description": "मोड संपादित करा.",
+    "param.occurrence.description": "घटना (1-आधारित; 0 = सर्व).",
     "param.offset.description": "बाइट ऑफसेट (०-आधारित). write/splice साठी आवश्यक.",
     "param.patch_json.description": "JSON स्ट्रिंग पॅच (apply_patch मोड).",
     "param.path.description": "लक्ष्य फाइलचा मार्ग.",
@@ -600,6 +600,6 @@
       "binary_edit",
       "binary edit"
     ],
-    "param.maxb.description": "या आकारापेक्षा (बाइट्स) मोठ्या फाइल्स ना..."
+    "param.maxb.description": "या आकारापेक्षा (बाइट्स) मोठ्या फाइल्स नाकारणे."
   }
 }

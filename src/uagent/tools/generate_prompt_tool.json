@@ -34,11 +34,11 @@
   "es": {
     "err.bad_template": "La plantilla [generate_prompt error] tiene una clave desconocida: {key}",
     "err.not_a_file": "[error generar_prompt] no es un archivo: {path}",
-    "err.path_missing": "[error de generate_prompt] ruta/nombre de archivo n...",
+    "err.path_missing": "[generar_imágenes] La ruta/nombre del archivo no está especificada.",
     "err.template_missing": "[error de generate_prompt] plantilla no especificada",
-    "param.path.description": "Ruta del archivo de entrada (debe estar en e...",
+    "param.path.description": "Ruta del archivo de entrada (debe estar en workdir",
     "param.template.description": "Plantilla de formato Python. Ejemplo: '{lines} líneas\n\n{content}'.",
-    "tool.description": "Genere una cadena de mensaje a partir de un archivo utilizando un...",
+    "tool.description": "Genere una cadena de solicitud a partir de un archivo usando una plantilla de formato Python.",
     "x_search_terms": [
       "generate_prompt",
       "generar prompt",
@@ -49,11 +49,11 @@
   "fr": {
     "err.bad_template": "Le modèle [generate_prompt error] a une clé inconnue : {key}",
     "err.not_a_file": "[erreur Generate_prompt] ce n'est pas un fichier : {path}",
-    "err.path_missing": "[erreur generate_prompt] le chemin/nom de fichier n...",
+    "err.path_missing": "[erreur Generate_prompt] le chemin/nom de fichier n'est pas spécifié",
     "err.template_missing": "[erreur generate_prompt] le modèle n'est pas spécifié",
-    "param.path.description": "Chemin du fichier d'entrée (doit être sous w...",
+    "param.path.description": "Préfixe du nom de fichier enregistré (facultatif). (doit être sous workdir).",
     "param.template.description": "Modèle de format Python. Exemple : '{lines} lignes\n\n{content}'.",
-    "tool.description": "Générez une chaîne d'invite à partir d'un fichier à l'aide d'un m...",
+    "tool.description": "Générez une chaîne d'invite à partir d'un fichier à l'aide d'un modèle au format Python. Le nom de fichier",
     "x_search_terms": [
       "generate_prompt",
       "générer prompt",
@@ -83,7 +83,7 @@
     "err.template_missing": "[generate_prompt-Fehler] Vorlage ist nicht angegeben",
     "param.path.description": "Pfad der Eingabedatei (muss unter workdir liegen).",
     "param.template.description": "Python-Formatvorlage. Beispiel: '{lines} Zeilen\n\n{content}'.",
-    "tool.description": "Generieren Sie einen Prompt-String aus einer Datei mithilfe einer...",
+    "tool.description": "Erzeugt eine Eingabeaufforderungszeichenfolge aus einer Datei mit einer Python-Formatvorlage.",
     "x_search_terms": [
       "generate_prompt",
       "prompt erzeugen",
@@ -96,9 +96,9 @@
     "err.not_a_file": "[errore generate_prompt] non è un file: {path}",
     "err.path_missing": "[errore generate_prompt] percorso/nome file non specificato",
     "err.template_missing": "[errore generate_prompt] template non specificato",
-    "param.path.description": "Percorso del file di input (deve trovarsi in...",
+    "param.path.description": "Percorso del file di input (deve essere nella directory di lavoro).",
     "param.template.description": "Template di formato Python. Esempio: '{lines} righe\n\n{content}'.",
-    "tool.description": "Genera una stringa di prompt da un file utilizzando un template d...",
+    "tool.description": "Genera una stringa di prompt da un file utilizzando un modello di formato Python",
     "x_search_terms": [
       "generate_prompt",
       "genera prompt",
@@ -111,7 +111,7 @@
     "err.not_a_file": "[generate_prompt error] не файл: {path}",
     "err.path_missing": "[ошибка generate_prompt] путь/имя файла не указаны",
     "err.template_missing": "[ошибка generate_prompt] шаблон не указан",
-    "param.path.description": "Путь к входному файлу (должен находиться в р...",
+    "param.path.description": "Путь к входному файлу (должен находиться в рабочем каталоге).",
     "param.template.description": "Шаблон формата Python. Пример: '{lines} lines\n\n{content}'.",
     "tool.description": "Создайте строку подсказки из файла с помощью шаблона формата Python.",
     "x_search_terms": [
@@ -124,11 +124,11 @@
   "pt_BR": {
     "err.bad_template": "[generate_prompt error] modelo tem chave desconhecida: {key}",
     "err.not_a_file": "[errogenerate_prompt] não é um arquivo: {path}",
-    "err.path_missing": "[erro generate_prompt] o caminho/nome do arquivo nã...",
+    "err.path_missing": "[erro de geração de prompt] caminho/nome do arquivo não especificado",
     "err.template_missing": "[erro generate_prompt] o modelo não foi especificado",
-    "param.path.description": "Caminho do arquivo de entrada (deve estar em...",
+    "param.path.description": "Caminho do arquivo de entrada (deve estar em workdir).",
     "param.template.description": "Modelo de formato Python. Exemplo: '{lines} linhas\n\n{content}'.",
-    "tool.description": "Gere uma string de prompt a partir de um arquivo usando um modelo...",
+    "tool.description": "Caminho do arquivo de entrada (deve estar em workdir). modelo.",
     "x_search_terms": [
       "generate_prompt",
       "gerar prompt",
@@ -139,11 +139,11 @@
   "pt": {
     "err.bad_template": "[generate_prompt error] modelo tem chave desconhecida: {key}",
     "err.not_a_file": "[errogenerate_prompt] não é um arquivo: {path}",
-    "err.path_missing": "[erro generate_prompt] caminho/nome do arquivo não...",
+    "err.path_missing": "[generate_prompt error] caminho/nome do arquivo não especificado",
     "err.template_missing": "[erro generate_prompt] modelo não especificado",
-    "param.path.description": "Caminho do arquivo de entrada (deve estar em...",
+    "param.path.description": "Prefixo para o nome do arquivo salvo (opcional).",
     "param.template.description": "Modelo de formato Python. Exemplo: '{lines} linhas\n\n{content}'.",
-    "tool.description": "Gera uma string de prompt a partir de um arquivo usando um modelo...",
+    "tool.description": "Gere uma string de prompt de um arquivo usando um modelo de formato Python",
     "x_search_terms": [
       "generate_prompt",
       "gerar prompt",
@@ -186,7 +186,7 @@
     "err.not_a_file": "[błąd generowania_promptu] nie jest plikiem: {path}",
     "err.path_missing": "[błąd generate_prompt] nie określono ścieżki/nazwy pliku",
     "err.template_missing": "[błąd generate_prompt] nie określono szablonu",
-    "param.path.description": "Ścieżka pliku wejściowego (musi znajdować si...",
+    "param.path.description": "Ścieżka pliku wejściowego (musi znajdować się w katalogu roboczym).",
     "param.template.description": "Szablon formatu Python. Przykład: '{lines} lines\\n\\n{content}'.",
     "tool.description": "Generuje ciąg promptu z pliku przy użyciu szablonu formatu Python.",
     "x_search_terms": [
@@ -203,7 +203,7 @@
     "err.template_missing": "[generate_prompt error] टेम्प्लेट निर्दिष्ट नहीं है",
     "param.path.description": "इनपुट फ़ाइल का पथ (वर्कडिर के अंतर्गत होना चाहिए)।",
     "param.template.description": "पायथन प्रारूप टेम्पलेट. उदाहरण: '{lines} लाइनें\n\n{content}'।",
-    "tool.description": "पायथन प्रारूप टेम्पलेट का उपयोग करके फ़ाइल से एक प्रॉम्प्ट स्ट्रि...",
+    "tool.description": "पायथन प्रारूप टेम्पलेट का उपयोग करके फ़ाइल से एक त्वरित स्ट्रिंग बनाएं।",
     "x_search_terms": [
       "generate_prompt",
       "प्रॉम्प्ट बनाएं",
@@ -231,7 +231,7 @@
     "err.not_a_file": "[generate_prompt-fel] inte en fil: {path}",
     "err.path_missing": "[generate_prompt-fel] sökväg/filnamn är inte angivet",
     "err.template_missing": "[generate_prompt-fel] mallen är inte angiven",
-    "param.path.description": "Sökväg till indatafilen (måste ligga under w...",
+    "param.path.description": "Maximalt antal tecken att returnera (tillämpas efter avkodning/extrahering av __DELIM_50 katalogen). Om du vill ignorera skiftläge (standard: true).",
     "param.template.description": "Python-formatmall. Exempel: '{lines} lines\\n\\n{content}'.",
     "tool.description": "Genererar en promptsträng från en fil med en Python-formatmall.",
     "x_search_terms": [
@@ -244,11 +244,11 @@
   "sw": {
     "err.bad_template": "[generate_prompt error] kiolezo kina ufunguo usiojulikana: {key}",
     "err.not_a_file": "[hitilafu generate_prompt] si faili: {path}",
-    "err.path_missing": "[hitilafu generate_prompt] njia/jina la faili halij...",
+    "err.path_missing": "[generate_prompt error] njia/jina la faili halijabainishwa",
     "err.template_missing": "[hitilafu generate_prompt] kiolezo hakijabainishwa",
-    "param.path.description": "Njia ya faili la ingizo (lazima liwe chini y...",
+    "param.path.description": "[toa_promp_8_kosa]). faili (lazima iwe chini ya workdir).",
     "param.template.description": "Kiolezo cha umbizo la Python. Mfano: '{lines} lines\\n\\n{content}'.",
-    "tool.description": "Tengeneza kamba ya prompt kutoka kwa faili kwa kutumia kiolezo ch...",
+    "tool.description": "Tengeneza mfuatano wa kidokezo kutoka kwa faili kwa kutumia kiolezo cha umbizo la Python",
     "x_search_terms": [
       "generate_prompt",
       "tengeneza prompt",
@@ -263,7 +263,7 @@
     "err.template_missing": "[generate_prompt-feil] malen er ikke angitt",
     "param.path.description": "Sti til inputfilen (må ligge under workdir).",
     "param.template.description": "Python-formatmal. Eksempel: '{lines} lines\\n\\n{content}'.",
-    "tool.description": "Genererer en promptstreng fra en fil ved hjelp av en Python-forma...",
+    "tool.description": "Generer en promptstreng fra en fil ved hjelp av en Python-formatmal",
     "x_search_terms": [
       "generate_prompt",
       "generer prompt",
@@ -276,9 +276,9 @@
     "err.not_a_file": "[generate_prompt fout] geen bestand: {path}",
     "err.path_missing": "[generate_prompt fout] path/filename niet opgegeven",
     "err.template_missing": "[generate_prompt fout] template niet opgegeven",
-    "param.path.description": "Pad van het invoerbestand (moet onder workdi...",
+    "param.path.description": "Pad van het invoerbestand (moet onder workdir staan).",
     "param.template.description": "Python-opmaaksjabloon. Voorbeeld: '{lines} lines\\n\\n{content}'.",
-    "tool.description": "Genereert een promptstring uit een bestand met een Python-opmaaks...",
+    "tool.description": "Genereer een promptstring uit een bestand met behulp van een Python-formaatsjabloon.",
     "x_search_terms": [
       "generate_prompt",
       "prompt genereren",
@@ -338,7 +338,7 @@
     "err.template_missing": "[generate_prompt error] şablonu belirtilmedi",
     "param.path.description": "Giriş dosyasının yolu (workdir altında olmalıdır).",
     "param.template.description": "Python biçimi şablonu. Örnek: '{lines} satırları\n\n{content}'.",
-    "tool.description": "Python format şablonunu kullanarak bir dosyadan bilgi istemi dize...",
+    "tool.description": "Python format şablonunu kullanarak bir dosyadan bilgi istemi dizesi oluşturun.",
     "x_search_terms": [
       "generate_prompt",
       "prompt oluştur",
@@ -353,7 +353,7 @@
     "err.template_missing": "[ข้อผิดพลาด generate_prompt] ไม่ได้ระบุเทมเพลต",
     "param.path.description": "เส้นทางของไฟล์อินพุต (ต้องอยู่ภายใต้ workdir)",
     "param.template.description": "เทมเพลตรูปแบบ Python ตัวอย่าง: '{lines} lines\n\n{content}'",
-    "tool.description": "สร้างสตริงพรอมต์จากไฟล์โดยใช้เทมเพลตรูปแบบ Python เทมเพลตสามารถอ้...",
+    "tool.description": "สร้างสตริงพรอมต์จากไฟล์โดยใช้เทมเพลตรูปแบบ Python",
     "x_search_terms": [
       "generate_prompt",
       "สร้างพรอมต์",
@@ -398,7 +398,7 @@
     "err.template_missing": "[generate_prompt error] template নির্দিষ্ট করা হয়নি",
     "param.path.description": "ইনপুট ফাইলের path (workdir-এর মধ্যে হতে হবে)।",
     "param.template.description": "Python format template. উদাহরণ: '{lines} lines\\n\\n{content}'.",
-    "tool.description": "Python format template ব্যবহার করে একটি file থেকে prompt string ত...",
+    "tool.description": "একটি পাইথন বিন্যাস টেমপ্লেট ব্যবহার করে একটি ফাইল থেকে একটি প্রম্পট স্ট্রিং তৈরি করুন৷",
     "x_search_terms": [
       "generate_prompt",
       "প্রম্প্ট তৈরি",
@@ -413,7 +413,7 @@
     "err.template_missing": "[generate_prompt error] الگو مشخص نشده است",
     "param.path.description": "مسیر فایل ورودی (باید زیر workdir باشد).",
     "param.template.description": "الگوی قالب Python. مثال: '{lines} lines\\n\\n{content}'.",
-    "tool.description": "با استفاده از یک الگوی قالب Python از یک فایل رشتهٔ prompt تولید...",
+    "tool.description": "یک رشته اعلان از یک فایل با استفاده از قالب قالب پایتون ایجاد کنید.",
     "x_search_terms": [
       "generate_prompt",
       "ایجاد پرامپت",
@@ -440,7 +440,7 @@
     "err.bad_template": "[generate_prompt error] template मध्ये अज्ञात key आहे: {key}",
     "err.not_a_file": "[generate_prompt error] file नाही: {path}",
     "err.path_missing": "[generate_prompt error] path/filename निर्दिष्ट केलेले नाही",
-    "err.template_missing": "[generate_prompt error] template निर्दिष्ट केल...",
+    "err.template_missing": "[generate_prompt error] टेम्पलेट निर्दिष्ट नाही",
     "param.path.description": "इनपुट file चा path (workdir अंतर्गत असणे आवश्यक).",
     "param.template.description": "Python format template. उदाहरण: '{lines} lines\\n\\n{content}'.",
     "tool.description": "Python format template वापरून file मधून prompt string तयार करते.",

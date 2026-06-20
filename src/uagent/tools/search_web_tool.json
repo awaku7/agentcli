@@ -34,34 +34,34 @@
     "param.limit.description": "返す最大件数（既定: 5）。"
   },
   "es": {
-    "error.args_must_be_dict": "args debe ser un...",
+    "error.args_must_be_dict": "deben ser un dictado",
     "error.duckduckgo_failed_after_retries": "La solicitud de DuckDuckGo falló después de los reintentos: {error}",
     "error.missing_query_parameter": "falta el parámetro 'query'",
     "error.run_tool_error": "error de ejecución_herramienta: {error}",
-    "param.query.description": "Cadena de...",
-    "tool.description": "Busque en la web a través de la interfaz HTML de DuckDuckGo y devuelva...",
+    "param.query.description": "Consulta de búsqueda.",
+    "tool.description": "Busque en la web a través de la interfaz HTML de DuckDuckGo. Devuelve título/enlace/fragmento.",
     "x_search_terms": [
       "search_web",
       "buscar web",
       "búsqueda web",
       "duckduckgo"
     ],
-    "param.limit.description": "Número máximo de resultados a devolver (predet..."
+    "param.limit.description": "Número máximo de resultados a devolver (predeterminado: 5)."
   },
   "fr": {
-    "error.args_must_be_dict": "args doit être u...",
+    "error.args_must_be_dict": "doivent être une requête de recherche",
     "error.duckduckgo_failed_after_retries": "La requête DuckDuckGo a échoué après plusieurs tentatives : {error}",
     "error.missing_query_parameter": "paramètre 'query' manquant",
     "error.run_tool_error": "Erreur run_tool : {error}",
-    "param.query.description": "Chaîne de...",
-    "tool.description": "Recherchez sur le Web via l’interface HTML DuckDuckGo et renvoyez le t...",
+    "param.query.description": ".",
+    "tool.description": "Recherchez sur le Web via l'interface HTML DuckDuckGo. Renvoie le titre/lien/extrait.",
     "x_search_terms": [
       "search_web",
       "recherche web",
       "recherche duckduckgo",
       "duckduckgo"
     ],
-    "param.limit.description": "Nombre maximum de résultats à renvoyer (par dé..."
+    "param.limit.description": "Nombre maximum de résultats à retourner (par défaut : 5)."
   },
   "ko": {
     "error.args_must_be_dict": "args는 딕셔너리여야 합니다",
@@ -79,56 +79,56 @@
     "param.limit.description": "반환할 최대 결과 수(기본값: 5)"
   },
   "de": {
-    "error.args_must_be_dict": "args muss ein Di...",
+    "error.args_must_be_dict": "Argumente müssen ein Diktat sein.",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo-Anfrage ist nach Wiederholungsversuchen fehlgeschlagen: {error}",
     "error.missing_query_parameter": "fehlender 'query'-Parameter",
     "error.run_tool_error": "run_tool-Fehler: {error}",
-    "param.query.description": "Suchanfrag...",
-    "tool.description": "Im Web über die DuckDuckGo-HTML-Oberfläche suchen und Titel/Link/Auszu...",
+    "param.query.description": "Suchabfrage.",
+    "tool.description": "Durchsuchen Sie das Web über die DuckDuckGo-HTML-Schnittstelle. Gibt Titel/Link/Snippet zurück.",
     "x_search_terms": [
       "search_web",
       "websuche",
       "duckduckgo suche",
       "suchmaschine"
     ],
-    "param.limit.description": "Maximale Anzahl der zurückzugebenden Ergebniss..."
+    "param.limit.description": "Maximale Anzahl der zurückzugebenden Ergebnisse (Standard: 5)."
   },
   "it": {
-    "error.args_must_be_dict": "args deve essere...",
+    "error.args_must_be_dict": "args deve essere una query di ricerca dict",
     "error.duckduckgo_failed_after_retries": "Richiesta DuckDuckGo non riuscita dopo i tentativi: {error}",
     "error.missing_query_parameter": "manca il parametro 'query'",
     "error.run_tool_error": "errore run_tool: {error}",
-    "param.query.description": "Stringa de...",
-    "tool.description": "Cerca nel web tramite l'interfaccia HTML di DuckDuckGo e restituisce t...",
+    "param.query.description": ".",
+    "tool.description": "Cerca sul web tramite l'interfaccia HTML di DuckDuckGo. Restituisce titolo/link/snippet.",
     "x_search_terms": [
       "search_web",
       "ricerca web",
       "ricerca duckduckgo",
       "duckduckgo"
     ],
-    "param.limit.description": "Numero massimo di risultati da restituire (pre..."
+    "param.limit.description": "Numero massimo di risultati da restituire (predefinito: 5)."
   },
   "ru": {
-    "error.args_must_be_dict": "args должен быть...",
+    "error.args_must_be_dict": "аргументы должны быть dict",
     "error.duckduckgo_failed_after_retries": "Запрос DuckDuckGo не удался после повторных попыток: {error}",
-    "error.missing_query_parameter": "отсутствует параметр '...",
+    "error.missing_query_parameter": "отсутствует параметр запроса",
     "error.run_tool_error": "ошибка run_tool: {error}",
-    "param.query.description": "Строка пои...",
-    "tool.description": "Ищет в вебе через HTML-интерфейс DuckDuckGo и возвращает заголовок/ссы...",
+    "param.query.description": "Поисковый запрос.",
+    "tool.description": "Выполняйте поиск в Интернете через HTML-интерфейс DuckDuckGo. Возвращает заголовок/ссылку/фрагмент.",
     "x_search_terms": [
       "search_web",
       "поиск в вебе",
       "поиск duckduckgo",
       "duckduckgo"
     ],
-    "param.limit.description": "Максимальное число возвращаемых результатов (п..."
+    "param.limit.description": "Максимальное количество возвращаемых результатов (по умолчанию: 5)."
   },
   "pt_BR": {
-    "error.args_must_be_dict": "args deve ser um...",
+    "error.args_must_be_dict": "args deve ser um dict",
     "error.duckduckgo_failed_after_retries": "A solicitação DuckDuckGo falhou após novas tentativas: {error}",
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro run_tool: {error}",
-    "param.query.description": "String da...",
+    "param.query.description": "Consulta de pesquisa.",
     "tool.description": "Pesquise na web pela interface HTML do DuckDuckGo e retorne título/link/trecho.",
     "x_search_terms": [
       "search_web",
@@ -139,26 +139,26 @@
     "param.limit.description": "Número máximo de resultados a retornar (padrão: 5)."
   },
   "pt": {
-    "error.args_must_be_dict": "args deve ser um...",
+    "error.args_must_be_dict": "args deve ser um dict",
     "error.duckduckgo_failed_after_retries": "A solicitação DuckDuckGo falhou após novas tentativas: {error}",
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro run_tool: {error}",
-    "param.query.description": "String da...",
-    "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo e retorne tít...",
+    "param.query.description": "Consulta de pesquisa.",
+    "tool.description": "Pesquise na web por meio da interface HTML do DuckDuckGo. Retorna título/link/snippet.",
     "x_search_terms": [
       "search_web",
       "pesquisa na web",
       "busca web",
       "duckduckgo"
     ],
-    "param.limit.description": "Número máximo de resultados a serem retornados..."
+    "param.limit.description": "Número máximo de resultados a serem retornados (padrão: 5)."
   },
   "id": {
-    "error.args_must_be_dict": "args harus berup...",
+    "error.args_must_be_dict": "argumen harus berupa dict",
     "error.duckduckgo_failed_after_retries": "Permintaan DuckDuckGo gagal setelah percobaan ulang: {error}",
     "error.missing_query_parameter": "parameter 'query' tidak ada",
     "error.run_tool_error": "Galat run_tool: {error}",
-    "param.query.description": "String kue...",
+    "param.query.description": "Kueri penelusuran.",
     "tool.description": "Cari web melalui antarmuka DuckDuckGo HTML dan kembalikan title/link/snippet.",
     "x_search_terms": [
       "search_web",
@@ -169,12 +169,12 @@
     "param.limit.description": "Jumlah maksimum hasil yang dikembalikan (default: 5)."
   },
   "vi": {
-    "error.args_must_be_dict": "args phải là một...",
+    "error.args_must_be_dict": "đối số phải là một lệnh",
     "error.duckduckgo_failed_after_retries": "Yêu cầu DuckDuckGo không thành công sau khi thử lại: {error}",
     "error.missing_query_parameter": "thiếu tham số 'query'",
     "error.run_tool_error": "lỗi run_tool: {error}",
-    "param.query.description": "Chuỗi truy...",
-    "tool.description": "Tìm kiếm trên web qua giao diện DuckDuckGo HTML và trả về tiêu đề/liên...",
+    "param.query.description": "Truy vấn tìm kiếm.",
+    "tool.description": "Tìm kiếm trên web thông qua giao diện DuckDuckGo HTML. Trả về tiêu đề/liên kết/đoạn trích.",
     "x_search_terms": [
       "search_web",
       "tìm kiếm web",
@@ -188,8 +188,8 @@
     "error.duckduckgo_failed_after_retries": "Żądanie DuckDuckGo nie powiodło się po ponownych próbach: {error}",
     "error.missing_query_parameter": "brakuje parametru 'query'",
     "error.run_tool_error": "błąd run_tool: {error}",
-    "param.query.description": "Łańcuch za...",
-    "tool.description": "Wyszukuj w sieci przez interfejs HTML DuckDuckGo i zwracaj tytuł/odnoś...",
+    "param.query.description": "Zapytanie wyszukiwania.",
+    "tool.description": "Przeszukuj Internet za pomocą interfejsu HTML DuckDuckGo. Zwraca tytuł/link/fragment.",
     "x_search_terms": [
       "search_web",
       "wyszukiwanie w sieci",
@@ -199,11 +199,11 @@
     "param.limit.description": "Maksymalna liczba zwracanych wyników (domyślnie: 5)."
   },
   "hi": {
-    "error.args_must_be_dict": "args एक dict होन...",
+    "error.args_must_be_dict": "args एक निर्देश होना चाहिए",
     "error.duckduckgo_failed_after_retries": "पुनः प्रयास के बाद DuckDuckGo अनुरोध विफल रहा: {error}",
     "error.missing_query_parameter": "'query' पैरामीटर गायब है",
     "error.run_tool_error": "run_tool त्रुटि: {error}",
-    "param.query.description": "खोज क्वेरी...",
+    "param.query.description": "खोज क्वेरी।",
     "tool.description": "DuckDuckGo HTML इंटरफ़ेस के माध्यम से वेब खोजें और शीर्षक/लिंक/स्निपेट लौटाएँ।",
     "x_search_terms": [
       "search_web",
@@ -211,14 +211,14 @@
       "DuckDuckGo खोज",
       "ऑनलाइन खोज"
     ],
-    "param.limit.description": "लौटाए जाने वाले परिणामों की अधिकतम संख्या (डिफ..."
+    "param.limit.description": "लौटने के लिए परिणामों की अधिकतम संख्या (डिफ़ॉल्ट: 5)।"
   },
   "ar": {
-    "error.args_must_be_dict": "يجب أن تكون args...",
+    "error.args_must_be_dict": "يجب أن تكون الوسائط بمثابة إملاء",
     "error.duckduckgo_failed_after_retries": "فشل طلب DuckDuckGo بعد إعادة المحاولة: {error}",
     "error.missing_query_parameter": "المعامل 'query' مفقود",
     "error.run_tool_error": "خطأ في run_tool: {error}",
-    "param.query.description": "سلسلة استع...",
+    "param.query.description": "استعلام بحث.",
     "tool.description": "ابحث في الويب عبر واجهة DuckDuckGo HTML وأرجِع العنوان/الرابط/المقتطف.",
     "x_search_terms": [
       "search_web",
@@ -226,14 +226,14 @@
       "بحث duckduckgo",
       "duckduckgo"
     ],
-    "param.limit.description": "الحد الأقصى لعدد النتائج التي سيتم إرجاعها (ال..."
+    "param.limit.description": "الحد الأقصى لعدد النتائج المراد إرجاعها (الافتراضي: 5)."
   },
   "sv": {
-    "error.args_must_be_dict": "args måste vara...",
+    "error.args_must_be_dict": "args måste vara en dict",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo-begäran misslyckades efter försök: {error}",
     "error.missing_query_parameter": "saknar parametern 'query'",
     "error.run_tool_error": "run_tool-fel: {error}",
-    "param.query.description": "Sökfråga s...",
+    "param.query.description": "Sökfråga.",
     "tool.description": "Sök på webben via DuckDuckGo HTML-gränssnitt och returnera titel/länk/snutt.",
     "x_search_terms": [
       "search_web",
@@ -248,22 +248,22 @@
     "error.duckduckgo_failed_after_retries": "Ombi la DuckDuckGo halikufaulu baada ya kujaribu tena: {error}",
     "error.missing_query_parameter": "'query' haipo",
     "error.run_tool_error": "hitilafu_ya_zana: {error}",
-    "param.query.description": "Kamba ya h...",
-    "tool.description": "Tafuta wavuti kupitia kiolesura cha DuckDuckGo HTML na urudishe kichwa...",
+    "param.query.description": "Hoja ya utafutaji.",
+    "tool.description": "Tafuta wavuti kupitia kiolesura cha HTML cha DuckDuckGo. Hurejesha kichwa/kiungo/kijisehemu.",
     "x_search_terms": [
       "search_web",
       "utafutaji wa wavuti",
       "duckduckgo",
       "utafutaji web"
     ],
-    "param.limit.description": "Idadi ya juu ya matokeo ya kurejesha (chaguoms..."
+    "param.limit.description": "Idadi ya juu zaidi ya matokeo ya kurejesha (chaguo-msingi: 5)."
   },
   "nb": {
     "error.args_must_be_dict": "args må være en dict",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo-forespørsel mislyktes etter forsøk: {error}",
     "error.missing_query_parameter": "mangler parameteren 'query'",
     "error.run_tool_error": "run_tool-feil: {error}",
-    "param.query.description": "Søkeord so...",
+    "param.query.description": "Søkespørring.",
     "tool.description": "Søk på nettet via DuckDuckGo HTML-grensesnittet og returner tittel/lenke/utdrag.",
     "x_search_terms": [
       "search_web",
@@ -271,30 +271,30 @@
       "duckduckgo-søk",
       "webbsøk"
     ],
-    "param.limit.description": "Maksimalt antall resultater som skal returnere..."
+    "param.limit.description": "Maksimalt antall resultater å returnere (standard: 5)."
   },
   "nl": {
-    "error.args_must_be_dict": "args moet een di...",
+    "error.args_must_be_dict": "args moeten een dictaat zijn",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo-verzoek mislukt na nieuwe pogingen: {error}",
-    "error.missing_query_parameter": "ontbrekende parameter...",
+    "error.missing_query_parameter": "ontbrekende 'query'-parameter",
     "error.run_tool_error": "run_tool fout: {error}",
     "param.query.description": "Zoekopdracht.",
-    "tool.description": "Doorzoek het web via de DuckDuckGo-HTML-interface en geef titel/link/s...",
+    "tool.description": "Zoek op internet via de DuckDuckGo HTML-interface. Retourneert titel/link/fragment.",
     "x_search_terms": [
       "search_web",
       "webzoek",
       "duckduckgo zoek",
       "web zoeken"
     ],
-    "param.limit.description": "Maximaal aantal resultaten om terug te geven (..."
+    "param.limit.description": "Maximaal aantal resultaten dat moet worden geretourneerd (standaard: 5)."
   },
   "fi": {
-    "error.args_must_be_dict": "argsin on oltava...",
+    "error.args_must_be_dict": "argin on oltava sanelu",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo-pyyntö epäonnistui uudelleenyritysten jälkeen: {error}",
     "error.missing_query_parameter": "puuttuva 'query'-parametri",
     "error.run_tool_error": "run_tool-virhe: {error}",
     "param.query.description": "Hakukysely.",
-    "tool.description": "Hae webistä DuckDuckGo HTML -rajapinnan kautta ja palauta otsikko/link...",
+    "tool.description": "Hae verkosta DuckDuckGo HTML -käyttöliittymän kautta. Palauttaa otsikon/linkin/katkelman.",
     "x_search_terms": [
       "search_web",
       "verkkohaku",
@@ -308,7 +308,7 @@
     "error.duckduckgo_failed_after_retries": "Požadavek DuckDuckGo selhal po opakovaných pokusech: {error}",
     "error.missing_query_parameter": "chybí parametr 'query'",
     "error.run_tool_error": "chyba run_tool: {error}",
-    "param.query.description": "Řetězec do...",
+    "param.query.description": "Vyhledávací dotaz.",
     "tool.description": "Vyhledává na webu přes HTML rozhraní DuckDuckGo a vrací titul/odkaz/úryvek.",
     "x_search_terms": [
       "search_web",
@@ -323,23 +323,23 @@
     "error.duckduckgo_failed_after_retries": "Помилка запиту DuckDuckGo після повторних спроб: {error}",
     "error.missing_query_parameter": "відсутній параметр 'query'",
     "error.run_tool_error": "помилка run_tool: {error}",
-    "param.query.description": "Рядок пошу...",
-    "tool.description": "Шукає в інтернеті через HTML-інтерфейс DuckDuckGo та повертає заголово...",
+    "param.query.description": "Пошуковий запит.",
+    "tool.description": "Шукайте в Інтернеті через HTML-інтерфейс DuckDuckGo. Повертає назву/посилання/фрагмент.",
     "x_search_terms": [
       "search_web",
       "пошук в вебі",
       "пошук duckduckgo",
       "duckduckgo"
     ],
-    "param.limit.description": "Максимальна кількість результатів для повернен..."
+    "param.limit.description": "Максимальна кількість результатів для повернення (за замовчуванням: 5)."
   },
   "tr": {
-    "error.args_must_be_dict": "args bir dict ol...",
+    "error.args_must_be_dict": "bağımsız değişkenler bir dikte olmalıdır",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo isteği yeniden denemelerden sonra başarısız oldu: {error}",
     "error.missing_query_parameter": "'query' parametresi eksik",
     "error.run_tool_error": "run_tool hatası: {error}",
-    "param.query.description": "Arama sorg...",
-    "tool.description": "DuckDuckGo HTML arayüzü üzerinden web'de arama yapar ve başlık/bağlant...",
+    "param.query.description": "Arama sorgusu.",
+    "tool.description": "DuckDuckGo HTML arayüzü aracılığıyla web'de arama yapın. Başlığı/bağlantıyı/parçacığı döndürür.",
     "x_search_terms": [
       "search_web",
       "web arama",
@@ -394,12 +394,12 @@
     "param.limit.description": "傳回結果的最大數量（預設值：5）。"
   },
   "bn": {
-    "error.args_must_be_dict": "args একটি dict হ...",
+    "error.args_must_be_dict": "args অবশ্যই একটি dict হতে হবে",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo অনুরোধ পুনরায় চেষ্টা করার পরে ব্যর্থ হয়েছে: {error}",
-    "error.missing_query_parameter": "'query' প্যারামিটার অন...",
+    "error.missing_query_parameter": "অনুপস্থিত 'query' প্যারামিটার",
     "error.run_tool_error": "run_tool ত্রুটি: {error}",
-    "param.query.description": "অনুসন্ধান...",
-    "tool.description": "DuckDuckGo HTML ইন্টারফেসের মাধ্যমে ওয়েবে অনুসন্ধান করুন এবং শিরোনাম/...",
+    "param.query.description": "টার্গেট উইন্ডো শিরোনাম (যদি নির্দিষ্ট করা থাকে) __DELIM_157 এর চেয়ে দ্রুত ক্যাপচার করা হয়। 8000000 ≈ 8MB)। 'ক্যোয়ারী' প্যারামিটার",
+    "tool.description": "ওয়েবে অনুসন্ধান করুন শিরোনাম/লিঙ্ক/স্নিপেট",
     "x_search_terms": [
       "search_web",
       "ওয়েব অনুসন্ধান",
@@ -409,7 +409,7 @@
     "param.limit.description": "ফেরত দেওয়ার সর্বোচ্চ ফলাফলের সংখ্যা (ডিফল্ট: 5)।"
   },
   "fa": {
-    "error.args_must_be_dict": "args باید یک dic...",
+    "error.args_must_be_dict": "باید دیکته باشند",
     "error.duckduckgo_failed_after_retries": "درخواست DuckDuckGo پس از تلاش مجدد ناموفق بود: {error}",
     "error.missing_query_parameter": "پارامتر 'query' موجود نیست",
     "error.run_tool_error": "خطای run_tool: {error}",
@@ -424,11 +424,11 @@
     "param.limit.description": "حداکثر تعداد نتایج برای بازگشت (پیش‌فرض: 5)."
   },
   "mn": {
-    "error.args_must_be_dict": "args нь dict бай...",
+    "error.args_must_be_dict": "args нь dict байх ёстой",
     "error.duckduckgo_failed_after_retries": "Дахин оролдсоны дараа DuckDuckGo хүсэлт амжилтгүй боллоо: {error}",
-    "error.missing_query_parameter": "'query' параметр дутуу...",
+    "error.missing_query_parameter": "'асуулга' параметр",
     "error.run_tool_error": "run_tool алдаа: {error}",
-    "param.query.description": "Хайлтын ас...",
+    "param.query.description": "Хайлтын асуулга дутуу байна.",
     "tool.description": "DuckDuckGo HTML интерфэйсээр вэбээс хайж, гарчиг/линк/snippet буцаана.",
     "x_search_terms": [
       "search_web",
@@ -439,11 +439,11 @@
     "param.limit.description": "Буцаах үр дүнгийн дээд тоо (анхдагч: 5)."
   },
   "mr": {
-    "error.args_must_be_dict": "args हे dict असण...",
+    "error.args_must_be_dict": "args एक dict असणे आवश्यक आहे",
     "error.duckduckgo_failed_after_retries": "पुन्हा प्रयत्न केल्यानंतर DuckDuckGo विनंती अयशस्वी झाली: {error}",
     "error.missing_query_parameter": "'query' पॅरामीटर नाही",
     "error.run_tool_error": "run_tool त्रुटी: {error}",
-    "param.query.description": "शोध क्वेरी...",
+    "param.query.description": "शोध क्वेरी.",
     "tool.description": "DuckDuckGo HTML इंटरफेसद्वारे वेबवर शोधा आणि शीर्षक/लिंक/स्निपेट परत करा.",
     "x_search_terms": [
       "search_web",
