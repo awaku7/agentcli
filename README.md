@@ -63,12 +63,18 @@ When the LLM requests multiple tools simultaneously, uag **automatically paralle
 
 Read-only tools (file search, hash calculation, directory listing, translation, DB queries, etc.) are aggressively parallelized.
 
+### 🔄 Session Continuity
+
+- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
+- **Reload past sessions** with `:load <index>` — pick up where you left off.
+- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+
 ### 🛠 111 Tools
 
 | Category | Tools |
 |---|---|
 | **File Operations** | read/write/create/delete/search/grep/hash/zip |
-| **Web** | fetch_url, search_web, screenshot |
+| **Web** | fetch_url, search_web, screenshot, browser_playwright |
 | **Media** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | PDF/PPTX/DOCX/RTF/ODT extraction, Excel structured extraction |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
@@ -99,6 +105,21 @@ See [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md
 
 `:skills mp_search` to browse [SkillsMP](https://skillsmp.com) and [ClawHub](https://clawhub.ai) for community skills.
 Install and extend uag's capabilities on the fly.
+
+### 🧩 Batch State Manager
+
+uag can track progress across long-running multi-file tasks. When the LLM processes dozens of files, `batch_state` persists the list of pending, completed, and failed files to disk. If the session ends or a round times out, the next run resumes from where it stopped — nothing gets lost.
+
+### 🛡 Human-in-the-Loop
+
+`human_ask` lets the LLM pause and ask for your confirmation before performing destructive operations (file deletion, overwrites, shell commands). You stay in control.
+
+### 🕵️ Browser Automation & Web Inspector
+
+Two complementary Playwright-based tools:
+
+- **browser_playwright**: Automate real browser sessions — navigate, click, fill forms, extract data, handle multi-page flows. Works headless or headed.
+- **playwright_inspector**: Record browser transitions, capture DOM snapshots and screenshots at each step. Useful for debugging web interactions or auditing page changes over time.
 
 ### 🔄 Dynamic Tool Loading
 
