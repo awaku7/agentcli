@@ -1,19 +1,19 @@
-<p alinhar="centro">
+<p align="center">
   <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
 </p>
 
 <h1 align="center">uag — Gateway Universal de IA</h1>
 
-<p alinhar="centro">
+<p align="center">
   <b>U</b>universal <b>A</b>I <b>Gateway — Seu ambiente, sua liberdade.
 </p>
 
-<p alinhar="centro">
+<p align="center">
   Operações de arquivos / Pesquisa na Web / Geração e análise de imagens / Extração de PDF e Excel / Controle de IoT / Integração MCP<br>
   Mais de 15 provedores / 3 UIs / Execução de ferramentas paralelas / Mercado de habilidades de agente
 </p>
 
-<p alinhar="centro">
+<p align="center">
   <a href="https://github.com/awaku7/agentcli">GitHub</a>
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
@@ -39,7 +39,7 @@ uag é **seu assistente de IA nos seus termos**. Não vinculado a um provedor, n
 ## Início rápido
 
 ```bash
-pip instalar uag
+pip install uag
 uag
 ```
 

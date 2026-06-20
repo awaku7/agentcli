@@ -1,19 +1,19 @@
-<p wyrównanie="centrum">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="logo uag" szerokość="720">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="logo uag" width="720">
 </p>
 
-<h1lay="center">uag — uniwersalna bramka AI</h1>
+<h1 align="center">uag — uniwersalna bramka AI</h1>
 
-<p wyrównanie="centrum">
+<p align="center">
   <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Twoje środowisko, Twoja wolność.
 </p>
 
-<p wyrównanie="centrum">
+<p align="center">
   Operacje plików / Wyszukiwanie w Internecie / Generowanie i analiza obrazów / Ekstrakcja plików PDF i Excel / Kontrola IoT / Integracja MCP<br>
   Ponad 15 dostawców / 3 interfejsy użytkownika / Równoległe wykonywanie narzędzi / Rynek umiejętności agenta
 </p>
 
-<p wyrównanie="centrum">
+<p align="center">
   <a href="https://github.com/awaku7/agentcli">GitHub</a>
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
@@ -38,8 +38,8 @@ uag to **Twój asystent AI na Twoich warunkach**. Nie jest powiązany z dostawc�
 
 ## Szybki start
 
-,,bicie
-pip zainstaluj uag
+```bash
+pip install uag
 uag
 ```
 

@@ -87,10 +87,10 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 
 | Tila | Komento | Tarkoitus |
 |---|---|---|
-| **CLI** | "uag" | Nopea terminaalipohjainen toiminta |
-| **GUI** | "uagg" | Työpöytäkäyttöliittymä tkinterin kautta |
-| **Web** | "uagw" | Selainpohjainen pääsy |
-| **A2A-palvelin** | "uaga" | Agent2Agent-protokolla usean agentin tietoliikenteeseen |
+| **CLI** | `uag` | Nopea terminaalipohjainen toiminta |
+| **GUI** | `uagg` | Työpöytäkäyttöliittymä tkinterin kautta |
+| **Web** | `uagw` | Selainpohjainen pääsy |
+| **A2A-palvelin** | `uaga` | Agent2Agent-protokolla usean agentin tietoliikenteeseen |
 
 ### 🏠 IoT-laitteiden ohjaus
 

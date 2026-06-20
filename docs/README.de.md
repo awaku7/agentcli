@@ -38,10 +38,10 @@ uag ist **Ihr KI-Assistent zu Ihren Bedingungen**. Keine Bindung an einen Anbiet
 
 ## Schnellstart
 
-„Bash
+```bash
 pip install uag
 uag
-„
+```
 
 Beim ersten Start führt Sie der Einrichtungsassistent durch die Anbieterkonfiguration.
 Alle Umgebungsvariablen finden Sie unter [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).

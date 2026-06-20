@@ -38,8 +38,8 @@ uag is **uw AI-assistent op uw voorwaarden**. Niet gebonden aan een provider, ni
 
 ## Snelle start
 
-``` bash
-pip installeer uag
+```bash
+pip install uag
 uag
 ```
 
@@ -87,7 +87,7 @@ Alleen-lezen tools (zoeken naar bestanden, hash-berekening, directorylijst, vert
 
 | Modus | Commando | Doel |
 |---|---|---|
-| **CLI** | `ug` | Snelle terminalgebaseerde bediening |
+| **CLI** | `uag` | Snelle terminalgebaseerde bediening |
 | **GUI** | `uagg` | Desktop-UI via tkinter |
 | **Web** | `uagw` | Browsergebaseerde toegang |
 | **A2A-server** | `uaga` | Agent2Agent-protocol voor communicatie met meerdere agenten |

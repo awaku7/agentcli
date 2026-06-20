@@ -38,8 +38,8 @@ uag ni **msaidizi wako wa AI kwa masharti yako**. Haijafungwa kwa mtoa huduma, h
 
 ## Anza Haraka
 
-```bashi
-bomba kufunga uag
+```bash
+pip install uag
 uag
 ```
 
@@ -87,7 +87,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 
 | Hali | Amri | Kusudi |
 |---|---|---|
-| **CLI** | `ua` | Operesheni ya haraka ya msingi wa terminal |
+| **CLI** | `uag` | Operesheni ya haraka ya msingi wa terminal |
 | **GUI** | `uagg` | UI ya Eneo-kazi kupitia tkinter |
 | **Mtandao** | `uagw` | Ufikiaji unaotegemea kivinjari |
 | **Seva ya A2A** | `uaga` | Itifaki ya Agent2Agent kwa mawasiliano ya mawakala wengi |

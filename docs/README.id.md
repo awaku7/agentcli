@@ -1,19 +1,19 @@
-<p menyelaraskan="tengah">
+<p align="center">
   <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
 </p>
 
 <h1 align="center">uag — Gerbang AI Universal</h1>
 
-<p menyelaraskan="tengah">
+<p align="center">
   <b>U</b>universal <b>A</b>I <b>G</b>ateway — Lingkungan Anda, kebebasan Anda.
 </p>
 
-<p menyelaraskan="tengah">
+<p align="center">
   Operasi file / Pencarian web / Pembuatan & analisis gambar / Ekstraksi PDF & Excel / Kontrol IoT / Integrasi MCP<br>
   15+ penyedia / 3 UI / Eksekusi alat paralel / Pasar Keterampilan Agen
 </p>
 
-<p menyelaraskan="tengah">
+<p align="center">
   <a href="https://github.com/awaku7/agentcli">GitHub</a>
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
@@ -38,8 +38,8 @@ uag adalah **asisten AI sesuai keinginan Anda**. Tidak terikat pada penyedia, ti
 
 ## Mulai Cepat
 
-``` pesta
-instal pip uag
+```bash
+pip install uag
 uag
 ```
 

@@ -38,7 +38,7 @@ uag je **váš asistent AI podle vašich podmínek**. Není vázáno na poskytov
 
 ## Rychlý start
 
-``` bash
+```bash
 pip install uag
 uag
 ```
@@ -87,10 +87,10 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 
 | Režim | Příkaz | Účel |
 |---|---|---|
-| **CLI** | "uag" | Rychlý terminálový provoz |
-| **GUI** | "uagg" | Desktop UI přes tkinter |
-| **Web** | "uagw" | Přístup na základě prohlížeče |
-| **Server A2A** | "uaga" | Agent2Agent protokol pro multi-agentní komunikaci |
+| **CLI** | `uag` | Rychlý terminálový provoz |
+| **GUI** | `uagg` | Desktop UI přes tkinter |
+| **Web** | `uagw` | Přístup na základě prohlížeče |
+| **Server A2A** | `uaga` | Agent2Agent protokol pro multi-agentní komunikaci |
 
 ### 🏠 Ovládání zařízení IoT
 

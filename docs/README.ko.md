@@ -1,19 +1,19 @@
-<p 정렬="중앙">
+<p align="center">
   <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag 로고" width="720">
 </p>
 
 <h1 align="center">uag — 범용 AI 게이트웨이</h1>
 
-<p 정렬="중앙">
+<p align="center">
   <b>U</b>유니버설 <b>A</b>I <b>G</b>ateway — 환경이 곧 자유입니다.
 </p>
 
-<p 정렬="중앙">
+<p align="center">
   파일 운영 / 웹 검색 / 이미지 생성 및 분석 / PDF 및 엑셀 추출 / IoT 제어 / MCP 통합<br>
   15개 이상의 공급자 / 3개의 UI / 병렬 도구 실행 / 상담원 기술 마켓플레이스
 </p>
 
-<p 정렬="중앙">
+<p align="center">
   <a href="https://github.com/awaku7/agentcli">GitHub</a>
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
@@ -38,10 +38,10 @@ uag는 **귀하의 조건에 맞는 AI 비서**입니다. 공급자에 묶이지
 
 ## 빠른 시작
 
-``배쉬
-핍 설치 uag
-어그
-````
+```bash
+pip install uag
+uag
+```
 
 처음 실행하면 설정 마법사가 공급자 구성 과정을 안내합니다.
 모든 환경 변수는 [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)를 참조하세요.

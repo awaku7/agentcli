@@ -39,7 +39,7 @@ uag est **votre assistant IA selon vos conditions**. Pas lié à un fournisseur,
 ## Démarrage rapide
 
 ```bash
-pip installer uag
+pip install uag
 uag
 ```
 

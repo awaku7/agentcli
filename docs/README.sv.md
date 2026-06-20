@@ -38,8 +38,8 @@ uag är **din AI-assistent på dina villkor**. Inte bunden till en leverantör, 
 
 ## Snabbstart
 
-``` bash
-pip installera uag
+```bash
+pip install uag
 uag
 ```
 
