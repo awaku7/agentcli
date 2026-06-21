@@ -116,7 +116,7 @@
     <circle cx="390" cy="555" r="5" fill="#9b59b6" stroke="#fff" stroke-width="1"/>
     <text x="402" y="560" fill="#a0aab5" font-family="sans-serif" font-size="12">Cyrillic (3)</text>
     <circle cx="540" cy="555" r="5" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
-    <text x="552" y="560" fill="#a0aab5" font-family="sans-serif" font-size="12">Middle Eastern & South Asian (6)</text>
+    <text x="552" y="560" fill="#a0aab5" font-family="sans-serif" font-size="12">Middle Eastern &amp; South Asian (6)</text>
     <circle cx="820" cy="555" r="5" fill="#f39c12" stroke="#fff" stroke-width="1"/>
     <text x="832" y="560" fill="#a0aab5" font-family="sans-serif" font-size="12">African (1)</text>
 </svg>
