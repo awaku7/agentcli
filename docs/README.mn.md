@@ -50,7 +50,7 @@ uag
 
 ### 🧠 Олон үйлчилгээ үзүүлэгчийн архитектур
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
 
 Бүх үйлчилгээ үзүүлэгчид ижил хэрэгсэл, интерфейсийг хуваалцдаг. `UAGENT_PROVIDER` тохиргоогоор сэлгэнэ үү — кодын өөрчлөлт байхгүй, тусдаа суулгалт байхгүй.
 

@@ -50,7 +50,7 @@ Tüm ortam değişkenleri için [ENVIRONMENT.md](https://github.com/awaku7/agent
 
 ### 🧠 Çoklu Sağlayıcı Mimarisi
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
 
 Tüm sağlayıcılar aynı araç setini ve arayüzü paylaşır. `UAGENT_PROVIDER` ayarını değiştirerek geçiş yapın — kod değişikliği veya ayrı kurulum gerektirmez.
 

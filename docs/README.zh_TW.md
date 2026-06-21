@@ -50,7 +50,7 @@ uag
 
 ### 🧠 多提供者架構
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / 阿里雲 (Qwen) / KIMI (Moonshot AI) / 小米 MiMo / LM Studio / LM Studio MiMo
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / 阿里雲 (Qwen) / KIMI (Moonshot AI) / 小米 MiMo / LM Studio / MiniMax / LM Studio / MiniMax MiMo
 
 所有提供者共享相同的工具集和介面。透過設定“UAGENT_PROVIDER”進行切換－無需更改程式碼，無需單獨安裝。
 
