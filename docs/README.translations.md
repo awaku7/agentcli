@@ -2,6 +2,8 @@
 
 > A README in your language — because AI should speak yours.
 
+<img src="README-translations-map.svg" alt="World Map of README Translations">
+
 ### East Asian
 
 | Language | File |
