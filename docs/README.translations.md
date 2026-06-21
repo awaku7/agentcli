@@ -34,3 +34,4 @@
 - [Persian](https://github.com/awaku7/agentcli/blob/main/docs/README.fa.md)
 - [Mongolian](https://github.com/awaku7/agentcli/blob/main/docs/README.mn.md)
 - [Marathi](https://github.com/awaku7/agentcli/blob/main/docs/README.mr.md)
+- [Türkçe](https://github.com/awaku7/agentcli/blob/main/docs/README.tr.md)
