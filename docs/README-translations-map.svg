@@ -860,76 +860,76 @@
      transform="matrix(2.6916761,0,0,1.4510755,-993.95652,-140.79008)" />
 
   <g id="language-dots">
-    <circle cx="810.7" cy="219.4" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="818.7" y="223.4" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ja</text>
-    <circle cx="777.9" cy="213.0" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="785.9" y="217.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ko</text>
-    <circle cx="750.6" cy="205.0" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="758.6" y="209.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">zh_CN</text>
-    <circle cx="763.9" cy="256.0" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="771.9" y="260.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">zh_TW</text>
-    <circle cx="723.5" cy="269.7" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="731.5" y="273.7" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">vi</text>
-    <circle cx="709.7" cy="294.7" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="717.7" y="298.7" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">th</text>
-    <circle cx="450.4" cy="165.2" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="458.4" y="169.2" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">en</text>
-    <circle cx="252.2" cy="208.4" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="204.2" y="212.4" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">en</text>
-    <circle cx="485.3" cy="161.7" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="493.3" y="165.7" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">de</text>
-    <circle cx="441.2" cy="203.2" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="449.2" y="207.2" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">es</text>
-    <circle cx="456.8" cy="174.2" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="464.8" y="178.2" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">fr</text>
-    <circle cx="482.9" cy="198.1" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="490.9" y="202.1" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">it</text>
-    <circle cx="427.2" cy="209.0" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="435.2" y="213.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pt</text>
-    <circle cx="327.4" cy="396.0" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="279.4" y="400.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pt_BR</text>
-    <circle cx="463.3" cy="162.2" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="471.3" y="166.2" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">nl</text>
-    <circle cx="504.8" cy="162.6" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="512.8" y="166.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pl</text>
-    <circle cx="497.3" cy="138.3" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="505.3" y="142.3" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">sv</text>
-    <circle cx="478.4" cy="136.3" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="486.4" y="140.3" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">nb</text>
-    <circle cx="515.0" cy="135.4" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="523.0" y="139.4" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">fi</text>
-    <circle cx="487.9" cy="170.0" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="495.9" y="174.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">cs</text>
-    <circle cx="499.8" cy="178.9" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="507.8" y="182.9" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">hu</text>
-    <circle cx="518.0" cy="189.4" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="526.0" y="193.4" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ro</text>
-    <circle cx="535.4" cy="204.9" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="543.4" y="208.9" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">tr</text>
-    <circle cx="725.9" cy="363.1" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="733.9" y="379.1" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">id</text>
-    <circle cx="511.9" cy="211.5" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="519.9" y="215.5" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">el</text>
-    <circle cx="547.6" cy="150.6" r="4.5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="555.6" y="154.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ru</text>
-    <circle cx="529.3" cy="168.8" r="4.5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="537.3" y="172.8" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">uk</text>
-    <circle cx="726.2" cy="177.5" r="4.5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="678.2" y="181.5" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">mn</text>
-    <circle cx="571.1" cy="257.1" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="579.1" y="261.1" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ar</text>
-    <circle cx="541.5" cy="232.9" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="549.5" y="236.9" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">he</text>
-    <circle cx="583.1" cy="219.4" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="591.1" y="223.4" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">fa</text>
-    <circle cx="649.7" cy="243.7" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="657.7" y="247.7" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">hi</text>
-    <circle cx="683.7" cy="260.2" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="691.7" y="264.2" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">bn</text>
-    <circle cx="638.5" cy="276.4" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="646.5" y="280.4" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">mr</text>
-    <circle cx="542.8" cy="363.0" r="4.5" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
-    <text x="550.8" y="367.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">sw</text>
+    <circle cx="823" cy="195" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="831" y="199" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ja</text>
+    <circle cx="793" cy="207" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="801" y="211" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ko</text>
+    <circle cx="770" cy="168" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="778" y="172" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">zh_CN</text>
+    <circle cx="790" cy="250" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="798" y="254" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">zh_TW</text>
+    <circle cx="748" cy="285" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="756" y="289" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">vi</text>
+    <circle cx="735" cy="295" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="743" y="299" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">th</text>
+    <circle cx="454" cy="155" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="462" y="159" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">en</text>
+    <circle cx="268" cy="195" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="223" y="199" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">en</text>
+    <circle cx="487" cy="166" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="495" y="170" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">de</text>
+    <circle cx="446" cy="216" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="454" y="220" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">es</text>
+    <circle cx="456" cy="180" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="464" y="184" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">fr</text>
+    <circle cx="487" cy="207" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="495" y="211" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">it</text>
+    <circle cx="432" cy="215" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="440" y="219" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pt</text>
+    <circle cx="310" cy="380" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="265" y="384" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pt_BR</text>
+    <circle cx="462" cy="167" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="470" y="171" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">nl</text>
+    <circle cx="510" cy="172" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="518" y="176" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pl</text>
+    <circle cx="503" cy="130" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="511" y="134" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">sv</text>
+    <circle cx="480" cy="133" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="488" y="137" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">nb</text>
+    <circle cx="520" cy="130" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="528" y="134" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">fi</text>
+    <circle cx="500" cy="178" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="508" y="182" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">cs</text>
+    <circle cx="504" cy="191" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="512" y="195" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">hu</text>
+    <circle cx="518" cy="196" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="526" y="200" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ro</text>
+    <circle cx="544" cy="216" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="552" y="220" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">tr</text>
+    <circle cx="746" cy="363" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="754" y="379" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">id</text>
+    <circle cx="517" cy="213" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="525" y="217" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">el</text>
+    <circle cx="540" cy="147" r="4.5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="548" y="151" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ru</text>
+    <circle cx="525" cy="175" r="4.5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="533" y="179" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">uk</text>
+    <circle cx="726" cy="178" r="4.5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="681" y="182" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">mn</text>
+    <circle cx="571" cy="257" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="579" y="261" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ar</text>
+    <circle cx="542" cy="235" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="550" y="239" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">he</text>
+    <circle cx="583" cy="220" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="591" y="224" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">fa</text>
+    <circle cx="670" cy="235" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="678" y="239" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">hi</text>
+    <circle cx="684" cy="260" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="692" y="264" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">bn</text>
+    <circle cx="640" cy="270" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="648" y="274" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">mr</text>
+    <circle cx="545" cy="365" r="4.5" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="553" y="369" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">sw</text>
   </g>
   <g id="legend">
     <circle cx="30" cy="580" r="4" fill="#3498db" stroke="#fff" stroke-width="1"/>
