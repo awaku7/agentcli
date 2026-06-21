@@ -25,6 +25,11 @@
 - [Čeština](https://github.com/awaku7/agentcli/blob/main/docs/README.cs.md)
 - [Українська](https://github.com/awaku7/agentcli/blob/main/docs/README.uk.md)
 - [Swahili](https://github.com/awaku7/agentcli/blob/main/docs/README.sw.md)
+
+- [Ελληνικά](https://github.com/awaku7/agentcli/blob/main/docs/README.el.md)
+- [עברית](https://github.com/awaku7/agentcli/blob/main/docs/README.he.md)
+- [Magyar](https://github.com/awaku7/agentcli/blob/main/docs/README.hu.md)
+- [Română](https://github.com/awaku7/agentcli/blob/main/docs/README.ro.md)
 - [Bengali](https://github.com/awaku7/agentcli/blob/main/docs/README.bn.md)
 - [Persian](https://github.com/awaku7/agentcli/blob/main/docs/README.fa.md)
 - [Mongolian](https://github.com/awaku7/agentcli/blob/main/docs/README.mn.md)
