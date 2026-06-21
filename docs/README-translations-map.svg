@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="100%" height="100%">
+  <rect width="1200" height="600" fill="#0d1117"/>
+  <!-- グリッド -->
+    <line x1="100.0" y1="0" x2="100.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="200.0" y1="0" x2="200.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="300.0" y1="0" x2="300.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="400.0" y1="0" x2="400.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="500.0" y1="0" x2="500.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="600.0" y1="0" x2="600.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="700.0" y1="0" x2="700.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="800.0" y1="0" x2="800.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="900.0" y1="0" x2="900.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="1000.0" y1="0" x2="1000.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="1100.0" y1="0" x2="1100.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="1200.0" y1="0" x2="1200.0" y2="600" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="0" y1="500.0" x2="1200" y2="500.0" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="0" y1="400.0" x2="1200" y2="400.0" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="0" y1="300.0" x2="1200" y2="300.0" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="0" y1="200.0" x2="1200" y2="200.0" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="0" y1="100.0" x2="1200" y2="100.0" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="0" y1="0.0" x2="1200" y2="0.0" stroke="#1a2634" stroke-width="0.5"/>
+    <line x1="0" y1="300.0" x2="1200" y2="300.0" stroke="#34495e" stroke-width="1" stroke-dasharray="6,4"/>
+  <!-- 大陸 -->
+    <path d="M166.7,116.7 L183.3,133.3 L200.0,183.3 L250.0,216.7 L300.0,233.3 L333.3,216.7 L350.0,200.0 L366.7,150.0 L400.0,133.3 L416.7,133.3 L383.3,100.0 L350.0,83.3 L283.3,66.7 L133.3,66.7 L100.0,83.3 L50.0,100.0 L166.7,116.7 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M333.3,266.7 L393.3,273.3 L433.3,286.7 L483.3,306.7 L483.3,333.3 L466.7,373.3 L433.3,393.3 L416.7,413.3 L383.3,483.3 L373.3,480.0 L360.0,460.0 L353.3,426.7 L346.7,360.0 L340.0,316.7 L333.3,283.3 L333.3,266.7 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M566.7,100.0 L573.3,153.3 L583.3,166.7 L610.0,156.7 L626.7,153.3 L650.0,173.3 L666.7,180.0 L680.0,176.7 L690.0,166.7 L700.0,150.0 L693.3,140.0 L683.3,126.7 L693.3,116.7 L673.3,106.7 L666.7,83.3 L633.3,66.7 L616.7,83.3 L600.0,93.3 L583.3,93.3 L566.7,100.0 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M543.3,183.3 L583.3,180.0 L633.3,190.0 L640.0,193.3 L700.0,193.3 L726.7,233.3 L743.3,260.0 L766.7,273.3 L766.7,300.0 L740.0,306.7 L720.0,316.7 L710.0,366.7 L693.3,410.0 L666.7,416.7 L656.7,366.7 L640.0,316.7 L626.7,283.3 L600.0,283.3 L573.3,283.3 L550.0,266.7 L543.3,233.3 L546.7,206.7 L543.3,183.3 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M700.0,150.0 L766.7,133.3 L800.0,116.7 L850.0,133.3 L900.0,116.7 L933.3,133.3 L966.7,133.3 L1000.0,150.0 L1033.3,166.7 L1050.0,183.3 L1026.7,200.0 L1000.0,226.7 L966.7,266.7 L950.0,300.0 L933.3,310.0 L916.7,326.7 L883.3,316.7 L850.0,266.7 L800.0,216.7 L766.7,200.0 L733.3,183.3 L716.7,173.3 L700.0,166.7 L700.0,150.0 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M983.3,346.7 L1033.3,340.0 L1066.7,346.7 L1093.3,360.0 L1110.0,373.3 L1110.0,383.3 L1100.0,400.0 L1083.3,413.3 L1060.0,420.0 L1033.3,406.7 L1006.7,400.0 L983.3,393.3 L980.0,373.3 L983.3,346.7 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M1033.3,196.7 L1046.7,196.7 L1053.3,190.0 L1060.0,186.7 L1066.7,180.0 L1070.0,173.3 L1070.0,156.7 L1063.3,153.3 L1053.3,163.3 L1046.7,173.3 L1043.3,183.3 L1036.7,193.3 L1033.3,196.7 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M920.0,286.7 L933.3,280.0 L946.7,290.0 L953.3,310.0 L960.0,316.7 L973.3,323.3 L986.7,326.7 L1000.0,326.7 L1013.3,320.0 L1026.7,310.0 L1040.0,313.3 L1053.3,316.7 L1066.7,313.3 L1070.0,306.7 L1066.7,300.0 L1053.3,293.3 L1040.0,296.7 L1026.7,300.0 L1013.3,296.7 L1000.0,300.0 L986.7,296.7 L973.3,300.0 L960.0,300.0 L946.7,296.7 L933.3,290.0 L920.0,286.7 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M416.7,100.0 L450.0,100.0 L533.3,83.3 L540.0,50.0 L526.7,26.7 L450.0,26.7 L416.7,50.0 L416.7,100.0 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M746.7,340.0 L756.7,340.0 L766.7,350.0 L766.7,366.7 L756.7,383.3 L746.7,383.3 L743.3,373.3 L743.3,360.0 L746.7,350.0 L746.7,340.0 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+    <path d="M1156.7,416.7 L1173.3,413.3 L1183.3,423.3 L1180.0,443.3 L1173.3,453.3 L1166.7,453.3 L1160.0,443.3 L1156.7,426.7 L1156.7,416.7 Z" fill="#2c3e50" stroke="#4a6274" stroke-width="0.8"/>
+  <!-- 言語ドット -->
+    <circle cx="1060.0" cy="176.7" r="5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="1026.7" cy="176.7" r="5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="946.7" cy="183.3" r="5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="1003.3" cy="220.0" r="5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="953.3" cy="253.3" r="5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="936.7" cy="250.0" r="5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="590.0" cy="123.3" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="633.3" cy="130.0" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="586.7" cy="166.7" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="606.7" cy="143.3" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="640.0" cy="160.0" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="570.0" cy="166.7" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="416.7" cy="350.0" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="616.7" cy="126.7" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="663.3" cy="126.7" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="650.0" cy="100.0" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="633.3" cy="100.0" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="686.7" cy="93.3" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="650.0" cy="133.3" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="663.3" cy="143.3" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="683.3" cy="146.7" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="716.7" cy="170.0" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="1000.0" cy="316.7" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="676.7" cy="170.0" r="5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="783.3" cy="116.7" r="5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="703.3" cy="136.7" r="5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="943.3" cy="143.3" r="5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="750.0" cy="220.0" r="5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="716.7" cy="196.7" r="5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="780.0" cy="193.3" r="5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="860.0" cy="226.7" r="5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="900.0" cy="220.0" r="5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="850.0" cy="236.7" r="5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="716.7" cy="320.0" r="5" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+  <!-- ラベル -->
+    <text x="1070.0" y="180.7" fill="#a0aab5" font-family="sans-serif" font-size="10">ja</text>
+    <text x="1036.7" y="180.7" fill="#a0aab5" font-family="sans-serif" font-size="10">ko</text>
+    <text x="956.7" y="187.3" fill="#a0aab5" font-family="sans-serif" font-size="10">zh_CN</text>
+    <text x="1013.3" y="224.0" fill="#a0aab5" font-family="sans-serif" font-size="10">zh_TW</text>
+    <text x="963.3" y="257.3" fill="#a0aab5" font-family="sans-serif" font-size="10">vi</text>
+    <text x="946.7" y="254.0" fill="#a0aab5" font-family="sans-serif" font-size="10">th</text>
+    <text x="600.0" y="127.3" fill="#a0aab5" font-family="sans-serif" font-size="10">en</text>
+    <text x="643.3" y="134.0" fill="#a0aab5" font-family="sans-serif" font-size="10">de</text>
+    <text x="596.7" y="170.7" fill="#a0aab5" font-family="sans-serif" font-size="10">es</text>
+    <text x="616.7" y="147.3" fill="#a0aab5" font-family="sans-serif" font-size="10">fr</text>
+    <text x="650.0" y="164.0" fill="#a0aab5" font-family="sans-serif" font-size="10">it</text>
+    <text x="580.0" y="170.7" fill="#a0aab5" font-family="sans-serif" font-size="10">pt</text>
+    <text x="341.7" y="340.0" fill="#a0aab5" font-family="sans-serif" font-size="10">pt_BR</text>
+    <text x="626.7" y="130.7" fill="#a0aab5" font-family="sans-serif" font-size="10">nl</text>
+    <text x="673.3" y="130.7" fill="#a0aab5" font-family="sans-serif" font-size="10">pl</text>
+    <text x="660.0" y="104.0" fill="#a0aab5" font-family="sans-serif" font-size="10">sv</text>
+    <text x="643.3" y="104.0" fill="#a0aab5" font-family="sans-serif" font-size="10">nb</text>
+    <text x="696.7" y="97.3" fill="#a0aab5" font-family="sans-serif" font-size="10">fi</text>
+    <text x="660.0" y="137.3" fill="#a0aab5" font-family="sans-serif" font-size="10">cs</text>
+    <text x="673.3" y="147.3" fill="#a0aab5" font-family="sans-serif" font-size="10">hu</text>
+    <text x="693.3" y="150.7" fill="#a0aab5" font-family="sans-serif" font-size="10">ro</text>
+    <text x="726.7" y="174.0" fill="#a0aab5" font-family="sans-serif" font-size="10">tr</text>
+    <text x="1010.0" y="320.7" fill="#a0aab5" font-family="sans-serif" font-size="10">id</text>
+    <text x="686.7" y="174.0" fill="#a0aab5" font-family="sans-serif" font-size="10">el</text>
+    <text x="793.3" y="120.7" fill="#a0aab5" font-family="sans-serif" font-size="10">ru</text>
+    <text x="713.3" y="140.7" fill="#a0aab5" font-family="sans-serif" font-size="10">uk</text>
+    <text x="953.3" y="147.3" fill="#a0aab5" font-family="sans-serif" font-size="10">mn</text>
+    <text x="760.0" y="224.0" fill="#a0aab5" font-family="sans-serif" font-size="10">ar</text>
+    <text x="726.7" y="200.7" fill="#a0aab5" font-family="sans-serif" font-size="10">he</text>
+    <text x="790.0" y="197.3" fill="#a0aab5" font-family="sans-serif" font-size="10">fa</text>
+    <text x="870.0" y="230.7" fill="#a0aab5" font-family="sans-serif" font-size="10">hi</text>
+    <text x="910.0" y="224.0" fill="#a0aab5" font-family="sans-serif" font-size="10">bn</text>
+    <text x="860.0" y="240.7" fill="#a0aab5" font-family="sans-serif" font-size="10">mr</text>
+    <text x="726.7" y="324.0" fill="#a0aab5" font-family="sans-serif" font-size="10">sw</text>
+  <!-- 凡例 -->
+    <circle cx="50" cy="555" r="5" fill="#3498db" stroke="#fff" stroke-width="1"/>
+    <text x="62" y="560" fill="#a0aab5" font-family="sans-serif" font-size="12">European (18)</text>
+    <circle cx="220" cy="555" r="5" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+    <text x="232" y="560" fill="#a0aab5" font-family="sans-serif" font-size="12">East Asian (6)</text>
+    <circle cx="390" cy="555" r="5" fill="#9b59b6" stroke="#fff" stroke-width="1"/>
+    <text x="402" y="560" fill="#a0aab5" font-family="sans-serif" font-size="12">Cyrillic (3)</text>
+    <circle cx="540" cy="555" r="5" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
+    <text x="552" y="560" fill="#a0aab5" font-family="sans-serif" font-size="12">Middle Eastern & South Asian (6)</text>
+    <circle cx="820" cy="555" r="5" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+    <text x="832" y="560" fill="#a0aab5" font-family="sans-serif" font-size="12">African (1)</text>
+</svg>
