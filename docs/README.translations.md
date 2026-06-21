@@ -1,8 +1,6 @@
 # README Translations
 
 > A README in your language — because AI should speak yours.
->
-> ![](README-translations-map.svg)
 
 ### East Asian
 
