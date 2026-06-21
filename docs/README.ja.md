@@ -50,7 +50,7 @@ uag
 
 ### 🧠 マルチプロバイダー アーキテクチャ
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
 
 すべてのプロバイダーは同じツールセットとインターフェイスを共有します。 `UAGENT_PROVIDER` を設定して切り替えます。コードの変更や個別のインストールは必要ありません。
 

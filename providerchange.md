@@ -174,6 +174,7 @@ i18n ファイル: `src/uagent/tools/provider_control_tool.json`
 | moonshot | `UAGENT_MOONSHOT_API_KEY` | `UAGENT_MOONSHOT_DEPNAME` |
 | mimo | `UAGENT_MIMO_API_KEY` | `UAGENT_MIMO_DEPNAME`, `UAGENT_MIMO_BASE_URL` |
 | lmstudio | `UAGENT_LMSTUDIO_BASE_URL` | `UAGENT_LMSTUDIO_DEPNAME` |
+| minimax | `UAGENT_MINIMAX_API_KEY` | `UAGENT_MINIMAX_DEPNAME`, `UAGENT_MINIMAX_BASE_URL` |
 
 ### 4.4 i18n キー一覧
 
