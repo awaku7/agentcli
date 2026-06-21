@@ -975,9 +975,16 @@ async def get_tool_genres():
             {
                 "key": "basic",
                 "label": _(
-                    "Basic (file, env, time, prompts, skills, memory, tools control)"
+                    "Basic (env, time, prompts, skills, memory, tools control)"
                 ),
                 "enabled": _genre_enabled.get("basic", False),
+            },
+            {
+                "key": "file",
+                "label": _(
+                    "File (create, delete, read, write, search, zip, rename, hash, grep, list dir)"
+                ),
+                "enabled": _genre_enabled.get("file", False),
             },
             {
                 "key": "comm",

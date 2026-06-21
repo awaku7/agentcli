@@ -22,7 +22,7 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
     print(_("[INFO] startup genre prompt = numeric-input"), file=sys.stderr)
 
     prompt = _(
-        "Enter the sum of numbers (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all, Enter=basic only):"
+        "Enter the sum of numbers (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,511=all, Enter=basic only):"
     )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
@@ -48,7 +48,7 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
             except Exception:
                 pass
             continue
-        if 0 <= value <= 127:
+        if 0 <= value <= 511:
             return value
         try:
             out.write("[WARN] 0〜127 の整数を入力してください。\n")
@@ -66,7 +66,8 @@ def _prompt_startup_tool_genre_mask() -> int:
         return _prompt_startup_tool_genre_mask_fallback()
 
     choices = [
-        ("basic", _("Basic (file, env, time, prompts, skills, memory, tools control)")),
+        ("basic", _("Basic (env, time, prompts, skills, memory, tools control)")),
+        ("file", _("File (create, delete, read, write, search, zip, rename, hash, grep, list dir)")),
         ("comm", _("Communication (Teams, Discord, Bluesky)")),
         ("office", _("Office (Excel, Word, PDF, PPT, document extraction)")),
         (
@@ -131,6 +132,8 @@ def _prompt_startup_tool_genre_mask() -> int:
             mask |= 64
         elif key == "media":
             mask |= 128
+        elif key == "file":
+            mask |= 256
     return mask
 
 
@@ -164,6 +167,8 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
         enabled_specs.append((64, _set_external_tools_enabled))
     if _set_media_tools_enabled is not None:
         enabled_specs.append((128, _set_media_tools_enabled))
+    if _set_file_tools_enabled is not None:
+        enabled_specs.append((256, _set_file_tools_enabled))
 
     for bit, setter in enabled_specs:
         if not (mask & bit):

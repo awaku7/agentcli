@@ -13,7 +13,7 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
     "type": "function",
-    "tool_genre": "basic",
+    "tool_genre": "file",
     "function": {
         "name": "md2idx",
         "description": _(

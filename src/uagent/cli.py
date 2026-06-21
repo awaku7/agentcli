@@ -236,7 +236,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     yield Completion(sc, start_position=-len(after_tools))
                         elif after_tools.startswith(("on ", "off ")):
                             genre_prefix = after_tools.split(" ", 1)[1] if " " in after_tools else ""
-                            genres = ["basic", "comm", "office", "devel", "iot", "exec", "external", "media"]
+                            genres = ["basic", "file", "comm", "office", "devel", "iot", "exec", "external", "media"]
                             for g in genres:
                                 if g.startswith(genre_prefix):
                                     yield Completion(g, start_position=-len(genre_prefix))

@@ -4,10 +4,30 @@ from __future__ import annotations
 
 from typing import Any
 
-from . import get_tool_specs
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
+
+BUSY_LABEL = False
+STATUS_LABEL = "tool:tools_control"
+
+TOOL_SPEC: dict[str, Any] = {
+    "tool_level": -1,
+    "type": "function",
+    "function": {
+        "name": "tools_control_dummy",
+        "description": "Dummy tool for tools control registration.",
+        "parameters": {
+            "type": "object",
+            "properties": {},
+        },
+    },
+}
+
+
+def run_tool(args: dict[str, Any]) -> str:
+    return "dummy"
+
 
 CMD_SPECS: list[dict[str, Any]] = []
 
@@ -77,6 +97,7 @@ def handle_cmd_tools_load(arg: str, **kwargs: Any) -> Any:
 
 def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     q = (arg or "").strip().lower()
+    
     from . import get_tool_specs
 
     specs = get_tool_specs()
@@ -122,6 +143,39 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     return CommandResult()
 
 
+
+
+def handle_cmd_tools_on(arg, **kw):
+    from ..util_tools import CommandResult
+    from .genre_control_tool import _set_genre_tools_enabled
+    g = (arg or "").strip().lower()
+    if not g:
+        print("Usage: :tools on <genre>")
+        return CommandResult()
+    try:
+        msg = _set_genre_tools_enabled(g, True)
+        if msg:
+            print(msg)
+    except Exception as e:
+        print(str(e))
+    return CommandResult()
+
+
+def handle_cmd_tools_off(arg, **kw):
+    from ..util_tools import CommandResult
+    from .genre_control_tool import _set_genre_tools_enabled
+    g = (arg or "").strip().lower()
+    if not g:
+        print("Usage: :tools off <genre>")
+        return CommandResult()
+    try:
+        msg = _set_genre_tools_enabled(g, False)
+        if msg:
+            print(msg)
+    except Exception as e:
+        print(str(e))
+    return CommandResult()
+
 def _register_tools_subcommands() -> None:
     """Register subcommands under :tools."""
     global CMD_SPECS
@@ -147,6 +201,8 @@ def _register_tools_subcommands() -> None:
                 default="  :tools load <name>  Load a single tool by name.",
             ),
         },
+    {"command":"tools","subcommand":"on","handler":handle_cmd_tools_on},
+    {"command":"tools","subcommand":"off","handler":handle_cmd_tools_off},
     ]
 
 

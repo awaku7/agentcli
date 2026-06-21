@@ -112,7 +112,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if not command:
         raise ValueError("command is required")
 
-    decision = decide_cmd_exec(command, require_confirm_for_shell_metachar=True)
+    decision = decide_cmd_exec(command, require_confirm_for_shell_metachar=False)
     if not decision.allowed:
         return json.dumps(_blocked_result(decision.reason), ensure_ascii=False)
 

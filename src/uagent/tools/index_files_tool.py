@@ -34,7 +34,7 @@ if not _ENABLE_SEMANTIC_SEARCH:
 else:
     TOOL_SPEC: dict[str, Any] = {
         "type": "function",
-        "tool_genre": "devel",
+        "tool_genre": "file",
         "function": {
             "name": "index_files",
             "description": _(

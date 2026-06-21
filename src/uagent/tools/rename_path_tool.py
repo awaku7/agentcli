@@ -20,7 +20,7 @@ STATUS_LABEL = "tool:rename_path"
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
-    "tool_genre": "basic",
+    "tool_genre": "file",
     "function": {
         "name": "rename_path",
         "description": _(
