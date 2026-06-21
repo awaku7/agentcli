@@ -237,6 +237,7 @@ def detect_provider() -> str:
         "moonshot",
         "mimo",
         "lmstudio",
+        "minimax",
     ):
         print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
         sys.exit(1)
@@ -293,6 +294,8 @@ def get_model_name() -> str:
         return env_get("UAGENT_MIMO_DEPNAME", "mimo-v2.5-pro") or "mimo-v2.5-pro"
     if provider == "lmstudio":
         return env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"
+    if provider == "minimax":
+        return env_get("UAGENT_MINIMAX_DEPNAME", "MiniMax-M3") or "MiniMax-M3"
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
 
 
@@ -641,6 +644,23 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         api_key = core.get_env("UAGENT_LMSTUDIO_API_KEY") or "dummy"
         base_url = core.get_env_url(
             "UAGENT_LMSTUDIO_BASE_URL", "http://localhost:1234/v1"
+        )
+
+        http_client = make_httpx_client()
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
+    if provider == "minimax":
+        from openai import OpenAI  # lazy
+
+        api_key = core.get_env("UAGENT_MINIMAX_API_KEY")
+        base_url = core.get_env_url(
+            "UAGENT_MINIMAX_BASE_URL", "https://api.minimax.io"
         )
 
         http_client = make_httpx_client()
