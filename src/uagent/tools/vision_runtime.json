@@ -191,6 +191,54 @@
     "err.missing_env.openrouter": "openrouter साठी आवश्यक env व्हेरिएबल्स गहाळ (UAGENT_OPENROUTER_API_KEY)",
     "err.missing_env.openai": "openai साठी आवश्यक env व्हेरिएबल्स गहाळ (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
+  "el": {
+    "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
+    "err.image_too_large": "αρχείο εικόνας παρέχεται πολύ μεγάλο: {size} bytes για analyzy_image (olama): {provider!r}",
+    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
+    "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση",
+    "err.unsupported_provider": "Λείπουν τα απαιτούμενα env vars για openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.azure": "Λείπουν τα απαραίτητα env vars για openai (UAGENT_OPENAI_API_KEY/DEPNAME) [=open.\nzip: {zip_path}\nπροορισμός: {dest_dir}\nκαταχωρήσεις: {entries}\n\nΠληκτρολογήστε y για να συνεχίσετε ή c για ακύρωση.",
+    "err.missing_env.bedrock": "ακυρώθηκε από τον χρήστη",
+    "err.missing_env.openrouter": "επικίνδυνο dest_dir απορρίφθηκε: {dest_dir}",
+    "err.missing_env.openai": "επικίνδυνη πηγή απορρίφθηκε: {πηγή}"
+  },
+  "he": {
+    "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
+    "err.image_too_large": "קובץ תמונה גדול מדי: {size=_#=] קובץ תמונה גדול מדי: {size=_#=) תמיכה לכל היותר (למקסימום) analyse_image (ollama): {provider!r}",
+    "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
+    "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[אזהרה] תגובה ריקה",
+    "err.unsupported_provider": "חסרים גרסה נדרשת של env עבור תכלת (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) חסרים עבור bedrock en=] (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.azure": "וריאציות קוד נדרשות חסרות עבור הנתב הפתוח (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.bedrock": "וריאציות קוד דרושות חסרות עבור openai (UAGENT_OPENAI_API_KEY/DEPNAME)",
+    "err.missing_env.openrouter": "קבצים קיימים של zip.\nzip: {zip_path}\ndest: {dest_dir}\nערכים: {entries}\n\nהזן y כדי להמשיך, או c כדי לבטל.",
+    "err.missing_env.openai": "חסרות גרסה נדרשת של env עבור openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  },
+  "hu": {
+    "err.image_not_found": "képfájl nem található: [=path}",
+    "err.image_too_large": "képfájl túl nagy: {max. Nem támogatott szolgáltató az analys_image (ollama) számára: {provider!r}",
+    "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
+    "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[WARN] üres válasz",
+    "err.unsupported_provider": "Hiányoznak az openrouter kötelező env-változatai (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.azure": "Hiányoznak az openai kötelező env-változói (UAGENT_OPENAI_API_KEY/DEPNAME) meglévő fájlok [=#op.wextract_p.\nzip: {zip_path}\ncél: {dest_dir}\nbejegyzések: {entries}\n\nA folytatáshoz írja be az y-t, a megszakításhoz pedig a c-t.",
+    "err.missing_env.bedrock": "Hiányoznak az alapkőzet kötelező env varjai (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "veszélyes célkönyvtár elutasítva: {dest_dir}",
+    "err.missing_env.openai": "veszélyes forrás elutasítva: {forrás}"
+  },
+  "ro": {
+    "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
+    "err.image_too_large": "fișier imagine prea mare: {size} octeți (limită = {max_bytes_analyse for]_ (ollama): {provider!r}",
+    "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
+    "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[WARN] răspuns gol",
+    "err.unsupported_provider": "Lipsesc valorile de mediu necesare pentru azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) [=endrock vars. (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.azure": "Lipsesc valorile de mediu necesare pentru openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.bedrock": "Lipsesc valorile de mediu necesare pentru openai (UAGENT_OPENAI_API_KEY/DEPNAME)",
+    "err.missing_env.openrouter": "fișierele de extragere zip_ops existente.\nzip: {zip_path}\ndest: {dest_dir}\nintrari: {intrari}\n\nIntroduceți y pentru a continua sau c pentru a anula.",
+    "err.missing_env.openai": "Lipsesc valorile de mediu necesare pentru openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+  },
   "nb": {
     "err.image_not_found": "bildefilen ble ikke funnet: {path}",
     "err.image_too_large": "bildefilen er for stor: {size} byte (grense={max_bytes})",

@@ -301,5 +301,57 @@
       "analyze image"
     ],
     "param.img.description": "विश्लेषण करण्यासाठी प्रतिमा फाइलचा मार्ग."
+  },
+  "el": {
+    "param.prompt.description": "Τι θέλετε να μάθετε για την εικόνα.",
+    "tool.description": "Φορτώστε μια εικόνα και ζητήστε από το AI (Vision) να την περιγράψει. Χρήσιμο για στιγμιότυπα οθόνης, γραφήματα και πίνακες.",
+    "x_search_terms": [
+      "ανάλυση_εικόνας",
+      "αναλύσει την εικόνα",
+      "εικών",
+      "εικόνα",
+      "φωτογραφία",
+      "διάγραμμα"
+    ],
+    "param.img.description": "Διαδρομή προς το αρχείο εικόνας προς ανάλυση."
+  },
+  "he": {
+    "param.prompt.description": "מה אתה רוצה לדעת על התמונה.",
+    "tool.description": "טען תמונה ובקש מ-AI (Vision) לתאר אותה. שימושי עבור צילומי מסך, תרשימים וטבלאות.",
+    "x_search_terms": [
+      "אנליזה_תמונה",
+      "לנתח תמונה",
+      "תְמוּנָה",
+      "תְמוּנָה",
+      "תַצלוּם",
+      "תַרשִׁים"
+    ],
+    "param.img.description": "נתיב לקובץ התמונה לניתוח."
+  },
+  "hu": {
+    "param.prompt.description": "Amit a képről tudni szeretnél.",
+    "tool.description": "Töltsön be egy képet, és írja le az AI-val (Vision). Hasznos képernyőképekhez, diagramokhoz és táblázatokhoz.",
+    "x_search_terms": [
+      "elem_kép",
+      "elemezni a képet",
+      "kép",
+      "kép",
+      "fénykép",
+      "diagram"
+    ],
+    "param.img.description": "Az elemezni kívánt képfájl elérési útja."
+  },
+  "ro": {
+    "param.prompt.description": "Ce vrei să știi despre imagine.",
+    "tool.description": "Încărcați o imagine și cereți AI (Viziunea) să o descrie. Util pentru capturi de ecran, diagrame și tabele.",
+    "x_search_terms": [
+      "analizează_imagine",
+      "analiza imaginea",
+      "imagine",
+      "imagine",
+      "fotografie",
+      "diagramă"
+    ],
+    "param.img.description": "Calea către fișierul imagine de analizat."
   }
 }

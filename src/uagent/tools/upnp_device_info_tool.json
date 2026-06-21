@@ -149,6 +149,46 @@
     "err.no_target": "Either 'location' or 'ip' must be provided.",
     "msg.device_info": "Device info for {location}"
   },
+  "el": {
+    "tool.description": "URL περιγραφής συσκευής UPnP (π.χ. http://192.168.1.100:5000/description.xml).",
+    "param.location.description": "Διεύθυνση IP συσκευής (χρησιμοποιείται με προαιρετική θύρα για τη δημιουργία διεύθυνσης URL περιγραφής).",
+    "param.ip.description": "Αριθμός θύρας (χρησιμοποιείται με ip). Προεπιλογή: 5000 (κοινή θύρα UPnP).",
+    "param.port.description": "Λήξη χρονικού ορίου ανάκτησης HTTP σε δευτερόλεπτα.",
+    "param.timeout.description": "Πρέπει να παρέχεται είτε \"τοποθεσία\" ή \"ip\".",
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "err.no_target": "Πληροφορίες συσκευής για {location}",
+    "msg.device_info": "Εκτελέστε λειτουργίες δρομολογητή UPnP IGD: επιθεωρήστε την κατάσταση WAN, παραθέστε αντιστοιχίσεις θυρών, προσθέστε μια αντιστοίχιση θύρας ή διαγράψτε μια αντιστοίχιση θύρας."
+  },
+  "he": {
+    "tool.description": "כתובת URL לתיאור מכשיר UPnP (לדוגמה, http://192.168.1.100:5000/description.xml).",
+    "param.location.description": "כתובת IP של מכשיר (משמשת עם יציאה אופציונלית לבניית כתובת URL לתיאור).",
+    "param.ip.description": "מספר יציאה (בשימוש עם ip). ברירת מחדל: 5000 (יציאת UPnP משותפת).",
+    "param.port.description": "פסק זמן לאחזור HTTP בשניות.",
+    "param.timeout.description": "יש לספק 'מיקום' או 'ip'.",
+    "param.fmt.description": "אין ערכים במטמון.",
+    "err.no_target": "מידע מכשיר עבור {location}",
+    "msg.device_info": "בצע פעולות נתב UPnP IGD: בדוק את סטטוס ה-WAN, רשום מיפויי יציאות, הוסף מיפוי יציאות או מחק מיפוי יציאה."
+  },
+  "hu": {
+    "tool.description": "Az UPnP-eszköz leírásának URL-címe (pl. http://192.168.1.100:5000/description.xml).",
+    "param.location.description": "Az eszköz IP-címe (opcionális porttal használva a leíró URL létrehozásához).",
+    "param.ip.description": "Portszám (IP-vel együtt használva). Alapértelmezés: 5000 (közös UPnP port).",
+    "param.port.description": "HTTP lekérési időtúllépés másodpercben.",
+    "param.timeout.description": "Meg kell adni a „location” vagy az „ip” értéket.",
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "err.no_target": "Eszközadatok a következőhöz: {location}",
+    "msg.device_info": "Hajtsa végre az UPnP IGD útválasztó műveleteit: ellenőrizze a WAN állapotát, listázza ki a portleképezéseket, adjon hozzá portleképezést vagy törölje a portleképezést."
+  },
+  "ro": {
+    "tool.description": "Adresa URL a descrierii dispozitivului UPnP (de exemplu, http://192.168.1.100:5000/description.xml).",
+    "param.location.description": "Adresă IP a dispozitivului (utilizată cu portul opțional pentru a crea o adresă URL de descriere).",
+    "param.ip.description": "Numărul portului (utilizat cu ip). Implicit: 5000 (port UPnP comun).",
+    "param.port.description": "Timeout pentru preluarea HTTP în secunde.",
+    "param.timeout.description": "Trebuie furnizate fie „locație”, fie „ip”.",
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "err.no_target": "Informații despre dispozitiv pentru {location}",
+    "msg.device_info": "Efectuați operațiuni de ruter UPnP IGD: inspectați starea WAN, listați mapările de porturi, adăugați o mapare de porturi sau ștergeți o mapare de porturi."
+  },
   "nb": {
     "tool.description": "Få detaljert informasjon om en spesifikk UPnP-enhet ved dens beskrivelses-URL (plassering) eller IP-adresse. Returnerer enhetsmetadata, tjenesteliste og enhetstre (underenheter).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",

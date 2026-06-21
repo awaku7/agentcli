@@ -542,5 +542,93 @@
     "param.maxb.description": "प्रतिसादातून वाचण्यासाठी कमाल बाइट्स.",
     "param.maxc.description": "परत देण्यायोग्य कमाल character संख्या (decode/extraction नंतर लागू).",
     "param.ssl.description": "SSL प्रमाणपत्रांची पडताळणी करायची की नाही."
+  },
+  "el": {
+    "param.url.description": "URL για πρόσβαση.",
+    "tool.description": "Αποκτήστε πρόσβαση στην καθορισμένη διεύθυνση URL μέσω HTTP GET και επιστρέψτε την αρχή της απάντησης ως κείμενο. Χρήσιμο για ανάκτηση και επιθεώρηση HTML ή JSON.",
+    "x_search_terms": [
+      "ανάκτηση διεύθυνσης url",
+      "http λήψη",
+      "σελίδας λήψης",
+      "URL取得",
+      "διεύθυνση url παραλήπτη",
+      "διεύθυνση url récupérer",
+      "URL 가져오기",
+      "Λειτουργία εξαγωγής διεύθυνσης URL"
+    ],
+    "param.extract.description": ". head=επιστρέφει την αρχή της απάντησης. text=εξαγωγή κειμένου από HTML. html=εξαγωγή τμήματος HTML; json=ανάλυση JSON (προαιρετικά εφαρμογή json_pointer); markdown=εξαγωγή απλοποιημένης σήμανσης από την HTML.",
+    "param.selector.description": "Προαιρετικός επιλογέας CSS. Εάν παρέχεται, το πρώτο αντιστοιχισμένο στοιχείο εξάγεται για extract=text/html.",
+    "param.user_agent.description": "Προαιρετική τιμή κεφαλίδας User-Agent.",
+    "param.timeout.description": "Λήξη χρονικού ορίου (δευτερόλεπτα).",
+    "param.ptr.description": "Προαιρετικός δείκτης RFC 6901 JSON (π.χ. /items/0/title) που χρησιμοποιείται όταν το extract=json.",
+    "param.maxb.description": "Μέγιστα byte για ανάγνωση από την απάντηση.",
+    "param.maxc.description": "Μέγιστος αριθμός χαρακτήρων προς επιστροφή (εφαρμόζονται μετά την αποκωδικοποίηση/εξαγωγή).",
+    "param.ssl.description": "Εάν θα επαληθεύσετε πιστοποιητικά SSL."
+  },
+  "he": {
+    "param.url.description": "כתובת אתר לגישה.",
+    "tool.description": "גש לכתובת האתר שצוינה באמצעות HTTP GET והחזר את תחילת התגובה כטקסט. שימושי לאחזור ובדיקת HTML או JSON.",
+    "x_search_terms": [
+      "אחזר כתובת אתר",
+      "http קבל",
+      "דף הורדה",
+      "URL取得",
+      "כתובת URL להשיג",
+      "כתובת אתר שחזור",
+      "כתובת URL 가져오기",
+      "מצב חילוץ"
+    ],
+    "param.extract.description": "מצב חילוץ. head=החזרת תחילת התגובה; text=חלץ טקסט מ-HTML; html=חלץ קטע HTML; json=נתח JSON (אפשר להחיל את json_pointer); markdown=חלץ סימון מפושט מ-HTML.",
+    "param.selector.description": "בורר CSS אופציונלי. אם מסופק, האלמנט המותאם הראשון מוחלץ עבור extract=text/html.",
+    "param.user_agent.description": "ערך כותרת User-Agent אופציונלי.",
+    "param.timeout.description": "פסק זמן (שניות).",
+    "param.ptr.description": "מצביע RFC 6901 JSON אופציונלי (לדוגמה, /items/0/title) בשימוש כאשר extract=json.",
+    "param.maxb.description": "מקסימום בתים לקריאה מהתגובה.",
+    "param.maxc.description": "מקסימום תווים להחזרה (מוחל לאחר פענוח/חילוץ).",
+    "param.ssl.description": "האם לאמת אישורי SSL."
+  },
+  "hu": {
+    "param.url.description": "URL a hozzáféréshez.",
+    "tool.description": "Hozzáférés a megadott URL-hez a HTTP GET-en keresztül, és a válasz elejét szövegként adja vissza. Hasznos a HTML vagy JSON lekéréséhez és ellenőrzéséhez.",
+    "x_search_terms": [
+      "url lekérése",
+      "http letöltés",
+      "letöltési oldal",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить=urltraction mode. head=visszaadja a válasz elejét; text=szöveg kibontása HTML-ből; html=HTML-részlet kibontása; json=parse JSON (opcionálisan a json_pointer alkalmazása); markdown=az egyszerűsített leértékelés kinyerése HTML-ből."
+    ],
+    "param.extract.description": "Opcionális CSS-választó. Ha meg van adva, akkor az első egyező elemet a rendszer kivonja a következőhöz: extract=text/html.",
+    "param.selector.description": "Opcionális User-Agent fejlécérték.",
+    "param.user_agent.description": "Opcionális RFC 6901 JSON-mutató (pl. /items/0/title) akkor használatos, ha kivonat=json.",
+    "param.timeout.description": "Időtúllépés (másodpercben).",
+    "param.ptr.description": "A válaszból kiolvasható bájtok maximális száma.",
+    "param.maxb.description": "Maximális visszaadható karakterek száma (dekódolás/kivonás után alkalmazva).",
+    "param.maxc.description": "Az SSL-tanúsítványok ellenőrzése.",
+    "param.ssl.description": "A [file_exists error] elérési útja üres"
+  },
+  "ro": {
+    "param.url.description": "URL de acces.",
+    "tool.description": "Accesați adresa URL specificată prin HTTP GET și returnați începutul răspunsului ca text. Util pentru preluarea și inspectarea HTML sau JSON.",
+    "x_search_terms": [
+      "preluați url",
+      "http get",
+      "pagina de descărcare",
+      "URL取得",
+      "obtener url",
+      "récupérer url",
+      "URL 가져오기",
+      "получить url"
+    ],
+    "param.extract.description": "Mod extracție cap=întoarce începutul răspunsului; text=extrage text din HTML; html=extract HTML fragment; json=parse JSON (aplicați opțional json_pointer); markdown=extrage reducere simplificată din HTML.",
+    "param.selector.description": "Selector CSS opțional. Dacă este furnizat, primul element potrivit este extras pentru extract=text/html.",
+    "param.user_agent.description": "Valoare opțională antet User-Agent.",
+    "param.timeout.description": "Timeout (secunde).",
+    "param.ptr.description": "Indicator opțional RFC 6901 JSON (de exemplu, /items/0/title) folosit când extract=json.",
+    "param.maxb.description": "Numărul maxim de octeți de citit din răspuns.",
+    "param.maxc.description": "Numărul maxim de caractere de returnat (aplicat după decodare/extragere).",
+    "param.ssl.description": "Dacă se verifică certificatele SSL."
   }
 }

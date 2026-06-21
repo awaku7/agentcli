@@ -115,6 +115,7 @@ msgstr "[docs] name이 필요합니다"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] 시작 장르 프롬프트 = 숫자 입력"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -123,6 +124,8 @@ msgstr ""
 "숫자의 합계를 입력하세요 (1=기본,2=통신,4=사무,8=개발,16=사물인터넷,32=실행,64=외부,128=미디어,255=모두, "
 "Enter=모두 활성화):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "기본 (파일, 환경, 시간, 프롬프트, 기술, 메모리, 도구 제어)"
 
@@ -676,6 +679,7 @@ msgstr "NVIDIA API 키."
 msgid "DeepSeek API key."
 msgstr "DeepSeek API 키."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1330,12 +1334,15 @@ msgstr "DeepSeek presence_penalty (기본값: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (기본값: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1764,6 +1771,7 @@ msgid ""
 " startup file (if any)."
 msgstr "비대화형 모드입니다. stdin 루프를 시작하지 말고 시작 파일(있는 경우) 처리 후 종료합니다."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1772,9 +1780,11 @@ msgstr ""
 "도구 장르 비트마스크 (1=기본,2=통신,4=사무,8=개발,16=사물인터넷,32=실행,64=외부,128=미디어,255=모두). 지정되면 "
 "대화형 장르 프롬프트를 건너뜁니다."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "LLM에 도구 전송 활성화 (UAGENT_USE_TOOL 환경 변수 재정의)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "LLM에 도구 전송 비활성화 (UAGENT_USE_TOOL 환경 변수 재정의)."
 
@@ -2289,6 +2299,9 @@ msgstr ""
 "[MCP 서버]\n"
 "- 정보를 가져오지 못했습니다: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[빠른 안내]"
@@ -2297,6 +2310,7 @@ msgstr "[빠른 안내]"
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr "- 여러 줄: 여러 줄 모드로 들어가려면 'f'만 입력하세요."
 
+#: src/uagent/welcome.py:70
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.). Note: commands start with ':' (colon) instead of '/' "

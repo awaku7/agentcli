@@ -330,5 +330,57 @@
       "शेल कमांड",
       "json निकाल"
     ]
+  },
+  "el": {
+    "param.command.description": "Η συμβολοσειρά εντολών πέρασε στο κέλυφος του λειτουργικού συστήματος. Στα Windows χρησιμοποιείται το cmd.exe /c.",
+    "param.cwd.description": "Κατάλογος εργασίας για την εντολή.",
+    "tool.description": "Ως έσχατη λύση, εκτελέστε μια εντολή φλοιού και επιστρέψτε ένα αποτέλεσμα JSON. Χρησιμοποιήστε μόνο όταν δεν διατίθεται ασφαλέστερο ή πιο συγκεκριμένο εργαλείο (π.",
+    "x_search_terms": [
+      "cmd_exec_json",
+      "cmd exec json",
+      "εντολή κελύφους",
+      "εκτελέσει το κέλυφος",
+      "εντολή json",
+      "cmd"
+    ]
+  },
+  "he": {
+    "param.command.description": "מחרוזת הפקודה הועברה למעטפת מערכת ההפעלה. ב-Windows, נעשה שימוש ב-cmd.exe /c.",
+    "param.cwd.description": "ספריית עבודה עבור הפקודה.",
+    "tool.description": "כמוצא אחרון, בצע פקודת מעטפת והחזר תוצאת JSON. השתמש רק כאשר אין כלי בטוח או ספציפי יותר זמין (למשל.",
+    "x_search_terms": [
+      "cmd_exec_json",
+      "cmd exec json",
+      "פקודת מעטפת",
+      "לבצע פגז",
+      "פקודת json",
+      "cmd"
+    ]
+  },
+  "hu": {
+    "param.command.description": "A parancssor átkerült az operációs rendszer parancsértelmezőjébe. Windows rendszeren a cmd.exe /c fájl használatos.",
+    "param.cwd.description": "A parancs munkakönyvtára.",
+    "tool.description": "Végső megoldásként hajtson végre egy shell parancsot, és adjon vissza egy JSON eredményt. Csak akkor használja, ha nem áll rendelkezésre biztonságosabb vagy specifikusabb eszköz (pl.",
+    "x_search_terms": [
+      "cmd_exec_json",
+      "cmd exec json",
+      "shell parancs",
+      "shell végrehajtása",
+      "json parancsot",
+      "cmd"
+    ]
+  },
+  "ro": {
+    "param.command.description": "Șirul de comandă a fost transmis shell-ului sistemului de operare. Pe Windows, se folosește cmd.exe /c.",
+    "param.cwd.description": "Director de lucru pentru comandă.",
+    "tool.description": "Ca ultimă soluție, executați o comandă shell și returnați un rezultat JSON. Utilizați numai atunci când nu este disponibil un instrument mai sigur sau mai specific (de ex.",
+    "x_search_terms": [
+      "cmd_exec_json",
+      "cmd exec json",
+      "comanda shell",
+      "executa shell",
+      "comanda json",
+      "cmd"
+    ]
   }
 }

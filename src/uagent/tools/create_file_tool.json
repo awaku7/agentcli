@@ -392,5 +392,73 @@
       "मजकूर फाइल",
       "नवीन फाइल"
     ]
+  },
+  "el": {
+    "param.content.description": "Περιεχόμενο κειμένου.",
+    "param.encoding.description": "Κωδικοποίηση (π.χ. utf-8, cp932, προεπιλογή: utf-8).",
+    "param.filename.description": "Διαδρομή αρχείου για δημιουργία.",
+    "param.overwrite.description": "Αντικαταστήστε εάν υπάρχει (προεπιλογή: false).",
+    "tool.description": "Δημιουργήστε ένα αρχείο κειμένου. Προαιρετική αντικατάσταση με αντίγραφο ασφαλείας (.org). Επιλέξτε κωδικοποίηση για Excel (utf-8-sig) ή μέσω προγραμματισμού (utf-8).",
+    "x_search_terms": [
+      "δημιουργία αρχείου",
+      "νέο αρχείο",
+      "εγγραφή αρχείου",
+      "ファイルを作成",
+      "δημιουργία αρχείου",
+      "créer fichier",
+      "파일 만들기",
+      "создать αρχείο"
+    ]
+  },
+  "he": {
+    "param.content.description": "תוכן טקסט.",
+    "param.encoding.description": "קידוד (למשל utf-8, cp932; ברירת מחדל: utf-8).",
+    "param.filename.description": "נתיב קובץ ליצירה.",
+    "param.overwrite.description": "החלף אם קיים (ברירת מחדל: false).",
+    "tool.description": "צור קובץ טקסט. החלפה אופציונלית עם גיבוי (.org). בחר קידוד עבור Excel (utf-8-sig) או פרוגרמטי (utf-8).",
+    "x_search_terms": [
+      "ליצור קובץ",
+      "קובץ חדש",
+      "לכתוב קובץ",
+      "ファイルを作成",
+      "יצירת ארכיון",
+      "קריר עלוב יותר",
+      "파일 만들기",
+      "создать файл"
+    ]
+  },
+  "hu": {
+    "param.content.description": "Szöveges tartalom.",
+    "param.encoding.description": "Kódolás (pl. utf-8, cp932; alapértelmezett: utf-8).",
+    "param.filename.description": "Létrehozandó fájl elérési útja.",
+    "param.overwrite.description": "Felülírni, ha létezik (alapértelmezett: false).",
+    "tool.description": "Hozzon létre egy szöveges fájlt. Opcionális felülírás biztonsági mentéssel (.org). Válassza ki az Excel (utf-8-sig) vagy a programozott (utf-8) kódolást.",
+    "x_search_terms": [
+      "fájl létrehozása",
+      "új fájl",
+      "fájl írása",
+      "ファイルを作成",
+      "archivo létrehozása",
+      "créer fichier",
+      "파일 만들기",
+      "создать файл"
+    ]
+  },
+  "ro": {
+    "param.content.description": "Conținut text.",
+    "param.encoding.description": "Codificare (de exemplu, utf-8, cp932; implicit: utf-8).",
+    "param.filename.description": "Calea fișierului de creat.",
+    "param.overwrite.description": "Suprascrie dacă există (implicit: fals).",
+    "tool.description": "Creați un fișier text. Suprascrie opțională cu backup (.org). Alegeți codificarea pentru Excel (utf-8-sig) sau programatică (utf-8).",
+    "x_search_terms": [
+      "creați fișierul",
+      "fișier nou",
+      "scrie fisierul",
+      "ファイルを作成",
+      "crea arquivo",
+      "creează fișier",
+      "파일 만들기",
+      "создать файл"
+    ]
   }
 }

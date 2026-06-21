@@ -178,5 +178,29 @@
     "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
     "msg.no_shared_memory": "(no shared memory yet)",
     "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+  },
+  "el": {
+    "err.load": "(η κοινόχρηστη μνήμη είναι απενεργοποιημένη, δεν έχει οριστεί ακόμη η μνήμη UAGENT_SHARED_LE σε #MORY)",
+    "msg.disabled": "[shared_memory περικομμένη: περιορισμένη σε {max_bytes} bytes]",
+    "msg.no_shared_memory": "[SKILL]",
+    "msg.truncated": "{message} (Διαγράφηκαν {αφαιρέθηκαν} μηνύματα δεξιοτήτων)"
+  },
+  "he": {
+    "err.load": "(זיכרון משותף מושבת; הגדר את",
+    "msg.disabled": "UAGENT_SHARED_MEMORY=enable it]_FILE כדי להפעיל את [#= shared_MEMORY] (#) \n[shared_memory truncated: מוגבל ל-{max_bytes} bytes]",
+    "msg.no_shared_memory": "[מיומנות]",
+    "msg.truncated": "{הודעה} (הודעות מיומנות שנמחקו {הוסרו})"
+  },
+  "hu": {
+    "err.load": "(a megosztott memória le van tiltva; állítsa be az UAGENT_SHARED_MEMORY_# beállítást, hogy engedélyezze még] (nincs megosztott memória) #= \n[shared_memory csonka: {max_bytes} bájtra korlátozva]",
+    "msg.disabled": "(a megosztott memória le van tiltva; engedélyezéséhez állítsa be az UAGENT_SHARED_MEMORY_FILE fájlt)",
+    "msg.no_shared_memory": "{message} (Törölve {removed} képzettségi üzenet)",
+    "msg.truncated": "[megosztott_memória csonka: {max_bytes} bájtra korlátozva]"
+  },
+  "ro": {
+    "err.load": "(memoria partajată este dezactivată; setați UAGENT_SHAREDILE_ME pentru a-l partaja pe memorie) încă)",
+    "msg.disabled": "[memorie_partajată trunchiată: limitată la {max_bytes} octeți]",
+    "msg.no_shared_memory": "[SKILL]",
+    "msg.truncated": "{mesaj} (Mesaje de aptitudini {eliminate)"
   }
 }

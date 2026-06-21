@@ -450,5 +450,73 @@
       "प्रॉम्प्ट टेम्पलेट",
       "फाइलमधून"
     ]
+  },
+  "el": {
+    "err.bad_template": "[generate_prompt error] δεν είναι αρχείο: {path}",
+    "err.not_a_file": "[generate_prompt error] η διαδρομή/όνομα αρχείου δεν έχει καθοριστεί",
+    "err.path_missing": "[generate_prompt error] [mus the template of the work#=th] δεν έχει καθοριστεί.",
+    "err.template_missing": "Πρότυπο μορφής Python. Παράδειγμα: '{lines} γραμμές\n\n{content}\".",
+    "param.path.description": "Δημιουργήστε μια συμβολοσειρά προτροπής από ένα αρχείο χρησιμοποιώντας ένα πρότυπο μορφής Python.",
+    "param.template.description": "Πρότυπο μορφής Python. Παράδειγμα: '{lines} γραμμές\n\n{content}\".",
+    "tool.description": "Δημιουργήστε μια συμβολοσειρά προτροπής από ένα αρχείο χρησιμοποιώντας ένα πρότυπο μορφής Python.",
+    "x_search_terms": [
+      "προτροπή προτύπου",
+      "αρχείο για να ζητηθεί",
+      "συμβολοσειρά προτροπής",
+      "πρότυπο μορφής",
+      "Δημιουργήστε μια εικόνα κώδικα QR (PNG) από κείμενο ή διεύθυνση URL. Προσαρμόσιμα χρώματα και μέγεθος.",
+      "πρότυπο μορφής"
+    ]
+  },
+  "he": {
+    "err.bad_template": "לתבנית [generate_prompt error] יש מפתח לא ידוע: {key}",
+    "err.not_a_file": "[generate_prompt error] לא קובץ: {path}",
+    "err.path_missing": "[generate_prompt error] נתיב/שם קובץ לא צוין",
+    "err.template_missing": "[generate_prompt error] תבנית לא צוין",
+    "param.path.description": "הנתיב של קובץ העבודה (חייב להיות בקובץ הקלט).",
+    "param.template.description": "תבנית פורמט Python. דוגמה: '{lines} שורות\n\n{תוכן}'.",
+    "tool.description": "צור מחרוזת הנחיה מקובץ באמצעות תבנית פורמט Python.",
+    "x_search_terms": [
+      "gener_prompt",
+      "יצירת הנחיה",
+      "תבנית הנחיה",
+      "קובץ להנחיה",
+      "מחרוזת הנחיה",
+      "תבנית פורמט"
+    ]
+  },
+  "hu": {
+    "err.bad_template": "A [generate_prompt error] sablonhoz ismeretlen kulcs tartozik: {key}",
+    "err.not_a_file": "[generate_prompt error] nem fájl: {elérési_út}",
+    "err.path_missing": "[generate_prompt error] elérési út/fájlnév nincs megadva",
+    "err.template_missing": "[generate_prompt error] sablon nincs megadva",
+    "param.path.description": "A bevitt fájl elérési útját kell megadni.",
+    "param.template.description": "Python formátumsablon. Példa: '{lines} sor\n\n{tartalom}.",
+    "tool.description": "Prompt karakterlánc létrehozása fájlból Python formátumú sablon használatával.",
+    "x_search_terms": [
+      "gener_prompt",
+      "prompt generálása",
+      "sablon prompt",
+      "fájl a kéréshez",
+      "prompt karakterlánc",
+      "formátumsablon"
+    ]
+  },
+  "ro": {
+    "err.bad_template": "Șablonul [generate_prompt error] are o cheie necunoscută: {key}",
+    "err.not_a_file": "[generate_prompt error] nu este un fișier: {path}",
+    "err.path_missing": "[generate_prompt error] calea/numele fișierului nu este specificat",
+    "err.template_missing": "șablonul [generate_prompt error] nu este specificat",
+    "param.path.description": "Calea fișierului de lucru de intrare (trebuie să fie sub director).",
+    "param.template.description": "Șablon format Python. Exemplu: „{linii} linii\n\n{conținut}'.",
+    "tool.description": "Generați un șir de prompt dintr-un fișier folosind un șablon în format Python.",
+    "x_search_terms": [
+      "generate_prompt",
+      "generați prompt",
+      "șablon prompt",
+      "fișier pentru a solicita",
+      "șir de prompt",
+      "format șablon"
+    ]
   }
 }

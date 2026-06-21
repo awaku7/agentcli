@@ -191,6 +191,54 @@
     "param.eoj.description": "Target EOJ (default: node profile).",
     "param.obj.description": "Object code filter (e.g. '0130')."
   },
+  "el": {
+    "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
+    "param.timeout.description": "Timeout (δευτερόλεπτα).",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "err.invalid_eoj": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του EOJ '{eoj}'.",
+    "err.invalid_object_code": "Σφάλμα: Δεν ήταν δυνατή η ανάλυση του object_code '{object_code}'.",
+    "msg.summary": "Λήψη κατάστασης κόμβου ECHONET Lite: {ip_address} σε {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Σφάλμα: Η διεύθυνση ip_address πρέπει να είναι έγκυρη διεύθυνση IPv4.",
+    "tool.description": "Διαβάστε την κατάσταση ενός κόμβου ECHONET Lite στο τοπικό δίκτυο και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
+    "param.eoj.description": "Στόχος EOJ (προεπιλογή: προφίλ κόμβου).",
+    "param.obj.description": "Φίλτρο κωδικού αντικειμένου (π.χ. '0130')."
+  },
+  "he": {
+    "param.ip.description": "כתובת IPv4 של צומת יעד.",
+    "param.timeout.description": "פסק זמן (שניות).",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "err.invalid_eoj": "שגיאה: לא ניתן לנתח את EOJ '{eoj}'.",
+    "err.invalid_object_code": "שגיאה: לא ניתן לנתח את object_code '{object_code}'.",
+    "msg.summary": "מצב הצומת של ECHONET Lite הוחזר: {ip_address} בעוד {elapsed_ms} אלפיות השנייה.",
+    "err.invalid_ip_address": "שגיאה: כתובת ה-ip_address חייבת להיות כתובת IPv4 חוקית.",
+    "tool.description": "קרא את המצב של צומת ECHONET Lite ברשת המקומית והחזר JSON או סיכום טקסט.",
+    "param.eoj.description": "יעד EOJ (ברירת מחדל: פרופיל צומת).",
+    "param.obj.description": "מסנן קוד אובייקט (למשל '0130')."
+  },
+  "hu": {
+    "param.ip.description": "Célcsomópont IPv4-címe.",
+    "param.timeout.description": "Időtúllépés (másodperc).",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "err.invalid_eoj": "Hiba: A(z) „{eoj}” EOJ nem értelmezhető.",
+    "err.invalid_object_code": "Hiba: A(z) '{object_code}' objektumkód nem értelmezhető.",
+    "msg.summary": "Az ECHONET Lite csomópont állapota lekérve: {ip_address} {elapsed_ms} ms alatt.",
+    "err.invalid_ip_address": "Hiba: az ip_address érvényes IPv4-címnek kell lennie.",
+    "tool.description": "Olvassa el egy ECHONET Lite csomópont állapotát a helyi hálózaton, és küldjön vissza egy JSON- vagy szöveges összefoglalót.",
+    "param.eoj.description": "Cél EOJ (alapértelmezett: csomópont profil).",
+    "param.obj.description": "Objektumkód szűrő (pl. „0130”)."
+  },
+  "ro": {
+    "param.ip.description": "Adresa IPv4 a nodului țintă.",
+    "param.timeout.description": "Timeout (secunde).",
+    "param.fmt.description": "Format: json sau text.",
+    "err.invalid_eoj": "Eroare: nu s-a putut analiza EOJ „{eoj}”.",
+    "err.invalid_object_code": "Eroare: nu s-a putut analiza object_code „{object_code}”.",
+    "msg.summary": "Starea nodului ECHONET Lite a fost preluată: {ip_address} în {elapsed_ms} ms.",
+    "err.invalid_ip_address": "Eroare: ip_address trebuie să fie o adresă IPv4 validă.",
+    "tool.description": "Citiți starea unui nod ECHONET Lite în rețeaua locală și returnați un rezumat JSON sau text.",
+    "param.eoj.description": "EOJ țintă (implicit: profil de nod).",
+    "param.obj.description": "Filtru de cod obiect (de exemplu, „0130”)."
+  },
   "nb": {
     "param.ip.description": "Target node IPv4 address.",
     "param.timeout.description": "Timeout (seconds).",

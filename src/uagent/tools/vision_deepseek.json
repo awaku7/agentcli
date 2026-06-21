@@ -94,6 +94,26 @@
     "param.prompt.description": "प्रतिमेत काय शोधायचे याचे वर्णन करणारा मजकूर संकेत.",
     "param.image.description": "प्रतिमा डेटा URI किंवा फाइल पथ."
   },
+  "el": {
+    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai.",
+    "err.missing_env": "Λείπει UAGENT_DEEPSEEK_API_KEY (ή UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση"
+  },
+  "he": {
+    "err.import_openai": "ייבוא ​​חבילת openai נכשל.",
+    "err.missing_env": "חסר UAGENT_DEEPSEEK_API_KEY (או UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[אזהרה] תגובה ריקה"
+  },
+  "hu": {
+    "err.import_openai": "Nem sikerült importálni az openai csomagot.",
+    "err.missing_env": "Hiányzó UAGENT_DEEPSEEK_API_KEY (vagy UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] üres válasz"
+  },
+  "ro": {
+    "err.import_openai": "Nu s-a putut importa pachetul openai.",
+    "err.missing_env": "Lipsește UAGENT_DEEPSEEK_API_KEY (sau UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] răspuns gol"
+  },
   "nb": {
     "tool.description": "Analyser et bilde ved hjelp av DeepSeek visjonsmodell.",
     "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",

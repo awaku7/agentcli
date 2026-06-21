@@ -272,5 +272,57 @@
       "cwd",
       "सध्याची निर्देशिका"
     ]
+  },
+  "el": {
+    "tool.description": "κατάλογος εργασίας",
+    "x_search_terms": [
+      "κατάλογο εργασίας",
+      "τρέχων dir",
+      "作業ディレクトリ",
+      "Directorio de trabajo",
+      "répertoire de travail",
+      "répertoire de travail",
+      "Εργαλείο λειτουργιών Git: git_ops\n\nΠαρέχουμε τις βασικές λειτουργίες Git με ασφάλεια πρώτα.\n\nΟ σκοπός αυτού του εργαλείου είναι να ολοκληρώσει τις καθημερινές λειτουργίες μέσω του εργαλείου όσο το δυνατόν περισσότερο.\nΑπό την άλλη πλευρά, το Git επιτρέπει εύκολες καταστροφικές λειτουργίες και εξωτερικές εγγραφές (ώθηση).\nΘα περιορίσουμε αυστηρά την ακόλουθη πολιτική.\n\nΠολιτική σχεδίασης (σημαντικό)\n- Αποφύγετε λειτουργίες που περιλαμβάνουν αλληλεπίδραση\n  - Απενεργοποιήστε το PAGER/EDITOR\n  - δέσμευση/συγχώνευση με --no-edit (όσο το δυνατόν περισσότερο)\n  - GIT_TERMINAL_PROMPT=0 για αποφυγή εισαγωγής διαπιστευτηρίων\n- Οι επικίνδυνες λειτουργίες απαγορεύονται από προεπιλογή\n  - Παραδείγματα: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto, κ.λπ.\n- Καθορίστε ρητά allow_danger=true για να το κάνετε εκτελέσιμο μόνο εάν είναι απαραίτητο\n  - Ωστόσο, αντικείμενα με «υψηλό ποσοστό ατυχημάτων/δύσκολο να ανακτηθούν» απαγορεύονται ακόμη και με allow_danger.\n- Τα επιχειρήματα είναι σε μορφή «λίστας επιτρεπόμενων».\n  - Όλες οι επιλογές (-x / --xxx) δεν επιτρέπονται συνολικά, αλλά επιτρέπονται ρητά ανάλογα με το σκοπό.\n  - Απόρριψη ορισμάτων που περιέχουν προφανείς μεταχαρακτήρες (&& || | > < `)\n\nΠροσοχή\n- Αυτό το εργαλείο δεν παρέχει απεριόριστη πρόσβαση σε όλες τις δυνατότητες του git.\n- Λόγω του σχεδιασμού, υπάρχουν ορισμένες λειτουργίες που δεν μπορούν να εκτελεστούν για λόγους ασφαλείας.",
+      "Εργαλείο λειτουργίας Git (πρώτα η ασφάλεια)."
+    ]
+  },
+  "he": {
+    "tool.description": "קבל את ספריית העבודה הנוכחית.",
+    "x_search_terms": [
+      "ספריית עבודה",
+      "cwd",
+      "מדריך נוכחי",
+      "作業ディレクトリ",
+      "directorio de trabajo",
+      "répertoire de travail",
+      "작업 넰]렉 작업 넰]렉 директория",
+      "כלי פעולות Git: git_ops\n\nאנו מספקים פעולות הליבה של Git עם בטיחות תחילה.\n\nמטרת הכלי הזה היא להשלים את הפעולות היומיומיות באמצעות הכלי עד כמה שניתן.\nמצד שני, Git מאפשר פעולות הרסניות קלות וכתיבה חיצונית (push).\nאנו נגביל בהחלט את המדיניות הבאה.\n\nמדיניות עיצוב (חשוב)\n- הימנעו מפעולות הכרוכות באינטראקציה\n  - השבת את ה-PAGER/EDITOR\n  - התחייב/מיזוג עם --no-edit (עד כמה שאפשר)\n  - GIT_TERMINAL_PROMPT=0 כדי להימנע מהזנת אישורים\n- פעולות מסוכנות אסורות כברירת מחדל\n  - דוגמאות: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto וכו'.\n- ציין במפורש allow_danger=true כדי להפוך אותה לניתנת להפעלה רק במידת הצורך\n  - עם זאת, פריטים בעלי 'שיעור תאונות גבוה/קשה לשחזר' אסורים גם עם allow_danger.\n- הטיעונים הם בפורמט 'רשימת היתרים'\n  - כל האפשרויות (-x / --xxx) אינן מותרות באופן מקיף, אך מותרות במפורש בהתאם למטרה.\n  - דחה טיעונים המכילים מטא-תווים ברורים (&& || | > < `)\n\nזהירות\n- כלי זה אינו מספק גישה בלתי מוגבלת לכל התכונות של git.\n- עקב התכנון, ישנן כמה פעולות שלא ניתן לבצע משיקולי בטיחות."
+    ]
+  },
+  "hu": {
+    "tool.description": "Az aktuális munkakönyvtár lekérése.",
+    "x_search_terms": [
+      "munkakönyvtár",
+      "cwd",
+      "jelenleg директория",
+      "Git műveleti eszköz: git_ops\n\nAz alapvető Git-műveleteket elsősorban biztonsággal biztosítjuk.\n\nEnnek az eszköznek az a célja, hogy a lehető legnagyobb mértékben elvégezze a napi műveleteket az eszközön keresztül.\nMásrészt a Git lehetővé teszi az egyszerű destruktív műveleteket és a külső írásokat (push).\nSzigorúan korlátozzuk a következő szabályzatot.\n\nTervezési szabályzat (fontos)\n- Kerülje az interakciót igénylő műveleteket\n  - A PAGER/EDITOR letiltása\n  - véglegesítés/egyesítés a --no-edit elemmel (amennyire csak lehetséges)\n  - GIT_TERMINAL_PROMPT=0 a hitelesítő adatok megadásának elkerülése érdekében\n- A veszélyes műveletek alapértelmezés szerint tilosak\n  - Példák: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto stb.\n- Explicit adja meg az allow_danger=true értéket, hogy csak szükség esetén legyen végrehajtható\n  - Mindazonáltal a „magas baleseti arányú/nehezen felépülhető” tételek még az allow_danger mellett is tilosak.\n- Az érvek „engedélyezőlista” formátumban vannak\n  - Az összes opció (-x / --xxx) nem engedélyezett átfogóan, de a céltól függően kifejezetten engedélyezett.\n  - A nyilvánvaló metakaraktereket tartalmazó argumentumok elutasítása (&& || | > < `)\n\nVigyázat\n- Ez az eszköz nem biztosít korlátlan hozzáférést a git összes funkciójához.\n- A kialakításból adódóan vannak olyan műveletek, amelyek biztonsági okokból nem végezhetők el.",
+      "Git műveleti eszköz (első a biztonság).",
+      "[git_ops error] A git add célútvonalat igényel (\".\" megengedett).",
+      "A [git_ops error] parancs nem sikerült (code={code}):\n{output}",
+      "[git_ops error] Végrehajtási üzenet szükséges. Tartalmazza ['-m', 'message'] az args-ban."
+    ]
+  },
+  "ro": {
+    "tool.description": "Obțineți directorul de lucru curent.",
+    "x_search_terms": [
+      "director de lucru",
+      "cwd",
+      "director curent",
+      "作業ディレクトリ",
+      "director de muncă",
+      "repertoriu de muncă",
+      "작업 디렉터]рая [=#=бо=чая директория",
+      "Instrument de operații Git: git_ops\n\nOferim operațiunilor de bază Git cu siguranță mai întâi.\n\nScopul acestui instrument este de a finaliza operațiunile zilnice prin intermediul instrumentului cât mai mult posibil.\nPe de altă parte, Git permite operațiuni distructive ușoare și scrieri externe (push).\nVom limita strict următoarea politică.\n\nPolitica de proiectare (important)\n- Evitați operațiunile care implică interacțiune\n  - Dezactivați PAGER/EDITOR\n  - commit/merge cu --no-edit (pe cât posibil)\n  - GIT_TERMINAL_PROMPT=0 pentru a evita introducerea acreditărilor\n- Operațiunile periculoase sunt interzise implicit\n  - Exemple: push --force, reset --hard, checkout -f, clean -fdx, rebase --onto etc.\n- Specificați explicit allow_danger=true pentru a-l face executabil numai dacă este necesar\n  - Cu toate acestea, articolele cu „rată mare de accidente/greu de recuperat” sunt interzise chiar și cu allow_danger.\n- Argumentele sunt în format „listă permisă”.\n  - Toate opțiunile (-x / --xxx) nu sunt permise în mod cuprinzător, dar sunt permise în mod explicit în funcție de scop.\n  - Respingeți argumentele care conțin metacaractere evidente (&& || | > < `)\n\nAtenție\n- Acest instrument nu oferă acces nelimitat la toate funcțiile git.\n- Din cauza designului, există unele operații care nu pot fi efectuate din considerente de siguranță."
+    ]
   }
 }

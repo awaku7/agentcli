@@ -120,6 +120,7 @@ msgstr "[docs] Name ist erforderlich"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] Start-Genre-Eingabeaufforderung = numerische Eingabe"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -129,6 +130,8 @@ msgstr ""
 "(1=Basis,2=Kommunikation,4=Büro,8=Entwicklung,16=IoT,32=Ausführung,64=extern,128=Medien,255=alle,"
 " Enter=alle aktivieren):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Basis (Datei, Umgebung, Zeit, Aufforderungen, Fähigkeiten, Speicher, "
@@ -721,6 +724,7 @@ msgstr "NVIDIA-API-Schlüssel."
 msgid "DeepSeek API key."
 msgstr "DeepSeek API-Schlüssel."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1404,12 +1408,15 @@ msgstr "DeepSeek presence_penalty (Standard: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (Standard: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1844,6 +1851,7 @@ msgstr ""
 "Nicht-interaktiver Modus. Die stdin-Schleife wird nicht gestartet; nach "
 "Verarbeitung der Startdatei (falls vorhanden) wird beendet."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1853,11 +1861,13 @@ msgstr ""
 "(1=Basis,2=Kommunikation,4=Büro,8=Entwicklung,16=IoT,32=Ausführung,64=extern,128=Medien,255=alle)."
 " Überspringt bei Angabe die interaktive Genre-Eingabeaufforderung."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Aktivieren des Sendens von Werkzeugen an LLM (überschreibt die "
 "Umgebungsvariable UAGENT_USE_TOOL)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Deaktivieren des Sendens von Werkzeugen an LLM (überschreibt die "
@@ -2277,7 +2287,8 @@ msgstr "Ausfahrt"
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 "- Mehrzeilig: Geben Sie eine Zeile ein, die nur 'f' enthält, um den "
-"Mehrzeilenmodus zu aktivieren (Beendigung mit 
+"Mehrzeilenmodus zu aktivieren (Beendigung mi"
+
 #: src/uagent/util_tools.py:2032
 #, python-format
 msgid ""
@@ -2416,20 +2427,20 @@ msgstr ""
 "[MCP-Server]\n"
 "- Informationen konnten nicht abgerufen werden: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr ""
+"- Mehrzeilig: Geben Sie eine Zeile ein, die nur 'f' enthält, um in den "
+"Mehrzeilenmodus zu wechseln."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Kurzanleitung]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Multiline: Geben Sie eine Zeile ein, die nur „f" ist, um in den Multiline-Modus zu wechseln."
+msgstr ""
 "- Chat: Eine Nachricht eingeben und senden (GUI: Strg+Enter ist ebenfalls "
 "verfügbar)."
-
-" \"\"\"end)."
-msgstr ""
-"- Mehrzeilig: Geben Sie eine Zeile ein, die nur 'f' enthält, um den "
-"Mehrzeilenmodus zu aktivieren (Beendigung mit \"\"\"end)."
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2437,9 +2448,9 @@ msgid ""
 "compression, etc.). Note: commands start with ':' (colon) instead of '/' "
 "(slash)."
 msgstr ""
-"- Befehle: Geben Sie ':help' ein, um Systembefehle anzuzeigen "
+"- Befehle: Geben Sie ':help' ein, um die Systembefehle anzuzeigen "
 "(Protokollverwaltung, Verlaufskomprimierung usw.). Hinweis: Befehle beginnen"
-" mit einem Doppelpunkt ':' anstelle eines Schrägstrichs '/'."
+" mit ':' anstelle eines Schrägstrichs '/'."
 
 #: src/uagent/welcome.py:72
 msgid "- Exit: ':exit' or ':quit' ends the session."

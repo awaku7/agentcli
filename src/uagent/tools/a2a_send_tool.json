@@ -598,5 +598,85 @@
     "param.return_immediately.description": "सत्य असल्यास, कार्य तयार केल्यानंतर लगेच परत या.",
     "err.missing_message": "'संदेश' गहाळ आहे.",
     "err.exception": "अपवाद"
+  },
+  "el": {
+    "tool.description": "Στείλτε ένα μήνυμα σε ένα προφίλ διακομιστή A2A. Χρησιμοποιήστε μόνο όταν κανένα τοπικό εργαλείο δεν μπορεί να αντικαταστήσει.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a αποστολή",
+      "στείλετε μήνυμα",
+      "αποστολή αιτήματος",
+      "προφίλ διακομιστή",
+      "μήνυμα προφίλ",
+      "απομακρυσμένο μήνυμα",
+      "μηνυμάτων",
+      "μήνυμα a2a",
+      "αποστολή εργασίας"
+    ],
+    "param.profile.description": "Όνομα προφίλ ή a2a://name. Εάν παραλειφθεί, χρησιμοποιεί το προεπιλεγμένο προφίλ.",
+    "param.message.description": "Μήνυμα χρήστη για αποστολή.",
+    "param.return_immediately.description": "Εάν ισχύει, επιστρέψτε αμέσως μετά τη δημιουργία της εργασίας.",
+    "err.missing_message": "Λείπει το 'μήνυμα'.",
+    "err.exception": "Εξαίρεση"
+  },
+  "he": {
+    "tool.description": "שלח הודעה לפרופיל שרת A2A. השתמש רק כאשר אין כלי מקומי שיכול להחליף.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a לשלוח",
+      "לשלוח הודעה",
+      "לשלוח בקשה",
+      "פרופיל שרת",
+      "הודעת פרופיל",
+      "הודעה מרחוק",
+      "הודעות",
+      "הודעה a2a",
+      "לשלוח משימה"
+    ],
+    "param.profile.description": "שם פרופיל או a2a://name. אם מושמט, משתמש בפרופיל ברירת המחדל.",
+    "param.message.description": "הודעת משתמש לשלוח.",
+    "param.return_immediately.description": "אם זה נכון, חזור מיד לאחר יצירת המשימה.",
+    "err.missing_message": "חסר 'הודעה'.",
+    "err.exception": "חֲרִיגָה"
+  },
+  "hu": {
+    "tool.description": "Üzenet küldése egy A2A szerverprofilnak. Csak akkor használja, ha semmilyen helyi eszköz nem helyettesítheti.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a küld",
+      "üzenetet küldeni",
+      "kérést küldeni",
+      "szerverprofil",
+      "profil üzenet",
+      "távoli üzenet",
+      "üzenetküldés",
+      "a2a üzenet",
+      "feladat küldése"
+    ],
+    "param.profile.description": "Profilnév vagy a2a://name. Ha kihagyja, az alapértelmezett profilt használja.",
+    "param.message.description": "Elküldendő felhasználói üzenet.",
+    "param.return_immediately.description": "Ha igaz, térjen vissza közvetlenül a feladat létrehozása után.",
+    "err.missing_message": "Hiányzik az \"üzenet\".",
+    "err.exception": "Kivétel"
+  },
+  "ro": {
+    "tool.description": "Trimiteți un mesaj către un profil de server A2A. Utilizați numai atunci când niciun instrument local nu poate înlocui.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a trimite",
+      "trimite mesaj",
+      "trimite cerere",
+      "profilul serverului",
+      "mesaj de profil",
+      "mesaj de la distanță",
+      "mesagerie",
+      "mesaj a2a",
+      "trimite sarcina"
+    ],
+    "param.profile.description": "Nume profil sau a2a://nume. Dacă este omis, folosește profilul implicit.",
+    "param.message.description": "Mesaj utilizator de trimis.",
+    "param.return_immediately.description": "Dacă este adevărat, reveniți imediat după crearea sarcinii.",
+    "err.missing_message": "Lipsește „mesaj”.",
+    "err.exception": "Excepţie"
   }
 }

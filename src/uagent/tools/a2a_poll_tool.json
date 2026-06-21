@@ -628,5 +628,89 @@
     "param.timeout_s.description": "टाइमआउट (सेकंद) बदलून द्या.",
     "err.missing_task_id": "'task_id' गहाळ आहे.",
     "err.exception": "अपवाद"
+  },
+  "el": {
+    "tool.description": "Δημοσκοπήστε μια εργασία A2A μέχρι την κατάσταση τερματικού. Χρησιμοποιήστε μόνο όταν κανένα τοπικό εργαλείο δεν μπορεί να αντικαταστήσει.",
+    "x_search_terms": [
+      "a2a_poll",
+      "a2a δημοσκόπηση",
+      "εργασία δημοσκόπησης",
+      "ελέγξτε την κατάσταση",
+      "περιμένετε για εργασία",
+      "κατάσταση εργασίας",
+      "αποτέλεσμα δημοσκόπησης",
+      "ψηφοφορία εργασιών",
+      "έλεγχος προόδου",
+      "εργασία παρακολούθησης"
+    ],
+    "param.profile.description": "Όνομα προφίλ ή a2a://name. Εάν παραλειφθεί, χρησιμοποιεί το προεπιλεγμένο προφίλ.",
+    "param.task_id.description": "Αναγνωριστικό εργασίας για δημοσκόπηση.",
+    "param.interval_ms.description": "Παράκαμψη διαστήματος ψηφοφορίας (ms).",
+    "param.timeout_s.description": "Παράκαμψη χρονικού ορίου λήξης (δευτερόλεπτα).",
+    "err.missing_task_id": "Λείπει το 'task_id'.",
+    "err.exception": "Εξαίρεση"
+  },
+  "he": {
+    "tool.description": "סקר משימת A2A עד למצב מסוף. השתמש רק כאשר אין כלי מקומי שיכול להחליף.",
+    "x_search_terms": [
+      "a2a_poll",
+      "סקר a2a",
+      "משימת סקר",
+      "לבדוק סטטוס",
+      "לחכות למשימה",
+      "מצב המשימה",
+      "תוצאת הסקר",
+      "סקר משימות",
+      "בדיקת התקדמות",
+      "משימה לפקח"
+    ],
+    "param.profile.description": "שם פרופיל או a2a://name. אם מושמט, משתמש בפרופיל ברירת המחדל.",
+    "param.task_id.description": "מזהה משימה לסקר.",
+    "param.interval_ms.description": "עוקף מרווח סקר (ms).",
+    "param.timeout_s.description": "ביטול הזמן הקצוב (שניות).",
+    "err.missing_task_id": "חסר 'מזהה_משימה'.",
+    "err.exception": "חֲרִיגָה"
+  },
+  "hu": {
+    "tool.description": "Lekérdezés egy A2A feladatot a terminál állapotig. Csak akkor használja, ha semmilyen helyi eszköz nem helyettesítheti.",
+    "x_search_terms": [
+      "a2a_poll",
+      "a2a szavazás",
+      "szavazási feladat",
+      "állapot ellenőrzése",
+      "várni a feladatra",
+      "feladat állapota",
+      "szavazás eredménye",
+      "feladat szavazás",
+      "haladás ellenőrzése",
+      "monitor feladat"
+    ],
+    "param.profile.description": "Profilnév vagy a2a://name. Ha kihagyja, az alapértelmezett profilt használja.",
+    "param.task_id.description": "Feladatazonosító a szavazáshoz.",
+    "param.interval_ms.description": "Lekérdezési intervallum felülbírálása (ms).",
+    "param.timeout_s.description": "Felülbírálási időkorlát (másodpercben).",
+    "err.missing_task_id": "Hiányzik a 'task_id'.",
+    "err.exception": "Kivétel"
+  },
+  "ro": {
+    "tool.description": "Interogați o sarcină A2A până la starea terminală. Utilizați numai atunci când niciun instrument local nu poate înlocui.",
+    "x_search_terms": [
+      "a2a_poll",
+      "sondaj a2a",
+      "sarcina de sondaj",
+      "verifica starea",
+      "așteptați sarcina",
+      "starea sarcinii",
+      "rezultatul sondajului",
+      "sondaj de sarcină",
+      "verificarea progresului",
+      "sarcina de monitorizare"
+    ],
+    "param.profile.description": "Nume profil sau a2a://nume. Dacă este omis, folosește profilul implicit.",
+    "param.task_id.description": "ID-ul sarcinii pentru sondaj.",
+    "param.interval_ms.description": "Ignorați intervalul de interogare (ms).",
+    "param.timeout_s.description": "Timeout de anulare (secunde).",
+    "err.missing_task_id": "Lipsește „task_id”.",
+    "err.exception": "Excepţie"
   }
 }

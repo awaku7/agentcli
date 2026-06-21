@@ -158,6 +158,42 @@
     "err.image_required": "प्रतिमा डेटा आवश्यक आहे.",
     "param.detail.description": "प्रतिमा तपशील पातळी (auto/कमी/उच्च)."
   },
+  "el": {
+    "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
+    "err.image_too_large": "αρχείο εικόνας παρέχεται πολύ μεγάλο: {size} bytes για analyzy_image (olama): {provider!r}",
+    "err.unsupported_provider": "Έχει οριστεί το UAGENT_RESPONSES=1, αλλά η ανάλυση εικόνας μέσω Responses υποστηρίζεται μόνο για openai/azure/bedrock/openrouter/ollama",
+    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
+    "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση",
+    "err.missing_env.azure": "Λείπουν τα απαιτούμενα env vars για azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION απαιτείται για το τραγούδι=#=P]. (UAGENT_BEDROCK_BASE_URL/API_KEY)"
+  },
+  "he": {
+    "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
+    "err.image_too_large": "קובץ תמונה גדול מדי: {size=_#=] קובץ תמונה גדול מדי: {size=_#=) תמיכה לכל היותר (למקסימום) analyse_image (ollama): {provider!r}",
+    "err.unsupported_provider": "אנליזה מספקת! חסרות וריאציות של env נדרשות לניתוח תמונה תכלת.",
+    "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
+    "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[אזהרה] תגובה ריקה",
+    "err.missing_env.azure": "UAGENT_RESPONSES=1 מוגדר, אך ניתוח תמונה באמצעות תגובות נתמך רק עבור openai/azure/bedrock/openrouter/ollama"
+  },
+  "hu": {
+    "err.image_not_found": "képfájl nem található: [=path}",
+    "err.image_too_large": "képfájl túl nagy: {max. Nem támogatott szolgáltató az analys_image (ollama) számára: {provider!r}",
+    "err.unsupported_provider": "Az UAGENT_RESPONSES=1 be van állítva, de a válaszokon keresztüli képelemzés csak openai/azure/bedrock/openrouter/ollama esetén támogatott",
+    "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
+    "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[WARN] üres válasz",
+    "err.missing_env.azure": "Azúrhoz hiányoznak a szükséges env vars (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) (UAGENT_BEDROCK_BASE_URL/API_KEY)"
+  },
+  "ro": {
+    "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
+    "err.image_too_large": "fișier imagine prea mare: {size} octeți (limită = {max_bytes_analyse for]_ (ollama): {provider!r}",
+    "err.unsupported_provider": "Lipsesc valorile de mediu necesare pentru analiza imaginii azure.",
+    "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
+    "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
+    "warn.empty_response": "[WARN] răspuns gol",
+    "err.missing_env.azure": "UAGENT_RESPONSES=1 este setat, dar analiza imaginilor prin Responses este acceptată numai pentru openai/azure/bedrock/openrouter/ollama"
+  },
   "nb": {
     "tool.description": "Analyser et bilde ved hjelp av OpenAI visjonsmodell.",
     "x_search_terms": "[\"openai\", \"vision\", \"gpt-4 vision\", \"image analysis\", \"ocr\"]",

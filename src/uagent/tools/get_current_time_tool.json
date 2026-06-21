@@ -272,5 +272,57 @@
       "तारीख आणि वेळ",
       "आत्ता वेळ"
     ]
+  },
+  "el": {
+    "tool.description": "Επιστρέψτε την τρέχουσα ώρα και λεπτομερείς πληροφορίες ημερομηνίας/ώρας (ζώνη ώρας, ημέρα της εβδομάδας, ώρα UTC). Χρησιμοποιήστε το για να επιλύσετε σχετικές εκφράσεις ημερομηνίας (π.χ.",
+    "x_search_terms": [
+      "τρέχουσα ώρα",
+      "τώρα",
+      "ζώνη ώρας",
+      "現在時刻",
+      "hora actual",
+      "heure actuelle",
+      "현재 시간",
+      "текум"
+    ]
+  },
+  "he": {
+    "tool.description": "החזר את השעה הנוכחית ומידע מפורט על תאריך/שעה (אזור זמן, יום חול, זמן UTC). השתמש בזה כדי לפתור ביטויי תאריך יחסיים (למשל",
+    "x_search_terms": [
+      "זמן נוכחי",
+      "כעת",
+      "אזור זמן",
+      "現在時刻",
+      "hora actual",
+      "heure actuelle",
+      "현재 시간е",
+      "те true, מסווה את הערך (לדוגמה, עבור סודות הוא true"
+    ]
+  },
+  "hu": {
+    "tool.description": "Visszaadja az aktuális időt és a részletes dátum/idő információkat (időzóna, hétköznap, UTC idő). Használja ezt a relatív dátumkifejezések feloldására (pl.",
+    "x_search_terms": [
+      "aktuális idő",
+      "most",
+      "időzóna",
+      "現在時刻",
+      "aktuális hora",
+      "heure actuelle",
+      "현재 시간",
+      "текущее время"
+    ]
+  },
+  "ro": {
+    "tool.description": "Returnează ora curentă și informații detaliate despre dată/ora (fus orar, ziua săptămânii, ora UTC). Folosiți-o pentru a rezolva expresiile de dată relativă (de ex.",
+    "x_search_terms": [
+      "ora curentă",
+      "acum",
+      "fus orar",
+      "現在時刻",
+      "hora actual",
+      "heure actuală",
+      "현재 시간",
+      "текущее время"
+    ]
   }
 }

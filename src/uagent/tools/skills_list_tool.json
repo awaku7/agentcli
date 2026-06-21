@@ -390,5 +390,65 @@
       "skills list"
     ],
     "param.recur.description": "recursive शोध (default: true)"
+  },
+  "el": {
+    "param.include_invalid.description": "Εάν θα συμπεριληφθούν δεξιότητες που απέτυχαν στην ανάλυση ή την επικύρωση.",
+    "param.root_dir.description": "Κατάλογος ρίζας για αναζήτηση δεξιοτήτων. Χρησιμοποιεί το UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "Εάν θα αντιμετωπίζονται οι προειδοποιήσεις επικύρωσης ως σφάλματα (προεπιλογή: ψευδής).",
+    "tool.description": "Επιστρέφει μια λίστα δεξιοτήτων κάτω από την καθορισμένη ρίζα (μόνο για ανάγνωση πρώτης σημασίας) με βάση την προδιαγραφή Agent Skills (SKILL. md).",
+    "x_search_terms": [
+      "skills=lists. skill",
+      "skill management",
+      "skill file",
+      "SKILL.md",
+      "Αναδρομική αναζήτηση (προεπιλογή: true)",
+      "[σφάλμα εργαλείου] μη έγκυρα args"
+    ],
+    "param.recur.description": "[σφάλμα εργαλείου] skill_dir πρέπει να είναι μια μη κενή συμβολοσειρά [=#=m]. Φορτώνει το SKILL.md για ένα Agent Skill και επιστρέφει το βασικό του υλικό YAML και το σώμα του Markdown"
+  },
+  "he": {
+    "param.include_invalid.description": "האם לכלול מיומנויות שנכשלו בניתוח או אימות (ברירת מחדל: true).",
+    "param.root_dir.description": "ספריית שורש לחיפוש מיומנויות. משתמש ב-UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "האם להתייחס לאזהרות אימות כשגיאות (ברירת מחדל: false).",
+    "tool.description": "מחזירה רשימה של מיומנויות תחת השורש שצוין (קורא רק Frontmatter) בהתבסס על מפרט מיומנויות הסוכן (SKILL. md).",
+    "x_search_terms": [
+      "skills_list [=#==] [=#==] רשימה של מיומנויות [=#=#] רשימת מיומנויות [=# מיומנויות] [=# ניהול מיומנויות]",
+      "SKILL.md",
+      "חפש רקורסיבית (ברירת מחדל: true)",
+      "[שגיאה בכלי] לא חוקיים",
+      "[שגיאת כלי] skill_dir חייבת להיות מחרוזת לא ריקה",
+      "ספריית המיומנות (חייבת להכיל SKILL.md"
+    ],
+    "param.recur.description": "טוען את ה-Skill של ה-Skill ו-Down)."
+  },
+  "hu": {
+    "param.include_invalid.description": "Be kell-e venni azokat a készségeket, amelyek elemzése vagy érvényesítése sikertelen (alapértelmezett: igaz).",
+    "param.root_dir.description": "Gyökérkönyvtár a készségek kereséséhez. UAGENT_SKILLS_DIRS-t használ (os.",
+    "param.strict.description": "Az érvényesítési figyelmeztetéseket hibaként kell-e kezelni (alapértelmezett: hamis).",
+    "tool.description": "A megadott gyökér alatti készségek listáját adja vissza (csak a frontmattert olvassa el) az Agent Skills specifikációja alapján (SKILL. md).",
+    "x_search_terms": [
+      "skill_list = készségkezelési fájl",
+      "ügynöki készséglista készségkezelés #=]",
+      "SKILL.md",
+      "Rekurzív keresés (alapértelmezett: true)",
+      "[eszközhiba] érvénytelen argumentumok",
+      "[tool error] A skill_dir karakterláncnak nem üresnek kell lennie"
+    ],
+    "param.recur.description": "A készségkönyvtárnak (tartalmaznia kell a SKILL.md értéket a SKILLL és az A/Skilldown)"
+  },
+  "ro": {
+    "param.include_invalid.description": "Dacă se includ abilitățile care nu au reușit analizarea sau validarea (implicit: adevărat).",
+    "param.root_dir.description": "Director rădăcină pentru căutarea de aptitudini. Utilizează UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "Dacă se tratează avertismentele de validare ca erori (implicit: fals).",
+    "tool.description": "Returnează o listă de abilități sub rădăcina specificată (citește doar prima pagină) pe baza specificațiilor Agent Skills (SKILL. md).",
+    "x_search_terms": [
+      "skill_list [=#==] skills_list [=#==] skill management list [=kills [kills] [=] liste de abilități [=kills [kill].",
+      "fișierul de abilități",
+      "SKILL.md",
+      "Căutați recursiv (implicit: true)",
+      "[eroare instrument] argumente invalide",
+      "[eroare instrument] skill_dir trebuie să fie un șir negoal"
+    ],
+    "param.recur.description": "Directorul de abilități (trebuie să conțină SKILL= the.m = SKILL.m). Skill și returnează conținutul YAML și corpul Markdown"
   }
 }

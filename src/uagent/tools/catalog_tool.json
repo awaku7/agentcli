@@ -508,5 +508,73 @@
     "msg.load.ok": "साधन '{name}' लोड केले गेले आहे आणि आता उपलब्ध आहे",
     "msg.load.not_found": "साधन '{name}' सापडले नाही.",
     "param.all.description": "जर खरे असेल, तर क्वेरी फिल्टरिंगशिवाय सर्व उपलब्ध साधने (लोड केलेले + अनलोड केलेले) परत करा."
+  },
+  "el": {
+    "tool.description": "Επιστρέψτε έναν κατάλογο JSON διαθέσιμων εργαλείων με πεδία ok, ερώτημα, μέτρηση και εργαλεία, ώστε το μοντέλο να μπορεί να ανακαλύψει σχετικά εργαλεία πριν ζητήσει πλήρεις ορισμούς εργαλείων. Τα αποτελέσματα περιλαμβάνουν ένα πεδίο \"φορτωμένο\" που υποδεικνύει εάν το εργαλείο είναι ενεργοποιημένο αυτήν τη στιγμή.",
+    "x_search_terms": [
+      "κατάλογος",
+      "κατάλογος εργαλείων",
+      "ανακαλύψτε εργαλεία",
+      "ανακάλυψη εργαλείου"
+    ],
+    "param.query.description": "Ερώτημα φυσικής γλώσσας που περιγράφει την απαιτούμενη ικανότητα. Συμβουλή: αναλύστε τον στόχο σας σε επιμέρους βήματα (π.χ. \"τοποθεσία geoip + πρόγνωση καιρού\") για να βελτιώσετε την αντιστοίχιση.",
+    "param.limit.description": "Μέγιστος αριθμός καταχωρίσεων καταλόγου προς επιστροφή.",
+    "tool_load.description": "Φορτώστε ένα εργαλείο με το όνομα, ώστε να είναι διαθέσιμο για χρήση. Χρησιμοποιήστε το αφού το tool_catalog επιστρέψει ένα εργαλείο με loaded=false. Επιστρέφει τις φορτωμένες πληροφορίες εργαλείου ή ένα σφάλμα εάν δεν βρεθεί.",
+    "param.name.description": "Όνομα του εργαλείου προς φόρτωση (π.χ. 'generate_image', 'excel_ops').",
+    "msg.load.missing_name": "Λείπει η παράμετρος \"όνομα\".",
+    "msg.load.ok": "Το εργαλείο '{name}' έχει φορτωθεί και είναι πλέον διαθέσιμο",
+    "msg.load.not_found": "Το εργαλείο \"{name}\" δεν βρέθηκε.",
+    "param.all.description": "Εάν είναι αληθές, επιστρέψτε όλα τα διαθέσιμα εργαλεία (φορτωμένα + μη φορτωμένα) χωρίς φιλτράρισμα ερωτήματος."
+  },
+  "he": {
+    "tool.description": "החזר קטלוג JSON של כלים זמינים עם שדות OK, שאילתה, ספירה וכלים כדי שהמודל יוכל לגלות כלים רלוונטיים לפני שהוא מבקש הגדרות כלים מלאות. התוצאות כוללות שדה 'טעון' המציין אם הכלי מופעל כעת.",
+    "x_search_terms": [
+      "קָטָלוֹג",
+      "קטלוג כלים",
+      "לגלות כלים",
+      "גילוי כלי"
+    ],
+    "param.query.description": "שאילתה בשפה טבעית המתארת ​​את היכולת הדרושה. טיפ: פרק את המטרה שלך לשלבי משנה (למשל, 'מיקום גיאוגרפי + תחזית מזג אוויר') כדי לשפר את ההתאמה.",
+    "param.limit.description": "מספר מקסימלי של רשומות קטלוג להחזר.",
+    "tool_load.description": "טען כלי לפי שם כך שהוא יהפוך זמין לשימוש. השתמש בזה לאחר tool_catalog מחזיר כלי עם loaded=false. מחזיר את פרטי הכלי שנטען או שגיאה אם ​​לא נמצא.",
+    "param.name.description": "שם הכלי לטעינה (למשל 'generate_image', 'excel_ops').",
+    "msg.load.missing_name": "חסר פרמטר 'שם'.",
+    "msg.load.ok": "הכלי '{name}' נטען וזמין כעת",
+    "msg.load.not_found": "הכלי '{name}' לא נמצא.",
+    "param.all.description": "אם נכון, החזר את כל הכלים הזמינים (טעון + לא טעון) ללא סינון שאילתות."
+  },
+  "hu": {
+    "tool.description": "Az elérhető eszközök JSON-katalógusának visszaküldése az OK, query, count és Tools mezőkkel, hogy a modell felfedezhesse a releváns eszközöket, mielőtt teljes eszközdefiníciót kérne. Az eredmények között szerepel egy „töltött” mező, amely jelzi, hogy az eszköz jelenleg engedélyezve van-e.",
+    "x_search_terms": [
+      "katalógus",
+      "szerszámkatalógus",
+      "eszközöket fedezzen fel",
+      "szerszám felfedezése"
+    ],
+    "param.query.description": "Természetes nyelvű lekérdezés, amely leírja a szükséges képességet. Tipp: bontsa a célt részlépésekre (pl. „geoip hely + időjárás előrejelzés”) az egyezés javítása érdekében.",
+    "param.limit.description": "A visszaküldendő katalógusbejegyzések maximális száma.",
+    "tool_load.description": "Töltsön be egy eszközt név szerint, hogy használható legyen. Használja ezt, miután a tool_catalog egy loaded=false értékkel tér vissza. Visszaadja a betöltött szerszámadatokat, vagy hibát jelez, ha nem található.",
+    "param.name.description": "A betöltendő eszköz neve (pl. „generate_image”, „excel_ops”).",
+    "msg.load.missing_name": "Hiányzik a \"name\" paraméter.",
+    "msg.load.ok": "A(z) \"{name}\" eszköz betöltődött, és már elérhető",
+    "msg.load.not_found": "A(z) „{name}” eszköz nem található.",
+    "param.all.description": "Ha igaz, akkor az összes elérhető eszközt (be- és betöltött) adjon vissza lekérdezésszűrés nélkül."
+  },
+  "ro": {
+    "tool.description": "Returnați un catalog JSON de instrumente disponibile cu câmpuri ok, interogare, numărare și instrumente, astfel încât modelul să poată descoperi instrumente relevante înainte de a solicita definiții complete ale instrumentului. Rezultatele includ un câmp „încărcat” care indică dacă instrumentul este activat în prezent.",
+    "x_search_terms": [
+      "catalog",
+      "catalog de instrumente",
+      "descoperi instrumente",
+      "descoperirea instrumentului"
+    ],
+    "param.query.description": "Interogare în limbaj natural care descrie capacitatea necesară. Sfat: descompuneți obiectivul în subpași (de exemplu, „Locație geografică + prognoză meteo”) pentru a îmbunătăți potrivirea.",
+    "param.limit.description": "Numărul maxim de intrări în catalog de returnat.",
+    "tool_load.description": "Încărcați un instrument după nume, astfel încât să devină disponibil pentru utilizare. Utilizați acest lucru după ce tool_catalog returnează o unealtă cu loaded=false. Returnează informațiile despre instrumentul încărcat sau o eroare dacă nu este găsită.",
+    "param.name.description": "Numele instrumentului de încărcat (de exemplu, „generate_image”, „excel_ops”).",
+    "msg.load.missing_name": "Lipsește parametrul „nume”.",
+    "msg.load.ok": "Instrumentul „{name}” a fost încărcat și este acum disponibil",
+    "msg.load.not_found": "Instrumentul „{name}” nu a fost găsit.",
+    "param.all.description": "Dacă este adevărat, returnați toate instrumentele disponibile (încărcate + descărcate) fără filtrarea interogărilor."
   }
 }

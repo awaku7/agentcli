@@ -569,5 +569,85 @@
     "param.timeout_s.description": "कालबाह्य.",
     "err.missing_message": "'संदेश' गहाळ आहे.",
     "err.exception": "अपवाद"
+  },
+  "el": {
+    "tool.description": "Δημοσιεύστε ένα μήνυμα ή ένα ωφέλιμο φορτίο JSON που υποστηρίζεται από webhook σε μια διεύθυνση URL του Microsoft Teams Incoming Webhook που είναι αποθηκευμένη σε μια μεταβλητή περιβάλλοντος.",
+    "x_search_terms": [
+      "ομάδες webhook",
+      "ανάρτηση μηνύματος",
+      "εισερχόμενο webhook",
+      "ειδοποίηση ομάδων",
+      "Κείμενο μηνύματος για ανάρτηση στις Ομάδες. Χρησιμοποιείται ως απλό κείμενο εκτός εάν παρέχονται πεδία κάρτας."
+    ],
+    "param.message.description": "Τίτλος κάρτας για ωφέλιμα φορτία που υποστηρίζονται από webhook.",
+    "param.title.description": "Σύνοψη κάρτας για φορτία που υποστηρίζονται από webhook.",
+    "param.summary.description": "URL εικόνας για φορτία που υποστηρίζονται από webhook.",
+    "param.image_url.description": "Χρώμα θέματος κάρτας ως δεκαεξαδική συμβολοσειρά χωρίς #.",
+    "param.theme_color.description": "Ακατέργαστο ωφέλιμο φορτίο webhook ως συμβολοσειρά ή αντικείμενο JSON. Εάν παρέχεται, αποστέλλεται ως έχει.",
+    "param.payload_json.description": "Όνομα μεταβλητής περιβάλλοντος που αποθηκεύει τη διεύθυνση URL του webhook Teams.",
+    "param.webhook_env.description": "Όνομα μεταβλητής περιβάλλοντος που αποθηκεύει τη διεύθυνση URL του webhook Teams.",
+    "param.timeout_s.description": "Εργαλείο εικονικής μορφής για την εγγραφή εντολών ελέγχου εργαλείων.",
+    "err.missing_message": "Η διαμόρφωση δεν βρέθηκε. Εκτελέστε πρώτα το action=init.",
+    "err.exception": "Αποστολή μηνύματος σε προφίλ διακομιστή A2A. Χρησιμοποιήστε μόνο όταν κανένα τοπικό εργαλείο δεν μπορεί να αντικαταστήσει."
+  },
+  "he": {
+    "tool.description": "פרסם הודעה או מטען JSON נתמך ב-webhook לכתובת URL של Microsoft Teams Incoming Webhook המאוחסנת במשתנה סביבה.",
+    "x_search_terms": [
+      "teams webhook",
+      "הודעת פרסום",
+      "webhook נכנסת",
+      "הודע לצוותים",
+      "טקסט הודעה לפרסום ב-Teams. משמש כטקסט רגיל אלא אם מסופקים שדות כרטיס."
+    ],
+    "param.message.description": "כותרת הכרטיס עבור מטענים נתמכים ב-webhook.",
+    "param.title.description": "סיכום כרטיס עבור מטענים הנתמכים ב-webhook.",
+    "param.summary.description": "כתובת אתר של תמונה עבור מטענים נתמכים ב-webhook.",
+    "param.image_url.description": "צבע נושא הכרטיס כמחרוזת משושה ללא #.",
+    "param.theme_color.description": "מטען אינטרנט גולמי כמחרוזת או כאובייקט JSON. אם מסופק, הוא נשלח כפי שהוא.",
+    "param.payload_json.description": "שם משתנה סביבה המאחסן את כתובת האתר של Teams webhook.",
+    "param.webhook_env.description": "שם משתנה סביבה המאחסן את כתובת האתר של Teams webhook.",
+    "param.timeout_s.description": "כלי דמה לרישום פקודות שליטה בכלים.",
+    "err.missing_message": "התצורה לא נמצאה. הפעל קודם את action=init.",
+    "err.exception": "שלח הודעה לפרופיל שרת A2A. השתמש רק כאשר אין כלי מקומי שיכול להחליף."
+  },
+  "hu": {
+    "tool.description": "Üzenet vagy webhook által támogatott JSON-tartalom közzététele egy környezeti változóban tárolt Microsoft Teams bejövő webhook URL-címére.",
+    "x_search_terms": [
+      "teams webhook",
+      "üzenet közzététele",
+      "bejövő webhook",
+      "csapatok értesítése",
+      "Teamsben közzéteendő üzenet szövege. Egyszerű szövegként használatos, hacsak nincsenek megadva kártyamezők."
+    ],
+    "param.message.description": "A kártya címe a webhook által támogatott rakományokhoz.",
+    "param.title.description": "Kártya összefoglaló a webhook által támogatott rakományokhoz.",
+    "param.summary.description": "Kép URL-címe a webhook által támogatott rakományokhoz.",
+    "param.image_url.description": "A kártyatéma színe hatszögletű karakterláncként # nélkül.",
+    "param.theme_color.description": "Nyers webhook hasznos adat JSON-karakterláncként vagy objektumként. Ha meg van adva, akkor úgy küldi el, ahogy van.",
+    "param.payload_json.description": "A Teams webhook URL-jét tároló környezeti változó neve.",
+    "param.webhook_env.description": "A Teams webhook URL-jét tároló környezeti változó neve.",
+    "param.timeout_s.description": "Dummy eszköz az eszközök vezérlőparancsok regisztrálásához.",
+    "err.missing_message": "A konfiguráció nem található. Először futtassa az action=init parancsot.",
+    "err.exception": "Üzenet küldése egy A2A szerverprofilnak. Csak akkor használja, ha semmilyen helyi eszköz nem helyettesítheti."
+  },
+  "ro": {
+    "tool.description": "Postați un mesaj sau o încărcare utilă JSON acceptată de webhook la o adresă URL a Microsoft Teams Incoming Webhook stocată într-o variabilă de mediu.",
+    "x_search_terms": [
+      "teams_webhook",
+      "teams webhook",
+      "postați mesaj",
+      "webhook primit",
+      "notifică echipe"
+    ],
+    "param.message.description": "Text mesaj pentru a posta în Teams. Folosit ca text simplu, cu excepția cazului în care sunt furnizate câmpuri pentru carduri.",
+    "param.title.description": "Titlul cardului pentru încărcături utile acceptate de webhook.",
+    "param.summary.description": "Rezumatul cardului pentru încărcăturile utile acceptate de webhook.",
+    "param.image_url.description": "Adresa URL a imaginii pentru încărcăturile utile acceptate de webhook.",
+    "param.theme_color.description": "Culoarea temei cardului ca șir hexagonal fără #.",
+    "param.payload_json.description": "Sarcina utilă webhook brută ca șir sau obiect JSON. Dacă este furnizat, acesta este trimis așa cum este.",
+    "param.webhook_env.description": "Numele variabilei de mediu care stochează adresa URL a webhook-ului Teams.",
+    "param.timeout_s.description": "Timeout.",
+    "err.missing_message": "Configurația nu a fost găsită. Rulați mai întâi action=init.",
+    "err.exception": "Trimiteți un mesaj către un profil de server A2A. Utilizați numai atunci când niciun instrument local nu poate înlocui."
   }
 }

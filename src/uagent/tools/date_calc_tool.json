@@ -688,5 +688,97 @@
       "सुट्टी तपासा",
       "तारीख गणित"
     ]
+  },
+  "el": {
+    "doc.get_holiday_info": "Λάβετε τα ονόματα διακοπών για τη συγκεκριμένη χώρα χρησιμοποιώντας τη βιβλιοθήκη διακοπών.",
+    "param.base_date.description": "Ημερομηνία βάσης (μορφή ISO 8601 «ΕΕΕΕ-ΜΜ-ΗΗ», εάν παραλειφθεί, σήμερα).",
+    "param.check_holiday.description": "Εάν θα ελεγχθεί εάν το αποτέλεσμα είναι αργία (προεπιλογή: αληθές)",
+    "param.country.description": "Κωδικός χώρας.",
+    "param.days.description": "Μέρες για πρόσθεση (αρνητικό για αφαίρεση).",
+    "param.months.description": "Μήνες για πρόσθεση (αρνητικό για αφαίρεση).",
+    "param.weeks.description": "Εβδομάδες για πρόσθεση (αρνητικό για αφαίρεση).",
+    "param.years.description": "Έτη για πρόσθεση (αρνητικό για αφαίρεση).",
+    "tool.description": "Προσθέστε ή αφαιρέστε έτη, μήνες, εβδομάδες ή ημέρες από μια καθορισμένη ημερομηνία και επιστρέψτε το αποτέλεσμα. Ο εντοπισμός διακοπών περιλαμβάνεται χρησιμοποιώντας τη βιβλιοθήκη διακοπών.",
+    "x_search_terms": [
+      "date_calc",
+      "ημερομηνία υπολ",
+      "ημερομηνία μαθηματικά",
+      "προσθέστε ημέρες",
+      "αφαιρώ ημέρες",
+      "σχετική ημερομηνία",
+      "ημερολογιακή ημερομηνία",
+      "εβδομάδες μήνες",
+      "ημέρες από την ημερομηνία",
+      "έλεγχος διακοπών"
+    ]
+  },
+  "he": {
+    "doc.get_holiday_info": "קבל את שמות החגים עבור המדינה שצוינה באמצעות ספריית החגים.",
+    "param.base_date.description": "תאריך בסיס (פורמט ISO 8601 'YYYY-MM-DD'; אם הושמט, היום).",
+    "param.check_holiday.description": "האם לבדוק אם התוצאה היא חג (ברירת מחדל: נכון)",
+    "param.country.description": "קוד מדינה.",
+    "param.days.description": "ימים להוספה (שלילי לחיסור).",
+    "param.months.description": "חודשים להוסיף (שלילי לחיסור).",
+    "param.weeks.description": "שבועות להוסיף (שלילי לחיסור).",
+    "param.years.description": "שנים להוסיף (שלילי לחיסור).",
+    "tool.description": "הוסף או הורד שנים, חודשים, שבועות או ימים מתאריך מוגדר והחזר את התוצאה. זיהוי חגים כלול באמצעות ספריית החגים.",
+    "x_search_terms": [
+      "date_calc",
+      "חישוב תאריך",
+      "מתמטיקה תאריך",
+      "להוסיף ימים",
+      "להחסיר ימים",
+      "תאריך יחסי",
+      "תאריך לוח שנה",
+      "שבועות חודשים",
+      "ימים מהתאריך",
+      "צ'ק חג"
+    ]
+  },
+  "hu": {
+    "doc.get_holiday_info": "Szerezze be az ünnepnapok nevét a megadott országhoz az ünnepek könyvtára segítségével.",
+    "param.base_date.description": "Bázisdátum (ISO 8601 formátum „ÉÉÉÉ-HH-NN”; ha kimarad, a mai nap).",
+    "param.check_holiday.description": "Annak ellenőrzése, hogy az eredmény ünnepnap-e (alapértelmezett: igaz)",
+    "param.country.description": "Országkód.",
+    "param.days.description": "Az összeadandó napok száma (negatív a kivonáshoz).",
+    "param.months.description": "Hónapok az összeadáshoz (negatív a kivonáshoz).",
+    "param.weeks.description": "Hetek összeadáshoz (negatív a kivonáshoz).",
+    "param.years.description": "Évek hozzáadáshoz (negatív a kivonáshoz).",
+    "tool.description": "Éveket, hónapokat, heteket vagy napokat adjon hozzá vagy vonjon ki egy adott dátumból, és adja vissza az eredményt. Az ünnepnapi könyvtár az ünnepnapok észlelését tartalmazza.",
+    "x_search_terms": [
+      "dátum_kalc",
+      "dátum kalc",
+      "dátum matematika",
+      "napok hozzáadása",
+      "napokat levonni",
+      "relatív dátum",
+      "naptári dátum",
+      "hetek hónapok",
+      "naptól számítva",
+      "üdülési csekket"
+    ]
+  },
+  "ro": {
+    "doc.get_holiday_info": "Obțineți numele de sărbători pentru țara specificată folosind biblioteca de sărbători.",
+    "param.base_date.description": "Data de bază (formatul ISO 8601 „AAAA-LL-ZZ”; dacă este omisă, astăzi).",
+    "param.check_holiday.description": "Dacă se verifică dacă rezultatul este vacanță (implicit: adevărat)",
+    "param.country.description": "Codul țării.",
+    "param.days.description": "Zile de adăugat (negativ pentru scădere).",
+    "param.months.description": "Luni de adăugat (negativ pentru scădere).",
+    "param.weeks.description": "Săptămâni de adăugat (negativ pentru scădere).",
+    "param.years.description": "Ani de adăugat (negativ pentru scădere).",
+    "tool.description": "Adăugați sau scădeți ani, luni, săptămâni sau zile dintr-o dată specificată și returnați rezultatul. Detectarea vacanțelor este inclusă folosind biblioteca de sărbători.",
+    "x_search_terms": [
+      "data_calc",
+      "data calc",
+      "data matematica",
+      "adauga zile",
+      "scade zilele",
+      "data relativă",
+      "data calendaristică",
+      "săptămâni luni",
+      "zile de la data",
+      "cec de vacanță"
+    ]
   }
 }

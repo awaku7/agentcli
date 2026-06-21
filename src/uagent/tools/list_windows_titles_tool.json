@@ -360,5 +360,61 @@
       "वरिष्ठ स्तर विंडो",
       "विंडो यादी"
     ]
+  },
+  "el": {
+    "param.all.description": "Συμπεριλάβετε μη ορατά παράθυρα",
+    "param.class.description": "Συμπεριλάβετε το όνομα της τάξης.",
+    "param.pid.description": "Συμπεριλάβετε αναγνωριστικά διεργασίας.",
+    "tool.description": "Αριθμήστε τίτλους παραθύρων ανώτατου επιπέδου στα Windows και επιστρέψτε δομημένο JSON. Παράμετροι: 'all' (συμπεριλαμβανομένου του μη ορατού), 'pid' (συμπεριλαμβανομένου του PID), 'class' (συμπεριλαμβανομένου...",
+    "x_search_terms": [
+      "list_windows_titles",
+      "list_windows_titles",
+      "τίτλοι παραθύρων",
+      "παράθυρα ανώτατου επιπέδου",
+      "pid [=#:] errortypelong [=#:r_e]",
+      "(δεν υπάρχει ακόμη μακροπρόθεσμη μνήμη)"
+    ]
+  },
+  "he": {
+    "param.all.description": "כלול חלונות לא גלויים",
+    "param.class.description": "כלול שם מחלקה.",
+    "param.pid.description": "כלול מזהי תהליך.",
+    "tool.description": "מנה כותרות חלונות ברמה העליונה ב-Windows והחזר JSON מובנה. פרמטרים: 'הכל' (כולל לא גלוי), 'pid' (כולל PID), 'מחלקה' (כולל...",
+    "x_search_terms": [
+      "list_windows_titles",
+      "רשימה של כותרות חלונות",
+      "כותרות חלונות",
+      "חלונות ברמה עליונה",
+      "pid",
+      "שם מחלקה [=#_=] שם מחלקה [=#_=] שגיאה [long_errr] (אין עדיין זיכרון לטווח ארוך)"
+    ]
+  },
+  "hu": {
+    "param.all.description": "Nem látható ablakok szerepeltetése",
+    "param.class.description": "Az osztálynév szerepeltetése.",
+    "param.pid.description": "Adja meg a folyamatazonosítókat.",
+    "tool.description": "Sorolja fel a legfelső szintű ablakcímeket Windows rendszeren, és adja vissza a strukturált JSON-t. Paraméterek: 'all' (beleértve a nem látható), 'pid' (beleértve a PID-t), 'class' (beleértve...",
+    "x_search_terms": [
+      "list_windows_titles",
+      "listaablakok címei",
+      "ablakcímek",
+      "legfelső szintű ablakok",
+      "pid",
+      "osztálynév { [=}hosszabb] [=mérték] típushiba] (még nincs hosszú távú memória)"
+    ]
+  },
+  "ro": {
+    "param.all.description": "Includeți ferestre nevizibile",
+    "param.class.description": "Includeți numele clasei.",
+    "param.pid.description": "Includeți ID-urile de proces.",
+    "tool.description": "Enumerați titlurile de ferestre de nivel superior pe Windows și returnați JSON structurat. Parametri: „toate” (include non-vizibile), „pid” (include PID), „clasă” (inc...",
+    "x_search_terms": [
+      "list_windows_titles",
+      "listă titluri ferestre",
+      "titluri ferestre",
+      "ferestre de nivel superior",
+      "pid",
+      "nume clasă"
+    ]
   }
 }

@@ -300,5 +300,53 @@
       "shared memory",
       "share memory"
     ]
+  },
+  "el": {
+    "param.note.description": "Το κείμενο της σημείωσης για κοινή χρήση.",
+    "tool.description": "Προσθέστε μια μεμονωμένη σημείωση στο κοινόχρηστο χώρο αποθήκευσης μακροπρόθεσμης μνήμης (κοινόχρηστο σε χρήστες/περιόδους σύνδεσης). Εάν η κοινόχρηστη μνήμη δεν έχει ρυθμιστεί, το εργαλείο αναφέρει ότι...",
+    "x_search_terms": [
+      "add_shared_memory",
+      "προσθήκη κοινής μνήμης",
+      "προσάρτηση σημείωσης",
+      "κοινή μνήμη",
+      "σημείωση κοινής χρήσης",
+      "αποθήκευση μνήμης"
+    ]
+  },
+  "he": {
+    "param.note.description": "טקסט ההערה לשיתוף.",
+    "tool.description": "הוסף הערה בודדת למאגר הזיכרון המשותף לטווח ארוך (משותף בין משתמשים/הפעלות). אם הזיכרון המשותף אינו מוגדר, הכלי מדווח כי...",
+    "x_search_terms": [
+      "הוסף_זיכרון_משותף",
+      "להוסיף זיכרון משותף",
+      "לצרף הערה",
+      "זיכרון משותף",
+      "שיתוף הערה",
+      "מאגר זיכרון"
+    ]
+  },
+  "hu": {
+    "param.note.description": "A megosztandó jegyzet szövege.",
+    "tool.description": "Egyetlen megjegyzés hozzáfűzése a megosztott hosszú távú memóriatárhoz (megosztva a felhasználók/munkamenetek között). Ha a megosztott memória nincs konfigurálva, az eszköz azt jelenti, hogy...",
+    "x_search_terms": [
+      "add_shared_memory",
+      "megosztott memória hozzáadása",
+      "megjegyzés csatolása",
+      "megosztott memória",
+      "megosztás jegyzet",
+      "memóriatár"
+    ]
+  },
+  "ro": {
+    "param.note.description": "Textul notei de partajat.",
+    "tool.description": "Adăugați o singură notă la stocul de memorie pe termen lung partajat (partajat între utilizatori/sesiuni). Dacă memoria partajată nu este configurată, instrumentul raportează că...",
+    "x_search_terms": [
+      "add_shared_memory",
+      "adăugați memorie partajată",
+      "anexează o notă",
+      "memorie partajată",
+      "partajează nota",
+      "depozit de memorie"
+    ]
   }
 }

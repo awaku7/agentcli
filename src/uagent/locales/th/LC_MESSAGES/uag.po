@@ -115,6 +115,7 @@ msgstr "[docs] ต้องระบุชื่อ"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] คำถามหมวดหมู่ตอนเริ่มต้น = ป้อนตัวเลข"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -124,6 +125,8 @@ msgstr ""
 "(1=พื้นฐาน,2=การสื่อสาร,4=สำนักงาน,8=การพัฒนา,16=iot,32=การดำเนินการ,64=ภายนอก,128=สื่อ,255=ทั้งหมด,"
 " Enter=เปิดใช้งานทั้งหมด):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "พื้นฐาน (ไฟล์, สภาพแวดล้อม, เวลา, พรอมต์, ทักษะ, หน่วยความจำ, "
@@ -708,6 +711,7 @@ msgstr "คีย์ API ของ NVIDIA"
 msgid "DeepSeek API key."
 msgstr "คีย์ API DeepSeek."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1377,12 +1381,15 @@ msgstr "DeepSeek presence_penalty (ค่าเริ่มต้น: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (ค่าเริ่มต้น: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1815,6 +1822,7 @@ msgid ""
 msgstr ""
 "โหมดไม่โต้ตอบ อย่าเริ่ม stdin loop ให้ออกหลังประมวลผลไฟล์เริ่มต้น (ถ้ามี)"
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1824,11 +1832,13 @@ msgstr ""
 "(1=พื้นฐาน,2=การสื่อสาร,4=สำนักงาน,8=การพัฒนา,16=iot,32=การดำเนินการ,64=ภายนอก,128=สื่อ,255=ทั้งหมด)"
 " ข้ามพรอมต์ประเภทแบบโต้ตอบเมื่อระบุแล้ว"
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "เปิดใช้งานการส่งเครื่องมือไปยัง LLM (แทนที่ตัวแปรสภาพแวดล้อม "
 "UAGENT_USE_TOOL)"
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "ปิดใช้งานการส่งเครื่องมือไปยัง LLM (แทนที่ตัวแปรสภาพแวดล้อม UAGENT_USE_TOOL)"
@@ -2368,15 +2378,18 @@ msgstr ""
 "[MCP Servers]\n"
 "- ไม่สามารถดึงข้อมูลได้: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[คู่มือย่อ]\n"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- หลายบรรทัด: ป้อนบรรทัดที่เป็นเพียง 'f' เพื่อเข้าสู่โหมดหลายบรรทัด"
-
-"\"\"\"end)."
+msgstr ""
+"- หลายบรรทัด: ป้อนบรรทัดที่เป็นเพียง 'f' "
+"เพื่อเข้าสู่โหมดหลายบรรทัด\"\"\"end)."
 
 #: src/uagent/welcome.py:70
 msgid ""

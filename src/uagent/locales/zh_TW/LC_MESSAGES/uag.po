@@ -113,6 +113,7 @@ msgstr "[docs] 名稱為必填項目"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] 啟動類別提示 = 數字輸入"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -120,6 +121,8 @@ msgid ""
 msgstr ""
 "輸入數字的總和（1=基本，2=通訊，4=辦公，8=開發，16=物聯網，32=執行，64=外部，128=媒體，255=全部，Enter=啟用全部）："
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "基本（檔案、環境、時間、提示、技能、記憶體、工具控制）"
 
@@ -671,6 +674,7 @@ msgstr "NVIDIA API 金鑰。"
 msgid "DeepSeek API key."
 msgstr "DeepSeek API金鑰。"
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API金鑰。"
 
@@ -1325,12 +1329,15 @@ msgstr "DeepSeek presence_penalty（預設：0.0）"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty（預設：0.0）"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API金鑰"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI基礎URL（可選，預設：https://api.z.ai/api/paas/v4/）"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI模型名稱（可選，預設：glm-5.2）"
 
@@ -1757,6 +1764,7 @@ msgid ""
 " startup file (if any)."
 msgstr "非互動模式。不要啟動 stdin 迴圈；處理啟動檔案（如有）後退出。"
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1764,9 +1772,11 @@ msgid ""
 msgstr ""
 "工具類型位元遮罩（1=基本，2=通訊，4=辦公，8=開發，16=物聯網，32=執行，64=外部，128=媒體，255=全部）。指定時跳過互動式類型提示。"
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "啟用向LLM發送工具（覆蓋UAGENT_USE_TOOL環境變數）。"
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "停用向LLM發送工具（覆蓋UAGENT_USE_TOOL環境變數）。"
 
@@ -2280,14 +2290,18 @@ msgstr ""
 "[MCP 伺服器]\n"
 "- 無法取得資訊：%(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[快速指南]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- 多行：輸入僅包含"f"的行以進入多行模式。"
+msgstr "- 多行：輸入僅包含\"f\"的行以進入多行模式。"
 
+#: src/uagent/welcome.py:70
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
 "compression, etc.). Note: commands start with ':' (colon) instead of '/' "

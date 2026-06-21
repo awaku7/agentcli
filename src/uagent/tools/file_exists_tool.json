@@ -332,5 +332,65 @@
       "पथ तपासा",
       "फाइल तपासा"
     ]
+  },
+  "el": {
+    "err.path_empty": "Η διαδρομή [file_exists error] είναι κενή",
+    "param.path.description": "Η διαδρομή του αρχείου ή του καταλόγου για έλεγχο ύπαρξης (υποστηρίζει ~).",
+    "tool.description": "Ελέγχει εάν ένα αρχείο ή κατάλογος υπάρχει στην καθορισμένη διαδρομή και, εάν υπάρχει, επιστρέφει τον τύπο, το μέγεθος και τον χρόνο τροποποίησης.",
+    "x_search_terms": [
+      "υπάρχει",
+      "αρχείο ελέγχου",
+      "διαδρομή ελέγχου",
+      "存在確認",
+      "αρχείο comprobar",
+      "επαληθευτής fichier",
+      "존재 확인",
+      "έλεγχος της λειτουργίας Exception κατά τη διάρκεια της λειτουργίας Exception"
+    ]
+  },
+  "he": {
+    "err.path_empty": "[file_exists error] הנתיב ריק",
+    "param.path.description": "הנתיב של הקובץ או הספרייה לבדיקת קיומם (תומך ב-~).",
+    "tool.description": "בודק אם קובץ או ספרייה קיימים בנתיב שצוין, ואם כן, מחזיר את הסוג, הגודל וזמן השינוי שלו.",
+    "x_search_terms": [
+      "קיים",
+      "קובץ בדיקה",
+      "נתיב בדיקה",
+      "存在確認",
+      "comprobar archivo",
+      "מוודא fichier",
+      "존재 확인",
+      "провайлть провайлть בפעולה"
+    ]
+  },
+  "hu": {
+    "err.path_empty": "A fájl vagy könyvtár elérési útja a létezés ellenőrzéséhez (a ~-t támogatja).",
+    "param.path.description": "Ellenőrzi, hogy létezik-e fájl vagy könyvtár a megadott elérési úton, és ha igen, visszaadja annak típusát, méretét és módosítási idejét.",
+    "tool.description": "Ellenőrzi, hogy létezik-e fájl vagy könyvtár a megadott elérési úton, és ha igen, visszaadja annak típusát, méretét és módosítási idejét.",
+    "x_search_terms": [
+      "ellenőrző fájl",
+      "ellenőrzési elérési út",
+      "存在確認",
+      "comprobar archívum",
+      "ellenőrzési adatlap",
+      "존재 확인",
+      "проверить ф. gr#ep művelet során fordul elő.",
+      "Érvénytelen regex minta."
+    ]
+  },
+  "ro": {
+    "err.path_empty": "[file_exists error] calea este goală",
+    "param.path.description": "Calea fișierului sau a directorului pentru a verifica existența (suportă ~).",
+    "tool.description": "Verifică dacă un fișier sau un director există la calea specificată și, dacă există, returnează tipul, dimensiunea și timpul de modificare.",
+    "x_search_terms": [
+      "există",
+      "fișier de verificare",
+      "cale de verificare",
+      "存在確認",
+      "verifica fișier",
+      "verificare fișier",
+      "존재 확인",
+      "проверить проверить s-a produs în timpul operațiunii greve"
+    ]
   }
 }

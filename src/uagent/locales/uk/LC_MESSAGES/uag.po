@@ -118,6 +118,7 @@ msgstr "[docs] назва обов'язкова"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] підказка запуску вибору жанру = числове введення"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -127,6 +128,8 @@ msgstr ""
 "(1=базовий,2=зв'язок,4=офіс,8=розробка,16=iot,32=виконання,64=зовнішній,128=медіа,255=всі,"
 " Enter=увімкнути всі):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Базовий (файл, середовище, час, підказки, навички, пам'ять, керування "
@@ -717,6 +720,7 @@ msgstr "Ключ API NVIDIA."
 msgid "DeepSeek API key."
 msgstr "Ключ API DeepSeek."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1398,12 +1402,15 @@ msgstr "DeepSeek presence_penalty (за замовчуванням: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (за замовчуванням: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1838,6 +1845,7 @@ msgstr ""
 "Неінтерактивний режим. Не запускайте цикл stdin; вийти після обробки файлу "
 "запуску (якщо є)."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1847,11 +1855,13 @@ msgstr ""
 "(1=базовий,2=зв'язок,4=офіс,8=розробка,16=iot,32=виконання,64=зовнішній,128=медіа,255=всі)."
 " Пропускає інтерактивний запит жанру, якщо вказано."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Увімкнути надсилання інструменту до LLM (перевизначає змінну середовища "
 "UAGENT_USE_TOOL)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Вимкнути надсилання інструменту до LLM (перевизначає змінну середовища "
@@ -2402,16 +2412,19 @@ msgstr ""
 "[Сервери MCP]\n"
 "- Не вдалося отримати інформацію: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Короткий посібник]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Багаторядковий: введіть рядок із символом "f", щоб увійти в багаторядковий режим."
-"- Чат: введіть повідомлення та надішліть (GUI: Ctrl+Enter також доступний)."
-
-"багаторядковий режим (закінчується \"\"\"end)."
+msgstr ""
+"- Багаторядковий: введіть рядок із символом \"f\", щоб увійти в "
+"багаторядковий режим.- Чат: введіть повідомлення та надішліть (GUI: "
+"Ctrl+Enter також доступний).багаторядковий режим (закінчується \"\"\"end)."
 
 #: src/uagent/welcome.py:70
 msgid ""

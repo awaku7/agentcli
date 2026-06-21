@@ -117,6 +117,7 @@ msgstr "[docs] नाम आवश्यक है"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] स्टार्टअप जॉनर प्रॉम्प्ट = संख्यात्मक इनपुट"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -126,6 +127,8 @@ msgstr ""
 "(1=बुनियादी,2=संचार,4=कार्यालय,8=डेवेल,16=आईओटी,32=निष्पादन,64=बाह्य,128=मीडिया,255=सभी,"
 " Enter=सभी सक्षम):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "बुनियादी (फ़ाइल, पर्यावरण, समय, संकेत, कौशल, मेमोरी, टूल नियंत्रण)"
 
@@ -709,6 +712,7 @@ msgstr "NVIDIA API कुंजी."
 msgid "DeepSeek API key."
 msgstr "DeepSeek API कुंजी।"
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1380,12 +1384,15 @@ msgstr "DeepSeek presence_penalty (डिफ़ॉल्ट: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (डिफ़ॉल्ट: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1819,6 +1826,7 @@ msgstr ""
 "Non-interactive mode. स्टडिन लूप प्रारंभ न करें; स्टार्टअप फ़ाइल (यदि कोई "
 "हो) को संसाधित करने के बाद बाहर निकलें।"
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1828,10 +1836,12 @@ msgstr ""
 "(1=बुनियादी,2=संचार,4=कार्यालय,8=डेवेल,16=आईओटी,32=निष्पादन,64=बाह्य,128=मीडिया,255=सभी)."
 " निर्दिष्ट होने पर इंटरैक्टिव जॉनर प्रॉम्प्ट को छोड़ देता है।"
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "LLM को टूल भेजना सक्षम करें (UAGENT_USE_TOOL env var को ओवरराइड करता है)।"
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "LLM को टूल भेजना अक्षम करें (UAGENT_USE_TOOL env var को ओवरराइड करता है)।"
@@ -2378,15 +2388,18 @@ msgstr ""
 "[एमसीपी सर्वर]\n"
 "- जानकारी प्राप्त करने में विफल: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[त्वरित मार्गदर्शिका]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- मल्टीलाइन: मल्टीलाइन मोड में प्रवेश करने के लिए एक लाइन दर्ज करें जो सिर्फ 'एफ' है।"
-
-"सिर्फ 'एफ' है (अंत में \"\"\"अंत)।"
+msgstr ""
+"- मल्टीलाइन: मल्टीलाइन मोड में प्रवेश करने के लिए एक लाइन दर्ज करें जो सिर्फ"
+" 'एफ' है।सिर्फ 'एफ' है (अंत में \"\"\"अंत)।"
 
 #: src/uagent/welcome.py:70
 msgid ""

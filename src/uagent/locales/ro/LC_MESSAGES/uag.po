@@ -1,0 +1,2813 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-17 18:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:17 src/uagent/checks.py:27
+msgid "Please install Git. See: %(url)s"
+msgstr "Vă rugăm să instalați Git. Vezi: %(url)s"
+
+#: src/uagent/checks.py:20
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Vă rugăm să instalați Git. Exemplu: sudo apt install git (Ubuntu/Debian) sau"
+" sudo yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:23
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Vă rugăm să instalați Git. Dacă utilizați Homebrew: brew install git sau "
+"instalați Xcode Command Line Tools: xcode-select --install"
+
+#: src/uagent/checks.py:30
+msgid "[ERROR] Git is not installed."
+msgstr "[EROARE] Git nu este instalat."
+
+#: src/uagent/cli.py:465
+msgid "getch() fallback to input()"
+msgstr "getch() alternativă la input()"
+
+#: src/uagent/cli.py:682
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "S-a primit Ctrl+C. Începe oprirea..."
+
+#: src/uagent/cli.py:719 src/uagent/cli.py:764 src/uagent/setup_cli.py:1258
+#: src/uagent/setup_cli.py:1277 src/uagent/setup_cli.py:1300
+#: src/uagent/setup_cli.py:1316 src/uagent/setup_cli.py:1335
+#: src/uagent/setup_cli.py:1354 src/uagent/setup_cli.py:1368
+#: src/uagent/setup_cli.py:1381 src/uagent/setup_cli.py:1389
+#: src/uagent/setup_cli.py:1402 src/uagent/setup_cli.py:1414
+#: src/uagent/setup_cli.py:1425 src/uagent/setup_cli.py:1511
+#: src/uagent/setup_cli.py:1537
+msgid "Cancelled."
+msgstr "Anulat."
+
+#: src/uagent/cli.py:726 src/uagent/cli.py:781
+msgid "Received multiline reply."
+msgstr "A primit răspuns pe mai multe linii."
+
+#: src/uagent/cli.py:734 src/uagent/cli.py:816
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(Modul de introducere multilinie: introduceți corpul în mai multe rânduri; "
+"pentru a reporni, tastați „””reîncercați; terminați cu o linie care conține "
+"%(sentinel)s)"
+
+#: src/uagent/cli.py:770 src/uagent/cli.py:833
+msgid "Discarded previous input. Please start over."
+msgstr "A fost eliminată intrarea anterioară. Vă rog să începeți de la capăt."
+
+#: src/uagent/cli.py:955
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"Căile fișierelor imagine au fost găsite în intrarea dvs.\n"
+"Doriți să trimiteți aceste imagini la LLM (API extern) pentru analiză?"
+
+#: src/uagent/cli.py:961
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr ""
+"Răspundeți cu y pentru a trimite sau n (sau c/anulați) pentru a omite "
+"trimiterea."
+
+#: src/uagent/cli.py:979
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"Confirmarea trimiterii imaginii a eșuat; nu va trimite imagini: %(etype)s: "
+"%(err)s"
+
+#: src/uagent/cli.py:1007 src/uagent/scheckgui.py:432
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Nu s-a putut atașa imaginea: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:1044
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Tip necunoscut de eveniment=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:1062
+msgid "Exited uag."
+msgstr "A ieșit din uag."
+
+#: src/uagent/cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "numele [docs] este necesar"
+
+#: src/uagent/cli_startup.py:22
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] prompt de gen de pornire = introducere numerică"
+
+#: src/uagent/cli_startup.py:25
+msgid ""
+"Enter the sum of numbers "
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
+" Enter=enable all):"
+msgstr ""
+"Introduceți suma numerelor (1=de "
+"bază,2=com,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all, "
+"Enter=enable all):"
+
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
+msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
+msgstr ""
+"De bază (fișier, mediu, timp, solicitări, abilități, memorie, control "
+"instrumente)"
+
+#: src/uagent/cli_startup.py:70 src/uagent/scheckgui.py:985
+#: src/uagent/web.py:940
+msgid "Communication (Teams, Discord, Bluesky)"
+msgstr "Comunicare (Echipe, Discord, Bluesky)"
+
+#: src/uagent/cli_startup.py:71 src/uagent/scheckgui.py:990
+#: src/uagent/web.py:945
+msgid "Office (Excel, Word, PDF, PPT, document extraction)"
+msgstr "Office (Excel, Word, PDF, PPT, extragerea documentelor)"
+
+#: src/uagent/cli_startup.py:75 src/uagent/scheckgui.py:996
+#: src/uagent/web.py:951
+msgid ""
+"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+msgstr ""
+"Dezvoltare (lint, test, git, DB, captură de ecran, browser, binar, "
+"compilare)"
+
+#: src/uagent/cli_startup.py:80 src/uagent/scheckgui.py:1003
+#: src/uagent/web.py:958
+msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, cameră, geo-IP)"
+
+#: src/uagent/cli_startup.py:82 src/uagent/scheckgui.py:1009
+#: src/uagent/web.py:964
+msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
+msgstr "Execuție (cmd, python, pwsh, bash, sub-agent)"
+
+#: src/uagent/cli_startup.py:83 src/uagent/scheckgui.py:1014
+#: src/uagent/web.py:969
+msgid "External (A2A, MCP, fetch, search web)"
+msgstr "Extern (A2A, MCP, preluare, căutare pe web)"
+
+#: src/uagent/cli_startup.py:84 src/uagent/scheckgui.py:1019
+#: src/uagent/web.py:974
+msgid "Media (image gen/edit/analyze, audio, QR code)"
+msgstr "Media (gen/editare/analiza imagini, audio, cod QR)"
+
+#: src/uagent/cli_startup.py:96
+msgid "[INFO] startup genre prompt = prompt_toolkit"
+msgstr "[INFO] genul de pornire prompt = prompt_toolkit"
+
+#: src/uagent/cli_startup.py:99
+msgid "Tool genre selection"
+msgstr "Selectarea genului instrumentului"
+
+#: src/uagent/cli_startup.py:100
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr ""
+"Folosiți spațiu pentru a comuta, tastele săgeți pentru a muta, Enter pentru "
+"a confirma."
+
+#: src/uagent/cli_startup.py:101
+msgid "OK"
+msgstr "OK"
+
+#: src/uagent/cli_startup.py:102
+msgid "Default"
+msgstr "Implicit"
+
+#: src/uagent/cli_startup.py:108
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr ""
+"[INFO] prompt de genul de pornire = introducere numerică (prompt_toolkit "
+"fallback)"
+
+#: src/uagent/cli_startup.py:177
+#, python-format
+msgid "[WARN] Failed to apply startup tool selection: %(err)s"
+msgstr ""
+"[AVERTISMENT] Nu s-a putut aplica selecția instrumentului de pornire: "
+"%(err)s"
+
+#: src/uagent/cli_startup.py:253 src/uagent/web.py:1232
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Nu s-a putut seta workdir: %(err)s"
+
+#: src/uagent/cli_startup.py:282
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Lansarea uag_setup a eșuat: %(err)s"
+
+#: src/uagent/cli_startup.py:323
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "furnizor = %(provider)s; model = %(model)s"
+
+#: src/uagent/cli_startup.py:335 src/uagent/scheckgui.py:296
+msgid "OpenRouter fallback models enabled."
+msgstr "Modelele de rezervă OpenRouter activate."
+
+#: src/uagent/cli_startup.py:339
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "workdir curent = %(cwd)s"
+
+#: src/uagent/cli_startup.py:352 src/uagent/scheckgui.py:307
+msgid "Loaded long-term memory."
+msgstr "Memoria pe termen lung încărcată."
+
+#: src/uagent/cli_startup.py:365 src/uagent/scheckgui.py:320
+msgid "Loaded shared long-term memory."
+msgstr "Memoria pe termen lung partajată încărcată."
+
+#: src/uagent/cli_startup.py:372 src/uagent/web.py:718
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[AVERTISMENT] A apărut o excepție la încărcarea memoriei partajate pe termen"
+" lung: %(err)s"
+
+#: src/uagent/cli_startup.py:406
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr ""
+"[AVERTISMENT] Nu s-a putut citi fișierul de pornire: %(path)s (%(err)s)"
+
+#: src/uagent/cli_startup.py:420
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "Fișierul de pornire furnizat: %(path)s"
+
+#: src/uagent/cli_startup.py:443
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--non-interactiv a fost specificat; ieșirea fără a aștepta stdin."
+
+#: src/uagent/core.py:290 src/uagent/core.py:311
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "Variabila de mediu %(name)s nu este setată."
+
+#: src/uagent/core.py:611
+msgid "No log files found."
+msgstr "Nu s-au găsit fișiere jurnal."
+
+#: src/uagent/core.py:629
+msgid "(unknown time)"
+msgstr "(ora necunoscuta)"
+
+#: src/uagent/core.py:632
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "jurnalele: afișează %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:635
+msgid "Log files:"
+msgstr "Fișiere jurnal:"
+
+#: src/uagent/core.py:642
+msgid "(mtime unknown)"
+msgstr "(mtime necunoscut)"
+
+#: src/uagent/core.py:760 src/uagent/core.py:763
+msgid "(no user message)"
+msgstr "(nici un mesaj utilizator)"
+
+#: src/uagent/core.py:768
+#, python-format
+msgid ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | %(turns)d mesaje | primul: %(first_user)s | "
+"ultimul: %(last_user)s"
+
+#: src/uagent/core.py:1020
+#, python-format
+msgid ""
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
+msgstr ""
+"[INFO] Au fost %(count)d mesaje de comprimat, așa că nu a fost schimbat "
+"nimic."
+
+#: src/uagent/core.py:1031
+#, python-format
+msgid ""
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+msgstr ""
+"[INFO] Istoricul conversațiilor comprimat în memorie: %(old_n)d -> %(new_n)d"
+" mesaje (keep_last=%(keep_last)d)"
+
+#: src/uagent/core.py:1336
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr ""
+"Limita de reîncercare 429 (%(max_retries)s) a fost atinsă în timpul "
+"comprimării istoricului."
+
+#: src/uagent/core.py:1346
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "Eroare la apelarea LLM pentru comprimarea istoricului: %(err)r"
+
+#: src/uagent/core.py:1379
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr "- Rezumați fragmentul conversației în engleză."
+
+#: src/uagent/core.py:1381
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr ""
+"- Păstrați rezumatul concis, dar includeți deciziile cheie, constrângerile "
+"și elementele în așteptare."
+
+#: src/uagent/core.py:1383
+msgid "- Output should be directly usable as a system message."
+msgstr "- Ieșirea ar trebui să fie direct utilizabilă ca mesaj de sistem."
+
+#: src/uagent/core.py:1386
+msgid "Conversation chunk:\n"
+msgstr "Bucățiune de conversație:"
+
+#: src/uagent/core.py:1388
+msgid "Write a concise summary of this chunk."
+msgstr "Scrieți un rezumat concis al acestei părți."
+
+#: src/uagent/core.py:1392
+msgid "- You are updating an existing conversation summary.\n"
+msgstr "- Actualizați un rezumat al conversației existente."
+
+#: src/uagent/core.py:1393
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr "- Păstrați faptele importante din rezumatul anterior."
+
+#: src/uagent/core.py:1395
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr ""
+"- Îmbinați noua bucată fără a pierde constrângeri, decizii sau elemente în "
+"așteptare."
+
+#: src/uagent/core.py:1397
+msgid "- Keep the result concise and suitable for a system message."
+msgstr "- Păstrați rezultatul concis și potrivit pentru un mesaj de sistem."
+
+#: src/uagent/core.py:1400
+msgid "Previous summary:\n"
+msgstr "Rezumatul anterior:\n"
+
+#: src/uagent/core.py:1402
+msgid "New chunk:\n"
+msgstr "Bucățiune nouă:"
+
+#: src/uagent/core.py:1404
+msgid "Update the summary while keeping the prior context intact."
+msgstr "Actualizați rezumatul păstrând intact contextul anterior."
+
+#: src/uagent/core.py:1425
+msgid "Summary of the conversation so far:\n"
+msgstr "Rezumatul conversației de până acum:"
+
+#: src/uagent/core.py:1432
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+"[INFO] shrink_llm: {old_n} -> {new_n} mesaje (comprimat {old_part_n} mesaje "
+"mai vechi într-un singur rezumat; păstrat {tail_n} coada)"
+
+#: src/uagent/core.py:1460
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[WARN] comprimarea istoricului hit context lungime chiar și la chunk_size=1;"
+" revenind la shrink_messages()."
+
+#: src/uagent/core.py:1470
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr ""
+"[WARN] compresia istoricului nu a putut reduce în continuare chunk_size; "
+"revenind la shrink_messages()."
+
+#: src/uagent/core.py:1478
+#, python-format
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"Lungimea contextului de compresie a istoricului [WARN] a fost depășită; "
+"reîncercarea cu chunk_size=%(chunk_size)d"
+
+#: src/uagent/core.py:1488
+msgid ""
+"[WARN] history compression failed due to LLM error; falling back to "
+"shrink_messages()."
+msgstr ""
+"Comprimarea istoricului [WARN] a eșuat din cauza unei erori LLM; revenind la"
+" shrink_messages()."
+
+#: src/uagent/core.py:1509
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help (ajutor indisponibil: %(err)s)"
+
+#: src/uagent/core.py:1521
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Misiune\n"
+"- Sunteți un „agent de execuție a instrumentelor de uz general” capabil, care rulează într-un mediu local și puteți, de fapt, să executați comenzi și să operați pe fișiere de pe computerul utilizatorului.\n"
+"- Cereți utilizatorului confirmarea înainte de a efectua orice operațiune periculoasă.\n"
+"- Nu flatați utilizatorul. Nu folosiți emoji.\n"
+"- Nu rezuma. Păstrați informațiile concise.\n"
+"- Când creați fișiere, scoateți conținutul final complet (nu scoateți diferențe sau rezumate parțiale).\n"
+"- Nu afișați rezultate brute ale execuției instrumentului, fragmente JSON sau paranteze finale (cum ar fi `py]}`) în răspunsul final. Păstrați rezultatul curat și bine formatat."
+
+#: src/uagent/core.py:1530
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Reguli\n"
+"- Utilizați întotdeauna instrumentele furnizate și verificați cele mai recente informații.\n"
+"- Fii creativ, dar nu emite informații incerte.\n"
+"- Consultați instrumentele disponibile și alegeți-l pe cel mai potrivit.\n"
+"- La executarea instrumentelor, delegați utilizatorului cât mai puțin posibil luare a deciziilor."
+
+#: src/uagent/core.py:1537
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Note\n"
+"- Toate mesajele utilizatorului vin prin intrarea standard a acestui script.\n"
+"- Pentru scopul/argumentele/constrângerile/detaliile operaționale specifice instrumentului, preferați descrierea fiecărui instrument.\n"
+"- Dacă aveți nevoie de informații suplimentare sau de confirmare din partea utilizatorului, utilizați instrumentul human_ask.\n"
+"- Când manipulați expresii de dată relativă, apelați get_current_time pentru a face referire la ora curentă.\n"
+"- Nu stocați secrete (parole/token-uri) în memoria pe termen lung (add_long_memory etc.).\n"
+"- Fișierele cu sufixe precum .org / .org1 / .org2 sunt copii de rezervă și nu trebuie tratate ca fișiere editabile primare.\n"
+"- Dacă creați fișiere Python, rulați `python -m py_compile` pentru a valida sintaxa.\n"
+"- Dacă sunt necesare cunoștințe la nivel de expert, utilizați șabloane prompte (abilități de agent) și urmați-le.\n"
+"- Dacă introducerea utilizatorului este doar o scurtă afirmație și nu adaugă informații noi, nu repetați aceeași explicație decât dacă este un răspuns direct la întrebarea clară imediat anterioară. Dacă este necesar, întrebați pe scurt: „Cu ce ​​punct ar trebui să continui?”"
+
+#: src/uagent/core.py:1549
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr ""
+"## Politică de operare periculoasă (delete_file)\n"
+"- Pentru ștergere folosind instrumentul delete_file, NU cereți confirmarea înainte de previzualizare.\n"
+"- Rulați întotdeauna delete_file cu dry_run=true mai întâi pentru a obține lista candidaților la ștergere.\n"
+"- Arătați candidații utilizatorului și cereți confirmarea prin human_ask exact o dată.\n"
+"- Numai când utilizatorul răspunde explicit „y” sau „da” (sau aprobare explicită echivalentă), rulați din nou delete_file cu aceiași parametri, dry_run=false și confirmed=true.\n"
+"- Dacă sunt zero candidați, nu întrebați; doar raportați că nimic nu va fi șters."
+
+#: src/uagent/core.py:1557
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Misiune\n"
+"- Sunteți un „agent de execuție a instrumentelor de uz general” capabil, care rulează într-un mediu local; puteți executa comenzi și puteți opera pe mașina utilizatorului.\n"
+"- Cereți utilizatorului confirmarea înainte de orice operațiune periculoasă.\n"
+"- Fără linguşiri. Fără emoji. Fără rezumate ale conversațiilor. Păstrați-l concis.\n"
+"- Când creați fișiere, scoateți conținutul final complet (fără diferențe/rezumate parțiale).\n"
+"- Nu afișați rezultate brute ale execuției instrumentului, fragmente JSON sau paranteze finale (cum ar fi `py]}`) în răspunsul final. Păstrați rezultatul curat și bine formatat."
+
+#: src/uagent/core.py:1565
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Reguli\n"
+"- Utilizați mai întâi instrumentele furnizate și verificați rezultatele cu instrumente.\n"
+"- Consultați descrierile instrumentelor pentru scop/argumente/constrângeri; alege cel mai potrivit și cel mai sigur instrument.\n"
+"- Fii creativ, dar nu emite informații incerte.\n"
+"- Delegați utilizatorului cât mai puțin posibil luarea de decizii."
+
+#: src/uagent/core.py:1572
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Note\n"
+"- Toate mesajele utilizatorului vin prin intrarea standard a acestui script.\n"
+"- Dacă lipsesc informațiile/parametrii necesari, întrebați prin human_ask (nu ghiciți).\n"
+"- Date relative: apelați get_current_time.\n"
+"- Nu stocați secrete (parole/jetoane) în memoria pe termen lung.\n"
+"- Fișierele cu sufixe precum .org / .org1 / .org2 sunt copii de rezervă și nu trebuie tratate ca fișiere editabile primare.\n"
+"- Dacă creați fișiere Python, rulați `python -m py_compile`.\n"
+"- Dacă sunt necesare cunoștințe la nivel de expert, utilizați șabloanele de prompt pentru abilități de agent.\n"
+"- Dacă introducerea utilizatorului este doar o scurtă afirmație și nu adaugă informații noi, nu repetați aceeași explicație decât dacă este un răspuns direct la întrebarea clară imediat anterioară. Dacă este necesar, întrebați pe scurt: „Cu ce ​​punct ar trebui să continui?”"
+
+#: src/uagent/core.py:1585
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr ""
+"- Dacă utilizatorul folosește Windows cmd.exe, preferați comenzile cu mai "
+"multe linii care folosesc continuarea liniei caret (^) și păstrați fiecare "
+"linie scurtă pentru a evita întreruperile de linie de copiere/lipire."
+
+#: src/uagent/core.py:1652
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr ""
+"Următoarele instrumente sunt în prezent încărcate în această sesiune. "
+"Alegeți instrumentul cel mai potrivit pentru sarcină."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "Proiectul README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Pornire rapidă (instalarea roții Windows)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Ghid pentru Web Inspector (playwright_inspector)."
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "Informații despre dezvoltatori"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "nume document necunoscut: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "fișier document nu a fost găsit: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "Rezolvarea căii documentului a eșuat: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] Documente disponibile:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "Utilizare:"
+
+#: src/uagent/docs_util.py:232
+msgid "list"
+msgstr "lista"
+
+#: src/uagent/docs_util.py:233
+msgid "show"
+msgstr "arată"
+
+#: src/uagent/docs_util.py:234
+msgid "show path"
+msgstr "arata calea"
+
+#: src/uagent/docs_util.py:235
+msgid "open with OS"
+msgstr "deschide cu OS"
+
+#: src/uagent/env_validate.py:42
+msgid ""
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
+msgstr ""
+"Este necesar să selectați furnizorul LLM "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
+
+#: src/uagent/env_validate.py:67
+#, python-format
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+"Furnizor necunoscut: %(provider)r. Permis: %(allowed)s (pornirea va eșua)."
+
+#: src/uagent/env_validate.py:78
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+"Adresa URL de bază/punct final Azure OpenAI (de exemplu, "
+"https://<resursă>.openai.azure.com/)."
+
+#: src/uagent/env_validate.py:84
+msgid "Azure OpenAI API key."
+msgstr "Cheia API Azure OpenAI."
+
+#: src/uagent/env_validate.py:89
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr "Versiunea API Azure OpenAI (de exemplu, 2024-xx-xx)."
+
+#: src/uagent/env_validate.py:96
+msgid "OpenAI API key."
+msgstr "Cheia API OpenAI."
+
+#: src/uagent/env_validate.py:102
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr ""
+"Punctul final/adresa URL de bază proxy Bedrock (compatibil cu OpenAI)."
+
+#: src/uagent/env_validate.py:109
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr "Cheie API proxy Bedrock (compatibilă cu OpenAI)."
+
+#: src/uagent/env_validate.py:116
+msgid "OpenRouter API key."
+msgstr "Cheia API OpenRouter."
+
+#: src/uagent/env_validate.py:121
+msgid "Grok (xAI) API key."
+msgstr "Cheia API Grok (xAI)."
+
+#: src/uagent/env_validate.py:126
+msgid "Gemini API key."
+msgstr "Cheia API Gemini."
+
+#: src/uagent/env_validate.py:133
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+"Pachetul Python „google-genai” nu este instalat. Provider=gemeni o cere."
+
+#: src/uagent/env_validate.py:144
+msgid "Vertex AI API key / model name."
+msgstr "Cheia API Vertex AI / numele modelului."
+
+#: src/uagent/env_validate.py:153
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+"Pachetul Python „google-genai” nu este instalat. Provider=vertixai o cere."
+
+#: src/uagent/env_validate.py:161
+msgid "Anthropic (Claude) API key."
+msgstr "Cheie API antropică (Claude)."
+
+#: src/uagent/env_validate.py:169
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr "Pachetul Python „antropic” nu este instalat. Provider=claude o cere."
+
+#: src/uagent/env_validate.py:176
+msgid "NVIDIA API key."
+msgstr "Cheia API NVIDIA."
+
+#: src/uagent/env_validate.py:181
+msgid "DeepSeek API key."
+msgstr "Cheia API DeepSeek."
+
+#: src/uagent/env_validate.py:186
+msgid "Z.AI (Zhipu AI) API key."
+msgstr "Cheia API Z.AI (Zhipu AI)."
+
+#: src/uagent/env_validate.py:192
+msgid "Alibaba Cloud (Qwen) API key."
+msgstr "Cheia API Alibaba Cloud (Qwen)."
+
+#: src/uagent/env_validate.py:200
+msgid "Moonshot AI API key."
+msgstr "Cheia API Moonshot AI."
+
+#: src/uagent/env_validate.py:219
+#, python-format
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+"Furnizor de încorporare necunoscut: %(provider)r. Permis: %(allowed)s "
+"(pornirea va eșua)."
+
+#: src/uagent/env_validate.py:236
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr ""
+"Punct final de încorporare Azure / cheie API / versiune API / nume de "
+"implementare."
+
+#: src/uagent/env_validate.py:247
+msgid "OpenAI embedding API key / model name."
+msgstr "Cheia API de încorporare OpenAI / numele modelului."
+
+#: src/uagent/env_validate.py:259
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr ""
+"Punct final de încorporare Bedrock / cheie API / nume de implementare."
+
+#: src/uagent/env_validate.py:270
+msgid "OpenRouter embedding API key / model name."
+msgstr "OpenRouter încorporare cheie API/nume model."
+
+#: src/uagent/env_validate.py:281
+msgid "Ollama embedding base URL / model name."
+msgstr "Adresa URL de bază de încorporare Ollama / numele modelului."
+
+#: src/uagent/env_validate.py:292
+msgid "NVIDIA embedding API key / model name."
+msgstr "Cheia API de încorporare NVIDIA / numele modelului."
+
+#: src/uagent/env_validate.py:303
+msgid "Gemini embedding API key / model name."
+msgstr "Cheia API de încorporare Gemini / numele modelului."
+
+#: src/uagent/env_validate.py:314
+msgid "Vertex AI embedding API key / model name."
+msgstr "Cheia API de încorporare Vertex AI / numele modelului."
+
+#: src/uagent/env_validate.py:331
+#, python-brace-format
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] Validarea mediului nu a reușit ({context})."
+
+#: src/uagent/env_validate.py:339
+msgid "Missing required environment variables:"
+msgstr "Lipsesc variabilele de mediu necesare:"
+
+#: src/uagent/env_validate.py:346
+msgid "Warnings:"
+msgstr "Avertismente:"
+
+#: src/uagent/env_validate.py:350
+msgid "How to fix:"
+msgstr "Cum se remediază:"
+
+#: src/uagent/env_validate.py:353
+msgid ""
+"- Set the variables above in your environment before starting the program."
+msgstr ""
+"- Setați variabilele de mai sus în mediul dumneavoastră înainte de a începe "
+"programul."
+
+#: src/uagent/env_validate.py:359
+msgid ""
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
+msgstr ""
+"- Le puteți seta prin setările mediului de operare, un fișier .env, "
+"scripturile de pornire shell,"
+
+#: src/uagent/env_validate.py:365
+msgid ""
+"  or your process manager / service configuration (CI secrets, systemd, "
+"Docker, etc.)."
+msgstr ""
+"sau configurația managerului de proces/serviciu (secrete CI, systemd, Docker"
+" etc.)."
+
+#: src/uagent/image_session.py:101
+msgid "(prompt unavailable)"
+msgstr "(prompt indisponibil)"
+
+#: src/uagent/image_session.py:105
+#, python-format
+msgid "screenshot: %(title)s"
+msgstr "captură de ecran: %(title)s"
+
+#: src/uagent/image_session.py:107
+msgid "screenshot"
+msgstr "captură de ecran"
+
+#: src/uagent/image_session.py:148
+msgid "Image-session context:"
+msgstr "Contextul sesiunii de imagine:"
+
+#: src/uagent/image_session.py:149
+msgid "This conversation already generated images."
+msgstr "Această conversație a generat deja imagini."
+
+#: src/uagent/image_session.py:151
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"Folosiți solicitările anterioare și căile de fișiere salvate de mai jos ca "
+"context pentru modificările ulterioare, variantele sau continuările."
+
+#: src/uagent/image_session.py:156
+#, python-format
+msgid "Turn %(idx)d:"
+msgstr "Viraj %(idx)d:"
+
+#: src/uagent/image_session.py:157
+#, python-format
+msgid "- prompt: %(prompt)s"
+msgstr "- prompt: %(prompt)s"
+
+#: src/uagent/image_session.py:160
+#, python-format
+msgid "- file: %(path)s"
+msgstr "- fișier: %(path)s"
+
+#: src/uagent/llm_errors.py:398
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+
+#: src/uagent/llm_flow_helpers.py:206
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+"Răspunsul anterior al asistentului a fost necompletat. Vă rugăm să "
+"răspundeți pe baza celui mai recent rezultat al instrumentului."
+
+#: src/uagent/llm_flow_helpers.py:219
+#, python-format
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+msgstr ""
+"[AVERTISMENT] LLM a returnat un mesaj de asistent gol fără apeluri de instrumente.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"Acest lucru se poate întâmpla cu furnizorii locali compatibili cu OpenAI după apelurile la instrumente. Puteți încerca să setați UAGENT_EMPTY_NO_TOOL_MAX la o valoare mai mare sau să schimbați furnizorul."
+
+#: src/uagent/llm_flow_helpers.py:291 src/uagent/llm_flow_helpers.py:364
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr ""
+"[INFO] Reutilizarea rezultatului anterior deoarece acest apel de instrument "
+"se potrivește cu unul anterior."
+
+#: src/uagent/llm_flow_helpers.py:331
+msgid "arguments must be a JSON object."
+msgstr "argumentele trebuie să fie un obiect JSON."
+
+#: src/uagent/llm_flow_helpers.py:338
+#, python-format
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Urmărire:\n"
+"%(tb)s"
+
+#: src/uagent/llm_flow_helpers.py:385
+#, python-format
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[eroare de rulare a instrumentului] name=%(name)r err=%(etype)s: %(err)s\n"
+"Urmărire:\n"
+"%(tb)s"
+
+#: src/uagent/llm_image_helpers.py:7
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr ""
+"Descrieți această captură de ecran și rezumați interfața de utilizare "
+"vizibilă."
+
+#: src/uagent/llm_image_helpers.py:11
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr "Citiți tot textul vizibil din această captură de ecran și rezumați-l."
+
+#: src/uagent/llm_image_helpers.py:15
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr ""
+"Inspectați această captură de ecran pentru erori, avertismente și stare "
+"importantă a UI."
+
+#: src/uagent/llm_message_helpers.py:312
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] Auto shrink_llm a eșuat: %(err)s"
+
+#: src/uagent/llm_round_helpers.py:137
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[Eroare de traducere] %(diag)s"
+
+#: src/uagent/llm_round_helpers.py:198 src/uagent/llm_round_helpers.py:310
+#: src/uagent/llm_round_helpers.py:649
+#: src/uagent/providers/llm_deepseek.py:615
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "Limita de reîncercare 429 (%(max_retries)s) a fost atinsă."
+
+#: src/uagent/llm_round_helpers.py:222
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Eroare Gemini] A apărut o eroare la generarea unui răspuns."
+
+#: src/uagent/llm_round_helpers.py:316
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Eroare Claude] A apărut o eroare la generarea unui răspuns."
+
+#: src/uagent/llm_round_helpers.py:613
+#: src/uagent/providers/llm_deepseek.py:625
+msgid "Input exceeds the context window."
+msgstr "Intrarea depășește fereastra de context."
+
+#: src/uagent/llm_round_helpers.py:623
+#: src/uagent/providers/llm_deepseek.py:658
+msgid "Connection error"
+msgstr "Eroare de conectare"
+
+#: src/uagent/llm_round_helpers.py:628
+#: src/uagent/providers/llm_deepseek.py:663
+msgid "[Network Error]"
+msgstr "[Eroare de rețea]"
+
+#: src/uagent/llm_round_helpers.py:655
+msgid "Unexpected exception."
+msgstr "Excepție neașteptată."
+
+#: src/uagent/llm_round_helpers.py:733
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Eroare la analizarea răspunsului: %(err)s"
+
+#: src/uagent/profile_manager.py:614 src/uagent/profile_manager.py:736
+msgid ""
+"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
+"1. Environment (OS, shell, editor, etc.)\n"
+"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
+"3. Constraints (security rules, offline requirements, etc.)\n"
+"\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+msgstr ""
+"Sunteți un agent de profilare a utilizatorilor. Analizați jurnalul de conversație și extrageți-l pe cel al utilizatorului:\n"
+"1. Mediu (OS, shell, editor etc.)\n"
+"2. Preferințe (stil de codare, instrumente preferate, preferință de verbozitate etc.)\n"
+"3. Constrângeri (reguli de securitate, cerințe offline etc.)\n"
+"\n"
+"NU includeți întrebări temporare, discuții sau acreditări sensibile.\n"
+"TREBUIE să răspundeți NUMAI cu un obiect JSON valid care se potrivește cu această schemă:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  „preferințe”: [„șir”],\n"
+"  \"constraints\": [\"șir\"]\n"
+"}"
+
+#: src/uagent/profile_manager.py:722
+msgid "Failed to initialize LLM client."
+msgstr "Nu s-a inițializat clientul LLM."
+
+#: src/uagent/profile_manager.py:727
+#, python-format
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr ""
+"S-au găsit %(total_files)d fișiere jurnal. Se începe profilarea "
+"incrementală..."
+
+#: src/uagent/scheckgui.py:131
+msgid "Drop files/images here"
+msgstr "Aruncă fișiere/imagini aici"
+
+#: src/uagent/scheckgui.py:169
+msgid "Download"
+msgstr "Descărcați"
+
+#: src/uagent/scheckgui.py:329
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"A apărut o excepție la încărcarea memoriei partajate pe termen lung: %(err)s"
+
+#: src/uagent/scheckgui.py:382
+#, python-format
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[Fișier atașat] %(name)s (%(path)s)"
+
+#: src/uagent/scheckgui.py:467
+#, python-format
+msgid "[Attached Image] %(path)s"
+msgstr "[Imagine atașată] %(path)s"
+
+#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
+#, python-format
+msgid "[Image Path] %(path)s"
+msgstr "[Cale imagine] %(path)s"
+
+#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
+msgid "Welcome / Quick Guide"
+msgstr "Bun venit / Ghid rapid"
+
+#: src/uagent/scheckgui.py:787
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (stabilitate extremă)"
+
+#: src/uagent/scheckgui.py:842
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ Puteți atașa fișiere prin glisare și plasare"
+
+#: src/uagent/scheckgui.py:863
+msgid "Attach..."
+msgstr "Atașați..."
+
+#: src/uagent/scheckgui.py:868
+msgid "Send"
+msgstr "Trimite"
+
+#: src/uagent/scheckgui.py:908
+msgid "Help"
+msgstr "Ajutor"
+
+#: src/uagent/scheckgui.py:923
+msgid "Mode"
+msgstr "Modul"
+
+#: src/uagent/scheckgui.py:925
+msgid "Reasoning: off"
+msgstr "Raționament: oprit"
+
+#: src/uagent/scheckgui.py:928
+msgid "Reasoning: auto"
+msgstr "Raționament: auto"
+
+#: src/uagent/scheckgui.py:930
+msgid "Reasoning: minimal"
+msgstr "Raționament: minim"
+
+#: src/uagent/scheckgui.py:932
+msgid "Reasoning: low"
+msgstr "Raționament: scăzut"
+
+#: src/uagent/scheckgui.py:934
+msgid "Reasoning: medium"
+msgstr "Raționament: mediu"
+
+#: src/uagent/scheckgui.py:936
+msgid "Reasoning: high"
+msgstr "Raționament: ridicat"
+
+#: src/uagent/scheckgui.py:939
+msgid "Reasoning: xhigh"
+msgstr "Raționament: xhigh"
+
+#: src/uagent/scheckgui.py:944
+msgid "Verbosity: off"
+msgstr "Verbositate: oprit"
+
+#: src/uagent/scheckgui.py:946
+msgid "Verbosity: low"
+msgstr "Verbositate: scăzută"
+
+#: src/uagent/scheckgui.py:948
+msgid "Verbosity: medium"
+msgstr "Verbositate: medie"
+
+#: src/uagent/scheckgui.py:950
+msgid "Verbosity: high"
+msgstr "Verbositate: mare"
+
+#: src/uagent/scheckgui.py:975
+msgid "Tools"
+msgstr "Instrumente"
+
+#: src/uagent/scheckgui.py:1062
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[modul] raționament=%(mode)s"
+
+#: src/uagent/scheckgui.py:1066
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimal|xhigh] (0=dezactivat, 1=scăzut, 2=mediu, 3=ridicat;"
+" automat/minimal/xhigh)"
+
+#: src/uagent/scheckgui.py:1074
+#, python-format
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[mod] verbosity=%(mode)s"
+
+#: src/uagent/scheckgui.py:1076
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+":v [0|1|2|3] (0=dezactivat, 1=scăzut, 2=mediu, 3=înalt; fără arg=păstrare)"
+
+#: src/uagent/scheckgui.py:1205
+msgid "Enter password..."
+msgstr "Introdu parola..."
+
+#: src/uagent/scheckgui.py:1212
+msgid "Enter a message..."
+msgstr "Introdu un mesaj..."
+
+#: src/uagent/scheckgui.py:1229
+msgid "Attach files"
+msgstr "Atașați fișiere"
+
+#: src/uagent/scheckgui.py:1231
+msgid "All Files (*)"
+msgstr "Toate fișierele (*)"
+
+#: src/uagent/scheckgui.py:1483
+msgid "cannot read image"
+msgstr "nu pot citi imaginea"
+
+#: src/uagent/scheckgui.py:1634 src/uagent/scheckgui.py:1674
+#: src/uagent/scheckgui.py:1709
+msgid "Downloaded to"
+msgstr "Descărcat pe"
+
+#: src/uagent/scheckgui.py:1728
+msgid "Playing"
+msgstr "Jucând"
+
+#: src/uagent/scheckgui.py:1738
+msgid "Stopped"
+msgstr "oprit"
+
+#: src/uagent/scheckgui.py:1787
+#, python-format
+msgid "[REPLY] > %(text)s"
+msgstr "[RĂSPUNS] > %(text)s"
+
+#: src/uagent/scheckgui.py:1795
+#, python-format
+msgid "[USER] %(text)s"
+msgstr "[UTILIZATOR] %(text)s"
+
+#: src/uagent/setup_cli.py:82 src/uagent/setup_cli.py:557
+#: src/uagent/setup_cli.py:647
+msgid "OpenAI API key"
+msgstr "Cheia API OpenAI"
+
+#: src/uagent/setup_cli.py:83 src/uagent/setup_cli.py:558
+#: src/uagent/setup_cli.py:648
+msgid "OpenAI base URL (optional)"
+msgstr "Adresa URL de bază OpenAI (opțional)"
+
+#: src/uagent/setup_cli.py:84
+msgid "OpenAI model/deployment name (optional)"
+msgstr "Model OpenAI/nume de implementare (opțional)"
+
+#: src/uagent/setup_cli.py:90 src/uagent/setup_cli.py:549
+#: src/uagent/setup_cli.py:635
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr ""
+"Adresa URL de bază Azure (de ex. https://<resource>.openai.azure.com/)"
+
+#: src/uagent/setup_cli.py:92 src/uagent/setup_cli.py:551
+#: src/uagent/setup_cli.py:637
+msgid "Azure API key"
+msgstr "Cheia API Azure"
+
+#: src/uagent/setup_cli.py:96
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "Versiunea API Azure (opțional, de exemplu, 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:98 src/uagent/setup_cli.py:553
+msgid "Azure deployment name"
+msgstr "Numele implementării Azure"
+
+#: src/uagent/setup_cli.py:104 src/uagent/setup_cli.py:566
+#: src/uagent/setup_cli.py:656
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr ""
+"Adresa URL de bază a gateway-ului Bedrock (de exemplu, https://<gateway>/v1)"
+
+#: src/uagent/setup_cli.py:106 src/uagent/setup_cli.py:568
+#: src/uagent/setup_cli.py:658
+msgid "Bedrock API key"
+msgstr "Cheia API Bedrock"
+
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:572
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr ""
+"Modelul de bază/numele implementării (de exemplu, openai.gpt-oss-120b)"
+
+#: src/uagent/setup_cli.py:114 src/uagent/setup_cli.py:577
+#: src/uagent/setup_cli.py:667
+msgid "OpenRouter API key"
+msgstr "Cheia API OpenRouter"
+
+#: src/uagent/setup_cli.py:115 src/uagent/setup_cli.py:578
+#: src/uagent/setup_cli.py:668
+msgid "OpenRouter base URL (optional)"
+msgstr "URL de bază OpenRouter (opțional)"
+
+#: src/uagent/setup_cli.py:119
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "Model OpenRouter/nume de implementare (opțional)"
+
+#: src/uagent/setup_cli.py:124
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "Modele de rezervă OpenRouter (opțional, separate prin virgulă)"
+
+#: src/uagent/setup_cli.py:128 src/uagent/setup_cli.py:583
+msgid "Gemini API key"
+msgstr "Cheia API Gemini"
+
+#: src/uagent/setup_cli.py:129
+msgid "Gemini model name (optional)"
+msgstr "Numele modelului Gemeni (opțional)"
+
+#: src/uagent/setup_cli.py:132
+msgid "Vertex AI API key"
+msgstr "Cheia API Vertex AI"
+
+#: src/uagent/setup_cli.py:133
+msgid "Vertex AI project ID (optional)"
+msgstr "ID-ul proiectului Vertex AI (opțional)"
+
+#: src/uagent/setup_cli.py:134
+msgid "Vertex AI location/region (optional)"
+msgstr "Locația/regiunea Vertex AI (opțional)"
+
+#: src/uagent/setup_cli.py:138
+msgid "Google credentials for Vertex AI (optional)"
+msgstr "Acreditări Google pentru Vertex AI (opțional)"
+
+#: src/uagent/setup_cli.py:143
+msgid "Google location/region for Vertex AI (optional)"
+msgstr "Locație/regiune Google pentru Vertex AI (opțional)"
+
+#: src/uagent/setup_cli.py:145
+msgid "Vertex AI model/deployment name"
+msgstr "Modelul Vertex AI/numele implementării"
+
+#: src/uagent/setup_cli.py:148
+msgid "Grok API key"
+msgstr "Cheia API Grok"
+
+#: src/uagent/setup_cli.py:149
+msgid "Grok base URL (optional)"
+msgstr "Adresa URL de bază Grok (opțional)"
+
+#: src/uagent/setup_cli.py:150
+msgid "Grok model/deployment name (optional)"
+msgstr "Modelul Grok/numele implementării (opțional)"
+
+#: src/uagent/setup_cli.py:153
+msgid "Claude API key"
+msgstr "Cheie API Claude"
+
+#: src/uagent/setup_cli.py:154
+msgid "Claude model/deployment name (optional)"
+msgstr "Modelul Claude/numele implementării (opțional)"
+
+#: src/uagent/setup_cli.py:157 src/uagent/setup_cli.py:588
+#: src/uagent/setup_cli.py:682
+msgid "NVIDIA API key"
+msgstr "Cheia API NVIDIA"
+
+#: src/uagent/setup_cli.py:158 src/uagent/setup_cli.py:589
+#: src/uagent/setup_cli.py:683
+msgid "NVIDIA base URL (optional)"
+msgstr "URL de bază NVIDIA (opțional)"
+
+#: src/uagent/setup_cli.py:159
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "Nume de implementare/model NVIDIA (opțional)"
+
+#: src/uagent/setup_cli.py:165 src/uagent/setup_cli.py:676
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "Adresa URL de bază Ollama (de exemplu, http://localhost:11434/v1)"
+
+#: src/uagent/setup_cli.py:170
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "Cheie API Ollama (opțional, implicit: dummy)"
+
+#: src/uagent/setup_cli.py:172
+msgid "Ollama model/deployment name (optional)"
+msgstr "Modelul Ollama/numele implementării (opțional)"
+
+#: src/uagent/setup_cli.py:176
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "Timeout cerere Ollama în secunde (implicit: 60)"
+
+#: src/uagent/setup_cli.py:178
+msgid "Ollama temperature (default: 0.7)"
+msgstr "Temperatura Ollama (implicit: 0,7)"
+
+#: src/uagent/setup_cli.py:179
+msgid "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p (implicit: 0,9)"
+
+#: src/uagent/setup_cli.py:180
+msgid "Ollama top_k (default: 40)"
+msgstr "Ollama top_k (implicit: 40)"
+
+#: src/uagent/setup_cli.py:184
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama repeat_penalty (implicit: 1.1)"
+
+#: src/uagent/setup_cli.py:186
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "Ollama keep_alive (implicit: 5m)"
+
+#: src/uagent/setup_cli.py:187
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx (implicit: 8192)"
+
+#: src/uagent/setup_cli.py:188
+msgid "Ollama num_predict (default: 1024)"
+msgstr "Ollama num_predict (implicit: 1024)"
+
+#: src/uagent/setup_cli.py:191
+msgid "DeepSeek API key"
+msgstr "Cheia API DeepSeek"
+
+#: src/uagent/setup_cli.py:195
+msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
+msgstr ""
+"Adresa URL de bază DeepSeek (opțional, implicit: https://api.deepseek.com)"
+
+#: src/uagent/setup_cli.py:200
+msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
+msgstr "Numele modelului DeepSeek (opțional, implicit: deepseek-v4-flash)"
+
+#: src/uagent/setup_cli.py:205
+msgid "DeepSeek temperature (default: 0.0)"
+msgstr "Temperatura DeepSeek (implicit: 0,0)"
+
+#: src/uagent/setup_cli.py:207
+msgid "DeepSeek top_p (default: 1.0)"
+msgstr "DeepSeek top_p (implicit: 1.0)"
+
+#: src/uagent/setup_cli.py:211
+msgid "DeepSeek presence_penalty (default: 0.0)"
+msgstr "DeepSeek presence_penalty (implicit: 0.0)"
+
+#: src/uagent/setup_cli.py:216
+msgid "DeepSeek frequency_penalty (default: 0.0)"
+msgstr "DeepSeek frequency_penalty (implicit: 0,0)"
+
+#: src/uagent/setup_cli.py:220
+msgid "Z.AI (Zhipu AI) API key"
+msgstr "Cheia API Z.AI (Zhipu AI)."
+
+#: src/uagent/setup_cli.py:224
+msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
+msgstr ""
+"Adresa URL de bază Z.AI (opțional, implicit: https://api.z.ai/api/paas/v4/)"
+
+#: src/uagent/setup_cli.py:229
+msgid "Z.AI model name (optional, default: glm-5.2)"
+msgstr "Numele modelului Z.AI (opțional, implicit: glm-5.2)"
+
+#: src/uagent/setup_cli.py:233
+msgid "Alibaba Cloud (Qwen) API key"
+msgstr "Cheia API Alibaba Cloud (Qwen)."
+
+#: src/uagent/setup_cli.py:238
+msgid ""
+"Alibaba base URL (optional, default: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+msgstr ""
+"Adresa URL de bază Alibaba (opțional, implicit: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+
+#: src/uagent/setup_cli.py:244
+msgid "Alibaba model name (optional, default: qwen3.5-plus)"
+msgstr "Numele modelului Alibaba (opțional, implicit: qwen3.5-plus)"
+
+#: src/uagent/setup_cli.py:248
+msgid "Moonshot AI API key"
+msgstr "Cheia API Moonshot AI"
+
+#: src/uagent/setup_cli.py:252
+msgid "Moonshot base URL (optional, default: https://api.moonshot.cn/v1)"
+msgstr ""
+"Adresa URL de bază Moonshot (opțional, implicit: https://api.moonshot.cn/v1)"
+
+#: src/uagent/setup_cli.py:257
+msgid "Moonshot model name (optional, default: kimi-k2)"
+msgstr "Numele modelului Moonshot (opțional, implicit: kimi-k2)"
+
+#: src/uagent/setup_cli.py:420 src/uagent/setup_cli.py:509
+msgid "Enter number:"
+msgstr "Introduceți numărul:"
+
+#: src/uagent/setup_cli.py:433
+msgid "Invalid input. Please enter a valid number."
+msgstr "Intrare nevalidă. Vă rugăm să introduceți un număr valid."
+
+#: src/uagent/setup_cli.py:446
+#, python-format
+msgid " [default: %(default)s]"
+msgstr "[implicit: %(default)s]"
+
+#: src/uagent/setup_cli.py:462
+msgid "This field is required. Please enter a value."
+msgstr "Acest câmp este obligatoriu. Vă rugăm să introduceți o valoare."
+
+#: src/uagent/setup_cli.py:474
+msgid "Select UAGENT_LANG"
+msgstr "Selectați UAGENT_LANG"
+
+#: src/uagent/setup_cli.py:485
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG (personalizat)"
+
+#: src/uagent/setup_cli.py:498
+msgid "Select output files to generate in the current directory"
+msgstr "Selectați fișierele de ieșire pentru a le genera în directorul curent"
+
+#: src/uagent/setup_cli.py:499
+msgid "  1. .env only"
+msgstr "1. numai .env"
+
+#: src/uagent/setup_cli.py:500
+msgid "  2. .env + env.sh"
+msgstr "2. .env + env.sh"
+
+#: src/uagent/setup_cli.py:501
+msgid "  3. .env + env.ps1"
+msgstr "3. .env + env.ps1"
+
+#: src/uagent/setup_cli.py:502
+msgid "  4. .env + env.bat"
+msgstr "4. .env + env.bat"
+
+#: src/uagent/setup_cli.py:503
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "5. .env + all (sh/ps1/bat)"
+
+#: src/uagent/setup_cli.py:505
+msgid "  b. back"
+msgstr "b. înapoi"
+
+#: src/uagent/setup_cli.py:506
+msgid "  q. quit"
+msgstr "q. renunta"
+
+#: src/uagent/setup_cli.py:524
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "Intrare nevalidă. Vă rugăm să introduceți 1-5 sau b/q."
+
+#: src/uagent/setup_cli.py:552 src/uagent/setup_cli.py:641
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Versiunea API Azure (de exemplu, 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:559
+msgid "OpenAI model/deployment name"
+msgstr "Numele modelului/implementarii OpenAI"
+
+#: src/uagent/setup_cli.py:579
+msgid "OpenRouter model/deployment name"
+msgstr "Numele modelului/implementarii OpenRouter"
+
+#: src/uagent/setup_cli.py:584
+msgid "Gemini model name"
+msgstr "Numele modelului Gemeni"
+
+#: src/uagent/setup_cli.py:590
+msgid "NVIDIA model/deployment name"
+msgstr "Numele modelului/de implementare NVIDIA"
+
+#: src/uagent/setup_cli.py:609
+msgid "Enable image generation debug output? (0/1)"
+msgstr "Activați ieșirea de depanare pentru generarea de imagini? (0/1)"
+
+#: src/uagent/setup_cli.py:643
+msgid "Azure embedding deployment name"
+msgstr "Numele implementării de încorporare Azure"
+
+#: src/uagent/setup_cli.py:649
+msgid "OpenAI embedding model/deployment name"
+msgstr "Modelul de încorporare OpenAI/numele implementării"
+
+#: src/uagent/setup_cli.py:662
+msgid "Bedrock embedding model/deployment name"
+msgstr "Modelul de încorporare Bedrock/numele implementării"
+
+#: src/uagent/setup_cli.py:669
+msgid "OpenRouter embedding model/deployment name"
+msgstr "Modelul de încorporare OpenRouter/numele implementării"
+
+#: src/uagent/setup_cli.py:678
+msgid "Ollama embedding model name"
+msgstr "Numele modelului de încorporare Ollama"
+
+#: src/uagent/setup_cli.py:684
+msgid "NVIDIA embedding model/deployment name"
+msgstr "Modelul de încorporare NVIDIA/numele implementării"
+
+#: src/uagent/setup_cli.py:688
+msgid "Gemini embedding API key"
+msgstr "Cheia API de încorporare Gemini"
+
+#: src/uagent/setup_cli.py:692
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr ""
+"Numele modelului de încorporare Gemeni (de exemplu, text-embedding-004)"
+
+#: src/uagent/setup_cli.py:697
+msgid "Vertex AI embedding API key"
+msgstr "Cheia API de încorporare Vertex AI"
+
+#: src/uagent/setup_cli.py:701
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr ""
+"Numele modelului de încorporare Vertex AI (de exemplu, text-embedding-004)"
+
+#: src/uagent/setup_cli.py:750
+msgid "Azure speech deployment name"
+msgstr "Nume de implementare Azure Speech"
+
+#: src/uagent/setup_cli.py:751
+msgid "Azure transcription deployment name"
+msgstr "Numele implementării transcripției Azure"
+
+#: src/uagent/setup_cli.py:752
+msgid "OpenAI speech model/deployment name"
+msgstr "Modelul de vorbire OpenAI/numele implementării"
+
+#: src/uagent/setup_cli.py:753
+msgid "OpenAI transcription model/deployment name"
+msgstr "Model de transcriere OpenAI/nume de implementare"
+
+#: src/uagent/setup_cli.py:754
+msgid "Gemini speech model name (optional)"
+msgstr "Numele modelului de vorbire Gemeni (opțional)"
+
+#: src/uagent/setup_cli.py:755
+msgid "Gemini transcription model name (optional)"
+msgstr "Numele modelului de transcriere Gemeni (opțional)"
+
+#: src/uagent/setup_cli.py:756
+msgid "Vertex AI speech model name (optional)"
+msgstr "Numele modelului de vorbire Vertex AI (opțional)"
+
+#: src/uagent/setup_cli.py:757
+msgid "Vertex AI transcription model name (optional)"
+msgstr "Nume model de transcriere Vertex AI (opțional)"
+
+#: src/uagent/setup_cli.py:780
+msgid "Configure optional image / embedding / audio settings?"
+msgstr "Configurați setările opționale pentru imagine / încorporare / audio?"
+
+#: src/uagent/setup_cli.py:781 src/uagent/setup_cli.py:796
+#: src/uagent/setup_cli.py:828 src/uagent/setup_cli.py:859
+#: src/uagent/setup_cli.py:875 src/uagent/setup_cli.py:930
+#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1234
+#: src/uagent/setup_cli.py:1295 src/uagent/setup_cli.py:1349
+#: src/uagent/setup_cli.py:1376 src/uagent/setup_cli.py:1397
+#: src/uagent/setup_cli.py:1534
+msgid "No"
+msgstr "Nu"
+
+#: src/uagent/setup_cli.py:781 src/uagent/setup_cli.py:796
+#: src/uagent/setup_cli.py:828 src/uagent/setup_cli.py:859
+#: src/uagent/setup_cli.py:875 src/uagent/setup_cli.py:930
+#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1234
+#: src/uagent/setup_cli.py:1295 src/uagent/setup_cli.py:1349
+#: src/uagent/setup_cli.py:1376 src/uagent/setup_cli.py:1397
+#: src/uagent/setup_cli.py:1534
+msgid "Yes"
+msgstr "Da"
+
+#: src/uagent/setup_cli.py:795
+msgid "Configure image analysis settings?"
+msgstr "Configurați setările de analiză a imaginii?"
+
+#: src/uagent/setup_cli.py:806
+msgid "Select image analysis provider"
+msgstr "Selectați furnizorul de analiză a imaginii"
+
+#: src/uagent/setup_cli.py:827
+msgid "Configure image generation settings?"
+msgstr "Configurați setările de generare a imaginii?"
+
+#: src/uagent/setup_cli.py:838
+msgid "Select image generation provider"
+msgstr "Selectați furnizorul de generare de imagini"
+
+#: src/uagent/setup_cli.py:858
+msgid "Open generated images automatically?"
+msgstr "Deschideți automat imaginile generate?"
+
+#: src/uagent/setup_cli.py:874
+msgid "Configure embedding / semantic search settings?"
+msgstr "Configurați setările de încorporare/căutare semantică?"
+
+#: src/uagent/setup_cli.py:900
+msgid "Select embedding provider"
+msgstr "Selectați furnizorul de încorporare"
+
+#: src/uagent/setup_cli.py:929
+msgid "Configure audio speech / transcription settings?"
+msgstr "Configurați setările de vorbire/transcriere audio?"
+
+#: src/uagent/setup_cli.py:948
+msgid "Select audio speech provider"
+msgstr "Selectați furnizorul de vorbire audio"
+
+#: src/uagent/setup_cli.py:968
+msgid "Select audio transcribe provider"
+msgstr "Selectați furnizorul de transcriere audio"
+
+#: src/uagent/setup_cli.py:988
+msgid "Open generated audio automatically?"
+msgstr "Deschideți automat audio generat?"
+
+#: src/uagent/setup_cli.py:1055
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "Opțional: Responses API (Azure/OpenAI/Bedrock)"
+
+#: src/uagent/setup_cli.py:1068
+msgid "Optional runtime"
+msgstr "Timp de rulare opțional"
+
+#: src/uagent/setup_cli.py:1082
+msgid "Optional image / embedding / audio settings"
+msgstr "Setări opționale pentru imagine / încorporare / audio"
+
+#: src/uagent/setup_cli.py:1224
+msgid "Optional specialized sub-agent settings"
+msgstr "Setări opționale pentru sub-agent specializat"
+
+#: src/uagent/setup_cli.py:1233
+msgid "Encrypt the generated .env file?"
+msgstr "Criptați fișierul .env generat?"
+
+#: src/uagent/setup_cli.py:1239
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "Fișierul criptat va fi scris ca %(path)s"
+
+#: src/uagent/setup_cli.py:1255
+msgid "Select provider"
+msgstr "Selectați furnizorul"
+
+#: src/uagent/setup_cli.py:1294
+msgid "Enable Responses API options?"
+msgstr "Activați opțiunile API pentru răspunsuri?"
+
+#: src/uagent/setup_cli.py:1310
+msgid "Select reasoning"
+msgstr "Selectați raționamentul"
+
+#: src/uagent/setup_cli.py:1329
+msgid "Select verbosity"
+msgstr "Selectați verbozitatea"
+
+#: src/uagent/setup_cli.py:1348
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "Setați durata opțională de rulare UAGENT_WORKDIR?"
+
+#: src/uagent/setup_cli.py:1375
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "Setați durata opțională de rulare UAGENT_LANG?"
+
+#: src/uagent/setup_cli.py:1396
+msgid "Enable streaming?"
+msgstr "Activați streaming?"
+
+#: src/uagent/setup_cli.py:1437
+msgid "Summary"
+msgstr "Rezumat"
+
+#: src/uagent/setup_cli.py:1438
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr "Furnizor: %(provider)s"
+
+#: src/uagent/setup_cli.py:1445
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr "Răspunsuri activate: %(state)s"
+
+#: src/uagent/setup_cli.py:1446 src/uagent/setup_cli.py:1453
+#: src/uagent/setup_cli.py:1457 src/uagent/setup_cli.py:1463
+#: src/uagent/setup_cli.py:1469 src/uagent/setup_cli.py:1474
+#: src/uagent/setup_cli.py:1482 src/uagent/setup_cli.py:1493
+msgid "yes"
+msgstr "da"
+
+#: src/uagent/setup_cli.py:1446 src/uagent/setup_cli.py:1453
+#: src/uagent/setup_cli.py:1457 src/uagent/setup_cli.py:1463
+#: src/uagent/setup_cli.py:1469 src/uagent/setup_cli.py:1474
+#: src/uagent/setup_cli.py:1482 src/uagent/setup_cli.py:1493
+msgid "no"
+msgstr "nu"
+
+#: src/uagent/setup_cli.py:1452
+#, python-format
+msgid "  Streaming enabled: %(state)s"
+msgstr "Streaming activat: %(state)s"
+
+#: src/uagent/setup_cli.py:1468
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr "Suplimente opționale activate: %(state)s"
+
+#: src/uagent/setup_cli.py:1473
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr "Analiza imaginii este activată: %(state)s"
+
+#: src/uagent/setup_cli.py:1481
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr "Generarea imaginii este activată: %(state)s"
+
+#: src/uagent/setup_cli.py:1492
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr "Încorporare activată: %(state)s"
+
+#: src/uagent/setup_cli.py:1502
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr "Ieșiri: %(outputs)s"
+
+#: src/uagent/setup_cli.py:1505
+msgid "Generate files with this configuration?"
+msgstr "Generați fișiere cu această configurație?"
+
+#: src/uagent/setup_cli.py:1506
+msgid "Yes, generate"
+msgstr "Da, generează"
+
+#: src/uagent/setup_cli.py:1506
+msgid "Back"
+msgstr "Înapoi"
+
+#: src/uagent/setup_cli.py:1530
+msgid "The following files already exist and will be overwritten:"
+msgstr "Următoarele fișiere există deja și vor fi suprascrise:"
+
+#: src/uagent/setup_cli.py:1534
+msgid "Proceed?"
+msgstr "Continui?"
+
+#: src/uagent/setup_cli.py:1558
+msgid "Plain .env file removed after encryption."
+msgstr "Fișierul .env simplu a fost eliminat după criptare."
+
+#: src/uagent/setup_cli.py:1561
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "Avertisment: nu s-a putut elimina .env simplu: %(error)s"
+
+#: src/uagent/setup_cli.py:1580
+#, python-format
+msgid "generated: %(path)s"
+msgstr "generat: %(path)s"
+
+#: src/uagent/uagent_llm.py:157
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[AVERTISMENT] Rundele sculei au depășit %(max)d; avortând."
+
+#: src/uagent/util_tools.py:182
+#, python-format
+msgid "image file not found: %(path)s"
+msgstr "fișier imagine nu a fost găsit: %(path)s"
+
+#: src/uagent/util_tools.py:187
+#, python-format
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "fișier imagine prea mare: %(size)d bytes (limit=%(max)d)"
+
+#: src/uagent/util_tools.py:211
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"Specificați directorul de lucru. Dacă nu este setat, folosește "
+"UAGENT_WORKDIR env var sau directorul curent."
+
+#: src/uagent/util_tools.py:218
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+"Mod non-interactiv. Nu porniți bucla stdin; ieșiți după procesarea "
+"fișierului de pornire (dacă există)."
+
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
+msgid ""
+"Tool genre bitmask "
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
+" Skips the interactive genre prompt when specified."
+msgstr ""
+"Masca de biți pentru genul instrumentului (1=de bază, "
+"2=com,4=office,8=devel,16=iot,32=exec,64=extern,128=media,255=toate). Omite "
+"promptul de gen interactiv atunci când este specificat."
+
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
+msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+msgstr ""
+"Activați trimiterea instrumentului către LLM (înlocuiește UAGENT_USE_TOOL "
+"env var)."
+
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
+msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+msgstr ""
+"Dezactivați trimiterea instrumentului către LLM (înlocuiește UAGENT_USE_TOOL"
+" env var)."
+
+#: src/uagent/util_tools.py:378
+msgid "invalid reasoning"
+msgstr "raționament nevalid"
+
+#: src/uagent/util_tools.py:396
+msgid "invalid verbosity"
+msgstr "verbozitate nevalidă"
+
+#: src/uagent/util_tools.py:570
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr ""
+"[jurnal] Argument nevalid: %(arg)r (specificați toate / --all / -a / număr)"
+
+#: src/uagent/util_tools.py:617
+#, python-format
+msgid "failed to parse arguments: %(err)s"
+msgstr "nu s-a putut analiza argumentele: %(err)s"
+
+#: src/uagent/util_tools.py:620
+msgid "missing arguments"
+msgstr "lipsesc argumente"
+
+#: src/uagent/util_tools.py:637
+msgid "src and dst are required"
+msgstr "src și dst sunt necesare"
+
+#: src/uagent/util_tools.py:662
+#, python-format
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py:669 src/uagent/util_tools.py:726
+#, python-format
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[eroare cp] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:679
+#, python-format
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] Sursa și destinația sunt aceleași: %(path)s"
+
+#: src/uagent/util_tools.py:685
+#, python-format
+msgid "[cp] Source does not exist: %(path)s"
+msgstr "[cp] Sursa nu există: %(path)s"
+
+#: src/uagent/util_tools.py:692 src/uagent/util_tools.py:704
+#, python-format
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] Destinația există deja: %(path)s"
+
+#: src/uagent/util_tools.py:713
+#, python-format
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] Părintele destinație nu există: %(path)s"
+
+#: src/uagent/util_tools.py:720
+#, python-format
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] Copiat: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:734
+#, python-format
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py:741 src/uagent/util_tools.py:785
+#, python-format
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[eroare mv] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:751
+#, python-format
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] Sursa și destinația sunt aceleași: %(path)s"
+
+#: src/uagent/util_tools.py:757
+#, python-format
+msgid "[mv] Source does not exist: %(path)s"
+msgstr "[mv] Sursa nu există: %(path)s"
+
+#: src/uagent/util_tools.py:763
+#, python-format
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] Destinația există deja: %(path)s"
+
+#: src/uagent/util_tools.py:773
+#, python-format
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] Părintele destinație nu există: %(path)s"
+
+#: src/uagent/util_tools.py:780
+#, python-format
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] Mutat: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:1023
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[Executarea aptitudinilor]\n"
+"Această abilitate este destinată rulării. Citiți cu atenție corpul de calificare și urmați instrucțiunile.\n"
+"Dacă abilitatea conține sarcini, continuați până când acestea sunt finalizate.\n"
+"Folosiți instrumente după cum este necesar."
+
+#: src/uagent/util_tools.py:1030
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr ""
+"Când ați terminat, apelați întotdeauna `finish_skill` dacă este disponibil."
+
+#: src/uagent/util_tools.py:1182
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
+msgstr ""
+"Selectați un număr de abilitate pentru a rula. Introdu c pentru a anula.\n"
+"Sfat: :competențe clare (eliminați abilitățile aplicate)\n"
+"Introduceți numărul:"
+
+#: src/uagent/util_tools.py:1218
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"Rulați această abilitate ca instrucțiune la nivel de sistem și mențineți-l activ în această sesiune?\n"
+"\n"
+"Nume: %(name)s\n"
+"Calea: %(path)s\n"
+"\n"
+"Continui? Introduceți y pentru a rula sau c pentru a anula."
+
+#: src/uagent/util_tools.py:1280
+#, python-format
+msgid ""
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[curățați] Argument nevalid: %(arg)r (specificați numărul=prag; implicit "
+"este %(implicit)d)"
+
+#: src/uagent/util_tools.py:1329
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"va șterge fișierele jurnal de conversație (scheck_log_*.jsonl) de pe disc.\n"
+"Director jurnal: %(dir)s\n"
+"Regula: numărul total de mesaje utilizator/asistent/instrument, excluzând sistemul <= %(threshold)d\n"
+"Ținte: %(n)d\n"
+"\n"
+"Continui? Introduceți y pentru a rula sau c pentru a anula."
+
+#: src/uagent/util_tools.py:1397
+#, python-format
+msgid " - (%(count)d msgs) %(path)s"
+msgstr "- (%(count)d mesaje) %(path)s"
+
+#: src/uagent/util_tools.py:1427
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"va suprascrie fișierul jurnal al sesiunii curente și va adăuga jurnalul încărcat (fără backup).\n"
+"\n"
+"Jurnal curent: %(cur_log)s\n"
+"Jurnal sursă: %(src_log)s\n"
+"\n"
+"Continui? Introduceți y pentru a rula sau c pentru a anula."
+
+#: src/uagent/util_tools.py:1558
+#, python-brace-format
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"Ștergeți {count} căi?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Introduceți y pentru a continua sau c pentru a anula."
+
+#: src/uagent/util_tools.py:1613
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "Indicele specificat %(idx)d este în afara intervalului."
+
+#: src/uagent/util_tools.py:1622
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "Fișierul jurnal nu a fost găsit: %(path)s"
+
+#: src/uagent/util_tools.py:1716
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[eroare de micșorare] Nu s-a putut analiza ca int: %(arg)r -> păstrați "
+"ultimul %(keep)d"
+
+#: src/uagent/util_tools.py:1744
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[eroare shrink_llm] Nu s-a putut analiza ca int: %(arg)r -> păstrați ultimul"
+" %(keep)d"
+
+#: src/uagent/util_tools.py:1837 src/uagent/util_tools.py:1917
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+"Memoria pe termen lung partajată nu este activată (UAGENT_SHARED_MEMORY_FILE"
+" nu este setat)."
+
+#: src/uagent/util_tools.py:1868
+msgid "Analyzing past logs to generate user profile..."
+msgstr ""
+"Se analizează jurnalele anterioare pentru a genera profilul de utilizator..."
+
+#: src/uagent/util_tools.py:1872
+msgid "No past logs found or failed to generate profile."
+msgstr "Nu s-au găsit jurnalele anterioare sau nu s-a generat profilul."
+
+#: src/uagent/util_tools.py:1874
+msgid "User profile generated successfully from past logs!"
+msgstr "Profil de utilizator generat cu succes din jurnalele anterioare!"
+
+#: src/uagent/util_tools.py:1886
+msgid "No user profile data found."
+msgstr "Nu s-au găsit date de profil de utilizator."
+
+#: src/uagent/util_tools.py:1889
+msgid "User Profile:"
+msgstr "Profil utilizator:"
+
+#: src/uagent/util_tools.py:1901
+msgid "User profile cleared successfully."
+msgstr "Profilul utilizatorului a fost șters cu succes."
+
+#: src/uagent/util_tools.py:1905
+msgid "No user profile file found to clear."
+msgstr "Nu s-a găsit niciun fișier de profil de utilizator de șters."
+
+#: src/uagent/util_tools.py:1969
+msgid "Show this help"
+msgstr "Arată acest ajutor"
+
+#: src/uagent/util_tools.py:1970
+msgid "Restart input from the beginning"
+msgstr "Reporniți intrarea de la început"
+
+#: src/uagent/util_tools.py:1971
+msgid "Show log file list"
+msgstr "Afișează lista fișierelor jurnal"
+
+#: src/uagent/util_tools.py:1974
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"Schimbați workdir fără confirmare (de ex. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+
+#: src/uagent/util_tools.py:1977
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr ""
+"Listează intrările din director (de ex. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1980
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "Gestionați UAGENT_* vars env și salvați .env.sec"
+
+#: src/uagent/util_tools.py:1982
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr ""
+"Gestionați/aplicați abilitățile (de ex. :skills / :skills active / :skills "
+"clear)"
+
+#: src/uagent/util_tools.py:1989
+msgid "Load a past log (overwrites current conversation history)"
+msgstr ""
+"Încărcați un jurnal trecut (suprascrie istoricul conversației curente)"
+
+#: src/uagent/util_tools.py:1991
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"Notă: după rulare, vi se va cere confirmarea; alegând „y” înaintează "
+"jurnalul încărcat în fișierul jurnal al sesiunii curente (suprascriere, fără"
+" backup)."
+
+#: src/uagent/util_tools.py:1995
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Ștergeți jurnalele de conversații (scheck_log_*.jsonl) unde numărul "
+"mesajelor utilizator/asistent/instrument (excluzând sistemul) este <= N "
+"(implicit=10)"
+
+#: src/uagent/util_tools.py:1999
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"Reduceți istoricul conversațiilor (păstrați ultimele N mesaje non-sistem; "
+"implicit=40)"
+
+#: src/uagent/util_tools.py:2003
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Reduceți istoricul prin rezumatul LLM (rezumați istoricul mai vechi într-un "
+"singur mesaj de sistem; păstrați ultimul N brut; implicit=20)"
+
+#: src/uagent/util_tools.py:2006
+msgid "Show the current approximate token count of the conversation"
+msgstr "Afișați numărul aproximativ de simboluri curent al conversației"
+
+#: src/uagent/util_tools.py:2007
+msgid "List long-term memory notes"
+msgstr "Enumerați notele de memorie pe termen lung"
+
+#: src/uagent/util_tools.py:2009
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "Ștergeți o notă de memorie pe termen lung după index (vezi :mem-list)"
+
+#: src/uagent/util_tools.py:2011
+msgid "Show the learned user profile, or generate it from past logs"
+msgstr ""
+"Afișați profilul utilizatorului învățat sau generați-l din jurnalele "
+"anterioare"
+
+#: src/uagent/util_tools.py:2012
+msgid "Generate user profile from past logs"
+msgstr "Generați un profil de utilizator din jurnalele anterioare"
+
+#: src/uagent/util_tools.py:2013
+msgid "Clear the learned user profile data"
+msgstr "Ștergeți datele de profil de utilizator învățate"
+
+#: src/uagent/util_tools.py:2015
+msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr ""
+"Copiați fișierul sau directorul (suportă -f/--overwrite și -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:2017
+msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr ""
+"Mutați fișierul sau directorul (suportă -f/--overwrite și -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:2019
+msgid "Show the first n lines of a file (default=20)"
+msgstr "Afișați primele n linii ale unui fișier (implicit=20)"
+
+#: src/uagent/util_tools.py:2020
+msgid "Show the last n lines of a file (default=20)"
+msgstr "Afișați ultimele n linii ale unui fișier (implicit=20)"
+
+#: src/uagent/util_tools.py:2022
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Ștergeți fișierele/directoarele cu previzualizare + confirmare"
+
+#: src/uagent/util_tools.py:2024
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Setați modul de raționament (0=dezactivat, 1=scăzut, 2=mediu, 3=înalt; "
+"automat/minimal/xhigh)"
+
+#: src/uagent/util_tools.py:2026
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Setați modul de verbozitate (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+
+#: src/uagent/util_tools.py:2027
+msgid "Exit"
+msgstr "Ieșire"
+
+#: src/uagent/util_tools.py:2030
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"- Introduceți o linie care este doar „f” pentru a intra în modul de "
+"introducere pe mai multe linii."
+
+#: src/uagent/util_tools.py:2032
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"- Pentru a termina modul de introducere a mai multor linii, introduceți o "
+"linie care este exact %(sentinel)s."
+
+#: src/uagent/util_tools.py:2283
+msgid "Exiting."
+msgstr "Ieșire."
+
+#: src/uagent/util_tools.py:2286
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Comandă necunoscută: :%(cmd)s"
+
+#: src/uagent/util_tools.py:2437
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"Punctele marcatoare enumerate mai jos sunt fragmente din memoria pe termen "
+"lung a acestui utilizator (memouri persistente). Folosiți-le ca informații "
+"de fundal despre utilizator. Cu toate acestea, prioritizează întotdeauna "
+"informațiile nou furnizate în conversație și, dacă acestea contrazic "
+"informații mai vechi, adoptă cele mai recente informații."
+
+#: src/uagent/web.py:534
+msgid ""
+"[WARN] Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"[AVERTISMENT] În această cameră rulează deja o altă sarcină. Vă rugăm să "
+"reîncercați după ce se finalizează."
+
+#: src/uagent/web.py:626 src/uagent/web.py:773
+msgid ""
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"[FATAL] Variabila de mediu UAGENT_PROVIDER nu este setată.\n"
+"Vă rugăm să verificați variabilele de mediu când porniți serverul web."
+
+#: src/uagent/web.py:664
+#, python-format
+msgid "[Attached Image] %(name)s"
+msgstr "[Imagine atașată] %(name)s"
+
+#: src/uagent/web.py:669
+#, python-format
+msgid "[Attached File] %(name)s"
+msgstr "[Fișier atașat] %(name)s"
+
+#: src/uagent/web.py:670
+#, python-format
+msgid "[File Path] %(path)s"
+msgstr "[Cale fișier] %(path)s"
+
+#: src/uagent/web.py:698
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] Memoria pe termen lung încărcată."
+
+#: src/uagent/web.py:710
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] Memoria pe termen lung partajată încărcată."
+
+#: src/uagent/web.py:727
+msgid ""
+"\n"
+"\n"
+"## Generative UI (Artifacts) Instructions\n"
+"When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+msgstr ""
+"## Instrucțiuni generative UI (artefacte).\n"
+"Când utilizatorul solicită o interfață de utilizare, un tablou de bord, un instrument interactiv sau o vizualizare:\n"
+"1. Scrieți o pagină HTML completă, autonomă, într-un singur bloc de cod ```html.\n"
+"2. Utilizați Tailwind CSS (prin CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) pentru stil și Lucide Icons sau FontAwesome pentru pictograme.\n"
+"3. Includeți JavaScript interactiv (de exemplu, Chart.js pentru diagrame sau gestionarea simplă a stării).\n"
+"4. Nu împărțiți codul în mai multe blocuri; păstrați-l într-un bloc ```html unificat."
+
+#: src/uagent/web.py:770
+#, python-format
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[FATAL] Eroare web worker.\n"
+"%(err)s"
+
+#: src/uagent/web.py:907
+msgid "missing path"
+msgstr "cale lipsă"
+
+#: src/uagent/web.py:914
+msgid "path outside workdir"
+msgstr "cale în afara workdir"
+
+#: src/uagent/web.py:1264
+msgid "Starting server on"
+msgstr "Pornirea serverului"
+
+#: src/uagent/web.py:1266
+msgid "External URL:"
+msgstr "URL extern:"
+
+#: src/uagent/welcome.py:29
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[Servere MCP]\n"
+"- Fișierul de configurare nu a fost găsit."
+
+#: src/uagent/welcome.py:36
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[Servere MCP]\n"
+"- Nu au fost înregistrate servere."
+
+#: src/uagent/welcome.py:38
+msgid "[MCP Servers]"
+msgstr "[Servere MCP]"
+
+#: src/uagent/welcome.py:45
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[Servere MCP]\n"
+"- Nu s-au putut obține informații: %(err)s"
+
+#: src/uagent/welcome.py:65
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr ""
+"Introduceți o linie care conține doar 'f' pentru a intra în modul de "
+"introducere multilinie."
+
+#: src/uagent/welcome.py:64
+msgid "[Quick Guide]"
+msgstr "[Ghid rapid]"
+
+#: src/uagent/welcome.py:65
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr ""
+"- Chat: introduceți un mesaj și trimiteți (GUI: Ctrl+Enter este, de "
+"asemenea, disponibil).girin (\"\"\" sonu ile bitirin)."
+
+#: src/uagent/welcome.py:70
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr ""
+"- Comenzi: tastați „:help” pentru a vedea comenzile de sistem (gestionarea "
+"jurnalelor, comprimarea istoricului etc.). Notă: comenzile încep cu „:” "
+"(coloană) în loc de „/” (slash)."
+
+#: src/uagent/welcome.py:72
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- Ieșire: „:exit” sau „:quit” încheie sesiunea."
+
+#: src/uagent/welcome.py:74
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- Imagini: GUI acceptă drag & drop; în CUI puteți introduce o cale de fișier"
+" pentru analiza imaginii."
+
+#: src/uagent/welcome.py:77
+#, python-format
+msgid ""
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Documente: `%(docs_cmd)s` arată documentele grupate; `%(webinspect_cmd)s` "
+"arată ajutor pentru Web Inspector (disponibil și `--path/--open`)."
+
+#: src/uagent/welcome.py:81
+msgid "[Examples]"
+msgstr "[Exemple]"
+
+#: src/uagent/welcome.py:82
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- „Analizați codul sursă din acest folder și creați un README.md.”"
+
+#: src/uagent/welcome.py:84
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr ""
+"- „Faceți o captură de ecran a desktopului curent și descrieți conținutul "
+"ferestrei vizibile.”"
+
+#: src/uagent/welcome.py:86
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- „Creați un raport rezumat lunar din acest fișier Excel.”"
+
+#: src/uagent/welcome.py:87
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- „Citiți acest PDF și enumerați trei puncte cheie.”"
+
+#: src/uagent/welcome.py:88
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- „Căutați cele mai recente știri și rezumați un anumit subiect.”"
+
+#: src/uagent/welcome.py:195
+msgid "-- More -- (Enter: next) "
+msgstr "-- Mai multe -- (Intrați: următorul)"
+
+#: src/uagent/a2a/engine.py:125
+msgid "No assistant message produced."
+msgstr "Nu s-a produs niciun mesaj de asistent."
+
+#: src/uagent/a2a/engine.py:137
+msgid "Generated image(s)."
+msgstr "Imagini generate."
+
+#: src/uagent/a2a/engine.py:150
+#, python-format
+msgid "ECHO: %(text)s"
+msgstr "ECHO: %(text)s"
+
+#: src/uagent/a2a/engine.py:165
+#, python-format
+msgid "uagent initialization failed: %(err)s"
+msgstr "Inițializarea uagent a eșuat: %(err)s"
+
+#: src/uagent/a2a/engine.py:177
+#, python-format
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "Execuția uagent a eșuat: %(etype)s: %(err)s"
+
+#: src/uagent/a2a/engine.py:188
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "UAGENT_A2A_ENGINE necunoscut: %(mode)s"
+
+#: src/uagent/providers/gemini_cache_mgr.py:131
+msgid "invalid cache meta"
+msgstr "meta cache nevalidă"
+
+#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/util_providers.py:686
+msgid "anthropic package is not installed."
+msgstr "pachetul antropic nu este instalat."
+
+#: src/uagent/providers/llm_deepseek.py:670
+msgid "An error occurred while generating a response."
+msgstr "A apărut o eroare la generarea unui răspuns."
+
+#: src/uagent/providers/llm_gemini.py:565
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr ""
+"google-genai nu a putut fi importat (pip install google-genai este necesar)."
+
+#: src/uagent/providers/llm_gemini.py:1134
+msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
+msgstr ""
+"[Eroare Gemeni: Răspunsul blocat de filtrul de siguranță sau motivul "
+"finalizării]"
+
+#: src/uagent/providers/llm_gemini.py:1139
+#, python-format
+msgid "[Gemini Error: %(err)s]"
+msgstr "[Eroare Gemeni: %(err)s]"
+
+#: src/uagent/providers/llm_openai_responses.py:69
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr ""
+"Istoricul asistentului [WARN] conținea conținut de imagine; convertit în "
+"text."
+
+#: src/uagent/providers/llm_openai_responses.py:92
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[WARN] conținut de imagine nevalid (adresa URL lipsă)."
+
+#: src/uagent/providers/llm_openai_responses.py:100
+#: src/uagent/providers/llm_openai_responses.py:109
+#, python-format
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[WARN] articol de conținut neacceptat: %(item)r"
+
+#: src/uagent/providers/llm_openai_responses.py:444
+msgid "Sources:"
+msgstr "Surse:"
+
+#: src/uagent/providers/llm_openai_responses.py:507
+msgid "search"
+msgstr "caută"
+
+#: src/uagent/providers/llm_openai_responses.py:509
+msgid "open page"
+msgstr "pagina deschisă"
+
+#: src/uagent/providers/llm_openai_responses.py:511
+msgid "find in page"
+msgstr "gasiti in pagina"
+
+#: src/uagent/providers/llm_openai_responses.py:512
+msgid "web search"
+msgstr "căutare pe web"
+
+#: src/uagent/providers/llm_openai_responses.py:526
+msgid "Web search: searching"
+msgstr "Căutare pe web: căutare"
+
+#: src/uagent/providers/llm_openai_responses.py:528
+msgid "Web search: completed"
+msgstr "Căutare pe web: finalizată"
+
+#: src/uagent/providers/llm_openai_responses.py:530
+#, python-brace-format
+msgid "Web search: {action}"
+msgstr "Căutare pe web: {action}"
+
+#: src/uagent/providers/llm_openai_responses.py:587
+#, python-brace-format
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[Reguli de apelare a instrumentului]\n"
+"        - Când apelați un instrument/funcție, TREBUIE să furnizați function_call.arguments ca obiect JSON.\n"
+"        - Obiectul JSON TREBUIE să includă toți parametrii necesari definiți de schema instrumentului.\n"
+"        - Nu apelați niciodată un instrument cu un obiect gol {} decât dacă instrumentul nu are parametri necesari.\n"
+"        - Dacă nu aveți un parametru necesar, cereți utilizatorului să îl folosească folosind human_ask în loc să ghiciți."
+
+#: src/uagent/providers/llm_openai_responses.py:594
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[Reguli de căutare pe web]\n"
+"        - Utilizați căutarea pe web numai atunci când sunt necesare informații noi sau externe.\n"
+"        - Nu utilizați căutarea pe web pentru informații locale sau stabile.\n"
+"        - Preferați să răspundeți fără căutare pe web atunci când răspunsul este deja suficient."
+
+#: src/uagent/providers/util_providers.py:243
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "Variabila de mediu UAGENT_PROVIDER nu este setată."
+
+#: src/uagent/providers/util_providers.py:263
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "Furnizor necunoscut: %(provider)s"
+
+#: src/uagent/providers/util_providers.py:620
+#: src/uagent/providers/util_providers.py:646
+msgid "google-genai package is not installed."
+msgstr "Pachetul google-genai nu este instalat."
+
+#: src/uagent/runtime/runtime_banner.py:232
+msgid "embedding"
+msgstr "încorporarea"
+
+#: src/uagent/runtime/runtime_banner.py:233
+msgid "audio speech"
+msgstr "vorbire audio"
+
+#: src/uagent/runtime/runtime_banner.py:234
+msgid "audio transcribe"
+msgstr "transcrie audio"
+
+#: src/uagent/runtime/runtime_banner.py:235
+msgid "image generation"
+msgstr "generare de imagini"
+
+#: src/uagent/runtime/runtime_banner.py:236
+msgid "image analysis"
+msgstr "analiza imaginii"
+
+#: src/uagent/runtime/runtime_banner.py:255
+#, python-format
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] workdir = %(workdir)s (sursa: %(source)s)"
+
+#: src/uagent/runtime/runtime_banner.py:263
+#: src/uagent/runtime/runtime_banner.py:277
+#: src/uagent/runtime/runtime_banner.py:282
+#: src/uagent/runtime/runtime_banner.py:294
+#: src/uagent/runtime/runtime_banner.py:306
+#: src/uagent/runtime/runtime_banner.py:315
+#: src/uagent/runtime/runtime_banner.py:325
+#: src/uagent/runtime/runtime_banner.py:338
+#: src/uagent/runtime/runtime_banner.py:351
+#: src/uagent/runtime/runtime_banner.py:360
+#, python-format
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] baza_url = %(base_url)s"
+
+#: src/uagent/runtime/runtime_banner.py:271
+#, python-format
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] api_version = %(api_version)s"
+
+#: src/uagent/runtime/runtime_banner.py:369
+#, python-format
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = project=%(project)s, location=%(location)s"
+
+#: src/uagent/runtime/runtime_banner.py:378
+#, python-format
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; model = %(model)s"
+
+#: src/uagent/runtime/runtime_banner.py:399
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 este setat, dar furnizorul „%(provider)s” nu acceptă API-"
+"ul Responses. Revenirea la ChatCompletions."
+
+#: src/uagent/runtime/runtime_banner.py:406
+#, python-format
+msgid "LLM API mode = %(mode)s"
+msgstr "Modul API LLM = %(mode)s"
+
+#: src/uagent/runtime/runtime_banner.py:409
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Răspunsuri (UAGENT_RESPONSES este activat)"
+
+#: src/uagent/runtime/runtime_banner.py:413
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "API nativ Gemini/Vertex AI/Claude (UAGENT_RESPONSES este ignorat)"
+
+#: src/uagent/runtime/runtime_banner.py:416
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "Finalizări de chat (UAGENT_RESPONSES este dezactivat)"
+
+#: src/uagent/runtime/runtime_banner.py:424
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "LLM streaming = %(state)s"
+
+#: src/uagent/runtime/runtime_banner.py:425
+msgid "enabled"
+msgstr "activat"
+
+#: src/uagent/runtime/runtime_banner.py:425
+msgid "disabled"
+msgstr "dezactivat"
+
+#: src/uagent/runtime/runtime_env.py:186
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] Conținutul .env.sec nu se potrivește cu variabilele de mediu UAGENT_*"
+" de pornire curente. Îl actualizezi? [da/nu]"
+
+#: src/uagent/runtime/runtime_env.py:202
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] Conținutul .env.sec nu se potrivește cu variabilele de mediu UAGENT_*"
+" de pornire curente. Utilizați `uag_envsec` pentru a-l actualiza."
+
+#: src/uagent/runtime/runtime_env.py:214
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr ".env.sec actualizat: %(path)s"
+
+#: src/uagent/runtime/runtime_env.py:218
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[WARN] Nu s-a putut actualiza .env.sec: %(err)s"
+
+#: src/uagent/runtime/runtime_env.py:228
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec lipsește. Creați-l din variabilele de mediu UAGENT_* de "
+"pornire curentă? [da/nu]"
+
+#: src/uagent/runtime/runtime_env.py:244
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec lipsește. Utilizați `uag_envsec` pentru a-l crea din "
+"variabilele de mediu UAGENT_* de pornire curentă."
+
+#: src/uagent/runtime/runtime_env.py:254
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr ".env.sec creat: %(path)s"
+
+#: src/uagent/runtime/runtime_env.py:258
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[WARN] Nu s-a putut crea .env.sec: %(err)s"
+
+#: src/uagent/runtime/runtime_env.py:289
+#, python-format
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr "[WARN] Nu s-a putut verifica sincronizarea .env.sec: %(err)s"
+
+#: src/uagent/runtime/runtime_init.py:83
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[WARN] Nu s-a putut decripta .env.sec: %(err)s"
+
+#: src/uagent/runtime/runtime_workdir.py:49
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "Calea workdir specificată este un fișier: %(path)s"

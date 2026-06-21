@@ -386,5 +386,49 @@
       "शेवटचा पर्याय"
     ],
     "err.command_required": "[pwsh_exec error] 'command' is required"
+  },
+  "el": {
+    "err.timeout": "Το [pwsh_exec timeout] δεν ολοκληρώθηκε μέσα σε {seconds} δευτερόλεπτα",
+    "param.command.description": "Η συμβολοσειρά εντολών PowerShell μεταβιβάστηκε στο -Command.",
+    "param.shell.description": "PowerShell εκτελέσιμο για χρήση: 'pwsh' (PowerShell 7+) ή 'powershell' (Windows PowerShell). Εάν παραλειφθεί, επιλέξτε αυτόματα.",
+    "tool.description": "Συνδεθείτε σε διακομιστή MCP και παραθέστε τα διαθέσιμα εργαλεία. Υποστηρίζει μεταφορές HTTP και stdio.",
+    "x_search_terms": [
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "err.command_required": "[σφάλμα pwsh_exec] Απαιτείται «εντολή»"
+  },
+  "he": {
+    "err.timeout": "[פסק הזמן של pwsh_exec] לא הסתיים תוך {שניות} שניות",
+    "param.command.description": "מחרוזת הפקודות של PowerShell הועברה ל-Command.",
+    "param.shell.description": "קובץ הפעלה של PowerShell לשימוש: 'pwsh' (PowerShell 7+) או 'powershell' (Windows PowerShell). אם הושמט, בחירה אוטומטית.",
+    "tool.description": "התחבר לשרת MCP ורשום כלים זמינים. תומך בהעברות HTTP ו-stdio.",
+    "x_search_terms": [
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "err.command_required": "[שגיאת pwsh_exec] נדרשת 'פקודה'"
+  },
+  "hu": {
+    "err.timeout": "A [pwsh_exec időtúllépés] nem fejeződött be {seconds} másodpercen belül",
+    "param.command.description": "A PowerShell-parancs karakterláncát átadta a -Commandnak.",
+    "param.shell.description": "Használható PowerShell futtatható fájl: „pwsh” (PowerShell 7+) vagy „powershell” (Windows PowerShell). Ha kimarad, automatikus kiválasztás.",
+    "tool.description": "Csatlakozzon egy MCP-kiszolgálóhoz, és sorolja fel az elérhető eszközöket. Támogatja a HTTP és az stdio átvitelt.",
+    "x_search_terms": [
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "err.command_required": "[pwsh_exec hiba] \"parancs\" szükséges"
+  },
+  "ro": {
+    "err.timeout": "[pwsh_exec timeout] nu s-a încheiat în {secunde} secunde",
+    "param.command.description": "Șirul de comandă PowerShell a fost transmis către -Command.",
+    "param.shell.description": "PowerShell executabil de utilizat: „pwsh” (PowerShell 7+) sau „powershell” (Windows PowerShell). Dacă este omisă, selectați automat.",
+    "tool.description": "Conectați-vă la un server MCP și enumerați instrumentele disponibile. Suportă transporturi HTTP și stdio.",
+    "x_search_terms": [
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "err.command_required": "[pwsh_exec error] „comanda” este necesară"
   }
 }

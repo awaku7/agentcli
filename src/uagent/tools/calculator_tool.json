@@ -508,5 +508,73 @@
       "संख्यात्मक"
     ],
     "err.expression_missing": "[calculator]\\\nError: No expression provided."
+  },
+  "el": {
+    "param.expression.description": "Η μαθηματική έκφραση προς αξιολόγηση (π.χ.",
+    "tool.description": "Υπολογίζει μια μαθηματική παράσταση και επιστρέφει το αποτέλεσμα. Χρησιμοποιήστε το για πολύπλοκους υπολογισμούς ή όταν απαιτείται ακρίβεια.",
+    "x_search_terms": [
+      "αριθμομηχανή",
+      "υπολογίζω",
+      "μαθηματικά",
+      "έκφραση",
+      "τύπος",
+      "υπολογίζω",
+      "αριθμητική",
+      "αξιολογώ",
+      "λύνω",
+      "αριθμητικός"
+    ],
+    "err.expression_missing": "[αριθμομηχανή]\\\nΣφάλμα: Δεν παρέχεται έκφραση."
+  },
+  "he": {
+    "param.expression.description": "הביטוי המתמטי שיש להעריך (למשל.",
+    "tool.description": "מחשב ביטוי מתמטי ומחזיר את התוצאה. השתמש בזה עבור חישובים מורכבים או כאשר נדרש דיוק.",
+    "x_search_terms": [
+      "מַחשְׁבוֹן",
+      "לְחַשֵׁב",
+      "מתמטיקה",
+      "הַבָּעָה",
+      "נוּסחָה",
+      "לְחַשֵׁב",
+      "חֶשְׁבּוֹן",
+      "לְהַעֲרִיך",
+      "לִפְתוֹר",
+      "מספרי"
+    ],
+    "err.expression_missing": "[מחשבון]\\\nשגיאה: לא סופק ביטוי."
+  },
+  "hu": {
+    "param.expression.description": "A kiértékelendő matematikai kifejezés (pl.",
+    "tool.description": "Kiszámít egy matematikai kifejezést, és visszaadja az eredményt. Használja ezt összetett számításokhoz, vagy ha pontosságra van szükség.",
+    "x_search_terms": [
+      "számológép",
+      "kiszámítani",
+      "matematika",
+      "kifejezés",
+      "képlet",
+      "kiszámítani",
+      "számtan",
+      "értékelni",
+      "megoldani",
+      "numerikus"
+    ],
+    "err.expression_missing": "[számológép]\\\nHiba: Nincs megadva kifejezés."
+  },
+  "ro": {
+    "param.expression.description": "Expresia matematică de evaluat (de ex.",
+    "tool.description": "Calculează o expresie matematică și returnează rezultatul. Utilizați acest lucru pentru calcule complexe sau când este necesară precizie.",
+    "x_search_terms": [
+      "calculator",
+      "calcula",
+      "matematica",
+      "expresie",
+      "formula",
+      "calcula",
+      "aritmetică",
+      "evalua",
+      "rezolva",
+      "numeric"
+    ],
+    "err.expression_missing": "[calculator]\\\nEroare: nu este furnizată nicio expresie."
   }
 }

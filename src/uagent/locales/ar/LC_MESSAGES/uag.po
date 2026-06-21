@@ -114,6 +114,7 @@ msgstr "[docs] الاسم مطلوب"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] مطالبة نوع بدء التشغيل = إدخال رقمي"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -122,6 +123,8 @@ msgstr ""
 "أدخل مجموع الأرقام (1=أساسي,2=اتصالات,4=مكتب,8=تطوير,16=إنترنت "
 "الأشياء,32=تنفيذ,64=خارجي,128=وسائط,255=الكل, Enter=تمكين الكل):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "أساسي (ملف، بيئة، وقت، مطالبات، مهارات، ذاكرة، تحكم في الأدوات)"
 
@@ -691,6 +694,7 @@ msgstr "مفتاح NVIDIA API."
 msgid "DeepSeek API key."
 msgstr "مفتاح API DeepSeek."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "مفتاح API لـ Z.AI (Zhipu AI)."
 
@@ -1362,14 +1366,17 @@ msgstr "DeepSeek presence_penalty (الافتراضي: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (الافتراضي: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "مفتاح API لـ Z.AI (Zhipu AI)"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr ""
 "عنوان URL الأساسي لـ Z.AI (اختياري، الافتراضي: "
 "https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "اسم نموذج Z.AI (اختياري، الافتراضي: glm-5.2)"
 
@@ -1804,6 +1811,7 @@ msgstr ""
 "الوضع غير التفاعلي. لا تبدأ حلقة stdin؛ الخروج بعد معالجة ملف بدء التشغيل "
 "(إن وجد)."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1813,9 +1821,11 @@ msgstr ""
 "الأشياء,32=تنفيذ,64=خارجي,128=وسائط,255=الكل). يتجاوز المطالبة التفاعلية "
 "للنوع عند التحديد."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "تمكين إرسال الأداة إلى LLM (يتجاوز متغير البيئة UAGENT_USE_TOOL)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "تعطيل إرسال الأداة إلى LLM (يتجاوز متغير البيئة UAGENT_USE_TOOL)."
 
@@ -2352,17 +2362,19 @@ msgstr ""
 "[خوادم MCP]\n"
 "- فشل الحصول على المعلومات: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[الدليل السريع]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- متعدد الخطوط: أدخل سطرًا يتكون من "f" فقط للدخول إلى الوضع متعدد الخطوط."
-"- الدردشة: اكتب رسالة وأرسلها (واجهة المستخدم الرسومية: Ctrl+Enter متاحة "
-"أيضًا)."
-
-"(ينتهي بـ \"\"\"نهاية)."
+msgstr ""
+"- متعدد الخطوط: أدخل سطرًا يتكون من \"f\" فقط للدخول إلى الوضع متعدد "
+"الخطوط.- الدردشة: اكتب رسالة وأرسلها (واجهة المستخدم الرسومية: Ctrl+Enter "
+"متاحة أيضًا).(ينتهي بـ \"\"\"نهاية)."
 
 #: src/uagent/welcome.py:70
 msgid ""

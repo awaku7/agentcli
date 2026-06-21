@@ -174,6 +174,46 @@
     "err.opencv_missing": "OpenCV उपलब्ध नाही. स्थापित करा: pip install opencv-python",
     "msg.captured": "कॅमेरा {index} वरून प्रतिमा कॅप्चर केली."
   },
+  "el": {
+    "tool.description": "Ενέργεια: λήψη (λήψη φωτογραφίας), λίστα (εμφάνιση συσκευών) ή list_caps (εμφάνιση δυνατοτήτων όπως αναλύσεις και FPS για μια συσκευή).",
+    "param.action.description": "Ενέργεια: λήψη (λήψη φωτογραφίας), λίστα (εμφάνιση συσκευών) ή list_caps (εμφάνιση δυνατοτήτων όπως αναλύσεις και FPS για μια συσκευή).",
+    "param.index.description": "Ευρετήριο συσκευής βίντεο (0 = πρώτη). Προεπιλογή: 0.",
+    "param.devname.description": "Όνομα/διαδρομή συσκευής (παρακάμπτει το ευρετήριο). Σε Linux χρησιμοποιήστε το /dev/videoN. Χρησιμοποιήστε την ενέργεια λίστας για να βρείτε ονόματα.",
+    "param.width.description": "Λήψη πλάτους σε pixel (π.χ. 1920). Χρησιμοποιεί προεπιλογή εάν παραλειφθεί.",
+    "param.height.description": "Λήψη ύψους σε pixel (π.χ. 1080). Χρησιμοποιεί προεπιλογή εάν παραλειφθεί.",
+    "param.fps.description": "Καρέ ανά δευτερόλεπτο (π.χ. 30). Χρησιμοποιεί προεπιλογή εάν παραλειφθεί.",
+    "param.outdir.description": "Κατάλογος εξόδου για εικόνες που τραβήχτηκαν. Προεπιλογή: έξοδοι/usb_camera."
+  },
+  "he": {
+    "tool.description": "פעולה: לכידה (לצלם תמונה), רשימה (הצג מכשירים) או list_caps (הצג יכולות כמו רזולוציות ו-FPS עבור מכשיר).",
+    "param.action.description": "פעולה: לכידה (לצלם תמונה), רשימה (הצג מכשירים), או list_caps (הצג יכולות כמו רזולוציות ו-FPS עבור מכשיר).",
+    "param.index.description": "אינדקס מכשיר וידאו (0 = ראשון). ברירת מחדל: 0.",
+    "param.devname.description": "שם/נתיב התקן (עוקף את האינדקס). ב-Linux השתמש ב-/dev/videoN. השתמש בפעולת רשימה כדי למצוא שמות.",
+    "param.width.description": "צילום רוחב בפיקסלים (למשל 1920). משתמש בברירת המחדל אם מושמט.",
+    "param.height.description": "צילום גובה בפיקסלים (למשל 1080). משתמש בברירת המחדל אם מושמט.",
+    "param.fps.description": "פריימים לשנייה (למשל 30). משתמש בברירת המחדל אם מושמט.",
+    "param.outdir.description": "ספריית פלט לתמונות שצולמו. ברירת מחדל: outputs/usb_camera."
+  },
+  "hu": {
+    "tool.description": "Művelet: rögzítés (fénykép készítése), lista (eszközök megjelenítése) vagy list_caps (funkciók, például felbontás és FPS megjelenítése egy eszközön).",
+    "param.action.description": "Művelet: rögzítés (fénykép készítése), lista (eszközök megjelenítése) vagy list_caps (funkciók, például felbontás és FPS megjelenítése egy eszközön).",
+    "param.index.description": "Videoeszköz index (0 = első). Alapértelmezés: 0.",
+    "param.devname.description": "Eszköznév/útvonal (felülbírálja az indexet). Linuxon használja a /dev/videoN fájlt. Használja a lista műveletet a nevek kereséséhez.",
+    "param.width.description": "Rögzítési szélesség pixelben (pl. 1920). Az alapértelmezett értéket használja, ha kihagyja.",
+    "param.height.description": "Magasság rögzítése pixelben (pl. 1080). Az alapértelmezett értéket használja, ha kihagyja.",
+    "param.fps.description": "Képkocka/másodperc (pl. 30). Az alapértelmezett értéket használja, ha kihagyja.",
+    "param.outdir.description": "Kimeneti könyvtár a rögzített képekhez. Alapértelmezés: outputs/usb_camera."
+  },
+  "ro": {
+    "tool.description": "Acțiune: captură (fă o fotografie), listă (afișează dispozitivele) sau list_caps (afișează capabilități precum rezoluții și FPS pentru un dispozitiv).",
+    "param.action.description": "Acțiune: captură (fă o fotografie), list (afișează dispozitivele) sau list_caps (afișează capabilități precum rezoluții și FPS pentru un dispozitiv).",
+    "param.index.description": "Indexul dispozitivului video (0 = primul). Implicit: 0.",
+    "param.devname.description": "Numele/calea dispozitivului (înlocuiește indexul). Pe Linux utilizați /dev/videoN. Utilizați acțiunea listă pentru a găsi nume.",
+    "param.width.description": "Captură lățimea în pixeli (de exemplu, 1920). Folosește implicit dacă este omis.",
+    "param.height.description": "Înălțimea de captură în pixeli (de ex. 1080). Folosește implicit dacă este omis.",
+    "param.fps.description": "Cadre pe secundă (de exemplu, 30). Folosește implicit dacă este omis.",
+    "param.outdir.description": "Director de ieșire pentru imaginile capturate. Implicit: outputs/usb_camera."
+  },
   "nb": {
     "tool.description": "Ta bilde fra et USB-kamera.",
     "x_search_terms": "[\"camera\", \"usb camera\", \"webcam\", \"capture\", \"photo\"]",

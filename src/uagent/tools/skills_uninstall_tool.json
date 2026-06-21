@@ -407,6 +407,66 @@
     "success.uninstalled": "Successfully uninstalled skill '{name}' from {path}",
     "err.unexpected": "An unexpected error occurred: {error}"
   },
+  "el": {
+    "param.name.description": "Το όνομα του φακέλου της ικανότητας προς απεγκατάσταση.",
+    "tool.description": "Απεγκαταστήστε ένα Agent Skill από το ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "ικανότητα απεγκατάστασης",
+      "αφαίρεση ικανότητας",
+      "δεξιότητας διαγραφής"
+    ],
+    "err.name_required": "Απαιτείται όνομα δεξιότητας.",
+    "err.invalid_name": "Μη έγκυρο όνομα φακέλου δεξιότητας: {name}",
+    "err.not_found": "Η δεξιότητα '{name}' δεν είναι εγκατεστημένη στο {root}",
+    "success.uninstalled": "Η δεξιότητα '{name}' απεγκαταστάθηκε επιτυχώς από το {path}",
+    "err.unexpected": "Παρουσιάστηκε απροσδόκητο σφάλμα: {error}"
+  },
+  "he": {
+    "param.name.description": "הסר התקנה של מיומנות סוכן מ-~/.uag/skills.",
+    "tool.description": "skills_uninstall",
+    "x_search_terms": [
+      "הסרת מיומנות",
+      "הסרת מיומנות",
+      "מחק מיומנות",
+      "נדרש שם מיומנות."
+    ],
+    "err.name_required": "שם תיקיית מיומנות לא חוקית: {name}",
+    "err.invalid_name": "המיומנות '{name}' אינה מותקנת ב-{root}",
+    "err.not_found": "המיומנות '{name}' הוסרה בהצלחה מ-{path}",
+    "success.uninstalled": "האם יש להתייחס גם לאזהרות ככישלון? (ברירת מחדל: false)",
+    "err.unexpected": "אירעה שגיאה בלתי צפויה: {error}"
+  },
+  "hu": {
+    "param.name.description": "Távolítson el egy ügynökkészséget a ~/.uag/skills webhelyről.",
+    "tool.description": "skill_uninstall",
+    "x_search_terms": [
+      "készség eltávolítása",
+      "készség eltávolítása",
+      "készség törlése",
+      "A készség neve szükséges."
+    ],
+    "err.name_required": "Érvénytelen készségmappanév: {name}",
+    "err.invalid_name": "A(z) '{name}' készség nincs telepítve a(z) {root} mappában",
+    "err.not_found": "A(z) {name} készség sikeresen eltávolítva innen: {path}",
+    "success.uninstalled": "A figyelmeztetéseket is hibaként kell kezelni? (alapértelmezett: false)",
+    "err.unexpected": "Váratlan hiba történt: {hiba}"
+  },
+  "ro": {
+    "param.name.description": "Numele folderului abilității de dezinstalat.",
+    "tool.description": "Dezinstalați o abilitate de agent din ~/.uag/skills.",
+    "x_search_terms": [
+      "skills_uninstall",
+      "uninstall skill",
+      "remove skill",
+      "delete skill"
+    ],
+    "err.name_required": "Numele aptitudinii este necesar.",
+    "err.invalid_name": "Nume nevalid al folderului de competențe: {name}",
+    "err.not_found": "Abilitatea „{name}” nu este instalată în {root}",
+    "success.uninstalled": "Abilitatea „{name}” a fost dezinstalată cu succes din {path}",
+    "err.unexpected": "A apărut o eroare neașteptată: {eroare}"
+  },
   "tr": {
     "param.name.description": "Kaldırılacak skill klasörünün adı.",
     "tool.description": "Bir Agent Skill’i ~/.",

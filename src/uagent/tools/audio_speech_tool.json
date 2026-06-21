@@ -631,5 +631,101 @@
     "err.output_path_empty": "output_path आवश्यक आहे",
     "err.speech_failed": "ऑडिओ स्पीच निर्मिती अयशस्वी: {err}",
     "ok.saved": "ऑडिओ फाइल जतन केली"
+  },
+  "el": {
+    "tool.description": "Μετατρέψτε κείμενο σε ομιλία, αποθηκεύστε τον ήχο ως αρχείο και επιστρέψτε την αποθηκευμένη διαδρομή.",
+    "x_search_terms": [
+      "audio_speech",
+      "ηχητική ομιλία",
+      "ήχου",
+      "φωνή",
+      "ομιλία",
+      "ήχος"
+    ],
+    "param.text.description": "Κείμενο για σύνθεση σε ομιλία.",
+    "param.output_path.description": "Διαδρομή όπου θα αποθηκευτεί το αρχείο ήχου που δημιουργήθηκε.",
+    "param.model.description": "Όνομα μοντέλου ομιλίας. Εάν παραλειφθεί, χρησιμοποιείται το προεπιλεγμένο όνομα του παρόχου ή το ρυθμισμένο όνομα ανάπτυξης.",
+    "param.voice.description": "Φωνή.",
+    "param.response_format.description": "Μορφή αρχείου ήχου για δημιουργία.",
+    "param.speed.description": "Πολλαπλασιαστής ταχύτητας αναπαραγωγής (π.χ. 1.0).",
+    "param.instructions.description": "Προαιρετικές οδηγίες για το στυλ ομιλίας.",
+    "err.unsupported_provider": "Μη υποστηριζόμενος πάροχος για ηχητική ομιλία: {provider!r}",
+    "err.openai_import": "Αποτυχία εισαγωγής πακέτου openai: {err}",
+    "err.text_empty": "απαιτείται κείμενο",
+    "err.output_path_empty": "απαιτείται διαδρομή_εξόδου",
+    "err.speech_failed": "Η δημιουργία ομιλίας ήχου απέτυχε: {err}",
+    "ok.saved": "Το αρχείο ήχου αποθηκεύτηκε"
+  },
+  "he": {
+    "tool.description": "המר טקסט לדיבור, שמור את השמע כקובץ והחזר את הנתיב השמור.",
+    "x_search_terms": [
+      "אודיו_דיבור",
+      "דיבור שמע",
+      "שֶׁמַע",
+      "קוֹל",
+      "נְאוּם",
+      "קוֹל"
+    ],
+    "param.text.description": "טקסט לסינתזה לדיבור.",
+    "param.output_path.description": "נתיב שבו יישמר קובץ השמע שנוצר.",
+    "param.model.description": "שם דגם דיבור. אם מושמט, נעשה שימוש בשם הפריסה המוגדר כברירת מחדל או המוגדר של ספק.",
+    "param.voice.description": "קוֹל.",
+    "param.response_format.description": "פורמט קובץ שמע להפקה.",
+    "param.speed.description": "מכפיל מהירות השמעה (למשל 1.0).",
+    "param.instructions.description": "הוראות אופציונליות לסגנון הדיבור.",
+    "err.unsupported_provider": "ספק לא נתמך לדיבור אודיו: {provider!r}",
+    "err.openai_import": "ייבוא ​​חבילת openai נכשל: {err}",
+    "err.text_empty": "נדרש טקסט",
+    "err.output_path_empty": "נדרש output_path",
+    "err.speech_failed": "יצירת דיבור אודיו נכשלה: {err}",
+    "ok.saved": "קובץ השמע נשמר"
+  },
+  "hu": {
+    "tool.description": "Konvertálja a szöveget beszéddé, mentse el a hangot fájlként, és adja vissza a mentett elérési utat.",
+    "x_search_terms": [
+      "audio_speech",
+      "hangbeszéd",
+      "hang-",
+      "hang",
+      "beszéd",
+      "hang"
+    ],
+    "param.text.description": "Beszédté szintetizálandó szöveg.",
+    "param.output_path.description": "Útvonal, ahová a generált hangfájl mentésre kerül.",
+    "param.model.description": "Beszédmodell neve. Ha kihagyja, akkor a szolgáltató alapértelmezett vagy konfigurált központi telepítési neve kerül felhasználásra.",
+    "param.voice.description": "Hang.",
+    "param.response_format.description": "Hangfájl formátum létrehozása.",
+    "param.speed.description": "Lejátszási sebesség szorzója (pl. 1.0).",
+    "param.instructions.description": "Választható utasítások a beszédstílushoz.",
+    "err.unsupported_provider": "Nem támogatott hangbeszéd-szolgáltató: {provider!r}",
+    "err.openai_import": "Nem sikerült importálni az openai csomagot: {err}",
+    "err.text_empty": "szöveg kötelező",
+    "err.output_path_empty": "output_path megadása kötelező",
+    "err.speech_failed": "A hangbeszéd létrehozása nem sikerült: {err}",
+    "ok.saved": "Hangfájl mentve"
+  },
+  "ro": {
+    "tool.description": "Convertiți textul în vorbire, salvați sunetul ca fișier și returnați calea salvată.",
+    "x_search_terms": [
+      "audio_vorbire",
+      "vorbire audio",
+      "audio",
+      "voce",
+      "vorbire",
+      "sunet"
+    ],
+    "param.text.description": "Text de sintetizat în vorbire.",
+    "param.output_path.description": "Calea în care va fi salvat fișierul audio generat.",
+    "param.model.description": "Numele modelului de vorbire. Dacă este omis, este folosit numele de implementare prestabilit sau configurat al furnizorului.",
+    "param.voice.description": "Voce.",
+    "param.response_format.description": "Format de fișier audio de generat.",
+    "param.speed.description": "Multiplicator de viteză de redare (de exemplu, 1.0).",
+    "param.instructions.description": "Instrucțiuni opționale pentru stilul de vorbire.",
+    "err.unsupported_provider": "Furnizor neacceptat pentru vorbire audio: {provider!r}",
+    "err.openai_import": "Nu s-a putut importa pachetul openai: {err}",
+    "err.text_empty": "textul este necesar",
+    "err.output_path_empty": "output_path este necesară",
+    "err.speech_failed": "Generarea vorbirii audio a eșuat: {err}",
+    "ok.saved": "Fișier audio salvat"
   }
 }

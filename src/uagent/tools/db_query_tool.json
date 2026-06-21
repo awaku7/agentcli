@@ -330,5 +330,57 @@
       "sqlite क्वेरी",
       "pragma"
     ]
+  },
+  "el": {
+    "param.db_path.description": "Διαδρομή προς το αρχείο βάσης δεδομένων SQLite.",
+    "param.sql.description": "SQL για εκτέλεση.",
+    "tool.description": "Εκτελέστε ερωτήματα SQL σε μια βάση δεδομένων SQLite και επιστρέψτε το αποτέλεσμα. Υποστηρίζονται μόνο οι λειτουργίες μόνο για ανάγνωση (SELECT) και η επιθεώρηση σχήματος (PRAGMA).",
+    "x_search_terms": [
+      "db_query",
+      "db ερώτημα",
+      "sql",
+      "βάση δεδομένων",
+      "sqlite",
+      "ερώτηση"
+    ]
+  },
+  "he": {
+    "param.db_path.description": "נתיב לקובץ מסד הנתונים של SQLite.",
+    "param.sql.description": "SQL לביצוע.",
+    "tool.description": "בצע שאילתות SQL מול מסד נתונים של SQLite והחזר את התוצאה. רק פעולות לקריאה בלבד (SELECT) ובדיקת סכימה (PRAGMA) נתמכות.",
+    "x_search_terms": [
+      "db_query",
+      "שאילתת db",
+      "sql",
+      "מסד נתונים",
+      "sqlite",
+      "שְׁאֵלָה"
+    ]
+  },
+  "hu": {
+    "param.db_path.description": "Az SQLite adatbázisfájl elérési útja.",
+    "param.sql.description": "SQL végrehajtása.",
+    "tool.description": "Végezzen SQL lekérdezéseket egy SQLite adatbázison, és adja vissza az eredményt. Csak olvasható műveletek (SELECT) és sémavizsgálat (PRAGMA) támogatottak.",
+    "x_search_terms": [
+      "db_query",
+      "db lekérdezés",
+      "sql",
+      "adatbázis",
+      "sqlite",
+      "lekérdezés"
+    ]
+  },
+  "ro": {
+    "param.db_path.description": "Calea către fișierul bazei de date SQLite.",
+    "param.sql.description": "SQL de executat.",
+    "tool.description": "Executați interogări SQL pe o bază de date SQLite și returnați rezultatul. Sunt acceptate doar operațiunile de numai citire (SELECT) și inspecția schemei (PRAGMA).",
+    "x_search_terms": [
+      "db_query",
+      "interogare db",
+      "sql",
+      "baza de date",
+      "sqlite",
+      "interogare"
+    ]
   }
 }

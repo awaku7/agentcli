@@ -450,5 +450,73 @@
     ],
     "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
     "err.local_db_unavailable": "[get_geoip error] Local DB not configured. "
+  },
+  "el": {
+    "param.format.description": "Μορφή εξόδου.",
+    "param.ip.description": "Προαιρετική διεύθυνση IP για αναζήτηση. Εάν παραλειφθεί, χρησιμοποιείται η τρέχουσα δημόσια IP (μόνο λειτουργία API).",
+    "tool.description": "Υπολογίστε την κατά προσέγγιση τοποθεσία του χρήστη με βάση τη δημόσια διεύθυνση IP του. Το αποτέλεσμα μπορεί να είναι ανακριβές όταν χρησιμοποιείτε VPN/διακομιστές μεσολάβησης/δίκτυα κινητής τηλεφωνίας.",
+    "x_search_terms": [
+      "get_geoip",
+      "λήψη geoip",
+      "τοποθεσία",
+      "χώρα",
+      "γεωγραφική τοποθεσία ip",
+      "geo ip",
+      "καιρός",
+      "news"
+    ],
+    "err.format_invalid": "[get_geoip error] η μορφή \"text\" ή \"json get Local.",
+    "err.local_db_unavailable": "Ένα εργαλείο για την ανάκτηση ολόκληρης της μακροπρόθεσμης μνήμης (κείμενο JSONL)."
+  },
+  "he": {
+    "param.format.description": "פורמט פלט.",
+    "param.ip.description": "כתובת IP אופציונלית כדי לחפש. אם מושמט, נעשה שימוש ב-IP הציבורי הנוכחי (במצב API בלבד).",
+    "tool.description": "הערך את המיקום הגס של המשתמש על סמך כתובת ה-IP הציבורית שלו. התוצאה עלולה להיות לא מדויקת בעת שימוש ב-VPN/פרוקסי/רשתות סלולריות.",
+    "x_search_terms": [
+      "get_geoip",
+      "קבל geoip",
+      "מיקום",
+      "מדינה",
+      "מיקום גיאוגרפי ip",
+      "גיאוגרפי ip",
+      "מזג אוויר",
+      "חדשות"
+    ],
+    "err.format_invalid": "פורמט [get_geoip error] חייב להיות 'טקסט' או 'json'",
+    "err.local_db_unavailable": "[get_geoip error לא מוגדר] [get_geoip error]."
+  },
+  "hu": {
+    "param.format.description": "Kimeneti formátum.",
+    "param.ip.description": "Opcionális IP-cím a kereséshez. Ha kihagyja, akkor az aktuális nyilvános IP-cím kerül felhasználásra (csak API mód).",
+    "tool.description": "Becsülje meg a felhasználó hozzávetőleges helyét nyilvános IP-címe alapján. Az eredmény pontatlan lehet VPN/proxy/mobilhálózatok használatakor.",
+    "x_search_terms": [
+      "get_geoip",
+      "geoip lekérése",
+      "hely",
+      "ország",
+      "ip földrajzi hely",
+      "geo ip",
+      "időjárás",
+      "hír"
+    ],
+    "err.format_invalid": "[get_geoip error] formátumnak \"text\" vagy \"json\" formátumúnak kell lennie",
+    "err.local_db_unavailable": "[get_geoip hiba] A Local Geoip not configured."
+  },
+  "ro": {
+    "param.format.description": "Format de ieșire.",
+    "param.ip.description": "Adresă IP opțională pentru căutare. Dacă este omis, IP-ul public curent este utilizat (numai în modul API).",
+    "tool.description": "Estimați locația aproximativă a utilizatorului pe baza adresei IP publice. Rezultatul poate fi inexact atunci când utilizați VPN/proxy/rețele mobile.",
+    "x_search_terms": [
+      "get_geoip",
+      "get geoip",
+      "locație",
+      "țara",
+      "ip geolocation",
+      "geo ip",
+      "meteo",
+      "știri"
+    ],
+    "err.format_invalid": "[get_geoip error] formatul trebuie să fie „text” sau „json”",
+    "err.local_db_unavailable": "[get_geoip error not configured]"
   }
 }

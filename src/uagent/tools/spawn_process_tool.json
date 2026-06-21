@@ -360,5 +360,61 @@
     ],
     "err.command_empty": "[spawn_process error] command is empty",
     "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com"
+  },
+  "el": {
+    "param.command.description": "Γραμμή εντολών προς εκτέλεση.",
+    "tool.description": "Ασύγχρονη έναρξη μιας εξωτερικής διαδικασίας GUI ή προγράμματος περιήγησης. Αποφύγετε επαναλαμβανόμενες ωοτοκίες για το ίδιο αίτημα.",
+    "x_search_terms": [
+      "spawn_process",
+      "spawn process",
+      "διαδικασία εκκίνησης",
+      "έναρξη εφαρμογής",
+      "gui process",
+      "browser process"
+    ],
+    "err.command_empty": "[spawn_process error] Η εντολή [spawn_process error] είναι κενή",
+    "err.windows_start_missing_target": "[spawn_process error] Η εντολή 'start' των Windows δεν έχει URL ή εκτελέσιμη διαδρομή\\.\nΠαράδειγμα: έναρξη \\\"\\\" https://www.google.com"
+  },
+  "he": {
+    "param.command.description": "התחל באופן אסינכרוני תהליך GUI או דפדפן חיצוני. הימנע שרצים חוזרים ונשנים עבור אותה בקשה.",
+    "tool.description": "התחל באופן אסינכרוני תהליך GUI או דפדפן חיצוני. הימנע שרצים חוזרים ונשנים עבור אותה בקשה.",
+    "x_search_terms": [
+      "תהליך השרצים",
+      "תהליך השקה",
+      "התחלת האפליקציה",
+      "תהליך gui",
+      "תהליך הדפדפן",
+      "הפקודה [שגיאת spawn_process] ריקה"
+    ],
+    "err.command_empty": "[שגיאת spawn_process] לפקודת 'התחל' של Windows אין כתובת URL או נתיב הפעלה.\\\nדוגמה: התחל \\\"\\\" https://www.google.com",
+    "err.windows_start_missing_target": "השם של סוכן המשנה המיוחד שיש להפעיל."
+  },
+  "hu": {
+    "param.command.description": "Külső grafikus felhasználói felület vagy böngészőfolyamat aszinkron indítása. Kerülje el az ismételt spawn-okat ugyanarra a kérésre.",
+    "tool.description": "Külső grafikus felhasználói felület vagy böngészőfolyamat aszinkron indítása. Kerülje el az ismételt spawn-okat ugyanarra a kérésre.",
+    "x_search_terms": [
+      "spawn_process",
+      "indítási folyamat",
+      "alkalmazás indítása",
+      "gui folyamat",
+      "böngésző folyamat",
+      "[spawn_process error] parancs üres"
+    ],
+    "err.command_empty": "[spawn_process error] A Windows 'start' parancsnak nincs URL-je vagy végrehajtható elérési útja\nPélda: start \\\"\\\" https://www.google.com",
+    "err.windows_start_missing_target": "A futtatandó speciális alügynök neve."
+  },
+  "ro": {
+    "param.command.description": "Linie de comandă de executat.",
+    "tool.description": "Porniți asincron o interfață grafică externă sau un proces de browser. Evitați spawn-urile repetate pentru aceeași solicitare.",
+    "x_search_terms": [
+      "spawn_process",
+      "spawn process",
+      "spawn process",
+      "start app",
+      "gui process",
+      "browser process"
+    ],
+    "err.command_empty": "[spawn_process error] comanda este goală",
+    "err.windows_start_missing_target": "[spawn_process error] Comanda „start” Windows nu are nici o adresă URL sau o cale executabilă.\nExemplu: start \\\"\\\" https://www.google.com"
   }
 }

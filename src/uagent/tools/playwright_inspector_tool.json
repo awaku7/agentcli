@@ -480,5 +480,77 @@
     "ui.captured": "--- कॅप्चर केलेले: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "ऑपरेशननंतर Inspector मध्ये Resume (▷) दाबा.",
     "ui.started": "--- PLAYWRIGHT INSPECTOR सुरू झाले ---"
+  },
+  "el": {
+    "err.child_failed": "[playwright_inspector error] Η θυγατρική διαδικασία απέτυχε:\n{stderr}",
+    "out.ok": "Η λήψη ολοκληρώθηκε: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html δημιουργήθηκε.\n{stdout}",
+    "param.prefix.description": "Πρόθεμα ονόματος αρχείου προς αποθήκευση (προεπιλογή: debug_capture)",
+    "param.url.description": "Πρώτη διεύθυνση URL που θα ανοίξει (προεπιλογή: about:blank)",
+    "tool.description": "Εκκινήστε το Playwright Inspector για να καταγράψετε τις λειτουργίες του προγράμματος περιήγησης. Ανοίγει την καθορισμένη διεύθυνση URL και αποθηκεύει την κατάσταση της σελίδας (HTML και εικόνα) αφού ο χρήστης κάνει κλικ ...",
+    "x_search_terms": [
+      "playwright_inspector",
+      "θεατρικός επιθεωρητής",
+      "αυτοματισμός προγράμματος περιήγησης",
+      "επιθεωρητής",
+      "καταγραφή σελίδας",
+      "θεατρικός συγγραφέας"
+    ],
+    "ui.captured": "--- CAPTURED: {png} ---n}",
+    "ui.resume_prompt": "Μετά τη λειτουργία, πατήστε Συνέχιση (▷) στο Inspector.",
+    "ui.started": "--- ΞΕΚΙΝΗΣΕ Ο ΕΠΙΘΕΩΡΗΤΗΣ ΣΥΓΓΡΑΦΕΑΣ ---"
+  },
+  "he": {
+    "err.child_failed": "[שגיאה של playwright_inspector] תהליך הצאצא נכשל:\n{stderr}",
+    "out.ok": "הצילום הושלם: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html נוצר.\n{stdout}",
+    "param.prefix.description": "קידומת של שם הקובץ לשמירה (ברירת מחדל: debug_capture)",
+    "param.url.description": "כתובת האתר הראשונה לפתיחה (ברירת מחדל: about:blank)",
+    "tool.description": "הפעל את Playwright Inspector כדי ללכוד את פעולות הדפדפן. פותח את כתובת ה-URL שצוינה ושומר את מצב הדף (HTML ותמונה) לאחר שהמשתמש לוחץ על ...",
+    "x_search_terms": [
+      "מחזאי_מפקח",
+      "מפקח מחזאי",
+      "אוטומציה של דפדפן",
+      "מפקח",
+      "דף לכידה",
+      "מחזאי"
+    ],
+    "ui.captured": "--- נלכד: {=html}, {p}, {p}} לאחר הפעולה, לחץ על המשך (▷) במפקח.",
+    "ui.resume_prompt": "--- PLAYWRIGHT INSPECTOR STARTED ---",
+    "ui.started": "החל עיבוד מקדים של תמונה כגון גווני אפור, דה-נויז, בינאריזציה ושיפור קצה, ולאחר מכן שמור את התוצאה כ-PNG."
+  },
+  "hu": {
+    "err.child_failed": "[playwright_inspector error] Az alárendelt folyamat sikertelen:\n{stderr}",
+    "out.ok": "Rögzítés kész: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html létrehozva.\n{stdout}",
+    "param.prefix.description": "A mentendő fájlnév előtagja (alapértelmezett: debug_capture)",
+    "param.url.description": "Első megnyitandó URL (alapértelmezett: about:blank)",
+    "tool.description": "Indítsa el a Playwright Inspector alkalmazást a böngészőműveletek rögzítéséhez. Megnyitja a megadott URL-t, és elmenti az oldal állapotát (HTML és kép), miután a felhasználó rákattint...",
+    "x_search_terms": [
+      "dramaturg_ellenőr",
+      "dramaturg-felügyelő",
+      "böngésző automatizálás",
+      "ellenőr",
+      "rögzítési oldal",
+      "dramaturg"
+    ],
+    "ui.captured": "--- RÖGZÍTETT: {html {flow}, {png}s=nap#ot a műveletet, nyomja meg a Folytatás (▷) gombot az Inspectorban.",
+    "ui.resume_prompt": "--- A PLAYWRIGHT INSPECTOR ELINDULT ---",
+    "ui.started": "Alkalmazza a kép előfeldolgozását, például szürkeárnyalatos, zajtalanítás, binarizálás és éljavítás, majd mentse az eredményt PNG formátumban."
+  },
+  "ro": {
+    "err.child_failed": "[playwright_inspector error] Procesul copil a eșuat:\n{stderr}",
+    "out.ok": "Captură finalizată: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html creat.\n{stdout}",
+    "param.prefix.description": "Prefixul numelui fișierului de salvat (implicit: debug_capture)",
+    "param.url.description": "Prima adresă URL de deschis (implicit: about:blank)",
+    "tool.description": "Lansați Playwright Inspector pentru a captura operațiunile browserului. Deschide adresa URL specificată și salvează starea paginii (HTML și imagine) după ce utilizatorul dă clic pe ...",
+    "x_search_terms": [
+      "playwright_inspector",
+      "dramaturg inspector",
+      "automatizare browser",
+      "inspector",
+      "captură pagină",
+      "dramaturg"
+    ],
+    "ui.captured": "--- CAPTURED: {},}, {psflow}",
+    "ui.resume_prompt": "După operație, apăsați Reluare (▷) în Inspector.",
+    "ui.started": "--- PLAYWRIGHT INSPECTOR A STARTED ---"
   }
 }

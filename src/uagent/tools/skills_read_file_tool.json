@@ -480,5 +480,77 @@
       "skills file"
     ],
     "param.maxb.description": "वाचायच्या बाइट्सची कमाल संख्या (डीफॉल्ट: 5000000)"
+  },
+  "el": {
+    "err.invalid_args": "skills_load",
+    "err.max_bytes_positive": "[σφάλμα εργαλείου] τα max_bytes πρέπει να είναι θετικός ακέραιος",
+    "err.relative_path_required": "[σφάλμα εργαλείου] relative_path πρέπει να είναι μια μη κενή συμβολοσειρά",
+    "err.skill_dir_required": "Το [σφάλμα εργαλείου] skill_dir πρέπει να είναι μια μη κενή συμβολοσειρά",
+    "param.relative_path.description": "Διαδρομή σε σχέση με τη ρίζα (mRE.FdER) CE.",
+    "param.skill_dir.description": "স্কিল ডিরেক্টরি",
+    "tool.description": "Διαβάζει με ασφάλεια ένα αρχείο κάτω από έναν κατάλογο δεξιοτήτων χρησιμοποιώντας μια σχετική διαδρομή. Η διέλευση της διαδρομής είναι αποκλεισμένη.",
+    "x_search_terms": [
+      "skills_read_file",
+      "skills read file",
+      "πρόγραμμα ανάγνωσης κειμένου",
+      "ανάγνωση περιεχομένων",
+      "φόρτωση αρχείου",
+      "αρχείο κειμένου"
+    ],
+    "param.maxb.description": "Μέγιστος αριθμός byte προς ανάγνωση (προεπιλογή: 5000000)"
+  },
+  "he": {
+    "err.invalid_args": "skills_load",
+    "err.max_bytes_positive": "[שגיאת כלי] max_bytes חייב להיות מספר שלם חיובי",
+    "err.relative_path_required": "[שגיאת הכלי] relative_path חייב להיות מחרוזת לא ריקה",
+    "err.skill_dir_required": "טעינת מיומנויות",
+    "param.relative_path.description": "נתיב ביחס לשורש המיומנות (למשל= references.md#) [REFERENCE] স্কিল ডিরেক্টরি",
+    "param.skill_dir.description": "קורא בבטחה קובץ תחת ספריית מיומנות באמצעות נתיב יחסי. מעבר נתיב חסום.",
+    "tool.description": "קורא בבטחה קובץ תחת ספריית מיומנות באמצעות נתיב יחסי. מעבר נתיב חסום.",
+    "x_search_terms": [
+      "skills read file",
+      "קובץ טקסט",
+      "קורא קבצים",
+      "תוכן קובץ",
+      "פתח קובץ",
+      "מספר בתים מקסימלי לקריאה (ברירת מחדל: 5000000)"
+    ],
+    "param.maxb.description": "שם התיקיה של המיומנות להסרה."
+  },
+  "hu": {
+    "err.invalid_args": "betölti a front-A és a Skillmattert. body",
+    "err.max_bytes_positive": "[eszközhiba] max_byte-nak pozitív egész számnak kell lennie",
+    "err.relative_path_required": "[eszközhiba] relatív_útvonalnak nem üres karakterláncnak kell lennie",
+    "err.skill_dir_required": "[eszközhiba] A skill_dir nem lehet üres karakterlánc",
+    "param.relative_path.description": "A készséggyökérhez viszonyított elérési út (pl. referenciák/REFERENCIA) [=m=]REFERENCE#. স্কিল ডিরেক্টরি",
+    "param.skill_dir.description": "Biztonságosan beolvas egy fájlt egy készségkönyvtárban egy relatív elérési út használatával. Az útvonal bejárása blokkolva van.",
+    "tool.description": "Biztonságosan beolvas egy fájlt egy készségkönyvtárban egy relatív elérési út használatával. Az útvonal bejárása blokkolva van.",
+    "x_search_terms": [
+      "skill-olvasott fájl",
+      "szövegfájl",
+      "szövegolvasó",
+      "olvasott tartalom",
+      "fájl betöltése",
+      "Olvasható bájtok maximális száma (alapértelmezett: 5000000)"
+    ],
+    "param.maxb.description": "Az eltávolítandó készség mappájának neve."
+  },
+  "ro": {
+    "err.invalid_args": "skills_load",
+    "err.max_bytes_positive": "[tool error] max_bytes trebuie să fie un număr întreg pozitiv",
+    "err.relative_path_required": "[tool error] relative_path trebuie să fie un șir nevid",
+    "err.skill_dir_required": "[eroare instrument] skill_dir trebuie să fie un șir nevid",
+    "param.relative_path.description": "Calea relativă la rădăcina aptitudinii (de exemplu, referințe/REFERENCE)",
+    "param.skill_dir.description": "d/REFERENCE স্কিল ডিরেক্টরি",
+    "tool.description": "Citește în siguranță un fișier dintr-un director de abilități folosind o cale relativă. Traversarea căii este blocată.",
+    "x_search_terms": [
+      "skill_read_file",
+      "skill read file",
+      "încărcare fișier",
+      "citire fișier",
+      "citire conținut",
+      "fișier text"
+    ],
+    "param.maxb.description": "Număr maxim de octeți de citit (implicit: 5000000)"
   }
 }

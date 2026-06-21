@@ -510,5 +510,81 @@
       "टायमर सेट करा",
       "विलंबित संदेश"
     ]
+  },
+  "el": {
+    "err.queue_uninitialized": "[Σφάλμα set_timer] δεν έχει αρχικοποιηθεί η επανάκληση event_queue.",
+    "err.seconds_invalid": "Το [set_timer error] δευτερόλεπτα δεν μπορεί να ερμηνευθεί ως ακέραιος αριθμός: {raw}",
+    "err.seconds_negative": "[set_timer error] δευτερόλεπτα πρέπει να είναι 0 ή περισσότερα: {val}",
+    "msg.default_timer_done": "Ο χρονοδιακόπτης ολοκληρώθηκε",
+    "out.ok": "[set_timer] Ο χρονοδιακόπτης έχει οριστεί για {seconds} δευτερόλεπτα: {message} (mp Mest=tompout=} ολοκλήρωση.",
+    "param.message.description": "Αυτόματη είσοδος για το LLM κατά το χρονικό όριο.",
+    "param.on_timeout_prompt.description": "Διάρκεια χρονοδιακόπτη σε δευτερόλεπτα.",
+    "param.seconds.description": "Εμφανίζει ένα μήνυμα μετά από έναν καθορισμένο αριθμό δευτερολέπτων. Προαιρετικά, μπορεί να στείλει ένα αυτόματο μήνυμα στο LLM.",
+    "tool.description": "Εμφανίζει ένα μήνυμα μετά από έναν καθορισμένο αριθμό δευτερολέπτων. Προαιρετικά, μπορεί να στείλει ένα αυτόματο μήνυμα στο LLM.",
+    "x_search_terms": [
+      "set_timer",
+      "timer",
+      "υπενθύμιση",
+      "ξυπνητήρι",
+      "καθυστέρηση",
+      "[shared_memory error] {err_type}: {err}"
+    ]
+  },
+  "he": {
+    "err.queue_uninitialized": "[set_timer error] התקשרות חוזרת של event_queue לא אותחלה.",
+    "err.seconds_invalid": "[set_timer error] שניות לא יכולות להתפרש כמספר שלם: {raw}",
+    "err.seconds_negative": "[set_timer error] שניות חייבות להיות 0 או יותר: {val}",
+    "msg.default_timer_done": "טיימר הסתיים",
+    "out.ok": "[set_timer] טיימר מוגדר ל-{seconds} שניות: {message} (on_timeout_prompt_compt})",
+    "param.message.description": "קלט אוטומטי עבור LLM עם פסק זמן.",
+    "param.on_timeout_prompt.description": "משך הטיימר בשניות.",
+    "param.seconds.description": "מציג הודעה לאחר מספר שניות מוגדר. לחלופין, זה יכול לשלוח הודעה אוטומטית ל-LLM.",
+    "tool.description": "מציג הודעה לאחר מספר שניות מוגדר. לחלופין, זה יכול לשלוח הודעה אוטומטית ל-LLM.",
+    "x_search_terms": [
+      "הגדר טיימר",
+      "טיימר",
+      "תזכורת",
+      "אזעקה",
+      "עיכוב",
+      "[shared_memory error] {err_type}: {err}"
+    ]
+  },
+  "hu": {
+    "err.queue_uninitialized": "A [set_timer error] event_queue visszahívása nincs inicializálva.",
+    "err.seconds_invalid": "A [set_timer error] másodperc nem értelmezhető egész számként: {raw}",
+    "err.seconds_negative": "[set_timer error] másodpercnek legalább 0-nak kell lennie: {val}",
+    "msg.default_timer_done": "Az időzítő lejárt",
+    "out.ok": "[set_timer] Az időzítő beállítva {seconds} másodpercre: {message} (on_timeout_promp]=t) befejezése.",
+    "param.message.description": "Automatikus bevitel az LLM számára időtúllépéskor.",
+    "param.on_timeout_prompt.description": "Az időzítő időtartama másodpercben.",
+    "param.seconds.description": "Megjelenít egy üzenetet meghatározott számú másodperc után. Opcionálisan automatikus üzenetet küldhet az LLM-nek.",
+    "tool.description": "Meghatározott számú másodperc elteltével üzenetet jelenít meg. Opcionálisan automatikus üzenetet küldhet az LLM-nek.",
+    "x_search_terms": [
+      "időzítő beállítása",
+      "időzítő",
+      "emlékeztető",
+      "ébresztés",
+      "késleltetés",
+      "[shared_memory error] {err_type}: {err}"
+    ]
+  },
+  "ro": {
+    "err.queue_uninitialized": "[set_timer error] event_queue callback nu a fost inițializată.",
+    "err.seconds_invalid": "[set_timer error] secunde nu pot fi interpretate ca un număr întreg: {raw}",
+    "err.seconds_negative": "[set_timer error] secunde trebuie să fie 0 sau mai mult: {val}",
+    "msg.default_timer_done": "Temporizator terminat",
+    "out.ok": "[set_timer] Temporizator setat pentru {secunde} secunde: {message} (on_timeout_timer_prompt) = afișare [= uponprompt_prompt.",
+    "param.message.description": "Introducere automată pentru LLM la expirarea timpului.",
+    "param.on_timeout_prompt.description": "Durata temporizatorului în secunde.",
+    "param.seconds.description": "Afișează un mesaj după un anumit număr de secunde. Opțional, poate trimite un mesaj automat către LLM.",
+    "tool.description": "Afișează un mesaj după un anumit număr de secunde. Opțional, poate trimite un mesaj automat către LLM.",
+    "x_search_terms": [
+      "set timer",
+      "timer",
+      "memento",
+      "alarmă",
+      "întârziere",
+      "[shared_memory error] {err_type}: {err}"
+    ]
   }
 }

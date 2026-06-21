@@ -191,6 +191,54 @@
     "tool.description": "Get the status of one SwitchBot Cloud device from the configured account.",
     "err.config_missing": "SwitchBot Cloud credentials are missing. Set UAGENT_SWITCHBOT_TOKEN and UAGENT_SWITCHBOT_SECRET."
   },
+  "el": {
+    "param.dev.description": "Αναγνωριστικό συσκευής (προτιμάται).",
+    "param.devname.description": "Όνομα συσκευής (εναλλακτικό).",
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "err.invalid_response": "Το SwitchBot Cloud επέστρεψε ένα μη αναμενόμενο ωφέλιμο φορτίο.",
+    "err.invalid_arguments": "Απαιτείται είτε αναγνωριστικό_συσκευής είτε όνομα_συσκευής.",
+    "err.not_found": "Καμία συσκευή SwitchBot δεν αντιστοιχεί στο παρεχόμενο αναγνωριστικό συσκευής.",
+    "err.ambiguous_target": "Πολλές συσκευές SwitchBot αντιστοιχούσαν στο παρεχόμενο όνομα_συσκευής.",
+    "msg.summary": "Λήφθηκε η κατάσταση του SwitchBot Cloud: {device_name} ({device_id}).",
+    "tool.description": "Λάβετε την κατάσταση μιας συσκευής SwitchBot Cloud από τον διαμορφωμένο λογαριασμό.",
+    "err.config_missing": "Λείπουν τα διαπιστευτήρια του SwitchBot Cloud. Ορίστε UAGENT_SWITCHBOT_TOKEN και UAGENT_SWITCHBOT_SECRET."
+  },
+  "he": {
+    "param.dev.description": "מזהה מכשיר (מועדף).",
+    "param.devname.description": "שם מכשיר (החלפה).",
+    "param.fmt.description": "אין ערכים במטמון.",
+    "err.invalid_response": "SwitchBot Cloud החזיר מטען בלתי צפוי.",
+    "err.invalid_arguments": "יש צורך ב- device_id או device_name.",
+    "err.not_found": "אין מכשיר SwitchBot שתואם ל-device_id שסופק.",
+    "err.ambiguous_target": "התקני SwitchBot מרובים תאמו את שם המכשיר שסופק.",
+    "msg.summary": "סטטוס SwitchBot Cloud הוחזר: {device_name} ({device_id}).",
+    "tool.description": "קבל את הסטטוס של מכשיר SwitchBot Cloud אחד מהחשבון המוגדר.",
+    "err.config_missing": "חסרים אישורי SwitchBot Cloud. הגדר UAGENT_SWITCHBOT_TOKEN ו-UAGENT_SWITCHBOT_SECRET."
+  },
+  "hu": {
+    "param.dev.description": "Eszközazonosító (előnyben részesített).",
+    "param.devname.description": "Eszköznév (tartalék).",
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "err.invalid_response": "A SwitchBot Cloud váratlan rakományt adott vissza.",
+    "err.invalid_arguments": "Az eszköz_azonosítója vagy az eszköz_neve megadása kötelező.",
+    "err.not_found": "Egy SwitchBot eszköz sem egyezik a megadott eszközazonosítóval.",
+    "err.ambiguous_target": "Több SwitchBot eszköz egyezik a megadott eszköznévvel.",
+    "msg.summary": "A SwitchBot Cloud állapota lekérve: {device_name} ({device_id}).",
+    "tool.description": "Kérje le egy SwitchBot Cloud-eszköz állapotát a konfigurált fiókból.",
+    "err.config_missing": "Hiányoznak a SwitchBot Cloud hitelesítő adatai. UAGENT_SWITCHBOT_TOKEN és UAGENT_SWITCHBOT_SECRET beállítása."
+  },
+  "ro": {
+    "param.dev.description": "ID dispozitiv (de preferat).",
+    "param.devname.description": "Numele dispozitivului (de rezervă).",
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "err.invalid_response": "SwitchBot Cloud a returnat o sarcină utilă neașteptată.",
+    "err.invalid_arguments": "Este necesar fie device_id, fie device_name.",
+    "err.not_found": "Niciun dispozitiv SwitchBot nu se potrivește cu device_id furnizat.",
+    "err.ambiguous_target": "Mai multe dispozitive SwitchBot se potriveau cu device_name furnizat.",
+    "msg.summary": "Starea SwitchBot Cloud a fost preluată: {device_name} ({device_id}).",
+    "tool.description": "Obțineți starea unui dispozitiv SwitchBot Cloud din contul configurat.",
+    "err.config_missing": "Acreditările SwitchBot Cloud lipsesc. Setați UAGENT_SWITCHBOT_TOKEN și UAGENT_SWITCHBOT_SECRET."
+  },
   "nb": {
     "param.dev.description": "Device ID (preferred).",
     "param.devname.description": "Device name (fallback).",

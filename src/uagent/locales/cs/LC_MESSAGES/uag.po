@@ -118,6 +118,7 @@ msgstr "[docs] je vyžadováno jméno"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] výzva pro výběr žánru při spuštění = číselný vstup"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -127,6 +128,8 @@ msgstr ""
 "(1=základní,2=komunikace,4=kancelář,8=vývoj,16=iot,32=spuštění,64=externí,128=média,255=vše,"
 " Enter=povolit vše):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Základní (soubor, prostředí, čas, výzvy, dovednosti, paměť, ovládání "
@@ -713,6 +716,7 @@ msgstr "Klíč API NVIDIA."
 msgid "DeepSeek API key."
 msgstr "Klíč API DeepSeek."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1388,12 +1392,15 @@ msgstr "DeepSeek presence_penalty (výchozí: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (výchozí: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1828,6 +1835,7 @@ msgstr ""
 "Neinteraktivní režim. Nespouštějte smyčku stdin; ukončete po zpracování "
 "spouštěcího souboru (pokud existuje)."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1837,11 +1845,13 @@ msgstr ""
 "(1=základní,2=komunikace,4=kancelář,8=vývoj,16=iot,32=spuštění,64=externí,128=média,255=vše)."
 " Pokud je zadáno, přeskočí interaktivní výzvu žánru."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Povolit odesílání nástroje do LLM (přepíše proměnnou prostředí "
 "UAGENT_USE_TOOL)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Zakázat odesílání nástroje do LLM (přepíše proměnnou prostředí "
@@ -2391,16 +2401,19 @@ msgstr ""
 "[Servery MCP]\n"
 "- Nepodařilo se získat informace: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Rychlý průvodce]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Víceřádkový: zadejte řádek, který je pouze 'f' pro vstup do víceřádkového režimu."
-"- Chat: napište zprávu a odešlete (GUI: Ctrl+Enter je také k dispozici)."
-
-"režimu (konec \"\"\"konec)."
+msgstr ""
+"- Víceřádkový: zadejte řádek, který je pouze 'f' pro vstup do víceřádkového "
+"režimu.- Chat: napište zprávu a odešlete (GUI: Ctrl+Enter je také k "
+"dispozici).režimu (konec \"\"\"konec)."
 
 #: src/uagent/welcome.py:70
 msgid ""

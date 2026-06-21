@@ -358,5 +358,53 @@
     "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
     "ui.confirm.title": "=== Human confirmation request ==="
+  },
+  "el": {
+    "confirm.risky_command": "δεν είναι διαθέσιμες οι επανάκλήσεις για το human_ask",
+    "confirm.shell_metachar": "Εντοπίστηκαν χειριστές κελύφους (σωλήνας/ανακατεύθυνση/αλυσίδα).\nεντολή: {εντολή}\nΠληκτρολογήστε y για να συνεχίσετε ή c για ακύρωση.",
+    "err.blocked_cancelled": "χρονικό όριο επιβεβαίωσης",
+    "err.blocked_rejected": "=== /επιβεβαίωση ===",
+    "err.callbacks_unavailable": "Πώς να απαντήσετε: y=proceed / c=cancel / other=deny",
+    "err.confirm_failed": "=== Ανθρώπινο αίτημα επιβεβαίωσης ===",
+    "err.confirm_timeout": "μετονομασία/μετακίνηση θα μετακινήσει πραγματικά αρχεία (μπορεί να αντικαταστήσει ή να διαγράψει υπάρχοντα αρχεία).\nsrc: {src}\ndst: {dst}\nλεπτομέρειες: {λεπτομέρειες}\n\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση.",
+    "ui.confirm.footer": "Αυτή η λειτουργία μπορεί να είναι επικίνδυνη, επομένως απαιτείται επιβεβαίωση.\nλειτουργία: {λειτουργία}\nδιαδρομή: {path}\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση.",
+    "ui.confirm.howto": "Η δημιουργία ακυρώθηκε επειδή δεν το επέτρεψε ο χρήστης: {filename}",
+    "ui.confirm.title": "Η διαγραφή ακυρώθηκε επειδή δεν το επέτρεψε ο χρήστης: {filename}"
+  },
+  "he": {
+    "confirm.risky_command": "זוהה תוכן פקודה שעלול להיות מסוכן.\nפקודה: {פקודה}\nהקלד y כדי להמשיך, או c כדי לבטל.",
+    "confirm.shell_metachar": "זוהו מפעילי מעטפת (צינור/הפניה מחדש/שרשור).\nפקודה: {פקודה}\nהקלד y כדי להמשיך, או c כדי לבטל.",
+    "err.blocked_cancelled": "התקשרות חוזרת של human_ask לא זמינה",
+    "err.blocked_rejected": "אישור נכשל",
+    "err.callbacks_unavailable": "פסק זמן לאישור",
+    "err.confirm_failed": "=== /confirm ===",
+    "err.confirm_timeout": "כיצד להשיב: y=המשך / c=ביטול / אחר=הכחשה",
+    "ui.confirm.footer": "=== בקשת אישור אנושית ===",
+    "ui.confirm.howto": "שינוי שם/העברה יעביר קבצים אמיתיים (זה עלול לדרוס או למחוק קבצים קיימים).\nsrc: {src}\ndst: {dst}\nפרטים: {פרטים}\n\nהשב עם y כדי להמשיך, או c כדי לבטל.",
+    "ui.confirm.title": "פעולה זו עלולה להיות מסוכנת, ולכן נדרש אישור.\nפעולה: {מבצע}\nנתיב: {נתיב}\nהשב עם y כדי להמשיך, או c כדי לבטל."
+  },
+  "hu": {
+    "confirm.risky_command": "human_ask visszahívás nem érhető el",
+    "confirm.shell_metachar": "Shell operátorokat (cső/átirányítás/láncolás) észleltünk.\nparancs: {parancs}\nA folytatáshoz írja be az y billentyűt, vagy a visszavonáshoz c.",
+    "err.blocked_cancelled": "a megerősítés időtúllépése",
+    "err.blocked_rejected": "=== /confirm ===",
+    "err.callbacks_unavailable": "Válasz: y=proceed / c=cancel / other=deny",
+    "err.confirm_failed": "=== Emberi megerősítési kérés ===",
+    "err.confirm_timeout": "az átnevezés/áthelyezés valódi fájlokat helyez át (felülírhatja vagy törölheti a meglévő fájlokat).\nsrc: {src}\ndst: {dst}\nrészletek: {részletek}\n\nVálaszoljon y-val a folytatáshoz, vagy c-vel a visszavonáshoz.",
+    "ui.confirm.footer": "Ez a művelet veszélyes lehet, ezért megerősítésre van szükség.\nművelet: {operation}\nelérési út: {path}\nVálaszoljon y-val a folytatáshoz, vagy c-vel a visszavonáshoz.",
+    "ui.confirm.howto": "A létrehozás megszakítva, mert a felhasználó nem engedélyezte: {filename}",
+    "ui.confirm.title": "Törlés megszakítva, mert a felhasználó nem engedélyezte: {filename}"
+  },
+  "ro": {
+    "confirm.risky_command": "Operatorii Shell (conducte/redirecționare/înlănțuire) au fost detectați.\ncomanda: {comandă}\nTastați y pentru a continua sau c pentru a anula.",
+    "confirm.shell_metachar": "Au fost detectați operatori Shell (conductă/redirecționare/înlănțuire).\ncomanda: {comandă}\nTastați y pentru a continua sau c pentru a anula.",
+    "err.blocked_cancelled": "utilizator respins",
+    "err.blocked_rejected": "apeluri inverse human_ask nu sunt disponibile",
+    "err.callbacks_unavailable": "confirmarea eșuată",
+    "err.confirm_failed": "expirare confirmare",
+    "err.confirm_timeout": "=== /confirm ===",
+    "ui.confirm.footer": "Cum să răspunzi: y=proceed / c=cancel / other=deny",
+    "ui.confirm.howto": "=== Solicitare de confirmare umană ===",
+    "ui.confirm.title": "redenumirea/mutarea va muta fișierele reale (poate suprascrie sau șterge fișierele existente).\nsrc: {src}\ndst: {dst}\ndetalii: {detalii}\n\nRăspundeți cu y pentru a continua sau c pentru a anula."
   }
 }

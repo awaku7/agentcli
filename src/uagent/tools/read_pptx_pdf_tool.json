@@ -480,5 +480,77 @@
     "param.maxc.description": "परत देण्यासाठी जास्तीत जास्त अक्षरे. दिले नाही तर 8000 अक्षरांवर कापले जाईल.",
     "err.path_required": "[read_pptx_pdf error] path is required",
     "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer"
+  },
+  "el": {
+    "param.page_index.description": "Αριθμός σελίδας βάσει 1 (σελίδα PDF ή ευρετήριο διαφανειών PPTX). Εάν παραλειφθεί, επιστρέφει συνεκτικό κείμενο για όλες τις σελίδες.",
+    "param.path.description": "Διαδρομή σε αρχείο PDF / PPTX / JSON.",
+    "tool.description": "Διαβάστε το PDF/PPTX (ή το κοινό τους σχήμα JSON) και επιστρέψτε το εξαγόμενο κείμενο ανά σελίδα. Μπορείτε να ορίσετε διαδρομή σε .",
+    "x_search_terms": [
+      "read_pptx_pdf",
+      "ανάγνωση pptx pdf",
+      "pdf",
+      "pptx",
+      "κείμενο σελίδας",
+      "εξαγωγή σελίδων"
+    ],
+    "param.password.description": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{path}",
+    "prompt.password": "Μορφή εξόδου: κείμενο ή json.",
+    "param.maxc.description": "Μέγιστος αριθμός χαρακτήρων προς επιστροφή. Εάν παραλειφθεί, περικόπτεται στους 8000 χαρακτήρες.",
+    "err.path_required": "Απαιτείται η διαδρομή [read_pptx_pdf error]",
+    "err.page_index_int": "[read_pptx_pdf error] Το page_index πρέπει να είναι ακέραιος"
+  },
+  "he": {
+    "param.page_index.description": "מספר עמוד מבוסס אחד (דף PDF או אינדקס שקופיות PPTX). אם מושמט, מחזיר טקסט משורשר עבור כל הדפים.",
+    "param.path.description": "נתיב לקובץ PDF / PPTX / JSON.",
+    "tool.description": "קרא את PDF/PPTX (או את סכימת ה-JSON הנפוצה שלהם) והחזר טקסט שחולץ לפי עמוד. אתה יכול להגדיר נתיב ל.",
+    "x_search_terms": [
+      "read_pptx_pdf",
+      "קרא pptx pdf",
+      "pdf",
+      "pptx",
+      "טקסט עמוד",
+      "דפים לחלץ"
+    ],
+    "param.password.description": "פורמט פלט: טקסט או json.",
+    "prompt.password": "בדוק או נקה את המטמון המשותף של ECHONET Lite.",
+    "param.maxc.description": "מספר תווים מקסימלי להחזרה. אם מושמט, נחתך ב-8000 תווים.",
+    "err.path_required": "נתיב [read_pptx_pdf error] נדרש",
+    "err.page_index_int": "[read_pptx_pdf error] page_index חייב להיות מספר שלם"
+  },
+  "hu": {
+    "param.page_index.description": "1 alapú oldalszám (PDF oldal vagy PPTX diaindex). Ha kihagyja, összefűzött szöveget ad vissza minden oldalra.",
+    "param.path.description": "PDF/PPTX/JSON fájl elérési útja.",
+    "tool.description": "Olvassa el a PDF/PPTX-fájlokat (vagy azok közös JSON-sémáját), és oldalanként adja vissza a kivonatolt szöveget. Beállíthatja az elérési utat.",
+    "x_search_terms": [
+      "read_pptx_pdf",
+      "olvasható pptx pdf",
+      "pdf",
+      "pptx",
+      "oldalszöveg",
+      "oldal kivonat"
+    ],
+    "param.password.description": "dokumentumhoz.f., t.x).",
+    "prompt.password": "Jelszó (ha szükséges, kéri",
+    "param.maxc.description": "A visszaadható karakterek maximális száma. Ha kimarad, 8000 karakternél csonkol.",
+    "err.path_required": "[read_pptx_pdf error] elérési útra van szükség",
+    "err.page_index_int": "[read_pptx_pdf error] page_indexnek egész számnak kell lennie"
+  },
+  "ro": {
+    "param.page_index.description": "Număr de pagină bazat pe 1 (pagină PDF sau index de diapozitive PPTX). Dacă este omis, returnează text concatenat pentru toate paginile.",
+    "param.path.description": "Calea către un fișier PDF/PPTX/JSON.",
+    "tool.description": "Citiți PDF/PPTX (sau schema lor comună JSON) și returnați textul extras pe pagină. Puteți seta calea către .",
+    "x_search_terms": [
+      "read_pptx_pdf",
+      "read pptx pdf",
+      "pdf",
+      "pptx",
+      "textul paginii",
+      "extrage pagini"
+    ],
+    "param.password.description": "extrage document",
+    "prompt.password": "Path to.x, odt.",
+    "param.maxc.description": "Numărul maxim de caractere de returnat. Dacă este omis, trunchiază la 8000 de caractere. Calea",
+    "err.path_required": "[read_pptx_pdf error] este necesară",
+    "err.page_index_int": "[read_pptx_pdf error] page_index trebuie să fie un număr întreg"
   }
 }

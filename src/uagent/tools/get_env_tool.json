@@ -420,5 +420,69 @@
     ],
     "param.skip.description": "true असल्यास, अनुपस्थित असताना त्रुटीऐवजी '(not set)' परत करते. डीफॉल्ट false आहे.",
     "err.name_required": "[get_env error] 'name' is required"
+  },
+  "el": {
+    "param.mask.description": "текум (π.χ., για τα μυστικά είναι true",
+    "param.name.description": "Ο αριθμός των χαρακτήρων που πρέπει να αφήσετε στην αρχή και στο τέλος είναι 2.",
+    "param.unmasked_chars.description": "Λαμβάνει την τιμή μιας καθορισμένης μεταβλητής και την επιστρέφει",
+    "tool.description": "Λαμβάνει την τιμή μιας καθορισμένης μεταβλητής περιβάλλοντος και την επιστρέφει. Προαιρετικά καλύπτει την τιμή.",
+    "x_search_terms": [
+      "get_env",
+      "παίρνω env",
+      "μεταβλητή περιβάλλοντος",
+      "διαμόρφωση",
+      "μυστικό",
+      "env var"
+    ],
+    "param.skip.description": "Εάν είναι αληθές, επιστρέψτε \"(not set)\" αντί για σφάλμα όταν λείπει. Η προεπιλογή είναι ψευδής.",
+    "err.name_required": "Απαιτείται [get_env error] 'όνομα'"
+  },
+  "he": {
+    "param.mask.description": "שם משתנה של הסביבה לקריאה",
+    "param.name.description": "מספר תווים להשאיר בהתחלה ובסוף כאשר מיסוך הוא 2",
+    "param.unmasked_chars.description": "מספר התווים שיש להשאיר בהתחלה ובסוף בעת מיסוך. ברירת המחדל היא 2.",
+    "tool.description": "מקבל את הערך של משתנה סביבה שצוין ומחזיר אותו. אופציונלי מסווה את הערך.",
+    "x_search_terms": [
+      "get_env",
+      "לקבל env",
+      "משתנה סביבה",
+      "config",
+      "סוד",
+      "env var"
+    ],
+    "param.skip.description": "אם נכון, החזר '(not set)' במקום שגיאה כאשר חסר. ברירת המחדל היא שקר.",
+    "err.name_required": "[get_env error] נדרש 'שם'"
+  },
+  "hu": {
+    "param.mask.description": "Ha igaz, elfedi az értéket (pl. a titkok esetében). Az alapértelmezett érték igaz.",
+    "param.name.description": "теку= the if] érték (pl. a titkok esetén).",
+    "param.unmasked_chars.description": "A maszkoláskor az elején és a végén elhagyandó karakterek száma. Az alapértelmezett a 2.",
+    "tool.description": "Lekéri egy megadott környezeti változó értékét, és visszaadja azt. Opcionálisan maszkolja az értéket.",
+    "x_search_terms": [
+      "get_env",
+      "kap env",
+      "környezeti változó",
+      "config",
+      "titkos",
+      "env var"
+    ],
+    "param.skip.description": "Ha igaz, akkor a hiányzó hiba helyett a „(not set)” értéket adja vissza. Az alapértelmezett érték hamis.",
+    "err.name_required": "A [get_env error] „name” megadása kötelező"
+  },
+  "ro": {
+    "param.mask.description": "Dacă este adevărat, maschează valoarea (de exemplu, pentru secrete). Implicit este adevărat.",
+    "param.name.description": "Numele variabilei de mediu de citit.",
+    "param.unmasked_chars.description": "valoare (de exemplu, pentru secrete).",
+    "tool.description": "Numele variabilei de mediu de citit",
+    "x_search_terms": [
+      "Numărul de caractere de lăsat la început și la final este 2.",
+      "Obține valoarea unei variabile de mediu specificate",
+      "variabila de mediu",
+      "config",
+      "secret",
+      "env var"
+    ],
+    "param.skip.description": "Dacă este adevărat, returnați „(nesetat)” în loc de o eroare când lipsește. Implicit este fals.",
+    "err.name_required": "[get_env error] „nume” este necesar"
   }
 }

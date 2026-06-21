@@ -452,5 +452,81 @@
       "हटवा"
     ],
     "param.skip.description": "सक्षम असल्यास, मार्ग अस्तित्वात नसला तरी त्रुटी देऊ नका."
+  },
+  "el": {
+    "confirm.delete_paths_bulk": "Διαγραφή {count} μονοπατιών;\n\n{μονοπάτια}\n\nΠληκτρολογήστε y για να συνεχίσετε ή c για ακύρωση.",
+    "param.allow_dir.description": "Εάν ισχύει, επιτρέψτε τη διαγραφή καταλόγων που ταιριάζουν με glob.",
+    "param.confirmed.description": "Εάν ισχύει, παραλείψτε την εσωτερική προτροπή επιβεβαίωσης του εργαλείου.",
+    "param.dry_run.description": "Εάν είναι αληθές, απαριθμήστε μόνο τις αντιστοιχισμένες διαδρομές και μην διαγράψετε τίποτα.",
+    "param.filename.description": "Διαδρομή προς διαγραφή ή λίστα διαδρομών/μοτίβων σφαιρών προς διαγραφή.",
+    "tool.description": "Διαγράψτε το καθορισμένο αρχείο ή κατάλογο (οι κατάλογοι διαγράφονται αναδρομικά). Επειδή αυτό είναι επικίνδυνο, μπορεί να απαιτείται επιβεβαίωση.",
+    "x_search_terms": [
+      "διαγραφή αρχείου",
+      "αφαιρέστε το αρχείο",
+      "εξάλειψη",
+      "ファイル削除",
+      "εξάλειψη αρχείου",
+      "suprimer fichier",
+      "파일 삭제",
+      "удалить αρχείο"
+    ],
+    "param.skip.description": "Εάν ισχύει, μην κάνετε λάθος όταν η διαδρομή δεν υπάρχει."
+  },
+  "he": {
+    "confirm.delete_paths_bulk": "למחוק {count} נתיבים?\n\n{נתיבים}\n\nהזן y כדי להמשיך, או c כדי לבטל.",
+    "param.allow_dir.description": "אם נכון, אפשר למחוק ספריות המותאמות לפי glob.",
+    "param.confirmed.description": "אם נכון, דלג על בקשת האישור הפנימי של הכלי.",
+    "param.dry_run.description": "אם נכון, רשום רק נתיבים תואמים ואל תמחק שום דבר.",
+    "param.filename.description": "נתיב למחיקה, או רשימה של נתיבים/דפוסי גלוב למחיקה.",
+    "tool.description": "מחק את הקובץ או הספרייה שצוינו (הספריות נמחקות באופן רקורסיבי). מכיוון שזה מסוכן, ייתכן שיידרש אישור.",
+    "x_search_terms": [
+      "למחוק קובץ",
+      "להסיר קובץ",
+      "לִמְחוֹק",
+      "ファイル削除",
+      "ביטול ארכיון",
+      "supprimer fichier",
+      "파일 삭제",
+      "удалить файл"
+    ],
+    "param.skip.description": "אם נכון, אל תטעה כאשר הנתיב אינו קיים."
+  },
+  "hu": {
+    "confirm.delete_paths_bulk": "Töröl {count} útvonalat?\n\n{útvonalak}\n\nA folytatáshoz írja be az y-t, a megszakításhoz pedig a c-t.",
+    "param.allow_dir.description": "Ha igaz, akkor engedélyezze a glob-nak megfelelő könyvtárak törlését.",
+    "param.confirmed.description": "Ha igaz, hagyja ki az eszköz belső megerősítő üzenetét.",
+    "param.dry_run.description": "Ha igaz, csak az egyező útvonalakat sorolja fel, és ne töröljön semmit.",
+    "param.filename.description": "A törlendő elérési út vagy a törölni kívánt útvonalak/globális minták listája.",
+    "tool.description": "Törölje a megadott fájlt vagy könyvtárat (a könyvtárak rekurzív módon törlődnek). Mivel ez veszélyes, megerősítésre lehet szükség.",
+    "x_search_terms": [
+      "fájl törlése",
+      "fájl eltávolítása",
+      "törölni",
+      "ファイル削除",
+      "eliminar archivo",
+      "supprimer fichier",
+      "파일 삭제",
+      "удалить файл"
+    ],
+    "param.skip.description": "Ha igaz, ne hibázz, ha az elérési út nem létezik."
+  },
+  "ro": {
+    "confirm.delete_paths_bulk": "Ștergeți {count} căi?\n\n{cale}\n\nIntroduceți y pentru a continua sau c pentru a anula.",
+    "param.allow_dir.description": "Dacă este adevărat, permiteți ștergerea directoarelor potrivite de glob.",
+    "param.confirmed.description": "Dacă este adevărat, omiteți promptul de confirmare internă a instrumentului.",
+    "param.dry_run.description": "Dacă este adevărat, enumerați doar căile potrivite și nu ștergeți nimic.",
+    "param.filename.description": "Cale de șters sau o listă de căi/modeluri glob de șters.",
+    "tool.description": "Ștergeți fișierul sau directorul specificat (directoarele sunt șterse recursiv). Deoarece acest lucru este periculos, poate fi necesară o confirmare.",
+    "x_search_terms": [
+      "șterge fișierul",
+      "eliminați fișierul",
+      "şterge",
+      "ファイル削除",
+      "eliminați fișierul",
+      "șterge fișierul",
+      "파일 삭제",
+      "удалить файл"
+    ],
+    "param.skip.description": "Dacă este adevărat, nu eroați atunci când calea nu există."
   }
 }

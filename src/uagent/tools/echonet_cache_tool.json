@@ -190,6 +190,46 @@
     "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
     "param.namespace.description": "Cache namespace (omit for all)."
   },
+  "el": {
+    "tool.description": "Επιθεωρήστε ή εκκαθαρίστε την κοινόχρηστη προσωρινή μνήμη ECHONET Lite.",
+    "param.action.description": "Ενέργεια προσωρινής αποθήκευσης προς εκτέλεση: στιγμιότυπο ή διαγραφή.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.snapshot": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "msg.no_items": "Δεν υπάρχουν καταχωρήσεις προσωρινής αποθήκευσης.",
+    "msg.cleared": "Διαγράφηκαν {αφαιρέθηκαν} αποθηκευμένες καταχωρήσεις από το {scope}.",
+    "err.invalid_action": "Σφάλμα: η ενέργεια πρέπει να είναι \"στιγμιότυπο\" ή \"καθαρή\".",
+    "param.namespace.description": "Cache namespace (παράλειψη για όλους)."
+  },
+  "he": {
+    "tool.description": "בדוק או נקה את המטמון המשותף של ECHONET Lite.",
+    "param.action.description": "פעולת מטמון לביצוע: תמונת מצב או נקה.",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.snapshot": "תמונת מצב של מטמון ECHONET: {count} פריטים.",
+    "msg.no_items": "אין ערכים בקובץ שמור.",
+    "msg.cleared": "ניקה {הוסר} ערכים במטמון מ-{scope}.",
+    "err.invalid_action": "שגיאה: הפעולה חייבת להיות 'תמונת מצב' או 'נקה'.",
+    "param.namespace.description": "מרחב שמות מטמון (השמט לכולם)."
+  },
+  "hu": {
+    "tool.description": "Vizsgálja meg vagy törölje a megosztott ECHONET Lite gyorsítótárat.",
+    "param.action.description": "Gyorsítótári művelet végrehajtása: pillanatfelvétel vagy törlés.",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.snapshot": "ECHONET gyorsítótár pillanatképe: {count} elem.",
+    "msg.no_items": "Nincsenek gyorsítótárazott bejegyzések.",
+    "msg.cleared": "{removed} gyorsítótárazott bejegyzés törlése a következőről: {scope}.",
+    "err.invalid_action": "Hiba: a műveletnek „pillanatfelvételnek” vagy „tisztának” kell lennie.",
+    "param.namespace.description": "Gyorsítótár névtér (mindennél kihagyja)."
+  },
+  "ro": {
+    "tool.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "param.action.description": "Acțiune în cache de efectuat: instantaneu sau ștergere.",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.snapshot": "Instantaneu cache ECHONET: {count} element(e).",
+    "msg.no_items": "Nu sunt prezente intrări în cache.",
+    "msg.cleared": "S-au șters {removed} intrări din cache din {scope}.",
+    "err.invalid_action": "Eroare: acțiunea trebuie să fie „instantaneu” sau „clear”.",
+    "param.namespace.description": "Cache namespace (omiteți pentru toți)."
+  },
   "nb": {
     "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
     "param.action.description": "Cache action to perform: snapshot or clear.",

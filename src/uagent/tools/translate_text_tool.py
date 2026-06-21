@@ -47,7 +47,12 @@ _LOCALE_TO_GOOGLE: dict[str, str] = {
     "fa": "fa",
     "mn": "mn",
     "mr": "mr",
+    "el": "el",
+    "he": "he",
+    "hu": "hu",
+    "ro": "ro",
 }
+
 
 # Reverse mapping: Google format -> project format
 _GOOGLE_TO_LOCALE: dict[str, str] = {v: k for k, v in _LOCALE_TO_GOOGLE.items()}

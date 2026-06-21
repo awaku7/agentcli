@@ -362,5 +362,69 @@
       "workdir बदला",
       "कार्यशील निर्देशिका"
     ]
+  },
+  "el": {
+    "confirm.change_workdir": "Αλλαγή της διεύθυνσης εργασίας σε: {path};\nΠληκτρολογήστε y για να συνεχίσετε ή c για ακύρωση.",
+    "param.confirm.description": "Εάν θα ζητηθεί επιβεβαίωση χρήστη.",
+    "param.new_dir.description": "Η νέα διαδρομή καταλόγου προς εναλλαγή.",
+    "tool.description": "Αλλάξτε τον τρέχοντα κατάλογο εργασίας μετά την επιβεβαίωση του χρήστη.",
+    "x_search_terms": [
+      "αλλαγή καταλόγου",
+      "CD",
+      "διακόπτης σκην",
+      "ディレクトリ変更",
+      "cambiar directorio",
+      "αλλαγή του ρεπερτορίου",
+      "디렉터리 변경",
+      "сменить директорию"
+    ]
+  },
+  "he": {
+    "confirm.change_workdir": "לשנות את workdir ל: {path}?\nהזן y כדי להמשיך, או c כדי לבטל.",
+    "param.confirm.description": "האם לבקש אישור משתמש.",
+    "param.new_dir.description": "נתיב הספרייה החדש שאליו יש לעבור.",
+    "tool.description": "שנה את ספריית העבודה הנוכחית לאחר אישור המשתמש.",
+    "x_search_terms": [
+      "לשנות ספרייה",
+      "CD",
+      "להחליף מדריך",
+      "ディレクトリ変更",
+      "מדריך קמביאר",
+      "מחליף רפרטואר",
+      "디렉터리 변경",
+      "сменить директорию"
+    ]
+  },
+  "hu": {
+    "confirm.change_workdir": "Módosítja a munkakönyvtárat a következőre: {path}?\nA folytatáshoz írja be az y-t, a megszakításhoz pedig a c-t.",
+    "param.confirm.description": "Kérjen-e felhasználói megerősítést.",
+    "param.new_dir.description": "Az új könyvtár elérési útja, amelyre váltani kell.",
+    "tool.description": "Módosítsa az aktuális munkakönyvtárat a felhasználó jóváhagyása után.",
+    "x_search_terms": [
+      "könyvtár módosítása",
+      "CD",
+      "kapcsoló dir",
+      "ディレクトリ変更",
+      "cambiar directorio",
+      "répertoire váltó",
+      "디렉터리 변경",
+      "сменить директорию"
+    ]
+  },
+  "ro": {
+    "confirm.change_workdir": "Schimbați workdir în: {cale}?\nIntroduceți y pentru a continua sau c pentru a anula.",
+    "param.confirm.description": "Dacă trebuie să cereți confirmarea utilizatorului.",
+    "param.new_dir.description": "Noua cale de director la care să comutați.",
+    "tool.description": "Schimbați directorul de lucru curent după confirmarea utilizatorului.",
+    "x_search_terms": [
+      "schimba directorul",
+      "CD",
+      "comutare dir",
+      "ディレクトリ変更",
+      "schimba directorul",
+      "changer de répertoire",
+      "디렉터리 변경",
+      "сменить директорию"
+    ]
   }
 }

@@ -191,6 +191,54 @@
     "param.endpoint.description": "Endpoint filter (optional).",
     "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
   },
+  "el": {
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "err.device_id_required": "Ο στόχος της συσκευής είναι διφορούμενος: {device_id}",
+    "err.not_found": "Αναγνωριστικό ελεγκτή (προαιρετικό).",
+    "err.ambiguous_target": "Αναγνωριστικό γέφυρας (προαιρετικό).",
+    "tool.description": "Λίστα τερματικών σημείων συσκευής.",
+    "param.dev.description": "Θέμα αναγνωριστικού συσκευής για αναζήτηση. Απαιτούμενο αναγνωριστικό.",
+    "param.ctrl.description": "Φίλτρο τελικού σημείου (προαιρετικό).",
+    "param.bridge.description": "Λείπουν τα δεδομένα συσκευής. Ορίστε {env_json} ή {env_file} για συσκευές, ελεγκτές ή γέφυρες.",
+    "param.endpoint.description": "Έλεγχος μιας συσκευής Matter (on/off/open/close/lock/unlock/set_value).",
+    "err.config_missing": "Λείπουν τα δεδομένα της συσκευής. Ορίστε {env_json} ή {env_file} για συσκευές, ελεγκτές ή γέφυρες."
+  },
+  "he": {
+    "param.fmt.description": "אין ערכים במטמון.",
+    "err.device_id_required": "יעד מכשיר עניין אינו ברור: {device_id}",
+    "err.not_found": "מזהה בקר (אופציונלי).",
+    "err.ambiguous_target": "מזהה גשר (אופציונלי).",
+    "tool.description": "רשימת נקודות קצה של מכשירי Matter.",
+    "param.dev.description": "חשוב להסתכל על מזהה המכשיר. מזהה נדרש.",
+    "param.ctrl.description": "מסנן נקודות קצה (אופציונלי).",
+    "param.bridge.description": "חסרים נתוני מכשיר העניין. הגדר את {env_json} או {env_file} עבור מכשירים, בקרים או גשרים.",
+    "param.endpoint.description": "שלוט במכשיר של Matter (הפעלה/כיבוי/פתוח/סגור/נעילה/בטל/סט_value).",
+    "err.config_missing": "נתוני המכשיר חסרים. הגדר את {env_json} או {env_file} עבור מכשירים, בקרים או גשרים."
+  },
+  "hu": {
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "err.device_id_required": "Az eszköz célpontja nem egyértelmű: {device_id}",
+    "err.not_found": "Vezérlőazonosító (nem kötelező).",
+    "err.ambiguous_target": "Hídazonosító (nem kötelező).",
+    "tool.description": "List Matter eszközvégpontok.",
+    "param.dev.description": "A kikeresendő eszközazonosító fontos. Kötelező azonosító.",
+    "param.ctrl.description": "Végpontszűrő (opcionális).",
+    "param.bridge.description": "Az eszköz adatai hiányoznak. Állítsa be az {env_json} vagy az {env_file} beállítást az eszközökhöz, vezérlőkhöz vagy hidakhoz.",
+    "param.endpoint.description": "Egy Matter eszköz vezérlése (be/ki/nyitás/zárás/zár/feloldás/beállított_érték).",
+    "err.config_missing": "Az eszköz adatai hiányoznak. Állítsa be az {env_json} vagy az {env_file} beállítást az eszközökhöz, vezérlőkhöz vagy hidakhoz."
+  },
+  "ro": {
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "err.device_id_required": "ID dispozitiv (obligatoriu).",
+    "err.not_found": "ID-ul dispozitivului este necesar.",
+    "err.ambiguous_target": "Dispozitivul nu a fost găsit: {device_id}",
+    "tool.description": "Controlerul Matter nu a fost găsit: {controller_id}",
+    "param.dev.description": "Obțineți starea unui dispozitiv Matter și returnați un rezumat JSON sau text.",
+    "param.ctrl.description": "Dispozitivul vizat este ambiguu: {device_id}",
+    "param.bridge.description": "ID controler (opțional).",
+    "param.endpoint.description": "ID pod (opțional).",
+    "err.config_missing": "Filtru de punct final (opțional)."
+  },
   "nb": {
     "param.fmt.description": "Format: json or text.",
     "err.device_id_required": "Matter device ID is required.",

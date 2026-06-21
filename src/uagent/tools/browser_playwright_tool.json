@@ -115,6 +115,22 @@
     "tool.description": "प्लेराइट वापरून ब्राउझर क्रियांचा क्रम चालवा. नेव्हिगेशन, परस्परसंवाद, निष्कर्षण, माउस/कीबोर्ड नियंत्रण, सत्र, नेटवर्क, मल्टी-पेज, प्रवेशयोग्यता, कन्सोल, अपलोड, मोबाइल इम्युलेशन आणि बरेच काही समर्थित करते.",
     "param.path.description": "आउटपुट जतन करण्यासाठी फाइल पथ (सामग्री, स्क्रीनशॉट, निर्यात_पीडीएफ, इ. द्वारे वापरलेले). वगळल्यास, डेटा इनलाइन परत केला जातो."
   },
+  "el": {
+    "tool.description": "Εκτελέστε μια ακολουθία ενεργειών του προγράμματος περιήγησης χρησιμοποιώντας το Playwright. Υποστηρίζει πλοήγηση, αλληλεπίδραση, εξαγωγή, έλεγχο ποντικιού/πληκτρολογίου, περίοδο λειτουργίας, δίκτυο, πολυσέλιδο, προσβασιμότητα, κονσόλα, μεταφορτώσεις, εξομοίωση κινητού και πολλά άλλα.",
+    "param.path.description": "Διαδρομή αρχείου για αποθήκευση εξόδου (χρησιμοποιείται από περιεχόμενο, στιγμιότυπο οθόνης, export_pdf, κ.λπ.). Εάν παραλειφθεί, τα δεδομένα επιστρέφονται ενσωματωμένα."
+  },
+  "he": {
+    "tool.description": "בצע רצף של פעולות דפדפן באמצעות Playwright. תומך בניווט, אינטראקציה, חילוץ, שליטה בעכבר/מקלדת, הפעלה, רשת, ריבוי עמודים, נגישות, קונסולה, העלאות, אמולציה לנייד ועוד.",
+    "param.path.description": "נתיב קובץ לשמירת פלט (בשימוש על ידי תוכן, צילום מסך, export_pdf וכו'). אם מושמט, הנתונים מוחזרים בשורה."
+  },
+  "hu": {
+    "tool.description": "Hajtsa végre a böngészőműveletek sorozatát a Playwright segítségével. Támogatja a navigációt, interakciót, kibontást, egér/billentyűzet vezérlést, munkamenetet, hálózatot, többoldalas, kisegítő lehetőségeket, konzolt, feltöltéseket, mobil emulációt stb.",
+    "param.path.description": "A kimenet mentéséhez szükséges fájl elérési útja (tartalom, képernyőkép, export_pdf stb. használja). Ha kihagyja, az adatok soron belül kerülnek visszaadásra."
+  },
+  "ro": {
+    "tool.description": "Executați o secvență de acțiuni din browser folosind Playwright. Suportă navigare, interacțiune, extracție, control mouse/tastatură, sesiune, rețea, mai multe pagini, accesibilitate, consolă, încărcări, emulare mobilă și multe altele.",
+    "param.path.description": "Calea fișierului pentru salvarea rezultatelor (utilizată de conținut, captură de ecran, export_pdf etc.). Dacă sunt omise, datele sunt returnate inline."
+  },
   "pt_BR": {
     "tool.description": "Execute uma sequência de ações do navegador usando o Playwright. Suporta navegação, interação, extração, controle de mouse/teclado, sessão, rede, múltiplas páginas, acessibilidade, console, uploads, emulação móvel e muito mais.",
     "param.path.description": "Caminho do arquivo para salvar a saída (usado por conteúdo, captura de tela, export_pdf, etc.). Se omitido, os dados serão retornados em linha."

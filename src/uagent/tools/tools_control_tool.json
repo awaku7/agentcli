@@ -418,5 +418,61 @@
     "msg.tools.not_found": "[tools] साधन सापडले नाही: {name}",
     "msg.tools.no_tools": "[tools] कोणतेही साधन लोड केलेले नाही.",
     "msg.tools.loaded_count": "[tools] {n} साधने लोड केली"
+  },
+  "el": {
+    "tool.description": ":tools list [query] Εργαλεία φορτωμένα με λίστα, προαιρετικά φιλτραρισμένα κατά όνομα/περιγραφή",
+    "cmd.help.tools_list": ":tools on comm Ενεργοποίηση εργαλείων επικοινωνίας (Ομάδες, Discord)\n  :tools on office Ενεργοποίηση εργαλείων του Office (Excel, Word, κ.λπ.)\n  :tools on devel Ενεργοποίηση εργαλείων ανάπτυξης (lint, py_compile, tests)\n  :tools on iot Ενεργοποίηση εργαλείων IoT (Bluetooth, κ.λπ.)",
+    "cmd.help.tools_on": ":tools on comm Ενεργοποίηση εργαλείων επικοινωνίας (Ομάδες, Discord)\n  :tools on office Ενεργοποίηση εργαλείων του Office (Excel, Word, κ.λπ.)\n  :tools on devel Ενεργοποίηση εργαλείων ανάπτυξης (lint, py_compile, tests)\n  :tools on iot Ενεργοποίηση εργαλείων IoT (Bluetooth, κ.λπ.)",
+    "cmd.help.tools_load": ":tools load <όνομα>",
+    "cmd.help.tools_off": ":tools off comm Απενεργοποίηση εργαλείων επικοινωνίας (Ομάδες, Discord)\n  :tools off office Απενεργοποίηση εργαλείων του Office (Excel, Word, κ.λπ.)\n  :tools off devel Απενεργοποίηση εργαλείων ανάπτυξης (lint, py_compile, tests)\n  :tools off iot Απενεργοποίηση εργαλείων IoT (Bluetooth, κ.λπ.)",
+    "msg.tools.usage_on": "Χρήση: :tools στο [comm|office|devel|iot|basic|exec|external|media]",
+    "msg.tools.usage_off": "Χρήση: :tools off [comm|office|devel|iot|basic|tool] φόρτωση <όνομα_εργαλείου>",
+    "msg.tools.usage_load": "[εργαλεία] Φορτωμένο εργαλείο: {όνομα}",
+    "msg.tools.loaded_single": "[εργαλεία] Το εργαλείο δεν βρέθηκε: {όνομα}",
+    "msg.tools.not_found": "[εργαλεία] Δεν φορτώθηκαν εργαλεία.",
+    "msg.tools.no_tools": "[εργαλεία] Φορτώθηκαν {n} εργαλεία",
+    "msg.tools.loaded_count": "Λάβετε λεπτομερείς πληροφορίες σχετικά με μια συγκεκριμένη συσκευή UPnP από τη διεύθυνση URL περιγραφής (τοποθεσία) ή τη διεύθυνση IP της. Επιστρέφει μεταδεδομένα συσκευής, λίστα υπηρεσιών και δέντρο συσκευών (υπο-συσκευές)."
+  },
+  "he": {
+    "tool.description": ":רשימת כלים [שאילתה] רשימת כלים שנטענו, מסוננים אופציונליים לפי שם/תיאור",
+    "cmd.help.tools_list": ":כלים ב-comm הפעל כלי תקשורת (צוותים, דיסקורד)\n  :tools on office הפעל כלי Office (Excel, Word וכו')\n  :tools on devel אפשר כלי פיתוח (lint, py_compile, tests)\n  :tools on iot הפעל כלי IoT (Bluetooth וכו')",
+    "cmd.help.tools_on": ":tools on comm אפשר כלי תקשורת (צוותים, דיסקורד)\n  :tools on office הפעל כלי Office (Excel, Word וכו')\n  :tools on devel אפשר כלי פיתוח (lint, py_compile, tests)\n  :tools on iot הפעל כלי IoT (Bluetooth וכו')",
+    "cmd.help.tools_load": ":tools טען <name>",
+    "cmd.help.tools_off": ":tools off comm השבת כלי תקשורת (צוותים, דיסקורד)\n  :tools off office השבת את כלי Office (Excel, Word וכו')\n  :tools off devel השבת כלי פיתוח (lint, py_compile, tests)\n  :tools off iot השבת את כלי IoT (Bluetooth וכו')",
+    "msg.tools.usage_on": "שימוש: :tools ב-[comm|office|devel|iot|basic|exec|external|media]",
+    "msg.tools.usage_off": "שימוש: :tools off [comm|office|devel|iot|osic|exec]external|usage:external| <tool_name>",
+    "msg.tools.usage_load": "[כלים] כלי נטען: {name}",
+    "msg.tools.loaded_single": "[כלים] הכלי לא נמצא: {name}",
+    "msg.tools.not_found": "[כלים] לא נטענו כלים.",
+    "msg.tools.no_tools": "[כלים] טעונים {n} כלים",
+    "msg.tools.loaded_count": "קבל מידע מפורט על מכשיר UPnP ספציפי לפי כתובת ה-URL שלו (מיקום) או כתובת ה-IP שלו. מחזירה מטא נתונים של המכשיר, רשימת שירותים ועץ התקנים (תת-התקנים)."
+  },
+  "hu": {
+    "tool.description": ":tools list [query] Betöltött eszközök listája, opcionálisan név/leírás szerint szűrve",
+    "cmd.help.tools_list": ":tools on comm Kommunikációs eszközök engedélyezése (Teams, Discord)\n  :tools on office Engedélyezze az Office-eszközöket (Excel, Word stb.)\n  :tools on devel Fejlesztői eszközök engedélyezése (lint, py_compile, tesztek)\n  :tools on iot IoT-eszközök engedélyezése (Bluetooth stb.)",
+    "cmd.help.tools_on": ":tools on com Kommunikációs eszközök engedélyezése (Teams, Discord)\n  :tools on office Engedélyezze az Office-eszközöket (Excel, Word stb.)\n  :tools on devel Fejlesztői eszközök engedélyezése (lint, py_compile, tesztek)\n  :tools on iot IoT-eszközök engedélyezése (Bluetooth stb.)",
+    "cmd.help.tools_load": ":tools load <name>",
+    "cmd.help.tools_off": ":tools off comm Kommunikációs eszközök letiltása (Teams, Discord)\n  :tools off office Az Office-eszközök letiltása (Excel, Word stb.)\n  :tools off devel Fejlesztőeszközök letiltása (lint, py_compile, tesztek)\n  :tools off iot IoT eszközök letiltása (Bluetooth stb.)",
+    "msg.tools.usage_on": "Használat: :tools on [comm|office|devel|iot|basic|exec|external|media]",
+    "msg.tools.usage_off": "Használat: :tools off [comm|office|devel|iot|basic|tools]:external]execage load <tool_name>",
+    "msg.tools.usage_load": "[eszközök] Betöltött eszköz: {name}",
+    "msg.tools.loaded_single": "[eszközök] Az eszköz nem található: {name}",
+    "msg.tools.not_found": "[eszközök] Nincsenek betöltött eszközök.",
+    "msg.tools.no_tools": "[eszközök] Betöltve {n} eszköz",
+    "msg.tools.loaded_count": "Részletes információkat kaphat egy adott UPnP-eszközről a leírás URL-je (helye) vagy IP-címe alapján. Visszaadja az eszköz metaadatait, a szolgáltatáslistát és az eszközfát (aleszközöket)."
+  },
+  "ro": {
+    "tool.description": "Instrument fals pentru înregistrarea comenzilor de control al instrumentelor.",
+    "cmd.help.tools_list": ":listă instrumente [interogare] Listează instrumentele încărcate, opțional filtrate după nume/descriere",
+    "cmd.help.tools_on": ":instrumente pe comunicație Activați instrumentele de comunicare (Echipe, Discord)\n  :tools on office Activați instrumentele Office (Excel, Word etc.)\n  :tools on devel Activează instrumentele de dezvoltare (lint, py_compile, teste)\n  :tools on iot Activați instrumentele IoT (Bluetooth etc.)",
+    "cmd.help.tools_load": ":tools load <nume>",
+    "cmd.help.tools_off": ":tools off comm Dezactivează instrumentele de comunicare (Echipe, Discord)\n  :tools off office Dezactivați instrumentele Office (Excel, Word etc.)\n  :tools off devel Dezactivați instrumentele de dezvoltare (lint, py_compile, teste)\n  :tools off iot Dezactivează instrumentele IoT (Bluetooth, etc.)",
+    "msg.tools.usage_on": "Utilizare: :tools on [comm|office|devel|iot|basic|exec|external|media]",
+    "msg.tools.usage_off": "Utilizare: :tools off [comm|office|devel|iot|basic|exec|exec]|external load <tool_name>",
+    "msg.tools.usage_load": "[tools] Instrument încărcat: {name}",
+    "msg.tools.loaded_single": "[tools] Instrument negăsit: {name}",
+    "msg.tools.not_found": "[tools] Nu s-a încărcat unelte.",
+    "msg.tools.no_tools": "[instrumente] {n} instrumente încărcate",
+    "msg.tools.loaded_count": "Obține informații detaliate despre un anumit dispozitiv UPnP după adresa URL de descriere (locație) sau adresa IP. Returnează metadatele dispozitivului, lista de servicii și arborele dispozitivelor (sub-dispozitive)."
   }
 }

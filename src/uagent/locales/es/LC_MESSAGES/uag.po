@@ -118,6 +118,7 @@ msgstr "[docs] se requiere el nombre"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] prompt de género de inicio = entrada numérica"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -127,6 +128,8 @@ msgstr ""
 "(1=básico,2=comunicación,4=oficina,8=desarrollo,16=iot,32=ejecución,64=externo,128=medios,255=todo,"
 " Enter=habilitar todo):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Básico (archivo, entorno, tiempo, indicaciones, habilidades, memoria, "
@@ -721,6 +724,7 @@ msgstr "Clave de API de NVIDIA."
 msgid "DeepSeek API key."
 msgstr "Clave API de DeepSeek."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1404,12 +1408,15 @@ msgstr "DeepSeek presence_penalty (predeterminado: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (predeterminado: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1846,6 +1853,7 @@ msgstr ""
 "Modo no interactivo. No inicie el bucle de stdin; salga después de procesar "
 "el archivo de inicio (si lo hay)."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1855,11 +1863,13 @@ msgstr ""
 "(1=básico,2=comunicación,4=oficina,8=desarrollo,16=iot,32=ejecución,64=externo,128=medios,255=todo)."
 " Omite la solicitud de género interactiva cuando se especifica."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Habilitar el envío de herramientas a LLM (anula la variable de entorno "
 "UAGENT_USE_TOOL)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Deshabilitar el envío de herramientas a LLM (anula la variable de entorno "
@@ -2415,17 +2425,19 @@ msgstr ""
 "[Servidores MCP]\n"
 "- No se pudo obtener información: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Guía rápida]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Multilínea: ingrese una línea que sea simplemente 'f' para ingresar al modo multilínea."
-"- Chat: escriba un mensaje y envíelo (en la GUI también está disponible "
-"Ctrl+Enter)."
-
-"multilínea (termine con \"\"\"end)."
+msgstr ""
+"- Multilínea: ingrese una línea que sea simplemente 'f' para ingresar al "
+"modo multilínea.- Chat: escriba un mensaje y envíelo (en la GUI también está"
+" disponible Ctrl+Enter).multilínea (termine con \"\"\"end)."
 
 #: src/uagent/welcome.py:70
 msgid ""

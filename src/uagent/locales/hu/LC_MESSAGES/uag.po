@@ -1,0 +1,2808 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-17 18:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:17 src/uagent/checks.py:27
+msgid "Please install Git. See: %(url)s"
+msgstr "Kérjük, telepítse a Git-et. Lásd: %(url)s"
+
+#: src/uagent/checks.py:20
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"Kérjük, telepítse a Git-et. Példa: sudo apt install git (Ubuntu/Debian) vagy"
+" sudo yum install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:23
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"Kérjük, telepítse a Git-et. Homebrew használata esetén: brew telepítse a "
+"git-et, vagy telepítse az Xcode Command Line Tools-t: xcode-select --install"
+
+#: src/uagent/checks.py:30
+msgid "[ERROR] Git is not installed."
+msgstr "[HIBA] A Git nincs telepítve."
+
+#: src/uagent/cli.py:465
+msgid "getch() fallback to input()"
+msgstr "getch() vissza az input()"
+
+#: src/uagent/cli.py:682
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "Ctrl+C érkezett. Leállítás indítása..."
+
+#: src/uagent/cli.py:719 src/uagent/cli.py:764 src/uagent/setup_cli.py:1258
+#: src/uagent/setup_cli.py:1277 src/uagent/setup_cli.py:1300
+#: src/uagent/setup_cli.py:1316 src/uagent/setup_cli.py:1335
+#: src/uagent/setup_cli.py:1354 src/uagent/setup_cli.py:1368
+#: src/uagent/setup_cli.py:1381 src/uagent/setup_cli.py:1389
+#: src/uagent/setup_cli.py:1402 src/uagent/setup_cli.py:1414
+#: src/uagent/setup_cli.py:1425 src/uagent/setup_cli.py:1511
+#: src/uagent/setup_cli.py:1537
+msgid "Cancelled."
+msgstr "Törölve."
+
+#: src/uagent/cli.py:726 src/uagent/cli.py:781
+msgid "Received multiline reply."
+msgstr "Többsoros válasz érkezett."
+
+#: src/uagent/cli.py:734 src/uagent/cli.py:816
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(Többsoros beviteli mód: írja be a törzset több sorban; az újraindításhoz "
+"írja be, hogy \"\"\"retry; fejezze be a következőt tartalmazó sorral: "
+"%(sentinel)s)"
+
+#: src/uagent/cli.py:770 src/uagent/cli.py:833
+msgid "Discarded previous input. Please start over."
+msgstr "Az előző bevitel elvetve. Kérem kezdje elölről."
+
+#: src/uagent/cli.py:955
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"A bevitt képfájl elérési útja található.\n"
+"El szeretné küldeni ezeket a képeket az LLM-nek (külső API) elemzés céljából?"
+
+#: src/uagent/cli.py:961
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr ""
+"Válaszoljon y-val a küldéshez, vagy n-nel (vagy c/cancel) a küldés "
+"kihagyásához."
+
+#: src/uagent/cli.py:979
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr ""
+"A képküldés megerősítése sikertelen; nem küld képeket: %(etype)s: %(err)s"
+
+#: src/uagent/cli.py:1007 src/uagent/scheckgui.py:432
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "Nem sikerült csatolni a képet: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:1044
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "Ismeretlen eseménytípus=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:1062
+msgid "Exited uag."
+msgstr "Kilépett uag."
+
+#: src/uagent/cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "A [docs] név megadása kötelező"
+
+#: src/uagent/cli_startup.py:22
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] startup genre prompt = numerikus bemenet"
+
+#: src/uagent/cli_startup.py:25
+msgid ""
+"Enter the sum of numbers "
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
+" Enter=enable all):"
+msgstr ""
+"Adja meg a számok összegét "
+"(1=alap,2=comm,4=iroda,8=devel,16=iot,32=exec,64=külső,128=média,255=összes,"
+" Enter=minden engedélyezése):"
+
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
+msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
+msgstr ""
+"Alap (fájl, env, idő, promptok, készségek, memória, eszközök vezérlése)"
+
+#: src/uagent/cli_startup.py:70 src/uagent/scheckgui.py:985
+#: src/uagent/web.py:940
+msgid "Communication (Teams, Discord, Bluesky)"
+msgstr "Kommunikáció (Teams, Discord, Bluesky)"
+
+#: src/uagent/cli_startup.py:71 src/uagent/scheckgui.py:990
+#: src/uagent/web.py:945
+msgid "Office (Excel, Word, PDF, PPT, document extraction)"
+msgstr "Iroda (Excel, Word, PDF, PPT, dokumentum kivonat)"
+
+#: src/uagent/cli_startup.py:75 src/uagent/scheckgui.py:996
+#: src/uagent/web.py:951
+msgid ""
+"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+msgstr ""
+"Fejlesztés (lint, teszt, git, DB, képernyőkép, böngésző, bináris, fordítás)"
+
+#: src/uagent/cli_startup.py:80 src/uagent/scheckgui.py:1003
+#: src/uagent/web.py:958
+msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, kamera, geo-IP)"
+
+#: src/uagent/cli_startup.py:82 src/uagent/scheckgui.py:1009
+#: src/uagent/web.py:964
+msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
+msgstr "Végrehajtás (cmd, python, pwsh, bash, segédügynök)"
+
+#: src/uagent/cli_startup.py:83 src/uagent/scheckgui.py:1014
+#: src/uagent/web.py:969
+msgid "External (A2A, MCP, fetch, search web)"
+msgstr "Külső (A2A, MCP, lekérés, keresés a weben)"
+
+#: src/uagent/cli_startup.py:84 src/uagent/scheckgui.py:1019
+#: src/uagent/web.py:974
+msgid "Media (image gen/edit/analyze, audio, QR code)"
+msgstr "Média (képgenerálás/szerkesztés/elemzés, hang, QR-kód)"
+
+#: src/uagent/cli_startup.py:96
+msgid "[INFO] startup genre prompt = prompt_toolkit"
+msgstr "[INFO] startup genre prompt = prompt_toolkit"
+
+#: src/uagent/cli_startup.py:99
+msgid "Tool genre selection"
+msgstr "Eszközműfaj kiválasztása"
+
+#: src/uagent/cli_startup.py:100
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr ""
+"Használja a szóközt a váltáshoz, a nyílbillentyűket a mozgatáshoz, az Entert"
+" a megerősítéshez."
+
+#: src/uagent/cli_startup.py:101
+msgid "OK"
+msgstr "OK"
+
+#: src/uagent/cli_startup.py:102
+msgid "Default"
+msgstr "Alapértelmezett"
+
+#: src/uagent/cli_startup.py:108
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr ""
+"[INFO] startup genre prompt = numerikus bevitel (prompt_toolkit tartalék)"
+
+#: src/uagent/cli_startup.py:177
+#, python-format
+msgid "[WARN] Failed to apply startup tool selection: %(err)s"
+msgstr "[WARN] Nem sikerült alkalmazni az indítóeszköz kiválasztását: %(err)s"
+
+#: src/uagent/cli_startup.py:253 src/uagent/web.py:1232
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] Nem sikerült beállítani a munkakönyvtárat: %(err)s"
+
+#: src/uagent/cli_startup.py:282
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] Nem sikerült elindítani az uag_setup: %(err)s"
+
+#: src/uagent/cli_startup.py:323
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "szolgáltató = %(provider)s; modell = %(model)s"
+
+#: src/uagent/cli_startup.py:335 src/uagent/scheckgui.py:296
+msgid "OpenRouter fallback models enabled."
+msgstr "OpenRouter tartalék modellek engedélyezve."
+
+#: src/uagent/cli_startup.py:339
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "jelenlegi munkakönyvtár = %(cwd)s"
+
+#: src/uagent/cli_startup.py:352 src/uagent/scheckgui.py:307
+msgid "Loaded long-term memory."
+msgstr "Betöltött hosszú távú memória."
+
+#: src/uagent/cli_startup.py:365 src/uagent/scheckgui.py:320
+msgid "Loaded shared long-term memory."
+msgstr "Betöltött megosztott hosszú távú memória."
+
+#: src/uagent/cli_startup.py:372 src/uagent/web.py:718
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"[WARN] Kivétel történt a megosztott hosszú távú memória betöltésekor: "
+"%(err)s"
+
+#: src/uagent/cli_startup.py:406
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[WARN] Nem sikerült beolvasni az indítófájlt: %(path)s (%(err)s)"
+
+#: src/uagent/cli_startup.py:420
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "Elkészült indítófájl: %(path)s"
+
+#: src/uagent/cli_startup.py:443
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--nem interaktív lett megadva; kilépés az stdin megvárása nélkül."
+
+#: src/uagent/core.py:290 src/uagent/core.py:311
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "A %(name)s környezeti változó nincs beállítva."
+
+#: src/uagent/core.py:611
+msgid "No log files found."
+msgstr "Nem található naplófájl."
+
+#: src/uagent/core.py:629
+msgid "(unknown time)"
+msgstr "(ismeretlen idő)"
+
+#: src/uagent/core.py:632
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "naplók: %(shown)d/%(összesen)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:635
+msgid "Log files:"
+msgstr "Naplófájlok:"
+
+#: src/uagent/core.py:642
+msgid "(mtime unknown)"
+msgstr "(midő ismeretlen)"
+
+#: src/uagent/core.py:760 src/uagent/core.py:763
+msgid "(no user message)"
+msgstr "(nincs felhasználói üzenet)"
+
+#: src/uagent/core.py:768
+#, python-format
+msgid ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | először: %(first_user)s | "
+"utolsó: %(last_user)s"
+
+#: src/uagent/core.py:1020
+#, python-format
+msgid ""
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
+msgstr "[INFO] %(count)d tömörítendő üzenet volt, tehát semmi sem változott."
+
+#: src/uagent/core.py:1031
+#, python-format
+msgid ""
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+msgstr ""
+"[INFO] Tömörített memóriában lévő beszélgetési előzmények: %(old_n)d -> "
+"%(new_n)d üzenet (keep_last=%(keep_last)d)"
+
+#: src/uagent/core.py:1336
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr ""
+"Elérte a 429-es újrapróbálkozási korlátot (%(max_retries)s) az előzmények "
+"tömörítése közben."
+
+#: src/uagent/core.py:1346
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "Hiba történt az LLM előzménytömörítéshez való hívásakor: %(err)r"
+
+#: src/uagent/core.py:1379
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr "- Foglalja össze a beszélgetést angolul."
+
+#: src/uagent/core.py:1381
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr ""
+"- Az összefoglaló legyen tömör, de tartalmazza a legfontosabb döntéseket, "
+"megszorításokat és függőben lévő tételeket."
+
+#: src/uagent/core.py:1383
+msgid "- Output should be directly usable as a system message."
+msgstr ""
+"- A kimenetnek közvetlenül használhatónak kell lennie rendszerüzenetként."
+
+#: src/uagent/core.py:1386
+msgid "Conversation chunk:\n"
+msgstr "Beszélgetési rész:"
+
+#: src/uagent/core.py:1388
+msgid "Write a concise summary of this chunk."
+msgstr "Írjon tömör összefoglalót erről a darabról."
+
+#: src/uagent/core.py:1392
+msgid "- You are updating an existing conversation summary.\n"
+msgstr "- Ön egy meglévő beszélgetés összefoglalóját frissíti."
+
+#: src/uagent/core.py:1393
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr "- Őrizze meg a fontos tényeket az előző összefoglalóból."
+
+#: src/uagent/core.py:1395
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr ""
+"- Egyesítse az új darabot anélkül, hogy megszorításokat, döntéseket vagy "
+"függőben lévő elemeket veszítene."
+
+#: src/uagent/core.py:1397
+msgid "- Keep the result concise and suitable for a system message."
+msgstr "- Az eredmény legyen tömör és alkalmas rendszerüzenetre."
+
+#: src/uagent/core.py:1400
+msgid "Previous summary:\n"
+msgstr "Előző összefoglaló:"
+
+#: src/uagent/core.py:1402
+msgid "New chunk:\n"
+msgstr "Új darab:"
+
+#: src/uagent/core.py:1404
+msgid "Update the summary while keeping the prior context intact."
+msgstr ""
+"Frissítse az összefoglalót úgy, hogy az előző kontextust érintetlenül "
+"hagyja."
+
+#: src/uagent/core.py:1425
+msgid "Summary of the conversation so far:\n"
+msgstr "Az eddigi beszélgetés összefoglalója:"
+
+#: src/uagent/core.py:1432
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+"[INFO] shrink_llm: {old_n} -> {new_n} üzenet ({old_part_n} régebbi üzenet "
+"tömörítve 1 összefoglalóba; megtartva {tail_n} végét)"
+
+#: src/uagent/core.py:1460
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[WARN] a tömörítési előzmények kontextushossza még akkor is, ha "
+"chunk_size=1; visszatérve a shrink_messages()-hoz."
+
+#: src/uagent/core.py:1470
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr ""
+"[WARN] az előzmények tömörítése nem tudta tovább csökkenteni a chunk_size "
+"értéket; visszatérve a shrink_messages()-hoz."
+
+#: src/uagent/core.py:1478
+#, python-format
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"[WARN] az előzmények tömörítési környezetének hossza túllépve; "
+"újrapróbálkozás a chunk_size=%(chunk_size)d paraméterrel"
+
+#: src/uagent/core.py:1488
+msgid ""
+"[WARN] history compression failed due to LLM error; falling back to "
+"shrink_messages()."
+msgstr ""
+"[WARN] az előzmények tömörítése LLM hiba miatt meghiúsult; visszatérve a "
+"shrink_messages()-hoz."
+
+#: src/uagent/core.py:1509
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help (a súgó nem érhető el: %(err)s)"
+
+#: src/uagent/core.py:1521
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Küldetés\n"
+"- Ön egy helyi környezetben futó „általános célú eszköz-végrehajtási ügynök”, és ténylegesen végrehajthat parancsokat, és tud műveleteket végezni a felhasználó gépén lévő fájlokkal.\n"
+"- Bármilyen veszélyes művelet elvégzése előtt kérjen megerősítést a felhasználótól.\n"
+"- Ne hízelegjen a felhasználónak. Ne használjon hangulatjeleket.\n"
+"- Ne foglalja össze. Legyen tömör az információ.\n"
+"- Fájlok létrehozásakor adja ki a teljes végleges tartalmat (ne adjon ki különbségeket vagy részleges összegzéseket).\n"
+"- Ne adjon ki nyers eszközvégrehajtási eredményeket, JSON-töredékeket vagy zárójeleket (például `py]}`) a végső válaszban. Tartsa a kimenetet tisztán és jól formázza."
+
+#: src/uagent/core.py:1530
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Szabályok\n"
+"- Mindig használja a mellékelt eszközöket, és ellenőrizze a legfrissebb információkat.\n"
+"- Legyen kreatív, de ne adjon ki bizonytalan információkat.\n"
+"- Nézze meg a rendelkezésre álló eszközöket, és válassza ki a legmegfelelőbbet.\n"
+"- Az eszközök végrehajtása során a lehető legkevesebb döntéshozatalt delegáljon a felhasználóra."
+
+#: src/uagent/core.py:1537
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Megjegyzések\n"
+"- Minden felhasználói üzenet a szkript szabványos bemenetén keresztül érkezik.\n"
+"- Az eszközspecifikus cél/érvek/megszorítások/működési részletek esetében előnyben részesítse az egyes eszközök leírását.\n"
+"- Ha további információra vagy megerősítésre van szüksége a felhasználótól, használja a human_ask eszközt.\n"
+"- A relatív dátumkifejezések kezelésekor a get_current_time hívásával hivatkozzon az aktuális időre.\n"
+"- Ne tároljon titkokat (jelszavakat/tokeneket) a hosszú távú memóriában (add_long_memory, stb.).\n"
+"- Az olyan utótagokkal rendelkező fájlok, mint az .org / .org1 / .org2, biztonsági másolatok, és nem kezelhetők elsődleges szerkeszthető fájlként.\n"
+"- Ha Python fájlokat hoz létre, futtassa a `python -m py_compile` parancsot a szintaxis érvényesítéséhez.\n"
+"- Ha szakértői szintű tudás szükséges, használjon prompt sablonokat (Agent Skills), és kövesse azokat.\n"
+"- Ha a felhasználó csak egy rövid megerősítés, és nem ad hozzá új információt, ne ismételje meg ugyanazt a magyarázatot, hacsak nem a közvetlenül megelőző egyértelmű kérdésre adott válasz. Ha szükséges, kérdezze meg röviden: \"Melyik ponttal folytassam?\""
+
+#: src/uagent/core.py:1549
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr ""
+"## Veszélyes működési szabályzat (delete_file)\n"
+"- A delete_file eszközzel történő törléshez NE kérjen megerősítést az előnézet előtt.\n"
+"- Mindig futtassa először a delete_file parancsot a dry_run=true paraméterrel, hogy megkapja a törlési jelöltek listáját.\n"
+"- Mutassa meg a jelölteket a felhasználónak, és pontosan egyszer kérjen megerősítést a human_ask segítségével.\n"
+"- Csak akkor futtassa újra a delete_file fájlt ugyanazokkal a paraméterekkel, ha a felhasználó kifejezetten „y” vagy „yes” (vagy ezzel egyenértékű kifejezett jóváhagyás) választ ad, dry_run=false és megerősítést=true.\n"
+"- Ha nulla jelölt van, ne kérdezzen; csak jelentse, hogy nem törlődik semmi."
+
+#: src/uagent/core.py:1557
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## Küldetés\n"
+"- Ön egy alkalmas \"általános célú eszköz-végrehajtó ügynök\", amely helyi környezetben fut; parancsokat hajthat végre és működhet a felhasználó gépén.\n"
+"- Bármilyen veszélyes művelet előtt kérjen megerősítést a felhasználótól.\n"
+"- Semmi hízelgés. Nincsenek hangulatjelek. Nincs beszélgetés összefoglaló. Legyen tömör.\n"
+"- Fájlok létrehozásakor adja ki a teljes végleges tartalmat (nincs eltérés/részösszegzés).\n"
+"- Ne adjon ki nyers eszközvégrehajtási eredményeket, JSON-töredékeket vagy zárójeleket (például `py]}`) a végső válaszban. Tartsa a kimenetet tisztán és jól formázza."
+
+#: src/uagent/core.py:1565
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## Szabályok\n"
+"- Először használja a mellékelt eszközöket, és ellenőrizze az eredményeket eszközökkel.\n"
+"- Olvassa el az eszközleírásokat a cél/érv/korlátozás tekintetében; válassza ki a legmegfelelőbb és legbiztonságosabb eszközt.\n"
+"- Legyen kreatív, de ne adjon ki bizonytalan információkat.\n"
+"- A lehető legkevesebb döntéshozatali jogkört delegálja a felhasználóra."
+
+#: src/uagent/core.py:1572
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## Megjegyzések\n"
+"- Minden felhasználói üzenet a szkript szabványos bemenetén keresztül érkezik.\n"
+"- Ha hiányzik a szükséges információ/paraméter, kérdezze meg a human_ask-n keresztül (ne találgasson).\n"
+"- Relatív dátumok: hívás get_current_time.\n"
+"- Ne tároljon titkokat (jelszavakat/tokeneket) a hosszú távú memóriában.\n"
+"- Az olyan utótagokkal rendelkező fájlok, mint az .org / .org1 / .org2, biztonsági másolatok, és nem kezelhetők elsődleges szerkeszthető fájlként.\n"
+"- Ha Python fájlokat hoz létre, futtassa a `python -m py_compile` parancsot.\n"
+"- Ha szakértői szintű tudásra van szükség, használja az Agent Skills prompt sablonokat.\n"
+"- Ha a felhasználó csak egy rövid megerősítés, és nem ad hozzá új információt, ne ismételje meg ugyanazt a magyarázatot, hacsak nem a közvetlenül megelőző egyértelmű kérdésre adott válasz. Ha szükséges, kérdezze meg röviden: \"Melyik ponttal folytassam?\""
+
+#: src/uagent/core.py:1585
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr ""
+"- Ha a felhasználó a Windows cmd.exe fájlt használja, előnyben részesítse a "
+"többsoros parancsokat a caret (^) sor folytatását használva, és minden sor "
+"legyen rövid, hogy elkerülje a másolás/beillesztés sortöréseket."
+
+#: src/uagent/core.py:1652
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr ""
+"Ebben a munkamenetben jelenleg a következő eszközök vannak betöltve. "
+"Válassza ki a feladathoz legmegfelelőbb eszközt."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "README projekt"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "Gyorsindítás (Windows kerék telepítése)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "Web Inspector (playwright_inspector) útmutató"
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "Fejlesztői információk"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "ismeretlen dokumentumnév: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "doc fájl nem található: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "a dokumentum elérési útja nem sikerült: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[docs] Elérhető dokumentumok:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "Használat:"
+
+#: src/uagent/docs_util.py:232
+msgid "list"
+msgstr "listát"
+
+#: src/uagent/docs_util.py:233
+msgid "show"
+msgstr "show"
+
+#: src/uagent/docs_util.py:234
+msgid "show path"
+msgstr "mutasd meg az utat"
+
+#: src/uagent/docs_util.py:235
+msgid "open with OS"
+msgstr "nyissa meg az operációs rendszerrel"
+
+#: src/uagent/env_validate.py:42
+msgid ""
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
+msgstr ""
+"Az LLM-szolgáltató kiválasztásához szükséges "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
+
+#: src/uagent/env_validate.py:67
+#, python-format
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+"Ismeretlen szolgáltató: %(provider)r. Engedélyezett: %(allowed)s (az indítás"
+" valószínűleg sikertelen lesz)."
+
+#: src/uagent/env_validate.py:78
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+"Azure OpenAI-végpont/alap URL-cím (pl. https://<forrás>.openai.azure.com/)."
+
+#: src/uagent/env_validate.py:84
+msgid "Azure OpenAI API key."
+msgstr "Azure OpenAI API-kulcs."
+
+#: src/uagent/env_validate.py:89
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr "Az Azure OpenAI API verziója (pl. 2024-xx-xx)."
+
+#: src/uagent/env_validate.py:96
+msgid "OpenAI API key."
+msgstr "OpenAI API kulcs."
+
+#: src/uagent/env_validate.py:102
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr "Bedrock proxy végpont/alap URL (OpenAI-kompatibilis)."
+
+#: src/uagent/env_validate.py:109
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr "Bedrock proxy API-kulcs (OpenAI-kompatibilis)."
+
+#: src/uagent/env_validate.py:116
+msgid "OpenRouter API key."
+msgstr "OpenRouter API kulcs."
+
+#: src/uagent/env_validate.py:121
+msgid "Grok (xAI) API key."
+msgstr "Grok (xAI) API kulcs."
+
+#: src/uagent/env_validate.py:126
+msgid "Gemini API key."
+msgstr "Gemini API kulcs."
+
+#: src/uagent/env_validate.py:133
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr ""
+"A „google-genai” Python-csomag nincs telepítve. A Provider=gemini "
+"megköveteli."
+
+#: src/uagent/env_validate.py:144
+msgid "Vertex AI API key / model name."
+msgstr "Vertex AI API kulcs/modell neve."
+
+#: src/uagent/env_validate.py:153
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr ""
+"A „google-genai” Python-csomag nincs telepítve. A Provider=vertexai "
+"megköveteli."
+
+#: src/uagent/env_validate.py:161
+msgid "Anthropic (Claude) API key."
+msgstr "Antropikus (Claude) API kulcs."
+
+#: src/uagent/env_validate.py:169
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr ""
+"Az „anthropic” Python-csomag nincs telepítve. A Provider=claude megköveteli."
+
+#: src/uagent/env_validate.py:176
+msgid "NVIDIA API key."
+msgstr "NVIDIA API kulcs."
+
+#: src/uagent/env_validate.py:181
+msgid "DeepSeek API key."
+msgstr "DeepSeek API kulcs."
+
+#: src/uagent/env_validate.py:186
+msgid "Z.AI (Zhipu AI) API key."
+msgstr "Z.AI (Zhipu AI) API kulcs."
+
+#: src/uagent/env_validate.py:192
+msgid "Alibaba Cloud (Qwen) API key."
+msgstr "Alibaba Cloud (Qwen) API-kulcs."
+
+#: src/uagent/env_validate.py:200
+msgid "Moonshot AI API key."
+msgstr "Moonshot AI API kulcs."
+
+#: src/uagent/env_validate.py:219
+#, python-format
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+"Ismeretlen beágyazási szolgáltató: %(provider)r. Engedélyezett: %(allowed)s "
+"(az indítás valószínűleg sikertelen lesz)."
+
+#: src/uagent/env_validate.py:236
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr ""
+"Azure beágyazási végpont / API-kulcs / API-verzió / központi telepítés neve."
+
+#: src/uagent/env_validate.py:247
+msgid "OpenAI embedding API key / model name."
+msgstr "OpenAI beágyazási API kulcs/modell neve."
+
+#: src/uagent/env_validate.py:259
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr "Alapkőzet beágyazási végpont / API-kulcs / központi telepítés neve."
+
+#: src/uagent/env_validate.py:270
+msgid "OpenRouter embedding API key / model name."
+msgstr "OpenRouter beágyazó API-kulcs/modellnév."
+
+#: src/uagent/env_validate.py:281
+msgid "Ollama embedding base URL / model name."
+msgstr "Ollama beágyazás alap URL / modell neve."
+
+#: src/uagent/env_validate.py:292
+msgid "NVIDIA embedding API key / model name."
+msgstr "NVIDIA beágyazó API-kulcs/modellnév."
+
+#: src/uagent/env_validate.py:303
+msgid "Gemini embedding API key / model name."
+msgstr "Gemini beágyazó API kulcs/modell neve."
+
+#: src/uagent/env_validate.py:314
+msgid "Vertex AI embedding API key / model name."
+msgstr "Vertex AI beágyazó API kulcs/modell neve."
+
+#: src/uagent/env_validate.py:331
+#, python-brace-format
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] A környezet ellenőrzése sikertelen ({context})."
+
+#: src/uagent/env_validate.py:339
+msgid "Missing required environment variables:"
+msgstr "Hiányzó szükséges környezeti változók:"
+
+#: src/uagent/env_validate.py:346
+msgid "Warnings:"
+msgstr "Figyelmeztetések:"
+
+#: src/uagent/env_validate.py:350
+msgid "How to fix:"
+msgstr "Javítás:"
+
+#: src/uagent/env_validate.py:353
+msgid ""
+"- Set the variables above in your environment before starting the program."
+msgstr ""
+"- A program indítása előtt állítsa be a fenti változókat a környezetében."
+
+#: src/uagent/env_validate.py:359
+msgid ""
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
+msgstr ""
+"- Beállíthatja őket az operációs rendszer környezeti beállításain, egy .env "
+"fájlon, a shell indító szkriptjein keresztül,"
+
+#: src/uagent/env_validate.py:365
+msgid ""
+"  or your process manager / service configuration (CI secrets, systemd, "
+"Docker, etc.)."
+msgstr ""
+"vagy a folyamatkezelő/szolgáltatás konfigurációja (CI-titkok, systemd, "
+"Docker stb.)."
+
+#: src/uagent/image_session.py:101
+msgid "(prompt unavailable)"
+msgstr "(a prompt nem érhető el)"
+
+#: src/uagent/image_session.py:105
+#, python-format
+msgid "screenshot: %(title)s"
+msgstr "képernyőkép: %(title)s"
+
+#: src/uagent/image_session.py:107
+msgid "screenshot"
+msgstr "képernyőkép"
+
+#: src/uagent/image_session.py:148
+msgid "Image-session context:"
+msgstr "Kép-munkamenet kontextusa:"
+
+#: src/uagent/image_session.py:149
+msgid "This conversation already generated images."
+msgstr "Ez a beszélgetés már képeket generált."
+
+#: src/uagent/image_session.py:151
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"Használja a korábbi promptokat és az alábbi mentett fájl elérési utat "
+"kontextusként a további szerkesztésekhez, változatokhoz vagy folytatásokhoz."
+
+#: src/uagent/image_session.py:156
+#, python-format
+msgid "Turn %(idx)d:"
+msgstr "%(idx)d fordulat:"
+
+#: src/uagent/image_session.py:157
+#, python-format
+msgid "- prompt: %(prompt)s"
+msgstr "- prompt: %(prompt)s"
+
+#: src/uagent/image_session.py:160
+#, python-format
+msgid "- file: %(path)s"
+msgstr "- fájl: %(path)s"
+
+#: src/uagent/llm_errors.py:398
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr ""
+"[RATE_LIMIT] szolgáltató=%(provider)s modell=%(model)s status=%(status)s "
+"kísérlet=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"újrapróbálkozás_után=%(retry_after)s"
+
+#: src/uagent/llm_flow_helpers.py:206
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+"Az előző asszisztens válasz üres volt. Kérjük, a legfrissebb eszközeredmény "
+"alapján válaszoljon."
+
+#: src/uagent/llm_flow_helpers.py:219
+#, python-format
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+msgstr ""
+"[WARN] Az LLM üres segédüzenetet adott vissza, szerszámhívások nélkül.\n"
+"szolgáltató=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"Ez megtörténhet OpenAI-kompatibilis helyi szolgáltatókkal az eszközhívások után. Megpróbálhatja az UAGENT_EMPTY_NO_TOOL_MAX értékét magasabb értékre állítani, vagy szolgáltatót váltani."
+
+#: src/uagent/llm_flow_helpers.py:291 src/uagent/llm_flow_helpers.py:364
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr ""
+"[INFO] Az előző eredmény újrafelhasználása, mert ez az eszközhívás "
+"megegyezik egy korábbival."
+
+#: src/uagent/llm_flow_helpers.py:331
+msgid "arguments must be a JSON object."
+msgstr "Az argumentumoknak JSON-objektumoknak kell lenniük."
+
+#: src/uagent/llm_flow_helpers.py:338
+#, python-format
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Nyomkövetés:\n"
+"%(tb)s"
+
+#: src/uagent/llm_flow_helpers.py:385
+#, python-format
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[eszköz futásidejű hiba] name=%(name)r err=%(etype)s: %(err)s\n"
+"Nyomkövetés:\n"
+"%(tb)s"
+
+#: src/uagent/llm_image_helpers.py:7
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr ""
+"Ismertesse ezt a képernyőképet, és foglalja össze a látható felhasználói "
+"felületet."
+
+#: src/uagent/llm_image_helpers.py:11
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr ""
+"Olvassa el az összes látható szöveget ezen a képernyőképen, és foglalja "
+"össze."
+
+#: src/uagent/llm_image_helpers.py:15
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr ""
+"Vizsgálja meg ezt a képernyőképet hibák, figyelmeztetések és fontos "
+"felhasználói felület-állapotok szempontjából."
+
+#: src/uagent/llm_message_helpers.py:312
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[WARN] Az automatikus shrink_llm nem sikerült: %(err)s"
+
+#: src/uagent/llm_round_helpers.py:137
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[Fordítási hiba] %(diag)s"
+
+#: src/uagent/llm_round_helpers.py:198 src/uagent/llm_round_helpers.py:310
+#: src/uagent/llm_round_helpers.py:649
+#: src/uagent/providers/llm_deepseek.py:615
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "Elérte a 429-es újrapróbálkozási korlátot (%(max_retries)s)."
+
+#: src/uagent/llm_round_helpers.py:222
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[Gemini Error] Hiba történt a válasz generálása közben."
+
+#: src/uagent/llm_round_helpers.py:316
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[Claude Error] Hiba történt a válasz generálása közben."
+
+#: src/uagent/llm_round_helpers.py:613
+#: src/uagent/providers/llm_deepseek.py:625
+msgid "Input exceeds the context window."
+msgstr "A bemenet meghaladja a környezeti ablakot."
+
+#: src/uagent/llm_round_helpers.py:623
+#: src/uagent/providers/llm_deepseek.py:658
+msgid "Connection error"
+msgstr "Csatlakozási hiba"
+
+#: src/uagent/llm_round_helpers.py:628
+#: src/uagent/providers/llm_deepseek.py:663
+msgid "[Network Error]"
+msgstr "[Hálózati hiba]"
+
+#: src/uagent/llm_round_helpers.py:655
+msgid "Unexpected exception."
+msgstr "Váratlan kivétel."
+
+#: src/uagent/llm_round_helpers.py:733
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "Hiba a válasz elemzése közben: %(err)s"
+
+#: src/uagent/profile_manager.py:614 src/uagent/profile_manager.py:736
+msgid ""
+"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
+"1. Environment (OS, shell, editor, etc.)\n"
+"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
+"3. Constraints (security rules, offline requirements, etc.)\n"
+"\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+msgstr ""
+"Ön egy felhasználói profilkészítő ügynök. Elemezze a beszélgetési naplót, és bontsa ki a felhasználó:\n"
+"1. Környezet (OS, shell, szerkesztő stb.)\n"
+"2. Beállítások (kódolási stílus, előnyben részesített eszközök, bőbeszédűség stb.)\n"
+"3. Megszorítások (biztonsági szabályok, offline követelmények stb.)\n"
+"\n"
+"NE szerepeltessen ideiglenes kérdéseket, csevegést vagy bizalmas hitelesítő adatokat.\n"
+"CSAK olyan érvényes JSON objektummal KELL válaszolnia, amely megfelel ennek a sémának:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"karakterlánc\"],\n"
+"  \"constraints\": [\"karakterlánc\"]\n"
+"}"
+
+#: src/uagent/profile_manager.py:722
+msgid "Failed to initialize LLM client."
+msgstr "Nem sikerült inicializálni az LLM-klienst."
+
+#: src/uagent/profile_manager.py:727
+#, python-format
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr ""
+"%(total_files)d naplófájlt találtunk. Növekményes profilalkotás indítása..."
+
+#: src/uagent/scheckgui.py:131
+msgid "Drop files/images here"
+msgstr "Dobja ide a fájlokat/képeket"
+
+#: src/uagent/scheckgui.py:169
+msgid "Download"
+msgstr "Letöltés"
+
+#: src/uagent/scheckgui.py:329
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr ""
+"Kivétel történt a megosztott hosszú távú memória betöltésekor: %(err)s"
+
+#: src/uagent/scheckgui.py:382
+#, python-format
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[Mellékelt fájl] %(name)s (%(path)s)"
+
+#: src/uagent/scheckgui.py:467
+#, python-format
+msgid "[Attached Image] %(path)s"
+msgstr "[Mellékelt kép] %(path)s"
+
+#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
+#, python-format
+msgid "[Image Path] %(path)s"
+msgstr "[Kép elérési útja] %(path)s"
+
+#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
+msgid "Welcome / Quick Guide"
+msgstr "Üdvözöljük / Gyors útmutató"
+
+#: src/uagent/scheckgui.py:787
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (extrém stabilitás)"
+
+#: src/uagent/scheckgui.py:842
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ Fájlokat húzással csatolhat"
+
+#: src/uagent/scheckgui.py:863
+msgid "Attach..."
+msgstr "Csatolás..."
+
+#: src/uagent/scheckgui.py:868
+msgid "Send"
+msgstr "Küldés"
+
+#: src/uagent/scheckgui.py:908
+msgid "Help"
+msgstr "Segítség"
+
+#: src/uagent/scheckgui.py:923
+msgid "Mode"
+msgstr "mód"
+
+#: src/uagent/scheckgui.py:925
+msgid "Reasoning: off"
+msgstr "Indoklás: kikapcsolva"
+
+#: src/uagent/scheckgui.py:928
+msgid "Reasoning: auto"
+msgstr "Indoklás: auto"
+
+#: src/uagent/scheckgui.py:930
+msgid "Reasoning: minimal"
+msgstr "Indoklás: minimális"
+
+#: src/uagent/scheckgui.py:932
+msgid "Reasoning: low"
+msgstr "Indoklás: alacsony"
+
+#: src/uagent/scheckgui.py:934
+msgid "Reasoning: medium"
+msgstr "Indoklás: közepes"
+
+#: src/uagent/scheckgui.py:936
+msgid "Reasoning: high"
+msgstr "Indoklás: magas"
+
+#: src/uagent/scheckgui.py:939
+msgid "Reasoning: xhigh"
+msgstr "Indoklás: xhigh"
+
+#: src/uagent/scheckgui.py:944
+msgid "Verbosity: off"
+msgstr "Bőbeszédűség: kikapcsolva"
+
+#: src/uagent/scheckgui.py:946
+msgid "Verbosity: low"
+msgstr "Bőbeszédűség: alacsony"
+
+#: src/uagent/scheckgui.py:948
+msgid "Verbosity: medium"
+msgstr "Bőbeszédűség: közepes"
+
+#: src/uagent/scheckgui.py:950
+msgid "Verbosity: high"
+msgstr "Bőbeszédűség: magas"
+
+#: src/uagent/scheckgui.py:975
+msgid "Tools"
+msgstr "Eszközök"
+
+#: src/uagent/scheckgui.py:1062
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[mód] érvelés=%(mode)s"
+
+#: src/uagent/scheckgui.py:1066
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|auto|minimális|xmagas] (0=ki, 1=alacsony, 2=közepes, 3=magas; "
+"auto/minimális/xmagas)"
+
+#: src/uagent/scheckgui.py:1074
+#, python-format
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[mode] verbosity=%(mode)s"
+
+#: src/uagent/scheckgui.py:1076
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+":v [0|1|2|3] (0=ki, 1=alacsony, 2=közepes, 3=magas; nincs arg=megtartás)"
+
+#: src/uagent/scheckgui.py:1205
+msgid "Enter password..."
+msgstr "Adja meg a jelszót..."
+
+#: src/uagent/scheckgui.py:1212
+msgid "Enter a message..."
+msgstr "Írjon be egy üzenetet..."
+
+#: src/uagent/scheckgui.py:1229
+msgid "Attach files"
+msgstr "Fájlok csatolása"
+
+#: src/uagent/scheckgui.py:1231
+msgid "All Files (*)"
+msgstr "Minden fájl (*)"
+
+#: src/uagent/scheckgui.py:1483
+msgid "cannot read image"
+msgstr "kép nem olvasható"
+
+#: src/uagent/scheckgui.py:1634 src/uagent/scheckgui.py:1674
+#: src/uagent/scheckgui.py:1709
+msgid "Downloaded to"
+msgstr "Letöltve ide"
+
+#: src/uagent/scheckgui.py:1728
+msgid "Playing"
+msgstr "Játék"
+
+#: src/uagent/scheckgui.py:1738
+msgid "Stopped"
+msgstr "Megállt"
+
+#: src/uagent/scheckgui.py:1787
+#, python-format
+msgid "[REPLY] > %(text)s"
+msgstr "[VÁLASZ] > %(text)s"
+
+#: src/uagent/scheckgui.py:1795
+#, python-format
+msgid "[USER] %(text)s"
+msgstr "[FELHASZNÁLÓ] %(text)s"
+
+#: src/uagent/setup_cli.py:82 src/uagent/setup_cli.py:557
+#: src/uagent/setup_cli.py:647
+msgid "OpenAI API key"
+msgstr "OpenAI API kulcs"
+
+#: src/uagent/setup_cli.py:83 src/uagent/setup_cli.py:558
+#: src/uagent/setup_cli.py:648
+msgid "OpenAI base URL (optional)"
+msgstr "OpenAI alap URL (opcionális)"
+
+#: src/uagent/setup_cli.py:84
+msgid "OpenAI model/deployment name (optional)"
+msgstr "OpenAI-modell/telepítési név (nem kötelező)"
+
+#: src/uagent/setup_cli.py:90 src/uagent/setup_cli.py:549
+#: src/uagent/setup_cli.py:635
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr "Azure alap URL-je (pl. https://<forrás>.openai.azure.com/)"
+
+#: src/uagent/setup_cli.py:92 src/uagent/setup_cli.py:551
+#: src/uagent/setup_cli.py:637
+msgid "Azure API key"
+msgstr "Azure API-kulcs"
+
+#: src/uagent/setup_cli.py:96
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "Azure API-verzió (opcionális, például 2024-05-01-előzetes)"
+
+#: src/uagent/setup_cli.py:98 src/uagent/setup_cli.py:553
+msgid "Azure deployment name"
+msgstr "Azure-telepítési neve"
+
+#: src/uagent/setup_cli.py:104 src/uagent/setup_cli.py:566
+#: src/uagent/setup_cli.py:656
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "Az alapkőzet átjárójának alap URL-je (pl. https://<gateway>/v1)"
+
+#: src/uagent/setup_cli.py:106 src/uagent/setup_cli.py:568
+#: src/uagent/setup_cli.py:658
+msgid "Bedrock API key"
+msgstr "Bedrock API kulcs"
+
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:572
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "Alapkőzetmodell/telepítési neve (pl. openai.gpt-oss-120b)"
+
+#: src/uagent/setup_cli.py:114 src/uagent/setup_cli.py:577
+#: src/uagent/setup_cli.py:667
+msgid "OpenRouter API key"
+msgstr "OpenRouter API kulcs"
+
+#: src/uagent/setup_cli.py:115 src/uagent/setup_cli.py:578
+#: src/uagent/setup_cli.py:668
+msgid "OpenRouter base URL (optional)"
+msgstr "OpenRouter alap URL (opcionális)"
+
+#: src/uagent/setup_cli.py:119
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "OpenRouter modell/telepítési név (opcionális)"
+
+#: src/uagent/setup_cli.py:124
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "OpenRouter tartalék modellek (opcionális, vesszővel elválasztva)"
+
+#: src/uagent/setup_cli.py:128 src/uagent/setup_cli.py:583
+msgid "Gemini API key"
+msgstr "Gemini API kulcs"
+
+#: src/uagent/setup_cli.py:129
+msgid "Gemini model name (optional)"
+msgstr "Gemini modell neve (opcionális)"
+
+#: src/uagent/setup_cli.py:132
+msgid "Vertex AI API key"
+msgstr "Vertex AI API kulcs"
+
+#: src/uagent/setup_cli.py:133
+msgid "Vertex AI project ID (optional)"
+msgstr "Vertex AI projektazonosító (opcionális)"
+
+#: src/uagent/setup_cli.py:134
+msgid "Vertex AI location/region (optional)"
+msgstr "Vertex AI hely/régió (opcionális)"
+
+#: src/uagent/setup_cli.py:138
+msgid "Google credentials for Vertex AI (optional)"
+msgstr "Google hitelesítő adatok a Vertex AI-hez (opcionális)"
+
+#: src/uagent/setup_cli.py:143
+msgid "Google location/region for Vertex AI (optional)"
+msgstr "Google hely/régió a Vertex AI számára (opcionális)"
+
+#: src/uagent/setup_cli.py:145
+msgid "Vertex AI model/deployment name"
+msgstr "Vertex AI modell/telepítés neve"
+
+#: src/uagent/setup_cli.py:148
+msgid "Grok API key"
+msgstr "Grok API kulcs"
+
+#: src/uagent/setup_cli.py:149
+msgid "Grok base URL (optional)"
+msgstr "Grok alap URL (nem kötelező)"
+
+#: src/uagent/setup_cli.py:150
+msgid "Grok model/deployment name (optional)"
+msgstr "Grok-modell/telepítési neve (nem kötelező)"
+
+#: src/uagent/setup_cli.py:153
+msgid "Claude API key"
+msgstr "Claude API kulcs"
+
+#: src/uagent/setup_cli.py:154
+msgid "Claude model/deployment name (optional)"
+msgstr "Claude-modell/telepítési név (nem kötelező)"
+
+#: src/uagent/setup_cli.py:157 src/uagent/setup_cli.py:588
+#: src/uagent/setup_cli.py:682
+msgid "NVIDIA API key"
+msgstr "NVIDIA API kulcs"
+
+#: src/uagent/setup_cli.py:158 src/uagent/setup_cli.py:589
+#: src/uagent/setup_cli.py:683
+msgid "NVIDIA base URL (optional)"
+msgstr "NVIDIA alap URL (opcionális)"
+
+#: src/uagent/setup_cli.py:159
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "NVIDIA-modell/telepítési név (opcionális)"
+
+#: src/uagent/setup_cli.py:165 src/uagent/setup_cli.py:676
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "Ollama alap URL (pl. http://localhost:11434/v1)"
+
+#: src/uagent/setup_cli.py:170
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "Ollama API kulcs (opcionális, alapértelmezett: ál)"
+
+#: src/uagent/setup_cli.py:172
+msgid "Ollama model/deployment name (optional)"
+msgstr "Ollama modell/telepítési név (nem kötelező)"
+
+#: src/uagent/setup_cli.py:176
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "Ollama kérés időtúllépése másodpercben (alapértelmezett: 60)"
+
+#: src/uagent/setup_cli.py:178
+msgid "Ollama temperature (default: 0.7)"
+msgstr "Ollama hőmérséklet (alapértelmezett: 0,7)"
+
+#: src/uagent/setup_cli.py:179
+msgid "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p (alapértelmezett: 0,9)"
+
+#: src/uagent/setup_cli.py:180
+msgid "Ollama top_k (default: 40)"
+msgstr "Ollama top_k (alapértelmezett: 40)"
+
+#: src/uagent/setup_cli.py:184
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama repeat_penalty (alapértelmezett: 1.1)"
+
+#: src/uagent/setup_cli.py:186
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "Ollama keep_alive (alapértelmezett: 5 m)"
+
+#: src/uagent/setup_cli.py:187
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx (alapértelmezett: 8192)"
+
+#: src/uagent/setup_cli.py:188
+msgid "Ollama num_predict (default: 1024)"
+msgstr "Ollama num_predict (alapértelmezett: 1024)"
+
+#: src/uagent/setup_cli.py:191
+msgid "DeepSeek API key"
+msgstr "DeepSeek API kulcs"
+
+#: src/uagent/setup_cli.py:195
+msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
+msgstr ""
+"DeepSeek alap URL (opcionális, alapértelmezett: https://api.deepseek.com)"
+
+#: src/uagent/setup_cli.py:200
+msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
+msgstr "DeepSeek modell neve (opcionális, alapértelmezett: deepseek-v4-flash)"
+
+#: src/uagent/setup_cli.py:205
+msgid "DeepSeek temperature (default: 0.0)"
+msgstr "DeepSeek hőmérséklet (alapértelmezett: 0,0)"
+
+#: src/uagent/setup_cli.py:207
+msgid "DeepSeek top_p (default: 1.0)"
+msgstr "DeepSeek top_p (alapértelmezett: 1.0)"
+
+#: src/uagent/setup_cli.py:211
+msgid "DeepSeek presence_penalty (default: 0.0)"
+msgstr "DeepSeek present_penalty (alapértelmezett: 0,0)"
+
+#: src/uagent/setup_cli.py:216
+msgid "DeepSeek frequency_penalty (default: 0.0)"
+msgstr "DeepSeek Frequency_penalty (alapértelmezett: 0,0)"
+
+#: src/uagent/setup_cli.py:220
+msgid "Z.AI (Zhipu AI) API key"
+msgstr "Z.AI (Zhipu AI) API kulcs"
+
+#: src/uagent/setup_cli.py:224
+msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
+msgstr ""
+"Z.AI alap URL (opcionális, alapértelmezett: https://api.z.ai/api/paas/v4/)"
+
+#: src/uagent/setup_cli.py:229
+msgid "Z.AI model name (optional, default: glm-5.2)"
+msgstr "Z.AI modell neve (opcionális, alapértelmezett: glm-5.2)"
+
+#: src/uagent/setup_cli.py:233
+msgid "Alibaba Cloud (Qwen) API key"
+msgstr "Alibaba Cloud (Qwen) API-kulcs"
+
+#: src/uagent/setup_cli.py:238
+msgid ""
+"Alibaba base URL (optional, default: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+msgstr ""
+"Alibaba alap URL-címe (opcionális, alapértelmezett: "
+"https://dashscope.aliyuncs.com/yhteensopiva-mode/v1)"
+
+#: src/uagent/setup_cli.py:244
+msgid "Alibaba model name (optional, default: qwen3.5-plus)"
+msgstr "Alibaba modell neve (opcionális, alapértelmezett: qwen3.5-plus)"
+
+#: src/uagent/setup_cli.py:248
+msgid "Moonshot AI API key"
+msgstr "Moonshot AI API kulcs"
+
+#: src/uagent/setup_cli.py:252
+msgid "Moonshot base URL (optional, default: https://api.moonshot.cn/v1)"
+msgstr ""
+"Moonshot alap URL (opcionális, alapértelmezett: https://api.moonshot.cn/v1)"
+
+#: src/uagent/setup_cli.py:257
+msgid "Moonshot model name (optional, default: kimi-k2)"
+msgstr "Moonshot modell neve (opcionális, alapértelmezett: kimi-k2)"
+
+#: src/uagent/setup_cli.py:420 src/uagent/setup_cli.py:509
+msgid "Enter number:"
+msgstr "Írja be a számot:"
+
+#: src/uagent/setup_cli.py:433
+msgid "Invalid input. Please enter a valid number."
+msgstr "Érvénytelen bevitel. Kérjük, adjon meg egy érvényes számot."
+
+#: src/uagent/setup_cli.py:446
+#, python-format
+msgid " [default: %(default)s]"
+msgstr "[alapértelmezett: %(default)s]"
+
+#: src/uagent/setup_cli.py:462
+msgid "This field is required. Please enter a value."
+msgstr "Ez a mező kötelező. Adjon meg egy értéket."
+
+#: src/uagent/setup_cli.py:474
+msgid "Select UAGENT_LANG"
+msgstr "Válassza az UAGENT_LANG lehetőséget"
+
+#: src/uagent/setup_cli.py:485
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG (egyéni)"
+
+#: src/uagent/setup_cli.py:498
+msgid "Select output files to generate in the current directory"
+msgstr "Válassza ki az aktuális könyvtárban létrehozandó kimeneti fájlokat"
+
+#: src/uagent/setup_cli.py:499
+msgid "  1. .env only"
+msgstr "1. .env csak"
+
+#: src/uagent/setup_cli.py:500
+msgid "  2. .env + env.sh"
+msgstr "2. .env + env.sh"
+
+#: src/uagent/setup_cli.py:501
+msgid "  3. .env + env.ps1"
+msgstr "3. .env + env.ps1"
+
+#: src/uagent/setup_cli.py:502
+msgid "  4. .env + env.bat"
+msgstr "4. .env + env.bat"
+
+#: src/uagent/setup_cli.py:503
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "5. .env + all (sh/ps1/bat)"
+
+#: src/uagent/setup_cli.py:505
+msgid "  b. back"
+msgstr "b. vissza"
+
+#: src/uagent/setup_cli.py:506
+msgid "  q. quit"
+msgstr "q. kilép"
+
+#: src/uagent/setup_cli.py:524
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "Érvénytelen bevitel. Kérjük, adja meg az 1-5 vagy a b/q értéket."
+
+#: src/uagent/setup_cli.py:552 src/uagent/setup_cli.py:641
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "Azure API verziója (pl. 2024-05-01-előzetes verzió)"
+
+#: src/uagent/setup_cli.py:559
+msgid "OpenAI model/deployment name"
+msgstr "OpenAI-modell/telepítés neve"
+
+#: src/uagent/setup_cli.py:579
+msgid "OpenRouter model/deployment name"
+msgstr "OpenRouter modell/telepítés neve"
+
+#: src/uagent/setup_cli.py:584
+msgid "Gemini model name"
+msgstr "Gemini modell neve"
+
+#: src/uagent/setup_cli.py:590
+msgid "NVIDIA model/deployment name"
+msgstr "NVIDIA modell/telepítés neve"
+
+#: src/uagent/setup_cli.py:609
+msgid "Enable image generation debug output? (0/1)"
+msgstr "Engedélyezi a képgenerálás hibakereső kimenetét? (0/1)"
+
+#: src/uagent/setup_cli.py:643
+msgid "Azure embedding deployment name"
+msgstr "Azure-beágyazás központi telepítési neve"
+
+#: src/uagent/setup_cli.py:649
+msgid "OpenAI embedding model/deployment name"
+msgstr "OpenAI beágyazási modell/telepítés neve"
+
+#: src/uagent/setup_cli.py:662
+msgid "Bedrock embedding model/deployment name"
+msgstr "Alapkőzetbeágyazási modell/telepítési neve"
+
+#: src/uagent/setup_cli.py:669
+msgid "OpenRouter embedding model/deployment name"
+msgstr "OpenRouter beágyazási modell/telepítési név"
+
+#: src/uagent/setup_cli.py:678
+msgid "Ollama embedding model name"
+msgstr "Ollama beágyazási modell neve"
+
+#: src/uagent/setup_cli.py:684
+msgid "NVIDIA embedding model/deployment name"
+msgstr "NVIDIA beágyazási modell/telepítési név"
+
+#: src/uagent/setup_cli.py:688
+msgid "Gemini embedding API key"
+msgstr "Gemini beágyazó API kulcs"
+
+#: src/uagent/setup_cli.py:692
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr "Gemini beágyazási modell neve (pl. text-embedding-004)"
+
+#: src/uagent/setup_cli.py:697
+msgid "Vertex AI embedding API key"
+msgstr "Vertex AI beágyazó API kulcs"
+
+#: src/uagent/setup_cli.py:701
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr "Vertex AI beágyazási modell neve (pl. text-embedding-004)"
+
+#: src/uagent/setup_cli.py:750
+msgid "Azure speech deployment name"
+msgstr "Azure beszédtelepítés neve"
+
+#: src/uagent/setup_cli.py:751
+msgid "Azure transcription deployment name"
+msgstr "Az Azure-átírás központi telepítési neve"
+
+#: src/uagent/setup_cli.py:752
+msgid "OpenAI speech model/deployment name"
+msgstr "OpenAI beszédmodell/telepítés neve"
+
+#: src/uagent/setup_cli.py:753
+msgid "OpenAI transcription model/deployment name"
+msgstr "OpenAI átírási modell/telepítési név"
+
+#: src/uagent/setup_cli.py:754
+msgid "Gemini speech model name (optional)"
+msgstr "Gemini beszédmodell neve (nem kötelező)"
+
+#: src/uagent/setup_cli.py:755
+msgid "Gemini transcription model name (optional)"
+msgstr "Gemini transzkripciós modell neve (nem kötelező)"
+
+#: src/uagent/setup_cli.py:756
+msgid "Vertex AI speech model name (optional)"
+msgstr "Vertex AI beszédmodell neve (opcionális)"
+
+#: src/uagent/setup_cli.py:757
+msgid "Vertex AI transcription model name (optional)"
+msgstr "Vertex AI átírási modell neve (opcionális)"
+
+#: src/uagent/setup_cli.py:780
+msgid "Configure optional image / embedding / audio settings?"
+msgstr "Konfigurálja az opcionális kép/beágyazás/hang beállításokat?"
+
+#: src/uagent/setup_cli.py:781 src/uagent/setup_cli.py:796
+#: src/uagent/setup_cli.py:828 src/uagent/setup_cli.py:859
+#: src/uagent/setup_cli.py:875 src/uagent/setup_cli.py:930
+#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1234
+#: src/uagent/setup_cli.py:1295 src/uagent/setup_cli.py:1349
+#: src/uagent/setup_cli.py:1376 src/uagent/setup_cli.py:1397
+#: src/uagent/setup_cli.py:1534
+msgid "No"
+msgstr "Nem"
+
+#: src/uagent/setup_cli.py:781 src/uagent/setup_cli.py:796
+#: src/uagent/setup_cli.py:828 src/uagent/setup_cli.py:859
+#: src/uagent/setup_cli.py:875 src/uagent/setup_cli.py:930
+#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1234
+#: src/uagent/setup_cli.py:1295 src/uagent/setup_cli.py:1349
+#: src/uagent/setup_cli.py:1376 src/uagent/setup_cli.py:1397
+#: src/uagent/setup_cli.py:1534
+msgid "Yes"
+msgstr "Igen"
+
+#: src/uagent/setup_cli.py:795
+msgid "Configure image analysis settings?"
+msgstr "Konfigurálja a képelemzési beállításokat?"
+
+#: src/uagent/setup_cli.py:806
+msgid "Select image analysis provider"
+msgstr "Válassza ki a képelemző szolgáltatót"
+
+#: src/uagent/setup_cli.py:827
+msgid "Configure image generation settings?"
+msgstr "Konfigurálja a képgenerálási beállításokat?"
+
+#: src/uagent/setup_cli.py:838
+msgid "Select image generation provider"
+msgstr "Válassza ki a képgeneráló szolgáltatót"
+
+#: src/uagent/setup_cli.py:858
+msgid "Open generated images automatically?"
+msgstr "Automatikusan megnyitja a generált képeket?"
+
+#: src/uagent/setup_cli.py:874
+msgid "Configure embedding / semantic search settings?"
+msgstr "Konfigurálja a beágyazási/szemantikai keresési beállításokat?"
+
+#: src/uagent/setup_cli.py:900
+msgid "Select embedding provider"
+msgstr "Válassza ki a beágyazási szolgáltatót"
+
+#: src/uagent/setup_cli.py:929
+msgid "Configure audio speech / transcription settings?"
+msgstr "Konfigurálja a hangbeszéd/átírás beállításait?"
+
+#: src/uagent/setup_cli.py:948
+msgid "Select audio speech provider"
+msgstr "Válassza ki az audio beszédszolgáltatót"
+
+#: src/uagent/setup_cli.py:968
+msgid "Select audio transcribe provider"
+msgstr "Válassza ki a hangátírási szolgáltatót"
+
+#: src/uagent/setup_cli.py:988
+msgid "Open generated audio automatically?"
+msgstr "Automatikusan megnyitja a generált hangot?"
+
+#: src/uagent/setup_cli.py:1055
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "Nem kötelező: Responses API (Azure/OpenAI/Bedrock)"
+
+#: src/uagent/setup_cli.py:1068
+msgid "Optional runtime"
+msgstr "Opcionális futásidő"
+
+#: src/uagent/setup_cli.py:1082
+msgid "Optional image / embedding / audio settings"
+msgstr "Választható kép / beágyazás / hang beállítások"
+
+#: src/uagent/setup_cli.py:1224
+msgid "Optional specialized sub-agent settings"
+msgstr "Opcionális speciális alügynök beállítások"
+
+#: src/uagent/setup_cli.py:1233
+msgid "Encrypt the generated .env file?"
+msgstr "Titkosítja a létrehozott .env fájlt?"
+
+#: src/uagent/setup_cli.py:1239
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "A titkosított fájl a következőképpen lesz írva: %(path)s"
+
+#: src/uagent/setup_cli.py:1255
+msgid "Select provider"
+msgstr "Válasszon szolgáltatót"
+
+#: src/uagent/setup_cli.py:1294
+msgid "Enable Responses API options?"
+msgstr "Engedélyezi a Responses API-beállításokat?"
+
+#: src/uagent/setup_cli.py:1310
+msgid "Select reasoning"
+msgstr "Válassza ki az érvelést"
+
+#: src/uagent/setup_cli.py:1329
+msgid "Select verbosity"
+msgstr "Válassza ki a szóhasználatot"
+
+#: src/uagent/setup_cli.py:1348
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "Beállítja az opcionális UAGENT_WORKDIR futási időt?"
+
+#: src/uagent/setup_cli.py:1375
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "Beállítja az opcionális UAGENT_LANG futásidőt?"
+
+#: src/uagent/setup_cli.py:1396
+msgid "Enable streaming?"
+msgstr "Engedélyezi a streamelést?"
+
+#: src/uagent/setup_cli.py:1437
+msgid "Summary"
+msgstr "Összegzés"
+
+#: src/uagent/setup_cli.py:1438
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr "Szolgáltató: %(provider)s"
+
+#: src/uagent/setup_cli.py:1445
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr "Válaszok engedélyezve: %(state)s"
+
+#: src/uagent/setup_cli.py:1446 src/uagent/setup_cli.py:1453
+#: src/uagent/setup_cli.py:1457 src/uagent/setup_cli.py:1463
+#: src/uagent/setup_cli.py:1469 src/uagent/setup_cli.py:1474
+#: src/uagent/setup_cli.py:1482 src/uagent/setup_cli.py:1493
+msgid "yes"
+msgstr "igen"
+
+#: src/uagent/setup_cli.py:1446 src/uagent/setup_cli.py:1453
+#: src/uagent/setup_cli.py:1457 src/uagent/setup_cli.py:1463
+#: src/uagent/setup_cli.py:1469 src/uagent/setup_cli.py:1474
+#: src/uagent/setup_cli.py:1482 src/uagent/setup_cli.py:1493
+msgid "no"
+msgstr "nem"
+
+#: src/uagent/setup_cli.py:1452
+#, python-format
+msgid "  Streaming enabled: %(state)s"
+msgstr "Streaming engedélyezve: %(state)s"
+
+#: src/uagent/setup_cli.py:1468
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr "Opcionális extrák engedélyezve: %(state)s"
+
+#: src/uagent/setup_cli.py:1473
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr "Képelemzés engedélyezve: %(state)s"
+
+#: src/uagent/setup_cli.py:1481
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr "Képgenerálás engedélyezve: %(state)s"
+
+#: src/uagent/setup_cli.py:1492
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr "Beágyazás engedélyezve: %(state)s"
+
+#: src/uagent/setup_cli.py:1502
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr "Kimenetek: %(outputs)s"
+
+#: src/uagent/setup_cli.py:1505
+msgid "Generate files with this configuration?"
+msgstr "Fájlokat generál ezzel a konfigurációval?"
+
+#: src/uagent/setup_cli.py:1506
+msgid "Yes, generate"
+msgstr "Igen, generál"
+
+#: src/uagent/setup_cli.py:1506
+msgid "Back"
+msgstr "Vissza"
+
+#: src/uagent/setup_cli.py:1530
+msgid "The following files already exist and will be overwritten:"
+msgstr "A következő fájlok már léteznek, és felülíródnak:"
+
+#: src/uagent/setup_cli.py:1534
+msgid "Proceed?"
+msgstr "Folytatja?"
+
+#: src/uagent/setup_cli.py:1558
+msgid "Plain .env file removed after encryption."
+msgstr "Az egyszerű .env fájl titkosítás után eltávolítva."
+
+#: src/uagent/setup_cli.py:1561
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr ""
+"Figyelmeztetés: Nem sikerült eltávolítani az egyszerű .env fájlt: %(error)s"
+
+#: src/uagent/setup_cli.py:1580
+#, python-format
+msgid "generated: %(path)s"
+msgstr "generált: %(path)s"
+
+#: src/uagent/uagent_llm.py:157
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr ""
+"[FIGYELMEZTETÉS] A szerszámkörök száma meghaladta a %(max)d; abortusz."
+
+#: src/uagent/util_tools.py:182
+#, python-format
+msgid "image file not found: %(path)s"
+msgstr "képfájl nem található: %(path)s"
+
+#: src/uagent/util_tools.py:187
+#, python-format
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "A képfájl túl nagy: %(size)d byte (limit=%(max)d)"
+
+#: src/uagent/util_tools.py:211
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"Adja meg a munkakönyvtárat. Ha nincs beállítva, az UAGENT_WORKDIR env var "
+"értéket vagy az aktuális könyvtárat használja."
+
+#: src/uagent/util_tools.py:218
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+"Nem interaktív mód. Ne indítsa el az stdin hurkot; kilépés az indítófájl "
+"feldolgozása után (ha van)."
+
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
+msgid ""
+"Tool genre bitmask "
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
+" Skips the interactive genre prompt when specified."
+msgstr ""
+"Eszköz műfajú bitmaszk "
+"(1=alap,2=comm,4=iroda,8=fejlesztő,16=iot,32=exec,64=külső,128=média,255=minden)."
+" Ha megadja, kihagyja az interaktív műfaji promptot."
+
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
+msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+msgstr ""
+"Eszközküldés engedélyezése az LLM-nek (felülbírálja az UAGENT_USE_TOOL env "
+"var-t)."
+
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
+msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+msgstr ""
+"Az LLM-nek való eszközküldés letiltása (felülbírálja az UAGENT_USE_TOOL env "
+"var-t)."
+
+#: src/uagent/util_tools.py:378
+msgid "invalid reasoning"
+msgstr "érvénytelen érvelés"
+
+#: src/uagent/util_tools.py:396
+msgid "invalid verbosity"
+msgstr "érvénytelen bőbeszédűség"
+
+#: src/uagent/util_tools.py:570
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr ""
+"[naplók] Érvénytelen argumentum: %(arg)r (az összes / --all / -a / szám "
+"megadása)"
+
+#: src/uagent/util_tools.py:617
+#, python-format
+msgid "failed to parse arguments: %(err)s"
+msgstr "nem sikerült az argumentumok elemzése: %(err)s"
+
+#: src/uagent/util_tools.py:620
+msgid "missing arguments"
+msgstr "hiányzó érvek"
+
+#: src/uagent/util_tools.py:637
+msgid "src and dst are required"
+msgstr "src és dst szükséges"
+
+#: src/uagent/util_tools.py:662
+#, python-format
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py:669 src/uagent/util_tools.py:726
+#, python-format
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[cp hiba] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:679
+#, python-format
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] A forrás és a cél ugyanaz: %(path)s"
+
+#: src/uagent/util_tools.py:685
+#, python-format
+msgid "[cp] Source does not exist: %(path)s"
+msgstr "[cp] A forrás nem létezik: %(path)s"
+
+#: src/uagent/util_tools.py:692 src/uagent/util_tools.py:704
+#, python-format
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] A cél már létezik: %(path)s"
+
+#: src/uagent/util_tools.py:713
+#, python-format
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] A szülő célállomás nem létezik: %(path)s"
+
+#: src/uagent/util_tools.py:720
+#, python-format
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] Másolva: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:734
+#, python-format
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py:741 src/uagent/util_tools.py:785
+#, python-format
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[mv hiba] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:751
+#, python-format
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] A forrás és a cél ugyanaz: %(path)s"
+
+#: src/uagent/util_tools.py:757
+#, python-format
+msgid "[mv] Source does not exist: %(path)s"
+msgstr "[mv] Forrás nem létezik: %(path)s"
+
+#: src/uagent/util_tools.py:763
+#, python-format
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] A cél már létezik: %(path)s"
+
+#: src/uagent/util_tools.py:773
+#, python-format
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] A szülő célállomás nem létezik: %(path)s"
+
+#: src/uagent/util_tools.py:780
+#, python-format
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] Áthelyezve: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:1023
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[Képesség végrehajtása]\n"
+"Ezt a képességet futtatni kell. Olvassa el figyelmesen a készségek szövegét, és kövesse az utasításokat.\n"
+"Ha a készség feladatokat tartalmaz, folytassa mindaddig, amíg azok be nem fejeződnek.\n"
+"Szükség szerint használjon eszközöket."
+
+#: src/uagent/util_tools.py:1030
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr "Ha végzett, mindig hívja a „finish_skill”-t, ha elérhető."
+
+#: src/uagent/util_tools.py:1182
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
+msgstr ""
+"Válasszon ki egy készségszámot a futtatáshoz. A visszavonáshoz írja be a c.\n"
+"Tipp: :a készségek tisztázása (az alkalmazott készségek eltávolítása)\n"
+"Írja be a számot:"
+
+#: src/uagent/util_tools.py:1218
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"Futtassa ezt a képességet rendszerszintű utasításként, és aktívan tartsa ebben a munkamenetben?\n"
+"\n"
+"Név: %(name)s\n"
+"Elérési út: %(path)s\n"
+"\n"
+"Folytatja? Írja be az y-t a futtatáshoz, vagy a c-t a megszakításhoz."
+
+#: src/uagent/util_tools.py:1280
+#, python-format
+msgid ""
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[clean] Érvénytelen argumentum: %(arg)r (adja meg a szám=küszöbértéket; az "
+"alapértelmezés %(alapértelmezett)d)"
+
+#: src/uagent/util_tools.py:1329
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"törli a beszélgetési naplófájlokat (scheck_log_*.jsonl) a lemezről.\n"
+"Naplókönyvtár: %(dir)s\n"
+"Szabály: összes felhasználó/segéd/eszköz üzenet a rendszer kivételével <= %(threshold)d\n"
+"Célok: %(n)d\n"
+"\n"
+"Folytatja? Írja be az y-t a futtatáshoz, vagy a c-t a megszakításhoz."
+
+#: src/uagent/util_tools.py:1397
+#, python-format
+msgid " - (%(count)d msgs) %(path)s"
+msgstr "- (%(count)d üzenet) %(path)s"
+
+#: src/uagent/util_tools.py:1427
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"felülírja az aktuális munkamenet naplófájlját, és a betöltött napló elé fűzi (nincs biztonsági mentés).\n"
+"\n"
+"Jelenlegi napló: %(cur_log)s\n"
+"Forrásnapló: %(src_log)s\n"
+"\n"
+"Folytatja? Írja be az y-t a futtatáshoz, vagy a c-t a megszakításhoz."
+
+#: src/uagent/util_tools.py:1558
+#, python-brace-format
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"Törli a {count} elérési utat?\n"
+"\n"
+"{paths}\n"
+"\n"
+"A folytatáshoz írja be az y-t, a megszakításhoz pedig a c-t."
+
+#: src/uagent/util_tools.py:1613
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "A megadott index %(idx)d kívül esik a tartományon."
+
+#: src/uagent/util_tools.py:1622
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "A naplófájl nem található: %(path)s"
+
+#: src/uagent/util_tools.py:1716
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[zsugorítási hiba] Nem sikerült intként értelmezni: %(arg)r -> utolsó "
+"%(keep)d megtartása"
+
+#: src/uagent/util_tools.py:1744
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[shrink_llm error] Nem sikerült intként elemezni: %(arg)r -> utolsó %(keep)d"
+" megtartása"
+
+#: src/uagent/util_tools.py:1837 src/uagent/util_tools.py:1917
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+"A megosztott hosszú távú memória nincs engedélyezve (az "
+"UAGENT_SHARED_MEMORY_FILE nincs beállítva)."
+
+#: src/uagent/util_tools.py:1868
+msgid "Analyzing past logs to generate user profile..."
+msgstr "Korábbi naplók elemzése felhasználói profil létrehozásához..."
+
+#: src/uagent/util_tools.py:1872
+msgid "No past logs found or failed to generate profile."
+msgstr "Nem található korábbi napló, vagy nem sikerült létrehozni a profilt."
+
+#: src/uagent/util_tools.py:1874
+msgid "User profile generated successfully from past logs!"
+msgstr "A felhasználói profil sikeresen generálva a korábbi naplókból!"
+
+#: src/uagent/util_tools.py:1886
+msgid "No user profile data found."
+msgstr "Nem található felhasználói profil adat."
+
+#: src/uagent/util_tools.py:1889
+msgid "User Profile:"
+msgstr "Felhasználói profil:"
+
+#: src/uagent/util_tools.py:1901
+msgid "User profile cleared successfully."
+msgstr "A felhasználói profil sikeresen törölve."
+
+#: src/uagent/util_tools.py:1905
+msgid "No user profile file found to clear."
+msgstr "Nem található törölhető felhasználói profilfájl."
+
+#: src/uagent/util_tools.py:1969
+msgid "Show this help"
+msgstr "Mutasd meg ezt a segítséget"
+
+#: src/uagent/util_tools.py:1970
+msgid "Restart input from the beginning"
+msgstr "Indítsa újra a bevitelt elölről"
+
+#: src/uagent/util_tools.py:1971
+msgid "Show log file list"
+msgstr "Naplófájlok listájának megjelenítése"
+
+#: src/uagent/util_tools.py:1974
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr ""
+"A munkakönyvtár módosítása megerősítés nélkül (pl. :cd .. / :cd ~ / :cd "
+"C:\\path / :cd /)"
+
+#: src/uagent/util_tools.py:1977
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr ""
+"Könyvtárbejegyzések listázása (pl. :ls / :ls .. / :ls ~ / :ls C:\\útvonal)"
+
+#: src/uagent/util_tools.py:1980
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "Az UAGENT_* env vars kezelése és az .env.sec mentése"
+
+#: src/uagent/util_tools.py:1982
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr ""
+"Készségek kezelése/alkalmazása (pl. :skills / :skills active / :skills "
+"clear)"
+
+#: src/uagent/util_tools.py:1989
+msgid "Load a past log (overwrites current conversation history)"
+msgstr ""
+"Múltbeli napló betöltése (felülírja a jelenlegi beszélgetési előzményeket)"
+
+#: src/uagent/util_tools.py:1991
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"Megjegyzés: futás után megerősítést kér; Az 'y' választása a betöltött "
+"naplót az aktuális munkamenet naplófájljába írja (felülírás, nincs "
+"biztonsági mentés)."
+
+#: src/uagent/util_tools.py:1995
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"Törölje a beszélgetési naplókat (scheck_log_*.jsonl), ahol a "
+"felhasználó/segéd/eszköz üzenetek száma (a rendszer kivételével) <= N "
+"(alapértelmezett=10)"
+
+#: src/uagent/util_tools.py:1999
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"A beszélgetési előzmények szűkítése (az utolsó N nem rendszerüzenet "
+"megtartása; alapértelmezett = 40)"
+
+#: src/uagent/util_tools.py:2003
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"Az előzmények zsugorítása az LLM-összegzés segítségével (a régebbi "
+"előzmények összefoglalása 1 rendszerüzenetben; az utolsó N maradjon nyers; "
+"alapértelmezett = 20)"
+
+#: src/uagent/util_tools.py:2006
+msgid "Show the current approximate token count of the conversation"
+msgstr "A beszélgetés jelenlegi hozzávetőleges tokenszámának megjelenítése"
+
+#: src/uagent/util_tools.py:2007
+msgid "List long-term memory notes"
+msgstr "Sorolja fel a hosszú távú memória jegyzeteit"
+
+#: src/uagent/util_tools.py:2009
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "Hosszú távú memóriajegyzet törlése index szerint (lásd: mem-list)"
+
+#: src/uagent/util_tools.py:2011
+msgid "Show the learned user profile, or generate it from past logs"
+msgstr ""
+"Mutassa meg a tanult felhasználói profilt, vagy állítsa elő a korábbi "
+"naplókból"
+
+#: src/uagent/util_tools.py:2012
+msgid "Generate user profile from past logs"
+msgstr "Felhasználói profil létrehozása korábbi naplókból"
+
+#: src/uagent/util_tools.py:2013
+msgid "Clear the learned user profile data"
+msgstr "Törölje a betanult felhasználói profiladatokat"
+
+#: src/uagent/util_tools.py:2015
+msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr ""
+"Fájl vagy könyvtár másolása (támogatja az -f/--overwrite és -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:2017
+msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr ""
+"Fájl vagy könyvtár áthelyezése (támogatja az -f/--overwrite és -p/--mkdirs)"
+
+#: src/uagent/util_tools.py:2019
+msgid "Show the first n lines of a file (default=20)"
+msgstr "Egy fájl első n sorának megjelenítése (alapértelmezett = 20)"
+
+#: src/uagent/util_tools.py:2020
+msgid "Show the last n lines of a file (default=20)"
+msgstr "Egy fájl utolsó n sorának megjelenítése (alapértelmezett = 20)"
+
+#: src/uagent/util_tools.py:2022
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "Fájl(ok)/könyvtár(ok) törlése előnézettel + megerősítés"
+
+#: src/uagent/util_tools.py:2024
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"Érvelési mód beállítása (0=ki, 1=alacsony, 2=közepes, 3=magas; "
+"auto/minimális/xmagas)"
+
+#: src/uagent/util_tools.py:2026
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ""
+"Bőbeszédűségi mód beállítása (0=ki, 1=alacsony, 2=közepes, 3=magas; nincs "
+"arg=megtartás)"
+
+#: src/uagent/util_tools.py:2027
+msgid "Exit"
+msgstr "Kilépés"
+
+#: src/uagent/util_tools.py:2030
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr ""
+"- Írjon be egy sort, amely csak „f” a többsoros beviteli módba lépéshez."
+
+#: src/uagent/util_tools.py:2032
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr ""
+"- A többsoros beviteli mód befejezéséhez írjon be egy sort, amely pontosan "
+"%(sentinel)s."
+
+#: src/uagent/util_tools.py:2283
+msgid "Exiting."
+msgstr "Kilépés."
+
+#: src/uagent/util_tools.py:2286
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "Ismeretlen parancs: :%(cmd)s"
+
+#: src/uagent/util_tools.py:2437
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"Az alább felsorolt pontok kivonatok a felhasználó hosszú távú memóriájából "
+"(állandó feljegyzések). Használja őket háttérinformációként a "
+"felhasználóról. A beszélgetés során azonban mindig előnyben részesítsék az "
+"újonnan közölt információkat, és ha azok ellentmondanak a régebbi "
+"információknak, fogadják el a legfrissebb információkat."
+
+#: src/uagent/web.py:534
+msgid ""
+"[WARN] Another task is already running in this room. Please retry after it "
+"completes."
+msgstr ""
+"[WARN] Egy másik feladat már fut ebben a szobában. Kérjük, próbálkozzon újra"
+" a befejezés után."
+
+#: src/uagent/web.py:626 src/uagent/web.py:773
+msgid ""
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"[FATAL] Az UAGENT_PROVIDER környezeti változó nincs beállítva.\n"
+"Kérjük, ellenőrizze a környezeti változókat a webszerver indításakor."
+
+#: src/uagent/web.py:664
+#, python-format
+msgid "[Attached Image] %(name)s"
+msgstr "[Mellékelt kép] %(name)s"
+
+#: src/uagent/web.py:669
+#, python-format
+msgid "[Attached File] %(name)s"
+msgstr "[Mellékelt fájl] %(name)s"
+
+#: src/uagent/web.py:670
+#, python-format
+msgid "[File Path] %(path)s"
+msgstr "[Fájl elérési útja] %(path)s"
+
+#: src/uagent/web.py:698
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] Betöltött hosszú távú memória."
+
+#: src/uagent/web.py:710
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] Betöltött megosztott hosszú távú memória."
+
+#: src/uagent/web.py:727
+msgid ""
+"\n"
+"\n"
+"## Generative UI (Artifacts) Instructions\n"
+"When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+msgstr ""
+"## Generatív felhasználói felület (termékekre vonatkozó) utasítások\n"
+"Amikor a felhasználó felhasználói felületet, irányítópultot, interaktív eszközt vagy vizualizációt kér:\n"
+"1. Írjon egy teljes, önálló HTML oldalt egyetlen ```html kódblokkba.\n"
+"2. Használja a Tailwind CSS-t (CDN-en keresztül: <script src=\"https://cdn.tailwindcss.com\"></script>) a stílushoz, a Lucide Icons vagy a FontAwesome-ot pedig az ikonokhoz.\n"
+"3. Adjon meg interaktív JavaScriptet (pl. Chart.js diagramokhoz vagy egyszerű állapotkezeléshez).\n"
+"4. Ne ossza fel a kódot több blokkra; tartsa egyetlen egységes ```html blokkban."
+
+#: src/uagent/web.py:770
+#, python-format
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[FATAL] Webmunkás hiba.\n"
+"%(err)s"
+
+#: src/uagent/web.py:907
+msgid "missing path"
+msgstr "hiányzó út"
+
+#: src/uagent/web.py:914
+msgid "path outside workdir"
+msgstr "elérési út a munkakönyvtáron kívül"
+
+#: src/uagent/web.py:1264
+msgid "Starting server on"
+msgstr "Szerver indítása bekapcsolva"
+
+#: src/uagent/web.py:1266
+msgid "External URL:"
+msgstr "Külső URL:"
+
+#: src/uagent/welcome.py:29
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[MCP szerverek]\n"
+"- A konfigurációs fájl nem található."
+
+#: src/uagent/welcome.py:36
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[MCP szerverek]\n"
+"- Nincs regisztrált szerver."
+
+#: src/uagent/welcome.py:38
+msgid "[MCP Servers]"
+msgstr "[MCP szerverek]"
+
+#: src/uagent/welcome.py:45
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[MCP szerverek]\n"
+"- Nem sikerült információt szerezni: %(err)s"
+
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
+#: src/uagent/welcome.py:64
+msgid "[Quick Guide]"
+msgstr "[Gyors útmutató]"
+
+#: src/uagent/welcome.py:65
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr ""
+"- Csevegés: írjon be egy üzenetet és küldje el (GUI: Ctrl+Enter is "
+"elérhető).girin (\"\"\" sonu ile bitirin)."
+
+#: src/uagent/welcome.py:70
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr ""
+"- Parancsok: írja be a ':help' parancsot a rendszerparancsok megtekintéséhez"
+" (naplókezelés, előzmények tömörítése stb.). Megjegyzés: a parancsok „/” "
+"(perjel) helyett „:”-vel (kettőspont) kezdődnek."
+
+#: src/uagent/welcome.py:72
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- Kilépés: ':exit' vagy ':quit' befejezi a munkamenetet."
+
+#: src/uagent/welcome.py:74
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- Képek: GUI támogatja a drag & drop funkciót; a CUI-ban megadhat egy fájl "
+"elérési utat a képelemzéshez."
+
+#: src/uagent/welcome.py:77
+#, python-format
+msgid ""
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- Dokumentumok: `%(docs_cmd)s` a csomagban lévő dokumentumokat mutatja; A "
+"`%(webinspect_cmd)s` a Web Inspector súgóját mutatja (a `--path/--open` is "
+"elérhető)."
+
+#: src/uagent/welcome.py:81
+msgid "[Examples]"
+msgstr "[Példák]"
+
+#: src/uagent/welcome.py:82
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr ""
+"- \"Elemezze a forráskódot ebben a mappában, és hozzon létre egy README.md "
+"fájlt.\""
+
+#: src/uagent/welcome.py:84
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr ""
+"- \"Készítsen képernyőképet az aktuális asztalról, és írja le a látható "
+"ablak tartalmát.\""
+
+#: src/uagent/welcome.py:86
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"Havi összesítő jelentés készítése ebből az Excel-fájlból.\""
+
+#: src/uagent/welcome.py:87
+msgid "- \"Read this PDF and list three key points.\""
+msgstr ""
+"- \"Olvassa el ezt a PDF-fájlt, és soroljon fel három kulcsfontosságú "
+"pontot.\""
+
+#: src/uagent/welcome.py:88
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr ""
+"- \"Keresse meg a legfrissebb híreket, és foglaljon össze egy adott témát.\""
+
+#: src/uagent/welcome.py:195
+msgid "-- More -- (Enter: next) "
+msgstr "-- Tovább -- (Írja be: következő)"
+
+#: src/uagent/a2a/engine.py:125
+msgid "No assistant message produced."
+msgstr "Nem jött létre asszisztensi üzenet."
+
+#: src/uagent/a2a/engine.py:137
+msgid "Generated image(s)."
+msgstr "Létrehozott kép(ek)."
+
+#: src/uagent/a2a/engine.py:150
+#, python-format
+msgid "ECHO: %(text)s"
+msgstr "ECHO: %(text)s"
+
+#: src/uagent/a2a/engine.py:165
+#, python-format
+msgid "uagent initialization failed: %(err)s"
+msgstr "az uagent inicializálása nem sikerült: %(err)s"
+
+#: src/uagent/a2a/engine.py:177
+#, python-format
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "az uagent végrehajtása sikertelen: %(etype)s: %(err)s"
+
+#: src/uagent/a2a/engine.py:188
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "Ismeretlen UAGENT_A2A_ENGINE: %(mode)s"
+
+#: src/uagent/providers/gemini_cache_mgr.py:131
+msgid "invalid cache meta"
+msgstr "érvénytelen gyorsítótár meta"
+
+#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/util_providers.py:686
+msgid "anthropic package is not installed."
+msgstr "anthropic csomag nincs telepítve."
+
+#: src/uagent/providers/llm_deepseek.py:670
+msgid "An error occurred while generating a response."
+msgstr "Hiba történt a válasz generálása közben."
+
+#: src/uagent/providers/llm_gemini.py:565
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr "google-genai nem importálható (pip install google-genai szükséges)."
+
+#: src/uagent/providers/llm_gemini.py:1134
+msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
+msgstr ""
+"[Ikrek hiba: a választ blokkolta a biztonsági szűrő vagy a befejezés oka]"
+
+#: src/uagent/providers/llm_gemini.py:1139
+#, python-format
+msgid "[Gemini Error: %(err)s]"
+msgstr "[Ikrek hiba: %(err)s]"
+
+#: src/uagent/providers/llm_openai_responses.py:69
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr ""
+"A [WARN] asszisztens előzményei képtartalmat tartalmaztak; szöveggé "
+"konvertálva."
+
+#: src/uagent/providers/llm_openai_responses.py:92
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[WARN] érvénytelen képtartalom (hiányzó URL)."
+
+#: src/uagent/providers/llm_openai_responses.py:100
+#: src/uagent/providers/llm_openai_responses.py:109
+#, python-format
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[WARN] nem támogatott tartalomelem: %(item)r"
+
+#: src/uagent/providers/llm_openai_responses.py:444
+msgid "Sources:"
+msgstr "Források:"
+
+#: src/uagent/providers/llm_openai_responses.py:507
+msgid "search"
+msgstr "keresés"
+
+#: src/uagent/providers/llm_openai_responses.py:509
+msgid "open page"
+msgstr "nyitott oldal"
+
+#: src/uagent/providers/llm_openai_responses.py:511
+msgid "find in page"
+msgstr "oldalon találja meg"
+
+#: src/uagent/providers/llm_openai_responses.py:512
+msgid "web search"
+msgstr "webes keresés"
+
+#: src/uagent/providers/llm_openai_responses.py:526
+msgid "Web search: searching"
+msgstr "Internetes keresés: keresés"
+
+#: src/uagent/providers/llm_openai_responses.py:528
+msgid "Web search: completed"
+msgstr "Internetes keresés: kész"
+
+#: src/uagent/providers/llm_openai_responses.py:530
+#, python-brace-format
+msgid "Web search: {action}"
+msgstr "Internetes keresés: {action}"
+
+#: src/uagent/providers/llm_openai_responses.py:587
+#, python-brace-format
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[Eszközhívási szabályok]\n"
+"        - Eszköz/függvény meghívásakor JSON-objektumként KELL megadnia a function_call.arguments fájlt.\n"
+"        - A JSON-objektumnak tartalmaznia KELL az eszközséma által meghatározott összes szükséges paramétert.\n"
+"        - Soha ne hívjon meg egy üres objektumot {} tartalmazó eszközt, kivéve, ha az eszköznek nincsenek kötelező paraméterei.\n"
+"        - Ha nem rendelkezik kötelező paraméterrel, akkor találgatás helyett kérje meg a felhasználótól a human_ask használatával."
+
+#: src/uagent/providers/llm_openai_responses.py:594
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[Webes keresési szabályok]\n"
+"        - Csak akkor használja a webes keresést, ha friss vagy külső információra van szükség.\n"
+"        - Ne használjon webes keresést helyi vagy stabil információkért.\n"
+"        - Inkább internetes keresés nélkül válaszoljon, ha a válasz már elegendő."
+
+#: src/uagent/providers/util_providers.py:243
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "Az UAGENT_PROVIDER környezeti változó nincs beállítva."
+
+#: src/uagent/providers/util_providers.py:263
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "Ismeretlen szolgáltató: %(provider)s"
+
+#: src/uagent/providers/util_providers.py:620
+#: src/uagent/providers/util_providers.py:646
+msgid "google-genai package is not installed."
+msgstr "google-genai csomag nincs telepítve."
+
+#: src/uagent/runtime/runtime_banner.py:232
+msgid "embedding"
+msgstr "beágyazás"
+
+#: src/uagent/runtime/runtime_banner.py:233
+msgid "audio speech"
+msgstr "hangbeszéd"
+
+#: src/uagent/runtime/runtime_banner.py:234
+msgid "audio transcribe"
+msgstr "hang átírása"
+
+#: src/uagent/runtime/runtime_banner.py:235
+msgid "image generation"
+msgstr "képalkotás"
+
+#: src/uagent/runtime/runtime_banner.py:236
+msgid "image analysis"
+msgstr "képelemzés"
+
+#: src/uagent/runtime/runtime_banner.py:255
+#, python-format
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] munkakönyvtár = %(workdir)s (forrás: %(source)s)"
+
+#: src/uagent/runtime/runtime_banner.py:263
+#: src/uagent/runtime/runtime_banner.py:277
+#: src/uagent/runtime/runtime_banner.py:282
+#: src/uagent/runtime/runtime_banner.py:294
+#: src/uagent/runtime/runtime_banner.py:306
+#: src/uagent/runtime/runtime_banner.py:315
+#: src/uagent/runtime/runtime_banner.py:325
+#: src/uagent/runtime/runtime_banner.py:338
+#: src/uagent/runtime/runtime_banner.py:351
+#: src/uagent/runtime/runtime_banner.py:360
+#, python-format
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] base_url = %(base_url)s"
+
+#: src/uagent/runtime/runtime_banner.py:271
+#, python-format
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] api_version = %(api_version)s"
+
+#: src/uagent/runtime/runtime_banner.py:369
+#, python-format
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = projekt=%(project)s, hely=%(location)s"
+
+#: src/uagent/runtime/runtime_banner.py:378
+#, python-format
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; modell = %(model)s"
+
+#: src/uagent/runtime/runtime_banner.py:399
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"Az UAGENT_RESPONSES=1 be van állítva, de a '%(provider)s' szolgáltató nem "
+"támogatja a Responses API-t. Visszatérve a ChatCompletions-hez."
+
+#: src/uagent/runtime/runtime_banner.py:406
+#, python-format
+msgid "LLM API mode = %(mode)s"
+msgstr "LLM API mód = %(mode)s"
+
+#: src/uagent/runtime/runtime_banner.py:409
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "Válaszok (az UAGENT_RESPONSES engedélyezve van)"
+
+#: src/uagent/runtime/runtime_banner.py:413
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr ""
+"Natív Gemini/Vertex AI/Claude API (az UAGENT_RESPONSES figyelmen kívül "
+"hagyva)"
+
+#: src/uagent/runtime/runtime_banner.py:416
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "ChatCompletions (UAGENT_RESPONSES le van tiltva)"
+
+#: src/uagent/runtime/runtime_banner.py:424
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "LLM streaming = %(state)s"
+
+#: src/uagent/runtime/runtime_banner.py:425
+msgid "enabled"
+msgstr "engedélyezve van"
+
+#: src/uagent/runtime/runtime_banner.py:425
+msgid "disabled"
+msgstr "letiltva"
+
+#: src/uagent/runtime/runtime_env.py:186
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Update it? [y/N] "
+msgstr ""
+"[INFO] Az .env.sec tartalom nem egyezik az aktuális indítási UAGENT_* "
+"környezeti változókkal. Frissítse? [i/N]"
+
+#: src/uagent/runtime/runtime_env.py:202
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] Az .env.sec tartalom nem egyezik az aktuális indítási UAGENT_* "
+"környezeti változókkal. A frissítéshez használja az \"uag_envsec\" "
+"parancsot."
+
+#: src/uagent/runtime/runtime_env.py:214
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "Frissítve .env.sec: %(path)s"
+
+#: src/uagent/runtime/runtime_env.py:218
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[WARN] A .env.sec frissítése nem sikerült: %(err)s"
+
+#: src/uagent/runtime/runtime_env.py:228
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec hiányzik. Létrehozza az aktuális indítási UAGENT_* "
+"környezeti változókból? [i/N]"
+
+#: src/uagent/runtime/runtime_env.py:244
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec hiányzik. Az \"uag_envsec\" használatával hozza létre az "
+"aktuális indítási UAGENT_* környezeti változókból."
+
+#: src/uagent/runtime/runtime_env.py:254
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr "Létrehozva .env.sec: %(path)s"
+
+#: src/uagent/runtime/runtime_env.py:258
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[WARN] Nem sikerült létrehozni a .env.sec fájlt: %(err)s"
+
+#: src/uagent/runtime/runtime_env.py:289
+#, python-format
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr "[WARN] Nem sikerült ellenőrizni a .env.sec szinkronizálását: %(err)s"
+
+#: src/uagent/runtime/runtime_init.py:83
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[WARN] A .env.sec visszafejtése nem sikerült: %(err)s"
+
+#: src/uagent/runtime/runtime_workdir.py:49
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "A megadott munkakönyvtár elérési útja egy fájl: %(path)s"

@@ -358,5 +358,53 @@
       "bash कमांड",
       "शेल कमांड"
     ]
+  },
+  "el": {
+    "err.unavailable": "Αυτό το εργαλείο είναι διαθέσιμο σε συστήματα τύπου Unix με εγκατεστημένο το bash.",
+    "param.command.description": "Η συμβολοσειρά εντολών πέρασε στο bash -lc.",
+    "tool.description": "Ως έσχατη λύση, εκτελέστε μια εντολή bash. Χρησιμοποιήστε μόνο όταν δεν υπάρχει άλλο κατάλληλο εργαλείο.",
+    "x_search_terms": [
+      "bash_exec",
+      "bash exec",
+      "βίαιο χτύπημα",
+      "εντολή κελύφους",
+      "εκτελέσει το κέλυφος"
+    ]
+  },
+  "he": {
+    "err.unavailable": "כלי זה זמין במערכות דמויות Unix עם bash מותקן.",
+    "param.command.description": "מחרוזת הפקודה הועברה ל-bash -lc.",
+    "tool.description": "כמוצא אחרון, בצע פקודת bash. השתמש רק כאשר אין כלי מתאים אחר זמין.",
+    "x_search_terms": [
+      "bash_exec",
+      "bash exec",
+      "לַחֲבוֹט",
+      "פקודת מעטפת",
+      "לבצע פגז"
+    ]
+  },
+  "hu": {
+    "err.unavailable": "Ez az eszköz Unix-szerű rendszereken érhető el, amelyekre telepítve van a bash.",
+    "param.command.description": "A parancssor átadva a bash -lc-nek.",
+    "tool.description": "Végső lehetőségként futtasson egy bash parancsot. Csak akkor használja, ha más megfelelő eszköz nem áll rendelkezésre.",
+    "x_search_terms": [
+      "bash_exec",
+      "bash exec",
+      "bash",
+      "shell parancs",
+      "shell végrehajtása"
+    ]
+  },
+  "ro": {
+    "err.unavailable": "Acest instrument este disponibil pe sisteme asemănătoare Unix cu bash instalat.",
+    "param.command.description": "Șirul de comandă a fost transmis la bash -lc.",
+    "tool.description": "Ca ultimă soluție, executați o comandă bash. Utilizați numai atunci când nu este disponibil un alt instrument adecvat.",
+    "x_search_terms": [
+      "bash_exec",
+      "bash exec",
+      "bash",
+      "comanda shell",
+      "executa shell"
+    ]
   }
 }

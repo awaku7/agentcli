@@ -422,5 +422,77 @@
       "हलवा",
       "rename path"
     ]
+  },
+  "el": {
+    "doc.module": "tools/rename_path_tool.py\n\nεργαλείο μετονομασία_διαδρομής\n\nΣκοπός:\n- Μετονομασία/μετακίνηση αρχείων/καταλόγων.\n\nΠολιτική ασφαλείας:\n- Επιβεβαιώστε με τον χρήστη εάν πληρούνται οι συνθήκες επικίνδυνης διαδρομής, όπως μονοπάτια εκτός του οδηγού εργασίας, απόλυτες διαδρομές ή διαδρομές που περιέχουν ..\n- Επιβεβαιώστε με τον χρήστη εάν overwrite=True (διαγράψτε και αντικαταστήστε το υπάρχον dst).\n\nΥλοποίηση:\n- Οι πραγματικές λειτουργίες ανατίθενται στο tools.safe_file_ops.safe_rename_path().\n- Για να αφαιρέσετε ένα υπάρχον dst, τα αρχεία αφαιρούνται με το os.remove και οι κατάλογοι με το shutil.rmtree.\n\nΠροσοχή:\n- Αυτό το εργαλείο αλλάζει πραγματικά αρχεία όπως το create_file/delete_file, επομένως είναι σχεδιασμένο να απαιτεί επιβεβαίωση ασφαλείας ακόμα και όταν καλείται από ένα LLM.",
+    "param.dst.description": "Εάν ισχύει, διαγράψτε και αντικαταστήστε τον προορισμό εάν υπάρχει ήδη (απαιτείται επιβεβαίωση).",
+    "param.mkdirs.description": "Αρχική διαδρομή (αρχείο/κατάλογος). Συνιστάται σχετική διαδρομή.",
+    "param.overwrite.description": "Μετονομασία (μετακίνηση) αρχείου ή καταλόγου.",
+    "param.src.description": "μετονομασία αρχείου",
+    "tool.description": "μετακίνηση αρχείου",
+    "x_search_terms": [
+      "μετονομασία διαδρομής",
+      "名前変更",
+      "μετονομασία διαδρομής",
+      "名前変更",
+      "renombrar archivo",
+      "renommer fichier",
+      "이름 변경",
+      "переименовать"
+    ]
+  },
+  "he": {
+    "doc.module": "tools/rename_path_tool.py\n\nכלי rename_path\n\nמטרה:\n- שנה שם/הזז קבצים/ספריות.\n\nמדיניות בטיחות:\n- אשר עם המשתמש אם מתקיימים תנאי נתיב מסוכנים, כגון נתיבים מחוץ ל-workdir, נתיבים מוחלטים או נתיבים המכילים ..\n- אשר עם המשתמש אם overwrite=True (מחק והחלף dst קיים).\n\nיישום:\n- פעולות בפועל מואצלות ל- tools.safe_file_ops.safe_rename_path().\n- כדי להסיר dst קיים, קבצים מוסרים עם os.remove וספריות עם shutil.rmtree.\n\nשימו לב:\n- הכלי הזה משנה קבצים אמיתיים בדיוק כמו create_file/delete_file, כך שהוא נועד לדרוש אישור בטיחות גם כשמתקשרים מ-LLM.",
+    "param.dst.description": "אם נכון, מחק והחלף את היעד אם הוא כבר קיים (דורש אישור).",
+    "param.mkdirs.description": "נתיב מקורי (קובץ/ספרייה). דרך יחסית מומלצת.",
+    "param.overwrite.description": "שנה שם (הזז) של קובץ או ספריה.",
+    "param.src.description": "נתיב מקורי (קובץ/ספרייה). דרך יחסית מומלצת.",
+    "tool.description": "העבר את הקובץ",
+    "x_search_terms": [
+      "שנה את שם הנתיב",
+      "名前変更",
+      "לשנות את שם הנתיב",
+      "名前変更",
+      "renombrar archivo",
+      "renommer fichier",
+      "이름 변경",
+      "переименовать"
+    ]
+  },
+  "hu": {
+    "doc.module": "tools/rename_path_tool.py\n\nrename_path eszköz\n\nCél:\n- Fájlok/könyvtárak átnevezése/áthelyezése.\n\nBiztonsági politika:\n- Erősítse meg a felhasználót, ha veszélyes útvonalfeltételek teljesülnek, például a munkakönyvtáron kívüli elérési utak, abszolút elérési utak vagy ..\n- Erősítse meg a felhasználóval, ha overwrite=True (meglévő dst törlése és cseréje).\n\nMegvalósítás:\n- A tényleges műveletek az tools.safe_file_ops.safe_rename_path()-ra vannak delegálva.\n- Meglévő dst eltávolításához a fájlokat az os.remove, a könyvtárakat pedig a shutil.rmtree paranccsal kell eltávolítani.\n\nFigyelem:\n- Ez az eszköz a valódi fájlokat változtatja meg, akárcsak a create_file/delete_file, ezért úgy tervezték, hogy még akkor is biztonsági megerősítést kérjen, ha egy LLM-től hívják.",
+    "param.dst.description": "Ha igaz, törölje és cserélje ki a célhelyet, ha már létezik (megerősítést igényel).",
+    "param.mkdirs.description": "Eredeti elérési út (fájl/könyvtár). Relatív útvonal ajánlott.",
+    "param.overwrite.description": "Fájl vagy könyvtár átnevezése (áthelyezése).",
+    "param.src.description": "Eredeti elérési út (fájl/könyvtár). Relatív útvonal ajánlott.",
+    "tool.description": "fájl áthelyezése",
+    "x_search_terms": [
+      "átnevezési útvonal",
+      "名前変更",
+      "útvonal átnevezése",
+      "名前変更",
+      "renombrar archivo",
+      "renommer fichier",
+      "이름 변경",
+      "переименовать"
+    ]
+  },
+  "ro": {
+    "doc.module": "tools/rename_path_tool.py\n\ninstrumentul rename_path\n\nScop:\n- Redenumiți/mutați fișiere/directoare.\n\nPolitica de siguranta:\n- Confirmați cu utilizatorul dacă sunt îndeplinite condițiile periculoase ale căii, cum ar fi căi în afara directorului de lucru, căi absolute sau căi care conțin ..\n- Confirmați cu utilizatorul dacă overwrite=True (ștergeți și înlocuiți dst-ul existent).\n\nImplementare:\n- Operațiile efective sunt delegate la tools.safe_file_ops.safe_rename_path().\n- Pentru a elimina un dst existent, fișierele sunt eliminate cu os.remove și directoarele cu shutil.rmtree.\n\nAtentie:\n- Acest instrument modifică fișierele reale la fel ca create_file/delete_file, deci este conceput pentru a necesita confirmare de siguranță chiar și atunci când este apelat de la un LLM.",
+    "param.dst.description": "Dacă este adevărat, creați directorul părinte pentru dst înainte de a executa.",
+    "param.mkdirs.description": "Dacă este adevărat, ștergeți și înlocuiți destinația dacă aceasta există deja (necesită confirmare).",
+    "param.overwrite.description": "Calea originală (fișier/director). Calea relativă recomandată.",
+    "param.src.description": "Redenumiți (mutați) un fișier sau un director.",
+    "tool.description": "redenumiți fișierul",
+    "x_search_terms": [
+      "mutați fișierul",
+      "redenumiți calea",
+      "名前変更",
+      "名前変更",
+      "renombrar archivo",
+      "renommer fichier",
+      "이름 변경",
+      "переименовать"
+    ]
   }
 }

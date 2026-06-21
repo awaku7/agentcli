@@ -601,5 +601,97 @@
       "binary edit"
     ],
     "param.maxb.description": "या आकारापेक्षा (बाइट्स) मोठ्या फाइल्स नाकारणे."
+  },
+  "el": {
+    "param.data_hex.description": "Δεκαεξαδική συμβολοσειρά byte για εγγραφή/εισαγωγή (π.χ. 'DEADBEEF' ή 'DE AD BE EF').",
+    "param.delete_len.description": "Αριθμός byte προς διαγραφή (διαγραφή συνδυασμού).",
+    "param.dry_run.description": "Εάν ισχύει, μην τροποποιήσετε το αρχείο. αναφέρετε μόνο τι θα άλλαζε.",
+    "param.mode.description": "Λειτουργία επεξεργασίας.",
+    "param.occurrence.description": "Εμφάνιση (βάσει 1, 0 = όλα).",
+    "param.offset.description": "Μετατόπιση byte (βάσει 0). Απαιτείται για εγγραφή/σύνδεση.",
+    "param.patch_json.description": "Ενημερωμένη έκδοση κώδικα συμβολοσειράς JSON (λειτουργία apply_patch).",
+    "param.path.description": "Διαδρομή αρχείου προορισμού.",
+    "param.replace_hex.description": "Εξαγωνική συμβολοσειρά για αντικατάσταση με (λειτουργία αντικατάστασης). Πρέπει να έχει το ίδιο μήκος με το search_hex εκτός εάν allow_resize=true (δεν υποστηρίζεται).",
+    "param.search_hex.description": "Δεκαεξαδική συμβολοσειρά για αναζήτηση (λειτουργία αντικατάστασης).",
+    "param.splice_op.description": "Λειτουργία συναρμογής (λειτουργία συναρμογής).",
+    "tool.description": "Επεξεργαστείτε ένα τοπικό αρχείο ως ακατέργαστα byte: μετατόπιση εγγραφής, αναζήτηση/αντικατάσταση, εισαγωγή/διαγραφή (συναρμολόγηση), ενημερωμένη έκδοση κώδικα JSON.",
+    "x_search_terms": [
+      "binary_edit",
+      "δυαδική επεξεργασία",
+      "ακατέργαστα byte",
+      "δυαδικό έμπλαστρο",
+      "μετατόπιση επεξεργασίας",
+      "συνδέω"
+    ],
+    "param.maxb.description": "Απορρίψτε αρχεία μεγαλύτερα από αυτό το μέγεθος (byte)."
+  },
+  "he": {
+    "param.data_hex.description": "מחרוזת משושה של בתים לכתיבה/הוספה (למשל 'DEADBEEF' או 'DE AD BE EF').",
+    "param.delete_len.description": "מספר בתים למחיקה (מחיקת splice).",
+    "param.dry_run.description": "אם נכון, אל תשנה את הקובץ; רק לדווח מה ישתנה.",
+    "param.mode.description": "מצב עריכה.",
+    "param.occurrence.description": "התרחשות (מבוססת 1; 0 = הכל).",
+    "param.offset.description": "היסט בתים (מבוסס 0). נדרש לכתיבה/חבור.",
+    "param.patch_json.description": "תיקון מחרוזת JSON (מצב apply_patch).",
+    "param.path.description": "נתיב קובץ יעד.",
+    "param.replace_hex.description": "מחרוזת משושה להחלפה (מצב החלפה). חייב להיות באורך זהה ל-search_hex אלא אם כן allow_resize=true (לא נתמך).",
+    "param.search_hex.description": "מחרוזת משושה לחיפוש (מצב החלפה).",
+    "param.splice_op.description": "פעולת ספייס (מצב ספייס).",
+    "tool.description": "ערוך קובץ מקומי כבייטים גולמיים: ביטול כתיבה, חיפוש/החלפה, הוספה/מחיקה (חבור), תיקון JSON.",
+    "x_search_terms": [
+      "עריכה_בינארית",
+      "עריכה בינארית",
+      "בייטים גולמיים",
+      "תיקון בינארי",
+      "עריכת אופסט",
+      "אִחוּי"
+    ],
+    "param.maxb.description": "דחה קבצים גדולים מגודל זה (בתים)."
+  },
+  "hu": {
+    "param.data_hex.description": "Az írandó/beszúrandó bájtok hexadecimális karakterlánca (pl. „DEADBEEF” vagy „DE AD BE EF”).",
+    "param.delete_len.description": "A törölni kívánt bájtok száma (splice delete).",
+    "param.dry_run.description": "Ha igaz, ne módosítsa a fájlt; csak azt jelentsd, mi változna.",
+    "param.mode.description": "Szerkesztés mód.",
+    "param.occurrence.description": "Előfordulás (1-alapú; 0 = mind).",
+    "param.offset.description": "Byte offset (0 alapú). Íráshoz/illesztéshez szükséges.",
+    "param.patch_json.description": "JSON karakterlánc-javítás (apply_patch mód).",
+    "param.path.description": "Célfájl elérési útja.",
+    "param.replace_hex.description": "Helyettesítendő hatszögletű karakterlánc (csere mód). Hosszúságúnak kell lennie a search_hex értékkel, hacsak nem allow_resize=true (nem támogatott).",
+    "param.search_hex.description": "A keresendő hexadecimális karakterlánc (csere mód).",
+    "param.splice_op.description": "Összeillesztési művelet (illesztési mód).",
+    "tool.description": "Szerkesszen egy helyi fájlt nyers bájtként: írás eltolása, keresés/csere, beszúrás/törlés (illesztés), JSON javítás.",
+    "x_search_terms": [
+      "bináris_szerkesztés",
+      "bináris szerkesztés",
+      "nyers bájtok",
+      "bináris patch",
+      "ofszet szerkesztés",
+      "toldás"
+    ],
+    "param.maxb.description": "Ennél a méretnél (byte) nagyobb fájlok elutasítása."
+  },
+  "ro": {
+    "param.data_hex.description": "Șir hexadecimal de octeți de scris/inserat (de exemplu, „DEADBEEF” sau „DE AD BE EF”).",
+    "param.delete_len.description": "Numărul de octeți de șters (ștergere de îmbinare).",
+    "param.dry_run.description": "Dacă este adevărat, nu modificați fișierul; raportați doar ce s-ar schimba.",
+    "param.mode.description": "Modul de editare.",
+    "param.occurrence.description": "Apariție (pe baza 1; 0 = toate).",
+    "param.offset.description": "Byte offset (bazat pe 0). Necesar pentru scriere/splicing.",
+    "param.patch_json.description": "Patch-uri JSON (modul apply_patch).",
+    "param.path.description": "Calea fișierului țintă.",
+    "param.replace_hex.description": "Șir hexagonal de înlocuit cu (mod înlocuire). Trebuie să aibă aceeași lungime ca search_hex, cu excepția cazului în care allow_resize=true (nu este acceptat).",
+    "param.search_hex.description": "Șir hexagonal de căutat (mod înlocuire).",
+    "param.splice_op.description": "Operare de îmbinare (mod de îmbinare).",
+    "tool.description": "Editați un fișier local ca octeți bruti: scriere offset, căutare/înlocuire, inserare/ștergere (splice), patch JSON.",
+    "x_search_terms": [
+      "binary_edit",
+      "editare binară",
+      "octeți bruti",
+      "patch binar",
+      "editare offset",
+      "lipitură"
+    ],
+    "param.maxb.description": "Respingeți fișierele mai mari decât această dimensiune (octeți)."
   }
 }

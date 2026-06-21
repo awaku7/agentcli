@@ -689,5 +689,101 @@
     "out.entry.file": "[FILE] {name} ({size})",
     "out.entry.link": "[LINK] {name}{target}",
     "out.entry.other": "[OTHER] {name}"
+  },
+  "el": {
+    "tool.description": "Καταχωρήσεις λίστας σε έναν κατάλογο με σελιδοποίηση, παρόμοια με το ls.",
+    "x_search_terms": [
+      "λίστα καταλόγου",
+      "λίστα φακέλων",
+      "λίστα αρχείων",
+      "λίστα φακέλων",
+      "Κατάλογος προς λίστα (προεπιλογή: τρέχων κατάλογος). Ψευδώνυμο του root_path.",
+      "Συμπεριλάβετε κρυφές καταχωρίσεις στην καταχώριση."
+    ],
+    "param.path.description": "Μέγιστος αριθμός καταχωρήσεων προς επιστροφή ανά σελίδα (προεπιλογή: 50).",
+    "param.show_hidden.description": "[list_dir error] Ο κατάλογος δεν υπάρχει: {path}",
+    "param.page.description": "Αριθμός σελίδας προς ανάκτηση (προεπιλογή: 1).",
+    "param.limit.description": "[list_dir error] Η διαδρομή δεν είναι κατάλογος: {path}",
+    "err.dir_not_exist": "Διαδρομή: {path}",
+    "err.path_not_dir": "[list_dir] Δεν βρέθηκαν καταχωρήσεις.",
+    "out.path": "[list_dir] Σελίδα {page} από {total_pages} (Σύνολο {total} καταχωρήσεις, εμφανίζει {showing})",
+    "out.no_entries": "[list_dir] Δεν βρέθηκαν καταχωρήσεις.",
+    "out.found_paginated": "[list_dir] Σελίδα {page} από {total_pages} (Σύνολο {total} καταχωρήσεις, εμφανίζει {showing})",
+    "out.entry.dir": "[DIR] {name}/",
+    "out.entry.file": "[FILE] {name} ({size})",
+    "out.entry.link": "[LINK] {name}{target}",
+    "out.entry.other": "[OTHER] {name}"
+  },
+  "he": {
+    "tool.description": "ארגומנטים נוספים (מערך). דחה דמויות מטא מסוכנות.",
+    "x_search_terms": [
+      "רשימת ערכים בספרייה עם עימוד, בדומה ל-ls.",
+      "list_dir",
+      "רישום ספריות",
+      "רישום ספריות",
+      "רישום תיקיות",
+      "רשימת קבצים"
+    ],
+    "param.path.description": "ספרייה לרשימה (ברירת מחדל: ספרייה נוכחית). כינוי של root_path.",
+    "param.show_hidden.description": "ספרייה לרשימה (ברירת מחדל: ספרייה נוכחית). כינוי של root_path.",
+    "param.page.description": "מספר עמוד לאחזור (ברירת מחדל: 1).",
+    "param.limit.description": "כלול ערכים נסתרים ברישום.",
+    "err.dir_not_exist": "המספר המרבי של ערכים להחזרה בכל עמוד (ברירת מחדל: 50).",
+    "err.path_not_dir": "[שגיאת list_dir] ספרייה לא קיימת: {path}",
+    "out.path": "[שגיאת list_dir] הנתיב אינו ספרייה: {path}",
+    "out.no_entries": "נתיב: {path}",
+    "out.found_paginated": "[list_dir] לא נמצאו ערכים.",
+    "out.entry.dir": "[DIR] {name}/",
+    "out.entry.file": "[FILE] {name} ({size})",
+    "out.entry.link": "[LINK] {name}{target}",
+    "out.entry.other": "[OTHER] {name}"
+  },
+  "hu": {
+    "tool.description": "Az ls-hez hasonló oldalszámozással rendelkező könyvtár bejegyzéseinek listázása.",
+    "x_search_terms": [
+      "list_dir",
+      "ls",
+      "könyvtárlista",
+      "mappalista",
+      "listafájl",
+      "listamappa"
+    ],
+    "param.path.description": "Lista könyvtár (alapértelmezett: jelenlegi könyvtár). A gyökér_útvonal álneve.",
+    "param.show_hidden.description": "Rejtett bejegyzések szerepeltetése az adatlapon.",
+    "param.page.description": "Keressen egy mintát a fájlokban, és adja vissza a megfelelő sorokat sorszámokkal (például grep -n). Minta szükséges.",
+    "param.limit.description": "Oldalanként visszaküldhető bejegyzések maximális száma (alapértelmezett: 50).",
+    "err.dir_not_exist": "[list_dir error] A könyvtár nem létezik: {path}",
+    "err.path_not_dir": "[list_dir error] Az elérési út nem egy könyvtár: {path}",
+    "out.path": "Elérési út: {path}",
+    "out.no_entries": "[list_dir] Nem található bejegyzés.",
+    "out.found_paginated": "[list_dir] {total_pages}/{page}. oldal (Összesen {total} bejegyzés, {showing} megjelenítése)",
+    "out.entry.dir": "[DIR] {name}/",
+    "out.entry.file": "[FÁJL] {name} ({size})",
+    "out.entry.link": "[LINK] {name}{target}",
+    "out.entry.other": "[OTHER] {name}"
+  },
+  "ro": {
+    "tool.description": "Listează intrările dintr-un director cu paginare, similar cu ls.",
+    "x_search_terms": [
+      "ls",
+      "lista de director",
+      "lista de foldere",
+      "lista de fișiere",
+      "lista de foldere",
+      "Director de listă (implicit: directorul curent). Alias ​​pentru root_path."
+    ],
+    "param.path.description": "Includeți intrări ascunse în listă.",
+    "param.show_hidden.description": "Numărul maxim de intrări de returnat pe pagină (implicit: 50).",
+    "param.page.description": "Director rădăcină sau cale de fișier specifică (implicit: „.”).",
+    "param.limit.description": "[list_dir error] Directorul nu există: {path}",
+    "err.dir_not_exist": "[list_dir error] Calea nu este un director: {path}",
+    "err.path_not_dir": "[list_dir error] Calea nu este un director: {cale}",
+    "out.path": "[list_dir] Nu s-au găsit intrări.",
+    "out.no_entries": "[list_dir] Pagina {page} din {total_pages} (Total {total} intrări, afișând {afișează})",
+    "out.found_paginated": "[list_dir] Pagina {page} din {total_pages} (Total {total} intrări, afișând {shoing})",
+    "out.entry.dir": "[DIR] {name}/",
+    "out.entry.file": "[FILE] {name} ({size})",
+    "out.entry.link": "[LINK] {name}{target}",
+    "out.entry.other": "[OTHER] {name}"
   }
 }

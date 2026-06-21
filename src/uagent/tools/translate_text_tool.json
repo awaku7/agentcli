@@ -380,5 +380,57 @@
       "भाषांतर",
       "भाषा"
     ]
+  },
+  "el": {
+    "tool.description": "Μεταφράστε κείμενο χρησιμοποιώντας το Google Μετάφραση. Υποστηρίζει 30+ γλώσσες.",
+    "param.text.description": "Κείμενο προς μετάφραση.",
+    "param.target_lang.description": "Κωδικός γλώσσας-στόχου (π.χ. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
+    "param.source_lang.description": "Κωδικός γλώσσας πηγής. Αν παραλειφθεί, ανιχνεύεται αυτόματα.",
+    "x_search_terms": [
+      "μετάφραση",
+      "μεταφράζω",
+      "Google",
+      "Μετάφραση",
+      "γλώσσα"
+    ]
+  },
+  "he": {
+    "tool.description": "תרגם טקסט באמצעות Google Translate. תומך ביותר מ-30 שפות.",
+    "param.text.description": "טקסט לתרגום (מקסימום 10000 תווים).",
+    "param.target_lang.description": "קוד שפת יעד (לדוגמה ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
+    "param.source_lang.description": "קוד שפת מקור. מזוהה אוטומטית אם הושמט.",
+    "x_search_terms": [
+      "תרגום",
+      "לתרגם",
+      "גוגל תרגום",
+      "תרגם",
+      "שפה"
+    ]
+  },
+  "hu": {
+    "tool.description": "Fordítson szöveget a Google Fordító segítségével. Több mint 30 nyelvet támogat.",
+    "param.text.description": "A lefordítandó szöveg.",
+    "param.target_lang.description": "Célnyelv kódja (pl. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
+    "param.source_lang.description": "Forrásnyelv kódja. Ha kihagyja, automatikusan észleli.",
+    "x_search_terms": [
+      "fordítás",
+      "fordít",
+      "Google",
+      "Fordító",
+      "nyelv"
+    ]
+  },
+  "ro": {
+    "tool.description": "Traduceți text folosind Google Traducere. Suportă peste 30 de limbi.",
+    "param.text.description": "Text de tradus.",
+    "param.target_lang.description": "Codul limbii țintă (de ex. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
+    "param.source_lang.description": "Codul limbii sursă. Detectat automat dacă este omis.",
+    "x_search_terms": [
+      "traducere",
+      "traduce",
+      "Google",
+      "Traducere",
+      "limbă"
+    ]
   }
 }

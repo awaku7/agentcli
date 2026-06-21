@@ -127,6 +127,38 @@
     "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
     "err.not_found": "Matter bridge not found: {bridge_id}"
   },
+  "el": {
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "tool.description": "Το αρχείο διαμόρφωσης Matter Bridge δεν βρέθηκε. Ορίστε {env_json} ή {env_file}.",
+    "param.bridge.description": "Δεν ήταν δυνατή η ανάλυση της διαμόρφωσης γέφυρας ύλης: {err}",
+    "err.config_missing": "Δεν βρέθηκε η γέφυρα ύλης: {bridge_id}",
+    "err.invalid_config": "Συστάδες ύλης λίστας για μια συσκευή.",
+    "err.not_found": "Αναγνωριστικό συσκευής (απαιτείται)."
+  },
+  "he": {
+    "param.fmt.description": "אין ערכים במטמון.",
+    "tool.description": "קובץ התצורה של Matter Bridge לא נמצא. הגדר את {env_json} או {env_file}.",
+    "param.bridge.description": "לא ניתן היה לנתח את תצורת גשר ה-Mater: {err}",
+    "err.config_missing": "גשר ה-Mater לא נמצא: {bridge_id}",
+    "err.invalid_config": "רשימת אשכולות חומר עבור מכשיר.",
+    "err.not_found": "מזהה מכשיר (חובה)."
+  },
+  "hu": {
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "tool.description": "Az anyaghíd konfigurációs fájlja nem található. Állítsa be: {env_json} vagy {env_file}.",
+    "param.bridge.description": "Az anyaghíd-konfigurációt nem sikerült elemezni: {err}",
+    "err.config_missing": "Anyaghíd nem található: {bridge_id}",
+    "err.invalid_config": "Anyagfürtök listázása egy eszközhöz.",
+    "err.not_found": "Eszközazonosító (kötelező)."
+  },
+  "ro": {
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "tool.description": "[long_memory truncated: limitat la {max_bytes} caractere]",
+    "param.bridge.description": "Listă dispozitivele Matter gestionate prin punte și returnează un rezumat JSON sau text.",
+    "err.config_missing": "ID pod (omiteți pentru toate).",
+    "err.invalid_config": "Fișierul de configurare Matter bridge nu a fost găsit. Setați {env_json} sau {env_file}.",
+    "err.not_found": "Configurația Matter bridge nu a putut fi analizată: {err}"
+  },
   "nb": {
     "param.fmt.description": "Format: json or text.",
     "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",

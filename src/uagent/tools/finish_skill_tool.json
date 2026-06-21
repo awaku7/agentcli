@@ -478,5 +478,69 @@
       "लूप समाप्त",
       "पूर्ण"
     ]
+  },
+  "el": {
+    "param.message.description": "Προαιρετικό τελικό μήνυμα προς τον χρήστη.",
+    "tool.description": "Σήμα ότι οι εργασίες της τρέχουσας ικανότητας έχουν ολοκληρωθεί. (Χρησιμοποιήστε ΜΟΝΟ κατά την εκτέλεση δεξιοτήτων με βάση την ΔΕΞΙΟΤΗΤΑ.",
+    "x_search_terms": [
+      "finish_skill",
+      "finish skill",
+      "πλήρης δεξιότητα",
+      "end skill",
+      "skill done",
+      "σημείωσε ολοκληρωμένο",
+      "σήμα ολοκληρωμένο",
+      "ολοκλήρωση εργασίας",
+      "τερματισμός εργασίας από κείμενο",
+      "τερματισμός εργασίας"
+    ]
+  },
+  "he": {
+    "param.message.description": "הודעה סופית אופציונלית למשתמש.",
+    "tool.description": "אות שהמשימות של המיומנות הנוכחית הושלמו. (השתמש רק במהלך ביצוע מיומנות בהתבסס על מיומנות.",
+    "x_search_terms": [
+      "מיומנות סיום",
+      "מיומנות סיום",
+      "מיומנות מלאה",
+      "מיומנות סיום",
+      "מיומנות בוצעה",
+      "סימן בוצע",
+      "אות הושלם",
+      "משימה סיום",
+      "הוראות עצירה",
+      "שמירה על תמונה"
+    ]
+  },
+  "hu": {
+    "param.message.description": "Opcionális utolsó üzenet a felhasználónak.",
+    "tool.description": "Jelzi, hogy az aktuális készség feladatai befejeződtek. (CSAK KÉPESSÉG alapú készség-végrehajtás során használja.",
+    "x_search_terms": [
+      "finish_skill",
+      "készség befejezése",
+      "készség befejezése",
+      "készség befejezése",
+      "készség teljesítve",
+      "késznek jelölés",
+      "befejezett jelzés",
+      "feladat befejezése",
+      "leállítási utasítás",
+      "befejező ciklus"
+    ]
+  },
+  "ro": {
+    "param.message.description": "Mesaj final opțional pentru utilizator.",
+    "tool.description": "Semnalează că sarcinile abilității curente sunt finalizate. (Folosiți NUMAI în timpul execuției abilității bazate pe abilitate.",
+    "x_search_terms": [
+      "finish_skill",
+      "finish skill",
+      "complete skill",
+      "termina skill",
+      "skill done",
+      "skill done",
+      "mark done",
+      "signal complete",
+      "finish skill",
+      "stop skill"
+    ]
   }
 }

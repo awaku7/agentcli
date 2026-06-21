@@ -356,5 +356,45 @@
       "mcp साधने सूचीबद्ध करा",
       "साधने शोधा"
     ]
+  },
+  "el": {
+    "param.pretty.description": "Είτε θα εκτυπωθεί όμορφη εκτύπωση JSON.",
+    "param.server_name.description": "Όνομα διακομιστή από το αρχείο διαμόρφωσης.",
+    "param.url.description": "URL τελικού σημείου διακομιστή MCP.",
+    "tool.description": "Συνδεθείτε σε διακομιστή MCP και παραθέστε τα διαθέσιμα εργαλεία. Υποστηρίζει μεταφορές HTTP και stdio.",
+    "x_search_terms": [
+      "mcps_list",
+      "mcps list"
+    ]
+  },
+  "he": {
+    "param.pretty.description": "האם להדפיס פלט JSON יפה.",
+    "param.server_name.description": "שם השרת מקובץ התצורה.",
+    "param.url.description": "כתובת URL של שרת MCP.",
+    "tool.description": "התחבר לשרת MCP ורשום כלים זמינים. תומך בהעברות HTTP ו-stdio.",
+    "x_search_terms": [
+      "mcps_list",
+      "mcps list"
+    ]
+  },
+  "hu": {
+    "param.pretty.description": "Szépen nyomtatja-e a JSON-kimenetet.",
+    "param.server_name.description": "Szervernév a konfigurációs fájlból.",
+    "param.url.description": "MCP-szerver végpont URL-je.",
+    "tool.description": "Csatlakozzon egy MCP-kiszolgálóhoz, és sorolja fel az elérhető eszközöket. Támogatja a HTTP és az stdio átvitelt.",
+    "x_search_terms": [
+      "mcps_list",
+      "mcps lista"
+    ]
+  },
+  "ro": {
+    "param.pretty.description": "Dacă se imprimă destul de ieșire JSON.",
+    "param.server_name.description": "Numele serverului din fișierul de configurare.",
+    "param.url.description": "Adresa URL a punctului final al serverului MCP.",
+    "tool.description": "Conectați-vă la un server MCP și enumerați instrumentele disponibile. Suportă transporturi HTTP și stdio.",
+    "x_search_terms": [
+      "mcps_list",
+      "mcps list"
+    ]
   }
 }

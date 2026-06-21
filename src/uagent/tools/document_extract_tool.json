@@ -390,5 +390,65 @@
     "param.password.description": "पासवर्ड (आवश्यक असल्यास सूचना).",
     "prompt.password": "या फाइलचा पासवर्ड टाका:\n{path}",
     "param.fmt.description": "आउटपुट स्वरूप: मजकूर किंवा json."
+  },
+  "el": {
+    "tool.description": "Εξαγωγή κειμένου και βασικής δομής από έγγραφα τύπου Word (. docx, .",
+    "x_search_terms": [
+      "έγγραφο_απόσπασμα",
+      "απόσπασμα εγγράφου",
+      "docx",
+      "rtf",
+      "odt",
+      "εξαγωγή κειμένου"
+    ],
+    "param.path.description": "Διαδρομή προς το έγγραφο εισόδου (.docx, .rtf, .odt).",
+    "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
+    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{διαδρομή}",
+    "param.fmt.description": "Μορφή εξόδου: κείμενο ή json."
+  },
+  "he": {
+    "tool.description": "חלץ טקסט ומבנה בסיסי ממסמכים דמויי Word (. docx, .",
+    "x_search_terms": [
+      "document_extract",
+      "תמצית מסמך",
+      "docx",
+      "rtf",
+      "odt",
+      "לחלץ טקסט"
+    ],
+    "param.path.description": "נתיב למסמך הקלט (.docx, .rtf, .odt).",
+    "param.password.description": "סיסמה (מבקש במידת הצורך).",
+    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{נתיב}",
+    "param.fmt.description": "פורמט פלט: טקסט או json."
+  },
+  "hu": {
+    "tool.description": "Szöveg és alapstruktúra kinyerése Word-szerű dokumentumokból (. docx, .",
+    "x_search_terms": [
+      "dokumentum_kivonat",
+      "dokumentum kivonat",
+      "docx",
+      "rtf",
+      "odt",
+      "kivonat szöveget"
+    ],
+    "param.path.description": "A bemeneti dokumentum elérési útja (.docx, .rtf, .odt).",
+    "param.password.description": "Jelszó (szükség esetén kéri).",
+    "prompt.password": "Adja meg a fájl jelszavát:\n{path}",
+    "param.fmt.description": "Kimeneti formátum: szöveg vagy json."
+  },
+  "ro": {
+    "tool.description": "Extrageți text și structura de bază din documente similare Word (. docx, .",
+    "x_search_terms": [
+      "extras_document",
+      "extras de document",
+      "docx",
+      "rtf",
+      "odt",
+      "extrage text"
+    ],
+    "param.path.description": "Calea către documentul de intrare (.docx, .rtf, .odt).",
+    "param.password.description": "Parola (se solicită dacă este necesar).",
+    "prompt.password": "Introduceți parola pentru acest fișier:\n{cale}",
+    "param.fmt.description": "Format de ieșire: text sau json."
   }
 }

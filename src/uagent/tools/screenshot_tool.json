@@ -611,5 +611,97 @@
     "next_action.analyze_screenshot": "कृपया या स्क्रीनशॉटचे विश्लेषण करा.",
     "param.close.description": "कॅप्चर केल्यानंतर विंडो बंद करायची की नाही. फक्त window_title दिल्यास वैध. डीफॉल्ट: False.",
     "param.title.description": "कॅप्चर करायच्या विंडोचे शीर्षक (आंशिक जुळणी)."
+  },
+  "el": {
+    "err.capture_fail": "η διαδρομή είναι κενή",
+    "err.close_fail": "[screenshot] Αποθηκεύτηκε στο {path} αλλά απέτυχε να κλείσει το παράθυρο: {err}",
+    "err.pyautogui_missing": "[σφάλμα στιγμιότυπου] Η μονάδα pyautogui δεν έχει εγκατασταθεί.",
+    "err.pygetwindow_missing": "[σφάλμα στιγμιότυπου] δεν έχει εγκατασταθεί η μονάδα pygetwindow (απαιτείται για στόχευση παραθύρου).",
+    "err.window_not_found": "[σφάλμα στιγμιότυπου] Δεν βρέθηκε παράθυρο που να ταιριάζει με τον τίτλο: '{title}'",
+    "out.ok": "[στιγμιότυπο οθόνης] Αποθηκεύτηκε στο {path}",
+    "out.ok_closed": "[στιγμιότυπο οθόνης] Αποθηκεύτηκε στο {path} και κλειστό παράθυρο",
+    "param.delay.description": "Χρόνος αναμονής πριν από τη λήψη σε δευτερόλεπτα. Η προεπιλογή είναι 1 δευτερόλεπτο.",
+    "param.file_path.description": "Διαδρομή για το αποθηκευμένο αρχείο (συνιστάται: . png).",
+    "tool.description": "Καταγράφει ένα στιγμιότυπο οθόνης ολόκληρης της επιφάνειας εργασίας ή ενός συγκεκριμένου παραθύρου.",
+    "x_search_terms": [
+      "στιγμιότυπο οθόνης",
+      "στιγμιότυπο οθόνης",
+      "λήψη οθόνης",
+      "λήψη παραθύρου",
+      "στιγμιότυπο οθόνης επιφάνειας εργασίας",
+      "λήψη png"
+    ],
+    "next_action.analyze_screenshot": "Αναλύστε αυτό το στιγμιότυπο οθόνης.",
+    "param.close.description": "Εάν θα κλείσει το παράθυρο μετά τη λήψη. Ισχύει μόνο εάν έχει καθοριστεί window_title.",
+    "param.title.description": "Τίτλος παραθύρου στόχου (μερική αντιστοίχιση). Εάν έχει καθοριστεί, το παράθυρο ενεργοποιείται και καταγράφεται μόνο αυτή η περιοχή."
+  },
+  "he": {
+    "err.capture_fail": "[שגיאת צילום מסך] צילום מסך נכשל: {err}",
+    "err.close_fail": "[צילום מסך] נשמר ב-{path} אך לא הצליח לסגור את החלון: {err}",
+    "err.pyautogui_missing": "[שגיאת צילום מסך] מודול pyautogui אינו מותקן.",
+    "err.pygetwindow_missing": "[שגיאת צילום מסך] מודול pygetwindow אינו מותקן (נדרש עבור מיקוד לחלון).",
+    "err.window_not_found": "הנתיב ריק לצילום מסך",
+    "out.ok": "[צילום מסך] נשמר ב-{path} אך לא הצליח לסגור את החלון: {err}",
+    "out.ok_closed": "[שגיאת צילום מסך] מודול pyautogui אינו מותקן.",
+    "param.delay.description": "[שגיאת צילום מסך] מודול pygetwindow אינו מותקן (נדרש עבור מיקוד לחלון).",
+    "param.file_path.description": "[שגיאת צילום מסך] לא נמצא חלון תואם לכותרת: '{title}'",
+    "tool.description": "[צילום מסך] נשמר ב-{path}",
+    "x_search_terms": [
+      "[צילום מסך] נשמר ב-{path} וחלון סגור",
+      "[צילום מסך] נשמר ב-{path} וחלון סגור",
+      "זמן המתנה לפני הצילום בשניות. ברירת המחדל היא שנייה אחת.",
+      "נתיב לקובץ השמור (מומלץ: .png).",
+      "מצלמת צילום מסך של כל שולחן העבודה או חלון מסוים.",
+      "צילום מסך"
+    ],
+    "next_action.analyze_screenshot": "אנא נתח את צילום המסך הזה.",
+    "param.close.description": "האם לסגור את החלון לאחר הלכידה. יעיל רק אם צוין window_title.",
+    "param.title.description": "כותרת חלון היעד (התאמה חלקית). אם צוין, החלון מופעל ורק האזור הזה נקלט."
+  },
+  "hu": {
+    "err.capture_fail": "[screenshoter to taker error",
+    "err.close_fail": "[screenshot] Mentve ide: {path}, de nem sikerült bezárni az ablakot: {err}",
+    "err.pyautogui_missing": "[screenshot error] A pyautogui modul nincs telepítve.",
+    "err.pygetwindow_missing": "[screenshot error] A pygetwindow modul nincs telepítve (szükséges az ablak célzásához).",
+    "err.window_not_found": "[screenshot error] Nem található a következő címnek megfelelő ablak: '{title}'",
+    "out.ok": "[screenshot] Mentve ide: {path}",
+    "out.ok_closed": "[screenshot] Mentve ide: {path} és bezárt ablak",
+    "param.delay.description": "Várakozási idő a rögzítés előtt másodpercekben. Az alapértelmezett 1 másodperc.",
+    "param.file_path.description": "A mentett fájl elérési útja (ajánlott: .png).",
+    "tool.description": "Képernyőképet készít a teljes asztalról vagy egy adott ablakról.",
+    "x_search_terms": [
+      "képernyőkép",
+      "képernyőkép",
+      "képernyőkép",
+      "ablakrögzítés",
+      "asztali képernyőkép",
+      "png rögzítés"
+    ],
+    "next_action.analyze_screenshot": "Kérjük, elemezze ezt a képernyőképet.",
+    "param.close.description": "Be kell-e zárni az ablakot a rögzítés után. Csak akkor hatásos, ha a window_title meg van adva.",
+    "param.title.description": "Célablak címe (részleges egyezés). Ha meg van adva, az ablak aktiválódik, és csak az a régió kerül rögzítésre."
+  },
+  "ro": {
+    "err.capture_fail": "[Eroare captură de ecran] Nu s-a putut realiza captura de ecran: {err}",
+    "err.close_fail": "[captură de ecran] Salvat în {cale}, dar fereastra nu a reușit să închidă: {err}",
+    "err.pyautogui_missing": "[Eroare de captură de ecran] Modulul pyautogui nu este instalat.",
+    "err.pygetwindow_missing": "[Eroare de captură de ecran] Modulul pygetwindow nu este instalat (necesar pentru direcționarea ferestrelor).",
+    "err.window_not_found": ": screen to screen to screen errors [screenshot] Salvat în {path}, dar fereastra nu a reușit să închidă: {err}",
+    "out.ok": "[screenshot error] Modulul pyautogui nu este instalat.",
+    "out.ok_closed": "[eroare de captură de ecran] modulul pygetwindow nu este instalat (necesar pentru direcționarea ferestrelor).",
+    "param.delay.description": "[eroare captură de ecran] Nu s-a găsit nicio fereastră care să corespundă titlului: „{title}”",
+    "param.file_path.description": "[captură de ecran] Salvată în {path}",
+    "tool.description": "[screenshot] Salvată în {path} și fereastră închisă",
+    "x_search_terms": [
+      "Timp de așteptare înainte de capturare în secunde. Implicit este 1 secundă.",
+      "Timp de așteptare înainte de capturare în secunde. Implicit este 1 secundă.",
+      "Calea pentru fișierul salvat (recomandat: . png).",
+      "Captează o captură de ecran a întregului desktop sau a unei anumite ferestre.",
+      "captură de ecran",
+      "captură de ecran"
+    ],
+    "next_action.analyze_screenshot": "captură de fereastră",
+    "param.close.description": "Dacă să închideți fereastra după capturare. Eficace numai dacă este specificat window_title.",
+    "param.title.description": "Titlul ferestrei țintă (potrivire parțială). Dacă este specificat, fereastra este activată și numai acea regiune este capturată."
   }
 }

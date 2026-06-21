@@ -178,5 +178,29 @@
     "log.load_fail.internal": "[tools] अंतर्गत प्लगइन {mod_name} लोड करण्यात अयशस्वी: {err}",
     "log.load_ok.external": "[tools] बाह्य साधने लोड केली: {entry_name}",
     "log.load_disabled.internal": "[tools] अंतर्गत प्लगइन {mod_name} अक्षम आहे: {reason}"
+  },
+  "el": {
+    "log.load_fail.external": "[εργαλεία] Απέτυχε η φόρτωση της εξωτερικής προσθήκης {entry_path}: {err}",
+    "log.load_fail.internal": "[εργαλεία] Απέτυχε η φόρτωση της εσωτερικής προσθήκης {mod_name}: {err}",
+    "log.load_ok.external": "[εργαλεία] Φορτωμένα εξωτερικά εργαλεία: {entry_name}",
+    "log.load_disabled.internal": "[εργαλεία] Η εσωτερική προσθήκη {mod_name} είναι απενεργοποιημένη: {reason}"
+  },
+  "he": {
+    "log.load_fail.external": "[כלים] נכשלה טעינת הפלאגין החיצוני {entry_path}: {err}",
+    "log.load_fail.internal": "[כלים] נכשלה טעינת הפלאגין הפנימי {mod_name}: {err}",
+    "log.load_ok.external": "[כלים] כלים חיצוניים שנטענו: {entry_name}",
+    "log.load_disabled.internal": "[כלים] הפלאגין הפנימי {mod_name} מושבת: {reason}"
+  },
+  "hu": {
+    "log.load_fail.external": "[tools] Nem sikerült betölteni a külső beépülő modult ({entry_path}): {err}",
+    "log.load_fail.internal": "[tools] Nem sikerült betölteni a {mod_name} belső bővítményt: {err}",
+    "log.load_ok.external": "[eszközök] Betöltött külső eszközök: {entry_name}",
+    "log.load_disabled.internal": "[tools] A {mod_name} belső bővítmény le van tiltva: {reason}"
+  },
+  "ro": {
+    "log.load_fail.external": "[instrumente] Nu s-a încărcat pluginul extern {entry_path}: {err}",
+    "log.load_fail.internal": "[instrumente] Nu s-a încărcat pluginul intern {mod_name}: {err}",
+    "log.load_ok.external": "[instrumente] Instrumente externe încărcate: {entry_name}",
+    "log.load_disabled.internal": "[instrumente] Pluginul intern {mod_name} este dezactivat: {motiv}"
   }
 }

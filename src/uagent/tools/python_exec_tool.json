@@ -392,5 +392,73 @@
       "py_compile"
     ],
     "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
+  },
+  "el": {
+    "param.code.description": "Κώδικας Python.",
+    "param.path.description": "Ένα αρχείο Python, κατάλογος ή μοτίβο glob για επικύρωση με το py_compile. Οι κατάλογοι σαρώνονται αναδρομικά για αρχεία *.py.",
+    "param.paths.description": "Πολλά αρχεία Python, κατάλογοι ή μοτίβα glob για επικύρωση με το py_compile. Οι κατάλογοι σαρώνονται αναδρομικά για αρχεία *.py.",
+    "tool.description": "Εκτελέστε τον κώδικα Python με ελεγχόμενο τρόπο. Χρησιμοποιήστε αυτό το εργαλείο για υπολογισμούς, επεξεργασία δεδομένων ή εκτέλεση σύντομων σεναρίων. Αναζητήστε άλλα κατάλληλα εργαλεία μέσω του «tool_catalog» πριν χρησιμοποιήσετε αυτό το εργαλείο.",
+    "x_search_terms": [
+      "python",
+      "τρέχει python",
+      "εκτέλεση σεναρίου",
+      "Python 実行",
+      "ejecutar python",
+      "εκτελεστής python",
+      "파이썬 실행 [=#_=] 파이썬 실행 [=#_=] error] Δώστε «κωδικό».",
+      "[Σφάλμα ανάγνωσης_αρχείου] οι γραμμές_κεφαλίδας και οι ουρά_γραμμές δεν μπορούν να καθοριστούν μαζί"
+    ],
+    "[python_exec error] Provide 'code'.": "[σφάλμα_ανάγνωσης] δεν καθορίστηκε όνομα/διαδρομή αρχείου"
+  },
+  "he": {
+    "param.code.description": "קוד Python.",
+    "param.path.description": "קובץ Python, ספרייה או דפוס גלוב לאימות באמצעות py_compile. ספריות נסרקות באופן רקורסיבי עבור קבצי *.py.",
+    "param.paths.description": "קבצי Python מרובים, ספריות או תבניות גלוב לאימות באמצעות py_compile. ספריות נסרקות באופן רקורסיבי עבור קבצי *.py.",
+    "tool.description": "הפעל את קוד Python בצורה מבוקרת. השתמש בכלי זה לחישובים, עיבוד נתונים או הפעלת סקריפטים קצרים. חפש כלים מתאימים אחרים באמצעות `tool_catalog` לפני השימוש בכלי זה.",
+    "x_search_terms": [
+      "python",
+      "הפעל את python",
+      "בצע סקריפט",
+      "Python 実行",
+      "ejecutar python",
+      "exécuter python",
+      "파이썬 실стhon 파이썬 실стhon] ть з=у=python 행",
+      "[python_exec error] ספק 'קוד'."
+    ],
+    "[python_exec error] Provide 'code'.": "[read_file error] head_lines ו-tail_lines לא ניתן לציין יחד"
+  },
+  "hu": {
+    "param.code.description": "Python-kód.",
+    "param.path.description": "Python-fájl, könyvtár vagy glob-minta, amelyet a py_compile paraméterrel kell ellenőrizni. A könyvtárakat rekurzívan keresi a *.py fájlok.",
+    "param.paths.description": "Több Python-fájl, könyvtár vagy glob-minta a py_compile segítségével érvényesítendő. A könyvtárakat rekurzívan keresi a *.py fájlok.",
+    "tool.description": "Python kód futtatása ellenőrzött módon. Használja ezt az eszközt számításokhoz, adatfeldolgozáshoz vagy rövid szkriptek futtatásához. Az eszköz használata előtt keressen más megfelelő eszközöket a `tool_catalog` segítségével.",
+    "x_search_terms": [
+      "python",
+      "python futtatása",
+      "szkript végrehajtása",
+      "Python 実行",
+      "ejecutar python",
+      "python végrehajtó",
+      "파이썬 실행 [=] пу=honсти] 실행 [python_exec error] Adja meg a „kódot”.",
+      "[read_file error] head_lines és tail_lines nem adható meg együtt"
+    ],
+    "[python_exec error] Provide 'code'.": "[read_file error] fájlnév/útvonal nincs megadva"
+  },
+  "ro": {
+    "param.code.description": "Cod Python.",
+    "param.path.description": "Un fișier Python, un director sau un model global de validat cu py_compile. Directoarele sunt scanate recursiv pentru fișiere *.py.",
+    "param.paths.description": "Mai multe fișiere Python, directoare sau modele glob de validat cu py_compile. Directoarele sunt scanate recursiv pentru fișiere *.py.",
+    "tool.description": "Executați codul Python într-un mod controlat. Utilizați acest instrument pentru calcule, procesarea datelor sau rularea de scripturi scurte. Căutați alte instrumente adecvate prin `tool_catalog` înainte de a utiliza acest instrument.",
+    "x_search_terms": [
+      "python",
+      "run python",
+      "execute script",
+      "Python 実行",
+      "executar python",
+      "exécuter python",
+      "파이썬 실행",
+      "python"
+    ],
+    "[python_exec error] Provide 'code'.": "Пито [eroare python_exec] Furnizați „codul”."
   }
 }

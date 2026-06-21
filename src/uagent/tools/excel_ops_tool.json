@@ -510,5 +510,81 @@
     ],
     "param.password.description": "एनक्रिप्टेड .",
     "prompt.password": "या फाइलचा पासवर्ड टाका:\n{path}"
+  },
+  "el": {
+    "param.action.description": "Λειτουργία.",
+    "param.data.description": "Δεδομένα JSON για εγγραφή.",
+    "param.file_path.description": "Διαδρομή Excel (απόλυτη).",
+    "param.sheet_name.description": "Όνομα φύλλου στόχου.",
+    "param.keep_sheets.description": "Φύλλα για να κρατήσετε.",
+    "param.output_path.description": "Διαδρομή εξόδου.",
+    "tool.description": "Διαβάστε/γράψτε ένα αρχείο Excel (. xlsx) και λάβετε ονόματα φύλλων.",
+    "x_search_terms": [
+      "excel_ops",
+      "excel ops",
+      "xlsx",
+      "υπολογιστικό φύλλο",
+      "ονόματα φύλλων",
+      "αρχείο excel"
+    ],
+    "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
+    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{διαδρομή}"
+  },
+  "he": {
+    "param.action.description": "מִבצָע.",
+    "param.data.description": "נתוני JSON לכתוב.",
+    "param.file_path.description": "נתיב אקסל (אבסולוטי).",
+    "param.sheet_name.description": "שם גיליון היעד.",
+    "param.keep_sheets.description": "סדינים לשמור.",
+    "param.output_path.description": "נתיב פלט.",
+    "tool.description": "קרא/כתוב קובץ Excel (. xlsx) וקבל שמות גיליונות.",
+    "x_search_terms": [
+      "excel_ops",
+      "אקסל אופ",
+      "xlsx",
+      "גיליון אלקטרוני",
+      "שמות גיליונות",
+      "קובץ אקסל"
+    ],
+    "param.password.description": "סיסמה (מבקש במידת הצורך).",
+    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{נתיב}"
+  },
+  "hu": {
+    "param.action.description": "Művelet.",
+    "param.data.description": "Írandó JSON-adatok.",
+    "param.file_path.description": "Excel elérési út (abszolút).",
+    "param.sheet_name.description": "A céllap neve.",
+    "param.keep_sheets.description": "Megtartandó lapok.",
+    "param.output_path.description": "Kimeneti útvonal.",
+    "tool.description": "Excel (. xlsx) fájl olvasása/írása, és lapnevek lekérése.",
+    "x_search_terms": [
+      "excel_ops",
+      "excel műveletek",
+      "xlsx",
+      "táblázatot",
+      "lapnevek",
+      "excel fájl"
+    ],
+    "param.password.description": "Jelszó (szükség esetén kéri).",
+    "prompt.password": "Adja meg a fájl jelszavát:\n{path}"
+  },
+  "ro": {
+    "param.action.description": "Operațiunea.",
+    "param.data.description": "Date JSON de scris.",
+    "param.file_path.description": "Calea Excel (absolută).",
+    "param.sheet_name.description": "Numele foii țintă.",
+    "param.keep_sheets.description": "Cearșafuri de păstrat.",
+    "param.output_path.description": "Calea de ieșire.",
+    "tool.description": "Citiți/scrieți un fișier Excel (. xlsx) și obțineți numele foilor.",
+    "x_search_terms": [
+      "excel_ops",
+      "excel ops",
+      "xlsx",
+      "foaie de calcul",
+      "numele foilor",
+      "fișier excel"
+    ],
+    "param.password.description": "Parola (se solicită dacă este necesar).",
+    "prompt.password": "Introduceți parola pentru acest fișier:\n{cale}"
   }
 }

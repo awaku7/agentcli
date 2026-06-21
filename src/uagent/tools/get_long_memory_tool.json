@@ -300,5 +300,53 @@
       "long term memory",
       "memory notes"
     ]
+  },
+  "el": {
+    "doc.run_tool": "Λάβετε όλες τις αποθηκευμένες σημειώσεις μακροπρόθεσμης μνήμης (JSONL).",
+    "tool.description": "get_long_memory",
+    "x_search_terms": [
+      "λήψη μεγάλης μνήμης",
+      "μνήμης",
+      "σημειώσεις",
+      "ιστορικό",
+      "Κλήση σημείου εισόδου από τα εργαλεία/__init__.py. Υλοποίηση για get_shared_memory.",
+      "μακροπρόθεσμη μνήμη"
+    ]
+  },
+  "he": {
+    "doc.run_tool": "כלי לשחזר את כל הזיכרון לטווח ארוך (טקסט JSONL).",
+    "tool.description": "קבל את כל הערות הזיכרון לטווח ארוך השמורים (JSONL).",
+    "x_search_terms": [
+      "get_long_memory",
+      "לקבל זיכרון ארוך",
+      "זיכרון",
+      "הערות",
+      "היסטוריה",
+      "זיכרון ארוך טווח"
+    ]
+  },
+  "hu": {
+    "doc.run_tool": "A teljes hosszú távú memória (JSONL-szöveg) lekérésére szolgáló eszköz.",
+    "tool.description": "Az összes mentett hosszú távú memóriajegyzet (JSONL) letöltése.",
+    "x_search_terms": [
+      "get_long_memory",
+      "hosszú memória",
+      "memória",
+      "jegyzet",
+      "előzmény",
+      "hosszú távú memória"
+    ]
+  },
+  "ro": {
+    "doc.run_tool": "Un instrument pentru a recupera întreaga memorie pe termen lung (text JSONL).",
+    "tool.description": "Obțineți toate notele salvate de memorie pe termen lung (JSONL).",
+    "x_search_terms": [
+      "get_long_memory",
+      "obțineți memorie lungă",
+      "memorie",
+      "note",
+      "istoric",
+      "memoria pe termen lung"
+    ]
   }
 }

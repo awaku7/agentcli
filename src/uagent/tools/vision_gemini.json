@@ -238,5 +238,37 @@
     "err.image_not_found": "Image file not found: {image_path}",
     "result.no_description": "[No description generated]",
     "err.analysis": "Error during image analysis: {error}"
+  },
+  "el": {
+    "err.missing_env": "Λείπουν οι απαιτούμενες μεταβλητές env: {keys}",
+    "err.not_installed": "το πακέτο google-genai δεν έχει εγκατασταθεί.",
+    "err.init_client": "Απέτυχε η προετοιμασία του προγράμματος-πελάτη Gemini/VertexAI: {error}",
+    "err.image_not_found": "Το αρχείο εικόνας δεν βρέθηκε: {image_path}",
+    "result.no_description": "[Δεν δημιουργήθηκε περιγραφή]",
+    "err.analysis": "Σφάλμα κατά την ανάλυση εικόνας: {error}"
+  },
+  "he": {
+    "err.missing_env": "חסרים וריא(ים) חובה: {keys}",
+    "err.not_installed": "חבילת google-genai אינה מותקנת.",
+    "err.init_client": "כשל באתחול לקוח Gemini/VertexAI: {error}",
+    "err.image_not_found": "קובץ תמונה לא נמצא: {image_path}",
+    "result.no_description": "[לא נוצר תיאור]",
+    "err.analysis": "שגיאה במהלך ניתוח תמונה: {error}"
+  },
+  "hu": {
+    "err.missing_env": "Hiányzó szükséges env var(ok): {keys}",
+    "err.not_installed": "A google-genai csomag nincs telepítve.",
+    "err.init_client": "Nem sikerült inicializálni a Gemini/VertexAI klienst: {error}",
+    "err.image_not_found": "A képfájl nem található: {image_path}",
+    "result.no_description": "[Nincs leírás]",
+    "err.analysis": "Hiba a képelemzés során: {error}"
+  },
+  "ro": {
+    "err.missing_env": "Lipsesc var(e) de mediu necesare: {keys}",
+    "err.not_installed": "pachetul google-genai nu este instalat.",
+    "err.init_client": "Nu s-a inițializat clientul Gemini/VertexAI: {error}",
+    "err.image_not_found": "Fișierul imagine nu a fost găsit: {image_path}",
+    "result.no_description": "[Nici o descriere generată]",
+    "err.analysis": "Eroare în timpul analizei imaginii: {error}"
   }
 }

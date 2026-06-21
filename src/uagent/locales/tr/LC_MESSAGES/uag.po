@@ -117,6 +117,7 @@ msgstr "[dokümanlar] adı gerekli"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] başlangıç tür istemi = sayısal giriş"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -126,6 +127,8 @@ msgstr ""
 "(1=temel,2=iletişim,4=ofis,8=geliştirme,16=iot,32=yürütme,64=harici,128=medya,255=tümü,"
 " Enter=tümünü etkinleştir):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Temel (dosya, ortam, zaman, istemler, beceriler, bellek, araç kontrolü)"
@@ -709,6 +712,7 @@ msgstr "NVIDIA API anahtarı."
 msgid "DeepSeek API key."
 msgstr "DeepSeek API anahtarı."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1380,12 +1384,15 @@ msgstr "DeepSeek presence_penalty (varsayılan: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (varsayılan: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1819,6 +1826,7 @@ msgstr ""
 "Etkileşimli olmayan mod. Stdin döngüsünü başlatmayın; Başlangıç ​​dosyasını "
 "(varsa) işledikten sonra çıkın."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1828,11 +1836,13 @@ msgstr ""
 "(1=temel,2=iletişim,4=ofis,8=geliştirme,16=iot,32=yürütme,64=harici,128=medya,255=tümü)."
 " Belirtildiğinde etkileşimli tür istemini atlar."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "LLM'ye araç göndermeyi etkinleştir (UAGENT_USE_TOOL ortam değişkenini "
 "geçersiz kılar)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "LLM'ye araç göndermeyi devre dışı bırak (UAGENT_USE_TOOL ortam değişkenini "
@@ -2379,15 +2389,18 @@ msgstr ""
 "[MCP Sunucuları]\n"
 "- Bilgi alınamadı: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Hızlı Kılavuz]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Çok satırlı: çok satırlı moda girmek için yalnızca 'f' olan bir satır girin."
-
-"girin (\"\"\" sonu ile bitirin)."
+msgstr ""
+"- Çok satırlı: çok satırlı moda girmek için yalnızca 'f' olan bir satır "
+"girin.girin (\"\"\" sonu ile bitirin)."
 
 #: src/uagent/welcome.py:70
 msgid ""

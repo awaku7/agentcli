@@ -392,5 +392,73 @@
       "फाइल हॅश",
       "sha256 sha1 md5"
     ]
+  },
+  "el": {
+    "param.algo.description": "Αλγόριθμος.",
+    "param.chunk_size.description": "Μέγεθος κομματιού.",
+    "param.paths.description": "Πίνακας διαδρομών αρχείου προορισμού.",
+    "param.return.description": "Μορφή εξόδου.",
+    "tool.description": "Υπολογίζει τον κατακερματισμό (sha256/sha1/md5) των αρχείων.",
+    "x_search_terms": [
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hash",
+      "hachage",
+      "해시",
+      "хэш"
+    ]
+  },
+  "he": {
+    "param.algo.description": "אלגוריתם.",
+    "param.chunk_size.description": "גודל נתח.",
+    "param.paths.description": "מערך נתיבי קובץ היעד.",
+    "param.return.description": "פורמט פלט.",
+    "tool.description": "מחשב את ה-hash (sha256/sha1/md5) של קבצים.",
+    "x_search_terms": [
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hash",
+      "hachage",
+      "해시",
+      "хэш"
+    ]
+  },
+  "hu": {
+    "param.algo.description": "Algoritmus.",
+    "param.chunk_size.description": "Darabméret.",
+    "param.paths.description": "Célfájl-útvonalak tömbje.",
+    "param.return.description": "Kimeneti formátum.",
+    "tool.description": "Kiszámítja a fájlok hash-jét (sha256/sha1/md5).",
+    "x_search_terms": [
+      "hash",
+      "sha256",
+      "ellenőrző összeg",
+      "ハッシュ",
+      "hash",
+      "hachage",
+      "해시",
+      "хэш"
+    ]
+  },
+  "ro": {
+    "param.algo.description": "Algoritm.",
+    "param.chunk_size.description": "Dimensiunea bucatilor.",
+    "param.paths.description": "Matrice de căi ale fișierelor țintă.",
+    "param.return.description": "Format de ieșire.",
+    "tool.description": "Calculează hash-ul (sha256/sha1/md5) al fișierelor.",
+    "x_search_terms": [
+      "hash",
+      "sha256",
+      "checksum",
+      "ハッシュ",
+      "hash",
+      "hachage",
+      "해시",
+      "хэш"
+    ]
   }
 }

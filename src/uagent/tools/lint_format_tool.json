@@ -480,5 +480,77 @@
       "लिंटर चालवा"
     ],
     "param.xargs.description": "अतिरिक्त arguments (array). धोकादायक metacharacter नाकारावेत."
+  },
+  "el": {
+    "confirm.msg": "Εργασίας σκηνοθεσίας (υπό σκηνοθεσία εργασίας).",
+    "doc.module": "lint_format_tool\n\nΈνα εργαλείο περιτυλίγματος για την εκτέλεση εργαλείων στατικής ανάλυσης και μορφοποίησης.\n\n- Python: προτιμήστε ruff / black / mypy\n- JavaScript: Για λόγους ασφαλείας, μην εκτελείτε απευθείας το npx.\n\nΑσφάλεια:\n- mode=fix αλλάζει αρχεία, οπότε ζητήστε επιβεβαίωση με το human_ask.\n- Αποδεχτείτε ορίσματα ως πίνακα και απορρίψτε τα εάν περιέχουν επικίνδυνους μεταχαρακτήρες φλοιού.",
+    "param.cwd.description": "Συστοιχία διαδρομής στόχου (επιτρέπεται μόνο στο workdir).",
+    "param.mode.description": "Μια σειρά ονομάτων εργαλείων προς εκτέλεση. Εάν είναι κενό, τα εργαλεία επιλέγονται αυτόματα.",
+    "param.targets.description": "Εκτελέστε στατική ανάλυση/μορφοποιητές (ruff/black/mypy). mode=fix τροποποιεί αρχεία, χρειάζεται επιβεβαίωση.",
+    "param.tools.description": "Μια σειρά ονομάτων εργαλείων προς εκτέλεση. Εάν είναι κενό, τα εργαλεία επιλέγονται αυτόματα.",
+    "tool.description": "Εκτελέστε στατική ανάλυση/μορφοποιητές (ruff/black/mypy). mode=fix τροποποιεί αρχεία, χρειάζεται επιβεβαίωση.",
+    "x_search_terms": [
+      "lint",
+      "format",
+      "ruff",
+      "μαύρο",
+      "Πρόσθετα ορίσματα (πίνακας). Απορρίψτε επικίνδυνους μεταχαρακτήρες.",
+      "Καταχωρίσεις λίστας σε έναν κατάλογο με σελιδοποίηση, παρόμοια με το ls."
+    ],
+    "param.xargs.description": "Πρόσθετα ορίσματα (πίνακας). Απορρίψτε επικίνδυνους μεταχαρακτήρες."
+  },
+  "he": {
+    "confirm.msg": "lint_format(mode=fix) עשוי לדרוס קבצים.\nכלים: {כלים}\nיעדים: {targets}\ncwd: {cwd}\n\nהשב עם y כדי להמשיך, או c כדי לבטל.",
+    "doc.module": "lint_format(mode=fix) עלול להחליף קבצים.\nכלים: {כלים}\nיעדים: {targets}\ncwd: {cwd}\n\nהשב עם y כדי להמשיך, או c כדי לבטל.",
+    "param.cwd.description": "lint_format_tool\n\nכלי עטיפה להפעלת כלי ניתוח ועיצוב סטטי.\n\n- Python: מעדיף ruff / שחור / mypy\n- JavaScript: מסיבות בטיחות, אל תפעיל npx ישירות.\n\nבטיחות:\n- mode=fix משנה קבצים, אז בקש אישור עם human_ask.\n- קבל ארגומנטים כמערך ודחה אותם אם הם מכילים מטא-תווים מסוכנים של מעטפת.",
+    "param.mode.description": "מדריך עבודה (תחת workdir).",
+    "param.targets.description": "check=check only / fix=תיקון אוטומטי",
+    "param.tools.description": "מערך נתיב יעד (מותר רק תחת workdir).",
+    "tool.description": "מערך של שמות כלים להפעלה. אם ריקים, הכלים נבחרים באופן אוטומטי.",
+    "x_search_terms": [
+      "הפעל ניתוח/פורמטים סטטיים (ruff/black/mypy). mode=fix משנה קבצים, צריך אישור.",
+      "lint_format",
+      "lint format",
+      "lint",
+      "פורמט",
+      "ruff"
+    ],
+    "param.xargs.description": "ארגומנטים נוספים (מערך). דחה דמויות מטא מסוכנות."
+  },
+  "hu": {
+    "confirm.msg": "a lint_format(mode=fix) felülírhatja a fájlokat.\neszközök: {tools}\ncélok: {célok}\ncwd: {cwd}\n\nVálaszoljon y-val a folytatáshoz, vagy c-vel a visszavonáshoz.",
+    "doc.module": "lint_format_tool\n\nEgy burkolóeszköz statikus elemzési és formázási eszközök futtatásához.\n\n- Python: inkább ruff / fekete / mypy\n- JavaScript: Biztonsági okokból ne futtassa közvetlenül az npx-et.\n\nBiztonság:\n- mode=fix módosítja a fájlokat, ezért kérjen megerősítést a human_ask segítségével.\n- Az argumentumokat tömbként fogadja el, és utasítsa el, ha veszélyes shell metakaraktereket tartalmaznak.",
+    "param.cwd.description": "Munkakönyvtár (a munkakönyvtár alatt).",
+    "param.mode.description": "check=csak ellenőrzés / fix=automatikus javítás",
+    "param.targets.description": "Célútvonal-tömb (csak a munkakönyvtárban engedélyezett).",
+    "param.tools.description": "A futtatandó szerszámnevek tömbje. Ha üres, a szerszámok kiválasztása automatikusan történik.",
+    "tool.description": "Statikus elemzés/formázók futtatása (ruff/black/mypy). A mode=fix fájlokat módosít, megerősítést igényel.",
+    "x_search_terms": [
+      "lint_format",
+      "lint formátum",
+      "lint",
+      "formátum",
+      "ruff",
+      "fekete"
+    ],
+    "param.xargs.description": "További argumentumok (tömb). Veszélyes metakarakterek elutasítása."
+  },
+  "ro": {
+    "confirm.msg": "lint_format_tool\n\nUn instrument de ambalare pentru rularea instrumentelor de analiză statică și formatare.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: din motive de siguranță, nu rulați direct npx.\n\nSiguranță:\n- mode=fix modifică fișierele, deci cereți confirmarea cu human_ask.\n- Acceptați argumentele ca o matrice și respingeți-le dacă conțin metacaractere periculoase.",
+    "doc.module": "lint_format_tool\n\nUn instrument de ambalare pentru rularea instrumentelor de analiză statică și formatare.\n\n- Python: prefer ruff / black / mypy\n- JavaScript: din motive de siguranță, nu rulați direct npx.\n\nSiguranță:\n- mode=fix modifică fișierele, deci cereți confirmarea cu human_ask.\n- Acceptați argumentele ca o matrice și respingeți-le dacă conțin metacaractere periculoase.",
+    "param.cwd.description": "check=verificare doar / fix=remediere automată",
+    "param.mode.description": "Matrice de cale țintă (permise numai în workdir).",
+    "param.targets.description": "O serie de nume de instrumente de rulat. Dacă este gol, instrumentele sunt selectate automat.",
+    "param.tools.description": "Rulați analize/formatatoare statice (ruff/black/mypy). mode=fix modifică fișierele, necesită confirmare.",
+    "tool.description": "Rulați analize/formatatoare statice (ruff/black/mypy). mode=fix modifică fișierele, necesită confirmare.",
+    "x_search_terms": [
+      "lint format",
+      "lint",
+      "format",
+      "ruff",
+      "negru",
+      "Argumente suplimentare (matrice). Respinge metacaracterele periculoase."
+    ],
+    "param.xargs.description": "Listează intrările dintr-un director cu paginare, similar cu ls."
   }
 }

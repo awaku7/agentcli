@@ -686,5 +686,89 @@
       "बॉट संदेश",
       "चॅनेल चॅट"
     ]
+  },
+  "el": {
+    "err.exception": "Εξαίρεση",
+    "err.invalid_action": "Μη έγκυρη ενέργεια: {action}",
+    "err.message_too_long": "Το περιεχόμενο του μηνύματος Discord πρέπει να είναι 2000 χαρακτήρες ή λιγότερο.",
+    "err.missing_action": "Λείπει η «δράση».",
+    "err.missing_channel_id": "Λείπει το 'channel_id'.",
+    "err.missing_message": "Λείπει το 'μήνυμα'.",
+    "param.action.description": "Ενέργεια: αποστολή / αποστολή_και_αναμονή / ιστορικό",
+    "param.channel_id.description": "Στόχευση αναγνωριστικού καναλιού Discord.",
+    "param.exclude_bots.description": "Όταν περιμένετε, αγνοήστε τα μηνύματα bot.",
+    "param.limit.description": "Αριθμός μηνυμάτων προς ανάκτηση για ιστορικό/απαντήσεις.",
+    "param.message.description": "Μήνυμα.",
+    "param.poll_interval_s.description": "Διάστημα ψηφοφορίας εν αναμονή απαντήσεων (δευτερόλεπτα).",
+    "param.token_env.description": "Όνομα μεταβλητής περιβάλλοντος που αποθηκεύει το διακριτικό bot Discord.",
+    "param.wait_s.description": "Πόσο καιρό να περιμένετε για απαντήσεις μετά την αποστολή (δευτερόλεπτα).",
+    "tool.description": "Αλληλεπιδράστε με ένα συγκεκριμένο κανάλι Discord χρησιμοποιώντας ένα διακριτικό bot: στείλτε μηνύματα, διαβάστε πρόσφατα μηνύματα και προαιρετικά περιμένετε για απαντήσεις μετά την αποστολή.",
+    "x_search_terms": [
+      "discord_channel",
+      "κανάλι διχόνοιας"
+    ]
+  },
+  "he": {
+    "err.exception": "חֲרִיגָה",
+    "err.invalid_action": "פעולה לא חוקית: {action}",
+    "err.message_too_long": "תוכן הודעת Discord חייב להיות באורך של 2000 תווים או פחות.",
+    "err.missing_action": "חסר 'פעולה'.",
+    "err.missing_channel_id": "חסר 'מזהה_ערוץ'.",
+    "err.missing_message": "חסר 'הודעה'.",
+    "param.action.description": "פעולה: שלח / send_and_wait / היסטוריה",
+    "param.channel_id.description": "מזהה ערוץ דיסקורד יעד.",
+    "param.exclude_bots.description": "בזמן ההמתנה, התעלם מהודעות בוט.",
+    "param.limit.description": "מספר ההודעות לשליפה להיסטוריה/תשובות.",
+    "param.message.description": "הוֹדָעָה.",
+    "param.poll_interval_s.description": "מרווח סקרים בזמן ההמתנה לתשובות (שניות).",
+    "param.token_env.description": "שם משתנה הסביבה המאחסן את אסימון הבוט של Discord.",
+    "param.wait_s.description": "כמה זמן לחכות לתשובות לאחר השליחה (שניות).",
+    "tool.description": "צור אינטראקציה עם ערוץ Discord ספציפי באמצעות אסימון בוט: שלח הודעות, קרא הודעות אחרונות, ולחלופין המתן לתשובות לאחר השליחה.",
+    "x_search_terms": [
+      "דיסקורד_ערוץ",
+      "ערוץ דיסקורד"
+    ]
+  },
+  "hu": {
+    "err.exception": "Kivétel",
+    "err.invalid_action": "Érvénytelen művelet: {action}",
+    "err.message_too_long": "A discord üzenet tartalma legfeljebb 2000 karakter lehet.",
+    "err.missing_action": "Hiányzik az „akció”.",
+    "err.missing_channel_id": "Hiányzik a 'channel_id'.",
+    "err.missing_message": "Hiányzik az \"üzenet\".",
+    "param.action.description": "Művelet: küldés / send_and_wait / előzmények",
+    "param.channel_id.description": "Cél Discord csatornaazonosító.",
+    "param.exclude_bots.description": "Várakozás közben figyelmen kívül hagyja a bot üzeneteket.",
+    "param.limit.description": "Az előzményekhez/válaszokhoz lekérendő üzenetek száma.",
+    "param.message.description": "Üzenet.",
+    "param.poll_interval_s.description": "Lekérdezési időköz a válaszra várás közben (másodperc).",
+    "param.token_env.description": "A Discord bot tokent tároló környezeti változó neve.",
+    "param.wait_s.description": "Mennyi ideig kell várni a válaszokra az elküldés után (másodperc).",
+    "tool.description": "Egy adott Discord-csatornával bottoken segítségével léphet kapcsolatba: küldjön üzeneteket, olvassa el a legutóbbi üzeneteket, és opcionálisan várja meg a válaszokat az elküldés után.",
+    "x_search_terms": [
+      "discord_channel",
+      "discord csatorna"
+    ]
+  },
+  "ro": {
+    "err.exception": "Excepţie",
+    "err.invalid_action": "Acțiune nevalidă: {action}",
+    "err.message_too_long": "Conținutul mesajului Discord trebuie să aibă 2000 de caractere sau mai puțin.",
+    "err.missing_action": "Lipsește „acțiune”.",
+    "err.missing_channel_id": "Lipsește „canal_id”.",
+    "err.missing_message": "Lipsește „mesaj”.",
+    "param.action.description": "Acțiune: trimite / send_and_wait / istoric",
+    "param.channel_id.description": "ID-ul canalului Discord țintă.",
+    "param.exclude_bots.description": "Când așteptați, ignorați mesajele bot.",
+    "param.limit.description": "Numărul de mesaje de preluat pentru istoric/răspunsuri.",
+    "param.message.description": "Mesaj.",
+    "param.poll_interval_s.description": "Interval de sondare în timpul așteptării răspunsurilor (secunde).",
+    "param.token_env.description": "Nume variabilă de mediu care stochează jetonul bot Discord.",
+    "param.wait_s.description": "Cât timp trebuie să așteptați răspunsurile după trimitere (secunde).",
+    "tool.description": "Interacționați cu un anumit canal Discord folosind un token bot: trimiteți mesaje, citiți mesajele recente și, opțional, așteptați răspunsuri după trimitere.",
+    "x_search_terms": [
+      "canal_discord",
+      "canal de discordie"
+    ]
   }
 }

@@ -371,5 +371,65 @@
       "कौशल्य सत्यापन",
       "skills validate"
     ]
+  },
+  "el": {
+    "err.invalid_args": "skills_load",
+    "err.skill_dir_required": "Το [σφάλμα εργαλείου] skill_dir πρέπει να είναι μια μη κενή συμβολοσειρά",
+    "param.skill_dir.description": "Αναζήτηση και περιήγηση στην αγορά SkillsMP (skillsmp.com) για Agent Skills.",
+    "param.strict.description": "Θα πρέπει επίσης οι προειδοποιήσεις να αντιμετωπίζονται ως αποτυχία; (προεπιλογή: false)",
+    "tool.description": "Επικυρώνει έναν κατάλογο δεξιοτήτων (SKILL.md) σύμφωνα με την προδιαγραφή Agent Skills και επιστρέφει σφάλματα και προειδοποιήσεις.",
+    "x_search_terms": [
+      "skills_validate",
+      "επικύρωση δεξιοτήτων",
+      "skill file",
+      "SKILL.md",
+      "Αναδρομική αναζήτηση (προεπιλογή: true)",
+      "[σφάλμα εργαλείου] μη έγκυρα args"
+    ]
+  },
+  "he": {
+    "err.invalid_args": "skills_load",
+    "err.skill_dir_required": "טעינת מיומנויות",
+    "param.skill_dir.description": "חפש וגלוש בשוק SkillsMP (skillsmp.com) עבור Agent Skills מחזירה רשימה של מיומנויות עם שם, מחבר, תיאור, כוכבים וכתובת GitHub",
+    "param.strict.description": "מאמת ספריית מיומנויות (SKILL.md) לפי מפרט ה- Agent Skills ומחזירה שגיאות ואזהרות.",
+    "tool.description": "מאמת ספריית מיומנויות (SKILL.md) לפי מפרט ה- Agent Skills ומחזירה שגיאות ואזהרות.",
+    "x_search_terms": [
+      "כישורים לאמת",
+      "שורת פקודה לביצוע.",
+      "חפש רקורסיבית (ברירת מחדל: true)",
+      "[שגיאה בכלי] לא חוקיים",
+      "[שגיאת כלי] skill_dir חייבת להיות מחרוזת לא ריקה",
+      "ספריית המיומנות (חייבת להכיל SKILL.md"
+    ]
+  },
+  "hu": {
+    "err.invalid_args": "betölti a front-A és a Skillmattert. body",
+    "err.skill_dir_required": "[eszközhiba] A skill_dir nem lehet üres karakterlánc",
+    "param.skill_dir.description": "készségek betöltése",
+    "param.strict.description": "Érvényesíti a készségkönyvtárat (SKILL.md) az Agent Skills specifikációi szerint, és hibákat és figyelmeztetéseket ad vissza.",
+    "tool.description": "Érvényesíti a készségkatalógust (SKILL.md) az Agent Skills specifikációi szerint, és hibákat és figyelmeztetéseket ad vissza.",
+    "x_search_terms": [
+      "készségek érvényesítése",
+      "Parancssor a végrehajtáshoz.",
+      "SKILL.md",
+      "Rekurzív keresés (alapértelmezett: true)",
+      "[eszközhiba] érvénytelen argumentumok",
+      "[tool error] A skill_dir karakterláncnak nem üresnek kell lennie"
+    ]
+  },
+  "ro": {
+    "err.invalid_args": "skills_load",
+    "err.skill_dir_required": "[eroare instrument] skill_dir trebuie să fie un șir nevid",
+    "param.skill_dir.description": "Căutați și răsfoiți SkillsMP marketplace (skillsmp.com) pentru abilități de agent, cu numele, autorul, descrierea, stele și URL-ul GitHub",
+    "param.strict.description": "Ar trebui să fie tratate și avertismentele ca un eșec? (implicit: false)",
+    "tool.description": "Validează un director de abilități (SKILL.md) conform specificațiilor Agent Skills și returnează erori și avertismente.",
+    "x_search_terms": [
+      "skills_validate",
+      "skills validate",
+      "SKILL.md",
+      "Căutați recursiv (implicit: true)",
+      "[eroare instrument] argumente invalide",
+      "[eroare instrument] skill_dir trebuie să fie un șir negoal"
+    ]
   }
 }

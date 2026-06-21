@@ -272,5 +272,57 @@
       "साधने अद्यतनित करा",
       "कोड लोड"
     ]
+  },
+  "el": {
+    "tool.description": "Επαναλάβετε τη φόρτωση του συστήματος και φορτώστε τον πιο πρόσφατο κώδικα για όλα τα εργαλεία κάτω από τα εργαλεία/ (αρχεία Python .py) στη μνήμη. Εκτελέστε αυτό αφού τροποποιήσετε τον κώδικα.",
+    "x_search_terms": [
+      "επαναφόρτωση συστήματος",
+      "εργαλεία ανανέωσης",
+      "κωδικός επαναφόρτωσης",
+      "システムリロード",
+      "recargar sistema",
+      "recharger le system",
+      "시스템 드 Σύστημα",
+      "Λάβετε προδιαγραφές συστήματος (CPU/RAM/δίσκοι/τόμοι) με τον καλύτερο τρόπο πολλαπλής πλατφόρμας."
+    ]
+  },
+  "he": {
+    "tool.description": "טען מחדש את המערכת וטען את הקוד העדכני ביותר עבור כל הכלים תחת tools/ (קבצי Python .py) לזיכרון. הפעל את זה לאחר שינוי הקוד.",
+    "x_search_terms": [
+      "מערכת טען מחדש",
+      "כלים לרענון",
+      "קוד טען מחדש",
+      "システムリロード",
+      "recharger sistema",
+      "recharger le system",
+      "시스냆ムリロードперезагрузить систему",
+      "קבל את מפרט המערכת (CPU/RAM/דיסקים/נפחים) בצורה הטובה ביותר בין פלטפורמות."
+    ]
+  },
+  "hu": {
+    "tool.description": "Töltse be újra a rendszert, és töltse be az eszközök/ (Python .py fájlok) alatt található összes eszköz legújabb kódját a memóriába. Futtassa ezt a kód módosítása után.",
+    "x_search_terms": [
+      "rendszer újratöltése",
+      "frissítő eszközök",
+      "újratöltési kód",
+      "システムリロード",
+      "rendszer újratöltés",
+      "rendszer újratöltő",
+      "시스템 잜 로스템 재 перезагрузить систему",
+      "Szerezze be a rendszerspecifikációkat (CPU/RAM/lemezek/kötetek) a lehető legjobb, több platformon keresztül."
+    ]
+  },
+  "ro": {
+    "tool.description": "Reîncărcați sistemul și încărcați cel mai recent cod pentru toate instrumentele din instrumente/ (fișiere Python .py) în memorie. Rulați acest lucru după modificarea codului.",
+    "x_search_terms": [
+      "sistem de reîncărcare",
+      "instrumente de reîncărcare",
+      "cod de reîncărcare",
+      "システムリロード",
+      "recargar system",
+      "recharger le system",
+      "시스템 재",
+      "перезагрузить систему"
+    ]
   }
 }

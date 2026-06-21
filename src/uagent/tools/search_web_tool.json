@@ -452,5 +452,81 @@
       "ऑनलाइन शोध"
     ],
     "param.limit.description": "परत करायच्या परिणामांची कमाल संख्या (डीफॉल्ट: 5)."
+  },
+  "el": {
+    "error.args_must_be_dict": "Το args πρέπει να είναι μια εντολή",
+    "error.duckduckgo_failed_after_retries": "Το αίτημα DuckDuckGo απέτυχε μετά από επαναλήψεις: {error}",
+    "error.missing_query_parameter": "λείπει η παράμετρος 'query'",
+    "error.run_tool_error": "σφάλμα run_tool: {error}",
+    "param.query.description": "Ερώτημα αναζήτησης.",
+    "tool.description": "Αναζήτηση στον ιστό μέσω της διεπαφής DuckDuckGo HTML. Επιστρέφει τίτλο/σύνδεσμο/απόσπασμα.",
+    "x_search_terms": [
+      "αναζήτηση στον ιστό",
+      "duckduckgo",
+      "αναζήτηση στο διαδίκτυο",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "poisk στον μέγιστο αριθμό αποτελεσμάτων [=#=fa]"
+    ],
+    "param.limit.description": "Διαχειριστείτε τοπικά μυστικά χρησιμοποιώντας συμμετρικό κλειδί στον κατάλογο καταστάσεων uagent."
+  },
+  "he": {
+    "error.args_must_be_dict": "שורש חיפוש (ברירת מחדל: cwd).",
+    "error.duckduckgo_failed_after_retries": "בקשת DuckDuckGo נכשלה לאחר נסיונות חוזרים: {error}",
+    "error.missing_query_parameter": "חסר פרמטר 'query'",
+    "error.run_tool_error": "run_tool error: {error}",
+    "param.query.description": "שאילתת חיפוש.",
+    "tool.description": "חפש באינטרנט באמצעות ממשק DuckDuckGo HTML. מחזיר כותרת/קישור/קטע.",
+    "x_search_terms": [
+      "חיפוש באינטרנט",
+      "duckduckgo",
+      "חפש באינטרנט",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск [= в# вебе] поиск [= в # вебе вебе вебе поиск [= в# вебе]."
+    ],
+    "param.limit.description": "נהל סודות מקומיים באמצעות מפתח סימטרי בספריית המצב של uagent."
+  },
+  "hu": {
+    "error.args_must_be_dict": "az args diktálásnak kell lennie",
+    "error.duckduckgo_failed_after_retries": "A DuckDuckGo-kérelem meghiúsult az újrapróbálkozások után: {error}",
+    "error.missing_query_parameter": "hiányzik a „query” paraméter",
+    "error.run_tool_error": "run_tool hiba: {error}",
+    "param.query.description": "Keresési lekérdezés.",
+    "tool.description": "Keresés az interneten a DuckDuckGo HTML felületén keresztül. Visszaadja a címet/linket/részletet.",
+    "x_search_terms": [
+      "internetes keresés",
+      "duckduckgo",
+      "keresés az interneten",
+      "ウェブ検索",
+      "buscar en la web",
+      "keresse a webet",
+      "웹 검색",
+      "[=fa] [=fa] maximum száma (maximális találatok száma:] 5)."
+    ],
+    "param.limit.description": "Kezelje a helyi titkokat szimmetrikus kulccsal az uagent állapotkönyvtárában."
+  },
+  "ro": {
+    "error.args_must_be_dict": "argumentele trebuie să fie un dictat",
+    "error.duckduckgo_failed_after_retries": "Solicitarea DuckDuckGo a eșuat după reîncercări: {error}",
+    "error.missing_query_parameter": "lipsește parametrul „interogare”",
+    "error.run_tool_error": "run_tool error: {error}",
+    "param.query.description": "Interogare de căutare.",
+    "tool.description": "Căutați pe web prin interfața HTML DuckDuckGo. Returnează titlul/linkul/fragmentul.",
+    "x_search_terms": [
+      "căutare pe web",
+      "duckduckgo",
+      "căutare pe internet",
+      "ウェブ検索",
+      "buscar en la web",
+      "recherche web",
+      "웹 검색",
+      "поиск в в веск в в ве=бе в ве5=бе."
+    ],
+    "param.limit.description": "Gestionați secretele locale folosind cheia simetrică în directorul de stare uagent."
   }
 }

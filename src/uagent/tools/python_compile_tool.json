@@ -297,5 +297,41 @@
     ],
     "param.path.description": "py_compile वापरून सत्यापित करण्यासाठी एक Python फाइल, directory, किंवा glob pattern.directories मध्ये *.",
     "param.paths.description": "py_compile वापरून सत्यापित करण्यासाठी अनेक Python फाइल्स, directories, किंवा glob patterns.directories मध्ये *."
+  },
+  "el": {
+    "tool.description": "Επικύρωση αρχείων Python με py_compile. Χρησιμοποιήστε αυτό το εργαλείο για τον έλεγχο σύνταξης αρχείων Python, καταλόγων ή μοτίβων glob.",
+    "x_search_terms": [
+      "python_compile",
+      "python compile"
+    ],
+    "param.path.description": "Ένα αρχείο Python, κατάλογος ή μοτίβο glob για επικύρωση με το py_compile. Οι κατάλογοι σαρώνονται αναδρομικά για *.",
+    "param.paths.description": "Πολλά αρχεία Python, κατάλογοι ή μοτίβα glob για επικύρωση με το py_compile. Οι κατάλογοι σαρώνονται αναδρομικά..."
+  },
+  "he": {
+    "tool.description": "אמת קבצי Python עם py_compile. השתמש בכלי זה לבדיקת תחביר של קבצי Python, ספריות או תבניות גלוב.",
+    "x_search_terms": [
+      "python_compile",
+      "python compile"
+    ],
+    "param.path.description": "קובץ Python, ספרייה או דפוס גלוב לאימות באמצעות py_compile. ספריות נסרקות באופן רקורסיבי עבור *.",
+    "param.paths.description": "קבצי Python מרובים, ספריות או תבניות גלוב לאימות באמצעות py_compile. ספריות נסרקות באופן רקורסיבי..."
+  },
+  "hu": {
+    "tool.description": "Érvényesítse a Python fájlokat a py_compile segítségével. Használja ezt az eszközt Python-fájlok, könyvtárak vagy glob-minták szintaktikai ellenőrzésére.",
+    "x_search_terms": [
+      "python_compile",
+      "python-fordítás"
+    ],
+    "param.path.description": "Python-fájl, -könyvtár vagy glob-minta a py_compile-val érvényesítendő. A könyvtárakat rekurzívan keresi a *.",
+    "param.paths.description": "Több Python-fájl, könyvtár vagy glob-minta a py_compile segítségével érvényesítendő. A könyvtárak rekurzív vizsgálata..."
+  },
+  "ro": {
+    "tool.description": "Validați fișierele Python cu py_compile. Utilizați acest instrument pentru verificarea sintaxei fișierelor, directoarelor sau modelelor glob Python.",
+    "x_search_terms": [
+      "python_compile",
+      "python compile"
+    ],
+    "param.path.description": "Un fișier Python, un director sau un model global de validat cu py_compile. Directoarele sunt scanate recursiv pentru *.",
+    "param.paths.description": "Mai multe fișiere Python, directoare sau modele glob de validat cu py_compile. Directoarele sunt scanate recursiv..."
   }
 }

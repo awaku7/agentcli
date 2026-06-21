@@ -190,6 +190,50 @@
     "param.base_url.description": "Ollama API मूळ URL.",
     "tool.description": "Ollama दृष्टी मॉडेल वापरून प्रतिमेचे विश्लेषण करा."
   },
+  "el": {
+    "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
+    "err.image_too_large": "αρχείο εικόνας παρέχεται πολύ μεγάλο: {size} bytes για analyzy_image (olama): {provider!r}",
+    "err.unsupported_provider": "Περιγράψτε αυτήν την εικόνα λεπτομερώς.",
+    "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
+    "err.missing_env.ollama": "Απέτυχε η κλήση του Ollama API: {err}",
+    "err.request_failed": "Σφάλμα Ollama API: HTTP {status} {body}",
+    "err.http_error": "Ollama API επέστρεψε μη έγκυρη παροχή JSON: {err_rate]. {provider!r}",
+    "err.invalid_json": "Λείπουν τα απαραίτητα env vars για ανάλυση azure εικόνας.",
+    "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση"
+  },
+  "he": {
+    "err.image_not_found": "קובץ תמונה לא נמצא: {path}",
+    "err.image_too_large": "קובץ תמונה גדול מדי: {size=_#=] קובץ תמונה גדול מדי: {size=_#=) תמיכה לכל היותר (למקסימום) analyse_image (ollama): {provider!r}",
+    "err.unsupported_provider": "אנא תאר את התמונה הזו בפירוט.",
+    "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
+    "err.missing_env.ollama": "נכשלה קריאה ל-Ollama API: {err}",
+    "err.request_failed": "שגיאה של Ollama API: HTTP {status} {body}",
+    "err.http_error": "Ollama API החזיר JSON לא חוקי: {err}",
+    "err.invalid_json": "Ollama API החזיר JSON לא חוקי: {err}",
+    "warn.empty_response": "[אזהרה] תגובה ריקה"
+  },
+  "hu": {
+    "err.image_not_found": "képfájl nem található: [=path}",
+    "err.image_too_large": "képfájl túl nagy: {max. Nem támogatott szolgáltató az analys_image (ollama) számára: {provider!r}",
+    "err.unsupported_provider": "Kérjük, írja le részletesen ezt a képet.",
+    "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
+    "err.missing_env.ollama": "Nem sikerült hívni az Ollama API-t: {err}",
+    "err.request_failed": "Ollama API hiba: HTTP {status} {body}",
+    "err.http_error": "[=] Az Ollama API érvénytelen JSON-t adott vissza: {err}",
+    "err.invalid_json": "Nem támogatott szolgáltató analízishez} ({imaproge vichar#) Hiányoznak a szükséges env vars az azure képelemzéshez.",
+    "warn.empty_response": "[WARN] üres válasz"
+  },
+  "ro": {
+    "err.image_not_found": "fișierul imagine nu a fost găsit: {path}",
+    "err.image_too_large": "fișier imagine prea mare: {size} octeți (limită = {max_bytes_analyse for]_ (ollama): {provider!r}",
+    "err.unsupported_provider": "Vă rugăm să descrieți această imagine în detaliu.",
+    "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
+    "err.missing_env.ollama": "Nu s-a putut apela API-ul Ollama: {err}",
+    "err.request_failed": "Eroare API-ul Ollama: HTTP {status} {body}",
+    "err.http_error": "API-ul Ollama a returnat JSON nevalid: {err}",
+    "err.invalid_json": ": furnizor de imagine neacceptat (fornizor de analiză!)",
+    "warn.empty_response": "[WARN] răspuns gol"
+  },
   "nb": {
     "x_search_terms": "[\"ollama\", \"vision\", \"image analysis\", \"llava\", \"ocr\"]",
     "param.prompt.description": "Tekst som beskriver hva du skal se etter i bildet.",

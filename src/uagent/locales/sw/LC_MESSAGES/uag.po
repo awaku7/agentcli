@@ -117,6 +117,7 @@ msgstr "[docs] jina linahitajika"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] kidokezo cha aina ya kuanzisha = ingizo la nambari"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -126,6 +127,8 @@ msgstr ""
 "(1=msingi,2=mawasiliano,4=ofisi,8=maendeleo,16=iot,32=utekelezaji,64=ya "
 "nje,128=media,255=zote, Enter=wezesha zote):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Msingi (faili, mazingira, wakati, maagizo, ujuzi, kumbukumbu, udhibiti wa "
@@ -715,6 +718,7 @@ msgstr "Ufunguo wa API wa NVIDIA."
 msgid "DeepSeek API key."
 msgstr "Ufunguo wa API wa DeepSeek."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1394,12 +1398,15 @@ msgstr "DeepSeek presence_penalty (chaguo-msingi: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (chaguo-msingi: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1834,6 +1841,7 @@ msgstr ""
 "Hali isiyoingiliana. Usianzishe mzunguko wa stdin; toka baada ya kuchakata "
 "faili ya kuanzisha (kama ipo)."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1844,9 +1852,11 @@ msgstr ""
 "nje,128=media,255=zote). Huruisha kidokezo cha aina cha wasilianifu "
 "kinapobainishwa."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "Wezesha utumaji wa zana kwa LLM (inapuuza UAGENT_USE_TOOL env var)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "Zima utumaji wa zana kwa LLM (inapuuza UAGENT_USE_TOOL env var)."
 
@@ -2389,15 +2399,18 @@ msgstr ""
 "[Seva za MCP]\n"
 "- Imeshindwa kupata taarifa: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Mwongozo wa Haraka]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Mistari mingi: weka laini ambayo ni 'f' tu ili kuingiza modi ya laini nyingi."
-
-"(malizia kwa \"\"\"end)."
+msgstr ""
+"- Mistari mingi: weka laini ambayo ni 'f' tu ili kuingiza modi ya laini "
+"nyingi.(malizia kwa \"\"\"end)."
 
 #: src/uagent/welcome.py:70
 msgid ""

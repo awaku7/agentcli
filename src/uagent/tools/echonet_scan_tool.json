@@ -159,6 +159,46 @@
     "tool.description": "Discover ECHONET Lite nodes on the local network and return a JSON or text list.",
     "param.interface.description": "Local interface IPv4/name (optional)."
   },
+  "el": {
+    "param.timeout.description": "Λάβετε χρόνο αναμονής σε δευτερόλεπτα για την ανακάλυψη ECHONET Lite.",
+    "param.retry.description": "Γύροι ανακάλυψης.",
+    "param.limit.description": "Μέγιστος αριθμός κόμβων προς επιστροφή. Το 0 σημαίνει απεριόριστο.",
+    "param.fmt.description": "Μορφή: json ή κείμενο.",
+    "msg.summary": "Ολοκληρώθηκε η ανακάλυψη ECHONET Lite: Βρέθηκαν {count} κόμβοι σε {elapsed_ms} ms.",
+    "msg.no_devices": "Δεν βρέθηκαν κόμβοι ECHONET Lite.",
+    "tool.description": "Ανακαλύψτε τους κόμβους ECHONET Lite στο τοπικό δίκτυο και επιστρέψτε μια λίστα JSON ή κειμένου.",
+    "param.interface.description": "Τοπική διεπαφή IPv4/όνομα (προαιρετικό)."
+  },
+  "he": {
+    "param.timeout.description": "קבל זמן המתנה בשניות לגילוי ECHONET Lite.",
+    "param.retry.description": "סבבי גילוי.",
+    "param.limit.description": "המספר המרבי של צמתים להחזרה. 0 פירושו בלתי מוגבל.",
+    "param.fmt.description": "פורמט: json או טקסט.",
+    "msg.summary": "גילוי ECHONET Lite הושלם: {count} צמתים נמצאו ב-{elapsed_ms} אלפיות השנייה.",
+    "msg.no_devices": "לא נמצאו צמתים של ECHONET Lite.",
+    "tool.description": "גלה צמתי ECHONET Lite ברשת המקומית והחזר JSON או רשימת טקסט.",
+    "param.interface.description": "ממשק מקומי IPv4/שם (אופציונלי)."
+  },
+  "hu": {
+    "param.timeout.description": "Várakozási idő másodpercekben az ECHONET Lite felfedezéséhez.",
+    "param.retry.description": "Felfedező körök.",
+    "param.limit.description": "A visszaküldendő csomópontok maximális száma. A 0 azt jelenti, hogy korlátlan.",
+    "param.fmt.description": "Formátum: json vagy szöveg.",
+    "msg.summary": "Az ECHONET Lite felderítése befejeződött: {count} csomópont található {elapsed_ms} ms alatt.",
+    "msg.no_devices": "Nem található ECHONET Lite csomópont.",
+    "tool.description": "Fedezze fel az ECHONET Lite csomópontokat a helyi hálózaton, és küldjön vissza egy JSON- vagy szöveglistát.",
+    "param.interface.description": "Helyi interfész IPv4/név (opcionális)."
+  },
+  "ro": {
+    "param.timeout.description": "Primiți timpul de așteptare în secunde pentru descoperirea ECHONET Lite.",
+    "param.retry.description": "Runde de descoperire.",
+    "param.limit.description": "Numărul maxim de noduri de returnat. 0 înseamnă nelimitat.",
+    "param.fmt.description": "Format: json sau text.",
+    "msg.summary": "Descoperirea ECHONET Lite a fost finalizată: {count} noduri găsite în {elapsed_ms} ms.",
+    "msg.no_devices": "Nu au fost găsite noduri ECHONET Lite.",
+    "tool.description": "Descoperiți nodurile ECHONET Lite din rețeaua locală și returnați o listă JSON sau text.",
+    "param.interface.description": "Interfață locală IPv4/nume (opțional)."
+  },
   "nb": {
     "param.timeout.description": "Receive wait time in seconds for ECHONET Lite discovery.",
     "param.retry.description": "Discovery rounds.",

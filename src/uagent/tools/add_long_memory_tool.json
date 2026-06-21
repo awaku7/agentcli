@@ -330,5 +330,57 @@
       "save memory"
     ],
     "err.note_empty": "[add_long_memory error] note is empty"
+  },
+  "el": {
+    "param.note.description": "Το κείμενο της σημείωσης προς αποθήκευση.",
+    "tool.description": "Αποθηκεύστε μια σημείωση μακροπρόθεσμης μνήμης σχετικά με τον χρήστη/περιβάλλον που μπορεί να είναι χρήσιμη σε μελλοντικές συνομιλίες.",
+    "x_search_terms": [
+      "add_long_memory",
+      "προσθέστε μεγάλη μνήμη",
+      "αποθήκευση σημείωσης",
+      "θυμάμαι",
+      "σημείωση μνήμης",
+      "μακροπρόθεσμη μνήμη"
+    ],
+    "err.note_empty": "Η σημείωση [add_long_memory error] είναι κενή"
+  },
+  "he": {
+    "param.note.description": "טקסט ההערה לשמירה.",
+    "tool.description": "שמור הערת זיכרון לטווח ארוך על המשתמש/הסביבה שעשויה להיות שימושית בשיחות עתידיות.",
+    "x_search_terms": [
+      "add_long_memory",
+      "להוסיף זיכרון ארוך",
+      "לשמור הערה",
+      "לִזכּוֹר",
+      "הערת זיכרון",
+      "זיכרון לטווח ארוך"
+    ],
+    "err.note_empty": "הערה [add_long_memory error] ריקה"
+  },
+  "hu": {
+    "param.note.description": "A mentendő jegyzet szövege.",
+    "tool.description": "Mentse el a felhasználóról/környezetről egyetlen hosszú távú memóriajegyzetet, amely hasznos lehet a jövőbeni beszélgetések során.",
+    "x_search_terms": [
+      "add_long_memory",
+      "hosszú memória hozzáadása",
+      "jegyzet mentése",
+      "emlékezz",
+      "emlékjegy",
+      "hosszú távú memória"
+    ],
+    "err.note_empty": "Az [add_long_memory error] megjegyzés üres"
+  },
+  "ro": {
+    "param.note.description": "Textul notei de salvat.",
+    "tool.description": "Salvați o singură notă de memorie pe termen lung despre utilizator/mediu care poate fi utilă în conversațiile viitoare.",
+    "x_search_terms": [
+      "add_long_memory",
+      "adăugați memorie lungă",
+      "salvați nota",
+      "amintește-ți",
+      "nota de memorie",
+      "memorie pe termen lung"
+    ],
+    "err.note_empty": "[add_long_memory error] nota este goală"
   }
 }

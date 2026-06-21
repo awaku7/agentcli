@@ -300,5 +300,53 @@
       "shared memory",
       "memory data"
     ]
+  },
+  "el": {
+    "doc.run_tool": "Ανακτά δεδομένα μακροπρόθεσμης μνήμης (κοινόχρηστη μνήμη) που μοιράζονται μεταξύ των χρηστών. - Συνήθως επιστρέφει κείμενο σε μορφή JSONL (μία εγγραφή ανά γραμμή).",
+    "tool.description": "Ανακτά ακατέργαστα δεδομένα μακροπρόθεσμης μνήμης (κοινόχρηστη μνήμη) που μοιράζονται μεταξύ των χρηστών. - Συνήθως επιστρέφει κείμενο σε μορφή JSONL (μία εγγραφή ανά γραμμή).",
+    "x_search_terms": [
+      "λάβετε κοινόχρηστη μνήμη",
+      "κοινόχρηστες σημειώσεις",
+      "κοινόχρηστη μνήμη",
+      "μνήμη πολλών χρηστών",
+      "Λάβετε τον τρέχοντα κατάλογο εργασίας.",
+      "αποθήκευση μνήμης"
+    ]
+  },
+  "he": {
+    "doc.run_tool": "נקודת כניסה שנקראת מ-tools/__init__.py. יישום עבור get_shared_memory.",
+    "tool.description": "מאחזר נתוני זיכרון גולמי לטווח ארוך (זיכרון משותף) המשותפים בין משתמשים. - בדרך כלל מחזיר טקסט בפורמט JSONL (רשומה אחת בכל שורה).",
+    "x_search_terms": [
+      "get_shared_memory",
+      "קבל זיכרון משותף",
+      "זיכרון משותף",
+      "הערות משותפות",
+      "זיכרון מרובה משתמשים",
+      "אחסון זיכרון"
+    ]
+  },
+  "hu": {
+    "doc.run_tool": "Belépési pont az tools/__init__.py alkalmazásból. A get_shared_memory megvalósítása.",
+    "tool.description": "Lekéri a felhasználók között megosztott nyers hosszú távú memória (megosztott memória) adatokat. - Általában JSONL formátumú szöveget ad vissza (soronként egy rekord).",
+    "x_search_terms": [
+      "get_shared_memory",
+      "megosztott memória",
+      "megosztott memória",
+      "megosztott jegyzet",
+      "többfelhasználós memória",
+      "memóriatár"
+    ]
+  },
+  "ro": {
+    "doc.run_tool": "Punct de intrare apelat din tools/__init__.py. Implementare pentru get_shared_memory.",
+    "tool.description": "Preia datele brute de memorie pe termen lung (memorie partajată) partajate între utilizatori. - De obicei returnează text în format JSONL (o înregistrare pe linie).",
+    "x_search_terms": [
+      "get_shared_memory",
+      "obțineți memorie partajată",
+      "memorie partajată",
+      "note partajate",
+      "memorie pentru mai mulți utilizatori",
+      "stocare de memorie"
+    ]
   }
 }

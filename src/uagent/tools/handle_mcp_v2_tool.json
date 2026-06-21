@@ -480,5 +480,77 @@
     "param.args.description": "MCP साधनाला पाठवायचे arguments.JSON object (शिफारसीय) किंवा JSON string द्या.",
     "err.tool_name_required": "Error: tool_name is required.",
     "err.stdio_url_invalid": "Error: Invalid stdio url"
+  },
+  "el": {
+    "doc.mask_values": "Αντικαταστήστε τις τιμές σε λεξικά και λίστες με '*' (διατήρηση της δομής).",
+    "param.server_name.description": "Όνομα διακομιστή ορίστηκε στο mcp_servers.json. Εάν ορίζεται, έχει προτεραιότητα έναντι του url.",
+    "param.tool_name.description": "Το όνομα του εργαλείου προς εκτέλεση.",
+    "param.url.description": "URL τελικού σημείου διακομιστή MCP (http://... ή stdio://command...).",
+    "tool.description": "Κλήση εργαλείου από διακομιστή MCP. Παρέχετε ορίσματα εργαλείου ως λεξικό στο tool_arguments.",
+    "x_search_terms": [
+      "handle_mcp_v2",
+      "handle mcp v2",
+      "mcp tool",
+      "μοντέλο πρωτοκόλλου περιβάλλοντος",
+      "κλήση απομακρυσμένου εργαλείου",
+      "mcp"
+    ],
+    "param.args.description": "Ορίσματα εργαλείου για διαβίβαση στο εργαλείο MCP. Δώστε είτε ένα αντικείμενο JSON (συνιστάται) είτε μια συμβολοσειρά JSON.",
+    "err.tool_name_required": "Σφάλμα: απαιτείται tool_name.",
+    "err.stdio_url_invalid": "Σφάλμα: Μη έγκυρη διεύθυνση url stdio"
+  },
+  "he": {
+    "doc.mask_values": "החלף ערכים במילונים וברשימות ב'*' (שימור המבנה).",
+    "param.server_name.description": "שם השרת מוגדר ב-mcp_servers.json. אם צוין, הוא מקבל עדיפות על פני כתובת האתר.",
+    "param.tool_name.description": "שם הכלי לביצוע.",
+    "param.url.description": "כתובת URL של שרת MCP (http://... או stdio://command...).",
+    "tool.description": "התקשר לכלי משרת MCP. ספק ארגומנטים של כלי כמילון ב-tool_arguments.",
+    "x_search_terms": [
+      "handle_mcp_v2",
+      "handle mcp v2",
+      "mcp tool",
+      "מודל ההקשר פרוטוקול",
+      "call tool מרחוק",
+      "mcp"
+    ],
+    "param.args.description": "ארגומנטים של כלי להעביר לכלי MCP. ספק אובייקט JSON (מומלץ) או מחרוזת JSON.",
+    "err.tool_name_required": "שגיאה: נדרש tool_name.",
+    "err.stdio_url_invalid": "שגיאה: כתובת URL לא חוקית של stdio"
+  },
+  "hu": {
+    "doc.mask_values": "Cserélje ki a szótárak és a listák értékeit „*”-ra (a szerkezet megőrzése).",
+    "param.server_name.description": "A kiszolgáló neve az mcp_servers.json fájlban van megadva. Ha meg van adva, akkor elsőbbséget élvez az URL-lel szemben.",
+    "param.tool_name.description": "A végrehajtandó eszköz neve.",
+    "param.url.description": "MCP-szerver végpont URL-je (http://... vagy stdio://command...).",
+    "tool.description": "Eszköz hívása MCP-szerverről. Adja meg az eszköz argumentumokat szótárként a tool_arguments fájlban.",
+    "x_search_terms": [
+      "handle_mcp_v2",
+      "handle mcp v2",
+      "mcp eszköz",
+      "modell kontextusprotokoll",
+      "távoli eszköz hívása",
+      "mcp"
+    ],
+    "param.args.description": "Eszközargumentumok az MCP-eszközhöz. Adjon meg egy JSON-objektumot (ajánlott), vagy egy JSON-karakterláncot.",
+    "err.tool_name_required": "Hiba: az eszköz_neve kötelező.",
+    "err.stdio_url_invalid": "Hiba: Érvénytelen stdio url"
+  },
+  "ro": {
+    "doc.mask_values": "[AVERTISMENT] Avertismente de indexare (deduplicate, primele 50):",
+    "param.server_name.description": "Înlocuiți valorile din dicționare și liste cu „*” (păstrarea structurii).",
+    "param.tool_name.description": "Numele serverului este definit în mcp_servers.json. Dacă este specificat, are prioritate față de url.",
+    "param.url.description": "Numele instrumentului de executat.",
+    "tool.description": "Adresa URL a punctului final al serverului MCP (http://... sau stdio://comandă...).",
+    "x_search_terms": [
+      "handle_mcp_v2",
+      "handle mcp v2",
+      "mcp tool",
+      "model context protocol",
+      "apel remote tool",
+      "mcp"
+    ],
+    "param.args.description": "Argumente ale instrumentului de transmis instrumentului MCP. Furnizați fie un obiect JSON (recomandat), fie un șir JSON.",
+    "err.tool_name_required": "Eroare: tool_name este obligatoriu.",
+    "err.stdio_url_invalid": "Eroare: URL stdio nevalid"
   }
 }

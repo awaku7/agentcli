@@ -338,5 +338,61 @@
       "स्किल लोड",
       "skills load"
     ]
+  },
+  "el": {
+    "err.invalid_args": "skills_load",
+    "err.skill_dir_required": "Το [σφάλμα εργαλείου] skill_dir πρέπει να είναι μια μη κενή συμβολοσειρά",
+    "param.skill_dir.description": "Αναζήτηση και περιήγηση στην αγορά SkillsMP (skillsmp.com) για Agent Skills.",
+    "tool.description": "Φορτώνει το SKILL.md για ένα Agent Skill και επιστρέφει το βασικό του υλικό YAML και το σώμα του Markdown.",
+    "x_search_terms": [
+      "skillsmp",
+      "marketplace",
+      "skill file",
+      "SKILL.md",
+      "Αναδρομική αναζήτηση (προεπιλογή: true)",
+      "[σφάλμα εργαλείου] μη έγκυρα args"
+    ]
+  },
+  "he": {
+    "err.invalid_args": "skills_load",
+    "err.skill_dir_required": "טעינת מיומנויות",
+    "param.skill_dir.description": "חפש וגלוש בשוק SkillsMP (skillsmp.com) עבור Agent Skills מחזירה רשימה של מיומנויות עם שם, מחבר, תיאור, כוכבים וכתובת GitHub",
+    "tool.description": "skillsmp [=#==] skillmp [=#==] חיפוש מיומנות [=#] חיפוש [=#].",
+    "x_search_terms": [
+      "ספריית מיומנויות",
+      "שאילתת חיפוש לסינון מיומנויות לפי שם או תיאור",
+      "חפש רקורסיבית (ברירת מחדל: true)",
+      "[שגיאה בכלי] לא חוקיים",
+      "[שגיאת כלי] skill_dir חייבת להיות מחרוזת לא ריקה",
+      "ספריית המיומנות (חייבת להכיל SKILL.md"
+    ]
+  },
+  "hu": {
+    "err.invalid_args": "betölti a front-A és a Skillmattert. body",
+    "err.skill_dir_required": "[eszközhiba] A skill_dir nem lehet üres karakterlánc",
+    "param.skill_dir.description": "készségek betöltése",
+    "tool.description": "Keressen és böngésszen a SkillsMP Marketplace-en (skillsmp.com) a névvel, a szerzővel, a csillagokkal és a GitHub URL-lel.",
+    "x_search_terms": [
+      "skill_mp_search b",
+      "skill_ search b",
+      "SKILL.md",
+      "Rekurzív keresés (alapértelmezett: true)",
+      "[eszközhiba] érvénytelen argumentumok",
+      "[tool error] A skill_dir karakterláncnak nem üresnek kell lennie"
+    ]
+  },
+  "ro": {
+    "err.invalid_args": "skills_load",
+    "err.skill_dir_required": "[eroare instrument] skill_dir trebuie să fie un șir nevid",
+    "param.skill_dir.description": "Căutați și răsfoiți SkillsMP marketplace (skillsmp.com) pentru abilități de agent, cu numele, autorul, descrierea, stele și URL-ul GitHub",
+    "tool.description": "Încarcă SKILL.md pentru o abilitate de agent și returnează materialul principal YAML și corpul Markdown.",
+    "x_search_terms": [
+      "abilități de navigare",
+      "abilități de căutare",
+      "SKILL.md",
+      "Căutați recursiv (implicit: true)",
+      "[eroare instrument] argumente invalide",
+      "[eroare instrument] skill_dir trebuie să fie un șir negoal"
+    ]
   }
 }

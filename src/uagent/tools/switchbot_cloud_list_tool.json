@@ -63,6 +63,22 @@
     "param.fmt.description": "Format: json or text.",
     "tool.description": "List SwitchBot Cloud devices for the configured account."
   },
+  "el": {
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "tool.description": "Λίστα συσκευών SwitchBot Cloud για τον διαμορφωμένο λογαριασμό."
+  },
+  "he": {
+    "param.fmt.description": "אין ערכים במטמון.",
+    "tool.description": "רשום מכשירי SwitchBot Cloud עבור החשבון המוגדר."
+  },
+  "hu": {
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "tool.description": "Sorolja fel a SwitchBot Cloud eszközöket a konfigurált fiókhoz."
+  },
+  "ro": {
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "tool.description": "Listați dispozitivele SwitchBot Cloud pentru contul configurat."
+  },
   "nb": {
     "param.fmt.description": "Format: json or text.",
     "tool.description": "List SwitchBot Cloud devices for the configured account."
