@@ -18,7 +18,12 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/"><metadata
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rect width="950" height="620" fill="#0d1117"/>
+<style>
+  path { fill: #2c3e50 !important; stroke: #4a6274 !important; stroke-width: 0.6 !important; }
+</style>
+<metadata
      id="metadata346"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
@@ -853,92 +858,89 @@
      d="m 586.08718,312.65328 c -0.005,-0.0512 -0.009,-0.11436 -0.008,-0.18682 0.001,-0.0577 0.006,-0.12191 0.0163,-0.19209 0.009,-0.0635 0.023,-0.13123 0.0421,-0.20356 0.0186,-0.0704 0.042,-0.14357 0.0707,-0.22093 0.0286,-0.077 0.0616,-0.1557 0.0994,-0.23892 0.0428,-0.0943 0.0886,-0.18736 0.13938,-0.28918 6.9e-4,-0.001 0.0148,-0.0296 0.0155,-0.031 0.0133,-0.0264 0.0169,-0.0521 0.0168,-0.0732 -10e-6,-0.008 -5.5e-4,-0.0153 -0.001,-0.0216 -0.001,-0.011 -0.003,-0.0213 -0.004,-0.0255 -0.002,-0.0108 -8.3e-4,-0.007 -9.3e-4,-5.4e-4 -1e-4,0.006 -9.6e-4,0.0172 -0.007,0.0312 7e-5,-1.8e-4 0.002,-0.003 0.005,-0.0101 0.005,-0.009 0.01,-0.018 0.0161,-0.0287 0.0112,-0.0195 0.023,-0.0393 0.0355,-0.0602 0.0168,-0.0279 0.0343,-0.0564 0.0525,-0.0852 0.0124,-0.0196 0.0251,-0.0394 0.0381,-0.059 0.008,-0.0113 0.0149,-0.0222 0.0224,-0.0326 0.005,-0.007 0.008,-0.011 0.0107,-0.0141 0.10727,-0.10708 0.17514,-0.17494 0.28338,-0.28319 0.005,-0.005 0.01,-0.0104 0.0137,-0.0161 0.0147,-0.0202 0.0208,-0.0401 0.0225,-0.0455 0.006,-0.0192 0.008,-0.0356 0.009,-0.0444 0.003,-0.0186 0.004,-0.0335 0.005,-0.0446 8e-4,-0.007 8.4e-4,-0.006 4.1e-4,-0.004 -4.7e-4,0.002 -0.001,0.006 -0.003,0.0104 -0.001,0.004 -0.003,0.007 -0.005,0.0105 -0.008,0.0156 -0.0146,0.0214 -0.0142,0.021 -0.003,0.003 -6.6e-4,7.6e-4 0.005,-0.004 0.007,-0.005 0.0239,-0.0187 0.0372,-0.0304 0.008,-0.007 0.0211,-0.0189 0.0335,-0.0349 0.006,-0.008 0.0188,-0.0254 0.0266,-0.0496 0.003,-0.0108 0.004,-0.0139 0.004,-0.0131 0.005,-0.0175 0.01,-0.0338 0.0163,-0.0498 0.006,-0.0161 0.0139,-0.0324 0.0225,-0.0489 0.0118,-0.0227 0.0254,-0.0456 0.0407,-0.0707 0.0129,-0.021 0.0266,-0.0428 0.0405,-0.0657 0.002,-0.004 0.006,-0.01 0.009,-0.0142 -0.002,0.003 -6.5e-4,0.001 0.004,-0.004 0.005,-0.005 0.0109,-0.0111 0.0183,-0.0179 0.0106,-0.01 0.0221,-0.0198 0.0347,-0.0303 0.0241,-0.0202 0.0484,-0.0394 0.0753,-0.0611 0.0108,-0.009 0.0225,-0.0182 0.0343,-0.0281 0.008,-0.007 0.0203,-0.0172 0.0322,-0.0294 0.003,-0.003 0.0135,-0.0138 0.0226,-0.0281 0.009,-0.0148 0.0114,-0.0217 0.0117,-0.0223 0.009,-0.02 0.013,-0.0372 0.0158,-0.05 0.004,-0.0171 0.006,-0.0331 0.008,-0.0472 0.002,-0.0206 0.004,-0.0404 0.004,-0.0589 9.8e-4,-0.0268 9.8e-4,-0.0529 5.3e-4,-0.0781 -6.6e-4,-0.0356 -0.002,-0.0707 -0.004,-0.10493 -0.003,-0.0446 -0.006,-0.0889 -0.009,-0.13197 -0.002,-0.0211 -0.003,-0.0411 -0.005,-0.0611 -7.2e-4,-0.0108 -0.001,-0.0203 -0.002,-0.0295 -2.4e-4,-0.006 -1.5e-4,-0.01 -1.3e-4,-0.0102 0.002,-0.0342 0.005,-0.0671 0.01,-0.10051 0.006,-0.0405 0.0127,-0.0811 0.0208,-0.12229 0.0128,-0.0651 0.0279,-0.13026 0.0435,-0.1969 0.008,-0.0362 0.017,-0.0728 0.0252,-0.10963 0.0213,-0.096 0.0468,-0.19119 0.0748,-0.28571 0.0336,-0.11353 0.0711,-0.22636 0.1095,-0.33892 0.0506,-0.14828 0.103,-0.29601 0.15171,-0.44627 0.0341,-0.10524 0.0662,-0.21103 0.0943,-0.31809 0.0255,-0.0968 0.0476,-0.19427 0.0651,-0.29253 0.007,-0.0366 0.0123,-0.073 0.0175,-0.10919 0.004,-0.0279 0.0102,-0.0569 0.0173,-0.0869 0.0113,-0.0473 0.0243,-0.0926 0.0377,-0.14379 0.009,-0.0341 0.0177,-0.0694 0.0249,-0.10569 0.004,-0.0221 0.006,-0.0426 0.008,-0.0584 0.003,-0.0313 0.004,-0.0615 0.004,-0.0891 6.6e-4,-0.037 4.6e-4,-0.0733 -1.2e-4,-0.10821 -9.2e-4,-0.0542 -0.003,-0.10762 -0.005,-0.15951 -0.003,-0.0731 -0.008,-0.14503 -0.0127,-0.21528 -0.006,-0.0841 -0.013,-0.16649 -0.0209,-0.24733 -0.007,-0.0707 -0.0146,-0.13967 -0.0232,-0.20759 -0.006,-0.0502 -0.0132,-0.099 -0.0209,-0.14721 -0.006,-0.0376 -0.0124,-0.0741 -0.0198,-0.11042 -0.006,-0.0306 -0.0132,-0.0612 -0.022,-0.092 -0.005,-0.0189 -0.0121,-0.0398 -0.0214,-0.0613 -0.005,-0.0116 -0.0129,-0.0282 -0.0253,-0.0452 -0.005,-0.006 -0.01,-0.0129 -0.0167,-0.0195 a 0.12257406,0.12257406 90 0 0 -0.17348,0.17322 c -0.004,-0.004 -0.006,-0.007 -0.008,-0.009 -0.003,-0.005 -0.004,-0.007 -0.002,-0.002 0.003,0.007 0.006,0.0163 0.0104,0.0309 0.006,0.022 0.0118,0.0459 0.0174,0.0734 0.006,0.0318 0.0123,0.0648 0.0179,0.1 0.007,0.045 0.0137,0.0912 0.0198,0.13946 0.008,0.0652 0.0157,0.13187 0.0224,0.20065 0.008,0.0786 0.0145,0.15883 0.0204,0.24076 0.005,0.0685 0.009,0.1383 0.0123,0.20895 0.002,0.0502 0.004,0.10125 0.005,0.1525 5.4e-4,0.0331 7.2e-4,0.0664 1.2e-4,0.0996 -4.8e-4,0.0255 -0.001,0.0498 -0.003,0.0734 -0.001,0.0133 -0.002,0.0229 -0.004,0.031 -0.006,0.0291 -0.0132,0.0591 -0.0216,0.0913 -0.0116,0.0441 -0.0269,0.0986 -0.039,0.14897 -0.008,0.0342 -0.0159,0.0707 -0.0215,0.10859 -0.005,0.0341 -0.0102,0.0677 -0.0162,0.10136 -0.0162,0.0908 -0.0368,0.18174 -0.0609,0.27326 -0.0266,0.1013 -0.0573,0.20246 -0.0905,0.30486 -0.048,0.14791 -0.0986,0.29071 -0.15051,0.44264 -0.0388,0.11368 -0.0775,0.23018 -0.11254,0.34846 -0.0292,0.0986 -0.0563,0.19949 -0.0791,0.30223 -0.008,0.0354 -0.0161,0.0706 -0.0246,0.10717 -0.0154,0.0662 -0.0315,0.13525 -0.0452,0.20507 -0.009,0.0444 -0.0168,0.09 -0.0232,0.13654 -0.005,0.0384 -0.009,0.0781 -0.0117,0.11853 -9.1e-4,0.0129 -4.9e-4,0.0262 -1.8e-4,0.0346 5e-4,0.0131 0.001,0.0256 0.002,0.0369 0.001,0.0216 0.003,0.043 0.005,0.0635 0.003,0.0431 0.007,0.0853 0.009,0.12721 0.002,0.0323 0.003,0.0639 0.004,0.0952 4e-4,0.0222 3.7e-4,0.0437 -4e-4,0.0645 -5.5e-4,0.0145 -0.001,0.0279 -0.003,0.0405 -10e-4,0.009 -0.002,0.0159 -0.003,0.0218 -0.001,0.005 -0.002,0.007 -0.001,0.005 -7.7e-4,0.002 -2e-5,-0.001 0.005,-0.009 0.008,-0.0123 0.0112,-0.015 0.009,-0.0132 -0.002,0.002 -0.006,0.006 -0.0146,0.0129 -0.009,0.008 -0.0187,0.0155 -0.0294,0.0241 -0.0247,0.0199 -0.0524,0.0418 -0.079,0.0641 -0.0141,0.0118 -0.0289,0.0245 -0.0436,0.0381 -0.01,0.009 -0.0208,0.0196 -0.0316,0.0312 -0.009,0.009 -0.0213,0.0235 -0.0328,0.0416 -0.005,0.007 -0.007,0.0108 -0.01,0.0161 -0.0128,0.0212 -0.0264,0.0427 -0.0401,0.0652 -0.0162,0.0264 -0.0333,0.0551 -0.0492,0.0856 -0.0119,0.0228 -0.0231,0.0468 -0.033,0.0718 -0.01,0.025 -0.0184,0.0507 -0.0252,0.0768 -0.001,0.005 -0.002,0.007 -0.001,0.005 0.007,-0.0205 0.0128,-0.0277 0.0139,-0.0292 0.003,-0.003 0.003,-0.004 -0.002,8.9e-4 -0.008,0.007 -0.0142,0.0115 -0.0295,0.0238 -0.006,0.005 -0.0173,0.014 -0.0287,0.0257 -0.004,0.004 -0.0169,0.0176 -0.027,0.0376 -0.002,0.004 -0.004,0.009 -0.006,0.0137 -0.003,0.008 -0.005,0.014 -0.005,0.0177 -0.004,0.0148 -0.005,0.0279 -0.006,0.0327 -0.002,0.0176 -0.003,0.0307 -0.004,0.0401 -0.001,0.007 -0.001,0.008 -8.1e-4,0.006 4.4e-4,-0.001 0.002,-0.0111 0.0135,-0.0263 0.003,-0.005 0.007,-0.009 0.0112,-0.0131 -0.0845,0.0845 -0.19984,0.19983 -0.28437,0.28435 -0.004,0.004 -0.009,0.009 -0.0136,0.0147 -0.009,0.0107 -0.0168,0.0215 -0.022,0.0288 -0.01,0.0139 -0.0191,0.0274 -0.0273,0.0398 -0.0145,0.0218 -0.0282,0.0433 -0.0412,0.0638 -0.0191,0.0303 -0.0375,0.0602 -0.0552,0.0895 -0.0131,0.0218 -0.0257,0.0431 -0.038,0.0645 -0.007,0.0115 -0.0131,0.023 -0.0196,0.035 -0.003,0.006 -0.009,0.0161 -0.0137,0.0274 -0.0108,0.0245 -0.0133,0.0474 -0.0136,0.0633 -3.8e-4,0.0235 0.004,0.0452 0.005,0.0496 0.001,0.006 0.001,0.009 0.001,0.007 -7e-5,-6.3e-4 -2.4e-4,-0.002 -2.4e-4,-0.005 -2e-5,-0.008 0.001,-0.0213 0.009,-0.0372 8.3e-4,-0.002 -0.0168,0.0337 -0.0158,0.0316 -0.0511,0.10231 -0.0985,0.19873 -0.14324,0.29727 -0.0396,0.0873 -0.0749,0.17137 -0.10599,0.25493 -0.0312,0.084 -0.0571,0.16478 -0.0779,0.24359 -0.0215,0.0811 -0.037,0.15792 -0.0476,0.2308 -0.0118,0.0806 -0.0174,0.15486 -0.0189,0.22204 -0.002,0.0844 0.003,0.15801 0.009,0.21776 a 0.12257406,0.12257406 90 0 0 0.24382,-0.0254 z"
      id="path-1"
      transform="matrix(2.6916761,0,0,1.4510755,-993.95652,-140.79008)" />
-  <rect width="950" height="620" fill="#0d1117"/>
-  <style>
-    path { fill: #2c3e50; stroke: #4a6274; stroke-width: 0.5; }
-  </style>
+
   <g id="language-dots">
-    <circle cx="806.3" cy="214.9" r="4.5" fill="#e74c3c" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="806.3" cy="214.9" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="814.3" y="218.9" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ja</text>
-    <circle cx="780.5" cy="214.9" r="4.5" fill="#e74c3c" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="780.5" cy="214.9" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="788.5" y="218.9" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ko</text>
-    <circle cx="718.7" cy="221.8" r="4.5" fill="#e74c3c" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="718.7" cy="221.8" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="726.7" y="225.8" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">zh_CN</text>
-    <circle cx="762.5" cy="259.5" r="4.5" fill="#e74c3c" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="762.5" cy="259.5" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="770.5" y="263.5" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">zh_TW</text>
-    <circle cx="723.8" cy="293.8" r="4.5" fill="#e74c3c" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="723.8" cy="293.8" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="731.8" y="297.8" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">vi</text>
-    <circle cx="711.0" cy="290.4" r="4.5" fill="#e74c3c" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="711.0" cy="290.4" r="4.5" fill="#e74c3c" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="719.0" y="294.4" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">th</text>
-    <circle cx="443.0" cy="160.0" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="443.0" cy="160.0" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="451.0" y="164.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">en</text>
-    <circle cx="260.0" cy="204.6" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
-    <text x="210.0" y="208.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">en</text>
-    <circle cx="476.5" cy="166.9" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="260.0" cy="204.6" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="212.0" y="208.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">en</text>
+    <circle cx="476.5" cy="166.9" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="484.5" y="170.9" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">de</text>
-    <circle cx="440.4" cy="204.6" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="440.4" cy="204.6" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="448.4" y="208.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">es</text>
-    <circle cx="455.9" cy="180.6" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="455.9" cy="180.6" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="463.9" y="184.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">fr</text>
-    <circle cx="481.6" cy="197.8" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="481.6" cy="197.8" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="489.6" y="201.8" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">it</text>
-    <circle cx="427.5" cy="204.6" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="427.5" cy="204.6" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="435.5" y="208.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pt</text>
-    <circle cx="309.0" cy="393.3" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
-    <text x="259.0" y="397.3" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pt_BR</text>
-    <circle cx="463.6" cy="163.5" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="309.0" cy="393.3" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="261.0" y="397.3" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pt_BR</text>
+    <circle cx="463.6" cy="163.5" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="471.6" y="167.5" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">nl</text>
-    <circle cx="499.7" cy="163.5" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="499.7" cy="163.5" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="507.7" y="167.5" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">pl</text>
-    <circle cx="489.4" cy="136.0" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="489.4" cy="136.0" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="497.4" y="140.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">sv</text>
-    <circle cx="476.5" cy="136.0" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="476.5" cy="136.0" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="484.5" y="140.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">nb</text>
-    <circle cx="517.7" cy="129.2" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="517.7" cy="129.2" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="525.7" y="133.2" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">fi</text>
-    <circle cx="489.4" cy="170.3" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="489.4" cy="170.3" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="497.4" y="174.3" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">cs</text>
-    <circle cx="499.7" cy="180.6" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="499.7" cy="180.6" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="507.7" y="184.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">hu</text>
-    <circle cx="515.1" cy="184.0" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="515.1" cy="184.0" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="523.1" y="188.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ro</text>
-    <circle cx="540.9" cy="208.1" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="540.9" cy="208.1" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="548.9" y="212.1" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">tr</text>
-    <circle cx="759.9" cy="359.0" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="759.9" cy="359.0" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="767.9" y="375.0" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">id</text>
-    <circle cx="510.0" cy="208.1" r="4.5" fill="#3498db" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="510.0" cy="208.1" r="4.5" fill="#3498db" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="518.0" y="212.1" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">el</text>
-    <circle cx="592.4" cy="153.2" r="4.5" fill="#9b59b6" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="592.4" cy="153.2" r="4.5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="600.4" y="157.2" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ru</text>
-    <circle cx="530.6" cy="173.7" r="4.5" fill="#9b59b6" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="530.6" cy="173.7" r="4.5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="538.6" y="177.7" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">uk</text>
-    <circle cx="716.1" cy="180.6" r="4.5" fill="#9b59b6" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
-    <text x="666.1" y="184.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">mn</text>
-    <circle cx="566.7" cy="259.5" r="4.5" fill="#2ecc71" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="716.1" cy="180.6" r="4.5" fill="#9b59b6" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
+    <text x="668.1" y="184.6" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">mn</text>
+    <circle cx="566.7" cy="259.5" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="574.7" y="263.5" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">ar</text>
-    <circle cx="540.9" cy="235.5" r="4.5" fill="#2ecc71" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="540.9" cy="235.5" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="548.9" y="239.5" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">he</text>
-    <circle cx="589.9" cy="232.1" r="4.5" fill="#2ecc71" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="589.9" cy="232.1" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="597.9" y="236.1" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">fa</text>
-    <circle cx="651.7" cy="266.4" r="4.5" fill="#2ecc71" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="651.7" cy="266.4" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="659.7" y="270.4" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">hi</text>
-    <circle cx="682.6" cy="259.5" r="4.5" fill="#2ecc71" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="682.6" cy="259.5" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="690.6" y="263.5" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">bn</text>
-    <circle cx="644.0" cy="276.7" r="4.5" fill="#2ecc71" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="644.0" cy="276.7" r="4.5" fill="#2ecc71" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="652.0" y="280.7" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">mr</text>
-    <circle cx="540.9" cy="362.4" r="4.5" fill="#f39c12" stroke="#ffffff" stroke-width="1.5" opacity="0.95"/>
+    <circle cx="540.9" cy="362.4" r="4.5" fill="#f39c12" stroke="#fff" stroke-width="1.5" opacity="0.95"/>
     <text x="548.9" y="366.4" fill="#e0e0e0" font-family="sans-serif" font-size="9" font-weight="bold">sw</text>
   </g>
   <g id="legend">
-    <circle cx="30" cy="580" r="4" fill="#3498db" stroke="#ffffff" stroke-width="1"/>
-    <text x="40" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">European</text>
-    <circle cx="130" cy="580" r="4" fill="#e74c3c" stroke="#ffffff" stroke-width="1"/>
-    <text x="140" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">East Asian</text>
-    <circle cx="230" cy="580" r="4" fill="#9b59b6" stroke="#ffffff" stroke-width="1"/>
-    <text x="240" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">Cyrillic</text>
-    <circle cx="310" cy="580" r="4" fill="#2ecc71" stroke="#ffffff" stroke-width="1"/>
-    <text x="320" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">Mideast &amp; South Asian</text>
-    <circle cx="450" cy="580" r="4" fill="#f39c12" stroke="#ffffff" stroke-width="1"/>
-    <text x="460" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">African</text>
+    <circle cx="30" cy="580" r="4" fill="#3498db" stroke="#fff" stroke-width="1"/>
+    <text x="40" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">European (18)</text>
+    <circle cx="155" cy="580" r="4" fill="#e74c3c" stroke="#fff" stroke-width="1"/>
+    <text x="165" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">East Asian (6)</text>
+    <circle cx="280" cy="580" r="4" fill="#9b59b6" stroke="#fff" stroke-width="1"/>
+    <text x="290" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">Cyrillic (3)</text>
+    <circle cx="380" cy="580" r="4" fill="#2ecc71" stroke="#fff" stroke-width="1"/>
+    <text x="390" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">Mideast &amp; South Asian (6)</text>
+    <circle cx="560" cy="580" r="4" fill="#f39c12" stroke="#fff" stroke-width="1"/>
+    <text x="570" y="584" fill="#a0aab5" font-family="sans-serif" font-size="11">African (1)</text>
   </g>
 </svg>
