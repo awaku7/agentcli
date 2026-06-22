@@ -10,7 +10,7 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
     "type": "function",
-    "tool_genre": "devel",
+    "tool_genre": "index",
     "function": {
         "name": "swift2idx",
         "description": _("tool.description", default="Parse a Swift (.swift) file into classes, structs, enums, protocols, extensions, functions, and methods and return a numbered index or a specific definition section."),

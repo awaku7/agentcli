@@ -11,7 +11,7 @@ _ = make_tool_translator(__file__)
 
 TOOL_SPEC = {
     "type": "function",
-    "tool_genre": "devel",
+    "tool_genre": "index",
     "function": {
         "name": "py2idx",
         "description": _(

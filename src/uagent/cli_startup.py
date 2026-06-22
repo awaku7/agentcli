@@ -22,7 +22,7 @@ def _prompt_startup_tool_genre_mask_fallback() -> int:
     print(_("[INFO] startup genre prompt = numeric-input"), file=sys.stderr)
 
     prompt = _(
-        "Enter the sum of numbers (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,511=all, Enter=basic only):"
+        "Enter the sum of numbers (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all, Enter=basic only):"
     )
     out = getattr(sys, "__stdout__", None) or sys.stdout
     while True:
@@ -83,6 +83,8 @@ def _prompt_startup_tool_genre_mask() -> int:
         ("exec", _("Execution (cmd, python, pwsh, bash, sub-agent)")),
         ("external", _("External (A2A, MCP, fetch, search web)")),
         ("media", _("Media (image gen/edit/analyze, audio, QR code)")),
+        ("file", _("File (create, delete, read, write, search, zip, rename, hash, grep, list dir)")),
+        ("index", _("Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)")),
     ]
 
     stdin_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())
@@ -134,6 +136,8 @@ def _prompt_startup_tool_genre_mask() -> int:
             mask |= 128
         elif key == "file":
             mask |= 256
+        elif key == "index":
+            mask |= 512
     return mask
 
 
@@ -148,6 +152,8 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
         _set_devel_tools_enabled,
         _set_exec_tools_enabled,
         _set_external_tools_enabled,
+        _set_file_tools_enabled,
+        _set_index_tools_enabled,
         _set_iot_tools_enabled,
         _set_media_tools_enabled,
         _set_office_tools_enabled,
@@ -169,6 +175,8 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
         enabled_specs.append((128, _set_media_tools_enabled))
     if _set_file_tools_enabled is not None:
         enabled_specs.append((256, _set_file_tools_enabled))
+    if _set_index_tools_enabled is not None:
+        enabled_specs.append((512, _set_index_tools_enabled))
 
     for bit, setter in enabled_specs:
         if not (mask & bit):

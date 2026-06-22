@@ -982,6 +982,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 _set_devel_tools_enabled,
                 _set_exec_tools_enabled,
                 _set_external_tools_enabled,
+                _set_index_tools_enabled,
                 _set_iot_tools_enabled,
                 _set_media_tools_enabled,
                 _set_office_tools_enabled,
@@ -1035,6 +1036,11 @@ class MainWindow(QtWidgets.QMainWindow):
                     "media",
                     _("Media (image gen/edit/analyze, audio, QR code)"),
                     _set_media_tools_enabled,
+                ),
+                (
+                    "index",
+                    _("Index (source code navigation: py2idx, ts2idx, etc.)"),
+                    _set_index_tools_enabled,
                 ),
             ]
 
@@ -1963,7 +1969,7 @@ def main():
         "--tool-genre-mask",
         type=int,
         default=None,
-        help="Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all). Skips the interactive genre prompt when specified.",
+        help="Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips the interactive genre prompt when specified.",
     )
     parser.add_argument(
         "--use-tool",
