@@ -80,13 +80,11 @@ export class ChatPanel {
     }
 
     private async handleChatMessage(text: string) {
-        // For now, execute tools/list as a demo
         try {
-            const tools = await this.ws.listTools();
-            const toolNames = tools.map((t: any) => t.name).join(', ');
+            const result = await this.ws.call('chat', { message: text });
             this.postMessage({
                 type: 'chunk',
-                data: `Connected to uag server. ${tools.length} tools available:\n\n${toolNames}`
+                data: result.reply || '(no reply)'
             });
             this.postMessage({ type: 'done' });
         } catch (e: any) {

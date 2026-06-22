@@ -28,6 +28,7 @@ class WsHandler:
         req_id = msg.get("id")
 
         handlers = {
+            "chat": self.handle_chat,
             "ping": self.handle_ping,
             "tools/list": self.handle_tools_list,
             "tools/get": self.handle_tools_get,
@@ -95,6 +96,23 @@ class WsHandler:
         import time
 
         return {"pong": True, "timestamp": time.time()}
+
+    async def handle_chat(self, params: dict) -> dict:
+        """Send a message to the LLM and return the reply."""
+        message = params.get("message", "")
+        if not message:
+            raise ValueError("'message' is required")
+
+        from uagent.core import process_message
+
+        try:
+            reply = await process_message(message)
+            self.session_mgr.save_message("user", message)
+            self.session_mgr.save_message("assistant", reply)
+            return {"reply": reply}
+        except ImportError:
+            # Fallback if core not fully available
+            return {"reply": f"[uag] Received: {message[:100]}... (LLM core not loaded)"}
 
     async def handle_tools_list(self, params: dict) -> dict:
         """Return a simplified list of all available tools."""
