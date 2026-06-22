@@ -1,19 +1,35 @@
 {
   "ar": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "bn": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "cs": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "de": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
@@ -24,32 +40,60 @@
     "msg.unknown_error": "unknown error"
   },
   "es": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "fa": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "fi": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "fr": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "hi": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "id": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "it": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "ja": {
     "param.fmt.description": "形式: json または text。",
@@ -60,87 +104,171 @@
     "msg.unknown_error": "不明なエラー"
   },
   "ko": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "mn": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "mr": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "el": {
     "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
-    "tool.description": "Λίστα συσκευών SwitchBot Cloud για τον διαμορφωμένο λογαριασμό."
+    "tool.description": "Λίστα συσκευών SwitchBot Cloud για τον διαμορφωμένο λογαριασμό.",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "he": {
     "param.fmt.description": "אין ערכים במטמון.",
-    "tool.description": "רשום מכשירי SwitchBot Cloud עבור החשבון המוגדר."
+    "tool.description": "רשום מכשירי SwitchBot Cloud עבור החשבון המוגדר.",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "hu": {
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
-    "tool.description": "Sorolja fel a SwitchBot Cloud eszközöket a konfigurált fiókhoz."
+    "tool.description": "Sorolja fel a SwitchBot Cloud eszközöket a konfigurált fiókhoz.",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "ro": {
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
-    "tool.description": "Listați dispozitivele SwitchBot Cloud pentru contul configurat."
+    "tool.description": "Listați dispozitivele SwitchBot Cloud pentru contul configurat.",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "nb": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "nl": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "pl": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "pt": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "pt_BR": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "ru": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "sv": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "sw": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "th": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "tr": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "uk": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "vi": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "zh_CN": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "zh_TW": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   }
 }

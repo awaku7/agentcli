@@ -12,7 +12,19 @@
     "err.too_many_commands": "عدد كبير جدًا من الأوامر (الحد الأقصى 20).",
     "err.device_not_found": "الجهاز غير موجود: {device}",
     "err.operation_failed": "فشلت العملية: {err}",
-    "param.timeout.description": "المهلة بالثواني لكل أمر."
+    "param.timeout.description": "المهلة بالثواني لكل أمر.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "bn": {
     "tool.description": "SwitchBot ডিভাইসের জন্য ব্যাচ কমান্ড কার্যকর করুন।",
@@ -27,7 +39,19 @@
     "err.too_many_commands": "অত্যধিক কমান্ড (সর্বোচ্চ 20)।",
     "err.device_not_found": "ডিভাইস পাওয়া যায়নি: {device}",
     "err.operation_failed": "অপারেশন ব্যর্থ হয়েছে: {err}",
-    "param.timeout.description": "প্রতি কমান্ডে সেকেন্ডে টাইমআউট।"
+    "param.timeout.description": "প্রতি কমান্ডে সেকেন্ডে টাইমআউট।",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "cs": {
     "tool.description": "Provést dávkové příkazy pro zařízení SwitchBot.",
@@ -42,7 +66,19 @@
     "err.too_many_commands": "Příliš mnoho příkazů (max 20).",
     "err.device_not_found": "Zařízení nenalezeno: {device}",
     "err.operation_failed": "Operace selhala: {err}",
-    "param.timeout.description": "Časový limit v sekundách na příkaz."
+    "param.timeout.description": "Časový limit v sekundách na příkaz.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "de": {
     "tool.description": "Batch-Befehle für SwitchBot-Geräte ausführen.",
@@ -57,7 +93,19 @@
     "err.too_many_commands": "Zu viele Befehle (max. 20).",
     "err.device_not_found": "Gerät nicht gefunden: {device}",
     "err.operation_failed": "Vorgang fehlgeschlagen: {err}",
-    "param.timeout.description": "Zeitüberschreitung in Sekunden pro Befehl."
+    "param.timeout.description": "Zeitüberschreitung in Sekunden pro Befehl.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "en": {
     "tool.description": "Execute multiple SwitchBot Cloud commands in sequence.",
@@ -88,7 +136,19 @@
     "err.too_many_commands": "Demasiados comandos (máx. 20).",
     "err.device_not_found": "Dispositivo no encontrado: {device}",
     "err.operation_failed": "Operación fallida: {err}",
-    "param.timeout.description": "Tiempo de espera en segundos por comando."
+    "param.timeout.description": "Tiempo de espera en segundos por comando.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "fa": {
     "tool.description": "اجرای دستورات دسته‌ای برای دستگاه‌های SwitchBot.",
@@ -103,7 +163,19 @@
     "err.too_many_commands": "دستورات بیش از حد (حداکثر 20).",
     "err.device_not_found": "دستگاه پیدا نشد: {device}",
     "err.operation_failed": "عملیات ناموفق: {err}",
-    "param.timeout.description": "مهلت زمانی بر حسب ثانیه برای هر دستور."
+    "param.timeout.description": "مهلت زمانی بر حسب ثانیه برای هر دستور.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "fi": {
     "tool.description": "Suorita eräkomentoja SwitchBot-laitteille.",
@@ -118,7 +190,19 @@
     "err.too_many_commands": "Liian monta komentoa (enintään 20).",
     "err.device_not_found": "Laitetta ei löydy: {device}",
     "err.operation_failed": "Toiminto epäonnistui: {err}",
-    "param.timeout.description": "Aikakatkaisu sekunneissa per komento."
+    "param.timeout.description": "Aikakatkaisu sekunneissa per komento.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "fr": {
     "tool.description": "Exécuter des commandes par lots pour les appareils SwitchBot.",
@@ -133,7 +217,19 @@
     "err.too_many_commands": "Trop de commandes (max 20).",
     "err.device_not_found": "Appareil non trouvé : {device}",
     "err.operation_failed": "Opération échouée : {err}",
-    "param.timeout.description": "Délai d'attente en secondes par commande."
+    "param.timeout.description": "Délai d'attente en secondes par commande.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "hi": {
     "tool.description": "SwitchBot उपकरणों के लिए बैच कमांड निष्पादित करें।",
@@ -148,7 +244,19 @@
     "err.too_many_commands": "बहुत अधिक कमांड (अधिकतम 20)।",
     "err.device_not_found": "उपकरण नहीं मिला: {device}",
     "err.operation_failed": "संचालन विफल: {err}",
-    "param.timeout.description": "प्रति कमांड सेकंड में टाइमआउट।"
+    "param.timeout.description": "प्रति कमांड सेकंड में टाइमआउट।",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "id": {
     "tool.description": "Menjalankan perintah batch untuk perangkat SwitchBot.",
@@ -163,7 +271,19 @@
     "err.too_many_commands": "Terlalu banyak perintah (maks 20).",
     "err.device_not_found": "Perangkat tidak ditemukan: {device}",
     "err.operation_failed": "Operasi gagal: {err}",
-    "param.timeout.description": "Waktu tunggu dalam detik per perintah."
+    "param.timeout.description": "Waktu tunggu dalam detik per perintah.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "it": {
     "tool.description": "Esegui comandi batch per dispositivi SwitchBot.",
@@ -178,7 +298,19 @@
     "err.too_many_commands": "Troppi comandi (massimo 20).",
     "err.device_not_found": "Dispositivo non trovato: {device}",
     "err.operation_failed": "Operazione fallita: {err}",
-    "param.timeout.description": "Timeout in secondi per comando."
+    "param.timeout.description": "Timeout in secondi per comando.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "ja": {
     "tool.description": "SwitchBotデバイス用のバッチコマンドを実行します。",
@@ -220,7 +352,19 @@
     "err.too_many_commands": "명령이 너무 많습니다(최대 20개).",
     "err.device_not_found": "장치를 찾을 수 없습니다: {device}",
     "err.operation_failed": "작업 실패: {err}",
-    "param.timeout.description": "명령당 시간 초과(초)입니다."
+    "param.timeout.description": "명령당 시간 초과(초)입니다.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "mn": {
     "tool.description": "SwitchBot төхөөрөмжүүдэд багц командуудыг гүйцэтгэнэ.",
@@ -235,7 +379,19 @@
     "err.too_many_commands": "Хэт олон команд (хамгийн ихдээ 20).",
     "err.device_not_found": "Төхөөрөмж олдсонгүй: {device}",
     "err.operation_failed": "Үйлдэл амжилтгүй боллоо: {err}",
-    "param.timeout.description": "Команд бүрийн хугацаа хэтрэлт (секундээр)."
+    "param.timeout.description": "Команд бүрийн хугацаа хэтрэлт (секундээр).",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "mr": {
     "tool.description": "SwitchBot उपकरणांसाठी बॅच कमांड कार्यान्वित करा.",
@@ -250,7 +406,19 @@
     "err.too_many_commands": "खूप जास्त कमांड (कमाल 20).",
     "err.device_not_found": "उपकरण सापडले नाही: {device}",
     "err.operation_failed": "ऑपरेशन अयशस्वी: {err}",
-    "param.timeout.description": "प्रति कमांड सेकंदात टाइमआउट."
+    "param.timeout.description": "प्रति कमांड सेकंदात टाइमआउट.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "el": {
     "tool.description": "Εκτέλεση της εντολής εκκίνησης πολλαπλών δεδομένων C.",
@@ -264,7 +432,9 @@
     "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
     "err.invalid_response": "Το SwitchBot Cloud επέστρεψε ένα μη αναμενόμενο ωφέλιμο φορτίο.",
     "err.commands_required": "Το πεδίο εντολών πρέπει να είναι ένας μη κενός πίνακας.",
-    "err.config_missing": "Λείπουν τα διαπιστευτήρια του SwitchBot Cloud."
+    "err.config_missing": "Λείπουν τα διαπιστευτήρια του SwitchBot Cloud.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "he": {
     "tool.description": "בצע פקודות מרובות ב-SwitchBot.",
@@ -278,7 +448,9 @@
     "param.fmt.description": "אין ערכים במטמון.",
     "err.invalid_response": "SwitchBot Cloud החזיר מטען בלתי צפוי.",
     "err.commands_required": "שדה הפקודות חייב להיות מערך לא ריק.",
-    "err.config_missing": "חסרים אישורי SwitchBot Cloud."
+    "err.config_missing": "חסרים אישורי SwitchBot Cloud.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "hu": {
     "tool.description": "Több Switch parancs végrehajtása inBot.",
@@ -292,7 +464,9 @@
     "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
     "err.invalid_response": "A SwitchBot Cloud váratlan rakományt adott vissza.",
     "err.commands_required": "A parancsmezőnek nem üres tömbnek kell lennie.",
-    "err.config_missing": "Hiányoznak a SwitchBot Cloud hitelesítő adatai."
+    "err.config_missing": "Hiányoznak a SwitchBot Cloud hitelesítő adatai.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "ro": {
     "tool.description": "Executați mai multe comenzi SwitchBot Cloud.",
@@ -306,7 +480,9 @@
     "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
     "err.invalid_response": "SwitchBot Cloud a returnat o sarcină utilă neașteptată.",
     "err.commands_required": "Câmpul de comenzi trebuie să fie o matrice nevid.",
-    "err.config_missing": "Acreditările SwitchBot Cloud lipsesc."
+    "err.config_missing": "Acreditările SwitchBot Cloud lipsesc.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "nb": {
     "tool.description": "Utfør batch-kommandoer for SwitchBot-enheter.",
@@ -321,7 +497,19 @@
     "err.too_many_commands": "For mange kommandoer (maks 20).",
     "err.device_not_found": "Enhet ikke funnet: {device}",
     "err.operation_failed": "Operasjon mislyktes: {err}",
-    "param.timeout.description": "Tidsavbrudd i sekunder per kommando."
+    "param.timeout.description": "Tidsavbrudd i sekunder per kommando.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "nl": {
     "tool.description": "Batch-opdrachten uitvoeren voor SwitchBot-apparaten.",
@@ -336,7 +524,19 @@
     "err.too_many_commands": "Te veel opdrachten (max 20).",
     "err.device_not_found": "Apparaat niet gevonden: {device}",
     "err.operation_failed": "Bewerking mislukt: {err}",
-    "param.timeout.description": "Time-out in seconden per opdracht."
+    "param.timeout.description": "Time-out in seconden per opdracht.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "pl": {
     "tool.description": "Wykonaj polecenia wsadowe dla urządzeń SwitchBot.",
@@ -351,7 +551,19 @@
     "err.too_many_commands": "Zbyt wiele poleceń (maks. 20).",
     "err.device_not_found": "Nie znaleziono urządzenia: {device}",
     "err.operation_failed": "Operacja nie powiodła się: {err}",
-    "param.timeout.description": "Limit czasu w sekundach na polecenie."
+    "param.timeout.description": "Limit czasu w sekundach na polecenie.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "pt": {
     "tool.description": "Executar comandos em lote para dispositivos SwitchBot.",
@@ -366,7 +578,19 @@
     "err.too_many_commands": "Demasiados comandos (máx. 20).",
     "err.device_not_found": "Dispositivo não encontrado: {device}",
     "err.operation_failed": "Operação falhou: {err}",
-    "param.timeout.description": "Tempo limite em segundos por comando."
+    "param.timeout.description": "Tempo limite em segundos por comando.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "pt_BR": {
     "tool.description": "Executar comandos em lote para dispositivos SwitchBot.",
@@ -381,7 +605,19 @@
     "err.too_many_commands": "Muitos comandos (máx. 20).",
     "err.device_not_found": "Dispositivo não encontrado: {device}",
     "err.operation_failed": "Operação falhou: {err}",
-    "param.timeout.description": "Tempo limite em segundos por comando."
+    "param.timeout.description": "Tempo limite em segundos por comando.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "ru": {
     "tool.description": "Выполнить пакетные команды для устройств SwitchBot.",
@@ -396,7 +632,19 @@
     "err.too_many_commands": "Слишком много команд (максимум 20).",
     "err.device_not_found": "Устройство не найдено: {device}",
     "err.operation_failed": "Операция не удалась: {err}",
-    "param.timeout.description": "Время ожидания в секундах на команду."
+    "param.timeout.description": "Время ожидания в секундах на команду.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "sv": {
     "tool.description": "Utför batch-kommandon för SwitchBot-enheter.",
@@ -411,7 +659,19 @@
     "err.too_many_commands": "För många kommandon (max 20).",
     "err.device_not_found": "Enhet hittades inte: {device}",
     "err.operation_failed": "Operation misslyckades: {err}",
-    "param.timeout.description": "Timeout i sekunder per kommando."
+    "param.timeout.description": "Timeout i sekunder per kommando.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "sw": {
     "tool.description": "Tekeleza amri za kundi kwa vifaa vya SwitchBot.",
@@ -426,7 +686,19 @@
     "err.too_many_commands": "Amri nyingi sana (kiwango cha juu 20).",
     "err.device_not_found": "Kifaa hakipatikani: {device}",
     "err.operation_failed": "Operesheni imeshindwa: {err}",
-    "param.timeout.description": "Muda wa kusubiri kwa sekunde kwa kila amri."
+    "param.timeout.description": "Muda wa kusubiri kwa sekunde kwa kila amri.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "th": {
     "tool.description": "ดำเนินการคำสั่งแบบกลุ่มสำหรับอุปกรณ์ SwitchBot",
@@ -441,7 +713,19 @@
     "err.too_many_commands": "คำสั่งมากเกินไป (สูงสุด 20)",
     "err.device_not_found": "ไม่พบอุปกรณ์: {device}",
     "err.operation_failed": "การดำเนินการล้มเหลว: {err}",
-    "param.timeout.description": "หมดเวลาเป็นวินาทีต่อคำสั่ง"
+    "param.timeout.description": "หมดเวลาเป็นวินาทีต่อคำสั่ง",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "tr": {
     "tool.description": "SwitchBot cihazları için toplu komutlar yürütün.",
@@ -456,7 +740,19 @@
     "err.too_many_commands": "Çok fazla komut (maks. 20).",
     "err.device_not_found": "Cihaz bulunamadı: {device}",
     "err.operation_failed": "İşlem başarısız: {err}",
-    "param.timeout.description": "Komut başına saniye cinsinden zaman aşımı."
+    "param.timeout.description": "Komut başına saniye cinsinden zaman aşımı.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "uk": {
     "tool.description": "Виконати пакетні команди для пристроїв SwitchBot.",
@@ -471,7 +767,19 @@
     "err.too_many_commands": "Забагато команд (максимум 20).",
     "err.device_not_found": "Пристрій не знайдено: {device}",
     "err.operation_failed": "Операція не вдалася: {err}",
-    "param.timeout.description": "Час очікування в секундах на команду."
+    "param.timeout.description": "Час очікування в секундах на команду.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "vi": {
     "tool.description": "Thực thi các lệnh hàng loạt cho thiết bị SwitchBot.",
@@ -486,7 +794,19 @@
     "err.too_many_commands": "Quá nhiều lệnh (tối đa 20).",
     "err.device_not_found": "Không tìm thấy thiết bị: {device}",
     "err.operation_failed": "Thao tác thất bại: {err}",
-    "param.timeout.description": "Thời gian chờ tính bằng giây cho mỗi lệnh."
+    "param.timeout.description": "Thời gian chờ tính bằng giây cho mỗi lệnh.",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "zh_CN": {
     "tool.description": "为SwitchBot设备执行批量命令。",
@@ -501,7 +821,19 @@
     "err.too_many_commands": "命令过多（最多20个）。",
     "err.device_not_found": "未找到设备: {device}",
     "err.operation_failed": "操作失败: {err}",
-    "param.timeout.description": "每个命令的超时时间（秒）。"
+    "param.timeout.description": "每个命令的超时时间（秒）。",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   },
   "zh_TW": {
     "tool.description": "為 SwitchBot 裝置執行批次命令。",
@@ -516,6 +848,18 @@
     "err.too_many_commands": "命令過多（最多 20 個）。",
     "err.device_not_found": "未找到裝置: {device}",
     "err.operation_failed": "操作失敗: {err}",
-    "param.timeout.description": "每個命令的逾時時間（秒）。"
+    "param.timeout.description": "每個命令的逾時時間（秒）。",
+    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_name.description": "SwitchBot device name.",
+    "param.commands.items.action.description": "Control action.",
+    "param.commands.items.value.description": "Value (0-100).",
+    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.fmt.description": "形式: json または text。",
+    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
+    "err.commands_required": "The commands field must be a non-empty array.",
+    "err.config_missing": "SwitchBot Cloud credentials are missing.",
+    "msg.batch_summary": "バッチ完了: {total} コマンド中 {ok} 成功、{fail} 失敗",
+    "msg.step_error": "         エラー: {err}"
   }
 }
