@@ -789,306 +789,1132 @@ agentcli/
 }
 ```
 
-## 9. Visual Studio (フルIDE) 対応
+## 9. 詳細実装補足
 
-VS Code 拡張と Visual Studio 拡張は互換性がありません。別途開発が必要です。
+### 9-a. Python WebSocket Server 完全実装
 
-### 共通で使い回せる部分
+#### ws_server.py
 
-| コンポーネント | 再利用可否 |
-|---------------|-----------|
-| Python バックエンド（WebSocket サーバ） | そのまま使い回せる |
-| チャットUI の HTML/JS（Webview フロントエンド） | そのまま使い回せる |
-| uag 本体のツール群 | そのまま使い回せる |
+```python
+"""WebSocket server for VSCode extension integration.
+Entry point: python -m uagent.ws_server --port 18765
+"""
+import asyncio
+import argparse
+import json
+import logging
+import os
+import signal
+import sys
+from pathlib import Path
 
-### 書き直しが必要な部分
+# uag の既存モジュールをインポート
+from uagent.ws_handler import WsHandler
+from uagent.ws_session import WsSessionManager
+from uagent.ws_config import WsConfigManager
 
-| 項目 | VS Code (TypeScript) | Visual Studio (C#) |
-|------|---------------------|-------------------|
-| 拡張マニフェスト | `package.json` | `.vsixmanifest` |
-| 拡張API | `@types/vscode` | `EnvDTE`, `IVs*`, `AsyncPackage` |
-| エディタ連携 | `TextDocument`, `workspace.fs` | `IVsTextBuffer`, `ITextDocument` |
-| コマンド登録 | `commands.registerCommand` | `MenuCommand`, `VSCommandTable` |
-| 設定画面 | `contributes.configuration` | `Tools > Options` ページ |
-| ツールウィンドウ | `WebviewPanel` | `ToolWindowPane` + WebView2 |
-| ソリューションエクスプローラ連携 | `workspace.workspaceFolders` | `IVsSolution`, `DTE.Solution` |
+logger = logging.getLogger("uag.ws_server")
 
-### Visual Studio 拡張の基本構成
+class UagWebSocketServer:
+    """WebSocket サーバ。127.0.0.1 のみ Listen する。"""
 
+    def __init__(self, port: int = 18765):
+        self.port = port
+        self.handler = WsHandler()
+        self.session_mgr = WsSessionManager()
+        self.config_mgr = WsConfigManager()
+        self._server = None
+        self._tasks: set[asyncio.Task] = set()
+
+    async def start(self):
+        import websockets
+        self._server = await websockets.serve(
+            self.on_connect,
+            host="127.0.0.1",
+            port=self.port,
+            ping_interval=20,       # 20秒ごとに ping
+            ping_timeout=10,        # ping 応答10秒で切断
+            max_size=10 * 1024 * 1024,  # 最大メッセージサイズ 10MB
+            compression=None,       # 圧縮オフ (低レイテンシ優先)
+        )
+        logger.info(f"WebSocket server started on 127.0.0.1:{self.port}")
+        await asyncio.Future()  # 永続待機
+
+    async def on_connect(self, websocket):
+        """クライアント接続ごとに呼ばれる"""
+        remote = websocket.remote_address
+        logger.info(f"Client connected: {remote}")
+        try:
+            async for raw in websocket:
+                try:
+                    msg = json.loads(raw)
+                    response = await self.dispatch(msg)
+                    await websocket.send(json.dumps(response))
+                except json.JSONDecodeError:
+                    await websocket.send(json.dumps({
+                        "id": None, "ok": False,
+                        "error": {"code": "INVALID_JSON", "message": "Invalid JSON"}
+                    }))
+                except Exception as e:
+                    logger.exception("Handler error")
+                    await websocket.send(json.dumps({
+                        "id": msg.get("id") if isinstance(msg, dict) else None,
+                        "ok": False,
+                        "error": {"code": "INTERNAL_ERROR", "message": str(e)}
+                    }))
+        except websockets.exceptions.ConnectionClosed:
+            pass
+        finally:
+            logger.info(f"Client disconnected: {remote}")
+
+    async def dispatch(self, msg: dict) -> dict:
+        """メッセージを対応するハンドラに振り分ける"""
+        method = msg.get("method", "")
+        params = msg.get("params", {})
+        req_id = msg.get("id")
+
+        handlers = {
+            "ping":         self.handle_ping,
+            "chat":         self.handle_chat,
+            "tools/list":   self.handle_tools_list,
+            "tools/get":    self.handle_tools_get,
+            "tool/execute": self.handle_tool_execute,
+            "config/get":   self.handle_config_get,
+            "config/set":   self.handle_config_set,
+            "session/list": self.handle_session_list,
+            "session/load": self.handle_session_load,
+            "session/new":  self.handle_session_new,
+            "files/read":   self.handle_files_read,
+            "files/write":  self.handle_files_write,
+            "workdir/get":  self.handle_workdir_get,
+            "workdir/set":  self.handle_workdir_set,
+        }
+        handler = handlers.get(method)
+        if not handler:
+            return {
+                "id": req_id, "ok": False,
+                "error": {"code": "METHOD_NOT_FOUND", "message": f"Unknown method: {method}"}
+            }
+        try:
+            result = await handler(params)
+            return {"id": req_id, "ok": True, "result": result}
+        except Exception as e:
+            return {
+                "id": req_id, "ok": False,
+                "error": {"code": type(e).__name__.upper(), "message": str(e)}
+            }
+
+    async def handle_ping(self, params):
+        return {"pong": True, "timestamp": asyncio.get_event_loop().time()}
+
+    async def handle_chat(self, params):
+        """LLM チャット。stream=True の場合はストリーミング。
+        本実装では通常の応答を返す。
+        実際のストリーミングは別途、チャンク分割が必要。
+        """
+        from uagent.core import process_message
+        message = params.get("message", "")
+        stream = params.get("stream", False)
+        context = params.get("context")
+        # process_message は既存の uag チャットループ
+        reply = await process_message(message, context=context)
+        return {"reply": reply}
+
+    async def handle_tools_list(self, params):
+        from uagent.tools import get_tool_catalog
+        catalog = get_tool_catalog()
+        # 必要なフィールドだけ抽出
+        tools = []
+        for t in catalog.get("tools", []):
+            fn = t.get("function", {})
+            tools.append({
+                "name": fn.get("name", ""),
+                "description": fn.get("description", ""),
+                "genre": t.get("tool_genre", "unknown"),
+                "parallel_safe": t.get("x_parallel_safe", False),
+                "parameters": fn.get("parameters", {}),
+            })
+        return {"tools": tools}
+
+    async def handle_tools_get(self, params):
+        name = params.get("name", "")
+        catalog = await self.handle_tools_list({})
+        for t in catalog["tools"]:
+            if t["name"] == name:
+                return {"spec": t}
+        raise ValueError(f"Tool '{name}' not found")
+
+    async def handle_tool_execute(self, params):
+        from uagent.tools import run_tool
+        name = params.get("name", "")
+        args = params.get("args", {})
+        result = run_tool(name, args)
+        return {"result": json.loads(result)}
+
+    async def handle_config_get(self, params):
+        key = params.get("key")
+        if key:
+            return {"config": {key: self.config_mgr.get(key)}}
+        return {"config": self.config_mgr.get_all()}
+
+    async def handle_config_set(self, params):
+        key = params.get("key")
+        value = params.get("value")
+        self.config_mgr.set(key, value)
+        return {"ok": True}
+
+    async def handle_session_list(self, params):
+        sessions = self.session_mgr.list_sessions()
+        return {"sessions": sessions}
+
+    async def handle_session_load(self, params):
+        index = params.get("index", 0)
+        session = self.session_mgr.load(index)
+        return {"session": session}
+
+    async def handle_session_new(self, params):
+        session_id = self.session_mgr.create()
+        return {"id": session_id}
+
+    async def handle_files_read(self, params):
+        from uagent.tools.safe_file_ops_extras import ensure_within_workdir
+        path = params.get("path", "")
+        safe_path = ensure_within_workdir(path)
+        if not os.path.isfile(safe_path):
+            raise FileNotFoundError(f"File not found: {safe_path}")
+        with open(safe_path, "r", encoding="utf-8", errors="replace") as f:
+            content = f.read()
+        ext = Path(safe_path).suffix.lower()
+        lang_map = {
+            ".py": "python", ".ts": "typescript", ".js": "javascript",
+            ".html": "html", ".css": "css", ".json": "json",
+            ".md": "markdown", ".yml": "yaml", ".yaml": "yaml",
+            ".rs": "rust", ".go": "go", ".java": "java",
+            ".cs": "csharp", ".cpp": "cpp", ".c": "c",
+        }
+        language = lang_map.get(ext, "text")
+        return {"content": content, "language": language, "size": len(content)}
+
+    async def handle_files_write(self, params):
+        from uagent.tools.safe_file_ops_extras import ensure_within_workdir
+        path = params.get("path", "")
+        content = params.get("content", "")
+        safe_path = ensure_within_workdir(path)
+        os.makedirs(os.path.dirname(safe_path) or ".", exist_ok=True)
+        with open(safe_path, "w", encoding="utf-8", newline="") as f:
+            f.write(content)
+        return {"ok": True, "path": safe_path, "size": len(content)}
+
+    async def handle_workdir_get(self, params):
+        from uagent.tools.context import get_callbacks
+        cb = get_callbacks()
+        return {"path": str(cb.get_workdir())}
+
+    async def handle_workdir_set(self, params):
+        from uagent.tools.safe_file_ops_extras import ensure_within_workdir
+        path = params.get("path", "")
+        safe_path = ensure_within_workdir(path)
+        from uagent.tools.context import get_callbacks
+        cb = get_callbacks()
+        cb.set_workdir(safe_path)
+        logger.info(f"Workdir set to: {safe_path}")
+        return {"ok": True, "path": safe_path}
+
+
+def main():
+    parser = argparse.ArgumentParser(description="uag WebSocket Server")
+    parser.add_argument("--port", type=int, default=18765, help="WebSocket port")
+    parser.add_argument("--log-level", default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR"])
+    args = parser.parse_args()
+
+    logging.basicConfig(
+        level=getattr(logging, args.log_level),
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+        datefmt="%H:%M:%S",
+    )
+
+    server = UagWebSocketServer(port=args.port)
+    try:
+        asyncio.run(server.start())
+    except KeyboardInterrupt:
+        logger.info("Server stopped by user")
+    except OSError as e:
+        logger.error(f"Failed to start server on port {args.port}: {e}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
 ```
-vs-extension/
-├── src/
-│   ├── UagPackage.cs            # AsyncPackage (エントリポイント)
-│   ├── UagToolWindow.cs         # ToolWindowPane (チャットUI をホスト)
-│   ├── UagWebSocketClient.cs    # Python バックエンドとの通信
-│   ├── UagCommands.cs           # メニューコマンド
-│   └── UagSettings.cs           # 設定ページ
-├── UagExtension.vsixmanifest    # マニフェスト
-├── UagExtension.csproj          # プロジェクトファイル
-└── resources/
-    ├── chat.html                # WebView2 で表示するチャットUI (流用)
-    └── icon.png
+
+#### ws_session.py
+
+```python
+"""セッション管理。既存の uag セッションと互換性あり。"""
+import os
+import json
+from pathlib import Path
+from uagent.utils.paths import get_state_dir
+
+class WsSessionManager:
+    """WebSocket 用のセッション管理ラッパー。"""
+
+    def __init__(self):
+        self.sessions_dir = get_state_dir() / "sessions"
+        self.sessions_dir.mkdir(parents=True, exist_ok=True)
+
+    def create(self) -> str:
+        """新規セッション作成。状態IDを返す。"""
+        import uuid
+        session_id = str(uuid.uuid4())[:8]
+        session_path = self.sessions_dir / f"{session_id}.json"
+        session_data = {
+            "id": session_id,
+            "created": str(__import__("datetime").datetime.now()),
+            "messages": [],
+            "context": {},
+        }
+        with open(session_path, "w", encoding="utf-8") as f:
+            json.dump(session_data, f, ensure_ascii=False)
+        return session_id
+
+    def list_sessions(self) -> list[dict]:
+        """セッション一覧。新しい順。"""
+        sessions = []
+        for f in sorted(self.sessions_dir.glob("*.json"), reverse=True):
+            try:
+                data = json.loads(f.read_text(encoding="utf-8"))
+                sessions.append({
+                    "id": data["id"],
+                    "created": data["created"],
+                    "message_count": len(data.get("messages", [])),
+                    "preview": (data.get("messages", []) or [{}])[-1].get("content", "")[:80],
+                })
+            except (json.JSONDecodeError, KeyError):
+                continue
+        return sessions
+
+    def load(self, index: int = 0) -> dict | None:
+        """セッション読み込み。index は list_sessions のインデックス。"""
+        sessions = self.list_sessions()
+        if 0 <= index < len(sessions):
+            path = self.sessions_dir / f"{sessions[index]['id']}.json"
+            return json.loads(path.read_text(encoding="utf-8"))
+        return None
 ```
 
-### 開発要件
+### 9-b. ストリーミングチャットの実装
 
-- Visual Studio 2022 (17.x) 以降
-- Visual Studio SDK（VS インストーラで「Visual Studio 拡張機能の開発」ワークロード）
-- .NET Framework 4.7.2+ または .NET 8+
-- WebView2（Edge Chromium ベースの埋め込みブラウザ）
+LLM からのストリーミング応答を WebSocket で転送する方式。
 
-### 開発の優先順位（Visual Studio 版）
+```python
+# ws_handler.py 内のストリーミング処理
+async def handle_chat_stream(self, websocket, params: dict, req_id: str):
+    """ストリーミングチャット。逐次 websocket.send() でチャンクを送信。"""
+    message = params.get("message", "")
+    context = params.get("context")
 
-| Priority | Task | 工数目安 |
-|----------|------|---------|
-| P0 | `AsyncPackage` 雛形 + WebSocket 接続 | 2日 |
-| P1 | ToolWindow に WebView2 でチャットUI表示 | 2日 |
-| P2 | エディタ連携（選択範囲の送信、コード挿入） | 2-3日 |
-| P3 | ソリューションエクスプローラ連携（workdir 設定） | 1日 |
-| P4 | メニューコマンド登録（右クリック→uag） | 1日 |
-| P5 | Marketplace 公開 | 0.5日 |
+    # uag のチャットループを非同期で実行
+    from uagent.core import stream_process_message
 
-## 10. 注意点・リスク
+    async for chunk in stream_process_message(message, context=context):
+        if chunk["type"] == "text":
+            # テキストチャンク
+            await websocket.send(json.dumps({
+                "id": req_id, "type": "chunk", "data": chunk["data"]
+            }))
+        elif chunk["type"] == "tool_call":
+            # ツール呼び出し通知
+            await websocket.send(json.dumps({
+                "id": req_id, "type": "tool_call",
+                "tool": chunk["tool"], "args": chunk["args"]
+            }))
+        elif chunk["type"] == "tool_result":
+            # ツール実行結果
+            await websocket.send(json.dumps({
+                "id": req_id, "type": "tool_result",
+                "tool": chunk["tool"], "result": chunk["result"]
+            }))
 
-- **Python ランタイム必須**: ユーザーは別途 Python + uag のインストールが必要。初回起動時の導線が重要。
-- **ポート競合**: 18765 が使用中の場合、フォールバックポートを自動選択するか、ユーザーに通知する。
-- **ファイアウォール**: 127.0.0.1 のみ Listen するので外部からのアクセスは不可。セキュリティ問題なし。
-- **子プロセスの終了処理**: VSCode 終了時に WebSocket サーバプロセスが orphan にならないよう、`deactivate()` で確実に kill する。
-- **Webview のメモリ**: `retainContextWhenHidden: true` によりタブ非表示時も状態維持。ただしメモリ消費が増えるので、長時間使用時は注意。
-- **uagw の流用**: 既存の `templates/index.html` は EJS テンプレート。Webview では静的な HTML として書き直す必要あり。
-- **テーマ連動**: `body.classList` に `vscode-dark` / `vscode-light` が自動付与されるので、CSS 変数で対応。
+    # 完了通知
+    await websocket.send(json.dumps({
+        "id": req_id, "type": "done"
+    }))
+```
 
-### Step 1: 拡張機能の雛形作成
+**重要:** ストリーミングモードでは `dispatch()` の通常の request/response フローを使わず、`handle_chat` 内で直接 websocket.send() を呼ぶ。TypeScript 側では `pending` map の Promise を使わず、`listeners` 経由でイベント駆動で処理する。
 
-- `yo code` または手動で `vscode-extension/` を作成
-- `package.json` に以下を定義:
-  - `activationEvents`: `onCommand`, `onView`
-  - `contributes.commands`: 全コマンド（`uag.start`, `uag.chat`, `uag.tools` など）
-  - `contributes.viewsContainers`: Activity Bar に `uag` アイコン追加
-  - `contributes.views`: サイドバーにツリービュー
-  - `contributes.configuration`: 設定項目（`uag.provider`, `uag.model` など）
+### 9-c. セキュリティ
 
-### Step 2: Python バックエンドとの連携方式を決定
-
-uag 本体は Python。VSCode 拡張は TypeScript/JavaScript。連携方法:
-
-| 方式 | メリット | デメリット |
-|------|---------|-----------|
-| **A) 子プロセス起動** | 簡単、既存の `uag` CLI をそのまま利用 | 起動が遅い、状態管理が複雑 |
-| **B) Python の WebSocket/HTTP サーバとして起動** | 常駐、高速応答 | WebSocket サーバの実装が必要 |
-| **C) VS Code の Language Server Protocol 拡張** | 標準的 | チャット用途には不向き |
-| **D) Python を埋め込み** | 高速 | 複雑、同梱が大変 |
-
-**推奨: B**（Python を WebSocket サーバとして起動し、VSCode 拡張から接続）
-
-### Step 3: Python 側に WebSocket/API サーバを追加
-
-既存の `uagent/` に以下のエンドポイントを持つサーバを追加:
-
-- `/chat` — LLM とのチャット (streaming)
-- `/tools` — ツール一覧取得
-- `/tool/execute` — ツール実行
-- `/files/read` — ファイル読み込み
-- `/files/write` — ファイル書き込み
-- `/config` — 設定取得/更新
-- `/session/list` — セッション一覧
-- `/session/load` — セッション読み込み
-
-技術選択肢:
-- **FastAPI** + `uvicorn` (推奨: 最もシンプル)
-- `websockets` ライブラリ
-- `aiohttp`
-
-### Step 4: VSCode 拡張側の実装
-
-#### 4-a: Webview Panel（メインチャット UI）
-- 既存の Web UI (`uagw`) のフロントエンドを流用可能
-- メッセージの Markdown レンダリング
-- コードブロックのシンタックスハイライト
-- ファイル参照のクリックで VSCode で開く
-
-#### 4-b: TreeView（ツール一覧/ファイル操作）
-- サイドバーにツールカテゴリごとのツリー表示
-- `comm` / `file` / `iot` / `devel` など genre 別
-- クリックでツール説明表示
-- ファイルツリー（作業ディレクトリ）
-
-#### 4-c: エディタ連携
-- コード選択 → 右クリック → 「uag に質問」 → 選択範囲をコンテキストとしてチャット送信
-- エディタ内のエラーを uag に送信して修正提案
-- ファイル作成/編集結果をエディタに反映
-
-#### 4-d: 診断情報プロバイダ
-- `DiagnosticCollection` を使って LLM の提案をエディタに表示
-- クイックフィックスとしてコード変更を適用
-
-### Step 5: 配布方法
-
-| 方法 | 手順 |
+| 項目 | 対策 |
 |------|------|
-| **VSIX ファイル** | `vsce package` で `.vsix` 作成、手動インストール |
-| **VS Code Marketplace** | `vsce publish` → 公開（Azure DevOps アカウント + Personal Access Token が必要） |
-| **Open VSX Registry** | Open VSX にも公開（VSCodium 対応） |
+| ポート露出 | `127.0.0.1` のみ Listen。外部からの接続不可 |
+| WebSocket 認証 | 不要（ローカル専用）。必要な場合はトークンハンドシェイク方式を追加可能 |
+| ファイルアクセス制限 | `ensure_within_workdir()` により作業ディレクトリ外への読み書き禁止 |
+| XSS (Webview) | `Content-Security-Policy` ヘッダで CDN のみ許可。`innerHTML` は sanitize |
+| トークン漏洩 | 環境変数は VSCode の `SecretStorage` には保存せず、`.env` / `.env.sec` に保持 |
+| Python 子プロセス | `subprocess.Popen` で起動。`CREATE_NO_WINDOW` フラグでコンソール非表示 |
 
-### Step 6: Python ランタイムの扱い
-
-ユーザーの環境に Python と uag がインストールされている必要がある:
-
-```json
-// package.json
-"activationEvents": [
-    "onCommand:uag.start"
-]
+```typescript
+// Webview の Content-Security-Policy
+const csp = [
+    "default-src 'self';",
+    "script-src 'self' https://cdnjs.cloudflare.com;",
+    "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;",
+    "img-src 'self' data:;",
+    "connect-src 'self' ws://127.0.0.1:*;",
+].join(' ');
+panel.webview.html = `<html><head><meta http-equiv="Content-Security-Policy" content="${csp}">...`;
 ```
 
-- 起動時に `python -c "import uagent"` で確認
-- 未インストールの場合: `pip install uag` を促すガイド表示
-- Python のパスは設定可能（`uag.pythonPath`）
+### 9-d. Webview テーマ連動 (CSS変数)
 
-または拡張機能に同梱:
-- `PyInstaller` で uag を単一バイナリ化して同梱（ファイルサイズ増大）
-- `pip install --target` で依存関係ごと同梱
+VS Code のテーマ変更を検出し、Webview の見た目を自動追従:
 
-## 3. package.json の構成例
+```typescript
+// extension.ts
+context.subscriptions.push(
+    vscode.window.onDidChangeActiveColorTheme((theme) => {
+        ChatPanel.currentPanel?.postMessage({
+            type: 'themeChanged',
+            theme: theme.kind === vscode.ColorThemeKind.Dark ? 'dark' 
+                 : theme.kind === vscode.ColorThemeKind.HighContrast ? 'high-contrast'
+                 : 'light'
+        });
+    })
+);
+```
 
-```json
-{
-  "name": "uag-vscode",
-  "displayName": "uag - Universal AI Gateway",
-  "version": "0.5.20",
-  "publisher": "awaku7",
-  "engines": { "vscode": "^1.85.0" },
-  "categories": ["Chat", "Programming Languages", "Machine Learning"],
-  "activationEvents": ["onCommand:uag.chat", "onView:uag.tools"],
-  "contributes": {
-    "commands": [
-      { "command": "uag.chat", "title": "uag: Open Chat" },
-      { "command": "uag.explain", "title": "uag: Explain Selection" },
-      { "command": "uag.refactor", "title": "uag: Refactor Selection" },
-      { "command": "uag.fix", "title": "uag: Fix Error" }
-    ],
-    "menus": {
-      "editor/context": [
-        { "command": "uag.explain", "group": "uag" },
-        { "command": "uag.refactor", "group": "uag" }
-      ]
-    },
-    "configuration": {
-      "title": "uag",
-      "properties": {
-        "uag.provider": { "type": "string", "default": "openai" },
-        "uag.pythonPath": { "type": "string", "default": "python" },
-        "uag.port": { "type": "number", "default": 18765 }
-      }
-    }
-  }
+```css
+/* chat.css — VS Code のCSS変数でテーマ対応 */
+:root {
+    --bg-primary: var(--vscode-editor-background, #1e1e1e);
+    --bg-secondary: var(--vscode-sideBar-background, #252526);
+    --text-primary: var(--vscode-editor-foreground, #d4d4d4);
+    --text-secondary: var(--vscode-descriptionForeground, #9d9d9d);
+    --border-color: var(--vscode-panel-border, #3c3c3c);
+    --accent-color: var(--vscode-textLink-foreground, #3794ff);
+    --code-bg: var(--vscode-textCodeBlock-background, #2d2d2d);
+    --danger-color: var(--vscode-errorForeground, #f48771);
+    --success-color: #4ec9b0;
+    --font-mono: var(--vscode-editor-font-family, 'Consolas', 'Courier New', monospace);
+    --font-size: var(--vscode-editor-font-size, 14px);
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: var(--font-size);
+    margin: 0;
+    padding: 8px;
+}
+
+.message-user {
+    background-color: var(--bg-secondary);
+    border-left: 3px solid var(--accent-color);
+    padding: 8px 12px;
+    margin: 8px 0;
+    border-radius: 0 4px 4px 0;
+}
+
+.message-assistant {
+    padding: 8px 12px;
+    margin: 8px 0;
+}
+
+pre code {
+    background-color: var(--code-bg);
+    border-radius: 4px;
+    padding: 12px;
+    display: block;
+    overflow-x: auto;
+}
+
+.tool-indicator {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    padding: 4px 8px;
+}
+
+.error-text {
+    color: var(--danger-color);
 }
 ```
 
-## 4. 必要な依存関係
+### 9-e. エラーリカバリ完全実装
 
-> **開発時のみ Node.js が必要。エンドユーザーは VSCode 拡張としてインストールするだけでよく、Node.js は不要。**
+```typescript
+// wsClient.ts — 完全版
+export class WsClient extends EventEmitter {
+    private ws: WebSocket | null = null;
+    private pendingCalls = new Map<string, { resolve, reject, timer }>();
+    private reconnectAttempts = 0;
+    private maxReconnectAttempts = 10;
+    private reconnectDelay = 1000;  // 初回1秒
+    private heartbeatInterval: NodeJS.Timeout | null = null;
+    private isConnected = false;
 
-**TypeScript (VSCode 拡張側) — 開発環境でのみ必要:**
-- Node.js (>=18)
-- `npm`（Node.js に同梱）
-- `@types/vscode`
-- `typescript`
-- `vsce`（拡張機能のパッケージング/公開ツール）: `npm install -g @vscode/vsce`
+    async connect(url: string, timeoutMs = 10000): Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                this.ws = new WebSocket(url);
+            } catch (e) {
+                reject(e);
+                return;
+            }
+            const timer = setTimeout(() => {
+                this.ws?.close();
+                reject(new Error('Connection timeout'));
+            }, timeoutMs);
 
-VSCode 拡張のビルド手順:
-```bash
-cd vscode-extension/
-npm install          # 依存関係インストール
-npm run compile      # TypeScript コンパイル
-vsce package         # .vsix ファイル作成（Node.js 不要で配布可能）
-vsce publish         # Marketplace 公開
+            this.ws.onopen = () => {
+                clearTimeout(timer);
+                this.isConnected = true;
+                this.reconnectAttempts = 0;
+                this.startHeartbeat();
+                this.emit('connected');
+                resolve();
+            };
+
+            this.ws.onclose = (event) => {
+                this.isConnected = false;
+                this.stopHeartbeat();
+                this.rejectAllPending('Connection closed');
+                this.emit('disconnected', event.code, event.reason);
+                this.scheduleReconnect(url);
+            };
+
+            this.ws.onerror = () => {
+                clearTimeout(timer);
+                // onclose も続けて呼ばれるので、ここでは何もしない
+            };
+
+            this.ws.onmessage = (event) => {
+                try {
+                    const msg = JSON.parse(event.data);
+                    this.handleMessage(msg);
+                } catch (e) {
+                    console.error('Failed to parse message:', e);
+                }
+            };
+        });
+    }
+
+    private handleMessage(msg: any) {
+        if (msg.id && this.pendingCalls.has(msg.id)) {
+            const pending = this.pendingCalls.get(msg.id)!;
+            clearTimeout(pending.timer);
+            this.pendingCalls.delete(msg.id);
+            if (msg.ok) {
+                pending.resolve(msg.result);
+            } else {
+                pending.reject(new Error(msg.error?.message || msg.error));
+            }
+        } else if (msg.type) {
+            // ストリーミングチャンク or 通知
+            this.emit(msg.type, msg);
+        }
+    }
+
+    async call(method: string, params: any = {}, timeoutMs = 30000): Promise<any> {
+        if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+            throw new Error('Not connected');
+        }
+        const id = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+        return new Promise((resolve, reject) => {
+            const timer = setTimeout(() => {
+                this.pendingCalls.delete(id);
+                reject(new Error(`Timeout: ${method} (${timeoutMs}ms)`));
+            }, timeoutMs);
+            this.pendingCalls.set(id, { resolve, reject, timer });
+            this.ws!.send(JSON.stringify({ id, method, params }));
+        });
+    }
+
+    private scheduleReconnect(url: string) {
+        if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+            this.emit('reconnectFailed');
+            return;
+        }
+        const delay = Math.min(
+            this.reconnectDelay * Math.pow(2, this.reconnectAttempts),
+            30000  // 最大30秒
+        );
+        this.reconnectAttempts++;
+        console.log(`Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts})`);
+        setTimeout(() => {
+            this.connect(url).catch(() => {
+                // 接続失敗は onclose で再度 scheduleReconnect が呼ばれる
+            });
+        }, delay);
+    }
+
+    private startHeartbeat() {
+        this.heartbeatInterval = setInterval(async () => {
+            try {
+                await this.call('ping', {}, 5000);
+            } catch {
+                // ping 失敗 → 自動リコネクト (onclose で処理)
+                this.ws?.close();
+            }
+        }, 30000);
+    }
+
+    private stopHeartbeat() {
+        if (this.heartbeatInterval) {
+            clearInterval(this.heartbeatInterval);
+            this.heartbeatInterval = null;
+        }
+    }
+
+    private rejectAllPending(reason: string) {
+        for (const [id, pending] of this.pendingCalls) {
+            clearTimeout(pending.timer);
+            pending.reject(new Error(reason));
+        }
+        this.pendingCalls.clear();
+    }
+
+    async close() {
+        this.stopHeartbeat();
+        this.reconnectAttempts = this.maxReconnectAttempts;  // リコネクト抑制
+        this.ws?.close();
+    }
+}
 ```
 
-**Python 側（新規追加）:**
+### 9-f. ロギング戦略
 
-**TypeScript (VSCode 拡張側):**
-- `@types/vscode`
-- `typescript`
+| コンポーネント | ログ出力先 | レベル |
+|---------------|-----------|--------|
+| Python サーバ | 標準出力 (VSCode の `debug console` に表示) | INFO (通常時), DEBUG (開発時) |
+| TypeScript 拡張 | `console.log` → VSCode の `Output` パネル (`uag` チャンネル) | 全レベル |
+| Webview | `console.log` → VSCode デベロッパーツールコンソール | 全レベル |
 
-**Python 側（新規追加）:**
-- `websockets` または `fastapi` + `uvicorn`
-- `pydantic`
+```typescript
+// extension.ts — ログチャンネル作成
+const outputChannel = vscode.window.createOutputChannel('uag');
+outputChannel.appendLine('uag extension activated');
 
-## 5. 開発の優先順位
+// 各モジュールで使用
+function log(level: string, message: string, ...args: any[]) {
+    const timestamp = new Date().toISOString().slice(11, 23);
+    outputChannel.appendLine(`[${timestamp}][${level}] ${message}`);
+    if (args.length) outputChannel.appendLine(JSON.stringify(args, null, 2));
+}
 
-| Priority | Task | 工数目安 |
-|----------|------|---------|
-| P0 | Python WebSocket サーバ実装 | 2-3日 |
-| P1 | VSCode 拡張雛形 + Webview チャット | 3-5日 |
-| P2 | エディタ連携（選択範囲の送信） | 1-2日 |
-| P3 | TreeView（ツール一覧） | 1日 |
-| P4 | 診断情報プロバイダ | 2日 |
-| P5 | Marketplace 公開 | 0.5日 |
-| P6 | テスト・CI | 2-3日 |
+// エラー時は自動表示
+function logError(error: Error) {
+    log('ERROR', error.message);
+    outputChannel.show(true);  // フォーカスは奪わない
+}
+```
 
-## 6. Visual Studio (フルIDE) 対応
+### 9-g. テスト戦略
+
+```typescript
+// test/suite/wsClient.test.ts
+import * as assert from 'assert';
+import { WsClient } from '../../src/wsClient';
+
+suite('WsClient', () => {
+    test('connect timeout', async () => {
+        const client = new WsClient();
+        try {
+            await client.connect('ws://127.0.0.1:1', 100);
+            assert.fail('Should have thrown');
+        } catch (e: any) {
+            assert.ok(e.message.includes('Connection timeout') || 
+                      e.message.includes('failed'));
+        }
+    });
+
+    test('call with no connection', async () => {
+        const client = new WsClient();
+        try {
+            await client.call('ping');
+            assert.fail('Should have thrown');
+        } catch (e: any) {
+            assert.ok(e.message.includes('Not connected'));
+        }
+    });
+});
+
+// Python 側テスト
+// test_ws_server.py
+import pytest
+import json
+from uagent.ws_handler import WsHandler
+
+@pytest.mark.asyncio
+async def test_handle_ping():
+    handler = WsHandler()
+    result = await handler.handle_ping({})
+    assert result["pong"] is True
+
+@pytest.mark.asyncio
+async def test_handle_tools_list():
+    handler = WsHandler()
+    result = await handler.handle_tools_list({})
+    assert "tools" in result
+    assert len(result["tools"]) > 0
+```
+
+### 9-h. Webview レイアウト詳細
+
+```html
+<!-- chat.html — Webview 完全版 -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" 
+          content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; 
+                   style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; 
+                   img-src 'self' data:;">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <link rel="stylesheet" href="${webview.cspSource}/chat.css">
+</head>
+<body>
+    <div id="message-list">
+        <!-- メッセージが動的に追加される -->
+    </div>
+    
+    <div id="input-area">
+        <div id="toolbar">
+            <button id="btn-file" title="Attach file">📎</button>
+            <button id="btn-code" title="Attach editor code">📋</button>
+            <button id="btn-clear" title="Clear chat">🗑️</button>
+            <button id="btn-new-session" title="New session">➕</button>
+        </div>
+        <textarea id="input" 
+                  placeholder="Ask anything... (Ctrl+Enter to send)" 
+                  rows="3"></textarea>
+        <button id="btn-send" disabled>Send</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="${webview.cspSource}/chat.js"></script>
+</body>
+</html>
+```
+
+```css
+/* chat.css — レイアウト */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#message-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+}
+
+#input-area {
+    border-top: 1px solid var(--border-color);
+    padding: 8px;
+    background: var(--bg-primary);
+}
+
+#toolbar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+#toolbar button {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+#toolbar button:hover {
+    background: var(--bg-secondary);
+}
+
+#input {
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--font-size);
+    resize: vertical;
+}
+
+#input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+#btn-send {
+    float: right;
+    margin-top: 4px;
+    padding: 4px 16px;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#btn-send:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* ツール呼び出しインジケータ */
+.tool-call {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    padding: 4px 8px;
+}
+
+.tool-call .spinner {
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.tool-result {
+    background: var(--code-bg);
+    border-radius: 4px;
+    padding: 8px;
+    margin: 4px 0;
+    font-size: 0.85em;
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+}
+```
+
+```javascript
+// chat.js — 完全版
+(function() {
+    const vscode = acquireVsCodeApi();
+    const state = vscode.getState() || { messages: [] };
+
+    const messageList = document.getElementById('message-list');
+    const input = document.getElementById('input');
+    const sendBtn = document.getElementById('btn-send');
+
+    // 状態復元
+    if (state.messages.length > 0) {
+        state.messages.forEach(msg => renderMessage(msg));
+        messageList.scrollTop = messageList.scrollHeight;
+    }
+
+    // 入力処理
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault();
+            sendMessage();
+        }
+        // Shift+Enter は改行
+    });
+
+    input.addEventListener('input', () => {
+        sendBtn.disabled = !input.value.trim();
+        // 高さ自動調整
+        input.style.height = 'auto';
+        input.style.height = Math.min(input.scrollHeight, 200) + 'px';
+    });
+
+    sendBtn.addEventListener('click', sendMessage);
+
+    function sendMessage() {
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        sendBtn.disabled = true;
+        input.style.height = 'auto';
+
+        // ユーザーメッセージを表示
+        const userMsg = { role: 'user', content: text };
+        state.messages.push(userMsg);
+        renderMessage(userMsg);
+
+        // LLM に送信
+        vscode.postMessage({ type: 'chat', text });
+    }
+
+    function renderMessage(msg) {
+        const div = document.createElement('div');
+        div.className = `message-${msg.role || 'system'}`;
+        if (msg.role === 'assistant' && msg.content === undefined) {
+            // ストリーミング中
+            div.innerHTML = '<span class="cursor-blink">▊</span>';
+            div.id = 'streaming-message';
+        } else if (msg.content) {
+            div.innerHTML = marked.parse(escapeHtml(msg.content));
+            div.querySelectorAll('pre code').forEach(block => {
+                hljs.highlightElement(block);
+                // コピーボタンを追加
+                addCopyButton(block.parentElement);
+            });
+            // ファイル参照をリンクに
+            div.querySelectorAll('a').forEach(a => {
+                const match = a.textContent.match(/(\S+?\.\w+):(\d+)/);
+                if (match) {
+                    a.href = '#';
+                    a.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        vscode.postMessage({ type: 'openFile', path: match[1], line: parseInt(match[2]) });
+                    });
+                }
+            });
+        }
+        messageList.appendChild(div);
+        messageList.scrollTop = messageList.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+        return text.replace(/[&<>"']/g, c => map[c]);
+    }
+
+    // コピーボタン
+    function addCopyButton(preElement) {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+        btn.addEventListener('click', () => {
+            const code = preElement.querySelector('code')?.textContent || '';
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'Copied!';
+                setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+            });
+        });
+        preElement.style.position = 'relative';
+        preElement.appendChild(btn);
+    }
+
+    // VS Code からのメッセージ受信
+    window.addEventListener('message', event => {
+        const msg = event.data;
+        switch (msg.type) {
+            case 'chunk':
+                appendChunk(msg.data);
+                break;
+            case 'tool_call':
+                showToolCall(msg.tool, msg.args);
+                break;
+            case 'tool_result':
+                showToolResult(msg.tool, msg.result);
+                break;
+            case 'done':
+                finalizeMessage();
+                break;
+            case 'error':
+                showError(msg.data);
+                break;
+            case 'themeChanged':
+                document.body.className = `theme-${msg.theme}`;
+                break;
+            case 'context':
+                appendContext(msg);
+                break;
+        }
+    });
+
+    function appendChunk(text) {
+        let streamingEl = document.getElementById('streaming-message');
+        if (!streamingEl) {
+            const msg = { role: 'assistant' };
+            state.messages.push(msg);
+            renderMessage(msg);
+            streamingEl = document.getElementById('streaming-message');
+        }
+        streamingEl.textContent += text;
+        messageList.scrollTop = messageList.scrollHeight;
+    }
+
+    function showToolCall(tool, args) {
+        const div = document.createElement('div');
+        div.className = 'tool-call';
+        div.innerHTML = `<span class="spinner"></span> 🔍 ${tool}(${JSON.stringify(args).slice(0, 100)})`;
+        messageList.appendChild(div);
+        messageList.scrollTop = messageList.scrollHeight;
+    }
+
+    function showToolResult(tool, result) {
+        const lastTool = messageList.lastElementChild;
+        if (lastTool?.className === 'tool-call' && lastTool.textContent.includes(tool)) {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'tool-result';
+            resultDiv.textContent = typeof result === 'string' ? result.slice(0, 500) : JSON.stringify(result).slice(0, 500);
+            lastTool.after(resultDiv);
+        }
+    }
+
+    function finalizeMessage() {
+        const streamingEl = document.getElementById('streaming-message');
+        if (streamingEl) {
+            streamingEl.id = '';
+            const lastMsg = state.messages[state.messages.length - 1];
+            if (lastMsg) lastMsg.content = streamingEl.textContent;
+        }
+        input.focus();
+        // 状態保存
+        vscode.setState({ messages: state.messages });
+    }
+
+    function showError(error) {
+        const div = document.createElement('div');
+        div.className = 'error-text';
+        div.textContent = `Error: ${error}`;
+        messageList.appendChild(div);
+    }
+
+    function appendContext(ctx) {
+        const div = document.createElement('div');
+        div.className = 'context-info';
+        div.textContent = `[Context: ${ctx.file}:${ctx.code.slice(0, 50)}...]`;
+        messageList.appendChild(div);
+    }
+})();
+```
+
+### 9-i. キーボードショートカット
+
+```json
+// package.json に追加
+"contributes": {
+    "keybindings": [
+        {
+            "command": "uag.chat",
+            "key": "ctrl+shift+u",
+            "mac": "cmd+shift+u",
+            "when": "editorFocus"
+        },
+        {
+            "command": "uag.explain",
+            "key": "ctrl+shift+e",
+            "mac": "cmd+shift+e",
+            "when": "editorHasSelection"
+        },
+        {
+            "command": "uag.refactor",
+            "key": "ctrl+shift+r",
+            "mac": "cmd+shift+r",
+            "when": "editorHasSelection"
+        },
+        {
+            "command": "uag.fix",
+            "key": "ctrl+shift+.",
+            "mac": "cmd+shift+.",
+            "when": "editorHasDiagnostics"
+        }
+    ]
+}
+```
+
+### 9-j. CI/CD パイプライン
+
+```yaml
+# .github/workflows/extension.yml
+name: Build and Publish VSCode Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: |
+          cd vscode-extension
+          npm ci
+          
+      - name: Compile TypeScript
+        run: |
+          cd vscode-extension
+          npm run compile
+          
+      - name: Run tests
+        run: |
+          cd vscode-extension
+          npm test -- --no-coverage
+          
+      - name: Package VSIX
+        run: |
+          cd vscode-extension
+          npx vsce package
+          
+      - name: Upload VSIX to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: \${{ github.event.release.upload_url }}
+          asset_path: ./vscode-extension/uag-vscode-*.vsix
+          asset_name: uag-vscode-\${{ github.ref_name }}.vsix
+          asset_content_type: application/octet-stream
+          
+      - name: Publish to Marketplace
+        run: |
+          cd vscode-extension
+          npx vsce publish -p \${{ secrets.VSCE_PAT }}
+```
+
+### 9-k. パフォーマンス考慮点
+
+| 項目 | 対策 | 根拠 |
+|------|------|------|
+| WebSocket メッセージサイズ | 最大10MB (`max_size`) | ツール実行結果が大きい場合を考慮 |
+| ストリーミングレイテンシ | 1チャンク最大1024文字 | 高頻度の send() を避けるため |
+| Webview メモリ | メッセージ100件で古いものを間引き | `state.messages.length > 100` で slice |
+| Python 子プロセスメモリ | 1セッションあたり最大500MB想定 | `resource.setrlimit` で制限可能 |
+| 並列リクエスト | `call()` のタイムアウト30秒 | ツール実行のタイムアウトと一致 |
+| Webview HTML サイズ | インライン化で初期表示高速化 | 外部ファイル参照より `webview.html` に直接埋め込み |
+
+```typescript
+// メッセージ間引き
+function trimHistory() {
+    const MAX_MESSAGES = 100;
+    if (state.messages.length > MAX_MESSAGES) {
+        const removeCount = state.messages.length - MAX_MESSAGES;
+        state.messages.splice(0, removeCount);
+        // DOM からも削除
+        const children = messageList.children;
+        for (let i = 0; i < removeCount && i < children.length; i++) {
+            children[i].remove();
+        }
+    }
+}
+```
+
+## 10. Visual Studio (フルIDE) 対応
 
 VS Code 拡張と Visual Studio 拡張は互換性がありません。別途開発が必要です。
-
-### 共通で使い回せる部分
-
-| コンポーネント | 再利用可否 |
-|---------------|-----------|
-| Python バックエンド（WebSocket サーバ） | そのまま使い回せる |
-| チャットUI の HTML/JS（Webview フロントエンド） | そのまま使い回せる |
-| uag 本体のツール群 | そのまま使い回せる |
-
-### 書き直しが必要な部分
-
-| 項目 | VS Code (TypeScript) | Visual Studio (C#) |
-|------|---------------------|-------------------|
-| 拡張マニフェスト | `package.json` | `.vsixmanifest` |
-| 拡張API | `@types/vscode` | `EnvDTE`, `IVs*`, `AsyncPackage` |
-| エディタ連携 | `TextDocument`, `workspace.fs` | `IVsTextBuffer`, `ITextDocument` |
-| コマンド登録 | `commands.registerCommand` | `MenuCommand`, `VSCommandTable` |
-| 設定画面 | `contributes.configuration` | `Tools > Options` ページ |
-| ツールウィンドウ | `WebviewPanel` | `ToolWindowPane` + WebView2 |
-| ソリューションエクスプローラ連携 | `workspace.workspaceFolders` | `IVsSolution`, `DTE.Solution` |
-
-### Visual Studio 拡張の基本構成
-
-```
-vs-extension/
-├── src/
-│   ├── UagPackage.cs            # AsyncPackage (エントリポイント)
-│   ├── UagToolWindow.cs         # ToolWindowPane (チャットUI をホスト)
-│   ├── UagWebSocketClient.cs    # Python バックエンドとの通信
-│   ├── UagCommands.cs           # メニューコマンド
-│   └── UagSettings.cs           # 設定ページ
-├── UagExtension.vsixmanifest    # マニフェスト
-├── UagExtension.csproj          # プロジェクトファイル
-└── resources/
-    ├── chat.html                # WebView2 で表示するチャットUI
-    └── icon.png
-```
-
-### 開発要件
-
-- Visual Studio 2022 (17.x) 以降
-- Visual Studio SDK（VS インストーラで「Visual Studio 拡張機能の開発」ワークロード）
-- .NET Framework 4.7.2+ または .NET 8+
-- WebView2（Edge Chromium ベースの埋め込みブラウザ）
-
-### 開発の優先順位（Visual Studio 版）
-
-| Priority | Task | 工数目安 |
-|----------|------|---------|
-| P0 | `AsyncPackage` 雛形 + WebSocket 接続 | 2日 |
-| P1 | ToolWindow に WebView2 でチャットUI表示 | 2日 |
-| P2 | エディタ連携（選択範囲の送信、コード挿入） | 2-3日 |
-| P3 | ソリューションエクスプローラ連携（workdir 設定） | 1日 |
-| P4 | メニューコマンド登録（右クリック→uag） | 1日 |
-| P5 | Marketplace 公開 | 0.5日 |
-
-## 7. 注意点
-
-- `uagw`（既存の Web UI）のフロントエンドは流用可能。`templates/index.html` のロジックを参考にすると良い。
-- ファイル操作は `ensure_within_workdir()` により VSCode の開いているワークスペースに制限される。VSCode 拡張では `workspace.workspaceFolders` を workdir に設定。
-- LLM からのファイル作成要求を VSCode の `workspace.fs` または `TextDocument` で処理すると、エディタ上で変更を可視化できる。
-- ストリーミングレスポンスは WebSocket 経由が最も自然。
