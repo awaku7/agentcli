@@ -4,12 +4,24 @@
     "target": "ES2021",
     "outDir": "out",
     "rootDir": "src",
-    "lib": ["ES2021"],
+    "lib": [
+      "ES2021",
+      "dom"
+    ],
     "sourceMap": true,
     "strict": true,
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": [
+      "node"
+    ]
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "out", ".vscode-test"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "out",
+    ".vscode-test"
+  ]
 }

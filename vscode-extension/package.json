@@ -5,8 +5,15 @@
   "version": "0.1.0",
   "publisher": "awaku7",
   "license": "Apache-2.0",
-  "engines": { "vscode": "^1.85.0" },
-  "categories": ["Chat", "Programming Languages", "Machine Learning", "Other"],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Chat",
+    "Programming Languages",
+    "Machine Learning",
+    "Other"
+  ],
   "activationEvents": [
     "onCommand:uag.chat",
     "onView:uag.tools"
@@ -14,17 +21,44 @@
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      { "command": "uag.chat", "title": "uag: Open Chat" },
-      { "command": "uag.explain", "title": "uag: Explain Selection" },
-      { "command": "uag.refactor", "title": "uag: Refactor Selection" },
-      { "command": "uag.fix", "title": "uag: Fix Error at Cursor" },
-      { "command": "uag.newSession", "title": "uag: New Session" }
+      {
+        "command": "uag.chat",
+        "title": "uag: Open Chat"
+      },
+      {
+        "command": "uag.explain",
+        "title": "uag: Explain Selection"
+      },
+      {
+        "command": "uag.refactor",
+        "title": "uag: Refactor Selection"
+      },
+      {
+        "command": "uag.fix",
+        "title": "uag: Fix Error at Cursor"
+      },
+      {
+        "command": "uag.newSession",
+        "title": "uag: New Session"
+      }
     ],
     "menus": {
       "editor/context": [
-        { "command": "uag.explain", "group": "uag@1", "when": "editorHasSelection" },
-        { "command": "uag.refactor", "group": "uag@2", "when": "editorHasSelection" },
-        { "command": "uag.fix", "group": "uag@3", "when": "editorHasDiagnostics" }
+        {
+          "command": "uag.explain",
+          "group": "uag@1",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "uag.refactor",
+          "group": "uag@2",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "uag.fix",
+          "group": "uag@3",
+          "when": "editorHasDiagnostics"
+        }
       ]
     },
     "configuration": {
@@ -55,8 +89,9 @@
     "publish": "vsce publish"
   },
   "devDependencies": {
+    "@types/node": "^26.0.0",
     "@types/vscode": "^1.85.0",
-    "typescript": "^5.3.0",
-    "@vscode/vsce": "^2.22.0"
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.3.0"
   }
 }
