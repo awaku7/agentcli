@@ -29,7 +29,7 @@
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **115 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **66 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
+- **116 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **67 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
@@ -57,7 +57,7 @@ All providers share the same toolset and interface. Switch by setting `UAGENT_PR
 ### ⚡ Parallel Tool Execution
 
 When the LLM requests multiple tools simultaneously, uag **automatically parallelizes** them.
-66 tools are marked `x_parallel_safe` and execute concurrently via a `ThreadPoolExecutor` (8 threads by default; set `UAGENT_PARALLEL_WORKERS` to change).
+67 tools are marked `x_parallel_safe` and execute concurrently via a `ThreadPoolExecutor` (8 threads by default; set `UAGENT_PARALLEL_WORKERS` to change).
 
 **Example**: Ask "Check the weather in Nordic capitals" → LLM fires `search_web` × 5 countries → all 5 searches run in parallel → results collected in one batch.
 
@@ -69,11 +69,11 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 115 Tools
+### 🛠 116 Tools
 
 | Category | Tools |
 |---|---|
-| **File Operations** | read/write/create/delete/search/grep/hash/zip |
+| **File Operations** | read/write/create/delete/search/grep/hash/zip, parse_eml (.eml files) |
 | **Web** | fetch_url, search_web, screenshot, browser_playwright |
 | **Media** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | PDF/PPTX/DOCX/RTF/ODT extraction, Excel structured extraction |

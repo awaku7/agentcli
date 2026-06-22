@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.20] - 2026-06-25
+
+### Added
+- Added Gmail tools: `gmail_send` (SMTP) and `gmail_read` (IMAP) for sending/receiving emails.
+- Added `parse_eml` tool for parsing .eml email files.
+- Added `email_utils.py` shared module to reduce code duplication across email tools.
+- Added full i18n (34 locales) for all three new tools.
+- Added `mode_after` parameter to `replace_in_file` for independent regex mode on anchor_after.
+
+### Changed
+- Updated tool count (112→116) and parallel-safe count (66→67).
+- `create_file` now returns JSON `{"ok": false, "error": "..."}` instead of raising raw exceptions.
+- `replace_in_file` match_hits now includes insert_before/insert_after/insert_at_line/insert_at_end positions.
+- `replace_in_file` insert_at_end now ensures trailing newline before appending.
+- `replace_in_file` insert_at_line now raises ValueError for out-of-range line_no.
+- Fixed duplicate computation block in `replace_in_file` (dead code).
+
 ## [0.5.19] - 2026-06-22
 
 ### Added

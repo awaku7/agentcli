@@ -5,6 +5,23 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.20] - 2026-06-25
+
+### 追加
+- Gmail ツール追加: `gmail_send`（SMTP送信）と `gmail_read`（IMAP受信/検索）。
+- `parse_eml` ツール追加: .eml メールファイルの解析。
+- メール関連の共通処理を `email_utils.py` に抽出し、コード重複を削減。
+- 3つの新ツールに完全な i18n（34ロケール）対応。
+- `replace_in_file` に `mode_after` パラメータ追加: anchor_after の正規表現モードを独立指定可能に。
+
+### 変更
+- ツール数（112→116）、並列セーフ数（66→67）を更新。
+- `create_file` が例外送出ではなく JSON `{"ok": false, "error": "..."}` を返すように変更。
+- `replace_in_file` の match_hits に insert_before/insert_after/insert_at_line/insert_at_end の挿入位置情報を追加。
+- `replace_in_file` insert_at_end で末尾改行がない場合、自動で改行を追加してから追記。
+- `replace_in_file` insert_at_line で範囲外の line_no を指定すると ValueError を送出。
+- `replace_in_file` の重複計算ブロック（デッドコード）を削除。
+
 ## [0.5.19] - 2026-06-22
 
 ### 追加
