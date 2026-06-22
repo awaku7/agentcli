@@ -29,7 +29,7 @@
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **111 tools**: File I/O, web search, image generation, BLE device scanning, MCP server integration — and **55 of them run in parallel**. When the LLM fires multiple tool calls at once, uag automatically executes them via a thread pool.
+- **112 tools**: File I/O, web search, image generation, BLE device scanning, MCP server integration — and **66 of them run in parallel**. When the LLM fires multiple tool calls at once, uag automatically executes them via a thread pool.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
@@ -50,14 +50,14 @@ See [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md
 
 ### 🧠 Multi-Provider Architecture
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
 
 All providers share the same toolset and interface. Switch by setting `UAGENT_PROVIDER` — no code changes, no separate installations.
 
 ### ⚡ Parallel Tool Execution
 
 When the LLM requests multiple tools simultaneously, uag **automatically parallelizes** them.
-55 tools are marked `x_parallel_safe` and execute concurrently via a 4-thread `ThreadPoolExecutor`.
+66 tools are marked `x_parallel_safe` and execute concurrently via a 4-thread `ThreadPoolExecutor`.
 
 **Example**: Ask "Check the weather in Nordic capitals" → LLM fires `search_web` × 5 countries → all 5 searches run in parallel → results collected in one batch.
 
@@ -69,7 +69,7 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 111 Tools
+### 🛠 112 Tools
 
 | Category | Tools |
 |---|---|
