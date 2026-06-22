@@ -199,7 +199,66 @@ vsce publish         # Marketplace 公開
 | P5 | Marketplace 公開 | 0.5日 |
 | P6 | テスト・CI | 2-3日 |
 
-## 6. 注意点
+## 6. Visual Studio (フルIDE) 対応
+
+VS Code 拡張と Visual Studio 拡張は互換性がありません。別途開発が必要です。
+
+### 共通で使い回せる部分
+
+| コンポーネント | 再利用可否 |
+|---------------|-----------|
+| Python バックエンド（WebSocket サーバ） | そのまま使い回せる |
+| チャットUI の HTML/JS（Webview フロントエンド） | そのまま使い回せる |
+| uag 本体のツール群 | そのまま使い回せる |
+
+### 書き直しが必要な部分
+
+| 項目 | VS Code (TypeScript) | Visual Studio (C#) |
+|------|---------------------|-------------------|
+| 拡張マニフェスト | `package.json` | `.vsixmanifest` |
+| 拡張API | `@types/vscode` | `EnvDTE`, `IVs*`, `AsyncPackage` |
+| エディタ連携 | `TextDocument`, `workspace.fs` | `IVsTextBuffer`, `ITextDocument` |
+| コマンド登録 | `commands.registerCommand` | `MenuCommand`, `VSCommandTable` |
+| 設定画面 | `contributes.configuration` | `Tools > Options` ページ |
+| ツールウィンドウ | `WebviewPanel` | `ToolWindowPane` + WebView2 |
+| ソリューションエクスプローラ連携 | `workspace.workspaceFolders` | `IVsSolution`, `DTE.Solution` |
+
+### Visual Studio 拡張の基本構成
+
+```
+vs-extension/
+├── src/
+│   ├── UagPackage.cs            # AsyncPackage (エントリポイント)
+│   ├── UagToolWindow.cs         # ToolWindowPane (チャットUI をホスト)
+│   ├── UagWebSocketClient.cs    # Python バックエンドとの通信
+│   ├── UagCommands.cs           # メニューコマンド
+│   └── UagSettings.cs           # 設定ページ
+├── UagExtension.vsixmanifest    # マニフェスト
+├── UagExtension.csproj          # プロジェクトファイル
+└── resources/
+    ├── chat.html                # WebView2 で表示するチャットUI
+    └── icon.png
+```
+
+### 開発要件
+
+- Visual Studio 2022 (17.x) 以降
+- Visual Studio SDK（VS インストーラで「Visual Studio 拡張機能の開発」ワークロード）
+- .NET Framework 4.7.2+ または .NET 8+
+- WebView2（Edge Chromium ベースの埋め込みブラウザ）
+
+### 開発の優先順位（Visual Studio 版）
+
+| Priority | Task | 工数目安 |
+|----------|------|---------|
+| P0 | `AsyncPackage` 雛形 + WebSocket 接続 | 2日 |
+| P1 | ToolWindow に WebView2 でチャットUI表示 | 2日 |
+| P2 | エディタ連携（選択範囲の送信、コード挿入） | 2-3日 |
+| P3 | ソリューションエクスプローラ連携（workdir 設定） | 1日 |
+| P4 | メニューコマンド登録（右クリック→uag） | 1日 |
+| P5 | Marketplace 公開 | 0.5日 |
+
+## 7. 注意点
 
 - `uagw`（既存の Web UI）のフロントエンドは流用可能。`templates/index.html` のロジックを参考にすると良い。
 - ファイル操作は `ensure_within_workdir()` により VSCode の開いているワークスペースに制限される。VSCode 拡張では `workspace.workspaceFolders` を workdir に設定。
