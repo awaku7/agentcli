@@ -5,6 +5,24 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.21] - 2026-06-22
+
+### 追加
+- VSCode 拡張機能サポート追加: TypeScript スキャフォールド (`vscode-extension/`)、WebSocket クライアント、チャットパネル、ツリープロバイダー。
+- `scheckws.py` ラッパー追加: プロジェクトルートから WebSocket サーバーを簡単に起動可能に。
+- `ws_server` にチャットハンドラ追加: VSCode パネルから LLM 呼び出しを連携。
+- LLM チャット統合: `ws_handler` で `run_cli_startup` + `run_llm_rounds` を利用。
+
+### 修正
+- TypeScript コンパイル問題を修正: `@types/node` 追加、`tsconfig.json` 修正。
+- VSCode 拡張機能から冗長な `activationEvents` を削除（VS Code が自動検出）。
+- チャットハンドラを簡略化し、LLM 未設定時に適切なフォールバックメッセージを表示。
+- `ws_handler` の `ToolCallbacks.get_workdir()` を `os.getcwd()` に置き換え。
+- WebSocket ハンドラ修正: `tool_genre_mask` の型、`should_exit` チェック、`providers` インポート、タイムアウト設定、ワークディレクトリタイミング。
+
+### 変更
+- `MANIFEST.in` と `.gitignore` を更新し、`vscode-extension/` を PyPI 配布から除外。
+
 ## [0.5.20] - 2026-06-25
 
 ### 追加

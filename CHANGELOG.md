@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.21] - 2026-06-22
+
+### Added
+- Added VSCode extension support: TypeScript scaffold (`vscode-extension/`), WebSocket client, chat panel, and tree provider.
+- Added `scheckws.py` wrapper to easily start the WebSocket server from the project root.
+- Added chat handler to `ws_server`, wiring VSCode panel to call LLM.
+- Integrated LLM chat via `run_cli_startup` + `run_llm_rounds` in `ws_handler`.
+
+### Fixed
+- Fixed TypeScript compilation issues: added `@types/node`, fixed `tsconfig.json`.
+- Removed redundant `activationEvents` from VSCode extension (auto-detected by VS Code).
+- Simplified chat handler with proper fallback message for unconfigured LLM.
+- Replaced `ToolCallbacks.get_workdir()` with `os.getcwd()` in `ws_handler`.
+- Fixed WebSocket handler: `tool_genre_mask` type, `should_exit` check, `providers` import, timeout settings, and workdir timing.
+
+### Changed
+- Updated `MANIFEST.in` and `.gitignore` to exclude `vscode-extension/` from PyPI distribution.
+
 ## [0.5.20] - 2026-06-25
 
 ### Added
