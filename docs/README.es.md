@@ -78,10 +78,11 @@ Las herramientas de solo lectura (búsqueda de archivos, cálculo hash, listado 
 | **Medios** | generar_imagen, analizar_imagen, img2img, audio_speech, audio_transcribe |
 | **Documentos** | Extracción de PDF/PPTX/DOCX/RTF/ODT, extracción estructurada de Excel |
 | **IoT** | SwitchBot (Nube + BLE), ECHONET Lite, Matter, UPnP |
-| **Herramientas de desarrollo** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Herramientas de desarrollo**, ****11 herramientas idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenga un índice de funciones/clases o una definición específica sin leer todo el archivo** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 herramientas idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenga un índice de funciones/clases o una definición específica sin leer todo el archivo** |
 | **MCP** | Conéctese a servidores MCP externos, enumere herramientas, ejecute |
 | **A2A** | Comunicación de agente a agente (con otras instancias de uag o servidores compatibles con A2A) |
 | **Sistema** | vars env, especificaciones del sistema, hora, cálculo de fecha |
+| **Navegación de código** | **11 herramientas idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenga un índice de funciones/clases o una definición específica sin leer todo el archivo |
 
 ### 🖥 3 interfaces + A2A
 

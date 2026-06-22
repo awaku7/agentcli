@@ -78,7 +78,7 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 | **Media** | generera_bild, analysera_bild, img2img, audio_tal, audio_transcribe |
 | **Dokument** | PDF/PPTX/DOCX/RTF/ODT-extraktion, Excel-strukturerad extrahering |
 | **IoT** | SwitchBot (moln + BLE), ECHONET Lite, Matter, UPnP |
-| **Utvecklarverktyg** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Utvecklarverktyg** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | Anslut till externa MCP-servrar, lista verktyg, kör |
 | **A2A** | Agent-till-agent-kommunikation (med andra uag-instanser eller A2A-kompatibla servrar) |
 | **System** | env vars, systemspecifikationer, tid, datumberäkning |

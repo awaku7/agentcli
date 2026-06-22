@@ -78,7 +78,7 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, DB
 | **Medya** | görsel_oluşturma, görsel_analiz, img2img, ses_konuşma, ses_yazıya_dökme |
 | **Belgeler** | PDF/PPTX/DOCX/RTF/ODT çıkarımı, Excel yapılandırılmış çıkarımı |
 | **IoT** | SwitchBot (Bulut + BLE), ECHONET Lite, Matter, UPnP |
-| **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | Harici MCP sunucularına bağlanma, araçları listeleme, yürütme |
 | **A2A** | Ajanlar arası iletişim (diğer uag örnekleri veya A2A uyumlu sunucularla) |
 | **Sistem** | ortam değişkenleri, sistem özellikleri, saat, tarih hesaplama |

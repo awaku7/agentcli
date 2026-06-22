@@ -78,7 +78,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 | **Vyombo vya habari** | zalisha_picha, changanua_picha, img2img, hotuba_ya_sauti,nukuu_sauti |
 | **Nyaraka** | Uchimbaji wa PDF/PPTX/DOCX/RTF/ODT, uchimbaji muundo wa Excel |
 | **IoT** | SwitchBot (Wingu + BLE), ECHONET Lite, Matter, UPnP |
-| **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | Unganisha kwa seva za MCP za nje, orodhesha zana, tekeleza |
 | **A2A** | Mawasiliano ya wakala kwa wakala (pamoja na matukio mengine ya uag au seva zinazooana na A2A) |
 | **Mfumo** | env vars, vipimo vya mfumo, saa, hesabu ya tarehe |

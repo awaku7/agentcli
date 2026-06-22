@@ -78,9 +78,10 @@ Alleen-lezen tools (zoeken naar bestanden, hash-berekening, directorylijst, vert
 | **Media** | genereer_afbeelding, analyseer_afbeelding, img2img, audio_speech, audio_transcribe |
 | **Documenten** | PDF/PPTX/DOCX/RTF/ODT-extractie, gestructureerde extractie in Excel |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Ontwikkeltools** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Ontwikkeltools**, ****11 idx-tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — krijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 idx-tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — krijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen** |
 | **MCP** | Verbinding maken met externe MCP-servers, tools weergeven, uitvoeren |
 | **A2A** | Agent-tot-agent-communicatie (met andere uag-instanties of A2A-compatibele servers) |
+| **Bronnavigatie** | **11 idx-tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — krijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen |
 | **Systeem** | env vars, systeemspecificaties, tijd, datumberekening |
 
 ### 🖥 3 interfaces + A2A

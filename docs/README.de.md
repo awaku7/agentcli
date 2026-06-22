@@ -78,10 +78,11 @@ Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Überse
 | **Medien** | generieren_image, analysieren_image, img2img, audio_speech, audio_transcribe |
 | **Dokumente** | PDF/PPTX/DOCX/RTF/ODT-Extraktion, strukturierte Excel-Extraktion |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Entwicklungstools** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Entwicklungstools**, ****11 idx-Tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 idx-Tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen** |
 | **MCP** | Mit externen MCP-Servern verbinden, Tools auflisten, ausführen |
 | **A2A** | Agent-zu-Agent-Kommunikation (mit anderen UAG-Instanzen oder A2A-kompatiblen Servern) |
 | **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung |
+| **Quellnavigation** | **11 idx-Tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen |
 
 ### 🖥 3 Schnittstellen + A2A
 

@@ -78,10 +78,11 @@ Narzędzia tylko do odczytu (wyszukiwanie plików, obliczanie skrótu, wyświetl
 | **Media** | generuj obraz_obraz_analizuj, img2img, mowa_audio, transkrypcja_audio |
 | **Dokumenty** | Ekstrakcja PDF/PPTX/DOCX/RTF/ODT, ekstrakcja strukturalna Excel |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Materia, UPnP |
-| **Narzędzia deweloperskie** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Narzędzia deweloperskie**, ****11 narzędzi idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — uzyskaj indeks funkcji/klas lub konkretną definicję bez czytania całego pliku** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 narzędzi idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — uzyskaj indeks funkcji/klas lub konkretną definicję bez czytania całego pliku** |
 | **MCP** | Połącz się z zewnętrznymi serwerami MCP, wyświetl listę narzędzi, wykonaj |
 | **A2A** | Komunikacja agent-agent (z innymi instancjami uag lub serwerami kompatybilnymi z A2A) |
 | **System** | env vars, specyfikacje systemu, czas, obliczanie daty |
+| **Nawigacja kodu źródłowego** | **11 narzędzi idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — uzyskaj indeks funkcji/klas lub konkretną definicję bez czytania całego pliku |
 
 ### 🖥 3 interfejsy + A2A
 

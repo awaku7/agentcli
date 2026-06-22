@@ -78,10 +78,11 @@ Les outils en lecture seule (recherche de fichiers, calcul de hachage, liste de 
 | **Médias** | generate_image, analyse_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | Extraction PDF/PPTX/DOCX/RTF/ODT, extraction structurée Excel |
 | **IdO** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Outils de développement** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Outils de développement**, ****11 outils idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 outils idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier** |
 | **MCP** | Connectez-vous à des serveurs MCP externes, répertoriez les outils, exécutez |
 | **A2A** | Communication agent à agent (avec d'autres instances uag ou des serveurs compatibles A2A) |
 | **Système** | variables d'environnement, spécifications du système, heure, calcul de date |
+| **Navigation dans le code** | **11 outils idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier |
 
 ### 🖥 3Interfaces + A2A
 

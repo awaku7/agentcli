@@ -78,7 +78,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **ΜΜΕ** | δημιουργία_εικόνας, ανάλυση_εικόνας, img2img, audio_speech, audio_transscribe |
 | **Έγγραφα** | Εξαγωγή PDF/PPTX/DOCX/RTF/ODT, δομημένη εξαγωγή Excel |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Εργαλεία προγραμματιστών** | git_ops, python_compile, lin_format, run_tests, db_query |
+| **Εργαλεία προγραμματιστών** | git_ops, python_compile, lin_format, run_tests, db_query, **idx tools** |
 | **MCP** | Σύνδεση σε εξωτερικούς διακομιστές MCP, λίστα εργαλείων, εκτέλεση |
 | **A2A** | Επικοινωνία agent-to-agent (με άλλες παρουσίες uag ή διακομιστές συμβατούς με A2A) |
 | **Σύστημα** | env vars, προδιαγραφές συστήματος, ώρα, υπολογισμός ημερομηνίας |

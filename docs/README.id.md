@@ -78,7 +78,7 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 | **Media** | menghasilkan_gambar, menganalisis_gambar, img2img, audio_speech, audio_transkripsikan |
 | **Dokumen** | Ekstraksi PDF/PPTX/DOCX/RTF/ODT, ekstraksi terstruktur Excel |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Materi, UPnP |
-| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan |
 | **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
 | **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal |

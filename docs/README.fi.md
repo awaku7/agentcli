@@ -78,7 +78,7 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 | **Media** | genero_image, analysoi_kuva, img2img, audio_speech, audio_transcribe |
 | **Asiakirjat** | PDF/PPTX/DOCX/RTF/ODT-uutto, Excel-strukturoitu poiminta |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | Yhdistä ulkoisiin MCP-palvelimiin, luetteloi työkalut, suorita |
 | **A2A** | Agenttien välinen viestintä (muiden uag-esiintymien tai A2A-yhteensopivien palvelimien kanssa) |
 | **Järjestelmä** | env vars, järjestelmän tiedot, aika, päivämäärälaskenta |

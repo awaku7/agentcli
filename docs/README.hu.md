@@ -78,10 +78,11 @@ A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, 
 | **Média** | gener_image, analysis_image, img2img, audio_speech, audio_transcribe |
 | **Dokumentumok** | PDF/PPTX/DOCX/RTF/ODT kinyerés, Excel strukturált kivonat |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Fejlesztői eszközök** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Fejlesztői eszközök**, ****11 idx eszköz** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — funkció/osztály index vagy konkrét definíció lekérése a teljes fájl elolvasása nélkül** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 idx eszköz** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — funkció/osztály index vagy konkrét definíció lekérése a teljes fájl elolvasása nélkül** |
 | **MCP** | Csatlakozás külső MCP-kiszolgálókhoz, eszközök listázása, |
 | **A2A** | Ügynök-ügynök kommunikáció (más uag-példányokkal vagy A2A-kompatibilis szerverekkel) |
 | **Rendszer** | env vars, rendszerspecifikációk, idő, dátum számítás |
+| **Forráskód-navigáció** | **11 idx eszköz** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — funkció/osztály index vagy konkrét definíció lekérése a teljes fájl elolvasása nélkül |
 
 ### 🖥 3 interfész + A2A
 

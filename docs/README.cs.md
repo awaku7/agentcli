@@ -78,7 +78,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 | **Média** | generovat_image, analyzovat_obraz, img2img, audio_speech, audio_transscribe |
 | **Dokumenty** | Extrakce PDF/PPTX/DOCX/RTF/ODT, strukturovaná extrakce Excel |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | Připojte se k externím serverům MCP, vypište nástroje, spusťte |
 | **A2A** | Komunikace agent-agent (s jinými instancemi uag nebo servery kompatibilními s A2A) |
 | **Systém** | env vars, systémové specifikace, čas, výpočet data |

@@ -78,7 +78,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **СМИ** | генерировать_изображение, анализировать_изображение, img2img, audio_speech, audio_transcribe |
 | **Документы** | Извлечение PDF/PPTX/DOCX/RTF/ODT, структурированное извлечение Excel |
 | **Интернет вещей** | SwitchBot (Облако + BLE), ECHONET Lite, Matter, UPnP |
-| **Инструменты для разработчиков** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Инструменты для разработчиков** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | Подключитесь к внешним серверам MCP, просмотрите список инструментов, выполните |
 | **А2А** | Связь между агентами (с другими экземплярами uag или A2A-совместимыми серверами) |
 | **Система** | переменные env, системные характеристики, расчет времени, даты |

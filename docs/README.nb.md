@@ -78,10 +78,11 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 | **Media** | generere_bilde, analyse_bilde, img2img, audio_tale, audio_transkribering |
 | **Dokumenter** | PDF/PPTX/DOCX/RTF/ODT-utvinning, Excel-strukturert utvinning |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Utviklerverktøy** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Utviklerverktøy**, ****11 idx-verktøy** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 idx-verktøy** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen** |
 | **MCP** | Koble til eksterne MCP-servere, liste opp verktøy, kjør |
 | **A2A** | Agent-til-agent-kommunikasjon (med andre uag-instanser eller A2A-kompatible servere) |
 | **System** | env vars, systemspesifikasjoner, tid, datoberegning |
+| **Kildekodenavigasjon** | **11 idx-verktøy** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen |
 
 ### 🖥 3 grensesnitt + A2A
 

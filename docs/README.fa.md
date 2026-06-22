@@ -78,7 +78,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **رسانه** | تولید_تصویر، تحلیل_تصویر، img2img، گفتار_صوتی، رونویسی_صوتی |
 | **اسناد** | استخراج PDF/PPTX/DOCX/RTF/ODT، استخراج ساختار یافته اکسل |
 | **اینترنت اشیا** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP |
-| **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query |
+| **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query, **idx tools** |
 | **MCP** | اتصال به سرورهای MCP خارجی، فهرست ابزارها، اجرا |
 | **A2A** | ارتباط عامل به عامل (با سایر نمونه های uag یا سرورهای سازگار با A2A) |
 | **سیستم** | env vars، مشخصات سیستم، زمان، محاسبه تاریخ |

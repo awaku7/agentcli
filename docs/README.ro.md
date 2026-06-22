@@ -78,7 +78,7 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 | **Media** | genera_imagine, analizează_imagine, img2img, vorbire_audio, transcriere_audio |
 | **Documente** | Extracție PDF/PPTX/DOCX/RTF/ODT, extracție structurată Excel |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Instrumente de dezvoltare** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Instrumente de dezvoltare** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | Conectați-vă la servere MCP externe, listați instrumentele, executați |
 | **A2A** | Comunicare agent la agent (cu alte instanțe uag sau servere compatibile A2A) |
 | **Sistem** | env vars, specificații de sistem, ora, calculul datei |

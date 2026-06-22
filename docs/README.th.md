@@ -78,7 +78,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **สื่อ** | Generate_image, analy_image, img2img, audio_speech, audio_transcribe |
 | **เอกสาร** | การแยก PDF/PPTX/DOCX/RTF/ODT, การแยกโครงสร้าง Excel |
 | **ไอโอที** | SwitchBot (คลาวด์ + BLE), ECHONET Lite, สำคัญ, UPnP |
-| **เครื่องมือสำหรับการพัฒนา** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **เครื่องมือสำหรับการพัฒนา** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **เอ็มซีพี** | เชื่อมต่อกับเซิร์ฟเวอร์ MCP ภายนอก แสดงรายการเครื่องมือ ดำเนินการ |
 | **A2A** | การสื่อสารระหว่างเอเจนต์กับเอเจนต์ (กับอินสแตนซ์ uag อื่นๆ หรือเซิร์ฟเวอร์ที่เข้ากันได้กับ A2A)
 | **ระบบ** | env vars, ข้อมูลจำเพาะของระบบ, เวลา, การคำนวณวันที่ |

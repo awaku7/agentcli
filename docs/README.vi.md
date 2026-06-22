@@ -78,7 +78,7 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 | **Truyền thông** | tạo_hình ảnh, phân tích_hình ảnh, img2img, audio_speech, audio_transcribe |
 | **Tài liệu** | Trích xuất PDF/PPTX/DOCX/RTF/ODT, trích xuất có cấu trúc Excel |
 | **IoT** | SwitchBot (Đám mây + BLE), ECHONET Lite, Matter, UPnP |
-| **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | Kết nối với máy chủ MCP bên ngoài, liệt kê các công cụ, thực thi |
 | **A2A** | Giao tiếp giữa các đại lý (với các phiên bản uag khác hoặc máy chủ tương thích với A2A) |
 | **Hệ thống** | env vars, thông số kỹ thuật hệ thống, tính toán thời gian, ngày tháng |

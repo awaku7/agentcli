@@ -78,10 +78,11 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **מדיה** | gener_image, analys_image, img2img, audio_speech, audio_transscribe |
 | **מסמכים** | חילוץ PDF/PPTX/DOCX/RTF/ODT, חילוץ מובנה של Excel |
 | **IoT** | SwitchBot (ענן + BLE), ECHONET Lite, Matter, UPnP |
-| **כלי פיתוח** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **כלי פיתוח** | git_ops, python_compile, lint_format, run_tests, db_query, **11 כלי idx** |
 | **MCP** | התחבר לשרתי MCP חיצוניים, רשום כלים, בצע |
 | **A2A** | תקשורת סוכן לסוכן (עם מופעי uag אחרים או שרתים תואמי A2A) |
 | **מערכת** | env vars, מפרט מערכת, זמן, חישוב תאריך |
+| **ניווט קוד מקור** | **11 כלי idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — קבל אינדקס פונקציות/מחלקות או הגדרה ספציפית מבלי לקרוא את כל הקובץ |
 
 ### 🖥 3 ממשקים + A2A
 

@@ -78,7 +78,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **মিডিয়া** | generate_image, analyze_image, img2img, audio_speech, audio_transscribe |
 | **নথিপত্র** | PDF/PPTX/DOCX/RTF/ODT নিষ্কাশন, এক্সেল কাঠামোগত নিষ্কাশন |
 | **IoT** | SwitchBot (ক্লাউড + BLE), ECHONET Lite, Matter, UPnP |
-| **দেব টুলস** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **দেব টুলস** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | বাহ্যিক MCP সার্ভারের সাথে সংযোগ করুন, টুল তালিকা করুন, কার্যকর করুন |
 | **A2A** | এজেন্ট থেকে এজেন্ট যোগাযোগ (অন্যান্য uag উদাহরণ বা A2A-সামঞ্জস্যপূর্ণ সার্ভারের সাথে) |
 | **সিস্টেম** | env vars, সিস্টেম স্পেস, সময়, তারিখ গণনা |

@@ -78,7 +78,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **मीडिया** | generate_image, analyze_image, img2img, audio_speech, audio_transscribe |
 | **कागदपत्रे** | PDF/PPTX/DOCX/RTF/ODT एक्स्ट्रॅक्शन, एक्सेल स्ट्रक्चर्ड एक्सट्रॅक्शन |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **देव साधने** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **देव साधने** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
 | **MCP** | बाह्य MCP सर्व्हरशी कनेक्ट करा, साधने सूची करा, कार्यान्वित करा |
 | **A2A** | एजंट-टू-एजंट संप्रेषण (इतर uag उदाहरणे किंवा A2A-सुसंगत सर्व्हरसह) |
 | **सिस्टम** | env vars, सिस्टम स्पेक्स, वेळ, तारीख गणना |

@@ -78,7 +78,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **الإعلام** | إنشاء صورة، تحليل الصورة، img2img، audio_speech، audio_transcribe |
 | **الوثائق** | استخراج PDF/PPTX/DOCX/RTF/ODT، استخراج منظم لـ Excel |
 | **إنترنت الأشياء** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP |
-| ** أدوات التطوير ** | git_ops، python_compile، lint_format، run_tests، db_query |
+| ** أدوات التطوير ** | git_ops، python_compile، lint_format، run_tests، db_query, **idx tools** |
 | **الخطة التشاورية المتعددة الأطراف** | الاتصال بخوادم MCP الخارجية، وقائمة الأدوات، وتنفيذ |
 | **A2A** | الاتصال من وكيل إلى وكيل (مع مثيلات UAG الأخرى أو الخوادم المتوافقة مع A2A) |
 | **النظام** | env vars، مواصفات النظام، الوقت، حساب التاريخ |
