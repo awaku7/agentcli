@@ -29,7 +29,7 @@
 
 - **Körs lokalt** på din maskin. Din data stannar hos dig (förutom API-anrop du gör).
 - **Leverantörsfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ leverantörer, alla tillgängliga från ett enda gränssnitt. Byt mellan dem genom att konfigurera om miljövariabler – ingen ominstallation, ingen migrering.
-- **111 verktyg**: Fil-I/O, webbsökning, bildgenerering, BLE-enhetsskanning, MCP-serverintegrering — och **55 av dem körs parallellt**. När LLM avfyrar flera verktygsanrop samtidigt, kör uag dem automatiskt via en trådpool.
+- **112 verktyg**: Fil-I/O, webbsökning, bildgenerering, BLE-enhetsskanning, MCP-serverintegrering — och **55 av dem körs parallellt**. När LLM avfyrar flera verktygsanrop samtidigt, kör uag dem automatiskt via en trådpool.
 - **3 användargränssnitt + A2A**: CLI, GUI, webb och Agent-to-Agent-protokoll. Samma motor, vilket gränssnitt som helst.
 - **IoT redo**: SwitchBot, ECHONET Lite, Matter, UPnP — styr dina hemenheter genom AI.
 - **Agent Skills**: Installera community-byggda färdigheter från marknadsplatsen. Förläng uag oändligt.
@@ -69,7 +69,7 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 - **Ladda om tidigare sessioner** med `:load <index>` — fortsätt där du slutade.
 - **Caching av verktygsresultat** undviker redundant återexekvering när samma verktygsanrop upprepas.
 
-### 🛠 111 Verktyg
+### 🛠 112 Verktyg
 
 | Kategori | Verktyg |
 |---|---|

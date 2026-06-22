@@ -29,7 +29,7 @@
 
 - **Lokálisan fut** a gépén. Adatai Önnél maradnak (kivéve az Ön által kezdeményezett API-hívásokat).
 - **Szolgáltatói szabadság**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ szolgáltató, mindegyik egyetlen felületről elérhető. Váltson közöttük a környezeti változók újrakonfigurálásával – nincs újratelepítés, nincs migráció.
-- **111 eszköz**: Fájl I/O, webes keresés, képgenerálás, BLE-eszköz szkennelés, MCP szerver integráció – és **55 párhuzamosan fut**. Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan végrehajtja azokat egy szálkészleten keresztül.
+- **112 eszköz**: Fájl I/O, webes keresés, képgenerálás, BLE-eszköz szkennelés, MCP szerver integráció – és **55 párhuzamosan fut**. Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan végrehajtja azokat egy szálkészleten keresztül.
 - **3 felhasználói felület + A2A**: CLI, GUI, web és Agent-to-Agent protokoll. Ugyanaz a motor, bármilyen interfész.
 - **IoT-kész**: SwitchBot, ECHONET Lite, Matter, UPnP – vezérelje otthoni eszközeit mesterséges intelligencia segítségével.
 - **Agent Skills**: Telepítse a közösség által épített készségeket a piacról. Hosszabbítsa meg az uag-ot végtelenül.
@@ -69,7 +69,7 @@ A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, 
 - **Korábbi munkamenetek újratöltése** a `:load <index>` paraméterrel – folytassa onnan, ahol abbahagyta.
 - Az **Eszközeredmények gyorsítótárazása** elkerüli a redundáns újrafuttatást, amikor ugyanaz az eszközhívás ismétlődik.
 
-### 🛠 111 Eszközök
+### 🛠 112 Eszközök
 
 | Kategória | Eszközök |
 |---|---|

@@ -29,7 +29,7 @@
 
 - **Rulează local** pe computer. Datele tale rămân cu tine (cu excepția apelurilor API pe care le faci).
 - **Libertatea furnizorilor**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Peste 15 furnizori, toți accesibili dintr-o singură interfață. Schimbați între ele prin reconfigurarea variabilelor de mediu - fără reinstalare, fără migrare.
-- **111 instrumente**: I/O fișiere, căutare web, generare de imagini, scanare dispozitiv BLE, integrare server MCP - și **55 dintre ele rulează în paralel**. Când LLM declanșează mai multe apeluri de instrumente simultan, uag le execută automat printr-un pool de fire.
+- **112 instrumente**: I/O fișiere, căutare web, generare de imagini, scanare dispozitiv BLE, integrare server MCP - și **55 dintre ele rulează în paralel**. Când LLM declanșează mai multe apeluri de instrumente simultan, uag le execută automat printr-un pool de fire.
 - **3 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol Agent-to-Agent. Același motor, orice interfață.
 - **Pregătit pentru IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — controlați-vă dispozitivele de acasă prin AI.
 - **Abilități de agent**: Instalați abilități create de comunitate de pe piață. Extinde uag la nesfârșit.
@@ -69,7 +69,7 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 - **Reîncărcați sesiunile anterioare** cu `:load <index>` — reluați de unde ați rămas.
 - **Memorizarea în cache a rezultatelor instrumentului** evită reexecuția redundantă atunci când se repetă același apel de instrument.
 
-### 🛠 111 Instrumente
+### 🛠 112 Instrumente
 
 | Categoria | Instrumente |
 |---|---|

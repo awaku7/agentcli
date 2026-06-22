@@ -29,7 +29,7 @@
 
 - **Toimii paikallisesti** koneellasi. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
 - **Toimittajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Yli 15 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
-- **111 työkalua**: tiedostojen I/O, verkkohaku, kuvan luominen, BLE-laitteiden skannaus, MCP-palvelinintegrointi – ja **55 niistä toimii rinnakkain**. Kun LLM käynnistää useita työkalukutsuja kerralla, uag suorittaa ne automaattisesti säiejoukon kautta.
+- **112 työkalua**: tiedostojen I/O, verkkohaku, kuvan luominen, BLE-laitteiden skannaus, MCP-palvelinintegrointi – ja **55 niistä toimii rinnakkain**. Kun LLM käynnistää useita työkalukutsuja kerralla, uag suorittaa ne automaattisesti säiejoukon kautta.
 - **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent -protokolla. Sama moottori, mikä tahansa käyttöliittymä.
 - **IoT-valmius**: SwitchBot, ECHONET Lite, Matter, UPnP – ohjaa kodin laitteita tekoälyn avulla.
 - **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
@@ -69,7 +69,7 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 - **Lataa aiemmat istunnot** komennolla `:load <index>` – jatka siitä, mihin jäit.
 - **Työkalun tulosten välimuisti** välttää redundantin uudelleensuorituksen, kun sama työkalukutsu toistuu.
 
-### 🛠 111 Työkalut
+### 🛠 112 Työkalut
 
 | Luokka | Työkalut |
 |---|---|

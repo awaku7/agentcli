@@ -29,7 +29,7 @@
 
 - ** Huendesha ndani ** kwenye mashine yako. Data yako itasalia nawe (isipokuwa simu za API unazopiga).
 - **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ watoa huduma, wote wanaweza kufikiwa kutoka kwa kiolesura kimoja. Badilisha kati yao kwa kusanidi upya anuwai za mazingira - hakuna kusakinisha tena, hakuna uhamiaji.
-- **Zana 111**: Faili I/O, utafutaji wa wavuti, kutengeneza picha, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — na **55 kati yake huendeshwa kwa sambamba**. Wakati LLM inapiga simu za zana nyingi mara moja, uag huzitekeleza kiotomatiki kupitia dimbwi la nyuzi.
+- **Zana 112**: Faili I/O, utafutaji wa wavuti, kutengeneza picha, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — na **66 zinalindwa kwa usawa** (hadi 4 kwa wakati mmoja). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzitekeleza kiotomatiki kupitia dimbwi la nyuzi.
 - **UI 3 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, interface yoyote.
 - **IoT tayari**: SwitchBot, ECHONET Lite, Matter, UPnP - dhibiti vifaa vyako vya nyumbani kupitia AI.
 - **Ujuzi wa Wakala**: Sakinisha ujuzi uliojengwa na jumuiya kutoka sokoni. Panua uag bila mwisho.
@@ -69,7 +69,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 - **Pakia upya vipindi vilivyopita** kwa `:pakia <index>` — endelea ulipoishia.
 - **Uakibishaji wa matokeo ya zana** huepuka kutekeleza tena tena simu ile ile inaporudiwa.
 
-### 🛠 Zana 111
+### 🛠 Zana 112
 
 | Kitengo | Zana |
 |---|---|

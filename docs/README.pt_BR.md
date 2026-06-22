@@ -29,7 +29,7 @@
 
 - **Executa localmente** em sua máquina. Seus dados permanecem com você (exceto as chamadas de API que você faz).
 - **Liberdade de provedor**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Mais de 15 provedores, todos acessíveis em uma única interface. Alterne entre eles reconfigurando variáveis ​​de ambiente — sem reinstalação, sem migração.
-- **111 ferramentas**: E/S de arquivos, pesquisa na Web, geração de imagens, verificação de dispositivos BLE, integração de servidor MCP — e **55 delas são executadas em paralelo**. Quando o LLM dispara múltiplas chamadas de ferramenta ao mesmo tempo, o uag as executa automaticamente por meio de um conjunto de threads.
+- **112 ferramentas**: E/S de arquivos, pesquisa na Web, geração de imagens, verificação de dispositivos BLE, integração de servidor MCP — e **55 delas são executadas em paralelo**. Quando o LLM dispara múltiplas chamadas de ferramenta ao mesmo tempo, o uag as executa automaticamente por meio de um conjunto de threads.
 - **3 UIs + A2A**: CLI, GUI, Web e protocolo de agente para agente. Mesmo motor, qualquer interface.
 - **Pronto para IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — controle seus dispositivos domésticos por meio de IA.
 - **Habilidades do agente**: instale habilidades criadas pela comunidade no mercado. Estenda o UAG indefinidamente.
@@ -69,7 +69,7 @@ Ferramentas somente leitura (pesquisa de arquivos, cálculo de hash, listagem de
 - **Recarregue sessões anteriores** com `:load <index>` — continue de onde parou.
 - **Cache de resultados da ferramenta** evita a reexecução redundante quando a mesma chamada de ferramenta se repete.
 
-### 🛠 111 Ferramentas
+### 🛠 112 Ferramentas
 
 | Categoria | Ferramentas |
 |---|---|

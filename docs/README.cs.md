@@ -29,7 +29,7 @@
 
 - **Běží lokálně** na vašem počítači. Vaše data zůstanou s vámi (s výjimkou volání API, která provedete).
 - **Svoboda poskytovatelů**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ poskytovatelů, vše přístupné z jediného rozhraní. Přepínejte mezi nimi překonfigurováním proměnných prostředí – žádná přeinstalace, žádná migrace.
-- **111 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, skenování zařízení BLE, integrace serveru MCP – a **55 z nich běží paralelně**. Když LLM spustí více volání nástrojů najednou, uag je automaticky provede prostřednictvím fondu vláken.
+- **111 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, skenování zařízení BLE, integrace serveru MCP – a **66 z nich běží paralelně**. Když LLM spustí více volání nástrojů najednou, uag je automaticky provede prostřednictvím fondu vláken.
 - **3 UI + A2A**: CLI, GUI, Web a Agent-to-Agent protokol. Stejný engine, jakékoli rozhraní.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP – ovládejte svá domácí zařízení pomocí AI.
 - **Schopnosti agentů**: Nainstalujte si dovednosti vytvořené komunitou z trhu. Prodlužujte uag donekonečna.
@@ -69,7 +69,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 - **Znovu načtěte minulé relace** pomocí `:load <index>` – pokračujte tam, kde jste skončili.
 - **Ukládání výsledků nástroje do mezipaměti** zabraňuje nadbytečnému opětovnému spuštění, když se opakuje stejné volání nástroje.
 
-### 🛠 111 nástrojů
+### 🛠 112 nástrojů
 
 | Kategorie | Nástroje |
 |---|---|

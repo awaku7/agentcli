@@ -29,7 +29,7 @@
 
 - **Funziona localmente** sul tuo computer. I tuoi dati rimangono con te (ad eccezione delle chiamate API che effettui).
 - **Libertà dei provider**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Oltre 15 provider, tutti accessibili da un'unica interfaccia. Passa dall'uno all'altro riconfigurando le variabili di ambiente: nessuna reinstallazione, nessuna migrazione.
-- **111 strumenti**: I/O di file, ricerca web, generazione di immagini, scansione di dispositivi BLE, integrazione del server MCP e **55 di essi vengono eseguiti in parallelo**. Quando LLM attiva più chiamate a strumenti contemporaneamente, uag le esegue automaticamente tramite un pool di thread.
+- **112 strumenti**: I/O di file, ricerca web, generazione di immagini, scansione di dispositivi BLE, integrazione del server MCP e **55 di essi vengono eseguiti in parallelo**. Quando LLM attiva più chiamate a strumenti contemporaneamente, uag le esegue automaticamente tramite un pool di thread.
 - **3 UI + A2A**: CLI, GUI, Web e protocollo da agente ad agente. Stesso motore, qualsiasi interfaccia.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP: controlla i tuoi dispositivi domestici tramite l'intelligenza artificiale.
 - **Competenze agente**: installa competenze sviluppate dalla comunità dal mercato. Estendi uag all'infinito.
@@ -69,7 +69,7 @@ Gli strumenti di sola lettura (ricerca di file, calcolo hash, elenco di director
 - **Ricarica le sessioni precedenti** con `:load <index>` — riprendi da dove avevi interrotto.
 - La **caching dei risultati dello strumento** evita la riesecuzione ridondante quando si ripete la stessa chiamata dello strumento.
 
-### 🛠 111 Strumenti
+### 🛠 112 Strumenti
 
 | Categoria | Strumenti |
 |---|---|

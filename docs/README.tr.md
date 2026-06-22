@@ -29,7 +29,7 @@
 
 - **Kendi makinenizde yerel olarak çalışır.** Verileriniz sizde kalır (yaptığınız API çağrıları hariç).
 - **Sağlayıcı özgürlüğü**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15'ten fazla sağlayıcı, tek bir arayüzden erişilebilir. Ortam değişkenlerini yeniden yapılandırarak aralarında geçiş yapın — yeniden kurulum veya taşıma gerektirmez.
-- **111 araç**: Dosya G/Ç, web arama, görsel oluşturma, BLE cihaz taraması, MCP sunucu entegrasyonu — ve bunların **55'i paralel çalışır**. LLM aynı anda birden çok araç çağrısı yaptığında, uag bunları otomatik olarak bir iş parçacığı havuzu üzerinden yürütür.
+- **112 araç**: Dosya G/Ç, web arama, görsel oluşturma, BLE cihaz taraması, MCP sunucu entegrasyonu — ve bunların **55'i paralel çalışır**. LLM aynı anda birden çok araç çağrısı yaptığında, uag bunları otomatik olarak bir iş parçacığı havuzu üzerinden yürütür.
 - **3 Arayüz + A2A**: CLI, GUI, Web ve Ajanlar Arası Protokol. Aynı motor, herhangi bir arayüz.
 - **IoT hazır**: SwitchBot, ECHONET Lite, Matter, UPnP — ev cihazlarınızı AI ile kontrol edin.
 - **Ajan Becerileri**: Pazar yerinden topluluk tarafından oluşturulmuş becerileri yükleyin. uag'ı sınırsızca genişletin.
@@ -69,7 +69,7 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, DB
 - **Geçmiş oturumları yeniden yükleyin** `:load <index>` ile — kaldığınız yerden devam edin.
 - **Araç sonuç önbellekleme**, aynı araç çağrısı tekrarlandığında gereksiz yeniden yürütmeyi önler.
 
-### 🛠 111 Araç
+### 🛠 112 Araç
 
 | Kategori | Araçlar |
 |---|---|

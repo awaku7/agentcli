@@ -29,7 +29,7 @@
 
 - **Wordt lokaal uitgevoerd** op uw computer. Uw gegevens blijven bij u (behalve API-aanroepen die u doet).
 - **Providervrijheid**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ providers, allemaal toegankelijk via één enkele interface. Wissel ertussen door de omgevingsvariabelen opnieuw te configureren: geen herinstallatie, geen migratie.
-- **111 tools**: bestands-I/O, zoeken op internet, het genereren van afbeeldingen, scannen van BLE-apparaten, MCP-serverintegratie — en **55 daarvan draaien parallel**. Wanneer de LLM meerdere tooloproepen tegelijk afvuurt, voert uag deze automatisch uit via een threadpool.
+- **112 tools**: bestands-I/O, zoeken op internet, het genereren van afbeeldingen, scannen van BLE-apparaten, MCP-serverintegratie — en **66 zijn parallel-safe (max 4 tegelijk)**. Wanneer de LLM meerdere tooloproepen tegelijk afvuurt, voert uag deze automatisch uit via een threadpool.
 - **3 UI's + A2A**: CLI-, GUI-, web- en agent-naar-agent-protocol. Dezelfde engine, elke interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — bedien uw apparaten thuis via AI.
 - **Agentvaardigheden**: installeer door de community ontwikkelde vaardigheden van de marktplaats. Breid uag eindeloos uit.
@@ -69,7 +69,7 @@ Alleen-lezen tools (zoeken naar bestanden, hash-berekening, directorylijst, vert
 - **Herlaad eerdere sessies** met `:load <index>` — ga verder waar je was gebleven.
 - **Cache van gereedschapsresultaten** voorkomt redundante heruitvoering wanneer dezelfde tooloproep wordt herhaald.
 
-### 🛠 111 Gereedschap
+### 🛠 112 Gereedschap
 
 | Categorie | Gereedschap |
 |---|---|

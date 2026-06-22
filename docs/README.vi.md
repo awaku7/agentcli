@@ -29,7 +29,7 @@
 
 - **Chạy cục bộ** trên máy của bạn. Dữ liệu của bạn vẫn ở bên bạn (ngoại trừ các lệnh gọi API bạn thực hiện).
 - **Quyền tự do của nhà cung cấp**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Hơn 15 nhà cung cấp, tất cả đều có thể truy cập từ một giao diện duy nhất. Hoán đổi giữa chúng bằng cách cấu hình lại các biến môi trường — không cần cài đặt lại, không di chuyển.
-- **111 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, quét thiết bị BLE, tích hợp máy chủ MCP — và **55 trong số đó chạy song song**. Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động thực thi chúng thông qua nhóm luồng.
+- **112 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, quét thiết bị BLE, tích hợp máy chủ MCP — và **55 trong số đó chạy song song**. Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động thực thi chúng thông qua nhóm luồng.
 - **3 UI + A2A**: CLI, GUI, Web và giao thức Agent-to-Agent. Cùng một động cơ, bất kỳ giao diện nào.
 - **Sẵn sàng cho IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — điều khiển các thiết bị trong nhà của bạn thông qua AI.
 - **Kỹ năng đại lý**: Cài đặt các kỹ năng do cộng đồng xây dựng từ thị trường. Mở rộng uag vô tận.
@@ -69,7 +69,7 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 - **Tải lại các phiên trước** bằng `:load <index>` — tiếp tục từ nơi bạn đã dừng lại.
 - **Bộ nhớ đệm kết quả công cụ** tránh việc thực thi lại dư thừa khi lệnh gọi công cụ tương tự lặp lại.
 
-### 🛠 111 Công cụ
+### 🛠 112 Công cụ
 
 | Danh mục | Công cụ |
 |---|---|
