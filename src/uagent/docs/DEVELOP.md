@@ -241,3 +241,30 @@ Common checks during development:
 - Run the relevant test suite for the touched area
 
 If a change affects startup, tools, or MCP behavior, verify the corresponding flow end-to-end.
+
+______________________________________________________________________
+
+## 7. Source code navigation tools (idx family)
+
+The `*2idx` tools let you fetch a numbered index or a specific definition section from a source file without reading the whole thing. All follow the same interface:
+
+```
+<tool>(path="...", mode="index")   → numbered table of contents
+<tool>(path="...", mode="section", section=N) → source code of the N-th definition
+```
+
+| Tool   | File(s)         | Parser        | Detects |
+|--------|-----------------|---------------|---------|
+| `md2idx`  | .md             | heading parser | ATX/setext headings |
+| `py2idx`  | .py             | `ast`          | class, def, method, decorator |
+| `ts2idx`  | .ts / .js       | regex          | class, interface, type, enum, function, arrow, method, namespace |
+| `jv2idx`  | .java           | regex          | package, class, interface, enum, record, field, constructor, method, throws |
+| `cs2idx`  | .cs             | regex          | namespace, class, struct, record, interface, enum, property, constructor, method, delegate, event, operator |
+| `dart2idx` | .dart          | regex          | library, mixin, extension on, typedef, class, factory, getter/setter, top-level function |
+| `cpp2idx` | .c/.cpp/.h/.hpp | regex         | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
+| `rs2idx`  | .rs             | regex          | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
+| `go2idx`  | .go             | regex          | package, type struct/interface, func (including receiver), const, var |
+| `swift2idx` | .swift        | regex          | class, struct, enum, protocol, extension, func, init/deinit/subscript, var/let, case |
+| `kt2idx`  | .kt             | regex          | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
+
+All idx tools have zero external dependencies (stdlib only).

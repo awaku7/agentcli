@@ -160,3 +160,30 @@ MCP 関連ツールには次があります。
 最近の smoke test では、template 作成と add/list/validate/set_default/remove の基本フローをカバーしています。
 
 `mcp_servers_validate_tool.py` は、callback ベースの truncate が使えない場合でも、そのまま結果文字列を返せるよう安全化されています。
+
+______________________________________________________________________
+
+## 6. ソースコードナビゲーションツール（idx ファミリー）
+
+`*2idx` ツールは、ソースファイルを全体読み込みせずに、番号付きインデックスまたは特定の定義セクションを取得するためのツールです。全ツール共通のインターフェースを持ちます。
+
+```
+<tool>(path="...", mode="index")     → 番号付き目次
+<tool>(path="...", mode="section", section=N) → N 番目の定義のソースコード
+```
+
+| ツール | 対象ファイル | パーサー | 検出対象 |
+|--------|-------------|----------|---------|
+| `md2idx` | .md | 見出しパーサー | ATX/setext 見出し |
+| `py2idx` | .py | `ast` | class, def, method, decorator |
+| `ts2idx` | .ts/.js | 正規表現 | class, interface, type, enum, function, arrow, method, namespace |
+| `jv2idx` | .java | 正規表現 | package, class, interface, enum, record, field, constructor, method, throws |
+| `cs2idx` | .cs | 正規表現 | namespace, class, struct, record, interface, enum, property, constructor, method, delegate, event, operator |
+| `dart2idx` | .dart | 正規表現 | library, mixin, extension on, typedef, class, factory, getter/setter, トップレベル関数 |
+| `cpp2idx` | .c/.cpp/.h/.hpp | 正規表現 | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
+| `rs2idx` | .rs | 正規表現 | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
+| `go2idx` | .go | 正規表現 | package, type struct/interface, func（レシーバ付き含む）, const, var |
+| `swift2idx` | .swift | 正規表現 | class, struct, enum, protocol, extension, func, init/deinit/subscript, var/let, case |
+| `kt2idx` | .kt | 正規表現 | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
+
+全 idx ツールは外部依存ゼロ（Python 標準ライブラリのみ）。
