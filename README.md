@@ -29,7 +29,7 @@
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **112 tools**: File I/O, web search, image generation, BLE device scanning, MCP server integration — and **66 of them run in parallel**. When the LLM fires multiple tool calls at once, uag automatically executes them via a thread pool.
+- **112 tools**: File I/O, web search, image generation, BLE device scanning, MCP server integration — **66 are parallel-safe** (up to 4 execute concurrently via thread pool). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
