@@ -88,14 +88,14 @@ TOOL_SPEC = {
 
 # Regex patterns for TypeScript/JavaScript definitions
 _PATTERNS = [
-    # export default class / export default function
-    (r"^export\s+default\s+(?:abstract\s+)?(class|function|interface)\s+(\w+)",
+    # export default class / export default function / export default async function
+    (r"^export\s+default\s+(?:abstract\s+|async\s+)?(class|function|interface)\s+(\w+)",
      lambda m, kw: ("class" if m.group(1) in ("class",) else m.group(1), m.group(2))),
-    # export abstract class / export class / export interface / export enum / export type / export function
-    (r"^export\s+(?:abstract\s+)?(class|interface|enum|type|function)\s+(\w+)",
+    # export abstract class / export class / export interface / export enum / export type / export function / export namespace
+    (r"^export\s+(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
      lambda m, kw: (m.group(1), m.group(2))),
-    # standalone: abstract class / class / interface / enum / type / function
-    (r"^(?:abstract\s+)?(class|interface|enum|type|function)\s+(\w+)",
+    # standalone: abstract class / class / interface / enum / type / function / async function / namespace
+    (r"^(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
      lambda m, kw: (m.group(1), m.group(2))),
     # const/let/var foo = (...) =>  (arrow function / function expression)
     (r"^(?:export\s+)?(?:const|let|var)\s+(\w+)\s*(?::\s*[^=]+)?\s*=\s*(?:async\s*)?\(",
@@ -196,15 +196,11 @@ class _TsIndexBuilder:
         i = 0
         while i < len(self.lines):
             raw = self.lines[i]
-            stripped = raw.strip()
-
-            # Skip empty/comment-only lines
-            if not stripped or stripped.startswith("//"):
+            cleaned = self._clean_comment(raw)
+            if not cleaned.strip():
                 brace_depth += self._estimate_brace_change(raw)
                 i += 1
                 continue
-
-            cleaned = self._clean_comment(stripped)
 
             # Try matching patterns
             matched = False
@@ -214,7 +210,7 @@ class _TsIndexBuilder:
                     continue
                 kind, name = extractor(m, cleaned)
 
-                if kind in ("class", "interface", "enum"):
+                if kind in ("class", "interface", "enum", "namespace"):
                     entry: dict = {
                         "kind": kind,
                         "name": name,
