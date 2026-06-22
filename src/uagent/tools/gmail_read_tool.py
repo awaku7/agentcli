@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-import email
 import json
 import os
-import re
-from email.header import decode_header
 from typing import Any
 
+from .email_utils import parse_email
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -91,63 +89,21 @@ def _get_credentials() -> tuple[str | None, str | None]:
     return addr, pwd
 
 
-def _decode_header_value(val: bytes | str | None) -> str:
-    if val is None:
-        return ""
-    if isinstance(val, bytes):
-        val = val.decode("utf-8", errors="replace")
-    parts = decode_header(val)
-    out: list[str] = []
-    for data, charset in parts:
-        if isinstance(data, bytes):
-            try:
-                out.append(data.decode(charset or "utf-8", errors="replace"))
-            except (LookupError, UnicodeDecodeError):
-                out.append(data.decode("utf-8", errors="replace"))
-        else:
-            out.append(data)
-    return " ".join(out)
-
-
-def _decode_payload(part: Any) -> str:
-    cte = part.get("Content-Transfer-Encoding", "").lower()
-    payload = part.get_payload(decode=True)
-    if payload is None:
-        return ""
-    charset = part.get_content_charset() or "utf-8"
-    try:
-        return payload.decode(charset, errors="replace")
-    except (LookupError, UnicodeDecodeError):
-        return payload.decode("utf-8", errors="replace")
-
-
-def _get_body(msg: Any) -> str:
-    if msg.is_multipart():
-        for part in msg.walk():
-            content_type = part.get_content_type()
-            if content_type == "text/plain":
-                return _decode_payload(part)
-        # fallback: first text/* part
-        for part in msg.walk():
-            if part.get_content_maintype() == "text":
-                return _decode_payload(part)
-        return ""
-    return _decode_payload(msg)
-
-
 def _parse_msg(uid: str, raw_data: bytes) -> dict[str, Any]:
+    import email
+
     msg = email.message_from_bytes(raw_data)
-    subject = _decode_header_value(msg.get("Subject", ""))
-    sender = _decode_header_value(msg.get("From", ""))
-    date = msg.get("Date", "")
-    body = _get_body(msg)
-    # Truncate body for listing
+    parsed = parse_email(raw_data)
+    headers = parsed["headers"]
+    body = parsed["body"]
     body_preview = body[:500] + "..." if len(body) > 500 else body
     return {
         "message_id": uid,
-        "from": sender,
-        "subject": subject,
-        "date": date,
+        "from": headers["from"],
+        "to": headers["to"],
+        "cc": headers["cc"],
+        "subject": headers["subject"],
+        "date": headers["date"],
         "body_preview": body_preview,
         "body": body,
     }
