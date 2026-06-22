@@ -183,7 +183,7 @@ def _maybe_offer_envsec_sync(
         )
         if interactive:
             prompt = _(
-                "[INFO] .env.sec content does not match the current startup UAGENT_* environment variables. Update it? [y/N] "
+                "[INFO] .env.sec content does not match the current startup UAGENT_* environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
             )
             try:
                 sys.__stdout__.write(prompt)
@@ -194,6 +194,18 @@ def _maybe_offer_envsec_sync(
                 answer = input().strip().lower()
             except EOFError:
                 answer = ""
+            if answer in ("s", "sec", "use", "envsec"):
+                # Apply .env.sec values to the current environment
+                for key, value in sec_values.items():
+                    if value is not None:
+                        os.environ[key] = value
+                print(
+                    _(
+                        "[INFO] Applied .env.sec values to the current session."
+                    ),
+                    file=sys.__stderr__,
+                )
+                return True
             if answer not in ("y", "yes"):
                 return False
         else:
