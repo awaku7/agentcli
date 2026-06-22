@@ -3,7 +3,6 @@
     "param.agent_name.description": "اسم الوكيل الفرعي المتخصص لتشغيله.",
     "param.current_file.description": "(اختياري) قصر نطاق تفكير الوكيل الفرعي على هذا الملف المحدد.",
     "param.task.description": "تعليمات أو مهمة محددة للوكيل الفرعي لمعالجتها.",
-    "tool.description": "قم بتشغيل وكيل فرعي متخصص وآمن (مخطط أو مراجع أو ملخص) تحت سيطرة المنسق الرئيسي لمعالجة مهام محددة وإرجاع النتائج الهيكلية.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -28,13 +27,13 @@
     "param.required_fields.description": "قائمة الحقول المطلوبة في استجابة JSON.",
     "param.response_mode.description": "وضع الإخراج للوكيل الفرعي.",
     "param.response_schema.description": "كائن JSON Schema اختياري للاستجابة المتوقعة.",
-    "param.strict_output.description": "معاملة الحقول المطلوبة المفقودة أو عدم تطابق المخطط كأخطاء."
+    "param.strict_output.description": "معاملة الحقول المطلوبة المفقودة أو عدم تطابق المخطط كأخطاء.",
+    "tool.description": "تنفيذ وكيل فرعي متخصص وآمن (مخطط، مراجع، ملخص، مصمم تصحيحات، محلل أخطاء، أو مترجم) تحت سيطرة المنسق الرئيسي."
   },
   "bn": {
     "param.agent_name.description": "চালানোর জন্য বিশেষায়িত সাব-এজেন্টের নাম।",
     "param.current_file.description": "(ঐচ্ছিক) সাব-এজেন্টের যুক্তির পরিধি এই নির্দিষ্ট ফাইলে সীমাবদ্ধ করুন।",
     "param.task.description": "প্রক্রিয়া করার জন্য সাব-এজেন্টের জন্য নির্দিষ্ট নির্দেশ/টাস্ক।",
-    "tool.description": "অভিভাবকের নিয়ন্ত্রণে একটি বিশেষ, নিরাপদ সাব-এজেন্ট (পরিকল্পক, পর্যালোচক, সংক্ষিপ্তকারী, প্যাচ_ডিজাইনার, ত্রুটি_বিশ্লেষক, বা অনুবাদক) চালান...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -59,13 +58,13 @@
     "param.required_fields.description": "JSON প্রতিক্রিয়াতে প্রয়োজনীয় ক্ষেত্রগুলির তালিকা৷",
     "param.response_mode.description": "সাব-এজেন্টের জন্য আউটপুট মোড।",
     "param.response_schema.description": "প্রত্যাশিত প্রতিক্রিয়ার জন্য ঐচ্ছিক JSON Schema অবজেক্ট।",
-    "param.strict_output.description": "JSON প্রতিক্রিয়াতে প্রয়োজনীয় ক্ষেত্রগুলির তালিকা"
+    "param.strict_output.description": "JSON প্রতিক্রিয়াতে প্রয়োজনীয় ক্ষেত্রগুলির তালিকা",
+    "tool.description": "প্যারেন্ট অর্কেস্ট্রেটরের নিয়ন্ত্রণে একটি বিশেষায়িত, নিরাপদ সাব-এজেন্ট (প্ল্যানার, রিভিউয়ার, সামারাইজার, প্যাচ_ডিজাইনার, এরর_অ্যানালিস্ট, বা ট্রান্সলেটর) কার্যকর করুন।"
   },
   "cs": {
     "param.agent_name.description": "Název specializovaného podřízeného agenta, který se má spustit.",
     "param.current_file.description": "(Volitelné) Omezit rozsah uvažování sub-agenta na tento konkrétní soubor.",
     "param.task.description": "Konkrétní pokyny nebo úkol, které má sub-agent zpracovat.",
-    "tool.description": "Spusťte specializovaného bezpečného dílčího agenta (plánovač, recenzent, sumarizátor, návrhář oprav, analytik chyb nebo překladatel) pod kontrolou nadřazeného...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -90,13 +89,13 @@
     "param.required_fields.description": "Seznam požadovaných polí v odpovědi JSON.",
     "param.response_mode.description": "Výstupní režim pro podřízeného agenta.",
     "param.response_schema.description": "Volitelný objekt JSON Schema pro očekávanou odpověď.",
-    "param.strict_output.description": "Chybějící povinná pole nebo nesoulad schématu považovat za chyby."
+    "param.strict_output.description": "Chybějící povinná pole nebo nesoulad schématu považovat za chyby.",
+    "tool.description": "Spusťte specializovaného, bezpečného sub-agenta (plánovač, recenzent, sumarizátor, návrhář záplat, analytik chyb nebo překladač) pod kontrolou nadřazeného orchestrátoru."
   },
   "de": {
     "param.agent_name.description": "Der Name des auszuführenden spezialisierten Subagenten.",
     "param.current_file.description": "(Optional) Beschränken Sie den Begründungsbereich des Subagenten auf diese bestimmte Datei.",
     "param.task.description": "Spezifische Anweisung/Aufgabe, die der Subagent verarbeiten soll.",
-    "tool.description": "Führen Sie einen spezialisierten, sicheren Unteragenten (Planer, Prüfer, Zusammenfassender, Patchdesigner, Fehleranalyst oder Übersetzer) unter der Kontrolle des übergeordneten Agenten aus...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -121,7 +120,8 @@
     "param.required_fields.description": "Liste der erforderlichen Felder in der JSON-Antwort.",
     "param.response_mode.description": "Ausgabemodus für den Sub-Agenten.",
     "param.response_schema.description": "Optionales JSON-Schema-Objekt für die erwartete Antwort.",
-    "param.strict_output.description": "Behandeln Sie fehlende Pflichtfelder oder Schemakonflikte als Fehler."
+    "param.strict_output.description": "Behandeln Sie fehlende Pflichtfelder oder Schemakonflikte als Fehler.",
+    "tool.description": "Führen Sie einen spezialisierten, sicheren Unter-Agenten (Planer, Prüfer, Zusammenfasser, Patch-Designer, Fehleranalyst oder Übersetzer) unter der Kontrolle des übergeordneten Orchestrators aus."
   },
   "en": {
     "param.agent_name.description": "The name of the specialized sub-agent to run.",
@@ -133,7 +133,7 @@
     "param.response_schema.description": "Optional JSON Schema object for the expected response.",
     "param.strict_output.description": "Treat missing required fields or schema mismatch as errors.",
     "param.task.description": "Specific instruction/task for the sub-agent to process.",
-    "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent...",
+    "tool.description": "Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent orchestrator.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -156,7 +156,6 @@
     "param.agent_name.description": "El nombre del subagente especializado a ejecutar.",
     "param.current_file.description": "(Opcional) Limite el alcance de razonamiento del subagente a este archivo específico.",
     "param.task.description": "Instrucción/tarea específica para que la procese el subagente.",
-    "tool.description": "Ejecute un subagente seguro y especializado (planificador, revisor, resumidor, diseñador_de_parches, analista_de_errores o traductor) bajo el control del padre...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -181,13 +180,13 @@
     "param.required_fields.description": "Lista de campos requeridos en la respuesta JSON.",
     "param.response_mode.description": "Modo de salida para el subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para la respuesta esperada.",
-    "param.strict_output.description": "Trate los campos obligatorios que faltan o la discrepancia de esquema como errores."
+    "param.strict_output.description": "Trate los campos obligatorios que faltan o la discrepancia de esquema como errores.",
+    "tool.description": "Ejecuta un subagente especializado y seguro (planificador, revisor, resumidor, diseñador de parches, analista de errores o traductor) bajo el control del orquestador principal."
   },
   "fa": {
     "param.agent_name.description": "نام عامل فرعی تخصصی برای اجرا.",
     "param.current_file.description": "(اختیاری) محدود کردن دامنه استدلال عامل فرعی به این فایل خاص.",
     "param.task.description": "دستورالعمل یا وظیفه خاص برای پردازش توسط عامل فرعی.",
-    "tool.description": "یک عامل فرعی تخصصی و ایمن (برنامه ریز، بازبین، خلاصه کننده، patch_designer، error_analyst، یا مترجم) تحت کنترل والدین...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -212,13 +211,13 @@
     "param.required_fields.description": "لیست فیلدهای الزامی در پاسخ JSON.",
     "param.response_mode.description": "حالت خروجی برای زیر-عامل.",
     "param.response_schema.description": "شیء اختیاری JSON Schema برای پاسخ مورد انتظار.",
-    "param.strict_output.description": "فیلدهای الزامی از دست رفته یا عدم تطابق طرحواره را به عنوان خطا در نظر بگیرید."
+    "param.strict_output.description": "فیلدهای الزامی از دست رفته یا عدم تطابق طرحواره را به عنوان خطا در نظر بگیرید.",
+    "tool.description": "یک زیرعامل تخصصی و ایمن (برنامه‌ریز، بازبین، خلاصه‌کننده، طراح وصله، تحلیل‌گر خطا، یا مترجم) را تحت کنترل هماهنگ‌کننده اصلی اجرا کنید."
   },
   "fi": {
     "param.agent_name.description": "Suoritettavan erikoisagentin nimi.",
     "param.current_file.description": "(Valinnainen) Rajaa alitoimijan päättelyalue tähän tiettyyn tiedostoon.",
     "param.task.description": "Erityinen ohje tai tehtävä alitoimijan käsiteltäväksi.",
-    "tool.description": "Suorita erikoistunut, turvasuunnittelija, -tarkistus. error_analyst tai kääntäjä) vanhemman hallinnassa...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -243,13 +242,13 @@
     "param.required_fields.description": "Luettelo pakollisista kentistä JSON-vastauksessa.",
     "param.response_mode.description": "Alijäsenen tulostustila.",
     "param.response_schema.description": "Valinnainen JSON-skeemaobjekti odotetulle vastaukselle.",
-    "param.strict_output.description": "Käsittele puuttuvia pakollisia kenttiä tai skeeman yhteensopimattomuutta virheinä."
+    "param.strict_output.description": "Käsittele puuttuvia pakollisia kenttiä tai skeeman yhteensopimattomuutta virheinä.",
+    "tool.description": "Suorita erikoistunut, turvallinen ala-agentti (suunnittelija, arvioija, tiivistäjä, korjaussuunnittelija, virheanalyytikko tai kääntäjä) yläohjaimen hallinnassa."
   },
   "fr": {
     "param.agent_name.description": "Le nom du sous-agent spécialisé à exécuter.",
     "param.current_file.description": "(Facultatif) Limitez la portée de raisonnement du sous-agent à ce fichier spécifique.",
     "param.task.description": "Instruction ou tâche spécifique à traiter par le sous-agent.",
-    "tool.description": "Exécuter un sous-agent spécialisé et sûr (planificateur, réviseur, résumé, patch_designer, error_analyst ou traducteur) sous le contrôle du parent...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -274,13 +273,13 @@
     "param.required_fields.description": "Liste des champs requis dans la réponse JSON.",
     "param.response_mode.description": "Mode de sortie du sous-agent.",
     "param.response_schema.description": "Objet JSON Schema facultatif pour la réponse attendue.",
-    "param.strict_output.description": "Traitez les champs obligatoires manquants ou les incohérences de schéma comme des erreurs."
+    "param.strict_output.description": "Traitez les champs obligatoires manquants ou les incohérences de schéma comme des erreurs.",
+    "tool.description": "Exécute un sous-agent spécialisé et sécurisé (planificateur, réviseur, résumeur, concepteur de correctifs, analyste d'erreurs ou traducteur) sous le contrôle de l'orchestrateur parent."
   },
   "hi": {
     "param.agent_name.description": "चलाने के लिए विशेष उप-एजेंट (sub-agent) का नाम।",
     "param.current_file.description": "(वैकल्पिक) उप-एजेंट के तर्क कार्यक्षेत्र को इस विशिष्ट फ़ाइल तक सीमित करें।",
     "param.task.description": "अनुपलब्ध आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप में मानें।",
-    "tool.description": "एक विशेष, सुरक्षित उप-एजेंट निष्पादित करें (योजनाकार, समीक्षक, सारांशकर्ता, पैच_डिजाइनर, त्रुटि_विश्लेषक, या अनुवादक) माता-पिता के नियंत्रण में...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -305,13 +304,13 @@
     "param.required_fields.description": "JSON प्रतिक्रिया में आवश्यक फ़ील्ड की सूची।",
     "param.response_mode.description": "उप-एजेंट के लिए आउटपुट मोड।",
     "param.response_schema.description": "अपेक्षित प्रतिक्रिया के लिए वैकल्पिक JSON Schema ऑब्जेक्ट।",
-    "param.strict_output.description": "लापता आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप में मानें।"
+    "param.strict_output.description": "लापता आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप में मानें।",
+    "tool.description": "मूल ऑर्केस्ट्रेटर के नियंत्रण में एक विशेष, सुरक्षित उप-एजेंट (योजनाकार, समीक्षक, सारांशकर्ता, पैच_डिज़ाइनर, त्रुटि_विश्लेषक, या अनुवादक) निष्पादित करें।"
   },
   "id": {
     "param.agent_name.description": "Nama sub-agen khusus yang akan dijalankan.",
     "param.current_file.description": "(Opsional) Batasi cakupan penalaran sub-agen ke file spesifik ini.",
     "param.task.description": "Instruksi/tugas spesifik yang harus diproses oleh sub-agen.",
-    "tool.description": "Jalankan sub-agen khusus dan aman (perencana, reviewer, ringkasan, patch_designer, error_analyst, atau penerjemah) di bawah kendali induk...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -336,13 +335,13 @@
     "param.required_fields.description": "Daftar bidang yang diperlukan dalam respons JSON.",
     "param.response_mode.description": "Mode output untuk sub-agen.",
     "param.response_schema.description": "Objek JSON Schema opsional untuk respons yang diharapkan.",
-    "param.strict_output.description": "Perlakukan bidang wajib yang hilang atau ketidakcocokan skema sebagai kesalahan."
+    "param.strict_output.description": "Perlakukan bidang wajib yang hilang atau ketidakcocokan skema sebagai kesalahan.",
+    "tool.description": "Jalankan sub-agen khusus yang aman (perencana, peninjau, perangkum, perancang tambalan, analis kesalahan, atau penerjemah) di bawah kendali orkestrator induk."
   },
   "it": {
     "param.agent_name.description": "Il nome dell'agente secondario specializzato da eseguire.",
     "param.current_file.description": "(Facoltativo) Limita l'ambito del ragionamento del sub-agente a questo file specifico.",
     "param.task.description": "Istruzione/attività specifica da elaborare per l'agente secondario.",
-    "tool.description": "Esegue un agente secondario specializzato e sicuro (pianificatore, revisore, riepilogo, patch_designer, error_analyst o traduttore) sotto il controllo del genitore...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -367,7 +366,8 @@
     "param.required_fields.description": "Elenco dei campi richiesti nella resposta JSON.",
     "param.response_mode.description": "Modalità di output per il sub-agente.",
     "param.response_schema.description": "Oggetto JSON Schema opzionale per la risposta attesa.",
-    "param.strict_output.description": "Tratta i campi obbligatori mancanti o la mancata corrispondenza dello schema come errori."
+    "param.strict_output.description": "Tratta i campi obbligatori mancanti o la mancata corrispondenza dello schema come errori.",
+    "tool.description": "Esegui un sotto-agente specializzato e sicuro (pianificatore, revisore, riassuntore, progettista di patch, analista di errori o traduttore) sotto il controllo dell'orchestratore principale."
   },
   "ja": {
     "param.agent_name.description": "実行する専門サブエージェントの名前。",
@@ -379,7 +379,6 @@
     "param.response_schema.description": "期待される応答のオプションのJSONスキーマオブジェクト。",
     "param.strict_output.description": "必須フィールドの欠落やスキーマの不一致をエラーとして扱うかどうか。",
     "param.task.description": "サブエージェントに具体的に処理させるタスク指示。",
-    "tool.description": "親オーケストレーターの制御下で、特定の専門業務（計画・レビュー・要約）に特化した安全なサブエージェントを実行し、構造化された結果を返します。",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -401,13 +400,13 @@
       "エラー解析",
       "エラー",
       "不具合解析"
-    ]
+    ],
+    "tool.description": "親オーケストレーターの制御下で、専門的で安全なサブエージェント（プランナー、レビュアー、要約者、パッチデザイナー、エラー分析者、または翻訳者）を実行します。"
   },
   "ko": {
     "param.agent_name.description": "실행할 전문 서브 에이전트의 이름.",
     "param.current_file.description": "(선택 사항) 서브 에이전트의 추론 범위를 이 특정 파일로 제한합니다.",
     "param.task.description": "서브 에이전트가 처리할 구체적인 지시 사항 또는 작업.",
-    "tool.description": "특정 작업을 처리하고 구조화된 결과를 반환하기 위해 상위 오케스트레이터의 제어 하에 전문화되고 안전한 서브 에이전트(기획자, 검토자 또는 요약자)를 실행합니다.",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -433,13 +432,13 @@
     "param.required_fields.description": "JSON 응답의 필수 필드 목록.",
     "param.response_mode.description": "하위 에이전트의 출력 모드.",
     "param.response_schema.description": "예상 응답에 대한 선택적 JSON Schema 객체.",
-    "param.strict_output.description": "필수 필드 누락 또는 스키마 불일치를 오류로 처리."
+    "param.strict_output.description": "필수 필드 누락 또는 스키마 불일치를 오류로 처리.",
+    "tool.description": "상위 오케스트레이터의 제어 하에 특화된 안전한 하위 에이전트(planner, reviewer, summarizer, patch_designer, error_analyst 또는 translator)를 실행합니다."
   },
   "mn": {
     "param.agent_name.description": "Ажиллуулах тусгай дэд агентийн нэр.",
     "param.current_file.description": "(Нэмэлт) Дэд агентийн ажиллах хүрээг энэхүү тодорхой файлаар хязгаарлах.",
     "param.task.description": "Дэд агентаар шийдвэрлүүлэх тодорхой заавар эсвэл даалгавар.",
-    "tool.description": "Мэргэшсэн, аюулгүй дэд агент (төлөвлөгч, тохируулагч, алдаа шалгагч) ажиллуулна уу. эсвэл орчуулагч) эцэг эхийн хяналтан дор...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -464,13 +463,13 @@
     "param.required_fields.description": "JSON хариулт дахь шаардлагатай талбаруудын жагсаалт.",
     "param.response_mode.description": "Дэд агентын гаралтын горим.",
     "param.response_schema.description": "Хүлээгдэж буй хариунд зориулсан нэмэлт JSON Schema объект.",
-    "param.strict_output.description": "Шаардлагатай талбар дутуу эсвэл схемийн зөрүүг алдаа гэж үзэх."
+    "param.strict_output.description": "Шаардлагатай талбар дутуу эсвэл схемийн зөрүүг алдаа гэж үзэх.",
+    "tool.description": "Эх зохицуулагчийн хяналтан дор тусгай, аюулгүй дэд-агент (төлөвлөгч, шүүмжлэгч, хураангуйлагч, нөхөөс зохион бүтээгч, алдаа шинжээч, эсвэл орчуулагч) гүйцэтгэх."
   },
   "mr": {
     "param.agent_name.description": "चालवण्यासाठी विशेष उप-एजंटचे (sub-agent) नाव.",
     "param.current_file.description": "(पर्यायी) उप-एजंटची विचार करण्याची मर्यादा या विशिष्ट फाईलपर्यंत मर्यादित करा.",
     "param.task.description": "उप-एजंटने प्रक्रिया करण्यासाठी विशिष्ट सूचना किंवा कार्य.",
-    "tool.description": "एक विशेष, सुरक्षित, उप-एजंट, समीक्षक, समीक्षक, समीक्षक error_analyst, किंवा translator) पालकांच्या नियंत्रणाखाली... __DELIM_5__ तयार करण्यासाठी",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -495,7 +494,8 @@
     "param.required_fields.description": "JSON प्रतिसादामधील आवश्यक फील्डची सूची.",
     "param.response_mode.description": "सब-एजंटसाठी आउटपुट मोड.",
     "param.response_schema.description": "अपेक्षित प्रतिसादासाठी पर्यायी JSON Schema ऑब्जेक्ट.",
-    "param.strict_output.description": "गहाळ आवश्यक फील्ड किंवा स्कीमा विसंगती त्रुटी म्हणून समजा."
+    "param.strict_output.description": "गहाळ आवश्यक फील्ड किंवा स्कीमा विसंगती त्रुटी म्हणून समजा.",
+    "tool.description": "पालक ऑर्केस्ट्रेटरच्या नियंत्रणाखाली एक विशेष, सुरक्षित उप-एजंट (प्लॅनर, पुनरावलोकनकर्ता, सारांशकर्ता, पॅच_डिझायनर, त्रुटी_विश्लेषक किंवा अनुवादक) कार्यान्वित करा."
   },
   "el": {
     "param.agent_name.description": "Το όνομα του εξειδικευμένου δευτερεύοντος αντιπροσώπου που θα εκτελεστεί.",
@@ -507,7 +507,6 @@
     "param.response_schema.description": "Προαιρετικό αντικείμενο σχήματος JSON για την αναμενόμενη απόκριση.",
     "param.strict_output.description": "Αντιμετωπίστε τα απαιτούμενα πεδία που λείπουν ή την αναντιστοιχία σχήματος ως σφάλματα.",
     "param.task.description": "Συγκεκριμένη οδηγία/εργασία για επεξεργασία από τον δευτερεύοντα πράκτορα.",
-    "tool.description": "Εκτελέστε έναν εξειδικευμένο, ασφαλή υπο-πράκτορα (σχεδιαστής, αναθεωρητής, σύνοψη, patch_designer, error_analyst, ή μεταφραστής) υπό τον έλεγχο του γονέα...",
     "x_search_terms": [
       "υπο-πράκτορας",
       "σχεδιαστής",
@@ -524,7 +523,8 @@
       "μεταφραστής",
       "μετάφραση",
       "τοπική προσαρμογή"
-    ]
+    ],
+    "tool.description": "Εκτέλεση ενός εξειδικευμένου, ασφαλούς υπο-πράκτορα (προγραμματιστής, αναθεωρητής, συνοψιστής, σχεδιαστής ενημερώσεων, αναλυτής σφαλμάτων ή μεταφραστής) υπό τον έλεγχο του γονικού ενορχηστρωτή."
   },
   "he": {
     "param.agent_name.description": "(אופציונלי) הגבל את היקף ההנמקה של סוכן המשנה לקובץ הספציפי הזה.",
@@ -536,7 +536,6 @@
     "param.response_schema.description": "התייחס לשדות חובה חסרים או לאי התאמה של סכימה כשגיאות.",
     "param.strict_output.description": "הוראה/משימה ספציפית לסוכן המשנה לעבד.",
     "param.task.description": "בצע סוכן משנה מיוחד ובטוח (מתכנן, מבקר, מסכמים, patch_designer, error_analyst או מתרגם) בשליטה של ​​ההורה...",
-    "tool.description": "בצע סוכן משנה מיוחד ובטוח (מתכנן, מבקר, מסכם, תיקון_מעצב, מנתח_שגיאות או מתרגם) בשליטה של ​​ההורה...",
     "x_search_terms": [
       "מתכנן",
       "מבקר",
@@ -553,7 +552,8 @@
       "מתרגם",
       "תרגום",
       "לוקליזציה"
-    ]
+    ],
+    "tool.description": "בצע תת-סוכן מיוחד ובטוח (מתכנן, סוקר, מסכם, מעצב תיקונים, מנתח שגיאות, או מתרגם) תחת שליטתו של המתזמן הראשי."
   },
   "hu": {
     "param.agent_name.description": "(Opcionális) Korlátozza az alügynök érvelési hatókörét erre a fájlra.",
@@ -565,7 +565,6 @@
     "param.response_schema.description": "Hibaként kezelje a hiányzó kötelező mezőket vagy a séma eltéréseit.",
     "param.strict_output.description": "Konkrét utasítás/feladat, amelyet az alügynöknek kell feldolgoznia.",
     "param.task.description": "Végezzen egy speciális, biztonságos segédügynököt (tervező, értékelő, összegző, javítás_tervező, hibaelemző vagy fordító) a szülő felügyelete alatt...",
-    "tool.description": "Speciális, biztonságos segédügynök (tervező, lektor, összegző, javítás_tervező, hibaelemző vagy fordító) végrehajtása a szülő felügyelete alatt...",
     "x_search_terms": [
       "tervező",
       "felülvizsgáló",
@@ -582,7 +581,8 @@
       "fordító",
       "fordítás",
       "lokalizáció"
-    ]
+    ],
+    "tool.description": "Hajtson végre egy speciális, biztonságos al-ágens (tervező, felülvizsgáló, összefoglaló, javítástervező, hibaelemző vagy fordító) irányítását a szülő orchestrator felügyelete alatt."
   },
   "ro": {
     "param.agent_name.description": "Numele agentului secundar specializat de rulat.",
@@ -594,7 +594,6 @@
     "param.response_schema.description": "Obiect opțional JSON Schema pentru răspunsul așteptat.",
     "param.strict_output.description": "Tratați câmpurile obligatorii lipsă sau nepotrivirea schemei ca erori.",
     "param.task.description": "Instrucțiune/sarcină specifică pe care subagentul trebuie să o proceseze.",
-    "tool.description": "Executați un sub-agent specializat și sigur (planificator, examinator, rezumat, proiectant_patch, analist_error sau traducător) sub controlul părintelui...",
     "x_search_terms": [
       "agent secundar",
       "planificator",
@@ -611,13 +610,13 @@
       "translator",
       "traducere",
       "localizare"
-    ]
+    ],
+    "tool.description": "Execută un sub-agent specializat și sigur (planificator, recenzor, sumarizator, proiectant de patch-uri, analist de erori sau traducător) sub controlul orchestratorului părinte."
   },
   "nb": {
     "param.agent_name.description": "Navnet på den spesialiserte underagenten som skal kjøres.",
     "param.current_file.description": "(Valgfritt) Begrens subagentens resonnementomfang til denne spesifikke filen.",
     "param.task.description": "Spesifikk instruksjon/oppgave for underagenten å behandle.",
-    "tool.description": "Utfør en spesialisert, sikker sub-agent, oppsummerer, paterch_agent (planlegger, paterch_agent,_designer,_analysator, oversetter) under kontroll av forelderen...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -642,13 +641,13 @@
     "param.required_fields.description": "Liste over påkrevde felt i JSON-svaret.",
     "param.response_mode.description": "Utdatamodus for underagenten.",
     "param.response_schema.description": "Valgfritt JSON-skjemaobjekt for det forventede svaret.",
-    "param.strict_output.description": "Behandle manglende obligatoriske felt eller skjemamismatch som feil."
+    "param.strict_output.description": "Behandle manglende obligatoriske felt eller skjemamismatch som feil.",
+    "tool.description": "Utfør en spesialisert, sikker underagent (planlegger, anmelder, oppsummerer, patch-designer, feilanalytiker eller oversetter) under kontroll av den overordnede orkestratoren."
   },
   "nl": {
     "param.agent_name.description": "De naam van de gespecialiseerde subagent die moet worden uitgevoerd.",
     "param.current_file.description": "(Optioneel) Beperk het redeneerbereik van de subagent tot dit specifieke bestand.",
     "param.task.description": "Specifieke instructie/taak die de sub-agent moet verwerken.",
-    "tool.description": "Voer een gespecialiseerde, veilige subagent uit (planner, reviewer, samenvattend, patch_designer, error_analyst of vertaler) onder controle van de ouder...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -673,13 +672,13 @@
     "param.required_fields.description": "Lijst met vereiste velden in het JSON-antwoord.",
     "param.response_mode.description": "Uitvoermodus voor de subagent.",
     "param.response_schema.description": "Optioneel JSON-schema-object voor het verwachte antwoord.",
-    "param.strict_output.description": "Behandel ontbrekende verplichte velden of schema-mismatches als fouten."
+    "param.strict_output.description": "Behandel ontbrekende verplichte velden of schema-mismatches als fouten.",
+    "tool.description": "Voer een gespecialiseerde, veilige sub-agent uit (planner, reviewer, summarizer, patch_designer, error_analyst of translator) onder controle van de bovenliggende orchestrator."
   },
   "pl": {
     "param.agent_name.description": "Nazwa wyspecjalizowanego podagenta, którego należy uruchomić.",
     "param.current_file.description": "(Opcjonalnie) Ogranicz zakres rozumowania podagenta do tego konkretnego pliku.",
     "param.task.description": "Konkretne instrukcje/zadanie do przetworzenia przez subagenta.",
-    "tool.description": "Uruchom wyspecjalizowanego, bezpiecznego podagenta (planistę, recenzenta, podsumowującego, projektanta poprawek, analityka_błędów lub tłumacza) pod kontrolą rodzica...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -704,13 +703,13 @@
     "param.required_fields.description": "Lista wymaganych pól w odpowiedzi JSON.",
     "param.response_mode.description": "Tryb wyjściowy dla podagenta.",
     "param.response_schema.description": "Opcjonalny obiekt JSON Schema dla oczekiwanej odpowiedzi.",
-    "param.strict_output.description": "Brakujące wymagane pola lub niezgodność schematu traktuj jako błędy."
+    "param.strict_output.description": "Brakujące wymagane pola lub niezgodność schematu traktuj jako błędy.",
+    "tool.description": "Wykonaj wyspecjalizowany, bezpieczny pod-agent (planista, recenzent, podsumowujący, projektant łatek, analityk błędów lub tłumacz) pod kontrolą nadrzędnego orkiestratora."
   },
   "pt": {
     "param.agent_name.description": "O nome do subagente especializado a ser executado.",
     "param.current_file.description": "(Opcional) Limite o escopo de raciocínio do subagente a este arquivo específico.",
     "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
-    "tool.description": "Execute um subagente especializado e seguro (planejador, revisor, resumidor, patch_designer, error_analyst ou tradutor) sob o controle do pai...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -735,13 +734,13 @@
     "param.required_fields.description": "Lista de campos obrigatórios na resposta JSON.",
     "param.response_mode.description": "Modo de saída para o subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
-    "param.strict_output.description": "Trate campos obrigatórios ausentes ou incompatibilidade de esquema como erros."
+    "param.strict_output.description": "Trate campos obrigatórios ausentes ou incompatibilidade de esquema como erros.",
+    "tool.description": "Execute um subagente especializado e seguro (planeador, revisor, sumarizador, designer de patches, analista de erros ou tradutor) sob o controlo do orquestrador principal."
   },
   "pt_BR": {
     "param.agent_name.description": "O nome do subagente especializado a ser executado.",
     "param.current_file.description": "(Opcional) Limite o escopo de raciocínio do subagente a este arquivo específico.",
     "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
-    "tool.description": "Execute um subagente especializado e seguro (planejador, revisor, resumidor, patch_designer, error_analyst ou tradutor) sob o controle do pai...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -766,13 +765,13 @@
     "param.required_fields.description": "Lista de campos obrigatórios na resposta JSON.",
     "param.response_mode.description": "Modo de saída para o subagente.",
     "param.response_schema.description": "Objeto JSON Schema opcional para a resposta esperada.",
-    "param.strict_output.description": "Trate campos obrigatórios ausentes ou incompatibilidade de esquema como erros."
+    "param.strict_output.description": "Trate campos obrigatórios ausentes ou incompatibilidade de esquema como erros.",
+    "tool.description": "Execute um subagente especializado e seguro (planejador, revisor, resumidor, designer de patch, analista de erros ou tradutor) sob o controle do orquestrador pai."
   },
   "ru": {
     "param.agent_name.description": "Имя специализированного суб-агента для запуска.",
     "param.current_file.description": "(Необязательно) Ограничьте область рассуждений субагента этим конкретным файлом.",
     "param.task.description": "Конкретная инструкция или задача для обработки суб-агентом.",
-    "tool.description": "Запуск специализированного безопасного субагента (планировщика, рецензента, сумматора, patch_designer, error_analyst или переводчика) под контролем родительского...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -798,13 +797,13 @@
     "param.required_fields.description": "Список обязательных полей в ответе JSON.",
     "param.response_mode.description": "Режим вывода для субагента.",
     "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
-    "param.strict_output.description": "Отсутствующие обязательные поля или несоответствие схемы считаются ошибками."
+    "param.strict_output.description": "Отсутствующие обязательные поля или несоответствие схемы считаются ошибками.",
+    "tool.description": "Запустить специализированного безопасного саб-агента (планировщик, рецензент, суммаризатор, разработчик патчей, аналитик ошибок или переводчик) под управлением родительского оркестратора."
   },
   "sv": {
     "param.agent_name.description": "Namnet på den specialiserade underagenten som ska köras.",
     "param.current_file.description": "(Valfritt) Begränsa underagentens resonemang till denna specifika fil.",
     "param.task.description": "Specifik instruktion/uppgift för underagenten att bearbeta.",
-    "tool.description": "Utför en specialiserad, säker underagent (planerare, granskare, summerare, patch_designer, error_analytiker eller översättare) under kontroll av föräldern...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -829,13 +828,13 @@
     "param.required_fields.description": "Lista över obligatoriska fält i JSON-svaret.",
     "param.response_mode.description": "Utdataläge för underagenten.",
     "param.response_schema.description": "Valfritt JSON-schemaobjekt för det förväntade svaret.",
-    "param.strict_output.description": "Behandla saknade obligatoriska fält eller schemafel som fel."
+    "param.strict_output.description": "Behandla saknade obligatoriska fält eller schemafel som fel.",
+    "tool.description": "Kör en specialiserad, säker underagent (planerare, granskare, sammanfattare, patchdesigner, felanalytiker eller översättare) under kontroll av den överordnade orkestratorn."
   },
   "sw": {
     "param.agent_name.description": "Jina la ejenti msaidizi maalum wa kumendesha.",
     "param.current_file.description": "(Hiari) Punguza wigo wa kufikiri wa ejenti msaidizi kwenye faili hii maalum.",
     "param.task.description": "Maagizo/kazi mahususi kwa wakala mdogo kuchakata.",
-    "tool.description": "Tekeleza wakala maalum, salama (mpangaji, mkaguzi, muhtasari, mbuni-kiraka, mchambuzi_wa_makosa, au mfasiri) chini ya udhibiti wa mzazi...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -860,13 +859,13 @@
     "param.required_fields.description": "Orodha ya sehemu zinazohitajika katika jibu la JSON.",
     "param.response_mode.description": "Hali ya pato kwa wakala mdogo.",
     "param.response_schema.description": "Kitu cha hiari cha JSON Schema kwa jibu linalotarajiwa.",
-    "param.strict_output.description": "Chukua uga zinazokosekana au ulinganifu wa taratibu kama hitilafu."
+    "param.strict_output.description": "Chukua uga zinazokosekana au ulinganifu wa taratibu kama hitilafu.",
+    "tool.description": "Tekeleza wakala mdogo maalum, salama (mpangaji, mkaguzi, muhtasari, mbuni wa kiraka, mchambuzi wa makosa, au mtafsiri) chini ya udhibiti wa mratibu mzazi."
   },
   "th": {
     "param.agent_name.description": "ชื่อของซับเอเจนต์ (sub-agent) เฉพาะทางที่จะรัน",
     "param.current_file.description": "(ไม่บังคับ) จำกัดขอบเขตการคิดของซับเอเจนต์ไว้ที่ไฟล์เฉพาะนี้",
     "param.task.description": "คำสั่งหรือภารกิจเฉพาะเจาะจงเพื่อให้ซับเอเจนต์ประมวลผล",
-    "tool.description": "ดำเนินการตัวแทนย่อยที่ปลอดภัย (ผู้วางแผน ผู้ตรวจสอบ ผู้สรุป patch_designer error_analyst หรือนักแปล) ภายใต้การควบคุมของพาเรนต์...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -891,13 +890,13 @@
     "param.required_fields.description": "รายการฟิลด์ที่จำเป็นในการตอบกลับแบบ JSON",
     "param.response_mode.description": "โหมดเอาต์พุตสำหรับซับเอเจนต์",
     "param.response_schema.description": "อ็อบเจกต์ JSON Schema ทางเลือกสำหรับการตอบกลับที่คาดหวัง",
-    "param.strict_output.description": "ถือว่าฟิลด์ที่จำเป็นหรือสคีมาไม่ตรงกันเป็นข้อผิดพลาด"
+    "param.strict_output.description": "ถือว่าฟิลด์ที่จำเป็นหรือสคีมาไม่ตรงกันเป็นข้อผิดพลาด",
+    "tool.description": "ดำเนินการตัวแทนย่อยเฉพาะทางที่ปลอดภัย (ผู้วางแผน ผู้ตรวจสอบ ผู้สรุป ผู้ออกแบบแพตช์ นักวิเคราะห์ข้อผิดพลาด หรือนักแปล) ภายใต้การควบคุมของตัวประสานงานหลัก"
   },
   "tr": {
     "param.agent_name.description": "Çalıştırılacak özel alt aracının adı.",
     "param.current_file.description": "(İsteğe bağlı) Alt aracının muhakeme kapsamını bu belirli dosyayla sınırlayın.",
     "param.task.description": "Alt temsilcinin işlemesi için belirli talimat veya görev.",
-    "tool.description": "Üst öğenin kontrolü altında özel, güvenli bir alt aracı (planlayıcı, gözden geçiren, özetleyici, yama_tasarıcısı, hata_analizcisi veya çevirmen) yürütün...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -922,13 +921,13 @@
     "param.required_fields.description": "JSON yanıtındaki zorunlu alanların listesi.",
     "param.response_mode.description": "Alt aracı için çıktı modu.",
     "param.response_schema.description": "Beklenen yanıt için isteğe bağlı JSON Şeması nesnesi.",
-    "param.strict_output.description": "Gerekli alanların eksik olmasını veya şema uyumsuzluğunu hata olarak değerlendirin."
+    "param.strict_output.description": "Gerekli alanların eksik olmasını veya şema uyumsuzluğunu hata olarak değerlendirin.",
+    "tool.description": "Ana orkestratörün kontrolü altında özelleştirilmiş, güvenli bir alt ajan (planlayıcı, inceleyici, özetleyici, yama tasarımcısı, hata analisti veya çevirmen) yürütür."
   },
   "uk": {
     "param.agent_name.description": "Ім'я спеціалізованого суб-агента для запуску.",
     "param.current_file.description": "(Необов'язково) Обмежити область міркувань суб-агента цим конкретним файлом.",
     "param.task.description": "Конкретна інструкція або завдання для обробки суб-агентом.",
-    "tool.description": "Виконайте спеціалізований, безпечний субагент (планувальник, рецензент, підсумовувач, patch_designer, error_analyst або перекладач) під керуванням батьківського...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -953,13 +952,13 @@
     "param.required_fields.description": "Список обов'язкових полей у відповіді JSON.",
     "param.response_mode.description": "Режим виведення для субагента.",
     "param.response_schema.description": "Необязательный объект JSON Schema для ожидаемого ответа.",
-    "param.strict_output.description": "Вважайте відсутність обов’язкових полів або невідповідність схеми помилками."
+    "param.strict_output.description": "Вважайте відсутність обов’язкових полів або невідповідність схеми помилками.",
+    "tool.description": "Виконати спеціалізований, безпечний підагент (планувальник, рецензент, підсумовувач, дизайнер патчів, аналітик помилок або перекладач) під контролем батьківського оркестратора."
   },
   "vi": {
     "param.agent_name.description": "Tên của sub-agent chuyên biệt cần chạy.",
     "param.current_file.description": "(Tùy chọn) Giới hạn phạm vi lập luận của sub-agent trong tệp cụ thể này.",
     "param.task.description": "Hướng dẫn hoặc nhiệm vụ cụ thể để sub-agent xử lý.",
-    "tool.description": "Thực thi một tác nhân phụ chuyên biệt, an toàn (người lập kế hoạch, người đánh giá, người tóm tắt, patch_designer, error_analyst hoặc người dịch) dưới sự kiểm soát của cha mẹ...",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -984,13 +983,13 @@
     "param.required_fields.description": "Danh sách các trường bắt buộc trong phản hồi JSON.",
     "param.response_mode.description": "Chế độ đầu ra cho tác nhân phụ.",
     "param.response_schema.description": "Đối tượng JSON Schema tùy chọn cho phản hồi mong đợi.",
-    "param.strict_output.description": "Coi các trường bắt buộc bị thiếu hoặc không khớp lược đồ là lỗi."
+    "param.strict_output.description": "Coi các trường bắt buộc bị thiếu hoặc không khớp lược đồ là lỗi.",
+    "tool.description": "Thực thi một tác nhân phụ chuyên biệt, an toàn (lập kế hoạch, người đánh giá, người tóm tắt, người thiết kế bản vá, nhà phân tích lỗi hoặc người dịch) dưới sự kiểm soát của bộ điều phối chính."
   },
   "zh_CN": {
     "param.agent_name.description": "要运行的专业子智能体（sub-agent）的名称。",
     "param.current_file.description": "（可选）将子智能体的推理范围限制在此特定文件。",
     "param.task.description": "要交由子智能体处理的具体指令或任务。",
-    "tool.description": "在主编排器的控制下，运行专门且安全的子智能体（规划器、审查器或摘要器）来处理特定任务并返回结构化的发现。",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -1016,13 +1015,13 @@
     "param.required_fields.description": "JSON 响应中必填字段的列表。",
     "param.response_mode.description": "子代理的输出模式。",
     "param.response_schema.description": "预期响应的可选 JSON Schema 对象。",
-    "param.strict_output.description": "将缺失必填字段或架构不匹配视为错误。"
+    "param.strict_output.description": "将缺失必填字段或架构不匹配视为错误。",
+    "tool.description": "在父编排器控制下执行专门的、安全的子代理（规划器、审查器、摘要器、补丁设计器、错误分析器或翻译器）。"
   },
   "zh_TW": {
     "param.agent_name.description": "要執行的專業子代理（sub-agent）名稱。",
     "param.current_file.description": "（選填）將子代理的推理範圍限制在此特定檔案。",
     "param.task.description": "要交由子代理處理的具體指令或任務。",
-    "tool.description": "在主協調器的控制下，執行專門且安全的子代理（規劃器、審查器或摘要器）以處理特定任務並傳回結構化的發現。",
     "x_search_terms": [
       "sub-agent",
       "planner",
@@ -1048,6 +1047,7 @@
     "param.required_fields.description": "JSON 回應中必填欄位的清單。",
     "param.response_mode.description": "子代理的輸出模式。",
     "param.response_schema.description": "預期回應的可選 JSON Schema 物件。",
-    "param.strict_output.description": "將遺失必填欄位或結構描述不符視為錯誤。"
+    "param.strict_output.description": "將遺失必填欄位或結構描述不符視為錯誤。",
+    "tool.description": "在父協調器的控制下，執行一個專門、安全的子代理（規劃者、審閱者、摘要者、修補設計者、錯誤分析者或翻譯者）。"
   }
 }

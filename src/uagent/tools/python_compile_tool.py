@@ -51,7 +51,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "items": {"type": "string"},
                     "description": _(
                         "param.paths.description",
-                        default="Multiple Python files, directories, or glob patterns to validate with py_compile. Directories are scanned recursively...",
+                        default="Multiple Python files, directories, or glob patterns to validate with py_compile. Directories are scanned recursively for .py files.",
                     ),
                 },
             },

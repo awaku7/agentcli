@@ -13,7 +13,7 @@
     "out.success": "Success: {count}",
     "param.pattern.description": "Target file name, directory name, or glob pattern (e.g. 'src/**/*.py', '*.md').",
     "param.root_path.description": "The root directory for search and indexing. Defaults to current directory.",
-    "tool.description": "Indexes specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful for prep...",
+    "tool.description": "Indexes specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful for preparing documents for semantic queries.",
     "x_search_terms": [
       "index_files",
       "index files",
@@ -43,7 +43,6 @@
     "out.success": "成功: {count} 件",
     "param.pattern.description": "対象とするファイル名、ディレクトリ名、または glob パターン（例: 'src/**/*.py', '*.md'）。",
     "param.root_path.description": "検索・インデックスの起点となるディレクトリ。既定はカレントディレクトリです。",
-    "tool.description": "指定されたファイルやディレクトリ（glob パターン）をベクトル DB にインデックスし、意味検索（semantic_search_files）を可能にします。ファイル内容をすぐには読み込まず、検索用データを準備したいときに便利です。",
     "x_search_terms": [
       "index_files",
       "ファイル索引",
@@ -51,7 +50,8 @@
       "ベクトルDB"
     ],
     "param.recur.description": "パターンに '**' を含む場合に再帰的に探索するかどうか。",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "指定されたファイルまたはディレクトリ（globパターン）をベクターDBにインデックス化し、セマンティック検索（semantic_search_files）を有効にします。これはセマンティッククエリ用の文書準備に役立ちます。"
   },
   "es": {
     "err.glob_fail": "Error: No se pudo analizar el patrón: {err}",
@@ -67,7 +67,6 @@
     "out.success": "Éxito: {count}",
     "param.pattern.description": "Nombre del archivo de destino, nombre del directorio o patrón global (por ejemplo, 'src/**/*.py', '*.md').",
     "param.root_path.description": "Directorio que sirve como punto de partida para búsquedas e índices.",
-    "tool.description": "Indexa archivos o directorios específicos (patrón global) en la base de datos vectorial para habilitar la búsqueda semántica (semantic_search_files). Esto es útil para preparar...",
     "x_search_terms": [
       "index_files",
       "indexar archivos",
@@ -75,7 +74,8 @@
       "índice vectorial"
     ],
     "param.recur.description": "Si se debe buscar recursivamente cuando el patrón contiene '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indexa archivos o directorios especificados (patrón glob) en la base de datos vectorial para habilitar la búsqueda semántica (semantic_search_files). Esto es útil para preparar documentos para consultas semánticas."
   },
   "fr": {
     "err.glob_fail": "Erreur : Échec de l'analyse du modèle : {err}",
@@ -91,7 +91,6 @@
     "out.success": "Succès : {count}",
     "param.pattern.description": "Nom de fichier cible, nom de répertoire ou motif glob (par exemple 'src/**/*.py', '*.md').",
     "param.root_path.description": "Répertoire qui sert de point de départ pour les recherches et les index.",
-    "tool.description": "Indexe les fichiers ou répertoires spécifiés (modèle global) dans la base de données vectorielle pour activer la recherche sémantique (semantic_search_files). Ceci est utile pour préparer...",
     "x_search_terms": [
       "index_files",
       "indexer fichiers",
@@ -99,7 +98,8 @@
       "index vectoriel"
     ],
     "param.recur.description": "S'il faut effectuer une recherche récursive lorsque le modèle contient '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indexe les fichiers ou répertoires spécifiés (motif glob) dans la base de données vectorielle pour permettre la recherche sémantique (semantic_search_files). Utile pour préparer des documents pour des requêtes sémantiques."
   },
   "ko": {
     "err.glob_fail": "오류: 패턴을 구문 분석하지 못했습니다: {err}",
@@ -115,7 +115,6 @@
     "out.success": "성공: {count}개 항목",
     "param.pattern.description": "대상 파일 이름, 디렉터리 이름 또는 glob 패턴(예: 'src/**/*.py', '*.md').",
     "param.root_path.description": "검색과 색인의 시작점이 되는 디렉터리입니다. 기본값은 현재 디렉터리입니다.",
-    "tool.description": "지정한 파일 또는 디렉터리(glob 패턴)를 벡터 DB에 색인하여 의미 검색(semantic_search_files)을 사용할 수 있게 합니다. 파일 내용을 즉시 읽지 않고 검색 준비를 할 때 유용합니다.",
     "x_search_terms": [
       "index_files",
       "파일 색인",
@@ -123,7 +122,8 @@
       "벡터 DB"
     ],
     "param.recur.description": "패턴에 '**'가 포함된 경우 재귀적으로 검색할지 여부입니다.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "지정된 파일 또는 디렉터리(glob 패턴)를 벡터 DB에 인덱싱하여 의미 검색(semantic_search_files)을 활성화합니다. 이는 의미 쿼리를 위한 문서 준비에 유용합니다."
   },
   "de": {
     "err.glob_fail": "Fehler: Muster konnte nicht analysiert werden: {err}",
@@ -139,7 +139,6 @@
     "out.success": "Erfolg: {count}",
     "param.pattern.description": "Zieldateiname, Verzeichnisname oder Glob-Muster (z. B. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Verzeichnis, das als Ausgangspunkt für Suchen und Indizes dient.",
-    "tool.description": "Indiziert bestimmte Dateien oder Verzeichnisse (Glob-Muster) in der Vektor-DB, um die semantische Suche (semantic_search_files) zu ermöglichen. Dies ist nützlich für die Vorbereitung...",
     "x_search_terms": [
       "index_files",
       "dateien indexieren",
@@ -147,7 +146,8 @@
       "vektorindex"
     ],
     "param.recur.description": "Ob rekursiv gesucht werden soll, wenn das Muster '**' enthält.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indiziert angegebene Dateien oder Verzeichnisse (Glob-Muster) in der Vektor-DB, um semantische Suche (semantic_search_files) zu ermöglichen. Dies ist nützlich, um Dokumente für semantische Abfragen vorzubereiten."
   },
   "it": {
     "err.glob_fail": "Errore: impossibile analizzare il pattern: {err}",
@@ -163,7 +163,6 @@
     "out.success": "Operazione riuscita: {count}",
     "param.pattern.description": "Nome del file di destinazione, nome della directory o modello glob (ad esempio 'src/**/*.py', '*.md').",
     "param.root_path.description": "Directory che funge da punto di partenza per ricerche e indici.",
-    "tool.description": "Indicizza i file o le directory specificati (pattern glob) nel database vettoriale per abilitare la ricerca semantica (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "indicizza file",
@@ -171,7 +170,8 @@
       "indice vettoriale"
     ],
     "param.recur.description": "Indica se eseguire la ricerca ricorsivamente quando il modello contiene '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indicizza file o directory specificati (pattern glob) nel database vettoriale per abilitare la ricerca semantica (semantic_search_files). Utile per preparare documenti per query semantiche."
   },
   "ru": {
     "err.glob_fail": "Ошибка: не удалось проанализировать шаблон: {err}.",
@@ -187,7 +187,6 @@
     "out.success": "Успех: {count}",
     "param.pattern.description": "Имя целевого файла, имя каталога или glob-шаблон (например, 'src/**/*.py', '*.md').",
     "param.root_path.description": "Каталог, который является отправной точкой для поиска и индексирования.",
-    "tool.description": "Индексирует указанные файлы или каталоги (glob-шаблон) в векторной БД, чтобы включить семантический поиск (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "индексировать файлы",
@@ -195,7 +194,8 @@
       "векторный индекс"
     ],
     "param.recur.description": "Следует ли выполнять рекурсивный поиск, если шаблон содержит '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Индексирует указанные файлы или каталоги (по шаблону glob) в векторную БД для обеспечения семантического поиска (semantic_search_files). Полезно для подготовки документов к семантическим запросам."
   },
   "pt_BR": {
     "err.glob_fail": "Erro: Falha ao analisar o padrão: {err}",
@@ -211,7 +211,6 @@
     "out.success": "Sucesso: {count}",
     "param.pattern.description": "Nome do arquivo de destino, nome do diretório ou padrão glob (por exemplo, 'src/**/*.py', '*.md').",
     "param.root_path.description": "Diretório que serve como ponto de partida para buscas e índices.",
-    "tool.description": "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para habilitar a busca semântica (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "indexar arquivos",
@@ -219,7 +218,8 @@
       "índice vetorial"
     ],
     "param.recur.description": "Se deve pesquisar recursivamente quando o padrão contém '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indexa arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para permitir pesquisa semântica (semantic_search_files). Isso é útil para preparar documentos para consultas semânticas."
   },
   "pt": {
     "err.glob_fail": "Erro: Falha ao analisar o padrão: {err}",
@@ -235,7 +235,6 @@
     "out.success": "Sucesso: {count}",
     "param.pattern.description": "Nome do arquivo de destino, nome do diretório ou padrão glob (por exemplo, 'src/**/*.py', '*.md').",
     "param.root_path.description": "Diretório que é o ponto de partida para pesquisas e índices.",
-    "tool.description": "Indexa os arquivos ou diretórios especificados (padrão glob) no banco de dados vetorial para ativar a pesquisa semântica (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "indexar ficheiros",
@@ -243,7 +242,8 @@
       "índice vetorial"
     ],
     "param.recur.description": "Se deve pesquisar recursivamente quando o padrão contém '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indexa ficheiros ou diretórios específicos (padrão glob) na base de dados vetorial para permitir pesquisa semântica (semantic_search_files). Isto é útil para preparar documentos para consultas semânticas."
   },
   "id": {
     "err.glob_fail": "Error: Gagal mengurai pola: {err}",
@@ -259,7 +259,6 @@
     "out.success": "Sukses: {count}",
     "param.pattern.description": "Nama file, nama direktori, atau pola glob (mis. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Direktori awal untuk pencarian dan pengindeksan.",
-    "tool.description": "Mengindeks file atau direktori yang ditentukan (pola glob) ke dalam vector DB untuk mengaktifkan semantic search (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "indeks file",
@@ -267,7 +266,8 @@
       "indeks vektor"
     ],
     "param.recur.description": "Apakah mencari secara rekursif ketika pola berisi '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Mengindeks file atau direktori tertentu (pola glob) ke dalam basis data vektor untuk mengaktifkan pencarian semantik (semantic_search_files). Ini berguna untuk menyiapkan dokumen untuk kueri semantik."
   },
   "vi": {
     "err.glob_fail": "Lỗi: Không thể phân tích mẫu: {err}",
@@ -283,7 +283,6 @@
     "out.success": "Thành công: {count}",
     "param.pattern.description": "Tên tệp đích, tên thư mục hoặc mẫu glob (ví dụ: 'src/**/*.py', '*.md').",
     "param.root_path.description": "Thư mục là điểm bắt đầu cho việc tìm kiếm và lập chỉ mục.",
-    "tool.description": "Lập chỉ mục các tệp hoặc thư mục được chỉ định (mẫu glob) vào vectơ DB để cho phép tìm kiếm ngữ nghĩa (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "lập chỉ mục tệp",
@@ -291,7 +290,8 @@
       "chỉ mục vector"
     ],
     "param.recur.description": "Có tìm kiếm đệ quy khi mẫu chứa '**' hay không.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Lập chỉ mục các tệp hoặc thư mục được chỉ định (mẫu glob) vào cơ sở dữ liệu vector để kích hoạt tìm kiếm ngữ nghĩa (semantic_search_files). Điều này hữu ích để chuẩn bị tài liệu cho các truy vấn ngữ nghĩa."
   },
   "pl": {
     "err.glob_fail": "Błąd: nie udało się przeanalizować wzorca: {err}",
@@ -307,7 +307,6 @@
     "out.success": "Sukces: {count}",
     "param.pattern.description": "Docelowa nazwa pliku, nazwa katalogu lub wzorzec glob (np. „src/**/*.py”, „*.md”).",
     "param.root_path.description": "Katalog będący punktem wyjścia do wyszukiwań i indeksów.",
-    "tool.description": "Indeksuje określone pliki lub katalogi (wzorzec glob) do wektorowej bazy danych, aby umożliwić wyszukiwanie semantyczne (pliki_wyszukiwania_semantycznego). Jest to przydatne do przygotowania...",
     "x_search_terms": [
       "index_files",
       "indeksuj pliki",
@@ -315,7 +314,8 @@
       "indeks wektorowy"
     ],
     "param.recur.description": "Określa, czy szukać rekurencyjnie, gdy wzorzec zawiera „**”.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indeksuje określone pliki lub katalogi (wzorzec glob) w bazie wektorowej, aby umożliwić wyszukiwanie semantyczne (semantic_search_files). Jest to przydatne do przygotowywania dokumentów do zapytań semantycznych."
   },
   "hi": {
     "err.glob_fail": "त्रुटि: पैटर्न पार्स करने में विफल: {err}",
@@ -331,7 +331,6 @@
     "out.success": "सफलता: {count}",
     "param.pattern.description": "लक्ष्य फ़ाइल नाम, निर्देशिका नाम, या ग्लोब पैटर्न (उदाहरण के लिए 'src/**/*.py', '*.md')।",
     "param.root_path.description": "खोज और अनुक्रमण के लिए मूल निर्देशिका। वर्तमान निर्देशिका में डिफ़ॉल्ट.",
-    "tool.description": "सिमेंटिक खोज (semantic_search_files) को सक्षम करने के लिए निर्दिष्ट फ़ाइलों या निर्देशिकाओं (ग्लोब पैटर्न) को वेक्टर DB में अनुक्रमित करता है। यह तैयारी के लिए उपयोगी है...",
     "x_search_terms": [
       "index_files",
       "फ़ाइल अनुक्रमण",
@@ -339,7 +338,8 @@
       "वेक्टर सूचकांक"
     ],
     "param.recur.description": "जब पैटर्न में '**' हो तो क्या पुनरावर्ती रूप से खोजना है।",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "निर्दिष्ट फ़ाइलों या निर्देशिकाओं (ग्लोब पैटर्न) को वेक्टर DB में इंडेक्स करें ताकि सिमैंटिक खोज (semantic_search_files) सक्षम हो सके। यह सिमैंटिक क्वेरी के लिए दस्तावेज़ तैयार करने में उपयोगी है।"
   },
   "ar": {
     "err.glob_fail": "خطأ: فشل تحليل النمط: {err}",
@@ -355,7 +355,6 @@
     "out.success": "النجاح: {count}",
     "param.pattern.description": "اسم الملف الهدف، أو اسم الدليل، أو نمط glob (على سبيل المثال، 'src/**/*.py'، '*.md').",
     "param.root_path.description": "الدليل الذي يمثل نقطة البداية لعمليات البحث والفهارس. الافتراضي هو الدليل الحالي.",
-    "tool.description": "يقوم بفهرسة الملفات أو الدلائل المحددة (نمط الكرة الأرضية) في قاعدة بيانات المتجهات لتمكين البحث الدلالي (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "فهرسة الملفات",
@@ -363,7 +362,8 @@
       "فهرس متجه"
     ],
     "param.recur.description": "ما إذا كان سيتم البحث بشكل متكرر عندما يحتوي النمط على \"**\".",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "فهرسة ملفات أو أدلة محددة (نمط glob) في قاعدة البيانات المتجهة لتمكين البحث الدلالي (semantic_search_files). هذا مفيد لإعداد المستندات للاستعلامات الدلالية."
   },
   "sv": {
     "err.glob_fail": "Fel: Kunde inte tolka mönstret: {err}",
@@ -379,7 +379,6 @@
     "out.success": "Framgång: {count}",
     "param.pattern.description": "Målfilsnamn, katalognamn eller glob-mönster (t.ex. \"src/**/*.py\", \"*.md\").",
     "param.root_path.description": "Katalog som fungerar som startpunkt för sökningar och indexering.",
-    "tool.description": "Indexerar angivna filer eller kataloger (glob-mönster) i vektor-DB:n för att möjliggöra semantisk sökning (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "indexera filer",
@@ -387,7 +386,8 @@
       "vektorindex"
     ],
     "param.recur.description": "Om sökningen ska vara rekursiv när mönstret innehåller \"**\".",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indexerar specificerade filer eller kataloger (glob-mönster) i vektordatabasen för att möjliggöra semantisk sökning (semantic_search_files). Detta är användbart för att förbereda dokument för semantiska frågor."
   },
   "sw": {
     "err.glob_fail": "Error: Failed to parse pattern: {err}",
@@ -403,7 +403,6 @@
     "out.success": "Imefaulu: {count}",
     "param.pattern.description": "Target file name, directory name, or glob pattern (e.g. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Directory that is the starting point for searches and indexes.",
-    "tool.description": "Indexes the specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "kudana faili",
@@ -411,7 +410,8 @@
       "rejeleo la vekta"
     ],
     "param.recur.description": "Whether to search recursively when the pattern contains '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Faharasa faili au saraka maalum (muundo wa glob) kwenye DB ya vekta ili kuwezesha utafutaji wa kisemantiki (semantic_search_files). Hii ni muhimu kwa kuandaa nyaraka kwa maswali ya kisemantiki."
   },
   "nb": {
     "err.glob_fail": "Feil: Kunne ikke analysere mønster: {err}",
@@ -427,7 +427,6 @@
     "out.success": "Suksess: {count}",
     "param.pattern.description": "Målfilnavn, katalognavn eller glob-mønster (for eksempel \"src/**/*.py\", \"*.md\").",
     "param.root_path.description": "Katalogen som fungerer som utgangspunkt for søk og indeksering.",
-    "tool.description": "Indekserer angitte filer eller kataloger (glob-mønster) i vektor-DB-en for å aktivere semantisk søk (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "indekser filer",
@@ -435,7 +434,8 @@
       "vektorindeks"
     ],
     "param.recur.description": "Om søket skal være rekursivt når mønsteret inneholder \"**\".",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indekserer spesifiserte filer eller kataloger (glob-mønster) i vektor-DB for å muliggjøre semantisk søk (semantic_search_files). Dette er nyttig for å forberede dokumenter til semantiske spørringer."
   },
   "nl": {
     "err.glob_fail": "Fout: Kan patroon: {err} niet parseren",
@@ -451,7 +451,6 @@
     "out.success": "Succes: {count}",
     "param.pattern.description": "Doelbestandsnaam, mapnaam of glob-patroon (bijv. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Map die het startpunt is voor zoek- en indexbewerkingen.",
-    "tool.description": "Indexeert de opgegeven bestanden of mappen (glob-patroon) in de vector-DB om semantisch zoeken (semantic_search_files) mogelijk te maken.",
     "x_search_terms": [
       "index_files",
       "bestanden indexeren",
@@ -459,7 +458,8 @@
       "vectorindex"
     ],
     "param.recur.description": "Of recursief gezocht wordt wanneer het patroon '**' bevat.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indexeert opgegeven bestanden of mappen (glob-patroon) in de vector-DB om semantisch zoeken (semantic_search_files) mogelijk te maken. Dit is handig voor het voorbereiden van documenten voor semantische query's."
   },
   "fi": {
     "err.glob_fail": "Virhe: kaavaa ei voitu jäsentää: {err}",
@@ -475,7 +475,6 @@
     "out.success": "Menestys: {count}",
     "param.pattern.description": "Kohdetiedoston nimi, hakemiston nimi tai glob-kuvio (esim. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Hakemisto, joka on haun ja indeksoinnin aloituspiste.",
-    "tool.description": "Indeksoi annetut tiedostot tai hakemistot (glob-kuvio) vektorikantaan, jotta semanttinen haku (semantic_search_files) on mahdollista.",
     "x_search_terms": [
       "index_files",
       "indeksoi tiedostot",
@@ -483,7 +482,8 @@
       "vektorihakemisto"
     ],
     "param.recur.description": "Etsitäänkö rekursiivisesti, kun kaava sisältää '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indeksoi määritetyt tiedostot tai hakemistot (globaalikuvio) vektoritietokantaan semanttisen haun mahdollistamiseksi (semantic_search_files). Tämä on hyödyllistä dokumenttien valmistelussa semanttisia kyselyjä varten."
   },
   "cs": {
     "err.glob_fail": "Chyba: Nepodařilo se analyzovat vzor: {err}",
@@ -499,7 +499,6 @@
     "out.success": "Úspěch: {count}",
     "param.pattern.description": "Cílový název souboru, název adresáře nebo glob vzor (např. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Adresář, který je výchozím bodem pro vyhledávání a indexování.",
-    "tool.description": "Indexuje zadané soubory nebo adresáře (glob vzor) do vektorové DB, aby bylo možné použít sémantické vyhledávání (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "indexovat soubory",
@@ -507,7 +506,8 @@
       "vektorový index"
     ],
     "param.recur.description": "Zda při vzoru obsahujícím '**' hledat rekurzivně.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Indexuje zadané soubory nebo adresáře (glob vzor) do vektorové databáze pro umožnění sémantického vyhledávání (semantic_search_files). To je užitečné pro přípravu dokumentů pro sémantické dotazy."
   },
   "uk": {
     "err.glob_fail": "Помилка: не вдалося розібрати шаблон: {err}",
@@ -523,7 +523,6 @@
     "out.success": "Успіх: {count}",
     "param.pattern.description": "Цільова назва файла, назва каталогу або glob-шаблон (наприклад, 'src/**/*.py', '*.md').",
     "param.root_path.description": "Каталог, який є відправною точкою для пошуку та індексування.",
-    "tool.description": "Індексує вказані файли або каталоги (glob-шаблон) у векторну БД, щоб увімкнути семантичний пошук (semantic_search_files).",
     "x_search_terms": [
       "index_files",
       "індексувати файли",
@@ -531,7 +530,8 @@
       "векторний індекс"
     ],
     "param.recur.description": "Чи виконувати рекурсивний пошук, коли шаблон містить '**'.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Індексує вказані файли або каталоги (шаблон glob) у векторну базу даних для забезпечення семантичного пошуку (semantic_search_files). Це корисно для підготовки документів до семантичних запитів."
   },
   "tr": {
     "err.glob_fail": "Hata: Desen ayrıştırılamadı: {err}",
@@ -547,7 +547,6 @@
     "out.success": "Başarılı: {count}",
     "param.pattern.description": "Hedef dosya adı, dizin adı veya glob modeli (ör. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Aramalar ve dizinler için başlangıç ​​noktası olan dizin.",
-    "tool.description": "Semantik aramayı (semantic_search_files) etkinleştirmek için belirtilen dosyaları veya dizinleri (glob modeli) DB vektörüne indeksler.",
     "x_search_terms": [
       "index_files",
       "dosya indeksleme",
@@ -555,7 +554,8 @@
       "vektör dizini"
     ],
     "param.recur.description": "Desen '**' içerdiğinde yinelemeli olarak arama yapılıp yapılmayacağı.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Belirtilen dosyaları veya dizinleri (glob deseni) vektör veritabanına indeksleyerek anlamsal aramayı (semantic_search_files) etkinleştirir. Bu, belgeleri anlamsal sorgular için hazırlamada faydalıdır."
   },
   "th": {
     "err.glob_fail": "ข้อผิดพลาด: ไม่สามารถแยกวิเคราะห์รูปแบบ: {err}",
@@ -571,7 +571,6 @@
     "out.success": "สำเร็จ: {count}",
     "param.pattern.description": "ชื่อไฟล์เป้าหมาย ชื่อไดเรกทอรี หรือรูปแบบ glob (เช่น 'src/**/*.py', '*.md')",
     "param.root_path.description": "ไดเร็กทอรีรากสำหรับการค้นหาและการจัดทำดัชนี ค่าเริ่มต้นเป็นไดเร็กทอรีปัจจุบัน",
-    "tool.description": "จัดทำดัชนีไฟล์หรือไดเร็กทอรีที่ระบุ (รูปแบบ glob) ลงในฐานข้อมูลเวกเตอร์เพื่อเปิดใช้งานการค้นหาเชิงความหมาย (semantic_search_files) สิ่งนี้มีประโยชน์สำหรับการเตรียม...",
     "x_search_terms": [
       "index_files",
       "จัดทำดัชนีไฟล์",
@@ -579,7 +578,8 @@
       "ดัชนีเวกเตอร์"
     ],
     "param.recur.description": "จะค้นหาแบบวนซ้ำหรือไม่เมื่อรูปแบบมี '**'",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "สร้างดัชนีไฟล์หรือไดเรกทอรีที่ระบุ (รูปแบบ glob) ลงในฐานข้อมูลเวกเตอร์เพื่อเปิดใช้งานการค้นหาเชิงความหมาย (semantic_search_files) ซึ่งมีประโยชน์สำหรับการเตรียมเอกสารสำหรับการค้นหาเชิงความหมาย"
   },
   "zh_CN": {
     "err.glob_fail": "错误：无法解析模式：{err}",
@@ -595,7 +595,6 @@
     "out.success": "成功：{count} 项",
     "param.pattern.description": "目标文件名、目录名或 glob 模式（例如 'src/**/*.py'、'*.md'）。",
     "param.root_path.description": "作为搜索和索引起点的目录。默认是当前目录。",
-    "tool.description": "将指定文件或目录（glob 模式）索引到向量数据库，以启用语义搜索（semantic_search_files）。当您想先准备搜索数据而不立即读取文件内容时，这非常有用。",
     "x_search_terms": [
       "index_files",
       "文件索引",
@@ -603,7 +602,8 @@
       "向量索引"
     ],
     "param.recur.description": "当模式包含“**”时是否递归搜索。",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "将指定文件或目录（glob模式）索引到向量数据库中，以支持语义搜索（semantic_search_files）。适用于为语义查询准备文档。"
   },
   "zh_TW": {
     "err.glob_fail": "錯誤：無法解析模式：{err}",
@@ -619,7 +619,6 @@
     "out.success": "成功：{count} 項",
     "param.pattern.description": "目標檔名、目錄名稱或 glob 模式（例如 'src/**/*.py'、'*.md'）。",
     "param.root_path.description": "作為搜尋與索引起點的目錄。預設為目前目錄。",
-    "tool.description": "將指定檔案或目錄（glob 模式）索引到向量資料庫中，以啟用語意搜尋（semantic_search_files）。當您想先準備搜尋資料而不立即讀取檔案內容時，這很有用。",
     "x_search_terms": [
       "index_files",
       "檔案索引",
@@ -627,7 +626,8 @@
       "向量索引"
     ],
     "param.recur.description": "當模式包含「**」時是否遞迴搜尋。",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "將指定的檔案或目錄（glob 模式）索引到向量資料庫中，以啟用語意搜尋（semantic_search_files）。這有助於為語意查詢準備文件。"
   },
   "bn": {
     "err.glob_fail": "ত্রুটি: প্যাটার্ন পার্স করতে ব্যর্থ হয়েছে: {err}",
@@ -643,7 +643,6 @@
     "out.success": "সাফল্য: {count}",
     "param.pattern.description": "টার্গেট file name, directory name, বা glob pattern (যেমন 'src/**/*.py', '*.md').",
     "param.root_path.description": "Search ও index-এর শুরুর directory। ডিফল্ট হলো current directory।",
-    "tool.description": "নির্দিষ্ট ফাইল বা ডিরেক্টরি (গ্লোব প্যাটার্ন) ভেক্টর DB-তে সূচী দেয় শব্দার্থক অনুসন্ধান (semantic_search_files) সক্ষম করতে। এটি প্রস্তুতির জন্য দরকারী...",
     "x_search_terms": [
       "index_files",
       "ফাইল সূচীকরণ",
@@ -651,7 +650,8 @@
       "ভেক্টর সূচি"
     ],
     "param.recur.description": "Pattern-এ '**' থাকলে recursive search করা হবে কি না।",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "নির্দিষ্ট ফাইল বা ডিরেক্টরি (গ্লোব প্যাটার্ন) ভেক্টর DB-তে ইনডেক্স করে সিম্যান্টিক সার্চ (semantic_search_files) সক্ষম করে। এটি সিম্যান্টিক কোয়েরির জন্য ডকুমেন্ট প্রস্তুত করতে কার্যকর।"
   },
   "fa": {
     "err.glob_fail": "خطا: الگوی تجزیه نشد: {err}",
@@ -667,7 +667,6 @@
     "out.success": "موفقیت: {count}",
     "param.pattern.description": "نام فایل، نام پوشه، یا pattern از نوع glob (مثلاً 'src/**/*.py'، '*.md').",
     "param.root_path.description": "پوشه‌ای که نقطهٔ شروع جستجو و index است. پیش‌فرض پوشهٔ فعلی است.",
-    "tool.description": "فایل‌ها یا پوشه‌های مشخص‌شده (pattern از نوع glob) را در پایگاه‌دادهٔ برداری index می‌کند تا جستجوی معنایی (semantic_search_files) فعال شود.",
     "x_search_terms": [
       "index_files",
       "فهرست‌گذاری فایل‌ها",
@@ -675,7 +674,8 @@
       "فهرست برداری"
     ],
     "param.recur.description": "اگر pattern شامل '**' باشد، جستجوی بازگشتی انجام شود یا نه.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "فایل‌ها یا دایرکتوری‌های مشخص شده (الگوی glob) را در پایگاه داده برداری نمایه می‌کند تا جستجوی معنایی (semantic_search_files) فعال شود. این برای آماده‌سازی اسناد برای پرس‌وجوهای معنایی مفید است."
   },
   "mn": {
     "err.glob_fail": "Алдаа: Загварыг задлан шинжилж чадсангүй: {err}",
@@ -691,7 +691,6 @@
     "out.success": "Амжилт: {count}",
     "param.pattern.description": "Зорилтот file name, directory name, эсвэл glob pattern (ж. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Хайлт болон index-ийн эхлэх directory. Анхдагч нь current directory.",
-    "tool.description": "Тодорхойлсон файлууд эсвэл directory-үүдийг (glob pattern) vector DB-д index хийж semantic search (semantic_search_files)-ийг идэвхжүүлнэ.",
     "x_search_terms": [
       "index_files",
       "файл индекстэх",
@@ -699,7 +698,8 @@
       "вектор индекс"
     ],
     "param.recur.description": "Pattern дотор '**' байвал recursive search хийх эсэх.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "Тодорхой файл эсвэл директоруудыг (glob загвар) вектор өгөгдлийн санд индексжүүлж, семантик хайлтыг (semantic_search_files) идэвхжүүлнэ. Энэ нь семантик асуулгад зориулж баримт бэлтгэхэд хэрэгтэй."
   },
   "mr": {
     "err.glob_fail": "त्रुटी: नमुना पार्स करण्यात अयशस्वी: {err}",
@@ -715,7 +715,6 @@
     "out.success": "यश: {count} items",
     "param.pattern.description": "Target file name, directory name, किंवा glob pattern (उदा. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Search आणि index सुरू करण्यासाठीची directory. डीफॉल्ट current directory आहे.",
-    "tool.description": "निर्दिष्ट files किंवा directories (glob pattern) vector DB मध्ये index करून semantic search (semantic_search_files) सक्षम करते.",
     "x_search_terms": [
       "index_files",
       "फाइल अनुक्रमण",
@@ -723,7 +722,8 @@
       "व्हेक्टर अनुक्रमणिका"
     ],
     "param.recur.description": "Pattern मध्ये '**' असल्यास recursive search करायची का.",
-    "out.total": "Total files: {count}"
+    "out.total": "Total files: {count}",
+    "tool.description": "निर्दिष्ट फाइल्स किंवा डिरेक्टरीज (ग्लोब पॅटर्न) वेक्टर DB मध्ये इंडेक्स करा जेणेकरून सिमेंटिक शोध (semantic_search_files) सक्षम होईल. हे सिमेंटिक क्वेरीसाठी दस्तऐवज तयार करण्यासाठी उपयुक्त आहे."
   },
   "el": {
     "err.glob_fail": "Σφάλμα: Απέτυχε η ανάλυση του μοτίβου: {err}",
@@ -739,7 +739,6 @@
     "out.success": "Επιτυχία: {count}",
     "param.pattern.description": "Όνομα αρχείου στόχου, όνομα καταλόγου ή μοτίβο glob (π.χ. 'src/**/*.py', '*.md').",
     "param.root_path.description": "Ο ριζικός κατάλογος για αναζήτηση και ευρετηρίαση. Προεπιλογές στον τρέχοντα κατάλογο.",
-    "tool.description": "Ευρετηριάζει καθορισμένα αρχεία ή καταλόγους (σφαιρικό μοτίβο) στο διανυσματικό DB για να ενεργοποιήσει τη σημασιολογική αναζήτηση (semantic_search_files). Αυτό είναι χρήσιμο για προετοιμασία...",
     "x_search_terms": [
       "index_files",
       "αρχεία ευρετηρίου",
@@ -753,7 +752,8 @@
       "Σύνολο αρχείων: {count}"
     ],
     "param.recur.description": "lint_format(mode=fix) ενδέχεται να αντικαταστήσει τα αρχεία.\nεργαλεία: {εργαλεία}\nστόχοι: {στόχοι}\ncwd: {cwd}\n\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση.",
-    "out.total": "lint_format_tool\n\nΈνα εργαλείο περιτυλίγματος για την εκτέλεση εργαλείων στατικής ανάλυσης και μορφοποίησης.\n\n- Python: προτιμήστε ruff / black / mypy\n- JavaScript: Για λόγους ασφαλείας, μην εκτελείτε απευθείας το npx.\n\nΑσφάλεια:\n- mode=fix αλλάζει αρχεία, οπότε ζητήστε επιβεβαίωση με το human_ask.\n- Αποδεχτείτε ορίσματα ως πίνακα και απορρίψτε τα εάν περιέχουν επικίνδυνους μεταχαρακτήρες φλοιού."
+    "out.total": "lint_format_tool\n\nΈνα εργαλείο περιτυλίγματος για την εκτέλεση εργαλείων στατικής ανάλυσης και μορφοποίησης.\n\n- Python: προτιμήστε ruff / black / mypy\n- JavaScript: Για λόγους ασφαλείας, μην εκτελείτε απευθείας το npx.\n\nΑσφάλεια:\n- mode=fix αλλάζει αρχεία, οπότε ζητήστε επιβεβαίωση με το human_ask.\n- Αποδεχτείτε ορίσματα ως πίνακα και απορρίψτε τα εάν περιέχουν επικίνδυνους μεταχαρακτήρες φλοιού.",
+    "tool.description": "Δημιουργεί ευρετήριο για καθορισμένα αρχεία ή καταλόγους (μοτίβο glob) στη διανυσματική βάση δεδομένων για ενεργοποίηση σημασιολογικής αναζήτησης (semantic_search_files). Αυτό είναι χρήσιμο για την προετοιμασία εγγράφων για σημασιολογικά ερωτήματα."
   },
   "he": {
     "err.glob_fail": "שגיאה: ניתוח דפוס נכשל: {err}",
@@ -769,7 +769,6 @@
     "out.success": "הצלחה: {count}",
     "param.pattern.description": "שם קובץ יעד, שם ספרייה או דפוס גלוב (למשל 'src/**/*.py', '*.md').",
     "param.root_path.description": "ספריית השורש לחיפוש והוספה לאינדקס. ברירת המחדל לספרייה הנוכחית.",
-    "tool.description": "אינדקסים קבצים או ספריות שצוינו (דפוס גלוב) לתוך ה-DB הווקטור כדי לאפשר חיפוש סמנטי (semantic_search_files). זה שימושי להכנה...",
     "x_search_terms": [
       "index_files",
       "קבצי אינדקס",
@@ -783,7 +782,8 @@
       "ספריית אינדקס"
     ],
     "param.recur.description": "האם לבצע חיפוש רקורסיבי כאשר הדפוס מכיל '**'.",
-    "out.total": "תבניות recive the glob] '**'."
+    "out.total": "תבניות recive the glob] '**'.",
+    "tool.description": "אינדקס קבצים או ספריות שצוינו (תבנית glob) לתוך מסד הנתונים הווקטורי כדי לאפשר חיפוש סמנטי (semantic_search_files). זה שימושי להכנת מסמכים לשאילתות סמנטיות."
   },
   "hu": {
     "err.glob_fail": "Hiba: a gyökér_útvonala nem egy könyvtár: {root_path}",
@@ -799,7 +799,6 @@
     "out.success": "Siker: {count}",
     "param.pattern.description": "Célfájlnév, könyvtárnév vagy glob-minta (pl. „src/**/*.py”, „*.md”).",
     "param.root_path.description": "A keresés és indexelés gyökérkönyvtára. Alapértelmezés szerint az aktuális könyvtár.",
-    "tool.description": "Indexeli a megadott fájlokat vagy könyvtárakat (glob-minta) a vektoros DB-be, hogy lehetővé tegye a szemantikus keresést (szemantikus_kereső_fájlok). Ez hasznos az előkészítéshez...",
     "x_search_terms": [
       "index_fájlok",
       "indexfájl",
@@ -813,7 +812,8 @@
       "globindex"
     ],
     "param.recur.description": "globindex tartalmazza-e** a keresési minta rekurzíváját.",
-    "out.total": "Összes fájl: {count}"
+    "out.total": "Összes fájl: {count}",
+    "tool.description": "Indexeli a megadott fájlokat vagy könyvtárakat (glob minta) a vektoros adatbázisba a szemantikus keresés (semantic_search_files) engedélyezéséhez. Ez hasznos a dokumentumok előkészítéséhez szemantikus lekérdezésekhez."
   },
   "ro": {
     "err.glob_fail": "Eroare: root_path nu este un director: {root_path}",
@@ -829,7 +829,6 @@
     "out.success": "Succes: {count}",
     "param.pattern.description": "Numele fișierului țintă, numele directorului sau modelul global (de exemplu, „src/**/*.py”, „*.md”).",
     "param.root_path.description": "Directorul rădăcină pentru căutare și indexare. Setarea implicită în directorul curent.",
-    "tool.description": "Indexează fișierele sau directoarele specificate (model glob) în DB vectorial pentru a activa căutarea semantică (semantic_search_files). Acest lucru este util pentru pregătirea...",
     "x_search_terms": [
       "fișiere_index",
       "fișiere index",
@@ -843,6 +842,7 @@
       "directorul de index [=#==] index de căutare [=#===] în mod recurent. '**'."
     ],
     "param.recur.description": "Total fișiere: {count}",
-    "out.total": "lint_format(mode=fix) ar putea suprascrie fișierele.\ninstrumente: {instrumente}\ntargets: {targets}\ncwd: {cwd}\n\nRăspundeți cu y pentru a continua sau c pentru a anula."
+    "out.total": "lint_format(mode=fix) ar putea suprascrie fișierele.\ninstrumente: {instrumente}\ntargets: {targets}\ncwd: {cwd}\n\nRăspundeți cu y pentru a continua sau c pentru a anula.",
+    "tool.description": "Indexează fișiere sau directoare specificate (model glob) în baza de date vectorială pentru a permite căutarea semantică (semantic_search_files). Acest lucru este util pentru pregătirea documentelor pentru interogări semantice."
   }
 }

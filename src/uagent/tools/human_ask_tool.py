@@ -20,7 +20,7 @@ TOOL_SPEC: dict[str, Any] = {
         "x_scheck": {"emit_tool_trace": False},
         "description": _(
             "tool.description",
-            default="A tool to ask the human user for an input/decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/toke...",
+            default="A tool to ask the human user for an input/decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/tokens) the input is masked.",
         ),
         "x_search_terms": _(
             "x_search_terms",

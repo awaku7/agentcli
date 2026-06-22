@@ -12,7 +12,7 @@
     "msg.no_user_reply": "(no user reply)",
     "param.is_password.description": "If true, hides (masks) input characters. Use it to enter your password or token.",
     "param.message.description": "Message to show to the human user.",
-    "tool.description": "A tool to ask the human user for an input/decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/toke...",
+    "tool.description": "A tool to ask the human user for an input/decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/tokens) the input is masked.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -38,7 +38,6 @@
     "msg.no_user_reply": "（ユーザーからの返信なし）",
     "param.is_password.description": "true の場合、入力文字を非表示（マスク）にします。パスワードやトークンの入力に使用してください。",
     "param.message.description": "人間に依頼したい内容を、日本語でそのまま表示できる形式で丁寧に書く。",
-    "tool.description": "モデル自身では完結しない操作・判断を、人間ユーザーに依頼し、その回答テキストを受け取るためのツール。注意: 秘匿情報(パスワード等)は is_password=True で「1項目だけ」尋ねること。ユーザー名+パスワード等の複数項目を同時に要求してはいけません（必要なら複数回呼び出す）。",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -47,7 +46,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "回答方法:\n  - そのまま入力して Enter で送信\n  - 'f' 入力で複数行モードへ\n  - 'c' または 'cancel' で中断",
-    "ui.title": "=== 人への依頼 (human_ask) ==="
+    "ui.title": "=== 人への依頼 (human_ask) ===",
+    "tool.description": "モデル単独では完了できない入力や判断を人間のユーザーに求めるためのツール。セキュリティ注意: 秘密情報（パスワード/トークン）を要求する場合、入力はマスクされます。"
   },
   "es": {
     "doc.run_tool": "human_ask no lee directamente de stdin,\nDeje el procesamiento al hilo stdin_loop del lado de scheck.py\nReciba los resultados a través del estado compartido (callbacks).\n",
@@ -62,7 +62,6 @@
     "msg.no_user_reply": "(sin respuesta del usuario)",
     "param.is_password.description": "Si es verdadero, oculta (enmascara) los caracteres de entrada.",
     "param.message.description": "Mensaje para mostrar al usuario humano.",
-    "tool.description": "Herramienta para pedir al usuario humano una entrada o decisión que el modelo no puede completar por sí solo.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -71,7 +70,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Cómo responder:\n  - Escribe tu respuesta y presiona Enter.\n  - Escriba 'f' para ingresar al modo multilínea\n  - Escriba 'c' o 'cancelar' para cancelar",
-    "ui.title": "=== Solicitud humana (human_ask) ==="
+    "ui.title": "=== Solicitud humana (human_ask) ===",
+    "tool.description": "Una herramienta para solicitar al usuario humano una entrada/decisión que el modelo no puede completar por sí mismo. Nota de seguridad: al solicitar secretos (contraseñas/tokens), la entrada se enmascara."
   },
   "fr": {
     "doc.run_tool": "human_ask ne lit pas directement depuis stdin,\nlaissez le traitement au thread stdin_loop du côté scheck.py\net recevez les résultats via l'état partagé (rappels).\n",
@@ -86,7 +86,6 @@
     "msg.no_user_reply": "(pas de réponse de l'utilisateur)",
     "param.is_password.description": "Si vrai, masque les caractères saisis.",
     "param.message.description": "Message à afficher à l'utilisateur humain.",
-    "tool.description": "Outil permettant de demander à l'utilisateur humain une entrée ou une décision que le modèle ne peut pas compléter lui-même.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -95,7 +94,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Comment répondre :\n  - Tapez votre réponse et appuyez sur Entrée\n  - Tapez 'f' pour passer en mode multi-ligne\n  - Tapez « c » ou « annuler » pour annuler",
-    "ui.title": "=== Requête humaine (human_ask) ==="
+    "ui.title": "=== Requête humaine (human_ask) ===",
+    "tool.description": "Un outil pour demander à l'utilisateur humain une entrée/décision que le modèle ne peut pas effectuer seul. Note de sécurité : lors de la demande de secrets (mots de passe/tokens), la saisie est masquée."
   },
   "ko": {
     "doc.run_tool": "human_ask는 stdin에서 직접 읽지 않고,\nscheck.py 쪽의 stdin_loop 스레드에 처리를 맡겨\n공유 상태(callbacks)를 통해 결과를 받습니다.\n",
@@ -110,7 +110,6 @@
     "msg.no_user_reply": "(사용자 응답 없음)",
     "param.is_password.description": "true인 경우 입력 문자를 숨깁니다(마스킹). 비밀번호나 토큰 입력에 사용하세요.",
     "param.message.description": "사람에게 요청하고 싶은 내용을, 그대로 표시해도 되는 형식으로 일본어로 적습니다.",
-    "tool.description": "모델 자체로는 완료할 수 없는 입력/판단을 사람 사용자에게 요청하는 도구입니다. 보안 참고: 비밀(비밀번호/토큰)을 요청할 때는 is_password=True로 설정하고 한 번의 호출에 정확히 한 항목만 요청하세요.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -119,7 +118,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "답변 방법:\n  - 그대로 입력하고 Enter로 보내기\n  - 'f'를 입력해 다중 행 모드로 전환\n  - 'c' 또는 'cancel'로 중단",
-    "ui.title": "=== 사람에게 요청(human_ask) ==="
+    "ui.title": "=== 사람에게 요청(human_ask) ===",
+    "tool.description": "모델이 스스로 완료할 수 없는 입력/결정을 인간 사용자에게 요청하는 도구입니다. 보안 참고: 비밀(비밀번호/토큰)을 요청할 때 입력이 마스킹됩니다."
   },
   "de": {
     "doc.run_tool": "human_ask liest nicht direkt von stdin,\nüberlässt die Verarbeitung dem stdin_loop-Thread auf der scheck.py-Seite\nund erhält Ergebnisse über den gemeinsamen Zustand (Callbacks).",
@@ -134,7 +134,6 @@
     "msg.no_user_reply": "(keine Benutzerantwort)",
     "param.is_password.description": "Wenn true, werden Eingabezeichen ausgeblendet (maskiert).",
     "param.message.description": "Nachricht, die dem menschlichen Benutzer angezeigt werden soll.",
-    "tool.description": "Ein Tool, um den menschlichen Benutzer um eine Eingabe/Entscheidung zu bitten, die das Modell nicht selbst durchführen kann.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -143,7 +142,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "So antworten Sie:\n  - Geben Sie Ihre Antwort ein und drücken Sie die Eingabetaste\n  - Geben Sie „f“ ein, um in den Mehrzeilenmodus zu wechseln\n  - Geben Sie zum Abbrechen „c“ oder „Abbrechen“ ein",
-    "ui.title": "=== Menschliche Anfrage (human_ask) ==="
+    "ui.title": "=== Menschliche Anfrage (human_ask) ===",
+    "tool.description": "Ein Werkzeug, um den menschlichen Benutzer um eine Eingabe/Entscheidung zu bitten, die das Modell nicht selbst abschließen kann. Sicherheitshinweis: Bei der Anforderung von Geheimnissen (Passwörtern/Tokens) wird die Eingabe maskiert."
   },
   "it": {
     "doc.run_tool": "human_ask non legge direttamente da stdin,\nlascia l'elaborazione al thread stdin_loop sul lato scheck.py\ne riceve i risultati tramite stato condiviso (callback).",
@@ -158,7 +158,6 @@
     "msg.no_user_reply": "(nessuna risposta da parte dell'utente)",
     "param.is_password.description": "Se vero, nasconde (maschera) i caratteri di input.",
     "param.message.description": "Messaggio da mostrare all'utente umano.",
-    "tool.description": "Uno strumento per chiedere all'utente umano un input/una decisione che il modello non può completare da solo.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -167,7 +166,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Come rispondere:\n  - Digita la tua risposta e premi Invio\n  - Digita \"f\" per accedere alla modalità multilinea\n  - Digita \"c\" o \"annulla\" per annullare",
-    "ui.title": "=== Richiesta umana (human_ask) ==="
+    "ui.title": "=== Richiesta umana (human_ask) ===",
+    "tool.description": "Uno strumento per chiedere all'utente umano un input/decisione che il modello non può completare da solo. Nota di sicurezza: quando si richiedono segreti (password/token) l'input viene mascherato."
   },
   "ru": {
     "doc.run_tool": "human_ask не читает напрямую из stdin,\nпередает обработку потоку stdin_loop на стороне scheck.py\nи получает результаты через общее состояние (обратные вызовы).",
@@ -182,7 +182,6 @@
     "msg.no_user_reply": "(нет ответа пользователя)",
     "param.is_password.description": "Если true, скрывает (маскирует) вводимые символы.",
     "param.message.description": "Сообщение, которое будет показано пользователю-человеку.",
-    "tool.description": "Инструмент для запроса у пользователя-человека ввода/решения, которые модель не может выполнить сама.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -191,7 +190,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Как ответить:\n  - Введите ответ и нажмите Enter.\n  - Введите «f», чтобы войти в многострочный режим.\n  - Введите «c» или «отмена», чтобы отменить",
-    "ui.title": "=== Человеческий запрос (human_ask) ==="
+    "ui.title": "=== Человеческий запрос (human_ask) ===",
+    "tool.description": "Инструмент для запроса у пользователя ввода/решения, которое модель не может выполнить самостоятельно. Примечание по безопасности: при запросе секретов (паролей/токенов) ввод маскируется."
   },
   "pt_BR": {
     "doc.run_tool": "human_ask não lê diretamente do stdin,\nDeixe o processamento para a thread stdin_loop no lado scheck.py\nReceba os resultados por meio de estado compartilhado (callbacks).",
@@ -206,7 +206,6 @@
     "msg.no_user_reply": "(sem resposta do usuário)",
     "param.is_password.description": "Se verdadeiro, oculta (mascara) os caracteres de entrada.",
     "param.message.description": "Mensagem a ser mostrada ao usuário humano.",
-    "tool.description": "Uma ferramenta para solicitar ao usuário humano uma entrada/decisão que o modelo não consegue concluir sozinho.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -215,7 +214,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Como responder:\n  - Digite sua resposta e pressione Enter\n  - Digite 'f' para entrar no modo multilinha\n  - Digite 'c' ou 'cancelar' para cancelar",
-    "ui.title": "=== Solicitação humana (human_ask) ==="
+    "ui.title": "=== Solicitação humana (human_ask) ===",
+    "tool.description": "Uma ferramenta para solicitar ao usuário humano uma entrada/decisão que o modelo não pode concluir sozinho. Nota de segurança: ao solicitar segredos (senhas/tokens), a entrada é mascarada."
   },
   "pt": {
     "doc.run_tool": "human_ask não lê diretamente de stdin,\nDeixe o processamento para o thread stdin_loop no lado do scheck.py\ne receba os resultados por meio de estado compartilhado (callbacks).",
@@ -230,7 +230,6 @@
     "msg.no_user_reply": "(sem resposta do usuário)",
     "param.is_password.description": "Se verdadeiro, oculta (mascara) os caracteres de entrada.",
     "param.message.description": "Mensagem a ser mostrada ao usuário humano.",
-    "tool.description": "Ferramenta para pedir ao usuário humano uma entrada ou decisão que o modelo não consegue concluir sozinho.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -239,7 +238,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Como responder:\n  - Digite sua resposta e pressione Enter\n  - Digite 'f' para entrar no modo multilinha\n  - Digite 'c' ou 'cancelar' para cancelar",
-    "ui.title": "=== Solicitação humana (human_ask) ==="
+    "ui.title": "=== Solicitação humana (human_ask) ===",
+    "tool.description": "Uma ferramenta para pedir ao utilizador humano uma entrada/decisão que o modelo não pode concluir por si só. Nota de segurança: ao solicitar segredos (palavras-passe/tokens) a entrada é mascarada."
   },
   "id": {
     "doc.run_tool": "human_ask tidak membaca langsung dari stdin,\nSerahkan pemrosesan ke thread stdin_loop di sisi scheck.py\nTerima hasil melalui shared state (callbacks).",
@@ -254,7 +254,6 @@
     "msg.no_user_reply": "(tidak ada balasan pengguna)",
     "param.is_password.description": "Jika true, menyembunyikan (mem-mask) karakter input.",
     "param.message.description": "Pesan untuk ditampilkan kepada pengguna manusia.",
-    "tool.description": "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -263,7 +262,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Cara menjawab:\n  - Ketikkan jawaban Anda dan tekan Enter\n  - Ketik 'f' untuk masuk ke mode multi-baris\n  - Ketik 'c' atau 'batal' untuk membatalkan",
-    "ui.title": "=== Permintaan manusia (human_ask) ==="
+    "ui.title": "=== Permintaan manusia (human_ask) ===",
+    "tool.description": "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri. Catatan keamanan: saat meminta rahasia (kata sandi/token) input akan disembunyikan."
   },
   "vi": {
     "doc.run_tool": "human_ask không đọc trực tiếp từ stdin,\nĐể lại quá trình xử lý cho luồng stdin_loop ở phía scheck.py\nNhận kết quả qua trạng thái chia sẻ (gọi lại).",
@@ -278,7 +278,6 @@
     "msg.no_user_reply": "(không có người dùng trả lời)",
     "param.is_password.description": "Nếu đúng, ẩn (che giấu) ký tự đầu vào.",
     "param.message.description": "Thông báo hiển thị cho người dùng.",
-    "tool.description": "Một công cụ để yêu cầu người dùng đưa ra quyết định/đầu vào mà mô hình không thể tự hoàn thành.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -287,7 +286,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Cách trả lời:\n  - Chỉ cần gõ vào và nhấn Enter để gửi\n  - Nhập 'f' để vào chế độ nhiều dòng\n  - Hủy bỏ bằng 'c' hoặc 'hủy'",
-    "ui.title": "=== Yêu cầu của con người (human_ask) ==="
+    "ui.title": "=== Yêu cầu của con người (human_ask) ===",
+    "tool.description": "Một công cụ để yêu cầu người dùng nhập thông tin/quyết định mà mô hình không thể tự hoàn thành. Lưu ý bảo mật: khi yêu cầu bí mật (mật khẩu/token), đầu vào sẽ được che dấu."
   },
   "pl": {
     "doc.run_tool": "human_ask nie czyta bezpośrednio ze standardowego wejścia,\nPozostaw przetwarzanie wątkowi stdin_loop po stronie scheck.py\nOtrzymuj wyniki poprzez stan udostępniony (wywołania zwrotne).",
@@ -302,7 +302,6 @@
     "msg.no_user_reply": "(brak odpowiedzi użytkownika)",
     "param.is_password.description": "Jeśli ma wartość true, ukrywa (maskuje) wprowadzone znaki.",
     "param.message.description": "Wiadomość wyświetlana użytkownikowi.",
-    "tool.description": "Narzędzie prosząc użytkownika o dane wejściowe/decyzję, których model nie jest w stanie sam wykonać.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -311,7 +310,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Jak odpowiedzieć:\n  - Wpisz odpowiedź i naciśnij Enter\n  - Wpisz „f”, aby przejść do trybu wielowierszowego\n  - Wpisz „c” lub „anuluj”, aby anulować",
-    "ui.title": "=== Prośba do osoby (human_ask) ==="
+    "ui.title": "=== Prośba do osoby (human_ask) ===",
+    "tool.description": "Narzędzie do proszenia użytkownika o dane wejściowe/decyzję, której model nie może samodzielnie wykonać. Uwaga dotycząca bezpieczeństwa: przy żądaniu tajemnic (haseł/tokenów) dane wejściowe są maskowane."
   },
   "hi": {
     "doc.run_tool": "human_ask सीधे stdin से नहीं पढ़ता है,\nप्रोसेसिंग को scheck.py साइड पर stdin_loop थ्रेड पर छोड़ दें\nसाझा स्थिति (कॉलबैक) के माध्यम से परिणाम प्राप्त करें।",
@@ -326,7 +326,6 @@
     "msg.no_user_reply": "(कोई उपयोगकर्ता उत्तर नहीं)",
     "param.is_password.description": "यदि सत्य है, तो इनपुट वर्ण छुपाता है (मुखौटा देता है)। अपना पासवर्ड या टोकन दर्ज करने के लिए इसका उपयोग करें।",
     "param.message.description": "मानव उपयोगकर्ता को दिखाने के लिए संदेश।",
-    "tool.description": "मानव उपयोगकर्ता से इनपुट/निर्णय के लिए पूछने का एक उपकरण जिसे मॉडल स्वयं पूरा नहीं कर सकता है। सुरक्षा नोट: रहस्यों (पासवर्ड/टोक) का अनुरोध करते समय...",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -335,7 +334,8 @@
     ],
     "ui.footer": "=== / human_ask ===",
     "ui.howto": "उत्तर कैसे दें:\n  - अपना उत्तर टाइप करें और एंटर दबाएं\n  - मल्टी-लाइन मोड में प्रवेश करने के लिए 'f' टाइप करें\n  - रद्द करने के लिए 'सी' या 'रद्द करें' टाइप करें",
-    "ui.title": "=== मानव अनुरोध (मानव_पूछ) ==="
+    "ui.title": "=== मानव अनुरोध (मानव_पूछ) ===",
+    "tool.description": "मानव उपयोगकर्ता से इनपुट/निर्णय मांगने का एक उपकरण जो मॉडल स्वयं पूरा नहीं कर सकता। सुरक्षा नोट: गुप्त जानकारी (पासवर्ड/टोकन) मांगते समय इनपुट छिपा दिया जाता है।"
   },
   "ar": {
     "doc.run_tool": "human_ask لا يقرأ مباشرة من stdin،\nاترك المعالجة لسلسلة الرسائل stdin_loop على الجانب scheck.py\nتلقي النتائج عبر الحالة المشتركة (عمليات الاسترجاعات).",
@@ -350,7 +350,6 @@
     "msg.no_user_reply": "(لا يوجد رد من المستخدم)",
     "param.is_password.description": "إذا كان صحيحا، فإنه يخفي (أقنعة) أحرف الإدخال.",
     "param.message.description": "رسالة لإظهارها للمستخدم البشري.",
-    "tool.description": "أداة تطلب من المستخدم البشري إدخال/قرار لا يستطيع النموذج إكماله بنفسه.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -359,7 +358,8 @@
     ],
     "ui.footer": "عنوان URL لنقطة نهاية خادم MCP (http://... أو stdio://command...). /human_ask ===",
     "ui.howto": "كيفية الإجابة:\n  - اكتب إجابتك ثم اضغط على Enter\n  - اكتب \"f\" للدخول إلى وضع الخطوط المتعددة\n  - اكتب \"c\" أو \"إلغاء\" للإلغاء",
-    "ui.title": "=== طلب لشخص (human_ask) ==="
+    "ui.title": "=== طلب لشخص (human_ask) ===",
+    "tool.description": "أداة لطلب إدخال/قرار من المستخدم البشري لا يمكن للنموذج إكماله بنفسه. ملاحظة أمنية: عند طلب أسرار (كلمات مرور/رموز) يتم إخفاء الإدخال."
   },
   "sv": {
     "doc.run_tool": "human_ask läser inte direkt från stdin,\nlåt bearbetningen skötas av stdin_loop-tråden på scheck.py-sidan\noch ta emot resultat via delat tillstånd (callbacks).",
@@ -374,7 +374,6 @@
     "msg.no_user_reply": "(inget svar från användaren)",
     "param.is_password.description": "Om true döljs (maskeras) inmatade tecken. Använd det för att ange ditt lösenord eller token.",
     "param.message.description": "Meddelande som ska visas för den mänskliga användaren.",
-    "tool.description": "Ett verktyg för att be den mänskliga användaren om en indata/beslut som modellen inte kan slutföra själv.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -383,7 +382,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Hur man svarar:\n  - Skriv ditt svar och tryck på Enter\n  - Skriv 'f' för att gå in i flerradsläge\n  - Skriv 'c' eller 'avbryt' för att avbryta",
-    "ui.title": "=== Mänsklig begäran (human_ask) ==="
+    "ui.title": "=== Mänsklig begäran (human_ask) ===",
+    "tool.description": "Ett verktyg för att be den mänskliga användaren om en inmatning/ett beslut som modellen inte kan slutföra på egen hand. Säkerhetsnot: vid begäran av hemligheter (lösenord/token) maskeras inmatningen."
   },
   "sw": {
     "doc.run_tool": "human_ask haisomi moja kwa moja kutoka stdin,\nacha uchakataji ufanywe na uzi wa stdin_loop upande wa scheck.py\nna upokee matokeo kupitia hali ya pamoja (callbacks).",
@@ -398,7 +398,6 @@
     "msg.no_user_reply": "(hakuna jibu la mtumiaji)",
     "param.is_password.description": "Ikiwa ni true, huficha (huziba) herufi za ingizo. Itumie kuingiza nenosiri au tokeni yako.",
     "param.message.description": "Ujumbe wa kuonyesha kwa mtumiaji binadamu.",
-    "tool.description": "Zana ya kumuuliza mtumiaji binadamu ingizo au uamuzi ambao modeli haiwezi kukamilisha peke yake.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -407,7 +406,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Jinsi ya kujibu:\n  - Andika tu na ubonyeze Enter kutuma\n  - Weka f ili kuingia hali ya mistari mingi\n  - Ghairi kwa c au cancel",
-    "ui.title": "=== Ombi kwa mtu (human_ask) ==="
+    "ui.title": "=== Ombi kwa mtu (human_ask) ===",
+    "tool.description": "Chombo cha kuuliza mtumiaji binadamu kwa ingizo/uamuzi ambao mfano hauwezi kukamilisha peke yake. Dokezo la usalama: wakati wa kuomba siri (nywila/vidokezo) ingizo hufichwa."
   },
   "nb": {
     "doc.run_tool": "human_ask leser ikke direkte fra stdin,\nla behandlingen gå til stdin_loop-tråden på scheck.py-siden\nog motta resultater via delt tilstand (callbacks).",
@@ -422,7 +422,6 @@
     "msg.no_user_reply": "(ingen brukersvar)",
     "param.is_password.description": "Hvis true, skjules (maskeres) inntastede tegn.",
     "param.message.description": "Melding som skal vises til den menneskelige brukeren.",
-    "tool.description": "Et verktøy for å be den menneskelige brukeren om en input/beslutning som modellen ikke kan fullføre selv.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -431,7 +430,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Slik svarer du:\n  - Skriv inn og trykk Enter for å sende\n  - Skriv 'f' for å gå til flerlinjemodus\n  - Avbryt med 'c' eller 'cancel'",
-    "ui.title": "=== Menneskelig forespørsel (human_ask) ==="
+    "ui.title": "=== Menneskelig forespørsel (human_ask) ===",
+    "tool.description": "Et verktøy for å be menneskelig bruker om input/beslutning som modellen ikke kan fullføre selv. Sikkerhetsmerknad: ved forespørsel om hemmeligheter (passord/nøkler) maskeres input."
   },
   "nl": {
     "doc.run_tool": "human_ask leest niet rechtstreeks uit stdin,\nLaat de verwerking over aan de stdin_loop-thread aan de scheck.py-kant\nOntvang resultaten via gedeelde status (callbacks).",
@@ -446,7 +446,6 @@
     "msg.no_user_reply": "(geen antwoord van de gebruiker)",
     "param.is_password.description": "Als true, worden invoertekens verborgen (gemaskeerd).",
     "param.message.description": "Bericht dat aan de menselijke gebruiker moet worden getoond.",
-    "tool.description": "Een tool om de menselijke gebruiker om invoer/beslissing te vragen die het model niet zelf kan afhandelen.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -455,7 +454,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Hoe te antwoorden:\n  - Typ uw antwoord en druk op Enter\n  - Typ 'f' om de meerregelige modus te openen\n  - Typ 'c' of 'annuleren' om te annuleren",
-    "ui.title": "=== Menselijk verzoek (human_ask) ==="
+    "ui.title": "=== Menselijk verzoek (human_ask) ===",
+    "tool.description": "Een hulpmiddel om de menselijke gebruiker om een invoer/beslissing te vragen die het model niet zelf kan voltooien. Beveiligingsopmerking: bij het opvragen van geheimen (wachtwoorden/tokens) wordt de invoer gemaskeerd."
   },
   "fi": {
     "doc.run_tool": "human_ask ei lue suoraan stdinistä,\nJätä käsittely scheck.py-puolen stdin_loop-säikeelle\nVastaanota tulokset jaetun tilan kautta (callbackit).",
@@ -470,7 +470,6 @@
     "msg.no_user_reply": "(ei käyttäjän vastausta)",
     "param.is_password.description": "Jos true, syötemerkit piilotetaan (peitetään).",
     "param.message.description": "Ihmiskäyttäjälle näytettävä viesti.",
-    "tool.description": "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse tehdä.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -479,7 +478,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Miten vastata:\n  - Kirjoita vastauksesi ja paina Enter\n  - Kirjoita 'f' siirtyäksesi moniriviseen tilaan\n  - Peruuta kirjoittamalla \"c\" tai \"peruuta\".",
-    "ui.title": "=== Ihmisen pyyntö (human_ask) ==="
+    "ui.title": "=== Ihmisen pyyntö (human_ask) ===",
+    "tool.description": "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse suorittaa. Turvallisuushuomautus: salaisuuksia (salasanoja/tunnuksia) pyydettäessä syöte peitetään."
   },
   "cs": {
     "doc.run_tool": "human_ask nečte přímo ze stdin,\nsvěřte zpracování vláknu stdin_loop na straně scheck.py\na výsledky přijímejte přes sdílený stav (callbacks).",
@@ -494,7 +494,6 @@
     "msg.no_user_reply": "(žádná odpověď uživatele)",
     "param.is_password.description": "Je-li true, skryje (maskuje) znaky vstupu. Použijte pro zadání hesla nebo tokenu.",
     "param.message.description": "Zpráva k zobrazení lidskému uživateli.",
-    "tool.description": "Nástroj pro vyžádání vstupu/rozhodnutí od člověka, které model nedokáže dokončit sám.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -503,7 +502,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Jak odpovědět:\n  - Napište svou odpověď a stiskněte Enter\n  - Zadejte „f“ pro vstup do víceřádkového režimu\n  - Pro zrušení zadejte „c“ nebo „zrušit“.",
-    "ui.title": "=== Žádost k člověku (human_ask) ==="
+    "ui.title": "=== Žádost k člověku (human_ask) ===",
+    "tool.description": "Nástroj pro vyžádání vstupu/rozhodnutí od lidského uživatele, které model nemůže dokončit sám. Bezpečnostní poznámka: při vyžádání tajných údajů (hesel/tokenů) je vstup maskován."
   },
   "uk": {
     "doc.run_tool": "human_ask не читає безпосередньо зі stdin,\nпередайте обробку потоку stdin_loop на боці scheck.py\nі отримуйте результати через спільний стан (callbacks).",
@@ -518,7 +518,6 @@
     "msg.no_user_reply": "(немає відповіді користувача)",
     "param.is_password.description": "Якщо true, приховує (маскує) символи введення.",
     "param.message.description": "Повідомлення для показу людині.",
-    "tool.description": "Інструмент для запиту у людини вводу/рішення, яке модель не може виконати сама.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -527,7 +526,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Як відповісти:\n  - Введіть свою відповідь і натисніть Enter\n  - Натисніть «f», щоб увійти в багаторядковий режим\n  - Введіть 'c' або 'cancel', щоб скасувати",
-    "ui.title": "=== Запит до людини (human_ask) ==="
+    "ui.title": "=== Запит до людини (human_ask) ===",
+    "tool.description": "Інструмент для запиту до людини-користувача щодо введення/рішення, яке модель не може виконати самостійно. Зауваження щодо безпеки: при запиті секретів (паролів/токенів) введення маскується."
   },
   "tr": {
     "doc.run_tool": "human_ask doğrudan stdin'den okumaz;\nscheck.py tarafındaki stdin_loop iş parçacığının işlemeyi yönetmesine izin verin\nve sonuçları paylaşılan durum (geri aramalar) aracılığıyla alın.",
@@ -542,7 +542,6 @@
     "msg.no_user_reply": "(kullanıcı yanıtı yok)",
     "param.is_password.description": "Doğruysa, giriş karakterlerini gizler (maskeler).",
     "param.message.description": "İnsan kullanıcıya gösterilecek mesaj.",
-    "tool.description": "Modelin kendi başına tamamlayamayacağı bir karar veya girdiyi insan kullanıcıdan talep eden bir araç.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -551,7 +550,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Nasıl cevap verilir:\n  - Cevabınızı yazın ve Enter'a basın\n  - Çok hatlı moda girmek için 'f' yazın\n  - İptal etmek için 'c' veya 'iptal' yazın",
-    "ui.title": "=== Bir kişiye istek (human_ask) ==="
+    "ui.title": "=== Bir kişiye istek (human_ask) ===",
+    "tool.description": "Modelin kendi başına tamamlayamadığı bir girdi/karar için insan kullanıcıya sorma aracı. Güvenlik notu: sırlar (şifreler/tokenlar) istenirken girdi maskelenir."
   },
   "th": {
     "doc.run_tool": "human_ask ไม่ได้อ่านโดยตรงจาก stdin\nให้เธรด stdin_loop ฝั่ง scheck.py จัดการประมวลผล\nแล้วรับผลลัพธ์ผ่านสถานะที่ใช้ร่วมกัน (callbacks)\n",
@@ -566,7 +566,6 @@
     "msg.no_user_reply": "(ไม่มีการตอบกลับจากผู้ใช้)",
     "param.is_password.description": "หากเป็น true ให้ซ่อนอักขระที่ป้อน (มาสก์) ใช้สำหรับป้อนรหัสผ่านหรือโทเค็น",
     "param.message.description": "ข้อความที่จะแสดงต่อผู้ใช้ที่เป็นมนุษย์",
-    "tool.description": "เครื่องมือสำหรับขอข้อมูล/การตัดสินใจจากผู้ใช้ที่เป็นมนุษย์ ซึ่งโมเดลไม่สามารถดำเนินการให้เสร็จสิ้นได้ด้วยตัวเอง หมายเหตุด้านความปลอดภัย: เมื่อขอข้อมูลลับ (รหัสผ่าน/โทเค็น...",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -575,7 +574,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "วิธีตอบ:\n  - พิมพ์แล้วกด Enter เพื่อส่ง\n  - ป้อน 'f' เพื่อเข้าสู่โหมดหลายบรรทัด\n  - ยกเลิกด้วย 'c' หรือ 'cancel'",
-    "ui.title": "=== คำขอถึงบุคคล (human_ask) ==="
+    "ui.title": "=== คำขอถึงบุคคล (human_ask) ===",
+    "tool.description": "เครื่องมือสำหรับขอข้อมูล/การตัดสินใจจากผู้ใช้ที่เป็นมนุษย์ ซึ่งโมเดลไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้ด้วยตัวเอง หมายเหตุด้านความปลอดภัย: เมื่อขอข้อมูลลับ (รหัสผ่าน/โทเค็น) ข้อมูลที่ป้อนจะถูกปกปิด"
   },
   "zh_CN": {
     "doc.run_tool": "human_ask 不直接从 stdin 读取，\n将处理留给 scheck.py 端的 stdin_loop 线程\n通过共享状态（回调）接收结果。\n",
@@ -590,7 +590,6 @@
     "msg.no_user_reply": "（没有用户回复）",
     "param.is_password.description": "如果为 true，则隐藏（屏蔽）输入字符。用它来输入您的密码或令牌。",
     "param.message.description": "请用日语写下您想要求人类做的事情，并以可以原样显示的格式表达。",
-    "tool.description": "一种向人类用户询问模型无法自行完成的输入/决策的工具。安全说明：请求机密（密码/令牌）时，设置 is_password=True 并在每次调用时仅请求一项。",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -599,7 +598,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "如何回答：\n  - 只需输入并按 Enter 即可发送\n  - 输入 'f' 进入多行模式\n  - 使用 'c' 或 'cancel' 中止",
-    "ui.title": "=== 向某人提出请求 (human_ask) ==="
+    "ui.title": "=== 向某人提出请求 (human_ask) ===",
+    "tool.description": "用于向人类用户请求模型无法自行完成的输入/决策的工具。安全提示：请求机密信息（密码/令牌）时，输入内容会被遮蔽。"
   },
   "zh_TW": {
     "doc.run_tool": "human_ask 不直接從 stdin 讀取，\n將處理留給 scheck.py 端的 stdin_loop 執行緒\n透過共享狀態（回呼）接收結果。\n",
@@ -614,7 +614,6 @@
     "msg.no_user_reply": "（沒有使用者回覆）",
     "param.is_password.description": "如果為 true，則隱藏（遮蔽）輸入字元。可用來輸入您的密碼或權杖。",
     "param.message.description": "請用日文寫下您想要求人類做的事情，並以可以原樣顯示的格式表達。",
-    "tool.description": "一種向人類使用者詢問模型無法自行完成的輸入/決策的工具。安全說明：請求機密（密碼/權杖）時，設定 is_password=True，且每次呼叫只請求一項。",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -623,7 +622,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "如何回答：\n  - 只需輸入並按 Enter 即可送出\n  - 輸入 'f' 進入多行模式\n  - 使用 'c' 或 'cancel' 中止",
-    "ui.title": "=== 向某人提出請求 (human_ask) ==="
+    "ui.title": "=== 向某人提出請求 (human_ask) ===",
+    "tool.description": "一個用於向人類使用者請求模型無法自行完成的輸入/決策的工具。安全提示：當請求機密資訊（密碼/令牌）時，輸入內容會被遮蔽。"
   },
   "bn": {
     "doc.run_tool": "human_ask সরাসরি stdin থেকে পড়ে না;\nscheck.py-র stdin_loop থ্রেডকে প্রসেসিং সামলাতে দিন\nএবং shared state (callbacks) এর মাধ্যমে ফলাফল নিন।",
@@ -638,7 +638,6 @@
     "msg.no_user_reply": "(ব্যবহারকারীর কোনো উত্তর নেই)",
     "param.is_password.description": "true হলে, ইনপুট অক্ষর লুকায় (মাস্ক করে)। পাসওয়ার্ড বা টোকেন দেওয়ার সময় এটি ব্যবহার করুন।",
     "param.message.description": "মানব ব্যবহারকারীকে দেখানোর জন্য বার্তা।",
-    "tool.description": "Git সাবকমান্ড (সীমাবদ্ধ) GraphRAG (Graph + Vector hybrid) এর জন্য py/md/txt/pdf/pptx/xlsion এ __ডিএক্স যে মডেলটি নিজেই সম্পূর্ণ করতে পারে না নিরাপত্তা নোট: গোপনীয়তার অনুরোধ করার সময় (পাসওয়ার্ড/টোক...",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -647,7 +646,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "কীভাবে উত্তর দেবেন:\n  - শুধু টাইপ করে Enter চাপুন\n  - multiline mode-এ যেতে 'f' লিখুন\n  - 'c' বা 'cancel' দিয়ে বাতিল করুন",
-    "ui.title": "=== মানুষের অনুরোধ (মানব_আস্ক) ==="
+    "ui.title": "=== মানুষের অনুরোধ (মানব_আস্ক) ===",
+    "tool.description": "একটি টুল যা মানব ব্যবহারকারীর কাছ থেকে এমন একটি ইনপুট/সিদ্ধান্ত চাওয়ার জন্য যা মডেল নিজে সম্পূর্ণ করতে পারে না। নিরাপত্তা নোট: গোপন তথ্য (পাসওয়ার্ড/টোকেন) চাওয়ার সময় ইনপুটটি মাস্ক করা হয়।"
   },
   "fa": {
     "doc.run_tool": "human_ask مستقیماً از stdin نمی‌خواند؛\nاجازه دهید threadِ stdin_loop در سمت scheck.py پردازش را انجام دهد\nو نتایج را از طریق shared state (callbacks) دریافت کنید.",
@@ -662,7 +662,6 @@
     "msg.no_user_reply": "(بدون پاسخ کاربر)",
     "param.is_password.description": "اگر true باشد، نویسه‌های ورودی را پنهان (mask) می‌کند.",
     "param.message.description": "پیام برای نمایش به کاربر انسانی.",
-    "tool.description": "ابزاری برای درخواست ورودی/تصمیم از کاربر انسانی که مدل به‌تنهایی نمی‌تواند انجام دهد.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -671,7 +670,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "نحوه پاسخ:\n  - کافی است تایپ کنید و Enter بزنید\n  - برای ورود به حالت چندخطی 'f' را وارد کنید\n  - با 'c' یا 'cancel' لغو کنید",
-    "ui.title": "=== درخواست انسانی (human_ask) ==="
+    "ui.title": "=== درخواست انسانی (human_ask) ===",
+    "tool.description": "ابزاری برای درخواست ورودی/تصمیم از کاربر انسانی که مدل نمی‌تواند به تنهایی آن را تکمیل کند. نکته امنیتی: هنگام درخواست اسرار (رمزهای عبور/توکن‌ها) ورودی پنهان می‌شود."
   },
   "mn": {
     "doc.run_tool": "human_ask нь stdin-ээс шууд уншихгүй;\nscheck.py талын stdin_loop thread-д боловсруулалтыг даатгаж\nshared state (callbacks)-аар үр дүнг авна.",
@@ -686,7 +686,6 @@
     "msg.no_user_reply": "(хэрэглэгчийн хариу байхгүй)",
     "param.is_password.description": "true бол оролтын тэмдэгтүүдийг нууж (mask) харуулна.",
     "param.message.description": "Хүний хэрэглэгчдэд үзүүлэх мессеж.",
-    "tool.description": "Хүн хэрэглэгчээс, модель өөрөө дуусгаж чаддаггүй оролт/шийдвэрийг хүсэх хэрэгсэл.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -695,7 +694,8 @@
     ],
     "ui.footer": "=== /хүний_асуу ===",
     "ui.howto": "Хэрхэн хариулах вэ:\n  - Хариугаа бичээд Enter дарна уу\n  - Олон мөрийн горимд орохын тулд 'f' гэж бичнэ үү\n  - Цуцлахын тулд 'c' эсвэл 'cancel' гэж бичнэ үү",
-    "ui.title": "=== Хүний хүсэлт (хүний_асуулт) ==="
+    "ui.title": "=== Хүний хүсэлт (хүний_асуулт) ===",
+    "tool.description": "Модель өөрөө гүйцэтгэж чадахгүй оролт/шийдвэрийг хүний хэрэглэгчээс асуух хэрэгсэл. Аюулгүй байдлын тэмдэглэл: нууц үг/токен асуухад оролт далдлагдана."
   },
   "mr": {
     "doc.run_tool": "human_ask stdin मधून थेट वाचत नाही;\nscheck.py बाजूच्या stdin_loop thread कडे प्रक्रिया सोपवा\nआणि shared state (callbacks) द्वारे निकाल मिळवा.",
@@ -710,7 +710,6 @@
     "msg.no_user_reply": "(वापरकर्ता उत्तर नाही)",
     "param.is_password.description": "true असल्यास, इनपुट अक्षरे लपवतो (mask करतो). पासवर्ड किंवा token टाकण्यासाठी वापरा.",
     "param.message.description": "मानवी वापरकर्त्यास दर्शवण्यासाठी संदेश.",
-    "tool.description": "मॉडेल स्वतः पूर्ण करू शकत नाही असा input/decision मानव वापरकर्त्याकडून मागण्यासाठीचे साधन.",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -719,7 +718,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "कसे उत्तर द्यावे:\n  - फक्त टाइप करून Enter दाबा\n  - multiline mode मध्ये जाण्यासाठी 'f' टाइप करा\n  - 'c' किंवा 'cancel' ने रद्द करा",
-    "ui.title": "=== मानवी विनंती (मानवी_विचार) ==="
+    "ui.title": "=== मानवी विनंती (मानवी_विचार) ===",
+    "tool.description": "मॉडेल स्वतःहून पूर्ण करू शकत नसलेल्या इनपुट/निर्णयासाठी मानवी वापरकर्त्याला विचारण्याचे साधन. सुरक्षा टीप: गुप्त माहिती (पासवर्ड/टोकन) विनंती करताना इनपुट लपवले जाते."
   },
   "el": {
     "doc.run_tool": "το human_ask δεν διαβάζεται απευθείας από το stdin.\nαφήστε το νήμα stdin_loop στο πλευρικό scheck.py να χειριστεί την επεξεργασία\nκαι να λαμβάνετε αποτελέσματα μέσω κοινής κατάστασης (επιστροφές κλήσης).",
@@ -734,7 +734,6 @@
     "msg.no_user_reply": "(καμία απάντηση χρήστη)",
     "param.is_password.description": "Εάν είναι αληθές, αποκρύπτει (καλύπτει) χαρακτήρες εισόδου. Χρησιμοποιήστε το για να εισαγάγετε τον κωδικό πρόσβασης ή το διακριτικό σας.",
     "param.message.description": "Μήνυμα για εμφάνιση στον ανθρώπινο χρήστη.",
-    "tool.description": "Ένα εργαλείο για να ζητήσει από τον ανθρώπινο χρήστη μια είσοδο/απόφαση που το μοντέλο δεν μπορεί να ολοκληρώσει από μόνο του. Σημείωση ασφαλείας: όταν ζητάτε μυστικά (passwords/toke...",
     "x_search_terms": [
       "human_ask",
       "human_ask",
@@ -745,7 +744,8 @@
     ],
     "ui.footer": "απόφαση",
     "ui.howto": "Πώς να απαντήσετε:\n  - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n  - Πληκτρολογήστε 'f' για να εισέλθετε σε λειτουργία πολλαπλών γραμμών\n  - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση",
-    "ui.title": "Πώς να απαντήσετε:\n  - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n  - Πληκτρολογήστε 'f' για να εισέλθετε σε λειτουργία πολλαπλών γραμμών\n  - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση"
+    "ui.title": "Πώς να απαντήσετε:\n  - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n  - Πληκτρολογήστε 'f' για να εισέλθετε σε λειτουργία πολλαπλών γραμμών\n  - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση",
+    "tool.description": "Ένα εργαλείο για να ζητήσετε από τον ανθρώπινο χρήστη μια είσοδο/απόφαση που το μοντέλο δεν μπορεί να ολοκληρώσει μόνο του. Σημείωση ασφαλείας: κατά την αίτηση μυστικών (κωδικών/tokens) η είσοδος αποκρύπτεται."
   },
   "he": {
     "doc.run_tool": "human_ask לא קורא ישירות מ-stdin;\nתן לשרשור stdin_loop בעיבוד הצד של scheck.py\nולקבל תוצאות באמצעות מצב משותף (התקשרות חוזרת).",
@@ -760,7 +760,6 @@
     "msg.no_user_reply": "(ללא תשובת משתמש)",
     "param.is_password.description": "אם נכון, מסתיר (מסכות) תווי קלט. השתמש בו כדי להזין את הסיסמה או האסימון שלך.",
     "param.message.description": "הודעה להצגה למשתמש האנושי.",
-    "tool.description": "כלי לבקש מהמשתמש האנושי קלט/החלטה שהמודל לא יכול להשלים בעצמו. הערת אבטחה: בעת בקשת סודות (סיסמאות/סיסמאות...",
     "x_search_terms": [
       "human_ask",
       "אנושי שאל",
@@ -771,7 +770,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "כיצד לענות:\n  - הקלד את תשובתך והקש אנטר\n  - הקלד 'f' כדי להיכנס למצב ריבוי שורות\n  - הקלד 'c' או 'ביטול' כדי לבטל",
-    "ui.title": "=== בקשה אנושית (human_ask) ==="
+    "ui.title": "=== בקשה אנושית (human_ask) ===",
+    "tool.description": "כלי לבקש מהמשתמש האנושי קלט/החלטה שהמודל אינו יכול להשלים בעצמו. הערת אבטחה: בעת בקשת סודות (סיסמאות/טוקנים) הקלט מוסתר."
   },
   "hu": {
     "doc.run_tool": "a human_ask nem olvas közvetlenül az stdin-ből;\nhagyja, hogy a scheck.py oldalon lévő stdin_loop szál kezelje a feldolgozást\nés eredményeket kaphat megosztott állapotban (visszahívások).",
@@ -786,7 +786,6 @@
     "msg.no_user_reply": "(nincs felhasználói válasz)",
     "param.is_password.description": "Ha igaz, elrejti (maszkolja) a beviteli karaktereket. Használja jelszavának vagy tokenjének megadásához.",
     "param.message.description": "Az emberi felhasználónak megjelenítendő üzenet.",
-    "tool.description": "Eszköz, amellyel az emberi felhasználótól olyan bevitelt/döntést kérhet, amelyet a modell önmagában nem tud végrehajtani. Biztonsági megjegyzés: titkok kérésekor (jelszavak/tok...",
     "x_search_terms": [
       "human_ask",
       "emberi kérdés",
@@ -797,7 +796,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Válasz:\n  - Írja be a választ, és nyomja meg az Enter billentyűt\n  - Többsoros módba való belépéshez írja be az „f” billentyűt\n  - A törléshez írja be a „c” vagy „mégse” billentyűt",
-    "ui.title": "=== Emberi kérés (human_ask) ==="
+    "ui.title": "=== Emberi kérés (human_ask) ===",
+    "tool.description": "Egy eszköz, amellyel a felhasználótól kérhetsz bemenetet/döntést, amit a modell nem tud önállóan elvégezni. Biztonsági megjegyzés: titkok (jelszavak/tokenek) kérésekor a bemenet maszkolt."
   },
   "ro": {
     "doc.run_tool": "human_ask nu citește direct din stdin;\nlăsați firul stdin_loop de pe scheck.py de procesare\nși primiți rezultate prin stare partajată (callbacks).",
@@ -812,7 +812,6 @@
     "msg.no_user_reply": "(fără răspuns utilizator)",
     "param.is_password.description": "Dacă este adevărat, ascunde (maschează) caracterele introduse. Folosiți-l pentru a vă introduce parola sau simbolul.",
     "param.message.description": "Mesaj de afișat utilizatorului uman.",
-    "tool.description": "Un instrument pentru a cere utilizatorului uman o intrare/decizie pe care modelul nu o poate finaliza de la sine. Notă de securitate: când se solicită secrete (parole/toke...",
     "x_search_terms": [
       "human_ask",
       "human ask",
@@ -823,6 +822,7 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Cum să răspundeți:\n  - Introduceți răspunsul și apăsați Enter\n  - Tastați „f” pentru a intra în modul cu mai multe linii\n  - Tastați „c” sau „anulați” pentru a anula",
-    "ui.title": "=== Cerere umană (human_ask) ==="
+    "ui.title": "=== Cerere umană (human_ask) ===",
+    "tool.description": "Un instrument pentru a solicita utilizatorului uman o intrare/decizie pe care modelul nu o poate finaliza singur. Notă de securitate: la solicitarea secretelor (parole/token-uri), intrarea este mascată."
   }
 }

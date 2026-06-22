@@ -106,7 +106,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "integer",
                     "description": _(
                         "param.fast_read_threshold_bytes.description",
-                        default="Files smaller than this threshold are fully read() for faster searching (default: 8000000 ≈ 8MB). Larger files are sc...",
+                        default="Files smaller than this threshold are fully read() for faster searching (default: 8000000 ≈ 8MB). Larger files are scanned with streaming to limit memory usage.",
                     ),
                     "default": 8000000,
                 },

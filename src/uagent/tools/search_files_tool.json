@@ -9,7 +9,7 @@
     "out.found": "[search_files] Found {n} results",
     "out.found_truncated": "[search_files] Found {n} results (truncated to {max_results})",
     "out.no_match": "[search_files] No files matched the criteria.",
-    "param.fast_read_threshold_bytes.description": "Files smaller than this threshold are fully read() for faster searching (default: 8000000 ≈ 8MB). Larger files are sc...",
+    "param.fast_read_threshold_bytes.description": "Files smaller than this threshold are fully read() for faster searching (default: 8000000 ≈ 8MB). Larger files are scanned with streaming to limit memory usage.",
     "param.page.description": "Page number to retrieve (default: 1).",
     "tool.description": "Search files under a directory by name pattern (glob) and/or by content (regex).",
     "x_search_terms": [
@@ -39,7 +39,6 @@
     "out.found": "[search_files] {n} 件見つかりました",
     "out.found_truncated": "[search_files] {n} 件見つかりました（{max_results} 件で打ち切り）",
     "out.no_match": "[search_files] 条件に一致するファイルはありませんでした。",
-    "param.fast_read_threshold_bytes.description": "このしきい値より小さいファイルは、より高速に検索するために全体を read() します（既定: 8000000 ≈ 8MB）。大きいファイルは行単位で走査します。",
     "param.page.description": "取得するページ番号（既定: 1）。",
     "tool.description": "ディレクトリ下のファイルを名前パターン（glob）や内容（regex）で検索します。",
     "x_search_terms": [
@@ -53,7 +52,8 @@
     "param.limit.description": "返す一致ファイルの最大数（既定: 50）。",
     "param.glob.description": "ファイル名の glob パターン（例: '*.py', 'test_*'）。省略時はすべてのファイルを対象にします。",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "このしきい値より小さいファイルは高速検索のため完全にread()されます（デフォルト: 8000000 ≈ 8MB）。より大きなファイルはメモリ使用量を抑えるためストリーミングでスキャンされます。"
   },
   "es": {
     "err.dir_not_exist": "[error de search_files] El directorio no existe: {path}",
@@ -65,7 +65,6 @@
     "out.found": "[search_files] Se encontraron {n} resultados",
     "out.found_truncated": "[search_files] Se encontraron {n} resultados (truncado a {max_results})",
     "out.no_match": "[search_files] Ningún archivo coincidió con los criterios.",
-    "param.fast_read_threshold_bytes.description": "Los archivos más pequeños que este umbral se leen completamente() para una búsqueda más rápida (predeterminado: 8000000 ≈ 8 MB). Los archivos más grandes se sc...",
     "tool.description": "Busca archivos en un directorio por patrón de nombre (glob) y/o por contenido (regex).",
     "x_search_terms": [
       "search_files",
@@ -79,7 +78,8 @@
     "param.limit.description": "Número máximo de archivos coincidentes a devolver (por defecto: 50).",
     "param.glob.description": "Patrón glob de nombre de archivo (p.ej., '*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Los archivos más pequeños que este umbral se leen completamente con read() para una búsqueda más rápida (predeterminado: 8000000 ≈ 8MB). Los archivos más grandes se escanean con transmisión para limitar el uso de memoria."
   },
   "fr": {
     "err.dir_not_exist": "[erreur search_files] Le répertoire n'existe pas : {path}",
@@ -91,7 +91,6 @@
     "out.found": "[search_files] {n} résultats trouvés",
     "out.found_truncated": "[search_files] {n} résultats trouvés (tronqués à {max_results})",
     "out.no_match": "[search_files] Aucun fichier ne correspond aux critères.",
-    "param.fast_read_threshold_bytes.description": "Les fichiers plus petits que ce seuil sont entièrement lus pour une recherche plus rapide (par défaut : 8000000 ≈ 8 Mo).",
     "tool.description": "Rechercher des fichiers sous un répertoire par modèle de nom (glob) et/ou par contenu (regex).",
     "x_search_terms": [
       "search_files",
@@ -105,7 +104,8 @@
     "param.limit.description": "Nombre maximum de fichiers correspondants à renvoyer (par défaut : 50).",
     "param.glob.description": "Modèle glob du nom de fichier (par exemple, '*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Les fichiers plus petits que ce seuil sont entièrement lus() pour une recherche plus rapide (par défaut : 8000000 ≈ 8 Mo). Les fichiers plus volumineux sont scannés en streaming pour limiter l'utilisation de la mémoire."
   },
   "ko": {
     "err.dir_not_exist": "[search_files 오류] 디렉터리가 존재하지 않습니다: {path}",
@@ -117,7 +117,6 @@
     "out.found": "[search_files] {n}개의 결과를 찾았습니다",
     "out.found_truncated": "[search_files] {n}개의 결과를 찾았습니다({max_results}개로 잘림)",
     "out.no_match": "[search_files] 조건에 일치하는 파일이 없습니다.",
-    "param.fast_read_threshold_bytes.description": "이 임계값보다 작은 파일은 더 빠른 검색을 위해 전체를 읽습니다(기본값: 8000000 ≈ 8MB). 큰 파일은 한 줄씩 스캔합니다.",
     "tool.description": "이름 패턴(glob) 및/또는 내용(regex)으로 디렉터리 하위의 파일을 검색합니다.",
     "x_search_terms": [
       "search_files",
@@ -131,7 +130,8 @@
     "param.limit.description": "반환할 최대 일치 파일 수(기본값: 50).",
     "param.glob.description": "파일명 glob 패턴(예: '*.py', 'test_*'). 생략하면 모든 파일이 대상입니다.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "이 임계값보다 작은 파일은 더 빠른 검색을 위해 완전히 read()됩니다(기본값: 8000000 ≈ 8MB). 더 큰 파일은 메모리 사용을 제한하기 위해 스트리밍 방식으로 스캔됩니다."
   },
   "de": {
     "err.dir_not_exist": "[search_files Fehler] Verzeichnis existiert nicht: {path}",
@@ -143,7 +143,6 @@
     "out.found": "[search_files] {n} Ergebnisse gefunden",
     "out.found_truncated": "[search_files] {n} Ergebnisse gefunden (auf {max_results} begrenzt)",
     "out.no_match": "[search_files] Keine Dateien entsprechen den Kriterien.",
-    "param.fast_read_threshold_bytes.description": "Dateien, die kleiner als dieser Schwellenwert sind, werden zur schnelleren Suche vollständig gelesen() (Standard: 8000000 ≈ 8 MB). Größere Dateien werden sc...",
     "tool.description": "Durchsuchen Sie Dateien in einem Verzeichnis nach Namensmuster (Glob) und/oder nach Inhalt (Regex).",
     "x_search_terms": [
       "search_files",
@@ -157,7 +156,8 @@
     "param.limit.description": "Maximale Anzahl der zurückzugebenden Treffer (Standard: 50).",
     "param.glob.description": "Dateinamen-Globmuster (z.B.'*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Dateien, die kleiner als dieser Schwellenwert sind, werden vollständig mit read() gelesen, um eine schnellere Suche zu ermöglichen (Standard: 8000000 ≈ 8 MB). Größere Dateien werden mit Streaming gescannt, um die Speichernutzung zu begrenzen."
   },
   "it": {
     "err.dir_not_exist": "[search_files errore] La directory non esiste: {path}",
@@ -169,7 +169,6 @@
     "out.found": "[search_files] Trovati {n} risultati",
     "out.found_truncated": "[search_files] Trovati {n} risultati (limitati a {max_results})",
     "out.no_match": "[search_files] Nessun file corrisponde ai criteri.",
-    "param.fast_read_threshold_bytes.description": "I file più piccoli di questa soglia vengono letti interamente per una ricerca più rapida (predefinito: 8000000 ≈ 8 MB).",
     "tool.description": "Cerca file in una directory per modello di nome (glob) e/o contenuto (regex).",
     "x_search_terms": [
       "search_files",
@@ -183,7 +182,8 @@
     "param.limit.description": "Numero massimo di file corrispondenti da restituire (predefinito: 50).",
     "param.glob.description": "Modello glob del nome file (es.'*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "I file più piccoli di questa soglia vengono letti completamente con read() per una ricerca più veloce (default: 8000000 ≈ 8MB). I file più grandi vengono scansionati con streaming per limitare l'uso della memoria."
   },
   "ru": {
     "err.dir_not_exist": "[search_files ошибка] Каталог не существует: {path}",
@@ -195,7 +195,6 @@
     "out.found": "[search_files] Найдено {n} результатов",
     "out.found_truncated": "[search_files] Найдено {n} результатов (сокращено до {max_results})",
     "out.no_match": "[search_files] Ни один файл не соответствует критериям.",
-    "param.fast_read_threshold_bytes.description": "Файлы меньше этого порога читаются целиком для более быстрого поиска (по умолчанию: 8000000 ≈ 8 МБ).",
     "tool.description": "Ищет файлы в каталоге по шаблону имени (glob) и/или по содержимому (regex).",
     "x_search_terms": [
       "search_files",
@@ -209,7 +208,8 @@
     "param.limit.description": "Максимальное число совпавших файлов для возврата (по умолчанию: 50).",
     "param.glob.description": "Шаблон glob для имени файла (например, '*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Файлы меньше этого порога полностью считываются через read() для более быстрого поиска (по умолчанию: 8000000 ≈ 8 МБ). Файлы большего размера сканируются потоково для ограничения использования памяти."
   },
   "pt_BR": {
     "err.dir_not_exist": "[erro search_files] O diretório não existe: {path}",
@@ -221,7 +221,6 @@
     "out.found": "[search_files] Encontrados {n} resultados",
     "out.found_truncated": "[search_files] Encontrados {n} resultados (limitado a {max_results})",
     "out.no_match": "[search_files] Nenhum arquivo corresponde aos critérios.",
-    "param.fast_read_threshold_bytes.description": "Arquivos menores que este limite são lidos inteiramente para uma busca mais rápida (padrão: 8000000 ≈ 8 MB).",
     "tool.description": "Pesquisa arquivos em um diretório por padrão de nome (glob) e/ou por conteúdo (regex).",
     "x_search_terms": [
       "search_files",
@@ -235,7 +234,8 @@
     "param.limit.description": "Número máximo de arquivos correspondentes a retornar (padrão: 50).",
     "param.glob.description": "Padrão glob para o nome do arquivo (ex.: '*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Arquivos menores que este limite são totalmente lidos com read() para busca mais rápida (padrão: 8000000 ≈ 8MB). Arquivos maiores são escaneados com streaming para limitar o uso de memória."
   },
   "pt": {
     "err.dir_not_exist": "[erro search_files] O diretório não existe: {path}",
@@ -247,7 +247,6 @@
     "out.found": "[search_files] {n} resultados encontrados",
     "out.found_truncated": "[search_files] {n} resultados encontrados (limitado a {max_results})",
     "out.no_match": "[search_files] Nenhum arquivo corresponde aos critérios.",
-    "param.fast_read_threshold_bytes.description": "Arquivos menores que esse limite são totalmente lidos() para uma pesquisa mais rápida (padrão: 8.000.000 ≈ 8 MB).",
     "tool.description": "Pesquise arquivos em um diretório por padrão de nome (glob) e/ou conteúdo (regex).",
     "x_search_terms": [
       "search_files",
@@ -261,7 +260,8 @@
     "param.limit.description": "Número máximo de arquivos correspondentes a serem retornados (padrão: 50).",
     "param.glob.description": "Padrão glob de nome de arquivo (por exemplo, '*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Ficheiros menores que este limiar são totalmente lidos (read()) para pesquisa mais rápida (padrão: 8000000 ≈ 8MB). Ficheiros maiores são digitalizados com streaming para limitar o uso de memória."
   },
   "id": {
     "err.dir_not_exist": "[search_files error] Direktori tidak ada: {path}",
@@ -273,7 +273,6 @@
     "out.found": "[search_files] Ditemukan {n} hasil",
     "out.found_truncated": "[search_files] Ditemukan {n} hasil (dipotong menjadi {max_results})",
     "out.no_match": "[file_pencarian] Tidak ada file yang cocok dengan kriteria.",
-    "param.fast_read_threshold_bytes.description": "File yang lebih kecil dari ambang ini dibaca penuh untuk pencarian yang lebih cepat (default: 8000000 ≈ 8 MB).",
     "tool.description": "Cari file di bawah direktori berdasarkan pola nama (glob) dan/atau isi (regex).",
     "x_search_terms": [
       "search_files",
@@ -287,7 +286,8 @@
     "param.limit.description": "Jumlah maksimum file yang cocok untuk dikembalikan (default: 50).",
     "param.glob.description": "Pola glob nama file (mis. '*.py', 'test_*'). Jika dihilangkan, semua file dipertimbangkan.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "File yang lebih kecil dari ambang batas ini akan dibaca sepenuhnya() untuk pencarian yang lebih cepat (default: 8000000 ≈ 8MB). File yang lebih besar dipindai dengan streaming untuk membatasi penggunaan memori."
   },
   "vi": {
     "err.dir_not_exist": "[lỗi search_files] Thư mục không tồn tại: {path}",
@@ -299,7 +299,6 @@
     "out.found": "[search_files] Đã tìm thấy {n} kết quả",
     "out.found_truncated": "[search_files] Đã tìm thấy {n} kết quả (cắt ngắn thành {max_results})",
     "out.no_match": "[search_files] Không có tệp nào phù hợp với tiêu chí.",
-    "param.fast_read_threshold_bytes.description": "Các tệp nhỏ hơn ngưỡng này sẽ được đọc đầy đủ() để tìm kiếm nhanh hơn (mặc định: 8000000 ≈ 8 MB).",
     "tool.description": "Tìm kiếm tệp trong thư mục theo mẫu tên (toàn cầu) và/hoặc theo nội dung (regex).",
     "x_search_terms": [
       "search_files",
@@ -313,7 +312,8 @@
     "param.limit.description": "Số lượng tệp phù hợp tối đa cần trả về (mặc định: 50).",
     "param.glob.description": "Mẫu hình cầu tên tệp (ví dụ: '*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Các tệp nhỏ hơn ngưỡng này sẽ được đọc() toàn bộ để tìm kiếm nhanh hơn (mặc định: 8000000 ≈ 8MB). Các tệp lớn hơn được quét bằng cách phát trực tuyến để giới hạn sử dụng bộ nhớ."
   },
   "pl": {
     "err.dir_not_exist": "[błąd search_files] Katalog nie istnieje: {path}",
@@ -325,7 +325,6 @@
     "out.found": "[search_files] Znaleziono {n} wyników",
     "out.found_truncated": "[search_files] Znaleziono {n} wyników (przycięto do {max_results})",
     "out.no_match": "[pliki_wyszukiwawcze] Żaden plik nie spełnia kryteriów.",
-    "param.fast_read_threshold_bytes.description": "Pliki mniejsze niż ten próg są w pełni odczytywane() w celu szybszego wyszukiwania (domyślnie: 8000000 ≈ 8 MB).",
     "tool.description": "Wyszukuj pliki w katalogu według wzorca nazwy (glob) i/lub zawartości (regex).",
     "x_search_terms": [
       "search_files",
@@ -339,7 +338,8 @@
     "param.limit.description": "Maksymalna liczba pasujących plików do zwrócenia (domyślnie: 50).",
     "param.glob.description": "Wzorzec globalny nazwy pliku (np.„*.py”, „test_*”).",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Pliki mniejsze niż ten próg są w pełni odczytywane (read()) w celu szybszego wyszukiwania (domyślnie: 8000000 ≈ 8MB). Większe pliki są skanowane strumieniowo, aby ograniczyć użycie pamięci."
   },
   "hi": {
     "err.dir_not_exist": "[search_files त्रुटि] निर्देशिका मौजूद नहीं है: {path}",
@@ -351,7 +351,6 @@
     "out.found": "[search_files] {n} परिणाम मिले",
     "out.found_truncated": "[search_files] {n} परिणाम मिले ({max_results} में छोटा किया गया)",
     "out.no_match": "कृपया इस स्क्रीनशॉट का विश्लेषण करें। क्या विंडो_शीर्षक निर्दिष्ट है (आंशिक मिलान)। यदि निर्दिष्ट किया गया है, तो विंडो सक्रिय हो जाती है और केवल उस क्षेत्र को कैप्चर किया जाता है।",
-    "param.fast_read_threshold_bytes.description": "तेज खोज के लिए इस सीमा से छोटी फ़ाइलें पूरी तरह से पढ़ी जाती हैं (डिफ़ॉल्ट: 8000000 ≈ 8MB)।",
     "tool.description": "नाम पैटर्न (glob) और/या सामग्री (regex) के आधार पर किसी निर्देशिका में फ़ाइलें खोजें।",
     "x_search_terms": [
       "search_files",
@@ -365,7 +364,8 @@
     "param.limit.description": "लौटाने के लिए मिलान की गई फ़ाइलों की अधिकतम संख्या (डिफ़ॉल्ट: 50)।",
     "param.glob.description": "फ़ाइल नाम ग्लोब पैटर्न (जैसे '*.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "इस सीमा से छोटी फ़ाइलों को तेज़ खोज के लिए पूरी तरह से read() किया जाता है (डिफ़ॉल्ट: 8000000 ≈ 8MB)। बड़ी फ़ाइलों को मेमोरी उपयोग सीमित करने के लिए स्ट्रीमिंग के साथ स्कैन किया जाता है।"
   },
   "ar": {
     "err.dir_not_exist": "[خطأ search_files] الدليل غير موجود: {path}",
@@ -377,7 +377,6 @@
     "out.found": "[search_files] تم العثور على {n} نتيجة",
     "out.found_truncated": "[search_files] تم العثور على {n} نتيجة (تم اقتطاعها إلى {max_results})",
     "out.no_match": "[search_files] لا توجد ملفات مطابقة للمعايير.",
-    "param.fast_read_threshold_bytes.description": "تُقرأ الملفات الأصغر من هذا الحد بالكامل للبحث بشكل أسرع (الافتراضي: 8000000 ≈ 8 MB). أما الملفات الأكبر فتُفحص سطرًا بسطر.",
     "tool.description": "ابحث عن الملفات داخل دليل حسب نمط الاسم (glob) و/أو حسب المحتوى (regex).",
     "x_search_terms": [
       "search_files",
@@ -391,7 +390,8 @@
     "param.limit.description": "الحد الأقصى لعدد الملفات المطابقة التي ستُعاد (الافتراضي: 50).",
     "param.glob.description": "نمط glob لاسم الملف (مثل '*.py' و 'test_*'). إذا أُهمل، تُؤخذ جميع الملفات في الاعتبار.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "الملفات الأصغر من هذا الحد تتم قراءتها بالكامل () للبحث الأسرع (الافتراضي: 8000000 ≈ 8 ميجابايت). الملفات الأكبر يتم مسحها ضوئيًا باستخدام التدفق للحد من استخدام الذاكرة."
   },
   "sv": {
     "err.dir_not_exist": "[search_files-fel] Katalogen finns inte: {path}",
@@ -403,7 +403,6 @@
     "out.found": "[search_files] Hittade {n} resultat",
     "out.found_truncated": "[search_files] Hittade {n} resultat (avkortat till {max_results})",
     "out.no_match": "[search_files] Inga filer matchade kriterierna.",
-    "param.fast_read_threshold_bytes.description": "Filer som är mindre än denna gräns läses in helt för snabbare sökning (standard: 8000000 ≈ 8 MB).",
     "tool.description": "Söker efter filer i en katalog med namnpattern (glob) och/eller innehåll (regex).",
     "x_search_terms": [
       "search_files",
@@ -417,7 +416,8 @@
     "param.limit.description": "Maximalt antal matchande filer att returnera (standard: 50).",
     "param.glob.description": "Filnamns-globmönster (t.ex. '*.py', 'test_*'). Om det utelämnas beaktas alla filer.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Filer mindre än denna tröskel läses fullständigt med read() för snabbare sökning (standard: 8000000 ≈ 8MB). Större filer skannas med strömning för att begränsa minnesanvändningen."
   },
   "sw": {
     "err.dir_not_exist": "[search_files kosa] Saraka haipo: {path}",
@@ -429,7 +429,6 @@
     "out.found": "[search_files] Imepata matokeo {n}",
     "out.found_truncated": "[search_files] Imepata matokeo {n} (yamepunguzwa hadi {max_results})",
     "out.no_match": "[search_files] Hakuna faili zilizolingana na vigezo.",
-    "param.fast_read_threshold_bytes.description": "Faili ndogo kuliko kizingiti hiki husomwa zote kwa haraka zaidi (chaguomsingi: 8000000 ≈ 8 MB).",
     "tool.description": "Tafuta faili ndani ya saraka kwa kigezo cha jina (glob) na/au yaliyomo (regex).",
     "x_search_terms": [
       "search_files",
@@ -443,7 +442,8 @@
     "param.limit.description": "Idadi ya juu ya faili zinazolingana za kurudisha (chaguomsingi: 50).",
     "param.glob.description": "Mfano wa glob wa jina la faili (mfano: '*.py', 'test_*'). Ukiachwa, faili zote huzingatiwa.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Faili ndogo kuliko kizingiti hiki husomwa kikamilifu () kwa utafutaji wa haraka (chaguo-msingi: 8000000 ≈ 8MB). Faili kubwa huchunguzwa kwa utiririshaji ili kupunguza matumizi ya kumbukumbu."
   },
   "nb": {
     "err.dir_not_exist": "[search_files-feil] Katalogen finnes ikke: {path}",
@@ -455,7 +455,6 @@
     "out.found": "[search_files] Fant {n} resultater",
     "out.found_truncated": "[search_files] Fant {n} resultater (avkortet til {max_results})",
     "out.no_match": "[search_files] Ingen filer matchet kriteriene.",
-    "param.fast_read_threshold_bytes.description": "Filer som er mindre enn denne grensen leses helt for raskere søk (standard: 8000000 ≈ 8 MB). Større filer skannes linje for linje.",
     "tool.description": "Søker etter filer i en katalog etter navnemønster (glob) og/eller innhold (regex).",
     "x_search_terms": [
       "search_files",
@@ -469,7 +468,8 @@
     "param.limit.description": "Maksimalt antall trefffiler som skal returneres (standard: 50).",
     "param.glob.description": "Glob-mønster for filnavn (f.eks. '*.py', 'test_*'). Hvis utelatt, vurderes alle filer.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Filer mindre enn denne terskelen leses fullstendig med read() for raskere søk (standard: 8000000 ≈ 8MB). Større filer skannes med strømming for å begrense minnebruk."
   },
   "nl": {
     "err.dir_not_exist": "[search_files fout] Map bestaat niet: {path}",
@@ -481,7 +481,6 @@
     "out.found": "[search_files] {n} resultaten gevonden",
     "out.found_truncated": "[search_files] {n} resultaten gevonden (afgekapt tot {max_results})",
     "out.no_match": "[zoekbestanden] Er zijn geen bestanden die aan de criteria voldoen.",
-    "param.fast_read_threshold_bytes.description": "Bestanden kleiner dan deze drempel worden volledig gelezen() voor sneller zoeken (standaard: 8000000 ≈ 8 MB).",
     "tool.description": "Zoek bestanden onder een map op naam (glob) en/of inhoud (regex).",
     "x_search_terms": [
       "search_files",
@@ -495,7 +494,8 @@
     "param.limit.description": "Maximaal aantal overeenkomende bestanden dat moet worden geretourneerd (standaard: 50).",
     "param.glob.description": "Glob-patroon voor bestandsnamen (bijv.'*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Bestanden kleiner dan deze drempel worden volledig uitgelezen met read() voor sneller zoeken (standaard: 8000000 ≈ 8 MB). Grotere bestanden worden gestreamd gescand om het geheugengebruik te beperken."
   },
   "fi": {
     "err.dir_not_exist": "[search_files virhe] Hakemistoa ei ole: {path}",
@@ -507,7 +507,6 @@
     "out.found": "[search_files] Löydetty {n} tulosta",
     "out.found_truncated": "[search_files] Löydetty {n} tulosta (rajattu arvoon {max_results})",
     "out.no_match": "[search_files] Mikään tiedosto ei vastannut ehtoja.",
-    "param.fast_read_threshold_bytes.description": "Tätä pienemmät tiedostot luetaan kokonaan() nopeampaa hakua varten (oletus: 8000000 ≈ 8 MB).",
     "tool.description": "Etsi tiedostoja hakemistosta nimen (glob) ja/tai sisällön (regex) perusteella.",
     "x_search_terms": [
       "search_files",
@@ -521,7 +520,8 @@
     "param.limit.description": "Palautettavien vastaavien tiedostojen enimmäismäärä (oletus: 50).",
     "param.glob.description": "Tiedostonimien glob-kuvio (esim.'*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Tätä rajaa pienemmät tiedostot luetaan kokonaan nopeampaa hakua varten (oletus: 8000000 ≈ 8 Mt). Suuremmat tiedostot skannataan suoratoistona muistinkäytön rajoittamiseksi."
   },
   "cs": {
     "err.dir_not_exist": "[search_files chyba] Adresář neexistuje: {path}",
@@ -533,7 +533,6 @@
     "out.found": "[search_files] Nalezeno {n} výsledků",
     "out.found_truncated": "[search_files] Nalezeno {n} výsledků (oříznuto na {max_results})",
     "out.no_match": "[search_files] Žádný soubor neodpovídá kritériím.",
-    "param.fast_read_threshold_bytes.description": "Soubory menší než tato hranice se pro rychlejší vyhledávání čtou celé (výchozí: 8000000 ≈ 8 MB).",
     "tool.description": "Vyhledává soubory v adresáři podle názvu (glob) a/nebo obsahu (regex).",
     "x_search_terms": [
       "search_files",
@@ -547,7 +546,8 @@
     "param.limit.description": "Maximální počet vrácených shodných souborů (výchozí: 50).",
     "param.glob.description": "Glob vzor názvu souboru (např.'*.py', 'test_*').",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Soubory menší než tato prahová hodnota jsou plně načteny read() pro rychlejší vyhledávání (výchozí: 8000000 ≈ 8 MB). Větší soubory jsou skenovány pomocí streamování pro omezení využití paměti."
   },
   "uk": {
     "err.dir_not_exist": "[search_files помилка] Каталог не існує: {path}",
@@ -559,7 +559,6 @@
     "out.found": "[search_files] Знайдено {n} результатів",
     "out.found_truncated": "[search_files] Знайдено {n} результатів (обрізано до {max_results})",
     "out.no_match": "[search_files] Немає файлів, які відповідають критеріям.",
-    "param.fast_read_threshold_bytes.description": "Файли менші за цей поріг читаються повністю для швидшого пошуку (типово: 8000000 ≈ 8 MB). Більші файли скануються построково.",
     "tool.description": "Шукає файли в каталозі за шаблоном назви (glob) та/або вмістом (regex).",
     "x_search_terms": [
       "search_files",
@@ -573,7 +572,8 @@
     "param.limit.description": "Максимальна кількість знайдених файлів (за замовчуванням: 50).",
     "param.glob.description": "Glob-шаблон назви файла (наприклад, '*.py', 'test_*'). Якщо опущено, враховуються всі файли.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Файли, менші за цей поріг, повністю зчитуються для швидшого пошуку (за замовчуванням: 8000000 ≈ 8 МБ). Більші файли скануються потоково для обмеження використання пам'яті."
   },
   "tr": {
     "err.dir_not_exist": "[search_files hatası] Dizin mevcut değil: {path}",
@@ -585,7 +585,6 @@
     "out.found": "[search_files] {n} sonuç bulundu",
     "out.found_truncated": "[search_files] {n} sonuç bulundu ({max_results} ile sınırlandı)",
     "out.no_match": "[search_files] Kriterlere uyan dosya bulunamadı.",
-    "param.fast_read_threshold_bytes.description": "Bu eşikten küçük dosyalar daha hızlı arama için tamamen okunur (varsayılan: 8000000 ≈ 8 MB).",
     "tool.description": "Dizin altındaki dosyaları ad deseni (glob) ve/veya içerik (regex) ile arar.",
     "x_search_terms": [
       "search_files",
@@ -599,7 +598,8 @@
     "param.limit.description": "Döndürülecek maksimum eşleşen dosya sayısı (varsayılan: 50).",
     "param.glob.description": "Dosya adı glob deseni (örn. '*.py', 'test_*'). Atlanırsa tüm dosyalar değerlendirilir.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Bu eşikten küçük dosyalar daha hızlı arama için tamamen read() ile okunur (varsayılan: 8000000 ≈ 8MB). Daha büyük dosyalar, bellek kullanımını sınırlamak için akışla taranır."
   },
   "th": {
     "err.dir_not_exist": "[ข้อผิดพลาด search_files] ไดเรกทอรีไม่มีอยู่: {path}",
@@ -611,7 +611,6 @@
     "out.found": "[search_files] พบ {n} รายการ",
     "out.found_truncated": "[search_files] พบ {n} รายการ (ตัดทอนเหลือ {max_results})",
     "out.no_match": "[search_files] ไม่พบไฟล์ที่ตรงตามเงื่อนไข",
-    "param.fast_read_threshold_bytes.description": "ไฟล์ที่เล็กกว่าเกณฑ์นี้จะถูกอ่านอย่างสมบูรณ์ () เพื่อการค้นหาที่รวดเร็วยิ่งขึ้น (ค่าเริ่มต้น: 8000000 anta 8MB) ไฟล์ที่ใหญ่กว่าคือ sc...",
     "tool.description": "ค้นหาไฟล์ภายใต้ไดเรกทอรีตามรูปแบบชื่อ (glob) และ/หรือตามเนื้อหา (regex)",
     "x_search_terms": [
       "search_files",
@@ -625,7 +624,8 @@
     "param.limit.description": "จำนวนไฟล์ที่ตรงกันสูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 50)",
     "param.glob.description": "รูปแบบ glob ของชื่อไฟล์ (เช่น '*.py', 'test_*') หากละเว้น จะพิจารณาไฟล์ทั้งหมด",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "ไฟล์ที่มีขนาดเล็กกว่าเกณฑ์นี้จะถูกอ่าน() ทั้งหมดเพื่อการค้นหาที่เร็วขึ้น (ค่าเริ่มต้น: 8000000 ≈ 8MB) ไฟล์ขนาดใหญ่จะถูกสแกนแบบสตรีมมิ่งเพื่อจำกัดการใช้หน่วยความจำ"
   },
   "zh_CN": {
     "err.dir_not_exist": "[search_files 错误] 目录不存在：{path}",
@@ -637,7 +637,6 @@
     "out.found": "[search_files] 找到 {n} 个结果",
     "out.found_truncated": "[search_files] 找到 {n} 个结果（已截断至 {max_results}）",
     "out.no_match": "[search_files] 没有符合条件的文件。",
-    "param.fast_read_threshold_bytes.description": "小于该阈值的文件会整体 read() 以加快搜索（默认：8000000，约 8 MB）。较大的文件将逐行扫描。",
     "tool.description": "按名称模式（glob）和/或内容（正则表达式）搜索目录中的文件。",
     "x_search_terms": [
       "search_files",
@@ -651,7 +650,8 @@
     "param.limit.description": "要返回的最大匹配文件数（默认：50）。",
     "param.glob.description": "文件名 glob 模式（例如 '*.py'、'test_*'）。如果省略，则考虑所有文件。",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "小于此阈值的文件会通过完整read()读取以加快搜索速度（默认值：8000000 ≈ 8MB）。较大文件则使用流式扫描以限制内存使用。"
   },
   "zh_TW": {
     "err.dir_not_exist": "[search_files 錯誤] 目錄不存在：{path}",
@@ -663,7 +663,6 @@
     "out.found": "[search_files] 找到 {n} 個結果",
     "out.found_truncated": "[search_files] 找到 {n} 個結果（已截斷至 {max_results}）",
     "out.no_match": "[search_files] 沒有符合條件的檔案。",
-    "param.fast_read_threshold_bytes.description": "小於此閾值的檔案會整體 read() 以加快搜尋（預設：8000000，約 8 MB）。較大的檔案將逐行掃描。",
     "tool.description": "依名稱模式（glob）和/或內容（正規表示式）搜尋目錄中的檔案。",
     "x_search_terms": [
       "search_files",
@@ -677,7 +676,8 @@
     "param.limit.description": "要傳回的最大相符檔案數（預設：50）。",
     "param.glob.description": "檔名 glob 模式（例如 '*.py'、'test_*'）。如果省略，則考慮所有檔案。",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "小於此閾值的檔案會完整讀取以加快搜尋速度（預設值：8000000 ≈ 8MB）。較大的檔案則使用串流掃描以限制記憶體使用量。"
   },
   "bn": {
     "err.dir_not_exist": "[search_files ত্রুটি] ডিরেক্টরি বিদ্যমান নেই: {path}",
@@ -689,7 +689,6 @@
     "out.found": "[search_files] {n}টি ফলাফল পাওয়া গেছে",
     "out.found_truncated": "[search_files] {n}টি ফলাফল পাওয়া গেছে ({max_results}টিতে সীমিত)",
     "out.no_match": "[search_files] কোনো ফাইল মানদণ্ডের সাথে মেলেনি।",
-    "param.fast_read_threshold_bytes.description": "এই থ্রেশহোল্ডের চেয়ে ছোট ফাইলগুলি দ্রুত অনুসন্ধানের জন্য সম্পূর্ণরূপে পঠিত() হয় (ডিফল্ট: 8000000 ≈ 8MB)৷ বড় ফাইলগুলি sc...",
     "tool.description": "নাম pattern (glob) এবং/অথবা বিষয়বস্তু (regex) অনুযায়ী directory-এর ফাইল খুঁজুন।",
     "x_search_terms": [
       "search_files",
@@ -703,7 +702,8 @@
     "param.limit.description": "ফেরত দেওয়ার সর্বোচ্চ মেলানো ফাইল সংখ্যা (ডিফল্ট: 50)।",
     "param.glob.description": "ফাইলনামের glob pattern (যেমন '*.py', 'test_*')। বাদ দিলে সব ফাইল বিবেচনা করা হয়।",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "এই থ্রেশহোল্ডের চেয়ে ছোট ফাইলগুলি দ্রুত অনুসন্ধানের জন্য সম্পূর্ণ read() করা হয় (ডিফল্ট: 8000000 ≈ 8MB)। বড় ফাইলগুলি মেমরি ব্যবহার সীমিত করতে স্ট্রিমিং দিয়ে স্ক্যান করা হয়।"
   },
   "fa": {
     "err.dir_not_exist": "[خطای search_files] پوشه وجود ندارد: {path}",
@@ -715,7 +715,6 @@
     "out.found": "[search_files] {n} نتیجه پیدا شد",
     "out.found_truncated": "[search_files] {n} نتیجه پیدا شد (به {max_results} محدود شد)",
     "out.no_match": "[search_files] هیچ فایلی با معیارها مطابقت نداشت.",
-    "param.fast_read_threshold_bytes.description": "فایل‌های کوچک‌تر از این آستانه برای جستجوی سریع‌تر به‌طور کامل read() می‌شوند (پیش‌فرض: 8000000 ≈ 8 MB).",
     "tool.description": "فایل‌های داخل یک پوشه را با الگوی نام (glob) و/یا محتوا (regex) جستجو کنید.",
     "x_search_terms": [
       "search_files",
@@ -729,7 +728,8 @@
     "param.limit.description": "حداکثر تعداد فایل‌های منطبق برای بازگشت (پیش‌فرض: 50).",
     "param.glob.description": "الگوی glob نام فایل (مثلاً '*.py'، 'test_*'). اگر حذف شود، همهٔ فایل‌ها در نظر گرفته می‌شوند.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "فایل‌های کوچک‌تر از این آستانه به طور کامل read() می‌شوند برای جستجوی سریع‌تر (پیش‌فرض: 8000000 ≈ 8MB). فایل‌های بزرگ‌تر با جریان‌سازی برای محدود کردن مصرف حافظه اسکن می‌شوند."
   },
   "mn": {
     "err.dir_not_exist": "[search_files алдаа] Лавлах олдсонгүй: {path}",
@@ -741,7 +741,6 @@
     "out.found": "[search_files] {n} үр дүн олдлоо",
     "out.found_truncated": "[search_files] {n} үр дүн олдлоо ({max_results} хүртэл хязгаарласан)",
     "out.no_match": "[search_files] Шалгуурт тохирох файл олдсонгүй.",
-    "param.fast_read_threshold_bytes.description": "Энэ босгоос жижиг файлуудыг хурдан хайхын тулд бүтнээр нь read() хийнэ (анхдагч: 8000000 ≈ 8 MB). Том файлуудыг мөр мөрөөр шинжилнэ.",
     "tool.description": "Лавлах доторх файлуудыг нэрийн загвар (glob) болон/эсвэл агуулга (regex)-аар хайна.",
     "x_search_terms": [
       "search_files",
@@ -755,7 +754,8 @@
     "param.limit.description": "Буцаах тохирсон файлын дээд тоо (анхдагч: 50).",
     "param.glob.description": "Файлын нэрийн glob загвар (ж. '*.py', 'test_*'). Орхивол бүх файлыг авч үзнэ.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "Энэ босгоос бага файлуудыг хурдан хайхын тулд бүрэн read() хийнэ (анхдагч: 8000000 ≈ 8MB). Том файлуудыг санах ойн хэрэглээг хязгаарлахын тулд урсгалаар сканнердана."
   },
   "mr": {
     "err.dir_not_exist": "[search_files त्रुटी] डिरेक्टरी अस्तित्वात नाही: {path}",
@@ -767,7 +767,6 @@
     "out.found": "[search_files] {n} निकाल सापडले",
     "out.found_truncated": "[search_files] {n} निकाल सापडले ({max_results} पर्यंत मर्यादित)",
     "out.no_match": "[शोध_फाईल्स] कोणत्याही फायली निकषांशी जुळल्या नाहीत.",
-    "param.fast_read_threshold_bytes.description": "या मर्यादेपेक्षा लहान फाइल्स जलद शोधासाठी पूर्ण read() केल्या जातात (डीफॉल्ट: 8000000 ≈ 8 MB).",
     "tool.description": "डिरेक्टरीतील फाइल्स नावाच्या pattern (glob) आणि/किंवा मजकूर (regex) नुसार शोधा.",
     "x_search_terms": [
       "search_files",
@@ -781,7 +780,8 @@
     "param.limit.description": "परत द्यायच्या जुळणाऱ्या फाइल्सची कमाल संख्या (डीफॉल्ट: 50).",
     "param.glob.description": "फाइलनाव glob pattern (उदा. '*.py', 'test_*'). वगळल्यास सर्व फाइल्स विचारात घेतल्या जातात.",
     "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
+    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})",
+    "param.fast_read_threshold_bytes.description": "या थ्रेशोल्डपेक्षा लहान फाइल्स वेगवान शोधासाठी पूर्णपणे read() केल्या जातात (डीफॉल्ट: 8000000 ≈ 8MB). मोठ्या फाइल्स मेमरी वापर मर्यादित करण्यासाठी स्ट्रीमिंगसह स्कॅन केल्या जातात."
   },
   "el": {
     "err.dir_not_exist": "[search_files error] Ο κατάλογος δεν υπάρχει: {path}",
@@ -793,7 +793,6 @@
     "out.found": "[search_files] Δεν υπάρχουν αρχεία που να πληρούν τα κριτήρια.",
     "out.found_truncated": "Τα αρχεία μικρότερα από αυτό το όριο διαβάζονται πλήρως() για ταχύτερη αναζήτηση (προεπιλογή: 8000000 ≈ 8MB). Τα μεγαλύτερα αρχεία είναι sc...",
     "out.no_match": "Αναζήτηση αρχείων σε έναν κατάλογο με μοτίβο ονόματος (glob) ή/και κατά περιεχόμενο (regex).",
-    "param.fast_read_threshold_bytes.description": "Τα αρχεία μικρότερα από αυτό το όριο διαβάζονται πλήρως() για ταχύτερη αναζήτηση (προεπιλογή: 8000000 ≈ 8MB). Τα μεγαλύτερα αρχεία είναι sc...",
     "param.page.description": "Αριθμός σελίδας προς ανάκτηση (προεπιλογή: 1).",
     "tool.description": "Αναζήτηση αρχείων κάτω από έναν κατάλογο με μοτίβο ονόματος (glob) ή/και κατά περιεχόμενο (regex).",
     "x_search_terms": [
@@ -811,7 +810,8 @@
     "param.limit.description": "args πρέπει να είναι εντολή",
     "param.glob.description": "Μοτίβο σφαιρών ονόματος αρχείου (π.χ. '*.py', 'test_*'). Εάν παραλειφθεί, όλα τα αρχεία λαμβάνονται υπόψη.",
     "param.path.description": "Ρίζα αναζήτησης (προεπιλογή: cwd).",
-    "out.found_paginated": "[search_files] Σελίδα {page} από {total_pages} (Σύνολο {total} αποτελέσματα, με {showing})"
+    "out.found_paginated": "[search_files] Σελίδα {page} από {total_pages} (Σύνολο {total} αποτελέσματα, με {showing})",
+    "param.fast_read_threshold_bytes.description": "Αρχεία μικρότερα από αυτό το όριο διαβάζονται πλήρως read() για ταχύτερη αναζήτηση (προεπιλογή: 8000000 ≈ 8MB). Μεγαλύτερα αρχεία σαρώνονται με ροή για περιορισμό χρήσης μνήμης."
   },
   "he": {
     "err.dir_not_exist": "[search_files error] ספרייה לא קיימת: {path}",
@@ -823,7 +823,6 @@
     "out.found": "התאמה: {text}",
     "out.found_truncated": "[search_files] נמצאו {n} תוצאות (קטועות ל-{max_results})",
     "out.no_match": "... (התאמות נוספות בקובץ)",
-    "param.fast_read_threshold_bytes.description": "קבצים קטנים מסף זה נקראים במלואם () לחיפוש מהיר יותר (ברירת מחדל: 8000000 ≈ 8MB). קבצים גדולים יותר הם sc...",
     "param.page.description": "מספר עמוד לאחזור (ברירת מחדל: 1).",
     "tool.description": "[search_files] נמצאו {n} תוצאות (קטועות ל-{max_results})",
     "x_search_terms": [
@@ -841,7 +840,8 @@
     "param.limit.description": "п# תלוי רישיות (ברירת מחדל: false).",
     "param.glob.description": "ביטוי רגולרי לחיפוש בתוך קבצים. אם מושמט, מתבצעת התאמת שמות קבצים בלבד.",
     "param.path.description": "מספר מקסימלי של קבצים תואמים להחזרה (ברירת מחדל: 50).",
-    "out.found_paginated": "דפוס גלוב של שם קובץ (למשל '*.py', 'test_*'). אם מושמט, כל הקבצים נחשבים."
+    "out.found_paginated": "דפוס גלוב של שם קובץ (למשל '*.py', 'test_*'). אם מושמט, כל הקבצים נחשבים.",
+    "param.fast_read_threshold_bytes.description": "קבצים קטנים מסף זה נקראים במלואם read() לחיפוש מהיר יותר (ברירת מחדל: 8000000 ≈ 8MB). קבצים גדולים יותר נסרקים באמצעות הזרמה כדי להגביל את השימוש בזיכרון."
   },
   "hu": {
     "err.dir_not_exist": "[search_files error] A könyvtár nem létezik: {path}",
@@ -853,7 +853,6 @@
     "out.found": "[search_files] Egy fájl sem felelt meg a feltételeknek.",
     "out.found_truncated": "Az ennél a küszöbértéknél kisebb fájlok a gyorsabb keresés érdekében teljes mértékben olvashatók() (alapértelmezett: 8000000 ≈ 8 MB). A nagyobb fájlok sc...",
     "out.no_match": "Fájlok keresése egy könyvtárban névminta (glob) és/vagy tartalom (regex) alapján.",
-    "param.fast_read_threshold_bytes.description": "Az ennél a küszöbértéknél kisebb fájlok a gyorsabb keresés érdekében teljesen read()-t kapnak (alapértelmezett: 8000000 ≈ 8MB). A nagyobb fájlok sc...",
     "param.page.description": "Keressen egy mintát a fájlokban, és adja vissza a megfelelő sorokat sorszámokkal (például grep -n). Minta szükséges.",
     "tool.description": "Keressen fájlokat egy könyvtárban névminta (glob) és/vagy tartalom (regex) alapján.",
     "x_search_terms": [
@@ -871,7 +870,8 @@
     "param.limit.description": "[search_files] {total_pages}/{page}. oldal (Összesen {total} találat, a következőkkel: {showing})",
     "param.glob.description": "az arg-nak diktátumnak kell lennie",
     "param.path.description": "Keresés a gyökérben (alapértelmezett: cwd).",
-    "out.found_paginated": "[search_files] {total_pages}/{page}. oldal (Összesen {total} találat, {showing} megjelenítése)"
+    "out.found_paginated": "[search_files] {total_pages}/{page}. oldal (Összesen {total} találat, {showing} megjelenítése)",
+    "param.fast_read_threshold_bytes.description": "Az ennél a küszöbértéknél kisebb fájlok teljes mértékben beolvasásra kerülnek a gyorsabb keresés érdekében (alapértelmezett: 8000000 ≈ 8 MB). A nagyobb fájlok streameléssel kerülnek beolvasásra a memóriahasználat korlátozása érdekében."
   },
   "ro": {
     "err.dir_not_exist": "Vă rugăm să analizați această captură de ecran.",
@@ -883,7 +883,6 @@
     "out.found": "L{line}: {text}",
     "out.found_truncated": "... (mai multe potriviri în fișier)",
     "out.no_match": "Fișier: {file} [n] [=fișier#=] [n] [=fișier#=] [search_files] S-au găsit {n} rezultate (trunchiate la {max_results})",
-    "param.fast_read_threshold_bytes.description": "[search_files] Niciun fișier nu corespunde criteriilor.",
     "param.page.description": "Director rădăcină sau cale de fișier specifică (implicit: „.”).",
     "tool.description": "Fișierele mai mici decât acest prag sunt complet citite() pentru o căutare mai rapidă (implicit: 8000000 ≈ 8MB). Fișierele mai mari sunt sc...",
     "x_search_terms": [
@@ -901,6 +900,7 @@
     "param.limit.description": "Numărul maxim de fișiere potrivite de returnat (implicit: 50).",
     "param.glob.description": "Model de nume de fișier (de exemplu, „*.py”, „test_*”). Dacă sunt omise, toate fișierele sunt luate în considerare.",
     "param.path.description": "Căutare rădăcină (implicit: cwd).",
-    "out.found_paginated": "[search_files] Pagina {pagina} din {total_pages} (Total {total} rezultate, afișând {showing})"
+    "out.found_paginated": "[search_files] Pagina {pagina} din {total_pages} (Total {total} rezultate, afișând {showing})",
+    "param.fast_read_threshold_bytes.description": "Fișierele mai mici decât acest prag sunt citite complet () pentru o căutare mai rapidă (implicit: 8000000 ≈ 8MB). Fișierele mai mari sunt scanate cu flux pentru a limita utilizarea memoriei."
   }
 }

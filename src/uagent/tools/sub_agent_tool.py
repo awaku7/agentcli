@@ -100,7 +100,7 @@ TOOL_SPEC: Dict[str, Any] = {
         "name": "run_sub_agent",
         "description": _(
             "tool.description",
-            default="Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent...",
+            default="Execute a specialized, safe sub-agent (planner, reviewer, summarizer, patch_designer, error_analyst, or translator) under the control of the parent orchestrator.",
         ),
         "x_search_terms": _(
             "x_search_terms",

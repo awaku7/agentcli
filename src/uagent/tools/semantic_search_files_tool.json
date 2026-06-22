@@ -17,7 +17,7 @@
     "param.query.description": "Search keyword.",
     "param.root_path.description": "Directory to search.",
     "param.top_k.description": "number.",
-    "tool.description": "Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document pa...",
+    "tool.description": "Performs a semantic search (vector search) against local files. Uses the Embedding API to vectorize file contents and extracts relevant document passages.",
     "x_search_terms": [
       "semantic_search_files",
       "semantic search files",
@@ -51,7 +51,6 @@
     "param.query.description": "検索キーワード。",
     "param.root_path.description": "検索対象ディレクトリ。",
     "param.top_k.description": "件数。",
-    "tool.description": "ローカルファイルに対して意味検索（ベクトル検索）を行います。Embedding API を使用してファイル内容をベクトル化し、関連するドキュメント箇所を抽出します。初回実行時、またはファイル更新時にインデックス作成を行います。",
     "x_search_terms": [
       "semantic_search_files",
       "意味検索",
@@ -59,7 +58,8 @@
       "埋め込み検索"
     ],
     "err.disabled_reason": "埋め込み API に到達できません。",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "ローカルファイルに対してセマンティック検索（ベクター検索）を実行します。Embedding APIを使用してファイル内容をベクトル化し、関連する文書の一節を抽出します。"
   },
   "es": {
     "doc.db_path": "Devuelve la ruta de la base de datos con hash para cada root_dir bajo <state>/dbs (predeterminado: ~/.uag (antiguo: ~/.scheck)/dbs).",
@@ -79,7 +79,6 @@
     "param.query.description": "Buscar palabra clave.",
     "param.root_path.description": "Directorio para buscar.",
     "param.top_k.description": "número.",
-    "tool.description": "Realiza una búsqueda semántica (búsqueda vectorial) en archivos locales.",
     "x_search_terms": [
       "semantic_search_files",
       "búsqueda semántica",
@@ -87,7 +86,8 @@
       "archivos locales"
     ],
     "err.disabled_reason": "No se puede الوصول al API de embeddings.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Realiza una búsqueda semántica (búsqueda vectorial) contra archivos locales. Utiliza la API de Embedding para vectorizar el contenido de los archivos y extraer pasajes de documentos relevantes."
   },
   "fr": {
     "doc.db_path": "Renvoie le chemin de la base de données haché pour chaque root_dir sous <state>/dbs (par défaut : ~/.uag (ancien : ~/.scheck)/dbs).",
@@ -107,7 +107,6 @@
     "param.query.description": "Rechercher un mot-clé.",
     "param.root_path.description": "Annuaire à rechercher.",
     "param.top_k.description": "nombre.",
-    "tool.description": "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux.",
     "x_search_terms": [
       "semantic_search_files",
       "recherche sémantique",
@@ -115,7 +114,8 @@
       "fichiers locaux"
     ],
     "err.disabled_reason": "L’API d’embeddings est inaccessible.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Effectue une recherche sémantique (recherche vectorielle) dans les fichiers locaux. Utilise l'API d'Embedding pour vectoriser le contenu des fichiers et extrait les passages de documents pertinents."
   },
   "ko": {
     "doc.db_path": "<state>/dbs 아래에서 각 root_dir에 대한 해시된 DB 경로를 반환합니다(기본값: ~/.uag(이전: ~/.scheck)/dbs).",
@@ -135,7 +135,6 @@
     "param.query.description": "검색 키워드.",
     "param.root_path.description": "검색할 디렉터리입니다.",
     "param.top_k.description": "숫자.",
-    "tool.description": "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다. 임베딩 API를 사용해 파일 내용을 벡터화하고 관련 문서 부분을 추출합니다. 인덱싱은 처음 실행하거나 파일이 변경될 때 수행됩니다.",
     "x_search_terms": [
       "semantic_search_files",
       "의미 검색",
@@ -143,7 +142,8 @@
       "임베딩 검색"
     ],
     "err.disabled_reason": "임베딩 API에 연결할 수 없습니다.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "로컬 파일에 대해 의미 검색(벡터 검색)을 수행합니다. Embedding API를 사용하여 파일 내용을 벡터화하고 관련 문서 구절을 추출합니다."
   },
   "de": {
     "doc.db_path": "Gibt für jedes root_dir unter <state>/dbs den gehashten DB-Pfad zurück (Standard: ~/.uag (alt: ~/.scheck)/dbs).",
@@ -163,7 +163,6 @@
     "param.query.description": "Suchbegriff.",
     "param.root_path.description": "Zu durchsuchendes Verzeichnis.",
     "param.top_k.description": "Anzahl.",
-    "tool.description": "Führt eine semantische Suche (Vektorsuche) in lokalen Dateien aus.",
     "x_search_terms": [
       "semantic_search_files",
       "semantische suche",
@@ -171,7 +170,8 @@
       "lokale dateien"
     ],
     "err.disabled_reason": "Die Embedding-API ist nicht erreichbar.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Führt eine semantische Suche (Vektorsuche) gegen lokale Dateien durch. Verwendet die Embedding-API, um Dateiinhalte zu vektorisieren und relevante Dokumentpassagen zu extrahieren."
   },
   "it": {
     "doc.db_path": "Restituisce il percorso DB con hash per ogni root_dir sotto <state>/dbs (predefinito: ~/.uag (vecchio: ~/.scheck)/dbs).",
@@ -191,7 +191,6 @@
     "param.query.description": "Parola chiave di ricerca.",
     "param.root_path.description": "Directory da cercare.",
     "param.top_k.description": "numero.",
-    "tool.description": "Esegue una ricerca semantica (ricerca vettoriale) nei file locali.",
     "x_search_terms": [
       "semantic_search_files",
       "ricerca semantica",
@@ -199,7 +198,8 @@
       "file locali"
     ],
     "err.disabled_reason": "L’API di embedding non è raggiungibile.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Esegue una ricerca semantica (ricerca vettoriale) sui file locali. Usa l'API di Embedding per vettorizzare i contenuti dei file ed estrarre passaggi di documento rilevanti."
   },
   "ru": {
     "doc.db_path": "Возвращает хешированный путь БД для каждого root_dir в <state>/dbs (по умолчанию: ~/.uag (старый: ~/.scheck)/dbs).",
@@ -219,7 +219,6 @@
     "param.query.description": "Ключевое слово поиска.",
     "param.root_path.description": "Каталог для поиска.",
     "param.top_k.description": "число.",
-    "tool.description": "Выполняет семантический поиск (векторный поиск) по локальным файлам.",
     "x_search_terms": [
       "semantic_search_files",
       "семантический поиск",
@@ -227,7 +226,8 @@
       "локальные файлы"
     ],
     "err.disabled_reason": "Embedding API недоступен.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Выполняет семантический поиск (векторный поиск) по локальным файлам. Использует Embedding API для векторизации содержимого файлов и извлекает релевантные фрагменты документов."
   },
   "pt_BR": {
     "doc.db_path": "Retorna o caminho do banco de dados com hash para cada root_dir em <state>/dbs (padrão: ~/.uag (antigo: ~/.scheck)/dbs).",
@@ -247,7 +247,6 @@
     "param.query.description": "Palavra-chave de pesquisa.",
     "param.root_path.description": "Diretório para pesquisa.",
     "param.top_k.description": "número.",
-    "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais.",
     "x_search_terms": [
       "semantic_search_files",
       "busca semântica",
@@ -255,7 +254,8 @@
       "arquivos locais"
     ],
     "err.disabled_reason": "A API de embeddings não está acessível.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais. Usa a API de Embedding para vetorizar o conteúdo dos arquivos e extrair passagens relevantes dos documentos."
   },
   "pt": {
     "doc.db_path": "Retorna o caminho do banco de dados com hash para cada root_dir em <state>/dbs (padrão: ~/.uag (antigo: ~/.scheck)/dbs).",
@@ -275,7 +275,6 @@
     "param.query.description": "Palavra-chave de pesquisa.",
     "param.root_path.description": "Diretório para pesquisar.",
     "param.top_k.description": "número.",
-    "tool.description": "Realiza uma pesquisa semântica (busca vetorial) em arquivos locais.",
     "x_search_terms": [
       "semantic_search_files",
       "pesquisa semântica",
@@ -283,7 +282,8 @@
       "arquivos locais"
     ],
     "err.disabled_reason": "A API de embeddings não está acessível.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Realiza uma pesquisa semântica (pesquisa vetorial) contra ficheiros locais. Usa a API de Embedding para vetorizar o conteúdo dos ficheiros e extrai passagens de documentos relevantes."
   },
   "id": {
     "doc.db_path": "Mengembalikan path DB yang di-hash untuk setiap root_dir di bawah <state>/dbs (default: ~/.uag (lama: ~/.scheck)/dbs).",
@@ -303,7 +303,6 @@
     "param.query.description": "Kata kunci pencarian.",
     "param.root_path.description": "Direktori untuk dicari.",
     "param.top_k.description": "angka.",
-    "tool.description": "Melakukan semantic search (vector search) pada file lokal.",
     "x_search_terms": [
       "semantic_search_files",
       "pencarian semantik",
@@ -311,7 +310,8 @@
       "file lokal"
     ],
     "err.disabled_reason": "API embedding tidak dapat dijangkau.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Melakukan pencarian semantik (pencarian vektor) terhadap file lokal. Menggunakan API Embedding untuk memvektorkan konten file dan mengekstrak bagian dokumen yang relevan."
   },
   "vi": {
     "doc.db_path": "Trả về đường dẫn DB đã băm cho từng root_dir dưới <state>/dbs (mặc định: ~/.uag (cũ: ~/.scheck)/dbs).",
@@ -331,7 +331,6 @@
     "param.query.description": "Từ khóa tìm kiếm.",
     "param.root_path.description": "Thư mục để tìm kiếm.",
     "param.top_k.description": "Số lượng.",
-    "tool.description": "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ.",
     "x_search_terms": [
       "semantic_search_files",
       "tìm kiếm ngữ nghĩa",
@@ -339,7 +338,8 @@
       "tệp cục bộ"
     ],
     "err.disabled_reason": "Không thể truy cập Embedding API.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Thực hiện tìm kiếm ngữ nghĩa (tìm kiếm vector) trên các tệp cục bộ. Sử dụng API Nhúng để vector hóa nội dung tệp và trích xuất các đoạn tài liệu liên quan."
   },
   "pl": {
     "doc.db_path": "Zwraca haszowaną ścieżkę DB dla każdego root_dir w <state>/dbs (domyślnie: ~/.uag (stary: ~/.scheck)/dbs).",
@@ -359,7 +359,6 @@
     "param.query.description": "Wyszukaj słowo kluczowe.",
     "param.root_path.description": "Katalog do przeszukania.",
     "param.top_k.description": "Liczba.",
-    "tool.description": "Wykonuje semantyczne wyszukiwanie (wyszukiwanie wektorowe) w lokalnych plikach.",
     "x_search_terms": [
       "semantic_search_files",
       "wyszukiwanie semantyczne",
@@ -367,7 +366,8 @@
       "pliki lokalne"
     ],
     "err.disabled_reason": "Interfejs Embedding API jest niedostępny.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Wykonuje wyszukiwanie semantyczne (wyszukiwanie wektorowe) w plikach lokalnych. Używa API osadzania do wektoryzacji zawartości plików i wyodrębnia odpowiednie fragmenty dokumentów."
   },
   "hi": {
     "doc.db_path": "<state>/dbs के अंतर्गत प्रत्येक root_dir के लिए हैश्ड DB पथ लौटाता है (डिफ़ॉल्ट: ~/.uag (पुराना: ~/.scheck)/dbs)।",
@@ -387,7 +387,6 @@
     "param.query.description": "मुख्य शब्द ढूंडो।",
     "param.root_path.description": "खोजने के लिए निर्देशिका.",
     "param.top_k.description": "संख्या।",
-    "tool.description": "स्थानीय फ़ाइलों के विरुद्ध एक सिमेंटिक खोज (वेक्टर खोज) करता है। फ़ाइल सामग्री को वेक्टराइज़ करने और प्रासंगिक दस्तावेज़ को निकालने के लिए एंबेडिंग एपीआई का उपयोग करता है...",
     "x_search_terms": [
       "semantic_search_files",
       "अर्थगत खोज",
@@ -395,7 +394,8 @@
       "स्थानीय फ़ाइलें"
     ],
     "err.disabled_reason": "embedding endpoint is unreachable.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "स्थानीय फ़ाइलों के विरुद्ध एक सिमैंटिक खोज (वेक्टर खोज) करता है। फ़ाइल सामग्री को वेक्टराइज़ करने और प्रासंगिक दस्तावेज़ अंश निकालने के लिए Embedding API का उपयोग करता है।"
   },
   "ar": {
     "doc.db_path": "يُرجع مسار قاعدة البيانات المُجزّأ لكل root_dir ضمن <state>/dbs (الافتراضي: ~/.uag (القديم: ~/.scheck)/dbs).",
@@ -415,7 +415,6 @@
     "param.query.description": "كلمة البحث.",
     "param.root_path.description": "الدليل المراد البحث فيه.",
     "param.top_k.description": "العدد.",
-    "tool.description": "ينفذ بحثًا دلاليًا (بحثًا متجهيًا) على الملفات المحلية.",
     "x_search_terms": [
       "semantic_search_files",
       "البحث الدلالي",
@@ -423,7 +422,8 @@
       "الملفات المحلية"
     ],
     "err.disabled_reason": "تعذر الوصول إلى واجهة Embedding API.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "إجراء بحث دلالي (بحث متجه) ضد الملفات المحلية. يستخدم واجهة برمجة التطبيقات للتضمين لتحويل محتويات الملفات إلى متجهات واستخراج مقاطع المستندات ذات الصلة."
   },
   "sv": {
     "doc.db_path": "Returnerar den hashade DB-sökvägen för varje root_dir under <state>/dbs (standard: ~/.uag (tidigare ~/.scheck)/dbs).",
@@ -443,7 +443,6 @@
     "param.query.description": "Sökord.",
     "param.root_path.description": "Katalog att söka i.",
     "param.top_k.description": "antal.",
-    "tool.description": "Utför semantisk sökning (vektorsökning) i lokala filer.Använder Embedding API för att vektorisera filinnehåll och extrahera relevanta dokumentavsnitt.",
     "x_search_terms": [
       "semantic_search_files",
       "semantisk sökning",
@@ -451,7 +450,8 @@
       "lokala filer"
     ],
     "err.disabled_reason": "Embedding API är inte tillgängligt.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Utför en semantisk sökning (vektorsökning) mot lokala filer. Använder inbäddnings-API:et för att vektorisera filinnehåll och extraherar relevanta dokumentavsnitt."
   },
   "sw": {
     "doc.db_path": "Hurejesha njia ya DB iliyohashiwa kwa kila root_dir chini ya <state>/dbs (chaguomsingi: ~/.uag (zamani: ~/.scheck)/dbs).",
@@ -471,7 +471,6 @@
     "param.query.description": "Neno kuu la utafutaji.",
     "param.root_path.description": "Saraka ya kutafuta.",
     "param.top_k.description": "idadi.",
-    "tool.description": "Hufanya utafutaji wa kimaana (utafutaji wa vekta) kwenye faili za ndani.",
     "x_search_terms": [
       "semantic_search_files",
       "utafutaji wa kisemantiki",
@@ -479,7 +478,8 @@
       "faili za ndani"
     ],
     "err.disabled_reason": "Embedding API haipatikani.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Fanya utafutaji wa kisemantiki (utafutaji wa vekta) dhidi ya faili za ndani. Tumia API ya Upachikaji kuweka maudhui ya faili katika vekta na kutoa vifungu muhimu vya nyaraka."
   },
   "nb": {
     "doc.db_path": "Returnerer den hashede DB-stien for hver root_dir under <state>/dbs (standard: ~/.uag (gammel: ~/.scheck)/dbs).",
@@ -499,7 +499,6 @@
     "param.query.description": "Søkeord.",
     "param.root_path.description": "Katalog for å søke.",
     "param.top_k.description": "antall.",
-    "tool.description": "Utfører semantisk søk (vektorsøk) i lokale filer.Bruker Embedding API til å vektorisere filinnhold og hente ut relevante dokumentdeler.",
     "x_search_terms": [
       "semantic_search_files",
       "semantisk søk",
@@ -507,7 +506,8 @@
       "lokale filer"
     ],
     "err.disabled_reason": "Embedding API er ikke tilgjengelig.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Utfører et semantisk søk (vektorsøk) mot lokale filer. Bruker Embedding API til å vektorisere filinnhold og trekker ut relevante dokumentpassasjer."
   },
   "nl": {
     "doc.db_path": "Geeft het gehashte DB-pad terug voor elke root_dir onder <state>/dbs (standaard: ~/.uag (oud: ~/.scheck)/dbs).",
@@ -527,7 +527,6 @@
     "param.query.description": "Zoekterm.",
     "param.root_path.description": "Map om in te zoeken.",
     "param.top_k.description": "aantal.",
-    "tool.description": "Voert semantisch zoeken (vectorzoekopdracht) uit in lokale bestanden.",
     "x_search_terms": [
       "semantic_search_files",
       "semantische zoekopdracht",
@@ -535,7 +534,8 @@
       "lokale bestanden"
     ],
     "err.disabled_reason": "Embedding-API is niet bereikbaar.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Voert een semantische zoekopdracht (vectorzoekopdracht) uit op lokale bestanden. Gebruikt de Embedding-API om bestandsinhoud te vectoriseren en relevante documentpassages te extraheren."
   },
   "fi": {
     "doc.db_path": "Palauttaa hajautetun DB-polun kullekin root_dirille hakemiston <state>/dbs alla (oletus: ~/.uag (vanha: ~/.scheck)/dbs).",
@@ -555,7 +555,6 @@
     "param.query.description": "Hakusana.",
     "param.root_path.description": "Hakemisto, jota etsitään.",
     "param.top_k.description": "määrä.",
-    "tool.description": "Tee semanttinen haku (vektorihaku) paikallisista tiedostoista.",
     "x_search_terms": [
       "semantic_search_files",
       "semanttinen haku",
@@ -563,7 +562,8 @@
       "paikalliset tiedostot"
     ],
     "err.disabled_reason": "Embedding-API ei ole tavoitettavissa.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Suorittaa semanttisen haun (vektorihaku) paikallisia tiedostoja vastaan. Käyttää upotus-API:a tiedostojen sisällön vektoroimiseen ja poimii asiaankuuluvia dokumenttikatkelmia."
   },
   "cs": {
     "doc.db_path": "Vrací hašovanou cestu k DB pro každé root_dir v <state>/dbs (výchozí: ~/.uag (dříve: ~/.scheck)/dbs).",
@@ -583,7 +583,6 @@
     "param.query.description": "Vyhledat klíčové slovo.",
     "param.root_path.description": "Adresář k prohledání.",
     "param.top_k.description": "počet.",
-    "tool.description": "Provádí sémantické vyhledávání (vektorové vyhledávání) v místních souborech.",
     "x_search_terms": [
       "semantic_search_files",
       "sémantické hledání",
@@ -591,7 +590,8 @@
       "místní soubory"
     ],
     "err.disabled_reason": "Embedding API není dostupné.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Provádí sémantické vyhledávání (vektorové vyhledávání) proti místním souborům. Používá Embedding API k vektorizaci obsahu souborů a extrahuje relevantní pasáže dokumentů."
   },
   "uk": {
     "doc.db_path": "Повертає хешований шлях БД для кожного root_dir у <state>/dbs (типово: ~/.uag (старе: ~/.scheck)/dbs).",
@@ -611,7 +611,6 @@
     "param.query.description": "Ключове слово для пошуку.",
     "param.root_path.description": "Каталог для пошуку.",
     "param.top_k.description": "число.",
-    "tool.description": "Виконує семантичний пошук (векторний пошук) у локальних файлах.",
     "x_search_terms": [
       "semantic_search_files",
       "семантичний пошук",
@@ -619,7 +618,8 @@
       "локальні файли"
     ],
     "err.disabled_reason": "Embedding API недоступний.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Виконує семантичний пошук (векторний пошук) по локальних файлах. Використовує Embedding API для векторизації вмісту файлів та вилучення відповідних фрагментів документів."
   },
   "tr": {
     "doc.db_path": "<state>/dbs altındaki her root_dir için karma DB yolunu döndürür (varsayılan: ~/.uag (eski: ~/.scheck)/dbs).",
@@ -639,7 +639,6 @@
     "param.query.description": "Arama anahtar kelimesi.",
     "param.root_path.description": "Aranacak dizin.",
     "param.top_k.description": "sayı.",
-    "tool.description": "Yerel dosyalar üzerinde anlamsal arama (vektör arama) yapar.",
     "x_search_terms": [
       "semantic_search_files",
       "anlamsal arama",
@@ -647,7 +646,8 @@
       "yerel dosyalar"
     ],
     "err.disabled_reason": "Embedding API’ye ulaşılamıyor.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Yerel dosyalara karşı anlamsal arama (vektör araması) gerçekleştirir. Dosya içeriklerini vektörleştirmek için Embedding API'sini kullanır ve ilgili belge pasajlarını çıkarır."
   },
   "th": {
     "doc.db_path": "ส่งคืนเส้นทาง DB ที่แฮชแล้วสำหรับ root_dir แต่ละรายการภายใต้ <state>/dbs (ค่าเริ่มต้น: ~/.uag (เดิม: ~/.scheck)/dbs)",
@@ -667,7 +667,6 @@
     "param.query.description": "ค้นหาคำสำคัญ",
     "param.root_path.description": "ไดเรกทอรีเพื่อค้นหา",
     "param.top_k.description": "ตัวเลข.",
-    "tool.description": "ทำการค้นหาเชิงความหมาย (การค้นหาแบบเวกเตอร์) กับไฟล์ในเครื่อง ใช้ API การฝังเพื่อกำหนดเนื้อหาไฟล์และแยกเอกสารที่เกี่ยวข้อง...",
     "x_search_terms": [
       "semantic_search_files",
       "ค้นหาเชิงความหมาย",
@@ -675,7 +674,8 @@
       "ไฟล์ในเครื่อง"
     ],
     "err.disabled_reason": "ไม่สามารถเข้าถึง Embedding API ได้",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "ดำเนินการค้นหาเชิงความหมาย (การค้นหาเวกเตอร์) กับไฟล์ในเครื่อง ใช้ Embedding API เพื่อแปลงเนื้อหาไฟล์เป็นเวกเตอร์และแยกข้อความที่เกี่ยวข้องจากเอกสาร"
   },
   "zh_CN": {
     "doc.db_path": "返回 <state>/dbs 下每个 root_dir 对应的哈希 DB 路径（默认：~/.uag（旧：~/.scheck）/dbs）。",
@@ -695,7 +695,6 @@
     "param.query.description": "搜索关键字。",
     "param.root_path.description": "要搜索的目录。",
     "param.top_k.description": "数字。",
-    "tool.description": "对本地文件执行语义搜索（向量检索）。使用 Embedding API 对文件内容进行向量化，并提取相关文档片段。索引会在首次运行或文件更新时生成。",
     "x_search_terms": [
       "semantic_search_files",
       "语义搜索",
@@ -703,7 +702,8 @@
       "本地文件"
     ],
     "err.disabled_reason": "无法访问嵌入 API。",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "对本地文件执行语义搜索（向量搜索）。使用嵌入API对文件内容进行向量化，并提取相关文档段落。"
   },
   "zh_TW": {
     "doc.db_path": "返回 <state>/dbs 下每個 root_dir 對應的雜湊 DB 路徑（預設：~/.uag（舊：~/.scheck）/dbs）。",
@@ -723,7 +723,6 @@
     "param.query.description": "搜尋關鍵字。",
     "param.root_path.description": "要搜尋的目錄。",
     "param.top_k.description": "數字。",
-    "tool.description": "對本機檔案執行語義搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並擷取相關文件片段。索引會在首次執行或檔案更新時建立。",
     "x_search_terms": [
       "semantic_search_files",
       "語意搜尋",
@@ -731,7 +730,8 @@
       "本機檔案"
     ],
     "err.disabled_reason": "無法連線到嵌入 API。",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "對本地檔案執行語意搜尋（向量搜尋）。使用 Embedding API 將檔案內容向量化，並提取相關的文件段落。"
   },
   "bn": {
     "doc.db_path": "প্রতিটি root_dir-এর জন্য <state>/dbs-এর নিচে হ্যাশ করা DB path ফেরত দেয় (ডিফল্ট: ~/.uag (পুরোনো: ~/.scheck)/dbs)।",
@@ -751,7 +751,6 @@
     "param.query.description": "অনুসন্ধানের কীওয়ার্ড।",
     "param.root_path.description": "যে ডিরেক্টরি খুঁজতে হবে।",
     "param.top_k.description": "সংখ্যা।",
-    "tool.description": "স্থানীয় ফাইলগুলির বিরুদ্ধে একটি শব্দার্থিক অনুসন্ধান (ভেক্টর অনুসন্ধান) সম্পাদন করে। ফাইলের বিষয়বস্তু ভেক্টরাইজ করতে এমবেডিং এপিআই ব্যবহার করে এবং প্রাসঙ্গিক নথি বের করে...",
     "x_search_terms": [
       "semantic_search_files",
       "অর্থগত অনুসন্ধান",
@@ -759,7 +758,8 @@
       "স্থানীয় ফাইল"
     ],
     "err.disabled_reason": "embedding endpoint-এ পৌঁছানো যাচ্ছে না।",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "স্থানীয় ফাইলগুলির বিরুদ্ধে একটি সিম্যান্টিক সার্চ (ভেক্টর সার্চ) সম্পাদন করে। ফাইলের বিষয়বস্তু ভেক্টরাইজ করতে এম্বেডিং API ব্যবহার করে এবং প্রাসঙ্গিক ডকুমেন্ট প্যাসেজ বের করে।"
   },
   "fa": {
     "doc.db_path": "برای هر root_dir، مسیر DB هش‌شده را زیر <state>/dbs برمی‌گرداند (پیش‌فرض: ~/.uag (قدیمی: ~/.scheck)/dbs).",
@@ -779,7 +779,6 @@
     "param.query.description": "کلیدواژهٔ جستجو.",
     "param.root_path.description": "پوشه‌ای برای جستجو.",
     "param.top_k.description": "عدد.",
-    "tool.description": "در فایل‌های محلی جست‌وجوی معنایی (جست‌وجوی برداری) انجام می‌دهد.",
     "x_search_terms": [
       "semantic_search_files",
       "جستجوی معنایی",
@@ -787,7 +786,8 @@
       "فایل‌های محلی"
     ],
     "err.disabled_reason": "نقطهٔ پایانی embedding در دسترس نیست.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "یک جستجوی معنایی (جستجوی برداری) را در برابر فایل‌های محلی انجام می‌دهد. از API جاسازی برای برداری کردن محتوای فایل‌ها و استخراج بخش‌های مرتبط سند استفاده می‌کند."
   },
   "mn": {
     "doc.db_path": "<state>/dbs доорх root_dir бүрийн hash-лагдсан DB замыг буцаана (анхдагч: ~/.uag (хуучин: ~/.scheck)/dbs).",
@@ -807,7 +807,6 @@
     "param.query.description": "Хайлтын түлхүүр үг.",
     "param.root_path.description": "Хайх директор.",
     "param.top_k.description": "тоо.",
-    "tool.description": "Орон нутгийн файлуудад утгын хайлт (вектор хайлт) хийнэ.",
     "x_search_terms": [
       "semantic_search_files",
       "семантик хайлт",
@@ -815,7 +814,8 @@
       "орон нутгийн файл"
     ],
     "err.disabled_reason": "embedding endpoint хүрэх боломжгүй байна.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "Орон нутгийн файлуудын эсрэг семантик хайлт (вектор хайлт) гүйцэтгэх. Файлын агуулгыг векторжуулахын тулд Embedding API ашиглаж, холбогдох баримтын хэсгүүдийг гаргаж авна."
   },
   "mr": {
     "doc.db_path": "<state>/dbs अंतर्गत प्रत्येक root_dir साठी hash केलेला DB path परत करते (डीफॉल्ट: ~/.uag (जुना: ~/.scheck)/dbs).",
@@ -835,7 +835,6 @@
     "param.query.description": "शोध कीवर्ड.",
     "param.root_path.description": "शोधायची directory.",
     "param.top_k.description": "संख्या.",
-    "tool.description": "स्थानिक फाइल्सवर अर्थपूर्ण शोध (vector search) करते.फाइल मजकूर वेक्टराइज करण्यासाठी Embedding API वापरते आणि संबंधित दस्तऐवज विभाग काढते.",
     "x_search_terms": [
       "semantic_search_files",
       "अर्थपूर्ण शोध",
@@ -843,7 +842,8 @@
       "स्थानिक फाइल्स"
     ],
     "err.disabled_reason": "embedding endpoint उपलब्ध नाही.",
-    "err.no_index": "Error: No indexed vectors found. Run index_files first."
+    "err.no_index": "Error: No indexed vectors found. Run index_files first.",
+    "tool.description": "स्थानिक फाइल्स विरुद्ध सिमेंटिक शोध (वेक्टर शोध) करते. फाइल सामग्री वेक्टराइज करण्यासाठी Embedding API वापरते आणि संबंधित दस्तऐवज परिच्छेद काढते."
   },
   "el": {
     "doc.db_path": "Ελέγξτε τη συνδεσιμότητα κατά την εκκίνηση.\n\n- Επιστρέφει False χωρίς αύξηση αν ο έλεγχος αποτύχει\n- Χρησιμοποιεί σύντομο χρονικό όριο για την αποφυγή καθυστερήσεων εκκίνησης\n- Επιστρέφει στο GET / επειδή ορισμένες υλοποιήσεις ενδέχεται να μην υποστηρίζουν /v1/models.",
@@ -863,7 +863,6 @@
     "param.query.description": "αριθμός.",
     "param.root_path.description": "Κατάλογος για αναζήτηση.",
     "param.top_k.description": "Εκτελεί σημασιολογική αναζήτηση (διανυσματική αναζήτηση) σε τοπικά αρχεία. Χρησιμοποιεί το API ενσωμάτωσης για τη διανυσματική δημιουργία περιεχομένων αρχείων και εξάγει σχετικό έγγραφο pa...",
-    "tool.description": "Εκτελεί σημασιολογική αναζήτηση (διανυσματική αναζήτηση) σε τοπικά αρχεία. Χρησιμοποιεί το API ενσωμάτωσης για τη διανυσματική διανυσματική διαμόρφωση των περιεχομένων του αρχείου και εξάγει το σχετικό έγγραφο pa...",
     "x_search_terms": [
       "σημασιολογικά αρχεία αναζήτησης",
       "σημασιολογική αναζήτηση",
@@ -877,7 +876,8 @@
       "σημασιολογική ανάκτηση"
     ],
     "err.disabled_reason": "Το τελικό σημείο ενσωμάτωσης δεν είναι προσβάσιμο.",
-    "err.no_index": "Σφάλμα: Δεν βρέθηκαν διανύσματα με ευρετήριο. Εκτελέστε πρώτα το index_files."
+    "err.no_index": "Σφάλμα: Δεν βρέθηκαν διανύσματα με ευρετήριο. Εκτελέστε πρώτα το index_files.",
+    "tool.description": "Εκτελεί σημασιολογική αναζήτηση (διανυσματική αναζήτηση) σε τοπικά αρχεία. Χρησιμοποιεί το Embedding API για διανυσματοποίηση περιεχομένων αρχείων και εξαγωγή σχετικών αποσπασμάτων εγγράφων."
   },
   "he": {
     "doc.db_path": "בדוק קישוריות בעת ההפעלה.\n\n- מחזירה False ללא העלאה אם הצ'ק נכשל\n- משתמש בפסק זמן קצר כדי למנוע עיכובים בהפעלה\n- נופל בחזרה ל-GET / כי ייתכן שחלק מהיישומים לא תומכים ב- /v1/models.",
@@ -897,7 +897,6 @@
     "param.query.description": ".",
     "param.root_path.description": "ספרייה לחיפוש.",
     "param.top_k.description": "מבצע חיפוש סמנטי (חיפוש וקטור) כנגד קבצים מקומיים. משתמש ב-Embedding API ל-Vectorize תוכן קובץ ומחלץ מסמכים רלוונטיים...",
-    "tool.description": "מבצע חיפוש סמנטי (חיפוש וקטור) כנגד קבצים מקומיים. משתמש בממשק ה-API של Embedding כדי לעצב את תוכן הקובץ ולחלץ מסמכים רלוונטיים...",
     "x_search_terms": [
       "קבצי חיפוש סמנטי",
       "חיפוש סמנטי",
@@ -911,7 +910,8 @@
       "שליפה סמנטית"
     ],
     "err.disabled_reason": "לא ניתן להגיע להטמעת נקודת קצה.",
-    "err.no_index": "שגיאה: לא נמצאו וקטורים באינדקס. הפעל תחילה index_files."
+    "err.no_index": "שגיאה: לא נמצאו וקטורים באינדקס. הפעל תחילה index_files.",
+    "tool.description": "מבצע חיפוש סמנטי (חיפוש וקטורי) כנגד קבצים מקומיים. משתמש ב-Embedding API כדי לוקטור את תוכן הקבצים ומחלץ קטעי מסמכים רלוונטיים."
   },
   "hu": {
     "doc.db_path": "Ellenőrizze a csatlakozást indításkor.\n\n- False értéket ad vissza emelés nélkül, ha az ellenőrzés sikertelen\n- Rövid időtúllépést használ az indítási késések elkerülése érdekében\n- Visszatér a GET /-re, mert előfordulhat, hogy egyes megvalósítások nem támogatják a /v1/models-t.",
@@ -931,7 +931,6 @@
     "param.query.description": "szám.",
     "param.root_path.description": "Könyvtár a kereséshez.",
     "param.top_k.description": "Szemantikai keresést (vektoros keresést) hajt végre a helyi fájlok között. Az Embedding API segítségével vektorizálja a fájl tartalmát, és kivonatolja a releváns dokumentumokat...",
-    "tool.description": "Szemantikai keresést (vektorkeresést) hajt végre a helyi fájlokon. Az Embedding API segítségével vektorizálja a fájl tartalmát, és kivonja a releváns dokumentumokat...",
     "x_search_terms": [
       "szemantikai keresési fájlok",
       "szemantikus keresés",
@@ -945,7 +944,8 @@
       "szemantikai visszakeresés"
     ],
     "err.disabled_reason": "a beágyazási végpont nem érhető el.",
-    "err.no_index": "Hiba: Nem található indexelt vektor. Először futtassa az index_files programot."
+    "err.no_index": "Hiba: Nem található indexelt vektor. Először futtassa az index_files programot.",
+    "tool.description": "Szemantikus keresést (vektoros keresést) végez a helyi fájlok között. Az Embedding API-t használja a fájltartalmak vektorizálására, és releváns dokumentumrészleteket nyer ki."
   },
   "ro": {
     "doc.db_path": "Verificați conectivitatea la pornire.\n\n- Returnează False fără ridicare dacă verificarea eșuează\n- Utilizează o perioadă scurtă de expirare pentru a evita întârzierile la pornire\n- Se întoarce la GET / deoarece este posibil ca unele implementări să nu suporte /v1/models.",
@@ -965,7 +965,6 @@
     "param.query.description": "număr.",
     "param.root_path.description": "Director de căutare.",
     "param.top_k.description": "Efectuează o căutare semantică (căutare vectorială) împotriva fișierelor locale. Utilizează API-ul Embedding pentru a vectoriza conținutul fișierelor și extrage documentele relevante...",
-    "tool.description": "Efectuează o căutare semantică (căutare vectorială) împotriva fișierelor locale. Utilizează API-ul Embedding pentru a vectoriza conținutul fișierului și pentru a extrage documentele relevante...",
     "x_search_terms": [
       "fișiere de căutare semantică",
       "căutare semantică",
@@ -979,6 +978,7 @@
       "regăsire semantică"
     ],
     "err.disabled_reason": "punctul final de încorporare este inaccesibil.",
-    "err.no_index": "Eroare: nu s-au găsit vectori indexați. Rulați mai întâi index_files."
+    "err.no_index": "Eroare: nu s-au găsit vectori indexați. Rulați mai întâi index_files.",
+    "tool.description": "Efectuează o căutare semantică (căutare vectorială) în fișierele locale. Folosește API-ul de încorporare pentru a vectoriza conținutul fișierelor și extrage pasaje relevante din documente."
   }
 }
