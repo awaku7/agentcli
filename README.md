@@ -78,10 +78,11 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **Media** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | PDF/PPTX/DOCX/RTF/ODT extraction, Excel structured extraction |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query |
+| **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **11 source code navigators (idx family)** |
 | **MCP** | Connect to external MCP servers, list tools, execute |
 | **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
 | **System** | env vars, system specs, time, date calculation |
+| **Source Nav** | **11 idx tools** for Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin — get a function/class index or specific definition without reading the whole file |
 
 ### 🖥 3 Interfaces + A2A
 
