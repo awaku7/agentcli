@@ -207,7 +207,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # :env subcommand completion
                         after_env = stripped[len(":env "):]
                         if " " not in after_env:
-                            env_subcmds = ["show", "set", "unset", "save"]
+                            env_subcmds = ["show", "list", "set", "unset", "save"]
                             for sc in env_subcmds:
                                 if sc.startswith(after_env):
                                     yield Completion(
@@ -236,7 +236,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     yield Completion(sc, start_position=-len(after_tools))
                         elif after_tools.startswith(("on ", "off ")):
                             genre_prefix = after_tools.split(" ", 1)[1] if " " in after_tools else ""
-                            genres = ["basic", "file", "comm", "office", "devel", "iot", "exec", "external", "media"]
+                            genres = ["basic", "file", "comm", "office", "devel", "iot", "exec", "external", "media", "index"]
                             for g in genres:
                                 if g.startswith(genre_prefix):
                                     yield Completion(g, start_position=-len(genre_prefix))
@@ -244,7 +244,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # :skills subcommand completion
                         after_skills = stripped[len(":skills "):]
                         if " " not in after_skills:
-                            skills_subcmds = ["mp_search", "list", "load", "install", "uninstall", "validate", "read_file"]
+                            skills_subcmds = ["mp_search", "list", "load", "install", "uninstall"]
                             for sc in skills_subcmds:
                                 if sc.startswith(after_skills):
                                     yield Completion(sc, start_position=-len(after_skills))
