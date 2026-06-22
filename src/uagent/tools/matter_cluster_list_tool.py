@@ -8,6 +8,8 @@ from typing import Any
 
 from ._matter_cache import matter_cache_get, matter_cache_put
 from ._matter_common import error_payload, ok_payload, WarningCollector
+import time
+from ._matter_log import matter_log
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -561,6 +563,7 @@ def _format_text(result: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    _log_start = time.time()
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
     cache_key = ":".join([str(args.get("dev") or ""), str(args.get("ctrl") or ""), str(args.get("bridge") or ""), str(args.get("endpoint") or "")])
     cached = matter_cache_get("matter_cluster_list", cache_key)
@@ -724,6 +727,7 @@ def run_tool(args: dict[str, Any]) -> str:
         },
     }
     matter_cache_put("matter_cluster_list", cache_key, result)
+    matter_log("matter_cluster_list", args, ok=True, elapsed_ms=(time.time() - _log_start) * 1000)
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)

@@ -8,6 +8,8 @@ from typing import Any
 
 from ._matter_cache import matter_cache_device_invalidate
 from ._matter_common import error_payload, ok_payload, WarningCollector
+import time
+from ._matter_log import matter_log
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -347,6 +349,7 @@ def _format_text(result: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    _log_start = time.time()
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
     device_id = str(args.get("dev") or "").strip()
     action = str(args.get("action") or "").strip().casefold()
@@ -634,6 +637,7 @@ def run_tool(args: dict[str, Any]) -> str:
         },
         "fetched_at": _now_iso(),
     }
+    matter_log("matter_control", args, ok=True, elapsed_ms=(time.time() - _log_start) * 1000)
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)
