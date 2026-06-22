@@ -29,7 +29,7 @@
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **112 tools**: File I/O, web search, image generation, BLE device scanning, MCP server integration — **66 are parallel-safe** (up to 4 execute concurrently via thread pool). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
+- **112 tools**: File I/O, web search, image generation, BLE device scanning, MCP server integration — **66 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
@@ -57,7 +57,7 @@ All providers share the same toolset and interface. Switch by setting `UAGENT_PR
 ### ⚡ Parallel Tool Execution
 
 When the LLM requests multiple tools simultaneously, uag **automatically parallelizes** them.
-66 tools are marked `x_parallel_safe` and execute concurrently via a 4-thread `ThreadPoolExecutor`.
+66 tools are marked `x_parallel_safe` and execute concurrently via a `ThreadPoolExecutor` (8 threads by default; set `UAGENT_PARALLEL_WORKERS` to change).
 
 **Example**: Ask "Check the weather in Nordic capitals" → LLM fires `search_web` × 5 countries → all 5 searches run in parallel → results collected in one batch.
 

@@ -1053,8 +1053,9 @@ def reload_plugins() -> None:
 # parallel execution
 # ------------------------------
 
+_PARALLEL_WORKERS = int(env_get("UAGENT_PARALLEL_WORKERS", "8"))
 _PARALLEL_TOOL_EXECUTOR = concurrent.futures.ThreadPoolExecutor(
-    max_workers=4,
+    max_workers=_PARALLEL_WORKERS,
     thread_name_prefix="tool_par",
 )
 
