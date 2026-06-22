@@ -102,17 +102,23 @@ class WsHandler:
         message = params.get("message", "")
         if not message:
             raise ValueError("'message' is required")
+        provider = self.config_mgr.get("provider", "")
+        if not provider:
+            return {
+                "reply": (
+                    "[uag] LLM provider not configured.\n"
+                    "Set UAGENT_PROVIDER and API key, then restart.\n"
+                    "Example: UAGENT_PROVIDER=openai UAGENT_OPENAI_API_KEY=sk-..."
+                )
+            }
+        return {
+            "reply": (
+                "[uag] LLM chat is not yet fully integrated with the WebSocket server.\n"
+                f"Message received: {message[:100]}\n"
+                "Provider detected: " + provider
+            )
+        }
 
-        from uagent.core import process_message
-
-        try:
-            reply = await process_message(message)
-            self.session_mgr.save_message("user", message)
-            self.session_mgr.save_message("assistant", reply)
-            return {"reply": reply}
-        except ImportError:
-            # Fallback if core not fully available
-            return {"reply": f"[uag] Received: {message[:100]}... (LLM core not loaded)"}
 
     async def handle_tools_list(self, params: dict) -> dict:
         """Return a simplified list of all available tools."""
