@@ -90,9 +90,6 @@ def _get_credentials() -> tuple[str | None, str | None]:
 
 
 def _parse_msg(uid: str, raw_data: bytes) -> dict[str, Any]:
-    import email
-
-    msg = email.message_from_bytes(raw_data)
     parsed = parse_email(raw_data)
     headers = parsed["headers"]
     body = parsed["body"]
