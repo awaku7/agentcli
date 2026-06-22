@@ -77,6 +77,7 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **Web** | fetch_url, search_web, screenshot, browser_playwright |
 | **Media** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | PDF/PPTX/DOCX/RTF/ODT extraction, Excel structured extraction |
+| **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — see [COMMUNICATION.md](COMMUNICATION.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
 | **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **11 source code navigators (idx family)** |
 | **MCP** | Connect to external MCP servers, list tools, execute |
