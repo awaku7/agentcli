@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.19] - 2026-06-22
+
+### Added
+- Added 'index' genre for source code navigation tools (11 idx tools for py/ts/cs/jv/dart/cpp/rs).
+- Added Z.AI provider to provider list.
+- Made ThreadPool size configurable via UAGENT_PARALLEL_WORKERS environment variable (default 8).
+- Added idx family documentation to all 33 README translations, tool table, and DEVELOP docs.
+
+### Changed
+- Updated tool count (111→112) and parallel-safe count (55→66).
+- Clarified parallel execution documentation (max 4 concurrently, 66 parallel-safe).
+- Added UAGENT_PARALLEL_WORKERS and missing providers to ENVIRONMENT.md and ENVIRONMENT.ja.md.
+
 ## [0.5.18] - 2026-06-21
 
 ### Added

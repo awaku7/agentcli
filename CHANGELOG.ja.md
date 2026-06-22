@@ -5,6 +5,19 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.19] - 2026-06-22
+
+### 追加
+- ソースコードナビゲーションツール用の 'index' ジャンルを追加（py/ts/cs/jv/dart/cpp/rs の11のidxツール）。
+- Z.AI プロバイダーをプロバイダー一覧に追加。
+- UAGENT_PARALLEL_WORKERS 環境変数でスレッドプールサイズを設定可能に（デフォルト8）。
+- idx ファミリーのドキュメントを全33のREADME翻訳、ツールテーブル、DEVELOPドキュメントに追加。
+
+### 変更
+- ツール数（111→112）、並列セーフ数（55→66）を更新。
+- 並列実行に関するドキュメントを明確化（最大4同時実行、66並列セーフ）。
+- UAGENT_PARALLEL_WORKERS および不足していたプロバイダーを ENVIRONMENT.md と ENVIRONMENT.ja.md に追加。
+
 ## [0.5.18] - 2026-06-21
 
 ### 追加
