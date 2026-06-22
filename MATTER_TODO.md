@@ -21,7 +21,7 @@
 
 - Matter の接続先ごとに専用アダプタを持たず、まずはローカル設定を正規化して扱う
 - 読み取り専用を基本とし、制御は将来拡張とする
-- `controller_id` / `bridge_id` / `device_id` / `endpoint` で対象を明確化する
+- `ctrl` / `bridge` / `dev` / `endpoint` で対象を明確化する
 - 取得できない項目は `null` か省略で統一する
 
 ## 共通ルール
@@ -31,7 +31,7 @@
 - 成功時は `ok: true` と主要データを返す
 - 失敗時は `ok: false` と `error` を返す
 - 可能なら `count` / `items` / `device` / `endpoints` / `clusters` を使う
-- `output_format` の既定値は `json` とする
+- `fmt` の既定値は `json` とする
 
 ### 代表的なエラー
 
@@ -43,9 +43,9 @@
 
 ### 入力方針
 
-- コントローラー系は `controller_id`, `endpoint`, `cluster` などを受ける
-- ブリッジ系は `bridge_id`, `device_id`, `endpoint` などを受ける
-- `controller_id` / `bridge_id` 省略時は全件対象とする
+- コントローラー系は `ctrl`, `endpoint` などを受ける
+- ブリッジ系は `bridge`, `dev`, `endpoint` などを受ける
+- `ctrl` / `bridge` 省略時は全件対象とする
 - 操作系は対象デバイスと操作パラメータを明示する
 
 ## ツール設計方針
@@ -57,31 +57,29 @@
 - 取得できない項目は `null` か省略で統一する
 - Phase 1 は読み取り専用に固定する
 
-## 追加予定の段階
+## 実装状況
 
-### Phase 1: 読み取り専用
+### Phase 1: 読み取り専用 ✅ 完了
 
-- コントローラー一覧取得ツール
-- ブリッジ一覧取得ツール
-- デバイス状態取得ツール
-- エンドポイント一覧取得ツール
-- クラスタ一覧取得ツール
-- JSON / text 出力
+- matter_controller_list / matter_bridge_list / matter_device_status
+- matter_endpoint_list / matter_cluster_list
+- JSON / text 出力対応済み
+- エラーコード: config_missing / not_found / ambiguous_target / invalid_argument
 
-### Phase 2: 詳細取得
+### Phase 2: 詳細取得 ✅ 完了
 
-- ルーム / エリア情報の整理
-- デバイスタイプごとの最小共通情報の正規化
-- 必要なら endpoint / cluster の追加属性拡張
+- Room/Area/Floor 情報の抽出 (全ツール共通 `_extract_location`)
+- デバイスタイプ別属性正規化 (light/sensor/lock/thermostat/cover/switch/fan)
+- Endpoint/Cluster の構造化
 
-### Phase 3: 制御
+### Phase 3: 制御 ✅ 完了
 
-- ブリッジ越しの簡易制御ツール
-- 代表的な on / off 系操作
-- 明示的なパラメータ必須化
-- 失敗時の理由整理
+- matter_control ツール実装済み
+- アクション: on / off / open / close / lock / unlock / set_value
+- デバイスタイプ別のアクション制限 (dry_run 検証対応)
+- UAGENT_MATTER_COMMAND_JSON / UAGENT_MATTER_COMMAND_FILE 経由のキューイング
 
-### Phase 4: 発展機能
+### Phase 4: 未着手
 
 - イベント購読
 - 状態更新の追跡
@@ -92,127 +90,44 @@
 
 ## 現行ツール仕様
 
-### matter_controller_list
+### matter_controller_list ✅
 
-- 役割: Matter コントローラー一覧を取得する
-- 入力:
-  - `controller_id`（任意）
-  - `output_format`（省略時は `json`）
-- ルール:
-  - `controller_id` 省略時は利用可能な全コントローラーを対象にする
-  - 1 つのコントローラーに絞る必要がある場合は `controller_id` を受ける
-- 出力:
-  - `ok`
-  - `count`
-  - `items[]`
-  - `controller`
-  - `fetched_at`
-- `items[]` の主な要素:
-  - `controller_id`
-  - `controller_name`
-  - `device_count`
-  - `bridge_ids`
-  - `transport`
-  - `reachable`
-  - `last_updated`
+- パラメータ: `ctrl`（任意）/ `fmt`（任意、既定: `json`）
+- 出力: `ok` / `count` / `items[]` / `controller` / `fetched_at`
+- items[].主キー: `ctrl` / `controller_name` / `device_count` / `bridge_ids` / `transport` / `reachable` / `last_updated`
 
-### matter_bridge_list
+### matter_bridge_list ✅
 
-- 役割: Matter ブリッジ一覧を取得する
-- 入力:
-  - `bridge_id`（任意）
-  - `output_format`（省略時は `json`）
-- ルール:
-  - `bridge_id` 省略時は利用可能な全ブリッジを対象にする
-  - 1 つのブリッジに絞る必要がある場合は `bridge_id` を受ける
-- 出力:
-  - `ok`
-  - `count`
-  - `items[]`
-  - `bridge`
-  - `fetched_at`
-- `items[]` の主な要素:
-  - `bridge_id`
-  - `bridge_name`
-  - `controller_id`
-  - `device_count`
-  - `device_ids`
-  - `transport`
-  - `reachable`
-  - `last_updated`
+- パラメータ: `bridge`（任意）/ `fmt`（任意、既定: `json`）
+- 出力: `ok` / `count` / `items[]` / `bridge` / `fetched_at`
+- items[].主キー: `bridge` / `bridge_name` / `ctrl` / `device_count` / `device_ids` / `transport` / `reachable` / `last_updated`
 
-### matter_device_status
+### matter_device_status ✅
 
-- 役割: 指定デバイスの状態を取得する
-- 入力:
-  - `device_id`
-  - `controller_id`（任意）
-  - `bridge_id`（任意）
-  - `endpoint`（任意）
-  - `output_format`（省略時は `json`）
-- ルール:
-  - `device_id` は必須
-  - `controller_id` と `bridge_id` は補助指定
-  - どちらかで対象が一意に定まらない場合は `ambiguous_target` を返す
-- 出力:
-  - `ok`
-  - `device`
-  - `status`
-  - `endpoints`
-  - `clusters`
-  - `fetched_at`
-- `device` の主な要素:
-  - `device_id`
-  - `device_name`
-  - `device_type`
-  - `vendor`
-  - `bridge_id`
-  - `controller_id`
-  - `reachable`
-  - `last_updated`
-- `endpoints` の主な要素:
-  - `endpoint_id`
-  - `clusters`
-  - `device_type`
-- `clusters` の主な要素:
-  - `cluster_id`
-  - `cluster_name`
-  - `attributes`
-  - `commands`
+- パラメータ: `dev`（必須）/ `ctrl`（任意）/ `bridge`（任意）/ `endpoint`（任意）/ `fmt`（任意、既定: `json`）
+- ルール: `dev` 必須。`ctrl`/`bridge` は曖昧回避の補助指定。曖昧時は `ambiguous_target`。
+- 出力: `ok` / `device` / `status` / `endpoints` / `clusters` / `fetched_at`
+- device.主キー: `dev` / `devname` / `device_type` / `vendor` / `bridge` / `ctrl` / `reachable` / `last_updated`
+- endpoints[].主キー: `endpoint_id` / `clusters[]` / `device_type`
+- clusters[].主キー: `cluster_id` / `cluster_name` / `attributes` / `commands`
 
-### matter_endpoint_list
+### matter_endpoint_list ✅
 
-- 役割: 指定デバイスのエンドポイント一覧を取得する
-- 入力:
-  - `device_id`
-  - `controller_id`（任意）
-  - `bridge_id`（任意）
-  - `output_format`（省略時は `json`）
-- 出力:
-  - `ok`
-  - `count`
-  - `items[]`
-  - `endpoints`
-  - `device`
-  - `fetched_at`
+- パラメータ: `dev`（必須）/ `ctrl`（任意）/ `bridge`（任意）/ `fmt`（任意、既定: `json`）
+- 出力: `ok` / `count` / `items[]` / `endpoints` / `device` / `fetched_at`
 
-### matter_cluster_list
+### matter_cluster_list ✅
 
-- 役割: 指定デバイスのクラスタ一覧を取得する
-- 入力:
-  - `device_id`
-  - `controller_id`（任意）
-  - `bridge_id`（任意）
-  - `endpoint`（任意）
-  - `output_format`（省略時は `json`）
-- 出力:
-  - `ok`
-  - `count`
-  - `items[]`
-  - `clusters`
-  - `endpoints`
-  - `device`
-  - `fetched_at`
+- パラメータ: `dev`（必須）/ `ctrl`（任意）/ `bridge`（任意）/ `endpoint`（任意）/ `fmt`（任意、既定: `json`）
+- 出力: `ok` / `count` / `items[]` / `clusters` / `endpoints` / `device` / `fetched_at`
+
+### matter_control ✅
+
+- パラメータ: `dev`（必須）/ `action`（必須）/ `value`（任意, 0-100）/ `ctrl`（任意）/ `bridge`（任意）/ `dry_run`（任意）/ `fmt`（任意、既定: `json`）
+- action一覧: `on` / `off` / `open` / `close` / `lock` / `unlock` / `set_value`
+- デバイスタイプ別にサポートするアクションを制限（`dry_run` で事前検証可能）
+- キューイング先: `UAGENT_MATTER_COMMAND_JSON` 環境変数 または `UAGENT_MATTER_COMMAND_FILE`
+- 出力: `ok` / `command` / `device` / `fetched_at`
 
 ## 実装メモ
 
