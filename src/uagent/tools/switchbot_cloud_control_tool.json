@@ -117,7 +117,9 @@
     "param.dev.description": "SwitchBot device ID to look up. Preferred identifier.",
     "param.devname.description": "SwitchBot device name to look up when device_id is not provided.",
     "param.value.description": "Optional numeric value for set_value actions. Range: 0-100.",
-    "err.config_missing": "SwitchBot Cloud credentials are missing. Set UAGENT_SWITCHBOT_TOKEN and UAGENT_SWITCHBOT_SECRET."
+    "err.config_missing": "SwitchBot Cloud credentials are missing. Set UAGENT_SWITCHBOT_TOKEN and UAGENT_SWITCHBOT_SECRET.",
+    "msg.error_fmt": "Error: {msg}",
+    "msg.unknown_error": "unknown error"
   },
   "es": {
     "param.action.description": "Action: on/off/open/close/set_value/lock/unlock.",
@@ -288,11 +290,11 @@
     "err.config_missing": "SwitchBot Cloud credentials are missing. Set UAGENT_SWITCHBOT_TOKEN and UAGENT_SWITCHBOT_SECRET."
   },
   "ja": {
-    "param.action.description": "Action: on/off/open/close/set_value/lock/unlock.",
-    "param.mode.description": "AC mode: auto/cool/dry/fan/heat.",
-    "param.fan.description": "AC fan: auto/low/medium/high.",
-    "param.timeout.description": "HTTP timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
+    "param.action.description": "アクション: on/off/open/close/set_value/lock/unlock。",
+    "param.mode.description": "ACモード: auto/cool/dry/fan/heat。",
+    "param.fan.description": "ACファン: auto/low/medium/high。",
+    "param.timeout.description": "HTTP タイムアウト（秒）。",
+    "param.fmt.description": "形式: json または text。",
     "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
     "err.invalid_arguments": "Either device_id or device_name is required.",
     "err.not_found": "No SwitchBot device matched the provided device_id.",
@@ -305,11 +307,13 @@
     "err.invalid_range": "Timeout must be greater than 0.",
     "err.invalid_value_type": "The value field must be an integer.",
     "err.operation_failed": "Error during SwitchBot Cloud control: {err_msg}",
-    "tool.description": "Control a SwitchBot Cloud device from the configured account and return a JSON or text result.",
-    "param.dev.description": "SwitchBot device ID to look up. Preferred identifier.",
-    "param.devname.description": "SwitchBot device name to look up when device_id is not provided.",
-    "param.value.description": "Optional numeric value for set_value actions. Range: 0-100.",
-    "err.config_missing": "SwitchBot Cloud credentials are missing. Set UAGENT_SWITCHBOT_TOKEN and UAGENT_SWITCHBOT_SECRET."
+    "tool.description": "{tool}用のツール",
+    "param.dev.description": "デバイスID（推奨）。",
+    "param.devname.description": "デバイス名（代替指定）。",
+    "param.value.description": "set_value アクション用の数値。範囲: 0-100。",
+    "err.config_missing": "SwitchBot Cloud credentials are missing. Set UAGENT_SWITCHBOT_TOKEN and UAGENT_SWITCHBOT_SECRET.",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.unknown_error": "不明なエラー"
   },
   "ko": {
     "param.action.description": "Action: on/off/open/close/set_value/lock/unlock.",

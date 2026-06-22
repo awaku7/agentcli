@@ -17,7 +17,11 @@
   },
   "en": {
     "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "tool.description": "List SwitchBot Cloud devices for the configured account.",
+    "msg.device_count": "SwitchBot Cloud devices: {count}",
+    "msg.error_fmt": "Error: {msg}",
+    "msg.fetched_at": "Fetched at: {ts}",
+    "msg.unknown_error": "unknown error"
   },
   "es": {
     "param.fmt.description": "Format: json or text.",
@@ -48,8 +52,12 @@
     "tool.description": "List SwitchBot Cloud devices for the configured account."
   },
   "ja": {
-    "param.fmt.description": "Format: json or text.",
-    "tool.description": "List SwitchBot Cloud devices for the configured account."
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
   },
   "ko": {
     "param.fmt.description": "Format: json or text.",

@@ -102,7 +102,9 @@
     "param.service_uuid.description": "Optional GATT service UUID filter.",
     "err.bleak_missing": "Error: 'bleak' library is not installed. Please install it using:\npip install bleak",
     "err.linux_permission": "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
-    "err.macos_permission": "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth."
+    "err.macos_permission": "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth.",
+    "msg.error_fmt": "Error: {msg}",
+    "msg.unknown_error": "unknown error"
   },
   "es": {
     "param.mac.description": "MAC address filter.",
@@ -252,8 +254,8 @@
     "err.macos_permission": "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth."
   },
   "ja": {
-    "param.mac.description": "MAC address filter.",
-    "param.fmt.description": "Format: json or text.",
+    "param.mac.description": "MACアドレスフィルター。",
+    "param.fmt.description": "形式: json または text。",
     "err.not_found": "No SwitchBot BLE device matched the provided mac_address.",
     "err.ambiguous_target": "Multiple SwitchBot BLE devices matched the provided device_name.",
     "err.invalid_argument": "Either mac_address or device_name is required.",
@@ -261,16 +263,18 @@
     "err.invalid_numeric": "Timeout, retry, and limit must be integers.",
     "err.invalid_range": "Timeout and retry must be greater than 0; limit must be 0 or greater.",
     "err.operation_failed": "Error during BLE operation: {err_msg}",
-    "tool.description": "Read the status of a nearby SwitchBot BLE device and return a JSON or text summary.",
-    "param.interface.description": "Optional local BLE adapter/interface name to bind to.",
-    "param.timeout.description": "Scan/connect timeout in seconds.",
-    "param.retry.description": "How many BLE scan rounds to run before connecting.",
-    "param.limit.description": "Max characteristics (0 = unlimited).",
-    "param.devname.description": "Device name filter.",
-    "param.service_uuid.description": "Optional GATT service UUID filter.",
+    "tool.description": "{tool}用のツール",
+    "param.interface.description": "使用するローカルBLEアダプター。",
+    "param.timeout.description": "HTTP タイムアウト（秒）。",
+    "param.retry.description": "BLEスキャン試行回数。",
+    "param.limit.description": "返す最大デバイス数。0は無制限。",
+    "param.devname.description": "デバイス名（代替指定）。",
+    "param.service_uuid.description": "GATTサービスUUIDフィルター（任意）。",
     "err.bleak_missing": "Error: 'bleak' library is not installed. Please install it using:\npip install bleak",
     "err.linux_permission": "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
-    "err.macos_permission": "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth."
+    "err.macos_permission": "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth.",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.unknown_error": "不明なエラー"
   },
   "ko": {
     "param.mac.description": "MAC address filter.",
