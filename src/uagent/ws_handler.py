@@ -111,13 +111,60 @@ class WsHandler:
                     "Example: UAGENT_PROVIDER=openai UAGENT_OPENAI_API_KEY=sk-..."
                 )
             }
-        return {
-            "reply": (
-                "[uag] LLM chat is not yet fully integrated with the WebSocket server.\n"
-                f"Message received: {message[:100]}\n"
-                "Provider detected: " + provider
+
+        # Reuse existing uag startup logic
+        try:
+            from uagent.cli_startup import run_cli_startup
+            from uagent import providers as _providers
+            from uagent import uagent_llm as llm_util
+            from uagent.tools import context as _ctx
+            from uagent import core as _core
+
+            cb = _ctx.get_callbacks()
+
+            startup = run_cli_startup(
+                core=_core,
+                cli_workdir=str(cb.get_workdir()),
+                env_workdir="",
+                initial_file_arg="",
+                non_interactive=True,
+                tool_genre_mask="",
             )
-        }
+
+            if startup.should_exit:
+                return {"reply": "[uag] Startup failed. Check UAGENT_PROVIDER and API key."}
+
+            # Append user message
+            user_msg = {"role": "user", "content": message}
+            startup.messages.append(user_msg)
+
+            llm_util.run_llm_rounds(
+                startup.provider,
+                startup.client,
+                startup.depname,
+                startup.messages,
+                core=_core,
+                make_client_fn=_providers.make_client,
+                append_result_to_outfile_fn=lambda *a, **kw: None,
+                try_open_images_from_text_fn=lambda *a, **kw: None,
+            )
+
+            # Extract the last assistant message as reply
+            reply = ""
+            for m in reversed(startup.messages):
+                if isinstance(m, dict) and m.get("role") == "assistant":
+                    content = m.get("content", "")
+                    if content:
+                        reply = content
+                        break
+
+            self.session_mgr.save_message("user", message)
+            self.session_mgr.save_message("assistant", reply or "(empty response)")
+            return {"reply": reply or "[uag] No response generated."}
+
+        except Exception as e:
+            import traceback
+            return {"reply": f"[uag] LLM error: {e}\n{traceback.format_exc()[:500]}"}
 
 
     async def handle_tools_list(self, params: dict) -> dict:
