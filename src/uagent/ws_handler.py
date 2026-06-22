@@ -120,11 +120,9 @@ class WsHandler:
             from uagent.tools import context as _ctx
             from uagent import core as _core
 
-            cb = _ctx.get_callbacks()
-
             startup = run_cli_startup(
                 core=_core,
-                cli_workdir=str(cb.get_workdir()),
+                cli_workdir=os.getcwd(),
                 env_workdir="",
                 initial_file_arg="",
                 non_interactive=True,
