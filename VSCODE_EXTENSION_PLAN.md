@@ -159,6 +159,26 @@ uag 本体は Python。VSCode 拡張は TypeScript/JavaScript。連携方法:
 
 ## 4. 必要な依存関係
 
+> **開発時のみ Node.js が必要。エンドユーザーは VSCode 拡張としてインストールするだけでよく、Node.js は不要。**
+
+**TypeScript (VSCode 拡張側) — 開発環境でのみ必要:**
+- Node.js (>=18)
+- `npm`（Node.js に同梱）
+- `@types/vscode`
+- `typescript`
+- `vsce`（拡張機能のパッケージング/公開ツール）: `npm install -g @vscode/vsce`
+
+VSCode 拡張のビルド手順:
+```bash
+cd vscode-extension/
+npm install          # 依存関係インストール
+npm run compile      # TypeScript コンパイル
+vsce package         # .vsix ファイル作成（Node.js 不要で配布可能）
+vsce publish         # Marketplace 公開
+```
+
+**Python 側（新規追加）:**
+
 **TypeScript (VSCode 拡張側):**
 - `@types/vscode`
 - `typescript`
