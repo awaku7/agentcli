@@ -401,7 +401,7 @@ async def _read_device_status(
 def _format_text(result: dict[str, Any]) -> str:
     if not result.get("ok"):
         error = result.get("error", {})
-        return f"Error: {error.get('message', 'unknown error')}"
+        return _("msg.error_fmt", default="Error: {msg}").format(msg=error.get("message", _("msg.unknown_error", default="unknown error")))
 
     device = result.get("device", {}) or {}
     status = result.get("status", {}) or {}
@@ -455,7 +455,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
         }
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
@@ -472,7 +472,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
         }
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
@@ -493,7 +493,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
         }
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
@@ -625,7 +625,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
         }
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
