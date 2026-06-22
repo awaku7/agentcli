@@ -94,7 +94,7 @@ ______________________________________________________________________
   - azure: `base_url` + `api_version`
   - openai / openrouter / grok / nvidia / bedrock / ollama / deepseek / zai / alibaba / moonshot: `base_url`
   - vertexai: `project` + `location`
-- `UAGENT_RESPONSES=1` が有効で、Responses API 非対応の provider（`gemini` / `claude` / `vertexai` を除く）だった場合は warning を出します。
+- `UAGENT_RESPONSES=1` が有効で、Responses API 対応プロバイダ（`openai` / `azure` / `bedrock` / `openrouter` / `ollama` / `alibaba` / `lmstudio`）以外のプロバイダ（`gemini` / `claude` / `vertexai` を除く）だった場合は warning を出します。
   - `[WARN] UAGENT_RESPONSES=1 is set, but provider '...' does not support Responses API. Falling back to ChatCompletions.`
 - `[INFO] LLM streaming = enabled` または `disabled`
 

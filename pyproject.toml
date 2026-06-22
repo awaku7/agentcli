@@ -83,27 +83,13 @@ exclude = ["uagent.mcp*", "test*", "tests*"]
 [tool.setuptools.package-data]
 uagent = [
     "tools/**/*",
-    "prompts/**/*",
     "static/**/*",
     "templates/**/*",
     "locales/**/*",
     "docs/**/*",
     "README.md",
-    "README.ja.md",
-    "README.de.md",
-    "README.es.md",
-    "README.fr.md",
-    "README.it.md",
-    "README.ko.md",
-    "README.pt_BR.md",
-    "README.ru.md",
-    "README.th.md",
-    "README.zh_CN.md",
-    "README.zh_TW.md",
     "QUICKSTART.md",
-    "QUICKSTART.ja.md",
-    "ENVIRONMENT.md",
-    "ENVIRONMENT.ja.md"
+    "QUICKSTART.ja.md"
 ]
 
 [tool.ruff]
