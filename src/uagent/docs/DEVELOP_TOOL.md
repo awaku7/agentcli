@@ -96,9 +96,15 @@ LOAD_DISABLED_REASON = "This tool is available on Windows only."
 ### 3.2 Tool Genre (`tool_genre`)
 
 You can categorize tools by specifying `tool_genre` at the top-level of `TOOL_SPEC`. The supported genres are:
+- `"basic"`: Basic tools (env, time, prompts, skills, memory, tools control)
 - `"comm"`: Communication tools (e.g., Teams, Discord)
 - `"office"`: Office tools (e.g., Excel, Word, Document extraction)
 - `"devel"`: Development tools (e.g., lint, py_compile, run_tests)
+- `"iot"`: IoT tools (e.g., Bluetooth/BLE, ECHONET, Matter, SwitchBot)
+- `"exec"`: Execution tools (e.g., cmd, python, pwsh, bash, sub-agent)
+- `"external"`: External tools (e.g., A2A, MCP, fetch, search web)
+- `"media"`: Media tools (e.g., image gen/edit/analyze, audio, QR code)
+- `"file"`: File tools (e.g., create, delete, read, write, search, zip)
 
 Example:
 ```python

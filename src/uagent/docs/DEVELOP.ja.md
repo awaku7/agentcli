@@ -33,16 +33,16 @@ ______________________________________________________________________
     - `src/uagent/llm_round_helpers.py`
     - `src/uagent/llm_flow_helpers.py`
   - リトライ / backoff ヘルパは `src/uagent/llm_errors.py`
-- **Providers**: `src/uagent/util_providers.py`
-  - 環境変数に基づきクライアント生成（OpenAI/Azure/Gemini/Claude/Vertex AI/Grok/OpenRouter/Ollama/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot 等）
+- **Providers**: `src/uagent/providers/util_providers.py`
+  - 環境変数に基づきクライアント生成（Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax 等）
 - **Utilities**: `src/uagent/util_tools.py`
   - tools callbacks 注入、初期メッセージ構築、コマンド処理、補助関数
-- **Startup init**: `src/uagent/runtime_init.py`（互換レイヤ）
-  - `src/uagent/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
-  - `src/uagent/runtime_banner.py`: `build_startup_banner()`
-  - `src/uagent/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
-  - `src/uagent/runtime_memory.py`: `append_long_memory_system_messages()`
-- `runtime_init.py` は、利用可能なら起動時にカレントディレクトリの `.env` と `.env.sec` を読み込みます（`.env` を先に読み込み、`.env.sec` は `.uagent.key` があれば使って復号します）
+- **Startup init**: `src/uagent/runtime/runtime_init.py`（互換レイヤ）
+  - `src/uagent/runtime/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
+  - `src/uagent/runtime/runtime_banner.py`: `build_startup_banner()`
+  - `src/uagent/runtime/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
+  - `src/uagent/runtime/runtime_memory.py`: `append_long_memory_system_messages()`
+- `runtime/runtime_init.py` は、利用可能なら起動時にカレントディレクトリの `.env` と `.env.sec` を読み込みます（`.env` を先に読み込み、`.env.sec` は `.uagent.key` があれば使って復号します）
 
 関連ドキュメント:
 
@@ -54,7 +54,7 @@ ______________________________________________________________________
 ## 2. 全体アーキテクチャ（実行の流れ）
 
 1. `uag` / `uagg` / `uagw` が起動。
-1. 起動時初期化（主に `runtime_init.py`）
+1. 起動時初期化（主に `runtime/runtime_init.py`）
    - workdir の決定（CLI引数 `--workdir/-C`、環境変数 `UAGENT_WORKDIR`、または自動）
    - 必要ならディレクトリ作成し `chdir`
    - 起動バナー文字列を生成して表示
@@ -114,8 +114,8 @@ ______________________________________________________________________
 ### 3.6 ツールレベルとツールジャンル
 
 - **ツールレベル (`tool_level`)**: `TOOL_SPEC` に指定してロードを制御します。`-1` は無効、`0` は有効、`1` は条件付きロード（デフォルト無効）です。
-- **ツールジャンル (`tool_genre`)**: ツールを `"comm"` (通信系), `"office"` (Office系), `"devel"` (開発系) に分類します。`TOOL_SPEC` のトップレベルに指定する必要があります。
-- **起動時選択**: インタラクティブ起動時、ユーザーは有効化するツールジャンルのマスク値（1: comm, 2: office, 4: devel の合計値）を選択できます。
+- **ツールジャンル (`tool_genre`)**: ツールを `"basic"`, `"comm"` (通信系), `"office"` (Office系), `"devel"` (開発系), `"iot"`, `"exec"` (実行系), `"external"`, `"media"`, `"file"` に分類します。`TOOL_SPEC` のトップレベルに指定する必要があります。
+- **起動時選択**: インタラクティブ起動時、ユーザーは有効化するツールジャンルのマスク値（1=basic, 2=comm, 4=office, 8=devel, 16=iot, 32=exec, 64=external, 128=media, 256=file, 511=all）を選択できます。
 
 ### 3.7 Agent Skills のライフサイクル
 
@@ -140,7 +140,7 @@ workdir は次の優先順位で決定されます。
 
 起動時INFO（workdir/provider/base_url/api_version/Responses等）は以下で生成されます。
 
-- `runtime_init.build_startup_banner()`
+- `runtime.runtime_init.build_startup_banner()`（`src/uagent/runtime/runtime_banner.py` が実装）
 
 ### 4.3 長期記憶/共有メモ
 

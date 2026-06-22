@@ -1,13 +1,13 @@
 # RUNTIME_INIT（起動時初期化の共通化）
 
-このドキュメントは `src/uagent/runtime_init.py` から提供される起動時初期化ヘルパの目的と仕様をまとめます。
+このドキュメントは `src/uagent/runtime/runtime_init.py` から提供される起動時初期化ヘルパの目的と仕様をまとめます。
 
-`runtime_init.py` は互換・再エクスポート層で、実装本体は次のモジュールに分割されています。
+`runtime/runtime_init.py` は互換・再エクスポート層で、実装本体は次のモジュールに分割されています。
 
-- `runtime_workdir.py`
-- `runtime_banner.py`
-- `runtime_env.py`
-- `runtime_memory.py`
+- `src/uagent/runtime/runtime_workdir.py`
+- `src/uagent/runtime/runtime_banner.py`
+- `src/uagent/runtime/runtime_env.py`
+- `src/uagent/runtime/runtime_memory.py`
 
 CLI / Web / GUI で共通して行うこと:
 
