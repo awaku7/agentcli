@@ -570,12 +570,12 @@ def _format_text(result: dict[str, Any]) -> str:
 
     device = result.get("device", {})
     lines = [
-        f"Matter device: {device.get('device_name') or '(unknown)'}",
-        f"Device ID: {device.get('device_id') or '(unknown)'}",
+        f"Matter device: {device.get('devname') or '(unknown)'}",
+        f"Device ID: {device.get('dev') or '(unknown)'}",
         f"Type: {device.get('device_type') or '(unknown)'}",
         f"Vendor: {device.get('vendor') or '-'}",
-        f"Controller: {device.get('controller_id') or '-'}",
-        f"Bridge: {device.get('bridge_id') or '-'}",
+        f"Controller: {device.get('ctrl') or '-'}",
+        f"Bridge: {device.get('bridge') or '-'}",
         f"Room: {device.get('room') or '-'}",
         f"Area: {device.get('area') or '-'}",
         f"Floor: {device.get('floor') or '-'}",
