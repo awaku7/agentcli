@@ -78,10 +78,11 @@ LLM が複数のツールを同時に要求すると、uag はそれらを **自
 | **メディア** |画像生成、画像分析、img2img、音声音声、音声転写 |
 | **ドキュメント** | PDF/PPTX/DOCX/RTF/ODT抽出、Excel構造化抽出 |
 | **IoT** | SwitchBot（クラウド+BLE）、ECHONET Lite、Matter、UPnP |
-| **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query |
+| **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**11 個のソースコードナビゲーター (idx ファミリー)** |
 | **MCP** |外部 MCP サーバーに接続し、ツールをリストし、| を実行します。
 | **A2A** |エージェント間の通信 (他の uag インスタンスまたは A2A 互換サーバーと) |
 | **システム** |環境変数、システム仕様、時刻、日付の計算 |
+| **ソースナビ** | **11 の idx ツール** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — ファイル全体を読まずに関数/クラスの一覧や特定の定義を取得 |
 
 ### 🖥 3 つのインターフェイス + A2A
 

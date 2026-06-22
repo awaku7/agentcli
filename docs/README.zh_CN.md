@@ -78,10 +78,11 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **媒体** |生成图像、分析图像、img2img、音频语音、音频转录 |
 | **文件** | PDF/PPTX/DOCX/RTF/ODT提取、Excel结构化提取 |
 | **物联网** | SwitchBot（云 + BLE）、ECHONET Lite、Matter、UPnP |
-| **开发工具** | git_ops、python_compile、lint_format、run_tests、db_query |
+| **开发工具** | git_ops、python_compile、lint_format、run_tests、db_query、**11 个源代码导航器 (idx 系列)** |
 | **MCP** |连接到外部 MCP 服务器、列出工具、执行 |
 | **A2A** |代理间通信（与其他 uag 实例或 A2A 兼容服务器）|
 | **系统** |环境变量、系统规格、时间、日期计算 |
+| **源码导航** | **11 个 idx 工具** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — 无需读取整个文件即可获取函数/类索引或特定定义 |
 
 ### 🖥 3 个接口 + A2A
 

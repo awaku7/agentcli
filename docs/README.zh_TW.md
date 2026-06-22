@@ -78,7 +78,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **媒體** |產生影像、分析影像、img2img、音訊語音、音訊轉錄 |
 | **檔案** | PDF/PPTX/DOCX/RTF/ODT擷取、Excel結構化擷取 |
 | **物聯網** | SwitchBot（雲端 + BLE）、ECHONET Lite、Matter、UPnP |
-| **開發工具** | git_ops、python_compile、lint_format、run_tests、db_query |
+| **開發工具** | git_ops、python_compile、lint_format、run_tests、db_query、**11 個原始碼導航器 (idx 系列)** |
 | **MCP** |連接到外部 MCP 伺服器、列出工具、執行 |
 | **A2A** |代理間通訊（與其他 uag 實例或 A2A 相容伺服器）|
 | **系統** |環境變數、系統規格、時間、日期計算 |
