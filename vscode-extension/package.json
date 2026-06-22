@@ -14,8 +14,35 @@
     "Machine Learning",
     "Other"
   ],
+  "activationEvents": [
+    "onView:uag.tools",
+    "onCommand:uag.chat",
+    "onCommand:uag.explain",
+    "onCommand:uag.refactor",
+    "onCommand:uag.fix",
+    "onCommand:uag.newSession",
+    "onCommand:uag.refreshTools",
+    "onLanguage:python"
+  ],
   "main": "./out/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "uag",
+          "title": "uag",
+          "icon": "$(hubot)"
+        }
+      ]
+    },
+    "views": {
+      "uag": [
+        {
+          "id": "uag.tools",
+          "name": "Tools"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "uag.chat",
@@ -36,6 +63,10 @@
       {
         "command": "uag.newSession",
         "title": "uag: New Session"
+      },
+      {
+        "command": "uag.refreshTools",
+        "title": "uag: Refresh Tools"
       }
     ],
     "menus": {

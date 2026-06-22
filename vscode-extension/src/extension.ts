@@ -68,13 +68,6 @@ export async function activate(context: vscode.ExtensionContext) {
         statusBarItem.text = connected
             ? '$(hubot) uag: connected'
             : '$(warning) uag: disconnected';
-        if (connected) {
-            // Set workdir to current workspace folder
-            const folders = vscode.workspace.workspaceFolders;
-            if (folders) {
-                wsClient.setWorkdir(folders[0].uri.fsPath).catch(() => {});
-            }
-        }
     });
 
     try {
@@ -85,6 +78,16 @@ export async function activate(context: vscode.ExtensionContext) {
             `uag: Failed to connect to server: ${e.message}`
         );
         return;
+    }
+
+    // Set workdir to workspace root after connection is established
+    const folders = vscode.workspace.workspaceFolders;
+    if (folders && folders.length > 0) {
+        try {
+            await wsClient.setWorkdir(folders[0].uri.fsPath);
+        } catch (e: any) {
+            log('WARN', `Failed to set workdir: ${e.message}`);
+        }
     }
 
     // Tool tree view

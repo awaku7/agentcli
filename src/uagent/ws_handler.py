@@ -115,7 +115,7 @@ class WsHandler:
         # Reuse existing uag startup logic
         try:
             from uagent.cli_startup import run_cli_startup
-            from uagent import providers as _providers
+            from uagent.providers import util_providers as _providers
             from uagent import uagent_llm as llm_util
             from uagent.tools import context as _ctx
             from uagent import core as _core
@@ -126,10 +126,10 @@ class WsHandler:
                 env_workdir="",
                 initial_file_arg="",
                 non_interactive=True,
-                tool_genre_mask="",
+                tool_genre_mask=0,
             )
 
-            if startup.should_exit:
+            if not startup.provider or not startup.client:
                 return {"reply": "[uag] Startup failed. Check UAGENT_PROVIDER and API key."}
 
             # Append user message

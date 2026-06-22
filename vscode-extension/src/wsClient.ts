@@ -91,7 +91,7 @@ export class WsClient {
         }
     }
 
-    async call(method: string, params: any = {}, timeoutMs = 30000): Promise<any> {
+    async call(method: string, params: any = {}, timeoutMs = 60000): Promise<any> {
         if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
             throw new Error('Not connected to uag server');
         }

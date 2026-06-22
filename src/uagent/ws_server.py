@@ -45,7 +45,7 @@ class UagWebSocketServer:
             host="127.0.0.1",
             port=self.port,
             ping_interval=20,
-            ping_timeout=10,
+            ping_timeout=60,
             max_size=10 * 1024 * 1024,  # 10 MB
             compression=None,
         )
