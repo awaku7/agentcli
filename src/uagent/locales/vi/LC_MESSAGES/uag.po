@@ -2680,10 +2680,8 @@ msgstr "đã tắt"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
-"khởi động hiện tại. Cập nhật không? [y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* hiện tại khi khởi động. [y] Cập nhật .env.sec với giá trị hiện tại / [s] Sử dụng giá trị .env.sec (áp dụng cho phiên làm việc) / [N] Bỏ qua:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2692,6 +2690,11 @@ msgid ""
 msgstr ""
 "[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
 "khởi động hiện tại. Dùng `uag_envsec` để cập nhật."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] Đã áp dụng giá trị .env.sec vào phiên làm việc hiện tại."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

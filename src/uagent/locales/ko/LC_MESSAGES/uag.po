@@ -2611,9 +2611,8 @@ msgstr "비활성화됨"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] .env.sec 내용이 현재 시작 시 UAGENT_* 환경 변수와 일치하지 않습니다. 업데이트하시겠습니까? [y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] .env.sec 내용이 현재 시작 시의 UAGENT_* 환경 변수와 일치하지 않습니다. [y] 현재 값으로 .env.sec 업데이트 / [s] .env.sec 값 사용 (세션에 적용) / [N] 건너뛰기:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2622,6 +2621,11 @@ msgid ""
 msgstr ""
 "[INFO] .env.sec 내용이 현재 시작 시 UAGENT_* 환경 변수와 일치하지 않습니다. 업데이트하려면 `uag_envsec`를"
 " 사용하세요."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] 현재 세션에 .env.sec 값을 적용했습니다."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

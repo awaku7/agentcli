@@ -2745,10 +2745,8 @@ msgstr "disabilitato"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Il contenuto di .env.sec non corrisponde alle variabili d'ambiente "
-"UAGENT_* dell'avvio corrente. Aggiornarlo? [s/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] Il contenuto di .env.sec non corrisponde alle attuali variabili d'ambiente UAGENT_*. [y] Aggiorna .env.sec con i valori correnti / [s] Usa i valori di .env.sec (applica alla sessione) / [N] Salta:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2757,6 +2755,11 @@ msgid ""
 msgstr ""
 "[INFO] Il contenuto di .env.sec non corrisponde alle variabili d'ambiente "
 "UAGENT_* dell'avvio corrente. Usare `uag_envsec` per aggiornarlo."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] Valori di .env.sec applicati alla sessione corrente."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

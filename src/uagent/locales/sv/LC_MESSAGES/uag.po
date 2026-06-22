@@ -2708,10 +2708,8 @@ msgstr "inaktiverat"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Innehållet i .env.sec stämmer inte överens med de aktuella "
-"UAGENT_*‑miljövariablerna vid start. Uppdatera den? [j/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] Innehållet i .env.sec matchar inte de aktuella UAGENT_*-miljövariablerna vid uppstart. [y] Uppdatera .env.sec med aktuella värden / [s] Använd .env.sec-värden (tillämpa på sessionen) / [N] Hoppa över:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2721,6 +2719,11 @@ msgstr ""
 "[INFO] Innehållet i .env.sec stämmer inte överens med de aktuella "
 "UAGENT_*‑miljövariablerna vid start. Använd `uag_envsec` för att uppdatera "
 "den."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] Tillämpade .env.sec-värden på den aktuella sessionen."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

@@ -2599,14 +2599,19 @@ msgstr "已禁用"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr "[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。是否更新？[y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] .env.sec 文件内容与当前启动的 UAGENT_* 环境变量不匹配。[y] 使用当前值更新 .env.sec / [s] 使用 .env.sec 的值（应用于当前会话）/ [N] 跳过："
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Use `uag_envsec` to update it."
 msgstr "[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。请使用 `uag_envsec` 进行更新。"
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] 已将 .env.sec 的值应用于当前会话。"
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

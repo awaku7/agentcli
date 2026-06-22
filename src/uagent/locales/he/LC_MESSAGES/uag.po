@@ -2652,10 +2652,8 @@ msgstr "נכים"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] תוכן .env.sec אינו תואם למשתני הסביבה הנוכחיים של ההפעלה UAGENT_*. "
-"לעדכן אותו? [י/N]"
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] תוכן הקובץ .env.sec אינו תואם למשתני הסביבה הנוכחיים של UAGENT_*. [y] עדכן את .env.sec לערכים הנוכחיים / [s] השתמש בערכים מ-.env.sec (החל על הסשן) / [N] דלג:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2664,6 +2662,11 @@ msgid ""
 msgstr ""
 "[INFO] תוכן .env.sec אינו תואם למשתני הסביבה הנוכחיים של ההפעלה UAGENT_*. "
 "השתמש ב-'uag_envsec' כדי לעדכן אותו."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] ערכים מ-.env.sec הוחלו על הסשן הנוכחי."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

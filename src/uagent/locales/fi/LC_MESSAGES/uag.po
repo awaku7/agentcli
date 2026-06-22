@@ -2717,10 +2717,8 @@ msgstr "ei käytössä"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] .env.sec-tiedosto ei vastaa käynnistyksen UAGENT_* "
-"-ympäristömuuttujia. Päivitetäänkö se? [k/E] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] .env.sec-sisältö ei vastaa nykyisiä UAGENT_*-ympäristömuuttujia. [y] Päivitä .env.sec nykyisillä arvoilla / [s] Käytä .env.sec-arvoja (sovita istuntoon) / [N] Ohita:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2729,6 +2727,11 @@ msgid ""
 msgstr ""
 "[INFO] .env.sec-tiedosto ei vastaa käynnistyksen UAGENT_* "
 "-ympäristömuuttujia. Päivitä se komennolla `uag_envsec`."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] .env.sec-arvot on sovellettu nykyiseen istuntoon."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

@@ -2709,10 +2709,8 @@ msgstr "अक्षम"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] .env.sec की सामग्री वर्तमान UAGENT_* परिवेश चर से मेल नहीं खाती। क्या"
-" इसे अद्यतन करें? [y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] .env.sec सामग्री वर्तमान स्टार्टअप UAGENT_* पर्यावरण चरों से मेल नहीं खाती। [y] .env.sec को वर्तमान मानों के साथ अपडेट करें / [s] .env.sec मानों का उपयोग करें (सत्र पर लागू करें) / [N] छोड़ें:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2721,6 +2719,11 @@ msgid ""
 msgstr ""
 "[INFO] .env.sec की सामग्री वर्तमान UAGENT_* परिवेश चर से मेल नहीं खाती। इसे "
 "अद्यतन करने के लिए `uag_envsec` का उपयोग करें।"
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] वर्तमान सत्र में .env.sec मान लागू किए गए।"
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

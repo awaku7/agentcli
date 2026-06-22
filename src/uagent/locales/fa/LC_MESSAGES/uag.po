@@ -2693,10 +2693,8 @@ msgstr "از کار افتاده است"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] محتوای .env.sec با متغیرهای محیطی راه اندازی کنونی UAGENT_* مطابقت "
-"ندارد. آپدیتش کنم؟ [y/N]"
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] محتوای .env.sec با متغیرهای محیطی فعلی UAGENT_* مطابقت ندارد. [y] به‌روزرسانی .env.sec با مقادیر فعلی / [s] استفاده از مقادیر .env.sec (اعمال به جلسه) / [N] رد کردن:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2705,6 +2703,11 @@ msgid ""
 msgstr ""
 "[INFO] محتوای .env.sec با متغیرهای محیطی راه اندازی کنونی UAGENT_* مطابقت "
 "ندارد. از «uag_envsec» برای به‌روزرسانی آن استفاده کنید."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] مقادیر .env.sec به جلسه فعلی اعمال شد."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

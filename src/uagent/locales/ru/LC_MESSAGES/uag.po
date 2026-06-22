@@ -2729,10 +2729,8 @@ msgstr "отключено"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Содержимое .env.sec не совпадает с текущими переменными окружения "
-"UAGENT_* при запуске. Обновить? [y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] Содержимое .env.sec не соответствует текущим переменным окружения UAGENT_*. [y] Обновить .env.sec текущими значениями / [s] Использовать значения .env.sec (применить к сессии) / [N] Пропустить:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2741,6 +2739,11 @@ msgid ""
 msgstr ""
 "[INFO] Содержимое .env.sec не совпадает с текущими переменными окружения "
 "UAGENT_* при запуске. Используйте `uag_envsec`, чтобы обновить его."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] Значения .env.sec применены к текущей сессии."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

@@ -2766,10 +2766,8 @@ msgstr "άτομα με ειδικές ανάγκες"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[ΠΛΗΡΟΦΟΡΙΕΣ] Το περιεχόμενο .env.sec δεν ταιριάζει με τις τρέχουσες "
-"μεταβλητές περιβάλλοντος UAGENT_* εκκίνησης. Ενημερώστε το; [ε/Δ]"
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] Το περιεχόμενο του .env.sec δεν ταιριάζει με τις τρέχουσες μεταβλητές περιβάλλοντος UAGENT_* κατά την εκκίνηση. [y] Ενημέρωση του .env.sec με τις τρέχουσες τιμές / [s] Χρήση των τιμών του .env.sec (εφαρμογή στην περίοδο λειτουργίας) / [N] Παράλειψη:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2779,6 +2777,11 @@ msgstr ""
 "[ΠΛΗΡΟΦΟΡΙΕΣ] Το περιεχόμενο .env.sec δεν ταιριάζει με τις τρέχουσες "
 "μεταβλητές περιβάλλοντος UAGENT_* εκκίνησης. Χρησιμοποιήστε το "
 "\"uag_envsec\" για να το ενημερώσετε."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] Εφαρμόστηκαν οι τιμές του .env.sec στην τρέχουσα περίοδο λειτουργίας."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format
