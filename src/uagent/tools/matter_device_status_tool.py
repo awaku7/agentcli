@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from ._matter_cache import matter_cache_get, matter_cache_put
 from ._matter_common import error_payload, ok_payload, WarningCollector
 from .i18n_helper import make_tool_translator
 
@@ -624,6 +625,8 @@ def _format_text(result: dict[str, Any]) -> str:
 
 def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
+    cache_key = ":".join([str(args.get("dev") or ""), str(args.get("ctrl") or ""), str(args.get("bridge") or ""), str(args.get("endpoint") or "")])
+    cached = matter_cache_get("matter_device_status", cache_key)
     device_id = str(args.get("dev") or "").strip()
     controller_id = args.get("ctrl")
     bridge_id = args.get("bridge")
@@ -783,6 +786,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "source": item.get("source"),
         },
     }
+    matter_cache_put("matter_device_status", cache_key, result)
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)

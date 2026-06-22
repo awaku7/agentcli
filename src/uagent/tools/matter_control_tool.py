@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from ._matter_cache import matter_cache_device_invalidate
 from ._matter_common import error_payload, ok_payload, WarningCollector
 from .i18n_helper import make_tool_translator
 
@@ -613,6 +614,9 @@ def run_tool(args: dict[str, Any]) -> str:
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
+
+    # Invalidate cache for the controlled device
+    matter_cache_device_invalidate(str(item.get("dev") or ""))
 
     result = {
         "ok": True,

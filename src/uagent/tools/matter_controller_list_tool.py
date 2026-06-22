@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from ._matter_cache import matter_cache_get, matter_cache_put
 from ._matter_common import error_payload, ok_payload, WarningCollector
 from .i18n_helper import make_tool_translator
 
@@ -291,6 +292,13 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
     controller_id = args.get("ctrl")
 
+
+    cache_key = ":".join([str(args.get("ctrl", "") or "")])
+    cached = matter_cache_get("matter_controller_list", cache_key)
+    if cached is not None:
+        if str(args.get("fmt") or "json").lower() == "text":
+            return _format_text(cached)
+        return json.dumps(cached, ensure_ascii=False)
     try:
         controllers_raw, source = _load_controllers_payload()
     except FileNotFoundError as exc:
@@ -358,6 +366,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "total": len(items),
         },
     })
+    matter_cache_put("matter_controller_list", cache_key, result)
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)
