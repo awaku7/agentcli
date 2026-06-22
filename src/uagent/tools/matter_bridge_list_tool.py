@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from ._matter_common import error_payload, ok_payload, WarningCollector
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -305,39 +306,21 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         bridges_raw, source = _load_bridges_payload()
     except FileNotFoundError as exc:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "config_missing",
-                "message": str(exc),
-            },
-        }
+        payload = error_payload("config_missing", str(exc))
         return (
             _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
     except ValueError as exc:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "invalid_config",
-                "message": str(exc),
-            },
-        }
+        payload = error_payload("invalid_config", str(exc))
         return (
             _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
     except Exception as exc:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "request_failed",
-                "message": str(exc),
-            },
-        }
+        payload = error_payload("request_failed", str(exc))
         return (
             _format_text(payload)
             if output_format == "text"
@@ -348,23 +331,22 @@ def run_tool(args: dict[str, Any]) -> str:
     filtered = _filter_bridges(items, str(bridge_id) if bridge_id is not None else None)
 
     if bridge_id and not filtered:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "not_found",
-                "message": _(
-                    "err.not_found",
-                    default=("Matter bridge not found: {bridge_id}"),
-                    bridge_id=str(bridge_id),
-                ),
+        payload = error_payload(
+            "not_found",
+            _(
+                "err.not_found",
+                default=("Matter bridge not found: {bridge_id}"),
+                bridge_id=str(bridge_id),
+            ),
+            extra_top={
+                "bridge": {
+                    "scope": "filtered",
+                    "bridge": str(bridge_id),
+                    "source": source,
+                },
+                "fetched_at": _now_iso(),
             },
-            "bridge": {
-                "scope": "filtered",
-                "bridge": str(bridge_id),
-                "source": source,
-            },
-            "fetched_at": _now_iso(),
-        }
+        )
         return (
             _format_text(payload)
             if output_format == "text"

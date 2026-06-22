@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from ._matter_common import error_payload, ok_payload, WarningCollector
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -293,39 +294,21 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         controllers_raw, source = _load_controllers_payload()
     except FileNotFoundError as exc:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "config_missing",
-                "message": str(exc),
-            },
-        }
+        payload = error_payload("config_missing", str(exc))
         return (
             _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
     except ValueError as exc:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "invalid_config",
-                "message": str(exc),
-            },
-        }
+        payload = error_payload("invalid_config", str(exc))
         return (
             _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
     except Exception as exc:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "request_failed",
-                "message": str(exc),
-            },
-        }
+        payload = error_payload("request_failed", str(exc))
         return (
             _format_text(payload)
             if output_format == "text"
@@ -338,31 +321,29 @@ def run_tool(args: dict[str, Any]) -> str:
     )
 
     if controller_id and not filtered:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "not_found",
-                "message": _(
-                    "err.not_found",
-                    default=("Matter controller not found: {controller_id}"),
-                    controller_id=str(controller_id),
-                ),
+        payload = error_payload(
+            "not_found",
+            _(
+                "err.not_found",
+                default=("Matter controller not found: {controller_id}"),
+                controller_id=str(controller_id),
+            ),
+            extra_top={
+                "controller": {
+                    "scope": "filtered",
+                    "ctrl": str(controller_id),
+                    "source": source,
+                },
+                "fetched_at": _now_iso(),
             },
-            "controller": {
-                "scope": "filtered",
-                "ctrl": str(controller_id),
-                "source": source,
-            },
-            "fetched_at": _now_iso(),
-        }
+        )
         return (
             _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
 
-    result = {
-        "ok": True,
+    result = ok_payload({
         "count": len(filtered),
         "items": filtered,
         "controller": {
@@ -376,7 +357,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "source": source,
             "total": len(items),
         },
-    }
+    })
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)

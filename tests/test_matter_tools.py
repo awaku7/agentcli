@@ -61,6 +61,11 @@ def _assert_error(
     assert error.get("code") == expected_code, (
         f"Expected error code '{expected_code}', got '{error.get('code')}': {result}"
     )
+    # Verify recovery_hint is present and non-empty
+    hint = error.get("recovery_hint", "")
+    assert hint and isinstance(hint, str) and len(hint) > 5, (
+        f"Missing or empty recovery_hint: {result}"
+    )
 
 
 # ===================================================================
