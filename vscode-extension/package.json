@@ -14,10 +14,6 @@
     "Machine Learning",
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:uag.chat",
-    "onView:uag.tools"
-  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
