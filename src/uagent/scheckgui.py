@@ -94,7 +94,7 @@ _FONT_SIZE_CONFIG_FILE: Optional[str] = None
 
 
 def _paint_icon_attach(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
-    """Paint a paperclip icon using QPainter."""
+    """Paint a paperclip icon."""
     pm = QtGui.QPixmap(size, size)
     pm.fill(QtCore.Qt.transparent)
     p = QtGui.QPainter(pm)
@@ -102,41 +102,38 @@ def _paint_icon_attach(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
     pen = QtGui.QPen(color, max(2, size // 10))
     pen.setCapStyle(QtCore.Qt.RoundCap)
     p.setPen(pen)
-    # Paperclip: curved line with smaller loop at top
     cx, cy = size / 2, size / 2
-    r = size * 0.35
-    # Loop
-    p.drawArc(int(cx - r), int(cy - r - size * 0.12),
-              int(r * 2), int(r * 2), 0, 16 * 180)
-    # Stem going down
-    p.drawLine(int(cx + r), int(cy),
-               int(cx + r), int(cy + size * 0.3))
-    # Hook at bottom
-    p.drawArc(int(cx + r - size * 0.06), int(cy + size * 0.2),
-              int(size * 0.12), int(size * 0.12), 0, 16 * 180)
+    # Top loop
+    p.drawArc(int(cx - size * 0.15), int(cy - size * 0.45),
+              int(size * 0.3), int(size * 0.3), 0, 16 * 180)
+    # Stem
+    p.drawLine(int(cx + size * 0.15), int(cy - size * 0.3),
+               int(cx + size * 0.15), int(cy + size * 0.35))
+    # Bottom hook
+    p.drawArc(int(cx + size * 0.05), int(cy + size * 0.15),
+              int(size * 0.2), int(size * 0.2), 0, 16 * 180)
     p.end()
     return QtGui.QIcon(pm)
 
 
 def _paint_icon_send(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
-    """Paint a send/up-right arrow icon using QPainter."""
+    """Paint a right-pointing triangle (play/send) icon."""
     pm = QtGui.QPixmap(size, size)
     pm.fill(QtCore.Qt.transparent)
     p = QtGui.QPainter(pm)
     p.setRenderHint(QtGui.QPainter.Antialiasing)
-    pen = QtGui.QPen(color, max(2, size // 10))
-    pen.setCapStyle(QtCore.Qt.RoundCap)
-    pen.setJoinStyle(QtCore.Qt.RoundJoin)
-    p.setPen(pen)
-    # Arrow pointing up-right: two lines forming an angle
-    # Horizontal base
-    p.drawLine(int(size * 0.15), int(size * 0.7),
-               int(size * 0.85), int(size * 0.7))
-    # Diagonal arrow head
-    p.drawLine(int(size * 0.85), int(size * 0.7),
-               int(size * 0.6), int(size * 0.25))
-    p.drawLine(int(size * 0.85), int(size * 0.7),
-               int(size * 0.55), int(size * 0.82))
+    pen = QtGui.QPen(QtCore.Qt.NoPen)
+    brush = QtGui.QBrush(color)
+    p.setBrush(brush)
+    # Filled right-pointing triangle
+    cx, cy = size / 2, size / 2
+    hw, hh = size * 0.35, size * 0.3
+    triangle = QtGui.QPolygonF([
+        QtCore.QPointF(cx - hw * 0.6, cy - hh),
+        QtCore.QPointF(cx + hw * 0.6, cy),
+        QtCore.QPointF(cx - hw * 0.6, cy + hh),
+    ])
+    p.drawPolygon(triangle)
     p.end()
     return QtGui.QIcon(pm)
 
