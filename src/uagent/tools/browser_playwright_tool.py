@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import json
-from typing import Any, List, Dict
+from typing import Any, Callable, List, Dict
 from pathlib import Path
 
 from .i18n_helper import make_tool_translator
@@ -166,8 +166,8 @@ async def execute_actions(actions: List[Dict[str, Any]], headless: bool, **kwarg
         page.on("console", lambda msg: console_logs.append({"type": msg.type, "text": msg.text}))
 
         # Track disposable listeners so we can remove them on next call
-        dialog_listeners: list[callable] = []
-        response_listeners: list[callable] = []
+        dialog_listeners: list[Callable] = []
+        response_listeners: list[Callable] = []
 
         # Start trace if configured (tool-level)
         trace_opts = kwargs.get("trace")

@@ -181,7 +181,7 @@ class _RsIndexBuilder:
                 depth -= 1
         return depth
 
-    def _detect_definitions(self, line: str) -> list[tuple[str, str] | None]:
+    def _detect_definitions(self, line: str) -> list[tuple[str, str]]:
         cleaned = self._clean_line(line)
         if not cleaned.strip():
             return []

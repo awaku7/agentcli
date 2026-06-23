@@ -750,6 +750,13 @@ class ScheckWorker(QtCore.QObject):
 
 
 class MainWindow(QtWidgets.QMainWindow):
+    _output: QtWidgets.QTextBrowser
+    _input: QtWidgets.QPlainTextEdit
+    _pw_input: QtWidgets.QLineEdit
+    _status_label: QtWidgets.QLabel
+    _workdir_label: QtWidgets.QLabel
+    _provider_model_label: QtWidgets.QLabel
+    _mode_label: QtWidgets.QLabel
     _URL_RE = re.compile(r"\b(https?://[^\s<>\"']+|www\.[^\s<>\"']+)", re.IGNORECASE)
     _FONT_SIZE_ACTIONS: dict[int, QtGui.QAction] = {}
 

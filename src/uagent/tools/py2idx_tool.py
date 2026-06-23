@@ -107,7 +107,7 @@ class _PyIndexBuilder:
         if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant):
             doc = body[0].value.value
             if doc:
-                return doc.strip().split("\n")[0][:80]
+                return str(doc).strip().split("\n")[0][:80]
         return ""
 
     def _decorator_names(self, node: ast.AST) -> list[str]:
