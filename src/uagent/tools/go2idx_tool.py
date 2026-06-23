@@ -159,7 +159,7 @@ class _GoIndexBuilder:
         return sum(1 + len(e.get("members", [])) for e in self.entries)
 
 
-async def run_tool(args):
+def run_tool(args):
     path, mode = args.get("path", ""), args.get("mode", "index")
     if not path: return "Error: 'path' is required."
     if not os.path.isfile(path): return f"Error: File not found: {path}"

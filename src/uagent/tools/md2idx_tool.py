@@ -251,7 +251,7 @@ class _MdSectionParser:
         return len(self.headings) + 1
 
 
-async def run_tool(args: dict[str, Any]) -> str:
+def run_tool(args: dict[str, Any]) -> str:
     path = args.get("path", "")
     mode = args.get("mode", "index")
 
