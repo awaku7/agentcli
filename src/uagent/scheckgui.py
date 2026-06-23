@@ -828,21 +828,31 @@ class MainWindow(QtWidgets.QMainWindow):
         central = QtWidgets.QWidget()
         self.setCentralWidget(central)
         layout = QtWidgets.QVBoxLayout(central)
+        layout.setContentsMargins(8, 8, 8, 8)
+        layout.setSpacing(6)
 
         self._output = DropOutput()
         self._output.setReadOnly(True)
         self._output.setOpenExternalLinks(False)
         self._output.setOpenLinks(False)
         self._output.anchorClicked.connect(self._handle_output_anchor)
-        self._output.setFont(
-            QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
-        )
+        # Use a modern monospace font with fallback chain
+        try:
+            _fd = QtGui.QFontDatabase()
+            for _f in ("Cascadia Code", "JetBrains Mono", "Consolas", "Menlo", "Monaco"):
+                if _fd.hasFamily(_f):
+                    self._output.setFont(QtGui.QFont(_f, 10))
+                    break
+            else:
+                self._output.setFont(QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont))
+        except Exception:
+            self._output.setFont(QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont))
         layout.addWidget(self._output, 1)
 
         self._thumbs = DropThumbs()
         self._thumbs.sig_files_dropped.connect(self._on_files_dropped)
         self._thumbs.setViewMode(QtWidgets.QListView.IconMode)
-        self._thumbs.setFixedHeight(140)
+        self._thumbs.setFixedHeight(120)
         self._thumbs.setIconSize(QtCore.QSize(THUMB_SIZE_PX, THUMB_SIZE_PX))
         self._thumbs.itemDoubleClicked.connect(
             lambda it: self._open_image(it.toolTip())
@@ -853,14 +863,16 @@ class MainWindow(QtWidgets.QMainWindow):
         input_panel = QtWidgets.QWidget()
         input_layout = QtWidgets.QVBoxLayout(input_panel)
         input_layout.setContentsMargins(0, 0, 0, 0)
-        input_layout.setSpacing(6)
+        input_layout.setSpacing(4)
 
         self._drop_label = QtWidgets.QLabel(_("↑ You can attach files by drag & drop"))
-        self._drop_label.setStyleSheet("font-weight: bold;")
+        self._drop_label.setStyleSheet(
+            "font-size: 11px; color: #6b7280; font-weight: 600; padding: 2px 4px;"
+        )
         input_layout.addWidget(self._drop_label)
 
         self._input = DropInput()
-        self._input.setFixedHeight(140)
+        self._input.setFixedHeight(120)
         self._input.installEventFilter(self)
         self._input.sig_files_dropped.connect(self._on_files_dropped)
         self._output.sig_files_dropped.connect(self._on_files_dropped)
@@ -870,7 +882,7 @@ class MainWindow(QtWidgets.QMainWindow):
         pw_row.setContentsMargins(0, 0, 0, 0)
         self._pw_input = QtWidgets.QLineEdit()
         self._pw_input.setEchoMode(QtWidgets.QLineEdit.Password)
-        self._pw_input.setFixedHeight(40)
+        self._pw_input.setFixedHeight(36)
         self._pw_input.setVisible(False)
         self._pw_input.returnPressed.connect(self._on_send)
         pw_row.addWidget(self._pw_input, 1)
@@ -878,11 +890,13 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self._attach_btn = QtWidgets.QPushButton(_("Attach..."))
         self._attach_btn.setFixedWidth(90)
+        self._attach_btn.setFixedHeight(36)
         self._attach_btn.clicked.connect(self._on_choose_files)
         pw_row.addWidget(self._attach_btn)
 
         self._btn = QtWidgets.QPushButton(_("Send"))
         self._btn.setFixedWidth(80)
+        self._btn.setFixedHeight(36)
         self._btn.clicked.connect(self._on_send)
         pw_row.addWidget(self._btn)
         input_layout.addLayout(pw_row)
@@ -2017,6 +2031,116 @@ def main():
     model = ""
 
     app = QtWidgets.QApplication(sys.argv)
+
+    # ---- Modern font & stylesheet ----
+    try:
+        _fd = QtGui.QFontDatabase()
+        if sys.platform == "win32":
+            _font_name = "Segoe UI Variable"
+            if not _fd.hasFamily(_font_name):
+                _font_name = "Segoe UI"
+            _font = QtGui.QFont(_font_name, 10)
+        elif sys.platform == "darwin":
+            _font_name = "SF Pro" if _fd.hasFamily("SF Pro") else "Helvetica Neue"
+            _font = QtGui.QFont(_font_name, 13)
+        else:
+            _font_name = "Noto Sans" if _fd.hasFamily("Noto Sans") else "sans-serif"
+            _font = QtGui.QFont(_font_name, 10)
+        app.setFont(_font)
+    except Exception:
+        pass
+
+    try:
+        app.setStyleSheet("""
+            QMainWindow {
+                background-color: #f8f9fa;
+            }
+            QPlainTextEdit, QTextBrowser {
+                background-color: #ffffff;
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                padding: 8px;
+                selection-background-color: #2563eb;
+                selection-color: #ffffff;
+            }
+            QPlainTextEdit:focus, QTextBrowser:focus {
+                border-color: #2563eb;
+            }
+            QPushButton {
+                background-color: #2563eb;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                padding: 6px 16px;
+                font-weight: 600;
+                min-height: 24px;
+            }
+            QPushButton:hover {
+                background-color: #1d4ed8;
+            }
+            QPushButton:pressed {
+                background-color: #1e40af;
+            }
+            QPushButton:disabled {
+                background-color: #93c5fd;
+                color: #dbeafe;
+            }
+            QLineEdit {
+                border: 1px solid #d1d5db;
+                border-radius: 6px;
+                padding: 6px 10px;
+                selection-background-color: #2563eb;
+                selection-color: #ffffff;
+            }
+            QLineEdit:focus {
+                border-color: #2563eb;
+            }
+            QListWidget {
+                background-color: #f8f9fa;
+                border: 1px solid #e5e7eb;
+                border-radius: 6px;
+                padding: 4px;
+            }
+            QStatusBar {
+                background-color: #f1f5f9;
+                border-top: 1px solid #e2e8f0;
+                padding: 2px 8px;
+                font-size: 11px;
+                color: #475569;
+            }
+            QMenuBar {
+                background-color: #f8f9fa;
+                border-bottom: 1px solid #e5e7eb;
+                padding: 2px;
+            }
+            QMenuBar::item {
+                padding: 4px 12px;
+                border-radius: 4px;
+            }
+            QMenuBar::item:selected {
+                background-color: #e2e8f0;
+            }
+            QMenu {
+                background-color: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 6px;
+                padding: 4px;
+            }
+            QMenu::item {
+                padding: 6px 24px;
+                border-radius: 4px;
+            }
+            QMenu::item:selected {
+                background-color: #2563eb;
+                color: white;
+            }
+            QLabel {
+                color: #374151;
+            }
+        """)
+    except Exception:
+        pass
+
     try:
         if detect_lang() == "ar":
             app.setLayoutDirection(QtCore.Qt.RightToLeft)
