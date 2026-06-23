@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import os
 import re
-from typing import Any
 
 from .i18n_helper import make_tool_translator
 

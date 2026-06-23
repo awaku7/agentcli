@@ -660,7 +660,6 @@ def _semantic_search_bm25(
         rows = cur.fetchall()
 
     # Aggregate by chunk and compute BM25 scores
-    from collections import defaultdict
     chunk_data: dict[int, dict] = {}
     for row in rows:
         cid, fid, text, nt, term, freq = row

@@ -6,7 +6,6 @@ import json
 from typing import Any, List, Dict
 from pathlib import Path
 
-from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)

@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from ._matter_cache import matter_cache_get, matter_cache_put
-from ._matter_common import error_payload, ok_payload, WarningCollector
+from ._matter_common import error_payload, ok_payload
 import time
 from ._matter_log import matter_log
 from .i18n_helper import make_tool_translator

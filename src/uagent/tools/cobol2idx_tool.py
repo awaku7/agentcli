@@ -273,7 +273,6 @@ class _CobolIndexBuilder:
             return []
 
         # Check if it starts with a known keyword that's not a paragraph
-        first_word = normalized.split()[0] if normalized.split() else ""
 
         for pat, ext in _PATTERNS:
             m = re.match(pat, normalized)

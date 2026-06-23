@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json
-import os
 import ssl
 import urllib.request
 from typing import Any
@@ -209,7 +208,7 @@ def _format_skills_table(skills: list[dict[str, Any]], page: int, total_pages: i
         stars = skill.get("stars", 0)
         desc = skill.get("description", "")
         gh_url = skill.get("githubUrl", "")
-        updated = skill.get("updatedAt", "")
+        _updated = skill.get("updatedAt", "")
 
         # Truncate long descriptions
         if len(desc) > 120:

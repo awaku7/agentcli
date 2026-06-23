@@ -6,9 +6,6 @@ from pathlib import Path
 from typing import Any
 
 from .email_utils import (
-    decode_email_header_value,
-    get_email_attachments,
-    get_email_body,
     parse_email,
 )
 from .i18n_helper import make_tool_translator

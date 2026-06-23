@@ -216,7 +216,6 @@ class _CsIndexBuilder:
         brace_depth = 0
         # Track brace depth per stack entry
         stack_start_depth: list[int] = []
-        in_xml_doc = False
 
         for i, raw in enumerate(self.lines):
             stripped = raw.strip()
@@ -272,7 +271,6 @@ class _CsIndexBuilder:
 
             # Track brace depth for scope closing
             bd = self._guess_brace_depth(raw)
-            old_depth = brace_depth
             brace_depth += bd
 
             # Pop stack when scope ends (depth returns to or below the level where the entry started)

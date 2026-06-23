@@ -733,10 +733,17 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
     chunk_size_limit = 300  # Process up to 300 messages per LLM call
 
     system_prompt = _(
-        "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
-        "1. Environment (OS, shell, editor, etc.)\n"
-        "2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
-        "3. Constraints (security rules, offline requirements, etc.)\n\n"
+        "You are a user profiling agent. Analyze the conversation log and extract:\n"
+        "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
+        "2. Preferences — specific, actionable traits observed from the user's actual requests and corrections:\n"
+        "   - Response style: concise or verbose? Code-heavy or prose-heavy? Bullet points or paragraphs?\n"
+        "   - Language: prefers Japanese, English, or mixed?\n"
+        "   - Tool usage: which tools/commands does the user frequently reach for?\n"
+        "   - Quality standard: tolerates quick workarounds or insists on proper solutions?\n"
+        "   - Confirmation: wants explicit approval before file operations, or prefers to skip prompts?\n"
+        "   - Any other recurring pattern in how the user gives instructions.\n"
+        "3. Constraints — explicit rules the user stated (e.g. 'must be offline', 'no external APIs', 'keep it simple', 'no extra dependencies').\n\n"
+        "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
         "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
         "You MUST respond ONLY with a valid JSON object matching this schema:\n"
         "{\n"

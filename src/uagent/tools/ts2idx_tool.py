@@ -191,7 +191,7 @@ class _TsIndexBuilder:
         class_stack: list[dict] = []
         brace_depth = 0
         entries: list[dict] = []
-        pending_endline: dict[int, int] = {}  # track end lines by start line
+        # (end line tracking removed - unused)
 
         i = 0
         while i < len(self.lines):
@@ -295,8 +295,7 @@ class _TsIndexBuilder:
         """Walk through lines and assign end_line based on brace depth."""
         if not entries:
             return
-        brace_map: dict[int, int] = {}
-        depth = 0
+        _depth = 0
         entry_starts: list[int] = []
 
         for entry in entries:

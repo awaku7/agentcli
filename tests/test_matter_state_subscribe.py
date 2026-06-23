@@ -5,7 +5,6 @@ from __future__ import annotations
 import importlib
 import json
 
-from tests.matter_fixtures import DEVICES_JSON
 
 TOOLS_DIR = "uagent.tools"
 

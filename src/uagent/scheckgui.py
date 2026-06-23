@@ -122,7 +122,6 @@ def _paint_icon_send(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
     pm.fill(QtCore.Qt.transparent)
     p = QtGui.QPainter(pm)
     p.setRenderHint(QtGui.QPainter.Antialiasing)
-    pen = QtGui.QPen(QtCore.Qt.NoPen)
     brush = QtGui.QBrush(color)
     p.setBrush(brush)
     # Filled right-pointing triangle
@@ -1294,7 +1293,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 act = view_menu.addAction(_("Font: %(name)s") % {"name": name})
                 act.setCheckable(True)
                 act.setChecked(lv == _FONT_SIZE_LEVEL)
-                act.triggered.connect(lambda checked, l=lv: self._apply_font_size(l) if checked else None)
+                act.triggered.connect(lambda checked, _level=lv: self._apply_font_size(_level) if checked else None)
                 font_group.addAction(act)
                 self._FONT_SIZE_ACTIONS[lv] = act
         except Exception:

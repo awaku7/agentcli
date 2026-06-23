@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from ._matter_cache import matter_cache_get, matter_cache_put
-from ._matter_common import error_payload, ok_payload, WarningCollector
+from ._matter_common import error_payload
 import time
 from ._matter_log import matter_log
 from .i18n_helper import make_tool_translator
@@ -629,7 +629,7 @@ def run_tool(args: dict[str, Any]) -> str:
     _log_start = time.time()
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
     cache_key = ":".join([str(args.get("dev") or ""), str(args.get("ctrl") or ""), str(args.get("bridge") or ""), str(args.get("endpoint") or "")])
-    cached = matter_cache_get("matter_device_status", cache_key)
+    _cached = matter_cache_get("matter_device_status", cache_key)
     device_id = str(args.get("dev") or "").strip()
     controller_id = args.get("ctrl")
     bridge_id = args.get("bridge")

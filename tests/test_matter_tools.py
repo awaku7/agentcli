@@ -7,7 +7,6 @@ Usage: pytest tests/test_matter_tools.py -v
 from __future__ import annotations
 
 import json
-import os
 from typing import Any
 
 import pytest
@@ -17,9 +16,7 @@ from tests.matter_fixtures import (
     BRIDGES_JSON,
     CONTROLLERS_DICT,
     CONTROLLERS_JSON,
-    DEVICES_DICT,
     DEVICES_JSON,
-    EMPTY_DICT_DATA,
     EMPTY_LIST,
     FIELD_MISSING,
     MALFORMED_JSON,

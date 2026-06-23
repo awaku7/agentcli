@@ -8,7 +8,6 @@ Dispatches incoming messages to the appropriate handler.
 import json
 import os
 from pathlib import Path
-from typing import Any
 
 from uagent.ws_config import WsConfigManager
 from uagent.ws_session import WsSessionManager
@@ -117,7 +116,6 @@ class WsHandler:
             from uagent.cli_startup import run_cli_startup
             from uagent.providers import util_providers as _providers
             from uagent import uagent_llm as llm_util
-            from uagent.tools import context as _ctx
             from uagent import core as _core
 
             startup = run_cli_startup(
