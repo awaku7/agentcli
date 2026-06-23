@@ -430,8 +430,6 @@ class DropThumbs(QtWidgets.QListWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setAcceptDrops(True)
-        self.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
-        self.setWordWrapMode(QtGui.QTextOption.WordWrap)
         self.viewport().setAcceptDrops(True)
         self.setDropIndicatorShown(True)
 
