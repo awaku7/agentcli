@@ -36,12 +36,12 @@
       "extraer texto"
     ],
     "param.path.description": "Ruta del documento de entrada (.docx, .rtf, .odt).",
-    "param.password.description": "Contraseña opcional para u...",
-    "prompt.password": "Introduzca la contraseña de este arch...",
-    "param.fmt.description": "Formato de salida: text o..."
+    "param.password.description": "Contraseña (solicitudes si es necesario).",
+    "prompt.password": "Ingrese la contraseña para este archivo:\n{path}",
+    "param.fmt.description": "Formato de salida: texto o json."
   },
   "fr": {
-    "tool.description": "Extrait le texte et une structure de base à partir de documents d...",
+    "tool.description": "Extraire le texte et la structure de base de documents de type Word (. docx, .",
     "x_search_terms": [
       "document_extract",
       "document extract",
@@ -49,9 +49,9 @@
       "extraire texte"
     ],
     "param.path.description": "Chemin du document d’entrée (.docx, .rtf, .odt).",
-    "param.password.description": "Mot de passe facultatif po...",
-    "prompt.password": "Entrez le mot de passe de ce fichier...",
-    "param.fmt.description": "Format de sortie : text o..."
+    "param.password.description": "Mot de passe (invite si nécessaire).",
+    "prompt.password": "Entrez le mot de passe de ce fichier :\n{path}",
+    "param.fmt.description": "Format de sortie : texte ou json."
   },
   "ko": {
     "tool.description": "Word 문서(.docx/.rtf/.odt)에서 텍스트와 구조 추출.",
@@ -67,7 +67,7 @@
     "param.fmt.description": "출력 형식: text 또는 json."
   },
   "de": {
-    "tool.description": "Extrahiert Text und eine einfache Struktur aus Word-ähnlichen Dok...",
+    "tool.description": "Text und Grundstruktur aus Word-ähnlichen Dokumenten extrahieren (. docx, .",
     "x_search_terms": [
       "document_extract",
       "document extract",
@@ -75,8 +75,8 @@
       "text extrahieren"
     ],
     "param.path.description": "Pfad zum Eingabedokument (.docx, .rtf, .odt).",
-    "param.password.description": "Optionales Kennwort für ei...",
-    "prompt.password": "Bitte geben Sie das Kennwort für dies...",
+    "param.password.description": "Passwort (fragt bei Bedarf nach).",
+    "prompt.password": "Geben Sie das Passwort für diese Datei ein:\n{path}",
     "param.fmt.description": "Ausgabeformat: text oder json."
   },
   "it": {
@@ -88,9 +88,9 @@
       "estrai testo"
     ],
     "param.path.description": "Percorso del documento di input (.docx, .rtf, .",
-    "param.password.description": "Password facoltativa per u...",
+    "param.password.description": "Password (richiesta se necessario).",
     "prompt.password": "Inserisci la password di questo file:\n{path}",
-    "param.fmt.description": "Formato di output: text o..."
+    "param.fmt.description": "Formato di output: testo o json."
   },
   "ru": {
     "tool.description": "Извлекает текст и базовую структуру из документов в стиле Word (.",
@@ -101,7 +101,7 @@
       "извлечь текст"
     ],
     "param.path.description": "Путь к входному документу (.docx, .rtf, .odt).",
-    "param.password.description": "Необязательный пароль для...",
+    "param.password.description": "Взаимодействие с определенным каналом Discord с помощью токена бота: отправка сообщений, чтение последних сообщений и, при необходимости, ожидание ответов после отправки.",
     "prompt.password": "Введите пароль для этого файла:\n{path}",
     "param.fmt.description": "Формат вывода: text или json."
   },
@@ -114,12 +114,12 @@
       "extrair texto"
     ],
     "param.path.description": "Caminho do documento de entrada (.docx, .rtf, .",
-    "param.password.description": "Senha opcional para um arq...",
+    "param.password.description": "Senha (solicita se necessário).",
     "prompt.password": "Digite a senha deste arquivo:\n{path}",
-    "param.fmt.description": "Formato de saída: text ou..."
+    "param.fmt.description": "Formato de saída: texto ou json."
   },
   "pt": {
-    "tool.description": "Extraia texto e estrutura básica de documentos semelhantes ao Wor...",
+    "tool.description": "Extraia texto e estrutura básica de documentos semelhantes a Word (. docx, .",
     "x_search_terms": [
       "document_extract",
       "document extract",
@@ -127,9 +127,9 @@
       "extrair texto"
     ],
     "param.path.description": "Caminho para o documento de entrada (.docx, .",
-    "param.password.description": "Senha opcional para arquiv...",
+    "param.password.description": "Senha (solicita se necessário).",
     "prompt.password": "Digite a senha deste arquivo:\n{path}",
-    "param.fmt.description": "Formato de saída: text ou..."
+    "param.fmt.description": "Formato de saída: texto ou json."
   },
   "id": {
     "tool.description": "Mengekstrak teks dan struktur dasar dari dokumen mirip Word (.",
@@ -140,7 +140,7 @@
       "ekstrak teks"
     ],
     "param.path.description": "Path dokumen input (.docx, .rtf, .odt).",
-    "param.password.description": "Kata sandi opsional untuk...",
+    "param.password.description": "Kata sandi (diminta jika diperlukan).",
     "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}",
     "param.fmt.description": "Format output: text atau json."
   },
@@ -153,12 +153,12 @@
       "trích xuất văn bản"
     ],
     "param.path.description": "Đường dẫn đến tài liệu đầu vào (.docx, .rtf, .odt).",
-    "param.password.description": "Mật khẩu tùy chọn cho tệp...",
+    "param.password.description": "Mật khẩu (nhắc nếu cần).",
     "prompt.password": "Nhập mật khẩu của tệp này:\n{path}",
-    "param.fmt.description": "Định dạng đầu ra: text ho..."
+    "param.fmt.description": "Định dạng đầu ra: văn bản hoặc json."
   },
   "pl": {
-    "tool.description": "Wyodrębnia tekst i podstawową strukturę z dokumentów podobnych do...",
+    "tool.description": "Wyodrębnij tekst i podstawową strukturę z dokumentów typu Word (.docx, .",
     "x_search_terms": [
       "document_extract",
       "document extract",
@@ -166,9 +166,9 @@
       "wyodrębnij tekst"
     ],
     "param.path.description": "Ścieżka do dokumentu wejściowego (.docx, .",
-    "param.password.description": "Opcjonalne hasło do zaszyf...",
+    "param.password.description": "Hasło (w razie potrzeby wyświetli monit).",
     "prompt.password": "Wprowadź hasło do tego pliku:\n{path}",
-    "param.fmt.description": "Format wyjściowy: text lu..."
+    "param.fmt.description": "Format wyjściowy: tekst lub json."
   },
   "hi": {
     "tool.description": "Word-जैसे दस्तावेज़ों (.docx, .rtf, .",
@@ -179,7 +179,7 @@
       "पाठ निकालें"
     ],
     "param.path.description": "इनपुट दस्तावेज़ का पथ (.docx, .rtf, .odt)।",
-    "param.password.description": "एन्क्रिप्टेड DOCX फ़ाइल के...",
+    "param.password.description": "पासवर्ड (यदि आवश्यक हो तो संकेत दें)।",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}",
     "param.fmt.description": "आउटपुट स्वरूप: text या json."
   },
@@ -192,12 +192,12 @@
       "استخراج نص"
     ],
     "param.path.description": "المسار إلى مستند الإدخال (.docx، .rtf، .odt).",
-    "param.password.description": "كلمة مرور اختيارية لملف DO...",
+    "param.password.description": "كلمة المرور (مطالبة إذا لزم الأمر).",
     "prompt.password": "أدخل كلمة مرور هذا الملف:\n{path}",
     "param.fmt.description": "تنسيق الإخراج: text أو json."
   },
   "sv": {
-    "tool.description": "Extraherar text och grundläggande struktur från Word-liknande dok...",
+    "tool.description": "Extrahera text och grundläggande struktur från Word-liknande dokument (. docx, .",
     "x_search_terms": [
       "document_extract",
       "document extract",
@@ -205,7 +205,7 @@
       "extrahera text"
     ],
     "param.path.description": "Sökväg till indokumentet (.docx, .rtf, .odt).",
-    "param.password.description": "Valfritt lösenord för kryp...",
+    "param.password.description": "Lösenord (meddelanden om det behövs).",
     "prompt.password": "Ange lösenordet för den här filen:\n{path}",
     "param.fmt.description": "Utdataformat: text eller json."
   },
@@ -218,12 +218,12 @@
       "toa maandishi"
     ],
     "param.path.description": "Njia ya hati ya ingizo (.docx, .rtf, .odt).",
-    "param.password.description": "Nenosiri la hiari kwa fail...",
+    "param.password.description": "Nenosiri (vidokezo ikihitajika",
     "prompt.password": "Ingiza nenosiri la faili hili:\n{path}",
-    "param.fmt.description": "Muundo wa matokeo: text a..."
+    "param.fmt.description": "Umbizo la towe: maandishi au json."
   },
   "nb": {
-    "tool.description": "Ekstraherer tekst og grunnleggende struktur fra Word-lignende dok...",
+    "tool.description": "Trekk ut tekst og grunnleggende struktur fra Word-lignende dokumenter (. docx, .",
     "x_search_terms": [
       "document_extract",
       "document extract",
@@ -231,7 +231,7 @@
       "ekstraher tekst"
     ],
     "param.path.description": "Sti til inndokumentet (.docx, .rtf, .odt).",
-    "param.password.description": "Valgfritt passord for en k...",
+    "param.password.description": "Passord (spør om nødvendig).",
     "prompt.password": "Skriv inn passordet for denne filen:\n{path}",
     "param.fmt.description": "Utdataformat: text eller json."
   },
@@ -244,8 +244,8 @@
       "tekst extraheren"
     ],
     "param.path.description": "Pad naar het invoerdocument (.docx, .rtf, .odt).",
-    "param.password.description": "Optioneel wachtwoord voor...",
-    "prompt.password": "Voer het wachtwoord voor dit bestand...",
+    "param.password.description": "Wachtwoord (vraagt ​​indien nodig).",
+    "prompt.password": "Voer het wachtwoord voor dit bestand in:\n{path}",
     "param.fmt.description": "Uitvoerformaat: text of json."
   },
   "fi": {
@@ -257,7 +257,7 @@
       "poimi teksti"
     ],
     "param.path.description": "Syöteasiakirjan polku (.docx, .rtf, .odt).",
-    "param.password.description": "Salasana salatulle DOCX-ti...",
+    "param.password.description": "Salasana (kehottaa tarvittaessa).",
     "prompt.password": "Anna tämän tiedoston salasana:\n{path}",
     "param.fmt.description": "Tulostusmuoto: text tai json."
   },
@@ -270,9 +270,9 @@
       "extrahovat text"
     ],
     "param.path.description": "Cesta k vstupnímu dokumentu (.docx, .rtf, .odt).",
-    "param.password.description": "Volitelné heslo pro šifrov...",
+    "param.password.description": "Heslo (v případě potřeby se zobrazí výzva).",
     "prompt.password": "Zadejte heslo pro tento soubor:\n{path}",
-    "param.fmt.description": "Výstupní formát: text neb..."
+    "param.fmt.description": "Výstupní formát: text nebo json."
   },
   "uk": {
     "tool.description": "Витягує текст і базову структуру з документів на кшталт Word (.",
@@ -283,7 +283,7 @@
       "витягти текст"
     ],
     "param.path.description": "Шлях до вхідного документа (.docx, .rtf, .odt).",
-    "param.password.description": "Необовʼязковий пароль для...",
+    "param.password.description": "Інтервал опитування під час очікування відповідей (у секундах).",
     "prompt.password": "Введіть пароль для цього файла:\n{path}",
     "param.fmt.description": "Формат виводу: text або json."
   },
@@ -296,9 +296,9 @@
       "metin çıkar"
     ],
     "param.path.description": "Giriş belgesinin yolu (.docx, .rtf, .odt).",
-    "param.password.description": "Şifrelenmiş DOCX dosyası i...",
+    "param.password.description": "Şifre (gerekirse istemde bulunur).",
     "prompt.password": "Bu dosyanın şifresini girin:\n{path}",
-    "param.fmt.description": "Çıkış formatı: metin veya..."
+    "param.fmt.description": "Çıktı formatı: metin veya json."
   },
   "th": {
     "tool.description": "แยกข้อความและโครงสร้างพื้นฐานจากเอกสารสไตล์ Word (.docx, .rtf, .",
@@ -309,7 +309,7 @@
       "แยกข้อความ"
     ],
     "param.path.description": "พาธของเอกสารต้นทาง (.docx, .rtf, .odt)",
-    "param.password.description": "รหัสผ่านสำหรับไฟล์ DOCX ที...",
+    "param.password.description": "รหัสผ่าน (แจ้งหากจำเป็น)",
     "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}",
     "param.fmt.description": "รูปแบบผลลัพธ์: text หรือ json"
   },
@@ -348,7 +348,7 @@
       "পাঠ্য নির্যাস"
     ],
     "param.path.description": "ইনপুট ডকুমেন্টের পথ (.docx, .rtf, .odt)।",
-    "param.password.description": "এনক্রিপ্ট করা DOCX ফাইলের...",
+    "param.password.description": "পাসওয়ার্ড (প্রয়োজন হলে প্রম্পট)।",
     "prompt.password": "এই ফাইলের পাসওয়ার্ড লিখুন:\n{path}",
     "param.fmt.description": "আউটপুট ফরম্যাট: text বা json।"
   },
@@ -361,7 +361,7 @@
       "استخراج متن"
     ],
     "param.path.description": "مسیر سند ورودی (.docx، .rtf، .odt).",
-    "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
+    "param.password.description": "رمز عبور (در صورت نیاز درخواست می کند).",
     "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}",
     "param.fmt.description": "فرمت خروجی: text یا json."
   },
@@ -374,9 +374,9 @@
       "текст задлах"
     ],
     "param.path.description": "Оролтын баримтын зам (.docx, .rtf, .odt).",
-    "param.password.description": "Шифрлэгдсэн DOCX файлын со...",
+    "param.password.description": "Нууц үг (шаардлагатай бол сануулна).",
     "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}",
-    "param.fmt.description": "Гаралтын формат: text эсв..."
+    "param.fmt.description": "Мессеж (шаардлагатай бол сануулга)"
   },
   "mr": {
     "tool.description": "Word-सदृश दस्तऐवजांमधून (.docx, .rtf, .",
@@ -387,8 +387,68 @@
       "मजकूर काढा"
     ],
     "param.path.description": "इनपुट दस्तऐवजाचा मार्ग (.docx, .rtf, .odt).",
-    "param.password.description": "एनक्रिप्टेड DOCX फाइलसाठी...",
+    "param.password.description": "पासवर्ड (आवश्यक असल्यास सूचना).",
     "prompt.password": "या फाइलचा पासवर्ड टाका:\n{path}",
-    "param.fmt.description": "आउटपुट स्वरूप: text किंवा..."
+    "param.fmt.description": "आउटपुट स्वरूप: मजकूर किंवा json."
+  },
+  "el": {
+    "tool.description": "Εξαγωγή κειμένου και βασικής δομής από έγγραφα τύπου Word (. docx, .",
+    "x_search_terms": [
+      "έγγραφο_απόσπασμα",
+      "απόσπασμα εγγράφου",
+      "docx",
+      "rtf",
+      "odt",
+      "εξαγωγή κειμένου"
+    ],
+    "param.path.description": "Διαδρομή προς το έγγραφο εισόδου (.docx, .rtf, .odt).",
+    "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
+    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:\n{διαδρομή}",
+    "param.fmt.description": "Μορφή εξόδου: κείμενο ή json."
+  },
+  "he": {
+    "tool.description": "חלץ טקסט ומבנה בסיסי ממסמכים דמויי Word (. docx, .",
+    "x_search_terms": [
+      "document_extract",
+      "תמצית מסמך",
+      "docx",
+      "rtf",
+      "odt",
+      "לחלץ טקסט"
+    ],
+    "param.path.description": "נתיב למסמך הקלט (.docx, .rtf, .odt).",
+    "param.password.description": "סיסמה (מבקש במידת הצורך).",
+    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:\n{נתיב}",
+    "param.fmt.description": "פורמט פלט: טקסט או json."
+  },
+  "hu": {
+    "tool.description": "Szöveg és alapstruktúra kinyerése Word-szerű dokumentumokból (. docx, .",
+    "x_search_terms": [
+      "dokumentum_kivonat",
+      "dokumentum kivonat",
+      "docx",
+      "rtf",
+      "odt",
+      "kivonat szöveget"
+    ],
+    "param.path.description": "A bemeneti dokumentum elérési útja (.docx, .rtf, .odt).",
+    "param.password.description": "Jelszó (szükség esetén kéri).",
+    "prompt.password": "Adja meg a fájl jelszavát:\n{path}",
+    "param.fmt.description": "Kimeneti formátum: szöveg vagy json."
+  },
+  "ro": {
+    "tool.description": "Extrageți text și structura de bază din documente similare Word (. docx, .",
+    "x_search_terms": [
+      "extras_document",
+      "extras de document",
+      "docx",
+      "rtf",
+      "odt",
+      "extrage text"
+    ],
+    "param.path.description": "Calea către documentul de intrare (.docx, .rtf, .odt).",
+    "param.password.description": "Parola (se solicită dacă este necesar).",
+    "prompt.password": "Introduceți parola pentru acest fișier:\n{cale}",
+    "param.fmt.description": "Format de ieșire: text sau json."
   }
 }

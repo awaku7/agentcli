@@ -80,6 +80,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "country",
                 "ip geolocation",
                 "geo ip",
+                "weather",
+                "news",
             ],
         ),
         "x_search_terms_en": [
@@ -89,6 +91,8 @@ TOOL_SPEC: dict[str, Any] = {
             "country",
             "ip geolocation",
             "geo ip",
+            "weather",
+            "news",
         ],
         "parameters": {
             "type": "object",
@@ -173,7 +177,7 @@ def _lookup_api() -> dict[str, Any] | str:
     # proxies (e.g. Zscaler) often break certificate verification, and this
     # tool only fetches non-sensitive, approximate location data.
     raw = fetch_url_run({"url": "https://ipinfo.io/json", "ssl": False})
-    if isinstance(raw, str) and '"ok": false' in raw and "SSL error:" in raw:
+    if isinstance(raw, str) and '\"ok\": false' in raw and "SSL error:" in raw:
         return raw
 
     # Strip fetch_url metadata line(s) and extract JSON payload.

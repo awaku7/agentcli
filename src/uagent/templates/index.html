@@ -4,35 +4,245 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UAGENT WEB</title>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* === Theme Variables === */
+        :root {
+            --bg-primary: #f1f5f9;
+            --bg-surface: #ffffff;
+            --bg-surface-alt: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border-color: #e2e8f0;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --user-bubble: #e0e7ff;
+            --user-text: #1e1b4b;
+            --assistant-bubble: #dbeafe;
+            --assistant-text: #1e3a5f;
+            --tool-bg: #fef3c7;
+            --tool-border: #f59e0b;
+            --status-idle: #10b981;
+            --status-busy: #f59e0b;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --transition: 200ms ease;
+        }
+        .dark {
+            --bg-primary: #0f172a;
+            --bg-surface: #1e293b;
+            --bg-surface-alt: #1a2332;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: #334155;
+            --accent: #60a5fa;
+            --accent-hover: #3b82f6;
+            --user-bubble: #312e81;
+            --user-text: #e0e7ff;
+            --assistant-bubble: #1e3a5f;
+            --assistant-text: #dbeafe;
+            --tool-bg: #422006;
+            --tool-border: #f59e0b;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.3);
+        }
+
+        /* === Base === */
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background var(--transition), color var(--transition);
+        }
+
+        /* === Chat Container === */
         .chat-container { flex-grow: 1; min-height: 0; }
         pre { white-space: pre-wrap; word-wrap: break-word; }
-        .role-user { background-color: #f3f4f6 !important; color: #111827 !important; align-self: flex-end; }
-        .role-assistant { background-color: #dcf8c6 !important; color: #111827 !important; align-self: flex-start; }
-        .role-system { display: none; } /* システムメッセージは非表示 */
-        .role-tool { background-color: #fff9c4 !important; color: #111827 !important; font-size: 0.85rem; border-left: 4px solid #fbc02d; margin: 5px 0; }
-        .status-busy { color: #f59e0b; font-weight: bold; }
-        .status-idle { color: #10b981; font-weight: bold; }
+        .role-user {
+            background: var(--user-bubble) !important;
+            color: var(--user-text) !important;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px !important;
+            animation: msgIn 0.25s ease-out;
+        }
+        .role-assistant {
+            background: var(--assistant-bubble) !important;
+            color: var(--assistant-text) !important;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px !important;
+            animation: msgIn 0.25s ease-out;
+        }
+        .role-system { display: none; }
+        .role-tool {
+            background: var(--tool-bg) !important;
+            color: var(--text-primary) !important;
+            font-size: 0.85rem;
+            border-left: 4px solid var(--tool-border);
+            margin: 5px 0;
+            animation: msgIn 0.2s ease-out;
+        }
+        .status-busy { color: var(--status-busy); font-weight: bold; }
+        .status-idle { color: var(--status-idle); font-weight: bold; }
         .blink { animation: blink 1s steps(2, start) infinite; }
         @keyframes blink { to { visibility: hidden; } }
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        /* === Settings Panel === */
+        #settings-panel {
+            transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.25s ease;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        #settings-panel.open {
+            max-height: 400px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === Surface Elements === */
+        .surface-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+        }
+        .surface-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        /* === Scrollbar === */
+        #chat-box::-webkit-scrollbar { width: 6px; }
+        #chat-box::-webkit-scrollbar-track { background: transparent; }
+        #chat-box::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+        #chat-box::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+        /* === Dark Toggle Button === */
+        .theme-toggle-btn {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        .theme-toggle-btn:hover {
+            background: var(--border-color);
+            transform: rotate(15deg);
+        }
+
+        /* === Settings Toggle Button === */
+        .settings-toggle-btn {
+            cursor: pointer;
+            transition: transform 0.3s, color 0.2s;
+            color: var(--text-secondary);
+        }
+        .settings-toggle-btn:hover { color: var(--accent); }
+        .settings-toggle-btn.active { transform: rotate(90deg); color: var(--accent); }
+
+        /* === Genre Checkboxes === */
+        .genre-toggle { accent-color: var(--accent); }
+
+        /* === Drop Zone === */
+        #drop-zone {
+            transition: border-color 0.2s, background 0.2s;
+            background: var(--bg-surface-alt);
+            border-color: var(--border-color);
+        }
+
+
+        /* === Human Ask Overlay === */
+        #human-ask-container {
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        /* === Footer === */
+        .footer-bar {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+
+        /* === Preview Panel === */
+        #preview-panel {
+            background: var(--bg-surface);
+            border-color: var(--border-color);
+        }
+
+        /* === Input === */
+        #user-input, select, button {
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+        }
+        #user-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+        }
+        select {
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 20%, transparent);
+        }
+
+        /* === Code block in chat === */
+        .code-block summary {
+            transition: background 0.2s;
+        }
+        .code-block summary:hover {
+            background: var(--border-color) !important;
+        }
     </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="font-sans">
     <div class="w-full h-screen p-4 flex gap-4 overflow-hidden">
         <!-- Left Pane (Chat Area) -->
         <div id="chat-pane" class="flex-grow flex flex-col h-full max-w-5xl mx-auto">
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-4 bg-white p-4 rounded shadow">
-            <h1 id="app-title" class="text-xl font-bold text-gray-800">UAGENT WEB</h1>
-            <div id="status-area">
-                Status: <span id="status-text-header" class="status-idle">IDLE</span>
-                <div id="busy-indicator" class="hidden text-xs font-mono text-red-600 blink">TOOL RUNNING</div>
-                <div id="workdir-text-header" class="text-xs text-gray-500 font-mono"></div>
-                <div id="modes-area" class="text-xs text-gray-500 font-mono flex items-center gap-2 mt-1">
-                    <span id="modes-text"></span>
-                    <span class="ml-2">R:</span>
-                    <select id="reasoning-select" class="border rounded px-1 py-0.5 text-gray-800">
+
+        <!-- === Header === -->
+        <div class="surface-card rounded-xl px-5 py-3 mb-4 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <h1 id="app-title" class="text-lg font-bold tracking-tight">UAGENT WEB</h1>
+                <span id="modes-text" class="text-xs font-mono text-gray-500 dark:text-gray-400 hidden sm:inline"></span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-gray-500 dark:text-gray-400 font-mono hidden sm:block">
+                    <span id="workdir-text-header"></span>
+                </span>
+                <span class="text-xs font-medium">
+                    <span id="status-text-header" class="status-idle">IDLE</span>
+                </span>
+                <div id="busy-indicator" class="hidden text-[10px] font-mono text-red-500 blink bg-red-50 dark:bg-red-900/30 px-2 py-0.5 rounded-full">TOOL RUNNING</div>
+                <!-- Settings Toggle -->
+                <button id="settings-toggle-btn" onclick="toggleSettingsPanel()" class="settings-toggle-btn text-lg leading-none px-1" title="Settings">⚙</button>
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleDarkMode()" id="dark-mode-btn" class="theme-toggle-btn" title="Toggle dark mode">🌙</button>
+            </div>
+        </div>
+
+        <!-- === Settings Panel (collapsible) === -->
+        <div id="settings-panel" class="surface-card rounded-xl px-5 py-0 mb-3">
+            <div class="py-4 flex flex-wrap items-center gap-x-4 gap-y-3 text-xs">
+                <div class="flex items-center gap-2">
+                    <span class="font-medium text-gray-500 dark:text-gray-400">Reasoning:</span>
+                    <select id="reasoning-select" class="border rounded-md px-2 py-1 text-xs">
                         <option value="off">off</option>
                         <option value="auto">auto</option>
                         <option value="minimal">minimal</option>
@@ -41,81 +251,85 @@
                         <option value="high">high</option>
                         <option value="xhigh">xhigh</option>
                     </select>
-                    <span>V:</span>
-                    <select id="verbosity-select" class="border rounded px-1 py-0.5 text-gray-800">
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="font-medium text-gray-500 dark:text-gray-400">Verbosity:</span>
+                    <select id="verbosity-select" class="border rounded-md px-2 py-1 text-xs">
                         <option value="off">off</option>
                         <option value="low">low</option>
                         <option value="medium">medium</option>
                         <option value="high">high</option>
                     </select>
-                    <span class="ml-2">Tools:</span>
-                    <span id="genre-checkboxes" class="flex items-center gap-2 text-xs">
-                        <label class="flex items-center gap-0.5 cursor-pointer"><input type="checkbox" data-genre="comm" class="genre-toggle"> comm</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer"><input type="checkbox" data-genre="office" class="genre-toggle"> office</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer"><input type="checkbox" data-genre="devel" class="genre-toggle"> devel</label>
-                        <label class="flex items-center gap-0.5 cursor-pointer"><input type="checkbox" data-genre="iot" class="genre-toggle"> iot</label>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                    <span class="font-medium text-gray-500 dark:text-gray-400">Tools:</span>
+                    <span id="genre-checkboxes" class="flex items-center gap-2">
+                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="comm" class="genre-toggle"> comm</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="office" class="genre-toggle"> office</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="devel" class="genre-toggle"> devel</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="iot" class="genre-toggle"> iot</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="basic" class="genre-toggle"> basic</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="exec" class="genre-toggle"> exec</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="external" class="genre-toggle"> external</label>
+                        <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="media" class="genre-toggle"> media</label>
                     </span>
                 </div>
             </div>
         </div>
 
-        <!-- Chat Area -->
-        <div id="chat-box" class="chat-container overflow-y-auto bg-white p-4 rounded shadow mb-4 flex flex-col gap-4">
+        <!-- === Chat Area === -->
+        <div id="chat-box" class="chat-container overflow-y-auto surface-card rounded-xl p-4 mb-3 flex flex-col gap-3">
             <!-- Messages appear here -->
         </div>
 
-        <!-- Human Ask Overlay -->
-        <div id="human-ask-container" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full">
+        <!-- === Human Ask Overlay === -->
+        <div id="human-ask-container" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm">
+            <div class="surface-card rounded-xl shadow-xl max-w-lg w-full mx-4 p-6 border">
                 <h2 id="human-ask-title" class="text-lg font-bold mb-2">確認が必要です</h2>
-                <div id="human-ask-message" class="mb-4 text-gray-700 whitespace-pre-wrap"></div>
-                <input type="text" id="human-ask-input" class="w-full p-2 border rounded mb-4 focus:ring-2 focus:ring-blue-500" placeholder="回答を入力...">
+                <div id="human-ask-message" class="mb-4 text-sm whitespace-pre-wrap"></div>
+                <input type="text" id="human-ask-input" class="w-full p-2.5 border rounded-lg mb-4 focus:outline-none" placeholder="回答を入力..." style="border-color: var(--border-color); background: var(--bg-surface); color: var(--text-primary);">
                 <div class="flex justify-end gap-2">
-                    <button id="human-ask-submit-btn" onclick="submitHumanAsk()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">送信</button>
+                    <button id="human-ask-submit-btn" onclick="submitHumanAsk()" class="px-5 py-2 rounded-lg text-sm font-medium text-white transition" style="background: var(--accent);">送信</button>
                 </div>
             </div>
         </div>
 
-        <!-- Footer Status Area -->
-        <div class="bg-gray-800 text-white p-2 rounded shadow mb-4 flex justify-between items-center px-4 h-10">
-            <span id="footer-status-label" class="text-sm font-mono">Current Status:</span>
-            <span id="status-text-footer" class="text-sm font-bold status-idle">IDLE</span>
+        <!-- === Footer Status Area === -->
+        <div class="footer-bar rounded-xl px-4 py-2 mb-3 flex justify-between items-center text-sm">
+            <span id="footer-status-label" class="font-mono text-xs">Current Status:</span>
+            <span id="status-text-footer" class="text-xs font-bold status-idle">IDLE</span>
         </div>
 
-        <!-- Attachment Area -->
-        <div id="drop-zone" class="mb-3 rounded border-2 border-dashed border-gray-300 bg-gray-50 p-3">
+        <!-- === Attachment Area === -->
+        <div id="drop-zone" class="mb-3 rounded-xl border-2 border-dashed p-3 surface-card" style="background: var(--bg-surface-alt); border-color: var(--border-color);">
             <div class="flex items-center justify-between gap-2 mb-2">
-                <div class="text-sm text-gray-600">ここにファイル/画像をドラッグ＆ドロップ</div>
-                <button id="pick-files-btn" type="button" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">ファイル選択</button>
+                <div class="text-sm text-gray-500 dark:text-gray-400">Drop files/images here</div>
+                <button id="pick-files-btn" type="button" class="text-sm px-3 py-1 rounded-lg transition" style="background: var(--border-color); color: var(--text-secondary);">Choose files</button>
             </div>
             <input id="file-input" type="file" multiple class="hidden">
             <div id="attachment-preview" class="flex flex-wrap gap-3"></div>
         </div>
 
-        <!-- Input Area -->
+        <!-- === Input Area === -->
         <div class="flex gap-2">
-            <textarea id="user-input" rows="2" class="flex-grow p-2 border rounded shadow focus:ring-2 focus:ring-blue-500" placeholder="メッセージを入力... (Ctrl+Enterで送信)"></textarea>
-            <button id="send-btn" class="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700 font-bold">送信</button>
+            <textarea id="user-input" rows="2" class="flex-grow p-3 border rounded-xl shadow-sm resize-none focus:outline-none" placeholder="Type a message... (Ctrl+Enter to send)" style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-color);"></textarea>
+            <button id="send-btn" class="px-6 py-2 rounded-xl font-bold text-white shadow-sm transition hover:brightness-110 active:scale-[0.97]" style="background: var(--accent);">Send</button>
         </div>
         </div> <!-- End of Left Pane -->
 
-        <!-- Right Pane (Preview Area / Artifacts) -->
-        <div id="preview-panel" class="hidden w-[45%] bg-white rounded shadow flex flex-col h-full border border-gray-200 overflow-hidden">
-            <!-- Preview Header -->
-            <div class="flex justify-between items-center p-3 border-b bg-gray-50">
-                <span class="font-bold text-gray-700 text-sm">Artifact Preview</span>
+        <!-- === Right Pane (Preview Area / Artifacts) === -->
+        <div id="preview-panel" class="hidden w-[45%] surface-card rounded-xl flex flex-col h-full border overflow-hidden">
+            <div class="flex justify-between items-center px-4 py-3 border-b" style="background: var(--bg-surface-alt); border-color: var(--border-color);">
+                <span class="font-bold text-sm">Artifact Preview</span>
                 <div class="flex gap-2">
-                    <button onclick="togglePreviewMode('preview')" id="btn-mode-preview" class="px-2 py-1 text-xs bg-blue-600 text-white rounded font-bold">Preview</button>
-                    <button onclick="togglePreviewMode('code')" id="btn-mode-code" class="px-2 py-1 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Code</button>
-                    <button onclick="closePreviewPanel()" class="text-gray-500 hover:text-gray-700 text-xl font-bold px-2 leading-none">×</button>
+                    <button onclick="togglePreviewMode('preview')" id="btn-mode-preview" class="px-3 py-1.5 text-xs rounded-lg font-bold text-white transition" style="background: var(--accent);">Preview</button>
+                    <button onclick="togglePreviewMode('code')" id="btn-mode-code" class="px-3 py-1.5 text-xs rounded-lg transition" style="background: var(--border-color); color: var(--text-secondary);">Code</button>
+                    <button onclick="closePreviewPanel()" class="text-lg leading-none px-1 transition hover:opacity-70" style="color: var(--text-muted);">×</button>
                 </div>
             </div>
-            <!-- Preview Content -->
-            <div class="flex-grow relative bg-gray-50">
-                <!-- iframe (Preview) -->
-                <iframe id="preview-iframe" sandbox="allow-scripts" class="w-full h-full border-none bg-white"></iframe>
-                <!-- pre (Code) -->
-                <pre id="preview-code" class="hidden w-full h-full p-4 overflow-auto bg-gray-900 text-gray-100 text-xs font-mono"></pre>
+            <div class="flex-grow relative" style="background: var(--bg-surface-alt);">
+                <iframe id="preview-iframe" sandbox="allow-scripts" class="w-full h-full border-none" style="background: var(--bg-surface);"></iframe>
+                <pre id="preview-code" class="hidden w-full h-full p-4 overflow-auto text-xs font-mono" style="background: #0f172a; color: #e2e8f0;"></pre>
             </div>
         </div>
     </div> <!-- End of Split-View Container -->
@@ -128,7 +342,7 @@
 
         // --- Generative UI (Artifacts) State & Functions ---
         let currentArtifactHtml = '';
-        let currentPreviewMode = 'preview'; // 'preview' or 'code'
+        let currentPreviewMode = 'preview';
 
         function renderArtifact(html) {
             currentArtifactHtml = html;
@@ -139,10 +353,9 @@
 
             if (panel) panel.classList.remove('hidden');
             if (chatPane) chatPane.classList.remove('max-w-5xl', 'mx-auto');
-            
+
             if (currentPreviewMode === 'preview') {
                 if (iframe) {
-                    // Inject Tailwind CSS CDN automatically if not present to ensure beautiful rendering
                     let finalHtml = html;
                     if (!html.includes('tailwindcss') && !html.includes('cdn.tailwindcss.com')) {
                         if (html.includes('</' + 'head>')) {
@@ -168,22 +381,18 @@
             const codePre = document.getElementById('preview-code');
 
             if (mode === 'preview') {
-                if (btnPreview) {
-                    btnPreview.className = 'px-2 py-1 text-xs bg-blue-600 text-white rounded font-bold';
-                }
-                if (btnCode) {
-                    btnCode.className = 'px-2 py-1 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300';
-                }
+                if (btnPreview) btnPreview.className = 'px-3 py-1.5 text-xs rounded-lg font-bold text-white transition';
+                if (btnPreview) btnPreview.style.background = 'var(--accent)';
+                if (btnCode) btnCode.className = 'px-3 py-1.5 text-xs rounded-lg transition';
+                if (btnCode) { btnCode.style.background = 'var(--border-color)'; btnCode.style.color = 'var(--text-secondary)'; }
                 if (iframe) iframe.classList.remove('hidden');
                 if (codePre) codePre.classList.add('hidden');
                 renderArtifact(currentArtifactHtml);
             } else {
-                if (btnPreview) {
-                    btnPreview.className = 'px-2 py-1 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300';
-                }
-                if (btnCode) {
-                    btnCode.className = 'px-2 py-1 text-xs bg-blue-600 text-white rounded font-bold';
-                }
+                if (btnPreview) btnPreview.className = 'px-3 py-1.5 text-xs rounded-lg transition';
+                if (btnPreview) { btnPreview.style.background = 'var(--border-color)'; btnPreview.style.color = 'var(--text-secondary)'; }
+                if (btnCode) btnCode.className = 'px-3 py-1.5 text-xs rounded-lg font-bold text-white transition';
+                if (btnCode) btnCode.style.background = 'var(--accent)';
                 if (iframe) iframe.classList.add('hidden');
                 if (codePre) codePre.classList.remove('hidden');
                 if (codePre) codePre.textContent = currentArtifactHtml;
@@ -199,7 +408,6 @@
 
         function extractHtmlFromText(text) {
             if (!text) return '';
-            // Match ```html ... ``` or ```xml ... ``` or standard <html>...</html>
             const codeBlockRegex = /```(?:html|xml|xhtml)?\s*([\s\S]*?)```/gi;
             let match;
             let lastHtml = '';
@@ -210,17 +418,13 @@
                 }
             }
             if (!lastHtml) {
-                // Fallback: check if the text itself contains <html>...</html>
                 const htmlTagRegex = /<html[\s\S]*?<\/html>/gi;
                 const tagMatch = htmlTagRegex.exec(text);
-                if (tagMatch) {
-                    lastHtml = tagMatch[0];
-                }
+                if (tagMatch) lastHtml = tagMatch[0];
             }
             return lastHtml;
         }
 
-        // --- i18n (single HTML) ---
         const I18N = {
             ja: {
                 title: 'UAGENT WEB',
@@ -251,16 +455,11 @@
         };
 
         function detectLang() {
-            // Priority: explicit URL param
             try {
                 const url = new URL(window.location.href);
                 const q = (url.searchParams.get('lang') || '').toLowerCase();
                 if (q === 'ja' || q === 'en' || q === 'ar') return q;
-            } catch (e) {
-                // ignore
-            }
-
-            // Next: navigator.languages (more reliable than navigator.language in some setups)
+            } catch (e) {}
             try {
                 const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [];
                 for (const l of langs) {
@@ -269,19 +468,12 @@
                     if (s.startsWith('ar')) return 'ar';
                     if (s.startsWith('en')) return 'en';
                 }
-            } catch (e) {
-                // ignore
-            }
-
-            // Next: navigator.language
+            } catch (e) {}
             try {
                 const nav = String(navigator.language || navigator.userLanguage || 'en').toLowerCase();
                 if (nav.startsWith('ja')) return 'ja';
                 if (nav.startsWith('ar')) return 'ar';
-            } catch (e) {
-                // ignore
-            }
-
+            } catch (e) {}
             return 'en';
         }
 
@@ -289,26 +481,20 @@
             const t = I18N[lang] || I18N.en;
             try { document.documentElement.lang = lang; } catch (e) {}
             try { document.title = t.title; } catch (e) {}
-
             const appTitle = document.getElementById('app-title');
             if (appTitle) appTitle.textContent = t.appTitle;
-
             const humanAskTitle = document.getElementById('human-ask-title');
             if (humanAskTitle) humanAskTitle.textContent = t.humanAskTitle;
-
             const humanAskSubmitBtn = document.getElementById('human-ask-submit-btn');
             if (humanAskSubmitBtn) humanAskSubmitBtn.textContent = t.humanAskSubmit;
-
             const footerStatusLabel = document.getElementById('footer-status-label');
             if (footerStatusLabel) footerStatusLabel.textContent = t.footerStatusLabel;
-
             if (humanAskInput) humanAskInput.placeholder = t.humanAskPlaceholder;
             if (userInput) userInput.placeholder = t.inputPlaceholder;
             if (sendBtn) sendBtn.textContent = t.send;
         }
 
         const UI_LANG = detectLang();
-
 
         // Streaming assistant bubble state
         let streamAssistant = { id: null, div: null, pre: null, active: false, text: '' };
@@ -335,6 +521,8 @@
         let CURRENT_MODES = { reasoning: 'off', verbosity: 'off' };
         let currentRoom = '';
         let pendingAttachments = [];
+        let inputHistory = [];
+        let historyIndex = -1;
 
         function getRoomIdFromUrl() {
             try {
@@ -342,25 +530,19 @@
                 const pathRoom = (url.pathname.match(/^\/room\/([^\/]+)/) || [])[1];
                 const queryRoom = url.searchParams.get('room');
                 return pathRoom || queryRoom || '';
-            } catch (e) {
-                return '';
-            }
+            } catch (e) { return ''; }
         }
 
         function isImageAttachment(att) {
             const type = String((att && (att.type || att.mime)) || '').toLowerCase();
             const path = String((att && (att.saved_path || att.path || att.file_path || att.name)) || '').toLowerCase();
-            return type.startsWith('image/')
-                || ['image', 'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(type)
-                || /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(path);
+            return type.startsWith('image/') || ['image', 'image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'].includes(type) || /\.(png|jpe?g|gif|webp|bmp|svg)$/i.test(path);
         }
 
         function isAudioAttachment(att) {
             const type = String((att && (att.type || att.mime)) || '').toLowerCase();
             const path = String((att && (att.saved_path || att.path || att.file_path || att.name)) || '').toLowerCase();
-            return type.startsWith('audio/')
-                || ['audio', 'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/x-wav', 'audio/mp4', 'audio/aac', 'audio/flac', 'audio/ogg', 'audio/opus', 'audio/webm'].includes(type)
-                || /\.(mp3|wav|m4a|aac|flac|ogg|opus|wma|mp4|webm)$/i.test(path);
+            return type.startsWith('audio/') || ['audio', 'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/x-wav', 'audio/mp4', 'audio/aac', 'audio/flac', 'audio/ogg', 'audio/opus', 'audio/webm'].includes(type) || /\.(mp3|wav|m4a|aac|flac|ogg|opus|wma|mp4|webm)$/i.test(path);
         }
 
         function basenameFromPath(path) {
@@ -374,14 +556,8 @@
                 overlay = document.createElement('div');
                 overlay.id = 'attachment-viewer';
                 overlay.className = 'hidden fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4';
-                overlay.innerHTML = `
-                    <div class="relative max-w-[95vw] max-h-[95vh]">
-                        <button type="button" id="attachment-viewer-close" class="absolute -top-10 right-0 text-white text-3xl leading-none">×</button>
-                        <img id="attachment-viewer-img" class="max-w-[95vw] max-h-[95vh] rounded shadow-lg bg-white" alt="">
-                    </div>`;
-                overlay.addEventListener('click', (e) => {
-                    if (e.target === overlay) overlay.classList.add('hidden');
-                });
+                overlay.innerHTML = '<div class="relative max-w-[95vw] max-h-[95vh]"><button type="button" id="attachment-viewer-close" class="absolute -top-10 right-0 text-white text-3xl leading-none">&times;</button><img id="attachment-viewer-img" class="max-w-[95vw] max-h-[95vh] rounded shadow-lg bg-white" alt=""></div>';
+                overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.add('hidden'); });
                 document.body.appendChild(overlay);
                 overlay.querySelector('#attachment-viewer-close').onclick = () => overlay.classList.add('hidden');
             }
@@ -405,34 +581,24 @@
                 attachmentPreview.innerHTML = '<div class="text-xs text-gray-500">添付なし</div>';
                 return;
             }
-
             pendingAttachments.forEach((att, idx) => {
                 const isImage = isImageAttachment(att) && (att.data_url || att.url || att.saved_path || att.path);
                 const isAudio = isAudioAttachment(att) && (att.url || att.saved_path || att.path);
                 const wrapper = document.createElement('div');
-                wrapper.className = isImage
-                    ? 'relative inline-block max-w-[220px]'
-                    : (isAudio
-                        ? 'relative inline-flex flex-col gap-1 px-2 py-2 rounded bg-gray-50 border max-w-[260px]'
-                        : 'relative inline-flex items-center px-2 py-1 rounded bg-gray-50 border max-w-[220px]');
-
+                wrapper.className = isImage ? 'relative inline-block max-w-[220px]' : (isAudio ? 'relative inline-flex flex-col gap-1 px-2 py-2 rounded bg-gray-50 border max-w-[260px]' : 'relative inline-flex items-center px-2 py-1 rounded bg-gray-50 border max-w-[220px]');
                 const remove = document.createElement('button');
                 remove.type = 'button';
-                remove.textContent = '×';
+                remove.textContent = '\u00d7';
                 remove.className = 'absolute right-1 top-1 w-6 h-6 rounded-full bg-gray-200 hover:bg-gray-300 text-xs z-10';
-                remove.onclick = () => {
-                    pendingAttachments.splice(idx, 1);
-                    renderPendingAttachments();
-                };
+                remove.onclick = () => { pendingAttachments.splice(idx, 1); renderPendingAttachments(); };
                 wrapper.appendChild(remove);
-
                 if (isImage) {
                     const img = document.createElement('img');
-                    const src = att.data_url || att.url || (`/local-file?path=${encodeURIComponent(att.saved_path || att.path || '')}`);
+                    const src = att.data_url || att.url || ('/local-file?path=' + encodeURIComponent(att.saved_path || att.path || ''));
                     img.className = 'max-w-[200px] max-h-[140px] rounded border cursor-pointer block';
                     img.src = src;
                     img.alt = att.name || basenameFromPath(att.saved_path || att.path || '') || 'image';
-                    img.title = 'クリックで開く';
+                    img.title = '\u30af\u30ea\u30c3\u30af\u3067\u958b\u304f';
                     img.onclick = () => openAttachmentViewer(src, img.alt);
                     wrapper.appendChild(img);
                 } else if (isAudio) {
@@ -444,7 +610,7 @@
                     audio.controls = true;
                     audio.preload = 'none';
                     audio.className = 'w-[240px] max-w-full';
-                    audio.src = att.url || (`/local-file?path=${encodeURIComponent(att.saved_path || att.path || '')}`);
+                    audio.src = att.url || ('/local-file?path=' + encodeURIComponent(att.saved_path || att.path || ''));
                     wrapper.appendChild(audio);
                 } else {
                     const title = document.createElement('div');
@@ -452,7 +618,6 @@
                     title.textContent = att.name || basenameFromPath(att.saved_path || att.path || '') || 'file';
                     wrapper.appendChild(title);
                 }
-
                 attachmentPreview.appendChild(wrapper);
             });
         }
@@ -463,78 +628,53 @@
             const fd = new FormData();
             fd.append('room', currentRoom || getRoomIdFromUrl() || '');
             files.forEach((f) => fd.append('files', f, f.name));
-
             const resp = await fetch('/upload', { method: 'POST', body: fd });
             const data = await resp.json();
-            if (!data || !data.ok) {
-                throw new Error((data && data.error) || 'upload failed');
-            }
-            if (Array.isArray(data.files) && data.files.length) {
-                pendingAttachments.push(...data.files);
-                renderPendingAttachments();
-            }
+            if (!data || !data.ok) throw new Error((data && data.error) || 'upload failed');
+            if (Array.isArray(data.files) && data.files.length) { pendingAttachments.push(...data.files); renderPendingAttachments(); }
         }
 
-        function clearPendingAttachments() {
-            pendingAttachments = [];
-            renderPendingAttachments();
-        }
+        function clearPendingAttachments() { pendingAttachments = []; renderPendingAttachments(); }
 
         function connect() {
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
             const url = new URL(window.location.href);
-            // room id: /room/<id> (preferred) or ?room=<id>
             const pathRoom = (url.pathname.match(/^\/room\/([^\/]+)/) || [])[1];
             const queryRoom = url.searchParams.get('room');
             const room = pathRoom || queryRoom;
             currentRoom = room || '';
             const lang = detectLang();
-            const qs = room ? `?room=${encodeURIComponent(room)}&lang=${encodeURIComponent(lang)}` : '';
-            ws = new WebSocket(`${protocol}//${window.location.host}/ws${qs}`);
+            const qs = room ? '?room=' + encodeURIComponent(room) + '&lang=' + encodeURIComponent(lang) : '';
+            ws = new WebSocket(protocol + '//' + window.location.host + '/ws' + qs);
 
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
-                
                 if (data.type === 'init') {
                     WEB_VERBOSE = !!data.web_verbose;
                     if (chatBox) chatBox.innerHTML = '';
                     streamAssistant = { id: null, div: null, pre: null, active: false, text: '' };
                     lastAssistantStreamText = '';
                     data.messages.forEach(addMessage);
+                    // Bootstrap input history from past user messages
+                    inputHistory = Array.isArray(data.input_history) ? data.input_history.slice() : [];
+                    historyIndex = inputHistory.length;
                     updateStatus(data.status);
                     if (data.modes) updateModes(data.modes);
-                } else if (data.type === 'modes') {
-                    if (data.modes) updateModes(data.modes);
-                } else if (data.type === 'message') {
-                    addMessage(data.message);
-                } else if (data.type === 'status') {
-                    updateStatus(data.status);
-                } else if (data.type === 'human_ask') {
-                    showHumanAsk(data.message, data.is_password);
+                } else if (data.type === 'modes') { if (data.modes) updateModes(data.modes);
+                } else if (data.type === 'message') { addMessage(data.message);
+                } else if (data.type === 'status') { updateStatus(data.status);
+                } else if (data.type === 'human_ask') { showHumanAsk(data.message, data.is_password);
                 } else if (data.type === 'log') {
-                    // Server-side logs are noisy; render only when WEB_VERBOSE is on.
-                    if (WEB_VERBOSE) {
-                        const rawContent = data.content_html || data.content;
-                        addMessage({ role: 'tool', content: rawContent, is_raw_html: !!data.content_html });
-                    }
-                } else if (data.type === 'assistant_stream_start') {
-                    startAssistantStream(data.id);
-                } else if (data.type === 'assistant_stream_delta') {
-                    appendAssistantStream(data.id, data.delta);
-                } else if (data.type === 'assistant_stream_end') {
-                    endAssistantStream(data.id);
-                }
+                    if (WEB_VERBOSE) { const rawContent = data.content_html || data.content; addMessage({ role: 'tool', content: rawContent, is_raw_html: !!data.content_html }); }
+                } else if (data.type === 'assistant_stream_start') { startAssistantStream(data.id);
+                } else if (data.type === 'assistant_stream_delta') { appendAssistantStream(data.id, data.delta);
+                } else if (data.type === 'assistant_stream_end') { endAssistantStream(data.id); }
             };
-
-            ws.onclose = () => {
-                console.log('WebSocket connection closed. Retrying...');
-                setTimeout(connect, 2000);
-            };
+            ws.onclose = () => { console.log('WebSocket closed. Retrying...'); setTimeout(connect, 2000); };
         }
 
         function renderMessageAttachments(message) {
-            const items = [];
-            const seen = new Map();
+            const items = []; const seen = new Map();
             const addItem = (candidate) => {
                 if (!candidate || typeof candidate !== 'object') return;
                 const att = candidate;
@@ -542,52 +682,36 @@
                 const path = att.saved_path || att.path || att.file_path || '';
                 const sourceKey = String(att.data_url || att.url || path || att.name || '').trim();
                 if (!sourceKey) return;
-
                 const isImage = isImageAttachment(att);
                 const isAudio = isAudioAttachment(att);
                 const prevIndex = seen.get(sourceKey);
-                if (prevIndex !== undefined) {
-                    const prev = items[prevIndex];
-                    if (isImage && prev && !prev.isImage) {
-                        items[prevIndex] = { att, type, path, isImage, isAudio };
-                    }
-                    return;
-                }
-
+                if (prevIndex !== undefined) { const prev = items[prevIndex]; if (isImage && prev && !prev.isImage) { items[prevIndex] = { att, type, path, isImage, isAudio }; } return; }
                 seen.set(sourceKey, items.length);
                 items.push({ att, type, path, isImage, isAudio });
             };
-
             const attachments = Array.isArray(message.attachments) ? message.attachments : [];
             const hasAttachmentImage = attachments.some((att) => isImageAttachment(att));
-
             attachments.forEach(addItem);
             if (!hasAttachmentImage && message.saved_path) addItem({ type: 'image', saved_path: message.saved_path });
             if (!hasAttachmentImage) (message.saved_files || []).forEach((p) => addItem({ type: 'file', saved_path: p }));
-
             if (!items.length) return '';
-
             let html = '<div class="mt-2 flex flex-wrap gap-2">';
             items.forEach(({ att, type, path, isImage, isAudio }) => {
                 const title = att.name || basenameFromPath(path) || (isImage ? 'image' : (isAudio ? 'audio' : 'file'));
-                const finalSrc = att.data_url || att.url || (path ? `/local-file?path=${encodeURIComponent(path)}` : '');
+                const finalSrc = att.data_url || att.url || (path ? '/local-file?path=' + encodeURIComponent(path) : '');
                 if (isImage && finalSrc) {
                     html += '<div class="flex flex-col gap-1 max-w-[360px]">';
-                    if (title) {
-                        html += `<div class="text-xs text-gray-500 break-all">${escapeHtml(String(title))}</div>`;
-                    }
-                    html += `<img src="${escapeHtml(finalSrc)}" class="max-w-[360px] max-h-[280px] rounded cursor-pointer block" title="クリックで開く" data-attachment-src="${escapeHtml(finalSrc)}" data-attachment-alt="${escapeHtml(title)}"/>`;
+                    if (title) html += '<div class="text-xs text-gray-500 break-all">' + escapeHtml(String(title)) + '</div>';
+                    html += '<img src="' + escapeHtml(finalSrc) + '" class="max-w-[360px] max-h-[280px] rounded cursor-pointer block" title="クリックで開く" data-attachment-src="' + escapeHtml(finalSrc) + '" data-attachment-alt="' + escapeHtml(title) + '"/>';
                     html += '</div>';
                 } else if (isAudio && finalSrc) {
                     html += '<div class="inline-flex flex-col gap-1 px-2 py-2 rounded bg-white border max-w-[280px]">';
-                    if (title) {
-                        html += `<div class="text-xs text-gray-600 break-all">${escapeHtml(String(title))}</div>`;
-                    }
-                    html += `<audio controls preload="none" class="w-[240px] max-w-full" src="${escapeHtml(finalSrc)}"></audio>`;
+                    if (title) html += '<div class="text-xs text-gray-600 break-all">' + escapeHtml(String(title)) + '</div>';
+                    html += '<audio controls preload="none" class="w-[240px] max-w-full" src="' + escapeHtml(finalSrc) + '"></audio>';
                     html += '</div>';
                 } else {
                     html += '<div class="inline-flex items-center px-2 py-1 rounded bg-white border max-w-[220px]">';
-                    html += `<div class="text-xs text-gray-600 break-all">${escapeHtml(String(title))}</div>`;
+                    html += '<div class="text-xs text-gray-600 break-all">' + escapeHtml(String(title)) + '</div>';
                     html += '</div>';
                 }
             });
@@ -601,80 +725,38 @@
             const name = String(src.name || '').toLowerCase();
             const toolLabel = name || 'tool';
             let body = String(src.content || '');
-
-            if (role !== 'tool') {
-                return { msg: src, body };
-            }
-
+            if (role !== 'tool') return { msg: src, body };
             const trimmed = body.trim();
-            if (!trimmed) {
-                return { msg: src, body: '' };
-            }
-
+            if (!trimmed) return { msg: src, body: '' };
             let parsed = null;
-            if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
-                try {
-                    parsed = JSON.parse(trimmed);
-                } catch (e) {
-                    parsed = null;
-                }
-            }
-
+            if (trimmed.startsWith('{') || trimmed.startsWith('[')) { try { parsed = JSON.parse(trimmed); } catch (e) { parsed = null; } }
             if (parsed && typeof parsed === 'object') {
                 if (parsed.saved_path) src.saved_path = parsed.saved_path;
                 if (Array.isArray(parsed.saved_files)) src.saved_files = parsed.saved_files;
                 if (!src.saved_files && Array.isArray(parsed.files)) src.saved_files = parsed.files;
-
                 const paths = [];
                 if (src.saved_path) paths.push(src.saved_path);
                 if (Array.isArray(src.saved_files)) paths.push(...src.saved_files);
-
-                if (paths.length) {
-                    body = toolLabel === 'generate_image'
-                        ? `${toolLabel}: done`
-                        : `${toolLabel}: ${paths.map(basenameFromPath).filter(Boolean).join(', ')}`;
-                } else if (typeof parsed.message === 'string' && parsed.message.trim()) {
-                    body = `${toolLabel}: ${parsed.message.trim()}`;
-                } else if (Array.isArray(parsed.results)) {
-                    const q = typeof parsed.query === 'string' && parsed.query.trim() ? parsed.query.trim() : '';
-                    const titles = parsed.results
-                        .map(r => (r && typeof r.title === 'string' ? r.title.trim() : ''))
-                        .filter(Boolean)
-                        .slice(0, 3);
-                    const count = parsed.results.length;
-                    body = q
-                        ? `${toolLabel}: ${q} → ${count}件${titles.length ? ` / ${titles.join(', ')}` : ''}`
-                        : `${toolLabel}: ${count}件${titles.length ? ` / ${titles.join(', ')}` : ''}`;
-                } else if (parsed.ok === true) {
-                    body = `${toolLabel}: done`;
-                } else {
-                    body = `${toolLabel}: result`;
-                }
+                if (paths.length) { body = toolLabel === 'generate_image' ? toolLabel + ': done' : toolLabel + ': ' + paths.map(basenameFromPath).filter(Boolean).join(', '); }
+                else if (typeof parsed.message === 'string' && parsed.message.trim()) { body = toolLabel + ': ' + parsed.message.trim(); }
+                else if (Array.isArray(parsed.results)) { const q = typeof parsed.query === 'string' && parsed.query.trim() ? parsed.query.trim() : ''; const titles = parsed.results.map(r => (r && typeof r.title === 'string' ? r.title.trim() : '')).filter(Boolean).slice(0, 3); const count = parsed.results.length; body = q ? toolLabel + ': ' + q + ' \u2192 ' + count + '\u4ef6' + (titles.length ? ' / ' + titles.join(', ') : '') : toolLabel + ': ' + count + '\u4ef6' + (titles.length ? ' / ' + titles.join(', ') : ''); }
+                else if (parsed.ok === true) { body = toolLabel + ': done'; }
+                else { body = toolLabel + ': result'; }
             } else if (trimmed.includes('{') && trimmed.includes('}')) {
-                // Tool output is JSON-like but could not be parsed cleanly.
-                // Do not dump raw JSON into the chat; keep it compact.
                 const savedPathMatch = trimmed.match(/"saved_path"\s*:\s*"([^"]+)"/i);
-                if (savedPathMatch && savedPathMatch[1]) {
-                    body = toolLabel === 'generate_image'
-                        ? `${toolLabel}: done`
-                        : `${toolLabel}: ${basenameFromPath(savedPathMatch[1])}`;
-                } else {
-                    body = `${toolLabel}: result`;
-                }
-            } else {
-                // Plain text tool output: keep only a short summary.
-                body = `${toolLabel}: ${trimmed.split(/\r?\n/, 1)[0].slice(0, 200)}`;
-            }
-
+                if (savedPathMatch && savedPathMatch[1]) { body = (toolLabel === 'generate_image' ? toolLabel + ': done' : toolLabel + ': ' + basenameFromPath(savedPathMatch[1])); }
+                else { body = toolLabel + ': result'; }
+            } else { body = toolLabel + ': ' + trimmed.split(/\r?\n/, 1)[0].slice(0, 200); }
             src.content = body;
             return { msg: src, body };
         }
 
         function addMessage(msg) {
             if (!msg) return;
+            if (String(msg.role || '').toLowerCase() === 'assistant' && !String(msg.content || '').trim() && !msg.is_raw_html) return;
             if (msg.is_raw_html) {
                 const div = document.createElement('div');
-                div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msg.role)}`;
+                div.className = 'p-3 rounded-lg max-w-[85%] ' + getRoleClass(msg.role);
                 div.innerHTML = msg.content;
                 chatBox.appendChild(div);
                 chatBox.scrollTop = chatBox.scrollHeight;
@@ -683,166 +765,96 @@
             const normalized = normalizeMessageForDisplay(msg);
             const msgForRender = normalized.msg;
             const body = normalized.body;
-
-            let content = `<strong>${escapeHtml(String((msgForRender.role || 'message')).toUpperCase())}:</strong> `;
-            if (msgForRender.name) content += `<span class="text-xs font-mono">[${escapeHtml(String(msgForRender.name))}]</span> `;
-
+            let content = '<strong>' + escapeHtml(String((msgForRender.role || 'message')).toUpperCase()) + ':</strong> ';
+            if (msgForRender.name) content += '<span class="text-xs font-mono">[' + escapeHtml(String(msgForRender.name)) + ']</span> ';
             if (body) {
                 const isAssistant = String(msgForRender.role).toLowerCase() === 'assistant';
                 const formattedBody = formatMessageBody(body, msgForRender.role);
-                if (isAssistant) {
-                    content += `<div class="mt-1 text-sm leading-relaxed whitespace-pre-wrap font-mono">${formattedBody}</div>`;
-                } else {
-                    content += `<pre class="mt-1 whitespace-pre-wrap font-mono">${formattedBody}</pre>`;
-                }
+                if (isAssistant) { content += '<div class="mt-1 text-sm leading-relaxed whitespace-pre-wrap font-mono">' + formattedBody + '</div>'; }
+                else { content += '<pre class="mt-1 whitespace-pre-wrap font-mono">' + formattedBody + '</pre>'; }
                 if (isAssistant) {
                     const extractedHtml = extractHtmlFromText(body);
                     if (extractedHtml) {
-                        content += `<div class="mt-2"><button onclick="renderArtifact(decodeURIComponent('${encodeURIComponent(extractedHtml)}'))" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded shadow-sm flex items-center gap-1">✨ Open in Preview</button></div>`;
-                        // Automatically render the latest artifact
-                        setTimeout(() => renderArtifact(extractedHtml), 100);
+                        content += '<div class="mt-2"><button onclick="renderArtifact(decodeURIComponent(\'' + encodeURIComponent(extractedHtml) + '\'))" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded shadow-sm flex items-center gap-1">\u2728 Open in Preview</button></div>';
+                        setTimeout(function() { renderArtifact(extractedHtml); }, 100);
                     }
                 }
             }
-
             if (WEB_VERBOSE && Array.isArray(msgForRender.tool_calls) && msgForRender.tool_calls.length) {
-                msgForRender.tool_calls.forEach(tc => {
-                    const toolName = tc && tc.function && tc.function.name ? tc.function.name : '';
-                    content += `<div class="text-xs text-blue-600 font-mono mt-2 border-t pt-1">Tool Call: ${escapeHtml(String(toolName))}</div>`;
-                });
+                msgForRender.tool_calls.forEach(function(tc) { var toolName = tc && tc.function && tc.function.name ? tc.function.name : ''; content += '<div class="text-xs text-blue-600 font-mono mt-2 border-t pt-1">Tool Call: ' + escapeHtml(String(toolName)) + '</div>'; });
             }
-
             const attachmentsHtml = renderMessageAttachments(msgForRender);
-            if (attachmentsHtml) {
-                content += attachmentsHtml;
-            }
-
+            if (attachmentsHtml) content += attachmentsHtml;
             const isAssistantFinal = String(msgForRender.role || '').toLowerCase() === 'assistant';
             const streamedText = String(lastAssistantStreamText || '').trim();
             const bodyText = String(body || '').trim();
-            const streamDiv = streamAssistant.div && streamAssistant.div.dataset && streamAssistant.div.dataset.streamAssistant === '1'
-                ? streamAssistant.div
-                : null;
+            const streamDiv = streamAssistant.div && streamAssistant.div.dataset && streamAssistant.div.dataset.streamAssistant === '1' ? streamAssistant.div : null;
             if (isAssistantFinal && streamDiv && streamedText && bodyText && streamedText === bodyText) {
                 streamDiv.innerHTML = content;
-                streamDiv.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msgForRender.role)}`;
+                streamDiv.className = 'p-3 rounded-lg max-w-[85%] ' + getRoleClass(msgForRender.role);
                 bindAttachmentClicks(streamDiv);
-                try {
-                    streamDiv.dataset.role = (msgForRender && msgForRender.role) ? String(msgForRender.role) : '';
-                    streamDiv.dataset.content = (msgForRender && (msgForRender.content !== undefined)) ? String(msgForRender.content) : '';
-                    streamDiv.dataset.ts = String((msgForRender && msgForRender._ts) ? msgForRender._ts : Date.now());
-                    streamDiv.dataset.optimistic = (msgForRender && msgForRender._optimistic) ? '1' : '0';
-                    streamDiv.dataset.streamAssistant = '0';
-                } catch (e) {
-                    // ignore
-                }
+                try { streamDiv.dataset.role = (msgForRender && msgForRender.role) ? String(msgForRender.role) : ''; streamDiv.dataset.content = (msgForRender && (msgForRender.content !== undefined)) ? String(msgForRender.content) : ''; streamDiv.dataset.ts = String((msgForRender && msgForRender._ts) ? msgForRender._ts : Date.now()); streamDiv.dataset.optimistic = (msgForRender && msgForRender._optimistic) ? '1' : '0'; streamDiv.dataset.streamAssistant = '0'; } catch (e) {}
                 lastAssistantStreamText = '';
-                streamAssistant.div = null;
-                streamAssistant.pre = null;
+                streamAssistant.div = null; streamAssistant.pre = null;
                 chatBox.scrollTop = chatBox.scrollHeight;
                 return;
             }
-
             const div = document.createElement('div');
-            div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass(msgForRender.role)}`;
+            div.className = 'p-3 rounded-lg max-w-[85%] ' + getRoleClass(msgForRender.role);
             div.innerHTML = content;
             bindAttachmentClicks(div);
-
-            try {
-                div.dataset.role = (msgForRender && msgForRender.role) ? String(msgForRender.role) : '';
-                div.dataset.content = (msgForRender && (msgForRender.content !== undefined)) ? String(msgForRender.content) : '';
-                div.dataset.ts = String((msgForRender && msgForRender._ts) ? msgForRender._ts : Date.now());
-                div.dataset.optimistic = (msgForRender && msgForRender._optimistic) ? '1' : '0';
-            } catch (e) {
-                // ignore
-            }
+            try { div.dataset.role = (msgForRender && msgForRender.role) ? String(msgForRender.role) : ''; div.dataset.content = (msgForRender && (msgForRender.content !== undefined)) ? String(msgForRender.content) : ''; div.dataset.ts = String((msgForRender && msgForRender._ts) ? msgForRender._ts : Date.now()); div.dataset.optimistic = (msgForRender && msgForRender._optimistic) ? '1' : '0'; } catch (e) {}
             chatBox.appendChild(div);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         function startAssistantStream(id) {
-            if (streamAssistant.active && streamAssistant.div) {
-                return;
-            }
-
+            if (streamAssistant.active && streamAssistant.div) return;
             const div = document.createElement('div');
-            div.className = `p-3 rounded-lg max-w-[85%] ${getRoleClass('assistant')}`;
-
+            div.className = 'p-3 rounded-lg max-w-[85%] ' + getRoleClass('assistant');
             const pre = document.createElement('pre');
             pre.className = 'mt-1';
             pre.textContent = '';
-
             div.innerHTML = '<strong>ASSISTANT:</strong> ';
             div.appendChild(pre);
             div.dataset.streamAssistant = '1';
-
-            streamAssistant.id = id;
-            streamAssistant.div = div;
-            streamAssistant.pre = pre;
-            streamAssistant.text = '';
-            streamAssistant.active = true;
-
+            streamAssistant.id = id; streamAssistant.div = div; streamAssistant.pre = pre; streamAssistant.text = ''; streamAssistant.active = true;
             chatBox.appendChild(div);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         function appendAssistantStream(id, delta) {
             if (!streamAssistant.active || streamAssistant.id !== id || !streamAssistant.pre) return;
-            const s = String(delta || '');
+            var s = String(delta || '');
             streamAssistant.text = String(streamAssistant.text || '') + s;
-            
-            // Use formatMessageBody to support real-time folding of code blocks
-            const formatted = formatMessageBody(streamAssistant.text, 'assistant');
-            
-            // If it contains details/summary (folded code block), we render it as HTML, otherwise as pre
-            if (formatted.includes('<details')) {
-                // Replace the pre element with a div to allow HTML rendering of details
+            var formatted = formatMessageBody(streamAssistant.text, 'assistant');
+            if (formatted.indexOf('<details') >= 0) {
                 if (streamAssistant.pre.tagName === 'PRE') {
-                    const newDiv = document.createElement('div');
+                    var newDiv = document.createElement('div');
                     newDiv.className = 'mt-1 text-sm leading-relaxed';
                     streamAssistant.div.replaceChild(newDiv, streamAssistant.pre);
                     streamAssistant.pre = newDiv;
                 }
                 streamAssistant.pre.innerHTML = formatted;
-            } else {
-                streamAssistant.pre.innerHTML = formatted;
-            }
-            
+            } else { streamAssistant.pre.innerHTML = formatted; }
             chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Real-time preview update during streaming
-            const extractedHtml = extractHtmlFromText(streamAssistant.text);
-            if (extractedHtml) {
-                renderArtifact(extractedHtml);
-            }
+            var extractedHtml = extractHtmlFromText(streamAssistant.text);
+            if (extractedHtml) renderArtifact(extractedHtml);
         }
 
         function endAssistantStream(id) {
             if (!streamAssistant.active || streamAssistant.id !== id) return;
             lastAssistantStreamText = String(streamAssistant.text || '');
-            
-            // Finalize the stream content with full formatting
             if (streamAssistant.div && streamAssistant.pre) {
-                const formatted = formatMessageBody(streamAssistant.text, 'assistant');
-                const extractedHtml = extractHtmlFromText(streamAssistant.text);
-                
-                let content = `<strong>ASSISTANT:</strong> `;
-                if (formatted.includes('<details')) {
-                    content += `<div class="mt-1 text-sm leading-relaxed whitespace-pre-wrap font-mono">${formatted}</div>`;
-                } else {
-                    content += `<pre class="mt-1 whitespace-pre-wrap font-mono">${formatted}</pre>`;
-                }
-                
-                if (extractedHtml) {
-                    content += `<div class="mt-2"><button onclick="renderArtifact(decodeURIComponent('${encodeURIComponent(extractedHtml)}'))" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded shadow-sm flex items-center gap-1">✨ Open in Preview</button></div>`;
-                }
-                
+                var formatted = formatMessageBody(streamAssistant.text, 'assistant');
+                var extractedHtml = extractHtmlFromText(streamAssistant.text);
+                var content = '<strong>ASSISTANT:</strong> ';
+                if (formatted.indexOf('<details') >= 0) { content += '<div class="mt-1 text-sm leading-relaxed whitespace-pre-wrap font-mono">' + formatted + '</div>'; }
+                else { content += '<pre class="mt-1 whitespace-pre-wrap font-mono">' + formatted + '</pre>'; }
+                if (extractedHtml) { content += '<div class="mt-2"><button onclick="renderArtifact(decodeURIComponent(\'' + encodeURIComponent(extractedHtml) + '\'))" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-3 py-1.5 rounded shadow-sm flex items-center gap-1">\u2728 Open in Preview</button></div>'; }
                 streamAssistant.div.innerHTML = content;
             }
-            
-            streamAssistant.active = false;
-            streamAssistant.id = null;
-            streamAssistant.text = '';
+            streamAssistant.active = false; streamAssistant.id = null; streamAssistant.text = '';
         }
 
         function getRoleClass(role) {
@@ -856,79 +868,54 @@
         }
 
         function modeToSelectValue(mode) {
-            const m = String(mode || '').toLowerCase();
-            if (['off','auto','minimal','low','medium','high','xhigh'].includes(m)) return m;
+            var m = String(mode || '').toLowerCase();
+            if (['off','auto','minimal','low','medium','high','xhigh'].indexOf(m) >= 0) return m;
             if (m === '0' || m === 'none' || m === '') return 'off';
-            if (m === '1') return 'low';
-            if (m === '2') return 'medium';
-            if (m === '3') return 'high';
-            return 'off';
-        }
-
-        function selectValueToLabel(v) {
-            const m = String(v || '').toLowerCase();
-            if (['off','auto','minimal','low','medium','high','xhigh'].includes(m)) return m;
-            if (m === '0') return 'off';
-            if (m === '1') return 'low';
-            if (m === '2') return 'medium';
-            if (m === '3') return 'high';
+            if (m === '1') return 'low'; if (m === '2') return 'medium'; if (m === '3') return 'high';
             return 'off';
         }
 
         function updateModes(modes) {
             try {
-                const r = (modes && modes.reasoning !== undefined) ? String(modes.reasoning) : 'off';
-                const v = (modes && modes.verbosity !== undefined) ? String(modes.verbosity) : 'off';
+                var r = (modes && modes.reasoning !== undefined) ? String(modes.reasoning) : 'off';
+                var v = (modes && modes.verbosity !== undefined) ? String(modes.verbosity) : 'off';
                 CURRENT_MODES = { reasoning: r, verbosity: v };
-
-                if (modesText) modesText.textContent = `reasoning=${r} verbosity=${v}`;
-
+                if (modesText) modesText.textContent = 'reasoning=' + r + ' verbosity=' + v;
                 if (reasoningSelect) reasoningSelect.value = modeToSelectValue(r);
                 if (verbositySelect) verbositySelect.value = modeToSelectValue(v);
-            } catch (e) {
-                // ignore
-            }
+            } catch (e) {}
         }
 
         function sendSetModes() {
             try {
                 if (!ws || ws.readyState !== WebSocket.OPEN) return;
-                const r = reasoningSelect ? reasoningSelect.value : null;
-                const v = verbositySelect ? verbositySelect.value : null;
+                var r = reasoningSelect ? reasoningSelect.value : null;
+                var v = verbositySelect ? verbositySelect.value : null;
                 ws.send(JSON.stringify({ type: 'set_modes', reasoning: r, verbosity: v }));
-            } catch (e) {
-                // ignore
-            }
+            } catch (e) {}
         }
 
         function updateStatus(status) {
-            const label = status.label;
-            const isBusy = status.busy;
-
+            var label = status.label;
+            var isBusy = status.busy;
             statusTextHeader.textContent = label;
             statusTextHeader.className = isBusy ? 'status-busy' : 'status-idle';
-            
             statusTextFooter.textContent = label;
             statusTextFooter.className = isBusy ? 'status-busy' : 'status-idle';
-
-            if (isBusy) {
-                busyIndicator.classList.remove('hidden');
-            } else {
-                busyIndicator.classList.add('hidden');
-            }
-
-            const w = status.workdir || '';
-            workdirTextHeader.textContent = w ? `workdir: ${w}` : '';
-
+            if (isBusy) busyIndicator.classList.remove('hidden');
+            else busyIndicator.classList.add('hidden');
+            var w = status.workdir || '';
+            workdirTextHeader.textContent = w ? 'workdir: ' + w : '';
             userInput.disabled = false;
             sendBtn.disabled = false;
         }
 
         function sendMessage() {
-            const text = userInput.value.trim();
+            var text = userInput.value.trim();
             if ((!text && !pendingAttachments.length) || sendBtn.disabled) return;
-
             ws.send(JSON.stringify({ type: 'user_input', text: text, attachments: pendingAttachments }));
+            if (text) { inputHistory.push(text); }
+            historyIndex = inputHistory.length;
             userInput.value = '';
             clearPendingAttachments();
         }
@@ -943,240 +930,196 @@
         }
 
         function submitHumanAsk() {
-            const text = humanAskInput.value;
+            var text = humanAskInput.value;
             ws.send(JSON.stringify({ type: 'human_ask_response', text: text, is_password: currentHumanAskIsPassword }));
             humanAskContainer.classList.add('hidden');
         }
 
         function escapeHtml(text) {
-            const div = document.createElement('div');
+            var div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
         function ansiToHtml(text) {
             if (!text) return '';
-            const ansiRegex = /\x1b\[([0-9;]*)m/g;
-            let match;
-            let lastIndex = 0;
-            let result = '';
-            let openSpans = 0;
-
+            var ansiRegex = /\x1b\[([0-9;]*)m/g;
+            var match; var lastIndex = 0; var result = ''; var openSpans = 0;
             while ((match = ansiRegex.exec(text)) !== null) {
                 result += escapeHtml(text.slice(lastIndex, match.index));
-                const codes = match[1].split(';');
-                
-                if (codes.includes('0') || match[1] === '') {
-                    while (openSpans > 0) {
-                        result += '</span>';
-                        openSpans--;
-                    }
+                var codes = match[1].split(';');
+                if (codes.indexOf('0') >= 0 || match[1] === '') {
+                    while (openSpans > 0) { result += '</span>'; openSpans--; }
                 } else {
-                    let styles = [];
-                    codes.forEach(code => {
-                        if (code === '90') {
-                            styles.push('color: #8e9196');
-                        } else if (code === '31') {
-                            styles.push('color: #ef4444');
-                        } else if (code === '32') {
-                            styles.push('color: #10b981');
-                        } else if (code === '33') {
-                            styles.push('color: #f59e0b');
-                        } else if (code === '34') {
-                            styles.push('color: #3b82f6');
-                        } else if (code === '35') {
-                            styles.push('color: #8b5cf6');
-                        } else if (code === '36') {
-                            styles.push('color: #06b6d4');
-                        } else if (code === '1') {
-                            styles.push('font-weight: bold');
-                        } else if (code === '3') {
-                            styles.push('font-style: italic');
-                        } else if (code === '4') {
-                            styles.push('text-decoration: underline');
-                        }
+                    var styles = [];
+                    codes.forEach(function(code) {
+                        if (code === '90') styles.push('color: #8e9196');
+                        else if (code === '31') styles.push('color: #ef4444');
+                        else if (code === '32') styles.push('color: #10b981');
+                        else if (code === '33') styles.push('color: #f59e0b');
+                        else if (code === '34') styles.push('color: #3b82f6');
+                        else if (code === '35') styles.push('color: #8b5cf6');
+                        else if (code === '36') styles.push('color: #06b6d4');
+                        else if (code === '1') styles.push('font-weight: bold');
+                        else if (code === '3') styles.push('font-style: italic');
+                        else if (code === '4') styles.push('text-decoration: underline');
                     });
-                    if (styles.length > 0) {
-                        result += `<span style="${styles.join('; ')}">`;
-                        openSpans++;
-                    }
+                    if (styles.length > 0) { result += '<span style="' + styles.join('; ') + '">'; openSpans++; }
                 }
                 lastIndex = ansiRegex.lastIndex;
             }
             result += escapeHtml(text.slice(lastIndex));
-            while (openSpans > 0) {
-                result += '</span>';
-                openSpans--;
-            }
+            while (openSpans > 0) { result += '</span>'; openSpans--; }
             return result;
         }
 
         function formatMessageBody(body, role) {
             if (!body) return '';
-            
-            const isAssistant = String(role).toLowerCase() === 'assistant';
-            if (!isAssistant || !body.includes('```')) {
-                return linkifyHtml(ansiToHtml(body));
-            }
-
-            // Split the body by markdown code blocks to process them safely
-            const parts = body.split(/(```(?:html|xml|xhtml|css|javascript|js|json|python|py|sh|bash)?[\s\S]*?```)/gi);
-            let result = '';
-
-            for (let part of parts) {
-                if (part.startsWith('```') && part.endsWith('```')) {
-                    const match = part.match(/```(?:html|xml|xhtml|css|javascript|js|json|python|py|sh|bash)?\s*([\s\S]*?)```/i);
+            var isAssistant = String(role).toLowerCase() === 'assistant';
+            if (!isAssistant || body.indexOf('```') < 0) { return linkifyHtml(ansiToHtml(body)); }
+            var parts = body.split(/(```(?:html|xml|xhtml|css|javascript|js|json|python|py|sh|bash)?[\s\S]*?```)/gi);
+            var result = '';
+            for (var pi = 0; pi < parts.length; pi++) {
+                var part = parts[pi];
+                if (part.indexOf('```') === 0 && part.slice(-3) === '```') {
+                    var match = part.match(/```(?:html|xml|xhtml|css|javascript|js|json|python|py|sh|bash)?\s*([\s\S]*?)```/i);
                     if (match) {
-                        const code = match[1];
-                        const langMatch = part.match(/```(\w+)/);
-                        const lang = langMatch ? langMatch[1] : 'code';
-                        
-                        // Escape the code content inside the details block so it doesn't render as HTML
-                        const escapedCode = escapeHtml(code.trim());
-                        
-                        result += `<details class="my-2 border border-gray-300 rounded bg-gray-50 overflow-hidden">
-                            <summary class="bg-gray-200 px-3 py-1.5 text-xs font-bold text-gray-700 cursor-pointer hover:bg-gray-300 select-none flex justify-between items-center">
-                                <span>📄 Source Code (${lang.toUpperCase()})</span>
-                                <span class="text-[10px] text-gray-500">クリックで展開</span>
-                            </summary>
-                            <pre class="p-3 text-xs font-mono overflow-auto max-h-[250px] bg-gray-900 text-gray-100 whitespace-pre">${escapedCode}</pre>
-                        </details>`;
-                    } else {
-                        result += linkifyHtml(ansiToHtml(part));
-                    }
-                } else {
-                    result += linkifyHtml(ansiToHtml(part));
-                }
+                        var code = match[1];
+                        var langMatch = part.match(/```(\w+)/);
+                        var lang = langMatch ? langMatch[1] : 'code';
+                        var escapedCode = escapeHtml(code.trim());
+                        result += '<details class="my-2 overflow-hidden" style="border:1px solid var(--border-color);border-radius:8px;background:var(--bg-surface-alt);">';
+                        result += '<summary class="px-3 py-1.5 text-xs font-bold cursor-pointer select-none flex justify-between items-center" style="background:var(--bg-surface);color:var(--text-secondary);border-bottom:1px solid var(--border-color);border-radius:7px 7px 0 0;">';
+                        result += '<span>\ud83d\udcc4 Source Code (' + lang.toUpperCase() + ')</span>';
+                        result += '<span class="text-[10px] text-gray-500">\u30af\u30ea\u30c3\u30af\u3067\u5c55\u958b</span>';
+                        result += '</summary>';
+                        result += '<pre class="p-3 text-xs font-mono overflow-auto max-h-[250px] whitespace-pre" style="background:#0f172a;color:#e2e8f0;">' + escapedCode + '</pre>';
+                        result += '</details>';
+                    } else { result += linkifyHtml(ansiToHtml(part)); }
+                } else { result += linkifyHtml(ansiToHtml(part)); }
             }
-
             return result;
         }
         function linkifyHtml(escapedHtml) {
-            // escapedHtml is already HTML-escaped; safe to inject as innerHTML
-            const urlRe = /\b(https?:\/\/[^\s<>\"']+|www\.[^\s<>\"']+)/gi;
-            return escapedHtml.replace(urlRe, (m) => {
-                const href = m.startsWith('www.') ? ('https://' + m) : m;
-                return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline break-all">${m}</a>`;
+            var urlRe = /\b(https?:\/\/[^\s<>\"']+|www\.[^\s<>\"']+)/gi;
+            return escapedHtml.replace(urlRe, function(m) {
+                var href = m.indexOf('www.') === 0 ? 'https://' + m : m;
+                return '<a href="' + href + '" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline break-all">' + m + '</a>';
             });
         }
 
-
-        userInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && e.ctrlKey) {
+        userInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); sendMessage(); return; }
+            if (e.key === 'ArrowUp' && e.ctrlKey && inputHistory.length) {
                 e.preventDefault();
-                sendMessage();
+                if (historyIndex > 0) { historyIndex--; }
+                else { historyIndex = inputHistory.length - 1; }
+                userInput.value = inputHistory[historyIndex];
+                return;
+            }
+            if (e.key === 'ArrowDown' && e.ctrlKey && inputHistory.length) {
+                e.preventDefault();
+                if (historyIndex < inputHistory.length - 1) { historyIndex++; }
+                else { historyIndex = inputHistory.length; userInput.value = ''; return; }
+                userInput.value = inputHistory[historyIndex];
+                return;
             }
         });
-
         sendBtn.onclick = sendMessage;
-
-        if (pickFilesBtn && fileInput) {
-            pickFilesBtn.onclick = () => fileInput.click();
-        }
+        if (pickFilesBtn && fileInput) { pickFilesBtn.onclick = function() { fileInput.click(); }; }
         if (fileInput) {
-            fileInput.addEventListener('change', async () => {
-                try {
-                    await uploadFiles(fileInput.files);
-                } catch (e) {
-                    alert('Upload failed: ' + e);
-                } finally {
-                    fileInput.value = '';
-                }
+            fileInput.addEventListener('change', async function() {
+                try { await uploadFiles(fileInput.files); } catch (e) { alert('Upload failed: ' + e); } finally { fileInput.value = ''; }
             });
         }
         if (dropZone) {
-            const prevent = (e) => { e.preventDefault(); e.stopPropagation(); };
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((evt) => {
-                dropZone.addEventListener(evt, prevent, false);
-            });
-            ['dragenter', 'dragover'].forEach((evt) => {
-                dropZone.addEventListener(evt, () => {
-                    dropZone.classList.add('border-blue-500', 'bg-blue-50');
-                }, false);
-            });
-            ['dragleave', 'drop'].forEach((evt) => {
-                dropZone.addEventListener(evt, () => {
-                    dropZone.classList.remove('border-blue-500', 'bg-blue-50');
-                }, false);
-            });
-            dropZone.addEventListener('drop', async (e) => {
-                try {
-                    const files = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : [];
-                    if (files.length) {
-                        await uploadFiles(files);
-                    }
-                } catch (err) {
-                    alert('Upload failed: ' + err);
-                }
+            var prevent = function(e) { e.preventDefault(); e.stopPropagation(); };
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function(evt) { dropZone.addEventListener(evt, prevent, false); });
+            ['dragenter', 'dragover'].forEach(function(evt) { dropZone.addEventListener(evt, function() { dropZone.classList.add('border-blue-500', 'bg-blue-50'); }, false); });
+            ['dragleave', 'drop'].forEach(function(evt) { dropZone.addEventListener(evt, function() { dropZone.classList.remove('border-blue-500', 'bg-blue-50'); }, false); });
+            dropZone.addEventListener('drop', async function(e) {
+                try { var files = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files : []; if (files.length) await uploadFiles(files); }
+                catch (err) { alert('Upload failed: ' + err); }
             }, false);
         }
-
-        try {
-            if (reasoningSelect) reasoningSelect.onchange = sendSetModes;
-            if (verbositySelect) verbositySelect.onchange = sendSetModes;
-        } catch (e) {
-            // ignore
-        }
-        
-        humanAskInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                submitHumanAsk();
-            }
-        });
-
+        try { if (reasoningSelect) reasoningSelect.onchange = sendSetModes; if (verbositySelect) verbositySelect.onchange = sendSetModes; } catch (e) {}
+        humanAskInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') submitHumanAsk(); });
         applyI18n(UI_LANG);
         connect();
 
         // Tool genre selection
         (function() {
-            const checkboxes = document.querySelectorAll('.genre-toggle');
-            let busy = false;
+            var checkboxes = document.querySelectorAll('.genre-toggle');
+            var busy = false;
 
-            function updateGenreUI() {
-                checkboxes.forEach(cb => cb.disabled = busy);
-            }
+            function updateGenreUI() { checkboxes.forEach(function(cb) { cb.disabled = busy; }); }
 
             function loadGenreState() {
-                fetch('/api/tool-genres')
-                    .then(r => r.json())
-                    .then(data => {
-                        busy = data.busy || false;
-                        data.genres.forEach(g => {
-                            const cb = document.querySelector(`.genre-toggle[data-genre="${g.key}"]`);
-                            if (cb) cb.checked = g.enabled;
-                        });
-                        updateGenreUI();
-                    })
-                    .catch(() => {});
+                fetch('/api/tool-genres').then(function(r) { return r.json(); }).then(function(data) {
+                    busy = data.busy || false;
+                    data.genres.forEach(function(g) {
+                        var cb = document.querySelector('.genre-toggle[data-genre="' + g.key + '"]');
+                        if (cb) cb.checked = g.enabled;
+                    });
+                    updateGenreUI();
+                }).catch(function() {});
             }
 
             function toggleGenre(genre, enabled) {
-                fetch('/api/tool-genres', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({genre, enabled})
-                }).catch(() => {});
+                fetch('/api/tool-genres', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({genre: genre, enabled: enabled}) }).catch(function() {});
             }
 
-            checkboxes.forEach(cb => {
-                cb.addEventListener('change', () => {
-                    toggleGenre(cb.dataset.genre, cb.checked);
-                });
+            checkboxes.forEach(function(cb) {
+                cb.addEventListener('change', function() { toggleGenre(cb.dataset.genre, cb.checked); });
             });
 
-            // Poll busy state every 2s
-            setInterval(() => {
-                fetch('/api/tool-genres')
-                    .then(r => r.json())
-                    .then(data => {
-                        const wasBusy = busy;
-                        busy = data.busy || false;
-                        if (busy !== wasBusy) updateGenreUI();
-                    })
-                    .catch(() => {});
+            setInterval(function() {
+                fetch('/api/tool-genres').then(function(r) { return r.json(); }).then(function(data) {
+                    var wasBusy = busy;
+                    busy = data.busy || false;
+                    if (busy !== wasBusy) updateGenreUI();
+                }).catch(function() {});
             }, 2000);
 
             loadGenreState();
         })();
+
+        // --- Dark Mode Toggle ---
+        function getPreferredTheme() {
+            try { return localStorage.getItem('uag-theme'); } catch (e) { return null; }
+        }
+        function setPreferredTheme(theme) {
+            try { localStorage.setItem('uag-theme', theme); } catch (e) {}
+        }
+        function applyTheme(theme) {
+            var isDark = theme === 'dark';
+            document.documentElement.classList.toggle('dark', isDark);
+            var btn = document.getElementById('dark-mode-btn');
+            if (btn) btn.textContent = isDark ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        }
+        function toggleDarkMode() {
+            var isDark = document.documentElement.classList.contains('dark');
+            var newTheme = isDark ? 'light' : 'dark';
+            applyTheme(newTheme);
+            setPreferredTheme(newTheme);
+        }
+        // Init theme from localStorage or system preference
+        (function() {
+            var saved = getPreferredTheme();
+            if (saved === 'dark' || saved === 'light') { applyTheme(saved); return; }
+            try {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) { applyTheme('dark'); }
+            } catch (e) {}
+        })();
+
+        // --- Settings Panel Toggle ---
+        function toggleSettingsPanel() {
+            var panel = document.getElementById('settings-panel');
+            var btn = document.getElementById('settings-toggle-btn');
+            if (!panel) return;
+            var isOpen = panel.classList.contains('open');
+            panel.classList.toggle('open');
+            if (btn) btn.classList.toggle('active');
+        }
         {% endraw %}
     </script>
 </body>

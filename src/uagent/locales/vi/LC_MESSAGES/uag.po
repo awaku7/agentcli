@@ -115,6 +115,7 @@ msgstr "[docs] cần có tên"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] lời nhắc thể loại khi khởi động = nhập số"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -124,6 +125,8 @@ msgstr ""
 "triển,16=iot,32=thực thi,64=bên ngoài,128=phương tiện,255=tất cả, Enter=bật "
 "tất cả):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Cơ bản (tập tin, môi trường, thời gian, lời nhắc, kỹ năng, bộ nhớ, điều "
@@ -705,6 +708,7 @@ msgstr "Khóa API NVIDIA."
 msgid "DeepSeek API key."
 msgstr "Khóa API DeepSeek."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1382,12 +1386,15 @@ msgstr "DeepSeek presence_penalty (mặc định: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (mặc định: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1817,6 +1824,7 @@ msgid ""
 " startup file (if any)."
 msgstr "非交互chế độ.不要启动 stdin 循环; 处理tệp khởi động(如果有)后thoát."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1826,9 +1834,11 @@ msgstr ""
 "triển,16=iot,32=thực thi,64=bên ngoài,128=phương tiện,255=tất cả). Bỏ qua "
 "lời nhắc thể loại tương tác khi được chỉ định."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "Bật gửi công cụ đến LLM (ghi đè biến môi trường UAGENT_USE_TOOL)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "Tắt gửi công cụ đến LLM (ghi đè biến môi trường UAGENT_USE_TOOL)."
 
@@ -2356,21 +2366,16 @@ msgid ""
 "- Failed to get info: %(err)s"
 msgstr "[MCP Servers]\\n- Failed to get info: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[快速指南]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- 聊天: nhậpthông báo并发送(GUI 中也可使用 Ctrl+Enter)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \\\\"
+msgstr "- Multiline: nhập một dòng chỉ là 'f' để vào chế độ nhiều dòng. \\\\"
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2675,10 +2680,8 @@ msgstr "đã tắt"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
-"khởi động hiện tại. Cập nhật không? [y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* hiện tại khi khởi động. [y] Cập nhật .env.sec với giá trị hiện tại / [s] Sử dụng giá trị .env.sec (áp dụng cho phiên làm việc) / [N] Bỏ qua:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2687,6 +2690,11 @@ msgid ""
 msgstr ""
 "[INFO] Nội dung .env.sec không khớp với các biến môi trường UAGENT_* khi "
 "khởi động hiện tại. Dùng `uag_envsec` để cập nhật."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] Đã áp dụng giá trị .env.sec vào phiên làm việc hiện tại."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

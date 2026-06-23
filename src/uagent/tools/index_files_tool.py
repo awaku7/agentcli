@@ -34,12 +34,12 @@ if not _ENABLE_SEMANTIC_SEARCH:
 else:
     TOOL_SPEC: dict[str, Any] = {
         "type": "function",
-        "tool_genre": "devel",
+        "tool_genre": "file",
         "function": {
             "name": "index_files",
             "description": _(
                 "tool.description",
-                default="Indexes specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful for prep...",
+                default="Indexes specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful for preparing documents for semantic queries.",
             ),
             "x_search_terms": _(
                 "x_search_terms",

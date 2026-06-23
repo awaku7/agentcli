@@ -40,6 +40,7 @@ from . import uagent_llm as llm_util
 from .image_session import build_image_session_message
 from .providers import util_providers as providers
 from . import util_tools as tools_util
+from .utils.paths import get_history_file_path
 from . import tools
 from .welcome import get_welcome_message
 from .gui_ansi import ansi_to_html, wrap_pre
@@ -53,6 +54,45 @@ except ImportError:
 
 
 ANSI_ESCAPE = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
+
+def _load_input_history() -> list[str]:
+    """Load input history from shared CLI history file."""
+    try:
+        p = get_history_file_path()
+        if p.exists():
+            result = []
+            for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
+                line = line.strip()
+                if line.startswith("+") and len(line) > 1:
+                    result.append(line[1:])
+            return result
+    except Exception:
+        pass
+    return []
+
+
+def _save_input_history(text: str) -> None:
+    """Append to the shared CLI history file."""
+    try:
+        t = text.replace("\r", "").strip()
+        if not t:
+            return
+        p = get_history_file_path()
+        p.parent.mkdir(parents=True, exist_ok=True)
+        # Read existing entries to avoid duplicates
+        existing = set()
+        if p.exists():
+            for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
+                line = line.strip()
+                if line.startswith("+") and len(line) > 1:
+                    existing.add(line[1:])
+        if t not in existing:
+            with open(p, "a", encoding="utf-8") as f:
+                f.write(f"+{t}\n")
+    except Exception:
+        pass
+
+
 
 app = FastAPI(title="uag Web")
 
@@ -182,10 +222,13 @@ class WebRoom:
                 except Exception:
                     pass
 
+            # Bootstrap input history from persisted file
+            input_history = _load_input_history()
             await websocket.send_json(
                 {
                     "type": "init",
                     "messages": msgs,
+                    "input_history": input_history,
                     "status": self.status,
                     "modes": {
                         "reasoning": tools_util.get_reasoning_mode(),
@@ -721,6 +764,7 @@ def run_agent_worker(
                 )
 
         room.history.append(user_msg)
+        _save_input_history(user_input)
         room.image_session = build_image_session_message(room.history, depname)
 
         # Inject Generative UI instructions into the system prompt for Web mode
@@ -931,9 +975,16 @@ async def get_tool_genres():
             {
                 "key": "basic",
                 "label": _(
-                    "Basic (file, env, time, prompts, skills, memory, tools control)"
+                    "Basic (env, time, prompts, skills, memory, tools control)"
                 ),
                 "enabled": _genre_enabled.get("basic", False),
+            },
+            {
+                "key": "file",
+                "label": _(
+                    "File (create, delete, read, write, search, zip, rename, hash, grep, list dir)"
+                ),
+                "enabled": _genre_enabled.get("file", False),
             },
             {
                 "key": "comm",
@@ -992,6 +1043,7 @@ async def set_tool_genre(req: Request):
         _set_devel_tools_enabled,
         _set_exec_tools_enabled,
         _set_external_tools_enabled,
+        _set_index_tools_enabled,
         _set_iot_tools_enabled,
         _set_media_tools_enabled,
         _set_office_tools_enabled,
@@ -1020,6 +1072,7 @@ async def set_tool_genre(req: Request):
         "exec": _set_exec_tools_enabled,
         "external": _set_external_tools_enabled,
         "media": _set_media_tools_enabled,
+        "index": _set_index_tools_enabled,
     }
 
     setter = setters.get(genre)
@@ -1173,6 +1226,7 @@ def init_web():
 
 
 def main():
+    sys.__stdout__.reconfigure(encoding='utf-8')
     import argparse
 
     from .i18n import _
@@ -1183,7 +1237,7 @@ def main():
         type=int,
         default=None,
         help=_(
-            "Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all). Skips the interactive genre prompt when specified."
+            "Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips the interactive genre prompt when specified."
         ),
     )
     parser.add_argument(
@@ -1199,6 +1253,12 @@ def main():
         action="store_false",
         default=None,
         help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
+    )
+    parser.add_argument(
+        "--host",
+        type=str,
+        default=None,
+        help=_("Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."),
     )
     web_args, _web_unknown = parser.parse_known_args()
 
@@ -1236,6 +1296,10 @@ def main():
         from .cli_startup import _apply_startup_tool_genre_mask
 
         _apply_startup_tool_genre_mask(web_args.tool_genre_mask)
+    else:
+        from .cli_startup import _apply_startup_tool_genre_mask
+
+        _apply_startup_tool_genre_mask(0)
 
     # Initialize runtime tools_enabled flag.
     # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
@@ -1248,6 +1312,14 @@ def main():
 
     init_web()
     import socket
+
+    # Resolve bind host: --host arg > UAGENT_WEB_HOST env > default 127.0.0.1
+    bind_host = "127.0.0.1"
+    _env_host = (env_get("UAGENT_WEB_HOST") or "").strip()
+    if _env_host:
+        bind_host = _env_host
+    if web_args.host:
+        bind_host = web_args.host
 
     def get_local_ip() -> str:
         try:
@@ -1262,10 +1334,10 @@ def main():
     local_ip = get_local_ip()
     port = 8000
     sys.__stdout__.write(_("Starting server on") + f" http://localhost:{port}\n")
-    if local_ip and local_ip != "127.0.0.1":
+    if bind_host == "0.0.0.0" and local_ip and local_ip != "127.0.0.1":
         sys.__stdout__.write(_("External URL:") + f" http://{local_ip}:{port}\n")
     sys.__stdout__.flush()
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(app, host=bind_host, port=port)
 
 
 if __name__ == "__main__":

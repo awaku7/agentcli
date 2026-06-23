@@ -113,12 +113,15 @@ msgstr "[docs] 需要名称"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] 启动类别提示 = 数字输入"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
 " Enter=enable all):"
 msgstr "输入数字之和（1=基本，2=通信，4=办公，8=开发，16=物联网，32=执行，64=外部，128=媒体，255=全部，回车=启用全部）："
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "基本（文件、环境、时间、提示、技能、内存、工具控制）"
 
@@ -669,6 +672,7 @@ msgstr "NVIDIA API 密钥。"
 msgid "DeepSeek API key."
 msgstr "DeepSeek API密钥。"
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API密钥。"
 
@@ -1323,12 +1327,15 @@ msgstr "DeepSeek presence_penalty（默认值：0.0）"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty（默认值：0.0）"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API密钥"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI基础URL（可选，默认：https://api.z.ai/api/paas/v4/）"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI模型名称（可选，默认：glm-5.2）"
 
@@ -1755,6 +1762,7 @@ msgid ""
 " startup file (if any)."
 msgstr "非交互模式。不要启动 stdin 循环；处理启动文件（如果有）后退出。"
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1762,9 +1770,11 @@ msgid ""
 msgstr ""
 "工具类型位掩码（1=基本，2=通信，4=办公，8=开发，16=物联网，32=执行，64=外部，128=媒体，255=全部）。指定时跳过交互式类型提示。"
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "启用向LLM发送工具（覆盖UAGENT_USE_TOOL环境变量）。"
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "禁用向LLM发送工具（覆盖UAGENT_USE_TOOL环境变量）。"
 
@@ -2279,19 +2289,16 @@ msgstr ""
 "[MCP 服务器]\n"
 "- 获取信息失败：%(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[快速指南]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- 聊天：输入消息并发送（GUI 中也可使用 Ctrl+Enter）。"
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr "- 多行：输入仅包含 'f' 的一行可进入多行模式（以 \"\"\"end 结束）。"
+msgstr "- 多行：输入仅包含\"f\"的行以进入多行模式。"
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2592,14 +2599,19 @@ msgstr "已禁用"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr "[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。是否更新？[y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] .env.sec 文件内容与当前启动的 UAGENT_* 环境变量不匹配。[y] 使用当前值更新 .env.sec / [s] 使用 .env.sec 的值（应用于当前会话）/ [N] 跳过："
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
 "environment variables. Use `uag_envsec` to update it."
 msgstr "[INFO] .env.sec 内容与当前启动时的 UAGENT_* 环境变量不一致。请使用 `uag_envsec` 进行更新。"
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] 已将 .env.sec 的值应用于当前会话。"
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

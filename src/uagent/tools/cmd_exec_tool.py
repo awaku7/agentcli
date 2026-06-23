@@ -16,7 +16,7 @@ LOAD_DISABLED_REASON = "This tool is available on Windows only."
 TOOL_SPEC: dict[str, Any] = {
     # Optional tool gating:
     # -1 = disabled (will not be registered/loaded)
-    "tool_level": 0 if os.name == "nt" else -1,
+    "tool_level": -1,
     "type": "function",
     "tool_genre": "exec",
     "function": {

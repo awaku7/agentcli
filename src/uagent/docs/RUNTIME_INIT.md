@@ -1,13 +1,13 @@
 # RUNTIME_INIT (shared startup initialization)
 
-This document describes the shared startup-initialization helpers exposed from `src/uagent/runtime_init.py`.
+This document describes the shared startup-initialization helpers exposed from `src/uagent/runtime/runtime_init.py`.
 
-`runtime_init.py` is a compatibility/re-export layer. The concrete implementations live in:
+`runtime/runtime_init.py` is a compatibility/re-export layer. The concrete implementations live in:
 
-- `runtime_workdir.py`
-- `runtime_banner.py`
-- `runtime_env.py`
-- `runtime_memory.py`
+- `src/uagent/runtime/runtime_workdir.py`
+- `src/uagent/runtime/runtime_banner.py`
+- `src/uagent/runtime/runtime_env.py`
+- `src/uagent/runtime/runtime_memory.py`
 
 What it covers (shared across CLI/Web/GUI):
 
@@ -94,7 +94,7 @@ Representative output:
   - `azure`: `base_url` + `api_version`
   - `openai` / `openrouter` / `grok` / `nvidia` / `bedrock` / `ollama` / `deepseek` / `zai` / `alibaba` / `moonshot`: `base_url`
   - `vertexai`: `project` + `location`
-- If `UAGENT_RESPONSES=1` is set and the selected provider is not one of `azure`, `openai`, `bedrock`, `openrouter`, or `ollama` (excluding `gemini`, `claude`, and `vertexai`), a warning is appended:
+- If `UAGENT_RESPONSES=1` is set and the selected provider is not one of `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `alibaba`, or `lmstudio` (excluding `gemini`, `claude`, and `vertexai`), a warning is appended:
   - `[WARN] UAGENT_RESPONSES=1 is set, but provider '...' does not support Responses API. Falling back to ChatCompletions.`
 - `[INFO] LLM streaming = enabled` or `disabled`
 

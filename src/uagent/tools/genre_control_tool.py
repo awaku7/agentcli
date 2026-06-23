@@ -27,6 +27,8 @@ _GENRE_LABELS: dict[str, str] = {
     "exec": "Execution",
     "external": "External",
     "media": "Media",
+    "file": "File",
+    "index": "Index",
 }
 
 
@@ -96,8 +98,16 @@ def _set_external_tools_enabled(enabled: bool) -> str:
     return _set_genre_tools_enabled("external", enabled)
 
 
+def _set_file_tools_enabled(enabled: bool) -> str:
+    return _set_genre_tools_enabled("file", enabled)
+
+
 def _set_media_tools_enabled(enabled: bool) -> str:
     return _set_genre_tools_enabled("media", enabled)
+
+
+def _set_index_tools_enabled(enabled: bool) -> str:
+    return _set_genre_tools_enabled("index", enabled)
 
 
 # Dummy TOOL_SPEC so this module gets loaded as a plugin

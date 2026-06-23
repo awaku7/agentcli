@@ -1,4 +1,4 @@
-"""DeepSeek-specific chat completion helper.
+"""DeepSeek/z.ai/MiMo-specific chat completion helper.
 
 Differences from the generic OpenAI-compatible path:
 - Thinking Mode: ``extra_body={"thinking": {"type": "enabled/disabled"}}``
@@ -12,6 +12,7 @@ Differences from the generic OpenAI-compatible path:
   but ``logprobs``/``top_logprobs`` cause a 400 error.  We never send them.
 - Default base_url is ``https://api.deepseek.com`` (no ``/v1`` suffix).
 - Default model is ``deepseek-v4-flash`` (``deepseek-chat`` is deprecated 2026-07-24).
+- Also supports z.ai (Zhipu AI) and MiMo (Xiaomi) with same reasoning_content model.
 """
 
 from __future__ import annotations
@@ -66,6 +67,29 @@ def _resolve_deepseek_effort(raw: str) -> str | None:
     if r == "auto":
         return None  # caller handles "auto" before calling this
     return _EFFORT_MAP.get(r)
+
+
+# ---------------------------------------------------------------------------
+# Provider-specific helpers
+# ---------------------------------------------------------------------------
+
+
+def _provider_env_prefix(provider: str) -> str:
+    """Return the env var prefix for the given provider."""
+    if provider == "zai":
+        return "UAGENT_ZAI"
+    if provider == "mimo":
+        return "UAGENT_MIMO"
+    return "UAGENT_DEEPSEEK"
+
+
+def _provider_label(provider: str) -> str:
+    """Return the display label for the given provider."""
+    if provider == "zai":
+        return "Z.AI"
+    if provider == "mimo":
+        return "MiMo"
+    return "DeepSeek"
 
 
 # ---------------------------------------------------------------------------
@@ -131,7 +155,7 @@ def build_deepseek_chat_kwargs(
     Returns ``(chat_kwargs, effort_used)`` where ``effort_used`` is the
     resolved reasoning_effort string (or None if thinking is disabled).
     """
-    _env_prefix = "UAGENT_ZAI" if provider == "zai" else "UAGENT_DEEPSEEK"
+    _env_prefix = _provider_env_prefix(provider)
     # Strip reasoning_content from incoming messages to avoid 400.
     # (Only relevant when reasoning_content was stored in tool-call turns.)
     clean_messages = _strip_reasoning_content_no_tool(call_messages)
@@ -525,7 +549,7 @@ def deepseek_chat_with_tools(
     stream: bool = True,
     provider: str = "deepseek",
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
-    """Run one DeepSeek/z.ai chat completion round.
+    """Run one DeepSeek/z.ai/MiMo chat completion round.
 
     Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
     """
@@ -533,8 +557,8 @@ def deepseek_chat_with_tools(
     tool_repair_attempted = False
 
     # Provider-specific env var prefix and display label
-    _env_prefix = "UAGENT_ZAI" if provider == "zai" else "UAGENT_DEEPSEEK"
-    _label = "Z.AI" if provider == "zai" else "DeepSeek"
+    _env_prefix = _provider_env_prefix(provider)
+    _label = _provider_label(provider)
 
     _reasoning = (env_get("UAGENT_REASONING") or "").strip().lower()
     _auto_user_text = (

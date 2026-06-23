@@ -18,7 +18,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "add_shared_memory",
         "description": _(
             "tool.description",
-            default="Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that...",
+            default="Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that it is unavailable.",
         ),
         "x_search_terms": _(
             "x_search_terms",

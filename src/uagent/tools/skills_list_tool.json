@@ -28,10 +28,10 @@
     "param.recur.description": "再帰的に探索するか（既定:true）"
   },
   "es": {
-    "param.include_invalid.description": "Si se debe incluir en la lista incluso si falla el análisis/verificación...",
+    "param.include_invalid.description": "Si se deben incluir habilidades que fallaron en el análisis o la validación (valor predeterminado: verdadero).",
     "param.root_dir.description": "Ruta de búsqueda de skills.",
-    "param.strict.description": "Si las advertencias deben tratarse como fallos durante la ver...",
-    "tool.description": "Devuelve una lista de habilidades bajo la raíz especificada (solo lee el contenido inicial) según la especifica...",
+    "param.strict.description": "Si se deben tratar las advertencias de validación como errores (valor predeterminado: falso).",
+    "tool.description": "Devuelve una lista de habilidades bajo la raíz especificada (solo lee el tema inicial) según la especificación de habilidades del agente (SKILL. md).",
     "x_search_terms": [
       "skills_list",
       "lista de skills",
@@ -43,8 +43,8 @@
   "fr": {
     "param.include_invalid.description": "S'il faut l'inclure dans la liste même si l'analyse/vérification de SKILL.",
     "param.root_dir.description": "Racine de recherche des compétences.",
-    "param.strict.description": "S'il faut traiter les avertissements comme des échecs lors de...",
-    "tool.description": "Renvoie une liste de compétences sous la racine spécifiée (lecture uniquement du contenu) basée sur la spécific...",
+    "param.strict.description": "S'il faut traiter les avertissements de validation comme des erreurs (par défaut : faux).",
+    "tool.description": "Renvoie une liste de compétences sous la racine spécifiée (lecture uniquement du contenu) en fonction de la spécification des compétences de l'agent (SKILL. md).",
     "x_search_terms": [
       "skills_list",
       "liste des compétences",
@@ -67,9 +67,9 @@
     "param.recur.description": "재귀적으로 검색(기본값: true)"
   },
   "de": {
-    "param.include_invalid.description": "Ob es in die Liste aufgenommen werden soll, auch wenn die Analyse/Verifiz...",
+    "param.include_invalid.description": "Ob Fähigkeiten einbezogen werden sollen, deren Analyse oder Validierung fehlgeschlagen ist (Standard: true).",
     "param.root_dir.description": "Suchwurzel für Skills.",
-    "param.strict.description": "Ob Warnungen bei der Spezifikationsprüfung als Fehler behande...",
+    "param.strict.description": "Ob Validierungswarnungen als Fehler behandelt werden sollen (Standard: false).",
     "tool.description": "Gibt anhand der Agent-Skills-Spezifikation (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -82,7 +82,7 @@
   "it": {
     "param.include_invalid.description": "Se includerlo nell'elenco anche se l'analisi/verifica di SKILL.",
     "param.root_dir.description": "Radice di ricerca degli skill.",
-    "param.strict.description": "Se trattare anche i warning come fallimenti durante la verifi...",
+    "param.strict.description": "Indica se trattare gli avvisi di convalida come errori (impostazione predefinita: false).",
     "tool.description": "Restituisce un elenco di skill sotto la radice specificata in base alla specifica Agent Skills (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -95,7 +95,7 @@
   "ru": {
     "param.include_invalid.description": "Включать ли в список, даже если разбор/проверка SKILL.",
     "param.root_dir.description": "Корень поиска навыков.",
-    "param.strict.description": "Считать ли предупреждения ошибками при проверке спецификации...",
+    "param.strict.description": "Считать ли предупреждения проверки ошибками (по умолчанию: false).",
     "tool.description": "Возвращает список навыков в указанном корне согласно спецификации Agent Skills (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -108,7 +108,7 @@
   "pt_BR": {
     "param.include_invalid.description": "Se deve incluí-lo na lista mesmo que a análise/verificação de SKILL.",
     "param.root_dir.description": "Raiz de busca dos skills.",
-    "param.strict.description": "Se avisos também devem ser tratados como falha durante a veri...",
+    "param.strict.description": "Se os avisos de validação devem ser tratados como erros (padrão: falso).",
     "tool.description": "Retorna uma lista de skills sob a raiz especificada com base na especificação Agent Skills (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -121,8 +121,8 @@
   "pt": {
     "param.include_invalid.description": "Se deve ser incluído na lista mesmo se a análise/verificação de SKILL.",
     "param.root_dir.description": "Rota de busca de habilidades.",
-    "param.strict.description": "Se os avisos devem ser tratados como falhas durante a verific...",
-    "tool.description": "Retorna uma lista de habilidades na raiz especificada (lê apenas frontmatter) com base na especificação de habi...",
+    "param.strict.description": "Se os avisos de validação devem ser tratados como erros (padrão: falso).",
+    "tool.description": "Retorna uma lista de habilidades na raiz especificada (lê apenas frontmatter) com base na especificação de habilidades do agente (SKILL. md).",
     "x_search_terms": [
       "skills_list",
       "lista de skills",
@@ -134,8 +134,8 @@
   "id": {
     "param.include_invalid.description": "Apakah tetap dimasukkan ke daftar meski parsing/verifikasi SKILL.",
     "param.root_dir.description": "Root pencarian skill.",
-    "param.strict.description": "Apakah warning juga dianggap sebagai kegagalan saat verifikas...",
-    "tool.description": "Mengembalikan daftar skill di bawah root yang ditentukan (membaca frontmatter saja) berdasarkan spesifikasi Age...",
+    "param.strict.description": "Apakah akan memperlakukan peringatan validasi sebagai kesalahan (default: false).",
+    "tool.description": "Mengembalikan daftar keterampilan di bawah root yang ditentukan (hanya dibaca frontmatter) berdasarkan spesifikasi Keterampilan Agen (SKILL.md).",
     "x_search_terms": [
       "skills_list",
       "daftar skill",
@@ -145,10 +145,10 @@
     "param.recur.description": "Cari secara rekursif (default: true)"
   },
   "vi": {
-    "param.include_invalid.description": "Có đưa nó vào danh sách hay không ngay cả khi phân tích cú pháp/xác minh...",
+    "param.include_invalid.description": "Liệu có bao gồm các kỹ năng không thể phân tích cú pháp hoặc xác thực hay không (mặc định: true).",
     "param.root_dir.description": "Lộ trình tìm kiếm kỹ năng.",
-    "param.strict.description": "Có coi cảnh báo là lỗi trong quá trình xác minh thông số kỹ t...",
-    "tool.description": "Trả về danh sách các kỹ năng trong gốc được chỉ định (chỉ đọc phần đầu) dựa trên thông số kỹ năng của đặc vụ (S...",
+    "param.strict.description": "Liệu có coi cảnh báo xác thực là lỗi hay không (mặc định: sai).",
+    "tool.description": "Trả về danh sách các kỹ năng theo gốc được chỉ định (chỉ đọc phần đầu) dựa trên thông số kỹ năng của đặc vụ (SKILL. md).",
     "x_search_terms": [
       "skills_list",
       "danh sách kỹ năng",
@@ -160,8 +160,8 @@
   "pl": {
     "param.include_invalid.description": "Czy umieścić go na liście, nawet jeśli analiza/weryfikacja SKILL.",
     "param.root_dir.description": "Trasa poszukiwania umiejętności.",
-    "param.strict.description": "Czy podczas weryfikacji specyfikacji traktować ostrzeżenia ja...",
-    "tool.description": "Zwraca listę umiejętności w określonym katalogu głównym (odczytuje tylko frontmatter) w oparciu o specyfikację...",
+    "param.strict.description": "Określa, czy traktować ostrzeżenia dotyczące sprawdzania poprawności jako błędy (domyślnie: fałsz).",
+    "tool.description": "Zwraca listę umiejętności w określonym katalogu głównym (odczytuje tylko frontmatter) w oparciu o specyfikację umiejętności agenta (SKILL.md).",
     "x_search_terms": [
       "skills_list",
       "lista umiejętności",
@@ -173,7 +173,7 @@
   "hi": {
     "param.include_invalid.description": "SKILL.",
     "param.root_dir.description": "कौशल खोज मार्ग.",
-    "param.strict.description": "क्या विनिर्देशन सत्यापन के दौरान चेतावनियों को विफलता माना जा...",
+    "param.strict.description": "क्या सत्यापन चेतावनियों को त्रुटियों के रूप में माना जाए (डिफ़ॉल्ट: गलत)।",
     "tool.description": "एजेंट कौशल विशिष्टता (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -186,7 +186,7 @@
   "ar": {
     "param.include_invalid.description": "ما إذا كان سيتم تضمينه في القائمة حتى في حالة فشل التحليل/التحقق من SKILL.",
     "param.root_dir.description": "جذر البحث عن المهارات.",
-    "param.strict.description": "ما إذا كان سيتم اعتبار التحذيرات حالات فشل أثناء التحقق من ال...",
+    "param.strict.description": "ما إذا كان سيتم التعامل مع تحذيرات التحقق من الصحة كأخطاء (الافتراضي: خطأ).",
     "tool.description": "إرجاع قائمة المهارات تحت الجذر المحدد (يقرأ المادة الأمامية فقط) بناءً على مواصفات مهارات الوكيل (SKILL.md).",
     "x_search_terms": [
       "skills_list",
@@ -199,8 +199,8 @@
   "sv": {
     "param.include_invalid.description": "Om du vill kan den tas med i listan även om tolkning/verifiering av SKILL.",
     "param.root_dir.description": "Sökväg för skills.",
-    "param.strict.description": "Om varningar ska betraktas som fel vid verifiering av specifi...",
-    "tool.description": "Returnerar en lista över skills under angiven rot (läser bara frontmatter) enligt Agent Skills-specifikationen...",
+    "param.strict.description": "Om valideringsvarningar ska behandlas som fel (standard: falskt).",
+    "tool.description": "Returnerar en lista över färdigheter under den angivna roten (läser endast frontmatter) baserat på Agent Skills spec (SKILL. md).",
     "x_search_terms": [
       "skills_list",
       "färdighetslista",
@@ -212,8 +212,8 @@
   "sw": {
     "param.include_invalid.description": "Je, iongezwe kwenye orodha hata kama uchanganuzi/uthibitisho wa SKILL.",
     "param.root_dir.description": "Mzizi wa kutafuta skills.",
-    "param.strict.description": "Je, maonyo yahesabiwe kama kushindwa wakati wa kuthibitisha m...",
-    "tool.description": "Hurejesha orodha ya skills chini ya root iliyobainishwa (husoma frontmatter pekee) kulingana na Agent Skills sp...",
+    "param.strict.description": "Iwapo itachukulia maonyo ya uthibitishaji kama makosa (chaguo-msingi: sivyo).",
+    "tool.description": "Hurejesha orodha ya ujuzi chini ya mzizi uliobainishwa (husoma mada ya mbele pekee) kulingana na sifa za Ujuzi wa Wakala (SKILL. md).",
     "x_search_terms": [
       "skills_list",
       "orodha ya skills",
@@ -225,8 +225,8 @@
   "nb": {
     "param.include_invalid.description": "Om du vil, kan den tas med i listen selv om tolkning/verifisering av SKILL.",
     "param.root_dir.description": "Søkesti for skills.",
-    "param.strict.description": "Om varsler skal behandles som feil ved spesifikasjonsverifise...",
-    "tool.description": "Returnerer en liste over skills under angitt rot (leser bare frontmatter) i henhold til Agent Skills-spesifikas...",
+    "param.strict.description": "Om valideringsadvarsler skal behandles som feil (standard: usann).",
+    "tool.description": "Returnerer en liste over ferdigheter under den angitte roten (leser kun frontmatter) basert på Agent Skills-spesifikasjoner (SKILL. md).",
     "x_search_terms": [
       "skills_list",
       "ferdighetsliste",
@@ -238,8 +238,8 @@
   "nl": {
     "param.include_invalid.description": "Ook opnemen in de lijst als het parsen/verifiëren van SKILL.",
     "param.root_dir.description": "Zoekroot voor skills.",
-    "param.strict.description": "Of waarschuwingen bij het verifiëren van de specificatie als...",
-    "tool.description": "Geeft een lijst van skills onder de opgegeven root terug (leest alleen frontmatter) op basis van de Agent Skill...",
+    "param.strict.description": "Of validatiewaarschuwingen als fouten moeten worden behandeld (standaard: false).",
+    "tool.description": "Retourneert een lijst met vaardigheden onder de opgegeven hoofdmap (leest alleen frontmatter) op basis van de specificatie van Agentvaardigheden (SKILL. md).",
     "x_search_terms": [
       "skills_list",
       "vaardigheden lijst",
@@ -251,8 +251,8 @@
   "fi": {
     "param.include_invalid.description": "Sisällytetäänkö se luetteloon, vaikka SKILL.",
     "param.root_dir.description": "Skillien hakujuuri.",
-    "param.strict.description": "Käsitelläänkö varoituksetkin epäonnistumisina määrityksen tar...",
-    "tool.description": "Palauttaa luettelon annettujen juurten alla olevista skilleistä (lukee vain frontmatterin) Agent Skills -määrit...",
+    "param.strict.description": "Käsitelläänkö vahvistusvaroitukset virheinä (oletus: false).",
+    "tool.description": "Palauttaa luettelon määritetyn juuren taidoista (lukee vain frontmatterin) agenttitaitojen spesifikaatioiden (SKILL. md) perusteella.",
     "x_search_terms": [
       "skills_list",
       "taitoluettelo",
@@ -264,7 +264,7 @@
   "cs": {
     "param.include_invalid.description": "Do seznamu zahrnout i položky, u nichž selže zpracování nebo ověření SKILL.",
     "param.root_dir.description": "Kořen pro vyhledávání skills.",
-    "param.strict.description": "Zda považovat varování při ověřování specifikace za chyby (vý...",
+    "param.strict.description": "Zda se mají varování ověření považovat za chyby (výchozí: false).",
     "tool.description": "Vrací seznam skills pod zadaným kořenem (čte pouze frontmatter) podle specifikace Agent Skills (SKILL.md).",
     "x_search_terms": [
       "skills_list",
@@ -277,7 +277,7 @@
   "uk": {
     "param.include_invalid.description": "Чи включати до списку, навіть якщо розбір або перевірка SKILL.",
     "param.root_dir.description": "Корінь пошуку skills.",
-    "param.strict.description": "Чи вважати попередження помилками під час перевірки специфіка...",
+    "param.strict.description": "Чи розглядати попередження перевірки як помилки (за замовчуванням: false).",
     "tool.description": "Повертає список skills у вказаному корені (читає лише frontmatter) згідно зі специфікацією Agent Skills (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -290,7 +290,7 @@
   "tr": {
     "param.include_invalid.description": "SKILL.",
     "param.root_dir.description": "Beceri arama kökü.",
-    "param.strict.description": "Özellik doğrulaması sırasında uyarılar da başarısızlık olarak...",
+    "param.strict.description": "Doğrulama uyarılarının hata olarak değerlendirilip değerlendirilmeyeceği (varsayılan: false).",
     "tool.description": "Agent Skills belirtimine (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -302,8 +302,8 @@
   },
   "th": {
     "param.include_invalid.description": "ไม่ว่าจะรวมไว้ในรายการหรือไม่ แม้ว่าการแยกวิเคราะห์/การตรวจสอบ SKILL.",
-    "param.root_dir.description": "รากสำหรับค้นหาทักษะ หากเว้นว่างหรือไม่ได้ระบุ จะใช้ UAGENT...",
-    "param.strict.description": "จะถือว่า warning เป็นความล้มเหลวระหว่างการตรวจสอบข้อกำหนดหรือ...",
+    "param.root_dir.description": "ไดเรกทอรีรากสำหรับการค้นหาทักษะ ใช้ UAGENT_SKILLS_DIRS (ระบบปฏิบัติการ",
+    "param.strict.description": "จะถือว่าคำเตือนการตรวจสอบความถูกต้องเป็นข้อผิดพลาดหรือไม่ (ค่าเริ่มต้น: false)",
     "tool.description": "ส่งคืนรายการทักษะภายใต้รูทที่ระบุ (อ่านเฉพาะส่วนหน้าเท่านั้น) ตามข้อมูลจำเพาะของทักษะตัวแทน (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -341,8 +341,8 @@
   },
   "bn": {
     "param.include_invalid.description": "SKILL.",
-    "param.root_dir.description": "skill অনুসন্ধানের root। ফাঁকা/অসুনির্দিষ্ট হলে UAGENT_SKIL...",
-    "param.strict.description": "specification verification-এর সময় warnings-কে ব্যর্থতা হিসেব...",
+    "param.root_dir.description": "এজেন্ট স্কিল ইনস্টল বা আপডেট করুন UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "বৈধতা সতর্কতাগুলিকে ত্রুটি হিসাবে বিবেচনা করবেন কিনা (ডিফল্ট: মিথ্যা)।",
     "tool.description": "Agent Skills স্পেসিফিকেশন (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -355,8 +355,8 @@
   "fa": {
     "param.include_invalid.description": "آیا حتی اگر تجزیه/اعتبارسنجی SKILL.",
     "param.root_dir.description": "ریشهٔ جست‌وجوی skillها.",
-    "param.strict.description": "آیا warningها هنگام اعتبارسنجی specification خطا محسوب شوند ی...",
-    "tool.description": "فهرستی از skillها را در زیر ریشهٔ مشخص‌شده برمی‌گرداند (فقط frontmatter را می‌خواند) بر پایهٔ مشخصات Agent Skil...",
+    "param.strict.description": "هشدارهای اعتبارسنجی به عنوان خطا در نظر گرفته شود (پیش‌فرض: نادرست).",
+    "tool.description": "فهرستی از مهارت‌ها را تحت ریشه مشخص شده (فقط برای خواندن مطالب اولیه) بر اساس مشخصات Agent Skills (SKILL. md) برمی‌گرداند.",
     "x_search_terms": [
       "skills_list",
       "فهرست مهارت‌ها",
@@ -368,7 +368,7 @@
   "mn": {
     "param.include_invalid.description": "SKILL.",
     "param.root_dir.description": "skill хайх root.Хоосон/заагаагүй бол UAGENT_SKILLS_DIRS (os.",
-    "param.strict.description": "specification verification хийх үед warnings-ийг алдаа гэж үз...",
+    "param.strict.description": "Баталгаажуулалтын анхааруулгыг алдаа гэж үзэх эсэх (өгөгдмөл: худал).",
     "tool.description": "Agent Skills-ийн specification (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -381,7 +381,7 @@
   "mr": {
     "param.include_invalid.description": "SKILL.",
     "param.root_dir.description": "skill शोधण्याचे root.",
-    "param.strict.description": "specification verification दरम्यान warnings ना अपयश मानायचे क...",
+    "param.strict.description": "सत्यापन चेतावणींना त्रुटी म्हणून मानायचे की नाही (डिफॉल्ट: असत्य).",
     "tool.description": "Agent Skills specification (SKILL.",
     "x_search_terms": [
       "skills_list",
@@ -390,5 +390,65 @@
       "skills list"
     ],
     "param.recur.description": "recursive शोध (default: true)"
+  },
+  "el": {
+    "param.include_invalid.description": "Εάν θα συμπεριληφθούν δεξιότητες που απέτυχαν στην ανάλυση ή την επικύρωση.",
+    "param.root_dir.description": "Κατάλογος ρίζας για αναζήτηση δεξιοτήτων. Χρησιμοποιεί το UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "Εάν θα αντιμετωπίζονται οι προειδοποιήσεις επικύρωσης ως σφάλματα (προεπιλογή: ψευδής).",
+    "tool.description": "Επιστρέφει μια λίστα δεξιοτήτων κάτω από την καθορισμένη ρίζα (μόνο για ανάγνωση πρώτης σημασίας) με βάση την προδιαγραφή Agent Skills (SKILL. md).",
+    "x_search_terms": [
+      "skills=lists. skill",
+      "skill management",
+      "skill file",
+      "SKILL.md",
+      "Αναδρομική αναζήτηση (προεπιλογή: true)",
+      "[σφάλμα εργαλείου] μη έγκυρα args"
+    ],
+    "param.recur.description": "[σφάλμα εργαλείου] skill_dir πρέπει να είναι μια μη κενή συμβολοσειρά [=#=m]. Φορτώνει το SKILL.md για ένα Agent Skill και επιστρέφει το βασικό του υλικό YAML και το σώμα του Markdown"
+  },
+  "he": {
+    "param.include_invalid.description": "האם לכלול מיומנויות שנכשלו בניתוח או אימות (ברירת מחדל: true).",
+    "param.root_dir.description": "ספריית שורש לחיפוש מיומנויות. משתמש ב-UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "האם להתייחס לאזהרות אימות כשגיאות (ברירת מחדל: false).",
+    "tool.description": "מחזירה רשימה של מיומנויות תחת השורש שצוין (קורא רק Frontmatter) בהתבסס על מפרט מיומנויות הסוכן (SKILL. md).",
+    "x_search_terms": [
+      "skills_list [=#==] [=#==] רשימה של מיומנויות [=#=#] רשימת מיומנויות [=# מיומנויות] [=# ניהול מיומנויות]",
+      "SKILL.md",
+      "חפש רקורסיבית (ברירת מחדל: true)",
+      "[שגיאה בכלי] לא חוקיים",
+      "[שגיאת כלי] skill_dir חייבת להיות מחרוזת לא ריקה",
+      "ספריית המיומנות (חייבת להכיל SKILL.md"
+    ],
+    "param.recur.description": "טוען את ה-Skill של ה-Skill ו-Down)."
+  },
+  "hu": {
+    "param.include_invalid.description": "Be kell-e venni azokat a készségeket, amelyek elemzése vagy érvényesítése sikertelen (alapértelmezett: igaz).",
+    "param.root_dir.description": "Gyökérkönyvtár a készségek kereséséhez. UAGENT_SKILLS_DIRS-t használ (os.",
+    "param.strict.description": "Az érvényesítési figyelmeztetéseket hibaként kell-e kezelni (alapértelmezett: hamis).",
+    "tool.description": "A megadott gyökér alatti készségek listáját adja vissza (csak a frontmattert olvassa el) az Agent Skills specifikációja alapján (SKILL. md).",
+    "x_search_terms": [
+      "skill_list = készségkezelési fájl",
+      "ügynöki készséglista készségkezelés #=]",
+      "SKILL.md",
+      "Rekurzív keresés (alapértelmezett: true)",
+      "[eszközhiba] érvénytelen argumentumok",
+      "[tool error] A skill_dir karakterláncnak nem üresnek kell lennie"
+    ],
+    "param.recur.description": "A készségkönyvtárnak (tartalmaznia kell a SKILL.md értéket a SKILLL és az A/Skilldown)"
+  },
+  "ro": {
+    "param.include_invalid.description": "Dacă se includ abilitățile care nu au reușit analizarea sau validarea (implicit: adevărat).",
+    "param.root_dir.description": "Director rădăcină pentru căutarea de aptitudini. Utilizează UAGENT_SKILLS_DIRS (os.",
+    "param.strict.description": "Dacă se tratează avertismentele de validare ca erori (implicit: fals).",
+    "tool.description": "Returnează o listă de abilități sub rădăcina specificată (citește doar prima pagină) pe baza specificațiilor Agent Skills (SKILL. md).",
+    "x_search_terms": [
+      "skill_list [=#==] skills_list [=#==] skill management list [=kills [kills] [=] liste de abilități [=kills [kill].",
+      "fișierul de abilități",
+      "SKILL.md",
+      "Căutați recursiv (implicit: true)",
+      "[eroare instrument] argumente invalide",
+      "[eroare instrument] skill_dir trebuie să fie un șir negoal"
+    ],
+    "param.recur.description": "Directorul de abilități (trebuie să conțină SKILL= the.m = SKILL.m). Skill și returnează conținutul YAML și corpul Markdown"
   }
 }

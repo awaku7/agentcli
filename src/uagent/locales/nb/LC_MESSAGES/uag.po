@@ -118,6 +118,7 @@ msgstr "[docs] navn er påkrevd"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] oppstarts-genreprompt = numerisk inndata"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -127,6 +128,8 @@ msgstr ""
 "(1=grunnleggende,2=kommunikasjon,4=kontor,8=utvikling,16=iot,32=utkjøring,64=ekstern,128=media,255=alle,"
 " Enter=aktiver alle):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Grunnleggende (fil, miljø, tid, ledetekster, ferdigheter, minne, "
@@ -713,6 +716,7 @@ msgstr "NVIDIA API-nøkkel."
 msgid "DeepSeek API key."
 msgstr "DeepSeek API-nøkkel."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1382,12 +1386,15 @@ msgstr "DeepSeek presence_penalty (standard: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (standard: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1821,6 +1828,7 @@ msgstr ""
 "Ikke-interaktiv modus. Ikke start stdin-loopen; avslutt etter at "
 "oppstartsfilen (hvis noen) er behandlet."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1830,9 +1838,11 @@ msgstr ""
 "(1=grunnleggende,2=kommunikasjon,4=kontor,8=utvikling,16=iot,32=utkjøring,64=ekstern,128=media,255=alle)."
 " Hopper over den interaktive sjangerforespørselen når spesifisert."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "Aktiver verktøysending til LLM (overstyrer UAGENT_USE_TOOL env var)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Deaktiver verktøysending til LLM (overstyrer UAGENT_USE_TOOL env var)."
@@ -2370,6 +2380,9 @@ msgstr ""
 "[MCP-servere]\n"
 "- Kunne ikke hente informasjon: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Hurtigguide]"
@@ -2377,15 +2390,9 @@ msgstr "[Hurtigguide]"
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr ""
-"- Chat: skriv en melding og send (GUI: Ctrl+Enter er også tilgjengelig)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Flerradig: skriv en linje som bare er 'f' for å gå inn i flerradig modus "
-"(avslutt med \"\"\"end)."
+"- Multiline: skriv inn en linje som bare er 'f' for å gå inn i "
+"flerlinjemodus.- Chat: skriv en melding og send (GUI: Ctrl+Enter er også "
+"tilgjengelig).(avslutt med \"\"\"end)."
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2697,10 +2704,8 @@ msgstr "deaktivert"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] .env.sec-innholdet samsvarer ikke med de gjeldende UAGENT_* "
-"miljøvariablene ved oppstart. Oppdatere det? [j/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] .env.sec-innholdet samsvarer ikke med gjeldende oppstartsvariabler for UAGENT_* i miljøet. [y] Oppdater .env.sec med gjeldende verdier / [s] Bruk .env.sec-verdier (bruk på økten) / [N] Hopp over:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2709,6 +2714,11 @@ msgid ""
 msgstr ""
 "[INFO] .env.sec-innholdet samsvarer ikke med de gjeldende UAGENT_* "
 "miljøvariablene ved oppstart. Bruk `uag_envsec` for å oppdatere det."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] Brukte .env.sec-verdier på gjeldende økt."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

@@ -26,8 +26,8 @@
     ]
   },
   "es": {
-    "err.path_empty": "[error de file_exists] la ruta...",
-    "param.path.description": "La ruta del archivo o directorio cuya existencia desea comproba...",
+    "err.path_empty": "[error de archivo_existe] está vacío.",
+    "param.path.description": "Ruta del archivo o directorio para verificar su existencia (admite ~).",
     "tool.description": "Comprueba si existe un archivo o directorio en la ruta especificada y, si existe, devuelve su tipo, tamaño y hora de modificación.",
     "x_search_terms": [
       "file_exists",
@@ -37,8 +37,8 @@
     ]
   },
   "fr": {
-    "err.path_empty": "[erreur file_exists] le chemin...",
-    "param.path.description": "Chemin du fichier ou du répertoire dont vous souhaitez vérifier...",
+    "err.path_empty": "[erreur file_exists] est vide",
+    "param.path.description": "Chemin du fichier ou du répertoire dont l'existence est vérifiée (prend en charge ~).",
     "tool.description": "Vérifie si un fichier ou un répertoire existe au chemin spécifié et, le cas échéant, renvoie son type, sa taille et son heure de modification.",
     "x_search_terms": [
       "file_exists",
@@ -59,8 +59,8 @@
     ]
   },
   "de": {
-    "err.path_empty": "[file_exists-Fehler] Der Pfad...",
-    "param.path.description": "Pfad der Datei oder des Verzeichnisses, dessen Existenz Sie prü...",
+    "err.path_empty": "[file_exists error] Pfad ist leer",
+    "param.path.description": "[file_exists] Pfad ist leer.",
     "tool.description": "Prüft, ob eine Datei oder ein Verzeichnis am angegebenen Pfad vorhanden ist, und gibt, falls ja, Typ, Größe und Änderungszeit zurück.",
     "x_search_terms": [
       "file_exists",
@@ -70,8 +70,8 @@
     ]
   },
   "it": {
-    "err.path_empty": "[errore file_exists] il percor...",
-    "param.path.description": "Il percorso del file o della directory di cui vuoi verificare l...",
+    "err.path_empty": "Il percorso [file_exists error] è vuoto",
+    "param.path.description": "Il percorso massimo da restituire (applicato dopo la decodifica/estrazione). file o directory di cui verificare l'esistenza (supporta ~).",
     "tool.description": "Controlla se esiste un file o una directory nel percorso specificato e, in caso affermativo, restituisce tipo, dimensione e ora di modifica.",
     "x_search_terms": [
       "file_exists",
@@ -82,7 +82,7 @@
   },
   "ru": {
     "err.path_empty": "[ошибка file_exists] путь пуст",
-    "param.path.description": "Путь к файлу или каталогу, существование которого вы хотите про...",
+    "param.path.description": "Путь к файлу или каталогу, существование которого необходимо проверить (поддерживает ~).",
     "tool.description": "Проверяет, существует ли файл или каталог по указанному пути, и, если да, возвращает его тип, размер и время изменения.",
     "x_search_terms": [
       "file_exists",
@@ -92,8 +92,8 @@
     ]
   },
   "pt_BR": {
-    "err.path_empty": "[erro file_exists] o caminho e...",
-    "param.path.description": "O caminho do arquivo ou diretório cuja existência você deseja v...",
+    "err.path_empty": "[erro_existe] caminho está vazio",
+    "param.path.description": "Caminho do arquivo ou diretório a ser verificado (suporta ~).",
     "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e, se existir, retorna seu tipo, tamanho e hora de modificação.",
     "x_search_terms": [
       "file_exists",
@@ -103,8 +103,8 @@
     ]
   },
   "pt": {
-    "err.path_empty": "[erro file_exists] o caminho e...",
-    "param.path.description": "O caminho do arquivo ou diretório cuja existência você deseja v...",
+    "err.path_empty": "[erro_existe] caminho está vazio",
+    "param.path.description": "Caminho do arquivo ou diretório a ser verificado (suporta ~).",
     "tool.description": "Verifica se um arquivo ou diretório existe no caminho especificado e, se existir, retorna seu tipo, tamanho e hora de modificação.",
     "x_search_terms": [
       "file_exists",
@@ -115,7 +115,7 @@
   },
   "id": {
     "err.path_empty": "[file_exists error] path kosong",
-    "param.path.description": "Jalur file atau direktori yang ingin Anda periksa keberadaannya...",
+    "param.path.description": "Jalur file atau direktori untuk diperiksa keberadaannya (mendukung ~).",
     "tool.description": "Periksa apakah file atau direktori ada di jalur yang ditentukan dan, jika ada, kembalikan jenis, ukuran, serta waktu modifikasinya.",
     "x_search_terms": [
       "file_exists",
@@ -126,7 +126,7 @@
   },
   "vi": {
     "err.path_empty": "[lỗi file_exists] đường dẫn trống",
-    "param.path.description": "Đường dẫn của tệp hoặc thư mục bạn muốn kiểm tra sự tồn tại (~...",
+    "param.path.description": "Con trỏ JSON RFC 6901 tùy chọn (ví dụ: /items/0/title) được sử dụng khi trích xuất=json.",
     "tool.description": "Kiểm tra xem tệp hoặc thư mục có tồn tại ở đường dẫn đã chỉ định hay không và, nếu có, trả về loại, kích thước và thời gian sửa đổi.",
     "x_search_terms": [
       "file_exists",
@@ -136,8 +136,8 @@
     ]
   },
   "pl": {
-    "err.path_empty": "[błąd file_exists] ścieżka jes...",
-    "param.path.description": "Ścieżka pliku lub katalogu, który chcesz sprawdzić pod kątem is...",
+    "err.path_empty": "[błąd_pliku] ścieżka jest pusta",
+    "param.path.description": "Ścieżka pliku lub katalogu do sprawdzenia pod kątem istnienia (obsługuje",
     "tool.description": "Sprawdza, czy plik lub katalog istnieje pod podaną ścieżką i, jeśli tak, zwraca jego typ, rozmiar oraz czas modyfikacji.",
     "x_search_terms": [
       "file_exists",
@@ -148,7 +148,7 @@
   },
   "hi": {
     "err.path_empty": "[file_exists त्रुटि] पथ खाली है",
-    "param.path.description": "फ़ाइल या निर्देशिका का पथ जिसे आप अस्तित्व के लिए जांचना चाहते...",
+    "param.path.description": "जांचने के लिए फ़ाइल या निर्देशिका का पथ अस्तित्व के लिए (~)",
     "tool.description": "जाँचता है कि कोई फ़ाइल या निर्देशिका निर्दिष्ट पथ पर मौजूद है या नहीं, और यदि मौजूद है, तो उसका प्रकार, आकार और संशोधन समय लौटाता है।",
     "x_search_terms": [
       "file_exists",
@@ -170,7 +170,7 @@
   },
   "sv": {
     "err.path_empty": "[file_exists error] sökvägen är tom",
-    "param.path.description": "Sökvägen till filen eller katalogen som du vill kontrollera (~...",
+    "param.path.description": "Sökväg till filen eller katalogen för att kontrollera existens (stöder ~).",
     "tool.description": "Kontrollerar om en fil eller katalog finns på den angivna sökvägen och returnerar, om så är fallet, typ, storlek och ändringstid.",
     "x_search_terms": [
       "file_exists",
@@ -181,7 +181,7 @@
   },
   "sw": {
     "err.path_empty": "[file_exists error] path iko tupu",
-    "param.path.description": "Njia ya faili au saraka unayotaka kuangalia uwepo wake (~ pia i...",
+    "param.path.description": "Njia ya faili au saraka ya kuangalia kuwepo (inaauni ~).",
     "tool.description": "Hukagua kama faili au saraka ipo katika njia iliyobainishwa na, ikiwa ipo, hurudisha aina yake, ukubwa na muda wa mwisho kubadilishwa.",
     "x_search_terms": [
       "file_exists",
@@ -192,7 +192,7 @@
   },
   "nb": {
     "err.path_empty": "[file_exists error] stien er tom",
-    "param.path.description": "Stien til filen eller katalogen du vil sjekke om finnes (~ kan...",
+    "param.path.description": "Banen til filen eller katalogen for å se etter eksistens (støtter ~).",
     "tool.description": "Sjekker om en fil eller katalog finnes på den angitte stien og returnerer, hvis den gjør det, type, størrelse og endringstid.",
     "x_search_terms": [
       "file_exists",
@@ -203,7 +203,7 @@
   },
   "nl": {
     "err.path_empty": "[file_exists fout] pad is leeg",
-    "param.path.description": "Pad van het bestand of de map waarvan u wilt controleren of dez...",
+    "param.path.description": "Pad van het bestand of de map die moet worden gecontroleerd op bestaan ​​(ondersteunt ~).",
     "tool.description": "Controleert of een bestand of map bestaat op het opgegeven pad en geeft, als dat zo is, het type, de grootte en de wijzigingstijd terug.",
     "x_search_terms": [
       "file_exists",
@@ -225,7 +225,7 @@
   },
   "cs": {
     "err.path_empty": "[file_exists chyba] cesta je prázdná",
-    "param.path.description": "Cesta k souboru nebo adresáři, u kterého chcete ověřit existenc...",
+    "param.path.description": "Cesta k souboru nebo adresáři pro kontrolu existence (podporuje ~).",
     "tool.description": "Zkontroluje, zda soubor nebo adresář na zadané cestě existuje, a pokud ano, vrátí jeho typ, velikost a čas změny.",
     "x_search_terms": [
       "file_exists",
@@ -236,7 +236,7 @@
   },
   "uk": {
     "err.path_empty": "[file_exists помилка] шлях порожній",
-    "param.path.description": "Шлях до файла або каталогу, існування якого ви хочете перевірит...",
+    "param.path.description": "Шлях до файлу або каталогу для перевірки існування (підтримує ~).",
     "tool.description": "Перевіряє, чи існує файл або каталог за вказаним шляхом, і, якщо так, повертає його тип, розмір і час зміни.",
     "x_search_terms": [
       "file_exists",
@@ -247,7 +247,7 @@
   },
   "tr": {
     "err.path_empty": "[file_exists error] yolu boş",
-    "param.path.description": "Varlığını kontrol etmek istediğiniz dosya veya dizinin yolu (~...",
+    "param.path.description": "Varlığı kontrol edilecek dosya veya dizinin yolu (~ destekler).",
     "tool.description": "Belirtilen yolda bir dosya veya dizinin bulunup bulunmadığını kontrol eder ve varsa türünü, boyutunu ve değiştirilme zamanını döndürür.",
     "x_search_terms": [
       "file_exists",
@@ -258,7 +258,7 @@
   },
   "th": {
     "err.path_empty": "[file_exists error] พาธว่างเปล่า",
-    "param.path.description": "พาธของไฟล์หรือไดเรกทอรีที่ต้องการตรวจสอบว่ามีอยู่หรือไม่ (~ ใช้...",
+    "param.path.description": "เส้นทางของไฟล์หรือไดเร็กทอรีเพื่อตรวจสอบการมีอยู่ (รองรับ ~)",
     "tool.description": "ตรวจสอบว่าไฟล์หรือไดเรกทอรีมีอยู่ในพาธที่ระบุหรือไม่ และหากมี จะส่งคืนชนิด ขนาด และเวลาแก้ไข",
     "x_search_terms": [
       "file_exists",
@@ -291,7 +291,7 @@
   },
   "bn": {
     "err.path_empty": "[file_exists error] path ফাঁকা",
-    "param.path.description": "যে ফাইল বা ডিরেক্টরির অস্তিত্ব পরীক্ষা করতে চান তার পথ (~-ও ব্য...",
+    "param.path.description": "অস্তিত্ব পরীক্ষা করার জন্য ফাইল বা ডিরেক্টরির পাথ (~ সমর্থন করে)।",
     "tool.description": "নির্দিষ্ট পথে কোনো ফাইল বা ডিরেক্টরি আছে কি না পরীক্ষা করে, থাকলে তার ধরন, আকার এবং পরিবর্তনের সময় ফেরত দেয়।",
     "x_search_terms": [
       "file_exists",
@@ -302,7 +302,7 @@
   },
   "fa": {
     "err.path_empty": "[خطای file_exists] مسیر خالی است",
-    "param.path.description": "مسیر فایل یا پوشه‌ای که می‌خواهید وجود آن را بررسی کنید (~ هم ق...",
+    "param.path.description": "مسیر فایل یا دایرکتوری برای بررسی وجود (~ پشتیبانی می کند).",
     "tool.description": "بررسی می‌کند که آیا یک فایل یا پوشه در مسیر مشخص‌شده وجود دارد یا نه و اگر وجود داشته باشد، نوع، اندازه و زمان تغییر آن را برمی‌گرداند.",
     "x_search_terms": [
       "file_exists",
@@ -313,7 +313,7 @@
   },
   "mn": {
     "err.path_empty": "[file_exists error] зам хоосон байна",
-    "param.path.description": "Байгаа эсэхийг нь шалгах файл эсвэл директорыг зам (~-г мөн аши...",
+    "param.path.description": "Байгаа эсэхийг шалгах файл эсвэл лавлах зам (~ дэмждэг).",
     "tool.description": "Заасан зам дээр файл эсвэл директор байгаа эсэхийг шалгаж, байвал төрлийг, хэмжээг нь, өөрчлөгдсөн цагийг нь буцаана.",
     "x_search_terms": [
       "file_exists",
@@ -331,6 +331,66 @@
       "file exists",
       "पथ तपासा",
       "फाइल तपासा"
+    ]
+  },
+  "el": {
+    "err.path_empty": "Η διαδρομή [file_exists error] είναι κενή",
+    "param.path.description": "Η διαδρομή του αρχείου ή του καταλόγου για έλεγχο ύπαρξης (υποστηρίζει ~).",
+    "tool.description": "Ελέγχει εάν ένα αρχείο ή κατάλογος υπάρχει στην καθορισμένη διαδρομή και, εάν υπάρχει, επιστρέφει τον τύπο, το μέγεθος και τον χρόνο τροποποίησης.",
+    "x_search_terms": [
+      "υπάρχει",
+      "αρχείο ελέγχου",
+      "διαδρομή ελέγχου",
+      "存在確認",
+      "αρχείο comprobar",
+      "επαληθευτής fichier",
+      "존재 확인",
+      "έλεγχος της λειτουργίας Exception κατά τη διάρκεια της λειτουργίας Exception"
+    ]
+  },
+  "he": {
+    "err.path_empty": "[file_exists error] הנתיב ריק",
+    "param.path.description": "הנתיב של הקובץ או הספרייה לבדיקת קיומם (תומך ב-~).",
+    "tool.description": "בודק אם קובץ או ספרייה קיימים בנתיב שצוין, ואם כן, מחזיר את הסוג, הגודל וזמן השינוי שלו.",
+    "x_search_terms": [
+      "קיים",
+      "קובץ בדיקה",
+      "נתיב בדיקה",
+      "存在確認",
+      "comprobar archivo",
+      "מוודא fichier",
+      "존재 확인",
+      "провайлть провайлть בפעולה"
+    ]
+  },
+  "hu": {
+    "err.path_empty": "A fájl vagy könyvtár elérési útja a létezés ellenőrzéséhez (a ~-t támogatja).",
+    "param.path.description": "Ellenőrzi, hogy létezik-e fájl vagy könyvtár a megadott elérési úton, és ha igen, visszaadja annak típusát, méretét és módosítási idejét.",
+    "tool.description": "Ellenőrzi, hogy létezik-e fájl vagy könyvtár a megadott elérési úton, és ha igen, visszaadja annak típusát, méretét és módosítási idejét.",
+    "x_search_terms": [
+      "ellenőrző fájl",
+      "ellenőrzési elérési út",
+      "存在確認",
+      "comprobar archívum",
+      "ellenőrzési adatlap",
+      "존재 확인",
+      "проверить ф. gr#ep művelet során fordul elő.",
+      "Érvénytelen regex minta."
+    ]
+  },
+  "ro": {
+    "err.path_empty": "[file_exists error] calea este goală",
+    "param.path.description": "Calea fișierului sau a directorului pentru a verifica existența (suportă ~).",
+    "tool.description": "Verifică dacă un fișier sau un director există la calea specificată și, dacă există, returnează tipul, dimensiunea și timpul de modificare.",
+    "x_search_terms": [
+      "există",
+      "fișier de verificare",
+      "cale de verificare",
+      "存在確認",
+      "verifica fișier",
+      "verificare fișier",
+      "존재 확인",
+      "проверить проверить s-a produs în timpul operațiunii greve"
     ]
   }
 }

@@ -119,6 +119,7 @@ msgstr "[docs] naam is vereist"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] opstartgenreprompt = numerieke invoer"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -128,6 +129,8 @@ msgstr ""
 "(1=basis,2=communicatie,4=kantoor,8=ontwikkeling,16=iot,32=uitvoering,64=extern,128=media,255=alle,"
 " Enter=alles inschakelen):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Basis (bestand, omgeving, tijd, aanwijzingen, vaardigheden, geheugen, "
@@ -711,6 +714,7 @@ msgstr "NVIDIA-API-sleutel."
 msgid "DeepSeek API key."
 msgstr "DeepSeek API-sleutel."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1391,12 +1395,15 @@ msgstr "DeepSeek presence_penalty (standaard: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (standaard: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1829,6 +1836,7 @@ msgstr ""
 "Niet-interactieve modus. Start de STDIN-lus niet; sluit af na het verwerken "
 "van het opstartbestand (indien aanwezig)."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1838,11 +1846,13 @@ msgstr ""
 "(1=basis,2=communicatie,4=kantoor,8=ontwikkeling,16=iot,32=uitvoering,64=extern,128=media,255=alle)."
 " Slaat de interactieve genreprompt over wanneer gespecificeerd."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Schakel het verzenden van gereedschap naar LLM in (overschrijft de "
 "omgevingsvariabele UAGENT_USE_TOOL)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Schakel het verzenden van gereedschap naar LLM uit (overschrijft de "
@@ -2387,6 +2397,9 @@ msgstr ""
 "[MCP Servers]\n"
 "- Kan informatie niet verkrijgen: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "  Korte handleiding"
@@ -2394,15 +2407,9 @@ msgstr "  Korte handleiding"
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr ""
-"- Chat: typ een bericht en verstuur (GUI: Ctrl+Enter is ook beschikbaar)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Multiline: voer een regel in die net 'f' is om naar de multiline-modus te "
-"gaan (eindig met \"\"\"einde)."
+"- Multiline: voer een regel in die alleen 'f' is om naar de multiline-modus "
+"te gaan.- Chat: typ een bericht en verstuur (GUI: Ctrl+Enter is ook "
+"beschikbaar).gaan (eindig met \"\"\"einde)."
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2715,10 +2722,8 @@ msgstr "uitgeschakeld"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] De inhoud van .env.sec komt niet overeen met de huidige UAGENT_* "
-"omgevingsvariabelen bij het opstarten. Bijwerken? [j/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] De inhoud van .env.sec komt niet overeen met de huidige UAGENT_* omgevingsvariabelen bij het opstarten. [y] Werk .env.sec bij met de huidige waarden / [s] Gebruik .env.sec-waarden (toepassen op sessie) / [N] Overslaan:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2728,6 +2733,11 @@ msgstr ""
 "[INFO] De inhoud van .env.sec komt niet overeen met de huidige UAGENT_* "
 "omgevingsvariabelen bij het opstarten. Gebruik `uag_envsec` om het bij te "
 "werken."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] De waarden uit .env.sec zijn toegepast op de huidige sessie."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

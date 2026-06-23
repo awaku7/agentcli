@@ -1,83 +1,274 @@
 {
-  "tool_level": 0,
-  "tool_genre": "iot",
-  "type": "function",
-  "function": {
-    "name": "switchbot_cloud_list",
-    "description": {
-      "en": "List SwitchBot Cloud devices for the configured account.",
-      "ja": "設定済みアカウントの SwitchBot Cloud デバイスを一覧表示します。",
-      "id": "Daftar perangkat SwitchBot Cloud untuk akun yang dikonfigurasi.",
-      "ar": "اعرض قائمة أجهزة SwitchBot Cloud للحساب المُكوَّن.",
-      "bn": "কনফিগার করা অ্যাকাউন্টের জন্য SwitchBot Cloud ডিভাইসের তালিকা দেখায়।",
-      "cs": "Vypište zařízení SwitchBot Cloud pro nakonfigurovaný účet.",
-      "de": "Listen Sie die SwitchBot-Cloud-Geräte für das konfigurierte Konto auf.",
-      "es": "Enumere los dispositivos SwitchBot Cloud de la cuenta configurada.",
-      "fa": "دستگاه‌های SwitchBot Cloud را برای حساب پیکربندی‌شده فهرست کنید.",
-      "fi": "Listaa määritetyn tilin SwitchBot Cloud -laitteet.",
-      "fr": "Listez les appareils SwitchBot Cloud du compte configuré.",
-      "hi": "कॉन्फ़िगर किए गए खाते के लिए SwitchBot Cloud डिवाइसों की सूची दिखाएँ।",
-      "it": "Elenca i dispositivi SwitchBot Cloud per l'account configurato.",
-      "ko": "구성된 계정의 SwitchBot Cloud 장치를 나열합니다.",
-      "nb": "List opp SwitchBot Cloud-enheter for den konfigurerte kontoen.",
-      "nl": "Geef de SwitchBot Cloud-apparaten voor het geconfigureerde account weer.",
-      "pl": "Wyświetl urządzenia SwitchBot Cloud dla skonfigurowanego konta.",
-      "pt": "Liste os dispositivos SwitchBot Cloud da conta configurada.",
-      "pt_BR": "Liste os dispositivos SwitchBot Cloud da conta configurada.",
-      "ru": "Выведите список устройств SwitchBot Cloud для настроенной учетной записи.",
-      "sv": "Lista SwitchBot Cloud-enheter för det konfigurerade kontot.",
-      "th": "แสดงรายการอุปกรณ์ SwitchBot Cloud สำหรับบัญชีที่กำหนดค่าไว้",
-      "uk": "Перелічіть пристрої SwitchBot Cloud для налаштованого облікового запису.",
-      "vi": "Liệt kê các thiết bị SwitchBot Cloud cho tài khoản đã cấu hình.",
-      "zh_CN": "列出已配置账户的 SwitchBot Cloud 设备。",
-      "zh_TW": "列出已設定帳戶的 SwitchBot Cloud 裝置。",
-      "mn": "Тохируулсан дансны SwitchBot Cloud төхөөрөмжүүдийг жагсаана.",
-      "mr": "कॉन्फिगर केलेल्या खात्यासाठी SwitchBot Cloud उपकरणांची यादी करा.",
-      "tr": "Yapılandırılmış hesap için SwitchBot Cloud cihazlarını listeleyin.",
-      "el": "Παραθέστε τις συσκευές SwitchBot Cloud για τον ρυθμισμένο λογαριασμό."
-    },
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "output_format": {
-          "type": "string",
-          "enum": ["json", "text"],
-          "default": "json",
-          "description": {
-            "en": "Output format: JSON or human-readable text.",
-            "ja": "出力形式: JSON または人間が読みやすいテキスト。",
-            "id": "Format output: JSON atau teks yang dapat dibaca manusia.",
-            "ar": "تنسيق الإخراج: JSON أو نص قابل للقراءة البشرية.",
-            "bn": "আউটপুট ফরম্যাট: JSON অথবা মানুষের পড়ার উপযোগী টেক্সট।",
-            "cs": "Formát výstupu: JSON nebo text čitelný pro člověka.",
-            "de": "Ausgabeformat: JSON oder menschenlesbarer Text.",
-            "es": "Formato de salida: JSON o texto legible por humanos.",
-            "fa": "قالب خروجی: JSON یا متن قابل‌خواندن برای انسان.",
-            "fi": "Tulostemuoto: JSON tai ihmisen luettavissa oleva teksti.",
-            "fr": "Format de sortie : JSON ou texte lisible par l’humain.",
-            "hi": "आउटपुट प्रारूप: JSON या मानव-पठनीय पाठ।",
-            "it": "Formato di output: JSON o testo leggibile dall'uomo.",
-            "ko": "출력 형식: JSON 또는 사람이 읽을 수 있는 텍스트.",
-            "nb": "Utdataformat: JSON eller menneskelesbar tekst.",
-            "nl": "Uitvoerformaat: JSON of voor mensen leesbare tekst.",
-            "pl": "Format wyjściowy: JSON lub tekst czytelny dla człowieka.",
-            "pt": "Formato de saída: JSON ou texto legível por humanos.",
-            "pt_BR": "Formato de saída: JSON ou texto legível por humanos.",
-            "ru": "Формат вывода: JSON или удобочитаемый текст.",
-            "sv": "Utdataformat: JSON eller mänskligt läsbar text.",
-            "th": "รูปแบบเอาต์พุต: JSON หรือข้อความที่มนุษย์อ่านได้",
-            "uk": "Формат виводу: JSON або текст, зручний для читання людиною.",
-            "vi": "Định dạng đầu ra: JSON hoặc văn bản dễ đọc.",
-            "zh_CN": "输出格式：JSON 或人类可读文本。",
-            "zh_TW": "輸出格式：JSON 或人類可讀文字。",
-            "mn": "Гаралтын формат: JSON эсвэл хүн уншихад ойлгомжтой текст.",
-            "mr": "आउटपुट स्वरूप: JSON किंवा मानवी वाचनीय मजकूर.",
-            "tr": "Çıktı biçimi: JSON veya insan tarafından okunabilir metin.",
-            "el": "Μορφή εξόδου: JSON ή κείμενο αναγνώσιμο από άνθρωπο."
-          }
-        }
-      },
-      "additionalProperties": false
-    }
+  "ar": {
+    "param.fmt.description": "التنسيق: json أو نص.",
+    "tool.description": "سرد أجهزة SwitchBot Cloud للحساب المهيأ.",
+    "msg.device_count": "أجهزة SwitchBot Cloud: {count}",
+    "msg.error_fmt": "خطأ: {msg}",
+    "msg.fetched_at": "تم الجلب في: {ts}",
+    "msg.unknown_error": "خطأ غير معروف"
+  },
+  "bn": {
+    "param.fmt.description": "ফরম্যাট: json বা text।",
+    "tool.description": "কনফিগার করা অ্যাকাউন্টের জন্য SwitchBot Cloud ডিভাইস তালিকাভুক্ত করুন।",
+    "msg.device_count": "SwitchBot Cloud ডিভাইস: {count}",
+    "msg.error_fmt": "ত্রুটি: {msg}",
+    "msg.fetched_at": "আনা হয়েছে: {ts}",
+    "msg.unknown_error": "অজানা ত্রুটি"
+  },
+  "cs": {
+    "param.fmt.description": "Formát: json nebo text.",
+    "tool.description": "Seznam zařízení SwitchBot Cloud pro nakonfigurovaný účet.",
+    "msg.device_count": "Zařízení SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Chyba: {msg}",
+    "msg.fetched_at": "Načteno v: {ts}",
+    "msg.unknown_error": "neznámá chyba"
+  },
+  "de": {
+    "param.fmt.description": "Format: json oder text.",
+    "tool.description": "Listen Sie SwitchBot-Cloud-Geräte für das konfigurierte Konto auf.",
+    "msg.device_count": "SwitchBot-Cloud-Geräte: {count}",
+    "msg.error_fmt": "Fehler: {msg}",
+    "msg.fetched_at": "Abgerufen am: {ts}",
+    "msg.unknown_error": "unbekannter Fehler"
+  },
+  "en": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List SwitchBot Cloud devices for the configured account.",
+    "msg.device_count": "SwitchBot Cloud devices: {count}",
+    "msg.error_fmt": "Error: {msg}",
+    "msg.fetched_at": "Fetched at: {ts}",
+    "msg.unknown_error": "unknown error"
+  },
+  "es": {
+    "param.fmt.description": "Formato: json o texto.",
+    "tool.description": "Listar dispositivos SwitchBot Cloud para la cuenta configurada.",
+    "msg.device_count": "Dispositivos SwitchBot Cloud: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "Obtenido en: {ts}",
+    "msg.unknown_error": "error desconocido"
+  },
+  "fa": {
+    "param.fmt.description": "دستورات برای اجرا.",
+    "tool.description": "اعتبارنامه‌های SwitchBot Cloud موجود نیست. UAGENT_SWITCHBOT_TOKEN و UAGENT_SWITCHBOT_SECRET را تنظیم کنید.",
+    "msg.device_count": "فهرست دستگاه‌های SwitchBot Cloud برای حساب پیکربندی‌شده.",
+    "msg.error_fmt": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوزهای macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت‌های امنیتی macOS رد شده باشد.\nلطفاً به 'تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث' بروید و اجازه دهید ترمینال، VS Code یا فرآیند پایتون شما به بلوتوث دسترسی داشته باشد.",
+    "msg.fetched_at": "دستگاه‌های SwitchBot Cloud: {count}",
+    "msg.unknown_error": "خطا: {msg}"
+  },
+  "fi": {
+    "param.fmt.description": "Muoto: json tai text.",
+    "tool.description": "Listaa SwitchBot Cloud -laitteet määritetylle tilille.",
+    "msg.device_count": "SwitchBot Cloud -laitteet: {count}",
+    "msg.error_fmt": "Virhe: {msg}",
+    "msg.fetched_at": "Haettu: {ts}",
+    "msg.unknown_error": "tuntematon virhe"
+  },
+  "fr": {
+    "param.fmt.description": "Format : json ou text.",
+    "tool.description": "Lister les appareils SwitchBot Cloud pour le compte configuré.",
+    "msg.device_count": "Appareils SwitchBot Cloud : {count}",
+    "msg.error_fmt": "Erreur : {msg}",
+    "msg.fetched_at": "Récupéré à : {ts}",
+    "msg.unknown_error": "erreur inconnue"
+  },
+  "hi": {
+    "param.fmt.description": "प्रारूप: json या text।",
+    "tool.description": "कॉन्फ़िगर किए गए खाते के लिए SwitchBot Cloud डिवाइस सूचीबद्ध करें।",
+    "msg.device_count": "SwitchBot Cloud डिवाइस: {count}",
+    "msg.error_fmt": "त्रुटि: {msg}",
+    "msg.fetched_at": "प्राप्त किया गया: {ts}",
+    "msg.unknown_error": "अज्ञात त्रुटि"
+  },
+  "id": {
+    "param.fmt.description": "Format: json atau teks.",
+    "tool.description": "Daftar perangkat Cloud SwitchBot untuk akun yang dikonfigurasi.",
+    "msg.device_count": "Perangkat Cloud SwitchBot: {count}",
+    "msg.error_fmt": "Kesalahan: {msg}",
+    "msg.fetched_at": "Diambil pada: {ts}",
+    "msg.unknown_error": "kesalahan tidak dikenal"
+  },
+  "it": {
+    "param.fmt.description": "Formato: json o text.",
+    "tool.description": "Elenca i dispositivi SwitchBot Cloud per l'account configurato.",
+    "msg.device_count": "Dispositivi SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Errore: {msg}",
+    "msg.fetched_at": "Recuperato il: {ts}",
+    "msg.unknown_error": "errore sconosciuto"
+  },
+  "ja": {
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
+  },
+  "ko": {
+    "param.fmt.description": "형식: json 또는 text.",
+    "tool.description": "구성된 계정의 SwitchBot Cloud 장치를 나열합니다.",
+    "msg.device_count": "SwitchBot Cloud 장치: {count}",
+    "msg.error_fmt": "오류: {msg}",
+    "msg.fetched_at": "가져온 시간: {ts}",
+    "msg.unknown_error": "알 수 없는 오류"
+  },
+  "mn": {
+    "param.fmt.description": "Гүйцэтгэх командууд.",
+    "tool.description": "SwitchBot Cloud итгэмжлэл дутуу байна. UAGENT_SWITCHBOT_TOKEN болон UAGENT_SWITCHBOT_SECRET-ийг тохируулна уу.",
+    "msg.device_count": "Тохируулсан бүртгэлийн SwitchBot Cloud төхөөрөмжүүдийг жагсаах.",
+    "msg.error_fmt": "BLE үйл ажиллагааны үед алдаа гарлаа: {err_msg}\n\n[macOS Зөвшөөрлийн Гарын Авлага]\nmacOS аюулгүй байдлын хязгаарлалтаар Bluetooth хандалтыг зөвшөөрөхгүй байж болно.\n'Системийн Тохиргоо > Нууцлал & Аюулгүй Байдал > Bluetooth' хэсгийг нээж, терминал, VS Code, эсвэл Python процесс тань Bluetooth-д хандахыг зөвшөөрсөн эсэхийг шалгана уу.",
+    "msg.fetched_at": "SwitchBot Cloud төхөөрөмжүүд: {count}",
+    "msg.unknown_error": "Алдаа: {msg}"
+  },
+  "mr": {
+    "param.fmt.description": "कार्यान्वित करण्यासाठी कमांड्स.",
+    "tool.description": "SwitchBot Cloud क्रेडेन्शियल्स गहाळ आहेत. UAGENT_SWITCHBOT_TOKEN आणि UAGENT_SWITCHBOT_SECRET सेट करा.",
+    "msg.device_count": "कॉन्फिगर केलेल्या खात्यासाठी SwitchBot Cloud डिव्हाइसेसची यादी करा.",
+    "msg.error_fmt": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nmacOS सुरक्षा निर्बंधांद्वारे ब्लूटूथ प्रवेश नाकारला गेला असावा.\nकृपया 'सिस्टम सेटिंग्ज > प्रायव्हसी आणि सिक्युरिटी > ब्लूटूथ' उघडा आणि तुमच्या टर्मिनल, VS Code, किंवा Python प्रक्रियेला ब्लूटूथमध्ये प्रवेश करण्याची परवानगी आहे याची खात्री करा.",
+    "msg.fetched_at": "SwitchBot Cloud डिव्हाइसेस: {count}",
+    "msg.unknown_error": "त्रुटी: {msg}"
+  },
+  "el": {
+    "param.fmt.description": "Μορφή: json ή text.",
+    "tool.description": "Λίστα συσκευών SwitchBot Cloud για τον διαμορφωμένο λογαριασμό.",
+    "msg.device_count": "Συσκευές SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Σφάλμα: {msg}",
+    "msg.fetched_at": "Λήφθηκε στις: {ts}",
+    "msg.unknown_error": "άγνωστο σφάλμα"
+  },
+  "he": {
+    "param.fmt.description": "פורמט: json או text.",
+    "tool.description": "רשום התקני SwitchBot Cloud עבור החשבון המוגדר.",
+    "msg.device_count": "התקני SwitchBot Cloud: {count}",
+    "msg.error_fmt": "שגיאה: {msg}",
+    "msg.fetched_at": "נשלף ב: {ts}",
+    "msg.unknown_error": "שגיאה לא ידועה"
+  },
+  "hu": {
+    "param.fmt.description": "Formátum: json vagy text.",
+    "tool.description": "SwitchBot Cloud eszközök listázása a konfigurált fiókhoz.",
+    "msg.device_count": "SwitchBot Cloud eszközök: {count}",
+    "msg.error_fmt": "Hiba: {msg}",
+    "msg.fetched_at": "Lekérve: {ts}",
+    "msg.unknown_error": "ismeretlen hiba"
+  },
+  "ro": {
+    "param.fmt.description": "Format: json sau text.",
+    "tool.description": "Listează dispozitivele SwitchBot Cloud pentru contul configurat.",
+    "msg.device_count": "Dispozitive SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Eroare: {msg}",
+    "msg.fetched_at": "Preluat la: {ts}",
+    "msg.unknown_error": "eroare necunoscută"
+  },
+  "nb": {
+    "param.fmt.description": "Format: json eller tekst.",
+    "tool.description": "Liste SwitchBot Cloud-enheter for den konfigurerte kontoen.",
+    "msg.device_count": "SwitchBot Cloud-enheter: {count}",
+    "msg.error_fmt": "Feil: {msg}",
+    "msg.fetched_at": "Hentet kl: {ts}",
+    "msg.unknown_error": "ukjent feil"
+  },
+  "nl": {
+    "param.fmt.description": "Formaat: json of text.",
+    "tool.description": "Lijst SwitchBot Cloud-apparaten voor het geconfigureerde account.",
+    "msg.device_count": "SwitchBot Cloud-apparaten: {count}",
+    "msg.error_fmt": "Fout: {msg}",
+    "msg.fetched_at": "Opgehaald op: {ts}",
+    "msg.unknown_error": "onbekende fout"
+  },
+  "pl": {
+    "param.fmt.description": "Format: json lub text.",
+    "tool.description": "Wyświetl listę urządzeń SwitchBot Cloud dla skonfigurowanego konta.",
+    "msg.device_count": "Urządzenia SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Błąd: {msg}",
+    "msg.fetched_at": "Pobrano o: {ts}",
+    "msg.unknown_error": "nieznany błąd"
+  },
+  "pt": {
+    "param.fmt.description": "Formato: json ou texto.",
+    "tool.description": "Listar dispositivos SwitchBot Cloud da conta configurada.",
+    "msg.device_count": "Dispositivos SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Erro: {msg}",
+    "msg.fetched_at": "Obtido em: {ts}",
+    "msg.unknown_error": "erro desconhecido"
+  },
+  "pt_BR": {
+    "param.fmt.description": "Formato: json ou texto.",
+    "tool.description": "Listar dispositivos SwitchBot Cloud da conta configurada.",
+    "msg.device_count": "Dispositivos SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Erro: {msg}",
+    "msg.fetched_at": "Obtido em: {ts}",
+    "msg.unknown_error": "erro desconhecido"
+  },
+  "ru": {
+    "param.fmt.description": "Формат: json или text.",
+    "tool.description": "Список устройств SwitchBot Cloud для настроенной учетной записи.",
+    "msg.device_count": "Устройства SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Ошибка: {msg}",
+    "msg.fetched_at": "Получено: {ts}",
+    "msg.unknown_error": "неизвестная ошибка"
+  },
+  "sv": {
+    "param.fmt.description": "Format: json eller text.",
+    "tool.description": "Lista SwitchBot Cloud-enheter för det konfigurerade kontot.",
+    "msg.device_count": "SwitchBot Cloud-enheter: {count}",
+    "msg.error_fmt": "Fel: {msg}",
+    "msg.fetched_at": "Hämtad vid: {ts}",
+    "msg.unknown_error": "okänt fel"
+  },
+  "sw": {
+    "param.fmt.description": "Muundo: json au text.",
+    "tool.description": "Orodhesha vifaa vya SwitchBot Cloud kwa akaunti iliyosanidiwa.",
+    "msg.device_count": "Vifaa vya SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Hitilafu: {msg}",
+    "msg.fetched_at": "Imepatikana saa: {ts}",
+    "msg.unknown_error": "hitilafu isiyojulikana"
+  },
+  "th": {
+    "param.fmt.description": "形式: json または text。",
+    "tool.description": "{tool}用のツール",
+    "msg.device_count": "SwitchBot Cloud デバイス: {count}",
+    "msg.error_fmt": "エラー: {msg}",
+    "msg.fetched_at": "取得日時: {ts}",
+    "msg.unknown_error": "不明なエラー"
+  },
+  "tr": {
+    "param.fmt.description": "Biçim: json veya text.",
+    "tool.description": "Yapılandırılmış hesap için SwitchBot Cloud cihazlarını listeleyin.",
+    "msg.device_count": "SwitchBot Cloud cihazları: {count}",
+    "msg.error_fmt": "Hata: {msg}",
+    "msg.fetched_at": "Getirilme zamanı: {ts}",
+    "msg.unknown_error": "bilinmeyen hata"
+  },
+  "uk": {
+    "param.fmt.description": "Формат: json або text.",
+    "tool.description": "Список пристроїв SwitchBot Cloud для налаштованого облікового запису.",
+    "msg.device_count": "Пристрої SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Помилка: {msg}",
+    "msg.fetched_at": "Отримано о: {ts}",
+    "msg.unknown_error": "невідома помилка"
+  },
+  "vi": {
+    "param.fmt.description": "Định dạng: json hoặc text.",
+    "tool.description": "Liệt kê các thiết bị SwitchBot Cloud cho tài khoản đã cấu hình.",
+    "msg.device_count": "Thiết bị SwitchBot Cloud: {count}",
+    "msg.error_fmt": "Lỗi: {msg}",
+    "msg.fetched_at": "Đã lấy lúc: {ts}",
+    "msg.unknown_error": "lỗi không xác định"
+  },
+  "zh_CN": {
+    "param.fmt.description": "格式：json或text。",
+    "tool.description": "列出已配置账户的SwitchBot云设备。",
+    "msg.device_count": "SwitchBot云设备：{count}",
+    "msg.error_fmt": "错误：{msg}",
+    "msg.fetched_at": "获取时间：{ts}",
+    "msg.unknown_error": "未知错误"
+  },
+  "zh_TW": {
+    "param.fmt.description": "格式：json 或 text。",
+    "tool.description": "列出已設定帳戶的 SwitchBot 雲端裝置。",
+    "msg.device_count": "SwitchBot 雲端裝置數量：{count}",
+    "msg.error_fmt": "錯誤：{msg}",
+    "msg.fetched_at": "取得時間：{ts}",
+    "msg.unknown_error": "未知錯誤"
   }
 }

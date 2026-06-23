@@ -43,6 +43,13 @@ from .i18n_helper import clear_tool_i18n_cache, get_locale, make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+# Lazy-loaded tool modules (skip import during _load_plugins())
+_LAZY_TOOL_MODULES: set[str] = set()
+
+# Mapping from tool name to module name for lazy tools
+# Populated from .spec.json files in _load_lazy_tool_specs()
+_LAZY_TOOL_NAME_TO_MODULE: dict[str, str] = {"exstruct": "exstruct_tool"}
+
 # Raw tool specs passed to the LLM
 TOOL_SPECS: list[dict[str, Any]] = []
 
@@ -228,10 +235,33 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     # - tool_level == 1: conditional loading (currently treated as disabled)
     # - Tools with a tool_genre start disabled by default (genre control enables them)
     try:
-        default_level = -1 if spec.get("tool_genre") else 0
+        default_level = 1 if spec.get("tool_genre") else 0
         tool_level = int(spec.get("tool_level", default_level))
     except Exception:
-        tool_level = -1 if spec.get("tool_genre") else 0
+        tool_level = 1 if spec.get("tool_genre") else 0
+
+    # If the tool's genre is currently enabled, force tool_level to 0
+    # so that _load_plugins() clear+reload preserves genre-enabled tools.
+    if tool_level == 1 and spec.get("tool_genre"):
+        try:
+            from ._genre_control_util import _ENABLED_GENRES
+
+            if spec["tool_genre"] in _ENABLED_GENRES:
+                tool_level = 0
+        except Exception:
+            pass
+
+    # If the tool was individually loaded via :tools load, preserve it across reloads
+    if tool_level == 1:
+        _fi = spec.get("function", {})
+        if isinstance(_fi, dict) and _fi.get("name"):
+            try:
+                from ._genre_control_util import _LOADED_SINGLE_TOOLS
+
+                if _fi["name"] in _LOADED_SINGLE_TOOLS:
+                    tool_level = 0
+            except Exception:
+                pass
 
     is_llm_tool = True
     if tool_level == -1:
@@ -263,6 +293,18 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
                 status_label = getattr(mod, "STATUS_LABEL", f"tool:{tool_name}")
                 _BUSY_LABEL_TOOLS[tool_name] = status_label
 
+    # Optional second tool spec (TOOL_SPEC_2) - same runner, different spec
+    spec2 = getattr(mod, "TOOL_SPEC_2", None)
+    if isinstance(spec2, dict) and callable(runner):
+        _register_extra_spec(spec2, runner, mod)
+
+    # Optional third tool spec (TOOL_SPEC_3) - supports a custom runner via TOOL_SPEC_3_RUNNER
+    spec3 = getattr(mod, "TOOL_SPEC_3", None)
+    if isinstance(spec3, dict):
+        spec3_runner = getattr(mod, "TOOL_SPEC_3_RUNNER", runner)
+        if callable(spec3_runner):
+            _register_extra_spec(spec3, spec3_runner, mod)
+
     # Dynamic command registration (always allowed even if tool_level == -1)
     cmd_specs = getattr(mod, "CMD_SPECS", None)
     if not isinstance(cmd_specs, list):
@@ -286,6 +328,111 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
     return True
 
 
+def _register_extra_spec(
+    spec: dict[str, Any],
+    runner: Callable[[dict[str, Any]], str],
+    mod: Any,
+) -> bool:
+    """Register an additional tool spec from the same module (e.g. TOOL_SPEC_2)."""
+    try:
+        default_level = 1 if spec.get("tool_genre") else 0
+        tool_level = int(spec.get("tool_level", default_level))
+    except Exception:
+        tool_level = 1 if spec.get("tool_genre") else 0
+
+    # Genre enable check
+    if tool_level == 1 and spec.get("tool_genre"):
+        try:
+            from ._genre_control_util import _ENABLED_GENRES
+
+            if spec["tool_genre"] in _ENABLED_GENRES:
+                tool_level = 0
+        except Exception:
+            pass
+
+    # Single tool load check
+    if tool_level == 1:
+        _fi = spec.get("function", {})
+        if isinstance(_fi, dict) and _fi.get("name"):
+            try:
+                from ._genre_control_util import _LOADED_SINGLE_TOOLS
+
+                if _fi["name"] in _LOADED_SINGLE_TOOLS:
+                    tool_level = 0
+            except Exception:
+                pass
+
+    if tool_level in (-1, 1):
+        return False
+
+    func_info = spec.get("function", {})
+    tool_name = func_info.get("name")
+    if not tool_name:
+        return False
+
+    with _TOOLS_LOCK:
+        for i, existing in enumerate(TOOL_SPECS):
+            if existing.get("function", {}).get("name") == tool_name:
+                TOOL_SPECS.pop(i)
+                break
+        TOOL_SPECS.append(spec)
+        _RUNNERS[tool_name] = runner
+        _sort_registered_tools()
+
+        busy_flag = getattr(mod, "BUSY_LABEL", False)
+        if busy_flag:
+            status_label = getattr(mod, "STATUS_LABEL", f"tool:{tool_name}")
+            _BUSY_LABEL_TOOLS[tool_name] = status_label
+
+    return True
+
+
+def _load_lazy_tool_spec(mod_name: str) -> dict[str, Any] | None:
+    """Load TOOL_SPEC metadata from a .spec.json file.
+
+    Returns the spec dict, or None if not found.
+
+    Also populates _LAZY_TOOL_NAME_TO_MODULE from the file.
+    """
+    spec_path = os.path.join(os.path.dirname(__file__), f"{mod_name}.spec.json")
+    if not os.path.isfile(spec_path):
+        return None
+    try:
+        with open(spec_path, "r", encoding="utf-8") as f:
+            spec = json.load(f)
+        # Populate tool name -> module name mapping
+        fn = spec.get("function", {})
+        if isinstance(fn, dict):
+            tool_name = fn.get("name")
+            if tool_name:
+                _LAZY_TOOL_NAME_TO_MODULE[tool_name] = mod_name
+        return spec
+    except Exception:
+        return None
+
+
+def _ensure_lazy_tool_loaded(mod_name: str) -> None:
+    """Import and register a lazy tool module on demand.
+
+    Forces tool_level=0 so the tool becomes usable immediately.
+    """
+    if mod_name not in _LAZY_TOOL_MODULES:
+        return
+    full_name = f"{__name__}.{mod_name}"
+    try:
+        if full_name in sys.modules:
+            mod = reload(sys.modules[full_name])
+        else:
+            mod = import_module(full_name)
+        # Force tool_level to 0 so the tool gets registered as LLM-visible
+        spec = getattr(mod, "TOOL_SPEC", None)
+        if isinstance(spec, dict):
+            spec["tool_level"] = 0
+        _register_tool_module(mod, full_name)
+    except Exception:
+        return
+
+
 def _load_plugins() -> None:
     """Discover and load tool plugin modules under tools/."""
     with _TOOLS_LOCK:
@@ -297,6 +444,12 @@ def _load_plugins() -> None:
     pkg_dir = os.path.dirname(__file__)
     for m in iter_modules([pkg_dir]):
         if m.name.startswith("_") or m.name == "context":
+            continue
+
+        # Lazy-loaded modules are skipped here; imported on demand
+        # (e.g. when genre is enabled or tool is individually loaded).
+        if m.name in _LAZY_TOOL_MODULES:
+            _load_lazy_tool_spec(m.name)
             continue
 
         mod_name = f"{__name__}.{m.name}"
@@ -362,25 +515,6 @@ def _load_plugins() -> None:
                         ),
                         file=sys.stderr,
                     )
-
-    if TOOL_SPECS:
-        names = [s["function"]["name"] for s in TOOL_SPECS]
-        print(
-            _(
-                "log.loaded_tools",
-                default=f"[tools] Loaded tools: {', '.join(names)}",
-                names=", ".join(names),
-            ),
-            file=sys.stderr,
-        )
-    else:
-        print(
-            _(
-                "log.no_valid_tools",
-                default="[tools] No valid tools were found.",
-            ),
-            file=sys.stderr,
-        )
 
 
 def handle_dynamic_command(cmd: str, arg: str, **kwargs: Any) -> Any:
@@ -602,15 +736,21 @@ def get_tool_catalog(
     query: str,
     max_results: int = 12,
     tool_specs: Optional[list[dict[str, Any]]] = None,
+    all_items: bool = False,
 ) -> list[dict[str, Any]]:
-    """Return a lightweight searchable catalog of tools."""
-    q = (query or "").strip().lower()
+    """Return a lightweight searchable catalog of tools.
+
+    If all_items is True, return all loaded + unloaded tools without query filtering.
+    """
+    q = (query or "").strip().lower() if not all_items else ""
     try:
         limit = int(max_results)
     except Exception:
         limit = 12
     if limit <= 0:
         limit = 12
+    if all_items:
+        limit = None
 
     debug_tools = str(env_get("UAGENT_DEBUG_TOOLS", "")).strip().lower() in {
         "1",
@@ -621,90 +761,86 @@ def get_tool_catalog(
     tokens = _tokenize_catalog_query(q) if q else []
     if debug_tools:
         try:
-            print(f"[TOOLCAT] query={q!r} tokens={tokens!r} limit={limit}", flush=True)
+            print(
+                f"[TOOLCAT] query={q!r} tokens={tokens!r} limit={limit} all_items={all_items}",
+                flush=True,
+            )
         except Exception:
             pass
 
     specs = get_tool_specs() if tool_specs is None else tool_specs
+
+    # Build set of loaded tool names for dedup
+    loaded_names: set[str] = set()
+    for spec in specs or []:
+        fn = spec.get("function") or {}
+        if isinstance(fn, dict):
+            n = str(fn.get("name") or "").strip()
+            if n:
+                loaded_names.add(n)
+
     rows: list[dict[str, Any]] = []
 
+    def _score_spec(
+        name: str,
+        description: str,
+        param_names: list[str],
+        search_terms_en: list[str],
+        search_terms: list[str],
+    ) -> int:
+        if not q:
+            return 1
+        s = 0
+        st = search_terms_en + search_terms
+        sh = " ".join([p for p in st if p]).lower()
+        hp = [name, description] + param_names + st
+        hs = " ".join([p for p in hp if p]).lower()
+        search_hit = False
+        for tok in tokens:
+            if tok in sh:
+                search_hit = True
+                s += 200
+            if tok == name.lower():
+                s += 100
+            elif tok in name.lower():
+                s += 40
+            if tok in description.lower():
+                s += 15
+            for pn in param_names:
+                pnl = pn.lower()
+                if tok == pnl:
+                    s += 20
+                elif tok in pnl:
+                    s += 8
+        if q in sh:
+            search_hit = True
+            s += 400
+        if q in hs:
+            s += 25
+        if search_hit:
+            s += 1000
+        return s
+
+    # 1. Process loaded tools
     for spec in specs or []:
         if not isinstance(spec, dict):
             continue
         fn = spec.get("function") or {}
         if not isinstance(fn, dict):
             continue
-
         name = str(fn.get("name") or "").strip()
         if not name:
             continue
-
         description = str(fn.get("description") or "").strip()
         parameters = fn.get("parameters") or {}
         properties = parameters.get("properties") or {}
         required = parameters.get("required") or []
-
-        param_names: list[str] = []
-        if isinstance(properties, dict):
-            param_names = [str(k) for k in properties.keys()]
-
-        search_terms = _collect_search_terms(fn.get("x_search_terms_en"))
-        search_terms += _collect_search_terms(fn.get("x_search_terms"))
-        search_haystack = " ".join([p for p in search_terms if p]).lower()
-        haystack_parts = [name, description] + param_names + search_terms
-        haystack = " ".join([p for p in haystack_parts if p]).lower()
-
-        score = 0
-        hit_details: list[str] = []
-        if q:
-            search_term_hit = False
-            for tok in tokens:
-                if tok in search_haystack:
-                    search_term_hit = True
-                    score += 200
-                    hit_details.append(f"search:{tok}")
-                if tok == name.lower():
-                    score += 100
-                    hit_details.append(f"name=={tok}")
-                elif tok in name.lower():
-                    score += 40
-                    hit_details.append(f"name~{tok}")
-                if tok in description.lower():
-                    score += 15
-                    hit_details.append(f"desc~{tok}")
-                for pn in param_names:
-                    pnl = pn.lower()
-                    if tok == pnl:
-                        score += 20
-                        hit_details.append(f"param=={tok}")
-                    elif tok in pnl:
-                        score += 8
-                        hit_details.append(f"param~{tok}")
-            if q in search_haystack:
-                search_term_hit = True
-                score += 400
-                hit_details.append("q in search_terms")
-            if q in haystack:
-                score += 25
-                hit_details.append("q in haystack")
-            if search_term_hit:
-                score += 1000
-                hit_details.append("search_term_hit")
-        else:
-            score = 1
-
-        if debug_tools and q:
-            try:
-                print(
-                    f"[TOOLCAT] name={name} score={score} hits={hit_details} haystack={haystack!r} search_haystack={search_haystack!r}",
-                    flush=True,
-                )
-            except Exception:
-                pass
-
+        param_names = list(properties.keys()) if isinstance(properties, dict) else []
+        st_en = _collect_search_terms(fn.get("x_search_terms_en"))
+        st = _collect_search_terms(fn.get("x_search_terms"))
+        score = _score_spec(name, description, param_names, st_en, st)
         if score <= 0 and q:
             continue
-
         rows.append(
             {
                 "name": name,
@@ -713,9 +849,95 @@ def get_tool_catalog(
                     [str(x) for x in required] if isinstance(required, list) else []
                 ),
                 "parameters": param_names,
+                "loaded": True,
+                "genre": str(spec.get("tool_genre") or ""),
                 "score": score,
             }
         )
+
+    # 2. Also search unloaded tool modules (for discovery)
+    if q or all_items:
+        try:
+            from ._genre_control_util import _find_tool_modules
+
+            for _mname, mod in _find_tool_modules(skip_lazy=True):
+                spec = getattr(mod, "TOOL_SPEC", None)
+                if not isinstance(spec, dict):
+                    continue
+                fn = spec.get("function") or {}
+                if not isinstance(fn, dict):
+                    continue
+                name = str(fn.get("name") or "").strip()
+                if not name or name in loaded_names:
+                    continue
+                description = str(fn.get("description") or "").strip()
+                parameters = fn.get("parameters") or {}
+                properties = parameters.get("properties") or {}
+                param_names = (
+                    list(properties.keys()) if isinstance(properties, dict) else []
+                )
+                st_en = _collect_search_terms(fn.get("x_search_terms_en"))
+                st = _collect_search_terms(fn.get("x_search_terms"))
+                score = _score_spec(name, description, param_names, st_en, st)
+                if score <= 0 and q:
+                    continue
+                rows.append(
+                    {
+                        "name": name,
+                        "description": description,
+                        "required": [],
+                        "parameters": param_names,
+                        "loaded": False,
+                        "genre": str(spec.get("tool_genre") or ""),
+                        "score": score - 100 if q else 0,
+                    }
+                )
+        except Exception:
+            pass
+
+    # 3. Also search lazy-loaded tool specs from .spec.json (without importing the module)
+    if q or all_items:
+        # Collect names already added by sections 1/2 for dedup
+        _cataloged_names = {r["name"] for r in rows if r.get("name")}
+        # Determine current locale for i18n
+        _lazy_locale = get_locale()
+        for mod_name in _LAZY_TOOL_MODULES:
+            spec = _load_lazy_tool_spec(mod_name)
+            if not spec:
+                continue
+            fn = spec.get("function", {})
+            if not isinstance(fn, dict):
+                continue
+            name = str(fn.get("name") or "").strip()
+            if not name or name in loaded_names or name in _cataloged_names:
+                continue
+            # Use locale-aware description if available
+            _i18n = spec.get("i18n", {}) if isinstance(spec, dict) else {}
+            _td_key = "tool.description"
+            _td = _i18n.get(_td_key, {}) if isinstance(_i18n, dict) else {}
+            if isinstance(_td, dict) and _lazy_locale in _td:
+                description = str(_td[_lazy_locale])
+            else:
+                description = str(fn.get("description") or "").strip()
+            parameters = fn.get("parameters", {})
+            properties = parameters.get("properties", {})
+            param_names = list(properties.keys()) if isinstance(properties, dict) else []
+            st_en = _collect_search_terms(fn.get("x_search_terms_en"))
+            st = _collect_search_terms(fn.get("x_search_terms"))
+            score = _score_spec(name, description, param_names, st_en, st)
+            if score <= 0 and q:
+                continue
+            rows.append(
+                {
+                    "name": name,
+                    "description": description,
+                    "required": [],
+                    "parameters": param_names,
+                    "loaded": False,
+                    "genre": str(spec.get("tool_genre") or ""),
+                    "score": score - 100 if q else 0,
+                }
+            )
 
     rows.sort(key=lambda x: (-int(x.get("score", 0)), str(x.get("name", ""))))
 
@@ -727,12 +949,93 @@ def get_tool_catalog(
                 "description": row["description"],
                 "required": row["required"],
                 "parameters": row["parameters"],
+                "loaded": row["loaded"],
+                "genre": row["genre"],
             }
         )
+
+    # Ensure web_search and fetch_url are always included in catalog results
+    if not any(r["name"] == "search_web" for r in out):
+        try:
+            from ._genre_control_util import _find_tool_modules
+
+            for _mname, mod in _find_tool_modules(skip_lazy=True):
+                spec = getattr(mod, "TOOL_SPEC", None)
+                if not isinstance(spec, dict):
+                    continue
+                fn = spec.get("function") or {}
+                if not isinstance(fn, dict):
+                    continue
+                if fn.get("name") != "search_web":
+                    continue
+                description = str(fn.get("description") or "").strip()
+                parameters = fn.get("parameters") or {}
+                properties = parameters.get("properties") or {}
+                required = parameters.get("required") or []
+                param_names = (
+                    list(properties.keys()) if isinstance(properties, dict) else []
+                )
+                out.append(
+                    {
+                        "name": "search_web",
+                        "description": description,
+                        "required": (
+                            [str(x) for x in required]
+                            if isinstance(required, list)
+                            else []
+                        ),
+                        "parameters": param_names,
+                        "loaded": False,
+                        "genre": str(spec.get("tool_genre") or ""),
+                    }
+                )
+                break
+        except Exception:
+            pass
+
+    # Ensure fetch_url is always included in catalog results
+    if not any(r["name"] == "fetch_url" for r in out):
+        try:
+            from ._genre_control_util import _find_tool_modules
+
+            for _mname, mod in _find_tool_modules(skip_lazy=True):
+                spec = getattr(mod, "TOOL_SPEC", None)
+                if not isinstance(spec, dict):
+                    continue
+                fn = spec.get("function") or {}
+                if not isinstance(fn, dict):
+                    continue
+                if fn.get("name") != "fetch_url":
+                    continue
+                description = str(fn.get("description") or "").strip()
+                parameters = fn.get("parameters") or {}
+                properties = parameters.get("properties") or {}
+                required = parameters.get("required") or []
+                param_names = (
+                    list(properties.keys()) if isinstance(properties, dict) else []
+                )
+                out.append(
+                    {
+                        "name": "fetch_url",
+                        "description": description,
+                        "required": (
+                            [str(x) for x in required]
+                            if isinstance(required, list)
+                            else []
+                        ),
+                        "parameters": param_names,
+                        "loaded": False,
+                        "genre": str(spec.get("tool_genre") or ""),
+                    }
+                )
+                break
+        except Exception:
+            pass
+
     if debug_tools:
         try:
             print(
-                f"[TOOLCAT] matched={[(r['name'], r['score']) for r in rows[:limit]]}",
+                f"[TOOLCAT] matched={[(r['name'], r['score'], r['loaded']) for r in rows[:limit]]}",
                 flush=True,
             )
         except Exception:
@@ -750,8 +1053,9 @@ def reload_plugins() -> None:
 # parallel execution
 # ------------------------------
 
+_PARALLEL_WORKERS = int(env_get("UAGENT_PARALLEL_WORKERS", "8"))
 _PARALLEL_TOOL_EXECUTOR = concurrent.futures.ThreadPoolExecutor(
-    max_workers=4,
+    max_workers=_PARALLEL_WORKERS,
     thread_name_prefix="tool_par",
 )
 
@@ -804,7 +1108,24 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     _ensure_loaded()
     runner = _RUNNERS.get(name)
     if runner is None:
-        return f"[tool error] unknown tool: {name}"
+        # Lazy-load fallback: try to import and register the module on demand.
+        mod_name = _LAZY_TOOL_NAME_TO_MODULE.get(name)
+        if mod_name:
+            _ensure_lazy_tool_loaded(mod_name)
+            runner = _RUNNERS.get(name)
+        # Auto-load fallback: try to enable a single tool by name.
+        # This handles tools that exist in the module directory but are
+        # currently unloaded (e.g., genre-disabled, not-yet-loaded).
+        if runner is None:
+            try:
+                from ._genre_control_util import enable_single_tool
+
+                if enable_single_tool(name):
+                    runner = _RUNNERS.get(name)
+            except Exception:
+                pass
+        if runner is None:
+            return f"[tool error] unknown tool: {name}"
 
     # ---- trace (pre) ----
     # Allow suppressing [TOOL] trace via TOOL_SPEC's extended flags.

@@ -115,6 +115,7 @@ msgstr "نام [اسناد] مورد نیاز است"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] اعلان ژانر راه‌اندازی = ورودی عددی"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -123,6 +124,8 @@ msgstr ""
 "مجموع اعداد را وارد کنید (1=پایه,2=ارتباطات,4=اداری,8=توسعه,16=اینترنت "
 "اشیا,32=اجرا,64=خارجی,128=رسانه,255=همه, Enter=فعال‌سازی همه):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "پایه (فایل، محیط، زمان، اعلان‌ها، مهارت‌ها، حافظه، کنترل ابزارها)"
 
@@ -701,6 +704,7 @@ msgstr "کلید NVIDIA API."
 msgid "DeepSeek API key."
 msgstr "کلید API DeepSeek."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1369,12 +1373,15 @@ msgstr "DeepSeek presence_penalty (پیش‌فرض: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (پیش‌فرض: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1807,6 +1814,7 @@ msgstr ""
 "حالت غیر تعاملی حلقه stdin را شروع نکنید. پس از پردازش فایل راه اندازی (در "
 "صورت وجود) خارج شوید."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1816,10 +1824,12 @@ msgstr ""
 "اشیا,32=اجرا,64=خارجی,128=رسانه,255=همه). در صورت تعیین، اعلان تعاملی ژانر "
 "را رد می‌کند."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "فعال‌سازی ارسال ابزار به LLM (متغیر محیطی UAGENT_USE_TOOL را لغو می‌کند)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "غیرفعال‌سازی ارسال ابزار به LLM (متغیر محیطی UAGENT_USE_TOOL را لغو می‌کند)."
@@ -2362,6 +2372,9 @@ msgstr ""
 "[سرورهای MCP]\n"
 "- اطلاعات دریافت نشد: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[راهنمای سریع]"
@@ -2369,15 +2382,9 @@ msgstr "[راهنمای سریع]"
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr ""
-"- چت: پیامی را تایپ کرده و ارسال کنید (GUI: Ctrl+Enter نیز موجود است)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- چند خطی: خطی را وارد کنید که فقط \"f\" باشد تا وارد حالت چند خطی شوید "
-"(پایان آن با \"\"\" پایان)."
+"- چند خطی: خطی را وارد کنید که فقط \"f\" باشد تا وارد حالت چند خطی شوید.- "
+"چت: پیامی را تایپ کرده و ارسال کنید (GUI: Ctrl+Enter نیز موجود است).(پایان "
+"آن با \"\"\" پایان)."
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2686,10 +2693,8 @@ msgstr "از کار افتاده است"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] محتوای .env.sec با متغیرهای محیطی راه اندازی کنونی UAGENT_* مطابقت "
-"ندارد. آپدیتش کنم؟ [y/N]"
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] محتوای .env.sec با متغیرهای محیطی فعلی UAGENT_* مطابقت ندارد. [y] به‌روزرسانی .env.sec با مقادیر فعلی / [s] استفاده از مقادیر .env.sec (اعمال به جلسه) / [N] رد کردن:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2698,6 +2703,11 @@ msgid ""
 msgstr ""
 "[INFO] محتوای .env.sec با متغیرهای محیطی راه اندازی کنونی UAGENT_* مطابقت "
 "ندارد. از «uag_envsec» برای به‌روزرسانی آن استفاده کنید."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] مقادیر .env.sec به جلسه فعلی اعمال شد."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

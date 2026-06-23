@@ -7,20 +7,40 @@ from typing import Any
 
 from .i18n_helper import make_tool_translator
 
-try:
-    import msoffcrypto
-except Exception:  # pragma: no cover
-    msoffcrypto = None  # type: ignore[assignment]
-
 _ = make_tool_translator(__file__)
+
+# This module is lazy-loaded: it is not imported during _load_plugins()
+# unless the "office" genre is enabled or the tool is individually loaded.
+LAZY_LOAD = True
+
+# Check availability of the 'exstruct' package at module load time
+try:
+    import exstruct  # type: ignore
+    _HAS_EXSTRUCT = True
+except ImportError:
+    _HAS_EXSTRUCT = False
+    LOAD_DISABLED_REASON = _(
+        "load.disabled",
+        default="The 'exstruct' package is not installed. Please install it with: pip install exstruct",
+    )
 
 BUSY_LABEL = True
 
 
-def _import_exstruct():
-    # Local import to avoid requiring dependency at import time.
-    import exstruct  # type: ignore
+def _import_msoffcrypto():
+    try:
+        import msoffcrypto  # type: ignore
+    except Exception:  # pragma: no cover
+        msoffcrypto = None  # type: ignore[assignment]
+    return msoffcrypto
 
+
+def _import_exstruct():
+    """Return the exstruct module, or None if not installed."""
+    if not _HAS_EXSTRUCT:
+        return None
+    # Module-level import already succeeded
+    import exstruct  # type: ignore
     return exstruct
 
 
@@ -48,6 +68,7 @@ def _prompt_for_password(path: str) -> str | None:
 def _resolve_input_file(
     file_path: str, password: str | None = None
 ) -> tuple[str, str | None]:
+    msoffcrypto = _import_msoffcrypto()
     if msoffcrypto is None:
         return file_path, None
 
@@ -86,6 +107,7 @@ TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
     "tool_genre": "office",
     "type": "function",
+    "x_parallel_safe": True,
     "function": {
         "name": "exstruct",
         "description": _(
@@ -226,6 +248,11 @@ TOOL_SPEC: dict[str, Any] = {
 
 def run_tool(args: dict[str, Any]) -> str:
     exstruct = _import_exstruct()
+    if exstruct is None:
+        return _(
+            "error.missing_exstruct",
+            default="The 'exstruct' package is not installed. Please install it with: pip install exstruct",
+        )
 
     action = str(args.get("action") or "").strip()
     file_path = str(args.get("file_path") or "").strip()

@@ -117,6 +117,7 @@ msgstr "[docs] nimi on pakollinen"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] käynnistyksen genrekehote = numeerinen syöte"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -126,6 +127,8 @@ msgstr ""
 "(1=perus,2=viestintä,4=toimisto,8=kehitys,16=iot,32=suoritus,64=ulkoinen,128=media,255=kaikki,"
 " Enter=ota kaikki käyttöön):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Perus (tiedosto, ympäristö, aika, kehotteet, taidot, muisti, työkalujen "
@@ -714,6 +717,7 @@ msgstr "NVIDIA-API-avain."
 msgid "DeepSeek API key."
 msgstr "DeepSeek API -avain."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1387,12 +1391,15 @@ msgstr "DeepSeek presence_penalty (oletus: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (oletus: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1827,6 +1834,7 @@ msgstr ""
 "Ei-interaktiivinen tila. Älä käynnistä stdin-silmukkaa; poistu "
 "käynnistystiedoston käsittelyn jälkeen (jos sellainen on)."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1836,11 +1844,13 @@ msgstr ""
 "(1=perus,2=viestintä,4=toimisto,8=kehitys,16=iot,32=suoritus,64=ulkoinen,128=media,255=kaikki)."
 " Ohittaa interaktiivisen tyylilajikehotteen, kun se on määritetty."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Ota työkalun lähetys LLM:lle käyttöön (ohittaa UAGENT_USE_TOOL-"
 "ympäristömuuttujan)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Poista työkalun lähetys LLM:lle käytöstä (ohittaa UAGENT_USE_TOOL-"
@@ -2385,6 +2395,9 @@ msgstr ""
 "[MCP-palvelimet]\n"
 "- Tietojen haku epäonnistui: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Pikaopas]"
@@ -2392,15 +2405,9 @@ msgstr "[Pikaopas]"
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr ""
-"- Keskustelu: kirjoita viesti ja lähetä (GUI: Ctrl+Enter toimii myös)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Monirivinen: kirjoita rivi, joka on pelkkä 'f', siirtyäksesi "
-"monirivitilaan (lopeta kirjoittamalla \"\"\"end)."
+"- Monirivinen: syötä rivi, joka on vain \"f\", siirtyäksesi moniriviseen "
+"tilaan.- Keskustelu: kirjoita viesti ja lähetä (GUI: Ctrl+Enter toimii "
+"myös).monirivitilaan (lopeta kirjoittamalla \"\"\"end)."
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2710,10 +2717,8 @@ msgstr "ei käytössä"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] .env.sec-tiedosto ei vastaa käynnistyksen UAGENT_* "
-"-ympäristömuuttujia. Päivitetäänkö se? [k/E] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] .env.sec-sisältö ei vastaa nykyisiä UAGENT_*-ympäristömuuttujia. [y] Päivitä .env.sec nykyisillä arvoilla / [s] Käytä .env.sec-arvoja (sovita istuntoon) / [N] Ohita:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2722,6 +2727,11 @@ msgid ""
 msgstr ""
 "[INFO] .env.sec-tiedosto ei vastaa käynnistyksen UAGENT_* "
 "-ympäristömuuttujia. Päivitä se komennolla `uag_envsec`."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] .env.sec-arvot on sovellettu nykyiseen istuntoon."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

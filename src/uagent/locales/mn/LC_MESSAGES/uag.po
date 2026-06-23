@@ -117,6 +117,7 @@ msgstr "[docs] нэр шаардлагатай"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] эхлүүлэх жанрын асуулт = тоон оруулга"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -126,6 +127,8 @@ msgstr ""
 "(1=үндсэн,2=харилцаа,4=оффис,8=хөгжүүлэлт,16=iot,32=гүйцэтгэх,64=гадаад,128=медиа,255=бүгд,"
 " Enter=бүгдийг идэвхжүүлэх):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Үндсэн (файл, орчин, цаг, сануулга, ур чадвар, санах ой, хэрэгслийн хяналт)"
@@ -712,6 +715,7 @@ msgstr "NVIDIA API түлхүүр."
 msgid "DeepSeek API key."
 msgstr "DeepSeek API түлхүүр."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1392,12 +1396,15 @@ msgstr "DeepSeek presence_penalty (анхдагч: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (анхдагч: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1830,6 +1837,7 @@ msgstr ""
 "Интерактив бус горим. stdin гогцоог бүү эхлүүл; эхлүүлэх файлыг "
 "боловсруулсны дараа гарах (хэрэв байгаа бол)."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1839,11 +1847,13 @@ msgstr ""
 "(1=үндсэн,2=харилцаа,4=оффис,8=хөгжүүлэлт,16=iot,32=гүйцэтгэх,64=гадаад,128=медиа,255=бүгд)."
 " Заасан үед интерактив төрлийн сануулгыг алгасдаг."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "LLM-д хэрэгсэл илгээхийг идэвхжүүлэх (UAGENT_USE_TOOL орчны хувьсагчийг "
 "дарна)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "LLM-д хэрэгсэл илгээхийг идэвхгүй болгох (UAGENT_USE_TOOL орчны хувьсагчийг "
@@ -2398,21 +2408,18 @@ msgstr ""
 "[MCP серверүүд]\n"
 "- Мэдээлэл авч чадсангүй: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Түргэн гарын авлага]"
 
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
-msgstr "- Чат: мессеж бичээд илгээх (GUI: Ctrl+Enter бас боломжтой)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
 msgstr ""
 "- Олон мөр: олон мөрийн горимд орохын тулд зөвхөн 'f' гэсэн мөрийг оруулна "
-"уу (\"\"\" төгсгөлөөр төгсдөг)."
+"уу.уу (\"\"\" төгсгөлөөр төгсдөг)."
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2726,10 +2733,8 @@ msgstr "тахир дутуу болсон"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] .env.sec контент нь одоогийн эхлүүлэх UAGENT_* орчны хувьсагчтай "
-"таарахгүй байна. Шинэчлэх үү? [y/N]"
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] .env.sec файлын агуулга одоогийн UAGENT_* орчны хувьсагчтай тохирохгүй байна. [y] .env.sec-ийг одоогийн утгаар шинэчлэх / [s] .env.sec утгыг ашиглах (сессид хэрэглэх) / [N] Алгасах:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2738,6 +2743,11 @@ msgid ""
 msgstr ""
 "[INFO] .env.sec контент нь одоогийн эхлүүлэх UAGENT_* орчны хувьсагчтай "
 "таарахгүй байна. Үүнийг шинэчлэхийн тулд `uag_envsec`-г ашиглана уу."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] .env.sec утгыг одоогийн сессид хэрэглэв."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

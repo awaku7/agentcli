@@ -23,7 +23,9 @@
       "export yaml"
     ],
     "param.password.description": "Password (prompts if needed).",
-    "prompt.password": "Enter the password for this file:{path}"
+    "prompt.password": "Enter the password for this file:{path}",
+    "error.missing_exstruct": "The 'exstruct' package is not installed. Please install it with: pip install exstruct",
+    "load.disabled": "The 'exstruct' package is not installed. Please install it with: pip install exstruct"
   },
   "ja": {
     "param.action.description": "実行する操作。",
@@ -46,53 +48,59 @@
       "json yaml"
     ],
     "param.password.description": "パスワード（必要な場合はプロンプト表示）。",
-    "prompt.password": "このファイルのパスワードを入力してください:\n{path}"
+    "prompt.password": "このファイルのパスワードを入力してください:\n{path}",
+    "error.missing_exstruct": "「exstruct」パッケージがインストールされていません。 pip install exstruct でインストールしてください。",
+    "load.disabled": "「exstruct」パッケージがインストールされていません。 pip install exstruct でインストールしてください。"
   },
   "es": {
     "param.action.description": "Operación a realizar.",
-    "param.auto_page_breaks_dir.description": "Directorio para guardar las áreas de salto de pá...",
-    "param.density_min.description": "Umbral de densidad de...",
+    "param.auto_page_breaks_dir.description": "Directorio para guardar áreas de salto de página automático.",
+    "param.density_min.description": "Umbral de densidad de la tabla.",
     "param.file_path.description": "Ruta al archivo Excel de entrada.",
     "param.format.description": "Formato de salida.",
     "param.include_cell_links.description": "Si se deben incluir hipervínculos de celdas.",
     "param.include_shapes.description": "Si se deben incluir formas.",
-    "param.mode.description": "Modo de extra...",
-    "param.output_path.description": "Ruta de s...",
-    "param.pretty.description": "Si se debe...",
-    "param.print_areas_dir.description": "Directorio para guardar archivos por...",
-    "param.sheets_dir.description": "Directorio para guardar archivo...",
-    "param.table_score_threshold.description": "Umbral de detección de...",
+    "param.mode.description": "Directorio para guardar áreas de salto de página automático. modo",
+    "param.output_path.description": "Datos JSON para escribir",
+    "param.pretty.description": "Impresión bonita",
+    "param.print_areas_dir.description": "Directorio para guardar archivos por área de impresión",
+    "param.sheets_dir.description": "Directorio para guardar archivos por hoja",
+    "param.table_score_threshold.description": "Umbral de detección de tabla",
     "tool.description": "Use exstruct para extraer datos estructurados de un archivo Excel (.",
     "x_search_terms": [
       "exstruct",
       "datos estructurados",
       "json yaml"
     ],
-    "param.password.description": "Contraseña opcional para a...",
-    "prompt.password": "Introduzca la contraseña de este arc..."
+    "param.password.description": "Contraseña (solicitudes si es necesario).",
+    "prompt.password": "Ingrese la contraseña para este archivo:{path}",
+    "error.missing_exstruct": "El paquete 'exstruct' no está instalado. Instálelo con: pip install exstruct",
+    "load.disabled": "El paquete 'exstruct' no está instalado. Instálelo con: pip install exstruct"
   },
   "fr": {
     "param.action.description": "Opération à effectuer.",
-    "param.auto_page_breaks_dir.description": "Répertoire où enregistrer les zones de saut de p...",
-    "param.density_min.description": "Seuil de densité du t...",
+    "param.auto_page_breaks_dir.description": "Répertoire pour enregistrer les zones de saut de page automatique.",
+    "param.density_min.description": "Seuil de densité de table.",
     "param.file_path.description": "Chemin du fichier Excel d'entrée.",
     "param.format.description": "Format de sortie.",
     "param.include_cell_links.description": "Indique s'il faut inclure les hyperliens des cellules.",
     "param.include_shapes.description": "Indique s'il faut inclure les formes.",
-    "param.mode.description": "Mode d'extrac...",
-    "param.output_path.description": "Chemin de...",
-    "param.pretty.description": "Indique s'...",
-    "param.print_areas_dir.description": "Répertoire où enregistrer les fichie...",
-    "param.sheets_dir.description": "Répertoire où enregistrer les f...",
-    "param.table_score_threshold.description": "Seuil de détection des...",
+    "param.mode.description": "Seuil de densité de table.",
+    "param.output_path.description": "Chemin de sortie.",
+    "param.pretty.description": "Jolie impression.",
+    "param.print_areas_dir.description": "Répertoire pour enregistrer les fichiers par zone d'impression.",
+    "param.sheets_dir.description": "Répertoire pour enregistrer les fichiers par feuille.",
+    "param.table_score_threshold.description": "Répertoire pour enregistrer les fichiers par zone d'impression.",
     "tool.description": "Utilisez exstruct pour extraire des données structurées d'un fichier Excel (.",
     "x_search_terms": [
       "exstruct",
       "données structurées",
       "json yaml"
     ],
-    "param.password.description": "Mot de passe facultatif po...",
-    "prompt.password": "Entrez le mot de passe de ce fichier..."
+    "param.password.description": "Mot de passe (invite si nécessaire).",
+    "prompt.password": "Entrez le mot de passe de ce fichier :{path}",
+    "error.missing_exstruct": "Le package 'exstruct' n'est pas installé. Veuillez l'installer avec : pip install exstruct",
+    "load.disabled": "Le package 'exstruct' n'est pas installé. Veuillez l'installer avec : pip install exstruct"
   },
   "ko": {
     "param.action.description": "수행할 작업입니다.",
@@ -115,67 +123,73 @@
       "json yaml"
     ],
     "param.password.description": "비밀번호(필요시 프롬프트 표시).",
-    "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}"
+    "prompt.password": "이 파일의 비밀번호를 입력하세요:\n{path}",
+    "error.missing_exstruct": "'exstruct' 패키지가 설치되지 않았습니다. 다음을 사용하여 설치하십시오: pip install exstruct",
+    "load.disabled": "'exstruct' 패키지가 설치되지 않았습니다. 다음을 사용하여 설치하십시오: pip install exstruct"
   },
   "de": {
     "param.action.description": "Auszuführende Operation.",
-    "param.auto_page_breaks_dir.description": "Verzeichnis zum Speichern von Bereichen für auto...",
-    "param.density_min.description": "Schwellenwert für die...",
+    "param.auto_page_breaks_dir.description": "Verzeichnis zum Speichern auto page break areas.",
+    "param.density_min.description": "Schwellenwert für Tabellendichte.",
     "param.file_path.description": "Pfad zur Eingabe-Excel-Datei.",
     "param.format.description": "Ausgabeformat.",
     "param.include_cell_links.description": "Ob Zell-Hyperlinks einbezogen werden sollen.",
     "param.include_shapes.description": "Ob Formen einbezogen werden sollen.",
     "param.mode.description": "Extraktionsmodus.",
-    "param.output_path.description": "Ausgabepf...",
-    "param.pretty.description": "Ob die Aus...",
-    "param.print_areas_dir.description": "Verzeichnis zum Speichern von Dateie...",
-    "param.sheets_dir.description": "Verzeichnis zum Speichern je Ar...",
-    "param.table_score_threshold.description": "Schwellenwert für die T...",
+    "param.output_path.description": "Ausgabepfad.",
+    "param.pretty.description": "Hübscher Druck.",
+    "param.print_areas_dir.description": "Verzeichnis zum Speichern von Dateien pro Druckbereich.",
+    "param.sheets_dir.description": "Verzeichnis zum Speichern pro Blattdateien.",
+    "param.table_score_threshold.description": "Tabellenerkennungsschwellenwert.",
     "tool.description": "Verwenden Sie exstruct, um strukturierte Daten aus einer Excel-Datei (.",
     "x_search_terms": [
       "exstruct",
       "strukturierte daten",
       "json yaml"
     ],
-    "param.password.description": "Optionales Kennwort für ve...",
-    "prompt.password": "Bitte geben Sie das Kennwort für die..."
+    "param.password.description": "Passwort (fragt bei Bedarf nach).",
+    "prompt.password": "Geben Sie das Passwort für diese Datei ein:{path}",
+    "error.missing_exstruct": "Das Paket „exstruct“ ist nicht installiert. Bitte installieren Sie es mit: pip install exstruct",
+    "load.disabled": "Das Paket „exstruct“ ist nicht installiert. Bitte installieren Sie es mit: pip install exstruct"
   },
   "it": {
     "param.action.description": "Operazione da eseguire.",
-    "param.auto_page_breaks_dir.description": "Directory in cui salvare le aree di interruzione...",
-    "param.density_min.description": "Soglia di densità del...",
+    "param.auto_page_breaks_dir.description": "Directory per salvare le aree di interruzione pagina automatica",
+    "param.density_min.description": "Soglia di densità della tabella",
     "param.file_path.description": "Percorso del file Excel di input.",
     "param.format.description": "Formato di output.",
     "param.include_cell_links.description": "Se includere i collegamenti ipertestuali delle celle.",
     "param.include_shapes.description": "Se includere le forme.",
-    "param.mode.description": "Modalità di e...",
-    "param.output_path.description": "Percorso...",
-    "param.pretty.description": "Se formatt...",
-    "param.print_areas_dir.description": "Directory in cui salvare i file per...",
-    "param.sheets_dir.description": "Directory in cui salvare i file...",
-    "param.table_score_threshold.description": "Soglia di rilevamento d...",
+    "param.mode.description": "Modalità di estrazione.",
+    "param.output_path.description": "Dati JSON da scrivere.",
+    "param.pretty.description": "Modalità di estrazione",
+    "param.print_areas_dir.description": "Directory per salvare i file per area di stampa",
+    "param.sheets_dir.description": "Directory in cui salvare i file per foglio.",
+    "param.table_score_threshold.description": "Soglia di rilevamento della tabella.",
     "tool.description": "Usa exstruct per estrarre dati strutturati da un file Excel (.",
     "x_search_terms": [
       "exstruct",
       "dati strutturati",
       "json yaml"
     ],
-    "param.password.description": "Password facoltativa per f...",
-    "prompt.password": "Inserisci la password di questo file..."
+    "param.password.description": "Password (richiesta se necessario).",
+    "prompt.password": "Inserisci la password per questo file:{path}",
+    "error.missing_exstruct": "Il pacchetto 'exstruct' non è installato. Installalo con: pip install exstruct",
+    "load.disabled": "Il pacchetto 'exstruct' non è installato. Installalo con: pip install exstruct"
   },
   "ru": {
     "param.action.description": "Операция, которую нужно выполнить.",
-    "param.auto_page_breaks_dir.description": "Каталог для сохранения областей автоматического...",
+    "param.auto_page_breaks_dir.description": "Каталог для сохранения областей автоматического разрыва страницы.",
     "param.density_min.description": "Порог плотности таблиц.",
     "param.file_path.description": "Путь к входному файлу Excel.",
     "param.format.description": "Формат вывода.",
     "param.include_cell_links.description": "Включать ли гиперссылки ячеек.",
     "param.include_shapes.description": "Включать ли фигуры.",
     "param.mode.description": "Режим извлечения.",
-    "param.output_path.description": "Путь выво...",
-    "param.pretty.description": "Нужно ли ф...",
-    "param.print_areas_dir.description": "Каталог для сохранения файлов по обл...",
-    "param.sheets_dir.description": "Каталог для сохранения файлов п...",
+    "param.output_path.description": "Выходной путь",
+    "param.pretty.description": "Каталог для сохранения областей автоматического разрыва страницы.",
+    "param.print_areas_dir.description": "Каталог для сохранения файлов каждой области печати.",
+    "param.sheets_dir.description": "Каталог для сохранения файлов отдельных листов.",
     "param.table_score_threshold.description": "Порог обнаружения таблицы.",
     "tool.description": "Используйте exstruct, чтобы извлекать структурированные данные из Excel (.",
     "x_search_terms": [
@@ -183,54 +197,60 @@
       "структурированные данные",
       "json yaml"
     ],
-    "param.password.description": "Необязательный пароль для...",
-    "prompt.password": "Введите пароль для этого файла:\n{path}"
+    "param.password.description": "Взаимодействие с определенным каналом Discord с помощью токена бота: отправка сообщений, чтение последних сообщений и, при необходимости, ожидание ответов после отправки.",
+    "prompt.password": "Введите пароль для этого файла:\n{path}",
+    "error.missing_exstruct": "Пакет exstruct не установлен. Пожалуйста, установите его с помощью: pip install exstruct",
+    "load.disabled": "Пакет exstruct не установлен. Пожалуйста, установите его с помощью: pip install exstruct"
   },
   "pt_BR": {
     "param.action.description": "Operação a ser executada.",
-    "param.auto_page_breaks_dir.description": "Diretório para salvar áreas de quebra automática...",
-    "param.density_min.description": "Limite de densidade d...",
+    "param.auto_page_breaks_dir.description": "Caminho de saída.",
+    "param.density_min.description": "Limite de densidade da tabela",
     "param.file_path.description": "Caminho para o arquivo Excel de entrada.",
     "param.format.description": "Formato de saída.",
     "param.include_cell_links.description": "Se deve incluir hiperlinks de células.",
     "param.include_shapes.description": "Se deve incluir formas.",
     "param.mode.description": "Modo de extração.",
-    "param.output_path.description": "Caminho d...",
-    "param.pretty.description": "Se deve fo...",
-    "param.print_areas_dir.description": "Diretório para salvar arquivos por á...",
-    "param.sheets_dir.description": "Diretório para salvar arquivos...",
-    "param.table_score_threshold.description": "Limite de detecção de t...",
+    "param.output_path.description": "Caminho de saída.",
+    "param.pretty.description": "Impressão bonita",
+    "param.print_areas_dir.description": "Diretório para salvar arquivos por área de impressão.",
+    "param.sheets_dir.description": "Diretório para salvar arquivos por folha.",
+    "param.table_score_threshold.description": "Limite de detecção de tabela.",
     "tool.description": "Use exstruct para extrair dados estruturados de um arquivo Excel (.",
     "x_search_terms": [
       "exstruct",
       "dados estruturados",
       "json yaml"
     ],
-    "param.password.description": "Senha opcional para arquiv...",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+    "param.password.description": "Senha (solicita se necessário).",
+    "prompt.password": "Digite a senha deste arquivo:\n{path}",
+    "error.missing_exstruct": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct",
+    "load.disabled": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct"
   },
   "pt": {
     "param.action.description": "Operação a ser executada.",
-    "param.auto_page_breaks_dir.description": "Diretório para salvar áreas de quebra automática...",
-    "param.density_min.description": "Limite de densidade d...",
+    "param.auto_page_breaks_dir.description": "Caminho do Excel (absoluto).",
+    "param.density_min.description": "Limite de densidade da tabela",
     "param.file_path.description": "Caminho para o arquivo Excel de entrada.",
     "param.format.description": "Formato de saída.",
     "param.include_cell_links.description": "Se deve incluir hiperlinks de células.",
     "param.include_shapes.description": "Se deve incluir formas.",
     "param.mode.description": "Modo de extração.",
-    "param.output_path.description": "Caminho d...",
-    "param.pretty.description": "Se a saída...",
-    "param.print_areas_dir.description": "Diretório para salvar arquivos por á...",
-    "param.sheets_dir.description": "Diretório para salvar arquivos...",
-    "param.table_score_threshold.description": "Limite de detecção de t...",
+    "param.output_path.description": "Caminho de saída.",
+    "param.pretty.description": "Impressão bonita",
+    "param.print_areas_dir.description": "Diretório para salvar arquivos por área de impressão.",
+    "param.sheets_dir.description": "Diretório para salvar arquivos por folha.",
+    "param.table_score_threshold.description": "Limite de detecção de tabela.",
     "tool.description": "Use o exstruct para extrair dados estruturados de um arquivo Excel (.",
     "x_search_terms": [
       "exstruct",
       "dados estruturados",
       "json yaml"
     ],
-    "param.password.description": "Senha opcional para arquiv...",
-    "prompt.password": "Digite a senha deste arquivo:\n{path}"
+    "param.password.description": "Senha (solicita se necessário).",
+    "prompt.password": "Digite a senha deste arquivo:\n{path}",
+    "error.missing_exstruct": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct",
+    "load.disabled": "O pacote 'exstruct' não está instalado. Instale-o com: pip install exstruct"
   },
   "id": {
     "param.action.description": "Operasi yang akan dilakukan.",
@@ -241,10 +261,10 @@
     "param.include_cell_links.description": "Apakah menyertakan hyperlink sel.",
     "param.include_shapes.description": "Apakah menyertakan shape.",
     "param.mode.description": "Mode ekstraksi.",
-    "param.output_path.description": "Path outp...",
-    "param.pretty.description": "Apakah out...",
-    "param.print_areas_dir.description": "Direktori untuk menyimpan file per a...",
-    "param.sheets_dir.description": "Direktori untuk menyimpan file...",
+    "param.output_path.description": "Jalur keluaran.",
+    "param.pretty.description": "Cetakan cantik.",
+    "param.print_areas_dir.description": "Direktori untuk menyimpan file per area cetak.",
+    "param.sheets_dir.description": "Direktori untuk menyimpan file per lembar.",
     "param.table_score_threshold.description": "Ambang deteksi tabel.",
     "tool.description": "Gunakan exstruct untuk mengekstrak data terstruktur dari file Excel (.",
     "x_search_terms": [
@@ -252,8 +272,10 @@
       "data terstruktur",
       "json yaml"
     ],
-    "param.password.description": "Kata sandi opsional untuk...",
-    "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}"
+    "param.password.description": "Kata sandi (diminta jika diperlukan).",
+    "prompt.password": "Masukkan kata sandi untuk file ini:\n{path}",
+    "error.missing_exstruct": "Paket 'exstruct' tidak diinstal. Silakan instal dengan: pip install exstruct",
+    "load.disabled": "Paket 'exstruct' tidak diinstal. Silakan instal dengan: pip install exstruct"
   },
   "vi": {
     "param.action.description": "Thao tác để thực hiện.",
@@ -264,10 +286,10 @@
     "param.include_cell_links.description": "Có bao gồm siêu liên kết ô hay không.",
     "param.include_shapes.description": "Có bao gồm các hình dạng hay không.",
     "param.mode.description": "Chế độ khai thác.",
-    "param.output_path.description": "Đường dẫn...",
-    "param.pretty.description": "Có định dạ...",
+    "param.output_path.description": "Đường dẫn đầu ra.",
+    "param.pretty.description": "Bản in đẹp.",
     "param.print_areas_dir.description": "Thư mục lưu các tệp theo từng vùng in.",
-    "param.sheets_dir.description": "Thư mục lưu các tệp theo từng t...",
+    "param.sheets_dir.description": "Thư mục để lưu các tệp trên mỗi trang tính",
     "param.table_score_threshold.description": "Ngưỡng phát hiện bảng.",
     "tool.description": "Dùng exstruct để trích xuất dữ liệu có cấu trúc từ tệp Excel (.",
     "x_search_terms": [
@@ -276,21 +298,23 @@
       "json yaml"
     ],
     "param.password.description": "Mật khẩu tùy chọn cho tệp .",
-    "prompt.password": "Nhập mật khẩu của tệp này:\n{path}"
+    "prompt.password": "Nhập mật khẩu của tệp này:\n{path}",
+    "error.missing_exstruct": "Gói 'exstruct' chưa được cài đặt. Vui lòng cài đặt nó với: pip install exstruct",
+    "load.disabled": "Gói 'exstruct' chưa được cài đặt. Vui lòng cài đặt nó với: pip install exstruct"
   },
   "pl": {
     "param.action.description": "Operacja do wykonania.",
-    "param.auto_page_breaks_dir.description": "Katalog do zapisywania obszarów automatycznych p...",
+    "param.auto_page_breaks_dir.description": "Katalog do zapisywania obszarów automatycznego podziału strony",
     "param.density_min.description": "Próg gęstości tabeli.",
     "param.file_path.description": "Ścieżka do wejściowego pliku Excel.",
     "param.format.description": "Format wyjściowy.",
     "param.include_cell_links.description": "Czy uwzględniać hiperłącza komórek.",
     "param.include_shapes.description": "Czy uwzględniać kształty.",
     "param.mode.description": "Tryb ekstrakcji.",
-    "param.output_path.description": "Ścieżka w...",
-    "param.pretty.description": "Czy sforma...",
-    "param.print_areas_dir.description": "Katalog do zapisywania plików dla ka...",
-    "param.sheets_dir.description": "Katalog do zapisywania plików d...",
+    "param.output_path.description": "Ścieżka wyjściowa",
+    "param.pretty.description": "Ładny wydruk",
+    "param.print_areas_dir.description": "Katalog do zapisywania plików według obszaru wydruku",
+    "param.sheets_dir.description": "Katalog do zapisywania plików według arkuszy",
     "param.table_score_threshold.description": "Próg wykrywania tabel.",
     "tool.description": "Użyj exstruct, aby wyodrębnić dane strukturalne z pliku Excel (.",
     "x_search_terms": [
@@ -298,8 +322,10 @@
       "dane strukturalne",
       "json yaml"
     ],
-    "param.password.description": "Opcjonalne hasło do zaszyf...",
-    "prompt.password": "Wprowadź hasło do tego pliku:\n{path}"
+    "param.password.description": "Hasło (w razie potrzeby wyświetli monit).",
+    "prompt.password": "Wprowadź hasło do tego pliku:\n{path}",
+    "error.missing_exstruct": "Pakiet „exstruct” nie jest zainstalowany. Zainstaluj go za pomocą: pip install exstruct",
+    "load.disabled": "Pakiet „exstruct” nie jest zainstalowany. Zainstaluj go za pomocą: pip install exstruct"
   },
   "hi": {
     "param.action.description": "किया जाने वाला ऑपरेशन.",
@@ -310,10 +336,10 @@
     "param.include_cell_links.description": "सेल हाइपरलिंक शामिल करना है या नहीं.",
     "param.include_shapes.description": "आकृतियों को शामिल करना है या नहीं.",
     "param.mode.description": "निष्कर्षण मोड.",
-    "param.output_path.description": "export_fi...",
-    "param.pretty.description": "क्या आउटपु...",
-    "param.print_areas_dir.description": "प्रति-प्रिंट-क्षेत्र फ़ाइलों को सहेज...",
-    "param.sheets_dir.description": "प्रति-शीट फ़ाइलों को सहेजने के...",
+    "param.output_path.description": "JSON डेटा रखना होगा।",
+    "param.pretty.description": "सुंदर प्रिंट।",
+    "param.print_areas_dir.description": "। प्रति-प्रिंट-क्षेत्र फ़ाइलों को सहेजने के लिए सुंदर प्रिंट।",
+    "param.sheets_dir.description": "प्रति-शीट फ़ाइलों को सहेजने के लिए निर्देशिका।",
     "param.table_score_threshold.description": "टेबल डिटेक्शन थ्रेशोल्ड.",
     "tool.description": "exstruct का उपयोग करके Excel (.",
     "x_search_terms": [
@@ -322,7 +348,9 @@
       "json yaml"
     ],
     "param.password.description": "एन्क्रिप्टेड .",
-    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}"
+    "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:\n{path}",
+    "error.missing_exstruct": "'एक्सस्ट्रक्ट' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct",
+    "load.disabled": "'एक्सस्ट्रक्ट' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct"
   },
   "ar": {
     "param.action.description": "العملية المطلوب تنفيذها.",
@@ -333,8 +361,8 @@
     "param.include_cell_links.description": "ما إذا كان سيتم تضمين الارتباطات التشعبية للخلية.",
     "param.include_shapes.description": "ما إذا كان سيتم تضمين الأشكال أم لا.",
     "param.mode.description": "وضع الاستخراج.",
-    "param.output_path.description": "مسار الإخ...",
-    "param.pretty.description": "ما إذا كان...",
+    "param.output_path.description": "مسار الإخراج",
+    "param.pretty.description": "طباعة جميلة",
     "param.print_areas_dir.description": "دليل لحفظ الملفات لكل منطقة طباعة.",
     "param.sheets_dir.description": "دليل لحفظ الملفات لكل ورقة.",
     "param.table_score_threshold.description": "عتبة الكشف عن الجدول.",
@@ -345,53 +373,59 @@
       "json yaml"
     ],
     "param.password.description": "كلمة مرور اختيارية لملفات .",
-    "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}"
+    "prompt.password": "أدخل كلمة المرور لهذا الملف:\n{path}",
+    "error.missing_exstruct": "لم يتم تثبيت الحزمة \"exstruct\". يرجى تثبيته باستخدام: pip install exstruct",
+    "load.disabled": "لم يتم تثبيت الحزمة \"exstruct\". يرجى تثبيته باستخدام: pip install exstruct"
   },
   "sv": {
     "param.action.description": "Åtgärd som ska utföras.",
-    "param.auto_page_breaks_dir.description": "Katalog för att spara områden för automatiska si...",
+    "param.auto_page_breaks_dir.description": "Katalog för att spara områden för automatiska sidbrytningar.",
     "param.density_min.description": "Tröskel för tabelltäthet.",
     "param.file_path.description": "Sökväg till indata-Excel-filen.",
     "param.format.description": "Utdataformat.",
     "param.include_cell_links.description": "Om cellhyperlänkar ska inkluderas.",
     "param.include_shapes.description": "Om former ska inkluderas.",
     "param.mode.description": "Extraktionsläge.",
-    "param.output_path.description": "Utmatning...",
-    "param.pretty.description": "Om utdata...",
-    "param.print_areas_dir.description": "Katalog för att spara filer per utsk...",
+    "param.output_path.description": "Utdatasökväg.",
+    "param.pretty.description": "Utmatningsväg_4.__DELIM_43__ Utmatningsväg_4.__DEL_4_4.__DEL Katalog för att spara automatiska sidbrytningsområden",
+    "param.print_areas_dir.description": "Katalog för att spara",
     "param.sheets_dir.description": "Katalog för att spara filer per blad.",
-    "param.table_score_threshold.description": "Tröskel för tabellident...",
+    "param.table_score_threshold.description": "Tabelldetekteringströskel",
     "tool.description": "Använd exstruct för att extrahera strukturerade data från en Excel-fil (.",
     "x_search_terms": [
       "exstruct",
       "strukturerad data",
       "json yaml"
     ],
-    "param.password.description": "Valfritt lösenord för kryp...",
-    "prompt.password": "Ange lösenordet för den här filen:\n{path}"
+    "param.password.description": "Lösenord (meddelanden om det behövs).",
+    "prompt.password": "Ange lösenordet för den här filen:\n{path}",
+    "error.missing_exstruct": "Paketet 'exstruct' är inte installerat. Installera den med: pip install exstruct",
+    "load.disabled": "Paketet 'exstruct' är inte installerat. Installera den med: pip install exstruct"
   },
   "sw": {
     "param.action.description": "Kitendo cha kutekeleza.",
-    "param.auto_page_breaks_dir.description": "Saraka ya kuhifadhi maeneo ya mapumziko ya ukura...",
-    "param.density_min.description": "Kiwango cha chini cha...",
+    "param.auto_page_breaks_dir.description": "Saraka ya kuhifadhi maeneo ya kugawa ukurasa otomatiki",
+    "param.density_min.description": "Kiwango cha msongamano wa jedwali",
     "param.file_path.description": "Njia ya faili la Excel la ingizo.",
     "param.format.description": "Muundo wa matokeo.",
     "param.include_cell_links.description": "Iwapo kujumuisha viungo vya seli.",
     "param.include_shapes.description": "Iwapo kujumuisha maumbo.",
-    "param.mode.description": "Hali ya uchim...",
-    "param.output_path.description": "Njia ya m...",
-    "param.pretty.description": "Iwapo mato...",
-    "param.print_areas_dir.description": "Saraka ya kuhifadhi faili kwa kila e...",
-    "param.sheets_dir.description": "Saraka ya kuhifadhi faili kwa k...",
-    "param.table_score_threshold.description": "Kiwango cha ugunduzi wa...",
+    "param.mode.description": "Njia ya uondoaji",
+    "param.output_path.description": "Njia ya pato",
+    "param.pretty.description": "Chapa nzuri.",
+    "param.print_areas_dir.description": "Kuchapisha_0_D_Mzuri.",
+    "param.sheets_dir.description": "Saraka ya kuhifadhi faili kwa kila laha",
+    "param.table_score_threshold.description": "Kiwango cha juu cha ugunduzi wa jedwali",
     "tool.description": "Tumia exstruct kutoa data iliyopangwa kutoka kwenye faili la Excel (.",
     "x_search_terms": [
       "exstruct",
       "data zilizopangwa",
       "json yaml"
     ],
-    "param.password.description": "Nenosiri la hiari kwa fail...",
-    "prompt.password": "Ingiza nenosiri la faili hili:\n{path}"
+    "param.password.description": "Nenosiri (vidokezo ikihitajika",
+    "prompt.password": "Ingiza nenosiri la faili hili:\n{path}",
+    "error.missing_exstruct": "Kifurushi cha 'exstruct' hakijasakinishwa. Tafadhali isakinishe kwa: pip install exstruct",
+    "load.disabled": "Kifurushi cha 'exstruct' hakijasakinishwa. Tafadhali isakinishe kwa: pip install exstruct"
   },
   "nb": {
     "param.action.description": "Handling som skal utføres.",
@@ -401,57 +435,61 @@
     "param.format.description": "Utdataformat.",
     "param.include_cell_links.description": "Om cellehyperlenker skal inkluderes.",
     "param.include_shapes.description": "Om former skal inkluderes.",
-    "param.mode.description": "Ekstraksjonsm...",
-    "param.output_path.description": "Utdata-st...",
-    "param.pretty.description": "Om utdata...",
-    "param.print_areas_dir.description": "Katalog for å lagre filer per utskri...",
+    "param.mode.description": "Utdatabane_4.__DEL_4.__DEL_4.__DEL_4.__ Uttrekksmodus",
+    "param.output_path.description": "Utdatabane.",
+    "param.pretty.description": "Pretty print",
+    "param.print_areas_dir.description": "Katalog for å lagre",
     "param.sheets_dir.description": "Katalog for å lagre filer per ark.",
-    "param.table_score_threshold.description": "Terskel for tabellgjenk...",
+    "param.table_score_threshold.description": "Tabelldeteksjonsterskel",
     "tool.description": "Bruk exstruct til å trekke ut strukturerte data fra en Excel-fil (.",
     "x_search_terms": [
       "exstruct",
       "strukturert data",
       "json yaml"
     ],
-    "param.password.description": "Valgfritt passord for kryp...",
-    "prompt.password": "Skriv inn passordet for denne filen:..."
+    "param.password.description": "Passord (spør om nødvendig).",
+    "prompt.password": "Skriv inn passordet for denne filen:{path}",
+    "error.missing_exstruct": "'exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct",
+    "load.disabled": "'exstruct'-pakken er ikke installert. Vennligst installer den med: pip install exstruct"
   },
   "nl": {
     "param.action.description": "Uit te voeren bewerking.",
-    "param.auto_page_breaks_dir.description": "Map om automatisch gegenereerde pagina-eindegebi...",
-    "param.density_min.description": "Dichtheidsdrempel voo...",
+    "param.auto_page_breaks_dir.description": "Directory om automatische pagina-eindegebieden op te slaan.",
+    "param.density_min.description": "Drempel voor tabeldichtheid.",
     "param.file_path.description": "Pad naar het invoer-Excelbestand.",
     "param.format.description": "Uitvoerformaat.",
     "param.include_cell_links.description": "Of celkoppelingen moeten worden opgenomen.",
     "param.include_shapes.description": "Of vormen moeten worden opgenomen.",
     "param.mode.description": "Extractiemodus.",
-    "param.output_path.description": "Uitvoerpa...",
-    "param.pretty.description": "Of de uitv...",
-    "param.print_areas_dir.description": "Map om bestanden per afdrukgebied op...",
-    "param.sheets_dir.description": "Map om bestanden per werkblad o...",
-    "param.table_score_threshold.description": "Drempel voor tabelherke...",
+    "param.output_path.description": "Uitvoerpad.",
+    "param.pretty.description": "Mooie print.",
+    "param.print_areas_dir.description": "Directory waarin bestanden per afdrukgebied worden opgeslagen.",
+    "param.sheets_dir.description": "Directory om bestanden per vel op te slaan.",
+    "param.table_score_threshold.description": "Tabeldetectiedrempel.",
     "tool.description": "Gebruik exstruct om gestructureerde gegevens uit een Excelbestand (.",
     "x_search_terms": [
       "exstruct",
       "gestructureerde data",
       "json yaml"
     ],
-    "param.password.description": "Optioneel wachtwoord voor...",
-    "prompt.password": "Voer het wachtwoord voor dit bestand..."
+    "param.password.description": "Wachtwoord (vraagt ​​indien nodig).",
+    "prompt.password": "Voer het wachtwoord voor dit bestand in: {path}",
+    "error.missing_exstruct": "Het 'exstruct'-pakket is niet geïnstalleerd. Installeer het alstublieft met: pip install exstruct",
+    "load.disabled": "Het 'exstruct'-pakket is niet geïnstalleerd. Installeer het alstublieft met: pip install exstruct"
   },
   "fi": {
     "param.action.description": "Suoritettava toiminto.",
-    "param.auto_page_breaks_dir.description": "Hakemisto automaattisten sivunvaihtoalueiden tal...",
+    "param.auto_page_breaks_dir.description": "Hakemisto automaattisten sivunvaihtoalueiden tallentamiseen.",
     "param.density_min.description": "Taulukoiden tiheyskynnys.",
     "param.file_path.description": "Polku syöte-Excel-tiedostoon.",
     "param.format.description": "Tulostusmuoto.",
     "param.include_cell_links.description": "Sisällytetäänkö soluhiperlinkit.",
     "param.include_shapes.description": "Sisällytetäänkö muodot.",
     "param.mode.description": "Poimintatila.",
-    "param.output_path.description": "Tulostepo...",
-    "param.pretty.description": "Muotoillaa...",
-    "param.print_areas_dir.description": "Hakemisto tulostusaluekohtaisille ti...",
-    "param.sheets_dir.description": "Hakemisto laskentataulukohtaisi...",
+    "param.output_path.description": "Lähtöpolku.",
+    "param.pretty.description": "Kaunis printti.",
+    "param.print_areas_dir.description": "Hakemisto tulostusaluekohtaisten tiedostojen tallentamiseen.",
+    "param.sheets_dir.description": "Hakemisto arkkikohtaisten tiedostojen tallentamiseen.",
     "param.table_score_threshold.description": "Taulukon tunnistuskynnys.",
     "tool.description": "Käytä exstructia poimiaksesi rakenteista dataa Excel (.",
     "x_search_terms": [
@@ -460,21 +498,23 @@
       "json yaml"
     ],
     "param.password.description": "Salasana salatuille .",
-    "prompt.password": "Anna tämän tiedoston salasana:\n{path}"
+    "prompt.password": "Anna tämän tiedoston salasana:\n{path}",
+    "error.missing_exstruct": "Exstruct-pakettia ei ole asennettu. Asenna se komennolla: pip install exstruct",
+    "load.disabled": "Exstruct-pakettia ei ole asennettu. Asenna se komennolla: pip install exstruct"
   },
   "cs": {
     "param.action.description": "Operace, kterou chcete provést.",
-    "param.auto_page_breaks_dir.description": "Adresář pro ukládání oblastí automatických zalom...",
+    "param.auto_page_breaks_dir.description": "Adresář pro uložení oblastí automatického konce stránek.",
     "param.density_min.description": "Práh hustoty tabulky.",
     "param.file_path.description": "Cesta k vstupnímu souboru Excel.",
     "param.format.description": "Výstupní formát.",
     "param.include_cell_links.description": "Zda zahrnout hypertextové odkazy buněk.",
     "param.include_shapes.description": "Zda zahrnout tvary.",
     "param.mode.description": "Režim extrakce.",
-    "param.output_path.description": "Výstupní...",
-    "param.pretty.description": "Zda výstup...",
-    "param.print_areas_dir.description": "Adresář pro ukládání souborů podle t...",
-    "param.sheets_dir.description": "Adresář pro ukládání souborů po...",
+    "param.output_path.description": "Výstupní cesta.",
+    "param.pretty.description": "Pěkný potisk.",
+    "param.print_areas_dir.description": "Adresář pro ukládání souborů podle tiskové oblasti.",
+    "param.sheets_dir.description": "Adresář pro ukládání souborů na jednotlivé listy.",
     "param.table_score_threshold.description": "Práh pro detekci tabulek.",
     "tool.description": "Použijte exstruct k extrahování strukturovaných dat ze souboru Excel (.",
     "x_search_terms": [
@@ -482,22 +522,24 @@
       "strukturovaná data",
       "json yaml"
     ],
-    "param.password.description": "Volitelné heslo pro šifrov...",
-    "prompt.password": "Zadejte heslo pro tento soubor:\n{path}"
+    "param.password.description": "Heslo (v případě potřeby se zobrazí výzva).",
+    "prompt.password": "Zadejte heslo pro tento soubor:\n{path}",
+    "error.missing_exstruct": "Balíček 'exstruct' není nainstalován. Nainstalujte jej prosím pomocí: pip install exstruct",
+    "load.disabled": "Balíček 'exstruct' není nainstalován. Nainstalujte jej prosím pomocí: pip install exstruct"
   },
   "uk": {
     "param.action.description": "Операція, яку потрібно виконати.",
-    "param.auto_page_breaks_dir.description": "Каталог для збереження областей автоматичного ро...",
+    "param.auto_page_breaks_dir.description": "Каталог для збереження областей автоматичного розриву сторінки.",
     "param.density_min.description": "Поріг щільності таблиці.",
     "param.file_path.description": "Шлях до вхідного файлу Excel.",
     "param.format.description": "Формат виводу.",
     "param.include_cell_links.description": "Чи включати гіперпосилання клітинок.",
     "param.include_shapes.description": "Чи включати фігури.",
     "param.mode.description": "Режим витягання.",
-    "param.output_path.description": "Шлях виво...",
-    "param.pretty.description": "Чи формату...",
-    "param.print_areas_dir.description": "Каталог для збереження файлів за обл...",
-    "param.sheets_dir.description": "Каталог для збереження файлів з...",
+    "param.output_path.description": "Вихідний шлях",
+    "param.pretty.description": "Гарний друк.",
+    "param.print_areas_dir.description": "Каталог для збереження файлів для кожної області друку.",
+    "param.sheets_dir.description": "Каталог для збереження файлів на аркуші.",
     "param.table_score_threshold.description": "Поріг виявлення таблиць.",
     "tool.description": "Використовуйте exstruct для витягання структурованих даних із файлу Excel (.",
     "x_search_terms": [
@@ -505,8 +547,10 @@
       "структуровані дані",
       "json yaml"
     ],
-    "param.password.description": "Необовʼязковий пароль для...",
-    "prompt.password": "Введіть пароль для цього файла:\n{path}"
+    "param.password.description": "Інтервал опитування під час очікування відповідей (у секундах).",
+    "prompt.password": "Введіть пароль для цього файла:\n{path}",
+    "error.missing_exstruct": "Пакет exstruct не встановлено. Встановіть його за допомогою: pip install exstruct",
+    "load.disabled": "Пакет exstruct не встановлено. Встановіть його за допомогою: pip install exstruct"
   },
   "tr": {
     "param.action.description": "Gerçekleştirilecek işlem.",
@@ -516,11 +560,11 @@
     "param.format.description": "Çıkış formatı.",
     "param.include_cell_links.description": "Hücre köprülerinin dahil edilip edilmeyeceği.",
     "param.include_shapes.description": "Şekillerin dahil edilip edilmeyeceği.",
-    "param.mode.description": "Ekstraksiyon...",
-    "param.output_path.description": "Export_fi...",
-    "param.pretty.description": "Çıktıyı gü...",
-    "param.print_areas_dir.description": "Yazdırma alanı başına dosyaların kay...",
-    "param.sheets_dir.description": "Sayfa başına dosyaların kaydedi...",
+    "param.mode.description": "Çıkarma modu.",
+    "param.output_path.description": "Çıkış yolu.",
+    "param.pretty.description": "Güzel baskı.",
+    "param.print_areas_dir.description": "Yazdırma alanı başına dosyaların kaydedileceği dizin.",
+    "param.sheets_dir.description": "Sayfa başına dosyaların kaydedileceği dizin.",
     "param.table_score_threshold.description": "Tablo algılama eşiği.",
     "tool.description": "Bir Excel (.",
     "x_search_terms": [
@@ -529,7 +573,9 @@
       "json yaml"
     ],
     "param.password.description": "Şifrelenmiş .",
-    "prompt.password": "Bu dosyanın şifresini girin:\n{path}"
+    "prompt.password": "Bu dosyanın şifresini girin:\n{path}",
+    "error.missing_exstruct": "'Exstruct' paketi kurulu değil. Lütfen şu şekilde yükleyin: pip install exstruct",
+    "load.disabled": "'Exstruct' paketi kurulu değil. Lütfen şu şekilde yükleyin: pip install exstruct"
   },
   "th": {
     "param.action.description": "การดำเนินการที่ต้องการทำ",
@@ -540,9 +586,9 @@
     "param.include_cell_links.description": "จะรวมไฮเปอร์ลิงก์ของเซลล์หรือไม่",
     "param.include_shapes.description": "จะรวมรูปร่างหรือไม่",
     "param.mode.description": "โหมดการแยกข้อมูล",
-    "param.output_path.description": "พาธเอาต์พ...",
-    "param.pretty.description": "จะจัดรูปแบ...",
-    "param.print_areas_dir.description": "ไดเรกทอรีสำหรับบันทึกไฟล์ตามแต่ละพื้...",
+    "param.output_path.description": "เส้นทางเอาท์พุต",
+    "param.pretty.description": "ข้อมูล JSON ที่จะเขียน",
+    "param.print_areas_dir.description": "ไดเรกทอรีที่จะบันทึกต่อพื้นที่พิมพ์",
     "param.sheets_dir.description": "ไดเรกทอรีสำหรับบันทึกไฟล์ตามแต่ละชีต",
     "param.table_score_threshold.description": "เกณฑ์การตรวจจับตาราง",
     "tool.description": "ใช้ exstruct เพื่อแยกข้อมูลเชิงโครงสร้างจากไฟล์ Excel (.",
@@ -552,7 +598,9 @@
       "json yaml"
     ],
     "param.password.description": "รหัสผ่านสำหรับไฟล์ .",
-    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}"
+    "prompt.password": "กรุณาใส่รหัสผ่านของไฟล์นี้:\n{path}",
+    "error.missing_exstruct": "ไม่ได้ติดตั้งแพ็คเกจ 'exstruct' กรุณาติดตั้งด้วย: pip install exstruct",
+    "load.disabled": "ไม่ได้ติดตั้งแพ็คเกจ 'exstruct' กรุณาติดตั้งด้วย: pip install exstruct"
   },
   "zh_CN": {
     "param.action.description": "要执行的操作。",
@@ -575,7 +623,9 @@
       "json yaml"
     ],
     "param.password.description": "密码（需要时提示输入）。",
-    "prompt.password": "请输入此文件的密码：\n{path}"
+    "prompt.password": "请输入此文件的密码：\n{path}",
+    "error.missing_exstruct": "未安装\"exstruct\"包。请使用以下命令安装：pip install exstruct",
+    "load.disabled": "未安装\"exstruct\"包。请使用以下命令安装：pip install exstruct"
   },
   "zh_TW": {
     "param.action.description": "要執行的操作。",
@@ -598,20 +648,22 @@
       "json yaml"
     ],
     "param.password.description": "密码（需要时提示输入）。",
-    "prompt.password": "請輸入此文件的密碼：\n{path}"
+    "prompt.password": "請輸入此文件的密碼：\n{path}",
+    "error.missing_exstruct": "未安裝\"exstruct\"包。請使用以下指令安裝：pip install exstruct",
+    "load.disabled": "未安裝\"exstruct\"包。請使用以下指令安裝：pip install exstruct"
   },
   "bn": {
     "param.action.description": "যে কাজটি করা হবে।",
-    "param.auto_page_breaks_dir.description": "স্বয়ংক্রিয় পৃষ্ঠা-বিভাজন এলাকাগুলো সংরক্ষণের ড...",
-    "param.density_min.description": "টেবিল ঘনত্বের ন্যূনতম...",
+    "param.auto_page_breaks_dir.description": "আউটপুট পাথ",
+    "param.density_min.description": "টেবিলের ঘনত্বের থ্রেশহোল্ড।",
     "param.file_path.description": "ইনপুট Excel ফাইলের পথ।",
     "param.format.description": "আউটপুট ফরম্যাট।",
     "param.include_cell_links.description": "সেল হাইপারলিঙ্ক অন্তর্ভুক্ত করবেন কি না।",
     "param.include_shapes.description": "আকৃতি অন্তর্ভুক্ত করবেন কি না।",
     "param.mode.description": "এক্সট্রাকশন মোড।",
-    "param.output_path.description": "export_fi...",
-    "param.pretty.description": "আউটপুট সুন...",
-    "param.print_areas_dir.description": "প্রতি-প্রিন্ট-এলাকার ফাইল সংরক্ষণের...",
+    "param.output_path.description": "আউটপুট পথ।",
+    "param.pretty.description": "বেশ প্রিন্ট।",
+    "param.print_areas_dir.description": "প্রতি-প্রিন্ট-এরিয়া ফাইল সংরক্ষণ করার জন্য ডিরেক্টরি।",
     "param.sheets_dir.description": "প্রতি-শিটের ফাইল সংরক্ষণের ডিরেক্টরি।",
     "param.table_score_threshold.description": "টেবিল সনাক্তকরণের সীমা।",
     "tool.description": "exstruct ব্যবহার করে Excel (.",
@@ -621,7 +673,9 @@
       "json yaml"
     ],
     "param.password.description": "এনক্রিপ্ট করা .",
-    "prompt.password": "এই ফাইলটির পাসওয়ার্ড লিখুন:\n{path}"
+    "prompt.password": "এই ফাইলটির পাসওয়ার্ড লিখুন:\n{path}",
+    "error.missing_exstruct": "'exstruct' প্যাকেজ ইনস্টল করা নেই। অনুগ্রহ করে এটি দিয়ে ইনস্টল করুন: pip install exstruct",
+    "load.disabled": "'exstruct' প্যাকেজ ইনস্টল করা নেই। অনুগ্রহ করে এটি দিয়ে ইনস্টল করুন: pip install exstruct"
   },
   "fa": {
     "param.action.description": "عملیاتی که باید انجام شود.",
@@ -632,8 +686,8 @@
     "param.include_cell_links.description": "این‌که پیوندهای سلول‌ها هم شامل شوند یا نه.",
     "param.include_shapes.description": "این‌که شکل‌ها هم شامل شوند یا نه.",
     "param.mode.description": "حالت استخراج.",
-    "param.output_path.description": "مسیر خروج...",
-    "param.pretty.description": "این‌که خرو...",
+    "param.output_path.description": "مسیر خروجی.",
+    "param.pretty.description": "چاپ زیبا.",
     "param.print_areas_dir.description": "پوشهٔ ذخیرهٔ فایل‌های هر ناحیهٔ چاپ.",
     "param.sheets_dir.description": "پوشهٔ ذخیرهٔ فایل‌های هر شیت.",
     "param.table_score_threshold.description": "آستانهٔ تشخیص جدول.",
@@ -643,8 +697,10 @@
       "داده ساخت‌یافته",
       "json yaml"
     ],
-    "param.password.description": "گذرواژهٔ اختیاری برای فایل...",
-    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}"
+    "param.password.description": "رمز عبور (در صورت نیاز درخواست می کند).",
+    "prompt.password": "گذرواژهٔ این فایل را وارد کنید:\n{path}",
+    "error.missing_exstruct": "بسته \"exstruct\" نصب نشده است. لطفا آن را با: pip install exstruct نصب کنید",
+    "load.disabled": "بسته \"exstruct\" نصب نشده است. لطفا آن را با: pip install exstruct نصب کنید"
   },
   "mn": {
     "param.action.description": "Хийх үйлдэл.",
@@ -654,11 +710,11 @@
     "param.format.description": "Гаралтын формат.",
     "param.include_cell_links.description": "Нүдний hyperlink-үүдийг оруулах эсэх.",
     "param.include_shapes.description": "Тэмдэг дүрсүүдийг оруулах эсэх.",
-    "param.mode.description": "Экстракцийн г...",
-    "param.output_path.description": "export_fi...",
-    "param.pretty.description": "Гаралтыг г...",
-    "param.print_areas_dir.description": "Хэвлэх бүс тус бүрийн файлуудыг хадг...",
-    "param.sheets_dir.description": "Хуудас тус бүрийн файлуудыг хад...",
+    "param.mode.description": "олборлох горим.",
+    "param.output_path.description": "хүртэл хадгална.",
+    "param.pretty.description": "Extraction горим",
+    "param.print_areas_dir.description": "Хэвлэх талбарт файлуудыг хадгалах",
+    "param.sheets_dir.description": "лавлах",
     "param.table_score_threshold.description": "Хүснэгт илрүүлэх босго.",
     "tool.description": "exstruct ашиглан Excel (.",
     "x_search_terms": [
@@ -667,21 +723,23 @@
       "json yaml"
     ],
     "param.password.description": "Шифрлэгдсэн .",
-    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}"
+    "prompt.password": "Энэ файлын нууц үгийг оруулна уу:\n{path}",
+    "error.missing_exstruct": "\"Exstruct\" багцыг суулгаагүй байна. Үүнийг дараахаар суулгана уу: pip install exstruct",
+    "load.disabled": "\"Exstruct\" багцыг суулгаагүй байна. Үүнийг дараахаар суулгана уу: pip install exstruct"
   },
   "mr": {
     "param.action.description": "करावयाची क्रिया.",
-    "param.auto_page_breaks_dir.description": "स्वयंचलित पृष्ठ-विभाजन क्षेत्रे जतन करण्यासाठीची...",
-    "param.density_min.description": "तक्त्याच्या घनतेची मर...",
+    "param.auto_page_breaks_dir.description": "स्वयं पृष्ठ खंडित क्षेत्रे जतन करण्यासाठी निर्देशिका.",
+    "param.density_min.description": "सारणी घनता थ्रेशोल्ड.",
     "param.file_path.description": "इनपुट Excel फाइलचा path.",
     "param.format.description": "आउटपुट format.",
     "param.include_cell_links.description": "सेल hyperlink समाविष्ट करायचे का.",
     "param.include_shapes.description": "आकार/shape समाविष्ट करायचे का.",
     "param.mode.description": "抽出モード。",
-    "param.output_path.description": "export_fi...",
-    "param.pretty.description": "आउटपुट सुं...",
-    "param.print_areas_dir.description": "प्रति-प्रिंट-एरिया फाइल्स जतन करण्या...",
-    "param.sheets_dir.description": "प्रति-शीट फाइल्स जतन करण्यासाठी...",
+    "param.output_path.description": "आउटपुट पथ.",
+    "param.pretty.description": "सुंदर प्रिंट.",
+    "param.print_areas_dir.description": "प्रति-प्रिंट-क्षेत्र फायली जतन करण्यासाठी निर्देशिका.",
+    "param.sheets_dir.description": "प्रति-शीट फायली जतन करण्यासाठी निर्देशिका.",
     "param.table_score_threshold.description": "तक्ता ओळखण्याची मर्यादा.",
     "tool.description": "exstruct वापरून Excel (.",
     "x_search_terms": [
@@ -690,6 +748,120 @@
       "json yaml"
     ],
     "param.password.description": "एन्क्रिप्ट केलेल्या .",
-    "prompt.password": "या फाइलसाठी पासवर्ड टाका:\n{path}"
+    "prompt.password": "या फाइलसाठी पासवर्ड टाका:\n{path}",
+    "error.missing_exstruct": "'exstruct' पॅकेज स्थापित केलेले नाही. कृपया ते यासह स्थापित करा: pip install exstruct",
+    "load.disabled": "'exstruct' पॅकेज स्थापित केलेले नाही. कृपया ते यासह स्थापित करा: pip install exstruct"
+  },
+  "el": {
+    "param.action.description": "Λειτουργία για εκτέλεση.",
+    "param.auto_page_breaks_dir.description": "Κατάλογος για αποθήκευση περιοχών αυτόματης αλλαγής σελίδας.",
+    "param.density_min.description": "Όριο πυκνότητας πίνακα.",
+    "param.file_path.description": "Διαδρομή προς το αρχείο εισόδου Excel.",
+    "param.format.description": "Μορφή εξόδου.",
+    "param.include_cell_links.description": "Εάν θα συμπεριληφθούν υπερσυνδέσεις κυψέλης.",
+    "param.include_shapes.description": "Εάν θα συμπεριληφθούν σχήματα.",
+    "param.mode.description": "Λειτουργία εξαγωγής.",
+    "param.output_path.description": "Διαδρομή εξόδου.",
+    "param.pretty.description": "Όμορφη εκτύπωση.",
+    "param.print_areas_dir.description": "Κατάλογος για αποθήκευση αρχείων ανά περιοχή εκτύπωσης.",
+    "param.sheets_dir.description": "Κατάλογος για αποθήκευση αρχείων ανά φύλλο.",
+    "param.table_score_threshold.description": "Όριο ανίχνευσης πίνακα.",
+    "tool.description": "Χρησιμοποιήστε το exstruct για εξαγωγή δομημένων δεδομένων από ένα Excel (. xlsx) και επιστροφή/αποθήκευση ως JSON/YAML.",
+    "x_search_terms": [
+      "εξοντώνω",
+      "εξοντώνω",
+      "δομημένα δεδομένα",
+      "δομή του Excel",
+      "εξαγωγή json",
+      "εξαγωγή yaml"
+    ],
+    "param.password.description": "Κωδικός πρόσβασης (ζητείται εάν χρειάζεται).",
+    "prompt.password": "Εισαγάγετε τον κωδικό πρόσβασης για αυτό το αρχείο:{path}",
+    "error.missing_exstruct": "Το πακέτο «exstruct» δεν είναι εγκατεστημένο. Εγκαταστήστε το με: pip install exstruct",
+    "load.disabled": "Το πακέτο «exstruct» δεν είναι εγκατεστημένο. Εγκαταστήστε το με: pip install exstruct"
+  },
+  "he": {
+    "param.action.description": "פעולה לביצוע.",
+    "param.auto_page_breaks_dir.description": "ספרייה לשמירת אזורי מעבר דף אוטומטי.",
+    "param.density_min.description": "סף צפיפות הטבלה.",
+    "param.file_path.description": "נתיב לקובץ הקלט של Excel.",
+    "param.format.description": "פורמט פלט.",
+    "param.include_cell_links.description": "האם לכלול היפר-קישורים לתאים.",
+    "param.include_shapes.description": "האם לכלול צורות.",
+    "param.mode.description": "מצב חילוץ.",
+    "param.output_path.description": "נתיב פלט.",
+    "param.pretty.description": "הדפס יפה.",
+    "param.print_areas_dir.description": "ספרייה לשמירת קבצים לפי אזור הדפסה.",
+    "param.sheets_dir.description": "ספרייה לשמירת קבצים לפי גיליון.",
+    "param.table_score_threshold.description": "סף זיהוי טבלה.",
+    "tool.description": "השתמש ב-exstruct כדי לחלץ נתונים מובנים מ-Excel (. xlsx) ולהחזיר/שמור כ-JSON/YAML.",
+    "x_search_terms": [
+      "להמחיש",
+      "להמחיש",
+      "נתונים מובנים",
+      "מבנה אקסל",
+      "ייצוא json",
+      "ייצא יאמל"
+    ],
+    "param.password.description": "סיסמה (מבקש במידת הצורך).",
+    "prompt.password": "הזן את הסיסמה עבור הקובץ הזה:{path}",
+    "error.missing_exstruct": "החבילה 'exstruct' אינה מותקנת. אנא התקן אותו עם: pip install exstruct",
+    "load.disabled": "החבילה 'exstruct' אינה מותקנת. אנא התקן אותו עם: pip install exstruct"
+  },
+  "hu": {
+    "param.action.description": "Végrehajtandó művelet.",
+    "param.auto_page_breaks_dir.description": "Könyvtár az automatikus oldaltörési területek mentéséhez.",
+    "param.density_min.description": "Asztalsűrűség küszöbértéke.",
+    "param.file_path.description": "A bemeneti Excel-fájl elérési útja.",
+    "param.format.description": "Kimeneti formátum.",
+    "param.include_cell_links.description": "A cellahiperhivatkozások szerepeltetése.",
+    "param.include_shapes.description": "Az alakzatok szerepeltetése.",
+    "param.mode.description": "Extrakciós mód.",
+    "param.output_path.description": "Kimeneti útvonal.",
+    "param.pretty.description": "Szép nyomat.",
+    "param.print_areas_dir.description": "Könyvtár a nyomtatási területenkénti fájlok mentéséhez.",
+    "param.sheets_dir.description": "Könyvtár a laponkénti fájlok mentéséhez.",
+    "param.table_score_threshold.description": "Táblázat észlelési küszöbértéke.",
+    "tool.description": "Az exstruct használatával strukturált adatokat bonthat ki egy Excelből (. xlsx), és térhet vissza/menthet JSON/YAML-ként.",
+    "x_search_terms": [
+      "exstruct",
+      "exstruct",
+      "strukturált adatok",
+      "excel szerkezet",
+      "json exportálása",
+      "export yaml"
+    ],
+    "param.password.description": "Jelszó (szükség esetén kéri).",
+    "prompt.password": "Írja be a jelszót ehhez a fájlhoz:{path}",
+    "error.missing_exstruct": "Az \"exstruct\" csomag nincs telepítve. Kérjük, telepítse a következővel: pip install exstruct",
+    "load.disabled": "Az \"exstruct\" csomag nincs telepítve. Kérjük, telepítse a következővel: pip install exstruct"
+  },
+  "ro": {
+    "param.action.description": "Operație de efectuat.",
+    "param.auto_page_breaks_dir.description": "Director pentru salvarea zonelor de întrerupere automată a paginii.",
+    "param.density_min.description": "Pragul de densitate a tabelului.",
+    "param.file_path.description": "Calea către fișierul Excel de intrare.",
+    "param.format.description": "Format de ieșire.",
+    "param.include_cell_links.description": "Dacă să includă hyperlinkuri pentru celule.",
+    "param.include_shapes.description": "Dacă să includă forme.",
+    "param.mode.description": "Modul de extracție.",
+    "param.output_path.description": "Calea de ieșire.",
+    "param.pretty.description": "Frumos imprimeu.",
+    "param.print_areas_dir.description": "Director pentru a salva fișiere pentru fiecare zonă de imprimare.",
+    "param.sheets_dir.description": "Director pentru salvarea fișierelor pe foaie.",
+    "param.table_score_threshold.description": "Pragul de detectare a tabelului.",
+    "tool.description": "Utilizați exstruct pentru a extrage date structurate dintr-un Excel (. xlsx) și returnați/salvați ca JSON/YAML.",
+    "x_search_terms": [
+      "exstruct",
+      "exstruct",
+      "date structurate",
+      "structura excel",
+      "export json",
+      "export yaml"
+    ],
+    "param.password.description": "Parola (se solicită dacă este necesar).",
+    "prompt.password": "Introduceți parola pentru acest fișier:{cale}",
+    "error.missing_exstruct": "Pachetul „exstruct” nu este instalat. Instalați-l cu: pip install exstruct",
+    "load.disabled": "Pachetul „exstruct” nu este instalat. Instalați-l cu: pip install exstruct"
   }
 }

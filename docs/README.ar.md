@@ -2,101 +2,158 @@
   <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
 </p>
 
-# uag (الوكيل المحلي للذكاء الاصطناعي)
+<h1 align="center">uag — بوابة الذكاء الاصطناعي العالمية</h1>
 
-uag هو وكيل تفاعلي محلي ينفّذ **الأوامر**، ويتعامل مع **الملفات**، ويقرأ ملفات البيانات مثل PDF وPPTX وExcel. ويوفّر ثلاث واجهات للمستخدم: CLI وGUI وWeb.
+<p align="center">
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — بيئتك، حريتك.
+</p>
 
-uag تم تصميمه لكي **يبقيك بعيدًا عن التطبيقات المقيدة بمورد واحد**: استخدم الواجهة التي تناسب سير عملك، وبدّل المزودين، وابقَ متحكمًا في بيئتك.
+<p align="center">
+  عمليات الملفات / بحث الويب / إنشاء الصور وتحليلها / استخراج PDF وExcel / التحكم في إنترنت الأشياء / تكامل MCP<br>
+  أكثر من 15 مزودًا / 3 واجهات مستخدم / تنفيذ الأدوات المتوازية / سوق مهارات الوكيل
+</p>
 
-GitHub: https://github.com/awaku7/agentcli
+<p align="center">
+  <a href="https://github.com/awaku7/agentcli">GitHub</a>
+  ·
+  <a href="https://pypi.org/project/uag/">PyPI</a>
+  ·
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">اقرأ هذا بلغتك</a>
+</p>
 
-## التثبيت
+---
 
-ثبّت الحزمة من PyPI باستخدام pip:
+## لماذا UAG؟
+
+**تحرر من تقييد البائع.** يربطك معظم مساعدي الذكاء الاصطناعي بمزود معين أو خدمة سحابية. uag مختلف.
+
+- **يعمل محليًا** على جهازك. تظل بياناتك معك (باستثناء استدعاءات واجهة برمجة التطبيقات التي تجريها).
+- **حرية الموفر**: OpenAI، وClaude، وGemini، وDeepSeek، وOllama، وAzure، وBedrock... أكثر من 15 موفرًا، يمكن الوصول إليهم جميعًا من واجهة واحدة. قم بالتبديل بينهما عن طريق إعادة تكوين متغيرات البيئة - دون الحاجة إلى إعادة التثبيت أو الترحيل.
+- **112 أداة**: إدخال/إخراج الملفات، وبحث الويب، وإنشاء الصور، ومسح جهاز BLE، وتكامل خادم MCP - و**55 منها تعمل بالتوازي**. عندما يطلق LLM استدعاءات أدوات متعددة مرة واحدة، يقوم uag بتنفيذها تلقائيًا عبر تجمع مؤشرات الترابط.
+- **3 واجهات مستخدم + A2A**: واجهة سطر الأوامر (CLI) وواجهة المستخدم الرسومية (GUI) والويب وبروتوكول وكيل إلى وكيل. نفس المحرك، أي واجهة.
+- **جاهز لإنترنت الأشياء**: SwitchBot، وECHONET Lite، وMatter، وUPnP - يمكنك التحكم في أجهزتك المنزلية من خلال الذكاء الاصطناعي.
+- **مهارات الوكيل**: قم بتثبيت المهارات المجتمعية من السوق. تمديد UAG إلى ما لا نهاية.
+
+uag هو **مساعد الذكاء الاصطناعي الخاص بك وفقًا لشروطك**. غير مرتبط بمزود، وغير مرتبط بواجهة، وغير مرتبط بمنصة.
+
+## بداية سريعة
 
 ```bash
 pip install uag
+uag
 ```
 
-إذا كنت تستخدم بيئة افتراضية، فقم بتفعيلها أولًا ثم شغّل الأمر أعلاه.
+عند التشغيل لأول مرة، يرشدك معالج الإعداد عبر تكوين الموفر.
+راجع [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) للتعرف على جميع متغيرات البيئة.
 
-عند التشغيل الأول، يفحص `uag` بيئتك ويبدأ معالج الإعداد تلقائيًا عندما تكون متغيرات المزوّد المطلوبة مفقودة. للحصول على تفاصيل الإعداد، راجع [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+## الميزات
 
-## أهم الميزات
+### 🧠 بنية متعددة الموفرين
 
-- **مجموعة أدوات عملية**: التعامل مع الملفات، البحث على الويب، استخراج PDF/PPTX/Excel، توليد الصور، وتحليل الصور.
-- **دعم عدة مزوّدين**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
-- **ثلاث واجهات**:
-  - **CLI**: `uag` / `python -m uagent`
-  - **GUI**: `uagg` / `python -m uagent.gui`
-  - **Web**: `uagw` / `python -m uagent.web`
-  - **خادم A2A**: `uaga` / `python -m uagent.a2a.server`
-- **دعم MCP**: الاتصال بخوادم أدوات MCP الخارجية.
-- **استمرارية الجلسة**: الحفاظ على السياق عند تبديل النماذج أو المزوّدين.
-- **سوق مهارات الوكلاء**: تصفح وقم بتثبيت مهارات المجتمع من [SkillsMP](https://skillsmp.com) أو [ClawHub](https://clawhub.ai) باستخدام `:skills mp_search`.
-- **Web Inspector**: حفظ انتقالات المتصفح ولقطات DOM ولقطات الشاشة باستخدام `playwright_inspector`.
-- **وثائق مدمجة**: قراءة الوثائق المرفقة باستخدام `uag docs`.
-- **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
 
-## IoT Device Support
+يتشارك جميع مقدمي الخدمة في نفس مجموعة الأدوات والواجهة. قم بالتبديل عن طريق إعداد `UAGENT_PROVIDER` - لا توجد تغييرات في التعليمات البرمجية، ولا توجد عمليات تثبيت منفصلة.
 
-Control smart home and IoT devices through multiple interfaces:
+### ⚡ تنفيذ الأداة الموازية
 
-- **SwitchBot Cloud**: List, control, and batch-operate SwitchBot devices (TV, air conditioner, lights, etc.).
-  - Infrared remote devices (on/off, brightness, temperature)
-  - Air conditioner mode and fan speed control
-  - Batch execution of multiple commands
-- **SwitchBot BLE**: Scan and control nearby SwitchBot BLE devices.
-- **ECHONET Lite**: Discover and control ECHONET Lite home appliances over the local network.
-- **Matter**: Inspect Matter controller/bridge/device structure (read-only).
-- **UPnP**: Discover UPnP devices and manage IGD port forwarding.
+عندما يطلب LLM أدوات متعددة في وقت واحد، يقوم uag بموازاة هذه الأدوات تلقائيًا.
+تم وضع علامة على 55 أداة `x_parallel_safe` ويتم تنفيذها بشكل متزامن عبر `ThreadPoolExecutor` المكون من 4 خيوط.
 
-For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
+**مثال**: اسأل "التحقق من الطقس في عواصم بلدان الشمال الأوروبي" ← تطلق LLM `search_web` × 5 دول ← يتم تشغيل جميع عمليات البحث الخمسة بالتوازي ← يتم جمع النتائج في دفعة واحدة.
 
-## الاستخدام
+أدوات القراءة فقط (البحث عن الملفات، وحساب التجزئة، وقائمة الدليل، والترجمة، واستعلامات قاعدة البيانات، وما إلى ذلك) متوازية بقوة.
 
-### البدء والخروج
+### 🔄استمرارية الجلسة
 
-شغّل `uag` في الطرفية لبدء التشغيل. اكتب `:exit` للخروج.
+- **تبديل موفري الخدمة في منتصف الجلسة** باستخدام `UAGENT_PROVIDER` — يتم الاحتفاظ بسجل المحادثات.
+- **إعادة تحميل الجلسات السابقة** باستخدام `:load <index>` — تابع من حيث توقفت.
+- **التخزين المؤقت لنتائج الأداة** يتجنب إعادة التنفيذ المتكررة عند تكرار نفس استدعاء الأداة.
 
-For all command-line options, see [USAGE.md](USAGE.md).
+### 🛠 112 أداة
 
-### خادم A2A
+| الفئة | أدوات |
+|---|---|
+| **عمليات الملف** | قراءة/كتابة/إنشاء/حذف/بحث/grep/hash/zip |
+| **الويب** | fetch_url، search_web، لقطة شاشة، browser_playwright |
+| **الإعلام** | إنشاء صورة، تحليل الصورة، img2img، audio_speech، audio_transcribe |
+| **الوثائق** | استخراج PDF/PPTX/DOCX/RTF/ODT، استخراج منظم لـ Excel |
+| **إنترنت الأشياء** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP |
+| ** أدوات التطوير ** | git_ops، python_compile، lint_format، run_tests، db_query, **idx tools** |
+| **الخطة التشاورية المتعددة الأطراف** | الاتصال بخوادم MCP الخارجية، وقائمة الأدوات، وتنفيذ |
+| **A2A** | الاتصال من وكيل إلى وكيل (مع مثيلات UAG الأخرى أو الخوادم المتوافقة مع A2A) |
+| **النظام** | env vars، مواصفات النظام، الوقت، حساب التاريخ |
 
-شغّل خادم HTTP متوافقًا مع Agent2Agent:
+### 🖥 3 واجهات + A2A
 
-```bash
-uaga
-```
+| الوضع | الأمر | الغرض |
+|---|---|---|
+| ** سطر ** | `واج` | عملية سريعة تعتمد على المحطة |
+| ** واجهة المستخدم الرسومية ** | `واغ` | واجهة مستخدم سطح المكتب عبر tkinter |
+| **الويب** | `واجو` | الوصول عبر المتصفح |
+| **خادم A2A** | `واجا` | بروتوكول Agent2Agent للاتصال متعدد الوكلاء |
 
-راجع [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) لإعدادات `UAGENT_A2A_*` مثل المصادقة والمضيف والمنفذ وإعادة التحميل وعنوان URL العام والتوازي والمحرك.
+### 🏠 التحكم في أجهزة إنترنت الأشياء
 
-### نصائح مفيدة
+- **SwitchBot**: التحكم في الدفعة السحابية ومسح/تحكم BLE
+- **ECHONET Lite**: اكتشاف الأجهزة المنزلية والتحكم فيها (تكييف الهواء والأضواء وسخانات المياه وما إلى ذلك) على الشبكة المحلية
+- **المسألة**: فحص للقراءة فقط لهيكل وحدة التحكم/الجسر/الجهاز
+- **UPnP**: اكتشاف الجهاز وإعادة توجيه منفذ IGD
 
-- `:tools`: عرض الأدوات المحمّلة
-- `:logs [n]`: عرض آخر سجلات الجلسة
-- `:load <index>`: تحميل جلسة سابقة
-- `:skills`: تحديد وتحميل Agent Skills (استخدم `:skills mp_search` لتصفح أسواق [SkillsMP](https://skillsmp.com) أو [ClawHub](https://clawhub.ai))
-- `:shrink [n]`: تلخيص السجل والإبقاء على آخر `n` من الرسائل
-- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
+راجع [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 
-## الإعداد والتفاصيل
+### 🎯 سوق مهارات الوكيل
 
-### متغيرات البيئة والإعداد
+`:skills mp_search` لتصفح [SkillsMP](https://skillsmp.com) و[ClawHub](https://clawhub.ai) للتعرف على مهارات المجتمع.
+قم بتثبيت وتوسيع قدرات UAG بسرعة.
 
-لمفاتيح API وإعدادات اللغة (`UAGENT_LANG`) وإعدادات تقليص السجل والمزيد، راجع [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+### 🧩 مدير حالة الدفعة
 
+يمكن لـ uag تتبع التقدم عبر مهام متعددة الملفات طويلة الأمد. عندما تقوم LLM بمعالجة العشرات من الملفات، فإن "batch_state" يحتفظ بقائمة الملفات المعلقة والمكتملة والفاشلة على القرص. إذا انتهت الجلسة أو انتهت مدة الجولة، فسيتم استئناف التشغيل التالي من حيث توقف - ولن يتم فقدان أي شيء.
+
+### 🛡 الإنسان في الحلقة
+
+يتيح `human_ask` لـ LLM التوقف مؤقتًا وطلب تأكيدك قبل تنفيذ العمليات المدمرة (حذف الملف، الكتابة الفوقية، أوامر الصدفة). يمكنك البقاء في السيطرة.
+
+### 🕵️ أتمتة المتصفح ومفتش الويب
+
+أداتان متكاملتان تعتمدان على الكاتب المسرحي:
+
+- **browser_playwright**: أتمتة جلسات المتصفح الحقيقية — التنقل، والنقر، وملء النماذج، واستخراج البيانات، والتعامل مع التدفقات المتعددة الصفحات. يعمل بدون رأس أو رأس.
+- **playwright_inspector**: تسجيل انتقالات المتصفح، والتقاط لقطات DOM ولقطات الشاشة في كل خطوة. مفيد لتصحيح أخطاء تفاعلات الويب أو تدقيق تغييرات الصفحة بمرور الوقت.
+
+### 🔄 التحميل الديناميكي للأداة
+
+يتيح لك `tool_catalog` و`tool_load` اكتشاف الأدوات وتمكينها في وقت التشغيل.
+لا داعي لتحميل كل شيء عند بدء التشغيل - قم بتنشيط ما تحتاجه فقط، عندما تحتاج إليه.
+
+### 🌐i18n / L10n
+
+日本語 / الإنجليزية / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / والمزيد.
+اضبط "UAGENT_LANG" للتبديل. راجع [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) لإضافة لغة جديدة.
+
+تتوفر ترجمات هذا الملف التمهيدي في [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+
+### 🔒 متغيرات البيئة المشفرة
+
+قم بتخزين مفاتيح وأسرار واجهة برمجة التطبيقات في ملف `.env.sec` - وهو ملف مشفر `.env`.
+الإدارة باستخدام "uag_envsec".
+
+## التكوين والتفاصيل
+
+- **متغيرات البيئة**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **معالج الإعداد**: `python -m uagent.setup_cli`
-- **بيئة مشفّرة**: استخدم `uag_envsec` لتشفير `.env` إلى `.env.sec`
-- **تحديث القيم المشفّرة**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
+- **env المشفر**: `uag_envsec` — تشفير `.env` كـ `.env.sec`
+- **Responses API**: قم بتعيين `UAGENT_RESPONSES=1` لوضع واجهة API للاستجابات (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **مستندات المطورين**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **نصائح LLM الصغيرة**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
-### ملاحظة حول Responses API
+## فلسفة المشروع
 
-إذا ضبطت `UAGENT_RESPONSES=1` فسيُستخدم Responses API للمزوّدين المدعومين: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-أما المزوّدون الآخرون فيعود uag إلى المسار الخاص بالمزوّد أو مسار chat-completions.
+تطمح uag إلى أن تكون **الذكاء الاصطناعي الخاص بك، على جهازك، وفقًا لشروطك.**
 
-### وثائق المطورين والترجمات
+- لا توجد تبعية SaaS - تعمل محليًا
+- لا يوجد قفل للمزود - قم بالتبديل في أي وقت
+- لا يوجد قفل لواجهة المستخدم — CLI / GUI / Web / A2A
+- لا يوجد قفل للميزات - قم بالتوسيع باستخدام الأدوات والمهارات
 
-- **وثائق المطورين**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **إضافة اللغات**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
-- **ترجمات README الأخرى**: [`docs/README.translations.md`](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
+تجربة وكيل AI مجانية، خالية من تقييد البائع.

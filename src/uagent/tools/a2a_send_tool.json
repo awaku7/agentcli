@@ -54,8 +54,8 @@
       "a2a send"
     ],
     "param.profile.description": "Nombre de perfil o a2a://name.",
-    "param.message.description": "Mensaje del usuari...",
-    "param.return_immediately.description": "Si es true, devuelve justo después de c...",
+    "param.message.description": "Mensaje de usuario a enviar.",
+    "param.return_immediately.description": "Si es verdadero, regresa inmediatamente después de la creación de la tarea.",
     "err.missing_message": "Falta 'message'.",
     "err.exception": "Excepción"
   },
@@ -74,10 +74,10 @@
       "a2a send"
     ],
     "param.profile.description": "Nom du profil ou a2a://name. Si omis, utilise le profil par défaut.",
-    "param.message.description": "Message utilisateu...",
-    "param.return_immediately.description": "Si true, renvoyer juste après la créati...",
+    "param.message.description": "Message utilisateur à envoyer.",
+    "param.return_immediately.description": "Si vrai, revenez juste après la création de la tâche.",
     "err.missing_message": "'message' manquant.",
-    "err.exception": "Except..."
+    "err.exception": "Exception"
   },
   "ko": {
     "tool.description": "A2A 서버 프로필(a2a://name 또는 프로필 이름)로 메시지를 전송합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
@@ -114,8 +114,8 @@
       "a2a send"
     ],
     "param.profile.description": "Profilname oder a2a://name.",
-    "param.message.description": "Zu sendende Benutz...",
-    "param.return_immediately.description": "Wenn true, direkt nach dem Erstellen de...",
+    "param.message.description": "Zu sendende Benutzernachricht.",
+    "param.return_immediately.description": "Wenn wahr, kehren Sie direkt nach der Aufgabenerstellung zurück.",
     "err.missing_message": "'message' fehlt.",
     "err.exception": "Ausnahme"
   },
@@ -134,8 +134,8 @@
       "a2a send"
     ],
     "param.profile.description": "Nome del profilo o a2a://name.",
-    "param.message.description": "Messaggio utente d...",
-    "param.return_immediately.description": "Se true, ritorna subito dopo la creazio...",
+    "param.message.description": "Messaggio utente da inviare.",
+    "param.return_immediately.description": "Se vero, ritorna subito dopo la creazione dell'attività.",
     "err.missing_message": "Manca 'message'.",
     "err.exception": "Eccezione"
   },
@@ -154,10 +154,10 @@
       "a2a send"
     ],
     "param.profile.description": "Имя профиля или a2a://name.",
-    "param.message.description": "Сообщение пользова...",
-    "param.return_immediately.description": "Если true, верните ответ сразу после со...",
-    "err.missing_message": "Отсутствует 'me...",
-    "err.exception": "Исключ..."
+    "param.message.description": "Сообщение пользователя для отправки.",
+    "param.return_immediately.description": "Если true, вернуться сразу после создания задачи.",
+    "err.missing_message": "Отсутствует «сообщение».",
+    "err.exception": "Исключение"
   },
   "pt_BR": {
     "tool.description": "Envie uma mensagem para um perfil de servidor A2A (a2a://nome ou nome do perfil).",
@@ -174,8 +174,8 @@
       "a2a send"
     ],
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
-    "param.message.description": "Mensagem do usuári...",
-    "param.return_immediately.description": "Se true, retorne logo após a criação da...",
+    "param.message.description": "Mensagem do usuário a ser enviada.",
+    "param.return_immediately.description": "Se verdadeiro, retorna logo após a criação da tarefa.",
     "err.missing_message": "Falta 'message'.",
     "err.exception": "Exceção"
   },
@@ -194,8 +194,8 @@
       "a2a send"
     ],
     "param.profile.description": "Nome do perfil ou a2a://nome. Se omitido, usa o perfil padrão.",
-    "param.message.description": "Mensagem do usuári...",
-    "param.return_immediately.description": "Se true, retorne logo após a criação da...",
+    "param.message.description": "Mensagem do usuário a ser enviada.",
+    "param.return_immediately.description": "Se verdadeiro, retorna logo após a criação da tarefa.",
     "err.missing_message": "Falta 'message'.",
     "err.exception": "Exceção"
   },
@@ -214,10 +214,10 @@
       "a2a send"
     ],
     "param.profile.description": "Nama profil atau a2a://name.",
-    "param.message.description": "Pesan pengguna yan...",
-    "param.return_immediately.description": "Jika true, kembali segera setelah tugas...",
-    "err.missing_message": "Tidak ada 'mess...",
-    "err.exception": "Terjad..."
+    "param.message.description": "Pesan pengguna yang akan dikirim.",
+    "param.return_immediately.description": "Jika benar, kembalikan segera setelah pembuatan tugas.",
+    "err.missing_message": "'Pesan' tidak ada.",
+    "err.exception": "Pengecualian"
   },
   "vi": {
     "tool.description": "Gửi tin nhắn đến hồ sơ máy chủ A2A (a2a://name hoặc tên hồ sơ).",
@@ -234,9 +234,9 @@
       "a2a send"
     ],
     "param.profile.description": "Tên hồ sơ hoặc a2a://name. Nếu bỏ qua, sử dụng hồ sơ mặc định.",
-    "param.message.description": "Tin nhắn người dùn...",
-    "param.return_immediately.description": "Nếu đúng, hãy quay lại ngay sau khi tạo...",
-    "err.missing_message": "Thiếu trường 'm...",
+    "param.message.description": "Tin nhắn người dùng cần gửi.",
+    "param.return_immediately.description": "Nếu đúng, hãy quay lại ngay sau khi tạo nhiệm vụ.",
+    "err.missing_message": "Thiếu 'tin nhắn'.",
     "err.exception": "Ngoại lệ"
   },
   "pl": {
@@ -254,13 +254,13 @@
       "a2a send"
     ],
     "param.profile.description": "Nazwa profilu lub a2a://nazwa.",
-    "param.message.description": "Wiadomość użytkown...",
-    "param.return_immediately.description": "Jeśli true, zwróć odpowiedź zaraz po ut...",
+    "param.message.description": "Wiadomość użytkownika do wysłania.",
+    "param.return_immediately.description": "Jeśli prawda, wróć zaraz po utworzeniu zadania.",
     "err.missing_message": "Brakuje 'message'.",
     "err.exception": "Wyjątek"
   },
   "hi": {
-    "tool.description": "A2A सर्वर प्रोफ़ाइल (a2a://name या प्रोफ़ाइल नाम) पर संदेश भेजें। केवल तब उपयोग क...",
+    "tool.description": "A2A सर्वर प्रोफ़ाइल पर एक संदेश भेजें। केवल तभी उपयोग करें जब कोई स्थानीय उपकरण स्थानापन्न न कर सके।",
     "x_search_terms": [
       "a2a_send",
       "संदेश भेजें",
@@ -274,8 +274,8 @@
       "a2a send"
     ],
     "param.profile.description": "प्रोफ़ाइल नाम या a2a://नाम.",
-    "param.message.description": "भेजने के लिए उपयोग...",
-    "param.return_immediately.description": "यदि true है, तो कार्य बनने के तुरंत बाद...",
+    "param.message.description": "उपयोगकर्ता को भेजने के लिए संदेश।",
+    "param.return_immediately.description": "यदि सत्य है, तो कार्य निर्माण के तुरंत बाद वापस लौटें।",
     "err.missing_message": "'message' गुम है।",
     "err.exception": "अपवाद"
   },
@@ -294,9 +294,9 @@
       "a2a send"
     ],
     "param.profile.description": "اسم الملف الشخصي أو a2a://name.",
-    "param.message.description": "رسالة المستخدم الم...",
+    "param.message.description": "رسالة المستخدم لإرسالها.",
     "param.return_immediately.description": "إذا كانت true، فارجع مباشرة بعد إنشاء المهمة.",
-    "err.missing_message": "القيمة 'message...",
+    "err.missing_message": "\"الرسالة\" مفقودة.",
     "err.exception": "استثناء"
   },
   "sv": {
@@ -314,8 +314,8 @@
       "a2a send"
     ],
     "param.profile.description": "Profilnamn eller a2a://name.",
-    "param.message.description": "Användarmeddelande...",
-    "param.return_immediately.description": "Om true, returnera direkt efter att upp...",
+    "param.message.description": "Användarmeddelande att skicka.",
+    "param.return_immediately.description": "Om sant, återvänd direkt efter att uppgiften skapats.",
     "err.missing_message": "Saknar 'message'.",
     "err.exception": "Undantag"
   },
@@ -334,9 +334,9 @@
       "a2a send"
     ],
     "param.profile.description": "Jina la profaili au a2a://name.",
-    "param.message.description": "Ujumbe wa mtumiaji...",
-    "param.return_immediately.description": "Ikiwa ni kweli, rudisha mara tu baada y...",
-    "err.missing_message": "Kipengee 'messa...",
+    "param.message.description": "Ujumbe wa mtumiaji wa kutuma.",
+    "param.return_immediately.description": "Ikiwa ni kweli, rudi mara baada ya kuunda jukumu.",
+    "err.missing_message": "'Ujumbe' unaokosekana.",
     "err.exception": "Hitilafu"
   },
   "nb": {
@@ -354,8 +354,8 @@
       "a2a send"
     ],
     "param.profile.description": "Profilnavn eller a2a://name. Hvis utelatt, brukes standardprofilen.",
-    "param.message.description": "Brukermeldingen so...",
-    "param.return_immediately.description": "Hvis true, returner rett etter at oppga...",
+    "param.message.description": "Brukermelding å sende.",
+    "param.return_immediately.description": "Hvis sant, returner rett etter at oppgaven er opprettet.",
     "err.missing_message": "Mangler 'message'.",
     "err.exception": "Unntak"
   },
@@ -374,10 +374,10 @@
       "a2a send"
     ],
     "param.profile.description": "Profielnaam of a2a://naam.",
-    "param.message.description": "Gebruikersbericht...",
-    "param.return_immediately.description": "Als true, direct terugkeren na het aanm...",
-    "err.missing_message": "Ontbrekend 'mes...",
-    "err.exception": "Uitzon..."
+    "param.message.description": "Gebruikersbericht om te verzenden.",
+    "param.return_immediately.description": "Indien waar, ga dan direct terug nadat de taak is gemaakt.",
+    "err.missing_message": "Ontbrekend 'bericht'.",
+    "err.exception": "Uitzondering"
   },
   "fi": {
     "tool.description": "Lähetä viesti A2A-palvelinprofiiliin (a2a://name tai profiilin nimi).",
@@ -394,8 +394,8 @@
       "a2a send"
     ],
     "param.profile.description": "Profiilin nimi tai a2a://nimi.",
-    "param.message.description": "Lähetettävä käyttä...",
-    "param.return_immediately.description": "Jos true, palauta heti tehtävän luonnin...",
+    "param.message.description": "Lähetettävä käyttäjäviesti.",
+    "param.return_immediately.description": "Jos tosi, palaa heti tehtävän luomisen jälkeen.",
     "err.missing_message": "Puuttuva 'message'.",
     "err.exception": "Poikkeus"
   },
@@ -414,7 +414,7 @@
       "a2a send"
     ],
     "param.profile.description": "Název profilu nebo a2a://name.",
-    "param.message.description": "Uživatelská zpráva...",
+    "param.message.description": "Uživatelská zpráva k odeslání.",
     "param.return_immediately.description": "Je-li true, vraťte se hned po vytvoření úlohy.",
     "err.missing_message": "Chybí 'message'.",
     "err.exception": "Výjimka"
@@ -434,8 +434,8 @@
       "a2a send"
     ],
     "param.profile.description": "Назва профілю або a2a://name.",
-    "param.message.description": "Повідомлення корис...",
-    "param.return_immediately.description": "Якщо true, поверніть відповідь одразу п...",
+    "param.message.description": "Повідомлення користувача для надсилання.",
+    "param.return_immediately.description": "Якщо true, повертається відразу після створення завдання.",
     "err.missing_message": "Відсутнє 'message'.",
     "err.exception": "Виняток"
   },
@@ -454,8 +454,8 @@
       "a2a send"
     ],
     "param.profile.description": "Profil adı veya a2a://name. Atlanırsa varsayılan profili kullanır.",
-    "param.message.description": "Gönderilecek kulla...",
-    "param.return_immediately.description": "Doğruysa, görev oluşturulduktan hemen s...",
+    "param.message.description": "Gönderilecek kullanıcı mesajı.",
+    "param.return_immediately.description": "Doğruysa, görev oluşturulduktan hemen sonra geri dönün.",
     "err.missing_message": "'Mesaj' eksik.",
     "err.exception": "İstisna"
   },
@@ -520,7 +520,7 @@
     "err.exception": "例外"
   },
   "bn": {
-    "tool.description": "একটি A2A সার্ভার প্রোফাইলে (a2a://name বা প্রোফাইল নাম) একটি বার্তা পাঠায়। এটি ক...",
+    "tool.description": "একটি A2A সার্ভার প্রোফাইলে একটি বার্তা পাঠান৷ শুধুমাত্র তখনই ব্যবহার করুন যখন কোনো স্থানীয় টুল প্রতিস্থাপন করতে পারে না।",
     "x_search_terms": [
       "a2a_send",
       "বার্তা পাঠান",
@@ -534,9 +534,9 @@
       "a2a send"
     ],
     "param.profile.description": "প্রোফাইলের নাম বা a2a://name। বাদ দিলে ডিফল্ট প্রোফাইল ব্যবহার হবে।",
-    "param.message.description": "পাঠানোর জন্য ব্যবহ...",
+    "param.message.description": "পাঠাতে ব্যবহারকারীর বার্তা।",
     "param.return_immediately.description": "true হলে, কাজ তৈরি হওয়ার পরই ফিরে আসে।",
-    "err.missing_message": "'message' অনুপস...",
+    "err.missing_message": "অনুপস্থিত 'বার্তা'।",
     "err.exception": "ব্যতিক্রম"
   },
   "fa": {
@@ -555,8 +555,8 @@
     ],
     "param.profile.description": "نام پروفایل یا a2a://name.",
     "param.message.description": "پیام کاربر برای ارسال.",
-    "param.return_immediately.description": "اگر true باشد، بلافاصله پس از ایجاد وظی...",
-    "err.missing_message": "'message' وجود...",
+    "param.return_immediately.description": "اگر درست است، بلافاصله پس از ایجاد کار برگردید.",
+    "err.missing_message": "«پیام» وجود ندارد.",
     "err.exception": "استثنا"
   },
   "mn": {
@@ -574,9 +574,9 @@
       "a2a send"
     ],
     "param.profile.description": "Профайлын нэр эсвэл a2a://name.",
-    "param.message.description": "Илгээх хэрэглэгчий...",
-    "param.return_immediately.description": "true бол даалгавар үүссэний дараа шууд...",
-    "err.missing_message": "'message' дутуу...",
+    "param.message.description": "Хэрэглэгчийн илгээх мессеж.",
+    "param.return_immediately.description": "Хэрэв үнэн бол ажил үүсгэсний дараа шууд буцна уу.",
+    "err.missing_message": "\"мессеж\" дутуу байна.",
     "err.exception": "Алдаа"
   },
   "mr": {
@@ -594,9 +594,89 @@
       "a2a send"
     ],
     "param.profile.description": "प्रोफाइलचे नाव किंवा a2a://name.",
-    "param.message.description": "पाठवायचा वापरकर्ता...",
-    "param.return_immediately.description": "true असल्यास, कार्य तयार झाल्यानंतर लगे...",
-    "err.missing_message": "'message' अनुपस...",
+    "param.message.description": "पाठविण्यासाठी वापरकर्ता संदेश.",
+    "param.return_immediately.description": "सत्य असल्यास, कार्य तयार केल्यानंतर लगेच परत या.",
+    "err.missing_message": "'संदेश' गहाळ आहे.",
     "err.exception": "अपवाद"
+  },
+  "el": {
+    "tool.description": "Στείλτε ένα μήνυμα σε ένα προφίλ διακομιστή A2A. Χρησιμοποιήστε μόνο όταν κανένα τοπικό εργαλείο δεν μπορεί να αντικαταστήσει.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a αποστολή",
+      "στείλετε μήνυμα",
+      "αποστολή αιτήματος",
+      "προφίλ διακομιστή",
+      "μήνυμα προφίλ",
+      "απομακρυσμένο μήνυμα",
+      "μηνυμάτων",
+      "μήνυμα a2a",
+      "αποστολή εργασίας"
+    ],
+    "param.profile.description": "Όνομα προφίλ ή a2a://name. Εάν παραλειφθεί, χρησιμοποιεί το προεπιλεγμένο προφίλ.",
+    "param.message.description": "Μήνυμα χρήστη για αποστολή.",
+    "param.return_immediately.description": "Εάν ισχύει, επιστρέψτε αμέσως μετά τη δημιουργία της εργασίας.",
+    "err.missing_message": "Λείπει το 'μήνυμα'.",
+    "err.exception": "Εξαίρεση"
+  },
+  "he": {
+    "tool.description": "שלח הודעה לפרופיל שרת A2A. השתמש רק כאשר אין כלי מקומי שיכול להחליף.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a לשלוח",
+      "לשלוח הודעה",
+      "לשלוח בקשה",
+      "פרופיל שרת",
+      "הודעת פרופיל",
+      "הודעה מרחוק",
+      "הודעות",
+      "הודעה a2a",
+      "לשלוח משימה"
+    ],
+    "param.profile.description": "שם פרופיל או a2a://name. אם מושמט, משתמש בפרופיל ברירת המחדל.",
+    "param.message.description": "הודעת משתמש לשלוח.",
+    "param.return_immediately.description": "אם זה נכון, חזור מיד לאחר יצירת המשימה.",
+    "err.missing_message": "חסר 'הודעה'.",
+    "err.exception": "חֲרִיגָה"
+  },
+  "hu": {
+    "tool.description": "Üzenet küldése egy A2A szerverprofilnak. Csak akkor használja, ha semmilyen helyi eszköz nem helyettesítheti.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a küld",
+      "üzenetet küldeni",
+      "kérést küldeni",
+      "szerverprofil",
+      "profil üzenet",
+      "távoli üzenet",
+      "üzenetküldés",
+      "a2a üzenet",
+      "feladat küldése"
+    ],
+    "param.profile.description": "Profilnév vagy a2a://name. Ha kihagyja, az alapértelmezett profilt használja.",
+    "param.message.description": "Elküldendő felhasználói üzenet.",
+    "param.return_immediately.description": "Ha igaz, térjen vissza közvetlenül a feladat létrehozása után.",
+    "err.missing_message": "Hiányzik az \"üzenet\".",
+    "err.exception": "Kivétel"
+  },
+  "ro": {
+    "tool.description": "Trimiteți un mesaj către un profil de server A2A. Utilizați numai atunci când niciun instrument local nu poate înlocui.",
+    "x_search_terms": [
+      "a2a_send",
+      "a2a trimite",
+      "trimite mesaj",
+      "trimite cerere",
+      "profilul serverului",
+      "mesaj de profil",
+      "mesaj de la distanță",
+      "mesagerie",
+      "mesaj a2a",
+      "trimite sarcina"
+    ],
+    "param.profile.description": "Nume profil sau a2a://nume. Dacă este omis, folosește profilul implicit.",
+    "param.message.description": "Mesaj utilizator de trimis.",
+    "param.return_immediately.description": "Dacă este adevărat, reveniți imediat după crearea sarcinii.",
+    "err.missing_message": "Lipsește „mesaj”.",
+    "err.exception": "Excepţie"
   }
 }

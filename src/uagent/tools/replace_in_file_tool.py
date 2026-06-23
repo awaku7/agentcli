@@ -50,7 +50,7 @@ def _make_summary(
                 "summary.preview_matches", default="Preview: {count} matches found"
             ).format(count=mc)
             if mc
-            else _("summary.no_change", default="Successfully no change (0 matches)")
+            else _("summary.preview_no_change", default="Preview: no matches (0 matches)")
         )
     else:
         msg = (
@@ -67,7 +67,7 @@ def _make_summary(
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
-    "tool_genre": "basic",
+    "tool_genre": "file",
     "function": {
         "name": "replace_in_file",
         "description": _(
@@ -128,9 +128,17 @@ TOOL_SPEC: dict[str, Any] = {
                     "enum": ["literal", "regex"],
                     "description": _(
                         "param.mode.description",
-                        default="Mode: literal or regex.",
+                        default="Mode: literal or regex (for pattern/anchor_before).",
                     ),
                     "default": "literal",
+                },
+                "mode_after": {
+                    "type": "string",
+                    "enum": ["literal", "regex"],
+                    "description": _(
+                        "param.mode_after.description",
+                        default="Mode for anchor_after (defaults to mode value).",
+                    ),
                 },
                 "pattern": {
                     "type": "string",
@@ -878,8 +886,11 @@ def _replace_between_text(
     *,
     expand_newline_tokens: bool,
     newline_info: dict[str, Any],
+    mode_after: str | None = None,
 ) -> tuple[str, int, int, list[dict[str, Any]], dict[str, Any] | None]:
-    before_pattern = re.compile(anchor_before) if mode == "regex" else None
+    mode_b = mode
+    mode_a = mode_after if mode_after is not None else mode
+    before_pattern = re.compile(anchor_before) if mode_b == "regex" else None
     before_hits = (
         _find_hits_regex(original, before_pattern)
         if before_pattern is not None
@@ -894,7 +905,7 @@ def _replace_between_text(
             _build_no_match_diagnostics(
                 original=original,
                 search_text=anchor_before,
-                mode=mode,
+                mode=mode_b,
                 action="replace_between",
                 expand_newline_tokens=expand_newline_tokens,
                 newline_info=newline_info,
@@ -911,7 +922,7 @@ def _replace_between_text(
         diag = _build_no_match_diagnostics(
             original=original,
             search_text=anchor_before,
-            mode=mode,
+            mode=mode_b,
             action="replace_between",
             expand_newline_tokens=expand_newline_tokens,
             newline_info=newline_info,
@@ -930,7 +941,7 @@ def _replace_between_text(
         ]
         return original, len(before_hits), 0, [], diag
 
-    after_pattern = re.compile(anchor_after) if mode == "regex" else None
+    after_pattern = re.compile(anchor_after) if mode_a == "regex" else None
     after_hits = (
         _find_hits_regex(original, after_pattern)
         if after_pattern is not None
@@ -941,7 +952,7 @@ def _replace_between_text(
         diag = _build_no_match_diagnostics(
             original=original,
             search_text=anchor_after,
-            mode=mode,
+            mode=mode_a,
             action="replace_between",
             expand_newline_tokens=expand_newline_tokens,
             newline_info=newline_info,
@@ -1016,6 +1027,7 @@ def run_tool(args: dict[str, Any]) -> str:
         po_msgid: str,
         anchor_before: str,
         anchor_after: str,
+        mode_after: str | None = None,
     ) -> dict[str, Any]:
         ensure_within_workdir(path)
         original, nl, enc_used = _read_text_robust(
@@ -1080,38 +1092,6 @@ def run_tool(args: dict[str, Any]) -> str:
         match_hits: list[dict[str, Any]] = []
         backup_path = None
         diagnostics: dict[str, Any] | None = None
-        regex_pattern = re.compile(p2) if mode == "regex" else None
-        hits: list[_Hit] = []
-        target_hit: _Hit | None = None
-        match_count = 0
-        if action in {"replace", "insert_before", "insert_after"}:
-            if regex_pattern is not None:
-                if occurrence == 0:
-                    hits = _find_hits_regex(orig_norm, regex_pattern)
-                    match_count = len(hits)
-                else:
-                    match_count = sum(1 for _ in regex_pattern.finditer(orig_norm))
-                    target_match = _nth_regex_match(
-                        orig_norm, regex_pattern, occurrence
-                    )
-                    if target_match is not None:
-                        target_hit = _Hit(target_match.start(), target_match.end())
-                        hits = [target_hit]
-            else:
-                if occurrence == 0:
-                    hits = _find_hits_literal(orig_norm, p2)
-                    match_count = len(hits)
-                else:
-                    match_count = orig_norm.count(p2) if p2 else 0
-                    target_hit = _nth_literal_match(orig_norm, p2, occurrence)
-                    if target_hit is not None:
-                        hits = [target_hit]
-
-        replaced_text = orig_norm
-        replaced_count = 0
-        match_hits: list[dict[str, Any]] = []
-        backup_path = None
-        diagnostics: dict[str, Any] | None = None
         if action == "replace_po_entry":
             target = po_target or p2
             if not target:
@@ -1141,6 +1121,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     occurrence,
                     expand_newline_tokens=expand_newline_tokens,
                     newline_info=newline_info,
+                    mode_after=mode_after,
                 )
             )
         elif action == "replace" and match_count > 0:
@@ -1195,19 +1176,58 @@ def run_tool(args: dict[str, Any]) -> str:
                 ins_at = len(orig_norm) if idx < 0 else idx + 1
             replaced_text = orig_norm[:ins_at] + r2 + orig_norm[ins_at:]
             replaced_count = 1
+            lno, col = _map_idx_to_line_col(orig_norm, ins_at)
+            lno_match, col_match = _map_idx_to_line_col(orig_norm, h.start)
+            match_hits = [
+                {
+                    "line_no": lno,
+                    "col": col,
+                    "insert_action": action,
+                    "match_line_no": lno_match,
+                    "match_col": col_match,
+                    "match_text": orig_norm[h.start : h.end],
+                    "insert_text_preview": r2[:200],
+                }
+            ]
 
         elif action == "insert_at_line":
             lines = orig_norm.splitlines(True)
-            if 1 <= line_no <= len(lines) + 1:
-                off = sum(len(line) for line in lines[: line_no - 1])
-                replaced_text = orig_norm[:off] + r2 + orig_norm[off:]
-                replaced_count = 1
+            max_line = len(lines) + 1
+            if line_no < 1 or line_no > max_line:
+                raise ValueError(
+                    f"line_no {line_no} out of range for file with "
+                    f"{len(lines)} line(s) (valid: 1..{max_line})"
+                )
+            off = sum(len(line) for line in lines[: line_no - 1])
+            replaced_text = orig_norm[:off] + r2 + orig_norm[off:]
+            replaced_count = 1
+            lno, col = _map_idx_to_line_col(orig_norm, off)
+            match_hits = [
+                {
+                    "line_no": lno,
+                    "col": col,
+                    "insert_action": "insert_at_line",
+                    "target_line": line_no,
+                    "insert_text_preview": r2[:200],
+                }
+            ]
             match_count = replaced_count
 
         elif action == "insert_at_end":
-            replaced_text = orig_norm + r2
+            prefix = "" if (not orig_norm or orig_norm.endswith("\n")) else "\n"
+            replaced_text = orig_norm + prefix + r2
             replaced_count = 1
             match_count = 1
+            end_lno = orig_norm.count("\n") + 1
+            match_hits = [
+                {
+                    "line_no": end_lno + 1,
+                    "col": 0,
+                    "insert_action": "insert_at_end",
+                    "insert_text_preview": r2[:200],
+                    "added_leading_newline": bool(prefix),
+                }
+            ]
 
         hint = None
         if diagnostics is not None:
@@ -1369,6 +1389,7 @@ def run_tool(args: dict[str, Any]) -> str:
                             po_msgid=po_msgid,
                             anchor_before=anchor_before,
                             anchor_after=anchor_after,
+                            mode_after=str(args.get("mode_after", "")) or None,
                         )
                     )
                 except Exception as e:
@@ -1413,6 +1434,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 po_msgid=po_msgid,
                 anchor_before=anchor_before,
                 anchor_after=anchor_after,
+                mode_after=str(args.get("mode_after", "")) or None,
             ),
             ensure_ascii=False,
         )

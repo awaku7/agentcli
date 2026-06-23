@@ -56,14 +56,14 @@
       "a2a poll"
     ],
     "param.profile.description": "Nombre de perfil o a2a://name.",
-    "param.task_id.description": "ID de la tare...",
-    "param.interval_ms.description": "Anular el intervalo de sonde...",
-    "param.timeout_s.description": "Anular el tiempo de espe...",
+    "param.task_id.description": "ID de tarea para sondear.",
+    "param.interval_ms.description": "Anular el intervalo de sondeo (ms).",
+    "param.timeout_s.description": "Anular el tiempo de espera (segundos).",
     "err.missing_task_id": "Falta 'task_id'.",
     "err.exception": "Excepción"
   },
   "fr": {
-    "tool.description": "Interrogez régulièrement une tâche A2A jusqu’à ce qu’elle atteigne un état term...",
+    "tool.description": "Interrogez une tâche A2A jusqu’à l’état terminal. À utiliser uniquement lorsqu'aucun outil local ne peut le remplacer.",
     "x_search_terms": [
       "a2a_poll",
       "sonder une tâche",
@@ -77,11 +77,11 @@
       "a2a poll"
     ],
     "param.profile.description": "Nom du profil ou a2a://name. Si omis, utilise le profil par défaut.",
-    "param.task_id.description": "ID de la tâch...",
-    "param.interval_ms.description": "Remplacer l’intervalle d’int...",
-    "param.timeout_s.description": "Remplacer le délai d’exp...",
-    "err.missing_task_id": "'task_id' est m...",
-    "err.exception": "Except..."
+    "param.task_id.description": "ID de tâche à interroger.",
+    "param.interval_ms.description": "Remplacer l'intervalle d'interrogation (ms).",
+    "param.timeout_s.description": "Remplacer le délai d'attente (secondes).",
+    "err.missing_task_id": "'task_id' manquant.",
+    "err.exception": "Exception"
   },
   "ko": {
     "tool.description": "A2A 작업이 종료 상태가 될 때까지 폴링합니다. 로컬 도구로 대체할 수 없는 경우에만 사용하세요.",
@@ -119,9 +119,9 @@
       "a2a poll"
     ],
     "param.profile.description": "Profilname oder a2a://name.",
-    "param.task_id.description": "Aufgaben-ID z...",
-    "param.interval_ms.description": "Abfrageintervall (ms) übersc...",
-    "param.timeout_s.description": "Zeitlimit (Sekunden) übe...",
+    "param.task_id.description": "Aufgaben-ID zur Abfrage.",
+    "param.interval_ms.description": "Abfrageintervall überschreiben (ms).",
+    "param.timeout_s.description": "Override-Timeout (Sekunden).",
     "err.missing_task_id": "'task_id' fehlt.",
     "err.exception": "Ausnahme"
   },
@@ -140,9 +140,9 @@
       "a2a poll"
     ],
     "param.profile.description": "Nome del profilo o a2a://name.",
-    "param.task_id.description": "ID attività d...",
-    "param.interval_ms.description": "Sovrascrivi l'intervallo di...",
-    "param.timeout_s.description": "Sovrascrivi il timeout (...",
+    "param.task_id.description": "ID attività da interrogare.",
+    "param.interval_ms.description": "Ignora l'intervallo di polling (ms).",
+    "param.timeout_s.description": "Ignora timeout (secondi).",
     "err.missing_task_id": "Manca 'task_id'.",
     "err.exception": "Eccezione"
   },
@@ -161,11 +161,11 @@
       "a2a poll"
     ],
     "param.profile.description": "Имя профиля или a2a://name.",
-    "param.task_id.description": "Идентификатор...",
-    "param.interval_ms.description": "Переопределить интервал опро...",
-    "param.timeout_s.description": "Переопределить тайм-аут...",
-    "err.missing_task_id": "Отсутствует 'ta...",
-    "err.exception": "Исключ..."
+    "param.task_id.description": "Идентификатор задачи для опроса.",
+    "param.interval_ms.description": "Переопределить интервал опроса (мс).",
+    "param.timeout_s.description": "Тайм-аут переопределения (секунды).",
+    "err.missing_task_id": "Отсутствует идентификатор задачи.",
+    "err.exception": "Исключение"
   },
   "pt_BR": {
     "tool.description": "Faça polling de uma tarefa A2A até que ela atinja um estado terminal.",
@@ -182,9 +182,9 @@
       "a2a poll"
     ],
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
-    "param.task_id.description": "ID da tarefa...",
-    "param.interval_ms.description": "Substituir o intervalo de po...",
-    "param.timeout_s.description": "Substituir o tempo limit...",
+    "param.task_id.description": "ID da tarefa a ser pesquisada.",
+    "param.interval_ms.description": "Substituir intervalo de pesquisa (ms).",
+    "param.timeout_s.description": "Tempo limite de substituição (segundos).",
     "err.missing_task_id": "Falta 'task_id'.",
     "err.exception": "Exceção"
   },
@@ -203,9 +203,9 @@
       "a2a poll"
     ],
     "param.profile.description": "Nome do perfil ou a2a://name. Se omitido, usa o perfil padrão.",
-    "param.task_id.description": "ID da tarefa...",
-    "param.interval_ms.description": "Substituir o intervalo de po...",
-    "param.timeout_s.description": "Substituir o tempo limit...",
+    "param.task_id.description": "ID da tarefa a ser pesquisada.",
+    "param.interval_ms.description": "Substituir intervalo de pesquisa (ms).",
+    "param.timeout_s.description": "Tempo limite de substituição (segundos).",
     "err.missing_task_id": "Falta 'task_id'.",
     "err.exception": "Exceção"
   },
@@ -224,11 +224,11 @@
       "a2a poll"
     ],
     "param.profile.description": "Nama profil atau a2a://name.",
-    "param.task_id.description": "ID tugas yang...",
+    "param.task_id.description": "ID Tugas untuk melakukan polling.",
     "param.interval_ms.description": "Ganti interval polling (ms).",
     "param.timeout_s.description": "Ganti batas waktu (detik).",
-    "err.missing_task_id": "Tidak ada 'task...",
-    "err.exception": "Terjad..."
+    "err.missing_task_id": "'task_id' tidak ada.",
+    "err.exception": "Pengecualian"
   },
   "vi": {
     "tool.description": "Thăm dò một tác vụ A2A cho đến khi nó đạt trạng thái kết thúc.",
@@ -245,8 +245,8 @@
       "a2a poll"
     ],
     "param.profile.description": "Tên hồ sơ hoặc a2a://name. Nếu bỏ qua, dùng hồ sơ mặc định.",
-    "param.task_id.description": "ID tác vụ cần...",
-    "param.interval_ms.description": "Ghi đè khoảng thời gian thăm...",
+    "param.task_id.description": "ID nhiệm vụ để thăm dò ý kiến.",
+    "param.interval_ms.description": "Ghi đè khoảng thời gian bỏ phiếu (ms).",
     "param.timeout_s.description": "Ghi đè thời gian chờ (giây).",
     "err.missing_task_id": "Thiếu 'task_id'.",
     "err.exception": "Ngoại lệ"
@@ -266,14 +266,14 @@
       "a2a poll"
     ],
     "param.profile.description": "Nazwa profilu lub a2a://name.",
-    "param.task_id.description": "ID zadania do...",
+    "param.task_id.description": "Identyfikator zadania do odpytywania.",
     "param.interval_ms.description": "Zastąp interwał odpytywania (ms).",
     "param.timeout_s.description": "Zastąp limit czasu (sekundy).",
     "err.missing_task_id": "Brakuje 'task_id'.",
     "err.exception": "Wyjątek"
   },
   "hi": {
-    "tool.description": "किसी A2A कार्य को तब तक नियमित रूप से पोल करें जब तक वह अंतिम स्थिति तक न पहुंच...",
+    "tool.description": "किसी A2A कार्य को टर्मिनल स्थिति तक पोल करें। केवल तभी उपयोग करें जब कोई स्थानीय उपकरण स्थानापन्न न कर सके।",
     "x_search_terms": [
       "a2a_poll",
       "कार्य जांचें",
@@ -287,9 +287,9 @@
       "a2a poll"
     ],
     "param.profile.description": "प्रोफ़ाइल नाम या a2a://name.",
-    "param.task_id.description": "पोल किए जाने...",
-    "param.interval_ms.description": "पोलिंग अंतराल (मिलीसेकंड) को...",
-    "param.timeout_s.description": "टाइमआउट (सेकंड) को ओवररा...",
+    "param.task_id.description": "मतदान के लिए कार्य आईडी।",
+    "param.interval_ms.description": "मतदान अंतराल (एमएस) को ओवरराइड करें।",
+    "param.timeout_s.description": "ओवरराइड टाइमआउट (सेकंड)।",
     "err.missing_task_id": "'task_id' गुम है।",
     "err.exception": "अपवाद"
   },
@@ -308,10 +308,10 @@
       "a2a poll"
     ],
     "param.profile.description": "اسم الملف الشخصي أو a2a://name.",
-    "param.task_id.description": "معرّف المهمة...",
+    "param.task_id.description": "معرف المهمة للاستقصاء.",
     "param.interval_ms.description": "تجاوز فترة الاستعلام (مللي ثانية).",
     "param.timeout_s.description": "تجاوز المهلة (ثوانٍ).",
-    "err.missing_task_id": "القيمة 'task_id...",
+    "err.missing_task_id": "\"task_id\" مفقود.",
     "err.exception": "استثناء"
   },
   "sv": {
@@ -329,9 +329,9 @@
       "a2a poll"
     ],
     "param.profile.description": "Profilnamn eller a2a://name.",
-    "param.task_id.description": "Uppgifts-ID a...",
+    "param.task_id.description": "Uppgifts-ID för omröstning.",
     "param.interval_ms.description": "Åsidosätt pollingintervall (ms).",
-    "param.timeout_s.description": "Åsidosätt tidsgräns (sek...",
+    "param.timeout_s.description": "Åsidosätt timeout (sekunder).",
     "err.missing_task_id": "'task_id' saknas.",
     "err.exception": "Undantag"
   },
@@ -350,10 +350,10 @@
       "a2a poll"
     ],
     "param.profile.description": "Jina la wasifu au a2a://name.",
-    "param.task_id.description": "Kitambulisho...",
+    "param.task_id.description": "Kitambulisho cha Kazi kupiga kura.",
     "param.interval_ms.description": "Badilisha muda wa uchunguzi (ms).",
-    "param.timeout_s.description": "Badilisha muda wa kuisha...",
-    "err.missing_task_id": "Kipengee 'task_...",
+    "param.timeout_s.description": "Batilisha muda kuisha (sekunde).",
+    "err.missing_task_id": "'kitambulisho_cha_kazi' hakipo.",
     "err.exception": "Hitilafu"
   },
   "nb": {
@@ -371,9 +371,9 @@
       "a2a poll"
     ],
     "param.profile.description": "Profilnavn eller a2a://name. Hvis utelatt, brukes standardprofilen.",
-    "param.task_id.description": "Oppgave-ID so...",
+    "param.task_id.description": "Oppgave-ID for avstemning.",
     "param.interval_ms.description": "Overstyr pollingintervall (ms).",
-    "param.timeout_s.description": "Overstyr tidsavbrudd (se...",
+    "param.timeout_s.description": "Overstyr tidsavbrudd (sekunder).",
     "err.missing_task_id": "Mangler 'task_id'.",
     "err.exception": "Unntak"
   },
@@ -392,10 +392,10 @@
       "a2a poll"
     ],
     "param.profile.description": "Profielnaam of a2a://naam.",
-    "param.task_id.description": "Taak-ID om te...",
-    "param.interval_ms.description": "Polling-interval (ms) oversc...",
-    "param.timeout_s.description": "Time-out (seconden) over...",
-    "err.missing_task_id": "Ontbrekende 'ta...",
+    "param.task_id.description": "Taak-ID om te pollen.",
+    "param.interval_ms.description": "Pollinginterval negeren (ms).",
+    "param.timeout_s.description": "Time-out negeren (seconden).",
+    "err.missing_task_id": "Ontbrekende 'taak_id'.",
     "err.exception": "Exceptie"
   },
   "fi": {
@@ -413,9 +413,9 @@
       "a2a poll"
     ],
     "param.profile.description": "Profiilin nimi tai a2a://nimi.",
-    "param.task_id.description": "Seurattavan t...",
+    "param.task_id.description": "Tehtävän tunnus kyselyyn.",
     "param.interval_ms.description": "Korvaa kyselyväli (ms).",
-    "param.timeout_s.description": "Korvaa aikakatkaisu (sek...",
+    "param.timeout_s.description": "Ohita aikakatkaisu (sekunteina).",
     "err.missing_task_id": "'task_id' puuttuu.",
     "err.exception": "Poikkeus"
   },
@@ -434,9 +434,9 @@
       "a2a poll"
     ],
     "param.profile.description": "Název profilu nebo a2a://name.",
-    "param.task_id.description": "ID úlohy, kte...",
+    "param.task_id.description": "ID úkolu k hlasování.",
     "param.interval_ms.description": "Přepsat interval dotazování (ms).",
-    "param.timeout_s.description": "Přepsat časový limit (se...",
+    "param.timeout_s.description": "Časový limit přepsání (v sekundách).",
     "err.missing_task_id": "Chybí 'task_id'.",
     "err.exception": "Výjimka"
   },
@@ -455,10 +455,10 @@
       "a2a poll"
     ],
     "param.profile.description": "Назва профілю або a2a://name.",
-    "param.task_id.description": "ID завдання,...",
-    "param.interval_ms.description": "Перевизначити інтервал опиту...",
-    "param.timeout_s.description": "Перевизначити тайм-аут (...",
-    "err.missing_task_id": "Відсутній 'task...",
+    "param.task_id.description": "Ідентифікатор завдання для опитування.",
+    "param.interval_ms.description": "Перевизначити інтервал опитування (мс).",
+    "param.timeout_s.description": "Перевизначити час очікування (у секундах).",
+    "err.missing_task_id": "Відсутній 'task_id'.",
     "err.exception": "Виняток"
   },
   "tr": {
@@ -476,9 +476,9 @@
       "a2a poll"
     ],
     "param.profile.description": "Profil adı veya a2a://name. Atlanırsa varsayılan profili kullanır.",
-    "param.task_id.description": "Anket yapmak...",
-    "param.interval_ms.description": "Yoklama aralığını (ms) geçer...",
-    "param.timeout_s.description": "Zaman aşımını geçersiz k...",
+    "param.task_id.description": "Anket yapılacak görev kimliği.",
+    "param.interval_ms.description": "Yoklama aralığını (ms) geçersiz kıl.",
+    "param.timeout_s.description": "Geçersiz kılma zaman aşımı (saniye).",
     "err.missing_task_id": "'Görev_id'si eksik.",
     "err.exception": "İstisna"
   },
@@ -546,7 +546,7 @@
     "err.exception": "例外"
   },
   "bn": {
-    "tool.description": "একটি A2A কাজ চূড়ান্ত অবস্থায় পৌঁছানো পর্যন্ত নিয়মিত পোল করে। এটি কেবল তখনই ব...",
+    "tool.description": "টার্মিনাল অবস্থা পর্যন্ত একটি A2A টাস্ক পোল করুন। শুধুমাত্র তখনই ব্যবহার করুন যখন কোনো স্থানীয় টুল প্রতিস্থাপন করতে পারে না।",
     "x_search_terms": [
       "a2a_poll",
       "কাজ অনুসন্ধান",
@@ -560,10 +560,10 @@
       "a2a poll"
     ],
     "param.profile.description": "প্রোফাইলের নাম বা a2a://name। বাদ দিলে ডিফল্ট প্রোফাইল ব্যবহার হবে।",
-    "param.task_id.description": "যে কাজটি পোল...",
-    "param.interval_ms.description": "পোলিং ব্যবধান (মিলিসেকেন্ড)...",
-    "param.timeout_s.description": "টাইমআউট (সেকেন্ড) ওভাররা...",
-    "err.missing_task_id": "'task_id' অনুপস...",
+    "param.task_id.description": "টাস্ক আইডি পোল করতে।",
+    "param.interval_ms.description": "ওভাররাইড পোলিং ব্যবধান (ms)।",
+    "param.timeout_s.description": "ওভাররাইড টাইমআউট (সেকেন্ড)।",
+    "err.missing_task_id": "'task_id' অনুপস্থিত।",
     "err.exception": "ব্যতিক্রম"
   },
   "fa": {
@@ -581,10 +581,10 @@
       "a2a poll"
     ],
     "param.profile.description": "نام پروفایل یا a2a://name.",
-    "param.task_id.description": "شناسهٔ وظیفه‌...",
-    "param.interval_ms.description": "فاصلهٔ بررسی (میلی‌ثانیه) را...",
-    "param.timeout_s.description": "مهلت (ثانیه) را بازنویسی...",
-    "err.missing_task_id": "'task_id' وجود...",
+    "param.task_id.description": "شناسه وظیفه برای نظرسنجی",
+    "param.interval_ms.description": "لغو فاصله نظرسنجی (ms).",
+    "param.timeout_s.description": "لغو مهلت زمانی (ثانیه).",
+    "err.missing_task_id": "«task_id» وجود ندارد.",
     "err.exception": "استثنا"
   },
   "mn": {
@@ -602,10 +602,10 @@
       "a2a poll"
     ],
     "param.profile.description": "Профайлын нэр эсвэл a2a://name.",
-    "param.task_id.description": "Шалгах даалга...",
-    "param.interval_ms.description": "Шалгалтын интервал (мс)-ыг ө...",
-    "param.timeout_s.description": "Хугацаа хэтрэлтийн (секу...",
-    "err.missing_task_id": "'task_id' дутуу...",
+    "param.task_id.description": "Санал асуулга явуулах ажлын ID.",
+    "param.interval_ms.description": "Санал авах интервалыг (мс) хүчингүй болгох.",
+    "param.timeout_s.description": "Хугацаа хэтэрсэн (секунд).",
+    "err.missing_task_id": "'task_id' дутуу байна.",
     "err.exception": "Алдаа"
   },
   "mr": {
@@ -623,10 +623,94 @@
       "a2a poll"
     ],
     "param.profile.description": "प्रोफाइलचे नाव किंवा a2a://name.",
-    "param.task_id.description": "ज्या कार्याचा...",
+    "param.task_id.description": "मतदानासाठी टास्क आयडी.",
     "param.interval_ms.description": "पोलिंग अंतर (ms) बदलून द्या.",
     "param.timeout_s.description": "टाइमआउट (सेकंद) बदलून द्या.",
-    "err.missing_task_id": "'task_id' अनुपस...",
+    "err.missing_task_id": "'task_id' गहाळ आहे.",
     "err.exception": "अपवाद"
+  },
+  "el": {
+    "tool.description": "Δημοσκοπήστε μια εργασία A2A μέχρι την κατάσταση τερματικού. Χρησιμοποιήστε μόνο όταν κανένα τοπικό εργαλείο δεν μπορεί να αντικαταστήσει.",
+    "x_search_terms": [
+      "a2a_poll",
+      "a2a δημοσκόπηση",
+      "εργασία δημοσκόπησης",
+      "ελέγξτε την κατάσταση",
+      "περιμένετε για εργασία",
+      "κατάσταση εργασίας",
+      "αποτέλεσμα δημοσκόπησης",
+      "ψηφοφορία εργασιών",
+      "έλεγχος προόδου",
+      "εργασία παρακολούθησης"
+    ],
+    "param.profile.description": "Όνομα προφίλ ή a2a://name. Εάν παραλειφθεί, χρησιμοποιεί το προεπιλεγμένο προφίλ.",
+    "param.task_id.description": "Αναγνωριστικό εργασίας για δημοσκόπηση.",
+    "param.interval_ms.description": "Παράκαμψη διαστήματος ψηφοφορίας (ms).",
+    "param.timeout_s.description": "Παράκαμψη χρονικού ορίου λήξης (δευτερόλεπτα).",
+    "err.missing_task_id": "Λείπει το 'task_id'.",
+    "err.exception": "Εξαίρεση"
+  },
+  "he": {
+    "tool.description": "סקר משימת A2A עד למצב מסוף. השתמש רק כאשר אין כלי מקומי שיכול להחליף.",
+    "x_search_terms": [
+      "a2a_poll",
+      "סקר a2a",
+      "משימת סקר",
+      "לבדוק סטטוס",
+      "לחכות למשימה",
+      "מצב המשימה",
+      "תוצאת הסקר",
+      "סקר משימות",
+      "בדיקת התקדמות",
+      "משימה לפקח"
+    ],
+    "param.profile.description": "שם פרופיל או a2a://name. אם מושמט, משתמש בפרופיל ברירת המחדל.",
+    "param.task_id.description": "מזהה משימה לסקר.",
+    "param.interval_ms.description": "עוקף מרווח סקר (ms).",
+    "param.timeout_s.description": "ביטול הזמן הקצוב (שניות).",
+    "err.missing_task_id": "חסר 'מזהה_משימה'.",
+    "err.exception": "חֲרִיגָה"
+  },
+  "hu": {
+    "tool.description": "Lekérdezés egy A2A feladatot a terminál állapotig. Csak akkor használja, ha semmilyen helyi eszköz nem helyettesítheti.",
+    "x_search_terms": [
+      "a2a_poll",
+      "a2a szavazás",
+      "szavazási feladat",
+      "állapot ellenőrzése",
+      "várni a feladatra",
+      "feladat állapota",
+      "szavazás eredménye",
+      "feladat szavazás",
+      "haladás ellenőrzése",
+      "monitor feladat"
+    ],
+    "param.profile.description": "Profilnév vagy a2a://name. Ha kihagyja, az alapértelmezett profilt használja.",
+    "param.task_id.description": "Feladatazonosító a szavazáshoz.",
+    "param.interval_ms.description": "Lekérdezési intervallum felülbírálása (ms).",
+    "param.timeout_s.description": "Felülbírálási időkorlát (másodpercben).",
+    "err.missing_task_id": "Hiányzik a 'task_id'.",
+    "err.exception": "Kivétel"
+  },
+  "ro": {
+    "tool.description": "Interogați o sarcină A2A până la starea terminală. Utilizați numai atunci când niciun instrument local nu poate înlocui.",
+    "x_search_terms": [
+      "a2a_poll",
+      "sondaj a2a",
+      "sarcina de sondaj",
+      "verifica starea",
+      "așteptați sarcina",
+      "starea sarcinii",
+      "rezultatul sondajului",
+      "sondaj de sarcină",
+      "verificarea progresului",
+      "sarcina de monitorizare"
+    ],
+    "param.profile.description": "Nume profil sau a2a://nume. Dacă este omis, folosește profilul implicit.",
+    "param.task_id.description": "ID-ul sarcinii pentru sondaj.",
+    "param.interval_ms.description": "Ignorați intervalul de interogare (ms).",
+    "param.timeout_s.description": "Timeout de anulare (secunde).",
+    "err.missing_task_id": "Lipsește „task_id”.",
+    "err.exception": "Excepţie"
   }
 }

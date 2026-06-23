@@ -10,6 +10,7 @@ from typing import Any
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",  # Mandatory for OpenAI / Azure
     "tool_genre": "basic",
+    "x_parallel_safe": True,
     "function": {
         "name": "get_workdir",
         "description": _(

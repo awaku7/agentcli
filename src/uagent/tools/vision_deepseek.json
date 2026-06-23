@@ -1,0 +1,201 @@
+{
+  "ar": {
+    "tool.description": "تحليل صورة باستخدام نموذج رؤية DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "نص يصف ما الذي تبحث عنه في الصورة.",
+    "param.image.description": "URI بيانات الصورة أو مسار الملف."
+  },
+  "bn": {
+    "tool.description": "DeepSeek ভিশন মডেল ব্যবহার করে একটি ছবি বিশ্লেষণ করুন।",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "ছবিতে কী খুঁজতে হবে তা বর্ণনা করে টেক্সট প্রম্পট।",
+    "param.image.description": "ছবির ডেটা URI বা ফাইল পাথ।"
+  },
+  "cs": {
+    "tool.description": "Analyzovat obrázek pomocí modelu vidění DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Textová výzva popisující, co hledat na obrázku.",
+    "param.image.description": "URI dat obrázku nebo cesta k souboru."
+  },
+  "de": {
+    "tool.description": "Ein Bild mit dem DeepSeek-Visionsmodell analysieren.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Textaufforderung, die beschreibt, wonach im Bild gesucht werden soll.",
+    "param.image.description": "Bilddaten-URI oder Dateipfad."
+  },
+  "en": {
+    "err.import_openai": "Failed to import openai package.",
+    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] empty response"
+  },
+  "es": {
+    "tool.description": "Analizar una imagen usando el modelo de visión DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Texto que describe qué buscar en la imagen.",
+    "param.image.description": "URI de datos de imagen o ruta de archivo."
+  },
+  "fa": {
+    "tool.description": "تحلیل تصویر با استفاده از مدل بینایی DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "متن راهنما که توضیح می‌دهد در تصویر به دنبال چه چیزی بگردید.",
+    "param.image.description": "URI داده تصویر یا مسیر فایل."
+  },
+  "fi": {
+    "tool.description": "Analysoi kuva DeepSeek-näkömallilla.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Tekstikehote, joka kuvaa, mitä kuvasta etsitään.",
+    "param.image.description": "Kuvadatan URI tai tiedostopolku."
+  },
+  "fr": {
+    "tool.description": "Analyser une image à l'aide du modèle de vision DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Texte décrivant ce qu'il faut rechercher dans l'image.",
+    "param.image.description": "URI des données de l'image ou chemin du fichier."
+  },
+  "hi": {
+    "tool.description": "DeepSeek विज़न मॉडल का उपयोग करके छवि का विश्लेषण करें।",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "छवि में क्या देखना है, इसका वर्णन करने वाला टेक्स्ट प्रॉम्प्ट।",
+    "param.image.description": "छवि डेटा URI या फ़ाइल पथ।"
+  },
+  "id": {
+    "tool.description": "Menganalisis gambar menggunakan model visi DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Teks perintah yang menjelaskan apa yang dicari dalam gambar.",
+    "param.image.description": "URI data gambar atau jalur file."
+  },
+  "it": {
+    "tool.description": "Analizza un'immagine usando il modello di visione DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Testo che descrive cosa cercare nell'immagine.",
+    "param.image.description": "URI dei dati dell'immagine o percorso del file."
+  },
+  "ja": {
+    "tool.description": "DeepSeekビジョンモデルを使用して画像を分析します。",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "画像内で何を探すかを記述するテキストプロンプト。",
+    "param.image.description": "画像データURIまたはファイルパス。"
+  },
+  "ko": {
+    "tool.description": "DeepSeek 비전 모델을 사용하여 이미지를 분석합니다.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "이미지에서 찾을 대상을 설명하는 텍스트 프롬프트.",
+    "param.image.description": "이미지 데이터 URI 또는 파일 경로."
+  },
+  "mn": {
+    "tool.description": "DeepSeek харааны загвар ашиглан зургийг шинжлэх.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Зураг дээр юу хайхыг тодорхойлсон текст сануулга.",
+    "param.image.description": "Зургийн өгөгдлийн URI эсвэл файлын зам."
+  },
+  "mr": {
+    "tool.description": "DeepSeek दृष्टी मॉडेल वापरून प्रतिमेचे विश्लेषण करा.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "प्रतिमेत काय शोधायचे याचे वर्णन करणारा मजकूर संकेत.",
+    "param.image.description": "प्रतिमा डेटा URI किंवा फाइल पथ."
+  },
+  "el": {
+    "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai.",
+    "err.missing_env": "Λείπει UAGENT_DEEPSEEK_API_KEY (ή UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση"
+  },
+  "he": {
+    "err.import_openai": "ייבוא ​​חבילת openai נכשל.",
+    "err.missing_env": "חסר UAGENT_DEEPSEEK_API_KEY (או UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[אזהרה] תגובה ריקה"
+  },
+  "hu": {
+    "err.import_openai": "Nem sikerült importálni az openai csomagot.",
+    "err.missing_env": "Hiányzó UAGENT_DEEPSEEK_API_KEY (vagy UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] üres válasz"
+  },
+  "ro": {
+    "err.import_openai": "Nu s-a putut importa pachetul openai.",
+    "err.missing_env": "Lipsește UAGENT_DEEPSEEK_API_KEY (sau UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[WARN] răspuns gol"
+  },
+  "nb": {
+    "tool.description": "Analyser et bilde ved hjelp av DeepSeek visjonsmodell.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Tekst som beskriver hva du skal se etter i bildet.",
+    "param.image.description": "Bildedata-URI eller filbane."
+  },
+  "nl": {
+    "tool.description": "Analyseer een afbeelding met het DeepSeek-visiemodel.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Tekstprompt die beschrijft waarnaar in de afbeelding moet worden gezocht.",
+    "param.image.description": "Afbeeldingsgegevens-URI of bestandspad."
+  },
+  "pl": {
+    "tool.description": "Analizuj obraz za pomocą modelu wizji DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Tekst opisujący, czego szukać na obrazie.",
+    "param.image.description": "URI danych obrazu lub ścieżka pliku."
+  },
+  "pt": {
+    "tool.description": "Analisar uma imagem usando o modelo de visão DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Texto que descreve o que procurar na imagem.",
+    "param.image.description": "URI de dados da imagem ou caminho do ficheiro."
+  },
+  "pt_BR": {
+    "tool.description": "Analisar uma imagem usando o modelo de visão DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Texto descrevendo o que procurar na imagem.",
+    "param.image.description": "URI de dados da imagem ou caminho do arquivo."
+  },
+  "ru": {
+    "tool.description": "Анализировать изображение с помощью модели зрения DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Текстовый запрос, описывающий, что искать на изображении.",
+    "param.image.description": "URI данных изображения или путь к файлу."
+  },
+  "sv": {
+    "tool.description": "Analysera en bild med DeepSeeks visionsmodell.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Textuppmaning som beskriver vad man ska leta efter i bilden.",
+    "param.image.description": "Bilddata-URI eller filsökväg."
+  },
+  "sw": {
+    "tool.description": "Chambua picha kwa kutumia modeli ya maono ya DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Maandishi yanayoelezea nini cha kutafuta kwenye picha.",
+    "param.image.description": "URI ya data ya picha au njia ya faili."
+  },
+  "th": {
+    "tool_description": "วิเคราะห์ภาพโดยใช้โมเดลการมองเห็น DeepSeek",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "ข้อความแจ้งเตือนที่อธิบายสิ่งที่ต้องค้นหาในภาพ",
+    "param.image.description": "URI ข้อมูลภาพหรือเส้นทางไฟล์"
+  },
+  "tr": {
+    "tool.description": "DeepSeek görüş modelini kullanarak bir görseli analiz edin.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Görselde ne aranacağını açıklayan metin istemi.",
+    "param.image.description": "Görsel verisi URI'si veya dosya yolu."
+  },
+  "uk": {
+    "tool.description": "Аналізувати зображення за допомогою моделі зору DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Текстовий запит, що описує, що шукати на зображенні.",
+    "param.image.description": "URI даних зображення або шлях до файлу."
+  },
+  "vi": {
+    "tool.description": "Phân tích hình ảnh bằng mô hình thị giác DeepSeek.",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "Văn bản mô tả những gì cần tìm trong hình ảnh.",
+    "param.image.description": "URI dữ liệu hình ảnh hoặc đường dẫn tệp."
+  },
+  "zh_CN": {
+    "tool.description": "使用DeepSeek视觉模型分析图像。",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "描述要在图像中查找什么内容的文本提示。",
+    "param.image.description": "图像数据URI或文件路径。"
+  },
+  "zh_TW": {
+    "tool.description": "使用 DeepSeek 視覺模型分析影像。",
+    "x_search_terms": "[\"deepseek\", \"vision\", \"image analysis\", \"ocr\"]",
+    "param.prompt.description": "描述要在影像中尋找什麼內容的文字提示。",
+    "param.image.description": "影像資料 URI 或檔案路徑。"
+  }
+}

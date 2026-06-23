@@ -120,6 +120,7 @@ msgid "[INFO] startup genre prompt = numeric-input"
 msgstr ""
 "[INFO] monit wyboru kategorii przy uruchamianiu = wprowadzanie liczbowe"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
@@ -129,6 +130,8 @@ msgstr ""
 "(1=podstawowy,2=komunikacja,4=biuro,8=programowanie,16=iot,32=wykonanie,64=zewnętrzny,128=media,255=wszystkie,"
 " Enter=włącz wszystko):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Podstawowy (plik, środowisko, czas, podpowiedzi, umiejętności, pamięć, "
@@ -720,6 +723,7 @@ msgstr "Klucz API NVIDIA."
 msgid "DeepSeek API key."
 msgstr "Klucz API DeepSeek."
 
+#: src/uagent/env_validate.py:186
 msgid "Z.AI (Zhipu AI) API key."
 msgstr "Z.AI (Zhipu AI) API key."
 
@@ -1397,12 +1401,15 @@ msgstr "DeepSeek presence_penalty (domyślnie: 0.0)"
 msgid "DeepSeek frequency_penalty (default: 0.0)"
 msgstr "DeepSeek frequency_penalty (domyślnie: 0.0)"
 
+#: src/uagent/setup_cli.py:220
 msgid "Z.AI (Zhipu AI) API key"
 msgstr "Z.AI (Zhipu AI) API key"
 
+#: src/uagent/setup_cli.py:224
 msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 msgstr "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
 
+#: src/uagent/setup_cli.py:229
 msgid "Z.AI model name (optional, default: glm-5.2)"
 msgstr "Z.AI model name (optional, default: glm-5.2)"
 
@@ -1836,6 +1843,7 @@ msgstr ""
 "Tryb nieinteraktywny. Nie uruchamiaj pętli stdin; zakończ po przetworzeniu "
 "pliku startowego (jeśli istnieje)."
 
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
@@ -1845,11 +1853,13 @@ msgstr ""
 "(1=podstawowy,2=komunikacja,4=biuro,8=programowanie,16=iot,32=wykonanie,64=zewnętrzny,128=media,255=wszystkie)."
 " Pomija interaktywny monit o gatunku, gdy jest określony."
 
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Włącz wysyłanie narzędzi do LLM (nadpisuje zmienną środowiskową "
 "UAGENT_USE_TOOL)."
 
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Wyłącz wysyłanie narzędzi do LLM (nadpisuje zmienną środowiskową "
@@ -2398,6 +2408,9 @@ msgstr ""
 "[Serwery MCP]\n"
 "- Nie udało się pobrać informacji: %(err)s"
 
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[Szybki przewodnik]"
@@ -2405,15 +2418,9 @@ msgstr "[Szybki przewodnik]"
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr ""
-"- Czat: wpisz wiadomość i wyślij (w GUI dostępne jest też Ctrl+Enter)."
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Wielowierszowo: wpisz linię zawierającą tylko 'f', aby wejść w tryb "
-"wielowierszowy (zakończ linią \"\"\"end)."
+"- Multilinia: wprowadź linię zawierającą literę \"f\", aby przejść do trybu "
+"wielowierszowego.- Czat: wpisz wiadomość i wyślij (w GUI dostępne jest też "
+"Ctrl+Enter).wielowierszowy (zakończ linią \"\"\"end)."
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2728,10 +2735,8 @@ msgstr "wyłączone"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr ""
-"[INFO] Zawartość .env.sec nie zgadza się z bieżącymi zmiennymi "
-"środowiskowymi UAGENT_* przy uruchamianiu. Zaktualizować? [t/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] Zawartość .env.sec nie jest zgodna z bieżącymi zmiennymi środowiskowymi UAGENT_*. [y] Zaktualizuj .env.sec bieżącymi wartościami / [s] Użyj wartości z .env.sec (zastosuj do sesji) / [N] Pomiń:"
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2741,6 +2746,11 @@ msgstr ""
 "[INFO] Zawartość .env.sec nie zgadza się z bieżącymi zmiennymi "
 "środowiskowymi UAGENT_* przy uruchamianiu. Użyj `uag_envsec`, aby ją "
 "zaktualizować."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] Zastosowano wartości z .env.sec do bieżącej sesji."
+
 
 #: src/uagent/runtime/runtime_env.py:214
 #, python-format

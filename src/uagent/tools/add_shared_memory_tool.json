@@ -1,7 +1,7 @@
 {
   "en": {
     "param.note.description": "The note text to share.",
-    "tool.description": "Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that...",
+    "tool.description": "Append a single note to the shared long-term memory store (shared across users/sessions). If shared memory is not configured, the tool reports that it is unavailable.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
@@ -13,292 +13,340 @@
   },
   "ja": {
     "param.note.description": "共有メモとして追記する本文。",
-    "tool.description": "共有長期記憶ストアにメモを1件追加します。共有メモリが未設定の場合は、その機能が無効であることを返します。パスワードやAPIキーなどの秘密情報は保存しないでください。",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "共有の長期記憶ストア（ユーザー/セッション間で共有）に1件のメモを追加します。共有メモリが設定されていない場合、ツールは利用不可と報告します。"
   },
   "es": {
     "param.note.description": "El texto de la nota a compartir.",
-    "tool.description": "Añade una sola nota al almacén de memoria compartida a largo plazo (compartida entre usuarios/sesiones).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Agrega una sola nota al almacén de memoria a largo plazo compartido (compartido entre usuarios/sesiones). Si la memoria compartida no está configurada, la herramienta informa que no está disponible."
   },
   "fr": {
     "param.note.description": "Le texte de la note à partager.",
-    "tool.description": "Ajoute une seule note au stockage de mémoire partagée à long terme (partagé entre utilisateurs/sessions).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Ajouter une seule note au stockage de mémoire à long terme partagé (partagé entre utilisateurs/sessions). Si la mémoire partagée n'est pas configurée, l'outil signale qu'elle est indisponible."
   },
   "ko": {
     "param.note.description": "공유할 메모 텍스트입니다.",
-    "tool.description": "공유 장기 메모리 저장소에 메모를 1개 추가합니다(사용자/세션 간 공유). 공유 메모리가 설정되지 않은 경우 도구는 비활성화되었다고 보고합니다. 비밀번호나 API 키 같은 비밀 정보는 저장하지 마세요.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "공유 장기 메모리 저장소(사용자/세션 간 공유)에 단일 노트를 추가합니다. 공유 메모리가 구성되지 않은 경우 도구는 사용 불가능하다고 보고합니다."
   },
   "de": {
     "param.note.description": "Der zu teilende Notiztext.",
-    "tool.description": "Fügen Sie dem gemeinsam genutzten Langzeitspeicher eine einzelne Notiz hinzu (gemeinsam für Benutzer und Sitzungen).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Fügen Sie eine einzelne Notiz zum gemeinsamen Langzeitspeicher hinzu (gemeinsam über Benutzer/Sitzungen hinweg). Wenn der gemeinsame Speicher nicht konfiguriert ist, meldet das Werkzeug, dass er nicht verfügbar ist."
   },
   "it": {
     "param.note.description": "Il testo della nota da condividere.",
-    "tool.description": "Aggiunge una singola nota all'archivio di memoria condivisa a lungo termine (condivisa tra utenti/sessioni).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Aggiungi una singola nota all'archivio di memoria a lungo termine condiviso (condiviso tra utenti/sessioni). Se la memoria condivisa non è configurata, lo strumento segnala che non è disponibile."
   },
   "ru": {
     "param.note.description": "Текст заметки, которой нужно поделиться.",
-    "tool.description": "Добавьте одну заметку в общую долговременную память (общую для всех пользователей/сессий).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Добавить одну заметку в общее долговременное хранилище (доступное для всех пользователей/сессий). Если общая память не настроена, инструмент сообщает о её недоступности."
   },
   "pt_BR": {
     "param.note.description": "O texto da nota a ser compartilhada.",
-    "tool.description": "Adicione uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Anexe uma única nota ao armazenamento de memória de longo prazo compartilhado (compartilhado entre usuários/sessões). Se a memória compartilhada não estiver configurada, a ferramenta informa que está indisponível."
   },
   "pt": {
     "param.note.description": "O texto da nota a ser compartilhada.",
-    "tool.description": "Adicione uma única nota ao armazenamento de memória compartilhada de longo prazo (compartilhada entre usuários/sessões).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Anexe uma única nota ao armazenamento de memória de longo prazo partilhado (partilhado entre utilizadores/sessões). Se a memória partilhada não estiver configurada, a ferramenta reporta que está indisponível."
   },
   "id": {
     "param.note.description": "Teks catatan yang akan dibagikan.",
-    "tool.description": "Tambahkan satu catatan ke penyimpanan memori jangka panjang bersama (dibagikan lintas pengguna/sesi).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Tambahkan satu catatan ke penyimpanan memori jangka panjang bersama (dibagikan antar pengguna/sesi). Jika memori bersama tidak dikonfigurasi, alat melaporkan bahwa memori tidak tersedia."
   },
   "vi": {
     "param.note.description": "Văn bản ghi chú cần chia sẻ.",
-    "tool.description": "Thêm một ghi chú vào kho lưu trữ bộ nhớ dài hạn dùng chung (chia sẻ giữa người dùng/phiên).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Thêm một ghi chú duy nhất vào kho lưu trữ bộ nhớ dài hạn dùng chung (chia sẻ giữa các người dùng/phiên). Nếu bộ nhớ dùng chung chưa được cấu hình, công cụ sẽ báo cáo rằng nó không khả dụng."
   },
   "pl": {
     "param.note.description": "Tekst notatki do udostępnienia.",
-    "tool.description": "Dołącz pojedynczą notatkę do współdzielonego magazynu pamięci długoterminowej (wspólnego dla użytkowników/sesji).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Dodaj pojedynczą notatkę do współdzielonego magazynu pamięci długoterminowej (współdzielonego między użytkownikami/sesjami). Jeśli pamięć współdzielona nie jest skonfigurowana, narzędzie zgłasza, że jest niedostępna."
   },
   "hi": {
     "param.note.description": "साझा करने के लिए नोट पाठ.",
-    "tool.description": "साझा दीर्घकालिक मेमोरी स्टोर (उपयोगकर्ताओं/सत्रों में साझा) में एक नोट जोड़ें। यदि साझा मेमोरी कॉन्फ़िगर नहीं की गई है, तो टूल रिपोर्ट करता है कि य...",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "साझा दीर्घकालिक मेमोरी स्टोर में एक एकल नोट जोड़ें (उपयोगकर्ताओं/सत्रों में साझा)। यदि साझा मेमोरी कॉन्फ़िगर नहीं है, तो उपकरण रिपोर्ट करता है कि यह अनुपलब्ध है।"
   },
   "ar": {
     "param.note.description": "نص المذكرة للمشاركة.",
-    "tool.description": "قم بإلحاق ملاحظة واحدة بمخزن الذاكرة طويل المدى المشترك (المشترك بين المستخدمين/الجلسات).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "إضافة ملاحظة واحدة إلى مخزن الذاكرة طويلة المدى المشتركة (مشتركة عبر المستخدمين/الجلسات). إذا لم يتم تكوين الذاكرة المشتركة، تبلغ الأداة بأنها غير متاحة."
   },
   "sv": {
     "param.note.description": "Texten i anteckningen som ska delas.",
-    "tool.description": "Lägg till en anteckning i det delade långtidsminnet som delas mellan användare och sessioner.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Lägg till en enskild anteckning i det delade långtidsminnet (delat mellan användare/sessioner). Om delat minne inte är konfigurerat rapporterar verktyget att det inte är tillgängligt."
   },
   "sw": {
     "param.note.description": "Maandishi ya dokezo la kushiriki.",
-    "tool.description": "Hifadhi dokezo moja la kumbukumbu ya pamoja kuhusu mtumiaji au mazingira ambalo linaweza kusaidia mazungumzo ya baadaye.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Ongeza noti moja kwenye hifadhi ya kumbukumbu ya muda mrefu iliyoshirikiwa (inayoshirikiwa kwa watumiaji/vikao vyote). Ikiwa kumbukumbu iliyoshirikiwa haijasanidiwa, chombo kinaripoti kuwa haipatikani."
   },
   "nb": {
     "param.note.description": "Teksten i notatet som skal deles.",
-    "tool.description": "Legg til ett notat i det delte langtidsminnet som deles mellom brukere og økter.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Legg til en enkelt notat i det delte langtidsminnelageret (delt på tvers av brukere/økter). Hvis delt minne ikke er konfigurert, rapporterer verktøyet at det ikke er tilgjengelig."
   },
   "nl": {
     "param.note.description": "De notitietekst om te delen.",
-    "tool.description": "Voeg één notitie toe aan de gedeelde langetermijngeheugenopslag (gedeeld tussen gebruikers/sessies).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Voeg een enkele notitie toe aan de gedeelde langetermijngeheugenopslag (gedeeld over gebruikers/sessies). Als gedeeld geheugen niet is geconfigureerd, meldt het hulpmiddel dat het niet beschikbaar is."
   },
   "fi": {
     "param.note.description": "Jaettava muistiinpanoteksti.",
-    "tool.description": "Lisää yksi muistiinpano jaettuun pitkäaikaisen muistin varastoon (jaettu käyttäjien/istuntojen kesken).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Lisää yksittäinen muistiinpano jaettuun pitkäaikaismuistivarastoon (jaettu käyttäjien/istuntojen kesken). Jos jaettua muistia ei ole määritetty, työkalu ilmoittaa, ettei se ole käytettävissä."
   },
   "cs": {
     "param.note.description": "Text poznámky ke sdílení.",
-    "tool.description": "Přidá jednu poznámku do sdíleného úložiště dlouhodobé paměti (sdíleného mezi uživateli a relacemi).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Připojte jednu poznámku do sdíleného úložiště dlouhodobé paměti (sdílené napříč uživateli/relacemi). Pokud sdílená paměť není nakonfigurována, nástroj hlásí, že není k dispozici."
   },
   "uk": {
     "param.note.description": "Текст нотатки для спільного доступу.",
-    "tool.description": "Додає одну нотатку до спільного сховища довготривалої пам’яті (спільного між користувачами та сеансами).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Додати одну нотатку до спільного довгострокового сховища пам'яті (спільного для користувачів/сеансів). Якщо спільна пам'ять не налаштована, інструмент повідомляє, що вона недоступна."
   },
   "tr": {
     "param.note.description": "Paylaşılacak not metni.",
-    "tool.description": "Paylaşılan uzun vadeli bellek deposuna (kullanıcılar/oturumlar arasında paylaşılan) tek bir not ekleyin.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Paylaşılan uzun süreli bellek deposuna (kullanıcılar/oturumlar arasında paylaşılan) tek bir not ekle. Paylaşılan bellek yapılandırılmamışsa, araç kullanılamadığını bildirir."
   },
   "th": {
     "param.note.description": "ข้อความบันทึกที่จะแชร์",
-    "tool.description": "เพิ่มบันทึกหนึ่งรายการลงในที่เก็บหน่วยความจำระยะยาวที่ใช้ร่วมกัน (แชร์ระหว่างผู้ใช้/เซสชัน) หากไม่ได้กำหนดค่าหน่วยความจำที่ใช้ร่วมกัน เครื่องมือจะร...",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "เพิ่มบันทึกเดี่ยวลงในพื้นที่จัดเก็บความจำระยะยาวที่ใช้ร่วมกัน (แชร์ระหว่างผู้ใช้/เซสชัน) หากไม่ได้กำหนดค่าหน่วยความจำที่ใช้ร่วมกัน เครื่องมือจะรายงานว่าไม่พร้อมใช้งาน"
   },
   "zh_CN": {
     "param.note.description": "要分享的备注文本。",
-    "tool.description": "向共享长期记忆存储中追加一条备注（在用户/会话之间共享）。如果未设置共享记忆，工具会提示该功能已禁用。不要存储密码或 API 密钥等机密信息。",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "将单条笔记追加到共享长期记忆存储中（跨用户/会话共享）。若共享记忆未配置，工具将报告其不可用。"
   },
   "zh_TW": {
     "param.note.description": "要分享的備註文字。",
-    "tool.description": "向共享長期記憶儲存中新增一則備註（在使用者/工作階段之間共享）。如果未設定共享記憶，工具會回報該功能已停用。不要儲存密碼或 API 金鑰等機密資訊。",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "將單一筆記附加到共享的長期記憶儲存中（跨使用者/工作階段共享）。若共享記憶體未配置，工具會回報其不可用。"
   },
   "bn": {
     "param.note.description": "শেয়ার করার নোটের লেখা।",
-    "tool.description": "শেয়ার করা দীর্ঘমেয়াদি মেমরি স্টোরে একটি মাত্র নোট যোগ করুন (ব্যবহারকারী/সেশনের মধ্যে ভাগ করা)। শেয়ার্ড মেমরি কনফিগার না থাকলে টুল জানায় যে এটি...",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "শেয়ার্ড দীর্ঘমেয়াদী মেমরি স্টোরে একটি একক নোট যুক্ত করুন (ব্যবহারকারী/সেশন জুড়ে শেয়ার্ড)। যদি শেয়ার্ড মেমরি কনফিগার না করা থাকে, টুলটি রিপোর্ট করে যে এটি অনুপলব্ধ।"
   },
   "fa": {
     "param.note.description": "متن یادداشت برای اشتراک.",
-    "tool.description": "یک یادداشت را به مخزنِ حافظهٔ بلندمدتِ مشترک (مشترک میان کاربران/جلسه‌ها) اضافه کنید.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "یک یادداشت واحد به حافظه بلندمدت مشترک (مشترک بین کاربران/نشست‌ها) اضافه کنید. اگر حافظه مشترک پیکربندی نشده باشد، ابزار گزارش می‌دهد که در دسترس نیست."
   },
   "mn": {
     "param.note.description": "Хуваалцах тэмдэглэлийн текст.",
-    "tool.description": "Хэрэглэгч/сессүүдийн хооронд хуваалцдаг урт хугацааны хамтын санах ойн санд нэг тэмдэглэл нэмнэ.",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "Хуваалцсан урт хугацааны санах ойн санд (хэрэглэгч/сессийн хооронд хуваалцсан) нэг тэмдэглэл нэмэх. Хуваалцсан санах ой тохируулаагүй бол хэрэгсэл боломжгүй гэж мэдээлнэ."
   },
   "mr": {
     "param.note.description": "शेअर करायच्या नोंदीचा मजकूर.",
-    "tool.description": "शेअर केलेल्या दीर्घकालीन स्मृती साठ्यात एकच नोंद जोडा (वापरकर्ते/सत्रांमध्ये सामायिक).",
     "x_search_terms": [
       "add_shared_memory",
       "add shared memory",
       "shared memory",
       "share memory"
-    ]
+    ],
+    "tool.description": "सामायिक दीर्घकालीन मेमरी स्टोअरमध्ये (वापरकर्ते/सत्रांमध्ये सामायिक) एकच टीप जोडा. सामायिक मेमरी कॉन्फिगर केली नसल्यास, साधन ते अनुपलब्ध असल्याचे नोंदवते."
+  },
+  "el": {
+    "param.note.description": "Το κείμενο της σημείωσης για κοινή χρήση.",
+    "x_search_terms": [
+      "add_shared_memory",
+      "προσθήκη κοινής μνήμης",
+      "προσάρτηση σημείωσης",
+      "κοινή μνήμη",
+      "σημείωση κοινής χρήσης",
+      "αποθήκευση μνήμης"
+    ],
+    "tool.description": "Προσθήκη μιας μεμονωμένης σημείωσης στην κοινόχρηστη μνήμη μακροπρόθεσμης αποθήκευσης (κοινή σε χρήστες/συνεδρίες). Εάν η κοινόχρηστη μνήμη δεν έχει ρυθμιστεί, το εργαλείο αναφέρει ότι δεν είναι διαθέσιμη."
+  },
+  "he": {
+    "param.note.description": "טקסט ההערה לשיתוף.",
+    "x_search_terms": [
+      "הוסף_זיכרון_משותף",
+      "להוסיף זיכרון משותף",
+      "לצרף הערה",
+      "זיכרון משותף",
+      "שיתוף הערה",
+      "מאגר זיכרון"
+    ],
+    "tool.description": "הוסף הערה בודדת למאגר הזיכרון ארוך הטווח המשותף (משותף בין משתמשים/הפעלות). אם הזיכרון המשותף אינו מוגדר, הכלי מדווח שהוא אינו זמין."
+  },
+  "hu": {
+    "param.note.description": "A megosztandó jegyzet szövege.",
+    "x_search_terms": [
+      "add_shared_memory",
+      "megosztott memória hozzáadása",
+      "megjegyzés csatolása",
+      "megosztott memória",
+      "megosztás jegyzet",
+      "memóriatár"
+    ],
+    "tool.description": "Fűzz hozzá egyetlen jegyzetet a megosztott hosszú távú memóriatárolóhoz (felhasználók/munkamenetek között megosztva). Ha a megosztott memória nincs konfigurálva, az eszköz jelzi, hogy nem elérhető."
+  },
+  "ro": {
+    "param.note.description": "Textul notei de partajat.",
+    "x_search_terms": [
+      "add_shared_memory",
+      "adăugați memorie partajată",
+      "anexează o notă",
+      "memorie partajată",
+      "partajează nota",
+      "depozit de memorie"
+    ],
+    "tool.description": "Adaugă o singură notă în memoria partajată pe termen lung (partajată între utilizatori/sesiuni). Dacă memoria partajată nu este configurată, instrumentul raportează că nu este disponibilă."
   }
 }

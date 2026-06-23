@@ -13,7 +13,8 @@
       "evaluate",
       "solve",
       "numeric"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "ja": {
     "param.expression.description": "評価する数式（例: '123*(45+67)'）。",
@@ -29,10 +30,11 @@
       "算術",
       "評価",
       "解く"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "es": {
-    "param.expression.description": "La fórmula que desea calcular (por ejemplo,...",
+    "param.expression.description": "La expresión matemática a evaluar (por ejemplo,",
     "tool.description": "Calcula una expresión matemática y devuelve el resultado. Úselo para cálculos complejos o cuando se requiera precisión.",
     "x_search_terms": [
       "calculator",
@@ -45,10 +47,11 @@
       "evaluar",
       "resolver",
       "numérico"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "fr": {
-    "param.expression.description": "La formule que vous souhaitez calculer (par...",
+    "param.expression.description": "L'expression mathématique à évaluer (par exemple.",
     "tool.description": "Calcule une expression mathématique et renvoie le résultat. Utilisez-le pour des calculs complexes ou lorsque la précision est requise.",
     "x_search_terms": [
       "calculator",
@@ -61,7 +64,8 @@
       "évaluer",
       "résoudre",
       "numérique"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "ko": {
     "param.expression.description": "계산할 수식(예: '123*(45+67)').",
@@ -77,7 +81,8 @@
       "평가",
       "해결",
       "숫자"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "de": {
     "param.expression.description": "Die Formel, die Sie berechnen möchten (z.B.",
@@ -93,10 +98,11 @@
       "auswerten",
       "lösen",
       "numerisch"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "it": {
-    "param.expression.description": "La formula che desideri calcolare (ad esemp...",
+    "param.expression.description": "L'espressione matematica da valutare (es.",
     "tool.description": "Calcola un'espressione matematica e restituisce il risultato. Utilizzalo per calcoli complessi o quando è richiesta precisione.",
     "x_search_terms": [
       "calculator",
@@ -109,10 +115,11 @@
       "valutare",
       "risolvere",
       "numerico"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "ru": {
-    "param.expression.description": "Формула, которую вы хотите вычислить (напри...",
+    "param.expression.description": "Математическое выражение для вычисления (например,",
     "tool.description": "Вычисляет математическое выражение и возвращает результат. Используйте это для сложных вычислений или когда требуется точность.",
     "x_search_terms": [
       "calculator",
@@ -125,10 +132,11 @@
       "оценить",
       "решить",
       "числовой"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "pt_BR": {
-    "param.expression.description": "A fórmula que você deseja calcular (por exe...",
+    "param.expression.description": "A expressão matemática a ser avaliada (por exemplo,",
     "tool.description": "Calcula uma expressão matemática e retorna o resultado. Use isto para cálculos complexos ou quando for necessária precisão.",
     "x_search_terms": [
       "calculator",
@@ -141,10 +149,11 @@
       "avaliar",
       "resolver",
       "numérico"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "pt": {
-    "param.expression.description": "A fórmula que você deseja calcular (por exe...",
+    "param.expression.description": "A expressão matemática a ser avaliada (por exemplo,",
     "tool.description": "Calcula uma expressão matemática e retorna o resultado. Use isto para cálculos complexos ou quando for necessária precisão.",
     "x_search_terms": [
       "calculator",
@@ -157,7 +166,8 @@
       "avaliar",
       "resolver",
       "numérico"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "id": {
     "param.expression.description": "Rumus yang ingin Anda hitung (mis.",
@@ -173,10 +183,11 @@
       "mengevaluasi",
       "menyelesaikan",
       "numerik"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "vi": {
-    "param.expression.description": "Công thức bạn muốn tính toán (ví dụ: '123 *...",
+    "param.expression.description": "Biểu thức toán học cần đánh giá (ví dụ:",
     "tool.description": "Tính toán một biểu thức toán học và trả về kết quả. Sử dụng tính năng này cho các phép tính phức tạp hoặc khi cần độ chính xác.",
     "x_search_terms": [
       "calculator",
@@ -189,7 +200,8 @@
       "đánh giá",
       "giải",
       "số"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "pl": {
     "param.expression.description": "Formuła, którą chcesz obliczyć (np.",
@@ -205,10 +217,11 @@
       "ocenić",
       "rozwiązać",
       "numeryczny"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "hi": {
-    "param.expression.description": "वह सूत्र जिसकी आप गणना करना चाहते हैं (जैसे...",
+    "param.expression.description": "मूल्यांकन करने के लिए गणितीय अभिव्यक्ति (उदाहरण के लिए",
     "tool.description": "गणितीय अभिव्यक्ति की गणना करता है और परिणाम देता है। जटिल गणनाओं के लिए या जब सटीकता की आवश्यकता हो तो इसका उपयोग करें।",
     "x_search_terms": [
       "calculator",
@@ -221,10 +234,11 @@
       "मूल्यांकन",
       "हल करना",
       "संख्यात्मक"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "ar": {
-    "param.expression.description": "الصيغة التي تريد حسابها (على سبيل المثال، '...",
+    "param.expression.description": "التعبير الرياضي المطلوب تقييمه (على سبيل المثال",
     "tool.description": "حساب تعبير رياضي وإرجاع النتيجة. استخدم هذا لإجراء العمليات الحسابية المعقدة أو عندما تكون الدقة مطلوبة.",
     "x_search_terms": [
       "calculator",
@@ -237,7 +251,8 @@
       "تقييم",
       "حل",
       "عددي"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "sv": {
     "param.expression.description": "Formeln du vill beräkna (t.ex.",
@@ -253,10 +268,11 @@
       "utvärdera",
       "lösa",
       "numerisk"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "sw": {
-    "param.expression.description": "Usemi/formula unaotaka kukokotoa (mfano '12...",
+    "param.expression.description": "Usemi wa hisabati wa kutathminiwa (k.m.",
     "tool.description": "Kokotoa usemi wa hisabati na urudishe matokeo. Tumia kwa hesabu changamano au pale usahihi unapohitajika.",
     "x_search_terms": [
       "calculator",
@@ -269,7 +285,8 @@
       "tathmini",
       "suluhisha",
       "nambari"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "nb": {
     "param.expression.description": "Formelen du vil beregne (f.eks.",
@@ -285,7 +302,8 @@
       "evaluere",
       "løse",
       "numerisk"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "nl": {
     "param.expression.description": "De formule die u wilt berekenen (bijv.",
@@ -301,7 +319,8 @@
       "evalueren",
       "oplossen",
       "numeriek"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "fi": {
     "param.expression.description": "Laskettava lauseke (esim.",
@@ -317,7 +336,8 @@
       "arvioida",
       "ratkaista",
       "numeerinen"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "cs": {
     "param.expression.description": "Vzorec, který chcete vypočítat (např.",
@@ -333,10 +353,11 @@
       "vyhodnotit",
       "vyřešit",
       "číselný"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "uk": {
-    "param.expression.description": "Формула, яку ви хочете обчислити (наприклад...",
+    "param.expression.description": "Математичний вираз для оцінки (наприклад,",
     "tool.description": "Обчислює математичний вираз і повертає результат. Використовуйте це для складних обчислень або коли потрібна точність.",
     "x_search_terms": [
       "calculator",
@@ -349,7 +370,8 @@
       "оцінити",
       "розв’язати",
       "числовий"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "tr": {
     "param.expression.description": "Hesaplamak istediğiniz formül (ör.",
@@ -365,10 +387,11 @@
       "değerlendirmek",
       "çözmek",
       "sayısal"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "th": {
-    "param.expression.description": "สูตรที่คุณต้องการคำนวณ (เช่น '123 * (45 + 6...",
+    "param.expression.description": "นิพจน์ทางคณิตศาสตร์ที่จะประเมิน (เช่น",
     "tool.description": "คำนวณนิพจน์ทางคณิตศาสตร์และส่งกลับผลลัพธ์ ใช้สำหรับการคำนวณที่ซับซ้อนหรือเมื่อจำเป็นต้องใช้ความแม่นยำ",
     "x_search_terms": [
       "calculator",
@@ -381,7 +404,8 @@
       "ประเมิน",
       "แก้",
       "ตัวเลข"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "zh_CN": {
     "param.expression.description": "要计算的数学表达式（例如: '123*(45+67)'）。",
@@ -397,7 +421,8 @@
       "求值",
       "求解",
       "数值"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "zh_TW": {
     "param.expression.description": "要计算的数学表达式（例如: '123*(45+67)'）。",
@@ -413,10 +438,11 @@
       "求值",
       "求解",
       "數值"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "bn": {
-    "param.expression.description": "আপনি যে সূত্রটি গণনা করতে চান (যেমন '123 *...",
+    "param.expression.description": "মূল্যায়ন করার জন্য গাণিতিক অভিব্যক্তি (যেমন.",
     "tool.description": "একটি গাণিতিক expression গণনা করে ফলাফল ফেরত দেয়। জটিল গণনা বা যেখানে নির্ভুলতা দরকার সেখানে ব্যবহার করুন।",
     "x_search_terms": [
       "calculator",
@@ -429,10 +455,11 @@
       "মূল্যায়ন",
       "সমাধান",
       "সংখ্যাসূচক"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "fa": {
-    "param.expression.description": "فرمولی که می‌خواهید محاسبه کنید (مثلاً '123...",
+    "param.expression.description": "عبارت ریاضی برای ارزیابی (مثلاً",
     "tool.description": "یک عبارت ریاضی را محاسبه می‌کند و نتیجه را برمی‌گرداند. برای محاسبات پیچیده یا وقتی دقت لازم است از این ابزار استفاده کنید.",
     "x_search_terms": [
       "calculator",
@@ -445,10 +472,11 @@
       "ارزیابی",
       "حل",
       "عددی"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "mn": {
-    "param.expression.description": "Тооцоолохыг хүссэн томьёо (жишээ нь '123 *...",
+    "param.expression.description": "Үнэлгээ хийх математик илэрхийлэл (жишээ нь.",
     "tool.description": "Математик илэрхийллийг бодож, үр дүнг буцаана. Нарийн тооцоо эсвэл өндөр нарийвчлал шаардлагатай үед ашиглана.",
     "x_search_terms": [
       "calculator",
@@ -461,7 +489,8 @@
       "үнэлэх",
       "шийдэх",
       "тоон"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
   },
   "mr": {
     "param.expression.description": "तुम्हाला ज्याची गणना करायची आहे ते सूत्र (उदा.",
@@ -477,6 +506,75 @@
       "मूल्यांकन",
       "सोडवणे",
       "संख्यात्मक"
-    ]
+    ],
+    "err.expression_missing": "[calculator]\\\nError: No expression provided."
+  },
+  "el": {
+    "param.expression.description": "Η μαθηματική έκφραση προς αξιολόγηση (π.χ.",
+    "tool.description": "Υπολογίζει μια μαθηματική παράσταση και επιστρέφει το αποτέλεσμα. Χρησιμοποιήστε το για πολύπλοκους υπολογισμούς ή όταν απαιτείται ακρίβεια.",
+    "x_search_terms": [
+      "αριθμομηχανή",
+      "υπολογίζω",
+      "μαθηματικά",
+      "έκφραση",
+      "τύπος",
+      "υπολογίζω",
+      "αριθμητική",
+      "αξιολογώ",
+      "λύνω",
+      "αριθμητικός"
+    ],
+    "err.expression_missing": "[αριθμομηχανή]\\\nΣφάλμα: Δεν παρέχεται έκφραση."
+  },
+  "he": {
+    "param.expression.description": "הביטוי המתמטי שיש להעריך (למשל.",
+    "tool.description": "מחשב ביטוי מתמטי ומחזיר את התוצאה. השתמש בזה עבור חישובים מורכבים או כאשר נדרש דיוק.",
+    "x_search_terms": [
+      "מַחשְׁבוֹן",
+      "לְחַשֵׁב",
+      "מתמטיקה",
+      "הַבָּעָה",
+      "נוּסחָה",
+      "לְחַשֵׁב",
+      "חֶשְׁבּוֹן",
+      "לְהַעֲרִיך",
+      "לִפְתוֹר",
+      "מספרי"
+    ],
+    "err.expression_missing": "[מחשבון]\\\nשגיאה: לא סופק ביטוי."
+  },
+  "hu": {
+    "param.expression.description": "A kiértékelendő matematikai kifejezés (pl.",
+    "tool.description": "Kiszámít egy matematikai kifejezést, és visszaadja az eredményt. Használja ezt összetett számításokhoz, vagy ha pontosságra van szükség.",
+    "x_search_terms": [
+      "számológép",
+      "kiszámítani",
+      "matematika",
+      "kifejezés",
+      "képlet",
+      "kiszámítani",
+      "számtan",
+      "értékelni",
+      "megoldani",
+      "numerikus"
+    ],
+    "err.expression_missing": "[számológép]\\\nHiba: Nincs megadva kifejezés."
+  },
+  "ro": {
+    "param.expression.description": "Expresia matematică de evaluat (de ex.",
+    "tool.description": "Calculează o expresie matematică și returnează rezultatul. Utilizați acest lucru pentru calcule complexe sau când este necesară precizie.",
+    "x_search_terms": [
+      "calculator",
+      "calcula",
+      "matematica",
+      "expresie",
+      "formula",
+      "calcula",
+      "aritmetică",
+      "evalua",
+      "rezolva",
+      "numeric"
+    ],
+    "err.expression_missing": "[calculator]\\\nEroare: nu este furnizată nicio expresie."
   }
 }

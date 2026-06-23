@@ -16,7 +16,7 @@ BUSY_LABEL = True
 TOOL_SPEC: dict[str, Any] = {
     "load_order": -1,
     "type": "function",
-    "tool_genre": "basic",
+    "tool_genre": "file",
     "function": {
         "name": "create_file",
         "description": _(
@@ -97,49 +97,74 @@ def _backup_path(path: str) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
-    raw_filename = str(args.get("filename") or args.get("path") or "").strip()
-    content = str(args.get("content", ""))
-    encoding_raw = args.get("encoding")
-    if encoding_raw is None or str(encoding_raw).strip() == "":
-        ext = os.path.splitext(raw_filename)[1].lower()
-        encoding = "utf-8-sig" if ext in (".csv", ".tsv") else "utf-8"
-    else:
-        encoding = str(encoding_raw)
-    overwrite_raw = args.get("overwrite", False)
-    if not isinstance(overwrite_raw, bool):
-        raise ValueError("overwrite must be a boolean")
-    overwrite = overwrite_raw
+    try:
+        raw_filename = str(args.get("filename") or args.get("path") or "").strip()
+        content = str(args.get("content", ""))
+        encoding_raw = args.get("encoding")
+        if encoding_raw is None or str(encoding_raw).strip() == "":
+            ext = os.path.splitext(raw_filename)[1].lower()
+            encoding = "utf-8-sig" if ext in (".csv", ".tsv") else "utf-8"
+        else:
+            encoding = str(encoding_raw)
+        overwrite_raw = args.get("overwrite", False)
+        if not isinstance(overwrite_raw, bool):
+            return json.dumps(
+                {"ok": False, "error": "overwrite must be a boolean"},
+                ensure_ascii=False,
+            )
+        overwrite = overwrite_raw
 
-    if not raw_filename:
-        raise ValueError("filename/path is required")
+        if not raw_filename:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _("err.path_missing", default="filename/path is required"),
+                },
+                ensure_ascii=False,
+            )
 
-    safe_path = ensure_within_workdir(raw_filename)
-    existed_before = os.path.exists(safe_path)
+        safe_path = ensure_within_workdir(raw_filename)
+        existed_before = os.path.exists(safe_path)
 
-    if existed_before and not overwrite:
-        raise FileExistsError(f"File already exists: {safe_path}")
+        if existed_before and not overwrite:
+            return json.dumps(
+                {
+                    "ok": False,
+                    "error": _(
+                        "err.file_exists",
+                        default="File already exists: {path}",
+                    ).format(path=safe_path),
+                },
+                ensure_ascii=False,
+            )
 
-    backup_path = None
-    if existed_before and overwrite:
-        backup_path = _backup_path(safe_path)
-        with open(safe_path, "rb") as fsrc, open(backup_path, "wb") as fdst:
-            fdst.write(fsrc.read())
+        backup_path = None
+        if existed_before and overwrite:
+            backup_path = _backup_path(safe_path)
+            with open(safe_path, "rb") as fsrc, open(backup_path, "wb") as fdst:
+                fdst.write(fsrc.read())
 
-    os.makedirs(os.path.dirname(safe_path) or ".", exist_ok=True)
-    with open(safe_path, "w", encoding=encoding, newline="") as f:
-        f.write(content)
+        os.makedirs(os.path.dirname(safe_path) or ".", exist_ok=True)
+        with open(safe_path, "w", encoding=encoding, newline="") as f:
+            f.write(content)
 
-    payload = {
-        "ok": True,
-        "path": safe_path,
-        "created": not existed_before,
-        "overwritten": bool(existed_before and overwrite),
-        "backup_path": backup_path,
-        "encoding": encoding,
-        "message": (
-            f"Created file: {safe_path}"
-            if not existed_before
-            else f"Overwrote file: {safe_path}"
-        ),
-    }
-    return json.dumps(payload, ensure_ascii=False)
+        payload = {
+            "ok": True,
+            "path": safe_path,
+            "created": not existed_before,
+            "overwritten": bool(existed_before and overwrite),
+            "backup_path": backup_path,
+            "encoding": encoding,
+            "message": (
+                _("msg.created", default="Created file: {path}").format(path=safe_path)
+                if not existed_before
+                else _("msg.overwrote", default="Overwrote file: {path}").format(
+                    path=safe_path
+                )
+            ),
+        }
+        return json.dumps(payload, ensure_ascii=False)
+    except Exception as e:
+        return json.dumps(
+            {"ok": False, "error": str(e)}, ensure_ascii=False
+        )

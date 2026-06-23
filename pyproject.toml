@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uag"
-version = "0.5.12"
+version = "0.5.21"
 description = "A powerful tool execution agent"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -38,8 +38,7 @@ dependencies = [
     "striprtf>=0.0.29",
     "msoffcrypto-tool>=6.0.0",
     "odfpy>=1.4.1",
-    "exstruct>=0.7.1",
-    "llmcapa>=0.2.2",
+    "llmcapa>=0.2.5",
     "pyyaml>=6.0.3",
     "pyside6>=6.8.0.2",
     "beautifulsoup4>=4.14.3",
@@ -84,27 +83,13 @@ exclude = ["uagent.mcp*", "test*", "tests*"]
 [tool.setuptools.package-data]
 uagent = [
     "tools/**/*",
-    "prompts/**/*",
     "static/**/*",
     "templates/**/*",
     "locales/**/*",
     "docs/**/*",
     "README.md",
-    "README.ja.md",
-    "README.de.md",
-    "README.es.md",
-    "README.fr.md",
-    "README.it.md",
-    "README.ko.md",
-    "README.pt_BR.md",
-    "README.ru.md",
-    "README.th.md",
-    "README.zh_CN.md",
-    "README.zh_TW.md",
     "QUICKSTART.md",
-    "QUICKSTART.ja.md",
-    "ENVIRONMENT.md",
-    "ENVIRONMENT.ja.md"
+    "QUICKSTART.ja.md"
 ]
 
 [tool.ruff]

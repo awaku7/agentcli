@@ -298,7 +298,7 @@ def run_llm_rounds(
 
                 empty_no_tool_rounds = 0
 
-            elif provider in ("deepseek", "zai"):
+            elif provider in ("deepseek", "zai", "mimo"):
                 ok, client, assistant_text, reasoning_content, tool_calls_list = (
                     _call_deepseek_round(
                         client=client,
@@ -330,7 +330,7 @@ def run_llm_rounds(
                 ).strip().lower() not in ("0", "false", "no", "off")
 
                 # Build assistant message: reasoning_content is only carried
-                # forward when tool calls are present (DeepSeek/z.ai API requirement).
+                # forward when tool calls are present (DeepSeek/z.ai/MiMo API requirement).
                 deepseek_msg = build_assistant_message_with_reasoning(
                     assistant_text=assistant_text,
                     tool_calls_list=tool_calls_list,
@@ -357,7 +357,7 @@ def run_llm_rounds(
                     break
 
                 if not tool_calls_list:
-                    # DeepSeek/z.ai streaming (chat completions) already printed the text;
+                    # DeepSeek/z.ai/MiMo streaming (chat completions) already printed the text;
                     # skip the print but keep outfile/image side effects.
                     _emit_final_answer_if_any(
                         assistant_text=assistant_text,

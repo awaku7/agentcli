@@ -24,7 +24,7 @@
     ]
   },
   "es": {
-    "param.db_path.description": "Ruta al archivo de base de dat...",
+    "param.db_path.description": "Ruta al archivo de base de datos SQLite.",
     "param.sql.description": "SQL a ejecutar.",
     "tool.description": "Ejecuta una consulta SQL en una base de datos SQLite y devuelve el resultado. Solo se admiten operaciones de solo lectura (SELECT) e inspección del esquema (PRAGMA).",
     "x_search_terms": [
@@ -35,7 +35,7 @@
     ]
   },
   "fr": {
-    "param.db_path.description": "Chemin du fichier de base de d...",
+    "param.db_path.description": "Chemin d'accès au fichier de base de données SQLite.",
     "param.sql.description": "SQL à exécuter.",
     "tool.description": "Exécute une requête SQL sur une base de données SQLite et renvoie le résultat.",
     "x_search_terms": [
@@ -68,7 +68,7 @@
     ]
   },
   "it": {
-    "param.db_path.description": "Percorso del file di database...",
+    "param.db_path.description": "Percorso del file di database SQLite.",
     "param.sql.description": "SQL da eseguire.",
     "tool.description": "Esegue una query SQL su un database SQLite e restituisce il risultato.",
     "x_search_terms": [
@@ -90,7 +90,7 @@
     ]
   },
   "pt_BR": {
-    "param.db_path.description": "Caminho para o arquivo de banc...",
+    "param.db_path.description": "Caminho para o arquivo de banco de dados SQLite",
     "param.sql.description": "SQL a ser executado.",
     "tool.description": "Executa uma consulta SQL em um banco de dados SQLite e retorna o resultado. Somente operações de leitura (SELECT) e inspeção do esquema (PRAGMA) são suportadas.",
     "x_search_terms": [
@@ -101,7 +101,7 @@
     ]
   },
   "pt": {
-    "param.db_path.description": "Caminho para o arquivo de banc...",
+    "param.db_path.description": "Caminho para o arquivo do banco de dados SQLite.",
     "param.sql.description": "SQL para executar.",
     "tool.description": "Execute uma consulta SQL em um banco de dados SQLite e retorne o resultado. Somente operações somente leitura (SELECT) e inspeção de esquema (PRAGMA) são suportadas.",
     "x_search_terms": [
@@ -123,7 +123,7 @@
     ]
   },
   "vi": {
-    "param.db_path.description": "Đường dẫn đến tệp cơ sở dữ liệ...",
+    "param.db_path.description": "Đường dẫn đến tệp cơ sở dữ liệu SQLite.",
     "param.sql.description": "SQL để thực thi.",
     "tool.description": "Thực hiện truy vấn SQL đối với cơ sở dữ liệu SQLite và trả về kết quả. Chỉ hỗ trợ các hoạt động chỉ đọc (SELECT) và kiểm tra lược đồ (PRAGMA).",
     "x_search_terms": [
@@ -178,7 +178,7 @@
     ]
   },
   "sw": {
-    "param.db_path.description": "Njia ya faili la hifadhidata y...",
+    "param.db_path.description": "Njia ya faili ya hifadhidata ya SQLite",
     "param.sql.description": "SQL ya kutekeleza.",
     "tool.description": "Tekeleza hoja za SQL dhidi ya hifadhidata ya SQLite na urudishe matokeo. Inaauni tu shughuli za kusoma pekee (SELECT) na ukaguzi wa schema (PRAGMA).",
     "x_search_terms": [
@@ -329,6 +329,58 @@
       "db query",
       "sqlite क्वेरी",
       "pragma"
+    ]
+  },
+  "el": {
+    "param.db_path.description": "Διαδρομή προς το αρχείο βάσης δεδομένων SQLite.",
+    "param.sql.description": "SQL για εκτέλεση.",
+    "tool.description": "Εκτελέστε ερωτήματα SQL σε μια βάση δεδομένων SQLite και επιστρέψτε το αποτέλεσμα. Υποστηρίζονται μόνο οι λειτουργίες μόνο για ανάγνωση (SELECT) και η επιθεώρηση σχήματος (PRAGMA).",
+    "x_search_terms": [
+      "db_query",
+      "db ερώτημα",
+      "sql",
+      "βάση δεδομένων",
+      "sqlite",
+      "ερώτηση"
+    ]
+  },
+  "he": {
+    "param.db_path.description": "נתיב לקובץ מסד הנתונים של SQLite.",
+    "param.sql.description": "SQL לביצוע.",
+    "tool.description": "בצע שאילתות SQL מול מסד נתונים של SQLite והחזר את התוצאה. רק פעולות לקריאה בלבד (SELECT) ובדיקת סכימה (PRAGMA) נתמכות.",
+    "x_search_terms": [
+      "db_query",
+      "שאילתת db",
+      "sql",
+      "מסד נתונים",
+      "sqlite",
+      "שְׁאֵלָה"
+    ]
+  },
+  "hu": {
+    "param.db_path.description": "Az SQLite adatbázisfájl elérési útja.",
+    "param.sql.description": "SQL végrehajtása.",
+    "tool.description": "Végezzen SQL lekérdezéseket egy SQLite adatbázison, és adja vissza az eredményt. Csak olvasható műveletek (SELECT) és sémavizsgálat (PRAGMA) támogatottak.",
+    "x_search_terms": [
+      "db_query",
+      "db lekérdezés",
+      "sql",
+      "adatbázis",
+      "sqlite",
+      "lekérdezés"
+    ]
+  },
+  "ro": {
+    "param.db_path.description": "Calea către fișierul bazei de date SQLite.",
+    "param.sql.description": "SQL de executat.",
+    "tool.description": "Executați interogări SQL pe o bază de date SQLite și returnați rezultatul. Sunt acceptate doar operațiunile de numai citire (SELECT) și inspecția schemei (PRAGMA).",
+    "x_search_terms": [
+      "db_query",
+      "interogare db",
+      "sql",
+      "baza de date",
+      "sqlite",
+      "interogare"
     ]
   }
 }

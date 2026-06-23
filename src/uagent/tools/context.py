@@ -44,7 +44,6 @@ class ToolCallbacks:
     human_ask_multiline_active_ref: Optional[Callable[[], bool]] = None
     human_ask_set_multiline_active: Optional[Callable[[bool], None]] = None
     human_ask_set_password: Optional[Callable[[bool], None]] = None
-    multi_input_sentinel: str = '"""end'
 
     # Event injection (e.g., timers)
     event_queue: Any = None

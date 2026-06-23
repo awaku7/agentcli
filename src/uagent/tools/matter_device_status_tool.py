@@ -6,6 +6,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from ._matter_cache import matter_cache_get, matter_cache_put
+from ._matter_common import error_payload, ok_payload, WarningCollector
+import time
+from ._matter_log import matter_log
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -570,12 +574,12 @@ def _format_text(result: dict[str, Any]) -> str:
 
     device = result.get("device", {})
     lines = [
-        f"Matter device: {device.get('device_name') or '(unknown)'}",
-        f"Device ID: {device.get('device_id') or '(unknown)'}",
+        f"Matter device: {device.get('devname') or '(unknown)'}",
+        f"Device ID: {device.get('dev') or '(unknown)'}",
         f"Type: {device.get('device_type') or '(unknown)'}",
         f"Vendor: {device.get('vendor') or '-'}",
-        f"Controller: {device.get('controller_id') or '-'}",
-        f"Bridge: {device.get('bridge_id') or '-'}",
+        f"Controller: {device.get('ctrl') or '-'}",
+        f"Bridge: {device.get('bridge') or '-'}",
         f"Room: {device.get('room') or '-'}",
         f"Area: {device.get('area') or '-'}",
         f"Floor: {device.get('floor') or '-'}",
@@ -622,23 +626,23 @@ def _format_text(result: dict[str, Any]) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    _log_start = time.time()
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
+    cache_key = ":".join([str(args.get("dev") or ""), str(args.get("ctrl") or ""), str(args.get("bridge") or ""), str(args.get("endpoint") or "")])
+    cached = matter_cache_get("matter_device_status", cache_key)
     device_id = str(args.get("dev") or "").strip()
     controller_id = args.get("ctrl")
     bridge_id = args.get("bridge")
     endpoint = _normalize_endpoint_filter(args.get("endpoint"))
 
     if not device_id:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "invalid_argument",
-                "message": _(
-                    "err.device_id_required",
-                    default="Matter device ID is required.",
-                ),
-            },
-        }
+        payload = error_payload(
+            "invalid_argument",
+            _(
+                "err.device_id_required",
+                default="Matter device ID is required.",
+            ),
+        )
         return (
             _format_text(payload)
             if output_format == "text"
@@ -656,13 +660,7 @@ def run_tool(args: dict[str, Any]) -> str:
         except FileNotFoundError:
             continue
         except ValueError as exc:
-            payload = {
-                "ok": False,
-                "error": {
-                    "code": "invalid_config",
-                    "message": str(exc),
-                },
-            }
+            payload = error_payload("invalid_config", str(exc))
             return (
                 _format_text(payload)
                 if output_format == "text"
@@ -672,20 +670,17 @@ def run_tool(args: dict[str, Any]) -> str:
             payloads.append((data, source))
 
     if not payloads:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "config_missing",
-                "message": _(
-                    "err.config_missing",
-                    default=(
-                        "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
-                    ),
-                    env_json=_ENV_DEVICES_JSON,
-                    env_file=_ENV_DEVICES_FILE,
+        payload = error_payload(
+            "config_missing",
+            _(
+                "err.config_missing",
+                default=(
+                    "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges."
                 ),
-            },
-        }
+                env_json=_ENV_DEVICES_JSON,
+                env_file=_ENV_DEVICES_FILE,
+            ),
+        )
         return (
             _format_text(payload)
             if output_format == "text"
@@ -702,24 +697,23 @@ def run_tool(args: dict[str, Any]) -> str:
     )
 
     if not filtered:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "not_found",
-                "message": _(
-                    "err.not_found",
-                    default="Matter device not found: {device_id}",
-                    device_id=device_id,
-                ),
+        payload = error_payload(
+            "not_found",
+            _(
+                "err.not_found",
+                default="Matter device not found: {device_id}",
+                device_id=device_id,
+            ),
+            extra_top={
+                "device": {
+                    "dev": device_id,
+                    "ctrl": (str(controller_id) if controller_id is not None else None),
+                    "bridge": str(bridge_id) if bridge_id is not None else None,
+                    "endpoint": endpoint,
+                },
+                "fetched_at": _now_iso(),
             },
-            "device": {
-                "dev": device_id,
-                "ctrl": (str(controller_id) if controller_id is not None else None),
-                "bridge": str(bridge_id) if bridge_id is not None else None,
-                "endpoint": endpoint,
-            },
-            "fetched_at": _now_iso(),
-        }
+        )
         return (
             _format_text(payload)
             if output_format == "text"
@@ -727,15 +721,14 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     if len(filtered) > 1:
-        payload = {
-            "ok": False,
-            "error": {
-                "code": "ambiguous_target",
-                "message": _(
-                    "err.ambiguous_target",
-                    default="Matter device target is ambiguous: {device_id}",
-                    device_id=device_id,
-                ),
+        payload = error_payload(
+            "ambiguous_target",
+            _(
+                "err.ambiguous_target",
+                default="Matter device target is ambiguous: {device_id}",
+                device_id=device_id,
+            ),
+            extra_top={
                 "candidates": [
                     {
                         "dev": item.get("dev"),
@@ -745,15 +738,15 @@ def run_tool(args: dict[str, Any]) -> str:
                     }
                     for item in filtered[:10]
                 ],
+                "device": {
+                    "dev": device_id,
+                    "ctrl": (str(controller_id) if controller_id is not None else None),
+                    "bridge": str(bridge_id) if bridge_id is not None else None,
+                    "endpoint": endpoint,
+                },
+                "fetched_at": _now_iso(),
             },
-            "device": {
-                "dev": device_id,
-                "ctrl": (str(controller_id) if controller_id is not None else None),
-                "bridge": str(bridge_id) if bridge_id is not None else None,
-                "endpoint": endpoint,
-            },
-            "fetched_at": _now_iso(),
-        }
+        )
         return (
             _format_text(payload)
             if output_format == "text"
@@ -796,6 +789,8 @@ def run_tool(args: dict[str, Any]) -> str:
             "source": item.get("source"),
         },
     }
+    matter_cache_put("matter_device_status", cache_key, result)
+    matter_log("matter_device_status", args, ok=True, elapsed_ms=(time.time() - _log_start) * 1000)
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)

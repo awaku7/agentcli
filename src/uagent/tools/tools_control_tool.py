@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-# tools/tools_control_tool.py
+"""Tool control commands (:tools list, :tools load, :tools on/off)."""
+
 from typing import Any
 
 from .i18n_helper import make_tool_translator
@@ -10,128 +11,12 @@ _ = make_tool_translator(__file__)
 BUSY_LABEL = False
 STATUS_LABEL = "tool:tools_control"
 
-# This tool registers the base ":tools" command and coordinates subcommands
-# by delegating to other control tools (like comm_control and office_control)
-# if they are loaded.
-
-
-def handle_cmd_tools_on(arg: str, **kwargs: Any) -> Any:
-    a = (arg or "").strip().lower()
-    try:
-        from .genre_control_tool import _set_genre_tools_enabled
-
-        if a in ("comm", "office", "devel", "iot", "basic", "exec", "external", "media"):
-            return _set_genre_tools_enabled(a, True)
-    except ImportError:
-        pass
-
-    print("Usage: :tools on [comm|office|devel|iot|basic|exec|external|media]")
-    from ..util_tools import CommandResult
-
-    return CommandResult()
-
-
-def handle_cmd_tools_off(arg: str, **kwargs: Any) -> Any:
-    a = (arg or "").strip().lower()
-    try:
-        from .genre_control_tool import _set_genre_tools_enabled
-
-        if a in ("comm", "office", "devel", "iot", "basic", "exec", "external", "media"):
-            return _set_genre_tools_enabled(a, False)
-    except ImportError:
-        pass
-
-    print("Usage: :tools off [comm|office|devel|iot|basic|exec|external|media]")
-    from ..util_tools import CommandResult
-
-    return CommandResult()
-
-
-def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
-    q = (arg or "").strip().lower()
-    from . import get_tool_specs
-
-    try:
-        tool_specs = get_tool_specs() or []
-        if not tool_specs:
-            print(_("msg.tools.no_tools", default="[tools] No tools loaded."))
-            from ..util_tools import CommandResult
-
-            return CommandResult()
-
-        matched = []
-        for spec in tool_specs:
-            fn = (spec or {}).get("function") or {}
-            name = fn.get("name") or "(unknown)"
-            desc = (fn.get("description") or "").strip()
-
-            # If query is provided, filter by name or description
-            if q and (q not in name.lower() and q not in desc.lower()):
-                continue
-            matched.append((name, desc))
-
-        for name, desc in matched:
-            if desc:
-                print("- %(name)s: %(desc)s" % {"name": name, "desc": desc})
-            else:
-                print("- %(name)s" % {"name": name})
-        print(
-            _(
-                "msg.tools.loaded_count",
-                default="[tools] Loaded {n} tools",
-                n=len(matched),
-            )
-        )
-    except Exception as e:
-        print(f"[tools error] {type(e).__name__}: {e}")
-
-    from ..util_tools import CommandResult
-
-    return CommandResult()
-
-
-# Register dynamic subcommands under ":tools"
-CMD_SPECS = [
-    {
-        "command": "tools",
-        "subcommand": "list",
-        "handler": handle_cmd_tools_list,
-        "help_text": _(
-            "cmd.help.tools_list",
-            default="  :tools list [query]               List loaded tools, optionally filtered by name/description",
-        ),
-    },
-    {
-        "command": "tools",
-        "subcommand": "on",
-        "handler": handle_cmd_tools_on,
-        "help_text": _(
-            "cmd.help.tools_on",
-            default="  :tools on comm                    Enable communication tools (Teams, Discord)\n  :tools on office                  Enable Office tools (Excel, Word, etc.)\n  :tools on devel                   Enable development tools (lint, py_compile, tests)\n  :tools on iot                     Enable IoT tools (Bluetooth, etc.)",
-        ),
-    },
-    {
-        "command": "tools",
-        "subcommand": "off",
-        "handler": handle_cmd_tools_off,
-        "help_text": _(
-            "cmd.help.tools_off",
-            default="  :tools off comm                   Disable communication tools (Teams, Discord)\n  :tools off office                 Disable Office tools (Excel, Word, etc.)\n  :tools off devel                  Disable development tools (lint, py_compile, tests)\n  :tools off iot                    Disable IoT tools (Bluetooth, etc.)",
-        ),
-    },
-]
-
-# Dummy TOOL_SPEC so this module gets loaded as a plugin
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": -1,  # Do not load as an LLM tool
+    "tool_level": -1,
     "type": "function",
-    "tool_genre": "basic",
     "function": {
         "name": "tools_control_dummy",
-        "description": _(
-            "tool.description",
-            default="Dummy tool for tools control command registration.",
-        ),
+        "description": "Dummy tool for tools control registration.",
         "parameters": {
             "type": "object",
             "properties": {},
@@ -142,3 +27,183 @@ TOOL_SPEC: dict[str, Any] = {
 
 def run_tool(args: dict[str, Any]) -> str:
     return "dummy"
+
+
+CMD_SPECS: list[dict[str, Any]] = []
+
+
+def handle_cmd_tools_load(arg: str, **kwargs: Any) -> Any:
+    """Handle :tools load <name>"""
+    from ..util_tools import CommandResult
+
+    parts = (arg or "").strip().split()
+    if not parts:
+        print(
+            _(
+                "msg.tools.usage_load",
+                default="Usage: :tools load <tool_name>",
+            )
+        )
+        return CommandResult()
+
+    # Strip --persist and its argument (no longer supported)
+    clean_parts = []
+    skip_next = False
+    for p in parts:
+        if skip_next:
+            skip_next = False
+            continue
+        if p == "--persist":
+            skip_next = True
+            continue
+        clean_parts.append(p)
+
+    if not clean_parts:
+        print(
+            _(
+                "msg.tools.usage_load",
+                default="Usage: :tools load <tool_name>",
+            )
+        )
+        return CommandResult()
+
+    tool_name = clean_parts[0]
+
+    try:
+        from ._genre_control_util import enable_single_tool
+
+        ok = enable_single_tool(tool_name)
+        if ok:
+            print(
+                _(
+                    "msg.tools.loaded_single",
+                    default="[tools] Loaded tool: {name}",
+                    name=tool_name,
+                )
+            )
+        else:
+            print(
+                _(
+                    "msg.tools.not_found",
+                    default="[tools] Tool not found: {name}",
+                    name=tool_name,
+                )
+            )
+    except Exception as e:
+        print(f"[tools error] {type(e).__name__}: {e}")
+
+    return CommandResult()
+
+
+def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
+    q = (arg or "").strip().lower()
+    
+    from . import get_tool_specs
+
+    specs = get_tool_specs()
+    if not specs:
+        print("[tools] No tools loaded.")
+        from ..util_tools import CommandResult
+
+        return CommandResult()
+
+    names: list[str] = []
+    for spec in specs:
+        fn = spec.get("function", {})
+        if not isinstance(fn, dict):
+            continue
+        name = str(fn.get("name") or "").strip()
+        if not name:
+            continue
+        if q and q not in name.lower():
+            continue
+        names.append(name)
+
+    if not names:
+        if q:
+            print(
+                _("msg.tools.no_match", default="[tools] No matching tools: {q}").format(
+                    q=q
+                )
+            )
+        else:
+            print("[tools] No tools loaded.")
+    else:
+        print(
+            _(
+                "msg.tools.list_header",
+                default="[tools] Loaded tools ({count}):",
+            ).format(count=len(names))
+        )
+        for n in sorted(names):
+            print(f"  {n}")
+
+    from ..util_tools import CommandResult
+
+    return CommandResult()
+
+
+
+
+def handle_cmd_tools_on(arg, **kw):
+    from ..util_tools import CommandResult
+    from .genre_control_tool import _set_genre_tools_enabled
+    g = (arg or "").strip().lower()
+    if not g:
+        print("Usage: :tools on <genre>")
+        return CommandResult()
+    try:
+        msg = _set_genre_tools_enabled(g, True)
+        if msg:
+            print(msg)
+    except Exception as e:
+        print(str(e))
+    return CommandResult()
+
+
+def handle_cmd_tools_off(arg, **kw):
+    from ..util_tools import CommandResult
+    from .genre_control_tool import _set_genre_tools_enabled
+    g = (arg or "").strip().lower()
+    if not g:
+        print("Usage: :tools off <genre>")
+        return CommandResult()
+    try:
+        msg = _set_genre_tools_enabled(g, False)
+        if msg:
+            print(msg)
+    except Exception as e:
+        print(str(e))
+    return CommandResult()
+
+def _register_tools_subcommands() -> None:
+    """Register subcommands under :tools."""
+    global CMD_SPECS
+    if CMD_SPECS:
+        return
+
+    CMD_SPECS = [
+        {
+            "command": "tools",
+            "subcommand": "list",
+            "handler": handle_cmd_tools_list,
+            "help_text": _(
+                "cmd.help.tools_list",
+                default="  :tools list [query]  List loaded tools, optionally filtered by search terms.",
+            ),
+        },
+        {
+            "command": "tools",
+            "subcommand": "load",
+            "handler": handle_cmd_tools_load,
+            "help_text": _(
+                "cmd.help.tools_load",
+                default="  :tools load <name>  Load a single tool by name.",
+            ),
+        },
+    {"command":"tools","subcommand":"on","handler":handle_cmd_tools_on},
+    {"command":"tools","subcommand":"off","handler":handle_cmd_tools_off},
+    ]
+
+
+_register_tools_subcommands()

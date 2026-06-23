@@ -1,0 +1,124 @@
+{
+  "name": "uag-vscode",
+  "displayName": "uag - Universal AI Gateway",
+  "description": "AI-powered file operations, web search, image generation, IoT control, and more - 116+ tools.",
+  "version": "0.1.0",
+  "publisher": "awaku7",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Chat",
+    "Programming Languages",
+    "Machine Learning",
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:uag.tools",
+    "onCommand:uag.chat",
+    "onCommand:uag.explain",
+    "onCommand:uag.refactor",
+    "onCommand:uag.fix",
+    "onCommand:uag.newSession",
+    "onCommand:uag.refreshTools",
+    "onLanguage:python"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "uag",
+          "title": "uag",
+          "icon": "$(hubot)"
+        }
+      ]
+    },
+    "views": {
+      "uag": [
+        {
+          "id": "uag.tools",
+          "name": "Tools"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "uag.chat",
+        "title": "uag: Open Chat"
+      },
+      {
+        "command": "uag.explain",
+        "title": "uag: Explain Selection"
+      },
+      {
+        "command": "uag.refactor",
+        "title": "uag: Refactor Selection"
+      },
+      {
+        "command": "uag.fix",
+        "title": "uag: Fix Error at Cursor"
+      },
+      {
+        "command": "uag.newSession",
+        "title": "uag: New Session"
+      },
+      {
+        "command": "uag.refreshTools",
+        "title": "uag: Refresh Tools"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "uag.explain",
+          "group": "uag@1",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "uag.refactor",
+          "group": "uag@2",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "uag.fix",
+          "group": "uag@3",
+          "when": "editorHasDiagnostics"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "uag",
+      "properties": {
+        "uag.pythonPath": {
+          "type": "string",
+          "default": "python",
+          "description": "Path to Python executable"
+        },
+        "uag.port": {
+          "type": "number",
+          "default": 18765,
+          "description": "WebSocket server port"
+        },
+        "uag.autoFix": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically suggest fixes for errors"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.22.0",
+    "typescript": "^5.3.0"
+  }
+}

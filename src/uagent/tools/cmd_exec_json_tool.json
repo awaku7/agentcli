@@ -147,7 +147,7 @@
   "hi": {
     "param.command.description": "सिस्टम शेल को दी जाने वाली कमांड स्ट्रिंग। Windows पर cmd.",
     "param.cwd.description": "आदेश के लिए कार्यशील निर्देशिका.",
-    "tool.description": "अंतिम उपाय के रूप में, एक शेल कमांड निष्पादित करें और JSON परिणाम लौटाएँ। केवल तभी उपयोग करें जब कोई अधिक सुरक्षित या अधिक विश...",
+    "tool.description": "अंतिम उपाय के रूप में, एक शेल कमांड निष्पादित करें और JSON परिणाम लौटाएं। केवल तभी उपयोग करें जब कोई सुरक्षित या अधिक विशिष्ट उपकरण उपलब्ध न हो (जैसे।",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -257,7 +257,7 @@
   "th": {
     "param.command.description": "สตริงคำสั่งที่ส่งไปยังเชลล์ของระบบ บน Windows ใช้ cmd.exe /c",
     "param.cwd.description": "ไดเร็กทอรีการทำงานสำหรับคำสั่ง",
-    "tool.description": "ใช้เป็นทางเลือกสุดท้ายเพื่อรันคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เฉพาะเมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่าน...",
+    "tool.description": "เป็นทางเลือกสุดท้าย ให้ดำเนินการคำสั่งเชลล์และส่งกลับผลลัพธ์ JSON ใช้เฉพาะเมื่อไม่มีเครื่องมือที่ปลอดภัยกว่าหรือเฉพาะเจาะจงกว่านี้เท่านั้น (เช่น",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -290,7 +290,7 @@
   "bn": {
     "param.command.description": "OS shell-এ পাঠানোর কমান্ড স্ট্রিং। Windows-এ cmd.exe /c ব্যবহার করা হয়।",
     "param.cwd.description": "কমান্ডের জন্য কাজের ডিরেক্টরি।",
-    "tool.description": "শেষ উপায় হিসেবে একটি শেল কমান্ড চালিয়ে JSON ফলাফল ফেরত দেয়। যখন আরও নিরাপদ বা নির্দিষ্ট কোনো টুল নেই (যেমন MCP ইন্টিগ্রেশন)...",
+    "tool.description": "একটি শেষ অবলম্বন হিসাবে, একটি শেল কমান্ড চালান এবং একটি JSON ফলাফল প্রদান করুন। শুধুমাত্র তখনই ব্যবহার করুন যখন কোনো নিরাপদ বা আরও নির্দিষ্ট টুল উপলব্ধ না থাকে (যেমন",
     "x_search_terms": [
       "cmd_exec_json",
       "cmd exec json",
@@ -329,6 +329,58 @@
       "cmd exec json",
       "शेल कमांड",
       "json निकाल"
+    ]
+  },
+  "el": {
+    "param.command.description": "Η συμβολοσειρά εντολών πέρασε στο κέλυφος του λειτουργικού συστήματος. Στα Windows χρησιμοποιείται το cmd.exe /c.",
+    "param.cwd.description": "Κατάλογος εργασίας για την εντολή.",
+    "tool.description": "Ως έσχατη λύση, εκτελέστε μια εντολή φλοιού και επιστρέψτε ένα αποτέλεσμα JSON. Χρησιμοποιήστε μόνο όταν δεν διατίθεται ασφαλέστερο ή πιο συγκεκριμένο εργαλείο (π.",
+    "x_search_terms": [
+      "cmd_exec_json",
+      "cmd exec json",
+      "εντολή κελύφους",
+      "εκτελέσει το κέλυφος",
+      "εντολή json",
+      "cmd"
+    ]
+  },
+  "he": {
+    "param.command.description": "מחרוזת הפקודה הועברה למעטפת מערכת ההפעלה. ב-Windows, נעשה שימוש ב-cmd.exe /c.",
+    "param.cwd.description": "ספריית עבודה עבור הפקודה.",
+    "tool.description": "כמוצא אחרון, בצע פקודת מעטפת והחזר תוצאת JSON. השתמש רק כאשר אין כלי בטוח או ספציפי יותר זמין (למשל.",
+    "x_search_terms": [
+      "cmd_exec_json",
+      "cmd exec json",
+      "פקודת מעטפת",
+      "לבצע פגז",
+      "פקודת json",
+      "cmd"
+    ]
+  },
+  "hu": {
+    "param.command.description": "A parancssor átkerült az operációs rendszer parancsértelmezőjébe. Windows rendszeren a cmd.exe /c fájl használatos.",
+    "param.cwd.description": "A parancs munkakönyvtára.",
+    "tool.description": "Végső megoldásként hajtson végre egy shell parancsot, és adjon vissza egy JSON eredményt. Csak akkor használja, ha nem áll rendelkezésre biztonságosabb vagy specifikusabb eszköz (pl.",
+    "x_search_terms": [
+      "cmd_exec_json",
+      "cmd exec json",
+      "shell parancs",
+      "shell végrehajtása",
+      "json parancsot",
+      "cmd"
+    ]
+  },
+  "ro": {
+    "param.command.description": "Șirul de comandă a fost transmis shell-ului sistemului de operare. Pe Windows, se folosește cmd.exe /c.",
+    "param.cwd.description": "Director de lucru pentru comandă.",
+    "tool.description": "Ca ultimă soluție, executați o comandă shell și returnați un rezultat JSON. Utilizați numai atunci când nu este disponibil un instrument mai sigur sau mai specific (de ex.",
+    "x_search_terms": [
+      "cmd_exec_json",
+      "cmd exec json",
+      "comanda shell",
+      "executa shell",
+      "comanda json",
+      "cmd"
     ]
   }
 }

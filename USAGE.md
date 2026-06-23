@@ -10,7 +10,7 @@ ______________________________________________________________________
 |---|---|---|
 | `uag`  | `python -m uagent` | CLI (stdin loop) |
 | `uagg` | `python -m uagent.gui` | GUI (tkinter) |
-| `uagw` | `python -m uagent.web` | Web server (Flask) |
+| `uagw` | `python -m uagent.web` | Web server (FastAPI) |
 | `uaga` | `python -m uagent.a2a.server` | A2A HTTP server |
 
 ______________________________________________________________________
@@ -70,6 +70,21 @@ uag --non-interactive --workdir /tmp/project
 
 ______________________________________________________________________
 
+## Web-only options (`uagw`)
+
+### `--host <address>`
+
+Bind address for the Web server (default: `127.0.0.1`, overridable by `UAGENT_WEB_HOST`).
+
+By default, the Web server listens on localhost only (`127.0.0.1`). To make it accessible from other machines on the network, use `--host 0.0.0.0`.
+
+```
+uagw --host 0.0.0.0
+uagw --host 192.168.1.10
+```
+
+______________________________________________________________________
+
 ## A2A-only options
 
 ### `--host <address>`
@@ -97,6 +112,7 @@ ______________________________________________________________________
 | `UAGENT_PROVIDER` | LLM provider name (required at startup) |
 | `UAGENT_*_API_KEY` | API key for the selected provider |
 | `UAGENT_WORKDIR` | Default working directory |
+| `UAGENT_WEB_HOST` | Web server bind address (default: `127.0.0.1`) |
 | `UAGENT_USE_TOOL` | Disable tools when set to `0`, `false`, `no`, or `off` |
 | `UAGENT_SHRINK_CNT` | Auto-shrink threshold in messages (default: `100`, `0` = off) |
 | `UAGENT_SHRINK_KEEP_LAST` | Messages to retain after shrink (default: `20`) |
@@ -124,6 +140,19 @@ set UAGENT_OLLAMA_MODEL=qwen2.5:7b
 uag --tool-genre-mask 1
 ```
 
+### Web server on all interfaces
+
+```
+set UAGENT_WEB_HOST=0.0.0.0
+uagw
+```
+
+or
+
+```
+uagw --host 0.0.0.0
+```
+
 ### A2A server on localhost with custom port
 
 ```
@@ -139,11 +168,5 @@ uag --no-use-tool --tool-genre-mask 1
 ### Non-interactive file processing
 
 ```
-uag --non-interactive data.txt
-```
-
-### Full tool set with a custom workdir
-
-```
-uag -C C:\projects\myapp --tool-genre-mask 255
+uag --non-interactive README.md
 ```

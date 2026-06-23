@@ -310,7 +310,7 @@ def _format_text(result: dict[str, Any]) -> str:
         error = result.get("error", {})
         code = error.get("code", "error")
         message = error.get("message", "unknown error")
-        return f"Error [{code}]: {message}"
+        return _("msg.error_code_fmt", default="Error [{code}]: {msg}").format(code=code, msg=message)
 
     device = result.get("device") or {}
     status = result.get("status") or {}
@@ -321,16 +321,16 @@ def _format_text(result: dict[str, Any]) -> str:
             device_name=device.get("devname") or "(unknown)",
             device_id=device.get("dev") or "(unknown)",
         ),
-        f"Type: {device.get('device_type') or '(unknown)'}",
-        f"Online: {device.get('online')}",
-        f"Battery: {device.get('battery')}",
-        f"Power: {status.get('power')}",
-        f"Mode: {status.get('mode')}",
-        f"Temperature: {status.get('temperature')}",
-        f"Humidity: {status.get('humidity')}",
-        f"Position: {status.get('position')}",
-        f"Lock state: {status.get('lock_state')}",
-        f"Fetched at: {result.get('fetched_at', '')}",
+        _("msg.type", default="Type: {dtype}").format(dtype=device.get("device_type") or _("msg.unknown", default="(unknown)")),
+        _("msg.online", default="Online: {val}").format(val=device.get("online")),
+        _("msg.battery", default="Battery: {val}").format(val=device.get("battery")),
+        _("msg.power", default="Power: {val}").format(val=status.get("power")),
+        _("msg.mode", default="Mode: {val}").format(val=status.get("mode")),
+        _("msg.temperature", default="Temperature: {val}").format(val=status.get("temperature")),
+        _("msg.humidity", default="Humidity: {val}").format(val=status.get("humidity")),
+        _("msg.position", default="Position: {val}").format(val=status.get("position")),
+        _("msg.lock_state", default="Lock state: {val}").format(val=status.get("lock_state")),
+        _("msg.fetched_at", default="Fetched at: {ts}").format(ts=result.get("fetched_at", "")),
     ]
     return "\n".join(lines)
 
@@ -369,7 +369,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if not devices_response.get("ok"):
         payload = devices_response
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
@@ -379,7 +379,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if error:
         payload = {"ok": False, "error": error}
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
@@ -389,7 +389,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if not status_response.get("ok"):
         payload = status_response
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )

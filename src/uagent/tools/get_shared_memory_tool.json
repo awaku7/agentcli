@@ -133,7 +133,7 @@
   },
   "hi": {
     "doc.run_tool": "प्रवेश बिंदु, tools/__init__.py से बुलाया जाता है। get_shared_memory का कार्यान्वयन।",
-    "tool.description": "उपयोगकर्ताओं के बीच साझा किए गए कच्चे दीर्घकालिक मेमोरी (साझा मेमोरी) डेटा को पुनः प्राप्त करता है।\n- आमतौर पर JSONL प्रारूप में पा...",
+    "tool.description": "उपयोगकर्ताओं के बीच साझा किए गए कच्चे दीर्घकालिक मेमोरी (साझा मेमोरी) डेटा को पुनः प्राप्त करता है। - आमतौर पर JSONL प्रारूप में पाठ लौटाता है (प्रति पंक्ति एक रिकॉर्ड)।",
     "x_search_terms": [
       "get_shared_memory",
       "साझा मेमोरी",
@@ -233,7 +233,7 @@
   },
   "th": {
     "doc.run_tool": "จุดเริ่มต้นที่เรียกจาก tools/__init__.py เป็นการใช้งานสำหรับ get_shared_memory",
-    "tool.description": "ดึงข้อมูลหน่วยความจำระยะยาวแบบดิบ (หน่วยความจำที่ใช้ร่วมกัน) ที่แชร์ระหว่างผู้ใช้\n- โดยปกติจะส่งคืนข้อความในรูปแบบ JSONL (หนึ่งระเบ...",
+    "tool.description": "ดึงข้อมูลหน่วยความจำระยะยาวแบบดิบ (หน่วยความจำที่ใช้ร่วมกัน) ที่แชร์ระหว่างผู้ใช้ - โดยปกติจะส่งคืนข้อความในรูปแบบ JSONL (หนึ่งบันทึกต่อบรรทัด)",
     "x_search_terms": [
       "get_shared_memory",
       "หน่วยความจำที่ใช้ร่วมกัน",
@@ -263,7 +263,7 @@
   },
   "bn": {
     "doc.run_tool": "tools/__init__.py থেকে ডাকা entry point। get_shared_memory-এর implementation।",
-    "tool.description": "ব্যবহারকারীদের মধ্যে ভাগ করা raw long-term memory (shared memory) data ফেরত আনে।\n- সাধারণত JSONL format-এ text ফেরত দেয় (প্রতি lin...",
+    "tool.description": "সমস্ত সংরক্ষিত দীর্ঘমেয়াদী মেমরি নোট পান (JSONL)। সাধারণত JSONL ফরম্যাটে টেক্সট রিটার্ন করে",
     "x_search_terms": [
       "get_shared_memory",
       "get shared memory",
@@ -299,6 +299,54 @@
       "get shared memory",
       "shared memory",
       "memory data"
+    ]
+  },
+  "el": {
+    "doc.run_tool": "Ανακτά δεδομένα μακροπρόθεσμης μνήμης (κοινόχρηστη μνήμη) που μοιράζονται μεταξύ των χρηστών. - Συνήθως επιστρέφει κείμενο σε μορφή JSONL (μία εγγραφή ανά γραμμή).",
+    "tool.description": "Ανακτά ακατέργαστα δεδομένα μακροπρόθεσμης μνήμης (κοινόχρηστη μνήμη) που μοιράζονται μεταξύ των χρηστών. - Συνήθως επιστρέφει κείμενο σε μορφή JSONL (μία εγγραφή ανά γραμμή).",
+    "x_search_terms": [
+      "λάβετε κοινόχρηστη μνήμη",
+      "κοινόχρηστες σημειώσεις",
+      "κοινόχρηστη μνήμη",
+      "μνήμη πολλών χρηστών",
+      "Λάβετε τον τρέχοντα κατάλογο εργασίας.",
+      "αποθήκευση μνήμης"
+    ]
+  },
+  "he": {
+    "doc.run_tool": "נקודת כניסה שנקראת מ-tools/__init__.py. יישום עבור get_shared_memory.",
+    "tool.description": "מאחזר נתוני זיכרון גולמי לטווח ארוך (זיכרון משותף) המשותפים בין משתמשים. - בדרך כלל מחזיר טקסט בפורמט JSONL (רשומה אחת בכל שורה).",
+    "x_search_terms": [
+      "get_shared_memory",
+      "קבל זיכרון משותף",
+      "זיכרון משותף",
+      "הערות משותפות",
+      "זיכרון מרובה משתמשים",
+      "אחסון זיכרון"
+    ]
+  },
+  "hu": {
+    "doc.run_tool": "Belépési pont az tools/__init__.py alkalmazásból. A get_shared_memory megvalósítása.",
+    "tool.description": "Lekéri a felhasználók között megosztott nyers hosszú távú memória (megosztott memória) adatokat. - Általában JSONL formátumú szöveget ad vissza (soronként egy rekord).",
+    "x_search_terms": [
+      "get_shared_memory",
+      "megosztott memória",
+      "megosztott memória",
+      "megosztott jegyzet",
+      "többfelhasználós memória",
+      "memóriatár"
+    ]
+  },
+  "ro": {
+    "doc.run_tool": "Punct de intrare apelat din tools/__init__.py. Implementare pentru get_shared_memory.",
+    "tool.description": "Preia datele brute de memorie pe termen lung (memorie partajată) partajate între utilizatori. - De obicei returnează text în format JSONL (o înregistrare pe linie).",
+    "x_search_terms": [
+      "get_shared_memory",
+      "obțineți memorie partajată",
+      "memorie partajată",
+      "note partajate",
+      "memorie pentru mai mulți utilizatori",
+      "stocare de memorie"
     ]
   }
 }

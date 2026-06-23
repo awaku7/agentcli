@@ -128,5 +128,45 @@
     "err.file_not_found": "未找到文件：{filename}",
     "err.outside_workdir": "路徑在工作目錄之外： root={root} path={path}",
     "err.path_empty": "路徑為空"
+  },
+  "bn": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "fa": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "mn": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "mr": {
+    "err.file_not_found": "file not found: {filename}",
+    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
+    "err.path_empty": "path is empty"
+  },
+  "el": {
+    "err.file_not_found": "το αρχείο δεν βρέθηκε: {filename}",
+    "err.outside_workdir": "η διαδρομή είναι εκτός workdir: root={root} path={path}",
+    "err.path_empty": "διαδρομή είναι κενή"
+  },
+  "he": {
+    "err.file_not_found": "הקובץ לא נמצא: {filename}",
+    "err.outside_workdir": "הנתיב נמצא מחוץ ל-workdir: root={root} path={path}",
+    "err.path_empty": "הנתיב ריק"
+  },
+  "hu": {
+    "err.file_not_found": "a fájl nem található: {filename}",
+    "err.outside_workdir": "az elérési út a munkakönyvtáron kívül található: root={root} path={path}",
+    "err.path_empty": "az elérési út üres {screenerror}hiba"
+  },
+  "ro": {
+    "err.file_not_found": "fișierul nu a fost găsit: {filename}",
+    "err.outside_workdir": "calea este în afara workdir: root={root} path={path}",
+    "err.path_empty": "calea este goală"
   }
 }

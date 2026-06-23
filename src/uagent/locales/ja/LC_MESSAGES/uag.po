@@ -2301,6 +2301,10 @@ msgstr ""
 "[MCP サーバー]\n"
 "- 情報の取得に失敗しました: %(err)s"
 
+#: src/uagent/welcome.py:65
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- 複数行: 「f」だけの行を入力すると、複数行モードに入ります。"
+
 #: src/uagent/welcome.py:64
 msgid "[Quick Guide]"
 msgstr "[クイックガイド]"
@@ -2308,12 +2312,6 @@ msgstr "[クイックガイド]"
 #: src/uagent/welcome.py:65
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr "- チャット: メッセージを入力して送信します（GUI: Ctrl+Enter でも送信できます）。"
-
-#: src/uagent/welcome.py:67
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr "- 複数行: 'f' だけの行を入力すると複数行入力モード（multiline）に入ります（\"\"\"end で終了）。"
 
 #: src/uagent/welcome.py:70
 msgid ""
@@ -2616,8 +2614,10 @@ msgstr "無効"
 #: src/uagent/runtime/runtime_env.py:186
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
-msgstr "[INFO] .env.sec の内容が現在の起動時 UAGENT_* 環境変数と一致しません。更新しますか? [y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr ""
+"[INFO] .env.sec の内容が現在の起動時 UAGENT_* 環境変数と一致しません。"
+"[y] 現在の値で .env.sec を更新 / [s] .env.sec の値を現在のセッションに適用 / [N] スキップ: "
 
 #: src/uagent/runtime/runtime_env.py:202
 msgid ""
@@ -2636,6 +2636,10 @@ msgstr ".env.sec を更新しました: %(path)s"
 #, python-format
 msgid "[WARN] Failed to update .env.sec: %(err)s"
 msgstr "[WARN] .env.sec の更新に失敗しました: %(err)s"
+
+#: src/uagent/runtime/runtime_env.py:200
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] .env.sec の値を現在のセッションに適用しました。"
 
 #: src/uagent/runtime/runtime_env.py:228
 msgid ""

@@ -20,7 +20,7 @@ TOOL_SPEC: dict[str, Any] = {
         "x_scheck": {"emit_tool_trace": False},
         "description": _(
             "tool.description",
-            default="A tool to ask the human user for an input/decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/toke...",
+            default="A tool to ask the human user for an input/decision that the model cannot complete by itself. Security note: when requesting secrets (passwords/tokens) the input is masked.",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -99,7 +99,6 @@ def run_tool(args: dict[str, Any]) -> str:
                     "How to answer:\n"
                     "  - Type your answer and press Enter\n"
                     "  - Type 'f' to enter multi-line mode\n"
-                    '  - In multi-line mode: \'"""retry\' clears, \'"""end\' sends\n'
                     "  - Type 'c' or 'cancel' to cancel\n"
                 ),
             ),
@@ -176,47 +175,6 @@ def run_tool(args: dict[str, Any]) -> str:
             # normalize CRLF/CR to LF
             s2 = str(s).replace("\r\n", "\n").replace("\r", "\n")
             return s2.split("\n")
-
-        def _strip_trailing_end_sentinel(text: str) -> str:
-            """Remove a trailing end-marker (triple-quote + end) that may be appended by some frontends."""
-            t = "" if text is None else str(text)
-            # normalize CRLF/CR to LF for stable handling
-            t = t.replace("\r\n", "\n").replace("\r", "\n")
-            marker = '"""end'
-            while True:
-                t2 = t.rstrip("\n")
-                if t2.endswith("\n" + marker):
-                    t = t2[: -len("\n" + marker)]
-                    continue
-                if t2.endswith(marker):
-                    t = t2[: -len(marker)]
-                    continue
-                break
-            # Avoid leaving only trailing newlines
-            t = t.rstrip("\n")
-            return t
-
-        def _ensure_gui_sentinel(text: str) -> str:
-            """Ensure GUI replies always end with multi_input_sentinel line."""
-            t = str(text or "")
-            # For cancel, do not append sentinel
-            if t.strip().lower() in ("c", "cancel"):
-                return t
-            lines0 = _split_keep_lines(t)
-            # If sentinel line is already present, keep as-is.
-            if any((ln.strip() == cb.multi_input_sentinel) for ln in lines0):
-                return t
-            # Allow confirmation with sentinel even for empty input
-            if t.endswith("\n") or t == "":
-                return t + cb.multi_input_sentinel + "\n"
-            return t + "\n" + cb.multi_input_sentinel + "\n"
-
-        # For GUI, normalize with sentinel
-        if cb.is_gui:
-            user_reply = _ensure_gui_sentinel(user_reply)
-
-        # Strip trailing """end marker if present
-        user_reply = _strip_trailing_end_sentinel(user_reply)
 
         reply_lines = _split_keep_lines(user_reply) if user_reply else []
 

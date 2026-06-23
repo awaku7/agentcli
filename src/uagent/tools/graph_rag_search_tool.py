@@ -153,6 +153,13 @@ def _extract_xlsx_text(path: str) -> tuple[str, list[tuple[str, str]], list[str]
         from . import exstruct_tool
 
         _ = exstruct_tool.TOOL_SPEC
+        exstruct_mod = exstruct_tool._import_exstruct()  # type: ignore[attr-defined]
+        if exstruct_mod is None:
+            warnings.append(
+                "Cannot extract xlsx: 'exstruct' package is not installed. "
+                "Install with: pip install exstruct"
+            )
+            return "", [], warnings
         (
             DestinationOptions,
             ExStructEngine,
@@ -162,7 +169,7 @@ def _extract_xlsx_text(path: str) -> tuple[str, list[tuple[str, str]], list[str]
             StructOptions,
             export_print_areas_as,
             set_table_detection_params,
-        ) = exstruct_tool._import_exstruct()  # type: ignore[attr-defined]
+        ) = exstruct_mod
 
         engine = ExStructEngine(
             options=StructOptions(),

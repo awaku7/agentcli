@@ -300,5 +300,53 @@
       "Windows कमांड",
       "shell कमांड"
     ]
+  },
+  "el": {
+    "param.command.description": "Συμβολοσειρά εντολών για εκτέλεση.",
+    "tool.description": "Ως τελευταία λύση, εκτελέστε μια εντολή των Windows. Χρησιμοποιήστε μόνο όταν δεν υπάρχει άλλο κατάλληλο εργαλείο (π.χ. MCP).",
+    "x_search_terms": [
+      "cmd_exec",
+      "cmd exec",
+      "εντολή windows",
+      "γραμμή εντολών",
+      "cmd",
+      "εντολή κελύφους"
+    ]
+  },
+  "he": {
+    "param.command.description": "מחרוזת פקודה לביצוע.",
+    "tool.description": "כמוצא אחרון, בצע פקודת Windows. השתמש רק כאשר אין כלי מתאים אחר (למשל, MCP) זמין.",
+    "x_search_terms": [
+      "cmd_exec",
+      "cmd exec",
+      "פקודת windows",
+      "שורת הפקודה",
+      "cmd",
+      "פקודת מעטפת"
+    ]
+  },
+  "hu": {
+    "param.command.description": "A végrehajtandó parancssor.",
+    "tool.description": "Végső lehetőségként futtasson egy Windows parancsot. Csak akkor használja, ha más megfelelő eszköz (pl. MCP) nem áll rendelkezésre.",
+    "x_search_terms": [
+      "cmd_exec",
+      "cmd végrehajt",
+      "windows parancs",
+      "parancssor",
+      "cmd",
+      "shell parancs"
+    ]
+  },
+  "ro": {
+    "param.command.description": "Șir de comandă de executat.",
+    "tool.description": "Ca ultimă soluție, executați o comandă Windows. Utilizați numai atunci când nu este disponibil niciun alt instrument adecvat (de exemplu, MCP).",
+    "x_search_terms": [
+      "cmd_exec",
+      "cmd exec",
+      "comanda Windows",
+      "prompt de comandă",
+      "cmd",
+      "comanda shell"
+    ]
   }
 }

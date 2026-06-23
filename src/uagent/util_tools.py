@@ -96,7 +96,6 @@ def init_tools_callbacks(core: Any) -> None:
             if hasattr(core, "human_ask_is_password")
             else None
         ),
-        multi_input_sentinel=getattr(core, "MULTI_INPUT_SENTINEL", '"""end'),
         event_queue=getattr(core, "event_queue", None),
         cmd_encoding=getattr(core, "CMD_ENCODING", "utf-8"),
         cmd_exec_timeout_ms=getattr(core, "CMD_EXEC_TIMEOUT_MS", 60_000),
@@ -223,7 +222,7 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         type=int,
         default=None,
         help=_(
-            "Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all). Skips the interactive genre prompt when specified."
+            "Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips the interactive genre prompt when specified."
         ),
     )
     parser.add_argument(
@@ -1962,7 +1961,6 @@ def format_help(*, core: Any) -> str:
     """
 
     tr = getattr(core, "tr", tr_)
-    sentinel = getattr(core, "MULTI_INPUT_SENTINEL", '"""end')
 
     lines = [
         "Available commands:",
@@ -2028,10 +2026,7 @@ def format_help(*, core: Any) -> str:
         "",
         "Hints:",
         tr("  - Enter a line that is just 'f' to enter multiline input mode."),
-        tr(
-            "  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
-        )
-        % {"sentinel": sentinel},
+
     ]
 
     # Normalize indentation for command lines (translations may add extra leading whitespace).
@@ -2057,7 +2052,8 @@ def _uagent_env_names(prefix: str = "UAGENT_") -> list[str]:
 
 
 def _uagent_format_env_value(name: str, value: str) -> str:
-    if "KEY" in name.upper():
+    _upper = name.upper()
+    if any(kw in _upper for kw in ("KEY", "TOKEN", "PASSWORD", "SECRET", "CREDENTIAL")):
         return "***"
     return value
 
@@ -2309,65 +2305,6 @@ def load_agents_md() -> str:
         return ""
 
 
-def _use_gpt54_lightweight_tools_prompt() -> bool:
-    # Keep this in sync with provider/model resolution used by CLI/runtime.
-    # Use canonical *_DEPNAME envs only.
-    depname = (
-        (
-            env_get("UAGENT_AZURE_DEPNAME")
-            or env_get("UAGENT_OPENAI_DEPNAME")
-            or env_get("UAGENT_OPENROUTER_DEPNAME")
-            or ""
-        )
-        .strip()
-        .lower()
-    )
-    use_responses_api = (env_get("UAGENT_RESPONSES", "") or "").strip().lower() in (
-        "1",
-        "true",
-    )
-
-    if not use_responses_api:
-        return False
-    model = (depname or "").strip().lower()
-    marker = "gpt-5."
-    idx = model.find(marker)
-    if idx < 0:
-        return False
-    tail = model[idx + len(marker) :]
-    digits = []
-    for ch in tail:
-        if ch.isdigit():
-            digits.append(ch)
-        else:
-            break
-    if not digits:
-        return False
-    try:
-        minor = int("".join(digits))
-    except Exception:
-        return False
-    return minor >= 4
-
-
-def build_lightweight_tools_system_prompt() -> str:
-    return "\n".join(
-        [
-            "[Available Tools]",
-            "A large set of tools may be available in this environment.",
-            "Do not assume that every tool definition is already loaded in the current request.",
-            "When tool use is needed, first reason about the category of tool required and use only the minimum relevant tool surface.",
-            "If tool details are unavailable, avoid inventing parameters or functions.",
-        ]
-    )
-
-
-def _use_tools_system_prompt() -> bool:
-    use_tool = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
-    if use_tool in ("0", "false", "no", "off"):
-        return False
-    v = (env_get("UAGENT_SEND_TOOLS_PROMPT") or "").strip().lower()
-    return v in ("1", "true", "yes", "on")
 
 
 def build_initial_messages(*, core: Any) -> list[dict[str, Any]]:
@@ -2376,17 +2313,6 @@ def build_initial_messages(*, core: Any) -> list[dict[str, Any]]:
     system_msg = {"role": "system", "content": core.SYSTEM_PROMPT}
     messages.append(system_msg)
     core.log_message(system_msg)
-
-    if _use_tools_system_prompt():
-        if _use_gpt54_lightweight_tools_prompt():
-            tools_prompt = build_lightweight_tools_system_prompt()
-        else:
-            tool_specs = tools.get_tool_specs()
-            tools_prompt = core.build_tools_system_prompt(tool_specs)
-        tools_system_msg = {"role": "system", "content": tools_prompt}
-
-        messages.append(tools_system_msg)
-        core.log_message(tools_system_msg)
 
     # Record startup cwd into the message history + log.
     try:
@@ -2408,23 +2334,7 @@ def insert_tools_system_message(
     *,
     core: Any,
 ) -> list[dict[str, Any]]:
-    if not _use_tools_system_prompt():
-        return messages
-
-    if _use_gpt54_lightweight_tools_prompt():
-        tools_prompt = build_lightweight_tools_system_prompt()
-    else:
-        tool_specs = tools.get_tool_specs()
-        tools_prompt = core.build_tools_system_prompt(tool_specs)
-    tools_system_msg = {"role": "system", "content": tools_prompt}
-
-    if messages and messages[0].get("role") == "system":
-        new_messages = [messages[0], tools_system_msg] + messages[1:]
-    else:
-        new_messages = [tools_system_msg] + messages
-
-    core.log_message(tools_system_msg)
-    return new_messages
+    return messages
 
 
 def build_long_memory_system_message(long_mem_raw: Any) -> dict[str, Any]:

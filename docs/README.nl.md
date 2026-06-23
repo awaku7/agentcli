@@ -1,107 +1,160 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag-logo" width="720">
 </p>
 
-# uag (Lokale AI-agent)
+<h1 align="center">uag — Universele AI-gateway</h1>
 
-uag is een lokale interactieve agent die **opdrachten** uitvoert, **bestanden** bewerkt en **databestanden** zoals PDF-, PPTX- en Excel-bestanden leest. Het biedt drie gebruikersinterfaces: CLI, GUI en Web.
+<p align="center">
+  <b>U</b>universele <b>A</b>I <b>G</b>ateway — Jouw omgeving, jouw vrijheid.
+</p>
 
-uag is gebouwd om je **vrij te houden van apps die vastzitten aan een leverancier**: gebruik de interface die bij je workflow past, wissel van provider en houd de controle over je omgeving.
+<p align="center">
+  Bestandsbeheer / Zoeken op internet / Genereren en analyseren van afbeeldingen / PDF- en Excel-extractie / IoT-controle / MCP-integratie<br>
+  15+ providers / 3 UI's / Parallelle tool-uitvoering / Agent Skills-marktplaats
+</p>
 
-GitHub: https://github.com/awaku7/agentcli
+<p align="center">
+  <a href="https://github.com/awaku7/agentcli">GitHub</a>
+  ·
+  <a href="https://pypi.org/project/uag/">PyPI</a>
+  ·
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Lees dit in jouw taal</a>
+</p>
 
-## Installatie
+---
 
-Installeer via PyPI met pip:
+## Waarom uag?
+
+**Ontsnap aan de afhankelijkheid van een bepaalde leverancier.** De meeste AI-assistenten binden u aan een specifieke provider of cloudservice. ug is anders.
+
+- **Wordt lokaal uitgevoerd** op uw computer. Uw gegevens blijven bij u (behalve API-aanroepen die u doet).
+- **Providervrijheid**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ providers, allemaal toegankelijk via één enkele interface. Wissel ertussen door de omgevingsvariabelen opnieuw te configureren: geen herinstallatie, geen migratie.
+- **112 tools**: bestands-I/O, zoeken op internet, het genereren van afbeeldingen, scannen van BLE-apparaten, MCP-serverintegratie — en **66 zijn parallel-safe (max 4 tegelijk)**. Wanneer de LLM meerdere tooloproepen tegelijk afvuurt, voert uag deze automatisch uit via een threadpool.
+- **3 UI's + A2A**: CLI-, GUI-, web- en agent-naar-agent-protocol. Dezelfde engine, elke interface.
+- **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — bedien uw apparaten thuis via AI.
+- **Agentvaardigheden**: installeer door de community ontwikkelde vaardigheden van de marktplaats. Breid uag eindeloos uit.
+
+uag is **uw AI-assistent op uw voorwaarden**. Niet gebonden aan een provider, niet gebonden aan een interface, niet gebonden aan een platform.
+
+## Snelle start
 
 ```bash
 pip install uag
+uag
 ```
 
-Als je een virtuele omgeving gebruikt, activeer die dan eerst en voer daarna het bovenstaande commando uit.
+Bij de eerste keer opstarten leidt de installatiewizard u door de providerconfiguratie.
+Zie [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) voor alle omgevingsvariabelen.
 
-Bij de eerste start controleert `uag` je omgeving en start automatisch de setupwizard wanneer vereiste provider-variabelen ontbreken. Zie [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) voor de configuratiegegevens.
+## Kenmerken
 
-## Belangrijkste functies
+### 🧠 Architectuur met meerdere providers
 
-- **Praktische toolset**: bestandsmanipulatie, webzoekopdrachten, PDF/PPTX/Excel-extractie, beeldgeneratie en beeldanalyse.
-- **Ondersteuning voor meerdere providers**: OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
-- **Drie interfaces**:
-  - **CLI**: `uag` / `python -m uagent`
-  - **GUI**: `uagg` / `python -m uagent.gui`
-  - **Web**: `uagw` / `python -m uagent.web`
-  - **A2A-server**: `uaga` / `python -m uagent.a2a.server`
-- **MCP-ondersteuning**: verbinding maken met externe MCP-toolservers.
-- **Sessiebehoud**: context behouden wanneer je van model of provider wisselt.
-- **Agent Skills-marktplaats**: Blader door en installeer community Agent Skills van [SkillsMP](https://skillsmp.com) of [ClawHub](https://clawhub.ai) met `:skills mp_search`.
-- **Web Inspector**: sla browsertransities, DOM-snapshots en screenshots op met `playwright_inspector`.
-- **Ingebouwde documentatie**: lees meegeleverde docs met `uag docs`.
-- **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
 
-## IoT Device Support
+Alle providers delen dezelfde toolset en interface. Schakel over door `UAGENT_PROVIDER` in te stellen - geen codewijzigingen, geen afzonderlijke installaties.
 
-Control smart home and IoT devices through multiple interfaces:
+### ⚡ Parallelle gereedschapsuitvoering
 
-- **SwitchBot Cloud**: List, control, and batch-operate SwitchBot devices (TV, air conditioner, lights, etc.).
-  - Infrared remote devices (on/off, brightness, temperature)
-  - Air conditioner mode and fan speed control
-  - Batch execution of multiple commands
-- **SwitchBot BLE**: Scan and control nearby SwitchBot BLE devices.
-- **ECHONET Lite**: Discover and control ECHONET Lite home appliances over the local network.
-- **Matter**: Inspect Matter controller/bridge/device structure (read-only).
-- **UPnP**: Discover UPnP devices and manage IGD port forwarding.
+Wanneer de LLM meerdere tools tegelijkertijd aanvraagt, parallelliseert uag deze automatisch.
+55 tools zijn gemarkeerd als `x_parallel_safe` en worden gelijktijdig uitgevoerd via een 4-thread `ThreadPoolExecutor`.
 
-For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
+**Voorbeeld**: Vraag "Check het weer in de Scandinavische hoofdsteden" → LLM activeert `search_web` × 5 landen → alle 5 zoekopdrachten worden parallel uitgevoerd → resultaten verzameld in één batch.
 
-## Gebruik
+Alleen-lezen tools (zoeken naar bestanden, hash-berekening, directorylijst, vertaling, DB-query's, enz.) worden agressief geparallelliseerd.
 
-### Starten en stoppen
+### 🔄 Sessiecontinuïteit
 
-Start door `uag` in je terminal uit te voeren. Typ `:exit` om te stoppen.
+- **Wissel halverwege de sessie van provider** met `UAGENT_PROVIDER` — de gespreksgeschiedenis blijft behouden.
+- **Herlaad eerdere sessies** met `:load <index>` — ga verder waar je was gebleven.
+- **Cache van gereedschapsresultaten** voorkomt redundante heruitvoering wanneer dezelfde tooloproep wordt herhaald.
 
-For all command-line options, see [USAGE.md](USAGE.md).
+### 🛠 112 Gereedschap
 
-### A2A-server
+| Categorie | Gereedschap |
+|---|---|
+| **Bestandsbewerkingen** | lezen/schrijven/maken/verwijderen/zoeken/grep/hash/zip |
+| **Web** | fetch_url, zoek_web, screenshot, browser_playwright |
+| **Media** | genereer_afbeelding, analyseer_afbeelding, img2img, audio_speech, audio_transcribe |
+| **Documenten** | PDF/PPTX/DOCX/RTF/ODT-extractie, gestructureerde extractie in Excel |
+| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
+| **Ontwikkeltools**, ****11 idx-tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — krijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 idx-tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — krijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen** |
+| **MCP** | Verbinding maken met externe MCP-servers, tools weergeven, uitvoeren |
+| **A2A** | Agent-tot-agent-communicatie (met andere uag-instanties of A2A-compatibele servers) |
+| **Bronnavigatie** | **11 idx-tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — krijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen |
+| **Systeem** | env vars, systeemspecificaties, tijd, datumberekening |
 
-Start een HTTP-server die compatibel is met Agent2Agent:
+### 🖥 3 interfaces + A2A
 
-```bash
-uaga
-```
+| Modus | Commando | Doel |
+|---|---|---|
+| **CLI** | `uag` | Snelle terminalgebaseerde bediening |
+| **GUI** | `uagg` | Desktop-UI via tkinter |
+| **Web** | `uagw` | Browsergebaseerde toegang |
+| **A2A-server** | `uaga` | Agent2Agent-protocol voor communicatie met meerdere agenten |
 
-Zie [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) voor `UAGENT_A2A_*`-instellingen zoals authenticatie, host, poort, herladen, openbare basis-URL, gelijktijdigheid en engine.
+### 🏠 IoT-apparaatbeheer
 
-### Handige opdrachten
+- **SwitchBot**: Cloud batchcontrole en BLE-scan/controle
+- **ECHONET Lite**: Ontdek en bedien huishoudelijke apparaten (AC, verlichting, boilers, enz.) op een lokaal netwerk
+- **Kwestie**: alleen-lezen-inspectie van controller/bridge/apparaattopologie
+- **UPnP**: apparaatdetectie en IGD-poort doorsturen
 
-- `:tools`: toon geladen tools
-- `:logs [n]`: toon recente sessielogs
-- `:load <index>`: laad een eerdere sessie
-- `:skills`: selecteer en laad Agent Skills (gebruik `:skills mp_search` om de [SkillsMP](https://skillsmp.com)- of [ClawHub](https://clawhub.ai)-marktplaatsen te doorbladeren)
-- `:shrink [n]`: vat de historie samen en behoud de laatste `n` berichten
-- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
+Zie [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+
+### 🎯 Marktplaats voor agentenvaardigheden
+
+`:skills mp_search` om door [SkillsMP](https://skillsmp.com) en [ClawHub](https://clawhub.ai) te bladeren voor communityvaardigheden.
+Installeer en breid de mogelijkheden van uag direct uit.
+
+### 🧩 Batchstatusmanager
+
+uag kan de voortgang van langlopende taken met meerdere bestanden volgen. Wanneer de LLM tientallen bestanden verwerkt, bewaart `batch_state` de lijst met openstaande, voltooide en mislukte bestanden op schijf. Als de sessie eindigt of er een time-out optreedt in een ronde, wordt de volgende run hervat vanaf het punt waar deze was gestopt. Er gaat niets verloren.
+
+### 🛡 Mens-in-de-loop
+
+Met `human_ask` kan de LLM pauzeren en om uw bevestiging vragen voordat destructieve bewerkingen worden uitgevoerd (verwijderen van bestanden, overschrijven, shell-opdrachten). Jij behoudt de controle.
+
+### 🕵️ Browserautomatisering en webinspecteur
+
+Twee complementaire, op Toneelschrijvers gebaseerde tools:
+
+- **browser_playwright**: automatiseer echte browsersessies: navigeer, klik, vul formulieren in, extraheer gegevens, beheer stromen van meerdere pagina's. Werkt zonder hoofd of zonder hoofd.
+- **playwright_inspector**: neem browserovergangen op, maak bij elke stap DOM-snapshots en schermafbeeldingen. Handig voor het debuggen van webinteracties of het controleren van paginawijzigingen in de loop van de tijd.
+
+### 🔄 Dynamisch gereedschap laden
+
+Met `tool_catalog` en `tool_load` kunt u tools tijdens runtime ontdekken en inschakelen.
+U hoeft niet alles te laden bij het opstarten; activeer alleen wat u nodig heeft, wanneer u het nodig heeft.
+
+### 🌐 i18n / L10n
+
+日本語 / Engels / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / en meer.
+Stel `UAGENT_LANG` in om te schakelen. Zie [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) om een ​​nieuwe landinstelling toe te voegen.
+
+Vertalingen van deze README zijn beschikbaar in [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+
+### 🔒 Gecodeerde omgevingsvariabelen
+
+Bewaar API-sleutels en geheimen in `.env.sec` — een gecodeerd `.env`-bestand.
+Beheer met `uag_envsec`.
 
 ## Configuratie en details
 
-### Omgevingsvariabelen en setup
+- **Omgevingsvariabelen**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Installatiewizard**: `python -m uagent.setup_cli`
+- **Gecodeerde env**: `uag_envsec` — versleutel `.env` als `.env.sec`
+- **Responses API**: Stel `UAGENT_RESPONSES=1` in voor de Responses API-modus (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **Ontwikkelaarsdocumentatie**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Kleine LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
-Voor API-sleutels, taalinstellingen (`UAGENT_LANG`), instellingen voor het verkleinen van de historie en meer, zie [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+## Projectfilosofie
 
-- **Setupwizard**: `python -m uagent.setup_cli`
-- **Versleutelde omgeving**: gebruik `uag_envsec` om `.env` te versleutelen als `.env.sec`
-- **Versleutelde waarden bijwerken**: `uag_envsec add --file .env.sec --key NAME --value VALUE`
+uag streeft ernaar **uw AI te zijn, op uw machine, op uw voorwaarden.**
 
-### Opmerking over Responses API
+- Geen SaaS-afhankelijkheid — draait lokaal
+- Geen provider-lock-in: u kunt op elk gewenst moment overstappen
+- Geen UI-lock-in - CLI / GUI / Web / A2A
+- Geen functievergrendeling - breid uit met tools en vaardigheden
 
-Als je `UAGENT_RESPONSES=1` instelt, wordt Responses API gebruikt voor ondersteunde providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI gebruiken hun eigen API-paden en vallen niet onder Responses API.
-Voor andere providers valt uag terug op het providerspecifieke pad of chat-completions.
-
-### Documentatie voor ontwikkelaars en vertalingen
-
-- **Ontwikkelaarsdocumentatie**: [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Locales toevoegen**: [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
-- **Andere README-vertalingen**: [`docs/README.translations.md`](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
-
-Als je `UAGENT_RESPONSES=1` instelt, wordt Responses API gebruikt voor ondersteunde providers: OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI use their native API paths and are not covered by Responses API.
-For other providers, uag falls back to the provider-specific or chat-completions path.
+Een gratis AI-agentervaring, vrij van leveranciersafhankelijkheid.

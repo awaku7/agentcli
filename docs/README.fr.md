@@ -1,101 +1,160 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="logo uag" width="720">
 </p>
 
-# uag (Agent IA local)
+<h1 align="center">uag — Passerelle universelle AI</h1>
 
-uag est un agent interactif qui exécute des **commandes**, manipule des **fichiers** et lit **divers formats de données** (PDF/PPTX/Excel, etc.) sur votre PC local. Il propose trois interfaces : CLI, GUI et Web.
+<p align="center">
+  <b>U</b>universal <b>A</b>I <b>G</b>ateway — Votre environnement, votre liberté.
+</p>
 
-uag est conçu pour **vous libérer des applications verrouillées par un fournisseur** : utilisez l’interface adaptée à votre flux de travail, changez de fournisseur et gardez le contrôle de votre environnement.
+<p align="center">
+  Opérations de fichiers/Recherche Web/Génération et analyse d'images/Extraction PDF et Excel/Contrôle IoT/Intégration MCP<br>
+  Plus de 15 fournisseurs / 3 interfaces utilisateur / Exécution d'outils parallèles / Marché des compétences d'agent
+</p>
 
-GitHub: https://github.com/awaku7/agentcli
+<p align="center">
+  <a href="https://github.com/awaku7/agentcli">GitHub</a>
+  ·
+  <a href="https://pypi.org/project/uag/">PyPI</a>
+  ·
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Lisez ceci dans votre langue</a>
+</p>
 
-## Installation
+---
 
-Vous pouvez installer `uag` via pip :
+## Pourquoi uag ?
+
+** Libérez-vous de la dépendance vis-à-vis d'un fournisseur. ** La plupart des assistants IA vous lient à un fournisseur ou à un service cloud spécifique. uag est différent.
+
+- **S'exécute localement** sur votre machine. Vos données restent avec vous (sauf les appels API que vous effectuez).
+- **Liberté des fournisseurs** : OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Plus de 15 fournisseurs, tous accessibles depuis une seule interface. Passez de l'un à l'autre en reconfigurant les variables d'environnement : pas de réinstallation, pas de migration.
+- **112 outils** : E/S de fichiers, recherche sur le Web, génération d'images, analyse de périphériques BLE, intégration de serveur MCP — et **66 sont parallel-safe (jusqu'à 4 simultanément)**. Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les exécute automatiquement via un pool de threads.
+- **3 interfaces utilisateur + A2A** : CLI, GUI, Web et protocole agent à agent. Même moteur, n’importe quelle interface.
+- **Prêt pour l'IoT** : SwitchBot, ECHONET Lite, Matter, UPnP — contrôlez vos appareils domestiques via l'IA.
+- **Compétences d'agent** : installez des compétences développées par la communauté à partir du marché. Prolongez l'UAG à l'infini.
+
+uag est **votre assistant IA selon vos conditions**. Pas lié à un fournisseur, pas lié à une interface, pas lié à une plateforme.
+
+## Démarrage rapide
 
 ```bash
 pip install uag
+uag
 ```
 
-Après l'installation, le premier lancement d'`uag` démarrera automatiquement un **assistant de configuration interactif** pour configurer vos variables d'environnement. Pour des informations détaillées sur la configuration et le chiffrement, consultez **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
+Au premier lancement, l'assistant d'installation vous guide dans la configuration du fournisseur.
+Voir [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) pour toutes les variables d'environnement.
 
-## Caractéristiques principales
+## Fonctionnalités
 
-- **Ensemble d'outils pratiques** : Équipé d'outils pour la manipulation de fichiers, la recherche web, l'extraction de données (PDF/PPTX/Excel), la génération d'images et l'analyse, tous exécutables dans votre environnement local.
-- **Support multi-fournisseurs** : Supporte OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / Moonshot AI.
-- **Interfaces flexibles** :
-  - **CLI**: `uag` / `python -m uagent`
-  - **GUI**: `uagg` / `python -m uagent.gui`
-  - **Web**: `uagw` / `python -m uagent.web`
-- **MCP (Model Context Protocol)** : Support pour la connexion à des serveurs d'outils MCP externes.
-- **Continuité de session** : Maintient le contexte de la conversation même lors du changement de fournisseur ou de modèle.
-- **Marketplace de compétences d'agent**: Parcourez et installez des compétences communautaires depuis [SkillsMP](https://skillsmp.com) ou [ClawHub](https://clawhub.ai) avec `:skills mp_search`.
-- **Web Inspector** : Enregistre automatiquement les transitions du navigateur, le DOM et les captures d'écran avec `playwright_inspector`.
-- **Documentation intégrée** : Accédez instantanément à une documentation interne détaillée à l'aide de la commande `uag docs`.
-- **IoT device support**: Control SwitchBot, ECHONET Lite, Matter, and UPnP devices. See [IOT_USECASE.md](IOT_USECASE.md).
+### 🧠 Architecture multi-fournisseurs
 
-## IoT Device Support
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
 
-Control smart home and IoT devices through multiple interfaces:
+Tous les fournisseurs partagent le même ensemble d’outils et la même interface. Basculez en définissant « UAGENT_PROVIDER » — aucun changement de code, aucune installation séparée.
 
-- **SwitchBot Cloud**: List, control, and batch-operate SwitchBot devices (TV, air conditioner, lights, etc.).
-  - Infrared remote devices (on/off, brightness, temperature)
-  - Air conditioner mode and fan speed control
-  - Batch execution of multiple commands
-- **SwitchBot BLE**: Scan and control nearby SwitchBot BLE devices.
-- **ECHONET Lite**: Discover and control ECHONET Lite home appliances over the local network.
-- **Matter**: Inspect Matter controller/bridge/device structure (read-only).
-- **UPnP**: Discover UPnP devices and manage IGD port forwarding.
+### ⚡ Exécution d'outils parallèles
 
-For detailed usage, see [IOT_USECASE.md](IOT_USECASE.md).
+Lorsque le LLM demande plusieurs outils simultanément, uag les **parallèle automatiquement**.
+55 outils sont marqués « x_parallel_safe » et s'exécutent simultanément via un « ThreadPoolExecutor » à 4 threads.
 
-## Utilisation
+**Exemple** : demandez « Vérifiez la météo dans les capitales nordiques » → LLM déclenche `search_web` × 5 pays → les 5 recherches s'exécutent en parallèle → résultats collectés en un seul lot.
 
-### Démarrage et sortie
+Les outils en lecture seule (recherche de fichiers, calcul de hachage, liste de répertoires, traduction, requêtes de base de données, etc.) sont parallélisés de manière agressive.
 
-Lancez `uag` depuis votre terminal pour commencer. Tapez `:exit` pour quitter.
+### 🔄 Continuité des sessions
 
-For all command-line options, see [USAGE.md](USAGE.md).
+- **Changer de fournisseur en cours de session** avec `UAGENT_PROVIDER` — l'historique des conversations est préservé.
+- **Rechargez les sessions passées** avec `:load <index>` — reprenez là où vous vous étiez arrêté.
+- La **mise en cache des résultats de l'outil** évite une réexécution redondante lorsque le même appel d'outil se répète.
 
-### Serveur A2A (Agent2Agent)
+### 🛠 112 Outils
 
-Vous pouvez lancer un serveur HTTP compatible A2A séparé des interfaces existantes.
+| Catégorie | Outils |
+|---|---|
+| **Opérations sur les fichiers** | lire/écrire/créer/supprimer/search/grep/hash/zip |
+| **Internet** | fetch_url, search_web, capture d'écran, browser_playwright |
+| **Médias** | generate_image, analyse_image, img2img, audio_speech, audio_transcribe |
+| **Documents** | Extraction PDF/PPTX/DOCX/RTF/ODT, extraction structurée Excel |
+| **IdO** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
+| **Outils de développement**, ****11 outils idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 outils idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier** |
+| **MCP** | Connectez-vous à des serveurs MCP externes, répertoriez les outils, exécutez |
+| **A2A** | Communication agent à agent (avec d'autres instances uag ou des serveurs compatibles A2A) |
+| **Système** | variables d'environnement, spécifications du système, heure, calcul de date |
+| **Navigation dans le code** | **11 outils idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier |
 
-```bash
-uaga
-# ou python -m uagent.a2a.server
-```
+### 🖥 3Interfaces + A2A
 
-### Remarque sur Responses API
+| Mode | Commande | Objectif |
+|---|---|---|
+| **CLI** | `uag` | Fonctionnement rapide basé sur un terminal |
+| **interface graphique** | `uagg` | Interface utilisateur de bureau via tkinter |
+| **Internet** | `uagw` | Accès par navigateur |
+| **Serveur A2A** | `ouaga` | Protocole Agent2Agent pour la communication multi-agents |
 
-Si vous définissez `UAGENT_RESPONSES=1`, Responses API est utilisée pour les fournisseurs pris en charge : OpenAI / Azure / Bedrock / OpenRouter / Ollama.
-Gemini / Claude / Vertex AI utilisent leurs chemins d’API natifs et ne sont pas couverts par Responses API.
-Pour les autres fournisseurs, uag revient au chemin spécifique du fournisseur ou au flux chat-completions.
+### 🏠 Contrôle des appareils IoT
 
-Voir [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) pour les paramètres `UAGENT_A2A_*` tels que l’authentification, l’hôte, le port, le rechargement, l’URL de base publique, la concurrence et le moteur.
+- **SwitchBot** : contrôle par lots dans le cloud et analyse/contrôle BLE
+- **ECHONET Lite** : Découvrez et contrôlez les appareils électroménagers (AC, lumières, chauffe-eau, etc.) sur le réseau local
+- **Matter** : inspection en lecture seule de la topologie du contrôleur/pont/appareil
+- **UPnP** : découverte de périphériques et redirection de port IGD
 
-### Conseils pratiques (continuité et contrôle)
+Voir [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 
-- `:tools` : Affiche une liste des outils chargés.
-- `:logs [n]` : Affiche les journaux de session (`n` pour spécifier le nombre d'entrées).
-- `:load <index>` : Charge une session passée pour reprendre la conversation.
-- `:skills`: sélectionner et charger les Agent Skills (utilisez `:skills mp_search` pour parcourir les marketplaces [SkillsMP](https://skillsmp.com) ou [ClawHub](https://clawhub.ai))
-- `:shrink [n]` : Organise l'historique pour ne conserver que les `n` derniers messages afin d'économiser des jetons.
-- Small LLM tips: see [SLM_TIPS.md](SLM_TIPS.md).
+### 🎯 Marché des compétences d'agent
+
+`:skills mp_search` pour parcourir [SkillsMP](https://skillsmp.com) et [ClawHub](https://clawhub.ai) pour les compétences communautaires.
+Installez et étendez les capacités d'uag à la volée.
+
+### 🧩 Gestionnaire d'état par lots
+
+uag peut suivre la progression des tâches multi-fichiers de longue durée. Lorsque le LLM traite des dizaines de fichiers, `batch_state` conserve la liste des fichiers en attente, terminés et ayant échoué sur le disque. Si la session se termine ou si un tour expire, l'exécution suivante reprend là où elle s'est arrêtée : rien n'est perdu.
+
+### 🛡 Humain dans la boucle
+
+`human_ask` permet au LLM de faire une pause et de vous demander votre confirmation avant d'effectuer des opérations destructrices (suppression de fichiers, écrasements, commandes shell). Vous gardez le contrôle.
+
+### 🕵️ Automatisation du navigateur et inspecteur Web
+
+Deux outils complémentaires basés sur Playwright :
+
+- **browser_playwright** : automatisez de vraies sessions de navigateur : naviguez, cliquez, remplissez des formulaires, extrayez des données, gérez des flux multipages. Fonctionne sans tête ou avec tête.
+- **playwright_inspector** : enregistrez les transitions du navigateur, capturez des instantanés et des captures d'écran DOM à chaque étape. Utile pour déboguer les interactions Web ou auditer les modifications de page au fil du temps.
+
+### 🔄 Chargement dynamique des outils
+
+`tool_catalog` et `tool_load` vous permettent de découvrir et d'activer des outils au moment de l'exécution.
+Pas besoin de tout charger au démarrage : activez uniquement ce dont vous avez besoin, quand vous en avez besoin.
+
+### 🌐i18n/L10n
+
+日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / et plus encore.
+Définissez `UAGENT_LANG` pour changer. Voir [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) pour ajouter de nouveaux paramètres régionaux.
+
+Les traductions de ce README sont disponibles dans [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+
+### 🔒 Variables d'environnement cryptées
+
+Stockez les clés et les secrets API dans « .env.sec » – un fichier « .env » crypté.
+Gérez avec `uag_envsec`.
 
 ## Configuration et détails
 
-### Variables d'environnement et configuration
+- **Variables d'environnement** : [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Assistant d'installation** : `python -m uagent.setup_cli`
+- **Env crypté** : `uag_envsec` — crypte `.env` en `.env.sec`
+- **API Réponses** : définissez `UAGENT_RESPONSES=1` pour le mode API Réponses (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **Documents pour développeurs** : [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Petits conseils LLM** : [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
-Pour les paramètres détaillés (clés API, langue d'affichage `UAGENT_LANG`, paramètres de réduction d'historique, etc.), consultez **[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)**.
+## Philosophie du projet
 
-- **Configuration** : Configurez de manière interactive via `python -m uagent.setup_cli`.
-- **Chiffrement** : Chiffrez vos fichiers `.env` en toute sécurité à l'aide de l'outil `uag_envsec`.
-- **Mise à jour** : Utilisez `uag_envsec add --file .env.sec --key NAME --value VALUE` pour ajouter ou mettre à jour une variable dans un fichier chiffré existant.
+uag aspire à être **votre IA, sur votre machine, selon vos conditions.**
 
-### Développeurs et internationalisation
+- Aucune dépendance SaaS - fonctionne localement
+- Pas de dépendance vis-à-vis d'un fournisseur : changez à tout moment
+- Pas de verrouillage de l'interface utilisateur - CLI / GUI / Web / A2A
+- Pas de verrouillage de fonctionnalités - étendez-vous avec des outils et des compétences
 
-- **Docs développeur** : [`src/uagent/docs/DEVELOP.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Ajout de locales** : [`src/uagent/docs/ADD_LOCALE.md`](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md)
-- **README dans d'autres langues** : [`docs/README.translations.md`](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
+Une expérience d’agent IA gratuite, sans dépendance vis-à-vis d’un fournisseur.

@@ -19,6 +19,7 @@ TOOL_SPEC: dict[str, Any] = {
     "load_order": 8000,
     "type": "function",
     "tool_genre": "media",
+    "x_parallel_safe": True,
     "function": {
         "name": "audio_speech",
         "description": _(

@@ -7,7 +7,8 @@
     "x_search_terms": [
       "pwsh_exec",
       "pwsh exec"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "ja": {
     "err.timeout": "[pwsh_exec timeout] {seconds}秒以内に終了しませんでした",
@@ -19,11 +20,12 @@
       "pwsh 実行",
       "powershell",
       "最終手段"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "es": {
-    "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en {seconds}...",
-    "param.command.description": "Cadena de comando de PowerShell pasada a -...",
+    "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en {segundos} segundos",
+    "param.command.description": "La cadena de comando de PowerShell se pasó a -Command.",
     "param.shell.description": "Ejecutable de PowerShell a utilizar: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, ejecute PowerShell.",
     "x_search_terms": [
@@ -31,11 +33,12 @@
       "pwsh exec",
       "powershell",
       "último recurso"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "fr": {
-    "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans le...",
-    "param.command.description": "Chaîne de commande PowerShell transmise à...",
+    "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans les {seconds} secondes",
+    "param.command.description": "Chaîne de commande PowerShell transmise à -Command.",
     "param.shell.description": "Exécutable PowerShell à utiliser : 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "En dernier recours, exécutez PowerShell.",
     "x_search_terms": [
@@ -43,7 +46,8 @@
       "pwsh exec",
       "powershell",
       "dernier recours"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "ko": {
     "err.timeout": "[pwsh_exec timeout]이 {seconds}초 안에 완료되지 않았습니다.",
@@ -55,11 +59,12 @@
       "pwsh 실행",
       "powershell",
       "최후 수단"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "de": {
-    "err.timeout": "[pwsh_exec timeout] wurde nicht innerhalb von {seconds}...",
-    "param.command.description": "PowerShell-Befehlszeichenfolge, die an -Co...",
+    "err.timeout": "[pwsh_exec-Timeout] wurde nicht innerhalb von {seconds} Sekunden beendet.",
+    "param.command.description": "PowerShell-Befehlszeichenfolge wurde an -Command übergeben.",
     "param.shell.description": "Zu verwendende PowerShell-Exe: 'pwsh' (PowerShell 7+) oder 'powershell' (Windows PowerShell).",
     "tool.description": "Als letzten Ausweg führen Sie PowerShell aus.",
     "x_search_terms": [
@@ -67,11 +72,12 @@
       "pwsh ausführen",
       "powershell",
       "letzter ausweg"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "it": {
     "err.timeout": "[timeout pwsh_exec] non è terminato entro {seconds} secondi",
-    "param.command.description": "Stringa di comando di PowerShell passata a...",
+    "param.command.description": "Stringa di comando di PowerShell passata a -Command.",
     "param.shell.description": "Eseguibile di PowerShell da usare: 'pwsh' (PowerShell 7+) o 'powershell' (Windows PowerShell).",
     "tool.description": "Come ultima risorsa, esegui PowerShell.",
     "x_search_terms": [
@@ -79,11 +85,12 @@
       "pwsh esegui",
       "powershell",
       "ultima risorsa"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "ru": {
     "err.timeout": "[таймаут pwsh_exec] не завершился в течение {seconds} секунд",
-    "param.command.description": "Командная строка PowerShell передается в -...",
+    "param.command.description": "Командная строка PowerShell, переданная в -Command.",
     "param.shell.description": "Исполняемый файл PowerShell для использования: 'pwsh' (PowerShell 7+) или 'powershell' (Windows PowerShell).",
     "tool.description": "В крайнем случае выполните PowerShell.",
     "x_search_terms": [
@@ -91,11 +98,12 @@
       "pwsh запуск",
       "powershell",
       "крайняя мера"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "pt_BR": {
     "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
-    "param.command.description": "String de comando do PowerShell passada pa...",
+    "param.command.description": "Cadeia de comandos do PowerShell passada para -Command.",
     "param.shell.description": "Executável do PowerShell a usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, execute o PowerShell.",
     "x_search_terms": [
@@ -103,11 +111,12 @@
       "pwsh exec",
       "powershell",
       "último recurso"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "pt": {
     "err.timeout": "[pwsh_exec timeout] não terminou em {seconds} segundos",
-    "param.command.description": "Cadeia de comandos do PowerShell passada p...",
+    "param.command.description": "Cadeia de comandos do PowerShell passada para -Command.",
     "param.shell.description": "Executável do PowerShell para usar: 'pwsh' (PowerShell 7+) ou 'powershell' (Windows PowerShell).",
     "tool.description": "Como último recurso, execute o PowerShell.",
     "x_search_terms": [
@@ -115,11 +124,12 @@
       "pwsh exec",
       "powershell",
       "último recurso"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "id": {
     "err.timeout": "[pwsh_exec timeout] tidak selesai dalam {seconds} detik",
-    "param.command.description": "String perintah PowerShell yang diteruskan...",
+    "param.command.description": "String perintah PowerShell diteruskan ke -Command.",
     "param.shell.description": "Executable PowerShell yang digunakan: 'pwsh' (PowerShell 7+) atau 'powershell' (Windows PowerShell).",
     "tool.description": "Sebagai upaya terakhir, jalankan PowerShell.",
     "x_search_terms": [
@@ -127,10 +137,11 @@
       "pwsh jalankan",
       "powershell",
       "upaya terakhir"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "vi": {
-    "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng {s...",
+    "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng {seconds} giây",
     "param.command.description": "Chuỗi lệnh PowerShell được chuyển tới -Command.",
     "param.shell.description": "PowerShell có thể thực thi để sử dụng: 'pwsh' (PowerShell 7+) hoặc 'powershell' (Windows PowerShell).",
     "tool.description": "Phương án cuối cùng là thực thi PowerShell.",
@@ -139,7 +150,8 @@
       "pwsh thực thi",
       "powershell",
       "phương án cuối"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "pl": {
     "err.timeout": "[pwsh_exec timeout] nie zakończono w ciągu {seconds} sekund",
@@ -151,19 +163,21 @@
       "pwsh uruchom",
       "powershell",
       "ostateczność"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "hi": {
     "err.timeout": "[pwsh_exec टाइमआउट] {seconds} सेकंड के भीतर समाप्त नहीं हुआ",
-    "param.command.description": "-Command को पास की जाने वाली PowerShell कम...",
-    "param.shell.description": "उपयोग करने योग्य PowerShell निष्पादन योग्य: 'pwsh' (PowerShell 7+) या 'powershell' (Windows PowerShell)। यदि छोड...",
-    "tool.description": "अंतिम उपाय के रूप में PowerShell निष्पादित करें। इसे केवल तभी उपयोग करें जब कोई अन्...",
+    "param.command.description": "पावरशेल कमांड स्ट्रिंग को पास किया गया -कमांड।",
+    "param.shell.description": "उपयोग करने के लिए पावरशेल निष्पादन योग्य: 'pwsh' (पॉवरशेल 7+) या 'पॉवरशेल' (विंडोज पॉवरशेल)। यदि छोड़ा गया है, तो",
+    "tool.description": "MCP सर्वर से कनेक्ट करें। उपलब्ध टूल की सूची।",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh चलाएँ",
       "powershell",
       "अंतिम उपाय"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "ar": {
     "err.timeout": "[مهلة pwsh_exec] لم تنته خلال {seconds} ثانية",
@@ -175,11 +189,12 @@
       "تشغيل pwsh",
       "powershell",
       "آخر ملاذ"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "sv": {
     "err.timeout": "[pwsh_exec timeout] blev inte klar inom {seconds} sekunder",
-    "param.command.description": "PowerShell-kommandosträng som skickas till...",
+    "param.command.description": "PowerShell kommandosträng skickas till -Command.",
     "param.shell.description": "PowerShell-exekveringsfil att använda: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell).",
     "tool.description": "Som sista utväg, kör PowerShell.",
     "x_search_terms": [
@@ -187,7 +202,8 @@
       "pwsh kör",
       "powershell",
       "sista utväg"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "sw": {
     "err.timeout": "[pwsh_exec timeout] did not finish within {seconds} seconds",
@@ -199,11 +215,12 @@
       "pwsh run",
       "powershell",
       "last resort"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "nb": {
     "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen {seconds} sekunder",
-    "param.command.description": "PowerShell-kommando-streng som sendes til...",
+    "param.command.description": "PowerShell kommandostreng sendt til -Command.",
     "param.shell.description": "PowerShell-kjørbar fil som skal brukes: 'pwsh' (PowerShell 7+) eller 'powershell' (Windows PowerShell).",
     "tool.description": "Som siste utvei, kjør PowerShell.",
     "x_search_terms": [
@@ -211,11 +228,12 @@
       "pwsh kjør",
       "powershell",
       "siste utvei"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "nl": {
     "err.timeout": "[pwsh_exec timeout] niet voltooid binnen {seconds} seconden",
-    "param.command.description": "PowerShell-opdrachtstring die aan -Command...",
+    "param.command.description": "PowerShell-opdrachtreeks doorgegeven aan -Command.",
     "param.shell.description": "PowerShell-uitvoerbaar bestand om te gebruiken: 'pwsh' (PowerShell 7+) of 'powershell' (Windows PowerShell).",
     "tool.description": "Voer als laatste redmiddel PowerShell uit.",
     "x_search_terms": [
@@ -223,11 +241,12 @@
       "pwsh uitvoeren",
       "powershell",
       "laatste redmiddel"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "fi": {
     "err.timeout": "[pwsh_exec aikakatkaisu] ei valmistunut {seconds} sekunnissa",
-    "param.command.description": "PowerShell-komentorivi, joka välitetään -C...",
+    "param.command.description": "PowerShell-komentomerkkijono välitetty -Commandille.",
     "param.shell.description": "Käytettävä PowerShell-suoritettava: 'pwsh' (PowerShell 7+) tai 'powershell' (Windows PowerShell).",
     "tool.description": "Suorita PowerShell vain viimeisenä keinona.",
     "x_search_terms": [
@@ -235,7 +254,8 @@
       "pwsh suorita",
       "powershell",
       "viimeinen keino"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "cs": {
     "err.timeout": "[pwsh_exec timeout] nebylo dokončeno během {seconds} sekund",
@@ -247,11 +267,12 @@
       "pwsh spustit",
       "powershell",
       "poslední možnost"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "uk": {
     "err.timeout": "[тайм-аут pwsh_exec] не завершився протягом {seconds} секунд",
-    "param.command.description": "Рядок команди PowerShell, що передається д...",
+    "param.command.description": "Командний рядок PowerShell передано в -Command.",
     "param.shell.description": "Виконуваний файл PowerShell для використання: 'pwsh' (PowerShell 7+) або 'powershell' (Windows PowerShell).",
     "tool.description": "Як крайній захід, виконайте PowerShell.",
     "x_search_terms": [
@@ -259,7 +280,8 @@
       "pwsh запуск",
       "powershell",
       "крайній захід"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "tr": {
     "err.timeout": "[pwsh_exec timeout] {seconds} saniye içinde tamamlanmadı",
@@ -271,19 +293,21 @@
       "pwsh çalıştır",
       "powershell",
       "son çare"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "th": {
     "err.timeout": "[pwsh_exec หมดเวลา] ไม่เสร็จสิ้นภายใน {seconds} วินาที",
     "param.command.description": "สตริงคำสั่ง PowerShell ที่ส่งผ่านไปยัง -Command",
-    "param.shell.description": "ไฟล์ปฏิบัติการ PowerShell ที่จะใช้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ระบบ...",
+    "param.shell.description": "ไฟล์ปฏิบัติการ PowerShell ที่จะใช้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
     "tool.description": "เป็นทางเลือกสุดท้าย ให้รัน PowerShell ใช้เมื่อไม่มีเครื่องมืออื่นที่เหมาะสม เช่น MCP เท่านั้น",
     "x_search_terms": [
       "pwsh_exec",
       "รัน pwsh",
       "powershell",
       "ทางเลือกสุดท้าย"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "zh_CN": {
     "err.timeout": "[pwsh_exec 超时] 未在 {seconds} 秒内完成",
@@ -295,7 +319,8 @@
       "pwsh 执行",
       "powershell",
       "最后手段"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "zh_TW": {
     "err.timeout": "[pwsh_exec 逾時] 未在 {seconds} 秒內完成",
@@ -307,23 +332,25 @@
       "pwsh 執行",
       "powershell",
       "最後手段"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "bn": {
     "err.timeout": "[pwsh_exec timeout] {seconds} সেকেন্ডের মধ্যে শেষ হয়নি",
     "param.command.description": "-Command-এ পাঠানো PowerShell কমান্ড স্ট্রিং।",
-    "param.shell.description": "ব্যবহারযোগ্য PowerShell executable: 'pwsh' (PowerShell 7+) অথবা 'powershell' (Windows PowerShell)। উল্লেখ না করল...",
-    "tool.description": "শেষ আশ্রয় হিসেবে PowerShell চালান। অন্য কোনো উপযুক্ত tool (যেমন MCP) না থাকলে কেবল...",
+    "param.shell.description": "পাওয়ারশেল এক্সিকিউটেবল: 'pwsh' (PowerShell 7+) (Windows PowerShell)",
+    "tool.description": "যদি সত্য হয়, JSON আউটপুট (ডিফল্ট: সত্য) প্রিন্ট-প্রিন্ট করুন। এবং উপলভ্য সরঞ্জামগুলিকে সমর্থন করে",
     "x_search_terms": [
       "pwsh_exec",
       "pwsh চালান",
       "powershell",
       "শেষ উপায়"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "fa": {
     "err.timeout": "[مهلت pwsh_exec] در مدت {seconds} ثانیه تمام نشد",
-    "param.command.description": "رشتهٔ فرمان PowerShell که به -Command ارسا...",
+    "param.command.description": "رشته فرمان PowerShell به -Command منتقل شد.",
     "param.shell.description": "اجرای PowerShell مورد استفاده: 'pwsh' (PowerShell 7+) یا 'powershell' (Windows PowerShell).",
     "tool.description": "در آخرین چاره، PowerShell را اجرا کنید.",
     "x_search_terms": [
@@ -331,7 +358,8 @@
       "اجرای pwsh",
       "powershell",
       "آخرین راه"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "mn": {
     "err.timeout": "[pwsh_exec timeout] {seconds} секундийн дотор дууссангүй",
@@ -343,7 +371,8 @@
       "pwsh ажиллуулах",
       "powershell",
       "сүүлийн арга"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
   },
   "mr": {
     "err.timeout": "[pwsh_exec timeout] {seconds} सेकंदांत पूर्ण झाले नाही",
@@ -355,6 +384,51 @@
       "pwsh चालवा",
       "powershell",
       "शेवटचा पर्याय"
-    ]
+    ],
+    "err.command_required": "[pwsh_exec error] 'command' is required"
+  },
+  "el": {
+    "err.timeout": "Το [pwsh_exec timeout] δεν ολοκληρώθηκε μέσα σε {seconds} δευτερόλεπτα",
+    "param.command.description": "Η συμβολοσειρά εντολών PowerShell μεταβιβάστηκε στο -Command.",
+    "param.shell.description": "PowerShell εκτελέσιμο για χρήση: 'pwsh' (PowerShell 7+) ή 'powershell' (Windows PowerShell). Εάν παραλειφθεί, επιλέξτε αυτόματα.",
+    "tool.description": "Συνδεθείτε σε διακομιστή MCP και παραθέστε τα διαθέσιμα εργαλεία. Υποστηρίζει μεταφορές HTTP και stdio.",
+    "x_search_terms": [
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "err.command_required": "[σφάλμα pwsh_exec] Απαιτείται «εντολή»"
+  },
+  "he": {
+    "err.timeout": "[פסק הזמן של pwsh_exec] לא הסתיים תוך {שניות} שניות",
+    "param.command.description": "מחרוזת הפקודות של PowerShell הועברה ל-Command.",
+    "param.shell.description": "קובץ הפעלה של PowerShell לשימוש: 'pwsh' (PowerShell 7+) או 'powershell' (Windows PowerShell). אם הושמט, בחירה אוטומטית.",
+    "tool.description": "התחבר לשרת MCP ורשום כלים זמינים. תומך בהעברות HTTP ו-stdio.",
+    "x_search_terms": [
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "err.command_required": "[שגיאת pwsh_exec] נדרשת 'פקודה'"
+  },
+  "hu": {
+    "err.timeout": "A [pwsh_exec időtúllépés] nem fejeződött be {seconds} másodpercen belül",
+    "param.command.description": "A PowerShell-parancs karakterláncát átadta a -Commandnak.",
+    "param.shell.description": "Használható PowerShell futtatható fájl: „pwsh” (PowerShell 7+) vagy „powershell” (Windows PowerShell). Ha kimarad, automatikus kiválasztás.",
+    "tool.description": "Csatlakozzon egy MCP-kiszolgálóhoz, és sorolja fel az elérhető eszközöket. Támogatja a HTTP és az stdio átvitelt.",
+    "x_search_terms": [
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "err.command_required": "[pwsh_exec hiba] \"parancs\" szükséges"
+  },
+  "ro": {
+    "err.timeout": "[pwsh_exec timeout] nu s-a încheiat în {secunde} secunde",
+    "param.command.description": "Șirul de comandă PowerShell a fost transmis către -Command.",
+    "param.shell.description": "PowerShell executabil de utilizat: „pwsh” (PowerShell 7+) sau „powershell” (Windows PowerShell). Dacă este omisă, selectați automat.",
+    "tool.description": "Conectați-vă la un server MCP și enumerați instrumentele disponibile. Suportă transporturi HTTP și stdio.",
+    "x_search_terms": [
+      "pwsh_exec",
+      "pwsh exec"
+    ],
+    "err.command_required": "[pwsh_exec error] „comanda” este necesară"
   }
 }

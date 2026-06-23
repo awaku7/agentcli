@@ -40,7 +40,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Chemin d'accès au fichier image..."
+    "param.img.description": "Chemin d'accès au fichier image à analyser."
   },
   "ko": {
     "param.prompt.description": "이미지에 대해 알고 싶은 것.",
@@ -70,7 +70,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Percorso del file immagine da a..."
+    "param.img.description": "Percorso del file immagine da analizzare."
   },
   "ru": {
     "param.prompt.description": "Что вы хотите знать об изображении.",
@@ -90,7 +90,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Caminho para o arquivo de image..."
+    "param.img.description": "Caminho para o arquivo de imagem a ser analisado."
   },
   "pt": {
     "param.prompt.description": "O que você quer saber sobre a imagem.",
@@ -100,7 +100,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Caminho para o arquivo de image..."
+    "param.img.description": "Caminho para o arquivo de imagem a ser analisado."
   },
   "id": {
     "param.prompt.description": "Apa yang ingin Anda ketahui tentang gambar.",
@@ -110,7 +110,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Jalur ke file gambar yang akan..."
+    "param.img.description": "Jalur ke file gambar yang akan dianalisis."
   },
   "vi": {
     "param.prompt.description": "Những gì bạn muốn biết về hình ảnh.",
@@ -160,7 +160,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Sökväg till bildfilen som ska a..."
+    "param.img.description": "Sökväg till bildfilen som ska analyseras."
   },
   "sw": {
     "param.prompt.description": "Unachotaka kujua kuhusu picha.",
@@ -170,7 +170,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Njia ya faili la picha litakalo..."
+    "param.img.description": "Njia ya faili ya picha kuchanganua."
   },
   "nb": {
     "param.prompt.description": "Det du vil vite om bildet.",
@@ -180,7 +180,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Sti til bildefilen som skal ana..."
+    "param.img.description": "Sti til bildefilen som skal analyseres."
   },
   "nl": {
     "param.prompt.description": "Wat u over de afbeelding wilt weten.",
@@ -190,7 +190,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Pad naar het afbeeldingsbestand..."
+    "param.img.description": "Pad naar het afbeeldingsbestand dat moet worden geanalyseerd."
   },
   "fi": {
     "param.prompt.description": "Mitä haluat tietää kuvasta.",
@@ -230,7 +230,7 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "Analiz edilecek görüntü dosyası..."
+    "param.img.description": "Analiz edilecek görüntü dosyasının yolu."
   },
   "th": {
     "param.prompt.description": "สิ่งที่คุณต้องการทราบเกี่ยวกับภาพ",
@@ -283,7 +283,7 @@
     "param.img.description": "مسیر فایل تصویر برای تحلیل."
   },
   "mn": {
-    "param.prompt.description": "Зургийн талаар юу мэдэхийг хүсэж байгаага...",
+    "param.prompt.description": "Зургийн талаар юу мэдмээр байна.",
     "tool.description": "Зургийн файлыг ачаалж, AI (Vision)-аар агуулгыг нь тайлбарлуулна. Дэлгэцийн зураг, график, хүснэгтэд хэрэгтэй.",
     "x_search_terms": [
       "Зургийн файлыг ачаалж, AI (Vision)-аар агуулгыг нь тайлбарлуулна. Дэлгэцийн зураг, график, хүснэгтэд хэрэгтэй",
@@ -300,6 +300,58 @@
       "analyze_image",
       "analyze image"
     ],
-    "param.img.description": "विश्लेषण करायच्या प्रतिमा फाइलच..."
+    "param.img.description": "विश्लेषण करण्यासाठी प्रतिमा फाइलचा मार्ग."
+  },
+  "el": {
+    "param.prompt.description": "Τι θέλετε να μάθετε για την εικόνα.",
+    "tool.description": "Φορτώστε μια εικόνα και ζητήστε από το AI (Vision) να την περιγράψει. Χρήσιμο για στιγμιότυπα οθόνης, γραφήματα και πίνακες.",
+    "x_search_terms": [
+      "ανάλυση_εικόνας",
+      "αναλύσει την εικόνα",
+      "εικών",
+      "εικόνα",
+      "φωτογραφία",
+      "διάγραμμα"
+    ],
+    "param.img.description": "Διαδρομή προς το αρχείο εικόνας προς ανάλυση."
+  },
+  "he": {
+    "param.prompt.description": "מה אתה רוצה לדעת על התמונה.",
+    "tool.description": "טען תמונה ובקש מ-AI (Vision) לתאר אותה. שימושי עבור צילומי מסך, תרשימים וטבלאות.",
+    "x_search_terms": [
+      "אנליזה_תמונה",
+      "לנתח תמונה",
+      "תְמוּנָה",
+      "תְמוּנָה",
+      "תַצלוּם",
+      "תַרשִׁים"
+    ],
+    "param.img.description": "נתיב לקובץ התמונה לניתוח."
+  },
+  "hu": {
+    "param.prompt.description": "Amit a képről tudni szeretnél.",
+    "tool.description": "Töltsön be egy képet, és írja le az AI-val (Vision). Hasznos képernyőképekhez, diagramokhoz és táblázatokhoz.",
+    "x_search_terms": [
+      "elem_kép",
+      "elemezni a képet",
+      "kép",
+      "kép",
+      "fénykép",
+      "diagram"
+    ],
+    "param.img.description": "Az elemezni kívánt képfájl elérési útja."
+  },
+  "ro": {
+    "param.prompt.description": "Ce vrei să știi despre imagine.",
+    "tool.description": "Încărcați o imagine și cereți AI (Viziunea) să o descrie. Util pentru capturi de ecran, diagrame și tabele.",
+    "x_search_terms": [
+      "analizează_imagine",
+      "analiza imaginea",
+      "imagine",
+      "imagine",
+      "fotografie",
+      "diagramă"
+    ],
+    "param.img.description": "Calea către fișierul imagine de analizat."
   }
 }

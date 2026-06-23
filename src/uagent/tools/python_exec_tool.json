@@ -3,7 +3,7 @@
     "param.code.description": "Python code.",
     "param.path.description": "A Python file, directory, or glob pattern to validate with py_compile. Directories are scanned recursively for *.py files.",
     "param.paths.description": "Multiple Python files, directories, or glob patterns to validate with py_compile. Directories are scanned recursively for *.py files.",
-    "tool.description": "Execute Python code in a controlled way. Use this tool for calculations, data processing, or running short scripts.",
+    "tool.description": "Execute Python code in a controlled way. Use this tool for calculations, data processing, or running short scripts. Search for other suitable tools via `tool_catalog` before using this tool.",
     "x_search_terms": [
       "python",
       "run python",
@@ -13,354 +13,452 @@
       "exécuter python",
       "파이썬 실행",
       "запустить python"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "ja": {
     "param.code.description": "Pythonコード。",
     "param.path.description": "py_compile で検証する Python ファイル、ディレクトリ、または glob パターン。ディレクトリは再帰的に走査されます。",
     "param.paths.description": "py_compile で検証する複数の Python ファイル、ディレクトリ、または glob パターン。",
-    "tool.description": "Pythonコードを実行。計算、データ処理、短いスクリプト実行に使用。",
+    "tool.description": "Pythonコードを実行。計算、データ処理、短いスクリプト実行に使用。 使用前に `tool_catalog` で他の適切なツールがないか検索してください。",
     "x_search_terms": [
       "python_exec",
       "python 実行",
       "python スクリプト",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "es": {
-    "param.code.description": "Código Py...",
+    "param.code.description": "Código Python.",
     "param.path.description": "Archivo, directorio o patrón glob de Python para validar con py_compile (escaneo recursivo).",
     "param.paths.description": "Múltiples archivos, directorios o patrones glob de Python para validar con py_compile.",
-    "tool.description": "Ejecuta código Python o valida archivos Python con py_compile.",
+    "tool.description": "Ejecuta código Python o valida archivos Python con py_compile. Busque otras herramientas adecuadas a través de `tool_catalog` antes de usar esta herramienta.",
     "x_search_terms": [
       "python_exec",
       "ejecutar python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "fr": {
-    "param.code.description": "Code Pyth...",
+    "param.code.description": "Code Python.",
     "param.path.description": "Fichier, répertoire ou modèle glob Python à valider avec py_compile (balayage récursif).",
     "param.paths.description": "Plusieurs fichiers, répertoires ou modèles glob Python à valider avec py_compile.",
-    "tool.description": "Exécute du code Python ou valide des fichiers Python avec py_compile.",
+    "tool.description": "Exécute du code Python ou valide des fichiers Python avec py_compile. Recherchez d’autres outils appropriés via `tool_catalog` avant d’utiliser cet outil.",
     "x_search_terms": [
       "python_exec",
       "exécuter python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "ko": {
     "param.code.description": "Python 코드.",
     "param.path.description": "py_compile로 검증할 Python 파일, 디렉토리 또는 glob 패턴 (재귀적 스캔).",
     "param.paths.description": "py_compile로 검증할 여러 Python 파일, 디렉토리 또는 glob 패턴.",
-    "tool.description": "Python 코드 실행. 계산, 데이터 처리, 짧은 스크립트 실행에 사용.",
+    "tool.description": "Python 코드 실행. 계산, 데이터 처리, 짧은 스크립트 실행에 사용. 이 도구를 사용하기 전에 `tool_catalog`를 통해 다른 적합한 도구를 검색하세요.",
     "x_search_terms": [
       "python_exec",
       "python 실행",
       "python 스크립트",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "de": {
-    "param.code.description": "Auszuführ...",
+    "param.code.description": "Python-Code.",
     "param.path.description": "Eine Python-Datei, ein Verzeichnis oder ein Glob-Muster zur Validierung mit py_compile. Verzeichnisse werden rekursiv durchsucht.",
     "param.paths.description": "Mehrere Python-Dateien, Verzeichnisse oder Glob-Muster zur Validierung mit py_compile.",
-    "tool.description": "Führt Python-Code aus oder validiert Python-Dateien mit py_compile.",
+    "tool.description": "Führt Python-Code aus oder validiert Python-Dateien mit py_compile. Suchen Sie vor der Verwendung dieses Werkzeugs über `tool_catalog` nach anderen geeigneten Werkzeugen.",
     "x_search_terms": [
       "python_exec",
       "python ausführen",
       "python skript",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "it": {
-    "param.code.description": "Codice Py...",
+    "param.code.description": "Codice Python.",
     "param.path.description": "File, directory o pattern glob Python da convalidare con py_compile (scansione ricorsiva).",
     "param.paths.description": "Più file, directory o pattern glob Python da convalidare con py_compile.",
-    "tool.description": "Esegue codice Python o convalida file Python con py_compile.",
+    "tool.description": "Esegue codice Python o convalida file Python con py_compile. Cerca altri strumenti adatti tramite `tool_catalog` prima di utilizzare questo strumento.",
     "x_search_terms": [
       "python_exec",
       "esegui python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "ru": {
-    "param.code.description": "Код Pytho...",
+    "param.code.description": "Код Python.",
     "param.path.description": "Файл, каталог или шаблон glob для проверки через py_compile (рекурсивное сканирование).",
     "param.paths.description": "Несколько файлов, каталогов или шаблонов glob для проверки через py_compile.",
-    "tool.description": "Выполняет код Python или проверяет файлы Python с помощью py_compile.",
+    "tool.description": "Выполняет код Python или проверяет файлы Python с помощью py_compile. Поищите другие подходящие инструменты через `tool_catalog` перед использованием этого инструмента.",
     "x_search_terms": [
       "python_exec",
       "запуск python",
       "python скрипт",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "pt_BR": {
-    "param.code.description": "Código Py...",
+    "param.code.description": "Código Python.",
     "param.path.description": "Arquivo, diretório ou padrão glob Python para validar com py_compile (varredura recursiva).",
     "param.paths.description": "Múltiplos arquivos, diretórios ou padrões glob Python para validar com py_compile.",
-    "tool.description": "Executa código Python ou valida arquivos Python com py_compile.",
+    "tool.description": "Executa código Python ou valida arquivos Python com py_compile. Pesquise outras ferramentas adequadas através de `tool_catalog` antes de usar esta ferramenta.",
     "x_search_terms": [
       "python_exec",
       "executar python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "pt": {
-    "param.code.description": "Código Py...",
+    "param.code.description": "Código Python.",
     "param.path.description": "Um arquivo, diretório ou padrão glob Python para validar com py_compile. Os diretórios são verificados recursivamente em busca de arquivos *.py.",
     "param.paths.description": "Vários arquivos Python, diretórios ou padrões glob para validar com py_compile. Os diretórios são verificados recursivamente em busca de arquivos *.py.",
-    "tool.description": "Executa código Python ou valida arquivos Python com py_compile.",
+    "tool.description": "Executa código Python ou valida arquivos Python com py_compile. Pesquise outras ferramentas adequadas através de `tool_catalog` antes de usar esta ferramenta.",
     "x_search_terms": [
       "python_exec",
       "executar python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "id": {
-    "param.code.description": "Kode Pyth...",
+    "param.code.description": "Kode Python.",
     "param.path.description": "File Python, direktori, atau pola glob yang akan divalidasi dengan py_compile. Direktori dipindai secara rekursif untuk *.py.",
     "param.paths.description": "Beberapa file Python, direktori, atau pola glob yang akan divalidasi dengan py_compile. Direktori dipindai secara rekursif untuk *.py.",
-    "tool.description": "Jalankan kode Python atau validasi file Python dengan py_compile.",
+    "tool.description": "Jalankan kode Python atau validasi file Python dengan py_compile. Cari alat lain yang sesuai melalui `tool_catalog` sebelum menggunakan alat ini.",
     "x_search_terms": [
       "python_exec",
       "jalankan python",
       "skrip python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "vi": {
-    "param.code.description": "Mã Python...",
+    "param.code.description": "Mã Python.",
     "param.path.description": "Một tệp, thư mục hoặc mẫu toàn cầu Python để xác thực bằng py_compile. Các thư mục được quét đệ quy để tìm các tệp *.py.",
     "param.paths.description": "Nhiều tệp, thư mục hoặc mẫu toàn cầu Python để xác thực bằng py_compile. Các thư mục được quét đệ quy để tìm các tệp *.py.",
-    "tool.description": "Thực thi mã Python hoặc xác thực các tệp Python bằng py_compile.",
+    "tool.description": "Thực thi mã Python hoặc xác thực các tệp Python bằng py_compile. Tìm kiếm các công cụ phù hợp khác qua `tool_catalog` trước khi sử dụng công cụ này.",
     "x_search_terms": [
       "python_exec",
       "chạy python",
       "script python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "pl": {
-    "param.code.description": "Kod Pytho...",
+    "param.code.description": "Kod Pythona.",
     "param.path.description": "Plik Pythona, katalog lub wzorzec glob do sprawdzenia za pomocą py_compile. Katalogi są skanowane rekurencyjnie w poszukiwaniu plików *.py.",
     "param.paths.description": "Wiele plików Pythona, katalogów lub wzorców glob do sprawdzenia za pomocą py_compile. Katalogi są skanowane rekurencyjnie w poszukiwaniu plików *.py.",
-    "tool.description": "Wykonuje kod Pythona lub sprawdza pliki Pythona za pomocą py_compile.",
+    "tool.description": "Wykonuje kod Pythona lub sprawdza pliki Pythona za pomocą py_compile. Przed użyciem tego narzędzia wyszukaj inne odpowiednie narzędzia za pomocą `tool_catalog`.",
     "x_search_terms": [
       "python_exec",
       "uruchom python",
       "skrypt python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "hi": {
-    "param.code.description": "निष्पादित...",
+    "param.code.description": "उपयोग के लिए पॉवरशेल निष्पादन योग्य: 'pwsh' (पावरशेल 7+) या 'पॉवरशेल'।",
     "param.path.description": "py_compile के साथ सत्यापित करने के लिए एक पायथन फ़ाइल, निर्देशिका या ग्लोब पैटर्न। *.py फ़ाइलों के लिए निर्देशिकाओं को पुनरावर्ती रूप से स्कैन किया जाता है।",
     "param.paths.description": "py_compile के साथ सत्यापित करने के लिए एकाधिक पायथन फ़ाइलें, निर्देशिकाएं या ग्लोब पैटर्न। *.py फ़ाइलों के लिए निर्देशिकाओं को पुनरावर्ती रूप से स्कैन किया जाता है।",
-    "tool.description": "Python कोड निष्पादित करें या py_compile के साथ Python फ़ाइलों को सत्यापित करें। गणना, डेटा प्रोसेसिंग, छोटे स्क्...",
+    "tool.description": "Python कोड निष्पादित करें या py_compile के साथ Python फ़ाइलों को सत्यापित करें। गणना, डेटा प्रोसेसिंग, छोटे स्क्... `tool_catalog` के माध्यम से इस टूल का उपयोग करने से पहले अन्य उपयुक्त टूल खोजें।",
     "x_search_terms": [
       "python_exec",
       "python चलाएँ",
       "python स्क्रिप्ट",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "ar": {
-    "param.code.description": "كود بايثو...",
+    "param.code.description": "كود بايثون.",
     "param.path.description": "ملف Python أو دليل أو نمط الكرة الأرضية للتحقق من صحته باستخدام py_compile. يتم فحص الدلائل بشكل متكرر بحثًا عن ملفات *.py.",
     "param.paths.description": "ملفات Python أو الدلائل أو أنماط الكرة الأرضية المتعددة للتحقق من صحتها باستخدام py_compile. يتم فحص الدلائل بشكل متكرر بحثًا عن ملفات *.py.",
-    "tool.description": "قم بتنفيذ كود Python أو التحقق من ملفات Python باستخدام py_compile.",
+    "tool.description": "قم بتنفيذ كود Python أو التحقق من ملفات Python باستخدام py_compile. ابحث عن أدوات أخرى مناسبة عبر `tool_catalog` قبل استخدام هذه الأداةـ",
     "x_search_terms": [
       "python_exec",
       "تشغيل python",
       "سكربت python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "sv": {
-    "param.code.description": "Python-ko...",
+    "param.code.description": "Python-kod.",
     "param.path.description": "En Python-fil, katalog eller ett glob-mönster som ska valideras med py_compile. Kataloger genomsöks rekursivt efter *.py-filer.",
     "param.paths.description": "Flera Python-filer, kataloger eller glob-mönster som ska valideras med py_compile. Kataloger genomsöks rekursivt efter *.py-filer.",
-    "tool.description": "Kör Python-kod eller validera Python-filer med py_compile.",
+    "tool.description": "Kör Python-kod eller validera Python-filer med py_compile. Sök efter andra lämpliga verktyg via `tool_catalog` innan du använder detta verktyg.",
     "x_search_terms": [
       "python_exec",
       "kör python",
       "python skript",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "sw": {
-    "param.code.description": "Python co...",
+    "param.code.description": "Msimbo wa chatu.",
     "param.path.description": "A Python file, directory, or glob pattern to validate with py_compile. Directories are scanned recursively for *.py files.",
     "param.paths.description": "Multiple Python files, directories, or glob patterns to validate with py_compile. Directories are scanned recursively for *.py files.",
-    "tool.description": "Execute Python code or validate Python files with py_compile.",
+    "tool.description": "Execute Python code or validate Python files with py_compile. Tafuta zana nyingine zinazofaa kupitia `tool_catalog` kabla ya kutumia zana hii.",
     "x_search_terms": [
       "python_exec",
       "run python",
       "python script",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "nb": {
-    "param.code.description": "Python-ko...",
+    "param.code.description": "Python-kode.",
     "param.path.description": "En Python-fil, katalog eller et glob-mønster som skal valideres med py_compile. Kataloger skannes rekursivt etter *.py-filer.",
     "param.paths.description": "Flere Python-filer, kataloger eller glob-mønstre som skal valideres med py_compile. Kataloger skannes rekursivt etter *.py-filer.",
-    "tool.description": "Kjør Python-kode eller valider Python-filer med py_compile.",
+    "tool.description": "Kjør Python-kode eller valider Python-filer med py_compile. Søk etter andre passende verktøy via `tool_catalog` før du bruker dette verktøyet.",
     "x_search_terms": [
       "python_exec",
       "kjør python",
       "python skript",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "nl": {
-    "param.code.description": "Python-co...",
+    "param.code.description": "Python-code.",
     "param.path.description": "Een Python-bestand, map of glob-patroon om met py_compile te valideren. Mappen worden recursief gescand op *.py-bestanden.",
     "param.paths.description": "Meerdere Python-bestanden, mappen of glob-patronen om met py_compile te valideren. Mappen worden recursief gescand op *.py-bestanden.",
-    "tool.description": "Voer Python-code uit of valideer Python-bestanden met py_compile.",
+    "tool.description": "Voer Python-code uit of valideer Python-bestanden met py_compile. Zoek naar andere geschikte tools via `tool_catalog` voordat u deze tool gebruikt.",
     "x_search_terms": [
       "python_exec",
       "python uitvoeren",
       "python script",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "fi": {
-    "param.code.description": "Suoritett...",
+    "param.code.description": "Python-koodi.",
     "param.path.description": "Python-tiedosto, hakemisto tai glob-kuvio, joka validoidaan py_compilella. Hakemistot käydään rekursiivisesti läpi *.py-tiedostojen varalta.",
     "param.paths.description": "Useita Python-tiedostoja, hakemistoja tai glob-kuvioita, jotka validoidaan py_compilella. Hakemistot käydään rekursiivisesti läpi *.py-tiedostojen varalta.",
-    "tool.description": "Suorita Python-koodia tai validoi Python-tiedostoja py_compilella.",
+    "tool.description": "Suorita Python-koodia tai validoi Python-tiedostoja py_compilella. Etsi muita sopivia työkaluja `tool_catalog`:n kautta ennen tämän työkalun käyttöä.",
     "x_search_terms": [
       "python_exec",
       "suorita python",
       "python skripti",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "cs": {
-    "param.code.description": "Python kó...",
+    "param.code.description": "kód Pythonu.",
     "param.path.description": "Python soubor, adresář nebo glob vzor k ověření pomocí py_compile. Adresáře se prohledávají rekurzivně.",
     "param.paths.description": "Více Python souborů, adresářů nebo glob vzorů k ověření pomocí py_compile. Adresáře se prohledávají rekurzivně.",
-    "tool.description": "Spouští Python kód nebo ověřuje Python soubory pomocí py_compile.",
+    "tool.description": "Spouští Python kód nebo ověřuje Python soubory pomocí py_compile. Před použitím tohoto nástroje vyhledejte jiné vhodné nástroje pomocí `tool_catalog`.",
     "x_search_terms": [
       "python_exec",
       "spustit python",
       "python skript",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "uk": {
-    "param.code.description": "Код Pytho...",
+    "param.code.description": "Код Python.",
     "param.path.description": "Файл Python, каталог або glob-шаблон для перевірки за допомогою py_compile. Каталоги скануються рекурсивно.",
     "param.paths.description": "Кілька файлів Python, каталогів або glob-шаблонів для перевірки за допомогою py_compile. Каталоги скануються рекурсивно.",
-    "tool.description": "Виконує код Python або перевіряє файли Python за допомогою py_compile.",
+    "tool.description": "Виконує код Python або перевіряє файли Python за допомогою py_compile. Перед використанням цього інструменту знайдіть інші підходящі інструменти через `tool_catalog`.",
     "x_search_terms": [
       "python_exec",
       "запустити python",
       "python скрипт",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "tr": {
-    "param.code.description": "Yürütülec...",
+    "param.code.description": "Python kodu.",
     "param.path.description": "py_compile ile doğrulanacak bir Python dosyası, dizini veya glob modeli. Dizinler *.py dosyaları için yinelemeli olarak taranır.",
     "param.paths.description": "Py_compile ile doğrulanacak birden fazla Python dosyası, dizin veya glob modeli. Dizinler *.py dosyaları için yinelemeli olarak taranır.",
-    "tool.description": "Python kodunu yürütün veya Python dosyalarını py_compile ile doğrulayın.",
+    "tool.description": "Python kodunu yürütün veya Python dosyalarını py_compile ile doğrulayın. Bu aracı kullanmadan önce `tool_catalog` ile diğer uygun araçları arayın.",
     "x_search_terms": [
       "python_exec",
       "python çalıştır",
       "python betik",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "th": {
-    "param.code.description": "รหัส Pyth...",
+    "param.code.description": "ปฏิบัติการ PowerShell ได้: 'pwsh' (PowerShell 7+) หรือ 'powershell' (Windows PowerShell) หากละเว้น ให้เลือกอัตโนมัติ",
     "param.path.description": "ไฟล์ Python, ไดเรกทอรี หรือรูปแบบ glob ที่จะตรวจสอบด้วย py_compile (สแกนแบบเรียกซ้ำ)",
     "param.paths.description": "ไฟล์ Python, ไดเรกทอรี หรือรูปแบบ glob หลายรายการที่จะตรวจสอบด้วย py_compile",
-    "tool.description": "รันโค้ด Python หรือตรวจสอบไฟล์ Python ด้วย py_compile ใช้สำหรับการคำนวณ การประมวลผลข้อมูล สคริปต์สั้น ๆ หรือการต...",
+    "tool.description": "รันโค้ด Python หรือตรวจสอบไฟล์ Python ด้วย py_compile ใช้สำหรับการคำนวณ การประมวลผลข้อมูล สคริปต์สั้น ๆ หรือการต... ค้นหาเครื่องมืออื่นที่เหมาะสมผ่าน `tool_catalog` ก่อนใช้เครื่องมือนี้",
     "x_search_terms": [
       "python_exec",
       "รัน python",
       "สคริปต์ python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "zh_CN": {
     "param.code.description": "Python代码。",
     "param.path.description": "要使用 py_compile 验证的 Python 文件、目录或 glob 模式（递归扫描）。",
     "param.paths.description": "要使用 py_compile 验证的多个 Python 文件、目录或 glob 模式。",
-    "tool.description": "执行Python代码。用于计算、数据处理、运行短脚本。",
+    "tool.description": "执行Python代码。用于计算、数据处理、运行短脚本。 在使用此工具之前，请通过 `tool_catalog` 搜索其他合适的工具。",
     "x_search_terms": [
       "python_exec",
       "运行 python",
       "python 脚本",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "zh_TW": {
     "param.code.description": "Python代码。",
     "param.path.description": "要使用 py_compile 驗證的 Python 檔案、目錄或 glob 樣式（遞迴掃描）。",
     "param.paths.description": "要使用 py_compile 驗證的多個 Python 檔案、目錄或 glob 樣式。",
-    "tool.description": "执行Python代码。用于计算、数据处理、运行短脚本。",
+    "tool.description": "执行Python代码。用于计算、数据处理、运行短脚本。 在使用此工具之前，請通過 `tool_catalog` 搜尋其他合適的工具。",
     "x_search_terms": [
       "python_exec",
       "執行 python",
       "python 腳本",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "bn": {
-    "param.code.description": "নির্বাহ ক...",
+    "param.code.description": "প্রয়োগ করুন py_compile এর সাথে Python ফাইলগুলিকে যাচাই করুন, Python কোড__DEL_5.",
     "param.path.description": "py_compile দিয়ে যাচাই করার জন্য একটি Python ফাইল, ডিরেক্টরি, বা glob pattern। ডিরেক্টরিগুলোতে *.py ফাইলের জন্য পুনরাবৃত্তভাবে স্ক্যান করা হয়।",
     "param.paths.description": "py_compile দিয়ে যাচাই করার জন্য একাধিক Python ফাইল, ডিরেক্টরি, বা glob pattern। ডিরেক্টরিগুলোতে *.py ফাইলের জন্য পুনরাবৃত্তভাবে স্ক্যান করা হয়।",
-    "tool.description": "Python কোড চালান বা py_compile দিয়ে Python ফাইল যাচাই করুন। গণনা, ডেটা প্রক্রিয়াকরণ, ছোট স্ক্রিপ্ট চালানো, বা...",
+    "tool.description": "Python কোড চালান বা py_compile দিয়ে Python ফাইল যাচাই করুন। গণনা, ডেটা প্রক্রিয়াকরণ, ছোট স্ক্রিপ্ট চালানো, বা... `tool_catalog` এর মাধ্যমে অন্যান্য উপযুক্ত টুল অনুসন্ধান করুন এই টুলটি ব্যবহার করার আগে।",
     "x_search_terms": [
       "python_exec",
       "python চালান",
       "python স্ক্রিপ্ট",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "fa": {
-    "param.code.description": "کد پایتون...",
+    "param.code.description": "کد پایتون.",
     "param.path.description": "یک فایل پایتون، پوشه، یا الگوی glob برای اعتبارسنجی با py_compile. پوشه‌ها به‌صورت بازگشتی برای فایل‌های *.py اسکن می‌شوند.",
     "param.paths.description": "چند فایل پایتون، پوشه، یا الگوی glob برای اعتبارسنجی با py_compile. پوشه‌ها به‌صورت بازگشتی برای فایل‌های *.py اسکن می‌شوند.",
-    "tool.description": "کد پایتون را اجرا کنید یا فایل‌های پایتون را با py_compile اعتبارسنجی کنید.",
+    "tool.description": "کد پایتون را اجرا کنید یا فایل‌های پایتون را با py_compile اعتبارسنجی کنید. قبل از استفاده از این ابزار، ابزارهای مناسب دیگر را از طریق `tool_catalog` جستجو کنید.",
     "x_search_terms": [
       "python_exec",
       "اجرای python",
       "اسکریپت python",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "mn": {
-    "param.code.description": "Ажиллуула...",
+    "param.code.description": "Python код.",
     "param.path.description": "py_compile-ээр шалгах Python файл, директор, эсвэл glob pattern. Директоруудыг *.py файлуудад зориулан рекурсив скан хийнэ.",
     "param.paths.description": "py_compile-ээр шалгах олон Python файл, директор, эсвэл glob pattern. Директоруудыг *.py файлуудад зориулан рекурсив скан хийнэ.",
-    "tool.description": "Python код ажиллуулах эсвэл py_compile-ээр Python файлуудыг шалгана.",
+    "tool.description": "Python код ажиллуулах эсвэл py_compile-ээр Python файлуудыг шалгана. Энэ хэрэгслийг ашиглахын өмнө `tool_catalog`-аар бусад тохиромжтой хэрэгслүүдийг хайгт.",
     "x_search_terms": [
       "python_exec",
       "python ажиллуулах",
       "python скрипт",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
   },
   "mr": {
-    "param.code.description": "चालवायचा...",
+    "param.code.description": "पायथन कोड.",
     "param.path.description": "py_compile ने validate करण्यासाठी एक Python file, directory, किंवा glob pattern. directories *.py files साठी recursively scan केल्या जातात.",
     "param.paths.description": "py_compile ने validate करण्यासाठी अनेक Python files, directories, किंवा glob patterns. directories *.py files साठी recursively scan केल्या जातात.",
-    "tool.description": "Python code execute करा किंवा py_compile ने Python files validate करा.",
+    "tool.description": "Python code execute करा किंवा py_compile ने Python files validate करा. हे साधन वापरण्यापूर्वी `tool_catalog` द्वारे इतर योग्य साधने शोधा.",
     "x_search_terms": [
       "python_exec",
       "python चालवा",
       "python स्क्रिप्ट",
       "py_compile"
-    ]
+    ],
+    "[python_exec error] Provide 'code'.": "[python_exec error] Provide 'code'."
+  },
+  "el": {
+    "param.code.description": "Κώδικας Python.",
+    "param.path.description": "Ένα αρχείο Python, κατάλογος ή μοτίβο glob για επικύρωση με το py_compile. Οι κατάλογοι σαρώνονται αναδρομικά για αρχεία *.py.",
+    "param.paths.description": "Πολλά αρχεία Python, κατάλογοι ή μοτίβα glob για επικύρωση με το py_compile. Οι κατάλογοι σαρώνονται αναδρομικά για αρχεία *.py.",
+    "tool.description": "Εκτελέστε τον κώδικα Python με ελεγχόμενο τρόπο. Χρησιμοποιήστε αυτό το εργαλείο για υπολογισμούς, επεξεργασία δεδομένων ή εκτέλεση σύντομων σεναρίων. Αναζητήστε άλλα κατάλληλα εργαλεία μέσω του «tool_catalog» πριν χρησιμοποιήσετε αυτό το εργαλείο.",
+    "x_search_terms": [
+      "python",
+      "τρέχει python",
+      "εκτέλεση σεναρίου",
+      "Python 実行",
+      "ejecutar python",
+      "εκτελεστής python",
+      "파이썬 실행 [=#_=] 파이썬 실행 [=#_=] error] Δώστε «κωδικό».",
+      "[Σφάλμα ανάγνωσης_αρχείου] οι γραμμές_κεφαλίδας και οι ουρά_γραμμές δεν μπορούν να καθοριστούν μαζί"
+    ],
+    "[python_exec error] Provide 'code'.": "[σφάλμα_ανάγνωσης] δεν καθορίστηκε όνομα/διαδρομή αρχείου"
+  },
+  "he": {
+    "param.code.description": "קוד Python.",
+    "param.path.description": "קובץ Python, ספרייה או דפוס גלוב לאימות באמצעות py_compile. ספריות נסרקות באופן רקורסיבי עבור קבצי *.py.",
+    "param.paths.description": "קבצי Python מרובים, ספריות או תבניות גלוב לאימות באמצעות py_compile. ספריות נסרקות באופן רקורסיבי עבור קבצי *.py.",
+    "tool.description": "הפעל את קוד Python בצורה מבוקרת. השתמש בכלי זה לחישובים, עיבוד נתונים או הפעלת סקריפטים קצרים. חפש כלים מתאימים אחרים באמצעות `tool_catalog` לפני השימוש בכלי זה.",
+    "x_search_terms": [
+      "python",
+      "הפעל את python",
+      "בצע סקריפט",
+      "Python 実行",
+      "ejecutar python",
+      "exécuter python",
+      "파이썬 실стhon 파이썬 실стhon] ть з=у=python 행",
+      "[python_exec error] ספק 'קוד'."
+    ],
+    "[python_exec error] Provide 'code'.": "[read_file error] head_lines ו-tail_lines לא ניתן לציין יחד"
+  },
+  "hu": {
+    "param.code.description": "Python-kód.",
+    "param.path.description": "Python-fájl, könyvtár vagy glob-minta, amelyet a py_compile paraméterrel kell ellenőrizni. A könyvtárakat rekurzívan keresi a *.py fájlok.",
+    "param.paths.description": "Több Python-fájl, könyvtár vagy glob-minta a py_compile segítségével érvényesítendő. A könyvtárakat rekurzívan keresi a *.py fájlok.",
+    "tool.description": "Python kód futtatása ellenőrzött módon. Használja ezt az eszközt számításokhoz, adatfeldolgozáshoz vagy rövid szkriptek futtatásához. Az eszköz használata előtt keressen más megfelelő eszközöket a `tool_catalog` segítségével.",
+    "x_search_terms": [
+      "python",
+      "python futtatása",
+      "szkript végrehajtása",
+      "Python 実行",
+      "ejecutar python",
+      "python végrehajtó",
+      "파이썬 실행 [=] пу=honсти] 실행 [python_exec error] Adja meg a „kódot”.",
+      "[read_file error] head_lines és tail_lines nem adható meg együtt"
+    ],
+    "[python_exec error] Provide 'code'.": "[read_file error] fájlnév/útvonal nincs megadva"
+  },
+  "ro": {
+    "param.code.description": "Cod Python.",
+    "param.path.description": "Un fișier Python, un director sau un model global de validat cu py_compile. Directoarele sunt scanate recursiv pentru fișiere *.py.",
+    "param.paths.description": "Mai multe fișiere Python, directoare sau modele glob de validat cu py_compile. Directoarele sunt scanate recursiv pentru fișiere *.py.",
+    "tool.description": "Executați codul Python într-un mod controlat. Utilizați acest instrument pentru calcule, procesarea datelor sau rularea de scripturi scurte. Căutați alte instrumente adecvate prin `tool_catalog` înainte de a utiliza acest instrument.",
+    "x_search_terms": [
+      "python",
+      "run python",
+      "execute script",
+      "Python 実行",
+      "executar python",
+      "exécuter python",
+      "파이썬 실행",
+      "python"
+    ],
+    "[python_exec error] Provide 'code'.": "Пито [eroare python_exec] Furnizați „codul”."
   }
 }

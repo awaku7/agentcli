@@ -33,16 +33,16 @@ ______________________________________________________________________
     - `src/uagent/llm_round_helpers.py`
     - `src/uagent/llm_flow_helpers.py`
   - リトライ / backoff ヘルパは `src/uagent/llm_errors.py`
-- **Providers**: `src/uagent/util_providers.py`
-  - 環境変数に基づきクライアント生成（OpenAI/Azure/Gemini/Claude/Vertex AI/Grok/OpenRouter/Ollama/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot 等）
+- **Providers**: `src/uagent/providers/util_providers.py`
+  - 環境変数に基づきクライアント生成（Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax 等）
 - **Utilities**: `src/uagent/util_tools.py`
   - tools callbacks 注入、初期メッセージ構築、コマンド処理、補助関数
-- **Startup init**: `src/uagent/runtime_init.py`（互換レイヤ）
-  - `src/uagent/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
-  - `src/uagent/runtime_banner.py`: `build_startup_banner()`
-  - `src/uagent/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
-  - `src/uagent/runtime_memory.py`: `append_long_memory_system_messages()`
-- `runtime_init.py` は、利用可能なら起動時にカレントディレクトリの `.env` と `.env.sec` を読み込みます（`.env` を先に読み込み、`.env.sec` は `.uagent.key` があれば使って復号します）
+- **Startup init**: `src/uagent/runtime/runtime_init.py`（互換レイヤ）
+  - `src/uagent/runtime/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
+  - `src/uagent/runtime/runtime_banner.py`: `build_startup_banner()`
+  - `src/uagent/runtime/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
+  - `src/uagent/runtime/runtime_memory.py`: `append_long_memory_system_messages()`
+- `runtime/runtime_init.py` は、利用可能なら起動時にカレントディレクトリの `.env` と `.env.sec` を読み込みます（`.env` を先に読み込み、`.env.sec` は `.uagent.key` があれば使って復号します）
 
 関連ドキュメント:
 
@@ -54,7 +54,7 @@ ______________________________________________________________________
 ## 2. 全体アーキテクチャ（実行の流れ）
 
 1. `uag` / `uagg` / `uagw` が起動。
-1. 起動時初期化（主に `runtime_init.py`）
+1. 起動時初期化（主に `runtime/runtime_init.py`）
    - workdir の決定（CLI引数 `--workdir/-C`、環境変数 `UAGENT_WORKDIR`、または自動）
    - 必要ならディレクトリ作成し `chdir`
    - 起動バナー文字列を生成して表示
@@ -101,18 +101,6 @@ ______________________________________________________________________
 - 互換性のため、関数名を top-level `name` にミラーする場合がある
 - `function.system_prompt` のような拡張フィールドは LLM送信時に削除される
 
-### 3.4 GPT-5.4+ Responses での tool narrowing
-
-GPT-5 系の `5.4` 以上で Responses API が有効な場合、uag はより軽いツール露出経路を使います。
-
-- 対象判定は `uagent_llm._is_gpt54_tool_search_target(...)`
-- 軽量 tools prompt の選択は `util_tools.py`
-- 候補 tool specs の絞り込みは `uagent_llm._select_tool_specs_for_gpt54(...)`
-- `tool_catalog` が、完全なツール定義を渡す前の軽量な探索面を提供
-- catalog のヒットがない場合も、安全な最小フォールバック集合を維持
-
-これにより、非対象モデルの既存挙動を維持したまま、GPT-5.4+ Responses リクエストのペイロードを削減します。
-
 ### 3.5 Tool trace（実行ログ）
 
 通常はツール実行前に stdout に 1行のトレースを出します。
@@ -126,8 +114,8 @@ GPT-5 系の `5.4` 以上で Responses API が有効な場合、uag はより軽
 ### 3.6 ツールレベルとツールジャンル
 
 - **ツールレベル (`tool_level`)**: `TOOL_SPEC` に指定してロードを制御します。`-1` は無効、`0` は有効、`1` は条件付きロード（デフォルト無効）です。
-- **ツールジャンル (`tool_genre`)**: ツールを `"comm"` (通信系), `"office"` (Office系), `"devel"` (開発系) に分類します。`TOOL_SPEC` のトップレベルに指定する必要があります。
-- **起動時選択**: インタラクティブ起動時、ユーザーは有効化するツールジャンルのマスク値（1: comm, 2: office, 4: devel の合計値）を選択できます。
+- **ツールジャンル (`tool_genre`)**: ツールを `"basic"`, `"comm"` (通信系), `"office"` (Office系), `"devel"` (開発系), `"iot"`, `"exec"` (実行系), `"external"`, `"media"`, `"file"` に分類します。`TOOL_SPEC` のトップレベルに指定する必要があります。
+- **起動時選択**: インタラクティブ起動時、ユーザーは有効化するツールジャンルのマスク値（1=basic, 2=comm, 4=office, 8=devel, 16=iot, 32=exec, 64=external, 128=media, 256=file, 511=all）を選択できます。
 
 ### 3.7 Agent Skills のライフサイクル
 
@@ -152,7 +140,7 @@ workdir は次の優先順位で決定されます。
 
 起動時INFO（workdir/provider/base_url/api_version/Responses等）は以下で生成されます。
 
-- `runtime_init.build_startup_banner()`
+- `runtime.runtime_init.build_startup_banner()`（`src/uagent/runtime/runtime_banner.py` が実装）
 
 ### 4.3 長期記憶/共有メモ
 
@@ -172,3 +160,30 @@ MCP 関連ツールには次があります。
 最近の smoke test では、template 作成と add/list/validate/set_default/remove の基本フローをカバーしています。
 
 `mcp_servers_validate_tool.py` は、callback ベースの truncate が使えない場合でも、そのまま結果文字列を返せるよう安全化されています。
+
+______________________________________________________________________
+
+## 6. ソースコードナビゲーションツール（idx ファミリー）
+
+`*2idx` ツールは、ソースファイルを全体読み込みせずに、番号付きインデックスまたは特定の定義セクションを取得するためのツールです。全ツール共通のインターフェースを持ちます。
+
+```
+<tool>(path="...", mode="index")     → 番号付き目次
+<tool>(path="...", mode="section", section=N) → N 番目の定義のソースコード
+```
+
+| ツール | 対象ファイル | パーサー | 検出対象 |
+|--------|-------------|----------|---------|
+| `md2idx` | .md | 見出しパーサー | ATX/setext 見出し |
+| `py2idx` | .py | `ast` | class, def, method, decorator |
+| `ts2idx` | .ts/.js | 正規表現 | class, interface, type, enum, function, arrow, method, namespace |
+| `jv2idx` | .java | 正規表現 | package, class, interface, enum, record, field, constructor, method, throws |
+| `cs2idx` | .cs | 正規表現 | namespace, class, struct, record, interface, enum, property, constructor, method, delegate, event, operator |
+| `dart2idx` | .dart | 正規表現 | library, mixin, extension on, typedef, class, factory, getter/setter, トップレベル関数 |
+| `cpp2idx` | .c/.cpp/.h/.hpp | 正規表現 | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
+| `rs2idx` | .rs | 正規表現 | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
+| `go2idx` | .go | 正規表現 | package, type struct/interface, func（レシーバ付き含む）, const, var |
+| `swift2idx` | .swift | 正規表現 | class, struct, enum, protocol, extension, func, init/deinit/subscript, var/let, case |
+| `kt2idx` | .kt | 正規表現 | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
+
+全 idx ツールは外部依存ゼロ（Python 標準ライブラリのみ）。

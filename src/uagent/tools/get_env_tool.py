@@ -15,6 +15,7 @@ BUSY_LABEL = False
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
     "tool_genre": "basic",
+    "x_parallel_safe": True,
     "function": {
         "name": "get_env",
         "description": _(

@@ -25,7 +25,7 @@
     "param.pretty.description": "Si se debe formatear la salida JSON.",
     "param.server_name.description": "Nombre del servidor del archivo de configuración.",
     "param.url.description": "URL del punto de conexión del servidor MCP.",
-    "tool.description": "[Prioridad más alta] Conéctese a un servidor MCP (Protocolo de Contexto del Modelo)...",
+    "tool.description": "Conéctese a un servidor MCP y enumere las herramientas disponibles. Admite transportes HTTP y stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "lista herramientas mcp",
@@ -37,7 +37,7 @@
     "param.pretty.description": "Indique s'il faut formater la sortie JSON.",
     "param.server_name.description": "Nom du serveur figurant dans le fichier de configuration.",
     "param.url.description": "URL du point de terminaison du serveur MCP.",
-    "tool.description": "[Priorité la plus élevée] Connectez-vous à un serveur MCP (Model Context Protocol)...",
+    "tool.description": "Connectez-vous à un serveur MCP et répertoriez les outils disponibles. Prend en charge les transports HTTP et stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "liste outils mcp",
@@ -61,7 +61,7 @@
     "param.pretty.description": "Ob die JSON-Ausgabe hübsch formatiert werden soll.",
     "param.server_name.description": "Servername aus der Konfigurationsdatei.",
     "param.url.description": "URL des MCP-Server-Endpunkts.",
-    "tool.description": "[Höchste Priorität] Stellen Sie eine Verbindung zu einem MCP-Server (Model Context...",
+    "tool.description": "Stellen Sie eine Verbindung zu einem MCP-Server her und listen Sie die verfügbaren Tools auf. Unterstützt HTTP- und Standardtransporte.",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp tools liste",
@@ -73,7 +73,7 @@
     "param.pretty.description": "Indica se formattare in modo leggibile l'output JSON.",
     "param.server_name.description": "Nome del server nel file di configurazione.",
     "param.url.description": "URL dell'endpoint del server MCP.",
-    "tool.description": "[Priorità massima] Connettiti a un server MCP (Model Context Protocol) e restituisc...",
+    "tool.description": "Connettersi a un server MCP ed elencare gli strumenti disponibili. Supporta i trasporti HTTP e stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "lista strumenti mcp",
@@ -85,7 +85,7 @@
     "param.pretty.description": "Нужно ли форматировать JSON-вывод.",
     "param.server_name.description": "Имя сервера из файла конфигурации.",
     "param.url.description": "URL конечной точки сервера MCP.",
-    "tool.description": "[Наивысший приоритет] Подключитесь к серверу MCP (Model Context Protocol) и верните...",
+    "tool.description": "Подключитесь к серверу MCP и перечислите доступные инструменты. Поддерживает транспорт HTTP и stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "список инструментов mcp",
@@ -97,7 +97,7 @@
     "param.pretty.description": "Se deve formatar a saída JSON.",
     "param.server_name.description": "Nome do servidor no arquivo de configuração.",
     "param.url.description": "URL do endpoint do servidor MCP.",
-    "tool.description": "[Prioridade máxima] Conecte-se a um servidor MCP (Model Context Protocol) e retorne...",
+    "tool.description": "Conecte-se a um servidor MCP e liste as ferramentas disponíveis. Suporta transportes HTTP e stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "lista ferramentas mcp",
@@ -109,7 +109,7 @@
     "param.pretty.description": "Se true, formate a saída JSON.",
     "param.server_name.description": "Nome do servidor do arquivo de configuração.",
     "param.url.description": "URL do endpoint do servidor MCP.",
-    "tool.description": "[Prioridade mais alta] Conecte-se a um servidor MCP (Model Context Protocol) e reto...",
+    "tool.description": "Conecte-se a um servidor MCP e liste as ferramentas disponíveis. Suporta transportes HTTP e stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "lista ferramentas mcp",
@@ -121,7 +121,7 @@
     "param.pretty.description": "Apakah keluaran JSON akan diformat rapi.",
     "param.server_name.description": "Nama server dari file konfigurasi.",
     "param.url.description": "URL endpoint server MCP.",
-    "tool.description": "[Prioritas tertinggi] Hubungkan ke server MCP (Model Context Protocol) dan kembalik...",
+    "tool.description": "Hubungkan ke server MCP dan daftar alat yang tersedia. Mendukung transportasi HTTP dan stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "daftar alat mcp",
@@ -133,7 +133,7 @@
     "param.pretty.description": "Có in đầu ra JSON đẹp hay không.",
     "param.server_name.description": "Tên máy chủ từ tệp cấu hình.",
     "param.url.description": "URL điểm cuối của máy chủ MCP.",
-    "tool.description": "[Ưu tiên cao nhất] Kết nối với máy chủ MCP (Giao thức bối cảnh mô hình) và trả về d...",
+    "tool.description": "Kết nối với máy chủ MCP và liệt kê các công cụ có sẵn. Hỗ trợ vận chuyển HTTP và stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "danh sách công cụ mcp",
@@ -145,7 +145,7 @@
     "param.pretty.description": "Określa, czy ładnie wydrukować dane wyjściowe JSON.",
     "param.server_name.description": "Nazwa serwera z pliku konfiguracyjnego.",
     "param.url.description": "Adres URL punktu końcowego serwera MCP.",
-    "tool.description": "[Najwyższy priorytet] Połącz się z serwerem MCP (Model Context Protocol) i zwróć li...",
+    "tool.description": "Połącz się z serwerem MCP i wyświetl listę dostępnych narzędzi. Obsługuje transporty HTTP i stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "lista narzędzi mcp",
@@ -157,7 +157,7 @@
     "param.pretty.description": "क्या JSON आउटपुट को प्री-प्रिंट करना है।",
     "param.server_name.description": "कॉन्फ़िगरेशन फ़ाइल से सर्वर का नाम.",
     "param.url.description": "एमसीपी सर्वर एंडपॉइंट यूआरएल।",
-    "tool.description": "[उच्चतम प्राथमिकता] एक एमसीपी (मॉडल कॉन्टेक्स्ट प्रोटोकॉल) सर्वर से कनेक्ट करें और...",
+    "tool.description": "MCP सर्वर से कनेक्ट करें। उपलब्ध टूल की सूची।",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp टूल सूची",
@@ -169,7 +169,7 @@
     "param.pretty.description": "ما إذا كان سيتم طباعة مخرجات JSON بشكل جميل.",
     "param.server_name.description": "اسم الخادم من ملف التكوين.",
     "param.url.description": "عنوان URL لنقطة نهاية خادم MCP.",
-    "tool.description": "[الأولوية القصوى] اتصل بخادم MCP (بروتوكول السياق النموذجي) وأعد قائمة الأدوات المت...",
+    "tool.description": "اتصل بخادم MCP وأدرج الأدوات المتاحة. يدعم عمليات النقل HTTP وstdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "قائمة أدوات mcp",
@@ -181,7 +181,7 @@
     "param.pretty.description": "Om JSON-utdata ska formateras snyggt.",
     "param.server_name.description": "Servernamn från konfigurationsfilen.",
     "param.url.description": "MCP-serverns endpoint-URL.",
-    "tool.description": "[Högsta prioritet] Anslut till en MCP-server (Model Context Protocol) och returnera...",
+    "tool.description": "Anslut till en MCP-server och lista tillgängliga verktyg. Stöder HTTP och stdio-transporter.",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp verktyg lista",
@@ -193,7 +193,7 @@
     "param.pretty.description": "Whether to pretty-print JSON output.",
     "param.server_name.description": "Server name from the config file.",
     "param.url.description": "MCP server endpoint URL.",
-    "tool.description": "[Highest priority] Connect to an MCP (Model Context Protocol) server and return the...",
+    "tool.description": "Unganisha kwa seva ya MCP na uorodheshe zana zinazopatikana. Inaauni usafirishaji wa HTTP na stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "orodha ya zana za mcp",
@@ -205,7 +205,7 @@
     "param.pretty.description": "Om JSON-utdata skal formateres pent.",
     "param.server_name.description": "Servernavn fra konfigurasjonsfilen.",
     "param.url.description": "URL for MCP-serverens endepunkt.",
-    "tool.description": "[Høyeste prioritet] Koble til en MCP-server (Model Context Protocol) og returner li...",
+    "tool.description": "Koble til en MCP-server og vis tilgjengelige verktøy. Støtter HTTP og stdio-transporter.",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp-verktøy liste",
@@ -217,7 +217,7 @@
     "param.pretty.description": "Of JSON-uitvoer netjes geformatteerd wordt.",
     "param.server_name.description": "Servernaam uit het configuratiebestand.",
     "param.url.description": "MCP-servereindpunt-URL.",
-    "tool.description": "[Hoogste prioriteit] Verbind met een MCP (Model Context Protocol)-server en geef de...",
+    "tool.description": "Maak verbinding met een MCP-server en vermeld de beschikbare tools. Ondersteunt HTTP- en stdio-transporten.",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp tools lijst",
@@ -229,7 +229,7 @@
     "param.pretty.description": "Muotoillaanko JSON-tulos siististi.",
     "param.server_name.description": "Palvelimen nimi asetustiedostosta.",
     "param.url.description": "MCP-palvelimen päätepiste-URL.",
-    "tool.description": "[Korkein prioriteetti] Yhdistä MCP (Model Context Protocol) -palvelimeen ja palauta...",
+    "tool.description": "Muodosta yhteys MCP-palvelimeen ja luettele käytettävissä olevat työkalut. Tukee HTTP- ja stdio-siirtoja.",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp työkalut lista",
@@ -241,7 +241,7 @@
     "param.pretty.description": "Zda se má JSON výstup formátovat přehledně.",
     "param.server_name.description": "Název serveru z konfiguračního souboru.",
     "param.url.description": "URL koncového bodu MCP serveru.",
-    "tool.description": "[Nejvyšší priorita] Připojí se k serveru MCP (Model Context Protocol) a vrátí sezna...",
+    "tool.description": "Připojte se k serveru MCP a vypište dostupné nástroje. Podporuje přenosy HTTP a stdio.",
     "x_search_terms": [
       "mcp_tools_list",
       "seznam mcp nástrojů",
@@ -253,7 +253,7 @@
     "param.pretty.description": "Чи потрібно гарно форматувати JSON-вивід.",
     "param.server_name.description": "Назва сервера з файлу конфігурації.",
     "param.url.description": "URL кінцевої точки сервера MCP.",
-    "tool.description": "[Найвищий пріоритет] Підключається до сервера MCP (Model Context Protocol) і поверт...",
+    "tool.description": "Підключіться до сервера MCP і перелічіть доступні інструменти. Підтримує HTTP і stdio транспорти.",
     "x_search_terms": [
       "mcp_tools_list",
       "список інструментів mcp",
@@ -265,7 +265,7 @@
     "param.pretty.description": "JSON çıktısının güzel yazdırılıp yazdırılmayacağı.",
     "param.server_name.description": "Yapılandırma dosyasından sunucu adı.",
     "param.url.description": "MCP sunucu uç noktası URL.",
-    "tool.description": "[En yüksek öncelik] Bir MCP (Model Bağlam Protokolü) sunucusuna bağlanın ve mevcut...",
+    "tool.description": "Bir MCP sunucusuna bağlanın ve mevcut araçları listeleyin. HTTP ve stdio aktarımlarını destekler.",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp araç listesi",
@@ -277,7 +277,7 @@
     "param.pretty.description": "จะจัดรูปแบบเอาต์พุต JSON ให้อ่านง่ายหรือไม่",
     "param.server_name.description": "ชื่อเซิร์ฟเวอร์จากไฟล์ปรับแต่ง",
     "param.url.description": "URL จุดเชื่อมต่อของเซิร์ฟเวอร์ MCP",
-    "tool.description": "[ลำดับความสำคัญสูงสุด] เชื่อมต่อกับเซิร์ฟเวอร์ MCP (Model Context Protocol) และส่งค...",
+    "tool.description": "เชื่อมต่อกับเซิร์ฟเวอร์ MCP และแสดงรายการเครื่องมือที่มีอยู่ รองรับการขนส่ง HTTP และ stdio",
     "x_search_terms": [
       "mcp_tools_list",
       "รายการเครื่องมือ mcp",
@@ -313,7 +313,7 @@
     "param.pretty.description": "JSON আউটপুট সুন্দরভাবে ফরম্যাট করবেন কি না।",
     "param.server_name.description": "কনফিগ ফাইলের server name।",
     "param.url.description": "MCP server endpoint URL।",
-    "tool.description": "[সর্বোচ্চ অগ্রাধিকার] একটি MCP (Model Context Protocol) সার্ভারের সাথে সংযোগ করুন এ...",
+    "tool.description": "যদি সত্য হয়, JSON আউটপুট (ডিফল্ট: সত্য) প্রিন্ট-প্রিন্ট করুন। এবং উপলভ্য সরঞ্জামগুলিকে সমর্থন করে",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp টুল তালিকা",
@@ -325,7 +325,7 @@
     "param.pretty.description": "آیا خروجی JSON به‌صورت خوانا/زیبا چاپ شود.",
     "param.server_name.description": "نام سرور از فایل پیکربندی.",
     "param.url.description": "نشانی endpoint سرور MCP.",
-    "tool.description": "[بالاترین اولویت] به یک سرور MCP (Model Context Protocol) متصل شوید و فهرست ابزارها...",
+    "tool.description": "به یک سرور MCP متصل شوید و ابزارهای موجود را فهرست کنید. از انتقال HTTP و stdio پشتیبانی می کند.",
     "x_search_terms": [
       "mcp_tools_list",
       "فهرست ابزارهای mcp",
@@ -337,7 +337,7 @@
     "param.pretty.description": "JSON гаралтыг гоёор хэвлэх эсэх.",
     "param.server_name.description": "Тохиргооны файл дахь server name.",
     "param.url.description": "MCP серверийн endpoint URL.",
-    "tool.description": "[Хамгийн өндөр тэргүүлэх ач холбогдол] MCP (Model Context Protocol) сервертэй холбо...",
+    "tool.description": "MCP серверт холбогдож, боломжтой хэрэгслүүдийг жагсаана уу. HTTP болон stdio дамжуулалтыг дэмждэг.",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp хэрэгслийн жагсаалт",
@@ -349,12 +349,52 @@
     "param.pretty.description": "JSON output सुंदररीत्या format करायचा का.",
     "param.server_name.description": "कॉन्फिग फाइलमधील server नाव.",
     "param.url.description": "MCP सर्व्हरच्या एंडपॉइंटचा URL.",
-    "tool.description": "[सर्वोच्च प्राधान्य] एका MCP (Model Context Protocol) सर्व्हरशी connect करा आणि उपल...",
+    "tool.description": "MCP सर्व्हरशी कनेक्ट करा आणि उपलब्ध साधनांची यादी करा. HTTP आणि stdio ट्रान्सपोर्टला सपोर्ट करते.",
     "x_search_terms": [
       "mcp_tools_list",
       "mcp साधनांची यादी",
       "mcp साधने सूचीबद्ध करा",
       "साधने शोधा"
+    ]
+  },
+  "el": {
+    "param.pretty.description": "Είτε θα εκτυπωθεί όμορφη εκτύπωση JSON.",
+    "param.server_name.description": "Όνομα διακομιστή από το αρχείο διαμόρφωσης.",
+    "param.url.description": "URL τελικού σημείου διακομιστή MCP.",
+    "tool.description": "Συνδεθείτε σε διακομιστή MCP και παραθέστε τα διαθέσιμα εργαλεία. Υποστηρίζει μεταφορές HTTP και stdio.",
+    "x_search_terms": [
+      "mcps_list",
+      "mcps list"
+    ]
+  },
+  "he": {
+    "param.pretty.description": "האם להדפיס פלט JSON יפה.",
+    "param.server_name.description": "שם השרת מקובץ התצורה.",
+    "param.url.description": "כתובת URL של שרת MCP.",
+    "tool.description": "התחבר לשרת MCP ורשום כלים זמינים. תומך בהעברות HTTP ו-stdio.",
+    "x_search_terms": [
+      "mcps_list",
+      "mcps list"
+    ]
+  },
+  "hu": {
+    "param.pretty.description": "Szépen nyomtatja-e a JSON-kimenetet.",
+    "param.server_name.description": "Szervernév a konfigurációs fájlból.",
+    "param.url.description": "MCP-szerver végpont URL-je.",
+    "tool.description": "Csatlakozzon egy MCP-kiszolgálóhoz, és sorolja fel az elérhető eszközöket. Támogatja a HTTP és az stdio átvitelt.",
+    "x_search_terms": [
+      "mcps_list",
+      "mcps lista"
+    ]
+  },
+  "ro": {
+    "param.pretty.description": "Dacă se imprimă destul de ieșire JSON.",
+    "param.server_name.description": "Numele serverului din fișierul de configurare.",
+    "param.url.description": "Adresa URL a punctului final al serverului MCP.",
+    "tool.description": "Conectați-vă la un server MCP și enumerați instrumentele disponibile. Suportă transporturi HTTP și stdio.",
+    "x_search_terms": [
+      "mcps_list",
+      "mcps list"
     ]
   }
 }

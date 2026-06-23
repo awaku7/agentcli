@@ -13,7 +13,9 @@
       "call remote tool",
       "mcp"
     ],
-    "param.args.description": "Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string."
+    "param.args.description": "Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "ja": {
     "doc.mask_values": "辞書やリスト内の値を '*' に置き換えます（構造は維持します）。",
@@ -27,13 +29,15 @@
       "mcp 呼び出し",
       "サーバーツール"
     ],
-    "param.args.description": "MCPツールに渡す引数。JSONオブジェクト（推奨）またはJSON文字列。"
+    "param.args.description": "MCPツールに渡す引数。JSONオブジェクト（推奨）またはJSON文字列。",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "es": {
     "doc.mask_values": "Reemplace los valores de diccionarios y listas con '*' (conservando la estructura).",
     "param.server_name.description": "Nombre del servidor definido en mcp_servers.json.",
-    "param.tool_name.description": "El nombre de la herramienta q...",
-    "param.url.description": "URL del endpoint del servidor MCP (http://...",
+    "param.tool_name.description": "El nombre de la herramienta a ejecutar.",
+    "param.url.description": "URL del punto final del servidor MCP (http://... o stdio://command...).",
     "tool.description": "Llama a una herramienta de un servidor MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -41,13 +45,15 @@
       "mcp tool call",
       "servidor mcp"
     ],
-    "param.args.description": "Argumentos que se pasarán a la herramienta MCP."
+    "param.args.description": "Argumentos que se pasarán a la herramienta MCP.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "fr": {
     "doc.mask_values": "Remplacez les valeurs des dictionnaires et des listes par '*' (en préservant la structure).",
     "param.server_name.description": "Nom du serveur défini dans mcp_servers.json.",
     "param.tool_name.description": "Nom de l'outil à exécuter.",
-    "param.url.description": "URL du point de terminaison du serveur MCP (http://...",
+    "param.url.description": "URL du point de terminaison du serveur MCP (http://... ou stdio://command...).",
     "tool.description": "Appelle un outil depuis un serveur MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -55,7 +61,9 @@
       "mcp tool call",
       "serveur mcp"
     ],
-    "param.args.description": "Arguments à transmettre à l'outil MCP.Fournissez soit un objet JSON (recommandé), soit une chaîne JSON."
+    "param.args.description": "Arguments à transmettre à l'outil MCP.Fournissez soit un objet JSON (recommandé), soit une chaîne JSON.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "ko": {
     "doc.mask_values": "사전 및 목록의 값을 '*'로 대체합니다(구조 유지).",
@@ -69,7 +77,9 @@
       "mcp 호출",
       "서버 도구"
     ],
-    "param.args.description": "MCP 도구에 전달할 인수. JSON 객체(권장) 또는 JSON 문자열."
+    "param.args.description": "MCP 도구에 전달할 인수. JSON 객체(권장) 또는 JSON 문자열.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "de": {
     "doc.mask_values": "Ersetzen Sie Werte in Wörterbüchern und Listen durch '*' (Struktur beibehalten).",
@@ -83,13 +93,15 @@
       "mcp aufrufen",
       "server tool"
     ],
-    "param.args.description": "An MCP weiterzugebende Werkzeugargumente."
+    "param.args.description": "An MCP weiterzugebende Werkzeugargumente.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "it": {
     "doc.mask_values": "Sostituisci i valori nei dizionari e negli elenchi con '*' (preservando la struttura).",
     "param.server_name.description": "Nome del server definito in mcp_servers.json. Se specificato, ha priorità su url.",
-    "param.tool_name.description": "Il nome dello strumento da es...",
-    "param.url.description": "URL dell'endpoint del server MCP (http://...",
+    "param.tool_name.description": "Il nome dello strumento da eseguire.",
+    "param.url.description": "URL dell'endpoint del server MCP (http://... o stdio://command...).",
     "tool.description": "Chiama uno strumento da un server MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -97,13 +109,15 @@
       "mcp tool call",
       "server mcp"
     ],
-    "param.args.description": "Argomenti da passare allo strumento MCP.Fornire un oggetto JSON (consigliato) o una stringa JSON."
+    "param.args.description": "Argomenti da passare allo strumento MCP.Fornire un oggetto JSON (consigliato) o una stringa JSON.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "ru": {
     "doc.mask_values": "Заменяйте значения в словарях и списках на '*' (с сохранением структуры).",
     "param.server_name.description": "Имя сервера, определённое в mcp_servers.json. Если указано, оно имеет приоритет над url.",
     "param.tool_name.description": "Имя инструмента для запуска.",
-    "param.url.description": "URL конечной точки сервера MCP (http://...",
+    "param.url.description": "URL-адрес конечной точки сервера MCP (http://... или stdio://command...).",
     "tool.description": "Вызывает инструмент на сервере MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -111,13 +125,15 @@
       "mcp call",
       "сервер mcp"
     ],
-    "param.args.description": "Аргументы, которые нужно передать инструменту MCP."
+    "param.args.description": "Аргументы, которые нужно передать инструменту MCP.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "pt_BR": {
     "doc.mask_values": "Substitua os valores em dicionários e listas por '*' (preservando a estrutura).",
     "param.server_name.description": "Nome do servidor definido em mcp_servers.json. Se especificado, tem prioridade sobre url.",
-    "param.tool_name.description": "O nome da ferramenta a ser ex...",
-    "param.url.description": "URL do endpoint do servidor MCP (http://...",
+    "param.tool_name.description": "O nome da ferramenta a ser executada.",
+    "param.url.description": "URL do terminal do servidor MCP (http://... ou stdio://command...).",
     "tool.description": "Chame uma ferramenta de um servidor MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -125,13 +141,15 @@
       "mcp tool call",
       "servidor mcp"
     ],
-    "param.args.description": "Argumentos a serem passados para a ferramenta MCP.Forneça um objeto JSON (recomendado) ou uma string JSON."
+    "param.args.description": "Argumentos a serem passados para a ferramenta MCP.Forneça um objeto JSON (recomendado) ou uma string JSON.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "pt": {
     "doc.mask_values": "Substitua valores em dicionários e listas por '*' (preservando a estrutura).",
     "param.server_name.description": "Nome do servidor definido em mcp_servers.json.",
-    "param.tool_name.description": "O nome da ferramenta a ser ex...",
-    "param.url.description": "URL do terminal do servidor MCP (http://...",
+    "param.tool_name.description": "O nome da ferramenta a ser executada.",
+    "param.url.description": "URL do terminal do servidor MCP (http://... ou stdio://command...).",
     "tool.description": "Chame uma ferramenta de um servidor MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -139,7 +157,9 @@
       "mcp tool call",
       "servidor mcp"
     ],
-    "param.args.description": "Argumentos a serem passados para a ferramenta MCP.Forneça um objeto JSON (recomendado) ou uma string JSON."
+    "param.args.description": "Argumentos a serem passados para a ferramenta MCP.Forneça um objeto JSON (recomendado) ou uma string JSON.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "id": {
     "doc.mask_values": "Ganti nilai dalam dictionary dan list dengan '*' (struktur tetap dipertahankan).",
@@ -153,13 +173,15 @@
       "mcp tool call",
       "server mcp"
     ],
-    "param.args.description": "Argumen untuk alat MCP.Berikan JSON object (disarankan) atau string JSON."
+    "param.args.description": "Argumen untuk alat MCP.Berikan JSON object (disarankan) atau string JSON.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "vi": {
     "doc.mask_values": "Thay thế các giá trị trong từ điển và danh sách bằng '*' (bảo toàn cấu trúc).",
     "param.server_name.description": "Tên máy chủ được xác định trong mcp_servers.json.",
     "param.tool_name.description": "Tên của công cụ để thực thi.",
-    "param.url.description": "URL điểm cuối của máy chủ MCP (http://...",
+    "param.url.description": "URL điểm cuối của máy chủ MCP (http://... hoặc stdio://command...).",
     "tool.description": "Gọi một công cụ từ máy chủ MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -167,13 +189,15 @@
       "mcp tool call",
       "máy chủ mcp"
     ],
-    "param.args.description": "Các đối số cần chuyển tới công cụ MCP.Cung cấp đối tượng JSON (được khuyến nghị) hoặc chuỗi JSON."
+    "param.args.description": "Các đối số cần chuyển tới công cụ MCP.Cung cấp đối tượng JSON (được khuyến nghị) hoặc chuỗi JSON.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "pl": {
     "doc.mask_values": "Zastąp wartości w słownikach i listach znakiem „*” (zachowując strukturę).",
     "param.server_name.description": "Nazwa serwera zdefiniowana w pliku mcp_servers.json.",
     "param.tool_name.description": "Nazwa narzędzia do wykonania.",
-    "param.url.description": "Adres URL punktu końcowego serwera MCP (http://...",
+    "param.url.description": "Adres URL punktu końcowego serwera MCP (http://... lub stdio://command...).",
     "tool.description": "Wywołaj narzędzie z serwera MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -181,27 +205,31 @@
       "mcp tool call",
       "serwer mcp"
     ],
-    "param.args.description": "Argumenty do przekazania do narzędzia MCP.Podaj obiekt JSON (zalecane) lub ciąg JSON."
+    "param.args.description": "Argumenty do przekazania do narzędzia MCP.Podaj obiekt JSON (zalecane) lub ciąg JSON.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "hi": {
     "doc.mask_values": "शब्दकोशों और सूचियों में मानों को '*' (संरचना को संरक्षित करते हुए) से बदलें।",
     "param.server_name.description": "सर्वर नाम mcp_servers.",
     "param.tool_name.description": "निष्पादित करने के लिए उपकरण का नाम.",
     "param.url.description": "एमसीपी सर्वर एंडपॉइंट यूआरएल (http://... या stdio://command...)।",
-    "tool.description": "MCP सर्वर से एक टूल कॉल करें। tool_arguments में टूल आर्ग्युमेंट JSON ऑब्जेक्ट (अनुशंस...",
+    "tool.description": "MCP सर्वर से एक टूल को कॉल करें। टूल_आर्ग्युमेंट्स में एक शब्दकोश के रूप में टूल तर्क प्रदान करें।",
     "x_search_terms": [
       "handle_mcp_v2",
       "mcp टूल कॉल",
       "mcp कॉल",
       "सर्वर टूल"
     ],
-    "param.args.description": "एमसीपी टूल को पास करने के लिए तर्क। या तो एक JSON ऑब्जेक्ट (अनुशंसित) या एक JSON स्ट्रिंग प्रदान करें। उद..."
+    "param.args.description": "एमसीपी टूल से गुजरने के लिए टूल तर्क। या तो एक JSON ऑब्जेक्ट (अनुशंसित) या एक JSON स्ट्रिंग प्रदान करें।",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "ar": {
     "doc.mask_values": "استبدل القيم في القواميس والقوائم بـ \"*\" (مع الحفاظ على البنية).",
     "param.server_name.description": "اسم الخادم المحدد في mcp_servers.json. إذا تم تحديده، فإنه يأخذ الأولوية على عنوان url.",
     "param.tool_name.description": "اسم الأداة المراد تنفيذها",
-    "param.url.description": "عنوان URL لنقطة نهاية خادم MCP (http://...",
+    "param.url.description": "عنوان URL لنقطة نهاية خادم MCP (http://... أو stdio://command...).",
     "tool.description": "استدعِ أداة من خادم MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -209,7 +237,9 @@
       "mcp tool call",
       "خادم mcp"
     ],
-    "param.args.description": "الوسائط التي سيتم تمريرها إلى أداة MCP.قدّم إما كائن JSON (موصى به) أو سلسلة JSON."
+    "param.args.description": "الوسائط التي سيتم تمريرها إلى أداة MCP.قدّم إما كائن JSON (موصى به) أو سلسلة JSON.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "sv": {
     "doc.mask_values": "Ersätt värden i ordböcker och listor med '*' (strukturen bevaras).",
@@ -223,7 +253,9 @@
       "mcp tool call",
       "mcp-server"
     ],
-    "param.args.description": "Argument som ska skickas till MCP-verktyget."
+    "param.args.description": "Argument som ska skickas till MCP-verktyget.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "sw": {
     "doc.mask_values": "Replace values in dictionaries and lists with '*' (preserving structure).",
@@ -237,12 +269,14 @@
       "call mcp tool",
       "server mcp"
     ],
-    "param.args.description": "Arguments to pass to the MCP tool.Provide either a JSON object (recommended) or a JSON string."
+    "param.args.description": "Arguments to pass to the MCP tool.Provide either a JSON object (recommended) or a JSON string.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "nb": {
     "doc.mask_values": "Erstatt verdier i ordbøker og lister med '*' (strukturen bevares).",
     "param.server_name.description": "Servernavn fra konfigurasjonsfilen. Hvis angitt, har det prioritet over url.",
-    "param.tool_name.description": "Navnet på verktøyet som skal...",
+    "param.tool_name.description": "Navnet på verktøyet som skal kjøres.",
     "param.url.description": "URL for MCP-serverens endepunkt.",
     "tool.description": "Kall et verktøy fra en MCP-server.",
     "x_search_terms": [
@@ -251,12 +285,14 @@
       "mcp tool call",
       "mcp-server"
     ],
-    "param.args.description": "Argumenter som skal sendes til MCP-verktøyet.Oppgi enten et JSON-objekt (anbefalt) eller en JSON-streng."
+    "param.args.description": "Argumenter som skal sendes til MCP-verktøyet.Oppgi enten et JSON-objekt (anbefalt) eller en JSON-streng.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "nl": {
     "doc.mask_values": "Vervang waarden in woordenboeken en lijsten door '*' (structuur behouden).",
     "param.server_name.description": "Servernaam die gebruikt moet worden.",
-    "param.tool_name.description": "Naam van de MCP-tool om uit t...",
+    "param.tool_name.description": "De naam van de tool die moet worden uitgevoerd.",
     "param.url.description": "MCP-server-URL.",
     "tool.description": "Roep een tool aan vanaf een MCP-server.",
     "x_search_terms": [
@@ -265,7 +301,9 @@
       "mcp tool call",
       "mcp-server"
     ],
-    "param.args.description": "Argumenten voor de MCP-tool.Geef een JSON-object (aanbevolen) of een JSON-string door."
+    "param.args.description": "Argumenten voor de MCP-tool.Geef een JSON-object (aanbevolen) of een JSON-string door.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "fi": {
     "doc.mask_values": "Korvaa sanakirjojen ja listojen arvot '*' -merkillä (säilytä rakenne).",
@@ -279,13 +317,15 @@
       "mcp tool call",
       "mcp-palvelin"
     ],
-    "param.args.description": "Arguments to pass to the MCP tool.Provide either a JSON object (recommended) or a JSON string."
+    "param.args.description": "Arguments to pass to the MCP tool.Provide either a JSON object (recommended) or a JSON string.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "cs": {
     "doc.mask_values": "Nahraďte hodnoty ve slovnících a seznamech znakem „*“ (struktura zůstane zachována).",
     "param.server_name.description": "Název serveru definovaný v mcp_servers.json. Pokud je uveden, má přednost před url.",
-    "param.tool_name.description": "Název nástroje, který se má s...",
-    "param.url.description": "URL koncového bodu MCP serveru (http://...",
+    "param.tool_name.description": "Název nástroje, který se má spustit.",
+    "param.url.description": "URL koncového bodu serveru MCP (http://... nebo stdio://command...).",
     "tool.description": "Volá nástroj ze serveru MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -293,13 +333,15 @@
       "mcp tool call",
       "mcp server"
     ],
-    "param.args.description": "Argumenty předávané nástroji MCP.Zadejte buď JSON objekt (doporučeno), nebo JSON řetězec."
+    "param.args.description": "Argumenty předávané nástroji MCP.Zadejte buď JSON objekt (doporučeno), nebo JSON řetězec.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "uk": {
     "doc.mask_values": "Замініть значення в словниках і списках на «*» (зі збереженням структури).",
     "param.server_name.description": "Назва сервера, визначена у mcp_servers.json. Якщо вказано, має пріоритет над url.",
-    "param.tool_name.description": "Назва інструмента, який потрі...",
-    "param.url.description": "URL кінцевої точки сервера MCP (http://...",
+    "param.tool_name.description": "Назва інструменту для виконання.",
+    "param.url.description": "URL-адреса кінцевої точки сервера MCP (http://... або stdio://command...).",
     "tool.description": "Викликає інструмент із сервера MCP.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -307,7 +349,9 @@
       "mcp tool call",
       "сервер mcp"
     ],
-    "param.args.description": "Аргументи, що передаються інструменту MCP.Вкажіть або JSON-об’єкт (рекомендовано), або JSON-рядок."
+    "param.args.description": "Аргументи, що передаються інструменту MCP.Вкажіть або JSON-об’єкт (рекомендовано), або JSON-рядок.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "tr": {
     "doc.mask_values": "Sözlüklerdeki ve listelerdeki değerleri '*' (yapıyı koruyarak) ile değiştirin.",
@@ -321,21 +365,25 @@
       "mcp tool call",
       "mcp sunucusu"
     ],
-    "param.args.description": "MCP aracına aktarılacak argümanlar.Bir JSON nesnesi (önerilen) veya bir JSON dizesi sağlayın."
+    "param.args.description": "MCP aracına aktarılacak argümanlar.Bir JSON nesnesi (önerilen) veya bir JSON dizesi sağlayın.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "th": {
     "doc.mask_values": "แทนที่ค่าในพจนานุกรมและรายการด้วย '*' (คงโครงสร้างไว้).",
     "param.server_name.description": "ชื่อเซิร์ฟเวอร์ที่กำหนดใน mcp_servers.json หากระบุ จะมีลำดับความสำคัญเหนือ url",
     "param.tool_name.description": "ชื่อของเครื่องมือที่จะรัน",
-    "param.url.description": "URL ปลายทางของเซิร์ฟเวอร์ MCP (http://...",
-    "tool.description": "เรียกใช้เครื่องมือจากเซิร์ฟเวอร์ MCP โดยส่งอาร์กิวเมนต์ของเครื่องมือใน tool_arguments...",
+    "param.url.description": "URL ปลายทางของเซิร์ฟเวอร์ MCP (http://... หรือ stdio://command...)",
+    "tool.description": "เรียกเครื่องมือจากเซิร์ฟเวอร์ MCP จัดเตรียมอาร์กิวเมนต์ของเครื่องมือเป็นพจนานุกรมใน tool_arguments",
     "x_search_terms": [
       "handle_mcp_v2",
       "เรียกเครื่องมือ mcp",
       "mcp tool call",
       "เซิร์ฟเวอร์ mcp"
     ],
-    "param.args.description": "อาร์กิวเมนต์ที่จะส่งต่อไปยังเครื่องมือ MCP สามารถระบุได้ทั้ง JSON object (แนะนำ) หรือ JSON string ตัวอย่า..."
+    "param.args.description": "อาร์กิวเมนต์ของเครื่องมือที่จะส่งผ่านไปยังเครื่องมือ MCP ระบุออบเจ็กต์ JSON (แนะนำ) หรือสตริง JSON",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "zh_CN": {
     "doc.mask_values": "将字典和列表中的值替换为“*”（保留结构）。",
@@ -349,7 +397,9 @@
       "mcp 调用",
       "服务器工具"
     ],
-    "param.args.description": "传递给MCP工具的参数。推荐使用JSON对象或JSON字符串。"
+    "param.args.description": "传递给MCP工具的参数。推荐使用JSON对象或JSON字符串。",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "zh_TW": {
     "doc.mask_values": "將字典與列表中的值取代為「*」（保留結構）。",
@@ -363,21 +413,25 @@
       "mcp 呼叫",
       "伺服器工具"
     ],
-    "param.args.description": "传递给MCP工具的参数。推荐使用JSON对象或JSON字符串。"
+    "param.args.description": "传递给MCP工具的参数。推荐使用JSON对象或JSON字符串。",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "bn": {
     "doc.mask_values": "অভিধান ও তালিকার মানগুলোকে '*' দিয়ে বদলান (গঠন অপরিবর্তিত রেখে)।",
     "param.server_name.description": "mcp_servers.json-এ নির্ধারিত সার্ভারের নাম। উল্লেখ করা হলে url-এর ওপর অগ্রাধিকার পাবে।",
     "param.tool_name.description": "চালানোর টুলের নাম।",
     "param.url.description": "MCP সার্ভারের endpoint URL (http://... অথবা stdio://command...)।",
-    "tool.description": "MCP সার্ভার থেকে একটি টুল কল করুন। tool_arguments-এ JSON object (প্রস্তাবিত) বা JSON s...",
+    "tool.description": "একটি MCP সার্ভার থেকে একটি টুল কল করুন। টুল_আর্গুমেন্টে অভিধান হিসেবে টুল আর্গুমেন্ট প্রদান করুন।",
     "x_search_terms": [
       "handle_mcp_v2",
       "mcp টুল কল",
       "mcp কল",
       "সার্ভার টুল"
     ],
-    "param.args.description": "MCP টুলে পাঠানোর আর্গুমেন্ট। একটি JSON object (প্রস্তাবিত) অথবা JSON string দিন। উদাহরণ object: {\"yymm\":..."
+    "param.args.description": "টুল আর্গুমেন্টগুলি MCP টুলে যাওয়ার জন্য। একটি JSON অবজেক্ট (প্রস্তাবিত) অথবা একটি JSON স্ট্রিং প্রদান করুন।",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "fa": {
     "doc.mask_values": "مقادیرِ دیکشنری‌ها و فهرست‌ها را با '*' جایگزین کنید (با حفظ ساختار).",
@@ -391,13 +445,15 @@
       "mcp tool call",
       "سرور mcp"
     ],
-    "param.args.description": "آرگومان‌هایی که به ابزار MCP داده می‌شود.یک شیء JSON (پیشنهادی) یا یک رشته JSON ارائه کنید."
+    "param.args.description": "آرگومان‌هایی که به ابزار MCP داده می‌شود.یک شیء JSON (پیشنهادی) یا یک رشته JSON ارائه کنید.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "mn": {
     "doc.mask_values": "Толь бичиг ба жагсаалтын утгыг '*' болгон солино (бүтцийг хадгална).",
     "param.server_name.description": "mcp_servers.json-д тодорхойлсон серверийн нэр. Заасан бол url-ээс давуу хэрэглэгдэнэ.",
     "param.tool_name.description": "Ажиллуулах хэрэгслийн нэр.",
-    "param.url.description": "MCP серверийн endpoint URL (http://...",
+    "param.url.description": "MCP серверийн төгсгөлийн URL (http://... эсвэл stdio: // тушаал...).",
     "tool.description": "MCP серверээс хэрэгсэл дуудаж ажиллуулна.",
     "x_search_terms": [
       "handle_mcp_v2",
@@ -405,7 +461,9 @@
       "mcp tool call",
       "mcp сервер"
     ],
-    "param.args.description": "MCP хэрэгсэл рүү дамжуулах аргументууд.JSON object (зөвлөмжтэй) эсвэл JSON string өгнө."
+    "param.args.description": "MCP хэрэгсэл рүү дамжуулах аргументууд.JSON object (зөвлөмжтэй) эсвэл JSON string өгнө.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
   },
   "mr": {
     "doc.mask_values": "शब्दकोशे आणि यादीतील मूल्ये '*' ने बदला (रचना कायम ठेवून).",
@@ -419,6 +477,80 @@
       "mcp कॉल",
       "सर्व्हर साधन"
     ],
-    "param.args.description": "MCP साधनाला पाठवायचे arguments.JSON object (शिफारसीय) किंवा JSON string द्या."
+    "param.args.description": "MCP साधनाला पाठवायचे arguments.JSON object (शिफारसीय) किंवा JSON string द्या.",
+    "err.tool_name_required": "Error: tool_name is required.",
+    "err.stdio_url_invalid": "Error: Invalid stdio url"
+  },
+  "el": {
+    "doc.mask_values": "Αντικαταστήστε τις τιμές σε λεξικά και λίστες με '*' (διατήρηση της δομής).",
+    "param.server_name.description": "Όνομα διακομιστή ορίστηκε στο mcp_servers.json. Εάν ορίζεται, έχει προτεραιότητα έναντι του url.",
+    "param.tool_name.description": "Το όνομα του εργαλείου προς εκτέλεση.",
+    "param.url.description": "URL τελικού σημείου διακομιστή MCP (http://... ή stdio://command...).",
+    "tool.description": "Κλήση εργαλείου από διακομιστή MCP. Παρέχετε ορίσματα εργαλείου ως λεξικό στο tool_arguments.",
+    "x_search_terms": [
+      "handle_mcp_v2",
+      "handle mcp v2",
+      "mcp tool",
+      "μοντέλο πρωτοκόλλου περιβάλλοντος",
+      "κλήση απομακρυσμένου εργαλείου",
+      "mcp"
+    ],
+    "param.args.description": "Ορίσματα εργαλείου για διαβίβαση στο εργαλείο MCP. Δώστε είτε ένα αντικείμενο JSON (συνιστάται) είτε μια συμβολοσειρά JSON.",
+    "err.tool_name_required": "Σφάλμα: απαιτείται tool_name.",
+    "err.stdio_url_invalid": "Σφάλμα: Μη έγκυρη διεύθυνση url stdio"
+  },
+  "he": {
+    "doc.mask_values": "החלף ערכים במילונים וברשימות ב'*' (שימור המבנה).",
+    "param.server_name.description": "שם השרת מוגדר ב-mcp_servers.json. אם צוין, הוא מקבל עדיפות על פני כתובת האתר.",
+    "param.tool_name.description": "שם הכלי לביצוע.",
+    "param.url.description": "כתובת URL של שרת MCP (http://... או stdio://command...).",
+    "tool.description": "התקשר לכלי משרת MCP. ספק ארגומנטים של כלי כמילון ב-tool_arguments.",
+    "x_search_terms": [
+      "handle_mcp_v2",
+      "handle mcp v2",
+      "mcp tool",
+      "מודל ההקשר פרוטוקול",
+      "call tool מרחוק",
+      "mcp"
+    ],
+    "param.args.description": "ארגומנטים של כלי להעביר לכלי MCP. ספק אובייקט JSON (מומלץ) או מחרוזת JSON.",
+    "err.tool_name_required": "שגיאה: נדרש tool_name.",
+    "err.stdio_url_invalid": "שגיאה: כתובת URL לא חוקית של stdio"
+  },
+  "hu": {
+    "doc.mask_values": "Cserélje ki a szótárak és a listák értékeit „*”-ra (a szerkezet megőrzése).",
+    "param.server_name.description": "A kiszolgáló neve az mcp_servers.json fájlban van megadva. Ha meg van adva, akkor elsőbbséget élvez az URL-lel szemben.",
+    "param.tool_name.description": "A végrehajtandó eszköz neve.",
+    "param.url.description": "MCP-szerver végpont URL-je (http://... vagy stdio://command...).",
+    "tool.description": "Eszköz hívása MCP-szerverről. Adja meg az eszköz argumentumokat szótárként a tool_arguments fájlban.",
+    "x_search_terms": [
+      "handle_mcp_v2",
+      "handle mcp v2",
+      "mcp eszköz",
+      "modell kontextusprotokoll",
+      "távoli eszköz hívása",
+      "mcp"
+    ],
+    "param.args.description": "Eszközargumentumok az MCP-eszközhöz. Adjon meg egy JSON-objektumot (ajánlott), vagy egy JSON-karakterláncot.",
+    "err.tool_name_required": "Hiba: az eszköz_neve kötelező.",
+    "err.stdio_url_invalid": "Hiba: Érvénytelen stdio url"
+  },
+  "ro": {
+    "doc.mask_values": "[AVERTISMENT] Avertismente de indexare (deduplicate, primele 50):",
+    "param.server_name.description": "Înlocuiți valorile din dicționare și liste cu „*” (păstrarea structurii).",
+    "param.tool_name.description": "Numele serverului este definit în mcp_servers.json. Dacă este specificat, are prioritate față de url.",
+    "param.url.description": "Numele instrumentului de executat.",
+    "tool.description": "Adresa URL a punctului final al serverului MCP (http://... sau stdio://comandă...).",
+    "x_search_terms": [
+      "handle_mcp_v2",
+      "handle mcp v2",
+      "mcp tool",
+      "model context protocol",
+      "apel remote tool",
+      "mcp"
+    ],
+    "param.args.description": "Argumente ale instrumentului de transmis instrumentului MCP. Furnizați fie un obiect JSON (recomandat), fie un șir JSON.",
+    "err.tool_name_required": "Eroare: tool_name este obligatoriu.",
+    "err.stdio_url_invalid": "Eroare: URL stdio nevalid"
   }
 }

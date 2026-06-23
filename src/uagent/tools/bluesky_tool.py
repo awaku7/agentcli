@@ -25,7 +25,7 @@ STATUS_LABEL = "tool:bluesky"
 _API_BASE = "https://bsky.social/xrpc"
 
 TOOL_SPEC: dict[str, Any] = {
-    "tool_level": 0,
+    
     "tool_genre": "comm",
     "type": "function",
     "x_parallel_safe": True,

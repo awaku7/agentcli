@@ -27,4 +27,15 @@ a2a_servers.json
 *.mmdb
 env.bat
 env.sh
-gui_worker_session.log 
+gui_worker_session.log
+
+# IDE/editor
+.vs/
+
+# VSCode extension
+node_modules/
+vscode-extension/out/
+vscode-extension/*.vsix
+
+# Upload cache
+.uagent_web_uploads/

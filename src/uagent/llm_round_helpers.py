@@ -667,6 +667,12 @@ def _call_openai_azure_round(
             # - non-streaming: parse_responses_response(resp, core=core)
             pass
         else:
+            if resp is None:
+                print("[ERROR] " + _("Response error: resp is None."))
+                return False, client, "", []
+            if resp.choices is None or len(resp.choices) == 0:
+                print("[ERROR] " + _("Response error: resp.choices is None or empty."))
+                return False, client, "", []
             choice = resp.choices[0]
             msg = choice.message
 

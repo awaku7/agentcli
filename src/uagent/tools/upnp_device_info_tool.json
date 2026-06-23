@@ -10,7 +10,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "ar": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "احصل على معلومات تفصيلية حول جهاز UPnP محدد من خلال عنوان URL الوصفي (الموقع) أو عنوان IP الخاص به. إرجاع البيانات التعريفية للجهاز وقائمة الخدمات وشجرة الأجهزة (الأجهزة الفرعية).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -20,7 +20,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "bn": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "প্রসেস করার জন্য প্রয়োজনীয় ক্ষেত্র বা স্কিমা অমিলকে বিবেচনা করুন। প্যাচ_ডিজাইনার, ত্রুটি_বিশ্লেষক, বা অনুবাদক) মেটাডেটা, সার্ভিস লিস্ট, এবং ডিভাইস ট্রি (সাব-ডিভাইস)",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -30,7 +30,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "cs": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Získejte podrobné informace o konkrétním zařízení UPnP podle jeho adresy URL (umístění) nebo IP adresy. Vrátí metadata zařízení, seznam služeb a strom zařízení (podzařízení).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -40,7 +40,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "de": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Erhalten Sie detaillierte Informationen zu einem bestimmten UPnP-Gerät anhand seiner Beschreibungs-URL (Standort) oder IP-Adresse. Gibt Gerätemetadaten, Dienstliste und Gerätebaum (Untergeräte) zurück.",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -50,7 +50,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "es": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Obtenga información detallada sobre un dispositivo UPnP específico mediante su descripción URL (ubicación) o dirección IP. Devuelve metadatos del dispositivo, lista de servicios y árbol de dispositivos (subdispositivos).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -60,7 +60,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "fa": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "اطلاعات دقیقی در مورد یک دستگاه UPnP خاص از طریق URL توضیحات (موقعیت) یا آدرس IP دریافت کنید. فراداده دستگاه، فهرست خدمات و درخت دستگاه (دستگاه‌های فرعی) را برمی‌گرداند.",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -70,7 +70,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "fi": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Hanki yksityiskohtaista tietoa tietystä UPnP-laitteesta sen kuvaus-URL-osoitteen (sijainnin) tai IP-osoitteen avulla. Palauttaa laitteen metatiedot, palveluluettelon ja laitepuun (alilaitteet).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -80,7 +80,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "fr": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Obtenez des informations détaillées sur un périphérique UPnP spécifique par son URL de description (emplacement) ou son adresse IP. Renvoie les métadonnées de l'appareil, la liste des services et l'arborescence des appareils (sous-appareils).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -90,7 +90,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "hi": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "किसी विशिष्ट UPnP डिवाइस के बारे में उसके विवरण URL (स्थान) या IP पते द्वारा विस्तृत जानकारी प्राप्त करें।",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -100,7 +100,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "id": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Dapatkan info detail tentang perangkat UPnP tertentu berdasarkan URL deskripsi (lokasi) atau alamat IP. Mengembalikan metadata perangkat, daftar layanan, dan pohon perangkat (sub-perangkat).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -110,7 +110,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "it": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Ottieni informazioni dettagliate su un dispositivo UPnP specifico tramite l'URL di descrizione (posizione) o l'indirizzo IP. Restituisce i metadati del dispositivo, l'elenco dei servizi e la struttura dei dispositivi (sottodispositivi).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -120,7 +120,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "ko": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "설명 URL(위치) 또는 IP 주소를 통해 특정 UPnP 장치에 대한 자세한 정보를 가져옵니다. 장치 메타데이터, 서비스 목록 및 장치 트리(하위 장치)를 반환합니다.",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -130,7 +130,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "mn": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Тодорхой UPnP төхөөрөмжийн талаарх дэлгэрэнгүй мэдээллийг түүний тайлбарын URL (байршил) эсвэл IP хаягаар авна уу. Төхөөрөмжийн мета өгөгдөл, үйлчилгээний жагсаалт болон төхөөрөмжийн модыг (дэд төхөөрөмж) буцаана.",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -140,7 +140,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "mr": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "विशिष्ट UPnP डिव्हाइसबद्दल तपशीलवार माहिती त्याच्या वर्णन URL (स्थान) किंवा IP पत्त्याद्वारे मिळवा. डिव्हाइस मेटाडेटा, सेवा सूची आणि डिव्हाइस ट्री (उप-डिव्हाइस) मिळवते.",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -149,8 +149,48 @@
     "err.no_target": "Either 'location' or 'ip' must be provided.",
     "msg.device_info": "Device info for {location}"
   },
+  "el": {
+    "tool.description": "URL περιγραφής συσκευής UPnP (π.χ. http://192.168.1.100:5000/description.xml).",
+    "param.location.description": "Διεύθυνση IP συσκευής (χρησιμοποιείται με προαιρετική θύρα για τη δημιουργία διεύθυνσης URL περιγραφής).",
+    "param.ip.description": "Αριθμός θύρας (χρησιμοποιείται με ip). Προεπιλογή: 5000 (κοινή θύρα UPnP).",
+    "param.port.description": "Λήξη χρονικού ορίου ανάκτησης HTTP σε δευτερόλεπτα.",
+    "param.timeout.description": "Πρέπει να παρέχεται είτε \"τοποθεσία\" ή \"ip\".",
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "err.no_target": "Πληροφορίες συσκευής για {location}",
+    "msg.device_info": "Εκτελέστε λειτουργίες δρομολογητή UPnP IGD: επιθεωρήστε την κατάσταση WAN, παραθέστε αντιστοιχίσεις θυρών, προσθέστε μια αντιστοίχιση θύρας ή διαγράψτε μια αντιστοίχιση θύρας."
+  },
+  "he": {
+    "tool.description": "כתובת URL לתיאור מכשיר UPnP (לדוגמה, http://192.168.1.100:5000/description.xml).",
+    "param.location.description": "כתובת IP של מכשיר (משמשת עם יציאה אופציונלית לבניית כתובת URL לתיאור).",
+    "param.ip.description": "מספר יציאה (בשימוש עם ip). ברירת מחדל: 5000 (יציאת UPnP משותפת).",
+    "param.port.description": "פסק זמן לאחזור HTTP בשניות.",
+    "param.timeout.description": "יש לספק 'מיקום' או 'ip'.",
+    "param.fmt.description": "אין ערכים במטמון.",
+    "err.no_target": "מידע מכשיר עבור {location}",
+    "msg.device_info": "בצע פעולות נתב UPnP IGD: בדוק את סטטוס ה-WAN, רשום מיפויי יציאות, הוסף מיפוי יציאות או מחק מיפוי יציאה."
+  },
+  "hu": {
+    "tool.description": "Az UPnP-eszköz leírásának URL-címe (pl. http://192.168.1.100:5000/description.xml).",
+    "param.location.description": "Az eszköz IP-címe (opcionális porttal használva a leíró URL létrehozásához).",
+    "param.ip.description": "Portszám (IP-vel együtt használva). Alapértelmezés: 5000 (közös UPnP port).",
+    "param.port.description": "HTTP lekérési időtúllépés másodpercben.",
+    "param.timeout.description": "Meg kell adni a „location” vagy az „ip” értéket.",
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "err.no_target": "Eszközadatok a következőhöz: {location}",
+    "msg.device_info": "Hajtsa végre az UPnP IGD útválasztó műveleteit: ellenőrizze a WAN állapotát, listázza ki a portleképezéseket, adjon hozzá portleképezést vagy törölje a portleképezést."
+  },
+  "ro": {
+    "tool.description": "Adresa URL a descrierii dispozitivului UPnP (de exemplu, http://192.168.1.100:5000/description.xml).",
+    "param.location.description": "Adresă IP a dispozitivului (utilizată cu portul opțional pentru a crea o adresă URL de descriere).",
+    "param.ip.description": "Numărul portului (utilizat cu ip). Implicit: 5000 (port UPnP comun).",
+    "param.port.description": "Timeout pentru preluarea HTTP în secunde.",
+    "param.timeout.description": "Trebuie furnizate fie „locație”, fie „ip”.",
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "err.no_target": "Informații despre dispozitiv pentru {location}",
+    "msg.device_info": "Efectuați operațiuni de ruter UPnP IGD: inspectați starea WAN, listați mapările de porturi, adăugați o mapare de porturi sau ștergeți o mapare de porturi."
+  },
   "nb": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Få detaljert informasjon om en spesifikk UPnP-enhet ved dens beskrivelses-URL (plassering) eller IP-adresse. Returnerer enhetsmetadata, tjenesteliste og enhetstre (underenheter).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -160,7 +200,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "nl": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Krijg gedetailleerde informatie over een specifiek UPnP-apparaat via de beschrijvings-URL (locatie) of IP-adres. Retourneert metagegevens van het apparaat, de servicelijst en de apparaatstructuur (subapparaten).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -170,7 +210,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "pl": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Uzyskaj szczegółowe informacje o konkretnym urządzeniu UPnP na podstawie jego opisu URL (lokalizacji) lub adresu IP. Zwraca metadane urządzenia, listę usług i drzewo urządzeń (urządzenia podrzędne).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -180,7 +220,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "pt": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Obtenha informações detalhadas sobre um dispositivo UPnP específico por meio de seu URL de descrição (localização) ou endereço IP. Retorna metadados de dispositivos, lista de serviços e árvore de dispositivos (subdispositivos).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -190,7 +230,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "pt_BR": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Obtenha informações detalhadas sobre um dispositivo UPnP específico por meio de seu URL de descrição (localização) ou endereço IP. Retorna metadados de dispositivos, lista de serviços e árvore de dispositivos (subdispositivos).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -200,7 +240,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "ru": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Получите подробную информацию о конкретном устройстве UPnP по URL-адресу его описания (местоположению) или IP-адресу. Возвращает метаданные устройства, список сервисов и дерево устройств (подустройства).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -210,7 +250,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "sv": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Få detaljerad information om en specifik UPnP-enhet genom dess beskrivnings-URL (plats) eller IP-adress. Returnerar enhetens metadata, tjänstelista och enhetsträd (underenheter).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -220,7 +260,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "sw": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Pata maelezo ya kina kuhusu kifaa mahususi cha UPnP kwa maelezo yake ya URL (mahali) au anwani ya IP. Hurejesha metadata ya kifaa, orodha ya huduma na mti wa kifaa (vifaa vidogo).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -230,7 +270,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "th": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "รับข้อมูลโดยละเอียดเกี่ยวกับอุปกรณ์ UPnP เฉพาะตาม URL คำอธิบาย (ตำแหน่ง) หรือที่อยู่ IP ส่งคืนข้อมูลเมตาของอุปกรณ์ รายการบริการ และแผนผังอุปกรณ์ (อุปกรณ์ย่อย)",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -240,7 +280,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "tr": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Açıklama URL'sine (konumuna) veya IP adresine göre belirli bir UPnP cihazı hakkında ayrıntılı bilgi alın. Cihaz meta verilerini, hizmet listesini ve cihaz ağacını (alt cihazlar) döndürür.",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -250,7 +290,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "uk": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Отримайте детальну інформацію про конкретний пристрій UPnP за URL-адресою опису (розташування) або IP-адресою. Повертає метадані пристрою, список послуг і дерево пристроїв (підпристрої).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -260,7 +300,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "vi": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "Nhận thông tin chi tiết về một thiết bị UPnP cụ thể theo URL mô tả (vị trí) hoặc địa chỉ IP của thiết bị đó. Trả về siêu dữ liệu thiết bị, danh sách dịch vụ và cây thiết bị (thiết bị phụ).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -270,7 +310,7 @@
     "msg.device_info": "Device info for {location}"
   },
   "zh_CN": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "通过其描述 URL（位置）或 IP 地址获取有关特定 UPnP 设备的详细信息。返回设备元数据、服务列表和设备树（子设备）。",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
@@ -280,7 +320,17 @@
     "msg.device_info": "Device info for {location}"
   },
   "zh_TW": {
-    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP ...",
+    "tool.description": "透過其描述 URL（位置）或 IP 位址取得特定 UPnP 裝置的詳細資訊。傳回設備元資料、服務清單和設備樹（子設備）。",
+    "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
+    "param.ip.description": "Device IP address (used with optional port to build a description URL).",
+    "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",
+    "param.timeout.description": "HTTP fetch timeout in seconds.",
+    "param.fmt.description": "Format: json or text.",
+    "err.no_target": "Either 'location' or 'ip' must be provided.",
+    "msg.device_info": "Device info for {location}"
+  },
+  "ja": {
+    "tool.description": "Get detailed info about a specific UPnP device by its description URL (location) or IP address. Returns device metadata, service list, and device tree (sub-devices).",
     "param.location.description": "UPnP device description URL (e.g. http://192.168.1.100:5000/description.xml).",
     "param.ip.description": "Device IP address (used with optional port to build a description URL).",
     "param.port.description": "Port number (used with ip). Default: 5000 (common UPnP port).",

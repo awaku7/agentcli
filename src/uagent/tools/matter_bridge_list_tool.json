@@ -1,123 +1,274 @@
 {
-  "tool_level": 0,
-  "tool_genre": "iot",
-  "type": "function",
-  "function": {
-    "name": "matter_bridge_list",
-    "description": {
-      "en": "List Matter bridge-managed devices and return a JSON or text summary.",
-      "ja": "Matter ブリッジ管理下のデバイスを一覧表示し、JSON またはテキスト要約を返します。",
-      "id": "Daftar perangkat yang dikelola oleh bridge Matter dan kembalikan ringkasan JSON atau teks.",
-      "ar": "اعرض قائمة بالأجهزة التي يديرها جسر Matter وأعد ملخصًا بصيغة JSON أو نص.",
-      "bn": "Matter ব্রিজ-পরিচালিত ডিভাইসগুলির তালিকা দেখান এবং JSON বা টেক্সট সারসংক্ষেপ ফেরত দিন।",
-      "cs": "Vypište zařízení spravovaná mostem Matter a vraťte souhrn ve formátu JSON nebo textu.",
-      "de": "Listen Sie die von einem Matter-Bridge verwalteten Geräte auf und geben Sie eine JSON- oder Textzusammenfassung zurück.",
-      "es": "Enumere los dispositivos administrados por un puente Matter y devuelva un resumen en JSON o texto.",
-      "fa": "دستگاه‌های مدیریت‌شده توسط پل Matter را فهرست کنید و خلاصه‌ای به صورت JSON یا متن برگردانید.",
-      "fi": "Listaa Matter-sillan hallitsemat laitteet ja palauta JSON- tai tekstiyhteenveto.",
-      "fr": "Listez les appareils gérés par un pont Matter et renvoyez un résumé JSON ou texte.",
-      "hi": "Matter ब्रिज द्वारा प्रबंधित डिवाइसों की सूची दें और JSON या पाठ सारांश लौटाएँ।",
-      "it": "Elenca i dispositivi gestiti dal bridge Matter e restituisci un riepilogo JSON o di testo.",
-      "ko": "Matter 브리지가 관리하는 장치를 나열하고 JSON 또는 텍스트 요약을 반환합니다.",
-      "nb": "List opp enheter som styres av en Matter-bro, og returner et JSON- eller tekstoppsummering.",
-      "nl": "Geef de apparaten weer die door een Matter-bridge worden beheerd en geef een JSON- of tekstsamenvatting terug.",
-      "pl": "Wyświetl urządzenia zarządzane przez most Matter i zwróć podsumowanie JSON lub tekstowe.",
-      "pt": "Liste os dispositivos gerenciados por uma ponte Matter e retorne um resumo em JSON ou texto.",
-      "pt_BR": "Liste os dispositivos gerenciados por uma ponte Matter e retorne um resumo em JSON ou texto.",
-      "ru": "Перечислите устройства, управляемые мостом Matter, и верните сводку в формате JSON или текста.",
-      "sv": "Lista enheter som hanteras av en Matter-brygga och returnera en JSON- eller textsammanfattning.",
-      "th": "แสดงรายการอุปกรณ์ที่จัดการโดย Matter bridge และส่งกลับสรุปแบบ JSON หรือข้อความ",
-      "uk": "Перелічіть пристрої, якими керує міст Matter, і поверніть підсумок у форматі JSON або тексту.",
-      "vi": "Liệt kê các thiết bị do cầu nối Matter quản lý và trả về bản tóm tắt JSON hoặc văn bản.",
-      "zh_CN": "列出由 Matter 桥管理的设备，并返回 JSON 或文本摘要。",
-      "zh_TW": "列出由 Matter 橋接器管理的裝置，並傳回 JSON 或文字摘要。",
-      "mn": "Matter гүүрээр удирдуулж буй төхөөрөмжүүдийг жагсааж, JSON эсвэл текстийн хураангуй буцаана.",
-      "mr": "Matter ब्रिजद्वारे व्यवस्थापित उपकरणांची यादी करा आणि JSON किंवा मजकूर सारांश परत करा.",
-      "tr": "Matter köprüsü tarafından yönetilen cihazları listeleyin ve JSON veya metin özeti döndürün.",
-      "el": "Παραθέστε τις συσκευές που διαχειρίζεται μια γέφυρα Matter και επιστρέψτε σύνοψη σε JSON ή κείμενο."
-    },
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "bridge_id": {
-          "type": "string",
-          "description": {
-            "en": "Optional bridge ID filter. If omitted, all bridges are listed.",
-            "ja": "任意のブリッジ ID フィルター。省略した場合はすべてのブリッジを一覧表示します。",
-            "id": "Filter ID bridge opsional. Jika dihilangkan, semua bridge akan ditampilkan.",
-            "ar": "مرشح اختياري لمعرّف الجسر. إذا تم حذفه، فسيتم عرض جميع الجسور.",
-            "bn": "ঐচ্ছিক bridge ID ফিল্টার। বাদ দিলে সব bridge তালিকাভুক্ত হবে।",
-            "cs": "Volitelný filtr ID mostu. Pokud je vynechán, zobrazí se všechny mosty.",
-            "de": "Optionaler Bridge-ID-Filter. Wenn weggelassen, werden alle Bridges aufgelistet.",
-            "es": "Filtro opcional de ID del puente. Si se omite, se enumeran todos los puentes.",
-            "fa": "فیلتر اختیاری شناسه پل. اگر حذف شود، همه پل‌ها فهرست می‌شوند.",
-            "fi": "Valinnainen sillan tunnisteen suodatin. Jos jätetään pois, kaikki sillat listataan.",
-            "fr": "Filtre facultatif d’ID du pont. S’il est omis, tous les ponts sont listés.",
-            "hi": "वैकल्पिक ब्रिज ID फ़िल्टर। यदि छोड़ा जाए, तो सभी ब्रिज सूचीबद्ध होते हैं।",
-            "it": "Filtro opzionale per l'ID del bridge. Se omesso, vengono elencati tutti i bridge.",
-            "ko": "선택적 브리지 ID 필터입니다. 생략하면 모든 브리지가 나열됩니다.",
-            "nb": "Valgfritt filter for bro-ID. Hvis utelatt, listes alle broer.",
-            "nl": "Optioneel filter op bridge-ID. Als dit wordt weggelaten, worden alle bridges weergegeven.",
-            "pl": "Opcjonalny filtr identyfikatora mostu. Jeśli pominięty, wyświetlane są wszystkie mosty.",
-            "pt": "Filtro opcional de ID da ponte. Se omitido, todas as pontes serão listadas.",
-            "pt_BR": "Filtro opcional de ID da ponte. Se omitido, todas as pontes serão listadas.",
-            "ru": "Необязательный фильтр ID моста. Если опущен, выводятся все мосты.",
-            "sv": "Valfritt filter för brygg-ID. Om det utelämnas listas alla bryggor.",
-            "th": "ตัวกรองรหัส bridge แบบเลือกได้ หากไม่ระบุ จะแสดง bridge ทั้งหมด",
-            "uk": "Необов’язковий фільтр ID мосту. Якщо не вказано, перелічуються всі мости.",
-            "vi": "Bộ lọc ID cầu nối tùy chọn. Nếu bỏ qua, tất cả cầu nối sẽ được liệt kê.",
-            "zh_CN": "可选的桥 ID 过滤器。省略时将列出所有桥。",
-            "zh_TW": "可選的橋接器 ID 篩選器。若省略，則列出所有橋接器。",
-            "mn": "Сонголттой bridge ID шүүлтүүр. Орхивол бүх bridge-уудыг жагсаана.",
-            "mr": "ऐच्छिक bridge ID फिल्टर. वगळल्यास, सर्व bridge सूचीबद्ध केले जातील.",
-            "tr": "İsteğe bağlı köprü kimliği filtresi. Atlanırsa tüm köprüler listelenir.",
-            "el": "Προαιρετικό φίλτρο αναγνωριστικού γέφυρας. Αν παραλειφθεί, παρατίθενται όλες οι γέφυρες."
-          }
-        },
-        "output_format": {
-          "type": "string",
-          "enum": ["json", "text"],
-          "default": "json",
-          "description": {
-            "en": "Output format: JSON or human-readable text.",
-            "ja": "出力形式: JSON または人間が読みやすいテキスト。",
-            "id": "Format output: JSON atau teks yang dapat dibaca manusia.",
-            "ar": "تنسيق الإخراج: JSON أو نص قابل للقراءة البشرية.",
-            "bn": "আউটপুট ফরম্যাট: JSON অথবা মানুষের পড়ার উপযোগী টেক্সট।",
-            "cs": "Formát výstupu: JSON nebo text čitelný pro člověka.",
-            "de": "Ausgabeformat: JSON oder menschenlesbarer Text.",
-            "es": "Formato de salida: JSON o texto legible por humanos.",
-            "fa": "قالب خروجی: JSON یا متن قابل‌خواندن برای انسان.",
-            "fi": "Tulostemuoto: JSON tai ihmisen luettavissa oleva teksti.",
-            "fr": "Format de sortie : JSON ou texte lisible par l’humain.",
-            "hi": "आउटपुट प्रारूप: JSON या मानव-पठनीय पाठ।",
-            "it": "Formato di output: JSON o testo leggibile dall'uomo.",
-            "ko": "출력 형식: JSON 또는 사람이 읽을 수 있는 텍스트.",
-            "nb": "Utdataformat: JSON eller menneskelesbar tekst.",
-            "nl": "Uitvoerformaat: JSON of voor mensen leesbare tekst.",
-            "pl": "Format wyjściowy: JSON lub tekst czytelny dla człowieka.",
-            "pt": "Formato de saída: JSON ou texto legível por humanos.",
-            "pt_BR": "Formato de saída: JSON ou texto legível por humanos.",
-            "ru": "Формат вывода: JSON или удобочитаемый текст.",
-            "sv": "Utdataformat: JSON eller mänskligt läsbar text.",
-            "th": "รูปแบบเอาต์พุต: JSON หรือข้อความที่มนุษย์อ่านได้",
-            "uk": "Формат виводу: JSON або текст, зручний для читання людиною.",
-            "vi": "Định dạng đầu ra: JSON hoặc văn bản dễ đọc.",
-            "zh_CN": "输出格式：JSON 或人类可读文本。",
-            "zh_TW": "輸出格式：JSON 或人類可讀文字。",
-            "mn": "Гаралтын формат: JSON эсвэл хүн уншихад ойлгомжтой текст.",
-            "mr": "आउटपुट स्वरूप: JSON किंवा मानवी वाचनीय मजकूर.",
-            "tr": "Çıktı biçimi: JSON veya insan tarafından okunabilir metin.",
-            "el": "Μορφή εξόδου: JSON ή κείμενο αναγνώσιμο από άνθρωπο."
-          }
-        }
-      },
-      "additionalProperties": false
-    }
+  "ar": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
   },
-  "notes": [
-    "Preserved structure, keys, enums, defaults, and required fields.",
-    "Localized only tool.description and parameters.properties.*.description with English fallback.",
-    "Matter bridge-list tool created as Phase 1 reading-only tool."
-  ]
+  "bn": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "cs": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "de": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "en": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "es": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "fa": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "fi": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "fr": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "hi": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "id": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "it": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "ja": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "ko": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "mn": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "mr": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "el": {
+    "param.fmt.description": "Στιγμιότυπο προσωρινής μνήμης ECHONET: {count} στοιχεία.",
+    "tool.description": "Το αρχείο διαμόρφωσης Matter Bridge δεν βρέθηκε. Ορίστε {env_json} ή {env_file}.",
+    "param.bridge.description": "Δεν ήταν δυνατή η ανάλυση της διαμόρφωσης γέφυρας ύλης: {err}",
+    "err.config_missing": "Δεν βρέθηκε η γέφυρα ύλης: {bridge_id}",
+    "err.invalid_config": "Συστάδες ύλης λίστας για μια συσκευή.",
+    "err.not_found": "Αναγνωριστικό συσκευής (απαιτείται)."
+  },
+  "he": {
+    "param.fmt.description": "אין ערכים במטמון.",
+    "tool.description": "קובץ התצורה של Matter Bridge לא נמצא. הגדר את {env_json} או {env_file}.",
+    "param.bridge.description": "לא ניתן היה לנתח את תצורת גשר ה-Mater: {err}",
+    "err.config_missing": "גשר ה-Mater לא נמצא: {bridge_id}",
+    "err.invalid_config": "רשימת אשכולות חומר עבור מכשיר.",
+    "err.not_found": "מזהה מכשיר (חובה)."
+  },
+  "hu": {
+    "param.fmt.description": "Gyorsítótár művelet: pillanatfelvétel vagy törlés.",
+    "tool.description": "Az anyaghíd konfigurációs fájlja nem található. Állítsa be: {env_json} vagy {env_file}.",
+    "param.bridge.description": "Az anyaghíd-konfigurációt nem sikerült elemezni: {err}",
+    "err.config_missing": "Anyaghíd nem található: {bridge_id}",
+    "err.invalid_config": "Anyagfürtök listázása egy eszközhöz.",
+    "err.not_found": "Eszközazonosító (kötelező)."
+  },
+  "ro": {
+    "param.fmt.description": "Inspectați sau ștergeți memoria cache ECHONET Lite partajată.",
+    "tool.description": "[long_memory truncated: limitat la {max_bytes} caractere]",
+    "param.bridge.description": "Listă dispozitivele Matter gestionate prin punte și returnează un rezumat JSON sau text.",
+    "err.config_missing": "ID pod (omiteți pentru toate).",
+    "err.invalid_config": "Fișierul de configurare Matter bridge nu a fost găsit. Setați {env_json} sau {env_file}.",
+    "err.not_found": "Configurația Matter bridge nu a putut fi analizată: {err}"
+  },
+  "nb": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "nl": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "pl": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "pt": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "pt_BR": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "ru": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "sv": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "sw": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "th": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "tr": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "uk": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "vi": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "zh_CN": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  },
+  "zh_TW": {
+    "param.fmt.description": "Format: json or text.",
+    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
+    "param.bridge.description": "Bridge ID (omit for all).",
+    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
+    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
+    "err.not_found": "Matter bridge not found: {bridge_id}"
+  }
 }

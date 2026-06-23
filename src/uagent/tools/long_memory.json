@@ -128,5 +128,45 @@
     "err.load": "[長內存錯誤] {err_type}: {err}",
     "msg.no_memory": "（還沒有長期記憶）",
     "msg.truncated": "\n[長內存截斷：僅限於 {max_bytes} 字元]"
+  },
+  "bn": {
+    "err.load": "[long_memory error] {err_type}: {err}",
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+  },
+  "fa": {
+    "err.load": "[long_memory error] {err_type}: {err}",
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+  },
+  "mn": {
+    "err.load": "[long_memory error] {err_type}: {err}",
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+  },
+  "mr": {
+    "err.load": "[long_memory error] {err_type}: {err}",
+    "msg.no_memory": "(no long-term memory yet)",
+    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+  },
+  "el": {
+    "err.load": "[long_memory περικομμένη: περιορισμένη σε {max_bytes} χαρακτήρες]",
+    "msg.no_memory": "Καταχωρίστε τις συσκευές που διαχειρίζονται γέφυρα Matter και επιστρέψτε μια σύνοψη JSON ή κειμένου.",
+    "msg.truncated": "Bridge ID (παράλειψη για όλους)."
+  },
+  "he": {
+    "err.load": "[זיכרון ארוך קטוע: מוגבל ל-{max_bytes} תווים]",
+    "msg.no_memory": "רשימת מכשירים מנוהלים ב-Matter והחזרת JSON או סיכום טקסט.",
+    "msg.truncated": "מזהה גשר (השמט לכולם)."
+  },
+  "hu": {
+    "err.load": "[long_memory truncated: maximum {max_bytes} karakter]",
+    "msg.no_memory": "A hídkezeléssel felügyelt eszközök listázása, és JSON vagy szöveges összefoglaló visszaadása.",
+    "msg.truncated": "Hídazonosító (mindennél kihagyja)."
+  },
+  "ro": {
+    "err.load": "[eroare de memorie lungă] {err_type}: {err}",
+    "msg.no_memory": "nume de clasă",
+    "msg.truncated": ": {er_memorrr_type] (nu există încă memorie pe termen lung)"
   }
 }

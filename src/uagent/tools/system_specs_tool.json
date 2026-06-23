@@ -309,5 +309,93 @@
     "tool.system_prompt": "此工具用於以下目的：收集系統資訊，例如作業系統、CPU、記憶體大小、（盡力而為的）實體磁碟資訊以及磁碟區可用空間。",
     "param.include_volumes.description": "包含已掛載磁碟區的使用量資訊。",
     "param.include_disks.description": "在可用時包含實體磁碟資訊（盡力而為）。"
+  },
+  "bn": {
+    "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
+    "x_search_terms": [
+      "system specs",
+      "get_system_specs",
+      "system specifications"
+    ],
+    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
+    "param.include_volumes.description": "Include mounted volume usage information.",
+    "param.include_disks.description": "Include physical disk information when available (best-effort)."
+  },
+  "fa": {
+    "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
+    "x_search_terms": [
+      "system specs",
+      "get_system_specs",
+      "system specifications"
+    ],
+    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
+    "param.include_volumes.description": "Include mounted volume usage information.",
+    "param.include_disks.description": "Include physical disk information when available (best-effort)."
+  },
+  "mn": {
+    "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
+    "x_search_terms": [
+      "system specs",
+      "get_system_specs",
+      "system specifications"
+    ],
+    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
+    "param.include_volumes.description": "Include mounted volume usage information.",
+    "param.include_disks.description": "Include physical disk information when available (best-effort)."
+  },
+  "mr": {
+    "tool.description": "Get system specs (CPU/RAM/disks/volumes) in a best-effort cross-platform way.",
+    "x_search_terms": [
+      "system specs",
+      "get_system_specs",
+      "system specifications"
+    ],
+    "tool.system_prompt": "This tool is used for the following purpose: gather system specs such as OS, CPU, RAM size, storage disks (best-effort), and volume free space.",
+    "param.include_volumes.description": "Include mounted volume usage information.",
+    "param.include_disks.description": "Include physical disk information when available (best-effort)."
+  },
+  "el": {
+    "tool.description": "Λάβετε προδιαγραφές συστήματος (CPU/RAM/δίσκοι/τόμοι) με τον καλύτερο τρόπο πολλαπλής πλατφόρμας.",
+    "x_search_terms": [
+      "get_system_specs",
+      "προδιαγραφές συστήματος",
+      "Αυτό το εργαλείο χρησιμοποιείται για τους ακόλουθους σκοπούς: συλλογή προδιαγραφών συστήματος όπως OS, CPU, μέγεθος μνήμης RAM, δίσκους αποθήκευσης (βέλτιστη προσπάθεια) και χώρο ελεύθερου όγκου."
+    ],
+    "tool.system_prompt": "Συμπεριλάβετε πληροφορίες σχετικά με τη χρήση του προσαρτημένου όγκου.",
+    "param.include_volumes.description": "Συμπεριλάβετε πληροφορίες φυσικού δίσκου όταν είναι διαθέσιμες (βέλτιστη προσπάθεια).",
+    "param.include_disks.description": "Δημοσιεύστε ένα μήνυμα ή ένα ωφέλιμο φορτίο JSON που υποστηρίζεται από webhook σε μια διεύθυνση URL του Microsoft Teams Incoming Webhook που είναι αποθηκευμένη σε μια μεταβλητή περιβάλλοντος."
+  },
+  "he": {
+    "tool.description": "קבל את מפרט המערכת (CPU/RAM/דיסקים/נפחים) בצורה הטובה ביותר בין פלטפורמות.",
+    "x_search_terms": [
+      "get_system_specs",
+      "מפרטי מערכת",
+      "כלי זה משמש למטרה הבאה: איסוף מפרטי מערכת כגון מערכת הפעלה, מעבד, גודל RAM, דיסקי אחסון (במאמץ הטוב ביותר), ושטח פנוי בנפח."
+    ],
+    "tool.system_prompt": "כלי זה משמש למטרה הבאה: איסוף מפרטי מערכת כגון מערכת הפעלה, מעבד, גודל זיכרון RAM, דיסקי אחסון (במאמץ הטוב ביותר), ושטח פנוי בנפח.",
+    "param.include_volumes.description": "כלול מידע על דיסק פיזי כאשר זמין (במאמץ הטוב ביותר).",
+    "param.include_disks.description": "פרסם הודעה או מטען JSON נתמך ב-webhook לכתובת URL של Microsoft Teams Incoming Webhook המאוחסנת במשתנה סביבה."
+  },
+  "hu": {
+    "tool.description": "Szerezze meg a rendszerspecifikációkat (CPU/RAM/lemezek/kötetek) a legjobb, több platformon keresztüli módon.",
+    "x_search_terms": [
+      "get_system_specs",
+      "rendszerspecifikáció",
+      "Ez az eszköz a következő célokra használható: rendszerspecifikációk, például operációs rendszer, CPU, RAM-méret, tárolólemezek (legjobb erőfeszítés) és szabad kötet összegyűjtése."
+    ],
+    "tool.system_prompt": "Tartalmazza a csatlakoztatott kötet használati adatait.",
+    "param.include_volumes.description": "Ha elérhető, adja meg a fizikai lemezre vonatkozó információkat (a legjobb megoldás).",
+    "param.include_disks.description": "Tegyen közzé egy üzenetet vagy webhook által támogatott JSON-adatot egy környezeti változóban tárolt Microsoft Teams bejövő webhook URL-címére."
+  },
+  "ro": {
+    "tool.description": "Obțineți specificațiile sistemului (CPU/RAM/discuri/volume) într-un mod multiplatform cu cel mai bun efort.",
+    "x_search_terms": [
+      "specificații de sistem",
+      "get_system_specs",
+      "specificații de sistem"
+    ],
+    "tool.system_prompt": "Acest instrument este utilizat în următorul scop: adună specificații de sistem, cum ar fi sistemul de operare, CPU, dimensiunea RAM, discuri de stocare (cel mai bun efort) și spațiu liber.",
+    "param.include_volumes.description": "Includeți informații despre utilizarea volumului montat.",
+    "param.include_disks.description": "Includeți informații despre discul fizic atunci când sunt disponibile (cel mai bun efort)."
   }
 }

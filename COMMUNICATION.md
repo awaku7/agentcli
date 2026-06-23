@@ -108,6 +108,56 @@ UAGENT_COMM_ENABLED=1
 - For Discord, the bot must be added to the target server with appropriate permissions.
 - For Teams, the webhook URL can be created from Teams Channel Connectors settings.
 
+### gmail_send
+
+Send an email via Gmail SMTP using App Password.
+
+**Environment variables:**
+- `UAGENT_GMAIL_ADDRESS` — your Gmail address (e.g., `user@gmail.com`)
+- `UAGENT_GMAIL_APP_PASSWORD` — an App Password (create at https://myaccount.google.com/apppasswords)
+
+**Parameters:**
+
+| parameter | required | description |
+|---|---|---|
+| `to` | yes | Recipient email address(es). Comma-separated for multiple. |
+| `subject` | yes | Email subject. |
+| `body` | yes | Email body text (plain text). |
+| `cc` | no | CC recipient email address(es). Comma-separated. |
+| `bcc` | no | BCC recipient email address(es). Comma-separated. |
+| `html` | no | If true, body is treated as HTML. Default: false. |
+
+**Examples:**
+```
+gmail_send to="user@example.com" subject="Hello" body="Test message"
+gmail_send to="a@b.com,c@d.com" subject="Report" body="<h1>Report</h1>" html=true
+```
+
+### gmail_read
+
+Read/search Gmail inbox via IMAP.
+
+**Environment variables:**
+- `UAGENT_GMAIL_ADDRESS` — your Gmail address
+- `UAGENT_GMAIL_APP_PASSWORD` — an App Password
+
+**Actions:**
+
+| action | description | key parameters |
+|---|---|---|
+| `list` | Recent inbox messages | `max_results` (default 10, max 50) |
+| `search` | Search by IMAP query | `query` (required), `max_results` |
+| `read` | Read full message body | `message_id` (required, from list/search result) |
+| `unread` | Unread messages only | `max_results` |
+
+**Examples:**
+```
+gmail_read action="list" max_results=5
+gmail_read action="search" query="SUBJECT hello"
+gmail_read action="read" message_id="123456"
+gmail_read action="unread"
+```
+
 ## See also
 
 - [IOT_USECASE.md](IOT_USECASE.md) — for IoT-related tools (SwitchBot, ECHONET Lite, Matter, UPnP)

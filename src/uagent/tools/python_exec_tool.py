@@ -24,7 +24,7 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Execute Python code in a controlled way. Use this tool for calculations, data processing, or running short scripts."
+                "Execute Python code in a controlled way. Use this tool for calculations, data processing, or running short scripts. Search for other suitable tools via `tool_catalog` before using this tool."
             ),
         ),
         "x_search_terms": _(
@@ -79,6 +79,8 @@ def _run_python_code(args: dict[str, Any], cb: Any) -> str:
             tf.write(code)
             tmp_path = tf.name
 
+        child_env = os.environ.copy()
+        child_env["PYTHONIOENCODING"] = "utf-8"
         proc = subprocess.run(
             [sys.executable, tmp_path],
             stdout=subprocess.PIPE,
@@ -88,6 +90,7 @@ def _run_python_code(args: dict[str, Any], cb: Any) -> str:
             errors="replace",
             timeout=cb.python_exec_timeout_ms / 1000.0,
             shell=False,
+            env=child_env,
         )
     except subprocess.TimeoutExpired:
         return f"[python_exec timeout] Did not finish within {cb.python_exec_timeout_ms / 1000:.0f} seconds"

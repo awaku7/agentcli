@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
-import sys
 from typing import Any, AsyncIterator, Optional
 from uuid import uuid4
 
@@ -230,6 +229,7 @@ def build_app() -> FastAPI:
 
 
 def main(argv: Optional[list[str]] = None) -> None:
+    sys.stdout.reconfigure(encoding='utf-8')
     parser = argparse.ArgumentParser(prog="uaga", add_help=True)
     parser.add_argument(
         "--host",
@@ -284,14 +284,13 @@ def main(argv: Optional[list[str]] = None) -> None:
     try:
         from ..cli_startup import (
             _apply_startup_tool_genre_mask,
-            _prompt_startup_tool_genre_mask,
         )
 
         if args.tool_genre_mask is not None:
             _apply_startup_tool_genre_mask(args.tool_genre_mask)
-        elif sys.stdout.isatty():
-            mask = _prompt_startup_tool_genre_mask()
-            _apply_startup_tool_genre_mask(mask)
+        else:
+            # Default: basic only
+            _apply_startup_tool_genre_mask(0)
     except Exception:
         pass
 

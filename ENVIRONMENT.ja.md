@@ -24,7 +24,7 @@ ______________________________________________________________________
 
 起動時に使用するメインのプロバイダを指定します（必須）。
 
-- 有効な値: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `alibaba`, `kimi`
+- 有効な値: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `zai`, `alibaba`, `kimi`, `mimo`, `lmstudio`, `minimax`
 
 ### 2. LLM プロバイダ別の設定
 
@@ -55,6 +55,7 @@ ______________________________________________________________________
 - `UAGENT_STREAMING`: LLM 応答の逐次表示（ストリーミング）の有効化 (`1`: 有効(既定), `0`: 無効)。
 - `UAGENT_VERBOSITY`: ログ出力の冗長性 (`off`, `low`, `medium`, `high`)。
 - `UAGENT_DEBUG_ENDPOINT`: `1` に設定すると、起動時に使用されるエンドポイントとモデル情報を出力します。
+- `UAGENT_PARALLEL_WORKERS`: 並列ツール実行のスレッド数（既定: `8`）。I/O バウンドなタスクが多い場合は増やしてください。
 
 ### 4. 高度な機能 (Responses API, 推論等)
 

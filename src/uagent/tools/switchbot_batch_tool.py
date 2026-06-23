@@ -181,13 +181,13 @@ def _request_json(
             raw = response.read().decode("utf-8", errors="replace")
             data_obj = json.loads(raw or "{}")
     except HTTPError as exc:
-        body_text_err = (
+        exc_body = (
             exc.read().decode("utf-8", errors="replace") if hasattr(exc, "read") else ""
         )
         try:
-            detail = json.loads(body_text_err) if body_text_err else {}
+            detail = json.loads(exc_body) if exc_body else {}
         except Exception:
-            detail = {"message": body_text_err or str(exc)}
+            detail = {"message": exc_body or str(exc)}
         return {
             "ok": False,
             "error": {
@@ -372,16 +372,18 @@ def _send_command(
 
 def _format_result_text(result: dict[str, Any]) -> str:
     lines = [
-        f"Batch completed: {result.get('total', 0)} command(s), "
-        f"{result.get('succeeded', 0)} succeeded, "
-        f"{result.get('failed', 0)} failed",
+        _("msg.batch_summary", default="Batch completed: {total} command(s), {ok} succeeded, {fail} failed").format(
+            total=result.get("total", 0),
+            ok=result.get("succeeded", 0),
+            fail=result.get("failed", 0),
+        ),
     ]
     for i, step in enumerate(result.get("steps", []), 1):
         status = "OK" if step.get("ok") else "FAIL"
         label = step.get("label", f"cmd#{i}")
         lines.append(f"  [{status}] {label}")
         if step.get("error"):
-            lines.append(f"         Error: {step['error']}")
+            lines.append(_("msg.step_error", default="         Error: {err}").format(err=step["error"]))
     return "\n".join(lines)
 
 
@@ -401,7 +403,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
         }
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_result_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )

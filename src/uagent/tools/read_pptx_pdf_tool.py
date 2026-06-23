@@ -63,6 +63,7 @@ TOOL_SPEC: dict[str, Any] = {
     "tool_level": 1,
     "tool_genre": "office",
     "type": "function",
+    "x_parallel_safe": True,
     "function": {
         "name": "read_pptx_pdf",
         "description": _(

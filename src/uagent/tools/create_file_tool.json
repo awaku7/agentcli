@@ -30,10 +30,10 @@
     ]
   },
   "es": {
-    "param.content.description": "Contenido...",
+    "param.content.description": "Contenido de texto.",
     "param.encoding.description": "Codificación de texto (p.ej.",
-    "param.filename.description": "Ruta del archivo...",
-    "param.overwrite.description": "Si se debe sobrescribir si el arch...",
+    "param.filename.description": "Ruta del archivo a crear.",
+    "param.overwrite.description": "Sobrescribir si existe (predeterminado: falso).",
     "tool.description": "Cree un archivo de texto.De forma predeterminada, no se sobrescriben archivos existentes.",
     "x_search_terms": [
       "create_file",
@@ -43,10 +43,10 @@
     ]
   },
   "fr": {
-    "param.content.description": "Contenu te...",
+    "param.content.description": "Contenu du texte.",
     "param.encoding.description": "Encodage du texte (ex.'utf-8', 'cp932').",
-    "param.filename.description": "Chemin du fichier...",
-    "param.overwrite.description": "Indique s'il faut écraser si le fi...",
+    "param.filename.description": "Chemin du fichier à créer.",
+    "param.overwrite.description": "Écraser s'il existe (par défaut : faux).",
     "tool.description": "Créez un fichier texte.Par défaut, les fichiers existants ne sont pas écrasés.",
     "x_search_terms": [
       "create_file",
@@ -69,10 +69,10 @@
     ]
   },
   "de": {
-    "param.content.description": "Zu schreib...",
+    "param.content.description": "Textinhalt.",
     "param.encoding.description": "Textkodierung (z.B.'utf-8', 'cp932').",
-    "param.filename.description": "Pfad der zu erste...",
-    "param.overwrite.description": "Gibt an, ob eine bereits vorhanden...",
+    "param.filename.description": "Zu erstellender Dateipfad.",
+    "param.overwrite.description": "Überschreiben, falls vorhanden (Standard: false).",
     "tool.description": "Erstellen Sie eine Textdatei.Standardmäßig werden vorhandene Dateien nicht überschrieben.",
     "x_search_terms": [
       "create_file",
@@ -82,10 +82,10 @@
     ]
   },
   "it": {
-    "param.content.description": "Contenuto...",
+    "param.content.description": "Contenuto di testo.",
     "param.encoding.description": "Codifica del testo (es.'utf-8', 'cp932').",
-    "param.filename.description": "Percorso del file...",
-    "param.overwrite.description": "Se sovrascrivere se il file esiste...",
+    "param.filename.description": "Percorso del file da creare.",
+    "param.overwrite.description": "Sovrascrivi se esiste (impostazione predefinita: false).",
     "tool.description": "Crea un file di testo.Per impostazione predefinita, i file esistenti non vengono sovrascritti.",
     "x_search_terms": [
       "create_file",
@@ -95,10 +95,10 @@
     ]
   },
   "ru": {
-    "param.content.description": "Текстовое...",
-    "param.encoding.description": "Кодировка текста (например, 'utf-8', 'cp93...",
-    "param.filename.description": "Путь к создаваемо...",
-    "param.overwrite.description": "Перезаписывать ли существующий фай...",
+    "param.content.description": "Текстовое содержимое.",
+    "param.encoding.description": "Кодировка (например, utf-8, cp932; по умолчанию: utf-8).",
+    "param.filename.description": "Путь к создаваемому файлу.",
+    "param.overwrite.description": "Перезаписать, если существует (по умолчанию: false).",
     "tool.description": "Создает текстовый файл.По умолчанию не перезаписывает файлы.",
     "x_search_terms": [
       "create_file",
@@ -108,10 +108,10 @@
     ]
   },
   "pt_BR": {
-    "param.content.description": "Conteúdo d...",
+    "param.content.description": "Conteúdo de texto.",
     "param.encoding.description": "Codificação de texto (ex: 'utf-8', 'cp932').",
-    "param.filename.description": "Caminho do arquiv...",
-    "param.overwrite.description": "Se deve sobrescrever se o arquivo...",
+    "param.filename.description": "Caminho do arquivo a ser criado.",
+    "param.overwrite.description": "Substituir se existir (padrão: falso).",
     "tool.description": "Crie um arquivo de texto.Por padrão, a ferramenta não sobrescreve um arquivo existente.",
     "x_search_terms": [
       "create_file",
@@ -121,10 +121,10 @@
     ]
   },
   "pt": {
-    "param.content.description": "Conteúdo d...",
-    "param.encoding.description": "Codificação de texto (por exemplo, 'utf-8'...",
-    "param.filename.description": "Caminho do arquiv...",
-    "param.overwrite.description": "Se deve ser sobrescrito se o arqui...",
+    "param.content.description": "Conteúdo de texto.",
+    "param.encoding.description": "Codificação (por exemplo, utf-8, cp932; padrão: utf-8).",
+    "param.filename.description": "Caminho do arquivo a ser criado.",
+    "param.overwrite.description": "Substituir se existir (padrão: falso).",
     "tool.description": "Crie um arquivo de texto.Por padrão, arquivos existentes não são sobrescritos.",
     "x_search_terms": [
       "create_file",
@@ -134,10 +134,10 @@
     ]
   },
   "id": {
-    "param.content.description": "Konten tek...",
+    "param.content.description": "Konten teks.",
     "param.encoding.description": "Pengodean teks (mis.'utf-8', 'cp932').",
-    "param.filename.description": "Jalur file yang a...",
-    "param.overwrite.description": "Apakah akan menimpa jika file suda...",
+    "param.filename.description": "Jalur file yang akan dibuat.",
+    "param.overwrite.description": "Timpa jika ada (default: false).",
     "tool.description": "Buat file teks.Secara default, alat tidak akan menimpa file yang sudah ada.",
     "x_search_terms": [
       "create_file",
@@ -147,10 +147,10 @@
     ]
   },
   "vi": {
-    "param.content.description": "Nội dung v...",
+    "param.content.description": "Nội dung văn bản.",
     "param.encoding.description": "Mã hóa văn bản (ví dụ: 'utf-8', 'cp932').",
-    "param.filename.description": "Đường dẫn file cầ...",
-    "param.overwrite.description": "Có ghi đè lên nếu file đã tồn tại...",
+    "param.filename.description": "Đường dẫn tệp cần tạo.",
+    "param.overwrite.description": "Ghi đè nếu tồn tại (mặc định: sai).",
     "tool.description": "Tạo một tập tin văn bản.Theo mặc định, công cụ sẽ không ghi đè lên tệp hiện có.",
     "x_search_terms": [
       "create_file",
@@ -160,10 +160,10 @@
     ]
   },
   "pl": {
-    "param.content.description": "Treść teks...",
+    "param.content.description": "Treść tekstowa.",
     "param.encoding.description": "Kodowanie tekstu (np.„utf-8”, „cp932”).",
-    "param.filename.description": "Ścieżka pliku do...",
-    "param.overwrite.description": "Określa, czy nadpisać, jeśli plik...",
+    "param.filename.description": "Ścieżka pliku do utworzenia.",
+    "param.overwrite.description": "Zastąp, jeśli istnieje (domyślnie: fałsz).",
     "tool.description": "Utwórz plik tekstowy.Domyślnie narzędzie nie nadpisze istniejącego pliku.",
     "x_search_terms": [
       "create_file",
@@ -173,11 +173,11 @@
     ]
   },
   "hi": {
-    "param.content.description": "लिखने के ल...",
-    "param.encoding.description": "टेक्स्ट एन्कोडिंग (जैसे, 'utf-8', 'cp932')...",
-    "param.filename.description": "बनाने के लिए फ़ाइ...",
-    "param.overwrite.description": "यदि फ़ाइल पहले से मौजूद है तो ओवरर...",
-    "tool.description": "एक टेक्स्ट फ़ाइल बनाएं। डिफ़ॉल्ट रूप से, मौजूदा फ़ाइलें अधिलेखित नहीं की जातीं। यदि overwrite=true सेट है और गंतव्य पह...",
+    "param.content.description": "टेक्स्ट सामग्री।",
+    "param.encoding.description": "एन्कोडिंग (उदाहरण के लिए utf-8, cp932; डिफ़ॉल्ट: utf-8)।",
+    "param.filename.description": "बनाने के लिए फ़ाइल पथ।",
+    "param.overwrite.description": "यदि मौजूद है (डिफ़ॉल्ट: गलत)।",
+    "tool.description": "एक टेक्स्ट फ़ाइल बनाएं। बैकअप (.org) के साथ वैकल्पिक अधिलेखित करें। एक्सेल (utf-8-sig) या प्रोग्रामेटिक (utf-8) के लिए एन्कोडिंग चुनें।",
     "x_search_terms": [
       "create_file",
       "फ़ाइल बनाएं",
@@ -186,10 +186,10 @@
     ]
   },
   "ar": {
-    "param.content.description": "محتوى النص...",
-    "param.encoding.description": "ترميز النص (على سبيل المثال، \"utf-8\"، \"cp9...",
-    "param.filename.description": "مسار الملف المراد...",
-    "param.overwrite.description": "ما إذا كان سيتم الكتابة فوق الملف...",
+    "param.content.description": "محتوى النص.",
+    "param.encoding.description": "التشفير (على سبيل المثال utf-8، cp932؛ الافتراضي: utf-8).",
+    "param.filename.description": "مسار الملف المراد إنشاؤه.",
+    "param.overwrite.description": "الكتابة فوق إذا كان موجودًا (الافتراضي: false).",
     "tool.description": "إنشاء ملف نصي.بشكل افتراضي، لن تقوم الأداة بالكتابة فوق ملف موجود.",
     "x_search_terms": [
       "create_file",
@@ -199,10 +199,10 @@
     ]
   },
   "sv": {
-    "param.content.description": "Textinnehå...",
+    "param.content.description": "Textinnehåll.",
     "param.encoding.description": "Textkodning (t.ex.'utf-8', 'cp932').",
-    "param.filename.description": "Sökväg till filen...",
-    "param.overwrite.description": "Om filen ska skrivas över om den r...",
+    "param.filename.description": "Filsökväg att skapa.",
+    "param.overwrite.description": "Skriv över om det finns (standard: false).",
     "tool.description": "Skapa en textfil.Som standard skrivs inte en befintlig fil över.",
     "x_search_terms": [
       "create_file",
@@ -212,10 +212,10 @@
     ]
   },
   "sw": {
-    "param.content.description": "Maudhui ya...",
-    "param.encoding.description": "Usimbaji wa maandishi (mfano 'utf-8', 'cp9...",
-    "param.filename.description": "Njia ya faili lit...",
-    "param.overwrite.description": "Iwapo la kuandika juu ikiwa faili...",
+    "param.content.description": "Maudhui ya maandishi.",
+    "param.encoding.description": "Usimbaji (k.m. utf-8, cp932; chaguo-msingi: utf-8).",
+    "param.filename.description": "Njia ya faili ya kuunda.",
+    "param.overwrite.description": "Njia ya faili ikiwa_7 ipo zaidi ya_ELIM_7. (chaguo-msingi: si kweli).",
     "tool.description": "Unda faili la maandishi.Kwa chaguo-msingi, faili zilizopo haziandikwi juu.",
     "x_search_terms": [
       "create_file",
@@ -225,10 +225,10 @@
     ]
   },
   "nb": {
-    "param.content.description": "Tekstinnho...",
+    "param.content.description": "Tekstinnhold.",
     "param.encoding.description": "Tekstkoding (f.eks.'utf-8', 'cp932').",
-    "param.filename.description": "Stien til filen s...",
-    "param.overwrite.description": "Om filen skal overskrives hvis den...",
+    "param.filename.description": "Filbane som skal opprettes.",
+    "param.overwrite.description": "Overskriv hvis det finnes (standard: usann).",
     "tool.description": "Opprett en tekstfil.Som standard blir ikke en eksisterende fil overskrevet.",
     "x_search_terms": [
       "create_file",
@@ -238,10 +238,10 @@
     ]
   },
   "nl": {
-    "param.content.description": "Te schrijv...",
+    "param.content.description": "Tekstinhoud.",
     "param.encoding.description": "Tekencodering (bijv.'utf-8', 'cp932').",
-    "param.filename.description": "Pad van het te ma...",
-    "param.overwrite.description": "Of er moet worden overschreven als...",
+    "param.filename.description": "Bestandspad dat moet worden gemaakt.",
+    "param.overwrite.description": "Overschrijven indien aanwezig (standaard: false).",
     "tool.description": "Maak een tekstbestand.Standaard wordt een bestaand bestand niet overschreven.",
     "x_search_terms": [
       "create_file",
@@ -251,10 +251,10 @@
     ]
   },
   "fi": {
-    "param.content.description": "Kirjoitett...",
+    "param.content.description": "Tekstisisältö.",
     "param.encoding.description": "Merkistökoodaus (esim.'utf-8', 'cp932').",
-    "param.filename.description": "Luotavan tiedosto...",
-    "param.overwrite.description": "Korvataanko olemassa oleva tiedost...",
+    "param.filename.description": "Luotava tiedostopolku.",
+    "param.overwrite.description": "Korvaa, jos se on olemassa (oletus: false).",
     "tool.description": "Luo tekstitiedosto.Oletuksena olemassa olevaa tiedostoa ei korvata.",
     "x_search_terms": [
       "create_file",
@@ -264,10 +264,10 @@
     ]
   },
   "cs": {
-    "param.content.description": "Textový ob...",
+    "param.content.description": "Textový obsah.",
     "param.encoding.description": "Textové kódování (např.'utf-8', 'cp932').",
-    "param.filename.description": "Cesta k souboru,...",
-    "param.overwrite.description": "Zda přepsat, pokud soubor již exis...",
+    "param.filename.description": "Cesta k souboru k vytvoření.",
+    "param.overwrite.description": "Přepsat, pokud existuje (výchozí: false).",
     "tool.description": "Vytvoří textový soubor.Ve výchozím nastavení nástroj neprepíše existující soubor.",
     "x_search_terms": [
       "create_file",
@@ -277,10 +277,10 @@
     ]
   },
   "uk": {
-    "param.content.description": "Текстовий...",
-    "param.encoding.description": "Кодування тексту (наприклад, 'utf-8', 'cp9...",
-    "param.filename.description": "Шлях до файла, як...",
-    "param.overwrite.description": "Чи перезаписувати, якщо файл уже і...",
+    "param.content.description": "Текстовий вміст.",
+    "param.encoding.description": "Кодування (наприклад, utf-8, cp932; за замовчуванням: utf-8).",
+    "param.filename.description": "Шлях до файлу для створення.",
+    "param.overwrite.description": "Перезаписати, якщо існує (за замовчуванням: false).",
     "tool.description": "Створює текстовий файл.За замовчуванням інструмент не перезаписує наявний файл.",
     "x_search_terms": [
       "create_file",
@@ -290,10 +290,10 @@
     ]
   },
   "tr": {
-    "param.content.description": "Yazılacak...",
+    "param.content.description": "Metin içeriği.",
     "param.encoding.description": "Metin kodlaması (ör.'utf-8', 'cp932').",
-    "param.filename.description": "Oluşturulacak dos...",
-    "param.overwrite.description": "Dosya zaten mevcutsa üzerine yazıp...",
+    "param.filename.description": "Oluşturulacak dosya yolu.",
+    "param.overwrite.description": "Varsa üzerine yazın (varsayılan: false).",
     "tool.description": "Bir metin dosyası oluşturun.Varsayılan olarak mevcut dosyaların üzerine yazılmaz.",
     "x_search_terms": [
       "create_file",
@@ -303,11 +303,11 @@
     ]
   },
   "th": {
-    "param.content.description": "เนื้อหาข้อ...",
-    "param.encoding.description": "การเข้ารหัสข้อความ (เช่น 'utf-8', 'cp932')...",
+    "param.content.description": "เนื้อหาข้อความ",
+    "param.encoding.description": "การเข้ารหัส (เช่น utf-8, cp932; ค่าเริ่มต้น: utf-8)",
     "param.filename.description": "เส้นทางไฟล์ที่จะสร้าง",
-    "param.overwrite.description": "เขียนทับหรือไม่หากไฟล์มีอยู่แล้ว (...",
-    "tool.description": "สร้างไฟล์ข้อความ โดยค่าเริ่มต้นจะไม่เขียนทับไฟล์เดิม หากระบุ overwrite=true และปลายทางมีอยู่แล้ว ระบบจะสำรองไฟล์ (<fil...",
+    "param.overwrite.description": "เขียนทับหากมี (ค่าเริ่มต้น: false)",
+    "tool.description": "สร้างไฟล์ข้อความ ตัวเลือกเขียนทับด้วยการสำรองข้อมูล (.org) เลือกการเข้ารหัสสำหรับ Excel (utf-8-sig) หรือแบบเป็นโปรแกรม (utf-8)",
     "x_search_terms": [
       "create_file",
       "สร้างไฟล์",
@@ -342,11 +342,11 @@
     ]
   },
   "bn": {
-    "param.content.description": "লেখার জন্য...",
-    "param.encoding.description": "টেক্সট এনকোডিং (যেমন 'utf-8', 'cp932')। en...",
-    "param.filename.description": "যে ফাইলটি তৈরি কর...",
-    "param.overwrite.description": "ফাইলটি আগে থেকেই থাকলে সেটি ওভাররা...",
-    "tool.description": "টেক্সট ফাইল তৈরি করুন। ডিফল্টভাবে বিদ্যমান ফাইল ওভাররাইট করা হয় না। overwrite=true এবং গন্তব্যে ফাইল আগে থেকেই থাকলে,...",
+    "param.content.description": "পাঠ্য বিষয়বস্তু।",
+    "param.encoding.description": "এনকোডিং (যেমন utf-8, cp932; ডিফল্ট: utf-8)।",
+    "param.filename.description": "পাঠ্য বিষয়বস্তু। ডিফল্ট:",
+    "param.overwrite.description": "বিদ্যমান থাকলে ওভাররাইট করুন (ডিফল্ট: মিথ্যা)।",
+    "tool.description": "একটি পাঠ্য ফাইল তৈরি করুন। ব্যাকআপের সাথে ঐচ্ছিক ওভাররাইট (.org)। Excel (utf-8-sig) বা প্রোগ্রামেটিক (utf-8) এর জন্য এনকোডিং বেছে নিন।",
     "x_search_terms": [
       "create_file",
       "ফাইল তৈরি",
@@ -355,10 +355,10 @@
     ]
   },
   "fa": {
-    "param.content.description": "محتوای متن...",
+    "param.content.description": "محتوای متنی.",
     "param.encoding.description": "کدگذاری متن (مثلاً 'utf-8'، 'cp932').",
-    "param.filename.description": "مسیر فایلی که بای...",
-    "param.overwrite.description": "آیا در صورت وجود فایل، بازنویسی شو...",
+    "param.filename.description": "مسیر فایل برای ایجاد.",
+    "param.overwrite.description": "در صورت وجود بازنویسی کنید (پیش‌فرض: غلط).",
     "tool.description": "یک فایل متنی ایجاد کنید.به‌طور پیش‌فرض فایل‌های موجود بازنویسی نمی‌شوند.",
     "x_search_terms": [
       "create_file",
@@ -368,10 +368,10 @@
     ]
   },
   "mn": {
-    "param.content.description": "Бичих текс...",
-    "param.encoding.description": "Текстийн кодчилол (жишээ нь 'utf-8', 'cp93...",
+    "param.content.description": "Текстийн агуулга.",
+    "param.encoding.description": "Кодчилол (жишээ нь. utf-8, cp932; анхдагч: utf-8).",
     "param.filename.description": "Үүсгэх файлын зам.",
-    "param.overwrite.description": "Файл аль хэдийн байгаа бол дарж би...",
+    "param.overwrite.description": "Хэрэв байгаа бол (худал бол: дарж бичих).",
     "tool.description": "Текст файл үүсгэнэ.Өгөгдмөлөөр одоо байгаа файлыг дарж бичихгүй.",
     "x_search_terms": [
       "create_file",
@@ -383,14 +383,82 @@
   "mr": {
     "param.content.description": "लिहायचा मजकूर.",
     "param.encoding.description": "मजकूर एन्कोडिंग (उदा.'utf-8', 'cp932').",
-    "param.filename.description": "तयार करायच्या फाइ...",
-    "param.overwrite.description": "फाइल आधीपासून असेल तर ती ओव्हरराइट...",
+    "param.filename.description": "तयार करण्यासाठी फाइल पथ.",
+    "param.overwrite.description": "अस्तित्वात असल्यास अधिलिखित करा (डीफॉल्ट: असत्य).",
     "tool.description": "एक टेक्स्ट फाइल तयार करा.डीफॉल्टने विद्यमान फाइल ओव्हरराइट केली जात नाही.",
     "x_search_terms": [
       "create_file",
       "फाइल तयार करा",
       "मजकूर फाइल",
       "नवीन फाइल"
+    ]
+  },
+  "el": {
+    "param.content.description": "Περιεχόμενο κειμένου.",
+    "param.encoding.description": "Κωδικοποίηση (π.χ. utf-8, cp932, προεπιλογή: utf-8).",
+    "param.filename.description": "Διαδρομή αρχείου για δημιουργία.",
+    "param.overwrite.description": "Αντικαταστήστε εάν υπάρχει (προεπιλογή: false).",
+    "tool.description": "Δημιουργήστε ένα αρχείο κειμένου. Προαιρετική αντικατάσταση με αντίγραφο ασφαλείας (.org). Επιλέξτε κωδικοποίηση για Excel (utf-8-sig) ή μέσω προγραμματισμού (utf-8).",
+    "x_search_terms": [
+      "δημιουργία αρχείου",
+      "νέο αρχείο",
+      "εγγραφή αρχείου",
+      "ファイルを作成",
+      "δημιουργία αρχείου",
+      "créer fichier",
+      "파일 만들기",
+      "создать αρχείο"
+    ]
+  },
+  "he": {
+    "param.content.description": "תוכן טקסט.",
+    "param.encoding.description": "קידוד (למשל utf-8, cp932; ברירת מחדל: utf-8).",
+    "param.filename.description": "נתיב קובץ ליצירה.",
+    "param.overwrite.description": "החלף אם קיים (ברירת מחדל: false).",
+    "tool.description": "צור קובץ טקסט. החלפה אופציונלית עם גיבוי (.org). בחר קידוד עבור Excel (utf-8-sig) או פרוגרמטי (utf-8).",
+    "x_search_terms": [
+      "ליצור קובץ",
+      "קובץ חדש",
+      "לכתוב קובץ",
+      "ファイルを作成",
+      "יצירת ארכיון",
+      "קריר עלוב יותר",
+      "파일 만들기",
+      "создать файл"
+    ]
+  },
+  "hu": {
+    "param.content.description": "Szöveges tartalom.",
+    "param.encoding.description": "Kódolás (pl. utf-8, cp932; alapértelmezett: utf-8).",
+    "param.filename.description": "Létrehozandó fájl elérési útja.",
+    "param.overwrite.description": "Felülírni, ha létezik (alapértelmezett: false).",
+    "tool.description": "Hozzon létre egy szöveges fájlt. Opcionális felülírás biztonsági mentéssel (.org). Válassza ki az Excel (utf-8-sig) vagy a programozott (utf-8) kódolást.",
+    "x_search_terms": [
+      "fájl létrehozása",
+      "új fájl",
+      "fájl írása",
+      "ファイルを作成",
+      "archivo létrehozása",
+      "créer fichier",
+      "파일 만들기",
+      "создать файл"
+    ]
+  },
+  "ro": {
+    "param.content.description": "Conținut text.",
+    "param.encoding.description": "Codificare (de exemplu, utf-8, cp932; implicit: utf-8).",
+    "param.filename.description": "Calea fișierului de creat.",
+    "param.overwrite.description": "Suprascrie dacă există (implicit: fals).",
+    "tool.description": "Creați un fișier text. Suprascrie opțională cu backup (.org). Alegeți codificarea pentru Excel (utf-8-sig) sau programatică (utf-8).",
+    "x_search_terms": [
+      "creați fișierul",
+      "fișier nou",
+      "scrie fisierul",
+      "ファイルを作成",
+      "crea arquivo",
+      "creează fișier",
+      "파일 만들기",
+      "создать файл"
     ]
   }
 }

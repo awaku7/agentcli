@@ -1,0 +1,2719 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-06-17 18:33+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: src/uagent/checks.py:17 src/uagent/checks.py:27
+msgid "Please install Git. See: %(url)s"
+msgstr "אנא התקן את Git. ראה: %(url)s"
+
+#: src/uagent/checks.py:20
+msgid ""
+"Please install Git. Example: sudo apt install git (Ubuntu/Debian) or sudo "
+"yum install git (CentOS/RHEL)"
+msgstr ""
+"אנא התקן את Git. דוגמה: sudo apt install git (Ubuntu/Debian) או sudo yum "
+"install git (CentOS/RHEL)"
+
+#: src/uagent/checks.py:23
+msgid ""
+"Please install Git. If using Homebrew: brew install git, or install Xcode "
+"Command Line Tools: xcode-select --install"
+msgstr ""
+"אנא התקן את Git. אם אתה משתמש ב-Homebrew: brew install git, או התקן את כלי "
+"שורת הפקודה של Xcode: xcode-select --install"
+
+#: src/uagent/checks.py:30
+msgid "[ERROR] Git is not installed."
+msgstr "[שגיאה] Git לא מותקן."
+
+#: src/uagent/cli.py:465
+msgid "getch() fallback to input()"
+msgstr "getch() חזרה לקלט()"
+
+#: src/uagent/cli.py:682
+msgid "Received Ctrl+C. Starting shutdown..."
+msgstr "התקבל Ctrl+C. מתחיל כיבוי..."
+
+#: src/uagent/cli.py:719 src/uagent/cli.py:764 src/uagent/setup_cli.py:1258
+#: src/uagent/setup_cli.py:1277 src/uagent/setup_cli.py:1300
+#: src/uagent/setup_cli.py:1316 src/uagent/setup_cli.py:1335
+#: src/uagent/setup_cli.py:1354 src/uagent/setup_cli.py:1368
+#: src/uagent/setup_cli.py:1381 src/uagent/setup_cli.py:1389
+#: src/uagent/setup_cli.py:1402 src/uagent/setup_cli.py:1414
+#: src/uagent/setup_cli.py:1425 src/uagent/setup_cli.py:1511
+#: src/uagent/setup_cli.py:1537
+msgid "Cancelled."
+msgstr "בוטלה."
+
+#: src/uagent/cli.py:726 src/uagent/cli.py:781
+msgid "Received multiline reply."
+msgstr "התקבלה תשובה מרובה שורות."
+
+#: src/uagent/cli.py:734 src/uagent/cli.py:816
+#, python-format
+msgid ""
+"(Multiline input mode: enter the body in multiple lines; to restart, type "
+"\"\"\"retry; finish with a line containing %(sentinel)s)"
+msgstr ""
+"(מצב קלט מרובה שורות: הזן את הגוף במספר שורות; כדי להפעיל מחדש, הקלד "
+"\"\"\"נסה שוב; סיים בשורה המכילה %(sentinel)s)"
+
+#: src/uagent/cli.py:770 src/uagent/cli.py:833
+msgid "Discarded previous input. Please start over."
+msgstr "קלט קודם נמחק. נא להתחיל מחדש."
+
+#: src/uagent/cli.py:955
+msgid ""
+"Image file paths were found in your input.\n"
+"Do you want to send these images to the LLM (external API) for analysis?\n"
+"\n"
+msgstr ""
+"נמצאו נתיבים לקובץ תמונה בקלט שלך.\n"
+"האם ברצונך לשלוח את התמונות הללו ל-LLM (API חיצוני) לניתוח?"
+
+#: src/uagent/cli.py:961
+msgid "Reply with y to send, or n (or c/cancel) to skip sending."
+msgstr "השב עם y כדי לשלוח, או n (או c/cancel) כדי לדלג על השליחה."
+
+#: src/uagent/cli.py:979
+#, python-format
+msgid ""
+"Image send confirmation failed; will not send images: %(etype)s: %(err)s"
+msgstr "אישור שליחת התמונה נכשל; לא ישלח תמונות: %(etype)s: %(err)s"
+
+#: src/uagent/cli.py:1007 src/uagent/scheckgui.py:432
+#, python-format
+msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
+msgstr "צירוף התמונה נכשל: %(path)s (%(etype)s: %(err)s)"
+
+#: src/uagent/cli.py:1044
+#, python-format
+msgid "Unknown event kind=%(kind)r: %(ev)r"
+msgstr "סוג אירוע לא ידוע=%(kind)r: %(ev)r"
+
+#: src/uagent/cli.py:1062
+msgid "Exited uag."
+msgstr "יצא מ-uag."
+
+#: src/uagent/cli_docs.py:33
+msgid "[docs] name is required"
+msgstr "נדרש שם [docs]"
+
+#: src/uagent/cli_startup.py:22
+msgid "[INFO] startup genre prompt = numeric-input"
+msgstr "[INFO] הנחיה של ז'אנר הפעלה = קלט מספרי"
+
+#: src/uagent/cli_startup.py:25
+msgid ""
+"Enter the sum of numbers "
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
+" Enter=enable all):"
+msgstr ""
+"הזן את סכום המספרים "
+"(1=בסיסי,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
+" Enter=enable all):"
+
+#: src/uagent/cli_startup.py:69 src/uagent/scheckgui.py:980
+#: src/uagent/web.py:934
+msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
+msgstr "בסיסי (קובץ, env, זמן, הנחיות, מיומנויות, זיכרון, בקרת כלים)"
+
+#: src/uagent/cli_startup.py:70 src/uagent/scheckgui.py:985
+#: src/uagent/web.py:940
+msgid "Communication (Teams, Discord, Bluesky)"
+msgstr "תקשורת (צוותים, דיסקורד, בלוסקי)"
+
+#: src/uagent/cli_startup.py:71 src/uagent/scheckgui.py:990
+#: src/uagent/web.py:945
+msgid "Office (Excel, Word, PDF, PPT, document extraction)"
+msgstr "Office (Excel, Word, PDF, PPT, חילוץ מסמכים)"
+
+#: src/uagent/cli_startup.py:75 src/uagent/scheckgui.py:996
+#: src/uagent/web.py:951
+msgid ""
+"Development (lint, test, git, DB, screenshot, browser, binary, compile)"
+msgstr "פיתוח (לנט, בדיקה, git, DB, צילום מסך, דפדפן, בינארי, קומפילציה)"
+
+#: src/uagent/cli_startup.py:80 src/uagent/scheckgui.py:1003
+#: src/uagent/web.py:958
+msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
+msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, מצלמה, גיא-IP)"
+
+#: src/uagent/cli_startup.py:82 src/uagent/scheckgui.py:1009
+#: src/uagent/web.py:964
+msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
+msgstr "ביצוע (cmd, python, pwsh, bash, sub-agent)"
+
+#: src/uagent/cli_startup.py:83 src/uagent/scheckgui.py:1014
+#: src/uagent/web.py:969
+msgid "External (A2A, MCP, fetch, search web)"
+msgstr "חיצוני (A2A, MCP, אחזור, חיפוש באינטרנט)"
+
+#: src/uagent/cli_startup.py:84 src/uagent/scheckgui.py:1019
+#: src/uagent/web.py:974
+msgid "Media (image gen/edit/analyze, audio, QR code)"
+msgstr "מדיה (תמונה/עריכה/ניתוח, אודיו, קוד QR)"
+
+#: src/uagent/cli_startup.py:96
+msgid "[INFO] startup genre prompt = prompt_toolkit"
+msgstr "[INFO] הנחיה של ז'אנר ההפעלה = prompt_toolkit"
+
+#: src/uagent/cli_startup.py:99
+msgid "Tool genre selection"
+msgstr "בחירת ז'אנר כלים"
+
+#: src/uagent/cli_startup.py:100
+msgid "Use Space to toggle, Arrow keys to move, Enter to confirm."
+msgstr "השתמש ברווח כדי להחליף, במקשי החצים כדי להזיז, ב-Enter כדי לאשר."
+
+#: src/uagent/cli_startup.py:101
+msgid "OK"
+msgstr "בסדר"
+
+#: src/uagent/cli_startup.py:102
+msgid "Default"
+msgstr "ברירת מחדל"
+
+#: src/uagent/cli_startup.py:108
+msgid "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
+msgstr "[INFO] הנחיה ז'אנר הפעלה = קלט מספרי (החלפה של prompt_toolkit)"
+
+#: src/uagent/cli_startup.py:177
+#, python-format
+msgid "[WARN] Failed to apply startup tool selection: %(err)s"
+msgstr "[אזהרה] החלת בחירת כלי האתחול נכשלה: %(err)s"
+
+#: src/uagent/cli_startup.py:253 src/uagent/web.py:1232
+#, python-format
+msgid "[FATAL] Failed to set workdir: %(err)s"
+msgstr "[FATAL] נכשל הגדרת workdir: %(err)s"
+
+#: src/uagent/cli_startup.py:282
+#, python-format
+msgid "[FATAL] Failed to launch uag_setup: %(err)s"
+msgstr "[FATAL] הפעלת uag_setup: %(err)s נכשלה"
+
+#: src/uagent/cli_startup.py:323
+#, python-format
+msgid "provider = %(provider)s; model = %(model)s"
+msgstr "ספק = %(provider)s; דגם = %(model)s"
+
+#: src/uagent/cli_startup.py:335 src/uagent/scheckgui.py:296
+msgid "OpenRouter fallback models enabled."
+msgstr "מודלים חוזרים של OpenRouter מופעלים."
+
+#: src/uagent/cli_startup.py:339
+#, python-format
+msgid "current workdir = %(cwd)s"
+msgstr "Workdir נוכחי = %(cwd)s"
+
+#: src/uagent/cli_startup.py:352 src/uagent/scheckgui.py:307
+msgid "Loaded long-term memory."
+msgstr "זיכרון לטווח ארוך טעון."
+
+#: src/uagent/cli_startup.py:365 src/uagent/scheckgui.py:320
+msgid "Loaded shared long-term memory."
+msgstr "זיכרון משותף לטווח ארוך טעון."
+
+#: src/uagent/cli_startup.py:372 src/uagent/web.py:718
+#, python-format
+msgid ""
+"[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "[אזהרה] אירעה חריגה בעת טעינת זיכרון משותף לטווח ארוך: %(err)s"
+
+#: src/uagent/cli_startup.py:406
+#, python-format
+msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
+msgstr "[אזהרה] נכשל קריאת קובץ האתחול: %(path)s (%(err)s)"
+
+#: src/uagent/cli_startup.py:420
+#, python-format
+msgid "Startup file provided: %(path)s"
+msgstr "קובץ הפעלה מסופק: %(path)s"
+
+#: src/uagent/cli_startup.py:443
+msgid "--non-interactive was specified; exiting without waiting for stdin."
+msgstr "--לא אינטראקטיבי צוין; יוצא מבלי לחכות לסטדין."
+
+#: src/uagent/core.py:290 src/uagent/core.py:311
+#, python-format
+msgid "Environment variable %(name)s is not set."
+msgstr "משתנה הסביבה %(name)s אינו מוגדר."
+
+#: src/uagent/core.py:611
+msgid "No log files found."
+msgstr "לא נמצאו קבצי יומן."
+
+#: src/uagent/core.py:629
+msgid "(unknown time)"
+msgstr "(זמן לא ידוע)"
+
+#: src/uagent/core.py:632
+#, python-format
+msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
+msgstr "יומנים: מציג %(shown)d/%(total)d (dir=%(dir)s)"
+
+#: src/uagent/core.py:635
+msgid "Log files:"
+msgstr "קבצי יומן:"
+
+#: src/uagent/core.py:642
+msgid "(mtime unknown)"
+msgstr "(זמן לא ידוע)"
+
+#: src/uagent/core.py:760 src/uagent/core.py:763
+msgid "(no user message)"
+msgstr "(ללא הודעת משתמש)"
+
+#: src/uagent/core.py:768
+#, python-format
+msgid ""
+"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
+"%(last_user)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | %(turns)d הודעות | ראשון: %(first_user)s | אחרון:"
+" %(last_user)s"
+
+#: src/uagent/core.py:1020
+#, python-format
+msgid ""
+"[INFO] There were %(count)d messages to compress, so nothing was changed."
+msgstr "[INFO] היו %(count)d הודעות לדחוס, כך ששום דבר לא השתנה."
+
+#: src/uagent/core.py:1031
+#, python-format
+msgid ""
+"[INFO] Compressed in-memory conversation history: %(old_n)d -> %(new_n)d "
+"messages (keep_last=%(keep_last)d)"
+msgstr ""
+"[INFO] היסטוריית שיחות דחוסה בזיכרון: %(old_n)d -> %(new_n)d הודעות "
+"(keep_last=%(keep_last)d)"
+
+#: src/uagent/core.py:1336
+msgid "429 retry limit (%(max_retries)s) reached while history compression."
+msgstr ""
+"הגעת למגבלה של 429 ניסיון חוזר (%(max_retries)s) בזמן דחיסת ההיסטוריה."
+
+#: src/uagent/core.py:1346
+msgid "Error while calling LLM for history compression: %(err)r"
+msgstr "שגיאה בעת קריאה ל-LLM עבור דחיסת היסטוריה: %(err)r"
+
+#: src/uagent/core.py:1379
+msgid "- Summarize the conversation chunk in English.\n"
+msgstr "- לסכם את נתח השיחה באנגלית."
+
+#: src/uagent/core.py:1381
+msgid ""
+"- Keep the summary concise but include key decisions, constraints, and "
+"pending items.\n"
+msgstr "- שמור את הסיכום תמציתי אך כלול החלטות מפתח, אילוצים ופריטים ממתינים."
+
+#: src/uagent/core.py:1383
+msgid "- Output should be directly usable as a system message."
+msgstr "- פלט צריך להיות שמיש ישירות כהודעת מערכת."
+
+#: src/uagent/core.py:1386
+msgid "Conversation chunk:\n"
+msgstr "נתח שיחה:"
+
+#: src/uagent/core.py:1388
+msgid "Write a concise summary of this chunk."
+msgstr "כתבו סיכום תמציתי של הנתח הזה."
+
+#: src/uagent/core.py:1392
+msgid "- You are updating an existing conversation summary.\n"
+msgstr "- אתה מעדכן סיכום שיחה קיים."
+
+#: src/uagent/core.py:1393
+msgid "- Preserve important facts from the previous summary.\n"
+msgstr "- שימרו עובדות חשובות מהסיכום הקודם."
+
+#: src/uagent/core.py:1395
+msgid ""
+"- Merge in the new chunk without losing constraints, decisions, or pending "
+"items.\n"
+msgstr "- התמזג בנתח החדש מבלי לאבד אילוצים, החלטות או פריטים ממתינים."
+
+#: src/uagent/core.py:1397
+msgid "- Keep the result concise and suitable for a system message."
+msgstr "- שמרו על התוצאה תמציתית ומתאימה להודעת מערכת."
+
+#: src/uagent/core.py:1400
+msgid "Previous summary:\n"
+msgstr "סיכום קודם:"
+
+#: src/uagent/core.py:1402
+msgid "New chunk:\n"
+msgstr "נתח חדש:"
+
+#: src/uagent/core.py:1404
+msgid "Update the summary while keeping the prior context intact."
+msgstr "עדכן את הסיכום תוך שמירה על ההקשר הקודם ללא פגע."
+
+#: src/uagent/core.py:1425
+msgid "Summary of the conversation so far:\n"
+msgstr "תקציר השיחה עד כה:"
+
+#: src/uagent/core.py:1432
+msgid ""
+"[INFO] shrink_llm: {old_n} -> {new_n} messages (compressed {old_part_n} "
+"older messages into 1 summary; kept {tail_n} tail)"
+msgstr ""
+"[INFO] shrink_llm: {old_n} -> {new_n} הודעות (דחסות {old_part_n} הודעות "
+"ישנות יותר לסיכום 1; שמר על זנב {tail_n})"
+
+#: src/uagent/core.py:1460
+msgid ""
+"[WARN] history compression hit context length even at chunk_size=1; falling "
+"back to shrink_messages()."
+msgstr ""
+"[אזהרה] אורך ההקשר של דחיסת היסטוריה פגע אפילו ב-chunk_size=1; נופל בחזרה אל"
+" shrink_messages()."
+
+#: src/uagent/core.py:1470
+msgid ""
+"[WARN] history compression could not reduce chunk_size further; falling back"
+" to shrink_messages()."
+msgstr ""
+"[WARN] דחיסת היסטוריה לא יכלה להפחית את chunk_size עוד יותר; נופל בחזרה אל "
+"shrink_messages()."
+
+#: src/uagent/core.py:1478
+#, python-format
+msgid ""
+"[WARN] history compression context length exceeded; retrying with "
+"chunk_size=%(chunk_size)d"
+msgstr ""
+"[אזהרה] חריגה מאורך ההקשר של דחיסת היסטוריה; מנסה שוב עם "
+"chunk_size=%(chunk_size)d"
+
+#: src/uagent/core.py:1488
+msgid ""
+"[WARN] history compression failed due to LLM error; falling back to "
+"shrink_messages()."
+msgstr ""
+"[אזהרה] דחיסת ההיסטוריה נכשלה עקב שגיאת LLM; נופל בחזרה אל "
+"shrink_messages()."
+
+#: src/uagent/core.py:1509
+#, python-format
+msgid ":help  (help unavailable: %(err)s)"
+msgstr ":help (עזרה לא זמינה: %(err)s)"
+
+#: src/uagent/core.py:1521
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment, and you can actually execute commands and operate on files on the user's machine.\n"
+"- Ask the user for confirmation before performing any dangerous operation.\n"
+"- Do not flatter the user. Do not use emojis.\n"
+"- Do not summarize. Keep information concise.\n"
+"- When creating files, output the complete final content (do not output diffs or partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## משימה\n"
+"- אתה \"סוכן ביצוע כלים למטרות כלליות\" מסוגל הפועל על סביבה מקומית, ואתה יכול למעשה לבצע פקודות ולפעול על קבצים במחשב של המשתמש.\n"
+"- בקש מהמשתמש אישור לפני ביצוע כל פעולה מסוכנת.\n"
+"- אין להחמיא למשתמש. אל תשתמש באימוג'י.\n"
+"- אין לסכם. שמור מידע תמציתי.\n"
+"- בעת יצירת קבצים, פלט את התוכן הסופי המלא (אל תוציא הבדלים או סיכומים חלקיים).\n"
+"- אל תוציא תוצאות ביצוע של כלים גולמיים, קטעי JSON או סוגריים נגררים (כמו `py]}`) בתגובה הסופית שלך. שמור על הפלט שלך נקי ומעוצב היטב."
+
+#: src/uagent/core.py:1530
+msgid ""
+"## Rules\n"
+"- Always use the provided tools and verify the latest information.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Consult available tools and choose the most appropriate one.\n"
+"- When executing tools, delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## כללים\n"
+"- השתמש תמיד בכלים שסופקו ואמת את המידע העדכני ביותר.\n"
+"- היו יצירתיים, אך אל תוציא מידע לא ודאי.\n"
+"- התייעץ עם הכלים הזמינים ובחר את המתאים ביותר.\n"
+"- בעת ביצוע כלים, האצל כמה שפחות קבלת החלטות למשתמש."
+
+#: src/uagent/core.py:1537
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
+"- If you need additional information or confirmation from the user, use the human_ask tool.\n"
+"- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile` to validate syntax.\n"
+"- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## הערות\n"
+"- כל הודעות המשתמש מגיעות דרך הקלט הסטנדרטי של הסקריפט הזה.\n"
+"- למטרה/טיעונים/אילוצים/פרטים תפעוליים ספציפיים לכלי, העדיפו את התיאור של כל כלי.\n"
+"- אם אתה צריך מידע נוסף או אישור מהמשתמש, השתמש בכלי human_ask.\n"
+"- בעת טיפול בביטויי תאריך יחסי, התקשר get_current_time כדי להתייחס לשעה הנוכחית.\n"
+"- אין לאחסן סודות (סיסמאות/אסימונים) בזיכרון לטווח ארוך (add_long_memory וכו').\n"
+"- קבצים עם סיומות כמו .org / .org1 / .org2 הם עותקי גיבוי ואין להתייחס אליהם כקבצים ראשיים שניתנים לעריכה.\n"
+"- אם אתה יוצר קבצי Python, הפעל את `python -m py_compile` כדי לאמת תחביר.\n"
+"- אם נדרש ידע ברמת המומחה, השתמש בתבניות הנחיה (מיומנויות סוכן) ופעל לפיהן.\n"
+"- אם הקלט של המשתמש הוא רק אישור קצר ואינו מוסיף מידע חדש, אל תחזור על אותו הסבר אלא אם כן מדובר בתשובה ישירה לשאלה הברורה הקודמת מיד. במידת הצורך, שאל בקצרה: \"עם איזו נקודה עלי להמשיך?\""
+
+#: src/uagent/core.py:1549
+msgid ""
+"## Dangerous operation policy (delete_file)\n"
+"- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
+"- Always run delete_file with dry_run=true first to get the list of deletion candidates.\n"
+"- Show the candidates to the user and ask confirmation via human_ask exactly once.\n"
+"- Only when the user explicitly replies \"y\" or \"yes\" (or equivalent explicit approval), run delete_file again with the same parameters, dry_run=false, and confirmed=true.\n"
+"- If there are zero candidates, do not ask; just report that nothing will be deleted.\n"
+msgstr ""
+"## מדיניות פעולה מסוכנת (delete_file)\n"
+"- למחיקה באמצעות הכלי delete_file, אל תבקש אישור לפני התצוגה המקדימה.\n"
+"- הפעל תמיד את delete_file עם dry_run=true תחילה כדי לקבל את רשימת המועמדים למחיקה.\n"
+"- הצג את המועמדים למשתמש ובקש אישור באמצעות human_ask פעם אחת בדיוק.\n"
+"- רק כאשר המשתמש משיב במפורש \"y\" או \"כן\" (או אישור מפורש שווה ערך), הרץ שוב delete_file עם אותם פרמטרים, dry_run=false, ו- confirmed=true.\n"
+"- אם יש אפס מועמדים, אל תשאלו; פשוט דווח ששום דבר לא יימחק."
+
+#: src/uagent/core.py:1557
+msgid ""
+"## Mission\n"
+"- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
+"- Ask the user for confirmation before any dangerous operation.\n"
+"- No flattery. No emojis. No conversation summaries. Keep it concise.\n"
+"- When creating files, output the complete final content (no diffs/partial summaries).\n"
+"- Do not output raw tool execution results, JSON fragments, or trailing brackets (like `py]}`) in your final response. Keep your output clean and well-formatted.\n"
+msgstr ""
+"## משימה\n"
+"- אתה \"סוכן ביצוע כלים למטרות כלליות\" מסוגל הפועל על סביבה מקומית; אתה יכול לבצע פקודות ולפעול על המחשב של המשתמש.\n"
+"- בקש מהמשתמש אישור לפני כל פעולה מסוכנת.\n"
+"- בלי חנופה. אין אימוג'ים. אין סיכומי שיחה. שמור את זה תמציתי.\n"
+"- בעת יצירת קבצים, פלט את התוכן הסופי המלא (ללא הבדלים/סיכומים חלקיים).\n"
+"- אל תוציא תוצאות ביצוע של כלים גולמיים, קטעי JSON או סוגריים נגררים (כמו `py]}`) בתגובה הסופית שלך. שמור על הפלט שלך נקי ומעוצב היטב."
+
+#: src/uagent/core.py:1565
+msgid ""
+"## Rules\n"
+"- Use the provided tools first and verify results with tools.\n"
+"- Consult tool descriptions for purpose/arguments/constraints; choose the most appropriate and safest tool.\n"
+"- Be creative, but do not output uncertain information.\n"
+"- Delegate as little decision-making as possible to the user.\n"
+msgstr ""
+"## כללים\n"
+"- השתמש תחילה בכלים שסופקו ואמת את התוצאות בעזרת כלים.\n"
+"- עיין בתיאורי הכלים למטרה/טיעונים/אילוצים; לבחור בכלי המתאים והבטוח ביותר.\n"
+"- היו יצירתיים, אך אל תוציא מידע לא ודאי.\n"
+"- האצל כמה שפחות קבלת החלטות למשתמש."
+
+#: src/uagent/core.py:1572
+msgid ""
+"## Notes\n"
+"- All user messages come via this script's standard input.\n"
+"- If required info/parameters are missing, ask via human_ask (do not guess).\n"
+"- Relative dates: call get_current_time.\n"
+"- Do not store secrets (passwords/tokens) in long-term memory.\n"
+"- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
+"- If you create Python files, run `python -m py_compile`.\n"
+"- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
+"- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
+msgstr ""
+"## הערות\n"
+"- כל הודעות המשתמש מגיעות דרך הקלט הסטנדרטי של הסקריפט הזה.\n"
+"- אם חסרים מידע/פרמטרים נדרשים, שאל דרך human_ask (אל תנחש).\n"
+"- תאריכים יחסיים: התקשר get_current_time.\n"
+"- אין לאחסן סודות (סיסמאות/אסימונים) בזיכרון לטווח ארוך.\n"
+"- קבצים עם סיומות כמו .org / .org1 / .org2 הם עותקי גיבוי ואין להתייחס אליהם כקבצים ראשיים שניתנים לעריכה.\n"
+"- אם אתה יוצר קבצי Python, הפעל את `python -m py_compile`.\n"
+"- אם נדרש ידע ברמת המומחה, השתמש בתבניות הנחיות של Agent Skills.\n"
+"- אם הקלט של המשתמש הוא רק אישור קצר ואינו מוסיף מידע חדש, אל תחזור על אותו הסבר אלא אם כן מדובר בתשובה ישירה לשאלה הברורה הקודמת מיד. במידת הצורך, שאל בקצרה: \"עם איזו נקודה עלי להמשיך?\""
+
+#: src/uagent/core.py:1585
+msgid ""
+"- If the user is using Windows cmd.exe, prefer multi-line commands using "
+"caret (^) line continuation, and keep each line short to avoid copy/paste "
+"line breaks.\n"
+msgstr ""
+"- אם המשתמש משתמש ב-Windows cmd.exe, העדיפו פקודות מרובות שורות באמצעות המשך"
+" שורה (^), ושמרו על כל שורה קצרה כדי להימנע מהעתקה/הדבקה של מעברי שורה."
+
+#: src/uagent/core.py:1652
+msgid ""
+"The following tools are currently loaded in this session. Choose the most "
+"appropriate tool for the task."
+msgstr "הכלים הבאים נטענים כעת בהפעלה זו. בחר את הכלי המתאים ביותר למשימה."
+
+#: src/uagent/docs_util.py:27
+msgid "Project README"
+msgstr "פרויקט README"
+
+#: src/uagent/docs_util.py:32
+msgid "Quickstart (Windows wheel install)"
+msgstr "התחלה מהירה (התקנת גלגל Windows)"
+
+#: src/uagent/docs_util.py:37
+msgid "Web Inspector (playwright_inspector) guide"
+msgstr "מדריך מפקח האינטרנט (מחזאי_מפקח)."
+
+#: src/uagent/docs_util.py:42
+msgid "Developer information"
+msgstr "מידע למפתחים"
+
+#: src/uagent/docs_util.py:149
+#, python-format
+msgid "unknown doc name: %(name)r"
+msgstr "שם מסמך לא ידוע: %(name)r"
+
+#: src/uagent/docs_util.py:172
+#, python-format
+msgid "doc file not found: %(filename)s"
+msgstr "קובץ doc לא נמצא: %(filename)s"
+
+#: src/uagent/docs_util.py:203
+#, python-format
+msgid "doc path resolution failed: %(filename)s: %(err)s"
+msgstr "פתרון נתיב המסמך נכשל: %(filename)s: %(err)s"
+
+#: src/uagent/docs_util.py:227
+msgid "[docs] Available documents:"
+msgstr "[מסמכים] מסמכים זמינים:"
+
+#: src/uagent/docs_util.py:231
+msgid "Usage:"
+msgstr "שימוש:"
+
+#: src/uagent/docs_util.py:232
+msgid "list"
+msgstr "רשימה"
+
+#: src/uagent/docs_util.py:233
+msgid "show"
+msgstr "להראות"
+
+#: src/uagent/docs_util.py:234
+msgid "show path"
+msgstr "להראות נתיב"
+
+#: src/uagent/docs_util.py:235
+msgid "open with OS"
+msgstr "לפתוח עם מערכת הפעלה"
+
+#: src/uagent/env_validate.py:42
+msgid ""
+"Required to select the LLM provider "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
+msgstr ""
+"נדרש לבחירת ספק ה-LLM "
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
+
+#: src/uagent/env_validate.py:67
+#, python-format
+msgid ""
+"Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
+"fail)."
+msgstr ""
+"ספק לא ידוע: %(provider)r. מותר: %(allowed)s (סביר להניח שההפעלה תיכשל)."
+
+#: src/uagent/env_validate.py:78
+msgid ""
+"Azure OpenAI endpoint/base URL (e.g., https://<resource>.openai.azure.com/)."
+msgstr ""
+"Azure OpenAI נקודת קצה/כתובת בסיס (לדוגמה, "
+"https://<resource>.openai.azure.com/)."
+
+#: src/uagent/env_validate.py:84
+msgid "Azure OpenAI API key."
+msgstr "מפתח API של Azure OpenAI."
+
+#: src/uagent/env_validate.py:89
+msgid "Azure OpenAI API version (e.g., 2024-xx-xx)."
+msgstr "גרסת Azure OpenAI API (לדוגמה, 2024-xx-xx)."
+
+#: src/uagent/env_validate.py:96
+msgid "OpenAI API key."
+msgstr "מפתח API של OpenAI."
+
+#: src/uagent/env_validate.py:102
+msgid "Bedrock proxy endpoint/base URL (OpenAI-compatible)."
+msgstr "נקודת קצה/כתובת אתר בסיס של פרוקסי יסוד (תואמת OpenAI)."
+
+#: src/uagent/env_validate.py:109
+msgid "Bedrock proxy API key (OpenAI-compatible)."
+msgstr "מפתח פרוקסי API של סלע יסוד (תואם OpenAI)."
+
+#: src/uagent/env_validate.py:116
+msgid "OpenRouter API key."
+msgstr "מפתח API של OpenRouter."
+
+#: src/uagent/env_validate.py:121
+msgid "Grok (xAI) API key."
+msgstr "מפתח API של Grok (xAI)."
+
+#: src/uagent/env_validate.py:126
+msgid "Gemini API key."
+msgstr "מפתח API של Gemini."
+
+#: src/uagent/env_validate.py:133
+msgid ""
+"Python package 'google-genai' is not installed. Provider=gemini requires it."
+msgstr "חבילת Python 'google-genai' אינה מותקנת. ספק=תאומים דורש זאת."
+
+#: src/uagent/env_validate.py:144
+msgid "Vertex AI API key / model name."
+msgstr "מפתח API של Vertex AI / שם דגם."
+
+#: src/uagent/env_validate.py:153
+msgid ""
+"Python package 'google-genai' is not installed. Provider=vertexai requires "
+"it."
+msgstr "חבילת Python 'google-genai' אינה מותקנת. ספק=vertexai דורש זאת."
+
+#: src/uagent/env_validate.py:161
+msgid "Anthropic (Claude) API key."
+msgstr "מפתח API של אנטרופי (קלוד)."
+
+#: src/uagent/env_validate.py:169
+msgid ""
+"Python package 'anthropic' is not installed. Provider=claude requires it."
+msgstr "חבילת Python 'anthropic' אינה מותקנת. ספק=קלאוד דורש את זה."
+
+#: src/uagent/env_validate.py:176
+msgid "NVIDIA API key."
+msgstr "מפתח API של NVIDIA."
+
+#: src/uagent/env_validate.py:181
+msgid "DeepSeek API key."
+msgstr "מפתח API של DeepSeek."
+
+#: src/uagent/env_validate.py:186
+msgid "Z.AI (Zhipu AI) API key."
+msgstr "מפתח API של Z.AI (Zhipu AI)."
+
+#: src/uagent/env_validate.py:192
+msgid "Alibaba Cloud (Qwen) API key."
+msgstr "מפתח API של Alibaba Cloud (Qwen)."
+
+#: src/uagent/env_validate.py:200
+msgid "Moonshot AI API key."
+msgstr "מפתח API של Moonshot AI."
+
+#: src/uagent/env_validate.py:219
+#, python-format
+msgid ""
+"Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
+" likely fail)."
+msgstr ""
+"ספק הטמעה לא ידוע: %(provider)r. מותר: %(allowed)s (סביר להניח שההפעלה "
+"תיכשל)."
+
+#: src/uagent/env_validate.py:236
+msgid "Azure embedding endpoint / API key / API version / deployment name."
+msgstr "נקודת קצה הטמעת Azure / מפתח API / גרסת API / שם פריסה."
+
+#: src/uagent/env_validate.py:247
+msgid "OpenAI embedding API key / model name."
+msgstr "מפתח API להטמעת OpenAI / שם דגם."
+
+#: src/uagent/env_validate.py:259
+msgid "Bedrock embedding endpoint / API key / deployment name."
+msgstr "הטמעת נקודת קצה / מפתח API / שם פריסה."
+
+#: src/uagent/env_validate.py:270
+msgid "OpenRouter embedding API key / model name."
+msgstr "OpenRouter הטמעת מפתח API / שם דגם."
+
+#: src/uagent/env_validate.py:281
+msgid "Ollama embedding base URL / model name."
+msgstr "כתובת ה-URL/שם הדגם של בסיס הטמעת Ollama."
+
+#: src/uagent/env_validate.py:292
+msgid "NVIDIA embedding API key / model name."
+msgstr "מפתח API להטמעת NVIDIA / שם דגם."
+
+#: src/uagent/env_validate.py:303
+msgid "Gemini embedding API key / model name."
+msgstr "מפתח API להטמעת תאומים / שם דגם."
+
+#: src/uagent/env_validate.py:314
+msgid "Vertex AI embedding API key / model name."
+msgstr "מפתח API להטמעת בינה מלאכותית של Vertex AI / שם דגם."
+
+#: src/uagent/env_validate.py:331
+#, python-brace-format
+msgid "[FATAL] Environment validation failed ({context})."
+msgstr "[FATAL] אימות הסביבה נכשל ({context})."
+
+#: src/uagent/env_validate.py:339
+msgid "Missing required environment variables:"
+msgstr "חסרים משתני סביבה נדרשים:"
+
+#: src/uagent/env_validate.py:346
+msgid "Warnings:"
+msgstr "אזהרות:"
+
+#: src/uagent/env_validate.py:350
+msgid "How to fix:"
+msgstr "כיצד לתקן:"
+
+#: src/uagent/env_validate.py:353
+msgid ""
+"- Set the variables above in your environment before starting the program."
+msgstr "- הגדר את המשתנים למעלה בסביבה שלך לפני תחילת התוכנית."
+
+#: src/uagent/env_validate.py:359
+msgid ""
+"- You can set them via your OS environment settings, a .env file, your shell"
+" startup scripts,"
+msgstr ""
+"- אתה יכול להגדיר אותם באמצעות הגדרות סביבת מערכת ההפעלה שלך, קובץ .env, "
+"סקריפטי ההפעלה של המעטפת שלך,"
+
+#: src/uagent/env_validate.py:365
+msgid ""
+"  or your process manager / service configuration (CI secrets, systemd, "
+"Docker, etc.)."
+msgstr "או תצורת מנהל התהליך/שירות שלך (סודות CI, systemd, Docker וכו')."
+
+#: src/uagent/image_session.py:101
+msgid "(prompt unavailable)"
+msgstr "(ההודעה לא זמינה)"
+
+#: src/uagent/image_session.py:105
+#, python-format
+msgid "screenshot: %(title)s"
+msgstr "צילום מסך: %(title)s"
+
+#: src/uagent/image_session.py:107
+msgid "screenshot"
+msgstr "צילום מסך"
+
+#: src/uagent/image_session.py:148
+msgid "Image-session context:"
+msgstr "הקשר של מפגש תמונה:"
+
+#: src/uagent/image_session.py:149
+msgid "This conversation already generated images."
+msgstr "השיחה הזו כבר יצרה תמונות."
+
+#: src/uagent/image_session.py:151
+msgid ""
+"Use the prior prompts and saved file paths below as context for follow-up "
+"edits, variants, or continuations."
+msgstr ""
+"השתמש בהנחיות הקודמות ובנתיבי הקובץ השמורים למטה כהקשר לעריכות, גרסאות או "
+"המשך המשך."
+
+#: src/uagent/image_session.py:156
+#, python-format
+msgid "Turn %(idx)d:"
+msgstr "סיבוב %(idx)d:"
+
+#: src/uagent/image_session.py:157
+#, python-format
+msgid "- prompt: %(prompt)s"
+msgstr "- הנחיה: %(prompt)s"
+
+#: src/uagent/image_session.py:160
+#, python-format
+msgid "- file: %(path)s"
+msgstr "- קובץ: %(path)s"
+
+#: src/uagent/llm_errors.py:398
+#, python-format
+msgid ""
+"[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
+"attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
+msgstr ""
+"[RATE_LIMIT] ספק=%(provider)s דגם=%(model)s status=%(status)s "
+"ניסיון=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
+"rery_after=%(retry_after)s"
+
+#: src/uagent/llm_flow_helpers.py:206
+msgid ""
+"The previous assistant reply was empty. Please answer based on the most "
+"recent tool result."
+msgstr ""
+"תשובת העוזר הקודמת הייתה ריקה. אנא ענה על סמך תוצאת הכלי העדכנית ביותר."
+
+#: src/uagent/llm_flow_helpers.py:219
+#, python-format
+msgid ""
+"[WARN] LLM returned an empty assistant message without tool calls.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
+"This may happen with OpenAI-compatible local providers after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+msgstr ""
+"[אזהרה] LLM החזיר הודעת עוזר ריקה ללא שיחות כלים.\n"
+"provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (מקסימום=%(empty_no_tool_max)s)\n"
+"זה עלול לקרות עם ספקים מקומיים תואמי OpenAI לאחר קריאות לכלי. אתה יכול לנסות להגדיר את UAGENT_EMPTY_NO_TOOL_MAX לערך גבוה יותר, או להחליף ספק."
+
+#: src/uagent/llm_flow_helpers.py:291 src/uagent/llm_flow_helpers.py:364
+msgid ""
+"[INFO] Reusing the previous result because this tool call matches an earlier"
+" one.\n"
+msgstr "[INFO] שימוש חוזר בתוצאה הקודמת כי קריאת הכלי הזו תואמת לקודמתה."
+
+#: src/uagent/llm_flow_helpers.py:331
+msgid "arguments must be a JSON object."
+msgstr "הארגומנטים חייבים להיות אובייקט JSON."
+
+#: src/uagent/llm_flow_helpers.py:338
+#, python-format
+msgid ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"עקבות:\n"
+"%(tb)s"
+
+#: src/uagent/llm_flow_helpers.py:385
+#, python-format
+msgid ""
+"[tool runtime error] name=%(name)r err=%(etype)s: %(err)s\n"
+"Traceback:\n"
+"%(tb)s"
+msgstr ""
+"[שגיאת זמן ריצה של הכלי] name=%(name)r err=%(etype)s: %(err)s\n"
+"עקבות:\n"
+"%(tb)s"
+
+#: src/uagent/llm_image_helpers.py:7
+msgid "Describe this screenshot and summarize the visible UI."
+msgstr "תאר את צילום המסך הזה וסכם את ממשק המשתמש הגלוי."
+
+#: src/uagent/llm_image_helpers.py:11
+msgid "Read all visible text in this screenshot and summarize it."
+msgstr "קרא את כל הטקסט הגלוי בצילום מסך זה וסכם אותו."
+
+#: src/uagent/llm_image_helpers.py:15
+msgid "Inspect this screenshot for errors, warnings, and important UI state."
+msgstr "בדוק את צילום המסך הזה לאיתור שגיאות, אזהרות ומצב ממשק משתמש חשוב."
+
+#: src/uagent/llm_message_helpers.py:312
+#, python-format
+msgid "[WARN] Auto shrink_llm failed: %(err)s"
+msgstr "[אזהרה] shrink_llm אוטומטי נכשל: %(err)s"
+
+#: src/uagent/llm_round_helpers.py:137
+#, python-format
+msgid "[Translate Error] %(diag)s"
+msgstr "[שגיאת תרגום] %(diag)s"
+
+#: src/uagent/llm_round_helpers.py:198 src/uagent/llm_round_helpers.py:310
+#: src/uagent/llm_round_helpers.py:649
+#: src/uagent/providers/llm_deepseek.py:615
+#, python-format
+msgid "429 retry limit (%(max_retries)s) reached."
+msgstr "הגעת למגבלה של 429 ניסיון חוזר (%(max_retries)s)."
+
+#: src/uagent/llm_round_helpers.py:222
+msgid "[Gemini Error] An error occurred while generating a response."
+msgstr "[שגיאת תאומים] אירעה שגיאה בעת יצירת תגובה."
+
+#: src/uagent/llm_round_helpers.py:316
+msgid "[Claude Error] An error occurred while generating a response."
+msgstr "[קלוד שגיאה] אירעה שגיאה בעת יצירת תגובה."
+
+#: src/uagent/llm_round_helpers.py:613
+#: src/uagent/providers/llm_deepseek.py:625
+msgid "Input exceeds the context window."
+msgstr "הקלט חורג מחלון ההקשר."
+
+#: src/uagent/llm_round_helpers.py:623
+#: src/uagent/providers/llm_deepseek.py:658
+msgid "Connection error"
+msgstr "שגיאת חיבור"
+
+#: src/uagent/llm_round_helpers.py:628
+#: src/uagent/providers/llm_deepseek.py:663
+msgid "[Network Error]"
+msgstr "[שגיאת רשת]"
+
+#: src/uagent/llm_round_helpers.py:655
+msgid "Unexpected exception."
+msgstr "חריג בלתי צפוי."
+
+#: src/uagent/llm_round_helpers.py:733
+#, python-format
+msgid "Error while parsing response: %(err)s"
+msgstr "שגיאה בעת ניתוח התגובה: %(err)s"
+
+#: src/uagent/profile_manager.py:614 src/uagent/profile_manager.py:736
+msgid ""
+"You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
+"1. Environment (OS, shell, editor, etc.)\n"
+"2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
+"3. Constraints (security rules, offline requirements, etc.)\n"
+"\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+msgstr ""
+"אתה סוכן פרופיל משתמש. נתח את יומן השיחות וחלץ את:\n"
+"1. סביבה (מערכת הפעלה, מעטפת, עורך וכו')\n"
+"2. העדפות (סגנון קידוד, כלים מועדפים, העדפת מילוליות וכו')\n"
+"3. אילוצים (כללי אבטחה, דרישות לא מקוונות וכו')\n"
+"\n"
+"אל תכלול שאלות זמניות, צ'ט-צ'אט או אישורים רגישים.\n"
+"עליך להגיב רק עם אובייקט JSON חוקי התואם לסכימה זו:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"מחרוזת\"],\n"
+"  \"constraints\": [\"מחרוזת\"]\n"
+"}"
+
+#: src/uagent/profile_manager.py:722
+msgid "Failed to initialize LLM client."
+msgstr "אתחול לקוח LLM נכשל."
+
+#: src/uagent/profile_manager.py:727
+#, python-format
+msgid "Found %(total_files)d log files. Starting incremental profiling..."
+msgstr "נמצאו %(total_files)d קובצי יומן. מתחיל יצירת פרופיל מצטבר..."
+
+#: src/uagent/scheckgui.py:131
+msgid "Drop files/images here"
+msgstr "שחרר כאן קבצים/תמונות"
+
+#: src/uagent/scheckgui.py:169
+msgid "Download"
+msgstr "הורד"
+
+#: src/uagent/scheckgui.py:329
+#, python-format
+msgid "Exception occurred while loading shared long-term memory: %(err)s"
+msgstr "חריגה אירעה בעת טעינת זיכרון משותף לטווח ארוך: %(err)s"
+
+#: src/uagent/scheckgui.py:382
+#, python-format
+msgid "[Attached File] %(name)s (%(path)s)"
+msgstr "[קובץ מצורף] %(name)s (%(path)s)"
+
+#: src/uagent/scheckgui.py:467
+#, python-format
+msgid "[Attached Image] %(path)s"
+msgstr "[תמונה מצורפת] %(path)s"
+
+#: src/uagent/scheckgui.py:469 src/uagent/web.py:666
+#, python-format
+msgid "[Image Path] %(path)s"
+msgstr "[נתיב תמונה] %(path)s"
+
+#: src/uagent/scheckgui.py:779 src/uagent/scheckgui.py:909
+msgid "Welcome / Quick Guide"
+msgstr "ברוך הבא / מדריך מהיר"
+
+#: src/uagent/scheckgui.py:787
+msgid "uag GUI (Extreme Stability)"
+msgstr "uag GUI (יציבות קיצונית)"
+
+#: src/uagent/scheckgui.py:842
+msgid "↑ You can attach files by drag & drop"
+msgstr "↑ ניתן לצרף קבצים על ידי גרירה ושחרור"
+
+#: src/uagent/scheckgui.py:863
+msgid "Attach..."
+msgstr "צרף..."
+
+#: src/uagent/scheckgui.py:868
+msgid "Send"
+msgstr "שלח"
+
+#: src/uagent/scheckgui.py:908
+msgid "Help"
+msgstr "עזרה"
+
+#: src/uagent/scheckgui.py:923
+msgid "Mode"
+msgstr "מצב"
+
+#: src/uagent/scheckgui.py:925
+msgid "Reasoning: off"
+msgstr "נימוק: כבוי"
+
+#: src/uagent/scheckgui.py:928
+msgid "Reasoning: auto"
+msgstr "נימוק: אוטומטי"
+
+#: src/uagent/scheckgui.py:930
+msgid "Reasoning: minimal"
+msgstr "נימוק: מינימלי"
+
+#: src/uagent/scheckgui.py:932
+msgid "Reasoning: low"
+msgstr "נימוק: נמוך"
+
+#: src/uagent/scheckgui.py:934
+msgid "Reasoning: medium"
+msgstr "נימוק: בינוני"
+
+#: src/uagent/scheckgui.py:936
+msgid "Reasoning: high"
+msgstr "נימוק: גבוה"
+
+#: src/uagent/scheckgui.py:939
+msgid "Reasoning: xhigh"
+msgstr "נימוק: xhigh"
+
+#: src/uagent/scheckgui.py:944
+msgid "Verbosity: off"
+msgstr "מילולית: כבוי"
+
+#: src/uagent/scheckgui.py:946
+msgid "Verbosity: low"
+msgstr "מילולית: נמוכה"
+
+#: src/uagent/scheckgui.py:948
+msgid "Verbosity: medium"
+msgstr "מילולית: בינונית"
+
+#: src/uagent/scheckgui.py:950
+msgid "Verbosity: high"
+msgstr "מילולית: גבוהה"
+
+#: src/uagent/scheckgui.py:975
+msgid "Tools"
+msgstr "כלים"
+
+#: src/uagent/scheckgui.py:1062
+#, python-format
+msgid "[mode] reasoning=%(mode)s"
+msgstr "[mode] reasoning=%(mode)s"
+
+#: src/uagent/scheckgui.py:1066
+msgid ""
+":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
+"auto/minimal/xhigh)"
+msgstr ""
+":r [0|1|2|3|אוטומטי|מינימלי|xhigh] (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; "
+"אוטומטי/מינימלי/xhigh)"
+
+#: src/uagent/scheckgui.py:1074
+#, python-format
+msgid "[mode] verbosity=%(mode)s"
+msgstr "[מצב] מילוליות=%(mode)s"
+
+#: src/uagent/scheckgui.py:1076
+msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr ":v [0|1|2|3] (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; אין arg=keep)"
+
+#: src/uagent/scheckgui.py:1205
+msgid "Enter password..."
+msgstr "הזן סיסמה..."
+
+#: src/uagent/scheckgui.py:1212
+msgid "Enter a message..."
+msgstr "הזן הודעה..."
+
+#: src/uagent/scheckgui.py:1229
+msgid "Attach files"
+msgstr "צרף קבצים"
+
+#: src/uagent/scheckgui.py:1231
+msgid "All Files (*)"
+msgstr "כל הקבצים (*)"
+
+#: src/uagent/scheckgui.py:1483
+msgid "cannot read image"
+msgstr "לא יכול לקרוא תמונה"
+
+#: src/uagent/scheckgui.py:1634 src/uagent/scheckgui.py:1674
+#: src/uagent/scheckgui.py:1709
+msgid "Downloaded to"
+msgstr "הורד אל"
+
+#: src/uagent/scheckgui.py:1728
+msgid "Playing"
+msgstr "משחק"
+
+#: src/uagent/scheckgui.py:1738
+msgid "Stopped"
+msgstr "נעצר"
+
+#: src/uagent/scheckgui.py:1787
+#, python-format
+msgid "[REPLY] > %(text)s"
+msgstr "[תשובה] > %(text)s"
+
+#: src/uagent/scheckgui.py:1795
+#, python-format
+msgid "[USER] %(text)s"
+msgstr "[משתמש] %(text)s"
+
+#: src/uagent/setup_cli.py:82 src/uagent/setup_cli.py:557
+#: src/uagent/setup_cli.py:647
+msgid "OpenAI API key"
+msgstr "מפתח API של OpenAI"
+
+#: src/uagent/setup_cli.py:83 src/uagent/setup_cli.py:558
+#: src/uagent/setup_cli.py:648
+msgid "OpenAI base URL (optional)"
+msgstr "כתובת האתר הבסיסית של OpenAI (אופציונלי)"
+
+#: src/uagent/setup_cli.py:84
+msgid "OpenAI model/deployment name (optional)"
+msgstr "שם דגם/פריסה של OpenAI (אופציונלי)"
+
+#: src/uagent/setup_cli.py:90 src/uagent/setup_cli.py:549
+#: src/uagent/setup_cli.py:635
+msgid "Azure base URL (e.g. https://<resource>.openai.azure.com/)"
+msgstr ""
+"כתובת האתר הבסיסית של Azure (למשל https://<resource>.openai.azure.com/)"
+
+#: src/uagent/setup_cli.py:92 src/uagent/setup_cli.py:551
+#: src/uagent/setup_cli.py:637
+msgid "Azure API key"
+msgstr "מפתח API של Azure"
+
+#: src/uagent/setup_cli.py:96
+msgid "Azure API version (optional, e.g. 2024-05-01-preview)"
+msgstr "גרסת Azure API (אופציונלי, למשל 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:98 src/uagent/setup_cli.py:553
+msgid "Azure deployment name"
+msgstr "שם פריסת Azure"
+
+#: src/uagent/setup_cli.py:104 src/uagent/setup_cli.py:566
+#: src/uagent/setup_cli.py:656
+msgid "Bedrock gateway base URL (e.g. https://<gateway>/v1)"
+msgstr "כתובת האתר הבסיסית של שער יסוד (למשל https://<gateway>/v1)"
+
+#: src/uagent/setup_cli.py:106 src/uagent/setup_cli.py:568
+#: src/uagent/setup_cli.py:658
+msgid "Bedrock API key"
+msgstr "מפתח API של יסוד"
+
+#: src/uagent/setup_cli.py:110 src/uagent/setup_cli.py:572
+msgid "Bedrock model/deployment name (e.g. openai.gpt-oss-120b)"
+msgstr "שם דגם/פריסת סלע (למשל openai.gpt-oss-120b)"
+
+#: src/uagent/setup_cli.py:114 src/uagent/setup_cli.py:577
+#: src/uagent/setup_cli.py:667
+msgid "OpenRouter API key"
+msgstr "מפתח API של OpenRouter"
+
+#: src/uagent/setup_cli.py:115 src/uagent/setup_cli.py:578
+#: src/uagent/setup_cli.py:668
+msgid "OpenRouter base URL (optional)"
+msgstr "OpenRouter בסיס URL (אופציונלי)"
+
+#: src/uagent/setup_cli.py:119
+msgid "OpenRouter model/deployment name (optional)"
+msgstr "שם דגם/פריסה של OpenRouter (אופציונלי)"
+
+#: src/uagent/setup_cli.py:124
+msgid "OpenRouter fallback models (optional, comma-separated)"
+msgstr "דגמי OpenRouter (אופציונלי, מופרדים בפסיק)"
+
+#: src/uagent/setup_cli.py:128 src/uagent/setup_cli.py:583
+msgid "Gemini API key"
+msgstr "מפתח API של Gemini"
+
+#: src/uagent/setup_cli.py:129
+msgid "Gemini model name (optional)"
+msgstr "שם דגם תאומים (אופציונלי)"
+
+#: src/uagent/setup_cli.py:132
+msgid "Vertex AI API key"
+msgstr "מפתח API של Vertex AI"
+
+#: src/uagent/setup_cli.py:133
+msgid "Vertex AI project ID (optional)"
+msgstr "מזהה פרויקט בינה מלאכותית של Vertex (אופציונלי)"
+
+#: src/uagent/setup_cli.py:134
+msgid "Vertex AI location/region (optional)"
+msgstr "מיקום/אזור של Vertex AI (אופציונלי)"
+
+#: src/uagent/setup_cli.py:138
+msgid "Google credentials for Vertex AI (optional)"
+msgstr "אישורי Google עבור Vertex AI (אופציונלי)"
+
+#: src/uagent/setup_cli.py:143
+msgid "Google location/region for Vertex AI (optional)"
+msgstr "מיקום/אזור של Google עבור Vertex AI (אופציונלי)"
+
+#: src/uagent/setup_cli.py:145
+msgid "Vertex AI model/deployment name"
+msgstr "שם דגם/פריסה של Vertex AI"
+
+#: src/uagent/setup_cli.py:148
+msgid "Grok API key"
+msgstr "מפתח API של Grok"
+
+#: src/uagent/setup_cli.py:149
+msgid "Grok base URL (optional)"
+msgstr "כתובת אתר בסיס של גרוק (אופציונלי)"
+
+#: src/uagent/setup_cli.py:150
+msgid "Grok model/deployment name (optional)"
+msgstr "שם דגם/פריסה של גרוק (אופציונלי)"
+
+#: src/uagent/setup_cli.py:153
+msgid "Claude API key"
+msgstr "מפתח API של קלוד"
+
+#: src/uagent/setup_cli.py:154
+msgid "Claude model/deployment name (optional)"
+msgstr "שם הדגם/פריסה של קלוד (אופציונלי)"
+
+#: src/uagent/setup_cli.py:157 src/uagent/setup_cli.py:588
+#: src/uagent/setup_cli.py:682
+msgid "NVIDIA API key"
+msgstr "מפתח API של NVIDIA"
+
+#: src/uagent/setup_cli.py:158 src/uagent/setup_cli.py:589
+#: src/uagent/setup_cli.py:683
+msgid "NVIDIA base URL (optional)"
+msgstr "כתובת האתר הבסיסית של NVIDIA (אופציונלי)"
+
+#: src/uagent/setup_cli.py:159
+msgid "NVIDIA model/deployment name (optional)"
+msgstr "שם דגם/פריסה של NVIDIA (אופציונלי)"
+
+#: src/uagent/setup_cli.py:165 src/uagent/setup_cli.py:676
+msgid "Ollama base URL (e.g. http://localhost:11434/v1)"
+msgstr "כתובת האתר הבסיסית של אולמה (למשל http://localhost:11434/v1)"
+
+#: src/uagent/setup_cli.py:170
+msgid "Ollama API key (optional, default: dummy)"
+msgstr "מפתח API של Ollama (אופציונלי, ברירת מחדל: דמה)"
+
+#: src/uagent/setup_cli.py:172
+msgid "Ollama model/deployment name (optional)"
+msgstr "שם דגם/פריסה של אולמה (אופציונלי)"
+
+#: src/uagent/setup_cli.py:176
+msgid "Ollama request timeout in seconds (default: 60)"
+msgstr "פסק זמן לבקשת אולמה בשניות (ברירת מחדל: 60)"
+
+#: src/uagent/setup_cli.py:178
+msgid "Ollama temperature (default: 0.7)"
+msgstr "טמפרטורת אולמה (ברירת מחדל: 0.7)"
+
+#: src/uagent/setup_cli.py:179
+msgid "Ollama top_p (default: 0.9)"
+msgstr "Ollama top_p (ברירת מחדל: 0.9)"
+
+#: src/uagent/setup_cli.py:180
+msgid "Ollama top_k (default: 40)"
+msgstr "Ollama top_k (ברירת מחדל: 40)"
+
+#: src/uagent/setup_cli.py:184
+msgid "Ollama repeat_penalty (default: 1.1)"
+msgstr "Ollama repeat_penalty (ברירת מחדל: 1.1)"
+
+#: src/uagent/setup_cli.py:186
+msgid "Ollama keep_alive (default: 5m)"
+msgstr "Ollama keep_alive (ברירת מחדל: 5m)"
+
+#: src/uagent/setup_cli.py:187
+msgid "Ollama num_ctx (default: 8192)"
+msgstr "Ollama num_ctx (ברירת מחדל: 8192)"
+
+#: src/uagent/setup_cli.py:188
+msgid "Ollama num_predict (default: 1024)"
+msgstr "Ollama num_predict (ברירת מחדל: 1024)"
+
+#: src/uagent/setup_cli.py:191
+msgid "DeepSeek API key"
+msgstr "מפתח API של DeepSeek"
+
+#: src/uagent/setup_cli.py:195
+msgid "DeepSeek base URL (optional, default: https://api.deepseek.com)"
+msgstr ""
+"כתובת האתר הבסיסית של DeepSeek (אופציונלי, ברירת מחדל: "
+"https://api.deepseek.com)"
+
+#: src/uagent/setup_cli.py:200
+msgid "DeepSeek model name (optional, default: deepseek-v4-flash)"
+msgstr "שם דגם DeepSeek (אופציונלי, ברירת מחדל: deepseek-v4-flash)"
+
+#: src/uagent/setup_cli.py:205
+msgid "DeepSeek temperature (default: 0.0)"
+msgstr "טמפרטורת DeepSeek (ברירת מחדל: 0.0)"
+
+#: src/uagent/setup_cli.py:207
+msgid "DeepSeek top_p (default: 1.0)"
+msgstr "DeepSeek top_p (ברירת מחדל: 1.0)"
+
+#: src/uagent/setup_cli.py:211
+msgid "DeepSeek presence_penalty (default: 0.0)"
+msgstr "DeepSeek presence_penalty (ברירת מחדל: 0.0)"
+
+#: src/uagent/setup_cli.py:216
+msgid "DeepSeek frequency_penalty (default: 0.0)"
+msgstr "DeepSeek frequency_penalty (ברירת מחדל: 0.0)"
+
+#: src/uagent/setup_cli.py:220
+msgid "Z.AI (Zhipu AI) API key"
+msgstr "מפתח API של Z.AI (Zhipu AI)."
+
+#: src/uagent/setup_cli.py:224
+msgid "Z.AI base URL (optional, default: https://api.z.ai/api/paas/v4/)"
+msgstr ""
+"כתובת אתר בסיס Z.AI (אופציונלי, ברירת מחדל: https://api.z.ai/api/paas/v4/)"
+
+#: src/uagent/setup_cli.py:229
+msgid "Z.AI model name (optional, default: glm-5.2)"
+msgstr "שם דגם Z.AI (אופציונלי, ברירת מחדל: glm-5.2)"
+
+#: src/uagent/setup_cli.py:233
+msgid "Alibaba Cloud (Qwen) API key"
+msgstr "מפתח API של Alibaba Cloud (Qwen)."
+
+#: src/uagent/setup_cli.py:238
+msgid ""
+"Alibaba base URL (optional, default: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+msgstr ""
+"כתובת האתר הבסיסית של Alibaba (אופציונלי, ברירת מחדל: "
+"https://dashscope.aliyuncs.com/compatible-mode/v1)"
+
+#: src/uagent/setup_cli.py:244
+msgid "Alibaba model name (optional, default: qwen3.5-plus)"
+msgstr "שם הדגם של עליבאבא (אופציונלי, ברירת מחדל: qwen3.5-plus)"
+
+#: src/uagent/setup_cli.py:248
+msgid "Moonshot AI API key"
+msgstr "מפתח API של Moonshot AI"
+
+#: src/uagent/setup_cli.py:252
+msgid "Moonshot base URL (optional, default: https://api.moonshot.cn/v1)"
+msgstr ""
+"כתובת אתר בסיס של Moonshot (אופציונלי, ברירת מחדל: "
+"https://api.moonshot.cn/v1)"
+
+#: src/uagent/setup_cli.py:257
+msgid "Moonshot model name (optional, default: kimi-k2)"
+msgstr "שם דגם Moonshot (אופציונלי, ברירת מחדל: kimi-k2)"
+
+#: src/uagent/setup_cli.py:420 src/uagent/setup_cli.py:509
+msgid "Enter number:"
+msgstr "הזן מספר:"
+
+#: src/uagent/setup_cli.py:433
+msgid "Invalid input. Please enter a valid number."
+msgstr "קלט לא חוקי. נא להזין מספר חוקי."
+
+#: src/uagent/setup_cli.py:446
+#, python-format
+msgid " [default: %(default)s]"
+msgstr "[ברירת מחדל: %(default)s]"
+
+#: src/uagent/setup_cli.py:462
+msgid "This field is required. Please enter a value."
+msgstr "שדה זה חובה. נא להזין ערך."
+
+#: src/uagent/setup_cli.py:474
+msgid "Select UAGENT_LANG"
+msgstr "בחר UAGENT_LANG"
+
+#: src/uagent/setup_cli.py:485
+msgid "UAGENT_LANG (custom)"
+msgstr "UAGENT_LANG (מותאם אישית)"
+
+#: src/uagent/setup_cli.py:498
+msgid "Select output files to generate in the current directory"
+msgstr "בחר קבצי פלט להפקה בספרייה הנוכחית"
+
+#: src/uagent/setup_cli.py:499
+msgid "  1. .env only"
+msgstr "1. .env בלבד"
+
+#: src/uagent/setup_cli.py:500
+msgid "  2. .env + env.sh"
+msgstr "2. .env + env.sh"
+
+#: src/uagent/setup_cli.py:501
+msgid "  3. .env + env.ps1"
+msgstr "3. .env + env.ps1"
+
+#: src/uagent/setup_cli.py:502
+msgid "  4. .env + env.bat"
+msgstr "4. .env + env.bat"
+
+#: src/uagent/setup_cli.py:503
+msgid "  5. .env + all (sh/ps1/bat)"
+msgstr "5. .env + all (sh/ps1/bat)"
+
+#: src/uagent/setup_cli.py:505
+msgid "  b. back"
+msgstr "ב. בחזרה"
+
+#: src/uagent/setup_cli.py:506
+msgid "  q. quit"
+msgstr "ש. להתפטר"
+
+#: src/uagent/setup_cli.py:524
+msgid "Invalid input. Please enter 1-5, or b/q."
+msgstr "קלט לא חוקי. הזן 1-5, או b/q."
+
+#: src/uagent/setup_cli.py:552 src/uagent/setup_cli.py:641
+msgid "Azure API version (e.g. 2024-05-01-preview)"
+msgstr "גרסת Azure API (למשל 2024-05-01-preview)"
+
+#: src/uagent/setup_cli.py:559
+msgid "OpenAI model/deployment name"
+msgstr "שם דגם/פריסה של OpenAI"
+
+#: src/uagent/setup_cli.py:579
+msgid "OpenRouter model/deployment name"
+msgstr "שם דגם/פריסה של OpenRouter"
+
+#: src/uagent/setup_cli.py:584
+msgid "Gemini model name"
+msgstr "שם דגם תאומים"
+
+#: src/uagent/setup_cli.py:590
+msgid "NVIDIA model/deployment name"
+msgstr "שם דגם/פריסה של NVIDIA"
+
+#: src/uagent/setup_cli.py:609
+msgid "Enable image generation debug output? (0/1)"
+msgstr "להפעיל פלט ניפוי באגים ליצירת תמונה? (0/1)"
+
+#: src/uagent/setup_cli.py:643
+msgid "Azure embedding deployment name"
+msgstr "שם פריסת הטמעת Azure"
+
+#: src/uagent/setup_cli.py:649
+msgid "OpenAI embedding model/deployment name"
+msgstr "שם דגם/פריסה של הטבעת OpenAI"
+
+#: src/uagent/setup_cli.py:662
+msgid "Bedrock embedding model/deployment name"
+msgstr "שם הטמעת סלע יסוד/שם פריסה"
+
+#: src/uagent/setup_cli.py:669
+msgid "OpenRouter embedding model/deployment name"
+msgstr "שם הטמעת דגם/פריסה של OpenRouter"
+
+#: src/uagent/setup_cli.py:678
+msgid "Ollama embedding model name"
+msgstr "שם דגם הטבעת Ollama"
+
+#: src/uagent/setup_cli.py:684
+msgid "NVIDIA embedding model/deployment name"
+msgstr "שם דגם/פריסה של הטבעת NVIDIA"
+
+#: src/uagent/setup_cli.py:688
+msgid "Gemini embedding API key"
+msgstr "מפתח API להטמעת Gemini"
+
+#: src/uagent/setup_cli.py:692
+msgid "Gemini embedding model name (e.g. text-embedding-004)"
+msgstr "שם דגם הטמעת תאומים (למשל, text-embedding-004)"
+
+#: src/uagent/setup_cli.py:697
+msgid "Vertex AI embedding API key"
+msgstr "מפתח API של הטבעת AI של Vertex"
+
+#: src/uagent/setup_cli.py:701
+msgid "Vertex AI embedding model name (e.g. text-embedding-004)"
+msgstr "שם דגם הטבעה של Vertex AI (למשל, text-embedding-004)"
+
+#: src/uagent/setup_cli.py:750
+msgid "Azure speech deployment name"
+msgstr "שם פריסת דיבור Azure"
+
+#: src/uagent/setup_cli.py:751
+msgid "Azure transcription deployment name"
+msgstr "שם פריסת תמלול Azure"
+
+#: src/uagent/setup_cli.py:752
+msgid "OpenAI speech model/deployment name"
+msgstr "שם מודל דיבור/פריסה של OpenAI"
+
+#: src/uagent/setup_cli.py:753
+msgid "OpenAI transcription model/deployment name"
+msgstr "שם מודל/פריסה לתמלול OpenAI"
+
+#: src/uagent/setup_cli.py:754
+msgid "Gemini speech model name (optional)"
+msgstr "שם דגם דיבור תאומים (אופציונלי)"
+
+#: src/uagent/setup_cli.py:755
+msgid "Gemini transcription model name (optional)"
+msgstr "שם דגם תמלול תאומים (אופציונלי)"
+
+#: src/uagent/setup_cli.py:756
+msgid "Vertex AI speech model name (optional)"
+msgstr "שם דגם הדיבור של Vertex AI (אופציונלי)"
+
+#: src/uagent/setup_cli.py:757
+msgid "Vertex AI transcription model name (optional)"
+msgstr "שם מודל תמלול בינה מלאכותית של Vertex (אופציונלי)"
+
+#: src/uagent/setup_cli.py:780
+msgid "Configure optional image / embedding / audio settings?"
+msgstr "להגדיר הגדרות תמונה/הטמעה/שמע אופציונליים?"
+
+#: src/uagent/setup_cli.py:781 src/uagent/setup_cli.py:796
+#: src/uagent/setup_cli.py:828 src/uagent/setup_cli.py:859
+#: src/uagent/setup_cli.py:875 src/uagent/setup_cli.py:930
+#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1234
+#: src/uagent/setup_cli.py:1295 src/uagent/setup_cli.py:1349
+#: src/uagent/setup_cli.py:1376 src/uagent/setup_cli.py:1397
+#: src/uagent/setup_cli.py:1534
+msgid "No"
+msgstr "לא"
+
+#: src/uagent/setup_cli.py:781 src/uagent/setup_cli.py:796
+#: src/uagent/setup_cli.py:828 src/uagent/setup_cli.py:859
+#: src/uagent/setup_cli.py:875 src/uagent/setup_cli.py:930
+#: src/uagent/setup_cli.py:989 src/uagent/setup_cli.py:1234
+#: src/uagent/setup_cli.py:1295 src/uagent/setup_cli.py:1349
+#: src/uagent/setup_cli.py:1376 src/uagent/setup_cli.py:1397
+#: src/uagent/setup_cli.py:1534
+msgid "Yes"
+msgstr "כן"
+
+#: src/uagent/setup_cli.py:795
+msgid "Configure image analysis settings?"
+msgstr "להגדיר הגדרות ניתוח תמונה?"
+
+#: src/uagent/setup_cli.py:806
+msgid "Select image analysis provider"
+msgstr "בחר ספק ניתוח תמונה"
+
+#: src/uagent/setup_cli.py:827
+msgid "Configure image generation settings?"
+msgstr "להגדיר הגדרות ליצירת תמונה?"
+
+#: src/uagent/setup_cli.py:838
+msgid "Select image generation provider"
+msgstr "בחר ספק יצירת תמונות"
+
+#: src/uagent/setup_cli.py:858
+msgid "Open generated images automatically?"
+msgstr "לפתוח תמונות שנוצרו באופן אוטומטי?"
+
+#: src/uagent/setup_cli.py:874
+msgid "Configure embedding / semantic search settings?"
+msgstr "להגדיר הגדרות הטבעה/חיפוש סמנטי?"
+
+#: src/uagent/setup_cli.py:900
+msgid "Select embedding provider"
+msgstr "בחר ספק הטמעה"
+
+#: src/uagent/setup_cli.py:929
+msgid "Configure audio speech / transcription settings?"
+msgstr "להגדיר הגדרות של דיבור/תמלול אודיו?"
+
+#: src/uagent/setup_cli.py:948
+msgid "Select audio speech provider"
+msgstr "בחר ספק דיבור אודיו"
+
+#: src/uagent/setup_cli.py:968
+msgid "Select audio transcribe provider"
+msgstr "בחר ספק תמלול אודיו"
+
+#: src/uagent/setup_cli.py:988
+msgid "Open generated audio automatically?"
+msgstr "לפתוח אודיו שנוצר באופן אוטומטי?"
+
+#: src/uagent/setup_cli.py:1055
+msgid "Optional: Responses API (Azure/OpenAI/Bedrock)"
+msgstr "אופציונלי: ממשק API של תגובות (Azure/OpenAI/Bedrock)"
+
+#: src/uagent/setup_cli.py:1068
+msgid "Optional runtime"
+msgstr "זמן ריצה אופציונלי"
+
+#: src/uagent/setup_cli.py:1082
+msgid "Optional image / embedding / audio settings"
+msgstr "הגדרות תמונה/הטמעה/שמע אופציונליים"
+
+#: src/uagent/setup_cli.py:1224
+msgid "Optional specialized sub-agent settings"
+msgstr "הגדרות אופציונליות של סוכן משנה מיוחדים"
+
+#: src/uagent/setup_cli.py:1233
+msgid "Encrypt the generated .env file?"
+msgstr "להצפין את קובץ ה-env שנוצר?"
+
+#: src/uagent/setup_cli.py:1239
+#, python-format
+msgid "Encrypted file will be written as %(path)s"
+msgstr "קובץ מוצפן ייכתב כ-%(path)s"
+
+#: src/uagent/setup_cli.py:1255
+msgid "Select provider"
+msgstr "בחר ספק"
+
+#: src/uagent/setup_cli.py:1294
+msgid "Enable Responses API options?"
+msgstr "להפעיל אפשרויות API של Responses?"
+
+#: src/uagent/setup_cli.py:1310
+msgid "Select reasoning"
+msgstr "בחר נימוק"
+
+#: src/uagent/setup_cli.py:1329
+msgid "Select verbosity"
+msgstr "בחר מילוליות"
+
+#: src/uagent/setup_cli.py:1348
+msgid "Set optional runtime UAGENT_WORKDIR?"
+msgstr "להגדיר זמן ריצה אופציונלי UAGENT_WORKDIR?"
+
+#: src/uagent/setup_cli.py:1375
+msgid "Set optional runtime UAGENT_LANG?"
+msgstr "להגדיר זמן ריצה אופציונלי UAGENT_LANG?"
+
+#: src/uagent/setup_cli.py:1396
+msgid "Enable streaming?"
+msgstr "להפעיל סטרימינג?"
+
+#: src/uagent/setup_cli.py:1437
+msgid "Summary"
+msgstr "סיכום"
+
+#: src/uagent/setup_cli.py:1438
+#, python-format
+msgid "  Provider: %(provider)s"
+msgstr "ספק: %(provider)s"
+
+#: src/uagent/setup_cli.py:1445
+#, python-format
+msgid "  Responses enabled: %(state)s"
+msgstr "תגובות מופעלות: %(state)s"
+
+#: src/uagent/setup_cli.py:1446 src/uagent/setup_cli.py:1453
+#: src/uagent/setup_cli.py:1457 src/uagent/setup_cli.py:1463
+#: src/uagent/setup_cli.py:1469 src/uagent/setup_cli.py:1474
+#: src/uagent/setup_cli.py:1482 src/uagent/setup_cli.py:1493
+msgid "yes"
+msgstr "כן"
+
+#: src/uagent/setup_cli.py:1446 src/uagent/setup_cli.py:1453
+#: src/uagent/setup_cli.py:1457 src/uagent/setup_cli.py:1463
+#: src/uagent/setup_cli.py:1469 src/uagent/setup_cli.py:1474
+#: src/uagent/setup_cli.py:1482 src/uagent/setup_cli.py:1493
+msgid "no"
+msgstr "לא"
+
+#: src/uagent/setup_cli.py:1452
+#, python-format
+msgid "  Streaming enabled: %(state)s"
+msgstr "סטרימינג מופעל: %(state)s"
+
+#: src/uagent/setup_cli.py:1468
+#, python-format
+msgid "  Optional extras enabled: %(state)s"
+msgstr "תוספות אופציונליות מופעלות: %(state)s"
+
+#: src/uagent/setup_cli.py:1473
+#, python-format
+msgid "  Image analysis enabled: %(state)s"
+msgstr "ניתוח תמונה מופעל: %(state)s"
+
+#: src/uagent/setup_cli.py:1481
+#, python-format
+msgid "  Image generation enabled: %(state)s"
+msgstr "יצירת תמונה מופעלת: %(state)s"
+
+#: src/uagent/setup_cli.py:1492
+#, python-format
+msgid "  Embedding enabled: %(state)s"
+msgstr "הטבעה מופעלת: %(state)s"
+
+#: src/uagent/setup_cli.py:1502
+#, python-format
+msgid "  Outputs: %(outputs)s"
+msgstr "פלטים: %(outputs)s"
+
+#: src/uagent/setup_cli.py:1505
+msgid "Generate files with this configuration?"
+msgstr "ליצור קבצים עם תצורה זו?"
+
+#: src/uagent/setup_cli.py:1506
+msgid "Yes, generate"
+msgstr "כן, תיצור"
+
+#: src/uagent/setup_cli.py:1506
+msgid "Back"
+msgstr "חזרה"
+
+#: src/uagent/setup_cli.py:1530
+msgid "The following files already exist and will be overwritten:"
+msgstr "הקבצים הבאים כבר קיימים ויוחלפו:"
+
+#: src/uagent/setup_cli.py:1534
+msgid "Proceed?"
+msgstr "להמשיך?"
+
+#: src/uagent/setup_cli.py:1558
+msgid "Plain .env file removed after encryption."
+msgstr "קובץ .env רגיל הוסר לאחר ההצפנה."
+
+#: src/uagent/setup_cli.py:1561
+#, python-format
+msgid "Warning: Failed to remove plain .env: %(error)s"
+msgstr "אזהרה: הסרת ‎.env רגילה נכשלה: %(error)s"
+
+#: src/uagent/setup_cli.py:1580
+#, python-format
+msgid "generated: %(path)s"
+msgstr "נוצר: %(path)s"
+
+#: src/uagent/uagent_llm.py:157
+#, python-format
+msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
+msgstr "[אזהרה] סיבובי הכלים חרגו מ-%(max)d; הפלה."
+
+#: src/uagent/util_tools.py:182
+#, python-format
+msgid "image file not found: %(path)s"
+msgstr "קובץ התמונה לא נמצא: %(path)s"
+
+#: src/uagent/util_tools.py:187
+#, python-format
+msgid "image file too large: %(size)d bytes (limit=%(max)d)"
+msgstr "קובץ תמונה גדול מדי: %(size)d bytes (limit=%(max)d)"
+
+#: src/uagent/util_tools.py:211
+msgid ""
+"Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
+"current directory."
+msgstr ""
+"ציין ספריית עבודה. אם לא מוגדר, משתמש ב-UAGENT_WORKDIR env var או בספרייה "
+"הנוכחית."
+
+#: src/uagent/util_tools.py:218
+msgid ""
+"Non-interactive mode. Do not start the stdin loop; exit after processing the"
+" startup file (if any)."
+msgstr ""
+"מצב לא אינטראקטיבי. אל תתחיל את לולאת stdin; צא לאחר עיבוד קובץ האתחול (אם "
+"קיים)."
+
+#: src/uagent/util_tools.py:226 src/uagent/web.py:1186
+msgid ""
+"Tool genre bitmask "
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
+" Skips the interactive genre prompt when specified."
+msgstr ""
+"מסיכת סיביות של ז'אנר הכלים "
+"(1=בסיסי,2=תקשורת,4=משרד,8=פיתוח,16=iot,32=exec,64=חיצוני,128=מדיה,255=הכל)."
+" דילוג על בקשת הז'אנר האינטראקטיבית כאשר צוין."
+
+#: src/uagent/util_tools.py:234 src/uagent/web.py:1194
+msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+msgstr "אפשר שליחת כלי ל-LLM (עוקף את UAGENT_USE_TOOL env var)."
+
+#: src/uagent/util_tools.py:241 src/uagent/web.py:1201
+msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+msgstr "השבת שליחת כלי ל-LLM (עוקף את UAGENT_USE_TOOL env var)."
+
+#: src/uagent/util_tools.py:378
+msgid "invalid reasoning"
+msgstr "נימוק לא חוקי"
+
+#: src/uagent/util_tools.py:396
+msgid "invalid verbosity"
+msgstr "מילוליות לא חוקיות"
+
+#: src/uagent/util_tools.py:570
+#, python-format
+msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgstr "[logs] ארגומנט לא חוקי: %(arg)r (ציין הכל / --all / -a / מספר)"
+
+#: src/uagent/util_tools.py:617
+#, python-format
+msgid "failed to parse arguments: %(err)s"
+msgstr "נכשל בניתוח הארגומנטים: %(err)s"
+
+#: src/uagent/util_tools.py:620
+msgid "missing arguments"
+msgstr "טיעונים חסרים"
+
+#: src/uagent/util_tools.py:637
+msgid "src and dst are required"
+msgstr "src ו-dst נדרשים"
+
+#: src/uagent/util_tools.py:662
+#, python-format
+msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py:669 src/uagent/util_tools.py:726
+#, python-format
+msgid "[cp error] %(etype)s: %(err)s"
+msgstr "[שגיאת cp] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:679
+#, python-format
+msgid "[cp] Source and destination are the same: %(path)s"
+msgstr "[cp] המקור והיעד זהים: %(path)s"
+
+#: src/uagent/util_tools.py:685
+#, python-format
+msgid "[cp] Source does not exist: %(path)s"
+msgstr "[cp] המקור אינו קיים: %(path)s"
+
+#: src/uagent/util_tools.py:692 src/uagent/util_tools.py:704
+#, python-format
+msgid "[cp] Destination already exists: %(path)s"
+msgstr "[cp] היעד כבר קיים: %(path)s"
+
+#: src/uagent/util_tools.py:713
+#, python-format
+msgid "[cp] Destination parent does not exist: %(path)s"
+msgstr "[cp] אב היעד אינו קיים: %(path)s"
+
+#: src/uagent/util_tools.py:720
+#, python-format
+msgid "[cp] Copied: %(src)s -> %(dst)s"
+msgstr "[cp] הועתק: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:734
+#, python-format
+msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
+
+#: src/uagent/util_tools.py:741 src/uagent/util_tools.py:785
+#, python-format
+msgid "[mv error] %(etype)s: %(err)s"
+msgstr "[שגיאת mv] %(etype)s: %(err)s"
+
+#: src/uagent/util_tools.py:751
+#, python-format
+msgid "[mv] Source and destination are the same: %(path)s"
+msgstr "[mv] המקור והיעד זהים: %(path)s"
+
+#: src/uagent/util_tools.py:757
+#, python-format
+msgid "[mv] Source does not exist: %(path)s"
+msgstr "[mv] המקור אינו קיים: %(path)s"
+
+#: src/uagent/util_tools.py:763
+#, python-format
+msgid "[mv] Destination already exists: %(path)s"
+msgstr "[mv] היעד כבר קיים: %(path)s"
+
+#: src/uagent/util_tools.py:773
+#, python-format
+msgid "[mv] Destination parent does not exist: %(path)s"
+msgstr "[mv] אב היעד אינו קיים: %(path)s"
+
+#: src/uagent/util_tools.py:780
+#, python-format
+msgid "[mv] Moved: %(src)s -> %(dst)s"
+msgstr "[mv] הועבר: %(src)s -> %(dst)s"
+
+#: src/uagent/util_tools.py:1023
+msgid ""
+"[Skill execution]\n"
+"This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
+"If the skill contains tasks, continue until they are complete.\n"
+"Use tools as needed.\n"
+msgstr ""
+"[ביצוע מיומנות]\n"
+"מיומנות זו מיועדת להפעלה. קרא בעיון את גוף המיומנות ופעל לפי ההוראות.\n"
+"אם המיומנות מכילה משימות, המשך עד להשלמתן.\n"
+"השתמש בכלים לפי הצורך."
+
+#: src/uagent/util_tools.py:1030
+msgid "When finished, always call `finish_skill` if available.\n"
+msgstr "בסיום, התקשר תמיד ל-'finish_skill' אם זמין."
+
+#: src/uagent/util_tools.py:1182
+msgid ""
+"Select a skill number to run. Enter c to cancel.\n"
+"Tip: :skills clear  (remove applied skills)\n"
+"Enter number:"
+msgstr ""
+"בחר מספר מיומנות להפעלה. הזן c כדי לבטל.\n"
+"טיפ: :כישורים ברורים (הסר מיומנויות יישומיות)\n"
+"הזן מספר:"
+
+#: src/uagent/util_tools.py:1218
+#, python-format
+msgid ""
+"Run this skill as a system-level instruction and keep it active in this session?\n"
+"\n"
+"Name: %(name)s\n"
+"Path: %(path)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"להפעיל את המיומנות הזו כהוראה ברמת המערכת ולהשאיר אותה פעילה בהפעלה זו?\n"
+"\n"
+"שם: %(name)s\n"
+"נתיב: %(path)s\n"
+"\n"
+"להמשיך? הזן y כדי להפעיל, או c כדי לבטל."
+
+#: src/uagent/util_tools.py:1280
+#, python-format
+msgid ""
+"[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
+msgstr ""
+"[נקה] ארגומנט לא חוקי: %(arg)r (ציין מספר=סף; ברירת המחדל היא %(default)d)"
+
+#: src/uagent/util_tools.py:1329
+#, python-format
+msgid ""
+"will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
+"Log dir: %(dir)s\n"
+"Rule: total user/assistant/tool messages excluding system <= %(threshold)d\n"
+"Targets: %(n)d\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"תמחק קבצי יומן שיחות (scheck_log_*.jsonl) מהדיסק.\n"
+"מדריך יומן: %(dir)s\n"
+"כלל: סך כל הודעות המשתמש/עוזר/כלי לא כולל מערכת <= %(threshold)d\n"
+"יעדים: %(n)d\n"
+"\n"
+"להמשיך? הזן y כדי להפעיל, או c כדי לבטל."
+
+#: src/uagent/util_tools.py:1397
+#, python-format
+msgid " - (%(count)d msgs) %(path)s"
+msgstr "- (%(count)d הודעות) %(path)s"
+
+#: src/uagent/util_tools.py:1427
+#, python-format
+msgid ""
+"will overwrite the current session log file and prepend the loaded log (no backup).\n"
+"\n"
+"Current log: %(cur_log)s\n"
+"Source log: %(src_log)s\n"
+"\n"
+"Proceed? Enter y to run, or c to cancel."
+msgstr ""
+"ידרוס את קובץ יומן ההפעלה הנוכחי ויעביר את היומן הנטען (ללא גיבוי).\n"
+"\n"
+"יומן נוכחי: %(cur_log)s\n"
+"יומן מקור: %(src_log)s\n"
+"\n"
+"להמשיך? הזן y כדי להפעיל, או c כדי לבטל."
+
+#: src/uagent/util_tools.py:1558
+#, python-brace-format
+msgid ""
+"Delete {count} path(s)?\n"
+"\n"
+"{paths}\n"
+"\n"
+"Enter y to proceed, or c to cancel."
+msgstr ""
+"למחוק נתיבים {count}?\n"
+"\n"
+"{paths}\n"
+"\n"
+"הזן y כדי להמשיך, או c כדי לבטל."
+
+#: src/uagent/util_tools.py:1613
+#, python-format
+msgid "Specified index %(idx)d is out of range."
+msgstr "האינדקס שצוין %(idx)d נמצא מחוץ לטווח."
+
+#: src/uagent/util_tools.py:1622
+#, python-format
+msgid "Log file not found: %(path)s"
+msgstr "קובץ יומן לא נמצא: %(path)s"
+
+#: src/uagent/util_tools.py:1716
+#, python-format
+msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr "[שגיאת כיווץ] נכשל ניתוח כ-int: %(arg)r -> שמור את %(keep)d האחרון"
+
+#: src/uagent/util_tools.py:1744
+#, python-format
+msgid ""
+"[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
+msgstr ""
+"[shrink_llm error] נכשל הניתוח כ-int: %(arg)r -> שמור את %(keep)d האחרון"
+
+#: src/uagent/util_tools.py:1837 src/uagent/util_tools.py:1917
+msgid ""
+"Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
+"set)."
+msgstr ""
+"זיכרון משותף לטווח ארוך אינו מופעל (UAGENT_SHARED_MEMORY_FILE אינו מוגדר)."
+
+#: src/uagent/util_tools.py:1868
+msgid "Analyzing past logs to generate user profile..."
+msgstr "מנתח יומנים קודמים ליצירת פרופיל משתמש..."
+
+#: src/uagent/util_tools.py:1872
+msgid "No past logs found or failed to generate profile."
+msgstr "לא נמצאו יומנים קודמים או יצירת פרופיל נכשלה."
+
+#: src/uagent/util_tools.py:1874
+msgid "User profile generated successfully from past logs!"
+msgstr "פרופיל משתמש נוצר בהצלחה מיומנים קודמים!"
+
+#: src/uagent/util_tools.py:1886
+msgid "No user profile data found."
+msgstr "לא נמצאו נתוני פרופיל משתמש."
+
+#: src/uagent/util_tools.py:1889
+msgid "User Profile:"
+msgstr "פרופיל משתמש:"
+
+#: src/uagent/util_tools.py:1901
+msgid "User profile cleared successfully."
+msgstr "פרופיל המשתמש נוקה בהצלחה."
+
+#: src/uagent/util_tools.py:1905
+msgid "No user profile file found to clear."
+msgstr "לא נמצא קובץ פרופיל משתמש לנקות."
+
+#: src/uagent/util_tools.py:1969
+msgid "Show this help"
+msgstr "הצג את העזרה הזו"
+
+#: src/uagent/util_tools.py:1970
+msgid "Restart input from the beginning"
+msgstr "הפעל מחדש את הקלט מההתחלה"
+
+#: src/uagent/util_tools.py:1971
+msgid "Show log file list"
+msgstr "הצג רשימת קובצי יומן"
+
+#: src/uagent/util_tools.py:1974
+msgid ""
+"Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
+":cd /)"
+msgstr "שנה את workdir ללא אישור (למשל :cd .. / :cd ~ / :cd C:\\path / :cd /)"
+
+#: src/uagent/util_tools.py:1977
+msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
+msgstr "רשימת ערכי ספרייה (למשל :ls / :ls .. / :ls ~ / :ls C:\\path)"
+
+#: src/uagent/util_tools.py:1980
+msgid "Manage UAGENT_* env vars and save .env.sec"
+msgstr "נהל את UAGENT_* env vars ושמור את ‎.env.sec"
+
+#: src/uagent/util_tools.py:1982
+msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
+msgstr "נהל/החל מיומנויות (למשל :skills / :skills active / :skills clear)"
+
+#: src/uagent/util_tools.py:1989
+msgid "Load a past log (overwrites current conversation history)"
+msgstr "טען יומן עבר (מחליף את היסטוריית השיחות הנוכחית)"
+
+#: src/uagent/util_tools.py:1991
+msgid ""
+"                       Note: after running, you will be asked for "
+"confirmation; choosing 'y' prepends the loaded log into the current session "
+"log file (overwrite, no backup)."
+msgstr ""
+"הערה: לאחר הריצה, תתבקשו לאשר; בחירה ב-'y' מקדימה את היומן הנטען לקובץ יומן "
+"ההפעלה הנוכחי (החלפה, ללא גיבוי)."
+
+#: src/uagent/util_tools.py:1995
+msgid ""
+"Delete conversation logs (scheck_log_*.jsonl) where the count of "
+"user/assistant/tool messages (excluding system) is <= N (default=10)"
+msgstr ""
+"מחק יומני שיחות (scheck_log_*.jsonl) שבהם ספירת הודעות המשתמש/עוזר/כלי (לא "
+"כולל מערכת) היא <= N (ברירת מחדל=10)"
+
+#: src/uagent/util_tools.py:1999
+msgid ""
+"Shrink conversation history (keep last N non-system messages; default=40)"
+msgstr ""
+"כיווץ היסטוריית השיחות (שמור את N ההודעות האחרונות שאינן מערכתיות; ברירת "
+"מחדל=40)"
+
+#: src/uagent/util_tools.py:2003
+msgid ""
+"Shrink history via LLM summarization (summarize older history into 1 system "
+"message; keep last N raw; default=20)"
+msgstr ""
+"כיווץ היסטוריה באמצעות סיכום LLM (סכם היסטוריה ישנה יותר להודעת מערכת אחת; "
+"שמור על N אחרון גולמי; ברירת מחדל=20)"
+
+#: src/uagent/util_tools.py:2006
+msgid "Show the current approximate token count of the conversation"
+msgstr "הצג את ספירת האסימונים המשוערת הנוכחית של השיחה"
+
+#: src/uagent/util_tools.py:2007
+msgid "List long-term memory notes"
+msgstr "רשום הערות זיכרון לטווח ארוך"
+
+#: src/uagent/util_tools.py:2009
+msgid "Delete a long-term memory note by index (see :mem-list)"
+msgstr "מחק הערת זיכרון לטווח ארוך לפי אינדקס (ראה :mem-list)"
+
+#: src/uagent/util_tools.py:2011
+msgid "Show the learned user profile, or generate it from past logs"
+msgstr "הצג את פרופיל המשתמש הנלמד, או הפק אותו מיומנים קודמים"
+
+#: src/uagent/util_tools.py:2012
+msgid "Generate user profile from past logs"
+msgstr "צור פרופיל משתמש מיומנים קודמים"
+
+#: src/uagent/util_tools.py:2013
+msgid "Clear the learned user profile data"
+msgstr "נקה את נתוני פרופיל המשתמש שנלמדו"
+
+#: src/uagent/util_tools.py:2015
+msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "העתק קובץ או ספרייה (תומך ב-f/--overwrite ו-p/--mkdirs)"
+
+#: src/uagent/util_tools.py:2017
+msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
+msgstr "העבר קובץ או ספרייה (תומך ב-f/--overwrite ו-p/--mkdirs)"
+
+#: src/uagent/util_tools.py:2019
+msgid "Show the first n lines of a file (default=20)"
+msgstr "הצג את n השורות הראשונות של קובץ (ברירת מחדל=20)"
+
+#: src/uagent/util_tools.py:2020
+msgid "Show the last n lines of a file (default=20)"
+msgstr "הצג את n השורות האחרונות של קובץ (ברירת מחדל=20)"
+
+#: src/uagent/util_tools.py:2022
+msgid "Delete file(s)/directory(ies) with preview + confirm"
+msgstr "מחק/ים קבצים/ספריות עם תצוגה מקדימה + אישור"
+
+#: src/uagent/util_tools.py:2024
+msgid ""
+"Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
+msgstr ""
+"הגדר מצב חשיבה (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; אוטומטי/מינימלי/xhigh)"
+
+#: src/uagent/util_tools.py:2026
+msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
+msgstr "הגדר מצב מילוליות (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; אין arg=keep)"
+
+#: src/uagent/util_tools.py:2027
+msgid "Exit"
+msgstr "יציאה"
+
+#: src/uagent/util_tools.py:2030
+msgid "  - Enter a line that is just 'f' to enter multiline input mode."
+msgstr "- הזן שורה שהיא רק 'f' כדי להיכנס למצב קלט מרובה שורות."
+
+#: src/uagent/util_tools.py:2032
+#, python-format
+msgid ""
+"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+msgstr "- כדי לסיים מצב קלט מרובה שורות, הזן שורה שהיא בדיוק %(sentinel)s."
+
+#: src/uagent/util_tools.py:2283
+msgid "Exiting."
+msgstr "יוצא."
+
+#: src/uagent/util_tools.py:2286
+#, python-format
+msgid "Unknown command: :%(cmd)s"
+msgstr "פקודה לא ידועה: :%(cmd)s"
+
+#: src/uagent/util_tools.py:2437
+msgid ""
+"The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
+"\n"
+msgstr ""
+"נקודות התבליט המפורטות להלן הן קטעים מהזיכרון לטווח ארוך של משתמש זה "
+"(תזכירים מתמשכים). השתמש בהם כמידע רקע על המשתמש. עם זאת, תמיד תעדוף מידע "
+"חדש שסופק בשיחה, ואם הוא סותר מידע ישן יותר, אמצו את המידע העדכני ביותר."
+
+#: src/uagent/web.py:534
+msgid ""
+"[WARN] Another task is already running in this room. Please retry after it "
+"completes."
+msgstr "[אזהרה] משימה אחרת כבר פועלת בחדר הזה. אנא נסה שוב לאחר השלמתו."
+
+#: src/uagent/web.py:626 src/uagent/web.py:773
+msgid ""
+"[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
+"Please check environment variables when starting the web server."
+msgstr ""
+"[FATAL] משתנה הסביבה UAGENT_PROVIDER לא מוגדר.\n"
+"אנא בדוק משתני סביבה בעת הפעלת שרת האינטרנט."
+
+#: src/uagent/web.py:664
+#, python-format
+msgid "[Attached Image] %(name)s"
+msgstr "[תמונה מצורפת] %(name)s"
+
+#: src/uagent/web.py:669
+#, python-format
+msgid "[Attached File] %(name)s"
+msgstr "[קובץ מצורף] %(name)s"
+
+#: src/uagent/web.py:670
+#, python-format
+msgid "[File Path] %(path)s"
+msgstr "[נתיב קובץ] %(path)s"
+
+#: src/uagent/web.py:698
+msgid "[INFO] Loaded long-term memory."
+msgstr "[INFO] זיכרון לטווח ארוך טעון."
+
+#: src/uagent/web.py:710
+msgid "[INFO] Loaded shared long-term memory."
+msgstr "[INFO] זיכרון משותף לטווח ארוך נטען."
+
+#: src/uagent/web.py:727
+msgid ""
+"\n"
+"\n"
+"## Generative UI (Artifacts) Instructions\n"
+"When the user asks for a UI, dashboard, interactive tool, or visualization:\n"
+"1. Write a complete, self-contained HTML page inside a single ```html code block.\n"
+"2. Use Tailwind CSS (via CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) for styling and Lucide Icons or FontAwesome for icons.\n"
+"3. Include interactive JavaScript (e.g., Chart.js for charts, or simple state management).\n"
+"4. Do not split the code into multiple blocks; keep it in one unified ```html block.\n"
+msgstr ""
+"## הוראות ממשק משתמש (Artifacts) יצירתי\n"
+"כאשר המשתמש מבקש ממשק משתמש, לוח מחוונים, כלי אינטראקטיבי או הדמיה:\n"
+"1. כתוב דף HTML שלם, עצמאי בתוך גוש קוד html יחיד.\n"
+"2. השתמש ב-Tailwind CSS (באמצעות CDN: <script src=\"https://cdn.tailwindcss.com\"></script>) לעיצוב ו- Lucide Icons או FontAwesome לסמלים.\n"
+"3. כלול JavaScript אינטראקטיבי (לדוגמה, Chart.js לתרשימים, או ניהול מצב פשוט).\n"
+"4. אין לפצל את הקוד למספר בלוקים; שמור אותו בגוש HTML אחד מאוחד."
+
+#: src/uagent/web.py:770
+#, python-format
+msgid ""
+"[FATAL] Web worker error.\n"
+"%(err)s"
+msgstr ""
+"[FATAL] שגיאת Web Worker.\n"
+"%(err)s"
+
+#: src/uagent/web.py:907
+msgid "missing path"
+msgstr "נתיב חסר"
+
+#: src/uagent/web.py:914
+msgid "path outside workdir"
+msgstr "נתיב מחוץ לעבודה"
+
+#: src/uagent/web.py:1264
+msgid "Starting server on"
+msgstr "מפעיל את השרת פועל"
+
+#: src/uagent/web.py:1266
+msgid "External URL:"
+msgstr "כתובת אתר חיצונית:"
+
+#: src/uagent/welcome.py:29
+msgid ""
+"[MCP Servers]\n"
+"- Config file not found."
+msgstr ""
+"[שרתי MCP]\n"
+"- קובץ התצורה לא נמצא."
+
+#: src/uagent/welcome.py:36
+msgid ""
+"[MCP Servers]\n"
+"- No servers registered."
+msgstr ""
+"[שרתי MCP]\n"
+"- לא רשומים שרתים."
+
+#: src/uagent/welcome.py:38
+msgid "[MCP Servers]"
+msgstr "[שרתי MCP]"
+
+#: src/uagent/welcome.py:45
+#, python-format
+msgid ""
+"[MCP Servers]\n"
+"- Failed to get info: %(err)s"
+msgstr ""
+"[שרתי MCP]\n"
+"- נכשל לקבל מידע: %(err)s"
+
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
+
+#: src/uagent/welcome.py:64
+msgid "[Quick Guide]"
+msgstr "[מדריך מהיר]"
+
+#: src/uagent/welcome.py:65
+msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
+msgstr ""
+"- צ'אט: הקלד הודעה ושלח (GUI: Ctrl+Enter זמין גם כן).girin (\"\"\" sonu ile "
+"bitirin)."
+
+#: src/uagent/welcome.py:70
+msgid ""
+"- Commands: type ':help' to see system commands (log management, history "
+"compression, etc.). Note: commands start with ':' (colon) instead of '/' "
+"(slash)."
+msgstr ""
+"- פקודות: הקלד ':help' כדי לראות פקודות מערכת (ניהול יומן, דחיסת היסטוריה "
+"וכו'). הערה: פקודות מתחילות ב-':' (נקודתיים) במקום '/' (אלכסון)."
+
+#: src/uagent/welcome.py:72
+msgid "- Exit: ':exit' or ':quit' ends the session."
+msgstr "- יציאה: ':exit' או ':quit' מסיימים את ההפעלה."
+
+#: src/uagent/welcome.py:74
+msgid ""
+"- Images: GUI supports drag & drop; in CUI you can input a file path for "
+"image analysis."
+msgstr ""
+"- תמונות: ממשק המשתמש תומך בגרירה ושחרור; ב-CUI אתה יכול להזין נתיב קובץ "
+"לניתוח תמונה."
+
+#: src/uagent/welcome.py:77
+#, python-format
+msgid ""
+"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
+"Inspector help (`--path/--open` also available)."
+msgstr ""
+"- מסמכים: `%(docs_cmd)s` מציג מסמכים מצורפים; `%(webinspect_cmd)s` מציג עזרה"
+" של מפקח האינטרנט (`--path/--open` זמין גם)."
+
+#: src/uagent/welcome.py:81
+msgid "[Examples]"
+msgstr "[דוגמאות]"
+
+#: src/uagent/welcome.py:82
+msgid "- \"Analyze the source code in this folder and create a README.md.\""
+msgstr "- \"נתח את קוד המקור בתיקייה זו וצור README.md.\""
+
+#: src/uagent/welcome.py:84
+msgid ""
+"- \"Take a screenshot of the current desktop and describe the visible window"
+" contents.\""
+msgstr "- \"צלם צילום מסך של שולחן העבודה הנוכחי ותאר את תוכן החלון הגלוי.\""
+
+#: src/uagent/welcome.py:86
+msgid "- \"Create a monthly summary report from this Excel file.\""
+msgstr "- \"צור דוח סיכום חודשי מקובץ אקסל זה.\""
+
+#: src/uagent/welcome.py:87
+msgid "- \"Read this PDF and list three key points.\""
+msgstr "- \"קרא את ה-PDF הזה ורשום שלוש נקודות מפתח.\""
+
+#: src/uagent/welcome.py:88
+msgid "- \"Search the latest news and summarize a specific topic.\""
+msgstr "- \"חפש את החדשות האחרונות וסכם נושא מסוים.\""
+
+#: src/uagent/welcome.py:195
+msgid "-- More -- (Enter: next) "
+msgstr "-- עוד -- (הזן: הבא)"
+
+#: src/uagent/a2a/engine.py:125
+msgid "No assistant message produced."
+msgstr "לא הופקה הודעת עוזר."
+
+#: src/uagent/a2a/engine.py:137
+msgid "Generated image(s)."
+msgstr "תמונות שנוצרו."
+
+#: src/uagent/a2a/engine.py:150
+#, python-format
+msgid "ECHO: %(text)s"
+msgstr "הד: %(text)s"
+
+#: src/uagent/a2a/engine.py:165
+#, python-format
+msgid "uagent initialization failed: %(err)s"
+msgstr "אתחול uagent נכשל: %(err)s"
+
+#: src/uagent/a2a/engine.py:177
+#, python-format
+msgid "uagent execution failed: %(etype)s: %(err)s"
+msgstr "ביצוע uagent נכשל: %(etype)s: %(err)s"
+
+#: src/uagent/a2a/engine.py:188
+#, python-format
+msgid "Unknown UAGENT_A2A_ENGINE: %(mode)s"
+msgstr "לא ידוע UAGENT_A2A_ENGINE: %(mode)s"
+
+#: src/uagent/providers/gemini_cache_mgr.py:131
+msgid "invalid cache meta"
+msgstr "מטא מטמון לא חוקי"
+
+#: src/uagent/providers/llm_claude.py:221
+#: src/uagent/providers/util_providers.py:686
+msgid "anthropic package is not installed."
+msgstr "חבילת אנתרופית אינה מותקנת."
+
+#: src/uagent/providers/llm_deepseek.py:670
+msgid "An error occurred while generating a response."
+msgstr "אירעה שגיאה בעת יצירת תגובה."
+
+#: src/uagent/providers/llm_gemini.py:565
+msgid ""
+"google-genai could not be imported (pip install google-genai is required)."
+msgstr "לא ניתן לייבא את google-genai (נדרשת התקנת pip google-genai)."
+
+#: src/uagent/providers/llm_gemini.py:1134
+msgid "[Gemini Error: Response blocked by safety filter or finish reason]"
+msgstr "[שגיאת תאומים: תגובה חסומה על ידי מסנן בטיחות או סיבת סיום]"
+
+#: src/uagent/providers/llm_gemini.py:1139
+#, python-format
+msgid "[Gemini Error: %(err)s]"
+msgstr "[שגיאת תאומים: %(err)s]"
+
+#: src/uagent/providers/llm_openai_responses.py:69
+msgid "[WARN] assistant history contained image content; converted to text."
+msgstr "היסטוריית העוזר [אזהרה] הכילה תוכן תמונה; הומר לטקסט."
+
+#: src/uagent/providers/llm_openai_responses.py:92
+msgid "[WARN] invalid image content (missing url)."
+msgstr "[WARN] תוכן תמונה לא חוקי (חסרה כתובת אתר)."
+
+#: src/uagent/providers/llm_openai_responses.py:100
+#: src/uagent/providers/llm_openai_responses.py:109
+#, python-format
+msgid "[WARN] unsupported content item: %(item)r"
+msgstr "[אזהרה] פריט תוכן לא נתמך: %(item)r"
+
+#: src/uagent/providers/llm_openai_responses.py:444
+msgid "Sources:"
+msgstr "מקורות:"
+
+#: src/uagent/providers/llm_openai_responses.py:507
+msgid "search"
+msgstr "לחפש"
+
+#: src/uagent/providers/llm_openai_responses.py:509
+msgid "open page"
+msgstr "עמוד פתוח"
+
+#: src/uagent/providers/llm_openai_responses.py:511
+msgid "find in page"
+msgstr "למצוא בעמוד"
+
+#: src/uagent/providers/llm_openai_responses.py:512
+msgid "web search"
+msgstr "חיפוש באינטרנט"
+
+#: src/uagent/providers/llm_openai_responses.py:526
+msgid "Web search: searching"
+msgstr "חיפוש באינטרנט: חיפוש"
+
+#: src/uagent/providers/llm_openai_responses.py:528
+msgid "Web search: completed"
+msgstr "חיפוש באינטרנט: הושלם"
+
+#: src/uagent/providers/llm_openai_responses.py:530
+#, python-brace-format
+msgid "Web search: {action}"
+msgstr "חיפוש באינטרנט: {action}"
+
+#: src/uagent/providers/llm_openai_responses.py:587
+#, python-brace-format
+msgid ""
+"[Tool calling rules]\n"
+"        - When calling a tool/function, you MUST provide function_call.arguments as a JSON object.\n"
+"        - The JSON object MUST include all required parameters defined by the tool schema.\n"
+"        - Never call a tool with an empty object {} unless the tool has no required parameters.\n"
+"        - If you do not have a required parameter, ask the user for it using human_ask instead of guessing.\n"
+"        "
+msgstr ""
+"[כללי קריאת כלים]\n"
+"        - בעת קריאה לכלי/פונקציה, עליך לספק function_call.arguments כאובייקט JSON.\n"
+"        - אובייקט JSON חייב לכלול את כל הפרמטרים הנדרשים שהוגדרו על ידי סכימת הכלי.\n"
+"        - לעולם אל תקרא לכלי עם אובייקט ריק {} אלא אם כן לכלי אין פרמטרים נדרשים.\n"
+"        - אם אין לך פרמטר נדרש, בקש מהמשתמש אותו באמצעות human_ask במקום לנחש."
+
+#: src/uagent/providers/llm_openai_responses.py:594
+msgid ""
+"[Web search rules]\n"
+"        - Use web search only when fresh or external information is necessary.\n"
+"        - Do not use web search for local or stable information.\n"
+"        - Prefer answering without web search when the answer is already sufficient.\n"
+"        "
+msgstr ""
+"[כללי חיפוש באינטרנט]\n"
+"        - השתמש בחיפוש באינטרנט רק כאשר יש צורך במידע טרי או חיצוני.\n"
+"        - אל תשתמש בחיפוש באינטרנט למידע מקומי או יציב.\n"
+"        - העדיפו לענות ללא חיפוש באינטרנט כאשר התשובה כבר מספיקה."
+
+#: src/uagent/providers/util_providers.py:243
+msgid "Environment variable UAGENT_PROVIDER is not set."
+msgstr "משתנה הסביבה UAGENT_PROVIDER לא מוגדר."
+
+#: src/uagent/providers/util_providers.py:263
+#, python-format
+msgid "Unknown provider: %(provider)s"
+msgstr "ספק לא ידוע: %(provider)s"
+
+#: src/uagent/providers/util_providers.py:620
+#: src/uagent/providers/util_providers.py:646
+msgid "google-genai package is not installed."
+msgstr "חבילת google-genai אינה מותקנת."
+
+#: src/uagent/runtime/runtime_banner.py:232
+msgid "embedding"
+msgstr "הטבעה"
+
+#: src/uagent/runtime/runtime_banner.py:233
+msgid "audio speech"
+msgstr "דיבור שמע"
+
+#: src/uagent/runtime/runtime_banner.py:234
+msgid "audio transcribe"
+msgstr "תמלול אודיו"
+
+#: src/uagent/runtime/runtime_banner.py:235
+msgid "image generation"
+msgstr "יצירת תמונה"
+
+#: src/uagent/runtime/runtime_banner.py:236
+msgid "image analysis"
+msgstr "ניתוח תמונה"
+
+#: src/uagent/runtime/runtime_banner.py:255
+#, python-format
+msgid "[INFO] workdir = %(workdir)s (source: %(source)s)"
+msgstr "[INFO] workdir = %(workdir)s (מקור: %(source)s)"
+
+#: src/uagent/runtime/runtime_banner.py:263
+#: src/uagent/runtime/runtime_banner.py:277
+#: src/uagent/runtime/runtime_banner.py:282
+#: src/uagent/runtime/runtime_banner.py:294
+#: src/uagent/runtime/runtime_banner.py:306
+#: src/uagent/runtime/runtime_banner.py:315
+#: src/uagent/runtime/runtime_banner.py:325
+#: src/uagent/runtime/runtime_banner.py:338
+#: src/uagent/runtime/runtime_banner.py:351
+#: src/uagent/runtime/runtime_banner.py:360
+#, python-format
+msgid "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] base_url = %(base_url)s"
+
+#: src/uagent/runtime/runtime_banner.py:271
+#, python-format
+msgid "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] api_version = %(api_version)s"
+
+#: src/uagent/runtime/runtime_banner.py:369
+#, python-format
+msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = project=%(project)s, מיקום=%(location)s"
+
+#: src/uagent/runtime/runtime_banner.py:378
+#, python-format
+msgid "[INFO] %(label)s = %(provider)s; model = %(model)s"
+msgstr "[INFO] %(label)s = %(provider)s; דגם = %(model)s"
+
+#: src/uagent/runtime/runtime_banner.py:399
+#, python-format
+msgid ""
+"UAGENT_RESPONSES=1 is set, but provider '%(provider)s' does not support "
+"Responses API. Falling back to ChatCompletions."
+msgstr ""
+"UAGENT_RESPONSES=1 מוגדר, אבל הספק '%(provider)s' אינו תומך ב-Respons API. "
+"חוזרים ל-ChatCompletions."
+
+#: src/uagent/runtime/runtime_banner.py:406
+#, python-format
+msgid "LLM API mode = %(mode)s"
+msgstr "מצב LLM API = %(mode)s"
+
+#: src/uagent/runtime/runtime_banner.py:409
+msgid "Responses (UAGENT_RESPONSES is enabled)"
+msgstr "תגובות (UAGENT_RESPONSES מופעלת)"
+
+#: src/uagent/runtime/runtime_banner.py:413
+msgid "Native Gemini/Vertex AI/Claude API (UAGENT_RESPONSES is ignored)"
+msgstr "Native Gemini/Vertex AI/Cloud API (מתעלמים מUAGENT_RESPONSES)"
+
+#: src/uagent/runtime/runtime_banner.py:416
+msgid "ChatCompletions (UAGENT_RESPONSES is disabled)"
+msgstr "השלמות צ'אט (UAGENT_RESPONSES מושבת)"
+
+#: src/uagent/runtime/runtime_banner.py:424
+#, python-format
+msgid "LLM streaming = %(state)s"
+msgstr "הזרמת LLM = %(state)s"
+
+#: src/uagent/runtime/runtime_banner.py:425
+msgid "enabled"
+msgstr "מופעל"
+
+#: src/uagent/runtime/runtime_banner.py:425
+msgid "disabled"
+msgstr "נכים"
+
+#: src/uagent/runtime/runtime_env.py:186
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. [y] Update .env.sec with current values / [s] Use .env.sec values (apply to session) / [N] Skip: "
+msgstr "[INFO] תוכן הקובץ .env.sec אינו תואם למשתני הסביבה הנוכחיים של UAGENT_*. [y] עדכן את .env.sec לערכים הנוכחיים / [s] השתמש בערכים מ-.env.sec (החל על הסשן) / [N] דלג:"
+
+#: src/uagent/runtime/runtime_env.py:202
+msgid ""
+"[INFO] .env.sec content does not match the current startup UAGENT_* "
+"environment variables. Use `uag_envsec` to update it."
+msgstr ""
+"[INFO] תוכן .env.sec אינו תואם למשתני הסביבה הנוכחיים של ההפעלה UAGENT_*. "
+"השתמש ב-'uag_envsec' כדי לעדכן אותו."
+
+#: src/uagent/runtime/runtime_env.py:204
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] ערכים מ-.env.sec הוחלו על הסשן הנוכחי."
+
+
+#: src/uagent/runtime/runtime_env.py:214
+#, python-format
+msgid "Updated .env.sec: %(path)s"
+msgstr "מעודכן .env.sec: %(path)s"
+
+#: src/uagent/runtime/runtime_env.py:218
+#, python-format
+msgid "[WARN] Failed to update .env.sec: %(err)s"
+msgstr "[אזהרה] נכשל עדכון ‎.env.sec: %(err)s"
+
+#: src/uagent/runtime/runtime_env.py:228
+msgid ""
+"[INFO] .env.sec is missing. Create it from the current startup UAGENT_* "
+"environment variables? [y/N] "
+msgstr ""
+"[INFO] .env.sec חסר. ליצור אותו ממשתני הסביבה UAGENT_* האתחול הנוכחי? [י/N]"
+
+#: src/uagent/runtime/runtime_env.py:244
+msgid ""
+"[INFO] .env.sec is missing. Use `uag_envsec` to create it from the current "
+"startup UAGENT_* environment variables."
+msgstr ""
+"[INFO] .env.sec חסר. השתמש ב-'uag_envsec' כדי ליצור אותו ממשתני הסביבה "
+"הנוכחיים של ההפעלה UAGENT_*."
+
+#: src/uagent/runtime/runtime_env.py:254
+#, python-format
+msgid "Created .env.sec: %(path)s"
+msgstr "נוצר .env.sec: %(path)s"
+
+#: src/uagent/runtime/runtime_env.py:258
+#, python-format
+msgid "[WARN] Failed to create .env.sec: %(err)s"
+msgstr "[אזהרה] נכשל יצירת ‎.env.sec: %(err)s"
+
+#: src/uagent/runtime/runtime_env.py:289
+#, python-format
+msgid "[WARN] Failed to check .env.sec synchronization: %(err)s"
+msgstr "[אזהרה] נכשל בבדיקת סנכרון ‎.env.sec: %(err)s"
+
+#: src/uagent/runtime/runtime_init.py:83
+#, python-format
+msgid "[WARN] Failed to decrypt .env.sec: %(err)s"
+msgstr "[אזהרה] פענוח ‎.env.sec: %(err)s נכשל"
+
+#: src/uagent/runtime/runtime_workdir.py:49
+#, python-format
+msgid "Specified workdir path is a file: %(path)s"
+msgstr "נתיב workdir שצוין הוא קובץ: %(path)s"

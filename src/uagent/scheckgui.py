@@ -35,6 +35,7 @@ from . import core as core
 from . import tools
 from .welcome import get_welcome_message
 from .runtime import runtime_init as _runtime_init
+from .utils.paths import get_history_file_path
 
 from .util_tools import (
     image_file_to_data_url,
@@ -227,6 +228,7 @@ class ScheckWorker(QtCore.QObject):
     """Worker that runs the LLM loop."""
 
     sig_finished = QtCore.Signal()
+    sig_history_bootstrap = QtCore.Signal(list)
 
     def __init__(self, cfg: GuiConfig):
         super().__init__()
@@ -265,7 +267,6 @@ class ScheckWorker(QtCore.QObject):
             human_ask_set_password=(
                 lambda v: setattr(core, "human_ask_is_password", bool(v))
             ),
-            multi_input_sentinel=core.MULTI_INPUT_SENTINEL,
             event_queue=core.event_queue,
             cmd_encoding=core.CMD_ENCODING,
             cmd_exec_timeout_ms=core.CMD_EXEC_TIMEOUT_MS,
@@ -296,6 +297,18 @@ class ScheckWorker(QtCore.QObject):
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
             self.messages = build_initial_messages(core=core)
+            # Bootstrap input history from past user messages
+            history_entries = []
+            for msg in self.messages:
+                if msg.get("role") != "user":
+                    continue
+                content = msg.get("content")
+                if isinstance(content, str) and content.strip():
+                    normalized = content.replace("\r", "").strip()
+                    if normalized and normalized not in history_entries:
+                        history_entries.append(normalized)
+            if history_entries:
+                self.sig_history_bootstrap.emit(history_entries)
             cb = get_callbacks()
             prev_finish_skill = cb.finish_skill
             cb.finish_skill = make_finish_skill_handler(self.messages, core)
@@ -790,6 +803,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._attached_files: list[str] = []
         self._history: list[HistoryEntry] = []
         self._hist_idx = -1
+        self._load_history_from_file()
         self._log_pos = 0
         self._known_image_paths: set[str] = set()
         self._known_image_preview_paths: set[str] = set()
@@ -899,6 +913,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._worker = ScheckWorker(cfg)
         self._worker.moveToThread(self._thread)
         self._worker.sig_finished.connect(self._thread.quit)
+        self._worker.sig_history_bootstrap.connect(self._on_history_bootstrap)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
 
@@ -967,6 +982,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 _set_devel_tools_enabled,
                 _set_exec_tools_enabled,
                 _set_external_tools_enabled,
+                _set_index_tools_enabled,
                 _set_iot_tools_enabled,
                 _set_media_tools_enabled,
                 _set_office_tools_enabled,
@@ -1021,13 +1037,19 @@ class MainWindow(QtWidgets.QMainWindow):
                     _("Media (image gen/edit/analyze, audio, QR code)"),
                     _set_media_tools_enabled,
                 ),
+                (
+                    "index",
+                    _("Index (source code navigation: py2idx, ts2idx, etc.)"),
+                    _set_index_tools_enabled,
+                ),
             ]
 
+            from .tools._genre_control_util import _ENABLED_GENRES
             self._genre_actions = {}
             for key, label, setter in genre_items:
                 act = tools_menu.addAction(label)
                 act.setCheckable(True)
-                act.setChecked(key == 'basic')
+                act.setChecked(key in _ENABLED_GENRES)
                 act.triggered.connect(lambda checked, s=setter: s(checked))
                 self._genre_actions[key] = act
 
@@ -1790,8 +1812,7 @@ class MainWindow(QtWidgets.QMainWindow):
             except Exception:
                 pass
 
-            s = core.MULTI_INPUT_SENTINEL
-            q.put(text + ("\n" + s + "\n" if s not in text else ""))
+            q.put(text)
         else:
             try:
                 print(_("[USER] %(text)s") % {"text": text.strip()})
@@ -1819,6 +1840,7 @@ class MainWindow(QtWidgets.QMainWindow):
                     for path in sent_images:
                         self._append_image_preview(path, preview_prefix)
             self._history.append(HistoryEntry(text, sent_images, sent_files))
+            self._save_history_to_file()
 
         self._attached_images.clear()
         self._attached_files.clear()
@@ -1827,7 +1849,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def eventFilter(self, obj, event):
         if obj is self._input and event.type() == QtCore.QEvent.KeyPress:
-            if event.modifiers() & QtCore.Qt.ShiftModifier:
+            if event.modifiers() & QtCore.Qt.ControlModifier:
                 if event.key() == QtCore.Qt.Key_Up and self._history:
                     self._hist_idx = (
                         (self._hist_idx - 1)
@@ -1845,6 +1867,38 @@ class MainWindow(QtWidgets.QMainWindow):
                     self._restore_history()
                     return True
         return super().eventFilter(obj, event)
+
+    def _on_history_bootstrap(self, entries: list[str]) -> None:
+        for entry in entries:
+            if entry not in self._history:
+                self._history.append(HistoryEntry(entry, [], []))
+
+    def _load_history_from_file(self) -> None:
+        try:
+            p = get_history_file_path()
+            if p.exists():
+                for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
+                    line = line.strip()
+                    if line.startswith("+") and len(line) > 1:
+                        entry = line[1:]
+                        if entry and entry not in self._history:
+                            self._history.append(HistoryEntry(entry, [], []))
+        except Exception:
+            pass
+
+    def _save_history_to_file(self) -> None:
+        try:
+            p = get_history_file_path()
+            p.parent.mkdir(parents=True, exist_ok=True)
+            seen = set()
+            with open(p, "w", encoding="utf-8") as f:
+                for e in self._history:
+                    t = e.text.strip()
+                    if t and t not in seen:
+                        seen.add(t)
+                        f.write(f"+{t}\n")
+        except Exception:
+            pass
 
     def _restore_history(self):
         self._thumbs.clear()
@@ -1884,6 +1938,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 
 def main():
+    sys.stdout.reconfigure(encoding='utf-8')
     try:
         from .readme_util import (
             maybe_print_quickstart_on_first_run,
@@ -1914,7 +1969,7 @@ def main():
         "--tool-genre-mask",
         type=int,
         default=None,
-        help="Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all). Skips the interactive genre prompt when specified.",
+        help="Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips the interactive genre prompt when specified.",
     )
     parser.add_argument(
         "--use-tool",
@@ -1943,7 +1998,7 @@ def main():
 
     _mask = getattr(args, "tool_genre_mask", None)
     if _mask is None:
-        _mask = 1  # default: basic only
+        _mask = 0  # default: nothing
     from .cli_startup import _apply_startup_tool_genre_mask
 
     _apply_startup_tool_genre_mask(_mask)

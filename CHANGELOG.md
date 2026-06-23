@@ -5,308 +5,105 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.5.11] - 2026-06-18
+## [0.5.21] - 2026-06-22
 
 ### Added
-- Z.AI (Zhipu AI) provider support (`UAGENT_PROVIDER=zai`). Default model: `glm-5.2`.
-- Local GeoIP database support: offline IP geolocation via mmdb file (`UAGENT_GEOIP_DB_PATH` or bundled `dbip-city-lite.mmdb`).
-- `get_geoip` now accepts optional `ip` parameter for arbitrary IP lookup.
-- Tool parallel execution (async) support with `x_parallel_safe` opt-in flag.
-- Tool genre mask (`--tool-genre-mask`), tool-less mode (`--no-use-tool`).
-- Safety confirmation prompt before `skills_install`.
-- UPnP Phase 2: device info tool, scan filters, shared module.
-- `TOOL_ASYNC.md` design document.
-- `LICENSE-THIRD-PARTY.md` for DB-IP Lite (CC-BY 4.0) attribution.
-- Archive merge: restored all local development changes, preserving origin/main updates.
+- Added VSCode extension support: TypeScript scaffold (`vscode-extension/`), WebSocket client, chat panel, and tree provider.
+- Added `scheckws.py` wrapper to easily start the WebSocket server from the project root.
+- Added chat handler to `ws_server`, wiring VSCode panel to call LLM.
+- Integrated LLM chat via `run_cli_startup` + `run_llm_rounds` in `ws_handler`.
 
 ### Fixed
-- `get_geoip` tool registration (`tool_level` 1 to 0) so it appears in the tool list.
-- `:tools on/off` import path corrected to `genre_control_tool`.
-- `:cp`/`:mv` commands now support quoted paths, removed workdir restriction.
-- DeepSeek 400 error recovery and sanitize_messages improvement.
+- Fixed TypeScript compilation issues: added `@types/node`, fixed `tsconfig.json`.
+- Removed redundant `activationEvents` from VSCode extension (auto-detected by VS Code).
+- Simplified chat handler with proper fallback message for unconfigured LLM.
+- Replaced `ToolCallbacks.get_workdir()` with `os.getcwd()` in `ws_handler`.
+- Fixed WebSocket handler: `tool_genre_mask` type, `should_exit` check, `providers` import, timeout settings, and workdir timing.
 
 ### Changed
-- Restored locale files with added translations for Z.AI, --use-tool/--no-use-tool, and Basic genre (all 30 locales).
-- llmcapa dependency updated to 0.2.2.
+- Updated `MANIFEST.in` and `.gitignore` to exclude `vscode-extension/` from PyPI distribution.
 
-## [0.5.12] - 2026-06-18
+## [0.5.20] - 2026-06-25
+
+### Added
+- Added Gmail tools: `gmail_send` (SMTP) and `gmail_read` (IMAP) for sending/receiving emails.
+- Added `parse_eml` tool for parsing .eml email files.
+- Added `email_utils.py` shared module to reduce code duplication across email tools.
+- Added full i18n (34 locales) for all three new tools.
+- Added `mode_after` parameter to `replace_in_file` for independent regex mode on anchor_after.
+
+### Changed
+- Updated tool count (112→116) and parallel-safe count (66→67).
+- `create_file` now returns JSON `{"ok": false, "error": "..."}` instead of raising raw exceptions.
+- `replace_in_file` match_hits now includes insert_before/insert_after/insert_at_line/insert_at_end positions.
+- `replace_in_file` insert_at_end now ensures trailing newline before appending.
+- `replace_in_file` insert_at_line now raises ValueError for out-of-range line_no.
+- Fixed duplicate computation block in `replace_in_file` (dead code).
+
+## [0.5.19] - 2026-06-22
+
+### Added
+- Added 'index' genre for source code navigation tools (11 idx tools for py/ts/cs/jv/dart/cpp/rs).
+- Added Z.AI provider to provider list.
+- Made ThreadPool size configurable via UAGENT_PARALLEL_WORKERS environment variable (default 8).
+- Added idx family documentation to all 33 README translations, tool table, and DEVELOP docs.
+
+### Changed
+- Updated tool count (111→112) and parallel-safe count (55→66).
+- Clarified parallel execution documentation (max 4 concurrently, 66 parallel-safe).
+- Added UAGENT_PARALLEL_WORKERS and missing providers to ENVIRONMENT.md and ENVIRONMENT.ja.md.
+
+## [0.5.18] - 2026-06-21
+
+### Added
+- Added MiniMax provider (OpenAI-compatible, endpoint https://api.minimax.io).
+- Added Turkish (tr) README translation.
+- Added README translations for el (Greek), he (Hebrew), hu (Hungarian), ro (Romanian).
+- Added i18n locales for el/he/hu/ro in tool JSONs.
+- Added world map SVG showing all translation languages in README.translations.md.
+- Added `:provider` command specification for dynamic provider switching.
+- Added i18n fix plan documentation for .po compilation and tool JSON translations.
+
+### Changed
+- Tools on/off genre control: shell metachar confirm disabled by default, file genre separated from generic execution tools.
+- Restructured README.translations.md with categorized tables.
+- Language names in README.translations.md changed to clickable links.
+- Redrew world map with Miller projection and more detailed continents.
+- Expanded md2idx translations to 30 languages.
 
 ### Fixed
-- VertexAI: skip `include_server_side_tool_invocations` (not supported by Enterprise Agent Platform).
-- Gemini: filter dangling `required` keys in tool schema to avoid 400 INVALID_ARGUMENT.
-- Claude/Gemini: use `provider` parameter instead of hardcoded strings in `_rate_limit_retry_step`.
-- `_call_claude_round` / `_call_gemini_round`: pass `provider` from caller to fix NameError.
+- Removed SVG map file from repository (GitHub auto-links SVGs, breaking inline display).
+- Embedded SVG as base64 data URI to prevent GitHub auto-linking.
+- Display world map as inline image instead of SVG link.
+- Used hardcoded SVG coordinates based on country bounds for accurate capital placement.
+- Plotted language dots at capital cities instead of geographic centers.
+- Reordered SVG elements so background renders behind paths.
+- Fixed map aspect ratio to 1200x720 with equirectangular projection.
+- Escaped ampersand in SVG legend text.
+- Restored broken HTML/code blocks in 9 translated README files.
+- Fixed heading number offset in md2idx tool.
 
-## [Unreleased]
+### Chores
+- Removed stale documentation files (old design docs, TBDs, brainstorming notes).
 
-## [0.5.10] - 2026-06-18
-
-### Fixed
-- get_geoip tool registration (`tool_level` 1 to 0) so it appears in the tool list.
-- llmcapa dependency updated to 0.2.2.
-
-## [0.5.9] - 2026-06-16
-
-### Added
-- ClawHub marketplace support: `skills_mp_search` now accepts `source` parameter (`skillsmp` / `clawhub`) to search and browse community Agent Skills from either marketplace.
-- Full 30-language i18n for skills_mp_search tool (15 keys translated across all supported locales).
-
-### Changed
-- README updated in all 30 languages to document SkillsMP and ClawHub marketplace access.
-
-## [0.5.8] - 2026-06-15
-
-### Added
-- Multiline input mode with prompt_toolkit TextArea (Ctrl+X to submit, Esc to cancel, fallback to legacy `"""end` mode).
-- Tool genre selection UI: GUI (Tools menu), Web (checkboxes in header), A2A server (startup dialog).
-- Tool genre selection disabled while busy (IDLE only).
-- get_geoip tool moved to IoT genre (conditional loading via genre mask).
-- Web UI: real-time sync of final assistant messages after LLM rounds.
-- Web UI: GET/POST /api/tool-genres endpoints for dynamic genre toggling.
-- Human_ask prompt now shows `[REPLY] >` prompt in CLI.
-
-## [0.5.7] - 2026-06-15
-
-### Changed
-- Renamed provider identifier from `kimi` to `moonshot` (UAGENT_PROVIDER=moonshot).
-- Renamed environment variables from `UAGENT_KIMI_*` to `UAGENT_MOONSHOT_*`.
-- Applied black formatting across 39 files for consistent code style.
-- Fixed ruff lint errors (invalid exception syntax, unused imports, one-line statements).
-- Fixed mypy type errors (dict annotation, used-before-def, truthy-function check).
-
-## [0.5.6] - 2026-06-15
-
-### Added
-- USB camera tool (`usb_camera`): capture photos, list devices, query capabilities (cross-platform).
-- Alibaba Cloud (Qwen) provider for image analysis.
-- Kimi (Moonshot AI) provider for image analysis.
-- DeepSeek vision backend (requires vision-capable endpoint).
-- `list_caps` action for USB camera to show supported resolutions and FPS.
-
-### Changed
-- Shortened tool descriptions across all 30 locales (~8K chars / ~2K tokens reduction).
-- Removed alias parameters from tool specs (path/filename, root_path/path, etc.).
-- Removed dead `system_prompt` fields from all tool specs.
-- Renamed 31 param keys to shorter names (output_format→fmt, max_results→limit, etc.).
-- Cross-platform USB camera support (dshow/v4l2/avfoundation).
+## [0.5.17] - 2026-06-20
 
 ### Fixed
-- Ruff warnings: exception syntax, unused variable, undefined name.
-- USB camera ffmpeg cp932 decode error on Windows.
+- Fixed literal `{persist}` placeholders appearing in `catalog_tool.json` output (30 languages).
+  - The `msg.load.ok` string contained `(persist={persist})` suffix that was not substituted
+    because the caller does not pass a `persist` parameter.
+  - Removed the unused `persist` parameter reference from `tools_control_tool.py`.
+- Removed the `"""retry` / `"""end` mention from `human_ask` `ui.howto` display text
+  in 10 locale translations (bn, fa, ko, mr, nb, sw, th, vi, zh_CN, zh_TW).
 
-## [0.5.5] - 2026-06-15
+### Chores
+- `.vs/` and `.uagent_web_uploads/` added to `.gitignore`.
 
-### Added
-- SwitchBot infrared remote control support: TV/AC/light on/off, brightness, AC mode/fan speed.
-- SwitchBot batch tool: execute multiple commands in a single call.
-- Bluesky tool: post (text + image), profile, search, timeline, thread, like, notifications.
-- Bluesky `lang` parameter (BCP-47) with validation for multi-language posting.
-- Bluesky image upload and auto-save/display (CLI, Web, GUI).
-- COMMUNICATION.md: documentation for bluesky, discord, teams comm tools.
-- IoT section in README.md and all translation README files.
-
-### Documentation
-- IOT_USECASE.ja.md / IOT_USECASE.md updated with new tools and batch details.
-
-## [0.5.4] - 2026-06-15
+## [0.5.16] - 2026-06-20
 
 ### Fixed
-- Suppress duplicate DeepSeek final output when streaming is active.
-- Defer auto_user_msg insertion to prevent DeepSeek 400 error on tool_calls.
-
-## [0.5.3] - 2026-06-15
-
-### Added
-- Dedicated DeepSeek provider module with thinking mode and reasoning_effort support.
-- DeepSeek setup wizard integration.
-- Temperature, top_p, presence_penalty, frequency_penalty configuration for DeepSeek (non-thinking mode).
-- zh_CN and zh_TW translations/README for DeepSeek settings.
-- provider_caps.py for provider capability management.
-
-### Documentation
-- Added DeepSeek to ENVIRONMENT.md and ENVIRONMENT.ja.md provider tables.
-
-### Fixed & Improved
-- Locale .mo files recompiled.
-- Miscellaneous fixes.
-
-## [0.5.2] - 2026-06-13
-
-### Added
-- Updated the `llmcapa` dependency to `0.1.2`.
-
-### Fixed & Improved
-- Refined Claude reasoning-effort detection for model family matching.
-- Enabled Gemini server-side tool invocation support when available.
-
-## [0.5.1] - 2026-06-12
-
-### Added
-- Startup genre prompt translations were added across all localized catalogs.
-
-### Fixed & Improved
-- Startup genre prompt handling was cleaned up for the first-menu flow.
-
-## [0.5.0] - 2026-06-11
-
-### Added
-- UPnP IGD discovery now deduplicates repeated service entries and prefers the actual WANIPConnection service.
-- UPnP port mapping now defaults to a 60-minute lease when not specified.
-- GeoIP tool search priority was lowered so it stays out of normal tool discovery.
-
-### Fixed & Improved
-- Matter device, endpoint, and cluster listings now dedupe by controller_id and bridge_id.
-- ECHONET Lite interface resolution now avoids virtual adapters and falls back more reliably.
-- IoT use-case docs and related tests were refreshed for the current tool layout.
-
-## [0.4.46] - 2026-06-10
-
-### Added
-- **Classic Bluetooth Scanning Support**:
-  - Extended the `ble_ops` tool to support scanning both Classic Bluetooth and BLE devices simultaneously using PySide6.
-  - Added a new `scan_mode` parameter to the `ble_ops` tool.
-  - Fixed a bug in BLE scanning where the `BLEDevice` object did not have the `rssi` attribute.
-
-## [0.4.45] - 2026-06-10
-
-### Added
-- **Dynamic Reasoning & Thinking Budget Support**:
-  - Integrated `llmcapa` to dynamically check if a model supports reasoning effort (Claude) or thinking budget (Gemini).
-  - Updated `llmcapa` dependency to `0.1.1`.
-
-## [0.4.44] - 2026-06-10
-
-### Added
-- **llmcapa Integration**:
-  - Integrated `llmcapa` library to dynamically resolve model context windows and calculate auto-shrink limits.
-  - Removed the large hardcoded `DEFAULT_SHRINK_LIMITS` dictionary in favor of dynamic calculation.
-  - Added support for `UAGENT_SHRINK_RATIO` environment variable (default: `0.5`) to customize the safety margin.
-
-## [0.4.43] - 2026-06-09
-
-### Added
-- **Token-based Auto-shrink Trigger**:
-  - Implemented token-based auto-shrink trigger with model-specific defaults to manage context size efficiently.
-- **Package Structure Refactoring**:
-  - Reorganized the `uagent` package structure into `providers`, `runtime`, and `tools` for better maintainability.
-
-### Fixed & Improved
-- **Configuration Defaults**:
-  - Changed default `UAGENT_SHRINK_CNT` to 0 (disabled) to prevent unexpected context shrinking.
-
-## [0.4.42] - 2026-06-08
-
-### Added
-- **Generative UI (Artifacts) Support**:
-  - Implemented real-time HTML/CSS/JS code block extraction and rendering in a dedicated preview panel.
-  - Added interactive "Open in Preview" button for assistant-generated HTML content.
-  - Added automatic code block folding (`<details>`) in chat UI to keep the conversation clean.
-
-### Fixed & Improved
-- **Web UI Enhancements**:
-  - Improved text contrast for chat bubbles in dark mode.
-  - Fixed text wrapping and formatting for ASCII art and terminal outputs in chat bubbles.
-
-## [0.4.41] - 2026-06-07
-
-### Added
-- **Developer Tool Genre Expansion**:
-  - Added `tool_genre="devel"` to `system_reload`, `git_ops`, `playwright_inspector`, and `binary_edit` tools.
-- **Web UI Enhancements**:
-  - Display external URL on startup and fixed related tests.
-
-### Fixed & Improved
-- **Internationalization (i18n)**:
-  - Removed `_t()` from 400 BadRequest and updated all locales to achieve 0 `same_as_en` entries.
-  - Completed translations for all 28 languages to achieve 0 empty entries.
-  - Added Japanese translations for 22 newly extracted strings.
-  - Rebuilt POT and PO/MO files based on `babel.cfg` scope.
-- **Gemini Stability & i18n**:
-  - Added i18n support and 28 language translations for Gemini stream interruption error messages.
-  - Supported `UAGENT_GEMINI_MAX_OUTPUT_TOKENS` and displayed error on stream interruption.
-
-## [0.4.40] - 2026-06-06
-
-### Added
-- **Gemini Built-in Google Search Support**:
-  - Added support for Gemini's built-in Google Search (Google Search Grounding) in Gemini API and Vertex AI.
-  - Controlled via the `UAGENT_GEMINI_WEB_SEARCH` environment variable, enabled (ON) by default. When active, local web search tools are automatically disabled.
-- **Dynamic Skill Help Enhancements**:
-  - Added dynamic skill command help functionality.
-  - Localized the skill installation tool (`skills_install_tool`).
-  - Added `.uag` skill root to the skill discovery path.
-
-### Changed & Optimized
-- **`replace_in_file` Tool Optimization**:
-  - Enhanced diagnostics for match limit (`match_hits`) and added directory exclusion in recursive scans, significantly improving performance.
-- **Claude Integration Enhancements**:
-  - Enhanced dynamic `max_tokens` configuration, thinking block parsing, and multimodal image support.
-  - Avoid setting a default temperature for Claude unless explicitly configured via `UAGENT_CLAUDE_TEMPERATURE`.
-  - Omitted `temperature` when `output_config` is used and added fallback handling for deprecated parameters in the Claude API.
-- **Gemini Stability Improvements**:
-  - Applied empty response nudge handling and optimized safety settings to prevent silent blocking.
-  - Formatted `test_list_dir_tool`, removed `test_libcst_transform_smoke`, and fixed translation issues in `sub_agent_tool`.
-
-## [0.4.39] - 2026-05-22
-
-### Added
-- **Locale MO Rebuild**:
-  - Rebuilt all compiled `.mo` translation files after locale updates.
-  - Refreshed multilingual message catalogs across the repository.
-
-## [0.4.38] - 2026-05-22
-
-### Added
-- **Specialized Sub-Agent Tool (`run_sub_agent`)**:
-  - Implemented safe, orchestrated specialized sub-agents under the control of the parent orchestrator.
-  - Supported roles: `planner` (planning), `reviewer` (code audit), `summarizer` (context compression), `patch_designer` (safe patch proposing), and `error_analyst` (error/exception debugging).
-  - Built-in `DuplicateCallGuard` to strictly prevent infinite looping on identical tasks.
-  - Implemented strict path-pinning guardrails to secure file accessibility.
-- **Multilingual Support (30 Languages)**:
-  - Created complete localization resource JSON (`sub_agent_tool.json`) covering 30 global languages.
-  - Verified and passed all translation smoke tests (`test_tools_i18n_smoke.py`).
-- **Sub-Agent Extensions Roadmap (`TODO_subagent.md`)**:
-  - Added a dedicated roadmap ledger to manage future sub-agent extensions and implementation logs.
-- **Skill Maintenance**:
-  - Repaired broken YAML frontmatter in metadata sections across all SKILL.md files to restore agent `:skills` tool discovery compatibility.
-
----
-
-## [0.4.37] - 2026-05-22
-
-### Changed
-- **Modernization to Python 3.11+**:
-  - Upgraded code syntax across all repository files to leverage Python 3.11+ features.
-  - Standardized modern typing syntax and cleaned up deprecated imports.
-- **Sub-Agent Architecture Design**:
-  - Formulated initial architecture blueprint for orchestrated and guardrailed sub-agents.
-
-## [0.4.36] - 2026-05-15
-
-### Changed
-- **Search Term Normalization**:
-  - Normalized all `x_search_terms` fields across tool-spec JSON definitions for cleaner indexing.
-
-## [0.4.35] - 2026-05-10
-
-### Added
-- **Batch State Tool & Architecture**:
-  - Introduced `batch_state` tracking ledger, state designs, and extensive verification smoke tests.
-- **Locale & Prompts Refresh**:
-  - Re-synced and updated various core locale resources and system LLM prompts.
-
-## [0.4.34] - 2026-05-02
-
-### Added
-- **Expanded Locales Support**:
-  - Added fully translated blocks for `bn` (Bengali), `fa` (Persian), `mn` (Mongolian), and `mr` (Marathi) languages.
-  - Synchronized and updated multilingual translation references in root `README.md`.
-- **Multilingual Catalog Search**:
-  - Added tokenization enhancements to better index and search tools in multiple foreign languages.
-
-## [0.4.32] - 2026-04-25
-
-### Added
-- **Rich Log & Attachment Handling**:
-  - Implemented robust parsing for ANSI-colored logs and custom attachment structures.
-  - Added an HTML rendering helper for rich terminal outputs.
+- Fixed 5408 truncated translations across all 77 tool JSON files (29 languages).
+  - Translations that were cut off due to character limits in the original auto-translation
+    have been re-translated using Google Translate.
+  - Affected languages: ar, bn, cs, de, es, fa, fi, fr, hi, id, it, ja, ko, mn, mr, nb, nl,
+    pl, pt, pt_BR, ru, sv, sw, th, tr, uk, vi, zh_CN, zh_TW.

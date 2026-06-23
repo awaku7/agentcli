@@ -128,5 +128,45 @@
     "skill.prefix": "[SKILL] ",
     "skill.clear_log": "{message} (Cleared {removed} skill messages)",
     "skill.ok": "{message}"
+  },
+  "bn": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "fa": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "mn": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "mr": {
+    "skill.prefix": "[SKILL] ",
+    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.ok": "{message}"
+  },
+  "el": {
+    "skill.prefix": "{message}",
+    "skill.clear_log": "Η διεύθυνση URL ή η διαδρομή πηγής (URL Git, URL ZIP HTTP, τοπικός κατάλογος ή τοπικός ZIP).",
+    "skill.ok": "Προαιρετικό όνομα φακέλου προορισμού. Εάν δεν προσδιορίζεται, θα συναχθεί από την πηγή."
+  },
+  "he": {
+    "skill.prefix": "{הודעה}",
+    "skill.clear_log": "כתובת ה-URL או הנתיב של המקור (כתובת URL של Git, HTTP ZIP URL, ספרייה מקומית או ZIP מקומי).",
+    "skill.ok": "שם תיקיית יעד אופציונלי. אם לא צוין, זה יוסק מהמקור."
+  },
+  "hu": {
+    "skill.prefix": "A forrás URL vagy elérési útja (Git URL, HTTP ZIP URL, helyi könyvtár vagy helyi ZIP).",
+    "skill.clear_log": "Opcionális célmappanév. Ha nincs megadva, akkor a forrásból lesz kikövetkeztetve.",
+    "skill.ok": "A cél felülírása vagy frissítése, ha az már létezik. Alapértelmezés szerint igaz."
+  },
+  "ro": {
+    "skill.prefix": "{mesaj}",
+    "skill.clear_log": "Adresa URL sau calea sursei (adresa URL Git, URL HTTP ZIP, director local sau ZIP local).",
+    "skill.ok": "Numele folderului de destinație opțional. Dacă nu este specificat, se va deduce din sursă."
   }
 }

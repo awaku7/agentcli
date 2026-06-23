@@ -28,7 +28,7 @@ All entry points (CLI/GUI/Web/A2A) accept the following common options unless no
 |---|---|---|---|
 | `--workdir` / `-C` | CLI, GUI, Web, A2A | Working directory. Priority: CLI arg > `UAGENT_WORKDIR` > current dir | `util_tools.py:parse_startup_args()` |
 | `--non-interactive` | CLI | Non-interactive mode. No stdin loop; exit after processing startup file (if any). | `util_tools.py:parse_startup_args()` |
-| `--tool-genre-mask <int>` | CLI, GUI, Web, A2A | Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all). Skips interactive genre prompt when specified. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
+| `--tool-genre-mask <int>` | CLI, GUI, Web, A2A | Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips interactive genre prompt when specified. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--use-tool` / `--no-use-tool` | CLI, GUI, Web, A2A | Enable/disable tool sending to LLM. Overrides `UAGENT_USE_TOOL` env var. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--host` | A2A only | Bind address (default: `0.0.0.0`, overridable by `UAGENT_A2A_HOST`). | `a2a/server.py` |
 | `--port` | A2A only | Port number (default: `8765`, overridable by `UAGENT_A2A_PORT`). | `a2a/server.py` |
@@ -52,17 +52,18 @@ Key modules:
     - `src/uagent/llm_round_helpers.py`
     - `src/uagent/llm_flow_helpers.py`
   - Retry / backoff helpers live in `src/uagent/llm_errors.py`
-- Provider wiring (OpenAI/Azure/Gemini/Claude/Vertex AI/Ollama/DeepSeek/Z.AI/Alibaba/Moonshot/etc.): `src/uagent/providers/util_providers.py`
+- Provider wiring (Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/etc.): `src/uagent/providers/util_providers.py`
+  - To add a new provider, modify: `util_providers.py` (detect_provider/get_model_name/make_client), `env_validate.py` (allowed list), `runtime/runtime_banner.py` (banner display), and `provider_caps.py` (Responses API support if applicable).
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`
-- Startup initialization: `src/uagent/runtime_init.py` (compatibility re-export)
-  - `src/uagent/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
-  - `src/uagent/runtime_banner.py`: `build_startup_banner()`
-  - `src/uagent/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
-  - `src/uagent/runtime_memory.py`: `append_long_memory_system_messages()`
+- Startup initialization: `src/uagent/runtime/runtime_init.py` (compatibility re-export)
+  - `src/uagent/runtime/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
+  - `src/uagent/runtime/runtime_banner.py`: `build_startup_banner()`
+  - `src/uagent/runtime/runtime_env.py`: `validate_or_exit_startup_env(context=...)`
+  - `src/uagent/runtime/runtime_memory.py`: `append_long_memory_system_messages()`
 
 Implementation notes:
 
-- `runtime_init.py` provides `load_dotenv_custom()` and `reload_dotenv_custom()` for loading `.env` and `.env.sec`.
+- `runtime/runtime_init.py` provides `load_dotenv_custom()` and `reload_dotenv_custom()` for loading `.env` and `.env.sec`.
 - The load order is `.env` first, then `.env.sec` decrypted with `.uagent.key` if present.
 - Startup still loads these files early, but CLI startup can re-run the loader after workdir selection so a newly created `.env.sec` can take effect without restarting.
 - Treat this as startup-sensitive behavior: avoid relying on late mutations of cwd or secret files after import unless the reload path is used intentionally.
@@ -78,7 +79,7 @@ ______________________________________________________________________
 ## 2. High-level execution flow
 
 1. Start one of the entry points (`uag` / `uagg` / `uagw`).
-1. Startup initialization (`runtime_init.py`):
+1. Startup initialization (`runtime/runtime_init.py`):
    - Decide workdir (`--workdir/-C`, `UAGENT_WORKDIR`, or current directory)
    - Create directory if needed and `chdir`
    - Build and print startup banner
@@ -124,18 +125,6 @@ Important details:
 - Extended fields such as `function.system_prompt` are removed before sending to the LLM.
 - For compatibility, the function name may be mirrored to top-level `name`.
 
-### 3.4 GPT-5.4+ Responses tool narrowing
-
-For GPT-5.4 and later within the GPT-5 line, when Responses API is enabled, uag uses a lighter tool exposure path.
-
-- Target detection is implemented in `uagent_llm._is_gpt54_tool_search_target(...)`
-- A lightweight tools prompt is selected in `util_tools.py`
-- Candidate tool specs are selected by `uagent_llm._select_tool_specs_for_gpt54(...)`
-- `tool_catalog` provides a lightweight discovery surface before passing full tool definitions
-- A small safe fallback subset is kept when catalog search returns no hits
-
-This preserves existing behavior for non-target models while reducing payload size for GPT-5.4+ Responses requests.
-
 ### 3.5 Tool trace output
 
 By default, a one-line trace is printed to stdout before tool execution:
@@ -152,8 +141,8 @@ A tool may suppress the trace using the extended flag:
 ### 3.6 Tool levels and genres
 
 - **Tool Level (`tool_level`)**: Specified in `TOOL_SPEC` to control tool loading. `-1` is disabled, `0` is enabled, and `1` is conditional loading (disabled by default).
-- **Tool Genre (`tool_genre`)**: Categorizes tools into `"comm"` (communication), `"office"` (Office suite), or `"devel"` (development). This must be specified at the top-level of `TOOL_SPEC`.
-- **Startup Selection**: During interactive CLI startup, users are prompted to select which tool genres to enable using a bitmask (1: comm, 2: office, 4: devel, 8: iot, 16: exec, 32: external, 64: media, 127: all).
+- **Tool Genre (`tool_genre`)**: Categorizes tools into `"basic"`, `"comm"` (communication), `"office"` (Office suite), `"devel"` (development), `"iot"`, `"exec"` (execution), `"external"`, `"media"`, `"file"`, or `"index"`. This must be specified at the top-level of `TOOL_SPEC`.
+- **Startup Selection**: During interactive CLI startup, users are prompted to select which tool genres to enable using a bitmask (1=basic, 2=comm, 4=office, 8=devel, 16=iot, 32=exec, 64=external, 128=media, 256=file, 512=index, 1023=all).
 - **`--tool-genre-mask` CLI argument**: All entry points (CLI/GUI/Web/A2A) accept `--tool-genre-mask <int>`. When specified, the bitmask is applied directly and the interactive genre prompt is skipped. This works in both interactive and non-interactive modes. When omitted, the behavior is unchanged (interactive prompt in TTY mode, no genre selection in non-interactive mode).
 
 ### 3.6.1 Tool-less mode (UAGENT_USE_TOOL / :tools on/off)
@@ -197,7 +186,7 @@ CLI/Web/GUI perform workdir initialization inside `main()` (not at module import
 
 The startup banner (workdir/provider/base_url/api_version/Responses mode, etc.) is generated by:
 
-- `runtime_init.build_startup_banner()`
+- `runtime.runtime_init.build_startup_banner()` (via `runtime/runtime_banner.py`)
 
 ### 4.3 Long-term memory and shared memory
 
@@ -252,3 +241,30 @@ Common checks during development:
 - Run the relevant test suite for the touched area
 
 If a change affects startup, tools, or MCP behavior, verify the corresponding flow end-to-end.
+
+______________________________________________________________________
+
+## 7. Source code navigation tools (idx family)
+
+The `*2idx` tools let you fetch a numbered index or a specific definition section from a source file without reading the whole thing. All follow the same interface:
+
+```
+<tool>(path="...", mode="index")   → numbered table of contents
+<tool>(path="...", mode="section", section=N) → source code of the N-th definition
+```
+
+| Tool   | File(s)         | Parser        | Detects |
+|--------|-----------------|---------------|---------|
+| `md2idx`  | .md             | heading parser | ATX/setext headings |
+| `py2idx`  | .py             | `ast`          | class, def, method, decorator |
+| `ts2idx`  | .ts / .js       | regex          | class, interface, type, enum, function, arrow, method, namespace |
+| `jv2idx`  | .java           | regex          | package, class, interface, enum, record, field, constructor, method, throws |
+| `cs2idx`  | .cs             | regex          | namespace, class, struct, record, interface, enum, property, constructor, method, delegate, event, operator |
+| `dart2idx` | .dart          | regex          | library, mixin, extension on, typedef, class, factory, getter/setter, top-level function |
+| `cpp2idx` | .c/.cpp/.h/.hpp | regex         | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
+| `rs2idx`  | .rs             | regex          | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
+| `go2idx`  | .go             | regex          | package, type struct/interface, func (including receiver), const, var |
+| `swift2idx` | .swift        | regex          | class, struct, enum, protocol, extension, func, init/deinit/subscript, var/let, case |
+| `kt2idx`  | .kt             | regex          | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
+
+All idx tools have zero external dependencies (stdlib only).

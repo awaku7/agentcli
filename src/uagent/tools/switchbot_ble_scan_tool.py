@@ -163,6 +163,7 @@ async def _scan_once(timeout: int, interface: str | None) -> list[dict[str, Any]
         devices = await BleakScanner.discover(**kwargs)
     except TypeError:
         kwargs.pop("adapter", None)
+        kwargs.pop("return_adv", None)
         devices = await BleakScanner.discover(**kwargs)
 
     result: list[dict[str, Any]] = []
@@ -269,7 +270,7 @@ async def _scan_rounds(
 def _format_text(result: dict[str, Any]) -> str:
     if not result.get("ok"):
         error = result.get("error", {})
-        return f"Error: {error.get('message', 'unknown error')}"
+        return _("msg.error_fmt", default="Error: {msg}").format(msg=error.get("message", _("msg.unknown_error", default="unknown error")))
 
     items = result.get("items", [])
     lines = [
@@ -282,7 +283,7 @@ def _format_text(result: dict[str, Any]) -> str:
     ]
     interface_used = result.get("interface_used")
     if interface_used:
-        lines.append(f"Interface used: {interface_used}")
+        lines.append(_("msg.interface_used", default="Interface used: {iface}").format(iface=interface_used))
     for item in items:
         service_uuids = item.get("service_uuids") or []
         lines.append(
@@ -325,7 +326,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
         }
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
@@ -344,7 +345,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
         }
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
@@ -365,7 +366,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
         }
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
@@ -465,7 +466,7 @@ def run_tool(args: dict[str, Any]) -> str:
             },
         }
         return (
-            json.dumps(payload, ensure_ascii=False, indent=2)
+            _format_text(payload)
             if output_format == "text"
             else json.dumps(payload, ensure_ascii=False)
         )
