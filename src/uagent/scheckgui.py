@@ -355,6 +355,8 @@ class DropInput(QtWidgets.QPlainTextEdit):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setAcceptDrops(True)
+        self.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
+        self.setWordWrapMode(QtGui.QTextOption.WordWrap)
         self.setPlaceholderText(_("Drop files/images here"))
         self.setMinimumHeight(120)
 
@@ -374,6 +376,8 @@ class DropOutput(QtWidgets.QTextBrowser):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setAcceptDrops(True)
+        self.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
+        self.setWordWrapMode(QtGui.QTextOption.WordWrap)
 
     def dragEnterEvent(self, e):
         e.acceptProposedAction() if e.mimeData().hasUrls() else e.ignore()
@@ -426,6 +430,8 @@ class DropThumbs(QtWidgets.QListWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setAcceptDrops(True)
+        self.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
+        self.setWordWrapMode(QtGui.QTextOption.WordWrap)
         self.viewport().setAcceptDrops(True)
         self.setDropIndicatorShown(True)
 
