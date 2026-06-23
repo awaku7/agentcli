@@ -144,7 +144,15 @@ def _paint_icon_send(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
 def _make_attach_icon(size: int = 24) -> QtGui.QIcon:
     """Create a recognizable attach/paperclip icon."""
     try:
-        return _paint_icon_attach(QtGui.QColor("#ffffff"), size)
+        try:
+            app = QtWidgets.QApplication.instance()
+            if app:
+                c = app.palette().color(QtGui.QPalette.ButtonText)
+            else:
+                c = QtGui.QColor("#ffffff")
+        except Exception:
+            c = QtGui.QColor("#ffffff")
+        return _paint_icon_attach(c, size)
     except Exception:
         return QtGui.QIcon()
 
@@ -152,14 +160,30 @@ def _make_attach_icon(size: int = 24) -> QtGui.QIcon:
 def _make_send_icon(size: int = 24) -> QtGui.QIcon:
     """Create a recognizable send/arrow icon."""
     try:
-        return _paint_icon_send(QtGui.QColor("#ffffff"), size)
+        try:
+            app = QtWidgets.QApplication.instance()
+            if app:
+                c = app.palette().color(QtGui.QPalette.ButtonText)
+            else:
+                c = QtGui.QColor("#ffffff")
+        except Exception:
+            c = QtGui.QColor("#ffffff")
+        return _paint_icon_send(c, size)
     except Exception:
         return QtGui.QIcon()
 
 
 
 
-_MENU_ICON_COLOR = QtGui.QColor("#374151")
+def _menu_icon_color() -> QtGui.QColor:
+    """Return icon color adapting to system palette (high contrast safe)."""
+    try:
+        app = QtWidgets.QApplication.instance()
+        if app:
+            return app.palette().color(QtGui.QPalette.WindowText)
+    except Exception:
+        pass
+    return QtGui.QColor("#374151")
 
 
 def _make_help_icon(size: int = 16) -> QtGui.QIcon:
@@ -168,7 +192,7 @@ def _make_help_icon(size: int = 16) -> QtGui.QIcon:
         pm.fill(QtCore.Qt.transparent)
         p = QtGui.QPainter(pm)
         p.setRenderHint(QtGui.QPainter.Antialiasing)
-        pen = QtGui.QPen(_MENU_ICON_COLOR, max(2, size // 12))
+        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 12))
         pen.setCapStyle(QtCore.Qt.RoundCap)
         p.setPen(pen)
         r = size * 0.4; cx = cy = size / 2
@@ -188,7 +212,7 @@ def _make_view_icon(size: int = 16) -> QtGui.QIcon:
         pm.fill(QtCore.Qt.transparent)
         p = QtGui.QPainter(pm)
         p.setRenderHint(QtGui.QPainter.Antialiasing)
-        pen = QtGui.QPen(_MENU_ICON_COLOR, max(2, size // 12))
+        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 12))
         pen.setCapStyle(QtCore.Qt.RoundCap)
         p.setPen(pen)
         cx, cy = size / 2, size / 2
@@ -210,7 +234,7 @@ def _make_mode_icon(size: int = 16) -> QtGui.QIcon:
         pm.fill(QtCore.Qt.transparent)
         p = QtGui.QPainter(pm)
         p.setRenderHint(QtGui.QPainter.Antialiasing)
-        pen = QtGui.QPen(_MENU_ICON_COLOR, max(2, size // 12))
+        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 12))
         pen.setCapStyle(QtCore.Qt.RoundCap)
         p.setPen(pen)
         cx, cy = size / 2, size / 2
@@ -232,7 +256,7 @@ def _make_tools_icon(size: int = 16) -> QtGui.QIcon:
         pm.fill(QtCore.Qt.transparent)
         p = QtGui.QPainter(pm)
         p.setRenderHint(QtGui.QPainter.Antialiasing)
-        pen = QtGui.QPen(_MENU_ICON_COLOR, max(2, size // 12))
+        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 12))
         pen.setCapStyle(QtCore.Qt.RoundCap)
         p.setPen(pen)
         cx, cy = size / 2, size / 2
