@@ -1863,10 +1863,24 @@ def _handle_cmd_profile_show(arg: str = "", *, core: Any, tr: Any) -> bool:
     from .runtime.runtime_memory import _format_profile
 
     arg = (arg or "").strip().lower()
-    if arg == "fromlog":
-        print(tr("Analyzing past logs to generate user profile..."))
+    if arg.startswith("fromlog"):
+        # Parse optional max_log_files from ":profile fromlog 50"
+        parts = arg.split()
+        max_log_files: int | None = None
+        if len(parts) > 1:
+            try:
+                max_log_files = max(1, int(parts[1]))
+            except (ValueError, TypeError):
+                pass
+        if max_log_files is not None:
+            print(
+                tr("Analyzing the most recent %d log files to generate user profile...")
+                % max_log_files
+            )
+        else:
+            print(tr("Analyzing past logs to generate user profile..."))
         try:
-            profile = profile_from_logs(core)
+            profile = profile_from_logs(core, max_log_files=max_log_files)
             if not profile:
                 print(tr("No past logs found or failed to generate profile."))
                 return True
@@ -1966,7 +1980,7 @@ def format_help(*, core: Any) -> str:
         "Available commands:",
         "  :help                 " + tr("Show this help"),
         '  (in multiline input) """retry  ' + tr("Restart input from the beginning"),
-        "  :logs / :list         " + tr("Show log file list"),
+        "  :logs                 " + tr("Show log file list"),
         "  :cd <path>            "
         + tr(
             "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / :cd /)"
@@ -2007,7 +2021,10 @@ def format_help(*, core: Any) -> str:
         + tr("Delete a long-term memory note by index (see :mem-list)"),
         "  :profile [fromlog]    "
         + tr("Show the learned user profile, or generate it from past logs"),
-        "  :profile-fromlog      " + tr("Generate user profile from past logs"),
+        "  :profile [fromlog N]  "
+        + tr("Generate profile from the most recent N log files"),
+        "  :profile-fromlog [N]  "
+        + tr("Generate user profile from past logs (last N files if specified)"),
         "  :profile-clear        " + tr("Clear the learned user profile data"),
         "  :cp <src> <dst>       "
         + tr("Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"),
@@ -2175,7 +2192,7 @@ def handle_command(
     if cmd == "ls":
         return _handle_cmd_ls(arg, tr=tr)
 
-    if cmd in ("logs", "list"):
+    if cmd == "logs":
         return _handle_cmd_logs(arg, core=core, tr=tr)
 
     if cmd == "tools":
@@ -2242,7 +2259,15 @@ def handle_command(
         return _handle_cmd_profile_show(arg, core=core, tr=tr)
 
     if cmd == "profile-fromlog":
-        return _handle_cmd_profile_show("fromlog", core=core, tr=tr)
+        # Pass optional max_log_files as "fromlog N"
+        profile_arg = "fromlog"
+        if arg and arg.strip():
+            try:
+                n = int(arg.strip())
+                profile_arg = f"fromlog {n}"
+            except (ValueError, TypeError):
+                pass
+        return _handle_cmd_profile_show(profile_arg, core=core, tr=tr)
 
     if cmd == "profile-clear":
         return _handle_cmd_profile_clear(tr=tr)

@@ -462,6 +462,7 @@ def smart_merge_profiles(
     provider: str | None = None,
     client: Any = None,
     model_name: str = "",
+    skip_llm_dedup: bool = False,
 ) -> dict[str, Any]:
     """Merge new profile findings into the old profile with size limits."""
     old_profile = _normalize_profile_snapshot(old_profile)
@@ -510,18 +511,22 @@ def smart_merge_profiles(
     merged["preferences"] = merged["preferences"][-PROFILE_MAX_ITEMS:]
     merged["constraints"] = merged["constraints"][-PROFILE_MAX_ITEMS:]
 
-    # LLMによる重複排除と整理
-    merged = _deduplicate_profile_with_llm(
-        merged,
-        provider=provider,
-        client=client,
-        model_name=model_name,
-    )
+    # LLMによる重複排除と整理（skip_llm_dedup=True の場合はスキップ）
+    if not skip_llm_dedup:
+        merged = _deduplicate_profile_with_llm(
+            merged,
+            provider=provider,
+            client=client,
+            model_name=model_name,
+        )
 
     return merged
 
 
-def _sanitize_log_for_profiling(messages: list[dict[str, Any]]) -> str:
+def _sanitize_log_for_profiling(
+    messages: list[dict[str, Any]],
+    max_content_chars: int = 5000,
+) -> str:
     """Clean up conversation log to remove potential secrets before sending to LLM."""
     import re
 
@@ -545,6 +550,10 @@ def _sanitize_log_for_profiling(messages: list[dict[str, Any]]) -> str:
         # Mask secrets
         content = secret_re.sub(r"\1=********", content)
         content = key_re.sub("********", content)
+
+        # Trim oversized messages (e.g. image data)
+        if max_content_chars > 0 and len(content) > max_content_chars:
+            content = content[:max_content_chars] + " ... [TRUNCATED]"
 
         cleaned_lines.append(f"{role.upper()}: {content}")
 
@@ -695,7 +704,10 @@ def _profile_worker(
         pass
 
 
-def profile_from_logs(core: Any) -> dict[str, Any] | None:
+def profile_from_logs(
+    core: Any,
+    max_log_files: int | None = None,
+) -> dict[str, Any] | None:
     """Synchronously analyze past logs, extract profile, merge, and save."""
     # 1) Gather messages from past logs
     from uagent.utils.paths import get_log_dir
@@ -714,6 +726,10 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
     if not log_files:
         return None
 
+    # Limit to most recent N files if max_log_files is set
+    if max_log_files is not None and max_log_files > 0:
+        log_files = log_files[-max_log_files:]
+
     # 2) Initialize LLM Client
     from .providers import util_providers
 
@@ -730,7 +746,7 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
 
     current_profile = {"environment": {}, "preferences": [], "constraints": []}
     message_buffer = []
-    chunk_size_limit = 300  # Process up to 300 messages per LLM call
+    chunk_size_limit = 500  # Process up to 500 messages per LLM call
 
     system_prompt = _(
         "You are a user profiling agent. Analyze the conversation log and extract:\n"
@@ -845,10 +861,20 @@ def profile_from_logs(core: Any) -> dict[str, Any] | None:
                     provider=provider,
                     client=client,
                     model_name=model_name,
+                    skip_llm_dedup=True,
                 )
 
             # Clear buffer
             message_buffer = []
+
+    # Final LLM dedup: run once on the complete merged profile
+    if provider and client is not None and model_name:
+        current_profile = _deduplicate_profile_with_llm(
+            current_profile,
+            provider=provider,
+            client=client,
+            model_name=model_name,
+        )
 
     # Save the final merged profile
     save_profile(current_profile)

@@ -290,7 +290,6 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             "exit",
                             "quit",
                             "logs",
-                            "list",
                             "clear",
                             "reset",
                             "undo",
