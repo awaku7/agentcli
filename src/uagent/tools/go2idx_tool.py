@@ -95,7 +95,7 @@ class _GoIndexBuilder:
                 try:
                     r = ext(m)
                     return [r] if r else []
-                except: return []
+                except Exception: return []
         return []
 
     def _parse(self):
