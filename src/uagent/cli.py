@@ -230,7 +230,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # :tools subcommand completion
                         after_tools = stripped[len(":tools "):]
                         if " " not in after_tools:
-                            tools_subcmds = ["list", "on", "off", "load"]
+                            tools_subcmds = ["list", "on", "off", "load", "output"]
                             for sc in tools_subcmds:
                                 if sc.startswith(after_tools):
                                     yield Completion(sc, start_position=-len(after_tools))

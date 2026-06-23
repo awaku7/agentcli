@@ -11,7 +11,9 @@
     "msg.tools.loaded_single": "[tools] Loaded tool: {name}",
     "msg.tools.not_found": "[tools] Tool not found: {name}",
     "msg.tools.no_tools": "[tools] No tools loaded.",
-    "msg.tools.loaded_count": "[tools] Loaded {n} tools"
+    "msg.tools.loaded_count": "[tools] Loaded {n} tools",
+    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
+    "msg.tools.output_state": "[tools] Tool output display is now {state}"
   },
   "ja": {
     "tool.description": "ツール制御コマンド登録用のダミーツール。",
@@ -25,7 +27,9 @@
     "msg.tools.loaded_single": "[tools] ツールを読み込みました: {name}",
     "msg.tools.not_found": "[tools] ツールが見つかりません: {name}",
     "msg.tools.no_tools": "[tools] 読み込まれたツールはありません。",
-    "msg.tools.loaded_count": "[tools] {n} 個のツールを読み込んでいます"
+    "msg.tools.loaded_count": "[tools] {n} 個のツールを読み込んでいます",
+    "cmd.help.tools_output": "  :tools output                     ツール実行結果の表示をON/OFF切り替え",
+    "msg.tools.output_state": "[tools] ツール出力表示: {state}"
   },
   "es": {
     "tool.description": "Herramienta ficticia para el registro de comandos de control de herramientas.",
@@ -39,7 +43,9 @@
     "msg.tools.loaded_single": "[tools] Herramienta cargada: {name}",
     "msg.tools.not_found": "[tools] Herramienta no encontrada: {name}",
     "msg.tools.no_tools": "[tools] No hay herramientas cargadas.",
-    "msg.tools.loaded_count": "[tools] {n} herramientas cargadas"
+    "msg.tools.loaded_count": "[tools] {n} herramientas cargadas",
+    "cmd.help.tools_output": "  :tools output                     Alternar visualización de resultados de herramientas",
+    "msg.tools.output_state": "[tools] Visualización de salida de herramientas: {state}"
   },
   "fr": {
     "tool.description": "Outil factice pour l'enregistrement de commandes de contrôle d'outils.",
@@ -53,7 +59,9 @@
     "msg.tools.loaded_single": "[tools] Outil chargé : {name}",
     "msg.tools.not_found": "[tools] Outil non trouvé : {name}",
     "msg.tools.no_tools": "[tools] Aucun outil chargé.",
-    "msg.tools.loaded_count": "[tools] {n} outils chargés"
+    "msg.tools.loaded_count": "[tools] {n} outils chargés",
+    "cmd.help.tools_output": "  :tools output                     Afficher/masquer les résultats d'exécution des outils",
+    "msg.tools.output_state": "[tools] Affichage des résultats d'outils: {state}"
   },
   "ko": {
     "tool.description": "도구 제어 명령 등록을 위한 더미 도구입니다.",
@@ -67,7 +75,9 @@
     "msg.tools.loaded_single": "[tools] 도구 로드됨: {name}",
     "msg.tools.not_found": "[tools] 도구를 찾을 수 없음: {name}",
     "msg.tools.no_tools": "[tools] 로드된 도구가 없습니다.",
-    "msg.tools.loaded_count": "[tools] {n}개의 도구가 로드됨"
+    "msg.tools.loaded_count": "[tools] {n}개의 도구가 로드됨",
+    "cmd.help.tools_output": "  :tools output                     도구 실행 결과 표시 전환",
+    "msg.tools.output_state": "[tools] 도구 출력 표시: {state}"
   },
   "de": {
     "tool.description": "Dummy-Werkzeug zur Registrierung von Werkzeugsteuerungsbefehlen.",
@@ -81,7 +91,9 @@
     "msg.tools.loaded_single": "[tools] Werkzeug geladen: {name}",
     "msg.tools.not_found": "[tools] Werkzeug nicht gefunden: {name}",
     "msg.tools.no_tools": "[tools] Keine Werkzeuge geladen.",
-    "msg.tools.loaded_count": "[tools] {n} Werkzeuge geladen"
+    "msg.tools.loaded_count": "[tools] {n} Werkzeuge geladen",
+    "cmd.help.tools_output": "  :tools output                     Anzeige der Tool-Ergebnisse umschalten",
+    "msg.tools.output_state": "[tools] Tool-Ausgabeanzeige: {state}"
   },
   "it": {
     "tool.description": "Strumento fittizio per la registrazione dei comandi di controllo degli strumenti.",
@@ -95,7 +107,9 @@
     "msg.tools.loaded_single": "[tools] Strumento caricato: {name}",
     "msg.tools.not_found": "[tools] Strumento non trovato: {name}",
     "msg.tools.no_tools": "[tools] Nessuno strumento caricato.",
-    "msg.tools.loaded_count": "[tools] {n} strumenti caricati"
+    "msg.tools.loaded_count": "[tools] {n} strumenti caricati",
+    "cmd.help.tools_output": "  :tools output                     Attiva/disattiva visualizzazione risultati strumenti",
+    "msg.tools.output_state": "[tools] Visualizzazione output strumenti: {state}"
   },
   "ru": {
     "tool.description": "Фиктивный инструмент для регистрации команд управления инструментами.",
@@ -109,7 +123,9 @@
     "msg.tools.loaded_single": "[tools] Инструмент загружен: {name}",
     "msg.tools.not_found": "[tools] Инструмент не найден: {name}",
     "msg.tools.no_tools": "[tools] Инструменты не загружены.",
-    "msg.tools.loaded_count": "[tools] Загружено {n} инструментов"
+    "msg.tools.loaded_count": "[tools] Загружено {n} инструментов",
+    "cmd.help.tools_output": "  :tools output                     Переключить отображение результатов инструментов",
+    "msg.tools.output_state": "[tools] Отображение вывода инструментов: {state}"
   },
   "pt_BR": {
     "tool.description": "Ferramenta fictícia para registro de comandos de controle de ferramentas.",
@@ -123,7 +139,9 @@
     "msg.tools.loaded_single": "[tools] Ferramenta carregada: {name}",
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
     "msg.tools.no_tools": "[tools] Nenhuma ferramenta carregada.",
-    "msg.tools.loaded_count": "[tools] {n} ferramentas carregadas"
+    "msg.tools.loaded_count": "[tools] {n} ferramentas carregadas",
+    "cmd.help.tools_output": "  :tools output                     Alternar exibição de resultados de ferramentas",
+    "msg.tools.output_state": "[tools] Exibição de saída de ferramentas: {state}"
   },
   "pt": {
     "tool.description": "Ferramenta fictícia para registo de comandos de controlo de ferramentas.",
@@ -137,7 +155,9 @@
     "msg.tools.loaded_single": "[tools] Ferramenta carregada: {name}",
     "msg.tools.not_found": "[tools] Ferramenta não encontrada: {name}",
     "msg.tools.no_tools": "[tools] Nenhuma ferramenta carregada.",
-    "msg.tools.loaded_count": "[tools] {n} ferramentas carregadas"
+    "msg.tools.loaded_count": "[tools] {n} ferramentas carregadas",
+    "cmd.help.tools_output": "  :tools output                     Alternar exibição de resultados de ferramentas",
+    "msg.tools.output_state": "[tools] Exibição de saída de ferramentas: {state}"
   },
   "id": {
     "tool.description": "Alat dummy untuk pendaftaran perintah kontrol alat.",
@@ -151,7 +171,9 @@
     "msg.tools.loaded_single": "[tools] Alat dimuat: {name}",
     "msg.tools.not_found": "[tools] Alat tidak ditemukan: {name}",
     "msg.tools.no_tools": "[tools] Tidak ada alat yang dimuat.",
-    "msg.tools.loaded_count": "[tools] {n} alat dimuat"
+    "msg.tools.loaded_count": "[tools] {n} alat dimuat",
+    "cmd.help.tools_output": "  :tools output                     Alihkan tampilan hasil eksekusi alat",
+    "msg.tools.output_state": "[tools] Tampilan output alat: {state}"
   },
   "vi": {
     "tool.description": "Công cụ giả để đăng ký lệnh điều khiển công cụ.",
@@ -165,7 +187,9 @@
     "msg.tools.loaded_single": "[tools] Đã tải công cụ: {name}",
     "msg.tools.not_found": "[tools] Không tìm thấy công cụ: {name}",
     "msg.tools.no_tools": "[tools] Không có công cụ nào được tải.",
-    "msg.tools.loaded_count": "[tools] Đã tải {n} công cụ"
+    "msg.tools.loaded_count": "[tools] Đã tải {n} công cụ",
+    "cmd.help.tools_output": "  :tools output                     Chuyển đổi hiển thị kết quả công cụ",
+    "msg.tools.output_state": "[tools] Hiển thị đầu ra công cụ: {state}"
   },
   "pl": {
     "tool.description": "Atrapa narzędzie do rejestracji poleceń sterowania narzędziami.",
@@ -179,7 +203,9 @@
     "msg.tools.loaded_single": "[tools] Załadowano narzędzie: {name}",
     "msg.tools.not_found": "[tools] Nie znaleziono narzędzia: {name}",
     "msg.tools.no_tools": "[tools] Nie załadowano żadnych narzędzi.",
-    "msg.tools.loaded_count": "[tools] Załadowano {n} narzędzi"
+    "msg.tools.loaded_count": "[tools] Załadowano {n} narzędzi",
+    "cmd.help.tools_output": "  :tools output                     Przełącz wyświetlanie wyników narzędzi",
+    "msg.tools.output_state": "[tools] Wyświetlanie wyników narzędzi: {state}"
   },
   "hi": {
     "tool.description": "उपकरण नियंत्रण कमांड पंजीकरण के लिए डमी उपकरण।",
@@ -193,7 +219,9 @@
     "msg.tools.loaded_single": "[tools] उपकरण लोड किया गया: {name}",
     "msg.tools.not_found": "[tools] उपकरण नहीं मिला: {name}",
     "msg.tools.no_tools": "[tools] कोई उपकरण लोड नहीं।",
-    "msg.tools.loaded_count": "[tools] {n} उपकरण लोड किए गए"
+    "msg.tools.loaded_count": "[tools] {n} उपकरण लोड किए गए",
+    "cmd.help.tools_output": "  :tools output                     उपकरण निष्पादन परिणाम प्रदर्शन टॉगल करें",
+    "msg.tools.output_state": "[tools] उपकरण आउटपुट प्रदर्शन: {state}"
   },
   "ar": {
     "tool.description": "أداة وهمية لتسجيل أوامر التحكم في الأدوات.",
@@ -207,7 +235,9 @@
     "msg.tools.loaded_single": "[tools] تم تحميل الأداة: {name}",
     "msg.tools.not_found": "[tools] الأداة غير موجودة: {name}",
     "msg.tools.no_tools": "[tools] لا توجد أدوات محملة.",
-    "msg.tools.loaded_count": "[tools] تم تحميل {n} أدوات"
+    "msg.tools.loaded_count": "[tools] تم تحميل {n} أدوات",
+    "cmd.help.tools_output": "  :tools output                     تبديل عرض نتائج تنفيذ الأدوات",
+    "msg.tools.output_state": "[tools] عرض مخرجات الأدوات: {state}"
   },
   "sv": {
     "tool.description": "Dummy-verktyg för registrering av kommandon för verktygskontroll.",
@@ -221,7 +251,9 @@
     "msg.tools.loaded_single": "[tools] Laddat verktyg: {name}",
     "msg.tools.not_found": "[tools] Verktyg hittades inte: {name}",
     "msg.tools.no_tools": "[tools] Inga verktyg laddade.",
-    "msg.tools.loaded_count": "[tools] {n} verktyg laddade"
+    "msg.tools.loaded_count": "[tools] {n} verktyg laddade",
+    "cmd.help.tools_output": "  :tools output                     Växla visning av verktygsresultat",
+    "msg.tools.output_state": "[tools] Verktygsutdatavisning: {state}"
   },
   "sw": {
     "tool.description": "Chombo bandia cha usajili wa amri za udhibiti wa zana.",
@@ -235,7 +267,9 @@
     "msg.tools.loaded_single": "[tools] Chombo kimepakiwa: {name}",
     "msg.tools.not_found": "[tools] Chombo hakijapatikana: {name}",
     "msg.tools.no_tools": "[tools] Hakuna zana zilizopakiwa.",
-    "msg.tools.loaded_count": "[tools] {n} zana zimepakiwa"
+    "msg.tools.loaded_count": "[tools] {n} zana zimepakiwa",
+    "cmd.help.tools_output": "  :tools output                     Geuza onyesho la matokeo ya utekelezaji wa zana",
+    "msg.tools.output_state": "[tools] Onyesho la matokeo ya zana: {state}"
   },
   "nb": {
     "tool.description": "Dummy-verktøy for registrering av verktøykontrollkommandoer.",
@@ -249,7 +283,9 @@
     "msg.tools.loaded_single": "[tools] Lastet verktøy: {name}",
     "msg.tools.not_found": "[tools] Verktøy ikke funnet: {name}",
     "msg.tools.no_tools": "[tools] Ingen verktøy lastet.",
-    "msg.tools.loaded_count": "[tools] Lastet {n} verktøy"
+    "msg.tools.loaded_count": "[tools] Lastet {n} verktøy",
+    "cmd.help.tools_output": "  :tools output                     Veksle visning av verktøyresultater",
+    "msg.tools.output_state": "[tools] Verktøyutdatavisning: {state}"
   },
   "nl": {
     "tool.description": "Dummy-tool voor registratie van commando's voor toolbesturing.",
@@ -263,7 +299,9 @@
     "msg.tools.loaded_single": "[tools] Tool geladen: {name}",
     "msg.tools.not_found": "[tools] Tool niet gevonden: {name}",
     "msg.tools.no_tools": "[tools] Geen tools geladen.",
-    "msg.tools.loaded_count": "[tools] {n} tools geladen"
+    "msg.tools.loaded_count": "[tools] {n} tools geladen",
+    "cmd.help.tools_output": "  :tools output                     Schakel weergave van toolresultaten",
+    "msg.tools.output_state": "[tools] Tooluitvoerweergave: {state}"
   },
   "fi": {
     "tool.description": "Työkalujen ohjauskomentojen rekisteröintiin tarkoitettu näennäistyökalu.",
@@ -277,7 +315,9 @@
     "msg.tools.loaded_single": "[tools] Työkalu ladattu: {name}",
     "msg.tools.not_found": "[tools] Työkalua ei löydy: {name}",
     "msg.tools.no_tools": "[tools] Työkaluja ei ladattu.",
-    "msg.tools.loaded_count": "[tools] Ladattu {n} työkalua"
+    "msg.tools.loaded_count": "[tools] Ladattu {n} työkalua",
+    "cmd.help.tools_output": "  :tools output                     Vaihda työkalujen tulosten näyttöä",
+    "msg.tools.output_state": "[tools] Työkalujen tulostusnäyttö: {state}"
   },
   "cs": {
     "tool.description": "Falešný nástroj pro registraci příkazů pro ovládání nástrojů.",
@@ -291,7 +331,9 @@
     "msg.tools.loaded_single": "[tools] Načten nástroj: {name}",
     "msg.tools.not_found": "[tools] Nástroj nenalezen: {name}",
     "msg.tools.no_tools": "[tools] Nejsou načteny žádné nástroje.",
-    "msg.tools.loaded_count": "[tools] Načteno {n} nástrojů"
+    "msg.tools.loaded_count": "[tools] Načteno {n} nástrojů",
+    "cmd.help.tools_output": "  :tools output                     Přepnout zobrazení výsledků nástrojů",
+    "msg.tools.output_state": "[tools] Zobrazení výstupu nástrojů: {state}"
   },
   "uk": {
     "tool.description": "Фіктивний інструмент для реєстрації команд керування інструментами.",
@@ -305,7 +347,9 @@
     "msg.tools.loaded_single": "[tools] Інструмент завантажено: {name}",
     "msg.tools.not_found": "[tools] Інструмент не знайдено: {name}",
     "msg.tools.no_tools": "[tools] Інструменти не завантажено.",
-    "msg.tools.loaded_count": "[tools] Завантажено {n} інструментів"
+    "msg.tools.loaded_count": "[tools] Завантажено {n} інструментів",
+    "cmd.help.tools_output": "  :tools output                     Перемкнути відображення результатів інструментів",
+    "msg.tools.output_state": "[tools] Відображення виводу інструментів: {state}"
   },
   "tr": {
     "tool.description": "Araç kontrol komutu kaydı için sahte araç.",
@@ -319,7 +363,9 @@
     "msg.tools.loaded_single": "[tools] Araç yüklendi: {name}",
     "msg.tools.not_found": "[tools] Araç bulunamadı: {name}",
     "msg.tools.no_tools": "[tools] Yüklenmiş araç yok.",
-    "msg.tools.loaded_count": "[tools] {n} araç yüklendi"
+    "msg.tools.loaded_count": "[tools] {n} araç yüklendi",
+    "cmd.help.tools_output": "  :tools output                     Araç yürütme sonuçlarının görüntülenmesini aç/kapat",
+    "msg.tools.output_state": "[tools] Araç çıktı görüntüleme: {state}"
   },
   "th": {
     "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนคำสั่งควบคุมเครื่องมือ",
@@ -333,7 +379,9 @@
     "msg.tools.loaded_single": "[tools] โหลดเครื่องมือแล้ว: {name}",
     "msg.tools.not_found": "[tools] ไม่พบเครื่องมือ: {name}",
     "msg.tools.no_tools": "[tools] ไม่มีเครื่องมือที่โหลด",
-    "msg.tools.loaded_count": "[tools] โหลด {n} เครื่องมือแล้ว"
+    "msg.tools.loaded_count": "[tools] โหลด {n} เครื่องมือแล้ว",
+    "cmd.help.tools_output": "  :tools output                     สลับการแสดงผลลัพธ์การทำงานของเครื่องมือ",
+    "msg.tools.output_state": "[tools] การแสดงผลลัพธ์ของเครื่องมือ: {state}"
   },
   "zh_CN": {
     "tool.description": "用于工具控制命令注册的虚拟工具。",
@@ -347,7 +395,9 @@
     "msg.tools.loaded_single": "[tools] 已加载工具: {name}",
     "msg.tools.not_found": "[tools] 未找到工具: {name}",
     "msg.tools.no_tools": "[tools] 没有加载任何工具。",
-    "msg.tools.loaded_count": "[tools] 已加载 {n} 个工具"
+    "msg.tools.loaded_count": "[tools] 已加载 {n} 个工具",
+    "cmd.help.tools_output": "  :tools output                     切换工具执行结果的显示",
+    "msg.tools.output_state": "[tools] 工具输出显示: {state}"
   },
   "zh_TW": {
     "tool.description": "用於工具控制命令註冊的虛擬工具。",
@@ -361,7 +411,9 @@
     "msg.tools.loaded_single": "[tools] 已載入工具: {name}",
     "msg.tools.not_found": "[tools] 找不到工具: {name}",
     "msg.tools.no_tools": "[tools] 沒有載入任何工具。",
-    "msg.tools.loaded_count": "[tools] 已載入 {n} 個工具"
+    "msg.tools.loaded_count": "[tools] 已載入 {n} 個工具",
+    "cmd.help.tools_output": "  :tools output                     切換工具執行結果的顯示",
+    "msg.tools.output_state": "[tools] 工具輸出顯示: {state}"
   },
   "bn": {
     "tool.description": "টুলস কন্ট্রোল কমান্ড রেজিস্ট্রেশনের জন্য ডামি টুল।",
@@ -375,7 +427,9 @@
     "msg.tools.loaded_single": "[tools] টুল লোড হয়েছে: {name}",
     "msg.tools.not_found": "[tools] টুল পাওয়া যায়নি: {name}",
     "msg.tools.no_tools": "[tools] কোন টুল লোড হয়নি।",
-    "msg.tools.loaded_count": "[tools] {n} টুল লোড হয়েছে"
+    "msg.tools.loaded_count": "[tools] {n} টুল লোড হয়েছে",
+    "cmd.help.tools_output": "  :tools output                     টুল নির্বাহের ফলাফল প্রদর্শন টগল করুন",
+    "msg.tools.output_state": "[tools] টুল আউটপুট প্রদর্শন: {state}"
   },
   "fa": {
     "tool.description": "ابزار ساختگی برای ثبت دستورات کنترل ابزارها.",
@@ -389,7 +443,9 @@
     "msg.tools.loaded_single": "[tools] ابزار بارگذاری شد: {name}",
     "msg.tools.not_found": "[tools] ابزار یافت نشد: {name}",
     "msg.tools.no_tools": "[tools] هیچ ابزاری بارگذاری نشده است.",
-    "msg.tools.loaded_count": "[tools] {n} ابزار بارگذاری شد"
+    "msg.tools.loaded_count": "[tools] {n} ابزار بارگذاری شد",
+    "cmd.help.tools_output": "  :tools output                     تغییر نمایش نتایج اجرای ابزارها",
+    "msg.tools.output_state": "[tools] نمایش خروجی ابزار: {state}"
   },
   "mn": {
     "tool.description": "Хэрэгслийн хяналтын командыг бүртгэх зориулалттай хуурамч хэрэгсэл.",
@@ -403,7 +459,9 @@
     "msg.tools.loaded_single": "[tools] Хэрэгсэл ачаалагдсан: {name}",
     "msg.tools.not_found": "[tools] Хэрэгсэл олдсонгүй: {name}",
     "msg.tools.no_tools": "[tools] Ямар ч хэрэгсэл ачаалагдаагүй байна.",
-    "msg.tools.loaded_count": "[tools] {n} хэрэгсэл ачаалагдсан"
+    "msg.tools.loaded_count": "[tools] {n} хэрэгсэл ачаалагдсан",
+    "cmd.help.tools_output": "  :tools output                     Хэрэгслийн гүйцэтгэлийн үр дүнг харуулахыг идэвх/идэвхгүй болгох",
+    "msg.tools.output_state": "[tools] Хэрэгслийн гаралтын дэлгэц: {state}"
   },
   "mr": {
     "tool.description": "टूल्स नियंत्रण कमांड नोंदणीसाठी डमी साधन.",
@@ -417,7 +475,9 @@
     "msg.tools.loaded_single": "[tools] साधन लोड केले: {name}",
     "msg.tools.not_found": "[tools] साधन सापडले नाही: {name}",
     "msg.tools.no_tools": "[tools] कोणतेही साधन लोड केलेले नाही.",
-    "msg.tools.loaded_count": "[tools] {n} साधने लोड केली"
+    "msg.tools.loaded_count": "[tools] {n} साधने लोड केली",
+    "cmd.help.tools_output": "  :tools output                     साधन अंमलबजावणी परिणाम प्रदर्शन टॉगल करा",
+    "msg.tools.output_state": "[tools] साधन आउटपुट प्रदर्शन: {state}"
   },
   "el": {
     "tool.description": ":tools list [query] Εργαλεία φορτωμένα με λίστα, προαιρετικά φιλτραρισμένα κατά όνομα/περιγραφή",
@@ -431,7 +491,9 @@
     "msg.tools.loaded_single": "[εργαλεία] Το εργαλείο δεν βρέθηκε: {όνομα}",
     "msg.tools.not_found": "[εργαλεία] Δεν φορτώθηκαν εργαλεία.",
     "msg.tools.no_tools": "[εργαλεία] Φορτώθηκαν {n} εργαλεία",
-    "msg.tools.loaded_count": "Λάβετε λεπτομερείς πληροφορίες σχετικά με μια συγκεκριμένη συσκευή UPnP από τη διεύθυνση URL περιγραφής (τοποθεσία) ή τη διεύθυνση IP της. Επιστρέφει μεταδεδομένα συσκευής, λίστα υπηρεσιών και δέντρο συσκευών (υπο-συσκευές)."
+    "msg.tools.loaded_count": "Λάβετε λεπτομερείς πληροφορίες σχετικά με μια συγκεκριμένη συσκευή UPnP από τη διεύθυνση URL περιγραφής (τοποθεσία) ή τη διεύθυνση IP της. Επιστρέφει μεταδεδομένα συσκευής, λίστα υπηρεσιών και δέντρο συσκευών (υπο-συσκευές).",
+    "cmd.help.tools_output": "  :tools output                     Εναλλαγή εμφάνισης αποτελεσμάτων εργαλείων",
+    "msg.tools.output_state": "[tools] Εμφάνιση εξόδου εργαλείου: {state}"
   },
   "he": {
     "tool.description": ":רשימת כלים [שאילתה] רשימת כלים שנטענו, מסוננים אופציונליים לפי שם/תיאור",
@@ -445,7 +507,9 @@
     "msg.tools.loaded_single": "[כלים] הכלי לא נמצא: {name}",
     "msg.tools.not_found": "[כלים] לא נטענו כלים.",
     "msg.tools.no_tools": "[כלים] טעונים {n} כלים",
-    "msg.tools.loaded_count": "קבל מידע מפורט על מכשיר UPnP ספציפי לפי כתובת ה-URL שלו (מיקום) או כתובת ה-IP שלו. מחזירה מטא נתונים של המכשיר, רשימת שירותים ועץ התקנים (תת-התקנים)."
+    "msg.tools.loaded_count": "קבל מידע מפורט על מכשיר UPnP ספציפי לפי כתובת ה-URL שלו (מיקום) או כתובת ה-IP שלו. מחזירה מטא נתונים של המכשיר, רשימת שירותים ועץ התקנים (תת-התקנים).",
+    "cmd.help.tools_output": "  :tools output                     החלף תצוגת תוצאות הפעלת כלים",
+    "msg.tools.output_state": "[tools] תצוגת פלט כלים: {state}"
   },
   "hu": {
     "tool.description": ":tools list [query] Betöltött eszközök listája, opcionálisan név/leírás szerint szűrve",
@@ -459,7 +523,9 @@
     "msg.tools.loaded_single": "[eszközök] Az eszköz nem található: {name}",
     "msg.tools.not_found": "[eszközök] Nincsenek betöltött eszközök.",
     "msg.tools.no_tools": "[eszközök] Betöltve {n} eszköz",
-    "msg.tools.loaded_count": "Részletes információkat kaphat egy adott UPnP-eszközről a leírás URL-je (helye) vagy IP-címe alapján. Visszaadja az eszköz metaadatait, a szolgáltatáslistát és az eszközfát (aleszközöket)."
+    "msg.tools.loaded_count": "Részletes információkat kaphat egy adott UPnP-eszközről a leírás URL-je (helye) vagy IP-címe alapján. Visszaadja az eszköz metaadatait, a szolgáltatáslistát és az eszközfát (aleszközöket).",
+    "cmd.help.tools_output": "  :tools output                     Eszközök végrehajtási eredményeinek megjelenítésének váltása",
+    "msg.tools.output_state": "[tools] Eszköz kimenet megjelenítése: {state}"
   },
   "ro": {
     "tool.description": "Instrument fals pentru înregistrarea comenzilor de control al instrumentelor.",
@@ -473,6 +539,8 @@
     "msg.tools.loaded_single": "[tools] Instrument negăsit: {name}",
     "msg.tools.not_found": "[tools] Nu s-a încărcat unelte.",
     "msg.tools.no_tools": "[instrumente] {n} instrumente încărcate",
-    "msg.tools.loaded_count": "Obține informații detaliate despre un anumit dispozitiv UPnP după adresa URL de descriere (locație) sau adresa IP. Returnează metadatele dispozitivului, lista de servicii și arborele dispozitivelor (sub-dispozitive)."
+    "msg.tools.loaded_count": "Obține informații detaliate despre un anumit dispozitiv UPnP după adresa URL de descriere (locație) sau adresa IP. Returnează metadatele dispozitivului, lista de servicii și arborele dispozitivelor (sub-dispozitive).",
+    "cmd.help.tools_output": "  :tools output                     Comutarea afișării rezultatelor de execuție a instrumentelor",
+    "msg.tools.output_state": "[tools] Afișare ieșire instrument: {state}"
   }
 }

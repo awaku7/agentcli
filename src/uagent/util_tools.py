@@ -2208,7 +2208,7 @@ def handle_command(
                 if type(res).__name__ == "CommandResult":
                     return res
                 return CommandResult()
-        print("Usage: :tools [list|on|off] [args...]")
+        print("Usage: :tools [list|on|off|output] [args...]")
         return CommandResult()
 
     if cmd == "env":

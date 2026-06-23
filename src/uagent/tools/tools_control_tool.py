@@ -203,7 +203,35 @@ def _register_tools_subcommands() -> None:
         },
     {"command":"tools","subcommand":"on","handler":handle_cmd_tools_on},
     {"command":"tools","subcommand":"off","handler":handle_cmd_tools_off},
+    {
+        "command": "tools",
+        "subcommand": "output",
+        "handler": handle_cmd_tools_output,
+        "help_text": _(
+            "cmd.help.tools_output",
+            default="  :tools output                     Toggle display of tool execution results",
+        ),
+    },
     ]
+
+
+def handle_cmd_tools_output(arg: str, **kw: Any) -> Any:
+    """Handle :tools output - toggle display of tool execution results."""
+    from ..util_tools import CommandResult
+
+    core = kw.get("core")
+    if core is None:
+        print("[tools error] core not available")
+        return CommandResult()
+
+    core.show_tool_output = not core.show_tool_output
+    state = "ON" if core.show_tool_output else "OFF"
+    print(
+        _("msg.tools.output_state", default="[tools] Tool output display is now {state}").format(
+            state=state
+        )
+    )
+    return CommandResult()
 
 
 _register_tools_subcommands()

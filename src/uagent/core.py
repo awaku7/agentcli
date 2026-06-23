@@ -162,6 +162,10 @@ status_label = ""  # e.g. "LLM" or "tool:cmd_exec"
 # Initialized from UAGENT_USE_TOOL env var; can be toggled at runtime via :tools on/off.
 tools_enabled = True
 
+# When True, tool execution results (stdout/stderr) are printed to the user console.
+# Toggled via :tools output in CLI.
+show_tool_output = False
+
 # Remember the last selected reasoning effort so CUI prompt can show it even when
 # status lines are not printed (e.g., when stderr is not a TTY).
 # Example stored values: "LLM:auto->low", "LLM:medium"
