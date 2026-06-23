@@ -93,6 +93,36 @@ _FONT_SIZE_NAMES = {0: "small", 1: "medium", 2: "large"}
 _FONT_SIZE_CONFIG_FILE: Optional[str] = None
 
 
+# --- SVG icons for buttons ---
+_SVG_ATTACH = (
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"'
+    ' stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>'
+    '</svg>'
+)
+
+_SVG_SEND = (
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"'
+    ' stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+    '<line x1="5" y1="12" x2="19" y2="12"/>'
+    '<polyline points="12 5 19 12 12 19"/>'
+    '</svg>'
+)
+
+
+def _make_svg_icon(svg_text: str, size: int = 20) -> QtGui.QIcon:
+    """Create a QIcon from an inline SVG string at the given pixel size."""
+    try:
+        pm = QtGui.QPixmap()
+        pm.loadFromData(svg_text.encode("utf-8"))
+        if not pm.isNull():
+            scaled = pm.scaled(size, size, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+            return QtGui.QIcon(scaled)
+    except Exception:
+        pass
+    return QtGui.QIcon()
+
+
 def _load_font_size_config() -> int:
     """Load font size level from config file. Returns 0/1/2."""
     global _FONT_SIZE_CONFIG_FILE
@@ -958,6 +988,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self._audio_current_path = ""
         self._fs_stamp = ""
 
+        # Pre-create SVG icons for buttons
+        self._attach_icon = _make_svg_icon(_SVG_ATTACH, 20)
+        self._send_icon = _make_svg_icon(_SVG_SEND, 20)
+
         central = QtWidgets.QWidget()
         self.setCentralWidget(central)
         layout = QtWidgets.QVBoxLayout(central)
@@ -1021,15 +1055,21 @@ class MainWindow(QtWidgets.QMainWindow):
         pw_row.addWidget(self._pw_input, 1)
         pw_row.addStretch(1)
 
-        self._attach_btn = QtWidgets.QPushButton(_("Attach..."))
-        self._attach_btn.setFixedWidth(90)
+        self._attach_btn = QtWidgets.QPushButton()
+        self._attach_btn.setIcon(self._attach_icon)
+        self._attach_btn.setIconSize(QtCore.QSize(20, 20))
+        self._attach_btn.setFixedWidth(40)
         self._attach_btn.setFixedHeight(36)
+        self._attach_btn.setToolTip(_("Attach files"))
         self._attach_btn.clicked.connect(self._on_choose_files)
         pw_row.addWidget(self._attach_btn)
 
-        self._btn = QtWidgets.QPushButton(_("Send"))
-        self._btn.setFixedWidth(80)
+        self._btn = QtWidgets.QPushButton()
+        self._btn.setIcon(self._send_icon)
+        self._btn.setIconSize(QtCore.QSize(20, 20))
+        self._btn.setFixedWidth(40)
         self._btn.setFixedHeight(36)
+        self._btn.setToolTip(_("Send"))
         self._btn.clicked.connect(self._on_send)
         pw_row.addWidget(self._btn)
         input_layout.addLayout(pw_row)
