@@ -189,14 +189,15 @@ def _make_help_icon(size: int = 16) -> QtGui.QIcon:
         pm.fill(QtCore.Qt.transparent)
         p = QtGui.QPainter(pm)
         p.setRenderHint(QtGui.QPainter.Antialiasing)
-        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 12))
+        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 8))
         pen.setCapStyle(QtCore.Qt.RoundCap)
         p.setPen(pen)
-        r = size * 0.4; cx = cy = size / 2
-        p.drawEllipse(int(cx - r), int(cy - r), int(r * 2), int(r * 2))
-        _f = QtGui.QFont("sans-serif", size // 2, QtGui.QFont.Bold)
+        cx, cy = size / 2, size / 2
+        p.drawEllipse(int(cx - size * 0.35), int(cy - size * 0.35),
+                      int(size * 0.7), int(size * 0.7))
+        _f = QtGui.QFont("sans-serif", size * 3 // 5, QtGui.QFont.Bold)
         p.setFont(_f)
-        p.drawText(int(cx - r), int(cy - r), int(r * 2), int(r * 2), QtCore.Qt.AlignCenter, "?")
+        p.drawText(0, 0, size, size, QtCore.Qt.AlignCenter, "?")
         p.end()
         return QtGui.QIcon(pm)
     except Exception:
@@ -209,14 +210,16 @@ def _make_view_icon(size: int = 16) -> QtGui.QIcon:
         pm.fill(QtCore.Qt.transparent)
         p = QtGui.QPainter(pm)
         p.setRenderHint(QtGui.QPainter.Antialiasing)
-        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 12))
+        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 8))
         pen.setCapStyle(QtCore.Qt.RoundCap)
         p.setPen(pen)
         cx, cy = size / 2, size / 2
-        p.drawArc(int(cx - size * 0.4), int(cy - size * 0.25),
-                  int(size * 0.8), int(size * 0.5), 0, 16 * 180)
-        p.drawArc(int(cx - size * 0.4), int(cy - size * 0.25),
-                  int(size * 0.8), int(size * 0.5), 16 * 180, 16 * 180)
+        # Eye outline: an ellipse
+        br, sr = size * 0.35, size * 0.22
+        p.drawEllipse(int(cx - br), int(cy - sr), int(br * 2), int(sr * 2))
+        # Pupil: filled circle
+        brush = QtGui.QBrush(_menu_icon_color())
+        p.setBrush(brush)
         pr = size * 0.08
         p.drawEllipse(int(cx - pr), int(cy - pr), int(pr * 2), int(pr * 2))
         p.end()
@@ -231,16 +234,21 @@ def _make_mode_icon(size: int = 16) -> QtGui.QIcon:
         pm.fill(QtCore.Qt.transparent)
         p = QtGui.QPainter(pm)
         p.setRenderHint(QtGui.QPainter.Antialiasing)
-        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 12))
+        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 8))
         pen.setCapStyle(QtCore.Qt.RoundCap)
         p.setPen(pen)
         cx, cy = size / 2, size / 2
-        r_in, r_out = size * 0.15, size * 0.4
-        p.drawEllipse(int(cx - r_in), int(cy - r_in), int(r_in * 2), int(r_in * 2))
-        p.drawEllipse(int(cx - r_out), int(cy - r_out), int(r_out * 2), int(r_out * 2))
-        for i in range(6):
-            p.drawLine(int(cx + r_in), int(cy), int(cx + r_out), int(cy))
-            p.rotate(60)
+        # Three horizontal bars (sliders config icon)
+        for i, wf in enumerate([0.9, 0.6, 0.75]):
+            y = cy + (i - 1) * size * 0.22
+            hw = size * wf * 0.4
+            p.drawLine(int(cx - hw), int(y), int(cx + hw), int(y))
+            # Small circle at right end of each bar
+            brush = QtGui.QBrush(_menu_icon_color())
+            p.setBrush(brush)
+            p.drawEllipse(int(cx + hw - size * 0.06), int(y - size * 0.06),
+                          int(size * 0.12), int(size * 0.12))
+            p.setBrush(QtCore.Qt.NoBrush)
         p.end()
         return QtGui.QIcon(pm)
     except Exception:
@@ -253,18 +261,18 @@ def _make_tools_icon(size: int = 16) -> QtGui.QIcon:
         pm.fill(QtCore.Qt.transparent)
         p = QtGui.QPainter(pm)
         p.setRenderHint(QtGui.QPainter.Antialiasing)
-        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 12))
+        pen = QtGui.QPen(_menu_icon_color(), max(2, size // 8))
         pen.setCapStyle(QtCore.Qt.RoundCap)
         p.setPen(pen)
         cx, cy = size / 2, size / 2
-        p.drawLine(int(cx - size * 0.35), int(cy + size * 0.15),
-                   int(cx + size * 0.35), int(cy - size * 0.15))
-        p.drawLine(int(cx + size * 0.35), int(cy - size * 0.15),
-                   int(cx + size * 0.45), int(cy - size * 0.3))
-        p.drawLine(int(cx + size * 0.45), int(cy - size * 0.3),
-                   int(cx + size * 0.35), int(cy - size * 0.4))
-        p.drawLine(int(cx + size * 0.35), int(cy - size * 0.4),
-                   int(cx + size * 0.2), int(cy - size * 0.25))
+        # Toolbox/drawer icon: simple rectangle with handle
+        bw, bh = size * 0.45, size * 0.25
+        # Box body
+        p.drawRoundedRect(int(cx - bw), int(cy - bh * 0.3),
+                          int(bw * 2), int(bh * 1.3), size * 0.08, size * 0.08)
+        # Handle on top
+        p.drawLine(int(cx - bw * 0.5), int(cy - bh * 0.3),
+                   int(cx + bw * 0.5), int(cy - bh * 0.3))
         p.end()
         return QtGui.QIcon(pm)
     except Exception:
