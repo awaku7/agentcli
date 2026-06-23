@@ -1266,7 +1266,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         try:
             help_menu = self.menuBar().addMenu(_("Help"))
-            help_menu.menuAction().setIcon(_make_help_icon(16))
+            help_menu.menuAction().setIcon(_make_help_icon(22))
             act = help_menu.addAction(_("Welcome / Quick Guide"))
             act.triggered.connect(self._show_welcome_dialog)
         except Exception:
@@ -1282,7 +1282,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # View menu (font size)
         try:
             view_menu = self.menuBar().addMenu(_("View"))
-            view_menu.menuAction().setIcon(_make_view_icon(16))
+            view_menu.menuAction().setIcon(_make_view_icon(22))
             font_group = QtGui.QActionGroup(self)
             font_group.setExclusive(True)
             for lv in (0, 1, 2):
@@ -1299,7 +1299,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Mode menu
         try:
             mode_menu = self.menuBar().addMenu(_("Mode"))
-            mode_menu.menuAction().setIcon(_make_mode_icon(16))
+            mode_menu.menuAction().setIcon(_make_mode_icon(22))
 
             act_r_off = mode_menu.addAction(_("Reasoning: off"))
             act_r_off.triggered.connect(lambda: self._set_reasoning("0"))
@@ -1354,7 +1354,7 @@ class MainWindow(QtWidgets.QMainWindow):
             )
 
             tools_menu = self.menuBar().addMenu(_("Tools"))
-            tools_menu.menuAction().setIcon(_make_tools_icon(16))
+            tools_menu.menuAction().setIcon(_make_tools_icon(22))
 
             genre_items = [
                 (
@@ -2369,7 +2369,7 @@ _GUI_STYLESHEET = """
         padding: 2px;
     }
     QMenuBar::item {
-        padding: 4px 12px;
+        padding: 6px 16px;
         border-radius: 4px;
     }
     QMenuBar::item:selected {
