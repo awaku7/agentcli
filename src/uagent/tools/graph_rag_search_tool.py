@@ -28,6 +28,8 @@ _ENABLE_SEMANTIC_SEARCH = str(
 # Reuse embedding + DB path from semantic_search_files_tool
 if _ENABLE_SEMANTIC_SEARCH:
     from . import semantic_search_files_tool as vec_tool
+    if getattr(vec_tool, '_BM25_MODE', False):
+        vec_tool = None  # type: ignore[assignment]
 else:
     vec_tool = None  # type: ignore[assignment]
 
@@ -1046,7 +1048,7 @@ def run_tool(args: dict[str, Any]) -> str:
     )
 
 
-if not _ENABLE_SEMANTIC_SEARCH:
+if not _ENABLE_SEMANTIC_SEARCH or vec_tool is None:
     TOOL_SPEC = None  # type: ignore[assignment]
 else:
     TOOL_SPEC = {
