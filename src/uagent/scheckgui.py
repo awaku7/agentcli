@@ -984,6 +984,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 _set_devel_tools_enabled,
                 _set_exec_tools_enabled,
                 _set_external_tools_enabled,
+                _set_file_tools_enabled,
                 _set_index_tools_enabled,
                 _set_iot_tools_enabled,
                 _set_media_tools_enabled,
@@ -1038,6 +1039,11 @@ class MainWindow(QtWidgets.QMainWindow):
                     "media",
                     _("Media (image gen/edit/analyze, audio, QR code)"),
                     _set_media_tools_enabled,
+                ),
+                (
+                    "file",
+                    _("File (read, write, search, delete, listing)"),
+                    _set_file_tools_enabled,
                 ),
                 (
                     "index",
