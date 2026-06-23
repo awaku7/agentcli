@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-"""scheckgui.py - File-Buffered Extreme Stability Version"""
+"""scheckgui.py - In-Memory Buffer Version (no intermediate file)"""
 
 from __future__ import annotations
 
 import argparse
 import html
+import io
 import json
 import os
 import shutil
@@ -78,7 +79,10 @@ AUDIO_EXTS = {
     ".mp4",
     ".webm",
 }
-LOG_FILE = "gui_worker_session.log"
+
+# In-memory log buffer (thread-safe via _log_lock)
+_log_buffer: "io.StringIO" = io.StringIO()
+_log_lock = threading.Lock()
 
 
 def _gui_norm_path(p: Any) -> str:
@@ -94,14 +98,14 @@ def _gui_norm_path(p: Any) -> str:
 
 
 class RedirectToLog:
-    def __init__(self, path: str, original_stream):
-        self.path = path
+    def __init__(self, buffer: "io.StringIO", original_stream):
+        self.buffer = buffer
         self.original_stream = original_stream
 
     def write(self, data: str):
         try:
-            with open(self.path, "a", encoding="utf-8") as f:
-                f.write(data)
+            with _log_lock:
+                self.buffer.write(data)
         except Exception:
             pass
 
@@ -504,13 +508,11 @@ class ScheckWorker(QtCore.QObject):
                     continue
                 except Exception:
                     try:
-                        with open(
-                            LOG_FILE, "a", encoding="utf-8", buffering=1
-                        ) as log_f:
-                            log_f.write("[ERROR] Worker exception:\n")
+                        with _log_lock:
+                            _log_buffer.write("[ERROR] Worker exception:\n")
                             import traceback
 
-                            traceback.print_exc(file=log_f)
+                            traceback.print_exc(file=_log_buffer)
                     except Exception:
                         pass
                     continue
@@ -1101,14 +1103,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self._update_mode_label()
 
     def _update_ui_from_log(self):
-        if not os.path.exists(LOG_FILE):
-            return
-
         try:
-            with open(LOG_FILE, "r", encoding="utf-8", errors="replace") as f:
-                f.seek(self._log_pos)
-                new_data = f.read()
-                self._log_pos = f.tell()
+            with _log_lock:
+                _log_buffer.seek(self._log_pos)
+                new_data = _log_buffer.read()
+                self._log_pos = _log_buffer.tell()
 
             if new_data:
                 clean_text = self._ansi_re.sub("", new_data)
@@ -1929,11 +1928,6 @@ class MainWindow(QtWidgets.QMainWindow):
             pass
         self._thread.quit()
         self._thread.wait(2000)
-        if os.path.exists(LOG_FILE):
-            try:
-                os.remove(LOG_FILE)
-            except Exception:
-                pass
         super().closeEvent(event)
 
 
@@ -1953,10 +1947,9 @@ def main():
     print(get_welcome_message())
     ensure_mcp_config_template()
 
-    with open(LOG_FILE, "w", encoding="utf-8"):
-        pass
-    sys.stdout = RedirectToLog(LOG_FILE, sys.stdout)
-    sys.stderr = RedirectToLog(LOG_FILE, sys.stderr)
+    # Redirect stdout/stderr to in-memory buffer (no intermediate file)
+    sys.stdout = RedirectToLog(_log_buffer, sys.stdout)
+    sys.stderr = RedirectToLog(_log_buffer, sys.stderr)
 
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument(
