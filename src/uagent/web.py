@@ -1043,6 +1043,7 @@ async def set_tool_genre(req: Request):
         _set_devel_tools_enabled,
         _set_exec_tools_enabled,
         _set_external_tools_enabled,
+        _set_file_tools_enabled,
         _set_index_tools_enabled,
         _set_iot_tools_enabled,
         _set_media_tools_enabled,
@@ -1072,6 +1073,7 @@ async def set_tool_genre(req: Request):
         "exec": _set_exec_tools_enabled,
         "external": _set_external_tools_enabled,
         "media": _set_media_tools_enabled,
+        "file": _set_file_tools_enabled,
         "index": _set_index_tools_enabled,
     }
 
