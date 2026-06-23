@@ -29,7 +29,7 @@
 
 - **S'exécute localement** sur votre machine. Vos données restent avec vous (sauf les appels API que vous effectuez).
 - **Liberté des fournisseurs** : OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Plus de 15 fournisseurs, tous accessibles depuis une seule interface. Passez de l'un à l'autre en reconfigurant les variables d'environnement : pas de réinstallation, pas de migration.
-- **112 outils** : E/S de fichiers, recherche sur le Web, génération d'images, analyse de périphériques BLE, intégration de serveur MCP — et **66 sont parallel-safe (jusqu'à 4 simultanément)**. Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les exécute automatiquement via un pool de threads.
+- **131 outils** : E/S de fichiers, recherche sur le Web, génération d'images, analyse de périphériques BLE, intégration de serveur MCP — et **76 sont parallel-safe (jusqu'à 4 simultanément)**. Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les exécute automatiquement via un pool de threads.
 - **3 interfaces utilisateur + A2A** : CLI, GUI, Web et protocole agent à agent. Même moteur, n’importe quelle interface.
 - **Prêt pour l'IoT** : SwitchBot, ECHONET Lite, Matter, UPnP — contrôlez vos appareils domestiques via l'IA.
 - **Compétences d'agent** : installez des compétences développées par la communauté à partir du marché. Prolongez l'UAG à l'infini.
@@ -57,7 +57,7 @@ Tous les fournisseurs partagent le même ensemble d’outils et la même interfa
 ### ⚡ Exécution d'outils parallèles
 
 Lorsque le LLM demande plusieurs outils simultanément, uag les **parallèle automatiquement**.
-55 outils sont marqués « x_parallel_safe » et s'exécutent simultanément via un « ThreadPoolExecutor » à 4 threads.
+76 outils sont marqués « x_parallel_safe » et s'exécutent simultanément via un « ThreadPoolExecutor » à 4 threads.
 
 **Exemple** : demandez « Vérifiez la météo dans les capitales nordiques » → LLM déclenche `search_web` × 5 pays → les 5 recherches s'exécutent en parallèle → résultats collectés en un seul lot.
 
@@ -69,7 +69,7 @@ Les outils en lecture seule (recherche de fichiers, calcul de hachage, liste de 
 - **Rechargez les sessions passées** avec `:load <index>` — reprenez là où vous vous étiez arrêté.
 - La **mise en cache des résultats de l'outil** évite une réexécution redondante lorsque le même appel d'outil se répète.
 
-### 🛠 112 Outils
+### 🛠 131 Outils
 
 | Catégorie | Outils |
 |---|---|
@@ -78,11 +78,11 @@ Les outils en lecture seule (recherche de fichiers, calcul de hachage, liste de 
 | **Médias** | generate_image, analyse_image, img2img, audio_speech, audio_transcribe |
 | **Documents** | Extraction PDF/PPTX/DOCX/RTF/ODT, extraction structurée Excel |
 | **IdO** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Outils de développement**, ****11 outils idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 outils idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier** |
+| **Outils de développement**, ****13 outils idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier** | git_ops, python_compile, lint_format, run_tests, db_query, ****13 outils idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier** |
 | **MCP** | Connectez-vous à des serveurs MCP externes, répertoriez les outils, exécutez |
 | **A2A** | Communication agent à agent (avec d'autres instances uag ou des serveurs compatibles A2A) |
 | **Système** | variables d'environnement, spécifications du système, heure, calcul de date |
-| **Navigation dans le code** | **11 outils idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier |
+| **Navigation dans le code** | **13 outils idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier |
 
 ### 🖥 3Interfaces + A2A
 

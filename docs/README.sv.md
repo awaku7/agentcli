@@ -29,7 +29,7 @@
 
 - **Körs lokalt** på din maskin. Din data stannar hos dig (förutom API-anrop du gör).
 - **Leverantörsfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ leverantörer, alla tillgängliga från ett enda gränssnitt. Byt mellan dem genom att konfigurera om miljövariabler – ingen ominstallation, ingen migrering.
-- **112 verktyg**: Fil-I/O, webbsökning, bildgenerering, BLE-enhetsskanning, MCP-serverintegrering — och **55 av dem körs parallellt**. När LLM avfyrar flera verktygsanrop samtidigt, kör uag dem automatiskt via en trådpool.
+- **131 verktyg**: Fil-I/O, webbsökning, bildgenerering, BLE-enhetsskanning, MCP-serverintegrering — och **76 av dem körs parallellt**. När LLM avfyrar flera verktygsanrop samtidigt, kör uag dem automatiskt via en trådpool.
 - **3 användargränssnitt + A2A**: CLI, GUI, webb och Agent-to-Agent-protokoll. Samma motor, vilket gränssnitt som helst.
 - **IoT redo**: SwitchBot, ECHONET Lite, Matter, UPnP — styr dina hemenheter genom AI.
 - **Agent Skills**: Installera community-byggda färdigheter från marknadsplatsen. Förläng uag oändligt.
@@ -57,7 +57,7 @@ Alla leverantörer delar samma verktygsuppsättning och gränssnitt. Byt genom a
 ### ⚡ Parallell verktygsexekvering
 
 När LLM begär flera verktyg samtidigt, uag **parallellerar automatiskt** dem.
-55 verktyg är märkta "x_parallel_safe" och körs samtidigt via en 4-tråds "ThreadPoolExecutor".
+76 verktyg är märkta "x_parallel_safe" och körs samtidigt via en 4-tråds "ThreadPoolExecutor".
 
 **Exempel**: Fråga "Kontrollera vädret i nordiska huvudstäder" → LLM avfyrar `search_web` × 5 länder → alla 5 sökningar körs parallellt → resultat samlade i en batch.
 
@@ -69,7 +69,7 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 - **Ladda om tidigare sessioner** med `:load <index>` — fortsätt där du slutade.
 - **Caching av verktygsresultat** undviker redundant återexekvering när samma verktygsanrop upprepas.
 
-### 🛠 112 Verktyg
+### 🛠 131 Verktyg
 
 | Kategori | Verktyg |
 |---|---|
@@ -78,7 +78,7 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 | **Media** | generera_bild, analysera_bild, img2img, audio_tal, audio_transcribe |
 | **Dokument** | PDF/PPTX/DOCX/RTF/ODT-extraktion, Excel-strukturerad extrahering |
 | **IoT** | SwitchBot (moln + BLE), ECHONET Lite, Matter, UPnP |
-| **Utvecklarverktyg** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
+| **Utvecklarverktyg** | git_ops, python_compile, lint_format, run_tests, db_query, **13 idx tools** |
 | **MCP** | Anslut till externa MCP-servrar, lista verktyg, kör |
 | **A2A** | Agent-till-agent-kommunikation (med andra uag-instanser eller A2A-kompatibla servrar) |
 | **System** | env vars, systemspecifikationer, tid, datumberäkning |

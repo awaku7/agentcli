@@ -29,7 +29,7 @@
 
 - **Executa localmente** em sua máquina. Seus dados permanecem com você (exceto as chamadas de API que você faz).
 - **Liberdade de provedor**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Mais de 15 provedores, todos acessíveis em uma única interface. Alterne entre eles reconfigurando variáveis ​​de ambiente — sem reinstalação, sem migração.
-- **112 ferramentas**: E/S de arquivos, pesquisa na Web, geração de imagens, verificação de dispositivos BLE, integração de servidor MCP — e **55 delas são executadas em paralelo**. Quando o LLM dispara múltiplas chamadas de ferramenta ao mesmo tempo, o uag as executa automaticamente por meio de um conjunto de threads.
+- **131 ferramentas**: E/S de arquivos, pesquisa na Web, geração de imagens, verificação de dispositivos BLE, integração de servidor MCP — e **76 delas são executadas em paralelo**. Quando o LLM dispara múltiplas chamadas de ferramenta ao mesmo tempo, o uag as executa automaticamente por meio de um conjunto de threads.
 - **3 UIs + A2A**: CLI, GUI, Web e protocolo de agente para agente. Mesmo motor, qualquer interface.
 - **Pronto para IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — controle seus dispositivos domésticos por meio de IA.
 - **Habilidades do agente**: instale habilidades criadas pela comunidade no mercado. Estenda o UAG indefinidamente.
@@ -57,7 +57,7 @@ Todos os provedores compartilham o mesmo conjunto de ferramentas e interface. Al
 ### ⚡ Execução de ferramenta paralela
 
 Quando o LLM solicita várias ferramentas simultaneamente, o uag as **paraleliza automaticamente**.
-55 ferramentas são marcadas como `x_parallel_safe` e são executadas simultaneamente por meio de um `ThreadPoolExecutor` de 4 threads.
+76 ferramentas são marcadas como `x_parallel_safe` e são executadas simultaneamente por meio de um `ThreadPoolExecutor` de 4 threads.
 
 **Exemplo**: Pergunte "Verifique o clima nas capitais nórdicas" → LLM dispara `search_web` × 5 países → todas as 5 pesquisas são executadas em paralelo → resultados coletados em um lote.
 
@@ -69,7 +69,7 @@ Ferramentas somente leitura (pesquisa de arquivos, cálculo de hash, listagem de
 - **Recarregue sessões anteriores** com `:load <index>` — continue de onde parou.
 - **Cache de resultados da ferramenta** evita a reexecução redundante quando a mesma chamada de ferramenta se repete.
 
-### 🛠 112 Ferramentas
+### 🛠 131 Ferramentas
 
 | Categoria | Ferramentas |
 |---|---|
@@ -78,11 +78,11 @@ Ferramentas somente leitura (pesquisa de arquivos, cálculo de hash, listagem de
 | **Mídia** | gerar_imagem, analisar_imagem, img2img, audio_speech, audio_transcribe |
 | **Documentos** | Extração de PDF/PPTX/DOCX/RTF/ODT, extração estruturada em Excel |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matéria, UPnP |
-| **Ferramentas de desenvolvimento**, ****11 ferramentas idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenha um índice de funções/classes ou uma definição específica sem ler o arquivo inteiro** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 ferramentas idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenha um índice de funções/classes ou uma definição específica sem ler o arquivo inteiro** |
+| **Ferramentas de desenvolvimento**, ****13 ferramentas idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — obtenha um índice de funções/classes ou uma definição específica sem ler o arquivo inteiro** | git_ops, python_compile, lint_format, run_tests, db_query, ****13 ferramentas idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — obtenha um índice de funções/classes ou uma definição específica sem ler o arquivo inteiro** |
 | **MCP** | Conecte-se a servidores MCP externos, liste ferramentas, execute |
 | **A2A** | Comunicação entre agentes (com outras instâncias UAG ou servidores compatíveis com A2A) |
 | **Sistema** | env vars, especificações do sistema, hora, cálculo de data |
-| **Navegação de código** | **11 ferramentas idx** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — obtenha um índice de funções/classes ou uma definição específica sem ler o arquivo inteiro |
+| **Navegação de código** | **13 ferramentas idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — obtenha um índice de funções/classes ou uma definição específica sem ler o arquivo inteiro |
 
 ### 🖥 3 Interfaces + A2A
 

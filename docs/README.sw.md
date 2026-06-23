@@ -29,7 +29,7 @@
 
 - ** Huendesha ndani ** kwenye mashine yako. Data yako itasalia nawe (isipokuwa simu za API unazopiga).
 - **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ watoa huduma, wote wanaweza kufikiwa kutoka kwa kiolesura kimoja. Badilisha kati yao kwa kusanidi upya anuwai za mazingira - hakuna kusakinisha tena, hakuna uhamiaji.
-- **Zana 112**: Faili I/O, utafutaji wa wavuti, kutengeneza picha, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — na **66 zinalindwa kwa usawa** (hadi 4 kwa wakati mmoja). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzitekeleza kiotomatiki kupitia dimbwi la nyuzi.
+- **Zana 131**: Faili I/O, utafutaji wa wavuti, kutengeneza picha, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — na **76 zinalindwa kwa usawa** (hadi 4 kwa wakati mmoja). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzitekeleza kiotomatiki kupitia dimbwi la nyuzi.
 - **UI 3 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, interface yoyote.
 - **IoT tayari**: SwitchBot, ECHONET Lite, Matter, UPnP - dhibiti vifaa vyako vya nyumbani kupitia AI.
 - **Ujuzi wa Wakala**: Sakinisha ujuzi uliojengwa na jumuiya kutoka sokoni. Panua uag bila mwisho.
@@ -57,7 +57,7 @@ Watoa huduma wote hushiriki zana na kiolesura sawa. Badili kwa kuweka `UAGENT_PR
 ### ⚡ Utekelezaji wa Zana Sambamba
 
 LLM inapoomba zana nyingi kwa wakati mmoja, uag **inazilinganisha kiotomatiki**.
-Zana 55 zimewekwa alama `x_parallel_safe` na hutekelezwa kwa wakati mmoja kupitia `ThreadPoolExecutor` yenye nyuzi 4.
+Zana 76 zimewekwa alama `x_parallel_safe` na hutekelezwa kwa wakati mmoja kupitia `ThreadPoolExecutor` yenye nyuzi 4.
 
 **Mfano**: Uliza "Angalia hali ya hewa katika herufi kubwa za Nordic" → Mioto ya LLM `search_web` × nchi 5 → utafutaji wote 5 unakwenda sambamba → matokeo yaliyokusanywa katika kundi moja.
 
@@ -69,7 +69,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 - **Pakia upya vipindi vilivyopita** kwa `:pakia <index>` — endelea ulipoishia.
 - **Uakibishaji wa matokeo ya zana** huepuka kutekeleza tena tena simu ile ile inaporudiwa.
 
-### 🛠 Zana 112
+### 🛠 Zana 131
 
 | Kitengo | Zana |
 |---|---|
@@ -78,7 +78,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 | **Vyombo vya habari** | zalisha_picha, changanua_picha, img2img, hotuba_ya_sauti,nukuu_sauti |
 | **Nyaraka** | Uchimbaji wa PDF/PPTX/DOCX/RTF/ODT, uchimbaji muundo wa Excel |
 | **IoT** | SwitchBot (Wingu + BLE), ECHONET Lite, Matter, UPnP |
-| **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
+| **Zana za Usanidi** | git_ops, python_compile, lint_format, run_tests, db_query, **13 idx tools** |
 | **MCP** | Unganisha kwa seva za MCP za nje, orodhesha zana, tekeleza |
 | **A2A** | Mawasiliano ya wakala kwa wakala (pamoja na matukio mengine ya uag au seva zinazooana na A2A) |
 | **Mfumo** | env vars, vipimo vya mfumo, saa, hesabu ya tarehe |

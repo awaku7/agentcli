@@ -181,8 +181,10 @@ ______________________________________________________________________
 | `cs2idx` | .cs | 正規表現 | namespace, class, struct, record, interface, enum, property, constructor, method, delegate, event, operator |
 | `dart2idx` | .dart | 正規表現 | library, mixin, extension on, typedef, class, factory, getter/setter, トップレベル関数 |
 | `cpp2idx` | .c/.cpp/.h/.hpp | 正規表現 | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
+| `cobol2idx` | .cbl/.cob/.cpy | 正規表現 | division, section, paragraph, data（01-66, 77, 78）, program-id, fd, select, copy, declaratives |
 | `rs2idx` | .rs | 正規表現 | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
 | `go2idx` | .go | 正規表現 | package, type struct/interface, func（レシーバ付き含む）, const, var |
+| `php2idx` | .php | 正規表現 | namespace, class, interface, trait, enum, function, method, const, property, define |
 | `swift2idx` | .swift | 正規表現 | class, struct, enum, protocol, extension, func, init/deinit/subscript, var/let, case |
 | `kt2idx` | .kt | 正規表現 | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
 

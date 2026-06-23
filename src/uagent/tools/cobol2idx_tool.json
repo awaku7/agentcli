@@ -1,0 +1,1022 @@
+{
+  "en": {
+    "tool.description": "Parse a COBOL (.cbl/.cob/.cpy) file into divisions, sections, paragraphs, data definitions, and copybooks and return a numbered index or a specific definition section. Use this when you need to read a large COBOL file: first call with mode='index' to get the table of contents, then call with mode='section' and the section number to retrieve only the definition you need.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "param.path.description": "Path to the COBOL (.cbl/.cob/.cpy) file.",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "err.path_required": "Error: 'path' is required.",
+    "err.file_not_found": "Error: File not found: {path}",
+    "err.read_error": "Error reading file: {e}",
+    "err.parse_error": "Error parsing file: {e}",
+    "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
+    "err.section_invalid": "Error: 'section' must be an integer.",
+    "err.section_not_found": "Error: Section {section_num} not found. Valid range: 1..{last}.",
+    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal definitions: {total}\nTo retrieve a definition, call cobol2idx with mode='section' and the section number.",
+    "msg.no_entries": "(no definitions found)"
+  },
+  "ja": {
+    "tool.description": "COBOL (.cbl/.cob/.cpy) ファイルを DIVISION、SECTION、パラグラフ、データ定義、COPYBOOK に解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな COBOL ファイルを読む際に使います：最初に mode='index' で目次を取得し、次に mode='section' とセクション番号で必要な定義だけを取得します。",
+    "x_search_terms": [
+      "COBOLファイルを読む",
+      "COBOL インデックス",
+      "COBOL プログラム構造",
+      "DIVISION一覧",
+      "パラグラフ一覧"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "param.path.description": "COBOL (.cbl/.cob/.cpy) ファイルへのパス。",
+    "param.mode.description": "\"index\" は行番号付きの番号付き目次を返します。\"section\" は指定した番号の定義を返します。",
+    "param.section.description": "取得するセクション番号（mode='section' の場合のみ使用）。目次出力から番号を取得してください。",
+    "err.path_required": "エラー: 'path' は必須です。",
+    "err.file_not_found": "エラー: ファイルが見つかりません: {path}",
+    "err.read_error": "エラー: ファイル読み込みに失敗しました: {e}",
+    "err.parse_error": "エラー: ファイル解析に失敗しました: {e}",
+    "err.section_required": "エラー: mode='section' の場合は 'section'（整数）が必須です。",
+    "err.section_invalid": "エラー: 'section' は整数である必要があります。",
+    "err.section_not_found": "エラー: セクション {section_num} が見つかりません。有効範囲: 1..{last}。",
+    "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使ってください。",
+    "msg.index_output": "インデックス: {path}\n---\n{toc}\n---\n全定義数: {total}\n定義を取得するには、cobol2idx を mode='section' とセクション番号で呼び出してください。",
+    "msg.no_entries": "(定義が見つかりません)"
+  },
+  "es": {
+    "tool.description": "Analiza un archivo COBOL (.cbl/.cob/.cpy) en divisiones, secciones, párrafos, definiciones de datos y cuadernos y devuelve un índice numerado o una sección de definición específica. Utilice esto cuando necesite leer un archivo COBOL grande: primero llame con mode='index' para obtener la tabla de contenido, luego llame con mode='section' y el número de sección para recuperar solo la definición que necesita.",
+    "err.path_required": "Error: se requiere 'ruta'.",
+    "err.file_not_found": "Error: Archivo no encontrado: {ruta}",
+    "err.read_error": "Error al leer el archivo: {e}",
+    "err.parse_error": "Error al analizar el archivo: {e}",
+    "err.section_required": "Error: se requiere 'sección' (entero) cuando modo = 'sección'.",
+    "err.section_invalid": "Error: la 'sección' debe ser un número entero.",
+    "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'.",
+    "msg.no_entries": "(no se encontraron definiciones)",
+    "param.path.description": "Ruta al archivo COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Índice de: {ruta}\n---\n{toc}\n---\nDefiniciones totales: {total}\nPara recuperar una definición, llame a cobol2idx con mode='section' y el número de sección.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Error: Sección {section_num} no encontrada. Rango válido: 1..{último}."
+  },
+  "fr": {
+    "tool.description": "Analysez un fichier COBOL (.cbl/.cob/.cpy) en divisions, sections, paragraphes, définitions de données et cahiers et renvoyez un index numéroté ou une section de définition spécifique. Utilisez-le lorsque vous avez besoin de lire un gros fichier COBOL : appelez d'abord avec mode='index' pour obtenir la table des matières, puis appelez avec mode='section' et le numéro de section pour récupérer uniquement la définition dont vous avez besoin.",
+    "err.path_required": "Erreur : « chemin » est requis.",
+    "err.file_not_found": "Erreur : Fichier introuvable : {chemin}",
+    "err.read_error": "Erreur de lecture du fichier : {e}",
+    "err.parse_error": "Erreur d'analyse du fichier : {e}",
+    "err.section_required": "Erreur : 'section' (entier) est requis lorsque mode='section'.",
+    "err.section_invalid": "Erreur : « section » doit être un nombre entier.",
+    "err.invalid_mode": "Erreur : mode '{mode}' non valide. Utilisez « index » ou « section ».",
+    "msg.no_entries": "(aucune définition trouvée)",
+    "param.path.description": "Chemin d'accès au fichier COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Index pour : {chemin}\n---\n{toc}\n---\nTotal des définitions : {total}\nPour récupérer une définition, appelez cobol2idx avec mode='section' et le numéro de section.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Erreur : section {section_num} introuvable. Plage valide : 1..{dernier}."
+  },
+  "ko": {
+    "tool.description": "COBOL(.cbl/.cob/.cpy) 파일을 구분, 섹션, 단락, 데이터 정의 및 카피북으로 구문 분석하고 번호가 매겨진 인덱스 또는 특정 정의 섹션을 반환합니다. 큰 COBOL 파일을 읽어야 할 때 이것을 사용하십시오. 먼저 mode='index'로 호출하여 목차를 가져온 다음 mode='section'과 섹션 번호로 호출하여 필요한 정의만 검색하십시오.",
+    "err.path_required": "오류: '경로'가 필요합니다.",
+    "err.file_not_found": "오류: 파일을 찾을 수 없습니다: {path}",
+    "err.read_error": "파일 읽기 오류: {e}",
+    "err.parse_error": "파일 구문 분석 중 오류 발생: {e}",
+    "err.section_required": "오류: 모드='섹션'인 경우 '섹션'(정수)이 필요합니다.",
+    "err.section_invalid": "오류: '섹션'은 정수여야 합니다.",
+    "err.invalid_mode": "오류: '{mode}' 모드가 잘못되었습니다. '인덱스'나 '섹션'을 사용하세요.",
+    "msg.no_entries": "(정의를 찾을 수 없음)",
+    "param.path.description": "COBOL(.cbl/.cob/.cpy) 파일의 경로입니다.",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "다음에 대한 색인: {경로}\n---\n{목차}\n---\n총 정의: {total}\n정의를 검색하려면 mode='section' 및 섹션 번호를 사용하여 cobol2idx를 호출하세요.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "오류: {section_num} 섹션을 찾을 수 없습니다. 유효한 범위: 1..{마지막}."
+  },
+  "de": {
+    "tool.description": "Analysieren Sie eine COBOL-Datei (.cbl/.cob/.cpy) in Unterteilungen, Abschnitte, Absätze, Datendefinitionen und Copybooks und geben Sie einen nummerierten Index oder einen bestimmten Definitionsabschnitt zurück. Verwenden Sie dies, wenn Sie eine große COBOL-Datei lesen müssen: Rufen Sie zuerst mit mode='index' auf, um das Inhaltsverzeichnis abzurufen, und rufen Sie dann mit mode='section' und der Abschnittsnummer auf, um nur die benötigte Definition abzurufen.",
+    "err.path_required": "Fehler: „Pfad“ ist erforderlich.",
+    "err.file_not_found": "Fehler: Datei nicht gefunden: {path}",
+    "err.read_error": "Fehler beim Lesen der Datei: {e}",
+    "err.parse_error": "Fehler beim Parsen der Datei: {e}",
+    "err.section_required": "Fehler: „Abschnitt“ (Ganzzahl) ist erforderlich, wenn mode=‘Abschnitt‘.",
+    "err.section_invalid": "Fehler: „Abschnitt“ muss eine Ganzzahl sein.",
+    "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“.",
+    "msg.no_entries": "(keine Definitionen gefunden)",
+    "param.path.description": "Pfad zur COBOL-Datei (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Index für: {path}\n---\n{Inhaltsverzeichnis}\n---\nGesamtdefinitionen: {total}\nUm eine Definition abzurufen, rufen Sie cobol2idx mit mode='section' und der Abschnittsnummer auf.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Fehler: Abschnitt {section_num} nicht gefunden. Gültiger Bereich: 1..{last}."
+  },
+  "it": {
+    "tool.description": "Analizza un file COBOL (.cbl/.cob/.cpy) in divisioni, sezioni, paragrafi, definizioni di dati e quaderni e restituisce un indice numerato o una sezione di definizione specifica. Usalo quando devi leggere un file COBOL di grandi dimensioni: chiama prima con mode='index' per ottenere il sommario, quindi chiama con mode='section' e il numero di sezione per recuperare solo la definizione che ti serve.",
+    "err.path_required": "Errore: il \"percorso\" è obbligatorio.",
+    "err.file_not_found": "Errore: file non trovato: {percorso}",
+    "err.read_error": "Errore durante la lettura del file: {e}",
+    "err.parse_error": "Errore durante l'analisi del file: {e}",
+    "err.section_required": "Errore: 'sezione' (numero intero) è richiesto quando mode='sezione'.",
+    "err.section_invalid": "Errore: la \"sezione\" deve essere un numero intero.",
+    "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\".",
+    "msg.no_entries": "(nessuna definizione trovata)",
+    "param.path.description": "Percorso del file COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Indice per: {percorso}\n---\n{sommario}\n---\nDefinizioni totali: {totale}\nPer recuperare una definizione, chiamare cobol2idx con mode='section' e il numero della sezione.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Errore: sezione {section_num} non trovata. Intervallo valido: 1..{ultimo}."
+  },
+  "ru": {
+    "tool.description": "Разберите файл COBOL (.cbl/.cob/.cpy) на разделы, разделы, абзацы, определения данных и тетради и верните пронумерованный индекс или конкретный раздел определений. Используйте это, когда вам нужно прочитать большой файл COBOL: сначала вызовите с mode='index', чтобы получить оглавление, затем вызовите с mode='section' и номером раздела, чтобы получить только то определение, которое вам нужно.",
+    "err.path_required": "Ошибка: требуется «путь».",
+    "err.file_not_found": "Ошибка: Файл не найден: {путь}",
+    "err.read_error": "Ошибка чтения файла: {e}",
+    "err.parse_error": "Ошибка анализа файла: {e}",
+    "err.section_required": "Ошибка: «раздел» (целое число) требуется, если mode = «раздел».",
+    "err.section_invalid": "Ошибка: «раздел» должен быть целым числом.",
+    "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел».",
+    "msg.no_entries": "(определений не найдено)",
+    "param.path.description": "Путь к файлу COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Индекс для: {путь}\n---\n{ТОК}\n---\nВсего определений: {total}\nЧтобы получить определение, вызовите cobol2idx с mode='section' и номером раздела.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Ошибка: раздел {section_num} не найден. Допустимый диапазон: 1..{последний}."
+  },
+  "pt_BR": {
+    "tool.description": "Analise um arquivo COBOL (.cbl/.cob/.cpy) em divisões, seções, parágrafos, definições de dados e copybooks e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo COBOL grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária.",
+    "err.path_required": "Erro: 'caminho' é obrigatório.",
+    "err.file_not_found": "Erro: arquivo não encontrado: {path}",
+    "err.read_error": "Erro ao ler o arquivo: {e}",
+    "err.parse_error": "Erro ao analisar arquivo: {e}",
+    "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
+    "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "msg.no_entries": "(nenhuma definição encontrada)",
+    "param.path.description": "Caminho para o arquivo COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Índice para: {caminho}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame cobol2idx com mode='section' e o número da seção.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Erro: Seção {section_num} não encontrada. Intervalo válido: 1..{último}."
+  },
+  "pt": {
+    "tool.description": "Analise um arquivo COBOL (.cbl/.cob/.cpy) em divisões, seções, parágrafos, definições de dados e copybooks e retorne um índice numerado ou uma seção de definição específica. Use isto quando precisar ler um arquivo COBOL grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas a definição necessária.",
+    "err.path_required": "Erro: 'caminho' é obrigatório.",
+    "err.file_not_found": "Erro: arquivo não encontrado: {path}",
+    "err.read_error": "Erro ao ler o arquivo: {e}",
+    "err.parse_error": "Erro ao analisar arquivo: {e}",
+    "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
+    "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "msg.no_entries": "(nenhuma definição encontrada)",
+    "param.path.description": "Caminho para o arquivo COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Índice para: {caminho}\n---\n{toc}\n---\nTotal de definições: {total}\nPara recuperar uma definição, chame cobol2idx com mode='section' e o número da seção.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Erro: Seção {section_num} não encontrada. Intervalo válido: 1..{último}."
+  },
+  "id": {
+    "tool.description": "Parsing file COBOL (.cbl/.cob/.cpy) menjadi divisi, bagian, paragraf, definisi data, dan copybook dan kembalikan indeks bernomor atau bagian definisi tertentu. Gunakan ini ketika Anda perlu membaca file COBOL yang besar: panggilan pertama dengan mode='index' untuk mendapatkan daftar isi, kemudian panggil dengan mode='section' dan nomor bagian untuk mengambil definisi yang Anda perlukan saja.",
+    "err.path_required": "Kesalahan: 'jalur' diperlukan.",
+    "err.file_not_found": "Kesalahan: File tidak ditemukan: {path}",
+    "err.read_error": "Kesalahan saat membaca berkas: {e}",
+    "err.parse_error": "Kesalahan saat mengurai berkas: {e}",
+    "err.section_required": "Kesalahan: 'bagian' (bilangan bulat) diperlukan ketika mode='bagian'.",
+    "err.section_invalid": "Kesalahan: 'bagian' harus berupa bilangan bulat.",
+    "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'.",
+    "msg.no_entries": "(tidak ada definisi yang ditemukan)",
+    "param.path.description": "Jalur ke file COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Indeks untuk: {path}\n---\n{toc}\n---\nDefinisi total: {total}\nUntuk mengambil definisi, panggil cobol2idx dengan mode='section' dan nomor bagian.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Kesalahan: Bagian {section_num} tidak ditemukan. Rentang valid: 1..{last}."
+  },
+  "vi": {
+    "tool.description": "Phân tích tệp COBOL (.cbl/.cob/.cpy) thành các phần, phần, đoạn văn, định nghĩa dữ liệu và sách sao chép rồi trả về một chỉ mục được đánh số hoặc một phần định nghĩa cụ thể. Hãy sử dụng tính năng này khi bạn cần đọc một tệp COBOL lớn: trước tiên hãy gọi với mode='index' để lấy mục lục, sau đó gọi với mode='section' và số phần để chỉ truy xuất định nghĩa bạn cần.",
+    "err.path_required": "Lỗi: 'đường dẫn' là bắt buộc.",
+    "err.file_not_found": "Lỗi: Không tìm thấy tệp: {path}",
+    "err.read_error": "Lỗi đọc tệp: {e}",
+    "err.parse_error": "Lỗi phân tích tệp: {e}",
+    "err.section_required": "Lỗi: 'phần' (số nguyên) là bắt buộc khi mode='section'.",
+    "err.section_invalid": "Lỗi: 'phần' phải là số nguyên.",
+    "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'.",
+    "msg.no_entries": "(không tìm thấy định nghĩa)",
+    "param.path.description": "Đường dẫn đến tệp COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Chỉ mục cho: {path}\n---\n{toc}\n---\nTổng số định nghĩa: {total}\nĐể truy xuất định nghĩa, hãy gọi cobol2idx với mode='section' và số phần.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Lỗi: Không tìm thấy phần {section_num}. Phạm vi hợp lệ: 1..{last}."
+  },
+  "pl": {
+    "tool.description": "Podziel plik COBOL (.cbl/.cob/.cpy) na sekcje, sekcje, akapity, definicje danych i zeszyty, a następnie zwróć numerowany indeks lub określoną sekcję definicji. Użyj tego, jeśli chcesz przeczytać duży plik COBOL: najpierw wywołaj mode='index', aby uzyskać spis treści, następnie wywołaj mode='section' i numer sekcji, aby pobrać tylko potrzebną definicję.",
+    "err.path_required": "Błąd: wymagana jest ścieżka.",
+    "err.file_not_found": "Błąd: Nie znaleziono pliku: {path}",
+    "err.read_error": "Błąd odczytu pliku: {e}",
+    "err.parse_error": "Błąd podczas analizowania pliku: {e}",
+    "err.section_required": "Błąd: „sekcja” (liczba całkowita) jest wymagana, gdy tryb = „sekcja”.",
+    "err.section_invalid": "Błąd: „sekcja” musi być liczbą całkowitą.",
+    "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”.",
+    "msg.no_entries": "(nie znaleziono definicji)",
+    "param.path.description": "Ścieżka do pliku COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Indeks dla: {ścieżka}\n---\n{toc}\n---\nRazem definicje: {total}\nAby pobrać definicję, wywołaj cobol2idx z mode='section' i numerem sekcji.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Błąd: nie znaleziono sekcji {section_num}. Prawidłowy zakres: 1..{ostatni}."
+  },
+  "hi": {
+    "tool.description": "एक COBOL (.cbl/.cob/.cpy) फ़ाइल को डिवीजनों, अनुभागों, पैराग्राफों, डेटा परिभाषाओं और कॉपीबुक में पार्स करें और एक क्रमांकित सूचकांक या एक विशिष्ट परिभाषा अनुभाग लौटाएँ। जब आपको एक बड़ी COBOL फ़ाइल को पढ़ने की आवश्यकता हो तो इसका उपयोग करें: सामग्री की तालिका प्राप्त करने के लिए पहले mode='index' के साथ कॉल करें, फिर केवल वही परिभाषा प्राप्त करने के लिए mode='section' और अनुभाग संख्या के साथ कॉल करें जिसकी आपको आवश्यकता है।",
+    "err.path_required": "त्रुटि: 'पथ' आवश्यक है.",
+    "err.file_not_found": "त्रुटि: फ़ाइल नहीं मिली: {पथ}",
+    "err.read_error": "फ़ाइल पढ़ने में त्रुटि: {e}",
+    "err.parse_error": "फ़ाइल पार्स करने में त्रुटि: {e}",
+    "err.section_required": "त्रुटि: 'सेक्शन' (पूर्णांक) आवश्यक है जब मोड='सेक्शन'।",
+    "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए.",
+    "err.invalid_mode": "त्रुटि: अमान्य मोड '{मोड}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
+    "msg.no_entries": "(कोई परिभाषा नहीं मिली)",
+    "param.path.description": "COBOL (.cbl/.cob/.cpy) फ़ाइल का पथ।",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "इसके लिए सूचकांक: {पथ}\n---\n{toc}\n---\nकुल परिभाषाएँ: {कुल}\nकिसी परिभाषा को पुनः प्राप्त करने के लिए, cobol2idx को mode='section' और सेक्शन नंबर के साथ कॉल करें।",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "त्रुटि: अनुभाग {section_num} नहीं मिला. वैध सीमा: 1..{अंतिम}."
+  },
+  "ar": {
+    "tool.description": "قم بتحليل ملف COBOL (.cbl/.cob/.cpy) إلى أقسام وأقسام وفقرات وتعريفات بيانات ودفاتر وإرجاع فهرس مرقّم أو قسم تعريف محدد. استخدم هذا عندما تحتاج إلى قراءة ملف COBOL كبير: اتصل أولاً بالوضع='index' للحصول على جدول المحتويات، ثم اتصل بالوضع='القسم' ورقم القسم لاسترداد التعريف الذي تحتاجه فقط.",
+    "err.path_required": "خطأ: \"المسار\" مطلوب.",
+    "err.file_not_found": "خطأ: لم يتم العثور على الملف: {path}",
+    "err.read_error": "خطأ في قراءة الملف: {e}",
+    "err.parse_error": "خطأ في تحليل الملف: {e}",
+    "err.section_required": "خطأ: \"القسم\" (عدد صحيح) مطلوب عندما يكون الوضع = \"القسم\".",
+    "err.section_invalid": "خطأ: يجب أن يكون \"القسم\" عددًا صحيحًا.",
+    "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\".",
+    "msg.no_entries": "(لم يتم العثور على تعريفات)",
+    "param.path.description": "المسار إلى ملف COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "فهرس لـ: {path}\n---\n{توك}\n---\nإجمالي التعريفات: {total}\nلاسترداد تعريف، اتصل بـ cobol2idx باستخدام mode='section' ورقم القسم.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "خطأ: لم يتم العثور على القسم {section_num}. النطاق الصالح: 1..{الأخير}."
+  },
+  "sv": {
+    "tool.description": "Analysera en COBOL-fil (.cbl/.cob/.cpy) i divisioner, sektioner, stycken, datadefinitioner och copybooks och returnera ett numrerat index eller en specifik definitionssektion. Använd detta när du behöver läsa en stor COBOL-fil: ring först med mode='index' för att få innehållsförteckningen, ring sedan med mode='sektion' och sektionsnumret för att bara hämta den definition du behöver.",
+    "err.path_required": "Fel: 'sökväg' krävs.",
+    "err.file_not_found": "Fel: Filen hittades inte: {sökväg}",
+    "err.read_error": "Fel vid läsning av filen: {e}",
+    "err.parse_error": "Fel vid analys av fil: {e}",
+    "err.section_required": "Fel: 'sektion' (heltal) krävs när mode='sektion'.",
+    "err.section_invalid": "Fel: 'sektion' måste vara ett heltal.",
+    "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'.",
+    "msg.no_entries": "(inga definitioner hittades)",
+    "param.path.description": "Sökväg till filen COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Index för: {path}\n---\n{toc}\n---\nTotalt antal definitioner: {total}\nFör att hämta en definition, ring cobol2idx med mode='sektion' och sektionsnumret.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Fel: Avsnitt {section_num} hittades inte. Giltigt intervall: 1..{senast}."
+  },
+  "sw": {
+    "tool.description": "Changanua faili ya COBOL (.cbl/.cob/.cpy) katika mgawanyiko, sehemu, aya, ufafanuzi wa data na vitabu vya nakala na urudishe faharasa yenye nambari au sehemu mahususi ya ufafanuzi. Tumia hii unapohitaji kusoma faili kubwa ya COBOL: piga kwanza kwa mode='index' ili kupata jedwali la yaliyomo, kisha piga simu na mode='section' na nambari ya sehemu ili kupata ufafanuzi unaohitaji tu.",
+    "err.path_required": "Hitilafu: 'njia' inahitajika.",
+    "err.file_not_found": "Hitilafu: Faili haikupatikana: {path}",
+    "err.read_error": "Hitilafu katika kusoma faili: {e}",
+    "err.parse_error": "Hitilafu katika kuchanganua faili: {e}",
+    "err.section_required": "Hitilafu: 'sehemu' (idadi kamili) inahitajika wakati mode='sehemu'.",
+    "err.section_invalid": "Hitilafu: 'sehemu' lazima iwe nambari kamili.",
+    "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'.",
+    "msg.no_entries": "(hakuna ufafanuzi uliopatikana)",
+    "param.path.description": "Njia ya kwenda kwa faili ya COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Kielezo cha: {path}\n---\n{toc}\n---\nJumla ya ufafanuzi: {total}\nIli kupata ufafanuzi, piga simu kwa cobol2idx ukitumia mode='section' na nambari ya sehemu.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Hitilafu: Sehemu ya {section_num} haijapatikana. Masafa halali: 1..{last}."
+  },
+  "nb": {
+    "tool.description": "Parse en COBOL-fil (.cbl/.cob/.cpy) i divisjoner, seksjoner, avsnitt, datadefinisjoner og kopibøker og returner en nummerert indeks eller en spesifikk definisjonsdel. Bruk dette når du skal lese en stor COBOL-fil: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun definisjonen du trenger.",
+    "err.path_required": "Feil: 'bane' er påkrevd.",
+    "err.file_not_found": "Feil: Filen ble ikke funnet: {path}",
+    "err.read_error": "Feil ved lesing av fil: {e}",
+    "err.parse_error": "Feil ved parsing av fil: {e}",
+    "err.section_required": "Feil: 'seksjon' (heltall) kreves når modus='seksjon'.",
+    "err.section_invalid": "Feil: «seksjon» må være et heltall.",
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
+    "msg.no_entries": "(ingen definisjoner funnet)",
+    "param.path.description": "Banen til COBOL-filen (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Indeks for: {bane}\n---\n{toc}\n---\nTotale definisjoner: {total}\nFor å hente en definisjon, ring cobol2idx med mode='section' og seksjonsnummeret.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{siste}."
+  },
+  "nl": {
+    "tool.description": "Parseer een COBOL-bestand (.cbl/.cob/.cpy) in divisies, secties, alinea's, gegevensdefinities en schriften en retourneer een genummerde index of een specifieke definitiesectie. Gebruik dit wanneer u een groot COBOL-bestand moet lezen: roep eerst aan met mode='index' om de inhoudsopgave op te halen, en roep vervolgens aan met mode='section' en het sectienummer om alleen de definitie op te halen die u nodig heeft.",
+    "err.path_required": "Fout: 'pad' is vereist.",
+    "err.file_not_found": "Fout: Bestand niet gevonden: {path}",
+    "err.read_error": "Fout bij lezen bestand: {e}",
+    "err.parse_error": "Fout bij parseren van bestand: {e}",
+    "err.section_required": "Fout: 'section' (geheel getal) is vereist wanneer mode='section'.",
+    "err.section_invalid": "Fout: 'sectie' moet een geheel getal zijn.",
+    "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'.",
+    "msg.no_entries": "(geen definities gevonden)",
+    "param.path.description": "Pad naar het COBOL-bestand (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Index voor: {pad}\n---\n{toc}\n---\nTotaal definities: {totaal}\nOm een definitie op te halen, roept u cobol2idx aan met mode='section' en het sectienummer.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Fout: Sectie {section_num} niet gevonden. Geldig bereik: 1..{laatste}."
+  },
+  "fi": {
+    "tool.description": "Jäsennä COBOL-tiedosto (.cbl/.cob/.cpy) osioihin, osioihin, kappaleisiin, tietomääritelmiin ja kopiointikirjoihin ja palauta numeroitu hakemisto tai tietty määritelmäosio. Käytä tätä, kun sinun on luettava suuri COBOL-tiedosto: soita ensin mode='index' saadaksesi sisällysluettelon, sitten soita mode='section' ja osion numerolla hakeaksesi vain tarvitsemasi määritelmän.",
+    "err.path_required": "Virhe: polku vaaditaan.",
+    "err.file_not_found": "Virhe: Tiedostoa ei löydy: {path}",
+    "err.read_error": "Virhe luettaessa tiedostoa: {e}",
+    "err.parse_error": "Virhe jäsennettäessä tiedostoa: {e}",
+    "err.section_required": "Virhe: 'osa' (kokonaisluku) vaaditaan, kun mode='section'.",
+    "err.section_invalid": "Virhe: osan on oltava kokonaisluku.",
+    "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osaa'.",
+    "msg.no_entries": "(määritelmiä ei löytynyt)",
+    "param.path.description": "Polku COBOL-tiedostoon (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Hakemisto: {path}\n---\n{toc}\n---\nMääritelmät yhteensä: {total}\nHae määritelmä soittamalla cobol2idx:lle mode='section' ja osion numerolla.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Virhe: Osaa {section_num} ei löydy. Kelvollinen alue: 1..{last}."
+  },
+  "cs": {
+    "tool.description": "Analyzujte soubor COBOL (.cbl/.cob/.cpy) na oddíly, oddíly, odstavce, definice dat a sešity a vraťte očíslovaný rejstřík nebo konkrétní oddíl definice. Použijte to, když potřebujete přečíst velký soubor COBOL: nejprve zavolejte s mode='index', abyste získali obsah, pak zavolejte s mode='section' a číslem sekce, abyste získali pouze definici, kterou potřebujete.",
+    "err.path_required": "Chyba: je vyžadována cesta.",
+    "err.file_not_found": "Chyba: Soubor nenalezen: {cesta}",
+    "err.read_error": "Chyba při čtení souboru: {e}",
+    "err.parse_error": "Chyba při analýze souboru: {e}",
+    "err.section_required": "Chyba: 'section' (celé číslo) je vyžadováno, když mode='section'.",
+    "err.section_invalid": "Chyba: 'sekce' musí být celé číslo.",
+    "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“.",
+    "msg.no_entries": "(nenalezeny žádné definice)",
+    "param.path.description": "Cesta k souboru COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Index pro: {cesta}\n---\n{toc}\n---\nCelkové definice: {total}\nChcete-li získat definici, zavolejte cobol2idx s mode='section' a číslem sekce.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Chyba: Sekce {section_num} nebyla nalezena. Platný rozsah: 1..{poslední}."
+  },
+  "uk": {
+    "tool.description": "Розберіть файл COBOL (.cbl/.cob/.cpy) на підрозділи, розділи, параграфи, визначення даних і зошити та поверніть нумерований індекс або певний розділ визначення. Використовуйте це, коли вам потрібно прочитати великий файл COBOL: спочатку викликайте mode='index', щоб отримати зміст, потім викликайте mode='section' і номер розділу, щоб отримати лише потрібне визначення.",
+    "err.path_required": "Помилка: потрібен \"шлях\".",
+    "err.file_not_found": "Помилка: файл не знайдено: {path}",
+    "err.read_error": "Помилка читання файлу: {e}",
+    "err.parse_error": "Помилка аналізу файлу: {e}",
+    "err.section_required": "Помилка: \"розділ\" (ціле число) необхідний, якщо режим = \"розділ\".",
+    "err.section_invalid": "Помилка: \"розділ\" має бути цілим числом.",
+    "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ».",
+    "msg.no_entries": "(визначення не знайдено)",
+    "param.path.description": "Шлях до файлу COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Індекс для: {path}\n---\n{toc}\n---\nУсього визначень: {total}\nЩоб отримати визначення, викличте cobol2idx з mode='section' і номером розділу.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Помилка: розділ {section_num} не знайдено. Дійсний діапазон: 1..{last}."
+  },
+  "tr": {
+    "tool.description": "Bir COBOL (.cbl/.cob/.cpy) dosyasını bölümlere, bölümlere, paragraflara, veri tanımlarına ve kopya defterlerine ayrıştırın ve numaralandırılmış bir dizin veya belirli bir tanım bölümü döndürün. Büyük bir COBOL dosyasını okumanız gerektiğinde bunu kullanın: içindekiler tablosunu almak için önce mode='index' ile çağrı yapın, ardından yalnızca ihtiyacınız olan tanımı almak için mode='section' ve bölüm numarasıyla çağrı yapın.",
+    "err.path_required": "Hata: 'yol' gerekli.",
+    "err.file_not_found": "Hata: Dosya bulunamadı: {path}",
+    "err.read_error": "Dosya okunurken hata oluştu: {e}",
+    "err.parse_error": "Dosya ayrıştırılırken hata oluştu: {e}",
+    "err.section_required": "Hata: mode='bölüm' olduğunda 'bölüm' (tamsayı) gereklidir.",
+    "err.section_invalid": "Hata: 'bölüm' bir tamsayı olmalıdır.",
+    "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın.",
+    "msg.no_entries": "(tanım bulunamadı)",
+    "param.path.description": "COBOL (.cbl/.cob/.cpy) dosyasının yolu.",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Dizin için: {yol}\n---\n{toc}\n---\nToplam tanımlar: {toplam}\nBir tanımı almak için cobol2idx'i mode='section' ve bölüm numarasıyla çağırın.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Hata: {section_num}. Bölüm bulunamadı. Geçerli aralık: 1..{son}."
+  },
+  "th": {
+    "tool.description": "แยกไฟล์ COBOL (.cbl/.cob/.cpy) ออกเป็นฝ่าย ส่วน ย่อหน้า คำจำกัดความของข้อมูล และสมุดลอกแบบ แล้วส่งคืนดัชนีที่มีตัวเลขหรือส่วนคำจำกัดความเฉพาะ ใช้สิ่งนี้เมื่อคุณต้องการอ่านไฟล์ COBOL ขนาดใหญ่: ขั้นแรกให้เรียกด้วย mode='index' เพื่อรับสารบัญ จากนั้นให้เรียกด้วย mode='section' และหมายเลขส่วนเพื่อดึงเฉพาะคำจำกัดความที่คุณต้องการ",
+    "err.path_required": "ข้อผิดพลาด: จำเป็นต้องมี 'เส้นทาง'",
+    "err.file_not_found": "ข้อผิดพลาด: ไม่พบไฟล์: {path}",
+    "err.read_error": "เกิดข้อผิดพลาดในการอ่านไฟล์: {e}",
+    "err.parse_error": "เกิดข้อผิดพลาดในการแยกวิเคราะห์ไฟล์: {e}",
+    "err.section_required": "ข้อผิดพลาด: ต้องใช้ 'section' (จำนวนเต็ม) เมื่อ mode='section'",
+    "err.section_invalid": "ข้อผิดพลาด: 'ส่วน' ต้องเป็นจำนวนเต็ม",
+    "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'",
+    "msg.no_entries": "(ไม่พบคำจำกัดความ)",
+    "param.path.description": "เส้นทางไปยังไฟล์ COBOL (.cbl/.cob/.cpy)",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "ดัชนีสำหรับ: {path}\n---\n{โทค}\n---\nคำจำกัดความทั้งหมด: {รวม}\nหากต้องการดึงคำจำกัดความ ให้เรียก cobol2idx ด้วย mode='section' และหมายเลขส่วน",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "ข้อผิดพลาด: ไม่พบส่วน {section_num} ช่วงที่ถูกต้อง: 1..{last}"
+  },
+  "zh_CN": {
+    "tool.description": "将 COBOL (.cbl/.cob/.cpy) 文件解析为分区、部分、段落、数据定义和副本，并返回编号索引或特定定义部分。当您需要读取大型 COBOL 文件时，请使用此选项：首先使用 mode='index' 调用以获取目录，然后使用 mode='section' 和节号调用以仅检索您需要的定义。",
+    "err.path_required": "错误：“路径”是必需的。",
+    "err.file_not_found": "错误：找不到文件：{path}",
+    "err.read_error": "读取文件时出错：{e}",
+    "err.parse_error": "解析文件时出错：{e}",
+    "err.section_required": "错误：当 mode='section' 时，需要'section'（整数）。",
+    "err.section_invalid": "错误：“节”必须是整数。",
+    "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。",
+    "msg.no_entries": "（未找到定义）",
+    "param.path.description": "COBOL (.cbl/.cob/.cpy) 文件的路径。",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "索引：{路径}\n---\n{目录}\n---\n总定义：{total}\n要检索定义，请使用 mode='section' 和节号调用 cobol2idx。",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "错误：未找到第 {section_num} 部分。有效范围：1..{最后}。"
+  },
+  "zh_TW": {
+    "tool.description": "將 COBOL (.cbl/.cob/.cpy) 檔案解析為分區、部分、段落、資料定義和副本，並傳回編號索引或特定定義部分。當您需要讀取大型 COBOL 檔案時，請使用此選項：首先使用 mode='index' 呼叫以取得目錄，然後使用 mode='section' 和節號呼叫以僅擷取您需要的定義。",
+    "err.path_required": "錯誤：「路徑」是必需的。",
+    "err.file_not_found": "錯誤：找不到檔案：{path}",
+    "err.read_error": "讀取檔案時發生錯誤：{e}",
+    "err.parse_error": "解析文件時發生錯誤：{e}",
+    "err.section_required": "錯誤：當 mode='section' 時，需要'section'（整數）。",
+    "err.section_invalid": "錯誤：“節”必須是整數。",
+    "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
+    "msg.no_entries": "（未找到定義）",
+    "param.path.description": "COBOL (.cbl/.cob/.cpy) 檔案的路徑。",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "索引：{路徑}\n---\n{目錄}\n---\n總定義：{total}\n若要檢索定義，請使用 mode='section' 和節號呼叫 cobol2idx。",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "錯誤：未找到第 {section_num} 部分。有效範圍：1..{最後}。"
+  },
+  "bn": {
+    "tool.description": "একটি COBOL (.cbl/.cob/.cpy) ফাইলকে বিভাগ, বিভাগ, অনুচ্ছেদ, ডেটা সংজ্ঞা এবং কপিবুকগুলিতে পার্স করুন এবং একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট সংজ্ঞা বিভাগে ফেরত দিন। যখন আপনার একটি বড় COBOL ফাইল পড়ার প্রয়োজন হয় তখন এটি ব্যবহার করুন: বিষয়বস্তুর সারণী পেতে প্রথমে mode='index' দিয়ে কল করুন, তারপর mode='section' এবং আপনার প্রয়োজনীয় সংজ্ঞা পুনরুদ্ধার করতে বিভাগ নম্বর দিয়ে কল করুন।",
+    "err.path_required": "ত্রুটি: 'পথ' প্রয়োজন।",
+    "err.file_not_found": "ত্রুটি: ফাইল পাওয়া যায়নি: {path}",
+    "err.read_error": "ফাইল পড়ার ত্রুটি: {e}",
+    "err.parse_error": "ফাইল পার্সিং ত্রুটি: {e}",
+    "err.section_required": "ত্রুটি: মোড='বিভাগ' হলে 'বিভাগ' (পূর্ণসংখ্যা) প্রয়োজন।",
+    "err.section_invalid": "ত্রুটি: 'বিভাগ' অবশ্যই একটি পূর্ণসংখ্যা হতে হবে।",
+    "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।",
+    "msg.no_entries": "(কোন সংজ্ঞা পাওয়া যায়নি)",
+    "param.path.description": "COBOL (.cbl/.cob/.cpy) ফাইলের পথ।",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "এর জন্য সূচক: {path}\n---\n{toc}\n---\nমোট সংজ্ঞা: {total}\nএকটি সংজ্ঞা পুনরুদ্ধার করতে, cobol2idx কে mode='section' এবং সেকশন নম্বর সহ কল করুন।",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "ত্রুটি: বিভাগ {section_num} পাওয়া যায়নি। বৈধ ব্যাপ্তি: 1..শেষ}।"
+  },
+  "fa": {
+    "tool.description": "یک فایل COBOL (.cbl/.cob/.cpy) را به بخش‌ها، بخش‌ها، پاراگراف‌ها، تعاریف داده‌ها و کتاب‌های کپی تجزیه کنید و یک فهرست شماره‌دار یا یک بخش تعریف خاص را برگردانید. هنگامی که نیاز به خواندن یک فایل COBOL بزرگ دارید از این استفاده کنید: ابتدا با mode='index' تماس بگیرید تا فهرست مطالب را دریافت کنید، سپس با mode='section' و شماره بخش تماس بگیرید تا فقط تعریف مورد نیاز خود را بازیابی کنید.",
+    "err.path_required": "خطا: \"مسیر\" مورد نیاز است.",
+    "err.file_not_found": "خطا: فایل پیدا نشد: {path}",
+    "err.read_error": "خطا در خواندن فایل: {e}",
+    "err.parse_error": "خطا در تجزیه فایل: {e}",
+    "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
+    "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
+    "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
+    "msg.no_entries": "(هیچ تعریفی یافت نشد)",
+    "param.path.description": "مسیر فایل COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "فهرست برای: {path}\n---\n{toc}\n---\nکل تعاریف: {total}\nبرای بازیابی یک تعریف، cobol2idx را با mode='section' و شماره بخش تماس بگیرید.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{آخرین}."
+  },
+  "mn": {
+    "tool.description": "COBOL (.cbl/.cob/.cpy) файлыг хэсэг, хэсэг, догол мөр, өгөгдлийн тодорхойлолт, хуулбар дэвтэр болгон задалж, дугаарласан индекс эсвэл тодорхой тодорхойлолтын хэсгийг буцаана уу. Том COBOL файлыг унших шаардлагатай үед үүнийг ашиглана уу: эхлээд агуулгын хүснэгтийг авахын тулд mode='index' гэж залгаж, дараа нь mode='section' болон хэсгийн дугаарыг залгаж зөвхөн хэрэгтэй тодорхойлолтыг аваарай.",
+    "err.path_required": "Алдаа: \"зам\" шаардлагатай.",
+    "err.file_not_found": "Алдаа: Файл олдсонгүй: {path}",
+    "err.read_error": "Файлыг уншихад алдаа гарлаа: {e}",
+    "err.parse_error": "Файлыг задлахад алдаа гарлаа: {e}",
+    "err.section_required": "Алдаа: mode='section' үед 'section' (бүхэл тоо) шаардлагатай.",
+    "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
+    "err.invalid_mode": "Алдаа: '{mode}' горим буруу. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
+    "msg.no_entries": "(тодорхойлолт олдсонгүй)",
+    "param.path.description": "COBOL (.cbl/.cob/.cpy) файлын зам.",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Индекс: {path}\n---\n{ток}\n---\nНийт тодорхойлолт: {нийт}\nТодорхойлолтыг авахын тулд cobol2idx руу mode='section' болон хэсгийн дугаарыг залгана уу.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Алдаа: {section_num} хэсэг олдсонгүй. Хүчинтэй муж: 1..{сүүлийн}."
+  },
+  "mr": {
+    "tool.description": "COBOL (.cbl/.cob/.cpy) फाईलचे विभाजन, विभाग, परिच्छेद, डेटा व्याख्या आणि कॉपीबुकमध्ये पार्स करा आणि क्रमांकित अनुक्रमणिका किंवा विशिष्ट परिभाषा विभाग परत करा. जेव्हा तुम्हाला मोठी COBOL फाईल वाचायची असेल तेव्हा याचा वापर करा: सामग्री सारणी मिळवण्यासाठी प्रथम mode='index' सह कॉल करा, नंतर मोड='सेक्शन' आणि सेक्शन नंबरसह कॉल करा फक्त तुम्हाला आवश्यक असलेली व्याख्या पुनर्प्राप्त करण्यासाठी.",
+    "err.path_required": "त्रुटी: 'पथ' आवश्यक आहे.",
+    "err.file_not_found": "त्रुटी: फाइल सापडली नाही: {path}",
+    "err.read_error": "फाइल वाचण्यात त्रुटी: {e}",
+    "err.parse_error": "फाइल पार्स करताना त्रुटी: {e}",
+    "err.section_required": "त्रुटी: मोड='सेक्शन' असताना 'विभाग' (पूर्णांक) आवश्यक आहे.",
+    "err.section_invalid": "त्रुटी: 'विभाग' पूर्णांक असणे आवश्यक आहे.",
+    "err.invalid_mode": "एरर: अवैध मोड '{मोड}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
+    "msg.no_entries": "(कोणतीही व्याख्या सापडली नाही)",
+    "param.path.description": "COBOL (.cbl/.cob/.cpy) फाइलचा मार्ग.",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "यासाठी अनुक्रमणिका: {path}\n---\n{toc}\n---\nएकूण व्याख्या: {total}\nव्याख्या पुनर्प्राप्त करण्यासाठी, cobol2idx ला mode='section' आणि विभाग क्रमांकासह कॉल करा.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "एरर: विभाग {section_num} आढळला नाही. वैध श्रेणी: 1..{last}."
+  },
+  "el": {
+    "tool.description": "Αναλύστε ένα αρχείο COBOL (.cbl/.cob/.cpy) σε υποδιαιρέσεις, ενότητες, παραγράφους, ορισμούς δεδομένων και βιβλία αντιγραφής και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα ορισμού. Χρησιμοποιήστε το όταν χρειάζεται να διαβάσετε ένα μεγάλο αρχείο COBOL: πρώτα καλέστε με mode='index' για να λάβετε τον πίνακα περιεχομένων, μετά καλέστε με mode='section' και τον αριθμό ενότητας για να ανακτήσετε μόνο τον ορισμό που χρειάζεστε.",
+    "err.path_required": "Σφάλμα: Απαιτείται «διαδρομή».",
+    "err.file_not_found": "Σφάλμα: Το αρχείο δεν βρέθηκε: {path}",
+    "err.read_error": "Σφάλμα κατά την ανάγνωση του αρχείου: {e}",
+    "err.parse_error": "Σφάλμα ανάλυσης αρχείου: {e}",
+    "err.section_required": "Σφάλμα: απαιτείται 'τμήμα' (ακέραιος αριθμός) όταν mode='section'.",
+    "err.section_invalid": "Σφάλμα: Το 'τμήμα' πρέπει να είναι ακέραιος.",
+    "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία \"{mode}\". Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
+    "msg.no_entries": "(δεν βρέθηκαν ορισμοί)",
+    "param.path.description": "Διαδρομή προς το αρχείο COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Ευρετήριο για: {path}\n---\n{toc}\n---\nΣύνολο ορισμών: {total}\nΓια να ανακτήσετε έναν ορισμό, καλέστε το cobol2idx με mode='section' και τον αριθμό ενότητας.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 1..{τελευταίο}."
+  },
+  "he": {
+    "tool.description": "נתח קובץ COBOL (.cbl/.cob/.cpy) לחטיבות, קטעים, פסקאות, הגדרות נתונים וספרי העתקה והחזר אינדקס ממוספר או קטע הגדרה ספציפי. השתמש בזה כאשר אתה צריך לקרוא קובץ COBOL גדול: תחילה התקשר עם mode='index' כדי לקבל את תוכן העניינים, ואז התקשר עם mode='section' ומספר המדור כדי לאחזר רק את ההגדרה שאתה צריך.",
+    "err.path_required": "שגיאה: נדרש 'נתיב'.",
+    "err.file_not_found": "שגיאה: הקובץ לא נמצא: {path}",
+    "err.read_error": "שגיאה בקריאת הקובץ: {e}",
+    "err.parse_error": "שגיאה בניתוח הקובץ: {e}",
+    "err.section_required": "שגיאה: 'קטע' (מספר שלם) נדרש כאשר mode='section'.",
+    "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
+    "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
+    "msg.no_entries": "(לא נמצאו הגדרות)",
+    "param.path.description": "נתיב לקובץ COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "אינדקס עבור: {path}\n---\n{toc}\n---\nסה\"כ הגדרות: {סה\"כ}\nכדי לאחזר הגדרה, התקשר ל-cobol2idx עם mode='section' ומספר המדור.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "שגיאה: הקטע {section_num} לא נמצא. טווח חוקי: 1..{אחרון}."
+  },
+  "hu": {
+    "tool.description": "Elemezze a COBOL (.cbl/.cob/.cpy) fájlt részekre, szakaszokra, bekezdésekre, adatdefiníciókra és másolókönyvekre, és adja vissza a számozott indexet vagy egy meghatározott definíciós részt. Használja ezt, ha nagy COBOL fájlt kell olvasnia: először hívja meg a mode='index' paramétert a tartalomjegyzék eléréséhez, majd hívja meg a mode='section' és a szakaszszámot, hogy csak a szükséges definíciót kérje le.",
+    "err.path_required": "Hiba: az „útvonal” megadása kötelező.",
+    "err.file_not_found": "Hiba: A fájl nem található: {path}",
+    "err.read_error": "Hiba a fájl olvasásakor: {e}",
+    "err.parse_error": "Hiba a fájl elemzése során: {e}",
+    "err.section_required": "Hiba: 'section' (egész szám) szükséges, ha mode='section'.",
+    "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
+    "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
+    "msg.no_entries": "(nem található definíció)",
+    "param.path.description": "A COBOL (.cbl/.cob/.cpy) fájl elérési útja.",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Index ehhez: {path}\n---\n{toc}\n---\nÖsszes definíció: {total}\nEgy definíció lekéréséhez hívja a cobol2idx-et a mode='section' paraméterrel és a szakaszszámmal.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Hiba: A(z) {section_num} szakasz nem található. Érvényes tartomány: 1..{last}."
+  },
+  "ro": {
+    "tool.description": "Analizați un fișier COBOL (.cbl/.cob/.cpy) în diviziuni, secțiuni, paragrafe, definiții de date și caiete și returnați un index numerotat sau o anumită secțiune de definiție. Utilizați acest lucru atunci când trebuie să citiți un fișier COBOL mare: mai întâi apelați cu mode='index' pentru a obține cuprinsul, apoi apelați cu mode='section' și numărul secțiunii pentru a prelua doar definiția de care aveți nevoie.",
+    "err.path_required": "Eroare: „calea” este necesară.",
+    "err.file_not_found": "Eroare: fișierul nu a fost găsit: {cale}",
+    "err.read_error": "Eroare la citirea fișierului: {e}",
+    "err.parse_error": "Eroare la analizarea fișierului: {e}",
+    "err.section_required": "Eroare: „secțiune” (întreg) este necesară atunci când mode = „secțiune”.",
+    "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
+    "err.invalid_mode": "Eroare: modul „{mode}” nevalid. Folosiți „index” sau „secțiune”.",
+    "msg.no_entries": "(nu au fost găsite definiții)",
+    "param.path.description": "Calea către fișierul COBOL (.cbl/.cob/.cpy).",
+    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
+    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
+    "msg.index_output": "Index pentru: {cale}\n---\n{toc}\n---\nTotal definiții: {total}\nPentru a prelua o definiție, apelați cobol2idx cu mode='section' și numărul secțiunii.",
+    "x_search_terms": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "x_search_terms_en": [
+      "read cobol file",
+      "cobol file index",
+      "cobol program structure",
+      "cobol division",
+      "cobol paragraph"
+    ],
+    "err.section_not_found": "Eroare: secțiunea {section_num} nu a fost găsită. Interval valid: 1..{last}."
+  }
+}

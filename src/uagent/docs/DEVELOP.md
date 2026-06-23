@@ -262,8 +262,10 @@ The `*2idx` tools let you fetch a numbered index or a specific definition sectio
 | `cs2idx`  | .cs             | regex          | namespace, class, struct, record, interface, enum, property, constructor, method, delegate, event, operator |
 | `dart2idx` | .dart          | regex          | library, mixin, extension on, typedef, class, factory, getter/setter, top-level function |
 | `cpp2idx` | .c/.cpp/.h/.hpp | regex         | namespace, class, struct, union, enum, template, function, constructor, destructor, method, field, typedef, using |
+| `cobol2idx` | .cbl/.cob/.cpy | regex          | division, section, paragraph, data (01-66, 77, 78), program-id, fd, select, copy, declaratives |
 | `rs2idx`  | .rs             | regex          | mod, struct, enum, trait, impl, fn, const, type alias, macro_rules! |
 | `go2idx`  | .go             | regex          | package, type struct/interface, func (including receiver), const, var |
+| `php2idx` | .php            | regex          | namespace, class, interface, trait, enum, function, method, const, property, define |
 | `swift2idx` | .swift        | regex          | class, struct, enum, protocol, extension, func, init/deinit/subscript, var/let, case |
 | `kt2idx`  | .kt             | regex          | class, interface, object, enum class, data class, fun, val/var, init, companion, extension function |
 

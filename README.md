@@ -29,7 +29,7 @@
 
 - **Runs locally** on your machine. Your data stays with you (except API calls you make).
 - **Provider freedom**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ providers, all accessible from a single interface. Swap between them by reconfiguring environment variables — no reinstall, no migration.
-- **116 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **67 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
+- **131 tools**: File I/O, web search, image generation, Gmail, BLE device scanning, MCP server integration — **76 are parallel-safe** (up to 8 execute concurrently via thread pool, configurable via `UAGENT_PARALLEL_WORKERS`). When the LLM fires multiple tool calls at once, uag automatically parallelizes them.
 - **3 UIs + A2A**: CLI, GUI, Web, and Agent-to-Agent protocol. Same engine, any interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
 - **Agent Skills**: Install community-built skills from the marketplace. Extend uag endlessly.
@@ -57,7 +57,7 @@ All providers share the same toolset and interface. Switch by setting `UAGENT_PR
 ### ⚡ Parallel Tool Execution
 
 When the LLM requests multiple tools simultaneously, uag **automatically parallelizes** them.
-67 tools are marked `x_parallel_safe` and execute concurrently via a `ThreadPoolExecutor` (8 threads by default; set `UAGENT_PARALLEL_WORKERS` to change).
+76 tools are marked `x_parallel_safe` and execute concurrently via a `ThreadPoolExecutor` (8 threads by default; set `UAGENT_PARALLEL_WORKERS` to change).
 
 **Example**: Ask "Check the weather in Nordic capitals" → LLM fires `search_web` × 5 countries → all 5 searches run in parallel → results collected in one batch.
 
@@ -69,7 +69,7 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 - **Reload past sessions** with `:load <index>` — pick up where you left off.
 - **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 116 Tools
+### 🛠 131 Tools
 
 | Category | Tools |
 |---|---|
@@ -79,11 +79,11 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **Documents** | PDF/PPTX/DOCX/RTF/ODT extraction, Excel structured extraction |
 | **Communication** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — see [COMMUNICATION.md](COMMUNICATION.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **11 source code navigators (idx family)** |
+| **Dev Tools** | git_ops, python_compile, lint_format, run_tests, db_query, **13 source code navigators (idx family)** |
 | **MCP** | Connect to external MCP servers, list tools, execute |
 | **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
 | **System** | env vars, system specs, time, date calculation |
-| **Source Nav** | **11 idx tools** for Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin — get a function/class index or specific definition without reading the whole file |
+| **Source Nav** | **13 idx tools** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — get a function/class index or specific definition without reading the whole file |
 
 ### 🖥 3 Interfaces + A2A
 

@@ -29,7 +29,7 @@
 
 - **Toimii paikallisesti** koneellasi. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
 - **Toimittajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Yli 15 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
-- **112 työkalua**: tiedostojen I/O, verkkohaku, kuvan luominen, BLE-laitteiden skannaus, MCP-palvelinintegrointi – ja **55 niistä toimii rinnakkain**. Kun LLM käynnistää useita työkalukutsuja kerralla, uag suorittaa ne automaattisesti säiejoukon kautta.
+- **131 työkalua**: tiedostojen I/O, verkkohaku, kuvan luominen, BLE-laitteiden skannaus, MCP-palvelinintegrointi – ja **76 niistä toimii rinnakkain**. Kun LLM käynnistää useita työkalukutsuja kerralla, uag suorittaa ne automaattisesti säiejoukon kautta.
 - **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent -protokolla. Sama moottori, mikä tahansa käyttöliittymä.
 - **IoT-valmius**: SwitchBot, ECHONET Lite, Matter, UPnP – ohjaa kodin laitteita tekoälyn avulla.
 - **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
@@ -57,7 +57,7 @@ Kaikilla palveluntarjoajilla on sama työkalusarja ja käyttöliittymä. Vaihda 
 ### ⚡ Työkalun rinnakkaissuoritus
 
 Kun LLM pyytää useita työkaluja samanaikaisesti, uag **rinnakkaisee** ne automaattisesti.
-55 työkalua on merkitty `x_parallel_safe`, ja ne suoritetaan samanaikaisesti 4-säikeisen ThreadPoolExecutorin kautta.
+76 työkalua on merkitty `x_parallel_safe`, ja ne suoritetaan samanaikaisesti 4-säikeisen ThreadPoolExecutorin kautta.
 
 **Esimerkki**: Kysy "Tarkista sää Pohjoismaiden pääkaupungeissa" → LLM laukaisee `search_web` × 5 maata → kaikki 5 hakua suoritetaan rinnakkain → tulokset kerätään yhdessä erässä.
 
@@ -69,7 +69,7 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 - **Lataa aiemmat istunnot** komennolla `:load <index>` – jatka siitä, mihin jäit.
 - **Työkalun tulosten välimuisti** välttää redundantin uudelleensuorituksen, kun sama työkalukutsu toistuu.
 
-### 🛠 112 Työkalut
+### 🛠 131 Työkalut
 
 | Luokka | Työkalut |
 |---|---|
@@ -78,7 +78,7 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 | **Media** | genero_image, analysoi_kuva, img2img, audio_speech, audio_transcribe |
 | **Asiakirjat** | PDF/PPTX/DOCX/RTF/ODT-uutto, Excel-strukturoitu poiminta |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
+| **Kehittäjätyökalut** | git_ops, python_compile, lint_format, run_tests, db_query, **13 idx tools** |
 | **MCP** | Yhdistä ulkoisiin MCP-palvelimiin, luetteloi työkalut, suorita |
 | **A2A** | Agenttien välinen viestintä (muiden uag-esiintymien tai A2A-yhteensopivien palvelimien kanssa) |
 | **Järjestelmä** | env vars, järjestelmän tiedot, aika, päivämäärälaskenta |

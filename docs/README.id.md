@@ -29,7 +29,7 @@
 
 - **Berjalan secara lokal** di mesin Anda. Data Anda tetap bersama Anda (kecuali panggilan API yang Anda lakukan).
 - **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ penyedia, semuanya dapat diakses dari satu antarmuka. Bertukar di antara keduanya dengan mengonfigurasi ulang variabel lingkungan — tanpa instalasi ulang, tanpa migrasi.
-- **112 alat**: I/O file, pencarian web, pembuatan gambar, pemindaian perangkat BLE, integrasi server MCP — dan **66 di antaranya berjalan secara paralel**. Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis mengeksekusinya melalui kumpulan thread.
+- **131 alat**: I/O file, pencarian web, pembuatan gambar, pemindaian perangkat BLE, integrasi server MCP — dan **76 di antaranya berjalan secara paralel**. Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis mengeksekusinya melalui kumpulan thread.
 - **3 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
 - **Siap IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — kendalikan perangkat rumah Anda melalui AI.
 - **Keterampilan Agen**: Instal keterampilan yang dibangun komunitas dari pasar. Perpanjang uag tanpa henti.
@@ -57,7 +57,7 @@ Semua penyedia berbagi perangkat dan antarmuka yang sama. Beralih berdasarkan pe
 ### ⚡ Eksekusi Alat Paralel
 
 Saat LLM meminta beberapa alat secara bersamaan, uag **secara otomatis memparalelkannya**.
-55 alat ditandai `x_parallel_safe` dan dieksekusi secara bersamaan melalui `ThreadPoolExecutor` 4-thread.
+76 alat ditandai `x_parallel_safe` dan dieksekusi secara bersamaan melalui `ThreadPoolExecutor` 4-thread.
 
 **Contoh**: Tanyakan "Periksa cuaca di ibu kota Nordik" → LLM mengaktifkan `search_web` × 5 negara → kelima penelusuran dijalankan secara paralel → hasil dikumpulkan dalam satu kelompok.
 
@@ -69,7 +69,7 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 - **Muat ulang sesi sebelumnya** dengan `:load <index>` — lanjutkan dari bagian terakhir yang Anda tinggalkan.
 - **Caching hasil alat** menghindari eksekusi ulang yang berlebihan ketika panggilan alat yang sama diulang.
 
-### 🛠 112 Alat
+### 🛠 131 Alat
 
 | Kategori | Alat |
 |---|---|
@@ -78,7 +78,7 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 | **Media** | menghasilkan_gambar, menganalisis_gambar, img2img, audio_speech, audio_transkripsikan |
 | **Dokumen** | Ekstraksi PDF/PPTX/DOCX/RTF/ODT, ekstraksi terstruktur Excel |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Materi, UPnP |
-| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
+| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **13 idx tools** |
 | **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan |
 | **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
 | **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal |

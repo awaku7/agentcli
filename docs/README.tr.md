@@ -29,7 +29,7 @@
 
 - **Kendi makinenizde yerel olarak çalışır.** Verileriniz sizde kalır (yaptığınız API çağrıları hariç).
 - **Sağlayıcı özgürlüğü**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15'ten fazla sağlayıcı, tek bir arayüzden erişilebilir. Ortam değişkenlerini yeniden yapılandırarak aralarında geçiş yapın — yeniden kurulum veya taşıma gerektirmez.
-- **112 araç**: Dosya G/Ç, web arama, görsel oluşturma, BLE cihaz taraması, MCP sunucu entegrasyonu — ve bunların **55'i paralel çalışır**. LLM aynı anda birden çok araç çağrısı yaptığında, uag bunları otomatik olarak bir iş parçacığı havuzu üzerinden yürütür.
+- **131 araç**: Dosya G/Ç, web arama, görsel oluşturma, BLE cihaz taraması, MCP sunucu entegrasyonu — ve bunların **76'i paralel çalışır**. LLM aynı anda birden çok araç çağrısı yaptığında, uag bunları otomatik olarak bir iş parçacığı havuzu üzerinden yürütür.
 - **3 Arayüz + A2A**: CLI, GUI, Web ve Ajanlar Arası Protokol. Aynı motor, herhangi bir arayüz.
 - **IoT hazır**: SwitchBot, ECHONET Lite, Matter, UPnP — ev cihazlarınızı AI ile kontrol edin.
 - **Ajan Becerileri**: Pazar yerinden topluluk tarafından oluşturulmuş becerileri yükleyin. uag'ı sınırsızca genişletin.
@@ -57,7 +57,7 @@ Tüm sağlayıcılar aynı araç setini ve arayüzü paylaşır. `UAGENT_PROVIDE
 ### ⚡ Paralel Araç Yürütme
 
 LLM aynı anda birden çok araç talep ettiğinde, uag bunları **otomatik olarak paralelleştirir**.
-55 araç `x_parallel_safe` olarak işaretlenmiştir ve 4 iş parçacıklı bir `ThreadPoolExecutor` aracılığıyla eşzamanlı olarak çalışır.
+76 araç `x_parallel_safe` olarak işaretlenmiştir ve 4 iş parçacıklı bir `ThreadPoolExecutor` aracılığıyla eşzamanlı olarak çalışır.
 
 **Örnek**: "İskandinav başkentlerinde hava durumunu kontrol et" → LLM, `search_web` × 5 ülkeyi başlatır → 5 aramanın tümü paralel çalışır → sonuçlar tek bir toplu işte toplanır.
 
@@ -69,7 +69,7 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, DB
 - **Geçmiş oturumları yeniden yükleyin** `:load <index>` ile — kaldığınız yerden devam edin.
 - **Araç sonuç önbellekleme**, aynı araç çağrısı tekrarlandığında gereksiz yeniden yürütmeyi önler.
 
-### 🛠 112 Araç
+### 🛠 131 Araç
 
 | Kategori | Araçlar |
 |---|---|
@@ -78,7 +78,7 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, DB
 | **Medya** | görsel_oluşturma, görsel_analiz, img2img, ses_konuşma, ses_yazıya_dökme |
 | **Belgeler** | PDF/PPTX/DOCX/RTF/ODT çıkarımı, Excel yapılandırılmış çıkarımı |
 | **IoT** | SwitchBot (Bulut + BLE), ECHONET Lite, Matter, UPnP |
-| **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
+| **Geliştirme Araçları** | git_ops, python_compile, lint_format, run_tests, db_query, **13 idx tools** |
 | **MCP** | Harici MCP sunucularına bağlanma, araçları listeleme, yürütme |
 | **A2A** | Ajanlar arası iletişim (diğer uag örnekleri veya A2A uyumlu sunucularla) |
 | **Sistem** | ortam değişkenleri, sistem özellikleri, saat, tarih hesaplama |

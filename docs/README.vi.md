@@ -29,7 +29,7 @@
 
 - **Chạy cục bộ** trên máy của bạn. Dữ liệu của bạn vẫn ở bên bạn (ngoại trừ các lệnh gọi API bạn thực hiện).
 - **Quyền tự do của nhà cung cấp**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Hơn 15 nhà cung cấp, tất cả đều có thể truy cập từ một giao diện duy nhất. Hoán đổi giữa chúng bằng cách cấu hình lại các biến môi trường — không cần cài đặt lại, không di chuyển.
-- **112 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, quét thiết bị BLE, tích hợp máy chủ MCP — và **55 trong số đó chạy song song**. Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động thực thi chúng thông qua nhóm luồng.
+- **131 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, quét thiết bị BLE, tích hợp máy chủ MCP — và **76 trong số đó chạy song song**. Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động thực thi chúng thông qua nhóm luồng.
 - **3 UI + A2A**: CLI, GUI, Web và giao thức Agent-to-Agent. Cùng một động cơ, bất kỳ giao diện nào.
 - **Sẵn sàng cho IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — điều khiển các thiết bị trong nhà của bạn thông qua AI.
 - **Kỹ năng đại lý**: Cài đặt các kỹ năng do cộng đồng xây dựng từ thị trường. Mở rộng uag vô tận.
@@ -57,7 +57,7 @@ Tất cả các nhà cung cấp đều có chung bộ công cụ và giao diện
 ### ⚡ Thực thi công cụ song song
 
 Khi LLM yêu cầu nhiều công cụ cùng lúc, uag **tự động song song** chúng.
-55 công cụ được đánh dấu `x_parallel_safe` và thực thi đồng thời thông qua `ThreadPoolExecutor` 4 luồng.
+76 công cụ được đánh dấu `x_parallel_safe` và thực thi đồng thời thông qua `ThreadPoolExecutor` 4 luồng.
 
 **Ví dụ**: Hỏi "Kiểm tra thời tiết ở các thủ đô Bắc Âu" → LLM kích hoạt `search_web` × 5 quốc gia → tất cả 5 tìm kiếm chạy song song → kết quả được thu thập trong một đợt.
 
@@ -69,7 +69,7 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 - **Tải lại các phiên trước** bằng `:load <index>` — tiếp tục từ nơi bạn đã dừng lại.
 - **Bộ nhớ đệm kết quả công cụ** tránh việc thực thi lại dư thừa khi lệnh gọi công cụ tương tự lặp lại.
 
-### 🛠 112 Công cụ
+### 🛠 131 Công cụ
 
 | Danh mục | Công cụ |
 |---|---|
@@ -78,7 +78,7 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 | **Truyền thông** | tạo_hình ảnh, phân tích_hình ảnh, img2img, audio_speech, audio_transcribe |
 | **Tài liệu** | Trích xuất PDF/PPTX/DOCX/RTF/ODT, trích xuất có cấu trúc Excel |
 | **IoT** | SwitchBot (Đám mây + BLE), ECHONET Lite, Matter, UPnP |
-| **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
+| **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **13 idx tools** |
 | **MCP** | Kết nối với máy chủ MCP bên ngoài, liệt kê các công cụ, thực thi |
 | **A2A** | Giao tiếp giữa các đại lý (với các phiên bản uag khác hoặc máy chủ tương thích với A2A) |
 | **Hệ thống** | env vars, thông số kỹ thuật hệ thống, tính toán thời gian, ngày tháng |

@@ -29,7 +29,7 @@
 
 - **Kjører lokalt** på maskinen din. Dataene dine forblir hos deg (unntatt API-anrop du foretar).
 - **Leverandørfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ leverandører, alle tilgjengelige fra ett enkelt grensesnitt. Bytt mellom dem ved å rekonfigurere miljøvariabler – ingen reinstallering, ingen migrering.
-- **112 verktøy**: Fil-I/O, nettsøk, bildegenerering, BLE-enhetsskanning, MCP-serverintegrasjon — og **55 av dem kjøres parallelt**. Når LLM utløser flere verktøyanrop samtidig, kjører uag dem automatisk via en trådpool.
+- **131 verktøy**: Fil-I/O, nettsøk, bildegenerering, BLE-enhetsskanning, MCP-serverintegrasjon — og **76 av dem kjøres parallelt**. Når LLM utløser flere verktøyanrop samtidig, kjører uag dem automatisk via en trådpool.
 - **3 brukergrensesnitt + A2A**: CLI, GUI, Web og Agent-to-Agent-protokoll. Samme motor, hvilket som helst grensesnitt.
 - **IoT-klar**: SwitchBot, ECHONET Lite, Matter, UPnP — kontroller hjemmeenhetene dine gjennom AI.
 - **Agentferdigheter**: Installer fellesskapsbygde ferdigheter fra markedsplassen. Forleng uag uendelig.
@@ -57,7 +57,7 @@ Alle leverandører deler samme verktøysett og grensesnitt. Bytt ved å sette 'U
 ### ⚡ Parallell verktøyutførelse
 
 Når LLM ber om flere verktøy samtidig, uag **paralliserer automatisk** dem.
-55 verktøy er merket "x_parallel_safe" og kjøres samtidig via en 4-tråds "ThreadPoolExecutor".
+76 verktøy er merket "x_parallel_safe" og kjøres samtidig via en 4-tråds "ThreadPoolExecutor".
 
 **Eksempel**: Spør "Sjekk været i nordiske hovedsteder" → LLM avfyrer `search_web` × 5 land → alle 5 søkene kjøres parallelt → resultater samlet i én batch.
 
@@ -69,7 +69,7 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 - **Last inn tidligere økter på nytt** med `:load <indeks>` – fortsett der du slapp.
 - **Bufring av verktøyresultat** unngår redundant re-utførelse når det samme verktøykallet gjentas.
 
-### 🛠 112 Verktøy
+### 🛠 131 Verktøy
 
 | Kategori | Verktøy |
 |---|---|
@@ -78,11 +78,11 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 | **Media** | generere_bilde, analyse_bilde, img2img, audio_tale, audio_transkribering |
 | **Dokumenter** | PDF/PPTX/DOCX/RTF/ODT-utvinning, Excel-strukturert utvinning |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Utviklerverktøy**, ****11 idx-verktøy** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 idx-verktøy** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen** |
+| **Utviklerverktøy**, ****13 idx-verktøy** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen** | git_ops, python_compile, lint_format, run_tests, db_query, ****13 idx-verktøy** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen** |
 | **MCP** | Koble til eksterne MCP-servere, liste opp verktøy, kjør |
 | **A2A** | Agent-til-agent-kommunikasjon (med andre uag-instanser eller A2A-kompatible servere) |
 | **System** | env vars, systemspesifikasjoner, tid, datoberegning |
-| **Kildekodenavigasjon** | **11 idx-verktøy** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen |
+| **Kildekodenavigasjon** | **13 idx-verktøy** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen |
 
 ### 🖥 3 grensesnitt + A2A
 

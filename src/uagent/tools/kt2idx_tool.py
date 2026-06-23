@@ -125,7 +125,7 @@ class _KtIndexBuilder:
         self.entries = entries
 
     def build_index(self):
-        if not self.entries: return "(no definitions found)"
+        if not self.entries: return _("msg.no_entries", default="(no definitions found)")
         lines = []; idx = 0
         for e in self.entries:
             idx += 1; lines.append(f"  {idx}. L{e['line']} {e['label']}")
@@ -147,19 +147,48 @@ class _KtIndexBuilder:
 
 def run_tool(args):
     path, mode = args.get("path", ""), args.get("mode", "index")
-    if not path: return "Error: 'path' is required."
-    if not os.path.isfile(path): return f"Error: File not found: {path}"
+    if not path:
+        return _("err.path_required", default="Error: 'path' is required.")
+    if not os.path.isfile(path):
+        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
     try:
         with open(path, "r", encoding="utf-8") as _f:
             _source = _f.read()
         builder = _KtIndexBuilder(_source, filepath=path)
     except Exception as e:
-        return f"Error parsing file: {e}"
+        return _("err.parse_error", default="Error parsing file: {e}", e=str(e))
     if mode == "index":
-        return f"Index for: {path}\n---\n{builder.build_index()}\n---\nTotal definitions: {builder.section_count()}"
+        toc = builder.build_index()
+        total = builder.section_count()
+        return _(
+            "msg.index_output",
+            default=(
+                "Index for: {path}\n"
+                "---\n"
+                "{toc}\n"
+                "---\n"
+                "Total definitions: {total}\n"
+                "To retrieve a definition, call kt2idx with mode='section' and the section number."
+            ),
+            path=path,
+            total=total,
+            toc=toc,
+        )
     elif mode == "section":
         sn = args.get("section")
-        if sn is None: return "Error: 'section' (integer) is required."
-        c = builder.get_section(int(sn))
-        return c if c is not None else f"Error: Section {sn} not found."
-    return "Error: Invalid mode."
+        if sn is None:
+            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+        try:
+            c = builder.get_section(int(sn))
+        except (TypeError, ValueError):
+            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(sn))
+        if c is None:
+            total = builder.section_count()
+            return _(
+                "err.section_not_found",
+                default="Error: Section {section_num} not found. Valid range: 1..{last}.",
+                section_num=sn,
+                last=total,
+            )
+        return c
+    return _("err.invalid_mode", default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.", mode=mode)

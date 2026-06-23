@@ -29,7 +29,7 @@
 
 - **Běží lokálně** na vašem počítači. Vaše data zůstanou s vámi (s výjimkou volání API, která provedete).
 - **Svoboda poskytovatelů**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ poskytovatelů, vše přístupné z jediného rozhraní. Přepínejte mezi nimi překonfigurováním proměnných prostředí – žádná přeinstalace, žádná migrace.
-- **111 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, skenování zařízení BLE, integrace serveru MCP – a **66 z nich běží paralelně**. Když LLM spustí více volání nástrojů najednou, uag je automaticky provede prostřednictvím fondu vláken.
+- **131 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, skenování zařízení BLE, integrace serveru MCP – a **76 z nich běží paralelně**. Když LLM spustí více volání nástrojů najednou, uag je automaticky provede prostřednictvím fondu vláken.
 - **3 UI + A2A**: CLI, GUI, Web a Agent-to-Agent protokol. Stejný engine, jakékoli rozhraní.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP – ovládejte svá domácí zařízení pomocí AI.
 - **Schopnosti agentů**: Nainstalujte si dovednosti vytvořené komunitou z trhu. Prodlužujte uag donekonečna.
@@ -57,7 +57,7 @@ Všichni poskytovatelé sdílejí stejnou sadu nástrojů a rozhraní. Přepnět
 ### ⚡ Paralelní provádění nástroje
 
 Když LLM požaduje více nástrojů současně, uag je **automaticky paralelizuje**.
-55 nástrojů je označeno `x_parallel_safe` a spouští se souběžně prostřednictvím 4vláknového `ThreadPoolExecutor`.
+76 nástrojů je označeno `x_parallel_safe` a spouští se souběžně prostřednictvím 4vláknového `ThreadPoolExecutor`.
 
 **Příklad**: Zeptejte se „Zkontrolujte počasí v severských metropolích“ → LLM spustí `search_web` × 5 zemí → všech 5 vyhledávání běží paralelně → výsledky shromážděné v jedné dávce.
 
@@ -69,7 +69,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 - **Znovu načtěte minulé relace** pomocí `:load <index>` – pokračujte tam, kde jste skončili.
 - **Ukládání výsledků nástroje do mezipaměti** zabraňuje nadbytečnému opětovnému spuštění, když se opakuje stejné volání nástroje.
 
-### 🛠 112 nástrojů
+### 🛠 131 nástrojů
 
 | Kategorie | Nástroje |
 |---|---|
@@ -78,7 +78,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 | **Média** | generovat_image, analyzovat_obraz, img2img, audio_speech, audio_transscribe |
 | **Dokumenty** | Extrakce PDF/PPTX/DOCX/RTF/ODT, strukturovaná extrakce Excel |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **idx tools** |
+| **Nástroje pro vývojáře** | git_ops, python_compile, lint_format, run_tests, db_query, **13 idx tools** |
 | **MCP** | Připojte se k externím serverům MCP, vypište nástroje, spusťte |
 | **A2A** | Komunikace agent-agent (s jinými instancemi uag nebo servery kompatibilními s A2A) |
 | **Systém** | env vars, systémové specifikace, čas, výpočet data |

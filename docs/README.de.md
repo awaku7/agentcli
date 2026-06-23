@@ -29,7 +29,7 @@
 
 - **Läuft lokal** auf Ihrem Computer. Ihre Daten bleiben bei Ihnen (mit Ausnahme von API-Aufrufen, die Sie tätigen).
 - **Anbieterfreiheit**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ Anbieter, alle über eine einzige Schnittstelle zugänglich. Wechseln Sie zwischen ihnen, indem Sie Umgebungsvariablen neu konfigurieren – keine Neuinstallation, keine Migration.
-- **112 Tools**: Datei-E/A, Websuche, Bildgenerierung, BLE-Gerätescan, MCP-Serverintegration – und **66 davon laufen parallel**. Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, führt uag diese automatisch über einen Thread-Pool aus.
+- **131 Tools**: Datei-E/A, Websuche, Bildgenerierung, BLE-Gerätescan, MCP-Serverintegration – und **76 davon laufen parallel**. Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, führt uag diese automatisch über einen Thread-Pool aus.
 - **3 UIs + A2A**: CLI, GUI, Web und Agent-to-Agent-Protokoll. Gleiche Engine, beliebige Schnittstelle.
 - **IoT-fähig**: SwitchBot, ECHONET Lite, Matter, UPnP – steuern Sie Ihre Heimgeräte durch KI.
 - **Agentenfähigkeiten**: Installieren Sie von der Community entwickelte Fähigkeiten vom Marktplatz. Verlängern Sie uag endlos.
@@ -57,7 +57,7 @@ Alle Anbieter nutzen das gleiche Toolset und die gleiche Schnittstelle. Wechseln
 ### ⚡ Parallele Werkzeugausführung
 
 Wenn das LLM mehrere Tools gleichzeitig anfordert, werden diese von uag automatisch parallelisiert.
-55 Tools sind mit „x_parallel_safe“ gekennzeichnet und werden gleichzeitig über einen 4-Thread „ThreadPoolExecutor“ ausgeführt.
+76 Tools sind mit „x_parallel_safe“ gekennzeichnet und werden gleichzeitig über einen 4-Thread „ThreadPoolExecutor“ ausgeführt.
 
 **Beispiel**: Fragen Sie „Überprüfen Sie das Wetter in den nordischen Hauptstädten“ → LLM löst „search_web“ × 5 Länder aus → alle 5 Suchanfragen werden parallel ausgeführt → Ergebnisse werden in einem Stapel gesammelt.
 
@@ -69,7 +69,7 @@ Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Überse
 - **Vergangene Sitzungen neu laden** mit „:load <index>“ – machen Sie dort weiter, wo Sie aufgehört haben.
 - **Tool-Ergebnis-Caching** vermeidet eine redundante erneute Ausführung, wenn derselbe Tool-Aufruf wiederholt wird.
 
-### 🛠 112 Werkzeuge
+### 🛠 131 Werkzeuge
 
 | Kategorie | Werkzeuge |
 |---|---|
@@ -78,11 +78,11 @@ Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Überse
 | **Medien** | generieren_image, analysieren_image, img2img, audio_speech, audio_transcribe |
 | **Dokumente** | PDF/PPTX/DOCX/RTF/ODT-Extraktion, strukturierte Excel-Extraktion |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Entwicklungstools**, ****11 idx-Tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen** | git_ops, python_compile, lint_format, run_tests, db_query, ****11 idx-Tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen** |
+| **Entwicklungstools**, ****13 idx-Tools** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen** | git_ops, python_compile, lint_format, run_tests, db_query, ****13 idx-Tools** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen** |
 | **MCP** | Mit externen MCP-Servern verbinden, Tools auflisten, ausführen |
 | **A2A** | Agent-zu-Agent-Kommunikation (mit anderen UAG-Instanzen oder A2A-kompatiblen Servern) |
 | **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung |
-| **Quellnavigation** | **11 idx-Tools** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen |
+| **Quellnavigation** | **13 idx-Tools** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen |
 
 ### 🖥 3 Schnittstellen + A2A
 
