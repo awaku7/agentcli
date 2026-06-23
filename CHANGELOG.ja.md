@@ -5,6 +5,37 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.22] - 2026-06-23
+
+### 追加
+- PHPおよびCOBOLソースコード索引付けのための php2idx/cobol2idx ツールを追加。
+- 全idxファミリーツールにi18n対応（34ロケール）を追加。
+- ツール結果表示のオン/オフを切り替える `:tools output` コマンドを追加（34言語対応）。
+- `UAGENT_SEMANTIC_SEARCH_MODE=bm25` 環境変数による BM25 モードを `semantic_search_files` に追加。
+- `smart_merge_profiles` に `skip_llm_dedup` オプションを追加（中間マージ時のLLM重複排除をスキップ可能に）。
+- `profile_from_logs` に `max_log_files` パラメータを追加（処理するログファイル数を制限）。
+- `_sanitize_log_for_profiling` に `max_content_chars` パラメータを追加（画像データなどの特大メッセージをトリミング）。
+- `:profile fromlog N` および `:profile-fromlog N` 構文に対応（処理する最近のログファイル数を指定）。
+
+### 変更
+- ツール数を 131（全ツール）/ 76（並列セーフ）/ 13（ジャンル）に更新。
+- `profile_from_logs` の `chunk_size_limit` を 300 から 500 に引き上げ。
+- LLM重複排除をチャンクごとではなく最終マージ時に1回だけ実行するよう最適化。
+- 冗長な `:list` コマンドを削除（`:logs` に統一）。
+
+### 修正
+- GUI出力HTMLの `white-space` を `pre` から `pre-wrap` に変更し、適切に自動改行されるよう修正。
+- BM25モード有効時に `graph_rag_search` が誤って呼び出される問題を修正。
+
+### パフォーマンス
+- `sorted(list(...))` ラッパーを削除し、`startswith` をタプルベースのルックアップに最適化。
+
+### その他
+- ruff の lint 問題（F821, F841, F401, E741）および ts2idx の深さバグを修正。
+- コードベース全体の E722（裸のexcept）を修正。
+- rs2idx、py2idx、browser_playwright、scheckgui の mypy エラーを修正。
+- コンパクトなパーサー記法のために E701/E702 を ruff の無視リストに追加。
+
 ## [0.5.21] - 2026-06-22
 
 ### 追加

@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.22] - 2026-06-23
+
+### Added
+- Added php2idx and cobol2idx tools for PHP and COBOL source code indexing.
+- Added i18n support (34 locales) for all idx family tools.
+- Added `:tools output` command to toggle tool result display on/off (34 langs).
+- Added BM25 mode for `semantic_search_files` via `UAGENT_SEMANTIC_SEARCH_MODE=bm25` environment variable.
+- Added `skip_llm_dedup` option to `smart_merge_profiles` to skip LLM-based deduplication during intermediate merges.
+- Added `max_log_files` parameter to `profile_from_logs` to limit the number of log files processed.
+- Added `max_content_chars` parameter to `_sanitize_log_for_profiling` to trim oversized messages (e.g. image data).
+- Added support for `:profile fromlog N` and `:profile-fromlog N` syntax to specify the number of recent log files.
+
+### Changed
+- Updated tool count to 131 (total) / 76 (parallel-safe) / 13 (genres).
+- Increased `chunk_size_limit` from 300 to 500 in `profile_from_logs` processing.
+- LLM deduplication now runs once on the final merged profile instead of per-chunk, improving performance.
+- Removed the redundant `:list` command alias; use `:logs` instead.
+
+### Fixed
+- Fixed GUI output HTML: changed `white-space` from `pre` to `pre-wrap` for proper word wrap.
+- Fixed `graph_rag_search` being incorrectly invoked when BM25 mode is active.
+
+### Performance
+- Removed `sorted(list(...))` wrappers and optimized `startswith` to tuple-based lookups.
+
+### Chores
+- Fixed ruff lint issues (F821, F841, F401, E741) and ts2idx depth bug.
+- Fixed E722 bare except usage across the codebase.
+- Fixed mypy errors in rs2idx, py2idx, browser_playwright, and scheckgui.
+- Added E701 and E702 to ruff ignore list for compact parser style.
+
 ## [0.5.21] - 2026-06-22
 
 ### Added
