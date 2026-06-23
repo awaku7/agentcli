@@ -3,15 +3,20 @@ import * as cp from 'child_process';
 import { WsClient } from './wsClient';
 import { ChatPanel } from './panel';
 import { ToolTreeProvider } from './treeProvider';
+import { EditorIntegration } from './editorIntegration';
 
 let wsClient: WsClient;
 let outputChannel: vscode.OutputChannel;
 let serverProcess: cp.ChildProcess | null = null;
 let statusBarItem: vscode.StatusBarItem;
+let editorIntegration: EditorIntegration;
 
 export async function activate(context: vscode.ExtensionContext) {
     outputChannel = vscode.window.createOutputChannel('uag');
     log('INFO', 'uag extension activating...');
+
+    // Store context for EditorIntegration
+    (global as any).__uag_extension_context = context;
 
     // Status bar
     statusBarItem = vscode.window.createStatusBarItem(
@@ -90,6 +95,9 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     }
 
+    // Editor integration
+    editorIntegration = new EditorIntegration(wsClient);
+
     // Tool tree view
     const treeProvider = new ToolTreeProvider(wsClient);
 
@@ -99,23 +107,13 @@ export async function activate(context: vscode.ExtensionContext) {
             ChatPanel.createOrShow(context, wsClient);
         }),
         vscode.commands.registerCommand('uag.explain', async () => {
-            const editor = vscode.window.activeTextEditor;
-            if (!editor) return;
-            const selection = editor.document.getText(editor.selection);
-            if (!selection) {
-                vscode.window.showInformationMessage('No text selected');
-                return;
-            }
-            ChatPanel.createOrShow(context, wsClient);
-            vscode.window.showInformationMessage(
-                `Selected ${selection.length} chars for explanation`
-            );
+            await editorIntegration.explainSelection();
         }),
         vscode.commands.registerCommand('uag.refactor', async () => {
-            vscode.window.showInformationMessage('Refactor - coming in Phase 2');
+            await editorIntegration.refactorSelection();
         }),
         vscode.commands.registerCommand('uag.fix', async () => {
-            vscode.window.showInformationMessage('Auto-fix - coming in Phase 2');
+            await editorIntegration.fixError();
         }),
         vscode.commands.registerCommand('uag.newSession', async () => {
             try {

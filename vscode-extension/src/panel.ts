@@ -79,6 +79,17 @@ export class ChatPanel {
         this.panel.webview.postMessage(msg);
     }
 
+    /** Send a chat message from outside (e.g. editor commands) */
+    async sendChatMessage(text: string): Promise<void> {
+        // Add user message to webview
+        this.postMessage({
+            type: 'system',
+            data: '[Context attached] Sending to LLM...'
+        });
+        // Forward to LLM
+        await this.handleChatMessage(text);
+    }
+
     private async handleChatMessage(text: string) {
         try {
             const result = await this.ws.call('chat', { message: text });

@@ -88,6 +88,32 @@
         }
       ]
     },
+    "keybindings": [
+        {
+            "command": "uag.chat",
+            "key": "ctrl+shift+u",
+            "mac": "cmd+shift+u",
+            "when": "editorFocus"
+        },
+        {
+            "command": "uag.explain",
+            "key": "ctrl+shift+e",
+            "mac": "cmd+shift+e",
+            "when": "editorHasSelection"
+        },
+        {
+            "command": "uag.refactor",
+            "key": "ctrl+shift+r",
+            "mac": "cmd+shift+r",
+            "when": "editorHasSelection"
+        },
+        {
+            "command": "uag.fix",
+            "key": "ctrl+shift+.",
+            "mac": "cmd+shift+.",
+            "when": "editorHasDiagnostics"
+        }
+    ],
     "configuration": {
       "title": "uag",
       "properties": {
