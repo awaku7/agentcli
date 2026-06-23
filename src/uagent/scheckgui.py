@@ -1001,7 +1001,7 @@ class MainWindow(QtWidgets.QMainWindow):
         if not msg:
             return
         html = (
-            '<div style="font-family: Consolas, Menlo, Monaco, monospace; white-space: pre;">'
+            '<div style="font-family: Consolas, Menlo, Monaco, monospace; white-space: pre-wrap;">'
             + self._escape_html(msg)
             + "</div><br>"
         )
