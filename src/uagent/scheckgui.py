@@ -355,7 +355,7 @@ class DropInput(QtWidgets.QPlainTextEdit):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.setAcceptDrops(True)
-        self.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
+        self.setLineWrapMode(QtWidgets.QPlainTextEdit.WidgetWidth)
         self.setWordWrapMode(QtGui.QTextOption.WordWrap)
         self.setPlaceholderText(_("Drop files/images here"))
         self.setMinimumHeight(120)
