@@ -36,7 +36,7 @@ from . import core as core
 from . import tools
 from .welcome import get_welcome_message
 from .runtime import runtime_init as _runtime_init
-from .utils.paths import get_history_file_path
+from .utils.paths import get_history_file_path, get_state_dir
 
 from .util_tools import (
     image_file_to_data_url,
@@ -83,6 +83,42 @@ AUDIO_EXTS = {
 # In-memory log buffer (thread-safe via _log_lock)
 _log_buffer: "io.StringIO" = io.StringIO()
 _log_lock = threading.Lock()
+
+# Font size level: 0=small, 1=medium, 2=large
+_FONT_SIZE_LEVEL = 1
+_UI_FONT_SIZES = {0: 9, 1: 10, 2: 12}
+_MONO_FONT_SIZES = {0: 9, 1: 10, 2: 12}
+_UI_FONT_SIZES_MAC = {0: 11, 1: 13, 2: 15}
+_FONT_SIZE_NAMES = {0: "small", 1: "medium", 2: "large"}
+_FONT_SIZE_CONFIG_FILE: Optional[str] = None
+
+
+def _load_font_size_config() -> int:
+    """Load font size level from config file. Returns 0/1/2."""
+    global _FONT_SIZE_CONFIG_FILE
+    if _FONT_SIZE_CONFIG_FILE:
+        try:
+            p = Path(_FONT_SIZE_CONFIG_FILE)
+            if p.exists():
+                data = json.loads(p.read_text(encoding="utf-8"))
+                level = int(data.get("font_size", 1))
+                if level in (0, 1, 2):
+                    return level
+        except Exception:
+            pass
+    return 1
+
+
+def _save_font_size_config(level: int) -> None:
+    global _FONT_SIZE_CONFIG_FILE
+    if _FONT_SIZE_CONFIG_FILE:
+        try:
+            p = Path(_FONT_SIZE_CONFIG_FILE)
+            p.parent.mkdir(parents=True, exist_ok=True)
+            data = {"font_size": level}
+            p.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+        except Exception:
+            pass
 
 
 def _gui_norm_path(p: Any) -> str:
@@ -526,6 +562,7 @@ class ScheckWorker(QtCore.QObject):
 
 class MainWindow(QtWidgets.QMainWindow):
     _URL_RE = re.compile(r"\b(https?://[^\s<>\"']+|www\.[^\s<>\"']+)", re.IGNORECASE)
+    _FONT_SIZE_ACTIONS: dict[int, QtGui.QAction] = {}
 
     @staticmethod
     def _escape_html(text: str) -> str:
@@ -797,6 +834,101 @@ class MainWindow(QtWidgets.QMainWindow):
         dlg.setStandardButtons(QtWidgets.QMessageBox.Ok)
         dlg.exec()
 
+    def _apply_font_size(self, level: int) -> None:
+        """Apply font size level (0=small, 1=medium, 2=large) to UI and output."""
+        global _FONT_SIZE_LEVEL
+        if level not in (0, 1, 2):
+            return
+        _FONT_SIZE_LEVEL = level
+
+        _is_mac = sys.platform == "darwin"
+        ui_sizes = _UI_FONT_SIZES_MAC if _is_mac else _UI_FONT_SIZES
+        ui_size = ui_sizes[level]
+        mono_size = _MONO_FONT_SIZES[level]
+
+        # Update UI font on the application
+        app = QtWidgets.QApplication.instance()
+        if app:
+            try:
+                _fd = QtGui.QFontDatabase()
+                if sys.platform == "win32":
+                    _fn = "Segoe UI Variable"
+                    if not _fd.hasFamily(_fn):
+                        _fn = "Segoe UI"
+                    _f = QtGui.QFont(_fn, ui_size)
+                elif _is_mac:
+                    _fn = "SF Pro" if _fd.hasFamily("SF Pro") else "Helvetica Neue"
+                    _f = QtGui.QFont(_fn, ui_size)
+                else:
+                    _fn = "Noto Sans" if _fd.hasFamily("Noto Sans") else "sans-serif"
+                    _f = QtGui.QFont(_fn, ui_size)
+                app.setFont(_f)
+            except Exception:
+                pass
+
+        # Update output monospace font
+        try:
+            _fd = QtGui.QFontDatabase()
+            for _f in ("Cascadia Code", "JetBrains Mono", "Consolas", "Menlo", "Monaco"):
+                if _fd.hasFamily(_f):
+                    self._output.setFont(QtGui.QFont(_f, mono_size))
+                    break
+            else:
+                self._output.setFont(QtGui.QFont(
+                    QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont).family(),
+                    mono_size,
+                ))
+        except Exception:
+            pass
+
+        # Update input font
+        try:
+            _input_font = self._input.font()
+            _input_font.setPointSize(ui_size)
+            self._input.setFont(_input_font)
+        except Exception:
+            pass
+
+        # Update password input font
+        try:
+            _pw_font = self._pw_input.font()
+            _pw_font.setPointSize(ui_size)
+            self._pw_input.setFont(_pw_font)
+        except Exception:
+            pass
+
+        # Update status bar label font size hint via stylesheet
+        try:
+            _stamp = f"_fs_{level}"
+            if getattr(self, "_fs_stamp", "") != _stamp:
+                self._fs_stamp = _stamp
+                for w in (self._status_label, self._workdir_label,
+                          self._provider_model_label, self._mode_label):
+                    _f = w.font()
+                    _f.setPointSize(max(8, ui_size - 2))
+                    w.setFont(_f)
+        except Exception:
+            pass
+
+        # Update menu text sizes via toolbar/menubar font
+        try:
+            _mb = self.menuBar()
+            if _mb:
+                _mb_font = _mb.font()
+                _mb_font.setPointSize(ui_size)
+                _mb.setFont(_mb_font)
+        except Exception:
+            pass
+
+        # Update check marks
+        for lv, act in self._FONT_SIZE_ACTIONS.items():
+            act.setChecked(lv == level)
+
+        _save_font_size_config(level)
+
+        level_name = _FONT_SIZE_NAMES.get(level, "medium")
+        self.statusBar().showMessage(_("Font size: %(name)s") % {"name": level_name}, 3000)
+
     def __init__(self, cfg: GuiConfig):
         super().__init__()
         self.setWindowTitle(_("uag GUI (Extreme Stability)"))
@@ -824,6 +956,7 @@ class MainWindow(QtWidgets.QMainWindow):
         except Exception:
             pass
         self._audio_current_path = ""
+        self._fs_stamp = ""
 
         central = QtWidgets.QWidget()
         self.setCentralWidget(central)
@@ -948,6 +1081,22 @@ class MainWindow(QtWidgets.QMainWindow):
         QtGui.QShortcut(QtGui.QKeySequence("Ctrl+Enter"), self).activated.connect(
             self._on_send
         )
+
+        # View menu (font size)
+        try:
+            view_menu = self.menuBar().addMenu(_("View"))
+            font_group = QtGui.QActionGroup(self)
+            font_group.setExclusive(True)
+            for lv in (0, 1, 2):
+                name = _FONT_SIZE_NAMES[lv]
+                act = view_menu.addAction(_("Font: %(name)s") % {"name": name})
+                act.setCheckable(True)
+                act.setChecked(lv == _FONT_SIZE_LEVEL)
+                act.triggered.connect(lambda checked, l=lv: self._apply_font_size(l) if checked else None)
+                font_group.addAction(act)
+                self._FONT_SIZE_ACTIONS[lv] = act
+        except Exception:
+            pass
 
         # Mode menu
         try:
@@ -1084,6 +1233,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self._tools_menu_timer = QtCore.QTimer()
             self._tools_menu_timer.timeout.connect(_update_tools_menu_state)
             self._tools_menu_timer.start(500)  # check every 500ms
+        except Exception:
+            pass
+
+        # Apply saved font size after UI is built
+        try:
+            self._apply_font_size(_FONT_SIZE_LEVEL)
         except Exception:
             pass
 
@@ -2169,20 +2324,35 @@ def main():
 
     app = QtWidgets.QApplication(sys.argv)
 
-    # ---- Modern font ----
+    # Resolve font size config file path
+    global _FONT_SIZE_CONFIG_FILE, _FONT_SIZE_LEVEL
+    try:
+        _FONT_SIZE_CONFIG_FILE = str(
+            Path(get_state_dir()) / "gui_font_size.json"
+        )
+    except Exception:
+        pass
+
+    # Load saved font size
+    _FONT_SIZE_LEVEL = _load_font_size_config()
+
+    # ---- Modern font (base; _apply_font_size will fine-tune) ----
     try:
         _fd = QtGui.QFontDatabase()
+        _is_mac = sys.platform == "darwin"
+        ui_sizes = _UI_FONT_SIZES_MAC if _is_mac else _UI_FONT_SIZES
+        _ui_size = ui_sizes[_FONT_SIZE_LEVEL]
         if sys.platform == "win32":
             _font_name = "Segoe UI Variable"
             if not _fd.hasFamily(_font_name):
                 _font_name = "Segoe UI"
-            _font = QtGui.QFont(_font_name, 10)
-        elif sys.platform == "darwin":
+            _font = QtGui.QFont(_font_name, _ui_size)
+        elif _is_mac:
             _font_name = "SF Pro" if _fd.hasFamily("SF Pro") else "Helvetica Neue"
-            _font = QtGui.QFont(_font_name, 13)
+            _font = QtGui.QFont(_font_name, _ui_size)
         else:
             _font_name = "Noto Sans" if _fd.hasFamily("Noto Sans") else "sans-serif"
-            _font = QtGui.QFont(_font_name, 10)
+            _font = QtGui.QFont(_font_name, _ui_size)
         app.setFont(_font)
     except Exception:
         pass
