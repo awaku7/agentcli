@@ -213,8 +213,8 @@ class _JvIndexBuilder:
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i,
-                        "end_line": i,
+                        "line": i + 1,
+                        "end_line": i + 1,
                         "level": len(stack),
                         "label": f"{kind} {name}",
                         "members": [],
@@ -229,8 +229,8 @@ class _JvIndexBuilder:
                         member = {
                             "kind": kind,
                             "name": name,
-                            "line": i,
-                            "end_line": i,
+                            "line": i + 1,
+                            "end_line": i + 1,
                             "level": len(stack),
                             "label": label,
                         }

@@ -275,7 +275,8 @@ def run_tool(args: dict[str, Any]) -> str:
     if mode == "index":
         toc = parser.build_index()
         total = parser.section_count()
-        last = total - 1
+        # last = heading section count; 0 means no headings
+        last = total - 1 if total > 1 else 0
         return _(
             "msg.index_output",
             default=(

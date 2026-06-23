@@ -99,23 +99,23 @@ class _SwiftIndexBuilder:
             defs = self._detect(raw)
             for k, n in defs:
                 if k == "type":
-                    e = {"kind": k, "name": n, "line": i, "end_line": i, "label": n, "members": []}
+                    e = {"kind": k, "name": n, "line": i + 1, "end_line": i + 1, "label": n, "members": []}
                     entries.append(e); stack.append(e); stack_d.append(od)
                 elif k in ("func", "init", "deinit", "subscript"):
                     if stack:
                         c = stack[-1]
                         lbl = f"{n}()" if k == "func" else n
-                        c.setdefault("members", []).append({"kind": k, "name": n, "line": i, "end_line": i, "label": lbl})
+                        c.setdefault("members", []).append({"kind": k, "name": n, "line": i + 1, "end_line": i + 1, "label": lbl})
                     else:
-                        entries.append({"kind": k, "name": n, "line": i, "end_line": i, "label": f"{n}()" if k == "func" else n})
+                        entries.append({"kind": k, "name": n, "line": i + 1, "end_line": i + 1, "label": f"{n}()" if k == "func" else n})
                 elif k in ("property",):
                     if stack:
-                        stack[-1].setdefault("members", []).append({"kind": "property", "name": n, "line": i, "end_line": i, "label": n})
+                        stack[-1].setdefault("members", []).append({"kind": "property", "name": n, "line": i + 1, "end_line": i + 1, "label": n})
                     else:
-                        entries.append({"kind": "property", "name": n, "line": i, "end_line": i, "label": n})
+                        entries.append({"kind": "property", "name": n, "line": i + 1, "end_line": i + 1, "label": n})
                 elif k == "case":
                     if stack:
-                        stack[-1].setdefault("members", []).append({"kind": "case", "name": n, "line": i, "end_line": i, "label": n})
+                        stack[-1].setdefault("members", []).append({"kind": "case", "name": n, "line": i + 1, "end_line": i + 1, "label": n})
             while stack_d and depth <= stack_d[-1] and bd < 0:
                 if stack: stack.pop()["end_line"] = i
                 stack_d.pop()
@@ -151,7 +151,9 @@ def run_tool(args):
     if not path: return "Error: 'path' is required."
     if not os.path.isfile(path): return f"Error: File not found: {path}"
     try:
-        builder = _SwiftIndexBuilder(open(path, encoding="utf-8").read(), filepath=path)
+        with open(path, "r", encoding="utf-8") as _f:
+            _source = _f.read()
+        builder = _SwiftIndexBuilder(_source, filepath=path)
     except Exception as e:
         return f"Error parsing file: {e}"
     if mode == "index":

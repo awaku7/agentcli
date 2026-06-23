@@ -214,8 +214,8 @@ class _TsIndexBuilder:
                     entry: dict = {
                         "kind": kind,
                         "name": name,
-                        "line": i,
-                        "end_line": i,
+                        "line": i + 1,
+                        "end_line": i + 1,
                         "level": 0,
                         "label": f"{kind} {name}",
                         "methods": [],
@@ -229,8 +229,8 @@ class _TsIndexBuilder:
                     entry = {
                         "kind": "type",
                         "name": name,
-                        "line": i,
-                        "end_line": i,
+                        "line": i + 1,
+                        "end_line": i + 1,
                         "level": 0,
                         "label": f"type {name}",
                     }
@@ -243,8 +243,8 @@ class _TsIndexBuilder:
                         method = {
                             "kind": "method",
                             "name": name,
-                            "line": i,
-                            "end_line": i,
+                            "line": i + 1,
+                            "end_line": i + 1,
                             "level": 1,
                             "label": f"{name}()",
                             "is_arrow": "=>" not in raw and True,
@@ -254,8 +254,8 @@ class _TsIndexBuilder:
                         entry = {
                             "kind": "function",
                             "name": name,
-                            "line": i,
-                            "end_line": i,
+                            "line": i + 1,
+                            "end_line": i + 1,
                             "level": 0,
                             "label": f"function {name}",
                         }
@@ -269,8 +269,8 @@ class _TsIndexBuilder:
                         method = {
                             "kind": "method",
                             "name": name,
-                            "line": i,
-                            "end_line": i,
+                            "line": i + 1,
+                            "end_line": i + 1,
                             "level": 1,
                             "label": f"{name}()",
                         }

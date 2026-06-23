@@ -108,24 +108,24 @@ class _GoIndexBuilder:
             defs = self._detect(raw)
             for k, n in defs:
                 if k in ("package",):
-                    e = {"kind": k, "name": n, "line": i, "end_line": i, "label": n, "members": []}
+                    e = {"kind": k, "name": n, "line": i + 1, "end_line": i + 1, "label": n, "members": []}
                     entries.append(e)
                     stack.append(e); stack_dep.append(od)
                 elif k in ("type",):
-                    e = {"kind": "type", "name": n, "line": i, "end_line": i, "label": f"type {n}", "members": []}
+                    e = {"kind": "type", "name": n, "line": i + 1, "end_line": i + 1, "label": f"type {n}", "members": []}
                     entries.append(e)
                     stack.append(e); stack_dep.append(od)
                 elif k in ("func",):
                     if stack:
                         c = stack[-1]
-                        c.setdefault("members", []).append({"kind": "func", "name": n, "line": i, "end_line": i, "label": f"{n}()"})
+                        c.setdefault("members", []).append({"kind": "func", "name": n, "line": i + 1, "end_line": i + 1, "label": f"{n}()"})
                     else:
-                        entries.append({"kind": "func", "name": n, "line": i, "end_line": i, "label": f"{n}()"})
+                        entries.append({"kind": "func", "name": n, "line": i + 1, "end_line": i + 1, "label": f"{n}()"})
                 elif k in ("const", "var", "type_alias"):
-                    entries.append({"kind": k, "name": n, "line": i, "end_line": i, "label": n})
+                    entries.append({"kind": k, "name": n, "line": i + 1, "end_line": i + 1, "label": n})
                 elif k == "field" and stack:
                     c = stack[-1]
-                    c.setdefault("members", []).append({"kind": "field", "name": n, "line": i, "end_line": i, "label": n})
+                    c.setdefault("members", []).append({"kind": "field", "name": n, "line": i + 1, "end_line": i + 1, "label": n})
             while stack_dep and depth <= stack_dep[-1] and bd < 0:
                 if stack: stack.pop()["end_line"] = i
                 stack_dep.pop()
@@ -164,7 +164,9 @@ def run_tool(args):
     if not path: return "Error: 'path' is required."
     if not os.path.isfile(path): return f"Error: File not found: {path}"
     try:
-        builder = _GoIndexBuilder(open(path, encoding="utf-8").read(), filepath=path)
+        with open(path, "r", encoding="utf-8") as _f:
+            _source = _f.read()
+        builder = _GoIndexBuilder(_source, filepath=path)
     except Exception as e:
         return f"Error parsing file: {e}"
     if mode == "index":

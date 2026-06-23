@@ -97,24 +97,24 @@ class _KtIndexBuilder:
             defs = self._detect(raw)
             for k, n in defs:
                 if k == "type":
-                    e = {"kind": "type", "name": n, "line": i, "end_line": i, "label": n, "members": []}
+                    e = {"kind": "type", "name": n, "line": i + 1, "end_line": i + 1, "label": n, "members": []}
                     entries.append(e); stack.append(e); stack_d.append(od)
                 elif k == "companion":
                     if stack:
-                        stack[-1].setdefault("members", []).append({"kind": "companion", "name": "companion", "line": i, "end_line": i, "label": "companion"})
+                        stack[-1].setdefault("members", []).append({"kind": "companion", "name": "companion", "line": i + 1, "end_line": i + 1, "label": "companion"})
                 elif k in ("func", "init"):
                     if stack:
                         lbl = f"{n}()" if k == "func" else n
-                        stack[-1].setdefault("members", []).append({"kind": k, "name": n, "line": i, "end_line": i, "label": lbl})
+                        stack[-1].setdefault("members", []).append({"kind": k, "name": n, "line": i + 1, "end_line": i + 1, "label": lbl})
                     else:
-                        entries.append({"kind": "func", "name": n, "line": i, "end_line": i, "label": f"{n}()"})
+                        entries.append({"kind": "func", "name": n, "line": i + 1, "end_line": i + 1, "label": f"{n}()"})
                 elif k in ("property",):
                     if stack:
-                        stack[-1].setdefault("members", []).append({"kind": "property", "name": n, "line": i, "end_line": i, "label": n})
+                        stack[-1].setdefault("members", []).append({"kind": "property", "name": n, "line": i + 1, "end_line": i + 1, "label": n})
                     else:
-                        entries.append({"kind": "property", "name": n, "line": i, "end_line": i, "label": n})
+                        entries.append({"kind": "property", "name": n, "line": i + 1, "end_line": i + 1, "label": n})
                 elif k == "enum_entry" and stack:
-                    stack[-1].setdefault("members", []).append({"kind": "enum_entry", "name": n, "line": i, "end_line": i, "label": n})
+                    stack[-1].setdefault("members", []).append({"kind": "enum_entry", "name": n, "line": i + 1, "end_line": i + 1, "label": n})
             while stack_d and depth <= stack_d[-1] and bd < 0:
                 if stack: stack.pop()["end_line"] = i
                 stack_d.pop()
@@ -150,7 +150,9 @@ def run_tool(args):
     if not path: return "Error: 'path' is required."
     if not os.path.isfile(path): return f"Error: File not found: {path}"
     try:
-        builder = _KtIndexBuilder(open(path, encoding="utf-8").read(), filepath=path)
+        with open(path, "r", encoding="utf-8") as _f:
+            _source = _f.read()
+        builder = _KtIndexBuilder(_source, filepath=path)
     except Exception as e:
         return f"Error parsing file: {e}"
     if mode == "index":

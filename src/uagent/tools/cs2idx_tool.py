@@ -233,8 +233,8 @@ class _CsIndexBuilder:
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i,
-                        "end_line": i,
+                        "line": i + 1,
+                        "end_line": i + 1,
                         "level": len(stack),
                         "label": f"{kind} {name}",
                         "members": [],
@@ -251,8 +251,8 @@ class _CsIndexBuilder:
                         member = {
                             "kind": kind,
                             "name": name,
-                            "line": i,
-                            "end_line": i,
+                            "line": i + 1,
+                            "end_line": i + 1,
                             "level": len(stack),
                             "label": f"{name}()" if kind in ("method", "constructor", "destructor", "operator") else f"{name}" if kind in ("property", "delegate", "event", "indexer") else f"{name}",
                         }
@@ -263,8 +263,8 @@ class _CsIndexBuilder:
                         member = {
                             "kind": kind,
                             "name": name,
-                            "line": i,
-                            "end_line": i,
+                            "line": i + 1,
+                            "end_line": i + 1,
                             "level": len(stack),
                             "label": name,
                         }

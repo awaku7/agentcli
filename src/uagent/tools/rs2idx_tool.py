@@ -228,8 +228,8 @@ class _RsIndexBuilder:
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i,
-                        "end_line": i,
+                        "line": i + 1,
+                        "end_line": i + 1,
                         "level": len(stack),
                         "label": f"{kind} {name}",
                         "members": [],
@@ -241,8 +241,8 @@ class _RsIndexBuilder:
                     entry = {
                         "kind": kind,
                         "name": name,
-                        "line": i,
-                        "end_line": i,
+                        "line": i + 1,
+                        "end_line": i + 1,
                         "level": 0,
                         "label": name,
                     }
@@ -253,8 +253,8 @@ class _RsIndexBuilder:
                         member = {
                             "kind": "fn",
                             "name": name,
-                            "line": i,
-                            "end_line": i,
+                            "line": i + 1,
+                            "end_line": i + 1,
                             "level": len(stack),
                             "label": f"{name}()",
                         }
@@ -263,8 +263,8 @@ class _RsIndexBuilder:
                         entry = {
                             "kind": "fn",
                             "name": name,
-                            "line": i,
-                            "end_line": i,
+                            "line": i + 1,
+                            "end_line": i + 1,
                             "level": 0,
                             "label": f"{name}()",
                             "members": [],
@@ -276,8 +276,8 @@ class _RsIndexBuilder:
                         member = {
                             "kind": kind,
                             "name": name,
-                            "line": i,
-                            "end_line": i,
+                            "line": i + 1,
+                            "end_line": i + 1,
                             "level": len(stack),
                             "label": name,
                         }
