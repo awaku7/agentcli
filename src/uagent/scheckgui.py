@@ -93,34 +93,68 @@ _FONT_SIZE_NAMES = {0: "small", 1: "medium", 2: "large"}
 _FONT_SIZE_CONFIG_FILE: Optional[str] = None
 
 
-# --- SVG icons for buttons ---
-_SVG_ATTACH = (
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"'
-    ' stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-    '<path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>'
-    '</svg>'
-)
+def _paint_icon_attach(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
+    """Paint a paperclip icon using QPainter."""
+    pm = QtGui.QPixmap(size, size)
+    pm.fill(QtCore.Qt.transparent)
+    p = QtGui.QPainter(pm)
+    p.setRenderHint(QtGui.QPainter.Antialiasing)
+    pen = QtGui.QPen(color, max(2, size // 10))
+    pen.setCapStyle(QtCore.Qt.RoundCap)
+    p.setPen(pen)
+    # Paperclip: curved line with smaller loop at top
+    cx, cy = size / 2, size / 2
+    r = size * 0.35
+    # Loop
+    p.drawArc(int(cx - r), int(cy - r - size * 0.12),
+              int(r * 2), int(r * 2), 0, 16 * 180)
+    # Stem going down
+    p.drawLine(int(cx + r), int(cy),
+               int(cx + r), int(cy + size * 0.3))
+    # Hook at bottom
+    p.drawArc(int(cx + r - size * 0.06), int(cy + size * 0.2),
+              int(size * 0.12), int(size * 0.12), 0, 16 * 180)
+    p.end()
+    return QtGui.QIcon(pm)
 
-_SVG_SEND = (
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"'
-    ' stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-    '<line x1="5" y1="12" x2="19" y2="12"/>'
-    '<polyline points="12 5 19 12 12 19"/>'
-    '</svg>'
-)
+
+def _paint_icon_send(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
+    """Paint a send/up-right arrow icon using QPainter."""
+    pm = QtGui.QPixmap(size, size)
+    pm.fill(QtCore.Qt.transparent)
+    p = QtGui.QPainter(pm)
+    p.setRenderHint(QtGui.QPainter.Antialiasing)
+    pen = QtGui.QPen(color, max(2, size // 10))
+    pen.setCapStyle(QtCore.Qt.RoundCap)
+    pen.setJoinStyle(QtCore.Qt.RoundJoin)
+    p.setPen(pen)
+    # Arrow pointing up-right: two lines forming an angle
+    # Horizontal base
+    p.drawLine(int(size * 0.15), int(size * 0.7),
+               int(size * 0.85), int(size * 0.7))
+    # Diagonal arrow head
+    p.drawLine(int(size * 0.85), int(size * 0.7),
+               int(size * 0.6), int(size * 0.25))
+    p.drawLine(int(size * 0.85), int(size * 0.7),
+               int(size * 0.55), int(size * 0.82))
+    p.end()
+    return QtGui.QIcon(pm)
 
 
-def _make_svg_icon(svg_text: str, size: int = 20) -> QtGui.QIcon:
-    """Create a QIcon from an inline SVG string at the given pixel size."""
+def _make_attach_icon(size: int = 24) -> QtGui.QIcon:
+    """Create a recognizable attach/paperclip icon."""
     try:
-        pm = QtGui.QPixmap()
-        pm.loadFromData(svg_text.encode("utf-8"))
-        if not pm.isNull():
-            scaled = pm.scaled(size, size, QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
-            return QtGui.QIcon(scaled)
+        return _paint_icon_attach(QtGui.QColor("#ffffff"), size)
     except Exception:
-        pass
-    return QtGui.QIcon()
+        return QtGui.QIcon()
+
+
+def _make_send_icon(size: int = 24) -> QtGui.QIcon:
+    """Create a recognizable send/arrow icon."""
+    try:
+        return _paint_icon_send(QtGui.QColor("#ffffff"), size)
+    except Exception:
+        return QtGui.QIcon()
 
 
 def _load_font_size_config() -> int:
@@ -988,9 +1022,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self._audio_current_path = ""
         self._fs_stamp = ""
 
-        # Pre-create SVG icons for buttons
-        self._attach_icon = _make_svg_icon(_SVG_ATTACH, 20)
-        self._send_icon = _make_svg_icon(_SVG_SEND, 20)
+        # Pre-create painter-drawn icons for buttons
+        self._attach_icon = _make_attach_icon(22)
+        self._send_icon = _make_send_icon(22)
 
         central = QtWidgets.QWidget()
         self.setCentralWidget(central)
@@ -1057,7 +1091,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self._attach_btn = QtWidgets.QPushButton()
         self._attach_btn.setIcon(self._attach_icon)
-        self._attach_btn.setIconSize(QtCore.QSize(20, 20))
+        self._attach_btn.setIconSize(QtCore.QSize(22, 22))
         self._attach_btn.setFixedWidth(40)
         self._attach_btn.setFixedHeight(36)
         self._attach_btn.setToolTip(_("Attach files"))
@@ -1066,7 +1100,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self._btn = QtWidgets.QPushButton()
         self._btn.setIcon(self._send_icon)
-        self._btn.setIconSize(QtCore.QSize(20, 20))
+        self._btn.setIconSize(QtCore.QSize(22, 22))
         self._btn.setFixedWidth(40)
         self._btn.setFixedHeight(36)
         self._btn.setToolTip(_("Send"))
