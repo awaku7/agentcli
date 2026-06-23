@@ -11,9 +11,10 @@ from datetime import datetime
 import importlib.util
 from importlib import import_module, reload
 from pkgutil import iter_modules
-from typing import Any, Callable, Optional
+from typing import Any, Awaitable, Callable, Optional
 import concurrent.futures
 from threading import Lock, RLock
+import asyncio
 
 try:
     from janome.tokenizer import Tokenizer as JanomeTokenizer
@@ -54,7 +55,7 @@ _LAZY_TOOL_NAME_TO_MODULE: dict[str, str] = {"exstruct": "exstruct_tool"}
 TOOL_SPECS: list[dict[str, Any]] = []
 
 # Runners
-_RUNNERS: dict[str, Callable[[dict[str, Any]], str]] = {}
+_RUNNERS: dict[str, Callable[[dict[str, Any]], str | Awaitable[str]]] = {}
 
 # Tools that set Busy status labels
 # key: tool_name, value: status_label (e.g. "tool:cmd_exec")
@@ -203,7 +204,9 @@ def _sort_registered_tools() -> None:
     with _TOOLS_LOCK:
         TOOL_SPECS.sort(key=_tool_load_order_key)
 
-        ordered_runners: dict[str, Callable[[dict[str, Any]], str]] = {}
+        ordered_runners: dict[str, Callable[[dict[str, Any]], str | Awaitable[str]]] = (
+            {}
+        )
         for spec in TOOL_SPECS:
             func_info = spec.get("function", {})
             if not isinstance(func_info, dict):
@@ -330,7 +333,7 @@ def _register_tool_module(mod: Any, mod_name: str) -> bool:
 
 def _register_extra_spec(
     spec: dict[str, Any],
-    runner: Callable[[dict[str, Any]], str],
+    runner: Callable[[dict[str, Any]], str | Awaitable[str]],
     mod: Any,
 ) -> bool:
     """Register an additional tool spec from the same module (e.g. TOOL_SPEC_2)."""
@@ -1103,6 +1106,30 @@ def run_tools_parallel(
     return [(n, a, r) for n, a, r in results]  # type: ignore[misc]
 
 
+def _run_async_sync(
+    runner: Callable[[dict[str, Any]], str | Awaitable[str]],
+    args: dict[str, Any],
+) -> str:
+    """Execute a runner that may be sync or async, bridging to sync return.
+
+    If the runner returns a coroutine (async def), it is executed to completion
+    in a new event loop. If a running event loop is detected (e.g. WebSocket
+    handler context), the coroutine is run in a separate thread to avoid
+    RuntimeError: asyncio.run() cannot be called from a running event loop.
+    """
+    _result = runner(args)
+    if asyncio.iscoroutine(_result):
+        try:
+            asyncio.get_running_loop()
+            # Running loop detected: run coroutine in a dedicated thread.
+            with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+                return pool.submit(asyncio.run, _result).result()
+        except RuntimeError:
+            return asyncio.run(_result)
+    # After the coroutine branch, _result is guaranteed to be str
+    return _result  # type: ignore[return-value]
+
+
 def run_tool(name: str, args: dict[str, Any]) -> str:
     """Entry point for executing a tool_call."""
     _ensure_loaded()
@@ -1152,7 +1179,7 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         # human_ask needs to set active state before clearing Busy,
         # so we delegate status handling to the runner implementation.
         try:
-            return runner(args)
+            return _run_async_sync(runner, args)
         finally:
             _safe_set_status(True, "LLM")
 
@@ -1161,13 +1188,13 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     if status_label is not None:
         _safe_set_status(True, status_label)
         try:
-            result = runner(args)
+            result = _run_async_sync(runner, args)
         finally:
             _safe_set_status(True, "LLM")
         return result
 
     # Otherwise do not touch status
-    result = runner(args)
+    result = _run_async_sync(runner, args)
     return result
 
 

@@ -395,7 +395,7 @@ class _CppIndexBuilder:
         return count
 
 
-def run_tool(args: dict[str, Any]) -> str:
+async def run_tool(args: dict[str, Any]) -> str:
     path = args.get("path", "")
     mode = args.get("mode", "index")
 
