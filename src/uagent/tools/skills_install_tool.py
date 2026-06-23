@@ -146,9 +146,9 @@ def _split_selector_source(source: str) -> tuple[str | None, str]:
 def _is_git_url(source: str) -> bool:
     """Check if the source looks like a Git URL."""
     s = source.lower()
-    if s.startswith("git@") or s.startswith("git://"):
+    if s.startswith(("git@", "git://")):
         return True
-    if (s.startswith("http://") or s.startswith("https://")) and (
+    if (s.startswith(("http://", "https://"))) and (
         s.endswith(".git") or "github.com/" in s or "gitlab.com/" in s
     ):
         return True
@@ -158,7 +158,7 @@ def _is_git_url(source: str) -> bool:
 def _is_remote_zip(source: str) -> bool:
     """Check if the source looks like a remote ZIP URL."""
     s = source.lower()
-    if s.startswith("http://") or s.startswith("https://"):
+    if s.startswith(("http://", "https://")):
         if s.endswith(".zip") or "/archive/" in s or "/zip/" in s:
             return True
     return False
@@ -195,9 +195,7 @@ def _safe_extract_zip(
 
             norm_path = os.path.normpath(info.filename)
             if (
-                norm_path.startswith("/")
-                or norm_path.startswith("\\")
-                or ".." in norm_path.split(os.sep)
+                norm_path.startswith(("/", "\\")) or ".." in norm_path.split(os.sep)
             ):
                 raise ValueError(
                     _(

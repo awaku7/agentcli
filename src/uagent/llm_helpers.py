@@ -139,7 +139,7 @@ def _auto_low_quality(user_text: str, assistant_text: str) -> bool:
     ut = (user_text or "").lower()
     if "json" in ut:
         s = a.lstrip()
-        if not (s.startswith("{") or s.startswith("[") or "```json" in s.lower()):
+        if not (s.startswith(("{", "[")) or "```json" in s.lower()):
             return True
 
     refusal_patterns = (

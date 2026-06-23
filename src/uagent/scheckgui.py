@@ -895,17 +895,17 @@ class MainWindow(QtWidgets.QMainWindow):
             fmt.setFontUnderline(False)
             fmt.setFontWeight(QtGui.QFont.Normal)
             s = (line or "").lstrip()
-            if s.startswith("[ERROR]") or s.startswith("[FATAL]"):
+            if s.startswith(("[ERROR]", "[FATAL]")):
                 fmt.setForeground(QtGui.QBrush(QtGui.QColor("#dc2626")))
                 fmt.setFontWeight(QtGui.QFont.Bold)
-            elif s.startswith("[WARN]") or s.startswith("[TOOL]"):
+            elif s.startswith(("[WARN]", "[TOOL]")):
                 fmt.setForeground(QtGui.QBrush(QtGui.QColor("#ca8a04")))
                 fmt.setFontWeight(QtGui.QFont.Bold)
             elif s.startswith("[url]"):
                 fmt.setForeground(QtGui.QBrush(QtGui.QColor("#0891b2")))
             elif s.startswith("[INFO]"):
                 fmt.setForeground(QtGui.QBrush(QtGui.QColor("#2563eb")))
-            elif s.startswith("[OK]") or s.startswith("[SUCCESS]"):
+            elif s.startswith(("[OK]", "[SUCCESS]")):
                 fmt.setForeground(QtGui.QBrush(QtGui.QColor("#16a34a")))
             return fmt
 

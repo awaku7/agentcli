@@ -192,7 +192,7 @@ class _DartIndexBuilder:
 
         # Skip import/export lines
         stripped = cleaned.strip()
-        if stripped.startswith("import ") or stripped.startswith("export "):
+        if stripped.startswith(("import ", "export ")):
             return []
 
         results = []

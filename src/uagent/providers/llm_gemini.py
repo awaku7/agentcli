@@ -298,7 +298,7 @@ def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
 
     def _normalize_mime(m: str, path: str | None = None) -> str:
         mm = (m or "").strip().lower()
-        if mm.startswith("image/") or mm.startswith("audio/"):
+        if mm.startswith(("image/", "audio/")):
             return mm
         if mm == "image":
             mm = ""
@@ -307,7 +307,7 @@ def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
         if path:
             guessed, mime_subtype = mimetypes.guess_type(path)
             if isinstance(guessed, str) and (
-                guessed.startswith("image/") or guessed.startswith("audio/")
+                guessed.startswith(("image/", "audio/"))
             ):
                 return guessed
             suffix = Path(path).suffix.lower()

@@ -360,7 +360,7 @@ def _format_selected_headers(headers: dict[str, Any]) -> list[str]:
             out.append(f"{k}={headers.get(k)!r}")
 
     for k, v in sorted(headers.items()):
-        if k.startswith("x-ratelimit") or k.startswith("ratelimit"):
+        if k.startswith(("x-ratelimit", "ratelimit")):
             out.append(f"{k}={v!r}")
 
     for k in (

@@ -248,7 +248,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             for sc in skills_subcmds:
                                 if sc.startswith(after_skills):
                                     yield Completion(sc, start_position=-len(after_skills))
-                    elif stripped.startswith(":r ") or stripped.startswith(":reasoning "):
+                    elif stripped.startswith((":r ", ":reasoning ")):
                         # :r reasoning mode values
                         r_prefix = stripped.split(" ", 1)[1] if " " in stripped else ""
                         if r_prefix and " " not in r_prefix:
@@ -256,7 +256,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             for v in r_vals:
                                 if v.startswith(r_prefix):
                                     yield Completion(v, start_position=-len(r_prefix))
-                    elif stripped.startswith(":v ") or stripped.startswith(":verbosity "):
+                    elif stripped.startswith((":v ", ":verbosity ")):
                         # :v verbosity mode values
                         v_prefix = stripped.split(" ", 1)[1] if " " in stripped else ""
                         if v_prefix and " " not in v_prefix:

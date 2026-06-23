@@ -597,7 +597,7 @@ def _semantic_search_bm25(
 
         from uagent.utils.scan_filters import is_ignored_path
         target_files = [
-            f for f in sorted(list(set(target_files)))
+            f for f in sorted(set(target_files))
             if (not is_ignored_path(f)) and os.path.isfile(f)
         ]
 
@@ -767,7 +767,7 @@ def semantic_search_files(
 
         target_files = [
             f
-            for f in sorted(list(set(target_files)))
+            for f in sorted(set(target_files))
             if (not is_ignored_path(f)) and os.path.isfile(f)
         ]
 

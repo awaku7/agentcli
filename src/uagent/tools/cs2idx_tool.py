@@ -221,7 +221,7 @@ class _CsIndexBuilder:
             stripped = raw.strip()
 
             # Track XML doc comments
-            if stripped.startswith("///") or stripped.startswith("//") or stripped.startswith("/*") or stripped.startswith("*"):
+            if stripped.startswith(("///", "//", "/*", "*")):
                 continue
 
             # Detect definitions on this line

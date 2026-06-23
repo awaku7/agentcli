@@ -349,7 +349,7 @@ class GeminiCacheManager:
         )
 
         # 重複排除と存在確認
-        unique_paths = sorted(list(set(p for p in all_paths if os.path.exists(p))))
+        unique_paths = sorted(p for p in set(all_paths) if os.path.exists(p))
 
         for path in unique_paths:
             try:
