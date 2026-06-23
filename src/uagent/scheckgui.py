@@ -157,6 +157,99 @@ def _make_send_icon(size: int = 24) -> QtGui.QIcon:
         return QtGui.QIcon()
 
 
+
+
+_MENU_ICON_COLOR = QtGui.QColor("#374151")
+
+
+def _make_help_icon(size: int = 16) -> QtGui.QIcon:
+    try:
+        pm = QtGui.QPixmap(size, size)
+        pm.fill(QtCore.Qt.transparent)
+        p = QtGui.QPainter(pm)
+        p.setRenderHint(QtGui.QPainter.Antialiasing)
+        pen = QtGui.QPen(_MENU_ICON_COLOR, max(2, size // 12))
+        pen.setCapStyle(QtCore.Qt.RoundCap)
+        p.setPen(pen)
+        r = size * 0.4; cx = cy = size / 2
+        p.drawEllipse(int(cx - r), int(cy - r), int(r * 2), int(r * 2))
+        _f = QtGui.QFont("sans-serif", size // 2, QtGui.QFont.Bold)
+        p.setFont(_f)
+        p.drawText(int(cx - r), int(cy - r), int(r * 2), int(r * 2), QtCore.Qt.AlignCenter, "?")
+        p.end()
+        return QtGui.QIcon(pm)
+    except Exception:
+        return QtGui.QIcon()
+
+
+def _make_view_icon(size: int = 16) -> QtGui.QIcon:
+    try:
+        pm = QtGui.QPixmap(size, size)
+        pm.fill(QtCore.Qt.transparent)
+        p = QtGui.QPainter(pm)
+        p.setRenderHint(QtGui.QPainter.Antialiasing)
+        pen = QtGui.QPen(_MENU_ICON_COLOR, max(2, size // 12))
+        pen.setCapStyle(QtCore.Qt.RoundCap)
+        p.setPen(pen)
+        cx, cy = size / 2, size / 2
+        p.drawArc(int(cx - size * 0.4), int(cy - size * 0.25),
+                  int(size * 0.8), int(size * 0.5), 0, 16 * 180)
+        p.drawArc(int(cx - size * 0.4), int(cy - size * 0.25),
+                  int(size * 0.8), int(size * 0.5), 16 * 180, 16 * 180)
+        pr = size * 0.08
+        p.drawEllipse(int(cx - pr), int(cy - pr), int(pr * 2), int(pr * 2))
+        p.end()
+        return QtGui.QIcon(pm)
+    except Exception:
+        return QtGui.QIcon()
+
+
+def _make_mode_icon(size: int = 16) -> QtGui.QIcon:
+    try:
+        pm = QtGui.QPixmap(size, size)
+        pm.fill(QtCore.Qt.transparent)
+        p = QtGui.QPainter(pm)
+        p.setRenderHint(QtGui.QPainter.Antialiasing)
+        pen = QtGui.QPen(_MENU_ICON_COLOR, max(2, size // 12))
+        pen.setCapStyle(QtCore.Qt.RoundCap)
+        p.setPen(pen)
+        cx, cy = size / 2, size / 2
+        r_in, r_out = size * 0.15, size * 0.4
+        p.drawEllipse(int(cx - r_in), int(cy - r_in), int(r_in * 2), int(r_in * 2))
+        p.drawEllipse(int(cx - r_out), int(cy - r_out), int(r_out * 2), int(r_out * 2))
+        for i in range(6):
+            p.drawLine(int(cx + r_in), int(cy), int(cx + r_out), int(cy))
+            p.rotate(60)
+        p.end()
+        return QtGui.QIcon(pm)
+    except Exception:
+        return QtGui.QIcon()
+
+
+def _make_tools_icon(size: int = 16) -> QtGui.QIcon:
+    try:
+        pm = QtGui.QPixmap(size, size)
+        pm.fill(QtCore.Qt.transparent)
+        p = QtGui.QPainter(pm)
+        p.setRenderHint(QtGui.QPainter.Antialiasing)
+        pen = QtGui.QPen(_MENU_ICON_COLOR, max(2, size // 12))
+        pen.setCapStyle(QtCore.Qt.RoundCap)
+        p.setPen(pen)
+        cx, cy = size / 2, size / 2
+        p.drawLine(int(cx - size * 0.35), int(cy + size * 0.15),
+                   int(cx + size * 0.35), int(cy - size * 0.15))
+        p.drawLine(int(cx + size * 0.35), int(cy - size * 0.15),
+                   int(cx + size * 0.45), int(cy - size * 0.3))
+        p.drawLine(int(cx + size * 0.45), int(cy - size * 0.3),
+                   int(cx + size * 0.35), int(cy - size * 0.4))
+        p.drawLine(int(cx + size * 0.35), int(cy - size * 0.4),
+                   int(cx + size * 0.2), int(cy - size * 0.25))
+        p.end()
+        return QtGui.QIcon(pm)
+    except Exception:
+        return QtGui.QIcon()
+
+
 def _load_font_size_config() -> int:
     """Load font size level from config file. Returns 0/1/2."""
     global _FONT_SIZE_CONFIG_FILE
@@ -1144,6 +1237,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         try:
             help_menu = self.menuBar().addMenu(_("Help"))
+            help_menu.menuAction().setIcon(_make_help_icon(16))
             act = help_menu.addAction(_("Welcome / Quick Guide"))
             act.triggered.connect(self._show_welcome_dialog)
         except Exception:
@@ -1159,6 +1253,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # View menu (font size)
         try:
             view_menu = self.menuBar().addMenu(_("View"))
+            view_menu.menuAction().setIcon(_make_view_icon(16))
             font_group = QtGui.QActionGroup(self)
             font_group.setExclusive(True)
             for lv in (0, 1, 2):
@@ -1175,6 +1270,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # Mode menu
         try:
             mode_menu = self.menuBar().addMenu(_("Mode"))
+            mode_menu.menuAction().setIcon(_make_mode_icon(16))
 
             act_r_off = mode_menu.addAction(_("Reasoning: off"))
             act_r_off.triggered.connect(lambda: self._set_reasoning("0"))
@@ -1229,6 +1325,7 @@ class MainWindow(QtWidgets.QMainWindow):
             )
 
             tools_menu = self.menuBar().addMenu(_("Tools"))
+            tools_menu.menuAction().setIcon(_make_tools_icon(16))
 
             genre_items = [
                 (
