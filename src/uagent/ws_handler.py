@@ -8,6 +8,7 @@ Dispatches incoming messages to the appropriate handler.
 import json
 import os
 from pathlib import Path
+from typing import Any
 
 from uagent.ws_config import WsConfigManager
 from uagent.ws_session import WsSessionManager
@@ -19,9 +20,39 @@ class WsHandler:
     def __init__(self):
         self.session_mgr = WsSessionManager()
         self.config_mgr = WsConfigManager()
+        self._websocket: Any = None
+        self._startup_cache = None  # Cache for (provider, client, depname, messages)
 
-    async def dispatch(self, msg: dict) -> dict:
+    async def _send_chunk(self, data: str) -> None:
+        """Send a streaming text chunk to the current WebSocket, if available."""
+        import logging
+        logger = logging.getLogger("uag.ws_handler")
+        if self._websocket is not None:
+            try:
+                msg = {"type": "chunk", "data": data}
+                payload = json.dumps(msg, ensure_ascii=False)
+                await self._websocket.send(payload)
+                logger.info("_send_chunk sent OK (len=%d)", len(payload))
+            except (Exception, SystemExit) as e:
+                logger.error("_send_chunk failed: %s", e)
+        else:
+            logger.info("_send_chunk: no websocket")
+
+    async def _send_progress(self, data: str) -> None:
+        """Send a progress notification via the current WebSocket, if available."""
+        import logging
+        logger = logging.getLogger("uag.ws_handler")
+        if self._websocket is not None:
+            try:
+                msg = {"type": "progress", "data": data}
+                await self._websocket.send(json.dumps(msg, ensure_ascii=False))
+                logger.info("_send_progress sent: %s", data)
+            except Exception as e:
+                logger.error("_send_progress failed: %s", e)
+
+    async def dispatch(self, msg: dict, websocket=None) -> dict:
         """Route a message to the appropriate handler method."""
+        self._websocket = websocket
         method = msg.get("method", "")
         params = msg.get("params", {})
         req_id = msg.get("id")
@@ -76,7 +107,7 @@ class WsHandler:
                 "ok": False,
                 "error": {"code": "INVALID_PARAMS", "message": str(e)},
             }
-        except Exception as e:
+        except (Exception, SystemExit) as e:
             return {
                 "id": req_id,
                 "ok": False,
@@ -101,53 +132,62 @@ class WsHandler:
         message = params.get("message", "")
         if not message:
             raise ValueError("'message' is required")
-        provider = self.config_mgr.get("provider", "")
-        if not provider:
-            return {
-                "reply": (
-                    "[uag] LLM provider not configured.\n"
-                    "Set UAGENT_PROVIDER and API key, then restart.\n"
-                    "Example: UAGENT_PROVIDER=openai UAGENT_OPENAI_API_KEY=sk-..."
-                )
-            }
+        # Notify progress before potentially slow startup / LLM call
+        await self._send_progress("準備中...")
+        import asyncio
+        await asyncio.sleep(0)  # flush send buffer so client sees progress
 
-        # Reuse existing uag startup logic
+        # Cache startup state so conversation history is preserved across calls.
         try:
             from uagent.cli_startup import run_cli_startup
             from uagent.providers import util_providers as _providers
             from uagent import uagent_llm as llm_util
             from uagent import core as _core
 
-            startup = run_cli_startup(
-                core=_core,
-                cli_workdir=os.getcwd(),
-                env_workdir="",
-                initial_file_arg="",
-                non_interactive=True,
-                tool_genre_mask=0,
-            )
+            if self._startup_cache is None:
+                startup = await asyncio.to_thread(
+                    run_cli_startup,
+                    core=_core,
+                    cli_workdir=os.getcwd(),
+                    env_workdir="",
+                    initial_file_arg="",
+                    non_interactive=True,
+                    tool_genre_mask=0,
+                )
+                if not startup.provider or not startup.client:
+                    return {"reply": "[uag] Startup failed. Check UAGENT_PROVIDER and API key."}
+                self._startup_cache = {
+                    "provider": startup.provider,
+                    "client": startup.client,
+                    "depname": startup.depname,
+                    "messages": startup.messages,
+                }
 
-            if not startup.provider or not startup.client:
-                return {"reply": "[uag] Startup failed. Check UAGENT_PROVIDER and API key."}
+            cache = self._startup_cache
+            await self._send_progress("LLMに問い合わせ中...")
 
             # Append user message
             user_msg = {"role": "user", "content": message}
-            startup.messages.append(user_msg)
+            cache["messages"].append(user_msg)
 
-            llm_util.run_llm_rounds(
-                startup.provider,
-                startup.client,
-                startup.depname,
-                startup.messages,
+            import asyncio
+            await asyncio.to_thread(
+                llm_util.run_llm_rounds,
+                cache["provider"],
+                cache["client"],
+                cache["depname"],
+                cache["messages"],
                 core=_core,
                 make_client_fn=_providers.make_client,
                 append_result_to_outfile_fn=lambda *a, **kw: None,
                 try_open_images_from_text_fn=lambda *a, **kw: None,
             )
 
+            await self._send_progress("応答を処理中...")
+
             # Extract the last assistant message as reply
             reply = ""
-            for m in reversed(startup.messages):
+            for m in reversed(cache["messages"]):
                 if isinstance(m, dict) and m.get("role") == "assistant":
                     content = m.get("content", "")
                     if content:
@@ -156,9 +196,14 @@ class WsHandler:
 
             self.session_mgr.save_message("user", message)
             self.session_mgr.save_message("assistant", reply or "(empty response)")
+
+            # Stream the final reply as chunks so VSCode can display it
+            if reply:
+                await self._send_chunk(reply)
+
             return {"reply": reply or "[uag] No response generated."}
 
-        except Exception as e:
+        except (Exception, SystemExit) as e:
             import traceback
             return {"reply": f"[uag] LLM error: {e}\n{traceback.format_exc()[:500]}"}
 

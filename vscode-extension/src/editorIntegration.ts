@@ -52,7 +52,35 @@ export class EditorIntegration {
             'Please refactor the code to improve readability, performance, and maintainability.',
             'Output the refactored code in a code block and explain your changes.'
         ].join('\n');
-        await this.sendToChat(message);
+        const { ChatPanel } = require('./panel');
+        const ctx = this.getExtensionContext();
+        if (ctx) {
+            ChatPanel.createOrShow(ctx, this.ws);
+        }
+        try {
+            const result = await this.ws.call('chat', { message: message }, 300000);
+            const reply = (result.reply || '') as string;
+            const refactoredCode = this.extractCodeBlock(reply);
+            if (refactoredCode) {
+                const action = await vscode.window.showInformationMessage(
+                    'uag: リファクタリング案があります',
+                    'Show Diff',
+                    'Apply'
+                );
+                if (action === 'Show Diff' || action === 'Apply') {
+                    const edit = new vscode.WorkspaceEdit();
+                    edit.replace(editor.document.uri, editor.selection, refactoredCode);
+                    await vscode.workspace.applyEdit(edit);
+                    if (action === 'Apply') {
+                        vscode.window.showInformationMessage('リファクタリングを適用しました: ' + filePath);
+                    }
+                }
+            } else {
+                vscode.window.showInformationMessage('レスポンスからコードブロックを抽出できませんでした');
+            }
+        } catch (e: any) {
+            vscode.window.showErrorMessage('リファクタリングに失敗しました: ' + e.message);
+        }
     }
 
     async fixError(): Promise<void> {

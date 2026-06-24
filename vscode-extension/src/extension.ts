@@ -59,11 +59,19 @@ export async function activate(context: vscode.ExtensionContext) {
         return;
     }
 
-    // Start WebSocket server
+    // Start WebSocket server and wait for it to be ready
     const port = vscode.workspace.getConfiguration('uag')
         .get<number>('port', 18765);
-    statusBarItem.text = '$(hubot) uag: connecting...';
-    serverProcess = startServer(pythonPath, port);
+    statusBarItem.text = '$(hubot) uag: starting server...';
+    try {
+        serverProcess = await startServer(pythonPath, port);
+    } catch (e: any) {
+        statusBarItem.text = '$(error) uag: server failed';
+        vscode.window.showErrorMessage(
+            `uag: Failed to start server: ${e.message}`
+        );
+        return;
+    }
 
     // Connect WebSocket client
     wsClient = new WsClient();
@@ -170,33 +178,52 @@ async function checkUagInstalled(pythonPath: string): Promise<boolean> {
     });
 }
 
-function startServer(pythonPath: string, port: number): cp.ChildProcess {
-    const proc = cp.spawn(pythonPath, [
-        '-m', 'uagent.ws_server',
-        '--port', String(port),
-        '--log-level', 'INFO'
-    ], {
-        stdio: ['ignore', 'pipe', 'pipe'],
-        env: { ...process.env }
-    });
+async function startServer(pythonPath: string, port: number): Promise<cp.ChildProcess> {
+    return new Promise((resolve, reject) => {
+        const proc = cp.spawn(pythonPath, [
+            '-m', 'uagent.ws_server',
+            '--port', String(port),
+            '--log-level', 'INFO'
+        ], {
+            stdio: ['ignore', 'pipe', 'pipe'],
+            env: { ...process.env }
+        });
 
-    proc.stdout?.on('data', (data: Buffer) => {
-        outputChannel.append(data.toString());
-    });
+        const timeout = setTimeout(() => {
+            reject(new Error('Server did not start within 15 seconds'));
+        }, 15000);
 
-    proc.stderr?.on('data', (data: Buffer) => {
-        outputChannel.append(data.toString());
-    });
+        let outputBuffer = '';
 
-    proc.on('exit', (code) => {
-        log('WARN', `Server process exited with code ${code}`);
-    });
+        proc.stdout?.on('data', (data: Buffer) => {
+            const text = data.toString();
+            outputBuffer += text;
+            outputChannel.append(text);
+            if (text.includes('UAG_WS_READY')) {
+                clearTimeout(timeout);
+                log('INFO', 'Server is ready');
+                resolve(proc);
+            }
+        });
 
-    proc.on('error', (err) => {
-        log('ERROR', `Server process error: ${err.message}`);
-    });
+        proc.stderr?.on('data', (data: Buffer) => {
+            outputChannel.append(data.toString());
+        });
 
-    return proc;
+        proc.on('exit', (code) => {
+            clearTimeout(timeout);
+            log('WARN', `Server process exited with code ${code}`);
+            if (code !== 0) {
+                reject(new Error(`Server exited with code ${code}\n${outputBuffer}`));
+            }
+        });
+
+        proc.on('error', (err) => {
+            clearTimeout(timeout);
+            log('ERROR', `Server process error: ${err.message}`);
+            reject(err);
+        });
+    });
 }
 
 function runInTerminal(command: string) {

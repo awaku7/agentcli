@@ -180,7 +180,8 @@ export class WsClient {
             try {
                 await this.call('ping', {}, 5000);
             } catch {
-                this.ws?.close();
+                // Server may be busy processing a long request (LLM/tool call).
+                // Do NOT close the connection; just try again next interval.
             }
         }, 30000);
     }

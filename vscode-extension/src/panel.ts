@@ -61,6 +61,22 @@ export class ChatPanel {
             this.disposables
         );
 
+        // Listen for streaming chunks from WebSocket server
+        this.ws.on('chunk', (msg: any) => {
+            this.postMessage({
+                type: 'chunk',
+                data: msg.data || ''
+            });
+        });
+
+        // Listen for progress updates from WebSocket server
+        this.ws.on('progress', (msg: any) => {
+            this.postMessage({
+                type: 'progress',
+                data: msg.data || ''
+            });
+        });
+
         // Cleanup
         this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
 
@@ -81,10 +97,10 @@ export class ChatPanel {
 
     /** Send a chat message from outside (e.g. editor commands) */
     async sendChatMessage(text: string): Promise<void> {
-        // Add user message to webview
+        // Tell webview to show the user message and create a streaming container
         this.postMessage({
-            type: 'system',
-            data: '[Context attached] Sending to LLM...'
+            type: 'chat',
+            text: text
         });
         // Forward to LLM
         await this.handleChatMessage(text);
@@ -92,11 +108,9 @@ export class ChatPanel {
 
     private async handleChatMessage(text: string) {
         try {
-            const result = await this.ws.call('chat', { message: text });
-            this.postMessage({
-                type: 'chunk',
-                data: result.reply || '(no reply)'
-            });
+            // Wait for the chat response. Streaming chunks are received
+            // separately via the 'chunk' event listener during processing.
+            await this.ws.call('chat', { message: text }, 300000);
             this.postMessage({ type: 'done' });
         } catch (e: any) {
             this.postMessage({ type: 'error', data: e.message });
@@ -322,14 +336,23 @@ export class ChatPanel {
             window.addEventListener('message', event => {
                 const msg = event.data;
                 switch (msg.type) {
+                    case 'chat':
+                        // Programmatic message (Explain Selection, etc.)
+                        addMessage(msg.text, 'msg-user');
+                        addMessage('', 'streaming');
+                        break;
                     case 'chunk': {
                         const el = document.getElementById('streaming');
                         if (el) el.textContent += msg.data;
                         break;
                     }
+                    case 'progress':
+                        status.textContent = msg.data;
+                        break;
                     case 'done': {
                         const el = document.getElementById('streaming');
                         if (el) el.id = '';
+                        status.textContent = 'Ready';
                         break;
                     }
                     case 'error':

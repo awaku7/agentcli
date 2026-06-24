@@ -21,6 +21,9 @@ from typing import Any
 
 from uagent.ws_handler import WsHandler
 
+# Imported lazily in _load_env_at_startup to avoid circular imports at module level.
+# _load_env_at_startup is called from main() before any request is handled.
+
 logger = logging.getLogger("uag.ws_server")
 
 DEFAULT_PORT = 18765
@@ -43,8 +46,8 @@ class UagWebSocketServer:
             self.on_connect,
             host="127.0.0.1",
             port=self.port,
-            ping_interval=20,
-            ping_timeout=60,
+            ping_interval=None,
+            ping_timeout=None,
             max_size=10 * 1024 * 1024,  # 10 MB
             compression=None,
         )
@@ -86,7 +89,7 @@ class UagWebSocketServer:
             )
             return
 
-        response = await self.handler.dispatch(msg)
+        response = await self.handler.dispatch(msg, websocket=websocket)
         try:
             await websocket.send(json.dumps(response, ensure_ascii=False))
         except Exception as e:
@@ -135,10 +138,61 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+def _load_env_at_startup() -> None:
+    """Load .env / .env.sec so that UAGENT_PROVIDER etc. are available.
+
+    Strategy:
+      1. Use uagent package location (works with editable/dev installs).
+      2. Walk up from CWD (in case the user started from the project dir).
+    """
+    import os
+    from pathlib import Path
+    candidates: list[Path] = []
+
+    # (a) uagent package file -> 2 levels up -> project root
+    try:
+        import uagent
+        pkg_parent = Path(uagent.__file__).resolve().parent.parent  # src/ or site-packages/
+        candidates.append(pkg_parent)
+        # If installed in site-packages, try one more level up
+        candidates.append(pkg_parent.parent)
+    except Exception:
+        pass
+
+    # (b) CWD and its parents
+    cwd = Path.cwd().resolve()
+    candidates.append(cwd)
+    candidates.extend(cwd.parents)
+
+    target: Path | None = None
+    seen: set[Path] = set()
+    for p in candidates:
+        p = p.resolve()
+        if p in seen:
+            continue
+        seen.add(p)
+        if (p / ".env.sec").is_file() or (p / ".env").is_file():
+            target = p
+            break
+
+    if target is None:
+        target = cwd
+
+    if target != cwd:
+        os.chdir(str(target))
+        logger.info("Changed workdir to %s and loaded .env / .env.sec", target)
+    from uagent.runtime.runtime_init import reload_dotenv_custom
+    reload_dotenv_custom()
+
+
 def main(argv: list[str] | None = None) -> int:
     """Main entry point."""
     args = parse_args(argv)
     setup_logging(args.log_level)
+
+    # Load .env and .env.sec from CWD (or nearest parent) so that
+    # UAGENT_PROVIDER etc. are available before any chat request.
+    _load_env_at_startup()
 
     server = UagWebSocketServer(port=args.port)
 
