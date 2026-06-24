@@ -220,7 +220,6 @@ def run_cli_startup(
         reload_dotenv_custom,
         validate_or_exit_startup_env,
     )
-    from .checks import check_git_installation
     from .readme_util import (
         maybe_print_quickstart_on_first_run,
         maybe_print_readme_on_first_run,
@@ -323,7 +322,6 @@ def run_cli_startup(
             )
 
             print_welcome()
-            check_git_installation()
             ensure_mcp_config_template()
 
             provider, client, depname = providers.make_client(core)

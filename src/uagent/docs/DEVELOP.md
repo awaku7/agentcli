@@ -17,7 +17,7 @@ ______________________________________________________________________
 ## 0. Runtime requirements
 
 - Python: 3.11+
-- Git: required for development workflows and some tools
+- Git: optional (required only for `git_ops` tool and `skills_install` via Git URL)
 - OS: Windows / macOS / Linux
 
 ### 0.1 Startup options
