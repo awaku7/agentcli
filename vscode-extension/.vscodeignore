@@ -1,0 +1,14 @@
+src/**
+tsconfig.json
+.vscode/**
+**/*.org
+**/*.org1
+**/*.org2
+**/*.bak
+**/node_modules/**
+**/*.ts
+**/*.map
+package.json.org
+patch_markdown.py
+fix_*.py
+ 

@@ -5,6 +5,10 @@
   "version": "0.1.0",
   "publisher": "awaku7",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awaku7/agentcli.git"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
