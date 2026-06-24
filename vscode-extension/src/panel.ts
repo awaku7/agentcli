@@ -61,22 +61,6 @@ export class ChatPanel {
             this.disposables
         );
 
-        // Listen for streaming chunks from WebSocket server
-        this.ws.on('chunk', (msg: any) => {
-            this.postMessage({
-                type: 'chunk',
-                data: msg.data || ''
-            });
-        });
-
-        // Listen for progress updates from WebSocket server
-        this.ws.on('progress', (msg: any) => {
-            this.postMessage({
-                type: 'progress',
-                data: msg.data || ''
-            });
-        });
-
         // Cleanup
         this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
 
@@ -97,10 +81,10 @@ export class ChatPanel {
 
     /** Send a chat message from outside (e.g. editor commands) */
     async sendChatMessage(text: string): Promise<void> {
-        // Tell webview to show the user message and create a streaming container
+        // Add user message to webview
         this.postMessage({
-            type: 'chat',
-            text: text
+            type: 'system',
+            data: '[Context attached] Sending to LLM...'
         });
         // Forward to LLM
         await this.handleChatMessage(text);
@@ -108,9 +92,11 @@ export class ChatPanel {
 
     private async handleChatMessage(text: string) {
         try {
-            // Wait for the chat response. Streaming chunks are received
-            // separately via the 'chunk' event listener during processing.
-            await this.ws.call('chat', { message: text }, 300000);
+            const result = await this.ws.call('chat', { message: text });
+            this.postMessage({
+                type: 'chunk',
+                data: result.reply || '(no reply)'
+            });
             this.postMessage({ type: 'done' });
         } catch (e: any) {
             this.postMessage({ type: 'error', data: e.message });
@@ -268,68 +254,6 @@ export class ChatPanel {
         }
         .cursor-blink { animation: blink 1s step-end infinite; }
         @keyframes blink { 50% { opacity: 0; } }
-        /* Markdown: code blocks */
-        .msg-assistant pre, .msg-user pre {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 8px;
-            overflow-x: auto;
-            margin: 6px 0;
-        }
-        .msg-assistant code, .msg-user code {
-            font-family: var(--font-mono);
-            font-size: 0.9em;
-        }
-        .msg-assistant pre code, .msg-user pre code {
-            background: none;
-            border: none;
-            padding: 0;
-        }
-        .msg-assistant :not(pre) > code, .msg-user :not(pre) > code {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 3px;
-            padding: 1px 4px;
-        }
-        .msg-assistant a, .msg-user a {
-            color: var(--accent);
-            text-decoration: underline;
-        }
-        .msg-assistant h1, .msg-user h1,
-        .msg-assistant h2, .msg-user h2,
-        .msg-assistant h3, .msg-user h3 {
-            margin: 8px 0 4px 0;
-        }
-        .msg-assistant p, .msg-user p {
-            margin: 4px 0;
-        }
-        .msg-assistant ul, .msg-user ul,
-        .msg-assistant ol, .msg-user ol {
-            padding-left: 20px;
-            margin: 4px 0;
-        }
-        .msg-assistant li, .msg-user li {
-            margin: 2px 0;
-        }
-        .msg-assistant blockquote, .msg-user blockquote {
-            border-left: 3px solid var(--border);
-            padding-left: 8px;
-            margin: 4px 0;
-            color: var(--text-secondary);
-        }
-        .msg-assistant table, .msg-user table {
-            border-collapse: collapse;
-            margin: 6px 0;
-        }
-        .msg-assistant th, .msg-user th,
-        .msg-assistant td, .msg-user td {
-            border: 1px solid var(--border);
-            padding: 4px 8px;
-        }
-        .msg-assistant th, .msg-user th {
-            background: var(--bg-secondary);
-        }
     </style>
 </head>
 <body>
@@ -352,48 +276,12 @@ export class ChatPanel {
             const sendBtn = document.getElementById('btn-send');
             const status = document.getElementById('status');
 
-            function escapeHtml(s) {
-                const map = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
-                return s.replace(/[&<>"']/g, function(m) { return map[m]; });
-            }
-
-            function renderMarkdown(text) {
-                let html = escapeHtml(text);
-                // fenced code blocks
-                html = html.replace(/\x60\x60\x60(\w*)\n([\s\S]*?)\x60\x60\x60/g, function(_, lang, code) {
-                    return '<pre><code' + (lang ? ' class="lang-' + lang + '"' : '') + '>'
-                        + escapeHtml(code.trim()) + '</code></pre>';
-                });
-                // inline code (bt)
-                html = html.replace(/\x60([^\x60]+)\x60/g, '<code>$1</code>');
-                // bold **...**
-                html = html.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
-                // italic *...*
-                html = html.replace(/\*([^*]+)\*/g, '<i>$1</i>');
-                // links [text](url)
-                html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
-                // headings ###... to #...
-                html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
-                html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
-                html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
-                // blockquote >
-                html = html.replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>');
-                // horizontal rule ---
-                html = html.replace(/^---+$/gm, '<hr>');
-                // double newline = paragraph break
-                html = html.replace(/\n\n/g, '</p><p>');
-                html = '<p>' + html + '</p>';
-                return html;
-            }
-
             function addMessage(text, className) {
                 const div = document.createElement('div');
                 div.className = className || 'msg-assistant';
                 if (className === 'streaming') {
                     div.id = 'streaming';
-                    div.innerHTML = '';
-                } else if (className === 'msg-user' || className === 'msg-assistant') {
-                    div.innerHTML = renderMarkdown(text);
+                    div.textContent = '';
                 } else {
                     div.textContent = text;
                 }
@@ -434,36 +322,18 @@ export class ChatPanel {
             window.addEventListener('message', event => {
                 const msg = event.data;
                 switch (msg.type) {
-                    case 'chat':
-                        // Programmatic message (Explain Selection, etc.)
-                        addMessage(msg.text, 'msg-user');
-                        addMessage('', 'streaming');
-                        break;
                     case 'chunk': {
                         const el = document.getElementById('streaming');
                         if (el) el.textContent += msg.data;
                         break;
                     }
-                    case 'progress':
-                        status.textContent = msg.data;
-                        break;
                     case 'done': {
                         const el = document.getElementById('streaming');
-                        if (el) {
-                            const raw = el.textContent || '';
-                            el.innerHTML = renderMarkdown(raw);
-                            el.id = '';
-                        }
-                        sendBtn.disabled = false;
-                        // Re-enable send button based on input
-                        if (input.value.trim()) sendBtn.disabled = false;
-                        status.textContent = 'Ready';
+                        if (el) el.id = '';
                         break;
                     }
                     case 'error':
                         addMessage(msg.data, 'msg-error');
-                        sendBtn.disabled = false;
-                        if (input.value.trim()) sendBtn.disabled = false;
                         break;
                     case 'system':
                         addMessage(msg.data, 'msg-system');
