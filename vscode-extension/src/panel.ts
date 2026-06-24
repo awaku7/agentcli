@@ -359,14 +359,13 @@ export class ChatPanel {
 
             function renderMarkdown(text) {
                 let html = escapeHtml(text);
-                // fenced code blocks ```lang ... ```
-                html = html.replace(/```(\w*)
-([\s\S]*?)```/g, function(_, lang, code) {
+                // fenced code blocks
+                html = html.replace(/\x60\x60\x60(\w*)\n([\s\S]*?)\x60\x60\x60/g, function(_, lang, code) {
                     return '<pre><code' + (lang ? ' class="lang-' + lang + '"' : '') + '>'
                         + escapeHtml(code.trim()) + '</code></pre>';
                 });
-                // inline code `...`
-                html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+                // inline code (bt)
+                html = html.replace(/\x60([^\x60]+)\x60/g, '<code>$1</code>');
                 // bold **...**
                 html = html.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
                 // italic *...*
@@ -382,9 +381,7 @@ export class ChatPanel {
                 // horizontal rule ---
                 html = html.replace(/^---+$/gm, '<hr>');
                 // double newline = paragraph break
-                html = html.replace(/
-
-/g, '</p><p>');
+                html = html.replace(/\n\n/g, '</p><p>');
                 html = '<p>' + html + '</p>';
                 return html;
             }
