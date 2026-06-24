@@ -30,7 +30,7 @@
 - **Běží lokálně** na vašem počítači. Vaše data zůstanou s vámi (s výjimkou volání API, která provedete).
 - **Svoboda poskytovatelů**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ poskytovatelů, vše přístupné z jediného rozhraní. Přepínejte mezi nimi překonfigurováním proměnných prostředí – žádná přeinstalace, žádná migrace.
 - **131 nástrojů**: I/O souborů, vyhledávání na webu, generování obrázků, skenování zařízení BLE, integrace serveru MCP – a **76 z nich běží paralelně**. Když LLM spustí více volání nástrojů najednou, uag je automaticky provede prostřednictvím fondu vláken.
-- **3 UI + A2A**: CLI, GUI, Web a Agent-to-Agent protokol. Stejný engine, jakékoli rozhraní.
+- **4 UI + A2A**: CLI, GUI, Web a Agent-to-Agent protokol. Stejný engine, jakékoli rozhraní.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP – ovládejte svá domácí zařízení pomocí AI.
 - **Schopnosti agentů**: Nainstalujte si dovednosti vytvořené komunitou z trhu. Prodlužujte uag donekonečna.
 
@@ -83,7 +83,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 | **A2A** | Komunikace agent-agent (s jinými instancemi uag nebo servery kompatibilními s A2A) |
 | **Systém** | env vars, systémové specifikace, čas, výpočet data |
 
-### 🖥 3 rozhraní + A2A
+### 🖥 3 rozhraní + A2A + VS Code
 
 | Režim | Příkaz | Účel |
 |---|---|---|
@@ -91,6 +91,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 | **GUI** | `uagg` | Desktop UI přes tkinter |
 | **Web** | `uagw` | Přístup na základě prohlížeče |
 | **Server A2A** | `uaga` | Agent2Agent protokol pro multi-agentní komunikaci |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 Ovládání zařízení IoT
 

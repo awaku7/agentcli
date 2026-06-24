@@ -30,7 +30,7 @@
 - **S'exécute localement** sur votre machine. Vos données restent avec vous (sauf les appels API que vous effectuez).
 - **Liberté des fournisseurs** : OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Plus de 15 fournisseurs, tous accessibles depuis une seule interface. Passez de l'un à l'autre en reconfigurant les variables d'environnement : pas de réinstallation, pas de migration.
 - **131 outils** : E/S de fichiers, recherche sur le Web, génération d'images, analyse de périphériques BLE, intégration de serveur MCP — et **76 sont parallel-safe (jusqu'à 4 simultanément)**. Lorsque le LLM déclenche plusieurs appels d'outil à la fois, uag les exécute automatiquement via un pool de threads.
-- **3 interfaces utilisateur + A2A** : CLI, GUI, Web et protocole agent à agent. Même moteur, n’importe quelle interface.
+- **4 interfaces utilisateur + A2A** : CLI, GUI, Web et protocole agent à agent. Même moteur, n’importe quelle interface.
 - **Prêt pour l'IoT** : SwitchBot, ECHONET Lite, Matter, UPnP — contrôlez vos appareils domestiques via l'IA.
 - **Compétences d'agent** : installez des compétences développées par la communauté à partir du marché. Prolongez l'UAG à l'infini.
 
@@ -84,7 +84,7 @@ Les outils en lecture seule (recherche de fichiers, calcul de hachage, liste de 
 | **Système** | variables d'environnement, spécifications du système, heure, calcul de date |
 | **Navigation dans le code** | **13 outils idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — obtenez un index de fonctions/classes ou une définition spécifique sans lire tout le fichier |
 
-### 🖥 3Interfaces + A2A
+### 🖥 3Interfaces + A2A + VS Code
 
 | Mode | Commande | Objectif |
 |---|---|---|
@@ -92,6 +92,7 @@ Les outils en lecture seule (recherche de fichiers, calcul de hachage, liste de 
 | **interface graphique** | `uagg` | Interface utilisateur de bureau via tkinter |
 | **Internet** | `uagw` | Accès par navigateur |
 | **Serveur A2A** | `ouaga` | Protocole Agent2Agent pour la communication multi-agents |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 Contrôle des appareils IoT
 

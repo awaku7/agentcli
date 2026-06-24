@@ -30,7 +30,7 @@
 - **Kjører lokalt** på maskinen din. Dataene dine forblir hos deg (unntatt API-anrop du foretar).
 - **Leverandørfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ leverandører, alle tilgjengelige fra ett enkelt grensesnitt. Bytt mellom dem ved å rekonfigurere miljøvariabler – ingen reinstallering, ingen migrering.
 - **131 verktøy**: Fil-I/O, nettsøk, bildegenerering, BLE-enhetsskanning, MCP-serverintegrasjon — og **76 av dem kjøres parallelt**. Når LLM utløser flere verktøyanrop samtidig, kjører uag dem automatisk via en trådpool.
-- **3 brukergrensesnitt + A2A**: CLI, GUI, Web og Agent-to-Agent-protokoll. Samme motor, hvilket som helst grensesnitt.
+- **4 brukergrensesnitt + A2A**: CLI, GUI, Web og Agent-to-Agent-protokoll. Samme motor, hvilket som helst grensesnitt.
 - **IoT-klar**: SwitchBot, ECHONET Lite, Matter, UPnP — kontroller hjemmeenhetene dine gjennom AI.
 - **Agentferdigheter**: Installer fellesskapsbygde ferdigheter fra markedsplassen. Forleng uag uendelig.
 
@@ -84,7 +84,7 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 | **System** | env vars, systemspesifikasjoner, tid, datoberegning |
 | **Kildekodenavigasjon** | **13 idx-verktøy** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — få funksjons-/klasseindeks eller spesifikk definisjon uten å lese hele filen |
 
-### 🖥 3 grensesnitt + A2A
+### 🖥 3 grensesnitt + A2A + VS Code
 
 | Modus | Kommando | Formål |
 |---|---|---|
@@ -92,6 +92,7 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 | **GUI** | `uagg` | Desktop UI via tkinter |
 | **Nett** | `uagw` | Nettleserbasert tilgang |
 | **A2A-server** | `uaga` | Agent2Agent-protokoll for multi-agent kommunikasjon |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 IoT-enhetskontroll
 

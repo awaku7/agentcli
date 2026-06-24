@@ -30,7 +30,7 @@
 - **Kendi makinenizde yerel olarak çalışır.** Verileriniz sizde kalır (yaptığınız API çağrıları hariç).
 - **Sağlayıcı özgürlüğü**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15'ten fazla sağlayıcı, tek bir arayüzden erişilebilir. Ortam değişkenlerini yeniden yapılandırarak aralarında geçiş yapın — yeniden kurulum veya taşıma gerektirmez.
 - **131 araç**: Dosya G/Ç, web arama, görsel oluşturma, BLE cihaz taraması, MCP sunucu entegrasyonu — ve bunların **76'i paralel çalışır**. LLM aynı anda birden çok araç çağrısı yaptığında, uag bunları otomatik olarak bir iş parçacığı havuzu üzerinden yürütür.
-- **3 Arayüz + A2A**: CLI, GUI, Web ve Ajanlar Arası Protokol. Aynı motor, herhangi bir arayüz.
+- **4 Arayüz + A2A**: CLI, GUI, Web ve Ajanlar Arası Protokol. Aynı motor, herhangi bir arayüz.
 - **IoT hazır**: SwitchBot, ECHONET Lite, Matter, UPnP — ev cihazlarınızı AI ile kontrol edin.
 - **Ajan Becerileri**: Pazar yerinden topluluk tarafından oluşturulmuş becerileri yükleyin. uag'ı sınırsızca genişletin.
 
@@ -83,7 +83,7 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, DB
 | **A2A** | Ajanlar arası iletişim (diğer uag örnekleri veya A2A uyumlu sunucularla) |
 | **Sistem** | ortam değişkenleri, sistem özellikleri, saat, tarih hesaplama |
 
-### 🖥 3 Arayüz + A2A
+### 🖥 3 Arayüz + A2A + VS Code
 
 | Mod | Komut | Amaç |
 |---|---|---|
@@ -91,6 +91,7 @@ Salt okunur araçlar (dosya arama, karma hesaplama, dizin listeleme, çeviri, DB
 | **GUI** | `uagg` | tkinter ile masaüstü arayüzü |
 | **Web** | `uagw` | Tarayıcı tabanlı erişim |
 | **A2A Sunucusu** | `uaga` | Çoklu ajan iletişimi için Ajan2Ajan protokolü |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 IoT Cihaz Kontrolü
 

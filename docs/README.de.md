@@ -30,7 +30,7 @@
 - **Läuft lokal** auf Ihrem Computer. Ihre Daten bleiben bei Ihnen (mit Ausnahme von API-Aufrufen, die Sie tätigen).
 - **Anbieterfreiheit**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ Anbieter, alle über eine einzige Schnittstelle zugänglich. Wechseln Sie zwischen ihnen, indem Sie Umgebungsvariablen neu konfigurieren – keine Neuinstallation, keine Migration.
 - **131 Tools**: Datei-E/A, Websuche, Bildgenerierung, BLE-Gerätescan, MCP-Serverintegration – und **76 davon laufen parallel**. Wenn das LLM mehrere Tool-Aufrufe gleichzeitig auslöst, führt uag diese automatisch über einen Thread-Pool aus.
-- **3 UIs + A2A**: CLI, GUI, Web und Agent-to-Agent-Protokoll. Gleiche Engine, beliebige Schnittstelle.
+- **4 UIs + A2A**: CLI, GUI, Web und Agent-to-Agent-Protokoll. Gleiche Engine, beliebige Schnittstelle.
 - **IoT-fähig**: SwitchBot, ECHONET Lite, Matter, UPnP – steuern Sie Ihre Heimgeräte durch KI.
 - **Agentenfähigkeiten**: Installieren Sie von der Community entwickelte Fähigkeiten vom Marktplatz. Verlängern Sie uag endlos.
 
@@ -84,7 +84,7 @@ Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Überse
 | **System** | Umgebungsvariablen, Systemspezifikationen, Uhrzeit, Datumsberechnung |
 | **Quellnavigation** | **13 idx-Tools** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — Funktions-/Klassenindex oder bestimmte Definition abrufen, ohne die gesamte Datei zu lesen |
 
-### 🖥 3 Schnittstellen + A2A
+### 🖥 3 Schnittstellen + A2A + VS Code
 
 | Modus | Befehl | Zweck |
 |---|---|---|
@@ -92,6 +92,7 @@ Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Überse
 | **GUI** | `uagg` | Desktop-Benutzeroberfläche über tkinter |
 | **Web** | `uagw` | Browserbasierter Zugriff |
 | **A2A-Server** | `uaga` | Agent2Agent-Protokoll für Multiagentenkommunikation |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 IoT-Gerätesteuerung
 

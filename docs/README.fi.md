@@ -30,7 +30,7 @@
 - **Toimii paikallisesti** koneellasi. Tietosi pysyvät mukanasi (paitsi tekemäsi API-kutsut).
 - **Toimittajan vapaus**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Yli 15 palveluntarjoajaa, kaikki käytettävissä yhdestä käyttöliittymästä. Vaihda niiden välillä määrittämällä ympäristömuuttujat uudelleen – ei uudelleenasennusta, ei siirtoa.
 - **131 työkalua**: tiedostojen I/O, verkkohaku, kuvan luominen, BLE-laitteiden skannaus, MCP-palvelinintegrointi – ja **76 niistä toimii rinnakkain**. Kun LLM käynnistää useita työkalukutsuja kerralla, uag suorittaa ne automaattisesti säiejoukon kautta.
-- **3 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent -protokolla. Sama moottori, mikä tahansa käyttöliittymä.
+- **4 käyttöliittymää + A2A**: CLI, GUI, Web ja Agent-to-Agent -protokolla. Sama moottori, mikä tahansa käyttöliittymä.
 - **IoT-valmius**: SwitchBot, ECHONET Lite, Matter, UPnP – ohjaa kodin laitteita tekoälyn avulla.
 - **Agenttitaidot**: Asenna yhteisön rakentamia taitoja markkinoilta. Laajenna uag loputtomasti.
 
@@ -83,7 +83,7 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 | **A2A** | Agenttien välinen viestintä (muiden uag-esiintymien tai A2A-yhteensopivien palvelimien kanssa) |
 | **Järjestelmä** | env vars, järjestelmän tiedot, aika, päivämäärälaskenta |
 
-### 🖥 3 liitäntää + A2A
+### 🖥 3 liitäntää + A2A + VS Code
 
 | Tila | Komento | Tarkoitus |
 |---|---|---|
@@ -91,6 +91,7 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 | **GUI** | `uagg` | Työpöytäkäyttöliittymä tkinterin kautta |
 | **Web** | `uagw` | Selainpohjainen pääsy |
 | **A2A-palvelin** | `uaga` | Agent2Agent-protokolla usean agentin tietoliikenteeseen |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 IoT-laitteiden ohjaus
 

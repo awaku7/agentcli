@@ -30,7 +30,7 @@
 - **Se ejecuta localmente** en su máquina. Sus datos permanecen con usted (excepto las llamadas API que realice).
 - **Libertad de proveedores**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Más de 15 proveedores, todos accesibles desde una única interfaz. Cambie entre ellos reconfigurando las variables de entorno: sin reinstalación ni migración.
 - **131 herramientas**: E/S de archivos, búsqueda web, generación de imágenes, escaneo de dispositivos BLE, integración de servidor MCP, y **76 de ellas se ejecutan en paralelo**. Cuando el LLM activa varias llamadas a herramientas a la vez, uag las ejecuta automáticamente a través de un grupo de subprocesos.
-- **3 UI + A2A**: CLI, GUI, web y protocolo de agente a agente. Mismo motor, cualquier interfaz.
+- **4 UI + A2A**: CLI, GUI, web y protocolo de agente a agente. Mismo motor, cualquier interfaz.
 - **Listo para IoT**: SwitchBot, ECHONET Lite, Matter, UPnP: controle sus dispositivos domésticos a través de IA.
 - **Habilidades del agente**: instale habilidades creadas por la comunidad desde el mercado. Extiende uag sin cesar.
 
@@ -84,7 +84,7 @@ Las herramientas de solo lectura (búsqueda de archivos, cálculo hash, listado 
 | **Sistema** | vars env, especificaciones del sistema, hora, cálculo de fecha |
 | **Navegación de código** | **13 herramientas idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — obtenga un índice de funciones/clases o una definición específica sin leer todo el archivo |
 
-### 🖥 3 interfaces + A2A
+### 🖥 3 interfaces + A2A + VS Code
 
 | Modo | Comando | Propósito |
 |---|---|---|
@@ -92,6 +92,7 @@ Las herramientas de solo lectura (búsqueda de archivos, cálculo hash, listado 
 | **GUI** | `uagg` | UI de escritorio a través de tkinter |
 | **Web** | `uagw` | Acceso basado en navegador |
 | **Servidor A2A** | `uagá` | Protocolo Agent2Agent para comunicación multiagente |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 Control de dispositivos IoT
 

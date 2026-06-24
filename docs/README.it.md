@@ -30,7 +30,7 @@
 - **Funziona localmente** sul tuo computer. I tuoi dati rimangono con te (ad eccezione delle chiamate API che effettui).
 - **Libertà dei provider**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Oltre 15 provider, tutti accessibili da un'unica interfaccia. Passa dall'uno all'altro riconfigurando le variabili di ambiente: nessuna reinstallazione, nessuna migrazione.
 - **131 strumenti**: I/O di file, ricerca web, generazione di immagini, scansione di dispositivi BLE, integrazione del server MCP e **76 di essi vengono eseguiti in parallelo**. Quando LLM attiva più chiamate a strumenti contemporaneamente, uag le esegue automaticamente tramite un pool di thread.
-- **3 UI + A2A**: CLI, GUI, Web e protocollo da agente ad agente. Stesso motore, qualsiasi interfaccia.
+- **4 UI + A2A**: CLI, GUI, Web e protocollo da agente ad agente. Stesso motore, qualsiasi interfaccia.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP: controlla i tuoi dispositivi domestici tramite l'intelligenza artificiale.
 - **Competenze agente**: installa competenze sviluppate dalla comunità dal mercato. Estendi uag all'infinito.
 
@@ -84,7 +84,7 @@ Gli strumenti di sola lettura (ricerca di file, calcolo hash, elenco di director
 | **Sistema** | variabili di ambiente, specifiche di sistema, ora, calcolo della data |
 | **Navigazione del codice** | **13 strumenti idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — ottieni un indice di funzioni/classi o una definizione specifica senza leggere l'intero file |
 
-### 🖥 3 Interfacce + A2A
+### 🖥 3 Interfacce + A2A + VS Code
 
 | Modalità | Comando | Scopo |
 |---|---|---|
@@ -92,6 +92,7 @@ Gli strumenti di sola lettura (ricerca di file, calcolo hash, elenco di director
 | **GUI** | `uagg` | Interfaccia utente desktop tramite tkinter |
 | **Web** | `uagw` | Accesso basato su browser |
 | **Server A2A** | `uaga` | Protocollo Agent2Agent per comunicazione multi-agente |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 Controllo dei dispositivi IoT
 

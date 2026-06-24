@@ -30,7 +30,7 @@
 - ** Huendesha ndani ** kwenye mashine yako. Data yako itasalia nawe (isipokuwa simu za API unazopiga).
 - **Uhuru wa mtoa huduma**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ watoa huduma, wote wanaweza kufikiwa kutoka kwa kiolesura kimoja. Badilisha kati yao kwa kusanidi upya anuwai za mazingira - hakuna kusakinisha tena, hakuna uhamiaji.
 - **Zana 131**: Faili I/O, utafutaji wa wavuti, kutengeneza picha, kuchanganua kifaa cha BLE, muunganisho wa seva ya MCP — na **76 zinalindwa kwa usawa** (hadi 4 kwa wakati mmoja). Wakati LLM inapiga simu za zana nyingi mara moja, uag huzitekeleza kiotomatiki kupitia dimbwi la nyuzi.
-- **UI 3 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, interface yoyote.
+- **UI 4 + A2A**: CLI, GUI, Wavuti, na itifaki ya Wakala kwa Wakala. Injini sawa, interface yoyote.
 - **IoT tayari**: SwitchBot, ECHONET Lite, Matter, UPnP - dhibiti vifaa vyako vya nyumbani kupitia AI.
 - **Ujuzi wa Wakala**: Sakinisha ujuzi uliojengwa na jumuiya kutoka sokoni. Panua uag bila mwisho.
 
@@ -83,7 +83,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 | **A2A** | Mawasiliano ya wakala kwa wakala (pamoja na matukio mengine ya uag au seva zinazooana na A2A) |
 | **Mfumo** | env vars, vipimo vya mfumo, saa, hesabu ya tarehe |
 
-### 🖥 Violesura 3 + A2A
+### 🖥 Violesura 3 + A2A + VS Code
 
 | Hali | Amri | Kusudi |
 |---|---|---|
@@ -91,6 +91,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 | **GUI** | `uagg` | UI ya Eneo-kazi kupitia tkinter |
 | **Mtandao** | `uagw` | Ufikiaji unaotegemea kivinjari |
 | **Seva ya A2A** | `uaga` | Itifaki ya Agent2Agent kwa mawasiliano ya mawakala wengi |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 Kidhibiti cha Kifaa cha IoT
 

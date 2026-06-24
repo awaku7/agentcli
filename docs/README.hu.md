@@ -30,7 +30,7 @@
 - **Lokálisan fut** a gépén. Adatai Önnél maradnak (kivéve az Ön által kezdeményezett API-hívásokat).
 - **Szolgáltatói szabadság**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ szolgáltató, mindegyik egyetlen felületről elérhető. Váltson közöttük a környezeti változók újrakonfigurálásával – nincs újratelepítés, nincs migráció.
 - **131 eszköz**: Fájl I/O, webes keresés, képgenerálás, BLE-eszköz szkennelés, MCP szerver integráció – és **76 párhuzamosan fut**. Amikor az LLM egyszerre több eszközhívást indít el, az uag automatikusan végrehajtja azokat egy szálkészleten keresztül.
-- **3 felhasználói felület + A2A**: CLI, GUI, web és Agent-to-Agent protokoll. Ugyanaz a motor, bármilyen interfész.
+- **4 felhasználói felület + A2A**: CLI, GUI, web és Agent-to-Agent protokoll. Ugyanaz a motor, bármilyen interfész.
 - **IoT-kész**: SwitchBot, ECHONET Lite, Matter, UPnP – vezérelje otthoni eszközeit mesterséges intelligencia segítségével.
 - **Agent Skills**: Telepítse a közösség által épített készségeket a piacról. Hosszabbítsa meg az uag-ot végtelenül.
 
@@ -84,7 +84,7 @@ A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, 
 | **Rendszer** | env vars, rendszerspecifikációk, idő, dátum számítás |
 | **Forráskód-navigáció** | **13 idx eszköz** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — funkció/osztály index vagy konkrét definíció lekérése a teljes fájl elolvasása nélkül |
 
-### 🖥 3 interfész + A2A
+### 🖥 3 interfész + A2A + VS Code
 
 | mód | Parancs | Cél |
 |---|---|---|
@@ -92,6 +92,7 @@ A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, 
 | **GUI** | "uagg" | Asztali felhasználói felület a tkinterrel |
 | **Web** | "uagw" | Böngésző alapú hozzáférés |
 | **A2A szerver** | "uaga" | Agent2Agent protokoll többügynökös kommunikációhoz |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 IoT-eszközvezérlés
 

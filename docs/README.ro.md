@@ -30,7 +30,7 @@
 - **Rulează local** pe computer. Datele tale rămân cu tine (cu excepția apelurilor API pe care le faci).
 - **Libertatea furnizorilor**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Peste 15 furnizori, toți accesibili dintr-o singură interfață. Schimbați între ele prin reconfigurarea variabilelor de mediu - fără reinstalare, fără migrare.
 - **131 instrumente**: I/O fișiere, căutare web, generare de imagini, scanare dispozitiv BLE, integrare server MCP - și **76 dintre ele rulează în paralel**. Când LLM declanșează mai multe apeluri de instrumente simultan, uag le execută automat printr-un pool de fire.
-- **3 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol Agent-to-Agent. Același motor, orice interfață.
+- **4 interfețe de utilizare + A2A**: CLI, GUI, Web și protocol Agent-to-Agent. Același motor, orice interfață.
 - **Pregătit pentru IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — controlați-vă dispozitivele de acasă prin AI.
 - **Abilități de agent**: Instalați abilități create de comunitate de pe piață. Extinde uag la nesfârșit.
 
@@ -83,7 +83,7 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 | **A2A** | Comunicare agent la agent (cu alte instanțe uag sau servere compatibile A2A) |
 | **Sistem** | env vars, specificații de sistem, ora, calculul datei |
 
-### 🖥 3 interfețe + A2A
+### 🖥 3 interfețe + A2A + VS Code
 
 | Modul | Comanda | Scop |
 |---|---|---|
@@ -91,6 +91,7 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 | **GUI** | `uagg` | Interfața de utilizare pentru desktop prin tkinter |
 | **Web** | `uagw` | Acces bazat pe browser |
 | **Server A2A** | `uaga` | Protocol Agent2Agent pentru comunicare multi-agent |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 Controlul dispozitivelor IoT
 

@@ -30,7 +30,7 @@
 - **在您的计算机上本地运行**。您的数据保留在您身边（您进行的 API 调用除外）。
 - **提供商自由**：OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock...超过 15 个提供商，均可通过单一界面访问。通过重新配置环境变量在它们之间进行交换——无需重新安装，无需迁移。
 - **112 种工具**：文件 I/O、网络搜索、图像生成、BLE 设备扫描、MCP 服务器集成 — 并且 **其中 66 种工具并行运行**。当 LLM 一次触发多个工具调用时，uag 会通过线程池自动执行它们。
-- **3 UI + A2A**：CLI、GUI、Web 和代理到代理协议。相同的引擎，任何接口。
+- **4 UI + A2A**：CLI、GUI、Web 和代理到代理协议。相同的引擎，任何接口。
 - **物联网就绪**：SwitchBot、ECHONET Lite、Matter、UPnP — 通过人工智能控制您的家庭设备。
 - **代理技能**：从市场安装社区构建的技能。无限延伸uag。
 
@@ -84,7 +84,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **系统** |环境变量、系统规格、时间、日期计算 |
 | **源码导航** | **11 个 idx 工具** (Python, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin) — 无需读取整个文件即可获取函数/类索引或特定定义 |
 
-### 🖥 3 个接口 + A2A
+### 🖥 3 个接口 + A2A + VS Code
 
 |模式|命令|目的|
 |---|---|---|
@@ -92,6 +92,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **图形用户界面** | `uagg` |通过 tkinter 的桌面 UI |
 | **网络** | `uagw` |基于浏览器的访问 |
 | **A2A 服务器** | `uaga` |用于多代理通信的Agent2Agent协议|
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 物联网设备控制
 

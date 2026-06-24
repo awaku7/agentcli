@@ -30,7 +30,7 @@
 - **Berjalan secara lokal** di mesin Anda. Data Anda tetap bersama Anda (kecuali panggilan API yang Anda lakukan).
 - **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ penyedia, semuanya dapat diakses dari satu antarmuka. Bertukar di antara keduanya dengan mengonfigurasi ulang variabel lingkungan — tanpa instalasi ulang, tanpa migrasi.
 - **131 alat**: I/O file, pencarian web, pembuatan gambar, pemindaian perangkat BLE, integrasi server MCP — dan **76 di antaranya berjalan secara paralel**. Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis mengeksekusinya melalui kumpulan thread.
-- **3 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
+- **4 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
 - **Siap IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — kendalikan perangkat rumah Anda melalui AI.
 - **Keterampilan Agen**: Instal keterampilan yang dibangun komunitas dari pasar. Perpanjang uag tanpa henti.
 
@@ -83,7 +83,7 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 | **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
 | **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal |
 
-### 🖥 3 Antarmuka + A2A
+### 🖥 3 Antarmuka + A2A + VS Code
 
 | Modus | Perintah | Tujuan |
 |---|---|---|
@@ -91,6 +91,7 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 | **GUI** | `uagg` | UI Desktop melalui tkinter |
 | **Jaringan** | `uagw` | Akses berbasis browser |
 | **Server A2A** | `uaga` | Protokol Agent2Agent untuk komunikasi multi-agen |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 Kontrol Perangkat IoT
 

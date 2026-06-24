@@ -30,7 +30,7 @@
 - **Wordt lokaal uitgevoerd** op uw computer. Uw gegevens blijven bij u (behalve API-aanroepen die u doet).
 - **Providervrijheid**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ providers, allemaal toegankelijk via één enkele interface. Wissel ertussen door de omgevingsvariabelen opnieuw te configureren: geen herinstallatie, geen migratie.
 - **131 tools**: bestands-I/O, zoeken op internet, het genereren van afbeeldingen, scannen van BLE-apparaten, MCP-serverintegratie — en **76 zijn parallel-safe (max 4 tegelijk)**. Wanneer de LLM meerdere tooloproepen tegelijk afvuurt, voert uag deze automatisch uit via een threadpool.
-- **3 UI's + A2A**: CLI-, GUI-, web- en agent-naar-agent-protocol. Dezelfde engine, elke interface.
+- **4 UI's + A2A**: CLI-, GUI-, web- en agent-naar-agent-protocol. Dezelfde engine, elke interface.
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — bedien uw apparaten thuis via AI.
 - **Agentvaardigheden**: installeer door de community ontwikkelde vaardigheden van de marktplaats. Breid uag eindeloos uit.
 
@@ -84,7 +84,7 @@ Alleen-lezen tools (zoeken naar bestanden, hash-berekening, directorylijst, vert
 | **Bronnavigatie** | **13 idx-tools** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — krijg een functie/klasse-index of specifieke definitie zonder het hele bestand te lezen |
 | **Systeem** | env vars, systeemspecificaties, tijd, datumberekening |
 
-### 🖥 3 interfaces + A2A
+### 🖥 3 interfaces + A2A + VS Code
 
 | Modus | Commando | Doel |
 |---|---|---|
@@ -92,6 +92,7 @@ Alleen-lezen tools (zoeken naar bestanden, hash-berekening, directorylijst, vert
 | **GUI** | `uagg` | Desktop-UI via tkinter |
 | **Web** | `uagw` | Browsergebaseerde toegang |
 | **A2A-server** | `uaga` | Agent2Agent-protocol voor communicatie met meerdere agenten |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 IoT-apparaatbeheer
 

@@ -30,7 +30,7 @@
 - **お使いのマシン上でローカルに実行**。データは保管されます (API 呼び出しを除く)。
 - **プロバイダーの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock...15 以上のプロバイダーに、単一のインターフェイスからすべてアクセス可能。環境変数を再構成することでそれらを切り替えます。再インストールや移行は必要ありません。
 - **131 ツール**: ファイル I/O、Web 検索、画像生成、Gmail、BLE デバイス スキャン、MCP サーバー統合 - **76 は並列セーフです** (スレッド プール経由で最大 8 つが同時に実行、`UAGENT_PARALLEL_WORKERS` 経由で構成可能)。 LLM が複数のツール呼び出しを同時に起動すると、uag はそれらを自動的に並列化します。
-- **3 UI + A2A**: CLI、GUI、Web、およびエージェント間プロトコル。同じエンジン、どのインターフェイスでも。
+- **4 UI + A2A**: CLI、GUI、Web、およびエージェント間プロトコル。同じエンジン、どのインターフェイスでも。
 - **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
 - **エージェント スキル**: コミュニティが構築したスキルをマーケットプレイスからインストールします。 uagを無限に拡張します。
 
@@ -85,7 +85,7 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **システム** |環境変数、システム仕様、時刻、日付の計算 |
 | **ソース ナビ** | **13 の idx ツール** (Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL 用) — ファイル全体を読み込まずに関数/クラスのインデックスまたは特定の定義を取得します。
 
-### 🖥 3 つのインターフェイス + A2A
+### 🖥 3 つのインターフェイス + A2A + VS Code
 
 |モード |コマンド |目的 |
 |---|---|---|
@@ -93,6 +93,7 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **GUI** | `uagg` | tkinter 経由のデスクトップ UI |
 | **ウェブ** | `uagw` |ブラウザベースのアクセス |
 | **A2A サーバー** | `uaga` |マルチエージェント通信用の Agent2Agent プロトコル |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 IoT デバイス制御
 

@@ -30,7 +30,7 @@
 - **Körs lokalt** på din maskin. Din data stannar hos dig (förutom API-anrop du gör).
 - **Leverantörsfrihet**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ leverantörer, alla tillgängliga från ett enda gränssnitt. Byt mellan dem genom att konfigurera om miljövariabler – ingen ominstallation, ingen migrering.
 - **131 verktyg**: Fil-I/O, webbsökning, bildgenerering, BLE-enhetsskanning, MCP-serverintegrering — och **76 av dem körs parallellt**. När LLM avfyrar flera verktygsanrop samtidigt, kör uag dem automatiskt via en trådpool.
-- **3 användargränssnitt + A2A**: CLI, GUI, webb och Agent-to-Agent-protokoll. Samma motor, vilket gränssnitt som helst.
+- **4 användargränssnitt + A2A**: CLI, GUI, webb och Agent-to-Agent-protokoll. Samma motor, vilket gränssnitt som helst.
 - **IoT redo**: SwitchBot, ECHONET Lite, Matter, UPnP — styr dina hemenheter genom AI.
 - **Agent Skills**: Installera community-byggda färdigheter från marknadsplatsen. Förläng uag oändligt.
 
@@ -83,7 +83,7 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 | **A2A** | Agent-till-agent-kommunikation (med andra uag-instanser eller A2A-kompatibla servrar) |
 | **System** | env vars, systemspecifikationer, tid, datumberäkning |
 
-### 🖥 3 gränssnitt + A2A
+### 🖥 3 gränssnitt + A2A + VS Code
 
 | Läge | Kommando | Syfte |
 |---|---|---|
@@ -91,6 +91,7 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 | **GUI** | `uagg` | Desktop UI via tkinter |
 | **Webb** | `uagw` | Webbläsarbaserad åtkomst |
 | **A2A-server** | `uaga` | Agent2Agent-protokoll för multiagentkommunikation |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
 
 ### 🏠 IoT-enhetskontroll
 
