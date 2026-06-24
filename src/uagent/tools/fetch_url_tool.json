@@ -1,7 +1,7 @@
 {
   "en": {
     "param.url.description": "URL to access.",
-    "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON.",
+    "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON. When save_as is set, the raw response is saved to a file and metadata is returned instead.",
     "x_search_terms": [
       "fetch url",
       "http get",
@@ -10,43 +10,51 @@
       "obtener url",
       "récupérer url",
       "URL 가져오기",
-      "получить url"
+      "получить url",
+      "save file",
+      "download file"
     ],
     "param.extract.description": "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer); markdown=extract simplified markdown from HTML.",
     "param.selector.description": "Optional CSS selector. If provided, the first matched element is extracted for extract=text/html.",
     "param.user_agent.description": "Optional User-Agent header value.",
     "param.timeout.description": "Timeout (seconds).",
     "param.ptr.description": "Optional RFC 6901 JSON Pointer (e.g., /items/0/title) used when extract=json.",
-    "param.maxb.description": "Maximum bytes to read from the response.",
+    "param.maxb.description": "Maximum bytes to read from the response. Default 10MB when save_as is set.",
     "param.maxc.description": "Maximum characters to return (applied after decoding/extraction).",
-    "param.ssl.description": "Whether to verify SSL certificates."
+    "param.ssl.description": "Whether to verify SSL certificates.",
+    "param.save_as.description": "If set, saves the raw response (binary) to the specified file path. Overrides extract/selector/ptr/maxc. Returns JSON metadata instead of content."
   },
   "ja": {
     "param.url.description": "アクセスする URL。",
-    "tool.description": "指定した URL に HTTP GET でアクセスし、レスポンス先頭をテキストで返します。HTML や JSON の取得・確認に便利です。",
+    "tool.description": "指定した URL に HTTP GET でアクセスし、レスポンス先頭をテキストで返します。HTML や JSON の取得・確認に便利です。save_as を指定すると、生のレスポンスをファイルに保存し、メタデータのみを返します。",
     "x_search_terms": [
       "fetch_url",
       "url 取得",
       "http get",
-      "html/json 取得"
+      "html/json 取得",
+      "ファイル保存",
+      "ダウンロード"
     ],
     "param.extract.description": "抽出モード。head=レスポンス先頭を返す / text=HTML から本文テキストを抽出 / html=HTML 断片を抽出 / json=JSON を解析（必要に応じて json_pointer を適用） / markdown=HTML から簡易的な Markdown を抽出。",
     "param.selector.description": "任意の CSS セレクタ。指定した場合、extract=text/html で最初に一致した要素を抽出します。",
     "param.user_agent.description": "任意の User-Agent ヘッダー値。",
     "param.timeout.description": "リクエストのタイムアウト（秒）。",
     "param.ptr.description": "任意の RFC 6901 JSON Pointer（例: /items/0/title）。extract=json のときに使用します。",
-    "param.maxb.description": "レスポンスから読み込む最大バイト数。",
+    "param.maxb.description": "レスポンスから読み込む最大バイト数。save_as 指定時はデフォルト 10MB。",
     "param.maxc.description": "返却する最大文字数（デコード/抽出後に適用）。",
-    "param.ssl.description": "SSL 証明書を検証するかどうか。"
+    "param.ssl.description": "SSL 証明書を検証するかどうか。",
+    "param.save_as.description": "指定すると、生のレスポンス（バイナリ）を指定ファイルパスに保存します。extract/selector/ptr/maxc は無視され、代わりに JSON メタデータを返します。"
   },
   "es": {
     "param.url.description": "URL a la que acceder.",
-    "tool.description": "Acceda a la URL especificada mediante HTTP GET y devuelva el comienzo de la respuesta como texto. Útil para obtener e inspeccionar HTML o JSON.",
+    "tool.description": "Acceda a la URL especificada mediante HTTP GET y devuelva el comienzo de la respuesta como texto. Útil para obtener e inspeccionar HTML o JSON. Si se establece save_as, la respuesta sin procesar se guarda en un archivo y se devuelven metadatos.",
     "x_search_terms": [
       "fetch_url",
       "obtener url",
       "http get",
-      "html json"
+      "html json",
+      "guardar archivo",
+      "descargar"
     ],
     "param.extract.description": "Modo de extracción.",
     "param.selector.description": "Selector CSS opcional. Si se proporciona, se extrae el primer elemento coincidente para extract=text/html.",
@@ -55,34 +63,40 @@
     "param.ptr.description": "Valor de encabezado de agente de usuario opcional. extract=json.",
     "param.maxb.description": "Bytes máximos para leer de la respuesta",
     "param.maxc.description": "Caracteres máximos para devolver (aplicados después de la decodificación/extracción).",
-    "param.ssl.description": "Si se deben verificar los certificados SSL."
+    "param.ssl.description": "Si se deben verificar los certificados SSL.",
+    "param.save_as.description": "Si se establece, guarda la respuesta sin procesar (binaria) en la ruta de archivo especificada. Anula extract/selector/ptr/maxc. Devuelve metadatos JSON."
   },
   "fr": {
     "param.url.description": "URL à consulter.",
-    "tool.description": "Accédez à l’URL spécifiée via HTTP GET et renvoyez le début de la réponse sous forme de texte. Utile pour récupérer et inspecter du HTML ou du JSON.",
+    "tool.description": "Accédez à l'URL spécifiée via HTTP GET et renvoyez le début de la réponse sous forme de texte. Utile pour récupérer et inspecter du HTML ou du JSON. Si save_as est défini, la réponse brute est enregistrée dans un fichier et les métadonnées sont renvoyées.",
     "x_search_terms": [
       "fetch_url",
       "récupérer url",
       "http get",
-      "html json"
+      "html json",
+      "enregistrer fichier",
+      "télécharger"
     ],
-    "param.extract.description": "Mode d’extraction.",
-    "param.selector.description": "Sélecteur CSS facultatif. S’il est fourni, le premier élément correspondant est extrait pour extract=text/html.",
+    "param.extract.description": "Mode d'extraction.",
+    "param.selector.description": "Sélecteur CSS facultatif. S'il est fourni, le premier élément correspondant est extrait pour extract=text/html.",
     "param.user_agent.description": "Valeur d'en-tête User-Agent facultative",
     "param.timeout.description": "Délai d'expiration (secondes).",
     "param.ptr.description": "Pointeur JSON RFC 6901 facultatif (par exemple, /items/0/title) utilisé lorsque extract=json",
     "param.maxb.description": "Nombre maximal d'octets à lire dans la réponse.",
     "param.maxc.description": "Nombre maximum de caractères à renvoyer (appliqué après décodage/extraction).",
-    "param.ssl.description": "Nombre maximal de caractères à renvoyer (appliqué après décodage/extraction)."
+    "param.ssl.description": "Nombre maximal de caractères à renvoyer (appliqué après décodage/extraction).",
+    "param.save_as.description": "Si défini, enregistre la réponse brute (binaire) dans le chemin de fichier spécifié. Remplace extract/selector/ptr/maxc. Renvoie des métadonnées JSON."
   },
   "ko": {
     "param.url.description": "접속할 URL입니다.",
-    "tool.description": "지정한 URL에 HTTP GET으로 접근하고 응답의 시작 부분을 텍스트로 반환합니다. HTML이나 JSON을 가져와 확인할 때 유용합니다.",
+    "tool.description": "지정한 URL에 HTTP GET으로 접근하고 응답의 시작 부분을 텍스트로 반환합니다. HTML이나 JSON을 가져와 확인할 때 유용합니다. save_as를 설정하면 원시 응답을 파일에 저장하고 메타데이터를 반환합니다.",
     "x_search_terms": [
       "fetch_url",
       "url 가져오기",
       "http get",
-      "html/json 확인"
+      "html/json 확인",
+      "파일 저장",
+      "다운로드"
     ],
     "param.extract.description": "추출 모드입니다. head=응답의 시작 부분 반환; text=HTML에서 텍스트 추출; html=HTML 조각 추출; json=JSON 파싱(필요 시 json_pointer 적용); markdown=HTML에서 간단한 마크다운 추출.",
     "param.selector.description": "선택적 CSS 셀렉터입니다. 지정하면 extract=text/html에서 첫 번째로 일치하는 요소를 추출합니다.",
@@ -91,16 +105,19 @@
     "param.ptr.description": "선택적 RFC 6901 JSON Pointer(예: /items/0/title)입니다. extract=json일 때 사용합니다.",
     "param.maxb.description": "응답에서 읽을 최대 바이트 수입니다.",
     "param.maxc.description": "반환할 최대 문자 수입니다(디코딩/추출 후 적용).",
-    "param.ssl.description": "SSL 인증서를 검증할지 여부입니다."
+    "param.ssl.description": "SSL 인증서를 검증할지 여부입니다.",
+    "param.save_as.description": "설정하면 원시 응답(바이너리)을 지정된 파일 경로에 저장합니다. extract/selector/ptr/maxc를 재정의합니다. JSON 메타데이터를 반환합니다."
   },
   "de": {
     "param.url.description": "Aufzurufende URL.",
-    "tool.description": "Greifen Sie per HTTP GET auf die angegebene URL zu und geben Sie den Anfang der Antwort als Text zurück.",
+    "tool.description": "Greifen Sie per HTTP GET auf die angegebene URL zu und geben Sie den Anfang der Antwort als Text zurück. Wenn save_as gesetzt ist, wird die rohe Antwort in einer Datei gespeichert und Metadaten werden zurückgegeben.",
     "x_search_terms": [
       "fetch_url",
       "url abrufen",
       "http get",
-      "html json"
+      "html json",
+      "datei speichern",
+      "herunterladen"
     ],
     "param.extract.description": "Extraktionsmodus.",
     "param.selector.description": "Optionaler CSS-Selektor. Wenn angegeben, wird für extract=text/html das erste passende Element extrahiert.",
@@ -109,16 +126,19 @@
     "param.ptr.description": "Optionaler RFC 6901 JSON Pointer (z.B.",
     "param.maxb.description": "Maximale Bytes, die aus der Antwort gelesen werden sollen.",
     "param.maxc.description": "Maximale Anzahl zurückzugebender Zeichen (wird nach der Dekodierung/Extraktion angewendet).",
-    "param.ssl.description": "Maximum characters zurückgeben (wird nach der Dekodierung/Extrahierung angewendet)."
+    "param.ssl.description": "Maximum characters zurückgeben (wird nach der Dekodierung/Extrahierung angewendet).",
+    "param.save_as.description": "Wenn gesetzt, speichert die rohe Antwort (binär) im angegebenen Dateipfad. Überschreibt extract/selector/ptr/maxc. Gibt JSON-Metadaten zurück."
   },
   "it": {
     "param.url.description": "URL a cui accedere.",
-    "tool.description": "Accedi all’URL specificato tramite HTTP GET e restituisci l’inizio della risposta come testo. Utile per recuperare e ispezionare HTML o JSON.",
+    "tool.description": "Accedi all'URL specificato tramite HTTP GET e restituisci l'inizio della risposta come testo. Utile per recuperare e ispezionare HTML o JSON. Se save_as è impostato, la risposta grezza viene salvata in un file e vengono restituiti i metadati.",
     "x_search_terms": [
       "fetch_url",
       "recupera url",
       "http get",
-      "html json"
+      "html json",
+      "salva file",
+      "scarica"
     ],
     "param.extract.description": "Modalità di estrazione.",
     "param.selector.description": "Selettore CSS facoltativo. Se fornito, per extract=text/html viene estratto il primo elemento corrispondente.",
@@ -127,16 +147,19 @@
     "param.ptr.description": "Puntatore JSON RFC 6901 opzionale (ad esempio, /items/0/title) utilizzato quando extract=json.",
     "param.maxb.description": "Il numero massimo di byte da leggere dalla risposta",
     "param.maxc.description": "Caratteri massimi da restituire (applicati dopo la decodifica/estrazione).",
-    "param.ssl.description": "Se verificare i certificati SSL."
+    "param.ssl.description": "Se verificare i certificati SSL.",
+    "param.save_as.description": "Se impostato, salva la risposta grezza (binaria) nel percorso file specificato. Sostituisce extract/selector/ptr/maxc. Restituisce metadati JSON."
   },
   "ru": {
     "param.url.description": "URL для доступа.",
-    "tool.description": "Получите доступ к указанному URL через HTTP GET и верните начало ответа в виде текста. Полезно для получения и проверки HTML или JSON.",
+    "tool.description": "Получите доступ к указанному URL через HTTP GET и верните начало ответа в виде текста. Полезно для получения и проверки HTML или JSON. Если указан save_as, необработанный ответ сохраняется в файл и возвращаются метаданные.",
     "x_search_terms": [
       "fetch_url",
       "получить url",
       "http get",
-      "html json"
+      "html json",
+      "сохранить файл",
+      "скачать"
     ],
     "param.extract.description": "Режим извлечения.",
     "param.selector.description": "Необязательный CSS-селектор. Если он указан, для extract=text/html извлекается первый совпавший элемент.",
@@ -145,16 +168,19 @@
     "param.ptr.description": "Необязательный указатель RFC 6901 JSON. (например, /items/0/title), используемый, когда extract=json.",
     "param.maxb.description": "Максимальное количество байтов, считываемых из ответа.",
     "param.maxc.description": "Максимальное количество байтов для чтения из ответа (применяется после декодирования/извлечения).",
-    "param.ssl.description": "Проверять ли SSL-сертификаты."
+    "param.ssl.description": "Проверять ли SSL-сертификаты.",
+    "param.save_as.description": "Если установлено, сохраняет необработанный ответ (двоичный) в указанный путь к файлу. Переопределяет extract/selector/ptr/maxc. Возвращает метаданные JSON."
   },
   "pt_BR": {
     "param.url.description": "URL a acessar.",
-    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para obter e inspecionar HTML ou JSON.",
+    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para obter e inspecionar HTML ou JSON. Quando save_as é definido, a resposta bruta é salva em um arquivo e os metadados são retornados.",
     "x_search_terms": [
       "fetch_url",
       "buscar url",
       "http get",
-      "html json"
+      "html json",
+      "salvar arquivo",
+      "baixar"
     ],
     "param.extract.description": "Modo de extração.",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente é extraído para extract=text/html.",
@@ -163,16 +189,19 @@
     "param.ptr.description": "Ponteiro JSON RFC 6901 opcional. /items/0/title) usado quando extract=json.",
     "param.maxb.description": "Número máximo de bytes a ler da resposta.",
     "param.maxc.description": "Máximo de caracteres a serem retornados (aplicado após decodificação/extração).",
-    "param.ssl.description": "Se deve verificar os certificados SSL."
+    "param.ssl.description": "Se deve verificar os certificados SSL.",
+    "param.save_as.description": "Se definido, salva a resposta bruta (binária) no caminho de arquivo especificado. Substitui extract/selector/ptr/maxc. Retorna metadados JSON."
   },
   "pt": {
     "param.url.description": "URL para acessar.",
-    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para buscar e inspecionar HTML ou JSON.",
+    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para buscar e inspecionar HTML ou JSON. Quando save_as é definido, a resposta bruta é salva em um arquivo e os metadados são retornados.",
     "x_search_terms": [
       "fetch_url",
       "buscar url",
       "http get",
-      "html json"
+      "html json",
+      "salvar arquivo",
+      "baixar"
     ],
     "param.extract.description": "Modo de extração.",
     "param.selector.description": "Seletor CSS opcional. Se fornecido, o primeiro elemento correspondente é extraído para extract=text/html.",
@@ -181,16 +210,19 @@
     "param.ptr.description": "Ponteiro JSON RFC 6901 opcional. /items/0/title) usado quando extract=json.",
     "param.maxb.description": "Máximo de bytes a serem lidos na resposta.",
     "param.maxc.description": "Máximo de caracteres a serem retornados (aplicado após a decodificação/extração).",
-    "param.ssl.description": "Se deve verificar os certificados SSL."
+    "param.ssl.description": "Se deve verificar os certificados SSL.",
+    "param.save_as.description": "Se definido, salva a resposta bruta (binária) no caminho de arquivo especificado. Substitui extract/selector/ptr/maxc. Retorna metadados JSON."
   },
   "id": {
     "param.url.description": "URL yang akan diakses.",
-    "tool.description": "Akses URL yang ditentukan melalui HTTP GET dan kembalikan awal respons sebagai teks. Berguna untuk mengambil dan memeriksa HTML atau JSON.",
+    "tool.description": "Akses URL yang ditentukan melalui HTTP GET dan kembalikan awal respons sebagai teks. Berguna untuk mengambil dan memeriksa HTML atau JSON. Jika save_as diatur, respons mentah disimpan ke file dan metadata dikembalikan.",
     "x_search_terms": [
       "fetch_url",
       "ambil url",
       "http get",
-      "html json"
+      "html json",
+      "simpan file",
+      "unduh"
     ],
     "param.extract.description": "Mode ekstraksi.",
     "param.selector.description": "CSS selector opsional. Jika diberikan, elemen pertama yang cocok akan diekstrak untuk extract=text/html.",
@@ -199,16 +231,19 @@
     "param.ptr.description": "RFC 6901 JSON Pointer opsional (mis.",
     "param.maxb.description": "Maksimum byte yang dibaca dari respons.",
     "param.maxc.description": "Karakter maksimum yang akan dikembalikan (diterapkan setelah decoding/ekstraksi).",
-    "param.ssl.description": "Apakah akan memverifikasi sertifikat SSL."
+    "param.ssl.description": "Apakah akan memverifikasi sertifikat SSL.",
+    "param.save_as.description": "Jika diatur, menyimpan respons mentah (biner) ke jalur file yang ditentukan. Mengabaikan extract/selector/ptr/maxc. Mengembalikan metadata JSON."
   },
   "vi": {
     "param.url.description": "URL để truy cập.",
-    "tool.description": "Truy cập URL được chỉ định qua HTTP GET và trả về phần đầu phản hồi dưới dạng văn bản. Hữu ích cho việc tìm nạp và kiểm tra HTML hoặc JSON.",
+    "tool.description": "Truy cập URL được chỉ định qua HTTP GET và trả về phần đầu phản hồi dưới dạng văn bản. Hữu ích cho việc tìm nạp và kiểm tra HTML hoặc JSON. Khi save_as được đặt, phản hồi thô được lưu vào tệp và siêu dữ liệu được trả về.",
     "x_search_terms": [
       "fetch_url",
       "lấy url",
       "http get",
-      "html json"
+      "html json",
+      "lưu tệp",
+      "tải xuống"
     ],
     "param.extract.description": "Chế độ khai thác.",
     "param.selector.description": "Bộ chọn CSS tùy chọn. Nếu được cung cấp, phần tử phù hợp đầu tiên sẽ được trích xuất cho extract=text/html.",
@@ -217,16 +252,19 @@
     "param.ptr.description": "Con trỏ JSON RFC 6901 tùy chọn (ví dụ: /items/0/title) được sử dụng khi extract=json.",
     "param.maxb.description": "Số byte tối đa để đọc từ phản hồi.",
     "param.maxc.description": "Số ký tự tối đa cần trả về (áp dụng sau khi giải mã/trích xuất).",
-    "param.ssl.description": "Có xác minh chứng chỉ SSL hay không."
+    "param.ssl.description": "Có xác minh chứng chỉ SSL hay không.",
+    "param.save_as.description": "Nếu được đặt, lưu phản hồi thô (nhị phân) vào đường dẫn tệp được chỉ định. Ghi đè extract/selector/ptr/maxc. Trả về siêu dữ liệu JSON."
   },
   "pl": {
     "param.url.description": "Adres URL, do którego można uzyskać dostęp",
-    "tool.description": "Uzyskaj dostęp do wskazanego adresu URL przez HTTP GET i zwróć początek odpowiedzi jako tekst. Przydatne do pobierania i sprawdzania HTML lub JSON.",
+    "tool.description": "Uzyskaj dostęp do wskazanego adresu URL przez HTTP GET i zwróć początek odpowiedzi jako tekst. Przydatne do pobierania i sprawdzania HTML lub JSON. Gdy ustawiono save_as, surowa odpowiedź jest zapisywana do pliku i zwracane są metadane.",
     "x_search_terms": [
       "fetch_url",
       "pobierz url",
       "http get",
-      "html json"
+      "html json",
+      "zapisz plik",
+      "pobierz"
     ],
     "param.extract.description": "Tryb ekstrakcji.",
     "param.selector.description": "Opcjonalny selektor CSS.",
@@ -235,16 +273,19 @@
     "param.ptr.description": "Opcjonalny JSON Pointer RFC 6901 (np. /items/0/title) używany przy extract=json.",
     "param.maxb.description": "Maksymalna liczba bajtów do odczytania z odpowiedzi",
     "param.maxc.description": "Maksymalna liczba znaków do zwrócenia (stosowana po dekodowaniu/wyodrębnieniu).",
-    "param.ssl.description": "Czy weryfikować certyfikaty SSL."
+    "param.ssl.description": "Czy weryfikować certyfikaty SSL.",
+    "param.save_as.description": "Jeśli ustawiono, zapisuje surową odpowiedź (binarną) do określonej ścieżki pliku. Zastępuje extract/selector/ptr/maxc. Zwraca metadane JSON."
   },
   "hi": {
     "param.url.description": "एक्सेस करने के लिए यूआरएल.",
-    "tool.description": "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुंचें और प्रतिक्रिया की शुरुआत को टेक्स्ट के रूप में लौटाएं। HTML या JSON लाने और निरीक्षण करने के लिए उपयोगी।",
+    "tool.description": "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुंचें और प्रतिक्रिया की शुरुआत को टेक्स्ट के रूप में लौटाएं। HTML या JSON लाने और निरीक्षण करने के लिए उपयोगी। save_as सेट होने पर, कच्चा प्रतिक्रिया फ़ाइल में सहेजा जाता है और मेटाडेटा लौटाया जाता है।",
     "x_search_terms": [
       "fetch_url",
       "url लाओ",
       "http get",
-      "html json"
+      "html json",
+      "फ़ाइल सहेजें",
+      "डाउनलोड"
     ],
     "param.extract.description": "निष्कर्षण मोड.",
     "param.selector.description": "वैकल्पिक CSS चयनकर्ता. प्रदान किए जाने पर, extract=text/html के लिए पहला मिलान करने वाला तत्व निकाला जाता है।",
@@ -253,16 +294,19 @@
     "param.ptr.description": "वैकल्पिक RFC 6901 JSON Pointer (उदा.",
     "param.maxb.description": "प्रतिक्रिया से पढ़ने के लिए अधिकतम बाइट्स.",
     "param.maxc.description": "लौटाने के लिए अधिकतम वर्ण (डिकोडिंग/निष्कर्षण के बाद लागू)।",
-    "param.ssl.description": "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुंचें और HTML या JSON को लाने और निरीक्षण करने के लिए उपयोगी।"
+    "param.ssl.description": "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुंचें और HTML या JSON को लाने और निरीक्षण करने के लिए उपयोगी।",
+    "param.save_as.description": "सेट होने पर, कच्चे प्रतिक्रिया (बाइनरी) को निर्दिष्ट फ़ाइल पथ पर सहेजता है। extract/selector/ptr/maxc को ओवरराइड करता है। JSON मेटाडेटा लौटाता है।"
   },
   "ar": {
     "param.url.description": "عنوان URL للوصول.",
-    "tool.description": "الوصول إلى عنوان URL المحدد عبر HTTP GET وإرجاع بداية الاستجابة كنص. مفيد لجلب HTML أو JSON وفحصهما.",
+    "tool.description": "الوصول إلى عنوان URL المحدد عبر HTTP GET وإرجاع بداية الاستجابة كنص. مفيد لجلب HTML أو JSON وفحصهما. عند تعيين save_as، يتم حفظ الاستجابة الخام في ملف ويتم إرجاع البيانات الوصفية.",
     "x_search_terms": [
       "fetch_url",
       "جلب url",
       "http get",
-      "html json"
+      "html json",
+      "حفظ ملف",
+      "تنزيل"
     ],
     "param.extract.description": "وضع الاستخراج.",
     "param.selector.description": "محدد CSS اختياري. إذا تم توفيره، فسيتم استخراج أول عنصر مطابق عند extract=text/html.",
@@ -271,16 +315,19 @@
     "param.ptr.description": "JSON Pointer اختياري وفق RFC 6901 (مثل /items/0/title) يُستخدم عند extract=json.",
     "param.maxb.description": "الحد الأقصى للبايت للقراءة من الاستجابة.",
     "param.maxc.description": "الحد الأقصى للأحرف المراد إرجاعها (يتم تطبيقه بعد فك التشفير/الاستخراج).",
-    "param.ssl.description": "ما إذا كان سيتم التحقق من شهادات SSL."
+    "param.ssl.description": "ما إذا كان سيتم التحقق من شهادات SSL.",
+    "param.save_as.description": "إذا تم التعيين، يحفظ الاستجابة الخام (ثنائي) في مسار الملف المحدد. يتجاوز extract/selector/ptr/maxc. يعرض بيانات وصفية JSON."
   },
   "sv": {
     "param.url.description": "URL att öppna.",
-    "tool.description": "Gå till den angivna URL:en via HTTP GET och returnera början av svaret som text. Användbart för att hämta och inspektera HTML eller JSON.",
+    "tool.description": "Gå till den angivna URL:en via HTTP GET och returnera början av svaret som text. Användbart för att hämta och inspektera HTML eller JSON. När save_as är inställt sparas det råa svaret i en fil och metadata returneras.",
     "x_search_terms": [
       "fetch_url",
       "hämta url",
       "http get",
-      "html json"
+      "html json",
+      "spara fil",
+      "ladda ner"
     ],
     "param.extract.description": "Extraktionsläge.",
     "param.selector.description": "Valfri CSS-selektor. Om den anges extraheras det första matchade elementet för extract=text/html.",
@@ -289,16 +336,19 @@
     "param.ptr.description": "Valfri RFC 6901 JSON Pointer (t.ex. /items/0/title) som används när extract=json.",
     "param.maxb.description": "Maximalt antal byte att läsa från svaret.",
     "param.maxc.description": "Maximalt antal tecken att returnera (tillämpas efter avkodning/extrahering).",
-    "param.ssl.description": "Om SSL-certifikat ska verifieras."
+    "param.ssl.description": "Om SSL-certifikat ska verifieras.",
+    "param.save_as.description": "Om inställt, sparar det råa svaret (binärt) till den angivna sökvägen. Åsidosätter extract/selector/ptr/maxc. Returnerar JSON-metadata."
   },
   "sw": {
     "param.url.description": "URL ya kufikia.",
-    "tool.description": "Fikia URL iliyobainishwa kupitia HTTP GET na urudishe mwanzo wa jibu kama maandishi. Inafaa kwa kuchukua na kukagua HTML au JSON.",
+    "tool.description": "Fikia URL iliyobainishwa kupitia HTTP GET na urudishe mwanzo wa jibu kama maandishi. Inafaa kwa kuchukua na kukagua HTML au JSON. Ikiwa save_as imewekwa, jibu ghafi linahifadhiwa kwa faili na metadata inarejeshwa.",
     "x_search_terms": [
       "fetch_url",
       "chukua url",
       "http get",
-      "html json"
+      "html json",
+      "hifadhi faili",
+      "pakua"
     ],
     "param.extract.description": "Hali ya uchimbaji.",
     "param.selector.description": "CSS selector ya hiari. Ikitolewa, kipengele cha kwanza kinacholingana hutolewa kwa extract=text/html.",
@@ -307,16 +357,19 @@
     "param.ptr.description": "Chaguo). hutumika wakati extract=json.",
     "param.maxb.description": "Upeo wa baiti za kusoma kutoka kwa jibu",
     "param.maxc.description": "Upeo wa herufi za kurejesha (hutumika baada ya kusimbua/kutoa).",
-    "param.ssl.description": "Ikiwa utathibitisha vyeti vya SSL."
+    "param.ssl.description": "Ikiwa utathibitisha vyeti vya SSL.",
+    "param.save_as.description": "Ikiwa imewekwa, huhifadhi jibu ghafi (binary) kwa njia ya faili iliyobainishwa. Inapuuza extract/selector/ptr/maxc. Inarudisha metadata ya JSON."
   },
   "nb": {
     "param.url.description": "URL som skal åpnes.",
-    "tool.description": "Gå til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON.",
+    "tool.description": "Gå til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON. Når save_as er satt, lagres råresponsen i en fil og metadata returneres.",
     "x_search_terms": [
       "fetch_url",
       "hent url",
       "http get",
-      "html json"
+      "html json",
+      "lagre fil",
+      "last ned"
     ],
     "param.extract.description": "Ekstraksjonsmodus.",
     "param.selector.description": "Valgfri CSS-selector. Hvis den angis, ekstraheres det første samsvarende elementet for extract=text/html.",
@@ -325,16 +378,19 @@
     "param.ptr.description": "Valgfri RFC 6901 JSON Pointer (f.eks. /items/0/title) som brukes når extract=json.",
     "param.maxb.description": "Maksimalt antall byte som leses fra svaret.",
     "param.maxc.description": "Maksimalt antall tegn å returnere (brukes etter dekoding/ekstrahering).",
-    "param.ssl.description": "Om SSL-sertifikater skal verifiseres."
+    "param.ssl.description": "Om SSL-sertifikater skal verifiseres.",
+    "param.save_as.description": "Hvis satt, lagrer den rå responsen (binær) til den angitte filbanen. Overstyrer extract/selector/ptr/maxc. Returnerer JSON-metadata."
   },
   "nl": {
     "param.url.description": "Te benaderen URL.",
-    "tool.description": "Toegang tot de opgegeven URL via HTTP GET en geef het begin van de respons terug als tekst. Handig voor het ophalen en inspecteren van HTML of JSON.",
+    "tool.description": "Toegang tot de opgegeven URL via HTTP GET en geef het begin van de respons terug als tekst. Handig voor het ophalen en inspecteren van HTML of JSON. Wanneer save_as is ingesteld, wordt de ruwe respons opgeslagen in een bestand en worden metagegevens geretourneerd.",
     "x_search_terms": [
       "fetch_url",
       "haal url op",
       "http get",
-      "html json"
+      "html json",
+      "bestand opslaan",
+      "downloaden"
     ],
     "param.extract.description": "Extractiemodus.",
     "param.selector.description": "Optionele CSS-selector. Indien opgegeven, wordt voor extract=text/html het eerste overeenkomende element uitgehaald.",
@@ -343,16 +399,19 @@
     "param.ptr.description": "Optionele RFC 6901 JSON Pointer (bijv.",
     "param.maxb.description": "Maximaal aantal bytes dat uit het antwoord mag worden gelezen.",
     "param.maxc.description": "Maximaal aantal tekens dat moet worden geretourneerd (toegepast na decodering/extractie).",
-    "param.ssl.description": "Of SSL-certificaten moeten worden geverifieerd."
+    "param.ssl.description": "Of SSL-certificaten moeten worden geverifieerd.",
+    "param.save_as.description": "Indien ingesteld, slaat de ruwe respons (binair) op in het opgegeven bestandspad. Overschrijft extract/selector/ptr/maxc. Retourneert JSON-metadata."
   },
   "fi": {
     "param.url.description": "Avattava URL.",
-    "tool.description": "Avaa annettu URL HTTP GET -pyynnöllä ja palauttaa vastauksen alun tekstinä. Kätevä HTML:n tai JSON:n hakemiseen ja tarkistamiseen.",
+    "tool.description": "Avaa annettu URL HTTP GET -pyynnöllä ja palauttaa vastauksen alun tekstinä. Kätevä HTML:n tai JSON:n hakemiseen ja tarkistamiseen. Kun save_as on asetettu, raakavastaus tallennetaan tiedostoon ja metatiedot palautetaan.",
     "x_search_terms": [
       "fetch_url",
       "hae url",
       "http get",
-      "html json"
+      "html json",
+      "tallenna tiedosto",
+      "lataa"
     ],
     "param.extract.description": "Poimintatila.",
     "param.selector.description": "Valinnainen CSS-valitsin. Jos annetaan, extract=text/html käyttää ensimmäistä vastaavaa elementtiä.",
@@ -361,16 +420,19 @@
     "param.ptr.description": "Valinnainen RFC 6901 JSON Pointer (esim.",
     "param.maxb.description": "Vastauksesta luettavien tavujen enimmäismäärä.",
     "param.maxc.description": "Palautettavien merkkien enimmäismäärä (käytetään dekoodauksen/poiminnan jälkeen).",
-    "param.ssl.description": "Tarkistetaanko SSL-varmenteet."
+    "param.ssl.description": "Tarkistetaanko SSL-varmenteet.",
+    "param.save_as.description": "Jos asetettu, tallentaa raakavastauksen (binääri) määritettyyn tiedostopolkuun. Ohittaa extract/selector/ptr/maxc. Palauttaa JSON-metatiedot."
   },
   "cs": {
     "param.url.description": "URL, ke kterému se má přistoupit.",
-    "tool.description": "Přistupte ke zadané URL přes HTTP GET a vraťte začátek odpovědi jako text. Hodí se pro načítání a kontrolu HTML nebo JSON.",
+    "tool.description": "Přistupte ke zadané URL přes HTTP GET a vraťte začátek odpovědi jako text. Hodí se pro načítání a kontrolu HTML nebo JSON. Pokud je nastaveno save_as, nezpracovaná odpověď se uloží do souboru a vrátí se metadata.",
     "x_search_terms": [
       "fetch_url",
       "získat url",
       "http get",
-      "html json"
+      "html json",
+      "uložit soubor",
+      "stáhnout"
     ],
     "param.extract.description": "Režim extrakce.",
     "param.selector.description": "Volitelný CSS selektor. Je-li zadán, pro extract=text/html se extrahuje první odpovídající prvek.",
@@ -379,34 +441,40 @@
     "param.ptr.description": "Volitelný RFC 6901 JSON Pointer (např. /items/0/title) používaný při extract=json.",
     "param.maxb.description": "Maximální počet bajtů ke čtení z odpovědi.",
     "param.maxc.description": "Maximální počet znaků k vrácení (uplatní se po dekódování/extrakci).",
-    "param.ssl.description": "Zda ověřovat SSL certifikáty."
+    "param.ssl.description": "Zda ověřovat SSL certifikáty.",
+    "param.save_as.description": "Pokud je nastaveno, uloží nezpracovanou odpověď (binární) do zadané cesty k souboru. Přepíše extract/selector/ptr/maxc. Vrátí metadata JSON."
   },
   "uk": {
     "param.url.description": "URL, до якої потрібно звернутися.",
-    "tool.description": "Отримайте доступ до вказаної URL через HTTP GET і поверніть початок відповіді як текст. Корисно для отримання й перевірки HTML або JSON.",
+    "tool.description": "Отримайте доступ до вказаної URL через HTTP GET і поверніть початок відповіді як текст. Корисно для отримання й перевірки HTML або JSON. Якщо встановлено save_as, необроблена відповідь зберігається у файл і повертаються метадані.",
     "x_search_terms": [
       "fetch_url",
       "отримати url",
       "http get",
-      "html json"
+      "html json",
+      "зберегти файл",
+      "завантажити"
     ],
     "param.extract.description": "Режим витягування.",
-    "param.selector.description": "Необовʼязковий CSS-селектор. Якщо його вказано, для extract=text/html витягується перший відповідний елемент.",
+    "param.selector.description": "Необов'язковий CSS-селектор. Якщо його вказано, для extract=text/html витягується перший відповідний елемент.",
     "param.user_agent.description": "Каталог для збереження файлів на аркуші",
     "param.timeout.description": "Час очікування (секунди).",
     "param.ptr.description": "Додатковий покажчик RFC 6901 (наприклад, /items/0/title)",
     "param.maxb.description": "Максимальна кількість байтів для читання з відповіді.",
     "param.maxc.description": "Максимальна кількість символів для повернення (застосовується після декодування/вилучення)",
-    "param.ssl.description": "Чи перевіряти сертифікати SSL."
+    "param.ssl.description": "Чи перевіряти сертифікати SSL.",
+    "param.save_as.description": "Якщо встановлено, зберігає необроблену відповідь (двійкову) у вказаний шлях до файлу. Замінює extract/selector/ptr/maxc. Повертає метадані JSON."
   },
   "tr": {
     "param.url.description": "Erişmek için URL.",
-    "tool.description": "Belirtilen URL öğesine HTTP GET yoluyla erişin ve yanıtın başlangıcını metin olarak döndürün. HTML veya JSON almak ve incelemek için kullanışlıdır.",
+    "tool.description": "Belirtilen URL öğesine HTTP GET yoluyla erişin ve yanıtın başlangıcını metin olarak döndürün. HTML veya JSON almak ve incelemek için kullanışlıdır. save_as ayarlandığında, ham yanıt bir dosyaya kaydedilir ve meta veriler döndürülür.",
     "x_search_terms": [
       "fetch_url",
       "url al",
       "http get",
-      "html json"
+      "html json",
+      "dosya kaydet",
+      "indir"
     ],
     "param.extract.description": "Ekstraksiyon modu.",
     "param.selector.description": "İsteğe bağlı CSS seçici. Sağlanırsa, eşleşen ilk öğe extract=text/html için çıkarılır.",
@@ -415,16 +483,19 @@
     "param.ptr.description": "İsteğe bağlı RFC 6901 JSON Extract=json olduğunda kullanılan işaretçi (ör.",
     "param.maxb.description": "Yanıttan okunacak maksimum bayt sayısı.",
     "param.maxc.description": "Döndürülecek maksimum karakter (kod çözme/çıkarma işleminden sonra uygulanır).",
-    "param.ssl.description": "SSL sertifikalarının doğrulanıp doğrulanmayacağı."
+    "param.ssl.description": "SSL sertifikalarının doğrulanıp doğrulanmayacağı.",
+    "param.save_as.description": "Ayarlandığında, ham yanıtı (ikili) belirtilen dosya yoluna kaydeder. extract/selector/ptr/maxc geçersiz kılar. JSON meta verilerini döndürür."
   },
   "th": {
     "param.url.description": "URL ที่จะเข้าถึง",
-    "tool.description": "เข้าถึง URL ที่ระบุผ่าน HTTP GET และส่งคืนส่วนต้นของการตอบกลับเป็นข้อความ มีประโยชน์สำหรับการดึงและตรวจสอบ HTML หรือ JSON",
+    "tool.description": "เข้าถึง URL ที่ระบุผ่าน HTTP GET และส่งคืนส่วนต้นของการตอบกลับเป็นข้อความ มีประโยชน์สำหรับการดึงและตรวจสอบ HTML หรือ JSON เมื่อตั้งค่า save_as การตอบกลับดิบจะถูกบันทึกเป็นไฟล์และส่งคืนข้อมูลเมตา",
     "x_search_terms": [
       "fetch_url",
       "ดึง url",
       "http get",
-      "html json"
+      "html json",
+      "บันทึกไฟล์",
+      "ดาวน์โหลด"
     ],
     "param.extract.description": "โหมดการแยก head=return จุดเริ่มต้นของการตอบกลับ; text=แยกข้อความจาก HTML; html=แยกส่วน HTML; json=parse JSON (เลือกใช้ json_pointer ก็ได้); markdown=แยกมาร์กดาวน์แบบง่ายจาก HTML",
     "param.selector.description": "CSS selector แบบไม่บังคับ หากระบุ จะดึงองค์ประกอบที่ตรงกันตัวแรกสำหรับ extract=text/html",
@@ -433,16 +504,19 @@
     "param.ptr.description": "JSON Pointer ของ RFC 6901 แบบไม่บังคับ (เช่น /items/0/title) ใช้เมื่อ extract=json",
     "param.maxb.description": "จำนวนไบต์สูงสุดที่จะอ่านจากการตอบกลับ",
     "param.maxc.description": "จำนวนอักขระสูงสุดที่จะส่งคืน (ใช้หลังการถอดรหัส/ดึงข้อมูล)",
-    "param.ssl.description": "กำหนดว่าจะตรวจสอบใบรับรอง SSL หรือไม่"
+    "param.ssl.description": "กำหนดว่าจะตรวจสอบใบรับรอง SSL หรือไม่",
+    "param.save_as.description": "หากตั้งค่า จะบันทึกการตอบกลับดิบ (ไบนารี) ไปยังเส้นทางไฟล์ที่ระบุ โดยแทนที่ extract/selector/ptr/maxc และส่งคืนข้อมูลเมตา JSON"
   },
   "zh_CN": {
     "param.url.description": "要访问的 URL。",
-    "tool.description": "通过 HTTP GET 访问指定 URL，并以文本形式返回响应开头。适用于获取和检查 HTML 或 JSON。",
+    "tool.description": "通过 HTTP GET 访问指定 URL，并以文本形式返回响应开头。适用于获取和检查 HTML 或 JSON。当设置了 save_as 时，原始响应将保存到文件并返回元数据。",
     "x_search_terms": [
       "fetch_url",
       "获取 url",
       "http get",
-      "html json"
+      "html json",
+      "保存文件",
+      "下载"
     ],
     "param.extract.description": "提取模式。head=返回响应开头；text=从 HTML 中提取文本；html=提取 HTML 片段；json=解析 JSON（可选应用 json_pointer）；markdown=从 HTML 中提取简化 Markdown。",
     "param.selector.description": "可选 CSS 选择器。提供后，在 extract=text/html 时提取第一个匹配元素。",
@@ -451,16 +525,19 @@
     "param.ptr.description": "可选 RFC 6901 JSON Pointer（例如 /items/0/title），在 extract=json 时使用。",
     "param.maxb.description": "从响应中读取的最大字节数。",
     "param.maxc.description": "返回的最大字符数（在解码/提取后应用）。",
-    "param.ssl.description": "是否验证 SSL 证书。"
+    "param.ssl.description": "是否验证 SSL 证书。",
+    "param.save_as.description": "如果设置，将原始响应（二进制）保存到指定的文件路径。覆盖 extract/selector/ptr/maxc。返回 JSON 元数据。"
   },
   "zh_TW": {
     "param.url.description": "要存取的 URL。",
-    "tool.description": "透過 HTTP GET 存取指定的 URL，並以文字形式傳回回應開頭。適合用於擷取與檢查 HTML 或 JSON。",
+    "tool.description": "透過 HTTP GET 存取指定的 URL，並以文字形式傳回回應開頭。適合用於擷取與檢查 HTML 或 JSON。當設定了 save_as 時，原始回應將儲存到檔案並回傳中繼資料。",
     "x_search_terms": [
       "fetch_url",
       "取得 url",
       "http get",
-      "html json"
+      "html json",
+      "儲存檔案",
+      "下載"
     ],
     "param.extract.description": "擷取模式。head=傳回回應開頭；text=從 HTML 擷取文字；html=擷取 HTML 片段；json=解析 JSON（可選套用 json_pointer）；markdown=從 HTML 擷取簡化 Markdown。",
     "param.selector.description": "選用 CSS 選擇器。若提供，extract=text/html 時會擷取第一個符合的元素。",
@@ -469,16 +546,19 @@
     "param.ptr.description": "選用 RFC 6901 JSON Pointer（例如 /items/0/title），於 extract=json 時使用。",
     "param.maxb.description": "從回應中讀取的最大位元組數。",
     "param.maxc.description": "回傳的最大字元數（在解碼／擷取後套用）。",
-    "param.ssl.description": "是否驗證 SSL 憑證。"
+    "param.ssl.description": "是否驗證 SSL 憑證。",
+    "param.save_as.description": "如果設定，將原始回應（二進位）儲存到指定的檔案路徑。覆蓋 extract/selector/ptr/maxc。回傳 JSON 中繼資料。"
   },
   "bn": {
     "param.url.description": "যে URL-এ অ্যাক্সেস করা হবে।",
-    "tool.description": "নির্দিষ্ট URL-এ HTTP GET করে প্রতিক্রিয়ার শুরু অংশটিকে text হিসেবে ফেরত দেয়। HTML বা JSON আনা ও পরীক্ষা করার জন্য উপযোগী।",
+    "tool.description": "নির্দিষ্ট URL-এ HTTP GET করে প্রতিক্রিয়ার শুরু অংশটিকে text হিসেবে ফেরত দেয়। HTML বা JSON আনা ও পরীক্ষা করার জন্য উপযোগী। save_as সেট করা হলে, কাঁচা প্রতিক্রিয়া ফাইলে সংরক্ষিত হয় এবং মেটাডেটা ফেরত দেওয়া হয়।",
     "x_search_terms": [
       "fetch_url",
       "url আনুন",
       "http get",
-      "html json"
+      "html json",
+      "ফাইল সংরক্ষণ",
+      "ডাউনলোড"
     ],
     "param.extract.description": "নিষ্কাশন মোড। মাথা = প্রতিক্রিয়ার শুরুতে ফিরে যান; HTML থেকে text=extract text; html=এক্সট্র্যাক্ট HTML ফ্র্যাগমেন্ট; json= JSON পার্স করুন (ঐচ্ছিকভাবে json_pointer প্রয়োগ করুন); markdown=HTML থেকে সরলীকৃত মার্কডাউন বের করুন।",
     "param.selector.description": "ঐচ্ছিক CSS selector। দিলে extract=text/html-এর জন্য প্রথম মিলে যাওয়া element বের করা হয়।",
@@ -487,16 +567,19 @@
     "param.ptr.description": "ঐচ্ছিক RFC 6901 JSON Pointer (যেমন /items/0/title), extract=json হলে ব্যবহৃত হয়।",
     "param.maxb.description": "প্রতিক্রিয়া থেকে পড়া সর্বাধিক byte সংখ্যা।",
     "param.maxc.description": "ফেরত দেওয়ার জন্য সর্বাধিক অক্ষর (ডিকোডিং/এক্সট্রাকশনের পরে প্রয়োগ করা হয়েছে)।",
-    "param.ssl.description": "SSL সার্টিফিকেট যাচাই করা হবে কিনা।"
+    "param.ssl.description": "SSL সার্টিফিকেট যাচাই করা হবে কিনা।",
+    "param.save_as.description": "সেট করা হলে, কাঁচা প্রতিক্রিয়া (বাইনারি) নির্দিষ্ট ফাইল পাথে সংরক্ষণ করে। extract/selector/ptr/maxc ওভাররাইড করে। JSON মেটাডেটা ফেরত দেয়।"
   },
   "fa": {
     "param.url.description": "نشانی URL برای دسترسی.",
-    "tool.description": "از URL مشخص‌شده با HTTP GET دسترسی می‌گیرد و ابتدای پاسخ را به‌صورت متن برمی‌گرداند. برای گرفتن و بررسی HTML یا JSON مفید است.",
+    "tool.description": "از URL مشخص‌شده با HTTP GET دسترسی می‌گیرد و ابتدای پاسخ را به‌صورت متن برمی‌گرداند. برای گرفتن و بررسی HTML یا JSON مفید است. وقتی save_as تنظیم شود، پاسخ خام در فایل ذخیره و فراداده بازگردانده می‌شود.",
     "x_search_terms": [
       "fetch_url",
       "گرفتن url",
       "http get",
-      "html json"
+      "html json",
+      "ذخیره فایل",
+      "دانلود"
     ],
     "param.extract.description": "حالت استخراج.",
     "param.selector.description": "CSS selector اختیاری. اگر ارائه شود، برای extract=text/html اولین عنصر منطبق استخراج می‌شود.",
@@ -505,16 +588,19 @@
     "param.ptr.description": "اشاره گر JSON اختیاری RFC 6901 (به عنوان مثال، /items/0/title) در هنگام استخراج=json استفاده می‌شود.",
     "param.maxb.description": "حداکثر تعداد byte برای خواندن از پاسخ.",
     "param.maxc.description": "حداکثر نویسه برای بازگشت (بعد از رمزگشایی/استخراج اعمال می شود).",
-    "param.ssl.description": "آیا گواهی‌های SSL تأیید شوند یا خیر."
+    "param.ssl.description": "آیا گواهی‌های SSL تأیید شوند یا خیر.",
+    "param.save_as.description": "اگر تنظیم شود، پاسخ خام (دودویی) را در مسیر فایل مشخص‌شده ذخیره می‌کند. extract/selector/ptr/maxc را نادیده می‌گیرد. ابرداده JSON بازمی‌گرداند."
   },
   "mn": {
     "param.url.description": "Хандах URL.",
-    "tool.description": "Заасан URL-д HTTP GET хийж, хариуны эхлэлийг text хэлбэрээр буцаана. HTML эсвэл JSON татаж авч шалгахад хэрэгтэй.",
+    "tool.description": "Заасан URL-д HTTP GET хийж, хариуны эхлэлийг text хэлбэрээр буцаана. HTML эсвэл JSON татаж авч шалгахад хэрэгтэй. save_as тохируулсан бол түүхий хариултыг файлд хадгалж, мета өгөгдлийг буцаана.",
     "x_search_terms": [
       "fetch_url",
       "url авах",
       "http get",
-      "html json"
+      "html json",
+      "файл хадгалах",
+      "татах"
     ],
     "param.extract.description": "Гарган авах горим.",
     "param.selector.description": "Сонголттой CSS selector. Өгвөл extract=text/html-д эхний таарсан element-ийг гаргана.",
@@ -523,16 +609,19 @@
     "param.ptr.description": "Сонголттой RFC 6901 JSON Pointer (жишээ нь /items/0/title).",
     "param.maxb.description": "Хариунаас унших хамгийн их byte.",
     "param.maxc.description": "Буцаах хамгийн их тэмдэгтүүд (код тайлсны дараа хэрэглэнэ).",
-    "param.ssl.description": "SSL сертификатыг баталгаажуулах эсэх."
+    "param.ssl.description": "SSL сертификатыг баталгаажуулах эсэх.",
+    "param.save_as.description": "Тохируулсан бол түүхий хариултыг (хоёртын) заасан файлын замд хадгална. extract/selector/ptr/maxc-г дарж бичнэ. JSON мета өгөгдлийг буцаана."
   },
   "mr": {
     "param.url.description": "ज्याला access करायचे तो URL.",
-    "tool.description": "निर्दिष्ट URL वर HTTP GET करून प्रतिसादाची सुरुवात text म्हणून परत करते. HTML किंवा JSON आणण्यासाठी व तपासण्यासाठी उपयुक्त.",
+    "tool.description": "निर्दिष्ट URL वर HTTP GET करून प्रतिसादाची सुरुवात text म्हणून परत करते. HTML किंवा JSON आणण्यासाठी व तपासण्यासाठी उपयुक्त. save_as सेट केल्यास, कच्चा प्रतिसाद फाइलमध्ये सेव्ह केला जातो आणि मेटाडेटा परत केला जातो.",
     "x_search_terms": [
       "fetch_url",
       "url आणा",
       "http get",
-      "html json"
+      "html json",
+      "फाइल जतन करा",
+      "डाउनलोड"
     ],
     "param.extract.description": "एक्स्ट्रॅक्शन मोड.",
     "param.selector.description": "ऐच्छिक CSS selector. दिल्यास extract=text/html साठी पहिला जुळणारा element काढला जातो.",
@@ -541,11 +630,12 @@
     "param.ptr.description": "ऐच्छिक RFC 6901 JSON Pointer (उदा. /items/0/title); extract=json वेळी वापरला जातो.",
     "param.maxb.description": "प्रतिसादातून वाचण्यासाठी कमाल बाइट्स.",
     "param.maxc.description": "परत देण्यायोग्य कमाल character संख्या (decode/extraction नंतर लागू).",
-    "param.ssl.description": "SSL प्रमाणपत्रांची पडताळणी करायची की नाही."
+    "param.ssl.description": "SSL प्रमाणपत्रांची पडताळणी करायची की नाही.",
+    "param.save_as.description": "सेट केल्यास, कच्चा प्रतिसाद (बायनरी) निर्दिष्ट फाइल मार्गावर जतन करतो. extract/selector/ptr/maxc ओवरराइड करतो. JSON मेटाडेटा परत करतो."
   },
   "el": {
     "param.url.description": "URL για πρόσβαση.",
-    "tool.description": "Αποκτήστε πρόσβαση στην καθορισμένη διεύθυνση URL μέσω HTTP GET και επιστρέψτε την αρχή της απάντησης ως κείμενο. Χρήσιμο για ανάκτηση και επιθεώρηση HTML ή JSON.",
+    "tool.description": "Αποκτήστε πρόσβαση στην καθορισμένη διεύθυνση URL μέσω HTTP GET και επιστρέψτε την αρχή της απάντησης ως κείμενο. Χρήσιμο για ανάκτηση και επιθεώρηση HTML ή JSON. Όταν οριστεί το save_as, η ακατέργαστη απόκριση αποθηκεύεται σε αρχείο και επιστρέφονται μεταδεδομένα.",
     "x_search_terms": [
       "ανάκτηση διεύθυνσης url",
       "http λήψη",
@@ -554,7 +644,9 @@
       "διεύθυνση url παραλήπτη",
       "διεύθυνση url récupérer",
       "URL 가져오기",
-      "Λειτουργία εξαγωγής διεύθυνσης URL"
+      "Λειτουργία εξαγωγής διεύθυνσης URL",
+      "αποθήκευση αρχείου",
+      "λήψη"
     ],
     "param.extract.description": ". head=επιστρέφει την αρχή της απάντησης. text=εξαγωγή κειμένου από HTML. html=εξαγωγή τμήματος HTML; json=ανάλυση JSON (προαιρετικά εφαρμογή json_pointer); markdown=εξαγωγή απλοποιημένης σήμανσης από την HTML.",
     "param.selector.description": "Προαιρετικός επιλογέας CSS. Εάν παρέχεται, το πρώτο αντιστοιχισμένο στοιχείο εξάγεται για extract=text/html.",
@@ -563,11 +655,12 @@
     "param.ptr.description": "Προαιρετικός δείκτης RFC 6901 JSON (π.χ. /items/0/title) που χρησιμοποιείται όταν το extract=json.",
     "param.maxb.description": "Μέγιστα byte για ανάγνωση από την απάντηση.",
     "param.maxc.description": "Μέγιστος αριθμός χαρακτήρων προς επιστροφή (εφαρμόζονται μετά την αποκωδικοποίηση/εξαγωγή).",
-    "param.ssl.description": "Εάν θα επαληθεύσετε πιστοποιητικά SSL."
+    "param.ssl.description": "Εάν θα επαληθεύσετε πιστοποιητικά SSL.",
+    "param.save_as.description": "Εάν οριστεί, αποθηκεύει την ακατέργαστη απόκριση (δυαδική) στην καθορισμένη διαδρομή αρχείου. Παρακάμπτει extract/selector/ptr/maxc. Επιστρέφει μεταδεδομένα JSON."
   },
   "he": {
     "param.url.description": "כתובת אתר לגישה.",
-    "tool.description": "גש לכתובת האתר שצוינה באמצעות HTTP GET והחזר את תחילת התגובה כטקסט. שימושי לאחזור ובדיקת HTML או JSON.",
+    "tool.description": "גש לכתובת האתר שצוינה באמצעות HTTP GET והחזר את תחילת התגובה כטקסט. שימושי לאחזור ובדיקת HTML או JSON. כאשר save_as מוגדר, התגובה הגולמית נשמרת לקובץ ומטא-נתונים מוחזרים.",
     "x_search_terms": [
       "אחזר כתובת אתר",
       "http קבל",
@@ -576,7 +669,9 @@
       "כתובת URL להשיג",
       "כתובת אתר שחזור",
       "כתובת URL 가져오기",
-      "מצב חילוץ"
+      "מצב חילוץ",
+      "שמור קובץ",
+      "הורד"
     ],
     "param.extract.description": "מצב חילוץ. head=החזרת תחילת התגובה; text=חלץ טקסט מ-HTML; html=חלץ קטע HTML; json=נתח JSON (אפשר להחיל את json_pointer); markdown=חלץ סימון מפושט מ-HTML.",
     "param.selector.description": "בורר CSS אופציונלי. אם מסופק, האלמנט המותאם הראשון מוחלץ עבור extract=text/html.",
@@ -585,11 +680,12 @@
     "param.ptr.description": "מצביע RFC 6901 JSON אופציונלי (לדוגמה, /items/0/title) בשימוש כאשר extract=json.",
     "param.maxb.description": "מקסימום בתים לקריאה מהתגובה.",
     "param.maxc.description": "מקסימום תווים להחזרה (מוחל לאחר פענוח/חילוץ).",
-    "param.ssl.description": "האם לאמת אישורי SSL."
+    "param.ssl.description": "האם לאמת אישורי SSL.",
+    "param.save_as.description": "אם מוגדר, שומר את התגובה הגולמית (בינארית) לנתיב הקובץ שצוין. דורס extract/selector/ptr/maxc. מחזיר מטא-נתונים JSON."
   },
   "hu": {
     "param.url.description": "URL a hozzáféréshez.",
-    "tool.description": "Hozzáférés a megadott URL-hez a HTTP GET-en keresztül, és a válasz elejét szövegként adja vissza. Hasznos a HTML vagy JSON lekéréséhez és ellenőrzéséhez.",
+    "tool.description": "Hozzáférés a megadott URL-hez a HTTP GET-en keresztül, és a válasz elejét szövegként adja vissza. Hasznos a HTML vagy JSON lekéréséhez és ellenőrzéséhez. Ha a save_as be van állítva, a nyers válasz egy fájlba kerül, és metaadatok kerülnek visszaadásra.",
     "x_search_terms": [
       "url lekérése",
       "http letöltés",
@@ -598,7 +694,8 @@
       "obtener url",
       "récupérer url",
       "URL 가져오기",
-      "получить=urltraction mode. head=visszaadja a válasz elejét; text=szöveg kibontása HTML-ből; html=HTML-részlet kibontása; json=parse JSON (opcionálisan a json_pointer alkalmazása); markdown=az egyszerűsített leértékelés kinyerése HTML-ből."
+      "fájl mentése",
+      "letöltés"
     ],
     "param.extract.description": "Opcionális CSS-választó. Ha meg van adva, akkor az első egyező elemet a rendszer kivonja a következőhöz: extract=text/html.",
     "param.selector.description": "Opcionális User-Agent fejlécérték.",
@@ -607,11 +704,12 @@
     "param.ptr.description": "A válaszból kiolvasható bájtok maximális száma.",
     "param.maxb.description": "Maximális visszaadható karakterek száma (dekódolás/kivonás után alkalmazva).",
     "param.maxc.description": "Az SSL-tanúsítványok ellenőrzése.",
-    "param.ssl.description": "A [file_exists error] elérési útja üres"
+    "param.ssl.description": "",
+    "param.save_as.description": "Ha be van állítva, a nyers választ (bináris) a megadott fájlútvonalra menti. Felülírja az extract/selector/ptr/maxc értékeket. JSON metaadatokat ad vissza."
   },
   "ro": {
     "param.url.description": "URL de acces.",
-    "tool.description": "Accesați adresa URL specificată prin HTTP GET și returnați începutul răspunsului ca text. Util pentru preluarea și inspectarea HTML sau JSON.",
+    "tool.description": "Accesați adresa URL specificată prin HTTP GET și returnați începutul răspunsului ca text. Util pentru preluarea și inspectarea HTML sau JSON. Când save_as este setat, răspunsul brut este salvat într-un fișier și se returnează metadate.",
     "x_search_terms": [
       "preluați url",
       "http get",
@@ -620,7 +718,9 @@
       "obtener url",
       "récupérer url",
       "URL 가져오기",
-      "получить url"
+      "получить url",
+      "salvare fișier",
+      "descărcare"
     ],
     "param.extract.description": "Mod extracție cap=întoarce începutul răspunsului; text=extrage text din HTML; html=extract HTML fragment; json=parse JSON (aplicați opțional json_pointer); markdown=extrage reducere simplificată din HTML.",
     "param.selector.description": "Selector CSS opțional. Dacă este furnizat, primul element potrivit este extras pentru extract=text/html.",
@@ -629,6 +729,7 @@
     "param.ptr.description": "Indicator opțional RFC 6901 JSON (de exemplu, /items/0/title) folosit când extract=json.",
     "param.maxb.description": "Numărul maxim de octeți de citit din răspuns.",
     "param.maxc.description": "Numărul maxim de caractere de returnat (aplicat după decodare/extragere).",
-    "param.ssl.description": "Dacă se verifică certificatele SSL."
+    "param.ssl.description": "Dacă se verifică certificatele SSL.",
+    "param.save_as.description": "Dacă este setat, salvează răspunsul brut (binar) în calea de fișier specificată. Suprascrie extract/selector/ptr/maxc. Returnează metadate JSON."
   }
 }

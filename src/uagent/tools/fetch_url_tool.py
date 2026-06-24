@@ -2,8 +2,10 @@
 from __future__ import annotations
 
 import json
+import os
 import sys
 import warnings
+from pathlib import Path
 from typing import Any, Optional
 from urllib.request import (
     Request,
@@ -34,7 +36,9 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON."
+                "Access the specified URL via HTTP GET and return the beginning of the response as text. "
+                "Useful for fetching and inspecting HTML or JSON. "
+                "When save_as is set, the raw response is saved to a file and metadata is returned instead."
             ),
         ),
         "x_search_terms": _(
@@ -158,6 +162,10 @@ TOOL_SPEC: dict[str, Any] = {
             "http request",
             "web access",
             "api call",
+            "save file",
+            "download file",
+            "save response",
+            "raw download",
         ],
         "parameters": {
             "type": "object",
@@ -201,7 +209,7 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": 4000,
                     "description": _(
                         "param.maxb.description",
-                        default="Maximum bytes to read from the response.",
+                        default="Maximum bytes to read from the response. Default 10MB when save_as is set.",
                     ),
                 },
                 "maxc": {
@@ -233,6 +241,16 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.ssl.description",
                         default="Whether to verify SSL certificates.",
+                    ),
+                },
+                "save_as": {
+                    "type": "string",
+                    "description": _(
+                        "param.save_as.description",
+                        default=(
+                            "If set, saves the raw response (binary) to the specified file path. "
+                            "Overrides extract/selector/ptr/maxc. Returns JSON metadata instead of content."
+                        ),
                     ),
                 },
             },
@@ -398,10 +416,24 @@ def _html_to_markdown(soup_or_el) -> str:
     return "\n".join(result).strip()
 
 
+def _content_note(content_type: str, extract: str) -> str:
+    """Return a browser_playwright suggestion note for HTML content."""
+    if extract == "json":
+        return ""
+    if "text/html" in content_type:
+        return (
+            "\n\n[Note: This page was fetched via HTTP GET and may not reflect JavaScript-rendered content. "
+            "Consider using browser_playwright for full rendering.]"
+        )
+    return ""
+
+
 def run_tool(args: dict[str, Any]) -> str:
     url = str(args.get("url", "") or "")
     if not url:
         raise ValueError("url is required")
+
+    save_as = str(args.get("save_as") or "") or None
 
     extract = str(args.get("extract") or "head")
     selector = str(args.get("selector") or "") or None
@@ -410,13 +442,14 @@ def run_tool(args: dict[str, Any]) -> str:
     max_bytes = int(args.get("maxb") or 4000)
     max_chars = int(args.get("maxc") or 8000)
 
-    if max_bytes <= 0:
-        max_bytes = 0
-    max_bytes = min(max_bytes, 2_000_000)
-
-    if max_chars <= 0:
-        max_chars = 0
-    max_chars = min(max_chars, 200_000)
+    if save_as:
+        # When saving to file, default to 10MB, max 100MB
+        if "maxb" not in args:
+            max_bytes = 10_000_000
+        max_bytes = max(0, min(max_bytes, 100_000_000))
+    else:
+        max_bytes = max(0, min(max_bytes, 2_000_000))
+        max_chars = max(0, min(max_chars, 200_000))
 
     ua = str(args.get("user_agent") or "") or "curl/7.79.1"
     timeout = int(args.get("timeout") or 10)
@@ -447,6 +480,12 @@ def run_tool(args: dict[str, Any]) -> str:
             or "tls" in s
         )
 
+    def _browser_suggestion() -> str:
+        return (
+            ".suggestion: This page could not be fetched via HTTP GET. "
+            "Try browser_playwright if the page requires JavaScript or blocks simple requests."
+        )
+
     try:
         import urllib.request
 
@@ -456,6 +495,7 @@ def run_tool(args: dict[str, Any]) -> str:
             resp_ctx = opener.open(req, timeout=timeout)
 
         with resp_ctx as resp:
+            content_type = resp.headers.get("Content-Type", "")
             declared = None
             try:
                 declared = resp.headers.get_content_charset()  # type: ignore[attr-defined]
@@ -463,23 +503,39 @@ def run_tool(args: dict[str, Any]) -> str:
                 declared = None
             content = resp.read(max_bytes)
 
+        # --- save_as mode ---
+        if save_as:
+            save_path = Path(save_as).resolve()
+            save_path.parent.mkdir(parents=True, exist_ok=True)
+            save_path.write_bytes(content)
+            return json.dumps(
+                {
+                    "ok": True,
+                    "saved_to": str(save_path),
+                    "size": len(content),
+                    "mime_type": content_type,
+                },
+                ensure_ascii=False,
+            )
+
+        # --- text extraction modes ---
         text = _decode_bytes(content, declared_charset=declared)
 
         if extract == "head":
-            return _truncate_chars(text, max_chars)
+            result = _truncate_chars(text, max_chars)
+            return result + _content_note(content_type, extract)
 
         if extract in ("text", "html", "markdown"):
             soup = BeautifulSoup(text, "html.parser")
             el = _pick_html_element(soup, selector=selector)
             if extract == "text":
                 extracted = el.get_text("\n", strip=True)
-                return _truncate_chars(extracted, max_chars)
             elif extract == "html":
                 extracted = str(el)
-                return _truncate_chars(extracted, max_chars)
             elif extract == "markdown":
                 extracted = _html_to_markdown(el)
-                return _truncate_chars(extracted, max_chars)
+            result = _truncate_chars(extracted, max_chars)
+            return result + _content_note(content_type, extract)
 
         if extract == "json":
             try:
@@ -505,7 +561,8 @@ def run_tool(args: dict[str, Any]) -> str:
                         ensure_ascii=False,
                     )
 
-            return _truncate_chars(json.dumps(doc, ensure_ascii=False), max_chars)
+            result = _truncate_chars(json.dumps(doc, ensure_ascii=False), max_chars)
+            return result + _content_note(content_type, extract)
 
         return json.dumps(
             {
@@ -520,7 +577,7 @@ def run_tool(args: dict[str, Any]) -> str:
             {
                 "ok": False,
                 "status_code": e.code,
-                "error": f"HTTP Error {e.code}: {e.reason}",
+                "error": f"HTTP Error {e.code}: {e.reason}" + _browser_suggestion(),
             },
             ensure_ascii=False,
         )
@@ -531,7 +588,7 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": f"URL Error: {msg}",
+                "error": f"URL Error: {msg}" + _browser_suggestion(),
             },
             ensure_ascii=False,
         )
@@ -542,7 +599,7 @@ def run_tool(args: dict[str, Any]) -> str:
         return json.dumps(
             {
                 "ok": False,
-                "error": msg,
+                "error": msg + _browser_suggestion(),
             },
             ensure_ascii=False,
         )
