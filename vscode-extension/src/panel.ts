@@ -268,6 +268,68 @@ export class ChatPanel {
         }
         .cursor-blink { animation: blink 1s step-end infinite; }
         @keyframes blink { 50% { opacity: 0; } }
+        /* Markdown: code blocks */
+        .msg-assistant pre, .msg-user pre {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 8px;
+            overflow-x: auto;
+            margin: 6px 0;
+        }
+        .msg-assistant code, .msg-user code {
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+        }
+        .msg-assistant pre code, .msg-user pre code {
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        .msg-assistant :not(pre) > code, .msg-user :not(pre) > code {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 1px 4px;
+        }
+        .msg-assistant a, .msg-user a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        .msg-assistant h1, .msg-user h1,
+        .msg-assistant h2, .msg-user h2,
+        .msg-assistant h3, .msg-user h3 {
+            margin: 8px 0 4px 0;
+        }
+        .msg-assistant p, .msg-user p {
+            margin: 4px 0;
+        }
+        .msg-assistant ul, .msg-user ul,
+        .msg-assistant ol, .msg-user ol {
+            padding-left: 20px;
+            margin: 4px 0;
+        }
+        .msg-assistant li, .msg-user li {
+            margin: 2px 0;
+        }
+        .msg-assistant blockquote, .msg-user blockquote {
+            border-left: 3px solid var(--border);
+            padding-left: 8px;
+            margin: 4px 0;
+            color: var(--text-secondary);
+        }
+        .msg-assistant table, .msg-user table {
+            border-collapse: collapse;
+            margin: 6px 0;
+        }
+        .msg-assistant th, .msg-user th,
+        .msg-assistant td, .msg-user td {
+            border: 1px solid var(--border);
+            padding: 4px 8px;
+        }
+        .msg-assistant th, .msg-user th {
+            background: var(--bg-secondary);
+        }
     </style>
 </head>
 <body>
@@ -290,12 +352,51 @@ export class ChatPanel {
             const sendBtn = document.getElementById('btn-send');
             const status = document.getElementById('status');
 
+            function escapeHtml(s) {
+                const map = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
+                return s.replace(/[&<>"']/g, function(m) { return map[m]; });
+            }
+
+            function renderMarkdown(text) {
+                let html = escapeHtml(text);
+                // fenced code blocks ```lang ... ```
+                html = html.replace(/```(\w*)
+([\s\S]*?)```/g, function(_, lang, code) {
+                    return '<pre><code' + (lang ? ' class="lang-' + lang + '"' : '') + '>'
+                        + escapeHtml(code.trim()) + '</code></pre>';
+                });
+                // inline code `...`
+                html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+                // bold **...**
+                html = html.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+                // italic *...*
+                html = html.replace(/\*([^*]+)\*/g, '<i>$1</i>');
+                // links [text](url)
+                html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+                // headings ###... to #...
+                html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+                html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+                html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+                // blockquote >
+                html = html.replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>');
+                // horizontal rule ---
+                html = html.replace(/^---+$/gm, '<hr>');
+                // double newline = paragraph break
+                html = html.replace(/
+
+/g, '</p><p>');
+                html = '<p>' + html + '</p>';
+                return html;
+            }
+
             function addMessage(text, className) {
                 const div = document.createElement('div');
                 div.className = className || 'msg-assistant';
                 if (className === 'streaming') {
                     div.id = 'streaming';
-                    div.textContent = '';
+                    div.innerHTML = '';
+                } else if (className === 'msg-user' || className === 'msg-assistant') {
+                    div.innerHTML = renderMarkdown(text);
                 } else {
                     div.textContent = text;
                 }
@@ -351,12 +452,21 @@ export class ChatPanel {
                         break;
                     case 'done': {
                         const el = document.getElementById('streaming');
-                        if (el) el.id = '';
+                        if (el) {
+                            const raw = el.textContent || '';
+                            el.innerHTML = renderMarkdown(raw);
+                            el.id = '';
+                        }
+                        sendBtn.disabled = false;
+                        // Re-enable send button based on input
+                        if (input.value.trim()) sendBtn.disabled = false;
                         status.textContent = 'Ready';
                         break;
                     }
                     case 'error':
                         addMessage(msg.data, 'msg-error');
+                        sendBtn.disabled = false;
+                        if (input.value.trim()) sendBtn.disabled = false;
                         break;
                     case 'system':
                         addMessage(msg.data, 'msg-system');
