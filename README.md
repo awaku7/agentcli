@@ -85,7 +85,7 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **System** | env vars, system specs, time, date calculation |
 | **Source Nav** | **13 idx tools** for Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — get a function/class index or specific definition without reading the whole file |
 
-### 🖥 3 Interfaces + A2A
+### 🖥 4 Interfaces + VS Code Extension
 
 | Mode | Command | Purpose |
 |---|---|---|
@@ -93,6 +93,9 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **GUI** | `uagg` | Desktop UI via tkinter |
 | **Web** | `uagw` | Browser-based access |
 | **A2A Server** | `uaga` | Agent2Agent protocol for multi-agent communication |
+| **VS Code** | — | [Extension](VSCODE.md) with Chat Panel, Explain, Refactor, Fix Error, and Tools Tree View |
+
+See [VSCODE.md](VSCODE.md) for details on the VS Code extension — installation, commands, keybindings, and configuration.
 
 ### 🏠 IoT Device Control
 
