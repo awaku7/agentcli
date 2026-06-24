@@ -181,7 +181,7 @@ async def execute_actions(actions: List[Dict[str, Any]], headless: bool, **kwarg
         current_frame = page.main_frame
 
         def _require_frame() -> None:
-            """Return error dict if current_frame is None; otherwise None."""
+            """Raise RuntimeError if current_frame is None."""
             if current_frame is None:
                 raise RuntimeError("No active page/frame. All pages have been closed.")
 
@@ -323,9 +323,6 @@ async def execute_actions(actions: List[Dict[str, Any]], headless: bool, **kwarg
 
                 elif a_type == "block_resources":
                     blocked = set(action.get("resource_types", ["image"]))
-                    # Register without destroying other route handlers.
-                    # Playwright uses LIFO ordering: the newest route handler fires first.
-                    # If it calls continue_(), the next handler gets a chance.
                     await page.route(
                         "**/*",
                         lambda r, _blocked=blocked: (
@@ -392,7 +389,6 @@ async def execute_actions(actions: List[Dict[str, Any]], headless: bool, **kwarg
                         current_frame = None
 
                 elif a_type == "intercept_network":
-                    # Remove previous response listeners to prevent accumulation
                     for prev_listener in response_listeners:
                         page.remove_listener("response", prev_listener)
                     response_listeners.clear()
@@ -448,9 +444,11 @@ async def execute_actions(actions: List[Dict[str, Any]], headless: bool, **kwarg
 
                 elif a_type == "wait":
                     _require_frame()
-                    await current_frame.wait_for_selector(
-                        action["selector"], timeout=timeout
-                    )
+                    sel = action.get("selector")
+                    if sel:
+                        await current_frame.wait_for_selector(sel, timeout=timeout)
+                    else:
+                        await asyncio.sleep(timeout / 1000.0)
 
                 elif a_type == "wait_until":
                     cond = action.get("condition", "load")
@@ -600,31 +598,9 @@ async def execute_actions(actions: List[Dict[str, Any]], headless: bool, **kwarg
                 "video_path": v_path
             }
 
-        except RuntimeError as e:
-            return {"ok": False, "error": str(e)}
         except Exception as e:
-            return {"ok": False, "error": str(e), "last_url": page.url}
+            return {"ok": False, "error": str(e), "last_url": page.url if page else None}
+
         finally:
+            await context.close()
             await browser.close()
-
-
-def browser_playwright_run(args: dict[str, Any]) -> dict[str, Any]:
-    # Copy to avoid mutating caller's dict; keep all keys (including trace*)
-    # so they reach execute_actions via kwargs.
-    cleaned = dict(args)
-    actions = cleaned.pop("actions", [])
-    headless = cleaned.pop("headless", True)
-    try:
-        return asyncio.run(execute_actions(actions, headless, **cleaned))
-    except RuntimeError:
-        loop = asyncio.new_event_loop()
-        try:
-            return loop.run_until_complete(
-                execute_actions(actions, headless, **cleaned)
-            )
-        finally:
-            loop.close()
-
-
-# Alias for tool loader
-run_tool = browser_playwright_run
