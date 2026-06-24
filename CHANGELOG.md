@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.23] - 2026-06-24
+
+### Added
+- Added `save_as` parameter to `fetch_url` tool for saving binary responses directly to file.
+- Added browser_playwright suggestion when HTML content is detected via HTTP GET.
+- Added markdown rendering for `:chat` responses.
+- Made git optional at startup (removed `check_git_installation` from CLI startup).
+
+### Fixed
+- Fixed `browser_playwright` wait action: `selector` is now optional to prevent KeyError.
+- Fixed broken chat panel by reverting problematic markdown JS changes.
+- Fixed Hindi `Why uag` documentation (bullet 3 to 4, Devanagari A2A).
+
+### Docs
+- Added VSCODE.md with extension details and linked from README.
+- Added VS Code extension info to all translation README files.
+- Minor documentation fixes.
+
+### Chores
+- Prepared for VSCode marketplace release.
+
 ## [0.5.22] - 2026-06-23
 
 ### Added

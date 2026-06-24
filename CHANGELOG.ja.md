@@ -5,6 +5,27 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.23] - 2026-06-24
+
+### 追加
+- `fetch_url` ツールに `save_as` パラメータを追加（バイナリレスポンスを直接ファイルに保存可能に）。
+- HTTP GET で HTML コンテンツが検出された場合、browser_playwright の使用を提案する機能を追加。
+- `:chat` 応答のマークダウンレンダリングを追加。
+- 起動時の git チェックをオプション化（CLI 起動から `check_git_installation` を削除）。
+
+### 修正
+- `browser_playwright` の wait アクション: `selector` をオプションにし、KeyError を防止。
+- 問題のある markdown JS 変更を差し戻し、チャットパネルの不具合を修正。
+- Hindi `Why uag` ドキュメントの箇条書き番号を修正（3→4、デーヴァナーガリー A2A）。
+
+### ドキュメント
+- VSCODE.md を追加し、拡張機能の詳細を記載して README からリンク。
+- 全翻訳 README ファイルに VS Code 拡張機能の案内を追加。
+- 軽微なドキュメント修正。
+
+### その他
+- VSCode marketplace リリースの準備。
+
 ## [0.5.22] - 2026-06-23
 
 ### 追加
