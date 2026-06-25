@@ -140,7 +140,7 @@
     }
   },
   "scripts": {
-    "compile": "tsc -p ./ && python ../patch_markdown.py",
+    "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "package": "vsce package",
     "publish": "vsce publish"
