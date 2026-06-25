@@ -267,9 +267,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 server.logout()
             except Exception:
                 pass
-            return json.dumps(
-                {"ok": False, "error": str(e)}, ensure_ascii=False
-            )
+            return json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False)
 
     except Exception as e:
         return json.dumps({"ok": False, "error": str(e)}, ensure_ascii=False)

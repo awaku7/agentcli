@@ -496,7 +496,13 @@ def _format_text(result: dict[str, Any]) -> str:
 def run_tool(args: dict[str, Any]) -> str:
     _log_start = time.time()
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
-    cache_key = ":".join([str(args.get("dev") or ""), str(args.get("ctrl") or ""), str(args.get("bridge") or "")])
+    cache_key = ":".join(
+        [
+            str(args.get("dev") or ""),
+            str(args.get("ctrl") or ""),
+            str(args.get("bridge") or ""),
+        ]
+    )
     _cached = matter_cache_get("matter_endpoint_list", cache_key)
     device_id = str(args.get("dev") or "").strip()
     controller_id = args.get("ctrl")
@@ -645,7 +651,12 @@ def run_tool(args: dict[str, Any]) -> str:
         },
     }
     matter_cache_put("matter_endpoint_list", cache_key, result)
-    matter_log("matter_endpoint_list", args, ok=True, elapsed_ms=(time.time() - _log_start) * 1000)
+    matter_log(
+        "matter_endpoint_list",
+        args,
+        ok=True,
+        elapsed_ms=(time.time() - _log_start) * 1000,
+    )
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)

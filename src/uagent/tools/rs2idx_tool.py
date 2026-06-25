@@ -87,35 +87,50 @@ _MOD = r"(?:(?:pub(?:\s*\(\s*(?:crate|super|self|in\s+\w+(?:::\w+)*)\s*\))?|asyn
 # Rust definition patterns (checked in order)
 _PATTERNS = [
     # mod declaration
-    (r"^\s*(?:pub\s+)?mod\s+(\w+)",
-     lambda m: ("module", m.group(1))),
+    (r"^\s*(?:pub\s+)?mod\s+(\w+)", lambda m: ("module", m.group(1))),
     # use declaration (skip)
-    (r"^\s*(?:pub\s+)?use\s+",
-     lambda m: None),
+    (r"^\s*(?:pub\s+)?use\s+", lambda m: None),
     # struct / union / enum / trait
-    (r"^\s*(?:" + _MOD + r")?(?:struct|union|enum|trait)\s+(\w+(?:<[^>]*>)?)",
-     lambda m: ("type", m.group(1))),
+    (
+        r"^\s*(?:" + _MOD + r")?(?:struct|union|enum|trait)\s+(\w+(?:<[^>]*>)?)",
+        lambda m: ("type", m.group(1)),
+    ),
     # impl block
-    (r"^\s*(?:" + _MOD + r")?impl(?:\s*<[^>]*>)?\s+(\w+(?:<[^>]*>)?)\s*(?:for\s+(\w+(?:<[^>]*>)?))?\s*(?:\{|where)",
-     lambda m: ("impl", f"{m.group(1)}" + (f" for {m.group(2)}" if m.group(2) else ""))),
+    (
+        r"^\s*(?:"
+        + _MOD
+        + r")?impl(?:\s*<[^>]*>)?\s+(\w+(?:<[^>]*>)?)\s*(?:for\s+(\w+(?:<[^>]*>)?))?\s*(?:\{|where)",
+        lambda m: (
+            "impl",
+            f"{m.group(1)}" + (f" for {m.group(2)}" if m.group(2) else ""),
+        ),
+    ),
     # type alias
-    (r"^\s*(?:pub\s+)?type\s+(\w+(?:<[^>]*>)?)\s*=",
-     lambda m: ("type_alias", m.group(1))),
+    (
+        r"^\s*(?:pub\s+)?type\s+(\w+(?:<[^>]*>)?)\s*=",
+        lambda m: ("type_alias", m.group(1)),
+    ),
     # macro_rules!
-    (r"^\s*(?:#\[[^\]]*\]\s*)*macro_rules!\s*[\(\{]?\s*(\w+)",
-     lambda m: ("macro", m.group(1))),
+    (
+        r"^\s*(?:#\[[^\]]*\]\s*)*macro_rules!\s*[\(\{]?\s*(\w+)",
+        lambda m: ("macro", m.group(1)),
+    ),
     # const / static
-    (r"^\s*(?:" + _MOD + r")?(?:const|static)\s+(\w+)\s*(?::|=)",
-     lambda m: ("const", m.group(1))),
+    (
+        r"^\s*(?:" + _MOD + r")?(?:const|static)\s+(\w+)\s*(?::|=)",
+        lambda m: ("const", m.group(1)),
+    ),
     # fn declaration
-    (r"^\s*(?:" + _MOD + r")?fn\s+(\w+(?:<[^>]*>)?)\s*\([^)]*\)\s*(?:->\s*(?:\w+(?:<[^>]*>)?(?:\s*\|\s*\w+(?:<[^>]*>)?)*\s*)?)?(?:\{|;|where)",
-     lambda m: ("fn", m.group(1))),
+    (
+        r"^\s*(?:"
+        + _MOD
+        + r")?fn\s+(\w+(?:<[^>]*>)?)\s*\([^)]*\)\s*(?:->\s*(?:\w+(?:<[^>]*>)?(?:\s*\|\s*\w+(?:<[^>]*>)?)*\s*)?)?(?:\{|;|where)",
+        lambda m: ("fn", m.group(1)),
+    ),
     # struct field: name: Type,
-    (r"^\s+(\w+)\s*:\s*(?:\w+(?:<[^>]*>)?)",
-     lambda m: ("field", m.group(1))),
+    (r"^\s+(\w+)\s*:\s*(?:\w+(?:<[^>]*>)?)", lambda m: ("field", m.group(1))),
     # enum variant: Name or Name(...) or Name{...}
-    (r"^\s+(\w+)\s*(?:\(|{|,)",
-     lambda m: ("variant", m.group(1))),
+    (r"^\s+(\w+)\s*(?:\(|{|,)", lambda m: ("variant", m.group(1))),
 ]
 
 
@@ -355,7 +370,9 @@ def run_tool(args: dict[str, Any]) -> str:
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
     if not os.path.isfile(path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -388,15 +405,31 @@ def run_tool(args: dict[str, Any]) -> str:
     elif mode == "section":
         section_num = args.get("section")
         if section_num is None:
-            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+            return _(
+                "err.section_required",
+                default="Error: 'section' (integer) is required when mode='section'.",
+            )
         try:
             section_num = int(section_num)
         except (TypeError, ValueError):
-            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(section_num))
+            return _(
+                "err.section_invalid",
+                default="Error: 'section' must be an integer.",
+                section_num=repr(section_num),
+            )
         content = builder.get_section(section_num)
         if content is None:
             total = builder.section_count()
-            return _("err.section_not_found", default="Error: Section {section_num} not found. Valid range: 1..{last}.", section_num=section_num, last=total)
+            return _(
+                "err.section_not_found",
+                default="Error: Section {section_num} not found. Valid range: 1..{last}.",
+                section_num=section_num,
+                last=total,
+            )
         return content
     else:
-        return _("err.invalid_mode", default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.", mode=mode)
+        return _(
+            "err.invalid_mode",
+            default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+            mode=mode,
+        )

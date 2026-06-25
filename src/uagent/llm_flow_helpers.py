@@ -302,9 +302,13 @@ def _execute_tool_calls(
             for (name, pargs, result), orig_idx in zip(parallel_results, run_indices):
                 tc_id = _parallel_tc_ids[orig_idx]
                 _prefetched[tc_id] = result
-                if getattr(core, 'show_tool_output', False):
+                if getattr(core, "show_tool_output", False):
                     print(f"[tool output] name={name}")
-                    print(result if isinstance(result, str) else json.dumps(result, ensure_ascii=False))
+                    print(
+                        result
+                        if isinstance(result, str)
+                        else json.dumps(result, ensure_ascii=False)
+                    )
                 # Populate cache
                 canonical_args = json.dumps(pargs, ensure_ascii=False, sort_keys=True)
                 ck = json.dumps(
@@ -394,8 +398,12 @@ def _execute_tool_calls(
                             "tb": tb,
                         }
                 tool_result_cache[tool_cache_key] = tool_result
-                if getattr(core, 'show_tool_output', False):
-                    _display = tool_result if isinstance(tool_result, str) else json.dumps(tool_result, ensure_ascii=False)
+                if getattr(core, "show_tool_output", False):
+                    _display = (
+                        tool_result
+                        if isinstance(tool_result, str)
+                        else json.dumps(tool_result, ensure_ascii=False)
+                    )
                     print(f"[tool output] name={name}")
                     print(_display)
                 executed_new_tool = True

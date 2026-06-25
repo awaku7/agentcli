@@ -74,9 +74,6 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
-
-
-
 def run_tool(args: dict[str, Any]) -> str:
     try:
         raw_path = str(args.get("path", "")).strip()
@@ -86,9 +83,7 @@ def run_tool(args: dict[str, Any]) -> str:
             return json.dumps(
                 {
                     "ok": False,
-                    "error": _(
-                        "err.path_missing", default="path is required."
-                    ),
+                    "error": _("err.path_missing", default="path is required."),
                 },
                 ensure_ascii=False,
             )

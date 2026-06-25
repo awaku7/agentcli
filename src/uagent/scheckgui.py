@@ -104,14 +104,30 @@ def _paint_icon_attach(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
     p.setPen(pen)
     cx, cy = size / 2, size / 2
     # Top loop
-    p.drawArc(int(cx - size * 0.15), int(cy - size * 0.45),
-              int(size * 0.3), int(size * 0.3), 0, 16 * 180)
+    p.drawArc(
+        int(cx - size * 0.15),
+        int(cy - size * 0.45),
+        int(size * 0.3),
+        int(size * 0.3),
+        0,
+        16 * 180,
+    )
     # Stem
-    p.drawLine(int(cx + size * 0.15), int(cy - size * 0.3),
-               int(cx + size * 0.15), int(cy + size * 0.35))
+    p.drawLine(
+        int(cx + size * 0.15),
+        int(cy - size * 0.3),
+        int(cx + size * 0.15),
+        int(cy + size * 0.35),
+    )
     # Bottom hook
-    p.drawArc(int(cx + size * 0.05), int(cy + size * 0.15),
-              int(size * 0.2), int(size * 0.2), 0, 16 * 180)
+    p.drawArc(
+        int(cx + size * 0.05),
+        int(cy + size * 0.15),
+        int(size * 0.2),
+        int(size * 0.2),
+        0,
+        16 * 180,
+    )
     p.end()
     return QtGui.QIcon(pm)
 
@@ -127,11 +143,13 @@ def _paint_icon_send(color: QtGui.QColor, size: int = 24) -> QtGui.QIcon:
     # Filled right-pointing triangle
     cx, cy = size / 2, size / 2
     hw, hh = size * 0.35, size * 0.3
-    triangle = QtGui.QPolygonF([
-        QtCore.QPointF(cx - hw * 0.6, cy - hh),
-        QtCore.QPointF(cx + hw * 0.6, cy),
-        QtCore.QPointF(cx - hw * 0.6, cy + hh),
-    ])
+    triangle = QtGui.QPolygonF(
+        [
+            QtCore.QPointF(cx - hw * 0.6, cy - hh),
+            QtCore.QPointF(cx + hw * 0.6, cy),
+            QtCore.QPointF(cx - hw * 0.6, cy + hh),
+        ]
+    )
     p.drawPolygon(triangle)
     p.end()
     return QtGui.QIcon(pm)
@@ -169,8 +187,6 @@ def _make_send_icon(size: int = 24) -> QtGui.QIcon:
         return QtGui.QIcon()
 
 
-
-
 def _menu_icon_color() -> QtGui.QColor:
     """Return icon color adapting to system palette (high contrast safe)."""
     try:
@@ -192,8 +208,12 @@ def _make_help_icon(size: int = 16) -> QtGui.QIcon:
         pen.setCapStyle(QtCore.Qt.RoundCap)
         p.setPen(pen)
         cx, cy = size / 2, size / 2
-        p.drawEllipse(int(cx - size * 0.35), int(cy - size * 0.35),
-                      int(size * 0.7), int(size * 0.7))
+        p.drawEllipse(
+            int(cx - size * 0.35),
+            int(cy - size * 0.35),
+            int(size * 0.7),
+            int(size * 0.7),
+        )
         _f = QtGui.QFont("sans-serif", size * 3 // 5, QtGui.QFont.Bold)
         p.setFont(_f)
         p.drawText(0, 0, size, size, QtCore.Qt.AlignCenter, "?")
@@ -245,8 +265,12 @@ def _make_mode_icon(size: int = 16) -> QtGui.QIcon:
             # Small circle at right end of each bar
             brush = QtGui.QBrush(_menu_icon_color())
             p.setBrush(brush)
-            p.drawEllipse(int(cx + hw - size * 0.06), int(y - size * 0.06),
-                          int(size * 0.12), int(size * 0.12))
+            p.drawEllipse(
+                int(cx + hw - size * 0.06),
+                int(y - size * 0.06),
+                int(size * 0.12),
+                int(size * 0.12),
+            )
             p.setBrush(QtCore.Qt.NoBrush)
         p.end()
         return QtGui.QIcon(pm)
@@ -267,11 +291,21 @@ def _make_tools_icon(size: int = 16) -> QtGui.QIcon:
         # Toolbox/drawer icon: simple rectangle with handle
         bw, bh = size * 0.45, size * 0.25
         # Box body
-        p.drawRoundedRect(int(cx - bw), int(cy - bh * 0.3),
-                          int(bw * 2), int(bh * 1.3), size * 0.08, size * 0.08)
+        p.drawRoundedRect(
+            int(cx - bw),
+            int(cy - bh * 0.3),
+            int(bw * 2),
+            int(bh * 1.3),
+            size * 0.08,
+            size * 0.08,
+        )
         # Handle on top
-        p.drawLine(int(cx - bw * 0.5), int(cy - bh * 0.3),
-                   int(cx + bw * 0.5), int(cy - bh * 0.3))
+        p.drawLine(
+            int(cx - bw * 0.5),
+            int(cy - bh * 0.3),
+            int(cx + bw * 0.5),
+            int(cy - bh * 0.3),
+        )
         p.end()
         return QtGui.QIcon(pm)
     except Exception:
@@ -1065,15 +1099,25 @@ class MainWindow(QtWidgets.QMainWindow):
         # Update output monospace font
         try:
             _fd = QtGui.QFontDatabase()
-            for _f in ("Cascadia Code", "JetBrains Mono", "Consolas", "Menlo", "Monaco"):
+            for _f in (
+                "Cascadia Code",
+                "JetBrains Mono",
+                "Consolas",
+                "Menlo",
+                "Monaco",
+            ):
                 if _fd.hasFamily(_f):
                     self._output.setFont(QtGui.QFont(_f, mono_size))
                     break
             else:
-                self._output.setFont(QtGui.QFont(
-                    QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont).family(),
-                    mono_size,
-                ))
+                self._output.setFont(
+                    QtGui.QFont(
+                        QtGui.QFontDatabase.systemFont(
+                            QtGui.QFontDatabase.FixedFont
+                        ).family(),
+                        mono_size,
+                    )
+                )
         except Exception:
             pass
 
@@ -1098,8 +1142,12 @@ class MainWindow(QtWidgets.QMainWindow):
             _stamp = f"_fs_{level}"
             if getattr(self, "_fs_stamp", "") != _stamp:
                 self._fs_stamp = _stamp
-                for w in (self._status_label, self._workdir_label,
-                          self._provider_model_label, self._mode_label):
+                for w in (
+                    self._status_label,
+                    self._workdir_label,
+                    self._provider_model_label,
+                    self._mode_label,
+                ):
                     _f = w.font()
                     _f.setPointSize(max(8, ui_size - 2))
                     w.setFont(_f)
@@ -1123,7 +1171,9 @@ class MainWindow(QtWidgets.QMainWindow):
         _save_font_size_config(level)
 
         level_name = _FONT_SIZE_NAMES.get(level, "medium")
-        self.statusBar().showMessage(_("Font size: %(name)s") % {"name": level_name}, 3000)
+        self.statusBar().showMessage(
+            _("Font size: %(name)s") % {"name": level_name}, 3000
+        )
 
     def __init__(self, cfg: GuiConfig):
         super().__init__()
@@ -1172,14 +1222,24 @@ class MainWindow(QtWidgets.QMainWindow):
         # Use a modern monospace font with fallback chain
         try:
             _fd = QtGui.QFontDatabase()
-            for _f in ("Cascadia Code", "JetBrains Mono", "Consolas", "Menlo", "Monaco"):
+            for _f in (
+                "Cascadia Code",
+                "JetBrains Mono",
+                "Consolas",
+                "Menlo",
+                "Monaco",
+            ):
                 if _fd.hasFamily(_f):
                     self._output.setFont(QtGui.QFont(_f, 10))
                     break
             else:
-                self._output.setFont(QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont))
+                self._output.setFont(
+                    QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
+                )
         except Exception:
-            self._output.setFont(QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont))
+            self._output.setFont(
+                QtGui.QFontDatabase.systemFont(QtGui.QFontDatabase.FixedFont)
+            )
         layout.addWidget(self._output, 1)
 
         self._thumbs = DropThumbs()
@@ -1300,7 +1360,11 @@ class MainWindow(QtWidgets.QMainWindow):
                 act = view_menu.addAction(_("Font: %(name)s") % {"name": name})
                 act.setCheckable(True)
                 act.setChecked(lv == _FONT_SIZE_LEVEL)
-                act.triggered.connect(lambda checked, _level=lv: self._apply_font_size(_level) if checked else None)
+                act.triggered.connect(
+                    lambda checked, _level=lv: (
+                        self._apply_font_size(_level) if checked else None
+                    )
+                )
                 font_group.addAction(act)
                 self._FONT_SIZE_ACTIONS[lv] = act
         except Exception:
@@ -1426,6 +1490,7 @@ class MainWindow(QtWidgets.QMainWindow):
             ]
 
             from .tools._genre_control_util import _ENABLED_GENRES
+
             self._genre_actions = {}
             for key, label, setter in genre_items:
                 act = tools_menu.addAction(label)
@@ -2261,7 +2326,9 @@ class MainWindow(QtWidgets.QMainWindow):
         try:
             p = get_history_file_path()
             if p.exists():
-                for line in p.read_text(encoding="utf-8", errors="replace").splitlines():
+                for line in p.read_text(
+                    encoding="utf-8", errors="replace"
+                ).splitlines():
                     line = line.strip()
                     if line.startswith("+") and len(line) > 1:
                         entry = line[1:]
@@ -2454,7 +2521,7 @@ def _is_high_contrast() -> bool:
 
 
 def main():
-    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stdout.reconfigure(encoding="utf-8")
     try:
         from .readme_util import (
             maybe_print_quickstart_on_first_run,
@@ -2537,9 +2604,7 @@ def main():
     # Resolve font size config file path
     global _FONT_SIZE_CONFIG_FILE, _FONT_SIZE_LEVEL
     try:
-        _FONT_SIZE_CONFIG_FILE = str(
-            Path(get_state_dir()) / "gui_font_size.json"
-        )
+        _FONT_SIZE_CONFIG_FILE = str(Path(get_state_dir()) / "gui_font_size.json")
     except Exception:
         pass
 

@@ -307,7 +307,6 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
     bridge_id = args.get("bridge")
 
-
     cache_key = ":".join([str(args.get("bridge", "") or "")])
     cached = matter_cache_get("matter_bridge_list", cache_key)
     if cached is not None:
@@ -381,7 +380,12 @@ def run_tool(args: dict[str, Any]) -> str:
         },
     }
     matter_cache_put("matter_bridge_list", cache_key, result)
-    matter_log("matter_bridge_list", args, ok=True, elapsed_ms=(time.time() - _log_start) * 1000)
+    matter_log(
+        "matter_bridge_list",
+        args,
+        ok=True,
+        elapsed_ms=(time.time() - _log_start) * 1000,
+    )
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)

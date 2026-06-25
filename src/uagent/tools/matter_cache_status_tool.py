@@ -52,7 +52,12 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or "json").lower()
     stats = matter_cache_stats()
     result = {"ok": True, **stats}
-    matter_log("matter_cache_status", args, ok=True, elapsed_ms=(time.time() - _log_start) * 1000)
+    matter_log(
+        "matter_cache_status",
+        args,
+        ok=True,
+        elapsed_ms=(time.time() - _log_start) * 1000,
+    )
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)

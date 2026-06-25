@@ -77,7 +77,9 @@ def matter_cache_put(
     _cache_puts += 1
 
 
-def matter_cache_invalidate(tool_name: str | None = None, cache_key: str | None = None) -> int:
+def matter_cache_invalidate(
+    tool_name: str | None = None, cache_key: str | None = None
+) -> int:
     """Invalidate cache entries.
 
     Args:
@@ -108,10 +110,7 @@ def matter_cache_invalidate(tool_name: str | None = None, cache_key: str | None 
 def matter_cache_device_invalidate(device_id: str) -> int:
     """Invalidate all cache entries containing the given device_id in their key."""
     global _cache
-    keys_to_delete = [
-        k for k in _cache
-        if device_id.casefold() in k[1].casefold()
-    ]
+    keys_to_delete = [k for k in _cache if device_id.casefold() in k[1].casefold()]
     for k in keys_to_delete:
         del _cache[k]
     return len(keys_to_delete)

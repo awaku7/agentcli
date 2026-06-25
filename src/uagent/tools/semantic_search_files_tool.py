@@ -31,9 +31,7 @@ _ENABLE_SEMANTIC_SEARCH = str(
     env_get("UAGENT_ENABLE_SEMANTIC_SEARCH") or ""
 ).strip().lower() in {"1", "true", "yes", "on"}
 
-_BM25_MODE = (
-    str(env_get("UAGENT_SEMANTIC_SEARCH_MODE") or "").strip().lower() == "bm25"
-)
+_BM25_MODE = str(env_get("UAGENT_SEMANTIC_SEARCH_MODE") or "").strip().lower() == "bm25"
 
 _ALLOWED_PROVIDERS = {
     "openai",
@@ -341,10 +339,13 @@ def _cosine_similarity(vec_a: list[float], vec_b: list[float]) -> float:
 def _bm25_tokenize(text: str) -> list[str]:
     """Simple multilingual tokenizer for BM25. Handles CJK by unigram."""
     import re
+
     text = text.lower()
     tokens: list[str] = []
     # Split into alphanumeric words and CJK characters
-    for part in re.findall(r"[a-z0-9]+|[\u4e00-\u9fff\u3040-\u30ff\uac00-\ud7af\u0e00-\u0e7f]", text):
+    for part in re.findall(
+        r"[a-z0-9]+|[\u4e00-\u9fff\u3040-\u30ff\uac00-\ud7af\u0e00-\u0e7f]", text
+    ):
         if re.match(r"^[a-z0-9]+$", part):
             tokens.append(part)
         else:
@@ -447,6 +448,7 @@ def _sync_file_bm25(fpath_abs: str, root_abs: str, db_path: str):
                         if not tokens:
                             continue
                         from collections import Counter
+
                         term_counts = Counter(tokens)
                         cur.execute(
                             "INSERT INTO chunks (file_id, chunk_index, text_content, num_tokens) VALUES (?, ?, ?, ?)",
@@ -596,8 +598,10 @@ def _semantic_search_bm25(
                 target_files.extend(glob.glob(os.path.join(root_abs, p)))
 
         from uagent.utils.scan_filters import is_ignored_path
+
         target_files = [
-            f for f in sorted(set(target_files))
+            f
+            for f in sorted(set(target_files))
             if (not is_ignored_path(f)) and os.path.isfile(f)
         ]
 
@@ -684,7 +688,9 @@ def _semantic_search_bm25(
             doc_count_with_term,
         )
         if score > 0:
-            results.append({"score": score, "file_id": data["file_id"], "text": data["text"]})
+            results.append(
+                {"score": score, "file_id": data["file_id"], "text": data["text"]}
+            )
 
     results.sort(key=lambda x: x["score"], reverse=True)
     top_results = results[:top_k]

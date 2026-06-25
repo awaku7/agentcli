@@ -16,6 +16,7 @@ LAZY_LOAD = True
 # Check availability of the 'exstruct' package at module load time
 try:
     import exstruct  # noqa: F401
+
     _HAS_EXSTRUCT = True
 except ImportError:
     _HAS_EXSTRUCT = False

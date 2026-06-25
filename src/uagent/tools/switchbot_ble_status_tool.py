@@ -401,7 +401,9 @@ async def _read_device_status(
 def _format_text(result: dict[str, Any]) -> str:
     if not result.get("ok"):
         error = result.get("error", {})
-        return _("msg.error_fmt", default="Error: {msg}").format(msg=error.get("message", _("msg.unknown_error", default="unknown error")))
+        return _("msg.error_fmt", default="Error: {msg}").format(
+            msg=error.get("message", _("msg.unknown_error", default="unknown error"))
+        )
 
     device = result.get("device", {}) or {}
     status = result.get("status", {}) or {}

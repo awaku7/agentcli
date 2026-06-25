@@ -206,16 +206,12 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
     elif provider == "mimo":
         missing += _require(
             ["UAGENT_MIMO_API_KEY"],
-            reason=_(
-                "Xiaomi MiMo API key.", default="Xiaomi MiMo API key."
-            ),
+            reason=_("Xiaomi MiMo API key.", default="Xiaomi MiMo API key."),
         )
     elif provider == "minimax":
         missing += _require(
             ["UAGENT_MINIMAX_API_KEY"],
-            reason=_(
-                "MiniMax API key.", default="MiniMax API key."
-            ),
+            reason=_("MiniMax API key.", default="MiniMax API key."),
         )
 
     embedding_provider = (_get("UAGENT_EMBEDDING_PROVIDER") or "").lower()

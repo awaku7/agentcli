@@ -104,7 +104,9 @@ def run_tool(args: dict[str, Any]) -> str:
             "ok": False,
             "error": {
                 "code": "invalid_argument",
-                "message": _("err.device_id_required", default="Device ID is required."),
+                "message": _(
+                    "err.device_id_required", default="Device ID is required."
+                ),
             },
         }
         return (

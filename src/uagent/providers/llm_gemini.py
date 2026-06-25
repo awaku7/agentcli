@@ -306,9 +306,7 @@ def _attachment_to_gemini_part(att: dict[str, Any]) -> Any | None:
             mm = ""
         if path:
             guessed, mime_subtype = mimetypes.guess_type(path)
-            if isinstance(guessed, str) and (
-                guessed.startswith(("image/", "audio/"))
-            ):
+            if isinstance(guessed, str) and (guessed.startswith(("image/", "audio/"))):
                 return guessed
             suffix = Path(path).suffix.lower()
             if suffix in (".jpg", ".jpeg"):

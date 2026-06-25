@@ -84,36 +84,38 @@ TOOL_SPEC = {
 # Order matters: more specific patterns first, generic fallbacks later.
 _PATTERNS = [
     # namespace Foo\Bar;
-    (r"^\s*namespace\s+([\w\\\\]+)\s*;",
-     lambda m: ("namespace", m.group(1))),
+    (r"^\s*namespace\s+([\w\\\\]+)\s*;", lambda m: ("namespace", m.group(1))),
     # (abstract|final|readonly)* class Foo
-    (r"^\s*(?:(?:abstract|final|readonly)\s+)*class\s+(\w+)",
-     lambda m: ("class", m.group(1))),
+    (
+        r"^\s*(?:(?:abstract|final|readonly)\s+)*class\s+(\w+)",
+        lambda m: ("class", m.group(1)),
+    ),
     # interface Foo
-    (r"^\s*interface\s+(\w+)",
-     lambda m: ("interface", m.group(1))),
+    (r"^\s*interface\s+(\w+)", lambda m: ("interface", m.group(1))),
     # trait Foo
-    (r"^\s*trait\s+(\w+)",
-     lambda m: ("trait", m.group(1))),
+    (r"^\s*trait\s+(\w+)", lambda m: ("trait", m.group(1))),
     # enum Foo (PHP 8.1+)
-    (r"^\s*enum\s+(\w+)",
-     lambda m: ("enum", m.group(1))),
+    (r"^\s*enum\s+(\w+)", lambda m: ("enum", m.group(1))),
     # define('NAME', ...) or define("NAME", ...)
-    (r"^\s*define\s*\(\s*['\"]([\w_]+)['\"]",
-     lambda m: ("define", m.group(1))),
+    (r"^\s*define\s*\(\s*['\"]([\w_]+)['\"]", lambda m: ("define", m.group(1))),
     # global function: function &?foo(...)
-    (r"^\s*function\s+(?:&\s*)?(\w+)\s*\(",
-     lambda m: ("function", m.group(1))),
+    (r"^\s*function\s+(?:&\s*)?(\w+)\s*\(", lambda m: ("function", m.group(1))),
     # method inside class/trait/interface: indented function
-    (r"^\s+(?:(?:public|private|protected|static|abstract|final)\s+)*(?:function)\s+(?:&\s*)?(\w+)\s*\(",
-     lambda m: ("method", m.group(1))),
+    (
+        r"^\s+(?:(?:public|private|protected|static|abstract|final)\s+)*(?:function)\s+(?:&\s*)?(\w+)\s*\(",
+        lambda m: ("method", m.group(1)),
+    ),
     # class constant: (public|private|protected|static)* const FOO
-    (r"^\s+(?:(?:public|private|protected|static)\s+)*const\s+(\w+)",
-     lambda m: ("const", m.group(1))),
+    (
+        r"^\s+(?:(?:public|private|protected|static)\s+)*const\s+(\w+)",
+        lambda m: ("const", m.group(1)),
+    ),
     # typed property: (public|private|protected|static|readonly)* (?<type>)? $prop
     # Capture the property name without the leading $ to avoid double-$ in labels.
-    (r"^\s+(?:(?:public|private|protected|static|readonly)\s+)*(?:[\w\[\]\\\\]+\s+)?\$(\w+)\s*(?:=|;|$)",
-     lambda m: ("property", m.group(1))),
+    (
+        r"^\s+(?:(?:public|private|protected|static|readonly)\s+)*(?:[\w\[\]\\\\]+\s+)?\$(\w+)\s*(?:=|;|$)",
+        lambda m: ("property", m.group(1)),
+    ),
 ]
 
 
@@ -249,35 +251,41 @@ class _PhpIndexBuilder:
                     stack.append(e)
                     stack_dep.append(od)
                 elif kind == "function":
-                    entries.append({
-                        "kind": "function",
-                        "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
-                        "label": f"{name}()",
-                    })
+                    entries.append(
+                        {
+                            "kind": "function",
+                            "name": name,
+                            "line": i + 1,
+                            "end_line": i + 1,
+                            "label": f"{name}()",
+                        }
+                    )
                 elif kind in ("method", "const", "property") and stack:
                     c = stack[-1]
                     label = (
-                        f"{name}()" if kind == "method"
-                        else f"${name}" if kind == "property"
-                        else name
+                        f"{name}()"
+                        if kind == "method"
+                        else f"${name}" if kind == "property" else name
                     )
-                    c.setdefault("members", []).append({
-                        "kind": kind,
-                        "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
-                        "label": label,
-                    })
+                    c.setdefault("members", []).append(
+                        {
+                            "kind": kind,
+                            "name": name,
+                            "line": i + 1,
+                            "end_line": i + 1,
+                            "label": label,
+                        }
+                    )
                 elif kind == "define":
-                    entries.append({
-                        "kind": "define",
-                        "name": name,
-                        "line": i + 1,
-                        "end_line": i + 1,
-                        "label": name,
-                    })
+                    entries.append(
+                        {
+                            "kind": "define",
+                            "name": name,
+                            "line": i + 1,
+                            "end_line": i + 1,
+                            "label": name,
+                        }
+                    )
 
             # Pop stack when brace depth returns to enclosing level
             while stack_dep and depth <= stack_dep[-1] and bd < 0:
@@ -351,7 +359,9 @@ def run_tool(args: dict[str, Any]) -> str:
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
     if not os.path.isfile(path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -384,11 +394,18 @@ def run_tool(args: dict[str, Any]) -> str:
     elif mode == "section":
         section_num = args.get("section")
         if section_num is None:
-            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+            return _(
+                "err.section_required",
+                default="Error: 'section' (integer) is required when mode='section'.",
+            )
         try:
             section_num = int(section_num)
         except (TypeError, ValueError):
-            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(section_num))
+            return _(
+                "err.section_invalid",
+                default="Error: 'section' must be an integer.",
+                section_num=repr(section_num),
+            )
         content = builder.get_section(section_num)
         if content is None:
             total = builder.section_count()

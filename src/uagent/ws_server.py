@@ -51,9 +51,7 @@ class UagWebSocketServer:
             max_size=10 * 1024 * 1024,  # 10 MB
             compression=None,
         )
-        logger.info(
-            "uag WebSocket server started on 127.0.0.1:%d", self.port
-        )
+        logger.info("uag WebSocket server started on 127.0.0.1:%d", self.port)
         # Signal readiness to parent process (VSCode extension)
         print(f"UAG_WS_READY:{self.port}", flush=True)
 
@@ -147,12 +145,16 @@ def _load_env_at_startup() -> None:
     """
     import os
     from pathlib import Path
+
     candidates: list[Path] = []
 
     # (a) uagent package file -> 2 levels up -> project root
     try:
         import uagent
-        pkg_parent = Path(uagent.__file__).resolve().parent.parent  # src/ or site-packages/
+
+        pkg_parent = (
+            Path(uagent.__file__).resolve().parent.parent
+        )  # src/ or site-packages/
         candidates.append(pkg_parent)
         # If installed in site-packages, try one more level up
         candidates.append(pkg_parent.parent)
@@ -182,6 +184,7 @@ def _load_env_at_startup() -> None:
         os.chdir(str(target))
         logger.info("Changed workdir to %s and loaded .env / .env.sec", target)
     from uagent.runtime.runtime_init import reload_dotenv_custom
+
     reload_dotenv_custom()
 
 
@@ -202,7 +205,9 @@ def main(argv: list[str] | None = None) -> int:
         asyncio.set_event_loop(loop)
         for sig in (signal.SIGINT, signal.SIGTERM):
             try:
-                loop.add_signal_handler(sig, lambda: asyncio.ensure_future(server.cleanup()))
+                loop.add_signal_handler(
+                    sig, lambda: asyncio.ensure_future(server.cleanup())
+                )
             except NotImplementedError:
                 pass
     else:

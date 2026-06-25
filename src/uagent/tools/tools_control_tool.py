@@ -97,7 +97,7 @@ def handle_cmd_tools_load(arg: str, **kwargs: Any) -> Any:
 
 def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     q = (arg or "").strip().lower()
-    
+
     from . import get_tool_specs
 
     specs = get_tool_specs()
@@ -122,9 +122,9 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     if not names:
         if q:
             print(
-                _("msg.tools.no_match", default="[tools] No matching tools: {q}").format(
-                    q=q
-                )
+                _(
+                    "msg.tools.no_match", default="[tools] No matching tools: {q}"
+                ).format(q=q)
             )
         else:
             print("[tools] No tools loaded.")
@@ -143,11 +143,10 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
     return CommandResult()
 
 
-
-
 def handle_cmd_tools_on(arg, **kw):
     from ..util_tools import CommandResult
     from .genre_control_tool import _set_genre_tools_enabled
+
     g = (arg or "").strip().lower()
     if not g:
         print("Usage: :tools on <genre>")
@@ -164,6 +163,7 @@ def handle_cmd_tools_on(arg, **kw):
 def handle_cmd_tools_off(arg, **kw):
     from ..util_tools import CommandResult
     from .genre_control_tool import _set_genre_tools_enabled
+
     g = (arg or "").strip().lower()
     if not g:
         print("Usage: :tools off <genre>")
@@ -175,6 +175,7 @@ def handle_cmd_tools_off(arg, **kw):
     except Exception as e:
         print(str(e))
     return CommandResult()
+
 
 def _register_tools_subcommands() -> None:
     """Register subcommands under :tools."""
@@ -201,17 +202,17 @@ def _register_tools_subcommands() -> None:
                 default="  :tools load <name>  Load a single tool by name.",
             ),
         },
-    {"command":"tools","subcommand":"on","handler":handle_cmd_tools_on},
-    {"command":"tools","subcommand":"off","handler":handle_cmd_tools_off},
-    {
-        "command": "tools",
-        "subcommand": "output",
-        "handler": handle_cmd_tools_output,
-        "help_text": _(
-            "cmd.help.tools_output",
-            default="  :tools output                     Toggle display of tool execution results",
-        ),
-    },
+        {"command": "tools", "subcommand": "on", "handler": handle_cmd_tools_on},
+        {"command": "tools", "subcommand": "off", "handler": handle_cmd_tools_off},
+        {
+            "command": "tools",
+            "subcommand": "output",
+            "handler": handle_cmd_tools_output,
+            "help_text": _(
+                "cmd.help.tools_output",
+                default="  :tools output                     Toggle display of tool execution results",
+            ),
+        },
     ]
 
 
@@ -227,9 +228,10 @@ def handle_cmd_tools_output(arg: str, **kw: Any) -> Any:
     core.show_tool_output = not core.show_tool_output
     state = "ON" if core.show_tool_output else "OFF"
     print(
-        _("msg.tools.output_state", default="[tools] Tool output display is now {state}").format(
-            state=state
-        )
+        _(
+            "msg.tools.output_state",
+            default="[tools] Tool output display is now {state}",
+        ).format(state=state)
     )
     return CommandResult()
 

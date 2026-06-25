@@ -205,7 +205,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             yield comp
                     elif stripped.startswith(":env "):
                         # :env subcommand completion
-                        after_env = stripped[len(":env "):]
+                        after_env = stripped[len(":env ") :]
                         if " " not in after_env:
                             env_subcmds = ["show", "list", "set", "unset", "save"]
                             for sc in env_subcmds:
@@ -214,12 +214,22 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                         sc,
                                         start_position=-len(after_env),
                                     )
-                        elif any(after_env.startswith(cmd + " ") for cmd in ("show", "set", "unset")):
+                        elif any(
+                            after_env.startswith(cmd + " ")
+                            for cmd in ("show", "set", "unset")
+                        ):
                             # :env show/set/unset KEY → complete UAGENT_* env var names
-                            key_prefix = after_env.split(" ", 1)[1] if " " in after_env else ""
+                            key_prefix = (
+                                after_env.split(" ", 1)[1] if " " in after_env else ""
+                            )
                             seen = set()
-                            for ek in sorted(set(get_known_uagent_env_keys()) | set(os.environ.keys())):
-                                if ek.upper().startswith("UAGENT_") and ek.lower().startswith(key_prefix.lower()):
+                            for ek in sorted(
+                                set(get_known_uagent_env_keys())
+                                | set(os.environ.keys())
+                            ):
+                                if ek.upper().startswith(
+                                    "UAGENT_"
+                                ) and ek.lower().startswith(key_prefix.lower()):
                                     if ek not in seen:
                                         seen.add(ek)
                                         yield Completion(
@@ -228,26 +238,53 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                         )
                     elif stripped.startswith(":tools "):
                         # :tools subcommand completion
-                        after_tools = stripped[len(":tools "):]
+                        after_tools = stripped[len(":tools ") :]
                         if " " not in after_tools:
                             tools_subcmds = ["list", "on", "off", "load", "output"]
                             for sc in tools_subcmds:
                                 if sc.startswith(after_tools):
-                                    yield Completion(sc, start_position=-len(after_tools))
+                                    yield Completion(
+                                        sc, start_position=-len(after_tools)
+                                    )
                         elif after_tools.startswith(("on ", "off ")):
-                            genre_prefix = after_tools.split(" ", 1)[1] if " " in after_tools else ""
-                            genres = ["basic", "file", "comm", "office", "devel", "iot", "exec", "external", "media", "index"]
+                            genre_prefix = (
+                                after_tools.split(" ", 1)[1]
+                                if " " in after_tools
+                                else ""
+                            )
+                            genres = [
+                                "basic",
+                                "file",
+                                "comm",
+                                "office",
+                                "devel",
+                                "iot",
+                                "exec",
+                                "external",
+                                "media",
+                                "index",
+                            ]
                             for g in genres:
                                 if g.startswith(genre_prefix):
-                                    yield Completion(g, start_position=-len(genre_prefix))
+                                    yield Completion(
+                                        g, start_position=-len(genre_prefix)
+                                    )
                     elif stripped.startswith(":skills "):
                         # :skills subcommand completion
-                        after_skills = stripped[len(":skills "):]
+                        after_skills = stripped[len(":skills ") :]
                         if " " not in after_skills:
-                            skills_subcmds = ["mp_search", "list", "load", "install", "uninstall"]
+                            skills_subcmds = [
+                                "mp_search",
+                                "list",
+                                "load",
+                                "install",
+                                "uninstall",
+                            ]
                             for sc in skills_subcmds:
                                 if sc.startswith(after_skills):
-                                    yield Completion(sc, start_position=-len(after_skills))
+                                    yield Completion(
+                                        sc, start_position=-len(after_skills)
+                                    )
                     elif stripped.startswith((":r ", ":reasoning ")):
                         # :r reasoning mode values
                         r_prefix = stripped.split(" ", 1)[1] if " " in stripped else ""
@@ -260,13 +297,22 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         # :v verbosity mode values
                         v_prefix = stripped.split(" ", 1)[1] if " " in stripped else ""
                         if v_prefix and " " not in v_prefix:
-                            v_vals = ["0", "1", "2", "3", "off", "low", "medium", "high"]
+                            v_vals = [
+                                "0",
+                                "1",
+                                "2",
+                                "3",
+                                "off",
+                                "low",
+                                "medium",
+                                "high",
+                            ]
                             for val in v_vals:
                                 if val.startswith(v_prefix):
                                     yield Completion(val, start_position=-len(v_prefix))
                     elif stripped.startswith(":profile "):
                         # :profile subcommand
-                        p_prefix = stripped[len(":profile "):]
+                        p_prefix = stripped[len(":profile ") :]
                         if " " not in p_prefix:
                             p_vals = ["fromlog"]
                             for val in p_vals:
@@ -862,11 +908,11 @@ def stdin_loop() -> None:
             core.set_status(True, "user_pending")
             core.event_queue.put({"kind": "user", "text": line})
         else:
-                user_lines.append(line)
+            user_lines.append(line)
 
 
 def main() -> None:
-    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stdout.reconfigure(encoding="utf-8")
     from . import uagent_llm as llm_util  # lazy
 
     startup = _run_cli_startup(

@@ -87,15 +87,19 @@ def run_tool(args: dict[str, Any]) -> str:
         cursor = conn.execute(sql)
 
         rows = [dict(row) for row in cursor.fetchall()]
-        colnames = [desc[0] for desc in cursor.description] if cursor.description else []
+        colnames = (
+            [desc[0] for desc in cursor.description] if cursor.description else []
+        )
 
         conn.close()
 
-        return _(
-            "msg.result",
-            default="[db_query]\nrows={rows}\ncolumns={cols}",
-        ).format(rows=len(rows), cols=", ".join(colnames)) + "\n" + "\n".join(
-            json.dumps(r, ensure_ascii=False, default=str) for r in rows
+        return (
+            _(
+                "msg.result",
+                default="[db_query]\nrows={rows}\ncolumns={cols}",
+            ).format(rows=len(rows), cols=", ".join(colnames))
+            + "\n"
+            + "\n".join(json.dumps(r, ensure_ascii=False, default=str) for r in rows)
         )
     except Exception as e:
         return f"[db_query error] {type(e).__name__}: {e}"

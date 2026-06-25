@@ -192,16 +192,14 @@ def run_tool(args: dict[str, Any]) -> str:
         for e in page_entries
     ]
 
-    header = (
-        _(
-            "msg.paginate",
-            default="Page {page} of {total_pages} (showing {count} of {total} entries)",
-        ).format(
-            page=page,
-            total_pages=max(1, (len(all_entries) + limit - 1) // limit),
-            count=len(page_entries),
-            total=len(all_entries),
-        )
+    header = _(
+        "msg.paginate",
+        default="Page {page} of {total_pages} (showing {count} of {total} entries)",
+    ).format(
+        page=page,
+        total_pages=max(1, (len(all_entries) + limit - 1) // limit),
+        count=len(page_entries),
+        total=len(all_entries),
     )
 
     return header + "\n" + "\n".join(lines)

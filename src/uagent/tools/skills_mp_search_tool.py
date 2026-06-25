@@ -137,17 +137,21 @@ def _fetch_clawhub(query: str, limit: int, sort_by: str) -> dict[str, Any]:
         # Convert to our internal format
         skills = []
         for r in results:
-            skills.append({
-                "name": r.get("displayName") or r.get("slug", "?"),
-                "slug": r.get("slug", ""),
-                "author": r.get("ownerHandle") or (r.get("owner") or {}).get("displayName") or "?",
-                "stars": 0,
-                "description": r.get("summary", "") or "",
-                "githubUrl": f"{CLAWHUB_URL}/{r.get('slug', '')}",
-                "updatedAt": _ts_to_iso(r.get("updatedAt")),
-                "version": r.get("version", ""),
-                "score": r.get("score", 0),
-            })
+            skills.append(
+                {
+                    "name": r.get("displayName") or r.get("slug", "?"),
+                    "slug": r.get("slug", ""),
+                    "author": r.get("ownerHandle")
+                    or (r.get("owner") or {}).get("displayName")
+                    or "?",
+                    "stars": 0,
+                    "description": r.get("summary", "") or "",
+                    "githubUrl": f"{CLAWHUB_URL}/{r.get('slug', '')}",
+                    "updatedAt": _ts_to_iso(r.get("updatedAt")),
+                    "version": r.get("version", ""),
+                    "score": r.get("score", 0),
+                }
+            )
         return {"skills": skills, "pagination": {"totalPages": 1}}
     else:
         # browse list
@@ -160,16 +164,18 @@ def _fetch_clawhub(query: str, limit: int, sort_by: str) -> dict[str, Any]:
         items = result.get("items", [])
         skills = []
         for item in items:
-            skills.append({
-                "name": item.get("displayName") or item.get("slug", "?"),
-                "slug": item.get("slug", ""),
-                "author": item.get("ownerHandle") or "?",
-                "stars": (item.get("stats") or {}).get("stars", 0),
-                "description": item.get("summary", "") or "",
-                "githubUrl": f"{CLAWHUB_URL}/{item.get('slug', '')}",
-                "updatedAt": _ts_to_iso(item.get("updatedAt")),
-                "version": (item.get("latestVersion") or {}).get("version", ""),
-            })
+            skills.append(
+                {
+                    "name": item.get("displayName") or item.get("slug", "?"),
+                    "slug": item.get("slug", ""),
+                    "author": item.get("ownerHandle") or "?",
+                    "stars": (item.get("stats") or {}).get("stars", 0),
+                    "description": item.get("summary", "") or "",
+                    "githubUrl": f"{CLAWHUB_URL}/{item.get('slug', '')}",
+                    "updatedAt": _ts_to_iso(item.get("updatedAt")),
+                    "version": (item.get("latestVersion") or {}).get("version", ""),
+                }
+            )
         return {"skills": skills, "pagination": {"totalPages": 1}}
 
 
@@ -182,7 +188,9 @@ def _ts_to_iso(ts: int | None) -> str:
     return datetime.fromtimestamp(ts / 1000, tz=timezone.utc).strftime("%Y-%m-%d")
 
 
-def _format_skills_table(skills: list[dict[str, Any]], page: int, total_pages: int, source: str = "skillsmp") -> str:
+def _format_skills_table(
+    skills: list[dict[str, Any]], page: int, total_pages: int, source: str = "skillsmp"
+) -> str:
     """Format skills list as readable text."""
     if not skills:
         return _("msg.no_results", default="No skills found.")
@@ -272,10 +280,12 @@ def run_tool(args: dict[str, Any]) -> str:
         result = _fetch_json(url)
 
     if "error" in result:
-        return json.dumps({
-            "ok": False,
-            "message": result["error"],
-        })
+        return json.dumps(
+            {
+                "ok": False,
+                "message": result["error"],
+            }
+        )
 
     skills = result.get("skills", [])
     pagination = result.get("pagination", {})
@@ -283,12 +293,14 @@ def run_tool(args: dict[str, Any]) -> str:
     total_all = pagination.get("totalAll", 0) or 0
 
     if not skills:
-        return json.dumps({
-            "ok": True,
-            "skills": [],
-            "total_results": 0,
-            "message": _("msg.no_results", default="No skills found."),
-        })
+        return json.dumps(
+            {
+                "ok": True,
+                "skills": [],
+                "total_results": 0,
+                "message": _("msg.no_results", default="No skills found."),
+            }
+        )
 
     formatted = _format_skills_table(skills, page, total_pages, source=source)
 

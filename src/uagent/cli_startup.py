@@ -67,7 +67,12 @@ def _prompt_startup_tool_genre_mask() -> int:
 
     choices = [
         ("basic", _("Basic (env, time, prompts, skills, memory, tools control)")),
-        ("file", _("File (create, delete, read, write, search, zip, rename, hash, grep, list dir)")),
+        (
+            "file",
+            _(
+                "File (create, delete, read, write, search, zip, rename, hash, grep, list dir)"
+            ),
+        ),
         ("comm", _("Communication (Teams, Discord, Bluesky)")),
         ("office", _("Office (Excel, Word, PDF, PPT, document extraction)")),
         (
@@ -83,8 +88,18 @@ def _prompt_startup_tool_genre_mask() -> int:
         ("exec", _("Execution (cmd, python, pwsh, bash, sub-agent)")),
         ("external", _("External (A2A, MCP, fetch, search web)")),
         ("media", _("Media (image gen/edit/analyze, audio, QR code)")),
-        ("file", _("File (create, delete, read, write, search, zip, rename, hash, grep, list dir)")),
-        ("index", _("Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)")),
+        (
+            "file",
+            _(
+                "File (create, delete, read, write, search, zip, rename, hash, grep, list dir)"
+            ),
+        ),
+        (
+            "index",
+            _(
+                "Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
+            ),
+        ),
     ]
 
     stdin_tty = bool(getattr(sys.stdin, "isatty", lambda: False)())

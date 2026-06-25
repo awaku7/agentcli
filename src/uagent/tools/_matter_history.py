@@ -17,12 +17,16 @@ _history: list[dict[str, Any]] = []
 
 def _max_entries() -> int:
     try:
-        return max(100, int(os.getenv("UAGENT_MATTER_STATE_HISTORY_MAX", str(_MAX_ENTRIES))))
+        return max(
+            100, int(os.getenv("UAGENT_MATTER_STATE_HISTORY_MAX", str(_MAX_ENTRIES)))
+        )
     except (ValueError, TypeError):
         return _MAX_ENTRIES
 
 
-def record_state_change(device_id: str, attribute: str, old_value: Any, new_value: Any) -> None:
+def record_state_change(
+    device_id: str, attribute: str, old_value: Any, new_value: Any
+) -> None:
     """Record a state change event in the history."""
     global _history
     entry = {

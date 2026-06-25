@@ -20,7 +20,10 @@ _subscriptions: dict[str, dict[str, Any]] = {}
 
 def _max_subs() -> int:
     try:
-        return max(1, int(os.getenv("UAGENT_MATTER_MAX_SUBSCRIPTIONS", str(_MAX_SUBSCRIPTIONS))))
+        return max(
+            1,
+            int(os.getenv("UAGENT_MATTER_MAX_SUBSCRIPTIONS", str(_MAX_SUBSCRIPTIONS))),
+        )
     except (ValueError, TypeError):
         return _MAX_SUBSCRIPTIONS
 

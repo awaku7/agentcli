@@ -50,19 +50,17 @@ def _assert_ok(result: dict[str, Any]) -> None:
     assert result.get("ok") is True, f"Expected ok=True, got: {result}"
 
 
-def _assert_error(
-    result: dict[str, Any], expected_code: str
-) -> None:
+def _assert_error(result: dict[str, Any], expected_code: str) -> None:
     assert result.get("ok") is False, f"Expected ok=False, got: {result}"
     error = result.get("error", {})
-    assert error.get("code") == expected_code, (
-        f"Expected error code '{expected_code}', got '{error.get('code')}': {result}"
-    )
+    assert (
+        error.get("code") == expected_code
+    ), f"Expected error code '{expected_code}', got '{error.get('code')}': {result}"
     # Verify recovery_hint is present and non-empty
     hint = error.get("recovery_hint", "")
-    assert hint and isinstance(hint, str) and len(hint) > 5, (
-        f"Missing or empty recovery_hint: {result}"
-    )
+    assert (
+        hint and isinstance(hint, str) and len(hint) > 5
+    ), f"Missing or empty recovery_hint: {result}"
 
 
 # ===================================================================
@@ -173,14 +171,14 @@ class TestMatterBridgeList:
         _assert_error(result, "config_missing")
 
     def test_dict_format(self, monkeypatch: pytest.MonkeyPatch) -> None:
-        _set_env(
-            monkeypatch, "UAGENT_MATTER_BRIDGES_JSON", json.dumps(BRIDGES_DICT)
-        )
+        _set_env(monkeypatch, "UAGENT_MATTER_BRIDGES_JSON", json.dumps(BRIDGES_DICT))
         result = _import_and_run(self.TOOL, {})
         _assert_ok(result)
         assert result["count"] == 2
 
-    def test_device_ids_from_devices_list(self, monkeypatch: pytest.MonkeyPatch) -> None:
+    def test_device_ids_from_devices_list(
+        self, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
         """bridge-002 has device list with dict items."""
         _set_env(monkeypatch, "UAGENT_MATTER_BRIDGES_JSON", BRIDGES_JSON)
         result = _import_and_run(self.TOOL, {"bridge": "bridge-002"})
@@ -379,9 +377,7 @@ class TestMatterControl:
 
     def test_on_action(self, monkeypatch: pytest.MonkeyPatch) -> None:
         _set_env(monkeypatch, "UAGENT_MATTER_DEVICES_JSON", DEVICES_JSON)
-        result = _import_and_run(
-            self.TOOL, {"dev": "light-kitchen-01", "action": "on"}
-        )
+        result = _import_and_run(self.TOOL, {"dev": "light-kitchen-01", "action": "on"})
         _assert_ok(result)
         assert result["command"]["action"] == "on"
         assert result["command"]["queued_to"] is not None
@@ -395,9 +391,7 @@ class TestMatterControl:
 
     def test_lock_action(self, monkeypatch: pytest.MonkeyPatch) -> None:
         _set_env(monkeypatch, "UAGENT_MATTER_DEVICES_JSON", DEVICES_JSON)
-        result = _import_and_run(
-            self.TOOL, {"dev": "lock-garage-01", "action": "lock"}
-        )
+        result = _import_and_run(self.TOOL, {"dev": "lock-garage-01", "action": "lock"})
         _assert_ok(result)
         assert result["command"]["action"] == "lock"
 
@@ -435,9 +429,7 @@ class TestMatterControl:
     def test_unsupported_action(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """Sensor doesn't support on/off."""
         _set_env(monkeypatch, "UAGENT_MATTER_DEVICES_JSON", DEVICES_JSON)
-        result = _import_and_run(
-            self.TOOL, {"dev": "sensor-garage-01", "action": "on"}
-        )
+        result = _import_and_run(self.TOOL, {"dev": "sensor-garage-01", "action": "on"})
         _assert_error(result, "unsupported_action")
 
     def test_invalid_action(self, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -449,9 +441,7 @@ class TestMatterControl:
 
     def test_device_not_found(self, monkeypatch: pytest.MonkeyPatch) -> None:
         _set_env(monkeypatch, "UAGENT_MATTER_DEVICES_JSON", DEVICES_JSON)
-        result = _import_and_run(
-            self.TOOL, {"dev": "nonexistent", "action": "on"}
-        )
+        result = _import_and_run(self.TOOL, {"dev": "nonexistent", "action": "on"})
         _assert_error(result, "not_found")
 
     def test_device_id_required(self, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -466,9 +456,7 @@ class TestMatterControl:
         _unset_env(monkeypatch, "UAGENT_MATTER_CONTROLLERS_FILE")
         _unset_env(monkeypatch, "UAGENT_MATTER_BRIDGES_JSON")
         _unset_env(monkeypatch, "UAGENT_MATTER_BRIDGES_FILE")
-        result = _import_and_run(
-            self.TOOL, {"dev": "light-kitchen-01", "action": "on"}
-        )
+        result = _import_and_run(self.TOOL, {"dev": "light-kitchen-01", "action": "on"})
         _assert_error(result, "config_missing")
 
     def test_text_output(self, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -476,8 +464,6 @@ class TestMatterControl:
         import importlib
 
         mod = importlib.import_module(f"uagent.tools.{self.TOOL}_tool")
-        raw = mod.run_tool(
-            {"dev": "light-kitchen-01", "action": "on", "fmt": "text"}
-        )
+        raw = mod.run_tool({"dev": "light-kitchen-01", "action": "on", "fmt": "text"})
         assert isinstance(raw, str)
         assert "queued" in raw or "Error" in raw

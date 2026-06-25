@@ -921,7 +921,9 @@ def get_tool_catalog(
                 description = str(fn.get("description") or "").strip()
             parameters = fn.get("parameters", {})
             properties = parameters.get("properties", {})
-            param_names = list(properties.keys()) if isinstance(properties, dict) else []
+            param_names = (
+                list(properties.keys()) if isinstance(properties, dict) else []
+            )
             st_en = _collect_search_terms(fn.get("x_search_terms_en"))
             st = _collect_search_terms(fn.get("x_search_terms"))
             score = _score_spec(name, description, param_names, st_en, st)

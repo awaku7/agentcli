@@ -46,7 +46,9 @@ class WsSessionManager:
         """List available sessions, newest first."""
         sessions: list[dict[str, Any]] = []
         for f in sorted(
-            self.sessions_dir.glob("*.json"), key=lambda p: p.stat().st_mtime, reverse=True
+            self.sessions_dir.glob("*.json"),
+            key=lambda p: p.stat().st_mtime,
+            reverse=True,
         ):
             try:
                 data = json.loads(f.read_text(encoding="utf-8"))
@@ -99,10 +101,10 @@ class WsSessionManager:
             return
         data = json.loads(session_path.read_text(encoding="utf-8"))
         data.setdefault("messages", []).append(
-            {"role": role, "content": content, "timestamp": datetime.now(
-                timezone.utc
-            ).isoformat()}
+            {
+                "role": role,
+                "content": content,
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            }
         )
-        session_path.write_text(
-            json.dumps(data, ensure_ascii=False), encoding="utf-8"
-        )
+        session_path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")

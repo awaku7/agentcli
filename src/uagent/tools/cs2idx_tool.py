@@ -89,44 +89,65 @@ _MOD = r"(?:(?:public|private|protected|internal|static|virtual|override|abstrac
 # C# definition patterns
 _PATTERNS = [
     # namespace
-    (r"^\s*namespace\s+(\w+(?:\.\w+)*)",
-     lambda m: ("namespace", m.group(1))),
+    (r"^\s*namespace\s+(\w+(?:\.\w+)*)", lambda m: ("namespace", m.group(1))),
     # class / struct / record / interface / enum
-    (r"^\s*" + _MOD + r"(?:class|struct|record|interface|enum)\s+(\w+)",
-     lambda m: ("type", m.group(1))),
+    (
+        r"^\s*" + _MOD + r"(?:class|struct|record|interface|enum)\s+(\w+)",
+        lambda m: ("type", m.group(1)),
+    ),
     # constructor: ClassName(...) or ClassName(...) : this(...) / base(...)
-    (r"^\s+" + _MOD + r"(\w+)\s*\([^)]*\)\s*(?::\s*(?:this|base)\s*\([^)]*\))?\s*(?:\{|$)",
-     lambda m: ("constructor", m.group(1))),
+    (
+        r"^\s+"
+        + _MOD
+        + r"(\w+)\s*\([^)]*\)\s*(?::\s*(?:this|base)\s*\([^)]*\))?\s*(?:\{|$)",
+        lambda m: ("constructor", m.group(1)),
+    ),
     # destructor: ~ClassName(...)
-    (r"^\s+~(\w+)\s*\(",
-     lambda m: ("destructor", f"~{m.group(1)}")),
+    (r"^\s+~(\w+)\s*\(", lambda m: ("destructor", f"~{m.group(1)}")),
     # operator overload: public static ReturnType operator +(...
-    (r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+operator\s+([^\s(]+)\s*\(",
-     lambda m: ("operator", f"operator {m.group(2)}")),
+    (
+        r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+operator\s+([^\s(]+)\s*\(",
+        lambda m: ("operator", f"operator {m.group(2)}"),
+    ),
     # explicit / implicit operator
-    (r"^\s+(?:explicit|implicit)\s+operator\s+(\w+(?:<[^>]*>)?)\s*\(",
-     lambda m: ("operator", f"operator {m.group(1)}")),
+    (
+        r"^\s+(?:explicit|implicit)\s+operator\s+(\w+(?:<[^>]*>)?)\s*\(",
+        lambda m: ("operator", f"operator {m.group(1)}"),
+    ),
     # property: Type Name { get; set; } or Type Name => ...
-    (r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*\{\s*(?:get|set|init)",
-     lambda m: ("property", m.group(2))),
+    (
+        r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*\{\s*(?:get|set|init)",
+        lambda m: ("property", m.group(2)),
+    ),
     # property with expression body: Type Name => ...
-    (r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*=>",
-     lambda m: ("property", m.group(2))),
+    (
+        r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*=>",
+        lambda m: ("property", m.group(2)),
+    ),
     # method: ReturnType MethodName(...) {  or  ReturnType MethodName(...) =>
-    (r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?::\s*\w+(?:<[^>]*>)?(?:\s*,\s*\w+(?:<[^>]*>)?)*\s*)?(?:where\s+\w+\s*:.*?)?(?:\{|=>|$)",
-     lambda m: ("method", m.group(2))),
+    (
+        r"^\s+"
+        + _MOD
+        + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?::\s*\w+(?:<[^>]*>)?(?:\s*,\s*\w+(?:<[^>]*>)?)*\s*)?(?:where\s+\w+\s*:.*?)?(?:\{|=>|$)",
+        lambda m: ("method", m.group(2)),
+    ),
     # delegate
-    (r"^\s+" + _MOD + r"delegate\s+(\w+(?:<[^>]*>)?)\s+(\w+)\s*\(",
-     lambda m: ("delegate", m.group(2))),
+    (
+        r"^\s+" + _MOD + r"delegate\s+(\w+(?:<[^>]*>)?)\s+(\w+)\s*\(",
+        lambda m: ("delegate", m.group(2)),
+    ),
     # event
-    (r"^\s+" + _MOD + r"event\s+(\w+(?:<[^>]*>)?)\s+(\w+)",
-     lambda m: ("event", m.group(2))),
+    (
+        r"^\s+" + _MOD + r"event\s+(\w+(?:<[^>]*>)?)\s+(\w+)",
+        lambda m: ("event", m.group(2)),
+    ),
     # enum member: Name = value,
-    (r"^\s+(\w+)\s*=",
-     lambda m: ("enum_member", m.group(1))),
+    (r"^\s+(\w+)\s*=", lambda m: ("enum_member", m.group(1))),
     # indexer: ReturnType this[int index] { get; set; }
-    (r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+this\s*\[",
-     lambda m: ("indexer", "this[]")),
+    (
+        r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+this\s*\[",
+        lambda m: ("indexer", "this[]"),
+    ),
 ]
 
 
@@ -242,8 +263,17 @@ class _CsIndexBuilder:
                     entries.append(entry)
                     stack.append(entry)
                     stack_start_depth.append(brace_depth)
-                elif kind in ("method", "property", "constructor", "destructor",
-                              "operator", "delegate", "event", "indexer", "enum_member"):
+                elif kind in (
+                    "method",
+                    "property",
+                    "constructor",
+                    "destructor",
+                    "operator",
+                    "delegate",
+                    "event",
+                    "indexer",
+                    "enum_member",
+                ):
                     # Attach to innermost type/namespace if inside one
                     if stack:
                         container = stack[-1]
@@ -253,7 +283,17 @@ class _CsIndexBuilder:
                             "line": i + 1,
                             "end_line": i + 1,
                             "level": len(stack),
-                            "label": f"{name}()" if kind in ("method", "constructor", "destructor", "operator") else f"{name}" if kind in ("property", "delegate", "event", "indexer") else f"{name}",
+                            "label": (
+                                f"{name}()"
+                                if kind
+                                in ("method", "constructor", "destructor", "operator")
+                                else (
+                                    f"{name}"
+                                    if kind
+                                    in ("property", "delegate", "event", "indexer")
+                                    else f"{name}"
+                                )
+                            ),
                         }
                         container.setdefault("members", []).append(member)
                 else:
@@ -350,7 +390,9 @@ def run_tool(args: dict[str, Any]) -> str:
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
     if not os.path.isfile(path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -383,15 +425,31 @@ def run_tool(args: dict[str, Any]) -> str:
     elif mode == "section":
         section_num = args.get("section")
         if section_num is None:
-            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+            return _(
+                "err.section_required",
+                default="Error: 'section' (integer) is required when mode='section'.",
+            )
         try:
             section_num = int(section_num)
         except (TypeError, ValueError):
-            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(section_num))
+            return _(
+                "err.section_invalid",
+                default="Error: 'section' must be an integer.",
+                section_num=repr(section_num),
+            )
         content = builder.get_section(section_num)
         if content is None:
             total = builder.section_count()
-            return _("err.section_not_found", default="Error: Section {section_num} not found. Valid range: 1..{last}.", section_num=section_num, last=total)
+            return _(
+                "err.section_not_found",
+                default="Error: Section {section_num} not found. Valid range: 1..{last}.",
+                section_num=section_num,
+                last=total,
+            )
         return content
     else:
-        return _("err.invalid_mode", default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.", mode=mode)
+        return _(
+            "err.invalid_mode",
+            default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+            mode=mode,
+        )

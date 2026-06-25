@@ -89,29 +89,45 @@ TOOL_SPEC = {
 # Regex patterns for TypeScript/JavaScript definitions
 _PATTERNS = [
     # export default class / export default function / export default async function
-    (r"^export\s+default\s+(?:abstract\s+|async\s+)?(class|function|interface)\s+(\w+)",
-     lambda m, kw: ("class" if m.group(1) in ("class",) else m.group(1), m.group(2))),
+    (
+        r"^export\s+default\s+(?:abstract\s+|async\s+)?(class|function|interface)\s+(\w+)",
+        lambda m, kw: ("class" if m.group(1) in ("class",) else m.group(1), m.group(2)),
+    ),
     # export abstract class / export class / export interface / export enum / export type / export function / export namespace
-    (r"^export\s+(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
-     lambda m, kw: (m.group(1), m.group(2))),
+    (
+        r"^export\s+(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
+        lambda m, kw: (m.group(1), m.group(2)),
+    ),
     # standalone: abstract class / class / interface / enum / type / function / async function / namespace
-    (r"^(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
-     lambda m, kw: (m.group(1), m.group(2))),
+    (
+        r"^(?:abstract\s+|async\s+)?(class|interface|enum|type|function|namespace)\s+(\w+)",
+        lambda m, kw: (m.group(1), m.group(2)),
+    ),
     # const/let/var foo = (...) =>  (arrow function / function expression)
-    (r"^(?:export\s+)?(?:const|let|var)\s+(\w+)\s*(?::\s*[^=]+)?\s*=\s*(?:async\s*)?\(",
-     lambda m, kw: ("function", m.group(1))),
+    (
+        r"^(?:export\s+)?(?:const|let|var)\s+(\w+)\s*(?::\s*[^=]+)?\s*=\s*(?:async\s*)?\(",
+        lambda m, kw: ("function", m.group(1)),
+    ),
     # const/let/var foo = function
-    (r"^(?:export\s+)?(?:const|let|var)\s+(\w+)\s*=\s*(?:async\s+)?function",
-     lambda m, kw: ("function", m.group(1))),
+    (
+        r"^(?:export\s+)?(?:const|let|var)\s+(\w+)\s*=\s*(?:async\s+)?function",
+        lambda m, kw: ("function", m.group(1)),
+    ),
     # getter/setter in classes
-    (r"^\s+(?:public|private|protected|\s)*(?:static\s+)?(?:get|set)\s+(\w+)\s*\(",
-     lambda m, kw: ("method", m.group(1))),
+    (
+        r"^\s+(?:public|private|protected|\s)*(?:static\s+)?(?:get|set)\s+(\w+)\s*\(",
+        lambda m, kw: ("method", m.group(1)),
+    ),
     # method declaration: name(...) {  (indented, inside a class-like block)
-    (r"^\s+(?:public|private|protected|\s)*(?:static\s+)?(?:async\s+)?(\w+)\s*\([^)]*\)\s*(?::\s*\w+(?:<[^>]*>)?)?\s*\{",
-     lambda m, kw: ("method", m.group(1))),
+    (
+        r"^\s+(?:public|private|protected|\s)*(?:static\s+)?(?:async\s+)?(\w+)\s*\([^)]*\)\s*(?::\s*\w+(?:<[^>]*>)?)?\s*\{",
+        lambda m, kw: ("method", m.group(1)),
+    ),
     # constructor
-    (r"^\s+(?:public|private|protected|\s)*constructor\s*\(",
-     lambda m, kw: ("method", "constructor")),
+    (
+        r"^\s+(?:public|private|protected|\s)*constructor\s*\(",
+        lambda m, kw: ("method", "constructor"),
+    ),
 ]
 
 
@@ -364,7 +380,9 @@ def run_tool(args: dict[str, Any]) -> str:
         return _("err.path_required", default="Error: 'path' is required.")
 
     if not os.path.isfile(path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -397,15 +415,31 @@ def run_tool(args: dict[str, Any]) -> str:
     elif mode == "section":
         section_num = args.get("section")
         if section_num is None:
-            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+            return _(
+                "err.section_required",
+                default="Error: 'section' (integer) is required when mode='section'.",
+            )
         try:
             section_num = int(section_num)
         except (TypeError, ValueError):
-            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(section_num))
+            return _(
+                "err.section_invalid",
+                default="Error: 'section' must be an integer.",
+                section_num=repr(section_num),
+            )
         content = builder.get_section(section_num)
         if content is None:
             total = builder.section_count()
-            return _("err.section_not_found", default="Error: Section {section_num} not found. Valid range: 1..{last}.", section_num=section_num, last=total)
+            return _(
+                "err.section_not_found",
+                default="Error: Section {section_num} not found. Valid range: 1..{last}.",
+                section_num=section_num,
+                last=total,
+            )
         return content
     else:
-        return _("err.invalid_mode", default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.", mode=mode)
+        return _(
+            "err.invalid_mode",
+            default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+            mode=mode,
+        )

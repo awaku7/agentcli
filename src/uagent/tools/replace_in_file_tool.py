@@ -50,7 +50,9 @@ def _make_summary(
                 "summary.preview_matches", default="Preview: {count} matches found"
             ).format(count=mc)
             if mc
-            else _("summary.preview_no_change", default="Preview: no matches (0 matches)")
+            else _(
+                "summary.preview_no_change", default="Preview: no matches (0 matches)"
+            )
         )
     else:
         msg = (

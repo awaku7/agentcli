@@ -36,7 +36,9 @@ def _set_matter_env(
         monkeypatch.setenv("UAGENT_MATTER_DEVICES_JSON", json.dumps(devices))
 
 
-def test_matter_controller_list_returns_normalized_items(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matter_controller_list_returns_normalized_items(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools.matter_controller_list_tool import run_tool
 
     _set_matter_env(
@@ -85,7 +87,9 @@ def test_matter_controller_list_filters_by_id(monkeypatch: pytest.MonkeyPatch) -
     assert obj["items"][0]["ctrl"] == "ctrl-2"
 
 
-def test_matter_bridge_list_returns_normalized_items(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matter_bridge_list_returns_normalized_items(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools.matter_bridge_list_tool import run_tool
 
     _set_matter_env(
@@ -221,7 +225,9 @@ def test_matter_device_status_ambiguous_target_when_multiple_sources_exist(
     assert obj["error"]["code"] == "ambiguous_target"
 
 
-def test_matter_endpoint_list_returns_endpoints(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matter_endpoint_list_returns_endpoints(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools.matter_endpoint_list_tool import run_tool
 
     _set_matter_env(
@@ -237,8 +243,16 @@ def test_matter_endpoint_list_returns_endpoints(monkeypatch: pytest.MonkeyPatch)
                 "reachable": True,
                 "updatedAt": "2026-01-01T00:00:00Z",
                 "endpoints": [
-                    {"endpointId": "1", "device_type": "light", "clusters": [{"clusterId": "0006"}]},
-                    {"endpointId": "2", "device_type": "light", "clusters": [{"clusterId": "0008"}]},
+                    {
+                        "endpointId": "1",
+                        "device_type": "light",
+                        "clusters": [{"clusterId": "0006"}],
+                    },
+                    {
+                        "endpointId": "2",
+                        "device_type": "light",
+                        "clusters": [{"clusterId": "0008"}],
+                    },
                 ],
             }
         ],
@@ -280,8 +294,18 @@ def test_matter_cluster_list_returns_clusters(monkeypatch: pytest.MonkeyPatch) -
                 "updatedAt": "2026-01-01T00:00:00Z",
                 "clusters": [{"clusterId": "0000", "clusterName": "Basic"}],
                 "endpoints": [
-                    {"endpointId": "1", "device_type": "light", "clusters": [{"clusterId": "0006", "clusterName": "OnOff"}]},
-                    {"endpointId": "2", "device_type": "light", "clusters": [{"clusterId": "0008", "clusterName": "LevelControl"}]},
+                    {
+                        "endpointId": "1",
+                        "device_type": "light",
+                        "clusters": [{"clusterId": "0006", "clusterName": "OnOff"}],
+                    },
+                    {
+                        "endpointId": "2",
+                        "device_type": "light",
+                        "clusters": [
+                            {"clusterId": "0008", "clusterName": "LevelControl"}
+                        ],
+                    },
                 ],
             }
         ],
@@ -314,7 +338,10 @@ def test_matter_config_missing_when_no_payload(monkeypatch: pytest.MonkeyPatch) 
 
 # Phase 3: matter_control tests
 
-def test_matter_control_requires_device_id_and_action(monkeypatch: pytest.MonkeyPatch) -> None:
+
+def test_matter_control_requires_device_id_and_action(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools.matter_control_tool import run_tool
 
     _set_matter_env(monkeypatch)
@@ -327,7 +354,9 @@ def test_matter_control_requires_device_id_and_action(monkeypatch: pytest.Monkey
     assert obj["error"]["code"] == "invalid_argument"
 
 
-def test_matter_control_dry_run_validates_command(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matter_control_dry_run_validates_command(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools.matter_control_tool import run_tool
 
     _set_matter_env(
@@ -350,7 +379,9 @@ def test_matter_control_dry_run_validates_command(monkeypatch: pytest.MonkeyPatc
     assert obj["device"]["devname"] == "Lamp"
 
 
-def test_matter_control_rejects_unsupported_action(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matter_control_rejects_unsupported_action(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools.matter_control_tool import run_tool
 
     _set_matter_env(
@@ -371,7 +402,9 @@ def test_matter_control_rejects_unsupported_action(monkeypatch: pytest.MonkeyPat
     assert obj["error"]["code"] == "unsupported_action"
 
 
-def test_matter_control_rejects_wrong_action_for_device_type(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matter_control_rejects_wrong_action_for_device_type(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools.matter_control_tool import run_tool
 
     _set_matter_env(
@@ -392,7 +425,9 @@ def test_matter_control_rejects_wrong_action_for_device_type(monkeypatch: pytest
     assert obj["error"]["code"] == "unsupported_action"
 
 
-def test_matter_control_requires_value_for_set_value(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matter_control_requires_value_for_set_value(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools.matter_control_tool import run_tool
 
     _set_matter_env(
@@ -413,7 +448,9 @@ def test_matter_control_requires_value_for_set_value(monkeypatch: pytest.MonkeyP
     assert obj["error"]["code"] == "invalid_argument"
 
 
-def test_matter_control_set_value_with_valid_value(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_matter_control_set_value_with_valid_value(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from uagent.tools.matter_control_tool import run_tool
 
     _set_matter_env(
@@ -429,7 +466,9 @@ def test_matter_control_set_value_with_valid_value(monkeypatch: pytest.MonkeyPat
         ],
     )
 
-    obj = _loads(run_tool({"dev": "dev-1", "action": "set_value", "value": 50, "dry_run": True}))
+    obj = _loads(
+        run_tool({"dev": "dev-1", "action": "set_value", "value": 50, "dry_run": True})
+    )
     assert obj["ok"] is True
     assert obj["command"]["value"] == 50
     assert obj["command"]["action"] == "set_value"

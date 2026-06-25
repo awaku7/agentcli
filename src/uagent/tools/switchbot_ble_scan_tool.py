@@ -270,7 +270,9 @@ async def _scan_rounds(
 def _format_text(result: dict[str, Any]) -> str:
     if not result.get("ok"):
         error = result.get("error", {})
-        return _("msg.error_fmt", default="Error: {msg}").format(msg=error.get("message", _("msg.unknown_error", default="unknown error")))
+        return _("msg.error_fmt", default="Error: {msg}").format(
+            msg=error.get("message", _("msg.unknown_error", default="unknown error"))
+        )
 
     items = result.get("items", [])
     lines = [
@@ -283,7 +285,11 @@ def _format_text(result: dict[str, Any]) -> str:
     ]
     interface_used = result.get("interface_used")
     if interface_used:
-        lines.append(_("msg.interface_used", default="Interface used: {iface}").format(iface=interface_used))
+        lines.append(
+            _("msg.interface_used", default="Interface used: {iface}").format(
+                iface=interface_used
+            )
+        )
     for item in items:
         service_uuids = item.get("service_uuids") or []
         lines.append(

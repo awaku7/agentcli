@@ -95,42 +95,61 @@ _MOD = r"(?:(?:virtual|override|final|static|const|constexpr|mutable|volatile|ex
 # C/C++ definition patterns
 _PATTERNS = [
     # #include / #define / #ifdef / #pragma etc.
-    (r"^\s*#\s*(?:include|define|ifdef|ifndef|endif|pragma|error|warning|undef|if|else|elif)\b.*",
-     lambda m: ("preproc", m.group(0).strip()[:50])),
+    (
+        r"^\s*#\s*(?:include|define|ifdef|ifndef|endif|pragma|error|warning|undef|if|else|elif)\b.*",
+        lambda m: ("preproc", m.group(0).strip()[:50]),
+    ),
     # namespace
-    (r"^\s*namespace\s+(\w+(?:::\w+)*)\s*(?:\{|$)",
-     lambda m: ("namespace", m.group(1))),
+    (
+        r"^\s*namespace\s+(\w+(?:::\w+)*)\s*(?:\{|$)",
+        lambda m: ("namespace", m.group(1)),
+    ),
     # extern "C" { ... }
-    (r"^\s*extern\s+\"C\"\s*\{",
-     lambda m: ("extern_c", "extern \"C\"")),
+    (r"^\s*extern\s+\"C\"\s*\{", lambda m: ("extern_c", 'extern "C"')),
     # template declaration (just note it, attach to next def)
-    (r"^\s*template\s*<[^>]*>\s*$",
-     lambda m: ("template", "")),
+    (r"^\s*template\s*<[^>]*>\s*$", lambda m: ("template", "")),
     # class / struct / union
-    (r"^\s*(?:" + _MOD + r")?(?:class|struct|union)\s+(\w+(?:\s*:\s*(?:public|private|protected)\s+\w+(?:<[^>]*>)?(?:\s*,\s*(?:public|private|protected)\s+\w+(?:<[^>]*>)?)*)?)\s*(?:\{|$)",
-     lambda m: ("type", m.group(1).split()[0])),
+    (
+        r"^\s*(?:"
+        + _MOD
+        + r")?(?:class|struct|union)\s+(\w+(?:\s*:\s*(?:public|private|protected)\s+\w+(?:<[^>]*>)?(?:\s*,\s*(?:public|private|protected)\s+\w+(?:<[^>]*>)?)*)?)\s*(?:\{|$)",
+        lambda m: ("type", m.group(1).split()[0]),
+    ),
     # enum (also enum class in C++11)
-    (r"^\s*(?:enum\s+(?:class\s+)?)(\w+)",
-     lambda m: ("enum", m.group(1))),
+    (r"^\s*(?:enum\s+(?:class\s+)?)(\w+)", lambda m: ("enum", m.group(1))),
     # typedef
-    (r"^\s*typedef\s+.+?\s+(\w+)\s*;",
-     lambda m: ("typedef", m.group(1))),
+    (r"^\s*typedef\s+.+?\s+(\w+)\s*;", lambda m: ("typedef", m.group(1))),
     # using alias (C++11): using Name = Type;
-    (r"^\s*using\s+(\w+)\s*=",
-     lambda m: ("using", m.group(1))),
+    (r"^\s*using\s+(\w+)\s*=", lambda m: ("using", m.group(1))),
     # C-style function: ReturnType functionName(...) { or ;
-    (r"^\s*(?:" + _MOD + r")?(\w+(?:\s*\*)*(?:\s+\w+)*?)\s+(\w+)\s*\([^)]*\)\s*(?:const\s*)?(?:\{|;|$)",
-     lambda m: ("function", m.group(2))),
-    # C++ destructor: ~ClassName() 
-    (r"^\s+" + _MOD + r"~(\w+)\s*\([^)]*\)\s*(?:\{|;|$)",
-     lambda m: ("destructor", f"~{m.group(1)}")),
+    (
+        r"^\s*(?:"
+        + _MOD
+        + r")?(\w+(?:\s*\*)*(?:\s+\w+)*?)\s+(\w+)\s*\([^)]*\)\s*(?:const\s*)?(?:\{|;|$)",
+        lambda m: ("function", m.group(2)),
+    ),
+    # C++ destructor: ~ClassName()
+    (
+        r"^\s+" + _MOD + r"~(\w+)\s*\([^)]*\)\s*(?:\{|;|$)",
+        lambda m: ("destructor", f"~{m.group(1)}"),
+    ),
     # C++ constructor/method (must match a word followed by ( possibly with ::)
-    (r"^\s+" + _MOD + r"(?:(\w+(?:::\w+)*)::)?(\w+)\s*\([^)]*\)\s*(?::\s*[^{]*)?(?:\{|;|$)",
-     lambda m: ("method" if (m.group(1) or False) else "constructor",
-                f"{m.group(1) + '::' if m.group(1) else ''}{m.group(2)}")),
+    (
+        r"^\s+"
+        + _MOD
+        + r"(?:(\w+(?:::\w+)*)::)?(\w+)\s*\([^)]*\)\s*(?::\s*[^{]*)?(?:\{|;|$)",
+        lambda m: (
+            "method" if (m.group(1) or False) else "constructor",
+            f"{m.group(1) + '::' if m.group(1) else ''}{m.group(2)}",
+        ),
+    ),
     # field: Type name; inside a type
-    (r"^\s+(?:" + _MOD + r")?(\w+(?:\s*\*?\s*\w+)*)\s+(\w+)\s*(?:\[[^\]]*\])?\s*(?:=|;|$)",
-     lambda m: ("field", m.group(2))),
+    (
+        r"^\s+(?:"
+        + _MOD
+        + r")?(\w+(?:\s*\*?\s*\w+)*)\s+(\w+)\s*(?:\[[^\]]*\])?\s*(?:=|;|$)",
+        lambda m: ("field", m.group(2)),
+    ),
 ]
 
 
@@ -288,7 +307,9 @@ class _CppIndexBuilder:
                         pending_template = False
                     else:
                         # Top-level function
-                        label = f"template {name}()" if pending_template else f"{name}()"
+                        label = (
+                            f"template {name}()" if pending_template else f"{name}()"
+                        )
                         entry = {
                             "kind": "function",
                             "name": name,
@@ -402,7 +423,9 @@ def run_tool(args: dict[str, Any]) -> str:
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
     if not os.path.isfile(path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -435,15 +458,31 @@ def run_tool(args: dict[str, Any]) -> str:
     elif mode == "section":
         section_num = args.get("section")
         if section_num is None:
-            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+            return _(
+                "err.section_required",
+                default="Error: 'section' (integer) is required when mode='section'.",
+            )
         try:
             section_num = int(section_num)
         except (TypeError, ValueError):
-            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(section_num))
+            return _(
+                "err.section_invalid",
+                default="Error: 'section' must be an integer.",
+                section_num=repr(section_num),
+            )
         content = builder.get_section(section_num)
         if content is None:
             total = builder.section_count()
-            return _("err.section_not_found", default="Error: Section {section_num} not found. Valid range: 1..{last}.", section_num=section_num, last=total)
+            return _(
+                "err.section_not_found",
+                default="Error: Section {section_num} not found. Valid range: 1..{last}.",
+                section_num=section_num,
+                last=total,
+            )
         return content
     else:
-        return _("err.invalid_mode", default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.", mode=mode)
+        return _(
+            "err.invalid_mode",
+            default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+            mode=mode,
+        )

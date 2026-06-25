@@ -200,9 +200,7 @@ def _maybe_offer_envsec_sync(
                     if value is not None:
                         os.environ[key] = value
                 print(
-                    _(
-                        "[INFO] Applied .env.sec values to the current session."
-                    ),
+                    _("[INFO] Applied .env.sec values to the current session."),
                     file=sys.__stderr__,
                 )
                 return True

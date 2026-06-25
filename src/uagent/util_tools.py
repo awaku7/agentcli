@@ -2043,7 +2043,6 @@ def format_help(*, core: Any) -> str:
         "",
         "Hints:",
         tr("  - Enter a line that is just 'f' to enter multiline input mode."),
-
     ]
 
     # Normalize indentation for command lines (translations may add extra leading whitespace).
@@ -2328,8 +2327,6 @@ def load_agents_md() -> str:
         return ""
     except Exception:
         return ""
-
-
 
 
 def build_initial_messages(*, core: Any) -> list[dict[str, Any]]:

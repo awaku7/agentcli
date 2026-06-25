@@ -187,11 +187,17 @@ def _normalize_device_item(item: dict[str, Any], source: str) -> dict[str, Any]:
 def _format_text(result: dict[str, Any]) -> str:
     if not result.get("ok"):
         error = result.get("error", {})
-        return _("msg.error_fmt", default="Error: {msg}").format(msg=error.get("message", _("msg.unknown_error", default="unknown error")))
+        return _("msg.error_fmt", default="Error: {msg}").format(
+            msg=error.get("message", _("msg.unknown_error", default="unknown error"))
+        )
 
     lines = [
-        _("msg.device_count", default="SwitchBot Cloud devices: {count}").format(count=result.get("count", 0)),
-        _("msg.fetched_at", default="Fetched at: {ts}").format(ts=result.get("fetched_at", "")),
+        _("msg.device_count", default="SwitchBot Cloud devices: {count}").format(
+            count=result.get("count", 0)
+        ),
+        _("msg.fetched_at", default="Fetched at: {ts}").format(
+            ts=result.get("fetched_at", "")
+        ),
     ]
     for item in result.get("items", []):
         lines.append(

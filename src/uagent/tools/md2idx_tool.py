@@ -180,12 +180,14 @@ class _MdSectionParser:
                 prev_stripped = prev_line.strip()
                 if not self._is_setext_underline(prev_line):
                     heading_text = prev_stripped
-                    headings.append({
-                        "level": setext_level,
-                        "text": heading_text,
-                        "line": i - 1,
-                        "end_line": i,
-                    })
+                    headings.append(
+                        {
+                            "level": setext_level,
+                            "text": heading_text,
+                            "line": i - 1,
+                            "end_line": i,
+                        }
+                    )
                     prev_line = line
                     prev_line_nonempty = False
                     continue
@@ -194,12 +196,14 @@ class _MdSectionParser:
             atx = self._is_atx_heading(stripped)
             if atx:
                 level, heading_text = atx
-                headings.append({
-                    "level": level,
-                    "text": heading_text,
-                    "line": i,
-                    "end_line": i,
-                })
+                headings.append(
+                    {
+                        "level": level,
+                        "text": heading_text,
+                        "line": i,
+                        "end_line": i,
+                    }
+                )
                 prev_line = line
                 prev_line_nonempty = bool(stripped)
                 continue
@@ -259,7 +263,9 @@ def run_tool(args: dict[str, Any]) -> str:
         return _("err.path_required", default="Error: 'path' is required.")
 
     if not os.path.isfile(path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -297,12 +303,19 @@ def run_tool(args: dict[str, Any]) -> str:
     elif mode == "section":
         section_num = args.get("section")
         if section_num is None:
-            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+            return _(
+                "err.section_required",
+                default="Error: 'section' (integer) is required when mode='section'.",
+            )
 
         try:
             section_num = int(section_num)
         except (TypeError, ValueError):
-            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(section_num))
+            return _(
+                "err.section_invalid",
+                default="Error: 'section' must be an integer.",
+                section_num=repr(section_num),
+            )
 
         content = parser.get_section(section_num)
         if content is None:
@@ -317,4 +330,8 @@ def run_tool(args: dict[str, Any]) -> str:
         return content
 
     else:
-        return _("err.invalid_mode", default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.", mode=mode)
+        return _(
+            "err.invalid_mode",
+            default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+            mode=mode,
+        )

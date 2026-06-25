@@ -454,9 +454,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 allow_danger=allow_danger,
                 allow_negative_count=True,
             )
-            if not any(
-                a.startswith(("-n", "--max-count")) for a in cmd_args
-            ):
+            if not any(a.startswith(("-n", "--max-count")) for a in cmd_args):
                 cmd_args = ["-n", "10"] + cmd_args
             payload = run_git_command(["log"] + cmd_args)
             return json.dumps(payload, ensure_ascii=False)

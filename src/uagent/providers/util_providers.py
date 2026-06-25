@@ -659,9 +659,7 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         from openai import OpenAI  # lazy
 
         api_key = core.get_env("UAGENT_MINIMAX_API_KEY")
-        base_url = core.get_env_url(
-            "UAGENT_MINIMAX_BASE_URL", "https://api.minimax.io"
-        )
+        base_url = core.get_env_url("UAGENT_MINIMAX_BASE_URL", "https://api.minimax.io")
 
         http_client = make_httpx_client()
 

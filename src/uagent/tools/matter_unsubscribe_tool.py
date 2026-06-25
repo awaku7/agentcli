@@ -59,7 +59,10 @@ def run_tool(args: dict[str, Any]) -> str:
             "ok": False,
             "error": {
                 "code": "invalid_argument",
-                "message": _("err.subscription_id_required", default="Subscription ID is required."),
+                "message": _(
+                    "err.subscription_id_required",
+                    default="Subscription ID is required.",
+                ),
             },
         }
         return (
@@ -74,7 +77,9 @@ def run_tool(args: dict[str, Any]) -> str:
             "ok": False,
             "error": {
                 "code": "not_found",
-                "message": _("err.subscription_not_found", default="Subscription not found: {id}").format(id=sub_id),
+                "message": _(
+                    "err.subscription_not_found", default="Subscription not found: {id}"
+                ).format(id=sub_id),
             },
         }
         return (

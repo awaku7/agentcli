@@ -194,9 +194,7 @@ def _safe_extract_zip(
                 )
 
             norm_path = os.path.normpath(info.filename)
-            if (
-                norm_path.startswith(("/", "\\")) or ".." in norm_path.split(os.sep)
-            ):
+            if norm_path.startswith(("/", "\\")) or ".." in norm_path.split(os.sep):
                 raise ValueError(
                     _(
                         "err.zip_traversal",

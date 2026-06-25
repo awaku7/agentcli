@@ -88,38 +88,66 @@ _MOD = r"(?:(?:abstract|base|sealed|final|interface|mixin class|covariant|const|
 # Dart definition patterns
 _PATTERNS = [
     # library / part
-    (r"^\s*(?:library|part\s+of)\s+(\w+(?:\.\w+)*)",
-     lambda m: ("lib", m.group(1))),
+    (r"^\s*(?:library|part\s+of)\s+(\w+(?:\.\w+)*)", lambda m: ("lib", m.group(1))),
     # class / mixin / enum / extension on / typedef
-    (r"^\s*(?:(?:abstract|base|sealed|interface)\s+)?(?:class|mixin|enum|extension(?!\s+on\b)|typedef)\s+(\w+)",
-     lambda m: ("type", m.group(1))),
+    (
+        r"^\s*(?:(?:abstract|base|sealed|interface)\s+)?(?:class|mixin|enum|extension(?!\s+on\b)|typedef)\s+(\w+)",
+        lambda m: ("type", m.group(1)),
+    ),
     # extension on Type
-    (r"^\s*extension\s+(?:(\w+)\s+)?on\s+(\w+)",
-     lambda m: ("extension", m.group(1) or f"on_{m.group(2)}")),
+    (
+        r"^\s*extension\s+(?:(\w+)\s+)?on\s+(\w+)",
+        lambda m: ("extension", m.group(1) or f"on_{m.group(2)}"),
+    ),
     # top-level function: ReturnType name(...) { or =>
-    (r"^\s*(?:" + _MOD + r")?(\w+(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?:\{|async\s*\{|=>)",
-     lambda m: ("function", m.group(2))),
+    (
+        r"^\s*(?:"
+        + _MOD
+        + r")?(\w+(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?:\{|async\s*\{|=>)",
+        lambda m: ("function", m.group(2)),
+    ),
     # constructor: ClassName(...) or ClassName.named(...)  (must NOT be a keyword)
-    (r"^\s+" + _MOD + r"(?!for\b|if\b|while\b|switch\b|catch\b|return\b|throw\b|else\b|do\b|try\b|finally\b|assert\b|print\b)(\w+)(?:\.(\w+))?\s*\([^)]*\)\s*(?::\s*(?:this\.|super\.|super\b)[^;{]*)?(?:\{|;|$)",
-     lambda m: ("constructor", m.group(1) + (f".{m.group(2)}" if m.group(2) else ""))),
+    (
+        r"^\s+"
+        + _MOD
+        + r"(?!for\b|if\b|while\b|switch\b|catch\b|return\b|throw\b|else\b|do\b|try\b|finally\b|assert\b|print\b)(\w+)(?:\.(\w+))?\s*\([^)]*\)\s*(?::\s*(?:this\.|super\.|super\b)[^;{]*)?(?:\{|;|$)",
+        lambda m: (
+            "constructor",
+            m.group(1) + (f".{m.group(2)}" if m.group(2) else ""),
+        ),
+    ),
     # factory constructor
-    (r"^\s+factory\s+(\w+)(?:\.(\w+))?\s*\([^)]*\)\s*(?:\{|=>|;)",
-     lambda m: ("constructor", f"factory {m.group(1)}{'.' + m.group(2) if m.group(2) else ''}")),
+    (
+        r"^\s+factory\s+(\w+)(?:\.(\w+))?\s*\([^)]*\)\s*(?:\{|=>|;)",
+        lambda m: (
+            "constructor",
+            f"factory {m.group(1)}{'.' + m.group(2) if m.group(2) else ''}",
+        ),
+    ),
     # getter: ReturnType get name => ... or ReturnType get name { ... }
-    (r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+get\s+(\w+)\s*(?:\{|=>|;)",
-     lambda m: ("getter", m.group(2))),
+    (
+        r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+get\s+(\w+)\s*(?:\{|=>|;)",
+        lambda m: ("getter", m.group(2)),
+    ),
     # setter: set name(value) => ... or set name(value) { ... }
-    (r"^\s+set\s+(\w+)\s*\([^)]*\)\s*(?:\{|=>|;)",
-     lambda m: ("setter", m.group(1))),
+    (r"^\s+set\s+(\w+)\s*\([^)]*\)\s*(?:\{|=>|;)", lambda m: ("setter", m.group(1))),
     # method: ReturnType name(...) { or =>
-    (r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?:\{|async\s*\{|sync\s*\*\{|=>)",
-     lambda m: ("method", m.group(2))),
+    (
+        r"^\s+"
+        + _MOD
+        + r"(\w+(?:<[^>]*>)?)\s+(\w+)\s*\([^)]*\)\s*(?:\{|async\s*\{|sync\s*\*\{|=>)",
+        lambda m: ("method", m.group(2)),
+    ),
     # field with type annotation: Type name; or Type name = ...;
-    (r"^\s+(?:" + _MOD + r")?(\w+(?:<[^>]*>)?)\s+(\w+)\s*(?:=|;|,|$)",
-     lambda m: ("field", m.group(2))),
+    (
+        r"^\s+(?:" + _MOD + r")?(\w+(?:<[^>]*>)?)\s+(\w+)\s*(?:=|;|,|$)",
+        lambda m: ("field", m.group(2)),
+    ),
     # field without type: var/final/const name = ...;
-    (r"^\s+(?:var|final|const|late)\s+(\w+)\s*(?:=|;|,|$)",
-     lambda m: ("field", m.group(1))),
+    (
+        r"^\s+(?:var|final|const|late)\s+(\w+)\s*(?:=|;|,|$)",
+        lambda m: ("field", m.group(1)),
+    ),
 ]
 
 
@@ -341,7 +369,9 @@ def run_tool(args: dict[str, Any]) -> str:
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
     if not os.path.isfile(path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -374,15 +404,31 @@ def run_tool(args: dict[str, Any]) -> str:
     elif mode == "section":
         section_num = args.get("section")
         if section_num is None:
-            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+            return _(
+                "err.section_required",
+                default="Error: 'section' (integer) is required when mode='section'.",
+            )
         try:
             section_num = int(section_num)
         except (TypeError, ValueError):
-            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(section_num))
+            return _(
+                "err.section_invalid",
+                default="Error: 'section' must be an integer.",
+                section_num=repr(section_num),
+            )
         content = builder.get_section(section_num)
         if content is None:
             total = builder.section_count()
-            return _("err.section_not_found", default="Error: Section {section_num} not found. Valid range: 1..{last}.", section_num=section_num, last=total)
+            return _(
+                "err.section_not_found",
+                default="Error: Section {section_num} not found. Valid range: 1..{last}.",
+                section_num=section_num,
+                last=total,
+            )
         return content
     else:
-        return _("err.invalid_mode", default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.", mode=mode)
+        return _(
+            "err.invalid_mode",
+            default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+            mode=mode,
+        )

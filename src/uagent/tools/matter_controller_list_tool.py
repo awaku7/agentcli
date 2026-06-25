@@ -295,7 +295,6 @@ def run_tool(args: dict[str, Any]) -> str:
     output_format = str(args.get("fmt") or _DEFAULT_OUTPUT_FORMAT).lower()
     controller_id = args.get("ctrl")
 
-
     cache_key = ":".join([str(args.get("ctrl", "") or "")])
     cached = matter_cache_get("matter_controller_list", cache_key)
     if cached is not None:
@@ -354,23 +353,30 @@ def run_tool(args: dict[str, Any]) -> str:
             else json.dumps(payload, ensure_ascii=False)
         )
 
-    result = ok_payload({
-        "count": len(filtered),
-        "items": filtered,
-        "controller": {
-            "scope": "filtered" if controller_id else "all",
-            "ctrl": str(controller_id) if controller_id is not None else None,
-            "total": len(items),
-            "source": source,
-        },
-        "fetched_at": _now_iso(),
-        "raw": {
-            "source": source,
-            "total": len(items),
-        },
-    })
+    result = ok_payload(
+        {
+            "count": len(filtered),
+            "items": filtered,
+            "controller": {
+                "scope": "filtered" if controller_id else "all",
+                "ctrl": str(controller_id) if controller_id is not None else None,
+                "total": len(items),
+                "source": source,
+            },
+            "fetched_at": _now_iso(),
+            "raw": {
+                "source": source,
+                "total": len(items),
+            },
+        }
+    )
     matter_cache_put("matter_controller_list", cache_key, result)
-    matter_log("matter_controller_list", args, ok=True, elapsed_ms=(time.time() - _log_start) * 1000)
+    matter_log(
+        "matter_controller_list",
+        args,
+        ok=True,
+        elapsed_ms=(time.time() - _log_start) * 1000,
+    )
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)

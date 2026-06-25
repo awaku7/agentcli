@@ -90,20 +90,31 @@ _KEYWORDS = r"\b(?:for|if|while|switch|catch|return|throw|else|do|try|finally|as
 # Java definition patterns
 _PATTERNS = [
     # package declaration
-    (r"^\s*package\s+(\w+(?:\.\w+)*)",
-     lambda m: ("package", m.group(1))),
+    (r"^\s*package\s+(\w+(?:\.\w+)*)", lambda m: ("package", m.group(1))),
     # class / interface / enum / @interface / record
-    (r"^\s*" + _MOD + r"(?:class|interface|enum|@interface|record)\s+(\w+)",
-     lambda m: ("type", m.group(1))),
+    (
+        r"^\s*" + _MOD + r"(?:class|interface|enum|@interface|record)\s+(\w+)",
+        lambda m: ("type", m.group(1)),
+    ),
     # constructor: ClassName(...) [throws ...] {  (must NOT be a keyword like for/if/while)
-    (r"^\s+" + _MOD + r"(?!for\b|if\b|while\b|switch\b|catch\b|return\b|throw\b|else\b|do\b|try\b|finally\b|assert\b|synchronized\b)(\w+)\s*\([^)]*\)\s*(?:throws\s+\w+(?:\s*,\s*\w+)*\s*)?\{",
-     lambda m: ("constructor", m.group(1))),
+    (
+        r"^\s+"
+        + _MOD
+        + r"(?!for\b|if\b|while\b|switch\b|catch\b|return\b|throw\b|else\b|do\b|try\b|finally\b|assert\b|synchronized\b)(\w+)\s*\([^)]*\)\s*(?:throws\s+\w+(?:\s*,\s*\w+)*\s*)?\{",
+        lambda m: ("constructor", m.group(1)),
+    ),
     # method: must have a return type before the method name
-    (r"^\s+" + _MOD + r"(\w+(?:<[^>]*>)?)\s+(?!for\b|if\b|while\b|switch\b|catch\b|return\b|throw\b|else\b|do\b|try\b|finally\b|assert\b|synchronized\b)(\w+)\s*\([^)]*\)\s*(?:throws\s+\w+(?:\s*,\s*\w+)*\s*)?(?:\{|;|$)",
-     lambda m: ("method", m.group(2))),
+    (
+        r"^\s+"
+        + _MOD
+        + r"(\w+(?:<[^>]*>)?)\s+(?!for\b|if\b|while\b|switch\b|catch\b|return\b|throw\b|else\b|do\b|try\b|finally\b|assert\b|synchronized\b)(\w+)\s*\([^)]*\)\s*(?:throws\s+\w+(?:\s*,\s*\w+)*\s*)?(?:\{|;|$)",
+        lambda m: ("method", m.group(2)),
+    ),
     # field: Type name [= ...];  (at class level, requires a modifier keyword to avoid local vars)
-    (r"^\s+(?:(?:public|private|protected|static|abstract|final|synchronized|native|transient|volatile|strictfp|sealed|non-sealed|default)\s+)+(?!new\b)(\w+(?:<[^>]*>)?(?:\[\])?)\s+(\w+)\s*(?:=|;|$)",
-     lambda m: ("field", m.group(2))),
+    (
+        r"^\s+(?:(?:public|private|protected|static|abstract|final|synchronized|native|transient|volatile|strictfp|sealed|non-sealed|default)\s+)+(?!new\b)(\w+(?:<[^>]*>)?(?:\[\])?)\s+(\w+)\s*(?:=|;|$)",
+        lambda m: ("field", m.group(2)),
+    ),
     # enum constant: NAME(...), or NAME;
     (r"^\s+(\w+)\s*\([^)]*\)\s*,", lambda m: ("enum_const", m.group(1))),
     (r"^\s+(\w+)\s*;", lambda m: ("enum_const", m.group(1))),
@@ -225,7 +236,9 @@ class _JvIndexBuilder:
                 elif kind in ("method", "constructor", "field", "enum_const"):
                     if stack:
                         container = stack[-1]
-                        label = f"{name}()" if kind in ("method", "constructor") else name
+                        label = (
+                            f"{name}()" if kind in ("method", "constructor") else name
+                        )
                         member = {
                             "kind": kind,
                             "name": name,
@@ -309,7 +322,9 @@ def run_tool(args: dict[str, Any]) -> str:
     if not path:
         return _("err.path_required", default="Error: 'path' is required.")
     if not os.path.isfile(path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -342,15 +357,31 @@ def run_tool(args: dict[str, Any]) -> str:
     elif mode == "section":
         section_num = args.get("section")
         if section_num is None:
-            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+            return _(
+                "err.section_required",
+                default="Error: 'section' (integer) is required when mode='section'.",
+            )
         try:
             section_num = int(section_num)
         except (TypeError, ValueError):
-            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(section_num))
+            return _(
+                "err.section_invalid",
+                default="Error: 'section' must be an integer.",
+                section_num=repr(section_num),
+            )
         content = builder.get_section(section_num)
         if content is None:
             total = builder.section_count()
-            return _("err.section_not_found", default="Error: Section {section_num} not found. Valid range: 1..{last}.", section_num=section_num, last=total)
+            return _(
+                "err.section_not_found",
+                default="Error: Section {section_num} not found. Valid range: 1..{last}.",
+                section_num=section_num,
+                last=total,
+            )
         return content
     else:
-        return _("err.invalid_mode", default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.", mode=mode)
+        return _(
+            "err.invalid_mode",
+            default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+            mode=mode,
+        )

@@ -124,7 +124,9 @@ def _run_compile(resolved: list[str]) -> list[dict[str, Any]]:
         except py_compile.PyCompileError as e:
             results.append({"path": fpath, "ok": False, "error": str(e)})
         except Exception as e:
-            results.append({"path": fpath, "ok": False, "error": f"{type(e).__name__}: {e}"})
+            results.append(
+                {"path": fpath, "ok": False, "error": f"{type(e).__name__}: {e}"}
+            )
     return results
 
 

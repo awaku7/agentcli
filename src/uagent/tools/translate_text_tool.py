@@ -87,10 +87,15 @@ def _translate(
         "dt": "t",
         "q": text,
     }
-    url = "https://translate.googleapis.com/translate_a/single?" + urllib.parse.urlencode(params)
+    url = (
+        "https://translate.googleapis.com/translate_a/single?"
+        + urllib.parse.urlencode(params)
+    )
     req = urllib.request.Request(
         url,
-        headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+        headers={
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        },
     )
     try:
         with urllib.request.urlopen(req, timeout=15, context=_SSL_CTX) as resp:
@@ -101,8 +106,14 @@ def _translate(
                     parts.append(segment[0])
             translated = "".join(parts)
             # data[2] contains detected source language (e.g. "en") when source is auto
-            detected_raw = data[2] if len(data) > 2 and isinstance(data[2], str) else None
-            detected = _GOOGLE_TO_LOCALE.get(detected_raw, detected_raw) if detected_raw else None
+            detected_raw = (
+                data[2] if len(data) > 2 and isinstance(data[2], str) else None
+            )
+            detected = (
+                _GOOGLE_TO_LOCALE.get(detected_raw, detected_raw)
+                if detected_raw
+                else None
+            )
             _LAST_REQUEST_TIME = time.time()
             return translated, detected
     except Exception as e:
@@ -124,7 +135,12 @@ TOOL_SPEC: dict[str, Any] = {
             "x_search_terms",
             default=["translate", "translation", "google translate", "language"],
         ),
-        "x_search_terms_en": ["translate", "translation", "google translate", "language"],
+        "x_search_terms_en": [
+            "translate",
+            "translation",
+            "google translate",
+            "language",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
@@ -164,7 +180,10 @@ def run_tool(args: dict[str, Any]) -> str:
     if not text:
         return json.dumps({"error": "text is required"}, ensure_ascii=False)
     if len(text) > MAX_TEXT_LENGTH:
-        return json.dumps({"error": f"Text too long: {len(text)} characters (max {MAX_TEXT_LENGTH})"}, ensure_ascii=False)
+        return json.dumps(
+            {"error": f"Text too long: {len(text)} characters (max {MAX_TEXT_LENGTH})"},
+            ensure_ascii=False,
+        )
     if not target_lang:
         return json.dumps({"error": "target_lang is required"}, ensure_ascii=False)
 

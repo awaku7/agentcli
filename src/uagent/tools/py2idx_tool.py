@@ -104,7 +104,11 @@ class _PyIndexBuilder:
     def _get_docstring(self, node: ast.AST) -> str:
         """Extract first line of docstring from a node."""
         body = getattr(node, "body", [])
-        if body and isinstance(body[0], ast.Expr) and isinstance(body[0].value, ast.Constant):
+        if (
+            body
+            and isinstance(body[0], ast.Expr)
+            and isinstance(body[0].value, ast.Constant)
+        ):
             doc = body[0].value.value
             if doc:
                 return str(doc).strip().split("\n")[0][:80]
@@ -166,21 +170,31 @@ class _PyIndexBuilder:
         try:
             tree = ast.parse(self.source, filename=self.filepath)
         except SyntaxError as e:
-            self.entries = [{"name": f"[SyntaxError] {e}", "line": e.lineno or 1, "end_line": e.lineno or 1, "level": 0, "label": "error"}]
+            self.entries = [
+                {
+                    "name": f"[SyntaxError] {e}",
+                    "line": e.lineno or 1,
+                    "end_line": e.lineno or 1,
+                    "level": 0,
+                    "label": "error",
+                }
+            ]
             return
 
         for node in ast.iter_child_nodes(tree):
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 if not self._is_public_or_documented(node.name, node):
                     continue
-                self.entries.append({
-                    "name": node.name,
-                    "line": node.lineno,
-                    "end_line": node.end_lineno or node.lineno,
-                    "level": 0,
-                    "label": self._node_label(node),
-                    "node": node,
-                })
+                self.entries.append(
+                    {
+                        "name": node.name,
+                        "line": node.lineno,
+                        "end_line": node.end_lineno or node.lineno,
+                        "level": 0,
+                        "label": self._node_label(node),
+                        "node": node,
+                    }
+                )
             elif isinstance(node, ast.ClassDef):
                 if not self._is_public_or_documented(node.name, node):
                     continue
@@ -189,23 +203,27 @@ class _PyIndexBuilder:
                     if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)):
                         if not self._is_public_or_documented(child.name, child):
                             continue
-                        methods.append({
-                            "name": child.name,
-                            "line": child.lineno,
-                            "end_line": child.end_lineno or child.lineno,
-                            "level": 1,
-                            "label": self._node_label(child),
-                            "node": child,
-                        })
-                self.entries.append({
-                    "name": node.name,
-                    "line": node.lineno,
-                    "end_line": node.end_lineno or node.lineno,
-                    "level": 0,
-                    "label": self._node_label(node),
-                    "node": node,
-                    "methods": methods,
-                })
+                        methods.append(
+                            {
+                                "name": child.name,
+                                "line": child.lineno,
+                                "end_line": child.end_lineno or child.lineno,
+                                "level": 1,
+                                "label": self._node_label(child),
+                                "node": child,
+                            }
+                        )
+                self.entries.append(
+                    {
+                        "name": node.name,
+                        "line": node.lineno,
+                        "end_line": node.end_lineno or node.lineno,
+                        "level": 0,
+                        "label": self._node_label(node),
+                        "node": node,
+                        "methods": methods,
+                    }
+                )
 
     def build_index(self) -> str:
         if not self.entries:
@@ -269,7 +287,9 @@ def run_tool(args: dict[str, Any]) -> str:
         return _("err.path_required", default="Error: 'path' is required.")
 
     if not os.path.isfile(path):
-        return _("err.file_not_found", default="Error: File not found: {path}", path=path)
+        return _(
+            "err.file_not_found", default="Error: File not found: {path}", path=path
+        )
 
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -303,12 +323,19 @@ def run_tool(args: dict[str, Any]) -> str:
     elif mode == "section":
         section_num = args.get("section")
         if section_num is None:
-            return _("err.section_required", default="Error: 'section' (integer) is required when mode='section'.")
+            return _(
+                "err.section_required",
+                default="Error: 'section' (integer) is required when mode='section'.",
+            )
 
         try:
             section_num = int(section_num)
         except (TypeError, ValueError):
-            return _("err.section_invalid", default="Error: 'section' must be an integer.", section_num=repr(section_num))
+            return _(
+                "err.section_invalid",
+                default="Error: 'section' must be an integer.",
+                section_num=repr(section_num),
+            )
 
         content = builder.get_section(section_num)
         if content is None:
@@ -323,4 +350,8 @@ def run_tool(args: dict[str, Any]) -> str:
         return content
 
     else:
-        return _("err.invalid_mode", default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.", mode=mode)
+        return _(
+            "err.invalid_mode",
+            default="Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
+            mode=mode,
+        )

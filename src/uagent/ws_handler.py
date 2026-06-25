@@ -26,6 +26,7 @@ class WsHandler:
     async def _send_chunk(self, data: str) -> None:
         """Send a streaming text chunk to the current WebSocket, if available."""
         import logging
+
         logger = logging.getLogger("uag.ws_handler")
         if self._websocket is not None:
             try:
@@ -41,6 +42,7 @@ class WsHandler:
     async def _send_progress(self, data: str) -> None:
         """Send a progress notification via the current WebSocket, if available."""
         import logging
+
         logger = logging.getLogger("uag.ws_handler")
         if self._websocket is not None:
             try:
@@ -135,6 +137,7 @@ class WsHandler:
         # Notify progress before potentially slow startup / LLM call
         await self._send_progress("準備中...")
         import asyncio
+
         await asyncio.sleep(0)  # flush send buffer so client sees progress
 
         # Cache startup state so conversation history is preserved across calls.
@@ -174,6 +177,7 @@ class WsHandler:
             cache["messages"].append(user_msg)
 
             import asyncio
+
             # Disable streaming for ws_server to capture full response
             _old_streaming = os.environ.get("UAGENT_STREAMING", "1")
             os.environ["UAGENT_STREAMING"] = "0"
@@ -181,7 +185,13 @@ class WsHandler:
             os.environ["UAGENT_REASONING"] = "off"
             import logging as _lg
             import traceback as _tb
-            _lg.getLogger("uag.ws_handler").info("_BEFORE_CALL reasoning=%s streaming=%s msgs=%d", os.environ.get("UAGENT_REASONING","?"), os.environ.get("UAGENT_STREAMING","?"), len(cache["messages"]))
+
+            _lg.getLogger("uag.ws_handler").info(
+                "_BEFORE_CALL reasoning=%s streaming=%s msgs=%d",
+                os.environ.get("UAGENT_REASONING", "?"),
+                os.environ.get("UAGENT_STREAMING", "?"),
+                len(cache["messages"]),
+            )
             try:
                 await asyncio.to_thread(
                     llm_util.run_llm_rounds,
@@ -194,15 +204,24 @@ class WsHandler:
                     append_result_to_outfile_fn=lambda *a, **kw: None,
                     try_open_images_from_text_fn=lambda *a, **kw: None,
                 )
-                _lg.getLogger("uag.ws_handler").info("_AFTER_CALL_OK msgs=%d", len(cache["messages"]))
+                _lg.getLogger("uag.ws_handler").info(
+                    "_AFTER_CALL_OK msgs=%d", len(cache["messages"])
+                )
             except Exception as _exc:
-                _lg.getLogger("uag.ws_handler").error("_RUN_LLM_ERROR: %s\n%s", _exc, _tb.format_exc()[:500])
+                _lg.getLogger("uag.ws_handler").error(
+                    "_RUN_LLM_ERROR: %s\n%s", _exc, _tb.format_exc()[:500]
+                )
             except SystemExit as _se:
                 _lg.getLogger("uag.ws_handler").error("_RUN_LLM_SYSEXIT: %s", _se)
 
             for _mi, _mm in enumerate(cache["messages"]):
                 if isinstance(_mm, dict) and _mm.get("role") == "assistant":
-                    _lg.getLogger("uag.ws_handler").info("_ASSISTANT_MSG[%d] content=%s rc=%s", _mi, repr((_mm.get("content","") or "")[:100]), repr((_mm.get("reasoning_content","") or "")[:100]))
+                    _lg.getLogger("uag.ws_handler").info(
+                        "_ASSISTANT_MSG[%d] content=%s rc=%s",
+                        _mi,
+                        repr((_mm.get("content", "") or "")[:100]),
+                        repr((_mm.get("reasoning_content", "") or "")[:100]),
+                    )
 
             os.environ["UAGENT_STREAMING"] = _old_streaming
             os.environ["UAGENT_REASONING"] = _old_reasoning
@@ -232,8 +251,8 @@ class WsHandler:
 
         except (Exception, SystemExit) as e:
             import traceback
-            return {"reply": f"[uag] LLM error: {e}\n{traceback.format_exc()[:500]}"}
 
+            return {"reply": f"[uag] LLM error: {e}\n{traceback.format_exc()[:500]}"}
 
     async def handle_tools_list(self, params: dict) -> dict:
         """Return a simplified list of all available tools."""
@@ -339,17 +358,37 @@ class WsHandler:
 
         ext = Path(safe_path).suffix.lower()
         lang_map = {
-            ".py": "python", ".ts": "typescript", ".js": "javascript",
-            ".jsx": "javascriptreact", ".tsx": "typescriptreact",
-            ".html": "html", ".css": "css", ".json": "json",
-            ".md": "markdown", ".yml": "yaml", ".yaml": "yaml",
-            ".rs": "rust", ".go": "go", ".java": "java",
-            ".cs": "csharp", ".cpp": "cpp", ".c": "c",
-            ".h": "c", ".hpp": "cpp", ".rb": "ruby",
-            ".php": "php", ".swift": "swift", ".kt": "kotlin",
-            ".toml": "toml", ".xml": "xml", ".sql": "sql",
-            ".sh": "bash", ".bat": "batch", ".ps1": "powershell",
-            ".dockerfile": "dockerfile", ".txt": "text",
+            ".py": "python",
+            ".ts": "typescript",
+            ".js": "javascript",
+            ".jsx": "javascriptreact",
+            ".tsx": "typescriptreact",
+            ".html": "html",
+            ".css": "css",
+            ".json": "json",
+            ".md": "markdown",
+            ".yml": "yaml",
+            ".yaml": "yaml",
+            ".rs": "rust",
+            ".go": "go",
+            ".java": "java",
+            ".cs": "csharp",
+            ".cpp": "cpp",
+            ".c": "c",
+            ".h": "c",
+            ".hpp": "cpp",
+            ".rb": "ruby",
+            ".php": "php",
+            ".swift": "swift",
+            ".kt": "kotlin",
+            ".toml": "toml",
+            ".xml": "xml",
+            ".sql": "sql",
+            ".sh": "bash",
+            ".bat": "batch",
+            ".ps1": "powershell",
+            ".dockerfile": "dockerfile",
+            ".txt": "text",
         }
         language = lang_map.get(ext, "text")
         return {"content": content, "language": language, "size": len(content)}

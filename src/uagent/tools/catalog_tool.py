@@ -101,7 +101,6 @@ def _build_tool_load_spec() -> dict[str, Any]:
                             default="Name of the tool to load (e.g. 'generate_image', 'excel_ops').",
                         ),
                     },
-
                 },
                 "required": ["name"],
             },
@@ -113,6 +112,7 @@ TOOL_SPEC: dict[str, Any] = _build_tool_catalog_spec()
 
 # Also register tool_load as a second tool from this module
 TOOL_SPEC_2: dict[str, Any] = _build_tool_load_spec()
+
 
 # Also register unload_tool as a third tool from this module
 def _build_tool_unload_spec() -> dict[str, Any]:
@@ -152,7 +152,14 @@ def _build_tool_unload_spec() -> dict[str, Any]:
 def _run_tool_unload(args: dict[str, Any]) -> str:
     name = str(args.get("name") or "").strip()
     if not name:
-        return json.dumps({"ok": False, "error": _("msg.unload.missing_name", default="Missing 'name' parameter.")})
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _(
+                    "msg.unload.missing_name", default="Missing 'name' parameter."
+                ),
+            }
+        )
 
     try:
         from ._genre_control_util import disable_single_tool
@@ -164,7 +171,11 @@ def _run_tool_unload(args: dict[str, Any]) -> str:
                     "ok": True,
                     "name": name,
                     "unloaded": True,
-                    "message": _("msg.unload.ok", default="Tool '{name}' has been unloaded.", name=name),
+                    "message": _(
+                        "msg.unload.ok",
+                        default="Tool '{name}' has been unloaded.",
+                        name=name,
+                    ),
                 }
             )
         else:
@@ -173,19 +184,21 @@ def _run_tool_unload(args: dict[str, Any]) -> str:
                     "ok": False,
                     "name": name,
                     "unloaded": False,
-                    "error": _("msg.unload.not_found", default="Tool '{name}' not found or not loaded.", name=name),
+                    "error": _(
+                        "msg.unload.not_found",
+                        default="Tool '{name}' not found or not loaded.",
+                        name=name,
+                    ),
                 }
             )
     except Exception as e:
         return json.dumps({"ok": False, "error": f"{type(e).__name__}: {e}"})
 
 
-
-
-
 # Also register unload_tool as a third tool from this module
 TOOL_SPEC_3: dict[str, Any] = _build_tool_unload_spec()
 TOOL_SPEC_3_RUNNER = _run_tool_unload
+
 
 def _run_tool_catalog(args: dict[str, Any]) -> str:
     query = str(args.get("query") or "").strip()
@@ -207,7 +220,14 @@ def _run_tool_catalog(args: dict[str, Any]) -> str:
 def _run_tool_load(args: dict[str, Any]) -> str:
     name = str(args.get("name") or "").strip()
     if not name:
-        return json.dumps({"ok": False, "error": _("msg.load.missing_name", default="Missing 'name' parameter.")})
+        return json.dumps(
+            {
+                "ok": False,
+                "error": _(
+                    "msg.load.missing_name", default="Missing 'name' parameter."
+                ),
+            }
+        )
 
     try:
         from ._genre_control_util import enable_single_tool
@@ -219,7 +239,11 @@ def _run_tool_load(args: dict[str, Any]) -> str:
                     "ok": True,
                     "name": name,
                     "loaded": True,
-                    "message": _("msg.load.ok", default="Tool '{name}' has been loaded and is now available.", name=name),
+                    "message": _(
+                        "msg.load.ok",
+                        default="Tool '{name}' has been loaded and is now available.",
+                        name=name,
+                    ),
                 }
             )
         else:
@@ -228,7 +252,11 @@ def _run_tool_load(args: dict[str, Any]) -> str:
                     "ok": False,
                     "name": name,
                     "loaded": False,
-                    "error": _("msg.load.not_found", default="Tool '{name}' not found.", name=name),
+                    "error": _(
+                        "msg.load.not_found",
+                        default="Tool '{name}' not found.",
+                        name=name,
+                    ),
                 }
             )
     except Exception as e:

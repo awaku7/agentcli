@@ -372,7 +372,10 @@ def _send_command(
 
 def _format_result_text(result: dict[str, Any]) -> str:
     lines = [
-        _("msg.batch_summary", default="Batch completed: {total} command(s), {ok} succeeded, {fail} failed").format(
+        _(
+            "msg.batch_summary",
+            default="Batch completed: {total} command(s), {ok} succeeded, {fail} failed",
+        ).format(
             total=result.get("total", 0),
             ok=result.get("succeeded", 0),
             fail=result.get("failed", 0),
@@ -383,7 +386,11 @@ def _format_result_text(result: dict[str, Any]) -> str:
         label = step.get("label", f"cmd#{i}")
         lines.append(f"  [{status}] {label}")
         if step.get("error"):
-            lines.append(_("msg.step_error", default="         Error: {err}").format(err=step["error"]))
+            lines.append(
+                _("msg.step_error", default="         Error: {err}").format(
+                    err=step["error"]
+                )
+            )
     return "\n".join(lines)
 
 

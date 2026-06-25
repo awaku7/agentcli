@@ -55,6 +55,7 @@ except ImportError:
 
 ANSI_ESCAPE = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
 
+
 def _load_input_history() -> list[str]:
     """Load input history from shared CLI history file."""
     try:
@@ -91,7 +92,6 @@ def _save_input_history(text: str) -> None:
                 f.write(f"+{t}\n")
     except Exception:
         pass
-
 
 
 app = FastAPI(title="uag Web")
@@ -974,9 +974,7 @@ async def get_tool_genres():
         "genres": [
             {
                 "key": "basic",
-                "label": _(
-                    "Basic (env, time, prompts, skills, memory, tools control)"
-                ),
+                "label": _("Basic (env, time, prompts, skills, memory, tools control)"),
                 "enabled": _genre_enabled.get("basic", False),
             },
             {
@@ -1228,7 +1226,7 @@ def init_web():
 
 
 def main():
-    sys.__stdout__.reconfigure(encoding='utf-8')
+    sys.__stdout__.reconfigure(encoding="utf-8")
     import argparse
 
     from .i18n import _

@@ -63,8 +63,7 @@ def get_welcome_message():
         f"v{__version__}",
         _("[Quick Guide]"),
         _("- Chat: type a message and send (GUI: Ctrl+Enter is also available)."),
-        _('- Multiline: enter a line that is just \'f\' to enter multiline mode.'
-        ),
+        _("- Multiline: enter a line that is just 'f' to enter multiline mode."),
         _(
             "- Commands: type ':help' to see system commands (log management, history compression, etc.). Note: commands start with ':' (colon) instead of '/' (slash)."
         ),

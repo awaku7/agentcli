@@ -115,9 +115,7 @@ def run_tool(args: dict[str, Any]) -> str:
             return json.dumps(
                 {
                     "ok": False,
-                    "error": _(
-                        "err.to_missing", default="'to' field is required."
-                    ),
+                    "error": _("err.to_missing", default="'to' field is required."),
                 },
                 ensure_ascii=False,
             )

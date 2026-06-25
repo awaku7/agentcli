@@ -186,6 +186,7 @@ def _get_default_shrink_max_tokens(depname: str) -> int:
     # Fallback: try actual model name from provider-specific env var
     try:
         import llmcapa
+
         provider = (env_get("UAGENT_PROVIDER") or "").lower().strip()
         if provider:
             model_env_key = f"UAGENT_{provider.upper()}_DEPNAME"

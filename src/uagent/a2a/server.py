@@ -230,7 +230,8 @@ def build_app() -> FastAPI:
 
 def main(argv: Optional[list[str]] = None) -> None:
     import sys
-    sys.stdout.reconfigure(encoding='utf-8')
+
+    sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(prog="uaga", add_help=True)
     parser.add_argument(
         "--host",

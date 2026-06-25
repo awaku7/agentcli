@@ -393,9 +393,7 @@ def run_tool(args: dict[str, Any]) -> str:
             "invalid_argument",
             _(
                 "err.value_required",
-                default=(
-                    "A numeric value (0-100) is required for action '{action}'."
-                ),
+                default=("A numeric value (0-100) is required for action '{action}'."),
                 action=action,
             ),
         )
@@ -637,7 +635,9 @@ def run_tool(args: dict[str, Any]) -> str:
         },
         "fetched_at": _now_iso(),
     }
-    matter_log("matter_control", args, ok=True, elapsed_ms=(time.time() - _log_start) * 1000)
+    matter_log(
+        "matter_control", args, ok=True, elapsed_ms=(time.time() - _log_start) * 1000
+    )
     if output_format == "text":
         return _format_text(result)
     return json.dumps(result, ensure_ascii=False)

@@ -310,7 +310,9 @@ def _format_text(result: dict[str, Any]) -> str:
         error = result.get("error", {})
         code = error.get("code", "error")
         message = error.get("message", "unknown error")
-        return _("msg.error_code_fmt", default="Error [{code}]: {msg}").format(code=code, msg=message)
+        return _("msg.error_code_fmt", default="Error [{code}]: {msg}").format(
+            code=code, msg=message
+        )
 
     device = result.get("device") or {}
     status = result.get("status") or {}
@@ -321,16 +323,24 @@ def _format_text(result: dict[str, Any]) -> str:
             device_name=device.get("devname") or "(unknown)",
             device_id=device.get("dev") or "(unknown)",
         ),
-        _("msg.type", default="Type: {dtype}").format(dtype=device.get("device_type") or _("msg.unknown", default="(unknown)")),
+        _("msg.type", default="Type: {dtype}").format(
+            dtype=device.get("device_type") or _("msg.unknown", default="(unknown)")
+        ),
         _("msg.online", default="Online: {val}").format(val=device.get("online")),
         _("msg.battery", default="Battery: {val}").format(val=device.get("battery")),
         _("msg.power", default="Power: {val}").format(val=status.get("power")),
         _("msg.mode", default="Mode: {val}").format(val=status.get("mode")),
-        _("msg.temperature", default="Temperature: {val}").format(val=status.get("temperature")),
+        _("msg.temperature", default="Temperature: {val}").format(
+            val=status.get("temperature")
+        ),
         _("msg.humidity", default="Humidity: {val}").format(val=status.get("humidity")),
         _("msg.position", default="Position: {val}").format(val=status.get("position")),
-        _("msg.lock_state", default="Lock state: {val}").format(val=status.get("lock_state")),
-        _("msg.fetched_at", default="Fetched at: {ts}").format(ts=result.get("fetched_at", "")),
+        _("msg.lock_state", default="Lock state: {val}").format(
+            val=status.get("lock_state")
+        ),
+        _("msg.fetched_at", default="Fetched at: {ts}").format(
+            ts=result.get("fetched_at", "")
+        ),
     ]
     return "\n".join(lines)
 

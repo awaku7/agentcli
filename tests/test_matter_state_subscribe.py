@@ -5,7 +5,6 @@ from __future__ import annotations
 import importlib
 import json
 
-
 TOOLS_DIR = "uagent.tools"
 
 
@@ -36,6 +35,7 @@ class TestMatterStateHistory:
 
     def test_text_output(self) -> None:
         import importlib
+
         mod = importlib.import_module(f"{TOOLS_DIR}.{self.TOOL}_tool")
         raw = mod.run_tool({"fmt": "text"})
         assert isinstance(raw, str)
@@ -83,6 +83,7 @@ class TestMatterSubscribe:
 
     def test_text_output(self) -> None:
         import importlib
+
         mod = importlib.import_module(f"{TOOLS_DIR}.{self.TOOL}_tool")
         raw = mod.run_tool({"dev": "light-kitchen-01", "fmt": "text"})
         assert isinstance(raw, str)
@@ -145,6 +146,7 @@ class TestMatterSubscriptionList:
 
     def test_text_output(self) -> None:
         import importlib
+
         mod = importlib.import_module(f"{TOOLS_DIR}.{self.TOOL}_tool")
         raw = mod.run_tool({"fmt": "text"})
         assert isinstance(raw, str)
