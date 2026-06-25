@@ -11,8 +11,8 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from ..env_utils import env_get
-from ..runtime_init import reload_dotenv_custom
-from ..runtime_env import validate_or_exit_startup_env
+from ..runtime.runtime_init import reload_dotenv_custom
+from ..runtime.runtime_env import validate_or_exit_startup_env
 from .auth import require_bearer_auth
 from .engine import run_once
 from .errors import A2AHttpError, aip193_error
