@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 from typing import Any
 
@@ -64,8 +64,8 @@ def _init_gemini_cache(
                         )
                     )
 
-                # キャッシュにはシステムプロンプトのみを含める。
-                # ユーザーの問いかけはリクエスト本体(generate_content)で送る。
+                # 繧ｭ繝｣繝・す繝･縺ｫ縺ｯ繧ｷ繧ｹ繝・Β繝励Ο繝ｳ繝励ヨ縺ｮ縺ｿ繧貞性繧√ｋ縲・
+                # 繝ｦ繝ｼ繧ｶ繝ｼ縺ｮ蝠上＞縺九￠縺ｯ繝ｪ繧ｯ繧ｨ繧ｹ繝域悽菴・generate_content)縺ｧ騾√ｋ縲・
                 cache_initial_msgs = [m for m in messages if m["role"] == "system"]
                 gemini_cache_name = cache_mgr.create_cache(
                     client, system_instruction, func_decls, cache_initial_msgs
@@ -170,9 +170,9 @@ def _count_messages_tokens(
 def _get_default_shrink_max_tokens(depname: str) -> int:
     try:
         ratio_str = (env_get("UAGENT_SHRINK_RATIO") or "").strip()
-        ratio = float(ratio_str) if ratio_str else 0.5
+        ratio = float(ratio_str) if ratio_str else 0.1
     except Exception:
-        ratio = 0.5
+        ratio = 0.1
 
     try:
         import llmcapa
@@ -201,7 +201,7 @@ def _get_default_shrink_max_tokens(depname: str) -> int:
 
 
 def _get_shrink_max_tokens(depname: str) -> int:
-    # 1. 個別環境変数 (最優先)
+    # 1. 蛟句挨迺ｰ蠅・､画焚 (譛蜆ｪ蜈・
     dep_suffix = depname.upper().replace("-", "_").replace(".", "_").replace("/", "_")
     env_specific_key = f"UAGENT_SHRINK_MAX_TOKENS_{dep_suffix}"
     specific_val = (env_get(env_specific_key) or "").strip()
@@ -211,7 +211,7 @@ def _get_shrink_max_tokens(depname: str) -> int:
         except Exception:
             pass
 
-    # 2. 共通環境変数 (JSON辞書 または 単一数値)
+    # 2. 蜈ｱ騾夂腸蠅・､画焚 (JSON霎樊嶌 縺ｾ縺溘・ 蜊倅ｸ謨ｰ蛟､)
     global_val = (env_get("UAGENT_SHRINK_MAX_TOKENS") or "").strip()
     if global_val:
         if global_val.startswith("{") and global_val.endswith("}"):
@@ -231,7 +231,7 @@ def _get_shrink_max_tokens(depname: str) -> int:
             except Exception:
                 pass
 
-    # 3. コード内のデフォルト値
+    # 3. 繧ｳ繝ｼ繝牙・縺ｮ繝・ヵ繧ｩ繝ｫ繝亥､
     return _get_default_shrink_max_tokens(depname)
 
 
@@ -272,11 +272,11 @@ def _maybe_auto_shrink_messages(
     except Exception:
         keep_last = 20
 
-    # 圧縮する余地がない場合はスキップ
+    # 蝨ｧ邵ｮ縺吶ｋ菴吝慍縺後↑縺・ｴ蜷医・繧ｹ繧ｭ繝・・
     if others_count <= keep_last:
         return gemini_cache_name
 
-    # 件数ベースまたはトークン数ベースのいずれかが上限を超えているか判定
+    # 莉ｶ謨ｰ繝吶・繧ｹ縺ｾ縺溘・繝医・繧ｯ繝ｳ謨ｰ繝吶・繧ｹ縺ｮ縺・★繧後°縺御ｸ企剞繧定ｶ・∴縺ｦ縺・ｋ縺句愛螳・
     should_shrink = False
     if shrink_cnt > 0 and others_count >= shrink_cnt:
         should_shrink = True
