@@ -5,6 +5,25 @@
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、
 このプロジェクトは [セマンティック バージョニング](https://semver.org/spec/v2.0.0.html) に準拠しています。
 
+## [0.5.24] - 2026-06-25
+
+### 追加
+- VSCode チャットパネルでツール呼び出し/結果をリアルタイム表示（WebSocket 経由 intermediate メッセージ）。
+- エンコーディング修正：stderr/stdout に UTF-8 reconfigure を適用し、日本語出力の文字化けを防止。
+
+### 変更
+- デフォルト `UAGENT_SHRINK_RATIO` を 0.5 から 0.1 に変更。
+- wsClient の呼び出しタイムアウトを 60秒 から 600秒 に延長。
+- ws_handler を `make_client` 直接呼び出しに戻し、shrink の llmcapa フォールバックを追加。
+- ruff fix（未使用インポート削除）と black フォーマットを適用。
+
+### 修正
+- `a2a/server.py` の相対インポートパスを修正。
+
+### その他
+- `patch_markdown.py` とそのバックアップファイル群を削除。
+- `package.json` の compile スクリプトを更新。
+
 ## [0.5.23] - 2026-06-24
 
 ### 追加

@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.24] - 2026-06-25
+
+### Added
+- Real-time display of tool calls/results in VSCode chat panel (intermediate messages via WebSocket).
+- Encoding fix for stderr/stdout (UTF-8 reconfigure) to prevent garbled Japanese output.
+
+### Changed
+- Changed default `UAGENT_SHRINK_RATIO` from 0.5 to 0.1.
+- Increased wsClient call timeout from 60s to 600s.
+- Restored ws_handler with `make_client` directly; added llmcapa fallback for shrink.
+- Applied ruff fix (remove unused imports) and black formatting.
+
+### Fixed
+- Corrected relative import paths in `a2a/server.py`.
+
+### Chores
+- Removed `patch_markdown.py` and its backup files.
+- Updated `package.json` compile script.
+
 ## [0.5.23] - 2026-06-24
 
 ### Added
