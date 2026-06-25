@@ -186,6 +186,13 @@ If you frequently hit context limits, you can enable automatic summarization.
   - Set `0` to disable.
 - `UAGENT_SHRINK_KEEP_LAST` (default: `20`)
   - How many recent non-system messages to keep after summarization.
+- `UAGENT_SHRINK_CHUNK_SIZE` (default: `50`)
+  - Number of messages per chunk when compressing history via LLM.
+  - Larger values mean fewer LLM calls but increase the risk of context-length errors.
+  - On context-length error, the chunk size is automatically halved and retried.
+- `UAGENT_SHRINK_SINGLE_SHOT` (default: not set)
+  - Set to `1`/`true`/`yes` to send all messages in a single LLM call (fastest path).
+  - Automatically falls back to chunked mode with halved chunk size if the context window is exceeded.
 
 Notes:
 

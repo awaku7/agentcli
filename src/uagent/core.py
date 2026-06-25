@@ -1193,11 +1193,17 @@ def compress_history_with_llm(
 
     chunk_size_raw = (env_get("UAGENT_SHRINK_CHUNK_SIZE", "") or "").strip()
     try:
-        initial_chunk_size = int(chunk_size_raw) if chunk_size_raw else 20
+        initial_chunk_size = int(chunk_size_raw) if chunk_size_raw else 50
     except Exception:
-        initial_chunk_size = 20
+        initial_chunk_size = 50
     if initial_chunk_size <= 0:
-        initial_chunk_size = 20
+        initial_chunk_size = 50
+
+    # Single-shot mode: send all old messages in one LLM call (UAGENT_SHRINK_SINGLE_SHOT=1)
+    single_shot_raw = (env_get("UAGENT_SHRINK_SINGLE_SHOT", "") or "").strip().lower()
+    if single_shot_raw in ("1", "true", "yes", "on"):
+        if len(old_part) > 0:
+            initial_chunk_size = len(old_part)
 
     max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
     retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
@@ -1372,6 +1378,8 @@ def compress_history_with_llm(
             for i in range(0, len(old_part), current_chunk_size)
         ]
 
+        total_chunks = len(chunks)
+        chunk_index = 0
         rolling_summary = ""
         for chunk in chunks:
             lines: list[str] = []
@@ -1420,6 +1428,14 @@ def compress_history_with_llm(
                 {"role": "system", "content": summary_system_prompt},
                 {"role": "user", "content": summary_user_content},
             ]
+
+            chunk_index += 1
+            if total_chunks > 1:
+                print(
+                    _t("[shrink_llm] Summarizing chunk %(i)d/%(n)d...")
+                    % {"i": chunk_index, "n": total_chunks},
+                    file=sys.stderr,
+                )
 
             summary_content, error = _summarize_with_llm(summary_messages)
             if error is not None:

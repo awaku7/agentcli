@@ -103,6 +103,29 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     }
 
+    // Listen for workspace folder changes (Open Folder / Switch Folder)
+    context.subscriptions.push(
+        vscode.workspace.onDidChangeWorkspaceFolders(async (event) => {
+            const removed = event.removed;
+            if (removed.length > 0) {
+                log('INFO', `Workspace folder removed: ${removed.map(f => f.uri.fsPath).join(', ')}`);
+            }
+            const target = vscode.workspace.workspaceFolders?.[0] || event.added[0];
+            if (target) {
+                const newPath = target.uri.fsPath;
+                log('INFO', `Workspace folder changed. Setting workdir to: ${newPath}`);
+                try {
+                    await wsClient.setWorkdir(newPath);
+                    log('INFO', `Workdir updated to: ${newPath}`);
+                } catch (e: any) {
+                    log('WARN', `Failed to update workdir: ${e.message}`);
+                }
+            } else {
+                log('WARN', 'Workspace folder changed but no folder available');
+            }
+        })
+    );
+
     // Editor integration
     editorIntegration = new EditorIntegration(wsClient);
 

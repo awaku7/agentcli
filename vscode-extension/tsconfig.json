@@ -8,7 +8,7 @@
       "ES2021",
       "dom"
     ],
-    "sourceMap": true,
+    "sourceMap": false,
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,

@@ -183,6 +183,20 @@ def _get_default_shrink_max_tokens(depname: str) -> int:
     except Exception:
         pass
 
+    # Fallback: try actual model name from provider-specific env var
+    try:
+        import llmcapa
+        provider = (env_get("UAGENT_PROVIDER") or "").lower().strip()
+        if provider:
+            model_env_key = f"UAGENT_{provider.upper()}_DEPNAME"
+            actual_model = env_get(model_env_key)
+            if actual_model and actual_model.strip() != depname:
+                cap = llmcapa.get(actual_model.strip())
+                if cap and cap.context_window > 0:
+                    return int(cap.context_window * ratio)
+    except Exception:
+        pass
+
     return 100000
 
 

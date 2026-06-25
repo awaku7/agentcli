@@ -139,28 +139,31 @@ class WsHandler:
 
         # Cache startup state so conversation history is preserved across calls.
         try:
-            from uagent.cli_startup import run_cli_startup
             from uagent.providers import util_providers as _providers
             from uagent import uagent_llm as llm_util
             from uagent import core as _core
+            from uagent import util_tools
+            from uagent.runtime.runtime_memory import append_long_memory_system_messages
+            from uagent.tools import long_memory as personal_long_memory
+            from uagent.tools import shared_memory
 
             if self._startup_cache is None:
-                startup = await asyncio.to_thread(
-                    run_cli_startup,
+                provider_name, client, depname_out = _providers.make_client(_core)
+
+                msgs = util_tools.build_initial_messages(core=_core)
+                append_long_memory_system_messages(
                     core=_core,
-                    cli_workdir=os.getcwd(),
-                    env_workdir="",
-                    initial_file_arg="",
-                    non_interactive=True,
-                    tool_genre_mask=0,
+                    messages=msgs,
+                    build_long_memory_system_message_fn=util_tools.build_long_memory_system_message,
+                    personal_long_memory_mod=personal_long_memory,
+                    shared_memory_mod=shared_memory,
                 )
-                if not startup.provider or not startup.client:
-                    return {"reply": "[uag] Startup failed. Check UAGENT_PROVIDER and API key."}
+
                 self._startup_cache = {
-                    "provider": startup.provider,
-                    "client": startup.client,
-                    "depname": startup.depname,
-                    "messages": startup.messages,
+                    "provider": provider_name,
+                    "client": client,
+                    "depname": depname_out,
+                    "messages": msgs,
                 }
 
             cache = self._startup_cache
@@ -171,27 +174,51 @@ class WsHandler:
             cache["messages"].append(user_msg)
 
             import asyncio
-            await asyncio.to_thread(
-                llm_util.run_llm_rounds,
-                cache["provider"],
-                cache["client"],
-                cache["depname"],
-                cache["messages"],
-                core=_core,
-                make_client_fn=_providers.make_client,
-                append_result_to_outfile_fn=lambda *a, **kw: None,
-                try_open_images_from_text_fn=lambda *a, **kw: None,
-            )
+            # Disable streaming for ws_server to capture full response
+            _old_streaming = os.environ.get("UAGENT_STREAMING", "1")
+            os.environ["UAGENT_STREAMING"] = "0"
+            _old_reasoning = os.environ.get("UAGENT_REASONING", "")
+            os.environ["UAGENT_REASONING"] = "off"
+            import logging as _lg
+            import traceback as _tb
+            _lg.getLogger("uag.ws_handler").info("_BEFORE_CALL reasoning=%s streaming=%s msgs=%d", os.environ.get("UAGENT_REASONING","?"), os.environ.get("UAGENT_STREAMING","?"), len(cache["messages"]))
+            try:
+                await asyncio.to_thread(
+                    llm_util.run_llm_rounds,
+                    cache["provider"],
+                    cache["client"],
+                    cache["depname"],
+                    cache["messages"],
+                    core=_core,
+                    make_client_fn=_providers.make_client,
+                    append_result_to_outfile_fn=lambda *a, **kw: None,
+                    try_open_images_from_text_fn=lambda *a, **kw: None,
+                )
+                _lg.getLogger("uag.ws_handler").info("_AFTER_CALL_OK msgs=%d", len(cache["messages"]))
+            except Exception as _exc:
+                _lg.getLogger("uag.ws_handler").error("_RUN_LLM_ERROR: %s\n%s", _exc, _tb.format_exc()[:500])
+            except SystemExit as _se:
+                _lg.getLogger("uag.ws_handler").error("_RUN_LLM_SYSEXIT: %s", _se)
 
-            await self._send_progress("応答を処理中...")
+            for _mi, _mm in enumerate(cache["messages"]):
+                if isinstance(_mm, dict) and _mm.get("role") == "assistant":
+                    _lg.getLogger("uag.ws_handler").info("_ASSISTANT_MSG[%d] content=%s rc=%s", _mi, repr((_mm.get("content","") or "")[:100]), repr((_mm.get("reasoning_content","") or "")[:100]))
+
+            os.environ["UAGENT_STREAMING"] = _old_streaming
+            os.environ["UAGENT_REASONING"] = _old_reasoning
+            await self._send_progress("\u5fdc\u7b54\u3092\u51e6\u7406\u4e2d...")
 
             # Extract the last assistant message as reply
             reply = ""
             for m in reversed(cache["messages"]):
                 if isinstance(m, dict) and m.get("role") == "assistant":
-                    content = m.get("content", "")
+                    content = m.get("content", "") or ""
                     if content:
                         reply = content
+                        break
+                    rc = m.get("reasoning_content", "") or ""
+                    if rc:
+                        reply = rc
                         break
 
             self.session_mgr.save_message("user", message)
@@ -329,24 +356,20 @@ class WsHandler:
 
     async def handle_workdir_get(self, params: dict) -> dict:
         """Get the current working directory."""
-        from uagent.tools.context import get_callbacks
-
-        cb = get_callbacks()
-        return {"path": str(cb.get_workdir())}
+        return {"path": os.getcwd()}
 
     async def handle_workdir_set(self, params: dict) -> dict:
-        """Set the working directory (must be within workdir)."""
+        """Set the working directory."""
         path = params.get("path", "")
         if not path:
             raise ValueError("'path' is required")
 
-        from uagent.tools.safe_file_ops_extras import ensure_within_workdir
-        from uagent.tools.context import get_callbacks
+        expanded = os.path.expanduser(path)
+        if not os.path.isdir(expanded):
+            raise FileNotFoundError(f"Directory not found: {expanded}")
 
-        safe_path = ensure_within_workdir(path)
-        cb = get_callbacks()
-        cb.set_workdir(safe_path)
-        return {"ok": True, "path": safe_path}
+        os.chdir(expanded)
+        return {"ok": True, "path": os.getcwd()}
 
     async def handle_system_specs(self, params: dict) -> dict:
         """Return basic system information."""
