@@ -48,7 +48,7 @@ class WsHandler:
             try:
                 msg = {"type": "progress", "data": data}
                 await self._websocket.send(json.dumps(msg, ensure_ascii=False))
-                logger.info("_send_progress sent: %s", data)
+                logger.info("_send_progress sent: %s", repr(data))
             except Exception as e:
                 logger.error("_send_progress failed: %s", e)
 
@@ -177,17 +177,102 @@ class WsHandler:
             cache["messages"].append(user_msg)
 
             import asyncio
+            import logging as _lg
+            import traceback as _tb
+
+            # Patch core.log_message to intercept tool calls/results in real-time
+            _orig_log_message = getattr(_core, "log_message", None)
+            _loop = asyncio.get_running_loop()
+
+            async def _send_intermediate(
+                role: str, name: str = "", content: str = ""
+            ) -> None:
+                if self._websocket is not None:
+                    try:
+                        msg = {
+                            "type": "intermediate",
+                            "role": role,
+                            "name": name,
+                            "content": content,
+                        }
+                        await self._websocket.send(
+                            json.dumps(msg, ensure_ascii=False)
+                        )
+                    except Exception as _exc:
+                        _lg.getLogger("uag.ws_handler").info(
+                            "_send_intermediate send error role=%s: %s",
+                            role,
+                            _exc,
+                        )
+                else:
+                    _lg.getLogger("uag.ws_handler").info(
+                        "_send_intermediate skipped role=%s (no websocket)", role
+                    )
+
+            def _patched_log_message(msg: dict[str, Any]) -> None:
+                try:
+                    if isinstance(msg, dict):
+                        role = msg.get("role", "")
+                        if role == "assistant":
+                            tool_calls = msg.get("tool_calls")
+                            if tool_calls:
+                                _lg.getLogger("uag.ws_handler").info(
+                                    "_patched tool_calls count=%d", len(tool_calls)
+                                )
+                                for tc in tool_calls:
+                                    fn = tc.get("function", {})
+                                    tname = fn.get("name", "")
+                                    targs = fn.get("arguments", "{}")
+                                    _lg.getLogger("uag.ws_handler").info(
+                                        "_patched tool_call name=%s", tname
+                                    )
+                                    asyncio.run_coroutine_threadsafe(
+                                        _send_intermediate(
+                                            "tool_call",
+                                            name=tname,
+                                            content=targs[:300],
+                                        ),
+                                        _loop,
+                                    )
+                            rc = (msg.get("reasoning_content", "") or "").strip()
+                            if rc:
+                                asyncio.run_coroutine_threadsafe(
+                                    _send_intermediate(
+                                        "reasoning", content=rc[:500]
+                                    ),
+                                    _loop,
+                                )
+                        elif role == "tool":
+                            tname = msg.get("name", "")
+                            tcontent = (msg.get("content", "") or "")[:300]
+                            asyncio.run_coroutine_threadsafe(
+                                _send_intermediate(
+                                    "tool_result", name=tname, content=tcontent
+                                ),
+                                _loop,
+                            )
+                except Exception:
+                    pass
+                if callable(_orig_log_message):
+                    _orig_log_message(msg)
+
+            _log_message_patched = False
+            try:
+                if callable(_orig_log_message):
+                    setattr(_core, "log_message", _patched_log_message)
+                    _log_message_patched = True
+            except Exception:
+                pass
 
             # Disable streaming for ws_server to capture full response
             _old_streaming = os.environ.get("UAGENT_STREAMING", "1")
             os.environ["UAGENT_STREAMING"] = "0"
             _old_reasoning = os.environ.get("UAGENT_REASONING", "")
             os.environ["UAGENT_REASONING"] = "off"
-            import logging as _lg
-            import traceback as _tb
 
             _lg.getLogger("uag.ws_handler").info(
-                "_BEFORE_CALL reasoning=%s streaming=%s msgs=%d",
+                "_BEFORE_CALL provider=%s reasoning=%s streaming=%s msgs=%d",
+                cache["provider"],
                 os.environ.get("UAGENT_REASONING", "?"),
                 os.environ.get("UAGENT_STREAMING", "?"),
                 len(cache["messages"]),
@@ -205,7 +290,9 @@ class WsHandler:
                     try_open_images_from_text_fn=lambda *a, **kw: None,
                 )
                 _lg.getLogger("uag.ws_handler").info(
-                    "_AFTER_CALL_OK msgs=%d", len(cache["messages"])
+                    "_AFTER_CALL_OK provider=%s msgs=%d",
+                    cache["provider"],
+                    len(cache["messages"]),
                 )
             except Exception as _exc:
                 _lg.getLogger("uag.ws_handler").error(
@@ -214,11 +301,20 @@ class WsHandler:
             except SystemExit as _se:
                 _lg.getLogger("uag.ws_handler").error("_RUN_LLM_SYSEXIT: %s", _se)
 
+            # Restore original log_message
+            if _log_message_patched:
+                try:
+                    if callable(_orig_log_message):
+                        setattr(_core, "log_message", _orig_log_message)
+                except Exception:
+                    pass
+
             for _mi, _mm in enumerate(cache["messages"]):
                 if isinstance(_mm, dict) and _mm.get("role") == "assistant":
                     _lg.getLogger("uag.ws_handler").info(
-                        "_ASSISTANT_MSG[%d] content=%s rc=%s",
+                        "_ASSISTANT_MSG[%d] provider=%s content=%s rc=%s",
                         _mi,
+                        cache["provider"],
                         repr((_mm.get("content", "") or "")[:100]),
                         repr((_mm.get("reasoning_content", "") or "")[:100]),
                     )

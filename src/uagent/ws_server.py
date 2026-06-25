@@ -106,6 +106,14 @@ class UagWebSocketServer:
 
 def setup_logging(level: str = "INFO") -> None:
     """Configure logging for the server process."""
+    try:
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
     logging.basicConfig(
         level=getattr(logging, level.upper()),
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",

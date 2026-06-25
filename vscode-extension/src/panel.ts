@@ -64,6 +64,11 @@ export class ChatPanel {
         // Cleanup
         this.panel.onDidDispose(() => this.dispose(), null, this.disposables);
 
+        // Forward intermediate messages (tool calls, results) from server to webview
+        this.ws.on('intermediate', (msg: any) => {
+            this.postMessage(msg);
+        });
+
         // Theme change listener
         vscode.window.onDidChangeActiveColorTheme((theme) => {
             this.postMessage({
@@ -202,6 +207,22 @@ export class ChatPanel {
             color: var(--text-secondary);
             text-align: center;
         }
+        .msg-tool-call {
+            font-size: 0.85em;
+            color: #ce9178;
+            border-left: 3px solid #ce9178;
+        }
+        .msg-tool-result {
+            font-size: 0.85em;
+            color: #6a9955;
+            border-left: 3px solid #6a9955;
+        }
+        .msg-reasoning {
+            font-size: 0.85em;
+            color: #569cd6;
+            border-left: 3px solid #569cd6;
+            font-style: italic;
+        }
         #input-area {
             border-top: 1px solid var(--border);
             padding: 8px;
@@ -338,6 +359,24 @@ export class ChatPanel {
                     case 'system':
                         addMessage(msg.data, 'msg-system');
                         break;
+                    case 'intermediate': {
+                        let text = '';
+                        let cls = '';
+                        if (msg.role === 'tool_call') {
+                            text = '[Tool] ' + msg.name + '(' + msg.content + ')';
+                            cls = 'msg-tool-call';
+                        } else if (msg.role === 'tool_result') {
+                            text = '[Result] ' + msg.name + ': ' + msg.content;
+                            cls = 'msg-tool-result';
+                        } else if (msg.role === 'reasoning') {
+                            text = '[Reasoning] ' + msg.content;
+                            cls = 'msg-reasoning';
+                        }
+                        if (text) {
+                            addMessage(text, cls);
+                        }
+                        break;
+                    }
                     case 'themeChanged':
                         document.body.className = 'theme-' + msg.theme;
                         break;
