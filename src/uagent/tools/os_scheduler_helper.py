@@ -65,7 +65,7 @@ def create_os_schedule(
     local_dt = at_dt.astimezone()
 
     if os_type == "windows":
-        return _create_windows_schedule(name, uag_cmd, local_dt)
+        return _create_windows_schedule(name, uag_cmd, local_dt, workdir=workdir)
     elif os_type in ("darwin", "linux"):
         return _create_unix_schedule(name, uag_cmd, local_dt)
     else:
@@ -119,7 +119,7 @@ def _decode_schtasks_output(data: bytes) -> str:
     return data.decode("utf-8", errors="replace")
 
 
-def _create_windows_schedule(name: str, cmd: str, at_dt: datetime) -> dict[str, Any]:
+def _create_windows_schedule(name: str, cmd: str, at_dt: datetime, workdir: str | None = None) -> dict[str, Any]:
     time_str = at_dt.strftime("%H:%M")
     date_str = at_dt.strftime("%Y/%m/%d")
 
@@ -127,9 +127,11 @@ def _create_windows_schedule(name: str, cmd: str, at_dt: datetime) -> dict[str, 
     bat_dir = os.path.join(os.path.expanduser("~"), ".uag", "scheduled")
     os.makedirs(bat_dir, exist_ok=True)
     bat_path = os.path.join(bat_dir, f"{name}.bat")
+    wd_display = workdir or "(default)"
     bat_lines = [
         "@echo off",
         f"echo [uag] Timer firing: {name}",
+        f"echo [uag] Workdir: {wd_display}",
         cmd,
         "echo.",
         "echo [uag] Timer finished. Press any key to close...",
