@@ -39,3 +39,5 @@ vscode-extension/*.vsix
 
 # Upload cache
 .uagent_web_uploads/
+
+.uagent.key

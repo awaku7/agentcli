@@ -175,12 +175,18 @@ def _run_create_internal(seconds: int, message: str, llm_prompt: str) -> str:
 
 def _run_create_os(seconds: int, message: str, llm_prompt: str) -> str:
     from ..env_utils import env_get
-    from ._genre_control_util import get_enabled_tool_names
     import os as _os
 
     at_dt = utc_now() + timedelta(seconds=seconds)
     workdir = env_get("UAGENT_WORKDIR") or _os.getcwd()
-    tool_names = get_enabled_tool_names()
+    # Collect loaded tool names from TOOL_SPECS
+    from .. import tools as _tools
+    tool_names = [
+        str(s.get("function", {}).get("name", ""))
+        for s in getattr(_tools, "TOOL_SPECS", [])
+        if s.get("function", {}).get("name")
+    ]
+    tool_names.sort()
 
     result = create_os_schedule(
         at_dt=at_dt,
