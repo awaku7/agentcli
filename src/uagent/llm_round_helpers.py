@@ -38,6 +38,7 @@ from .providers.llm_openrouter_responses import apply_openrouter_responses_compa
 from .providers.llm_ollama import apply_ollama_extra_body
 from .providers.llm_ollama_responses import apply_ollama_responses_compat
 from .providers.llm_deepseek import deepseek_chat_with_tools
+from .providers.llm_zai import zai_chat_with_tools
 from .llm_helpers import (
     _auto_low_quality,
     _bump_effort,
@@ -760,7 +761,7 @@ def _call_deepseek_round(
     retry_cap: float,
     provider: str = "deepseek",
 ) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
-    """Thin wrapper: delegates to providers/llm_deepseek.py.
+    """Thin wrapper: delegates to providers/llm_deepseek.py (DeepSeek/MiMo).
 
     Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
     """
@@ -778,4 +779,37 @@ def _call_deepseek_round(
         retry_cap=retry_cap,
         stream=stream,
         provider=provider,
+    )
+
+
+def _call_zai_round(
+    *,
+    client: Any,
+    depname: str,
+    call_messages: list[dict[str, Any]],
+    core: Any,
+    make_client_fn: Any,
+    call_maybe_thread_fn: Any,
+    send_tools_this_round: bool,
+    max_retries_429: int,
+    retry_base: float,
+    retry_cap: float,
+) -> tuple[bool, Any, str, str, list[dict[str, Any]]]:
+    """Thin wrapper: delegates to providers/llm_zai.py (Z.AI / zhipuai SDK).
+
+    Returns ``(ok, client, assistant_text, reasoning_content, tool_calls_list)``.
+    """
+    stream = _env_default_true("UAGENT_STREAMING", default=True)
+    return zai_chat_with_tools(
+        client,
+        depname,
+        call_messages,
+        core=core,
+        make_client_fn=make_client_fn,
+        call_maybe_thread_fn=call_maybe_thread_fn,
+        send_tools_this_round=send_tools_this_round,
+        max_retries_429=max_retries_429,
+        retry_base=retry_base,
+        retry_cap=retry_cap,
+        stream=stream,
     )

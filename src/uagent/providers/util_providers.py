@@ -570,7 +570,10 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         return provider, client, model_name
 
     if provider == "zai":
-        from openai import OpenAI  # lazy
+        try:
+            from zhipuai import ZhipuAI  # lazy, prefer official SDK
+        except ImportError:
+            ZhipuAI = None
 
         api_key = core.get_env("UAGENT_ZAI_API_KEY")
         base_url = core.get_env_url(
@@ -579,10 +582,17 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         http_client = make_httpx_client()
 
-        try:
-            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
-        except TypeError:
-            client = OpenAI(api_key=api_key, base_url=base_url)
+        if ZhipuAI is not None:
+            try:
+                client = ZhipuAI(api_key=api_key, base_url=base_url, http_client=http_client)
+            except TypeError:
+                client = ZhipuAI(api_key=api_key, base_url=base_url)
+        else:
+            from openai import OpenAI  # fallback to OpenAI-compatible
+            try:
+                client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+            except TypeError:
+                client = OpenAI(api_key=api_key, base_url=base_url)
 
         return provider, client, model_name
 

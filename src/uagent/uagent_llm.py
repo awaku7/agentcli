@@ -42,6 +42,7 @@ from .llm_round_helpers import (
     _call_claude_round,
     _call_openai_azure_round,
     _call_deepseek_round,
+    _call_zai_round,
 )
 from .providers.llm_deepseek import build_assistant_message_with_reasoning
 from .llm_flow_helpers import (
@@ -298,7 +299,7 @@ def run_llm_rounds(
 
                 empty_no_tool_rounds = 0
 
-            elif provider in ("deepseek", "zai", "mimo"):
+            elif provider in ("deepseek", "mimo"):
                 ok, client, assistant_text, reasoning_content, tool_calls_list = (
                     _call_deepseek_round(
                         client=client,
@@ -312,6 +313,78 @@ def run_llm_rounds(
                         retry_base=retry_base,
                         retry_cap=retry_cap,
                         provider=provider,
+                    )
+                )
+                if not ok:
+                    return
+
+                assistant_text = _translate_assistant_if_needed(
+                    assistant_text=assistant_text,
+                    tr_cfg=tr_cfg,
+                    use_responses_api=False,
+                    stream_responses=False,
+                )
+
+                # Determine if streaming is active (used for both log-skip and print-skip).
+                _ds_streaming = (
+                    env_get("UAGENT_STREAMING", "1") or ""
+                ).strip().lower() not in ("0", "false", "no", "off")
+
+                # Build assistant message: reasoning_content is only carried
+                # forward when tool calls are present (DeepSeek/z.ai/MiMo API requirement).
+                deepseek_msg = build_assistant_message_with_reasoning(
+                    assistant_text=assistant_text,
+                    tool_calls_list=tool_calls_list,
+                    reasoning_content=reasoning_content,
+                )
+                messages.append(deepseek_msg)
+                # Web streaming already emitted deltas via log_stream_delta; avoid duplicate log.
+                if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
+                    core.log_message(deepseek_msg)
+
+                action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
+                    assistant_text=assistant_text,
+                    tool_calls_list=tool_calls_list,
+                    empty_no_tool_rounds=empty_no_tool_rounds,
+                    empty_no_tool_max=empty_no_tool_max,
+                    provider=provider,
+                    depname=depname,
+                    messages=messages,
+                    core=core,
+                )
+                if action == "continue":
+                    continue
+                if action == "break":
+                    break
+
+                if not tool_calls_list:
+                    # DeepSeek/z.ai/MiMo streaming (chat completions) already printed the text;
+                    # skip the print but keep outfile/image side effects.
+                    _emit_final_answer_if_any(
+                        assistant_text=assistant_text,
+                        use_responses_api=False,
+                        stream_responses=False,
+                        append_result_to_outfile_fn=append_result_to_outfile_fn,
+                        try_open_images_from_text_fn=try_open_images_from_text_fn,
+                        skip_print=_ds_streaming,
+                    )
+                    break
+
+                empty_no_tool_rounds = 0
+
+            elif provider == "zai":
+                ok, client, assistant_text, reasoning_content, tool_calls_list = (
+                    _call_zai_round(
+                        client=client,
+                        depname=depname,
+                        call_messages=call_messages,
+                        core=core,
+                        make_client_fn=make_client_fn,
+                        call_maybe_thread_fn=_call_maybe_thread_fn,
+                        send_tools_this_round=send_tools_this_round,
+                        max_retries_429=max_retries_429,
+                        retry_base=retry_base,
+                        retry_cap=retry_cap,
                     )
                 )
                 if not ok:
