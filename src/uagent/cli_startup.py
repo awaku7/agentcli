@@ -215,6 +215,7 @@ def run_cli_startup(
     initial_file_arg,
     non_interactive: bool,
     tool_genre_mask: int | None = None,
+    inject_message: str | None = None,
 ) -> CliStartupState:
     import io
     import os
@@ -415,7 +416,11 @@ def run_cli_startup(
 
     file_path = initial_file_arg
     if file_path is None and len(sys.argv) > 1:
-        file_path = sys.argv[1]
+        # Skip arguments that look like flags (consumed by argparse)
+        for arg in sys.argv[1:]:
+            if not arg.startswith("-"):
+                file_path = arg
+                break
 
     if file_path:
         try:
@@ -460,6 +465,21 @@ def run_cli_startup(
             )
         else:
             core.set_status(False, "")
+
+    if inject_message:
+        inject_msg = {"role": "user", "content": str(inject_message)}
+        messages.append(inject_msg)
+        core.log_message(inject_msg)
+        llm_util.run_llm_rounds(
+            provider,
+            client,
+            depname,
+            messages,
+            core=core,
+            make_client_fn=providers.make_client,
+            append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+            try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+        )
 
     if non_interactive:
         core.set_status(False, "")

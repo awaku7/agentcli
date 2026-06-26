@@ -239,6 +239,15 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         default=None,
         help=_("Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."),
     )
+    parser.add_argument(
+        "--inject-message",
+        "-M",
+        dest="inject_message",
+        default=None,
+        help=_(
+            "Inject a message into the LLM at startup and exit after completion. Implies --non-interactive."
+        ),
+    )
     args, unknown = parser.parse_known_args()
     return vars(args), unknown
 

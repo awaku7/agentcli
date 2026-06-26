@@ -30,6 +30,7 @@ All entry points (CLI/GUI/Web/A2A) accept the following common options unless no
 | `--non-interactive` | CLI | Non-interactive mode. No stdin loop; exit after processing startup file (if any). | `util_tools.py:parse_startup_args()` |
 | `--tool-genre-mask <int>` | CLI, GUI, Web, A2A | Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all). Skips interactive genre prompt when specified. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--use-tool` / `--no-use-tool` | CLI, GUI, Web, A2A | Enable/disable tool sending to LLM. Overrides `UAGENT_USE_TOOL` env var. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
+| `--inject-message` / `-M <text>` | CLI | Inject a message into the LLM at startup and exit after completion. Implies `--non-interactive`. Used by OS-level scheduled timers. | `util_tools.py:parse_startup_args()`, `cli_startup.py` |
 | `--host` | A2A only | Bind address (default: `0.0.0.0`, overridable by `UAGENT_A2A_HOST`). | `a2a/server.py` |
 | `--port` | A2A only | Port number (default: `8765`, overridable by `UAGENT_A2A_PORT`). | `a2a/server.py` |
 | `--reload` | A2A only | Enable hot reload (overridable by `UAGENT_A2A_RELOAD`). | `a2a/server.py`
@@ -167,6 +168,37 @@ A tool may suppress the trace using the extended flag:
 - Override with `UAGENT_BATCHES_DIR`
 - `load` can resume an existing batch and restore `task_description`, `instructions`, `target_files`, `done_files`, `pending_files`, and related progress fields.
 - Supported actions: `init`, `load`, `update`, `append_log`, `finalize`, `list`, `delete`
+
+### 3.9 OS-level scheduling (set_timer with os_persist=True)
+
+`set_timer` supports OS-native scheduling via `os_persist=True`. When enabled, the timer is registered with the OS scheduler instead of the in-process `SchedulerStore`, allowing it to fire even when uag is not running.
+
+**Supported OS backends:**
+
+| OS | Primary | Fallback |
+|---|---|---|
+| Windows | `schtasks` | - |
+| Linux | `systemd-run` (transient timer unit) | `at` |
+| macOS | `at` (requires `atrun` daemon) | - |
+
+**Flow:**
+
+1. `set_timer(os_persist=True, seconds=..., message=..., on_timeout_prompt=...)` is called.
+2. `tools/os_scheduler_helper.py` registers a job with the OS scheduler.
+3. At the scheduled time, the OS runs: `python -m uagent --inject-message "<prompt>" --workdir "<dir>"`
+4. uag starts in non-interactive mode, injects the message as a user message, runs one LLM round, and exits.
+
+**Actions:**
+
+- `action="create"` (default): Creates an OS schedule. Returns a job name (`uag_timer_<uuid>`).
+- `action="delete"`: Deletes an OS schedule by job name.
+- `action="list"`: Lists all uag-created OS schedules.
+
+**Implementation:**
+
+- OS backend logic: `src/uagent/tools/os_scheduler_helper.py`
+- `--inject-message` / `-M` CLI option triggers one-shot LLM processing at startup (see Section 0.1).
+- CLI startup injects the message and runs LLM rounds before the interactive loop (see `cli_startup.py`).
 
 ______________________________________________________________________
 

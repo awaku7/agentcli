@@ -58,6 +58,9 @@ _cli_workdir = _startup_args.get("workdir")
 _env_workdir = env_get("UAGENT_WORKDIR")
 
 UAGENT_NON_INTERACTIVE = bool(_startup_args.get("non_interactive"))
+UAGENT_INJECT_MESSAGE = _startup_args.get("inject_message")
+if UAGENT_INJECT_MESSAGE is not None:
+    UAGENT_NON_INTERACTIVE = True
 UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
 
 # Initialize runtime tools_enabled flag.
@@ -922,6 +925,7 @@ def main() -> None:
         initial_file_arg=INITIAL_FILE_ARG,
         non_interactive=UAGENT_NON_INTERACTIVE,
         tool_genre_mask=UAGENT_TOOL_GENRE_MASK,
+        inject_message=UAGENT_INJECT_MESSAGE,
     )
 
     provider = startup.provider
