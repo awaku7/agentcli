@@ -170,9 +170,9 @@ def _count_messages_tokens(
 def _get_default_shrink_max_tokens(depname: str) -> int:
     try:
         ratio_str = (env_get("UAGENT_SHRINK_RATIO") or "").strip()
-        ratio = float(ratio_str) if ratio_str else 0.1
+        ratio = float(ratio_str) if ratio_str else 0.5
     except Exception:
-        ratio = 0.1
+        ratio = 0.5
 
     try:
         import llmcapa
