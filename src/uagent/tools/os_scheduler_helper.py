@@ -37,8 +37,6 @@ def _build_uag_command(
     cmd += f' --inject-message "{safe_msg}"'
     if workdir:
         cmd += f' --workdir "{workdir}"'
-    if tool_genre_mask > 0:
-        cmd += f" --tool-genre-mask {tool_genre_mask}"
     if enable_tools:
         for tname in enable_tools:
             cmd += f' --enable-tool "{tname}"'
