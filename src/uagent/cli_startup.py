@@ -216,6 +216,7 @@ def run_cli_startup(
     non_interactive: bool,
     tool_genre_mask: int | None = None,
     inject_message: str | None = None,
+    enable_tools: list[str] | None = None,
 ) -> CliStartupState:
     import io
     import os
@@ -372,6 +373,13 @@ def run_cli_startup(
                 # Default: basic only
                 _apply_startup_tool_genre_mask(0)
                 # Default: none
+            if enable_tools:
+                from .tools._genre_control_util import enable_single_tool
+                for tname in enable_tools:
+                    try:
+                        enable_single_tool(tname)
+                    except Exception as e:
+                        print(f"[WARN] Failed to enable tool '{tname}': {e}", file=sys.stderr)
             core.set_status(False, "")
 
             messages = build_initial_messages(core=core)

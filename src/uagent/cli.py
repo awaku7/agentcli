@@ -62,6 +62,7 @@ UAGENT_INJECT_MESSAGE = _startup_args.get("inject_message")
 if UAGENT_INJECT_MESSAGE is not None:
     UAGENT_NON_INTERACTIVE = True
 UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
+UAGENT_ENABLE_TOOLS = _startup_args.get("enable_tools")
 
 # Initialize runtime tools_enabled flag.
 # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
@@ -926,6 +927,7 @@ def main() -> None:
         non_interactive=UAGENT_NON_INTERACTIVE,
         tool_genre_mask=UAGENT_TOOL_GENRE_MASK,
         inject_message=UAGENT_INJECT_MESSAGE,
+        enable_tools=UAGENT_ENABLE_TOOLS,
     )
 
     provider = startup.provider

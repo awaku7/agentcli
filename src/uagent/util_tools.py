@@ -248,6 +248,15 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
             "Inject a message into the LLM at startup and exit after completion. Implies --non-interactive."
         ),
     )
+    parser.add_argument(
+        "--enable-tool",
+        dest="enable_tools",
+        action="append",
+        default=None,
+        help=_(
+            "Enable a specific tool by name at startup. Can be specified multiple times."
+        ),
+    )
     args, unknown = parser.parse_known_args()
     return vars(args), unknown
 

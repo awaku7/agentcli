@@ -28,6 +28,7 @@ def _build_uag_command(
     message: str,
     on_timeout_prompt: str = "",
     tool_genre_mask: int = 0,
+    enable_tools: list[str] | None = None,
 ) -> str:
     python = sys.executable
     cmd = f'"{python}" -m uagent'
@@ -38,6 +39,9 @@ def _build_uag_command(
         cmd += f' --workdir "{workdir}"'
     if tool_genre_mask > 0:
         cmd += f" --tool-genre-mask {tool_genre_mask}"
+    if enable_tools:
+        for tname in enable_tools:
+            cmd += f' --enable-tool "{tname}"'
     return cmd
 
 
@@ -52,6 +56,7 @@ def create_os_schedule(
     workdir: str | None = None,
     job_name: str | None = None,
     tool_genre_mask: int = 0,
+    enable_tools: list[str] | None = None,
 ) -> dict[str, Any]:
     """Create an OS-level scheduled task.
 
@@ -59,7 +64,7 @@ def create_os_schedule(
     """
     os_type = detect_os()
     name = job_name or _generate_job_name()
-    uag_cmd = _build_uag_command(workdir, message, on_timeout_prompt, tool_genre_mask=tool_genre_mask)
+    uag_cmd = _build_uag_command(workdir, message, on_timeout_prompt, tool_genre_mask=tool_genre_mask, enable_tools=enable_tools)
 
     # Convert to local time for OS scheduler (schtasks / at use local TZ)
     local_dt = at_dt.astimezone()

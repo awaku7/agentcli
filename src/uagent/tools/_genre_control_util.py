@@ -43,6 +43,19 @@ def get_enabled_genre_mask() -> int:
 _LOADED_SINGLE_TOOLS: dict[str, int] = {}
 
 
+def get_enabled_tool_names() -> list[str]:
+    """Return a sorted list of all currently enabled tool names."""
+    from . import TOOL_SPECS
+    names: list[str] = []
+    for spec in TOOL_SPECS:
+        func = spec.get("function", {})
+        name = func.get("name") if isinstance(func, dict) else None
+        if name:
+            names.append(str(name))
+    names.sort()
+    return names
+
+
 _LAZY_MODULE_NAMES: set[str] = set()
 
 
