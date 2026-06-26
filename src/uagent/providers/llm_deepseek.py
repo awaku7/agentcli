@@ -1,4 +1,4 @@
-"""DeepSeek/z.ai/MiMo-specific chat completion helper.
+"""DeepSeek/MiMo-specific chat completion helper.
 
 Differences from the generic OpenAI-compatible path:
 - Thinking Mode: ``extra_body={"thinking": {"type": "enabled/disabled"}}``
@@ -12,7 +12,7 @@ Differences from the generic OpenAI-compatible path:
   but ``logprobs``/``top_logprobs`` cause a 400 error.  We never send them.
 - Default base_url is ``https://api.deepseek.com`` (no ``/v1`` suffix).
 - Default model is ``deepseek-v4-flash`` (``deepseek-chat`` is deprecated 2026-07-24).
-- Also supports z.ai (Zhipu AI) and MiMo (Xiaomi) with same reasoning_content model.
+- Also supports MiMo (Xiaomi) with same reasoning_content model.
 """
 
 from __future__ import annotations
