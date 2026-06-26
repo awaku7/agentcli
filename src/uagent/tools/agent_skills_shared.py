@@ -55,6 +55,21 @@ COMPATIBILITY_MAX_LEN = 500
 _NAME_RE = re.compile(r"^[a-z0-9-]{1,64}$")
 
 
+# JSON-safe conversion for YAML values (e.g., datetime.date)
+def _sanitize_for_json(val: Any) -> Any:
+    """Recursively convert non-JSON-serializable types to strings."""
+    if isinstance(val, dict):
+        return {k: _sanitize_for_json(v) for k, v in val.items()}
+    if isinstance(val, list):
+        return [_sanitize_for_json(v) for v in val]
+    if isinstance(val, tuple):
+        return tuple(_sanitize_for_json(v) for v in val)
+    # datetime.date, datetime.datetime, etc.
+    if hasattr(val, "isoformat") and callable(val.isoformat):
+        return val.isoformat()
+    return val
+
+
 # ------------------------------
 # Data structures
 # ------------------------------
@@ -144,9 +159,9 @@ def _read_text_file(path: str, max_bytes: int) -> str:
 
     # Try utf-8 first; if it fails, fallback to 'utf-8' with replacement.
     try:
-        return data.decode("utf-8")
+        return _sanitize_for_json(data).decode("utf-8")
     except UnicodeDecodeError:
-        return data.decode("utf-8", errors="replace")
+        return _sanitize_for_json(data).decode("utf-8", errors="replace")
 
 
 def skill_md_path(skill_dir: str) -> str:
@@ -239,7 +254,7 @@ def parse_frontmatter_yaml(frontmatter_yaml: str) -> dict[str, Any]:
             )
         )
 
-    return data
+    return _sanitize_for_json(data)
 
 
 def load_skill_doc(skill_dir: str) -> SkillDoc:

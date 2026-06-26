@@ -5,7 +5,6 @@ from __future__ import annotations
 import os
 from typing import Any
 
-import qrcode
 
 from .i18n_helper import make_tool_translator
 from .safe_file_ops_extras import ensure_within_workdir
@@ -115,6 +114,10 @@ def _backup_path(path: str) -> str:
 
 
 def run_tool(args: dict[str, Any]) -> str:
+    try:
+        import qrcode
+    except ImportError:
+        return make_response(False, "qrcode is not installed. Install with: pip install qrcode")
     text = str(args.get("text", ""))
     filename = str(args.get("filename", "")).strip()
     error_correction_str = str(args.get("ecc", "M")).upper()
