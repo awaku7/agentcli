@@ -119,16 +119,6 @@ def _decode_schtasks_output(data: bytes) -> str:
     return data.decode("utf-8", errors="replace")
 
 
-def _capture_uagent_env_vars() -> list[str]:
-    """Capture UAGENT_* environment variables as batch set commands."""
-    lines: list[str] = []
-    for key, val in sorted(os.environ.items()):
-        if key.startswith("UAGENT_"):
-            safe_val = val.replace("%", "%%").replace("^", "^^").replace("&", "^&")
-            lines.append(f'set "{key}={safe_val}"')
-    return lines
-
-
 def _create_windows_schedule(name: str, cmd: str, at_dt: datetime) -> dict[str, Any]:
     time_str = at_dt.strftime("%H:%M")
     date_str = at_dt.strftime("%Y/%m/%d")
@@ -137,20 +127,16 @@ def _create_windows_schedule(name: str, cmd: str, at_dt: datetime) -> dict[str, 
     bat_dir = os.path.join(os.path.expanduser("~"), ".uag", "scheduled")
     os.makedirs(bat_dir, exist_ok=True)
     bat_path = os.path.join(bat_dir, f"{name}.bat")
-    env_lines = _capture_uagent_env_vars()
     bat_lines = [
         "@echo off",
         f"echo [uag] Timer firing: {name}",
-    ]
-    bat_lines.extend(env_lines)
-    bat_lines.extend([
         cmd,
         "echo.",
         "echo [uag] Timer finished. Press any key to close...",
         "pause > nul",
         f"schtasks /delete /tn \"{name}\" /f > nul 2>&1",
         f"del /f \"{bat_path}\" > nul 2>&1",
-    ])
+    ]
     with open(bat_path, "w", encoding="utf-8") as f:
         f.write("\n".join(bat_lines) + "\n")
 
