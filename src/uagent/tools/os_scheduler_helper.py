@@ -128,16 +128,20 @@ def _create_windows_schedule(name: str, cmd: str, at_dt: datetime, workdir: str 
     os.makedirs(bat_dir, exist_ok=True)
     bat_path = os.path.join(bat_dir, f"{name}.bat")
     wd_display = workdir or "(default)"
+    log_path = os.path.join(bat_dir, f"{name}.log")
     bat_lines = [
         "@echo off",
         f"echo [uag] Timer firing: {name}",
         f"echo [uag] Workdir: {wd_display}",
-        cmd,
+        f"echo [uag] Log: {log_path}",
+        f"{cmd} > \"{log_path}\" 2>&1",
+        f"type \"{log_path}\"",
         "echo.",
         "echo [uag] Timer finished. Press any key to close...",
         "pause > nul",
         f"schtasks /delete /tn \"{name}\" /f > nul 2>&1",
         f"del /f \"{bat_path}\" > nul 2>&1",
+        f"del /f \"{log_path}\" > nul 2>&1",
     ]
     with open(bat_path, "w", encoding="utf-8") as f:
         f.write("\n".join(bat_lines) + "\n")
