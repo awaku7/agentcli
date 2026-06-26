@@ -1,5 +1,17 @@
 # 変更履歴
 
+
+## [0.5.25] - 2026-06-26
+
+### 変更
+- デフォルト `UAGENT_SHRINK_RATIO` を 0.1 から 0.5 に戻し、圧縮頻度を低減。
+- `llmcapa` 依存を 0.2.5 から 0.2.6 に更新。
+
+### リファクタ
+- `qrcode` をコア依存から削除。`generate_qr_code_tool` は実行時に遅延インポートに変更。
+- YAML値（datetime.date等）のJSON安全変換を行う `_sanitize_for_json` ヘルパーを追加。
+- `_read_text_file` と `parse_frontmatter_yaml` に `_sanitize_for_json` を適用。
+
 このプロジェクトの重要な変更箇所はすべてこのファイルに記録されます。
 
 このフォーマットは [Keep a Changelog](https://keepachangelog.com/ja/1.0.0/) に基づいており、

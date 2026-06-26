@@ -1,5 +1,17 @@
 # Changelog
 
+
+## [0.5.25] - 2026-06-26
+
+### Changed
+- Changed default `UAGENT_SHRINK_RATIO` from 0.1 back to 0.5 to reduce compression frequency.
+- Updated `llmcapa` dependency from 0.2.5 to 0.2.6.
+
+### Refactored
+- Removed `qrcode` from core dependencies; `generate_qr_code_tool` now lazy-imports qrcode at runtime.
+- Added `_sanitize_for_json` helper for JSON-safe conversion of YAML values.
+- Applied `_sanitize_for_json` in `_read_text_file` and `parse_frontmatter_yaml`.
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
