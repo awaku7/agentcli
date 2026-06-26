@@ -118,8 +118,26 @@ def _decode_schtasks_output(data: bytes) -> str:
 def _create_windows_schedule(name: str, cmd: str, at_dt: datetime) -> dict[str, Any]:
     time_str = at_dt.strftime("%H:%M")
     date_str = at_dt.strftime("%Y/%m/%d")
+
+    # Write a batch file that: runs uag, pauses for user to see output, then self-deletes
+    bat_dir = os.path.join(os.path.expanduser("~"), ".uag", "scheduled")
+    os.makedirs(bat_dir, exist_ok=True)
+    bat_path = os.path.join(bat_dir, f"{name}.bat")
+    bat_lines = [
+        "@echo off",
+        f"echo [uag] Timer firing: {name}",
+        cmd,
+        "echo.",
+        "echo [uag] Timer finished. Press any key to close...",
+        "pause > nul",
+        f"schtasks /delete /tn \"{name}\" /f > nul 2>&1",
+        f"del /f \"{bat_path}\" > nul 2>&1",
+    ]
+    with open(bat_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(bat_lines) + "\n")
+
     result = _run_schtasks(
-        f'/create /tn "{name}" /tr "{cmd}" /sc once /st "{time_str}" /sd "{date_str}" /f'
+        f'/create /tn "{name}" /tr "{bat_path}" /sc once /st "{time_str}" /sd "{date_str}" /f'
     )
     return {
         "ok": result.returncode == 0,
