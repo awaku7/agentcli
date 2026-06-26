@@ -175,13 +175,16 @@ def _run_create_internal(seconds: int, message: str, llm_prompt: str) -> str:
 
 def _run_create_os(seconds: int, message: str, llm_prompt: str) -> str:
     from ..env_utils import env_get
+    from ._genre_control_util import get_enabled_genre_mask
     import os as _os
 
     at_dt = utc_now() + timedelta(seconds=seconds)
     workdir = env_get("UAGENT_WORKDIR") or _os.getcwd()
+    mask = get_enabled_genre_mask()
 
     result = create_os_schedule(
         at_dt=at_dt,
+        tool_genre_mask=mask,
         message=message,
         on_timeout_prompt=llm_prompt,
         workdir=workdir,

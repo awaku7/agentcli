@@ -16,6 +16,28 @@ from typing import Any
 # Track which genres are currently enabled (persists across plugin reloads)
 _ENABLED_GENRES: set[str] = set()
 
+_GENRE_BITMAP: dict[str, int] = {
+    "basic": 1,
+    "comm": 2,
+    "office": 4,
+    "devel": 8,
+    "iot": 16,
+    "exec": 32,
+    "external": 64,
+    "media": 128,
+    "file": 256,
+    "index": 512,
+}
+
+
+def get_enabled_genre_mask() -> int:
+    """Return the bitmask of currently enabled tool genres."""
+    mask = 0
+    for genre, bit in _GENRE_BITMAP.items():
+        if genre in _ENABLED_GENRES:
+            mask |= bit
+    return mask
+
 # Track individually loaded tools and remaining uses (persists across plugin reloads)
 # value: remaining uses (-1 = unlimited, 0 = expired, >0 = countdown)
 _LOADED_SINGLE_TOOLS: dict[str, int] = {}
