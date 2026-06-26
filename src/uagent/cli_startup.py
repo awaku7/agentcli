@@ -415,12 +415,6 @@ def run_cli_startup(
     _flush_startup_pager_and_continue()
 
     file_path = initial_file_arg
-    if file_path is None and len(sys.argv) > 1:
-        # Skip arguments that look like flags (consumed by argparse)
-        for arg in sys.argv[1:]:
-            if not arg.startswith("-"):
-                file_path = arg
-                break
 
     if file_path:
         try:

@@ -131,9 +131,11 @@ def _create_windows_schedule(name: str, cmd: str, at_dt: datetime, workdir: str 
     log_path = os.path.join(bat_dir, f"{name}.log")
     bat_lines = [
         "@echo off",
+        "chcp 65001 > nul",
         f"echo [uag] Timer firing: {name}",
         f"echo [uag] Workdir: {wd_display}",
         f"echo [uag] Log: {log_path}",
+        f"cd /d \"{wd_display}\"",
         f"{cmd} > \"{log_path}\" 2>&1",
         f"type \"{log_path}\"",
         "echo.",
