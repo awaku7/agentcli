@@ -19,7 +19,7 @@ from pathlib import Path
 
 from .i18n import _, detect_lang, set_thread_lang
 from .providers.provider_caps import RESPONSES_PROVIDERS
-from uag_envsec.secret_core import DEFAULT_SEC_SUFFIX, encrypt_text, ensure_key_file
+from uag_envsec.secret_core import DEFAULT_SEC_SUFFIX, encrypt_text, decrypt_text, ensure_key_file
 
 # Setup wizard follows detected UI language.
 set_thread_lang(detect_lang())
@@ -1086,7 +1086,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# Provider selection")
     out.append("# ==============================")
     out.append(
-        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / zai / alibaba / moonshot / mimo"
+        "# azure / openai / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / zai / alibaba / moonshot / mimo / lmstudio / minimax / hf"
     )
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")
@@ -1295,8 +1295,65 @@ def _ask_encrypt_env() -> tuple[bool, str]:
     return False, ""
 
 
+def _load_existing_env() -> dict[str, str]:
+    """Try to load existing .env or .env.sec file and return key-value pairs."""
+    result: dict[str, str] = {}
+    env_path = Path.cwd() / ".env"
+    if env_path.exists():
+        try:
+            for line in env_path.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                result[k.strip()] = v.strip()
+        except Exception:
+            pass
+    sec_path = env_path.with_suffix(env_path.suffix + ".sec")
+    if sec_path.exists() and not result:
+        try:
+            sec_text = sec_path.read_text(encoding="utf-8").strip()
+            decrypted = decrypt_text(sec_text)
+            for line in decrypted.splitlines():
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                result[k.strip()] = v.strip()
+        except Exception:
+            pass
+    return result
+
+
+def _detect_env_vars() -> dict[str, str]:
+    """Detect already-set environment variables (UAGENT_* keys)."""
+    result: dict[str, str] = {}
+    for k, v in os.environ.items():
+        if k.startswith("UAGENT_") and v:
+            result[k] = v
+    return result
+
+
 def main() -> int:
-    st = _WizardState(values={})
+    # Load existing env files and environment vars as defaults
+    existing_env = _load_existing_env()
+    env_vars = _detect_env_vars()
+    defaults: dict[str, str] = {}
+    defaults.update(existing_env)
+    defaults.update(env_vars)
+
+    # Detect provider from defaults
+    detected_provider = defaults.get("UAGENT_PROVIDER", "").lower()
+    detected_index = 2  # default to openai
+    if detected_provider:
+        for i, (p, _) in enumerate(PROVIDERS):
+            if p == detected_provider:
+                detected_index = i + 1
+                break
+
+    st = _WizardState(values=dict(defaults))
+    if detected_provider:
+        st.provider = detected_provider
 
     stage = 0
     provider_fields: list[tuple[str, bool, str]] = []
@@ -1307,7 +1364,7 @@ def main() -> int:
         if stage == 0:
             options = [f"{p} ({label})" for p, label in PROVIDERS]
             choice = _menu_choice(
-                _("Select provider"), options, default_index=2, allow_back=False
+                _("Select provider"), options, default_index=detected_index, allow_back=False
             )
             if choice == "__quit__":
                 print(_("Cancelled."))
