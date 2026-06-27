@@ -75,6 +75,9 @@ PROVIDERS: list[tuple[str, str]] = [
     ("alibaba", "Alibaba Cloud (Qwen)"),
     ("moonshot", "Moonshot AI"),
     ("mimo", "Xiaomi MiMo"),
+    ("lmstudio", "LM Studio"),
+    ("minimax", "MiniMax"),
+    ("hf", "HuggingFace"),
 ]
 
 # key, required, label
@@ -269,6 +272,44 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_MIMO_DEPNAME",
             False,
             _("MiMo model name (optional, default: mimo-v2.5-pro)"),
+        ),
+    ],
+    "lmstudio": [
+        (
+            "UAGENT_LMSTUDIO_BASE_URL",
+            False,
+            _("LM Studio base URL (optional, default: http://localhost:1234/v1)"),
+        ),
+        (
+            "UAGENT_LMSTUDIO_DEPNAME",
+            False,
+            _("LM Studio model name (optional, default: local-model)"),
+        ),
+    ],
+    "minimax": [
+        ("UAGENT_MINIMAX_API_KEY", True, _("MiniMax API key")),
+        (
+            "UAGENT_MINIMAX_BASE_URL",
+            False,
+            _("MiniMax base URL (optional, default: https://api.minimax.io)"),
+        ),
+        (
+            "UAGENT_MINIMAX_DEPNAME",
+            False,
+            _("MiniMax model name (optional, default: MiniMax-M3)"),
+        ),
+    ],
+    "hf": [
+        ("UAGENT_HF_API_KEY", True, _("HuggingFace API key (HF_TOKEN)")),
+        (
+            "UAGENT_HF_BASE_URL",
+            False,
+            _("HuggingFace base URL (optional, default: https://router.huggingface.co/v1)"),
+        ),
+        (
+            "UAGENT_HF_DEPNAME",
+            False,
+            _("HuggingFace model name (optional, default: openai/gpt-oss-120b)"),
         ),
     ],
 }
