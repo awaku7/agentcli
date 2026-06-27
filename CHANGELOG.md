@@ -1,6 +1,32 @@
 # Changelog
 
 
+## [0.5.27] - 2026-06-27
+
+### Added
+- Setup wizard now detects existing `.env` / `.env.sec` files and environment variables (UAGENT_*) as defaults.
+- Setup wizard now supports LM Studio, MiniMax, and HuggingFace providers.
+
+### Fixed
+- Skip tool schema compat sync for strict OpenAI-compatible APIs (HuggingFace) to avoid HTTP 400 errors.
+- Strip `tool_genre` from tool specs before sending to LLM to reduce token usage.
+- Use local `.uagent.key` first for `.env.sec` decryption in setup wizard.
+- Removed local `.uagent.key` support; use default key only for `.env.sec` operations.
+
+### Documentation
+- Added HuggingFace (hf) provider documentation to ENVIRONMENT.md and README.
+- Added missing provider sections (Z.AI, MiniMax) and fixed Japanese table formatting.
+
+### Chores
+- Fixed ruff lint errors across codebase.
+- Applied black formatting to 11 files.
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+
 ## [0.5.26] - 2026-06-26
 
 ### Added
