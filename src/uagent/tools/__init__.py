@@ -562,17 +562,22 @@ def get_tool_specs() -> list[dict[str, Any]]:
     # Note:
     # - Both Chat Completions and Responses expect tools without a top-level "name".
     #   The canonical form is: {"type":"function","function":{"name":..., ...}}
-    # - However, some SDKs/proxies/compat layers require tools[i].name.
-    #   To be robust, mirror the function name to the top-level "name" as well.
+    # - Some SDKs/proxies mirrored name to top-level, but strict APIs (HuggingFace
+    #   router, etc.) reject tools[i].name, so we no longer include it.
 
     clean_specs: list[dict[str, Any]] = []
     for spec in TOOL_SPECS:
         spec_copy = spec.copy()
         # Remove internal-only keys from tool specs before sending to LLM.
-        # (OpenAI/Responses schema expects only {type,function} (+ optional name mirror)).
+        # (OpenAI/Responses schema expects only {type,function}).
         spec_copy.pop("disabled", None)
         spec_copy.pop("tool_level", None)
         spec_copy.pop("load_order", None)
+        # Remove top-level extended fields (x_* prefixed) that strict OpenAI-compatible
+        # APIs (e.g. HuggingFace router) reject.
+        for key in list(spec_copy.keys()):
+            if key.startswith("x_"):
+                spec_copy.pop(key, None)
         if "function" in spec_copy and isinstance(spec_copy["function"], dict):
             func_copy = spec_copy["function"].copy()
             spec_copy["function"] = func_copy
@@ -586,10 +591,15 @@ def get_tool_specs() -> list[dict[str, Any]]:
                     params["additionalProperties"] = False
                     func_copy["parameters"] = params
 
-            # compatibility: mirror name to top-level
-            fn_name = func_copy.get("name")
-            if fn_name and not spec_copy.get("name"):
-                spec_copy["name"] = fn_name
+            # Remove extended fields (x_* prefixed) from function dict as well.
+            for key in list(func_copy.keys()):
+                if key.startswith("x_"):
+                    func_copy.pop(key, None)
+
+        # Remove the top-level "name" mirror -- the canonical location is
+        # function.name. Strict OpenAI-compatible APIs (e.g. HuggingFace
+        # router) reject tools[i].name outright.
+        spec_copy.pop("name", None)
 
         clean_specs.append(spec_copy)
     return clean_specs

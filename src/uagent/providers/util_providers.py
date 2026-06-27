@@ -238,6 +238,7 @@ def detect_provider() -> str:
         "mimo",
         "lmstudio",
         "minimax",
+        "hf",
     ):
         print(_("Unknown provider: %(provider)s") % {"provider": p}, file=sys.stderr)
         sys.exit(1)
@@ -296,6 +297,11 @@ def get_model_name() -> str:
         return env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"
     if provider == "minimax":
         return env_get("UAGENT_MINIMAX_DEPNAME", "MiniMax-M3") or "MiniMax-M3"
+    if provider == "hf":
+        return (
+            env_get("UAGENT_HF_DEPNAME", "openai/gpt-oss-120b")
+            or "openai/gpt-oss-120b"
+        )
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
 
 
@@ -670,6 +676,24 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         api_key = core.get_env("UAGENT_MINIMAX_API_KEY")
         base_url = core.get_env_url("UAGENT_MINIMAX_BASE_URL", "https://api.minimax.io")
+
+        http_client = make_httpx_client()
+
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+
+        return provider, client, model_name
+
+    if provider == "hf":
+        from openai import OpenAI  # lazy
+
+        api_key = core.get_env("UAGENT_HF_API_KEY")
+        base_url = core.get_env_url(
+            "UAGENT_HF_BASE_URL",
+            "https://router.huggingface.co/v1",
+        )
 
         http_client = make_httpx_client()
 

@@ -39,8 +39,8 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_PROVIDER"],
             reason=_(
-                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax).",
-                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax).",
+                "Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf).",
+                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf).",
             ),
         )
         return provider, missing, warnings
@@ -63,6 +63,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         "mimo",
         "lmstudio",
         "minimax",
+        "hf",
     )
     if provider not in allowed:
         warnings.append(
@@ -212,6 +213,11 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_MINIMAX_API_KEY"],
             reason=_("MiniMax API key.", default="MiniMax API key."),
+        )
+    elif provider == "hf":
+        missing += _require(
+            ["UAGENT_HF_API_KEY"],
+            reason=_("Hugging Face API key (HF_TOKEN).", default="Hugging Face API key (HF_TOKEN)."),
         )
 
     embedding_provider = (_get("UAGENT_EMBEDDING_PROVIDER") or "").lower()
