@@ -138,4 +138,12 @@ def run_tool(args: dict[str, Any]) -> str:
             prompt=prompt,
         )
 
+    if provider_l in ("zai",):
+        from .vision_zai import analyze_image_zai
+
+        return analyze_image_zai(
+            image_path=image_path,
+            prompt=prompt,
+        )
+
     raise RuntimeError(f"Unsupported provider: {provider}")
