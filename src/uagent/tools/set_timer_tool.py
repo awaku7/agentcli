@@ -181,6 +181,7 @@ def _run_create_os(seconds: int, message: str, llm_prompt: str) -> str:
     workdir = env_get("UAGENT_WORKDIR") or _os.getcwd()
     # Collect loaded tool names from TOOL_SPECS
     from .. import tools as _tools
+
     tool_names = [
         str(s.get("function", {}).get("name", ""))
         for s in getattr(_tools, "TOOL_SPECS", [])
@@ -242,9 +243,7 @@ def _run_list() -> str:
             default="[set_timer] No OS schedules found.",
         )
 
-    lines: list[str] = [
-        _("out.list_header", default="[set_timer] OS schedules:")
-    ]
+    lines: list[str] = [_("out.list_header", default="[set_timer] OS schedules:")]
     for s in schedules:
         lines.append(f"  - {s.get('job_name', '?')}")
     return "\n".join(lines)

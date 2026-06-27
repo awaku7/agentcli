@@ -38,6 +38,7 @@ def get_enabled_genre_mask() -> int:
             mask |= bit
     return mask
 
+
 # Track individually loaded tools and remaining uses (persists across plugin reloads)
 # value: remaining uses (-1 = unlimited, 0 = expired, >0 = countdown)
 _LOADED_SINGLE_TOOLS: dict[str, int] = {}
@@ -46,6 +47,7 @@ _LOADED_SINGLE_TOOLS: dict[str, int] = {}
 def get_enabled_tool_names() -> list[str]:
     """Return a sorted list of all currently enabled tool names."""
     from . import TOOL_SPECS
+
     names: list[str] = []
     for spec in TOOL_SPECS:
         func = spec.get("function", {})

@@ -165,6 +165,7 @@ try:
         APIConnectionError as _ZhipuaiAPIConnectionError,
         APIStatusError as _ZhipuaiAPIStatusError,
     )
+
     _ZHIPUAI_AVAILABLE = True
 except Exception:
     pass
@@ -349,9 +350,8 @@ def zai_chat_with_tools(
                 return False, client, "", "", []
 
             # Connection error
-            if (
-                _ZhipuaiAPIConnectionError is not None
-                and isinstance(e, _ZhipuaiAPIConnectionError)
+            if _ZhipuaiAPIConnectionError is not None and isinstance(
+                e, _ZhipuaiAPIConnectionError
             ):
                 print(f"[{_LABEL} Error] " + _("Connection error"))
                 _maybe_print_certifi_where(e)

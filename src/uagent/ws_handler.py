@@ -195,9 +195,7 @@ class WsHandler:
                             "name": name,
                             "content": content,
                         }
-                        await self._websocket.send(
-                            json.dumps(msg, ensure_ascii=False)
-                        )
+                        await self._websocket.send(json.dumps(msg, ensure_ascii=False))
                     except Exception as _exc:
                         _lg.getLogger("uag.ws_handler").info(
                             "_send_intermediate send error role=%s: %s",
@@ -237,9 +235,7 @@ class WsHandler:
                             rc = (msg.get("reasoning_content", "") or "").strip()
                             if rc:
                                 asyncio.run_coroutine_threadsafe(
-                                    _send_intermediate(
-                                        "reasoning", content=rc[:500]
-                                    ),
+                                    _send_intermediate("reasoning", content=rc[:500]),
                                     _loop,
                                 )
                         elif role == "tool":

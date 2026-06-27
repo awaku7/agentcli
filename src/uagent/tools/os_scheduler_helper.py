@@ -62,7 +62,13 @@ def create_os_schedule(
     """
     os_type = detect_os()
     name = job_name or _generate_job_name()
-    uag_cmd = _build_uag_command(workdir, message, on_timeout_prompt, tool_genre_mask=tool_genre_mask, enable_tools=enable_tools)
+    uag_cmd = _build_uag_command(
+        workdir,
+        message,
+        on_timeout_prompt,
+        tool_genre_mask=tool_genre_mask,
+        enable_tools=enable_tools,
+    )
 
     # Convert to local time for OS scheduler (schtasks / at use local TZ)
     local_dt = at_dt.astimezone()
@@ -83,7 +89,11 @@ def delete_os_schedule(job_name: str) -> dict[str, Any]:
     elif os_type in ("darwin", "linux"):
         return _delete_unix_schedule(job_name)
     else:
-        return {"ok": False, "job_name": job_name, "message": f"Unsupported OS: {os_type}"}
+        return {
+            "ok": False,
+            "job_name": job_name,
+            "message": f"Unsupported OS: {os_type}",
+        }
 
 
 def list_os_schedules() -> list[dict[str, Any]]:
@@ -122,7 +132,9 @@ def _decode_schtasks_output(data: bytes) -> str:
     return data.decode("utf-8", errors="replace")
 
 
-def _create_windows_schedule(name: str, cmd: str, at_dt: datetime, workdir: str | None = None) -> dict[str, Any]:
+def _create_windows_schedule(
+    name: str, cmd: str, at_dt: datetime, workdir: str | None = None
+) -> dict[str, Any]:
     time_str = at_dt.strftime("%H:%M")
     date_str = at_dt.strftime("%Y/%m/%d")
 
@@ -138,15 +150,15 @@ def _create_windows_schedule(name: str, cmd: str, at_dt: datetime, workdir: str 
         f"echo [uag] Timer firing: {name}",
         f"echo [uag] Workdir: {wd_display}",
         f"echo [uag] Log: {log_path}",
-        f"cd /d \"{wd_display}\"",
-        f"{cmd} > \"{log_path}\" 2>&1",
-        f"type \"{log_path}\"",
+        f'cd /d "{wd_display}"',
+        f'{cmd} > "{log_path}" 2>&1',
+        f'type "{log_path}"',
         "echo.",
         "echo [uag] Timer finished. Press any key to close...",
         "pause > nul",
-        f"schtasks /delete /tn \"{name}\" /f > nul 2>&1",
-        f"del /f \"{bat_path}\" > nul 2>&1",
-        f"del /f \"{log_path}\" > nul 2>&1",
+        f'schtasks /delete /tn "{name}" /f > nul 2>&1',
+        f'del /f "{bat_path}" > nul 2>&1',
+        f'del /f "{log_path}" > nul 2>&1',
     ]
     with open(bat_path, "w", encoding="utf-8") as f:
         f.write("\n".join(bat_lines) + "\n")
@@ -194,7 +206,9 @@ def _has_systemd() -> bool:
     try:
         r = subprocess.run(
             ["systemd-run", "--version"],
-            capture_output=True, text=True, timeout=5,
+            capture_output=True,
+            text=True,
+            timeout=5,
         )
         return r.returncode == 0
     except Exception:
@@ -213,14 +227,22 @@ def _try_systemd_run(name: str, cmd: str, at_dt: datetime) -> dict[str, Any]:
     try:
         proc = subprocess.run(
             [
-                "systemd-run", "--user",
-                "--unit", name,
-                "--on-active", str(delta),
+                "systemd-run",
+                "--user",
+                "--unit",
+                name,
+                "--on-active",
+                str(delta),
                 "--same-dir",
                 "--collect",
-                "--", "sh", "-c", cmd,
+                "--",
+                "sh",
+                "-c",
+                cmd,
             ],
-            capture_output=True, text=True, timeout=30,
+            capture_output=True,
+            text=True,
+            timeout=30,
         )
         out = (proc.stdout + proc.stderr).strip()
         return {
@@ -241,11 +263,13 @@ def _delete_systemd_unit(name: str) -> dict[str, Any]:
     try:
         subprocess.run(
             ["systemctl", "--user", "stop", name],
-            capture_output=True, timeout=15,
+            capture_output=True,
+            timeout=15,
         )
         subprocess.run(
             ["systemctl", "--user", "reset-failed", name],
-            capture_output=True, timeout=15,
+            capture_output=True,
+            timeout=15,
         )
         return {"ok": True, "job_name": name, "message": f"Systemd unit {name} stopped"}
     except Exception as e:
@@ -256,7 +280,9 @@ def _list_systemd_units() -> list[dict[str, Any]]:
     try:
         proc = subprocess.run(
             ["systemctl", "--user", "list-timers", "--all", "--no-legend"],
-            capture_output=True, text=True, timeout=15,
+            capture_output=True,
+            text=True,
+            timeout=15,
         )
         if proc.returncode != 0:
             return []
@@ -342,9 +368,7 @@ def _delete_unix_schedule(name: str) -> dict[str, Any]:
             return result
     # Fallback: at queue
     try:
-        atq = subprocess.run(
-            ["atq"], capture_output=True, text=True, timeout=15
-        )
+        atq = subprocess.run(["atq"], capture_output=True, text=True, timeout=15)
         if atq.returncode != 0:
             return {"ok": False, "job_name": name, "message": "atq command failed"}
         for line in atq.stdout.strip().split("\n"):
@@ -356,13 +380,17 @@ def _delete_unix_schedule(name: str) -> dict[str, Any]:
             job_id = parts[0]
             check = subprocess.run(
                 ["at", "-c", job_id],
-                capture_output=True, text=True, timeout=15,
+                capture_output=True,
+                text=True,
+                timeout=15,
             )
             if name in check.stdout:
-                subprocess.run(
-                    ["atrm", job_id], capture_output=True, timeout=15
-                )
-                return {"ok": True, "job_name": name, "message": f"Deleted at job {job_id}"}
+                subprocess.run(["atrm", job_id], capture_output=True, timeout=15)
+                return {
+                    "ok": True,
+                    "job_name": name,
+                    "message": f"Deleted at job {job_id}",
+                }
         return {"ok": False, "job_name": name, "message": "Job not found"}
     except FileNotFoundError:
         return {"ok": False, "job_name": name, "message": "'at' command not found"}
@@ -379,9 +407,7 @@ def _list_unix_schedules() -> list[dict[str, Any]]:
         jobs = _list_systemd_units()
     # Also check at queue
     try:
-        atq = subprocess.run(
-            ["atq"], capture_output=True, text=True, timeout=15
-        )
+        atq = subprocess.run(["atq"], capture_output=True, text=True, timeout=15)
         if atq.returncode == 0:
             for line in atq.stdout.strip().split("\n"):
                 if not line.strip():
@@ -392,7 +418,9 @@ def _list_unix_schedules() -> list[dict[str, Any]]:
                 job_id = parts[0]
                 check = subprocess.run(
                     ["at", "-c", job_id],
-                    capture_output=True, text=True, timeout=15,
+                    capture_output=True,
+                    text=True,
+                    timeout=15,
                 )
                 if _JOB_PREFIX in check.stdout:
                     jobs.append({"job_name": job_id, "raw": line})

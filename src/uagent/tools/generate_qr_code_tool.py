@@ -117,7 +117,9 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         import qrcode
     except ImportError:
-        return make_response(False, "qrcode is not installed. Install with: pip install qrcode")
+        return make_response(
+            False, "qrcode is not installed. Install with: pip install qrcode"
+        )
     text = str(args.get("text", ""))
     filename = str(args.get("filename", "")).strip()
     error_correction_str = str(args.get("ecc", "M")).upper()

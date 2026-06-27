@@ -299,8 +299,7 @@ def get_model_name() -> str:
         return env_get("UAGENT_MINIMAX_DEPNAME", "MiniMax-M3") or "MiniMax-M3"
     if provider == "hf":
         return (
-            env_get("UAGENT_HF_DEPNAME", "openai/gpt-oss-120b")
-            or "openai/gpt-oss-120b"
+            env_get("UAGENT_HF_DEPNAME", "openai/gpt-oss-120b") or "openai/gpt-oss-120b"
         )
     return env_get("UAGENT_OPENAI_DEPNAME", "gpt-5.2") or "gpt-5.2"
 
@@ -590,13 +589,18 @@ def make_client(core: Any) -> tuple[str, Any, str]:
 
         if ZhipuAI is not None:
             try:
-                client = ZhipuAI(api_key=api_key, base_url=base_url, http_client=http_client)
+                client = ZhipuAI(
+                    api_key=api_key, base_url=base_url, http_client=http_client
+                )
             except TypeError:
                 client = ZhipuAI(api_key=api_key, base_url=base_url)
         else:
             from openai import OpenAI  # fallback to OpenAI-compatible
+
             try:
-                client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+                client = OpenAI(
+                    api_key=api_key, base_url=base_url, http_client=http_client
+                )
             except TypeError:
                 client = OpenAI(api_key=api_key, base_url=base_url)
 

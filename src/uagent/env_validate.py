@@ -217,7 +217,10 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
     elif provider == "hf":
         missing += _require(
             ["UAGENT_HF_API_KEY"],
-            reason=_("Hugging Face API key (HF_TOKEN).", default="Hugging Face API key (HF_TOKEN)."),
+            reason=_(
+                "Hugging Face API key (HF_TOKEN).",
+                default="Hugging Face API key (HF_TOKEN).",
+            ),
         )
 
     embedding_provider = (_get("UAGENT_EMBEDDING_PROVIDER") or "").lower()

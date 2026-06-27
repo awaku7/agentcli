@@ -20,7 +20,12 @@ from pathlib import Path
 
 from .i18n import _, detect_lang, set_thread_lang
 from .providers.provider_caps import RESPONSES_PROVIDERS
-from uag_envsec.secret_core import DEFAULT_SEC_SUFFIX, encrypt_text, decrypt_text, ensure_key_file
+from uag_envsec.secret_core import (
+    DEFAULT_SEC_SUFFIX,
+    encrypt_text,
+    decrypt_text,
+    ensure_key_file,
+)
 
 # Setup wizard follows detected UI language.
 set_thread_lang(detect_lang())
@@ -305,7 +310,9 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_HF_BASE_URL",
             False,
-            _("HuggingFace base URL (optional, default: https://router.huggingface.co/v1)"),
+            _(
+                "HuggingFace base URL (optional, default: https://router.huggingface.co/v1)"
+            ),
         ),
         (
             "UAGENT_HF_DEPNAME",
@@ -1365,7 +1372,10 @@ def main() -> int:
         if stage == 0:
             options = [f"{p} ({label})" for p, label in PROVIDERS]
             choice = _menu_choice(
-                _("Select provider"), options, default_index=detected_index, allow_back=False
+                _("Select provider"),
+                options,
+                default_index=detected_index,
+                allow_back=False,
             )
             if choice == "__quit__":
                 print(_("Cancelled."))

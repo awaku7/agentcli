@@ -295,7 +295,9 @@ def apply_openrouter_tool_schema_compat(
         pass
 
 
-def finalize_tool_schema_sync(chat_kwargs: dict[str, Any], *, provider: str = "") -> None:
+def finalize_tool_schema_sync(
+    chat_kwargs: dict[str, Any], *, provider: str = ""
+) -> None:
     """Final OpenRouter/Azure-proxy compatibility sync.
 
     - ensure tools[i].parameters always mirrors function.parameters

@@ -375,11 +375,15 @@ def run_cli_startup(
                 # Default: none
             if enable_tools:
                 from .tools._genre_control_util import enable_single_tool
+
                 for tname in enable_tools:
                     try:
                         enable_single_tool(tname)
                     except Exception as e:
-                        print(f"[WARN] Failed to enable tool '{tname}': {e}", file=sys.stderr)
+                        print(
+                            f"[WARN] Failed to enable tool '{tname}': {e}",
+                            file=sys.stderr,
+                        )
             core.set_status(False, "")
 
             messages = build_initial_messages(core=core)
