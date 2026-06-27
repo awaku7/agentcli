@@ -21,7 +21,7 @@ ______________________________________________________________________
 ### 1. Provider selection
 
 - `UAGENT_PROVIDER` (required): LLM provider name.
-  Supported values: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`.
+  Supported values: `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`.
 - `UAGENT_USE_TOOL`: Set to `0`, `false`, `no`, or `off` to disable tool sending to LLM.
 
 #### Azure OpenAI
@@ -140,6 +140,18 @@ Used by Gemini / Vertex AI features that need Google Cloud access.
 
 - `UAGENT_GOOGLE_CREDENTIALS`: Path to Google Cloud service account JSON or JSON string (optional).
 - `UAGENT_GOOGLE_LOCATION`: Google Cloud location/region (e.g., `asia-northeast1`).
+
+
+
+#### HuggingFace (Inference API / Serverless)
+
+Required if `UAGENT_PROVIDER=hf`:
+
+- `UAGENT_HF_API_KEY` (required): Your HuggingFace API token (HF_TOKEN).
+- `UAGENT_HF_BASE_URL` (optional, default: `https://router.huggingface.co/v1`).
+- `UAGENT_HF_DEPNAME` (optional, default: `openai/gpt-oss-120b`).
+
+> **Note**: HuggingFace provides an OpenAI-compatible Inference API endpoint. Tool calling may have limitations depending on the model used.
 
 ### 3. Basic Agent Behavior
 

@@ -24,7 +24,7 @@ ______________________________________________________________________
 
 起動時に使用するメインのプロバイダを指定します（必須）。
 
-- 有効な値: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `zai`, `alibaba`, `kimi`, `mimo`, `lmstudio`, `minimax`
+- 有効な値: `openai`, `azure`, `bedrock`, `openrouter`, `ollama`, `gemini`, `vertexai`, `grok`, `claude`, `nvidia`, `deepseek`, `zai`, `alibaba`, `kimi`, `mimo`, `lmstudio`, `minimax`, `hf`
 
 ### 2. LLM プロバイダ別の設定
 
@@ -45,8 +45,11 @@ ______________________________________________________________________
 | **DeepSeek** | `UAGENT_DEEPSEEK_API_KEY`, `UAGENT_DEEPSEEK_BASE_URL` (既定: `https://api.deepseek.com`) | `UAGENT_DEEPSEEK_DEPNAME` (既定: `deepseek-v4-flash`) |
 | **Alibaba Cloud (Qwen)** | `UAGENT_ALIBABA_API_KEY`, `UAGENT_ALIBABA_BASE_URL` (既定: `https://dashscope.aliyuncs.com/compatible-mode/v1`) | `UAGENT_ALIBABA_DEPNAME` (既定: `qwen3.5-plus`) |
 | **KIMI (Moonshot AI)** | `UAGENT_KIMI_API_KEY`, `UAGENT_KIMI_BASE_URL` (既定: `https://api.moonshot.cn/v1`) | `UAGENT_KIMI_DEPNAME` (既定: `kimi-k2`) |
+| **HuggingFace** | `UAGENT_HF_API_KEY`, `UAGENT_HF_BASE_URL` (既定: `https://router.huggingface.co/v1`) | `UAGENT_HF_DEPNAME` (既定: `openai/gpt-oss-120b`) |
 
 > ※ **AWS Bedrock について**: 現在の `uag` 実装では、Bedrock の OpenAI 互換エンドポイントを使用することを想定しています。
+
+> ※ **HuggingFace について**: HuggingFace は OpenAI 互換の Inference API エンドポイントを提供します。ツール呼び出しは使用するモデルに依存します。
 
 ### 3. エージェントの基本動作
 
