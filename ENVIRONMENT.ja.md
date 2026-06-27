@@ -43,8 +43,12 @@ ______________________________________________________________________
 | **Grok (xAI)** | `UAGENT_GROK_API_KEY`, `UAGENT_GROK_BASE_URL` | `UAGENT_GROK_DEPNAME` |
 | **NVIDIA** | `UAGENT_NVIDIA_API_KEY`, `UAGENT_NVIDIA_BASE_URL` | `UAGENT_NVIDIA_DEPNAME` |
 | **DeepSeek** | `UAGENT_DEEPSEEK_API_KEY`, `UAGENT_DEEPSEEK_BASE_URL` (既定: `https://api.deepseek.com`) | `UAGENT_DEEPSEEK_DEPNAME` (既定: `deepseek-v4-flash`) |
+| **Z.AI (Zhipu AI)** | `UAGENT_ZAI_API_KEY`, `UAGENT_ZAI_BASE_URL` (既定: `https://api.z.ai/api/paas/v4/`) | `UAGENT_ZAI_DEPNAME` (既定: `glm-5.2`) |
 | **Alibaba Cloud (Qwen)** | `UAGENT_ALIBABA_API_KEY`, `UAGENT_ALIBABA_BASE_URL` (既定: `https://dashscope.aliyuncs.com/compatible-mode/v1`) | `UAGENT_ALIBABA_DEPNAME` (既定: `qwen3.5-plus`) |
 | **KIMI (Moonshot AI)** | `UAGENT_KIMI_API_KEY`, `UAGENT_KIMI_BASE_URL` (既定: `https://api.moonshot.cn/v1`) | `UAGENT_KIMI_DEPNAME` (既定: `kimi-k2`) |
+| **MiniMax** | `UAGENT_MINIMAX_API_KEY`, `UAGENT_MINIMAX_BASE_URL` (既定: `https://api.minimax.io`) | `UAGENT_MINIMAX_DEPNAME` (既定: `MiniMax-M3`) |
+| **Xiaomi MiMo** | `UAGENT_MIMO_API_KEY`, `UAGENT_MIMO_BASE_URL` | `UAGENT_MIMO_DEPNAME` (既定: `mimo-v2.5-pro`) |
+| **LM Studio** | `UAGENT_LMSTUDIO_BASE_URL` (既定: `http://localhost:1234/v1`) | `UAGENT_LMSTUDIO_DEPNAME` (既定: `local-model`) |
 | **HuggingFace** | `UAGENT_HF_API_KEY`, `UAGENT_HF_BASE_URL` (既定: `https://router.huggingface.co/v1`) | `UAGENT_HF_DEPNAME` (既定: `openai/gpt-oss-120b`) |
 
 > ※ **AWS Bedrock について**: 現在の `uag` 実装では、Bedrock の OpenAI 互換エンドポイントを使用することを想定しています。

@@ -106,6 +106,13 @@ Required if `UAGENT_PROVIDER=deepseek`:
 - `UAGENT_DEEPSEEK_API_KEY` (required)
 - `UAGENT_DEEPSEEK_BASE_URL` (optional, default: `https://api.deepseek.com`)
 
+#### Z.AI (Zhipu AI)
+
+Required if `UAGENT_PROVIDER=zai`:
+
+- `UAGENT_ZAI_API_KEY` (required): Zhipu AI API key.
+- `UAGENT_ZAI_BASE_URL` (optional, default: `https://api.z.ai/api/paas/v4/`).
+- `UAGENT_ZAI_DEPNAME` (optional, default: `glm-5.2`).
 #### Alibaba Cloud (Qwen)
 
 Required if `UAGENT_PROVIDER=alibaba`:
@@ -142,6 +149,14 @@ Used by Gemini / Vertex AI features that need Google Cloud access.
 - `UAGENT_GOOGLE_LOCATION`: Google Cloud location/region (e.g., `asia-northeast1`).
 
 
+
+#### MiniMax
+
+Required if `UAGENT_PROVIDER=minimax`:
+
+- `UAGENT_MINIMAX_API_KEY` (required): MiniMax API key.
+- `UAGENT_MINIMAX_BASE_URL` (optional, default: `https://api.minimax.io`).
+- `UAGENT_MINIMAX_DEPNAME` (optional, default: `MiniMax-M3`).
 
 #### HuggingFace (Inference API / Serverless)
 
