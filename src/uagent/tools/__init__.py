@@ -573,6 +573,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
         spec_copy.pop("disabled", None)
         spec_copy.pop("tool_level", None)
         spec_copy.pop("load_order", None)
+        spec_copy.pop("tool_genre", None)
         # Remove top-level extended fields (x_* prefixed) that strict OpenAI-compatible
         # APIs (e.g. HuggingFace router) reject.
         for key in list(spec_copy.keys()):
