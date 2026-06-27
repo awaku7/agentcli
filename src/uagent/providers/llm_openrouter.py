@@ -295,12 +295,18 @@ def apply_openrouter_tool_schema_compat(
         pass
 
 
-def finalize_tool_schema_sync(chat_kwargs: dict[str, Any]) -> None:
+def finalize_tool_schema_sync(chat_kwargs: dict[str, Any], *, provider: str = "") -> None:
     """Final OpenRouter/Azure-proxy compatibility sync.
 
     - ensure tools[i].parameters always mirrors function.parameters
     - ensure required matches properties keys (no extra required keys)
+
+    Note: Strict OpenAI-compatible APIs (e.g. HuggingFace router) reject
+    tools[i].parameters at the top level, so we skip this for provider='hf'.
     """
+
+    if provider == "hf":
+        return
 
     try:
         _fixed_tools = []

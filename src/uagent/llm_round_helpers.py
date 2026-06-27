@@ -585,7 +585,7 @@ def _call_openai_azure_round(
                 apply_openrouter_tool_schema_compat(chat_kwargs, provider=provider)
 
                 # Final OpenRouter/Azure-proxy compatibility sync
-                finalize_tool_schema_sync(chat_kwargs)
+                finalize_tool_schema_sync(chat_kwargs, provider=provider)
 
                 # OpenRouter-specific fallback models support (does not affect other providers)
                 apply_openrouter_fallback_models(
