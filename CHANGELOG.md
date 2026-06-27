@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [0.5.28] - 2026-06-28
+
+### Changed
+- Made zhipuai an optional dependency (moved to `[zai]` extra). Falls back to OpenAI SDK when not installed.
+
+
 ## [0.5.27] - 2026-06-27
 
 ### Added
