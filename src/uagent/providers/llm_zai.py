@@ -33,8 +33,6 @@ from ..llm_helpers import (
 
 # Reuse DeepSeek response parsers (compatible with zhipuai SDK response format)
 from .llm_deepseek import (
-    build_assistant_message_with_reasoning,
-    extract_reasoning_content,
     parse_deepseek_response,
     parse_deepseek_stream,
     _diagnose_message_structure,
@@ -165,7 +163,6 @@ _ZhipuaiAPIReachLimitError: type[Exception] | None = None
 try:
     from zhipuai.core import (
         APIConnectionError as _ZhipuaiAPIConnectionError,
-        APIReachLimitError as _ZhipuaiAPIReachLimitError,
         APIStatusError as _ZhipuaiAPIStatusError,
     )
     _ZHIPUAI_AVAILABLE = True
