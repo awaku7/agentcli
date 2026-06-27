@@ -1313,10 +1313,7 @@ def _load_existing_env() -> dict[str, str]:
     if sec_path.exists() and not result:
         try:
             sec_text = sec_path.read_text(encoding="utf-8").strip()
-            # Try local key first, fallback to default key
-            local_key = Path.cwd() / ".uagent.key"
-            kp = str(local_key) if local_key.exists() else None
-            decrypted = decrypt_text(sec_text, key_path=kp)
+            decrypted = decrypt_text(sec_text)
             for line in decrypted.splitlines():
                 line = line.strip()
                 if not line or line.startswith("#") or "=" not in line:

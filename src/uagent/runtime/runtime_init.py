@@ -69,13 +69,9 @@ def load_dotenv_custom() -> None:
             # Local import to avoid dependency issues if not used.
             from uag_envsec.secret_core import decrypt_text
 
-            # Prefer .uagent.key in CWD, fallback to default (~/.uag/uag_envsec_key).
-            local_key = cwd / ".uagent.key"
-            kp = str(local_key) if local_key.exists() else None
-
             body = sec_path.read_text(encoding="utf-8").strip()
             if body:
-                dec = decrypt_text(body, key_path=kp)
+                dec = decrypt_text(body)
                 sec_values = dict(dotenv_values(stream=io.StringIO(dec)))
         except Exception as e:
             # Always report decryption errors to stderr if it exists but fails.
