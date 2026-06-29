@@ -2717,3 +2717,12 @@ msgstr "[אזהרה] פענוח ‎.env.sec: %(err)s נכשל"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "נתיב workdir שצוין הוא קובץ: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "הופסק על ידי המשתמש. שולח פקודת עצירה ל-LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "עצור"

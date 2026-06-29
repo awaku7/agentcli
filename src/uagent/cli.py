@@ -940,6 +940,7 @@ def main() -> None:
         return
 
     start_background_scheduler(core.event_queue)
+    core.start_interrupt_monitor()
 
     t = threading.Thread(target=stdin_loop, daemon=True)
     t.start()
@@ -1117,6 +1118,10 @@ def main() -> None:
     finally:
         try:
             stop_background_scheduler()
+        except Exception:
+            pass
+        try:
+            core.stop_interrupt_monitor()
         except Exception:
             pass
         # Clear cache on program exit

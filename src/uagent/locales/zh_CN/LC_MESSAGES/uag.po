@@ -2659,3 +2659,12 @@ msgstr "[WARN] 解密 .env.sec 失败：%(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定的工作目录路径是文件：%(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "用户已中断。正在向LLM发送停止命令..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "停止"

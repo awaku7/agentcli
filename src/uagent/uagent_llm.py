@@ -60,6 +60,17 @@ _is_gpt54_tool_search_target = _llm_tool_narrowing._is_gpt54_tool_search_target
 _select_tool_specs_for_gpt54 = _llm_tool_narrowing._select_tool_specs_for_gpt54
 
 
+def _inject_stop_prompt(
+    messages: list[dict[str, Any]],
+    core: Any,
+) -> None:
+    """Inject a stop command as a user message and log it."""
+    print("\n[INTERRUPT] " + _("Stopped by user. Sending stop command to LLM..."))
+    user_msg = {"role": "user", "content": _("Stop")}
+    messages.append(user_msg)
+    core.log_message(user_msg)
+
+
 def run_llm_rounds(
     provider: str,
     client: Any,
@@ -117,6 +128,13 @@ def run_llm_rounds(
     try:
         while True:
             round_count += 1
+
+            # --- Interrupt check: per-round ---
+            with _core_module.interrupt_lock:
+                if _core_module.interrupt_requested:
+                    _core_module.interrupt_requested = False
+                    _inject_stop_prompt(messages, core)
+                    break
 
             # Optional translation layer (off by default).
             # We keep the original `messages` history unchanged and create a translated
@@ -193,6 +211,13 @@ def run_llm_rounds(
                 if not ok:
                     return
 
+                # --- Interrupt check (Gemini) ---
+                with _core_module.interrupt_lock:
+                    if _core_module.interrupt_requested:
+                        _core_module.interrupt_requested = False
+                        _inject_stop_prompt(messages, core)
+                        break
+
                 assistant_text = _translate_assistant_if_needed(
                     assistant_text=assistant_text,
                     tr_cfg=tr_cfg,
@@ -257,6 +282,13 @@ def run_llm_rounds(
                 if not ok:
                     return
 
+                # --- Interrupt check ---
+                with _core_module.interrupt_lock:
+                    if _core_module.interrupt_requested:
+                        _core_module.interrupt_requested = False
+                        _inject_stop_prompt(messages, core)
+                        break
+
                 assistant_text = _translate_assistant_if_needed(
                     assistant_text=assistant_text,
                     tr_cfg=tr_cfg,
@@ -317,6 +349,13 @@ def run_llm_rounds(
                 )
                 if not ok:
                     return
+
+                # --- Interrupt check ---
+                with _core_module.interrupt_lock:
+                    if _core_module.interrupt_requested:
+                        _core_module.interrupt_requested = False
+                        _inject_stop_prompt(messages, core)
+                        break
 
                 assistant_text = _translate_assistant_if_needed(
                     assistant_text=assistant_text,
@@ -389,6 +428,13 @@ def run_llm_rounds(
                 )
                 if not ok:
                     return
+
+                # --- Interrupt check ---
+                with _core_module.interrupt_lock:
+                    if _core_module.interrupt_requested:
+                        _core_module.interrupt_requested = False
+                        _inject_stop_prompt(messages, core)
+                        break
 
                 assistant_text = _translate_assistant_if_needed(
                     assistant_text=assistant_text,
@@ -463,6 +509,13 @@ def run_llm_rounds(
                 )
                 if not ok:
                     return
+
+                # --- Interrupt check (OpenAI/Azure) ---
+                with _core_module.interrupt_lock:
+                    if _core_module.interrupt_requested:
+                        _core_module.interrupt_requested = False
+                        _inject_stop_prompt(messages, core)
+                        break
 
                 _append_assistant_message(
                     messages=messages,

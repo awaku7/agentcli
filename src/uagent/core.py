@@ -171,6 +171,106 @@ show_tool_output = False
 # Example stored values: "LLM:auto->low", "LLM:medium"
 last_reasoning_label = ""
 
+# --- Interrupt (c-key) ---
+interrupt_requested = False
+"""Set True when user presses 'c' during LLM streaming."""
+
+interrupt_lock = threading.Lock()
+
+# Interrupt monitor thread management
+_interrupt_monitor_thread: threading.Thread | None = None
+_interrupt_monitor_stop = threading.Event()
+_interrupt_enabled: bool = True
+
+
+def _check_key_win() -> None:
+    """Check for 'c' keypress on Windows (msvcrt, non-blocking)."""
+    try:
+        import msvcrt  # type: ignore
+
+        if msvcrt.kbhit():
+            key = msvcrt.getch()
+            if key in (b"c", b"C"):
+                with interrupt_lock:
+                    global interrupt_requested
+                    interrupt_requested = True
+    except Exception:
+        pass
+
+
+def _check_key_posix() -> None:
+    """Check for 'c' keypress on POSIX (termios/tty, non-blocking).
+
+    Safety: this is called only when status_busy == True.
+    During busy periods, stdin_loop is NOT calling input() or prompt_toolkit,
+    so temporarily switching stdin to raw mode is safe.
+    """
+    # Only works on a real TTY; skip if stdin is piped/redirected
+    if not sys.stdin.isatty():
+        return
+    try:
+        import select
+        import termios
+        import tty
+
+        r, _, _ = select.select([sys.stdin], [], [], 0)
+        if not r:
+            return
+
+        fd = sys.stdin.fileno()
+        old = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            ch = sys.stdin.buffer.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+        if ch and ch.lower() == b"c":
+            with interrupt_lock:
+                global interrupt_requested
+                interrupt_requested = True
+    except Exception:
+        pass
+
+
+def start_interrupt_monitor() -> None:
+    """Start daemon thread that monitors for single 'c' keypress."""
+    global _interrupt_monitor_thread
+    if _interrupt_monitor_thread is not None:
+        return
+
+    def _monitor() -> None:
+        import os as _os
+
+        while not _interrupt_monitor_stop.is_set():
+            # Only monitor while BUSY
+            if not status_busy:
+                _interrupt_monitor_stop.wait(0.1)
+                continue
+
+            if not _interrupt_enabled:
+                _interrupt_monitor_stop.wait(0.1)
+                continue
+
+            if _os.name == "nt":
+                _check_key_win()
+            else:
+                _check_key_posix()
+
+            _interrupt_monitor_stop.wait(0.05)
+
+    _interrupt_monitor_thread = threading.Thread(
+        target=_monitor, daemon=True, name="uagent-interrupt-monitor"
+    )
+    _interrupt_monitor_thread.start()
+
+
+def stop_interrupt_monitor() -> None:
+    """Stop the interrupt monitor thread."""
+    global _interrupt_monitor_thread
+    _interrupt_monitor_stop.set()
+    _interrupt_monitor_thread = None
+
 
 def print_status_line() -> None:
     """

@@ -2051,3 +2051,12 @@ msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
 
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Stopped by user. Sending stop command to LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Stop"

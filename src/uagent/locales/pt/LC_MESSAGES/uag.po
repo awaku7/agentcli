@@ -2799,3 +2799,12 @@ msgstr "[WARN] Falha ao descriptografar .env.sec: %(err)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr ""
 "O caminho do diretório de trabalho especificado é um arquivo: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Interrompido pelo usuário. Enviando comando de parada ao LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Parar"

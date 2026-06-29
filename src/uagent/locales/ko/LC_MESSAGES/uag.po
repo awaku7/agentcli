@@ -2674,3 +2674,12 @@ msgstr "[WARN] .env.sec를 복호화하지 못했습니다: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "지정한 작업 디렉터리 경로가 파일입니다: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "사용자가 중단했습니다. LLM에 중지 명령을 보냅니다..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "중지"

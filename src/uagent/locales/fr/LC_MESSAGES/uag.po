@@ -2819,3 +2819,12 @@ msgstr "[WARN] Échec du déchiffrement de .env.sec : %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Le chemin du répertoire de travail spécifié est un fichier : %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Interrompu par l'utilisateur. Envoi de la commande d'arrêt au LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Arrêter"

@@ -2802,3 +2802,12 @@ msgstr "[OSTRZEŻENIE] Nie udało się odszyfrować .env.sec: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Podana ścieżka workdir jest plikiem: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Przerwane przez użytkownika. Wysyłanie polecenia zatrzymania do LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Zatrzymaj"

@@ -2791,3 +2791,12 @@ msgstr "[VAROVÁNÍ] Nepodařilo se dešifrovat soubor .env.sec: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Zadaná cesta k pracovnímu adresáři je soubor: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Uživatel přerušil. Odesílám příkaz k zastavení LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Zastavit"

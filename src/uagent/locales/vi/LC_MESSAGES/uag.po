@@ -2746,3 +2746,12 @@ msgstr "[WARN] 解密 .env.sec thất bại: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Đường dẫn workdir được chỉ định là một tệp: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Đã bị người dùng ngắt. Đang gửi lệnh dừng đến LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Dừng lại"

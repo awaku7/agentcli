@@ -2759,3 +2759,12 @@ msgstr "[هشدار] رمزگشایی .env.sec ناموفق بود: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "مسیر مشخص‌شدهٔ workdir یک فایل است: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "توسط کاربر متوقف شد. ارسال دستور توقف به LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "توقف"

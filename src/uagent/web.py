@@ -640,6 +640,9 @@ def run_agent_worker(
             if isinstance(msg, dict) and msg.get("type") == "assistant_stream_end":
                 _stream_end()
                 return
+            if isinstance(msg, dict) and msg.get("type") == "assistant_stream_interrupted":
+                _stream_end()
+                return
         except Exception:
             pass
         if callable(_orig_log_message):
@@ -1167,6 +1170,24 @@ async def websocket_endpoint(websocket: WebSocket):
                 except Exception:
                     pass
                 _broadcast_modes_all()
+
+            elif payload.get("type") == "interrupt":
+                from uagent import core as _core
+                with _core.interrupt_lock:
+                    _core.interrupt_requested = True
+                try:
+                    if room.loop:
+                        asyncio.run_coroutine_threadsafe(
+                            room.broadcast(
+                                {
+                                    "type": "log",
+                                    "content": "[INTERRUPT] Stop requested by user.",
+                                }
+                            ),
+                            room.loop,
+                        )
+                except Exception:
+                    pass
 
             elif payload.get("type") == "human_ask_response":
                 room.human_ask_result = payload.get("text", "")

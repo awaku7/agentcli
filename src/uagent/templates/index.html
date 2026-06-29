@@ -313,6 +313,7 @@
         <!-- === Input Area === -->
         <div class="flex gap-2">
             <textarea id="user-input" rows="2" class="flex-grow p-3 border rounded-xl shadow-sm resize-none focus:outline-none" placeholder="Type a message... (Ctrl+Enter to send)" style="background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-color);"></textarea>
+            <button id="stop-btn" class="px-5 py-2 rounded-xl font-bold text-white shadow-sm transition hover:brightness-110 active:scale-[0.97] hidden" style="background: #ef4444;" title="Stop generation">&#9632; Stop</button>
             <button id="send-btn" class="px-6 py-2 rounded-xl font-bold text-white shadow-sm transition hover:brightness-110 active:scale-[0.97]" style="background: var(--accent);">Send</button>
         </div>
         </div> <!-- End of Left Pane -->
@@ -668,7 +669,8 @@
                     if (WEB_VERBOSE) { const rawContent = data.content_html || data.content; addMessage({ role: 'tool', content: rawContent, is_raw_html: !!data.content_html }); }
                 } else if (data.type === 'assistant_stream_start') { startAssistantStream(data.id);
                 } else if (data.type === 'assistant_stream_delta') { appendAssistantStream(data.id, data.delta);
-                } else if (data.type === 'assistant_stream_end') { endAssistantStream(data.id); }
+                } else if (data.type === 'assistant_stream_end') { endAssistantStream(data.id);
+                } else if (data.type === 'assistant_stream_interrupted') { endAssistantStream(data.id); }
             };
             ws.onclose = () => { console.log('WebSocket closed. Retrying...'); setTimeout(connect, 2000); };
         }
@@ -908,6 +910,19 @@
             workdirTextHeader.textContent = w ? 'workdir: ' + w : '';
             userInput.disabled = false;
             sendBtn.disabled = false;
+            // Stop button: show when busy, hide when idle
+            var sb = document.getElementById('stop-btn');
+            if (sb) {
+                if (isBusy) {
+                    sb.classList.remove('hidden');
+                    sb.classList.add('inline-flex');
+                    sb.disabled = false;
+                } else {
+                    sb.classList.add('hidden');
+                    sb.classList.remove('inline-flex');
+                    sb.disabled = true;
+                }
+            }
         }
 
         function sendMessage() {
@@ -1025,6 +1040,18 @@
             }
         });
         sendBtn.onclick = sendMessage;
+
+        // Stop button
+        const stopBtn = document.getElementById('stop-btn');
+        if (stopBtn) {
+            stopBtn.onclick = function() {
+                if (ws && ws.readyState === WebSocket.OPEN) {
+                    ws.send(JSON.stringify({ type: 'interrupt' }));
+                    stopBtn.classList.add('hidden');
+                    stopBtn.disabled = true;
+                }
+            };
+        }
         if (pickFilesBtn && fileInput) { pickFilesBtn.onclick = function() { fileInput.click(); }; }
         if (fileInput) {
             fileInput.addEventListener('change', async function() {

@@ -2814,3 +2814,12 @@ msgstr "[WARN] Nu s-a putut decripta .env.sec: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Calea workdir specificată este un fișier: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Întrerupt de utilizator. Se trimite comanda de oprire către LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Oprește"

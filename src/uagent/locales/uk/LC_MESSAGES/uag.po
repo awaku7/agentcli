@@ -2801,3 +2801,12 @@ msgstr "[WARN] Не вдалося розшифрувати .env.sec: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Вказаний шлях до робочого каталогу є файлом: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Зупинено користувачем. Надсилання команди зупинки до LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Зупинити"

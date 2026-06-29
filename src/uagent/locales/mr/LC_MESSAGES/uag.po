@@ -2767,3 +2767,12 @@ msgstr "[चेतावणी] .env.sec: %(err)s डिक्रिप्ट �
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "निर्दिष्ट workdir मार्ग फाइल आहे: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "वापरकर्त्याने थांबवले. LLM ला थांबवण्याचा आदेश पाठवत आहे..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "थांबवा"

@@ -2831,3 +2831,12 @@ msgstr "[সতর্কতা] .env.sec ডিক্রিপ্ট করত�
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "নির্দিষ্ট ওয়ার্কডির পাথ হল একটি ফাইল: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "ব্যবহারকারী বন্ধ করেছেন। LLM-এ স্টপ কমান্ড পাঠানো হচ্ছে..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "বন্ধ করুন"

@@ -2678,3 +2678,11 @@ msgstr "[WARN] .env.sec の復号に失敗しました: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "指定された workdir がファイルです: %(path)s"
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "ユーザーにより中断されました。「停止」をLLMに送信します..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "停止"

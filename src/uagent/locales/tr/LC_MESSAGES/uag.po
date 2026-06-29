@@ -2777,3 +2777,12 @@ msgstr "[WARN] .env.sec dosyasının şifresi çözülemedi: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Belirtilen çalışma dizini yolu bir dosyadır: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Kullanıcı tarafından durduruldu. LLM'ye durdurma komutu gönderiliyor..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Durdur"

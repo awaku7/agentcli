@@ -2783,3 +2783,12 @@ msgstr "[VAROITUS] .env.sec:n salauksen purku epäonnistui: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Määritetty työhakemiston polku on tiedosto: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Käyttäjä keskeytti. Lähetetään pysäytyskäsky LLM:lle..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Pysäytä"

@@ -2746,3 +2746,12 @@ msgstr "[تحذير] فشل فك تشفير .env.sec: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "مسار دليل العمل المحدد هو ملف: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "تم إيقاف المستخدم. جارٍ إرسال أمر الإيقاف إلى LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "توقف"

@@ -2809,3 +2809,12 @@ msgstr "[WARN] A .env.sec visszafejtése nem sikerült: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "A megadott munkakönyvtár elérési útja egy fájl: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Felhasználó által megszakítva. Leállítási parancs küldése az LLM-nek..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Leállítás"

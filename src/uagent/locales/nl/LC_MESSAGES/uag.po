@@ -2789,3 +2789,12 @@ msgstr "[WARN] Kan .env.sec niet ontsleutelen: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Het opgegeven workdir-pad is een bestand: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Gestopt door gebruiker. Stopopdracht verzenden naar LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Stoppen"

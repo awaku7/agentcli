@@ -2774,3 +2774,12 @@ msgstr "[PERINGATAN] Gagal mendekripsi .env.sec: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Path workdir yang ditentukan adalah file: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Dihentikan oleh pengguna. Mengirim perintah berhenti ke LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Berhenti"

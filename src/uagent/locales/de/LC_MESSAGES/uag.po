@@ -2830,3 +2830,12 @@ msgstr "[WARNUNG] .env.sec konnte nicht entschlüsselt werden: %(err)s"
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Der angegebene Arbeitsverzeichnispfad ist eine Datei: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Vom Benutzer unterbrochen. Sende Stopp-Befehl an LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Stopp"

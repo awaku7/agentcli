@@ -2799,3 +2799,12 @@ msgstr "[АНХААРУУЛГА] .env.sec кодыг тайлж чадсангү
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Заасан ажлын чиглэлийн зам нь файл юм: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Хэрэглэгч зогсоосон. LLM руу зогсоох команд илгээж байна..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "Зогсоох"

@@ -2763,3 +2763,12 @@ msgstr "[WARN] ถอดรหัส .env.sec ไม่สำเร็จ: %(err
 #, python-format
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "พาธ workdir ที่ระบุเป็นไฟล์: %(path)s"
+
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "ผู้ใช้หยุดชะงัก กำลังส่งคำสั่งหยุดไปยัง LLM..."
+
+#: src/uagent/uagent_llm.py:?
+msgid "Stop"
+msgstr "หยุด"
