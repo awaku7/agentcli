@@ -1014,6 +1014,7 @@ def parse_responses_stream(
             # --- Interrupt check ---
             if core is not None:
                 from uagent import core as _core_module
+
                 with _core_module.interrupt_lock:
                     if _core_module.interrupt_requested:
                         _core_module.interrupt_requested = False

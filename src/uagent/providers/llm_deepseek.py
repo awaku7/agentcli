@@ -653,6 +653,24 @@ def deepseek_chat_with_tools(
             # 400 BadRequest
             if BadRequestError is not None and isinstance(e, BadRequestError):
                 err_text_lower = err.lower()
+                if "does not support tools" in err_text_lower:
+                    print(
+                        f"[{_label} Error] Model does not support tools. "
+                        "Auto-disabling tools and retrying..."
+                    )
+                    from .. import core as _core_module
+                    _core_module.tools_enabled = False
+                    send_tools_this_round = False
+                    req_tools = None
+                    continue
+                if "does not support thinking" in err_text_lower:
+                    print(
+                        f"[{_label} Error] Model does not support thinking. "
+                        "Disabling thinking via UAGENT_REASONING=off and retrying..."
+                    )
+                    import os
+                    os.environ["UAGENT_REASONING"] = "off"
+                    continue
                 if (
                     "insufficient tool messages" in err_text_lower
                     and not tool_repair_attempted

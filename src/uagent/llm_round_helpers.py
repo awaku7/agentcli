@@ -93,6 +93,7 @@ def _resolve_round_runtime_flags(*, tr_cfg: Any, core: Any, provider: str = "") 
     else:
         # Auto-enable for providers that support Responses API (e.g. Sakana Fugu)
         from .providers.provider_caps import RESPONSES_PROVIDERS
+
         use_responses_api = provider.lower() in RESPONSES_PROVIDERS
 
     stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
@@ -351,11 +352,16 @@ def _call_openai_azure_round(
     assistant_text: str = ""
     tool_calls_list: list[dict[str, Any]] = []
     resp = None
+    resp_kwargs: dict[str, Any] = {}
+    chat_kwargs: dict[str, Any] = {}
 
     # Respect the caller's send_tools_this_round (which reflects core.tools_enabled).
     # Only fall back to env var if the caller didn't set it.
     if send_tools_this_round is None:
         send_tools_this_round = _env_default_on("UAGENT_USE_TOOL")
+
+    # Track whether thinking/reasoning has been disabled due to model rejection
+    _thinking_disabled = False
 
     while True:
         try:
@@ -411,10 +417,14 @@ def _call_openai_azure_round(
                         _effort_used = _choose_auto_effort(_auto_user_text)
 
                 if _effort_used in ("minimal", "low", "medium", "high", "xhigh"):
-                    # Send the requested effort as-is. If the backend rejects
-                    # minimal/xhigh for a specific model, retry once with a
-                    # fallback value below.
-                    resp_kwargs["reasoning"] = {"effort": _effort_used}
+                    if _thinking_disabled:
+                        # Model rejected thinking; skip reasoning params.
+                        _effort_used = None
+                    else:
+                        # Send the requested effort as-is. If the backend rejects
+                        # minimal/xhigh for a specific model, retry once with a
+                        # fallback value below.
+                        resp_kwargs["reasoning"] = {"effort": _effort_used}
                     try:
                         if _reasoning == "auto":
                             core.set_status(True, f"LLM:auto->{_effort_used}")
@@ -627,6 +637,24 @@ def _call_openai_azure_round(
                 return False, client, "", []
 
             if BadRequestError is not None and isinstance(e, BadRequestError):
+                err_text = str(e).lower()
+                if "does not support tools" in err_text:
+                    print(
+                        "[Azure/OpenAI Error] Model does not support tools. "
+                        "Auto-disabling tools and retrying..."
+                    )
+                    from . import core as _core_module
+                    _core_module.tools_enabled = False
+                    send_tools_this_round = False
+                    continue
+                if "does not support thinking" in err_text:
+                    print(
+                        "[Azure/OpenAI Error] Model does not support thinking. "
+                        "Disabling thinking and retrying..."
+                    )
+                    _thinking_disabled = True
+                    resp_kwargs.pop("reasoning", None)
+                    continue
                 print("[Azure/OpenAI Error] 400 BadRequest")
                 print(f"Error code: 400 - {e}")
                 return False, client, "", []

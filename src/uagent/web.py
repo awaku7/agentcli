@@ -640,7 +640,10 @@ def run_agent_worker(
             if isinstance(msg, dict) and msg.get("type") == "assistant_stream_end":
                 _stream_end()
                 return
-            if isinstance(msg, dict) and msg.get("type") == "assistant_stream_interrupted":
+            if (
+                isinstance(msg, dict)
+                and msg.get("type") == "assistant_stream_interrupted"
+            ):
                 _stream_end()
                 return
         except Exception:
@@ -1173,6 +1176,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
             elif payload.get("type") == "interrupt":
                 from uagent import core as _core
+
                 # NOP if not busy
                 if not getattr(_core, "status_busy", False):
                     continue
