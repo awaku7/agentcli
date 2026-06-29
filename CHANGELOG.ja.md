@@ -1,5 +1,26 @@
 # 変更履歴
 
+## [0.5.29] - 2026-06-29
+
+### 追加
+- Sakana AI (Fugu) プロバイダ対応：Responses API 統合による新しい LLM バックエンド。
+- sakana（およびその他の RESPONSES_PROVIDERS）で Responses API をデフォルトで自動有効化。
+- セットアップウィザード（setup_cli.py）に sakana.ai を追加。
+- 割り込み機能：`c` キーまたは Stop ボタンで実行中のツールをキャンセル可能に。
+
+### 変更
+- 非対応モデルで 400 エラーが発生した場合、ツール/思考を自動無効化し、冗長なリトライを回避。
+
+### ドキュメント
+- Sakana AI (Fugu) をプロバイダ一覧と Responses API ドキュメントに追加。
+- 全34言語の README プロバイダ一覧に Sakana AI を追加。
+- 全34言語の README プロバイダ一覧に HuggingFace を追加。
+- 全34言語の README 翻訳に割り込み機能（c-key/Stop ボタン）を追加。
+- 日本語 README.ja.md に割り込み機能（c-key/Stop ボタン）を追加。
+
+### その他
+- llmcapa 依存を 0.2.6 から 0.2.8 に更新。
+
 
 ## [0.5.28] - 2026-06-28
 

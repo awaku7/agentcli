@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.5.29] - 2026-06-29
+
+### Added
+- Sakana AI (Fugu) provider support: new LLM backend with Responses API integration.
+- Auto-enable Responses API for sakana (and other RESPONSES_PROVIDERS) by default.
+- Add sakana.ai to setup wizard (setup_cli.py).
+- Interrupt feature: press `c` key or click Stop button to cancel ongoing tool execution.
+
+### Changed
+- Auto-disable tools/thinking on 400 error for non-supporting models to avoid redundant retries.
+
+### Documentation
+- Add Sakana AI (Fugu) to provider list and Responses API documentation.
+- Add Sakana AI to all 34 language README provider lists.
+- Add HuggingFace to all 34 language README provider lists.
+- Add interrupt feature (c-key/Stop button) to all 34 language README translations.
+- Add interrupt feature (c-key/Stop button) to Japanese README.ja.md.
+
+### Chores
+- Update llmcapa dependency from 0.2.6 to 0.2.8.
+
 
 ## [0.5.28] - 2026-06-28
 
