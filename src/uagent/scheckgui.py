@@ -1290,6 +1290,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self._attach_btn.clicked.connect(self._on_choose_files)
         pw_row.addWidget(self._attach_btn)
 
+        self._stop_btn = QtWidgets.QPushButton(_("■"))
+        self._stop_btn.setFixedWidth(40)
+        self._stop_btn.setFixedHeight(36)
+        self._stop_btn.setToolTip(_("Stop generation"))
+        self._stop_btn.setStyleSheet(
+            "QPushButton { color: white; background-color: #ef4444; border-radius: 6px; font-weight: bold; font-size: 14px; }"
+            "QPushButton:hover { background-color: #dc2626; }"
+            "QPushButton:disabled { background-color: #9ca3af; color: #d1d5db; }"
+        )
+        self._stop_btn.hide()
+        self._stop_btn.clicked.connect(self._on_stop)
+        pw_row.addWidget(self._stop_btn)
+
         self._btn = QtWidgets.QPushButton()
         self._btn.setIcon(self._send_icon)
         self._btn.setIconSize(QtCore.QSize(22, 22))
@@ -1593,6 +1606,12 @@ class MainWindow(QtWidgets.QMainWindow):
                     self._status_label.setText(
                         f" [STATE] {last_st}" + (f" [{last_lb}]" if last_lb else "")
                     )
+                    # Show/hide stop button based on busy state
+                    is_busy = last_st.upper() == "BUSY"
+                    if is_busy:
+                        self._stop_btn.show()
+                    else:
+                        self._stop_btn.hide()
 
                 try:
                     mprov = re.findall(
@@ -2222,6 +2241,13 @@ class MainWindow(QtWidgets.QMainWindow):
                 self._open_image(p)
         except Exception:
             pass
+
+    def _on_stop(self) -> None:
+        """Stop LLM generation by setting the interrupt flag."""
+        with core.interrupt_lock:
+            core.interrupt_requested = True
+        print("\n[INTERRUPT] Stop requested by user.")
+        self._stop_btn.hide()
 
     def _on_send(self):
         with core.human_ask_lock:
