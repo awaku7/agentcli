@@ -13,7 +13,7 @@
 - **トリガー**: コマンド `:auto <目的>` で起動（例: `:auto このコードをレビューして。バグ、スタイル、テスト不足を重点的に。`）
 - **自動応答生成**: LLM の応答を受けて、システムが目的達成のために次の適切な質問/指示を自動生成する（言語は現在の UI 言語に従う）
 - **完了判定**: LLM 自身に「完了したかどうか」を尋ねる。LLM が「完了」「以上」「done」等を表明したら終了
-- **安全弁**: 最大ラウンド数 `--max-rounds N`（デフォルト 5）を超えたら強制終了
+- **安全弁**: 最大ラウンド数 `--max-rounds N`（デフォルト 10）を超えたら強制終了
 - **割り込み**: `x` キーで自動モードを即座に終了し、通常の手動対話に戻る
 - **既存の `c` キーとの関係**: `c` = 今のLLM応答を中断（"停止"注入、モードは継続）。`x` = 自動モード自体を抜ける
 
@@ -91,7 +91,7 @@ auto_pilot_active = False
 auto_pilot_exit_requested = False
 auto_pilot_exit_lock = threading.Lock()
 auto_pilot_round = 0
-auto_pilot_max_rounds = 5
+auto_pilot_max_rounds = 10
 auto_pilot_goal: str = ""  # ユーザーが指定した目的
 
 # _check_key_win / _check_key_posix に x 検出を追加:
@@ -120,7 +120,7 @@ if line.startswith(":auto"):
     
     # Parse goal and options
     goal_parts = []
-    max_rounds = 5
+    max_rounds = 10
     i = 0
     while i < len(args):
         if args[i] == "--max-rounds" and i + 1 < len(args):
