@@ -2243,7 +2243,10 @@ class MainWindow(QtWidgets.QMainWindow):
             pass
 
     def _on_stop(self) -> None:
-        """Stop LLM generation by setting the interrupt flag."""
+        """Stop LLM generation. NOP if not busy."""
+        if not getattr(core, "status_busy", False):
+            self._stop_btn.hide()
+            return
         with core.interrupt_lock:
             core.interrupt_requested = True
         print("\n[INTERRUPT] Stop requested by user.")

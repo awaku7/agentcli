@@ -125,6 +125,10 @@ def run_llm_rounds(
         messages=messages,
     )
 
+    # Clear any stale interrupt flag from a previous session
+    with _core_module.interrupt_lock:
+        _core_module.interrupt_requested = False
+
     try:
         while True:
             round_count += 1

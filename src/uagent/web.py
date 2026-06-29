@@ -1173,6 +1173,9 @@ async def websocket_endpoint(websocket: WebSocket):
 
             elif payload.get("type") == "interrupt":
                 from uagent import core as _core
+                # NOP if not busy
+                if not getattr(_core, "status_busy", False):
+                    continue
                 with _core.interrupt_lock:
                     _core.interrupt_requested = True
                 try:
