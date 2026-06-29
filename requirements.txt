@@ -26,7 +26,7 @@ striprtf>=0.0.29
 msoffcrypto-tool>=6.0.0
 odfpy>=1.4.1
 beautifulsoup4>=4.14.3
-llmcapa>=0.2.6
+llmcapa>=0.2.8
 pyyaml>=6.0.3
 numpy>=2.4.4
 
