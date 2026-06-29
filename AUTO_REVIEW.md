@@ -2,41 +2,41 @@
 
 ## 目的
 
-ユーザーに代わって LLM と自動で対話を継続する機能。
-ユーザーが **目的（ゴール）** を指定すると、システムが LLM に対して適切なフォローアップ質問を自動生成して送信し続ける。
-**LLM 自身が「完了した」と判断した時点**で自動モードを終了する。
+ユーザーに代わってシステムが **レビュワー役** として LLM と自動で対話を継続する機能。
+ユーザーが **目的（ゴール）** を指定すると、システムがレビュワーとして LLM にフォローアップ質問を自動生成して送信し続け、
+**レビュワー（システム）が目的達成を判断した時点**で自動モードを終了する。
 
 **ユースケース**: コードレビュー、バグ調査、設計検討、要件整理など、複数ラウンドの深掘りが必要なタスク。
 
 ## 要求
 
-- **トリガー**: コマンド `:auto <目的>` で起動（例: `:auto このコードをレビューして。バグ、スタイル、テスト不足を重点的に。`）
-- **自動応答生成**: LLM の応答を受けて、システムが目的達成のために次の適切な質問/指示を自動生成する（言語は現在の UI 言語に従う）
-- **完了判定**: LLM 自身に「完了したかどうか」を尋ねる。LLM が「完了」「以上」「done」等を表明したら終了
+- **トリガー**: コマンド `:auto <目的>` で起動
+- **自動応答生成**: システム（レビュワー）が LLM に対して目的達成のために次の適切な質問/指示を自動生成する（言語は現在の UI 言語に従う）
+- **完了判定**: **レビュワー（システム）が、LLM に meta-judgment クエリを送って判断する**。1ラウンド = 2回のLLM呼び出し
+  1. メインクエリ: レビュー/分析のための質問
+  2. メタクエリ: 「レビュワーとして、目的は達成されたか？」を判定
 - **安全弁**: 最大ラウンド数 `--max-rounds N`（デフォルト 10）を超えたら強制終了
 - **割り込み**: `x` キーで自動モードを即座に終了し、通常の手動対話に戻る
 - **既存の `c` キーとの関係**: `c` = 今のLLM応答を中断（"停止"注入、モードは継続）。`x` = 自動モード自体を抜ける
 
 ## アーキテクチャ
 
-### 自動生成メッセージの仕組み
-
-自動モードでは、以下のようなメッセージを LLM に送信する:
+### 1ラウンドの構成（2回のLLM呼び出し）
 
 ```
-[言語] = 現在のUI言語 (ja/en/...)
+ラウンド N:
+  Step A: メインクエリ
+    [System] 目的に基づいたフォローアップ質問（i18n）
+    [LLM] 分析/レビュー結果...
 
-継続用プロンプト（英語）:
-"Continue your analysis. If you have more points to add, please elaborate. 
-If you have completed your review/analysis, please respond with exactly 'DONE'."
+  Step B: メタクエリ（レビュワー判断）
+    [System] あなたはレビュワーです。目的は達成されましたか？
+              COMPLETE / CONTINUE で答えてください。
+    [LLM-as-reviewer] CONTINUE (or COMPLETE)
 
-継続用プロンプト（日本語）:
-"続けてください。追加の指摘があれば詳しく説明してください。
-レビュー/分析が完了した場合は、'完了' とだけ答えてください。"
+  CONTINUE → 次のラウンドへ
+  COMPLETE → 自動モード終了
 ```
-
-LLM が `DONE` / `完了` 等を返したら自動モード終了。
-それ以外の内容を返したら、それが次のラウンドの応答として表示され、再度継続用プロンプトを送る。
 
 ### フロー
 
@@ -47,37 +47,23 @@ LLM が `DONE` / `完了` 等を返したら自動モード終了。
 run_llm_rounds() → LLMがレビュー結果を返す
   ↓
 [自動モードループ]
-1. x キーチェック → 押されていたら break（自動モード終了）
+1. x キーチェック → 押されていたら break
 2. ラウンド数チェック → max 超えていたら break
-3. 継続用プロンプト（i18n）を user message として追加
-4. run_llm_rounds() → LLMが応答
-5. LLMの応答が「完了」「DONE」等 → break（自動モード終了）
-6. それ以外 → ループ継続（step 1 へ）
+3. Step A: 継続用プロンプト（i18n）を追加 → run_llm_rounds()
+4. Step B: メタクエリ（reviewer judgment）を実行
+5. COMPLETE → break（終了）。CONTINUE → ループ継続
   ↓
 通常モードに戻る
 ```
-
-### スレッド構成
-
-```
-[main thread]                  [interrupt_monitor thread]
-  event_queue.get()              kbhit() / select() ループ
-  run_llm_rounds()                c → interrupt_requested
-  _run_auto_pilot_loop()          x → auto_pilot_exit_requested
-    └─ run_llm_rounds()
-    └─ run_llm_rounds() ...
-```
-
-`x` キーは `interrupt_monitor` スレッドで `c` と同様に監視する（別フラグで管理）。
 
 ## 変更対象ファイル
 
 | ファイル | 変更内容 |
 |---|---|
 | `core.py` | 自動モード状態変数 + `x` キー検出を `_check_key_win/posix` に追加 |
-| `cli.py` | `:auto` コマンド + `_run_auto_pilot_loop()` + auto exit on "DONE"/"完了" |
+| `cli.py` | `:auto` コマンド + `_run_auto_pilot_loop()` + メタクエリ判定関数 |
 | `web.py` | WebSocket `"auto_pilot"` ハンドラ |
-| `templates/index.html` | 自動モード中は入力欄をロック＋「Auto (x to stop)」表示 |
+| `templates/index.html` | 自動モード中は入力欄ロック＋「Auto running...」表示 |
 | `scheckgui.py` | 自動モード中は入力欄ロック＋中止ボタン表示 |
 | `locales/*/uag.po` | 自動モード用メッセージの翻訳 |
 
@@ -92,7 +78,7 @@ auto_pilot_exit_requested = False
 auto_pilot_exit_lock = threading.Lock()
 auto_pilot_round = 0
 auto_pilot_max_rounds = 10
-auto_pilot_goal: str = ""  # ユーザーが指定した目的
+auto_pilot_goal: str = ""
 
 # _check_key_win / _check_key_posix に x 検出を追加:
 if key in (b"c", b"C"):
@@ -112,12 +98,12 @@ if line.startswith(":auto"):
         print(_("Usage: :auto <goal> [--max-rounds N]"))
         print(_("       :auto off"))
         return
-    
+
     subcmd = args[0]
     if subcmd == "off":
         _stop_auto_pilot()
         return
-    
+
     # Parse goal and options
     goal_parts = []
     max_rounds = 10
@@ -129,37 +115,41 @@ if line.startswith(":auto"):
         else:
             goal_parts.append(args[i])
             i += 1
-    
+
     goal = " ".join(goal_parts)
-    
-    # Set auto-pilot state
+
     core.auto_pilot_goal = goal
     core.auto_pilot_max_rounds = max_rounds
     core.auto_pilot_round = 0
     core.auto_pilot_exit_requested = False
     core.auto_pilot_active = True
-    
-    # Send initial goal as user message
+
+    # Send initial goal
     user_msg = {"role": "user", "content": goal}
     messages.append(user_msg)
     core.log_message(user_msg)
     core.set_status(True, "AUTO")
-    
+
     # First LLM call
     llm_util.run_llm_rounds(...)
-    
+
     # Auto-pilot loop
     _run_auto_pilot_loop(...)
     return
 ```
 
-### 3. cli.py: 自動ループ _run_auto_pilot_loop()
+### 3. cli.py: _run_auto_pilot_loop()
 
 ```python
 def _run_auto_pilot_loop(provider, client, depname, messages, core, ...):
-    """Auto-pilot loop. Asks LLM to continue or conclude after each response."""
+    """
+    Auto-pilot loop.
+    1ラウンド = 2回のLLM呼び出し:
+      Step A: メインクエリ（レビュー/分析の継続）
+      Step B: メタクエリ（レビュワーとして完了判定）
+    """
     while True:
-        # 1. Check x key exit
+        # 1. x key exit check
         with core.auto_pilot_exit_lock:
             if core.auto_pilot_exit_requested:
                 core.auto_pilot_exit_requested = False
@@ -167,70 +157,120 @@ def _run_auto_pilot_loop(provider, client, depname, messages, core, ...):
                 print(_("\n[AUTO] Exited by user (x key)."))
                 return
 
-        # 2. Check max rounds (safety valve)
+        # 2. Max rounds check
         core.auto_pilot_round += 1
         if core.auto_pilot_round >= core.auto_pilot_max_rounds:
             core.auto_pilot_active = False
-            print(_("\n[AUTO] Max rounds (%(max)d) reached. Stopping.") 
+            print(_("\n[AUTO] Max rounds (%(max)d) reached. Stopping.")
                   % {"max": core.auto_pilot_max_rounds})
             return
 
-        # 3. Check if LLM indicated completion
-        last_text = _get_last_assistant_text(messages)
-        if _is_completion_response(last_text):
-            core.auto_pilot_active = False
-            print(_("\n[AUTO] Review/analysis completed."))
-            return
+        # === Step A: メインクエリ ===
+        next_prompt = _get_followup_prompt(core.auto_pilot_goal)
 
-        # 4. Generate continue prompt (i18n)
-        next_prompt = _get_continue_prompt()
-        
         core.set_status(True, "AUTO")
-        print(_("\n[AUTO] Round %(round)d/%(max)d") 
-              % {"round": core.auto_pilot_round, 
+        print(_("\n[AUTO] Round %(round)d/%(max)d")
+              % {"round": core.auto_pilot_round,
                  "max": core.auto_pilot_max_rounds})
-        
+
         user_msg = {"role": "user", "content": next_prompt}
         messages.append(user_msg)
         core.log_message(user_msg)
-        
+
         llm_util.run_llm_rounds(...)
-        
+
         core.set_status(True, "AUTO")
 
+        # === Step B: メタクエリ（レビュワー判断） ===
+        judgment = _ask_reviewer_judgment(
+            provider, client, depname, messages, core,
+            make_client_fn, ...)
 
-def _get_last_assistant_text(messages):
-    for m in reversed(messages):
-        if m.get("role") == "assistant":
-            c = m.get("content", "")
-            if isinstance(c, str) and c.strip():
-                return c.strip()
-    return ""
-
-
-def _is_completion_response(text):
-    """LLM自身が完了を表明したかチェック。"""
-    t = text.strip().lower()
-    # 単語のみ（他に内容がない）場合
-    if t in ("done", "完了", "dоне", "termine", " hecho", "finished", "complete"):
-        return True
-    # それ以外は未完了とみなす
-    return False
-
-
-def _get_continue_prompt():
-    """継続用プロンプトを現在のUI言語で返す。"""
-    lang = detect_lang()
-    if lang == "ja":
-        return _("続けてください。追加の指摘があれば詳しく説明してください。\n"
-                 "レビュー/分析が完了した場合は、'完了' とだけ答えてください。")
-    else:
-        return _("Continue your analysis. If you have more points to add, "
-                 "please elaborate. If you have completed your review/analysis, "
-                 "please respond with exactly 'DONE'.")
+        if judgment == "COMPLETE":
+            core.auto_pilot_active = False
+            print(_("\n[AUTO] Review/analysis completed."))
+            return
+        # CONTINUE → continue loop
 ```
 
-### 4. core.py: get_prompt() 変更
+### 4. メタクエリ（レビュワー判断）
+
+```python
+def _get_followup_prompt(goal):
+    """メインクエリ用の継続プロンプトを生成（i18n）。"""
+    lang = detect_lang()
+    if lang == "ja":
+        return _("続けてください。目的: %(goal)s") % {"goal": goal}
+    else:
+        return _("Continue. Goal: %(goal)s") % {"goal": goal}
+
+
+def _build_judgment_messages(messages, goal):
+    """レビュワー判断用メッセージを構築。"""
+    lang = detect_lang()
+
+    if lang == "ja":
+        system_prompt = (
+            "あなたはレビュワーです。以下の会話を評価し、"
+            "目的「%(goal)s」が達成されたか判定してください。\n"
+            "達成された → COMPLETE\n"
+            "まだ必要   → CONTINUE\n"
+            "必ず COMPLETE または CONTINUE のみを答えてください。"
+        )
+    else:
+        system_prompt = (
+            "You are a reviewer. Evaluate the conversation below and "
+            "determine whether the goal '%(goal)s' has been achieved.\n"
+            "Achieved    → COMPLETE\n"
+            "More needed → CONTINUE\n"
+            "Reply with exactly COMPLETE or CONTINUE."
+        )
+
+    system_prompt = system_prompt % {"goal": goal}
+
+    msgs = [{"role": "system", "content": system_prompt}]
+
+    # 直近の会話履歴（最大6メッセージ = 3往復）を追加
+    history = []
+    for m in reversed(messages):
+        if m.get("role") in ("user", "assistant"):
+            content = m.get("content", "")
+            if isinstance(content, str) and content.strip():
+                history.append({"role": m["role"], "content": content[:500]})
+                if len(history) >= 6:
+                    break
+
+    for h in reversed(history):
+        msgs.append(h)
+
+    msgs.append({"role": "user", "content": _("COMPLETE or CONTINUE?")})
+    return msgs
+
+
+def _ask_reviewer_judgment(provider, client, depname, messages, core, ...):
+    """レビュワーとして完了判定をLLMに問い合わせる。"""
+    judgment_msgs = _build_judgment_messages(messages, core.auto_pilot_goal)
+
+    core.set_status(True, "AUTO:judge")
+
+    # ツール無しの単発呼び出し（tool loop不要）
+    resp = client.chat.completions.create(
+        model=depname,
+        messages=judgment_msgs,
+        temperature=0.0,
+        max_tokens=10,
+    )
+
+    text = ""
+    if resp.choices and resp.choices[0].message:
+        text = (resp.choices[0].message.content or "").strip().upper()
+
+    print(_("\n[AUTO:judge] %(judgment)s") % {"judgment": text})
+
+    return "COMPLETE" if "COMPLETE" in text else "CONTINUE"
+```
+
+### 5. プロンプト表示
 
 ```python
 def get_prompt() -> str:
@@ -239,62 +279,42 @@ def get_prompt() -> str:
     # ... existing logic ...
 ```
 
-### 5. WEB/GUI 対応
-
-**WEB UI**:
-- 自動モード中: 入力欄を readonly + 「Auto running... press 'x' to stop」表示
-- Stop ボタンの代わりに Auto off ボタン（websocket で `{type: "auto_pilot_off"}`）
-- `{type: "auto_pilot_status"}` イベントで現在のラウンド数等を表示
-
-**Desktop GUI**:
-- 自動モード中: 入力欄をロック、ステータスバーに `[AUTO] round 3/5` 表示
-- 停止ボタンが「Auto off」になる
-
 ## 動作例
 
-### CLI
-
 ```
-workdir> :auto このコードをレビューしてください。バグ、スタイル違反、テスト不足を重点的に。
+workdir> :auto このコードをレビューしてください。バグ、スタイル、テスト不足を重点的に。
 [AUTO] Started.
+[LLMの応答... バグA、スタイル問題B...]
 
-[LLMのレビュー応答... バグ指摘、スタイル修正提案など]
+[AUTO] Round 1/10
+[LLMの応答... さらに設計面の指摘]
 
-[AUTO] Round 1/5
+[AUTO:judge] CONTINUE
 
-[LLMの応答... さらに深掘りした指摘]
+[AUTO] Round 2/10
+[LLMの応答... テスト不足の指摘]
 
-[AUTO] Round 2/5
+[AUTO:judge] CONTINUE
 
-[LLMの応答... 「以上でレビューを完了します」]
+[AUTO] Round 3/10
+[LLMの応答... 「以上でレビューを完了します」的な内容]
+
+[AUTO:judge] COMPLETE
 [AUTO] Review/analysis completed.
-workdir> 
+workdir>
 ```
 
-### xキー割り込み
+## 未解決の設計課題
 
-```
-[AUTO] Round 2/5 > 
-[ユーザーが x キーを押す]
-[AUTO] Exited by user (x key).
-workdir> 
-```
-
-## 考慮点
-
-| 項目 | 内容 |
-|---|---|
-| **トークン消費** | 自動モード中はトークンを消費し続ける。`--max-rounds` が安全弁 |
-| **完了判定の堅牢性** | LLM によっては「完了」と言わずにダラダラ続ける可能性がある。その場合は `--max-rounds` または `x` キーで止める |
-| **i18n** | 継続用プロンプトは `_()` 経由。`.po` ファイルで全言語分用意する |
-| **c キーとの共存** | `c` はストリーミング中断のみ。自動モードは継続される。`x` でモード終了 |
-| **ツール実行** | LLM がツールを呼び出しても既存の tool loop で処理される |
-| **WEB/GUI** | 自動モード中は入力欄ロック。`x` キーは CLI 専用（キーボード監視スレッドが必要）。WEB はボタン、GUI はボタンで代用 |
+- **プロバイダ依存**: `_ask_reviewer_judgment()` は `client.chat.completions.create` を直接呼んでいる。Gemini/Claude では別のAPIになる。`run_llm_rounds` を tool無し＋`max_tokens=10` で呼ぶラッパーが必要
+- **トークン消費**: 2回/ラウンドのLLM呼び出し。`--max-rounds 10` で最大20回のAPI呼び出しになる。継続プロンプトやメタクエリの履歴は直近のみにして節約
+- **WEB/GUI**: 自動モード中は入力欄ロックと状況表示が必要
 
 ## 実装順序（推奨）
 
-1. `core.py`: 状態変数追加 + `x` キー監視を interrupt monitor に追加
-2. `cli.py`: `:auto` コマンド + `_run_auto_pilot_loop()` + `_get_continue_prompt()`
-3. 動作確認（CLI）
-4. WEB/GUI 対応
-5. 全 `.po` に翻訳追加
+1. `core.py`: 状態変数 + `x` キー監視
+2. `cli.py`: `:auto` コマンド + `_run_auto_pilot_loop()` + `_ask_reviewer_judgment()`
+3. 動作確認（CLI, OpenAI/Azure で）
+4. 他プロバイダ（Gemini/Claude）対応
+5. WEB/GUI 対応
+6. 全 `.po` に翻訳追加
