@@ -50,7 +50,7 @@ uag
 
 ### 🧠 Многопровайдерная архитектура
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
 Все поставщики используют один и тот же набор инструментов и интерфейс. Переключитесь, установив `UAGENT_PROVIDER` — никаких изменений кода, никаких отдельных установок.
 
@@ -158,7 +158,7 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 - **Переменные среды**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **Мастер установки**: `python -m uagent.setup_cli`
 - **Зашифрованный env**: `uag_envsec` — зашифровать `.env` как `.env.sec`
-- **API ответов**: установите `UAGENT_RESPONSES=1` для режима API ответов (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio).
+- **API ответов**: установите `UAGENT_RESPONSES=1` для режима API ответов (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI).
 - **Документация для разработчиков**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Небольшие советы по программе LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 

@@ -50,7 +50,7 @@ uag
 
 ### 🧠 다중 제공자 아키텍처
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud(Qwen) / KIMI(Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud(Qwen) / KIMI(Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
 모든 공급자는 동일한 도구 세트와 인터페이스를 공유합니다. `UAGENT_PROVIDER` 설정으로 전환하세요. 코드 변경이나 별도 설치가 필요하지 않습니다.
 
@@ -158,7 +158,7 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 - **환경 변수**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **설정 마법사**: `python -m uagent.setup_cli`
 - **암호화된 환경**: `uag_envsec` — `.env`를 `.env.sec`로 암호화합니다.
-- **응답 API**: 응답 API 모드(OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)에 대해 'UAGENT_RESPONSES=1'을 설정합니다.
+- **응답 API**: 응답 API 모드(OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)에 대해 'UAGENT_RESPONSES=1'을 설정합니다.
 - **개발자 문서**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **작은 LLM 팁**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 

@@ -50,7 +50,7 @@ uag
 
 ### 🧠 Αρχιτεκτονική πολλών παρόχων
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
 Όλοι οι πάροχοι μοιράζονται το ίδιο σύνολο εργαλείων και διεπαφή. Εναλλαγή ορίζοντας "UAGENT_PROVIDER" — χωρίς αλλαγές κώδικα, χωρίς ξεχωριστές εγκαταστάσεις.
 
@@ -158,7 +158,7 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 - **Μεταβλητές περιβάλλοντος**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **Οδηγός εγκατάστασης**: `python -m uagent.setup_cli`
 - **Κρυπτογραφημένο env**: "uag_envsec" — κρυπτογράφηση ".env" ως ".env.sec"
-- **API Responses**: Ορίστε το "UAGENT_RESPONSES=1" για τη λειτουργία API Responses (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **API Responses**: Ορίστε το "UAGENT_RESPONSES=1" για τη λειτουργία API Responses (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
 - **Έγγραφα προγραμματιστή**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Μικρές συμβουλές LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 

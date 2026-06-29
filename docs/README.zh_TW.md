@@ -50,7 +50,7 @@ uag
 
 ### 🧠 多提供者架構
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / 阿里雲 (Qwen) / KIMI (Moonshot AI) / 小米 MiMo / LM Studio / MiniMax / LM Studio / MiniMax MiMo
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / 阿里雲 (Qwen) / KIMI (Moonshot AI) / 小米 MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)** / LM Studio / MiniMax MiMo
 
 所有提供者共享相同的工具集和介面。透過設定“UAGENT_PROVIDER”進行切換－無需更改程式碼，無需單獨安裝。
 
@@ -158,7 +158,7 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 - **環境變數**：[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **設定精靈**：`python -m uagent.setup_cli`
 - **加密的 env**: `uag_envsec` — 將 `.env` 加密為 `.env.sec`
-- **回應 API**：為回應 API 模式設定「UAGENT_RESPONSES=1」（OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio）
+- **回應 API**：為回應 API 模式設定「UAGENT_RESPONSES=1」（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）
 - **開發人員文件**：[DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **LLM小技巧**：[SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 

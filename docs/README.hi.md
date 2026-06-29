@@ -158,7 +158,7 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 - **पर्यावरण चर**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **सेटअप विज़ार्ड**: `पायथन -एम uagent.setup_cli`
 - **एन्क्रिप्टेड एनवी**: `uag_envsec` - `.env` को `.env.sec` के रूप में एन्क्रिप्ट करें
-- **प्रतिक्रिया एपीआई**: प्रतिक्रिया एपीआई मोड के लिए `UAGENT_RESPONSES=1` सेट करें (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio / MiniMax)
+- **प्रतिक्रिया एपीआई**: प्रतिक्रिया एपीआई मोड के लिए `UAGENT_RESPONSES=1` सेट करें (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio / MiniMax / **Sakana AI (Fugu)**)
 - **डेवलपर दस्तावेज़**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **छोटे एलएलएम टिप्स**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 

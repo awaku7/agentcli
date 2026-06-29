@@ -50,7 +50,7 @@ Se [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 
 ### 🧠 Arkitektur för flera leverantörer
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
 Alla leverantörer delar samma verktygsuppsättning och gränssnitt. Byt genom att ställa in "UAGENT_PROVIDER" — inga kodändringar, inga separata installationer.
 
@@ -158,7 +158,7 @@ Hantera med `uag_envsec`.
 - **Miljövariabler**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **Installationsguide**: `python -m uagent.setup_cli`
 - **Krypterad env**: `uag_envsec` — kryptera `.env` som `.env.sec`
-- **Responses API**: Ställ in `UAGENT_RESPONSES=1` för Responses API-läge (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **Responses API**: Ställ in `UAGENT_RESPONSES=1` för Responses API-läge (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
 - **Utvecklardokument**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **Små LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 

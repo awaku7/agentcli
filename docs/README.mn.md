@@ -50,7 +50,7 @@ uag
 
 ### 🧠 Олон үйлчилгээ үзүүлэгчийн архитектур
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
 Бүх үйлчилгээ үзүүлэгчид ижил хэрэгсэл, интерфейсийг хуваалцдаг. `UAGENT_PROVIDER` тохиргоогоор сэлгэнэ үү — кодын өөрчлөлт байхгүй, тусдаа суулгалт байхгүй.
 
@@ -158,7 +158,7 @@ API түлхүүр болон нууцыг `.env.sec` — шифрлэгдсэн
 - **Орчны хувьсагчид**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **Тохиргооны мастер**: `python -m uagent.setup_cli`
 - **Шифрлэгдсэн env**: `uag_envsec` — `.env`-г `.env.sec` гэж шифрлэх
-- **Responses API**: Responses API горимд `UAGENT_RESPONSES=1`-г тохируулах (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **Responses API**: Responses API горимд `UAGENT_RESPONSES=1`-г тохируулах (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
 - **Хөгжүүлэгчийн баримт бичиг**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - ** LLM-ийн жижиг зөвлөмж**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 

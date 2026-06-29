@@ -50,7 +50,7 @@ uag
 
 ### 🧠 สถาปัตยกรรมหลายผู้ให้บริการ
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
 ผู้ให้บริการทั้งหมดใช้ชุดเครื่องมือและอินเทอร์เฟซเดียวกัน สลับโดยการตั้งค่า `uagENT_PROVIDER` — ไม่มีการเปลี่ยนแปลงโค้ด ไม่มีการติดตั้งแยกต่างหาก
 
@@ -158,7 +158,7 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 - **ตัวแปรสภาพแวดล้อม**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **วิซาร์ดการตั้งค่า**: `python -m uagent.setup_cli`
 - **env ที่เข้ารหัส**: `uag_envsec` — เข้ารหัส `.env` เป็น `.env.sec`
-- **Responses API**: ตั้งค่า `uagENT_RESPONSES=1` สำหรับโหมด Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/LM Studio)
+- **Responses API**: ตั้งค่า `uagENT_RESPONSES=1` สำหรับโหมด Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
 - **เอกสารสำหรับนักพัฒนา**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
 - **เคล็ดลับ LLM ขนาดเล็ก**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
