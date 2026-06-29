@@ -50,7 +50,7 @@ uag
 
 ### 🧠 मल्टी-प्रोव्हायडर आर्किटेक्चर
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM स्टुडिओ
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM स्टुडिओ
 
 सर्व प्रदाते समान टूलसेट आणि इंटरफेस सामायिक करतात. `UAGENT_PROVIDER` सेट करून स्विच करा — कोणतेही कोड बदल नाहीत, वेगळे इंस्टॉलेशन नाहीत.
 
