@@ -157,6 +157,7 @@ def run_llm_rounds(
             use_responses_api, stream_responses = _resolve_round_runtime_flags(
                 tr_cfg=tr_cfg,
                 core=core,
+                provider=provider,
             )
             # Responses API is only supported on specific providers; see providers/provider_caps.py.
             # Force use_responses_api to False for other providers (like Claude) to prevent skipping final output.

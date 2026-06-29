@@ -84,11 +84,16 @@ def _translate_call_messages(
     return translated_call_messages
 
 
-def _resolve_round_runtime_flags(*, tr_cfg: Any, core: Any) -> Any:
-    use_responses_api = (env_get("UAGENT_RESPONSES", "") or "").lower() in (
-        "1",
-        "true",
-    )
+def _resolve_round_runtime_flags(*, tr_cfg: Any, core: Any, provider: str = "") -> Any:
+    responses_env = (env_get("UAGENT_RESPONSES", "") or "").lower().strip()
+    if responses_env in ("1", "true"):
+        use_responses_api = True
+    elif responses_env in ("0", "false", "no", "off"):
+        use_responses_api = False
+    else:
+        # Auto-enable for providers that support Responses API (e.g. Sakana Fugu)
+        from .providers.provider_caps import RESPONSES_PROVIDERS
+        use_responses_api = provider.lower() in RESPONSES_PROVIDERS
 
     stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
 
