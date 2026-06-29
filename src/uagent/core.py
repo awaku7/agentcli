@@ -182,6 +182,14 @@ _interrupt_monitor_thread: threading.Thread | None = None
 _interrupt_monitor_stop = threading.Event()
 _interrupt_enabled: bool = True
 
+# --- Auto-Pilot ---
+auto_pilot_active = False
+auto_pilot_exit_requested = False
+auto_pilot_exit_lock = threading.Lock()
+auto_pilot_round = 0
+auto_pilot_max_rounds = 10
+auto_pilot_goal: str = ""
+
 
 def _check_key_win() -> None:
     """Check for 'c' keypress on Windows (msvcrt, non-blocking)."""
@@ -194,6 +202,10 @@ def _check_key_win() -> None:
                 with interrupt_lock:
                     global interrupt_requested
                     interrupt_requested = True
+            elif key in (b"x", b"X"):
+                with auto_pilot_exit_lock:
+                    global auto_pilot_exit_requested
+                    auto_pilot_exit_requested = True
     except Exception:
         pass
 
@@ -225,10 +237,15 @@ def _check_key_posix() -> None:
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
-        if ch and ch.lower() == b"c":
-            with interrupt_lock:
-                global interrupt_requested
-                interrupt_requested = True
+        if ch:
+            if ch.lower() == b"c":
+                with interrupt_lock:
+                    global interrupt_requested
+                    interrupt_requested = True
+            elif ch.lower() == b"x":
+                with auto_pilot_exit_lock:
+                    global auto_pilot_exit_requested
+                    auto_pilot_exit_requested = True
     except Exception:
         pass
 
@@ -374,6 +391,9 @@ def get_prompt() -> str:
 
     if ask_active:
         return "[REPLY] > "
+
+    if auto_pilot_active:
+        return "[AUTO] > "
 
     if busy:
         if label:

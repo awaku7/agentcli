@@ -974,6 +974,20 @@ def main() -> None:
                         append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                         try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                     )
+
+                    # Auto-pilot loop: if auto mode is active, continue rounds
+                    if core.auto_pilot_active:
+                        tools_util._run_auto_pilot_loop(
+                            provider,
+                            client,
+                            depname,
+                            messages,
+                            core=core,
+                            make_client_fn=providers.make_client,
+                            append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                            try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                        )
+                        core.set_status(False, "")
                 continue
 
             if kind == "schedule_notice":

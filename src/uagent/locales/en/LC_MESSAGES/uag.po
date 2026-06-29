@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: PROJECT 1.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-17 18:33+0900\n"
+"POT-Creation-Date: 2026-06-29 20:12+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,16 +45,6 @@ msgid "Received multiline reply."
 msgstr "Received multiline reply."
 
 msgid ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-msgstr ""
-"(Multiline input mode: enter the body in multiple lines; to restart, type "
-"\"\"\"retry; finish with a line containing %(sentinel)s)"
-
-msgid "Discarded previous input. Please start over."
-msgstr "Discarded previous input. Please start over."
-
-msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
 "\n"
@@ -88,15 +78,22 @@ msgstr "[INFO] startup genre prompt = numeric-input"
 
 msgid ""
 "Enter the sum of numbers "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
-" Enter=enable all):"
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
+" Enter=basic only):"
 msgstr ""
 "Enter the sum of numbers "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all,"
-" Enter=enable all):"
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
+" Enter=basic only):"
 
-msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
-msgstr "Basic (file, env, time, prompts, skills, memory, tools control)"
+msgid "Basic (env, time, prompts, skills, memory, tools control)"
+msgstr "Basic (env, time, prompts, skills, memory, tools control)"
+
+msgid ""
+"File (create, delete, read, write, search, zip, rename, hash, grep, list "
+"dir)"
+msgstr ""
+"File (create, delete, read, write, search, zip, rename, hash, grep, list "
+"dir)"
 
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "Communication (Teams, Discord, Bluesky)"
@@ -120,6 +117,13 @@ msgstr "External (A2A, MCP, fetch, search web)"
 
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Media (image gen/edit/analyze, audio, QR code)"
+
+msgid ""
+"Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, "
+"cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
+msgstr ""
+"Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, "
+"cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
 
 msgid "[INFO] startup genre prompt = prompt_toolkit"
 msgstr "[INFO] startup genre prompt = prompt_toolkit"
@@ -266,6 +270,9 @@ msgstr "New chunk:\n"
 
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Update the summary while keeping the prior context intact."
+
+msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
+msgstr "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 
 msgid "Summary of the conversation so far:\n"
 msgstr "Summary of the conversation so far:\n"
@@ -482,10 +489,10 @@ msgstr "open with OS"
 
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 msgstr ""
 "Required to select the LLM provider "
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek)."
+"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
@@ -560,6 +567,15 @@ msgstr "Alibaba Cloud (Qwen) API key."
 
 msgid "Moonshot AI API key."
 msgstr "Moonshot AI API key."
+
+msgid "Xiaomi MiMo API key."
+msgstr "Xiaomi MiMo API key."
+
+msgid "MiniMax API key."
+msgstr "MiniMax API key."
+
+msgid "Hugging Face API key (HF_TOKEN)."
+msgstr "Hugging Face API key (HF_TOKEN)."
 
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
@@ -743,6 +759,12 @@ msgstr "[Network Error]"
 msgid "Unexpected exception."
 msgstr "Unexpected exception."
 
+msgid "Response error: resp is None."
+msgstr "Response error: resp is None."
+
+msgid "Response error: resp.choices is None or empty."
+msgstr "Response error: resp.choices is None or empty."
+
 msgid "Error while parsing response: %(err)s"
 msgstr "Error while parsing response: %(err)s"
 
@@ -779,6 +801,47 @@ msgstr "Failed to initialize LLM client."
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "Found %(total_files)d log files. Starting incremental profiling..."
 
+msgid ""
+"You are a user profiling agent. Analyze the conversation log and extract:\n"
+"1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
+"2. Preferences — specific, actionable traits observed from the user's actual requests and corrections:\n"
+"   - Response style: concise or verbose? Code-heavy or prose-heavy? Bullet points or paragraphs?\n"
+"   - Language: prefers Japanese, English, or mixed?\n"
+"   - Tool usage: which tools/commands does the user frequently reach for?\n"
+"   - Quality standard: tolerates quick workarounds or insists on proper solutions?\n"
+"   - Confirmation: wants explicit approval before file operations, or prefers to skip prompts?\n"
+"   - Any other recurring pattern in how the user gives instructions.\n"
+"3. Constraints — explicit rules the user stated (e.g. 'must be offline', 'no external APIs', 'keep it simple', 'no extra dependencies').\n"
+"\n"
+"Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+msgstr ""
+"You are a user profiling agent. Analyze the conversation log and extract:\n"
+"1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
+"2. Preferences — specific, actionable traits observed from the user's actual requests and corrections:\n"
+"   - Response style: concise or verbose? Code-heavy or prose-heavy? Bullet points or paragraphs?\n"
+"   - Language: prefers Japanese, English, or mixed?\n"
+"   - Tool usage: which tools/commands does the user frequently reach for?\n"
+"   - Quality standard: tolerates quick workarounds or insists on proper solutions?\n"
+"   - Confirmation: wants explicit approval before file operations, or prefers to skip prompts?\n"
+"   - Any other recurring pattern in how the user gives instructions.\n"
+"3. Constraints — explicit rules the user stated (e.g. 'must be offline', 'no external APIs', 'keep it simple', 'no extra dependencies').\n"
+"\n"
+"Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
+"Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"You MUST respond ONLY with a valid JSON object matching this schema:\n"
+"{\n"
+"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"  \"preferences\": [\"string\"],\n"
+"  \"constraints\": [\"string\"]\n"
+"}"
+
 msgid "Drop files/images here"
 msgstr "Drop files/images here"
 
@@ -800,20 +863,35 @@ msgstr "[Image Path] %(path)s"
 msgid "Welcome / Quick Guide"
 msgstr "Welcome / Quick Guide"
 
+msgid "Font size: %(name)s"
+msgstr "Font size: %(name)s"
+
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (Extreme Stability)"
 
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ You can attach files by drag & drop"
 
-msgid "Attach..."
-msgstr "Attach..."
+msgid "Attach files"
+msgstr "Attach files"
+
+msgid "■"
+msgstr "■"
+
+msgid "Stop generation"
+msgstr "Stop generation"
 
 msgid "Send"
 msgstr "Send"
 
 msgid "Help"
 msgstr "Help"
+
+msgid "View"
+msgstr "View"
+
+msgid "Font: %(name)s"
+msgstr "Font: %(name)s"
 
 msgid "Mode"
 msgstr "Mode"
@@ -854,6 +932,15 @@ msgstr "Verbosity: high"
 msgid "Tools"
 msgstr "Tools"
 
+msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
+msgstr "Basic (file, env, time, prompts, skills, memory, tools control)"
+
+msgid "File (read, write, search, delete, listing)"
+msgstr "File (read, write, search, delete, listing)"
+
+msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
+msgstr "Index (source code navigation: py2idx, ts2idx, etc.)"
+
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] reasoning=%(mode)s"
 
@@ -875,9 +962,6 @@ msgstr "Enter password..."
 
 msgid "Enter a message..."
 msgstr "Enter a message..."
-
-msgid "Attach files"
-msgstr "Attach files"
 
 msgid "All Files (*)"
 msgstr "All Files (*)"
@@ -1074,6 +1158,50 @@ msgstr "Moonshot base URL (optional, default: https://api.moonshot.cn/v1)"
 
 msgid "Moonshot model name (optional, default: kimi-k2)"
 msgstr "Moonshot model name (optional, default: kimi-k2)"
+
+msgid "Xiaomi MiMo API key"
+msgstr "Xiaomi MiMo API key"
+
+msgid "MiMo base URL (optional, default: https://api.xiaomimimo.com/v1)"
+msgstr "MiMo base URL (optional, default: https://api.xiaomimimo.com/v1)"
+
+msgid "MiMo model name (optional, default: mimo-v2.5-pro)"
+msgstr "MiMo model name (optional, default: mimo-v2.5-pro)"
+
+msgid "LM Studio base URL (optional, default: http://localhost:1234/v1)"
+msgstr "LM Studio base URL (optional, default: http://localhost:1234/v1)"
+
+msgid "LM Studio model name (optional, default: local-model)"
+msgstr "LM Studio model name (optional, default: local-model)"
+
+msgid "MiniMax API key"
+msgstr "MiniMax API key"
+
+msgid "MiniMax base URL (optional, default: https://api.minimax.io)"
+msgstr "MiniMax base URL (optional, default: https://api.minimax.io)"
+
+msgid "MiniMax model name (optional, default: MiniMax-M3)"
+msgstr "MiniMax model name (optional, default: MiniMax-M3)"
+
+msgid "HuggingFace API key (HF_TOKEN)"
+msgstr "HuggingFace API key (HF_TOKEN)"
+
+msgid ""
+"HuggingFace base URL (optional, default: https://router.huggingface.co/v1)"
+msgstr ""
+"HuggingFace base URL (optional, default: https://router.huggingface.co/v1)"
+
+msgid "HuggingFace model name (optional, default: openai/gpt-oss-120b)"
+msgstr "HuggingFace model name (optional, default: openai/gpt-oss-120b)"
+
+msgid "Sakana AI API key"
+msgstr "Sakana AI API key"
+
+msgid "Sakana AI base URL (optional, default: https://api.sakana.ai/v1)"
+msgstr "Sakana AI base URL (optional, default: https://api.sakana.ai/v1)"
+
+msgid "Sakana AI model name (optional, default: fugu)"
+msgstr "Sakana AI model name (optional, default: fugu)"
 
 msgid "Enter number:"
 msgstr "Enter number:"
@@ -1330,6 +1458,12 @@ msgstr "Warning: Failed to remove plain .env: %(error)s"
 msgid "generated: %(path)s"
 msgstr "generated: %(path)s"
 
+msgid "Stopped by user. Sending stop command to LLM..."
+msgstr "Stopped by user. Sending stop command to LLM..."
+
+msgid "Stop"
+msgstr "Stop"
+
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Tool rounds exceeded %(max)d; aborting."
 
@@ -1355,11 +1489,11 @@ msgstr ""
 
 msgid ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
 " Skips the interactive genre prompt when specified."
 msgstr ""
 "Tool genre bitmask "
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,255=all)."
+"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
 " Skips the interactive genre prompt when specified."
 
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
@@ -1367,6 +1501,18 @@ msgstr "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
+
+msgid ""
+"Inject a message into the LLM at startup and exit after completion. Implies "
+"--non-interactive."
+msgstr ""
+"Inject a message into the LLM at startup and exit after completion. Implies "
+"--non-interactive."
+
+msgid ""
+"Enable a specific tool by name at startup. Can be specified multiple times."
+msgstr ""
+"Enable a specific tool by name at startup. Can be specified multiple times."
 
 msgid "invalid reasoning"
 msgstr "invalid reasoning"
@@ -1540,6 +1686,9 @@ msgstr ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 
+msgid "Analyzing the most recent %d log files to generate user profile..."
+msgstr "Analyzing the most recent %d log files to generate user profile..."
+
 msgid "Analyzing past logs to generate user profile..."
 msgstr "Analyzing past logs to generate user profile..."
 
@@ -1629,8 +1778,11 @@ msgstr "Delete a long-term memory note by index (see :mem-list)"
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr "Show the learned user profile, or generate it from past logs"
 
-msgid "Generate user profile from past logs"
-msgstr "Generate user profile from past logs"
+msgid "Generate profile from the most recent N log files"
+msgstr "Generate profile from the most recent N log files"
+
+msgid "Generate user profile from past logs (last N files if specified)"
+msgstr "Generate user profile from past logs (last N files if specified)"
 
 msgid "Clear the learned user profile data"
 msgstr "Clear the learned user profile data"
@@ -1664,10 +1816,64 @@ msgstr "Exit"
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "  - Enter a line that is just 'f' to enter multiline input mode."
 
+msgid "Continue. Goal: %(goal)s"
+msgstr "Continue. Goal: %(goal)s"
+
 msgid ""
-"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+"\n"
+"[AUTO:judge] %(judgment)s"
 msgstr ""
-"  - To end multiline input mode, enter a line that is exactly %(sentinel)s."
+"\n"
+"[AUTO:judge] %(judgment)s"
+
+msgid ""
+"\n"
+"[AUTO] Exited by user (x key)."
+msgstr ""
+"\n"
+"[AUTO] Exited by user (x key)."
+
+msgid ""
+"\n"
+"[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr ""
+"\n"
+"[AUTO] Max rounds (%(max)d) reached. Stopping."
+
+msgid ""
+"\n"
+"[AUTO] Round %(round)d/%(max)d"
+msgstr ""
+"\n"
+"[AUTO] Round %(round)d/%(max)d"
+
+msgid ""
+"\n"
+"[AUTO] Review/analysis completed."
+msgstr ""
+"\n"
+"[AUTO] Review/analysis completed."
+
+msgid "[AUTO] Auto-pilot turned off."
+msgstr "[AUTO] Auto-pilot turned off."
+
+msgid "Usage: :auto <goal> [--max-rounds N]"
+msgstr "Usage: :auto <goal> [--max-rounds N]"
+
+msgid "       :auto off"
+msgstr "       :auto off"
+
+msgid "Invalid value for --max-rounds: %(val)s"
+msgstr "Invalid value for --max-rounds: %(val)s"
+
+msgid "Goal cannot be empty."
+msgstr "Goal cannot be empty."
+
+msgid "[AUTO] Started. Goal: %(goal)s"
+msgstr "[AUTO] Started. Goal: %(goal)s"
+
+msgid "[AUTO] Max rounds: %(max)d"
+msgstr "[AUTO] Max rounds: %(max)d"
 
 msgid "Exiting."
 msgstr "Exiting."
@@ -1743,6 +1949,9 @@ msgstr "missing path"
 msgid "path outside workdir"
 msgstr "path outside workdir"
 
+msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
+msgstr "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
+
 msgid "Starting server on"
 msgstr "Starting server on"
 
@@ -1751,17 +1960,17 @@ msgstr "External URL:"
 
 msgid ""
 "[MCP Servers]\n"
-"- Config file not found."
+"- Config file not found.\n"
 msgstr ""
 "[MCP Servers]\n"
-"- Config file not found."
+"- Config file not found.\n"
 
 msgid ""
 "[MCP Servers]\n"
-"- No servers registered."
+"- No servers registered.\n"
 msgstr ""
 "[MCP Servers]\n"
-"- No servers registered."
+"- No servers registered.\n"
 
 msgid "[MCP Servers]"
 msgstr "[MCP Servers]"
@@ -1779,12 +1988,8 @@ msgstr "[Quick Guide]"
 msgid "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 msgstr "- Chat: type a message and send (GUI: Ctrl+Enter is also available)."
 
-msgid ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
-msgstr ""
-"- Multiline: enter a line that is just 'f' to enter multiline mode (end with"
-" \"\"\"end)."
+msgid "- Multiline: enter a line that is just 'f' to enter multiline mode."
+msgstr "- Multiline: enter a line that is just 'f' to enter multiline mode."
 
 msgid ""
 "- Commands: type ':help' to see system commands (log management, history "
@@ -2005,10 +2210,15 @@ msgstr "disabled"
 
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use "
+".env.sec values (apply to session) / [N] Skip: "
 msgstr ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
-"environment variables. Update it? [y/N] "
+"environment variables. [y] Update .env.sec with current values / [s] Use "
+".env.sec values (apply to session) / [N] Skip: "
+
+msgid "[INFO] Applied .env.sec values to the current session."
+msgstr "[INFO] Applied .env.sec values to the current session."
 
 msgid ""
 "[INFO] .env.sec content does not match the current startup UAGENT_* "
@@ -2051,12 +2261,3 @@ msgstr "[WARN] Failed to decrypt .env.sec: %(err)s"
 
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
-
-
-#: src/uagent/uagent_llm.py:?
-msgid "Stopped by user. Sending stop command to LLM..."
-msgstr "Stopped by user. Sending stop command to LLM..."
-
-#: src/uagent/uagent_llm.py:?
-msgid "Stop"
-msgstr "Stop"

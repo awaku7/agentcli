@@ -2170,6 +2170,242 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
     return True
 
 
+# ============================================================
+# Auto-Pilot
+# ============================================================
+
+def _get_followup_prompt(goal: str) -> str:
+    """Generate continuation prompt for the main query (i18n)."""
+    return _("Continue. Goal: %(goal)s") % {"goal": goal}
+
+
+def _build_judgment_messages(
+    messages: list[dict[str, Any]],
+    goal: str,
+) -> list[dict[str, Any]]:
+    """Build messages for the reviewer judgment query.
+
+    The system prompt is kept in English (LLM-oriented).
+    Only the final user message uses gettext so it can be localized
+    when displayed to the user, but functionally the LLM reads English.
+    """
+    system_prompt = (
+        "You are a reviewer. Evaluate the conversation below and "
+        "determine whether the goal '%(goal)s' has been achieved.\n"
+        "Achieved    → COMPLETE\n"
+        "More needed → CONTINUE\n"
+        "Reply with exactly COMPLETE or CONTINUE."
+    ) % {"goal": goal}
+
+    msgs: list[dict[str, Any]] = [{"role": "system", "content": system_prompt}]
+
+    # Recent conversation history (max 6 messages = 3 turns)
+    history: list[dict[str, Any]] = []
+    for m in reversed(messages):
+        if m.get("role") in ("user", "assistant"):
+            content = m.get("content", "")
+            if isinstance(content, str) and content.strip():
+                history.append({"role": m["role"], "content": content[:500]})
+                if len(history) >= 6:
+                    break
+
+    for h in reversed(history):
+        msgs.append(h)
+
+    msgs.append({"role": "user", "content": "COMPLETE or CONTINUE?"})
+    return msgs
+
+
+def _ask_reviewer_judgment(
+    provider: str,
+    client: Any,
+    depname: str,
+    messages: list[dict[str, Any]],
+    core: Any,
+) -> str:
+    """Ask the LLM as a reviewer whether the goal is achieved.
+
+    Returns "COMPLETE" or "CONTINUE".
+    """
+    judgment_msgs = _build_judgment_messages(messages, core.auto_pilot_goal)
+
+    core.set_status(True, "AUTO:judge")
+
+    import warnings
+
+    try:
+        # Try OpenAI-compatible API call (works for OpenAI/Azure/OpenRouter etc.)
+        resp = client.chat.completions.create(
+            model=depname,
+            messages=judgment_msgs,
+            temperature=0.0,
+            max_tokens=10,
+        )
+        text = ""
+        if resp.choices and resp.choices[0].message:
+            text = (resp.choices[0].message.content or "").strip().upper()
+    except (AttributeError, NotImplementedError, TypeError) as e:
+        # Fallback: provider does not support chat.completions.create directly
+        # (e.g. Gemini/Claude). Use a lightweight approach.
+        warnings.warn(
+            f"[AUTO] Direct chat.completions not supported for {provider}: {e}"
+        )
+        text = "CONTINUE"
+    except Exception as e:
+        warnings.warn(f"[AUTO] Judgment call failed: {type(e).__name__}: {e}")
+        text = "CONTINUE"
+
+    print(_("\n[AUTO:judge] %(judgment)s") % {"judgment": text})
+    return "COMPLETE" if "COMPLETE" in text else "CONTINUE"
+
+
+def _run_auto_pilot_loop(
+    provider: str,
+    client: Any,
+    depname: str,
+    messages: list[dict[str, Any]],
+    core: Any,
+    make_client_fn: Any,
+    append_result_to_outfile_fn: Any,
+    try_open_images_from_text_fn: Any,
+) -> None:
+    """Auto-pilot main loop.
+
+    1 round = 2 LLM calls:
+      Step A: Main query (continuation of review/analysis)
+      Step B: Meta query (reviewer judgment)
+    """
+    # Lazy import to avoid circular imports at module level
+    from . import uagent_llm as llm_util
+
+    while True:
+        # 1. x key exit check
+        with core.auto_pilot_exit_lock:
+            if core.auto_pilot_exit_requested:
+                core.auto_pilot_exit_requested = False
+                core.auto_pilot_active = False
+                print(_("\n[AUTO] Exited by user (x key)."))
+                return
+
+        # 2. Max rounds check
+        core.auto_pilot_round += 1
+        if core.auto_pilot_round > core.auto_pilot_max_rounds:
+            core.auto_pilot_active = False
+            print(
+                _("\n[AUTO] Max rounds (%(max)d) reached. Stopping.")
+                % {"max": core.auto_pilot_max_rounds}
+            )
+            return
+
+        # === Step A: Main query ===
+        next_prompt = _get_followup_prompt(core.auto_pilot_goal)
+
+        core.set_status(True, "AUTO")
+        print(
+            _("\n[AUTO] Round %(round)d/%(max)d")
+            % {"round": core.auto_pilot_round, "max": core.auto_pilot_max_rounds}
+        )
+
+        user_msg = {"role": "user", "content": next_prompt}
+        messages.append(user_msg)
+        core.log_message(user_msg)
+
+        # Reset interrupt flag for each round
+        with core.interrupt_lock:
+            core.interrupt_requested = False
+
+        llm_util.run_llm_rounds(
+            provider,
+            client,
+            depname,
+            messages,
+            core=core,
+            make_client_fn=make_client_fn,
+            append_result_to_outfile_fn=append_result_to_outfile_fn,
+            try_open_images_from_text_fn=try_open_images_from_text_fn,
+        )
+
+        core.set_status(True, "AUTO")
+
+        # === Step B: Meta query (reviewer judgment) ===
+        judgment = _ask_reviewer_judgment(
+            provider, client, depname, messages, core
+        )
+
+        if judgment == "COMPLETE":
+            core.auto_pilot_active = False
+            print(_("\n[AUTO] Review/analysis completed."))
+            return
+        # CONTINUE → continue loop
+
+
+def _handle_cmd_auto(
+    arg: str,
+    messages_ref: list[dict[str, Any]],
+    client: Any,
+    depname: str,
+    *,
+    core: Any,
+    tr: Any,
+) -> CommandResult | bool:
+    """Handle the :auto command.
+
+    Usage:
+      :auto <goal> [--max-rounds N]
+      :auto off
+    """
+    a = (arg or "").strip()
+
+    if a.lower() == "off":
+        core.auto_pilot_active = False
+        core.auto_pilot_exit_requested = False
+        print(_("[AUTO] Auto-pilot turned off."))
+        return CommandResult()
+
+    if not a:
+        print(tr("Usage: :auto <goal> [--max-rounds N]"))
+        print(tr("       :auto off"))
+        return CommandResult()
+
+    # Parse goal and options
+    goal_parts: list[str] = []
+    max_rounds = 10
+    tokens = shlex.split(a)
+    i = 0
+    while i < len(tokens):
+        if tokens[i] == "--max-rounds" and i + 1 < len(tokens):
+            try:
+                max_rounds = int(tokens[i + 1])
+            except ValueError:
+                print(
+                    tr("Invalid value for --max-rounds: %(val)s")
+                    % {"val": tokens[i + 1]}
+                )
+                return CommandResult()
+            i += 2
+        else:
+            goal_parts.append(tokens[i])
+            i += 1
+
+    goal = " ".join(goal_parts)
+    if not goal:
+        print(tr("Goal cannot be empty."))
+        return CommandResult()
+
+    # Set auto-pilot state
+    core.auto_pilot_goal = goal
+    core.auto_pilot_max_rounds = max_rounds
+    core.auto_pilot_round = 0
+    core.auto_pilot_exit_requested = False
+    core.auto_pilot_active = True
+
+    print(_("[AUTO] Started. Goal: %(goal)s") % {"goal": goal})
+    print(_("[AUTO] Max rounds: %(max)d") % {"max": max_rounds})
+
+    # Return CommandResult with run_llm=True to trigger the first LLM call
+    return CommandResult(run_llm=True, prompt=goal)
+
+
 def handle_command(
     line: str,
     messages_ref: list[dict[str, Any]],
@@ -2303,6 +2539,16 @@ def handle_command(
 
     if cmd == "rm":
         return _handle_cmd_rm(arg, tr=tr)
+
+    if cmd == "auto":
+        return _handle_cmd_auto(
+            arg,
+            messages_ref,
+            client,
+            depname,
+            core=core,
+            tr=tr,
+        )
 
     # Try dynamic commands registered by tool modules
     res = tools.handle_dynamic_command(
