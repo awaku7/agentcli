@@ -115,6 +115,20 @@ uag có thể theo dõi tiến trình trên các tác vụ nhiều tệp chạy 
 
 `human_ask` cho phép LLM tạm dừng và yêu cầu bạn xác nhận trước khi thực hiện các thao tác phá hoại (xóa tệp, ghi đè, lệnh shell). Bạn luôn kiểm soát.
 
+### 🛑 Interrupt (c-key / Stop button)
+
+Stop LLM response generation at any time and inject a stop command back to the LLM.
+
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
+| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+
+The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+
+Press `x` key to exit auto-pilot mode (see `:auto` command).
+
 ### 🕵️ Tự động hóa trình duyệt & Trình kiểm tra web
 
 Hai công cụ bổ sung dựa trên Nhà viết kịch:

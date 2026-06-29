@@ -115,6 +115,20 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 
 يتيح `human_ask` لـ LLM التوقف مؤقتًا وطلب تأكيدك قبل تنفيذ العمليات المدمرة (حذف الملف، الكتابة الفوقية، أوامر الصدفة). يمكنك البقاء في السيطرة.
 
+### 🛑 Interrupt (c-key / Stop button)
+
+Stop LLM response generation at any time and inject a stop command back to the LLM.
+
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
+| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+
+The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+
+Press `x` key to exit auto-pilot mode (see `:auto` command).
+
 ### 🕵️ أتمتة المتصفح ومفتش الويب
 
 أداتان متكاملتان تعتمدان على الكاتب المسرحي:

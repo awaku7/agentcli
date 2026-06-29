@@ -116,6 +116,20 @@ uag puede realizar un seguimiento del progreso en tareas de varios archivos de l
 
 `human_ask` permite que el LLM se detenga y solicite su confirmación antes de realizar operaciones destructivas (eliminación de archivos, sobrescrituras, comandos de shell). Tú mantienes el control.
 
+### 🛑 Interrupt (c-key / Stop button)
+
+Stop LLM response generation at any time and inject a stop command back to the LLM.
+
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
+| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+
+The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+
+Press `x` key to exit auto-pilot mode (see `:auto` command).
+
 ### 🕵️ Automatización del navegador e inspector web
 
 Dos herramientas complementarias basadas en Dramaturgo:

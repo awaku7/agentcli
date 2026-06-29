@@ -115,6 +115,20 @@ uag inaweza kufuatilia maendeleo katika kazi za muda mrefu za faili nyingi. LLM 
 
 `human_ask` huruhusu LLM kusitisha na kuomba uthibitisho wako kabla ya kutekeleza utendakazi wa uharibifu (kufuta faili, kubatilisha, amri za shell). Wewe kukaa katika udhibiti.
 
+### 🛑 Interrupt (c-key / Stop button)
+
+Stop LLM response generation at any time and inject a stop command back to the LLM.
+
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
+| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+
+The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+
+Press `x` key to exit auto-pilot mode (see `:auto` command).
+
 ### 🕵️ Uendeshaji wa Kivinjari na Kikaguzi cha Wavuti
 
 Zana mbili za msingi za mwandishi wa kucheza:

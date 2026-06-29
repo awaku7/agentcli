@@ -116,6 +116,20 @@ Az uag nyomon követheti az előrehaladást a hosszan futó többfájlos feladat
 
 A `human_ask` lehetővé teszi, hogy az LLM megálljon, és megerősítést kérjen, mielőtt romboló műveleteket hajt végre (fájltörlés, felülírás, shell-parancsok). Marad az irányítás.
 
+### 🛑 Interrupt (c-key / Stop button)
+
+Stop LLM response generation at any time and inject a stop command back to the LLM.
+
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
+| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+
+The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+
+Press `x` key to exit auto-pilot mode (see `:auto` command).
+
 ### 🕵️ Böngészőautomatizálás és webellenőr
 
 Két kiegészítő, drámaíró-alapú eszköz:

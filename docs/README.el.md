@@ -115,6 +115,20 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 
 Το `human_ask` επιτρέπει στο LLM να σταματήσει και να ζητήσει την επιβεβαίωσή σας πριν εκτελέσει καταστροφικές λειτουργίες (διαγραφή αρχείου, αντικαταστάσεις, εντολές φλοιού). Παραμένεις στον έλεγχο.
 
+### 🛑 Interrupt (c-key / Stop button)
+
+Stop LLM response generation at any time and inject a stop command back to the LLM.
+
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
+| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+
+The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+
+Press `x` key to exit auto-pilot mode (see `:auto` command).
+
 ### 🕵️ Αυτοματισμός προγράμματος περιήγησης και επιθεωρητής ιστού
 
 Δύο συμπληρωματικά εργαλεία που βασίζονται σε θεατρικούς συγγραφείς:

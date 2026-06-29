@@ -115,6 +115,20 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 
 «human_ask» به LLM اجازه می دهد قبل از انجام عملیات مخرب (حذف فایل، رونویسی، دستورات پوسته) تائید شما را متوقف کند. شما در کنترل بمانید.
 
+### 🛑 Interrupt (c-key / Stop button)
+
+Stop LLM response generation at any time and inject a stop command back to the LLM.
+
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
+| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+
+The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+
+Press `x` key to exit auto-pilot mode (see `:auto` command).
+
 ### 🕵️ اتوماسیون مرورگر و بازرس وب
 
 دو ابزار مکمل مبتنی بر نمایشنامه نویس:

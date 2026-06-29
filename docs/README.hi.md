@@ -115,6 +115,20 @@ uag लंबे समय से चल रहे बहु-फ़ाइल क
 
 `ह्यूमन_आस्क` एलएलएम को रुकने देता है और विनाशकारी ऑपरेशन (फ़ाइल हटाना, ओवरराइट करना, शेल कमांड) करने से पहले आपकी पुष्टि मांगता है। आप नियंत्रण में रहें.
 
+### 🛑 Interrupt (c-key / Stop button)
+
+Stop LLM response generation at any time and inject a stop command back to the LLM.
+
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
+| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+
+The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+
+Press `x` key to exit auto-pilot mode (see `:auto` command).
+
 ### 🕵️ ब्राउज़र ऑटोमेशन और वेब इंस्पेक्टर
 
 दो पूरक नाटककार-आधारित उपकरण:

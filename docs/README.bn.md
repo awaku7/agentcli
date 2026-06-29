@@ -115,6 +115,20 @@ uag দীর্ঘ-চলমান মাল্টি-ফাইল টাস্
 
 `human_ask` LLM কে বিরতি দিতে দেয় এবং ধ্বংসাত্মক ক্রিয়াকলাপ (ফাইল মুছে ফেলা, ওভাররাইট, শেল কমান্ড) করার আগে আপনার নিশ্চিতকরণের জন্য জিজ্ঞাসা করতে দেয়। আপনি নিয়ন্ত্রণে থাকুন।
 
+### 🛑 Interrupt (c-key / Stop button)
+
+Stop LLM response generation at any time and inject a stop command back to the LLM.
+
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
+| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
+| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+
+The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+
+Press `x` key to exit auto-pilot mode (see `:auto` command).
+
 ### 🕵️ ব্রাউজার অটোমেশন এবং ওয়েব ইন্সপেক্টর
 
 দুটি পরিপূরক নাট্যকার-ভিত্তিক সরঞ্জাম:
