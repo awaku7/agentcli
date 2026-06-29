@@ -84,6 +84,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("lmstudio", "LM Studio"),
     ("minimax", "MiniMax"),
     ("hf", "HuggingFace"),
+    ("sakana", "Sakana AI (Fugu)"),
 ]
 
 # key, required, label
@@ -318,6 +319,19 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_HF_DEPNAME",
             False,
             _("HuggingFace model name (optional, default: openai/gpt-oss-120b)"),
+        ),
+    ],
+    "sakana": [
+        ("UAGENT_SAKANA_API_KEY", True, _("Sakana AI API key")),
+        (
+            "UAGENT_SAKANA_BASE_URL",
+            False,
+            _("Sakana AI base URL (optional, default: https://api.sakana.ai/v1)"),
+        ),
+        (
+            "UAGENT_SAKANA_DEPNAME",
+            False,
+            _("Sakana AI model name (optional, default: fugu)"),
         ),
     ],
 }
