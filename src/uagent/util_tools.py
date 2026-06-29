@@ -2239,7 +2239,7 @@ def _ask_reviewer_judgment(
             model=depname,
             messages=judgment_msgs,
             temperature=0.0,
-            max_tokens=10,
+            max_tokens=50,
         )
         text = ""
         if resp.choices and resp.choices[0].message:
