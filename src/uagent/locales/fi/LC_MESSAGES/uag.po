@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:15+0900\n"
+"POT-Creation-Date: 2026-06-30 14:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -466,6 +466,7 @@ msgstr ""
 "- Tutki käytettävissä olevat työkalut ja valitse sopivin.\n"
 "- Työkaluja käyttäessäsi delegoi käyttäjälle mahdollisimman vähän päätöksentekoa.\n"
 
+#: src/uagent/core.py:1685
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -536,6 +537,7 @@ msgstr ""
 "- Ole luova, mutta älä esitä epävarmaa tietoa.\n"
 "- Delegoi käyttäjälle mahdollisimman vähän päätöksentekoa.\n"
 
+#: src/uagent/core.py:1721
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1146,6 +1148,7 @@ msgstr "Lopeta sukupolvi"
 msgid "Send"
 msgstr "Lähetä"
 
+#: src/uagent/scheckgui.py:1375
 msgid "Stop auto-pilot"
 msgstr "Pysäytä automaattiohjaus"
 
@@ -2050,6 +2053,7 @@ msgstr "virheellinen päättely"
 msgid "invalid verbosity"
 msgstr "virheellinen yksityiskohtaisuus"
 
+#: src/uagent/util_tools.py:604
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
 "<index>)"
@@ -2458,7 +2462,10 @@ msgstr "- Syötä rivi, joka on vain \"f\", siirtyäksesi moniriviseen syöttöt
 msgid "Continue. Goal: %(goal)s"
 msgstr "Jatkaa. Tavoite: %(goal)s"
 
-#: src/uagent/util_tools.py:2307
+msgid "Reviewer notes: %(feedback)s"
+msgstr "Arvostelijan huomautukset: %(feedback)s"
+
+#: src/uagent/util_tools.py:2328
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2466,7 +2473,10 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
-#: src/uagent/util_tools.py:2361
+msgid "  feedback: %(feedback)s"
+msgstr "palaute: %(feedback)s"
+
+#: src/uagent/util_tools.py:2385
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2474,7 +2484,7 @@ msgstr ""
 "\n"
 "[AUTO] Käyttäjä poistui (x-näppäin)."
 
-#: src/uagent/util_tools.py:2369
+#: src/uagent/util_tools.py:2393
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2482,7 +2492,7 @@ msgstr ""
 "\n"
 "[AUTO] Kierrosten enimmäismäärä (%(max)d) saavutettu. Pysähtyminen."
 
-#: src/uagent/util_tools.py:2379
+#: src/uagent/util_tools.py:2403
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2490,7 +2500,7 @@ msgstr ""
 "\n"
 "[AUTO] Kierros %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2416
+#: src/uagent/util_tools.py:2440
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2498,44 +2508,44 @@ msgstr ""
 "\n"
 "[AUTO] Tarkastelu/analyysi suoritettu."
 
-#: src/uagent/util_tools.py:2441
+#: src/uagent/util_tools.py:2465
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Automaattiohjaus pois päältä."
 
-#: src/uagent/util_tools.py:2445
+#: src/uagent/util_tools.py:2469
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Käyttö: :auto <tavoite> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2446
+#: src/uagent/util_tools.py:2470
 msgid "       :auto off"
 msgstr ":auto pois päältä"
 
-#: src/uagent/util_tools.py:2460
+#: src/uagent/util_tools.py:2484
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Virheellinen arvo kohteelle --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2471
+#: src/uagent/util_tools.py:2495
 msgid "Goal cannot be empty."
 msgstr "Tavoite ei voi olla tyhjä."
 
-#: src/uagent/util_tools.py:2481
+#: src/uagent/util_tools.py:2505
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Aloitettu. Tavoite: %(goal)s"
 
-#: src/uagent/util_tools.py:2482
+#: src/uagent/util_tools.py:2506
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Enimmäiskierrokset: %(max)d"
 
-#: src/uagent/util_tools.py:2646
+#: src/uagent/util_tools.py:2670
 msgid "Exiting."
 msgstr "Poistuminen."
 
-#: src/uagent/util_tools.py:2649
+#: src/uagent/util_tools.py:2673
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Tuntematon komento: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2712
+#: src/uagent/util_tools.py:2736
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"

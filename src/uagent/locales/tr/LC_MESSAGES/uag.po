@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:15+0900\n"
+"POT-Creation-Date: 2026-06-30 14:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -463,6 +463,7 @@ msgstr ""
 "- Mevcut araçlara bakın ve en uygun olanı seçin.\n"
 "- Araçları çalıştırırken kullanıcıya mümkün olduğunca az karar verme yetkisi verin."
 
+#: src/uagent/core.py:1685
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -533,6 +534,7 @@ msgstr ""
 "- Yaratıcı olun ancak belirsiz bilgiler vermeyin.\n"
 "- Kullanıcıya mümkün olduğunca az karar verme yetkisi verin."
 
+#: src/uagent/core.py:1721
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1139,6 +1141,7 @@ msgstr "Üretimi durdur"
 msgid "Send"
 msgstr "Göndermek"
 
+#: src/uagent/scheckgui.py:1375
 msgid "Stop auto-pilot"
 msgstr "Otomatik pilotu durdur"
 
@@ -2042,6 +2045,7 @@ msgstr "geçersiz reasoning"
 msgid "invalid verbosity"
 msgstr "geçersiz ayrıntı düzeyi"
 
+#: src/uagent/util_tools.py:604
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
 "<index>)"
@@ -2450,7 +2454,10 @@ msgstr ""
 msgid "Continue. Goal: %(goal)s"
 msgstr "Devam etmek. Hedef: %(goal)s"
 
-#: src/uagent/util_tools.py:2307
+msgid "Reviewer notes: %(feedback)s"
+msgstr "İnceleyenin notları: %(feedback)s"
+
+#: src/uagent/util_tools.py:2328
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2458,7 +2465,10 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
-#: src/uagent/util_tools.py:2361
+msgid "  feedback: %(feedback)s"
+msgstr "geri bildirim: %(feedback)s"
+
+#: src/uagent/util_tools.py:2385
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2466,7 +2476,7 @@ msgstr ""
 "\n"
 "[AUTO] Kullanıcı tarafından çıkıldı (x tuşu)."
 
-#: src/uagent/util_tools.py:2369
+#: src/uagent/util_tools.py:2393
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2474,7 +2484,7 @@ msgstr ""
 "\n"
 "[AUTO] Maksimum tur sayısına (%(max)d) ulaşıldı. Duruyorum."
 
-#: src/uagent/util_tools.py:2379
+#: src/uagent/util_tools.py:2403
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2482,7 +2492,7 @@ msgstr ""
 "\n"
 "[AUTO] Yuvarlak %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2416
+#: src/uagent/util_tools.py:2440
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2490,44 +2500,44 @@ msgstr ""
 "\n"
 "[AUTO] İnceleme/analiz tamamlandı."
 
-#: src/uagent/util_tools.py:2441
+#: src/uagent/util_tools.py:2465
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Otomatik pilot kapatıldı."
 
-#: src/uagent/util_tools.py:2445
+#: src/uagent/util_tools.py:2469
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Kullanım: :auto <hedef> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2446
+#: src/uagent/util_tools.py:2470
 msgid "       :auto off"
 msgstr ":auto kapalı"
 
-#: src/uagent/util_tools.py:2460
+#: src/uagent/util_tools.py:2484
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "--max-rounds için geçersiz değer: %(val)s"
 
-#: src/uagent/util_tools.py:2471
+#: src/uagent/util_tools.py:2495
 msgid "Goal cannot be empty."
 msgstr "Hedef boş olamaz."
 
-#: src/uagent/util_tools.py:2481
+#: src/uagent/util_tools.py:2505
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Başladı. Hedef: %(goal)s"
 
-#: src/uagent/util_tools.py:2482
+#: src/uagent/util_tools.py:2506
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Maksimum tur sayısı: %(max)d"
 
-#: src/uagent/util_tools.py:2646
+#: src/uagent/util_tools.py:2670
 msgid "Exiting."
 msgstr "Çıkıyorum."
 
-#: src/uagent/util_tools.py:2649
+#: src/uagent/util_tools.py:2673
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Bilinmeyen komut: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2712
+#: src/uagent/util_tools.py:2736
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"

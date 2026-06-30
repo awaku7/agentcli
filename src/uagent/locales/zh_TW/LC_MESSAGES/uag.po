@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:15+0900\n"
+"POT-Creation-Date: 2026-06-30 14:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -437,6 +437,7 @@ msgstr ""
 "- 請參考可用工具，並選擇最適合的工具。\n"
 "- 執行工具時，盡量不要把決策交給使用者。\n"
 
+#: src/uagent/core.py:1685
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -507,6 +508,7 @@ msgstr ""
 "- 可以有創意，但不要輸出不確定的資訊。\n"
 "- 盡量少把決策交給使用者。\n"
 
+#: src/uagent/core.py:1721
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1075,6 +1077,7 @@ msgstr "停止生成"
 msgid "Send"
 msgstr "傳送"
 
+#: src/uagent/scheckgui.py:1375
 msgid "Stop auto-pilot"
 msgstr "停止自動駕駛"
 
@@ -1951,6 +1954,7 @@ msgstr "無效的 reasoning"
 msgid "invalid verbosity"
 msgstr "無效的詳細程度"
 
+#: src/uagent/util_tools.py:604
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
 "<index>)"
@@ -2331,7 +2335,10 @@ msgstr "  - 輸入仅包含 'f' 的一行即可进入多行輸入模式。"
 msgid "Continue. Goal: %(goal)s"
 msgstr "繼續。目標：%(goal)s"
 
-#: src/uagent/util_tools.py:2307
+msgid "Reviewer notes: %(feedback)s"
+msgstr "審閱者備註：%(回饋)s"
+
+#: src/uagent/util_tools.py:2328
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2339,7 +2346,10 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
-#: src/uagent/util_tools.py:2361
+msgid "  feedback: %(feedback)s"
+msgstr "回饋：%(回饋)s"
+
+#: src/uagent/util_tools.py:2385
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2347,7 +2357,7 @@ msgstr ""
 "\n"
 "[AUTO] 由使用者退出（x 鍵）。"
 
-#: src/uagent/util_tools.py:2369
+#: src/uagent/util_tools.py:2393
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2355,7 +2365,7 @@ msgstr ""
 "\n"
 "[AUTO] 已達到最大回合 (%(max)d)。停下來。"
 
-#: src/uagent/util_tools.py:2379
+#: src/uagent/util_tools.py:2403
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2363,7 +2373,7 @@ msgstr ""
 "\n"
 "[AUTO] 圓 %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2416
+#: src/uagent/util_tools.py:2440
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2371,44 +2381,44 @@ msgstr ""
 "\n"
 "[AUTO] 審查/分析已完成。"
 
-#: src/uagent/util_tools.py:2441
+#: src/uagent/util_tools.py:2465
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] 自動駕駛儀關閉。"
 
-#: src/uagent/util_tools.py:2445
+#: src/uagent/util_tools.py:2469
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "用法：:auto <目標> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2446
+#: src/uagent/util_tools.py:2470
 msgid "       :auto off"
 msgstr ":auto 關閉"
 
-#: src/uagent/util_tools.py:2460
+#: src/uagent/util_tools.py:2484
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "--max-rounds 的值無效：%(val)s"
 
-#: src/uagent/util_tools.py:2471
+#: src/uagent/util_tools.py:2495
 msgid "Goal cannot be empty."
 msgstr "目標不能為空。"
 
-#: src/uagent/util_tools.py:2481
+#: src/uagent/util_tools.py:2505
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] 開始。目標：%(goal)s"
 
-#: src/uagent/util_tools.py:2482
+#: src/uagent/util_tools.py:2506
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] 最大回合：%(max)d"
 
-#: src/uagent/util_tools.py:2646
+#: src/uagent/util_tools.py:2670
 msgid "Exiting."
 msgstr "正在退出。"
 
-#: src/uagent/util_tools.py:2649
+#: src/uagent/util_tools.py:2673
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "未知命令：:%(cmd)s"
 
-#: src/uagent/util_tools.py:2712
+#: src/uagent/util_tools.py:2736
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"

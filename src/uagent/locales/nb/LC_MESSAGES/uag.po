@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:15+0900\n"
+"POT-Creation-Date: 2026-06-30 14:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -465,6 +465,7 @@ msgstr ""
 "- Bruk tilgjengelige verktøy og velg det mest egnede.\n"
 "- Når du bruker verktøy, overlat så lite beslutningstaking som mulig til brukeren.\n"
 
+#: src/uagent/core.py:1685
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -535,6 +536,7 @@ msgstr ""
 "- Vær kreativ, men ikke skriv ut usikker informasjon.\n"
 "- Overlat så lite beslutningstaking som mulig til brukeren.\n"
 
+#: src/uagent/core.py:1721
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1140,6 +1142,7 @@ msgstr "Stopp generasjonen"
 msgid "Send"
 msgstr "Send inn"
 
+#: src/uagent/scheckgui.py:1375
 msgid "Stop auto-pilot"
 msgstr "Stopp autopiloten"
 
@@ -2034,6 +2037,7 @@ msgstr "ugyldig resonnering"
 msgid "invalid verbosity"
 msgstr "ugyldig detaljnivå"
 
+#: src/uagent/util_tools.py:604
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
 "<index>)"
@@ -2436,7 +2440,10 @@ msgstr "  - Skriv en linje som bare er 'f' for å gå inn i flerslinjemodus."
 msgid "Continue. Goal: %(goal)s"
 msgstr "Fortsette. Mål: %(goal)s"
 
-#: src/uagent/util_tools.py:2307
+msgid "Reviewer notes: %(feedback)s"
+msgstr "Anmeldernotater: %(tilbakemelding)s"
+
+#: src/uagent/util_tools.py:2328
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2444,7 +2451,10 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
-#: src/uagent/util_tools.py:2361
+msgid "  feedback: %(feedback)s"
+msgstr "tilbakemelding: %(tilbakemelding)s"
+
+#: src/uagent/util_tools.py:2385
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2452,7 +2462,7 @@ msgstr ""
 "\n"
 "[AUTO] Avsluttet av bruker (x-tast)."
 
-#: src/uagent/util_tools.py:2369
+#: src/uagent/util_tools.py:2393
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2460,7 +2470,7 @@ msgstr ""
 "\n"
 "[AUTO] Maks runder (%(max)d) nådd. Stopper."
 
-#: src/uagent/util_tools.py:2379
+#: src/uagent/util_tools.py:2403
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2468,7 +2478,7 @@ msgstr ""
 "\n"
 "[AUTO] runde %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2416
+#: src/uagent/util_tools.py:2440
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2476,44 +2486,44 @@ msgstr ""
 "\n"
 "[AUTO] Gjennomgang/analyse fullført."
 
-#: src/uagent/util_tools.py:2441
+#: src/uagent/util_tools.py:2465
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Autopilot slått av."
 
-#: src/uagent/util_tools.py:2445
+#: src/uagent/util_tools.py:2469
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Bruk: :auto <mål> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2446
+#: src/uagent/util_tools.py:2470
 msgid "       :auto off"
 msgstr ":auto av"
 
-#: src/uagent/util_tools.py:2460
+#: src/uagent/util_tools.py:2484
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Ugyldig verdi for --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2471
+#: src/uagent/util_tools.py:2495
 msgid "Goal cannot be empty."
 msgstr "Målet kan ikke være tomt."
 
-#: src/uagent/util_tools.py:2481
+#: src/uagent/util_tools.py:2505
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Startet. Mål: %(goal)s"
 
-#: src/uagent/util_tools.py:2482
+#: src/uagent/util_tools.py:2506
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Maks runder: %(max)d"
 
-#: src/uagent/util_tools.py:2646
+#: src/uagent/util_tools.py:2670
 msgid "Exiting."
 msgstr "Avslutter."
 
-#: src/uagent/util_tools.py:2649
+#: src/uagent/util_tools.py:2673
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Ukjent kommando: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2712
+#: src/uagent/util_tools.py:2736
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:15+0900\n"
+"POT-Creation-Date: 2026-06-30 14:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -461,6 +461,7 @@ msgstr ""
 "- उपलब्ध उपकरणों से परामर्श लें और सबसे उपयुक्त उपकरण चुनें।\n"
 "- टूल निष्पादित करते समय, उपयोगकर्ता को यथासंभव कम निर्णय लेने का अधिकार सौंपें।"
 
+#: src/uagent/core.py:1685
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -531,6 +532,7 @@ msgstr ""
 "- रचनात्मक बनें, लेकिन अनिश्चित जानकारी न दें।\n"
 "- उपयोगकर्ता को यथासंभव कम निर्णय लेने का अधिकार सौंपें।"
 
+#: src/uagent/core.py:1721
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
@@ -1138,6 +1140,7 @@ msgstr "पीढ़ी बंद करो"
 msgid "Send"
 msgstr "भेजना"
 
+#: src/uagent/scheckgui.py:1375
 msgid "Stop auto-pilot"
 msgstr "ऑटो-पायलट बंद करो"
 
@@ -2033,6 +2036,7 @@ msgstr "अमान्य reasoning"
 msgid "invalid verbosity"
 msgstr "अमान्य verbosity"
 
+#: src/uagent/util_tools.py:604
 msgid ""
 "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
 "<index>)"
@@ -2445,7 +2449,10 @@ msgstr ""
 msgid "Continue. Goal: %(goal)s"
 msgstr "जारी रखना। लक्ष्य: %(goal)s"
 
-#: src/uagent/util_tools.py:2307
+msgid "Reviewer notes: %(feedback)s"
+msgstr "समीक्षक नोट: %(प्रतिक्रिया)एस"
+
+#: src/uagent/util_tools.py:2328
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2453,7 +2460,10 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
-#: src/uagent/util_tools.py:2361
+msgid "  feedback: %(feedback)s"
+msgstr "फीडबैक: %(फीडबैक)एस"
+
+#: src/uagent/util_tools.py:2385
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2461,7 +2471,7 @@ msgstr ""
 "\n"
 "[AUTO] उपयोगकर्ता द्वारा बाहर निकाला गया (x कुंजी)।"
 
-#: src/uagent/util_tools.py:2369
+#: src/uagent/util_tools.py:2393
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2469,7 +2479,7 @@ msgstr ""
 "\n"
 "[AUTO] अधिकतम राउंड (%(max)d) तक पहुंच गए। रुकना."
 
-#: src/uagent/util_tools.py:2379
+#: src/uagent/util_tools.py:2403
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2477,7 +2487,7 @@ msgstr ""
 "\n"
 "[AUTO] राउंड %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2416
+#: src/uagent/util_tools.py:2440
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2485,44 +2495,44 @@ msgstr ""
 "\n"
 "[AUTO] समीक्षा/विश्लेषण पूरा हुआ।"
 
-#: src/uagent/util_tools.py:2441
+#: src/uagent/util_tools.py:2465
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] ऑटो-पायलट बंद हो गया।"
 
-#: src/uagent/util_tools.py:2445
+#: src/uagent/util_tools.py:2469
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "उपयोग: :auto <लक्ष्य> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2446
+#: src/uagent/util_tools.py:2470
 msgid "       :auto off"
 msgstr ":auto बंद"
 
-#: src/uagent/util_tools.py:2460
+#: src/uagent/util_tools.py:2484
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "--max-rounds के लिए अमान्य मान: %(val)s"
 
-#: src/uagent/util_tools.py:2471
+#: src/uagent/util_tools.py:2495
 msgid "Goal cannot be empty."
 msgstr "लक्ष्य खाली नहीं हो सकता."
 
-#: src/uagent/util_tools.py:2481
+#: src/uagent/util_tools.py:2505
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] प्रारंभ हुआ. लक्ष्य: %(goal)s"
 
-#: src/uagent/util_tools.py:2482
+#: src/uagent/util_tools.py:2506
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] अधिकतम राउंड: %(max)d"
 
-#: src/uagent/util_tools.py:2646
+#: src/uagent/util_tools.py:2670
 msgid "Exiting."
 msgstr "बाहर निकल रहा है।"
 
-#: src/uagent/util_tools.py:2649
+#: src/uagent/util_tools.py:2673
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "अज्ञात कमांड: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2712
+#: src/uagent/util_tools.py:2736
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"

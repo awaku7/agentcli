@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:15+0900\n"
+"POT-Creation-Date: 2026-06-30 14:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2263,80 +2263,90 @@ msgstr ""
 msgid "Continue. Goal: %(goal)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:2307
+#: src/uagent/util_tools.py:2227
+#, python-format
+msgid "Reviewer notes: %(feedback)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:2328
 #, python-format
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:2361
+#: src/uagent/util_tools.py:2330
+#, python-format
+msgid "  feedback: %(feedback)s"
+msgstr ""
+
+#: src/uagent/util_tools.py:2385
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
 msgstr ""
 
-#: src/uagent/util_tools.py:2369
+#: src/uagent/util_tools.py:2393
 #, python-format
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr ""
 
-#: src/uagent/util_tools.py:2379
+#: src/uagent/util_tools.py:2403
 #, python-format
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:2416
+#: src/uagent/util_tools.py:2440
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
 msgstr ""
 
-#: src/uagent/util_tools.py:2441
+#: src/uagent/util_tools.py:2465
 msgid "[AUTO] Auto-pilot turned off."
 msgstr ""
 
-#: src/uagent/util_tools.py:2445
+#: src/uagent/util_tools.py:2469
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr ""
 
-#: src/uagent/util_tools.py:2446
+#: src/uagent/util_tools.py:2470
 msgid "       :auto off"
 msgstr ""
 
-#: src/uagent/util_tools.py:2460
+#: src/uagent/util_tools.py:2484
 #, python-format
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:2471
+#: src/uagent/util_tools.py:2495
 msgid "Goal cannot be empty."
 msgstr ""
 
-#: src/uagent/util_tools.py:2481
+#: src/uagent/util_tools.py:2505
 #, python-format
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:2482
+#: src/uagent/util_tools.py:2506
 #, python-format
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr ""
 
-#: src/uagent/util_tools.py:2646
+#: src/uagent/util_tools.py:2670
 msgid "Exiting."
 msgstr ""
 
-#: src/uagent/util_tools.py:2649
+#: src/uagent/util_tools.py:2673
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr ""
 
-#: src/uagent/util_tools.py:2712
+#: src/uagent/util_tools.py:2736
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term "
 "memory (persistent memos). Use them as background information about the "

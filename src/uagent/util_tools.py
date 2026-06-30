@@ -2220,9 +2220,12 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
 # ============================================================
 
 
-def _get_followup_prompt(goal: str) -> str:
+def _get_followup_prompt(goal: str, feedback: str = "") -> str:
     """Generate continuation prompt for the main query (i18n)."""
-    return _("Continue. Goal: %(goal)s") % {"goal": goal}
+    prompt = _("Continue. Goal: %(goal)s") % {"goal": goal}
+    if feedback:
+        prompt += "\n\n" + _("Reviewer notes: %(feedback)s") % {"feedback": feedback}
+    return prompt
 
 
 def _build_judgment_messages(
@@ -2240,7 +2243,9 @@ def _build_judgment_messages(
         "determine whether the goal '%(goal)s' has been achieved.\n"
         "Achieved    → COMPLETE\n"
         "More needed → CONTINUE\n"
-        "Reply with exactly COMPLETE or CONTINUE."
+        "Reply with COMPLETE or CONTINUE.\n"
+        "If CONTINUE, briefly state what is still missing.\n"
+        "Format: CONTINUE: <reason>"
     ) % {"goal": goal}
 
     msgs: list[dict[str, Any]] = [{"role": "system", "content": system_prompt}]
@@ -2270,12 +2275,12 @@ def _ask_reviewer_judgment(
     core: Any,
     *,
     make_client_fn: Any,
-) -> str:
+) -> tuple[str, str]:
     """Ask the LLM as a reviewer whether the goal is achieved.
 
     Uses run_llm_rounds() in judgment_mode=True so that the same code path
     (Responses API included) is used for the judgment query.
-    Returns "COMPLETE" or "CONTINUE".
+    Returns ("COMPLETE"|"CONTINUE", feedback_text).
     """
     from . import uagent_llm as llm_util
 
@@ -2300,12 +2305,30 @@ def _ask_reviewer_judgment(
         )
     except Exception as e:
         warnings.warn(f"[AUTO] Judgment call failed: {type(e).__name__}: {e}")
-        text = "CONTINUE"
+        raw = "CONTINUE"
     else:
-        text = (result_text or "").strip().upper()
+        raw = (result_text or "").strip()
 
-    print(_("\n[AUTO:judge] %(judgment)s") % {"judgment": text})
-    return "COMPLETE" if "COMPLETE" in text else "CONTINUE"
+    upper = raw.upper()
+    if "COMPLETE" in upper:
+        judgment = "COMPLETE"
+        feedback = ""
+    else:
+        judgment = "CONTINUE"
+        # Extract feedback after "CONTINUE:" or the whole text minus "CONTINUE"
+        feedback = raw
+        for prefix in ("CONTINUE:", "continue:", "CONTINUE", "continue"):
+            if prefix in raw:
+                parts = raw.split(prefix, 1)
+                if len(parts) > 1:
+                    feedback = parts[1].strip().lstrip(":")
+                    break
+        feedback = feedback.strip().strip(" -\n").strip("\"'")
+
+    print(_("\n[AUTO:judge] %(judgment)s") % {"judgment": judgment})
+    if feedback:
+        print(_("  feedback: %(feedback)s") % {"feedback": feedback})
+    return judgment, feedback
 
 
 def _run_auto_pilot_loop(
@@ -2352,6 +2375,7 @@ def _run_auto_pilot_loop(
                 else:
                     os.environ.pop(_std_key, None)
 
+    feedback = ""
     while True:
         # 1. x key exit check
         with core.auto_pilot_exit_lock:
@@ -2372,7 +2396,7 @@ def _run_auto_pilot_loop(
             return
 
         # === Step A: Main query ===
-        next_prompt = _get_followup_prompt(core.auto_pilot_goal)
+        next_prompt = _get_followup_prompt(core.auto_pilot_goal, feedback)
 
         core.set_status(True, "AUTO")
         print(
@@ -2402,7 +2426,7 @@ def _run_auto_pilot_loop(
         core.set_status(True, "AUTO")
 
         # === Step B: Meta query (reviewer judgment) ===
-        judgment = _ask_reviewer_judgment(
+        judgment, feedback = _ask_reviewer_judgment(
             _judge_provider,
             _judge_client,
             _judge_depname,
@@ -2415,7 +2439,7 @@ def _run_auto_pilot_loop(
             core.auto_pilot_active = False
             print(_("\n[AUTO] Review/analysis completed."))
             return
-        # CONTINUE → continue loop
+        # CONTINUE → continue loop; feedback passed to next round
 
 
 def _handle_cmd_auto(
