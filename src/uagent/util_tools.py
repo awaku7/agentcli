@@ -2387,8 +2387,7 @@ def _run_auto_pilot_loop(
             if core.auto_pilot_exit_requested:
                 core.auto_pilot_exit_requested = False
                 core.auto_pilot_active = False
-                print(_("
-[AUTO] Exited by user (x key)."))
+                print(_("[AUTO] Exited by user (x key)."))
                 return
 
         # === Step B first: Reviewer judgment ===
@@ -2405,8 +2404,7 @@ def _run_auto_pilot_loop(
 
         if judgment == "COMPLETE":
             core.auto_pilot_active = False
-            print(_("
-[AUTO] Review/analysis completed."))
+            print(_("[AUTO] Review/analysis completed."))
             return
 
         # 2. Max rounds check (after judgment to count actual followup rounds)
@@ -2414,8 +2412,7 @@ def _run_auto_pilot_loop(
         if core.auto_pilot_round > core.auto_pilot_max_rounds:
             core.auto_pilot_active = False
             print(
-                _("
-[AUTO] Max rounds (%(max)d) reached. Stopping.")
+                _("[AUTO] Max rounds (%(max)d) reached. Stopping.")
                 % {"max": core.auto_pilot_max_rounds}
             )
             return
@@ -2425,8 +2422,7 @@ def _run_auto_pilot_loop(
 
         core.set_status(True, "AUTO")
         print(
-            _("
-[AUTO] Round %(round)d/%(max)d")
+            _("[AUTO] Round %(round)d/%(max)d")
             % {"round": core.auto_pilot_round, "max": core.auto_pilot_max_rounds}
         )
 
