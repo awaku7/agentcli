@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT 1.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-29 20:12+0900\n"
+"POT-Creation-Date: 2026-06-30 10:59+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[BŁĄD] Git nie jest zainstalowany."
 
-#: src/uagent/cli.py:586
+#: src/uagent/cli.py:587
 msgid "getch() fallback to input()"
 msgstr "getch() korzysta awaryjnie z input()"
 
-#: src/uagent/cli.py:803
+#: src/uagent/cli.py:804
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Otrzymano Ctrl+C. Rozpoczynam zamykanie..."
 
-#: src/uagent/cli.py:839 src/uagent/cli.py:875 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Otrzymano Ctrl+C. Rozpoczynam zamykanie..."
 msgid "Cancelled."
 msgstr "Anulowano."
 
-#: src/uagent/cli.py:846
+#: src/uagent/cli.py:847
 msgid "Received multiline reply."
 msgstr "Otrzymano wielowierszową odpowiedź."
 
-#: src/uagent/cli.py:1041
+#: src/uagent/cli.py:1042
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -70,12 +70,12 @@ msgstr ""
 "Czy chcesz wysłać te obrazy do LLM (zewnętrzne API) w celu analizy?\n"
 "\n"
 
-#: src/uagent/cli.py:1047
+#: src/uagent/cli.py:1048
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Odpowiedz y, aby wysłać, albo n (lub c/cancel), aby pominąć wysyłanie."
 
-#: src/uagent/cli.py:1065
+#: src/uagent/cli.py:1066
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -83,17 +83,17 @@ msgstr ""
 "Potwierdzenie wysłania obrazów nie powiodło się; obrazy nie zostaną wysłane:"
 " %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1093 src/uagent/scheckgui.py:708
+#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:709
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Nie udało się dołączyć obrazu: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1130
+#: src/uagent/cli.py:1131
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Nieznany typ zdarzenia kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1152
+#: src/uagent/cli.py:1153
 msgid "Exited uag."
 msgstr "Zakończono uag."
 
@@ -106,68 +106,75 @@ msgid "[INFO] startup genre prompt = numeric-input"
 msgstr ""
 "[INFO] monit wyboru kategorii przy uruchamianiu = wprowadzanie liczbowe"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
 " Enter=basic only):"
 msgstr ""
-"Wprowadź sumę liczb"
-"(1=podstawowy,2=comm,4=biuro,8=devel,16=iot,32=exec,64=external,128=media,256=plik,512=indeks,1023=wszystko,"
-"Enter=tylko podstawowe):"
+"Wprowadź sumę "
+"liczb(1=podstawowy,2=comm,4=biuro,8=devel,16=iot,32=exec,64=external,128=media,256=plik,512=indeks,1023=wszystko,Enter=tylko"
+" podstawowe):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/web.py:983
 msgid "Basic (env, time, prompts, skills, memory, tools control)"
-msgstr "Podstawowe (środowisko, czas, podpowiedzi, umiejętności, pamięć, kontrola narzędzi)"
+msgstr ""
+"Podstawowe (środowisko, czas, podpowiedzi, umiejętności, pamięć, kontrola "
+"narzędzi)"
 
+#: src/uagent/cli_startup.py:73 src/uagent/cli_startup.py:94
+#: src/uagent/web.py:989
 msgid ""
 "File (create, delete, read, write, search, zip, rename, hash, grep, list "
 "dir)"
 msgstr ""
-"Plik (utwórz, usuń, przeczytaj, zapisz, wyszukaj, zip, zmień nazwę,"
-"hash, grep, lista katalogów)"
+"Plik (utwórz, usuń, przeczytaj, zapisz, wyszukaj, zip, zmień nazwę,hash, "
+"grep, lista katalogów)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1456
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1457
 #: src/uagent/web.py:995
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "Komunikacja (Teams, Discord, Bluesky)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1461
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1462
 #: src/uagent/web.py:1000
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, ekstrakcja dokumentów)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1467
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1468
 #: src/uagent/web.py:1006
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr ""
 "Development (lint, test, git, DB, zrzut ekranu, browser, binary, compile)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1474
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1475
 #: src/uagent/web.py:1013
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, aparat, geo-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1480
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1481
 #: src/uagent/web.py:1019
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "Wykonanie (cmd, python, pwsh, bash, podagent)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1485
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1486
 #: src/uagent/web.py:1024
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "Zewnętrzne (A2A, MCP, pobieranie, wyszukiwanie w sieci)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1490
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1491
 #: src/uagent/web.py:1029
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Media (generowanie/edycja/analiza obrazu, audio, kod QR)"
 
+#: src/uagent/cli_startup.py:100
 msgid ""
 "Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, "
 "cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
 msgstr ""
-"Indeks (nawigacja po kodzie źródłowym: py2idx, ts2idx, jv2idx, cs2idx,"
-"dart2idx, cpp2idx, rs2idx, go2idx, Swift2idx, kt2idx)"
+"Indeks (nawigacja po kodzie źródłowym: py2idx, ts2idx, jv2idx, "
+"cs2idx,dart2idx, cpp2idx, rs2idx, go2idx, Swift2idx, kt2idx)"
 
 #: src/uagent/cli_startup.py:114
 msgid "[INFO] startup genre prompt = prompt_toolkit"
@@ -202,39 +209,39 @@ msgstr ""
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Nie udało się zastosować wyboru narzędzia startowego: %(err)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/web.py:1320
+#: src/uagent/cli_startup.py:275 src/uagent/web.py:1310
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Nie udało się ustawić katalogu roboczego: %(err)s"
 
-#: src/uagent/cli_startup.py:311
+#: src/uagent/cli_startup.py:304
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] Nie udało się uruchomić uag_setup: %(err)s"
 
-#: src/uagent/cli_startup.py:351
+#: src/uagent/cli_startup.py:344
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "dostawca = %(provider)s; model = %(model)s"
 
-#: src/uagent/cli_startup.py:363 src/uagent/scheckgui.py:560
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:561
 msgid "OpenRouter fallback models enabled."
 msgstr "Włączono modele awaryjne OpenRouter."
 
-#: src/uagent/cli_startup.py:367
+#: src/uagent/cli_startup.py:360
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "bieżący katalog roboczy = %(cwd)s"
 
-#: src/uagent/cli_startup.py:390 src/uagent/scheckgui.py:583
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:584
 msgid "Loaded long-term memory."
 msgstr "Wczytano pamięć długoterminową."
 
-#: src/uagent/cli_startup.py:403 src/uagent/scheckgui.py:596
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:597
 msgid "Loaded shared long-term memory."
 msgstr "Załadowano współdzieloną pamięć długoterminową."
 
-#: src/uagent/cli_startup.py:410 src/uagent/web.py:767
+#: src/uagent/cli_startup.py:403 src/uagent/web.py:767
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
@@ -242,18 +249,18 @@ msgstr ""
 "[OSTRZEŻENIE] Wystąpił wyjątek podczas ładowania współdzielonej pamięci "
 "długoterminowej: %(err)s"
 
-#: src/uagent/cli_startup.py:442
+#: src/uagent/cli_startup.py:435
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr ""
 "[OSTRZEŻENIE] Nie udało się odczytać pliku startowego: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:456
+#: src/uagent/cli_startup.py:449
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "Podano plik startowy: %(path)s"
 
-#: src/uagent/cli_startup.py:494
+#: src/uagent/cli_startup.py:487
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "Podano --non-interactive; wychodzę bez oczekiwania na stdin."
 
@@ -379,6 +386,7 @@ msgstr "Nowy fragment:\n"
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Zaktualizuj podsumowanie, zachowując nienaruszony poprzedni kontekst."
 
+#: src/uagent/core.py:1555
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] Fragment podsumowujący %(i)d/%(n)d..."
 
@@ -573,66 +581,59 @@ msgstr ""
 "najbardziej odpowiednie narzędzie do zadania."
 
 #: src/uagent/docs_util.py:27
-msgid "Project README"
-msgstr "README projektu"
-
-#: src/uagent/docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "Szybki start (instalacja wheel na Windows)"
-
-#: src/uagent/docs_util.py:37
 msgid "Web Inspector (playwright_inspector) guide"
 msgstr "Przewodnik Web Inspector (playwright_inspector)"
 
-#: src/uagent/docs_util.py:42
+#: src/uagent/docs_util.py:32
 msgid "Developer information"
 msgstr "Informacje dla programistów"
 
-#: src/uagent/docs_util.py:149
+#: src/uagent/docs_util.py:139
 #, python-format
 msgid "unknown doc name: %(name)r"
 msgstr "nieznana nazwa dokumentu: %(name)r"
 
-#: src/uagent/docs_util.py:172
+#: src/uagent/docs_util.py:162
 #, python-format
 msgid "doc file not found: %(filename)s"
 msgstr "nie znaleziono pliku dokumentu: %(filename)s"
 
-#: src/uagent/docs_util.py:203
+#: src/uagent/docs_util.py:193
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
 msgstr "nie udało się rozwiązać ścieżki dokumentu: %(filename)s: %(err)s"
 
-#: src/uagent/docs_util.py:227
+#: src/uagent/docs_util.py:217
 msgid "[docs] Available documents:"
 msgstr "[docs] Dostępne dokumenty:"
 
-#: src/uagent/docs_util.py:231
+#: src/uagent/docs_util.py:221
 msgid "Usage:"
 msgstr "Użycie:"
 
-#: src/uagent/docs_util.py:232
+#: src/uagent/docs_util.py:222
 msgid "list"
 msgstr "lista"
 
-#: src/uagent/docs_util.py:233
+#: src/uagent/docs_util.py:223
 msgid "show"
 msgstr "pokaż"
 
-#: src/uagent/docs_util.py:234
+#: src/uagent/docs_util.py:224
 msgid "show path"
 msgstr "pokaż ścieżkę"
 
-#: src/uagent/docs_util.py:235
+#: src/uagent/docs_util.py:225
 msgid "open with OS"
 msgstr "otwórz w systemie operacyjnym"
 
+#: src/uagent/env_validate.py:42
 msgid ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 msgstr ""
-"Wymagane do wybrania dostawcy LLM"
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"Wymagane do wybrania dostawcy "
+"LLM(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 
 #: src/uagent/env_validate.py:71
 #, python-format
@@ -732,12 +733,15 @@ msgstr "Klucz API Alibaba Cloud (Qwen)."
 msgid "Moonshot AI API key."
 msgstr "Klucz API Moonshot AI."
 
+#: src/uagent/env_validate.py:210
 msgid "Xiaomi MiMo API key."
 msgstr "Klucz API Xiaomi MiMo."
 
+#: src/uagent/env_validate.py:215
 msgid "MiniMax API key."
 msgstr "Klucz API MiniMax."
 
+#: src/uagent/env_validate.py:221
 msgid "Hugging Face API key (HF_TOKEN)."
 msgstr "Klucz API Hugging Face (HF_TOKEN)."
 
@@ -992,9 +996,11 @@ msgstr "[Błąd sieci]"
 msgid "Unexpected exception."
 msgstr "Nieoczekiwany wyjątek."
 
+#: src/uagent/llm_round_helpers.py:707
 msgid "Response error: resp is None."
 msgstr "Błąd odpowiedzi: resp to Brak."
 
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp.choices is None or empty."
 msgstr "Błąd odpowiedzi: resp.choices ma wartość Brak lub jest pusta."
 
@@ -1042,6 +1048,7 @@ msgstr ""
 "Znaleziono %(total_files)d plików logów. Rozpoczynam profilowanie "
 "przyrostowe..."
 
+#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1063,51 +1070,27 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Jesteś agentem zajmującym się profilowaniem użytkowników. Przeanalizuj"
-"dziennik konwersacji i wyodrębnij:"
-"1."
-"Środowisko (system operacyjny, powłoka, edytor) — tylko jeśli jasno"
-"wynika to z dziennika."
-"2."
-"Preferencje — konkretne, możliwe do zastosowania cechy zaobserwowane"
-"na podstawie rzeczywistych żądań i poprawek użytkownika:"
-"-"
-"Styl odpowiedzi: zwięzły czy szczegółowy? Dużo kodu czy prozy?"
-"Punktory czy akapity?"
-"–"
-"Język: wolisz japoński, angielski czy mieszany?"
-"–"
-"Użycie narzędzi: po jakie narzędzia/polecenia często sięga użytkownik?"
-"–"
-"Standard jakości: toleruje szybkie obejścia czy nalega na właściwe"
-"rozwiązania?"
-"–"
-"Potwierdzenie: chcesz uzyskać wyraźną zgodę przed operacjami na"
-"plikach lub wolisz pominąć monity?"
-"–"
-"Wszelkie inne powtarzające się wzorce w sposobie wydawania instrukcji"
-"przez użytkownika."
-"3."
-"Ograniczenia — wyraźne zasady określone przez użytkownika (np. „musi"
-"być w trybie offline”, „brak zewnętrznych interfejsów API”, „zachowaj"
-"prostotę”, „żadnych dodatkowych zależności”)."
-"NIE wnioskuj o preferencjach na podstawie pojedynczego żądania;"
-"wyodrębniaj tylko wzorce, które pojawiają się wielokrotnie."
-"NIE"
-"dołączaj pytań tymczasowych, pogawędek ani poufnych danych"
-"uwierzytelniających."
-"W"
-"odpowiedzi MUSISZ podać TYLKO prawidłowy obiekt JSON pasujący do tego"
-"schematu:"
-"{"
-"\\\"środowisko\\\":"
-"{\\\"os\\\": \\\"string\\\", \\\"shell\\\": \\\"string\\\","
-"\\\"editor\\\": \\\"string\\\"},"
-"\\\"preferencje\\\":"
-"[\\\"string\\\"],"
-"\\\"ograniczenia\\\":"
-"[„ciąg”]"
-"}"
+"Jesteś agentem zajmującym się profilowaniem użytkowników. "
+"Przeanalizujdziennik konwersacji i wyodrębnij:1.Środowisko (system "
+"operacyjny, powłoka, edytor) — tylko jeśli jasnowynika to z "
+"dziennika.2.Preferencje — konkretne, możliwe do zastosowania cechy "
+"zaobserwowanena podstawie rzeczywistych żądań i poprawek użytkownika:-Styl "
+"odpowiedzi: zwięzły czy szczegółowy? Dużo kodu czy prozy?Punktory czy "
+"akapity?–Język: wolisz japoński, angielski czy mieszany?–Użycie narzędzi: po"
+" jakie narzędzia/polecenia często sięga użytkownik?–Standard jakości: "
+"toleruje szybkie obejścia czy nalega na właściwerozwiązania?–Potwierdzenie: "
+"chcesz uzyskać wyraźną zgodę przed operacjami naplikach lub wolisz pominąć "
+"monity?–Wszelkie inne powtarzające się wzorce w sposobie wydawania "
+"instrukcjiprzez użytkownika.3.Ograniczenia — wyraźne zasady określone przez "
+"użytkownika (np. „musibyć w trybie offline”, „brak zewnętrznych interfejsów "
+"API”, „zachowajprostotę”, „żadnych dodatkowych zależności”).NIE wnioskuj o "
+"preferencjach na podstawie pojedynczego żądania;wyodrębniaj tylko wzorce, "
+"które pojawiają się wielokrotnie.NIEdołączaj pytań tymczasowych, pogawędek "
+"ani poufnych danychuwierzytelniających.Wodpowiedzi MUSISZ podać TYLKO "
+"prawidłowy obiekt JSON pasujący do "
+"tegoschematu:{\\\"środowisko\\\":{\\\"os\\\": \\\"string\\\", \\\"shell\\\":"
+" \\\"string\\\",\\\"editor\\\": "
+"\\\"string\\\"},\\\"preferencje\\\":[\\\"string\\\"],\\\"ograniczenia\\\":[„ciąg”]}"
 
 #: src/uagent/scheckgui.py:393
 msgid "Drop files/images here"
@@ -1117,137 +1100,144 @@ msgstr "Przeciągnij i upuść pliki/obrazy tutaj"
 msgid "Download"
 msgstr "Pobierz"
 
-#: src/uagent/scheckgui.py:605
+#: src/uagent/scheckgui.py:606
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "Wystąpił wyjątek podczas ładowania współdzielonej pamięci długoterminowej: "
 "%(err)s"
 
-#: src/uagent/scheckgui.py:658
+#: src/uagent/scheckgui.py:659
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Dołączony plik] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:744
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[Dołączony obraz] %(path)s"
 
-#: src/uagent/scheckgui.py:745 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:746 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[Ścieżka obrazu] %(path)s"
 
-#: src/uagent/scheckgui.py:1061 src/uagent/scheckgui.py:1353
+#: src/uagent/scheckgui.py:1062 src/uagent/scheckgui.py:1354
 msgid "Welcome / Quick Guide"
 msgstr "Witamy / Szybki przewodnik"
 
+#: src/uagent/scheckgui.py:1176
 msgid "Font size: %(name)s"
 msgstr "Rozmiar czcionki: %(name)s"
 
-#: src/uagent/scheckgui.py:1180
+#: src/uagent/scheckgui.py:1181
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (ekstremalna stabilność)"
 
-#: src/uagent/scheckgui.py:1261
+#: src/uagent/scheckgui.py:1262
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Możesz dołączyć, przeciągając i upuszczając"
 
-#: src/uagent/scheckgui.py:1289 src/uagent/scheckgui.py:1721
+#: src/uagent/scheckgui.py:1290 src/uagent/scheckgui.py:1722
 msgid "Attach files"
 msgstr "Dołącz pliki"
 
+#: src/uagent/scheckgui.py:1294
 msgid "■"
 msgstr "■"
 
+#: src/uagent/scheckgui.py:1297
 msgid "Stop generation"
 msgstr "Zatrzymaj generowanie"
 
-#: src/uagent/scheckgui.py:1311
+#: src/uagent/scheckgui.py:1312
 msgid "Send"
 msgstr "Wyślij"
 
-#: src/uagent/scheckgui.py:1351
+#: src/uagent/scheckgui.py:1352
 msgid "Help"
 msgstr "Pomoc"
 
+#: src/uagent/scheckgui.py:1368
 msgid "View"
 msgstr "Pogląd"
 
+#: src/uagent/scheckgui.py:1374
 msgid "Font: %(name)s"
 msgstr "Czcionka: %(name)s"
 
-#: src/uagent/scheckgui.py:1388
+#: src/uagent/scheckgui.py:1389
 msgid "Mode"
 msgstr "Tryb"
 
-#: src/uagent/scheckgui.py:1391
+#: src/uagent/scheckgui.py:1392
 msgid "Reasoning: off"
 msgstr "Rozumowanie: wyłączone"
 
-#: src/uagent/scheckgui.py:1394
+#: src/uagent/scheckgui.py:1395
 msgid "Reasoning: auto"
 msgstr "Rozumowanie: automatyczne"
 
-#: src/uagent/scheckgui.py:1396
+#: src/uagent/scheckgui.py:1397
 msgid "Reasoning: minimal"
 msgstr "Rozumowanie: minimalne"
 
-#: src/uagent/scheckgui.py:1398
+#: src/uagent/scheckgui.py:1399
 msgid "Reasoning: low"
 msgstr "Rozumowanie: niskie"
 
-#: src/uagent/scheckgui.py:1400
+#: src/uagent/scheckgui.py:1401
 msgid "Reasoning: medium"
 msgstr "Rozumowanie: średnie"
 
-#: src/uagent/scheckgui.py:1402
+#: src/uagent/scheckgui.py:1403
 msgid "Reasoning: high"
 msgstr "Rozumowanie: wysokie"
 
-#: src/uagent/scheckgui.py:1405
+#: src/uagent/scheckgui.py:1406
 msgid "Reasoning: xhigh"
 msgstr "Rozumowanie: bardzo wysokie"
 
-#: src/uagent/scheckgui.py:1410
+#: src/uagent/scheckgui.py:1411
 msgid "Verbosity: off"
 msgstr "Szczegółowość: wyłączona"
 
-#: src/uagent/scheckgui.py:1412
+#: src/uagent/scheckgui.py:1413
 msgid "Verbosity: low"
 msgstr "Szczegółowość: niska"
 
-#: src/uagent/scheckgui.py:1414
+#: src/uagent/scheckgui.py:1415
 msgid "Verbosity: medium"
 msgstr "Szczegółowość: średnia"
 
-#: src/uagent/scheckgui.py:1416
+#: src/uagent/scheckgui.py:1417
 msgid "Verbosity: high"
 msgstr "Szczegółowość: wysoka"
 
-#: src/uagent/scheckgui.py:1443
+#: src/uagent/scheckgui.py:1444
 msgid "Tools"
 msgstr "Narzędzia"
 
-#: src/uagent/scheckgui.py:1450
+#: src/uagent/scheckgui.py:1451
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Podstawowy (plik, środowisko, czas, podpowiedzi, umiejętności, pamięć, "
 "kontrola narzędzi)"
 
+#: src/uagent/scheckgui.py:1496
 msgid "File (read, write, search, delete, listing)"
 msgstr "Plik (odczyt, zapis, wyszukiwanie, usuwanie, wyświetlanie)"
 
+#: src/uagent/scheckgui.py:1501
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "Indeks (nawigacja po kodzie źródłowym: py2idx, ts2idx itp.)"
 
-#: src/uagent/scheckgui.py:1551
+#: src/uagent/scheckgui.py:1552
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[tryb] rozumowanie=%(mode)s"
 
-#: src/uagent/scheckgui.py:1555
+#: src/uagent/scheckgui.py:1556
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1255,51 +1245,51 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=wyłączone, 1=niskie, 2=średnie, "
 "3=wysokie; auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:1563
+#: src/uagent/scheckgui.py:1564
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[tryb] szczegółowość=%(mode)s"
 
-#: src/uagent/scheckgui.py:1565
+#: src/uagent/scheckgui.py:1566
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 ":v [0|1|2|3]  (0=wył., 1=nisko, 2=średnio, 3=wysoko; brak arg=pozostaw)"
 
-#: src/uagent/scheckgui.py:1697
+#: src/uagent/scheckgui.py:1698
 msgid "Enter password..."
 msgstr "Wpisz hasło..."
 
-#: src/uagent/scheckgui.py:1704
+#: src/uagent/scheckgui.py:1705
 msgid "Enter a message..."
 msgstr "Wpisz wiadomość..."
 
-#: src/uagent/scheckgui.py:1723
+#: src/uagent/scheckgui.py:1724
 msgid "All Files (*)"
 msgstr "Wszystkie pliki (*)"
 
-#: src/uagent/scheckgui.py:1975
+#: src/uagent/scheckgui.py:1976
 msgid "cannot read image"
 msgstr "nie można odczytać obrazu"
 
-#: src/uagent/scheckgui.py:2126 src/uagent/scheckgui.py:2166
-#: src/uagent/scheckgui.py:2201
+#: src/uagent/scheckgui.py:2127 src/uagent/scheckgui.py:2167
+#: src/uagent/scheckgui.py:2202
 msgid "Downloaded to"
 msgstr "Pobrano do"
 
-#: src/uagent/scheckgui.py:2220
+#: src/uagent/scheckgui.py:2221
 msgid "Playing"
 msgstr "Odtwarzanie"
 
-#: src/uagent/scheckgui.py:2230
+#: src/uagent/scheckgui.py:2231
 msgid "Stopped"
 msgstr "Zatrzymano"
 
-#: src/uagent/scheckgui.py:2289
+#: src/uagent/scheckgui.py:2290
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[ODPOWIEDŹ] > %(text)s"
 
-#: src/uagent/scheckgui.py:2296
+#: src/uagent/scheckgui.py:2297
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[UŻYTKOWNIK] %(text)s"
@@ -1548,48 +1538,68 @@ msgstr ""
 msgid "Moonshot model name (optional, default: kimi-k2)"
 msgstr "Nazwa modelu Moonshot (opcjonalna, domyślnie: kimi-k2)"
 
+#: src/uagent/setup_cli.py:272
 msgid "Xiaomi MiMo API key"
 msgstr "Klucz API Xiaomi MiMo"
 
+#: src/uagent/setup_cli.py:276
 msgid "MiMo base URL (optional, default: https://api.xiaomimimo.com/v1)"
-msgstr "Bazowy adres URL MiMo (opcjonalny, domyślny: https://api.xiaomimimo.com/v1)"
+msgstr ""
+"Bazowy adres URL MiMo (opcjonalny, domyślny: https://api.xiaomimimo.com/v1)"
 
+#: src/uagent/setup_cli.py:281
 msgid "MiMo model name (optional, default: mimo-v2.5-pro)"
 msgstr "Nazwa modelu MiMo (opcjonalna, domyślna: mimo-v2.5-pro)"
 
+#: src/uagent/setup_cli.py:288
 msgid "LM Studio base URL (optional, default: http://localhost:1234/v1)"
-msgstr "Podstawowy adres URL LM Studio (opcjonalny, domyślny: http://localhost:1234/v1)"
+msgstr ""
+"Podstawowy adres URL LM Studio (opcjonalny, domyślny: "
+"http://localhost:1234/v1)"
 
+#: src/uagent/setup_cli.py:293
 msgid "LM Studio model name (optional, default: local-model)"
 msgstr "Nazwa modelu LM Studio (opcjonalnie, domyślnie: model lokalny)"
 
+#: src/uagent/setup_cli.py:297
 msgid "MiniMax API key"
 msgstr "Klucz API MiniMax"
 
+#: src/uagent/setup_cli.py:301
 msgid "MiniMax base URL (optional, default: https://api.minimax.io)"
-msgstr "Podstawowy adres URL MiniMax (opcjonalny, domyślny: https://api.minimax.io)"
+msgstr ""
+"Podstawowy adres URL MiniMax (opcjonalny, domyślny: https://api.minimax.io)"
 
+#: src/uagent/setup_cli.py:306
 msgid "MiniMax model name (optional, default: MiniMax-M3)"
 msgstr "Nazwa modelu MiniMax (opcjonalnie, domyślnie: MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:310
 msgid "HuggingFace API key (HF_TOKEN)"
 msgstr "Klucz API HuggingFace (HF_TOKEN)"
 
+#: src/uagent/setup_cli.py:315
 msgid ""
 "HuggingFace base URL (optional, default: https://router.huggingface.co/v1)"
 msgstr ""
-"Podstawowy adres URL HuggingFace (opcjonalny, domyślny:"
-"https://router.huggingface.co/v1)"
+"Podstawowy adres URL HuggingFace (opcjonalny, "
+"domyślny:https://router.huggingface.co/v1)"
 
+#: src/uagent/setup_cli.py:321
 msgid "HuggingFace model name (optional, default: openai/gpt-oss-120b)"
 msgstr "Nazwa modelu HuggingFace (opcjonalna, domyślna: openai/gpt-oss-120b)"
 
+#: src/uagent/setup_cli.py:325
 msgid "Sakana AI API key"
 msgstr "Klucz API Sakana AI"
 
+#: src/uagent/setup_cli.py:329
 msgid "Sakana AI base URL (optional, default: https://api.sakana.ai/v1)"
-msgstr "Podstawowy adres URL Sakana AI (opcjonalny, domyślny: https://api.sakana.ai/v1)"
+msgstr ""
+"Podstawowy adres URL Sakana AI (opcjonalny, domyślny: "
+"https://api.sakana.ai/v1)"
 
+#: src/uagent/setup_cli.py:334
 msgid "Sakana AI model name (optional, default: fugu)"
 msgstr "Nazwa modelu Sakana AI (opcjonalnie, domyślnie: fugu)"
 
@@ -1972,22 +1982,22 @@ msgstr ""
 msgid "Stop"
 msgstr "Zatrzymaj"
 
-#: src/uagent/uagent_llm.py:181
+#: src/uagent/uagent_llm.py:171
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[OSTRZEŻENIE] Przekroczono %(max)d rund narzędzi; przerywanie."
 
-#: src/uagent/util_tools.py:181
+#: src/uagent/util_tools.py:186
 #, python-format
 msgid "image file not found: %(path)s"
 msgstr "nie znaleziono pliku obrazu: %(path)s"
 
-#: src/uagent/util_tools.py:186
+#: src/uagent/util_tools.py:191
 #, python-format
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "plik obrazu jest za duży: %(size)d bajtów (limit=%(max)d)"
 
-#: src/uagent/util_tools.py:210
+#: src/uagent/util_tools.py:215
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1995,7 +2005,7 @@ msgstr ""
 "Określ katalog roboczy. Jeśli nie ustawiono, użyta zostanie zmienna "
 "środowiskowa UAGENT_WORKDIR lub bieżący katalog."
 
-#: src/uagent/util_tools.py:217
+#: src/uagent/util_tools.py:222
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
@@ -2003,138 +2013,141 @@ msgstr ""
 "Tryb nieinteraktywny. Nie uruchamiaj pętli stdin; zakończ po przetworzeniu "
 "pliku startowego (jeśli istnieje)."
 
+#: src/uagent/util_tools.py:230 src/uagent/web.py:1268
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
 " Skips the interactive genre prompt when specified."
 msgstr ""
-"Gatunek narzędzia Bitmaska"
-"​​(1=podstawowa,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=plik,512=indeks,1023=wszystko)."
-"Pomija interaktywny monit o gatunek, jeśli jest określony."
+"Gatunek narzędzia "
+"Bitmaska​​(1=podstawowa,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=plik,512=indeks,1023=wszystko).Pomija"
+" interaktywny monit o gatunek, jeśli jest określony."
 
-#: src/uagent/util_tools.py:233 src/uagent/web.py:1276
+#: src/uagent/util_tools.py:238 src/uagent/web.py:1276
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Włącz wysyłanie narzędzi do LLM (nadpisuje zmienną środowiskową "
 "UAGENT_USE_TOOL)."
 
-#: src/uagent/util_tools.py:240 src/uagent/web.py:1283
+#: src/uagent/util_tools.py:245 src/uagent/web.py:1283
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Wyłącz wysyłanie narzędzi do LLM (nadpisuje zmienną środowiskową "
 "UAGENT_USE_TOOL)."
 
+#: src/uagent/util_tools.py:253
 msgid ""
 "Inject a message into the LLM at startup and exit after completion. Implies "
 "--non-interactive."
 msgstr ""
-"Wprowadź wiadomość do LLM przy uruchomieniu i wyjdź po zakończeniu."
-"Oznacza --non-interactive."
+"Wprowadź wiadomość do LLM przy uruchomieniu i wyjdź po zakończeniu.Oznacza "
+"--non-interactive."
 
+#: src/uagent/util_tools.py:262
 msgid ""
 "Enable a specific tool by name at startup. Can be specified multiple times."
 msgstr ""
-"Włącz określone narzędzie według nazwy podczas uruchamiania. Można"
-"określić wielokrotnie."
+"Włącz określone narzędzie według nazwy podczas uruchamiania. Możnaokreślić "
+"wielokrotnie."
 
-#: src/uagent/util_tools.py:395
+#: src/uagent/util_tools.py:400
 msgid "invalid reasoning"
 msgstr "nieprawidłowy tryb reasoning"
 
-#: src/uagent/util_tools.py:413
+#: src/uagent/util_tools.py:418
 msgid "invalid verbosity"
 msgstr "nieprawidłowy poziom szczegółowości"
 
-#: src/uagent/util_tools.py:587
+#: src/uagent/util_tools.py:592
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr ""
 "[logs] Nieprawidłowy argument: %(arg)r (podaj all / --all / -a / numer)"
 
-#: src/uagent/util_tools.py:634
+#: src/uagent/util_tools.py:639
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "nie udało się sparsować argumentów: %(err)s"
 
-#: src/uagent/util_tools.py:637
+#: src/uagent/util_tools.py:642
 msgid "missing arguments"
 msgstr "brakujące argumenty"
 
-#: src/uagent/util_tools.py:654
+#: src/uagent/util_tools.py:659
 msgid "src and dst are required"
 msgstr "src i dst są wymagane"
 
-#: src/uagent/util_tools.py:679
+#: src/uagent/util_tools.py:684
 #, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:686 src/uagent/util_tools.py:743
+#: src/uagent/util_tools.py:691 src/uagent/util_tools.py:748
 #, python-format
 msgid "[cp error] %(etype)s: %(err)s"
 msgstr "[cp error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:696
+#: src/uagent/util_tools.py:701
 #, python-format
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr "[cp] Źródło i cel są takie same: %(path)s"
 
-#: src/uagent/util_tools.py:702
+#: src/uagent/util_tools.py:707
 #, python-format
 msgid "[cp] Source does not exist: %(path)s"
 msgstr "[cp] Źródło nie istnieje: %(path)s"
 
-#: src/uagent/util_tools.py:709 src/uagent/util_tools.py:721
+#: src/uagent/util_tools.py:714 src/uagent/util_tools.py:726
 #, python-format
 msgid "[cp] Destination already exists: %(path)s"
 msgstr "[cp] Cel już istnieje: %(path)s"
 
-#: src/uagent/util_tools.py:730
+#: src/uagent/util_tools.py:735
 #, python-format
 msgid "[cp] Destination parent does not exist: %(path)s"
 msgstr "[cp] Katalog nadrzędny celu nie istnieje: %(path)s"
 
-#: src/uagent/util_tools.py:737
+#: src/uagent/util_tools.py:742
 #, python-format
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Skopiowano: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:751
+#: src/uagent/util_tools.py:756
 #, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:802
+#: src/uagent/util_tools.py:763 src/uagent/util_tools.py:807
 #, python-format
 msgid "[mv error] %(etype)s: %(err)s"
 msgstr "[mv error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:768
+#: src/uagent/util_tools.py:773
 #, python-format
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] Źródło i cel są takie same: %(path)s"
 
-#: src/uagent/util_tools.py:774
+#: src/uagent/util_tools.py:779
 #, python-format
 msgid "[mv] Source does not exist: %(path)s"
 msgstr "[mv] Źródło nie istnieje: %(path)s"
 
-#: src/uagent/util_tools.py:780
+#: src/uagent/util_tools.py:785
 #, python-format
 msgid "[mv] Destination already exists: %(path)s"
 msgstr "[mv] Cel już istnieje: %(path)s"
 
-#: src/uagent/util_tools.py:790
+#: src/uagent/util_tools.py:795
 #, python-format
 msgid "[mv] Destination parent does not exist: %(path)s"
 msgstr "[mv] Katalog nadrzędny celu nie istnieje: %(path)s"
 
-#: src/uagent/util_tools.py:797
+#: src/uagent/util_tools.py:802
 #, python-format
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Przeniesiono: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:1040
+#: src/uagent/util_tools.py:1045
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -2146,11 +2159,11 @@ msgstr ""
 "Jeśli skill zawiera zadania, kontynuuj, aż zostaną ukończone.\n"
 "Korzystaj z narzędzi w razie potrzeby.\n"
 
-#: src/uagent/util_tools.py:1047
+#: src/uagent/util_tools.py:1052
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Po zakończeniu zawsze wywołaj `finish_skill`, jeśli jest dostępne.\n"
 
-#: src/uagent/util_tools.py:1199
+#: src/uagent/util_tools.py:1204
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -2160,7 +2173,7 @@ msgstr ""
 "Wskazówka: :skills clear  (usuń zastosowane skille)\n"
 "Wpisz numer:"
 
-#: src/uagent/util_tools.py:1235
+#: src/uagent/util_tools.py:1240
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -2177,7 +2190,7 @@ msgstr ""
 "\n"
 "Kontynuować? Wpisz y, aby uruchomić, lub c, aby anulować."
 
-#: src/uagent/util_tools.py:1297
+#: src/uagent/util_tools.py:1302
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -2186,7 +2199,7 @@ msgstr ""
 "[clean] Nieprawidłowy argument: %(arg)r (podaj number=threshold; wartość "
 "domyślna to %(default)d)"
 
-#: src/uagent/util_tools.py:1346
+#: src/uagent/util_tools.py:1351
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -2203,12 +2216,12 @@ msgstr ""
 "\n"
 "Kontynuować? Wpisz y, aby uruchomić, lub c, aby anulować."
 
-#: src/uagent/util_tools.py:1414
+#: src/uagent/util_tools.py:1419
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr " - (%(count)d wiadomości) %(path)s"
 
-#: src/uagent/util_tools.py:1444
+#: src/uagent/util_tools.py:1449
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -2225,7 +2238,7 @@ msgstr ""
 "\n"
 "Kontynuować? Wpisz y, aby uruchomić, lub c, aby anulować."
 
-#: src/uagent/util_tools.py:1575
+#: src/uagent/util_tools.py:1580
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -2240,24 +2253,24 @@ msgstr ""
 "\n"
 "Wpisz y, aby kontynuować, lub c, aby anulować."
 
-#: src/uagent/util_tools.py:1630
+#: src/uagent/util_tools.py:1635
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "Podany indeks %(idx)d jest poza zakresem."
 
-#: src/uagent/util_tools.py:1639
+#: src/uagent/util_tools.py:1644
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "Nie znaleziono pliku logu: %(path)s"
 
-#: src/uagent/util_tools.py:1733
+#: src/uagent/util_tools.py:1738
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[błąd shrink] Nie udało się sparsować jako int: %(arg)r -> zachowaj ostatnie"
 " %(keep)d"
 
-#: src/uagent/util_tools.py:1761
+#: src/uagent/util_tools.py:1766
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -2265,7 +2278,7 @@ msgstr ""
 "[błąd shrink_llm] Nie udało się sparsować jako int: %(arg)r -> zachowaj "
 "ostatnie %(keep)d"
 
-#: src/uagent/util_tools.py:1854 src/uagent/util_tools.py:1948
+#: src/uagent/util_tools.py:1859 src/uagent/util_tools.py:1953
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -2273,53 +2286,56 @@ msgstr ""
 "Współdzielona pamięć długoterminowa nie jest włączona "
 "(UAGENT_SHARED_MEMORY_FILE nie jest ustawione)."
 
+#: src/uagent/util_tools.py:1900
 msgid "Analyzing the most recent %d log files to generate user profile..."
-msgstr "Analizowanie najnowszych plików dziennika %d w celu wygenerowania profilu użytkownika..."
+msgstr ""
+"Analizowanie najnowszych plików dziennika %d w celu wygenerowania profilu "
+"użytkownika..."
 
-#: src/uagent/util_tools.py:1899
+#: src/uagent/util_tools.py:1904
 msgid "Analyzing past logs to generate user profile..."
 msgstr ""
 "Trwa analizowanie wcześniejszych logów w celu utworzenia profilu "
 "użytkownika..."
 
-#: src/uagent/util_tools.py:1903
+#: src/uagent/util_tools.py:1908
 msgid "No past logs found or failed to generate profile."
 msgstr ""
 "Nie znaleziono wcześniejszych logów lub nie udało się utworzyć profilu."
 
-#: src/uagent/util_tools.py:1905
+#: src/uagent/util_tools.py:1910
 msgid "User profile generated successfully from past logs!"
 msgstr "Profil użytkownika został pomyślnie wyczyszczony."
 
-#: src/uagent/util_tools.py:1917
+#: src/uagent/util_tools.py:1922
 msgid "No user profile data found."
 msgstr "Nie znaleziono danych profilu użytkownika."
 
-#: src/uagent/util_tools.py:1920
+#: src/uagent/util_tools.py:1925
 msgid "User Profile:"
 msgstr "Profil użytkownika:"
 
-#: src/uagent/util_tools.py:1932
+#: src/uagent/util_tools.py:1937
 msgid "User profile cleared successfully."
 msgstr "Profil użytkownika został pomyślnie wyczyszczony."
 
-#: src/uagent/util_tools.py:1936
+#: src/uagent/util_tools.py:1941
 msgid "No user profile file found to clear."
 msgstr "Nie znaleziono pliku profilu użytkownika do wyczyszczenia."
 
-#: src/uagent/util_tools.py:1999
+#: src/uagent/util_tools.py:2004
 msgid "Show this help"
 msgstr "Pokaż tę pomoc"
 
-#: src/uagent/util_tools.py:2000
+#: src/uagent/util_tools.py:2005
 msgid "Restart input from the beginning"
 msgstr "Zacznij wprowadzanie od początku"
 
-#: src/uagent/util_tools.py:2001
+#: src/uagent/util_tools.py:2006
 msgid "Show log file list"
 msgstr "Pokaż listę plików dziennika"
 
-#: src/uagent/util_tools.py:2004
+#: src/uagent/util_tools.py:2009
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -2327,24 +2343,24 @@ msgstr ""
 "Zmień katalog roboczy bez potwierdzenia (np. :cd .. / :cd ~ / :cd C:\\path /"
 " :cd /)"
 
-#: src/uagent/util_tools.py:2007
+#: src/uagent/util_tools.py:2012
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "Wyświetl wpisy katalogu (np. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:2010
+#: src/uagent/util_tools.py:2015
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "Zarządzaj zmiennymi środowiskowymi UAGENT_* i zapisz .env.sec"
 
-#: src/uagent/util_tools.py:2012
+#: src/uagent/util_tools.py:2017
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "Zarządzaj/stosuj umiejętności (np. :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:2019
+#: src/uagent/util_tools.py:2024
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Wczytaj wcześniejszy log (nadpisuje bieżącą historię rozmowy)"
 
-#: src/uagent/util_tools.py:2021
+#: src/uagent/util_tools.py:2026
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -2354,7 +2370,7 @@ msgstr ""
 "potwierdzenie; wybranie 'y' doda wczytany log na początek bieżącego pliku "
 "logu sesji (nadpisanie, bez kopii zapasowej)."
 
-#: src/uagent/util_tools.py:2025
+#: src/uagent/util_tools.py:2030
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -2362,14 +2378,14 @@ msgstr ""
 "Usuń logi rozmów (scheck_log_*.jsonl), gdy liczba wiadomości "
 "user/assistant/tool (bez systemowych) jest <= N (domyślnie=10)"
 
-#: src/uagent/util_tools.py:2029
+#: src/uagent/util_tools.py:2034
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Skróć historię rozmowy (zachowaj ostatnie N wiadomości niebędących "
 "systemowymi; domyślnie=40)"
 
-#: src/uagent/util_tools.py:2033
+#: src/uagent/util_tools.py:2038
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -2377,79 +2393,85 @@ msgstr ""
 "Skróć historię przez podsumowanie LLM (streść starszą historię do 1 "
 "wiadomości systemowej; zachowaj ostatnie N surowych; domyślnie=20)"
 
-#: src/uagent/util_tools.py:2036
+#: src/uagent/util_tools.py:2041
 msgid "Show the current approximate token count of the conversation"
 msgstr "Pokaż bieżącą przybliżoną liczbę tokenów rozmowy"
 
-#: src/uagent/util_tools.py:2037
+#: src/uagent/util_tools.py:2042
 msgid "List long-term memory notes"
 msgstr "Wpisy pamięci długoterminowej:"
 
-#: src/uagent/util_tools.py:2039
+#: src/uagent/util_tools.py:2044
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Usuń notatkę pamięci długoterminowej według indeksu (zob. :mem-list)"
 
-#: src/uagent/util_tools.py:2041
+#: src/uagent/util_tools.py:2046
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr ""
 "Pokaż wyuczony profil użytkownika (środowisko, preferencje, ograniczenia)"
 
+#: src/uagent/util_tools.py:2048
 msgid "Generate profile from the most recent N log files"
 msgstr "Wygeneruj profil z najnowszych N plików dziennika"
 
+#: src/uagent/util_tools.py:2050
 msgid "Generate user profile from past logs (last N files if specified)"
-msgstr "Wygeneruj profil użytkownika z poprzednich logów (ostatnie N plików, jeśli określono)"
+msgstr ""
+"Wygeneruj profil użytkownika z poprzednich logów (ostatnie N plików, jeśli "
+"określono)"
 
-#: src/uagent/util_tools.py:2046
+#: src/uagent/util_tools.py:2051
 msgid "Clear the learned user profile data"
 msgstr "Wyczyść wyuczone dane profilu użytkownika"
 
-#: src/uagent/util_tools.py:2048
+#: src/uagent/util_tools.py:2053
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Kopiuj plik lub katalog (obsługuje -f/--overwrite i -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2050
+#: src/uagent/util_tools.py:2055
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Przenieś plik lub katalog (obsługuje -f/--overwrite i -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2052
+#: src/uagent/util_tools.py:2057
 msgid "Show the first n lines of a file (default=20)"
 msgstr "Pokaż pierwsze n wierszy pliku (domyślnie=20)"
 
-#: src/uagent/util_tools.py:2053
+#: src/uagent/util_tools.py:2058
 msgid "Show the last n lines of a file (default=20)"
 msgstr "Pokaż ostatnie n wierszy pliku (domyślnie=20)"
 
-#: src/uagent/util_tools.py:2055
+#: src/uagent/util_tools.py:2060
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Usuń plik(i)/katalog(i) z podglądem i potwierdzeniem"
 
-#: src/uagent/util_tools.py:2057
+#: src/uagent/util_tools.py:2062
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "Ustaw tryb rozumowania (0=wył., 1=niski, 2=średni, 3=wysoki; "
 "auto/minimal/xhigh)"
 
-#: src/uagent/util_tools.py:2059
+#: src/uagent/util_tools.py:2064
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "Ustaw poziom szczegółowości (0=wył., 1=niski, 2=średni, 3=wysoki; bez "
 "arg.=zachowaj)"
 
-#: src/uagent/util_tools.py:2060
+#: src/uagent/util_tools.py:2065
 msgid "Exit"
 msgstr "Wyjście"
 
-#: src/uagent/util_tools.py:2063
+#: src/uagent/util_tools.py:2068
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 "  - Wpisz linię zawierającą tylko 'f', aby przejść do trybu "
 "wielowierszowego."
 
+#: src/uagent/util_tools.py:2185
 msgid "Continue. Goal: %(goal)s"
 msgstr "Kontynuować. Cel: %(goal)s"
 
+#: src/uagent/util_tools.py:2267
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2457,6 +2479,7 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2296
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2464,6 +2487,7 @@ msgstr ""
 "\n"
 "[AUTO] Wyjście przez użytkownika (klawisz x)."
 
+#: src/uagent/util_tools.py:2304
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2471,6 +2495,7 @@ msgstr ""
 "\n"
 "[AUTO] Osiągnięto maksymalną liczbę rund (%(max)d). Zatrzymanie."
 
+#: src/uagent/util_tools.py:2314
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2478,6 +2503,7 @@ msgstr ""
 "\n"
 "[AUTO] Okrągły %(round)d/%(max)d"
 
+#: src/uagent/util_tools.py:2351
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2485,37 +2511,44 @@ msgstr ""
 "\n"
 "[AUTO] Zakończono przegląd/analizę."
 
+#: src/uagent/util_tools.py:2376
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Autopilot wyłączony."
 
+#: src/uagent/util_tools.py:2380
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Zastosowanie: :auto <cel> [--max-rounds N]"
 
+#: src/uagent/util_tools.py:2381
 msgid "       :auto off"
 msgstr ":auto wyłączone"
 
+#: src/uagent/util_tools.py:2395
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Nieprawidłowa wartość dla --max-rounds: %(val)s"
 
+#: src/uagent/util_tools.py:2406
 msgid "Goal cannot be empty."
 msgstr "Cel nie może być pusty."
 
+#: src/uagent/util_tools.py:2416
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Rozpoczęto. Cel: %(goal)s"
 
+#: src/uagent/util_tools.py:2417
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Maksymalna liczba rund: %(max)d"
 
-#: src/uagent/util_tools.py:2567
+#: src/uagent/util_tools.py:2581
 msgid "Exiting."
 msgstr "Kończenie."
 
-#: src/uagent/util_tools.py:2570
+#: src/uagent/util_tools.py:2584
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Nieznane polecenie: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2633
+#: src/uagent/util_tools.py:2647
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2599,22 +2632,26 @@ msgstr "brak ścieżki"
 msgid "path outside workdir"
 msgstr "ścieżka poza katalogiem roboczym"
 
+#: src/uagent/web.py:1289
 msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
-msgstr "Powiąż adres (domyślnie: 127.0.0.1). Zastępuje UAGENT_WEB_HOST env var."
+msgstr ""
+"Powiąż adres (domyślnie: 127.0.0.1). Zastępuje UAGENT_WEB_HOST env var."
 
-#: src/uagent/web.py:1364
+#: src/uagent/web.py:1354
 msgid "Starting server on"
 msgstr "Uruchamianie serwera na"
 
-#: src/uagent/web.py:1366
+#: src/uagent/web.py:1356
 msgid "External URL:"
 msgstr "Zewnętrzny adres URL:"
 
+#: src/uagent/welcome.py:29
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
 msgstr "[MCP Servers]\\n- Nie znaleziono pliku konfiguracyjnego.\\n"
 
+#: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
@@ -2670,44 +2707,51 @@ msgstr ""
 "- Obrazy: GUI obsługuje przeciąganie i upuszczanie; w CUI możesz podać "
 "ścieżkę pliku do analizy obrazu."
 
-#: src/uagent/welcome.py:75
-#, python-format
+#: src/uagent/welcome.py:74
 msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
-"Inspector help (`--path/--open` also available)."
+"- Interrupt: press `c` key to stop the current LLM response (injected as "
+"'Stop')."
 msgstr ""
-"- Docs: `%(docs_cmd)s` pokazuje dołączone dokumenty; `%(webinspect_cmd)s` "
-"pokazuje pomoc Web Inspectora (`--path/--open` również dostępne)."
+"- Przerwanie: naciśnij klawisz „c”, aby zatrzymać bieżącą odpowiedź LLM "
+"(wstrzykniętą jako „Stop”)."
 
-#: src/uagent/welcome.py:79
+#: src/uagent/welcome.py:75
+msgid ""
+"- Auto-pilot: `:auto <goal>` repeatedly runs a task; press `x` to exit "
+"immediately."
+msgstr ""
+"- Autopilot: `:auto <goal>` wielokrotnie uruchamia zadanie; naciśnij `x`, "
+"aby natychmiast wyjść."
+
+#: src/uagent/welcome.py:77
 msgid "[Examples]"
 msgstr "[Przykłady]"
 
-#: src/uagent/welcome.py:80
+#: src/uagent/welcome.py:78
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr "- \"Przeanalizuj kod źródłowy w tym folderze i utwórz README.md.\""
 
-#: src/uagent/welcome.py:82
+#: src/uagent/welcome.py:80
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
 msgstr ""
 "- \"Zrób zrzut ekranu bieżącego pulpitu i opisz widoczną zawartość okna.\""
 
-#: src/uagent/welcome.py:84
+#: src/uagent/welcome.py:82
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr ""
 "- \"Utwórz miesięczny raport podsumowujący na podstawie tego pliku Excel.\""
 
-#: src/uagent/welcome.py:85
+#: src/uagent/welcome.py:83
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"Przeczytaj ten plik PDF i wypisz trzy najważniejsze punkty.\""
 
-#: src/uagent/welcome.py:86
+#: src/uagent/welcome.py:84
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Wyszukaj najnowsze wiadomości i podsumuj określony temat.\""
 
-#: src/uagent/welcome.py:193
+#: src/uagent/welcome.py:191
 msgid "-- More -- (Enter: next) "
 msgstr "-- Więcej -- (Enter: dalej) "
 

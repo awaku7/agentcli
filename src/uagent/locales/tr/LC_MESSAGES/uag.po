@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT 1.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-29 20:12+0900\n"
+"POT-Creation-Date: 2026-06-30 10:59+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[HATA] Git yüklü değil."
 
-#: src/uagent/cli.py:586
+#: src/uagent/cli.py:587
 msgid "getch() fallback to input()"
 msgstr "getch() için yedek olarak input() kullanılıyor"
 
-#: src/uagent/cli.py:803
+#: src/uagent/cli.py:804
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C alındı. Kapatma başlatılıyor..."
 
-#: src/uagent/cli.py:839 src/uagent/cli.py:875 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Ctrl+C alındı. Kapatma başlatılıyor..."
 msgid "Cancelled."
 msgstr "İptal edildi."
 
-#: src/uagent/cli.py:846
+#: src/uagent/cli.py:847
 msgid "Received multiline reply."
 msgstr "Çok satırlı yanıt alındı."
 
-#: src/uagent/cli.py:1041
+#: src/uagent/cli.py:1042
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -69,30 +69,30 @@ msgstr ""
 "Girişinizde resim dosyası yolları bulundu.\n"
 "Bu görüntüleri analiz için LLM'ye (harici API) göndermek istiyor musunuz?"
 
-#: src/uagent/cli.py:1047
+#: src/uagent/cli.py:1048
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Göndermek için y, atlamak için n (veya c/cancel) ile yanıt verin.Göndermek "
 "için y ile veya göndermeyi atlamak için n (veya c/iptal) ile yanıtlayın."
 
-#: src/uagent/cli.py:1065
+#: src/uagent/cli.py:1066
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr ""
 "Resim gönderme onayı başarısız oldu; resim göndermeyecek: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1093 src/uagent/scheckgui.py:708
+#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:709
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Resim eklenemedi: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1130
+#: src/uagent/cli.py:1131
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Bilinmeyen olay türü=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1152
+#: src/uagent/cli.py:1153
 msgid "Exited uag."
 msgstr "Uag'dan çıkıldı."
 
@@ -104,68 +104,73 @@ msgstr "[dokümanlar] adı gerekli"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] başlangıç tür istemi = sayısal giriş"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
 " Enter=basic only):"
 msgstr ""
-"Sayıların toplamını girin"
-"(1=temel,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
-"Enter=yalnızca temel):"
+"Sayıların toplamını "
+"girin(1=temel,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,Enter=yalnızca"
+" temel):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/web.py:983
 msgid "Basic (env, time, prompts, skills, memory, tools control)"
 msgstr "Temel (env, zaman, istemler, beceriler, hafıza, araç kontrolü)"
 
+#: src/uagent/cli_startup.py:73 src/uagent/cli_startup.py:94
+#: src/uagent/web.py:989
 msgid ""
 "File (create, delete, read, write, search, zip, rename, hash, grep, list "
 "dir)"
 msgstr ""
-"Dosya (oluşturma, silme, okuma, yazma, arama, zip, yeniden adlandırma,"
-"karma, grep, liste dizini)"
+"Dosya (oluşturma, silme, okuma, yazma, arama, zip, yeniden adlandırma,karma,"
+" grep, liste dizini)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1456
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1457
 #: src/uagent/web.py:995
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "İletişim (Teams, Discord, Bluesky)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1461
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1462
 #: src/uagent/web.py:1000
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, belge çıkarma)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1467
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1468
 #: src/uagent/web.py:1006
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr ""
 "Development (lint, test, git, DB, ekran görüntüsü, browser, binary, compile)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1474
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1475
 #: src/uagent/web.py:1013
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, kamera, geo-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1480
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1481
 #: src/uagent/web.py:1019
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "Yürütme (cmd, python, pwsh, bash, alt-ajan)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1485
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1486
 #: src/uagent/web.py:1024
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "Harici (A2A, MCP, getir, web arama)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1490
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1491
 #: src/uagent/web.py:1029
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Media (görüntü oluşturma/düzenleme/analiz, ses, QR kodu)"
 
+#: src/uagent/cli_startup.py:100
 msgid ""
 "Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, "
 "cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
 msgstr ""
-"Dizin (kaynak kodu gezintisi: py2idx, ts2idx, jv2idx, cs2idx,"
-"dart2idx, cpp2idx, rs2idx, go2idx, Swift2idx, kt2idx)"
+"Dizin (kaynak kodu gezintisi: py2idx, ts2idx, jv2idx, cs2idx,dart2idx, "
+"cpp2idx, rs2idx, go2idx, Swift2idx, kt2idx)"
 
 #: src/uagent/cli_startup.py:114
 msgid "[INFO] startup genre prompt = prompt_toolkit"
@@ -198,56 +203,56 @@ msgstr "[INFO] başlangıç tür istemi = sayısal giriş (prompt_toolkit yedeğ
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Başlangıç aracı seçimi uygulanamadı: %(err)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/web.py:1320
+#: src/uagent/cli_startup.py:275 src/uagent/web.py:1310
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Çalışma dizini ayarlanamadı: %(err)s"
 
-#: src/uagent/cli_startup.py:311
+#: src/uagent/cli_startup.py:304
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] uag_setup başlatılamadı: %(err)s"
 
-#: src/uagent/cli_startup.py:351
+#: src/uagent/cli_startup.py:344
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "sağlayıcı = %(provider)s; model = %(model)s"
 
-#: src/uagent/cli_startup.py:363 src/uagent/scheckgui.py:560
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:561
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter geri dönüş modelleri etkinleştirildi."
 
-#: src/uagent/cli_startup.py:367
+#: src/uagent/cli_startup.py:360
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "geçerli çalışma dizini = %(cwd)s"
 
-#: src/uagent/cli_startup.py:390 src/uagent/scheckgui.py:583
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:584
 msgid "Loaded long-term memory."
 msgstr "Uzun süreli hafıza yüklendi."
 
-#: src/uagent/cli_startup.py:403 src/uagent/scheckgui.py:596
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:597
 msgid "Loaded shared long-term memory."
 msgstr "Paylaşılan uzun süreli hafıza yüklendi."
 
-#: src/uagent/cli_startup.py:410 src/uagent/web.py:767
+#: src/uagent/cli_startup.py:403 src/uagent/web.py:767
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "[WARN] Paylaşılan uzun süreli bellek yüklenirken özel durum oluştu: %(err)s"
 
-#: src/uagent/cli_startup.py:442
+#: src/uagent/cli_startup.py:435
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[WARN] Başlangıç ​​dosyası okunamadı: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:456
+#: src/uagent/cli_startup.py:449
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "Başlangıç dosyası sağlandı: %(path)s"
 
-#: src/uagent/cli_startup.py:494
+#: src/uagent/cli_startup.py:487
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--etkileşimli olmadığı belirtildi; stdin'i beklemeden çıkılıyor."
 
@@ -373,6 +378,7 @@ msgstr "Yeni parça:\n"
 msgid "Update the summary while keeping the prior context intact."
 msgstr "Önceki bağlamı bozmadan özeti güncelleyin."
 
+#: src/uagent/core.py:1555
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] Öbek özetleniyor %(i)d/%(n)d..."
 
@@ -567,66 +573,59 @@ msgstr ""
 "seçin."
 
 #: src/uagent/docs_util.py:27
-msgid "Project README"
-msgstr "Proje README"
-
-#: src/uagent/docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "Hızlı başlangıç ​​(Windows tekerleği kurulumu)"
-
-#: src/uagent/docs_util.py:37
 msgid "Web Inspector (playwright_inspector) guide"
 msgstr "Web Denetçisi (playwright_inspector) kılavuzu"
 
-#: src/uagent/docs_util.py:42
+#: src/uagent/docs_util.py:32
 msgid "Developer information"
 msgstr "Geliştirici bilgileri"
 
-#: src/uagent/docs_util.py:149
+#: src/uagent/docs_util.py:139
 #, python-format
 msgid "unknown doc name: %(name)r"
 msgstr "bilinmeyen belge adı: %(name)r"
 
-#: src/uagent/docs_util.py:172
+#: src/uagent/docs_util.py:162
 #, python-format
 msgid "doc file not found: %(filename)s"
 msgstr "doc dosyası bulunamadı: %(filename)s"
 
-#: src/uagent/docs_util.py:203
+#: src/uagent/docs_util.py:193
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
 msgstr "belge yolu çözümlemesi başarısız oldu: %(filename)s: %(err)s"
 
-#: src/uagent/docs_util.py:227
+#: src/uagent/docs_util.py:217
 msgid "[docs] Available documents:"
 msgstr "[belgeler] Mevcut belgeler:"
 
-#: src/uagent/docs_util.py:231
+#: src/uagent/docs_util.py:221
 msgid "Usage:"
 msgstr "Kullanımı:"
 
-#: src/uagent/docs_util.py:232
+#: src/uagent/docs_util.py:222
 msgid "list"
 msgstr "liste"
 
-#: src/uagent/docs_util.py:233
+#: src/uagent/docs_util.py:223
 msgid "show"
 msgstr "göster"
 
-#: src/uagent/docs_util.py:234
+#: src/uagent/docs_util.py:224
 msgid "show path"
 msgstr "yolu göster"
 
-#: src/uagent/docs_util.py:235
+#: src/uagent/docs_util.py:225
 msgid "open with OS"
 msgstr "OS ile aç"
 
+#: src/uagent/env_validate.py:42
 msgid ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 msgstr ""
-"LLM sağlayıcısını seçmek için gereklidir"
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"LLM sağlayıcısını seçmek için "
+"gereklidir(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 
 #: src/uagent/env_validate.py:71
 #, python-format
@@ -723,12 +722,15 @@ msgstr "Alibaba Cloud (Qwen) API anahtarı."
 msgid "Moonshot AI API key."
 msgstr "Moonshot AI API anahtarı."
 
+#: src/uagent/env_validate.py:210
 msgid "Xiaomi MiMo API key."
 msgstr "Xiaomi MiMo API anahtarı."
 
+#: src/uagent/env_validate.py:215
 msgid "MiniMax API key."
 msgstr "MiniMax API anahtarı."
 
+#: src/uagent/env_validate.py:221
 msgid "Hugging Face API key (HF_TOKEN)."
 msgstr "Sarılma Yüz API anahtarı (HF_TOKEN)."
 
@@ -981,9 +983,11 @@ msgstr "[Ağ Hatası]"
 msgid "Unexpected exception."
 msgstr "Beklenmeyen istisna."
 
+#: src/uagent/llm_round_helpers.py:707
 msgid "Response error: resp is None."
 msgstr "Yanıt hatası: yanıt Yoktur."
 
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp.choices is None or empty."
 msgstr "Yanıt hatası: resp.choices Yok veya boş."
 
@@ -1030,6 +1034,7 @@ msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "%(total_files)d günlük dosyası bulundu. Artımlı profilleme başlatılıyor..."
 
+#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1051,48 +1056,26 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Siz bir kullanıcı profili oluşturma aracısısınız. Konuşma günlüğünü"
-"analiz edin ve şunu çıkarın:"
-"1."
-"Ortam (İşletim Sistemi, kabuk, düzenleyici) — yalnızca günlükte açıkça"
-"görülüyorsa."
-"2."
-"Tercihler — kullanıcının gerçek istekleri ve düzeltmelerinden"
-"gözlemlenen belirli, eyleme dönüştürülebilir özellikler:"
-"-"
-"Yanıt stili: kısa mı yoksa ayrıntılı mı? Kod ağırlıklı mı düzyazı"
-"ağırlıklı mı? Madde işaretleri mi yoksa paragraflar mı?"
-"-"
-"Dil: Japonca mı, İngilizce mi yoksa karışık mı tercih ediyorsunuz?"
-"-"
-"Araç kullanımı: Kullanıcı sıklıkla hangi araçlara/komutlara ulaşıyor?"
-"-"
-"Kalite standardı: Hızlı geçici çözümlere tolerans gösteriyor musunuz"
-"veya uygun çözümlerde ısrar ediyor musunuz?"
-"-"
-"Onay: Dosya işlemlerinden önce açık onay mı istiyorsunuz, yoksa"
-"istemleri atlamayı mı tercih ediyorsunuz?"
-"-"
-"Kullanıcının talimatları verme biçiminde yinelenen diğer kalıplar."
-"3."
-"Kısıtlamalar — kullanıcının belirttiği açık kurallar (örneğin,"
-"'çevrimdışı olmalı', 'harici API yok', 'basit tut', 'ekstra bağımlılık"
-"yok')."
-"Tercihleri ​​tek bir istekten ÇIKARMAYIN; yalnızca tekrar tekrar"
-"görünen desenleri çıkarın."
-"Geçici"
-"soruları, sohbeti veya hassas kimlik bilgilerini İÇERMEYİN."
-"YALNIZCA"
-"bu şemayla eşleşen geçerli bir JSON nesnesiyle yanıt vermeniz GEREKİR:"
-"{"
-"\\\"environment\\\":"
-"{\\\"os\\\": \\\"string\\\", \\\"shell\\\": \\\"string\\\","
-"\\\"editor\\\": \\\"string\\\"},"
-"\\\"preferences\\\":"
-"[\\\"string\\\"],"
-"\\\"kısıtlamalar\\\":"
-"[\\\"dize\\\"]"
-"}"
+"Siz bir kullanıcı profili oluşturma aracısısınız. Konuşma günlüğünüanaliz "
+"edin ve şunu çıkarın:1.Ortam (İşletim Sistemi, kabuk, düzenleyici) — "
+"yalnızca günlükte açıkçagörülüyorsa.2.Tercihler — kullanıcının gerçek "
+"istekleri ve düzeltmelerindengözlemlenen belirli, eyleme dönüştürülebilir "
+"özellikler:-Yanıt stili: kısa mı yoksa ayrıntılı mı? Kod ağırlıklı mı "
+"düzyazıağırlıklı mı? Madde işaretleri mi yoksa paragraflar mı?-Dil: Japonca "
+"mı, İngilizce mi yoksa karışık mı tercih ediyorsunuz?-Araç kullanımı: "
+"Kullanıcı sıklıkla hangi araçlara/komutlara ulaşıyor?-Kalite standardı: "
+"Hızlı geçici çözümlere tolerans gösteriyor musunuzveya uygun çözümlerde "
+"ısrar ediyor musunuz?-Onay: Dosya işlemlerinden önce açık onay mı "
+"istiyorsunuz, yoksaistemleri atlamayı mı tercih ediyorsunuz?-Kullanıcının "
+"talimatları verme biçiminde yinelenen diğer kalıplar.3.Kısıtlamalar — "
+"kullanıcının belirttiği açık kurallar (örneğin,'çevrimdışı olmalı', 'harici "
+"API yok', 'basit tut', 'ekstra bağımlılıkyok').Tercihleri ​​tek bir istekten"
+" ÇIKARMAYIN; yalnızca tekrar tekrargörünen desenleri çıkarın.Geçicisoruları,"
+" sohbeti veya hassas kimlik bilgilerini İÇERMEYİN.YALNIZCAbu şemayla eşleşen"
+" geçerli bir JSON nesnesiyle yanıt vermeniz "
+"GEREKİR:{\\\"environment\\\":{\\\"os\\\": \\\"string\\\", \\\"shell\\\": "
+"\\\"string\\\",\\\"editor\\\": "
+"\\\"string\\\"},\\\"preferences\\\":[\\\"string\\\"],\\\"kısıtlamalar\\\":[\\\"dize\\\"]}"
 
 #: src/uagent/scheckgui.py:393
 msgid "Drop files/images here"
@@ -1102,134 +1085,141 @@ msgstr "Dosyaları/görüntüleri buraya bırakın"
 msgid "Download"
 msgstr "İndirmek"
 
-#: src/uagent/scheckgui.py:605
+#: src/uagent/scheckgui.py:606
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "Paylaşılan uzun süreli bellek yüklenirken özel durum oluştu: %(err)s"
 
-#: src/uagent/scheckgui.py:658
+#: src/uagent/scheckgui.py:659
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Ekli dosya] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:744
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[Ekli görsel] %(path)s"
 
-#: src/uagent/scheckgui.py:745 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:746 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[Görsel yolu] %(path)s"
 
-#: src/uagent/scheckgui.py:1061 src/uagent/scheckgui.py:1353
+#: src/uagent/scheckgui.py:1062 src/uagent/scheckgui.py:1354
 msgid "Welcome / Quick Guide"
 msgstr "Hoş Geldiniz / Hızlı Kılavuz"
 
+#: src/uagent/scheckgui.py:1176
 msgid "Font size: %(name)s"
 msgstr "Yazı tipi boyutu: %(name)s"
 
-#: src/uagent/scheckgui.py:1180
+#: src/uagent/scheckgui.py:1181
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (Ekstrem Kararlılık)"
 
-#: src/uagent/scheckgui.py:1261
+#: src/uagent/scheckgui.py:1262
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Sürükle ve Bırak"
 
-#: src/uagent/scheckgui.py:1289 src/uagent/scheckgui.py:1721
+#: src/uagent/scheckgui.py:1290 src/uagent/scheckgui.py:1722
 msgid "Attach files"
 msgstr "Dosya ekle"
 
+#: src/uagent/scheckgui.py:1294
 msgid "■"
 msgstr "■"
 
+#: src/uagent/scheckgui.py:1297
 msgid "Stop generation"
 msgstr "Üretimi durdur"
 
-#: src/uagent/scheckgui.py:1311
+#: src/uagent/scheckgui.py:1312
 msgid "Send"
 msgstr "Göndermek"
 
-#: src/uagent/scheckgui.py:1351
+#: src/uagent/scheckgui.py:1352
 msgid "Help"
 msgstr "Yardım"
 
+#: src/uagent/scheckgui.py:1368
 msgid "View"
 msgstr "Görüş"
 
+#: src/uagent/scheckgui.py:1374
 msgid "Font: %(name)s"
 msgstr "Yazı tipi: %(name)s"
 
-#: src/uagent/scheckgui.py:1388
+#: src/uagent/scheckgui.py:1389
 msgid "Mode"
 msgstr "Mod"
 
-#: src/uagent/scheckgui.py:1391
+#: src/uagent/scheckgui.py:1392
 msgid "Reasoning: off"
 msgstr "Gerekçe: kapalı"
 
-#: src/uagent/scheckgui.py:1394
+#: src/uagent/scheckgui.py:1395
 msgid "Reasoning: auto"
 msgstr "Gerekçe: otomatik"
 
-#: src/uagent/scheckgui.py:1396
+#: src/uagent/scheckgui.py:1397
 msgid "Reasoning: minimal"
 msgstr "Gerekçe: minimum"
 
-#: src/uagent/scheckgui.py:1398
+#: src/uagent/scheckgui.py:1399
 msgid "Reasoning: low"
 msgstr "Gerekçe: düşük"
 
-#: src/uagent/scheckgui.py:1400
+#: src/uagent/scheckgui.py:1401
 msgid "Reasoning: medium"
 msgstr "Gerekçe: orta"
 
-#: src/uagent/scheckgui.py:1402
+#: src/uagent/scheckgui.py:1403
 msgid "Reasoning: high"
 msgstr "Gerekçe: yüksek"
 
-#: src/uagent/scheckgui.py:1405
+#: src/uagent/scheckgui.py:1406
 msgid "Reasoning: xhigh"
 msgstr "Gerekçe: xhigh"
 
-#: src/uagent/scheckgui.py:1410
+#: src/uagent/scheckgui.py:1411
 msgid "Verbosity: off"
 msgstr "Ayrıntı düzeyi: kapalı"
 
-#: src/uagent/scheckgui.py:1412
+#: src/uagent/scheckgui.py:1413
 msgid "Verbosity: low"
 msgstr "Ayrıntı düzeyi: düşük"
 
-#: src/uagent/scheckgui.py:1414
+#: src/uagent/scheckgui.py:1415
 msgid "Verbosity: medium"
 msgstr "Ayrıntı düzeyi: orta"
 
-#: src/uagent/scheckgui.py:1416
+#: src/uagent/scheckgui.py:1417
 msgid "Verbosity: high"
 msgstr "Ayrıntı düzeyi: yüksek"
 
-#: src/uagent/scheckgui.py:1443
+#: src/uagent/scheckgui.py:1444
 msgid "Tools"
 msgstr "Araçlar"
 
-#: src/uagent/scheckgui.py:1450
+#: src/uagent/scheckgui.py:1451
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Temel (dosya, ortam, zaman, istemler, beceriler, bellek, araç kontrolü)"
 
+#: src/uagent/scheckgui.py:1496
 msgid "File (read, write, search, delete, listing)"
 msgstr "Dosya (okuma, yazma, arama, silme, listeleme)"
 
+#: src/uagent/scheckgui.py:1501
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "Dizin (kaynak kodunda gezinme: py2idx, ts2idx, vb.)"
 
-#: src/uagent/scheckgui.py:1551
+#: src/uagent/scheckgui.py:1552
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mod] akıl yürütme=%(mode)s"
 
-#: src/uagent/scheckgui.py:1555
+#: src/uagent/scheckgui.py:1556
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1237,50 +1227,50 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=kapalı, 1=düşük, 2=orta, 3=yüksek; "
 "auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:1563
+#: src/uagent/scheckgui.py:1564
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[mod] ayrıntı düzeyi=%(mode)s"
 
-#: src/uagent/scheckgui.py:1565
+#: src/uagent/scheckgui.py:1566
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3]  (0=kapalı, 1=düşük, 2=orta, 3=yüksek; arg yok=koru)"
 
-#: src/uagent/scheckgui.py:1697
+#: src/uagent/scheckgui.py:1698
 msgid "Enter password..."
 msgstr "Şifreyi girin..."
 
-#: src/uagent/scheckgui.py:1704
+#: src/uagent/scheckgui.py:1705
 msgid "Enter a message..."
 msgstr "Bir mesaj girin..."
 
-#: src/uagent/scheckgui.py:1723
+#: src/uagent/scheckgui.py:1724
 msgid "All Files (*)"
 msgstr "Tüm Dosyalar (*)"
 
-#: src/uagent/scheckgui.py:1975
+#: src/uagent/scheckgui.py:1976
 msgid "cannot read image"
 msgstr "görsel okunamıyor"
 
-#: src/uagent/scheckgui.py:2126 src/uagent/scheckgui.py:2166
-#: src/uagent/scheckgui.py:2201
+#: src/uagent/scheckgui.py:2127 src/uagent/scheckgui.py:2167
+#: src/uagent/scheckgui.py:2202
 msgid "Downloaded to"
 msgstr "Şuraya indirildi:"
 
-#: src/uagent/scheckgui.py:2220
+#: src/uagent/scheckgui.py:2221
 msgid "Playing"
 msgstr "Oynanıyor"
 
-#: src/uagent/scheckgui.py:2230
+#: src/uagent/scheckgui.py:2231
 msgid "Stopped"
 msgstr "Durduruldu"
 
-#: src/uagent/scheckgui.py:2289
+#: src/uagent/scheckgui.py:2290
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[YANIT] > %(text)s"
 
-#: src/uagent/scheckgui.py:2296
+#: src/uagent/scheckgui.py:2297
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[KULLANICI] %(text)s"
@@ -1529,48 +1519,66 @@ msgstr ""
 msgid "Moonshot model name (optional, default: kimi-k2)"
 msgstr "Moonshot model adı (isteğe bağlı, varsayılan: kimi-k2)"
 
+#: src/uagent/setup_cli.py:272
 msgid "Xiaomi MiMo API key"
 msgstr "Xiaomi MiMo API anahtarı"
 
+#: src/uagent/setup_cli.py:276
 msgid "MiMo base URL (optional, default: https://api.xiaomimimo.com/v1)"
-msgstr "MiMo temel URL'si (isteğe bağlı, varsayılan: https://api.xiaomimimo.com/v1)"
+msgstr ""
+"MiMo temel URL'si (isteğe bağlı, varsayılan: https://api.xiaomimimo.com/v1)"
 
+#: src/uagent/setup_cli.py:281
 msgid "MiMo model name (optional, default: mimo-v2.5-pro)"
 msgstr "MiMo model adı (isteğe bağlı, varsayılan: mimo-v2.5-pro)"
 
+#: src/uagent/setup_cli.py:288
 msgid "LM Studio base URL (optional, default: http://localhost:1234/v1)"
-msgstr "LM Studio temel URL'si (isteğe bağlı, varsayılan: http://localhost:1234/v1)"
+msgstr ""
+"LM Studio temel URL'si (isteğe bağlı, varsayılan: http://localhost:1234/v1)"
 
+#: src/uagent/setup_cli.py:293
 msgid "LM Studio model name (optional, default: local-model)"
 msgstr "LM Studio model adı (isteğe bağlı, varsayılan: yerel model)"
 
+#: src/uagent/setup_cli.py:297
 msgid "MiniMax API key"
 msgstr "MiniMax API anahtarı"
 
+#: src/uagent/setup_cli.py:301
 msgid "MiniMax base URL (optional, default: https://api.minimax.io)"
-msgstr "MiniMax temel URL'si (isteğe bağlı, varsayılan: https://api.minimax.io)"
+msgstr ""
+"MiniMax temel URL'si (isteğe bağlı, varsayılan: https://api.minimax.io)"
 
+#: src/uagent/setup_cli.py:306
 msgid "MiniMax model name (optional, default: MiniMax-M3)"
 msgstr "MiniMax model adı (isteğe bağlı, varsayılan: MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:310
 msgid "HuggingFace API key (HF_TOKEN)"
 msgstr "HuggingFace API anahtarı (HF_TOKEN)"
 
+#: src/uagent/setup_cli.py:315
 msgid ""
 "HuggingFace base URL (optional, default: https://router.huggingface.co/v1)"
 msgstr ""
-"HuggingFace temel URL'si (isteğe bağlı, varsayılan:"
-"https://router.huggingface.co/v1)"
+"HuggingFace temel URL'si (isteğe bağlı, "
+"varsayılan:https://router.huggingface.co/v1)"
 
+#: src/uagent/setup_cli.py:321
 msgid "HuggingFace model name (optional, default: openai/gpt-oss-120b)"
 msgstr "HuggingFace model adı (isteğe bağlı, varsayılan: openai/gpt-oss-120b)"
 
+#: src/uagent/setup_cli.py:325
 msgid "Sakana AI API key"
 msgstr "Sakana AI API anahtarı"
 
+#: src/uagent/setup_cli.py:329
 msgid "Sakana AI base URL (optional, default: https://api.sakana.ai/v1)"
-msgstr "Sakana AI temel URL'si (isteğe bağlı, varsayılan: https://api.sakana.ai/v1)"
+msgstr ""
+"Sakana AI temel URL'si (isteğe bağlı, varsayılan: https://api.sakana.ai/v1)"
 
+#: src/uagent/setup_cli.py:334
 msgid "Sakana AI model name (optional, default: fugu)"
 msgstr "Sakana AI model adı (isteğe bağlı, varsayılan: fugu)"
 
@@ -1953,22 +1961,22 @@ msgstr ""
 msgid "Stop"
 msgstr "Durdur"
 
-#: src/uagent/uagent_llm.py:181
+#: src/uagent/uagent_llm.py:171
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Takım turları %(max)d değerini aştı; iptal ediliyor."
 
-#: src/uagent/util_tools.py:181
+#: src/uagent/util_tools.py:186
 #, python-format
 msgid "image file not found: %(path)s"
 msgstr "görüntü dosyası bulunamadı: %(path)s"
 
-#: src/uagent/util_tools.py:186
+#: src/uagent/util_tools.py:191
 #, python-format
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "görüntü dosyası çok büyük: %(size)d bayt (sınır=%(max)d)"
 
-#: src/uagent/util_tools.py:210
+#: src/uagent/util_tools.py:215
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1976,7 +1984,7 @@ msgstr ""
 "Çalışma dizinini belirtin. Ayarlanmazsa UAGENT_WORKDIR env var'ı veya "
 "geçerli dizini kullanır."
 
-#: src/uagent/util_tools.py:217
+#: src/uagent/util_tools.py:222
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
@@ -1984,139 +1992,142 @@ msgstr ""
 "Etkileşimli olmayan mod. Stdin döngüsünü başlatmayın; Başlangıç ​​dosyasını "
 "(varsa) işledikten sonra çıkın."
 
+#: src/uagent/util_tools.py:230 src/uagent/web.py:1268
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
 " Skips the interactive genre prompt when specified."
 msgstr ""
-"Araç türü bit maskesi"
-"(1=temel,2=comm,4=office,8=geliştirme,16=iot,32=exec,64=harici,128=medya,256=dosya,512=index,1023=tümü)."
-"Belirtildiğinde etkileşimli tür istemini atlar."
+"Araç türü bit "
+"maskesi(1=temel,2=comm,4=office,8=geliştirme,16=iot,32=exec,64=harici,128=medya,256=dosya,512=index,1023=tümü).Belirtildiğinde"
+" etkileşimli tür istemini atlar."
 
-#: src/uagent/util_tools.py:233 src/uagent/web.py:1276
+#: src/uagent/util_tools.py:238 src/uagent/web.py:1276
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "LLM'ye araç göndermeyi etkinleştir (UAGENT_USE_TOOL ortam değişkenini "
 "geçersiz kılar)."
 
-#: src/uagent/util_tools.py:240 src/uagent/web.py:1283
+#: src/uagent/util_tools.py:245 src/uagent/web.py:1283
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "LLM'ye araç göndermeyi devre dışı bırak (UAGENT_USE_TOOL ortam değişkenini "
 "geçersiz kılar)."
 
+#: src/uagent/util_tools.py:253
 msgid ""
 "Inject a message into the LLM at startup and exit after completion. Implies "
 "--non-interactive."
 msgstr ""
-"Başlangıçta LLM'ye bir mesaj enjekte edin ve tamamlandıktan sonra"
-"çıkın. --non-interactive anlamına gelir."
+"Başlangıçta LLM'ye bir mesaj enjekte edin ve tamamlandıktan sonraçıkın. "
+"--non-interactive anlamına gelir."
 
+#: src/uagent/util_tools.py:262
 msgid ""
 "Enable a specific tool by name at startup. Can be specified multiple times."
 msgstr ""
-"Başlangıçta belirli bir aracı ada göre etkinleştirin. Birden çok kez"
-"belirtilebilir."
+"Başlangıçta belirli bir aracı ada göre etkinleştirin. Birden çok "
+"kezbelirtilebilir."
 
-#: src/uagent/util_tools.py:395
+#: src/uagent/util_tools.py:400
 msgid "invalid reasoning"
 msgstr "geçersiz reasoning"
 
-#: src/uagent/util_tools.py:413
+#: src/uagent/util_tools.py:418
 msgid "invalid verbosity"
 msgstr "geçersiz ayrıntı düzeyi"
 
-#: src/uagent/util_tools.py:587
+#: src/uagent/util_tools.py:592
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr ""
 "[günlükler] Geçersiz bağımsız değişken: %(arg)r (tümü / --all / -a / sayıyı "
 "belirtin)"
 
-#: src/uagent/util_tools.py:634
+#: src/uagent/util_tools.py:639
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "argümanlar ayrıştırılamadı: %(err)s"
 
-#: src/uagent/util_tools.py:637
+#: src/uagent/util_tools.py:642
 msgid "missing arguments"
 msgstr "eksik argümanlar"
 
-#: src/uagent/util_tools.py:654
+#: src/uagent/util_tools.py:659
 msgid "src and dst are required"
 msgstr "src ve dst gerekli"
 
-#: src/uagent/util_tools.py:679
+#: src/uagent/util_tools.py:684
 #, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:686 src/uagent/util_tools.py:743
+#: src/uagent/util_tools.py:691 src/uagent/util_tools.py:748
 #, python-format
 msgid "[cp error] %(etype)s: %(err)s"
 msgstr "[cp error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:696
+#: src/uagent/util_tools.py:701
 #, python-format
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr "[cp] Kaynak ve hedef aynı: %(path)s"
 
-#: src/uagent/util_tools.py:702
+#: src/uagent/util_tools.py:707
 #, python-format
 msgid "[cp] Source does not exist: %(path)s"
 msgstr "[cp] Kaynak mevcut değil: %(path)s"
 
-#: src/uagent/util_tools.py:709 src/uagent/util_tools.py:721
+#: src/uagent/util_tools.py:714 src/uagent/util_tools.py:726
 #, python-format
 msgid "[cp] Destination already exists: %(path)s"
 msgstr "[cp] Hedef zaten mevcut: %(path)s"
 
-#: src/uagent/util_tools.py:730
+#: src/uagent/util_tools.py:735
 #, python-format
 msgid "[cp] Destination parent does not exist: %(path)s"
 msgstr "[cp] Hedefin üst dizini mevcut değil: %(path)s"
 
-#: src/uagent/util_tools.py:737
+#: src/uagent/util_tools.py:742
 #, python-format
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Kopyalandı: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:751
+#: src/uagent/util_tools.py:756
 #, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:802
+#: src/uagent/util_tools.py:763 src/uagent/util_tools.py:807
 #, python-format
 msgid "[mv error] %(etype)s: %(err)s"
 msgstr "[mv error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:768
+#: src/uagent/util_tools.py:773
 #, python-format
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] Kaynak ve hedef aynı: %(path)s"
 
-#: src/uagent/util_tools.py:774
+#: src/uagent/util_tools.py:779
 #, python-format
 msgid "[mv] Source does not exist: %(path)s"
 msgstr "[mv] Kaynak mevcut değil: %(path)s"
 
-#: src/uagent/util_tools.py:780
+#: src/uagent/util_tools.py:785
 #, python-format
 msgid "[mv] Destination already exists: %(path)s"
 msgstr "[mv] Hedef zaten mevcut: %(path)s"
 
-#: src/uagent/util_tools.py:790
+#: src/uagent/util_tools.py:795
 #, python-format
 msgid "[mv] Destination parent does not exist: %(path)s"
 msgstr "[mv] Hedefin üst dizini mevcut değil: %(path)s"
 
-#: src/uagent/util_tools.py:797
+#: src/uagent/util_tools.py:802
 #, python-format
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Taşındı: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:1040
+#: src/uagent/util_tools.py:1045
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -2128,11 +2139,11 @@ msgstr ""
 "Beceri görevler içeriyorsa tamamlanana kadar devam edin.\n"
 "Araçları gerektiği gibi kullanın."
 
-#: src/uagent/util_tools.py:1047
+#: src/uagent/util_tools.py:1052
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Bitirdiğinizde, mümkünse her zaman 'finish_skill'i çağırın."
 
-#: src/uagent/util_tools.py:1199
+#: src/uagent/util_tools.py:1204
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -2142,7 +2153,7 @@ msgstr ""
 "İpucu: :becerileri temizleyin (uygulanan becerileri kaldırın)\n"
 "Numarayı girin:"
 
-#: src/uagent/util_tools.py:1235
+#: src/uagent/util_tools.py:1240
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -2159,7 +2170,7 @@ msgstr ""
 "\n"
 "Devam etmek mi? Çalıştırmak için y'yi, iptal etmek için c'yi girin."
 
-#: src/uagent/util_tools.py:1297
+#: src/uagent/util_tools.py:1302
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -2168,7 +2179,7 @@ msgstr ""
 "[temiz] Geçersiz bağımsız değişken: %(arg)r (sayıyı belirtin=eşik; "
 "varsayılan: %(default)d)"
 
-#: src/uagent/util_tools.py:1346
+#: src/uagent/util_tools.py:1351
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -2185,12 +2196,12 @@ msgstr ""
 "\n"
 "Devam etmek mi? Çalıştırmak için y'yi, iptal etmek için c'yi girin."
 
-#: src/uagent/util_tools.py:1414
+#: src/uagent/util_tools.py:1419
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr " - (%(count)d ileti) %(path)s"
 
-#: src/uagent/util_tools.py:1444
+#: src/uagent/util_tools.py:1449
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -2207,7 +2218,7 @@ msgstr ""
 "\n"
 "Devam etmek mi? Çalıştırmak için y'yi, iptal etmek için c'yi girin."
 
-#: src/uagent/util_tools.py:1575
+#: src/uagent/util_tools.py:1580
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -2222,24 +2233,24 @@ msgstr ""
 "\n"
 "Devam etmek için y'yi, iptal etmek için c'yi girin."
 
-#: src/uagent/util_tools.py:1630
+#: src/uagent/util_tools.py:1635
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "Belirtilen %(idx)d dizini aralık dışında."
 
-#: src/uagent/util_tools.py:1639
+#: src/uagent/util_tools.py:1644
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "Günlük dosyası bulunamadı: %(path)s"
 
-#: src/uagent/util_tools.py:1733
+#: src/uagent/util_tools.py:1738
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[küçültme hatası] int olarak ayrıştırılamadı: %(arg)r -> sonuncuyu sakla "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1761
+#: src/uagent/util_tools.py:1766
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -2247,7 +2258,7 @@ msgstr ""
 "[shrink_llm hatası] int olarak ayrıştırılamadı: %(arg)r -> sonuncuyu sakla "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1854 src/uagent/util_tools.py:1948
+#: src/uagent/util_tools.py:1859 src/uagent/util_tools.py:1953
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -2255,51 +2266,54 @@ msgstr ""
 "Paylaşılan uzun süreli bellek etkinleştirilmedi (UAGENT_SHARED_MEMORY_FILE "
 "ayarlanmadı)."
 
+#: src/uagent/util_tools.py:1900
 msgid "Analyzing the most recent %d log files to generate user profile..."
-msgstr "Kullanıcı profili oluşturmak için en güncel %d günlük dosyaları analiz ediliyor..."
+msgstr ""
+"Kullanıcı profili oluşturmak için en güncel %d günlük dosyaları analiz "
+"ediliyor..."
 
-#: src/uagent/util_tools.py:1899
+#: src/uagent/util_tools.py:1904
 msgid "Analyzing past logs to generate user profile..."
 msgstr ""
 "Kullanıcı profilini oluşturmak için önceki günlükler analiz ediliyor..."
 
-#: src/uagent/util_tools.py:1903
+#: src/uagent/util_tools.py:1908
 msgid "No past logs found or failed to generate profile."
 msgstr "Önceki günlük bulunamadı veya profil oluşturulamadı."
 
-#: src/uagent/util_tools.py:1905
+#: src/uagent/util_tools.py:1910
 msgid "User profile generated successfully from past logs!"
 msgstr "Kullanıcı profili başarıyla temizlendi."
 
-#: src/uagent/util_tools.py:1917
+#: src/uagent/util_tools.py:1922
 msgid "No user profile data found."
 msgstr "Kullanıcı profili verisi bulunamadı."
 
-#: src/uagent/util_tools.py:1920
+#: src/uagent/util_tools.py:1925
 msgid "User Profile:"
 msgstr "Kullanıcı Profili:"
 
-#: src/uagent/util_tools.py:1932
+#: src/uagent/util_tools.py:1937
 msgid "User profile cleared successfully."
 msgstr "Kullanıcı profili başarıyla temizlendi."
 
-#: src/uagent/util_tools.py:1936
+#: src/uagent/util_tools.py:1941
 msgid "No user profile file found to clear."
 msgstr "Temizlenecek kullanıcı profili dosyası bulunamadı."
 
-#: src/uagent/util_tools.py:1999
+#: src/uagent/util_tools.py:2004
 msgid "Show this help"
 msgstr "Bu yardımı göster"
 
-#: src/uagent/util_tools.py:2000
+#: src/uagent/util_tools.py:2005
 msgid "Restart input from the beginning"
 msgstr "Girişi baştan yeniden başlat"
 
-#: src/uagent/util_tools.py:2001
+#: src/uagent/util_tools.py:2006
 msgid "Show log file list"
 msgstr "Günlük dosyası listesini göster"
 
-#: src/uagent/util_tools.py:2004
+#: src/uagent/util_tools.py:2009
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -2307,24 +2321,24 @@ msgstr ""
 "Çalışma dizinini onay olmadan değiştirin (örn. :cd .. / :cd ~ / :cd C:\\path"
 " / :cd /)"
 
-#: src/uagent/util_tools.py:2007
+#: src/uagent/util_tools.py:2012
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "Dizin girişlerini listeleyin (örn. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:2010
+#: src/uagent/util_tools.py:2015
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "UAGENT_* ortam değişkenlerini yönetin ve .env.sec dosyasını kaydedin"
 
-#: src/uagent/util_tools.py:2012
+#: src/uagent/util_tools.py:2017
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "Becerileri yönetin/uygulayın (ör. :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:2019
+#: src/uagent/util_tools.py:2024
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Geçmiş bir günlüğü yükle (mevcut konuşma geçmişinin üzerine yazar)"
 
-#: src/uagent/util_tools.py:2021
+#: src/uagent/util_tools.py:2026
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -2334,7 +2348,7 @@ msgstr ""
 "seçilmesi, yüklenen günlüğü geçerli oturum günlük dosyasının başına ekler "
 "(üzerine yazılır, yedekleme yapılmaz)."
 
-#: src/uagent/util_tools.py:2025
+#: src/uagent/util_tools.py:2030
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -2342,13 +2356,13 @@ msgstr ""
 "Kullanıcı/asistan/araç mesajlarının (sistem hariç) sayısının <= N "
 "(varsayılan=10) olduğu konuşma günlüklerini (scheck_log_*.jsonl) silin"
 
-#: src/uagent/util_tools.py:2029
+#: src/uagent/util_tools.py:2034
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Görüşme geçmişini küçült (son N sistem dışı mesajı sakla; varsayılan=40)"
 
-#: src/uagent/util_tools.py:2033
+#: src/uagent/util_tools.py:2038
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -2356,77 +2370,82 @@ msgstr ""
 "LLM özetleme yoluyla geçmişi daraltın (eski geçmişi 1 sistem mesajında "
 "​​özetleyin; son N'yi ham tutun; varsayılan=20)"
 
-#: src/uagent/util_tools.py:2036
+#: src/uagent/util_tools.py:2041
 msgid "Show the current approximate token count of the conversation"
 msgstr "Konuşmanın mevcut yaklaşık token sayısını göster"
 
-#: src/uagent/util_tools.py:2037
+#: src/uagent/util_tools.py:2042
 msgid "List long-term memory notes"
 msgstr "Uzun süreli hafıza notlarını listeleyin"
 
-#: src/uagent/util_tools.py:2039
+#: src/uagent/util_tools.py:2044
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Uzun süreli hafıza notunu dizine göre silin (bkz. :mem-list)"
 
-#: src/uagent/util_tools.py:2041
+#: src/uagent/util_tools.py:2046
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr "Öğrenilen kullanıcı profilini göster (ortam, tercihler, kısıtlamalar)"
 
+#: src/uagent/util_tools.py:2048
 msgid "Generate profile from the most recent N log files"
 msgstr "En yeni N günlük dosyalarından profil oluşturun"
 
+#: src/uagent/util_tools.py:2050
 msgid "Generate user profile from past logs (last N files if specified)"
-msgstr "Geçmiş günlüklerden kullanıcı profili oluştur (belirtilmişse son N dosya)"
+msgstr ""
+"Geçmiş günlüklerden kullanıcı profili oluştur (belirtilmişse son N dosya)"
 
-#: src/uagent/util_tools.py:2046
+#: src/uagent/util_tools.py:2051
 msgid "Clear the learned user profile data"
 msgstr "Öğrenilen kullanıcı profili verilerini temizle"
 
-#: src/uagent/util_tools.py:2048
+#: src/uagent/util_tools.py:2053
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Dosya veya dizin kopyala (-f/--overwrite ve -p/--mkdirs desteklenir)"
 
-#: src/uagent/util_tools.py:2050
+#: src/uagent/util_tools.py:2055
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Dosya veya dizin taşı (-f/--overwrite ve -p/--mkdirs desteklenir)"
 
-#: src/uagent/util_tools.py:2052
+#: src/uagent/util_tools.py:2057
 msgid "Show the first n lines of a file (default=20)"
 msgstr "Bir dosyanın ilk n satırını göster (varsayılan=20)"
 
-#: src/uagent/util_tools.py:2053
+#: src/uagent/util_tools.py:2058
 msgid "Show the last n lines of a file (default=20)"
 msgstr "Bir dosyanın son n satırını göster (varsayılan=20)"
 
-#: src/uagent/util_tools.py:2055
+#: src/uagent/util_tools.py:2060
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Önizleme + onaylama ile dosya(lar)ı/dizin(ler)i sil"
 
-#: src/uagent/util_tools.py:2057
+#: src/uagent/util_tools.py:2062
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "Akıl yürütme modunu ayarlayın (0=kapalı, 1=düşük, 2=orta, 3=yüksek; "
 "otomatik/minimum/xyüksek)"
 
-#: src/uagent/util_tools.py:2059
+#: src/uagent/util_tools.py:2064
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "Ayrıntı modunu ayarlayın (0=kapalı, 1=düşük, 2=orta, 3=yüksek; bağımsız "
 "değişken yok=tut)"
 
-#: src/uagent/util_tools.py:2060
+#: src/uagent/util_tools.py:2065
 msgid "Exit"
 msgstr "Çıkış"
 
-#: src/uagent/util_tools.py:2063
+#: src/uagent/util_tools.py:2068
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 "- Çok satırlı giriş moduna girmek için yalnızca 'f' olan bir satır girin."
 
+#: src/uagent/util_tools.py:2185
 msgid "Continue. Goal: %(goal)s"
 msgstr "Devam etmek. Hedef: %(goal)s"
 
+#: src/uagent/util_tools.py:2267
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2434,6 +2453,7 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2296
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2441,6 +2461,7 @@ msgstr ""
 "\n"
 "[AUTO] Kullanıcı tarafından çıkıldı (x tuşu)."
 
+#: src/uagent/util_tools.py:2304
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2448,6 +2469,7 @@ msgstr ""
 "\n"
 "[AUTO] Maksimum tur sayısına (%(max)d) ulaşıldı. Duruyorum."
 
+#: src/uagent/util_tools.py:2314
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2455,6 +2477,7 @@ msgstr ""
 "\n"
 "[AUTO] Yuvarlak %(round)d/%(max)d"
 
+#: src/uagent/util_tools.py:2351
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2462,37 +2485,44 @@ msgstr ""
 "\n"
 "[AUTO] İnceleme/analiz tamamlandı."
 
+#: src/uagent/util_tools.py:2376
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Otomatik pilot kapatıldı."
 
+#: src/uagent/util_tools.py:2380
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Kullanım: :auto <hedef> [--max-rounds N]"
 
+#: src/uagent/util_tools.py:2381
 msgid "       :auto off"
 msgstr ":auto kapalı"
 
+#: src/uagent/util_tools.py:2395
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "--max-rounds için geçersiz değer: %(val)s"
 
+#: src/uagent/util_tools.py:2406
 msgid "Goal cannot be empty."
 msgstr "Hedef boş olamaz."
 
+#: src/uagent/util_tools.py:2416
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Başladı. Hedef: %(goal)s"
 
+#: src/uagent/util_tools.py:2417
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Maksimum tur sayısı: %(max)d"
 
-#: src/uagent/util_tools.py:2567
+#: src/uagent/util_tools.py:2581
 msgid "Exiting."
 msgstr "Çıkıyorum."
 
-#: src/uagent/util_tools.py:2570
+#: src/uagent/util_tools.py:2584
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Bilinmeyen komut: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2633
+#: src/uagent/util_tools.py:2647
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2578,22 +2608,27 @@ msgstr "yol eksik"
 msgid "path outside workdir"
 msgstr "yol çalışma dizininin dışında"
 
+#: src/uagent/web.py:1289
 msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
-msgstr "Bağlantı adresi (varsayılan: 127.0.0.1). UAGENT_WEB_HOST ortam değişkenini geçersiz kılar."
+msgstr ""
+"Bağlantı adresi (varsayılan: 127.0.0.1). UAGENT_WEB_HOST ortam değişkenini "
+"geçersiz kılar."
 
-#: src/uagent/web.py:1364
+#: src/uagent/web.py:1354
 msgid "Starting server on"
 msgstr "Sunucu başlatılıyor:"
 
-#: src/uagent/web.py:1366
+#: src/uagent/web.py:1356
 msgid "External URL:"
 msgstr "Harici URL:"
 
+#: src/uagent/welcome.py:29
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
 msgstr "[MCP Servers]\\n- Yapılandırma dosyası bulunamadı.\\n"
 
+#: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
@@ -2648,25 +2683,31 @@ msgstr ""
 "- Resimler: GUI sürükle ve bırak özelliğini destekler; CUI'de görüntü "
 "analizi için bir dosya yolu girebilirsiniz."
 
-#: src/uagent/welcome.py:75
-#, python-format
+#: src/uagent/welcome.py:74
 msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
-"Inspector help (`--path/--open` also available)."
+"- Interrupt: press `c` key to stop the current LLM response (injected as "
+"'Stop')."
 msgstr ""
-"- Docs: `%(docs_cmd)s` birlikte verilen belgeleri gösterir; "
-"`%(webinspect_cmd)s` Web Inspector yardımını gösterir (`--path/--open` de "
-"kullanılabilir)."
+"- Kesinti: mevcut LLM yanıtını durdurmak için 'c' tuşuna basın ('Durdur' "
+"olarak enjekte edilir)."
 
-#: src/uagent/welcome.py:79
+#: src/uagent/welcome.py:75
+msgid ""
+"- Auto-pilot: `:auto <goal>` repeatedly runs a task; press `x` to exit "
+"immediately."
+msgstr ""
+"- Otomatik pilot: `:auto <hedef>` bir görevi tekrar tekrar çalıştırır; hemen"
+" çıkmak için 'x' tuşuna basın."
+
+#: src/uagent/welcome.py:77
 msgid "[Examples]"
 msgstr "[Örnekler]"
 
-#: src/uagent/welcome.py:80
+#: src/uagent/welcome.py:78
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr "- \"Bu klasördeki kaynak kodunu analiz edin ve bir README.md oluşturun.\""
 
-#: src/uagent/welcome.py:82
+#: src/uagent/welcome.py:80
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
@@ -2674,19 +2715,19 @@ msgstr ""
 "- \"Geçerli masaüstünün ekran görüntüsünü alın ve görünen pencere içeriğini "
 "tanımlayın.\""
 
-#: src/uagent/welcome.py:84
+#: src/uagent/welcome.py:82
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr "- \"Bu Excel dosyasından aylık bir özet rapor oluşturun.\""
 
-#: src/uagent/welcome.py:85
+#: src/uagent/welcome.py:83
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"Bu PDF'yi okuyun ve üç önemli noktayı listeleyin.\""
 
-#: src/uagent/welcome.py:86
+#: src/uagent/welcome.py:84
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"En son haberleri arayın ve belirli bir konuyu özetleyin.\""
 
-#: src/uagent/welcome.py:193
+#: src/uagent/welcome.py:191
 msgid "-- More -- (Enter: next) "
 msgstr "-- Daha fazla -- (Enter: sonraki) "
 

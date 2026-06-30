@@ -96,6 +96,11 @@ def init_tools_callbacks(core: Any) -> None:
             if hasattr(core, "human_ask_is_password")
             else None
         ),
+        is_auto_pilot_active=(
+            (lambda: getattr(core, "auto_pilot_active", False))
+            if hasattr(core, "auto_pilot_active")
+            else None
+        ),
         event_queue=getattr(core, "event_queue", None),
         cmd_encoding=getattr(core, "CMD_ENCODING", "utf-8"),
         cmd_exec_timeout_ms=getattr(core, "CMD_EXEC_TIMEOUT_MS", 60_000),

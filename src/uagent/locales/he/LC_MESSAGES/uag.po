@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT 1.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-29 20:12+0900\n"
+"POT-Creation-Date: 2026-06-30 10:59+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,15 +36,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[שגיאה] Git לא מותקן."
 
-#: src/uagent/cli.py:586
+#: src/uagent/cli.py:587
 msgid "getch() fallback to input()"
 msgstr "getch() חזרה לקלט()"
 
-#: src/uagent/cli.py:803
+#: src/uagent/cli.py:804
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "התקבל Ctrl+C. מתחיל כיבוי..."
 
-#: src/uagent/cli.py:839 src/uagent/cli.py:875 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -55,11 +55,11 @@ msgstr "התקבל Ctrl+C. מתחיל כיבוי..."
 msgid "Cancelled."
 msgstr "בוטלה."
 
-#: src/uagent/cli.py:846
+#: src/uagent/cli.py:847
 msgid "Received multiline reply."
 msgstr "התקבלה תשובה מרובה שורות."
 
-#: src/uagent/cli.py:1041
+#: src/uagent/cli.py:1042
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -68,27 +68,27 @@ msgstr ""
 "נמצאו נתיבים לקובץ תמונה בקלט שלך.\n"
 "האם ברצונך לשלוח את התמונות הללו ל-LLM (API חיצוני) לניתוח?"
 
-#: src/uagent/cli.py:1047
+#: src/uagent/cli.py:1048
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "השב עם y כדי לשלוח, או n (או c/cancel) כדי לדלג על השליחה."
 
-#: src/uagent/cli.py:1065
+#: src/uagent/cli.py:1066
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "אישור שליחת התמונה נכשל; לא ישלח תמונות: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1093 src/uagent/scheckgui.py:708
+#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:709
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "צירוף התמונה נכשל: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1130
+#: src/uagent/cli.py:1131
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "סוג אירוע לא ידוע=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1152
+#: src/uagent/cli.py:1153
 msgid "Exited uag."
 msgstr "יצא מ-uag."
 
@@ -100,65 +100,70 @@ msgstr "נדרש שם [docs]"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] הנחיה של ז'אנר הפעלה = קלט מספרי"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
 " Enter=basic only):"
 msgstr ""
-"הזן את סכום המספרים"
-"(1=בסיסי,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
-"Enter=basic only):"
+"הזן את סכום "
+"המספרים(1=בסיסי,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,Enter=basic"
+" only):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/web.py:983
 msgid "Basic (env, time, prompts, skills, memory, tools control)"
 msgstr "בסיסי (env, זמן, הנחיות, מיומנויות, זיכרון, בקרת כלים)"
 
+#: src/uagent/cli_startup.py:73 src/uagent/cli_startup.py:94
+#: src/uagent/web.py:989
 msgid ""
 "File (create, delete, read, write, search, zip, rename, hash, grep, list "
 "dir)"
 msgstr "קובץ (צור, מחק, קרא, כתוב, חפש, zip, שנה שם, hash, grep, list dir)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1456
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1457
 #: src/uagent/web.py:995
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "תקשורת (צוותים, דיסקורד, בלוסקי)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1461
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1462
 #: src/uagent/web.py:1000
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, חילוץ מסמכים)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1467
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1468
 #: src/uagent/web.py:1006
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr "פיתוח (לנט, בדיקה, git, DB, צילום מסך, דפדפן, בינארי, קומפילציה)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1474
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1475
 #: src/uagent/web.py:1013
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, מצלמה, גיא-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1480
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1481
 #: src/uagent/web.py:1019
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "ביצוע (cmd, python, pwsh, bash, sub-agent)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1485
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1486
 #: src/uagent/web.py:1024
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "חיצוני (A2A, MCP, אחזור, חיפוש באינטרנט)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1490
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1491
 #: src/uagent/web.py:1029
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "מדיה (תמונה/עריכה/ניתוח, אודיו, קוד QR)"
 
+#: src/uagent/cli_startup.py:100
 msgid ""
 "Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, "
 "cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
 msgstr ""
-"אינדקס (ניווט בקוד מקור: py2idx, ts2idx, jv2idx, cs2idx, dart2idx,"
-"cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
+"אינדקס (ניווט בקוד מקור: py2idx, ts2idx, jv2idx, cs2idx, dart2idx,cpp2idx, "
+"rs2idx, go2idx, swift2idx, kt2idx)"
 
 #: src/uagent/cli_startup.py:114
 msgid "[INFO] startup genre prompt = prompt_toolkit"
@@ -189,55 +194,55 @@ msgstr "[INFO] הנחיה ז'אנר הפעלה = קלט מספרי (החלפה �
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[אזהרה] החלת בחירת כלי האתחול נכשלה: %(err)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/web.py:1320
+#: src/uagent/cli_startup.py:275 src/uagent/web.py:1310
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] נכשל הגדרת workdir: %(err)s"
 
-#: src/uagent/cli_startup.py:311
+#: src/uagent/cli_startup.py:304
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] הפעלת uag_setup: %(err)s נכשלה"
 
-#: src/uagent/cli_startup.py:351
+#: src/uagent/cli_startup.py:344
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "ספק = %(provider)s; דגם = %(model)s"
 
-#: src/uagent/cli_startup.py:363 src/uagent/scheckgui.py:560
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:561
 msgid "OpenRouter fallback models enabled."
 msgstr "מודלים חוזרים של OpenRouter מופעלים."
 
-#: src/uagent/cli_startup.py:367
+#: src/uagent/cli_startup.py:360
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "Workdir נוכחי = %(cwd)s"
 
-#: src/uagent/cli_startup.py:390 src/uagent/scheckgui.py:583
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:584
 msgid "Loaded long-term memory."
 msgstr "זיכרון לטווח ארוך טעון."
 
-#: src/uagent/cli_startup.py:403 src/uagent/scheckgui.py:596
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:597
 msgid "Loaded shared long-term memory."
 msgstr "זיכרון משותף לטווח ארוך טעון."
 
-#: src/uagent/cli_startup.py:410 src/uagent/web.py:767
+#: src/uagent/cli_startup.py:403 src/uagent/web.py:767
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[אזהרה] אירעה חריגה בעת טעינת זיכרון משותף לטווח ארוך: %(err)s"
 
-#: src/uagent/cli_startup.py:442
+#: src/uagent/cli_startup.py:435
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[אזהרה] נכשל קריאת קובץ האתחול: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:456
+#: src/uagent/cli_startup.py:449
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "קובץ הפעלה מסופק: %(path)s"
 
-#: src/uagent/cli_startup.py:494
+#: src/uagent/cli_startup.py:487
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--לא אינטראקטיבי צוין; יוצא מבלי לחכות לסטדין."
 
@@ -356,6 +361,7 @@ msgstr "נתח חדש:"
 msgid "Update the summary while keeping the prior context intact."
 msgstr "עדכן את הסיכום תוך שמירה על ההקשר הקודם ללא פגע."
 
+#: src/uagent/core.py:1555
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] מסכם נתח %(i)d/%(n)d..."
 
@@ -549,66 +555,59 @@ msgid ""
 msgstr "הכלים הבאים נטענים כעת בהפעלה זו. בחר את הכלי המתאים ביותר למשימה."
 
 #: src/uagent/docs_util.py:27
-msgid "Project README"
-msgstr "פרויקט README"
-
-#: src/uagent/docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "התחלה מהירה (התקנת גלגל Windows)"
-
-#: src/uagent/docs_util.py:37
 msgid "Web Inspector (playwright_inspector) guide"
 msgstr "מדריך מפקח האינטרנט (מחזאי_מפקח)."
 
-#: src/uagent/docs_util.py:42
+#: src/uagent/docs_util.py:32
 msgid "Developer information"
 msgstr "מידע למפתחים"
 
-#: src/uagent/docs_util.py:149
+#: src/uagent/docs_util.py:139
 #, python-format
 msgid "unknown doc name: %(name)r"
 msgstr "שם מסמך לא ידוע: %(name)r"
 
-#: src/uagent/docs_util.py:172
+#: src/uagent/docs_util.py:162
 #, python-format
 msgid "doc file not found: %(filename)s"
 msgstr "קובץ doc לא נמצא: %(filename)s"
 
-#: src/uagent/docs_util.py:203
+#: src/uagent/docs_util.py:193
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
 msgstr "פתרון נתיב המסמך נכשל: %(filename)s: %(err)s"
 
-#: src/uagent/docs_util.py:227
+#: src/uagent/docs_util.py:217
 msgid "[docs] Available documents:"
 msgstr "[מסמכים] מסמכים זמינים:"
 
-#: src/uagent/docs_util.py:231
+#: src/uagent/docs_util.py:221
 msgid "Usage:"
 msgstr "שימוש:"
 
-#: src/uagent/docs_util.py:232
+#: src/uagent/docs_util.py:222
 msgid "list"
 msgstr "רשימה"
 
-#: src/uagent/docs_util.py:233
+#: src/uagent/docs_util.py:223
 msgid "show"
 msgstr "להראות"
 
-#: src/uagent/docs_util.py:234
+#: src/uagent/docs_util.py:224
 msgid "show path"
 msgstr "להראות נתיב"
 
-#: src/uagent/docs_util.py:235
+#: src/uagent/docs_util.py:225
 msgid "open with OS"
 msgstr "לפתוח עם מערכת הפעלה"
 
+#: src/uagent/env_validate.py:42
 msgid ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 msgstr ""
-"נדרש לבחירת ספק ה-LLM"
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"נדרש לבחירת ספק "
+"ה-LLM(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 
 #: src/uagent/env_validate.py:71
 #, python-format
@@ -701,12 +700,15 @@ msgstr "מפתח API של Alibaba Cloud (Qwen)."
 msgid "Moonshot AI API key."
 msgstr "מפתח API של Moonshot AI."
 
+#: src/uagent/env_validate.py:210
 msgid "Xiaomi MiMo API key."
 msgstr "מפתח API של Xiaomi MiMo."
 
+#: src/uagent/env_validate.py:215
 msgid "MiniMax API key."
 msgstr "מפתח API של MiniMax."
 
+#: src/uagent/env_validate.py:221
 msgid "Hugging Face API key (HF_TOKEN)."
 msgstr "מפתח חיבוק של Face API (HF_TOKEN)."
 
@@ -952,9 +954,11 @@ msgstr "[שגיאת רשת]"
 msgid "Unexpected exception."
 msgstr "חריג בלתי צפוי."
 
+#: src/uagent/llm_round_helpers.py:707
 msgid "Response error: resp is None."
 msgstr "שגיאת תגובה: resp הוא None."
 
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp.choices is None or empty."
 msgstr "שגיאת תגובה: resp.choices היא ללא או ריקה."
 
@@ -1000,6 +1004,7 @@ msgstr "אתחול לקוח LLM נכשל."
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "נמצאו %(total_files)d קובצי יומן. מתחיל יצירת פרופיל מצטבר..."
 
+#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1021,39 +1026,20 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"אתה סוכן פרופיל משתמש. נתח את יומן השיחה וחלץ:"
-"1."
-"סביבה (מערכת הפעלה, מעטפת, עורך) - רק אם זה ברור מהיומן."
-"2."
-"העדפות - תכונות ספציפיות ניתנות לפעולה שנצפו מבקשות ותיקונים בפועל של"
-"המשתמש:"
-"-"
-"סגנון תגובה: תמציתית או מילולית? כבדי קוד או כבדי פרוזה? נקודות או"
-"פסקאות?"
-"-"
-"שפה: מעדיף יפנית, אנגלית או מעורב?"
-"-"
-"שימוש בכלים: לאילו כלים/פקודות המשתמש מגיע לעתים קרובות?"
-"-"
-"תקן איכות: סובל מעקפים מהירים או מתעקש על פתרונות ראויים?"
-"-"
-"אישור: רוצה אישור מפורש לפני פעולות קובץ, או מעדיף לדלג על הנחיות?"
-"-"
-"כל דפוס חוזר אחר באופן שבו המשתמש נותן הוראות."
-"3."
-"אילוצים - כללים מפורשים שהמשתמש ציין (למשל 'חייב להיות במצב לא מקוון',"
-"'ללא ממשקי API חיצוניים', 'שמור על זה פשוט', 'ללא תלות נוספת')."
-"אין להסיק העדפות מבקשה אחת; רק לחלץ דפוסים המופיעים שוב ושוב."
-"אל"
-"תכלול שאלות זמניות, צ'ט-צ'אט או אישורים רגישים."
-"עליך"
-"להגיב רק עם אובייקט JSON חוקי התואם לסכימה זו:"
-"{"
-"\\\"environment\\\":"
-"{\\\"os\\\": \\\"string\\\", \\\"shell\\\": \\\"string\\\","
-"\\\"editor\\\": \\\"string\\\"}, __NEWLINE\\LINE__ \\\"העדפות\\\"],"
-"[\\\"NEWLINE__\"] [\\\"מחרוזת\\\"]"
-"}"
+"אתה סוכן פרופיל משתמש. נתח את יומן השיחה וחלץ:1.סביבה (מערכת הפעלה, מעטפת, "
+"עורך) - רק אם זה ברור מהיומן.2.העדפות - תכונות ספציפיות ניתנות לפעולה שנצפו "
+"מבקשות ותיקונים בפועל שלהמשתמש:-סגנון תגובה: תמציתית או מילולית? כבדי קוד או"
+" כבדי פרוזה? נקודות אופסקאות?-שפה: מעדיף יפנית, אנגלית או מעורב?-שימוש "
+"בכלים: לאילו כלים/פקודות המשתמש מגיע לעתים קרובות?-תקן איכות: סובל מעקפים "
+"מהירים או מתעקש על פתרונות ראויים?-אישור: רוצה אישור מפורש לפני פעולות קובץ,"
+" או מעדיף לדלג על הנחיות?-כל דפוס חוזר אחר באופן שבו המשתמש נותן "
+"הוראות.3.אילוצים - כללים מפורשים שהמשתמש ציין (למשל 'חייב להיות במצב לא "
+"מקוון','ללא ממשקי API חיצוניים', 'שמור על זה פשוט', 'ללא תלות נוספת').אין "
+"להסיק העדפות מבקשה אחת; רק לחלץ דפוסים המופיעים שוב ושוב.אלתכלול שאלות "
+"זמניות, צ'ט-צ'אט או אישורים רגישים.עליךלהגיב רק עם אובייקט JSON חוקי התואם "
+"לסכימה זו:{\\\"environment\\\":{\\\"os\\\": \\\"string\\\", \\\"shell\\\": "
+"\\\"string\\\",\\\"editor\\\": \\\"string\\\"}, __NEWLINE\\LINE__ "
+"\\\"העדפות\\\"],[\\\"NEWLINE__\"] [\\\"מחרוזת\\\"]}"
 
 #: src/uagent/scheckgui.py:393
 msgid "Drop files/images here"
@@ -1063,133 +1049,140 @@ msgstr "שחרר כאן קבצים/תמונות"
 msgid "Download"
 msgstr "הורד"
 
-#: src/uagent/scheckgui.py:605
+#: src/uagent/scheckgui.py:606
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "חריגה אירעה בעת טעינת זיכרון משותף לטווח ארוך: %(err)s"
 
-#: src/uagent/scheckgui.py:658
+#: src/uagent/scheckgui.py:659
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[קובץ מצורף] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:744
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[תמונה מצורפת] %(path)s"
 
-#: src/uagent/scheckgui.py:745 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:746 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[נתיב תמונה] %(path)s"
 
-#: src/uagent/scheckgui.py:1061 src/uagent/scheckgui.py:1353
+#: src/uagent/scheckgui.py:1062 src/uagent/scheckgui.py:1354
 msgid "Welcome / Quick Guide"
 msgstr "ברוך הבא / מדריך מהיר"
 
+#: src/uagent/scheckgui.py:1176
 msgid "Font size: %(name)s"
 msgstr "גודל גופן: %(name)s"
 
-#: src/uagent/scheckgui.py:1180
+#: src/uagent/scheckgui.py:1181
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (יציבות קיצונית)"
 
-#: src/uagent/scheckgui.py:1261
+#: src/uagent/scheckgui.py:1262
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ ניתן לצרף קבצים על ידי גרירה ושחרור"
 
-#: src/uagent/scheckgui.py:1289 src/uagent/scheckgui.py:1721
+#: src/uagent/scheckgui.py:1290 src/uagent/scheckgui.py:1722
 msgid "Attach files"
 msgstr "צרף קבצים"
 
+#: src/uagent/scheckgui.py:1294
 msgid "■"
 msgstr "■"
 
+#: src/uagent/scheckgui.py:1297
 msgid "Stop generation"
 msgstr "תפסיק את הדור"
 
-#: src/uagent/scheckgui.py:1311
+#: src/uagent/scheckgui.py:1312
 msgid "Send"
 msgstr "שלח"
 
-#: src/uagent/scheckgui.py:1351
+#: src/uagent/scheckgui.py:1352
 msgid "Help"
 msgstr "עזרה"
 
+#: src/uagent/scheckgui.py:1368
 msgid "View"
 msgstr "נוֹף"
 
+#: src/uagent/scheckgui.py:1374
 msgid "Font: %(name)s"
 msgstr "גופן: %(name)s"
 
-#: src/uagent/scheckgui.py:1388
+#: src/uagent/scheckgui.py:1389
 msgid "Mode"
 msgstr "מצב"
 
-#: src/uagent/scheckgui.py:1391
+#: src/uagent/scheckgui.py:1392
 msgid "Reasoning: off"
 msgstr "נימוק: כבוי"
 
-#: src/uagent/scheckgui.py:1394
+#: src/uagent/scheckgui.py:1395
 msgid "Reasoning: auto"
 msgstr "נימוק: אוטומטי"
 
-#: src/uagent/scheckgui.py:1396
+#: src/uagent/scheckgui.py:1397
 msgid "Reasoning: minimal"
 msgstr "נימוק: מינימלי"
 
-#: src/uagent/scheckgui.py:1398
+#: src/uagent/scheckgui.py:1399
 msgid "Reasoning: low"
 msgstr "נימוק: נמוך"
 
-#: src/uagent/scheckgui.py:1400
+#: src/uagent/scheckgui.py:1401
 msgid "Reasoning: medium"
 msgstr "נימוק: בינוני"
 
-#: src/uagent/scheckgui.py:1402
+#: src/uagent/scheckgui.py:1403
 msgid "Reasoning: high"
 msgstr "נימוק: גבוה"
 
-#: src/uagent/scheckgui.py:1405
+#: src/uagent/scheckgui.py:1406
 msgid "Reasoning: xhigh"
 msgstr "נימוק: xhigh"
 
-#: src/uagent/scheckgui.py:1410
+#: src/uagent/scheckgui.py:1411
 msgid "Verbosity: off"
 msgstr "מילולית: כבוי"
 
-#: src/uagent/scheckgui.py:1412
+#: src/uagent/scheckgui.py:1413
 msgid "Verbosity: low"
 msgstr "מילולית: נמוכה"
 
-#: src/uagent/scheckgui.py:1414
+#: src/uagent/scheckgui.py:1415
 msgid "Verbosity: medium"
 msgstr "מילולית: בינונית"
 
-#: src/uagent/scheckgui.py:1416
+#: src/uagent/scheckgui.py:1417
 msgid "Verbosity: high"
 msgstr "מילולית: גבוהה"
 
-#: src/uagent/scheckgui.py:1443
+#: src/uagent/scheckgui.py:1444
 msgid "Tools"
 msgstr "כלים"
 
-#: src/uagent/scheckgui.py:1450
+#: src/uagent/scheckgui.py:1451
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "בסיסי (קובץ, env, זמן, הנחיות, מיומנויות, זיכרון, בקרת כלים)"
 
+#: src/uagent/scheckgui.py:1496
 msgid "File (read, write, search, delete, listing)"
 msgstr "קובץ (לקרוא, לכתוב, לחפש, למחוק, לרשום)"
 
+#: src/uagent/scheckgui.py:1501
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "אינדקס (ניווט בקוד מקור: py2idx, ts2idx וכו')"
 
-#: src/uagent/scheckgui.py:1551
+#: src/uagent/scheckgui.py:1552
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[mode] reasoning=%(mode)s"
 
-#: src/uagent/scheckgui.py:1555
+#: src/uagent/scheckgui.py:1556
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1197,50 +1190,50 @@ msgstr ""
 ":r [0|1|2|3|אוטומטי|מינימלי|xhigh] (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; "
 "אוטומטי/מינימלי/xhigh)"
 
-#: src/uagent/scheckgui.py:1563
+#: src/uagent/scheckgui.py:1564
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[מצב] מילוליות=%(mode)s"
 
-#: src/uagent/scheckgui.py:1565
+#: src/uagent/scheckgui.py:1566
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3] (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; אין arg=keep)"
 
-#: src/uagent/scheckgui.py:1697
+#: src/uagent/scheckgui.py:1698
 msgid "Enter password..."
 msgstr "הזן סיסמה..."
 
-#: src/uagent/scheckgui.py:1704
+#: src/uagent/scheckgui.py:1705
 msgid "Enter a message..."
 msgstr "הזן הודעה..."
 
-#: src/uagent/scheckgui.py:1723
+#: src/uagent/scheckgui.py:1724
 msgid "All Files (*)"
 msgstr "כל הקבצים (*)"
 
-#: src/uagent/scheckgui.py:1975
+#: src/uagent/scheckgui.py:1976
 msgid "cannot read image"
 msgstr "לא יכול לקרוא תמונה"
 
-#: src/uagent/scheckgui.py:2126 src/uagent/scheckgui.py:2166
-#: src/uagent/scheckgui.py:2201
+#: src/uagent/scheckgui.py:2127 src/uagent/scheckgui.py:2167
+#: src/uagent/scheckgui.py:2202
 msgid "Downloaded to"
 msgstr "הורד אל"
 
-#: src/uagent/scheckgui.py:2220
+#: src/uagent/scheckgui.py:2221
 msgid "Playing"
 msgstr "משחק"
 
-#: src/uagent/scheckgui.py:2230
+#: src/uagent/scheckgui.py:2231
 msgid "Stopped"
 msgstr "נעצר"
 
-#: src/uagent/scheckgui.py:2289
+#: src/uagent/scheckgui.py:2290
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[תשובה] > %(text)s"
 
-#: src/uagent/scheckgui.py:2296
+#: src/uagent/scheckgui.py:2297
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[משתמש] %(text)s"
@@ -1493,48 +1486,68 @@ msgstr ""
 msgid "Moonshot model name (optional, default: kimi-k2)"
 msgstr "שם דגם Moonshot (אופציונלי, ברירת מחדל: kimi-k2)"
 
+#: src/uagent/setup_cli.py:272
 msgid "Xiaomi MiMo API key"
 msgstr "מפתח API של Xiaomi MiMo"
 
+#: src/uagent/setup_cli.py:276
 msgid "MiMo base URL (optional, default: https://api.xiaomimimo.com/v1)"
-msgstr "כתובת האתר הבסיסית של MiMo (אופציונלי, ברירת מחדל: https://api.xiaomimimo.com/v1)"
+msgstr ""
+"כתובת האתר הבסיסית של MiMo (אופציונלי, ברירת מחדל: "
+"https://api.xiaomimimo.com/v1)"
 
+#: src/uagent/setup_cli.py:281
 msgid "MiMo model name (optional, default: mimo-v2.5-pro)"
 msgstr "שם דגם MiMo (אופציונלי, ברירת מחדל: mimo-v2.5-pro)"
 
+#: src/uagent/setup_cli.py:288
 msgid "LM Studio base URL (optional, default: http://localhost:1234/v1)"
-msgstr "כתובת האתר הבסיסית של LM Studio (אופציונלי, ברירת מחדל: http://localhost:1234/v1)"
+msgstr ""
+"כתובת האתר הבסיסית של LM Studio (אופציונלי, ברירת מחדל: "
+"http://localhost:1234/v1)"
 
+#: src/uagent/setup_cli.py:293
 msgid "LM Studio model name (optional, default: local-model)"
 msgstr "שם דגם LM Studio (אופציונלי, ברירת מחדל: דגם מקומי)"
 
+#: src/uagent/setup_cli.py:297
 msgid "MiniMax API key"
 msgstr "מפתח MiniMax API"
 
+#: src/uagent/setup_cli.py:301
 msgid "MiniMax base URL (optional, default: https://api.minimax.io)"
-msgstr "MiniMax בסיס כתובת אתר (אופציונלי, ברירת מחדל: https://api.minimax.io)"
+msgstr ""
+"MiniMax בסיס כתובת אתר (אופציונלי, ברירת מחדל: https://api.minimax.io)"
 
+#: src/uagent/setup_cli.py:306
 msgid "MiniMax model name (optional, default: MiniMax-M3)"
 msgstr "שם דגם MiniMax (אופציונלי, ברירת מחדל: MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:310
 msgid "HuggingFace API key (HF_TOKEN)"
 msgstr "מפתח API של HuggingFace (HF_TOKEN)"
 
+#: src/uagent/setup_cli.py:315
 msgid ""
 "HuggingFace base URL (optional, default: https://router.huggingface.co/v1)"
 msgstr ""
-"URL בסיס של HuggingFace (אופציונלי, ברירת מחדל:"
-"https://router.huggingface.co/v1)"
+"URL בסיס של HuggingFace (אופציונלי, ברירת "
+"מחדל:https://router.huggingface.co/v1)"
 
+#: src/uagent/setup_cli.py:321
 msgid "HuggingFace model name (optional, default: openai/gpt-oss-120b)"
 msgstr "שם דגם HuggingFace (אופציונלי, ברירת מחדל: openai/gpt-oss-120b)"
 
+#: src/uagent/setup_cli.py:325
 msgid "Sakana AI API key"
 msgstr "מפתח API של Sakana AI"
 
+#: src/uagent/setup_cli.py:329
 msgid "Sakana AI base URL (optional, default: https://api.sakana.ai/v1)"
-msgstr "URL בסיס של Sakana AI (אופציונלי, ברירת מחדל: https://api.sakana.ai/v1)"
+msgstr ""
+"URL בסיס של Sakana AI (אופציונלי, ברירת מחדל: https://api.sakana.ai/v1)"
 
+#: src/uagent/setup_cli.py:334
 msgid "Sakana AI model name (optional, default: fugu)"
 msgstr "שם דגם Sakana AI (אופציונלי, ברירת מחדל: fugu)"
 
@@ -1916,22 +1929,22 @@ msgstr "הופסק על ידי המשתמש. שולח פקודת עצירה ל-L
 msgid "Stop"
 msgstr "עצור"
 
-#: src/uagent/uagent_llm.py:181
+#: src/uagent/uagent_llm.py:171
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[אזהרה] סיבובי הכלים חרגו מ-%(max)d; הפלה."
 
-#: src/uagent/util_tools.py:181
+#: src/uagent/util_tools.py:186
 #, python-format
 msgid "image file not found: %(path)s"
 msgstr "קובץ התמונה לא נמצא: %(path)s"
 
-#: src/uagent/util_tools.py:186
+#: src/uagent/util_tools.py:191
 #, python-format
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "קובץ תמונה גדול מדי: %(size)d bytes (limit=%(max)d)"
 
-#: src/uagent/util_tools.py:210
+#: src/uagent/util_tools.py:215
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1939,7 +1952,7 @@ msgstr ""
 "ציין ספריית עבודה. אם לא מוגדר, משתמש ב-UAGENT_WORKDIR env var או בספרייה "
 "הנוכחית."
 
-#: src/uagent/util_tools.py:217
+#: src/uagent/util_tools.py:222
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
@@ -1947,130 +1960,133 @@ msgstr ""
 "מצב לא אינטראקטיבי. אל תתחיל את לולאת stdin; צא לאחר עיבוד קובץ האתחול (אם "
 "קיים)."
 
+#: src/uagent/util_tools.py:230 src/uagent/web.py:1268
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
 " Skips the interactive genre prompt when specified."
 msgstr ""
-"מסיכת סיביות של ז'אנר כלי"
-"(1=בסיסי,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
-"דילוג על בקשת הז'אנר האינטראקטיבית כאשר צוין."
+"מסיכת סיביות של ז'אנר "
+"כלי(1=בסיסי,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all).דילוג"
+" על בקשת הז'אנר האינטראקטיבית כאשר צוין."
 
-#: src/uagent/util_tools.py:233 src/uagent/web.py:1276
+#: src/uagent/util_tools.py:238 src/uagent/web.py:1276
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "אפשר שליחת כלי ל-LLM (עוקף את UAGENT_USE_TOOL env var)."
 
-#: src/uagent/util_tools.py:240 src/uagent/web.py:1283
+#: src/uagent/util_tools.py:245 src/uagent/web.py:1283
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "השבת שליחת כלי ל-LLM (עוקף את UAGENT_USE_TOOL env var)."
 
+#: src/uagent/util_tools.py:253
 msgid ""
 "Inject a message into the LLM at startup and exit after completion. Implies "
 "--non-interactive."
 msgstr ""
 "הכנס הודעה ל-LLM בהפעלה ויציאה לאחר השלמתו. מרמז על --non-interactive."
 
+#: src/uagent/util_tools.py:262
 msgid ""
 "Enable a specific tool by name at startup. Can be specified multiple times."
 msgstr "אפשר כלי ספציפי לפי שם בעת ההפעלה. ניתן לציין מספר פעמים."
 
-#: src/uagent/util_tools.py:395
+#: src/uagent/util_tools.py:400
 msgid "invalid reasoning"
 msgstr "נימוק לא חוקי"
 
-#: src/uagent/util_tools.py:413
+#: src/uagent/util_tools.py:418
 msgid "invalid verbosity"
 msgstr "מילוליות לא חוקיות"
 
-#: src/uagent/util_tools.py:587
+#: src/uagent/util_tools.py:592
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr "[logs] ארגומנט לא חוקי: %(arg)r (ציין הכל / --all / -a / מספר)"
 
-#: src/uagent/util_tools.py:634
+#: src/uagent/util_tools.py:639
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "נכשל בניתוח הארגומנטים: %(err)s"
 
-#: src/uagent/util_tools.py:637
+#: src/uagent/util_tools.py:642
 msgid "missing arguments"
 msgstr "טיעונים חסרים"
 
-#: src/uagent/util_tools.py:654
+#: src/uagent/util_tools.py:659
 msgid "src and dst are required"
 msgstr "src ו-dst נדרשים"
 
-#: src/uagent/util_tools.py:679
+#: src/uagent/util_tools.py:684
 #, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:686 src/uagent/util_tools.py:743
+#: src/uagent/util_tools.py:691 src/uagent/util_tools.py:748
 #, python-format
 msgid "[cp error] %(etype)s: %(err)s"
 msgstr "[שגיאת cp] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:696
+#: src/uagent/util_tools.py:701
 #, python-format
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr "[cp] המקור והיעד זהים: %(path)s"
 
-#: src/uagent/util_tools.py:702
+#: src/uagent/util_tools.py:707
 #, python-format
 msgid "[cp] Source does not exist: %(path)s"
 msgstr "[cp] המקור אינו קיים: %(path)s"
 
-#: src/uagent/util_tools.py:709 src/uagent/util_tools.py:721
+#: src/uagent/util_tools.py:714 src/uagent/util_tools.py:726
 #, python-format
 msgid "[cp] Destination already exists: %(path)s"
 msgstr "[cp] היעד כבר קיים: %(path)s"
 
-#: src/uagent/util_tools.py:730
+#: src/uagent/util_tools.py:735
 #, python-format
 msgid "[cp] Destination parent does not exist: %(path)s"
 msgstr "[cp] אב היעד אינו קיים: %(path)s"
 
-#: src/uagent/util_tools.py:737
+#: src/uagent/util_tools.py:742
 #, python-format
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] הועתק: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:751
+#: src/uagent/util_tools.py:756
 #, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:802
+#: src/uagent/util_tools.py:763 src/uagent/util_tools.py:807
 #, python-format
 msgid "[mv error] %(etype)s: %(err)s"
 msgstr "[שגיאת mv] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:768
+#: src/uagent/util_tools.py:773
 #, python-format
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] המקור והיעד זהים: %(path)s"
 
-#: src/uagent/util_tools.py:774
+#: src/uagent/util_tools.py:779
 #, python-format
 msgid "[mv] Source does not exist: %(path)s"
 msgstr "[mv] המקור אינו קיים: %(path)s"
 
-#: src/uagent/util_tools.py:780
+#: src/uagent/util_tools.py:785
 #, python-format
 msgid "[mv] Destination already exists: %(path)s"
 msgstr "[mv] היעד כבר קיים: %(path)s"
 
-#: src/uagent/util_tools.py:790
+#: src/uagent/util_tools.py:795
 #, python-format
 msgid "[mv] Destination parent does not exist: %(path)s"
 msgstr "[mv] אב היעד אינו קיים: %(path)s"
 
-#: src/uagent/util_tools.py:797
+#: src/uagent/util_tools.py:802
 #, python-format
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] הועבר: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:1040
+#: src/uagent/util_tools.py:1045
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -2082,11 +2098,11 @@ msgstr ""
 "אם המיומנות מכילה משימות, המשך עד להשלמתן.\n"
 "השתמש בכלים לפי הצורך."
 
-#: src/uagent/util_tools.py:1047
+#: src/uagent/util_tools.py:1052
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "בסיום, התקשר תמיד ל-'finish_skill' אם זמין."
 
-#: src/uagent/util_tools.py:1199
+#: src/uagent/util_tools.py:1204
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -2096,7 +2112,7 @@ msgstr ""
 "טיפ: :כישורים ברורים (הסר מיומנויות יישומיות)\n"
 "הזן מספר:"
 
-#: src/uagent/util_tools.py:1235
+#: src/uagent/util_tools.py:1240
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -2113,7 +2129,7 @@ msgstr ""
 "\n"
 "להמשיך? הזן y כדי להפעיל, או c כדי לבטל."
 
-#: src/uagent/util_tools.py:1297
+#: src/uagent/util_tools.py:1302
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -2121,7 +2137,7 @@ msgid ""
 msgstr ""
 "[נקה] ארגומנט לא חוקי: %(arg)r (ציין מספר=סף; ברירת המחדל היא %(default)d)"
 
-#: src/uagent/util_tools.py:1346
+#: src/uagent/util_tools.py:1351
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -2138,12 +2154,12 @@ msgstr ""
 "\n"
 "להמשיך? הזן y כדי להפעיל, או c כדי לבטל."
 
-#: src/uagent/util_tools.py:1414
+#: src/uagent/util_tools.py:1419
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr "- (%(count)d הודעות) %(path)s"
 
-#: src/uagent/util_tools.py:1444
+#: src/uagent/util_tools.py:1449
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -2160,7 +2176,7 @@ msgstr ""
 "\n"
 "להמשיך? הזן y כדי להפעיל, או c כדי לבטל."
 
-#: src/uagent/util_tools.py:1575
+#: src/uagent/util_tools.py:1580
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -2175,101 +2191,102 @@ msgstr ""
 "\n"
 "הזן y כדי להמשיך, או c כדי לבטל."
 
-#: src/uagent/util_tools.py:1630
+#: src/uagent/util_tools.py:1635
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "האינדקס שצוין %(idx)d נמצא מחוץ לטווח."
 
-#: src/uagent/util_tools.py:1639
+#: src/uagent/util_tools.py:1644
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "קובץ יומן לא נמצא: %(path)s"
 
-#: src/uagent/util_tools.py:1733
+#: src/uagent/util_tools.py:1738
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[שגיאת כיווץ] נכשל ניתוח כ-int: %(arg)r -> שמור את %(keep)d האחרון"
 
-#: src/uagent/util_tools.py:1761
+#: src/uagent/util_tools.py:1766
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink_llm error] נכשל הניתוח כ-int: %(arg)r -> שמור את %(keep)d האחרון"
 
-#: src/uagent/util_tools.py:1854 src/uagent/util_tools.py:1948
+#: src/uagent/util_tools.py:1859 src/uagent/util_tools.py:1953
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr ""
 "זיכרון משותף לטווח ארוך אינו מופעל (UAGENT_SHARED_MEMORY_FILE אינו מוגדר)."
 
+#: src/uagent/util_tools.py:1900
 msgid "Analyzing the most recent %d log files to generate user profile..."
 msgstr "מנתח את קובצי היומן %d העדכניים ביותר ליצירת פרופיל משתמש..."
 
-#: src/uagent/util_tools.py:1899
+#: src/uagent/util_tools.py:1904
 msgid "Analyzing past logs to generate user profile..."
 msgstr "מנתח יומנים קודמים ליצירת פרופיל משתמש..."
 
-#: src/uagent/util_tools.py:1903
+#: src/uagent/util_tools.py:1908
 msgid "No past logs found or failed to generate profile."
 msgstr "לא נמצאו יומנים קודמים או יצירת פרופיל נכשלה."
 
-#: src/uagent/util_tools.py:1905
+#: src/uagent/util_tools.py:1910
 msgid "User profile generated successfully from past logs!"
 msgstr "פרופיל משתמש נוצר בהצלחה מיומנים קודמים!"
 
-#: src/uagent/util_tools.py:1917
+#: src/uagent/util_tools.py:1922
 msgid "No user profile data found."
 msgstr "לא נמצאו נתוני פרופיל משתמש."
 
-#: src/uagent/util_tools.py:1920
+#: src/uagent/util_tools.py:1925
 msgid "User Profile:"
 msgstr "פרופיל משתמש:"
 
-#: src/uagent/util_tools.py:1932
+#: src/uagent/util_tools.py:1937
 msgid "User profile cleared successfully."
 msgstr "פרופיל המשתמש נוקה בהצלחה."
 
-#: src/uagent/util_tools.py:1936
+#: src/uagent/util_tools.py:1941
 msgid "No user profile file found to clear."
 msgstr "לא נמצא קובץ פרופיל משתמש לנקות."
 
-#: src/uagent/util_tools.py:1999
+#: src/uagent/util_tools.py:2004
 msgid "Show this help"
 msgstr "הצג את העזרה הזו"
 
-#: src/uagent/util_tools.py:2000
+#: src/uagent/util_tools.py:2005
 msgid "Restart input from the beginning"
 msgstr "הפעל מחדש את הקלט מההתחלה"
 
-#: src/uagent/util_tools.py:2001
+#: src/uagent/util_tools.py:2006
 msgid "Show log file list"
 msgstr "הצג רשימת קובצי יומן"
 
-#: src/uagent/util_tools.py:2004
+#: src/uagent/util_tools.py:2009
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
 msgstr "שנה את workdir ללא אישור (למשל :cd .. / :cd ~ / :cd C:\\path / :cd /)"
 
-#: src/uagent/util_tools.py:2007
+#: src/uagent/util_tools.py:2012
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "רשימת ערכי ספרייה (למשל :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:2010
+#: src/uagent/util_tools.py:2015
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "נהל את UAGENT_* env vars ושמור את ‎.env.sec"
 
-#: src/uagent/util_tools.py:2012
+#: src/uagent/util_tools.py:2017
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr "נהל/החל מיומנויות (למשל :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:2019
+#: src/uagent/util_tools.py:2024
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "טען יומן עבר (מחליף את היסטוריית השיחות הנוכחית)"
 
-#: src/uagent/util_tools.py:2021
+#: src/uagent/util_tools.py:2026
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -2278,7 +2295,7 @@ msgstr ""
 "הערה: לאחר הריצה, תתבקשו לאשר; בחירה ב-'y' מקדימה את היומן הנטען לקובץ יומן "
 "ההפעלה הנוכחי (החלפה, ללא גיבוי)."
 
-#: src/uagent/util_tools.py:2025
+#: src/uagent/util_tools.py:2030
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -2286,14 +2303,14 @@ msgstr ""
 "מחק יומני שיחות (scheck_log_*.jsonl) שבהם ספירת הודעות המשתמש/עוזר/כלי (לא "
 "כולל מערכת) היא <= N (ברירת מחדל=10)"
 
-#: src/uagent/util_tools.py:2029
+#: src/uagent/util_tools.py:2034
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "כיווץ היסטוריית השיחות (שמור את N ההודעות האחרונות שאינן מערכתיות; ברירת "
 "מחדל=40)"
 
-#: src/uagent/util_tools.py:2033
+#: src/uagent/util_tools.py:2038
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -2301,73 +2318,77 @@ msgstr ""
 "כיווץ היסטוריה באמצעות סיכום LLM (סכם היסטוריה ישנה יותר להודעת מערכת אחת; "
 "שמור על N אחרון גולמי; ברירת מחדל=20)"
 
-#: src/uagent/util_tools.py:2036
+#: src/uagent/util_tools.py:2041
 msgid "Show the current approximate token count of the conversation"
 msgstr "הצג את ספירת האסימונים המשוערת הנוכחית של השיחה"
 
-#: src/uagent/util_tools.py:2037
+#: src/uagent/util_tools.py:2042
 msgid "List long-term memory notes"
 msgstr "רשום הערות זיכרון לטווח ארוך"
 
-#: src/uagent/util_tools.py:2039
+#: src/uagent/util_tools.py:2044
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "מחק הערת זיכרון לטווח ארוך לפי אינדקס (ראה :mem-list)"
 
-#: src/uagent/util_tools.py:2041
+#: src/uagent/util_tools.py:2046
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr "הצג את פרופיל המשתמש הנלמד, או הפק אותו מיומנים קודמים"
 
+#: src/uagent/util_tools.py:2048
 msgid "Generate profile from the most recent N log files"
 msgstr "צור פרופיל מקובצי היומן העדכניים ביותר של N"
 
+#: src/uagent/util_tools.py:2050
 msgid "Generate user profile from past logs (last N files if specified)"
 msgstr "צור פרופיל משתמש מיומנים קודמים (N קבצים אחרונים אם צוין)"
 
-#: src/uagent/util_tools.py:2046
+#: src/uagent/util_tools.py:2051
 msgid "Clear the learned user profile data"
 msgstr "נקה את נתוני פרופיל המשתמש שנלמדו"
 
-#: src/uagent/util_tools.py:2048
+#: src/uagent/util_tools.py:2053
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "העתק קובץ או ספרייה (תומך ב-f/--overwrite ו-p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2050
+#: src/uagent/util_tools.py:2055
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "העבר קובץ או ספרייה (תומך ב-f/--overwrite ו-p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2052
+#: src/uagent/util_tools.py:2057
 msgid "Show the first n lines of a file (default=20)"
 msgstr "הצג את n השורות הראשונות של קובץ (ברירת מחדל=20)"
 
-#: src/uagent/util_tools.py:2053
+#: src/uagent/util_tools.py:2058
 msgid "Show the last n lines of a file (default=20)"
 msgstr "הצג את n השורות האחרונות של קובץ (ברירת מחדל=20)"
 
-#: src/uagent/util_tools.py:2055
+#: src/uagent/util_tools.py:2060
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "מחק/ים קבצים/ספריות עם תצוגה מקדימה + אישור"
 
-#: src/uagent/util_tools.py:2057
+#: src/uagent/util_tools.py:2062
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "הגדר מצב חשיבה (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; אוטומטי/מינימלי/xhigh)"
 
-#: src/uagent/util_tools.py:2059
+#: src/uagent/util_tools.py:2064
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr "הגדר מצב מילוליות (0=כבוי, 1=נמוך, 2=בינוני, 3=גבוה; אין arg=keep)"
 
-#: src/uagent/util_tools.py:2060
+#: src/uagent/util_tools.py:2065
 msgid "Exit"
 msgstr "יציאה"
 
-#: src/uagent/util_tools.py:2063
+#: src/uagent/util_tools.py:2068
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "- הזן שורה שהיא רק 'f' כדי להיכנס למצב קלט מרובה שורות."
 
+#: src/uagent/util_tools.py:2185
 msgid "Continue. Goal: %(goal)s"
 msgstr "לְהַמשִׁיך. מטרה: %(goal)s"
 
+#: src/uagent/util_tools.py:2267
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2375,6 +2396,7 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2296
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2382,6 +2404,7 @@ msgstr ""
 "\n"
 "[AUTO] יצא על ידי המשתמש (מקש x)."
 
+#: src/uagent/util_tools.py:2304
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2389,6 +2412,7 @@ msgstr ""
 "\n"
 "[AUTO] סיבובים מקסימליים (%(max)d) הגיעו. סְתִימָה."
 
+#: src/uagent/util_tools.py:2314
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2396,6 +2420,7 @@ msgstr ""
 "\n"
 "[AUTO] סיבוב %(round)d/%(max)d"
 
+#: src/uagent/util_tools.py:2351
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2403,37 +2428,44 @@ msgstr ""
 "\n"
 "[AUTO] סקירה/ניתוח הושלמה."
 
+#: src/uagent/util_tools.py:2376
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] הטייס האוטומטי כבוי."
 
+#: src/uagent/util_tools.py:2380
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "שימוש: :auto <יעד> [--max-rounds N]"
 
+#: src/uagent/util_tools.py:2381
 msgid "       :auto off"
 msgstr ":auto כבוי"
 
+#: src/uagent/util_tools.py:2395
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "ערך לא חוקי עבור --max-rounds: %(val)s"
 
+#: src/uagent/util_tools.py:2406
 msgid "Goal cannot be empty."
 msgstr "המטרה לא יכולה להיות ריקה."
 
+#: src/uagent/util_tools.py:2416
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] התחיל. מטרה: %(goal)s"
 
+#: src/uagent/util_tools.py:2417
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] מקסימום סיבובים: %(max)d"
 
-#: src/uagent/util_tools.py:2567
+#: src/uagent/util_tools.py:2581
 msgid "Exiting."
 msgstr "יוצא."
 
-#: src/uagent/util_tools.py:2570
+#: src/uagent/util_tools.py:2584
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "פקודה לא ידועה: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2633
+#: src/uagent/util_tools.py:2647
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2514,22 +2546,25 @@ msgstr "נתיב חסר"
 msgid "path outside workdir"
 msgstr "נתיב מחוץ לעבודה"
 
+#: src/uagent/web.py:1289
 msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
 msgstr "כתובת איגד (ברירת מחדל: 127.0.0.1). עוקף את UAGENT_WEB_HOST env var."
 
-#: src/uagent/web.py:1364
+#: src/uagent/web.py:1354
 msgid "Starting server on"
 msgstr "מפעיל את השרת פועל"
 
-#: src/uagent/web.py:1366
+#: src/uagent/web.py:1356
 msgid "External URL:"
 msgstr "כתובת אתר חיצונית:"
 
+#: src/uagent/welcome.py:29
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
 msgstr "[MCP Servers]\\n- קובץ התצורה לא נמצא.\\n"
 
+#: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
@@ -2583,42 +2618,47 @@ msgstr ""
 "- תמונות: ממשק המשתמש תומך בגרירה ושחרור; ב-CUI אתה יכול להזין נתיב קובץ "
 "לניתוח תמונה."
 
-#: src/uagent/welcome.py:75
-#, python-format
+#: src/uagent/welcome.py:74
 msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
-"Inspector help (`--path/--open` also available)."
+"- Interrupt: press `c` key to stop the current LLM response (injected as "
+"'Stop')."
 msgstr ""
-"- מסמכים: `%(docs_cmd)s` מציג מסמכים מצורפים; `%(webinspect_cmd)s` מציג עזרה"
-" של מפקח האינטרנט (`--path/--open` זמין גם)."
+"- הפרעה: הקש על מקש 'c' כדי לעצור את תגובת ה-LLM הנוכחית (מוזרקת כ'עצור')."
 
-#: src/uagent/welcome.py:79
+#: src/uagent/welcome.py:75
+msgid ""
+"- Auto-pilot: `:auto <goal>` repeatedly runs a task; press `x` to exit "
+"immediately."
+msgstr ""
+"- טייס אוטומטי: `:auto <goal>` מריץ שוב ושוב משימה; הקש על 'x' כדי לצאת מיד."
+
+#: src/uagent/welcome.py:77
 msgid "[Examples]"
 msgstr "[דוגמאות]"
 
-#: src/uagent/welcome.py:80
+#: src/uagent/welcome.py:78
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr "- \"נתח את קוד המקור בתיקייה זו וצור README.md.\""
 
-#: src/uagent/welcome.py:82
+#: src/uagent/welcome.py:80
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
 msgstr "- \"צלם צילום מסך של שולחן העבודה הנוכחי ותאר את תוכן החלון הגלוי.\""
 
-#: src/uagent/welcome.py:84
+#: src/uagent/welcome.py:82
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr "- \"צור דוח סיכום חודשי מקובץ אקסל זה.\""
 
-#: src/uagent/welcome.py:85
+#: src/uagent/welcome.py:83
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"קרא את ה-PDF הזה ורשום שלוש נקודות מפתח.\""
 
-#: src/uagent/welcome.py:86
+#: src/uagent/welcome.py:84
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"חפש את החדשות האחרונות וסכם נושא מסוים.\""
 
-#: src/uagent/welcome.py:193
+#: src/uagent/welcome.py:191
 msgid "-- More -- (Enter: next) "
 msgstr "-- עוד -- (הזן: הבא)"
 

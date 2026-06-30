@@ -23,7 +23,8 @@
     ],
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "How to answer:\n  - Type your answer and press Enter\n  - Type 'f' to enter multi-line mode\n  - Type 'c' or 'cancel' to cancel\n",
-    "ui.title": "=== Human request (human_ask) ==="
+    "ui.title": "=== Human request (human_ask) ===",
+    "ui.auto_pilot_skip": "[AUTO] human_ask skipped (auto-pilot mode). The model must decide autonomously."
   },
   "ja": {
     "doc.run_tool": "human_ask は stdin から直接読むのではなく、\nscheck.py 側の stdin_loop スレッドに処理を任せて\n共有状態（callbacks）経由で結果を受け取る。\n",
@@ -47,7 +48,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "回答方法:\n  - そのまま入力して Enter で送信\n  - 'f' 入力で複数行モードへ\n  - 'c' または 'cancel' で中断",
     "ui.title": "=== 人への依頼 (human_ask) ===",
-    "tool.description": "モデル単独では完了できない入力や判断を人間のユーザーに求めるためのツール。セキュリティ注意: 秘密情報（パスワード/トークン）を要求する場合、入力はマスクされます。"
+    "tool.description": "モデル単独では完了できない入力や判断を人間のユーザーに求めるためのツール。セキュリティ注意: 秘密情報（パスワード/トークン）を要求する場合、入力はマスクされます。",
+    "ui.auto_pilot_skip": "[AUTO] human_ask をスキップしました（自動実行モード）。モデルは自律的に判断する必要があります。"
   },
   "es": {
     "doc.run_tool": "human_ask no lee directamente de stdin,\nDeje el procesamiento al hilo stdin_loop del lado de scheck.py\nReciba los resultados a través del estado compartido (callbacks).\n",
@@ -71,7 +73,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Cómo responder:\n  - Escribe tu respuesta y presiona Enter.\n  - Escriba 'f' para ingresar al modo multilínea\n  - Escriba 'c' o 'cancelar' para cancelar",
     "ui.title": "=== Solicitud humana (human_ask) ===",
-    "tool.description": "Una herramienta para solicitar al usuario humano una entrada/decisión que el modelo no puede completar por sí mismo. Nota de seguridad: al solicitar secretos (contraseñas/tokens), la entrada se enmascara."
+    "tool.description": "Una herramienta para solicitar al usuario humano una entrada/decisión que el modelo no puede completar por sí mismo. Nota de seguridad: al solicitar secretos (contraseñas/tokens), la entrada se enmascara.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask omitido (modo auto-pilot). El modelo debe decidir autónomamente."
   },
   "fr": {
     "doc.run_tool": "human_ask ne lit pas directement depuis stdin,\nlaissez le traitement au thread stdin_loop du côté scheck.py\net recevez les résultats via l'état partagé (rappels).\n",
@@ -95,7 +98,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Comment répondre :\n  - Tapez votre réponse et appuyez sur Entrée\n  - Tapez 'f' pour passer en mode multi-ligne\n  - Tapez « c » ou « annuler » pour annuler",
     "ui.title": "=== Requête humaine (human_ask) ===",
-    "tool.description": "Un outil pour demander à l'utilisateur humain une entrée/décision que le modèle ne peut pas effectuer seul. Note de sécurité : lors de la demande de secrets (mots de passe/tokens), la saisie est masquée."
+    "tool.description": "Un outil pour demander à l'utilisateur humain une entrée/décision que le modèle ne peut pas effectuer seul. Note de sécurité : lors de la demande de secrets (mots de passe/tokens), la saisie est masquée.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask ignoré (mode auto-pilot). Le modèle doit décider de manière autonome."
   },
   "ko": {
     "doc.run_tool": "human_ask는 stdin에서 직접 읽지 않고,\nscheck.py 쪽의 stdin_loop 스레드에 처리를 맡겨\n공유 상태(callbacks)를 통해 결과를 받습니다.\n",
@@ -119,7 +123,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "답변 방법:\n  - 그대로 입력하고 Enter로 보내기\n  - 'f'를 입력해 다중 행 모드로 전환\n  - 'c' 또는 'cancel'로 중단",
     "ui.title": "=== 사람에게 요청(human_ask) ===",
-    "tool.description": "모델이 스스로 완료할 수 없는 입력/결정을 인간 사용자에게 요청하는 도구입니다. 보안 참고: 비밀(비밀번호/토큰)을 요청할 때 입력이 마스킹됩니다."
+    "tool.description": "모델이 스스로 완료할 수 없는 입력/결정을 인간 사용자에게 요청하는 도구입니다. 보안 참고: 비밀(비밀번호/토큰)을 요청할 때 입력이 마스킹됩니다.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask가 건너뛰어졌습니다(자동 실행 모드). 모델은 자율적으로 판단해야 합니다."
   },
   "de": {
     "doc.run_tool": "human_ask liest nicht direkt von stdin,\nüberlässt die Verarbeitung dem stdin_loop-Thread auf der scheck.py-Seite\nund erhält Ergebnisse über den gemeinsamen Zustand (Callbacks).",
@@ -143,7 +148,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "So antworten Sie:\n  - Geben Sie Ihre Antwort ein und drücken Sie die Eingabetaste\n  - Geben Sie „f“ ein, um in den Mehrzeilenmodus zu wechseln\n  - Geben Sie zum Abbrechen „c“ oder „Abbrechen“ ein",
     "ui.title": "=== Menschliche Anfrage (human_ask) ===",
-    "tool.description": "Ein Werkzeug, um den menschlichen Benutzer um eine Eingabe/Entscheidung zu bitten, die das Modell nicht selbst abschließen kann. Sicherheitshinweis: Bei der Anforderung von Geheimnissen (Passwörtern/Tokens) wird die Eingabe maskiert."
+    "tool.description": "Ein Werkzeug, um den menschlichen Benutzer um eine Eingabe/Entscheidung zu bitten, die das Modell nicht selbst abschließen kann. Sicherheitshinweis: Bei der Anforderung von Geheimnissen (Passwörtern/Tokens) wird die Eingabe maskiert.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask übersprungen (Auto-Pilot-Modus). Das Modell muss autonom entscheiden."
   },
   "it": {
     "doc.run_tool": "human_ask non legge direttamente da stdin,\nlascia l'elaborazione al thread stdin_loop sul lato scheck.py\ne riceve i risultati tramite stato condiviso (callback).",
@@ -167,7 +173,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Come rispondere:\n  - Digita la tua risposta e premi Invio\n  - Digita \"f\" per accedere alla modalità multilinea\n  - Digita \"c\" o \"annulla\" per annullare",
     "ui.title": "=== Richiesta umana (human_ask) ===",
-    "tool.description": "Uno strumento per chiedere all'utente umano un input/decisione che il modello non può completare da solo. Nota di sicurezza: quando si richiedono segreti (password/token) l'input viene mascherato."
+    "tool.description": "Uno strumento per chiedere all'utente umano un input/decisione che il modello non può completare da solo. Nota di sicurezza: quando si richiedono segreti (password/token) l'input viene mascherato.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask saltato (modalità auto-pilot). Il modello deve decidere autonomamente."
   },
   "ru": {
     "doc.run_tool": "human_ask не читает напрямую из stdin,\nпередает обработку потоку stdin_loop на стороне scheck.py\nи получает результаты через общее состояние (обратные вызовы).",
@@ -191,7 +198,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Как ответить:\n  - Введите ответ и нажмите Enter.\n  - Введите «f», чтобы войти в многострочный режим.\n  - Введите «c» или «отмена», чтобы отменить",
     "ui.title": "=== Человеческий запрос (human_ask) ===",
-    "tool.description": "Инструмент для запроса у пользователя ввода/решения, которое модель не может выполнить самостоятельно. Примечание по безопасности: при запросе секретов (паролей/токенов) ввод маскируется."
+    "tool.description": "Инструмент для запроса у пользователя ввода/решения, которое модель не может выполнить самостоятельно. Примечание по безопасности: при запросе секретов (паролей/токенов) ввод маскируется.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask пропущен (режим автопилота). Модель должна принимать решения автономно."
   },
   "pt_BR": {
     "doc.run_tool": "human_ask não lê diretamente do stdin,\nDeixe o processamento para a thread stdin_loop no lado scheck.py\nReceba os resultados por meio de estado compartilhado (callbacks).",
@@ -215,7 +223,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Como responder:\n  - Digite sua resposta e pressione Enter\n  - Digite 'f' para entrar no modo multilinha\n  - Digite 'c' ou 'cancelar' para cancelar",
     "ui.title": "=== Solicitação humana (human_ask) ===",
-    "tool.description": "Uma ferramenta para solicitar ao usuário humano uma entrada/decisão que o modelo não pode concluir sozinho. Nota de segurança: ao solicitar segredos (senhas/tokens), a entrada é mascarada."
+    "tool.description": "Uma ferramenta para solicitar ao usuário humano uma entrada/decisão que o modelo não pode concluir sozinho. Nota de segurança: ao solicitar segredos (senhas/tokens), a entrada é mascarada.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask ignorado (modo auto-pilot). O modelo deve decidir de forma autônoma."
   },
   "pt": {
     "doc.run_tool": "human_ask não lê diretamente de stdin,\nDeixe o processamento para o thread stdin_loop no lado do scheck.py\ne receba os resultados por meio de estado compartilhado (callbacks).",
@@ -239,7 +248,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Como responder:\n  - Digite sua resposta e pressione Enter\n  - Digite 'f' para entrar no modo multilinha\n  - Digite 'c' ou 'cancelar' para cancelar",
     "ui.title": "=== Solicitação humana (human_ask) ===",
-    "tool.description": "Uma ferramenta para pedir ao utilizador humano uma entrada/decisão que o modelo não pode concluir por si só. Nota de segurança: ao solicitar segredos (palavras-passe/tokens) a entrada é mascarada."
+    "tool.description": "Uma ferramenta para pedir ao utilizador humano uma entrada/decisão que o modelo não pode concluir por si só. Nota de segurança: ao solicitar segredos (palavras-passe/tokens) a entrada é mascarada.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask ignorado (modo auto-pilot). O modelo deve decidir autonomamente."
   },
   "id": {
     "doc.run_tool": "human_ask tidak membaca langsung dari stdin,\nSerahkan pemrosesan ke thread stdin_loop di sisi scheck.py\nTerima hasil melalui shared state (callbacks).",
@@ -263,7 +273,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Cara menjawab:\n  - Ketikkan jawaban Anda dan tekan Enter\n  - Ketik 'f' untuk masuk ke mode multi-baris\n  - Ketik 'c' atau 'batal' untuk membatalkan",
     "ui.title": "=== Permintaan manusia (human_ask) ===",
-    "tool.description": "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri. Catatan keamanan: saat meminta rahasia (kata sandi/token) input akan disembunyikan."
+    "tool.description": "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri. Catatan keamanan: saat meminta rahasia (kata sandi/token) input akan disembunyikan.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask dilewati (mode auto-pilot). Model harus memutuskan secara mandiri."
   },
   "vi": {
     "doc.run_tool": "human_ask không đọc trực tiếp từ stdin,\nĐể lại quá trình xử lý cho luồng stdin_loop ở phía scheck.py\nNhận kết quả qua trạng thái chia sẻ (gọi lại).",
@@ -287,7 +298,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Cách trả lời:\n  - Chỉ cần gõ vào và nhấn Enter để gửi\n  - Nhập 'f' để vào chế độ nhiều dòng\n  - Hủy bỏ bằng 'c' hoặc 'hủy'",
     "ui.title": "=== Yêu cầu của con người (human_ask) ===",
-    "tool.description": "Một công cụ để yêu cầu người dùng nhập thông tin/quyết định mà mô hình không thể tự hoàn thành. Lưu ý bảo mật: khi yêu cầu bí mật (mật khẩu/token), đầu vào sẽ được che dấu."
+    "tool.description": "Một công cụ để yêu cầu người dùng nhập thông tin/quyết định mà mô hình không thể tự hoàn thành. Lưu ý bảo mật: khi yêu cầu bí mật (mật khẩu/token), đầu vào sẽ được che dấu.",
+    "ui.auto_pilot_skip": "[AUTO] Đã bỏ qua human_ask (chế độ auto-pilot). Mô hình phải tự quyết định."
   },
   "pl": {
     "doc.run_tool": "human_ask nie czyta bezpośrednio ze standardowego wejścia,\nPozostaw przetwarzanie wątkowi stdin_loop po stronie scheck.py\nOtrzymuj wyniki poprzez stan udostępniony (wywołania zwrotne).",
@@ -311,7 +323,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Jak odpowiedzieć:\n  - Wpisz odpowiedź i naciśnij Enter\n  - Wpisz „f”, aby przejść do trybu wielowierszowego\n  - Wpisz „c” lub „anuluj”, aby anulować",
     "ui.title": "=== Prośba do osoby (human_ask) ===",
-    "tool.description": "Narzędzie do proszenia użytkownika o dane wejściowe/decyzję, której model nie może samodzielnie wykonać. Uwaga dotycząca bezpieczeństwa: przy żądaniu tajemnic (haseł/tokenów) dane wejściowe są maskowane."
+    "tool.description": "Narzędzie do proszenia użytkownika o dane wejściowe/decyzję, której model nie może samodzielnie wykonać. Uwaga dotycząca bezpieczeństwa: przy żądaniu tajemnic (haseł/tokenów) dane wejściowe są maskowane.",
+    "ui.auto_pilot_skip": "[AUTO] Pominięto human_ask (tryb autopilota). Model musi decydować samodzielnie."
   },
   "hi": {
     "doc.run_tool": "human_ask सीधे stdin से नहीं पढ़ता है,\nप्रोसेसिंग को scheck.py साइड पर stdin_loop थ्रेड पर छोड़ दें\nसाझा स्थिति (कॉलबैक) के माध्यम से परिणाम प्राप्त करें।",
@@ -335,7 +348,8 @@
     "ui.footer": "=== / human_ask ===",
     "ui.howto": "उत्तर कैसे दें:\n  - अपना उत्तर टाइप करें और एंटर दबाएं\n  - मल्टी-लाइन मोड में प्रवेश करने के लिए 'f' टाइप करें\n  - रद्द करने के लिए 'सी' या 'रद्द करें' टाइप करें",
     "ui.title": "=== मानव अनुरोध (मानव_पूछ) ===",
-    "tool.description": "मानव उपयोगकर्ता से इनपुट/निर्णय मांगने का एक उपकरण जो मॉडल स्वयं पूरा नहीं कर सकता। सुरक्षा नोट: गुप्त जानकारी (पासवर्ड/टोकन) मांगते समय इनपुट छिपा दिया जाता है।"
+    "tool.description": "मानव उपयोगकर्ता से इनपुट/निर्णय मांगने का एक उपकरण जो मॉडल स्वयं पूरा नहीं कर सकता। सुरक्षा नोट: गुप्त जानकारी (पासवर्ड/टोकन) मांगते समय इनपुट छिपा दिया जाता है।",
+    "ui.auto_pilot_skip": "[AUTO] human_ask को छोड़ दिया गया (ऑटो-पायलट मोड)। मॉडल को स्वायत्त रूप से निर्णय लेना होगा।"
   },
   "ar": {
     "doc.run_tool": "human_ask لا يقرأ مباشرة من stdin،\nاترك المعالجة لسلسلة الرسائل stdin_loop على الجانب scheck.py\nتلقي النتائج عبر الحالة المشتركة (عمليات الاسترجاعات).",
@@ -359,7 +373,8 @@
     "ui.footer": "عنوان URL لنقطة نهاية خادم MCP (http://... أو stdio://command...). /human_ask ===",
     "ui.howto": "كيفية الإجابة:\n  - اكتب إجابتك ثم اضغط على Enter\n  - اكتب \"f\" للدخول إلى وضع الخطوط المتعددة\n  - اكتب \"c\" أو \"إلغاء\" للإلغاء",
     "ui.title": "=== طلب لشخص (human_ask) ===",
-    "tool.description": "أداة لطلب إدخال/قرار من المستخدم البشري لا يمكن للنموذج إكماله بنفسه. ملاحظة أمنية: عند طلب أسرار (كلمات مرور/رموز) يتم إخفاء الإدخال."
+    "tool.description": "أداة لطلب إدخال/قرار من المستخدم البشري لا يمكن للنموذج إكماله بنفسه. ملاحظة أمنية: عند طلب أسرار (كلمات مرور/رموز) يتم إخفاء الإدخال.",
+    "ui.auto_pilot_skip": "[AUTO] تم تخطي human_ask (وضع الطيار الآلي). يجب على النموذج أن يقرر بشكل مستقل."
   },
   "sv": {
     "doc.run_tool": "human_ask läser inte direkt från stdin,\nlåt bearbetningen skötas av stdin_loop-tråden på scheck.py-sidan\noch ta emot resultat via delat tillstånd (callbacks).",
@@ -383,7 +398,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Hur man svarar:\n  - Skriv ditt svar och tryck på Enter\n  - Skriv 'f' för att gå in i flerradsläge\n  - Skriv 'c' eller 'avbryt' för att avbryta",
     "ui.title": "=== Mänsklig begäran (human_ask) ===",
-    "tool.description": "Ett verktyg för att be den mänskliga användaren om en inmatning/ett beslut som modellen inte kan slutföra på egen hand. Säkerhetsnot: vid begäran av hemligheter (lösenord/token) maskeras inmatningen."
+    "tool.description": "Ett verktyg för att be den mänskliga användaren om en inmatning/ett beslut som modellen inte kan slutföra på egen hand. Säkerhetsnot: vid begäran av hemligheter (lösenord/token) maskeras inmatningen.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask hoppades över (autopilotläge). Modellen måste fatta beslut självständigt."
   },
   "sw": {
     "doc.run_tool": "human_ask haisomi moja kwa moja kutoka stdin,\nacha uchakataji ufanywe na uzi wa stdin_loop upande wa scheck.py\nna upokee matokeo kupitia hali ya pamoja (callbacks).",
@@ -407,7 +423,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Jinsi ya kujibu:\n  - Andika tu na ubonyeze Enter kutuma\n  - Weka f ili kuingia hali ya mistari mingi\n  - Ghairi kwa c au cancel",
     "ui.title": "=== Ombi kwa mtu (human_ask) ===",
-    "tool.description": "Chombo cha kuuliza mtumiaji binadamu kwa ingizo/uamuzi ambao mfano hauwezi kukamilisha peke yake. Dokezo la usalama: wakati wa kuomba siri (nywila/vidokezo) ingizo hufichwa."
+    "tool.description": "Chombo cha kuuliza mtumiaji binadamu kwa ingizo/uamuzi ambao mfano hauwezi kukamilisha peke yake. Dokezo la usalama: wakati wa kuomba siri (nywila/vidokezo) ingizo hufichwa.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask imerukwa (hali ya auto-pilot). Modeli lazima aamue kwa uhuru."
   },
   "nb": {
     "doc.run_tool": "human_ask leser ikke direkte fra stdin,\nla behandlingen gå til stdin_loop-tråden på scheck.py-siden\nog motta resultater via delt tilstand (callbacks).",
@@ -431,7 +448,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Slik svarer du:\n  - Skriv inn og trykk Enter for å sende\n  - Skriv 'f' for å gå til flerlinjemodus\n  - Avbryt med 'c' eller 'cancel'",
     "ui.title": "=== Menneskelig forespørsel (human_ask) ===",
-    "tool.description": "Et verktøy for å be menneskelig bruker om input/beslutning som modellen ikke kan fullføre selv. Sikkerhetsmerknad: ved forespørsel om hemmeligheter (passord/nøkler) maskeres input."
+    "tool.description": "Et verktøy for å be menneskelig bruker om input/beslutning som modellen ikke kan fullføre selv. Sikkerhetsmerknad: ved forespørsel om hemmeligheter (passord/nøkler) maskeres input.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask hoppet over (autopilot-modus). Modellen må bestemme selvstendig."
   },
   "nl": {
     "doc.run_tool": "human_ask leest niet rechtstreeks uit stdin,\nLaat de verwerking over aan de stdin_loop-thread aan de scheck.py-kant\nOntvang resultaten via gedeelde status (callbacks).",
@@ -455,7 +473,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Hoe te antwoorden:\n  - Typ uw antwoord en druk op Enter\n  - Typ 'f' om de meerregelige modus te openen\n  - Typ 'c' of 'annuleren' om te annuleren",
     "ui.title": "=== Menselijk verzoek (human_ask) ===",
-    "tool.description": "Een hulpmiddel om de menselijke gebruiker om een invoer/beslissing te vragen die het model niet zelf kan voltooien. Beveiligingsopmerking: bij het opvragen van geheimen (wachtwoorden/tokens) wordt de invoer gemaskeerd."
+    "tool.description": "Een hulpmiddel om de menselijke gebruiker om een invoer/beslissing te vragen die het model niet zelf kan voltooien. Beveiligingsopmerking: bij het opvragen van geheimen (wachtwoorden/tokens) wordt de invoer gemaskeerd.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask overgeslagen (auto-pilot modus). Het model moet autonoom beslissen."
   },
   "fi": {
     "doc.run_tool": "human_ask ei lue suoraan stdinistä,\nJätä käsittely scheck.py-puolen stdin_loop-säikeelle\nVastaanota tulokset jaetun tilan kautta (callbackit).",
@@ -479,7 +498,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Miten vastata:\n  - Kirjoita vastauksesi ja paina Enter\n  - Kirjoita 'f' siirtyäksesi moniriviseen tilaan\n  - Peruuta kirjoittamalla \"c\" tai \"peruuta\".",
     "ui.title": "=== Ihmisen pyyntö (human_ask) ===",
-    "tool.description": "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse suorittaa. Turvallisuushuomautus: salaisuuksia (salasanoja/tunnuksia) pyydettäessä syöte peitetään."
+    "tool.description": "Työkalu, jolla pyydetään ihmiskäyttäjältä syöte/päätös, jota malli ei voi itse suorittaa. Turvallisuushuomautus: salaisuuksia (salasanoja/tunnuksia) pyydettäessä syöte peitetään.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask ohitettu (autopilottitila). Mallin on päätettävä itsenäisesti."
   },
   "cs": {
     "doc.run_tool": "human_ask nečte přímo ze stdin,\nsvěřte zpracování vláknu stdin_loop na straně scheck.py\na výsledky přijímejte přes sdílený stav (callbacks).",
@@ -503,7 +523,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Jak odpovědět:\n  - Napište svou odpověď a stiskněte Enter\n  - Zadejte „f“ pro vstup do víceřádkového režimu\n  - Pro zrušení zadejte „c“ nebo „zrušit“.",
     "ui.title": "=== Žádost k člověku (human_ask) ===",
-    "tool.description": "Nástroj pro vyžádání vstupu/rozhodnutí od lidského uživatele, které model nemůže dokončit sám. Bezpečnostní poznámka: při vyžádání tajných údajů (hesel/tokenů) je vstup maskován."
+    "tool.description": "Nástroj pro vyžádání vstupu/rozhodnutí od lidského uživatele, které model nemůže dokončit sám. Bezpečnostní poznámka: při vyžádání tajných údajů (hesel/tokenů) je vstup maskován.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask přeskočeno (režim autopilota). Model musí rozhodovat autonomně."
   },
   "uk": {
     "doc.run_tool": "human_ask не читає безпосередньо зі stdin,\nпередайте обробку потоку stdin_loop на боці scheck.py\nі отримуйте результати через спільний стан (callbacks).",
@@ -527,7 +548,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Як відповісти:\n  - Введіть свою відповідь і натисніть Enter\n  - Натисніть «f», щоб увійти в багаторядковий режим\n  - Введіть 'c' або 'cancel', щоб скасувати",
     "ui.title": "=== Запит до людини (human_ask) ===",
-    "tool.description": "Інструмент для запиту до людини-користувача щодо введення/рішення, яке модель не може виконати самостійно. Зауваження щодо безпеки: при запиті секретів (паролів/токенів) введення маскується."
+    "tool.description": "Інструмент для запиту до людини-користувача щодо введення/рішення, яке модель не може виконати самостійно. Зауваження щодо безпеки: при запиті секретів (паролів/токенів) введення маскується.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask пропущено (режим автопілота). Модель повинна приймати рішення автономно."
   },
   "tr": {
     "doc.run_tool": "human_ask doğrudan stdin'den okumaz;\nscheck.py tarafındaki stdin_loop iş parçacığının işlemeyi yönetmesine izin verin\nve sonuçları paylaşılan durum (geri aramalar) aracılığıyla alın.",
@@ -551,7 +573,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Nasıl cevap verilir:\n  - Cevabınızı yazın ve Enter'a basın\n  - Çok hatlı moda girmek için 'f' yazın\n  - İptal etmek için 'c' veya 'iptal' yazın",
     "ui.title": "=== Bir kişiye istek (human_ask) ===",
-    "tool.description": "Modelin kendi başına tamamlayamadığı bir girdi/karar için insan kullanıcıya sorma aracı. Güvenlik notu: sırlar (şifreler/tokenlar) istenirken girdi maskelenir."
+    "tool.description": "Modelin kendi başına tamamlayamadığı bir girdi/karar için insan kullanıcıya sorma aracı. Güvenlik notu: sırlar (şifreler/tokenlar) istenirken girdi maskelenir.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask atlandı (otomatik pilot modu). Model bağımsız olarak karar vermelidir."
   },
   "th": {
     "doc.run_tool": "human_ask ไม่ได้อ่านโดยตรงจาก stdin\nให้เธรด stdin_loop ฝั่ง scheck.py จัดการประมวลผล\nแล้วรับผลลัพธ์ผ่านสถานะที่ใช้ร่วมกัน (callbacks)\n",
@@ -575,7 +598,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "วิธีตอบ:\n  - พิมพ์แล้วกด Enter เพื่อส่ง\n  - ป้อน 'f' เพื่อเข้าสู่โหมดหลายบรรทัด\n  - ยกเลิกด้วย 'c' หรือ 'cancel'",
     "ui.title": "=== คำขอถึงบุคคล (human_ask) ===",
-    "tool.description": "เครื่องมือสำหรับขอข้อมูล/การตัดสินใจจากผู้ใช้ที่เป็นมนุษย์ ซึ่งโมเดลไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้ด้วยตัวเอง หมายเหตุด้านความปลอดภัย: เมื่อขอข้อมูลลับ (รหัสผ่าน/โทเค็น) ข้อมูลที่ป้อนจะถูกปกปิด"
+    "tool.description": "เครื่องมือสำหรับขอข้อมูล/การตัดสินใจจากผู้ใช้ที่เป็นมนุษย์ ซึ่งโมเดลไม่สามารถดำเนินการให้เสร็จสมบูรณ์ได้ด้วยตัวเอง หมายเหตุด้านความปลอดภัย: เมื่อขอข้อมูลลับ (รหัสผ่าน/โทเค็น) ข้อมูลที่ป้อนจะถูกปกปิด",
+    "ui.auto_pilot_skip": "[AUTO] ข้าม human_ask (โหมด auto-pilot) โมเดลต้องตัดสินใจด้วยตนเอง"
   },
   "zh_CN": {
     "doc.run_tool": "human_ask 不直接从 stdin 读取，\n将处理留给 scheck.py 端的 stdin_loop 线程\n通过共享状态（回调）接收结果。\n",
@@ -599,7 +623,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "如何回答：\n  - 只需输入并按 Enter 即可发送\n  - 输入 'f' 进入多行模式\n  - 使用 'c' 或 'cancel' 中止",
     "ui.title": "=== 向某人提出请求 (human_ask) ===",
-    "tool.description": "用于向人类用户请求模型无法自行完成的输入/决策的工具。安全提示：请求机密信息（密码/令牌）时，输入内容会被遮蔽。"
+    "tool.description": "用于向人类用户请求模型无法自行完成的输入/决策的工具。安全提示：请求机密信息（密码/令牌）时，输入内容会被遮蔽。",
+    "ui.auto_pilot_skip": "[AUTO] 已跳过 human_ask（自动执行模式）。模型必须自主决定。"
   },
   "zh_TW": {
     "doc.run_tool": "human_ask 不直接從 stdin 讀取，\n將處理留給 scheck.py 端的 stdin_loop 執行緒\n透過共享狀態（回呼）接收結果。\n",
@@ -623,7 +648,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "如何回答：\n  - 只需輸入並按 Enter 即可送出\n  - 輸入 'f' 進入多行模式\n  - 使用 'c' 或 'cancel' 中止",
     "ui.title": "=== 向某人提出請求 (human_ask) ===",
-    "tool.description": "一個用於向人類使用者請求模型無法自行完成的輸入/決策的工具。安全提示：當請求機密資訊（密碼/令牌）時，輸入內容會被遮蔽。"
+    "tool.description": "一個用於向人類使用者請求模型無法自行完成的輸入/決策的工具。安全提示：當請求機密資訊（密碼/令牌）時，輸入內容會被遮蔽。",
+    "ui.auto_pilot_skip": "[AUTO] 已跳過 human_ask（自動執行模式）。模型必須自主決定。"
   },
   "bn": {
     "doc.run_tool": "human_ask সরাসরি stdin থেকে পড়ে না;\nscheck.py-র stdin_loop থ্রেডকে প্রসেসিং সামলাতে দিন\nএবং shared state (callbacks) এর মাধ্যমে ফলাফল নিন।",
@@ -647,7 +673,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "কীভাবে উত্তর দেবেন:\n  - শুধু টাইপ করে Enter চাপুন\n  - multiline mode-এ যেতে 'f' লিখুন\n  - 'c' বা 'cancel' দিয়ে বাতিল করুন",
     "ui.title": "=== মানুষের অনুরোধ (মানব_আস্ক) ===",
-    "tool.description": "একটি টুল যা মানব ব্যবহারকারীর কাছ থেকে এমন একটি ইনপুট/সিদ্ধান্ত চাওয়ার জন্য যা মডেল নিজে সম্পূর্ণ করতে পারে না। নিরাপত্তা নোট: গোপন তথ্য (পাসওয়ার্ড/টোকেন) চাওয়ার সময় ইনপুটটি মাস্ক করা হয়।"
+    "tool.description": "একটি টুল যা মানব ব্যবহারকারীর কাছ থেকে এমন একটি ইনপুট/সিদ্ধান্ত চাওয়ার জন্য যা মডেল নিজে সম্পূর্ণ করতে পারে না। নিরাপত্তা নোট: গোপন তথ্য (পাসওয়ার্ড/টোকেন) চাওয়ার সময় ইনপুটটি মাস্ক করা হয়।",
+    "ui.auto_pilot_skip": "[AUTO] human_ask এড়িয়ে গেছেন (অটো-পাইলট মোড)। মডেলটিকে স্বায়ত্তশাসিতভাবে সিদ্ধান্ত নিতে হবে।"
   },
   "fa": {
     "doc.run_tool": "human_ask مستقیماً از stdin نمی‌خواند؛\nاجازه دهید threadِ stdin_loop در سمت scheck.py پردازش را انجام دهد\nو نتایج را از طریق shared state (callbacks) دریافت کنید.",
@@ -671,7 +698,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "نحوه پاسخ:\n  - کافی است تایپ کنید و Enter بزنید\n  - برای ورود به حالت چندخطی 'f' را وارد کنید\n  - با 'c' یا 'cancel' لغو کنید",
     "ui.title": "=== درخواست انسانی (human_ask) ===",
-    "tool.description": "ابزاری برای درخواست ورودی/تصمیم از کاربر انسانی که مدل نمی‌تواند به تنهایی آن را تکمیل کند. نکته امنیتی: هنگام درخواست اسرار (رمزهای عبور/توکن‌ها) ورودی پنهان می‌شود."
+    "tool.description": "ابزاری برای درخواست ورودی/تصمیم از کاربر انسانی که مدل نمی‌تواند به تنهایی آن را تکمیل کند. نکته امنیتی: هنگام درخواست اسرار (رمزهای عبور/توکن‌ها) ورودی پنهان می‌شود.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask رد شد (حالت خودکار). مدل باید به طور مستقل تصمیم بگیرد."
   },
   "mn": {
     "doc.run_tool": "human_ask нь stdin-ээс шууд уншихгүй;\nscheck.py талын stdin_loop thread-д боловсруулалтыг даатгаж\nshared state (callbacks)-аар үр дүнг авна.",
@@ -695,7 +723,8 @@
     "ui.footer": "=== /хүний_асуу ===",
     "ui.howto": "Хэрхэн хариулах вэ:\n  - Хариугаа бичээд Enter дарна уу\n  - Олон мөрийн горимд орохын тулд 'f' гэж бичнэ үү\n  - Цуцлахын тулд 'c' эсвэл 'cancel' гэж бичнэ үү",
     "ui.title": "=== Хүний хүсэлт (хүний_асуулт) ===",
-    "tool.description": "Модель өөрөө гүйцэтгэж чадахгүй оролт/шийдвэрийг хүний хэрэглэгчээс асуух хэрэгсэл. Аюулгүй байдлын тэмдэглэл: нууц үг/токен асуухад оролт далдлагдана."
+    "tool.description": "Модель өөрөө гүйцэтгэж чадахгүй оролт/шийдвэрийг хүний хэрэглэгчээс асуух хэрэгсэл. Аюулгүй байдлын тэмдэглэл: нууц үг/токен асуухад оролт далдлагдана.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask алгассан (авто-пилот горим). Загвар нь бие даан шийдвэр гаргах ёстой."
   },
   "mr": {
     "doc.run_tool": "human_ask stdin मधून थेट वाचत नाही;\nscheck.py बाजूच्या stdin_loop thread कडे प्रक्रिया सोपवा\nआणि shared state (callbacks) द्वारे निकाल मिळवा.",
@@ -719,7 +748,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "कसे उत्तर द्यावे:\n  - फक्त टाइप करून Enter दाबा\n  - multiline mode मध्ये जाण्यासाठी 'f' टाइप करा\n  - 'c' किंवा 'cancel' ने रद्द करा",
     "ui.title": "=== मानवी विनंती (मानवी_विचार) ===",
-    "tool.description": "मॉडेल स्वतःहून पूर्ण करू शकत नसलेल्या इनपुट/निर्णयासाठी मानवी वापरकर्त्याला विचारण्याचे साधन. सुरक्षा टीप: गुप्त माहिती (पासवर्ड/टोकन) विनंती करताना इनपुट लपवले जाते."
+    "tool.description": "मॉडेल स्वतःहून पूर्ण करू शकत नसलेल्या इनपुट/निर्णयासाठी मानवी वापरकर्त्याला विचारण्याचे साधन. सुरक्षा टीप: गुप्त माहिती (पासवर्ड/टोकन) विनंती करताना इनपुट लपवले जाते.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask वगळले (ऑटो-पायलट मोड). मॉडेलने स्वायत्तपणे निर्णय घेणे आवश्यक आहे."
   },
   "el": {
     "doc.run_tool": "το human_ask δεν διαβάζεται απευθείας από το stdin.\nαφήστε το νήμα stdin_loop στο πλευρικό scheck.py να χειριστεί την επεξεργασία\nκαι να λαμβάνετε αποτελέσματα μέσω κοινής κατάστασης (επιστροφές κλήσης).",
@@ -745,7 +775,8 @@
     "ui.footer": "απόφαση",
     "ui.howto": "Πώς να απαντήσετε:\n  - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n  - Πληκτρολογήστε 'f' για να εισέλθετε σε λειτουργία πολλαπλών γραμμών\n  - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση",
     "ui.title": "Πώς να απαντήσετε:\n  - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n  - Πληκτρολογήστε 'f' για να εισέλθετε σε λειτουργία πολλαπλών γραμμών\n  - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση",
-    "tool.description": "Ένα εργαλείο για να ζητήσετε από τον ανθρώπινο χρήστη μια είσοδο/απόφαση που το μοντέλο δεν μπορεί να ολοκληρώσει μόνο του. Σημείωση ασφαλείας: κατά την αίτηση μυστικών (κωδικών/tokens) η είσοδος αποκρύπτεται."
+    "tool.description": "Ένα εργαλείο για να ζητήσετε από τον ανθρώπινο χρήστη μια είσοδο/απόφαση που το μοντέλο δεν μπορεί να ολοκληρώσει μόνο του. Σημείωση ασφαλείας: κατά την αίτηση μυστικών (κωδικών/tokens) η είσοδος αποκρύπτεται.",
+    "ui.auto_pilot_skip": "[AUTO] Παραλείφθηκε το human_ask (λειτουργία αυτόματου πιλότου). Το μοντέλο πρέπει να αποφασίζει αυτόνομα."
   },
   "he": {
     "doc.run_tool": "human_ask לא קורא ישירות מ-stdin;\nתן לשרשור stdin_loop בעיבוד הצד של scheck.py\nולקבל תוצאות באמצעות מצב משותף (התקשרות חוזרת).",
@@ -771,7 +802,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "כיצד לענות:\n  - הקלד את תשובתך והקש אנטר\n  - הקלד 'f' כדי להיכנס למצב ריבוי שורות\n  - הקלד 'c' או 'ביטול' כדי לבטל",
     "ui.title": "=== בקשה אנושית (human_ask) ===",
-    "tool.description": "כלי לבקש מהמשתמש האנושי קלט/החלטה שהמודל אינו יכול להשלים בעצמו. הערת אבטחה: בעת בקשת סודות (סיסמאות/טוקנים) הקלט מוסתר."
+    "tool.description": "כלי לבקש מהמשתמש האנושי קלט/החלטה שהמודל אינו יכול להשלים בעצמו. הערת אבטחה: בעת בקשת סודות (סיסמאות/טוקנים) הקלט מוסתר.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask דולג (מצב טיס אוטומטי). המודל חייב להחליט באופן עצמאי."
   },
   "hu": {
     "doc.run_tool": "a human_ask nem olvas közvetlenül az stdin-ből;\nhagyja, hogy a scheck.py oldalon lévő stdin_loop szál kezelje a feldolgozást\nés eredményeket kaphat megosztott állapotban (visszahívások).",
@@ -797,7 +829,8 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Válasz:\n  - Írja be a választ, és nyomja meg az Enter billentyűt\n  - Többsoros módba való belépéshez írja be az „f” billentyűt\n  - A törléshez írja be a „c” vagy „mégse” billentyűt",
     "ui.title": "=== Emberi kérés (human_ask) ===",
-    "tool.description": "Egy eszköz, amellyel a felhasználótól kérhetsz bemenetet/döntést, amit a modell nem tud önállóan elvégezni. Biztonsági megjegyzés: titkok (jelszavak/tokenek) kérésekor a bemenet maszkolt."
+    "tool.description": "Egy eszköz, amellyel a felhasználótól kérhetsz bemenetet/döntést, amit a modell nem tud önállóan elvégezni. Biztonsági megjegyzés: titkok (jelszavak/tokenek) kérésekor a bemenet maszkolt.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask kihagyva (automatikus vezetési mód). A modellnek önállóan kell döntenie."
   },
   "ro": {
     "doc.run_tool": "human_ask nu citește direct din stdin;\nlăsați firul stdin_loop de pe scheck.py de procesare\nși primiți rezultate prin stare partajată (callbacks).",
@@ -823,6 +856,7 @@
     "ui.footer": "=== /human_ask ===",
     "ui.howto": "Cum să răspundeți:\n  - Introduceți răspunsul și apăsați Enter\n  - Tastați „f” pentru a intra în modul cu mai multe linii\n  - Tastați „c” sau „anulați” pentru a anula",
     "ui.title": "=== Cerere umană (human_ask) ===",
-    "tool.description": "Un instrument pentru a solicita utilizatorului uman o intrare/decizie pe care modelul nu o poate finaliza singur. Notă de securitate: la solicitarea secretelor (parole/token-uri), intrarea este mascată."
+    "tool.description": "Un instrument pentru a solicita utilizatorului uman o intrare/decizie pe care modelul nu o poate finaliza singur. Notă de securitate: la solicitarea secretelor (parole/token-uri), intrarea este mascată.",
+    "ui.auto_pilot_skip": "[AUTO] human_ask omis (modul auto-pilot). Modelul trebuie să decidă în mod autonom."
   }
 }

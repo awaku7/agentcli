@@ -45,6 +45,9 @@ class ToolCallbacks:
     human_ask_set_multiline_active: Optional[Callable[[bool], None]] = None
     human_ask_set_password: Optional[Callable[[bool], None]] = None
 
+    # Auto-pilot mode detection
+    is_auto_pilot_active: Optional[Callable[[], bool]] = None
+
     # Event injection (e.g., timers)
     event_queue: Any = None
 

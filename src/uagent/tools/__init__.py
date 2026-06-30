@@ -906,16 +906,42 @@ def get_tool_catalog(
         except Exception:
             pass
 
-    # 3. Also search lazy-loaded tool specs from .spec.json (without importing the module)
+    # 3. Also search lazy-loaded tool specs (fast: read .spec.json or use already-imported module)
     if q or all_items:
         # Collect names already added by sections 1/2 for dedup
         _cataloged_names = {r["name"] for r in rows if r.get("name")}
-        # Determine current locale for i18n
         _lazy_locale = get_locale()
-        for mod_name in _LAZY_TOOL_MODULES:
+
+        # Scan for lazy modules using fast file check (_is_lazy_module reads
+        # only the first few lines; os.scandir is a single directory read).
+        _lazy_mod_names: list[str] = []
+        try:
+            from ._genre_control_util import _is_lazy_module
+
+            _pkg_dir = os.path.dirname(__file__)
+            for _entry in os.scandir(_pkg_dir):
+                if (
+                    _entry.name.endswith("_tool.py")
+                    and not _entry.name.startswith("_")
+                ):
+                    _mn = _entry.name[:-3]
+                    if _is_lazy_module(_mn):
+                        _lazy_mod_names.append(_mn)
+        except Exception:
+            _lazy_mod_names = list(_LAZY_TOOL_MODULES)  # fallback
+
+        for mod_name in _lazy_mod_names:
+            # Try .spec.json first (fast, no import)
             spec = _load_lazy_tool_spec(mod_name)
             if not spec:
-                continue
+                # No .spec.json; try already-imported module (lazy tools are
+                # still imported during _load_plugins() even if disabled).
+                _full = f"uagent.tools.{mod_name}"
+                _mod = sys.modules.get(_full)
+                if _mod is not None:
+                    spec = getattr(_mod, "TOOL_SPEC", None)
+                if not isinstance(spec, dict):
+                    continue
             fn = spec.get("function", {})
             if not isinstance(fn, dict):
                 continue

@@ -92,7 +92,7 @@ Documentation:
 - Host-side i18n: `src/uagent/docs/DEVELOP_I18N.md` (compile: `python scripts/compile_locales.py`, QC: `python scripts/po_qc_summary.py`)
 - Auto-pilot (`:auto` command): `src/uagent/docs/AUTO_REVIEW.md` (design & implementation record)
 - User-facing `:auto` guide (en): `README_AUTO.md` (usage instructions)
-- User-facing `:auto` guide (ja): `src/uagent/docs/README_AUTO.ja.md`
+- User-facing `:auto` guide (ja): `docs/README_AUTO.ja.md` (usage instructions)
 
 ______________________________________________________________________
 

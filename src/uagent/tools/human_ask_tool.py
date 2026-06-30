@@ -86,6 +86,25 @@ def run_tool(args: dict[str, Any]) -> str:
 
     is_password = bool(args.get("is_password", False))
 
+    # Auto-pilot mode: skip user interaction, tell the LLM to decide autonomously
+    if cb.is_auto_pilot_active and cb.is_auto_pilot_active():
+        print(
+            _(
+                "ui.auto_pilot_skip",
+                default="[AUTO] human_ask skipped (auto-pilot mode). The model must decide autonomously.",
+            ),
+            flush=True,
+        )
+        payload = {
+            "tool": "human_ask",
+            "message": message,
+            "user_reply": "",
+            "display_reply": "[AUTO-PILOT mode] Cannot ask the user during auto-pilot. Please decide autonomously based on the available information and continue working toward the goal.",
+            "cancelled": False,
+            "auto_pilot_skipped": True,
+        }
+        return json.dumps(payload, ensure_ascii=False)
+
     print(_("ui.title", default="=== Human request (human_ask) ==="), flush=True)
     print(message, flush=True)
     print(_("ui.footer", default="=== /human_ask ==="), flush=True)

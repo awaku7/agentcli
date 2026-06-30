@@ -71,10 +71,8 @@ def get_welcome_message():
         _(
             "- Images: GUI supports drag & drop; in CUI you can input a file path for image analysis."
         ),
-        _(
-            "- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web Inspector help (`--path/--open` also available)."
-        )
-        % {"docs_cmd": "uag docs", "webinspect_cmd": "uag docs webinspect"},
+        _("- Interrupt: press `c` key to stop the current LLM response (injected as 'Stop')."),
+        _("- Auto-pilot: `:auto <goal>` repeatedly runs a task; press `x` to exit immediately."),
         "",
         _("[Examples]"),
         _('- "Analyze the source code in this folder and create a README.md."'),

@@ -98,7 +98,18 @@ ______________________________________________________________________
 uag
 ```
 
-### 6.1.1 (Optional) Start A2A server
+### 6.1.1 First run
+
+On the very first run (no `.env` file yet), `uag` detects missing provider variables and **automatically launches the setup wizard** (`uag_setup`). Answer the interactive prompts to configure your provider and API key, and the environment will be ready to use.
+
+If you prefer to configure manually, skip the wizard and edit `.env` directly afterward.
+
+```bat
+uag
+→ "No provider configured. Launching setup wizard..."
+```
+
+### 6.1.2 (Optional) Start A2A server
 
 A2A runs as a separate process and does not change the existing `uag` behavior.
 
@@ -220,17 +231,44 @@ ______________________________________________________________________
 
 - [`README.md`](README.md) (overview / Provider / Web Inspector, etc.)
 - [`AGENTS.md`](AGENTS.md) (tools list / environment variables / MCP shortest example)
-- `uag docs develop` / `uag docs webinspect`
+- [`README_AUTO.md`](README_AUTO.md) (`:auto` command guide)
+- [`INTERRUPT.md`](INTERRUPT.md) (c-key interrupt details)
 
 ______________________________________________________________________
 
-## 9. Documentation (`uag docs`)
+## 9. Interrupt (c key)
 
-After installation, bundled documents are available via `uag docs`.
+Press **`c`** during LLM streaming to stop the current response.  
+Instead of just aborting, `"Stop"` is injected as a user message, allowing the LLM to gracefully conclude.
 
-```bat
-uag docs
-uag docs webinspect
-uag docs develop
-uag docs --open webinspect
+| Interface | How to interrupt |
+|---|---|
+| **CLI** | Press `c` key during LLM streaming |
+
+For details, see [`INTERRUPT.md`](INTERRUPT.md).
+
+______________________________________________________________________
+
+## 10. Auto-pilot (`:auto` command)
+
+`:auto` repeatedly executes a goal — useful for long-running analysis, editing, or investigation.
+
 ```
+:auto <goal> [--max-rounds N]
+```
+
+Example:
+
+```
+:auto Analyze the entire project structure and identify issues
+```
+
+Stop methods:
+
+| Method | Description |
+|---|---|
+| **`x` key** | Stops immediately, even mid-LLM-response (recommended) |
+| **`COMPLETE` judged** | Reviewer decides goal is met |
+| **`--max-rounds N` reached** | Default 10 rounds |
+
+For details, see [`README_AUTO.md`](README_AUTO.md).

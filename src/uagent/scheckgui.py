@@ -530,6 +530,7 @@ class ScheckWorker(QtCore.QObject):
             human_ask_set_password=(
                 lambda v: setattr(core, "human_ask_is_password", bool(v))
             ),
+            is_auto_pilot_active=(lambda: core.auto_pilot_active),
             event_queue=core.event_queue,
             cmd_encoding=core.CMD_ENCODING,
             cmd_exec_timeout_ms=core.CMD_EXEC_TIMEOUT_MS,

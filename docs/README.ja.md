@@ -118,7 +118,7 @@ uag は、複数のLLMラウンドにわたって**自律的に目標を達成**
 - **いつでも停止**: `x` キーで即座に中断可能。レビューアの自動判定も利用
 - **設定可能**: `--max-rounds N` で最大ラウンド数を指定
 
-詳細は [README_AUTO.ja.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/README_AUTO.ja.md) を参照してください。
+詳細は [README_AUTO.ja.md](https://github.com/awaku7/agentcli/blob/main/docs/README_AUTO.ja.md) を参照してください。
 
 ### 🧩 バッチ状態マネージャー
 

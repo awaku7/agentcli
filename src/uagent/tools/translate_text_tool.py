@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+LAZY_LOAD = True
+MAX_TEXT_LENGTH = 10000
+BUSY_LABEL = True
+
 import json
 import ssl
 import time
@@ -10,10 +14,6 @@ from typing import Any
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
-
-LAZY_LOAD = True
-MAX_TEXT_LENGTH = 10000
-BUSY_LABEL = True
 
 # Locale code mapping: project format (zh_CN) -> Google Translate format (zh-CN)
 _LOCALE_TO_GOOGLE: dict[str, str] = {
@@ -34,7 +34,7 @@ _LOCALE_TO_GOOGLE: dict[str, str] = {
     "ar": "ar",
     "sv": "sv",
     "sw": "sw",
-    "nb": "nb",
+    "nb": "no",
     "nl": "nl",
     "fi": "fi",
     "cs": "cs",
@@ -48,7 +48,7 @@ _LOCALE_TO_GOOGLE: dict[str, str] = {
     "mn": "mn",
     "mr": "mr",
     "el": "el",
-    "he": "he",
+    "he": "iw",
     "hu": "hu",
     "ro": "ro",
 }

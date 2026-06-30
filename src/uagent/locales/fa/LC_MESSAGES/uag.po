@@ -1,9 +1,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT 1.0\n"
+"Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-29 20:12+0900\n"
+"POT-Creation-Date: 2026-06-30 10:59+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[خطا] Git نصب نشده است."
 
-#: src/uagent/cli.py:586
+#: src/uagent/cli.py:587
 msgid "getch() fallback to input()"
 msgstr "در صورت ناموفق بودن getch()، از input() استفاده می‌شود"
 
-#: src/uagent/cli.py:803
+#: src/uagent/cli.py:804
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C دریافت شد. در حال آغاز پایان برنامه..."
 
-#: src/uagent/cli.py:839 src/uagent/cli.py:875 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Ctrl+C دریافت شد. در حال آغاز پایان برنامه..
 msgid "Cancelled."
 msgstr "لغو شد."
 
-#: src/uagent/cli.py:846
+#: src/uagent/cli.py:847
 msgid "Received multiline reply."
 msgstr "پاسخ چندخطی دریافت شد."
 
-#: src/uagent/cli.py:1041
+#: src/uagent/cli.py:1042
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -69,28 +69,28 @@ msgstr ""
 "مسیرهای فایل تصویری در ورودی شما پیدا شد.\n"
 "آیا می خواهید این تصاویر را برای تجزیه و تحلیل به LLM (API خارجی) ارسال کنید؟"
 
-#: src/uagent/cli.py:1047
+#: src/uagent/cli.py:1048
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "برای ارسال با y یا n (یا c/cancel) برای رد شدن از ارسال پاسخ دهید."
 
-#: src/uagent/cli.py:1065
+#: src/uagent/cli.py:1066
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr ""
 "تایید ارسال تصویر ناموفق بود. تصاویر را ارسال نمی کند: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1093 src/uagent/scheckgui.py:708
+#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:709
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "تصویر پیوست نشد: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1130
+#: src/uagent/cli.py:1131
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "رویداد ناشناخته type=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1152
+#: src/uagent/cli.py:1153
 msgid "Exited uag."
 msgstr "از uag خارج شد."
 
@@ -102,68 +102,72 @@ msgstr "نام [اسناد] مورد نیاز است"
 msgid "[INFO] startup genre prompt = numeric-input"
 msgstr "[INFO] اعلان ژانر راه‌اندازی = ورودی عددی"
 
+#: src/uagent/cli_startup.py:25
 msgid ""
 "Enter the sum of numbers "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
 " Enter=basic only):"
 msgstr ""
-"مجموع اعداد را وارد کنید"
-"(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,"
-"Enter=basic only):"
+"مجموع اعداد را وارد "
+"کنید(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,Enter=basic"
+" only):"
 
+#: src/uagent/cli_startup.py:69 src/uagent/web.py:983
 msgid "Basic (env, time, prompts, skills, memory, tools control)"
 msgstr "پایه (env، زمان، درخواست‌ها، مهارت‌ها، حافظه، کنترل ابزار)"
 
+#: src/uagent/cli_startup.py:73 src/uagent/cli_startup.py:94
+#: src/uagent/web.py:989
 msgid ""
 "File (create, delete, read, write, search, zip, rename, hash, grep, list "
 "dir)"
 msgstr ""
-"فایل (ایجاد، حذف، خواندن، نوشتن، جستجو، zip، تغییر نام، هش، grep،"
-"فهرست dir)"
+"فایل (ایجاد، حذف، خواندن، نوشتن، جستجو، zip، تغییر نام، هش، grep،فهرست dir)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1456
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1457
 #: src/uagent/web.py:995
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "ارتباطات (Teams, Discord, Bluesky)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1461
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1462
 #: src/uagent/web.py:1000
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, استخراج اسناد)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1467
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1468
 #: src/uagent/web.py:1006
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr ""
 "Development (lint, test, git, DB, اسکرین‌شات, browser, binary, compile)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1474
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1475
 #: src/uagent/web.py:1013
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, دوربین, geo-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1480
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1481
 #: src/uagent/web.py:1019
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "اجرا (cmd, python, pwsh, bash, زیرعامل)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1485
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1486
 #: src/uagent/web.py:1024
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "خارجی (A2A, MCP, واکشی, جستجوی وب)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1490
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1491
 #: src/uagent/web.py:1029
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Media (تولید/ویرایش/تحلیل تصویر, صدا, کد QR)"
 
+#: src/uagent/cli_startup.py:100
 msgid ""
 "Index (source code navigation: py2idx, ts2idx, jv2idx, cs2idx, dart2idx, "
 "cpp2idx, rs2idx, go2idx, swift2idx, kt2idx)"
 msgstr ""
-"فهرست (ناوبری کد منبع: py2idx، ts2idx، jv2idx، cs2idx، dart2idx،"
-"cpp2idx، rs2idx، go2idx، swift2idx، kt2idx)"
+"فهرست (ناوبری کد منبع: py2idx، ts2idx، jv2idx، cs2idx، dart2idx،cpp2idx، "
+"rs2idx، go2idx، swift2idx، kt2idx)"
 
 #: src/uagent/cli_startup.py:114
 msgid "[INFO] startup genre prompt = prompt_toolkit"
@@ -196,55 +200,55 @@ msgstr "[INFO] startup genre prompt = numeric-input (prompt_toolkit fallback)"
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] خطا در اعمال انتخاب ابزار راه‌اندازی: %(err)s"
 
-#: src/uagent/cli_startup.py:282 src/uagent/web.py:1320
+#: src/uagent/cli_startup.py:275 src/uagent/web.py:1310
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[خطای شدید] تنظیم workdir ناموفق بود: %(err)s"
 
-#: src/uagent/cli_startup.py:311
+#: src/uagent/cli_startup.py:304
 #, python-format
 msgid "[FATAL] Failed to launch uag_setup: %(err)s"
 msgstr "[FATAL] راه اندازی uag_setup ناموفق بود: %(err)s"
 
-#: src/uagent/cli_startup.py:351
+#: src/uagent/cli_startup.py:344
 #, python-format
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "ارائه‌دهنده = %(provider)s; مدل = %(model)s"
 
-#: src/uagent/cli_startup.py:363 src/uagent/scheckgui.py:560
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:561
 msgid "OpenRouter fallback models enabled."
 msgstr "مدل های بازگشتی OpenRouter فعال شد."
 
-#: src/uagent/cli_startup.py:367
+#: src/uagent/cli_startup.py:360
 #, python-format
 msgid "current workdir = %(cwd)s"
 msgstr "workdir فعلی = %(cwd)s"
 
-#: src/uagent/cli_startup.py:390 src/uagent/scheckgui.py:583
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:584
 msgid "Loaded long-term memory."
 msgstr "حافظه بلندمدت بارگذاری شد."
 
-#: src/uagent/cli_startup.py:403 src/uagent/scheckgui.py:596
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:597
 msgid "Loaded shared long-term memory."
 msgstr "حافظه بلندمدت مشترک بارگذاری شد."
 
-#: src/uagent/cli_startup.py:410 src/uagent/web.py:767
+#: src/uagent/cli_startup.py:403 src/uagent/web.py:767
 #, python-format
 msgid ""
 "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "[هشدار] هنگام بارگذاری حافظه بلندمدت مشترک، استثنا رخ داد: %(err)s"
 
-#: src/uagent/cli_startup.py:442
+#: src/uagent/cli_startup.py:435
 #, python-format
 msgid "[WARN] Failed to read startup file: %(path)s (%(err)s)"
 msgstr "[هشدار] فایل راه‌اندازی خوانده نشد: %(path)s (%(err)s)"
 
-#: src/uagent/cli_startup.py:456
+#: src/uagent/cli_startup.py:449
 #, python-format
 msgid "Startup file provided: %(path)s"
 msgstr "فایل راه اندازی ارائه شده: %(path)s"
 
-#: src/uagent/cli_startup.py:494
+#: src/uagent/cli_startup.py:487
 msgid "--non-interactive was specified; exiting without waiting for stdin."
 msgstr "--غیر تعاملی مشخص شد. خروج بدون انتظار برای stdin."
 
@@ -369,6 +373,7 @@ msgstr "بخش جدید:\n"
 msgid "Update the summary while keeping the prior context intact."
 msgstr "خلاصه را با حفظ بافت قبلی به‌روزرسانی کنید."
 
+#: src/uagent/core.py:1555
 msgid "[shrink_llm] Summarizing chunk %(i)d/%(n)d..."
 msgstr "[shrink_llm] خلاصه کردن تکه %(i)d/%(n)d..."
 
@@ -561,67 +566,60 @@ msgstr ""
 "برای کار انتخاب کنید."
 
 #: src/uagent/docs_util.py:27
-msgid "Project README"
-msgstr "پروژه README"
-
-#: src/uagent/docs_util.py:32
-msgid "Quickstart (Windows wheel install)"
-msgstr "شروع سریع (نصب چرخ ویندوز)"
-
-#: src/uagent/docs_util.py:37
 msgid "Web Inspector (playwright_inspector) guide"
 msgstr "راهنمای بازرس وب (نمایشنامه نویس_بازرس)."
 
-#: src/uagent/docs_util.py:42
+#: src/uagent/docs_util.py:32
 msgid "Developer information"
 msgstr "اطلاعات توسعه دهنده"
 
-#: src/uagent/docs_util.py:149
+#: src/uagent/docs_util.py:139
 #, python-format
 msgid "unknown doc name: %(name)r"
 msgstr "نام سند ناشناخته: %(name)r"
 
-#: src/uagent/docs_util.py:172
+#: src/uagent/docs_util.py:162
 #, python-format
 msgid "doc file not found: %(filename)s"
 msgstr "فایل doc پیدا نشد: %(filename)s"
 
-#: src/uagent/docs_util.py:203
+#: src/uagent/docs_util.py:193
 #, python-format
 msgid "doc path resolution failed: %(filename)s: %(err)s"
 msgstr "وضوح مسیر سند ناموفق بود: %(filename)s: %(err)s"
 
-#: src/uagent/docs_util.py:227
+#: src/uagent/docs_util.py:217
 msgid "[docs] Available documents:"
 msgstr "[اسناد] اسناد موجود:"
 
-#: src/uagent/docs_util.py:231
+#: src/uagent/docs_util.py:221
 msgid "Usage:"
 msgstr "استفاده:"
 
-#: src/uagent/docs_util.py:232
+#: src/uagent/docs_util.py:222
 msgid "list"
 msgstr "فهرست"
 
-#: src/uagent/docs_util.py:233
+#: src/uagent/docs_util.py:223
 msgid "show"
 msgstr "نمایش"
 
-#: src/uagent/docs_util.py:234
+#: src/uagent/docs_util.py:224
 msgid "show path"
 msgstr "نمایش مسیر"
 
-#: src/uagent/docs_util.py:235
+#: src/uagent/docs_util.py:225
 msgid "open with OS"
 msgstr "باز کردن با سیستم‌عامل"
 
+#: src/uagent/env_validate.py:42
 msgid ""
 "Required to select the LLM provider "
 "(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
 msgstr ""
-"برای انتخاب ارائه دهنده LLM"
-"(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)"
-"لازم است."
+"برای انتخاب ارائه دهنده "
+"LLM(azure/openai/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)لازم"
+" است."
 
 #: src/uagent/env_validate.py:71
 #, python-format
@@ -718,12 +716,15 @@ msgstr "کلید API Alibaba Cloud (Qwen)."
 msgid "Moonshot AI API key."
 msgstr "کلید API Moonshot AI."
 
+#: src/uagent/env_validate.py:210
 msgid "Xiaomi MiMo API key."
 msgstr "کلید API MiMo شیائومی."
 
+#: src/uagent/env_validate.py:215
 msgid "MiniMax API key."
 msgstr "کلید MiniMax API."
 
+#: src/uagent/env_validate.py:221
 msgid "Hugging Face API key (HF_TOKEN)."
 msgstr "کلید API در آغوش گرفتن (HF_TOKEN)."
 
@@ -973,9 +974,11 @@ msgstr "[خطای شبکه]"
 msgid "Unexpected exception."
 msgstr "استثنای غیرمنتظره."
 
+#: src/uagent/llm_round_helpers.py:707
 msgid "Response error: resp is None."
 msgstr "خطای پاسخ: resp هیچ است."
 
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp.choices is None or empty."
 msgstr "خطای پاسخ: resp.choices هیچ یا خالی است."
 
@@ -1023,6 +1026,7 @@ msgstr ""
 "تعداد %(total_files)d فایل گزارش پیدا شد. در حال آغاز پروفایل‌سازی "
 "افزایشی..."
 
+#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1044,45 +1048,23 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"شما یک نماینده پروفایل کاربری هستید. گزارش مکالمه را تجزیه و تحلیل"
-"کنید و استخراج کنید:"
-"1."
-"محیط (سیستم عامل، پوسته، ویرایشگر) - فقط در صورتی که به وضوح از گزارش"
-"مشهود باشد."
-"2."
-"ترجیحات - ویژگی‌های خاص و کاربردی که از درخواست‌ها و اصلاحات واقعی"
-"کاربر مشاهده می‌شود:"
-"-"
-"سبک پاسخ: مختصر یا پرمخاطب؟ رمز سنگین یا نثر سنگین؟ نقاط گلوله یا"
-"پاراگراف؟"
-"-"
-"زبان: ژاپنی، انگلیسی یا مختلط را ترجیح می دهد؟"
-"-"
-"استفاده از ابزار: کاربر اغلب به سراغ کدام ابزار/دستورات می رود؟"
-"-"
-"استاندارد کیفیت: راه حل های سریع را تحمل می کند یا بر راه حل های مناسب"
-"پافشاری می کند؟"
-"-"
-"تأیید: تأیید صریح را قبل از عملیات فایل می‌خواهد، یا ترجیح می‌دهد از"
-"درخواست‌ها رد شود؟"
-"-"
-"هر الگوی تکرار شونده دیگری در نحوه ارائه دستورالعمل توسط کاربر."
-"3."
-"محدودیت ها - قوانین صریحی که کاربر بیان کرده است (مثلاً «باید آفلاین"
-"باشد»، «بدون API خارجی»، «ساده نگه دارید»، «بدون وابستگی اضافی»)."
-"ترجیحات را از یک درخواست استنتاج نکنید. فقط الگوهایی را استخراج کنید"
-"که به طور مکرر ظاهر می شوند."
-"سوالات"
-"موقت، چت چت یا اعتبارنامه های حساس را درج نکنید."
-"شما"
-"باید فقط با یک شیء JSON معتبر مطابق با این طرح پاسخ دهید:"
-"{"
-"\\\"محیط\\\":"
-"{\\\"os\\\": \\\"string\\\", \\\"shell\\\": \\\"string\\\","
-"\\\"ویرایشگر\\\": \\\"string\\\"_, \\\\\"[string\\\"}, _\\NEW"
-"\\\"محدودیت‌ها\\\":"
-"[\\\"رشته\\\"]"
-"}"
+"شما یک نماینده پروفایل کاربری هستید. گزارش مکالمه را تجزیه و تحلیلکنید و "
+"استخراج کنید:1.محیط (سیستم عامل، پوسته، ویرایشگر) - فقط در صورتی که به وضوح "
+"از گزارشمشهود باشد.2.ترجیحات - ویژگی‌های خاص و کاربردی که از درخواست‌ها و "
+"اصلاحات واقعیکاربر مشاهده می‌شود:-سبک پاسخ: مختصر یا پرمخاطب؟ رمز سنگین یا "
+"نثر سنگین؟ نقاط گلوله یاپاراگراف؟-زبان: ژاپنی، انگلیسی یا مختلط را ترجیح می "
+"دهد؟-استفاده از ابزار: کاربر اغلب به سراغ کدام ابزار/دستورات می "
+"رود؟-استاندارد کیفیت: راه حل های سریع را تحمل می کند یا بر راه حل های "
+"مناسبپافشاری می کند؟-تأیید: تأیید صریح را قبل از عملیات فایل می‌خواهد، یا "
+"ترجیح می‌دهد ازدرخواست‌ها رد شود؟-هر الگوی تکرار شونده دیگری در نحوه ارائه "
+"دستورالعمل توسط کاربر.3.محدودیت ها - قوانین صریحی که کاربر بیان کرده است "
+"(مثلاً «باید آفلاینباشد»، «بدون API خارجی»، «ساده نگه دارید»، «بدون وابستگی "
+"اضافی»).ترجیحات را از یک درخواست استنتاج نکنید. فقط الگوهایی را استخراج "
+"کنیدکه به طور مکرر ظاهر می شوند.سوالاتموقت، چت چت یا اعتبارنامه های حساس را "
+"درج نکنید.شماباید فقط با یک شیء JSON معتبر مطابق با این طرح پاسخ "
+"دهید:{\\\"محیط\\\":{\\\"os\\\": \\\"string\\\", \\\"shell\\\": "
+"\\\"string\\\",\\\"ویرایشگر\\\": \\\"string\\\"_, \\\\\"[string\\\"}, "
+"_\\NEW\\\"محدودیت‌ها\\\":[\\\"رشته\\\"]}"
 
 #: src/uagent/scheckgui.py:393
 msgid "Drop files/images here"
@@ -1092,133 +1074,140 @@ msgstr "فایل ها/تصاویر را اینجا رها کنید"
 msgid "Download"
 msgstr "دانلود کنید"
 
-#: src/uagent/scheckgui.py:605
+#: src/uagent/scheckgui.py:606
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "هنگام بارگذاری حافظه بلندمدت مشترک، استثنا رخ داد: %(err)s"
 
-#: src/uagent/scheckgui.py:658
+#: src/uagent/scheckgui.py:659
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[فایل پیوست‌شده] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:743
+#: src/uagent/scheckgui.py:744
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[تصویر پیوست‌شده] %(path)s"
 
-#: src/uagent/scheckgui.py:745 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:746 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[مسیر تصویر] %(path)s"
 
-#: src/uagent/scheckgui.py:1061 src/uagent/scheckgui.py:1353
+#: src/uagent/scheckgui.py:1062 src/uagent/scheckgui.py:1354
 msgid "Welcome / Quick Guide"
 msgstr "خوش آمدید / راهنمای سریع"
 
+#: src/uagent/scheckgui.py:1176
 msgid "Font size: %(name)s"
 msgstr "اندازه قلم: %(name)s"
 
-#: src/uagent/scheckgui.py:1180
+#: src/uagent/scheckgui.py:1181
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (پایداری فوق العاده)"
 
-#: src/uagent/scheckgui.py:1261
+#: src/uagent/scheckgui.py:1262
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ می توانید فایل ها را با کشیدن و رها کردن پیوست کنید"
 
-#: src/uagent/scheckgui.py:1289 src/uagent/scheckgui.py:1721
+#: src/uagent/scheckgui.py:1290 src/uagent/scheckgui.py:1722
 msgid "Attach files"
 msgstr "فایل ها را پیوست کنید"
 
+#: src/uagent/scheckgui.py:1294
 msgid "■"
 msgstr "■"
 
+#: src/uagent/scheckgui.py:1297
 msgid "Stop generation"
 msgstr "توقف نسل"
 
-#: src/uagent/scheckgui.py:1311
+#: src/uagent/scheckgui.py:1312
 msgid "Send"
 msgstr "ارسال کنید"
 
-#: src/uagent/scheckgui.py:1351
+#: src/uagent/scheckgui.py:1352
 msgid "Help"
 msgstr "کمک کنید"
 
+#: src/uagent/scheckgui.py:1368
 msgid "View"
 msgstr "مشاهده کنید"
 
+#: src/uagent/scheckgui.py:1374
 msgid "Font: %(name)s"
 msgstr "فونت: %(name)s"
 
-#: src/uagent/scheckgui.py:1388
+#: src/uagent/scheckgui.py:1389
 msgid "Mode"
 msgstr "حالت"
 
-#: src/uagent/scheckgui.py:1391
+#: src/uagent/scheckgui.py:1392
 msgid "Reasoning: off"
 msgstr "دلیل: خاموش"
 
-#: src/uagent/scheckgui.py:1394
+#: src/uagent/scheckgui.py:1395
 msgid "Reasoning: auto"
 msgstr "دلیل: خودکار"
 
-#: src/uagent/scheckgui.py:1396
+#: src/uagent/scheckgui.py:1397
 msgid "Reasoning: minimal"
 msgstr "دلیل: حداقل"
 
-#: src/uagent/scheckgui.py:1398
+#: src/uagent/scheckgui.py:1399
 msgid "Reasoning: low"
 msgstr "دلیل: کم"
 
-#: src/uagent/scheckgui.py:1400
+#: src/uagent/scheckgui.py:1401
 msgid "Reasoning: medium"
 msgstr "دلیل: متوسط"
 
-#: src/uagent/scheckgui.py:1402
+#: src/uagent/scheckgui.py:1403
 msgid "Reasoning: high"
 msgstr "دلیل: زیاد"
 
-#: src/uagent/scheckgui.py:1405
+#: src/uagent/scheckgui.py:1406
 msgid "Reasoning: xhigh"
 msgstr "دلیل: xhigh"
 
-#: src/uagent/scheckgui.py:1410
+#: src/uagent/scheckgui.py:1411
 msgid "Verbosity: off"
 msgstr "پرحرفی: خاموش"
 
-#: src/uagent/scheckgui.py:1412
+#: src/uagent/scheckgui.py:1413
 msgid "Verbosity: low"
 msgstr "پرحرفی: کم"
 
-#: src/uagent/scheckgui.py:1414
+#: src/uagent/scheckgui.py:1415
 msgid "Verbosity: medium"
 msgstr "پرحرفی: متوسط"
 
-#: src/uagent/scheckgui.py:1416
+#: src/uagent/scheckgui.py:1417
 msgid "Verbosity: high"
 msgstr "پرحرفی: زیاد"
 
-#: src/uagent/scheckgui.py:1443
+#: src/uagent/scheckgui.py:1444
 msgid "Tools"
 msgstr "ابزارها"
 
-#: src/uagent/scheckgui.py:1450
+#: src/uagent/scheckgui.py:1451
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "پایه (فایل، محیط، زمان، اعلان‌ها، مهارت‌ها، حافظه، کنترل ابزارها)"
 
+#: src/uagent/scheckgui.py:1496
 msgid "File (read, write, search, delete, listing)"
 msgstr "فایل (خواندن، نوشتن، جستجو، حذف، فهرست)"
 
+#: src/uagent/scheckgui.py:1501
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "فهرست (ناوبری کد منبع: py2idx، ts2idx، و غیره)"
 
-#: src/uagent/scheckgui.py:1551
+#: src/uagent/scheckgui.py:1552
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[حالت] استدلال=%(mode)s"
 
-#: src/uagent/scheckgui.py:1555
+#: src/uagent/scheckgui.py:1556
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1226,50 +1215,50 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=خاموش، 1=کم، 2=متوسط، 3=زیاد؛ "
 "auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:1563
+#: src/uagent/scheckgui.py:1564
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[حالت] میزان جزئیات=%(mode)s"
 
-#: src/uagent/scheckgui.py:1565
+#: src/uagent/scheckgui.py:1566
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3] (0=خاموش، 1=کم، 2=متوسط، 3=بالا؛ بدون ارگ=نگه داشتن)"
 
-#: src/uagent/scheckgui.py:1697
+#: src/uagent/scheckgui.py:1698
 msgid "Enter password..."
 msgstr "رمز عبور را وارد کنید..."
 
-#: src/uagent/scheckgui.py:1704
+#: src/uagent/scheckgui.py:1705
 msgid "Enter a message..."
 msgstr "یک پیام وارد کنید..."
 
-#: src/uagent/scheckgui.py:1723
+#: src/uagent/scheckgui.py:1724
 msgid "All Files (*)"
 msgstr "همه فایل ها (*)"
 
-#: src/uagent/scheckgui.py:1975
+#: src/uagent/scheckgui.py:1976
 msgid "cannot read image"
 msgstr "خواندن تصویر ممکن نیست"
 
-#: src/uagent/scheckgui.py:2126 src/uagent/scheckgui.py:2166
-#: src/uagent/scheckgui.py:2201
+#: src/uagent/scheckgui.py:2127 src/uagent/scheckgui.py:2167
+#: src/uagent/scheckgui.py:2202
 msgid "Downloaded to"
 msgstr "دانلود شده به"
 
-#: src/uagent/scheckgui.py:2220
+#: src/uagent/scheckgui.py:2221
 msgid "Playing"
 msgstr "در حال پخش"
 
-#: src/uagent/scheckgui.py:2230
+#: src/uagent/scheckgui.py:2231
 msgid "Stopped"
 msgstr "متوقف شد"
 
-#: src/uagent/scheckgui.py:2289
+#: src/uagent/scheckgui.py:2290
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[پاسخ] > %(text)s"
 
-#: src/uagent/scheckgui.py:2296
+#: src/uagent/scheckgui.py:2297
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[کاربر] %(text)s"
@@ -1516,48 +1505,62 @@ msgstr "URL پایه Moonshot (اختیاری، پیش‌فرض: https://api.moo
 msgid "Moonshot model name (optional, default: kimi-k2)"
 msgstr "نام مدل Moonshot (اختیاری، پیش‌فرض: kimi-k2)"
 
+#: src/uagent/setup_cli.py:272
 msgid "Xiaomi MiMo API key"
 msgstr "کلید API MiMo شیائومی"
 
+#: src/uagent/setup_cli.py:276
 msgid "MiMo base URL (optional, default: https://api.xiaomimimo.com/v1)"
 msgstr "URL پایه MiMo (اختیاری، پیش‌فرض: https://api.xiaomimimo.com/v1)"
 
+#: src/uagent/setup_cli.py:281
 msgid "MiMo model name (optional, default: mimo-v2.5-pro)"
 msgstr "نام مدل MiMo (اختیاری، پیش‌فرض: mimo-v2.5-pro)"
 
+#: src/uagent/setup_cli.py:288
 msgid "LM Studio base URL (optional, default: http://localhost:1234/v1)"
 msgstr "URL پایه LM Studio (اختیاری، پیش‌فرض: http://localhost:1234/v1)"
 
+#: src/uagent/setup_cli.py:293
 msgid "LM Studio model name (optional, default: local-model)"
 msgstr "نام مدل LM Studio (اختیاری، پیش‌فرض: مدل محلی)"
 
+#: src/uagent/setup_cli.py:297
 msgid "MiniMax API key"
 msgstr "کلید MiniMax API"
 
+#: src/uagent/setup_cli.py:301
 msgid "MiniMax base URL (optional, default: https://api.minimax.io)"
 msgstr "URL پایه MiniMax (اختیاری، پیش‌فرض: https://api.minimax.io)"
 
+#: src/uagent/setup_cli.py:306
 msgid "MiniMax model name (optional, default: MiniMax-M3)"
 msgstr "نام مدل MiniMax (اختیاری، پیش‌فرض: MiniMax-M3)"
 
+#: src/uagent/setup_cli.py:310
 msgid "HuggingFace API key (HF_TOKEN)"
 msgstr "کلید HuggingFace API (HF_TOKEN)"
 
+#: src/uagent/setup_cli.py:315
 msgid ""
 "HuggingFace base URL (optional, default: https://router.huggingface.co/v1)"
 msgstr ""
-"URL پایه HuggingFace (اختیاری، پیش‌فرض:"
-"https://router.huggingface.co/v1)"
+"URL پایه HuggingFace (اختیاری، پیش‌فرض:https://router.huggingface.co/v1)"
 
+#: src/uagent/setup_cli.py:321
 msgid "HuggingFace model name (optional, default: openai/gpt-oss-120b)"
 msgstr "نام مدل HuggingFace (اختیاری، پیش‌فرض: openai/gpt-oss-120b)"
 
+#: src/uagent/setup_cli.py:325
 msgid "Sakana AI API key"
 msgstr "کلید Sakana AI API"
 
+#: src/uagent/setup_cli.py:329
 msgid "Sakana AI base URL (optional, default: https://api.sakana.ai/v1)"
-msgstr "URL پایه هوش مصنوعی Sakana (اختیاری، پیش‌فرض: https://api.sakana.ai/v1)"
+msgstr ""
+"URL پایه هوش مصنوعی Sakana (اختیاری، پیش‌فرض: https://api.sakana.ai/v1)"
 
+#: src/uagent/setup_cli.py:334
 msgid "Sakana AI model name (optional, default: fugu)"
 msgstr "نام مدل Sakana AI (اختیاری، پیش‌فرض: fugu)"
 
@@ -1939,22 +1942,22 @@ msgstr "توسط کاربر متوقف شد. ارسال دستور توقف به
 msgid "Stop"
 msgstr "توقف"
 
-#: src/uagent/uagent_llm.py:181
+#: src/uagent/uagent_llm.py:171
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[هشدار] دور ابزار بیش از %(max)d است. سقط"
 
-#: src/uagent/util_tools.py:181
+#: src/uagent/util_tools.py:186
 #, python-format
 msgid "image file not found: %(path)s"
 msgstr "فایل تصویری یافت نشد: %(path)s"
 
-#: src/uagent/util_tools.py:186
+#: src/uagent/util_tools.py:191
 #, python-format
 msgid "image file too large: %(size)d bytes (limit=%(max)d)"
 msgstr "فایل تصویر خیلی بزرگ است: %(size)d بایت (limit=%(max)d)"
 
-#: src/uagent/util_tools.py:210
+#: src/uagent/util_tools.py:215
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
@@ -1962,7 +1965,7 @@ msgstr ""
 "فهرست کاری را مشخص کنید. اگر تنظیم نشده باشد، از UAGENT_WORKDIR env var یا "
 "دایرکتوری فعلی استفاده می کند."
 
-#: src/uagent/util_tools.py:217
+#: src/uagent/util_tools.py:222
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
@@ -1970,136 +1973,139 @@ msgstr ""
 "حالت غیر تعاملی حلقه stdin را شروع نکنید. پس از پردازش فایل راه اندازی (در "
 "صورت وجود) خارج شوید."
 
+#: src/uagent/util_tools.py:230 src/uagent/web.py:1268
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
 " Skips the interactive genre prompt when specified."
 msgstr ""
-"بیت ماسک ژانر ابزار (1 = اساسی، 2 = کام، 4 = آفیس، 8 = توسعه، 16 ="
-"iot، 32 = exec، 64 = خارجی، 128 = رسانه، 256 = فایل، 512 = فهرست، 1023"
-"= همه). در صورت مشخص شدن، از درخواست ژانر تعاملی رد می شود."
+"بیت ماسک ژانر ابزار (1 = اساسی، 2 = کام، 4 = آفیس، 8 = توسعه، 16 =iot، 32 = "
+"exec، 64 = خارجی، 128 = رسانه، 256 = فایل، 512 = فهرست، 1023= همه). در صورت "
+"مشخص شدن، از درخواست ژانر تعاملی رد می شود."
 
-#: src/uagent/util_tools.py:233 src/uagent/web.py:1276
+#: src/uagent/util_tools.py:238 src/uagent/web.py:1276
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "فعال‌سازی ارسال ابزار به LLM (متغیر محیطی UAGENT_USE_TOOL را لغو می‌کند)."
 
-#: src/uagent/util_tools.py:240 src/uagent/web.py:1283
+#: src/uagent/util_tools.py:245 src/uagent/web.py:1283
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "غیرفعال‌سازی ارسال ابزار به LLM (متغیر محیطی UAGENT_USE_TOOL را لغو می‌کند)."
 
+#: src/uagent/util_tools.py:253
 msgid ""
 "Inject a message into the LLM at startup and exit after completion. Implies "
 "--non-interactive."
 msgstr ""
-"در هنگام راه اندازی یک پیام به LLM تزریق کنید و پس از اتمام از آن خارج"
-"شوید. به معنای --non-interactive است."
+"در هنگام راه اندازی یک پیام به LLM تزریق کنید و پس از اتمام از آن خارجشوید. "
+"به معنای --non-interactive است."
 
+#: src/uagent/util_tools.py:262
 msgid ""
 "Enable a specific tool by name at startup. Can be specified multiple times."
 msgstr ""
-"هنگام راه اندازی یک ابزار خاص را با نام فعال کنید. می توان چندین بار"
-"مشخص کرد."
+"هنگام راه اندازی یک ابزار خاص را با نام فعال کنید. می توان چندین بارمشخص "
+"کرد."
 
-#: src/uagent/util_tools.py:395
+#: src/uagent/util_tools.py:400
 msgid "invalid reasoning"
 msgstr "استدلال نامعتبر"
 
-#: src/uagent/util_tools.py:413
+#: src/uagent/util_tools.py:418
 msgid "invalid verbosity"
 msgstr "پرحرفی نامعتبر"
 
-#: src/uagent/util_tools.py:587
+#: src/uagent/util_tools.py:592
 #, python-format
 msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
 msgstr ""
 "[logs] آرگومان نامعتبر: %(arg)r (all / --all / -a / number را مشخص کنید)"
 
-#: src/uagent/util_tools.py:634
+#: src/uagent/util_tools.py:639
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "تجزیه آرگومان‌ها ناموفق بود: %(err)s"
 
-#: src/uagent/util_tools.py:637
+#: src/uagent/util_tools.py:642
 msgid "missing arguments"
 msgstr "استدلال های گم شده"
 
-#: src/uagent/util_tools.py:654
+#: src/uagent/util_tools.py:659
 msgid "src and dst are required"
 msgstr "src و dst مورد نیاز است"
 
-#: src/uagent/util_tools.py:679
+#: src/uagent/util_tools.py:684
 #, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:686 src/uagent/util_tools.py:743
+#: src/uagent/util_tools.py:691 src/uagent/util_tools.py:748
 #, python-format
 msgid "[cp error] %(etype)s: %(err)s"
 msgstr "[cp error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:696
+#: src/uagent/util_tools.py:701
 #, python-format
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr "[cp] مبدأ و مقصد یکسان هستند: %(path)s"
 
-#: src/uagent/util_tools.py:702
+#: src/uagent/util_tools.py:707
 #, python-format
 msgid "[cp] Source does not exist: %(path)s"
 msgstr "[cp] مبدأ وجود ندارد: %(path)s"
 
-#: src/uagent/util_tools.py:709 src/uagent/util_tools.py:721
+#: src/uagent/util_tools.py:714 src/uagent/util_tools.py:726
 #, python-format
 msgid "[cp] Destination already exists: %(path)s"
 msgstr "[cp] مقصد از قبل وجود دارد: %(path)s"
 
-#: src/uagent/util_tools.py:730
+#: src/uagent/util_tools.py:735
 #, python-format
 msgid "[cp] Destination parent does not exist: %(path)s"
 msgstr "[cp] والد مقصد وجود ندارد: %(path)s"
 
-#: src/uagent/util_tools.py:737
+#: src/uagent/util_tools.py:742
 #, python-format
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] کپی شد: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:751
+#: src/uagent/util_tools.py:756
 #, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:758 src/uagent/util_tools.py:802
+#: src/uagent/util_tools.py:763 src/uagent/util_tools.py:807
 #, python-format
 msgid "[mv error] %(etype)s: %(err)s"
 msgstr "[mv error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:768
+#: src/uagent/util_tools.py:773
 #, python-format
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] مبدأ و مقصد یکسان هستند: %(path)s"
 
-#: src/uagent/util_tools.py:774
+#: src/uagent/util_tools.py:779
 #, python-format
 msgid "[mv] Source does not exist: %(path)s"
 msgstr "[mv] مبدأ وجود ندارد: %(path)s"
 
-#: src/uagent/util_tools.py:780
+#: src/uagent/util_tools.py:785
 #, python-format
 msgid "[mv] Destination already exists: %(path)s"
 msgstr "[mv] مقصد از قبل وجود دارد: %(path)s"
 
-#: src/uagent/util_tools.py:790
+#: src/uagent/util_tools.py:795
 #, python-format
 msgid "[mv] Destination parent does not exist: %(path)s"
 msgstr "[mv] والد مقصد وجود ندارد: %(path)s"
 
-#: src/uagent/util_tools.py:797
+#: src/uagent/util_tools.py:802
 #, python-format
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] منتقل شد: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:1040
+#: src/uagent/util_tools.py:1045
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -2111,11 +2117,11 @@ msgstr ""
 "اگر مهارت شامل وظایفی است، تا زمانی که کامل شوند ادامه دهید.\n"
 "در صورت نیاز از ابزار استفاده کنید."
 
-#: src/uagent/util_tools.py:1047
+#: src/uagent/util_tools.py:1052
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "پس از اتمام، در صورت موجود بودن، همیشه «finish_skill» را صدا بزنید."
 
-#: src/uagent/util_tools.py:1199
+#: src/uagent/util_tools.py:1204
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -2125,7 +2131,7 @@ msgstr ""
 "نکته: : مهارت ها واضح است (مهارت های کاربردی را حذف کنید)\n"
 "شماره را وارد کنید:"
 
-#: src/uagent/util_tools.py:1235
+#: src/uagent/util_tools.py:1240
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -2142,7 +2148,7 @@ msgstr ""
 "\n"
 "ادامه دهید؟ y را برای اجرا یا c را برای لغو وارد کنید."
 
-#: src/uagent/util_tools.py:1297
+#: src/uagent/util_tools.py:1302
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -2151,7 +2157,7 @@ msgstr ""
 "[clean] آرگومان نامعتبر: %(arg)r (number=threshold را مشخص کنید؛ پیش‌فرض "
 "%(default)d است)"
 
-#: src/uagent/util_tools.py:1346
+#: src/uagent/util_tools.py:1351
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -2168,12 +2174,12 @@ msgstr ""
 "\n"
 "ادامه دهید؟ y را برای اجرا یا c را برای لغو وارد کنید."
 
-#: src/uagent/util_tools.py:1414
+#: src/uagent/util_tools.py:1419
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr "- (%(count)d پیام) %(path)s"
 
-#: src/uagent/util_tools.py:1444
+#: src/uagent/util_tools.py:1449
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -2190,7 +2196,7 @@ msgstr ""
 "\n"
 "ادامه دهید؟ y را برای اجرا یا c را برای لغو وارد کنید."
 
-#: src/uagent/util_tools.py:1575
+#: src/uagent/util_tools.py:1580
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -2205,24 +2211,24 @@ msgstr ""
 "\n"
 "برای ادامه y یا برای لغو c را وارد کنید."
 
-#: src/uagent/util_tools.py:1630
+#: src/uagent/util_tools.py:1635
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "شاخص مشخص شده %(idx)d خارج از محدوده است."
 
-#: src/uagent/util_tools.py:1639
+#: src/uagent/util_tools.py:1644
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "فایل گزارش یافت نشد: %(path)s"
 
-#: src/uagent/util_tools.py:1733
+#: src/uagent/util_tools.py:1738
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[خطای کوچک کردن] تجزیه به عنوان int انجام نشد: %(arg)r -> نگه داشتن آخرین "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1761
+#: src/uagent/util_tools.py:1766
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -2230,57 +2236,58 @@ msgstr ""
 "[خطای shrink_llm] تجزیه به عنوان int انجام نشد: %(arg)r -> نگه داشتن آخرین "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1854 src/uagent/util_tools.py:1948
+#: src/uagent/util_tools.py:1859 src/uagent/util_tools.py:1953
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
 msgstr ""
 "حافظه بلند مدت مشترک فعال نیست (UAGENT_SHARED_MEMORY_FILE تنظیم نشده است)."
 
+#: src/uagent/util_tools.py:1900
 msgid "Analyzing the most recent %d log files to generate user profile..."
 msgstr "تجزیه و تحلیل جدیدترین فایل های گزارش %d برای ایجاد نمایه کاربر..."
 
-#: src/uagent/util_tools.py:1899
+#: src/uagent/util_tools.py:1904
 msgid "Analyzing past logs to generate user profile..."
 msgstr "در حال تحلیل گزارش‌های قبلی برای ایجاد نمایهٔ کاربر..."
 
-#: src/uagent/util_tools.py:1903
+#: src/uagent/util_tools.py:1908
 msgid "No past logs found or failed to generate profile."
 msgstr "هیچ گزارش قبلی پیدا نشد یا ایجاد نمایه انجام نشد."
 
-#: src/uagent/util_tools.py:1905
+#: src/uagent/util_tools.py:1910
 msgid "User profile generated successfully from past logs!"
 msgstr "پروفایل کاربر با موفقیت پاک شد."
 
-#: src/uagent/util_tools.py:1917
+#: src/uagent/util_tools.py:1922
 msgid "No user profile data found."
 msgstr "هیچ داده‌ای برای پروفایل کاربر یافت نشد."
 
-#: src/uagent/util_tools.py:1920
+#: src/uagent/util_tools.py:1925
 msgid "User Profile:"
 msgstr "پروفایل کاربر:"
 
-#: src/uagent/util_tools.py:1932
+#: src/uagent/util_tools.py:1937
 msgid "User profile cleared successfully."
 msgstr "پروفایل کاربر با موفقیت پاک شد."
 
-#: src/uagent/util_tools.py:1936
+#: src/uagent/util_tools.py:1941
 msgid "No user profile file found to clear."
 msgstr "هیچ فایل پروفایل کاربری برای پاک کردن یافت نشد."
 
-#: src/uagent/util_tools.py:1999
+#: src/uagent/util_tools.py:2004
 msgid "Show this help"
 msgstr "این کمک را نشان دهید"
 
-#: src/uagent/util_tools.py:2000
+#: src/uagent/util_tools.py:2005
 msgid "Restart input from the beginning"
 msgstr "ورودی را از ابتدا مجدداً راه اندازی کنید"
 
-#: src/uagent/util_tools.py:2001
+#: src/uagent/util_tools.py:2006
 msgid "Show log file list"
 msgstr "نمایش لیست فایل های گزارش"
 
-#: src/uagent/util_tools.py:2004
+#: src/uagent/util_tools.py:2009
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -2288,26 +2295,26 @@ msgstr ""
 "تغییر مسیر کاری بدون تأیید (به عنوان مثال :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
 
-#: src/uagent/util_tools.py:2007
+#: src/uagent/util_tools.py:2012
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr ""
 "فهرست ورودی های فهرست (به عنوان مثال: ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:2010
+#: src/uagent/util_tools.py:2015
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "متغیرهای محیطی UAGENT_* را مدیریت کنید و .env.sec را ذخیره کنید"
 
-#: src/uagent/util_tools.py:2012
+#: src/uagent/util_tools.py:2017
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "مدیریت/به کارگیری مهارت ها (به عنوان مثال: مهارت ها / : مهارت های فعال /: "
 "مهارت های واضح)"
 
-#: src/uagent/util_tools.py:2019
+#: src/uagent/util_tools.py:2024
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "بارگیری گزارش گذشته (سابقه مکالمه فعلی را بازنویسی می کند)"
 
-#: src/uagent/util_tools.py:2021
+#: src/uagent/util_tools.py:2026
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -2316,7 +2323,7 @@ msgstr ""
 "توجه: پس از اجرا از شما درخواست تایید می شود. انتخاب 'y' گزارش بارگذاری شده "
 "را به فایل گزارش جلسه جاری اضافه می کند (بازنویسی، بدون پشتیبان)."
 
-#: src/uagent/util_tools.py:2025
+#: src/uagent/util_tools.py:2030
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -2324,12 +2331,12 @@ msgstr ""
 "حذف گزارش‌های مکالمه (scheck_log_*.jsonl) که در آن تعداد پیام‌های "
 "کاربر/دستیار/ابزار (به استثنای سیستم) <= N (پیش‌فرض=10) است."
 
-#: src/uagent/util_tools.py:2029
+#: src/uagent/util_tools.py:2034
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr "کوچک کردن تاریخچه مکالمه (حفظ آخرین N پیام غیر سیستمی؛ پیش فرض = 40)"
 
-#: src/uagent/util_tools.py:2033
+#: src/uagent/util_tools.py:2038
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -2337,77 +2344,81 @@ msgstr ""
 "کوچک کردن تاریخچه از طریق خلاصه‌سازی LLM (تاریخچه قدیمی‌تر را در 1 پیام "
 "سیستم خلاصه کنید؛ آخرین N را خام نگه دارید؛ پیش‌فرض = 20)"
 
-#: src/uagent/util_tools.py:2036
+#: src/uagent/util_tools.py:2041
 msgid "Show the current approximate token count of the conversation"
 msgstr "نمایش تعداد تقریبی توکن فعلی مکالمه"
 
-#: src/uagent/util_tools.py:2037
+#: src/uagent/util_tools.py:2042
 msgid "List long-term memory notes"
 msgstr "یادداشت های حافظه بلند مدت را فهرست کنید"
 
-#: src/uagent/util_tools.py:2039
+#: src/uagent/util_tools.py:2044
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "یک یادداشت حافظه بلند مدت را بر اساس فهرست حذف کنید (به :mem-list مراجعه "
 "کنید)"
 
-#: src/uagent/util_tools.py:2041
+#: src/uagent/util_tools.py:2046
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr "نمایش پروفایل کاربر یادگرفته شده (محیط، ترجیحات، محدودیت‌ها)"
 
+#: src/uagent/util_tools.py:2048
 msgid "Generate profile from the most recent N log files"
 msgstr "ایجاد نمایه از جدیدترین فایل های گزارش N"
 
+#: src/uagent/util_tools.py:2050
 msgid "Generate user profile from past logs (last N files if specified)"
 msgstr "ایجاد نمایه کاربر از گزارش‌های گذشته (آخرین N فایل در صورت مشخص شدن)"
 
-#: src/uagent/util_tools.py:2046
+#: src/uagent/util_tools.py:2051
 msgid "Clear the learned user profile data"
 msgstr "پاک کردن داده‌های پروفایل کاربر یادگرفته شده"
 
-#: src/uagent/util_tools.py:2048
+#: src/uagent/util_tools.py:2053
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "کپی فایل یا فهرست (پشتیبانی از -f/--بازنویسی و -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2050
+#: src/uagent/util_tools.py:2055
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "انتقال فایل یا دایرکتوری (پشتیبانی از -f/--overwrite و -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2052
+#: src/uagent/util_tools.py:2057
 msgid "Show the first n lines of a file (default=20)"
 msgstr "نمایش n خط اول یک فایل (پیش فرض = 20)"
 
-#: src/uagent/util_tools.py:2053
+#: src/uagent/util_tools.py:2058
 msgid "Show the last n lines of a file (default=20)"
 msgstr "نمایش n خط آخر یک فایل (پیش فرض = 20)"
 
-#: src/uagent/util_tools.py:2055
+#: src/uagent/util_tools.py:2060
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "حذف فایل(ها)/دایرکتوری(ها) با پیش نمایش + تایید"
 
-#: src/uagent/util_tools.py:2057
+#: src/uagent/util_tools.py:2062
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "حالت استدلال را تنظیم کنید (0=خاموش، 1=کم، 2=متوسط، 3=بالا؛ "
 "خودکار/حداقل/گزیده)"
 
-#: src/uagent/util_tools.py:2059
+#: src/uagent/util_tools.py:2064
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "حالت پرحرفی را تنظیم کنید (0=خاموش، 1=کم، 2=متوسط، 3=بالا، بدون ارگ=حفظ)"
 
-#: src/uagent/util_tools.py:2060
+#: src/uagent/util_tools.py:2065
 msgid "Exit"
 msgstr "خارج شوید"
 
-#: src/uagent/util_tools.py:2063
+#: src/uagent/util_tools.py:2068
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "- خطی را وارد کنید که فقط \"f\" باشد تا وارد حالت ورودی چند خطی شوید."
 
+#: src/uagent/util_tools.py:2185
 msgid "Continue. Goal: %(goal)s"
 msgstr "ادامه دهید. هدف: %(goal)s"
 
+#: src/uagent/util_tools.py:2267
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2415,6 +2426,7 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2296
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2422,6 +2434,7 @@ msgstr ""
 "\n"
 "[AUTO] توسط کاربر (کلید x) خارج شد."
 
+#: src/uagent/util_tools.py:2304
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2429,6 +2442,7 @@ msgstr ""
 "\n"
 "[AUTO] حداکثر دور (%(max)d) رسیده است. توقف"
 
+#: src/uagent/util_tools.py:2314
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2436,6 +2450,7 @@ msgstr ""
 "\n"
 "[AUTO] دور %(round)d/%(max)d"
 
+#: src/uagent/util_tools.py:2351
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2443,37 +2458,44 @@ msgstr ""
 "\n"
 "[AUTO] بررسی/تحلیل تکمیل شد."
 
+#: src/uagent/util_tools.py:2376
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] خلبان خودکار خاموش شد."
 
+#: src/uagent/util_tools.py:2380
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "استفاده: :auto <هدف> [--max-rounds N]"
 
+#: src/uagent/util_tools.py:2381
 msgid "       :auto off"
 msgstr ":auto خاموش"
 
+#: src/uagent/util_tools.py:2395
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "مقدار نامعتبر برای --max-rounds: %(val)s"
 
+#: src/uagent/util_tools.py:2406
 msgid "Goal cannot be empty."
 msgstr "هدف نمی تواند خالی باشد."
 
+#: src/uagent/util_tools.py:2416
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] شروع شد. هدف: %(goal)s"
 
+#: src/uagent/util_tools.py:2417
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] حداکثر دور: %(max)d"
 
-#: src/uagent/util_tools.py:2567
+#: src/uagent/util_tools.py:2581
 msgid "Exiting."
 msgstr "در حال خروج"
 
-#: src/uagent/util_tools.py:2570
+#: src/uagent/util_tools.py:2584
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "دستور ناشناخته: %(cmd)s"
 
-#: src/uagent/util_tools.py:2633
+#: src/uagent/util_tools.py:2647
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2559,22 +2581,25 @@ msgstr "مسیر وجود ندارد"
 msgid "path outside workdir"
 msgstr "مسیر خارج از پوشهٔ کار"
 
+#: src/uagent/web.py:1289
 msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
 msgstr "آدرس Bind (پیش‌فرض: 127.0.0.1). UAGENT_WEB_HOST env var."
 
-#: src/uagent/web.py:1364
+#: src/uagent/web.py:1354
 msgid "Starting server on"
 msgstr "در حال راه‌اندازی سرور روی"
 
-#: src/uagent/web.py:1366
+#: src/uagent/web.py:1356
 msgid "External URL:"
 msgstr "آدرس URL خارجی:"
 
+#: src/uagent/welcome.py:29
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
 msgstr "[MCP Servers]\\n- فایل پیکربندی پیدا نشد.\\n"
 
+#: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
@@ -2630,25 +2655,32 @@ msgstr ""
 "- تصاویر: رابط کاربری گرافیکی از کشیدن و رها کردن پشتیبانی می کند. در CUI می"
 " توانید یک مسیر فایل را برای تجزیه و تحلیل تصویر وارد کنید."
 
-#: src/uagent/welcome.py:75
-#, python-format
+#: src/uagent/welcome.py:74
 msgid ""
-"- Docs: `%(docs_cmd)s` shows bundled docs; `%(webinspect_cmd)s` shows Web "
-"Inspector help (`--path/--open` also available)."
+"- Interrupt: press `c` key to stop the current LLM response (injected as "
+"'Stop')."
 msgstr ""
-"- اسناد: `%(docs_cmd)s` اسناد همراه را نشان می دهد. `%(webinspect_cmd)s` "
-"راهنمای Web Inspector را نشان می دهد (`--path/--open` همچنین موجود است)."
+"- وقفه: کلید \"c\" را فشار دهید تا پاسخ فعلی LLM (تزریق شده به عنوان "
+"\"توقف\") متوقف شود."
 
-#: src/uagent/welcome.py:79
+#: src/uagent/welcome.py:75
+msgid ""
+"- Auto-pilot: `:auto <goal>` repeatedly runs a task; press `x` to exit "
+"immediately."
+msgstr ""
+"- خلبان خودکار: `:auto <goal>` به طور مکرر یک کار را اجرا می کند. برای خروج "
+"فوراً 'x' را فشار دهید."
+
+#: src/uagent/welcome.py:77
 msgid "[Examples]"
 msgstr "[نمونه ها]"
 
-#: src/uagent/welcome.py:80
+#: src/uagent/welcome.py:78
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr ""
 "- \"کد منبع را در این پوشه تجزیه و تحلیل کنید و یک README.md ایجاد کنید.\""
 
-#: src/uagent/welcome.py:82
+#: src/uagent/welcome.py:80
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
@@ -2656,19 +2688,19 @@ msgstr ""
 "- \"از دسکتاپ فعلی اسکرین شات بگیرید و محتویات پنجره قابل مشاهده را توصیف "
 "کنید.\""
 
-#: src/uagent/welcome.py:84
+#: src/uagent/welcome.py:82
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr "- \"یک گزارش خلاصه ماهانه از این فایل اکسل ایجاد کنید.\""
 
-#: src/uagent/welcome.py:85
+#: src/uagent/welcome.py:83
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"این PDF را بخوانید و سه نکته کلیدی را فهرست کنید.\""
 
-#: src/uagent/welcome.py:86
+#: src/uagent/welcome.py:84
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"جستجوی آخرین اخبار و خلاصه یک موضوع خاص.\""
 
-#: src/uagent/welcome.py:193
+#: src/uagent/welcome.py:191
 msgid "-- More -- (Enter: next) "
 msgstr "-- بیشتر -- (Enter: بعدی) "
 
