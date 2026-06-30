@@ -117,6 +117,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 
 - **How it works**: Each round has a main query (Step A) followed by a reviewer judgment (Step B) that decides "COMPLETE or CONTINUE?"
 - **Same provider, same API**: The reviewer judgment uses the identical code path as the main query — including Responses API support.
+- **Separate judge LLM** (optional): Set `UAGENT_AP_PROVIDER` to use a different provider/model for the reviewer (e.g. use a cheaper model for judging).
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 

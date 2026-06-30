@@ -68,6 +68,40 @@ Use `:auto off` to cancel before it starts, but use the **`x` key** to stop it w
 
 ---
 
+## Separate LLM for reviewer (optional)
+
+By default, the reviewer (Step B) uses the **same provider and model** as the main query (Step A).
+You can specify a **different LLM** for the reviewer via environment variables with the `UAGENT_AP_` prefix.
+
+Example: main = Claude, reviewer = OpenAI GPT-4o-mini
+
+```bash
+set UAGENT_PROVIDER=claude
+set UAGENT_CLAUDE_API_KEY=sk-ant-...
+set UAGENT_AP_PROVIDER=openai
+set UAGENT_AP_OPENAI_API_KEY=sk-...
+set UAGENT_AP_OPENAI_DEPNAME=gpt-4o-mini
+```
+
+Example: main = GPT-4o, reviewer = Gemini Flash (cheaper)
+
+```bash
+set UAGENT_PROVIDER=openai
+set UAGENT_OPENAI_API_KEY=sk-...
+set UAGENT_AP_PROVIDER=gemini
+set UAGENT_AP_GEMINI_API_KEY=AIza...
+set UAGENT_AP_GEMINI_DEPNAME=gemini-2.0-flash
+```
+
+How it works:
+
+- Set `UAGENT_AP_PROVIDER` to the desired reviewer provider.
+- Any `UAGENT_AP_*` variable is mapped to `UAGENT_*` (without `AP_`) when creating the reviewer client.
+- If `UAGENT_AP_PROVIDER` is not set, the reviewer uses the same LLM as the main query (default behavior).
+- Any provider supported by `make_client()` can be used; see [ENVIRONMENT.md](ENVIRONMENT.md) for provider-specific variables.
+
+---
+
 ## Tips
 
 ### Write specific goals

@@ -2287,6 +2287,31 @@ def _run_auto_pilot_loop(
     # Lazy import to avoid circular imports at module level
     from . import uagent_llm as llm_util
 
+    # Allow separate LLM for reviewer (created once before the loop)
+    _judge_provider = provider
+    _judge_client = client
+    _judge_depname = depname
+    _judge_override = env_get("UAGENT_AP_PROVIDER", "").strip()
+    if _judge_override:
+        _saved = {}
+        try:
+            _prefix = "UAGENT_AP_"
+            _std_prefix = "UAGENT_"
+            for _key, _val in os.environ.items():
+                if _key.startswith(_prefix):
+                    _std_key = _std_prefix + _key[len(_prefix):]
+                    _saved[_std_key] = os.environ.get(_std_key, "")
+                    os.environ[_std_key] = _val
+            _judge_provider, _judge_client, _judge_depname = make_client_fn(core)
+        except Exception:
+            pass
+        finally:
+            for _std_key, _orig_val in _saved.items():
+                if _orig_val:
+                    os.environ[_std_key] = _orig_val
+                else:
+                    os.environ.pop(_std_key, None)
+
     while True:
         # 1. x key exit check
         with core.auto_pilot_exit_lock:
@@ -2338,9 +2363,9 @@ def _run_auto_pilot_loop(
 
         # === Step B: Meta query (reviewer judgment) ===
         judgment = _ask_reviewer_judgment(
-            provider,
-            client,
-            depname,
+            _judge_provider,
+            _judge_client,
+            _judge_depname,
             messages,
             core,
             make_client_fn=make_client_fn,

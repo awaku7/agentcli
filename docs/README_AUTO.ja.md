@@ -69,6 +69,40 @@ Round 3: ... (以下繰り返し)
 
 ---
 
+## レビューアーに別のLLMを指定する（任意）
+
+デフォルトではレビューアー（Step B）はメインクエリ（Step A）と同じプロバイダ・モデルを使用します。
+`UAGENT_AP_` プレフィックスの環境変数で、レビューアーに別のLLMを指定できます。
+
+例：メイン = Claude、レビューアー = OpenAI GPT-4o-mini
+
+```bat
+set UAGENT_PROVIDER=claude
+set UAGENT_CLAUDE_API_KEY=sk-ant-...
+set UAGENT_AP_PROVIDER=openai
+set UAGENT_AP_OPENAI_API_KEY=sk-...
+set UAGENT_AP_OPENAI_DEPNAME=gpt-4o-mini
+```
+
+例：メイン = GPT-4o、レビューアー = Gemini Flash（安価）
+
+```bat
+set UAGENT_PROVIDER=openai
+set UAGENT_OPENAI_API_KEY=sk-...
+set UAGENT_AP_PROVIDER=gemini
+set UAGENT_AP_GEMINI_API_KEY=AIza...
+set UAGENT_AP_GEMINI_DEPNAME=gemini-2.0-flash
+```
+
+仕組み：
+
+- `UAGENT_AP_PROVIDER` にレビューアーに使いたいプロバイダを指定します。
+- `UAGENT_AP_*` 変数はレビューアークライアント作成時に `UAGENT_*`（`AP_` 除去）にマッピングされます。
+- `UAGENT_AP_PROVIDER` 未設定時は従来通りメインと同じLLMを使用します（デフォルト動作）。
+- `make_client()` が対応するすべてのプロバイダが利用可能です。各プロバイダ固有の変数は [ENVIRONMENT.md](../ENVIRONMENT.md) を参照してください。
+
+---
+
 ## 実践的な使い方のコツ
 
 ### 目標は具体的に書く
