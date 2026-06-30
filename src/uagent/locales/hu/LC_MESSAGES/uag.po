@@ -274,7 +274,7 @@ msgstr "(ismeretlen idő)"
 #: src/uagent/core.py:764
 #, python-format
 msgid "logs: showing %(shown)d/%(total)d (dir=%(dir)s)"
-msgstr "naplók: %(shown)d/%(összesen)d (dir=%(dir)s)"
+msgstr "naplók: %(shown)d/%(total)d (dir=%(dir)s)"
 
 #: src/uagent/core.py:767
 msgid "Log files:"
@@ -2204,7 +2204,7 @@ msgid ""
 "%(default)d)"
 msgstr ""
 "[clean] Érvénytelen argumentum: %(arg)r (adja meg a szám=küszöbértéket; az "
-"alapértelmezés %(alapértelmezett)d)"
+"alapértelmezés %(default)d)"
 
 #: src/uagent/util_tools.py:1391
 #, python-format

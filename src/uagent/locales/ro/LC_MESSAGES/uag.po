@@ -2212,7 +2212,7 @@ msgid ""
 "%(default)d)"
 msgstr ""
 "[curățați] Argument nevalid: %(arg)r (specificați numărul=prag; implicit "
-"este %(implicit)d)"
+"este %(default)d)"
 
 #: src/uagent/util_tools.py:1391
 #, python-format

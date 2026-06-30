@@ -940,7 +940,7 @@ msgid ""
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
-"[σφάλμα χρόνου εκτέλεσης εργαλείου] όνομα=%(όνομα)r err=%(etype)s: %(err)s\n"
+"[σφάλμα χρόνου εκτέλεσης εργαλείου] όνομα=%(name)r err=%(etype)s: %(err)s\n"
 "Traceback:\n"
 "%(tb)s"
 
@@ -2221,7 +2221,7 @@ msgid ""
 "%(default)d)"
 msgstr ""
 "[καθαρό] Μη έγκυρο όρισμα: %(arg)r (καθορίστε τον αριθμό = κατώφλι, η "
-"προεπιλογή είναι %(προεπιλογή)d)"
+"προεπιλογή είναι %(default)d)"
 
 #: src/uagent/util_tools.py:1391
 #, python-format

@@ -878,9 +878,9 @@ msgid ""
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
 msgstr ""
-"[RATE_LIMIT] үйлчилгээ үзүүлэгч=%(provider)s загвар=%(model)s "
-"байдал=%(status)s оролдлого=%(attempt)s/%(max_retries)s "
-"хүлээнэ=%(хүлээх_секунд)."
+"[RATE_LIMIT] үйлчилгээ үзүүлэгч=%(provider)s-ийн загвар=%(model)s-н "
+"байдал=%(status)s-н оролдлого=%(attempt)s/%(max_retries)s "
+"хүлээх=%(wait_seconds).1fs дахин оролдох_after=%(retry_after)ss"
 
 #: src/uagent/llm_flow_helpers.py:206
 msgid ""
