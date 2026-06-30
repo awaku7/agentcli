@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.5.30] - 2026-06-30
+
+### Added
+- Auto-pilot mode (`:auto` command) with judgment_mode, reviewer feedback propagation, and separate judge LLM via `UAGENT_AP_PROVIDER`.
+- Auto-pilot loop and Stop button integration in GUI/Web interface.
+- `pdf_export` tool: export conversation to PDF. Extend `:logs` with `pdf` subcommand.
+- `translate_text`: add `protect_placeholders` option to preserve printf specifiers during translation.
+
+### Fixed
+- Auto-pilot COMPLETE judgment delayed by one round.
+- Unterminated string literals in `util_tools.py` (print/_ calls split across lines).
+- `list_dir` paginate argument handling.
+- Restore broken printf specifiers in bn, el, hu, mn, ro locale files from Google Translate corruption.
+- Restore `%(feedback)s` pattern corrupted by Google Translate in all locale PO files.
+- Increase `max_tokens` for reviewer judgment from 10 to 50.
+
+### Changed
+- Skip `human_ask` during auto-pilot mode.
+- Refactor LLM client creation to once-per-loop pattern.
+- Convert all non-README.md documentation links to relative paths.
+
+### Documentation
+- Add workdir-relative-path note to system prompt.
+- Add `browser_playwright` hint to `fetch_url` tool description.
+- Add auto-pilot documentation (`AUTO_REVIEW.md`, `README_AUTO.md`, `docs/README_AUTO.ja.md`).
+
+### Chores
+- Apply ruff format to `tools/__init__.py` and `welcome.py`.
+- i18n: fill empty PO entries via translation across all locale files.
+
+
 ## [0.5.29] - 2026-06-29
 
 ### Added

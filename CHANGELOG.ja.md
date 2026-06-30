@@ -1,5 +1,36 @@
 # 変更履歴
 
+## [0.5.30] - 2026-06-30
+
+### 追加
+- オートパイロットモード（`:auto` コマンド）：判定モード、レビュアーフィードバック伝搬、`UAGENT_AP_PROVIDER` による独立した判定LLMをサポート。
+- GUI/Web インターフェースにオートパイロットループと Stop ボタンを統合。
+- `pdf_export` ツール：会話をPDFにエクスポート。`:logs` に `pdf` サブコマンドを追加。
+- `translate_text`：printf 指定子を翻訳時に保持する `protect_placeholders` オプションを追加。
+
+### 修正
+- オートパイロットの COMPLETE 判定が1ラウンド遅れる問題を修正。
+- `util_tools.py` の print/_ 呼び出し行分割による未終了文字列リテラルを修正。
+- `list_dir` の paginate 引数処理を修正。
+- Google翻訳で破損した bn, el, hu, mn, ro ロケールファイルの printf 指定子を復元。
+- Google翻訳で破損した全ロケールPOファイルの `%(feedback)s` パターンを復元。
+- レビュアー判定の `max_tokens` を 10 から 50 に増加。
+
+### 変更
+- オートパイロットモード中は `human_ask` をスキップ。
+- LLM クライアント生成を once-per-loop パターンにリファクタリング。
+- 非 README.md のドキュメントリンクをすべて相対パスに変換。
+
+### ドキュメント
+- システムプロンプトに workdir 相対パスに関する注記を追加。
+- `fetch_url` ツール説明に `browser_playwright` ヒントを追加。
+- オートパイロットドキュメント（`AUTO_REVIEW.md`、`README_AUTO.md`、`docs/README_AUTO.ja.md`）を追加。
+
+### その他
+- `tools/__init__.py` と `welcome.py` に ruff フォーマットを適用。
+- 全ロケールファイルの空のPOエントリを翻訳で補充（i18n更新）。
+
+
 ## [0.5.29] - 2026-06-29
 
 ### 追加
