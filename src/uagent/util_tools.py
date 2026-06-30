@@ -576,25 +576,65 @@ def _handle_cmd_ls(arg: str, *, tr: Any) -> bool:
 def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
     show_all = False
     limit = 10
+    export_pdf_index = None
 
     a = (arg or "").strip()
     if a:
-        low = a.lower()
-        if low in ("--all", "-a", "all"):
+        parts = a.split()
+        cmd = parts[0].lower()
+
+        if cmd == "pdf":
+            if len(parts) >= 2:
+                try:
+                    export_pdf_index = int(parts[1])
+                except ValueError:
+                    print(f"[logs] Invalid PDF index: '{parts[1]}'")
+                    return True
+            else:
+                print("[logs] Usage: :logs pdf <index> [output_path]")
+                return True
+        elif cmd in ("--all", "-a", "all"):
             show_all = True
         else:
             try:
-                limit = int(a)
+                limit = int(cmd)
             except Exception:
                 print(
                     tr(
-                        tr(
-                            "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-                        )
+                        "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf <index>)"
                     )
                     % {"arg": a}
                 )
                 return True
+
+    if export_pdf_index is not None:
+        files = core.find_log_files(exclude_current=True)
+        if not files:
+            print("[logs] No log files found.")
+            return True
+        if export_pdf_index < 0 or export_pdf_index >= len(files):
+            print(
+                f"[logs] Index {export_pdf_index} is out of range (0-{len(files) - 1})."
+            )
+            return True
+
+        log_path = files[export_pdf_index]
+        # If output path is provided as third argument, use it; else default to cwd
+        if len(parts) >= 3:
+            output_path = parts[2]
+        else:
+            # Strip "scheck_log_" prefix from filename for the default PDF name
+            basename = os.path.basename(log_path)
+            if basename.startswith("scheck_log_"):
+                basename = basename[len("scheck_log_"):]
+            output_path = os.path.join(os.getcwd(), basename + ".pdf")
+
+        # Call the pdf_export tool
+        from uagent.tools.pdf_export_tool import run_tool as pdf_export_run
+
+        result = pdf_export_run({"log_path": log_path, "output_path": output_path})
+        print(result)
+        return True
 
     core.list_logs(limit=limit, show_all=show_all)
     return True
@@ -2299,7 +2339,7 @@ def _run_auto_pilot_loop(
             _std_prefix = "UAGENT_"
             for _key, _val in os.environ.items():
                 if _key.startswith(_prefix):
-                    _std_key = _std_prefix + _key[len(_prefix):]
+                    _std_key = _std_prefix + _key[len(_prefix) :]
                     _saved[_std_key] = os.environ.get(_std_key, "")
                     os.environ[_std_key] = _val
             _judge_provider, _judge_client, _judge_depname = make_client_fn(core)

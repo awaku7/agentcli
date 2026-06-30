@@ -180,7 +180,7 @@ def run_tool(args: dict[str, Any]) -> str:
         return _("msg.empty_dir", default="(empty directory)")
 
     # Paginate
-    page_entries = paginate_results(all_entries, page=page, limit=limit)
+    page_entries = paginate_results(all_entries, page=page, max_results=limit)
 
     lines = [
         (
