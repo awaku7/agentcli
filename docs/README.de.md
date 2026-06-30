@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Lesen Sie dies in Ihrer Sprache</a>
+  <a href="README.translations.md">Lesen Sie dies in Ihrer Sprache</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Beim ersten Start führt Sie der Einrichtungsassistent durch die Anbieterkonfiguration.
-Alle Umgebungsvariablen finden Sie unter [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+Alle Umgebungsvariablen finden Sie unter [ENVIRONMENT.md](../ENVIRONMENT.md)).
 
 ## Funktionen
 
@@ -92,7 +92,7 @@ Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Überse
 | **GUI** | `uagg` | Desktop-Benutzeroberfläche über tkinter |
 | **Web** | `uagw` | Browserbasierter Zugriff |
 | **A2A-Server** | `uaga` | Agent2Agent-Protokoll für Multiagentenkommunikation |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 IoT-Gerätesteuerung
 
@@ -101,7 +101,7 @@ Schreibgeschützte Tools (Dateisuche, Hash-Berechnung, Verzeichnisliste, Überse
 - **Matter**: Nur-Lese-Inspektion der Controller-/Bridge-/Gerätetopologie
 - **UPnP**: Geräteerkennung und IGD-Portweiterleitung
 
-Siehe [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Siehe [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Marktplatz für Agentenkompetenzen
 
@@ -117,7 +117,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Batch-Statusmanager
 
@@ -156,9 +156,9 @@ Sie müssen beim Start nicht alles laden – aktivieren Sie nur das, was Sie bra
 ### 🌐 i18n / L10n
 
 日本語 / Englisch / 简体中文 / 繁體中文 / 한국어 / Spanisch / Französisch / Russisch / und mehr.
-Legen Sie „UAGENT_LANG“ fest, um zu wechseln. Siehe [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md), um ein neues Gebietsschema hinzuzufügen.
+Legen Sie „UAGENT_LANG“ fest, um zu wechseln. Siehe [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)), um ein neues Gebietsschema hinzuzufügen.
 
-Übersetzungen dieser README-Datei sind unter [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) verfügbar.
+Übersetzungen dieser README-Datei sind unter [docs/README.translations.md](README.translations.md)) verfügbar.
 
 ### 🔒 Verschlüsselte Umgebungsvariablen
 
@@ -167,12 +167,12 @@ Verwalten Sie mit „uag_envsec“.
 
 ## Konfiguration und Details
 
-- **Umgebungsvariablen**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Umgebungsvariablen**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Setup-Assistent**: `python -m uagent.setup_cli`
 - **Verschlüsselte Env**: „uag_envsec“ – „.env“ als „.env.sec“ verschlüsseln
 - **Antwort-API**: Legen Sie „UAGENT_RESPONSES=1“ für den Antwort-API-Modus fest (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Entwicklerdokumente**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Kleine LLM-Tipps**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Entwicklerdokumente**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Kleine LLM-Tipps**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Projektphilosophie
 

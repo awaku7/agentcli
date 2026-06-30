@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Baca ini dalam bahasa Anda</a>
+  <a href="README.translations.md">Baca ini dalam bahasa Anda</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Pada peluncuran pertama, wizard pengaturan memandu Anda melalui konfigurasi penyedia.
-Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) untuk semua variabel lingkungan.
+Lihat [ENVIRONMENT.md](../ENVIRONMENT.md)) untuk semua variabel lingkungan.
 
 ## Fitur
 
@@ -91,7 +91,7 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 | **GUI** | `uagg` | UI Desktop melalui tkinter |
 | **Jaringan** | `uagw` | Akses berbasis browser |
 | **Server A2A** | `uaga` | Protokol Agent2Agent untuk komunikasi multi-agen |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 Kontrol Perangkat IoT
 
@@ -100,7 +100,7 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 - **Materi**: Pemeriksaan topologi pengontrol/jembatan/perangkat hanya-baca
 - **UPnP**: Penemuan perangkat & penerusan port IGD
 
-Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Lihat [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Pasar Keterampilan Agen
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Manajer Status Batch
 
@@ -155,9 +155,9 @@ Tidak perlu memuat semuanya saat startup — aktifkan hanya yang Anda perlukan, 
 ### 🌐 i18n / L10n
 
 日本語 / Inggris / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / dan masih banyak lagi.
-Setel `UAGENT_LANG` untuk beralih. Lihat [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) untuk menambahkan lokal baru.
+Setel `UAGENT_LANG` untuk beralih. Lihat [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) untuk menambahkan lokal baru.
 
-Terjemahan README ini tersedia di [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Terjemahan README ini tersedia di [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Variabel Lingkungan Terenkripsi
 
@@ -166,12 +166,12 @@ Kelola dengan `uag_envsec`.
 
 ## Konfigurasi & Detail
 
-- **Variabel lingkungan**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Variabel lingkungan**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Wizard penyiapan**: `python -m uagent.setup_cli`
 - **Env terenkripsi**: `uag_envsec` — mengenkripsi `.env` sebagai `.env.sec`
 - **Responses API**: Setel `UAGENT_RESPONSES=1` untuk mode Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Dokumen pengembang**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Tips LLM kecil**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Dokumen pengembang**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Tips LLM kecil**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Filosofi Proyek
 

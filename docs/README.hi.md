@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">इसे अपनी भाषा में पढ़ें</a>
+  <a href="README.translations.md">इसे अपनी भाषा में पढ़ें</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 पहले लॉन्च पर, सेटअप विज़ार्ड आपको प्रदाता कॉन्फ़िगरेशन के बारे में बताता है।
-सभी पर्यावरण चर के लिए [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) देखें।
+सभी पर्यावरण चर के लिए [ENVIRONMENT.md](../ENVIRONMENT.md)) देखें।
 
 ## विशेषताएँ
 
@@ -91,7 +91,7 @@ uag
 | **जीयूआई** | `उअग्ग` | टिंकर के माध्यम से डेस्कटॉप यूआई |
 | **वेब** | `उगव` | ब्राउज़र-आधारित पहुंच |
 | **A2A सर्वर** | 'उगा' | मल्टी-एजेंट संचार के लिए Agent2Agent प्रोटोकॉल |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 IoT डिवाइस नियंत्रण
 
@@ -100,7 +100,7 @@ uag
 - **मामला**: कंट्रोलर/ब्रिज/डिवाइस टोपोलॉजी का रीड-ओनली निरीक्षण
 - **यूपीएनपी**: डिवाइस खोज और आईजीडी पोर्ट अग्रेषण
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md) देखें
+[IOT_USECASE.md](../IOT_USECASE.md)) देखें
 
 ### 🎯 एजेंट कौशल बाज़ार
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩बैच स्टेट मैनेजर
 
@@ -155,9 +155,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐 i18n / L10n
 
 日本語 / अंग्रेजी / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / और अधिक।
-स्विच करने के लिए `UAGENT_LANG` सेट करें। नया लोकेल जोड़ने के लिए [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) देखें।
+स्विच करने के लिए `UAGENT_LANG` सेट करें। नया लोकेल जोड़ने के लिए [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) देखें।
 
-इस README के ​​अनुवाद [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) पर उपलब्ध हैं।
+इस README के ​​अनुवाद [docs/README.translations.md](README.translations.md)) पर उपलब्ध हैं।
 
 ### 🔒 एन्क्रिप्टेड पर्यावरण चर
 
@@ -166,12 +166,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## कॉन्फ़िगरेशन और विवरण
 
-- **पर्यावरण चर**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **पर्यावरण चर**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **सेटअप विज़ार्ड**: `पायथन -एम uagent.setup_cli`
 - **एन्क्रिप्टेड एनवी**: `uag_envsec` - `.env` को `.env.sec` के रूप में एन्क्रिप्ट करें
 - **प्रतिक्रिया एपीआई**: प्रतिक्रिया एपीआई मोड के लिए `UAGENT_RESPONSES=1` सेट करें (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio / MiniMax / **Sakana AI (Fugu)**)
-- **डेवलपर दस्तावेज़**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **छोटे एलएलएम टिप्स**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **डेवलपर दस्तावेज़**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **छोटे एलएलएम टिप्स**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## परियोजना दर्शन
 

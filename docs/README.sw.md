@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Soma hii katika lugha yako</a>
+  <a href="README.translations.md">Soma hii katika lugha yako</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Katika uzinduzi wa kwanza, mchawi wa kusanidi hukutembeza kupitia usanidi wa mtoa huduma.
-Angalia [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) kwa anuwai zote za mazingira.
+Angalia [ENVIRONMENT.md](../ENVIRONMENT.md)) kwa anuwai zote za mazingira.
 
 ## Vipengele
 
@@ -91,7 +91,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 | **GUI** | `uagg` | UI ya Eneo-kazi kupitia tkinter |
 | **Mtandao** | `uagw` | Ufikiaji unaotegemea kivinjari |
 | **Seva ya A2A** | `uaga` | Itifaki ya Agent2Agent kwa mawasiliano ya mawakala wengi |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 Kidhibiti cha Kifaa cha IoT
 
@@ -100,7 +100,7 @@ Zana za kusoma pekee (kutafuta faili, kukokotoa heshi, kuorodhesha saraka, tafsi
 - **Jambo**: Ukaguzi wa kusoma tu wa kidhibiti/daraja/topolojia ya kifaa
 - **UPnP**: Ugunduzi wa kifaa na usambazaji wa mlango wa IGD
 
-Tazama [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Tazama [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Soko la Ujuzi wa Wakala
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Kidhibiti cha Jimbo la Kundi
 
@@ -155,9 +155,9 @@ Hakuna haja ya kupakia kila kitu wakati wa kuanza - wezesha tu kile unachohitaji
 ### 🌐 i18n / L10n
 
 Kiswahili / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / na zaidi.
-Weka `UAGENT_LANG` ili kubadili. Tazama [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) ili kuongeza lugha mpya.
+Weka `UAGENT_LANG` ili kubadili. Tazama [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) ili kuongeza lugha mpya.
 
-Tafsiri za README hii zinapatikana katika [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Tafsiri za README hii zinapatikana katika [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Vigezo vya Mazingira Vilivyosimbwa
 
@@ -166,12 +166,12 @@ Dhibiti ukitumia `uag_envsec`.
 
 ## Usanidi & Maelezo
 
-- **Vigeu vya mazingira**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Vigeu vya mazingira**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Mchawi wa kusanidi**: `python -m uagent.setup_cli`
 - **env iliyosimbwa kwa njia fiche**: `uag_envsec` — simba kwa njia fiche `.env` kama `.env.sec`
 - **API ya Majibu**: Weka `UAGENT_RESPONSES=1` kwa modi ya API ya Majibu (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Hati za Msanidi**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Vidokezo vidogo vya LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Hati za Msanidi**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Vidokezo vidogo vya LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Falsafa ya Mradi
 

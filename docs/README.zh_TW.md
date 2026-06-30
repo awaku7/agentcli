@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">用您的語言閱讀本文</a>
+  <a href="README.translations.md">用您的語言閱讀本文</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ````
 
 首次啟動時，設定精靈將引導您完成提供者設定。
-有關所有環境變量，請參閱 [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)。
+有關所有環境變量，請參閱 [ENVIRONMENT.md](../ENVIRONMENT.md))。
 
 ## 特點
 
@@ -91,7 +91,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **圖形使用者介面** | `uagg` |透過 tkinter 的桌面 UI |
 | **網頁** | `uagw` |基於瀏覽器的存取 |
 | **A2A 伺服器** | `uaga` |用於多代理通訊的Agent2Agent協定|
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 物聯網設備控制
 
@@ -100,7 +100,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **事項**：控制器/橋接器/設備拓樸的唯讀檢查
 - **UPnP**：設備發現和 IGD 連接埠轉發
 
-請參閱 [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+請參閱 [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 代理技能市場
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 批次狀態管理器
 
@@ -155,9 +155,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐 國際化 / 本土化
 
 日本文 / English / 簡體中文 / 繁體中文 / 한국어 / Español / Français / Русский / 等。
-設定`UAGENT_LANG`進行切換。請參閱 [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) 新增新的區域設定。
+設定`UAGENT_LANG`進行切換。請參閱 [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) 新增新的區域設定。
 
-本自述文件的翻譯可在 [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) 中找到。
+本自述文件的翻譯可在 [docs/README.translations.md](README.translations.md)) 中找到。
 
 ### 🔒 加密環境變量
 
@@ -166,12 +166,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## 配置和詳細信息
 
-- **環境變數**：[ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **環境變數**：[ENVIRONMENT.md](../ENVIRONMENT.md))
 - **設定精靈**：`python -m uagent.setup_cli`
 - **加密的 env**: `uag_envsec` — 將 `.env` 加密為 `.env.sec`
 - **回應 API**：為回應 API 模式設定「UAGENT_RESPONSES=1」（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）
-- **開發人員文件**：[DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **LLM小技巧**：[SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **開發人員文件**：[DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **LLM小技巧**：[SLM_TIPS.md](../SLM_TIPS.md))
 
 ## 專案理念
 

@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Läs detta på ditt språk</a>
+  <a href="README.translations.md">Läs detta på ditt språk</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Vid första lanseringen leder installationsguiden dig genom leverantörskonfigurationen.
-Se [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) för alla miljövariabler.
+Se [ENVIRONMENT.md](../ENVIRONMENT.md)) för alla miljövariabler.
 
 ## Funktioner
 
@@ -91,7 +91,7 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 | **GUI** | `uagg` | Desktop UI via tkinter |
 | **Webb** | `uagw` | Webbläsarbaserad åtkomst |
 | **A2A-server** | `uaga` | Agent2Agent-protokoll för multiagentkommunikation |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 IoT-enhetskontroll
 
@@ -100,7 +100,7 @@ Läsbara verktyg (filsökning, hashberäkning, kataloglistning, översättning, 
 - **Ärende**: Skrivskyddad inspektion av styrenhet/brygga/enhetstopologi
 - **UPnP**: Enhetsupptäckt och vidarebefordran av IGD-portar
 
-Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Se [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Agent Skills Marketplace
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Batch State Manager
 
@@ -155,9 +155,9 @@ Inget behov av att ladda allt vid start - aktivera bara det du behöver, när du
 ### 🌐 i18n / L10n
 
 日本語 / Engelska / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / och mer.
-Ställ in "UAGENT_LANG" för att byta. Se [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) för att lägga till ett nytt språk.
+Ställ in "UAGENT_LANG" för att byta. Se [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) för att lägga till ett nytt språk.
 
-Översättningar av denna README finns i [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Översättningar av denna README finns i [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Krypterade miljövariabler
 
@@ -166,12 +166,12 @@ Hantera med `uag_envsec`.
 
 ## Konfiguration och detaljer
 
-- **Miljövariabler**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Miljövariabler**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Installationsguide**: `python -m uagent.setup_cli`
 - **Krypterad env**: `uag_envsec` — kryptera `.env` som `.env.sec`
 - **Responses API**: Ställ in `UAGENT_RESPONSES=1` för Responses API-läge (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Utvecklardokument**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Små LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Utvecklardokument**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Små LLM-tips**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Projektfilosofi
 

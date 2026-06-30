@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">อ่านสิ่งนี้ในภาษาของคุณ</a>
+  <a href="README.translations.md">อ่านสิ่งนี้ในภาษาของคุณ</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 ในการเปิดตัวครั้งแรก วิซาร์ดการตั้งค่าจะแนะนำคุณเกี่ยวกับการกำหนดค่าผู้ให้บริการ
-ดู [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) สำหรับตัวแปรสภาพแวดล้อมทั้งหมด
+ดู [ENVIRONMENT.md](../ENVIRONMENT.md)) สำหรับตัวแปรสภาพแวดล้อมทั้งหมด
 
 ## คุณสมบัติ
 
@@ -91,7 +91,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **กุย** | `อูกก` | UI เดสก์ท็อปผ่าน tkinter |
 | **เว็บ** | `อู้วว` | การเข้าถึงผ่านเบราว์เซอร์ |
 | **เซิร์ฟเวอร์ A2A** | `อูก้า` | โปรโตคอล Agent2Agent สำหรับการสื่อสารหลายตัวแทน |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 การควบคุมอุปกรณ์ IoT
 
@@ -100,7 +100,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **เรื่อง**: การตรวจสอบโทโพโลยีตัวควบคุม/บริดจ์/อุปกรณ์แบบอ่านอย่างเดียว
 - **UPnP**: การค้นพบอุปกรณ์และการส่งต่อพอร์ต IGD
 
-ดู [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+ดู [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 ตลาดทักษะตัวแทน
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 ผู้จัดการกลุ่มรัฐ
 
@@ -155,9 +155,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐 i18n / L10n
 
 日本語 / อังกฤษ / 简体中文 / 繁體中文 / เกาหลี / Español / Français / Русский / และอื่นๆ
-ตั้งค่า `uagENT_LANG` เพื่อเปลี่ยน ดู [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) เพื่อเพิ่มภาษาใหม่
+ตั้งค่า `uagENT_LANG` เพื่อเปลี่ยน ดู [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) เพื่อเพิ่มภาษาใหม่
 
-คำแปลของ README นี้มีอยู่ใน [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md)
+คำแปลของ README นี้มีอยู่ใน [docs/README.translations.md](README.translations.md))
 
 ### 🔒 ตัวแปรสภาพแวดล้อมที่เข้ารหัส
 
@@ -166,12 +166,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## การกำหนดค่าและรายละเอียด
 
-- **ตัวแปรสภาพแวดล้อม**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **ตัวแปรสภาพแวดล้อม**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **วิซาร์ดการตั้งค่า**: `python -m uagent.setup_cli`
 - **env ที่เข้ารหัส**: `uag_envsec` — เข้ารหัส `.env` เป็น `.env.sec`
 - **Responses API**: ตั้งค่า `uagENT_RESPONSES=1` สำหรับโหมด Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **เอกสารสำหรับนักพัฒนา**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **เคล็ดลับ LLM ขนาดเล็ก**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **เอกสารสำหรับนักพัฒนา**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **เคล็ดลับ LLM ขนาดเล็ก**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## ปรัชญาโครงการ
 

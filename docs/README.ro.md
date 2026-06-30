@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Citiți acest lucru în limba dvs.</a>
+  <a href="README.translations.md">Citiți acest lucru în limba dvs.</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 La prima lansare, asistentul de configurare vă ghidează prin configurarea furnizorului.
-Consultați [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) pentru toate variabilele de mediu.
+Consultați [ENVIRONMENT.md](../ENVIRONMENT.md)) pentru toate variabilele de mediu.
 
 ## Caracteristici
 
@@ -91,7 +91,7 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 | **GUI** | `uagg` | Interfața de utilizare pentru desktop prin tkinter |
 | **Web** | `uagw` | Acces bazat pe browser |
 | **Server A2A** | `uaga` | Protocol Agent2Agent pentru comunicare multi-agent |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 Controlul dispozitivelor IoT
 
@@ -100,7 +100,7 @@ Instrumentele numai pentru citire (căutarea fișierelor, calculul hash, listare
 - **Materia**: inspecție numai în citire a topologiei controlerului/puntului/dispozitivului
 - **UPnP**: Descoperirea dispozitivului și redirecționarea portului IGD
 
-Vezi [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Vezi [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Piața abilităților de agenți
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Manager de stat lot
 
@@ -155,9 +155,9 @@ Nu este nevoie să încărcați totul la pornire - activați doar ceea ce aveți
 ### 🌐 i18n / L10n
 
 日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / și multe altele.
-Setați `UAGENT_LANG` pentru a comuta. Consultați [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) pentru a adăuga o nouă localitate.
+Setați `UAGENT_LANG` pentru a comuta. Consultați [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) pentru a adăuga o nouă localitate.
 
-Traducerile acestui README sunt disponibile în [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Traducerile acestui README sunt disponibile în [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Variabile de mediu criptate
 
@@ -166,12 +166,12 @@ Gestionați cu `uag_envsec`.
 
 ## Configurație și detalii
 
-- **Variabile de mediu**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Variabile de mediu**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Setup wizard**: `python -m uagent.setup_cli`
 - **Env criptat**: `uag_envsec` — criptează `.env` ca `.env.sec`
 - **Responses API**: setați `UAGENT_RESPONSES=1` pentru modul Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Documente pentru dezvoltatori**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Sfaturi mici LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Documente pentru dezvoltatori**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Sfaturi mici LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Filosofia proiectului
 

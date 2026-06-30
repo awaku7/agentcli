@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Đọc nội dung này bằng ngôn ngữ của bạn</a>
+  <a href="README.translations.md">Đọc nội dung này bằng ngôn ngữ của bạn</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Trong lần khởi chạy đầu tiên, trình hướng dẫn thiết lập sẽ hướng dẫn bạn cấu hình nhà cung cấp.
-Xem [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) để biết tất cả các biến môi trường.
+Xem [ENVIRONMENT.md](../ENVIRONMENT.md)) để biết tất cả các biến môi trường.
 
 ## Tính năng
 
@@ -91,7 +91,7 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 | **GUI** | `uagg` | Giao diện người dùng máy tính để bàn thông qua tkinter |
 | **Web** | `uagw` | Truy cập dựa trên trình duyệt |
 | **Máy chủ A2A** | `uaga` | Giao thức Agent2Agent cho giao tiếp đa tác nhân |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 Kiểm soát thiết bị IoT
 
@@ -100,7 +100,7 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 - **Vấn đề**: Kiểm tra chỉ đọc cấu trúc liên kết bộ điều khiển/cầu nối/thiết bị
 - **UPnP**: Phát hiện thiết bị & chuyển tiếp cổng IGD
 
-Xem [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Xem [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Thị trường kỹ năng đại lý
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Quản lý trạng thái hàng loạt
 
@@ -155,9 +155,9 @@ Không cần tải mọi thứ khi khởi động — chỉ kích hoạt những
 ### 🌐 i18n/L10n
 
 日本語 / Tiếng Anh / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / và hơn thế nữa.
-Đặt `UAGENT_LANG` để chuyển đổi. Xem [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) để thêm ngôn ngữ mới.
+Đặt `UAGENT_LANG` để chuyển đổi. Xem [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) để thêm ngôn ngữ mới.
 
-Bản dịch của README này có sẵn trong [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Bản dịch của README này có sẵn trong [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Biến môi trường được mã hóa
 
@@ -166,12 +166,12 @@ Quản lý bằng `uag_envsec`.
 
 ## Cấu hình & Chi tiết
 
-- **Biến môi trường**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Biến môi trường**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Trình hướng dẫn thiết lập**: `python -m uagent.setup_cli`
 - **Env được mã hóa**: `uag_envsec` — mã hóa `.env` thành `.env.sec`
 - **API phản hồi**: Đặt `UAGENT_RESPONSES=1` cho chế độ API phản hồi (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Tài liệu dành cho nhà phát triển**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Mẹo LLM nhỏ**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Tài liệu dành cho nhà phát triển**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Mẹo LLM nhỏ**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Triết lý dự án
 

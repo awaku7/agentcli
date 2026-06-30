@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Lue tämä omalla kielelläsi</a>
+  <a href="README.translations.md">Lue tämä omalla kielelläsi</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Ensimmäisen käynnistyksen yhteydessä ohjattu asennustoiminto opastaa sinua palveluntarjoajan määrittämisessä.
-Katso kaikki ympäristömuuttujat osoitteesta [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+Katso kaikki ympäristömuuttujat osoitteesta [ENVIRONMENT.md](../ENVIRONMENT.md)).
 
 ## Ominaisuudet
 
@@ -91,7 +91,7 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 | **GUI** | `uagg` | Työpöytäkäyttöliittymä tkinterin kautta |
 | **Web** | `uagw` | Selainpohjainen pääsy |
 | **A2A-palvelin** | `uaga` | Agent2Agent-protokolla usean agentin tietoliikenteeseen |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 IoT-laitteiden ohjaus
 
@@ -100,7 +100,7 @@ Vain luku -työkalut (tiedostohaku, hash-laskenta, hakemistolistaus, käännös,
 - **Matter**: Ohjaimen/sillan/laitteen topologian vain luku -tarkastus
 - **UPnP**: Laitteen etsintä ja IGD-portin edelleenlähetys
 
-Katso [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Katso [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Agent Skills Marketplace
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Erätilan johtaja
 
@@ -155,9 +155,9 @@ Kaikkea ei tarvitse ladata käynnistyksen yhteydessä – aktivoi vain tarvitsem
 ### 🌐 i18n / L10n
 
 日本語 / Englanti / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / ja paljon muuta.
-Aseta UAGENT_LANG vaihtaaksesi. Katso [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) lisätäksesi uuden kielen.
+Aseta UAGENT_LANG vaihtaaksesi. Katso [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) lisätäksesi uuden kielen.
 
-Tämän README:n käännökset ovat saatavilla osoitteessa [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Tämän README:n käännökset ovat saatavilla osoitteessa [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Salatut ympäristömuuttujat
 
@@ -166,12 +166,12 @@ Hallitse komennolla "uag_envsec".
 
 ## Kokoonpano ja tiedot
 
-- **Ympäristömuuttujat**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Ympäristömuuttujat**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Ohjattu asennustoiminto**: `python -m uagent.setup_cli`
 - **Salattu env**: `uag_envsec` — salaa `.env` muodossa `.env.sec`
 - **Responses API**: aseta `UAGENT_RESPONSES=1` Responses API -tilalle (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Kehittäjien asiakirjat**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Pienet LLM-vinkit**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Kehittäjien asiakirjat**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Pienet LLM-vinkit**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Projektifilosofia
 

@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Leia isto no seu idioma</a>
+  <a href="README.translations.md">Leia isto no seu idioma</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Na primeira inicialização, o assistente de configuração orienta você na configuração do provedor.
-Consulte [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) para todas as variáveis ​​de ambiente.
+Consulte [ENVIRONMENT.md](../ENVIRONMENT.md)) para todas as variáveis ​​de ambiente.
 
 ## Recursos
 
@@ -92,7 +92,7 @@ Ferramentas somente leitura (pesquisa de arquivos, cálculo de hash, listagem de
 | **GUI** | `uagg` | UI da área de trabalho via tkinter |
 | **Web** | `uagw` | Acesso baseado em navegador |
 | **Servidor A2A** | `uaga` | Protocolo Agent2Agent para comunicação multiagente |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 Controle de dispositivos IoT
 
@@ -101,7 +101,7 @@ Ferramentas somente leitura (pesquisa de arquivos, cálculo de hash, listagem de
 - **Matéria**: Inspeção somente leitura da topologia do controlador/ponte/dispositivo
 - **UPnP**: descoberta de dispositivos e encaminhamento de porta IGD
 
-Consulte [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Consulte [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Mercado de habilidades do agente
 
@@ -117,7 +117,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Gerenciador de estado em lote
 
@@ -156,9 +156,9 @@ Não há necessidade de carregar tudo na inicialização — ative apenas o que 
 ### 🌐i18n/L10n
 
 日本語 / Inglês / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / e muito mais.
-Defina `UAGENT_LANG` para alternar. Consulte [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) para adicionar uma nova localidade.
+Defina `UAGENT_LANG` para alternar. Consulte [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) para adicionar uma nova localidade.
 
-As traduções deste README estão disponíveis em [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+As traduções deste README estão disponíveis em [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Variáveis de ambiente criptografadas
 
@@ -167,12 +167,12 @@ Gerencie com `uag_envsec`.
 
 ## Configuração e detalhes
 
-- **Variáveis de ambiente**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Variáveis de ambiente**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Assistente de configuração**: `python -m uagent.setup_cli`
 - **Env criptografado**: `uag_envsec` — criptografar `.env` como `.env.sec`
 - **API de respostas**: defina `UAGENT_RESPONSES=1` para o modo API de respostas (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Documentos para desenvolvedores**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Pequenas dicas de LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Documentos para desenvolvedores**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Pequenas dicas de LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Filosofia do Projeto
 

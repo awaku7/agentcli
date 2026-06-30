@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">اقرأ هذا بلغتك</a>
+  <a href="README.translations.md">اقرأ هذا بلغتك</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 عند التشغيل لأول مرة، يرشدك معالج الإعداد عبر تكوين الموفر.
-راجع [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) للتعرف على جميع متغيرات البيئة.
+راجع [ENVIRONMENT.md](../ENVIRONMENT.md)) للتعرف على جميع متغيرات البيئة.
 
 ## الميزات
 
@@ -91,7 +91,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | ** واجهة المستخدم الرسومية ** | `واغ` | واجهة مستخدم سطح المكتب عبر tkinter |
 | **الويب** | `واجو` | الوصول عبر المتصفح |
 | **خادم A2A** | `واجا` | بروتوكول Agent2Agent للاتصال متعدد الوكلاء |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 التحكم في أجهزة إنترنت الأشياء
 
@@ -100,7 +100,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **المسألة**: فحص للقراءة فقط لهيكل وحدة التحكم/الجسر/الجهاز
 - **UPnP**: اكتشاف الجهاز وإعادة توجيه منفذ IGD
 
-راجع [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+راجع [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 سوق مهارات الوكيل
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 مدير حالة الدفعة
 
@@ -155,9 +155,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐i18n / L10n
 
 日本語 / الإنجليزية / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / والمزيد.
-اضبط "UAGENT_LANG" للتبديل. راجع [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) لإضافة لغة جديدة.
+اضبط "UAGENT_LANG" للتبديل. راجع [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) لإضافة لغة جديدة.
 
-تتوفر ترجمات هذا الملف التمهيدي في [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+تتوفر ترجمات هذا الملف التمهيدي في [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 متغيرات البيئة المشفرة
 
@@ -166,12 +166,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## التكوين والتفاصيل
 
-- **متغيرات البيئة**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **متغيرات البيئة**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **معالج الإعداد**: `python -m uagent.setup_cli`
 - **env المشفر**: `uag_envsec` — تشفير `.env` كـ `.env.sec`
 - **Responses API**: قم بتعيين `UAGENT_RESPONSES=1` لوضع واجهة API للاستجابات (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **مستندات المطورين**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **نصائح LLM الصغيرة**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **مستندات المطورين**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **نصائح LLM الصغيرة**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## فلسفة المشروع
 

@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Прочитайте це своєю мовою</a>
+  <a href="README.translations.md">Прочитайте це своєю мовою</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Під час першого запуску майстер налаштування проведе вас через налаштування постачальника.
-Перегляньте [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) для всіх змінних середовища.
+Перегляньте [ENVIRONMENT.md](../ENVIRONMENT.md)) для всіх змінних середовища.
 
 ## Особливості
 
@@ -91,7 +91,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | Інтерфейс робочого столу через tkinter |
 | **Веб** | `uagw` | Браузерний доступ |
 | **Сервер A2A** | `uaga` | Протокол Agent2Agent для мультиагентного зв'язку |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 Контроль пристроїв IoT
 
@@ -100,7 +100,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Matter**: перевірка топології контролера/мосту/пристрою лише для читання
 - **UPnP**: виявлення пристрою та переадресація портів IGD
 
-Перегляньте [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Перегляньте [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Ринок навичок агента
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Менеджер стану партії
 
@@ -155,9 +155,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐 i18n / L10n
 
 日本語 / англійська / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / тощо.
-Встановіть `UAGENT_LANG` для перемикання. Перегляньте [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md), щоб додати нову мову.
+Встановіть `UAGENT_LANG` для перемикання. Перегляньте [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)), щоб додати нову мову.
 
-Переклади цього README доступні в [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Переклади цього README доступні в [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Зашифровані змінні середовища
 
@@ -166,12 +166,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## Конфігурація та деталі
 
-- **Змінні середовища**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Змінні середовища**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Майстер налаштування**: `python -m uagent.setup_cli`
 - **Зашифроване env**: `uag_envsec` — зашифрувати `.env` як `.env.sec`
 - **Responses API**: установіть `UAGENT_RESPONSES=1` для режиму Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Документація розробника**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Невеликі поради LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Документація розробника**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Невеликі поради LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Філософія проекту
 

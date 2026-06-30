@@ -300,7 +300,7 @@ export class WsClient {
     private reconnectTimer: NodeJS.Timer | null = null;
 
     async connect(url: string, timeoutMs = 10000): Promise<void> {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve, reject) => {
             this.ws = new WebSocket(url);
             this.ws.onopen = () => {
                 this.startHeartbeat();
@@ -309,15 +309,15 @@ export class WsClient {
             this.ws.onmessage = (event) => this.onMessage(event);
             this.ws.onclose = () => this.onDisconnect();
             this.ws.onerror = () => reject(new Error('WebSocket connection failed'));
-            setTimeout(() => reject(new Error('Connection timeout')), timeoutMs);
+            setTimeout() => reject(new Error('Connection timeout')), timeoutMs);
         });
     }
 
     // 全メソッドの呼び出し口
     async call(method: string, params: any = {}): Promise<any> {
         const id = `req_${++this.seq}`;
-        return new Promise((resolve, reject) => {
-            const timer = setTimeout(() => {
+        return new Promise(resolve, reject) => {
+            const timer = setTimeout() => {
                 this.pending.delete(id);
                 reject(new Error(`Timeout: ${method}`));
             }, 30000);  // 30秒タイムアウト
@@ -333,12 +333,12 @@ export class WsClient {
     readFile(path: string): Promise<string> { ... }
 
     private startHeartbeat() {
-        setInterval(() => this.call('ping').catch(() => {}), 30000);
+        setInterval() => this.call('ping').catch() => {}), 30000);
     }
 
     private onDisconnect() {
         // 自動リコネクト (3秒後)
-        this.reconnectTimer = setTimeout(() => {
+        this.reconnectTimer = setTimeout() => {
             this.connect('ws://127.0.0.1:18765');
         }, 3000);
         vscode.window.showWarningMessage('uag: Connection lost. Reconnecting...');
@@ -462,7 +462,7 @@ export class EditorIntegration {
         });
 
         // 診断情報 (エラー) を検出 → uag に送信
-        vscode.languages.onDidChangeDiagnostics((e) => {
+        vscode.languages.onDidChangeDiagnostics(e) => {
             const editor = vscode.window.activeTextEditor;
             if (!editor) return;
             const diagnostics = vscode.languages.getDiagnostics(editor.document.uri);
@@ -1173,7 +1173,7 @@ VS Code のテーマ変更を検出し、Webview の見た目を自動追従:
 ```typescript
 // extension.ts
 context.subscriptions.push(
-    vscode.window.onDidChangeActiveColorTheme((theme) => {
+    vscode.window.onDidChangeActiveColorTheme(theme) => {
         ChatPanel.currentPanel?.postMessage({
             type: 'themeChanged',
             theme: theme.kind === vscode.ColorThemeKind.Dark ? 'dark' 
@@ -1255,14 +1255,14 @@ export class WsClient extends EventEmitter {
     private isConnected = false;
 
     async connect(url: string, timeoutMs = 10000): Promise<void> {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve, reject) => {
             try {
                 this.ws = new WebSocket(url);
             } catch (e) {
                 reject(e);
                 return;
             }
-            const timer = setTimeout(() => {
+            const timer = setTimeout() => {
                 this.ws?.close();
                 reject(new Error('Connection timeout'));
             }, timeoutMs);
@@ -1321,8 +1321,8 @@ export class WsClient extends EventEmitter {
             throw new Error('Not connected');
         }
         const id = `req_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-        return new Promise((resolve, reject) => {
-            const timer = setTimeout(() => {
+        return new Promise(resolve, reject) => {
+            const timer = setTimeout() => {
                 this.pendingCalls.delete(id);
                 reject(new Error(`Timeout: ${method} (${timeoutMs}ms)`));
             }, timeoutMs);
@@ -1342,8 +1342,8 @@ export class WsClient extends EventEmitter {
         );
         this.reconnectAttempts++;
         console.log(`Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts})`);
-        setTimeout(() => {
-            this.connect(url).catch(() => {
+        setTimeout() => {
+            this.connect(url).catch() => {
                 // 接続失敗は onclose で再度 scheduleReconnect が呼ばれる
             });
         }, delay);
@@ -1701,9 +1701,9 @@ html, body {
         btn.textContent = 'Copy';
         btn.addEventListener('click', () => {
             const code = preElement.querySelector('code')?.textContent || '';
-            navigator.clipboard.writeText(code).then(() => {
+            navigator.clipboard.writeText(code).then() => {
                 btn.textContent = 'Copied!';
-                setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+                setTimeout() => { btn.textContent = 'Copy'; }, 2000);
             });
         });
         preElement.style.position = 'relative';

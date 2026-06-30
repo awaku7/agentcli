@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">این را به زبان خود بخوانید</a>
+  <a href="README.translations.md">این را به زبان خود بخوانید</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 در اولین راه‌اندازی، جادوگر راه‌اندازی شما را از طریق پیکربندی ارائه‌دهنده راهنمایی می‌کند.
-برای همه متغیرهای محیطی به [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) مراجعه کنید.
+برای همه متغیرهای محیطی به [ENVIRONMENT.md](../ENVIRONMENT.md)) مراجعه کنید.
 
 ## ویژگی ها
 
@@ -91,7 +91,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | ** رابط کاربری گرافیکی ** | "uagg" | رابط کاربری دسکتاپ از طریق tkinter |
 | **وب** | "uagw" | دسترسی مبتنی بر مرورگر |
 | **سرور A2A** | `uaga` | پروتکل Agent2Agent برای ارتباط چند عاملی |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 کنترل دستگاه اینترنت اشیا
 
@@ -100,7 +100,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **موضوع**: بازرسی فقط خواندنی توپولوژی کنترلر/پل/دستگاه
 - **UPnP**: کشف دستگاه و ارسال پورت IGD
 
-[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md) را ببینید
+[IOT_USECASE.md](../IOT_USECASE.md)) را ببینید
 
 ### 🎯 بازار مهارت های نماینده
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Batch State Manager
 
@@ -155,9 +155,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐 i18n / L10n
 
 日本語 / انگلیسی / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / و بیشتر.
-«UAGENT_LANG» را برای جابجایی تنظیم کنید. برای افزودن محلی جدید به [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) مراجعه کنید.
+«UAGENT_LANG» را برای جابجایی تنظیم کنید. برای افزودن محلی جدید به [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) مراجعه کنید.
 
-ترجمه‌های این README در [docs/README.translations.md] (https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) موجود است.
+ترجمه‌های این README در [docs/README.translations.md] (README.translations.md)) موجود است.
 
 ### 🔒 متغیرهای محیطی رمزگذاری شده
 
@@ -166,12 +166,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## پیکربندی و جزئیات
 
-- **متغیرهای محیطی**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **متغیرهای محیطی**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **جادوگر راه اندازی**: `python -m uagent.setup_cli`
 - ** env رمزگذاری شده **: `uag_envsec` — رمزگذاری `.env` به عنوان `.env.sec`
 - **Responses API**: "UAGENT_RESPONSES=1" را برای حالت Responses API تنظیم کنید (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **اسناد برنامه‌نویس**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **نکات کوچک LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **اسناد برنامه‌نویس**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **نکات کوچک LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## فلسفه پروژه
 

@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Les dette på ditt språk</a>
+  <a href="README.translations.md">Les dette på ditt språk</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Ved første oppstart leder oppsettsveiviseren deg gjennom leverandørkonfigurasjonen.
-Se [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) for alle miljøvariabler.
+Se [ENVIRONMENT.md](../ENVIRONMENT.md)) for alle miljøvariabler.
 
 ## Funksjoner
 
@@ -92,7 +92,7 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 | **GUI** | `uagg` | Desktop UI via tkinter |
 | **Nett** | `uagw` | Nettleserbasert tilgang |
 | **A2A-server** | `uaga` | Agent2Agent-protokoll for multi-agent kommunikasjon |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 IoT-enhetskontroll
 
@@ -101,7 +101,7 @@ Skrivebeskyttede verktøy (filsøk, hash-beregning, katalogoppføring, oversette
 - **Materie**: Skrivebeskyttet inspeksjon av kontroller/bro/enhetstopologi
 - **UPnP**: Enhetsoppdagelse og videresending av IGD-porter
 
-Se [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Se [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Agent Skills Marketplace
 
@@ -117,7 +117,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Batch State Manager
 
@@ -156,9 +156,9 @@ Du trenger ikke å laste alt ved oppstart - aktiver bare det du trenger, når du
 ### 🌐 i18n / L10n
 
 日本語 / Engelsk / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / og mer.
-Sett «UAGENT_LANG» for å bytte. Se [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) for å legge til en ny lokalitet.
+Sett «UAGENT_LANG» for å bytte. Se [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) for å legge til en ny lokalitet.
 
-Oversettelser av denne README er tilgjengelig i [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Oversettelser av denne README er tilgjengelig i [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Krypterte miljøvariabler
 
@@ -167,12 +167,12 @@ Administrer med `uag_envsec`.
 
 ## Konfigurasjon og detaljer
 
-- **Miljøvariabler**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Miljøvariabler**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Oppsettsveiviser**: `python -m uagent.setup_cli`
 - **Kryptert env**: `uag_envsec` — krypter `.env` som `.env.sec`
 - **Responses API**: Sett `UAGENT_RESPONSES=1` for Responses API-modus (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Utviklerdokumenter**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Små LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Utviklerdokumenter**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Små LLM-tips**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Prosjektfilosofi
 

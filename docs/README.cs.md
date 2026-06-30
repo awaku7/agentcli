@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Přečtěte si toto ve svém jazyce</a>
+  <a href="README.translations.md">Přečtěte si toto ve svém jazyce</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Při prvním spuštění vás průvodce nastavením provede konfigurací poskytovatele.
-Všechny proměnné prostředí najdete na [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md).
+Všechny proměnné prostředí najdete na [ENVIRONMENT.md](../ENVIRONMENT.md)).
 
 ## Funkce
 
@@ -91,7 +91,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 | **GUI** | `uagg` | Desktop UI přes tkinter |
 | **Web** | `uagw` | Přístup na základě prohlížeče |
 | **Server A2A** | `uaga` | Agent2Agent protokol pro multi-agentní komunikaci |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 Ovládání zařízení IoT
 
@@ -100,7 +100,7 @@ Nástroje pouze pro čtení (prohledávání souborů, výpočet hashů, výpis 
 - **Záležitost**: Kontrola topologie řadiče/můstku/zařízení pouze pro čtení
 - **UPnP**: Zjištění zařízení a přesměrování portů IGD
 
-Viz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Viz [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Trh dovedností agentů
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Batch State Manager
 
@@ -155,9 +155,9 @@ Není třeba načítat vše při spuštění – aktivujte pouze to, co potřebu
 ### 🌐 i18n / L10n
 
 日本語 / anglicky / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / a další.
-Pro přepnutí nastavte `UAGENT_LANG`. Chcete-li přidat nové národní prostředí, přejděte na [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md).
+Pro přepnutí nastavte `UAGENT_LANG`. Chcete-li přidat nové národní prostředí, přejděte na [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)).
 
-Překlady tohoto README jsou k dispozici na [docs/README.translations.md] (https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Překlady tohoto README jsou k dispozici na [docs/README.translations.md] (README.translations.md)).
 
 ### 🔒 Šifrované proměnné prostředí
 
@@ -166,12 +166,12 @@ Spravujte pomocí `uag_envsec`.
 
 ## Konfigurace a podrobnosti
 
-- **Proměnné prostředí**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Proměnné prostředí**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Průvodce nastavením**: `python -m uagent.setup_cli`
 - **Šifrované env**: `uag_envsec` — šifrovat `.env` jako `.env.sec`
 - **Responses API**: Nastavte `UAGENT_RESPONSES=1` pro režim Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Dokumenty pro vývojáře**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Malé tipy LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Dokumenty pro vývojáře**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Malé tipy LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Filosofie projektu
 

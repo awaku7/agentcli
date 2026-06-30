@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Διαβάστε αυτό στη γλώσσα σας</a>
+  <a href="README.translations.md">Διαβάστε αυτό στη γλώσσα σας</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Κατά την πρώτη εκκίνηση, ο οδηγός εγκατάστασης σάς καθοδηγεί στη διαμόρφωση του παρόχου.
-Δείτε το [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) για όλες τις μεταβλητές περιβάλλοντος.
+Δείτε το [ENVIRONMENT.md](../ENVIRONMENT.md)) για όλες τις μεταβλητές περιβάλλοντος.
 
 ## Χαρακτηριστικά
 
@@ -91,7 +91,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | UI επιφάνειας εργασίας μέσω tkinter |
 | **Ιστός** | `uagw` | Πρόσβαση βάσει προγράμματος περιήγησης |
 | **Διακομιστής A2A** | `uaga` | Πρωτόκολλο Agent2Agent για επικοινωνία πολλαπλών πρακτόρων |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 Έλεγχος συσκευής IoT
 
@@ -100,7 +100,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Θέμα**: Επιθεώρηση μόνο για ανάγνωση της τοπολογίας ελεγκτή/γέφυρας/συσκευής
 - **UPnP**: Ανακάλυψη συσκευής και προώθηση θύρας IGD
 
-Δείτε το [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Δείτε το [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Agent Skills Marketplace
 
@@ -116,7 +116,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Διαχειριστής κατάστασης παρτίδας
 
@@ -155,9 +155,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐 i18n / L10n
 
 日本語 / Αγγλικά / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / και άλλα.
-Ρυθμίστε το "UAGENT_LANG" για εναλλαγή. Ανατρέξτε στο [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) για να προσθέσετε μια νέα τοπική ρύθμιση.
+Ρυθμίστε το "UAGENT_LANG" για εναλλαγή. Ανατρέξτε στο [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) για να προσθέσετε μια νέα τοπική ρύθμιση.
 
-Οι μεταφράσεις αυτού του README είναι διαθέσιμες στο [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Οι μεταφράσεις αυτού του README είναι διαθέσιμες στο [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Κρυπτογραφημένες μεταβλητές περιβάλλοντος
 
@@ -166,12 +166,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## Διαμόρφωση & Λεπτομέρειες
 
-- **Μεταβλητές περιβάλλοντος**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Μεταβλητές περιβάλλοντος**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Οδηγός εγκατάστασης**: `python -m uagent.setup_cli`
 - **Κρυπτογραφημένο env**: "uag_envsec" — κρυπτογράφηση ".env" ως ".env.sec"
 - **API Responses**: Ορίστε το "UAGENT_RESPONSES=1" για τη λειτουργία API Responses (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Έγγραφα προγραμματιστή**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Μικρές συμβουλές LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Έγγραφα προγραμματιστή**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Μικρές συμβουλές LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Φιλοσοφία έργου
 

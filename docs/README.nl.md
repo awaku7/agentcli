@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Lees dit in jouw taal</a>
+  <a href="README.translations.md">Lees dit in jouw taal</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Bij de eerste keer opstarten leidt de installatiewizard u door de providerconfiguratie.
-Zie [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) voor alle omgevingsvariabelen.
+Zie [ENVIRONMENT.md](../ENVIRONMENT.md)) voor alle omgevingsvariabelen.
 
 ## Kenmerken
 
@@ -92,7 +92,7 @@ Alleen-lezen tools (zoeken naar bestanden, hash-berekening, directorylijst, vert
 | **GUI** | `uagg` | Desktop-UI via tkinter |
 | **Web** | `uagw` | Browsergebaseerde toegang |
 | **A2A-server** | `uaga` | Agent2Agent-protocol voor communicatie met meerdere agenten |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 IoT-apparaatbeheer
 
@@ -101,7 +101,7 @@ Alleen-lezen tools (zoeken naar bestanden, hash-berekening, directorylijst, vert
 - **Kwestie**: alleen-lezen-inspectie van controller/bridge/apparaattopologie
 - **UPnP**: apparaatdetectie en IGD-poort doorsturen
 
-Zie [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Zie [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Marktplaats voor agentenvaardigheden
 
@@ -117,7 +117,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Batchstatusmanager
 
@@ -156,9 +156,9 @@ U hoeft niet alles te laden bij het opstarten; activeer alleen wat u nodig heeft
 ### 🌐 i18n / L10n
 
 日本語 / Engels / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / en meer.
-Stel `UAGENT_LANG` in om te schakelen. Zie [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) om een ​​nieuwe landinstelling toe te voegen.
+Stel `UAGENT_LANG` in om te schakelen. Zie [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) om een ​​nieuwe landinstelling toe te voegen.
 
-Vertalingen van deze README zijn beschikbaar in [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+Vertalingen van deze README zijn beschikbaar in [docs/README.translations.md](README.translations.md)).
 
 ### 🔒 Gecodeerde omgevingsvariabelen
 
@@ -167,12 +167,12 @@ Beheer met `uag_envsec`.
 
 ## Configuratie en details
 
-- **Omgevingsvariabelen**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Omgevingsvariabelen**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Installatiewizard**: `python -m uagent.setup_cli`
 - **Gecodeerde env**: `uag_envsec` — versleutel `.env` als `.env.sec`
 - **Responses API**: Stel `UAGENT_RESPONSES=1` in voor de Responses API-modus (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Ontwikkelaarsdocumentatie**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Kleine LLM-tips**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Ontwikkelaarsdocumentatie**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Kleine LLM-tips**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Projectfilosofie
 

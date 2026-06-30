@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">קרא את זה בשפה שלך</a>
+  <a href="README.translations.md">קרא את זה בשפה שלך</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 בהפעלה הראשונה, אשף ההגדרה ילווה אותך דרך תצורת הספק.
-ראה [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) עבור כל משתני הסביבה.
+ראה [ENVIRONMENT.md](../ENVIRONMENT.md)) עבור כל משתני הסביבה.
 
 ## תכונות
 
@@ -92,7 +92,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | ממשק משתמש שולחני באמצעות tkinter |
 | **אינטרנט** | `uagw` | גישה מבוססת דפדפן |
 | **שרת A2A** | `uaga` | פרוטוקול Agent2Agent לתקשורת מרובת סוכנים |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 בקרת מכשירי IoT
 
@@ -101,7 +101,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **עניין**: בדיקה לקריאה בלבד של טופולוגיה של בקר/גשר/מכשיר
 - **UPnP**: גילוי מכשירים והעברת יציאות IGD
 
-ראה [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+ראה [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Agent Skills Marketplace
 
@@ -117,7 +117,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 מנהל מצב אצווה
 
@@ -156,9 +156,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐 i18n / L10n
 
 日本語 / אנגלית / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / ועוד.
-הגדר את 'UAGENT_LANG' כדי לעבור. ראה [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) כדי להוסיף מקום חדש.
+הגדר את 'UAGENT_LANG' כדי לעבור. ראה [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) כדי להוסיף מקום חדש.
 
-תרגומים של README זה זמינים ב-[docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+תרגומים של README זה זמינים ב-[docs/README.translations.md](README.translations.md)).
 
 ### 🔒 משתני סביבה מוצפנים
 
@@ -167,12 +167,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## תצורה ופרטים
 
-- **משתני סביבה**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **משתני סביבה**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **אשף ההתקנה**: `python -m uagent.setup_cli`
 - **env מוצפן**: `uag_envsec` - הצפין `.env` בתור `.env.sec`
 - **Responses API**: הגדר 'UAGENT_RESPONSES=1' עבור מצב API של תגובות (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **מסמכי מפתח**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **טיפים קטנים LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **מסמכי מפתח**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **טיפים קטנים LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## פילוסופיית הפרויקט
 

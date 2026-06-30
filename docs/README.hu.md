@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Olvassa el az Ön nyelvén</a>
+  <a href="README.translations.md">Olvassa el az Ön nyelvén</a>
 </p>
 
 ---
@@ -44,7 +44,7 @@ uag
 ```
 
 Az első indításkor a telepítővarázsló végigvezeti a szolgáltató konfigurációján.
-Az összes környezeti változóhoz lásd az [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) webhelyet.
+Az összes környezeti változóhoz lásd az [ENVIRONMENT.md](../ENVIRONMENT.md)) webhelyet.
 
 ## Jellemzők
 
@@ -92,7 +92,7 @@ A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, 
 | **GUI** | "uagg" | Asztali felhasználói felület a tkinterrel |
 | **Web** | "uagw" | Böngésző alapú hozzáférés |
 | **A2A szerver** | "uaga" | Agent2Agent protokoll többügynökös kommunikációhoz |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
 
 ### 🏠 IoT-eszközvezérlés
 
@@ -101,7 +101,7 @@ A csak olvasható eszközök (fájlkeresés, hash számítás, könyvtárlista, 
 - **Matter**: A vezérlő/híd/eszköz topológia csak olvasható ellenőrzése
 - **UPnP**: Eszközfelderítés és IGD port továbbítás
 
-Lásd: [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
+Lásd: [IOT_USECASE.md](../IOT_USECASE.md))
 
 ### 🎯 Agent Skills Marketplace
 
@@ -117,7 +117,7 @@ uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for c
 - **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
 - **Configurable**: `--max-rounds N` to control the budget.
 
-See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
+See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 ### 🧩 Batch State Manager
 
@@ -156,9 +156,9 @@ Nem kell mindent betölteni indításkor – csak azt aktiválja, amire szüksé
 ### 🌐 i18n / L10n
 
 日本語 / angol / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / és így tovább.
-A váltáshoz állítsa be az „UAGENT_LANG” nyelvet. Az [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) oldalon új területi beállítást adhat hozzá.
+A váltáshoz állítsa be az „UAGENT_LANG” nyelvet. Az [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) oldalon új területi beállítást adhat hozzá.
 
-A README fordításai a [docs/README.translations.md] webhelyen érhetők el (https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
+A README fordításai a [docs/README.translations.md] webhelyen érhetők el (README.translations.md)).
 
 ### 🔒 Titkosított környezeti változók
 
@@ -167,12 +167,12 @@ Kezelje az "uag_envsec" segítségével.
 
 ## Konfiguráció és részletek
 
-- **Környezeti változók**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
+- **Környezeti változók**: [ENVIRONMENT.md](../ENVIRONMENT.md))
 - **Telepítő varázsló**: `python -m uagent.setup_cli`
 - **Titkosított env**: `uag_envsec` — `.env` titkosítása `.env.sec`-ként
 - **Responses API**: Állítsa be az "UAGENT_RESPONSES=1" értéket a Responses API módhoz (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Fejlesztői dokumentumok**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
-- **Kis LLM-tippek**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
+- **Fejlesztői dokumentumok**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
+- **Kis LLM-tippek**: [SLM_TIPS.md](../SLM_TIPS.md))
 
 ## Projektfilozófia
 
