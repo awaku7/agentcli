@@ -2331,6 +2331,7 @@ def _ask_reviewer_judgment(
     return judgment, feedback
 
 
+
 def _run_auto_pilot_loop(
     provider: str,
     client: Any,
@@ -2343,9 +2344,13 @@ def _run_auto_pilot_loop(
 ) -> None:
     """Auto-pilot main loop.
 
+    Step B (judgment) is performed FIRST to check the initial goal execution
+    done by the caller. If COMPLETE, the loop exits immediately -- no extra round.
+    Only if CONTINUE does Step A (followup refinement) run.
+
     1 round = 2 LLM calls:
-      Step A: Main query (continuation of review/analysis)
-      Step B: Meta query (reviewer judgment)
+      Step B: Reviewer judgment (evaluates previous work / initial goal)
+      Step A: Main query (continuation of review/analysis if not yet done)
     """
     # Lazy import to avoid circular imports at module level
     from . import uagent_llm as llm_util
@@ -2382,25 +2387,46 @@ def _run_auto_pilot_loop(
             if core.auto_pilot_exit_requested:
                 core.auto_pilot_exit_requested = False
                 core.auto_pilot_active = False
-                print(_("\n[AUTO] Exited by user (x key)."))
+                print(_("
+[AUTO] Exited by user (x key)."))
                 return
 
-        # 2. Max rounds check
+        # === Step B first: Reviewer judgment ===
+        # On the first iteration this judges the initial goal execution.
+        # On subsequent iterations this judges the followup from Step A.
+        judgment, feedback = _ask_reviewer_judgment(
+            _judge_provider,
+            _judge_client,
+            _judge_depname,
+            messages,
+            core,
+            make_client_fn=make_client_fn,
+        )
+
+        if judgment == "COMPLETE":
+            core.auto_pilot_active = False
+            print(_("
+[AUTO] Review/analysis completed."))
+            return
+
+        # 2. Max rounds check (after judgment to count actual followup rounds)
         core.auto_pilot_round += 1
         if core.auto_pilot_round > core.auto_pilot_max_rounds:
             core.auto_pilot_active = False
             print(
-                _("\n[AUTO] Max rounds (%(max)d) reached. Stopping.")
+                _("
+[AUTO] Max rounds (%(max)d) reached. Stopping.")
                 % {"max": core.auto_pilot_max_rounds}
             )
             return
 
-        # === Step A: Main query ===
+        # === Step A: Main query (refinement followup) ===
         next_prompt = _get_followup_prompt(core.auto_pilot_goal, feedback)
 
         core.set_status(True, "AUTO")
         print(
-            _("\n[AUTO] Round %(round)d/%(max)d")
+            _("
+[AUTO] Round %(round)d/%(max)d")
             % {"round": core.auto_pilot_round, "max": core.auto_pilot_max_rounds}
         )
 
@@ -2424,22 +2450,7 @@ def _run_auto_pilot_loop(
         )
 
         core.set_status(True, "AUTO")
-
-        # === Step B: Meta query (reviewer judgment) ===
-        judgment, feedback = _ask_reviewer_judgment(
-            _judge_provider,
-            _judge_client,
-            _judge_depname,
-            messages,
-            core,
-            make_client_fn=make_client_fn,
-        )
-
-        if judgment == "COMPLETE":
-            core.auto_pilot_active = False
-            print(_("\n[AUTO] Review/analysis completed."))
-            return
-        # CONTINUE → continue loop; feedback passed to next round
+        # Loop back to Step B (judgment) at the top
 
 
 def _handle_cmd_auto(
