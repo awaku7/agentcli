@@ -36,6 +36,9 @@ TOOL_SPEC: dict[str, Any] = {
             "http auth",
             "inject script",
             "resize viewport",
+            "fetch_url",
+            "http get",
+            "URL取得",
         ],
         "parameters": {
             "type": "object",

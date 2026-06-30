@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 10:59+0900\n"
+"POT-Creation-Date: 2026-06-30 14:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -81,7 +81,7 @@ msgstr ""
 "Η επιβεβαίωση αποστολής εικόνας απέτυχε. δεν θα στείλει εικόνες: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:709
+#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Αποτυχία επισύναψης εικόνας: %(path)s (%(etype)s: %(err)s)"
@@ -113,12 +113,12 @@ msgstr ""
 "αριθμών(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all,Enter=basic"
 " only):"
 
-#: src/uagent/cli_startup.py:69 src/uagent/web.py:983
+#: src/uagent/cli_startup.py:69 src/uagent/web.py:995
 msgid "Basic (env, time, prompts, skills, memory, tools control)"
 msgstr "Βασικό (env, χρόνος, προτροπές, δεξιότητες, μνήμη, έλεγχος εργαλείων)"
 
 #: src/uagent/cli_startup.py:73 src/uagent/cli_startup.py:94
-#: src/uagent/web.py:989
+#: src/uagent/web.py:1001
 msgid ""
 "File (create, delete, read, write, search, zip, rename, hash, grep, list "
 "dir)"
@@ -126,41 +126,41 @@ msgstr ""
 "Αρχείο (δημιουργία, διαγραφή, ανάγνωση, εγγραφή, αναζήτηση, zip,μετονομασία,"
 " κατακερματισμός, grep, κατάλογος dir)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1457
-#: src/uagent/web.py:995
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1507
+#: src/uagent/web.py:1007
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "Επικοινωνία (Ομάδες, Discord, Bluesky)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1462
-#: src/uagent/web.py:1000
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1512
+#: src/uagent/web.py:1012
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, εξαγωγή εγγράφων)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1468
-#: src/uagent/web.py:1006
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1518
+#: src/uagent/web.py:1018
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr ""
 "Ανάπτυξη (lint, δοκιμή, git, DB, στιγμιότυπο οθόνης, πρόγραμμα περιήγησης, "
 "δυαδικό, μεταγλώττιση)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1475
-#: src/uagent/web.py:1013
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1525
+#: src/uagent/web.py:1025
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, κάμερα, geo-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1481
-#: src/uagent/web.py:1019
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1531
+#: src/uagent/web.py:1031
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "Εκτέλεση (cmd, python, pwsh, bash, sub-agent)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1486
-#: src/uagent/web.py:1024
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1536
+#: src/uagent/web.py:1036
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "Εξωτερικό (A2A, MCP, ανάκτηση, αναζήτηση ιστού)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1491
-#: src/uagent/web.py:1029
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1541
+#: src/uagent/web.py:1041
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Μέσα (δημιουργία εικόνας/επεξεργασία/ανάλυση, ήχος, κωδικός QR)"
 
@@ -206,7 +206,7 @@ msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr ""
 "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] Απέτυχε η εφαρμογή της επιλογής εργαλείου εκκίνησης: %(err)s"
 
-#: src/uagent/cli_startup.py:275 src/uagent/web.py:1310
+#: src/uagent/cli_startup.py:275 src/uagent/web.py:1322
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Απέτυχε ο ορισμός κατεύθυνσης εργασίας: %(err)s"
@@ -221,7 +221,7 @@ msgstr "[FATAL] Απέτυχε η εκκίνηση uag_setup: %(err)s"
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "πάροχος = %(provider)s; μοντέλο = %(model)s"
 
-#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:561
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:562
 msgid "OpenRouter fallback models enabled."
 msgstr "Ενεργοποιήθηκαν εναλλακτικά μοντέλα OpenRouter."
 
@@ -230,11 +230,11 @@ msgstr "Ενεργοποιήθηκαν εναλλακτικά μοντέλα Ope
 msgid "current workdir = %(cwd)s"
 msgstr "τρέχουσα διαδρομή εργασίας = %(cwd)s"
 
-#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:584
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:585
 msgid "Loaded long-term memory."
 msgstr "Φορτωμένη μακροπρόθεσμη μνήμη."
 
-#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:597
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:598
 msgid "Loaded shared long-term memory."
 msgstr "Φορτωμένη κοινόχρηστη μακροπρόθεσμη μνήμη."
 
@@ -472,13 +472,13 @@ msgstr ""
 "- Συμβουλευτείτε τα διαθέσιμα εργαλεία και επιλέξτε το καταλληλότερο.\n"
 "- Κατά την εκτέλεση εργαλείων, αναθέστε όσο το δυνατόν λιγότερη λήψη αποφάσεων στον χρήστη."
 
-#: src/uagent/core.py:1685
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
 "- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
 "- If you need additional information or confirmation from the user, use the human_ask tool.\n"
 "- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile` to validate syntax.\n"
@@ -490,13 +490,14 @@ msgstr ""
 "- Για σκοπούς/επιχειρήματα/περιορισμούς/λειτουργικές λεπτομέρειες για συγκεκριμένο εργαλείο, προτιμήστε την περιγραφή κάθε εργαλείου.\n"
 "- Εάν χρειάζεστε πρόσθετες πληροφορίες ή επιβεβαίωση από τον χρήστη, χρησιμοποιήστε το εργαλείο human_ask.\n"
 "- Όταν χειρίζεστε τις σχετικές εκφράσεις ημερομηνίας, καλέστε get_current_time για να αναφέρετε την τρέχουσα ώρα.\n"
+"- Καθορίστε διαδρομές αρχείου σε σχέση με το workdir. Χρησιμοποιήστε απόλυτες διαδρομές μόνο για αρχεία εκτός του εργαστηρίου.\n"
 "- Μην αποθηκεύετε μυστικά (passwords/tokens) στη μακροπρόθεσμη μνήμη (add_long_memory, κ.λπ.).\n"
 "- Τα αρχεία με επιθήματα όπως .org / .org1 / .org2 είναι αντίγραφα ασφαλείας και δεν πρέπει να αντιμετωπίζονται ως κύρια επεξεργάσιμα αρχεία.\n"
 "- Εάν δημιουργείτε αρχεία Python, εκτελέστε το \"python -m py_compile\" για να επικυρώσετε τη σύνταξη.\n"
 "- Εάν απαιτούνται γνώσεις σε επίπεδο ειδικού, χρησιμοποιήστε πρότυπα προτροπής (Δεξιότητες αντιπροσώπων) και ακολουθήστε τα.\n"
 "- Εάν η εισαγωγή του χρήστη είναι μόνο μια σύντομη επιβεβαίωση και δεν προσθέτει νέες πληροφορίες, μην επαναλάβετε την ίδια εξήγηση εκτός εάν είναι μια άμεση απάντηση στην αμέσως προηγούμενη σαφή ερώτηση. Εάν χρειάζεται, ρωτήστε εν συντομία: \"Με ποιο σημείο να συνεχίσω;\""
 
-#: src/uagent/core.py:1697
+#: src/uagent/core.py:1698
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -512,7 +513,7 @@ msgstr ""
 "- Μόνο όταν ο χρήστης απαντήσει ρητά \"y\" ή \"ναι\" (ή ισοδύναμη ρητή έγκριση), εκτελέστε ξανά το delete_file με τις ίδιες παραμέτρους, dry_run=false, και confirmed=true.\n"
 "- Εάν υπάρχουν μηδέν υποψήφιοι, μην ρωτήσετε. απλά αναφέρετε ότι τίποτα δεν θα διαγραφεί."
 
-#: src/uagent/core.py:1705
+#: src/uagent/core.py:1706
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -528,7 +529,7 @@ msgstr ""
 "- Κατά τη δημιουργία αρχείων, εξάγετε το πλήρες τελικό περιεχόμενο (χωρίς διαφορές/μερικές περιλήψεις).\n"
 "- Μην βγάζετε αποτελέσματα εκτέλεσης ακατέργαστων εργαλείων, θραύσματα JSON ή αγκύλες (όπως `py]}`) στην τελική σας απάντηση. Διατηρήστε την έξοδο σας καθαρή και καλά διαμορφωμένη."
 
-#: src/uagent/core.py:1713
+#: src/uagent/core.py:1714
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -542,12 +543,12 @@ msgstr ""
 "- Να είστε δημιουργικοί, αλλά μην βγάζετε αβέβαιες πληροφορίες.\n"
 "- Αναθέστε όσο το δυνατόν λιγότερη λήψη αποφάσεων στον χρήστη."
 
-#: src/uagent/core.py:1720
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
 "- If required info/parameters are missing, ask via human_ask (do not guess).\n"
 "- Relative dates: call get_current_time.\n"
+"- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory.\n"
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
@@ -558,13 +559,14 @@ msgstr ""
 "- Όλα τα μηνύματα χρήστη προέρχονται από την τυπική είσοδο αυτού του σεναρίου.\n"
 "- Εάν λείπουν οι απαιτούμενες πληροφορίες/παράμετροι, ρωτήστε μέσω human_ask (μην μαντέψετε).\n"
 "- Σχετικές ημερομηνίες: κλήση get_current_time.\n"
+"- Καθορίστε διαδρομές αρχείου σε σχέση με το workdir. Χρησιμοποιήστε απόλυτες διαδρομές μόνο για αρχεία εκτός του εργαστηρίου.\n"
 "- Μην αποθηκεύετε μυστικά (passwords/tokens) στη μακροπρόθεσμη μνήμη.\n"
 "- Τα αρχεία με επιθήματα όπως .org / .org1 / .org2 είναι αντίγραφα ασφαλείας και δεν πρέπει να αντιμετωπίζονται ως κύρια επεξεργάσιμα αρχεία.\n"
 "- Εάν δημιουργείτε αρχεία Python, εκτελέστε το \"python -m py_compile\".\n"
 "- Εάν απαιτείται γνώση σε επίπεδο ειδικού, χρησιμοποιήστε πρότυπα προτροπής Agent Skills.\n"
 "- Εάν η εισαγωγή του χρήστη είναι μόνο μια σύντομη επιβεβαίωση και δεν προσθέτει νέες πληροφορίες, μην επαναλάβετε την ίδια εξήγηση εκτός εάν είναι μια άμεση απάντηση στην αμέσως προηγούμενη σαφή ερώτηση. Εάν χρειάζεται, ρωτήστε εν συντομία: \"Με ποιο σημείο να συνεχίσω;\""
 
-#: src/uagent/core.py:1733
+#: src/uagent/core.py:1735
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -574,7 +576,7 @@ msgstr ""
 "γραμμών χρησιμοποιώντας τη συνέχιση της γραμμής caret (^) και κρατήστε κάθε "
 "γραμμή σύντομη για να αποφύγετε τις αλλαγές γραμμής αντιγραφής/επικόλλησης."
 
-#: src/uagent/core.py:1800
+#: src/uagent/core.py:1802
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -1104,152 +1106,155 @@ msgstr ""
 "\\\"string\\\"}, _\\\"string\\\"}, "
 "_\\\"\\\"περιορισμοί\\\":[\\\"string\\\"]}"
 
-#: src/uagent/scheckgui.py:393
+#: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
 msgstr "Αποθέστε αρχεία/εικόνες εδώ"
 
-#: src/uagent/scheckgui.py:433
+#: src/uagent/scheckgui.py:434
 msgid "Download"
 msgstr "Λήψη"
 
-#: src/uagent/scheckgui.py:606
+#: src/uagent/scheckgui.py:607
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr ""
 "Παρουσιάστηκε εξαίρεση κατά τη φόρτωση της κοινόχρηστης μακροπρόθεσμης "
 "μνήμης: %(err)s"
 
-#: src/uagent/scheckgui.py:659
+#: src/uagent/scheckgui.py:672
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Συνημμένο αρχείο] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:744
+#: src/uagent/scheckgui.py:769
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[Συνημμένη εικόνα] %(path)s"
 
-#: src/uagent/scheckgui.py:746 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:771 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[Διαδρομή εικόνας] %(path)s"
 
-#: src/uagent/scheckgui.py:1062 src/uagent/scheckgui.py:1354
+#: src/uagent/scheckgui.py:1099 src/uagent/scheckgui.py:1404
 msgid "Welcome / Quick Guide"
 msgstr "Καλωσόρισμα / Γρήγορος οδηγός"
 
-#: src/uagent/scheckgui.py:1176
+#: src/uagent/scheckgui.py:1213
 msgid "Font size: %(name)s"
 msgstr "Μέγεθος γραμματοσειράς: %(name)s"
 
-#: src/uagent/scheckgui.py:1181
+#: src/uagent/scheckgui.py:1218
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (Εξαιρετική σταθερότητα)"
 
-#: src/uagent/scheckgui.py:1262
+#: src/uagent/scheckgui.py:1299
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Μπορείτε να επισυνάψετε αρχεία με μεταφορά και απόθεση"
 
-#: src/uagent/scheckgui.py:1290 src/uagent/scheckgui.py:1722
+#: src/uagent/scheckgui.py:1327 src/uagent/scheckgui.py:1781
 msgid "Attach files"
 msgstr "Επισύναψη αρχείων"
 
-#: src/uagent/scheckgui.py:1294
+#: src/uagent/scheckgui.py:1331
 msgid "■"
 msgstr "■"
 
-#: src/uagent/scheckgui.py:1297
+#: src/uagent/scheckgui.py:1334
 msgid "Stop generation"
 msgstr "Σταματήστε τη γενιά"
 
-#: src/uagent/scheckgui.py:1312
+#: src/uagent/scheckgui.py:1349
 msgid "Send"
 msgstr "Αποστολή"
 
-#: src/uagent/scheckgui.py:1352
+msgid "Stop auto-pilot"
+msgstr "Σταματήστε τον αυτόματο πιλότο"
+
+#: src/uagent/scheckgui.py:1402
 msgid "Help"
 msgstr "Βοήθεια"
 
-#: src/uagent/scheckgui.py:1368
+#: src/uagent/scheckgui.py:1418
 msgid "View"
 msgstr "Θέα"
 
-#: src/uagent/scheckgui.py:1374
+#: src/uagent/scheckgui.py:1424
 msgid "Font: %(name)s"
 msgstr "Γραμματοσειρά: %(name)s"
 
-#: src/uagent/scheckgui.py:1389
+#: src/uagent/scheckgui.py:1439
 msgid "Mode"
 msgstr "Λειτουργία"
 
-#: src/uagent/scheckgui.py:1392
+#: src/uagent/scheckgui.py:1442
 msgid "Reasoning: off"
 msgstr "Αιτιολογία: απενεργοποίηση"
 
-#: src/uagent/scheckgui.py:1395
+#: src/uagent/scheckgui.py:1445
 msgid "Reasoning: auto"
 msgstr "Αιτιολογία: auto"
 
-#: src/uagent/scheckgui.py:1397
+#: src/uagent/scheckgui.py:1447
 msgid "Reasoning: minimal"
 msgstr "Αιτιολογία: ελάχιστη"
 
-#: src/uagent/scheckgui.py:1399
+#: src/uagent/scheckgui.py:1449
 msgid "Reasoning: low"
 msgstr "Αιτιολογία: χαμηλή"
 
-#: src/uagent/scheckgui.py:1401
+#: src/uagent/scheckgui.py:1451
 msgid "Reasoning: medium"
 msgstr "Αιτιολογία: μέτρια"
 
-#: src/uagent/scheckgui.py:1403
+#: src/uagent/scheckgui.py:1453
 msgid "Reasoning: high"
 msgstr "Αιτιολογία: υψηλή"
 
-#: src/uagent/scheckgui.py:1406
+#: src/uagent/scheckgui.py:1456
 msgid "Reasoning: xhigh"
 msgstr "Αιτιολογία: xhigh"
 
-#: src/uagent/scheckgui.py:1411
+#: src/uagent/scheckgui.py:1461
 msgid "Verbosity: off"
 msgstr "Πολυγλωσσία: απενεργοποίηση"
 
-#: src/uagent/scheckgui.py:1413
+#: src/uagent/scheckgui.py:1463
 msgid "Verbosity: low"
 msgstr "Πολυγλωσσία: χαμηλή"
 
-#: src/uagent/scheckgui.py:1415
+#: src/uagent/scheckgui.py:1465
 msgid "Verbosity: medium"
 msgstr "Πολυγλωσσία: μέτρια"
 
-#: src/uagent/scheckgui.py:1417
+#: src/uagent/scheckgui.py:1467
 msgid "Verbosity: high"
 msgstr "Πολυγλωσσία: υψηλή"
 
-#: src/uagent/scheckgui.py:1444
+#: src/uagent/scheckgui.py:1494
 msgid "Tools"
 msgstr "Εργαλεία"
 
-#: src/uagent/scheckgui.py:1451
+#: src/uagent/scheckgui.py:1501
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Βασικό (αρχείο, env, χρόνος, προτροπές, δεξιότητες, μνήμη, έλεγχος "
 "εργαλείων)"
 
-#: src/uagent/scheckgui.py:1496
+#: src/uagent/scheckgui.py:1546
 msgid "File (read, write, search, delete, listing)"
 msgstr "Αρχείο (ανάγνωση, εγγραφή, αναζήτηση, διαγραφή, καταχώριση)"
 
-#: src/uagent/scheckgui.py:1501
+#: src/uagent/scheckgui.py:1551
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "Ευρετήριο (πλοήγηση πηγαίου κώδικα: py2idx, ts2idx, κ.λπ.)"
 
-#: src/uagent/scheckgui.py:1552
+#: src/uagent/scheckgui.py:1602
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[λειτουργία] συλλογισμός=%(mode)s"
 
-#: src/uagent/scheckgui.py:1556
+#: src/uagent/scheckgui.py:1606
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1257,52 +1262,52 @@ msgstr ""
 ":r [0|1|2|3|αυτόματο|ελάχιστο|έξοχο] (0=απενεργοποιημένο, 1=χαμηλό, 2=μέσο, "
 "3=υψηλό; αυτόματο/ελάχιστο/έξοχο)"
 
-#: src/uagent/scheckgui.py:1564
+#: src/uagent/scheckgui.py:1614
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[λειτουργία] πολυλεκτικότητα=%(mode)s"
 
-#: src/uagent/scheckgui.py:1566
+#: src/uagent/scheckgui.py:1616
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 ":v [0|1|2|3] (0=απενεργοποίηση, 1=χαμηλό, 2=μέσο, 3=υψηλό; χωρίς "
 "arg=διατήρηση)"
 
-#: src/uagent/scheckgui.py:1698
+#: src/uagent/scheckgui.py:1748
 msgid "Enter password..."
 msgstr "Εισαγάγετε κωδικό πρόσβασης..."
 
-#: src/uagent/scheckgui.py:1705
+#: src/uagent/scheckgui.py:1755
 msgid "Enter a message..."
 msgstr "Εισαγάγετε ένα μήνυμα..."
 
-#: src/uagent/scheckgui.py:1724
+#: src/uagent/scheckgui.py:1783
 msgid "All Files (*)"
 msgstr "Όλα τα αρχεία (*)"
 
-#: src/uagent/scheckgui.py:1976
+#: src/uagent/scheckgui.py:2035
 msgid "cannot read image"
 msgstr "δεν μπορεί να διαβάσει την εικόνα"
 
-#: src/uagent/scheckgui.py:2127 src/uagent/scheckgui.py:2167
-#: src/uagent/scheckgui.py:2202
+#: src/uagent/scheckgui.py:2186 src/uagent/scheckgui.py:2226
+#: src/uagent/scheckgui.py:2261
 msgid "Downloaded to"
 msgstr "Έγινε λήψη σε"
 
-#: src/uagent/scheckgui.py:2221
+#: src/uagent/scheckgui.py:2280
 msgid "Playing"
 msgstr "Παίζοντας"
 
-#: src/uagent/scheckgui.py:2231
+#: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "Σταμάτησε"
 
-#: src/uagent/scheckgui.py:2290
+#: src/uagent/scheckgui.py:2356
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[ΑΠΑΝΤΗΣΗ] > %(text)s"
 
-#: src/uagent/scheckgui.py:2297
+#: src/uagent/scheckgui.py:2363
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[ΧΡΗΣΤΗΣ] %(text)s"
@@ -2027,7 +2032,7 @@ msgstr ""
 "Μη διαδραστική λειτουργία. Μην ξεκινήσετε το βρόχο stdin. έξοδος μετά την "
 "επεξεργασία του αρχείου εκκίνησης (εάν υπάρχει)."
 
-#: src/uagent/util_tools.py:230 src/uagent/web.py:1268
+#: src/uagent/util_tools.py:230 src/uagent/web.py:1280
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
@@ -2037,13 +2042,13 @@ msgstr ""
 "εργαλείου(1=βασικό,2=comm,4=office,8=devel,16=iot,32=exec,64=εξωτερικό,128=μέσα,256=αρχείο,512=ευρετήριο,1023=όλα).Παραλείπει"
 " τη διαδραστική προτροπή είδους όταν καθορίζεται."
 
-#: src/uagent/util_tools.py:238 src/uagent/web.py:1276
+#: src/uagent/util_tools.py:238 src/uagent/web.py:1288
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Ενεργοποίηση αποστολής εργαλείου στο LLM (αντικαθιστά το UAGENT_USE_TOOL env"
 " var)."
 
-#: src/uagent/util_tools.py:245 src/uagent/web.py:1283
+#: src/uagent/util_tools.py:245 src/uagent/web.py:1295
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Απενεργοποιήστε την αποστολή εργαλείου στο LLM (αντικαθιστά το "
@@ -2072,96 +2077,97 @@ msgstr "άκυρη συλλογιστική"
 msgid "invalid verbosity"
 msgstr "άκυρη πολυλογία"
 
-#: src/uagent/util_tools.py:592
-#, python-format
-msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
+msgid ""
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
+"<index>)"
 msgstr ""
-"[καταγραφή] Μη έγκυρο όρισμα: %(arg)r (καθορίστε όλα / --όλα / -a / αριθμό)"
+"[καταγραφή] Μη έγκυρο όρισμα: %(arg)r (καθορίστε όλα / --όλα / -a / αριθμός "
+"/ pdf <index>)"
 
-#: src/uagent/util_tools.py:639
+#: src/uagent/util_tools.py:679
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "απέτυχε να αναλύσει τα ορίσματα: %(err)s"
 
-#: src/uagent/util_tools.py:642
+#: src/uagent/util_tools.py:682
 msgid "missing arguments"
 msgstr "λείπουν επιχειρήματα"
 
-#: src/uagent/util_tools.py:659
+#: src/uagent/util_tools.py:699
 msgid "src and dst are required"
 msgstr "src και dst απαιτούνται"
 
-#: src/uagent/util_tools.py:684
+#: src/uagent/util_tools.py:724
 #, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--αντικατάσταση] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:691 src/uagent/util_tools.py:748
+#: src/uagent/util_tools.py:731 src/uagent/util_tools.py:788
 #, python-format
 msgid "[cp error] %(etype)s: %(err)s"
 msgstr "[σφάλμα cp] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:701
+#: src/uagent/util_tools.py:741
 #, python-format
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr "[cp] Η πηγή και ο προορισμός είναι τα ίδια: %(path)s"
 
-#: src/uagent/util_tools.py:707
+#: src/uagent/util_tools.py:747
 #, python-format
 msgid "[cp] Source does not exist: %(path)s"
 msgstr "[cp] Η πηγή δεν υπάρχει: %(path)s"
 
-#: src/uagent/util_tools.py:714 src/uagent/util_tools.py:726
+#: src/uagent/util_tools.py:754 src/uagent/util_tools.py:766
 #, python-format
 msgid "[cp] Destination already exists: %(path)s"
 msgstr "[cp] Ο προορισμός υπάρχει ήδη: %(path)s"
 
-#: src/uagent/util_tools.py:735
+#: src/uagent/util_tools.py:775
 #, python-format
 msgid "[cp] Destination parent does not exist: %(path)s"
 msgstr "[cp] Ο γονικός προορισμός δεν υπάρχει: %(path)s"
 
-#: src/uagent/util_tools.py:742
+#: src/uagent/util_tools.py:782
 #, python-format
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Αντιγράφηκε: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:756
+#: src/uagent/util_tools.py:796
 #, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--αντικατάσταση] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:763 src/uagent/util_tools.py:807
+#: src/uagent/util_tools.py:803 src/uagent/util_tools.py:847
 #, python-format
 msgid "[mv error] %(etype)s: %(err)s"
 msgstr "[σφάλμα mv] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:773
+#: src/uagent/util_tools.py:813
 #, python-format
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] Η πηγή και ο προορισμός είναι τα ίδια: %(path)s"
 
-#: src/uagent/util_tools.py:779
+#: src/uagent/util_tools.py:819
 #, python-format
 msgid "[mv] Source does not exist: %(path)s"
 msgstr "[mv] Η πηγή δεν υπάρχει: %(path)s"
 
-#: src/uagent/util_tools.py:785
+#: src/uagent/util_tools.py:825
 #, python-format
 msgid "[mv] Destination already exists: %(path)s"
 msgstr "[mv] Ο προορισμός υπάρχει ήδη: %(path)s"
 
-#: src/uagent/util_tools.py:795
+#: src/uagent/util_tools.py:835
 #, python-format
 msgid "[mv] Destination parent does not exist: %(path)s"
 msgstr "[mv] Ο γονικός προορισμός δεν υπάρχει: %(path)s"
 
-#: src/uagent/util_tools.py:802
+#: src/uagent/util_tools.py:842
 #, python-format
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Μετακινήθηκε: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:1045
+#: src/uagent/util_tools.py:1085
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -2173,11 +2179,11 @@ msgstr ""
 "Εάν η δεξιότητα περιέχει εργασίες, συνεχίστε μέχρι να ολοκληρωθούν.\n"
 "Χρησιμοποιήστε εργαλεία όπως χρειάζεται."
 
-#: src/uagent/util_tools.py:1052
+#: src/uagent/util_tools.py:1092
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Όταν τελειώσετε, καλείτε πάντα το \"finish_skill\" εάν είναι διαθέσιμο."
 
-#: src/uagent/util_tools.py:1204
+#: src/uagent/util_tools.py:1244
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -2187,7 +2193,7 @@ msgstr ""
 "Συμβουλή: : σαφείς δεξιότητες (καταργήστε τις εφαρμοσμένες δεξιότητες)\n"
 "Εισαγάγετε αριθμό:"
 
-#: src/uagent/util_tools.py:1240
+#: src/uagent/util_tools.py:1280
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -2204,7 +2210,7 @@ msgstr ""
 "\n"
 "Συνέχεια; Πληκτρολογήστε y για εκτέλεση ή c για ακύρωση."
 
-#: src/uagent/util_tools.py:1302
+#: src/uagent/util_tools.py:1342
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -2213,7 +2219,7 @@ msgstr ""
 "[καθαρό] Μη έγκυρο όρισμα: %(arg)r (καθορίστε τον αριθμό = κατώφλι, η "
 "προεπιλογή είναι %(προεπιλογή)d)"
 
-#: src/uagent/util_tools.py:1351
+#: src/uagent/util_tools.py:1391
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -2230,12 +2236,12 @@ msgstr ""
 "\n"
 "Συνέχεια; Πληκτρολογήστε y για εκτέλεση ή c για ακύρωση."
 
-#: src/uagent/util_tools.py:1419
+#: src/uagent/util_tools.py:1459
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr "- (%(count)d μηνύματα) %(path)s"
 
-#: src/uagent/util_tools.py:1449
+#: src/uagent/util_tools.py:1489
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -2252,7 +2258,7 @@ msgstr ""
 "\n"
 "Συνέχεια; Πληκτρολογήστε y για εκτέλεση ή c για ακύρωση."
 
-#: src/uagent/util_tools.py:1580
+#: src/uagent/util_tools.py:1620
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -2267,24 +2273,24 @@ msgstr ""
 "\n"
 "Πληκτρολογήστε y για να συνεχίσετε ή c για ακύρωση."
 
-#: src/uagent/util_tools.py:1635
+#: src/uagent/util_tools.py:1675
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "Ο καθορισμένος δείκτης %(idx)d είναι εκτός εύρους."
 
-#: src/uagent/util_tools.py:1644
+#: src/uagent/util_tools.py:1684
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "Το αρχείο καταγραφής δεν βρέθηκε: %(path)s"
 
-#: src/uagent/util_tools.py:1738
+#: src/uagent/util_tools.py:1778
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[Σφάλμα συρρίκνωσης] Απέτυχε η ανάλυση ως int: %(arg)r -> διατήρηση της "
 "τελευταίας %(keep)d"
 
-#: src/uagent/util_tools.py:1766
+#: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -2292,7 +2298,7 @@ msgstr ""
 "[shrink_llm error] Απέτυχε η ανάλυση ως int: %(arg)r -> διατήρηση του "
 "τελευταίου %(keep)d"
 
-#: src/uagent/util_tools.py:1859 src/uagent/util_tools.py:1953
+#: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -2300,57 +2306,57 @@ msgstr ""
 "Η κοινόχρηστη μακροπρόθεσμη μνήμη δεν είναι ενεργοποιημένη (δεν έχει οριστεί"
 " το UAGENT_SHARED_MEMORY_FILE)."
 
-#: src/uagent/util_tools.py:1900
+#: src/uagent/util_tools.py:1940
 msgid "Analyzing the most recent %d log files to generate user profile..."
 msgstr ""
 "Ανάλυση των πιο πρόσφατων αρχείων καταγραφής %d για τη δημιουργία προφίλ "
 "χρήστη..."
 
-#: src/uagent/util_tools.py:1904
+#: src/uagent/util_tools.py:1944
 msgid "Analyzing past logs to generate user profile..."
 msgstr ""
 "Ανάλυση προηγούμενων αρχείων καταγραφής για τη δημιουργία προφίλ χρήστη..."
 
-#: src/uagent/util_tools.py:1908
+#: src/uagent/util_tools.py:1948
 msgid "No past logs found or failed to generate profile."
 msgstr ""
 "Δεν βρέθηκαν προηγούμενα αρχεία καταγραφής ή απέτυχε η δημιουργία προφίλ."
 
-#: src/uagent/util_tools.py:1910
+#: src/uagent/util_tools.py:1950
 msgid "User profile generated successfully from past logs!"
 msgstr ""
 "Το προφίλ χρήστη δημιουργήθηκε με επιτυχία από προηγούμενα αρχεία "
 "καταγραφής!"
 
-#: src/uagent/util_tools.py:1922
+#: src/uagent/util_tools.py:1962
 msgid "No user profile data found."
 msgstr "Δεν βρέθηκαν δεδομένα προφίλ χρήστη."
 
-#: src/uagent/util_tools.py:1925
+#: src/uagent/util_tools.py:1965
 msgid "User Profile:"
 msgstr "Προφίλ χρήστη:"
 
-#: src/uagent/util_tools.py:1937
+#: src/uagent/util_tools.py:1977
 msgid "User profile cleared successfully."
 msgstr "Το προφίλ χρήστη διαγράφηκε με επιτυχία."
 
-#: src/uagent/util_tools.py:1941
+#: src/uagent/util_tools.py:1981
 msgid "No user profile file found to clear."
 msgstr "Δεν βρέθηκε αρχείο προφίλ χρήστη για εκκαθάριση."
 
-#: src/uagent/util_tools.py:2004
+#: src/uagent/util_tools.py:2044
 msgid "Show this help"
 msgstr "Δείξτε αυτή τη βοήθεια"
 
-#: src/uagent/util_tools.py:2005
+#: src/uagent/util_tools.py:2045
 msgid "Restart input from the beginning"
 msgstr "Επανεκκινήστε την εισαγωγή από την αρχή"
 
-#: src/uagent/util_tools.py:2006
+#: src/uagent/util_tools.py:2046
 msgid "Show log file list"
 msgstr "Εμφάνιση λίστας αρχείων καταγραφής"
 
-#: src/uagent/util_tools.py:2009
+#: src/uagent/util_tools.py:2049
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -2358,27 +2364,27 @@ msgstr ""
 "Αλλάξτε το πρόγραμμα εργασίας χωρίς επιβεβαίωση (π.χ. :cd .. / :cd ~ / :cd "
 "C:\\path / :cd /)"
 
-#: src/uagent/util_tools.py:2012
+#: src/uagent/util_tools.py:2052
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "Εγγραφές καταλόγου λίστας (π.χ. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:2015
+#: src/uagent/util_tools.py:2055
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "Διαχειριστείτε το UAGENT_* env vars και αποθηκεύστε το .env.sec"
 
-#: src/uagent/util_tools.py:2017
+#: src/uagent/util_tools.py:2057
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "Διαχείριση/εφαρμογή δεξιοτήτων (π.χ. :skills / :skills active / :skills "
 "clear)"
 
-#: src/uagent/util_tools.py:2024
+#: src/uagent/util_tools.py:2064
 msgid "Load a past log (overwrites current conversation history)"
 msgstr ""
 "Φόρτωση προηγούμενου αρχείου καταγραφής (αντικαθιστά το τρέχον ιστορικό "
 "συνομιλιών)"
 
-#: src/uagent/util_tools.py:2026
+#: src/uagent/util_tools.py:2066
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -2388,7 +2394,7 @@ msgstr ""
 "φορτωμένο αρχείο καταγραφής προσαρτάται στο τρέχον αρχείο καταγραφής "
 "συνεδρίας (αντικατάσταση, χωρίς αντίγραφο ασφαλείας)."
 
-#: src/uagent/util_tools.py:2030
+#: src/uagent/util_tools.py:2070
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -2397,14 +2403,14 @@ msgstr ""
 "των μηνυμάτων χρήστη/βοηθού/εργαλείου (εξαιρουμένου του συστήματος) είναι <="
 " N (προεπιλογή=10)"
 
-#: src/uagent/util_tools.py:2034
+#: src/uagent/util_tools.py:2074
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Συρρίκνωση ιστορικού συνομιλιών (διατήρηση των τελευταίων N μηνυμάτων εκτός "
 "συστήματος, προεπιλογή=40)"
 
-#: src/uagent/util_tools.py:2038
+#: src/uagent/util_tools.py:2078
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -2413,92 +2419,92 @@ msgstr ""
 "σε 1 μήνυμα συστήματος, διατηρήστε το τελευταίο N ακατέργαστο, "
 "προεπιλογή=20)"
 
-#: src/uagent/util_tools.py:2041
+#: src/uagent/util_tools.py:2081
 msgid "Show the current approximate token count of the conversation"
 msgstr ""
 "Εμφάνιση του τρέχοντος κατά προσέγγιση αριθμού διακριτικών της συνομιλίας"
 
-#: src/uagent/util_tools.py:2042
+#: src/uagent/util_tools.py:2082
 msgid "List long-term memory notes"
 msgstr "Καταγράψτε σημειώσεις μακροπρόθεσμης μνήμης"
 
-#: src/uagent/util_tools.py:2044
+#: src/uagent/util_tools.py:2084
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr ""
 "Διαγραφή σημείωσης μακροπρόθεσμης μνήμης ανά ευρετήριο (δείτε :mem-list)"
 
-#: src/uagent/util_tools.py:2046
+#: src/uagent/util_tools.py:2086
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr ""
 "Εμφάνιση του μαθημένου προφίλ χρήστη ή δημιουργία του από προηγούμενα αρχεία"
 " καταγραφής"
 
-#: src/uagent/util_tools.py:2048
+#: src/uagent/util_tools.py:2088
 msgid "Generate profile from the most recent N log files"
 msgstr "Δημιουργήστε προφίλ από τα πιο πρόσφατα N αρχεία καταγραφής"
 
-#: src/uagent/util_tools.py:2050
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (last N files if specified)"
 msgstr ""
 "Δημιουργία προφίλ χρήστη από προηγούμενα αρχεία καταγραφής (τελευταία N "
 "αρχεία εάν καθορίζονται)"
 
-#: src/uagent/util_tools.py:2051
+#: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
 msgstr "Διαγράψτε τα δεδομένα προφίλ χρήστη που μάθατε"
 
-#: src/uagent/util_tools.py:2053
+#: src/uagent/util_tools.py:2093
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr ""
 "Αντιγραφή αρχείου ή καταλόγου (υποστηρίζει -f/--αντικατάσταση και "
 "-p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2055
+#: src/uagent/util_tools.py:2095
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr ""
 "Μετακίνηση αρχείου ή καταλόγου (υποστηρίζει -f/--αντικατάσταση και "
 "-p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2057
+#: src/uagent/util_tools.py:2097
 msgid "Show the first n lines of a file (default=20)"
 msgstr "Εμφάνιση των πρώτων n γραμμών ενός αρχείου (προεπιλογή=20)"
 
-#: src/uagent/util_tools.py:2058
+#: src/uagent/util_tools.py:2098
 msgid "Show the last n lines of a file (default=20)"
 msgstr "Εμφάνιση των τελευταίων n γραμμών ενός αρχείου (προεπιλογή=20)"
 
-#: src/uagent/util_tools.py:2060
+#: src/uagent/util_tools.py:2100
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Διαγραφή αρχείων/καταλόγων με προεπισκόπηση + επιβεβαίωση"
 
-#: src/uagent/util_tools.py:2062
+#: src/uagent/util_tools.py:2102
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "Ρυθμίστε τη λειτουργία συλλογισμού (0=απενεργοποίηση, 1=χαμηλή, 2=μέτρια, "
 "3=υψηλή, αυτόματη/ελάχιστη/έξω)"
 
-#: src/uagent/util_tools.py:2064
+#: src/uagent/util_tools.py:2104
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ""
 "Ρυθμίστε τη λειτουργία βερμπαλισμού (0=απενεργοποίηση, 1=χαμηλή, 2=μέτρια, "
 "3=υψηλή, χωρίς τόξο=διατήρηση)"
 
-#: src/uagent/util_tools.py:2065
+#: src/uagent/util_tools.py:2105
 msgid "Exit"
 msgstr "Έξοδος"
 
-#: src/uagent/util_tools.py:2068
+#: src/uagent/util_tools.py:2108
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 "- Εισαγάγετε μια γραμμή που είναι μόνο «f» για να μπείτε σε λειτουργία "
 "εισαγωγής πολλαπλών γραμμών."
 
-#: src/uagent/util_tools.py:2185
+#: src/uagent/util_tools.py:2225
 msgid "Continue. Goal: %(goal)s"
 msgstr "Συνεχίζω. Στόχος: %(goal)s"
 
-#: src/uagent/util_tools.py:2267
+#: src/uagent/util_tools.py:2307
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2506,7 +2512,7 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
-#: src/uagent/util_tools.py:2296
+#: src/uagent/util_tools.py:2361
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2514,7 +2520,7 @@ msgstr ""
 "\n"
 "[AUTO] Έξοδος από χρήστη (κλειδί x)."
 
-#: src/uagent/util_tools.py:2304
+#: src/uagent/util_tools.py:2369
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2522,7 +2528,7 @@ msgstr ""
 "\n"
 "[AUTO] Επιτεύχθηκε ο μέγιστος γύρος (%(max)d). Στάθμευση."
 
-#: src/uagent/util_tools.py:2314
+#: src/uagent/util_tools.py:2379
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2530,7 +2536,7 @@ msgstr ""
 "\n"
 "[AUTO] Γύρος %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2351
+#: src/uagent/util_tools.py:2416
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2538,44 +2544,44 @@ msgstr ""
 "\n"
 "[AUTO] Ολοκληρώθηκε η επανεξέταση/ανάλυση."
 
-#: src/uagent/util_tools.py:2376
+#: src/uagent/util_tools.py:2441
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Απενεργοποιήθηκε ο αυτόματος πιλότος."
 
-#: src/uagent/util_tools.py:2380
+#: src/uagent/util_tools.py:2445
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Χρήση: :auto <στόχος> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2381
+#: src/uagent/util_tools.py:2446
 msgid "       :auto off"
 msgstr ":auto εκτός λειτουργίας"
 
-#: src/uagent/util_tools.py:2395
+#: src/uagent/util_tools.py:2460
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Μη έγκυρη τιμή για --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2406
+#: src/uagent/util_tools.py:2471
 msgid "Goal cannot be empty."
 msgstr "Ο στόχος δεν μπορεί να είναι κενός."
 
-#: src/uagent/util_tools.py:2416
+#: src/uagent/util_tools.py:2481
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Ξεκίνησε. Στόχος: %(goal)s"
 
-#: src/uagent/util_tools.py:2417
+#: src/uagent/util_tools.py:2482
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Μέγιστος γύρος: %(max)d"
 
-#: src/uagent/util_tools.py:2581
+#: src/uagent/util_tools.py:2646
 msgid "Exiting."
 msgstr "Έξοδος."
 
-#: src/uagent/util_tools.py:2584
+#: src/uagent/util_tools.py:2649
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Άγνωστη εντολή: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2647
+#: src/uagent/util_tools.py:2712
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2595,7 +2601,7 @@ msgstr ""
 "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] Μια άλλη εργασία εκτελείται ήδη σε αυτό το δωμάτιο. "
 "Δοκιμάστε ξανά αφού ολοκληρωθεί."
 
-#: src/uagent/web.py:675 src/uagent/web.py:823
+#: src/uagent/web.py:675 src/uagent/web.py:835
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2644,7 +2650,7 @@ msgstr ""
 "3. Συμπεριλάβετε διαδραστική JavaScript (π.χ. Chart.js για γραφήματα ή απλή διαχείριση κατάστασης).\n"
 "4. Μην χωρίζετε τον κώδικα σε πολλά μπλοκ. κρατήστε το σε ένα ενιαίο μπλοκ ``` html."
 
-#: src/uagent/web.py:820
+#: src/uagent/web.py:832
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2653,25 +2659,25 @@ msgstr ""
 "[FATAL] Σφάλμα εργάτη ιστού.\n"
 "%(err)s"
 
-#: src/uagent/web.py:957
+#: src/uagent/web.py:969
 msgid "missing path"
 msgstr "μονοπάτι που λείπει"
 
-#: src/uagent/web.py:964
+#: src/uagent/web.py:976
 msgid "path outside workdir"
 msgstr "μονοπάτι εκτός εργαστηρίου"
 
-#: src/uagent/web.py:1289
+#: src/uagent/web.py:1301
 msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
 msgstr ""
 "Διεύθυνση δέσμευσης (προεπιλογή: 127.0.0.1). Αντικαθιστά το UAGENT_WEB_HOST "
 "env var."
 
-#: src/uagent/web.py:1354
+#: src/uagent/web.py:1366
 msgid "Starting server on"
 msgstr "Εκκίνηση διακομιστή"
 
-#: src/uagent/web.py:1356
+#: src/uagent/web.py:1368
 msgid "External URL:"
 msgstr "Εξωτερική διεύθυνση URL:"
 
@@ -2736,7 +2742,7 @@ msgstr ""
 "- Εικόνες: Το GUI υποστηρίζει μεταφορά και απόθεση. στο CUI μπορείτε να "
 "εισάγετε μια διαδρομή αρχείου για ανάλυση εικόνας."
 
-#: src/uagent/welcome.py:74
+#: src/uagent/welcome.py:75
 msgid ""
 "- Interrupt: press `c` key to stop the current LLM response (injected as "
 "'Stop')."
@@ -2744,7 +2750,7 @@ msgstr ""
 "- Διακοπή: πατήστε το πλήκτρο «c» για να σταματήσετε την τρέχουσα απόκριση "
 "LLM (με ένεση ως «Διακοπή»)."
 
-#: src/uagent/welcome.py:75
+#: src/uagent/welcome.py:78
 msgid ""
 "- Auto-pilot: `:auto <goal>` repeatedly runs a task; press `x` to exit "
 "immediately."
@@ -2752,17 +2758,17 @@ msgstr ""
 "- Αυτόματος πιλότος: `:auto <goal>` εκτελεί επανειλημμένα μια εργασία. "
 "πατήστε 'x' για να βγείτε αμέσως."
 
-#: src/uagent/welcome.py:77
+#: src/uagent/welcome.py:81
 msgid "[Examples]"
 msgstr "[Παραδείγματα]"
 
-#: src/uagent/welcome.py:78
+#: src/uagent/welcome.py:82
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr ""
 "- \"Αναλύστε τον πηγαίο κώδικα σε αυτόν τον φάκελο και δημιουργήστε ένα "
 "README.md.\""
 
-#: src/uagent/welcome.py:80
+#: src/uagent/welcome.py:84
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
@@ -2770,19 +2776,19 @@ msgstr ""
 "- \"Τραβήξτε ένα στιγμιότυπο οθόνης της τρέχουσας επιφάνειας εργασίας και "
 "περιγράψτε τα ορατά περιεχόμενα του παραθύρου.\""
 
-#: src/uagent/welcome.py:82
+#: src/uagent/welcome.py:86
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr "- \"Δημιουργία μηνιαίας συνοπτικής αναφοράς από αυτό το αρχείο Excel.\""
 
-#: src/uagent/welcome.py:83
+#: src/uagent/welcome.py:87
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"Διαβάστε αυτό το PDF και αναφέρετε τρία βασικά σημεία.\""
 
-#: src/uagent/welcome.py:84
+#: src/uagent/welcome.py:88
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Αναζητήστε τα τελευταία νέα και συνοψίστε ένα συγκεκριμένο θέμα.\""
 
-#: src/uagent/welcome.py:191
+#: src/uagent/welcome.py:195
 msgid "-- More -- (Enter: next) "
 msgstr "-- Περισσότερα -- (Εισαγωγή: επόμενο)"
 

@@ -1687,6 +1687,7 @@ SYSTEM_PROMPT_FULL_NOTES = _("""## Notes
 - For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.
 - If you need additional information or confirmation from the user, use the human_ask tool.
 - When handling relative date expressions, call get_current_time to reference the current time.
+- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.
 - Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).
 - Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.
 - If you create Python files, run `python -m py_compile` to validate syntax.
@@ -1721,6 +1722,7 @@ SYSTEM_PROMPT_COMPACT_NOTES = _("""## Notes
 - All user messages come via this script's standard input.
 - If required info/parameters are missing, ask via human_ask (do not guess).
 - Relative dates: call get_current_time.
+- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.
 - Do not store secrets (passwords/tokens) in long-term memory.
 - Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.
 - If you create Python files, run `python -m py_compile`.

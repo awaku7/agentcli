@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 10:59+0900\n"
+"POT-Creation-Date: 2026-06-30 14:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgstr ""
 "Bekreftelse av bildesending mislyktes; sender ikke bilder: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:709
+#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Kunne ikke legge ved bilde: %(path)s (%(etype)s: %(err)s)"
@@ -115,53 +115,53 @@ msgstr ""
 "tall(1=grunnleggende,2=kommunikasjon,4=kontor,8=utvikling,16=iot,32=exec,64=ekstern,128=media,256=fil,512=indeks,1023=alle,Enter=kun"
 " grunnleggende):"
 
-#: src/uagent/cli_startup.py:69 src/uagent/web.py:983
+#: src/uagent/cli_startup.py:69 src/uagent/web.py:995
 msgid "Basic (env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Grunnleggende (env, tid, spørsmål, ferdigheter, minne, verktøykontroll)"
 
 #: src/uagent/cli_startup.py:73 src/uagent/cli_startup.py:94
-#: src/uagent/web.py:989
+#: src/uagent/web.py:1001
 msgid ""
 "File (create, delete, read, write, search, zip, rename, hash, grep, list "
 "dir)"
 msgstr ""
 "Fil (opprett, slett, les, skriv, søk, zip, endre navn, hash, grep,list dir)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1457
-#: src/uagent/web.py:995
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1507
+#: src/uagent/web.py:1007
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "Kommunikasjon (Teams, Discord, Bluesky)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1462
-#: src/uagent/web.py:1000
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1512
+#: src/uagent/web.py:1012
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, dokumentuttrekk)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1468
-#: src/uagent/web.py:1006
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1518
+#: src/uagent/web.py:1018
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr ""
 "Development (lint, test, git, DB, skjermbilde, browser, binary, compile)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1475
-#: src/uagent/web.py:1013
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1525
+#: src/uagent/web.py:1025
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, kamera, geo-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1481
-#: src/uagent/web.py:1019
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1531
+#: src/uagent/web.py:1031
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "Utførelse (cmd, python, pwsh, bash, underagent)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1486
-#: src/uagent/web.py:1024
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1536
+#: src/uagent/web.py:1036
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "Ekstern (A2A, MCP, hent, nettsøk)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1491
-#: src/uagent/web.py:1029
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1541
+#: src/uagent/web.py:1041
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Media (bilde gen/rediger/analyser, lyd, QR-kode)"
 
@@ -205,7 +205,7 @@ msgstr ""
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] Kunne ikke ta i bruk valg av oppstartsverktøy: %(err)s"
 
-#: src/uagent/cli_startup.py:275 src/uagent/web.py:1310
+#: src/uagent/cli_startup.py:275 src/uagent/web.py:1322
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[FATAL] Klarte ikke å sette workdir: %(err)s"
@@ -220,7 +220,7 @@ msgstr "[FATAL] Klarte ikke å starte uag_setup: %(err)s"
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "leverandør = %(provider)s; modell = %(model)s"
 
-#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:561
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:562
 msgid "OpenRouter fallback models enabled."
 msgstr "OpenRouter-reservemodeller er aktivert."
 
@@ -229,11 +229,11 @@ msgstr "OpenRouter-reservemodeller er aktivert."
 msgid "current workdir = %(cwd)s"
 msgstr "gjeldende arbeidskatalog = %(cwd)s"
 
-#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:584
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:585
 msgid "Loaded long-term memory."
 msgstr "Langtidsminne lastet."
 
-#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:597
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:598
 msgid "Loaded shared long-term memory."
 msgstr "Delt langtidsminne lastet."
 
@@ -465,31 +465,32 @@ msgstr ""
 "- Bruk tilgjengelige verktøy og velg det mest egnede.\n"
 "- Når du bruker verktøy, overlat så lite beslutningstaking som mulig til brukeren.\n"
 
-#: src/uagent/core.py:1685
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
 "- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
 "- If you need additional information or confirmation from the user, use the human_ask tool.\n"
 "- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile` to validate syntax.\n"
 "- If expert-level knowledge is required, use prompt templates (Agent Skills) and follow them.\n"
 "- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 msgstr ""
-"## Notater\n"
-"- Alle brukermeldinger kommer via dette skriptets standardinngang.\n"
-"- For verktøyspesifikt formål/argumenter/begrensninger/driftsdetaljer, bruk beskrivelsen for hvert verktøy.\n"
-"- Hvis du trenger mer informasjon eller bekreftelse fra brukeren, bruk verktøyet human_ask.\n"
-"- Når du håndterer relative datouttrykk, kall get_current_time for å referere til gjeldende tid.\n"
-"- Ikke lagre hemmeligheter (passord/tokens) i langtidsminnet (add_long_memory osv.).\n"
+"## Merknader\n"
+"– Alle brukermeldinger kommer via dette skriptets standardinngang.\n"
+"- For verktøyspesifikke formål/argumenter/begrensninger/operasjonsdetaljer, foretrekk hver verktøys beskrivelse.\n"
+"- Hvis du trenger ytterligere informasjon eller bekreftelse fra brukeren, bruk human_ask-verktøyet.\n"
+"- Når du håndterer relative datouttrykk, ring get_current_time for å referere til gjeldende tid.\n"
+"- Spesifiser filstier i forhold til arbeidskatalogen. Bruk bare absolutte baner for filer utenfor arbeidskatalogen.\n"
+"- Ikke lagre hemmeligheter (passord/tokens) i langtidsminnet (add_long_memory, etc.).\n"
 "- Filer med suffikser som .org / .org1 / .org2 er sikkerhetskopier og må ikke behandles som primære redigerbare filer.\n"
-"- Hvis du oppretter Python-filer, kjør `python -m py_compile` for å validere syntaksen.\n"
-"- Hvis ekspertkunnskap kreves, bruk promptmaler (Agent Skills) og følg dem.\n"
-"- Hvis brukerens inndata bare er en kort bekreftelse og ikke tilfører ny informasjon, ikke gjenta den samme forklaringen med mindre det er et direkte svar på det umiddelbart foregående klare spørsmålet. Hvis nødvendig, spør kort: \"Hvilket punkt skal jeg fortsette med?\"\n"
+"- Hvis du lager Python-filer, kjør `python -m py_compile` for å validere syntaks.\n"
+"- Hvis kunnskap på ekspertnivå er nødvendig, bruk ledetekstmaler (Agent Skills) og følg dem.\n"
+"- Hvis brukerens innspill bare er en kort bekreftelse og ikke legger til ny informasjon, ikke gjenta den samme forklaringen med mindre det er et direkte svar på det klare spørsmålet umiddelbart foran. Spør om nødvendig kort: \"Hvilket punkt skal jeg fortsette med?\""
 
-#: src/uagent/core.py:1697
+#: src/uagent/core.py:1698
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -505,7 +506,7 @@ msgstr ""
 "- Bare når brukeren uttrykkelig svarer \"y\" eller \"yes\" (eller tilsvarende tydelig godkjenning), kjør delete_file igjen med de samme parametrene, dry_run=false og confirmed=true.\n"
 "- Hvis det er null kandidater, ikke spør; rapporter bare at ingenting vil bli slettet.\n"
 
-#: src/uagent/core.py:1705
+#: src/uagent/core.py:1706
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -520,7 +521,7 @@ msgstr ""
 "- Ikke smisk med brukeren. Ikke bruk emojier. Ikke oppsummer. Hold informasjonen kort.\n"
 "- Når du oppretter filer, skriv ut hele sluttinnholdet (ikke diff eller delvise sammendrag).\n"
 
-#: src/uagent/core.py:1713
+#: src/uagent/core.py:1714
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -534,29 +535,30 @@ msgstr ""
 "- Vær kreativ, men ikke skriv ut usikker informasjon.\n"
 "- Overlat så lite beslutningstaking som mulig til brukeren.\n"
 
-#: src/uagent/core.py:1720
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
 "- If required info/parameters are missing, ask via human_ask (do not guess).\n"
 "- Relative dates: call get_current_time.\n"
+"- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory.\n"
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
 "- If expert-level knowledge is required, use Agent Skills prompt templates.\n"
 "- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 msgstr ""
-"## Notater\n"
-"- Alle brukermeldinger kommer via dette skriptets standardinngang.\n"
-"- Hvis nødvendig informasjon/parametere mangler, spør via human_ask (ikke gjett).\n"
-"- Relative datoer: kall get_current_time.\n"
+"## Merknader\n"
+"– Alle brukermeldinger kommer via dette skriptets standardinngang.\n"
+"- Hvis nødvendig informasjon/parametre mangler, spør via human_ask (ikke gjett).\n"
+"- Relative datoer: ring get_current_time.\n"
+"- Spesifiser filstier i forhold til arbeidskatalogen. Bruk bare absolutte baner for filer utenfor arbeidskatalogen.\n"
 "- Ikke lagre hemmeligheter (passord/tokens) i langtidsminnet.\n"
 "- Filer med suffikser som .org / .org1 / .org2 er sikkerhetskopier og må ikke behandles som primære redigerbare filer.\n"
-"- Hvis du oppretter Python-filer, kjør `python -m py_compile`.\n"
-"- Hvis ekspertkunnskap kreves, bruk promptmaler for Agent Skills.\n"
-"- Hvis brukerens inndata bare er en kort bekreftelse og ikke tilfører ny informasjon, ikke gjenta den samme forklaringen med mindre det er et direkte svar på det umiddelbart foregående klare spørsmålet. Hvis nødvendig, spør kort: \"Hvilket punkt skal jeg fortsette med?\"\n"
+"- Hvis du lager Python-filer, kjør `python -m py_compile`.\n"
+"- Hvis det kreves kunnskap på ekspertnivå, kan du bruke forespørselsmaler for Agent Skills.\n"
+"- Hvis brukerens innspill bare er en kort bekreftelse og ikke legger til ny informasjon, ikke gjenta den samme forklaringen med mindre det er et direkte svar på det klare spørsmålet umiddelbart foran. Spør om nødvendig kort: \"Hvilket punkt skal jeg fortsette med?\""
 
-#: src/uagent/core.py:1733
+#: src/uagent/core.py:1735
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -566,7 +568,7 @@ msgstr ""
 "caret (^) linjefortsettelse, og hold hver linje kort for å unngå linjebrudd "
 "ved kopiering/liming.\n"
 
-#: src/uagent/core.py:1800
+#: src/uagent/core.py:1802
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -1078,150 +1080,153 @@ msgstr ""
 "\\\"string\\\"}, __NEWLINE\\LINE__\\\"preferences\\\"], [\\\"NEWLINE__\" "
 "[\\\"streng\\\"]}"
 
-#: src/uagent/scheckgui.py:393
+#: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
 msgstr "Dra og slipp filer/bilder her"
 
-#: src/uagent/scheckgui.py:433
+#: src/uagent/scheckgui.py:434
 msgid "Download"
 msgstr "Last ned"
 
-#: src/uagent/scheckgui.py:606
+#: src/uagent/scheckgui.py:607
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "det oppstod en feil under lasting av delt langtidsminne: %(err)s"
 
-#: src/uagent/scheckgui.py:659
+#: src/uagent/scheckgui.py:672
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[Vedlagt fil] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:744
+#: src/uagent/scheckgui.py:769
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[Vedlagt bilde] %(path)s"
 
-#: src/uagent/scheckgui.py:746 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:771 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[Bildebane] %(path)s"
 
-#: src/uagent/scheckgui.py:1062 src/uagent/scheckgui.py:1354
+#: src/uagent/scheckgui.py:1099 src/uagent/scheckgui.py:1404
 msgid "Welcome / Quick Guide"
 msgstr "Velkommen / hurtigguide"
 
-#: src/uagent/scheckgui.py:1176
+#: src/uagent/scheckgui.py:1213
 msgid "Font size: %(name)s"
 msgstr "Skriftstørrelse: %(name)s"
 
-#: src/uagent/scheckgui.py:1181
+#: src/uagent/scheckgui.py:1218
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag GUI (ekstrem stabilitet)"
 
-#: src/uagent/scheckgui.py:1262
+#: src/uagent/scheckgui.py:1299
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ Du kan legge ved ved å dra og slippe"
 
-#: src/uagent/scheckgui.py:1290 src/uagent/scheckgui.py:1722
+#: src/uagent/scheckgui.py:1327 src/uagent/scheckgui.py:1781
 msgid "Attach files"
 msgstr "Legg ved filer"
 
-#: src/uagent/scheckgui.py:1294
+#: src/uagent/scheckgui.py:1331
 msgid "■"
 msgstr "■"
 
-#: src/uagent/scheckgui.py:1297
+#: src/uagent/scheckgui.py:1334
 msgid "Stop generation"
 msgstr "Stopp generasjonen"
 
-#: src/uagent/scheckgui.py:1312
+#: src/uagent/scheckgui.py:1349
 msgid "Send"
 msgstr "Send inn"
 
-#: src/uagent/scheckgui.py:1352
+msgid "Stop auto-pilot"
+msgstr "Stopp autopiloten"
+
+#: src/uagent/scheckgui.py:1402
 msgid "Help"
 msgstr "Hjelp"
 
-#: src/uagent/scheckgui.py:1368
+#: src/uagent/scheckgui.py:1418
 msgid "View"
 msgstr "Utsikt"
 
-#: src/uagent/scheckgui.py:1374
+#: src/uagent/scheckgui.py:1424
 msgid "Font: %(name)s"
 msgstr "Font: %(name)s"
 
-#: src/uagent/scheckgui.py:1389
+#: src/uagent/scheckgui.py:1439
 msgid "Mode"
 msgstr "Modus"
 
-#: src/uagent/scheckgui.py:1392
+#: src/uagent/scheckgui.py:1442
 msgid "Reasoning: off"
 msgstr "Resonnering: av"
 
-#: src/uagent/scheckgui.py:1395
+#: src/uagent/scheckgui.py:1445
 msgid "Reasoning: auto"
 msgstr "Resonnering: auto"
 
-#: src/uagent/scheckgui.py:1397
+#: src/uagent/scheckgui.py:1447
 msgid "Reasoning: minimal"
 msgstr "Resonnering: minimal"
 
-#: src/uagent/scheckgui.py:1399
+#: src/uagent/scheckgui.py:1449
 msgid "Reasoning: low"
 msgstr "Resonnering: lav"
 
-#: src/uagent/scheckgui.py:1401
+#: src/uagent/scheckgui.py:1451
 msgid "Reasoning: medium"
 msgstr "Resonnering: middels"
 
-#: src/uagent/scheckgui.py:1403
+#: src/uagent/scheckgui.py:1453
 msgid "Reasoning: high"
 msgstr "Resonnering: høy"
 
-#: src/uagent/scheckgui.py:1406
+#: src/uagent/scheckgui.py:1456
 msgid "Reasoning: xhigh"
 msgstr "Resonnering: svært høy"
 
-#: src/uagent/scheckgui.py:1411
+#: src/uagent/scheckgui.py:1461
 msgid "Verbosity: off"
 msgstr "Utførlighet: av"
 
-#: src/uagent/scheckgui.py:1413
+#: src/uagent/scheckgui.py:1463
 msgid "Verbosity: low"
 msgstr "Utførlighet: lav"
 
-#: src/uagent/scheckgui.py:1415
+#: src/uagent/scheckgui.py:1465
 msgid "Verbosity: medium"
 msgstr "Utførlighet: middels"
 
-#: src/uagent/scheckgui.py:1417
+#: src/uagent/scheckgui.py:1467
 msgid "Verbosity: high"
 msgstr "Utførlighet: høy"
 
-#: src/uagent/scheckgui.py:1444
+#: src/uagent/scheckgui.py:1494
 msgid "Tools"
 msgstr "Verktøy"
 
-#: src/uagent/scheckgui.py:1451
+#: src/uagent/scheckgui.py:1501
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "Grunnleggende (fil, miljø, tid, ledetekster, ferdigheter, minne, "
 "verktøykontroll)"
 
-#: src/uagent/scheckgui.py:1496
+#: src/uagent/scheckgui.py:1546
 msgid "File (read, write, search, delete, listing)"
 msgstr "Fil (les, skriv, søk, slett, oppføring)"
 
-#: src/uagent/scheckgui.py:1501
+#: src/uagent/scheckgui.py:1551
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "Indeks (kildekodenavigering: py2idx, ts2idx, etc.)"
 
-#: src/uagent/scheckgui.py:1552
+#: src/uagent/scheckgui.py:1602
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[modus] resonnering=%(mode)s"
 
-#: src/uagent/scheckgui.py:1556
+#: src/uagent/scheckgui.py:1606
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1229,50 +1234,50 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=av, 1=lav, 2=middels, 3=høy; "
 "auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:1564
+#: src/uagent/scheckgui.py:1614
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[modus] detaljnivå=%(mode)s"
 
-#: src/uagent/scheckgui.py:1566
+#: src/uagent/scheckgui.py:1616
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3]  (0=av, 1=lav, 2=middels, 3=høy; ingen arg=behold)"
 
-#: src/uagent/scheckgui.py:1698
+#: src/uagent/scheckgui.py:1748
 msgid "Enter password..."
 msgstr "Skriv inn passord..."
 
-#: src/uagent/scheckgui.py:1705
+#: src/uagent/scheckgui.py:1755
 msgid "Enter a message..."
 msgstr "Skriv inn en melding..."
 
-#: src/uagent/scheckgui.py:1724
+#: src/uagent/scheckgui.py:1783
 msgid "All Files (*)"
 msgstr "Alle filer (*)"
 
-#: src/uagent/scheckgui.py:1976
+#: src/uagent/scheckgui.py:2035
 msgid "cannot read image"
 msgstr "kan ikke lese bildet"
 
-#: src/uagent/scheckgui.py:2127 src/uagent/scheckgui.py:2167
-#: src/uagent/scheckgui.py:2202
+#: src/uagent/scheckgui.py:2186 src/uagent/scheckgui.py:2226
+#: src/uagent/scheckgui.py:2261
 msgid "Downloaded to"
 msgstr "Lastet ned til"
 
-#: src/uagent/scheckgui.py:2221
+#: src/uagent/scheckgui.py:2280
 msgid "Playing"
 msgstr "Spiller av"
 
-#: src/uagent/scheckgui.py:2231
+#: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "Stoppet"
 
-#: src/uagent/scheckgui.py:2290
+#: src/uagent/scheckgui.py:2356
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[SVAR] > %(text)s"
 
-#: src/uagent/scheckgui.py:2297
+#: src/uagent/scheckgui.py:2363
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[BRUKER] %(text)s"
@@ -1987,7 +1992,7 @@ msgstr ""
 "Ikke-interaktiv modus. Ikke start stdin-loopen; avslutt etter at "
 "oppstartsfilen (hvis noen) er behandlet."
 
-#: src/uagent/util_tools.py:230 src/uagent/web.py:1268
+#: src/uagent/util_tools.py:230 src/uagent/web.py:1280
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
@@ -1997,11 +2002,11 @@ msgstr ""
 "bitmaske(1=grunnleggende,2=kommunikasjon,4=kontor,8=utvikling,16=iot,32=exec,64=ekstern,128=media,256=fil,512=indeks,1023=alle).Hopper"
 " over den interaktive sjangerforespørselen når den erspesifisert."
 
-#: src/uagent/util_tools.py:238 src/uagent/web.py:1276
+#: src/uagent/util_tools.py:238 src/uagent/web.py:1288
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "Aktiver verktøysending til LLM (overstyrer UAGENT_USE_TOOL env var)."
 
-#: src/uagent/util_tools.py:245 src/uagent/web.py:1283
+#: src/uagent/util_tools.py:245 src/uagent/web.py:1295
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr ""
 "Deaktiver verktøysending til LLM (overstyrer UAGENT_USE_TOOL env var)."
@@ -2029,95 +2034,97 @@ msgstr "ugyldig resonnering"
 msgid "invalid verbosity"
 msgstr "ugyldig detaljnivå"
 
-#: src/uagent/util_tools.py:592
-#, python-format
-msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-msgstr "[logs] Ugyldig argument: %(arg)r (angi all / --all / -a / tall)"
+msgid ""
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
+"<index>)"
+msgstr ""
+"[logger] Ugyldig argument: %(arg)r (spesifiser alle / --all / -a / tall / "
+"pdf <indeks>)"
 
-#: src/uagent/util_tools.py:639
+#: src/uagent/util_tools.py:679
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "klarte ikke å tolke argumenter: %(err)s"
 
-#: src/uagent/util_tools.py:642
+#: src/uagent/util_tools.py:682
 msgid "missing arguments"
 msgstr "mangler argumenter"
 
-#: src/uagent/util_tools.py:659
+#: src/uagent/util_tools.py:699
 msgid "src and dst are required"
 msgstr "src og dst er påkrevd"
 
-#: src/uagent/util_tools.py:684
+#: src/uagent/util_tools.py:724
 #, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:691 src/uagent/util_tools.py:748
+#: src/uagent/util_tools.py:731 src/uagent/util_tools.py:788
 #, python-format
 msgid "[cp error] %(etype)s: %(err)s"
 msgstr "[cp error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:701
+#: src/uagent/util_tools.py:741
 #, python-format
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr "[cp] Kilde og mål er like: %(path)s"
 
-#: src/uagent/util_tools.py:707
+#: src/uagent/util_tools.py:747
 #, python-format
 msgid "[cp] Source does not exist: %(path)s"
 msgstr "[cp] Kilden eksisterer ikke: %(path)s"
 
-#: src/uagent/util_tools.py:714 src/uagent/util_tools.py:726
+#: src/uagent/util_tools.py:754 src/uagent/util_tools.py:766
 #, python-format
 msgid "[cp] Destination already exists: %(path)s"
 msgstr "[cp] Målet eksisterer allerede: %(path)s"
 
-#: src/uagent/util_tools.py:735
+#: src/uagent/util_tools.py:775
 #, python-format
 msgid "[cp] Destination parent does not exist: %(path)s"
 msgstr "[cp] Målets overordnede mappe eksisterer ikke: %(path)s"
 
-#: src/uagent/util_tools.py:742
+#: src/uagent/util_tools.py:782
 #, python-format
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] Kopiert: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:756
+#: src/uagent/util_tools.py:796
 #, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:763 src/uagent/util_tools.py:807
+#: src/uagent/util_tools.py:803 src/uagent/util_tools.py:847
 #, python-format
 msgid "[mv error] %(etype)s: %(err)s"
 msgstr "[mv error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:773
+#: src/uagent/util_tools.py:813
 #, python-format
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] Kilde og mål er like: %(path)s"
 
-#: src/uagent/util_tools.py:779
+#: src/uagent/util_tools.py:819
 #, python-format
 msgid "[mv] Source does not exist: %(path)s"
 msgstr "[mv] Kilden eksisterer ikke: %(path)s"
 
-#: src/uagent/util_tools.py:785
+#: src/uagent/util_tools.py:825
 #, python-format
 msgid "[mv] Destination already exists: %(path)s"
 msgstr "[mv] Målet eksisterer allerede: %(path)s"
 
-#: src/uagent/util_tools.py:795
+#: src/uagent/util_tools.py:835
 #, python-format
 msgid "[mv] Destination parent does not exist: %(path)s"
 msgstr "[mv] Målets overordnede mappe eksisterer ikke: %(path)s"
 
-#: src/uagent/util_tools.py:802
+#: src/uagent/util_tools.py:842
 #, python-format
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] Flyttet: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:1045
+#: src/uagent/util_tools.py:1085
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -2129,11 +2136,11 @@ msgstr ""
 "Hvis ferdigheten inneholder oppgaver, fortsett til de er fullført.\n"
 "Bruk verktøy ved behov.\n"
 
-#: src/uagent/util_tools.py:1052
+#: src/uagent/util_tools.py:1092
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "Når du er ferdig, kall alltid `finish_skill` hvis tilgjengelig.\n"
 
-#: src/uagent/util_tools.py:1204
+#: src/uagent/util_tools.py:1244
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -2143,7 +2150,7 @@ msgstr ""
 "Tips: :skills clear  (fjern brukte ferdigheter)\n"
 "Skriv nummer:"
 
-#: src/uagent/util_tools.py:1240
+#: src/uagent/util_tools.py:1280
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -2160,7 +2167,7 @@ msgstr ""
 "\n"
 "Fortsette? Skriv y for å kjøre, eller c for å avbryte."
 
-#: src/uagent/util_tools.py:1302
+#: src/uagent/util_tools.py:1342
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -2169,7 +2176,7 @@ msgstr ""
 "[clean] Ugyldig argument: %(arg)r (angi tall=terskel; standard er "
 "%(default)d)"
 
-#: src/uagent/util_tools.py:1351
+#: src/uagent/util_tools.py:1391
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -2186,12 +2193,12 @@ msgstr ""
 "\n"
 "Fortsette? Skriv y for å kjøre, eller c for å avbryte."
 
-#: src/uagent/util_tools.py:1419
+#: src/uagent/util_tools.py:1459
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr " - (%(count)d meldinger) %(path)s"
 
-#: src/uagent/util_tools.py:1449
+#: src/uagent/util_tools.py:1489
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -2208,7 +2215,7 @@ msgstr ""
 "\n"
 "Fortsette? Skriv y for å kjøre, eller c for å avbryte."
 
-#: src/uagent/util_tools.py:1580
+#: src/uagent/util_tools.py:1620
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -2223,24 +2230,24 @@ msgstr ""
 "\n"
 "Skriv y for å fortsette, eller c for å avbryte."
 
-#: src/uagent/util_tools.py:1635
+#: src/uagent/util_tools.py:1675
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "Angitt indeks %(idx)d er utenfor rekkevidde."
 
-#: src/uagent/util_tools.py:1644
+#: src/uagent/util_tools.py:1684
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "Loggfil ikke funnet: %(path)s"
 
-#: src/uagent/util_tools.py:1738
+#: src/uagent/util_tools.py:1778
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[shrink-feil] Klarte ikke å tolke som heltall: %(arg)r -> behold de siste "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1766
+#: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
@@ -2248,7 +2255,7 @@ msgstr ""
 "[shrink_llm-feil] Klarte ikke å tolke som int: %(arg)r -> behold de siste "
 "%(keep)d"
 
-#: src/uagent/util_tools.py:1859 src/uagent/util_tools.py:1953
+#: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -2256,51 +2263,51 @@ msgstr ""
 "Delt langtidsminne er ikke aktivert (UAGENT_SHARED_MEMORY_FILE er ikke "
 "satt)."
 
-#: src/uagent/util_tools.py:1900
+#: src/uagent/util_tools.py:1940
 msgid "Analyzing the most recent %d log files to generate user profile..."
 msgstr "Analyserer de nyeste %d-loggfilene for å generere brukerprofil..."
 
-#: src/uagent/util_tools.py:1904
+#: src/uagent/util_tools.py:1944
 msgid "Analyzing past logs to generate user profile..."
 msgstr "Tidligere logger analyseres for å lage brukerprofilen..."
 
-#: src/uagent/util_tools.py:1908
+#: src/uagent/util_tools.py:1948
 msgid "No past logs found or failed to generate profile."
 msgstr "Ingen tidligere logger funnet, eller profil kunne ikke opprettes."
 
-#: src/uagent/util_tools.py:1910
+#: src/uagent/util_tools.py:1950
 msgid "User profile generated successfully from past logs!"
 msgstr "Brukerprofilen ble slettet."
 
-#: src/uagent/util_tools.py:1922
+#: src/uagent/util_tools.py:1962
 msgid "No user profile data found."
 msgstr "Ingen brukerprofildata funnet."
 
-#: src/uagent/util_tools.py:1925
+#: src/uagent/util_tools.py:1965
 msgid "User Profile:"
 msgstr "Brukerprofil:"
 
-#: src/uagent/util_tools.py:1937
+#: src/uagent/util_tools.py:1977
 msgid "User profile cleared successfully."
 msgstr "Brukerprofilen ble slettet."
 
-#: src/uagent/util_tools.py:1941
+#: src/uagent/util_tools.py:1981
 msgid "No user profile file found to clear."
 msgstr "Fant ingen brukerprofilfil å slette."
 
-#: src/uagent/util_tools.py:2004
+#: src/uagent/util_tools.py:2044
 msgid "Show this help"
 msgstr "Vis denne hjelpen"
 
-#: src/uagent/util_tools.py:2005
+#: src/uagent/util_tools.py:2045
 msgid "Restart input from the beginning"
 msgstr "Start inndata på nytt fra begynnelsen"
 
-#: src/uagent/util_tools.py:2006
+#: src/uagent/util_tools.py:2046
 msgid "Show log file list"
 msgstr "Vis loggfillisten"
 
-#: src/uagent/util_tools.py:2009
+#: src/uagent/util_tools.py:2049
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -2308,24 +2315,24 @@ msgstr ""
 "Endre arbeidskatalog uten bekreftelse (f.eks. :cd .. / :cd ~ / :cd C:\\path "
 "/ :cd /)"
 
-#: src/uagent/util_tools.py:2012
+#: src/uagent/util_tools.py:2052
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr "List katalogoppføringer (f.eks. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:2015
+#: src/uagent/util_tools.py:2055
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "Administrer UAGENT_* miljøvariabler og lagre .env.sec"
 
-#: src/uagent/util_tools.py:2017
+#: src/uagent/util_tools.py:2057
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "Administrer/bruk skills (f.eks. :skills / :skills active / :skills clear)"
 
-#: src/uagent/util_tools.py:2024
+#: src/uagent/util_tools.py:2064
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "Last inn en tidligere logg (overskriver gjeldende samtalehistorikk)"
 
-#: src/uagent/util_tools.py:2026
+#: src/uagent/util_tools.py:2066
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -2335,7 +2342,7 @@ msgstr ""
 "velger du 'y', legges den innlastede loggen først i gjeldende sesjonsloggfil"
 " (overskriving, uten sikkerhetskopi)."
 
-#: src/uagent/util_tools.py:2030
+#: src/uagent/util_tools.py:2070
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -2343,14 +2350,14 @@ msgstr ""
 "Slett samtalelogger (scheck_log_*.jsonl) når antallet "
 "bruker-/assistent-/verktøymeldinger (uten system) er <= N (standard=10)"
 
-#: src/uagent/util_tools.py:2034
+#: src/uagent/util_tools.py:2074
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "Forkort samtalehistorikken (behold de siste N ikke-systemmeldingene; "
 "standard=40)"
 
-#: src/uagent/util_tools.py:2038
+#: src/uagent/util_tools.py:2078
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -2358,78 +2365,78 @@ msgstr ""
 "Forkort historikken med LLM-oppsummering (oppsummer eldre historikk til 1 "
 "systemmelding; behold de siste N råmeldingene; standard=20)"
 
-#: src/uagent/util_tools.py:2041
+#: src/uagent/util_tools.py:2081
 msgid "Show the current approximate token count of the conversation"
 msgstr "Vis gjeldende omtrentlig token-telling for samtalen"
 
-#: src/uagent/util_tools.py:2042
+#: src/uagent/util_tools.py:2082
 msgid "List long-term memory notes"
 msgstr "Vis langtidsminnenotater"
 
-#: src/uagent/util_tools.py:2044
+#: src/uagent/util_tools.py:2084
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "Slett et langtidsminnenotat etter indeks (se :mem-list)"
 
-#: src/uagent/util_tools.py:2046
+#: src/uagent/util_tools.py:2086
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr "Vis den lærte brukerprofilen (miljø, preferanser, begrensninger)"
 
-#: src/uagent/util_tools.py:2048
+#: src/uagent/util_tools.py:2088
 msgid "Generate profile from the most recent N log files"
 msgstr "Generer profil fra de nyeste N-loggfilene"
 
-#: src/uagent/util_tools.py:2050
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (last N files if specified)"
 msgstr ""
 "Generer brukerprofil fra tidligere logger (siste N filer hvis spesifisert)"
 
-#: src/uagent/util_tools.py:2051
+#: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
 msgstr "Slett lærte brukerprofildata"
 
-#: src/uagent/util_tools.py:2053
+#: src/uagent/util_tools.py:2093
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Kopier fil eller katalog (støtter -f/--overwrite og -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2055
+#: src/uagent/util_tools.py:2095
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "Flytt fil eller katalog (støtter -f/--overwrite og -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2057
+#: src/uagent/util_tools.py:2097
 msgid "Show the first n lines of a file (default=20)"
 msgstr "Vis de første n linjene i en fil (standard=20)"
 
-#: src/uagent/util_tools.py:2058
+#: src/uagent/util_tools.py:2098
 msgid "Show the last n lines of a file (default=20)"
 msgstr "Vis de siste n linjene i en fil (standard=20)"
 
-#: src/uagent/util_tools.py:2060
+#: src/uagent/util_tools.py:2100
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "Slett fil(er)/katalog(er) med forhåndsvisning og bekreftelse"
 
-#: src/uagent/util_tools.py:2062
+#: src/uagent/util_tools.py:2102
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "Sett resonneringsmodus (0=av, 1=lav, 2=middels, 3=høy; auto/minimal/xhigh)"
 
-#: src/uagent/util_tools.py:2064
+#: src/uagent/util_tools.py:2104
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr "Sett detaljnivå (0=av, 1=lav, 2=middels, 3=høy; uten argument=behold)"
 
-#: src/uagent/util_tools.py:2065
+#: src/uagent/util_tools.py:2105
 msgid "Exit"
 msgstr "Avslutt"
 
-#: src/uagent/util_tools.py:2068
+#: src/uagent/util_tools.py:2108
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr "  - Skriv en linje som bare er 'f' for å gå inn i flerslinjemodus."
 
-#: src/uagent/util_tools.py:2185
+#: src/uagent/util_tools.py:2225
 msgid "Continue. Goal: %(goal)s"
 msgstr "Fortsette. Mål: %(goal)s"
 
-#: src/uagent/util_tools.py:2267
+#: src/uagent/util_tools.py:2307
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2437,7 +2444,7 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
-#: src/uagent/util_tools.py:2296
+#: src/uagent/util_tools.py:2361
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2445,7 +2452,7 @@ msgstr ""
 "\n"
 "[AUTO] Avsluttet av bruker (x-tast)."
 
-#: src/uagent/util_tools.py:2304
+#: src/uagent/util_tools.py:2369
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2453,7 +2460,7 @@ msgstr ""
 "\n"
 "[AUTO] Maks runder (%(max)d) nådd. Stopper."
 
-#: src/uagent/util_tools.py:2314
+#: src/uagent/util_tools.py:2379
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2461,7 +2468,7 @@ msgstr ""
 "\n"
 "[AUTO] runde %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2351
+#: src/uagent/util_tools.py:2416
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2469,44 +2476,44 @@ msgstr ""
 "\n"
 "[AUTO] Gjennomgang/analyse fullført."
 
-#: src/uagent/util_tools.py:2376
+#: src/uagent/util_tools.py:2441
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Autopilot slått av."
 
-#: src/uagent/util_tools.py:2380
+#: src/uagent/util_tools.py:2445
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Bruk: :auto <mål> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2381
+#: src/uagent/util_tools.py:2446
 msgid "       :auto off"
 msgstr ":auto av"
 
-#: src/uagent/util_tools.py:2395
+#: src/uagent/util_tools.py:2460
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Ugyldig verdi for --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2406
+#: src/uagent/util_tools.py:2471
 msgid "Goal cannot be empty."
 msgstr "Målet kan ikke være tomt."
 
-#: src/uagent/util_tools.py:2416
+#: src/uagent/util_tools.py:2481
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Startet. Mål: %(goal)s"
 
-#: src/uagent/util_tools.py:2417
+#: src/uagent/util_tools.py:2482
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Maks runder: %(max)d"
 
-#: src/uagent/util_tools.py:2581
+#: src/uagent/util_tools.py:2646
 msgid "Exiting."
 msgstr "Avslutter."
 
-#: src/uagent/util_tools.py:2584
+#: src/uagent/util_tools.py:2649
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Ukjent kommando: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2647
+#: src/uagent/util_tools.py:2712
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2522,7 +2529,7 @@ msgstr ""
 "[WARN] En annen oppgave kjører allerede i dette rommet. Prøv på nytt når den"
 " er fullført."
 
-#: src/uagent/web.py:675 src/uagent/web.py:823
+#: src/uagent/web.py:675 src/uagent/web.py:835
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2573,7 +2580,7 @@ msgstr ""
 "3. Inkluder interaktiv JavaScript (f.eks. Chart.js for diagrammer, eller enkel tilstandsbehandling).\n"
 "4. Ikke del koden opp i flere blokker; hold den i en enkelt forent ```html-blokk.\n"
 
-#: src/uagent/web.py:820
+#: src/uagent/web.py:832
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2582,24 +2589,24 @@ msgstr ""
 "[FATAL] Feil i web-arbeider.\n"
 "%(err)s"
 
-#: src/uagent/web.py:957
+#: src/uagent/web.py:969
 msgid "missing path"
 msgstr "mangler sti"
 
-#: src/uagent/web.py:964
+#: src/uagent/web.py:976
 msgid "path outside workdir"
 msgstr "sti utenfor arbeidskatalogen"
 
-#: src/uagent/web.py:1289
+#: src/uagent/web.py:1301
 msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
 msgstr ""
 "Bind adresse (standard: 127.0.0.1). Overstyrer UAGENT_WEB_HOST env var."
 
-#: src/uagent/web.py:1354
+#: src/uagent/web.py:1366
 msgid "Starting server on"
 msgstr "Starter server på"
 
-#: src/uagent/web.py:1356
+#: src/uagent/web.py:1368
 msgid "External URL:"
 msgstr "Ekstern URL:"
 
@@ -2665,7 +2672,7 @@ msgstr ""
 "- Bilder: GUI støtter dra og slipp; i CUI kan du skrive inn en filsti for "
 "bildeanalyse."
 
-#: src/uagent/welcome.py:74
+#: src/uagent/welcome.py:75
 msgid ""
 "- Interrupt: press `c` key to stop the current LLM response (injected as "
 "'Stop')."
@@ -2673,7 +2680,7 @@ msgstr ""
 "- Avbryt: trykk på `c`-tasten for å stoppe gjeldende LLM-respons (injisert "
 "som 'Stopp')."
 
-#: src/uagent/welcome.py:75
+#: src/uagent/welcome.py:78
 msgid ""
 "- Auto-pilot: `:auto <goal>` repeatedly runs a task; press `x` to exit "
 "immediately."
@@ -2681,15 +2688,15 @@ msgstr ""
 "- Auto-pilot: `:auto <mål>` kjører en oppgave gjentatte ganger; trykk 'x' "
 "for å avslutte umiddelbart."
 
-#: src/uagent/welcome.py:77
+#: src/uagent/welcome.py:81
 msgid "[Examples]"
 msgstr "[Eksempler]"
 
-#: src/uagent/welcome.py:78
+#: src/uagent/welcome.py:82
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr "- \"Analyser kildekoden i denne mappen og lag en README.md.\""
 
-#: src/uagent/welcome.py:80
+#: src/uagent/welcome.py:84
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
@@ -2697,19 +2704,19 @@ msgstr ""
 "- \"Ta et skjermbilde av skrivebordet og beskriv det synlige "
 "vindusinnholdet.\""
 
-#: src/uagent/welcome.py:82
+#: src/uagent/welcome.py:86
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr "- \"Lag en månedlig oppsummeringsrapport fra denne Excel-filen.\""
 
-#: src/uagent/welcome.py:83
+#: src/uagent/welcome.py:87
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"Les denne PDF-en og list opp tre hovedpunkter.\""
 
-#: src/uagent/welcome.py:84
+#: src/uagent/welcome.py:88
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"Søk etter de siste nyhetene og oppsummer et bestemt tema.\""
 
-#: src/uagent/welcome.py:191
+#: src/uagent/welcome.py:195
 msgid "-- More -- (Enter: next) "
 msgstr "-- Mer -- (Enter: neste) "
 

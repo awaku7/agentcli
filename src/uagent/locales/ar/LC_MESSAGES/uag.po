@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 10:59+0900\n"
+"POT-Creation-Date: 2026-06-30 14:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,7 +79,7 @@ msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "فشل تأكيد إرسال الصور؛ لن يتم إرسال الصور: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:709
+#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "فشل إرفاق الصورة: %(path)s (%(etype)s: %(err)s)"
@@ -111,53 +111,53 @@ msgstr ""
 "الأرقام(1=أساسي،2=comm،4=office،8=devel،16=iot،32=exec،64=خارجي،128=وسائط،256=ملف،512=فهرس،1023=الكل،Enter=أساسي"
 " فقط):"
 
-#: src/uagent/cli_startup.py:69 src/uagent/web.py:983
+#: src/uagent/cli_startup.py:69 src/uagent/web.py:995
 msgid "Basic (env, time, prompts, skills, memory, tools control)"
 msgstr ""
 "الأساسية (البيئة، الوقت، المطالبات، المهارات، الذاكرة، التحكم بالأدوات)"
 
 #: src/uagent/cli_startup.py:73 src/uagent/cli_startup.py:94
-#: src/uagent/web.py:989
+#: src/uagent/web.py:1001
 msgid ""
 "File (create, delete, read, write, search, zip, rename, hash, grep, list "
 "dir)"
 msgstr ""
 "ملف (إنشاء، حذف، قراءة، كتابة، بحث، zip، إعادة تسمية، hash، grep، listdir)"
 
-#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1457
-#: src/uagent/web.py:995
+#: src/uagent/cli_startup.py:76 src/uagent/scheckgui.py:1507
+#: src/uagent/web.py:1007
 msgid "Communication (Teams, Discord, Bluesky)"
 msgstr "التواصل (Teams, Discord, Bluesky)"
 
-#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1462
-#: src/uagent/web.py:1000
+#: src/uagent/cli_startup.py:77 src/uagent/scheckgui.py:1512
+#: src/uagent/web.py:1012
 msgid "Office (Excel, Word, PDF, PPT, document extraction)"
 msgstr "Office (Excel, Word, PDF, PPT, استخراج المستندات)"
 
-#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1468
-#: src/uagent/web.py:1006
+#: src/uagent/cli_startup.py:81 src/uagent/scheckgui.py:1518
+#: src/uagent/web.py:1018
 msgid ""
 "Development (lint, test, git, DB, screenshot, browser, binary, compile)"
 msgstr ""
 "Development (lint, test, git, DB, لقطة شاشة, browser, binary, compile)"
 
-#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1475
-#: src/uagent/web.py:1013
+#: src/uagent/cli_startup.py:86 src/uagent/scheckgui.py:1525
+#: src/uagent/web.py:1025
 msgid "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, camera, geo-IP)"
 msgstr "IoT (Bluetooth/BLE, ECHONET, Matter, SwitchBot, UPnP, كاميرا, geo-IP)"
 
-#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1481
-#: src/uagent/web.py:1019
+#: src/uagent/cli_startup.py:88 src/uagent/scheckgui.py:1531
+#: src/uagent/web.py:1031
 msgid "Execution (cmd, python, pwsh, bash, sub-agent)"
 msgstr "التنفيذ (cmd, python, pwsh, bash, وكيل فرعي)"
 
-#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1486
-#: src/uagent/web.py:1024
+#: src/uagent/cli_startup.py:89 src/uagent/scheckgui.py:1536
+#: src/uagent/web.py:1036
 msgid "External (A2A, MCP, fetch, search web)"
 msgstr "خارجي (A2A, MCP, جلب, بحث ويب)"
 
-#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1491
-#: src/uagent/web.py:1029
+#: src/uagent/cli_startup.py:90 src/uagent/scheckgui.py:1541
+#: src/uagent/web.py:1041
 msgid "Media (image gen/edit/analyze, audio, QR code)"
 msgstr "Media (توليد/تحرير/تحليل الصور, صوت, رمز QR)"
 
@@ -198,7 +198,7 @@ msgstr "[INFO] مطالبة نوع بدء التشغيل = إدخال رقمي (
 msgid "[WARN] Failed to apply startup tool selection: %(err)s"
 msgstr "[WARN] فشل تطبيق تحديد أداة بدء التشغيل: %(err)s"
 
-#: src/uagent/cli_startup.py:275 src/uagent/web.py:1310
+#: src/uagent/cli_startup.py:275 src/uagent/web.py:1322
 #, python-format
 msgid "[FATAL] Failed to set workdir: %(err)s"
 msgstr "[فادح] فشل في تعيين دليل العمل: %(err)s"
@@ -213,7 +213,7 @@ msgstr "[فادح] فشل تشغيل uag_setup: %(err)s"
 msgid "provider = %(provider)s; model = %(model)s"
 msgstr "المزوّد = %(provider)s؛ النموذج = %(model)s"
 
-#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:561
+#: src/uagent/cli_startup.py:356 src/uagent/scheckgui.py:562
 msgid "OpenRouter fallback models enabled."
 msgstr "تم تمكين نماذج OpenRouter الاحتياطية."
 
@@ -222,11 +222,11 @@ msgstr "تم تمكين نماذج OpenRouter الاحتياطية."
 msgid "current workdir = %(cwd)s"
 msgstr "دليل العمل الحالي = %(cwd)s"
 
-#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:584
+#: src/uagent/cli_startup.py:383 src/uagent/scheckgui.py:585
 msgid "Loaded long-term memory."
 msgstr "تم تحميل الذاكرة طويلة المدى."
 
-#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:597
+#: src/uagent/cli_startup.py:396 src/uagent/scheckgui.py:598
 msgid "Loaded shared long-term memory."
 msgstr "تم تحميل الذاكرة المشتركة طويلة المدى."
 
@@ -451,13 +451,13 @@ msgstr ""
 "- اطّلع على الأدوات المتاحة واختر الأنسب منها.\n"
 "- عند تنفيذ الأدوات، قلّل إلى أدنى حد من الاعتماد على قرارات المستخدم.\n"
 
-#: src/uagent/core.py:1685
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
 "- For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.\n"
 "- If you need additional information or confirmation from the user, use the human_ask tool.\n"
 "- When handling relative date expressions, call get_current_time to reference the current time.\n"
+"- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory (add_long_memory, etc.).\n"
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile` to validate syntax.\n"
@@ -465,17 +465,18 @@ msgid ""
 "- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 msgstr ""
 "## ملاحظات\n"
-"- تأتي جميع رسائل المستخدم عبر الإدخال القياسي لهذا السكربت.\n"
-"- بالنسبة لغاية الأداة/الوسائط/القيود/التفاصيل التشغيلية الخاصة بكل أداة، فضّل وصف كل أداة.\n"
-"- إذا احتجت إلى معلومات إضافية أو تأكيد من المستخدم، فاستخدم أداة human_ask.\n"
-"- عند التعامل مع تعبيرات التاريخ النسبية، استدعِ get_current_time للرجوع إلى الوقت الحالي.\n"
-"- لا تخزّن الأسرار (كلمات المرور/الرموز المميّزة) في الذاكرة طويلة المدى (add_long_memory، إلخ).\n"
-"- الملفات ذات اللاحقات مثل .org / .org1 / .org2 هي نسخ احتياطية، ويجب عدم التعامل معها كملفات قابلة للتحرير الرئيسية.\n"
-"- إذا أنشأت ملفات Python، فشغّل `python -m py_compile` للتحقق من صحة الصياغة.\n"
-"- إذا كانت هناك حاجة إلى معرفة متخصصة، فاستخدم قوالب المطالبات (Agent Skills) واتبعها.\n"
-"- إذا كان إدخال المستخدم مجرد تأكيد قصير ولم يضف معلومات جديدة، فلا تكرر الشرح نفسه إلا إذا كان ردًا مباشرًا على السؤال الواضح السابق مباشرة. إذا لزم الأمر، فاسأل باختصار: \"أي نقطة أتابع منها؟\"\n"
+"- تأتي جميع رسائل المستخدم عبر الإدخال القياسي لهذا البرنامج النصي.\n"
+"- بالنسبة للأغراض/الحجج/القيود/التفاصيل التشغيلية الخاصة بالأداة، يفضل وصف كل أداة.\n"
+"- إذا كنت بحاجة إلى معلومات إضافية أو تأكيد من المستخدم، استخدم أداة human_ask.\n"
+"- عند التعامل مع تعبيرات التاريخ النسبي، اتصل بـ get_current_time للإشارة إلى الوقت الحالي.\n"
+"- تحديد مسارات الملفات المتعلقة بدير العمل. استخدم المسارات المطلقة فقط للملفات الموجودة خارج دليل العمل.\n"
+"- لا تقم بتخزين الأسرار (كلمات المرور/الرموز المميزة) في الذاكرة طويلة المدى (add_long_memory، وما إلى ذلك).\n"
+"- الملفات التي تحتوي على لاحقات مثل .org / .org1 / .org2 هي نسخ احتياطية ويجب ألا يتم معاملتها كملفات أساسية قابلة للتحرير.\n"
+"- إذا قمت بإنشاء ملفات Python، قم بتشغيل `python -m py_compile` للتحقق من صحة الصيغة.\n"
+"- إذا كانت المعرفة على مستوى الخبراء مطلوبة، فاستخدم النماذج السريعة (مهارات الوكيل) واتبعها.\n"
+"- إذا كان إدخال المستخدم مجرد تأكيد قصير ولا يضيف أي معلومات جديدة، فلا تكرر نفس الشرح إلا إذا كانت إجابة مباشرة على السؤال الواضح السابق مباشرة. إذا لزم الأمر، اسأل بإيجاز: \"ما هي النقطة التي يجب أن أستمر فيها؟\""
 
-#: src/uagent/core.py:1697
+#: src/uagent/core.py:1698
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -491,7 +492,7 @@ msgstr ""
 "- فقط عندما يجيب المستخدم صراحةً بـ \"y\" أو \"yes\" (أو أي موافقة صريحة مكافئة)، شغّل delete_file مرة أخرى بنفس المعلمات، مع dry_run=false وconfirmed=true.\n"
 "- إذا لم يكن هناك أي مرشحين، فلا تسأل؛ وأبلغ فقط بأنه لن يتم حذف أي شيء.\n"
 
-#: src/uagent/core.py:1705
+#: src/uagent/core.py:1706
 msgid ""
 "## Mission\n"
 "- You are a capable \"general-purpose tool execution agent\" running on a local environment; you can execute commands and operate on the user's machine.\n"
@@ -506,7 +507,7 @@ msgstr ""
 "- لا مجاملة. لا الرموز التعبيرية. لا توجد ملخصات المحادثة. اجعلها موجزة.\n"
 "- عند إنشاء الملفات، قم بإخراج المحتوى النهائي الكامل (بدون فروق/ملخصات جزئية)."
 
-#: src/uagent/core.py:1713
+#: src/uagent/core.py:1714
 msgid ""
 "## Rules\n"
 "- Use the provided tools first and verify results with tools.\n"
@@ -520,12 +521,12 @@ msgstr ""
 "- كن مبدعا، ولكن لا تخرج معلومات غير مؤكدة.\n"
 "- تفويض أقل قدر ممكن من اتخاذ القرار للمستخدم."
 
-#: src/uagent/core.py:1720
 msgid ""
 "## Notes\n"
 "- All user messages come via this script's standard input.\n"
 "- If required info/parameters are missing, ask via human_ask (do not guess).\n"
 "- Relative dates: call get_current_time.\n"
+"- Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.\n"
 "- Do not store secrets (passwords/tokens) in long-term memory.\n"
 "- Files with suffixes like .org / .org1 / .org2 are backup copies and must not be treated as primary editable files.\n"
 "- If you create Python files, run `python -m py_compile`.\n"
@@ -533,16 +534,17 @@ msgid ""
 "- If the user's input is only a short affirmation and adds no new information, do not repeat the same explanation unless it is a direct answer to the immediately preceding clear question. If needed, ask briefly: \"Which point should I continue with?\"\n"
 msgstr ""
 "## ملاحظات\n"
-"- تأتي جميع رسائل المستخدم عبر الإدخال القياسي لهذا السكربت.\n"
-"- إذا كانت المعلومات/المعلمات المطلوبة مفقودة، فاطلبها عبر أداة human_ask (من دون التخمين).\n"
-"- عند التعامل مع التعبيرات الزمنية النسبية، استدعِ get_current_time.\n"
-"- لا تخزّن الأسرار (كلمات المرور/الرموز المميّزة) في الذاكرة طويلة المدى.\n"
-"- الملفات ذات اللاحقات مثل .org / .org1 / .org2 هي نسخ احتياطية، ويجب عدم التعامل معها كملفات قابلة للتحرير الرئيسية.\n"
-"- إذا أنشأت ملفات Python، فشغّل `python -m py_compile`.\n"
-"- إذا كانت هناك حاجة إلى معرفة متخصصة، فاستخدم قوالب المطالبات الخاصة بـ Agent Skills.\n"
-"- إذا كان إدخال المستخدم مجرد موافقة قصيرة ولم يضف أي معلومات جديدة، فلا تكرر الشرح نفسه إلا إذا كان ردًا مباشرًا على السؤال الواضح السابق مباشرة. إذا لزم الأمر، فاسأل باختصار: \"أي نقطة أتابع منها؟\"\n"
+"- تأتي جميع رسائل المستخدم عبر الإدخال القياسي لهذا البرنامج النصي.\n"
+"- إذا كانت المعلومات/المعلمات المطلوبة مفقودة، اسأل عبر human_ask (لا تخمن).\n"
+"- التواريخ النسبية: اتصل بـ get_current_time.\n"
+"- تحديد مسارات الملفات المتعلقة بدير العمل. استخدم المسارات المطلقة فقط للملفات الموجودة خارج دليل العمل.\n"
+"- لا تقم بتخزين الأسرار (كلمات المرور/الرموز المميزة) في الذاكرة طويلة المدى.\n"
+"- الملفات التي تحتوي على لاحقات مثل .org / .org1 / .org2 هي نسخ احتياطية ويجب ألا يتم معاملتها كملفات أساسية قابلة للتحرير.\n"
+"- إذا قمت بإنشاء ملفات بايثون، قم بتشغيل `python -m py_compile`.\n"
+"- إذا كانت المعرفة على مستوى الخبراء مطلوبة، فاستخدم قوالب المطالبة بمهارات الوكيل.\n"
+"- إذا كان إدخال المستخدم مجرد تأكيد قصير ولا يضيف أي معلومات جديدة، فلا تكرر نفس الشرح إلا إذا كانت إجابة مباشرة على السؤال الواضح السابق مباشرة. إذا لزم الأمر، اسأل بإيجاز: \"ما هي النقطة التي يجب أن أستمر فيها؟\""
 
-#: src/uagent/core.py:1733
+#: src/uagent/core.py:1735
 msgid ""
 "- If the user is using Windows cmd.exe, prefer multi-line commands using "
 "caret (^) line continuation, and keep each line short to avoid copy/paste "
@@ -552,7 +554,7 @@ msgstr ""
 "باستخدام استمرار سطر علامة الإقحام (^)، واحتفظ بكل سطر قصيرًا لتجنب فواصل "
 "أسطر النسخ/اللصق."
 
-#: src/uagent/core.py:1800
+#: src/uagent/core.py:1802
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
@@ -1054,148 +1056,151 @@ msgstr ""
 "\\\"string\\\"، \\\"shell\\\": \\\"string\\\"،\\\"editor\\\": "
 "\\\"string\\\"}،\\\"preferences\\\":[\\\"string\\\"]،\\\"constraints\\\":[\\\"سلسلة\\\"]}"
 
-#: src/uagent/scheckgui.py:393
+#: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
 msgstr "اسحب وأفلت الملفات/الصور هنا"
 
-#: src/uagent/scheckgui.py:433
+#: src/uagent/scheckgui.py:434
 msgid "Download"
 msgstr "تنزيل"
 
-#: src/uagent/scheckgui.py:606
+#: src/uagent/scheckgui.py:607
 #, python-format
 msgid "Exception occurred while loading shared long-term memory: %(err)s"
 msgstr "حدث استثناء أثناء تحميل الذاكرة المشتركة طويلة المدى: %(err)s"
 
-#: src/uagent/scheckgui.py:659
+#: src/uagent/scheckgui.py:672
 #, python-format
 msgid "[Attached File] %(name)s (%(path)s)"
 msgstr "[ملف مرفق] %(name)s (%(path)s)"
 
-#: src/uagent/scheckgui.py:744
+#: src/uagent/scheckgui.py:769
 #, python-format
 msgid "[Attached Image] %(path)s"
 msgstr "[صورة مرفقة] %(path)s"
 
-#: src/uagent/scheckgui.py:746 src/uagent/web.py:715
+#: src/uagent/scheckgui.py:771 src/uagent/web.py:715
 #, python-format
 msgid "[Image Path] %(path)s"
 msgstr "[مسار الصورة] %(path)s"
 
-#: src/uagent/scheckgui.py:1062 src/uagent/scheckgui.py:1354
+#: src/uagent/scheckgui.py:1099 src/uagent/scheckgui.py:1404
 msgid "Welcome / Quick Guide"
 msgstr "مرحباً بك / الدليل السريع"
 
-#: src/uagent/scheckgui.py:1176
+#: src/uagent/scheckgui.py:1213
 msgid "Font size: %(name)s"
 msgstr "حجم الخط: %(name)s"
 
-#: src/uagent/scheckgui.py:1181
+#: src/uagent/scheckgui.py:1218
 msgid "uag GUI (Extreme Stability)"
 msgstr "uag واجهة المستخدم الرسومية (الاستقرار الشديد)"
 
-#: src/uagent/scheckgui.py:1262
+#: src/uagent/scheckgui.py:1299
 msgid "↑ You can attach files by drag & drop"
 msgstr "↑ يمكنك إرفاقها بالسحب والإفلات"
 
-#: src/uagent/scheckgui.py:1290 src/uagent/scheckgui.py:1722
+#: src/uagent/scheckgui.py:1327 src/uagent/scheckgui.py:1781
 msgid "Attach files"
 msgstr "إرفاق ملفات"
 
-#: src/uagent/scheckgui.py:1294
+#: src/uagent/scheckgui.py:1331
 msgid "■"
 msgstr "■"
 
-#: src/uagent/scheckgui.py:1297
+#: src/uagent/scheckgui.py:1334
 msgid "Stop generation"
 msgstr "وقف الجيل"
 
-#: src/uagent/scheckgui.py:1312
+#: src/uagent/scheckgui.py:1349
 msgid "Send"
 msgstr "يرسل"
 
-#: src/uagent/scheckgui.py:1352
+msgid "Stop auto-pilot"
+msgstr "إيقاف الطيار الآلي"
+
+#: src/uagent/scheckgui.py:1402
 msgid "Help"
 msgstr "يساعد"
 
-#: src/uagent/scheckgui.py:1368
+#: src/uagent/scheckgui.py:1418
 msgid "View"
 msgstr "منظر"
 
-#: src/uagent/scheckgui.py:1374
+#: src/uagent/scheckgui.py:1424
 msgid "Font: %(name)s"
 msgstr "الخط: %(name)s"
 
-#: src/uagent/scheckgui.py:1389
+#: src/uagent/scheckgui.py:1439
 msgid "Mode"
 msgstr "وضع"
 
-#: src/uagent/scheckgui.py:1392
+#: src/uagent/scheckgui.py:1442
 msgid "Reasoning: off"
 msgstr "المنطق: قبالة"
 
-#: src/uagent/scheckgui.py:1395
+#: src/uagent/scheckgui.py:1445
 msgid "Reasoning: auto"
 msgstr "المنطق: تلقائي"
 
-#: src/uagent/scheckgui.py:1397
+#: src/uagent/scheckgui.py:1447
 msgid "Reasoning: minimal"
 msgstr "المنطق: الحد الأدنى"
 
-#: src/uagent/scheckgui.py:1399
+#: src/uagent/scheckgui.py:1449
 msgid "Reasoning: low"
 msgstr "المنطق: منخفض"
 
-#: src/uagent/scheckgui.py:1401
+#: src/uagent/scheckgui.py:1451
 msgid "Reasoning: medium"
 msgstr "المنطق: متوسط"
 
-#: src/uagent/scheckgui.py:1403
+#: src/uagent/scheckgui.py:1453
 msgid "Reasoning: high"
 msgstr "المنطق: مرتفع"
 
-#: src/uagent/scheckgui.py:1406
+#: src/uagent/scheckgui.py:1456
 msgid "Reasoning: xhigh"
 msgstr "المنطق: xعالية"
 
-#: src/uagent/scheckgui.py:1411
+#: src/uagent/scheckgui.py:1461
 msgid "Verbosity: off"
 msgstr "الإسهاب: إيقاف"
 
-#: src/uagent/scheckgui.py:1413
+#: src/uagent/scheckgui.py:1463
 msgid "Verbosity: low"
 msgstr "الإسهاب: منخفض"
 
-#: src/uagent/scheckgui.py:1415
+#: src/uagent/scheckgui.py:1465
 msgid "Verbosity: medium"
 msgstr "الإسهاب : متوسط"
 
-#: src/uagent/scheckgui.py:1417
+#: src/uagent/scheckgui.py:1467
 msgid "Verbosity: high"
 msgstr "الإسهاب : عالي"
 
-#: src/uagent/scheckgui.py:1444
+#: src/uagent/scheckgui.py:1494
 msgid "Tools"
 msgstr "أدوات"
 
-#: src/uagent/scheckgui.py:1451
+#: src/uagent/scheckgui.py:1501
 msgid "Basic (file, env, time, prompts, skills, memory, tools control)"
 msgstr "أساسي (ملف، بيئة، وقت، مطالبات، مهارات، ذاكرة، تحكم في الأدوات)"
 
-#: src/uagent/scheckgui.py:1496
+#: src/uagent/scheckgui.py:1546
 msgid "File (read, write, search, delete, listing)"
 msgstr "ملف (قراءة، كتابة، بحث، حذف، إدراج)"
 
-#: src/uagent/scheckgui.py:1501
+#: src/uagent/scheckgui.py:1551
 msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "الفهرس (التنقل عبر الكود المصدري: py2idx، ts2idx، إلخ.)"
 
-#: src/uagent/scheckgui.py:1552
+#: src/uagent/scheckgui.py:1602
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
 msgstr "[الوضع] الاستدلال=%(mode)s"
 
-#: src/uagent/scheckgui.py:1556
+#: src/uagent/scheckgui.py:1606
 msgid ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=off, 1=low, 2=medium, 3=high; "
 "auto/minimal/xhigh)"
@@ -1203,50 +1208,50 @@ msgstr ""
 ":r [0|1|2|3|auto|minimal|xhigh]  (0=إيقاف، 1=منخفض، 2=متوسط، 3=مرتفع؛ "
 "auto/minimal/xhigh)"
 
-#: src/uagent/scheckgui.py:1564
+#: src/uagent/scheckgui.py:1614
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
 msgstr "[الوضع] مستوى التفصيل=%(mode)s"
 
-#: src/uagent/scheckgui.py:1566
+#: src/uagent/scheckgui.py:1616
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr ":v [0|1|2|3]  (0=إيقاف، 1=منخفض، 2=متوسط، 3=عالٍ؛ بدون وسيطة=الإبقاء)"
 
-#: src/uagent/scheckgui.py:1698
+#: src/uagent/scheckgui.py:1748
 msgid "Enter password..."
 msgstr "أدخل كلمة المرور..."
 
-#: src/uagent/scheckgui.py:1705
+#: src/uagent/scheckgui.py:1755
 msgid "Enter a message..."
 msgstr "أدخل رسالة..."
 
-#: src/uagent/scheckgui.py:1724
+#: src/uagent/scheckgui.py:1783
 msgid "All Files (*)"
 msgstr "كل الملفات (*)"
 
-#: src/uagent/scheckgui.py:1976
+#: src/uagent/scheckgui.py:2035
 msgid "cannot read image"
 msgstr "تعذّر قراءة الصورة"
 
-#: src/uagent/scheckgui.py:2127 src/uagent/scheckgui.py:2167
-#: src/uagent/scheckgui.py:2202
+#: src/uagent/scheckgui.py:2186 src/uagent/scheckgui.py:2226
+#: src/uagent/scheckgui.py:2261
 msgid "Downloaded to"
 msgstr "تم التنزيل إلى"
 
-#: src/uagent/scheckgui.py:2221
+#: src/uagent/scheckgui.py:2280
 msgid "Playing"
 msgstr "قيد التشغيل"
 
-#: src/uagent/scheckgui.py:2231
+#: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "متوقف"
 
-#: src/uagent/scheckgui.py:2290
+#: src/uagent/scheckgui.py:2356
 #, python-format
 msgid "[REPLY] > %(text)s"
 msgstr "[الرد] > %(text)s"
 
-#: src/uagent/scheckgui.py:2297
+#: src/uagent/scheckgui.py:2363
 #, python-format
 msgid "[USER] %(text)s"
 msgstr "[المستخدم] %(text)s"
@@ -1976,7 +1981,7 @@ msgstr ""
 "الوضع غير التفاعلي. لا تبدأ حلقة stdin؛ الخروج بعد معالجة ملف بدء التشغيل "
 "(إن وجد)."
 
-#: src/uagent/util_tools.py:230 src/uagent/web.py:1268
+#: src/uagent/util_tools.py:230 src/uagent/web.py:1280
 msgid ""
 "Tool genre bitmask "
 "(1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1023=all)."
@@ -1986,11 +1991,11 @@ msgstr ""
 "الأداة(1=أساسي،2=comm،4=مكتب،8=devel،16=iot،32=exec،64=خارجي،128=وسائط،256=ملف،512=فهرس،1023=الكل).يتخطى"
 " مطالبة النوع التفاعلي عند تحديده."
 
-#: src/uagent/util_tools.py:238 src/uagent/web.py:1276
+#: src/uagent/util_tools.py:238 src/uagent/web.py:1288
 msgid "Enable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "تمكين إرسال الأداة إلى LLM (يتجاوز متغير البيئة UAGENT_USE_TOOL)."
 
-#: src/uagent/util_tools.py:245 src/uagent/web.py:1283
+#: src/uagent/util_tools.py:245 src/uagent/web.py:1295
 msgid "Disable tool sending to LLM (overrides UAGENT_USE_TOOL env var)."
 msgstr "تعطيل إرسال الأداة إلى LLM (يتجاوز متغير البيئة UAGENT_USE_TOOL)."
 
@@ -2015,95 +2020,97 @@ msgstr "استدلال غير صالح"
 msgid "invalid verbosity"
 msgstr "مستوى التفصيل غير صالح"
 
-#: src/uagent/util_tools.py:592
-#, python-format
-msgid "[logs] Invalid argument: %(arg)r (specify all / --all / -a / number)"
-msgstr "[سجلات] وسيطة غير صالحة: %(arg)r (حدد الكل / --all / -a / number)"
+msgid ""
+"[logs] Invalid argument: %(arg)r (specify all / --all / -a / number / pdf "
+"<index>)"
+msgstr ""
+"[سجلات] وسيطة غير صالحة: %(arg)r (حدد الكل / --all / -a / number / pdf "
+"<index>)"
 
-#: src/uagent/util_tools.py:639
+#: src/uagent/util_tools.py:679
 #, python-format
 msgid "failed to parse arguments: %(err)s"
 msgstr "فشل تحليل الوسائط: %(err)s"
 
-#: src/uagent/util_tools.py:642
+#: src/uagent/util_tools.py:682
 msgid "missing arguments"
 msgstr "وسائط مفقودة"
 
-#: src/uagent/util_tools.py:659
+#: src/uagent/util_tools.py:699
 msgid "src and dst are required"
 msgstr "src و dst مطلوبان"
 
-#: src/uagent/util_tools.py:684
+#: src/uagent/util_tools.py:724
 #, python-format
 msgid ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":cp <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:691 src/uagent/util_tools.py:748
+#: src/uagent/util_tools.py:731 src/uagent/util_tools.py:788
 #, python-format
 msgid "[cp error] %(etype)s: %(err)s"
 msgstr "[cp error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:701
+#: src/uagent/util_tools.py:741
 #, python-format
 msgid "[cp] Source and destination are the same: %(path)s"
 msgstr "[cp] المصدر والوجهة متطابقان: %(path)s"
 
-#: src/uagent/util_tools.py:707
+#: src/uagent/util_tools.py:747
 #, python-format
 msgid "[cp] Source does not exist: %(path)s"
 msgstr "[cp] المصدر غير موجود: %(path)s"
 
-#: src/uagent/util_tools.py:714 src/uagent/util_tools.py:726
+#: src/uagent/util_tools.py:754 src/uagent/util_tools.py:766
 #, python-format
 msgid "[cp] Destination already exists: %(path)s"
 msgstr "[cp] الوجهة موجودة بالفعل: %(path)s"
 
-#: src/uagent/util_tools.py:735
+#: src/uagent/util_tools.py:775
 #, python-format
 msgid "[cp] Destination parent does not exist: %(path)s"
 msgstr "[cp] المجلد الأب للوجهة غير موجود: %(path)s"
 
-#: src/uagent/util_tools.py:742
+#: src/uagent/util_tools.py:782
 #, python-format
 msgid "[cp] Copied: %(src)s -> %(dst)s"
 msgstr "[cp] تم النسخ: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:756
+#: src/uagent/util_tools.py:796
 #, python-format
 msgid ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 msgstr ":mv <src> <dst> [-f|--overwrite] [-p|--mkdirs]"
 
-#: src/uagent/util_tools.py:763 src/uagent/util_tools.py:807
+#: src/uagent/util_tools.py:803 src/uagent/util_tools.py:847
 #, python-format
 msgid "[mv error] %(etype)s: %(err)s"
 msgstr "[mv error] %(etype)s: %(err)s"
 
-#: src/uagent/util_tools.py:773
+#: src/uagent/util_tools.py:813
 #, python-format
 msgid "[mv] Source and destination are the same: %(path)s"
 msgstr "[mv] المصدر والوجهة متطابقان: %(path)s"
 
-#: src/uagent/util_tools.py:779
+#: src/uagent/util_tools.py:819
 #, python-format
 msgid "[mv] Source does not exist: %(path)s"
 msgstr "[mv] المصدر غير موجود: %(path)s"
 
-#: src/uagent/util_tools.py:785
+#: src/uagent/util_tools.py:825
 #, python-format
 msgid "[mv] Destination already exists: %(path)s"
 msgstr "[mv] الوجهة موجودة بالفعل: %(path)s"
 
-#: src/uagent/util_tools.py:795
+#: src/uagent/util_tools.py:835
 #, python-format
 msgid "[mv] Destination parent does not exist: %(path)s"
 msgstr "[mv] المجلد الأب للوجهة غير موجود: %(path)s"
 
-#: src/uagent/util_tools.py:802
+#: src/uagent/util_tools.py:842
 #, python-format
 msgid "[mv] Moved: %(src)s -> %(dst)s"
 msgstr "[mv] تم النقل: %(src)s -> %(dst)s"
 
-#: src/uagent/util_tools.py:1045
+#: src/uagent/util_tools.py:1085
 msgid ""
 "[Skill execution]\n"
 "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
@@ -2115,11 +2122,11 @@ msgstr ""
 "إذا كانت المهارة تحتوي على مهام، فاستمر حتى تكتمل.\n"
 "استخدم الأدوات حسب الحاجة."
 
-#: src/uagent/util_tools.py:1052
+#: src/uagent/util_tools.py:1092
 msgid "When finished, always call `finish_skill` if available.\n"
 msgstr "عند الانتهاء، اتصل دائمًا بـ `finish_skill` إذا كان ذلك متاحًا."
 
-#: src/uagent/util_tools.py:1204
+#: src/uagent/util_tools.py:1244
 msgid ""
 "Select a skill number to run. Enter c to cancel.\n"
 "Tip: :skills clear  (remove applied skills)\n"
@@ -2129,7 +2136,7 @@ msgstr ""
 "نصيحة: :مهارات واضحة (إزالة المهارات التطبيقية)\n"
 "أدخل الرقم:"
 
-#: src/uagent/util_tools.py:1240
+#: src/uagent/util_tools.py:1280
 #, python-format
 msgid ""
 "Run this skill as a system-level instruction and keep it active in this session?\n"
@@ -2146,7 +2153,7 @@ msgstr ""
 "\n"
 "هل تريد المتابعة؟ أدخل y للتشغيل، أو c للإلغاء."
 
-#: src/uagent/util_tools.py:1302
+#: src/uagent/util_tools.py:1342
 #, python-format
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
@@ -2154,7 +2161,7 @@ msgid ""
 msgstr ""
 "[نظيف] وسيطة غير صالحة: %(arg)r (حدد الرقم=العتبة؛ الافتراضي هو %(default)d)"
 
-#: src/uagent/util_tools.py:1351
+#: src/uagent/util_tools.py:1391
 #, python-format
 msgid ""
 "will delete conversation log files (scheck_log_*.jsonl) from disk.\n"
@@ -2171,12 +2178,12 @@ msgstr ""
 "\n"
 "هل تريد المتابعة؟ أدخل y للتشغيل، أو c للإلغاء.\n"
 
-#: src/uagent/util_tools.py:1419
+#: src/uagent/util_tools.py:1459
 #, python-format
 msgid " - (%(count)d msgs) %(path)s"
 msgstr " - (%(count)d رسائل) %(path)s"
 
-#: src/uagent/util_tools.py:1449
+#: src/uagent/util_tools.py:1489
 #, python-format
 msgid ""
 "will overwrite the current session log file and prepend the loaded log (no backup).\n"
@@ -2193,7 +2200,7 @@ msgstr ""
 "\n"
 "هل تريد المتابعة؟ أدخل y للتشغيل، أو c للإلغاء."
 
-#: src/uagent/util_tools.py:1580
+#: src/uagent/util_tools.py:1620
 #, python-brace-format
 msgid ""
 "Delete {count} path(s)?\n"
@@ -2208,29 +2215,29 @@ msgstr ""
 "\n"
 "أدخل y للمتابعة، أو c للإلغاء."
 
-#: src/uagent/util_tools.py:1635
+#: src/uagent/util_tools.py:1675
 #, python-format
 msgid "Specified index %(idx)d is out of range."
 msgstr "الفهرس المحدد %(idx)d خارج النطاق."
 
-#: src/uagent/util_tools.py:1644
+#: src/uagent/util_tools.py:1684
 #, python-format
 msgid "Log file not found: %(path)s"
 msgstr "لم يتم العثور على ملف السجل: %(path)s"
 
-#: src/uagent/util_tools.py:1738
+#: src/uagent/util_tools.py:1778
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr "[خطأ التقليص] فشل التحليل كعدد صحيح: %(arg)r -> احتفظ بآخر %(keep)d"
 
-#: src/uagent/util_tools.py:1766
+#: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[خطأ shrink_llm] فشل التحليل كعدد صحيح: %(arg)r -> احتفظ بآخر %(keep)d"
 
-#: src/uagent/util_tools.py:1859 src/uagent/util_tools.py:1953
+#: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
 "Shared long-term memory is not enabled (UAGENT_SHARED_MEMORY_FILE is not "
 "set)."
@@ -2238,51 +2245,51 @@ msgstr ""
 "لم يتم تمكين الذاكرة المشتركة طويلة المدى (لم يتم تعيين "
 "UAGENT_SHARED_MEMORY_FILE)."
 
-#: src/uagent/util_tools.py:1900
+#: src/uagent/util_tools.py:1940
 msgid "Analyzing the most recent %d log files to generate user profile..."
 msgstr "جارٍ تحليل أحدث ملفات سجل %d لإنشاء ملف تعريف المستخدم..."
 
-#: src/uagent/util_tools.py:1904
+#: src/uagent/util_tools.py:1944
 msgid "Analyzing past logs to generate user profile..."
 msgstr "جارٍ تحليل السجلات السابقة لإنشاء ملف المستخدم..."
 
-#: src/uagent/util_tools.py:1908
+#: src/uagent/util_tools.py:1948
 msgid "No past logs found or failed to generate profile."
 msgstr "لم يتم العثور على سجلات سابقة أو تعذّر إنشاء الملف الشخصي."
 
-#: src/uagent/util_tools.py:1910
+#: src/uagent/util_tools.py:1950
 msgid "User profile generated successfully from past logs!"
 msgstr "تم مسح ملف تعريف المستخدم بنجاح."
 
-#: src/uagent/util_tools.py:1922
+#: src/uagent/util_tools.py:1962
 msgid "No user profile data found."
 msgstr "لم يتم العثور على بيانات ملف تعريف المستخدم."
 
-#: src/uagent/util_tools.py:1925
+#: src/uagent/util_tools.py:1965
 msgid "User Profile:"
 msgstr "ملف تعريف المستخدم:"
 
-#: src/uagent/util_tools.py:1937
+#: src/uagent/util_tools.py:1977
 msgid "User profile cleared successfully."
 msgstr "تم مسح ملف تعريف المستخدم بنجاح."
 
-#: src/uagent/util_tools.py:1941
+#: src/uagent/util_tools.py:1981
 msgid "No user profile file found to clear."
 msgstr "لم يتم العثور على ملف تعريف مستخدم لمسحه."
 
-#: src/uagent/util_tools.py:2004
+#: src/uagent/util_tools.py:2044
 msgid "Show this help"
 msgstr "أظهر هذه المساعدة"
 
-#: src/uagent/util_tools.py:2005
+#: src/uagent/util_tools.py:2045
 msgid "Restart input from the beginning"
 msgstr "إعادة تشغيل الإدخال من البداية"
 
-#: src/uagent/util_tools.py:2006
+#: src/uagent/util_tools.py:2046
 msgid "Show log file list"
 msgstr "عرض قائمة ملفات السجل"
 
-#: src/uagent/util_tools.py:2009
+#: src/uagent/util_tools.py:2049
 msgid ""
 "Change workdir without confirmation (e.g. :cd .. / :cd ~ / :cd C:\\path / "
 ":cd /)"
@@ -2290,26 +2297,26 @@ msgstr ""
 "قم بتغيير دليل العمل دون تأكيد (على سبيل المثال :cd .. / :cd ~ / :cd "
 "C:\\path / :cd /)"
 
-#: src/uagent/util_tools.py:2012
+#: src/uagent/util_tools.py:2052
 msgid "List directory entries (e.g. :ls / :ls .. / :ls ~ / :ls C:\\path)"
 msgstr ""
 "قائمة إدخالات الدليل (على سبيل المثال :ls / :ls .. / :ls ~ / :ls C:\\path)"
 
-#: src/uagent/util_tools.py:2015
+#: src/uagent/util_tools.py:2055
 msgid "Manage UAGENT_* env vars and save .env.sec"
 msgstr "أدر متغيرات البيئة UAGENT_* واحفظ .env.sec"
 
-#: src/uagent/util_tools.py:2017
+#: src/uagent/util_tools.py:2057
 msgid "Manage/apply skills (e.g. :skills / :skills active / :skills clear)"
 msgstr ""
 "إدارة/تطبيق المهارات (على سبيل المثال: المهارات / :المهارات النشطة / "
 ":المهارات واضحة)"
 
-#: src/uagent/util_tools.py:2024
+#: src/uagent/util_tools.py:2064
 msgid "Load a past log (overwrites current conversation history)"
 msgstr "تحميل سجل سابق (للكتابة فوق سجل المحادثة الحالي)"
 
-#: src/uagent/util_tools.py:2026
+#: src/uagent/util_tools.py:2066
 msgid ""
 "                       Note: after running, you will be asked for "
 "confirmation; choosing 'y' prepends the loaded log into the current session "
@@ -2318,7 +2325,7 @@ msgstr ""
 "ملحوظة: بعد التشغيل، سيُطلب منك التأكيد؛ يؤدي اختيار \"y\" إلى إضافة السجل "
 "الذي تم تحميله إلى ملف سجل الجلسة الحالي (الكتابة فوقه، بدون نسخ احتياطي)."
 
-#: src/uagent/util_tools.py:2030
+#: src/uagent/util_tools.py:2070
 msgid ""
 "Delete conversation logs (scheck_log_*.jsonl) where the count of "
 "user/assistant/tool messages (excluding system) is <= N (default=10)"
@@ -2326,14 +2333,14 @@ msgstr ""
 "حذف سجلات المحادثات (scheck_log_*.jsonl) حيث يكون عدد رسائل "
 "المستخدم/المساعد/الأداة (باستثناء النظام) <= N (افتراضي=10)"
 
-#: src/uagent/util_tools.py:2034
+#: src/uagent/util_tools.py:2074
 msgid ""
 "Shrink conversation history (keep last N non-system messages; default=40)"
 msgstr ""
 "تقليص سجل المحادثات (احتفظ بآخر عدد من الرسائل غير التابعة للنظام؛ الافتراضي"
 " = 40)"
 
-#: src/uagent/util_tools.py:2038
+#: src/uagent/util_tools.py:2078
 msgid ""
 "Shrink history via LLM summarization (summarize older history into 1 system "
 "message; keep last N raw; default=20)"
@@ -2341,80 +2348,80 @@ msgstr ""
 "تقليص التاريخ عبر تلخيص LLM (تلخيص التاريخ القديم في رسالة نظام واحدة؛ "
 "الاحتفاظ بآخر N خام؛ الافتراضي = 20)"
 
-#: src/uagent/util_tools.py:2041
+#: src/uagent/util_tools.py:2081
 msgid "Show the current approximate token count of the conversation"
 msgstr "إظهار عدد الرموز التقريبي الحالي للمحادثة"
 
-#: src/uagent/util_tools.py:2042
+#: src/uagent/util_tools.py:2082
 msgid "List long-term memory notes"
 msgstr "قائمة ملاحظات الذاكرة طويلة المدى"
 
-#: src/uagent/util_tools.py:2044
+#: src/uagent/util_tools.py:2084
 msgid "Delete a long-term memory note by index (see :mem-list)"
 msgstr "حذف ملاحظة الذاكرة طويلة المدى حسب الفهرس (راجع :mem-list)"
 
-#: src/uagent/util_tools.py:2046
+#: src/uagent/util_tools.py:2086
 msgid "Show the learned user profile, or generate it from past logs"
 msgstr "إظهار ملف تعريف المستخدم المتعلم (البيئة، التفضيلات، القيود)"
 
-#: src/uagent/util_tools.py:2048
+#: src/uagent/util_tools.py:2088
 msgid "Generate profile from the most recent N log files"
 msgstr "قم بإنشاء ملف تعريف من أحدث ملفات سجل N"
 
-#: src/uagent/util_tools.py:2050
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (last N files if specified)"
 msgstr ""
 "إنشاء ملف تعريف المستخدم من السجلات السابقة (آخر ملفات N إذا تم تحديدها)"
 
-#: src/uagent/util_tools.py:2051
+#: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
 msgstr "مسح بيانات ملف تعريف المستخدم المتعلم"
 
-#: src/uagent/util_tools.py:2053
+#: src/uagent/util_tools.py:2093
 msgid "Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "نسخ ملف أو دليل (يدعم -f/--overwrite و -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2055
+#: src/uagent/util_tools.py:2095
 msgid "Move file or directory (supports -f/--overwrite and -p/--mkdirs)"
 msgstr "نقل ملف أو دليل (يدعم -f/--overwrite و -p/--mkdirs)"
 
-#: src/uagent/util_tools.py:2057
+#: src/uagent/util_tools.py:2097
 msgid "Show the first n lines of a file (default=20)"
 msgstr "عرض أول n سطر من ملف (الافتراضي=20)"
 
-#: src/uagent/util_tools.py:2058
+#: src/uagent/util_tools.py:2098
 msgid "Show the last n lines of a file (default=20)"
 msgstr "عرض آخر n سطر من ملف (الافتراضي=20)"
 
-#: src/uagent/util_tools.py:2060
+#: src/uagent/util_tools.py:2100
 msgid "Delete file(s)/directory(ies) with preview + confirm"
 msgstr "حذف الملف (الملفات)/الدليل (الملفات) مع المعاينة + التأكيد"
 
-#: src/uagent/util_tools.py:2062
+#: src/uagent/util_tools.py:2102
 msgid ""
 "Set reasoning mode (0=off, 1=low, 2=medium, 3=high; auto/minimal/xhigh)"
 msgstr ""
 "ضبط وضع التفكير (0=إيقاف، 1=منخفض، 2=متوسط، 3=مرتفع؛ تلقائي/أدنى/×عالٍ)"
 
-#: src/uagent/util_tools.py:2064
+#: src/uagent/util_tools.py:2104
 msgid "Set verbosity mode (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
 msgstr "ضبط وضع الإسهاب (0=إيقاف، 1=منخفض، 2=متوسط، 3=عالي، بدون وسيط=احتفاظ)"
 
-#: src/uagent/util_tools.py:2065
+#: src/uagent/util_tools.py:2105
 msgid "Exit"
 msgstr "مخرج"
 
-#: src/uagent/util_tools.py:2068
+#: src/uagent/util_tools.py:2108
 msgid "  - Enter a line that is just 'f' to enter multiline input mode."
 msgstr ""
 "- متعدد الأسطر: أدخل سطرًا يتكون من \"f\" فقط للدخول إلى وضع متعدد الأسطر "
 "(ينتهي بـ \"\"\"نهاية)."
 
-#: src/uagent/util_tools.py:2185
+#: src/uagent/util_tools.py:2225
 msgid "Continue. Goal: %(goal)s"
 msgstr "يكمل. الهدف: %(goal)s"
 
-#: src/uagent/util_tools.py:2267
+#: src/uagent/util_tools.py:2307
 msgid ""
 "\n"
 "[AUTO:judge] %(judgment)s"
@@ -2422,7 +2429,7 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
-#: src/uagent/util_tools.py:2296
+#: src/uagent/util_tools.py:2361
 msgid ""
 "\n"
 "[AUTO] Exited by user (x key)."
@@ -2430,7 +2437,7 @@ msgstr ""
 "\n"
 "[AUTO] تم الخروج بواسطة المستخدم (مفتاح x)."
 
-#: src/uagent/util_tools.py:2304
+#: src/uagent/util_tools.py:2369
 msgid ""
 "\n"
 "[AUTO] Max rounds (%(max)d) reached. Stopping."
@@ -2438,7 +2445,7 @@ msgstr ""
 "\n"
 "[AUTO] تم الوصول إلى الحد الأقصى للجولات (%(max)d). وقف."
 
-#: src/uagent/util_tools.py:2314
+#: src/uagent/util_tools.py:2379
 msgid ""
 "\n"
 "[AUTO] Round %(round)d/%(max)d"
@@ -2446,7 +2453,7 @@ msgstr ""
 "\n"
 "[AUTO] الجولة %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2351
+#: src/uagent/util_tools.py:2416
 msgid ""
 "\n"
 "[AUTO] Review/analysis completed."
@@ -2454,44 +2461,44 @@ msgstr ""
 "\n"
 "[AUTO] اكتملت المراجعة/التحليل."
 
-#: src/uagent/util_tools.py:2376
+#: src/uagent/util_tools.py:2441
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] تم إيقاف تشغيل الطيار الآلي."
 
-#: src/uagent/util_tools.py:2380
+#: src/uagent/util_tools.py:2445
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "الاستخدام: :auto <الهدف> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2381
+#: src/uagent/util_tools.py:2446
 msgid "       :auto off"
 msgstr ":auto إيقاف"
 
-#: src/uagent/util_tools.py:2395
+#: src/uagent/util_tools.py:2460
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "قيمة غير صالحة لـ --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2406
+#: src/uagent/util_tools.py:2471
 msgid "Goal cannot be empty."
 msgstr "لا يمكن أن يكون الهدف فارغًا."
 
-#: src/uagent/util_tools.py:2416
+#: src/uagent/util_tools.py:2481
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] بدأت. الهدف: %(goal)s"
 
-#: src/uagent/util_tools.py:2417
+#: src/uagent/util_tools.py:2482
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] الحد الأقصى للجولات: %(max)d"
 
-#: src/uagent/util_tools.py:2581
+#: src/uagent/util_tools.py:2646
 msgid "Exiting."
 msgstr "تم الخروج."
 
-#: src/uagent/util_tools.py:2584
+#: src/uagent/util_tools.py:2649
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "أمر غير معروف: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2647
+#: src/uagent/util_tools.py:2712
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2509,7 +2516,7 @@ msgstr ""
 "[تحذير] توجد مهمة أخرى قيد التشغيل بالفعل في هذه الغرفة. يرجى إعادة المحاولة"
 " بعد اكتمالها."
 
-#: src/uagent/web.py:675 src/uagent/web.py:823
+#: src/uagent/web.py:675 src/uagent/web.py:835
 msgid ""
 "[FATAL] Environment variable UAGENT_PROVIDER is not set.\n"
 "Please check environment variables when starting the web server."
@@ -2560,7 +2567,7 @@ msgstr ""
 "3. قم بتضمين لغة JavaScript تفاعلية (على سبيل المثال، Chart.js للمخططات، أو إدارة حالة بسيطة).\n"
 "4. لا تقسم الكود إلى كتل متعددة؛ احتفظ به في كتلة ```html واحدة موحدة.\n"
 
-#: src/uagent/web.py:820
+#: src/uagent/web.py:832
 #, python-format
 msgid ""
 "[FATAL] Web worker error.\n"
@@ -2569,23 +2576,23 @@ msgstr ""
 "[فادح] خطأ عامل الويب.\n"
 "%(err)s"
 
-#: src/uagent/web.py:957
+#: src/uagent/web.py:969
 msgid "missing path"
 msgstr "المسار مفقود"
 
-#: src/uagent/web.py:964
+#: src/uagent/web.py:976
 msgid "path outside workdir"
 msgstr "المسار خارج دليل العمل"
 
-#: src/uagent/web.py:1289
+#: src/uagent/web.py:1301
 msgid "Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."
 msgstr "عنوان الربط (الافتراضي: 127.0.0.1). يتجاوز UAGENT_WEB_HOST env var."
 
-#: src/uagent/web.py:1354
+#: src/uagent/web.py:1366
 msgid "Starting server on"
 msgstr "بدء الخادم على"
 
-#: src/uagent/web.py:1356
+#: src/uagent/web.py:1368
 msgid "External URL:"
 msgstr "رابط خارجي:"
 
@@ -2650,7 +2657,7 @@ msgstr ""
 "- الصور: واجهة المستخدم الرسومية تدعم السحب والإسقاط؛ في CUI يمكنك إدخال "
 "مسار ملف لتحليل الصور."
 
-#: src/uagent/welcome.py:74
+#: src/uagent/welcome.py:75
 msgid ""
 "- Interrupt: press `c` key to stop the current LLM response (injected as "
 "'Stop')."
@@ -2658,7 +2665,7 @@ msgstr ""
 "- المقاطعة: اضغط على مفتاح \"c\" لإيقاف استجابة LLM الحالية (يتم إدخالها كـ "
 "\"إيقاف\")."
 
-#: src/uagent/welcome.py:75
+#: src/uagent/welcome.py:78
 msgid ""
 "- Auto-pilot: `:auto <goal>` repeatedly runs a task; press `x` to exit "
 "immediately."
@@ -2666,34 +2673,34 @@ msgstr ""
 "- الطيار الآلي: `:auto <goal>` يقوم بتشغيل مهمة بشكل متكرر؛ اضغط على `x` "
 "للخروج على الفور."
 
-#: src/uagent/welcome.py:77
+#: src/uagent/welcome.py:81
 msgid "[Examples]"
 msgstr "[أمثلة]"
 
-#: src/uagent/welcome.py:78
+#: src/uagent/welcome.py:82
 msgid "- \"Analyze the source code in this folder and create a README.md.\""
 msgstr "- \"قم بتحليل الكود المصدري في هذا المجلد وقم بإنشاء ملف README.md.\""
 
-#: src/uagent/welcome.py:80
+#: src/uagent/welcome.py:84
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
 msgstr ""
 "- \"التقط لقطة شاشة لسطح المكتب الحالي وقم بوصف محتويات النافذة المرئية.\""
 
-#: src/uagent/welcome.py:82
+#: src/uagent/welcome.py:86
 msgid "- \"Create a monthly summary report from this Excel file.\""
 msgstr "- \"إنشاء تقرير ملخص شهري من ملف Excel هذا.\""
 
-#: src/uagent/welcome.py:83
+#: src/uagent/welcome.py:87
 msgid "- \"Read this PDF and list three key points.\""
 msgstr "- \"اقرأ ملف PDF هذا وقم بإدراج ثلاث نقاط رئيسية.\""
 
-#: src/uagent/welcome.py:84
+#: src/uagent/welcome.py:88
 msgid "- \"Search the latest news and summarize a specific topic.\""
 msgstr "- \"البحث في آخر الأخبار وتلخيص موضوع معين.\""
 
-#: src/uagent/welcome.py:191
+#: src/uagent/welcome.py:195
 msgid "-- More -- (Enter: next) "
 msgstr "-- المزيد -- (Enter: التالي) "
 

@@ -1,7 +1,7 @@
 {
   "en": {
     "param.url.description": "URL to access.",
-    "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON. When save_as is set, the raw response is saved to a file and metadata is returned instead.",
+    "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON. When save_as is set, the raw response is saved to a file and metadata is returned instead. For JavaScript-heavy pages that require browser rendering, use browser_playwright instead.",
     "x_search_terms": [
       "fetch url",
       "http get",
@@ -26,7 +26,7 @@
   },
   "ja": {
     "param.url.description": "アクセスする URL。",
-    "tool.description": "指定した URL に HTTP GET でアクセスし、レスポンス先頭をテキストで返します。HTML や JSON の取得・確認に便利です。save_as を指定すると、生のレスポンスをファイルに保存し、メタデータのみを返します。",
+    "tool.description": "指定した URL に HTTP GET でアクセスし、レスポンス先頭をテキストで返します。HTML や JSON の取得・確認に便利です。save_as を指定すると、生のレスポンスをファイルに保存し、メタデータのみを返します。JavaScript を多用するページの場合は browser_playwright を使用してください。",
     "x_search_terms": [
       "fetch_url",
       "url 取得",
@@ -47,7 +47,7 @@
   },
   "es": {
     "param.url.description": "URL a la que acceder.",
-    "tool.description": "Acceda a la URL especificada mediante HTTP GET y devuelva el comienzo de la respuesta como texto. Útil para obtener e inspeccionar HTML o JSON. Si se establece save_as, la respuesta sin procesar se guarda en un archivo y se devuelven metadatos.",
+    "tool.description": "Acceda a la URL especificada mediante HTTP GET y devuelva el comienzo de la respuesta como texto. Útil para obtener e inspeccionar HTML o JSON. Si se establece save_as, la respuesta sin procesar se guarda en un archivo y se devuelven metadatos. Para páginas con mucho JavaScript que requieran renderizado en el navegador, use browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "obtener url",
@@ -68,7 +68,7 @@
   },
   "fr": {
     "param.url.description": "URL à consulter.",
-    "tool.description": "Accédez à l'URL spécifiée via HTTP GET et renvoyez le début de la réponse sous forme de texte. Utile pour récupérer et inspecter du HTML ou du JSON. Si save_as est défini, la réponse brute est enregistrée dans un fichier et les métadonnées sont renvoyées.",
+    "tool.description": "Accédez à l'URL spécifiée via HTTP GET et renvoyez le début de la réponse sous forme de texte. Utile pour récupérer et inspecter du HTML ou du JSON. Si save_as est défini, la réponse brute est enregistrée dans un fichier et les métadonnées sont renvoyées. Pour les pages riches en JavaScript nécessitant un rendu navigateur, utilisez browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "récupérer url",
@@ -89,7 +89,7 @@
   },
   "ko": {
     "param.url.description": "접속할 URL입니다.",
-    "tool.description": "지정한 URL에 HTTP GET으로 접근하고 응답의 시작 부분을 텍스트로 반환합니다. HTML이나 JSON을 가져와 확인할 때 유용합니다. save_as를 설정하면 원시 응답을 파일에 저장하고 메타데이터를 반환합니다.",
+    "tool.description": "지정한 URL에 HTTP GET으로 접근하고 응답의 시작 부분을 텍스트로 반환합니다. HTML이나 JSON을 가져와 확인할 때 유용합니다. save_as를 설정하면 원시 응답을 파일에 저장하고 메타데이터를 반환합니다. JavaScript가 많이 사용되어 브라우저 렌더링이 필요한 페이지는 browser_playwright를 사용하세요.",
     "x_search_terms": [
       "fetch_url",
       "url 가져오기",
@@ -110,7 +110,7 @@
   },
   "de": {
     "param.url.description": "Aufzurufende URL.",
-    "tool.description": "Greifen Sie per HTTP GET auf die angegebene URL zu und geben Sie den Anfang der Antwort als Text zurück. Wenn save_as gesetzt ist, wird die rohe Antwort in einer Datei gespeichert und Metadaten werden zurückgegeben.",
+    "tool.description": "Greifen Sie per HTTP GET auf die angegebene URL zu und geben Sie den Anfang der Antwort als Text zurück. Wenn save_as gesetzt ist, wird die rohe Antwort in einer Datei gespeichert und Metadaten werden zurückgegeben. Für JavaScript-lastige Seiten, die Browser-Rendering erfordern, verwenden Sie browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "url abrufen",
@@ -131,7 +131,7 @@
   },
   "it": {
     "param.url.description": "URL a cui accedere.",
-    "tool.description": "Accedi all'URL specificato tramite HTTP GET e restituisci l'inizio della risposta come testo. Utile per recuperare e ispezionare HTML o JSON. Se save_as è impostato, la risposta grezza viene salvata in un file e vengono restituiti i metadati.",
+    "tool.description": "Accedi all'URL specificato tramite HTTP GET e restituisci l'inizio della risposta come testo. Utile per recuperare e ispezionare HTML o JSON. Se save_as è impostato, la risposta grezza viene salvata in un file e vengono restituiti i metadati. Per pagine con molto JavaScript che richiedono il rendering del browser, utilizzare browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "recupera url",
@@ -152,7 +152,7 @@
   },
   "ru": {
     "param.url.description": "URL для доступа.",
-    "tool.description": "Получите доступ к указанному URL через HTTP GET и верните начало ответа в виде текста. Полезно для получения и проверки HTML или JSON. Если указан save_as, необработанный ответ сохраняется в файл и возвращаются метаданные.",
+    "tool.description": "Получите доступ к указанному URL через HTTP GET и верните начало ответа в виде текста. Полезно для получения и проверки HTML или JSON. Если указан save_as, необработанный ответ сохраняется в файл и возвращаются метаданные. Для страниц с большим количеством JavaScript, требующих рендеринга в браузере, используйте browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "получить url",
@@ -173,7 +173,7 @@
   },
   "pt_BR": {
     "param.url.description": "URL a acessar.",
-    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para obter e inspecionar HTML ou JSON. Quando save_as é definido, a resposta bruta é salva em um arquivo e os metadados são retornados.",
+    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para obter e inspecionar HTML ou JSON. Quando save_as é definido, a resposta bruta é salva em um arquivo e os metadados são retornados. Para páginas com muito JavaScript que exigem renderização no navegador, use browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "buscar url",
@@ -194,7 +194,7 @@
   },
   "pt": {
     "param.url.description": "URL para acessar.",
-    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para buscar e inspecionar HTML ou JSON. Quando save_as é definido, a resposta bruta é salva em um arquivo e os metadados são retornados.",
+    "tool.description": "Acesse a URL especificada via HTTP GET e retorne o início da resposta como texto. Útil para buscar e inspecionar HTML ou JSON. Quando save_as é definido, a resposta bruta é salva em um arquivo e os metadados são retornados. Para páginas com muito JavaScript que exigem renderização no navegador, use browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "buscar url",
@@ -215,7 +215,7 @@
   },
   "id": {
     "param.url.description": "URL yang akan diakses.",
-    "tool.description": "Akses URL yang ditentukan melalui HTTP GET dan kembalikan awal respons sebagai teks. Berguna untuk mengambil dan memeriksa HTML atau JSON. Jika save_as diatur, respons mentah disimpan ke file dan metadata dikembalikan.",
+    "tool.description": "Akses URL yang ditentukan melalui HTTP GET dan kembalikan awal respons sebagai teks. Berguna untuk mengambil dan memeriksa HTML atau JSON. Jika save_as diatur, respons mentah disimpan ke file dan metadata dikembalikan. Untuk halaman dengan banyak JavaScript yang memerlukan rendering browser, gunakan browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "ambil url",
@@ -236,7 +236,7 @@
   },
   "vi": {
     "param.url.description": "URL để truy cập.",
-    "tool.description": "Truy cập URL được chỉ định qua HTTP GET và trả về phần đầu phản hồi dưới dạng văn bản. Hữu ích cho việc tìm nạp và kiểm tra HTML hoặc JSON. Khi save_as được đặt, phản hồi thô được lưu vào tệp và siêu dữ liệu được trả về.",
+    "tool.description": "Truy cập URL được chỉ định qua HTTP GET và trả về phần đầu phản hồi dưới dạng văn bản. Hữu ích cho việc tìm nạp và kiểm tra HTML hoặc JSON. Khi save_as được đặt, phản hồi thô được lưu vào tệp và siêu dữ liệu được trả về. Đối với các trang có nhiều JavaScript cần hiển thị bằng trình duyệt, hãy sử dụng browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "lấy url",
@@ -257,7 +257,7 @@
   },
   "pl": {
     "param.url.description": "Adres URL, do którego można uzyskać dostęp",
-    "tool.description": "Uzyskaj dostęp do wskazanego adresu URL przez HTTP GET i zwróć początek odpowiedzi jako tekst. Przydatne do pobierania i sprawdzania HTML lub JSON. Gdy ustawiono save_as, surowa odpowiedź jest zapisywana do pliku i zwracane są metadane.",
+    "tool.description": "Uzyskaj dostęp do wskazanego adresu URL przez HTTP GET i zwróć początek odpowiedzi jako tekst. Przydatne do pobierania i sprawdzania HTML lub JSON. Gdy ustawiono save_as, surowa odpowiedź jest zapisywana do pliku i zwracane są metadane. W przypadku stron intensywnie korzystających z JavaScript, wymagających renderowania w przeglądarce, użyj browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "pobierz url",
@@ -278,7 +278,7 @@
   },
   "hi": {
     "param.url.description": "एक्सेस करने के लिए यूआरएल.",
-    "tool.description": "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुंचें और प्रतिक्रिया की शुरुआत को टेक्स्ट के रूप में लौटाएं। HTML या JSON लाने और निरीक्षण करने के लिए उपयोगी। save_as सेट होने पर, कच्चा प्रतिक्रिया फ़ाइल में सहेजा जाता है और मेटाडेटा लौटाया जाता है।",
+    "tool.description": "HTTP GET के माध्यम से निर्दिष्ट URL तक पहुंचें और प्रतिक्रिया की शुरुआत को टेक्स्ट के रूप में लौटाएं। HTML या JSON लाने और निरीक्षण करने के लिए उपयोगी। save_as सेट होने पर, कच्चा प्रतिक्रिया फ़ाइल में सहेजा जाता है और मेटाडेटा लौटाया जाता है। JavaScript-भारी पृष्ठों के लिए जिन्हें ब्राउज़र रेंडरिंग की आवश्यकता है, browser_playwright का उपयोग करें।",
     "x_search_terms": [
       "fetch_url",
       "url लाओ",
@@ -299,7 +299,7 @@
   },
   "ar": {
     "param.url.description": "عنوان URL للوصول.",
-    "tool.description": "الوصول إلى عنوان URL المحدد عبر HTTP GET وإرجاع بداية الاستجابة كنص. مفيد لجلب HTML أو JSON وفحصهما. عند تعيين save_as، يتم حفظ الاستجابة الخام في ملف ويتم إرجاع البيانات الوصفية.",
+    "tool.description": "الوصول إلى عنوان URL المحدد عبر HTTP GET وإرجاع بداية الاستجابة كنص. مفيد لجلب HTML أو JSON وفحصهما. عند تعيين save_as، يتم حفظ الاستجابة الخام في ملف ويتم إرجاع البيانات الوصفية. للصفحات التي تعتمد بشكل كبير على JavaScript وتتطلب عرضًا في المتصفح، استخدم browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "جلب url",
@@ -320,7 +320,7 @@
   },
   "sv": {
     "param.url.description": "URL att öppna.",
-    "tool.description": "Gå till den angivna URL:en via HTTP GET och returnera början av svaret som text. Användbart för att hämta och inspektera HTML eller JSON. När save_as är inställt sparas det råa svaret i en fil och metadata returneras.",
+    "tool.description": "Gå till den angivna URL:en via HTTP GET och returnera början av svaret som text. Användbart för att hämta och inspektera HTML eller JSON. När save_as är inställt sparas det råa svaret i en fil och metadata returneras. För JavaScript-tunga sidor som kräver webbläsarrendering, använd browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "hämta url",
@@ -341,7 +341,7 @@
   },
   "sw": {
     "param.url.description": "URL ya kufikia.",
-    "tool.description": "Fikia URL iliyobainishwa kupitia HTTP GET na urudishe mwanzo wa jibu kama maandishi. Inafaa kwa kuchukua na kukagua HTML au JSON. Ikiwa save_as imewekwa, jibu ghafi linahifadhiwa kwa faili na metadata inarejeshwa.",
+    "tool.description": "Fikia URL iliyobainishwa kupitia HTTP GET na urudishe mwanzo wa jibu kama maandishi. Inafaa kwa kuchukua na kukagua HTML au JSON. Ikiwa save_as imewekwa, jibu ghafi linahifadhiwa kwa faili na metadata inarejeshwa. Kwa kurasa zenye JavaScript nyingi zinazohitaji utoaji wa kivinjari, tumia browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "chukua url",
@@ -362,7 +362,7 @@
   },
   "nb": {
     "param.url.description": "URL som skal åpnes.",
-    "tool.description": "Gå til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON. Når save_as er satt, lagres råresponsen i en fil og metadata returneres.",
+    "tool.description": "Gå til den angitte URL-en via HTTP GET og returner begynnelsen av svaret som tekst. Nyttig for å hente og inspisere HTML eller JSON. Når save_as er satt, lagres råresponsen i en fil og metadata returneres. For JavaScript-tunge sider som krever nettlesergjengivelse, bruk browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "hent url",
@@ -383,7 +383,7 @@
   },
   "nl": {
     "param.url.description": "Te benaderen URL.",
-    "tool.description": "Toegang tot de opgegeven URL via HTTP GET en geef het begin van de respons terug als tekst. Handig voor het ophalen en inspecteren van HTML of JSON. Wanneer save_as is ingesteld, wordt de ruwe respons opgeslagen in een bestand en worden metagegevens geretourneerd.",
+    "tool.description": "Toegang tot de opgegeven URL via HTTP GET en geef het begin van de respons terug als tekst. Handig voor het ophalen en inspecteren van HTML of JSON. Wanneer save_as is ingesteld, wordt de ruwe respons opgeslagen in een bestand en worden metagegevens geretourneerd. Voor JavaScript-zware pagina's die browserweergave vereisen, gebruik browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "haal url op",
@@ -404,7 +404,7 @@
   },
   "fi": {
     "param.url.description": "Avattava URL.",
-    "tool.description": "Avaa annettu URL HTTP GET -pyynnöllä ja palauttaa vastauksen alun tekstinä. Kätevä HTML:n tai JSON:n hakemiseen ja tarkistamiseen. Kun save_as on asetettu, raakavastaus tallennetaan tiedostoon ja metatiedot palautetaan.",
+    "tool.description": "Avaa annettu URL HTTP GET -pyynnöllä ja palauttaa vastauksen alun tekstinä. Kätevä HTML:n tai JSON:n hakemiseen ja tarkistamiseen. Kun save_as on asetettu, raakavastaus tallennetaan tiedostoon ja metatiedot palautetaan. JavaScript-raskaille sivuille, jotka vaativat selainrenderointia, käytä browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "hae url",
@@ -425,7 +425,7 @@
   },
   "cs": {
     "param.url.description": "URL, ke kterému se má přistoupit.",
-    "tool.description": "Přistupte ke zadané URL přes HTTP GET a vraťte začátek odpovědi jako text. Hodí se pro načítání a kontrolu HTML nebo JSON. Pokud je nastaveno save_as, nezpracovaná odpověď se uloží do souboru a vrátí se metadata.",
+    "tool.description": "Přistupte ke zadané URL přes HTTP GET a vraťte začátek odpovědi jako text. Hodí se pro načítání a kontrolu HTML nebo JSON. Pokud je nastaveno save_as, nezpracovaná odpověď se uloží do souboru a vrátí se metadata. Pro stránky s velkým množstvím JavaScriptu, které vyžadují vykreslení v prohlížeči, použijte browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "získat url",
@@ -446,7 +446,7 @@
   },
   "uk": {
     "param.url.description": "URL, до якої потрібно звернутися.",
-    "tool.description": "Отримайте доступ до вказаної URL через HTTP GET і поверніть початок відповіді як текст. Корисно для отримання й перевірки HTML або JSON. Якщо встановлено save_as, необроблена відповідь зберігається у файл і повертаються метадані.",
+    "tool.description": "Отримайте доступ до вказаної URL через HTTP GET і поверніть початок відповіді як текст. Корисно для отримання й перевірки HTML або JSON. Якщо встановлено save_as, необроблена відповідь зберігається у файл і повертаються метадані. Для сторінок з великою кількістю JavaScript, які потребують рендерингу в браузері, використовуйте browser_playwright.",
     "x_search_terms": [
       "fetch_url",
       "отримати url",
@@ -467,7 +467,7 @@
   },
   "tr": {
     "param.url.description": "Erişmek için URL.",
-    "tool.description": "Belirtilen URL öğesine HTTP GET yoluyla erişin ve yanıtın başlangıcını metin olarak döndürün. HTML veya JSON almak ve incelemek için kullanışlıdır. save_as ayarlandığında, ham yanıt bir dosyaya kaydedilir ve meta veriler döndürülür.",
+    "tool.description": "Belirtilen URL öğesine HTTP GET yoluyla erişin ve yanıtın başlangıcını metin olarak döndürün. HTML veya JSON almak ve incelemek için kullanışlıdır. save_as ayarlandığında, ham yanıt bir dosyaya kaydedilir ve meta veriler döndürülür. JavaScript yoğunluklu ve tarayıcı işlemesi gerektiren sayfalar için browser_playwright kullanın.",
     "x_search_terms": [
       "fetch_url",
       "url al",
@@ -488,7 +488,7 @@
   },
   "th": {
     "param.url.description": "URL ที่จะเข้าถึง",
-    "tool.description": "เข้าถึง URL ที่ระบุผ่าน HTTP GET และส่งคืนส่วนต้นของการตอบกลับเป็นข้อความ มีประโยชน์สำหรับการดึงและตรวจสอบ HTML หรือ JSON เมื่อตั้งค่า save_as การตอบกลับดิบจะถูกบันทึกเป็นไฟล์และส่งคืนข้อมูลเมตา",
+    "tool.description": "เข้าถึง URL ที่ระบุผ่าน HTTP GET และส่งคืนส่วนต้นของการตอบกลับเป็นข้อความ มีประโยชน์สำหรับการดึงและตรวจสอบ HTML หรือ JSON เมื่อตั้งค่า save_as การตอบกลับดิบจะถูกบันทึกเป็นไฟล์และส่งคืนข้อมูลเมตา สำหรับหน้าที่มี JavaScript จำนวนมากซึ่งต้องการการแสดงผลในเบราว์เซอร์ ให้ใช้ browser_playwright",
     "x_search_terms": [
       "fetch_url",
       "ดึง url",
@@ -509,7 +509,7 @@
   },
   "zh_CN": {
     "param.url.description": "要访问的 URL。",
-    "tool.description": "通过 HTTP GET 访问指定 URL，并以文本形式返回响应开头。适用于获取和检查 HTML 或 JSON。当设置了 save_as 时，原始响应将保存到文件并返回元数据。",
+    "tool.description": "通过 HTTP GET 访问指定 URL，并以文本形式返回响应开头。适用于获取和检查 HTML 或 JSON。当设置了 save_as 时，原始响应将保存到文件并返回元数据。 对于需要浏览器渲染的重 JavaScript 页面，请使用 browser_playwright。",
     "x_search_terms": [
       "fetch_url",
       "获取 url",
@@ -530,7 +530,7 @@
   },
   "zh_TW": {
     "param.url.description": "要存取的 URL。",
-    "tool.description": "透過 HTTP GET 存取指定的 URL，並以文字形式傳回回應開頭。適合用於擷取與檢查 HTML 或 JSON。當設定了 save_as 時，原始回應將儲存到檔案並回傳中繼資料。",
+    "tool.description": "透過 HTTP GET 存取指定的 URL，並以文字形式傳回回應開頭。適合用於擷取與檢查 HTML 或 JSON。當設定了 save_as 時，原始回應將儲存到檔案並回傳中繼資料。 對於需要瀏覽器渲染的重 JavaScript 頁面，請使用 browser_playwright。",
     "x_search_terms": [
       "fetch_url",
       "取得 url",
@@ -551,7 +551,7 @@
   },
   "bn": {
     "param.url.description": "যে URL-এ অ্যাক্সেস করা হবে।",
-    "tool.description": "নির্দিষ্ট URL-এ HTTP GET করে প্রতিক্রিয়ার শুরু অংশটিকে text হিসেবে ফেরত দেয়। HTML বা JSON আনা ও পরীক্ষা করার জন্য উপযোগী। save_as সেট করা হলে, কাঁচা প্রতিক্রিয়া ফাইলে সংরক্ষিত হয় এবং মেটাডেটা ফেরত দেওয়া হয়।",
+    "tool.description": "নির্দিষ্ট URL-এ HTTP GET করে প্রতিক্রিয়ার শুরু অংশটিকে text হিসেবে ফেরত দেয়। HTML বা JSON আনা ও পরীক্ষা করার জন্য উপযোগী। save_as সেট করা হলে, কাঁচা প্রতিক্রিয়া ফাইলে সংরক্ষিত হয় এবং মেটাডেটা ফেরত দেওয়া হয়। জাভাস্ক্রিপ্ট-ভারী পৃষ্ঠাগুলির জন্য যেগুলির ব্রাউজার রেন্ডারিং প্রয়োজন, browser_playwright ব্যবহার করুন।",
     "x_search_terms": [
       "fetch_url",
       "url আনুন",
@@ -572,7 +572,7 @@
   },
   "fa": {
     "param.url.description": "نشانی URL برای دسترسی.",
-    "tool.description": "از URL مشخص‌شده با HTTP GET دسترسی می‌گیرد و ابتدای پاسخ را به‌صورت متن برمی‌گرداند. برای گرفتن و بررسی HTML یا JSON مفید است. وقتی save_as تنظیم شود، پاسخ خام در فایل ذخیره و فراداده بازگردانده می‌شود.",
+    "tool.description": "از URL مشخص‌شده با HTTP GET دسترسی می‌گیرد و ابتدای پاسخ را به‌صورت متن برمی‌گرداند. برای گرفتن و بررسی HTML یا JSON مفید است. وقتی save_as تنظیم شود، پاسخ خام در فایل ذخیره و فراداده بازگردانده می‌شود. برای صفحات سنگین جاوااسکریپت که نیاز به رندر مرورگر دارند، از browser_playwright استفاده کنید.",
     "x_search_terms": [
       "fetch_url",
       "گرفتن url",
@@ -593,7 +593,7 @@
   },
   "mn": {
     "param.url.description": "Хандах URL.",
-    "tool.description": "Заасан URL-д HTTP GET хийж, хариуны эхлэлийг text хэлбэрээр буцаана. HTML эсвэл JSON татаж авч шалгахад хэрэгтэй. save_as тохируулсан бол түүхий хариултыг файлд хадгалж, мета өгөгдлийг буцаана.",
+    "tool.description": "Заасан URL-д HTTP GET хийж, хариуны эхлэлийг text хэлбэрээр буцаана. HTML эсвэл JSON татаж авч шалгахад хэрэгтэй. save_as тохируулсан бол түүхий хариултыг файлд хадгалж, мета өгөгдлийг буцаана. JavaScript ихтэй, хөтөч дээр харуулах шаардлагатай хуудсуудад browser_playwright ашиглана уу.",
     "x_search_terms": [
       "fetch_url",
       "url авах",
@@ -614,7 +614,7 @@
   },
   "mr": {
     "param.url.description": "ज्याला access करायचे तो URL.",
-    "tool.description": "निर्दिष्ट URL वर HTTP GET करून प्रतिसादाची सुरुवात text म्हणून परत करते. HTML किंवा JSON आणण्यासाठी व तपासण्यासाठी उपयुक्त. save_as सेट केल्यास, कच्चा प्रतिसाद फाइलमध्ये सेव्ह केला जातो आणि मेटाडेटा परत केला जातो.",
+    "tool.description": "निर्दिष्ट URL वर HTTP GET करून प्रतिसादाची सुरुवात text म्हणून परत करते. HTML किंवा JSON आणण्यासाठी व तपासण्यासाठी उपयुक्त. save_as सेट केल्यास, कच्चा प्रतिसाद फाइलमध्ये सेव्ह केला जातो आणि मेटाडेटा परत केला जातो. JavaScript-जड पृष्ठांसाठी ज्यांना ब्राउझर रेंडरिंगची आवश्यकता आहे, browser_playwright वापरा.",
     "x_search_terms": [
       "fetch_url",
       "url आणा",
@@ -635,7 +635,7 @@
   },
   "el": {
     "param.url.description": "URL για πρόσβαση.",
-    "tool.description": "Αποκτήστε πρόσβαση στην καθορισμένη διεύθυνση URL μέσω HTTP GET και επιστρέψτε την αρχή της απάντησης ως κείμενο. Χρήσιμο για ανάκτηση και επιθεώρηση HTML ή JSON. Όταν οριστεί το save_as, η ακατέργαστη απόκριση αποθηκεύεται σε αρχείο και επιστρέφονται μεταδεδομένα.",
+    "tool.description": "Αποκτήστε πρόσβαση στην καθορισμένη διεύθυνση URL μέσω HTTP GET και επιστρέψτε την αρχή της απάντησης ως κείμενο. Χρήσιμο για ανάκτηση και επιθεώρηση HTML ή JSON. Όταν οριστεί το save_as, η ακατέργαστη απόκριση αποθηκεύεται σε αρχείο και επιστρέφονται μεταδεδομένα. Για σελίδες με πολύ JavaScript που απαιτούν απόδοση σε πρόγραμμα περιήγησης, χρησιμοποιήστε το browser_playwright.",
     "x_search_terms": [
       "ανάκτηση διεύθυνσης url",
       "http λήψη",
@@ -660,7 +660,7 @@
   },
   "he": {
     "param.url.description": "כתובת אתר לגישה.",
-    "tool.description": "גש לכתובת האתר שצוינה באמצעות HTTP GET והחזר את תחילת התגובה כטקסט. שימושי לאחזור ובדיקת HTML או JSON. כאשר save_as מוגדר, התגובה הגולמית נשמרת לקובץ ומטא-נתונים מוחזרים.",
+    "tool.description": "גש לכתובת האתר שצוינה באמצעות HTTP GET והחזר את תחילת התגובה כטקסט. שימושי לאחזור ובדיקת HTML או JSON. כאשר save_as מוגדר, התגובה הגולמית נשמרת לקובץ ומטא-נתונים מוחזרים. עבור דפים כבדים ב-JavaScript הדורשים עיבוד דפדפן, השתמשו ב- browser_playwright.",
     "x_search_terms": [
       "אחזר כתובת אתר",
       "http קבל",
@@ -685,7 +685,7 @@
   },
   "hu": {
     "param.url.description": "URL a hozzáféréshez.",
-    "tool.description": "Hozzáférés a megadott URL-hez a HTTP GET-en keresztül, és a válasz elejét szövegként adja vissza. Hasznos a HTML vagy JSON lekéréséhez és ellenőrzéséhez. Ha a save_as be van állítva, a nyers válasz egy fájlba kerül, és metaadatok kerülnek visszaadásra.",
+    "tool.description": "Hozzáférés a megadott URL-hez a HTTP GET-en keresztül, és a válasz elejét szövegként adja vissza. Hasznos a HTML vagy JSON lekéréséhez és ellenőrzéséhez. Ha a save_as be van állítva, a nyers válasz egy fájlba kerül, és metaadatok kerülnek visszaadásra. JavaScript-igényes oldalakhoz, amelyek böngészős megjelenítést igényelnek, használja a browser_playwright-ot.",
     "x_search_terms": [
       "url lekérése",
       "http letöltés",
@@ -709,7 +709,7 @@
   },
   "ro": {
     "param.url.description": "URL de acces.",
-    "tool.description": "Accesați adresa URL specificată prin HTTP GET și returnați începutul răspunsului ca text. Util pentru preluarea și inspectarea HTML sau JSON. Când save_as este setat, răspunsul brut este salvat într-un fișier și se returnează metadate.",
+    "tool.description": "Accesați adresa URL specificată prin HTTP GET și returnați începutul răspunsului ca text. Util pentru preluarea și inspectarea HTML sau JSON. Când save_as este setat, răspunsul brut este salvat într-un fișier și se returnează metadate. Pentru paginile cu mult JavaScript care necesită randare în browser, utilizați browser_playwright.",
     "x_search_terms": [
       "preluați url",
       "http get",

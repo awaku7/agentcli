@@ -37,7 +37,8 @@ TOOL_SPEC: dict[str, Any] = {
             default=(
                 "Access the specified URL via HTTP GET and return the beginning of the response as text. "
                 "Useful for fetching and inspecting HTML or JSON. "
-                "When save_as is set, the raw response is saved to a file and metadata is returned instead."
+                "When save_as is set, the raw response is saved to a file and metadata is returned instead. "
+                "For JavaScript-heavy pages that require browser rendering, use browser_playwright instead."
             ),
         ),
         "x_search_terms": _(
