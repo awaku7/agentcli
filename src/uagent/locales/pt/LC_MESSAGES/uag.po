@@ -2481,7 +2481,7 @@ msgstr ""
 "[AUTO:judge] %(judgment)s"
 
 msgid "  feedback: %(feedback)s"
-msgstr "comentários: %(comentários)s"
+msgstr "comentários: %(feedback)s"
 
 #: src/uagent/util_tools.py:2385
 msgid ""

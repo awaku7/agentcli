@@ -2484,7 +2484,7 @@ msgid "Continue. Goal: %(goal)s"
 msgstr "Продовжити. Ціль: %(goal)s"
 
 msgid "Reviewer notes: %(feedback)s"
-msgstr "Примітки рецензента: %(відгук)s"
+msgstr "Примітки рецензента: %(feedback)s"
 
 #: src/uagent/util_tools.py:2328
 msgid ""

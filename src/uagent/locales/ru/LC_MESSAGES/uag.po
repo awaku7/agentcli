@@ -2483,7 +2483,7 @@ msgid "Continue. Goal: %(goal)s"
 msgstr "Продолжать. Цель: %(goal)s"
 
 msgid "Reviewer notes: %(feedback)s"
-msgstr "Примечания рецензента: %(отзывов)s"
+msgstr "Примечания рецензента: %(feedback)s"
 
 #: src/uagent/util_tools.py:2328
 msgid ""
@@ -2494,7 +2494,7 @@ msgstr ""
 "[AUTO:judge] %(judgment)s"
 
 msgid "  feedback: %(feedback)s"
-msgstr "обратная связь: %(обратная связь) с"
+msgstr "обратная связь: %(feedback)s с"
 
 #: src/uagent/util_tools.py:2385
 msgid ""

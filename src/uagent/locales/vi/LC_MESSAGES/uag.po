@@ -2443,7 +2443,7 @@ msgstr ""
 "[AUTO:judge] %(judgment)s"
 
 msgid "  feedback: %(feedback)s"
-msgstr "phản hồi: %(phản hồi)s"
+msgstr "phản hồi: %(feedback)s"
 
 #: src/uagent/util_tools.py:2385
 msgid ""

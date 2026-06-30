@@ -2485,7 +2485,7 @@ msgid "Continue. Goal: %(goal)s"
 msgstr "চালিয়ে যান। লক্ষ্য: %(goal)s"
 
 msgid "Reviewer notes: %(feedback)s"
-msgstr "পর্যালোচক নোট: %(প্রতিক্রিয়া)s"
+msgstr "পর্যালোচক নোট: %(feedback)s"
 
 #: src/uagent/util_tools.py:2328
 msgid ""
@@ -2496,7 +2496,7 @@ msgstr ""
 "[AUTO:judge] %(judgment)s"
 
 msgid "  feedback: %(feedback)s"
-msgstr "প্রতিক্রিয়া: %(প্রতিক্রিয়া)গুলি৷"
+msgstr "প্রতিক্রিয়া: %(feedback)s"
 
 #: src/uagent/util_tools.py:2385
 msgid ""

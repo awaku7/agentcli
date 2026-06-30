@@ -2467,7 +2467,7 @@ msgid "Continue. Goal: %(goal)s"
 msgstr "Endelea. Lengo: %(goal)s"
 
 msgid "Reviewer notes: %(feedback)s"
-msgstr "Maelezo ya mkaguzi: %(maoni)s"
+msgstr "Maelezo ya mkaguzi: %(feedback)s"
 
 #: src/uagent/util_tools.py:2328
 msgid ""
@@ -2478,7 +2478,7 @@ msgstr ""
 "[AUTO:judge] %(judgment)s"
 
 msgid "  feedback: %(feedback)s"
-msgstr "maoni: %(maoni)s"
+msgstr "maoni: %(feedback)s"
 
 #: src/uagent/util_tools.py:2385
 msgid ""
