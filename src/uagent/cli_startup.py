@@ -237,10 +237,7 @@ def run_cli_startup(
         reload_dotenv_custom,
         validate_or_exit_startup_env,
     )
-    from .readme_util import (
-        maybe_print_quickstart_on_first_run,
-        maybe_print_readme_on_first_run,
-    )
+    # readme_util removed (README.md/QUICKSTART.md no longer bundled as package-data)
     from .tools import long_memory as personal_long_memory
     from .tools import shared_memory
     from .tools.mcp_servers_shared import ensure_mcp_config_template
@@ -264,11 +261,7 @@ def run_cli_startup(
 
     try:
         if True:
-            try:
-                maybe_print_readme_on_first_run(open_with_os=True)
-                maybe_print_quickstart_on_first_run(open_with_os=True)
-            except Exception:
-                pass
+            # readme/quickstart first-run display removed
 
             try:
                 decision = decide_workdir(

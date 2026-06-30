@@ -92,7 +92,7 @@ Ferramentas somente leitura (pesquisa de arquivos, cálculo de hash, listagem de
 | **GUI** | `uagg` | UI da área de trabalho via tkinter |
 | **Web** | `uagw` | Acesso baseado em navegador |
 | **Servidor A2A** | `uaga` | Protocolo Agent2Agent para comunicação multiagente |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
 
 ### 🏠 Controle de dispositivos IoT
 
@@ -107,6 +107,17 @@ Consulte [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECA
 
 `:skills mp_search` para procurar [SkillsMP](https://skillsmp.com) e [ClawHub](https://clawhub.ai) para habilidades da comunidade.
 Instale e amplie os recursos do UAG em tempo real.
+
+### 🤖 Auto-Pilot (`:auto`)
+
+uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for complex, multi-step tasks that need iterative refinement.
+
+- **How it works**: Each round has a main query (Step A) followed by a reviewer judgment (Step B) that decides "COMPLETE or CONTINUE?"
+- **Same provider, same API**: The reviewer judgment uses the identical code path as the main query — including Responses API support.
+- **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
+- **Configurable**: `--max-rounds N` to control the budget.
+
+See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
 
 ### 🧩 Gerenciador de estado em lote
 

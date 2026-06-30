@@ -2551,17 +2551,7 @@ def _is_high_contrast() -> bool:
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    try:
-        from .readme_util import (
-            maybe_print_quickstart_on_first_run,
-            maybe_print_readme_on_first_run,
-        )
-
-        maybe_print_readme_on_first_run(open_with_os=True)
-        maybe_print_quickstart_on_first_run(open_with_os=True)
-    except Exception:
-        pass
-
+    # readme/quickstart first-run display removed (files no longer bundled)
     print(get_welcome_message())
     ensure_mcp_config_template()
 

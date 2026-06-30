@@ -88,10 +88,7 @@ uagent = [
     "static/**/*",
     "templates/**/*",
     "locales/**/*",
-    "docs/**/*",
-    "README.md",
-    "QUICKSTART.md",
-    "QUICKSTART.ja.md"
+    "docs/**/*"
 ]
 
 [tool.ruff]

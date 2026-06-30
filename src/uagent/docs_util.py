@@ -22,16 +22,6 @@ class DocItem:
 
 _DOCS: list[DocItem] = [
     DocItem(
-        name="readme",
-        filename="README.md",
-        description=_("Project README"),
-    ),
-    DocItem(
-        name="quickstart",
-        filename="QUICKSTART.md",
-        description=_("Quickstart (Windows wheel install)"),
-    ),
-    DocItem(
         name="webinspect",
         filename="WEBINSPECTER.md",
         description=_("Web Inspector (playwright_inspector) guide"),

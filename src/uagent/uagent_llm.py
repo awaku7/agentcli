@@ -71,6 +71,737 @@ def _inject_stop_prompt(
     core.log_message(user_msg)
 
 
+# --- Round status constants (internal) ---
+_RS_RETURN = "return"  # fatal error, caller must return
+_RS_BREAK = "break"  # stop loop, exit normally
+_RS_CONTINUE = "continue"  # skip postamble, continue loop
+_RS_OK = "ok"  # execute postamble then continue loop
+
+
+def _run_one_round(
+    provider: str,
+    client: Any,
+    depname: str,
+    messages: list[dict[str, Any]],
+    *,
+    core: Any,
+    make_client_fn: Any,
+    append_result_to_outfile_fn: Any,
+    try_open_images_from_text_fn: Any,
+    round_count: int,
+    max_tool_rounds: int,
+    empty_no_tool_rounds: int,
+    empty_no_tool_max: int,
+    cache_mgr: Any,
+    gemini_cache_name: str | None,
+    tool_result_cache: dict[str, str],
+    use_tool_result_cache: bool,
+    reuse_only_rounds: int,
+    use_llm_thread: bool,
+    judgment_mode: bool = False,
+) -> tuple[str, Any, str | None, int, int, str]:
+    """Run a single LLM round.
+
+    Returns (status, client, gemini_cache_name, empty_no_tool_rounds, reuse_only_rounds, assistant_text).
+    Caller dispatches on status:
+      RS_RETURN   → return from run_llm_rounds
+      RS_BREAK    → break while loop
+      RS_CONTINUE → continue while loop (skip postamble)
+      RS_OK       → execute postamble, then continue loop
+    When judgment_mode=True, tool execution is suppressed and side effects
+    (log, outfile, image open) are skipped. Only the assistant text is returned.
+    """
+    # ── Preamble ──────────────────────────────────────────────────
+
+    # --- Interrupt check: per-round ---
+    with _core_module.interrupt_lock:
+        if _core_module.interrupt_requested:
+            _core_module.interrupt_requested = False
+            _inject_stop_prompt(messages, core)
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                "",
+            )
+
+    # Optional translation layer (off by default).
+    tr_cfg = load_translate_config()
+    if judgment_mode:
+        tr_cfg = None  # judgment prompt is English; skip translate
+
+    call_messages = _build_call_messages(
+        provider=provider,
+        messages=messages,
+        core=core,
+        depname=depname,
+        gemini_cache_name=gemini_cache_name,
+    )
+    call_messages = _translate_call_messages(call_messages, tr_cfg)
+
+    use_responses_api, stream_responses = _resolve_round_runtime_flags(
+        tr_cfg=tr_cfg,
+        core=core,
+        provider=provider,
+    )
+    # Responses API is only supported on specific providers.
+    if provider not in RESPONSES_PROVIDERS:
+        use_responses_api = False
+
+    def _call_maybe_thread_fn(fn: Any) -> Any:
+        return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
+
+    if not judgment_mode:
+        gemini_cache_name = _maybe_auto_shrink_messages(
+            provider=provider,
+            client=client,
+            depname=depname,
+            messages=messages,
+            core=core,
+            cache_mgr=cache_mgr,
+            gemini_cache_name=gemini_cache_name,
+            call_maybe_thread_fn=_call_maybe_thread_fn,
+            use_responses_api=use_responses_api,
+        )
+
+    if round_count > max_tool_rounds:
+        print(
+            _("[WARN] Tool rounds exceeded %(max)d; aborting.")
+            % {"max": max_tool_rounds}
+        )
+        return (
+            _RS_BREAK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            reuse_only_rounds,
+            "",
+        )
+
+    send_tools_this_round = getattr(_core_module, "tools_enabled", True)
+    if judgment_mode:
+        send_tools_this_round = False
+    max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
+    retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
+    retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))
+
+    tool_calls_list: list[dict[str, Any]] = []
+    assistant_text: str = ""
+
+    # ── Provider dispatch ─────────────────────────────────────────
+
+    if provider in ("gemini", "vertexai"):
+        (
+            ok,
+            client,
+            assistant_text,
+            tool_calls_list,
+            gemini_content_dump,
+        ) = _call_gemini_round(
+            client=client,
+            depname=depname,
+            call_messages=call_messages,
+            gemini_cache_name=gemini_cache_name,
+            core=core,
+            make_client_fn=make_client_fn,
+            call_maybe_thread_fn=_call_maybe_thread_fn,
+            max_retries_429=max_retries_429,
+            retry_base=retry_base,
+            retry_cap=retry_cap,
+            stream_responses=stream_responses,
+            send_tools=send_tools_this_round,
+            provider=provider,
+        )
+        if not ok:
+            return (
+                _RS_RETURN,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        # --- Interrupt check (Gemini) ---
+        with _core_module.interrupt_lock:
+            if _core_module.interrupt_requested:
+                _core_module.interrupt_requested = False
+                _inject_stop_prompt(messages, core)
+                return (
+                    _RS_BREAK,
+                    client,
+                    gemini_cache_name,
+                    empty_no_tool_rounds,
+                    reuse_only_rounds,
+                    assistant_text,
+                )
+
+        assistant_text = _translate_assistant_if_needed(
+            assistant_text=assistant_text,
+            tr_cfg=tr_cfg,
+            use_responses_api=use_responses_api,
+            stream_responses=stream_responses,
+        )
+
+        _append_assistant_message(
+            messages=messages,
+            core=core,
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+            gemini_content_dump=gemini_content_dump,
+            skip_log_when_web=True,
+        )
+
+        action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+            empty_no_tool_rounds=empty_no_tool_rounds,
+            empty_no_tool_max=empty_no_tool_max,
+            provider=provider,
+            depname=depname,
+            messages=messages,
+            core=core,
+        )
+        if action == "continue":
+            return (
+                _RS_CONTINUE,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+        if action == "break":
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        if not tool_calls_list:
+            if not (provider in ("gemini", "vertexai") and stream_responses):
+                if not judgment_mode:
+                    _emit_final_answer_if_any(
+                        assistant_text=assistant_text,
+                        use_responses_api=use_responses_api,
+                        stream_responses=stream_responses,
+                        append_result_to_outfile_fn=append_result_to_outfile_fn,
+                        try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        empty_no_tool_rounds = 0
+
+    elif provider == "claude":
+        ok, client, assistant_text, tool_calls_list = _call_claude_round(
+            client=client,
+            depname=depname,
+            call_messages=call_messages,
+            core=core,
+            make_client_fn=make_client_fn,
+            call_maybe_thread_fn=_call_maybe_thread_fn,
+            max_retries_429=max_retries_429,
+            retry_base=retry_base,
+            retry_cap=retry_cap,
+            send_tools=send_tools_this_round,
+            provider=provider,
+        )
+        if not ok:
+            return (
+                _RS_RETURN,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        # --- Interrupt check ---
+        with _core_module.interrupt_lock:
+            if _core_module.interrupt_requested:
+                _core_module.interrupt_requested = False
+                _inject_stop_prompt(messages, core)
+                return (
+                    _RS_BREAK,
+                    client,
+                    gemini_cache_name,
+                    empty_no_tool_rounds,
+                    reuse_only_rounds,
+                    assistant_text,
+                )
+
+        assistant_text = _translate_assistant_if_needed(
+            assistant_text=assistant_text,
+            tr_cfg=tr_cfg,
+            use_responses_api=use_responses_api,
+            stream_responses=stream_responses,
+        )
+
+        _append_assistant_message(
+            messages=messages,
+            core=core,
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+        )
+
+        action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+            empty_no_tool_rounds=empty_no_tool_rounds,
+            empty_no_tool_max=empty_no_tool_max,
+            provider=provider,
+            depname=depname,
+            messages=messages,
+            core=core,
+        )
+        if action == "continue":
+            return (
+                _RS_CONTINUE,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+        if action == "break":
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        if not tool_calls_list:
+            if not judgment_mode:
+                _emit_final_answer_if_any(
+                    assistant_text=assistant_text,
+                    use_responses_api=use_responses_api,
+                    stream_responses=stream_responses,
+                    append_result_to_outfile_fn=append_result_to_outfile_fn,
+                    try_open_images_from_text_fn=try_open_images_from_text_fn,
+                )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        empty_no_tool_rounds = 0
+
+    elif provider in ("deepseek", "mimo"):
+        ok, client, assistant_text, reasoning_content, tool_calls_list = (
+            _call_deepseek_round(
+                client=client,
+                depname=depname,
+                call_messages=call_messages,
+                core=core,
+                make_client_fn=make_client_fn,
+                call_maybe_thread_fn=_call_maybe_thread_fn,
+                send_tools_this_round=send_tools_this_round,
+                max_retries_429=max_retries_429,
+                retry_base=retry_base,
+                retry_cap=retry_cap,
+                provider=provider,
+            )
+        )
+        if not ok:
+            return (
+                _RS_RETURN,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        # --- Interrupt check ---
+        with _core_module.interrupt_lock:
+            if _core_module.interrupt_requested:
+                _core_module.interrupt_requested = False
+                _inject_stop_prompt(messages, core)
+                return (
+                    _RS_BREAK,
+                    client,
+                    gemini_cache_name,
+                    empty_no_tool_rounds,
+                    reuse_only_rounds,
+                    assistant_text,
+                )
+
+        assistant_text = _translate_assistant_if_needed(
+            assistant_text=assistant_text,
+            tr_cfg=tr_cfg,
+            use_responses_api=False,
+            stream_responses=False,
+        )
+
+        _ds_streaming = (
+            env_get("UAGENT_STREAMING", "1") or ""
+        ).strip().lower() not in ("0", "false", "no", "off")
+
+        deepseek_msg = build_assistant_message_with_reasoning(
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+            reasoning_content=reasoning_content,
+        )
+        messages.append(deepseek_msg)
+        if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
+            if not judgment_mode:
+                core.log_message(deepseek_msg)
+
+        action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+            empty_no_tool_rounds=empty_no_tool_rounds,
+            empty_no_tool_max=empty_no_tool_max,
+            provider=provider,
+            depname=depname,
+            messages=messages,
+            core=core,
+        )
+        if action == "continue":
+            return (
+                _RS_CONTINUE,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+        if action == "break":
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        if not tool_calls_list:
+            if not judgment_mode:
+                _emit_final_answer_if_any(
+                    assistant_text=assistant_text,
+                    use_responses_api=False,
+                    stream_responses=False,
+                    append_result_to_outfile_fn=append_result_to_outfile_fn,
+                    try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    skip_print=_ds_streaming,
+                )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        empty_no_tool_rounds = 0
+
+    elif provider == "zai":
+        ok, client, assistant_text, reasoning_content, tool_calls_list = (
+            _call_zai_round(
+                client=client,
+                depname=depname,
+                call_messages=call_messages,
+                core=core,
+                make_client_fn=make_client_fn,
+                call_maybe_thread_fn=_call_maybe_thread_fn,
+                send_tools_this_round=send_tools_this_round,
+                max_retries_429=max_retries_429,
+                retry_base=retry_base,
+                retry_cap=retry_cap,
+            )
+        )
+        if not ok:
+            return (
+                _RS_RETURN,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        # --- Interrupt check ---
+        with _core_module.interrupt_lock:
+            if _core_module.interrupt_requested:
+                _core_module.interrupt_requested = False
+                _inject_stop_prompt(messages, core)
+                return (
+                    _RS_BREAK,
+                    client,
+                    gemini_cache_name,
+                    empty_no_tool_rounds,
+                    reuse_only_rounds,
+                    assistant_text,
+                )
+
+        assistant_text = _translate_assistant_if_needed(
+            assistant_text=assistant_text,
+            tr_cfg=tr_cfg,
+            use_responses_api=False,
+            stream_responses=False,
+        )
+
+        _ds_streaming = (
+            env_get("UAGENT_STREAMING", "1") or ""
+        ).strip().lower() not in ("0", "false", "no", "off")
+
+        deepseek_msg = build_assistant_message_with_reasoning(
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+            reasoning_content=reasoning_content,
+        )
+        messages.append(deepseek_msg)
+        if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
+            if not judgment_mode:
+                core.log_message(deepseek_msg)
+
+        action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+            empty_no_tool_rounds=empty_no_tool_rounds,
+            empty_no_tool_max=empty_no_tool_max,
+            provider=provider,
+            depname=depname,
+            messages=messages,
+            core=core,
+        )
+        if action == "continue":
+            return (
+                _RS_CONTINUE,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+        if action == "break":
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        if not tool_calls_list:
+            if not judgment_mode:
+                _emit_final_answer_if_any(
+                    assistant_text=assistant_text,
+                    use_responses_api=False,
+                    stream_responses=False,
+                    append_result_to_outfile_fn=append_result_to_outfile_fn,
+                    try_open_images_from_text_fn=try_open_images_from_text_fn,
+                    skip_print=_ds_streaming,
+                )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        empty_no_tool_rounds = 0
+
+    else:  # OpenAI / Azure
+        ok, client, assistant_text, tool_calls_list = _call_openai_azure_round(
+            provider=provider,
+            client=client,
+            depname=depname,
+            call_messages=call_messages,
+            core=core,
+            make_client_fn=make_client_fn,
+            call_maybe_thread_fn=_call_maybe_thread_fn,
+            use_responses_api=use_responses_api,
+            stream_responses=stream_responses,
+            send_tools_this_round=send_tools_this_round,
+            max_retries_429=max_retries_429,
+            retry_base=retry_base,
+            retry_cap=retry_cap,
+            messages=messages,
+        )
+        if not ok:
+            return (
+                _RS_RETURN,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        # --- Interrupt check (OpenAI/Azure) ---
+        with _core_module.interrupt_lock:
+            if _core_module.interrupt_requested:
+                _core_module.interrupt_requested = False
+                _inject_stop_prompt(messages, core)
+                return (
+                    _RS_BREAK,
+                    client,
+                    gemini_cache_name,
+                    empty_no_tool_rounds,
+                    reuse_only_rounds,
+                    assistant_text,
+                )
+
+        _append_assistant_message(
+            messages=messages,
+            core=core,
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+        )
+
+        action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
+            assistant_text=assistant_text,
+            tool_calls_list=tool_calls_list,
+            empty_no_tool_rounds=empty_no_tool_rounds,
+            empty_no_tool_max=empty_no_tool_max,
+            provider=provider,
+            depname=depname,
+            messages=messages,
+            core=core,
+        )
+        if action == "continue":
+            return (
+                _RS_CONTINUE,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+        if action == "break":
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        if not tool_calls_list:
+            if not judgment_mode:
+                _emit_final_answer_if_any(
+                    assistant_text=assistant_text,
+                    use_responses_api=use_responses_api,
+                    stream_responses=stream_responses,
+                    append_result_to_outfile_fn=append_result_to_outfile_fn,
+                    try_open_images_from_text_fn=try_open_images_from_text_fn,
+                )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+        empty_no_tool_rounds = 0
+
+    # ── Postamble: tool execution ────────────────────────────────
+
+    if judgment_mode:
+        return (
+            _RS_OK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            reuse_only_rounds,
+            assistant_text,
+        )
+
+    executed_new_tool = _execute_tool_calls(
+        tool_calls_list=tool_calls_list,
+        messages=messages,
+        core=core,
+        cache_mgr=cache_mgr,
+        tool_result_cache=tool_result_cache,
+        use_tool_result_cache=use_tool_result_cache,
+    )
+
+    if any(
+        isinstance(tc, dict)
+        and (tc.get("function") or {}).get("name") == "generate_image"
+        for tc in tool_calls_list
+    ):
+        return (
+            _RS_BREAK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            reuse_only_rounds,
+            assistant_text,
+        )
+
+    # Re-check before the next LLM call.
+    if not judgment_mode:
+        gemini_cache_name = _maybe_auto_shrink_messages(
+            provider=provider,
+            client=client,
+            depname=depname,
+            messages=messages,
+            core=core,
+            cache_mgr=cache_mgr,
+            gemini_cache_name=gemini_cache_name,
+            call_maybe_thread_fn=_call_maybe_thread_fn,
+            use_responses_api=use_responses_api,
+        )
+
+    core.set_status(True, "LLM")
+
+    if executed_new_tool:
+        reuse_only_rounds = 0
+    else:
+        reuse_only_rounds += 1
+        if reuse_only_rounds >= 3:
+            print(
+                "[WARN] The same tool result was reused for 3 consecutive rounds, so "
+                "processing was stopped to prevent a loop."
+            )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                assistant_text,
+            )
+
+    return (
+        _RS_OK,
+        client,
+        gemini_cache_name,
+        empty_no_tool_rounds,
+        reuse_only_rounds,
+        assistant_text,
+    )
+
+
 def run_llm_rounds(
     provider: str,
     client: Any,
@@ -81,7 +812,15 @@ def run_llm_rounds(
     make_client_fn: Any,
     append_result_to_outfile_fn: Any,
     try_open_images_from_text_fn: Any,
-) -> None:
+    judgment_mode: bool = False,
+    judgment_messages: list[dict[str, Any]] | None = None,
+) -> str | None:
+    # Judgment mode: swap messages so all side effects go to judgment_messages
+    if judgment_mode:
+        if not judgment_messages:
+            return ""
+        messages = judgment_messages
+
     max_tool_rounds = 200
     round_count = 0
 
@@ -98,14 +837,12 @@ def run_llm_rounds(
 
     cb = get_callbacks()
     prev_finish_skill = cb.finish_skill
-    cb.finish_skill = make_finish_skill_handler(messages, core)
+    if not judgment_mode:
+        cb.finish_skill = make_finish_skill_handler(messages, core)
 
     core.set_status(True, "LLM")
 
     use_llm_thread = _env_default_on("UAGENT_LLM_IN_THREAD")
-
-    def _call_maybe_thread_fn(fn: Any) -> Any:
-        return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
 
     tool_result_cache: dict[str, str] = {}
     use_tool_result_cache = env_get(
@@ -118,492 +855,75 @@ def run_llm_rounds(
     )
     reuse_only_rounds = 0
 
-    cache_mgr, gemini_cache_name = _init_gemini_cache(
-        provider=provider,
-        client=client,
-        depname=depname,
-        messages=messages,
-    )
+    if judgment_mode:
+        cache_mgr, gemini_cache_name = None, None
+    else:
+        cache_mgr, gemini_cache_name = _init_gemini_cache(
+            provider=provider,
+            client=client,
+            depname=depname,
+            messages=messages,
+        )
 
     # Clear any stale interrupt flag from a previous session
     with _core_module.interrupt_lock:
         _core_module.interrupt_requested = False
 
+    final_text: str | None = None
+
     try:
         while True:
             round_count += 1
 
-            # --- Interrupt check: per-round ---
-            with _core_module.interrupt_lock:
-                if _core_module.interrupt_requested:
-                    _core_module.interrupt_requested = False
-                    _inject_stop_prompt(messages, core)
-                    break
-
-            # Optional translation layer (off by default).
-            # We keep the original `messages` history unchanged and create a translated
-            # copy only for the LLM call.
-            tr_cfg = load_translate_config()
-
-            call_messages = _build_call_messages(
-                provider=provider,
-                messages=messages,
-                core=core,
-                depname=depname,
-                gemini_cache_name=gemini_cache_name,
-            )
-            call_messages = _translate_call_messages(call_messages, tr_cfg)
-
-            use_responses_api, stream_responses = _resolve_round_runtime_flags(
-                tr_cfg=tr_cfg,
-                core=core,
-                provider=provider,
-            )
-            # Responses API is only supported on specific providers; see providers/provider_caps.py.
-            # Force use_responses_api to False for other providers (like Claude) to prevent skipping final output.
-            if provider not in RESPONSES_PROVIDERS:
-                use_responses_api = False
-
-            gemini_cache_name = _maybe_auto_shrink_messages(
+            (
+                round_status,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                reuse_only_rounds,
+                _round_text,
+            ) = _run_one_round(
                 provider=provider,
                 client=client,
                 depname=depname,
                 messages=messages,
                 core=core,
+                make_client_fn=make_client_fn,
+                append_result_to_outfile_fn=append_result_to_outfile_fn,
+                try_open_images_from_text_fn=try_open_images_from_text_fn,
+                round_count=round_count,
+                max_tool_rounds=max_tool_rounds,
+                empty_no_tool_rounds=empty_no_tool_rounds,
+                empty_no_tool_max=empty_no_tool_max,
                 cache_mgr=cache_mgr,
                 gemini_cache_name=gemini_cache_name,
-                call_maybe_thread_fn=_call_maybe_thread_fn,
-                use_responses_api=use_responses_api,
-            )
-
-            if round_count > max_tool_rounds:
-                print(
-                    _("[WARN] Tool rounds exceeded %(max)d; aborting.")
-                    % {"max": max_tool_rounds}
-                )
-                break
-
-            send_tools_this_round = getattr(_core_module, "tools_enabled", True)
-            max_retries_429 = int(env_get("UAGENT_429_MAX_RETRIES", "20"))
-            retry_base = float(env_get("UAGENT_429_BACKOFF_BASE", "2"))
-            retry_cap = float(env_get("UAGENT_429_BACKOFF_CAP", "300"))
-
-            tool_calls_list: list[dict[str, Any]] = []
-            assistant_text: str = ""
-
-            if provider in ("gemini", "vertexai"):
-                (
-                    ok,
-                    client,
-                    assistant_text,
-                    tool_calls_list,
-                    gemini_content_dump,
-                ) = _call_gemini_round(
-                    client=client,
-                    depname=depname,
-                    call_messages=call_messages,
-                    gemini_cache_name=gemini_cache_name,
-                    core=core,
-                    make_client_fn=make_client_fn,
-                    call_maybe_thread_fn=_call_maybe_thread_fn,
-                    max_retries_429=max_retries_429,
-                    retry_base=retry_base,
-                    retry_cap=retry_cap,
-                    stream_responses=stream_responses,
-                    send_tools=send_tools_this_round,
-                    provider=provider,
-                )
-                if not ok:
-                    return
-
-                # --- Interrupt check (Gemini) ---
-                with _core_module.interrupt_lock:
-                    if _core_module.interrupt_requested:
-                        _core_module.interrupt_requested = False
-                        _inject_stop_prompt(messages, core)
-                        break
-
-                assistant_text = _translate_assistant_if_needed(
-                    assistant_text=assistant_text,
-                    tr_cfg=tr_cfg,
-                    use_responses_api=use_responses_api,
-                    stream_responses=stream_responses,
-                )
-
-                # Web streaming (mode A): do not emit final assistant message to UI to avoid duplicates.
-                _append_assistant_message(
-                    messages=messages,
-                    core=core,
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                    gemini_content_dump=gemini_content_dump,
-                    skip_log_when_web=True,
-                )
-
-                action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                    empty_no_tool_rounds=empty_no_tool_rounds,
-                    empty_no_tool_max=empty_no_tool_max,
-                    provider=provider,
-                    depname=depname,
-                    messages=messages,
-                    core=core,
-                )
-
-                if action == "continue":
-                    continue
-                if action == "break":
-                    break
-
-                if not tool_calls_list:
-                    # Gemini streaming already emitted the text; avoid double-printing.
-                    if not (provider in ("gemini", "vertexai") and stream_responses):
-                        _emit_final_answer_if_any(
-                            assistant_text=assistant_text,
-                            use_responses_api=use_responses_api,
-                            stream_responses=stream_responses,
-                            append_result_to_outfile_fn=append_result_to_outfile_fn,
-                            try_open_images_from_text_fn=try_open_images_from_text_fn,
-                        )
-                    break
-
-                empty_no_tool_rounds = 0
-
-            elif provider == "claude":
-                ok, client, assistant_text, tool_calls_list = _call_claude_round(
-                    client=client,
-                    depname=depname,
-                    call_messages=call_messages,
-                    core=core,
-                    make_client_fn=make_client_fn,
-                    call_maybe_thread_fn=_call_maybe_thread_fn,
-                    max_retries_429=max_retries_429,
-                    retry_base=retry_base,
-                    retry_cap=retry_cap,
-                    send_tools=send_tools_this_round,
-                    provider=provider,
-                )
-                if not ok:
-                    return
-
-                # --- Interrupt check ---
-                with _core_module.interrupt_lock:
-                    if _core_module.interrupt_requested:
-                        _core_module.interrupt_requested = False
-                        _inject_stop_prompt(messages, core)
-                        break
-
-                assistant_text = _translate_assistant_if_needed(
-                    assistant_text=assistant_text,
-                    tr_cfg=tr_cfg,
-                    use_responses_api=use_responses_api,
-                    stream_responses=stream_responses,
-                )
-
-                _append_assistant_message(
-                    messages=messages,
-                    core=core,
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                )
-
-                action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                    empty_no_tool_rounds=empty_no_tool_rounds,
-                    empty_no_tool_max=empty_no_tool_max,
-                    provider=provider,
-                    depname=depname,
-                    messages=messages,
-                    core=core,
-                )
-
-                if action == "continue":
-                    continue
-                if action == "break":
-                    break
-
-                if not tool_calls_list:
-                    _emit_final_answer_if_any(
-                        assistant_text=assistant_text,
-                        use_responses_api=use_responses_api,
-                        stream_responses=stream_responses,
-                        append_result_to_outfile_fn=append_result_to_outfile_fn,
-                        try_open_images_from_text_fn=try_open_images_from_text_fn,
-                    )
-                    break
-
-                empty_no_tool_rounds = 0
-
-            elif provider in ("deepseek", "mimo"):
-                ok, client, assistant_text, reasoning_content, tool_calls_list = (
-                    _call_deepseek_round(
-                        client=client,
-                        depname=depname,
-                        call_messages=call_messages,
-                        core=core,
-                        make_client_fn=make_client_fn,
-                        call_maybe_thread_fn=_call_maybe_thread_fn,
-                        send_tools_this_round=send_tools_this_round,
-                        max_retries_429=max_retries_429,
-                        retry_base=retry_base,
-                        retry_cap=retry_cap,
-                        provider=provider,
-                    )
-                )
-                if not ok:
-                    return
-
-                # --- Interrupt check ---
-                with _core_module.interrupt_lock:
-                    if _core_module.interrupt_requested:
-                        _core_module.interrupt_requested = False
-                        _inject_stop_prompt(messages, core)
-                        break
-
-                assistant_text = _translate_assistant_if_needed(
-                    assistant_text=assistant_text,
-                    tr_cfg=tr_cfg,
-                    use_responses_api=False,
-                    stream_responses=False,
-                )
-
-                # Determine if streaming is active (used for both log-skip and print-skip).
-                _ds_streaming = (
-                    env_get("UAGENT_STREAMING", "1") or ""
-                ).strip().lower() not in ("0", "false", "no", "off")
-
-                # Build assistant message: reasoning_content is only carried
-                # forward when tool calls are present (DeepSeek/z.ai/MiMo API requirement).
-                deepseek_msg = build_assistant_message_with_reasoning(
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                    reasoning_content=reasoning_content,
-                )
-                messages.append(deepseek_msg)
-                # Web streaming already emitted deltas via log_stream_delta; avoid duplicate log.
-                if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
-                    core.log_message(deepseek_msg)
-
-                action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                    empty_no_tool_rounds=empty_no_tool_rounds,
-                    empty_no_tool_max=empty_no_tool_max,
-                    provider=provider,
-                    depname=depname,
-                    messages=messages,
-                    core=core,
-                )
-                if action == "continue":
-                    continue
-                if action == "break":
-                    break
-
-                if not tool_calls_list:
-                    # DeepSeek/z.ai/MiMo streaming (chat completions) already printed the text;
-                    # skip the print but keep outfile/image side effects.
-                    _emit_final_answer_if_any(
-                        assistant_text=assistant_text,
-                        use_responses_api=False,
-                        stream_responses=False,
-                        append_result_to_outfile_fn=append_result_to_outfile_fn,
-                        try_open_images_from_text_fn=try_open_images_from_text_fn,
-                        skip_print=_ds_streaming,
-                    )
-                    break
-
-                empty_no_tool_rounds = 0
-
-            elif provider == "zai":
-                ok, client, assistant_text, reasoning_content, tool_calls_list = (
-                    _call_zai_round(
-                        client=client,
-                        depname=depname,
-                        call_messages=call_messages,
-                        core=core,
-                        make_client_fn=make_client_fn,
-                        call_maybe_thread_fn=_call_maybe_thread_fn,
-                        send_tools_this_round=send_tools_this_round,
-                        max_retries_429=max_retries_429,
-                        retry_base=retry_base,
-                        retry_cap=retry_cap,
-                    )
-                )
-                if not ok:
-                    return
-
-                # --- Interrupt check ---
-                with _core_module.interrupt_lock:
-                    if _core_module.interrupt_requested:
-                        _core_module.interrupt_requested = False
-                        _inject_stop_prompt(messages, core)
-                        break
-
-                assistant_text = _translate_assistant_if_needed(
-                    assistant_text=assistant_text,
-                    tr_cfg=tr_cfg,
-                    use_responses_api=False,
-                    stream_responses=False,
-                )
-
-                # Determine if streaming is active (used for both log-skip and print-skip).
-                _ds_streaming = (
-                    env_get("UAGENT_STREAMING", "1") or ""
-                ).strip().lower() not in ("0", "false", "no", "off")
-
-                # Build assistant message: reasoning_content is only carried
-                # forward when tool calls are present (DeepSeek/z.ai/MiMo API requirement).
-                deepseek_msg = build_assistant_message_with_reasoning(
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                    reasoning_content=reasoning_content,
-                )
-                messages.append(deepseek_msg)
-                # Web streaming already emitted deltas via log_stream_delta; avoid duplicate log.
-                if not (bool(getattr(core, "_is_web", False)) and _ds_streaming):
-                    core.log_message(deepseek_msg)
-
-                action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                    empty_no_tool_rounds=empty_no_tool_rounds,
-                    empty_no_tool_max=empty_no_tool_max,
-                    provider=provider,
-                    depname=depname,
-                    messages=messages,
-                    core=core,
-                )
-                if action == "continue":
-                    continue
-                if action == "break":
-                    break
-
-                if not tool_calls_list:
-                    # DeepSeek/z.ai/MiMo streaming (chat completions) already printed the text;
-                    # skip the print but keep outfile/image side effects.
-                    _emit_final_answer_if_any(
-                        assistant_text=assistant_text,
-                        use_responses_api=False,
-                        stream_responses=False,
-                        append_result_to_outfile_fn=append_result_to_outfile_fn,
-                        try_open_images_from_text_fn=try_open_images_from_text_fn,
-                        skip_print=_ds_streaming,
-                    )
-                    break
-
-                empty_no_tool_rounds = 0
-
-            else:  # OpenAI / Azure
-                ok, client, assistant_text, tool_calls_list = _call_openai_azure_round(
-                    provider=provider,
-                    client=client,
-                    depname=depname,
-                    call_messages=call_messages,
-                    core=core,
-                    make_client_fn=make_client_fn,
-                    call_maybe_thread_fn=_call_maybe_thread_fn,
-                    use_responses_api=use_responses_api,
-                    stream_responses=stream_responses,
-                    send_tools_this_round=send_tools_this_round,
-                    max_retries_429=max_retries_429,
-                    retry_base=retry_base,
-                    retry_cap=retry_cap,
-                    messages=messages,
-                )
-                if not ok:
-                    return
-
-                # --- Interrupt check (OpenAI/Azure) ---
-                with _core_module.interrupt_lock:
-                    if _core_module.interrupt_requested:
-                        _core_module.interrupt_requested = False
-                        _inject_stop_prompt(messages, core)
-                        break
-
-                _append_assistant_message(
-                    messages=messages,
-                    core=core,
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                )
-
-                action, empty_no_tool_rounds = _handle_openai_empty_no_tool(
-                    assistant_text=assistant_text,
-                    tool_calls_list=tool_calls_list,
-                    empty_no_tool_rounds=empty_no_tool_rounds,
-                    empty_no_tool_max=empty_no_tool_max,
-                    provider=provider,
-                    depname=depname,
-                    messages=messages,
-                    core=core,
-                )
-
-                if action == "continue":
-                    continue
-                if action == "break":
-                    break
-
-                if not tool_calls_list:
-                    _emit_final_answer_if_any(
-                        assistant_text=assistant_text,
-                        use_responses_api=use_responses_api,
-                        stream_responses=stream_responses,
-                        append_result_to_outfile_fn=append_result_to_outfile_fn,
-                        try_open_images_from_text_fn=try_open_images_from_text_fn,
-                    )
-                    break
-
-                empty_no_tool_rounds = 0
-
-            executed_new_tool = _execute_tool_calls(
-                tool_calls_list=tool_calls_list,
-                messages=messages,
-                core=core,
-                cache_mgr=cache_mgr,
                 tool_result_cache=tool_result_cache,
                 use_tool_result_cache=use_tool_result_cache,
+                reuse_only_rounds=reuse_only_rounds,
+                use_llm_thread=use_llm_thread,
+                judgment_mode=judgment_mode,
             )
 
-            if any(
-                isinstance(tc, dict)
-                and (tc.get("function") or {}).get("name") == "generate_image"
-                for tc in tool_calls_list
-            ):
-                # Image generation is terminal for the current turn.
-                # Avoid a follow-up Responses round that can request generate_image again.
+            if round_status == _RS_RETURN:
+                if judgment_mode:
+                    final_text = _round_text or ""
                 break
+            if round_status == _RS_BREAK:
+                if judgment_mode:
+                    final_text = _round_text or ""
+                break
+            # _RS_CONTINUE and _RS_OK: continue loop naturally
 
-            # Re-check before the next LLM call in case a large tool result
-            # pushed the conversation near the context limit.
-            gemini_cache_name = _maybe_auto_shrink_messages(
-                provider=provider,
-                client=client,
-                depname=depname,
-                messages=messages,
-                core=core,
-                cache_mgr=cache_mgr,
-                gemini_cache_name=gemini_cache_name,
-                call_maybe_thread_fn=_call_maybe_thread_fn,
-                use_responses_api=use_responses_api,
-            )
-
-            core.set_status(True, "LLM")
-
-            if executed_new_tool:
-                reuse_only_rounds = 0
-            else:
-                reuse_only_rounds += 1
-                if reuse_only_rounds >= 3:
-                    print(
-                        "[WARN] The same tool result was reused for 3 consecutive rounds, so "
-                        "processing was stopped to prevent a loop."
-                    )
-                    break
+            # Judgment mode: one round only
+            if judgment_mode:
+                break
 
     finally:
         cb.finish_skill = prev_finish_skill
         # セッション中（プログラム終了まで）キャッシュを保持するため、ここでは削除しない。
         # クリーンアップは cli.py のメインループを抜けた際の finally で行う。
         core.set_status(False, "")
+
+    if judgment_mode:
+        return final_text or ""
+    return None

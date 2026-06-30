@@ -43,7 +43,7 @@ Key modules:
 
 - Core state + UI integration: `src/uagent/core.py`
 - CLI UI loop: `src/uagent/cli.py`
-  - Standard input loop, `:cd` / `:ls` / `:cp` / `:mv` / `:head` / `:tail`, and startup-time workdir initialization (mode A initializes the workdir inside `main()`).
+  - Standard input loop, `:cd` / `:ls` / `:cp` / `:mv` / `:head` / `:tail` / `:auto`, and startup-time workdir initialization (mode A initializes the workdir inside `main()`).
   - `:head <path> [n]` prints the first n lines (default 20), and `:tail <path> [n]` prints the last n lines (default 20).
   - `:cp` / `:mv` are treated as safe file operations inside the workdir.
 - LLM orchestration entrypoint: `src/uagent/uagent_llm.py`
@@ -56,6 +56,22 @@ Key modules:
 - Provider wiring (Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/etc.): `src/uagent/providers/util_providers.py`
   - To add a new provider, modify: `util_providers.py` (detect_provider/get_model_name/make_client), `env_validate.py` (allowed list), `runtime/runtime_banner.py` (banner display), and `provider_caps.py` (Responses API support if applicable).
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`
+  - **`:auto <goal> [--max-rounds N]`** — Automated multi-round execution.
+    - Runs the goal through iterative LLM rounds. Each round consists of a
+      continuation query (Step A) followed by a reviewer judgment (Step B).
+    - Judgment uses the same provider/code path as the main query via
+      `run_llm_rounds(judgment_mode=True)`, including Responses API support.
+    - **Exit mechanisms:**
+      - Press `x` to exit immediately (checked mid-round in `run_llm_rounds`).
+      - Reviewer returns `COMPLETE` → auto-pilot stops.
+      - `--max-rounds N` reached (default 10).
+      - `:auto off` to stop.
+    - Key modules: `_handle_cmd_auto()`, `_run_auto_pilot_loop()`,
+      `_ask_reviewer_judgment()` (all in `util_tools.py`).
+    - LLM round logic: `_run_one_round()` + `run_llm_rounds(judgment_mode=...)`
+      in `uagent_llm.py`.
+    - State flags: `core.auto_pilot_active`, `core.auto_pilot_exit_requested`,
+      `core.auto_pilot_round`, `core.auto_pilot_max_rounds`, `core.auto_pilot_goal`.
 - Startup initialization: `src/uagent/runtime/runtime_init.py` (compatibility re-export)
   - `src/uagent/runtime/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
   - `src/uagent/runtime/runtime_banner.py`: `build_startup_banner()`
@@ -74,6 +90,9 @@ Documentation:
 
 - Tool development: `src/uagent/docs/DEVELOP_TOOL.md`
 - Host-side i18n: `src/uagent/docs/DEVELOP_I18N.md` (compile: `python scripts/compile_locales.py`, QC: `python scripts/po_qc_summary.py`)
+- Auto-pilot (`:auto` command): `src/uagent/docs/AUTO_REVIEW.md` (design & implementation record)
+- User-facing `:auto` guide (en): `README_AUTO.md` (usage instructions)
+- User-facing `:auto` guide (ja): `src/uagent/docs/README_AUTO.ja.md`
 
 ______________________________________________________________________
 

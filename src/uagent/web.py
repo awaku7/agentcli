@@ -1290,17 +1290,7 @@ def main():
     )
     web_args, _web_unknown = parser.parse_known_args()
 
-    try:
-        from .readme_util import (
-            maybe_print_quickstart_on_first_run,
-            maybe_print_readme_on_first_run,
-        )
-
-        maybe_print_readme_on_first_run(open_with_os=True)
-        maybe_print_quickstart_on_first_run(open_with_os=True)
-    except Exception:
-        pass
-
+    # readme/quickstart first-run display removed (files no longer bundled)
     ensure_mcp_config_template()
 
     try:

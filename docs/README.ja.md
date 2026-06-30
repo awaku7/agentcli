@@ -77,7 +77,7 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **ウェブ** | fetch_url, search_web, screenshot, browser_playwright |
 | **メディア** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
 | **ドキュメント** | PDF/PPTX/DOCX/RTF/ODT抽出、Excel構造化抽出 |
-| **コミュニケーション** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — see [COMMUNICATION.md](COMMUNICATION.md) |
+| **コミュニケーション** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — see [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
 | **開発ツール** | git_ops, python_compile, lint_format, run_tests, db_query, **13 source code navigators (idx family)** |
 | **MCP** | Connect to external MCP servers, list tools, execute |
@@ -93,7 +93,7 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 | **GUI** | `uagg` | tkinter 経由のデスクトップ UI |
 | **ウェブ** | `uagw` |ブラウザベースのアクセス |
 | **A2A サーバー** | `uaga` |マルチエージェント通信用の Agent2Agent プロトコル |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
 
 ### 🏠 IoT デバイス制御
 
@@ -108,6 +108,17 @@ Read-only tools (file search, hash calculation, directory listing, translation, 
 
 `:skills mp_search` では、[SkillsMP](https://skillsmp.com) および [ClawHub](https://clawhub.ai) を参照してコミュニティ スキルを確認できます。
 uag の機能をその場でインストールして拡張します。
+
+### 🤖 オートパイロット (`:auto`)
+
+uag は、複数のLLMラウンドにわたって**自律的に目標を達成**できます。複雑なマルチステップタスクに最適です。
+
+- **動作**: 各ラウンドはメインクエリ（Step A）とレビューア判定（Step B）で構成。Step B が「COMPLETE or CONTINUE?」を判断します
+- **同じプロバイダ、同じAPIパス**: レビューア判定もメインクエリと同じコードパス（Responses API 対応含む）を使用
+- **いつでも停止**: `x` キーで即座に中断可能。レビューアの自動判定も利用
+- **設定可能**: `--max-rounds N` で最大ラウンド数を指定
+
+詳細は [README_AUTO.ja.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/README_AUTO.ja.md) を参照してください。
 
 ### 🧩 バッチ状態マネージャー
 

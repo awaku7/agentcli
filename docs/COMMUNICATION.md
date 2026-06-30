@@ -160,4 +160,4 @@ gmail_read action="unread"
 
 ## See also
 
-- [IOT_USECASE.md](IOT_USECASE.md) — for IoT-related tools (SwitchBot, ECHONET Lite, Matter, UPnP)
+- [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md) — for IoT-related tools (SwitchBot, ECHONET Lite, Matter, UPnP)

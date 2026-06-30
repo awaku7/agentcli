@@ -2174,6 +2174,7 @@ def _handle_cmd_env(arg: str, *, tr: Any) -> bool:
 # Auto-Pilot
 # ============================================================
 
+
 def _get_followup_prompt(goal: str) -> str:
     """Generate continuation prompt for the main query (i18n)."""
     return _("Continue. Goal: %(goal)s") % {"goal": goal}
@@ -2222,11 +2223,17 @@ def _ask_reviewer_judgment(
     depname: str,
     messages: list[dict[str, Any]],
     core: Any,
+    *,
+    make_client_fn: Any,
 ) -> str:
     """Ask the LLM as a reviewer whether the goal is achieved.
 
+    Uses run_llm_rounds() in judgment_mode=True so that the same code path
+    (Responses API included) is used for the judgment query.
     Returns "COMPLETE" or "CONTINUE".
     """
+    from . import uagent_llm as llm_util
+
     judgment_msgs = _build_judgment_messages(messages, core.auto_pilot_goal)
 
     core.set_status(True, "AUTO:judge")
@@ -2234,26 +2241,23 @@ def _ask_reviewer_judgment(
     import warnings
 
     try:
-        # Try OpenAI-compatible API call (works for OpenAI/Azure/OpenRouter etc.)
-        resp = client.chat.completions.create(
-            model=depname,
-            messages=judgment_msgs,
-            temperature=0.0,
-            max_tokens=50,
+        result_text = llm_util.run_llm_rounds(
+            provider=provider,
+            client=client,
+            depname=depname,
+            messages=messages,
+            core=core,
+            make_client_fn=make_client_fn,
+            append_result_to_outfile_fn=append_result_to_outfile,
+            try_open_images_from_text_fn=try_open_images_from_text,
+            judgment_mode=True,
+            judgment_messages=judgment_msgs,
         )
-        text = ""
-        if resp.choices and resp.choices[0].message:
-            text = (resp.choices[0].message.content or "").strip().upper()
-    except (AttributeError, NotImplementedError, TypeError) as e:
-        # Fallback: provider does not support chat.completions.create directly
-        # (e.g. Gemini/Claude). Use a lightweight approach.
-        warnings.warn(
-            f"[AUTO] Direct chat.completions not supported for {provider}: {e}"
-        )
-        text = "CONTINUE"
     except Exception as e:
         warnings.warn(f"[AUTO] Judgment call failed: {type(e).__name__}: {e}")
         text = "CONTINUE"
+    else:
+        text = (result_text or "").strip().upper()
 
     print(_("\n[AUTO:judge] %(judgment)s") % {"judgment": text})
     return "COMPLETE" if "COMPLETE" in text else "CONTINUE"
@@ -2329,7 +2333,12 @@ def _run_auto_pilot_loop(
 
         # === Step B: Meta query (reviewer judgment) ===
         judgment = _ask_reviewer_judgment(
-            provider, client, depname, messages, core
+            provider,
+            client,
+            depname,
+            messages,
+            core,
+            make_client_fn=make_client_fn,
         )
 
         if judgment == "COMPLETE":

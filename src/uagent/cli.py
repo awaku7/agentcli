@@ -351,6 +351,7 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             "tools",
                             "skills",
                             "clean",
+                            "auto",
                             "shrink",
                             "shrink_llm",
                             "tokens",

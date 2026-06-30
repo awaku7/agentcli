@@ -91,7 +91,7 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | tkinter এর মাধ্যমে ডেস্কটপ UI |
 | **ওয়েব** | `uagw` | ব্রাউজার-ভিত্তিক অ্যাক্সেস |
 | **A2A সার্ভার** | `uaga` | মাল্টি-এজেন্ট যোগাযোগের জন্য Agent2Agent প্রোটোকল |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](VSCODE.md) |
+| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) |
 
 ### 🏠 IoT ডিভাইস কন্ট্রোল
 
@@ -106,6 +106,17 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 
 সম্প্রদায়ের দক্ষতার জন্য [SkillsMP](https://skillsmp.com) এবং [ClawHub](https://clawhub.ai) ব্রাউজ করতে `:skills mp_search`।
 ফ্লাইতে uag এর ক্ষমতা ইনস্টল করুন এবং প্রসারিত করুন।
+
+### 🤖 Auto-Pilot (`:auto`)
+
+uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for complex, multi-step tasks that need iterative refinement.
+
+- **How it works**: Each round has a main query (Step A) followed by a reviewer judgment (Step B) that decides "COMPLETE or CONTINUE?"
+- **Same provider, same API**: The reviewer judgment uses the identical code path as the main query — including Responses API support.
+- **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
+- **Configurable**: `--max-rounds N` to control the budget.
+
+See [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) for full documentation.
 
 ### 🧩 ব্যাচ স্টেট ম্যানেজার
 
