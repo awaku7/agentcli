@@ -10,6 +10,7 @@ import time
 import urllib.request
 import urllib.parse
 from typing import Any
+import re
 
 from .i18n_helper import make_tool_translator
 
@@ -64,6 +65,44 @@ _SSL_CTX.verify_mode = ssl.CERT_NONE
 
 # Last request timestamp for rate limiting
 _LAST_REQUEST_TIME: float = 0
+
+# Placeholder protection for printf-style format specifiers
+_PH_PATTERN = re.compile(r"%\([^)]+\)[#0\- +]?\d*(?:\.\d+)?[hlL]?[dsfr]")
+_PH_PREFIX = "\x01PH_"
+
+
+def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
+    """Replace printf-style placeholders with safe tokens before translation.
+
+    Returns (protected_text, {token: original_placeholder}) mapping.
+    """
+    mapping: dict[str, str] = {}
+    seen: set[str] = set()
+    idx = 0
+
+    def _replacer(m: re.Match) -> str:
+        nonlocal idx
+        orig = m.group(0)
+        if orig in seen:
+            # Reuse existing token for identical placeholder
+            for tok, val in mapping.items():
+                if val == orig:
+                    return tok
+        token = f"{_PH_PREFIX}{idx}"
+        idx += 1
+        mapping[token] = orig
+        seen.add(orig)
+        return token
+
+    protected = _PH_PATTERN.sub(_replacer, text)
+    return protected, mapping
+
+
+def restore_placeholders(text: str, mapping: dict[str, str]) -> str:
+    """Restore protected placeholders after translation."""
+    for token, original in mapping.items():
+        text = text.replace(token, original)
+    return text
 
 
 def _translate(
@@ -129,7 +168,7 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "translate_text",
         "description": _(
             "tool.description",
-            default="Translate text using Google Translate. Supports 30+ languages. Max input length: 10000 characters.",
+            default="Translate text using Google Translate. Supports 30+ languages. Max input length: 10000 characters. When protect_placeholders is enabled (default), printf-style format specifiers like %(name)s are protected from translation.",
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -163,6 +202,13 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.source_lang.description",
                         default="Source language code. Auto-detected if omitted.",
+                    ),
+                },
+                "protect_placeholders": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.protect_placeholders.description",
+                        default="If true, protect printf-style format specifiers like %(name)s from being translated. Default: true.",
                     ),
                 },
             },
@@ -206,8 +252,17 @@ def run_tool(args: dict[str, Any]) -> str:
                 ensure_ascii=False,
             )
 
+    # Apply placeholder protection if enabled
+    protect = args.get("protect_placeholders")
+    if protect is None or protect is True:
+        protected_text, ph_mapping = protect_placeholders(text)
+    else:
+        protected_text, ph_mapping = text, {}
+
     try:
-        translated, detected = _translate(text, google_target, google_source)
+        translated, detected = _translate(protected_text, google_target, google_source)
+        if ph_mapping:
+            translated = restore_placeholders(translated, ph_mapping)
     except Exception as e:
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
