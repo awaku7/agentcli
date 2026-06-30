@@ -804,6 +804,18 @@ When the user asks for a UI, dashboard, interactive tool, or visualization:
             append_result_to_outfile_fn=tools_util.append_result_to_outfile,
             try_open_images_from_text_fn=tools_util.try_open_images_from_text,
         )
+        # Auto-pilot loop
+        if core.auto_pilot_active:
+            tools_util._run_auto_pilot_loop(
+                provider_name,
+                client,
+                depname,
+                room.history,
+                core=core,
+                make_client_fn=providers.make_client,
+                append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+            )
         # Sync new assistant messages missed due to skip_log_when_web in _append_assistant_message.
         for m in room.history[_before_hist_len:]:
             if isinstance(m, dict) and m.get("role") == "assistant":

@@ -48,6 +48,7 @@ from .util_tools import (
     get_verbosity_mode,
     apply_reasoning_arg,
     apply_verbosity_arg,
+    _run_auto_pilot_loop,
 )
 
 from .uagent_llm import run_llm_rounds as util_run_llm_rounds
@@ -645,6 +646,18 @@ class ScheckWorker(QtCore.QObject):
                                 append_result_to_outfile_fn=append_result_to_outfile,
                                 try_open_images_from_text_fn=lambda _: None,
                             )
+                            # Auto-pilot loop (first call)
+                            if core.auto_pilot_active:
+                                _run_auto_pilot_loop(
+                                    self._provider,
+                                    self._client,
+                                    self._depname,
+                                    self.messages,
+                                    core=core,
+                                    make_client_fn=util_make_client,
+                                    append_result_to_outfile_fn=append_result_to_outfile,
+                                    try_open_images_from_text_fn=lambda _: None,
+                                )
                     elif kind == "schedule_notice":
                         notice = (ev.get("text", "") or "").strip()
                         if notice:
@@ -731,6 +744,18 @@ class ScheckWorker(QtCore.QObject):
                                 append_result_to_outfile_fn=append_result_to_outfile,
                                 try_open_images_from_text_fn=lambda _: None,
                             )
+                            # Auto-pilot loop (Responses API path)
+                            if core.auto_pilot_active:
+                                _run_auto_pilot_loop(
+                                    self._provider,
+                                    self._client,
+                                    self._depname,
+                                    self.messages,
+                                    core=core,
+                                    make_client_fn=util_make_client,
+                                    append_result_to_outfile_fn=append_result_to_outfile,
+                                    try_open_images_from_text_fn=lambda _: None,
+                                )
                             continue
 
                         # Fallback: analyze_image tool -> text injection
@@ -764,6 +789,18 @@ class ScheckWorker(QtCore.QObject):
                                 append_result_to_outfile_fn=append_result_to_outfile,
                                 try_open_images_from_text_fn=lambda _: None,
                             )
+                            # Auto-pilot loop (fallback path)
+                            if core.auto_pilot_active:
+                                _run_auto_pilot_loop(
+                                    self._provider,
+                                    self._client,
+                                    self._depname,
+                                    self.messages,
+                                    core=core,
+                                    make_client_fn=util_make_client,
+                                    append_result_to_outfile_fn=append_result_to_outfile,
+                                    try_open_images_from_text_fn=lambda _: None,
+                                )
                 except QueueEmpty:
                     continue
                 except Exception:
@@ -1331,6 +1368,19 @@ class MainWindow(QtWidgets.QMainWindow):
         self.statusBar().addPermanentWidget(self._mode_label)
         self._mode_text = ""
 
+        # Auto-pilot stop button (x key)
+        self._auto_stop_btn = QtWidgets.QPushButton("✕")
+        self._auto_stop_btn.setFixedWidth(28)
+        self._auto_stop_btn.setFixedHeight(22)
+        self._auto_stop_btn.setToolTip(_("Stop auto-pilot"))
+        self._auto_stop_btn.setStyleSheet(
+            "QPushButton { color: white; background-color: #f97316; border-radius: 4px; font-weight: bold; font-size: 11px; }"
+            "QPushButton:hover { background-color: #ea580c; }"
+        )
+        self._auto_stop_btn.hide()
+        self._auto_stop_btn.clicked.connect(self._on_auto_stop)
+        self.statusBar().addPermanentWidget(self._auto_stop_btn)
+
         self._monitor_timer = QtCore.QTimer(self)
         self._monitor_timer.timeout.connect(self._update_ui_from_log)
         self._monitor_timer.start(200)
@@ -1709,6 +1759,15 @@ class MainWindow(QtWidgets.QMainWindow):
                 if cwd != self._last_workdir:
                     self._last_workdir = cwd
                     self._workdir_label.setText(f" workdir: {cwd}")
+            except Exception:
+                pass
+
+            # Auto-pilot stop button visibility
+            try:
+                if core.auto_pilot_active:
+                    self._auto_stop_btn.show()
+                else:
+                    self._auto_stop_btn.hide()
             except Exception:
                 pass
 
@@ -2253,6 +2312,13 @@ class MainWindow(QtWidgets.QMainWindow):
         print("\n[INTERRUPT] Stop requested by user.")
         self._stop_btn.hide()
 
+
+    def _on_auto_stop(self) -> None:
+        """Stop auto-pilot mode (x key equivalent)."""
+        with core.auto_pilot_exit_lock:
+            core.auto_pilot_exit_requested = True
+        print("\n[AUTO] Stop requested by user (x key).")
+        self._auto_stop_btn.hide()
     def _on_send(self):
         with core.human_ask_lock:
             active, q, is_password = (
