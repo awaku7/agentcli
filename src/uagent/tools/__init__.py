@@ -920,10 +920,7 @@ def get_tool_catalog(
 
             _pkg_dir = os.path.dirname(__file__)
             for _entry in os.scandir(_pkg_dir):
-                if (
-                    _entry.name.endswith("_tool.py")
-                    and not _entry.name.startswith("_")
-                ):
+                if _entry.name.endswith("_tool.py") and not _entry.name.startswith("_"):
                     _mn = _entry.name[:-3]
                     if _is_lazy_module(_mn):
                         _lazy_mod_names.append(_mn)
