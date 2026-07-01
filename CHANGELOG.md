@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.5.31] - 2026-07-01
+
+### Added
+- APM (Agent Package Manager) skill integration: tab completion, DEVELOP.md docs, and skills_apm_tool.py.
+
+### Fixed
+- Rename loop variable _ to label in setup_cli.py to avoid UnboundLocalError on gettext _().
+
+### Changed
+- Sync i18n README translations: adjustments and content updates across 34 languages.
+
+### Documentation
+- Rewrite AGENTS.md from Japanese agent instructions to English project overview.
+
 ## [0.5.30] - 2026-06-30
 
 ### Added

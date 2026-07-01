@@ -1,5 +1,19 @@
 # 変更履歴
 
+## [0.5.31] - 2026-07-01
+
+### 追加
+- APM（Agent Package Manager）スキル統合：タブ補完、DEVELOP.md ドキュメント、skills_apm_tool.py。
+
+### 修正
+- setup_cli.py のループ変数 _ を label に変更し、gettext の _() による UnboundLocalError を回避。
+
+### 変更
+- i18n README 翻訳の同期：34言語にわたる書式調整とコンテンツ更新。
+
+### ドキュメント
+- AGENTS.md を日本語のエージェント指示から英語のプロジェクト概要に書き換え。
+
 ## [0.5.30] - 2026-06-30
 
 ### 追加
