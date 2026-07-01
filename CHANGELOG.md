@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.32] - 2026-07-01
+
+### Added
+- `:profile-fromlog` now defaults to the most recent 100 log files.
+
+### Fixed
+- Add missing `_()` wrappers for user-facing print messages in host-side files (llm_helpers, llm_round_helpers, profile_manager, llm_deepseek, llm_zai, scheckgui).
+
+### Changed
+- i18n: regenerate POT and rebuild all 34 language PO files (575 entries, 0 empty).
+- i18n: translate all untranslated entries across 34 languages via Google Translate.
+- i18n: fix placeholder keys translated by Google Translate in 21 locale files.
+
 ## [0.5.31] - 2026-07-01
 
 ### Added
