@@ -358,12 +358,12 @@ def zai_chat_with_tools(
                         )
                         continue
                     print(
-                        f"[{_LABEL}] Repair did not change messages, giving up.",
+                        f"[{_LABEL}] " + _("Repair did not change messages, giving up."),
                         file=sys.stderr,
                     )
-                print(f"[{_LABEL} Error] 400 BadRequest")
+                print(f"[{_LABEL} Error] " + _("400 BadRequest"))
                 if body_str:
-                    print(f"Response body: {body_str[:500]}")
+                    print(f"[{_LABEL} Error] " + _("Response body: %(body)s") % {"body": body_str[:500]})
                 print(repr(e))
                 return False, client, "", "", []
 

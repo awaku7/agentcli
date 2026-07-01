@@ -17,7 +17,7 @@ _AUTO_EFFORT_LADDER = ("minimal", "low", "medium", "high", "xhigh")
 
 def _maybe_print_certifi_where(exc: Exception) -> None:
     if certifi is None:
-        print("[SSL Info] certifi is not available")
+        print("[SSL Info] " + _("certifi is not available"))
         return
 
     try:

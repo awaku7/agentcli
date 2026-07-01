@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[错误] 未安装 Git。"
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch() 回退到 input()"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "已收到 Ctrl+C。正在开始关闭..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "已收到 Ctrl+C。正在开始关闭..."
 msgid "Cancelled."
 msgstr "已取消。"
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "已收到多行回复。"
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -70,27 +70,27 @@ msgstr ""
 "是否将这些图像发送给 LLM（外部 API）进行分析？\n"
 "\n"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "回复 y 发送，或 n（或 c/cancel）跳过发送。"
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "图像发送确认失败；不会发送图像：%(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "无法附加图像：%(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "未知事件类型 kind=%(kind)r：%(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "已退出 uag。"
 
@@ -605,7 +605,7 @@ msgstr ""
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
-msgstr "未知提供商：%(provider)r。允许值：%(allowed)s（启动很可能会失败）。"
+msgstr "未知提供商：%(provider)r. Allowed: %(allowed)s（启动很可能会失败）。"
 
 #: src/uagent/env_validate.py:82
 msgid ""
@@ -705,7 +705,7 @@ msgstr "拥抱脸部 API 密钥 (HF_TOKEN)。"
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
-msgstr "未知 embedding 提供商：%(provider)r。允许值：%(allowed)s（启动很可能会失败）。"
+msgstr "未知 embedding 提供商：%(provider)r. Allowed: %(allowed)s（启动很可能会失败）。"
 
 #: src/uagent/env_validate.py:258
 msgid "Azure embedding endpoint / API key / API version / deployment name."
@@ -875,6 +875,9 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "证书不可用"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "请描述这张截图并总结可见的界面。"
@@ -898,7 +901,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[翻译错误] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -919,36 +922,44 @@ msgstr "[Claude 错误] 生成回复时发生错误。"
 msgid "Input exceeds the context window."
 msgstr "输入超出上下文窗口。"
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr "模型不支持思考。停止思考并重试..."
+
+msgid "400 BadRequest"
+msgstr "400 错误请求"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "错误代码：%(code)d - %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "连接错误"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[网络错误]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "意外异常。"
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "响应错误：resp 为 None。"
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "响应错误：resp.choices 为 None 或为空。"
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "解析回复时出错：%(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -956,6 +967,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -963,29 +977,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"你是一个用户画像代理。请分析对话日志并提取用户的以下信息：\n"
-"1. 环境（操作系统、shell、编辑器等）\n"
-"2. 偏好（编码风格、常用工具、冗长度偏好等）\n"
-"3. 约束（安全规则、离线工作要求等）\n"
+"您是一名用户分析代理。分析对话日志并提取用户的：\n"
+"1.环境（操作系统、shell、编辑器等）\n"
+"2. 偏好（编码风格、首选工具、详细程度偏好等）\n"
+"3. 限制（安全规则、离线要求等）\n"
 "\n"
-"不要包含临时问题、闲聊或敏感凭据。\n"
-"你必须且只能用一个与此模式匹配的有效 JSON 对象作答：\n"
+"请勿包含临时问题、闲聊或敏感凭证。\n"
+"不要提取临时技术限制、工具可用性问题或一次性限制。\n"
+"仅提取用户明确规定且长期适用的规则。\n"
+"使用与对话相同的语言记录首选项和约束（匹配用户区域设置）。\n"
+"您必须仅使用与此模式匹配的有效 JSON 对象进行响应：\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
+"“环境”：{“操作系统”：“字符串”，“外壳”：“字符串”，“编辑器”：“字符串”}，\n"
+"“首选项”：[“字符串”]，\n"
+"“约束”：[“字符串”]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "无法初始化 LLM 客户端。"
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "找到 %(total_files)d 个日志文件。正在开始增量分析..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1000,6 +1016,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1007,13 +1026,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"您是一名用户分析代理。分析对话日志并提取：1.环境（操作系统、shell、编辑器） — 仅当从日志中清晰可见时。2.偏好 — "
-"从用户的实际请求和更正中观察到的具体、可操作的特征：-响应风格：简洁还是冗长？代码重还是散文重？要点还是段落？-语言：喜欢日语、英语还是混合语言？-工具使用：用户经常使用哪些工具/命令？-质量标准：容忍快速解决方法还是坚持正确的解决方案？-确认：想要在文件操作之前得到明确批准，还是喜欢跳过提示？-用户给出指令的方式中的任何其他重复出现的模式。3.约束"
-" — 用户声明的明确规则（例如“必须离线”、“无外部 "
-"API”、“保持简单”、“无额外依赖项”）。不要从单个请求推断偏好；只提取重复出现的模式。请勿包含临时问题、闲聊或敏感凭据。您必须仅使用与此模式匹配的有效JSON"
-" 对象进行响应：{\\\"environment\\\":{\\\"os\\\": \\\"string\\\", \\\"shell\\\": "
-"\\\"string\\\",\\\"editor\\\": "
-"\\\"string\\\"},\\\"preferences\\\":[\\\"string\\\"],\\\"constraints\\\":[\\\"字符串\\\"]}"
+"您是一名用户分析代理。分析对话日志并提取：\n"
+"1. 环境（操作系统、shell、编辑器）——仅当日志中清楚可见时。\n"
+"2. 偏好——从用户的实际请求和更正中观察到的具体的、可操作的特征：\n"
+"- 回复风格：简洁还是冗长？代码重还是散文重？要点还是段落？\n"
+"- 语言：喜欢日语、英语还是混合语言？\n"
+"- 工具使用：用户经常使用哪些工具/命令？\n"
+"- 质量标准：容忍快速解决方法还是坚持正确的解决方案？\n"
+"- 确认：希望在文件操作之前得到明确批准，还是希望跳过提示？\n"
+"- 用户发出指令的任何其他重复模式。\n"
+"3. 约束——用户声明的明确规则（例如“必须离线”、“无外部 API”、“保持简单”、“无额外依赖项”）。\n"
+"\n"
+"不要从单个请求推断偏好；只提取重复出现的模式。\n"
+"请勿包含临时问题、闲聊或敏感凭据。\n"
+"不要提取临时技术限制、工具可用性问题或一次性限制。\n"
+"仅提取用户明确规定且长期适用的规则。\n"
+"使用与对话相同的语言记录首选项和约束（匹配用户区域设置）。\n"
+"您必须仅使用与此模式匹配的有效 JSON 对象进行响应：\n"
+"{\n"
+"“环境”：{“操作系统”：“字符串”，“外壳”：“字符串”，“编辑器”：“字符串”}，\n"
+"“首选项”：[“字符串”]，\n"
+"“约束”：[“字符串”]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr "[警告] 无法处理块（%(step)s）：%(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1204,6 +1241,12 @@ msgstr "正在播放"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "已停止"
+
+msgid "Stop requested by user."
+msgstr "应用户请求停止。"
+
+msgid "Stop requested by user (x key)."
+msgstr "用户请求停止（x 键）。"
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2089,7 +2132,8 @@ msgstr ""
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
-msgstr "[clean] 参数无效：%(arg)r（指定 number=threshold；默认值为 %(default)d）"
+msgstr ""
+"[clean] 参数无效：%(arg)r (specify number=threshold; default is %(default)d）"
 
 #: src/uagent/util_tools.py:1391
 #, python-format
@@ -2158,13 +2202,13 @@ msgstr "未找到日志文件：%(path)s"
 #: src/uagent/util_tools.py:1778
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr "[shrink 错误] 无法解析为整数：%(arg)r -> 保留最后 %(keep)d 条"
+msgstr "[shrink 错误] 无法解析为整数：%(arg)r -> keep last %(keep)d 条"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr "[shrink_llm 错误] 无法将其解析为整数：%(arg)r -> 保留最后 %(keep)d 个"
+msgstr "[shrink_llm 错误] 无法将其解析为整数：%(arg)r -> keep last %(keep)d 个"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
@@ -2284,9 +2328,8 @@ msgstr "显示已学习的用户画像（环境、偏好、约束）"
 msgid "Generate profile from the most recent N log files"
 msgstr "从最近的 N 个日志文件生成配置文件"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
-msgstr "从过去的日志生成用户配置文件（最后 N 个文件，如果指定）"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
+msgstr "从过去的日志生成用户配置文件（默认值：100；0=全部）"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2334,6 +2377,7 @@ msgstr "  - 输入仅包含 'f' 的一行即可进入多行输入模式。"
 msgid "Continue. Goal: %(goal)s"
 msgstr "继续。目标：%(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "审阅者备注：%(feedback)s"
 
@@ -2345,79 +2389,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "反馈：%(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] 由用户退出（x 键）。"
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[自动] 由用户退出（x 键）。"
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] 已达到最大回合 (%(max)d)。停下来。"
+msgid "[AUTO] Review/analysis completed."
+msgstr "[自动] 审查/分析已完成。"
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] 圆形 %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[自动] 达到最大轮数 (%(max)d)。停下来。"
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] 审查/分析已完成。"
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[自动] 回合 %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] 自动驾驶仪关闭。"
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "用法：:auto <目标> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto 关闭"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "--max-rounds 的值无效：%(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "目标不能为空。"
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] 开始。目标：%(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] 最大回合：%(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "正在退出。"
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "未知命令：:%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2644,6 +2669,9 @@ msgstr "缓存元数据无效"
 msgid "anthropic package is not installed."
 msgstr "未安装 anthropic 包。"
 
+msgid "Repair did not change messages, giving up."
+msgstr "修复没改邮件，放弃。"
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2740,6 +2768,9 @@ msgstr ""
 "        - 不要将网页搜索用于本地或稳定的信息。\n"
 "        - 如果答案已经足够，优先不使用网页搜索直接回答。\n"
 "        "
+
+msgid "Response body: %(body)s"
+msgstr "响应正文：%(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

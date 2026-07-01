@@ -690,11 +690,11 @@ def deepseek_chat_with_tools(
                         continue  # Retry with repaired messages
                     # Repair didn't change anything; fall through to normal error
                     print(
-                        f"[{_label}] Repair did not change messages, giving up.",
+                        f"[{_label}] " + _("Repair did not change messages, giving up."),
                         file=sys.stderr,
                     )
-                print(f"[{_label} Error] 400 BadRequest")
-                print(f"Error code: 400 - {e}")
+                print(f"[{_label} Error] " + _("400 BadRequest"))
+                print(f"[{_label} Error] " + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e})
                 return False, client, "", "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
                 print(f"[{_label} Error] " + _("Connection error"))

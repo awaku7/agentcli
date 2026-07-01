@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[FEIL] Git er ikke installert."
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch() bruker input() som reserve"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Mottok Ctrl+C. Starter avslutningen..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Mottok Ctrl+C. Starter avslutningen..."
 msgid "Cancelled."
 msgstr "Avbrutt."
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "Mottok flerlinjesvar."
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -70,12 +70,12 @@ msgstr ""
 "Vil du sende disse bildene til LLM (eksternt API) for analyse?\n"
 "\n"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Svar med y for å sende, eller n (eller c/avbryt) for å hoppe over sendingen."
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -83,17 +83,17 @@ msgstr ""
 "Bekreftelse av bildesending mislyktes; sender ikke bilder: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Kunne ikke legge ved bilde: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Ukjent hendelsestype kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "Avsluttet uag."
 
@@ -639,7 +639,7 @@ msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
-"Ukjent tilbyder: %(provider)r. Tillatt: %(allowed)s (oppstart vil "
+"Ukjent tilbyder: %(provider)r. Allowed: %(allowed)s (oppstart vil "
 "sannsynligvis mislykkes)."
 
 #: src/uagent/env_validate.py:82
@@ -747,7 +747,7 @@ msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
-"Ukjent embedding-tilbyder: %(provider)r. Tillatt: %(allowed)s (oppstart vil "
+"Ukjent embedding-tilbyder: %(provider)r. Allowed: %(allowed)s (oppstart vil "
 "sannsynligvis mislykkes)."
 
 #: src/uagent/env_validate.py:258
@@ -929,6 +929,9 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "sertifisering er ikke tilgjengelig"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "Beskriv dette skjermbildet og oppsummer det synlige grensesnittet."
@@ -953,7 +956,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[Oversettelsesfeil] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -974,36 +977,45 @@ msgstr "[Claude-feil] Det oppstod en feil under generering av et svar."
 msgid "Input exceeds the context window."
 msgstr "Inndata overskrider kontekstvinduet."
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr ""
+"Modell støtter ikke tenkning.Deaktiverer tenkning og prøver på nytt..."
+
+msgid "400 BadRequest"
+msgstr "400 BadRequest"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "Feilkode: %(code)d - %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "Tilkoblingsfeil"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[Nettverksfeil]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "Uventet unntak."
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "Svarfeil: resp er ingen."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "Svarfeil: resp.choices er Ingen eller tom."
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Feil under tolkning av svar: %(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1011,6 +1023,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1018,29 +1033,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Du er en brukerprofileringsagent. Analyser samtaleloggen og hent ut følgende om brukeren:\n"
-"1. Miljø (OS, shell, editor osv.)\n"
-"2. Preferanser (kodestil, foretrukne verktøy, preferanse for detaljnivå osv.)\n"
-"3. Begrensninger (sikkerhetsregler, krav til arbeid uten nett osv.)\n"
+"Du er en brukerprofileringsagent.Analyser samtaleloggen og trekk ut brukerens:\n"
+"1. Miljø (OS, shell, editor, etc.)\n"
+"2. Preferanser (kodingsstil, foretrukne verktøy, detaljeringspreferanse osv.)\n"
+"3. Begrensninger (sikkerhetsregler, offline-krav osv.)\n"
 "\n"
-"Ikke ta med midlertidige spørsmål, småprat eller sensitive påloggingsopplysninger.\n"
-"Du MÅ bare svare med et gyldig JSON-objekt som samsvarer med dette skjemaet:\n"
+"IKKE ta med midlertidige spørsmål, chat-chat eller sensitiv legitimasjon.\n"
+"IKKE trekk ut midlertidige tekniske begrensninger, problemer med verktøytilgjengelighet eller engangsbegrensninger.\n"
+"Bare uttrekksregler brukeren har eksplisitt oppgitt og som gjelder langsiktig.\n"
+"Ta opp preferanser og begrensninger på samme språk som samtalen (som samsvarer med brukerens lokalitet).\n"
+"Du MÅ svare KUN med et gyldig JSON-objekt som samsvarer med dette skjemaet:\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"streng\"],\n"
+"\"constraints\": [\"streng\"]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "Klarte ikke å initialisere LLM-klienten."
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "Fant %(total_files)d loggfiler. Starter inkrementell profilering..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1055,6 +1072,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1062,25 +1082,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Du er en brukerprofileringsagent. Analyser samtaleloggen og trekk ut:1.Miljø"
-" (OS, shell, editor) — bare hvis det tydelig fremgår av loggen.2.Preferanser"
-" — spesifikke, handlingsdyktige egenskaper observert frabrukerens faktiske "
-"forespørsler og rettelser:-Svarstil: kortfattet eller detaljert? Kode-tung "
-"eller prosa-tung?Punkter eller avsnitt?-Språk: foretrekker japansk, engelsk "
-"eller blandet?-Verktøybruk: hvilke verktøy/kommandoer søker brukeren ofte "
-"etter?-Kvalitetsstandard: tåler raske løsninger eller insisterer på "
-"riktigeløsninger?-Bekreftelse: ønsker eksplisitt godkjenning før "
-"filoperasjoner, ellerforetrekker å hoppe over forespørsler?-Ethvert annet "
-"tilbakevendende mønster i hvordan brukeren girinstruksjoner.3.Begrensninger "
-"– eksplisitte regler brukeren oppga (f.eks. \"må værefrakoblet\", \"ingen "
-"eksterne APIer\", \"hold det enkelt\", \"ingenekstra avhengigheter\").IKKE "
-"utlede preferanser fra en enkelt forespørsel; bare trekke utmønstre som "
-"vises gjentatte ganger.IKKEta med midlertidige spørsmål, chat-chat eller "
-"sensitiv legitimasjon.DuMÅ svare BARE med et gyldig JSON-objekt som "
-"samsvarer med detteskjemaet:{\\\"environment\\\":{\\\"os\\\": "
-"\\\"string\\\", \\\"shell\\\": \\\"string\\\",\\\"editor\\\": "
-"\\\"string\\\"}, __NEWLINE\\LINE__\\\"preferences\\\"], [\\\"NEWLINE__\" "
-"[\\\"streng\\\"]}"
+"Du er en brukerprofileringsagent.Analyser samtaleloggen og trekk ut:\n"
+"1. Miljø (OS, shell, editor) - bare hvis det tydelig fremgår av loggen.\n"
+"2. Preferanser – spesifikke, handlingsdyktige egenskaper observert fra brukerens faktiske forespørsler og rettelser:\n"
+"- Svarstil: kortfattet eller detaljert?Kode-tung eller prosa-tung?Punkter eller avsnitt?\n"
+"- Språk: foretrekker japansk, engelsk eller blandet?\n"
+"- Verktøybruk: hvilke verktøy/kommandoer strekker brukeren seg ofte etter?\n"
+"- Kvalitetsstandard: tåler raske løsninger eller insisterer på riktige løsninger?\n"
+"- Bekreftelse: ønsker eksplisitt godkjenning før filoperasjoner, eller foretrekker å hoppe over spørsmål?\n"
+"- Eventuelt annet tilbakevendende mønster i hvordan brukeren gir instruksjoner.\n"
+"3. Begrensninger – eksplisitte regler brukeren oppga (f.eks. \"må være frakoblet\", \"ingen eksterne API-er\", \"hold det enkelt\", \"ingen ekstra avhengigheter\").\n"
+"\n"
+"IKKE utlede preferanser fra en enkelt forespørsel;bare trekke ut mønstre som vises gjentatte ganger.\n"
+"IKKE ta med midlertidige spørsmål, chat-chat eller sensitiv legitimasjon.\n"
+"IKKE trekk ut midlertidige tekniske begrensninger, problemer med verktøytilgjengelighet eller engangsbegrensninger.\n"
+"Bare uttrekksregler brukeren har eksplisitt oppgitt og som gjelder langsiktig.\n"
+"Ta opp preferanser og begrensninger på samme språk som samtalen (som samsvarer med brukerens lokalitet).\n"
+"Du MÅ svare KUN med et gyldig JSON-objekt som samsvarer med dette skjemaet:\n"
+"{\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"streng\"],\n"
+"\"constraints\": [\"streng\"]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr "[Advarsel] Kunne ikke behandle del (%(step)s): %(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1274,6 +1300,12 @@ msgstr "Spiller av"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "Stoppet"
+
+msgid "Stop requested by user."
+msgstr "Stopp forespurt av bruker."
+
+msgid "Stop requested by user (x key)."
+msgstr "Stopp forespurt av bruker (x-tast)."
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2177,7 +2209,7 @@ msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
-"[clean] Ugyldig argument: %(arg)r (angi tall=terskel; standard er "
+"[clean] Ugyldig argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 
 #: src/uagent/util_tools.py:1391
@@ -2248,16 +2280,14 @@ msgstr "Loggfil ikke funnet: %(path)s"
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[shrink-feil] Klarte ikke å tolke som heltall: %(arg)r -> behold de siste "
-"%(keep)d"
+"[shrink-feil] Klarte ikke å tolke som heltall: %(arg)r -> keep last %(keep)d"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[shrink_llm-feil] Klarte ikke å tolke som int: %(arg)r -> behold de siste "
-"%(keep)d"
+"[shrink_llm-feil] Klarte ikke å tolke som int: %(arg)r -> keep last %(keep)d"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
@@ -2389,10 +2419,8 @@ msgstr "Vis den lærte brukerprofilen (miljø, preferanser, begrensninger)"
 msgid "Generate profile from the most recent N log files"
 msgstr "Generer profil fra de nyeste N-loggfilene"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
-msgstr ""
-"Generer brukerprofil fra tidligere logger (siste N filer hvis spesifisert)"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
+msgstr "Generer brukerprofil fra tidligere logger (standard: 100; 0=alle)"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2440,6 +2468,7 @@ msgstr "  - Skriv en linje som bare er 'f' for å gå inn i flerslinjemodus."
 msgid "Continue. Goal: %(goal)s"
 msgstr "Fortsette. Mål: %(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Anmeldernotater: %(feedback)s"
 
@@ -2451,79 +2480,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "tilbakemelding: %(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] Avsluttet av bruker (x-tast)."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] Avsluttet av bruker (x-tast)."
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] Maks runder (%(max)d) nådd. Stopper."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[AUTO] Gjennomgang/analyse fullført."
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] runde %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[AUTO] Maks runder (%(max)d) nådd.Stopper."
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] Gjennomgang/analyse fullført."
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[AUTO] Runde %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Autopilot slått av."
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Bruk: :auto <mål> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto av"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Ugyldig verdi for --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "Målet kan ikke være tomt."
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Startet. Mål: %(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Maks runder: %(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "Avslutter."
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Ukjent kommando: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2767,6 +2777,9 @@ msgstr "ugyldige cache-metadata"
 msgid "anthropic package is not installed."
 msgstr "anthropic-pakken er ikke installert."
 
+msgid "Repair did not change messages, giving up."
+msgstr "Reparasjon endret ikke meldinger, og ga opp."
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2867,6 +2880,9 @@ msgstr ""
 "        - Ikke bruk nettsøk for lokal eller stabil informasjon.\n"
 "        - Svar heller uten nettsøk når svaret allerede er tilstrekkelig.\n"
 "        "
+
+msgid "Response body: %(body)s"
+msgstr "Svartekst: %(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

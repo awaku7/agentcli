@@ -649,14 +649,17 @@ def _call_openai_azure_round(
                     continue
                 if "does not support thinking" in err_text:
                     print(
-                        "[Azure/OpenAI Error] Model does not support thinking. "
-                        "Disabling thinking and retrying..."
+                        "[Azure/OpenAI Error] "
+                        + _(
+                            "Model does not support thinking. "
+                            "Disabling thinking and retrying..."
+                        )
                     )
                     _thinking_disabled = True
                     resp_kwargs.pop("reasoning", None)
                     continue
-                print("[Azure/OpenAI Error] 400 BadRequest")
-                print(f"Error code: 400 - {e}")
+                print("[Azure/OpenAI Error] " + _("400 BadRequest"))
+                print("[Azure/OpenAI Error] " + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e})
                 return False, client, "", []
             if APIConnectionError is not None and isinstance(e, APIConnectionError):
                 print("[Azure/OpenAI Error] " + _t("Connection error"))

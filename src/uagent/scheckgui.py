@@ -2309,7 +2309,7 @@ class MainWindow(QtWidgets.QMainWindow):
             return
         with core.interrupt_lock:
             core.interrupt_requested = True
-        print("\n[INTERRUPT] Stop requested by user.")
+        print("\n[INTERRUPT] " + _("Stop requested by user."))
         self._stop_btn.hide()
 
 
@@ -2317,7 +2317,7 @@ class MainWindow(QtWidgets.QMainWindow):
         """Stop auto-pilot mode (x key equivalent)."""
         with core.auto_pilot_exit_lock:
             core.auto_pilot_exit_requested = True
-        print("\n[AUTO] Stop requested by user (x key).")
+        print("\n[AUTO] " + _("Stop requested by user (x key)."))
         self._auto_stop_btn.hide()
     def _on_send(self):
         with core.human_ask_lock:

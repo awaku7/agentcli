@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[VIRHE] Git ei ole asennettu."
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch() käyttää tarvittaessa input()-funktiota"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C vastaanotettu. Aloitetaan sulkeminen..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Ctrl+C vastaanotettu. Aloitetaan sulkeminen..."
 msgid "Cancelled."
 msgstr "Peruutettu."
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "Vastaanotettu monirivinen vastaus."
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -70,11 +70,11 @@ msgstr ""
 "Haluatko lähettää nämä kuvat LLM:lle (ulkoinen API) analysoitavaksi?\n"
 "\n"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "Vastaa y lähettääksesi, tai n (tai c/cancel) ohittaaksesi lähetyksen."
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -82,17 +82,17 @@ msgstr ""
 "Kuvien lähetyksen vahvistus epäonnistui; kuvia ei lähetetä: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Kuvan liittäminen epäonnistui: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Tuntematon tapahtumatyyppi kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "uag suljettu."
 
@@ -640,7 +640,7 @@ msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
-"Tuntematon tarjoaja: %(provider)r. Sallitut: %(allowed)s (käynnistys "
+"Tuntematon tarjoaja: %(provider)r. Allowed: %(allowed)s (käynnistys "
 "epäonnistuu todennäköisesti)."
 
 #: src/uagent/env_validate.py:82
@@ -749,7 +749,7 @@ msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
-"Tuntematon upotetarjoaja: %(provider)r. Sallitut: %(allowed)s (käynnistys "
+"Tuntematon upotetarjoaja: %(provider)r. Allowed: %(allowed)s (käynnistys "
 "epäonnistuu todennäköisesti)."
 
 #: src/uagent/env_validate.py:258
@@ -931,6 +931,9 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "sertifikaattia ei ole saatavilla"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "Kuvaile tämä kuvakaappaus ja tiivistä näkyvä käyttöliittymä."
@@ -956,7 +959,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[Käännösvirhe] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -977,36 +980,46 @@ msgstr "[Claude-virhe] Vastauksen luonti epäonnistui."
 msgid "Input exceeds the context window."
 msgstr "Syöte ylittää konteksti-ikkunan."
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr ""
+"Malli ei tue ajattelua.Poistetaan ajattelu käytöstä ja yritetään "
+"uudelleen..."
+
+msgid "400 BadRequest"
+msgstr "400 BadRequest"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "Virhekoodi: %(code)d - %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "Yhteysvirhe"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[Verkkovirhe]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "Odottamaton poikkeus."
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "Vastausvirhe: resp on Ei mitään."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "Vastausvirhe: resp.choices on Ei mitään tai tyhjä."
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Virhe vastausta jäsennettäessä: %(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1014,6 +1027,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1021,31 +1037,33 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Olet käyttäjäprofiilia muodostava agentti. Analysoi keskusteluloki ja poimi käyttäjästä:\n"
-"1. Ympäristö (käyttöjärjestelmä, shell, editori jne.)\n"
-"2. Mieltymykset (koodaustyyli, ensisijaiset työkalut, yksityiskohtaisuuden taso jne.)\n"
-"3. Rajoitteet (turvallisuussäännöt, offline-vaatimukset jne.)\n"
+"Olet käyttäjien profilointiagentti.Analysoi keskusteluloki ja poimi käyttäjän:\n"
+"1. Ympäristö (käyttöjärjestelmä, komentotulkki, editori jne.)\n"
+"2. Asetukset (koodaustyyli, ensisijaiset työkalut, monisanaisuus jne.)\n"
+"3. Rajoitukset (turvasäännöt, offline-vaatimukset jne.)\n"
 "\n"
-"Älä sisällytä tilapäisiä kysymyksiä, jutustelua tai arkaluonteisia tunnistetietoja.\n"
-"Sinun TÄYTYY vastata VAIN kelvollisella JSON-oliolla, joka vastaa tätä skeemaa:\n"
+"ÄLÄ sisällytä tilapäisiä kysymyksiä, chat-keskusteluja tai arkaluonteisia tunnistetietoja.\n"
+"ÄLÄ poimi tilapäisiä teknisiä rajoituksia, työkalujen saatavuusongelmia tai kertaluonteisia rajoituksia.\n"
+"Poimi vain säännöt, jotka käyttäjä on nimenomaisesti ilmoittanut ja jotka ovat voimassa pitkällä aikavälillä.\n"
+"Tallenna asetukset ja rajoitukset samalla kielellä kuin keskustelu (vastaa käyttäjän maa-asetusta).\n"
+"Sinun PITÄÄ vastata VAIN kelvollisella JSON-objektilla, joka vastaa tätä mallia:\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"merkkijono\"],\n"
+"\"rajoitukset\": [\"merkkijono\"]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "LLM-asiakkaan alustaminen epäonnistui."
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "Löydettiin %(total_files)d lokitiedostoa. Aloitetaan asteittainen "
 "profilointi..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1060,6 +1078,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1067,26 +1088,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Olet käyttäjien profilointiagentti. Analysoi keskusteluloki ja "
-"purase:1.Ympäristö (käyttöjärjestelmä, komentotulkki, editori) – vain jos "
-"sekäy selvästi ilmi lokista.2.Preferences — käyttäjän todellisista "
-"pyynnöistä ja korjauksistahavaittuja erityisiä, toimivia "
-"piirteitä:-Vastaustyyli: ytimekäs vai monisanainen? Code-heavy vai "
-"proosaraskas?Luettelomerkit tai kappaleet?-Kieli: mieluummin japani, "
-"englanti vai sekakieli?-Työkalun käyttö: mitä työkaluja/komentoja käyttäjä "
-"usein hakee?-Laatustandardi: sietääkö nopeita ratkaisuja vai vaatiiko "
-"oikeitaratkaisuja?-Vahvistus: haluaa nimenomaisen hyväksynnän ennen "
-"tiedostotoimintojatai ohittaa kehotteet?-Mikä tahansa muu toistuva kaava "
-"siinä, miten käyttäjä antaa ohjeita.3.Rajoitukset – käyttäjän ilmoittamat "
-"nimenomaiset säännöt (esim. \"onoltava offline-tilassa\", \"ei ulkoisia "
-"sovellusliittymiä\", \"pysyyksinkertaisena\", \"ei ylimääräisiä "
-"riippuvuuksia\").ÄLÄ päättele asetuksia yhdestä pyynnöstä. poimi vain "
-"kuvioita, jotkanäkyvät toistuvasti.ÄLÄsisällytä tilapäisiä kysymyksiä, chat-"
-"keskusteluja tai arkaluonteisiatunnistetietoja.SinunTÄYTYY vastata VAIN "
-"kelvollisella JSON-objektilla, joka vastaa "
-"tätämallia:{\\\"ympäristö\\\":{\\\"os\\\": \\\"string\\\", \\\"shell\\\": "
-"\\\"string\\\",\\\"editor\\\": "
-"\\\"string\\\"_LINE,\"_\\_preference},[\\\"merkkijono\\\"],\\\"rajoitukset\\\":[\\\"merkkijono\\\"]}"
+"Olet käyttäjien profilointiagentti.Analysoi keskusteluloki ja pura se:\n"
+"1. Ympäristö (käyttöjärjestelmä, komentotulkki, editori) — vain jos se käy selvästi ilmi lokista.\n"
+"2. Preferences (Asetukset) — käyttäjän todellisista pyynnöistä ja korjauksista havaitut erityiset, toiminnalliset piirteet:\n"
+"- Vastaustyyli: ytimekäs vai monisanainen?Code-heavy vai proosaraskas?Luettelomerkit tai kappaleet?\n"
+"- Kieli: pitääkö mieluummin japanista, englannista vai sekalaista?\n"
+"- Työkalujen käyttö: mitä työkaluja/komentoja käyttäjä tavoittaa usein?\n"
+"- Laatustandardi: sietääkö nopeita ratkaisuja vai vaatii oikeita ratkaisuja?\n"
+"- Vahvistus: haluaa nimenomaisen hyväksynnän ennen tiedostotoimintoja tai ohittaa kehotteet?\n"
+"- Mikä tahansa muu toistuva kaava siinä, miten käyttäjä antaa ohjeita.\n"
+"3. Rajoitukset – käyttäjän ilmoittamat nimenomaiset säännöt (esim. \"on oltava offline-tilassa\", \"ei ulkoisia sovellusliittymiä\", \"pysy yksinkertaisena\", \"ei ylimääräisiä riippuvuuksia\").\n"
+"\n"
+"ÄLÄ päättele asetuksia yhdestä pyynnöstä;poimi vain kuvioita, jotka näkyvät toistuvasti.\n"
+"ÄLÄ sisällytä tilapäisiä kysymyksiä, chat-keskusteluja tai arkaluontoisia tunnistetietoja.\n"
+"ÄLÄ poimi tilapäisiä teknisiä rajoituksia, työkalujen saatavuusongelmia tai kertaluonteisia rajoituksia.\n"
+"Poimi vain säännöt, jotka käyttäjä on nimenomaisesti ilmoittanut ja jotka ovat voimassa pitkällä aikavälillä.\n"
+"Tallenna asetukset ja rajoitukset samalla kielellä kuin keskustelu (vastaa käyttäjän maa-asetusta).\n"
+"Sinun PITÄÄ vastata VAIN kelvollisella JSON-objektilla, joka vastaa tätä mallia:\n"
+"{\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"merkkijono\"],\n"
+"\"rajoitukset\": [\"merkkijono\"]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr "[Varoitus] Osan käsittely epäonnistui (%(step)s): %(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1281,6 +1307,12 @@ msgstr "Toistetaan"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "Pysäytetty"
+
+msgid "Stop requested by user."
+msgstr "Käyttäjän pyytämä lopetus."
+
+msgid "Stop requested by user (x key)."
+msgstr "Käyttäjä pyysi pysäytystä (x-näppäin)."
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2193,8 +2225,8 @@ msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
-"[puhdas] Virheellinen argumentti: %(arg)r (määritä numero=kynnys; oletus on "
-"%(default)d)"
+"[puhdas] Virheellinen argumentti: %(arg)r (specify number=threshold; default"
+" is %(default)d)"
 
 #: src/uagent/util_tools.py:1391
 #, python-format
@@ -2264,16 +2296,16 @@ msgstr "Lokitiedostoa ei löydy: %(path)s"
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[shrink-virhe] Muunnos kokonaisluvuksi epäonnistui: %(arg)r -> säilytetään "
-"viimeiset %(keep)d"
+"[shrink-virhe] Muunnos kokonaisluvuksi epäonnistui: %(arg)r -> keep last "
+"%(keep)d"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[shrink_llm-virhe] Muunnos kokonaisluvuksi epäonnistui: %(arg)r -> "
-"säilytetään viimeiset %(keep)d"
+"[shrink_llm-virhe] Muunnos kokonaisluvuksi epäonnistui: %(arg)r -> keep last"
+" %(keep)d"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
@@ -2407,11 +2439,8 @@ msgstr "Näytä opittu käyttäjäprofiili (ympäristö, mieltymykset, rajoituks
 msgid "Generate profile from the most recent N log files"
 msgstr "Luo profiili viimeisimmästä N lokitiedostosta"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
-msgstr ""
-"Luo käyttäjäprofiili aiemmista lokeista (viimeiset N tiedostoa, jos "
-"määritetty)"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
+msgstr "Luo käyttäjäprofiili aiemmista lokeista (oletus: 100; 0=kaikki)"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2462,6 +2491,7 @@ msgstr "- Syötä rivi, joka on vain \"f\", siirtyäksesi moniriviseen syöttöt
 msgid "Continue. Goal: %(goal)s"
 msgstr "Jatkaa. Tavoite: %(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Arvostelijan huomautukset: %(feedback)s"
 
@@ -2473,79 +2503,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "palaute: %(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] Käyttäjä poistui (x-näppäin)."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] Käyttäjä poistui (x-näppäin)."
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] Kierrosten enimmäismäärä (%(max)d) saavutettu. Pysähtyminen."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[AUTO] Tarkastus/analyysi valmis."
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] Kierros %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[AUTO] Kierrosten enimmäismäärä (%(max)d) saavutettu.Pysähtyminen."
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] Tarkastelu/analyysi suoritettu."
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[AUTO] Kierros %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Automaattiohjaus pois päältä."
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Käyttö: :auto <tavoite> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto pois päältä"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Virheellinen arvo kohteelle --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "Tavoite ei voi olla tyhjä."
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Aloitettu. Tavoite: %(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Enimmäiskierrokset: %(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "Poistuminen."
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Tuntematon komento: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2788,6 +2799,9 @@ msgstr "virheelliset välimuistin metatiedot"
 msgid "anthropic package is not installed."
 msgstr "anthropic-pakettia ei ole asennettu."
 
+msgid "Repair did not change messages, giving up."
+msgstr "Korjaus ei muuttanut viestejä, luovuttaen."
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2885,6 +2899,9 @@ msgstr ""
 "        - Älä käytä verkkohakua paikalliseen tai vakaaseen tietoon.\n"
 "        - Vastaa mieluummin ilman verkkohakua, jos vastaus on jo riittävä.\n"
 "        "
+
+msgid "Response body: %(body)s"
+msgstr "Vastauksen runko: %(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

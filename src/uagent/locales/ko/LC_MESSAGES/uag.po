@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git이 설치되어 있지 않습니다."
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch()가 input()으로 대체됩니다"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C를 받았습니다. 종료를 시작합니다..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Ctrl+C를 받았습니다. 종료를 시작합니다..."
 msgid "Cancelled."
 msgstr "취소되었습니다."
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "여러 줄 답장을 받았습니다."
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -70,27 +70,27 @@ msgstr ""
 "이 이미지를 LLM(외부 API)으로 보내 분석하시겠습니까?\n"
 "\n"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "전송하려면 y로 답하고, 건너뛰려면 n(또는 c/cancel)으로 답하세요."
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr "이미지 전송 확인에 실패했습니다. 이미지를 보내지 않습니다: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "이미지를 첨부하지 못했습니다: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "알 수 없는 이벤트 종류 kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "uag를 종료했습니다."
 
@@ -609,7 +609,7 @@ msgstr ""
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
-msgstr "알 수 없는 제공자: %(provider)r. 허용: %(allowed)s (시작에 실패할 수 있습니다)."
+msgstr "알 수 없는 제공자: %(provider)r. Allowed: %(allowed)s (시작에 실패할 수 있습니다)."
 
 #: src/uagent/env_validate.py:82
 msgid ""
@@ -709,7 +709,7 @@ msgstr "허깅 페이스 API 키(HF_TOKEN)."
 msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
-msgstr "알 수 없는 임베딩 제공자: %(provider)r. 허용: %(allowed)s (시작에 실패할 수 있습니다)."
+msgstr "알 수 없는 임베딩 제공자: %(provider)r. Allowed: %(allowed)s (시작에 실패할 수 있습니다)."
 
 #: src/uagent/env_validate.py:258
 msgid "Azure embedding endpoint / API key / API version / deployment name."
@@ -879,6 +879,9 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "인증서를 사용할 수 없습니다"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "이 스크린샷을 설명하고 보이는 UI를 요약하세요."
@@ -902,7 +905,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[번역 오류] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -923,36 +926,44 @@ msgstr "[Claude 오류] 응답 생성 중 오류가 발생했습니다."
 msgid "Input exceeds the context window."
 msgstr "입력이 컨텍스트 창을 초과합니다."
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr "모델은 사고를 지원하지 않습니다.생각을 비활성화하고 다시 시도하는 중..."
+
+msgid "400 BadRequest"
+msgstr "400 잘못된 요청"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "오류 코드: %(code)d - %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "연결 오류"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[네트워크 오류]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "예기치 않은 예외가 발생했습니다."
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "응답 오류: resp가 없음입니다."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "응답 오류: resp.choices가 없음이거나 비어 있습니다."
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "응답을 파싱하는 중 오류가 발생했습니다: %(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -960,6 +971,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -967,29 +981,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"당신은 사용자 프로파일링 에이전트입니다. 대화 로그를 분석하여 사용자에 대해 다음을 추출하세요.\n"
-"1. 환경(OS, 셸, 편집기 등)\n"
-"2. 선호 사항(코딩 스타일, 선호 도구, 상세함의 선호 정도 등)\n"
-"3. 제약 사항(보안 규칙, 오프라인 작업 요구 사항 등)\n"
+"당신은 사용자 프로파일링 에이전트입니다.대화 로그를 분석하고 사용자의 다음 정보를 추출합니다.\n"
+"1. 환경(OS, 쉘, 에디터 등)\n"
+"2. 환경 설정(코딩 스타일, 선호하는 도구, 자세한 정보 환경 설정 등)\n"
+"3. 제약조건(보안규칙, 오프라인 요구사항 등)\n"
 "\n"
-"임시 질문, 잡담, 민감한 자격 증명은 포함하지 마세요.\n"
-"반드시 이 스키마와 일치하는 유효한 JSON 객체로만 응답해야 합니다:\n"
+"임시 질문, 잡담 또는 민감한 자격 증명을 포함하지 마세요.\n"
+"일시적인 기술적 제한, 도구 가용성 문제 또는 일회성 제약을 추출하지 마십시오.\n"
+"사용자가 명시적으로 명시하고 장기적으로 적용되는 추출 규칙만 추출합니다.\n"
+"대화와 동일한 언어로 기본 설정 및 제약 조건을 기록합니다(사용자 로케일과 일치).\n"
+"이 스키마와 일치하는 유효한 JSON 객체로만 응답해야 합니다.\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
+"\"환경\": {\"os\": \"문자열\", \"shell\": \"문자열\", \"editor\": \"문자열\"},\n"
+"\"기본 설정\": [\"문자열\"],\n"
+"\"제약조건\": [\"문자열\"]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "LLM 클라이언트를 초기화하지 못했습니다."
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "로그 파일 %(total_files)d개를 찾았습니다. 점진적 프로파일링을 시작합니다..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1004,6 +1020,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1011,17 +1030,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"당신은 사용자 프로파일링 에이전트입니다. 대화 로그를 분석하고 다음을 추출합니다.1.환경(OS, 셸, 편집기) - 로그에서 명확하게 "
-"나타나는 경우에만 해당됩니다.2.기본 설정 — 사용자의 실제 요청 및 수정에서 관찰된 구체적이고 실행 가능한 특성:-응답 스타일: "
-"간결합니까 아니면 장황합니까? 코드가 많나요, 아니면 산문이 많나요? 글머리 기호 또는 단락?-언어: 일본어, 영어 또는 혼합을 "
-"선호합니까?-도구 사용: 사용자가 자주 사용하는 도구/명령은 무엇입니까?-품질 표준: 빠른 해결을 허용하거나 적절한 솔루션을 "
-"고집합니까?-확인: 파일 작업 전에 명시적인 승인을 원합니까, 아니면 프롬프트를 건너뛰기를 원합니까?-사용자가 지침을 제공하는 방식에 "
-"있어서 기타 반복되는 패턴입니다.3.제약 조건 — 사용자가 명시한 명시적 규칙(예: '오프라인이어야 함', '외부 API 없음', "
-"'간단하게 유지', '추가종속성 없음').단일 요청에서 선호도를 추론하지 마세요. 반복적으로 나타나는 패턴만 추출합니다.임시질문, 잡담 "
-"또는 민감한 자격 증명을 포함하지 마세요.다음스키마와 일치하는 유효한 JSON 객체로만 응답해야 "
-"합니다.{\\\"environment\\\":{\\\"os\\\": \\\"string\\\", \\\"shell\\\": "
-"\\\"string\\\",\\\"editor\\\": "
-"\\\"string\\\"},\\\"preferences\\\":[\\\"string\\\"],\\\"제약조건\\\":[\\\"문자열\\\"]}"
+"당신은 사용자 프로파일링 에이전트입니다.대화 로그를 분석하고 다음을 추출합니다.\n"
+"1. 환경(OS, 셸, 편집기) - 로그에서 명확하게 확인되는 경우에만 해당됩니다.\n"
+"2. 기본 설정 — 사용자의 실제 요청 및 수정 사항에서 관찰된 구체적이고 실행 가능한 특성:\n"
+"- 응답 스타일: 간결합니까 아니면 장황합니까?코드가 많나요, 아니면 산문이 많나요?글머리 기호 또는 단락?\n"
+"- 언어: 일본어, 영어, 혼합을 선호하시나요?\n"
+"- 도구 사용: 사용자가 자주 사용하는 도구/명령은 무엇입니까?\n"
+"- 품질 표준: 빠른 해결 방법을 허용하거나 적절한 솔루션을 고집합니까?\n"
+"- 확인: 파일 작업 전에 명시적인 승인을 원합니까, 아니면 프롬프트를 건너뛰기를 원합니까?\n"
+"- 사용자가 지시를 내리는 방식에 있어서 기타 반복되는 패턴.\n"
+"3. 제약 조건 - 사용자가 명시한 명시적 규칙(예: '오프라인이어야 함', '외부 API 없음', '단순함 유지', '추가 종속성 없음')\n"
+"\n"
+"단일 요청에서 선호도를 추론하지 마십시오.반복적으로 나타나는 패턴만 추출합니다.\n"
+"임시 질문, 잡담 또는 민감한 자격 증명을 포함하지 마세요.\n"
+"일시적인 기술적 제한, 도구 가용성 문제 또는 일회성 제약을 추출하지 마십시오.\n"
+"사용자가 명시적으로 명시하고 장기적으로 적용되는 추출 규칙만 추출합니다.\n"
+"대화와 동일한 언어로 기본 설정 및 제약 조건을 기록합니다(사용자 로케일과 일치).\n"
+"이 스키마와 일치하는 유효한 JSON 객체로만 응답해야 합니다.\n"
+"{\n"
+"\"환경\": {\"os\": \"문자열\", \"shell\": \"문자열\", \"editor\": \"문자열\"},\n"
+"\"기본 설정\": [\"문자열\"],\n"
+"\"제약조건\": [\"문자열\"]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr "[경고] 청크 처리 실패(%(step)s): %(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1212,6 +1245,12 @@ msgstr "재생 중"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "중지됨"
+
+msgid "Stop requested by user."
+msgstr "사용자가 중지를 요청했습니다."
+
+msgid "Stop requested by user (x key)."
+msgstr "사용자가 중지를 요청했습니다(x 키)."
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2101,7 +2140,8 @@ msgstr ""
 msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
-msgstr "[clean] 잘못된 인수: %(arg)r (숫자를 지정: threshold; 기본값은 %(default)d)"
+msgstr ""
+"[clean] 잘못된 인수: %(arg)r (specify number=threshold; default is %(default)d)"
 
 #: src/uagent/util_tools.py:1391
 #, python-format
@@ -2170,13 +2210,13 @@ msgstr "로그 파일을 찾을 수 없습니다: %(path)s"
 #: src/uagent/util_tools.py:1778
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr "[shrink 오류] 정수로 파싱하지 못했습니다: %(arg)r -> 마지막 %(keep)d개 유지"
+msgstr "[shrink 오류] 정수로 파싱하지 못했습니다: %(arg)r -> keep last %(keep)d개 유지"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
-msgstr "[shrink 오류] 정수로 변환할 수 없습니다: %(arg)r -> 마지막 %(keep)d개 유지"
+msgstr "[shrink 오류] 정수로 변환할 수 없습니다: %(arg)r -> keep last %(keep)d개 유지"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
@@ -2297,9 +2337,8 @@ msgstr "학습된 사용자 프로필(환경, 선호도, 제약 조건) 표시"
 msgid "Generate profile from the most recent N log files"
 msgstr "가장 최근 N개 로그 파일에서 프로필 생성"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
-msgstr "과거 로그에서 사용자 프로필 생성(지정된 경우 마지막 N개 파일)"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
+msgstr "과거 로그에서 사용자 프로필 생성(기본값: 100, 0=모두)"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2346,6 +2385,7 @@ msgstr "  - 여러 줄 입력 모드로 들어가려면 'f'만 있는 줄을 입
 msgid "Continue. Goal: %(goal)s"
 msgstr "계속하다. 목표: %(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "검토자 메모: %(feedback)s"
 
@@ -2357,79 +2397,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "피드백: %(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] 사용자가 종료했습니다(x 키)."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] 사용자가 종료했습니다(x 키)."
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] 최대 라운드(%(max)d)에 도달했습니다. 멎는."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[AUTO] 검토/분석이 완료되었습니다."
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] 라운드 %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[자동] 최대 라운드(%(max)d)에 도달했습니다.멎는."
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] 검토/분석이 완료되었습니다."
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[자동] 라운드 %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] 자동 조종 장치가 꺼졌습니다."
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "사용법: :auto <목표> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto 꺼짐"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "--max-rounds에 대한 잘못된 값: %(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "목표는 비워둘 수 없습니다."
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] 시작되었습니다. 목표: %(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] 최대 라운드 수: %(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "종료 중입니다."
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "알 수 없는 명령: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2658,6 +2679,9 @@ msgstr "캐시 메타데이터가 잘못되었습니다"
 msgid "anthropic package is not installed."
 msgstr "anthropic 패키지가 설치되어 있지 않습니다."
 
+msgid "Repair did not change messages, giving up."
+msgstr "수리는 메시지를 변경하지 않고 포기했습니다."
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2754,6 +2778,9 @@ msgstr ""
 "        - 지역 정보나 고정된 정보에는 웹 검색을 사용하지 마세요.\n"
 "        - 이미 답변이 충분하다면 웹 검색 없이 답하는 것이 좋습니다.\n"
 "        "
+
+msgid "Response body: %(body)s"
+msgstr "응답 본문: %(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

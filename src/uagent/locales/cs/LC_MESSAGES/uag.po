@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[CHYBA] Git není nainstalován."
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch() jako náhrada za input()"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Bylo přijato Ctrl+C. Spouští se ukončení..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Bylo přijato Ctrl+C. Spouští se ukončení..."
 msgid "Cancelled."
 msgstr "Zrušeno."
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "Přijata víceřádková odpověď."
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -69,13 +69,13 @@ msgstr ""
 "Ve vstupu byly nalezeny cesty k obrázkům.\n"
 "Chcete tyto obrázky odeslat do LLM (externí API) k analýze?"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Odpovězte pomocí y pro odeslání, nebo n (nebo c/zrušit) pro přeskočení "
 "odesílání."
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -83,17 +83,17 @@ msgstr ""
 "Potvrzení odeslání obrázků selhalo; obrázky nebudou odeslány: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Nepodařilo se připojit obrázek: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Neznámý typ události kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "uag ukončen."
 
@@ -637,7 +637,7 @@ msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
-"Neznámý poskytovatel: %(provider)r. Povolené: %(allowed)s (spuštění "
+"Neznámý poskytovatel: %(provider)r. Allowed: %(allowed)s (spuštění "
 "pravděpodobně selže)."
 
 #: src/uagent/env_validate.py:82
@@ -747,7 +747,7 @@ msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
-"Neznámý poskytovatel embeddingu: %(provider)r. Povolené: %(allowed)s "
+"Neznámý poskytovatel embeddingu: %(provider)r. Allowed: %(allowed)s "
 "(spuštění pravděpodobně selže)."
 
 #: src/uagent/env_validate.py:258
@@ -874,7 +874,7 @@ msgid ""
 msgstr ""
 "[RATE_LIMIT] poskytovatel=%(provider)s model=%(model)s stav=%(status)s "
 "pokus=%(attempt)s/%(max_retries)s čekat=%(wait_seconds).1fs "
-"opakovat_po=%(retry_after)s"
+"retry_after=%(retry_after)s"
 
 #: src/uagent/llm_flow_helpers.py:206
 msgid ""
@@ -929,6 +929,9 @@ msgstr ""
 "Výpis zásobníku:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "certifikát není k dispozici"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "Popište tento snímek obrazovky a shrňte viditelné rozhraní."
@@ -955,7 +958,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[Chyba překladu] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -976,36 +979,44 @@ msgstr "[Claude Error] Při generování odpovědi došlo k chybě."
 msgid "Input exceeds the context window."
 msgstr "Vstup překračuje kontextové okno."
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr "Model nepodporuje myšlení.Deaktivace myšlení a opakování..."
+
+msgid "400 BadRequest"
+msgstr "400 BadRequest"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "Kód chyby: %(code)d – %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "Chyba připojení"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[Chyba sítě]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "Neočekávaná výjimka."
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "Chyba odpovědi: resp."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "Chyba odpovědi: resp.choices je Žádná nebo prázdná."
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Chyba při analýze odpovědi: %(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1013,6 +1024,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1020,30 +1034,32 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Jste agent pro tvorbu uživatelského profilu. Analyzujte záznam konverzace a vyberte z něj uživatelovy:\n"
+"Jste agent profilování uživatelů.Analyzujte protokol konverzace a extrahujte uživatelské:\n"
 "1. Prostředí (OS, shell, editor atd.)\n"
-"2. Preference (styl kódování, preferované nástroje, preference úrovně upovídanosti atd.)\n"
-"3. Omezení (bezpečnostní pravidla, požadavky na práci offline atd.)\n"
+"2. Předvolby (styl kódování, preferované nástroje, preference výřečnosti atd.)\n"
+"3. Omezení (pravidla zabezpečení, offline požadavky atd.)\n"
 "\n"
-"Nezahrnujte dočasné otázky, nezávazné konverzace ani citlivé přihlašovací údaje.\n"
-"Musíte odpovědět POUZE platným objektem JSON odpovídajícím tomuto schématu:\n"
+"NEVLOŽTE dočasné otázky, chat-chat nebo citlivé přihlašovací údaje.\n"
+"NEODSTRAŇUJTE dočasná technická omezení, problémy s dostupností nástrojů nebo jednorázová omezení.\n"
+"Extrahujte pouze pravidla, která uživatel výslovně uvedl a která platí dlouhodobě.\n"
+"Zaznamenejte předvolby a omezení ve stejném jazyce jako konverzace (odpovídající národnímu prostředí uživatele).\n"
+"MUSÍTE odpovědět POUZE platným objektem JSON, který odpovídá tomuto schématu:\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"string\"],\n"
+"\"constraints\": [\"řetězec\"]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "Nepodařilo se inicializovat klienta LLM."
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "Nalezeno %(total_files)d souborů logu. Spouští se postupné profilování..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1058,6 +1074,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1065,24 +1084,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Jste agent profilování uživatelů. Analyzujte protokol konverzace "
-"aextrahujte:1.Prostředí (OS, shell, editor) – pouze pokud je to z protokolu "
-"jasněpatrné.2.Předvolby – specifické a použitelné vlastnosti zjištěné ze "
-"skutečnýchpožadavků a oprav uživatele:-Styl odpovědi: stručný nebo podrobný?"
-" Široký kód nebo próza? Odrážkynebo odstavce?-Jazyk: preferujete japonštinu,"
-" angličtinu nebo smíšenou?–Použití nástroje: po jakých nástrojích/příkazech "
-"uživatel často sahá?-Standard kvality: toleruje rychlá řešení nebo trvá na "
-"správnýchřešeních?-Potvrzení: chce explicitní schválení před operacemi se "
-"soubory, neboraději přeskočit výzvy?–Jakýkoli jiný opakující se vzorec v "
-"tom, jak uživatel dává pokyny.3.Omezení – explicitní pravidla, která "
-"uživatel uvedl (např. 'musí býtoffline', 'žádná externí API', 'keep it "
-"simple', 'žádné dalšízávislosti').NEODVODUJTE preference z jednoho "
-"požadavku; extrahujte pouze vzory,které se objevují "
-"opakovaně.NEVLOŽTEdočasné otázky, chat-chat ani citlivé přihlašovací "
-"údaje.MUSÍTEodpovědět POUZE platným objektem JSON odpovídajícím tomuto "
-"schématu:{\\\"prostředí\\\":{\\\"os\\\": \\\"řetězec\\\", \\\"shell\\\": "
-"\\\"řetězec\\\",\\\"editor\\\": \\\"řetězec\\\"_\"}, __\"_\" "
-"[\\\"řetězec\\\"],\\\"omezení\\\":[\\\"řetězec\\\"]}"
+"Jste agent profilování uživatelů.Analyzujte protokol konverzace a extrahujte:\n"
+"1. Prostředí (OS, shell, editor) — pouze pokud je to jasně patrné z logu.\n"
+"2. Preference – specifické, použitelné vlastnosti zjištěné ze skutečných požadavků a oprav uživatele:\n"
+"- Styl odpovědi: stručný nebo podrobný?Široký kód nebo próza?Odrážky nebo odstavce?\n"
+"- Jazyk: preferujete japonštinu, angličtinu nebo smíšenou?\n"
+"- Použití nástroje: po jakých nástrojích/příkazech uživatel často sahá?\n"
+"- Standard kvality: toleruje rychlá řešení nebo trvá na správných řešeních?\n"
+"- Potvrzení: chce výslovné schválení před operacemi se soubory, nebo dává přednost přeskočení výzev?\n"
+"- Jakýkoli jiný opakující se vzorec v tom, jak uživatel dává pokyny.\n"
+"3. Omezení – explicitní pravidla, která uživatel uvedl (např. 'musí být offline', 'žádná externí API', 'keep it simple', 'žádné další závislosti').\n"
+"\n"
+"NEODVODUJTE preference z jednoho požadavku;extrahujte pouze vzory, které se objevují opakovaně.\n"
+"NEVLOŽTE dočasné otázky, chat-chat nebo citlivé přihlašovací údaje.\n"
+"NEODSTRAŇUJTE dočasná technická omezení, problémy s dostupností nástrojů nebo jednorázová omezení.\n"
+"Extrahujte pouze pravidla, která uživatel výslovně uvedl a která platí dlouhodobě.\n"
+"Zaznamenejte předvolby a omezení ve stejném jazyce jako konverzace (odpovídající národnímu prostředí uživatele).\n"
+"MUSÍTE odpovědět POUZE platným objektem JSON, který odpovídá tomuto schématu:\n"
+"{\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"string\"],\n"
+"\"constraints\": [\"řetězec\"]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr "[Varování] Nepodařilo se zpracovat blok (%(step)s): %(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1278,6 +1304,12 @@ msgstr "Přehrávání"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "Zastaveno"
+
+msgid "Stop requested by user."
+msgstr "Zastavení požadované uživatelem."
+
+msgid "Stop requested by user (x key)."
+msgstr "Zastavení požadované uživatelem (klávesa x)."
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2189,7 +2221,7 @@ msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
-"[čisté] Neplatný argument: %(arg)r (zadejte číslo=prah; výchozí hodnota je "
+"[čisté] Neplatný argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 
 #: src/uagent/util_tools.py:1391
@@ -2260,16 +2292,16 @@ msgstr "Soubor protokolu nebyl nalezen: %(path)s"
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[chyba zmenšení] Nepodařilo se analyzovat jako int: %(arg)r -> zachovat "
-"poslední %(keep)d"
+"[chyba zmenšení] Nepodařilo se analyzovat jako int: %(arg)r -> keep last "
+"%(keep)d"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[chyba shrink_llm] Nepodařilo se analyzovat jako int: %(arg)r -> zachovat "
-"poslední %(keep)d"
+"[chyba shrink_llm] Nepodařilo se analyzovat jako int: %(arg)r -> keep last "
+"%(keep)d"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
@@ -2405,11 +2437,9 @@ msgstr "Zobrazit naučený uživatelský profil (prostředí, preference, omezen
 msgid "Generate profile from the most recent N log files"
 msgstr "Vygenerujte profil z nejnovějších souborů protokolu N"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
-"Vygenerovat uživatelský profil z minulých protokolů (posledních N souborů, "
-"pokud je uvedeno)"
+"Generovat uživatelský profil z minulých protokolů (výchozí: 100; 0=vše)"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2464,6 +2494,7 @@ msgstr ""
 msgid "Continue. Goal: %(goal)s"
 msgstr "Pokračovat. Cíl: %(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Poznámky recenzenta: %(feedback)s"
 
@@ -2475,79 +2506,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "zpětná vazba: %(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] Ukončeno uživatelem (klávesa x)."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] Ukončeno uživatelem (klávesa x)."
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] Bylo dosaženo maximálního počtu kol (%(max)d). Zastavení."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[AUTO] Kontrola/analýza dokončena."
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] kolo %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[AUTO] Bylo dosaženo maximálního počtu kol (%(max)d).Zastavení."
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] Kontrola/analýza dokončena."
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[AUTO] Kolo %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Autopilot je vypnutý."
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Použití: :auto <cíl> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto vypnuto"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Neplatná hodnota pro --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "Cíl nemůže být prázdný."
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Spuštěno. Cíl: %(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Max. počet kol: %(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "Konec."
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Neznámý příkaz: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2792,6 +2804,9 @@ msgstr "neplatná meta mezipaměti"
 msgid "anthropic package is not installed."
 msgstr "antropický balíček není nainstalován."
 
+msgid "Repair did not change messages, giving up."
+msgstr "Oprava nezměnila zprávy, vzdala se."
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2892,6 +2907,9 @@ msgstr ""
 "        - Nepoužívejte webové vyhledávání pro místní nebo stabilní informace.\n"
 "        - Pokud už je odpověď dostatečná, raději odpovídejte bez webového vyhledávání.\n"
 "        "
+
+msgid "Response body: %(body)s"
+msgstr "Tělo odpovědi: %(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

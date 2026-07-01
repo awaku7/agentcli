@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[ERROR] Git haijasakinishwa."
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch() inatumia input() kama mbadala"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Imepokelewa Ctrl+C. Naanza kuzima..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Imepokelewa Ctrl+C. Naanza kuzima..."
 msgid "Cancelled."
 msgstr "Imeghairiwa."
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "Imepokea jibu la mistari mingi."
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -70,11 +70,11 @@ msgstr ""
 "Je, ungependa kutuma picha hizi kwa LLM (API ya nje) kwa uchambuzi?\n"
 "\n"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr "Jibu kwa y kutuma, au n (au c/cancel) kuruka kutuma."
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -82,17 +82,17 @@ msgstr ""
 "Uthibitisho wa kutuma picha umeshindwa; picha hazitatumwa: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Imeshindwa kuambatisha picha: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Tukio lisilojulikana kind=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "Uag imeondoka."
 
@@ -638,7 +638,7 @@ msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
-"Mtoa huduma asiyejulikana: %(provider)r. Inayoruhusiwa: %(allowed)s (huenda "
+"Mtoa huduma asiyejulikana: %(provider)r. Allowed: %(allowed)s (huenda "
 "uanzishaji ukashindikana)."
 
 #: src/uagent/env_validate.py:82
@@ -749,8 +749,8 @@ msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
-"Mtoa huduma wa embedding asiyejulikana: %(provider)r. Inayoruhusiwa: "
-"%(allowed)s (huenda uanzishaji ukashindikana)."
+"Mtoa huduma wa embedding asiyejulikana: %(provider)r. Allowed: %(allowed)s "
+"(huenda uanzishaji ukashindikana)."
 
 #: src/uagent/env_validate.py:258
 msgid "Azure embedding endpoint / API key / API version / deployment name."
@@ -934,6 +934,9 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "certifi haipatikani"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "Eleza picha hii ya skrini na ufupishe UI inayoonekana."
@@ -958,7 +961,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[Hitilafu ya Tafsiri] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -979,36 +982,44 @@ msgstr "[Hitilafu ya Claude] Hitilafu imetokea wakati wa kutengeneza jibu."
 msgid "Input exceeds the context window."
 msgstr "Ingizo linazidi dirisha la muktadha."
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr "Mfano hauungi mkono kufikiria.Inalemaza kufikiri na kujaribu tena..."
+
+msgid "400 BadRequest"
+msgstr "400 Ombi baya"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "Msimbo wa hitilafu: %(code)d - %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "Hitilafu ya muunganisho"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[Hitilafu ya mtandao]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "Isipokuwa isiyotarajiwa."
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "Hitilafu ya kujibu: resp is None."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "Hitilafu ya kujibu: resp.choices ni Hakuna au tupu."
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Hitilafu wakati wa kuchanganua jibu: %(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1016,6 +1027,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1023,31 +1037,33 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Wewe ni wakala wa kuandaa wasifu wa mtumiaji. Changanua kumbukumbu ya mazungumzo na utoe yafuatayo kuhusu mtumiaji:\n"
+"Wewe ni wakala wa wasifu wa mtumiaji.Chambua logi ya mazungumzo na utoe ya mtumiaji:\n"
 "1. Mazingira (OS, shell, mhariri, n.k.)\n"
-"2. Mapendeleo (mtindo wa uandishi wa msimbo, zana zinazopendekezwa, upendeleo wa kiwango cha maelezo, n.k.)\n"
-"3. Vikwazo (kanuni za usalama, mahitaji ya kufanya kazi bila mtandao, n.k.)\n"
+"2. Mapendeleo (mtindo wa kusimba, zana zinazopendekezwa, upendeleo wa kitenzi, n.k.)\n"
+"3. Vikwazo (sheria za usalama, mahitaji ya nje ya mtandao, n.k.)\n"
 "\n"
-"Usijumuishe maswali ya muda, mazungumzo ya kawaida, au vitambulisho vya siri.\n"
-"Lazima ujibu TU kwa kitu halali cha JSON kinacholingana na skima hii:\n"
+"USIJUMUISHE maswali ya muda, gumzo au stakabadhi nyeti.\n"
+"USITOE vikwazo vya muda vya kiufundi, masuala ya upatikanaji wa zana, au vikwazo vya mara moja.\n"
+"Dondoo pekee la sheria ambazo mtumiaji alizitaja kwa uwazi na zinazotumika kwa muda mrefu.\n"
+"Rekodi mapendeleo na vikwazo katika lugha sawa na mazungumzo (kulingana na eneo la mtumiaji).\n"
+"LAZIMA ujibu TU na kitu halali cha JSON kinacholingana na utaratibu huu:\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"string\"],\n"
+"\"constraints\": [\"string\"]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "Imeshindwa kuanzisha mteja wa LLM."
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "Yamepatikana mafaili ya logi %(total_files)d. Naanza profiling ya hatua kwa "
 "hatua..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1062,6 +1078,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1069,25 +1088,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Wewe ni wakala wa wasifu wa mtumiaji. Changanua rajisi ya mazungumzona "
-"utoe:1.Mazingira (OS, shell, kihariri) - ikiwa tu inaonekana wazi "
-"kutokakwenye kumbukumbu.2.Mapendeleo - sifa mahususi, zinazoweza "
-"kutekelezeka zinazozingatiwakutokana na maombi na masahihisho halisi ya "
-"mtumiaji:-Mtindo wa kujibu: ufupi au kitenzi? Kanuni-nzito au nathari-"
-"nzito?Alama za risasi au aya?-Lugha: unapendelea Kijapani, Kiingereza, au "
-"mchanganyiko?-Matumizi ya zana: ni zana/amri zipi ambazo mtumiaji hufikia "
-"mara kwamara?-Kiwango cha ubora: kinavumilia masuluhisho ya haraka au "
-"kinasisitizamasuluhisho yanayofaa?-Uthibitishaji: unataka uidhinishaji wa "
-"moja kwa moja kabla yautendakazi wa faili, au unapendelea kuruka "
-"vidokezo?-Mchoro mwingine wowote unaojirudia wa jinsi mtumiaji "
-"anavyotoamaagizo.3.Vikwazo - sheria zilizo wazi ambazo mtumiaji alisema "
-"(k.m. 'lazima iwenje ya mtandao', 'hakuna API za nje', 'ifanye iwe rahisi', "
-"'hakunautegemezi wa ziada').USIACHE mapendeleo kutoka kwa ombi moja; dondoo "
-"tu ruwazazinazoonekana mara kwa mara.USIJUMUISHEmaswali ya muda, gumzo au "
-"stakabadhi nyeti.LAZIMAujibu kwa kipengee sahihi cha JSON PEKEE "
-"kinacholingana na utaratibuhuu:{\\\"mazingira\\\":{\\\"os\\\": "
-"\\\"string\\\", \\\"shell\\\": \\\"kamba\\\",\\\"mhariri\\\": "
-"\\\"kamba\\\"},___*__preferences\\\"__\\\"vikwazo\\\":[\\\"kamba\\\"]}"
+"Wewe ni wakala wa wasifu wa mtumiaji.Chambua logi ya mazungumzo na dondoo:\n"
+"1. Mazingira (OS, shell, mhariri) - tu ikiwa inaonekana wazi kutoka kwa logi.\n"
+"2. Mapendeleo - sifa mahususi, zinazoweza kutekelezeka zinazozingatiwa kutokana na maombi na masahihisho halisi ya mtumiaji:\n"
+"- Mtindo wa majibu: mafupi au kitenzi?Kanuni-nzito au nathari-nzito?Alama za risasi au aya?\n"
+"- Lugha: inapendelea Kijapani, Kiingereza, au mchanganyiko?\n"
+"- Matumizi ya zana: ni zana/amri gani ambazo mtumiaji hufikia mara kwa mara?\n"
+"- Kiwango cha ubora: huvumilia kazi za haraka au kusisitiza juu ya masuluhisho sahihi?\n"
+"- Uthibitishaji: unataka idhini ya wazi kabla ya utendakazi wa faili, au unapendelea kuruka vidokezo?\n"
+"- Muundo mwingine wowote unaojirudia katika jinsi mtumiaji anavyotoa maagizo.\n"
+"3. Vikwazo - sheria zilizo wazi ambazo mtumiaji alisema (k.m. 'lazima ziwe nje ya mtandao', 'hakuna API za nje', 'ifanye iwe rahisi', 'hakuna utegemezi wa ziada').\n"
+"\n"
+"USIPELEKEZE mapendeleo kutoka kwa ombi moja;dondoo tu ruwaza zinazoonekana mara kwa mara.\n"
+"USIJUMUISHE maswali ya muda, gumzo au stakabadhi nyeti.\n"
+"USITOE vikwazo vya muda vya kiufundi, masuala ya upatikanaji wa zana, au vikwazo vya mara moja.\n"
+"Dondoo pekee la sheria ambazo mtumiaji alizitaja kwa uwazi na zinazotumika kwa muda mrefu.\n"
+"Rekodi mapendeleo na vikwazo katika lugha sawa na mazungumzo (kulingana na eneo la mtumiaji).\n"
+"LAZIMA ujibu TU na kitu halali cha JSON kinacholingana na utaratibu huu:\n"
+"{\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"string\"],\n"
+"\"constraints\": [\"string\"]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr "[Onyo] Imeshindwa kuchakata kipande (%(step)s): %(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1283,6 +1308,12 @@ msgstr "Inacheza"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "Imesimamishwa"
+
+msgid "Stop requested by user."
+msgstr "Acha kuombwa na mtumiaji."
+
+msgid "Stop requested by user (x key)."
+msgstr "Acha kuombwa na mtumiaji (ufunguo wa x)."
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2194,7 +2225,7 @@ msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
-"[clean] Hoja batili: %(arg)r (taja number=threshold; chaguo-msingi ni "
+"[clean] Hoja batili: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 
 #: src/uagent/util_tools.py:1391
@@ -2265,16 +2296,16 @@ msgstr "Faili ya logi haikupatikana: %(path)s"
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[hitilafu ya shrink] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi ya "
-"mwisho %(keep)d"
+"[hitilafu ya shrink] Imeshindwa kuchanganua kuwa int: %(arg)r -> keep last "
+"%(keep)d"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[hitilafu ya shrink_llm] Imeshindwa kuchanganua kuwa int: %(arg)r -> hifadhi"
-" ya mwisho %(keep)d"
+"[hitilafu ya shrink_llm] Imeshindwa kuchanganua kuwa int: %(arg)r -> keep "
+"last %(keep)d"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
@@ -2410,11 +2441,10 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Tengeneza wasifu kutoka kwa faili za kumbukumbu za N hivi karibuni"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
-"Tengeneza wasifu wa mtumiaji kutoka kwa kumbukumbu zilizopita (faili za N za"
-" mwisho ikiwa zimebainishwa)"
+"Tengeneza wasifu wa mtumiaji kutoka kwa kumbukumbu zilizopita (chaguo-"
+"msingi: 100; 0=zote)"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2466,6 +2496,7 @@ msgstr ""
 msgid "Continue. Goal: %(goal)s"
 msgstr "Endelea. Lengo: %(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Maelezo ya mkaguzi: %(feedback)s"
 
@@ -2477,79 +2508,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "maoni: %(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] Imetolewa na mtumiaji (ufunguo wa x)."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] Imetolewa na mtumiaji (ufunguo wa x)."
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] Upeo wa raundi (%(max)d) umefikiwa. Kuacha."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[AUTO] Ukaguzi/uchambuzi umekamilika."
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] Mzunguko %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[AUTO] Upeo wa raundi (%(max)d) umefikiwa.Kuacha."
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] Ukaguzi/uchambuzi umekamilika."
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[AUTO] Mzunguko %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Majaribio ya kiotomatiki yamezimwa."
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Matumizi: :auto <lengo> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto punguzo"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Thamani batili ya --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "Lengo haliwezi kuwa tupu."
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Imeanza. Lengo: %(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Upeo wa raundi: %(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "Inatoka."
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Amri isiyojulikana: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2795,6 +2807,9 @@ msgstr "meta ya akiba batili"
 msgid "anthropic package is not installed."
 msgstr "Kifurushi cha anthropic hakijasakinishwa."
 
+msgid "Repair did not change messages, giving up."
+msgstr "Ukarabati haukubadilisha ujumbe, kukata tamaa."
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2896,6 +2911,9 @@ msgstr ""
 "        - Usitumie utafutaji wa wavuti kwa taarifa za mahali hapo au thabiti.\n"
 "        - Pendelea kujibu bila utafutaji wa wavuti wakati jibu tayari linatosha.\n"
 "        "
+
+msgid "Response body: %(body)s"
+msgstr "Mwili wa majibu: %(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

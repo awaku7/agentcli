@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,15 +36,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[ΣΦΑΛΜΑ] Το Git δεν έχει εγκατασταθεί."
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch() εναλλακτική στην είσοδο()"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Έλαβε Ctrl+C. Έναρξη διακοπής λειτουργίας..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -55,11 +55,11 @@ msgstr "Έλαβε Ctrl+C. Έναρξη διακοπής λειτουργίας.
 msgid "Cancelled."
 msgstr "Ακυρώθηκε."
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "Λήφθηκε απάντηση πολλαπλών γραμμών."
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -68,12 +68,12 @@ msgstr ""
 "Οι διαδρομές αρχείου εικόνας βρέθηκαν στην καταχώρισή σας.\n"
 "Θέλετε να στείλετε αυτές τις εικόνες στο LLM (εξωτερικό API) για ανάλυση;"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Απαντήστε με y για αποστολή ή n (ή c/ακύρωση) για παράλειψη αποστολής."
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -81,17 +81,17 @@ msgstr ""
 "Η επιβεβαίωση αποστολής εικόνας απέτυχε. δεν θα στείλει εικόνες: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Αποτυχία επισύναψης εικόνας: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Άγνωστο συμβάν είδος=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "Έγινε έξοδος uag."
 
@@ -647,8 +647,8 @@ msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
-"Άγνωστος πάροχος: %(provider)r. Επιτρέπεται: %(allowed)s (η εκκίνηση "
-"πιθανότατα θα αποτύχει)."
+"Άγνωστος πάροχος: %(provider)r. Allowed: %(allowed)s (η εκκίνηση πιθανότατα "
+"θα αποτύχει)."
 
 #: src/uagent/env_validate.py:82
 msgid ""
@@ -759,8 +759,8 @@ msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
-"Άγνωστος πάροχος ενσωμάτωσης: %(provider)r. Επιτρέπεται: %(allowed)s (η "
-"εκκίνηση πιθανότατα θα αποτύχει)."
+"Άγνωστος πάροχος ενσωμάτωσης: %(provider)r. Allowed: %(allowed)s (η εκκίνηση"
+" πιθανότατα θα αποτύχει)."
 
 #: src/uagent/env_validate.py:258
 msgid "Azure embedding endpoint / API key / API version / deployment name."
@@ -944,6 +944,9 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "το πιστοποιητικό δεν είναι διαθέσιμο"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr ""
@@ -973,7 +976,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[Σφάλμα μετάφρασης] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -996,36 +999,45 @@ msgstr ""
 msgid "Input exceeds the context window."
 msgstr "Η είσοδος υπερβαίνει το παράθυρο περιβάλλοντος."
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr ""
+"Το μοντέλο δεν υποστηρίζει τη σκέψη.Απενεργοποίηση σκέψης και επανάληψη..."
+
+msgid "400 BadRequest"
+msgstr "400 BadRequest"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "Κωδικός σφάλματος: %(code)d - %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "Σφάλμα σύνδεσης"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[Σφάλμα δικτύου]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "Απροσδόκητη εξαίρεση."
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "Σφάλμα απόκρισης: το resp είναι Κανένα."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "Σφάλμα απόκρισης: Το resp.choices είναι Κανένα ή κενό."
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Σφάλμα κατά την ανάλυση της απάντησης: %(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1033,6 +1045,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1040,31 +1055,33 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Είστε ένας πράκτορας δημιουργίας προφίλ χρήστη. Αναλύστε το αρχείο καταγραφής συνομιλιών και εξαγάγετε τα στοιχεία του χρήστη:\n"
+"Είστε ένας πράκτορας δημιουργίας προφίλ χρήστη.Αναλύστε το αρχείο καταγραφής συνομιλιών και εξαγάγετε τα στοιχεία του χρήστη:\n"
 "1. Περιβάλλον (ΛΣ, κέλυφος, επεξεργαστής κ.λπ.)\n"
 "2. Προτιμήσεις (στυλ κωδικοποίησης, προτιμώμενα εργαλεία, προτίμηση πολυλεκτικότητας κ.λπ.)\n"
 "3. Περιορισμοί (κανόνες ασφαλείας, απαιτήσεις εκτός σύνδεσης, κ.λπ.)\n"
 "\n"
 "ΜΗΝ συμπεριλαμβάνετε προσωρινές ερωτήσεις, κουβεντούλα ή ευαίσθητα διαπιστευτήρια.\n"
+"ΜΗΝ εξάγετε προσωρινούς τεχνικούς περιορισμούς, ζητήματα διαθεσιμότητας εργαλείου ή περιορισμούς μίας χρήσης.\n"
+"Εξάγετε μόνο κανόνες που ανέφερε ρητά ο χρήστης και που ισχύουν μακροπρόθεσμα.\n"
+"Καταγράψτε τις προτιμήσεις και τους περιορισμούς στην ίδια γλώσσα με τη συνομιλία (που ταιριάζουν με τις τοπικές ρυθμίσεις χρήστη).\n"
 "ΠΡΕΠΕΙ να απαντήσετε ΜΟΝΟ με ένα έγκυρο αντικείμενο JSON που αντιστοιχεί σε αυτό το σχήμα:\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"string\"],\n"
+"\"constraints\": [\"string\"]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "Απέτυχε η προετοιμασία του προγράμματος-πελάτη LLM."
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "Βρέθηκαν %(total_files)d αρχεία καταγραφής. Έναρξη σταδιακής διαμόρφωσης "
 "προφίλ..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1079,6 +1096,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1086,27 +1106,32 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Είστε ένας πράκτορας δημιουργίας προφίλ χρήστη. Αναλύστε το αρχείοκαταγραφής"
-" συνομιλιών και εξαγάγετε:1.Περιβάλλον (ΛΣ, κέλυφος, πρόγραμμα επεξεργασίας)"
-" — μόνο εάν είναισαφώς εμφανές από το αρχείο καταγραφής.2.Προτιμήσεις — "
-"συγκεκριμένα, πρακτικά χαρακτηριστικά που παρατηρούνταιαπό τα πραγματικά "
-"αιτήματα και τις διορθώσεις του χρήστη:-Στυλ απάντησης: συνοπτική ή "
-"περιεκτική; Κωδικός-βαρύς ή πεζός-βαρύς;Κουκκίδες ή παράγραφοι;-Γλώσσα: "
-"προτιμά ιαπωνικά, αγγλικά ή μικτή;-Χρήση εργαλείου: ποια εργαλεία/εντολές "
-"προσεγγίζει συχνά ο χρήστης;-Πρότυπο ποιότητας: ανέχεται γρήγορες λύσεις ή "
-"επιμένει στις κατάλληλεςλύσεις;-Επιβεβαίωση: θέλει ρητή έγκριση πριν από τη "
-"λειτουργία του αρχείου ήπροτιμά να παραλείψει τα μηνύματα;-Οποιοδήποτε άλλο "
-"επαναλαμβανόμενο μοτίβο στον τρόπο με τον οποίο οχρήστης δίνει "
-"οδηγίες.3.Περιορισμοί — ρητοί κανόνες που δήλωσε ο χρήστης (π.χ. \"πρέπει "
-"ναείναι εκτός σύνδεσης\", \"χωρίς εξωτερικά API\", \"διατηρήστε τοαπλό\", "
-"\"χωρίς επιπλέον εξαρτήσεις\").ΜΗΝ συνάγετε τις προτιμήσεις από ένα μόνο "
-"αίτημα. εξάγετε μόνο μοτίβαπου εμφανίζονται "
-"επανειλημμένα.ΜΗΝσυμπεριλαμβάνετε προσωρινές ερωτήσεις, κουβεντούλα ή "
-"ευαίσθηταδιαπιστευτήρια.ΠΡΕΠΕΙνα απαντήσετε ΜΟΝΟ με ένα έγκυρο αντικείμενο "
-"JSON που αντιστοιχεί σεαυτό το σχήμα:{\\\"περιβάλλον\\\":{\\\"os\\\": "
-"\\\"string\\\", \\\"shell\\\": \\\"string\\\",\\\"editor\\\": "
-"\\\"string\\\"}, _\\\"string\\\"}, "
-"_\\\"\\\"περιορισμοί\\\":[\\\"string\\\"]}"
+"Είστε ένας πράκτορας δημιουργίας προφίλ χρήστη.Αναλύστε το αρχείο καταγραφής συνομιλιών και εξαγάγετε:\n"
+"1. Περιβάλλον (ΛΣ, κέλυφος, πρόγραμμα επεξεργασίας) — μόνο εάν είναι σαφώς εμφανές από το αρχείο καταγραφής.\n"
+"2. Προτιμήσεις — συγκεκριμένα, πρακτικά χαρακτηριστικά που παρατηρούνται από τα πραγματικά αιτήματα και τις διορθώσεις του χρήστη:\n"
+"- Στυλ απάντησης: συνοπτική ή περιεκτική;Κωδικός-βαρύς ή πεζός-βαρύς;Κουκκίδες ή παράγραφοι;\n"
+"- Γλώσσα: προτιμά ιαπωνικά, αγγλικά ή μικτή;\n"
+"- Χρήση εργαλείου: ποια εργαλεία/εντολές προσεγγίζει συχνά ο χρήστης;\n"
+"- Πρότυπο ποιότητας: ανέχεται γρήγορες λύσεις ή επιμένει στις κατάλληλες λύσεις;\n"
+"- Επιβεβαίωση: θέλει ρητή έγκριση πριν από τη λειτουργία του αρχείου ή προτιμά να παραλείψει τα μηνύματα;\n"
+"- Οποιοδήποτε άλλο επαναλαμβανόμενο μοτίβο στον τρόπο με τον οποίο ο χρήστης δίνει οδηγίες.\n"
+"3. Περιορισμοί — ρητοί κανόνες που δήλωσε ο χρήστης (π.χ. \"πρέπει να είναι εκτός σύνδεσης\", \"χωρίς εξωτερικά API\", \"να είναι απλό\", \"χωρίς επιπλέον εξαρτήσεις\").\n"
+"\n"
+"ΜΗΝ συνάγετε προτιμήσεις από ένα μόνο αίτημα.εξάγετε μόνο μοτίβα που εμφανίζονται επανειλημμένα.\n"
+"ΜΗΝ συμπεριλαμβάνετε προσωρινές ερωτήσεις, κουβεντούλα ή ευαίσθητα διαπιστευτήρια.\n"
+"ΜΗΝ εξάγετε προσωρινούς τεχνικούς περιορισμούς, ζητήματα διαθεσιμότητας εργαλείου ή περιορισμούς μίας χρήσης.\n"
+"Εξάγετε μόνο κανόνες που ανέφερε ρητά ο χρήστης και που ισχύουν μακροπρόθεσμα.\n"
+"Καταγράψτε τις προτιμήσεις και τους περιορισμούς στην ίδια γλώσσα με τη συνομιλία (που ταιριάζουν με τις τοπικές ρυθμίσεις χρήστη).\n"
+"ΠΡΕΠΕΙ να απαντήσετε ΜΟΝΟ με ένα έγκυρο αντικείμενο JSON που αντιστοιχεί σε αυτό το σχήμα:\n"
+"{\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"preferences\": [\"string\"],\n"
+"\"constraints\": [\"string\"]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr ""
+"[Προειδοποίηση] Απέτυχε η επεξεργασία του κομματιού (%(step)s): %(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1304,6 +1329,12 @@ msgstr "Παίζοντας"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "Σταμάτησε"
+
+msgid "Stop requested by user."
+msgstr "Διακοπή που ζητήθηκε από τον χρήστη."
+
+msgid "Stop requested by user (x key)."
+msgstr "Ζητείται διακοπή από τον χρήστη (κλειδί x)."
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2220,8 +2251,8 @@ msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
-"[καθαρό] Μη έγκυρο όρισμα: %(arg)r (καθορίστε τον αριθμό = κατώφλι, η "
-"προεπιλογή είναι %(default)d)"
+"[καθαρό] Μη έγκυρο όρισμα: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
 
 #: src/uagent/util_tools.py:1391
 #, python-format
@@ -2291,16 +2322,14 @@ msgstr "Το αρχείο καταγραφής δεν βρέθηκε: %(path)s"
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[Σφάλμα συρρίκνωσης] Απέτυχε η ανάλυση ως int: %(arg)r -> διατήρηση της "
-"τελευταίας %(keep)d"
+"[Σφάλμα συρρίκνωσης] Απέτυχε η ανάλυση ως int: %(arg)r -> keep last %(keep)d"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[shrink_llm error] Απέτυχε η ανάλυση ως int: %(arg)r -> διατήρηση του "
-"τελευταίου %(keep)d"
+"[shrink_llm error] Απέτυχε η ανάλυση ως int: %(arg)r -> keep last %(keep)d"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
@@ -2447,11 +2476,10 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Δημιουργήστε προφίλ από τα πιο πρόσφατα N αρχεία καταγραφής"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
-"Δημιουργία προφίλ χρήστη από προηγούμενα αρχεία καταγραφής (τελευταία N "
-"αρχεία εάν καθορίζονται)"
+"Δημιουργία προφίλ χρήστη από προηγούμενα αρχεία καταγραφής (προεπιλογή: 100;"
+" 0=όλα)"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2508,6 +2536,7 @@ msgstr ""
 msgid "Continue. Goal: %(goal)s"
 msgstr "Συνεχίζω. Στόχος: %(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Σημειώσεις κριτικού: %(feedback)s"
 
@@ -2519,79 +2548,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "ανατροφοδότηση: %(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] Έξοδος από χρήστη (κλειδί x)."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] Έξοδος από χρήστη (πλήκτρο x)."
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] Επιτεύχθηκε ο μέγιστος γύρος (%(max)d). Στάθμευση."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[AUTO] Ολοκληρώθηκε η αναθεώρηση/ανάλυση."
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] Γύρος %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[AUTO] Επιτεύχθηκε μέγιστος γύρος (%(max)d).Στάθμευση."
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] Ολοκληρώθηκε η επανεξέταση/ανάλυση."
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[AUTO] Γύρος %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Απενεργοποιήθηκε ο αυτόματος πιλότος."
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Χρήση: :auto <στόχος> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto εκτός λειτουργίας"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Μη έγκυρη τιμή για --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "Ο στόχος δεν μπορεί να είναι κενός."
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Ξεκίνησε. Στόχος: %(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Μέγιστος γύρος: %(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "Έξοδος."
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Άγνωστη εντολή: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2839,6 +2849,9 @@ msgstr "μη έγκυρο meta της κρυφής μνήμης"
 msgid "anthropic package is not installed."
 msgstr "Το anthropic πακέτο δεν είναι εγκατεστημένο."
 
+msgid "Repair did not change messages, giving up."
+msgstr "Η επισκευή δεν άλλαξε τα μηνύματα, εγκαταλείποντας."
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2939,6 +2952,9 @@ msgstr ""
 "        - Χρησιμοποιήστε την αναζήτηση Ιστού μόνο όταν είναι απαραίτητες νέες ή εξωτερικές πληροφορίες.\n"
 "        - Μην χρησιμοποιείτε την αναζήτηση Ιστού για τοπικές ή σταθερές πληροφορίες.\n"
 "        - Προτιμήστε να απαντάτε χωρίς αναζήτηση στο διαδίκτυο όταν η απάντηση είναι ήδη επαρκής."
+
+msgid "Response body: %(body)s"
+msgstr "Σώμα απόκρισης: %(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

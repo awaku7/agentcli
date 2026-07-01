@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[ERREUR] Git n’est pas installé."
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch() bascule sur input() si nécessaire"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C reçu. Arrêt en cours..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Ctrl+C reçu. Arrêt en cours..."
 msgid "Cancelled."
 msgstr "Annulé."
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "Réponse multi-lignes reçue."
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -70,12 +70,12 @@ msgstr ""
 "Voulez-vous envoyer ces images au LLM (API externe) pour analyse ?\n"
 "\n"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Répondez par y pour envoyer, ou par n (ou c/cancel) pour ignorer l’envoi."
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -83,17 +83,17 @@ msgstr ""
 "La confirmation d’envoi d’image a échoué ; les images ne seront pas envoyées"
 " : %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Échec de l’ajout de l’image : %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Type d’événement inconnu=%(kind)r : %(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "uag quitté."
 
@@ -648,7 +648,7 @@ msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
-"Fournisseur inconnu : %(provider)r. Autorisés : %(allowed)s (le démarrage "
+"Fournisseur inconnu : %(provider)r. Allowed: %(allowed)s (le démarrage "
 "échouera probablement)."
 
 #: src/uagent/env_validate.py:82
@@ -759,7 +759,7 @@ msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
-"Fournisseur d’embedding inconnu : %(provider)r. Autorisés : %(allowed)s (le "
+"Fournisseur d’embedding inconnu : %(provider)r. Allowed: %(allowed)s (le "
 "démarrage échouera probablement)."
 
 #: src/uagent/env_validate.py:258
@@ -946,6 +946,9 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "le certificat n'est pas disponible"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "Décrivez cette capture d’écran et résumez l’interface visible."
@@ -971,7 +974,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[Erreur de traduction] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -994,36 +997,46 @@ msgstr ""
 msgid "Input exceeds the context window."
 msgstr "L'entrée dépasse la fenêtre de contexte."
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr ""
+"Le modèle ne supporte pas la réflexion.Désactiver la réflexion et "
+"réessayer..."
+
+msgid "400 BadRequest"
+msgstr "400 Mauvaise demande"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "Code d'erreur : %(code)d - %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "Erreur de connexion"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[Erreur réseau]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "Exception inattendue."
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "Erreur de réponse : resp est Aucun."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "Erreur de réponse : resp.choices est Aucun ou vide."
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Erreur lors de l’analyse de la réponse : %(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1031,6 +1044,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1038,31 +1054,33 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Vous êtes un agent de profilage utilisateur. Analysez le journal de conversation et extrayez les éléments suivants concernant l'utilisateur :\n"
+"Vous êtes un agent de profilage d'utilisateurs.Analysez le journal de conversation et extrayez ceux de l'utilisateur :\n"
 "1. Environnement (OS, shell, éditeur, etc.)\n"
-"2. Préférences (style de codage, outils préférés, niveau de verbosité préféré, etc.)\n"
-"3. Contraintes (règles de sécurité, exigences de fonctionnement hors ligne, etc.)\n"
+"2. Préférences (style de codage, outils préférés, préférence de verbosité, etc.)\n"
+"3. Contraintes (règles de sécurité, exigences hors ligne, etc.)\n"
 "\n"
-"N'incluez pas les questions temporaires, la discussion informelle ni les identifiants sensibles.\n"
-"Vous DEVEZ répondre UNIQUEMENT avec un objet JSON valide correspondant à ce schéma :\n"
+"N'incluez PAS de questions temporaires, de bavardages ou d'informations d'identification sensibles.\n"
+"N'extrayez PAS les limitations techniques temporaires, les problèmes de disponibilité des outils ou les contraintes ponctuelles.\n"
+"Extrayez uniquement les règles explicitement déclarées par l’utilisateur et qui s’appliquent à long terme.\n"
+"Enregistrez les préférences et les contraintes dans la même langue que la conversation (correspondant aux paramètres régionaux de l'utilisateur).\n"
+"Vous DEVEZ répondre UNIQUEMENT avec un objet JSON valide correspondant à ce schéma :\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"préférences\": [\"chaîne\"],\n"
+"\"contraintes\": [\"chaîne\"]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "Échec de l’initialisation du client LLM."
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "%(total_files)d fichiers journaux trouvés. Démarrage du profilage "
 "incrémental..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1077,6 +1095,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1084,29 +1105,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Vous êtes un agent de profilage d'utilisateurs. Analysez le journal "
-"deconversation et extrayez :1.Environnement (système d'exploitation, shell, "
-"éditeur) - uniquements'il est clairement évident dans le "
-"journal.2.Préférences — caractéristiques spécifiques et exploitables "
-"observées àpartir des demandes et corrections réelles de "
-"l'utilisateur :-Style de réponse : concis ou verbeux ? Beaucoup de code ou "
-"de prose ?Des puces ou des paragraphes ?-Langue : vous préférez le japonais,"
-" l'anglais ou le mélange ?-Utilisation des outils : quels outils/commandes "
-"l'utilisateurutilise-t-il fréquemment ?-Norme de qualité : tolère des "
-"solutions de contournement rapides ouinsiste sur des solutions "
-"appropriées ?-Confirmation : souhaite une approbation explicite avant les "
-"opérationssur les fichiers ou préfère ignorer les invites ? :tout autre "
-"modèle récurrent dans la manière dont l'utilisateur donnedes "
-"instructions.3.Contraintes : règles explicites énoncées par l'utilisateur "
-"(parexemple, \"doit être hors ligne\", \"pas d'API externe\", "
-"\"restezsimple\", \"pas de dépendances supplémentaires\").Ne déduisez PAS de"
-" préférences à partir d'une seule demande ; extraireuniquement les motifs "
-"qui apparaissent de manière répétée.N'incluezPAS de questions temporaires, "
-"de bavardages ou d'informationsd'identification sensibles.VousDEVEZ répondre"
-" UNIQUEMENT avec un objet JSON valide correspondant à "
-"ceschéma :{\\\"environment\\\":{\\\"os\\\": \\\"string\\\", \\\"shell\\\": "
-"\\\"string\\\",\\\"editor\\\": "
-"\\\"string\\\"},\\\"preferences\\\":[\\\"string\\\"],\\\"constraints\\\":[\\\"chaîne\\\"]}"
+"Vous êtes un agent de profilage d'utilisateurs.Analysez le journal de conversation et extrayez :\n"
+"1. Environnement (OS, shell, éditeur) — uniquement s'il est clairement évident dans le journal.\n"
+"2. Préférences — caractéristiques spécifiques et exploitables observées à partir des demandes et corrections réelles de l'utilisateur :\n"
+"- Style de réponse : concis ou verbeux ?Beaucoup de code ou de prose ?Des puces ou des paragraphes ?\n"
+"- Langue : préfère le japonais, l'anglais ou le mixte ?\n"
+"- Utilisation des outils : quels outils/commandes l'utilisateur utilise-t-il fréquemment ?\n"
+"- Norme de qualité : tolère des solutions de contournement rapides ou insiste sur des solutions appropriées ?\n"
+"- Confirmation : souhaite une approbation explicite avant les opérations sur les fichiers ou préfère ignorer les invites ?\n"
+"- Tout autre modèle récurrent dans la manière dont l'utilisateur donne des instructions.\n"
+"3. Contraintes — règles explicites déclarées par l'utilisateur (par exemple « doit être hors ligne », « pas d'API externe », « rester simple », « pas de dépendances supplémentaires »).\n"
+"\n"
+"Ne déduisez PAS les préférences d’une seule demande ;extraire uniquement les motifs qui apparaissent de manière répétée.\n"
+"N'incluez PAS de questions temporaires, de bavardages ou d'informations d'identification sensibles.\n"
+"N'extrayez PAS les limitations techniques temporaires, les problèmes de disponibilité des outils ou les contraintes ponctuelles.\n"
+"Extrayez uniquement les règles explicitement déclarées par l’utilisateur et qui s’appliquent à long terme.\n"
+"Enregistrez les préférences et les contraintes dans la même langue que la conversation (correspondant aux paramètres régionaux de l'utilisateur).\n"
+"Vous DEVEZ répondre UNIQUEMENT avec un objet JSON valide correspondant à ce schéma :\n"
+"{\n"
+"\"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"préférences\": [\"chaîne\"],\n"
+"\"contraintes\": [\"chaîne\"]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr "[Avertissement] Échec du traitement du fragment (%(step)s) : %(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1304,6 +1327,12 @@ msgstr "Lecture en cours"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "Arrêté"
+
+msgid "Stop requested by user."
+msgstr "Arrêt demandé par l'utilisateur."
+
+msgid "Stop requested by user (x key)."
+msgstr "Arrêt demandé par l'utilisateur (touche x)."
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2217,8 +2246,8 @@ msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
-"[clean] Argument invalide : %(arg)r (spécifiez number=threshold ; valeur par"
-" défaut %(default)d)"
+"[clean] Argument invalide : %(arg)r (specify number=threshold; default is "
+"%(default)d)"
 
 #: src/uagent/util_tools.py:1391
 #, python-format
@@ -2288,8 +2317,8 @@ msgstr "Fichier journal introuvable : %(path)s"
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[erreur shrink] Impossible d’analyser comme entier : %(arg)r -> conserver "
-"les %(keep)d derniers"
+"[erreur shrink] Impossible d’analyser comme entier : %(arg)r -> keep last "
+"%(keep)d derniers"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
@@ -2297,7 +2326,7 @@ msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
 "[erreur shrink_llm] Impossible d’analyser la valeur en entier : %(arg)r -> "
-"conserver les %(keep)d derniers"
+"keep last %(keep)d derniers"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
@@ -2436,11 +2465,10 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Générer un profil à partir des N fichiers journaux les plus récents"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
-"Générer un profil utilisateur à partir des journaux passés (N derniers "
-"fichiers si spécifié)"
+"Générer un profil utilisateur à partir des journaux antérieurs (par défaut :"
+" 100 ; 0 = tous)"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2497,6 +2525,7 @@ msgstr ""
 msgid "Continue. Goal: %(goal)s"
 msgstr "Continuer. Objectif : %(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Notes du réviseur : %(feedback)s"
 
@@ -2508,79 +2537,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "commentaires : %(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] Quitté par l'utilisateur (touche x)."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] Quitté par l'utilisateur (touche x)."
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] Nombre maximum de tours (%(max)d) atteint. Arrêt."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[AUTO] Révision/analyse terminée."
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] Tour %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[AUTO] Nombre maximum de tours (%(max)d) atteint.Arrêt."
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] Examen/analyse terminé."
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[AUTO] Tour %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Pilote automatique désactivé."
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Utilisation : :auto <objectif> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto désactivé"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Valeur non valide pour --max-rounds : %(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "L'objectif ne peut pas être vide."
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Démarré. Objectif : %(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Tours max : %(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "Fermeture."
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Commande inconnue : :%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2828,6 +2838,9 @@ msgstr "métadonnées de cache invalides"
 msgid "anthropic package is not installed."
 msgstr "Le paquet anthropic n'est pas installé."
 
+msgid "Repair did not change messages, giving up."
+msgstr "La réparation n'a pas changé les messages, abandonnant."
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2929,6 +2942,9 @@ msgstr ""
 "        - N'utilisez pas la recherche web pour des informations locales ou stables.\n"
 "        - Privilégiez une réponse sans recherche web lorsque la réponse est déjà suffisante.\n"
 "        "
+
+msgid "Response body: %(body)s"
+msgstr "Corps de la réponse : %(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

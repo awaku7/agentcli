@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,15 +37,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[HATA] Git yüklü değil."
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch() için yedek olarak input() kullanılıyor"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "Ctrl+C alındı. Kapatma başlatılıyor..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -56,11 +56,11 @@ msgstr "Ctrl+C alındı. Kapatma başlatılıyor..."
 msgid "Cancelled."
 msgstr "İptal edildi."
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "Çok satırlı yanıt alındı."
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -69,30 +69,30 @@ msgstr ""
 "Girişinizde resim dosyası yolları bulundu.\n"
 "Bu görüntüleri analiz için LLM'ye (harici API) göndermek istiyor musunuz?"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Göndermek için y, atlamak için n (veya c/cancel) ile yanıt verin.Göndermek "
 "için y ile veya göndermeyi atlamak için n (veya c/iptal) ile yanıtlayın."
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
 msgstr ""
 "Resim gönderme onayı başarısız oldu; resim göndermeyecek: %(etype)s: %(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Resim eklenemedi: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Bilinmeyen olay türü=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "Uag'dan çıkıldı."
 
@@ -637,8 +637,8 @@ msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
-"Bilinmeyen sağlayıcı: %(provider)r. İzin verilenler: %(allowed)s (başlatma "
-"büyük olasılıkla başarısız olur)."
+"Bilinmeyen sağlayıcı: %(provider)r. Allowed: %(allowed)s (başlatma büyük "
+"olasılıkla başarısız olur)."
 
 #: src/uagent/env_validate.py:82
 msgid ""
@@ -744,8 +744,8 @@ msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
-"Bilinmeyen embedding sağlayıcısı: %(provider)r. İzin verilenler: %(allowed)s"
-" (başlatma büyük olasılıkla başarısız olur)."
+"Bilinmeyen embedding sağlayıcısı: %(provider)r. Allowed: %(allowed)s "
+"(başlatma büyük olasılıkla başarısız olur)."
 
 #: src/uagent/env_validate.py:258
 msgid "Azure embedding endpoint / API key / API version / deployment name."
@@ -925,6 +925,9 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "sertifika mevcut değil"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr "Bu ekran görüntüsünü açıklayın ve görünen arayüzü özetleyin."
@@ -950,7 +953,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[Çeviri Hatası] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -971,36 +974,46 @@ msgstr "[Claude Hatası] Yanıt oluşturulurken bir hata oluştu."
 msgid "Input exceeds the context window."
 msgstr "Giriş, bağlam penceresini aşıyor."
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr ""
+"Model düşünmeyi desteklemez.Düşünmeyi devre dışı bırakmak ve yeniden "
+"denemek..."
+
+msgid "400 BadRequest"
+msgstr "400 Kötü İstek"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "Hata kodu: %(code)d - %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "Bağlantı hatası"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[Ağ Hatası]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "Beklenmeyen istisna."
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "Yanıt hatası: yanıt Yoktur."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "Yanıt hatası: resp.choices Yok veya boş."
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Yanıt ayrıştırılırken hata oluştu: %(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1008,6 +1021,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1015,30 +1031,32 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Bir kullanıcı profili oluşturma aracısınız. Konuşma günlüğünü analiz edin ve kullanıcıya ait aşağıdakileri çıkarın:\n"
-"1. Ortam (İS, kabuk, düzenleyici vb.)\n"
-"2. Tercihler (kodlama stili, tercih edilen araçlar, ayrıntı düzeyi tercihi vb.)\n"
-"3. Kısıtlamalar (güvenlik kuralları, çevrimdışı çalışma gereksinimleri vb.)\n"
+"Siz bir kullanıcı profili oluşturma aracısısınız.Konuşma günlüğünü analiz edin ve kullanıcının şunları çıkarın:\n"
+"1. Ortam (İşletim Sistemi, kabuk, düzenleyici vb.)\n"
+"2. Tercihler (kodlama stili, tercih edilen araçlar, ayrıntı tercihi vb.)\n"
+"3. Kısıtlamalar (güvenlik kuralları, çevrimdışı gereksinimler vb.)\n"
 "\n"
-"Geçici soruları, küçük sohbeti veya hassas kimlik bilgilerini dahil etmeyin.\n"
-"YALNIZCA bu şemayla eşleşen geçerli bir JSON nesnesiyle yanıt vermelisiniz:\n"
+"Geçici soruları, sohbeti veya hassas kimlik bilgilerini İÇERMEYİN.\n"
+"Geçici teknik sınırlamaları, araç kullanılabilirliği sorunlarını veya tek seferlik kısıtlamaları ÇIKARMAYIN.\n"
+"Yalnızca kullanıcının açıkça belirttiği ve uzun vadede geçerli olan kuralları çıkarın.\n"
+"Tercihleri ​​ve kısıtlamaları konuşmayla aynı dilde (kullanıcının yerel ayarıyla eşleşen) kaydedin.\n"
+"YALNIZCA bu şemayla eşleşen geçerli bir JSON nesnesiyle yanıt vermeniz GEREKİR:\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  \"preferences\": [\"string\"],\n"
-"  \"constraints\": [\"string\"]\n"
+"\"ortam\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"tercihler\": [\"dize\"],\n"
+"\"kısıtlamalar\": [\"dize\"]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "LLM istemcisi başlatılamadı."
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "%(total_files)d günlük dosyası bulundu. Artımlı profilleme başlatılıyor..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1053,6 +1071,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1060,26 +1081,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Siz bir kullanıcı profili oluşturma aracısısınız. Konuşma günlüğünüanaliz "
-"edin ve şunu çıkarın:1.Ortam (İşletim Sistemi, kabuk, düzenleyici) — "
-"yalnızca günlükte açıkçagörülüyorsa.2.Tercihler — kullanıcının gerçek "
-"istekleri ve düzeltmelerindengözlemlenen belirli, eyleme dönüştürülebilir "
-"özellikler:-Yanıt stili: kısa mı yoksa ayrıntılı mı? Kod ağırlıklı mı "
-"düzyazıağırlıklı mı? Madde işaretleri mi yoksa paragraflar mı?-Dil: Japonca "
-"mı, İngilizce mi yoksa karışık mı tercih ediyorsunuz?-Araç kullanımı: "
-"Kullanıcı sıklıkla hangi araçlara/komutlara ulaşıyor?-Kalite standardı: "
-"Hızlı geçici çözümlere tolerans gösteriyor musunuzveya uygun çözümlerde "
-"ısrar ediyor musunuz?-Onay: Dosya işlemlerinden önce açık onay mı "
-"istiyorsunuz, yoksaistemleri atlamayı mı tercih ediyorsunuz?-Kullanıcının "
-"talimatları verme biçiminde yinelenen diğer kalıplar.3.Kısıtlamalar — "
-"kullanıcının belirttiği açık kurallar (örneğin,'çevrimdışı olmalı', 'harici "
-"API yok', 'basit tut', 'ekstra bağımlılıkyok').Tercihleri ​​tek bir istekten"
-" ÇIKARMAYIN; yalnızca tekrar tekrargörünen desenleri çıkarın.Geçicisoruları,"
-" sohbeti veya hassas kimlik bilgilerini İÇERMEYİN.YALNIZCAbu şemayla eşleşen"
-" geçerli bir JSON nesnesiyle yanıt vermeniz "
-"GEREKİR:{\\\"environment\\\":{\\\"os\\\": \\\"string\\\", \\\"shell\\\": "
-"\\\"string\\\",\\\"editor\\\": "
-"\\\"string\\\"},\\\"preferences\\\":[\\\"string\\\"],\\\"kısıtlamalar\\\":[\\\"dize\\\"]}"
+"Siz bir kullanıcı profili oluşturma aracısısınız.Konuşma günlüğünü analiz edin ve şunu çıkarın:\n"
+"1. Ortam (İşletim Sistemi, kabuk, düzenleyici) — yalnızca günlükte açıkça görülüyorsa.\n"
+"2. Tercihler — kullanıcının gerçek taleplerinden ve düzeltmelerinden gözlemlenen belirli, eyleme dönüştürülebilir özellikler:\n"
+"- Yanıt stili: kısa mı yoksa ayrıntılı mı?Kod ağırlıklı mı düzyazı ağırlıklı mı?Madde işaretleri mi yoksa paragraflar mı?\n"
+"- Dil: Japonca mı, İngilizce mi yoksa karışık mı tercih ediyorsunuz?\n"
+"- Araç kullanımı: Kullanıcı sıklıkla hangi araçlara/komutlara ulaşıyor?\n"
+"- Kalite standardı: hızlı geçici çözümleri tolere ediyor mu veya uygun çözümlerde ısrar ediyor mu?\n"
+"- Onay: Dosya işlemlerinden önce açık onay mı istiyorsunuz, yoksa istemleri atlamayı mı tercih ediyorsunuz?\n"
+"- Kullanıcının talimat verme biçiminde yinelenen herhangi bir kalıp.\n"
+"3. Kısıtlamalar — kullanıcının belirttiği açık kurallar (örneğin, 'çevrimdışı olmalı', 'harici API yok', 'basit tut', 'ekstra bağımlılık yok').\n"
+"\n"
+"Tercihleri ​​tek bir istekten ÇIKARMAYIN;yalnızca tekrar tekrar görünen desenleri çıkarın.\n"
+"Geçici soruları, sohbeti veya hassas kimlik bilgilerini İÇERMEYİN.\n"
+"Geçici teknik sınırlamaları, araç kullanılabilirliği sorunlarını veya tek seferlik kısıtlamaları ÇIKARMAYIN.\n"
+"Yalnızca kullanıcının açıkça belirttiği ve uzun vadede geçerli olan kuralları çıkarın.\n"
+"Tercihleri ​​ve kısıtlamaları konuşmayla aynı dilde (kullanıcının yerel ayarıyla eşleşen) kaydedin.\n"
+"YALNIZCA bu şemayla eşleşen geçerli bir JSON nesnesiyle yanıt vermeniz GEREKİR:\n"
+"{\n"
+"\"ortam\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
+"\"tercihler\": [\"dize\"],\n"
+"\"kısıtlamalar\": [\"dize\"]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr "[Uyarı] Parça işlenemedi (%(step)s): %(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1272,6 +1298,12 @@ msgstr "Oynanıyor"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "Durduruldu"
+
+msgid "Stop requested by user."
+msgstr "Kullanıcı tarafından istenen durdurma."
+
+msgid "Stop requested by user (x key)."
+msgstr "Kullanıcının durdurma isteği (x tuşu)."
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2185,8 +2217,8 @@ msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
-"[temiz] Geçersiz bağımsız değişken: %(arg)r (sayıyı belirtin=eşik; "
-"varsayılan: %(default)d)"
+"[temiz] Geçersiz bağımsız değişken: %(arg)r (specify number=threshold; "
+"default is %(default)d)"
 
 #: src/uagent/util_tools.py:1391
 #, python-format
@@ -2256,15 +2288,14 @@ msgstr "Günlük dosyası bulunamadı: %(path)s"
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[küçültme hatası] int olarak ayrıştırılamadı: %(arg)r -> sonuncuyu sakla "
-"%(keep)d"
+"[küçültme hatası] int olarak ayrıştırılamadı: %(arg)r -> keep last %(keep)d"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[shrink_llm hatası] int olarak ayrıştırılamadı: %(arg)r -> sonuncuyu sakla "
+"[shrink_llm hatası] int olarak ayrıştırılamadı: %(arg)r -> keep last "
 "%(keep)d"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
@@ -2399,10 +2430,9 @@ msgstr "Öğrenilen kullanıcı profilini göster (ortam, tercihler, kısıtlama
 msgid "Generate profile from the most recent N log files"
 msgstr "En yeni N günlük dosyalarından profil oluşturun"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
-"Geçmiş günlüklerden kullanıcı profili oluştur (belirtilmişse son N dosya)"
+"Geçmiş günlüklerden kullanıcı profili oluştur (varsayılan: 100; 0=tümü)"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2454,6 +2484,7 @@ msgstr ""
 msgid "Continue. Goal: %(goal)s"
 msgstr "Devam etmek. Hedef: %(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "İnceleyenin notları: %(feedback)s"
 
@@ -2465,79 +2496,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "geri bildirim: %(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] Kullanıcı tarafından çıkıldı (x tuşu)."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] Kullanıcı tarafından çıkılır (x tuşu)."
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] Maksimum tur sayısına (%(max)d) ulaşıldı. Duruyorum."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[OTOMATİK] İnceleme/analiz tamamlandı."
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] Yuvarlak %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[AUTO] Maksimum turlara (%(max)d) ulaşıldı.Duruyorum."
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] İnceleme/analiz tamamlandı."
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[AUTO] Tur %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Otomatik pilot kapatıldı."
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Kullanım: :auto <hedef> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto kapalı"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "--max-rounds için geçersiz değer: %(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "Hedef boş olamaz."
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] Başladı. Hedef: %(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Maksimum tur sayısı: %(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "Çıkıyorum."
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Bilinmeyen komut: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2783,6 +2795,9 @@ msgstr "geçersiz önbellek metası"
 msgid "anthropic package is not installed."
 msgstr "antropik paket yüklü değil."
 
+msgid "Repair did not change messages, giving up."
+msgstr "Onarım mesajları değiştirmedi, pes etti."
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2881,6 +2896,9 @@ msgstr ""
 "        - Yerel veya sabit bilgiler için web aramayı kullanmayın.\n"
 "        - Yanıt zaten yeterliyse web araması olmadan yanıt vermeyi tercih edin.\n"
 "        "
+
+msgid "Response body: %(body)s"
+msgstr "Yanıt gövdesi: %(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

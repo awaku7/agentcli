@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-06-30 14:51+0900\n"
+"POT-Creation-Date: 2026-07-01 21:50+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,15 +36,15 @@ msgstr ""
 msgid "[ERROR] Git is not installed."
 msgstr "[EROARE] Git nu este instalat."
 
-#: src/uagent/cli.py:587
+#: src/uagent/cli.py:598
 msgid "getch() fallback to input()"
 msgstr "getch() alternativă la input()"
 
-#: src/uagent/cli.py:804
+#: src/uagent/cli.py:815
 msgid "Received Ctrl+C. Starting shutdown..."
 msgstr "S-a primit Ctrl+C. Începe oprirea..."
 
-#: src/uagent/cli.py:840 src/uagent/cli.py:876 src/uagent/setup_cli.py:1395
+#: src/uagent/cli.py:851 src/uagent/cli.py:887 src/uagent/setup_cli.py:1395
 #: src/uagent/setup_cli.py:1414 src/uagent/setup_cli.py:1437
 #: src/uagent/setup_cli.py:1453 src/uagent/setup_cli.py:1472
 #: src/uagent/setup_cli.py:1491 src/uagent/setup_cli.py:1505
@@ -55,11 +55,11 @@ msgstr "S-a primit Ctrl+C. Începe oprirea..."
 msgid "Cancelled."
 msgstr "Anulat."
 
-#: src/uagent/cli.py:847
+#: src/uagent/cli.py:858
 msgid "Received multiline reply."
 msgstr "A primit răspuns pe mai multe linii."
 
-#: src/uagent/cli.py:1042
+#: src/uagent/cli.py:1053
 msgid ""
 "Image file paths were found in your input.\n"
 "Do you want to send these images to the LLM (external API) for analysis?\n"
@@ -68,13 +68,13 @@ msgstr ""
 "Căile fișierelor imagine au fost găsite în intrarea dvs.\n"
 "Doriți să trimiteți aceste imagini la LLM (API extern) pentru analiză?"
 
-#: src/uagent/cli.py:1048
+#: src/uagent/cli.py:1059
 msgid "Reply with y to send, or n (or c/cancel) to skip sending."
 msgstr ""
 "Răspundeți cu y pentru a trimite sau n (sau c/anulați) pentru a omite "
 "trimiterea."
 
-#: src/uagent/cli.py:1066
+#: src/uagent/cli.py:1077
 #, python-format
 msgid ""
 "Image send confirmation failed; will not send images: %(etype)s: %(err)s"
@@ -82,17 +82,17 @@ msgstr ""
 "Confirmarea trimiterii imaginii a eșuat; nu va trimite imagini: %(etype)s: "
 "%(err)s"
 
-#: src/uagent/cli.py:1094 src/uagent/scheckgui.py:722
+#: src/uagent/cli.py:1105 src/uagent/scheckgui.py:722
 #, python-format
 msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "Nu s-a putut atașa imaginea: %(path)s (%(etype)s: %(err)s)"
 
-#: src/uagent/cli.py:1131
+#: src/uagent/cli.py:1142
 #, python-format
 msgid "Unknown event kind=%(kind)r: %(ev)r"
 msgstr "Tip necunoscut de eveniment=%(kind)r: %(ev)r"
 
-#: src/uagent/cli.py:1153
+#: src/uagent/cli.py:1164
 msgid "Exited uag."
 msgstr "A ieșit din uag."
 
@@ -645,7 +645,7 @@ msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
 "fail)."
 msgstr ""
-"Furnizor necunoscut: %(provider)r. Permis: %(allowed)s (pornirea va eșua)."
+"Furnizor necunoscut: %(provider)r. Allowed: %(allowed)s (pornirea va eșua)."
 
 #: src/uagent/env_validate.py:82
 msgid ""
@@ -751,7 +751,7 @@ msgid ""
 "Unknown embedding provider: %(provider)r. Allowed: %(allowed)s (startup will"
 " likely fail)."
 msgstr ""
-"Furnizor de încorporare necunoscut: %(provider)r. Permis: %(allowed)s "
+"Furnizor de încorporare necunoscut: %(provider)r. Allowed: %(allowed)s "
 "(pornirea va eșua)."
 
 #: src/uagent/env_validate.py:258
@@ -937,6 +937,9 @@ msgstr ""
 "Urmărire:\n"
 "%(tb)s"
 
+msgid "certifi is not available"
+msgstr "certificatul nu este disponibil"
+
 #: src/uagent/llm_image_helpers.py:7
 msgid "Describe this screenshot and summarize the visible UI."
 msgstr ""
@@ -964,7 +967,7 @@ msgid "[Translate Error] %(diag)s"
 msgstr "[Eroare de traducere] %(diag)s"
 
 #: src/uagent/llm_round_helpers.py:207 src/uagent/llm_round_helpers.py:320
-#: src/uagent/llm_round_helpers.py:688
+#: src/uagent/llm_round_helpers.py:691
 #: src/uagent/providers/llm_deepseek.py:639
 #: src/uagent/providers/llm_zai.py:304
 #, python-format
@@ -985,36 +988,44 @@ msgstr "[Eroare Claude] A apărut o eroare la generarea unui răspuns."
 msgid "Input exceeds the context window."
 msgstr "Intrarea depășește fereastra de context."
 
-#: src/uagent/llm_round_helpers.py:662
+msgid "Model does not support thinking. Disabling thinking and retrying..."
+msgstr "Modelul nu suportă gândirea.Dezactivarea gândirii și reîncercarea..."
+
+msgid "400 BadRequest"
+msgstr "400 BadRequest"
+
+msgid "Error code: %(code)d - %(err)s"
+msgstr "Cod de eroare: %(code)d - %(err)s"
+
+#: src/uagent/llm_round_helpers.py:665
 #: src/uagent/providers/llm_deepseek.py:700
 #: src/uagent/providers/llm_zai.py:374
 msgid "Connection error"
 msgstr "Eroare de conectare"
 
-#: src/uagent/llm_round_helpers.py:667
+#: src/uagent/llm_round_helpers.py:670
 #: src/uagent/providers/llm_deepseek.py:705
 #: src/uagent/providers/llm_zai.py:380
 msgid "[Network Error]"
 msgstr "[Eroare de rețea]"
 
-#: src/uagent/llm_round_helpers.py:694
+#: src/uagent/llm_round_helpers.py:697
 msgid "Unexpected exception."
 msgstr "Excepție neașteptată."
 
-#: src/uagent/llm_round_helpers.py:707
+#: src/uagent/llm_round_helpers.py:710
 msgid "Response error: resp is None."
 msgstr "Eroare de răspuns: resp este Nici unul."
 
-#: src/uagent/llm_round_helpers.py:710
+#: src/uagent/llm_round_helpers.py:713
 msgid "Response error: resp.choices is None or empty."
 msgstr "Eroare de răspuns: resp.choices este Nici unul sau gol."
 
-#: src/uagent/llm_round_helpers.py:778
+#: src/uagent/llm_round_helpers.py:781
 #, python-format
 msgid "Error while parsing response: %(err)s"
 msgstr "Eroare la analizarea răspunsului: %(err)s"
 
-#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1022,6 +1033,9 @@ msgid ""
 "3. Constraints (security rules, offline requirements, etc.)\n"
 "\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1029,31 +1043,33 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Sunteți un agent de profilare a utilizatorilor. Analizați jurnalul de conversație și extrageți-l pe cel al utilizatorului:\n"
+"Sunteți un agent de profilare a utilizatorilor.Analizați jurnalul de conversație și extrageți-l pe cel al utilizatorului:\n"
 "1. Mediu (OS, shell, editor etc.)\n"
 "2. Preferințe (stil de codare, instrumente preferate, preferință de verbozitate etc.)\n"
 "3. Constrângeri (reguli de securitate, cerințe offline etc.)\n"
 "\n"
 "NU includeți întrebări temporare, discuții sau acreditări sensibile.\n"
+"NU extrageți limitări tehnice temporare, probleme de disponibilitate a instrumentelor sau constrângeri unice.\n"
+"Extrageți doar regulile pe care utilizatorul le-a declarat în mod explicit și care se aplică pe termen lung.\n"
+"Înregistrați preferințele și constrângerile în aceeași limbă ca și conversația (potrivindu-se cu locația utilizatorului).\n"
 "TREBUIE să răspundeți NUMAI cu un obiect JSON valid care se potrivește cu această schemă:\n"
 "{\n"
-"  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
-"  „preferințe”: [„șir”],\n"
-"  \"constraints\": [\"șir\"]\n"
+"\"environment\": {\"os\": \"șir\", \"shell\": \"șir\", \"editor\": \"șir\"},\n"
+"„preferințe”: [„șir”],\n"
+"\"constraints\": [\"șir\"]\n"
 "}"
 
-#: src/uagent/profile_manager.py:738
+#: src/uagent/profile_manager.py:741
 msgid "Failed to initialize LLM client."
 msgstr "Nu s-a inițializat clientul LLM."
 
-#: src/uagent/profile_manager.py:743
+#: src/uagent/profile_manager.py:746
 #, python-format
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "S-au găsit %(total_files)d fișiere jurnal. Se începe profilarea "
 "incrementală..."
 
-#: src/uagent/profile_manager.py:752
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1068,6 +1084,9 @@ msgid ""
 "\n"
 "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
 "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+"Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+"Only extract rules the user explicitly stated and that apply long-term.\n"
+"Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
 "You MUST respond ONLY with a valid JSON object matching this schema:\n"
 "{\n"
 "  \"environment\": {\"os\": \"string\", \"shell\": \"string\", \"editor\": \"string\"},\n"
@@ -1075,27 +1094,31 @@ msgid ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 msgstr ""
-"Sunteți un agent de profilare a utilizatorilor. Analizați jurnalul "
-"deconversație și extrageți:1.Mediu (OS, shell, editor) — numai dacă este "
-"evident din jurnal.2.Preferințe — trăsături specifice, acționabile observate"
-" dinsolicitările și corecțiile reale ale utilizatorului:-Stilul de răspuns: "
-"concis sau pronunțat? Grele de cod sau grele deproză? Puncte sau "
-"paragrafe?-Limba: preferă japoneză, engleză sau mixtă?-Utilizarea "
-"instrumentelor: la ce instrumente/comenzi apelează "
-"frecventutilizatorul?-Standard de calitate: tolerează soluții alternative "
-"rapide sau insistăasupra soluțiilor adecvate?-Confirmare: dorește aprobare "
-"explicită înainte de operațiunile cufișierul sau preferă să omite "
-"solicitările?-Orice alt model recurent în modul în care utilizatorul "
-"oferăinstrucțiuni.3.Constrângeri — reguli explicite pe care utilizatorul "
-"le-a declarat (deexemplu, „trebuie să fie offline”, „fără API-uri externe”, "
-"„păstrați-lsimplu”, „fără dependențe suplimentare”).NU deduceți preferințele"
-" dintr-o singură solicitare; extrageți numaimodele care apar în mod "
-"repetat.NUincludeți întrebări temporare, discuții sau acreditări "
-"sensibile.TREBUIEsă răspunzi NUMAI cu un obiect JSON valid care se "
-"potrivește cuaceastă schemă:{\\\"environment\\\":{\\\"os\\\": "
-"\\\"string\\\", \\\"shell\\\": \\\"string\\\",\\\"editor\\\": "
-"\\\"string\\\"},\"\\:\"preferences\\\"__string\\:\"__NEWLINE_\"\\],[__NEWLINE_\"\\:\"__string\\:\"__NEWLINE\\\""
-" \\\"constrângeri\\\":[\\\"șir\\\"]}"
+"Sunteți un agent de profilare a utilizatorilor.Analizați jurnalul de conversație și extrageți:\n"
+"1. Mediu (OS, shell, editor) — numai dacă este evident din jurnal.\n"
+"2. Preferințe - trăsături specifice, acționabile observate din solicitările și corecțiile reale ale utilizatorului:\n"
+"- Stilul de răspuns: concis sau verbos?Grele de cod sau grele de proză?Puncte sau paragrafe?\n"
+"- Limba: preferă japoneză, engleză sau mixtă?\n"
+"- Utilizarea instrumentelor: la ce instrumente/comenzi apelează frecvent utilizatorul?\n"
+"- Standard de calitate: tolerează soluții alternative rapide sau insistă asupra soluțiilor adecvate?\n"
+"- Confirmare: dorește aprobare explicită înainte de operațiunile cu fișierul sau preferă să omite solicitările?\n"
+"- Orice alt model recurent în modul în care utilizatorul oferă instrucțiuni.\n"
+"3. Constrângeri — reguli explicite pe care utilizatorul le-a declarat (de exemplu, „trebuie să fie offline”, „fără API-uri externe”, „păstrați-l simplu”, „fără dependențe suplimentare”).\n"
+"\n"
+"NU deduceți preferințele dintr-o singură solicitare;extrageți numai modele care apar în mod repetat.\n"
+"NU includeți întrebări temporare, discuții sau acreditări sensibile.\n"
+"NU extrageți limitări tehnice temporare, probleme de disponibilitate a instrumentelor sau constrângeri unice.\n"
+"Extrageți doar regulile pe care utilizatorul le-a declarat în mod explicit și care se aplică pe termen lung.\n"
+"Înregistrați preferințele și constrângerile în aceeași limbă ca și conversația (potrivindu-se cu locația utilizatorului).\n"
+"TREBUIE să răspundeți NUMAI cu un obiect JSON valid care se potrivește cu această schemă:\n"
+"{\n"
+"\"environment\": {\"os\": \"șir\", \"shell\": \"șir\", \"editor\": \"șir\"},\n"
+"„preferințe”: [„șir”],\n"
+"\"constraints\": [\"șir\"]\n"
+"}"
+
+msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
+msgstr "[Avertisment] Nu s-a procesat fragmentul (%(step)s): %(err)s"
 
 #: src/uagent/scheckgui.py:394
 msgid "Drop files/images here"
@@ -1291,6 +1314,12 @@ msgstr "Jucând"
 #: src/uagent/scheckgui.py:2290
 msgid "Stopped"
 msgstr "oprit"
+
+msgid "Stop requested by user."
+msgstr "Oprire solicitată de utilizator."
+
+msgid "Stop requested by user (x key)."
+msgstr "Oprire solicitată de utilizator (tasta x)."
 
 #: src/uagent/scheckgui.py:2356
 #, python-format
@@ -2211,8 +2240,8 @@ msgid ""
 "[clean] Invalid argument: %(arg)r (specify number=threshold; default is "
 "%(default)d)"
 msgstr ""
-"[curățați] Argument nevalid: %(arg)r (specificați numărul=prag; implicit "
-"este %(default)d)"
+"[curățați] Argument nevalid: %(arg)r (specify number=threshold; default is "
+"%(default)d)"
 
 #: src/uagent/util_tools.py:1391
 #, python-format
@@ -2282,16 +2311,16 @@ msgstr "Fișierul jurnal nu a fost găsit: %(path)s"
 #, python-format
 msgid "[shrink error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[eroare de micșorare] Nu s-a putut analiza ca int: %(arg)r -> păstrați "
-"ultimul %(keep)d"
+"[eroare de micșorare] Nu s-a putut analiza ca int: %(arg)r -> keep last "
+"%(keep)d"
 
 #: src/uagent/util_tools.py:1806
 #, python-format
 msgid ""
 "[shrink_llm error] Failed to parse as int: %(arg)r -> keep last %(keep)d"
 msgstr ""
-"[eroare shrink_llm] Nu s-a putut analiza ca int: %(arg)r -> păstrați ultimul"
-" %(keep)d"
+"[eroare shrink_llm] Nu s-a putut analiza ca int: %(arg)r -> keep last "
+"%(keep)d"
 
 #: src/uagent/util_tools.py:1899 src/uagent/util_tools.py:1993
 msgid ""
@@ -2432,11 +2461,10 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Generați un profil din cele mai recente N fișiere jurnal"
 
-#: src/uagent/util_tools.py:2090
-msgid "Generate user profile from past logs (last N files if specified)"
+msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
-"Generați un profil de utilizator din jurnalele anterioare (ultimele N "
-"fișiere, dacă este specificat)"
+"Generați un profil de utilizator din jurnalele anterioare (implicit: 100; "
+"0=toate)"
 
 #: src/uagent/util_tools.py:2091
 msgid "Clear the learned user profile data"
@@ -2490,6 +2518,7 @@ msgstr ""
 msgid "Continue. Goal: %(goal)s"
 msgstr "Continua. Obiectiv: %(goal)s"
 
+#: src/uagent/util_tools.py:2227
 msgid "Reviewer notes: %(feedback)s"
 msgstr "Note ale recenzentului: %(feedback)s"
 
@@ -2501,79 +2530,60 @@ msgstr ""
 "\n"
 "[AUTO:judge] %(judgment)s"
 
+#: src/uagent/util_tools.py:2330
 msgid "  feedback: %(feedback)s"
 msgstr "feedback: %(feedback)s"
 
-#: src/uagent/util_tools.py:2385
-msgid ""
-"\n"
-"[AUTO] Exited by user (x key)."
-msgstr ""
-"\n"
-"[AUTO] Ieșit de utilizator (tasta x)."
+msgid "[AUTO] Exited by user (x key)."
+msgstr "[AUTO] Ieșit de utilizator (tasta x)."
 
-#: src/uagent/util_tools.py:2393
-msgid ""
-"\n"
-"[AUTO] Max rounds (%(max)d) reached. Stopping."
-msgstr ""
-"\n"
-"[AUTO] Runde maxime (%(max)d) atinse. Oprire."
+msgid "[AUTO] Review/analysis completed."
+msgstr "[AUTO] Examinare/analiza finalizată."
 
-#: src/uagent/util_tools.py:2403
-msgid ""
-"\n"
-"[AUTO] Round %(round)d/%(max)d"
-msgstr ""
-"\n"
-"[AUTO] Rotundă %(round)d/%(max)d"
+msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
+msgstr "[AUTO] Runde maxime (%(max)d) atinse.Oprire."
 
-#: src/uagent/util_tools.py:2440
-msgid ""
-"\n"
-"[AUTO] Review/analysis completed."
-msgstr ""
-"\n"
-"[AUTO] Examinare/analiza finalizată."
+msgid "[AUTO] Round %(round)d/%(max)d"
+msgstr "[AUTO] Rotundă %(round)d/%(max)d"
 
-#: src/uagent/util_tools.py:2465
+#: src/uagent/util_tools.py:2472
 msgid "[AUTO] Auto-pilot turned off."
 msgstr "[AUTO] Pilot automat dezactivat."
 
-#: src/uagent/util_tools.py:2469
+#: src/uagent/util_tools.py:2476
 msgid "Usage: :auto <goal> [--max-rounds N]"
 msgstr "Utilizare: :auto <obiectiv> [--max-rounds N]"
 
-#: src/uagent/util_tools.py:2470
+#: src/uagent/util_tools.py:2477
 msgid "       :auto off"
 msgstr ":auto oprit"
 
-#: src/uagent/util_tools.py:2484
+#: src/uagent/util_tools.py:2491
 msgid "Invalid value for --max-rounds: %(val)s"
 msgstr "Valoare nevalidă pentru --max-rounds: %(val)s"
 
-#: src/uagent/util_tools.py:2495
+#: src/uagent/util_tools.py:2502
 msgid "Goal cannot be empty."
 msgstr "Obiectivul nu poate fi gol."
 
-#: src/uagent/util_tools.py:2505
+#: src/uagent/util_tools.py:2512
 msgid "[AUTO] Started. Goal: %(goal)s"
 msgstr "[AUTO] A început. Obiectiv: %(goal)s"
 
-#: src/uagent/util_tools.py:2506
+#: src/uagent/util_tools.py:2513
 msgid "[AUTO] Max rounds: %(max)d"
 msgstr "[AUTO] Runde maxime: %(max)d"
 
-#: src/uagent/util_tools.py:2670
+#: src/uagent/util_tools.py:2677
 msgid "Exiting."
 msgstr "Ieșire."
 
-#: src/uagent/util_tools.py:2673
+#: src/uagent/util_tools.py:2680
 #, python-format
 msgid "Unknown command: :%(cmd)s"
 msgstr "Comandă necunoscută: :%(cmd)s"
 
-#: src/uagent/util_tools.py:2736
+#: src/uagent/util_tools.py:2743
 msgid ""
 "The bullet points listed below are excerpts from this user's long-term memory (persistent memos). Use them as background information about the user. However, always prioritize newly provided information in the conversation, and if it contradicts older information, adopt the latest information.\n"
 "\n"
@@ -2819,6 +2829,9 @@ msgstr "meta cache nevalidă"
 msgid "anthropic package is not installed."
 msgstr "pachetul antropic nu este instalat."
 
+msgid "Repair did not change messages, giving up."
+msgstr "Reparația nu a schimbat mesajele, renunțând."
+
 #: src/uagent/providers/llm_deepseek.py:712
 #: src/uagent/providers/llm_zai.py:387
 msgid "An error occurred while generating a response."
@@ -2918,6 +2931,9 @@ msgstr ""
 "        - Utilizați căutarea pe web numai atunci când sunt necesare informații noi sau externe.\n"
 "        - Nu utilizați căutarea pe web pentru informații locale sau stabile.\n"
 "        - Preferați să răspundeți fără căutare pe web atunci când răspunsul este deja suficient."
+
+msgid "Response body: %(body)s"
+msgstr "Corpul răspunsului: %(body)s"
 
 #: src/uagent/providers/util_providers.py:219
 msgid "Environment variable UAGENT_PROVIDER is not set."

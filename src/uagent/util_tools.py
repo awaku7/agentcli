@@ -2087,7 +2087,7 @@ def format_help(*, core: Any) -> str:
         "  :profile [fromlog N]  "
         + tr("Generate profile from the most recent N log files"),
         "  :profile-fromlog [N]  "
-        + tr("Generate user profile from past logs (last N files if specified)"),
+        + tr("Generate user profile from past logs (default: 100; 0=all)"),
         "  :profile-clear        " + tr("Clear the learned user profile data"),
         "  :cp <src> <dst>       "
         + tr("Copy file or directory (supports -f/--overwrite and -p/--mkdirs)"),
@@ -2623,7 +2623,7 @@ def handle_command(
 
     if cmd == "profile-fromlog":
         # Pass optional max_log_files as "fromlog N"
-        profile_arg = "fromlog"
+        profile_arg = "fromlog 100"
         if arg and arg.strip():
             try:
                 n = int(arg.strip())

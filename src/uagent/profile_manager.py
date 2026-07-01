@@ -625,6 +625,9 @@ def _profile_worker(
             "2. Preferences (coding style, preferred tools, verbosity preference, etc.)\n"
             "3. Constraints (security rules, offline requirements, etc.)\n\n"
             "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+            "Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+            "Only extract rules the user explicitly stated and that apply long-term.\n"
+            "Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
             "You MUST respond ONLY with a valid JSON object matching this schema:\n"
             "{\n"
             '  "environment": {"os": "string", "shell": "string", "editor": "string"},\n'
@@ -761,6 +764,9 @@ def profile_from_logs(
         "3. Constraints — explicit rules the user stated (e.g. 'must be offline', 'no external APIs', 'keep it simple', 'no extra dependencies').\n\n"
         "Do NOT infer preferences from a single request; only extract patterns that appear repeatedly.\n"
         "Do NOT include temporary questions, chit-chat, or sensitive credentials.\n"
+        "Do NOT extract temporary technical limitations, tool availability issues, or one-time constraints.\n"
+        "Only extract rules the user explicitly stated and that apply long-term.\n"
+        "Record preferences and constraints in the same language as the conversation (matching the user locale).\n"
         "You MUST respond ONLY with a valid JSON object matching this schema:\n"
         "{\n"
         '  "environment": {"os": "string", "shell": "string", "editor": "string"},\n'
@@ -824,7 +830,7 @@ def profile_from_logs(
             if isinstance(new_prof, dict):
                 return new_prof
         except Exception as e:
-            print(f"  [Warning] Failed to process chunk ({step_info}): {e}")
+            print("  " + _("[Warning] Failed to process chunk (%(step)s): %(err)s") % {"step": step_info, "err": e})
         return None
 
     # Iterate through all files in chronological order
