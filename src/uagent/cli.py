@@ -289,6 +289,17 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                                     yield Completion(
                                         sc, start_position=-len(after_skills)
                                     )
+                        else:
+                            # :skills <subcmd> <subarg> completion
+                            cmd2 = after_skills.split(" ", 1)[0].lower()
+                            arg2 = after_skills.split(" ", 1)[1] if " " in after_skills else ""
+                            if cmd2 == "apm" and " " not in arg2:
+                                apm_subcmds = ["list", "use", "dir", "help"]
+                                for sc2 in apm_subcmds:
+                                    if sc2.startswith(arg2):
+                                        yield Completion(
+                                            sc2, start_position=-len(arg2)
+                                        )
                     elif stripped.startswith((":r ", ":reasoning ")):
                         # :r reasoning mode values
                         r_prefix = stripped.split(" ", 1)[1] if " " in stripped else ""

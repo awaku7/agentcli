@@ -219,6 +219,43 @@ A tool may suppress the trace using the extended flag:
 - `--inject-message` / `-M` CLI option triggers one-shot LLM processing at startup (see Section 0.1).
 - CLI startup injects the message and runs LLM rounds before the interactive loop (see `cli_startup.py`).
 
+### 3.10 APM (Agent Package Manager) skill integration
+
+Microsoft [APM](https://github.com/microsoft/apm) (`apm install`) installs skills to:
+
+```
+<project-root>/
+  apm_modules/
+    <package>/
+      .apm/
+        skills/
+          <skill-name>/
+            SKILL.md
+```
+
+The `:skills apm` subcommand (implemented in `src/uagent/tools/skills_apm_tool.py`)
+discovers and activates those skills without requiring APM CLI integration.
+
+**Subcommands:**
+
+| Command | Description |
+|---|---|
+| `:skills apm list` | Scan `apm_modules/*/.apm/skills/` for SKILL.md and list them |
+| `:skills apm use <name\|#>` | Load and activate an APM skill (injects `[SKILL]` system message) |
+| `:skills apm dir` | Show current APM project root (default: workdir) |
+| `:skills apm dir <path>` | Set APM project root directory |
+| `:skills apm help` | Show help |
+
+**Behavior:**
+
+- APM project root defaults to `os.getcwd()` (workdir). Can be overridden with
+  `:skills apm dir <path>` or via module-level `_apm_dir`.
+- Skills are loaded via existing `load_skill_doc()` / `load_skill_frontmatter_only()`
+  from `agent_skills_shared.py` (same Agent Skills spec format).
+- `:skills apm use` builds the same `[SKILL]`-prefixed system message as `:skills <name>`
+  and injects it into conversation history.
+- The user runs `apm install` themselves; uagent only reads the resulting files.
+- The tool provides no `TOOL_SPEC` (CLI-only; LLM does not call it directly).
 ______________________________________________________________________
 
 ## 4. Workdir / banner / long-term memory
