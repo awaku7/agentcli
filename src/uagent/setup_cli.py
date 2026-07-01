@@ -1368,7 +1368,7 @@ def main() -> int:
     detected_provider = defaults.get("UAGENT_PROVIDER", "").lower()
     detected_index = 2  # default to openai
     if detected_provider:
-        for i, (p, _) in enumerate(PROVIDERS):
+        for i, (p, label) in enumerate(PROVIDERS):
             if p == detected_provider:
                 detected_index = i + 1
                 break
