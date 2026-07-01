@@ -5,12 +5,12 @@
 <h1 align="center">uag — Gerbang AI Universal</h1>
 
 <p align="center">
-  <b>U</b>universal <b>A</b>I <b>G</b>ateway — Lingkungan Anda, kebebasan Anda.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
 </p>
 
 <p align="center">
-  Operasi file / Pencarian web / Pembuatan & analisis gambar / Ekstraksi PDF & Excel / Kontrol IoT / Integrasi MCP<br>
-  15+ penyedia / 3 UI / Eksekusi alat paralel / Pasar Keterampilan Agen
+  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
+  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="README.translations.md">Baca ini dalam bahasa Anda</a>
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
 ---
@@ -28,9 +28,9 @@
 **Bebaskan diri dari penguncian vendor.** Sebagian besar asisten AI mengikat Anda ke penyedia atau layanan cloud tertentu. uag berbeda.
 
 - **Berjalan secara lokal** di mesin Anda. Data Anda tetap bersama Anda (kecuali panggilan API yang Anda lakukan).
-- **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ penyedia, semuanya dapat diakses dari satu antarmuka. Bertukar di antara keduanya dengan mengonfigurasi ulang variabel lingkungan — tanpa instalasi ulang, tanpa migrasi.
-- **131 alat**: I/O file, pencarian web, pembuatan gambar, pemindaian perangkat BLE, integrasi server MCP — dan **76 di antaranya berjalan secara paralel**. Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis mengeksekusinya melalui kumpulan thread.
-- **4 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
+- **Kebebasan penyedia**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ penyedia, semuanya dapat diakses dari satu antarmuka. Bertukar di antara keduanya dengan mengonfigurasi ulang variabel lingkungan — tanpa instalasi ulang, tanpa migrasi.
+- **131 alat**: I/O file, penelusuran web, pembuatan gambar, Gmail, pemindaian perangkat BLE, integrasi server MCP — **76 aman secara paralel** (hingga 8 dijalankan secara bersamaan melalui kumpulan thread, dapat dikonfigurasi melalui `UAGENT_PARALLEL_WORKERS`). Saat LLM mengaktifkan beberapa panggilan alat sekaligus, uag secara otomatis memparalelkannya.
+- **3 UI + A2A**: CLI, GUI, Web, dan protokol Agen-ke-Agen. Mesin yang sama, antarmuka apa pun.
 - **Siap IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — kendalikan perangkat rumah Anda melalui AI.
 - **Keterampilan Agen**: Instal keterampilan yang dibangun komunitas dari pasar. Perpanjang uag tanpa henti.
 
@@ -44,20 +44,20 @@ uag
 ```
 
 Pada peluncuran pertama, wizard pengaturan memandu Anda melalui konfigurasi penyedia.
-Lihat [ENVIRONMENT.md](../ENVIRONMENT.md)) untuk semua variabel lingkungan.
+Lihat [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) untuk semua variabel lingkungan.
 
 ## Fitur
 
 ### 🧠 Arsitektur Multi-Penyedia
 
-OpenAI / Azure / Batuan Dasar / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
 Semua penyedia berbagi perangkat dan antarmuka yang sama. Beralih berdasarkan pengaturan `UAGENT_PROVIDER` — tidak ada perubahan kode, tidak ada instalasi terpisah.
 
 ### ⚡ Eksekusi Alat Paralel
 
 Saat LLM meminta beberapa alat secara bersamaan, uag **secara otomatis memparalelkannya**.
-76 alat ditandai `x_parallel_safe` dan dieksekusi secara bersamaan melalui `ThreadPoolExecutor` 4-thread.
+76 alat ditandai `x_parallel_safe` dan dieksekusi secara bersamaan melalui `ThreadPoolExecutor` (8 thread secara default; setel `UAGENT_PARALLEL_WORKERS` untuk diubah).
 
 **Contoh**: Tanyakan "Periksa cuaca di ibu kota Nordik" → LLM mengaktifkan `search_web` × 5 negara → kelima penelusuran dijalankan secara paralel → hasil dikumpulkan dalam satu kelompok.
 
@@ -65,25 +65,27 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 
 ### 🔄 Kontinuitas Sesi
 
-- **Ganti penyedia di tengah sesi** dengan `UAGENT_PROVIDER` — riwayat percakapan dipertahankan.
-- **Muat ulang sesi sebelumnya** dengan `:load <index>` — lanjutkan dari bagian terakhir yang Anda tinggalkan.
-- **Caching hasil alat** menghindari eksekusi ulang yang berlebihan ketika panggilan alat yang sama diulang.
+- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
+- **Reload past sessions** with `:load <index>` — pick up where you left off.
+- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
 ### 🛠 131 Alat
 
 | Kategori | Alat |
 |---|---|
-| **Operasi File** | baca/tulis/buat/hapus/pencarian/grep/hash/zip |
+| **Operasi File** | baca/tulis/buat/hapus/pencarian/grep/hash/zip, parse_eml (file .eml) |
 | **Jaringan** | ambil_url, cari_web, tangkapan layar, browser_playwright |
 | **Media** | menghasilkan_gambar, menganalisis_gambar, img2img, audio_speech, audio_transkripsikan |
 | **Dokumen** | Ekstraksi PDF/PPTX/DOCX/RTF/ODT, ekstraksi terstruktur Excel |
+| **Komunikasi** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — lihat [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Materi, UPnP |
-| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **13 idx tools** |
+| **Alat Pengembang** | git_ops, python_compile, lint_format, run_tests, db_query, **13 navigator kode sumber (keluarga idx)** |
 | **MCP** | Hubungkan ke server MCP eksternal, daftar alat, jalankan |
 | **A2A** | Komunikasi agen-ke-agen (dengan instans uag lain atau server yang kompatibel dengan A2A) |
 | **Sistem** | env vars, spesifikasi sistem, waktu, perhitungan tanggal |
+| **Nav Sumber** | **13 alat idx** untuk Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — dapatkan indeks fungsi/kelas atau definisi spesifik tanpa membaca keseluruhan file |
 
-### 🖥 3 Antarmuka + A2A + VS Code
+### 🖥 4 Antarmuka + Ekstensi Kode VS
 
 | Modus | Perintah | Tujuan |
 |---|---|---|
@@ -91,7 +93,9 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 | **GUI** | `uagg` | UI Desktop melalui tkinter |
 | **Jaringan** | `uagw` | Akses berbasis browser |
 | **Server A2A** | `uaga` | Protokol Agent2Agent untuk komunikasi multi-agen |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
+| **Kode VS** | — | [Ekstensi](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) dengan Panel Obrolan, Penjelasan, Refaktor, Perbaiki Kesalahan, dan Tampilan Pohon Alat |
+
+Lihat [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) untuk detail tentang ekstensi VS Code — instalasi, perintah, pengikatan kunci, dan konfigurasi.
 
 ### 🏠 Kontrol Perangkat IoT
 
@@ -100,45 +104,46 @@ Alat read-only (pencarian file, penghitungan hash, daftar direktori, terjemahan,
 - **Materi**: Pemeriksaan topologi pengontrol/jembatan/perangkat hanya-baca
 - **UPnP**: Penemuan perangkat & penerusan port IGD
 
-Lihat [IOT_USECASE.md](../IOT_USECASE.md))
+Lihat [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 
 ### 🎯 Pasar Keterampilan Agen
 
 `:skills mp_search` untuk menelusuri [SkillsMP](https://skillsmp.com) dan [ClawHub](https://clawhub.ai) untuk keterampilan komunitas.
 Instal dan perluas kemampuan uag dengan cepat.
 
-### 🤖 Auto-Pilot (`:auto`)
+### 🤖 Pilot Otomatis (`:otomatis`)
 
-uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for complex, multi-step tasks that need iterative refinement.
+uag dapat **secara mandiri mengejar tujuan di beberapa putaran LLM**. Sempurna untuk tugas-tugas kompleks dan multi-langkah yang memerlukan penyempurnaan berulang.
 
-- **How it works**: Each round has a main query (Step A) followed by a reviewer judgment (Step B) that decides "COMPLETE or CONTINUE?"
-- **Same provider, same API**: The reviewer judgment uses the identical code path as the main query — including Responses API support.
-- **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
-- **Configurable**: `--max-rounds N` to control the budget.
+- **Cara kerjanya**: Setiap putaran memiliki kueri utama (Langkah A) diikuti dengan penilaian peninjau (Langkah B) yang memutuskan "SELESAI atau LANJUTKAN?"
+- **Penyedia yang sama, API yang sama**: Penilaian peninjau menggunakan jalur kode yang sama dengan kueri utama — termasuk dukungan Responses API.
+- **Juri LLM terpisah** (opsional): Setel `UAGENT_AP_PROVIDER` untuk menggunakan penyedia/model yang berbeda untuk pengulas (misalnya, gunakan model yang lebih murah untuk menilai).
+- **Keluar kapan saja**: Tekan tombol `x` untuk segera berhenti, bahkan di tengah respons. Atau biarkan pengulas memutuskan kapan tujuannya tercapai.
+- **Dapat dikonfigurasi**: `--max-rounds N` untuk mengontrol anggaran.
 
-See [README_AUTO.md](../README_AUTO.md)) for full documentation.
+Lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) untuk dokumentasi lengkap.
 
 ### 🧩 Manajer Status Batch
 
-uag dapat melacak kemajuan tugas multi-file yang berjalan lama. Saat LLM memproses lusinan file, `batch_state` menyimpan daftar file yang tertunda, selesai, dan gagal ke disk. Jika sesi berakhir atau putaran habis, putaran berikutnya dilanjutkan dari titik berhentinya — tidak ada yang hilang.
+uag dapat melacak kemajuan tugas multi-file yang berjalan lama. Saat LLM memproses puluhan file, `batch_state` menyimpan daftar file yang tertunda, selesai, dan gagal ke disk. Jika sesi berakhir atau putaran habis, putaran berikutnya dilanjutkan dari titik berhentinya — tidak ada yang hilang.
 
 ### 🛡 Manusia dalam Lingkaran
 
 `human_ask` memungkinkan LLM berhenti sejenak dan meminta konfirmasi Anda sebelum melakukan operasi destruktif (penghapusan file, penimpaan, perintah shell). Anda tetap memegang kendali.
 
-### 🛑 Interrupt (c-key / Stop button)
+### 🛑 Interupsi (tombol c / tombol Stop)
 
-Stop LLM response generation at any time and inject a stop command back to the LLM.
+Hentikan pembuatan respons LLM kapan saja dan masukkan perintah stop kembali ke LLM.
 
-| Interface | How to interrupt |
+| Antarmuka | Bagaimana cara menyela |
 |---|---|
-| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
-| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
-| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+| **KLI** | Tekan tombol `c` selama streaming LLM — respons saat ini berhenti, dan `"Stop"` dikirim sebagai pesan pengguna sehingga LLM merespons sesuai |
+| **UI WEB** | Klik tombol merah **■ Stop** (muncul secara otomatis selama pemrosesan LLM) |
+| **GUI Desktop** | Klik tombol merah **■** (muncul otomatis selama pemrosesan LLM) |
 
-The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+Interupsi berfungsi sebagai "injeksi cepat": alih-alih dibatalkan, interupsi tersebut mengumpankan `"Stop"` kembali ke LLM sebagai pesan pengguna, sehingga memungkinkannya menyimpulkan atau mengakui interupsi dengan baik.
 
-Press `x` key to exit auto-pilot mode (see `:auto` command).
+Tekan tombol `x` untuk keluar dari mode auto-pilot (lihat [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
 
 ### 🕵️ Otomatisasi Browser & Inspektur Web
 
@@ -155,9 +160,9 @@ Tidak perlu memuat semuanya saat startup — aktifkan hanya yang Anda perlukan, 
 ### 🌐 i18n / L10n
 
 日本語 / Inggris / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / dan masih banyak lagi.
-Setel `UAGENT_LANG` untuk beralih. Lihat [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) untuk menambahkan lokal baru.
+Setel `UAGENT_LANG` untuk beralih. Lihat [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) untuk menambahkan lokal baru.
 
-Terjemahan README ini tersedia di [docs/README.translations.md](README.translations.md)).
+Terjemahan README ini tersedia di [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
 
 ### 🔒 Variabel Lingkungan Terenkripsi
 
@@ -166,12 +171,12 @@ Kelola dengan `uag_envsec`.
 
 ## Konfigurasi & Detail
 
-- **Variabel lingkungan**: [ENVIRONMENT.md](../ENVIRONMENT.md))
+- **Variabel lingkungan**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **Wizard penyiapan**: `python -m uagent.setup_cli`
 - **Env terenkripsi**: `uag_envsec` — mengenkripsi `.env` sebagai `.env.sec`
-- **Responses API**: Setel `UAGENT_RESPONSES=1` untuk mode Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Dokumen pengembang**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
-- **Tips LLM kecil**: [SLM_TIPS.md](../SLM_TIPS.md))
+- **Responses API**: Setel `UAGENT_RESPONSES=1` untuk mode Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Diaktifkan secara otomatis untuk Sakana AI (Fugu).
+- **Dokumen pengembang**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Tips LLM kecil**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Filosofi Proyek
 

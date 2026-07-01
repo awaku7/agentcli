@@ -1,16 +1,16 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="logo uag" width="720">
+  <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
 </p>
 
 <h1 align="center">uag — uniwersalna bramka AI</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Twoje środowisko, Twoja wolność.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
 </p>
 
 <p align="center">
-  Operacje plików / Wyszukiwanie w Internecie / Generowanie i analiza obrazów / Ekstrakcja plików PDF i Excel / Kontrola IoT / Integracja MCP<br>
-  Ponad 15 dostawców / 3 interfejsy użytkownika / Równoległe wykonywanie narzędzi / Rynek umiejętności agenta
+  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
+  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="README.translations.md">Przeczytaj to w swoim języku</a>
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
 ---
@@ -27,10 +27,10 @@
 
 **Uwolnij się od uzależnienia od dostawcy.** Większość asystentów AI wiąże Cię z konkretnym dostawcą lub usługą w chmurze. uag jest inny.
 
-- **Działa lokalnie** na Twoim komputerze. Twoje dane pozostają przy Tobie (z wyjątkiem wywołań API, które wykonujesz).
-- **Wolność dostawcy**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Ponad 15 dostawców, wszyscy dostępni z jednego interfejsu. Przełączaj się między nimi, rekonfigurując zmienne środowiskowe — bez ponownej instalacji i bez migracji.
-- **131 narzędzi**: operacje we/wy plików, wyszukiwanie w Internecie, generowanie obrazów, skanowanie urządzeń BLE, integracja z serwerem MCP — przy czym **76 z nich działa równolegle**. Kiedy LLM uruchamia wiele wywołań narzędzi jednocześnie, uag automatycznie wykonuje je za pośrednictwem puli wątków.
-- **4 interfejsy użytkownika + A2A**: CLI, GUI, Internet i protokół Agent-Agent. Ten sam silnik, dowolny interfejs.
+- **Runs locally** on your machine. Twoje dane pozostają przy Tobie (z wyjątkiem wywołań API, które wykonujesz).
+- **Wolność dostawcy**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Ponad 15 dostawców, wszyscy dostępni z jednego interfejsu. Przełączaj się między nimi, rekonfigurując zmienne środowiskowe — bez ponownej instalacji i bez migracji.
+- **131 narzędzi**: operacje we/wy plików, wyszukiwanie w Internecie, generowanie obrazów, Gmail, skanowanie urządzeń BLE, integracja z serwerem MCP — **76 jest bezpiecznych w trybie równoległym** (do 8 jest wykonywanych jednocześnie za pośrednictwem puli wątków, konfigurowalne za pomocą `UAGENT_PARALLEL_WORKERS`). Kiedy LLM uruchamia wiele wywołań narzędzi jednocześnie, uag automatycznie łączy je równolegle.
+- **3 interfejsy użytkownika + A2A**: CLI, GUI, Internet i protokół Agent-Agent. Same engine, any interface.
 - **Gotowy na IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — kontroluj swoje urządzenia domowe poprzez sztuczną inteligencję.
 - **Umiejętności agenta**: Zainstaluj umiejętności opracowane przez społeczność z rynku. Rozszerzaj uag w nieskończoność.
 
@@ -44,20 +44,20 @@ uag
 ```
 
 Przy pierwszym uruchomieniu kreator instalacji przeprowadzi Cię przez konfigurację dostawcy.
-Zobacz [ENVIRONMENT.md](../ENVIRONMENT.md)), aby zapoznać się ze wszystkimi zmiennymi środowiskowymi.
+Zobacz [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md), aby zapoznać się ze wszystkimi zmiennymi środowiskowymi.
 
-## Funkcje
+## Cechy
 
-### 🧠 Architektura obejmująca wielu dostawców
+### 🧠 Architektura wielu dostawców
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
 Wszyscy dostawcy korzystają z tego samego zestawu narzędzi i interfejsu. Przełącz, ustawiając `UAGENT_PROVIDER` — bez zmian kodu, bez oddzielnych instalacji.
 
 ### ⚡ Równoległe wykonanie narzędzia
 
-Kiedy LLM żąda jednocześnie wielu narzędzi, uag **automatycznie łączy je** zrównolegle.
-76 narzędzi jest oznaczonych jako `x_parallel_safe` i uruchamianych jednocześnie poprzez 4-wątkowy `ThreadPoolExecutor`.
+Kiedy LLM żąda jednocześnie wielu narzędzi, uag **automatycznie porównuje je**.
+76 narzędzi jest oznaczonych jako `x_parallel_safe` i są wykonywane współbieżnie poprzez `ThreadPoolExecutor` (domyślnie 8 wątków; ustaw `UAGENT_PARALLEL_WORKERS`, aby zmienić).
 
 **Przykład**: Zapytaj „Sprawdź pogodę w stolicach nordyckich” → LLM uruchamia `search_web` × 5 krajów → wszystkie 5 wyszukiwań przebiega równolegle → wyniki zebrane w jednej partii.
 
@@ -65,26 +65,27 @@ Narzędzia tylko do odczytu (wyszukiwanie plików, obliczanie skrótu, wyświetl
 
 ### 🔄 Ciągłość sesji
 
-- **Zmień dostawcę w połowie sesji** z `UAGENT_PROVIDER` — historia rozmów zostaje zachowana.
-- **Wczytaj ponownie poprzednie sesje** za pomocą `:load <index>` — rozpocznij od miejsca, w którym przerwałeś.
-- **Buforowanie wyników narzędzi** pozwala uniknąć zbędnego ponownego wykonywania, gdy powtarza się to samo wywołanie narzędzia.
+- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
+- **Reload past sessions** with `:load <index>` — pick up where you left off.
+- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
 ### 🛠 131 narzędzi
 
 | Kategoria | Narzędzia |
 |---|---|
-| **Operacje na plikach** | odczyt/zapis/tworzenie/usuwanie/wyszukiwanie/grep/hash/zip |
+| **Operacje na plikach** | odczyt/zapis/utwórz/usunięcie/wyszukiwanie/grep/hash/zip, parse_eml (pliki .eml) |
 | **Sieć** | fetch_url, search_web, zrzut ekranu, przeglądarka_playwright |
 | **Media** | generuj obraz_obraz_analizuj, img2img, mowa_audio, transkrypcja_audio |
 | **Dokumenty** | Ekstrakcja PDF/PPTX/DOCX/RTF/ODT, ekstrakcja strukturalna Excel |
+| **Komunikacja** | gmail_send, gmail_read, bluesky, discord_channel, team_webhook — zobacz [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Materia, UPnP |
-| **Narzędzia deweloperskie**, ****13 narzędzi idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — uzyskaj indeks funkcji/klas lub konkretną definicję bez czytania całego pliku** | git_ops, python_compile, lint_format, run_tests, db_query, ****13 narzędzi idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — uzyskaj indeks funkcji/klas lub konkretną definicję bez czytania całego pliku** |
+| **Narzędzia deweloperskie** | git_ops, python_compile, lint_format, run_tests, db_query, **13 nawigatorów kodu źródłowego (rodzina idx)** |
 | **MCP** | Połącz się z zewnętrznymi serwerami MCP, wyświetl listę narzędzi, wykonaj |
 | **A2A** | Komunikacja agent-agent (z innymi instancjami uag lub serwerami kompatybilnymi z A2A) |
 | **System** | env vars, specyfikacje systemu, czas, obliczanie daty |
-| **Nawigacja kodu źródłowego** | **13 narzędzi idx** (Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL) — uzyskaj indeks funkcji/klas lub konkretną definicję bez czytania całego pliku |
+| **Nawigacja źródłowa** | **13 narzędzi idx** dla Pythona, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — uzyskaj indeks funkcji/klasy lub konkretną definicję bez czytania całego pliku |
 
-### 🖥 3 interfejsy + A2A + VS Code
+### 🖥 4 interfejsy + rozszerzenie kodu VS
 
 | Tryb | Polecenie | Cel |
 |---|---|---|
@@ -92,7 +93,9 @@ Narzędzia tylko do odczytu (wyszukiwanie plików, obliczanie skrótu, wyświetl
 | **GUI** | `uagg` | Interfejs użytkownika komputera stacjonarnego za pośrednictwem tkinter |
 | **Sieć** | `uagw` | Dostęp przez przeglądarkę |
 | **Serwer A2A** | `uaga` | Protokół Agent2Agent do komunikacji wieloagentowej |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
+| **Kod VS** | — | [Rozszerzenie](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) z panelem czatu, wyjaśnianiem, refaktoryzacją, naprawianiem błędów i widokiem drzewa narzędzi |
+
+Zobacz [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md), aby uzyskać szczegółowe informacje na temat rozszerzenia VS Code — instalacji, poleceń, przypisań klawiszy i konfiguracji.
 
 ### 🏠 Kontrola urządzeń IoT
 
@@ -101,7 +104,7 @@ Narzędzia tylko do odczytu (wyszukiwanie plików, obliczanie skrótu, wyświetl
 - **Materia**: Kontrola topologii kontrolera/mostka/urządzenia w trybie tylko do odczytu
 - **UPnP**: wykrywanie urządzeń i przekierowywanie portów IGD
 
-Zobacz [IOT_USECASE.md](../IOT_USECASE.md))
+Zobacz [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 
 ### 🎯 Rynek umiejętności agentów
 
@@ -110,14 +113,15 @@ Instaluj i rozszerzaj możliwości uag w locie.
 
 ### 🤖 Auto-Pilot (`:auto`)
 
-uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for complex, multi-step tasks that need iterative refinement.
+uag może **autonomicznie realizować cel w wielu rundach LLM**. Idealny do złożonych, wieloetapowych zadań wymagających iteracyjnego udoskonalania.
 
-- **How it works**: Each round has a main query (Step A) followed by a reviewer judgment (Step B) that decides "COMPLETE or CONTINUE?"
-- **Same provider, same API**: The reviewer judgment uses the identical code path as the main query — including Responses API support.
-- **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
-- **Configurable**: `--max-rounds N` to control the budget.
+- **Jak to działa**: Każda runda składa się z głównego zapytania (Krok A), po którym następuje ocena recenzenta (Krok B), która decyduje: „UKOŃCZYĆ czy KONTYNUOWAĆ?”
+- **Ten sam dostawca, ten sam interfejs API**: w ocenie recenzenta używana jest identyczna ścieżka kodu, jak w głównym zapytaniu — łącznie z obsługą interfejsu API odpowiedzi.
+- **Oddzielny sędzia LLM** (opcjonalnie): Ustaw `UAGENT_AP_PROVIDER`, aby używać innego dostawcy/modelu dla recenzenta (np. użyj tańszego modelu do oceniania).
+- **Wyjdź w dowolnym momencie**: Naciśnij klawisz „x”, aby zatrzymać natychmiast, nawet w połowie odpowiedzi. Lub pozwól recenzentowi zdecydować, kiedy cel zostanie osiągnięty.
+- **Konfigurowalne**: `--max-zaokrągla N` w celu kontroli budżetu.
 
-See [README_AUTO.md](../README_AUTO.md)) for full documentation.
+Pełną dokumentację znajdziesz w [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md).
 
 ### 🧩 Menedżer stanu partii
 
@@ -127,19 +131,19 @@ uag może śledzić postęp długotrwałych zadań obejmujących wiele plików. 
 
 `human_ask` pozwala LLM zatrzymać się i poprosić o potwierdzenie przed wykonaniem destrukcyjnych operacji (usunięcie pliku, nadpisanie, polecenia powłoki). Pozostajesz pod kontrolą.
 
-### 🛑 Interrupt (c-key / Stop button)
+### 🛑 Przerwanie (klawisz C / przycisk Stop)
 
-Stop LLM response generation at any time and inject a stop command back to the LLM.
+Zatrzymaj generowanie odpowiedzi LLM w dowolnym momencie i wprowadź polecenie zatrzymania z powrotem do LLM.
 
-| Interface | How to interrupt |
+| Interfejs | Jak przerwać |
 |---|---|
-| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
-| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
-| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+| **CLI** | Naciśnij klawisz „c” podczas przesyłania strumieniowego LLM — bieżąca odpowiedź zostanie zatrzymana, a komunikat „Stop” zostanie wysłany jako wiadomość użytkownika, dzięki czemu LLM odpowiednio zareaguje |
+| **Interfejs WWW** | Kliknij czerwony przycisk **■ Zatrzymaj** (pojawia się automatycznie podczas przetwarzania LLM) |
+| **GUI pulpitu** | Kliknij czerwony przycisk **■** (pojawia się automatycznie podczas przetwarzania LLM) |
 
-The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+Przerwanie działa jako „szybkie wstrzyknięcie”: zamiast po prostu przerywać, przesyła „Stop” z powrotem do LLM jako komunikat użytkownika, umożliwiając mu eleganckie zakończenie lub potwierdzenie przerwania.
 
-Press `x` key to exit auto-pilot mode (see `:auto` command).
+Naciśnij klawisz `x`, aby wyjść z trybu autopilota (patrz [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
 
 ### 🕵️ Automatyzacja przeglądarki i inspektor sieciowy
 
@@ -156,9 +160,9 @@ Nie musisz ładować wszystkiego przy uruchomieniu — aktywuj tylko to, czego p
 ### 🌐 i18n / L10n
 
 日本語 / angielski / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / i więcej.
-Ustaw „UAGENT_LANG”, aby przełączyć. Zobacz [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)), aby dodać nowe ustawienia regionalne.
+Ustaw „UAGENT_LANG”, aby przełączyć. Zobacz [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md), aby dodać nowe ustawienia regionalne.
 
-Tłumaczenia tego pliku README są dostępne w [docs/README.translations.md](README.translations.md)).
+Tłumaczenia tego pliku README są dostępne w [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
 
 ### 🔒 Zaszyfrowane zmienne środowiskowe
 
@@ -167,12 +171,12 @@ Zarządzaj za pomocą `uag_envsec`.
 
 ## Konfiguracja i szczegóły
 
-- **Zmienne środowiskowe**: [ENVIRONMENT.md](../ENVIRONMENT.md))
+- **Zmienne środowiskowe**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **Kreator instalacji**: `python -m uagent.setup_cli`
 - **Zaszyfrowane env**: `uag_envsec` — szyfruj `.env` jako `.env.sec`
-- **Responses API**: Ustaw `UAGENT_RESPONSES=1` dla trybu Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Dokumentacja programisty**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
-- **Małe wskazówki LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
+- **API odpowiedzi**: Ustaw `UAGENT_RESPONSES=1` dla trybu API odpowiedzi (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Automatycznie włączone dla Sakana AI (Fugu).
+- **Dokumentacja programisty**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Małe wskazówki LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Filozofia projektu
 

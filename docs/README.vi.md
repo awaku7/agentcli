@@ -5,12 +5,12 @@
 <h1 align="center">uag — Cổng AI phổ quát</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Môi trường của bạn, sự tự do của bạn.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
 </p>
 
 <p align="center">
-  Hoạt động tập tin / Tìm kiếm trên web / Tạo và phân tích hình ảnh / Trích xuất PDF & Excel / Kiểm soát IoT / Tích hợp MCP<br>
-  Hơn 15 nhà cung cấp / 3 giao diện người dùng / Thực thi công cụ song song / Thị trường kỹ năng của đại lý
+  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
+  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="README.translations.md">Đọc nội dung này bằng ngôn ngữ của bạn</a>
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
 ---
@@ -28,9 +28,9 @@
 ** Thoát khỏi sự ràng buộc của nhà cung cấp.** Hầu hết trợ lý AI đều ràng buộc bạn với một nhà cung cấp hoặc dịch vụ đám mây cụ thể. uag thì khác.
 
 - **Chạy cục bộ** trên máy của bạn. Dữ liệu của bạn vẫn ở bên bạn (ngoại trừ các lệnh gọi API bạn thực hiện).
-- **Quyền tự do của nhà cung cấp**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... Hơn 15 nhà cung cấp, tất cả đều có thể truy cập từ một giao diện duy nhất. Hoán đổi giữa chúng bằng cách cấu hình lại các biến môi trường — không cần cài đặt lại, không di chuyển.
-- **131 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, quét thiết bị BLE, tích hợp máy chủ MCP — và **76 trong số đó chạy song song**. Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động thực thi chúng thông qua nhóm luồng.
-- **4 UI + A2A**: CLI, GUI, Web và giao thức Agent-to-Agent. Cùng một động cơ, bất kỳ giao diện nào.
+- **Quyền tự do của nhà cung cấp**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... Hơn 15 nhà cung cấp, tất cả đều có thể truy cập từ một giao diện duy nhất. Hoán đổi giữa chúng bằng cách cấu hình lại các biến môi trường — không cần cài đặt lại, không di chuyển.
+- **131 công cụ**: I/O tệp, tìm kiếm trên web, tạo hình ảnh, Gmail, quét thiết bị BLE, tích hợp máy chủ MCP — **76 công cụ an toàn song song** (tối đa 8 công cụ thực thi đồng thời qua nhóm luồng, có thể định cấu hình qua `UAGENT_PARALLEL_WORKERS`). Khi LLM thực hiện nhiều lệnh gọi công cụ cùng một lúc, uag sẽ tự động song song chúng.
+- **3 UI + A2A**: CLI, GUI, Web và giao thức Agent-to-Agent. Cùng một động cơ, bất kỳ giao diện nào.
 - **Sẵn sàng cho IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — điều khiển các thiết bị trong nhà của bạn thông qua AI.
 - **Kỹ năng đại lý**: Cài đặt các kỹ năng do cộng đồng xây dựng từ thị trường. Mở rộng uag vô tận.
 
@@ -44,20 +44,20 @@ uag
 ```
 
 Trong lần khởi chạy đầu tiên, trình hướng dẫn thiết lập sẽ hướng dẫn bạn cấu hình nhà cung cấp.
-Xem [ENVIRONMENT.md](../ENVIRONMENT.md)) để biết tất cả các biến môi trường.
+Xem [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) để biết tất cả các biến môi trường.
 
-## Tính năng
+## Đặc trưng
 
 ### 🧠 Kiến trúc đa nhà cung cấp
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
 Tất cả các nhà cung cấp đều có chung bộ công cụ và giao diện. Chuyển đổi bằng cách cài đặt `UAGENT_PROVIDER` — không thay đổi mã, không cài đặt riêng.
 
 ### ⚡ Thực thi công cụ song song
 
 Khi LLM yêu cầu nhiều công cụ cùng lúc, uag **tự động song song** chúng.
-76 công cụ được đánh dấu `x_parallel_safe` và thực thi đồng thời thông qua `ThreadPoolExecutor` 4 luồng.
+76 công cụ được đánh dấu `x_parallel_safe` và thực thi đồng thời thông qua `ThreadPoolExecutor` (8 luồng theo mặc định; đặt `UAGENT_PARALLEL_WORKERS` để thay đổi).
 
 **Ví dụ**: Hỏi "Kiểm tra thời tiết ở các thủ đô Bắc Âu" → LLM kích hoạt `search_web` × 5 quốc gia → tất cả 5 tìm kiếm chạy song song → kết quả được thu thập trong một đợt.
 
@@ -65,25 +65,27 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 
 ### 🔄 Phiên liên tục
 
-- **Chuyển đổi nhà cung cấp giữa phiên** bằng `UAGENT_PROVIDER` — lịch sử cuộc trò chuyện được giữ nguyên.
-- **Tải lại các phiên trước** bằng `:load <index>` — tiếp tục từ nơi bạn đã dừng lại.
-- **Bộ nhớ đệm kết quả công cụ** tránh việc thực thi lại dư thừa khi lệnh gọi công cụ tương tự lặp lại.
+- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
+- **Reload past sessions** with `:load <index>` — pick up where you left off.
+- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
 ### 🛠 131 Công cụ
 
 | Danh mục | Công cụ |
 |---|---|
-| **Thao tác tệp** | đọc/ghi/tạo/xóa/tìm kiếm/grep/băm/zip |
+| **Thao tác tệp** | đọc/ghi/tạo/xóa/tìm kiếm/grep/hash/zip, parse_eml (tệp .eml) |
 | **Web** | tìm nạp_url, search_web, ảnh chụp màn hình, browser_playwright |
 | **Truyền thông** | tạo_hình ảnh, phân tích_hình ảnh, img2img, audio_speech, audio_transcribe |
 | **Tài liệu** | Trích xuất PDF/PPTX/DOCX/RTF/ODT, trích xuất có cấu trúc Excel |
+| **Giao tiếp** | gmail_send, gmail_read, bluesky, discord_channel, Team_webhook — xem [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | SwitchBot (Đám mây + BLE), ECHONET Lite, Matter, UPnP |
-| **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **13 idx tools** |
+| **Công cụ dành cho nhà phát triển** | git_ops, python_compile, lint_format, run_tests, db_query, **13 trình điều hướng mã nguồn (dòng idx)** |
 | **MCP** | Kết nối với máy chủ MCP bên ngoài, liệt kê các công cụ, thực thi |
 | **A2A** | Giao tiếp giữa các đại lý (với các phiên bản uag khác hoặc máy chủ tương thích với A2A) |
 | **Hệ thống** | env vars, thông số kỹ thuật hệ thống, tính toán thời gian, ngày tháng |
+| **Điều hướng nguồn** | **13 công cụ idx** dành cho Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — lấy chỉ mục hàm/lớp hoặc định nghĩa cụ thể mà không cần đọc toàn bộ tệp |
 
-### 🖥 3 Giao diện + A2A + VS Code
+### 🖥 4 Giao diện + Tiện ích mở rộng Mã VS
 
 | Chế độ | Lệnh | Mục đích |
 |---|---|---|
@@ -91,7 +93,9 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 | **GUI** | `uagg` | Giao diện người dùng máy tính để bàn thông qua tkinter |
 | **Web** | `uagw` | Truy cập dựa trên trình duyệt |
 | **Máy chủ A2A** | `uaga` | Giao thức Agent2Agent cho giao tiếp đa tác nhân |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
+| **Mã VS** | — | [Tiện ích mở rộng](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) với Bảng trò chuyện, Giải thích, Tái cấu trúc, Sửa lỗi và Chế độ xem dạng cây công cụ |
+
+Xem [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) để biết thông tin chi tiết về tiện ích mở rộng VS Code — cài đặt, lệnh, tổ hợp phím và cấu hình.
 
 ### 🏠 Kiểm soát thiết bị IoT
 
@@ -100,23 +104,24 @@ Các công cụ chỉ đọc (tìm kiếm tệp, tính toán hàm băm, liệt k
 - **Vấn đề**: Kiểm tra chỉ đọc cấu trúc liên kết bộ điều khiển/cầu nối/thiết bị
 - **UPnP**: Phát hiện thiết bị & chuyển tiếp cổng IGD
 
-Xem [IOT_USECASE.md](../IOT_USECASE.md))
+Xem [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 
 ### 🎯 Thị trường kỹ năng đại lý
 
 `:skills mp_search` để duyệt qua [SkillsMP](https://skillsmp.com) và [ClawHub](https://clawhub.ai) để tìm kiếm các kỹ năng cộng đồng.
 Cài đặt và mở rộng khả năng của uag một cách nhanh chóng.
 
-### 🤖 Auto-Pilot (`:auto`)
+### 🤖 Tự động điều khiển (`:auto`)
 
-uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for complex, multi-step tasks that need iterative refinement.
+uag có thể **tự động theo đuổi mục tiêu qua nhiều vòng LLM**. Hoàn hảo cho các nhiệm vụ phức tạp, nhiều bước cần tinh chỉnh lặp đi lặp lại.
 
-- **How it works**: Each round has a main query (Step A) followed by a reviewer judgment (Step B) that decides "COMPLETE or CONTINUE?"
-- **Same provider, same API**: The reviewer judgment uses the identical code path as the main query — including Responses API support.
-- **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
-- **Configurable**: `--max-rounds N` to control the budget.
+- **Cách thức hoạt động**: Mỗi vòng có một truy vấn chính (Bước A) theo sau là đánh giá của người đánh giá (Bước B) để quyết định "HOÀN THÀNH hay TIẾP TỤC?"
+- **Cùng nhà cung cấp, cùng API**: Đánh giá của người đánh giá sử dụng đường dẫn mã giống hệt nhau làm truy vấn chính — bao gồm hỗ trợ API phản hồi.
+- **Thẩm phán LLM riêng** (tùy chọn): Đặt `UAGENT_AP_PROVIDER` để sử dụng nhà cung cấp/mô hình khác cho người đánh giá (ví dụ: sử dụng mô hình rẻ hơn để đánh giá).
+- **Thoát bất cứ lúc nào**: Nhấn phím `x` để dừng ngay lập tức, kể cả khi đang phản hồi. Hoặc để người đánh giá quyết định khi nào đạt được mục tiêu.
+- **Có thể định cấu hình**: `--max-rounds N` để kiểm soát ngân sách.
 
-See [README_AUTO.md](../README_AUTO.md)) for full documentation.
+Xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) để biết tài liệu đầy đủ.
 
 ### 🧩 Quản lý trạng thái hàng loạt
 
@@ -126,19 +131,19 @@ uag có thể theo dõi tiến trình trên các tác vụ nhiều tệp chạy 
 
 `human_ask` cho phép LLM tạm dừng và yêu cầu bạn xác nhận trước khi thực hiện các thao tác phá hoại (xóa tệp, ghi đè, lệnh shell). Bạn luôn kiểm soát.
 
-### 🛑 Interrupt (c-key / Stop button)
+### 🛑 Ngắt (phím c / Nút dừng)
 
-Stop LLM response generation at any time and inject a stop command back to the LLM.
+Dừng việc tạo phản hồi LLM bất cứ lúc nào và đưa lệnh dừng trở lại LLM.
 
-| Interface | How to interrupt |
+| Giao diện | Cách ngắt lời |
 |---|---|
-| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
-| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
-| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+| **CLI** | Nhấn phím `c` trong khi phát trực tuyến LLM — phản hồi hiện tại dừng và `"Dừng"` được gửi dưới dạng tin nhắn người dùng để LLM phản hồi tương ứng |
+| **Giao diện người dùng WEB** | Nhấp vào nút **■ Dừng** màu đỏ (tự động xuất hiện trong quá trình xử lý LLM) |
+| **Giao diện máy tính để bàn** | Nhấp vào nút **■** màu đỏ (tự động xuất hiện trong quá trình xử lý LLM) |
 
-The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+Ngắt hoạt động như "chèn nhắc": thay vì chỉ hủy bỏ, nó đưa `"Dừng"` trở lại LLM dưới dạng thông báo người dùng, cho phép LLM kết luận hoặc thừa nhận sự gián đoạn một cách khéo léo.
 
-Press `x` key to exit auto-pilot mode (see `:auto` command).
+Nhấn phím `x` để thoát chế độ tự động điều khiển (xem [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
 
 ### 🕵️ Tự động hóa trình duyệt & Trình kiểm tra web
 
@@ -155,9 +160,9 @@ Không cần tải mọi thứ khi khởi động — chỉ kích hoạt những
 ### 🌐 i18n/L10n
 
 日本語 / Tiếng Anh / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / và hơn thế nữa.
-Đặt `UAGENT_LANG` để chuyển đổi. Xem [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) để thêm ngôn ngữ mới.
+Đặt `UAGENT_LANG` để chuyển đổi. Xem [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) để thêm ngôn ngữ mới.
 
-Bản dịch của README này có sẵn trong [docs/README.translations.md](README.translations.md)).
+Bản dịch của README này có sẵn trong [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
 
 ### 🔒 Biến môi trường được mã hóa
 
@@ -166,12 +171,12 @@ Quản lý bằng `uag_envsec`.
 
 ## Cấu hình & Chi tiết
 
-- **Biến môi trường**: [ENVIRONMENT.md](../ENVIRONMENT.md))
+- **Biến môi trường**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **Trình hướng dẫn thiết lập**: `python -m uagent.setup_cli`
 - **Env được mã hóa**: `uag_envsec` — mã hóa `.env` thành `.env.sec`
-- **API phản hồi**: Đặt `UAGENT_RESPONSES=1` cho chế độ API phản hồi (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Tài liệu dành cho nhà phát triển**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
-- **Mẹo LLM nhỏ**: [SLM_TIPS.md](../SLM_TIPS.md))
+- **API phản hồi**: Đặt `UAGENT_RESPONSES=1` cho chế độ API phản hồi (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Tự động kích hoạt cho Sakana AI (Fugu).
+- **Tài liệu dành cho nhà phát triển**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Mẹo LLM nhỏ**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Triết lý dự án
 

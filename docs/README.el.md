@@ -5,12 +5,12 @@
 <h1 align="center">uag — Universal AI Gateway</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Το περιβάλλον σας, η ελευθερία σας.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
 </p>
 
 <p align="center">
-  Λειτουργίες αρχείων / Αναζήτηση στον Ιστό / Δημιουργία και ανάλυση εικόνας / Εξαγωγή PDF & Excel / Έλεγχος IoT / Ενσωμάτωση MCP<br>
-  15+ πάροχοι / 3 διεπαφή χρήστη / Παράλληλη εκτέλεση εργαλείων / Αγορά δεξιοτήτων πράκτορα
+  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
+  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -18,19 +18,19 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="README.translations.md">Διαβάστε αυτό στη γλώσσα σας</a>
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
 ---
 
 ## Γιατί uag;
 
-**Απαλλαγείτε από το κλείδωμα προμηθευτή.** Οι περισσότεροι βοηθοί τεχνητής νοημοσύνης σας συνδέουν με έναν συγκεκριμένο πάροχο ή υπηρεσία cloud. το uag είναι διαφορετικό.
+**Απαλλαγείτε από το κλείδωμα προμηθευτή.** Οι περισσότεροι βοηθοί τεχνητής νοημοσύνης σας συνδέουν με έναν συγκεκριμένο πάροχο ή υπηρεσία cloud. Το uag είναι διαφορετικό.
 
 - **Εκτελείται τοπικά** στο μηχάνημά σας. Τα δεδομένα σας παραμένουν μαζί σας (εκτός από τις κλήσεις API που πραγματοποιείτε).
-- **Ελευθερία παρόχου**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock... 15+ πάροχοι, όλοι προσβάσιμοι από μια ενιαία διεπαφή. Εναλλάξτε μεταξύ τους ρυθμίζοντας εκ νέου τις μεταβλητές περιβάλλοντος — χωρίς επανεγκατάσταση, χωρίς μετεγκατάσταση.
-- **131 εργαλεία**: I/O αρχείων, αναζήτηση ιστού, δημιουργία εικόνων, σάρωση συσκευών BLE, ενσωμάτωση διακομιστή MCP — και **76 από αυτά εκτελούνται παράλληλα**. Όταν το LLM πραγματοποιεί πολλαπλές κλήσεις εργαλείων ταυτόχρονα, το uag τις εκτελεί αυτόματα μέσω μιας ομάδας νημάτων.
-- **4 διεπαφές χρήστη + A2A**: Πρωτόκολλο CLI, GUI, Web και Agent-to-Agent. Ίδιος κινητήρας, οποιαδήποτε διεπαφή.
+- **Ελευθερία παρόχου**: OpenAI, Claude, Gemini, DeepSeek, Ollama, Azure, Bedrock, HuggingFace... 15+ πάροχοι, όλοι προσβάσιμοι από μια ενιαία διεπαφή. Εναλλάξτε μεταξύ τους ρυθμίζοντας εκ νέου τις μεταβλητές περιβάλλοντος — χωρίς επανεγκατάσταση, χωρίς μετεγκατάσταση.
+- **131 εργαλεία**: I/O αρχείων, αναζήτηση ιστού, δημιουργία εικόνων, Gmail, σάρωση συσκευής BLE, ενσωμάτωση διακομιστή MCP — **76 είναι παράλληλα ασφαλή** (έως 8 εκτελούνται ταυτόχρονα μέσω νήμα, με δυνατότητα διαμόρφωσης μέσω "UAGENT_PARALLEL_WORKERS"). Όταν το LLM ενεργοποιεί πολλές κλήσεις εργαλείων ταυτόχρονα, το uag τις παραλληλίζει αυτόματα.
+- **3 διεπαφές χρήστη + A2A**: Πρωτόκολλο CLI, GUI, Web και Agent-to-Agent. Ίδιος κινητήρας, οποιαδήποτε διεπαφή.
 - **Έτοιμο για IoT**: SwitchBot, ECHONET Lite, Matter, UPnP — ελέγξτε τις οικιακές σας συσκευές μέσω AI.
 - **Δεξιότητες πράκτορα**: Εγκαταστήστε δεξιότητες που δημιουργούνται από την κοινότητα από την αγορά. Επεκτείνετε το uag ατελείωτα.
 
@@ -38,26 +38,26 @@
 
 ## Γρήγορη εκκίνηση
 
-```μπας
-pip εγκατάσταση uag
+```bash
+pip install uag
 uag
 ```
 
 Κατά την πρώτη εκκίνηση, ο οδηγός εγκατάστασης σάς καθοδηγεί στη διαμόρφωση του παρόχου.
-Δείτε το [ENVIRONMENT.md](../ENVIRONMENT.md)) για όλες τις μεταβλητές περιβάλλοντος.
+Δείτε το [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) για όλες τις μεταβλητές περιβάλλοντος.
 
 ## Χαρακτηριστικά
 
 ### 🧠 Αρχιτεκτονική πολλών παρόχων
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo/MaguStudio /*L*
 
 Όλοι οι πάροχοι μοιράζονται το ίδιο σύνολο εργαλείων και διεπαφή. Εναλλαγή ορίζοντας "UAGENT_PROVIDER" — χωρίς αλλαγές κώδικα, χωρίς ξεχωριστές εγκαταστάσεις.
 
 ### ⚡ Παράλληλη εκτέλεση εργαλείου
 
 Όταν το LLM ζητά πολλά εργαλεία ταυτόχρονα, το uag **τα παραλληλίζει αυτόματα**.
-76 εργαλεία επισημαίνονται ως «x_parallel_safe» και εκτελούνται ταυτόχρονα μέσω ενός «ThreadPoolExecutor» 4 νημάτων.
+76 εργαλεία επισημαίνονται ως "x_parallel_safe" και εκτελούνται ταυτόχρονα μέσω ενός "ThreadPoolExecutor" (8 νήματα από προεπιλογή, ορίστε το "UAGENT_PARALLEL_WORKERS" για αλλαγή).
 
 **Παράδειγμα**: Ρωτήστε "Έλεγχος του καιρού στις σκανδιναβικές πρωτεύουσες" → Το LLM ενεργοποιεί το `search_web` × 5 χώρες → και οι 5 αναζητήσεις εκτελούνται παράλληλα → αποτελέσματα που συλλέγονται σε μία παρτίδα.
 
@@ -65,25 +65,27 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 
 ### 🔄 Συνέχεια συνεδρίας
 
-- **Αλλαγή παρόχου στη μέση της περιόδου σύνδεσης** με το "UAGENT_PROVIDER" — το ιστορικό συνομιλιών διατηρείται.
-- **Επανάληψη φόρτωσης προηγούμενων συνεδριών** με `:load <index>` — συνεχίστε από εκεί που σταματήσατε.
-- **Η προσωρινή αποθήκευση αποτελεσμάτων εργαλείου** αποφεύγει την περιττή επανεκτέλεση όταν επαναλαμβάνεται η ίδια κλήση εργαλείου.
+- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
+- **Reload past sessions** with `:load <index>` — pick up where you left off.
+- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
 ### 🛠 131 Εργαλεία
 
 | Κατηγορία | Εργαλεία |
 |---|---|
-| **Λειτουργίες αρχείων** | ανάγνωση/εγγραφή/δημιουργία/διαγραφή/αναζήτηση/grep/hash/zip |
+| **Λειτουργίες αρχείων** | read/write/create/delete/search/grep/hash/zip, parse_eml (αρχεία .eml) |
 | **Ιστός** | fetch_url, search_web, screenshot, browser_playwright |
 | **ΜΜΕ** | δημιουργία_εικόνας, ανάλυση_εικόνας, img2img, audio_speech, audio_transscribe |
 | **Έγγραφα** | Εξαγωγή PDF/PPTX/DOCX/RTF/ODT, δομημένη εξαγωγή Excel |
+| **Επικοινωνία** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — δείτε [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) |
 | **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **Εργαλεία προγραμματιστών** | git_ops, python_compile, lin_format, run_tests, db_query, **13 idx tools** |
+| **Εργαλεία προγραμματιστών** | git_ops, python_compile, lint_format, run_tests, db_query, **13 προγράμματα πλοήγησης πηγαίου κώδικα (οικογένεια idx)** |
 | **MCP** | Σύνδεση σε εξωτερικούς διακομιστές MCP, λίστα εργαλείων, εκτέλεση |
 | **A2A** | Επικοινωνία agent-to-agent (με άλλες παρουσίες uag ή διακομιστές συμβατούς με A2A) |
 | **Σύστημα** | env vars, προδιαγραφές συστήματος, ώρα, υπολογισμός ημερομηνίας |
+| **Πηγή Nav** | **13 εργαλεία idx** για Python, PHP, TypeScript, Java, C#, Dart, C/C++, Rust, Go, Swift, Kotlin, COBOL — λάβετε ευρετήριο συνάρτησης/κλάσης ή συγκεκριμένο ορισμό χωρίς να διαβάσετε ολόκληρο το αρχείο |
 
-### 🖥 3 διεπαφές + A2A + VS Code
+### 🖥 4 διεπαφές + Επέκταση κώδικα VS
 
 | Λειτουργία | Εντολή | Σκοπός |
 |---|---|---|
@@ -91,7 +93,9 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 | **GUI** | `uagg` | UI επιφάνειας εργασίας μέσω tkinter |
 | **Ιστός** | `uagw` | Πρόσβαση βάσει προγράμματος περιήγησης |
 | **Διακομιστής A2A** | `uaga` | Πρωτόκολλο Agent2Agent για επικοινωνία πολλαπλών πρακτόρων |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
+| **Κωδικός VS** | — | [Επέκταση](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) με Πίνακας συνομιλίας, Εξήγηση, Επαναφορά, Διόρθωση σφάλματος και Εργαλεία Προβολή δέντρου |
+
+Ανατρέξτε στο [VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) για λεπτομέρειες σχετικά με την επέκταση κώδικα VS — εγκατάσταση, εντολές, πληκτρολογήσεις και διαμόρφωση.
 
 ### 🏠 Έλεγχος συσκευής IoT
 
@@ -100,23 +104,24 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **Θέμα**: Επιθεώρηση μόνο για ανάγνωση της τοπολογίας ελεγκτή/γέφυρας/συσκευής
 - **UPnP**: Ανακάλυψη συσκευής και προώθηση θύρας IGD
 
-Δείτε το [IOT_USECASE.md](../IOT_USECASE.md))
+Δείτε το [IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md)
 
 ### 🎯 Agent Skills Marketplace
 
 `:skills mp_search` για να περιηγηθείτε στο [SkillsMP](https://skillsmp.com) και στο [ClawHub](https://clawhub.ai) για δεξιότητες κοινότητας.
 Εγκαταστήστε και επεκτείνετε τις δυνατότητες του uag on the fly.
 
-### 🤖 Auto-Pilot (`:auto`)
+### 🤖 Αυτόματος πιλότος (`:auto`)
 
-uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for complex, multi-step tasks that need iterative refinement.
+Το uag μπορεί **αυτόνομα να επιδιώξει έναν στόχο σε πολλούς γύρους LLM**. Ιδανικό για σύνθετες εργασίες πολλαπλών βημάτων που χρειάζονται επαναληπτική βελτίωση.
 
-- **How it works**: Each round has a main query (Step A) followed by a reviewer judgment (Step B) that decides "COMPLETE or CONTINUE?"
-- **Same provider, same API**: The reviewer judgment uses the identical code path as the main query — including Responses API support.
-- **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
-- **Configurable**: `--max-rounds N` to control the budget.
+- **Πώς λειτουργεί**: Κάθε γύρος έχει ένα κύριο ερώτημα (Βήμα Α) που ακολουθείται από μια κρίση αναθεωρητή (Βήμα Β) που αποφασίζει "ΟΛΟΚΛΗΡΩΣΗ ή ΣΥΝΕΧΕΙΑ;"
+- **Ίδιος πάροχος, ίδιο API**: Η κρίση του αναθεωρητή χρησιμοποιεί την ίδια διαδρομή κώδικα ως κύριο ερώτημα — συμπεριλαμβανομένης της υποστήριξης του Responses API.
+- **Ξεχωριστός κριτής LLM** (προαιρετικό): Ρυθμίστε το "UAGENT_AP_PROVIDER" ώστε να χρησιμοποιεί διαφορετικό πάροχο/μοντέλο για τον κριτικό (π.χ. χρησιμοποιήστε ένα φθηνότερο μοντέλο για την κρίση).
+- **Έξοδος ανά πάσα στιγμή**: Πατήστε το πλήκτρο `x` για να σταματήσετε αμέσως, ακόμη και στη μέση της απόκρισης. Ή αφήστε τον αναθεωρητή να αποφασίσει πότε θα επιτευχθεί ο στόχος.
+- **Δυνατότητα ρύθμισης**: `--max-rounds N` για έλεγχο του προϋπολογισμού.
 
-See [README_AUTO.md](../README_AUTO.md)) for full documentation.
+Ανατρέξτε στο [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) για πλήρη τεκμηρίωση.
 
 ### 🧩 Διαχειριστής κατάστασης παρτίδας
 
@@ -126,19 +131,19 @@ See [README_AUTO.md](../README_AUTO.md)) for full documentation.
 
 Το `human_ask` επιτρέπει στο LLM να σταματήσει και να ζητήσει την επιβεβαίωσή σας πριν εκτελέσει καταστροφικές λειτουργίες (διαγραφή αρχείου, αντικαταστάσεις, εντολές φλοιού). Παραμένεις στον έλεγχο.
 
-### 🛑 Interrupt (c-key / Stop button)
+### 🛑 Διακοπή (πλήκτρο c / κουμπί Διακοπή)
 
-Stop LLM response generation at any time and inject a stop command back to the LLM.
+Σταματήστε τη δημιουργία απόκρισης LLM ανά πάσα στιγμή και εισαγάγετε μια εντολή διακοπής πίσω στο LLM.
 
-| Interface | How to interrupt |
+| Διεπαφή | Πώς να διακόψετε |
 |---|---|
-| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
-| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
-| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+| **CLI** | Πατήστε το πλήκτρο `c` κατά τη ροή LLM — η τρέχουσα απόκριση σταματά και το "Stop"` αποστέλλεται ως μήνυμα χρήστη, ώστε το LLM να ανταποκρίνεται ανάλογα |
+| **Διεπαφή χρήστη WEB** | Κάντε κλικ στο κόκκινο κουμπί **■ Stop** (εμφανίζεται αυτόματα κατά την επεξεργασία LLM) |
+| **Γραφικό περιβάλλον εργασίας επιφάνειας εργασίας** | Κάντε κλικ στο κόκκινο κουμπί **■** (εμφανίζεται αυτόματα κατά την επεξεργασία LLM) |
 
-The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+Η διακοπή λειτουργεί ως "πρότυπη έγχυση": αντί απλώς να διακοπεί, τροφοδοτεί το "Stop"" πίσω στο LLM ως μήνυμα χρήστη, επιτρέποντάς του να ολοκληρώσει με χάρη ή να αναγνωρίσει τη διακοπή.
 
-Press `x` key to exit auto-pilot mode (see `:auto` command).
+Πατήστε το πλήκτρο `x` για έξοδο από τη λειτουργία αυτόματου πιλότου (δείτε [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md)).
 
 ### 🕵️ Αυτοματισμός προγράμματος περιήγησης και επιθεωρητής ιστού
 
@@ -155,9 +160,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐 i18n / L10n
 
 日本語 / Αγγλικά / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / και άλλα.
-Ρυθμίστε το "UAGENT_LANG" για εναλλαγή. Ανατρέξτε στο [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) για να προσθέσετε μια νέα τοπική ρύθμιση.
+Ρυθμίστε το "UAGENT_LANG" για εναλλαγή. Ανατρέξτε στο [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) για να προσθέσετε μια νέα τοπική ρύθμιση.
 
-Οι μεταφράσεις αυτού του README είναι διαθέσιμες στο [docs/README.translations.md](README.translations.md)).
+Οι μεταφράσεις αυτού του README είναι διαθέσιμες στο [docs/README.translations.md](https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md).
 
 ### 🔒 Κρυπτογραφημένες μεταβλητές περιβάλλοντος
 
@@ -166,12 +171,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## Διαμόρφωση & Λεπτομέρειες
 
-- **Μεταβλητές περιβάλλοντος**: [ENVIRONMENT.md](../ENVIRONMENT.md))
+- **Μεταβλητές περιβάλλοντος**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **Οδηγός εγκατάστασης**: `python -m uagent.setup_cli`
 - **Κρυπτογραφημένο env**: "uag_envsec" — κρυπτογράφηση ".env" ως ".env.sec"
-- **API Responses**: Ορίστε το "UAGENT_RESPONSES=1" για τη λειτουργία API Responses (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **Έγγραφα προγραμματιστή**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
-- **Μικρές συμβουλές LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
+- **Responses API**: Ορίστε το "UAGENT_RESPONSES=1" για τη λειτουργία Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI). Αυτόματη ενεργοποίηση για Sakana AI (Fugu).
+- **Έγγραφα προγραμματιστή**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **Μικρές συμβουλές LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## Φιλοσοφία έργου
 

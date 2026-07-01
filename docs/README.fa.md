@@ -2,15 +2,15 @@
   <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
 </p>
 
-<h1 align="center">uag — دروازه هوش مصنوعی جهانی</h1>
+<h1 align="center">uag - دروازه هوش مصنوعی جهانی</h1>
 
 <p align="center">
-  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — محیط شما، آزادی شما.
+  <b>U</b>niversal <b>A</b>I <b>G</b>ateway — Your environment, your freedom.
 </p>
 
 <p align="center">
-  عملیات فایل / جستجوی وب / تولید و تجزیه و تحلیل تصویر / استخراج PDF و اکسل / کنترل اینترنت اشیا / ادغام MCP<br>
-  بیش از 15 ارائه دهنده / 3 رابط کاربری / اجرای موازی ابزار / بازار مهارت های عامل
+  File ops / Web search / Image generation &amp; analysis / PDF &amp; Excel extraction / IoT control / MCP integration<br>
+  15+ providers / 3 UIs / Parallel tool execution / Agent Skills marketplace
 </p>
 
 <p align="center">
@@ -18,7 +18,7 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="README.translations.md">این را به زبان خود بخوانید</a>
+  <a href="https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md">Read this in your language</a>
 </p>
 
 ---
@@ -28,9 +28,9 @@
 **از قفل شدن فروشنده رها شوید.** بیشتر دستیاران هوش مصنوعی شما را به یک ارائه دهنده یا سرویس ابری خاص می بندند. uag متفاوت است.
 
 - **به صورت محلی** روی دستگاه شما اجرا می شود. داده های شما با شما باقی می ماند (به جز تماس های API که انجام می دهید).
-- **آزادی ارائه دهنده**: OpenAI، Claude، Gemini، DeepSeek، Ollama، Azure، Bedrock... بیش از 15 ارائه دهنده، همه از طریق یک رابط در دسترس هستند. با پیکربندی مجدد متغیرهای محیط - بدون نصب مجدد، بدون مهاجرت، بین آنها تعویض کنید.
-- **131 ابزار**: فایل ورودی/خروجی، جستجوی وب، تولید تصویر، اسکن دستگاه BLE، یکپارچه سازی سرور MCP — و **76 مورد از آنها به صورت موازی اجرا می شوند**. هنگامی که LLM چندین تماس ابزار را به طور همزمان انجام می دهد، uag به طور خودکار آنها را از طریق یک Thread Pool اجرا می کند.
-- **4 UI + A2A**: CLI، GUI، وب و پروتکل Agent-to-Agent. همان موتور، هر رابط.
+- **آزادی ارائه دهنده**: OpenAI، Claude، Gemini، DeepSeek، Ollama، Azure، Bedrock، HuggingFace... بیش از 15 ارائه دهنده، همه از یک رابط در دسترس هستند. با پیکربندی مجدد متغیرهای محیط - بدون نصب مجدد، بدون مهاجرت، بین آنها تعویض کنید.
+- **131 ابزار**: فایل ورودی/خروجی، جستجوی وب، تولید تصویر، Gmail، اسکن دستگاه BLE، ادغام سرور MCP — **76 ابزار به صورت موازی امن هستند** (حداکثر 8 مورد به صورت همزمان از طریق Thread Pool اجرا می شوند، قابل تنظیم از طریق `UAGENT_PARALLEL_WORKERS`). هنگامی که LLM چندین تماس ابزار را همزمان انجام می دهد، uag به طور خودکار آنها را موازی می کند.
+- **3 UI + A2A**: CLI، GUI، وب و پروتکل Agent-to-Agent. همان موتور، هر رابط.
 - **آماده اینترنت اشیا **: SwitchBot، ECHONET Lite، Matter، UPnP - دستگاه های خانگی خود را از طریق هوش مصنوعی کنترل کنید.
 - **مهارت های عامل**: مهارت های ایجاد شده در جامعه را از بازار نصب کنید. uag را بی پایان گسترش دهید.
 
@@ -44,20 +44,20 @@ uag
 ```
 
 در اولین راه‌اندازی، جادوگر راه‌اندازی شما را از طریق پیکربندی ارائه‌دهنده راهنمایی می‌کند.
-برای همه متغیرهای محیطی به [ENVIRONMENT.md](../ENVIRONMENT.md)) مراجعه کنید.
+برای همه متغیرهای محیطی به [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md) مراجعه کنید.
 
 ## ویژگی ها
 
 ### 🧠 معماری چند ارائه دهنده
 
-OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
+OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi / MiMo/*AIS Studio /*L.
 
 همه ارائه دهندگان یک مجموعه ابزار و رابط مشترک دارند. با تنظیم «UAGENT_PROVIDER» تغییر دهید — بدون تغییر کد، بدون نصب جداگانه.
 
 ### ⚡ اجرای ابزار موازی
 
 هنگامی که LLM چندین ابزار را به طور همزمان درخواست می کند، uag **به طور خودکار آنها را موازی می کند**.
-76 ابزار "x_parallel_safe" مشخص شده اند و همزمان از طریق یک "ThreadPoolExecutor" 4 رشته ای اجرا می شوند.
+۷۶ ابزار «x_parallel_safe» علامت‌گذاری شده‌اند و به طور همزمان از طریق «ThreadPoolExecutor» اجرا می‌شوند (۸ رشته به‌طور پیش‌فرض؛ «UAGENT_PARALLEL_WORKERS» را برای تغییر تنظیم کنید).
 
 **مثال**: "آب و هوا را در پایتخت های شمال اروپا بررسی کنید" بپرسید → LLM جستجوی_وب را فعال می کند × 5 کشور → همه 5 جستجو به صورت موازی انجام می شوند → نتایج جمع آوری شده در یک دسته.
 
@@ -65,33 +65,37 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 
 ### 🔄 تداوم جلسه
 
-- **تغییر ارائه دهندگان در اواسط جلسه** با "UAGENT_PROVIDER" — سابقه مکالمه حفظ می شود.
-- **جلسات گذشته** را با `:load <index>` بارگیری مجدد کنید - از جایی که متوقف کردید ادامه دهید.
-- ** ذخیره سازی نتیجه ابزار ** از اجرای مجدد اضافی هنگامی که همان فراخوانی ابزار تکرار می شود جلوگیری می کند.
+- **Switch providers mid-session** with `UAGENT_PROVIDER` — conversation history is preserved.
+- **Reload past sessions** with `:load <index>` — pick up where you left off.
+- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
 
-### 🛠 ۱۱۱ ابزار
+### 🛠 131 ابزار
 
 | دسته بندی | ابزار |
 |---|---|
-| **عملیات فایل** | خواندن/نوشتن/ایجاد/حذف/جستجو/grep/hash/zip |
+| **عملیات فایل** | خواندن/نوشتن/ایجاد/حذف/جستجو/grep/hash/zip، parse_eml (فایل‌های eml) |
 | **وب** | fetch_url، search_web، اسکرین شات، مرورگر_نمایشنامه نویس |
 | **رسانه** | تولید_تصویر، تحلیل_تصویر، img2img، گفتار_صوتی، رونویسی_صوتی |
 | **اسناد** | استخراج PDF/PPTX/DOCX/RTF/ODT، استخراج ساختار یافته اکسل |
+| **ارتباطات** | gmail_send، gmail_read، bluesky، discord_channel، teams_webhook — به [COMMUNICATION.md](https://github.com/awaku7/agentcli/blob/main/docs/COMMUNICATION.md) مراجعه کنید |
 | **اینترنت اشیا** | SwitchBot (Cloud + BLE)، ECHONET Lite، Matter، UPnP |
-| **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query, **13 idx tools** |
+| **ابزارهای توسعه** | git_ops، python_compile، lint_format، run_tests، db_query، **13 پیمایش کد منبع (خانواده idx)** |
 | **MCP** | اتصال به سرورهای MCP خارجی، فهرست ابزارها، اجرا |
 | **A2A** | ارتباط عامل به عامل (با سایر نمونه های uag یا سرورهای سازگار با A2A) |
 | **سیستم** | env vars، مشخصات سیستم، زمان، محاسبه تاریخ |
+| **منبع Nav** | **13 ابزار idx** برای Python، PHP، TypeScript، Java، C#، Dart، C/C++، Rust، Go، Swift، Kotlin، COBOL — دریافت یک شاخص تابع/کلاس یا تعریف خاص بدون خواندن کل فایل |
 
-### 🖥 3 رابط + A2A + VS Code
+### 🖥 4 رابط + پسوند کد VS
 
 | حالت | فرمان | هدف |
 |---|---|---|
-| **CLI** | `uag` | عملکرد سریع مبتنی بر ترمینال |
+| **CLI** | "uag" | عملکرد سریع مبتنی بر ترمینال |
 | ** رابط کاربری گرافیکی ** | "uagg" | رابط کاربری دسکتاپ از طریق tkinter |
-| **وب** | "uagw" | دسترسی مبتنی بر مرورگر |
+| **وب** | `uagw` | دسترسی مبتنی بر مرورگر |
 | **سرور A2A** | `uaga` | پروتکل Agent2Agent برای ارتباط چند عاملی |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
+| ** کد VS ** | — | [افزونه](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) با پنل چت، توضیح، Refactor، رفع خطا، و نمای درختی ابزارها |
+
+[VSCODE.md](https://github.com/awaku7/agentcli/blob/main/VSCODE.md) را برای جزئیات بیشتر در مورد برنامه افزودنی VS Code - نصب، دستورات، کلیدبندی و پیکربندی ببینید.
 
 ### 🏠 کنترل دستگاه اینترنت اشیا
 
@@ -100,23 +104,24 @@ OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / G
 - **موضوع**: بازرسی فقط خواندنی توپولوژی کنترلر/پل/دستگاه
 - **UPnP**: کشف دستگاه و ارسال پورت IGD
 
-[IOT_USECASE.md](../IOT_USECASE.md)) را ببینید
+[IOT_USECASE.md](https://github.com/awaku7/agentcli/blob/main/IOT_USECASE.md) را ببینید
 
 ### 🎯 بازار مهارت های نماینده
 
 «:skills mp_search» برای مرور [SkillsMP](https://skillsmp.com) و [ClawHub](https://clawhub.ai) برای مهارت‌های اجتماعی.
 قابلیت‌های uag را در لحظه نصب و گسترش دهید.
 
-### 🤖 Auto-Pilot (`:auto`)
+### 🤖 خلبان خودکار (`:auto`)
 
-uag can **autonomously pursue a goal across multiple LLM rounds**. Perfect for complex, multi-step tasks that need iterative refinement.
+uag می تواند **به طور مستقل هدفی را در چندین دور LLM دنبال کند**. ایده آل برای کارهای پیچیده و چند مرحله ای که نیاز به اصلاح تکراری دارند.
 
-- **How it works**: Each round has a main query (Step A) followed by a reviewer judgment (Step B) that decides "COMPLETE or CONTINUE?"
-- **Same provider, same API**: The reviewer judgment uses the identical code path as the main query — including Responses API support.
-- **Exit anytime**: Press `x` key to stop immediately, even mid-response. Or let the reviewer decide when the goal is met.
-- **Configurable**: `--max-rounds N` to control the budget.
+- **چگونه کار می کند**: هر دور دارای یک پرس و جو اصلی (مرحله A) و به دنبال آن یک قضاوت بازبین (مرحله B) است که تصمیم می گیرد "کامل یا ادامه دهید؟"
+- ** ارائه دهنده یکسان، همان API **: قضاوت بازبین از مسیر کد یکسان به عنوان پرس و جو اصلی استفاده می کند - از جمله پشتیبانی از API پاسخ ها.
+- **قاضی جداگانه LLM** (اختیاری): «UAGENT_AP_PROVIDER» را تنظیم کنید تا از ارائه دهنده/مدل متفاوتی برای داور استفاده کند (مثلاً از مدل ارزان‌تری برای قضاوت استفاده کنید).
+- **خروج در هر زمان**: کلید "x" را فشار دهید تا فورا متوقف شود، حتی در اواسط پاسخ. یا اجازه دهید داور تصمیم بگیرد که چه زمانی به هدف رسیده است.
+- **قابل تنظیم**: "--max-round N" برای کنترل بودجه.
 
-See [README_AUTO.md](../README_AUTO.md)) for full documentation.
+برای مستندات کامل به [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) مراجعه کنید.
 
 ### 🧩 Batch State Manager
 
@@ -126,19 +131,19 @@ uag می تواند پیشرفت را در وظایف طولانی مدت چند
 
 «human_ask» به LLM اجازه می دهد قبل از انجام عملیات مخرب (حذف فایل، رونویسی، دستورات پوسته) تائید شما را متوقف کند. شما در کنترل بمانید.
 
-### 🛑 Interrupt (c-key / Stop button)
+### 🛑 وقفه (کلید c / دکمه توقف)
 
-Stop LLM response generation at any time and inject a stop command back to the LLM.
+تولید پاسخ LLM را در هر زمان متوقف کنید و یک دستور توقف را به LLM بازگردانید.
 
-| Interface | How to interrupt |
+| رابط | نحوه قطع کردن |
 |---|---|
-| **CLI** | Press `c` key during LLM streaming -- the current response stops, and `"Stop"` is sent as a user message so the LLM responds accordingly |
-| **WEB UI** | Click the red **■ Stop** button (appears automatically during LLM processing) |
-| **Desktop GUI** | Click the red **■** button (appears automatically during LLM processing) |
+| **CLI** | کلید «c» را در حین پخش جریانی LLM فشار دهید — پاسخ فعلی متوقف می‌شود، و «توقف»» به‌عنوان یک پیام کاربر ارسال می‌شود تا LLM مطابق با آن پاسخ دهد |
+| **واسطه وب** | روی دکمه قرمز **■ Stop** کلیک کنید (به طور خودکار در طول پردازش LLM ظاهر می شود) |
+| ** رابط کاربری گرافیکی دسکتاپ ** | روی دکمه قرمز **■** کلیک کنید (به طور خودکار در طول پردازش LLM ظاهر می شود) |
 
-The interrupt works as "prompt injection": instead of just aborting, it feeds `"Stop"` back to the LLM as a user message, allowing it to gracefully conclude or acknowledge the interruption.
+وقفه به‌عنوان «تزریق سریع» عمل می‌کند: به جای صرفاً سقط، «توقف» را به عنوان یک پیام کاربر به LLM برمی‌گرداند و به آن اجازه می‌دهد تا به‌خوبی وقفه را به پایان برساند یا تأیید کند.
 
-Press `x` key to exit auto-pilot mode (see `:auto` command).
+برای خروج از حالت خلبان خودکار، کلید «x» را فشار دهید (به [README_AUTO.md](https://github.com/awaku7/agentcli/blob/main/README_AUTO.md) مراجعه کنید).
 
 ### 🕵️ اتوماسیون مرورگر و بازرس وب
 
@@ -155,9 +160,9 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 ### 🌐 i18n / L10n
 
 日本語 / انگلیسی / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / و بیشتر.
-«UAGENT_LANG» را برای جابجایی تنظیم کنید. برای افزودن محلی جدید به [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) مراجعه کنید.
+«UAGENT_LANG» را برای جابجایی تنظیم کنید. برای افزودن محلی جدید به [ADD_LOCALE.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/ADD_LOCALE.md) مراجعه کنید.
 
-ترجمه‌های این README در [docs/README.translations.md] (README.translations.md)) موجود است.
+ترجمه‌های این README در [docs/README.translations.md] (https://github.com/awaku7/agentcli/blob/main/docs/README.translations.md) موجود است.
 
 ### 🔒 متغیرهای محیطی رمزگذاری شده
 
@@ -166,12 +171,12 @@ Press `x` key to exit auto-pilot mode (see `:auto` command).
 
 ## پیکربندی و جزئیات
 
-- **متغیرهای محیطی**: [ENVIRONMENT.md](../ENVIRONMENT.md))
+- **متغیرهای محیطی**: [ENVIRONMENT.md](https://github.com/awaku7/agentcli/blob/main/ENVIRONMENT.md)
 - **جادوگر راه اندازی**: `python -m uagent.setup_cli`
 - ** env رمزگذاری شده **: `uag_envsec` — رمزگذاری `.env` به عنوان `.env.sec`
-- **Responses API**: "UAGENT_RESPONSES=1" را برای حالت Responses API تنظیم کنید (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)
-- **اسناد برنامه‌نویس**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
-- **نکات کوچک LLM**: [SLM_TIPS.md](../SLM_TIPS.md))
+- **Responses API**: "UAGENT_RESPONSES=1" را برای حالت Responses API (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI) تنظیم کنید. به طور خودکار برای Sakana AI (Fugu) فعال شده است.
+- **اسناد برنامه‌نویس**: [DEVELOP.md](https://github.com/awaku7/agentcli/blob/main/src/uagent/docs/DEVELOP.md)
+- **نکات کوچک LLM**: [SLM_TIPS.md](https://github.com/awaku7/agentcli/blob/main/SLM_TIPS.md)
 
 ## فلسفه پروژه
 

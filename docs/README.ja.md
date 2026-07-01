@@ -2,15 +2,15 @@
   <img src="https://raw.githubusercontent.com/awaku7/agentcli/main/assets/uag-logo.svg" alt="uag logo" width="720">
 </p>
 
-<h1 align="center">uag — ユニバーサル AI ゲートウェイ</h1>
+<h1 align="center">uag — Universal AI Gateway</h1>
 
 <p align="center">
   <b>U</b>niversal <b>A</b>I <b>G</b>ateway — あなたの環境、あなたの自由。
 </p>
 
 <p align="center">
-  ファイル操作 / Web 検索 / 画像生成および分析 / PDF および Excel 抽出 / IoT 制御 / MCP 統合<br>
-  15 を超えるプロバイダー / 3 つの UI / 並列ツール実行 / エージェント スキル マーケットプレイス
+  ファイル操作 / Web検索 / 画像生成・分析 / PDF・Excel抽出 / IoT制御 / MCP統合<br>
+  15以上のプロバイダ / 3つのUI / ツール並列実行 / エージェントスキルマーケットプレイス
 </p>
 
 <p align="center">
@@ -18,23 +18,23 @@
   ·
   <a href="https://pypi.org/project/uag/">PyPI</a>
   ·
-  <a href="README.translations.md">これをあなたの言語で読んでください</a>
+  <a href="README.translations.md">Read this in your language</a>
 </p>
 
 ---
 
-## なぜuagなのか?
+## なぜuagなのか？
 
-**ベンダー ロックインから解放されます。** ほとんどの AI アシスタントは、ユーザーを特定のプロバイダーまたはクラウド サービスに結び付けます。ワグは違うよ。
+**ベンダーロックインからの解放。** ほとんどのAIアシスタントは特定のプロバイダやクラウドサービスに縛られます。uagは違います。
 
-- **お使いのマシン上でローカルに実行**。データは保管されます (API 呼び出しを除く)。
-- **プロバイダーの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock...15 以上のプロバイダーに、単一のインターフェイスからすべてアクセス可能。環境変数を再構成することでそれらを切り替えます。再インストールや移行は必要ありません。
-- **131 ツール**: ファイル I/O、Web 検索、画像生成、Gmail、BLE デバイス スキャン、MCP サーバー統合 - **76 は並列セーフです** (スレッド プール経由で最大 8 つが同時に実行、`UAGENT_PARALLEL_WORKERS` 経由で構成可能)。 LLM が複数のツール呼び出しを同時に起動すると、uag はそれらを自動的に並列化します。
-- **4 UI + A2A**: CLI、GUI、Web、およびエージェント間プロトコル。同じエンジン、どのインターフェイスでも。
-- **IoT ready**: SwitchBot, ECHONET Lite, Matter, UPnP — control your home devices through AI.
-- **エージェント スキル**: コミュニティが構築したスキルをマーケットプレイスからインストールします。 uagを無限に拡張します。
+- **あなたのマシンでローカルに動作**。データはあなたの手元に残ります（API呼び出しは除く）。
+- **プロバイダの自由**: OpenAI、Claude、Gemini、DeepSeek、Ollama、Azure、Bedrock、HuggingFace…15以上のプロバイダを1つのインターフェースから利用可能。環境変数を変えるだけで切り替えられます。再インストールや移行は不要です。
+- **131のツール**: ファイルI/O、Web検索、画像生成、Gmail、BLEデバイススキャン、MCPサーバ統合 — **76のツールは並列実行に対応**（スレッドプールで最大8つ同時実行、`UAGENT_PARALLEL_WORKERS` で変更可能）。LLMが複数のツール呼び出しを同時に要求すると、uagは自動的に並列化します。
+- **3つのUI + A2A**: CLI、GUI、Web、そしてエージェント間プロトコル。同じエンジンをどのインターフェースでも使えます。
+- **IoT対応**: SwitchBot、ECHONET Lite、Matter、UPnP — AIで家電を制御。
+- **エージェントスキル**: マーケットプレイスからコミュニティ製スキルをインストール。uagを無限に拡張できます。
 
-uag は **あなたの条件に応じた AI アシスタント**です。 Not tied to a provider, not tied to an interface, not tied to a platform.
+uagは **あなたの思い通りに動くAIアシスタント**です。プロバイダに縛られず、インターフェースに縛られず、プラットフォームに縛られません。
 
 ## クイックスタート
 
@@ -43,145 +43,143 @@ pip install uag
 uag
 ```
 
-最初の起動時に、セットアップ ウィザードの手順に従ってプロバイダーの構成が行われます。
-See [ENVIRONMENT.md](../ENVIRONMENT.md)) for all environment variables.
+初回起動時にセットアップウィザードがプロバイダ設定を案内します。
+環境変数の一覧は [ENVIRONMENT.md](../ENVIRONMENT.md) を参照してください。
 
 ## 特徴
 
-### 🧠 マルチプロバイダー アーキテクチャ
+### 🧠 マルチプロバイダ構成
 
 OpenAI / Azure / Bedrock / OpenRouter / Ollama / Gemini / Vertex AI / Claude / Grok / NVIDIA / DeepSeek / Z.AI (Zhipu AI) / HuggingFace / Alibaba Cloud (Qwen) / KIMI (Moonshot AI) / Xiaomi MiMo / LM Studio / MiniMax / **Sakana AI (Fugu)**
 
-すべてのプロバイダーは同じツールセットとインターフェイスを共有します。 `UAGENT_PROVIDER` の設定で切り替え — コード変更も個別インストールも不要です。
+すべてのプロバイダは同じツールセットとインターフェースを共有します。`UAGENT_PROVIDER` を切り替えるだけで変更でき、コード修正や個別インストールは不要です。
 
 ### ⚡ ツールの並列実行
 
-LLM が複数のツールを同時に要求すると、uag は **自動的に並列化** します。
-76 のツールが `x_parallel_safe` に指定されており、`ThreadPoolExecutor` 経由で同時実行されます（デフォルト8スレッド、`UAGENT_PARALLEL_WORKERS` で変更可能）。
+LLMが複数のツールを同時に要求すると、uagは **自動的に並列実行** します。
+76のツールが `x_parallel_safe` に指定されており、`ThreadPoolExecutor` で同時実行されます（デフォルト8スレッド、`UAGENT_PARALLEL_WORKERS` で変更可能）。
 
-**例**: 「北欧の首都の天気を調べて」と尋ねる → LLM が `search_web` × 5 か国を発火 → 5 つの検索すべてが並行して実行される → 結果が 1 つのバッチで収集される。
+**例**: 「北欧の首都の天気を調べて」と質問 → LLMが `search_web` を5ヶ国分同時に要求 → 5つの検索が並行実行 → 結果が1つのバッチにまとまる。
 
-Read-only tools (file search, hash calculation, directory listing, translation, DB queries, etc.) are aggressively parallelized.
+読み取り専用のツール（ファイル検索、ハッシュ計算、ディレクトリ一覧、翻訳、DBクエリなど）は積極的に並列化されます。
 
 ### 🔄 セッションの継続性
 
-- **セッション中にプロバイダーを切り替える** `UAGENT_PROVIDER` — 会話履歴は保存されます。
-- **過去のセッションをリロード** `:load <index>` — 中断したところから再開します。
-- **Tool result caching** avoids redundant re-execution when the same tool call repeats.
+- **セッション中のプロバイダ切り替え**: `UAGENT_PROVIDER` を変更しても会話履歴は保持されます。
+- **過去セッションの再読み込み**: `:load <番号>` で中断したところから再開。
+- **ツール結果のキャッシュ**: 同じツール呼び出しが繰り返された場合、再実行を防ぎます。
 
-### 🛠 131 ツール
+### 🛠 131ツール
 
-|カテゴリー |ツール |
+| カテゴリ | ツール |
 |---|---|
-| **ファイル操作** | read/write/create/delete/search/grep/hash/zip, parse_eml (.eml files) |
-| **ウェブ** | fetch_url, search_web, screenshot, browser_playwright |
-| **メディア** | generate_image, analyze_image, img2img, audio_speech, audio_transcribe |
+| **ファイル操作** | read/write/create/delete/search/grep/hash/zip、parse_eml（.emlファイル） |
+| **Web** | fetch_url、search_web、screenshot、browser_playwright |
+| **メディア** | generate_image、analyze_image、img2img、audio_speech、audio_transcribe |
 | **ドキュメント** | PDF/PPTX/DOCX/RTF/ODT抽出、Excel構造化抽出 |
-| **コミュニケーション** | gmail_send, gmail_read, bluesky, discord_channel, teams_webhook — see [COMMUNICATION.md](COMMUNICATION.md)) |
-| **IoT** | SwitchBot (Cloud + BLE), ECHONET Lite, Matter, UPnP |
-| **開発ツール** | git_ops, python_compile, lint_format, run_tests, db_query, **13 source code navigators (idx family)** |
-| **MCP** | Connect to external MCP servers, list tools, execute |
-| **A2A** | Agent-to-agent communication (with other uag instances or A2A-compatible servers) |
-| **システム** |環境変数、システム仕様、時刻、日付の計算 |
-| **ソース ナビ** | **13 の idx ツール** (Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL 用) — ファイル全体を読み込まずに関数/クラスのインデックスまたは特定の定義を取得します。
+| **コミュニケーション** | gmail_send、gmail_read、bluesky、discord_channel、teams_webhook — [COMMUNICATION.md](COMMUNICATION.md) 参照 |
+| **IoT** | SwitchBot（Cloud + BLE）、ECHONET Lite、Matter、UPnP |
+| **開発ツール** | git_ops、python_compile、lint_format、run_tests、db_query、**13のソースコードナビゲーター（idxファミリ）** |
+| **MCP** | 外部MCPサーバへの接続、ツール一覧、実行 |
+| **A2A** | エージェント間通信（他のuagインスタンスやA2A対応サーバと） |
+| **システム** | 環境変数、システム情報、時刻、日付計算 |
+| **ソースナビ** | **13のidxツール**（Python、PHP、TypeScript、Java、C#、Dart、C/C++、Rust、Go、Swift、Kotlin、COBOL）— ファイル全体を読まずに関数やクラスのインデックスを取得 |
 
-### 🖥 3 つのインターフェイス + A2A + VS Code
+### 🖥 4つのインターフェース + VS Code拡張
 
-|モード |コマンド |目的 |
+| モード | コマンド | 用途 |
 |---|---|---|
-| **CLI** | `uag` |端末ベースの高速操作 |
-| **GUI** | `uagg` | tkinter 経由のデスクトップ UI |
-| **ウェブ** | `uagw` |ブラウザベースのアクセス |
-| **A2A サーバー** | `uaga` |マルチエージェント通信用の Agent2Agent プロトコル |
-| **VS Code** | — | Extension (Chat Panel, Explain, Refactor, Fix Error, Tools Tree View) — see [VSCODE.md](../VSCODE.md)) |
+| **CLI** | `uag` | ターミナルベースの高速操作 |
+| **GUI** | `uagg` | tkinterによるデスクトップUI |
+| **Web** | `uagw` | ブラウザベースのアクセス |
+| **A2Aサーバ** | `uaga` | マルチエージェント通信用のAgent2Agentプロトコル |
+| **VS Code** | — | チャットパネル、説明、リファクタリング、エラー修正、ツールツリービュー — [VSCODE.md](../VSCODE.md) 参照 |
 
-### 🏠 IoT デバイス制御
+### 🏠 IoTデバイス制御
 
-- **SwitchBot**: クラウド一括制御 & BLE スキャン/制御
-- **ECHONET Lite**: ローカルネットワーク上の家電製品 (エアコン、照明、給湯器など) を検出して制御します。
-- **重要事項**: コントローラー/ブリッジ/デバイス トポロジの読み取り専用検査
-- **UPnP**: デバイス検出と IGD ポート転送
+- **SwitchBot**: クラウド一括制御 & BLEスキャン/制御
+- **ECHONET Lite**: ローカルネットワーク上の家電（エアコン、照明、給湯器など）を検出・制御
+- **Matter**: コントローラ/ブリッジ/デバイスのトポロジを読み取り専用で検査
+- **UPnP**: デバイス検出とIGDポート転送
 
-[IOT_USECASE.md](../IOT_USECASE.md)) を参照してください。
+詳しくは [IOT_USECASE.md](../IOT_USECASE.md) を参照。
 
-### 🎯 エージェント スキル マーケットプレイス
+### 🎯 エージェントスキルマーケットプレイス
 
-`:skills mp_search` では、[SkillsMP](https://skillsmp.com) および [ClawHub](https://clawhub.ai) を参照してコミュニティ スキルを確認できます。
-uag の機能をその場でインストールして拡張します。
+`:skills mp_search` で [SkillsMP](https://skillsmp.com) や [ClawHub](https://clawhub.ai) を検索し、コミュニティスキルをその場でインストールしてuagの機能を拡張できます。
 
-### 🤖 オートパイロット (`:auto`)
+### 🤖 オートパイロット（`:auto`）
 
-uag は、複数のLLMラウンドにわたって**自律的に目標を達成**できます。複雑なマルチステップタスクに最適です。
+uagは複数のLLMラウンドにわたって **自律的に目標を達成** できます。複雑なマルチステップタスクに適しています。
 
-- **動作**: 各ラウンドはメインクエリ（Step A）とレビューア判定（Step B）で構成。Step B が「COMPLETE or CONTINUE?」を判断します
-- **同じプロバイダ、同じAPIパス**: レビューア判定もメインクエリと同じコードパス（Responses API 対応含む）を使用
-- **いつでも停止**: `x` キーで即座に中断可能。レビューアの自動判定も利用
-- **設定可能**: `--max-rounds N` で最大ラウンド数を指定
+- **動作**: 各ラウンドはメインクエリ（Step A）とレビューアによる判定（Step B）で構成。Step Bが「COMPLETE」か「CONTINUE」を判断します。
+- **同じプロバイダ、同じコードパス**: レビューア判定もメインクエリと同じコードパス（Responses API対応含む）を使用。
+- **判定用LLMの分離（オプション）**: `UAGENT_AP_PROVIDER` を設定すると、レビューアに別のプロバイダ/モデルを使えます（例：判定には安価なモデルを使う）。
+- **いつでも停止**: 応答中でも `x` キーで即座に中断可能。レビューアの自動判定も利用できます。
+- **設定可能**: `--max-rounds N` で最大ラウンド数を指定。
 
-詳細は [README_AUTO.ja.md](README_AUTO.ja.md)) を参照してください。
+詳細は [README_AUTO.ja.md](README_AUTO.ja.md) を参照。
 
-### 🧩 バッチ状態マネージャー
+### 🧩 バッチ状態管理
 
-uag は、長時間実行される複数ファイルのタスク全体の進行状況を追跡できます。 LLM が数十のファイルを処理するとき、`batch_state` は保留中、完了、失敗したファイルのリストをディスクに保存します。セッションが終了するかラウンドがタイムアウトになると、次の実行は停止したところから再開され、何も失われません。
+uagは長時間かかる複数ファイルのタスクについて、処理状況を追跡できます。LLMが数十のファイルを処理するとき、`batch_state` は未処理・完了・失敗のファイル一覧をディスクに保存します。セッションが切れたりラウンドがタイムアウトしても、次回実行時に続きから再開できます。
 
 ### 🛡 人間参加型
 
-`human_ask` を使用すると、破壊的な操作 (ファイルの削除、上書き、シェル コマンド) を実行する前に、LLM が一時停止して確認を求められます。あなたはコントロールを維持できます。
+`human_ask` を使うと、破壊的な操作（ファイル削除、上書き、シェルコマンドの実行）の前にLLMが一時停止して確認を求めます。あなたが常に制御権を持ちます。
 
-### 🛑 割り込み (c キー / Stop ボタン)
+### 🛑 割り込み（cキー / 停止ボタン）
 
-LLM 応答生成中にいつでも停止し、LLM に停止コマンドを注入できます。
+LLMの応答生成中にいつでも停止し、LLMに停止コマンドを送れます。
 
 | インターフェース | 割り込み方法 |
 |---|---|
-| **CLI** | LLM ストリーミング中に `c` キーを押すと、現在の応答が停止し、`"Stop"` がユーザーメッセージとして送信されます |
-| **WEB UI** | 赤い **■ Stop** ボタンをクリック（LLM 処理中に自動表示） |
-| **Desktop GUI** | 赤い **■** ボタンをクリック（LLM 処理中に自動表示） |
+| **CLI** | LLMストリーミング中に `c` キーを押すと応答が停止し、`"Stop"` がユーザーメッセージとして送信されます |
+| **Web UI** | 赤い **■ Stop** ボタンをクリック（LLM処理中に自動表示） |
+| **デスクトップGUI** | 赤い **■** ボタンをクリック（LLM処理中に自動表示） |
 
-割り込みは「プロンプト注入」として機能します: 単に中断するだけでなく、`"Stop"` を LLM にユーザーメッセージとして送り返すことで、LLM が適切に応答を締めくくることができます。
+この割り込みは「プロンプト注入」として機能します。単に中断するだけでなく、`"Stop"` をLLMに送り返すことで、LLMが適切に応答を締めくくれるようになります。
 
-自動パイロットモード（`:auto` コマンド）を終了するには `x` キーを押します。
+オートパイロットモード（`:auto`）を終了するには `x` キーを押します。
 
-### 🕵️ ブラウザ自動化と Web インスペクター
+### 🕵️ ブラウザ自動化とWebインスペクタ
 
-2 つの補完的な Playwright ベースのツール:
+2つの補完的なPlaywrightベースのツール:
 
-- **browser_playwright**: 実際のブラウザ セッションを自動化します。移動、クリック、フォームへの入力、データの抽出、複数ページのフローの処理を行います。ヘッドレスまたはヘッドなしで動作します。
-- **playwright_inspector**: ブラウザーの遷移を記録し、各ステップで DOM スナップショットとスクリーンショットをキャプチャします。 Web インタラクションのデバッグや、時間の経過に伴うページの変更の監査に役立ちます。
+- **browser_playwright**: 実際のブラウザセッションを自動化。移動、クリック、フォーム入力、データ抽出、複数ページの操作に対応。ヘッドレスでもヘッドありでも動作します。
+- **playwright_inspector**: ブラウザの遷移を記録し、各ステップでDOMスナップショットとスクリーンショットを取得。Web操作のデバッグやページ変更の追跡に便利です。
 
-### 🔄 動的ツールの読み込み
+### 🔄 動的ツール読み込み
 
-`tool_catalog` および `tool_load` を使用すると、実行時にツールを検出して有効にすることができます。
-起動時にすべてをロードする必要はありません。必要なときに、必要なものだけをアクティブにします。
+`tool_catalog` と `tool_load` を使うと、実行時にツールを発見・有効化できます。起動時にすべてを読み込む必要はなく、必要なときに必要なものだけを有効にできます。
 
 ### 🌐 i18n / L10n
 
-日本語 / 英語 / 简体中文 / 繁體中文 / 한국어 / スペイン語 / フランス語 / Русский / など。
-`UAGENT_LANG` をスイッチに設定します。新しいロケールを追加するには、[ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md)) を参照してください。
+日本語 / English / 简体中文 / 繁體中文 / 한국어 / Español / Français / Русский / など。
+`UAGENT_LANG` で切り替えられます。新しいロケールの追加方法は [ADD_LOCALE.md](../src/uagent/docs/ADD_LOCALE.md) を参照。
 
-この README の翻訳は [docs/README.translations.md](README.translations.md)) で入手できます。
+Translations of this README are available in [docs/README.translations.md](README.translations.md).
 
 ### 🔒 暗号化された環境変数
 
-API キーとシークレットを `.env.sec` (暗号化された `.env` ファイル) に保存します。
-`uag_envsec` で管理します。
+APIキーやシークレットは `.env.sec`（暗号化された `.env` ファイル）に保存できます。管理には `uag_envsec` を使います。
 
 ## 構成と詳細
 
-- **環境変数**: [ENVIRONMENT.md](../ENVIRONMENT.md))
-- **セットアップ ウィザード**: `python -m uagent.setup_cli`
-- **暗号化された環境**: `uag_envsec` — `.env` を `.env.sec` として暗号化します
-- **レスポンス API**: `UAGENT_RESPONSES=1` をレスポンス API モードに設定します (OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI)。Sakana AI (Fugu) では自動的に有効になります。
-- **開発者ドキュメント**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md))
-- **LLM の小さなヒント**: [SLM_TIPS.md](../SLM_TIPS.md))
+- **環境変数**: [ENVIRONMENT.md](../ENVIRONMENT.md)
+- **セットアップウィザード**: `python -m uagent.setup_cli`
+- **暗号化環境**: `uag_envsec` — `.env` を `.env.sec` として暗号化
+- **Responses API**: `UAGENT_RESPONSES=1` でResponses APIモードに（OpenAI/Azure/Bedrock/OpenRouter/Ollama/Alibaba/LM Studio/Sakana AI）。Sakana AI（Fugu）では自動的に有効になります。
+- **開発者向けドキュメント**: [DEVELOP.md](../src/uagent/docs/DEVELOP.md)
+- **軽量LLM向けヒント**: [SLM_TIPS.md](../SLM_TIPS.md)
 
 ## プロジェクトの理念
 
-uag は **あなたのマシン上であなたの条件に合わせてあなたの AI になることを目指しています。**
+uagは **あなたのマシンで、あなたの思い通りに動く、あなたのAI** を目指しています。
 
-- SaaS への依存関係なし - ローカルで実行
-- プロバイダーのロックインなし - いつでも切り替え可能
-- UI ロックインなし — CLI / GUI / Web / A2A
-- 機能のロックインなし - ツールとスキルで拡張可能
+- SaaSに依存しない — ローカルで動作
+- プロバイダのロックインなし — いつでも切り替え可能
+- UIのロックインなし — CLI / GUI / Web / A2A
+- 機能のロックインなし — ツールとスキルで拡張可能
 
-ベンダー ロックインのない、無料の AI エージェント エクスペリエンス。
+ベンダーロックインのない、自由なAIエージェント体験。
