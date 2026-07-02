@@ -924,12 +924,24 @@ def run_llm_rounds(
             # _RS_CONTINUE and _RS_OK: continue loop naturally
 
             # --- Auto-unload stale tools ---
-            # Only check the LAST assistant message (current round), not full history
-            if messages and messages[-1].get("role") == "assistant" and "tool_calls" in messages[-1]:
-                for tc in messages[-1]["tool_calls"]:
-                    tname = tc.get("function", {}).get("name", "")
-                    if tname:
-                        _TOOL_LAST_ROUND[tname] = _TOTAL_ROUNDS
+            # Search backwards through messages to find the LAST assistant message with tool_calls
+            # (messages[-1] may be a tool result after _execute_tool_calls, so we can't rely on it alone)
+            _found_tool_names: set[str] = set()
+            for _m in reversed(messages):
+                if not isinstance(_m, dict):
+                    continue
+                if _m.get("role") != "assistant":
+                    continue
+                _tcs = _m.get("tool_calls")
+                if not isinstance(_tcs, list) or not _tcs:
+                    continue
+                for _tc in _tcs:
+                    _tname = _tc.get("function", {}).get("name", "")
+                    if _tname:
+                        _found_tool_names.add(_tname)
+                break  # only the last assistant message matters
+            for _tname in _found_tool_names:
+                _TOOL_LAST_ROUND[_tname] = _TOTAL_ROUNDS
 
             for spec in list(_TOOL_SPECS):
                 func_info = spec.get("function", {})
@@ -941,7 +953,7 @@ def run_llm_rounds(
                     continue
                 last = _TOOL_LAST_ROUND.get(tname)
                 if last is None:
-                    # Never used: unload after 5 rounds
+                    # Never used: unload after 5 rounds (or _TOOL_AUTO_UNLOAD_ROUNDS, whichever is smaller)
                     if _TOTAL_ROUNDS >= 5 and _TOOL_AUTO_UNLOAD_ROUNDS > 0:
                         _disable_single_tool(tname)
                 elif (_TOTAL_ROUNDS - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
