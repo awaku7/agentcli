@@ -40,7 +40,7 @@ _LAST_REQUEST_TIME: float = 0
 # ---------------------------------------------------------------------------
 
 _PH_PREFIX = "__PH_"
-_BR_TAG = "\x00BR\x00"  # newline placeholder inside an element
+_BR_TAG = "[=BR=]"  # newline placeholder inside an element
 
 _EXT_PATTERNS: dict[str, list[tuple[str, str]]] = {
     ".py": [
@@ -69,6 +69,7 @@ _EXT_ALIASES: dict[str, str] = {
     ".ts": ".js", ".jsx": ".js", ".tsx": ".js",
     ".bash": ".sh", ".zsh": ".sh",
     ".cpp": ".c", ".h": ".c", ".hpp": ".c", ".cxx": ".c", ".hxx": ".c",
+    ".pot": ".po",
 }
 
 _EXT_PATTERNS_CACHE: dict[str, list[tuple[re.Pattern, str]]] = {}
@@ -102,6 +103,8 @@ def _detect_extension(text: str) -> str:
     if any(re.search(r'\bfunction\s+\w*\s*\(', ln) for ln in lines[:20]): return ".js"
     if any(re.search(r'\b(?:const|let|var)\s+\w+\s*=', ln) for ln in lines[:10]): return ".js"
     if any(re.search(r'\bfunc\s+\w+\s*\(', ln) for ln in lines[:20]): return ".swift"
+    if any(re.search(r'^msgid\s+"', ln) for ln in lines[:30]): return ".po"
+    if any(re.search(r'^msgstr\s+"', ln) for ln in lines[:30]): return ".po"
     return ""
 
 def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
