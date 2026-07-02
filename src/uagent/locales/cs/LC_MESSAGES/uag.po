@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -929,6 +929,7 @@ msgstr ""
 "Výpis zásobníku:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "certifikát není k dispozici"
 
@@ -979,12 +980,18 @@ msgstr "[Claude Error] Při generování odpovědi došlo k chybě."
 msgid "Input exceeds the context window."
 msgstr "Vstup překračuje kontextové okno."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "Model nepodporuje myšlení.Deaktivace myšlení a opakování..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Kód chyby: %(code)d – %(err)s"
 
@@ -1017,6 +1024,7 @@ msgstr "Chyba odpovědi: resp.choices je Žádná nebo prázdná."
 msgid "Error while parsing response: %(err)s"
 msgstr "Chyba při analýze odpovědi: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1060,6 +1068,7 @@ msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "Nalezeno %(total_files)d souborů logu. Spouští se postupné profilování..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1107,6 +1116,7 @@ msgstr ""
 "\"constraints\": [\"řetězec\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Varování] Nepodařilo se zpracovat blok (%(step)s): %(err)s"
 
@@ -1305,9 +1315,11 @@ msgstr "Přehrávání"
 msgid "Stopped"
 msgstr "Zastaveno"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Zastavení požadované uživatelem."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Zastavení požadované uživatelem (klávesa x)."
 
@@ -1998,15 +2010,15 @@ msgstr "Upozornění: Nepodařilo se odstranit plain .env: %(error)s"
 msgid "generated: %(path)s"
 msgstr "vygenerováno: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Uživatel přerušil. Odesílám příkaz k zastavení LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Zastavit"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Počet oběhů nástrojů překročen %(max)d; přerušení."
@@ -2437,6 +2449,7 @@ msgstr "Zobrazit naučený uživatelský profil (prostředí, preference, omezen
 msgid "Generate profile from the most recent N log files"
 msgstr "Vygenerujte profil z nejnovějších souborů protokolu N"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
 "Generovat uživatelský profil z minulých protokolů (výchozí: 100; 0=vše)"
@@ -2510,15 +2523,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "zpětná vazba: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Ukončeno uživatelem (klávesa x)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Kontrola/analýza dokončena."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Bylo dosaženo maximálního počtu kol (%(max)d).Zastavení."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Kolo %(round)d/%(max)d"
 
@@ -2804,6 +2821,8 @@ msgstr "neplatná meta mezipaměti"
 msgid "anthropic package is not installed."
 msgstr "antropický balíček není nainstalován."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Oprava nezměnila zprávy, vzdala se."
 
@@ -2908,6 +2927,7 @@ msgstr ""
 "        - Pokud už je odpověď dostatečná, raději odpovídejte bez webového vyhledávání.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Tělo odpovědi: %(body)s"
 

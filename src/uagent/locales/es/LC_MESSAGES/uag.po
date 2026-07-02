@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -943,6 +943,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "certificado no está disponible"
 
@@ -992,14 +993,20 @@ msgstr "[Error de Claude] Se produjo un error al generar una respuesta."
 msgid "Input exceeds the context window."
 msgstr "La entrada excede la ventana de contexto."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "El modelo no soporta el pensamiento.Deshabilitar el pensamiento y volver a "
 "intentarlo..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 solicitud incorrecta"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Código de error: %(code)d - %(err)s"
 
@@ -1032,6 +1039,7 @@ msgstr "Error de respuesta: resp.choices es Ninguno o está vacío."
 msgid "Error while parsing response: %(err)s"
 msgstr "Error al analizar la respuesta: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1076,6 +1084,7 @@ msgstr ""
 "Se encontraron %(total_files)d archivos de registro. Iniciando el perfilado "
 "incremental..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1123,6 +1132,7 @@ msgstr ""
 "\"restricciones\": [\"cadena\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Advertencia] No se pudo procesar el fragmento (%(step)s): %(err)s"
 
@@ -1322,9 +1332,11 @@ msgstr "Reproduciendo"
 msgid "Stopped"
 msgstr "Detenido"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Parada solicitada por el usuario."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Parada solicitada por el usuario (tecla x)."
 
@@ -2021,15 +2033,15 @@ msgstr "Advertencia: no se pudo eliminar el .env sin cifrar: %(error)s"
 msgid "generated: %(path)s"
 msgstr "generado: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Interrumpido por el usuario. Enviando comando de detención al LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Detener"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr ""
@@ -2471,6 +2483,7 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Generar perfil a partir de los archivos de registro N más recientes"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
 "Generar perfil de usuario a partir de registros anteriores (predeterminado: "
@@ -2543,15 +2556,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "comentarios: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Salido por el usuario (tecla x)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Revisión/análisis completado."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Rondas máximas (%(max)d) alcanzadas.Parada."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Redondear %(round)d/%(max)d"
 
@@ -2837,6 +2854,8 @@ msgstr "metadatos de caché no válidos"
 msgid "anthropic package is not installed."
 msgstr "No está instalado el paquete anthropic."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "La reparación no cambió los mensajes y se rindió."
 
@@ -2942,6 +2961,7 @@ msgstr ""
 "        - Prefiere responder sin búsqueda web cuando la respuesta ya sea suficiente.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Cuerpo de respuesta: %(body)s"
 

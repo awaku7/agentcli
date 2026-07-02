@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -929,6 +929,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "sertifisering er ikke tilgjengelig"
 
@@ -977,13 +978,19 @@ msgstr "[Claude-feil] Det oppstod en feil under generering av et svar."
 msgid "Input exceeds the context window."
 msgstr "Inndata overskrider kontekstvinduet."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "Modell støtter ikke tenkning.Deaktiverer tenkning og prøver på nytt..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Feilkode: %(code)d - %(err)s"
 
@@ -1016,6 +1023,7 @@ msgstr "Svarfeil: resp.choices er Ingen eller tom."
 msgid "Error while parsing response: %(err)s"
 msgstr "Feil under tolkning av svar: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1058,6 +1066,7 @@ msgstr "Klarte ikke å initialisere LLM-klienten."
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "Fant %(total_files)d loggfiler. Starter inkrementell profilering..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1105,6 +1114,7 @@ msgstr ""
 "\"constraints\": [\"streng\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Advarsel] Kunne ikke behandle del (%(step)s): %(err)s"
 
@@ -1301,9 +1311,11 @@ msgstr "Spiller av"
 msgid "Stopped"
 msgstr "Stoppet"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Stopp forespurt av bruker."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Stopp forespurt av bruker (x-tast)."
 
@@ -1988,15 +2000,15 @@ msgstr "Advarsel: Klarte ikke å fjerne ukryptert .env: %(error)s"
 msgid "generated: %(path)s"
 msgstr "generert: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Avbrutt av bruker. Sender stoppkommando til LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Stopp"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[ADVARSEL] Verktøy-runder oversteg %(max)d; avbryter."
@@ -2419,6 +2431,7 @@ msgstr "Vis den lærte brukerprofilen (miljø, preferanser, begrensninger)"
 msgid "Generate profile from the most recent N log files"
 msgstr "Generer profil fra de nyeste N-loggfilene"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "Generer brukerprofil fra tidligere logger (standard: 100; 0=alle)"
 
@@ -2484,15 +2497,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "tilbakemelding: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Avsluttet av bruker (x-tast)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Gjennomgang/analyse fullført."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Maks runder (%(max)d) nådd.Stopper."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Runde %(round)d/%(max)d"
 
@@ -2777,6 +2794,8 @@ msgstr "ugyldige cache-metadata"
 msgid "anthropic package is not installed."
 msgstr "anthropic-pakken er ikke installert."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Reparasjon endret ikke meldinger, og ga opp."
 
@@ -2881,6 +2900,7 @@ msgstr ""
 "        - Svar heller uten nettsøk når svaret allerede er tilstrekkelig.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Svartekst: %(body)s"
 

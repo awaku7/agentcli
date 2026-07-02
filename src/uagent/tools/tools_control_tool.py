@@ -133,18 +133,19 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
         print(
             _(
                 "msg.tools.list_header",
-                default="[tools] Loaded tools ({count}):",
-            ).format(count=len(names))
+                default="[tools] Loaded tools ({count}), round={r}:",
+            ).format(count=len(names), r=_TOTAL_ROUNDS)
         )
         for n in sorted(names):
             last = _TOOL_LAST_ROUND.get(n)
-            if _TOOL_AUTO_UNLOAD_ROUNDS > 0 and last is not None:
-                remain = _TOOL_AUTO_UNLOAD_ROUNDS - (_TOTAL_ROUNDS - last)
-                if remain < 0:
-                    remain = 0
-                print(f"  {n}  {remain}")
+            if last is not None:
+                ago = _TOTAL_ROUNDS - last
+                expire = _TOOL_AUTO_UNLOAD_ROUNDS - ago
+                if expire < 0:
+                    expire = 0
             else:
-                print(f"  {n}")
+                expire = _TOOL_AUTO_UNLOAD_ROUNDS
+            print(f"  {n}  {expire}")
 
     from ..util_tools import CommandResult
 

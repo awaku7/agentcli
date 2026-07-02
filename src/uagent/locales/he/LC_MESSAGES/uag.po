@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -898,6 +898,7 @@ msgstr ""
 "עקבות:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "אישור אינו זמין"
 
@@ -945,12 +946,18 @@ msgstr "[קלוד שגיאה] אירעה שגיאה בעת יצירת תגובה
 msgid "Input exceeds the context window."
 msgstr "הקלט חורג מחלון ההקשר."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "המודל אינו תומך בחשיבה.משבית חשיבה וניסיון חוזר..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "קוד שגיאה: %(code)d - %(err)s"
 
@@ -983,6 +990,7 @@ msgstr "שגיאת תגובה: resp.choices היא ללא או ריקה."
 msgid "Error while parsing response: %(err)s"
 msgstr "שגיאה בעת ניתוח התגובה: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1025,6 +1033,7 @@ msgstr "אתחול לקוח LLM נכשל."
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "נמצאו %(total_files)d קובצי יומן. מתחיל יצירת פרופיל מצטבר..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1072,6 +1081,7 @@ msgstr ""
 "\"constraints\": [\"מחרוזת\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[אזהרה] נכשל בעיבוד הנתח (%(step)s): %(err)s"
 
@@ -1266,9 +1276,11 @@ msgstr "משחק"
 msgid "Stopped"
 msgstr "נעצר"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "עצירה ביקשה על ידי המשתמש."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "עצירה ביקשה על ידי המשתמש (מקש x)."
 
@@ -1965,15 +1977,15 @@ msgstr "אזהרה: הסרת ‎.env רגילה נכשלה: %(error)s"
 msgid "generated: %(path)s"
 msgstr "נוצר: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "הופסק על ידי המשתמש. שולח פקודת עצירה ל-LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "עצור"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[אזהרה] סיבובי הכלים חרגו מ-%(max)d; הפלה."
@@ -2386,6 +2398,7 @@ msgstr "הצג את פרופיל המשתמש הנלמד, או הפק אותו �
 msgid "Generate profile from the most recent N log files"
 msgstr "צור פרופיל מקובצי היומן העדכניים ביותר של N"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "צור פרופיל משתמש מיומנים קודמים (ברירת מחדל: 100; 0=הכל)"
 
@@ -2451,15 +2464,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "משוב: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[אוטומטי] יצא על ידי המשתמש (מקש x)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[אוטומטי] סקירה/ניתוח הושלם."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] הגעתם לסיבובים מקסימליים (%(max)d).סְתִימָה."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[אוטומטי] סיבוב %(round)d/%(max)d"
 
@@ -2734,6 +2751,8 @@ msgstr "מטא מטמון לא חוקי"
 msgid "anthropic package is not installed."
 msgstr "חבילת אנתרופית אינה מותקנת."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "תיקון לא שינה הודעות, ויתר."
 
@@ -2832,6 +2851,7 @@ msgstr ""
 "        - אל תשתמש בחיפוש באינטרנט למידע מקומי או יציב.\n"
 "        - העדיפו לענות ללא חיפוש באינטרנט כאשר התשובה כבר מספיקה."
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "גוף התגובה: %(body)s"
 

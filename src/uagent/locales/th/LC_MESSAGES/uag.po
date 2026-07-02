@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -921,6 +921,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "ไม่มีใบรับรอง"
 
@@ -968,12 +969,18 @@ msgstr "[ข้อผิดพลาด Claude] เกิดข้อผิด�
 msgid "Input exceeds the context window."
 msgstr "อินพุตเกินหน้าต่างบริบท"
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "โมเดลไม่สนับสนุนการคิดปิดกั้นการคิดและพยายามใหม่..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 คำขอไม่ถูกต้อง"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "รหัสข้อผิดพลาด: %(code)d - %(err)s"
 
@@ -1006,6 +1013,7 @@ msgstr "ข้อผิดพลาดในการตอบสนอง: resp
 msgid "Error while parsing response: %(err)s"
 msgstr "เกิดข้อผิดพลาดขณะแยกวิเคราะห์การตอบกลับ: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1049,6 +1057,7 @@ msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "พบไฟล์บันทึก %(total_files)d ไฟล์ กำลังเริ่มสร้างโปรไฟล์แบบเพิ่มทีละส่วน..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1096,6 +1105,7 @@ msgstr ""
 "\"ข้อจำกัด\": [\"สตริง\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[คำเตือน] ไม่สามารถประมวลผลส่วนข้อมูล (%(step)s): %(err)s"
 
@@ -1292,9 +1302,11 @@ msgstr "กำลังเล่น\n"
 msgid "Stopped"
 msgstr "หยุดแล้ว\n"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "หยุดการร้องขอโดยผู้ใช้"
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "หยุดการร้องขอโดยผู้ใช้ (ปุ่ม x)"
 
@@ -1981,15 +1993,15 @@ msgstr "คำเตือน: ไม่สามารถลบ .env แบบ�
 msgid "generated: %(path)s"
 msgstr "สร้างแล้ว: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "ผู้ใช้หยุดชะงัก กำลังส่งคำสั่งหยุดไปยัง LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "หยุด"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] รอบการเรียกใช้เครื่องมือเกิน %(max)d; กำลังยกเลิก\n"
@@ -2410,6 +2422,7 @@ msgstr "แสดงโปรไฟล์ผู้ใช้ที่เรีย
 msgid "Generate profile from the most recent N log files"
 msgstr "สร้างโปรไฟล์จากไฟล์บันทึก N ล่าสุด"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "สร้างโปรไฟล์ผู้ใช้จากบันทึกที่ผ่านมา (ค่าเริ่มต้น: 100; 0=ทั้งหมด)"
 
@@ -2477,15 +2490,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "ข้อเสนอแนะ: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[อัตโนมัติ] ออกโดยผู้ใช้ (ปุ่ม x)"
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[อัตโนมัติ] การตรวจสอบ/การวิเคราะห์เสร็จสมบูรณ์"
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[อัตโนมัติ] ถึงรอบสูงสุด (%(max)d) แล้วกำลังหยุด"
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[อัตโนมัติ] รอบ %(round)d/%(max)d"
 
@@ -2763,6 +2780,8 @@ msgstr "เมตาดาต้าของแคชไม่ถูกต้อ
 msgid "anthropic package is not installed."
 msgstr "ยังไม่ได้ติดตั้งแพ็กเกจ anthropic"
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "ซ่อมไม่เปลี่ยนข้อความยอมแพ้"
 
@@ -2866,6 +2885,7 @@ msgstr ""
 "        - หากคำตอบเพียงพอแล้ว ให้ตอบโดยไม่ต้องค้นหาเว็บจะดีกว่า.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "เนื้อหาการตอบสนอง: %(body)s"
 

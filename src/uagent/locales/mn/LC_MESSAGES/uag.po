@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -935,6 +935,7 @@ msgstr ""
 "Мөшгих:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "гэрчилгээ байхгүй байна"
 
@@ -984,14 +985,20 @@ msgstr "[Клодын алдаа] Хариулт үүсгэх явцад алд�
 msgid "Input exceeds the context window."
 msgstr "Оролт нь хам сэдвийн цонхноос хэтэрсэн байна."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "Загвар сэтгэлгээг дэмждэггүй.Сэтгэн бодох, дахин оролдохыг идэвхгүй болгож "
 "байна..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 муу хүсэлт"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Алдааны код: %(code)d - %(err)s"
 
@@ -1024,6 +1031,7 @@ msgstr "Хариултын алдаа: resp.choices байхгүй эсвэл х
 msgid "Error while parsing response: %(err)s"
 msgstr "Хариултыг задлан шинжлэх явцад гарсан алдаа: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1068,6 +1076,7 @@ msgstr ""
 "%(total_files)d лог файл олдлоо. Дэс дараалсан профайлжуулалтыг эхлүүлж "
 "байна..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1115,6 +1124,7 @@ msgstr ""
 "\"хязгаарлалт\": [\"мөр\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Анхааруулга] Хэсгийг боловсруулж чадсангүй (%(step)s): %(err)s"
 
@@ -1313,9 +1323,11 @@ msgstr "Тоглож байна"
 msgid "Stopped"
 msgstr "Зогссон"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Хэрэглэгчийн хүсэлтийг зогсоох."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Хэрэглэгчийн хүсэлтийг зогсоох (x товчлуур)."
 
@@ -2001,15 +2013,15 @@ msgstr "Анхааруулга: Энгийн .env-г устгаж чадсанг
 msgid "generated: %(path)s"
 msgstr "үүсгэсэн: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Хэрэглэгч зогсоосон. LLM руу зогсоох команд илгээж байна..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Зогсоох"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[АНХААРУУЛГА] Хэрэгслийн тоо %(max)d хэтэрсэн; таслах."
@@ -2446,6 +2458,7 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Хамгийн сүүлийн N бүртгэлийн файлаас профайл үүсгэнэ үү"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
 "Өнгөрсөн логуудаас хэрэглэгчийн профайл үүсгэх (өгөгдмөл: 100; 0=бүгд)"
@@ -2518,15 +2531,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "санал хүсэлт: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Хэрэглэгч гарсан (x товчлуур)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Хяналт/шинжилгээ дууссан."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Хамгийн их тойрогт (%(max)d) хүрсэн.Зогсож байна."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[АВТО] Дугуй %(round)d/%(max)d"
 
@@ -2812,6 +2829,8 @@ msgstr "буруу кэш мета"
 msgid "anthropic package is not installed."
 msgstr "антропик багц суулгаагүй байна."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Засвар нь бууж өгөөд мессежийг өөрчилсөнгүй."
 
@@ -2916,6 +2935,7 @@ msgstr ""
 "        - Орон нутгийн болон тогтвортой мэдээлэл авахын тулд вэб хайлтыг бүү ашигла.\n"
 "        - Хариулт нь аль хэдийн хангалттай болсон үед вэб хайлтгүйгээр хариулахыг илүүд үздэг."
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Хариултын хэсэг: %(body)s"
 

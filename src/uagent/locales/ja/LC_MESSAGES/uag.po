@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -880,6 +880,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "certifi は利用できません"
 
@@ -927,12 +928,18 @@ msgstr "[Claude エラー] 応答生成中にエラーが発生しました。"
 msgid "Input exceeds the context window."
 msgstr "入力がコンテキストウィンドウを超えています。"
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "モデルは思考をサポートしていません。思考を無効にして再試行します..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "エラーコード: %(code)d - %(err)s"
 
@@ -965,6 +972,7 @@ msgstr "応答エラー: resp.choices が None または空です。"
 msgid "Error while parsing response: %(err)s"
 msgstr "レスポンス解析中にエラー: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -997,6 +1005,7 @@ msgstr "LLM クライアントの初期化に失敗しました。"
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "ログファイルが %(total_files)d 件見つかりました。段階的なプロファイリングを開始します..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1044,6 +1053,7 @@ msgstr ""
 "  \"constraints\": [\"string\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[警告] チャンク (%(step)s) の処理に失敗しました: %(err)s"
 
@@ -1237,9 +1247,11 @@ msgstr "再生中"
 msgid "Stopped"
 msgstr "停止"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "ユーザーから停止要求がありました。"
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "ユーザーから停止要求がありました (x キー)。"
 
@@ -1922,15 +1934,15 @@ msgstr "警告: 平文の .env ファイルの削除に失敗しました: %(err
 msgid "generated: %(path)s"
 msgstr "生成: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "ユーザーにより中断されました。「停止」をLLMに送信します..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "停止"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] ツール使用ラウンドが %(max)d 回を超えたため打ち切ります。"
@@ -2328,6 +2340,7 @@ msgstr "学習済みのユーザープロファイルを表示するか、過去
 msgid "Generate profile from the most recent N log files"
 msgstr "最新の N 個のログ ファイルからプロファイルを生成"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "過去のログからユーザープロファイルを生成 (デフォルト: 100、0=すべて)"
 
@@ -2392,15 +2405,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "フィードバック: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] ユーザーにより終了されました (x キー)。"
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] レビュー/分析が完了しました。"
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] 最大ラウンド (%(max)d) に達しました。停止します。"
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] ラウンド %(round)d/%(max)d"
 
@@ -2669,6 +2686,8 @@ msgstr "無効なキャッシュメタデータ"
 msgid "anthropic package is not installed."
 msgstr "[FATAL] anthropic パッケージがインストールされていません"
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "修復してもメッセージは変わらなかったため、諦めました。"
 
@@ -2769,6 +2788,7 @@ msgstr ""
 "        - すでに答えが十分であれば、ウェブ検索を使わずに答えることを優先します。\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "応答本文: %(body)s"
 

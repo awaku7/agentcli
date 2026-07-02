@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -926,6 +926,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "sertifikat tidak tersedia"
 
@@ -974,13 +975,19 @@ msgstr "[Kesalahan Claude] Terjadi kesalahan saat membuat respons."
 msgid "Input exceeds the context window."
 msgstr "Input melebihi jendela konteks."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "Model tidak mendukung pemikiran.Menonaktifkan pemikiran dan mencoba ulang..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 Permintaan Buruk"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Kode kesalahan: %(code)d - %(err)s"
 
@@ -1013,6 +1020,7 @@ msgstr "Kesalahan respons: resp.choices Tidak Ada atau kosong."
 msgid "Error while parsing response: %(err)s"
 msgstr "Kesalahan saat mengurai respons: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1055,6 +1063,7 @@ msgstr "Gagal menginisialisasi klien LLM."
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "Ditemukan %(total_files)d file log. Memulai profiling bertahap..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1102,6 +1111,7 @@ msgstr ""
 "\"kendala\": [\"string\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Peringatan] Gagal memproses potongan (%(step)s): %(err)s"
 
@@ -1300,9 +1310,11 @@ msgstr "Sedang diputar"
 msgid "Stopped"
 msgstr "Berhenti"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Berhenti diminta oleh pengguna."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Berhenti diminta oleh pengguna (tombol x)."
 
@@ -1988,15 +2000,15 @@ msgstr "Peringatan: gagal menghapus file .env biasa: %(error)s"
 msgid "generated: %(path)s"
 msgstr "dihasilkan: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Dihentikan oleh pengguna. Mengirim perintah berhenti ke LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Berhenti"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[PERINGATAN] Putaran alat melebihi %(max)d; dihentikan."
@@ -2421,6 +2433,7 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Hasilkan profil dari file log N terbaru"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "Hasilkan profil pengguna dari log sebelumnya (default: 100; 0=semua)"
 
@@ -2491,15 +2504,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "umpan balik: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Keluar oleh pengguna (tombol x)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Tinjauan/analisis selesai."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Putaran maksimum (%(max)d) tercapai.Henti."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Putaran %(round)d/%(max)d"
 
@@ -2783,6 +2800,8 @@ msgstr "metadata cache tidak valid"
 msgid "anthropic package is not installed."
 msgstr "Paket anthropic belum terpasang."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Perbaikan tidak mengubah pesan, menyerah."
 
@@ -2886,6 +2905,7 @@ msgstr ""
 "        - Jika jawaban sudah cukup, lebih baik menjawab tanpa pencarian web.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Isi respons: %(body)s"
 

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -931,6 +931,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "sertifikaattia ei ole saatavilla"
 
@@ -980,14 +981,20 @@ msgstr "[Claude-virhe] Vastauksen luonti epäonnistui."
 msgid "Input exceeds the context window."
 msgstr "Syöte ylittää konteksti-ikkunan."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "Malli ei tue ajattelua.Poistetaan ajattelu käytöstä ja yritetään "
 "uudelleen..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Virhekoodi: %(code)d - %(err)s"
 
@@ -1020,6 +1027,7 @@ msgstr "Vastausvirhe: resp.choices on Ei mitään tai tyhjä."
 msgid "Error while parsing response: %(err)s"
 msgstr "Virhe vastausta jäsennettäessä: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1064,6 +1072,7 @@ msgstr ""
 "Löydettiin %(total_files)d lokitiedostoa. Aloitetaan asteittainen "
 "profilointi..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1111,6 +1120,7 @@ msgstr ""
 "\"rajoitukset\": [\"merkkijono\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Varoitus] Osan käsittely epäonnistui (%(step)s): %(err)s"
 
@@ -1308,9 +1318,11 @@ msgstr "Toistetaan"
 msgid "Stopped"
 msgstr "Pysäytetty"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Käyttäjän pyytämä lopetus."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Käyttäjä pyysi pysäytystä (x-näppäin)."
 
@@ -2000,15 +2012,15 @@ msgstr "Varoitus: Salaamattoman .env-tiedoston poisto epäonnistui: %(error)s"
 msgid "generated: %(path)s"
 msgstr "luotu: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Käyttäjä keskeytti. Lähetetään pysäytyskäsky LLM:lle..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Pysäytä"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr ""
@@ -2439,6 +2451,7 @@ msgstr "Näytä opittu käyttäjäprofiili (ympäristö, mieltymykset, rajoituks
 msgid "Generate profile from the most recent N log files"
 msgstr "Luo profiili viimeisimmästä N lokitiedostosta"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "Luo käyttäjäprofiili aiemmista lokeista (oletus: 100; 0=kaikki)"
 
@@ -2507,15 +2520,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "palaute: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Käyttäjä poistui (x-näppäin)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Tarkastus/analyysi valmis."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Kierrosten enimmäismäärä (%(max)d) saavutettu.Pysähtyminen."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Kierros %(round)d/%(max)d"
 
@@ -2799,6 +2816,8 @@ msgstr "virheelliset välimuistin metatiedot"
 msgid "anthropic package is not installed."
 msgstr "anthropic-pakettia ei ole asennettu."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Korjaus ei muuttanut viestejä, luovuttaen."
 
@@ -2900,6 +2919,7 @@ msgstr ""
 "        - Vastaa mieluummin ilman verkkohakua, jos vastaus on jo riittävä.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Vastauksen runko: %(body)s"
 

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -922,6 +922,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "chứng nhận không có sẵn"
 
@@ -973,12 +974,18 @@ msgstr "[Lỗi Claude] Đã xảy ra lỗi khi tạo phản hồi."
 msgid "Input exceeds the context window."
 msgstr "Đầu vào vượt quá cửa sổ ngữ cảnh."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "Mô hình không hỗ trợ tư duy.Vô hiệu hóa suy nghĩ và thử lại..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 yêu cầu xấu"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Mã lỗi: %(code)d - %(err)s"
 
@@ -1011,6 +1018,7 @@ msgstr "Lỗi phản hồi: resp.choices là Không có hoặc trống."
 msgid "Error while parsing response: %(err)s"
 msgstr "Lỗi khi phân tích phản hồi: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1054,6 +1062,7 @@ msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "Đã tìm thấy %(total_files)d tệp nhật ký. Đang bắt đầu lập hồ sơ tăng dần..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1101,6 +1110,7 @@ msgstr ""
 "\"ràng buộc\": [\"chuỗi\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Cảnh báo] Không thể xử lý đoạn (%(step)s): %(err)s"
 
@@ -1299,9 +1309,11 @@ msgstr "Đang phát\n"
 msgid "Stopped"
 msgstr "Đã dừng\n"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Dừng theo yêu cầu của người dùng."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Dừng theo yêu cầu của người dùng (phím x)."
 
@@ -1985,15 +1997,15 @@ msgstr "cảnh báo: Không thểxóa明文 .env: %(error)s"
 msgid "generated: %(path)s"
 msgstr "已tạo: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Đã bị người dùng ngắt. Đang gửi lệnh dừng đến LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Dừng lại"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[CẢNH BÁO] 工具轮次已超过 %(max)d; 正在中止."
@@ -2408,6 +2420,7 @@ msgstr "Hiển thị hồ sơ người dùng đã học (môi trường, sở th
 msgid "Generate profile from the most recent N log files"
 msgstr "Tạo hồ sơ từ tệp nhật ký N gần đây nhất"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "Tạo hồ sơ người dùng từ nhật ký trong quá khứ (mặc định: 100; 0=all)"
 
@@ -2475,15 +2488,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "phản hồi: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Người dùng đã thoát (phím x)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Đã hoàn tất quá trình xem xét/phân tích."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Đã đạt đến số vòng tối đa (%(max)d).Đang dừng lại."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Làm tròn %(round)d/%(max)d"
 
@@ -2760,6 +2777,8 @@ msgstr "缓存元数据không hợp lệ"
 msgid "anthropic package is not installed."
 msgstr "Chưa cài đặt anthropic 包."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Sửa chữa không thay đổi tin nhắn, bỏ cuộc."
 
@@ -2861,6 +2880,7 @@ msgstr ""
 "        - Nếu câu trả lời đã đủ, hãy ưu tiên trả lời mà không dùng tìm kiếm web.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Nội dung phản hồi: %(body)s"
 

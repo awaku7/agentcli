@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -935,6 +935,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "сертификат недоступен"
 
@@ -985,13 +986,19 @@ msgstr "[Ошибка Claude] При генерации ответа произ�
 msgid "Input exceeds the context window."
 msgstr "Входные данные превышают окно контекста."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "Модель не поддерживает мышление.Отключить мышление и повторить попытку..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 Бадреквест"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Код ошибки: %(code)d - %(err)s"
 
@@ -1024,6 +1031,7 @@ msgstr "Ошибка ответа: параметр resp.choices имеет зн
 msgid "Error while parsing response: %(err)s"
 msgstr "Ошибка при разборе ответа: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1068,6 +1076,7 @@ msgstr ""
 "Найдено %(total_files)d файлов журнала. Начинаю инкрементное "
 "профилирование..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1115,6 +1124,7 @@ msgstr ""
 "\"constraints\": [\"строка\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Предупреждение] Не удалось обработать фрагмент (%(step)s): %(err)s"
 
@@ -1312,9 +1322,11 @@ msgstr "Воспроизведение"
 msgid "Stopped"
 msgstr "Остановлено"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Остановка по запросу пользователя."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Остановка запрошена пользователем (клавиша x)."
 
@@ -2013,15 +2025,15 @@ msgstr "Предупреждение: не удалось удалить нез�
 msgid "generated: %(path)s"
 msgstr "создано: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Остановлено пользователем. Отправка команды остановки LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Остановить"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Число раундов инструментов превысило %(max)d; прерываю."
@@ -2454,6 +2466,7 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Создать профиль из последних N файлов журналов."
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
 "Создать профиль пользователя на основе прошлых журналов (по умолчанию: 100; "
@@ -2528,16 +2541,20 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "обратная связь: %(feedback)s с"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[АВТО] Выход пользователя (клавиша x)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[АВТО] Просмотр/анализ завершен."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr ""
 "[АВТО] Достигнуто максимальное количество раундов (%(max)d).Остановка."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[АВТО] Раунд %(round)d/%(max)d"
 
@@ -2823,6 +2840,8 @@ msgstr "недопустимые метаданные кеша"
 msgid "anthropic package is not installed."
 msgstr "Пакет anthropic не установлен."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Ремонт сообщений не изменил, сдался."
 
@@ -2927,6 +2946,7 @@ msgstr ""
 "        - Если ответ уже достаточен, лучше отвечать без веб-поиска.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Текст ответа: %(body)s"
 

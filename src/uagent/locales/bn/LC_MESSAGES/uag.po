@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -946,6 +946,7 @@ msgstr ""
 "ট্রেসব্যাক:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "শংসাপত্র পাওয়া যায় না"
 
@@ -995,14 +996,20 @@ msgstr "[ক্লদ ত্রুটি] একটি প্রতিক্র�
 msgid "Input exceeds the context window."
 msgstr "ইনপুটটি কনটেক্সট উইন্ডো অতিক্রম করেছে।"
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "মডেল চিন্তা সমর্থন করে না.চিন্তাভাবনা অক্ষম করা এবং পুনরায় চেষ্টা করা "
 "হচ্ছে..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 খারাপ অনুরোধ"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "ত্রুটি কোড: %(code)d - %(err)s"
 
@@ -1035,6 +1042,7 @@ msgstr "প্রতিক্রিয়া ত্রুটি: resp.choices �
 msgid "Error while parsing response: %(err)s"
 msgstr "প্রতিক্রিয়া পার্স করার সময় ত্রুটি: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1079,6 +1087,7 @@ msgstr ""
 "%(total_files)dটি লগ ফাইল পাওয়া গেছে। ধাপে ধাপে প্রোফাইলিং শুরু করা "
 "হচ্ছে..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1126,6 +1135,7 @@ msgstr ""
 "\"সীমাবদ্ধতা\": [\"স্ট্রিং\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[সতর্কতা] খণ্ড প্রক্রিয়া করতে ব্যর্থ হয়েছে (%(step)s): %(err)s"
 
@@ -1320,9 +1330,11 @@ msgstr "বাজানো"
 msgid "Stopped"
 msgstr "থেমে গেল"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "ব্যবহারকারী দ্বারা অনুরোধ করা বন্ধ করুন."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "ব্যবহারকারী (x কী) দ্বারা অনুরোধ করা বন্ধ করুন।"
 
@@ -2006,15 +2018,15 @@ msgstr "সতর্কতা: প্লেইন .env: %(error)s"
 msgid "generated: %(path)s"
 msgstr "উৎপন্ন: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "ব্যবহারকারী বন্ধ করেছেন। LLM-এ স্টপ কমান্ড পাঠানো হচ্ছে..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "বন্ধ করুন"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[সতর্কতা] টুল রাউন্ড %(max)d অতিক্রম করেছে; গর্ভপাত"
@@ -2450,6 +2462,7 @@ msgstr "শিক্ষিত ব্যবহারকারী প্রোফ�
 msgid "Generate profile from the most recent N log files"
 msgstr "সাম্প্রতিকতম N লগ ফাইলগুলি থেকে প্রোফাইল তৈরি করুন৷"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "অতীত লগ থেকে ব্যবহারকারীর প্রোফাইল তৈরি করুন (ডিফল্ট: 100; 0=সমস্ত)"
 
@@ -2522,15 +2535,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "প্রতিক্রিয়া: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[অটো] ব্যবহারকারী (x কী) দ্বারা প্রস্থান করা হয়েছে।"
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[অটো] পর্যালোচনা/বিশ্লেষণ সম্পন্ন হয়েছে।"
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[অটো] সর্বোচ্চ রাউন্ড (%(max)d) পৌঁছেছে।থামছে।"
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[অটো] রাউন্ড %(round)d/%(max)d"
 
@@ -2819,6 +2836,8 @@ msgstr "অবৈধ ক্যাশে মেটা"
 msgid "anthropic package is not installed."
 msgstr "নৃতাত্ত্বিক প্যাকেজ ইনস্টল করা নেই।"
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "মেরামত বার্তা পরিবর্তন করেনি, ছেড়ে দেওয়া."
 
@@ -2919,6 +2938,7 @@ msgstr ""
 "        - স্থানীয় বা স্থিতিশীল তথ্যের জন্য ওয়েব অনুসন্ধান ব্যবহার করবেন না।\n"
 "        - ওয়েব অনুসন্ধান ছাড়াই উত্তর দিতে পছন্দ করুন যখন উত্তর ইতিমধ্যেই যথেষ্ট।"
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "রেসপন্স বডি: %(body)s"
 

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -927,6 +927,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "प्रमाणपत्र उपलब्ध नहीं है"
 
@@ -975,13 +976,19 @@ msgstr "[क्लाउड त्रुटि] प्रतिक्रिय�
 msgid "Input exceeds the context window."
 msgstr "इनपुट संदर्भ विंडो से अधिक है।"
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "मॉडल सोच का समर्थन नहीं करता.सोचने और पुनः प्रयास करने को अक्षम करना..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 बैडरिक्वेस्ट"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "त्रुटि कोड: %(code)d - %(err)s"
 
@@ -1014,6 +1021,7 @@ msgstr "प्रतिक्रिया त्रुटि: resp.choices क�
 msgid "Error while parsing response: %(err)s"
 msgstr "प्रतिक्रिया पार्स करते समय त्रुटि: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1057,6 +1065,7 @@ msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "%(total_files)d लॉग फ़ाइलें मिलीं। क्रमिक प्रोफ़ाइलिंग शुरू की जा रही है..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1104,6 +1113,7 @@ msgstr ""
 "\"बाधाएं\": [\"स्ट्रिंग\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[चेतावनी] खंड को संसाधित करने में विफल (%(step)s): %(err)s"
 
@@ -1299,9 +1309,11 @@ msgstr "चल रहा है"
 msgid "Stopped"
 msgstr "रुका हुआ"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "उपयोगकर्ता द्वारा अनुरोध बंद करें."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "उपयोगकर्ता द्वारा अनुरोध बंद करें (x कुंजी)।"
 
@@ -1987,15 +1999,15 @@ msgstr "चेतावनी: सादे .env को हटाने मे�
 msgid "generated: %(path)s"
 msgstr "उत्पन्न: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "उपयोगकर्ता द्वारा रोका गया। LLM को स्टॉप कमांड भेजा जा रहा है..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "रोकें"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[चेतावनी] टूल राउंड %(max)d से अधिक हो गए; गर्भपात"
@@ -2426,6 +2438,7 @@ msgstr "सीखा हुआ उपयोगकर्ता प्रोफ़
 msgid "Generate profile from the most recent N log files"
 msgstr "नवीनतम एन लॉग फ़ाइलों से प्रोफ़ाइल बनाएं"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "पिछले लॉग से उपयोगकर्ता प्रोफ़ाइल बनाएं (डिफ़ॉल्ट: 100; 0=सभी)"
 
@@ -2496,15 +2509,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "फीडबैक: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[ऑटो] उपयोगकर्ता द्वारा बाहर निकाला गया (x कुंजी)।"
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[ऑटो] समीक्षा/विश्लेषण पूरा हुआ।"
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[ऑटो] अधिकतम राउंड (%(max)d) तक पहुंच गए।रुकना।"
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[ऑटो] राउंड %(round)d/%(max)d"
 
@@ -2790,6 +2807,8 @@ msgstr "अमान्य कैश मेटा"
 msgid "anthropic package is not installed."
 msgstr "एंथ्रोपिक पैकेज स्थापित नहीं है."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "मरम्मत ने संदेश नहीं बदले, हार मान ली।"
 
@@ -2891,6 +2910,7 @@ msgstr ""
 "        - जब उत्तर पहले से पर्याप्त हो, तो वेब खोज के बिना ही उत्तर देना बेहतर है.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "प्रतिक्रिया निकाय: %(body)s"
 

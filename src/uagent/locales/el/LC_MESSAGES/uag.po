@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -944,6 +944,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "το πιστοποιητικό δεν είναι διαθέσιμο"
 
@@ -999,13 +1000,19 @@ msgstr ""
 msgid "Input exceeds the context window."
 msgstr "Η είσοδος υπερβαίνει το παράθυρο περιβάλλοντος."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "Το μοντέλο δεν υποστηρίζει τη σκέψη.Απενεργοποίηση σκέψης και επανάληψη..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Κωδικός σφάλματος: %(code)d - %(err)s"
 
@@ -1038,6 +1045,7 @@ msgstr "Σφάλμα απόκρισης: Το resp.choices είναι Κανέν
 msgid "Error while parsing response: %(err)s"
 msgstr "Σφάλμα κατά την ανάλυση της απάντησης: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1082,6 +1090,7 @@ msgstr ""
 "Βρέθηκαν %(total_files)d αρχεία καταγραφής. Έναρξη σταδιακής διαμόρφωσης "
 "προφίλ..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1129,6 +1138,7 @@ msgstr ""
 "\"constraints\": [\"string\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr ""
 "[Προειδοποίηση] Απέτυχε η επεξεργασία του κομματιού (%(step)s): %(err)s"
@@ -1330,9 +1340,11 @@ msgstr "Παίζοντας"
 msgid "Stopped"
 msgstr "Σταμάτησε"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Διακοπή που ζητήθηκε από τον χρήστη."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Ζητείται διακοπή από τον χρήστη (κλειδί x)."
 
@@ -2027,15 +2039,15 @@ msgstr "Προειδοποίηση: Απέτυχε η αφαίρεση του α
 msgid "generated: %(path)s"
 msgstr "δημιουργήθηκε: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Ο χρήστης διέκοψε. Αποστολή εντολής διακοπής στο LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Διακοπή"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] Οι γύροι εργαλείων υπερέβησαν το %(max)d. αποβολή."
@@ -2476,6 +2488,7 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Δημιουργήστε προφίλ από τα πιο πρόσφατα N αρχεία καταγραφής"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
 "Δημιουργία προφίλ χρήστη από προηγούμενα αρχεία καταγραφής (προεπιλογή: 100;"
@@ -2552,15 +2565,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "ανατροφοδότηση: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Έξοδος από χρήστη (πλήκτρο x)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Ολοκληρώθηκε η αναθεώρηση/ανάλυση."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Επιτεύχθηκε μέγιστος γύρος (%(max)d).Στάθμευση."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Γύρος %(round)d/%(max)d"
 
@@ -2849,6 +2866,8 @@ msgstr "μη έγκυρο meta της κρυφής μνήμης"
 msgid "anthropic package is not installed."
 msgstr "Το anthropic πακέτο δεν είναι εγκατεστημένο."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Η επισκευή δεν άλλαξε τα μηνύματα, εγκαταλείποντας."
 
@@ -2953,6 +2972,7 @@ msgstr ""
 "        - Μην χρησιμοποιείτε την αναζήτηση Ιστού για τοπικές ή σταθερές πληροφορίες.\n"
 "        - Προτιμήστε να απαντάτε χωρίς αναζήτηση στο διαδίκτυο όταν η απάντηση είναι ήδη επαρκής."
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Σώμα απόκρισης: %(body)s"
 

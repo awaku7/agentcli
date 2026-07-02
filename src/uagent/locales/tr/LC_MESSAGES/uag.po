@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -925,6 +925,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "sertifika mevcut değil"
 
@@ -974,14 +975,20 @@ msgstr "[Claude Hatası] Yanıt oluşturulurken bir hata oluştu."
 msgid "Input exceeds the context window."
 msgstr "Giriş, bağlam penceresini aşıyor."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "Model düşünmeyi desteklemez.Düşünmeyi devre dışı bırakmak ve yeniden "
 "denemek..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 Kötü İstek"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Hata kodu: %(code)d - %(err)s"
 
@@ -1014,6 +1021,7 @@ msgstr "Yanıt hatası: resp.choices Yok veya boş."
 msgid "Error while parsing response: %(err)s"
 msgstr "Yanıt ayrıştırılırken hata oluştu: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1057,6 +1065,7 @@ msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr ""
 "%(total_files)d günlük dosyası bulundu. Artımlı profilleme başlatılıyor..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1104,6 +1113,7 @@ msgstr ""
 "\"kısıtlamalar\": [\"dize\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Uyarı] Parça işlenemedi (%(step)s): %(err)s"
 
@@ -1299,9 +1309,11 @@ msgstr "Oynanıyor"
 msgid "Stopped"
 msgstr "Durduruldu"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Kullanıcı tarafından istenen durdurma."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Kullanıcının durdurma isteği (x tuşu)."
 
@@ -1992,16 +2004,16 @@ msgstr "Uyarı: Düz .env kaldırılamadı: %(error)s"
 msgid "generated: %(path)s"
 msgstr "oluşturulan: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr ""
 "Kullanıcı tarafından durduruldu. LLM'ye durdurma komutu gönderiliyor..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Durdur"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Takım turları %(max)d değerini aştı; iptal ediliyor."
@@ -2430,6 +2442,7 @@ msgstr "Öğrenilen kullanıcı profilini göster (ortam, tercihler, kısıtlama
 msgid "Generate profile from the most recent N log files"
 msgstr "En yeni N günlük dosyalarından profil oluşturun"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
 "Geçmiş günlüklerden kullanıcı profili oluştur (varsayılan: 100; 0=tümü)"
@@ -2500,15 +2513,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "geri bildirim: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Kullanıcı tarafından çıkılır (x tuşu)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[OTOMATİK] İnceleme/analiz tamamlandı."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Maksimum turlara (%(max)d) ulaşıldı.Duruyorum."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Tur %(round)d/%(max)d"
 
@@ -2795,6 +2812,8 @@ msgstr "geçersiz önbellek metası"
 msgid "anthropic package is not installed."
 msgstr "antropik paket yüklü değil."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Onarım mesajları değiştirmedi, pes etti."
 
@@ -2897,6 +2916,7 @@ msgstr ""
 "        - Yanıt zaten yeterliyse web araması olmadan yanıt vermeyi tercih edin.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Yanıt gövdesi: %(body)s"
 

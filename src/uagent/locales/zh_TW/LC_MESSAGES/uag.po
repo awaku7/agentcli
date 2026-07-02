@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -876,6 +876,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "證書不可用"
 
@@ -923,12 +924,18 @@ msgstr "[Claude 錯誤] 產生回覆時發生錯誤。"
 msgid "Input exceeds the context window."
 msgstr "輸入超出上下文視窗。"
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "模型不支持思考。停止思考並重試..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 錯誤請求"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "錯誤代碼：%(code)d - %(err)s"
 
@@ -961,6 +968,7 @@ msgstr "回應錯誤：resp.choices 為 None 或為空。"
 msgid "Error while parsing response: %(err)s"
 msgstr "剖析回覆時發生錯誤：%(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1003,6 +1011,7 @@ msgstr "無法初始化 LLM 用戶端。"
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "找到 %(total_files)d 個日誌檔。正在開始增量分析..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1050,6 +1059,7 @@ msgstr ""
 "“約束”：[“字串”]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[警告] 無法處理區塊（%(step)s）：%(err)s"
 
@@ -1243,9 +1253,11 @@ msgstr "播放中"
 msgid "Stopped"
 msgstr "已停止"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "應用戶請求停止。"
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "使用者請求停止（x 鍵）。"
 
@@ -1926,15 +1938,15 @@ msgstr "警告：無法移除未加密的 .env：%(error)s"
 msgid "generated: %(path)s"
 msgstr "已產生：%(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "用戶已中斷。正在向LLM發送停止命令..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "停止"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] 工具輪次超過 %(max)d；正在中止。"
@@ -2329,6 +2341,7 @@ msgstr "顯示已學習的使用者畫像（環境、偏好、約束）"
 msgid "Generate profile from the most recent N log files"
 msgstr "從最近的 N 個日誌檔案產生設定檔"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "從過去的日誌產生使用者設定檔（預設值：100；0=全部）"
 
@@ -2393,15 +2406,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "回饋：%(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[自動] 由使用者退出（x 鍵）。"
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[自動] 審查/分析已完成。"
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[自動] 達到最大輪數 (%(max)d)。停下來。"
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[自動] 回合 %(round)d/%(max)d"
 
@@ -2669,6 +2686,8 @@ msgstr "快取中繼資料無效"
 msgid "anthropic package is not installed."
 msgstr "尚未安裝 anthropic 套件。"
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "修復沒改郵件，放棄。"
 
@@ -2769,6 +2788,7 @@ msgstr ""
 "        - 如果答案已經足夠，優先不使用網頁搜尋直接回答。\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "回應正文：%(body)s"
 

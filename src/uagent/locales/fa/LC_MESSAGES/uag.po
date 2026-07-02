@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -916,6 +916,7 @@ msgstr ""
 "ردیابی:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "گواهی در دسترس نیست"
 
@@ -965,12 +966,18 @@ msgstr "[خطای کلود] هنگام ایجاد پاسخ خطایی روی د�
 msgid "Input exceeds the context window."
 msgstr "ورودی از پنجره زمینه فراتر رفته است."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "مدل از تفکر پشتیبانی نمی کند.غیرفعال کردن تفکر و تلاش مجدد..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "کد خطا: %(code)d - %(err)s"
 
@@ -1003,6 +1010,7 @@ msgstr "خطای پاسخ: resp.choices هیچ یا خالی است."
 msgid "Error while parsing response: %(err)s"
 msgstr "خطا هنگام تجزیه پاسخ: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1047,6 +1055,7 @@ msgstr ""
 "تعداد %(total_files)d فایل گزارش پیدا شد. در حال آغاز پروفایل‌سازی "
 "افزایشی..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1094,6 +1103,7 @@ msgstr ""
 "\"محدودیت ها\": [\"رشته\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[هشدار] پردازش تکه انجام نشد (%(step)s): %(err)s"
 
@@ -1288,9 +1298,11 @@ msgstr "در حال پخش"
 msgid "Stopped"
 msgstr "متوقف شد"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "توقف درخواست شده توسط کاربر"
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "توقف درخواست شده توسط کاربر (کلید x)."
 
@@ -1975,15 +1987,15 @@ msgstr "هشدار: حذف .env: %(error)s انجام نشد"
 msgid "generated: %(path)s"
 msgstr "تولید شده: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "توسط کاربر متوقف شد. ارسال دستور توقف به LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "توقف"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[هشدار] دور ابزار بیش از %(max)d است. سقط"
@@ -2408,6 +2420,7 @@ msgstr "نمایش پروفایل کاربر یادگرفته شده (محیط،
 msgid "Generate profile from the most recent N log files"
 msgstr "ایجاد نمایه از جدیدترین فایل های گزارش N"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "ایجاد نمایه کاربر از گزارش‌های گذشته (پیش‌فرض: 100؛ 0=همه)"
 
@@ -2475,15 +2488,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "بازخورد: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] توسط کاربر (کلید x) خارج شد."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] بررسی/تحلیل کامل شد."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] حداکثر دور (%(max)d) رسیده است.توقف"
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] گرد %(round)d/%(max)d"
 
@@ -2770,6 +2787,8 @@ msgstr "متای حافظه پنهان نامعتبر است"
 msgid "anthropic package is not installed."
 msgstr "بسته anthropic نصب نشده است."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "تعمیر پیام ها را تغییر نداد، تسلیم شد."
 
@@ -2869,6 +2888,7 @@ msgstr ""
 "        - از جستجوی وب برای اطلاعات محلی یا پایدار استفاده نکنید.\n"
 "        - ترجیح می دهند بدون جستجوی وب پاسخ دهند، زمانی که پاسخ کافی است."
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "بدنه پاسخ: %(body)s"
 

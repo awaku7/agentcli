@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -908,6 +908,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "الشهادة غير متوفرة"
 
@@ -956,12 +957,18 @@ msgstr "[خطأ كلود] حدث خطأ أثناء إنشاء الرد."
 msgid "Input exceeds the context window."
 msgstr "الإدخال يتجاوز نافذة السياق."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "النموذج لا يدعم التفكير.تعطيل التفكير وإعادة المحاولة..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 طلب سيء"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "رمز الخطأ: %(code)d - %(err)s"
 
@@ -994,6 +1001,7 @@ msgstr "خطأ في الاستجابة: resp.choices هو لا شيء أو فا�
 msgid "Error while parsing response: %(err)s"
 msgstr "حدث خطأ أثناء تحليل الاستجابة: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1036,6 +1044,7 @@ msgstr "فشل تهيئة عميل LLM."
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "تم العثور على %(total_files)d ملف سجل. جارٍ بدء التحليل التدريجي..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1083,6 +1092,7 @@ msgstr ""
 "\"القيود\": [\"سلسلة\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[تحذير] فشلت معالجة القطعة (%(step)s): %(err)s"
 
@@ -1277,9 +1287,11 @@ msgstr "قيد التشغيل"
 msgid "Stopped"
 msgstr "متوقف"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "التوقف الذي طلبه المستخدم."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "التوقف الذي طلبه المستخدم (مفتاح x)."
 
@@ -1979,15 +1991,15 @@ msgstr "تحذير: فشلت إزالة .env العادي: %(error)s"
 msgid "generated: %(path)s"
 msgstr "تم الإنشاء: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "تم إيقاف المستخدم. جارٍ إرسال أمر الإيقاف إلى LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "توقف"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[تحذير] تجاوزت جولات الأداة %(max)d؛ سيتم الإيقاف."
@@ -2406,6 +2418,7 @@ msgstr "إظهار ملف تعريف المستخدم المتعلم (البيئ
 msgid "Generate profile from the most recent N log files"
 msgstr "قم بإنشاء ملف تعريف من أحدث ملفات سجل N"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "إنشاء ملف تعريف المستخدم من السجلات السابقة (الافتراضي: 100؛ 0=الكل)"
 
@@ -2473,15 +2486,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "ردود الفعل: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[تلقائي] تم الخروج بواسطة المستخدم (مفتاح x)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[تلقائي] اكتملت المراجعة/التحليل."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[تلقائي] تم الوصول إلى الحد الأقصى للجولات (%(max)d).وقف."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[تلقائي] دائري %(round)d/%(max)d"
 
@@ -2765,6 +2782,8 @@ msgstr "تعريف ذاكرة التخزين المؤقت غير صالح"
 msgid "anthropic package is not installed."
 msgstr "حزمة anthropic غير مثبتة."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "إصلاح لم يغير الرسائل، والاستسلام."
 
@@ -2865,6 +2884,7 @@ msgstr ""
 "        - فضّل الإجابة من دون بحث ويب عندما تكون الإجابة كافية بالفعل.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "نص الاستجابة: %(body)s"
 

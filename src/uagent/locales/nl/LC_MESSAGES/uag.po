@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -931,6 +931,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "certificaat is niet beschikbaar"
 
@@ -984,13 +985,19 @@ msgstr ""
 msgid "Input exceeds the context window."
 msgstr "Invoer overschrijdt het contextvenster."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr ""
 "Model ondersteunt het denken niet.Denken uitschakelen en opnieuw proberen..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 Slechte aanvraag"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Foutcode: %(code)d - %(err)s"
 
@@ -1023,6 +1030,7 @@ msgstr "Reactiefout: resp.choices is Geen of leeg."
 msgid "Error while parsing response: %(err)s"
 msgstr "Fout bij het parseren van reactie: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1067,6 +1075,7 @@ msgstr ""
 "%(total_files)d logbestanden gevonden. Incrementuele profiling wordt "
 "gestart..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1114,6 +1123,7 @@ msgstr ""
 "\"beperkingen\": [\"tekenreeks\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Waarschuwing] Kan deel (%(step)s) niet verwerken: %(err)s"
 
@@ -1312,9 +1322,11 @@ msgstr "Wordt afgespeeld"
 msgid "Stopped"
 msgstr "Gestopt"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Stop aangevraagd door gebruiker."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Stop aangevraagd door gebruiker (x-toets)."
 
@@ -2000,15 +2012,15 @@ msgstr "Waarschuwing: kan gewone .env niet verwijderen: %(error)s"
 msgid "generated: %(path)s"
 msgstr "gegenereerd: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Gestopt door gebruiker. Stopopdracht verzenden naar LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Stoppen"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] Gereedschapsrondes overschreden %(max)d; afbreken."
@@ -2437,6 +2449,7 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Genereer een profiel op basis van de meest recente N-logbestanden"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
 "Genereer een gebruikersprofiel uit eerdere logs (standaard: 100; 0=alles)"
@@ -2509,15 +2522,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "feedback: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Verlaten door gebruiker (x-toets)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Beoordeling/analyse voltooid."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Max. rondes (%(max)d) bereikt.Stoppen."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Rond %(round)d/%(max)d"
 
@@ -2805,6 +2822,8 @@ msgstr "ongeldige cache-meta"
 msgid "anthropic package is not installed."
 msgstr "antropisch pakket is niet geïnstalleerd."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Reparatie veranderde de berichten niet en gaf het op."
 
@@ -2909,6 +2928,7 @@ msgstr ""
 "        - Beantwoord liever zonder webzoekopdracht wanneer het antwoord al voldoende is.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Reactietekst: %(body)s"
 

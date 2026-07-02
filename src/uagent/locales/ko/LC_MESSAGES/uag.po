@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -879,6 +879,7 @@ msgstr ""
 "Traceback:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "인증서를 사용할 수 없습니다"
 
@@ -926,12 +927,18 @@ msgstr "[Claude 오류] 응답 생성 중 오류가 발생했습니다."
 msgid "Input exceeds the context window."
 msgstr "입력이 컨텍스트 창을 초과합니다."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "모델은 사고를 지원하지 않습니다.생각을 비활성화하고 다시 시도하는 중..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 잘못된 요청"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "오류 코드: %(code)d - %(err)s"
 
@@ -964,6 +971,7 @@ msgstr "응답 오류: resp.choices가 없음이거나 비어 있습니다."
 msgid "Error while parsing response: %(err)s"
 msgstr "응답을 파싱하는 중 오류가 발생했습니다: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1006,6 +1014,7 @@ msgstr "LLM 클라이언트를 초기화하지 못했습니다."
 msgid "Found %(total_files)d log files. Starting incremental profiling..."
 msgstr "로그 파일 %(total_files)d개를 찾았습니다. 점진적 프로파일링을 시작합니다..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1053,6 +1062,7 @@ msgstr ""
 "\"제약조건\": [\"문자열\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[경고] 청크 처리 실패(%(step)s): %(err)s"
 
@@ -1246,9 +1256,11 @@ msgstr "재생 중"
 msgid "Stopped"
 msgstr "중지됨"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "사용자가 중지를 요청했습니다."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "사용자가 중지를 요청했습니다(x 키)."
 
@@ -1931,15 +1943,15 @@ msgstr "경고: 일반 .env를 제거하지 못했습니다: %(error)s"
 msgid "generated: %(path)s"
 msgstr "생성됨: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "사용자가 중단했습니다. LLM에 중지 명령을 보냅니다..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "중지"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[WARN] 도구 라운드가 %(max)d회를 초과했습니다. 중단합니다."
@@ -2337,6 +2349,7 @@ msgstr "학습된 사용자 프로필(환경, 선호도, 제약 조건) 표시"
 msgid "Generate profile from the most recent N log files"
 msgstr "가장 최근 N개 로그 파일에서 프로필 생성"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr "과거 로그에서 사용자 프로필 생성(기본값: 100, 0=모두)"
 
@@ -2401,15 +2414,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "피드백: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] 사용자가 종료했습니다(x 키)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] 검토/분석이 완료되었습니다."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[자동] 최대 라운드(%(max)d)에 도달했습니다.멎는."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[자동] 라운드 %(round)d/%(max)d"
 
@@ -2679,6 +2696,8 @@ msgstr "캐시 메타데이터가 잘못되었습니다"
 msgid "anthropic package is not installed."
 msgstr "anthropic 패키지가 설치되어 있지 않습니다."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "수리는 메시지를 변경하지 않고 포기했습니다."
 
@@ -2779,6 +2798,7 @@ msgstr ""
 "        - 이미 답변이 충분하다면 웹 검색 없이 답하는 것이 좋습니다.\n"
 "        "
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "응답 본문: %(body)s"
 

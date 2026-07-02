@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-01 21:50+0900\n"
+"POT-Creation-Date: 2026-07-02 20:45+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -937,6 +937,7 @@ msgstr ""
 "Urmărire:\n"
 "%(tb)s"
 
+#: src/uagent/llm_helpers.py:20
 msgid "certifi is not available"
 msgstr "certificatul nu este disponibil"
 
@@ -988,12 +989,18 @@ msgstr "[Eroare Claude] A apărut o eroare la generarea unui răspuns."
 msgid "Input exceeds the context window."
 msgstr "Intrarea depășește fereastra de context."
 
+#: src/uagent/llm_round_helpers.py:654
 msgid "Model does not support thinking. Disabling thinking and retrying..."
 msgstr "Modelul nu suportă gândirea.Dezactivarea gândirii și reîncercarea..."
 
+#: src/uagent/llm_round_helpers.py:661
+#: src/uagent/providers/llm_deepseek.py:696
+#: src/uagent/providers/llm_zai.py:364
 msgid "400 BadRequest"
 msgstr "400 BadRequest"
 
+#: src/uagent/llm_round_helpers.py:662
+#: src/uagent/providers/llm_deepseek.py:697
 msgid "Error code: %(code)d - %(err)s"
 msgstr "Cod de eroare: %(code)d - %(err)s"
 
@@ -1026,6 +1033,7 @@ msgstr "Eroare de răspuns: resp.choices este Nici unul sau gol."
 msgid "Error while parsing response: %(err)s"
 msgstr "Eroare la analizarea răspunsului: %(err)s"
 
+#: src/uagent/profile_manager.py:623
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract the user's:\n"
 "1. Environment (OS, shell, editor, etc.)\n"
@@ -1070,6 +1078,7 @@ msgstr ""
 "S-au găsit %(total_files)d fișiere jurnal. Se începe profilarea "
 "incrementală..."
 
+#: src/uagent/profile_manager.py:755
 msgid ""
 "You are a user profiling agent. Analyze the conversation log and extract:\n"
 "1. Environment (OS, shell, editor) — only if clearly evident from the log.\n"
@@ -1117,6 +1126,7 @@ msgstr ""
 "\"constraints\": [\"șir\"]\n"
 "}"
 
+#: src/uagent/profile_manager.py:833
 msgid "[Warning] Failed to process chunk (%(step)s): %(err)s"
 msgstr "[Avertisment] Nu s-a procesat fragmentul (%(step)s): %(err)s"
 
@@ -1315,9 +1325,11 @@ msgstr "Jucând"
 msgid "Stopped"
 msgstr "oprit"
 
+#: src/uagent/scheckgui.py:2312
 msgid "Stop requested by user."
 msgstr "Oprire solicitată de utilizator."
 
+#: src/uagent/scheckgui.py:2320
 msgid "Stop requested by user (x key)."
 msgstr "Oprire solicitată de utilizator (tasta x)."
 
@@ -2015,15 +2027,15 @@ msgstr "Avertisment: nu s-a putut elimina .env simplu: %(error)s"
 msgid "generated: %(path)s"
 msgstr "generat: %(path)s"
 
-#: src/uagent/uagent_llm.py:68
+#: src/uagent/uagent_llm.py:70
 msgid "Stopped by user. Sending stop command to LLM..."
 msgstr "Întrerupt de utilizator. Se trimite comanda de oprire către LLM..."
 
-#: src/uagent/uagent_llm.py:69
+#: src/uagent/uagent_llm.py:71
 msgid "Stop"
 msgstr "Oprește"
 
-#: src/uagent/uagent_llm.py:171
+#: src/uagent/uagent_llm.py:178
 #, python-format
 msgid "[WARN] Tool rounds exceeded %(max)d; aborting."
 msgstr "[AVERTISMENT] Rundele sculei au depășit %(max)d; avortând."
@@ -2461,6 +2473,7 @@ msgstr ""
 msgid "Generate profile from the most recent N log files"
 msgstr "Generați un profil din cele mai recente N fișiere jurnal"
 
+#: src/uagent/util_tools.py:2090
 msgid "Generate user profile from past logs (default: 100; 0=all)"
 msgstr ""
 "Generați un profil de utilizator din jurnalele anterioare (implicit: 100; "
@@ -2534,15 +2547,19 @@ msgstr ""
 msgid "  feedback: %(feedback)s"
 msgstr "feedback: %(feedback)s"
 
+#: src/uagent/util_tools.py:2390
 msgid "[AUTO] Exited by user (x key)."
 msgstr "[AUTO] Ieșit de utilizator (tasta x)."
 
+#: src/uagent/util_tools.py:2407
 msgid "[AUTO] Review/analysis completed."
 msgstr "[AUTO] Examinare/analiza finalizată."
 
+#: src/uagent/util_tools.py:2415
 msgid "[AUTO] Max rounds (%(max)d) reached. Stopping."
 msgstr "[AUTO] Runde maxime (%(max)d) atinse.Oprire."
 
+#: src/uagent/util_tools.py:2425
 msgid "[AUTO] Round %(round)d/%(max)d"
 msgstr "[AUTO] Rotundă %(round)d/%(max)d"
 
@@ -2829,6 +2846,8 @@ msgstr "meta cache nevalidă"
 msgid "anthropic package is not installed."
 msgstr "pachetul antropic nu este instalat."
 
+#: src/uagent/providers/llm_deepseek.py:693
+#: src/uagent/providers/llm_zai.py:361
 msgid "Repair did not change messages, giving up."
 msgstr "Reparația nu a schimbat mesajele, renunțând."
 
@@ -2932,6 +2951,7 @@ msgstr ""
 "        - Nu utilizați căutarea pe web pentru informații locale sau stabile.\n"
 "        - Preferați să răspundeți fără căutare pe web atunci când răspunsul este deja suficient."
 
+#: src/uagent/providers/llm_zai.py:366
 msgid "Response body: %(body)s"
 msgstr "Corpul răspunsului: %(body)s"
 
