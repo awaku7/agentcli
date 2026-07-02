@@ -52,6 +52,8 @@ from .llm_flow_helpers import (
     _execute_tool_calls,
 )
 from . import core as _core_module
+from .tools._genre_control_util import disable_single_tool as _disable_single_tool
+from .tools import TOOL_SPECS as _TOOL_SPECS
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
 from .tools import llm_tool_narrowing as _llm_tool_narrowing
@@ -70,6 +72,10 @@ def _inject_stop_prompt(
     messages.append(user_msg)
     core.log_message(user_msg)
 
+
+# --- Tool usage tracking for auto-unload ---
+_TOOL_LAST_ROUND: dict[str, int] = {}  # tool_name -> last round used
+_TOOL_AUTO_UNLOAD_ROUNDS = 10  # unload after this many rounds without use
 
 # --- Round status constants (internal) ---
 _RS_RETURN = "return"  # fatal error, caller must return
@@ -913,6 +919,25 @@ def run_llm_rounds(
                     final_text = _round_text or ""
                 break
             # _RS_CONTINUE and _RS_OK: continue loop naturally
+
+            # --- Auto-unload stale tools ---
+            for msg in messages:
+                if msg.get("role") == "assistant" and "tool_calls" in msg:
+                    for tc in msg["tool_calls"]:
+                        tname = tc.get("function", {}).get("name", "")
+                        if tname:
+                            _TOOL_LAST_ROUND[tname] = round_count
+
+            for spec in list(_TOOL_SPECS):
+                func_info = spec.get("function", {})
+                tname = func_info.get("name", "")
+                if not tname:
+                    continue
+                last = _TOOL_LAST_ROUND.get(tname)
+                if last is not None and (round_count - last) >= _TOOL_AUTO_UNLOAD_ROUNDS:
+                    _TOOL_LAST_ROUND.pop(tname, None)
+                    _disable_single_tool(tname)
+            # --- end auto-unload ---
 
             # Judgment mode: one round only
             if judgment_mode:
