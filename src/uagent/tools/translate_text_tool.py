@@ -107,6 +107,23 @@ def _detect_extension(text: str) -> str:
     if any(re.search(r'^msgstr\s+"', ln) for ln in lines[:30]): return ".po"
     return ""
 
+def _po_placeholder_patterns(text: str) -> list[re.Pattern]:
+    """Dynamically detect placeholder patterns from msgid lines in .po text."""
+    patterns: list[re.Pattern] = []
+    candidates = [
+        (r"%\([^)]+\)[#0\- +]?\d*(?:\.\d+)?[hlL]?[dsfr]", "printf_named"),
+        (r"%[#0\- +]*\d*(?:\.\d+)?[hlLzjt]?[diuoxXfFeEgGaAcspn]", "printf_full"),
+        (r"\{([A-Za-z_][A-Za-z0-9_]*)\}", "format_named"),
+        (r"\{(\d+)\}", "format_pos"),
+        (r"\$\{([^}]+)\}", "template_brace"),
+    ]
+    for pat_str, _desc in candidates:
+        pat = re.compile(pat_str)
+        if pat.search(text):
+            patterns.append(pat)
+    return patterns
+
+
 def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
     mapping: dict[str, str] = {}
     seen: dict[str, str] = {}
@@ -114,7 +131,21 @@ def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
     detected = _detect_extension(text)
     if not detected:
         return text, mapping
-    patterns = _get_patterns(detected)
+    
+    # .po: dynamically detect placeholders from msgid lines
+    if detected == ".po":
+        msgid_lines = []
+        for ln in text.split("\n"):
+            if ln.startswith("msgid "):
+                # Extract the string value
+                m = re.search(r'^msgid\s+"(.*)"', ln)
+                if m:
+                    msgid_lines.append(m.group(1))
+        combined = "\n".join(msgid_lines)
+        patterns = _po_placeholder_patterns(combined)
+    else:
+        patterns = _get_patterns(detected)
+    
     def _replacer(m: re.Match) -> str:
         nonlocal idx
         orig = m.group(0)
@@ -125,7 +156,8 @@ def protect_placeholders(text: str) -> tuple[str, dict[str, str]]:
         mapping[token] = orig
         seen[orig] = token
         return token
-    for pat, _desc in patterns:
+    
+    for pat in patterns:
         text = pat.sub(_replacer, text)
     return text, mapping
 
