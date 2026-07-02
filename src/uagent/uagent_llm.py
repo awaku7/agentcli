@@ -75,7 +75,7 @@ def _inject_stop_prompt(
 
 # --- Tool usage tracking for auto-unload ---
 _TOOL_LAST_ROUND: dict[str, int] = {}  # tool_name -> last round used
-_TOOL_AUTO_UNLOAD_ROUNDS = 10  # unload after this many rounds without use
+_TOOL_AUTO_UNLOAD_ROUNDS = int(env_get('UAGENT_AUTO_UNLOAD_ROUNDS', '10'))  # unload after this many rounds without use
 
 # --- Round status constants (internal) ---
 _RS_RETURN = "return"  # fatal error, caller must return
