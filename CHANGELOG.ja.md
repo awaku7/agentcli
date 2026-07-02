@@ -1,5 +1,26 @@
 # 変更履歴
 
+## [0.5.33] - 2026-07-02
+
+### 追加
+- ツールの自動アンロード機構：未使用ツールは5ラウンド後、使用済みで放置されたツールは `UAGENT_AUTO_UNLOAD_ROUNDS`（デフォルト10）ラウンド後にアンロード。コアツール（`tool_catalog`、`tool_load`、`unload_tool`）は保護対象。
+- `:tools list` に自動アンロードまでの残りラウンド数を表示。
+- `translate_text` が `.po` ファイル形式と動的プレースホルダ検出に対応。
+
+### 修正
+- ツール実行後の `_TOOL_LAST_ROUND` が更新されていなかった問題を修正。`messages[-1]` が tool 結果（role=tool）になっていたため、アシスタントメッセージを逆探索するよう変更。
+- 全ラウンドですべてのツールの `_TOOL_LAST_ROUND` がリセットされていた問題を修正（メッセージ履歴全体を走査していた）。
+- `run_llm_rounds` の `UnboundLocalError`（`assistant_text` 未割り当て）を修正。
+- `:tools list` がコアツール（`tool_catalog`、`tool_load`、`unload_tool`）の残りラウンド数を表示しないよう修正。
+- `windows_gps_tool` が非Windows環境で TOOL_SPEC=None を設定し、読み込みとカタログ表示を抑制。
+
+### 変更
+- 全ツールの i18n 翻訳を完了。古いキーを削除し、不足していた翻訳を補完。
+- POT を再生成し、全34言語の PO ファイルを再構築。
+
+### ドキュメント
+- `vup-build-release-whl` スキル：`git remote origin` のURLから配布先（GitHub/GitLab）を自動判定するよう改善。
+
 ## [0.5.32] - 2026-07-01
 
 ### 追加

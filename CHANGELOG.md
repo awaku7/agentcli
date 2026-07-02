@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.5.33] - 2026-07-02
+
+### Added
+- Auto-unload mechanism for tools: unused tools unloaded after 5 rounds, used-but-stale tools after `UAGENT_AUTO_UNLOAD_ROUNDS` (default 10). Core tools (`tool_catalog`, `tool_load`, `unload_tool`) are protected.
+- `:tools list` now shows remaining rounds before auto-unload.
+- `translate_text` now supports `.po` file format with dynamic placeholder detection.
+
+### Fixed
+- `_TOOL_LAST_ROUND` not being updated after tool execution because `messages[-1]` was a tool result (role=tool), not assistant. Changed to search backwards for the last assistant message with tool_calls.
+- `_TOOL_LAST_ROUND` being reset for all tools every round (iterated full message history instead of last message only).
+- `UnboundLocalError` in `run_llm_rounds` when accessing `assistant_text` before assignment.
+- `:tools list` no longer displays remaining rounds for core tools (`tool_catalog`, `tool_load`, `unload_tool`).
+- `windows_gps_tool` now sets `TOOL_SPEC=None` on non-Windows to suppress loading and catalog display.
+
+### Changed
+- Completed all tool i18n translations, removed stale keys, filled missing translations.
+- Regenerated POT and rebuilt all 34 language PO files.
+
+### Documentation
+- `vup-build-release-whl` skill: auto-detect distribution destination (GitHub/GitLab) via `git remote origin` URL.
+
 ## [0.5.32] - 2026-07-01
 
 ### Added
