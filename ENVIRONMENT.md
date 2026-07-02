@@ -177,6 +177,7 @@ Required if `UAGENT_PROVIDER=hf`:
 - `UAGENT_VERBOSITY`: Output verbosity level (`off`, `low`, `medium`, `high`).
 - `UAGENT_DEBUG_ENDPOINT`: Set to `1` to output endpoint and model info at startup.
 - `UAGENT_PARALLEL_WORKERS`: Number of threads for parallel tool execution (default: `8`). Increase for more concurrency on I/O-bound tasks.
+- `UAGENT_AUTO_UNLOAD_ROUNDS`: Automatically unload tools that haven't been used for this many LLM rounds (default: `10`). Set to `0` to disable auto-unload.
 
 ### 4. Advanced Features (Responses API, Reasoning, etc.)
 
