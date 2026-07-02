@@ -137,6 +137,9 @@ def handle_cmd_tools_list(arg: str, **kwargs: Any) -> Any:
             ).format(count=len(names), r=_TOTAL_ROUNDS)
         )
         for n in sorted(names):
+            if n in ("tool_catalog", "tool_load", "unload_tool"):
+                print(f"  {n}  -")
+                continue
             last = _TOOL_LAST_ROUND.get(n)
             if last is not None:
                 ago = _TOTAL_ROUNDS - last
